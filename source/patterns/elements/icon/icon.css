@@ -1,60 +1,33 @@
 /** 
  * Icon (Element/Atom)
- * Icon font system using ps-icons font family generated from source/assets/icons/*.svg
+ * Icon font system using bnpre-icons and bnpre-icons-poi fonts from source/props/icons.css
  * 
- * BEM: ps-icon, ps-icon-{name}
- * Variants: none
- * Modifiers: --small, --medium, --large, --xlarge, --dark-grey, --light-grey, --green, --white, --disabled
+ * Base classes: .icon-* and .icon-poi-* (defined in source/props/icons.css)
+ * Modifiers: --small, --medium, --large, --xlarge, --disabled
  * Sizes: small (16px), medium (20px), large (24px), xlarge (32px)
+ * 
+ * Usage: <i class="icon-search ps-icon--medium"></i>
+ * Usage: <i class="icon-poi-hotel ps-icon--large"></i>
  */
 
-.ps-icon {
-  /* Reset */
-  margin: 0;
-  padding: 0;
-  
-  /* Layout */
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-/* Sizes */
+/* Size Modifiers */
 .ps-icon--small {
-  font-size: var(--size-4); /* 16px */
+  font-size: var(--size-4) !important; /* 16px */
 }
 
 .ps-icon--medium {
-  font-size: var(--size-5); /* 20px */
+  font-size: var(--size-5) !important; /* 20px */
 }
 
 .ps-icon--large {
-  font-size: var(--size-6); /* 24px */
+  font-size: var(--size-6) !important; /* 24px */
 }
 
 .ps-icon--xlarge {
-  font-size: var(--size-8); /* 32px */
+  font-size: var(--size-8) !important; /* 32px */
 }
 
-/* Color Variants */
-.ps-icon--dark-grey {
-  color: var(--gray-700);
-}
-
-.ps-icon--light-grey {
-  color: var(--gray-400);
-}
-
-.ps-icon--green {
-  color: var(--bnp-green);
-}
-
-.ps-icon--white {
-  color: var(--white);
-}
-
-/* States - Disabled */
+/* State Modifiers - Disabled */
 .ps-icon--disabled {
   opacity: 0.5;
   cursor: not-allowed;

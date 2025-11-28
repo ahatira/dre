@@ -1,48 +1,53 @@
 # Icon (Element/Atom)
 
-Icon font system using the `ps-icons` font family generated from SVG sources.
+Icon font system using **bnpre-icons** (75 icons) and **bnpre-icons-poi** (14 POI icons) fonts from `source/props/icons.css`.
 
 ## Usage
 
 ```twig
 {{ include('@elements/icon/icon.twig', {
-  name: 'arrow-right',
-  size: 'large',
-  colorVariant: 'dark-grey'
+  name: 'icon-search',
+  size: 'medium'
 }) }}
+```
+
+Or directly in HTML:
+```html
+<i class="icon-search ps-icon--medium"></i>
+<i class="icon-poi-hotel ps-icon--large"></i>
 ```
 
 ## Parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `name` | string | `'arrow-right'` | Icon name (required) |
-| `size` | string | `'large'` | Size: `small` (16px), `medium` (20px), `large` (24px), `xlarge` (32px) |
-| `colorVariant` | string | `'dark-grey'` | Color variant: `dark-grey`, `light-grey`, `green`, `white` |
+| `name` | string | `'icon-search'` | Full icon class name (e.g., `icon-account`, `icon-poi-hotel`) |
+| `size` | string | `'medium'` | Size: `small` (16px), `medium` (20px), `large` (24px), `xlarge` (32px) |
+| `color` | string | — | Custom CSS color (inherits by default) |
 | `disabled` | boolean | `false` | Disabled state (50% opacity) |
 | `ariaLabel` | string | — | Accessibility label (use for informative icons) |
 
 ## Available Icons
 
-- **Arrows**: `arrow-down`, `arrow-left`, `arrow-right`, `arrow-up`
-- **Actions**: `close`, `search`, `menu`, `edit`, `delete`, `calendar`
-- **Status**: `check`, `info`, `warning`
-- **Math**: `plus`, `minus`
-- **Test**: `test`
+**Total: 89 icons** (75 regular + 14 POI)
+
+### Regular Icons (75) - `icon-*`
+Accessibility, account, arrows (8 directions), bike, bin, bus, business-premises, calendar, car, check, checkbox, close, comparateur, coworking, create-alert, district, edit, energy-cons, favorites, gas-emission, grue, help, hospitality, hotel, infos, last-articles, linkedin, logistic-warehouses, mail, map, menu, metro, moins/plus (big/small), next/previous, offices, parking, partitioned-offices, phone, picture, pin-map, play, pwd (hide/show), quote, rer, residentiel, restaurant, search, send, share, shops, surface, tram, transport, video, virtual-tour, walking, x-twitter, youtube
+
+### POI Icons (14) - `icon-poi-*`
+sport, transport, autre, commerce, education, hotel, loisir, parc, sante, service, bus-clear, metro-clear, rer-clear, tram-clear
+
+**See Storybook Gallery stories for visual reference of all icons.**
 
 ## BEM Structure
 
 ```
-.ps-icon                     Block
-.ps-icon-{name}             Icon glyph class
+.icon-{name}                 Base icon class (from source/props/icons.css) - DO NOT MODIFY
+.icon-poi-{name}            POI icon class (from source/props/icons.css) - DO NOT MODIFY
 .ps-icon--small             Size modifier
-.ps-icon--medium            Size modifier
-.ps-icon--large             Size modifier (default)
+.ps-icon--medium            Size modifier (default)
+.ps-icon--large             Size modifier
 .ps-icon--xlarge            Size modifier
-.ps-icon--dark-grey         Color modifier (default)
-.ps-icon--light-grey        Color modifier
-.ps-icon--green             Color modifier
-.ps-icon--white             Color modifier
 .ps-icon--disabled          State modifier
 ```
 
@@ -54,12 +59,6 @@ Icon font system using the `ps-icons` font family generated from SVG sources.
 - `--size-6` (24px) — large
 - `--size-8` (32px) — xlarge
 
-### Colors
-- `--gray-700` — dark-grey
-- `--gray-400` — light-grey
-- `--bnp-green` — green
-- `--white` — white
-
 ## Accessibility
 
 - **Decorative icons**: Use `aria-hidden="true"` (default when no `ariaLabel`)
@@ -68,12 +67,12 @@ Icon font system using the `ps-icons` font family generated from SVG sources.
 ```twig
 {# Decorative (default) #}
 {{ include('@elements/icon/icon.twig', {
-  name: 'arrow-right'
+  name: 'icon-arrow-right'
 }) }}
 
 {# Informative #}
 {{ include('@elements/icon/icon.twig', {
-  name: 'search',
+  name: 'icon-search',
   ariaLabel: 'Search'
 }) }}
 ```
@@ -82,35 +81,38 @@ Icon font system using the `ps-icons` font family generated from SVG sources.
 
 ### Sizes
 ```twig
-{{ include('@elements/icon/icon.twig', { name: 'search', size: 'small' }) }}
-{{ include('@elements/icon/icon.twig', { name: 'search', size: 'medium' }) }}
-{{ include('@elements/icon/icon.twig', { name: 'search', size: 'large' }) }}
-{{ include('@elements/icon/icon.twig', { name: 'search', size: 'xlarge' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-search', size: 'small' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-search', size: 'medium' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-search', size: 'large' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-search', size: 'xlarge' }) }}
 ```
 
-### Colors
+### Custom Colors
 ```twig
-{{ include('@elements/icon/icon.twig', { name: 'check', colorVariant: 'green' }) }}
-{{ include('@elements/icon/icon.twig', { name: 'warning', colorVariant: 'dark-grey' }) }}
-{{ include('@elements/icon/icon.twig', { name: 'info', colorVariant: 'light-grey' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-check', size: 'large', color: 'var(--bnp-green)' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-close', size: 'large', color: 'var(--red-600)' }) }}
+```
+
+### POI Icons
+```twig
+{{ include('@elements/icon/icon.twig', { name: 'icon-poi-hotel', size: 'xlarge' }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-poi-transport', size: 'large' }) }}
 ```
 
 ### Disabled
 ```twig
-{{ include('@elements/icon/icon.twig', { name: 'search', disabled: true }) }}
+{{ include('@elements/icon/icon.twig', { name: 'icon-search', disabled: true }) }}
 ```
 
 ## Technical Notes
 
-- Icons are generated via `npm run icons:build` using `icon-font-generator`
-- Source SVGs: `source/assets/icons/*.svg`
-- Output font: `source/assets/fonts/PsIcon/ps-icons.*`
-- Glyph mappings: `source/props/icons.css`
-- Build process copies fonts to `dist/fonts/PsIcon/` via Vite
+- **Fonts**: Located in `source/assets/fonts/icons/` and `source/assets/fonts/icons-poi/`
+- **Font Faces**: Defined in `source/props/icons.css`
+- **Icon Classes**: `.icon-*` and `.icon-poi-*` defined in `source/props/icons.css` - **DO NOT MODIFY**
+- **Size Modifiers**: `.ps-icon--*` defined in `source/patterns/elements/icon/icon.css`
+- **Build**: Fonts are copied to `dist/` via Vite
+- **List**: All icon names extracted in `source/patterns/documentation/icons-list.json`
 
-## Adding New Icons
+## IMPORTANT
 
-1. Add SVG to `source/assets/icons/{name}.svg`
-2. Run `npm run icons:build`
-3. Verify in Storybook Gallery story
-4. Update this README's "Available Icons" list
+⚠️ **DO NOT MODIFY** the icon classes in `source/props/icons.css`. They are managed externally and should remain unchanged. Only use the size and state modifiers defined in this component's CSS.

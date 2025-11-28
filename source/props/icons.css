@@ -1,68 +1,628 @@
+
 @font-face {
-    font-family: "ps-icons";
-        src: url("/fonts/PsIcon/ps-icons.eot?#iefix") format("embedded-opentype"),
-            url("/fonts/PsIcon/ps-icons.woff2") format("woff2"),
-            url("/fonts/PsIcon/ps-icons.woff") format("woff"),
-            url("/fonts/PsIcon/ps-icons.ttf") format("truetype"),
-            url("/fonts/PsIcon/ps-icons.svg#ps-icons") format("svg");
+    font-family: bnpre-icons;
+    src: url(../assets/fonts/icons/bnpre-icons.eot);
+    src: url(../assets/fonts/icons/bnpre-icons.eot#iefix) format("embedded-opentype"), url(../assets/fonts/icons/bnpre-icons.woff2) format("woff2"), url(../assets/fonts/icons/bnpre-icons.woff) format("woff"), url(../assets/fonts/icons/bnpre-icons.ttf) format("truetype"), url(../assets/fonts/icons/bnpre-icons.svg#bnpre-icons) format("svg");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block
 }
 
-[class^="ps-icon-"]:before, [class*=" ps-icon-"]:before {
-    font-family: ps-icons !important;
+@font-face {
+    font-family: bnpre-icons-poi;
+    src: url(../assets/fonts/icons-poi/icons-poi.eot);
+    src: url(../assets/fonts/icons-poi/icons-poi.eot#iefix) format("embedded-opentype"), url(../assets/fonts/icons-poi/icons-poi.woff2) format("woff2"), url(../assets/fonts/icons-poi/icons-poi.woff) format("woff"), url(../assets/fonts/icons-poi/icons-poi.ttf) format("truetype"), url(../assets/fonts/icons-poi/icons-poi.svg#icons-poi) format("svg");
+    font-weight: 400;
     font-style: normal;
-    font-weight: normal !important;
+    font-display: block
+}
+
+[class*=" icon-"]:before,
+[class^=icon-]:before {
+    font-family: bnpre-icons;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
     font-variant: normal;
     text-transform: none;
-    line-height: 1;
+    line-height: 1em;
+    margin-left: .2em;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale
 }
 
-.ps-icon-arrow-down:before {
-    content: "\f101";
+[class*=" icon-poi-"]:before,
+[class^=icon-poi-]:before {
+    font-family: bnpre-icons-poi;
+    font-style: normal;
+    font-weight: 400;
+    speak: never;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
 }
-.ps-icon-arrow-left:before {
-    content: "\f102";
+
+.icon-accessibility-1:before {
+    content: "\e870"
 }
-.ps-icon-arrow-right:before {
-    content: "\f103";
+
+.icon-account:before {
+    content: "\e82d"
 }
-.ps-icon-arrow-up:before {
-    content: "\f104";
+
+.icon-around-me:before {
+    content: "\e84c"
 }
-.ps-icon-calendar:before {
-    content: "\f105";
+
+.icon-arrow-down:before {
+    content: "\e84d"
 }
-.ps-icon-check:before {
-    content: "\f106";
+
+.icon-arrow-left:before {
+    content: "\e84e"
 }
-.ps-icon-close:before {
-    content: "\f107";
+
+.icon-arrow-right:before {
+    content: "\e851"
 }
-.ps-icon-delete:before {
-    content: "\f108";
+
+.icon-arrow-top:before {
+    content: "\e84f"
 }
-.ps-icon-edit:before {
-    content: "\f109";
+
+.icon-big-arrow-down:before {
+    content: "\e850"
 }
-.ps-icon-info:before {
-    content: "\f10a";
+
+.icon-big-arrow-left:before {
+    content: "\e852"
 }
-.ps-icon-menu:before {
-    content: "\f10b";
+
+.icon-big-arrow-right:before {
+    content: "\e853"
 }
-.ps-icon-minus:before {
-    content: "\f10c";
+
+.icon-big-arrow-top:before {
+    content: "\e854"
 }
-.ps-icon-plus:before {
-    content: "\f10d";
+
+.icon-bike:before {
+    content: "\e801"
 }
-.ps-icon-search:before {
-    content: "\f10e";
+
+.icon-bin:before {
+    content: "\e855"
 }
-.ps-icon-test:before {
-    content: "\f10f";
+
+.icon-bus:before {
+    content: "\e804"
 }
-.ps-icon-warning:before {
-    content: "\f110";
+
+.icon-business-premises:before {
+    content: "\e832"
+}
+
+.icon-calendar:before {
+    content: "\e856"
+}
+
+.icon-car:before {
+    content: "\e807"
+}
+
+.icon-check:before {
+    content: "\e857"
+}
+
+.icon-checkbox-checked:before {
+    content: "\e858"
+}
+
+.icon-close:before {
+    content: "\e85a"
+}
+
+.icon-comparateur:before {
+    content: "\e843"
+}
+
+.icon-comparator-empty:before {
+    content: "\e816"
+}
+
+.icon-coworking:before {
+    content: "\e833"
+}
+
+.icon-create-alert:before {
+    content: "\e844"
+}
+
+.icon-district:before {
+    content: "\e84a"
+}
+
+.icon-edit:before {
+    content: "\e85c"
+}
+
+.icon-energy-cons:before {
+    content: "\e805"
+}
+
+.icon-fav-filled:before {
+    content: "\e80a"
+}
+
+.icon-favourite3:before {
+    content: "\e8e8"
+}
+
+.icon-gas-emission:before {
+    content: "\e80d"
+}
+
+.icon-grue:before {
+    content: "\e874"
+}
+
+.icon-help:before {
+    content: "\e85e"
+}
+
+.icon-hotel:before {
+    content: "\e80f"
+}
+
+.icon-infos:before {
+    content: "\e85f"
+}
+
+.icon-last-articles:before {
+    content: "\e896"
+}
+
+.icon-linkedin:before {
+    content: "\e83e"
+}
+
+.icon-logistic-warehouses:before {
+    content: "\e834"
+}
+
+.icon-mail:before {
+    content: "\e840"
+}
+
+.icon-mail-outline:before {
+    content: "\e83f"
+}
+
+.icon-map:before {
+    content: "\e860"
+}
+
+.icon-menu:before {
+    content: "\e848"
+}
+
+.icon-metro:before {
+    content: "\e812"
+}
+
+.icon-moins-big:before {
+    content: "\e861"
+}
+
+.icon-moins-small:before {
+    content: "\e862"
+}
+
+.icon-next:before {
+    content: "\e837"
+}
+
+.icon-offices:before {
+    content: "\e835"
+}
+
+.icon-parking:before {
+    content: "\e814"
+}
+
+.icon-partitioned-offices:before {
+    content: "\e815"
+}
+
+.icon-phone:before {
+    content: "\e817"
+}
+
+.icon-picture:before {
+    content: "\e863"
+}
+
+.icon-pin-map:before {
+    content: "\e864"
+}
+
+.icon-play:before {
+    content: "\e839"
+}
+
+.icon-plus-big:before {
+    content: "\e865"
+}
+
+.icon-plus-small:before {
+    content: "\e866"
+}
+
+.icon-previous:before {
+    content: "\e83a"
+}
+
+.icon-pwd-hide:before {
+    content: "\e867"
+}
+
+.icon-pwd-show:before {
+    content: "\e868"
+}
+
+.icon-quote:before {
+    content: "\e873"
+}
+
+.icon-rer:before {
+    content: "\e86f"
+}
+
+.icon-restaurant:before {
+    content: "\e819"
+}
+
+.icon-search:before {
+    content: "\e86b"
+}
+
+.icon-send:before {
+    content: "\e86c"
+}
+
+.icon-share:before {
+    content: "\e81a"
+}
+
+.icon-shops:before {
+    content: "\e836"
+}
+
+.icon-surface:before {
+    content: "\e81d"
+}
+
+.icon-tram:before {
+    content: "\e820"
+}
+
+.icon-transport:before {
+    content: "\e821"
+}
+
+.icon-video:before {
+    content: "\e86e"
+}
+
+.icon-virtual-tour:before {
+    content: "\e824"
+}
+
+.icon-walking:before {
+    content: "\e826"
+}
+
+.icon-x-twitter:before {
+    content: "\e8e9"
+}
+
+.icon-youtube:before {
+    content: "\e842"
+}
+
+.icon-youtube-1:before {
+    content: "\e8af"
+}
+
+.icon-hospitality:before {
+    content: "\e8ea"
+}
+
+.icon-residentiel:before {
+    content: "\e8eb"
+}
+
+.icon-poi-sport:before {
+    content: "\e800"
+}
+
+.icon-poi-theme_1:before {
+    content: "\e801"
+}
+
+.icon-poi-theme_14:before {
+    content: "\e802"
+}
+
+.icon-poi-theme_23:before {
+    content: "\e803"
+}
+
+.icon-poi-theme_32:before {
+    content: "\e804"
+}
+
+.icon-poi-theme_67:before {
+    content: "\e805"
+}
+
+.icon-poi-theme_68:before {
+    content: "\e806"
+}
+
+.icon-poi-transport:before {
+    content: "\e807"
+}
+
+.icon-poi-autre:before {
+    content: "\e808"
+}
+
+.icon-poi-commerce:before {
+    content: "\e809"
+}
+
+.icon-poi-education:before {
+    content: "\e80a"
+}
+
+.icon-poi-hotel:before {
+    content: "\e80b"
+}
+
+.icon-poi-loisir:before {
+    content: "\e80c"
+}
+
+.icon-poi-parc:before {
+    content: "\e80d"
+}
+
+.icon-poi-sante:before {
+    content: "\e80e"
+}
+
+.icon-poi-service_pub:before {
+    content: "\e80f"
+}
+
+.icon-poi-service:before {
+    content: "\e810"
+}
+
+.icon-poi-theme_2:before {
+    content: "\e811"
+}
+
+.icon-poi-theme_3:before {
+    content: "\e812"
+}
+
+.icon-poi-theme_4:before {
+    content: "\e813"
+}
+
+.icon-poi-theme_5:before {
+    content: "\e814"
+}
+
+.icon-poi-theme_6:before {
+    content: "\e815"
+}
+
+.icon-poi-theme_7:before {
+    content: "\e816"
+}
+
+.icon-poi-theme_8:before {
+    content: "\e817"
+}
+
+.icon-poi-theme_9:before {
+    content: "\e818"
+}
+
+.icon-poi-theme_10:before {
+    content: "\e819"
+}
+
+.icon-poi-theme_12:before {
+    content: "\e81a"
+}
+
+.icon-poi-theme_13:before {
+    content: "\e81b"
+}
+
+.icon-poi-theme_15:before {
+    content: "\e81c"
+}
+
+.icon-poi-theme_16:before {
+    content: "\e81d"
+}
+
+.icon-poi-theme_17:before {
+    content: "\e81e"
+}
+
+.icon-poi-theme_18:before {
+    content: "\e81f"
+}
+
+.icon-poi-theme_19:before {
+    content: "\e820"
+}
+
+.icon-poi-theme_20:before {
+    content: "\e821"
+}
+
+.icon-poi-theme_22:before {
+    content: "\e822"
+}
+
+.icon-poi-theme_24:before {
+    content: "\e823"
+}
+
+.icon-poi-theme_25:before {
+    content: "\e824"
+}
+
+.icon-poi-theme_26:before {
+    content: "\e825"
+}
+
+.icon-poi-theme_27:before {
+    content: "\e826"
+}
+
+.icon-poi-theme_28:before {
+    content: "\e827"
+}
+
+.icon-poi-theme_29:before {
+    content: "\e828"
+}
+
+.icon-poi-theme_30:before {
+    content: "\e829"
+}
+
+.icon-poi-theme_31:before {
+    content: "\e82a"
+}
+
+.icon-poi-theme_34:before {
+    content: "\e82b"
+}
+
+.icon-poi-theme_35:before {
+    content: "\e82c"
+}
+
+.icon-poi-theme_36:before {
+    content: "\e82d"
+}
+
+.icon-poi-theme_47:before {
+    content: "\e82e"
+}
+
+.icon-poi-theme_48:before {
+    content: "\e82f"
+}
+
+.icon-poi-theme_49:before {
+    content: "\e830"
+}
+
+.icon-poi-theme_50:before {
+    content: "\e831"
+}
+
+.icon-poi-theme_51:before {
+    content: "\e832"
+}
+
+.icon-poi-theme_52:before {
+    content: "\e833"
+}
+
+.icon-poi-theme_54:before {
+    content: "\e834"
+}
+
+.icon-poi-theme_56:before {
+    content: "\e835"
+}
+
+.icon-poi-theme_57:before {
+    content: "\e836"
+}
+
+.icon-poi-theme_58:before {
+    content: "\e837"
+}
+
+.icon-poi-theme_59:before {
+    content: "\e838"
+}
+
+.icon-poi-theme_60:before {
+    content: "\e839"
+}
+
+.icon-poi-theme_61:before {
+    content: "\e83a"
+}
+
+.icon-poi-theme_62:before {
+    content: "\e83b"
+}
+
+.icon-poi-theme_63:before {
+    content: "\e83c"
+}
+
+.icon-poi-theme_64:before {
+    content: "\e83d"
+}
+
+.icon-poi-theme_65:before {
+    content: "\e83e"
+}
+
+.icon-poi-theme_241:before {
+    content: "\e83f"
+}
+
+.icon-poi-bus-clear:before {
+    content: "\e840"
+}
+
+.icon-poi-metro-clear:before {
+    content: "\e841"
+}
+
+.icon-poi-rer-clear:before {
+    content: "\e842"
+}
+
+.icon-poi-tram-clear:before {
+    content: "\e843"
 }

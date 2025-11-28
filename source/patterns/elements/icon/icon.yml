@@ -1,5 +1,4 @@
-# Default: Arrow right icon
-name: 'arrow-right'
-size: 'large'
-colorVariant: 'dark-grey'
+# Default: Search icon
+name: 'icon-search'
+size: 'medium'
 disabled: false

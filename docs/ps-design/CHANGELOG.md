@@ -19,6 +19,17 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
   - Support `<a>` et `<button>` selon présence de `url`
   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `.mdx`
   
+- **icon** - ✨ **NOUVEAU** - Système d'icônes fonts complet avec 89 icônes
+  - **Fonts** : bnpre-icons (75 icônes) + bnpre-icons-poi (14 icônes POI)
+  - **Classes** : `.icon-*` et `.icon-poi-*` (depuis `source/props/icons.css`)
+  - **Modifiers** : `--small` (16px), `--medium` (20px), `--large` (24px), `--xlarge` (32px)
+  - **États** : normal, disabled (opacity 50%)
+  - **Couleurs** : Hérite de `color` ou custom via prop `color`
+  - **Stories** : Gallery complète des 89 icônes avec filtres (regular/POI)
+  - **Fichiers** : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+  - **Fonts téléchargées** : `source/assets/fonts/icons/` + `source/assets/fonts/icons-poi/`
+  - **Build** : Fonts copiées automatiquement dans `dist/fonts/` et `storybook/assets/`
+  
 - **badge** - Composant avec BEM `ps-badge`
   - Variants : small/medium/large
   - Formes : rounded/square/pill
@@ -36,6 +47,18 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - **breadcrumb** - Implémentation partielle
   - Structure de base présente
   - À compléter : truncation, responsive, ARIA
+
+### 🔧 Infrastructure & Workflow
+
+- ✅ **Icon font system refactorée** (28 nov 2025)
+  - ❌ Supprimé : Script `icons:build` + dépendance `icon-font-generator`
+  - ❌ Supprimé : Génération automatique de fonts depuis SVG
+  - ✅ Ajouté : Fonts téléchargées depuis bnppre.fr et versionnées
+  - ✅ Ajouté : Script `extract-icons.mjs` pour parser `icons.css`
+  - ✅ Ajouté : `icons-list.json` avec liste complète des 89 icônes
+  - ✅ Mis à jour : `source/props/icons.css` avec URLs locales
+  - ✅ Nettoyé : Dossier `source/assets/fonts/PsIcon/` supprimé
+  - ⚠️ **IMPORTANT** : Les classes `.icon-*` dans `icons.css` ne doivent **JAMAIS** être modifiées
 
 ### 📋 Documentation Créée
 
