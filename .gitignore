@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+storybook-static/
+
+# Cache
+.cache/
+.vite/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.bak
+_backup_components/
+
+# Temporary
+*.tmp
+.temp/

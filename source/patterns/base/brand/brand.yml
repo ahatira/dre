@@ -1,0 +1,45 @@
+---
+brands:
+  Primary color:
+    - name: 'Primary Base'
+      var: '--bnp-green'
+      value: '#00915A'
+    - name: 'Primary Bright'
+      var: '--bnp-mid-green'
+      value: '#04A46E'
+    - name: 'Primary Light'
+      var: '--bnp-light-green'
+      value: '#99D3BD'
+    - name: 'Primary Dark'
+      var: '--bnp-dark-green'
+      value: '#017F4F'
+
+  Secondary color:
+    - name: 'Purple'
+      var: '--bnp-accent-purple'
+      value: '#BA3075'
+    - name: 'Pink'
+      var: '--bnp-accent-pink'
+      value: '#E0388C'
+    - name: 'Rose'
+      var: '--bnp-accent-rose'
+      value: '#D998BB'
+    - name: 'Magenta'
+      var: '--bnp-accent-magenta'
+      value: '#A12B66'
+
+  Status:
+    - name: 'Danger'
+      var: '--status-danger'
+      value: '#EB3636'
+
+  Text colors:
+    - name: 'Text Primary'
+      var: '--brand-text-strong'
+      value: '#434F57'
+    - name: 'Text Secondary'
+      var: '--brand-text-muted'
+      value: '#777E83'
+    - name: 'Text Inverse'
+      var: '--white'
+      value: '#FFFFFF'

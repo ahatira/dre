@@ -1,0 +1,465 @@
+# PS Design System - Typography Tokens
+# Version: 1.0.0
+# Font: BNPP Sans (propriétaire)
+
+# =============================================================================
+# FONT FAMILIES
+# =============================================================================
+
+font:
+  family:
+    primary:
+      value: "'BNPP Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      name: "BNPP Sans"
+      fallback: "System fonts + Arial"
+      usage: "Tous les textes du site"
+    secondary:
+      value: "'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      name: "Open Sans"
+      fallback: "System fonts + Arial"
+      usage: "Alternative body copy (Paragraph Regular - Open Sans)"
+      files:
+        regular: "OpenSans-Regular.woff2"
+        bold: "OpenSans-Bold.woff2"
+      
+    monospace:
+      value: "'Courier New', Courier, monospace"
+      usage: "Code, données techniques"
+
+# =============================================================================
+# FONT WEIGHTS
+# =============================================================================
+
+  weight:
+    light:
+      value: 300
+      name: "Light"
+      usage: "Textes légers, variants subtils"
+      file: "BNPPSans-Light.woff2"
+      
+    regular:
+      value: 400
+      name: "Regular"
+      usage: "Textes courants, paragraphes, labels"
+      file: "BNPPSans-Regular.woff2"
+      
+    bold:
+      value: 700
+      name: "Bold"
+      usage: "Titres, headings, emphasis, boutons"
+      file: "BNPPSans-Bold.woff2"
+      
+    extrabold:
+      value: 800
+      name: "ExtraBold"
+      usage: "Titres très emphase, hero headings"
+      file: "BNPPSans-ExtraBold.woff2"
+
+# =============================================================================
+# FONT SIZES
+# =============================================================================
+
+  size:
+    # Échelle modulaire basée sur 16px (1rem)
+    xs:
+      value: "12px"
+      rem: "0.75rem"
+      usage: "Très petits textes, metadata, footnotes"
+      line_height: "20px"
+      
+    sm:
+      value: "14px"
+      rem: "0.875rem"
+      usage: "Labels, helper text, captions"
+      line_height: "24px"
+      
+    base:
+      value: "16px"
+      rem: "1rem"
+      usage: "Textes par défaut, paragraphes, body"
+      line_height: "24px"
+      
+    lg:
+      value: "20px"
+      rem: "1.25rem"
+      usage: "Lead paragraphs, feature titles"
+      line_height: "32px"
+      
+    xl:
+      value: "24px"
+      rem: "1.5rem"
+      usage: "H3, card titles"
+      line_height: "32px"
+      
+    2xl:
+      value: "32px"
+      rem: "2rem"
+      usage: "H2, section titles"
+      line_height: "40px"
+      
+    3xl:
+      value: "40px"
+      rem: "2.5rem"
+      usage: "H1, hero titles"
+      line_height: "48px"
+      
+    4xl:
+      value: "48px"
+      rem: "3rem"
+      usage: "Display titles, landing pages"
+      line_height: "56px"
+
+# =============================================================================
+# LINE HEIGHTS
+# =============================================================================
+
+  line_height:
+    tight:
+      value: 1.25
+      usage: "Headings courts, titres impactants"
+      
+    normal:
+      value: 1.5
+      usage: "Textes courants (défaut)"
+      
+    relaxed:
+      value: 1.75
+      usage: "Textes longs, articles, body"
+      
+    loose:
+      value: 2
+      usage: "Textes très aérés, citations"
+
+# =============================================================================
+# LETTER SPACING (TRACKING)
+# =============================================================================
+
+  letter_spacing:
+    tight:
+      value: "-0.02em"
+      usage: "Grands titres"
+      
+    normal:
+      value: "0"
+      usage: "Défaut"
+      
+    wide:
+      value: "0.02em"
+      usage: "Labels, petits textes"
+      
+    wider:
+      value: "0.05em"
+      usage: "Uppercase text, eyebrows"
+
+# =============================================================================
+# TEXT STYLES (PRESETS)
+# =============================================================================
+
+text_style:
+  # Headings
+  h1:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "40px"
+    line_height: "48px"
+    letter_spacing: "-0.02em"
+    color: "#434F57"
+    usage: "Titres de page principaux"
+    
+  h2:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "32px"
+    line_height: "40px"
+    letter_spacing: "-0.01em"
+    color: "#434F57"
+    usage: "Titres de sections"
+    
+  h3:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "24px"
+    line_height: "32px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Sous-titres, card titles"
+    
+  h4:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "20px"
+    line_height: "32px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Titres tertiaires"
+    
+  h5:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Petits titres, labels emphase"
+    
+  h6:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "14px"
+    line_height: "24px"
+    letter_spacing: "0.02em"
+    color: "#6C767C"
+    usage: "Micro-titres, eyebrows"
+
+  # Body text
+  body_large:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "20px"
+    line_height: "32px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Lead paragraphs, intro text"
+    
+  body:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Texte par défaut"
+    
+  body_small:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "14px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Textes secondaires"
+
+  # Labels et UI
+  label:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "14px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Labels de formulaires"
+    
+  button:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    usage: "Texte de boutons"
+    
+  link:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#00915A"
+    text_decoration: "underline"
+    usage: "Liens inline"
+
+  # Metadata
+  caption:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "12px"
+    line_height: "20px"
+    letter_spacing: "0"
+    color: "#8A9499"
+    usage: "Captions, metadata, footnotes"
+    
+  eyebrow:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "12px"
+    line_height: "20px"
+    letter_spacing: "0.05em"
+    text_transform: "uppercase"
+    color: "#6C767C"
+    usage: "Surtitres, catégories"
+
+  # Helper text
+  helper:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "14px"
+    line_height: "20px"
+    letter_spacing: "0"
+    color: "#6C767C"
+    usage: "Aide contextuelle, hints"
+    
+  error:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "14px"
+    line_height: "20px"
+    letter_spacing: "0"
+    color: "#EB3636"
+    usage: "Messages d'erreur"
+
+  # Explicit paragraph presets per UI spec
+  paragraph_open_sans:
+    font_family: "Open Sans"
+    font_weight: 400
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Paragraph Regular - Open Sans"
+
+  paragraph_16_bold:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Paragraph Regular - BNPP Sans 16px - Bold"
+
+  paragraph_16_regular:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "16px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Paragraph Regular - BNPP Sans 16px - Regular"
+
+  paragraph_14_bold:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "14px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Paragraph Regular - BNPP Sans 14px - Bold"
+
+  paragraph_14_regular:
+    font_family: "BNPP Sans"
+    font_weight: 400
+    font_size: "14px"
+    line_height: "24px"
+    letter_spacing: "0"
+    color: "#434F57"
+    usage: "Paragraph Regular - BNPP Sans 14px - Regular"
+
+# =============================================================================
+# RESPONSIVE TYPOGRAPHY
+# =============================================================================
+
+responsive:
+  h1:
+    mobile:
+      font_size: "32px"
+      line_height: "40px"
+    tablet:
+      font_size: "36px"
+      line_height: "44px"
+    desktop:
+      font_size: "40px"
+      line_height: "48px"
+      
+  h2:
+    mobile:
+      font_size: "24px"
+      line_height: "32px"
+    tablet:
+      font_size: "28px"
+      line_height: "36px"
+    desktop:
+      font_size: "32px"
+      line_height: "40px"
+  h3:
+    mobile:
+      font_size: "20px"
+      line_height: "28px"
+    desktop:
+      font_size: "24px"
+      line_height: "32px"
+  h4:
+    mobile:
+      font_size: "18px"
+      line_height: "28px"
+    desktop:
+      font_size: "20px"
+      line_height: "32px"
+  h5:
+    mobile:
+      font_size: "16px"
+      line_height: "24px"
+    desktop:
+      font_size: "16px"
+      line_height: "24px"
+      
+  body_large:
+    mobile:
+      font_size: "18px"
+      line_height: "28px"
+    desktop:
+      font_size: "20px"
+      line_height: "32px"
+
+# =============================================================================
+# GUIDELINES
+# =============================================================================
+
+guidelines:
+  readability:
+    optimal_line_length: "45-75 caractères"
+    min_font_size: "14px"
+    body_font_size: "16px"
+    
+  hierarchy:
+    levels: "Maximum 6 niveaux de titres (h1-h6)"
+    h1_per_page: "Un seul h1 par page (SEO)"
+    
+  accessibility:
+    minimum_size: "14px pour texte courant"
+    large_text: "18px ou 14px bold = large text WCAG"
+    contrast_ratio: "4.5:1 minimum (AA)"
+    
+  performance:
+    font_loading: "font-display: swap"
+    subset: "Charger uniquement Regular (400) et Bold (700)"
+    format: "WOFF2 prioritaire"
+
+# =============================================================================
+# FONT LOADING
+# =============================================================================
+
+font_loading:
+  strategy: "swap"
+  preload:
+    - "source/assets/fonts/BNPPSans/BNPPSans-Regular.woff2"
+    - "source/assets/fonts/BNPPSans/BNPPSans-Bold.woff2"
+    - "source/assets/fonts/OpenSans/OpenSans-Regular.woff2"
+    - "source/assets/fonts/OpenSans/OpenSans-Bold.woff2"
+  optional:
+    - "source/assets/fonts/BNPPSans/BNPPSans-Light.woff2"
+    - "source/assets/fonts/BNPPSans/BNPPSans-ExtraBold.woff2"
+    - "source/assets/fonts/BNPPSans/BNPPSans-Light-Condensed.woff2"
+  fallback_timing: "100ms"
+  note: "Light et ExtraBold chargés en différé pour optimiser performance"
+
+# =============================================================================
+# CSS VARIABLES MAPPING
+# =============================================================================
+
+css_variables:
+  generation:
+    prefix: "--ps"
+    examples:
+      - "--ps-font-family-primary: 'BNPP Sans', sans-serif"
+      - "--ps-font-family-secondary: 'Open Sans', sans-serif"
+      - "--ps-font-size-base: 16px"
+      - "--ps-font-weight-regular: 400"
+      - "--ps-line-height-normal: 1.5"

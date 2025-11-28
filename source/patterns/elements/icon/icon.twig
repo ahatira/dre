@@ -1,0 +1,28 @@
+{#
+ * Icon element
+ * @param string name - Icon name (required)
+ * @param string size - small | medium | large | xlarge (default: large)
+ * @param string colorVariant - dark-grey | light-grey | green | white (default: dark-grey)
+ * @param boolean disabled - Disabled state (default: false)
+ * @param string ariaLabel - Accessibility label (optional, use for informative icons)
+ #}
+
+{% set name = name|default('arrow-right') %}
+{% set size = size|default('large') %}
+{% set colorVariant = colorVariant|default('dark-grey') %}
+{% set disabled = disabled|default(false) %}
+
+{% set classes = [] %}
+{% set classes = classes|merge(['ps-icon']) %}
+{% set classes = classes|merge(['ps-icon-' ~ name]) %}
+{% set classes = classes|merge(['ps-icon--' ~ size]) %}
+{% set classes = classes|merge(['ps-icon--' ~ colorVariant]) %}
+{% if disabled %}
+  {% set classes = classes|merge(['ps-icon--disabled']) %}
+{% endif %}
+
+<i
+  class="{{ classes|join(' ')|trim }}"
+  {% if attributes %}{{ attributes }}{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}" role="img"{% else %}aria-hidden="true"{% endif %}
+></i>

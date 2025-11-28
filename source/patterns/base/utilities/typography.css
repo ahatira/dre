@@ -1,0 +1,57 @@
+/**
+ * @file
+ * Text utility classes.
+ */
+
+.text-inherit {
+  color: inherit;
+}
+
+.text-current {
+  color: currentColor;
+}
+
+.text-transparent {
+  color: transparent;
+}
+
+.text-black {
+  color: var(--black);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+/* PS token-based text color helpers */
+.text-primary {
+  color: var(--gray-700);
+}
+
+.text-secondary {
+  color: var(--gray-500);
+}
+
+.text-tertiary {
+  color: var(--gray-400);
+}
+
+.text-inverse {
+  color: var(--white);
+}
+
+.text-link {
+  color: var(--brand-primary);
+}

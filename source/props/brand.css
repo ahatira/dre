@@ -1,0 +1,49 @@
+:where(html) {
+  /* BNP Paribas RealEstate Brand Tokens (aligned to design docs) */
+  --bnp-green: #00915A;        /* Primary base */
+  --bnp-dark-green: #017F4F;   /* Primary dark */
+  --bnp-mid-green: #04A46E;    /* Primary bright */
+  --bnp-light-green: #99D3BD;  /* Primary light */
+  --bnp-graphite: #2B2B2B;
+  --bnp-neutral-gray: #6A6D6F;
+
+  /* Secondary accent palette */
+  --bnp-accent-purple: #BA3075;
+  --bnp-accent-pink: #E0388C;
+  --bnp-accent-rose: #D998BB;
+  --bnp-accent-magenta: #A12B66;
+
+  /* Semantic brand aliases for components */
+  --brand-primary: var(--bnp-green);
+  --brand-secondary: var(--bnp-accent-pink);
+  --brand-accent: var(--bnp-mid-green);
+  --brand-text-strong: var(--bnp-graphite);
+  --brand-text-muted: var(--bnp-neutral-gray);
+  --brand-on-primary: var(--white);
+  
+  /* Semantic button variants */
+  --btn-primary: var(--bnp-green);
+  --btn-primary-hover: var(--bnp-dark-green);
+  --btn-primary-active: #005A39;
+  --btn-secondary: var(--bnp-accent-pink);
+  --btn-secondary-hover: #C73A82;
+  --btn-secondary-active: #A12B66;
+  --btn-success: var(--green-600);
+  --btn-success-hover: var(--green-700);
+  --btn-success-active: var(--green-800);
+  --btn-info: var(--blue-600);
+  --btn-info-hover: var(--blue-700);
+  --btn-info-active: var(--blue-800);
+  --btn-warning: var(--yellow-500);
+  --btn-warning-hover: var(--yellow-600);
+  --btn-warning-active: var(--yellow-700);
+  --btn-danger: var(--red-600);
+  --btn-danger-hover: var(--red-700);
+  --btn-danger-active: var(--red-800);
+  --btn-dark: var(--gray-800);
+  --btn-dark-hover: var(--gray-900);
+  --btn-dark-active: var(--black);
+  --btn-light: var(--gray-100);
+  --btn-light-hover: var(--gray-200);
+  --btn-light-active: var(--gray-300);
+}

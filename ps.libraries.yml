@@ -1,0 +1,56 @@
+global:
+  version: VERSION
+  css:
+    base:
+      dist/css/global.css: {}
+      dist/css/utilities.css: {}
+    component:
+      dist/css/button.css: {}
+
+breadcrumb:
+  css:
+    component:
+      dist/css/breadcrumb.css: {}
+
+card:
+  css:
+    component:
+      dist/css/card.css: {}
+
+featured-card:
+  css:
+    component:
+      dist/css/featured-card.css: {}
+
+slider:
+  js:
+    dist/js/slider.js: {}
+  dependencies:
+    - ps/glide
+
+slider-item:
+  css:
+    theme:
+      dist/css/slider-item.css: {}
+
+
+glide:
+  css:
+    component:
+      'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.2.0/css/glide.core.min.css': { type: external, minified: true, attributes: { defer: true } }
+  js:
+    'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js': { type: external, minified: true, attributes: { defer: true } }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+layout:
+  css:
+    component:
+      dist/css/global.css: {}
+
+date-badge:
+  css:
+    component:
+      dist/css/date-badge.css: {}

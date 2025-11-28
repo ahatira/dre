@@ -1,0 +1,62 @@
+/** 
+ * Icon (Element/Atom)
+ * Icon font system using ps-icons font family generated from source/assets/icons/*.svg
+ * 
+ * BEM: ps-icon, ps-icon-{name}
+ * Variants: none
+ * Modifiers: --small, --medium, --large, --xlarge, --dark-grey, --light-grey, --green, --white, --disabled
+ * Sizes: small (16px), medium (20px), large (24px), xlarge (32px)
+ */
+
+.ps-icon {
+  /* Reset */
+  margin: 0;
+  padding: 0;
+  
+  /* Layout */
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.ps-icon--small {
+  font-size: var(--size-4); /* 16px */
+}
+
+.ps-icon--medium {
+  font-size: var(--size-5); /* 20px */
+}
+
+.ps-icon--large {
+  font-size: var(--size-6); /* 24px */
+}
+
+.ps-icon--xlarge {
+  font-size: var(--size-8); /* 32px */
+}
+
+/* Color Variants */
+.ps-icon--dark-grey {
+  color: var(--gray-700);
+}
+
+.ps-icon--light-grey {
+  color: var(--gray-400);
+}
+
+.ps-icon--green {
+  color: var(--bnp-green);
+}
+
+.ps-icon--white {
+  color: var(--white);
+}
+
+/* States - Disabled */
+.ps-icon--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

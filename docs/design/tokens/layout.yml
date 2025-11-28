@@ -1,0 +1,301 @@
+# PS Design System - Layout Tokens
+# Version: 1.0.0
+
+# =============================================================================
+# CONTAINER WIDTHS
+# =============================================================================
+
+layout:
+  container:
+    base:
+      value: "1196px"
+      usage: "Conteneur principal standard"
+      padding_horizontal: "122px"
+      
+    full:
+      value: "1440px"
+      usage: "Conteneur pleine largeur"
+      padding_horizontal: "0"
+      
+    narrow:
+      value: "768px"
+      usage: "Conteneur étroit (articles, formulaires)"
+      padding_horizontal: "32px"
+      
+    wide:
+      value: "1280px"
+      usage: "Conteneur large (dashboards)"
+      padding_horizontal: "80px"
+      
+    fluid:
+      value: "100%"
+      usage: "Conteneur fluide (full viewport)"
+      padding_horizontal: "16px"
+
+# =============================================================================
+# GRID SYSTEM
+# =============================================================================
+
+  grid:
+    columns:
+      default: 12
+      usage: "Système de grille 12 colonnes"
+      
+    gap:
+      default: "28px"
+      mobile: "16px"
+      tablet: "24px"
+      desktop: "28px"
+      
+    column_width:
+      calculation: "calc((100% - (11 * 28px)) / 12)"
+      
+    presets:
+      two_column:
+        columns: 2
+        gap: "28px"
+        ratio: "1fr 1fr"
+        
+      three_column:
+        columns: 3
+        gap: "28px"
+        ratio: "1fr 1fr 1fr"
+        
+      four_column:
+        columns: 4
+        gap: "28px"
+        ratio: "1fr 1fr 1fr 1fr"
+        
+      two_column_60_40:
+        columns: 2
+        gap: "28px"
+        ratio: "3fr 2fr"
+        
+      two_column_40_60:
+        columns: 2
+        gap: "28px"
+        ratio: "2fr 3fr"
+        
+      content_sidebar:
+        columns: 2
+        gap: "32px"
+        ratio: "2fr 1fr"
+        sidebar_width: "280px"
+
+# =============================================================================
+# BREAKPOINTS
+# =============================================================================
+
+  breakpoints:
+    xs:
+      value: "375px"
+      usage: "Petits smartphones"
+      
+    sm:
+      value: "640px"
+      usage: "Smartphones en paysage"
+      
+    md:
+      value: "768px"
+      usage: "Tablettes portrait"
+      
+    lg:
+      value: "1024px"
+      usage: "Tablettes paysage, petits laptops"
+      
+    xl:
+      value: "1280px"
+      usage: "Desktops"
+      
+    2xl:
+      value: "1440px"
+      usage: "Grands écrans"
+      
+    3xl:
+      value: "1920px"
+      usage: "Très grands écrans"
+
+# =============================================================================
+# REGIONS (Layout zones)
+# =============================================================================
+
+  regions:
+    header:
+      height_mobile: "64px"
+      height_desktop: "88px"
+      position: "sticky"
+      z_index: 100
+      
+    content:
+      min_height: "calc(100vh - 64px - 400px)"  # viewport - header - footer
+      
+    sidebar:
+      width_mobile: "100%"
+      width_desktop: "280px"
+      position: "static"
+      
+    footer:
+      min_height: "400px"
+      z_index: 10
+
+# =============================================================================
+# Z-INDEX SCALE
+# =============================================================================
+
+  z_index:
+    dropdown: 1000
+    sticky: 1020
+    fixed: 1030
+    modal_backdrop: 1040
+    modal: 1050
+    popover: 1060
+    tooltip: 1070
+    notification: 1080
+
+# =============================================================================
+# ASPECT RATIOS
+# =============================================================================
+
+  aspect_ratio:
+    square:
+      value: "1 / 1"
+      usage: "Avatars, icônes carrées"
+      
+    video:
+      value: "16 / 9"
+      usage: "Vidéos, hero images"
+      
+    card:
+      value: "4 / 3"
+      usage: "Images de cartes produits"
+      
+    portrait:
+      value: "3 / 4"
+      usage: "Photos portrait"
+      
+    cinema:
+      value: "21 / 9"
+      usage: "Banners ultra-wide"
+
+# =============================================================================
+# MAX WIDTHS (Content)
+# =============================================================================
+
+  max_width:
+    prose:
+      value: "65ch"
+      usage: "Paragraphes (lisibilité optimale)"
+      
+    reading:
+      value: "768px"
+      usage: "Articles, contenu long"
+      
+    form:
+      value: "640px"
+      usage: "Formulaires"
+      
+    content:
+      value: "1196px"
+      usage: "Contenu général"
+
+# =============================================================================
+# RESPONSIVE LAYOUTS
+# =============================================================================
+
+responsive:
+  mobile:
+    container_padding: "16px"
+    grid_columns: 1
+    grid_gap: "16px"
+    
+  tablet:
+    container_padding: "32px"
+    grid_columns: 2
+    grid_gap: "24px"
+    
+  desktop:
+    container_padding: "122px"
+    grid_columns: 4
+    grid_gap: "28px"
+
+# =============================================================================
+# FLEXBOX PRESETS
+# =============================================================================
+
+flexbox:
+  center:
+    display: "flex"
+    justify_content: "center"
+    align_items: "center"
+    
+  between:
+    display: "flex"
+    justify_content: "space-between"
+    align_items: "center"
+    
+  start:
+    display: "flex"
+    justify_content: "flex-start"
+    align_items: "center"
+    
+  end:
+    display: "flex"
+    justify_content: "flex-end"
+    align_items: "center"
+    
+  column:
+    display: "flex"
+    flex_direction: "column"
+    
+  column_center:
+    display: "flex"
+    flex_direction: "column"
+    align_items: "center"
+
+# =============================================================================
+# GUIDELINES
+# =============================================================================
+
+guidelines:
+  container:
+    - "Utiliser 1196px pour conteneur standard"
+    - "Padding horizontal: 122px sur desktop (1440px viewport)"
+    - "Padding horizontal: 16px sur mobile"
+    
+  grid:
+    - "12 colonnes pour flexibilité maximale"
+    - "Gap de 28px sur desktop, 16px sur mobile"
+    - "Utiliser CSS Grid pour layouts complexes"
+    
+  responsive:
+    - "Mobile first approach"
+    - "Breakpoints basés sur le contenu, pas les devices"
+    - "Utiliser clamp() pour transitions fluides"
+    
+  accessibility:
+    - "Focus visible sur tous les éléments interactifs"
+    - "Skip links pour navigation clavier"
+    - "Landmarks ARIA appropriés"
+
+# =============================================================================
+# CSS VARIABLES MAPPING
+# =============================================================================
+
+css_variables:
+  generation:
+    prefix: "--ps-layout"
+    examples:
+      - "--ps-layout-container-base: 1196px"
+      - "--ps-layout-grid-gap: 28px"
+      - "--ps-layout-breakpoint-md: 768px"
+      - "--ps-layout-z-modal: 1050"
+      
+  css_grid:
+    - ".ps-grid { display: grid; gap: var(--ps-layout-grid-gap); }"
+    - ".ps-grid-2 { grid-template-columns: repeat(2, 1fr); }"
+    - ".ps-grid-3 { grid-template-columns: repeat(3, 1fr); }"
+    - ".ps-grid-4 { grid-template-columns: repeat(4, 1fr); }"
+    
+  container:
+    - ".ps-container { max-width: var(--ps-layout-container-base); margin-inline: auto; }"
+    - ".ps-container-fluid { width: 100%; padding-inline: var(--ps-spacing-4); }"

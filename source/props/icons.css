@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "ps-icons";
+        src: url("/fonts/PsIcon/ps-icons.eot?#iefix") format("embedded-opentype"),
+            url("/fonts/PsIcon/ps-icons.woff2") format("woff2"),
+            url("/fonts/PsIcon/ps-icons.woff") format("woff"),
+            url("/fonts/PsIcon/ps-icons.ttf") format("truetype"),
+            url("/fonts/PsIcon/ps-icons.svg#ps-icons") format("svg");
+}
+
+[class^="ps-icon-"]:before, [class*=" ps-icon-"]:before {
+    font-family: ps-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ps-icon-arrow-down:before {
+    content: "\f101";
+}
+.ps-icon-arrow-left:before {
+    content: "\f102";
+}
+.ps-icon-arrow-right:before {
+    content: "\f103";
+}
+.ps-icon-arrow-up:before {
+    content: "\f104";
+}
+.ps-icon-calendar:before {
+    content: "\f105";
+}
+.ps-icon-check:before {
+    content: "\f106";
+}
+.ps-icon-close:before {
+    content: "\f107";
+}
+.ps-icon-delete:before {
+    content: "\f108";
+}
+.ps-icon-edit:before {
+    content: "\f109";
+}
+.ps-icon-info:before {
+    content: "\f10a";
+}
+.ps-icon-menu:before {
+    content: "\f10b";
+}
+.ps-icon-minus:before {
+    content: "\f10c";
+}
+.ps-icon-plus:before {
+    content: "\f10d";
+}
+.ps-icon-search:before {
+    content: "\f10e";
+}
+.ps-icon-test:before {
+    content: "\f10f";
+}
+.ps-icon-warning:before {
+    content: "\f110";
+}

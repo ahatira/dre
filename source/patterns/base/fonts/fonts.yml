@@ -1,0 +1,33 @@
+fonts:
+  BNPP Sans:
+    - family: "'BNPP Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '300'
+    - family: "'BNPP Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '400'
+    - family: "'BNPP Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '700'
+    - family: "'BNPP Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '800'
+  BNPP Sans Condensed:
+    - family: "'BNPP Sans Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '300'
+  Open Sans:
+    - family: "'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '400'
+    - family: "'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      style: 'normal'
+      weight: '700'
+  system:
+    - family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Fira Sans', Droid Sans, sans-serif"
+      style: 'normal'
+      weight: '400'
+  mono:
+    - family: "Menlo, Consolas, 'Lucida Console', 'Liberation Mono', 'Courier New', monospace, sans-serif"
+      style: 'normal'
+      weight: '400'

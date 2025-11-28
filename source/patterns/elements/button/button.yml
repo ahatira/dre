@@ -1,0 +1,5 @@
+# Default: Primary button (green)
+label: 'Button'
+variant: 'primary'
+outline: false
+size: 'medium'
