@@ -1,0 +1,21 @@
+{#
+ * Heading atom - Semantic typographic heading (h1-h6)
+ * Props:
+ *   text (string) - Heading text (required)
+ *   level (string) - h1|h2|h3|h4|h5|h6 (default: h2)
+ *   align (string) - left|center|right (default: left)
+ *   visuallyHidden (boolean) - Screen reader only (default: false)
+ #}
+
+{% set level = level|default('h2') %}
+{% set align = align|default('left') %}
+{% set visuallyHidden = visuallyHidden|default(false) %}
+
+{% set heading_classes = 'ps-heading ps-heading--' ~ level ~ ' ps-heading--align-' ~ align %}
+{% if visuallyHidden %}
+  {% set heading_classes = heading_classes ~ ' ps-heading--visually-hidden' %}
+{% endif %}
+
+<{{ level }} class="{{ heading_classes }}">
+  <span class="ps-heading__text">{{ text }}</span>
+</{{ level }}>
