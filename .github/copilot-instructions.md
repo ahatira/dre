@@ -85,6 +85,7 @@
   - ✅ ALWAYS import YAML: `import data from './component.yml';`
   - ✅ ALWAYS use Twig render: `render: (args) => component(args)`
   - ✅ ALWAYS return HTML strings for showcase stories
+  - ✅ Use Storybook Autodocs exclusively: set `tags: ['autodocs']` on the default export and DO NOT create `.mdx` docs files for components.
 - **CRITICAL - PIXEL PERFECT MANDATORY**: BEFORE implementing ANY component:
   1. Read COMPLETE spec in `docs/design/{level}/{component}.md` (ALL sections: BEM, Props, Variants, Tokens, States, Accessibility)
   2. Verify ALL dimensions are EXACT (heights, widths, paddings, margins, gaps, borders)

@@ -1,0 +1,104 @@
+/** Badge atom - Refactored per new API */
+
+.ps-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-1); /* 4px */
+  padding: var(--size-1) var(--size-2); /* 4px 8px */
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm); /* 12px */
+  font-weight: var(--font-weight-500);
+  line-height: 1.2;
+  border-radius: var(--radius-2); /* 4px */
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s var(--ease-2);
+}
+
+.ps-badge__icon {
+  inline-size: var(--size-3); /* 12px */
+  block-size: var(--size-3); /* 12px */
+  flex-shrink: 0;
+}
+
+.ps-badge__text { white-space: nowrap; }
+
+/* Sizes */
+.ps-badge--small {
+  font-size: 0.688rem; /* 11px */
+  padding: var(--size-05) var(--size-105); /* 2px 6px */
+}
+
+.ps-badge--small .ps-badge__icon {
+  inline-size: 0.625rem; /* 10px */
+  block-size: 0.625rem; /* 10px */
+}
+
+.ps-badge--medium {
+  font-size: var(--font-size-sm); /* 12px */
+  padding: var(--size-1) var(--size-2); /* 4px 8px */
+}
+
+.ps-badge--large {
+  font-size: var(--font-size-0); /* 14px */
+  padding: var(--size-105) var(--size-3); /* 6px 12px */
+}
+
+.ps-badge--large .ps-badge__icon {
+  inline-size: var(--font-size-0); /* 14px */
+  block-size: var(--font-size-0); /* 14px */
+}
+
+/* Pill shape */
+.ps-badge--pill { border-radius: var(--radius-round); /* 999px */ }
+
+/* Variants - exact tokens */
+.ps-badge--default {
+  background: var(--gray-200); /* hsl(220, 13%, 91%) */
+  color: var(--gray-600); /* hsl(215, 14%, 34%) */
+}
+
+.ps-badge--primary {
+  background: var(--brand-primary); /* #00915A */
+  color: var(--white);
+}
+
+.ps-badge--secondary {
+  background: var(--bnp-accent-magenta); /* #A12B66 */
+  color: var(--white);
+}
+
+.ps-badge--gold {
+  background: #D1AE6E;
+  color: var(--white);
+}
+
+.ps-badge--info {
+  background: #B3E5FC;
+  color: #0277BD;
+}
+
+.ps-badge--success {
+  background: #C5F4E9;
+  color: #0E7A5F;
+}
+
+.ps-badge--warning {
+  background: #FFE0B2;
+  color: #E65100;
+}
+
+.ps-badge--danger {
+  background: #FFCDD2;
+  color: #C62828;
+}
+
+/* Link hover */
+a.ps-badge:hover {
+  filter: brightness(0.95);
+}
+
+a.ps-badge:focus-visible {
+  outline: var(--border-size-2) solid var(--brand-primary);
+  outline-offset: var(--size-05); /* 2px */
+}
