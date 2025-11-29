@@ -79,10 +79,11 @@
 - Use the provided npm scripts for builds and dev workflows.
 - Reference `vite.config.js` for automation details.
 - **CRITICAL - COMPONENT TEMPLATE**: ALWAYS follow `.github/COMPONENT_TEMPLATE_STANDARD.md` EXACTLY. This template is based on the validated button reference and defines the MANDATORY structure for all components (5 files: .twig, .css, .yml, .stories.jsx, README.md).
+- **CRITICAL - COMPONENT AUDIT**: After implementing a component, run conformity audit using `.github/COMPONENT_AUDIT_PROMPT.md` to ensure 100% compliance with all project rules.
 - **CRITICAL - COMPLETE IMPLEMENTATION**: When implementing a component, ALWAYS deliver:
   1. ✅ Functional Twig template with all props and variants
   2. ✅ Complete CSS with ALL modifiers and states working on base class
-  3. ✅ YAML with sensible defaults
+  3. ✅ YAML with sensible defaults and documented options
   4. ✅ **COMPLETE Storybook stories** with ALL variants individually + grouped showcase stories (AllStyles, UseCases, etc.)
   5. ✅ **DETAILED README.md** with: description, props table, BEM structure, design tokens used, usage examples, real-world use cases, accessibility notes
   - ❌ NEVER stop at just template/CSS - stories and docs are MANDATORY
@@ -122,22 +123,42 @@
     ```
 - **CRITICAL - ICONS IN CSS**: 
   - Render icons via CSS pseudo-elements (`::before`/`::after`) when possible
-  - ❌ Avoid extra markup: `<i class="icon-name"></i>`
-  - ✅ Prefer CSS-only: `.component::before { content: "\e800"; font-family: 'icon-font'; }`
-  - Use CSS variables for icon codepoints to make them configurable
-  - Example:
+  - ❌ Avoid extra markup: `<i class="icon-name"></i>` or `<svg>` or classes `ps-icon ps-icon-*`
+  - ✅ Prefer CSS-only: `<span class="ps-component__icon" data-icon="name"></span>`
+  - ✅ CSS implementation:
     ```css
-    .ps-checkbox {
-      --icon-checked: "\e858";
-      --icon-unchecked: "\e859";
-    }
-    .ps-checkbox__box::before {
+    .ps-component__icon {
       font-family: 'bnpre-icons';
-      content: var(--icon-unchecked);
+      font-style: normal;
+      line-height: 1;
     }
-    .ps-checkbox__input:checked + .ps-checkbox__box::before {
-      content: var(--icon-checked);
+    .ps-component__icon::before {
+      content: var(--ps-component-icon-content, "\e800");
     }
+    ```
+  - Use CSS variables or data-icon mapping for icon selection
+  - Example icon mapping:
+    ```css
+    .ps-component__icon[data-icon="arrow-right"]::before { content: "\e802"; }
+    ```
+- **CRITICAL - SEMANTIC COLOR NAMING**:
+  - ❌ **NEVER** use color names: `'green'`, `'purple'`, `'blue'`, `'red'`, `'yellow'`
+  - ✅ **ALWAYS** use semantic names:
+    - `primary` → `--brand-primary` (green #00915A) - Main action
+    - `secondary` → `--brand-secondary` (purple #E0388C) - Secondary action
+    - `success` → `--btn-success` (green-600) - Success/validation
+    - `warning` → `--btn-warning` (yellow-500) - Warning
+    - `danger` → `--btn-danger` (red-600) - Error/danger
+    - `info` → `--btn-info` (blue-600) - Information
+  - Apply to: props, BEM classes, CSS tokens, documentation, stories, YAML
+  - If component has color variants, it MUST support ALL 6 semantic colors
+  - Example:
+    ```yaml
+    # ❌ WRONG
+    color: 'green'  # Options: green | purple | blue
+    
+    # ✅ CORRECT
+    color: 'primary'  # Options: primary | secondary | success | warning | danger | info
     ```
 - **CRITICAL - DESIGN TOKENS FROM SPEC**: 
   - ALWAYS read `docs/design/{level}/{component}.md` to identify correct tokens
@@ -166,6 +187,7 @@
   6. Test visually in Storybook - component must be IDENTICAL to design spec
   7. NO approximations, NO "close enough" - PIXEL PERFECT or it's wrong
 - **CRITICAL**: Follow `.github/COMPONENT_TEMPLATE_STANDARD.md` structure for every new component (5 files: .twig, .css, .yml, .stories.jsx, README.md).
+- **CRITICAL**: After implementation, run audit: "Vérifie la cohérence du composant [Name] avec nos règles du projet" (see `.github/COMPONENT_AUDIT_PROMPT.md`).
 - **CRITICAL**: Always use tokens from `source/props/*.css` (colors.css, fonts.css, brand.css, sizes.css, etc.). NEVER hardcode values (#00915A, 16px, etc.).
 - **CRITICAL**: BEFORE creating a new token, ALWAYS:
   1. Search if similar token exists: `grep -r "--token-name" source/props/`

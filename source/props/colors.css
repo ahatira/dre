@@ -89,4 +89,26 @@
   --ps-color-field-placeholder: hsl(220, 9%, 46%); /* gray placeholder */
   --ps-color-field-disabled-bg: hsl(210, 20%, 98%); /* F3F6F9 disabled bg */
   --ps-color-field-disabled-text: hsl(220, 9%, 46%); /* gray disabled text */
+
+  /* Link semantic colors (interactive states) */
+  --ps-link-primary: #00915A; /* Primary link (green) - base */
+  --ps-link-primary-hover: #006B43; /* Primary link - hover */
+  --ps-link-primary-active: #004A2D; /* Primary link - active */
+  --ps-link-primary-visited: #8E2A68; /* Primary link - visited */
+  --ps-link-primary-disabled: hsl(220, 9%, 46%); /* Primary link - disabled */
+  --ps-link-secondary: #BA3075; /* Secondary link (purple) - base */
+  --ps-link-secondary-hover: #A12B66; /* Secondary link - hover */
+  --ps-link-secondary-active: #8E2A68; /* Secondary link - active */
+  --ps-link-secondary-visited: #6B1F4D; /* Secondary link - visited */
+  --ps-link-secondary-disabled: hsl(220, 9%, 46%); /* Secondary link - disabled */
+  --ps-link-inverse: hsl(0, 0%, 100%); /* Inverse link (white on dark) - base */
+  --ps-link-inverse-hover: hsl(0, 0%, 90%); /* Inverse link - hover */
+  --ps-link-inverse-active: hsl(0, 0%, 80%); /* Inverse link - active */
+  --ps-link-inverse-visited: hsl(0, 0%, 85%); /* Inverse link - visited */
+  --ps-link-inverse-disabled: hsl(0, 0%, 60%); /* Inverse link - disabled */
+  --ps-link-info: hsl(220, 89%, 53%); /* Info link (blue) - base */
+  --ps-link-info-hover: hsl(221, 79%, 48%); /* Info link - hover */
+  --ps-link-info-active: hsl(223, 68%, 37%); /* Info link - active */
+  --ps-link-info-visited: hsl(225, 54%, 30%); /* Info link - visited */
+  --ps-link-info-disabled: hsl(220, 9%, 46%); /* Info link - disabled */
 }

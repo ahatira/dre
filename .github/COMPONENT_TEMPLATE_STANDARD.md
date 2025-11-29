@@ -508,14 +508,110 @@ export default settings;
 
 ## Points Critiques à Retenir
 
+### RÈGLES ABSOLUES (Non-négociables)
+
 1. **JAMAIS de JSX/React dans `.stories.jsx`** → Import Twig + render HTML
 2. **JAMAIS de valeurs en dur dans CSS** → Toujours tokens `var(--*)`
 3. **BEM strict avec préfixe `ps-`** → `.ps-component`, `.ps-component__element`, `.ps-component--modifier`
-4. **5 fichiers obligatoires** → `.twig`, `.css`, `.yml`, `.stories.jsx`, (+ README.md optionnel)
+4. **5 fichiers obligatoires** → `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
 5. **Vérifier tokens avant création** → `grep -r "--token" source/props/` pour éviter doublons
 6. **Build validation** → `npm run vite:build` + `npm run watch` → vérifier Storybook
 7. **Accessibilité** → ARIA labels, focus states, disabled states
 8. **Documentation inline** → Commentaires d'en-tête complets
+
+### RÈGLES DE CONFORMITÉ CRITIQUES
+
+#### 1. Icons en CSS pur (OBLIGATOIRE)
+- ❌ **INTERDIT:** `<i>`, `<svg>`, classes `ps-icon ps-icon-*` dans le HTML
+- ✅ **REQUIS:** `<span class="ps-component__icon" data-icon="name"></span>`
+- ✅ **CSS:** Gestion via pseudo-élément `::before` avec font `bnpre-icons`
+```css
+.ps-component__icon {
+  font-family: 'bnpre-icons';
+  font-style: normal;
+  line-height: 1;
+}
+.ps-component__icon::before {
+  content: var(--ps-component-icon-content, "\e800");
+}
+```
+
+#### 2. Nomenclature Sémantique des Couleurs (OBLIGATOIRE)
+- ❌ **INTERDIT:** `color: 'green'`, `'purple'`, `'blue'`, `'red'`, `'yellow'`
+- ✅ **REQUIS:** Noms sémantiques UNIQUEMENT
+  - `primary` → `--brand-primary` (green #00915A)
+  - `secondary` → `--brand-secondary` (purple #E0388C)
+  - `success` → `--btn-success` (green-600)
+  - `warning` → `--btn-warning` (yellow-500)
+  - `danger` → `--btn-danger` (red-600)
+  - `info` → `--btn-info` (blue-600)
+
+**Tous les props, classes BEM, tokens CSS, et documentation DOIVENT utiliser ces noms.**
+
+#### 3. HTML Minimal (OBLIGATOIRE)
+- ❌ **INTERDIT:** Classes de modifiers pour valeurs par défaut
+- ✅ **REQUIS:** Classe base seule par défaut
+```twig
+{# ❌ MAUVAIS #}
+<div class="ps-component ps-component--primary ps-component--medium">
+
+{# ✅ BON (si primary et medium sont les defaults) #}
+<div class="ps-component">
+```
+
+#### 4. Modifiers CSS Indépendants (OBLIGATOIRE)
+- ❌ **INTERDIT:** Modifiers nécessitant classes composées
+```css
+/* ❌ MAUVAIS */
+.ps-component--horizontal.ps-component--primary { color: green; }
+```
+- ✅ **REQUIS:** Chaque modifier fonctionne seul
+```css
+/* ✅ BON */
+.ps-component { color: var(--gray-500); } /* default */
+.ps-component--primary { color: var(--brand-primary); } /* seul */
+```
+
+#### 5. Documentation Complète (OBLIGATOIRE)
+- **Stories:** Une story par variant + showcases groupés (AllVariants, UseCases)
+- **README:** Props table, BEM, tokens, exemples, cas réels, accessibilité
+- **YAML:** Commentaires listant toutes les options disponibles
+
+#### 6. Design Tokens du Spec (OBLIGATOIRE)
+- Lire `docs/design/[level]/[component].md` avant d'implémenter
+- Utiliser tokens officiels avec fallbacks: `var(--brand-primary, var(--bnp-green))`
+- Vérifier valeurs hex exactes du spec
+
+#### 7. Gestion des Classes Twig (OBLIGATOIRE)
+- ❌ **INTERDIT:** Ajout de classes vides
+```twig
+{# ❌ MAUVAIS #}
+class="{{ text ? 'with-text' : '' }}" {# → ajoute '' #}
+```
+- ✅ **REQUIS:** Merge conditionnel
+```twig
+{# ✅ BON #}
+{%- set classes = ['base'] -%}
+{%- if text -%}
+  {%- set classes = classes|merge(['base--with-text']) -%}
+{%- endif -%}
+```
+
+#### 8. Patterns Storybook (OBLIGATOIRE)
+- ❌ **INTERDIT:** JSX/React, import générique `import component`
+- ✅ **REQUIS:** 
+  - Import unique: `import componentTwig from './component.twig';`
+  - Render Twig: `render: (args) => componentTwig(args)`
+  - Showcases HTML: `` render: () => `<div>${componentTwig(args)}</div>` ``
+
+---
+
+**AUDIT DE CONFORMITÉ:**
+Après implémentation, exécuter:
+```
+Vérifie la cohérence du composant [ComponentName] avec nos règles du projet.
+```
+Voir `.github/COMPONENT_AUDIT_PROMPT.md` pour l'audit complet.
 
 ---
 

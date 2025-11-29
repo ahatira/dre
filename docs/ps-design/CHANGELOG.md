@@ -1,5 +1,25 @@
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
  - Ajout tokens shadow pour focus des champs : --shadow-focus-primary (blue focus ring), --shadow-focus-error (red error ring), --shadow-focus-success (green success ring)
+ - Ajout tokens link pour tous les variants et états interactifs : --ps-link-green, --ps-link-green-hover, --ps-link-green-active, --ps-link-green-visited, --ps-link-green-disabled, --ps-link-purple (+ hover/active/visited/disabled), --ps-link-white (+ hover/active/visited/disabled), --ps-link-default (+ hover/active/visited/disabled)
+ - ✅ **link** - Composant complet conforme template standard - 2025-11-29
+   - Props : text (required), url (required), color (green/purple/white/default), underline (bool défaut true), icon, target (_self/_blank), rel, disabled
+   - Variants : green (défaut), purple, white, default (blue)
+   - Modifiers : no-underline, with-icon, external, disabled
+   - États interactifs : hover, active, visited, focus-visible, disabled (tous gérés par variant)
+   - BEM strict : `.ps-link`, `.ps-link__text`, `.ps-link__icon`
+   - Modifiers indépendants : `--purple`, `--white`, `--default`, `--no-underline`, `--with-icon`, `--external`, `--disabled`
+   - HTML minimal : classe base seule par défaut (green, underline=true), modifiers ajoutés seulement si différents
+   - **Icons via CSS** : gestion complète via pseudo-élément `::before`, font `bnpre-icons`, mapping via `data-icon` attribute
+   - **Underline par défaut** : style dans base class, modifier inverse `--no-underline` pour le retirer
+   - Tokens créés : 20 tokens link (4 variants × 5 états chacun) dans colors.css
+   - Tokens utilisés : --ps-link-*, --size-2, --size-4, --size-5, --font-sans, --font-weight-400, --leading-normal, --border-size-1, --border-size-2, --radius-1, --blue-500
+   - Stories Storybook : 11 stories (Default, Green, Purple, White, DefaultBlue, WithIcon, External, WithoutUnderline, Disabled, AllColorVariants, UseCases)
+   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+   - Accessibilité : <a> sémantique par défaut, <span> pour disabled, aria-disabled="true", aria-hidden sur icônes, rel="noopener noreferrer" auto pour _blank, focus outline visible (WCAG AA)
+   - Support external links : target="_blank" + rel sécurisé automatique, modifier --external optionnel
+   - Transitions fluides : color + text-decoration (150ms cubic-bezier)
+   - Build : validé (npm run build)
+   - **Audit conformité** : 100% - Icons en CSS pur, HTML minimal optimisé, YAML documenté
  - ✅ **image** - Composant complet conforme template standard - 2025-11-29
    - Props : src (required), alt (required), width, height, srcset (array), sizes, loading, decoding, fit, rounded, ratio
    - Object-fit : cover (défaut), contain

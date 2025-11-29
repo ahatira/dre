@@ -36,16 +36,47 @@ Vérifie TOUS ces points critiques:
   ```
 
 ### 2. SEMANTIC COLOR NAMING (Règle critique)
-❌ PROBLÈME: Utilisation de couleurs arbitraires ou tokens génériques
-✅ SOLUTION: Utiliser UNIQUEMENT les tokens sémantiques de brand.css:
-- primary = `--brand-primary` (green #00915A)
-- secondary = `--brand-secondary` (purple #E0388C)
-- success = `--btn-success` (green-600)
-- warning = `--btn-warning` (yellow-500)
-- danger = `--btn-danger` (red-600)
-- info = `--btn-info` (blue-600)
+❌ PROBLÈME: Utilisation de noms de couleurs arbitraires (green, purple, blue, red, etc.) au lieu de noms sémantiques
+✅ SOLUTION: Utiliser UNIQUEMENT les noms sémantiques standardisés:
+- **primary** = `--brand-primary` (green #00915A) - Action principale
+- **secondary** = `--brand-secondary` (purple #E0388C) - Action secondaire
+- **success** = `--btn-success` (green-600) - Succès/validation
+- **warning** = `--btn-warning` (yellow-500) - Avertissement
+- **danger** = `--btn-danger` (red-600) - Erreur/danger
+- **info** = `--btn-info` (blue-600) - Information
 
-Si le composant a des variantes de couleur, il DOIT supporter TOUTES ces 6 couleurs sémantiques.
+**INTERDICTIONS:**
+- ❌ PAS de `color: 'green'` → ✅ `color: 'primary'`
+- ❌ PAS de `color: 'purple'` → ✅ `color: 'secondary'`
+- ❌ PAS de `color: 'blue'` → ✅ `color: 'info'`
+- ❌ PAS de `color: 'red'` → ✅ `color: 'danger'`
+- ❌ PAS de `color: 'yellow'` → ✅ `color: 'warning'`
+
+**RÈGLES:**
+1. Les props DOIVENT accepter les noms sémantiques (primary, secondary, success, warning, danger, info)
+2. Les classes BEM DOIVENT utiliser les noms sémantiques (ps-component--primary, ps-component--secondary)
+3. Les tokens CSS DOIVENT mapper vers brand.css (--brand-primary, --brand-secondary, --btn-success, etc.)
+4. Si le composant a des variantes de couleur, il DOIT supporter TOUTES les 6 couleurs sémantiques
+5. La documentation (README, stories, YAML) DOIT utiliser exclusivement les noms sémantiques
+
+**EXEMPLE DE CORRECTION:**
+```yaml
+# ❌ AVANT (non-conforme)
+color: 'green'  # Options: green | purple | blue | red
+
+# ✅ APRÈS (conforme)
+color: 'primary'  # Options: primary | secondary | success | warning | danger | info
+```
+
+```css
+/* ❌ AVANT (non-conforme) */
+.ps-component--green { color: var(--bnp-green); }
+.ps-component--purple { color: var(--bnp-accent-pink); }
+
+/* ✅ APRÈS (conforme) */
+.ps-component--primary { color: var(--brand-primary); }
+.ps-component--secondary { color: var(--brand-secondary); }
+```
 
 ### 3. COMPLETE IMPLEMENTATION (Règle critique)
 ❌ PROBLÈME: Stories ou README incomplets

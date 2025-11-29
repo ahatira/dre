@@ -1,12 +1,198 @@
-@layer components {
-  .link {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
+/** 
+ * Link (Element/Atom)
+ * Text link with interactive states (hover, active, visited) and optional icon
+ * 
+ * BEM: ps-link, ps-link__text, ps-link__icon
+ * Variants: primary | secondary | info | inverse
+ * Modifiers: --no-underline, --with-icon, --icon-left, --external, --disabled
+ * Base: underline enabled by default, icon on right by default
+ */
+
+.ps-link {
+  /* Reset */
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-2);
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-400);
+  font-size: var(--size-4);
+  line-height: var(--leading-normal);
+  text-decoration: none;
+  
+  /* Visual - base uses default text color */
+  color: var(--ps-color-text, var(--text-default));
+  cursor: pointer;
+  
+  /* Underline by default */
+  text-decoration: underline;
+  text-underline-offset: var(--border-size-1);
+  
+  /* Transitions */
+  transition: 
+    color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+    text-decoration 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  /* States - base does not change color; only underline behavior */
+  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    text-decoration: none;
   }
-  .link__text {
-    font: inherit;
+  
+  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    /* Keep color as text */
+  }
+  
+  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    /* Keep color as text */
+  }
+  
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--blue-500);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
+  }
+  
+  &.ps-link--disabled,
+  &[aria-disabled="true"] {
+    color: var(--ps-color-text-muted, var(--gray-500));
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+/* Primary Variant */
+.ps-link--primary {
+  color: var(--ps-link-primary);
+  
+  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-primary-hover);
+  }
+  
+  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-primary-active);
+  }
+  
+  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-primary-visited);
+  }
+  
+  &.ps-link--disabled,
+  &[aria-disabled="true"] {
+    color: var(--ps-link-primary-disabled);
+  }
+}
+
+/* Elements */
+.ps-link__text {
+  display: inline-block;
+}
+
+.ps-link__icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--size-5);
+  flex-shrink: 0;
+  font-family: 'bnpre-icons';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ps-link__icon::before {
+  content: var(--ps-link-icon-content, "\e800");
+}
+
+/* Icon mapping via data-icon attribute */
+.ps-link__icon[data-icon="arrow-right"]::before { content: "\e802"; }
+.ps-link__icon[data-icon="arrow-left"]::before { content: "\e803"; }
+.ps-link__icon[data-icon="arrow-up"]::before { content: "\e804"; }
+.ps-link__icon[data-icon="arrow-down"]::before { content: "\e805"; }
+.ps-link__icon[data-icon="external-link"]::before { content: "\e806"; }
+.ps-link__icon[data-icon="download"]::before { content: "\e807"; }
+
+/* Modifiers */
+.ps-link--no-underline {
+  text-decoration: none;
+}
+
+.ps-link--with-icon {
+  gap: var(--size-2);
+}
+
+.ps-link--icon-left .ps-link__icon { order: -1; }
+
+.ps-link--external .ps-link__icon::before {
+  content: "\e800"; /* External link icon */
+}
+
+/* Color Variants */
+.ps-link--secondary {
+  color: var(--ps-link-secondary);
+  
+  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-secondary-hover);
+  }
+  
+  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-secondary-active);
+  }
+  
+  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-secondary-visited);
+  }
+  
+  &.ps-link--disabled,
+  &[aria-disabled="true"] {
+    color: var(--ps-link-secondary-disabled);
+  }
+}
+
+.ps-link--inverse {
+  color: var(--ps-link-inverse);
+  
+  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-inverse-hover);
+  }
+  
+  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-inverse-active);
+  }
+  
+  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-inverse-visited);
+  }
+  
+  &.ps-link--disabled,
+  &[aria-disabled="true"] {
+    color: var(--ps-link-inverse-disabled);
+  }
+}
+
+.ps-link--info {
+  color: var(--ps-link-info);
+  
+  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-info-hover);
+  }
+  
+  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-info-active);
+  }
+  
+  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
+    color: var(--ps-link-info-visited);
+  }
+  
+  &.ps-link--disabled,
+  &[aria-disabled="true"] {
+    color: var(--ps-link-info-disabled);
   }
 }
