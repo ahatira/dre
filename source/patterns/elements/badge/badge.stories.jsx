@@ -11,7 +11,14 @@ export default {
     docs: {
       description: {
         component:
-          'Compact indicator. Variants: default (gray), primary (green), secondary (purple), gold, info, success, warning, danger. Sizes: small, medium, large. Supports pill shape, icons, and links.',
+          'Badge compact indiquant un état ou une étiquette.\n\n' +
+          '- Variants: default (gris), primary (vert), secondary (violet), gold, info, success, warning, danger — couleurs via tokens de marque.\n' +
+          '- Tailles: small, medium (défaut), large — espacements/typos pilotés par tokens.\n' +
+          '- Forme: base arrondie (rayon par défaut), option `pill` pour pilule.\n' +
+          '- Icônes: via nom d\'icône (font `bnpre-icons`) sans balise supplémentaire.\n' +
+          '- Liens: `url` rend une balise <a> accessible.\n' +
+          '- Accessibilité: texte toujours lisible (contraste défini par tokens); focus visible sur les liens; rôle implicite d\'étiquette.\n' +
+          '- Marquage minimal: `.ps-badge` fournit les styles par défaut; les modificateurs n\'apparaissent que si une option diffère du défaut.',
       },
     },
   },

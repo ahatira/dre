@@ -6,6 +6,22 @@ export default {
   tags: ['autodocs'],
   render: (args) => dividerTwig(args),
   args: data,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Séparateur visuel pour structurer le contenu.\n\n' +
+          '- Orientation: horizontal (défaut) ou vertical.\n' +
+          '- Styles: solid, dashed, dotted — bordure tokenisée uniquement.\n' +
+          '- Épaisseurs: thin, medium (défaut), thick — valeurs via tokens.\n' +
+          '- Couleurs: neutral, primary, secondary, success, warning, danger, info — sémantiques de marque.\n' +
+          '- Espacement: sm, md (défaut), lg autour du séparateur.\n' +
+          '- Contenu: texte ou icône centrés (police d\'icônes), sans markup additionnel superflu.\n' +
+          '- Accessibilité: rôle décoratif; éviter d\'interrompre la navigation; contraste assuré par tokens.\n' +
+          '- Marquage minimal: `.ps-divider` porte les styles par défaut; les modificateurs n\'apparaissent que si une option diffère du défaut.',
+      },
+    },
+  },
   argTypes: {
     orientation: {
       control: 'select',

@@ -6,6 +6,21 @@ export default {
   tags: ['autodocs'],
   render: (args) => avatar(args),
   args: data,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Avatar affichant une photo, des initiales ou une icône par défaut.\n\n' +
+          '- Modes: image (`src`), initiales (`initials`), fallback icône (si `src` et `initials` sont vides).\n' +
+          '- Tailles: xs, sm, md (défaut), lg, xl — valeurs exactes via tokens.\n' +
+          '- Formes: circle (défaut), square, rounded.\n' +
+          '- Statut: `status` = online | offline | busy (badge en bas à droite).\n' +
+          '- Bordure: `bordered` ajoute un liseré blanc pour fond sombre.\n' +
+          '- Accessibilité: `alt` requis si image; les initiales servent de contenu textuel; focus visible quand `clickable` est vrai.\n' +
+          '- Rendu minimal: la classe de base applique les styles par défaut; les modificateurs n\'apparaissent que si l\'option change du défaut.',
+      },
+    },
+  },
   argTypes: {
     src: {
       control: 'text',
