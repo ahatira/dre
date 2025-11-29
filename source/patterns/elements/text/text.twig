@@ -23,6 +23,8 @@
   {% set text_classes = text_classes ~ ' ps-text--strong' %}
 {% endif %}
 
+{% apply spaceless %}
 <{{ tag }} class="{{ text_classes }}">
   <span class="ps-text__content">{{ text }}</span>
 </{{ tag }}>
+{% endapply %}

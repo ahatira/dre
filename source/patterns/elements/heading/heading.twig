@@ -22,6 +22,7 @@
   {% set heading_classes = heading_classes ~ ' ps-heading--with-icon' %}
 {% endif %}
 
+{% apply spaceless %}
 <{{ level }} class="{{ heading_classes }}">
   {% if icon and iconPosition == 'left' %}
     {% include '../icon/icon.twig' with {
@@ -37,3 +38,4 @@
     } only %}
   {% endif %}
 </{{ level }}>
+{% endapply %}

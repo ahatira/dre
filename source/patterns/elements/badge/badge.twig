@@ -19,6 +19,7 @@
   {% set badge_classes = badge_classes ~ ' ps-badge--pill' %}
 {% endif %}
 
+{% apply spaceless %}
 <{{ tag }} class="{{ badge_classes }}"{% if url %} href="{{ url }}"{% endif %}>
   {% if icon %}
     {% include '../icon/icon.twig' with {
@@ -28,3 +29,4 @@
   {% endif %}
   <span class="ps-badge__text">{{ text }}</span>
 </{{ tag }}>
+{% endapply %}
