@@ -1,4 +1,18 @@
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
+ - ✅ **eyebrow** - Composant complet conforme template standard - 2025-11-29
+   - Variants : primary, secondary, accent, neutral (couleurs sémantiques tokens)
+   - Tailles : small (12px), medium (14px défaut)
+   - Styles : uppercase (défaut), bold
+   - Décorations : withLine (ligne horizontale), withDot (point décoratif)
+   - Icône : support via CSS pseudo-élément (font bnpre-icons)
+   - BEM strict : `.ps-eyebrow`, `.ps-eyebrow__icon`, `.ps-eyebrow__text`, `.ps-eyebrow__line`, `.ps-eyebrow__dot`
+   - Modifiers indépendants : `--primary`, `--secondary`, `--accent`, `--small`, `--uppercase`, `--bold`, `--with-line`, `--with-dot`
+   - HTML minimal : classe base seule par défaut, modifiers ajoutés seulement si différents
+   - Tokens utilisés : --ps-color-primary-600, --ps-color-neutral-600, --ps-color-neutral-500, --blue-600, --font-sans, --font-size-xs, --font-size-sm, --font-weight-500, --font-weight-600, --tracking-wide, --tracking-wider, --size-2, --size-3, --size-05, --size-8, --size-10
+   - Stories Storybook : 10 stories (Default, Primary, Secondary, Accent, Neutral, WithLine, WithDot, SmallSize, AllVariants, UseCases)
+   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+   - Accessibilité : décorations aria-hidden, contraste WCAG AA, ordre DOM correct
+   - Build : validé (npm run build, npm run storybook:build)
 # PS Design System - CHANGELOG
 
 Toutes les modifications notables du système de design seront documentées dans ce fichier.

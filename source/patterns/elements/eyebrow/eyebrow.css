@@ -1,12 +1,116 @@
-@layer components {
-  .eyebrow {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .eyebrow__text {
-    font: inherit;
+/**
+ * Eyebrow (Atom)
+ * Texte court contextuel placé au-dessus d'un titre principal
+ *
+ * BEM: ps-eyebrow, ps-eyebrow__icon, ps-eyebrow__text, ps-eyebrow__line, ps-eyebrow__dot
+ * Variants: primary | secondary | accent | neutral
+ * Modifiers: --uppercase, --bold, --with-line, --with-dot
+ * Sizes: small, medium (défaut)
+ */
+
+.ps-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-2);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-500);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.2;
+  color: var(--ps-color-neutral-500);
+}
+
+.ps-eyebrow__icon {
+  display: inline-block;
+  width: var(--size-3);
+  height: var(--size-3);
+  flex-shrink: 0;
+}
+
+.ps-eyebrow__icon::before {
+  font-family: bnpre-icons;
+  content: var(--eyebrow-icon, "");
+  font-size: inherit;
+  display: inline-block;
+}
+
+.ps-eyebrow__text {
+  font: inherit;
+  color: inherit;
+}
+
+.ps-eyebrow__line {
+  display: inline-block;
+  width: var(--size-10);
+  height: var(--size-05);
+  background: currentColor;
+  opacity: 0.3;
+}
+
+.ps-eyebrow__dot {
+  font-size: 1.2em;
+  opacity: 0.5;
+}
+
+/* Sizes */
+.ps-eyebrow--small {
+  font-size: var(--font-size-xs);
+}
+
+.ps-eyebrow--small .ps-eyebrow__icon {
+  width: var(--size-2);
+  height: var(--size-2);
+}
+
+.ps-eyebrow--small .ps-eyebrow__line {
+  width: var(--size-8);
+  height: 1px;
+}
+
+.ps-eyebrow--medium {
+  font-size: var(--font-size-sm);
+}
+
+/* Styles */
+.ps-eyebrow--uppercase {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.ps-eyebrow--bold {
+  font-weight: var(--font-weight-600);
+}
+
+/* Variants */
+.ps-eyebrow--primary {
+  color: var(--ps-color-primary-600);
+}
+
+.ps-eyebrow--secondary {
+  color: var(--ps-color-neutral-600);
+}
+
+.ps-eyebrow--accent {
+  color: var(--blue-600);
+}
+
+.ps-eyebrow--neutral {
+  color: var(--ps-color-neutral-500);
+}
+
+/* With line variant (full layout) */
+.ps-eyebrow--with-line .ps-eyebrow__line {
+  flex: 1;
+  margin-left: var(--size-2);
+}
+
+.ps-eyebrow--with-dot .ps-eyebrow__dot {
+  color: currentColor;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ps-eyebrow {
+    display: flex;
   }
 }

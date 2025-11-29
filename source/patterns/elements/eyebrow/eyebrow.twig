@@ -1,5 +1,53 @@
-{# ps-eyebrow (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-eyebrow">
-  {%- if text -%}<span class="ps-eyebrow__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * Eyebrow (Atom)
+ * @param string text - Texte affiché (obligatoire)
+ * @param string variant - Couleur: primary, secondary, accent, neutral (optionnel, défaut: neutral)
+ * @param string size - Taille: small, medium (optionnel, défaut: medium)
+ * @param boolean uppercase - Majuscules (optionnel, défaut: true)
+ * @param boolean bold - Gras (optionnel, défaut: false)
+ * @param boolean withLine - Ligne décorative (optionnel, défaut: false)
+ * @param boolean withDot - Point décoratif (optionnel, défaut: false)
+ * @param string icon - Nom d'icône optionnel
+ * @param object attributes - Attributs HTML supplémentaires
+ #}
+
+{% set variant = variant|default('neutral') %}
+{% set size = size|default('medium') %}
+{% set uppercase = uppercase|default(true) %}
+{% set bold = bold|default(false) %}
+{% set withLine = withLine|default(false) %}
+{% set withDot = withDot|default(false) %}
+{% set icon = icon|default('') %}
+
+{% set classes = ['ps-eyebrow'] %}
+{% if variant != 'neutral' %}
+  {% set classes = classes|merge(['ps-eyebrow--' ~ variant]) %}
+{% endif %}
+{% if size != 'medium' %}
+  {% set classes = classes|merge(['ps-eyebrow--' ~ size]) %}
+{% endif %}
+{% if uppercase %}
+  {% set classes = classes|merge(['ps-eyebrow--uppercase']) %}
+{% endif %}
+{% if bold %}
+  {% set classes = classes|merge(['ps-eyebrow--bold']) %}
+{% endif %}
+{% if withLine %}
+  {% set classes = classes|merge(['ps-eyebrow--with-line']) %}
+{% endif %}
+{% if withDot %}
+  {% set classes = classes|merge(['ps-eyebrow--with-dot']) %}
+{% endif %}
+
+<span class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %}>
+  {% if icon %}
+    <span class="ps-eyebrow__icon" aria-hidden="true"></span>
+  {% endif %}
+  <span class="ps-eyebrow__text">{{ text }}</span>
+  {% if withLine %}
+    <span class="ps-eyebrow__line" aria-hidden="true"></span>
+  {% endif %}
+  {% if withDot %}
+    <span class="ps-eyebrow__dot" aria-hidden="true">•</span>
+  {% endif %}
+</span>

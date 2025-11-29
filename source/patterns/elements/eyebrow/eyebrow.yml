@@ -1,2 +1,8 @@
-text: 'eyebrow component placeholder'
-modifier: ''
+text: 'Nouveauté'
+variant: 'primary'
+size: 'medium'
+uppercase: true
+bold: false
+withLine: false
+withDot: false
+icon: ''
