@@ -9,24 +9,32 @@
  *   size (string) - small|medium|large (default: medium)
  #}
 
-{% set variant = variant|default('default') %}
-{% set size = size|default('medium') %}
-{% set pill = pill|default(false) %}
-{% set tag = url ? 'a' : 'span' %}
+{%-
+  set variant = variant|default('default')
+-%}
+{%-
+  set size = size|default('medium')
+-%}
+{%-
+  set pill = pill|default(false)
+-%}
+{%-
+  set tag = url ? 'a' : 'span'
+-%}
 
-{% set badge_classes = 'ps-badge ps-badge--' ~ variant ~ ' ps-badge--' ~ size %}
-{% if pill %}
-  {% set badge_classes = badge_classes ~ ' ps-badge--pill' %}
-{% endif %}
+{%-
+  set badge_classes = 'ps-badge ps-badge--' ~ variant ~ ' ps-badge--' ~ size
+-%}
+{%- if pill -%}
+  {%- set badge_classes = badge_classes ~ ' ps-badge--pill' -%}
+{%- endif -%}
 
-{% apply spaceless %}
 <{{ tag }} class="{{ badge_classes }}"{% if url %} href="{{ url }}"{% endif %}>
-  {% if icon %}
-    {% include '../icon/icon.twig' with {
+  {%- if icon -%}
+    {%- include '../icon/icon.twig' with {
       name: icon,
       size: 'small'
-    } only %}
-  {% endif %}
-  <span class="ps-badge__text">{{ text }}</span>
+    } only -%}
+  {%- endif -%}
+  <span class="ps-badge__text">{{- text -}}</span>
 </{{ tag }}>
-{% endapply %}

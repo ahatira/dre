@@ -9,33 +9,41 @@
  *   iconPosition (string) - left|right (default: left)
  #}
 
-{% set level = level|default('h2') %}
-{% set align = align|default('left') %}
-{% set visuallyHidden = visuallyHidden|default(false) %}
-{% set iconPosition = iconPosition|default('left') %}
+{%-
+  set level = level|default('h2')
+-%}
+{%-
+  set align = align|default('left')
+-%}
+{%-
+  set visuallyHidden = visuallyHidden|default(false)
+-%}
+{%-
+  set iconPosition = iconPosition|default('left')
+-%}
 
-{% set heading_classes = 'ps-heading ps-heading--' ~ level ~ ' ps-heading--align-' ~ align %}
-{% if visuallyHidden %}
-  {% set heading_classes = heading_classes ~ ' ps-heading--visually-hidden' %}
-{% endif %}
-{% if icon %}
-  {% set heading_classes = heading_classes ~ ' ps-heading--with-icon' %}
-{% endif %}
+{%-
+  set heading_classes = 'ps-heading ps-heading--' ~ level ~ ' ps-heading--align-' ~ align
+-%}
+{%- if visuallyHidden -%}
+  {%- set heading_classes = heading_classes ~ ' ps-heading--visually-hidden' -%}
+{%- endif -%}
+{%- if icon -%}
+  {%- set heading_classes = heading_classes ~ ' ps-heading--with-icon' -%}
+{%- endif -%}
 
-{% apply spaceless %}
 <{{ level }} class="{{ heading_classes }}">
-  {% if icon and iconPosition == 'left' %}
-    {% include '../icon/icon.twig' with {
+  {%- if icon and iconPosition == 'left' -%}
+    {%- include '../icon/icon.twig' with {
       name: icon,
       size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
-    } only %}
-  {% endif %}
-  <span class="ps-heading__text">{{ text }}</span>
-  {% if icon and iconPosition == 'right' %}
-    {% include '../icon/icon.twig' with {
+    } only -%}
+  {%- endif -%}
+  <span class="ps-heading__text">{{- text -}}</span>
+  {%- if icon and iconPosition == 'right' -%}
+    {%- include '../icon/icon.twig' with {
       name: icon,
       size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
-    } only %}
-  {% endif %}
+    } only -%}
+  {%- endif -%}
 </{{ level }}>
-{% endapply %}
