@@ -5,17 +5,35 @@
  *   level (string) - h1|h2|h3|h4|h5|h6 (default: h2)
  *   align (string) - left|center|right (default: left)
  *   visuallyHidden (boolean) - Screen reader only (default: false)
+ *   icon (string) - Icon name (optional, e.g., 'icon-pin-map')
+ *   iconPosition (string) - left|right (default: left)
  #}
 
 {% set level = level|default('h2') %}
 {% set align = align|default('left') %}
 {% set visuallyHidden = visuallyHidden|default(false) %}
+{% set iconPosition = iconPosition|default('left') %}
 
 {% set heading_classes = 'ps-heading ps-heading--' ~ level ~ ' ps-heading--align-' ~ align %}
 {% if visuallyHidden %}
   {% set heading_classes = heading_classes ~ ' ps-heading--visually-hidden' %}
 {% endif %}
+{% if icon %}
+  {% set heading_classes = heading_classes ~ ' ps-heading--with-icon' %}
+{% endif %}
 
 <{{ level }} class="{{ heading_classes }}">
+  {% if icon and iconPosition == 'left' %}
+    {% include '../icon/icon.twig' with {
+      name: icon,
+      size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
+    } only %}
+  {% endif %}
   <span class="ps-heading__text">{{ text }}</span>
+  {% if icon and iconPosition == 'right' %}
+    {% include '../icon/icon.twig' with {
+      name: icon,
+      size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
+    } only %}
+  {% endif %}
 </{{ level }}>

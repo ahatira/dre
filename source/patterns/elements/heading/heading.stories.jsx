@@ -50,6 +50,23 @@ export default {
         defaultValue: { summary: false },
       },
     },
+    icon: {
+      control: 'text',
+      description: 'Icon name (e.g., icon-pin-map, icon-calendar)',
+      table: {
+        category: 'content',
+        type: { summary: 'string' },
+      },
+    },
+    iconPosition: {
+      control: { type: 'inline-radio' },
+      options: ['left', 'right'],
+      description: 'Icon position relative to text',
+      table: {
+        category: 'appearance',
+        defaultValue: { summary: 'left' },
+      },
+    },
   },
 };
 
@@ -133,6 +150,18 @@ export const RealWorldExamples = {
       <p style="color: var(--gray-700);">
         Bureaux modernes avec vue panoramique.
       </p>
+    </div>
+  `,
+};
+
+// With icons
+export const WithIcons = {
+  render: () => `
+    <div style="display:flex; flex-direction:column; gap: var(--size-6);">
+      ${component({ level: 'h2', text: 'Localisation', icon: 'icon-pin-map' })}
+      ${component({ level: 'h3', text: 'Événements à venir', icon: 'icon-calendar' })}
+      ${component({ level: 'h4', text: 'Voir les détails', icon: 'icon-arrow-right', iconPosition: 'right' })}
+      ${component({ level: 'h2', text: 'Nos bureaux', icon: 'icon-offices', align: 'center' })}
     </div>
   `,
 };

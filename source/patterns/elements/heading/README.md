@@ -8,6 +8,8 @@ Atom: Semantic typographic headings (h1-h6)
 - `level` (string) - h1|h2|h3|h4|h5|h6 (default: h2)
 - `align` (string) - left|center|right (default: left)
 - `visuallyHidden` (boolean) - Screen reader only (default: false)
+- `icon` (string) - Icon name (optional, e.g., 'icon-pin-map')
+- `iconPosition` (string) - left|right (default: left)
 
 ## Heading Hierarchy
 
@@ -26,6 +28,7 @@ Atom: Semantic typographic headings (h1-h6)
   - Level: `--h1`, `--h2`, `--h3`, `--h4`, `--h5`, `--h6`
   - Alignment: `--align-left`, `--align-center`, `--align-right`
   - Visibility: `--visually-hidden`
+  - With icon: `--with-icon`
 
 ## Usage
 
@@ -42,13 +45,28 @@ Atom: Semantic typographic headings (h1-h6)
   level: 'h1',
   align: 'center'
 } %}
-
 {# Screen reader only #}
 {% include '@ps_theme/heading/heading.twig' with { 
   text: 'Navigation',
   level: 'h2',
   visuallyHidden: true
 } %}
+
+{# With icon left #}
+{% include '@ps_theme/heading/heading.twig' with { 
+  text: 'Localisation',
+  level: 'h2',
+  icon: 'icon-pin-map'
+} %}
+
+{# With icon right #}
+{% include '@ps_theme/heading/heading.twig' with { 
+  text: 'Voir les détails',
+  level: 'h3',
+  icon: 'icon-arrow-right',
+  iconPosition: 'right'
+} %}
+```}
 ```
 
 ## Tokens

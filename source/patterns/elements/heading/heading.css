@@ -8,6 +8,13 @@
   line-height: var(--leading-tight); /* 1.25 */
 }
 
+/* With icon modifier */
+.ps-heading--with-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2); /* 8px */
+}
+
 /* Heading levels with exact token sizes */
 .ps-heading--h1 {
   font-size: var(--font-size-10); /* 48px */
