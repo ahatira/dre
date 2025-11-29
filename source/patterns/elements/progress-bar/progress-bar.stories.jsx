@@ -1,9 +1,73 @@
+
+/**
+ * PS Progress Bar — Atom
+ * Indicateur de progression linéaire ou circulaire, pour tâches déterminées ou indéterminées.
+ *
+ * ## Props
+ * | Prop          | Type     | Default    | Description                                 |
+ * |---------------|----------|------------|---------------------------------------------|
+ * | value         | number   | 0          | Valeur actuelle (0-100)                     |
+ * | min           | number   | 0          | Valeur minimale                             |
+ * | max           | number   | 100        | Valeur maximale                             |
+ * | variant       | string   | 'linear'   | Type : 'linear' ou 'circular'               |
+ * | color         | string   | 'primary'  | Couleur sémantique                          |
+ * | size          | string   | 'md'       | Taille : xs, sm, md, lg, xl                 |
+ * | indeterminate | boolean  | false      | Animation indéterminée                      |
+ * | striped       | boolean  | false      | Rayures animées (linear)                    |
+ * | showLabel     | boolean  | false      | Afficher le pourcentage                     |
+ * | label         | string   | ''         | Label accessibilité                         |
+ *
+ * ## Design Tokens
+ * - Couleurs : --ps-color-primary-600, --ps-color-neutral-500, --ps-color-info-600, --ps-color-success-600, --ps-color-warning-600, --ps-color-error-600
+ * - Track : --ps-color-neutral-200
+ * - Hauteurs linéaires : 4px, 8px, 12px
+ * - Tailles circulaires : 40px, 64px, 96px
+ * - Bordures : --ps-border-radius-full
+ * - Transitions : --ps-transition-duration-normal
+ *
+ * ## Accessibilité
+ * - role="progressbar"
+ * - aria-valuenow, aria-valuemin, aria-valuemax
+ * - aria-label
+ * - Non focusable (élément non-interactif)
+ *
+ * ## Exemples d'usage
+ * Linear :
+ *   <div class="ps-progress ps-progress--linear ps-progress--primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Upload en cours">
+ *     <div class="ps-progress__track">
+ *       <div class="ps-progress__fill" style="width: 60%;"></div>
+ *     </div>
+ *     <span class="ps-progress__label">60%</span>
+ *   </div>
+ * Circular :
+ *   <div class="ps-progress ps-progress--circular ps-progress--success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+ *     <svg class="ps-progress__svg" viewBox="0 0 100 100">...</svg>
+ *     <span class="ps-progress__label">75%</span>
+ *   </div>
+ */
+
 import progressBarTwig from './progress-bar.twig';
 import data from './progress-bar.yml';
 
 export default {
   title: 'Elements/Progress Bar',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Indicateur de progression pour tâches déterminées ou indéterminées (upload, téléchargement, formulaire multi-étapes).\n\n' +
+          '- **Variantes**: linear (barre horizontale), circular (anneau).\n' +
+          '- **Couleurs**: primary, secondary, success, warning, danger, info — tokens sémantiques via `--ps-color-*-600`.\n' +
+          '- **Tailles**: xs, sm, md (défaut), lg, xl — hauteurs linéaires: 4px, 8px, 12px; tailles circulaires: 40px, 64px, 96px.\n' +
+          '- **États**: indeterminate (animation infinie), striped (rayures animées pour linear).\n' +
+          '- **Label**: `showLabel` affiche le pourcentage; `label` fournit un texte pour les lecteurs d\'écran.\n' +
+          '- **Accessibilité**: role="progressbar", aria-valuenow, aria-valuemin, aria-valuemax, aria-label; non focusable (élément non-interactif).\n' +
+          '- **Design tokens**: --ps-color-neutral-200 (track), --ps-border-radius-full, --ps-transition-duration-normal.\n' +
+          '- **Rendu minimal**: la classe de base applique les styles par défaut; les modificateurs n\'apparaissent que si l\'option change du défaut.',
+      },
+    },
+  },
   argTypes: {
     value: { control: 'number', description: 'Valeur actuelle (0-100)' },
     min: { control: 'number', description: 'Valeur minimale' },

@@ -40,7 +40,9 @@
   text-align: center;
   white-space: nowrap;
   
-  /* Visual */
+  /* Visual - Primary defaults */
+  background-color: var(--btn-primary);
+  color: var(--white);
   border-radius: 0;
   transition: 
     background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
@@ -49,11 +51,13 @@
     transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
   
   /* States */
-  &:hover {
+  &:hover:not(:disabled):not(.ps-button--disabled) {
+    background-color: var(--btn-primary-hover);
     transform: translateY(-1px);
   }
   
-  &:active {
+  &:active:not(:disabled):not(.ps-button--disabled) {
+    background-color: var(--btn-primary-active);
     transform: translateY(0);
   }
   
@@ -68,9 +72,10 @@
   display: inline-block;
 }
 
-/* Icon adapts to button size via icon component */
-.ps-button [class*="icon-"] {
+/* Icon element - CSS-only via data-icon */
+.ps-button__icon {
   flex-shrink: 0;
+  line-height: 1;
 }
 
 /* Variant - PRIMARY (vert) */
@@ -399,10 +404,59 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    &::before {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid var(--white);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: ps-button-spin 0.6s linear infinite;
+    }
   }
   
   .ps-button__label,
   .ps-button__icon {
     visibility: hidden;
   }
+}
+
+/* Spinner colors for outline variants */
+.ps-button--outline.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-primary);
+  border-top-color: transparent;
+}
+
+.ps-button--outline.ps-button--secondary.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-secondary);
+}
+
+.ps-button--outline.ps-button--success.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-success);
+}
+
+.ps-button--outline.ps-button--info.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-info);
+}
+
+.ps-button--outline.ps-button--warning.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-warning);
+}
+
+.ps-button--outline.ps-button--danger.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-danger);
+}
+
+.ps-button--outline.ps-button--dark.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--btn-dark);
+}
+
+.ps-button--outline.ps-button--light.ps-button--loading .ps-button__spinner::before {
+  border-color: var(--gray-900);
+}
+
+@keyframes ps-button-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

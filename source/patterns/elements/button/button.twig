@@ -24,8 +24,8 @@
 
 {%- set classes = [] -%}
 {%- set classes = classes|merge(['ps-button']) -%}
-{%- set classes = classes|merge(['ps-button--' ~ variant]) -%}
-{%- set classes = classes|merge(['ps-button--' ~ size]) -%}
+{%- if variant != 'primary' -%}{%- set classes = classes|merge(['ps-button--' ~ variant]) -%}{%- endif -%}
+{%- if size != 'medium' -%}{%- set classes = classes|merge(['ps-button--' ~ size]) -%}{%- endif -%}
 {%- if outline -%}{%- set classes = classes|merge(['ps-button--outline']) -%}{%- endif -%}
 {%- if icon and not label -%}{%- set classes = classes|merge(['ps-button--icon-only']) -%}{%- endif -%}
 {%- if icon and label and iconPosition -%}{%- set classes = classes|merge(['ps-button--icon-' ~ iconPosition]) -%}{%- endif -%}
@@ -43,23 +43,11 @@
   {%- if loading %}aria-busy="true"{% endif -%}
 >
   {%- if loading -%}
-    <span class="ps-button__spinner" aria-hidden="true">
-      {%- include '@elements/spinner/spinner.twig' with {
-        variant: 'circular',
-        size: 'xs',
-        color: outline ? variant : 'white',
-        text: 'Chargement en cours...'
-      } only -%}
-    </span>
+    <span class="ps-button__spinner" aria-hidden="true"></span>
   {%- endif -%}
 
   {%- if icon and iconPosition == 'left' and label -%}
-    <span class="ps-button__icon ps-button__icon--left" aria-hidden="true">
-      {%- include '@elements/icon/icon.twig' with {
-        name: icon,
-        size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
-      } only -%}
-    </span>
+    <span class="ps-button__icon ps-button__icon--left" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 
   {%- if label -%}
@@ -67,11 +55,6 @@
   {%- endif -%}
 
   {%- if icon and (iconPosition == 'right' or not label) -%}
-    <span class="ps-button__icon{% if iconPosition == 'right' %} ps-button__icon--right{% endif %}" aria-hidden="true">
-      {%- include '@elements/icon/icon.twig' with {
-        name: icon,
-        size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
-      } only -%}
-    </span>
+    <span class="ps-button__icon{% if iconPosition == 'right' %} ps-button__icon--right{% endif %}" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 </{{ tag }}>

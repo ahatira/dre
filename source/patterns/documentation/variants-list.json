@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Standardized variant lists for PS Theme components (organized by prop name)",
+  "version": "1.0.0",
+  "color": {
+    "description": "Color prop values (semantic colors)",
+    "common": ["default", "primary", "secondary", "success", "warning", "danger", "info"],
+    "extended": ["default", "primary", "secondary", "success", "warning", "danger", "info", "gold"],
+    "components": {
+      "badge": ["default", "primary", "secondary", "gold", "info", "success", "warning", "danger"],
+      "button": ["primary", "secondary", "success", "warning", "danger", "info"],
+      "alert": ["info", "success", "warning", "danger"],
+      "progressBar": ["default", "primary", "secondary", "success", "warning", "danger", "info"],
+      "divider": ["default", "primary", "secondary"],
+      "link": ["primary", "secondary", "info", "inverse"]
+    }
+  },
+  "variant": {
+    "description": "Variant prop values (component type/form)",
+    "button": ["solid", "outlined", "ghost", "soft"],
+    "progressBar": ["linear", "circular"],
+    "divider": ["solid", "dashed", "dotted"],
+    "alert": ["standard", "filled", "outlined"],
+    "badge": ["filled", "outlined", "soft"]
+  },
+  "appearance": {
+    "description": "Appearance prop values (visual style)",
+    "button": ["solid", "outlined", "ghost", "soft", "link"],
+    "input": ["default", "filled", "outlined"]
+  },
+  "size": {
+    "description": "Size prop values (by component)",
+    "standard": ["xs", "sm", "md", "lg", "xl"],
+    "compact": ["small", "medium", "large"],
+    "button": ["sm", "md", "lg"],
+    "badge": ["small", "medium", "large"],
+    "avatar": ["xs", "sm", "md", "lg", "xl"],
+    "progressBar": ["xs", "sm", "md", "lg", "xl"]
+  },
+  "orientation": {
+    "description": "Orientation prop values (spatial direction)",
+    "common": ["horizontal", "vertical"],
+    "divider": ["horizontal", "vertical"],
+    "slider": ["horizontal", "vertical"],
+    "tabs": ["horizontal", "vertical"]
+  },
+  "shape": {
+    "description": "Shape prop values (geometric form)",
+    "avatar": ["circle", "square", "rounded"],
+    "button": ["square", "rounded", "pill"],
+    "common": ["circle", "square", "rounded", "pill"]
+  },
+  "alignment": {
+    "description": "Alignment prop values",
+    "horizontal": ["start", "center", "end", "justify"],
+    "vertical": ["top", "center", "bottom", "baseline"]
+  },
+  "position": {
+    "description": "Position prop values",
+    "cardinal": ["top", "right", "bottom", "left"],
+    "extended": ["top-start", "top", "top-end", "right-start", "right", "right-end", "bottom-start", "bottom", "bottom-end", "left-start", "left", "left-end"]
+  }
+}

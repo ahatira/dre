@@ -133,10 +133,6 @@
   line-height: 1;
 }
 
-.ps-divider__icon::before {
-  content: var(--ps-divider-icon, "\e800"); /* default icon */
-}
-
 /* Line styles for with-text/icon variants */
 .ps-divider--solid.ps-divider--with-text .ps-divider__line,
 .ps-divider--solid.ps-divider--with-icon .ps-divider__line {

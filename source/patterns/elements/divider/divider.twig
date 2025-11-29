@@ -37,7 +37,7 @@
     {%- if text -%}
       <span class="ps-divider__text">{{ text }}</span>
     {%- elseif icon -%}
-      <span class="ps-divider__icon" aria-hidden="true"></span>
+      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {%- endif -%}
     <span class="ps-divider__line"></span>
   </div>

@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Standardized size lists for PS Theme components",
+  "version": "1.0.0",
+  "standard": {
+    "description": "Standard 5-tier size scale (most components)",
+    "values": ["xs", "sm", "md", "lg", "xl"],
+    "tokens": {
+      "xs": "var(--size-2)",
+      "sm": "var(--size-3)",
+      "md": "var(--size-4)",
+      "lg": "var(--size-6)",
+      "xl": "var(--size-8)"
+    },
+    "pixels": {
+      "xs": "8px",
+      "sm": "12px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px"
+    }
+  },
+  "compact": {
+    "description": "Compact 3-tier size scale (simple components)",
+    "values": ["small", "medium", "large"],
+    "tokens": {
+      "small": "var(--size-2)",
+      "medium": "var(--size-4)",
+      "large": "var(--size-6)"
+    },
+    "pixels": {
+      "small": "8px",
+      "medium": "16px",
+      "large": "24px"
+    }
+  },
+  "extended": {
+    "description": "Extended 7-tier size scale (complex components)",
+    "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+    "tokens": {
+      "2xs": "var(--size-1)",
+      "xs": "var(--size-2)",
+      "sm": "var(--size-3)",
+      "md": "var(--size-4)",
+      "lg": "var(--size-6)",
+      "xl": "var(--size-8)",
+      "2xl": "var(--size-12)"
+    },
+    "pixels": {
+      "2xs": "4px",
+      "xs": "8px",
+      "sm": "12px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "2xl": "48px"
+    }
+  },
+  "avatar": {
+    "description": "Avatar-specific sizes",
+    "values": ["xs", "sm", "md", "lg", "xl"],
+    "tokens": {
+      "xs": "var(--size-6)",
+      "sm": "var(--size-8)",
+      "md": "var(--size-10)",
+      "lg": "var(--size-12)",
+      "xl": "var(--size-20)"
+    },
+    "pixels": {
+      "xs": "24px",
+      "sm": "32px",
+      "md": "40px",
+      "lg": "48px",
+      "xl": "80px"
+    }
+  },
+  "font": {
+    "description": "Font size scale",
+    "values": ["xs", "sm", "base", "md", "lg", "xl", "2xl", "3xl", "4xl"],
+    "tokens": {
+      "xs": "var(--font-size-xs)",
+      "sm": "var(--font-size-sm)",
+      "base": "var(--font-size-1)",
+      "md": "var(--font-size-2)",
+      "lg": "var(--font-size-3)",
+      "xl": "var(--font-size-5)",
+      "2xl": "var(--font-size-7)",
+      "3xl": "var(--font-size-9)",
+      "4xl": "var(--font-size-11)"
+    },
+    "pixels": {
+      "xs": "10px",
+      "sm": "12px",
+      "base": "16px",
+      "md": "18px",
+      "lg": "20px",
+      "xl": "24px",
+      "2xl": "32px",
+      "3xl": "40px",
+      "4xl": "56px"
+    }
+  }
+}
