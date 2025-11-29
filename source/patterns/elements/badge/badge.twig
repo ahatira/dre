@@ -14,10 +14,18 @@
 {%- set pill = pill|default(false) -%}
 {%- set tag = url ? 'a' : 'span' -%}
 
-{%- set badge_classes = 'ps-badge ps-badge--' ~ variant ~ ' ps-badge--' ~ size -%}
-{%- if pill -%}{%- set badge_classes = badge_classes ~ ' ps-badge--pill' -%}{%- endif -%}
+{%- set badge_classes = ['ps-badge'] -%}
+{%- if variant != 'default' -%}
+  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ variant]) -%}
+{%- endif -%}
+{%- if size != 'medium' -%}
+  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ size]) -%}
+{%- endif -%}
+{%- if pill -%}
+  {%- set badge_classes = badge_classes|merge(['ps-badge--pill']) -%}
+{%- endif -%}
 
-<{{ tag }} class="{{ badge_classes }}"{% if url %} href="{{ url }}"{% endif %}>
+<{{ tag }} class="{{ badge_classes|join(' ')|trim }}"{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}
     {%- include '@elements/icon/icon.twig' with {
       name: icon,
