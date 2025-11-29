@@ -9,10 +9,14 @@
   font-size: var(--font-size-sm); /* 12px */
   font-weight: var(--font-weight-500);
   line-height: 1.2;
-  border-radius: var(--radius-2); /* 4px */
+  border-radius: var(--radius-2); /* 4px - rounded by default */
   text-decoration: none;
   white-space: nowrap;
   transition: background 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  /* Default colors (gray) */
+  background: var(--gray-200); /* hsl(220, 13%, 91%) */
+  color: var(--gray-600); /* hsl(215, 14%, 34%) */
 }
 
 .ps-badge__icon {
