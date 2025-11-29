@@ -4,7 +4,7 @@
  #}
 {% set variant = variant|default('linear') %}
 {% set color = color|default('secondary') %}
-{% set size = size|default('medium') %}
+{% set size = size|default('md') %}
 {% set indeterminate = indeterminate|default(false) %}
 {% set striped = striped|default(false) %}
 {% set showLabel = showLabel|default(false) %}
@@ -20,7 +20,7 @@
 {% if color != 'secondary' %}
   {% set root_classes = root_classes|merge(['ps-progress--' ~ color]) %}
 {% endif %}
-{% if size != 'medium' %}
+{% if size != 'md' %}
   {% set root_classes = root_classes|merge(['ps-progress--' ~ size]) %}
 {% endif %}
 {% if indeterminate %}

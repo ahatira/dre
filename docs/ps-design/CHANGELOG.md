@@ -1,3 +1,8 @@
+- 2025-11-29: Progress Bar tokens added
+  - Added `--ps-color-info-600`, `--ps-color-warning-600`, `--ps-color-neutral-500`, `--ps-color-neutral-700` in `source/props/colors.css` to support semantic colors for Progress Bar variants.
+  - Added `--ps-transition-duration-normal` and normalized `--ps-transition-duration-fast` under `:where(html)` in `source/props/animations.css` for consistent transitions.
+  - Added `--progress-striped-gradient` in `source/props/theme.css` to provide a reusable striped background for indeterminate/striped states.
+  - Justification: Ensure Progress Bar uses project tokens exclusively (no hardcoded values) and supports all specified semantic variants and states.
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
  - Ajout tokens shadow pour focus des champs : --shadow-focus-primary (blue focus ring), --shadow-focus-error (red error ring), --shadow-focus-success (green success ring)
  - Ajout tokens link pour tous les variants et états interactifs : --ps-link-green, --ps-link-green-hover, --ps-link-green-active, --ps-link-green-visited, --ps-link-green-disabled, --ps-link-purple (+ hover/active/visited/disabled), --ps-link-white (+ hover/active/visited/disabled), --ps-link-default (+ hover/active/visited/disabled)

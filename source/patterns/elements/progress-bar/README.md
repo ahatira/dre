@@ -46,7 +46,7 @@ Indéterminé - Animation:
 | `max` | `number` | `100` | - | Valeur maximale |
 | `variant` | `string` | `'linear'` | `linear` \| `circular` | Type d'indicateur |
 | `color` | `string` | `'secondary'` | `primary` \| `secondary` \| `success` \| `warning` \| `danger` \| `info` | Couleur sémantique |
-| `size` | `string` | `'medium'` | `small` \| `medium` \| `large` | Taille de l'indicateur |
+| `size` | `string` | `'md'` | `xs` \| `sm` \| `md` \| `lg` \| `xl` | Taille de l'indicateur |
 | `indeterminate` | `boolean` | `false` | - | Active l'animation indéterminée (pas de valeur) |
 | `striped` | `boolean` | `false` | - | Active les rayures animées (linéaire uniquement) |
 | `showLabel` | `boolean` | `false` | - | Affiche le pourcentage en texte |
@@ -77,9 +77,11 @@ Modificateurs:
   ps-progress--danger                        // Couleur danger (rouge)
   ps-progress--info                          // Couleur info (bleu)
   
-  ps-progress--small                         // Petite taille
-  ps-progress--medium                        // Taille moyenne (défaut)
-  ps-progress--large                         // Grande taille
+  ps-progress--xs                            // Extra small
+  ps-progress--sm                            // Small
+  ps-progress--md                            // Medium (défaut)
+  ps-progress--lg                            // Large
+  ps-progress--xl                            // Extra large
   
   ps-progress--indeterminate                 // Animation indéterminée
   ps-progress--striped                       // Rayures animées (linéaire)
@@ -144,18 +146,21 @@ Modificateurs:
 
 ```css
 /* Linear heights */
---size-1: 0.25rem;   /* 4px - small */
---size-2: 0.5rem;    /* 8px - medium */
---size-3: 0.75rem;   /* 12px - large */
+--size-1: 0.25rem;   /* 4px - sm */
+--size-2: 0.5rem;    /* 8px - md */
+--size-3: 0.75rem;   /* 12px - lg */
+--size-4: 1rem;      /* 16px - xl */
+/* xs = 2px (hardcoded) */
 
 /* Circular sizes */
---size-8: 2rem;      /* 32px - small */
---size-10: 2.5rem;   /* 40px - medium */
---size-12: 3rem;     /* 48px - large */
+--size-8: 2rem;      /* 32px - sm */
+--size-10: 2.5rem;   /* 40px - md */
+--size-12: 3rem;     /* 48px - lg */
+--size-16: 4rem;     /* 64px - xl */
+/* xs = 24px (hardcoded) */
 
 /* Spacing */
 --ps-spacing-2: 0.5rem;  /* 8px - gap entre barre et label */
---size-4: 1rem;          /* 16px - stripes background-size */
 ```
 
 ### Autres tokens
@@ -165,8 +170,13 @@ Modificateurs:
 --ps-border-radius-full: 999px;  /* Bordures arrondies */
 
 /* Typography */
---ps-font-family-primary: 'BNPPSans', sans-serif;
---font-size-1: 0.875rem;         /* 14px */
+font-family: 'BNPP Sans Condensed', sans-serif;
+/* Label sizes adaptatifs selon taille composant: */
+--xs: 10px
+--sm: 11px
+--md: 14px (--font-size-1)
+--lg: 16px (--font-size-2)
+--xl: 18px (--font-size-3)
 --font-weight-medium: 500;
 
 /* Colors (text) */
@@ -191,7 +201,7 @@ Modificateurs:
   variant: 'linear',
   value: 65,
   color: 'primary',
-  size: 'medium',
+  size: 'md',
   showLabel: true,
   label: 'Upload de document.pdf'
 } %}
@@ -204,7 +214,7 @@ Modificateurs:
   variant: 'circular',
   value: 75,
   color: 'success',
-  size: 'large',
+  size: 'lg',
   showLabel: true,
   label: 'Complétion du profil'
 } %}
@@ -257,7 +267,7 @@ Modificateurs:
   variant: 'linear',
   value: file_upload_percentage,
   color: 'primary',
-  size: 'medium',
+  size: 'md',
   showLabel: true,
   label: 'Upload: ' ~ file_name
 } %}
@@ -285,7 +295,7 @@ Modificateurs:
   variant: 'circular',
   value: completion,
   color: color,
-  size: 'large',
+  size: 'lg',
   showLabel: true,
   label: 'Profil complété à ' ~ completion ~ '%'
 } %}
@@ -322,7 +332,7 @@ Modificateurs:
   variant: 'linear',
   value: disk_usage_percentage,
   color: disk_usage_percentage > 80 ? 'danger' : 'primary',
-  size: 'large',
+  size: 'lg',
   showLabel: true,
   label: 'Espace utilisé: ' ~ disk_usage_percentage ~ '%'
 } %}
@@ -378,7 +388,7 @@ Modificateurs:
 - **SVG responsive** : `viewBox` assure proportions correctes
 
 ### Recommandations mobile
-- Utiliser `size="small"` sur petits écrans pour économiser l'espace
+- Utiliser `size="xs"` ou `size="sm"` sur petits écrans pour économiser l'espace
 - Label externe recommandé si `showLabel: false` pour clarté
 
 ---
@@ -426,14 +436,19 @@ Modificateurs:
 
 ## 📝 Changelog
 
+### v1.1.0 (2025-11-29)
+- 🔧 **BREAKING**: Renommage tailles `small/medium/large` → `xs/sm/md/lg/xl`
+- 🔧 Correction couleur `secondary`: gray → purple (#E0388C)
+- 🔧 Font-family: `'BNPP Sans Condensed'` avec tailles adaptatives de label
+- 🐛 Fix animation `striped`: gradient corrigé, animation fonctionnelle
+- ✅ Support 5 tailles (xs | sm | md | lg | xl)
+- ✅ Label responsive selon taille composant (10px → 18px)
+
 ### v1.0.0 (2025-11-29)
 - ✅ Implémentation initiale (linear + circular)
 - ✅ Support 6 couleurs sémantiques (primary, secondary, success, warning, danger, info)
-- ✅ Support 3 tailles (small, medium, large)
 - ✅ État indeterminate avec animation
 - ✅ Rayures animées (striped) pour linear
 - ✅ Accessibilité WCAG 2.1 complète
 - ✅ Stories Storybook complètes (toutes variantes + showcases)
 - ✅ Documentation README complète
-- 🔧 Refactor: Renommage `error` → `danger` pour cohérence projet
-- 🔧 Amélioration: Commentaires YAML avec toutes options

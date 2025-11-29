@@ -3,4 +3,15 @@
   --font-heading: helvetica, sans-serif;
   --blockquote-border-color: var(--brand-primary);
   --blockquote-color: var(--brand-primary);
+  /* Progress striped gradient token */
+  --progress-striped-gradient: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
 }

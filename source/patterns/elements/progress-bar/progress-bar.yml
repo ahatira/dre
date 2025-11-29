@@ -4,7 +4,7 @@ min: 0
 max: 100
 variant: 'linear'  # Options: linear | circular
 color: 'primary'  # Options: primary | secondary | success | warning | danger | info
-size: 'medium'  # Options: small | medium | large
+size: 'md'  # Options: xs | sm | md | lg | xl
 indeterminate: false  # true = animation infinie sans valeur
 striped: false  # true = rayures animées (linear uniquement)
 showLabel: true  # true = affiche le pourcentage

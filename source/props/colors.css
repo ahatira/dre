@@ -1,6 +1,11 @@
 :where(html) {
   /* Avatar tokens */
   --ps-color-primary-600: hsl(162, 72%, 38%); /* #0DB089 - vert BNP */
+  /* Progress semantic colors */
+  --ps-color-info-600: hsl(220, 89%, 53%); /* align with blue-600 */
+  --ps-color-warning-600: hsl(47, 96%, 53%); /* align with yellow-300/500 */
+  --ps-color-neutral-500: hsl(220, 9%, 46%); /* gray-500 fallback */
+  --ps-color-neutral-700: hsl(217, 19%, 27%); /* gray-700 fallback */
   --ps-color-neutral-0: hsl(0, 0%, 100%); /* #FFF - blanc */
   --ps-color-neutral-100: hsl(210, 20%, 98%); /* #F3F6F9 */
   --ps-color-neutral-200: hsl(216, 22%, 92%); /* #E8EBEF */

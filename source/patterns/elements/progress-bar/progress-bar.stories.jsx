@@ -14,7 +14,7 @@ export default {
       options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info'],
       description: 'Couleur sémantique',
     },
-    size: { control: 'select', options: ['small', 'medium', 'large'], description: 'Taille' },
+    size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'], description: 'Taille' },
     indeterminate: { control: 'boolean', description: 'Indéterminé (animation)' },
     striped: { control: 'boolean', description: 'Rayures animées (linear)' },
     showLabel: { control: 'boolean', description: 'Afficher le pourcentage' },
@@ -60,35 +60,45 @@ export const Info = {
 };
 
 // === Size Variants ===
-export const Small = {
+export const XS = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, size: 'small', value: 60 },
+  args: { ...data, size: 'xs', value: 60 },
 };
 
-export const Medium = {
+export const SM = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, size: 'medium', value: 60 },
+  args: { ...data, size: 'sm', value: 60 },
 };
 
-export const Large = {
+export const MD = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, size: 'large', value: 60 },
+  args: { ...data, size: 'md', value: 60 },
+};
+
+export const LG = {
+  render: (args) => progressBarTwig(args),
+  args: { ...data, size: 'lg', value: 60 },
+};
+
+export const XL = {
+  render: (args) => progressBarTwig(args),
+  args: { ...data, size: 'xl', value: 60 },
 };
 
 // === Circular Variants ===
 export const CircularPrimary = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, variant: 'circular', color: 'primary', value: 60, size: 'large' },
+  args: { ...data, variant: 'circular', color: 'primary', value: 60, size: 'lg' },
 };
 
 export const CircularSuccess = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, variant: 'circular', color: 'success', value: 75, size: 'large' },
+  args: { ...data, variant: 'circular', color: 'success', value: 75, size: 'lg' },
 };
 
 export const CircularWarning = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, variant: 'circular', color: 'warning', value: 45, size: 'large' },
+  args: { ...data, variant: 'circular', color: 'warning', value: 45, size: 'lg' },
 };
 
 // === Special States ===
@@ -99,7 +109,7 @@ export const IndeterminateLinear = {
 
 export const IndeterminateCircular = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, variant: 'circular', indeterminate: true, label: 'Chargement', showLabel: false, size: 'large' },
+  args: { ...data, variant: 'circular', indeterminate: true, label: 'Chargement', showLabel: false, size: 'lg' },
 };
 
 export const Striped = {
@@ -149,23 +159,33 @@ export const AllSizes = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: 1.5rem; padding: 1rem;">
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Small (Linear)</p>
-        ${progressBarTwig({ variant: 'linear', size: 'small', value: 60, showLabel: true, color: 'primary' })}
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">XS (Extra Small)</p>
+        ${progressBarTwig({ variant: 'linear', size: 'xs', value: 60, showLabel: true, color: 'primary' })}
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Medium (Linear)</p>
-        ${progressBarTwig({ variant: 'linear', size: 'medium', value: 60, showLabel: true, color: 'primary' })}
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">SM (Small)</p>
+        ${progressBarTwig({ variant: 'linear', size: 'sm', value: 60, showLabel: true, color: 'primary' })}
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Large (Linear)</p>
-        ${progressBarTwig({ variant: 'linear', size: 'large', value: 60, showLabel: true, color: 'primary' })}
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">MD (Medium)</p>
+        ${progressBarTwig({ variant: 'linear', size: 'md', value: 60, showLabel: true, color: 'primary' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">LG (Large)</p>
+        ${progressBarTwig({ variant: 'linear', size: 'lg', value: 60, showLabel: true, color: 'primary' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">XL (Extra Large)</p>
+        ${progressBarTwig({ variant: 'linear', size: 'xl', value: 60, showLabel: true, color: 'primary' })}
       </div>
       <div style="margin-top: 1rem;">
         <p style="margin: 0 0 0.5rem; font-weight: 500;">Circular Sizes</p>
         <div style="display: flex; gap: 2rem; align-items: center;">
-          ${progressBarTwig({ variant: 'circular', size: 'small', value: 60, showLabel: true, color: 'primary' })}
-          ${progressBarTwig({ variant: 'circular', size: 'medium', value: 60, showLabel: true, color: 'primary' })}
-          ${progressBarTwig({ variant: 'circular', size: 'large', value: 60, showLabel: true, color: 'primary' })}
+          ${progressBarTwig({ variant: 'circular', size: 'xs', value: 60, showLabel: true, color: 'primary' })}
+          ${progressBarTwig({ variant: 'circular', size: 'sm', value: 60, showLabel: true, color: 'primary' })}
+          ${progressBarTwig({ variant: 'circular', size: 'md', value: 60, showLabel: true, color: 'primary' })}
+          ${progressBarTwig({ variant: 'circular', size: 'lg', value: 60, showLabel: true, color: 'primary' })}
+          ${progressBarTwig({ variant: 'circular', size: 'xl', value: 60, showLabel: true, color: 'primary' })}
         </div>
       </div>
     </div>
@@ -191,9 +211,9 @@ export const AllVariants = {
       <div style="margin-top: 1rem;">
         <p style="margin: 0 0 1rem; font-weight: 500;">Circular Variants</p>
         <div style="display: flex; gap: 2rem; align-items: center;">
-          ${progressBarTwig({ variant: 'circular', value: 60, color: 'primary', size: 'large', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'large', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'info', size: 'large', label: 'Chargement' })}
+          ${progressBarTwig({ variant: 'circular', value: 60, color: 'primary', size: 'lg', showLabel: true })}
+          ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'lg', showLabel: true })}
+          ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'info', size: 'lg', label: 'Chargement' })}
         </div>
       </div>
     </div>
@@ -228,15 +248,15 @@ export const UseCases = {
         <p style="margin: 0 0 1rem; font-weight: 600;">Statut de profil (circulaire)</p>
         <div style="display: flex; gap: 2rem; align-items: center;">
           <div style="text-align: center;">
-            ${progressBarTwig({ variant: 'circular', value: 35, color: 'danger', size: 'large', showLabel: true })}
+            ${progressBarTwig({ variant: 'circular', value: 35, color: 'danger', size: 'lg', showLabel: true })}
             <p style="margin: 0.5rem 0 0; font-size: 12px;">Incomplet</p>
           </div>
           <div style="text-align: center;">
-            ${progressBarTwig({ variant: 'circular', value: 75, color: 'warning', size: 'large', showLabel: true })}
+            ${progressBarTwig({ variant: 'circular', value: 75, color: 'warning', size: 'lg', showLabel: true })}
             <p style="margin: 0.5rem 0 0; font-size: 12px;">Presque prêt</p>
           </div>
           <div style="text-align: center;">
-            ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'large', showLabel: true })}
+            ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'lg', showLabel: true })}
             <p style="margin: 0.5rem 0 0; font-size: 12px;">Complet</p>
           </div>
         </div>
