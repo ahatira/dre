@@ -1,59 +1,78 @@
 /** Heading atom - Semantic typography h1-h6 */
 
 .ps-heading {
-  margin: 0 0 var(--size-6); /* 24px bottom margin */
-  color: var(--gray-900); /* #1F2A33 */
-  font-family: var(--font-sans);
-  font-weight: var(--font-weight-700);
-  line-height: var(--leading-tight); /* 1.25 */
+  margin: 0 0 var(--ps-spacing-6, var(--size-6));
+  color: var(--ps-color-text, var(--gray-900));
+  font-family: var(--ps-font-family-primary, var(--font-sans));
+  font-weight: var(--ps-font-weight-bold, var(--font-weight-700));
+  /* Default = h1 */
+  font-size: var(--ps-heading-h1-size, var(--font-size-10));
+  line-height: var(--ps-heading-h1-line-height, var(--leading-tight));
+  text-align: left;
 }
 
 /* With icon modifier */
 .ps-heading--with-icon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--size-2); /* 8px */
+  gap: var(--size-2);
 }
 
-/* Heading levels with exact token sizes */
-.ps-heading--h1 {
-  font-size: var(--font-size-10); /* 48px */
-  line-height: var(--leading-tight);
+.ps-heading__icon {
+  font-family: bnpre-icons;
+  font-style: normal;
+  line-height: 1;
+  font-size: 1em; /* follow heading size */
 }
 
+/* Heading levels with token fallbacks (base is h1) */
 .ps-heading--h2 {
-  font-size: var(--font-size-8); /* 36px */
-  line-height: var(--leading-tight);
+  font-size: var(--ps-heading-h2-size, var(--font-size-8));
+  line-height: var(--ps-heading-h2-line-height, var(--leading-tight));
 }
 
 .ps-heading--h3 {
-  font-size: var(--font-size-6); /* 28px */
-  line-height: var(--leading-snug); /* 1.375 */
+  font-size: var(--ps-heading-h3-size, var(--font-size-6));
+  line-height: var(--ps-heading-h3-line-height, var(--leading-snug));
 }
 
 .ps-heading--h4 {
-  font-size: var(--font-size-5); /* 24px */
-  line-height: var(--leading-snug);
+  font-size: var(--ps-heading-h4-size, var(--font-size-5));
+  line-height: var(--ps-heading-h4-line-height, var(--leading-snug));
 }
 
+/* h5/h6 maintain lighter default weight */
 .ps-heading--h5 {
-  font-size: var(--font-size-3); /* 20px */
-  line-height: var(--leading-normal); /* 1.5 */
+  font-size: var(--ps-heading-h5-size, var(--font-size-3));
+  line-height: var(--ps-heading-h5-line-height, var(--leading-normal));
   font-weight: var(--font-weight-600);
 }
 
 .ps-heading--h6 {
-  font-size: var(--font-size-1); /* 16px */
-  line-height: var(--leading-normal);
+  font-size: var(--ps-heading-h6-size, var(--font-size-1));
+  line-height: var(--ps-heading-h6-line-height, var(--leading-normal));
   font-weight: var(--font-weight-600);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-wide); /* 0.025em */
+  letter-spacing: var(--tracking-wide);
 }
 
-/* Alignment modifiers */
-.ps-heading--align-left { text-align: left; }
+/* Alignment modifiers (defaults to left) */
 .ps-heading--align-center { text-align: center; }
 .ps-heading--align-right { text-align: right; }
+
+/* Color semantic variants */
+.ps-heading--primary { color: var(--brand-primary); }
+.ps-heading--secondary { color: var(--brand-secondary); }
+.ps-heading--success { color: var(--btn-success); }
+.ps-heading--warning { color: var(--btn-warning); }
+.ps-heading--danger { color: var(--btn-danger); }
+.ps-heading--info { color: var(--btn-info); }
+
+/* Weight modifiers (independent) */
+.ps-heading--light { font-weight: var(--font-weight-300); }
+.ps-heading--regular { font-weight: var(--font-weight-400); }
+.ps-heading--bold { font-weight: var(--font-weight-700); }
+.ps-heading--extra { font-weight: var(--font-weight-800); }
 
 /* Screen reader only (visually hidden) */
 .ps-heading--visually-hidden {

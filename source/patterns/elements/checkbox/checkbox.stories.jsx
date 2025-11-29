@@ -13,7 +13,7 @@ export default {
           'Case à cocher accessible conforme au Design System.\n\n' +
           '- Contenu: input natif + label optionnel lié par `id`/`for`.\n' +
           '- États: `checked`, `disabled` — styles et curseur adaptés.\n' +
-          '- Icône: rendu via pseudo-éléments (police d\'icônes), sans balise supplémentaire.\n' +
+          "- Icône: rendu via pseudo-éléments (police d'icônes), sans balise supplémentaire.\n" +
           '- Accessibilité: cible clavier, focus visible; annonce ARIA native; label recommandé pour la compréhension.\n' +
           '- Tokens: couleurs, espacements, bordures et typos uniquement via tokens.\n' +
           '- Marquage minimal: classe de base applique les styles par défaut; modificateurs ajoutés uniquement si nécessaires.',

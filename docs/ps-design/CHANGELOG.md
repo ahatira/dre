@@ -1,5 +1,19 @@
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
  - Ajout tokens shadow pour focus des champs : --shadow-focus-primary (blue focus ring), --shadow-focus-error (red error ring), --shadow-focus-success (green success ring)
+ - ✅ **flag** - Composant complet conforme template standard - 2025-11-29
+   - Props : code (ISO 3166-1 alpha-2), locale (BCP 47), label, src, size, shape, disabled, decorative
+   - Tailles : sm (16px), md (20px défaut), lg (24px)
+   - Formes : square (défaut), rounded (4px), circle (full round)
+   - État : disabled (opacity 0.5 + grayscale 0.2)
+   - BEM strict : `.ps-flag`, `.ps-flag__img`
+   - Modifiers indépendants : `--sm`, `--lg`, `--rounded`, `--circle`, `--disabled`
+   - HTML minimal : classe base seule par défaut (md + square), modifiers ajoutés seulement si différents
+   - Tokens utilisés : --size-4 (16px), --size-5 (20px), --size-6 (24px), --radius-2 (4px), --radius-round (full circle)
+   - Stories Storybook : 10 stories (Default, France, UnitedKingdom, Germany, Spain, Italy, Netherlands, AllCountries, Sizes, Shapes, DisabledState, LocaleMapping, AllVariantsCombined, UseCases)
+   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+   - Normalisation locale : supporte code direct (FR, GB) ET locale BCP 47 (fr-FR, en-GB) avec extraction automatique du code pays
+   - Accessibilité : label obligatoire (sauf mode decorative), alt/title sur images, aria-hidden si decorative, dimensions explicites (width/height)
+   - Build : validé (npm run build, npm run storybook:build) - aucune erreur
  - ✅ **field** - Composant complet conforme template standard - 2025-11-29
    - Types : text (défaut), number, email, search, select/dropdown, textarea
    - États : default, hover, focus, filled, error, disabled, done/success
@@ -27,6 +41,17 @@
    - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
    - Accessibilité : décorations aria-hidden, contraste WCAG AA, ordre DOM correct
    - Build : validé (npm run build, npm run storybook:build)
+ - ♻️ **heading** - Refactor conformité + ajout couleurs/poids - 2025-11-29
+   - HTML minimal: base `.ps-heading` = h1 align left (sans modifiers)
+   - Niveaux indépendants: `--h2 --h3 --h4 --h5 --h6` (h1 implicite)
+   - Couleurs sémantiques: `--primary --secondary --success --warning --danger --info` (tokens brand / btn)
+   - Poids indépendants: `--light --regular --bold --extra` (fallback tokens font-weight-300..800)
+   - Icônes via CSS: `.ps-heading__icon` (bnpre-icons) aria-hidden décoratif
+   - Tokens fallbacks: `--ps-heading-h*-size|line-height` → `--font-size-*`, `--leading-*`; base couleur `--ps-color-text` → `--gray-900`
+   - Twig: classes conditionnelles (niveau, align, couleur, weight, icon, visuallyHidden)
+   - YAML: nouveaux props `color`, `weight` documentés
+   - Stories: ajout ColorVariants, WeightVariants, AllVariants
+   - README: mis à jour (defaults h1, nouvelles modifiers, minimal markup)
 # PS Design System - CHANGELOG
 
 Toutes les modifications notables du système de design seront documentées dans ce fichier.

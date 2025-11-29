@@ -15,62 +15,62 @@ export default {
           '- Variants: default (gris), primary (vert), secondary (violet), gold, info, success, warning, danger — couleurs via tokens de marque.\n' +
           '- Tailles: small, medium (défaut), large — espacements/typos pilotés par tokens.\n' +
           '- Forme: base arrondie (rayon par défaut), option `pill` pour pilule.\n' +
-          '- Icônes: via nom d\'icône (font `bnpre-icons`) sans balise supplémentaire.\n' +
+          "- Icônes: via nom d'icône (font `bnpre-icons`) sans balise supplémentaire.\n" +
           '- Liens: `url` rend une balise <a> accessible.\n' +
-          '- Accessibilité: texte toujours lisible (contraste défini par tokens); focus visible sur les liens; rôle implicite d\'étiquette.\n' +
-          '- Marquage minimal: `.ps-badge` fournit les styles par défaut; les modificateurs n\'apparaissent que si une option diffère du défaut.',
+          "- Accessibilité: texte toujours lisible (contraste défini par tokens); focus visible sur les liens; rôle implicite d'étiquette.\n" +
+          "- Marquage minimal: `.ps-badge` fournit les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
       },
     },
   },
   argTypes: {
-    text: { 
-      control: 'text', 
-      description: 'Badge text', 
-      table: { 
+    text: {
+      control: 'text',
+      description: 'Badge text',
+      table: {
         category: 'content',
-        type: { summary: 'string', required: true }
-      }
+        type: { summary: 'string', required: true },
+      },
     },
-    icon: { 
-      control: 'text', 
-      description: 'Icon name (e.g., icon-pwd-show, icon-calendar)', 
-      table: { 
+    icon: {
+      control: 'text',
+      description: 'Icon name (e.g., icon-pwd-show, icon-calendar)',
+      table: {
         category: 'content',
-        type: { summary: 'string' }
-      }
+        type: { summary: 'string' },
+      },
     },
     variant: {
       control: { type: 'select' },
-      options: ['default','primary','secondary','gold','info','success','warning','danger'],
+      options: ['default', 'primary', 'secondary', 'gold', 'info', 'success', 'warning', 'danger'],
       description: 'Color variant',
-      table: { 
+      table: {
         category: 'appearance',
-        defaultValue: { summary: 'default' }
+        defaultValue: { summary: 'default' },
       },
     },
-    pill: { 
-      control: 'boolean', 
-      description: 'Rounded pill shape', 
-      table: { 
+    pill: {
+      control: 'boolean',
+      description: 'Rounded pill shape',
+      table: {
         category: 'appearance',
-        defaultValue: { summary: false }
-      }
+        defaultValue: { summary: false },
+      },
     },
-    url: { 
-      control: 'text', 
-      description: 'Link URL (renders <a>)', 
-      table: { 
+    url: {
+      control: 'text',
+      description: 'Link URL (renders <a>)',
+      table: {
         category: 'behavior',
-        type: { summary: 'string' }
-      }
+        type: { summary: 'string' },
+      },
     },
     size: {
       control: { type: 'inline-radio' },
-      options: ['small','medium','large'],
+      options: ['small', 'medium', 'large'],
       description: 'Badge size',
-      table: { 
+      table: {
         category: 'layout',
-        defaultValue: { summary: 'medium' }
+        defaultValue: { summary: 'medium' },
       },
     },
   },

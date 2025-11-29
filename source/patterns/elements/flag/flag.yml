@@ -1,2 +1,7 @@
-text: 'flag component placeholder'
-modifier: ''
+# Default: France flag, medium size, square shape
+code: 'FR'
+label: 'France'
+size: 'md'
+shape: 'square'
+disabled: false
+decorative: false

@@ -17,14 +17,14 @@ export default {
           '- Statut: `status` = online | offline | busy (badge en bas à droite).\n' +
           '- Bordure: `bordered` ajoute un liseré blanc pour fond sombre.\n' +
           '- Accessibilité: `alt` requis si image; les initiales servent de contenu textuel; focus visible quand `clickable` est vrai.\n' +
-          '- Rendu minimal: la classe de base applique les styles par défaut; les modificateurs n\'apparaissent que si l\'option change du défaut.',
+          "- Rendu minimal: la classe de base applique les styles par défaut; les modificateurs n'apparaissent que si l'option change du défaut.",
       },
     },
   },
   argTypes: {
     src: {
       control: 'text',
-      description: 'URL de l\'image avatar',
+      description: "URL de l'image avatar",
     },
     alt: {
       control: 'text',
@@ -37,12 +37,12 @@ export default {
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Taille de l\'avatar',
+      description: "Taille de l'avatar",
     },
     shape: {
       control: 'select',
       options: ['circle', 'square', 'rounded'],
-      description: 'Forme de l\'avatar',
+      description: "Forme de l'avatar",
     },
     status: {
       control: 'select',

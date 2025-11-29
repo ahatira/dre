@@ -148,16 +148,8 @@
       "icon-fav-filled",
       "icon-fav-stroke"
     ],
-    "mobile": [
-      "icon-menu",
-      "icon-touch"
-    ],
-    "tutoffice": [
-      "icon-next",
-      "icon-pause",
-      "icon-play",
-      "icon-previous"
-    ],
+    "mobile": ["icon-menu", "icon-touch"],
+    "tutoffice": ["icon-next", "icon-pause", "icon-play", "icon-previous"],
     "social": [
       "icon-facebook",
       "icon-linkedin",
@@ -166,10 +158,7 @@
       "icon-youtube",
       "icon-youtube-1"
     ],
-    "tools": [
-      "icon-open-space",
-      "icon-common-areas"
-    ],
+    "tools": ["icon-open-space", "icon-common-areas"],
     "univers": [
       "icon-offices",
       "icon-shops",

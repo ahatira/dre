@@ -9,27 +9,44 @@
  *   iconPosition (string) - left|right (default: left)
  #}
 
-{%- set level = level|default('h2') -%}
+{%- set level = level|default('h1') -%}
 {%- set align = align|default('left') -%}
 {%- set visuallyHidden = visuallyHidden|default(false) -%}
 {%- set iconPosition = iconPosition|default('left') -%}
+{%- set color = color|default('default') -%}
+{%- set weight = weight|default('bold') -%}
 
-{%- set heading_classes = 'ps-heading ps-heading--' ~ level ~ ' ps-heading--align-' ~ align -%}
-{%- if visuallyHidden -%}{%- set heading_classes = heading_classes ~ ' ps-heading--visually-hidden' -%}{%- endif -%}
-{%- if icon -%}{%- set heading_classes = heading_classes ~ ' ps-heading--with-icon' -%}{%- endif -%}
+{%- set classes = ['ps-heading'] -%}
+{%- if level != 'h1' -%}
+  {%- set classes = classes|merge(['ps-heading--' ~ level]) -%}
+{%- endif -%}
+{%- if align != 'left' -%}
+  {%- set classes = classes|merge(['ps-heading--align-' ~ align]) -%}
+{%- endif -%}
+{%- if visuallyHidden -%}
+  {%- set classes = classes|merge(['ps-heading--visually-hidden']) -%}
+{%- endif -%}
+{%- if icon -%}
+  {%- set classes = classes|merge(['ps-heading--with-icon']) -%}
+{%- endif -%}
+{%- if color != 'default' -%}
+  {%- set classes = classes|merge(['ps-heading--' ~ color]) -%}
+{%- endif -%}
+{%- if weight != 'bold' -%}
+  {%- set classes = classes|merge(['ps-heading--' ~ weight]) -%}
+{%- endif -%}
 
-<{{ level }} class="{{ heading_classes }}">
+<{{ level }}
+  {%- if attributes is defined -%}
+    {{- attributes.addClass(classes) -}}
+  {%- else -%}
+    class="{{ classes|join(' ') }}"
+  {%- endif -%}>
   {%- if icon and iconPosition == 'left' -%}
-    {%- include '@elements/icon/icon.twig' with {
-      name: icon,
-      size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
-    } only -%}
+    <span class="ps-heading__icon {{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
   <span class="ps-heading__text">{{- text -}}</span>
   {%- if icon and iconPosition == 'right' -%}
-    {%- include '@elements/icon/icon.twig' with {
-      name: icon,
-      size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
-    } only -%}
+    <span class="ps-heading__icon {{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 </{{ level }}>

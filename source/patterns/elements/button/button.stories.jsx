@@ -9,13 +9,13 @@ const settings = {
       description: {
         component:
           "Bouton d'action sémantique conforme au Design System.\n\n" +
-          "- Variants: primary, secondary, success, info, warning, danger, dark, light — couleurs via tokens de marque.\n" +
-          "- Styles: plein (par défaut) et `outline` (fond transparent, bordure tokenisée).\n" +
-          "- Tailles: small, medium (défaut), large — hauteurs/espacements pilotés par tokens.\n" +
+          '- Variants: primary, secondary, success, info, warning, danger, dark, light — couleurs via tokens de marque.\n' +
+          '- Styles: plein (par défaut) et `outline` (fond transparent, bordure tokenisée).\n' +
+          '- Tailles: small, medium (défaut), large — hauteurs/espacements pilotés par tokens.\n' +
           "- Icônes: optionnelles à gauche/droite, via nom d'icône (police `bnpre-icons`).\n" +
-          "- États: disabled et loading avec styles/accessibilité conformes.\n" +
-          "- Mise en page: `fullWidth` étend à 100% du conteneur.\n" +
-          "- Accessibilité: rôle/comportement bouton ou lien selon `url`; focus visible; libellé textuel requis.\n" +
+          '- États: disabled et loading avec styles/accessibilité conformes.\n' +
+          '- Mise en page: `fullWidth` étend à 100% du conteneur.\n' +
+          '- Accessibilité: rôle/comportement bouton ou lien selon `url`; focus visible; libellé textuel requis.\n' +
           "- Marquage minimal: `.ps-button` porte les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
       },
     },

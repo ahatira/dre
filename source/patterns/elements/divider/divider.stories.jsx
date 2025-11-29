@@ -16,9 +16,9 @@ export default {
           '- Épaisseurs: thin, medium (défaut), thick — valeurs via tokens.\n' +
           '- Couleurs: neutral, primary, secondary, success, warning, danger, info — sémantiques de marque.\n' +
           '- Espacement: sm, md (défaut), lg autour du séparateur.\n' +
-          '- Contenu: texte ou icône centrés (police d\'icônes), sans markup additionnel superflu.\n' +
-          '- Accessibilité: rôle décoratif; éviter d\'interrompre la navigation; contraste assuré par tokens.\n' +
-          '- Marquage minimal: `.ps-divider` porte les styles par défaut; les modificateurs n\'apparaissent que si une option diffère du défaut.',
+          "- Contenu: texte ou icône centrés (police d'icônes), sans markup additionnel superflu.\n" +
+          "- Accessibilité: rôle décoratif; éviter d'interrompre la navigation; contraste assuré par tokens.\n" +
+          "- Marquage minimal: `.ps-divider` porte les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
       },
     },
   },

@@ -1,5 +1,73 @@
-{# ps-flag (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-flag">
-  {%- if text -%}<span class="ps-flag__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * Flag atom
+ * @param string code - Country code ISO 3166-1 alpha-2 (ex: FR, GB, DE) (optional)
+ * @param string locale - BCP 47 locale tag (ex: fr-FR, en-GB) (optional)
+ * @param string label - Accessible label (ex: 'France', 'United Kingdom') (optional)
+ * @param string src - Explicit flag image path (optional, default: /flags/{code}.svg)
+ * @param string size - xs|sm|md|lg|xl (default: md)
+ * @param string shape - square|rounded|circle (default: square)
+ * @param boolean disabled - Disabled state (default: false)
+ * @param boolean decorative - Decorative only (hides from screen readers) (default: false)
+ #}
+
+{%- set size = size|default('md') -%}
+{%- set shape = shape|default('square') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set decorative = decorative|default(false) -%}
+
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-flag']) -%}
+
+{# Only add size modifier if not default 'md' #}
+{%- if size != 'md' -%}
+  {%- set classes = classes|merge(['ps-flag--' ~ size]) -%}
+{%- endif -%}
+
+{# Only add shape modifier if not default 'square' #}
+{%- if shape != 'square' -%}
+  {%- set classes = classes|merge(['ps-flag--' ~ shape]) -%}
+{%- endif -%}
+
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-flag--disabled']) -%}
+{%- endif -%}
+
+{# Normalize locale: replace underscore with dash (fr_FR -> fr-FR) #}
+{%- set locale_norm = locale is defined and locale ? locale|replace({'_':'-'}) : null -%}
+{%- set parts = locale_norm ? locale_norm|split('-') : [] -%}
+{%- set region = parts|length > 1 and parts[1]|length == 2 ? parts[1]|upper : null -%}
+
+{# Determine country code: explicit code, or extract from locale #}
+{%- set country_code = code is defined and code ? code|upper : (region ?? null) -%}
+{%- set asset_code = country_code ? country_code|lower : 'xx' -%}
+
+{# Build image source #}
+{%- set img_src = src ?? ('/flags/' ~ asset_code ~ '.svg') -%}
+
+{# Build alt text #}
+{%- set alt_text = decorative ? '' : (label ?? country_code ?? 'Flag') -%}
+
+{# Build title attribute #}
+{%- set title_text = decorative ? '' : (label ?? country_code) -%}
+
+{# Determine image dimensions based on size (4:3 aspect ratio, 1:1 for circle) #}
+{%- if size == 'xs' -%}
+  {%- set img_height = '12' -%}
+  {%- set img_width = shape == 'circle' ? '12' : '16' -%}
+{%- elseif size == 'sm' -%}
+  {%- set img_height = '16' -%}
+  {%- set img_width = shape == 'circle' ? '16' : '21' -%}
+{%- elseif size == 'lg' -%}
+  {%- set img_height = '24' -%}
+  {%- set img_width = shape == 'circle' ? '24' : '32' -%}
+{%- elseif size == 'xl' -%}
+  {%- set img_height = '48' -%}
+  {%- set img_width = shape == 'circle' ? '48' : '64' -%}
+{%- else -%}
+  {%- set img_height = '20' -%}
+  {%- set img_width = shape == 'circle' ? '20' : '27' -%}
+{%- endif -%}
+
+<span class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %}{% if title_text %} title="{{ title_text }}"{% endif %}>
+  <img class="ps-flag__img" src="{{ img_src }}" alt="{{ alt_text }}" width="{{ img_width }}" height="{{ img_height }}"{% if decorative %} aria-hidden="true"{% endif %} />
+</span>

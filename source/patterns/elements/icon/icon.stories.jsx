@@ -87,37 +87,49 @@ export const Categories = {
   render: () => {
     const categories = iconsList.categories || {};
     const used = new Set();
-    Object.values(categories).forEach(arr => arr.forEach(i => used.add(i)));
-    const others = iconsList.all.filter(i => !used.has(i));
+    Object.values(categories).forEach((arr) => arr.forEach((i) => used.add(i)));
+    const others = iconsList.all.filter((i) => !used.has(i));
     return `
       <div style="display:flex; flex-direction:column; gap:var(--size-8);">
-        ${Object.entries(categories).map(([key, list]) => `
+        ${Object.entries(categories)
+          .map(
+            ([key, list]) => `
           <section>
-            <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">${key.charAt(0).toUpperCase()+key.slice(1)}</h3>
+            <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
             <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--size-4);">
-              ${list.map(name => `
+              ${list
+                .map(
+                  (name) => `
                 <div style="display:flex; flex-direction:column; align-items:center; gap:var(--size-2); padding:var(--size-3); border:1px solid var(--gray-200); border-radius: var(--radius-2);">
                   ${icon({ name, size: 'large' })}
-                  <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-','')}</span>
+                  <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-', '')}</span>
                 </div>
-              `).join('')}
+              `
+                )
+                .join('')}
             </div>
           </section>
-        `).join('')}
+        `
+          )
+          .join('')}
         <section>
           <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">Autres</h3>
           <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--size-4);">
-            ${others.map(name => `
+            ${others
+              .map(
+                (name) => `
               <div style="display:flex; flex-direction:column; align-items:center; gap:var(--size-2); padding:var(--size-3); border:1px solid var(--gray-100); border-radius: var(--radius-2);">
                 ${icon({ name, size: 'large' })}
-                <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-','')}</span>
+                <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-', '')}</span>
               </div>
-            `).join('')}
+            `
+              )
+              .join('')}
           </div>
         </section>
       </div>
     `;
-  }
+  },
 };
 
 export const SearchExample = {

@@ -150,7 +150,7 @@ export const RealWorldExamples = {
       })}
       
       ${component({
-        text: "BNP Paribas Real Estate vous accompagne dans tous vos projets immobiliers professionnels. Fort de notre expertise et de notre réseau international, nous vous proposons des solutions adaptées à vos besoins.",
+        text: 'BNP Paribas Real Estate vous accompagne dans tous vos projets immobiliers professionnels. Fort de notre expertise et de notre réseau international, nous vous proposons des solutions adaptées à vos besoins.',
         variant: 'body',
       })}
       
@@ -160,7 +160,7 @@ export const RealWorldExamples = {
       })}
       
       ${component({
-        text: "* Informations non contractuelles. Prix indicatifs sous réserve de disponibilité.",
+        text: '* Informations non contractuelles. Prix indicatifs sous réserve de disponibilité.',
         variant: 'small',
         muted: true,
       })}

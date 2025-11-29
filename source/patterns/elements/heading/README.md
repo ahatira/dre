@@ -1,93 +1,113 @@
 # ps-heading
 
-Atom: Semantic typographic headings (h1-h6)
+Atom: Semantic typographic headings (h1–h6) with semantic color + weight variants. Default output is minimal: `<h1 class="ps-heading">`.
 
 ## API
 
-- `text` (string) - Heading text content **required**
-- `level` (string) - h1|h2|h3|h4|h5|h6 (default: h2)
-- `align` (string) - left|center|right (default: left)
-- `visuallyHidden` (boolean) - Screen reader only (default: false)
-- `icon` (string) - Icon name (optional, e.g., 'icon-pin-map')
-- `iconPosition` (string) - left|right (default: left)
+- `text` (string) REQUIRED — Heading text content
+- `level` (string) — `h1|h2|h3|h4|h5|h6` (default: `h1`)
+- `align` (string) — `left|center|right` (default: `left`)
+- `color` (string) — `default|primary|secondary|success|warning|danger|info` (default: `default`)
+- `weight` (string) — `light|regular|bold|extra` (default: `bold`)
+- `visuallyHidden` (boolean) — Screen reader only (default: `false`)
+- `icon` (string) — Optional icon class from `icons.css` (e.g., `icon-pin-map`)
+- `iconPosition` (string) — `left|right` (default: `left`)
 
-## Heading Hierarchy
+## Heading Hierarchy (Scale)
 
-- **h1**: 48px - Main page title
-- **h2**: 36px - Section titles
-- **h3**: 28px - Subsection titles
-- **h4**: 24px - Content block titles
-- **h5**: 20px - Small headings
-- **h6**: 16px - Micro titles (uppercase)
+- **h1**: 48px / 1.25 / bold
+- **h2**: 36px / 1.25 / bold
+- **h3**: 28px / 1.375 / bold
+- **h4**: 24px / 1.375 / bold
+- **h5**: 20px / 1.5 / semi-bold (600)
+- **h6**: 16px / 1.5 / semi-bold (600) / uppercase + wide tracking
 
 ## BEM
 
 - Block: `ps-heading`
-- Elements: `ps-heading__text`
-- Modifiers: 
-  - Level: `--h1`, `--h2`, `--h3`, `--h4`, `--h5`, `--h6`
-  - Alignment: `--align-left`, `--align-center`, `--align-right`
+- Elements: `ps-heading__text`, `ps-heading__icon`
+- Modifiers (independent):
+  - Levels: `--h2`, `--h3`, `--h4`, `--h5`, `--h6` (base = h1)
+  - Alignment: `--align-center`, `--align-right` (base = left)
+  - Color: `--primary`, `--secondary`, `--success`, `--warning`, `--danger`, `--info`
+  - Weight: `--light`, `--regular`, `--bold`, `--extra` (base = bold)
   - Visibility: `--visually-hidden`
-  - With icon: `--with-icon`
+  - Icon presence: `--with-icon`
 
-## Usage
+## Minimal Markup Principle
+
+Default output (only base class):
+```html
+<h1 class="ps-heading"><span class="ps-heading__text">Title</span></h1>
+```
+Any modifier class appears ONLY when value differs from its default.
+
+## Usage Examples
 
 ```twig
-{# Basic heading #}
-{% include '@ps_theme/heading/heading.twig' with { 
-  text: 'Section title',
-  level: 'h2'
-} %}
+{# Default h1 #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Page Title' } %}
 
-{# Centered h1 #}
-{% include '@ps_theme/heading/heading.twig' with { 
-  text: 'Page title',
-  level: 'h1',
-  align: 'center'
-} %}
-{# Screen reader only #}
-{% include '@ps_theme/heading/heading.twig' with { 
-  text: 'Navigation',
-  level: 'h2',
-  visuallyHidden: true
-} %}
+{# h2 section title (adds --h2) #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Section', level: 'h2' } %}
 
-{# With icon left #}
-{% include '@ps_theme/heading/heading.twig' with { 
-  text: 'Localisation',
-  level: 'h2',
-  icon: 'icon-pin-map'
-} %}
+{# Warning colored h3 #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Caution', level: 'h3', color: 'warning' } %}
 
-{# With icon right #}
-{% include '@ps_theme/heading/heading.twig' with { 
-  text: 'Voir les détails',
-  level: 'h3',
-  icon: 'icon-arrow-right',
-  iconPosition: 'right'
-} %}
-```}
+{# Secondary light weight h4 centered #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Sub Block', level: 'h4', color: 'secondary', weight: 'light', align: 'center' } %}
+
+{# With right icon #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Voir les détails', level: 'h3', icon: 'icon-arrow-right', iconPosition: 'right' } %}
+
+{# Screen reader only structural heading #}
+{% include '@ps_theme/heading/heading.twig' with { text: 'Navigation', level: 'h2', visuallyHidden: true } %}
 ```
 
-## Tokens
+## Design Tokens Used
 
-Uses:
-- `--font-sans` (BNPP Sans)
-- `--font-size-*` (1/3/5/6/8/10 for h6/h5/h4/h3/h2/h1)
-- `--font-weight-600` (h5/h6), `--font-weight-700` (h1-h4)
-- `--leading-tight` (1.25), `--leading-snug` (1.375), `--leading-normal` (1.5)
-- `--tracking-wide` (0.025em for h6)
-- `--gray-900` (#1F2A33)
-- `--size-6` (24px margin-bottom)
+Typography & Weight:
+- `--ps-heading-h1-size..h6` fallbacks `--font-size-10|8|6|5|3|1`
+- `--ps-heading-h1-line-height..h6` fallbacks `--leading-tight|tight|snug|snug|normal|normal`
+- `--ps-font-weight-bold` fallback `--font-weight-700`
+- `--font-weight-600` (h5/h6 defaults)
+- Weight modifiers: `--font-weight-300|400|700|800`
+- Tracking for h6: `--tracking-wide`
+
+Color:
+- Base text: `--ps-color-text` fallback `--gray-900`
+- Semantic variants: `--brand-primary`, `--brand-secondary`, `--btn-success`, `--btn-warning`, `--btn-danger`, `--btn-info`
+
+Spacing:
+- Bottom margin: `--ps-spacing-6` fallback `--size-6`
+- Icon gap: `--size-2`
+
+Icon:
+- Font family: `bnpre-icons` via `source/props/icons.css`
 
 ## Accessibility
 
-- Always use proper semantic hierarchy (h1 → h2 → h3...)
-- Only one h1 per page
-- Use `visuallyHidden: true` for structural headings that aren't needed visually
-- Avoid skipping levels (h1 → h3)
+- Maintain logical hierarchy (do not skip levels arbitrarily).
+- One `h1` per page; additional visual needs use lower levels styled as needed.
+- `visuallyHidden` preserves semantics for assistive tech.
+- Icons marked `aria-hidden="true"` when decorative.
 
-## Typography Scale
+## States & Modifiers Independence
+
+Each modifier adjusts only its concern (color, weight, alignment, level) and works standalone.
+
+## Responsive Considerations
+
+Typography scales via tokens; adjust at token layer if responsive sizes introduced.
+
+## Testing Checklist
+
+- Verify color variants reflect correct brand tokens.
+- Ensure weight modifiers override level defaults cleanly.
+- Confirm minimal markup: no default modifier classes on base render.
+- Screen reader only heading removed visually but present in accessibility tree.
+
+## Typography Reference
 
 ```
 h1: 48px / 1.25 / 700
@@ -95,5 +115,5 @@ h2: 36px / 1.25 / 700
 h3: 28px / 1.375 / 700
 h4: 24px / 1.375 / 700
 h5: 20px / 1.5 / 600
-h6: 16px / 1.5 / 600 / uppercase
+h6: 16px / 1.5 / 600 / uppercase / wide tracking
 ```
