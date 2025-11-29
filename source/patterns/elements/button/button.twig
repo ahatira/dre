@@ -52,10 +52,12 @@
   {%- endif -%}
 
   {%- if icon and iconPosition == 'left' and label -%}
-    {%- include '../icon/icon.twig' with {
-      name: icon,
-      size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
-    } only -%}
+    <span class="ps-button__icon ps-button__icon--left" aria-hidden="true">
+      {%- include '@elements/icon/icon.twig' with {
+        name: icon,
+        size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
+      } only -%}
+    </span>
   {%- endif -%}
 
   {%- if label -%}
@@ -63,9 +65,11 @@
   {%- endif -%}
 
   {%- if icon and (iconPosition == 'right' or not label) -%}
-    {%- include '../icon/icon.twig' with {
-      name: icon,
-      size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
-    } only -%}
+    <span class="ps-button__icon{% if iconPosition == 'right' %} ps-button__icon--right{% endif %}" aria-hidden="true">
+      {%- include '@elements/icon/icon.twig' with {
+        name: icon,
+        size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
+      } only -%}
+    </span>
   {%- endif -%}
 </{{ tag }}>
