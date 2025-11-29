@@ -1,12 +1,101 @@
-@layer components {
-  .radio {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .radio__text {
-    font: inherit;
-  }
+/* PS Radio Atom - Pixel Perfect */
+
+.ps-radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--size-2); /* 8px gap per mockup */
+  cursor: pointer;
+  user-select: none;
+  /* Icon codepoints controlled via CSS variables */
+  --ps-radio-icon-unselected: "\e86a";
+  --ps-radio-icon-selected: "\e869";
+  --ps-radio-icon-color-unselected: var(--text-default);
+  --ps-radio-icon-color-selected: var(--bnp-green);
+}
+
+.ps-radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ps-radio__circle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-5);
+  height: var(--size-5);
+  min-width: var(--size-5);
+  border: 0; /* border rendered by icon glyph */
+  border-radius: 0;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+/* Render icon via pseudo-element on the circle to avoid extra markup */
+.ps-radio__circle::before {
+  font-family: 'bnpre-icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  content: var(--ps-radio-icon-unselected);
+  color: var(--ps-radio-icon-color-unselected);
+  font-size: var(--font-size-2);
+  margin: 0;
+}
+
+/* Checked state */
+.ps-radio__input:checked + .ps-radio__circle {
+  background: transparent;
+}
+
+/* Toggle icon and color when checked */
+.ps-radio__input:checked + .ps-radio__circle::before {
+  content: var(--ps-radio-icon-selected);
+  color: var(--ps-radio-icon-color-selected);
+}
+
+/* Hover state */
+.ps-radio:hover .ps-radio__circle {
+  /* hover border handled by glyph color; circle has no border */
+}
+
+/* Focus state */
+.ps-radio__input:focus-visible + .ps-radio__circle {
+  outline: 2px solid var(--blue-600);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.ps-radio--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ps-radio--disabled .ps-radio__circle {
+  background: transparent;
+}
+
+/* Label */
+.ps-radio__label {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: var(--font-weight-400);
+  font-size: var(--font-size-1); /* 16px */
+  line-height: var(--leading-6); /* 24px */
+  color: var(--text-default); /* #333333 per mockup */
+  transition: color 0.15s ease;
+}
+
+/* Label turns green when checked */
+.ps-radio__input:checked ~ .ps-radio__label {
+  color: var(--bnp-green);
 }

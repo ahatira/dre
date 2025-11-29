@@ -1,5 +1,21 @@
 {# ps-radio (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-radio">
-  {%- if text -%}<span class="ps-radio__text">{{- text -}}</span>{%- endif -%}
-</div>
+{%- set name = name|default('radio') -%}
+{%- set value = value|default('1') -%}
+{%- set label = label|default('Option label') -%}
+{%- set checked = checked|default(false) -%}
+{%- set disabled = disabled|default(false) -%}
+
+<label class="ps-radio{% if disabled %} ps-radio--disabled{% endif %}">
+  <input
+    type="radio"
+    class="ps-radio__input"
+    name="{{ name }}"
+    value="{{ value }}"
+    {% if checked %}checked{% endif %}
+    {% if disabled %}disabled{% endif %}
+  />
+  <span class="ps-radio__circle" aria-hidden="true"></span>
+  {% if label %}
+    <span class="ps-radio__label">{{ label }}</span>
+  {% endif %}
+</label>
