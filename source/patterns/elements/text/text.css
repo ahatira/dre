@@ -1,0 +1,38 @@
+/** Text atom - Typography for paragraphs and content */
+
+.ps-text {
+  margin: 0 0 var(--size-4); /* 16px bottom margin */
+  color: var(--gray-900); /* #1F2A33 */
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-normal); /* 1.5 */
+}
+
+/* Variant sizes */
+.ps-text--body {
+  font-size: var(--font-size-1); /* 16px - default paragraph */
+}
+
+.ps-text--small {
+  font-size: var(--font-size-0); /* 14px - captions/helper text */
+  line-height: var(--leading-snug); /* 1.375 */
+}
+
+.ps-text--large {
+  font-size: var(--font-size-2); /* 18px - lead text */
+  line-height: var(--leading-relaxed); /* 1.625 */
+}
+
+/* State modifiers */
+.ps-text--muted {
+  color: var(--gray-600); /* #6B7780 - secondary text */
+}
+
+.ps-text--strong {
+  font-weight: var(--font-weight-700); /* Bold emphasis */
+}
+
+/* Alignment modifiers */
+.ps-text--align-left { text-align: left; }
+.ps-text--align-center { text-align: center; }
+.ps-text--align-right { text-align: right; }

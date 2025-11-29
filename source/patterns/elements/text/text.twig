@@ -1,0 +1,28 @@
+{#
+ * Text atom - Typography for paragraphs and text content
+ * Props:
+ *   text (string) - Text content (required)
+ *   variant (string) - body|small|large (default: body)
+ *   tag (string) - p|span|div (default: p)
+ *   align (string) - left|center|right (default: left)
+ *   muted (boolean) - Muted color (default: false)
+ *   strong (boolean) - Bold weight (default: false)
+ #}
+
+{% set variant = variant|default('body') %}
+{% set tag = tag|default('p') %}
+{% set align = align|default('left') %}
+{% set muted = muted|default(false) %}
+{% set strong = strong|default(false) %}
+
+{% set text_classes = 'ps-text ps-text--' ~ variant ~ ' ps-text--align-' ~ align %}
+{% if muted %}
+  {% set text_classes = text_classes ~ ' ps-text--muted' %}
+{% endif %}
+{% if strong %}
+  {% set text_classes = text_classes ~ ' ps-text--strong' %}
+{% endif %}
+
+<{{ tag }} class="{{ text_classes }}">
+  <span class="ps-text__content">{{ text }}</span>
+</{{ tag }}>
