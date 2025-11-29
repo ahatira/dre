@@ -1,5 +1,47 @@
-{# ps-spinner (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-spinner">
-  {%- if text -%}<span class="ps-spinner__text">{{- text -}}</span>{%- endif -%}
+{#
+ * Spinner (Element/Atom)
+ * Indicateur de chargement animé pour états asynchrones
+ * @param string variant - Type de spinner (optional, default: 'circular') - Options: circular | dots | bars
+ * @param string size - Taille du spinner (optional, default: 'md') - Options: xs | sm | md | lg | xl
+ * @param string color - Couleur du spinner (optional, default: 'primary') - Options: primary | secondary | white | neutral
+ * @param string text - Texte pour lecteurs d'écran (optional, default: 'Chargement en cours...')
+ * @param boolean centered - Centrer dans le conteneur (optional, default: false)
+ * @param Drupal\Core\Template\Attribute attributes - Attributs HTML additionnels (optional)
+ #}
+
+{%- set variant = variant|default('circular') -%}
+{%- set size = size|default('md') -%}
+{%- set color = color|default('primary') -%}
+{%- set text = text|default('Chargement en cours...') -%}
+{%- set centered = centered|default(false) -%}
+
+{%- set classes = ['ps-spinner'] -%}
+{%- if variant != 'circular' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ variant]) -%}
+{%- endif -%}
+{%- if size != 'md' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ size]) -%}
+{%- endif -%}
+{%- if color != 'primary' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ color]) -%}
+{%- endif -%}
+{%- if centered -%}
+  {%- set classes = classes|merge(['ps-spinner--centered']) -%}
+{%- endif -%}
+
+<div class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %} role="status" aria-live="polite">
+  {%- if variant == 'circular' -%}
+    <svg class="ps-spinner__svg" viewBox="0 0 50 50">
+      <circle class="ps-spinner__circle" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+    </svg>
+  {%- elseif variant == 'dots' -%}
+    <span class="ps-spinner__dot"></span>
+    <span class="ps-spinner__dot"></span>
+    <span class="ps-spinner__dot"></span>
+  {%- elseif variant == 'bars' -%}
+    <span class="ps-spinner__bar"></span>
+    <span class="ps-spinner__bar"></span>
+    <span class="ps-spinner__bar"></span>
+  {%- endif -%}
+  <span class="ps-spinner__text">{{ text }}</span>
 </div>

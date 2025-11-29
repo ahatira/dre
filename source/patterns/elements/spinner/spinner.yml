@@ -1,2 +1,6 @@
-text: 'spinner component placeholder'
-modifier: ''
+# Defaults for Spinner preview
+variant: 'circular'  # Options: circular | dots | bars
+size: 'md'  # Options: xs | sm | md | lg | xl
+color: 'primary'  # Options: primary | secondary | white | neutral
+text: 'Chargement en cours...'  # Options: any text for screen readers
+centered: false  # Options: true | false
