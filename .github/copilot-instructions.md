@@ -79,13 +79,84 @@
 - Use the provided npm scripts for builds and dev workflows.
 - Reference `vite.config.js` for automation details.
 - **CRITICAL - COMPONENT TEMPLATE**: ALWAYS follow `.github/COMPONENT_TEMPLATE_STANDARD.md` EXACTLY. This template is based on the validated button reference and defines the MANDATORY structure for all components (5 files: .twig, .css, .yml, .stories.jsx, README.md).
+- **CRITICAL - COMPLETE IMPLEMENTATION**: When implementing a component, ALWAYS deliver:
+  1. ✅ Functional Twig template with all props and variants
+  2. ✅ Complete CSS with ALL modifiers and states working on base class
+  3. ✅ YAML with sensible defaults
+  4. ✅ **COMPLETE Storybook stories** with ALL variants individually + grouped showcase stories (AllStyles, UseCases, etc.)
+  5. ✅ **DETAILED README.md** with: description, props table, BEM structure, design tokens used, usage examples, real-world use cases, accessibility notes
+  - ❌ NEVER stop at just template/CSS - stories and docs are MANDATORY
 - **CRITICAL - STORYBOOK STORIES**: 
   - ❌ NEVER use React/JSX in `.stories.jsx` files (this is HTML-Vite Storybook, not React)
-  - ✅ ALWAYS import Twig: `import component from './component.twig';`
+  - ✅ ALWAYS import Twig: `import componentTwig from './component.twig';` (use unique name like `componentTwig` to avoid conflicts)
   - ✅ ALWAYS import YAML: `import data from './component.yml';`
-  - ✅ ALWAYS use Twig render: `render: (args) => component(args)`
-  - ✅ ALWAYS return HTML strings for showcase stories
+  - ✅ ALWAYS use Twig render: `render: (args) => componentTwig(args)`
+  - ✅ ALWAYS return HTML strings for showcase stories: `` `${componentTwig(args)}` ``
   - ✅ Use Storybook Autodocs exclusively: set `tags: ['autodocs']` on the default export and DO NOT create `.mdx` docs files for components.
+  - ✅ Create individual variant stories (Default, Variant1, Variant2, etc.) AND grouped showcase stories (AllStyles, UseCases, etc.)
+- **CRITICAL - MINIMAL HTML OUTPUT**: 
+  - Default component render should produce MINIMAL markup with ONLY base class
+  - Example: `<hr class="ps-divider" />` NOT `<hr class="ps-divider ps-divider--horizontal ps-divider--solid ps-divider--medium" />`
+  - Only add modifier classes when values differ from defaults
+  - Base class (`.ps-divider`) must contain all default styles
+  - Example Twig logic:
+    ```twig
+    {%- set root_classes = ['ps-component'] -%}
+    {%- if variant != 'default' -%}
+      {%- set root_classes = root_classes|merge(['ps-component--' ~ variant]) -%}
+    {%- endif -%}
+    ```
+- **CRITICAL - CSS MODIFIERS INDEPENDENCE**: 
+  - ALL modifiers MUST work on the base class alone
+  - ❌ WRONG: `.ps-divider--horizontal.ps-divider--primary { color: green; }` (requires two classes)
+  - ✅ CORRECT: `.ps-divider--primary { border-color: var(--color-primary); }` (works alone)
+  - Base class contains default styles; modifiers override only what changes
+  - Example:
+    ```css
+    .ps-divider {
+      border-top: 2px solid var(--gray-300); /* defaults */
+      margin: var(--size-4) 0;
+    }
+    .ps-divider--primary { border-top-color: var(--bnp-green); } /* works alone */
+    .ps-divider--thick { border-top-width: 4px; } /* works alone */
+    ```
+- **CRITICAL - ICONS IN CSS**: 
+  - Render icons via CSS pseudo-elements (`::before`/`::after`) when possible
+  - ❌ Avoid extra markup: `<i class="icon-name"></i>`
+  - ✅ Prefer CSS-only: `.component::before { content: "\e800"; font-family: 'icon-font'; }`
+  - Use CSS variables for icon codepoints to make them configurable
+  - Example:
+    ```css
+    .ps-checkbox {
+      --icon-checked: "\e858";
+      --icon-unchecked: "\e859";
+    }
+    .ps-checkbox__box::before {
+      font-family: 'bnpre-icons';
+      content: var(--icon-unchecked);
+    }
+    .ps-checkbox__input:checked + .ps-checkbox__box::before {
+      content: var(--icon-checked);
+    }
+    ```
+- **CRITICAL - DESIGN TOKENS FROM SPEC**: 
+  - ALWAYS read `docs/design/{level}/{component}.md` to identify correct tokens
+  - Use official spec tokens (e.g., `--ps-color-primary-600`, `--ps-color-neutral-300`) not generic ones
+  - Add fallbacks for compatibility: `var(--ps-color-neutral-300, var(--gray-300))`
+  - Verify token hex values match spec exactly
+  - Check spec sections: "Design Tokens", "🎨 Design Tokens"
+- **CRITICAL - TWIG CLASS HANDLING**: 
+  - Never add empty or undefined classes to markup
+  - Use conditional `merge()` to add classes only when needed
+  - ❌ WRONG: `text ? 'class--with-text' : ''` (adds empty string)
+  - ✅ CORRECT: 
+    ```twig
+    {%- set classes = ['base-class'] -%}
+    {%- if text -%}
+      {%- set classes = classes|merge(['base-class--with-text']) -%}
+    {%- endif -%}
+    ```
+  - Filter functions may not exist in Twig - use conditional merge instead
 - **CRITICAL - PIXEL PERFECT MANDATORY**: BEFORE implementing ANY component:
   1. Read COMPLETE spec in `docs/design/{level}/{component}.md` (ALL sections: BEM, Props, Variants, Tokens, States, Accessibility)
   2. Verify ALL dimensions are EXACT (heights, widths, paddings, margins, gaps, borders)
@@ -105,7 +176,7 @@
   6. Document in CHANGELOG.md with justification
 - **CRITICAL**: Read spec in `docs/design/{level}/{component}.md` before implementing.
 - **CRITICAL**: DO NOT create `ps-tokens.css` or similar - tokens are organized in separate files by category.
-- Refer to `source/patterns/elements/button/` as the reference implementation example.
+- Refer to `source/patterns/elements/button/` and `source/patterns/elements/divider/` as reference implementation examples.
 - Update `docs/ps-design/CHANGELOG.md` after each component implementation and any token additions.
 
 ### Example: Token Verification Workflow
