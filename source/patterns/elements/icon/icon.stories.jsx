@@ -8,56 +8,34 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: `Icon font system using bnpre-icons and bnpre-icons-poi fonts. 
-        
-**Fonts**: bnpre-icons (75 icons) + bnpre-icons-poi (14 POI icons)  
-**Sizes**: small (16px), medium (20px), large (24px), xlarge (32px)  
-**Usage**: \`<i class="icon-search ps-icon--medium"></i>\`  
-
-The icon classes are defined in \`source/props/icons.css\` and should NOT be modified.`,
+        component: `Système d'icônes (bnpre-icons + bnpre-icons-poi). 
+Groupement visuel par catégorie selon la maquette: Generic, Mobile only, Tutoffice, Social media, Tools, Univers, Ad, Autres.
+Toutes les classes proviennent de \`source/props/icons.css\` (générées depuis le SVG).`,
       },
     },
   },
   argTypes: {
     name: {
-      description: 'Icon class name (e.g., icon-search, icon-account, icon-poi-hotel)',
+      description: 'Nom de classe icone',
       control: { type: 'select' },
       options: iconsList.all,
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'icon-search' },
-      },
     },
     size: {
-      description: 'Icon size',
+      description: 'Taille',
       control: { type: 'select' },
       options: ['small', 'medium', 'large', 'xlarge'],
-      table: {
-        type: { summary: 'small | medium | large | xlarge' },
-        defaultValue: { summary: 'medium' },
-      },
     },
     color: {
-      description: 'Custom icon color (CSS color value)',
+      description: 'Couleur (token ou valeur CSS)',
       control: { type: 'color' },
-      table: {
-        type: { summary: 'string' },
-      },
     },
     disabled: {
-      description: 'Disabled state',
+      description: 'État disabled',
       control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
     },
     ariaLabel: {
-      description: 'Accessibility label (use for informative icons)',
+      description: 'Label accessibilité',
       control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-      },
     },
   },
 };
@@ -104,40 +82,42 @@ export const Disabled = {
   `,
 };
 
-export const AllRegularIcons = {
-  name: 'Gallery: Regular Icons (75)',
-  render: () => `
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--size-6); padding: var(--size-4);">
-      ${iconsList.regular
-        .map(
-          (iconName) => `
-        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-3); padding: var(--size-4); border: 1px solid var(--gray-200); border-radius: var(--radius-2); transition: all 0.2s;" onmouseover="this.style.borderColor='var(--bnp-green)'; this.style.background='var(--gray-50)';" onmouseout="this.style.borderColor='var(--gray-200)'; this.style.background='transparent';">
-          ${icon({ name: iconName, size: 'xlarge' })}
-          <code style="font-size: var(--font-size-0); text-align: center; word-break: break-word; color: var(--gray-700);">${iconName}</code>
-        </div>
-      `
-        )
-        .join('')}
-    </div>
-  `,
-};
-
-export const AllPOIIcons = {
-  name: 'Gallery: POI Icons (14)',
-  render: () => `
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--size-6); padding: var(--size-4);">
-      ${iconsList.poi
-        .map(
-          (iconName) => `
-        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-3); padding: var(--size-4); border: 1px solid var(--gray-200); border-radius: var(--radius-2); transition: all 0.2s;" onmouseover="this.style.borderColor='var(--bnp-green)'; this.style.background='var(--gray-50)';" onmouseout="this.style.borderColor='var(--gray-200)'; this.style.background='transparent';">
-          ${icon({ name: iconName, size: 'xlarge' })}
-          <code style="font-size: var(--font-size-0); text-align: center; word-break: break-word; color: var(--gray-700);">${iconName}</code>
-        </div>
-      `
-        )
-        .join('')}
-    </div>
-  `,
+export const Categories = {
+  name: 'Galerie catégorisée',
+  render: () => {
+    const categories = iconsList.categories || {};
+    const used = new Set();
+    Object.values(categories).forEach(arr => arr.forEach(i => used.add(i)));
+    const others = iconsList.all.filter(i => !used.has(i));
+    return `
+      <div style="display:flex; flex-direction:column; gap:var(--size-8);">
+        ${Object.entries(categories).map(([key, list]) => `
+          <section>
+            <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">${key.charAt(0).toUpperCase()+key.slice(1)}</h3>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--size-4);">
+              ${list.map(name => `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:var(--size-2); padding:var(--size-3); border:1px solid var(--gray-200); border-radius: var(--radius-2);">
+                  ${icon({ name, size: 'large' })}
+                  <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-','')}</span>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        `).join('')}
+        <section>
+          <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">Autres</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--size-4);">
+            ${others.map(name => `
+              <div style="display:flex; flex-direction:column; align-items:center; gap:var(--size-2); padding:var(--size-3); border:1px solid var(--gray-100); border-radius: var(--radius-2);">
+                ${icon({ name, size: 'large' })}
+                <span style="font-size: var(--font-size--1); text-align:center;">${name.replace('icon-','')}</span>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      </div>
+    `;
+  }
 };
 
 export const SearchExample = {
@@ -180,12 +160,15 @@ export const ActionsExample = {
   `,
 };
 
+// Exemples spécifiques conservés
 export const CheckboxIcons = {
-  name: 'Example: Checkbox Icons',
+  name: 'Exemple: Checkbox',
   render: () => `
-    <div style="display: flex; gap: var(--size-6); align-items: center;">
+    <div style="display:flex; gap:var(--size-6); align-items:center;">
       ${icon({ name: 'icon-checkbox', size: 'medium' })}
       ${icon({ name: 'icon-checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
+      ${icon({ name: 'icon-radio-unselected', size: 'medium' })}
+      ${icon({ name: 'icon-radio-selected', size: 'medium', color: 'var(--bnp-green)' })}
     </div>
   `,
 };

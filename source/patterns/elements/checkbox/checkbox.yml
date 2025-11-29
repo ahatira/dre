@@ -1,2 +1,6 @@
-text: 'checkbox component placeholder'
-modifier: ''
+name: 'option'
+value: '1'
+label: 'Option label'
+checked: false
+disabled: false
+id: ''

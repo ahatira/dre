@@ -1,12 +1,103 @@
-@layer components {
-  .checkbox {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .checkbox__text {
-    font: inherit;
-  }
+/* PS Checkbox Atom - Pixel Perfect */
+
+.ps-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--size-2); /* 8px gap per mockup */
+  cursor: pointer;
+  user-select: none;
+  /* Icon codepoints controlled via CSS variables */
+  --ps-checkbox-icon-unchecked: "\e859";
+  --ps-checkbox-icon-checked: "\e858";
+  --ps-checkbox-icon-color-unchecked: var(--text-default);
+  --ps-checkbox-icon-color-checked: var(--bnp-green);
+}
+
+.ps-checkbox__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ps-checkbox__box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-5);
+  height: var(--size-5);
+  min-width: var(--size-5);
+  border: 0; /* border rendered by icon glyph */
+  border-radius: 0;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+/* Render icon via pseudo-element on the box to avoid extra markup */
+.ps-checkbox__box::before {
+  font-family: 'bnpre-icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  content: var(--ps-checkbox-icon-unchecked);
+  color: var(--ps-checkbox-icon-color-unchecked);
+  font-size: var(--font-size-2);
+  margin: 0;
+}
+
+/* Remove icon element styles; handled by ::before now */
+
+/* Checked state */
+.ps-checkbox__input:checked + .ps-checkbox__box {
+  background: transparent;
+}
+
+/* Toggle icon and color when checked */
+.ps-checkbox__input:checked + .ps-checkbox__box::before {
+  content: var(--ps-checkbox-icon-checked);
+  color: var(--ps-checkbox-icon-color-checked);
+}
+
+/* Hover state */
+.ps-checkbox:hover .ps-checkbox__box {
+  /* hover border handled by glyph color; box has no border */
+}
+
+/* Focus state */
+.ps-checkbox__input:focus-visible + .ps-checkbox__box {
+  outline: 2px solid var(--blue-600);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.ps-checkbox--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ps-checkbox--disabled .ps-checkbox__box {
+  background: transparent;
+}
+
+/* Label */
+.ps-checkbox__label {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: var(--font-weight-400);
+  font-size: var(--font-size-1); /* 16px */
+  line-height: var(--leading-6); /* 24px */
+  color: var(--text-default); /* #333333 per mockup */
+  transition: color 0.15s ease;
+}
+
+/* Label turns green when checked */
+.ps-checkbox__input:checked ~ .ps-checkbox__label {
+  color: var(--bnp-green);
 }

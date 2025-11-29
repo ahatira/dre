@@ -11,6 +11,7 @@
   
   /* Base colors */
   --white: hsl(0 0% 100%);
+  --text-default: #333333; /* Default text color */
   --gray-50: hsl(210, 20%, 98%);
   --gray-100: hsl(220, 14%, 96%);
   --gray-200: hsl(220, 13%, 91%);

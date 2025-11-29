@@ -131,6 +131,10 @@
     content: "\e858"
 }
 
+.icon-checkbox:before {
+    content: "\e859"
+}
+
 .icon-close:before {
     content: "\e85a"
 }
@@ -354,6 +358,55 @@
 .icon-residentiel:before {
     content: "\e8eb"
 }
+
+/* Added missing bnpre-icons glyphs extracted from SVG */
+.icon-elevator:before { content: "\e800" }
+.icon-equipement:before { content: "\e802" }
+.icon-equipement-1:before { content: "\e803" }
+.icon-air-conditioning:before { content: "\e806" }
+.icon-business-lounge:before { content: "\e808" }
+.icon-false-ceiling:before { content: "\e809" }
+.icon-fav-stroke:before { content: "\e80b" }
+.icon-floors:before { content: "\e80c" }
+.icon-host:before { content: "\e80e" }
+.icon-kitchen:before { content: "\e810" }
+.icon-meeting-rooms-number:before { content: "\e811" }
+.icon-not-available:before { content: "\e813" }
+.icon-price:before { content: "\e818" }
+.icon-sanitary:before { content: "\e81b" }
+.icon-sport-room:before { content: "\e81c" }
+.icon-train:before { content: "\e81e" }
+.icon-the-mosts:before { content: "\e81f" }
+.icon-accessibility:before { content: "\e822" }
+.icon-vestiaires:before { content: "\e823" }
+.icon-waiting-room:before { content: "\e825" }
+.icon-welcome-room:before { content: "\e827" }
+.icon-bus-1:before { content: "\e828" }
+.icon-energy-cons-1:before { content: "\e829" }
+.icon-air-conditioning-1:before { content: "\e82a" }
+.icon-testimony:before { content: "\e82b" }
+.icon-trends:before { content: "\e82c" }
+.icon-advise:before { content: "\e82e" }
+.icon-buy-rent:before { content: "\e82f" }
+.icon-capital-market:before { content: "\e830" }
+.icon-entrusting-a-property:before { content: "\e831" }
+.icon-pause:before { content: "\e838" }
+.icon-common-areas:before { content: "\e83b" }
+.icon-open-space:before { content: "\e83c" }
+.icon-facebook:before { content: "\e83d" }
+.icon-twitter:before { content: "\e841" }
+.icon-drag-and-drop:before { content: "\e845" }
+.icon-list:before { content: "\e846" }
+.icon-select-area-map:before { content: "\e847" }
+.icon-touch:before { content: "\e849" }
+.icon-medal:before { content: "\e84b" }
+.icon-download:before { content: "\e85b" }
+.icon-euro:before { content: "\e85d" }
+.icon-radio-selected:before { content: "\e869" }
+.icon-radio-unselected:before { content: "\e86a" }
+.icon-settings:before { content: "\e86d" }
+.icon-false-ceiling-1:before { content: "\e871" }
+.icon-car-1:before { content: "\e872" }
 
 .icon-poi-sport:before {
     content: "\e800"

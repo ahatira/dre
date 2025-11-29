@@ -61,9 +61,9 @@ ps-avatar                                 // Block
 Modificateurs :
   ps-avatar--xs                           // 24px
   ps-avatar--sm                           // 32px
-  ps-avatar--md                           // 40px (défaut)
+  ps-avatar--md                           // 40px
   ps-avatar--lg                           // 56px
-  ps-avatar--xl                           // 80px
+  ps-avatar--xl                           // 88px (défaut)
   
   ps-avatar--circle                       // Forme ronde (défaut)
   ps-avatar--square                       // Forme carrée
