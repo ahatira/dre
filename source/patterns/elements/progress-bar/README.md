@@ -2,7 +2,7 @@
 
 **Catégorie**: Elements (Atoms)  
 **Statut**: ✅ Production Ready  
-**Version**: 1.0.0
+**Version**: 1.1.0
 
 ---
 
@@ -13,7 +13,7 @@ Indicateur visuel de progression pour des tâches déterminées ou indéterminé
 **Points clés:**
 - 2 variantes: linéaire (barre) et circulaire (anneau SVG)
 - 6 couleurs sémantiques (primary, secondary, success, warning, danger, info)
-- 3 tailles (small, medium, large)
+- 5 tailles (xs, sm, md, lg, xl)
 - État indéterminé avec animation infinie
 - Rayures animées pour la variante linéaire
 - Label accessible pour lecteurs d'écran

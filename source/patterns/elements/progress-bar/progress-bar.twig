@@ -47,7 +47,7 @@
   <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
     <svg class="ps-progress__svg" viewBox="0 0 100 100">
       <circle class="ps-progress__track-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8"></circle>
-      <circle class="ps-progress__fill-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8" stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}" {% if indeterminate %}class="ps-progress__fill-circle--indeterminate"{% endif %}></circle>
+      <circle class="ps-progress__fill-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8" stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"></circle>
     </svg>
     {% if showLabel and not indeterminate %}
       <span class="ps-progress__label">{{ percent }}%</span>
