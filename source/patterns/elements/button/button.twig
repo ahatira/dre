@@ -13,65 +13,27 @@
  * @param boolean fullWidth - Full width (default: false)
  #}
 
-{%-
-  set variant = variant|default('primary')
--%}
-{%-
-  set outline = outline|default(false)
--%}
-{%-
-  set size = size|default('medium')
--%}
-{%-
-  set iconPosition = iconPosition|default('right')
--%}
-{%-
-  set target = target|default('_self')
--%}
-{%-
-  set disabled = disabled|default(false)
--%}
-{%-
-  set loading = loading|default(false)
--%}
-{%-
-  set fullWidth = fullWidth|default(false)
--%}
+{%- set variant = variant|default('primary') -%}
+{%- set outline = outline|default(false) -%}
+{%- set size = size|default('medium') -%}
+{%- set iconPosition = iconPosition|default('right') -%}
+{%- set target = target|default('_self') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set loading = loading|default(false) -%}
+{%- set fullWidth = fullWidth|default(false) -%}
 
-{%-
-  set classes = []
--%}
-{%-
-  set classes = classes|merge(['ps-button'])
--%}
-{%-
-  set classes = classes|merge(['ps-button--' ~ variant])
--%}
-{%-
-  set classes = classes|merge(['ps-button--' ~ size])
--%}
-{%- if outline -%}
-  {%- set classes = classes|merge(['ps-button--outline']) -%}
-{%- endif -%}
-{%- if icon and not label -%}
-  {%- set classes = classes|merge(['ps-button--icon-only']) -%}
-{%- endif -%}
-{%- if icon and label and iconPosition -%}
-  {%- set classes = classes|merge(['ps-button--icon-' ~ iconPosition]) -%}
-{%- endif -%}
-{%- if disabled -%}
-  {%- set classes = classes|merge(['ps-button--disabled']) -%}
-{%- endif -%}
-{%- if loading -%}
-  {%- set classes = classes|merge(['ps-button--loading']) -%}
-{%- endif -%}
-{%- if fullWidth -%}
-  {%- set classes = classes|merge(['ps-button--full-width']) -%}
-{%- endif -%}
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-button']) -%}
+{%- set classes = classes|merge(['ps-button--' ~ variant]) -%}
+{%- set classes = classes|merge(['ps-button--' ~ size]) -%}
+{%- if outline -%}{%- set classes = classes|merge(['ps-button--outline']) -%}{%- endif -%}
+{%- if icon and not label -%}{%- set classes = classes|merge(['ps-button--icon-only']) -%}{%- endif -%}
+{%- if icon and label and iconPosition -%}{%- set classes = classes|merge(['ps-button--icon-' ~ iconPosition]) -%}{%- endif -%}
+{%- if disabled -%}{%- set classes = classes|merge(['ps-button--disabled']) -%}{%- endif -%}
+{%- if loading -%}{%- set classes = classes|merge(['ps-button--loading']) -%}{%- endif -%}
+{%- if fullWidth -%}{%- set classes = classes|merge(['ps-button--full-width']) -%}{%- endif -%}
 
-{%-
-  set tag = url ? 'a' : 'button'
--%}
+{%- set tag = url ? 'a' : 'button' -%}
 
 <{{ tag }}
   class="{{ classes|join(' ')|trim }}"

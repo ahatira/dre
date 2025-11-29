@@ -9,25 +9,13 @@
  *   size (string) - small|medium|large (default: medium)
  #}
 
-{%-
-  set variant = variant|default('default')
--%}
-{%-
-  set size = size|default('medium')
--%}
-{%-
-  set pill = pill|default(false)
--%}
-{%-
-  set tag = url ? 'a' : 'span'
--%}
+{%- set variant = variant|default('default') -%}
+{%- set size = size|default('medium') -%}
+{%- set pill = pill|default(false) -%}
+{%- set tag = url ? 'a' : 'span' -%}
 
-{%-
-  set badge_classes = 'ps-badge ps-badge--' ~ variant ~ ' ps-badge--' ~ size
--%}
-{%- if pill -%}
-  {%- set badge_classes = badge_classes ~ ' ps-badge--pill' -%}
-{%- endif -%}
+{%- set badge_classes = 'ps-badge ps-badge--' ~ variant ~ ' ps-badge--' ~ size -%}
+{%- if pill -%}{%- set badge_classes = badge_classes ~ ' ps-badge--pill' -%}{%- endif -%}
 
 <{{ tag }} class="{{ badge_classes }}"{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}

@@ -9,31 +9,15 @@
  *   strong (boolean) - Bold weight (default: false)
  #}
 
-{%-
-  set variant = variant|default('body')
--%}
-{%-
-  set tag = tag|default('p')
--%}
-{%-
-  set align = align|default('left')
--%}
-{%-
-  set muted = muted|default(false)
--%}
-{%-
-  set strong = strong|default(false)
--%}
+{%- set variant = variant|default('body') -%}
+{%- set tag = tag|default('p') -%}
+{%- set align = align|default('left') -%}
+{%- set muted = muted|default(false) -%}
+{%- set strong = strong|default(false) -%}
 
-{%-
-  set text_classes = 'ps-text ps-text--' ~ variant ~ ' ps-text--align-' ~ align
--%}
-{%- if muted -%}
-  {%- set text_classes = text_classes ~ ' ps-text--muted' -%}
-{%- endif -%}
-{%- if strong -%}
-  {%- set text_classes = text_classes ~ ' ps-text--strong' -%}
-{%- endif -%}
+{%- set text_classes = 'ps-text ps-text--' ~ variant ~ ' ps-text--align-' ~ align -%}
+{%- if muted -%}{%- set text_classes = text_classes ~ ' ps-text--muted' -%}{%- endif -%}
+{%- if strong -%}{%- set text_classes = text_classes ~ ' ps-text--strong' -%}{%- endif -%}
 
 <{{ tag }} class="{{ text_classes }}">
   <span class="ps-text__content">{{- text -}}</span>
