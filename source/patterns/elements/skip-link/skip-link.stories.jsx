@@ -7,14 +7,15 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Lien d\'évitement WCAG permettant d\'accéder directement au contenu principal. Invisible par défaut, visible au focus clavier uniquement. Obligatoire pour conformité WCAG 2.2 AA.',
+        component:
+          "Lien d'évitement WCAG permettant d'accéder directement au contenu principal. Invisible par défaut, visible au focus clavier uniquement. Obligatoire pour conformité WCAG 2.2 AA.",
       },
     },
   },
   argTypes: {
     targetId: {
       control: 'text',
-      description: 'ID de l\'ancre cible (ex: main-content, navigation, search)',
+      description: "ID de l'ancre cible (ex: main-content, navigation, search)",
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'main-content' },

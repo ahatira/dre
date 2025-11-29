@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: var(--size-1);
   cursor: pointer;
-  font-family: var(--font-family-base);
+  font-family: var(--font-sans);
 }
 
 .ps-toggle--disabled {
@@ -138,6 +138,7 @@
   letter-spacing: 0.5px;
   color: var(--white);
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
   transition: opacity var(--ps-transition-duration-fast) ease;
 }

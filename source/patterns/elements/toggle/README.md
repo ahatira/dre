@@ -3,6 +3,7 @@
 Interrupteur on/off accessible pour options binaires (activer/désactiver). Utilise un `<input type="checkbox">` stylisé avec `role="switch"`.
 
 ## Props
+
 | Prop         | Type     | Default   | Description                                 |
 |--------------|----------|-----------|---------------------------------------------|
 | name         | string   |           | Nom du champ                                |
@@ -16,6 +17,7 @@ Interrupteur on/off accessible pour options binaires (activer/désactiver). Util
 | offLabel     | string   | Off       | Label interne OFF                           |
 
 ## BEM Structure
+
 - `ps-toggle` (block)
 - `ps-toggle__input` (input caché)
 - `ps-toggle__track` (rail)
@@ -23,8 +25,10 @@ Interrupteur on/off accessible pour options binaires (activer/désactiver). Util
 - `ps-toggle__label` (label externe)
 - `ps-toggle__description` (description)
 - Modifiers: `ps-toggle--small`, `ps-toggle--medium`, `ps-toggle--large`, `ps-toggle--disabled`
+- Note: `medium` est la valeur par défaut et n'ajoute pas de classe (HTML minimal). Utiliser `--small` ou `--large` uniquement si différent du défaut.
 
 ## Tokens utilisés
+
 - Couleurs: `--ps-color-neutral-100`, `--ps-color-neutral-300`, `--brand-primary`, `--white`, `--ps-color-neutral-900`, `--ps-color-neutral-600`, `--ps-color-interactive-focus-outline`
 - Espacements: `--ps-spacing-1`, `--ps-spacing-2`
 - Bordures: `--ps-border-radius-full`, `--ps-border-radius-lg`, `--ps-border-width-focus`
@@ -33,6 +37,7 @@ Interrupteur on/off accessible pour options binaires (activer/désactiver). Util
 - Tailles: `--ps-toggle-width-small`, `--ps-toggle-width-medium`, `--ps-toggle-width-large`, `--ps-toggle-height-small`, `--ps-toggle-height-medium`, `--ps-toggle-height-large`, `--ps-toggle-thumb-small`, `--ps-toggle-thumb-medium`, `--ps-toggle-thumb-large`
 
 ## Exemples
+
 ```twig
 {% include '@ps_theme/ps-toggle/ps-toggle.twig' with {
   name: 'notifications',
@@ -58,10 +63,12 @@ Interrupteur on/off accessible pour options binaires (activer/désactiver). Util
 ```
 
 ## Cas d’usage réels
+
 - Préférences utilisateur (notifications, newsletter)
 - Paramètres de compte (profil public, mode sombre)
 
 ## Accessibilité
+
 - Utilise `role="switch"` et `aria-checked`
 - Focus visible via token
 - Label externe ou interne obligatoire

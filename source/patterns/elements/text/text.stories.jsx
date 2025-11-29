@@ -88,7 +88,8 @@ export const AllSizes = {
   parameters: {
     docs: {
       description: {
-        story: '3 tailles disponibles : Large (18px) pour lead paragraphs, Body (16px) par défaut pour contenu principal, Small (14px) pour texte secondaire.',
+        story:
+          '3 tailles disponibles : Large (18px) pour lead paragraphs, Body (16px) par défaut pour contenu principal, Small (14px) pour texte secondaire.',
       },
     },
   },
@@ -118,7 +119,8 @@ export const AllStates = {
   parameters: {
     docs: {
       description: {
-        story: 'États disponibles : Normal (défaut), Muted (couleur gris-600 pour texte secondaire), Strong (font-weight-700 pour emphase). Les états peuvent être combinés.',
+        story:
+          'États disponibles : Normal (défaut), Muted (couleur gris-600 pour texte secondaire), Strong (font-weight-700 pour emphase). Les états peuvent être combinés.',
       },
     },
   },
@@ -135,7 +137,8 @@ export const AllAlignments = {
   parameters: {
     docs: {
       description: {
-        story: '3 alignements disponibles : Left (défaut), Center, Right. Utilisez left pour lecture optimale, center pour titres/callouts, right pour données numériques.',
+        story:
+          '3 alignements disponibles : Left (défaut), Center, Right. Utilisez left pour lecture optimale, center pour titres/callouts, right pour données numériques.',
       },
     },
   },
@@ -172,7 +175,8 @@ export const UseCases = {
   parameters: {
     docs: {
       description: {
-        story: 'Exemple d\'utilisation réelle : Lead paragraph (large + strong) pour accroche, body paragraphs pour contenu principal, small muted pour disclaimers et footnotes.',
+        story:
+          "Exemple d'utilisation réelle : Lead paragraph (large + strong) pour accroche, body paragraphs pour contenu principal, small muted pour disclaimers et footnotes.",
       },
     },
   },
@@ -212,7 +216,8 @@ export const AllCombinations = {
   parameters: {
     docs: {
       description: {
-        story: 'Toutes les combinaisons possibles de tailles (large/body/small) et états (normal/muted/strong). Chaque taille peut avoir n\'importe quel état.',
+        story:
+          "Toutes les combinaisons possibles de tailles (large/body/small) et états (normal/muted/strong). Chaque taille peut avoir n'importe quel état.",
       },
     },
   },

@@ -7,7 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Indicateur de chargement animé pour états asynchrones. Disponible en 3 variantes (circular, dots, bars), 5 tailles, et 4 couleurs. Inclut role="status" et aria-live pour accessibilité.',
+        component:
+          'Indicateur de chargement animé pour états asynchrones. Disponible en 3 variantes (circular, dots, bars), 5 tailles, et 4 couleurs. Inclut role="status" et aria-live pour accessibilité.',
       },
     },
   },
@@ -35,13 +36,15 @@ export default {
       options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'white'],
       description: 'Couleur du spinner',
       table: {
-        type: { summary: 'default | primary | secondary | success | info | warning | danger | white' },
+        type: {
+          summary: 'default | primary | secondary | success | info | warning | danger | white',
+        },
         defaultValue: { summary: 'default' },
       },
     },
     text: {
       control: 'text',
-      description: 'Texte pour lecteurs d\'écran (annoncé aux utilisateurs)',
+      description: "Texte pour lecteurs d'écran (annoncé aux utilisateurs)",
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Chargement en cours...' },
@@ -89,7 +92,8 @@ export const AllVariants = {
   parameters: {
     docs: {
       description: {
-        story: 'Les trois variantes de spinner disponibles. Circular est recommandé par défaut, Dots pour un effet plus subtil, et Bars pour une alternative visuelle.',
+        story:
+          'Les trois variantes de spinner disponibles. Circular est recommandé par défaut, Dots pour un effet plus subtil, et Bars pour une alternative visuelle.',
       },
     },
   },
@@ -128,7 +132,8 @@ export const AllSizes = {
   parameters: {
     docs: {
       description: {
-        story: '5 tailles disponibles : XS (16px) pour boutons, SM (24px) pour inline, MD (32px) par défaut, LG (48px) pour zones centrées, XL (64px) pour chargements pleine page.',
+        story:
+          '5 tailles disponibles : XS (16px) pour boutons, SM (24px) pour inline, MD (32px) par défaut, LG (48px) pour zones centrées, XL (64px) pour chargements pleine page.',
       },
     },
   },
@@ -182,7 +187,8 @@ export const AllColors = {
   parameters: {
     docs: {
       description: {
-        story: 'Toutes les couleurs sémantiques disponibles : Default (gris neutre), Primary (vert BNP), Secondary (rose accent), Success/Info/Warning/Danger pour états contextuels, et White pour fonds sombres.',
+        story:
+          'Toutes les couleurs sémantiques disponibles : Default (gris neutre), Primary (vert BNP), Secondary (rose accent), Success/Info/Warning/Danger pour états contextuels, et White pour fonds sombres.',
       },
     },
   },
@@ -198,7 +204,8 @@ export const Centered = {
   parameters: {
     docs: {
       description: {
-        story: 'Le modifier `centered: true` positionne le spinner en absolute avec transform translate pour un centrage parfait. Le conteneur parent doit avoir `position: relative`.',
+        story:
+          'Le modifier `centered: true` positionne le spinner en absolute avec transform translate pour un centrage parfait. Le conteneur parent doit avoir `position: relative`.',
       },
     },
   },
@@ -295,7 +302,8 @@ export const UseCases = {
   parameters: {
     docs: {
       description: {
-        story: 'Exemples d\'utilisation réels du spinner dans différents contextes : boutons de chargement (taille xs), pages centrées (taille xl), texte inline (taille sm/md), et contextes sémantiques (success, info, warning, danger).',
+        story:
+          "Exemples d'utilisation réels du spinner dans différents contextes : boutons de chargement (taille xs), pages centrées (taille xl), texte inline (taille sm/md), et contextes sémantiques (success, info, warning, danger).",
       },
     },
   },
