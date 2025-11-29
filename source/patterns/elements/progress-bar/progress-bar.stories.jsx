@@ -127,6 +127,10 @@ export const AllColors = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: 1.5rem; padding: 1rem;">
       <div>
+        <p style="margin: 0 0 0.5rem; font-weight: 500;">Default (Gray)</p>
+        ${progressBarTwig({ variant: 'linear', color: 'default', value: 60, showLabel: true })}
+      </div>
+      <div>
         <p style="margin: 0 0 0.5rem; font-weight: 500;">Primary</p>
         ${progressBarTwig({ variant: 'linear', color: 'primary', value: 60, showLabel: true })}
       </div>
