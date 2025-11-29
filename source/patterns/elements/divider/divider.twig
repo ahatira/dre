@@ -1,5 +1,38 @@
 {# ps-divider (element) - PS Theme #}
+{%- set orientation = orientation|default('horizontal') -%}
+{%- set style = style|default('solid') -%}
+{%- set thickness = thickness|default('medium') -%}
+{%- set color = color|default('neutral') -%}
+{%- set spacing = spacing|default('md') -%}
 {%- set text = text|default('') -%}
-<div class="ps-divider">
-  {%- if text -%}<span class="ps-divider__text">{{- text -}}</span>{%- endif -%}
-</div>
+{%- set icon = icon|default('') -%}
+{%- set has_content = text or icon -%}
+
+{%- set root_classes = [
+  'ps-divider',
+  'ps-divider--' ~ orientation,
+  'ps-divider--' ~ style,
+  'ps-divider--' ~ thickness,
+  'ps-divider--' ~ color,
+  'ps-divider--spacing-' ~ spacing,
+  text ? 'ps-divider--with-text',
+  icon ? 'ps-divider--with-icon'
+] -%}
+
+{%- if has_content -%}
+  <div class="{{ root_classes|join(' ') }}">
+    <span class="ps-divider__line"></span>
+    {%- if text -%}
+      <span class="ps-divider__text">{{ text }}</span>
+    {%- elseif icon -%}
+      <i class="ps-divider__icon icon-{{ icon }}" aria-hidden="true"></i>
+    {%- endif -%}
+    <span class="ps-divider__line"></span>
+  </div>
+{%- else -%}
+  {%- if orientation == 'horizontal' -%}
+    <hr class="{{ root_classes|join(' ') }}" />
+  {%- else -%}
+    <span class="{{ root_classes|join(' ') }}" role="separator" aria-orientation="vertical"></span>
+  {%- endif -%}
+{%- endif -%}
