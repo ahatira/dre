@@ -1,5 +1,13 @@
-{# ps-skip-link (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-skip-link">
-  {%- if text -%}<span class="ps-skip-link__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * Skip Link (Element/Atom)
+ * Lien d'évitement WCAG pour accéder au contenu principal
+ * @param string targetId - ID de l'ancre cible (required, default: 'main-content')
+ * @param string label - Texte du lien (required, default: 'Passer au contenu principal')
+ * @param Drupal\Core\Template\Attribute attributes - Attributs HTML additionnels (optional)
+ #}
+
+{%- set targetId = targetId|default('main-content') -%}
+{%- set label = label|default('Passer au contenu principal') -%}
+{%- set href = '#' ~ targetId -%}
+
+<a class="ps-skip-link" href="{{ href }}"{% if attributes %} {{ attributes }}{% endif %}>{{ label }}</a>

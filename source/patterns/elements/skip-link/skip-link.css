@@ -1,12 +1,53 @@
-@layer components {
-  .skip-link {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .skip-link__text {
-    font: inherit;
-  }
+/**
+ * Skip Link (Element/Atom)
+ * Lien d'évitement WCAG pour navigation clavier
+ * 
+ * BEM: ps-skip-link
+ * Behavior: Invisible par défaut, visible au focus uniquement
+ * Position: Absolute top-left, z-index élevé
+ */
+
+/* ==================== BASE ==================== */
+
+.ps-skip-link {
+  /* Positioning */
+  position: absolute;
+  left: var(--size-4); /* 16px */
+  top: var(--size-4); /* 16px */
+  z-index: var(--layer-important); /* Au-dessus de tout */
+  
+  /* Hidden by default */
+  transform: translateY(-150%);
+  
+  /* Visual */
+  padding: var(--size-3) var(--size-4); /* 12px 16px */
+  background-color: var(--brand-primary, var(--bnp-green));
+  color: var(--white);
+  border-radius: var(--radius-2); /* 4px */
+  box-shadow: var(--shadow-3);
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1); /* 14px */
+  font-weight: var(--font-weight-500);
+  line-height: var(--leading-normal);
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Transitions */
+  transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* ==================== STATES ==================== */
+
+/* Focus state - reveal the link */
+.ps-skip-link:focus {
+  transform: translateY(0);
+  outline: var(--border-size-2) solid var(--blue-600);
+  outline-offset: var(--border-size-2);
+}
+
+/* Hover state */
+.ps-skip-link:hover {
+  background-color: var(--bnp-green-hover, hsl(162, 72%, 33%)); /* Darker green */
 }
