@@ -4,6 +4,26 @@
 
 Applique les standards de documentation et de structure Storybook au composant **[NOM_COMPOSANT]** selon les règles définies dans `.github/STORYBOOK_DOC_TEMPLATE.md`.
 
+## 📁 ÉTAPE 0 : Lecture du contexte (OBLIGATOIRE)
+
+**Avant toute analyse**, lire ces fichiers pour comprendre le contexte :
+
+```bash
+# 1. Lire la documentation des listes JSON
+cat source/patterns/documentation/README.md
+
+# 2. Lire les structures des fichiers JSON existants
+cat source/patterns/documentation/colors-list.json
+cat source/patterns/documentation/sizes-list.json
+cat source/patterns/documentation/variants-list.json
+cat source/patterns/documentation/icons-list.json
+```
+
+**Points clés à identifier :**
+- Quels **groupes** existent dans chaque JSON (ex: `extended`, `compact`, `semantic`, etc.)
+- Quelle **structure de propriétés** utiliser (ex: `colorsList.extended.values`, `sizesList.compact.values`)
+- Quels **chemins d'import** utiliser (toujours relatifs : `../../documentation/`)
+
 ### Étapes à suivre
 
 1. **📖 Analyse préalable**
@@ -45,7 +65,9 @@ Applique les standards de documentation et de structure Storybook au composant *
    
    #### B. Centralisation des listes
    - Couleurs: utiliser `colorsList.[groupe].values` (X options)
+     * Groupe disponible: [lister les groupes du JSON]
    - Tailles: utiliser `sizesList.[groupe].values` (X options)
+     * Groupe disponible: [lister les groupes du JSON]
    - Icônes: utiliser `iconsList.categories.[catégorie]` (X options)
    - Variants: utiliser `variantsList.[prop].[composant]` (X options)
    
