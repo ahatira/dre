@@ -1,5 +1,27 @@
+# Button Component - Default Configuration
+#
+# Available Props:
+# - label: string (required) - Texte du bouton
+# - variant: primary | secondary | success | info | warning | danger | dark | light (default: primary)
+# - outline: boolean (default: false) - Version bordure uniquement
+# - size: small | medium | large (default: medium)
+#   * small: 33.98px height
+#   * medium: 36px height
+#   * large: 40px height
+# - url: string - URL de destination (transforme en lien <a>)
+# - target: _self | _blank (default: _self)
+# - icon: string - Nom de l'icône (voir @elements/icon)
+# - iconPosition: left | right (default: right)
+# - disabled: boolean (default: false)
+# - loading: boolean (default: false)
+# - fullWidth: boolean (default: false)
+# - attributes: Attribute - Attributs HTML additionnels
+
 # Default: Primary button (green)
 label: 'Button'
 variant: 'primary'
 outline: false
 size: 'medium'
+disabled: false
+loading: false
+fullWidth: false
