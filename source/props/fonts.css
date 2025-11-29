@@ -7,6 +7,7 @@
   --font-mono: Menlo, Consolas, 'Lucida Console', 'Liberation Mono', 'Courier New', monospace, sans-serif;
   /* Alias for docs consistency */
   --ps-font-family-condensed: var(--font-condensed);
+  --ps-font-family-primary: var(--font-sans);
   --font-weight-100: 100;
   --font-weight-200: 200;
   --font-weight-300: 300;
@@ -16,6 +17,8 @@
   --font-weight-700: 700;
   --font-weight-800: 800;
   --font-weight-900: 900;
+  --ps-font-size-sm: 0.875rem;   /* 14px */
+  --ps-font-size-base: 1rem;     /* 16px */
   --font-size-xs: 0.625rem;  /* 10px */
   --font-size-sm: 0.75rem;   /* 12px */
   --font-size-0: 0.875rem;   /* 14px */
@@ -53,4 +56,6 @@
   --tracking-wide: 0.025em;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.1em;
+  --ps-font-weight-medium: 500;
+  --ps-font-weight-bold: 700;
 }

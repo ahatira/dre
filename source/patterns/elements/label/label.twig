@@ -1,5 +1,25 @@
-{# ps-label (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-label">
-  {%- if text -%}<span class="ps-label__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * PS Label (Atom)
+ * Variables:
+ * - text: string (requis)
+ * - forId: string (id du champ ciblé)
+ * - required: bool
+ * - disabled: bool
+ * - attributes: Attribute
+ #}
+
+{%- set classes = ['ps-label'] -%}
+{%- if required -%}
+  {%- set classes = classes|merge(['ps-label--required']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-label--disabled']) -%}
+{%- endif -%}
+
+<label{{ attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"' }}{% if forId %} for="{{ forId }}"{% endif %}>
+  <span class="ps-label__text">{{ text }}</span>
+  {% if required %}
+    <span class="ps-label__required" aria-hidden="true">*</span>
+    <span class="visually-hidden">(champ obligatoire)</span>
+  {% endif %}
+</label>

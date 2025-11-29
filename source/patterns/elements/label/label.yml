@@ -1,2 +1,12 @@
-text: 'label component placeholder'
-modifier: ''
+
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
+name: 'PS Label'
+status: stable
+group: atoms
+description: 'Label de champ de formulaire accessible avec indicateur requis.'
+props:
+  text: 'Votre nom'
+  forId: 'field-id'
+  required: false
+  disabled: false
+  attributes: {}

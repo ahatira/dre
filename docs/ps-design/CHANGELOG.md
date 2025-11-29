@@ -199,7 +199,6 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - [ ] `block` - Bloc générique de section
 - [ ] `two-column` - Layout 2 colonnes responsive
 - [ ] `grid-layout` - Layout grille adaptative
-
 **Estimation Phase 2** : 44 heures (8 composants)
 
 ---
@@ -207,7 +206,6 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 ### Phase 3 : FEATURES MÉTIER (Priorité Haute) - Q2 2026
 
 #### Collections (4 composants)
-- [ ] `search-form` - Formulaire de recherche propriétés
 - [ ] `card-grid` - Grille de cartes responsive
 - [ ] `filter-panel` - Panneau de filtres avancés (6 occurrences)
 - [ ] `map-view` - Vue carte interactive (198 occurrences)
@@ -218,12 +216,14 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - [ ] `tooltip` - Infobulles contextuel
 - [ ] `tabs` - Onglets avec panels
 
-**Estimation Phase 3** : 48 heures (8 composants)
 
+29/11/2025 - Ajout des tokens pour le composant Label :
+  - --ps-color-text, --ps-color-text-muted (colors.css)
+  - --ps-font-family-primary, --ps-font-size-sm, --ps-font-weight-medium, --ps-font-weight-bold (fonts.css)
+  - --ps-spacing-1, --ps-spacing-2 (sizes.css)
 ---
 
 ### Phase 4 : PAGES COMPLÈTES (Priorité Haute) - Q2 2026
-
 #### Pages (4 composants)
 - [ ] `home-page` - **CRITIQUE** - Page d'accueil (8 occurrences)
 - [ ] `property-search` - **CRITIQUE** - Recherche propriétés
@@ -235,14 +235,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 ---
 
 ### Phase 5 : ENRICHISSEMENT UX (Priorité Moyenne) - Q2-Q3 2026
-
-#### Elements (8 composants)
-- [ ] `toggle` - Switch on/off
-- [ ] `spinner` - Indicateurs de chargement
 - [ ] `eyebrow` - Surtitre/kicker
 - [ ] `flag` - Drapeaux de langues
 - [ ] `avatar` - Avatars utilisateurs
-- [ ] `divider` - Séparateurs visuels
 - [ ] `progress-bar` - Barres de progression
 - [ ] `skip-link` - Lien d'évitement (a11y)
 
@@ -251,12 +246,10 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - [ ] `stepper` - Indicateur d'étapes
 - [ ] `table` - Tableaux de données
 - [ ] `toast` - Notifications temporaires
-- [ ] `tag-list` - Liste de tags/badges
 - [ ] `language-selector` - Sélecteur de langue
 
 #### Collections (4 composants)
 - [ ] `feature-section` - Section de features
-- [ ] `calculator` - Calculateur (prêt, mensualités)
 - [ ] `article-list` - Liste d'articles
 - [ ] `pre-footer` - Section avant footer
 

@@ -71,4 +71,8 @@
   --size-max-content-width: 1376px;
   --size-container: 1440px;
   --size-max-site-width: 1900px;
+
+  /* Label tokens */
+  --ps-spacing-1: var(--size-1);
+  --ps-spacing-2: var(--size-2);
 }

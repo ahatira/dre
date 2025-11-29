@@ -1,12 +1,35 @@
 @layer components {
-  .label {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
+  .ps-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--ps-spacing-1);
+    margin-bottom: var(--ps-spacing-2);
+    color: var(--ps-color-text);
+    font-family: var(--ps-font-family-primary);
+    font-size: var(--ps-font-size-sm);
+    font-weight: var(--ps-font-weight-medium);
   }
-  .label__text {
+  .ps-label--disabled {
+    color: var(--ps-color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  .ps-label__text {
     font: inherit;
+  }
+  .ps-label__required {
+    color: var(--ps-color-error-600);
+    margin-left: 0.25em;
+    font-weight: var(--ps-font-weight-bold);
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 }

@@ -8,6 +8,10 @@
   --ps-color-neutral-600: hsl(210, 15%, 35%); /* #54636F */
   --ps-color-success-600: hsl(162, 72%, 38%); /* #0DB089 */
   --ps-color-error-600: hsl(2, 80%, 58%); /* #E53935 */
+
+  /* Label tokens */
+  --ps-color-text: #1F2A33;
+  --ps-color-text-muted: #6B7780;
   
   /* Base colors */
   --white: hsl(0 0% 100%);
