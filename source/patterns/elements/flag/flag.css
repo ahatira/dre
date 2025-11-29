@@ -1,0 +1,12 @@
+@layer components {
+  .flag {
+    /* Base styling */
+    padding: 0.5rem 1rem;
+    background: var(--bnp-green, #00A862);
+    color: #fff;
+    border-radius: 4px;
+  }
+  .flag__text {
+    font: inherit;
+  }
+}

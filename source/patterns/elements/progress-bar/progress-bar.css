@@ -1,0 +1,12 @@
+@layer components {
+  .progress-bar {
+    /* Base styling */
+    padding: 0.5rem 1rem;
+    background: var(--bnp-green, #00A862);
+    color: #fff;
+    border-radius: 4px;
+  }
+  .progress-bar__text {
+    font: inherit;
+  }
+}

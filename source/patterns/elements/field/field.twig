@@ -1,0 +1,5 @@
+{# ps-field (element) - PS Theme #}
+{%- set text = text|default('') -%}
+<div class="ps-field">
+  {%- if text -%}<span class="ps-field__text">{{- text -}}</span>{%- endif -%}
+</div>

@@ -1,0 +1,5 @@
+{# ps-progress-bar (element) - PS Theme #}
+{%- set text = text|default('') -%}
+<div class="ps-progress-bar">
+  {%- if text -%}<span class="ps-progress-bar__text">{{- text -}}</span>{%- endif -%}
+</div>

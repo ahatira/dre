@@ -1,0 +1,8 @@
+@layer components {
+  .ps-avatar {
+    display: inline-block;
+  }
+  .ps-avatar__text {
+    font: inherit;
+  }
+}
