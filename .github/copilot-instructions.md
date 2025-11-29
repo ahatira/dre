@@ -174,6 +174,15 @@
   4. Only add new token if truly necessary
   5. Add to appropriate file following exact naming conventions (--brand-*, --font-*, --size-*, etc.)
   6. Document in CHANGELOG.md with justification
+- **CRITICAL - SEMANTIC COLOR NAMING**: When specs or requirements mention color variants, ALWAYS use semantic tokens from `source/props/brand.css`:
+  - **Primary** = `--brand-primary` (green #00915A)
+  - **Secondary** = `--brand-secondary` (purple/pink #E0388C)
+  - **Success** = `--btn-success` (green-600)
+  - **Warning** = `--btn-warning` (yellow-500)
+  - **Danger** = `--btn-danger` (red-600)
+  - **Info** = `--btn-info` (blue-600)
+  - ❌ NEVER use arbitrary colors - these semantic tokens are the ONLY source for variant colors
+  - Example: `.component--primary { color: var(--brand-primary); }` NOT `var(--bnp-green)` directly
 - **CRITICAL**: Read spec in `docs/design/{level}/{component}.md` before implementing.
 - **CRITICAL**: DO NOT create `ps-tokens.css` or similar - tokens are organized in separate files by category.
 - Refer to `source/patterns/elements/button/` and `source/patterns/elements/divider/` as reference implementation examples.

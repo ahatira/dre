@@ -7,7 +7,7 @@
   padding: 0;
   display: block;
   height: 0;
-  border-top: 2px solid var(--gray-300);
+  border-top: 2px solid var(--ps-color-neutral-300, var(--gray-300));
   border-top-style: solid;
 }
 
@@ -16,7 +16,7 @@
   display: block;
   height: 0;
   border: 0;
-  border-top: 2px solid var(--gray-300);
+  border-top: 2px solid var(--ps-color-neutral-300, var(--gray-300));
   border-top-style: solid;
 }
 
@@ -30,7 +30,7 @@
   height: 100%;
   margin: 0 var(--size-4); /* 16px */
   border-top: 0;
-  border-left: 2px solid var(--gray-300);
+  border-left: 2px solid var(--ps-color-neutral-300, var(--gray-300));
   border-left-style: solid;
   vertical-align: middle;
 }
@@ -65,16 +65,40 @@
 }
 
 /* Colors */
-.ps-divider--primary { border-top-color: var(--bnp-green); }
+.ps-divider--primary { border-top-color: var(--brand-primary, var(--bnp-green)); }
 .ps-divider--primary.ps-divider--vertical { 
-  border-top-color: var(--gray-300);
-  border-left-color: var(--bnp-green); 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--brand-primary, var(--bnp-green)); 
 }
 
-.ps-divider--secondary { border-top-color: var(--gray-500); }
+.ps-divider--secondary { border-top-color: var(--brand-secondary, var(--bnp-accent-pink)); }
 .ps-divider--secondary.ps-divider--vertical { 
-  border-top-color: var(--gray-300);
-  border-left-color: var(--gray-500); 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--brand-secondary, var(--bnp-accent-pink)); 
+}
+
+.ps-divider--success { border-top-color: var(--btn-success, var(--green-600)); }
+.ps-divider--success.ps-divider--vertical { 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--btn-success, var(--green-600)); 
+}
+
+.ps-divider--warning { border-top-color: var(--btn-warning, var(--yellow-500)); }
+.ps-divider--warning.ps-divider--vertical { 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--btn-warning, var(--yellow-500)); 
+}
+
+.ps-divider--danger { border-top-color: var(--btn-danger, var(--red-600)); }
+.ps-divider--danger.ps-divider--vertical { 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--btn-danger, var(--red-600)); 
+}
+
+.ps-divider--info { border-top-color: var(--btn-info, var(--blue-600)); }
+.ps-divider--info.ps-divider--vertical { 
+  border-top-color: var(--ps-color-neutral-300, var(--gray-300));
+  border-left-color: var(--btn-info, var(--blue-600)); 
 }
 
 /* With text/icon */
@@ -89,20 +113,20 @@
 .ps-divider__line {
   flex: 1;
   height: 0;
-  border-top: 2px solid var(--gray-300);
+  border-top: 2px solid var(--ps-color-neutral-300, var(--gray-300));
 }
 
 .ps-divider__text {
   font-family: var(--font-sans);
   font-size: var(--font-size-0); /* 14px */
   font-weight: var(--font-weight-500);
-  color: var(--gray-600);
+  color: var(--ps-color-neutral-600, var(--gray-600));
   white-space: nowrap;
 }
 
 .ps-divider__icon {
   font-size: var(--font-size-1); /* 16px */
-  color: var(--gray-500);
+  color: var(--ps-color-neutral-500, var(--gray-500));
   flex-shrink: 0;
 }
 
@@ -136,10 +160,30 @@
 /* Line colors for with-text/icon variants */
 .ps-divider--primary.ps-divider--with-text .ps-divider__line,
 .ps-divider--primary.ps-divider--with-icon .ps-divider__line {
-  border-top-color: var(--bnp-green);
+  border-top-color: var(--brand-primary, var(--bnp-green));
 }
 
 .ps-divider--secondary.ps-divider--with-text .ps-divider__line,
 .ps-divider--secondary.ps-divider--with-icon .ps-divider__line {
-  border-top-color: var(--gray-500);
+  border-top-color: var(--brand-secondary, var(--bnp-accent-pink));
+}
+
+.ps-divider--success.ps-divider--with-text .ps-divider__line,
+.ps-divider--success.ps-divider--with-icon .ps-divider__line {
+  border-top-color: var(--btn-success, var(--green-600));
+}
+
+.ps-divider--warning.ps-divider--with-text .ps-divider__line,
+.ps-divider--warning.ps-divider--with-icon .ps-divider__line {
+  border-top-color: var(--btn-warning, var(--yellow-500));
+}
+
+.ps-divider--danger.ps-divider--with-text .ps-divider__line,
+.ps-divider--danger.ps-divider--with-icon .ps-divider__line {
+  border-top-color: var(--btn-danger, var(--red-600));
+}
+
+.ps-divider--info.ps-divider--with-text .ps-divider__line,
+.ps-divider--info.ps-divider--with-icon .ps-divider__line {
+  border-top-color: var(--btn-info, var(--blue-600));
 }
