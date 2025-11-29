@@ -319,10 +319,26 @@ Avant de considérer un composant terminé :
 - [ ] BEM avec préfixe `ps-` respecté
 
 ### CSS
-- [ ] ❌ AUCUNE valeur en dur (hex, px bruts, etc.)
-- [ ] ✅ TOUS les tokens utilisés (`var(--*)`)
-- [ ] BEM strict : `.ps-component`, `.ps-component__element`, `.ps-component--modifier`
-- [ ] États interactifs documentés
+ 
+- Écrire des styles BEM avec tokens uniquement (pas de valeurs en dur)
+- Modifiers doivent fonctionner indépendamment (pas de classes composées)
+- Base class contient les defaults; modifiers n’override que ce qui change
+- Utiliser le CSS nesting moderne (syntaxe `&`) pour structurer le fichier comme `button.css`.
+  - Sections obligatoires: Base, Variants, Elements, Sizes, Colors, States, Animations.
+  - Exemple:
+    ```css
+    .ps-component {
+      position: relative;
+    }
+    
+    .ps-component--primary {
+      .ps-component__fill { background: var(--brand-primary); }
+    }
+    
+    .ps-component--md {
+      .ps-component__label { font-size: var(--font-size-1); }
+    }
+    ```
 - [ ] Transitions fluides
 
 ### Stories

@@ -150,6 +150,42 @@ export const AllStyles = {
     </div>
   `,
 };
+
+### 9. CSS NESTING MODERNE (Règle critique)
+❌ PROBLÈME: CSS plat difficile à maintenir, sélecteurs répétitifs, incohérence avec `button.css`
+✅ SOLUTION:
+- Utiliser le nesting CSS moderne (syntaxe `&`) pour structurer les blocs BEM et leurs modifiers/éléments.
+- Organiser le fichier en sections claires: Base, Variants, Elements, Sizes, Colors, States, Animations.
+- Respecter BEM: styles du block, puis éléments, puis modifiers. Les modifiers ne doivent pas nécessiter de combinaisons.
+
+**EXEMPLE (Progress Bar):**
+```css
+.ps-progress {
+  position: relative;
+  font-family: 'BNPP Sans Condensed', sans-serif;
+}
+
+.ps-progress--linear {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-spacing-2);
+}
+
+.ps-progress--primary {
+  .ps-progress__fill { background: var(--ps-color-primary-600); }
+  .ps-progress__fill-circle { stroke: var(--ps-color-primary-600); }
+}
+
+.ps-progress--md {
+  .ps-progress__track { height: var(--size-2); }
+  .ps-progress__label { font-size: var(--font-size-1, 14px); }
+}
+```
+
+**EXIGENCES:**
+1. Nesting requis pour tous nouveaux composants et refactors (aligné sur `button.css`).
+2. Pas d’augmentation de spécificité inutile; modifiers et éléments restent indépendants.
+3. Fichier structuré et commenté; lisible et maintenable.
 ```
 
 ---
