@@ -11,8 +11,8 @@ export default {
     variant: { control: 'select', options: ['linear', 'circular'], description: 'Type de barre' },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info'],
-      description: 'Couleur sémantique',
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+      description: 'Couleur sémantique (default = gris)',
     },
     size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'], description: 'Taille' },
     indeterminate: { control: 'boolean', description: 'Indéterminé (animation)' },
@@ -25,7 +25,7 @@ export default {
 
 export const Default = {
   render: (args) => progressBarTwig(args),
-  args: { ...data, color: 'secondary', value: 60 },
+  args: { ...data, value: 60 },
 };
 
 // === Individual Color Variants (Linear) ===

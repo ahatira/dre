@@ -3,7 +3,7 @@ value: 60
 min: 0
 max: 100
 variant: 'linear'  # Options: linear | circular
-color: 'primary'  # Options: primary | secondary | success | warning | danger | info
+color: 'default'  # Options: default | primary | secondary | success | warning | danger | info
 size: 'md'  # Options: xs | sm | md | lg | xl
 indeterminate: false  # true = animation infinie sans valeur
 striped: false  # true = rayures animées (linear uniquement)

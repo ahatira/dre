@@ -3,7 +3,7 @@
  * Variables: value, min, max, variant, color, size, indeterminate, striped, showLabel, label, attributes
  #}
 {% set variant = variant|default('linear') %}
-{% set color = color|default('secondary') %}
+{% set color = color|default('default') %}
 {% set size = size|default('md') %}
 {% set indeterminate = indeterminate|default(false) %}
 {% set striped = striped|default(false) %}
@@ -17,7 +17,7 @@
 {% if variant != 'linear' %}
   {% set root_classes = root_classes|merge(['ps-progress--' ~ variant]) %}
 {% endif %}
-{% if color != 'secondary' %}
+{% if color != 'default' %}
   {% set root_classes = root_classes|merge(['ps-progress--' ~ color]) %}
 {% endif %}
 {% if size != 'md' %}

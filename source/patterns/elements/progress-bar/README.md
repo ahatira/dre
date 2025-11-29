@@ -45,7 +45,7 @@ Indéterminé - Animation:
 | `min` | `number` | `0` | - | Valeur minimale |
 | `max` | `number` | `100` | - | Valeur maximale |
 | `variant` | `string` | `'linear'` | `linear` \| `circular` | Type d'indicateur |
-| `color` | `string` | `'secondary'` | `primary` \| `secondary` \| `success` \| `warning` \| `danger` \| `info` | Couleur sémantique |
+| `color` | `string` | `'default'` | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` \| `info` | Couleur sémantique (default = gris) |
 | `size` | `string` | `'md'` | `xs` \| `sm` \| `md` \| `lg` \| `xl` | Taille de l'indicateur |
 | `indeterminate` | `boolean` | `false` | - | Active l'animation indéterminée (pas de valeur) |
 | `striped` | `boolean` | `false` | - | Active les rayures animées (linéaire uniquement) |
