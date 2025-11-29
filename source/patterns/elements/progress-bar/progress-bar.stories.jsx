@@ -212,54 +212,6 @@ export const AllVariants = {
         <p style="margin: 0 0 0.5rem; font-weight: 500;">Linear - Striped</p>
         ${progressBarTwig({ variant: 'linear', value: 45, striped: true, color: 'warning', showLabel: true })}
       </div>
-      <div style="margin-top: 1rem;">
-        <p style="margin: 0 0 1rem; font-weight: 500;">Circular Variants</p>
-        <div style="display: flex; gap: 2rem; align-items: center;">
-          ${progressBarTwig({ variant: 'circular', value: 60, color: 'default', size: 'lg', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', value: 60, color: 'primary', size: 'lg', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'lg', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', value: 45, color: 'warning', size: 'lg', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', value: 30, color: 'danger', size: 'lg', showLabel: true })}
-          ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'info', size: 'lg', label: 'Chargement' })}
-        </div>
-      </div>
-    </div>
-  `,
-  args: {},
-};
-
-export const UseCases = {
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: 2rem; padding: 1rem; max-width: 600px;">
-      <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 600;">Upload de fichier</p>
-        ${progressBarTwig({ variant: 'linear', value: 65, color: 'primary', showLabel: true, label: 'Upload de document.pdf' })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 600;">Installation en cours</p>
-        ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'info', label: 'Installation des dépendances' })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 600;">Traitement avec avertissement</p>
-        ${progressBarTwig({ variant: 'linear', value: 45, striped: true, color: 'warning', showLabel: true, label: 'Traitement des données' })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 600;">Opération critique</p>
-        ${progressBarTwig({ variant: 'linear', value: 30, color: 'danger', showLabel: true, label: 'Espace disque restant' })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 600;">Validation complétée</p>
-        ${progressBarTwig({ variant: 'linear', value: 100, color: 'success', showLabel: true, label: 'Synchronisation terminée' })}
-      </div>
-      <div style="margin-top: 1rem;">
-        <p style="margin: 0 0 1rem; font-weight: 600;">Statut de profil (circulaire)</p>
-        <div style="display: flex; gap: 2rem; align-items: center;">
-          <div style="text-align: center;">
-            ${progressBarTwig({ variant: 'circular', value: 35, color: 'danger', size: 'lg', showLabel: true })}
-            <p style="margin: 0.5rem 0 0; font-size: 12px;">Incomplet</p>
-          </div>
-          <div style="text-align: center;">
-            ${progressBarTwig({ variant: 'circular', value: 75, color: 'warning', size: 'lg', showLabel: true })}
             <p style="margin: 0.5rem 0 0; font-size: 12px;">Presque prêt</p>
           </div>
           <div style="text-align: center;">
