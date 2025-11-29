@@ -1,2 +1,9 @@
-text: 'toggle component placeholder'
-modifier: ''
+name: notifications
+label: Activer les notifications
+description: Recevoir des notifications par email
+checked: false
+disabled: false
+size: medium
+showLabels: false
+onLabel: On
+offLabel: Off

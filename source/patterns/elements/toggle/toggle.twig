@@ -1,5 +1,40 @@
-{# ps-toggle (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-toggle">
-  {%- if text -%}<span class="ps-toggle__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * PS Toggle Atom
+ * Props: name, checked, label, description, disabled, size, showLabels, onLabel, offLabel
+ #}
+{% set size = size|default('medium') %}
+{% set checked = checked|default(false) %}
+{% set disabled = disabled|default(false) %}
+{% set showLabels = showLabels|default(false) %}
+{% set onLabel = onLabel|default('On') %}
+{% set offLabel = offLabel|default('Off') %}
+{%- set root_classes = ['ps-toggle', 'ps-toggle--' ~ size] -%}
+{%- if disabled -%}
+  {%- set root_classes = root_classes|merge(['ps-toggle--disabled']) -%}
+{%- endif -%}
+<label class="{{ root_classes|join(' ') }}">
+  <div class="ps-toggle__label">
+    <input
+      class="ps-toggle__input"
+      type="checkbox"
+      role="switch"
+      aria-checked="{{ checked ? 'true' : 'false' }}"
+      name="{{ name }}"
+      {% if checked %}checked{% endif %}
+      {% if disabled %}disabled{% endif %}
+    />
+    <span class="ps-toggle__track">
+      {% if showLabels %}
+        <span class="ps-toggle__on-label">{{ onLabel }}</span>
+        <span class="ps-toggle__off-label">{{ offLabel }}</span>
+      {% endif %}
+      <span class="ps-toggle__thumb"></span>
+    </span>
+    {% if label %}
+      <span>{{ label }}</span>
+    {% endif %}
+  </div>
+  {% if description %}
+    <span class="ps-toggle__description">{{ description }}</span>
+  {% endif %}
+</label>
