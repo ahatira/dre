@@ -20,11 +20,10 @@ Atom: Typography for paragraphs and text content
 ## BEM
 
 - Block: `ps-text`
-- Elements: `ps-text__content`
 - Modifiers:
-  - Size: `--body`, `--small`, `--large`
+  - Size: `--small`, `--large` (body est le défaut, pas de classe)
   - State: `--muted`, `--strong`
-  - Alignment: `--align-left`, `--align-center`, `--align-right`
+  - Alignment: `--align-center`, `--align-right` (left est le défaut, pas de classe)
 
 ## Usage
 

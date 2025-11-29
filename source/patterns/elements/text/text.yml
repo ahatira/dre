@@ -1,4 +1,6 @@
 text: "This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-variant: body
-tag: p
-align: left
+variant: 'body'  # Options: body | small | large
+tag: 'p'  # Options: p | span | div
+align: 'left'  # Options: left | center | right
+muted: false  # Options: true | false
+strong: false  # Options: true | false

@@ -15,10 +15,20 @@
 {%- set muted = muted|default(false) -%}
 {%- set strong = strong|default(false) -%}
 
-{%- set text_classes = 'ps-text ps-text--' ~ variant ~ ' ps-text--align-' ~ align -%}
-{%- if muted -%}{%- set text_classes = text_classes ~ ' ps-text--muted' -%}{%- endif -%}
-{%- if strong -%}{%- set text_classes = text_classes ~ ' ps-text--strong' -%}{%- endif -%}
+{%- set classes = ['ps-text'] -%}
+{%- if variant != 'body' -%}
+  {%- set classes = classes|merge(['ps-text--' ~ variant]) -%}
+{%- endif -%}
+{%- if align != 'left' -%}
+  {%- set classes = classes|merge(['ps-text--align-' ~ align]) -%}
+{%- endif -%}
+{%- if muted -%}
+  {%- set classes = classes|merge(['ps-text--muted']) -%}
+{%- endif -%}
+{%- if strong -%}
+  {%- set classes = classes|merge(['ps-text--strong']) -%}
+{%- endif -%}
 
-<{{ tag }} class="{{ text_classes }}">
-  <span class="ps-text__content">{{- text -}}</span>
+<{{ tag }} class="{{ classes|join(' ') }}">
+  {{- text -}}
 </{{ tag }}>
