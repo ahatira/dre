@@ -35,13 +35,12 @@
 
 {%- set tag = url ? 'a' : 'button' -%}
 
-<{{ tag }}
-  class="{{ classes|join(' ')|trim }}"
-  {% if attributes %}{{ attributes }}{% endif %}
-  {% if url %}href="{{ url }}"{% endif %}
-  {% if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif %}
-  {% if disabled and tag == 'button' %}disabled aria-disabled="true"{% endif %}
-  {% if loading %}aria-busy="true"{% endif %}
+<{{ tag }} class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %}{{ attributes }}{% endif -%}
+  {%- if url %}href="{{ url }}"{% endif -%}
+  {%- if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif -%}
+  {%- if disabled and tag == 'button' %}disabled aria-disabled="true"{% endif -%}
+  {%- if loading %}aria-busy="true"{% endif -%}
 >
   {%- if loading -%}
     <span class="ps-button__spinner" aria-hidden="true">
@@ -53,13 +52,10 @@
   {%- endif -%}
 
   {%- if icon and iconPosition == 'left' and label -%}
-    <svg class="ps-button__icon ps-button__icon--left" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
-      {%- if icon == 'search' -%}
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      {%- elseif icon == 'arrow-right' -%}
-        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-      {%- endif -%}
-    </svg>
+    {%- include '../icon/icon.twig' with {
+      name: icon,
+      size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
+    } only -%}
   {%- endif -%}
 
   {%- if label -%}
@@ -67,14 +63,9 @@
   {%- endif -%}
 
   {%- if icon and (iconPosition == 'right' or not label) -%}
-    <svg class="ps-button__icon{% if iconPosition == 'right' %} ps-button__icon--right{% endif %}" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
-      {%- if icon == 'search' -%}
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      {%- elseif icon == 'arrow-right' -%}
-        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-      {%- elseif icon == 'close' -%}
-        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-      {%- endif -%}
-    </svg>
+    {%- include '../icon/icon.twig' with {
+      name: icon,
+      size: size == 'small' ? 'small' : (size == 'large' ? 'large' : 'medium')
+    } only -%}
   {%- endif -%}
 </{{ tag }}>

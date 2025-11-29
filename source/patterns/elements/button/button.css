@@ -68,10 +68,8 @@
   display: inline-block;
 }
 
-.ps-button__icon {
-  display: inline-block;
-  width: var(--size-4); /* 16px */
-  height: var(--size-4);
+/* Icon adapts to button size via icon component */
+.ps-button [class*="icon-"] {
   flex-shrink: 0;
 }
 
