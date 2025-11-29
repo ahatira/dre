@@ -62,12 +62,12 @@ export const AllCircularColors = {
 export const AllStripedColors = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem;">
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'primary', value: 60, showLabel: true })}
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'secondary', value: 60, showLabel: true })}
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'success', value: 75, showLabel: true })}
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'warning', value: 45, showLabel: true })}
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'danger', value: 30, showLabel: true })}
-      ${progressBarTwig({ variant: 'linear', striped: true, color: 'info', value: 85, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'primary', value: 60, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'secondary', value: 60, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'success', value: 75, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'warning', value: 45, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'danger', value: 30, showLabel: true })}
+      ${progressBarTwig({ variant: 'linear', striped: true, animated: true, color: 'info', value: 85, showLabel: true })}
     </div>
   `,
   args: {},
