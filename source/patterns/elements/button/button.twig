@@ -47,6 +47,7 @@
 
 {% set tag = url ? 'a' : 'button' %}
 
+{% apply spaceless %}
 <{{ tag }}
   class="{{ classes|join(' ')|trim }}"
   {% if attributes %}{{ attributes }}{% endif %}
@@ -90,3 +91,4 @@
     </svg>
   {% endif %}
 </{{ tag }}>
+{% endapply %}
