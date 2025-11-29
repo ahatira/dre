@@ -1,12 +1,113 @@
-@layer components {
-  .image {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .image__text {
-    font: inherit;
-  }
+/** 
+ * Image (Element/Atom)
+ * Responsive image with lazy loading, srcset/sizes support, optional ratio and rounded corners
+ * 
+ * BEM: ps-image, ps-image__img, ps-image__ratio
+ * Fit: cover (default) | contain
+ * Rounded: none (default) | sm | md | lg | full
+ * Ratio: none (default) | 16x9 | 1x1 | 4x3
+ */
+
+.ps-image {
+  /* Reset */
+  margin: 0;
+  padding: 0;
+  
+  /* Layout */
+  display: block;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  
+  /* Visual - placeholder background */
+  background-color: var(--ps-color-neutral-100, var(--gray-50));
+}
+
+/* Image element */
+.ps-image__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* Ratio helper (padding technique for aspect ratio) */
+.ps-image__ratio {
+  display: block;
+  width: 100%;
+  padding-top: 0;
+}
+
+/* Object-fit modifiers (work independently) */
+.ps-image--fit-contain .ps-image__img {
+  object-fit: contain;
+}
+
+/* Note: fit-cover is default, no modifier class needed */
+
+/* Border radius modifiers (work independently) */
+.ps-image--rounded-sm .ps-image__img {
+  border-radius: var(--radius-2);
+}
+
+.ps-image--rounded-md .ps-image__img {
+  border-radius: var(--radius-3);
+}
+
+.ps-image--rounded-lg .ps-image__img {
+  border-radius: var(--radius-5);
+}
+
+.ps-image--rounded-full .ps-image__img {
+  border-radius: var(--radius-round);
+}
+
+/* Ratio modifiers (work independently) */
+.ps-image--ratio-16x9 {
+  position: relative;
+}
+
+.ps-image--ratio-16x9 .ps-image__ratio {
+  padding-top: 56.25%; /* 9/16 * 100 */
+}
+
+.ps-image--ratio-16x9 .ps-image__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ps-image--ratio-1x1 {
+  position: relative;
+}
+
+.ps-image--ratio-1x1 .ps-image__ratio {
+  padding-top: 100%; /* 1/1 * 100 */
+}
+
+.ps-image--ratio-1x1 .ps-image__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ps-image--ratio-4x3 {
+  position: relative;
+}
+
+.ps-image--ratio-4x3 .ps-image__ratio {
+  padding-top: 75%; /* 3/4 * 100 */
+}
+
+.ps-image--ratio-4x3 .ps-image__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

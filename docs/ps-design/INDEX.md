@@ -1,15 +1,15 @@
 # PS Design System - Index des Composants
 
 **Version** : 1.0.0  
-**Dernière mise à jour** : 28 novembre 2025  
+**Dernière mise à jour** : 29 novembre 2025  
 **Statut** : 🟡 En développement
 
 ---
 
 ## 📊 Vue d'ensemble
 
-**Composants implémentés** : 5 / 87 (6%)  
-**Composants à implémenter** : 82  
+**Composants implémentés** : 6 / 87 (7%)  
+**Composants à implémenter** : 81  
 **Design tokens** : ✅ Disponibles dans `source/props/*.css` (colors, fonts, brand, sizes, etc.)  
 **Documentation de référence** : `docs/design/` (spécifications complètes)
 
@@ -30,7 +30,7 @@ source/patterns/
 │   ├── flag/         ⏳ À implémenter
 │   ├── heading/      ⏳ À implémenter
 │   ├── icon/         ⏳ À implémenter
-│   ├── image/        ⏳ À implémenter
+│   ├── image/        ✅ IMPLÉMENTÉ
 │   ├── label/        ✅ IMPLÉMENTÉ (minimal)
 │   ├── link/         ⏳ À implémenter
 │   ├── progress-bar/ ⏳ À implémenter

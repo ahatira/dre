@@ -1,5 +1,21 @@
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
  - Ajout tokens shadow pour focus des champs : --shadow-focus-primary (blue focus ring), --shadow-focus-error (red error ring), --shadow-focus-success (green success ring)
+ - ✅ **image** - Composant complet conforme template standard - 2025-11-29
+   - Props : src (required), alt (required), width, height, srcset (array), sizes, loading, decoding, fit, rounded, ratio
+   - Object-fit : cover (défaut), contain
+   - Border radius : none (défaut), sm (4px), md (6px), lg (12px), full (circle)
+   - Aspect ratios : none (défaut), 16x9, 1x1, 4x3 (via padding technique)
+   - BEM strict : `.ps-image`, `.ps-image__img`, `.ps-image__ratio`
+   - Modifiers indépendants : `--fit-contain`, `--rounded-sm`, `--rounded-md`, `--rounded-lg`, `--rounded-full`, `--ratio-16x9`, `--ratio-1x1`, `--ratio-4x3`
+   - HTML minimal : classe base seule par défaut (fit=cover, rounded=none, ratio=none), modifiers ajoutés seulement si différents
+   - Tokens utilisés : --ps-color-neutral-100 (fallback --gray-50), --radius-2, --radius-3, --radius-5, --radius-round
+   - Stories Storybook : 11 stories (Default, WithRatio16x9, WithRatio1x1, WithRatio4x3, RoundedSmall, RoundedMedium, RoundedLarge, RoundedFull, FitContain, AllRatios, AllRounded, ObjectFit, WithSrcset, UseCases)
+   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+   - Accessibilité : alt obligatoire, width/height pour éviter CLS, loading="lazy" par défaut, decoding="auto", aria-hidden sur ratio helper
+   - Performance : lazy loading natif, srcset/sizes pour responsive, dimensions explicites (CLS prevention), ratio fixe pour layouts stables
+   - Semantic HTML : utilise `<figure>` pour structure sémantique
+   - Use cases : hero banners (16:9), card thumbnails (4:3), avatars (1:1 + rounded-full), gallery thumbnails (1:1), logos (contain fit)
+   - Build : validé (npm run build) - aucune erreur
  - ✅ **flag** - Composant complet conforme template standard - 2025-11-29
    - Props : code (ISO 3166-1 alpha-2), locale (BCP 47), label, src, size, shape, disabled, decorative
    - Tailles : sm (16px), md (20px défaut), lg (24px)
