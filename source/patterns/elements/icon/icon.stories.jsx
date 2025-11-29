@@ -180,4 +180,14 @@ export const ActionsExample = {
   `,
 };
 
+export const CheckboxIcons = {
+  name: 'Example: Checkbox Icons',
+  render: () => `
+    <div style="display: flex; gap: var(--size-6); align-items: center;">
+      ${icon({ name: 'icon-checkbox', size: 'medium' })}
+      ${icon({ name: 'icon-checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
+    </div>
+  `,
+};
+
 export default settings;
