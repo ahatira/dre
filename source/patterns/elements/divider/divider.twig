@@ -8,16 +8,28 @@
 {%- set icon = icon|default('') -%}
 {%- set has_content = text or icon -%}
 
-{%- set root_classes = [
-  'ps-divider',
-  'ps-divider--' ~ orientation,
-  'ps-divider--' ~ style,
-  'ps-divider--' ~ thickness,
-  'ps-divider--' ~ color,
-  'ps-divider--spacing-' ~ spacing,
-  text ? 'ps-divider--with-text',
-  icon ? 'ps-divider--with-icon'
-] -%}
+{%- set root_classes = ['ps-divider'] -%}
+{%- if orientation != 'horizontal' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--' ~ orientation]) -%}
+{%- endif -%}
+{%- if style != 'solid' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--' ~ style]) -%}
+{%- endif -%}
+{%- if thickness != 'medium' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--' ~ thickness]) -%}
+{%- endif -%}
+{%- if color != 'neutral' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--' ~ color]) -%}
+{%- endif -%}
+{%- if spacing != 'md' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--spacing-' ~ spacing]) -%}
+{%- endif -%}
+{%- if text -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--with-text']) -%}
+{%- endif -%}
+{%- if icon -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--with-icon']) -%}
+{%- endif -%}
 
 {%- if has_content -%}
   <div class="{{ root_classes|join(' ') }}">

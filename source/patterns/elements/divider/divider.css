@@ -3,20 +3,30 @@
 .ps-divider {
   border: none;
   background: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: 0;
+  border: 0;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: var(--gray-300);
+  margin: var(--size-4) 0; /* 16px - spacing md par défaut */
 }
 
-/* Horizontal (default) */
+/* Horizontal (default) - styles déjà dans .ps-divider */
 .ps-divider--horizontal {
   display: block;
   height: 0;
+  border: 0;
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: var(--gray-300);
 }
 
 .ps-divider--horizontal.ps-divider--spacing-sm { margin: var(--size-2) 0; } /* 8px */
-.ps-divider--horizontal.ps-divider--spacing-md { margin: var(--size-4) 0; } /* 16px */
-.ps-divider--horizontal.ps-divider--spacing-lg { margin: var(--size-6) 0; } /* 24px */
+.ps-divider--spacing-sm { margin: var(--size-2) 0; } /* 8px */
+.ps-divider--spacing-lg { margin: var(--size-6) 0; } /* 24px */
 
 /* Vertical */
 .ps-divider--vertical {
