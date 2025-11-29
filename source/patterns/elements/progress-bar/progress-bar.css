@@ -1,12 +1,28 @@
-@layer components {
-  .progress-bar {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
-  }
-  .progress-bar__text {
-    font: inherit;
-  }
-}
+/* PS Progress Bar Atom - BEM strict, tokens only */
+.ps-progress { position: relative; font-family: var(--ps-font-family-primary); }
+.ps-progress--linear { display: flex; align-items: center; gap: var(--ps-spacing-2); }
+.ps-progress__track { flex: 1; height: var(--size-2); background: var(--ps-color-neutral-200); border-radius: var(--ps-border-radius-full, 999px); overflow: hidden; }
+.ps-progress__fill { height: 100%; background: var(--ps-color-neutral-500, var(--gray-500)); border-radius: var(--ps-border-radius-full, 999px); transition: width var(--ps-transition-duration-normal, 0.3s); }
+.ps-progress--small .ps-progress__track { height: var(--size-1); }
+.ps-progress--medium .ps-progress__track { height: var(--size-2); }
+.ps-progress--large .ps-progress__track { height: var(--size-3); }
+.ps-progress--circular { display: inline-flex; align-items: center; justify-content: center; position: relative; width: var(--size-10); height: var(--size-10); }
+.ps-progress__svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ps-progress__track-circle { stroke: var(--ps-color-neutral-200); }
+.ps-progress__fill-circle { stroke: var(--ps-color-neutral-500, var(--gray-500)); stroke-linecap: round; transition: stroke-dashoffset var(--ps-transition-duration-normal, 0.3s); }
+.ps-progress__label { font-size: var(--font-size-1); font-weight: var(--font-weight-medium, 500); color: var(--ps-color-neutral-700, var(--gray-700)); white-space: nowrap; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.ps-progress--small.ps-progress--circular { width: var(--size-8); height: var(--size-8); }
+.ps-progress--medium.ps-progress--circular { width: var(--size-10); height: var(--size-10); }
+.ps-progress--large.ps-progress--circular { width: var(--size-12); height: var(--size-12); }
+.ps-progress--primary .ps-progress__fill, .ps-progress--primary .ps-progress__fill-circle { background: var(--ps-color-primary-600); stroke: var(--ps-color-primary-600); }
+.ps-progress--secondary .ps-progress__fill, .ps-progress--secondary .ps-progress__fill-circle { background: var(--ps-color-neutral-500, var(--gray-500)); stroke: var(--ps-color-neutral-500, var(--gray-500)); }
+.ps-progress--info .ps-progress__fill, .ps-progress--info .ps-progress__fill-circle { background: var(--ps-color-info-600, var(--blue-600)); stroke: var(--ps-color-info-600, var(--blue-600)); }
+.ps-progress--success .ps-progress__fill, .ps-progress--success .ps-progress__fill-circle { background: var(--ps-color-success-600); stroke: var(--ps-color-success-600); }
+.ps-progress--warning .ps-progress__fill, .ps-progress--warning .ps-progress__fill-circle { background: var(--ps-color-warning-600, var(--yellow-500)); stroke: var(--ps-color-warning-600, var(--yellow-500)); }
+.ps-progress--danger .ps-progress__fill, .ps-progress--danger .ps-progress__fill-circle { background: var(--ps-color-error-600, var(--red-600)); stroke: var(--ps-color-error-600, var(--red-600)); }
+.ps-progress--indeterminate.ps-progress--linear .ps-progress__fill { width: 40%; animation: ps-progress-indeterminate var(--ps-transition-duration-fast, 0.15s) ease-in-out infinite; }
+.ps-progress--indeterminate.ps-progress--circular .ps-progress__fill-circle { animation: ps-progress-circular-rotate var(--transition-soft-linear, 2s linear) infinite; stroke-dasharray: 80 200; stroke-dashoffset: 0; }
+.ps-progress--striped.ps-progress--linear .ps-progress__fill { background-image: var(--progress-striped-gradient, linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent)); background-size: var(--size-4) var(--size-4); animation: ps-progress-stripes var(--ps-transition-duration-fast, 0.5s) linear infinite; }
+@keyframes ps-progress-indeterminate { 0% { left: -40%; } 100% { left: 100%; } }
+@keyframes ps-progress-circular-rotate { 0% { transform: rotate(0deg); stroke-dashoffset: 0; } 50% { stroke-dashoffset: -70; } 100% { transform: rotate(360deg); stroke-dashoffset: -140; } }
+@keyframes ps-progress-stripes { 0% { background-position: 0 0; } 100% { background-position: var(--size-4) 0; } }

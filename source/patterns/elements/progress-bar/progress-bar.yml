@@ -1,2 +1,11 @@
-text: 'progress-bar component placeholder'
-modifier: ''
+# Defaults for Progress Bar preview (simple data)
+value: 60
+min: 0
+max: 100
+variant: 'linear'  # Options: linear | circular
+color: 'primary'  # Options: primary | secondary | success | warning | danger | info
+size: 'medium'  # Options: small | medium | large
+indeterminate: false  # true = animation infinie sans valeur
+striped: false  # true = rayures animées (linear uniquement)
+showLabel: true  # true = affiche le pourcentage
+label: 'Upload en cours'  # Label pour accessibilité (lecteurs d'écran)

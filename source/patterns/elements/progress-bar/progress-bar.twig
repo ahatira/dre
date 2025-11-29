@@ -1,5 +1,56 @@
-{# ps-progress-bar (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-progress-bar">
-  {%- if text -%}<span class="ps-progress-bar__text">{{- text -}}</span>{%- endif -%}
-</div>
+{#
+ * PS Progress Bar Atom
+ * Variables: value, min, max, variant, color, size, indeterminate, striped, showLabel, label, attributes
+ #}
+{% set variant = variant|default('linear') %}
+{% set color = color|default('secondary') %}
+{% set size = size|default('medium') %}
+{% set indeterminate = indeterminate|default(false) %}
+{% set striped = striped|default(false) %}
+{% set showLabel = showLabel|default(false) %}
+{% set value = indeterminate ? null : (value ?? 0) %}
+{% set min = min|default(0) %}
+{% set max = max|default(100) %}
+{% set percent = value is not null ? ((value - min) / (max - min) * 100)|round : 0 %}
+{# Minimal HTML: base class only by default; add modifiers only when different from defaults #}
+{% set root_classes = ['ps-progress'] %}
+{% if variant != 'linear' %}
+  {% set root_classes = root_classes|merge(['ps-progress--' ~ variant]) %}
+{% endif %}
+{% if color != 'secondary' %}
+  {% set root_classes = root_classes|merge(['ps-progress--' ~ color]) %}
+{% endif %}
+{% if size != 'medium' %}
+  {% set root_classes = root_classes|merge(['ps-progress--' ~ size]) %}
+{% endif %}
+{% if indeterminate %}
+  {% set root_classes = root_classes|merge(['ps-progress--indeterminate']) %}
+{% endif %}
+{% if striped and variant == 'linear' %}
+  {% set root_classes = root_classes|merge(['ps-progress--striped']) %}
+{% endif %}
+{% if showLabel %}
+  {% set root_classes = root_classes|merge(['ps-progress--with-label']) %}
+{% endif %}
+{% if variant == 'linear' %}
+  <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
+    <div class="ps-progress__track">
+      <div class="ps-progress__fill" {% if not indeterminate %}style="width: {{ percent }}%;"{% endif %}></div>
+    </div>
+    {% if showLabel and not indeterminate %}
+      <span class="ps-progress__label">{{ percent }}%</span>
+    {% endif %}
+  </div>
+{% else %}
+  {% set circumference = 2 * 3.14159 * 45 %}
+  {% set offset = indeterminate ? 0 : (circumference * (1 - percent / 100)) %}
+  <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
+    <svg class="ps-progress__svg" viewBox="0 0 100 100">
+      <circle class="ps-progress__track-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8"></circle>
+      <circle class="ps-progress__fill-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8" stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}" {% if indeterminate %}class="ps-progress__fill-circle--indeterminate"{% endif %}></circle>
+    </svg>
+    {% if showLabel and not indeterminate %}
+      <span class="ps-progress__label">{{ percent }}%</span>
+    {% endif %}
+  </div>
+{% endif %}
