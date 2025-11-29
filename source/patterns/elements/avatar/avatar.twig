@@ -1,6 +1,57 @@
-{# ps-avatar (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-avatar">
-  {%- if text -%}<span class="ps-avatar__text">{{- text -}}</span>{%- endif -%}
+{#
+ * Avatar atom
+ * @param string src - Image URL (optional)
+ * @param string alt - Alt text (optional)
+ * @param string initials - Initials fallback (optional)
+ * @param string size - xs|sm|md|lg|xl (default: xl)
+ * @param string shape - circle|square|rounded (default: circle)
+ * @param string status - online|offline|busy (optional)
+ * @param boolean bordered - Border (default: false)
+ * @param boolean clickable - Clickable (default: false)
+ * @param string href - URL if clickable (optional)
+ #}
+
+{%- set size = size|default('xl') -%}
+{%- set shape = shape|default('circle') -%}
+{%- set bordered = bordered|default(false) -%}
+{%- set clickable = clickable|default(false) -%}
+
+{%- set has_image = src -%}
+{%- set has_initials = initials and not has_image -%}
+{%- set has_icon = not has_image and not has_initials -%}
+
+{%- set wrapper_classes = [] -%}
+{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper']) -%}
+{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--' ~ size]) -%}
+{%- if status -%}{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--has-status']) -%}{%- endif -%}
+
+{%- set avatar_classes = [] -%}
+{%- set avatar_classes = avatar_classes|merge(['ps-avatar']) -%}
+{%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ shape]) -%}
+{%- if has_initials -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--initials']) -%}{%- endif -%}
+{%- if has_icon -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--icon']) -%}{%- endif -%}
+{%- if bordered -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--bordered']) -%}{%- endif -%}
+{%- if clickable -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--clickable']) -%}{%- endif -%}
+
+{%- set tag = href ? 'a' : 'div' -%}
+
+<div class="{{ wrapper_classes|join(' ')|trim }}">
+  <{{ tag }} class="{{ avatar_classes|join(' ')|trim }}"
+    {%- if href %}href="{{ href }}"{% endif -%}
+    {%- if clickable and href %}role="link"{% endif -%}
+  >
+    {%- if has_image -%}
+      <img class="ps-avatar__image" src="{{ src }}" alt="{{ alt|default('') }}" loading="lazy" />
+    {%- elseif has_initials -%}
+      <span class="ps-avatar__text">{{ initials }}</span>
+    {%- else -%}
+      <svg class="ps-avatar__icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    {%- endif -%}
+  </{{ tag }}>
   
+  {%- if status -%}
+    <span class="ps-avatar__status ps-avatar__status--{{ status }}" aria-label="{% if status == 'online' %}En ligne{% elseif status == 'busy' %}Occupé{% else %}Hors ligne{% endif %}"></span>
+  {%- endif -%}
 </div>

@@ -1,3 +1,4 @@
+  --ps-transition-duration-fast: 0.15s;
 :where(html) {
   --animation-fade-in: fade-in 0.5s var(--ease-3);
   --animation-fade-out: fade-out 0.5s var(--ease-3);

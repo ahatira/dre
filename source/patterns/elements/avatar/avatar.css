@@ -1,8 +1,153 @@
-@layer components {
-  .ps-avatar {
-    display: inline-block;
-  }
-  .ps-avatar__text {
-    font: inherit;
-  }
+/* PS Avatar Atom - Pixel Perfect, BEM strict, tokens only */
+
+/* Wrapper global */
+.ps-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.ps-avatar-wrapper--xs {
+  width: var(--size-6);
+  height: var(--size-6);
+}
+.ps-avatar-wrapper--sm {
+  width: var(--size-8);
+  height: var(--size-8);
+}
+.ps-avatar-wrapper--md {
+  width: var(--size-10);
+  height: var(--size-10);
+}
+.ps-avatar-wrapper--lg {
+  width: var(--size-14);
+  height: var(--size-14);
+}
+.ps-avatar-wrapper--xl {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+/* Avatar container */
+.ps-avatar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--ps-color-neutral-200);
+  text-decoration: none;
+}
+.ps-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ps-avatar__text {
+  font-family: var(--ps-font-family-primary);
+  font-weight: var(--ps-font-weight-semibold);
+  color: var(--ps-color-neutral-0);
+  text-transform: uppercase;
+  user-select: none;
+}
+.ps-avatar__icon {
+  display: block;
+  color: var(--ps-color-neutral-600);
+}
+
+/* Text sizes per avatar size */
+.ps-avatar-wrapper--xs .ps-avatar__text {
+  font-size: 10px;
+}
+.ps-avatar-wrapper--xs .ps-avatar__icon {
+  width: 12px;
+  height: 12px;
+}
+.ps-avatar-wrapper--sm .ps-avatar__text {
+  font-size: 12px;
+}
+.ps-avatar-wrapper--sm .ps-avatar__icon {
+  width: 16px;
+  height: 16px;
+}
+.ps-avatar-wrapper--md .ps-avatar__text {
+  font-size: 14px;
+}
+.ps-avatar-wrapper--md .ps-avatar__icon {
+  width: 20px;
+  height: 20px;
+}
+.ps-avatar-wrapper--lg .ps-avatar__text {
+  font-size: 18px;
+}
+.ps-avatar-wrapper--lg .ps-avatar__icon {
+  width: 28px;
+  height: 28px;
+}
+.ps-avatar-wrapper--xl .ps-avatar__text {
+  font-size: 24px;
+}
+.ps-avatar-wrapper--xl .ps-avatar__icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Shapes */
+.ps-avatar--circle {
+  border-radius: 50%;
+}
+.ps-avatar--square {
+  border-radius: 0;
+}
+.ps-avatar--rounded {
+  border-radius: 4px;
+}
+
+/* Types */
+.ps-avatar--initials {
+  background: var(--ps-color-primary-600);
+}
+.ps-avatar--icon {
+  background: var(--ps-color-neutral-100);
+}
+
+/* Bordered */
+.ps-avatar--bordered {
+  border: 2px solid var(--ps-color-neutral-0);
+}
+
+/* Clickable */
+.ps-avatar--clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.ps-avatar--clickable:hover {
+  transform: scale(1.05);
+}
+.ps-avatar--clickable:focus-visible {
+  outline: 2px solid var(--ps-color-interactive-focus-outline, #0B5FFF);
+  outline-offset: 2px;
+}
+
+/* Status badge - positionné depuis le wrapper */
+.ps-avatar__status {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ps-color-neutral-0);
+  bottom: 0;
+  right: 0;
+}
+.ps-avatar__status--online {
+  background: var(--ps-color-success-600);
+}
+.ps-avatar__status--offline {
+  background: var(--ps-color-neutral-400);
+}
+.ps-avatar__status--busy {
+  background: var(--ps-color-error-600);
 }

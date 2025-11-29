@@ -1,3 +1,4 @@
+ - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
 # PS Design System - CHANGELOG
 
 Toutes les modifications notables du système de design seront documentées dans ce fichier.

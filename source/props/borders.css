@@ -1,3 +1,6 @@
+  --ps-border-radius-full: 50%;
+  --ps-border-radius-sm: 4px;
+  --ps-border-width-default: 2px;
 :where(html) {
   --border-size-1: 1px;
   --border-size-2: 2px;

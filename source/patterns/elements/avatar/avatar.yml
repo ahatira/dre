@@ -1,2 +1,10 @@
-text: 'avatar component placeholder'
-modifier: ''
+
+src: 'https://i.pravatar.cc/150?img=12'
+alt: 'John Doe'
+initials: ''
+size: 'xl'
+shape: 'circle'
+status: ''
+bordered: false
+clickable: false
+href: ''

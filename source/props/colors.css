@@ -1,4 +1,15 @@
 :where(html) {
+  /* Avatar tokens */
+  --ps-color-primary-600: hsl(162, 72%, 38%); /* #0DB089 - vert BNP */
+  --ps-color-neutral-0: hsl(0, 0%, 100%); /* #FFF - blanc */
+  --ps-color-neutral-100: hsl(210, 20%, 98%); /* #F3F6F9 */
+  --ps-color-neutral-200: hsl(216, 22%, 92%); /* #E8EBEF */
+  --ps-color-neutral-400: hsl(210, 15%, 70%); /* #9AA6B2 */
+  --ps-color-neutral-600: hsl(210, 15%, 35%); /* #54636F */
+  --ps-color-success-600: hsl(162, 72%, 38%); /* #0DB089 */
+  --ps-color-error-600: hsl(2, 80%, 58%); /* #E53935 */
+  
+  /* Base colors */
   --white: hsl(0 0% 100%);
   --gray-50: hsl(210, 20%, 98%);
   --gray-100: hsl(220, 14%, 96%);
