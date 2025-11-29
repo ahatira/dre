@@ -32,7 +32,7 @@
 .ps-progress--danger .ps-progress__fill, .ps-progress--danger .ps-progress__fill-circle { background: var(--ps-color-error-600, var(--red-600)); stroke: var(--ps-color-error-600, var(--red-600)); }
 .ps-progress--indeterminate.ps-progress--linear .ps-progress__fill { width: 40%; position: relative; animation: ps-progress-indeterminate 1.5s ease-in-out infinite; }
 .ps-progress--indeterminate.ps-progress--circular .ps-progress__fill-circle { animation: ps-progress-circular-rotate var(--transition-soft-linear, 2s linear) infinite; stroke-dasharray: 80 200; stroke-dashoffset: 0; }
-.ps-progress--striped.ps-progress--linear .ps-progress__fill { background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent); background-size: var(--size-4, 1rem) var(--size-4, 1rem); animation: ps-progress-stripes 1s linear infinite; }
+.ps-progress--striped.ps-progress--linear .ps-progress__fill { background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent); background-size: 1rem 1rem; animation: ps-progress-stripes 1s linear infinite; }
 @keyframes ps-progress-indeterminate { 0% { left: -40%; } 100% { left: 100%; } }
 @keyframes ps-progress-circular-rotate { 0% { transform: rotate(0deg); stroke-dashoffset: 0; } 50% { stroke-dashoffset: -70; } 100% { transform: rotate(360deg); stroke-dashoffset: -140; } }
-@keyframes ps-progress-stripes { 0% { background-position: 0 0; } 100% { background-position: var(--size-4) 0; } }
+@keyframes ps-progress-stripes { 0% { background-position: 0 0; } 100% { background-position: 1rem 0; } }
