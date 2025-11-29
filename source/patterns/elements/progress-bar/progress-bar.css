@@ -250,24 +250,18 @@
 }
 
 /* State - STRIPED (Linear only) */
-.ps-progress--striped.ps-progress--linear {
-	.ps-progress__fill {
-		background-image: linear-gradient(
-			45deg,
-			rgba(255, 255, 255, 0.25) 25%,
-			transparent 25%,
-			transparent 50%,
-			rgba(255, 255, 255, 0.25) 50%,
-			rgba(255, 255, 255, 0.25) 75%,
-			transparent 75%,
-			transparent
-		);
-		background-size: 1rem 1rem;
-	}
-}
-
-/* Animation pour striped (activée uniquement si animated: true via classe supplémentaire ou par défaut) */
-.ps-progress--striped.ps-progress--linear .ps-progress__fill {
+.ps-progress--striped .ps-progress__fill {
+	background-image: linear-gradient(
+		45deg,
+		rgba(255, 255, 255, 0.25) 25%,
+		transparent 25%,
+		transparent 50%,
+		rgba(255, 255, 255, 0.25) 50%,
+		rgba(255, 255, 255, 0.25) 75%,
+		transparent 75%,
+		transparent
+	);
+	background-size: 1rem 1rem;
 	animation: ps-progress-stripes 1s linear infinite;
 }
 
