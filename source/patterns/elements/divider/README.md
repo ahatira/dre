@@ -16,7 +16,7 @@ Séparateur visuel pour délimiter des sections de contenu. Supporte orientation
 | `orientation` | string | `horizontal`, `vertical` | `horizontal` | Orientation du séparateur |
 | `style` | string | `solid`, `dashed`, `dotted` | `solid` | Style de ligne |
 | `thickness` | string | `thin`, `medium`, `thick` | `medium` | Épaisseur de ligne |
-| `color` | string | `neutral`, `primary`, `secondary` | `neutral` | Couleur de ligne |
+| `color` | string | `neutral`, `primary`, `secondary`, `success`, `warning`, `danger`, `info` | `neutral` | Couleur de ligne |
 | `spacing` | string | `sm`, `md`, `lg` | `md` | Espacement autour du divider |
 | `text` | string | - | `''` | Texte central optionnel |
 | `icon` | string | - | `''` | Nom d'icône centrale optionnelle |
@@ -43,8 +43,12 @@ Séparateur visuel pour délimiter des sections de contenu. Supporte orientation
 
 **Couleur:**
 - `ps-divider--neutral` (gray-300, défaut)
-- `ps-divider--primary` (bnp-green)
-- `ps-divider--secondary` (gray-500)
+- `ps-divider--primary` (green #00915A - brand primary)
+- `ps-divider--secondary` (purple #E0388C - brand secondary)
+- `ps-divider--success` (green-600)
+- `ps-divider--warning` (yellow-500)
+- `ps-divider--danger` (red-600)
+- `ps-divider--info` (blue-600)
 
 **Espacement:**
 - `ps-divider--spacing-sm` (8px)
@@ -63,11 +67,15 @@ Séparateur visuel pour délimiter des sections de contenu. Supporte orientation
 ## Design Tokens
 
 ### Couleurs
-- Neutral : `--gray-300` (#D6DBDE)
-- Primary : `--bnp-green` (#00915A)
-- Secondary : `--gray-500`
-- Texte : `--gray-600`
-- Icône : `--gray-500`
+- Neutral : `--ps-color-neutral-300` fallback `--gray-300`
+- Primary : `--brand-primary` (green #00915A)
+- Secondary : `--brand-secondary` (purple #E0388C)
+- Success : `--btn-success` fallback `--green-600`
+- Warning : `--btn-warning` fallback `--yellow-500`
+- Danger : `--btn-danger` fallback `--red-600`
+- Info : `--btn-info` fallback `--blue-600`
+- Texte : `--ps-color-neutral-600` fallback `--gray-600`
+- Icône : `--ps-color-neutral-500` fallback `--gray-500`
 
 ### Espacements
 - Small : `--size-2` (8px)

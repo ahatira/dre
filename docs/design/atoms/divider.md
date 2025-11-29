@@ -110,7 +110,7 @@ props:
       default: 'medium'
     color:
       type: string
-      enum: ['primary','secondary','neutral']
+      enum: ['neutral','primary','secondary','success','warning','danger','info']
       default: 'neutral'
     spacing:
       type: string
@@ -133,7 +133,7 @@ props:
 - **Orientations** : `horizontal`|`vertical`.
 - **Styles** : `solid`|`dashed`|`dotted`.
 - **Épaisseurs** : `thin`|`medium`|`thick`.
-- **Couleurs** : `primary`|`secondary`|`neutral`.
+- **Couleurs** : `neutral`|`primary` (green)|`secondary` (purple)|`success`|`warning`|`danger`|`info`.
 - **Espacements** : `sm`|`md`|`lg` (margin vertical/horizontal).
 - **Contenu central** : texte ou icône.
 
@@ -142,9 +142,13 @@ props:
 ## 🎨 Design Tokens
 
 - Couleurs:
-  - Primary: `--ps-color-primary-600`
-  - Secondary: `--ps-color-neutral-500`
-  - Neutral: `--ps-color-neutral-300` (défaut)
+  - Neutral: `--ps-color-neutral-300` (gray, défaut)
+  - Primary: `--brand-primary` (green #00915A - BNP green)
+  - Secondary: `--brand-secondary` (purple #E0388C - BNP pink)
+  - Success: `--btn-success` (green-600)
+  - Warning: `--btn-warning` (yellow-500)
+  - Danger: `--btn-danger` (red-600)
+  - Info: `--btn-info` (blue-600)
 - Épaisseurs:
   - Thin: `1px` ou `--ps-border-width-thin`
   - Medium: `2px` ou `--ps-border-width-default`
@@ -264,17 +268,33 @@ props:
   }
 
   // Colors
-  &--primary {
-    &.ps-divider--horizontal { border-top-color: var(--ps-color-primary-600, #0DB089); }
-    &.ps-divider--vertical { border-left-color: var(--ps-color-primary-600, #0DB089); }
-  }
-  &--secondary {
-    &.ps-divider--horizontal { border-top-color: var(--ps-color-neutral-500, #6E7C89); }
-    &.ps-divider--vertical { border-left-color: var(--ps-color-neutral-500, #6E7C89); }
-  }
   &--neutral {
     &.ps-divider--horizontal { border-top-color: var(--ps-color-neutral-300, #D2D7DB); }
     &.ps-divider--vertical { border-left-color: var(--ps-color-neutral-300, #D2D7DB); }
+  }
+  &--primary {
+    &.ps-divider--horizontal { border-top-color: var(--brand-primary, #00915A); }
+    &.ps-divider--vertical { border-left-color: var(--brand-primary, #00915A); }
+  }
+  &--secondary {
+    &.ps-divider--horizontal { border-top-color: var(--brand-secondary, #E0388C); }
+    &.ps-divider--vertical { border-left-color: var(--brand-secondary, #E0388C); }
+  }
+  &--success {
+    &.ps-divider--horizontal { border-top-color: var(--btn-success, var(--green-600)); }
+    &.ps-divider--vertical { border-left-color: var(--btn-success, var(--green-600)); }
+  }
+  &--warning {
+    &.ps-divider--horizontal { border-top-color: var(--btn-warning, var(--yellow-500)); }
+    &.ps-divider--vertical { border-left-color: var(--btn-warning, var(--yellow-500)); }
+  }
+  &--danger {
+    &.ps-divider--horizontal { border-top-color: var(--btn-danger, var(--red-600)); }
+    &.ps-divider--vertical { border-left-color: var(--btn-danger, var(--red-600)); }
+  }
+  &--info {
+    &.ps-divider--horizontal { border-top-color: var(--btn-info, var(--blue-600)); }
+    &.ps-divider--vertical { border-left-color: var(--btn-info, var(--blue-600)); }
   }
 
   // With text/icon
@@ -319,11 +339,27 @@ props:
   // Color for lines in with-text/icon variants
   &--primary.ps-divider--with-text .ps-divider__line,
   &--primary.ps-divider--with-icon .ps-divider__line {
-    border-top-color: var(--ps-color-primary-600, #0DB089);
+    border-top-color: var(--brand-primary, #00915A);
   }
   &--secondary.ps-divider--with-text .ps-divider__line,
   &--secondary.ps-divider--with-icon .ps-divider__line {
-    border-top-color: var(--ps-color-neutral-500, #6E7C89);
+    border-top-color: var(--brand-secondary, #E0388C);
+  }
+  &--success.ps-divider--with-text .ps-divider__line,
+  &--success.ps-divider--with-icon .ps-divider__line {
+    border-top-color: var(--btn-success, var(--green-600));
+  }
+  &--warning.ps-divider--with-text .ps-divider__line,
+  &--warning.ps-divider--with-icon .ps-divider__line {
+    border-top-color: var(--btn-warning, var(--yellow-500));
+  }
+  &--danger.ps-divider--with-text .ps-divider__line,
+  &--danger.ps-divider--with-icon .ps-divider__line {
+    border-top-color: var(--btn-danger, var(--red-600));
+  }
+  &--info.ps-divider--with-text .ps-divider__line,
+  &--info.ps-divider--with-icon .ps-divider__line {
+    border-top-color: var(--btn-info, var(--blue-600));
   }
 }
 ```

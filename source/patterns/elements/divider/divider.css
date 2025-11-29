@@ -125,9 +125,16 @@
 }
 
 .ps-divider__icon {
+  font-family: 'bnpre-icons';
   font-size: var(--font-size-1); /* 16px */
   color: var(--ps-color-neutral-500, var(--gray-500));
   flex-shrink: 0;
+  font-style: normal;
+  line-height: 1;
+}
+
+.ps-divider__icon::before {
+  content: var(--ps-divider-icon, "\e800"); /* default icon */
 }
 
 /* Line styles for with-text/icon variants */

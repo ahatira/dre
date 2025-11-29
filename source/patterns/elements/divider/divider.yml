@@ -5,3 +5,4 @@ color: 'neutral'
 spacing: 'md'
 text: ''
 icon: ''
+# Available colors: neutral, primary (green), secondary (purple), success (green), warning (yellow), danger (red), info (blue)

@@ -24,7 +24,7 @@ export default {
     },
     color: {
       control: 'select',
-      options: ['neutral', 'primary', 'secondary'],
+      options: ['neutral', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
       description: 'Line color',
     },
     spacing: {
@@ -86,6 +86,34 @@ export const Secondary = {
   args: {
     ...data,
     color: 'secondary',
+  },
+};
+
+export const Success = {
+  args: {
+    ...data,
+    color: 'success',
+  },
+};
+
+export const Warning = {
+  args: {
+    ...data,
+    color: 'warning',
+  },
+};
+
+export const Danger = {
+  args: {
+    ...data,
+    color: 'danger',
+  },
+};
+
+export const Info = {
+  args: {
+    ...data,
+    color: 'info',
   },
 };
 
@@ -189,12 +217,28 @@ export const AllStyles = {
             ${dividerTwig({ color: 'neutral', spacing: 'sm' })}
           </div>
           <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Primary (BNP green)</small>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Primary (green #00915A)</small>
             ${dividerTwig({ color: 'primary', spacing: 'sm' })}
           </div>
           <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Secondary (gray-500)</small>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Secondary (purple #E0388C)</small>
             ${dividerTwig({ color: 'secondary', spacing: 'sm' })}
+          </div>
+          <div>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Success (green-600)</small>
+            ${dividerTwig({ color: 'success', spacing: 'sm' })}
+          </div>
+          <div>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Warning (yellow-500)</small>
+            ${dividerTwig({ color: 'warning', spacing: 'sm' })}
+          </div>
+          <div>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Danger (red-600)</small>
+            ${dividerTwig({ color: 'danger', spacing: 'sm' })}
+          </div>
+          <div>
+            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Info (blue-600)</small>
+            ${dividerTwig({ color: 'info', spacing: 'sm' })}
           </div>
         </div>
       </div>
