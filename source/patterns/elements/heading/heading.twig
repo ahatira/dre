@@ -20,14 +20,14 @@
 
 <{{ level }} class="{{ heading_classes }}">
   {%- if icon and iconPosition == 'left' -%}
-    {%- include '../icon/icon.twig' with {
+    {%- include '@elements/icon/icon.twig' with {
       name: icon,
       size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
     } only -%}
   {%- endif -%}
   <span class="ps-heading__text">{{- text -}}</span>
   {%- if icon and iconPosition == 'right' -%}
-    {%- include '../icon/icon.twig' with {
+    {%- include '@elements/icon/icon.twig' with {
       name: icon,
       size: level == 'h1' ? 'xlarge' : (level == 'h2' ? 'large' : 'medium')
     } only -%}

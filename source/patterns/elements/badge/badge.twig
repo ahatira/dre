@@ -19,7 +19,7 @@
 
 <{{ tag }} class="{{ badge_classes }}"{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}
-    {%- include '../icon/icon.twig' with {
+    {%- include '@elements/icon/icon.twig' with {
       name: icon,
       size: 'small'
     } only -%}
