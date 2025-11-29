@@ -502,6 +502,30 @@ variant: 'linear'          // Type/forme de composant
 | **État visuel** | `appearance` | solid, outlined, ghost, soft | `appearance: 'outlined'` |
 | **Alignement** | `alignment` | start, center, end, justify | `alignment: 'center'` |
 | **Position** | `position` | top, right, bottom, left | `position: 'top'` |
+| `icon` | Icon name (string) | check, calendar, close, medal | `icon: 'check'` |
+
+### Règles spécifiques pour les icônes
+
+**Icônes contrôlables par l'utilisateur** (prop du composant):
+- ✅ Nom de prop: `icon` (string)
+- ✅ Valeur **SANS préfixe "icon-"**: 'check', 'calendar', 'medal' (PAS 'icon-check')
+- ✅ Utiliser le composant icon: `{%- include '@elements/icon/icon.twig' with { name: icon } only -%}`
+- ✅ Storybook control: `control: 'select', options: ['', ...iconsList.categories.generic]`
+
+**Icônes décoratives** (CSS uniquement, non contrôlables):
+- ✅ Utiliser attribut `data-icon` **SANS préfixe**: `<span class="ps-component__icon" data-icon="check"></span>`
+- ✅ Component CSS: **NE PAS ajouter de mappings data-icon**
+  - Tous les mappings `[data-icon]` sont centralisés dans `source/props/icons.css`
+  - CSS du composant: seulement font-family et styles de base
+  ```css
+  .ps-component__icon {
+    font-family: 'bnpre-icons';
+    /* PAS de [data-icon="..."]::before ici */
+  }
+  ```
+- ❌ Éviter markup supplémentaire: `<i class="icon-name"></i>` ou classes `ps-icon ps-icon-*`
+
+**Important**: Toujours utiliser les noms d'icônes SANS le préfixe "icon-" dans les props, data-icon, YAML, et documentation.
 
 ### Exemples d'application
 

@@ -121,26 +121,35 @@
     .ps-divider--primary { border-top-color: var(--bnp-green); } /* works alone */
     .ps-divider--thick { border-top-width: 4px; } /* works alone */
     ```
-- **CRITICAL - ICONS IN CSS**: 
-  - Render icons via CSS pseudo-elements (`::before`/`::after`) when possible
+- **CRITICAL - ICONS IMPLEMENTATION**: 
+  - **Component icon element**: Use dedicated icon component `@elements/icon/icon.twig`
+    ```twig
+    {%- include '@elements/icon/icon.twig' with {
+      name: icon,
+      size: 'small'
+    } only -%}
+    ```
+  - **Decorative icons in CSS**: Render via CSS pseudo-elements when icon is purely decorative
   - ❌ Avoid extra markup: `<i class="icon-name"></i>` or `<svg>` or classes `ps-icon ps-icon-*`
-  - ✅ Prefer CSS-only: `<span class="ps-component__icon" data-icon="name"></span>`
-  - ✅ CSS implementation:
+  - ✅ For decorative icons, use `data-icon` attribute **WITHOUT "icon-" prefix**:
+    ```html
+    <span class="ps-component__icon" data-icon="check"></span>
+    <span class="ps-component__icon" data-icon="calendar"></span>
+    ```
+  - ✅ CSS implementation: **DO NOT add data-icon mappings in component CSS**
+    - All `[data-icon]` mappings are centralized in `source/props/icons.css`
+    - Component CSS only needs font-family and basic styling:
     ```css
     .ps-component__icon {
       font-family: 'bnpre-icons';
       font-style: normal;
       line-height: 1;
     }
-    .ps-component__icon::before {
-      content: var(--ps-component-icon-content, "\e800");
-    }
+    /* NO content mappings here - they're in icons.css */
     ```
-  - Use CSS variables or data-icon mapping for icon selection
-  - Example icon mapping:
-    ```css
-    .ps-component__icon[data-icon="arrow-right"]::before { content: "\e802"; }
-    ```
+  - **Props naming**: Icon prop should be named `icon` (string) accepting icon name WITHOUT prefix (e.g., 'check', 'calendar', 'medal')
+  - **Storybook control**: Use select control with `iconsList.categories.generic` for icon picker
+  - **Important**: Icon names are stored/used WITHOUT "icon-" prefix in props, data-icon, and documentation
 - **CRITICAL - SEMANTIC COLOR NAMING**:
   - ❌ **NEVER** use color names: `'green'`, `'purple'`, `'blue'`, `'red'`, `'yellow'`
   - ✅ **ALWAYS** use semantic names:

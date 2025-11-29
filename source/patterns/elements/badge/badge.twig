@@ -2,21 +2,21 @@
  * Badge atom - Compact indicator
  * Props:
  *   text (string) - Badge text (required)
- *   icon (string) - Icon name (optional, e.g., 'icon-eye')
- *   variant (string) - default|primary|secondary|gold|info|success|warning|danger (default: default)
+ *   icon (string) - Icon name (optional, e.g., 'check', 'calendar')
+ *   color (string) - default|primary|secondary|gold|info|success|warning|danger (default: default)
  *   pill (boolean) - Rounded pill shape (default: false)
  *   url (string) - Link URL (renders <a>)
  *   size (string) - small|medium|large (default: medium)
  #}
 
-{%- set variant = variant|default('default') -%}
+{%- set color = color|default('default') -%}
 {%- set size = size|default('medium') -%}
 {%- set pill = pill|default(false) -%}
 {%- set tag = url ? 'a' : 'span' -%}
 
 {%- set badge_classes = ['ps-badge'] -%}
-{%- if variant != 'default' -%}
-  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ variant]) -%}
+{%- if color != 'default' -%}
+  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ color]) -%}
 {%- endif -%}
 {%- if size != 'medium' -%}
   {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ size]) -%}
@@ -27,10 +27,7 @@
 
 <{{ tag }} class="{{ badge_classes|join(' ')|trim }}"{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}
-    {%- include '@elements/icon/icon.twig' with {
-      name: icon,
-      size: 'small'
-    } only -%}
+    <span class="ps-badge__icon" data-icon="{{ icon }}"></span>
   {%- endif -%}
   <span class="ps-badge__text">{{- text -}}</span>
 </{{ tag }}>

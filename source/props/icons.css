@@ -458,457 +458,482 @@
 }
 
 /* Added missing bnpre-icons glyphs extracted from SVG */
+[data-icon="elevator"]::before,
 .icon-elevator:before { content: "\e800" }
+
+[data-icon="equipement"]::before,
 .icon-equipement:before { content: "\e802" }
+
+[data-icon="equipement-1"]::before,
 .icon-equipement-1:before { content: "\e803" }
+
+[data-icon="air-conditioning"]::before,
 .icon-air-conditioning:before { content: "\e806" }
+
+[data-icon="business-lounge"]::before,
 .icon-business-lounge:before { content: "\e808" }
+
+[data-icon="false-ceiling"]::before,
 .icon-false-ceiling:before { content: "\e809" }
+
+[data-icon="fav-stroke"]::before,
 .icon-fav-stroke:before { content: "\e80b" }
+
+[data-icon="floors"]::before,
 .icon-floors:before { content: "\e80c" }
+
+[data-icon="host"]::before,
 .icon-host:before { content: "\e80e" }
+
+[data-icon="kitchen"]::before,
 .icon-kitchen:before { content: "\e810" }
+
+[data-icon="meeting-rooms-number"]::before,
 .icon-meeting-rooms-number:before { content: "\e811" }
+
+[data-icon="not-available"]::before,
 .icon-not-available:before { content: "\e813" }
+
+[data-icon="price"]::before,
 .icon-price:before { content: "\e818" }
+
+[data-icon="sanitary"]::before,
 .icon-sanitary:before { content: "\e81b" }
+
+[data-icon="sport-room"]::before,
 .icon-sport-room:before { content: "\e81c" }
+
+[data-icon="train"]::before,
 .icon-train:before { content: "\e81e" }
+
+[data-icon="the-mosts"]::before,
 .icon-the-mosts:before { content: "\e81f" }
+
+[data-icon="accessibility"]::before,
 .icon-accessibility:before { content: "\e822" }
+
+[data-icon="vestiaires"]::before,
 .icon-vestiaires:before { content: "\e823" }
+
+[data-icon="waiting-room"]::before,
 .icon-waiting-room:before { content: "\e825" }
+
+[data-icon="welcome-room"]::before,
 .icon-welcome-room:before { content: "\e827" }
+
+[data-icon="bus-1"]::before,
 .icon-bus-1:before { content: "\e828" }
+
+[data-icon="energy-cons-1"]::before,
 .icon-energy-cons-1:before { content: "\e829" }
+
+[data-icon="air-conditioning-1"]::before,
 .icon-air-conditioning-1:before { content: "\e82a" }
+
+[data-icon="testimony"]::before,
 .icon-testimony:before { content: "\e82b" }
+
+[data-icon="trends"]::before,
 .icon-trends:before { content: "\e82c" }
+
+[data-icon="advise"]::before,
 .icon-advise:before { content: "\e82e" }
+
+[data-icon="buy-rent"]::before,
 .icon-buy-rent:before { content: "\e82f" }
+
+[data-icon="capital-market"]::before,
 .icon-capital-market:before { content: "\e830" }
+
+[data-icon="entrusting-a-property"]::before,
 .icon-entrusting-a-property:before { content: "\e831" }
+
+[data-icon="pause"]::before,
 .icon-pause:before { content: "\e838" }
+
+[data-icon="common-areas"]::before,
 .icon-common-areas:before { content: "\e83b" }
+
+[data-icon="open-space"]::before,
 .icon-open-space:before { content: "\e83c" }
+
+[data-icon="facebook"]::before,
 .icon-facebook:before { content: "\e83d" }
+
+[data-icon="twitter"]::before,
 .icon-twitter:before { content: "\e841" }
+
+[data-icon="drag-and-drop"]::before,
 .icon-drag-and-drop:before { content: "\e845" }
+
+[data-icon="list"]::before,
 .icon-list:before { content: "\e846" }
+
+[data-icon="select-area-map"]::before,
 .icon-select-area-map:before { content: "\e847" }
+
+[data-icon="touch"]::before,
 .icon-touch:before { content: "\e849" }
+
+[data-icon="medal"]::before,
 .icon-medal:before { content: "\e84b" }
+
+[data-icon="download"]::before,
 .icon-download:before { content: "\e85b" }
+
+[data-icon="euro"]::before,
 .icon-euro:before { content: "\e85d" }
+
+[data-icon="radio-selected"]::before,
 .icon-radio-selected:before { content: "\e869" }
+
+[data-icon="radio-unselected"]::before,
 .icon-radio-unselected:before { content: "\e86a" }
+
+[data-icon="settings"]::before,
 .icon-settings:before { content: "\e86d" }
+
+[data-icon="false-ceiling-1"]::before,
 .icon-false-ceiling-1:before { content: "\e871" }
+
+[data-icon="car-1"]::before,
 .icon-car-1:before { content: "\e872" }
 
-[data-icon="poi-sport"]::before,
 [data-icon="poi-sport"]::before,
 .icon-poi-sport:before {
     content: "\e800"
 }
 
 [data-icon="poi-theme_1"]::before,
-[data-icon="poi-theme_1"]::before,
 .icon-poi-theme_1:before {
     content: "\e801"
 }
 
-[data-icon="poi-theme_14"]::before,
 [data-icon="poi-theme_14"]::before,
 .icon-poi-theme_14:before {
     content: "\e802"
 }
 
 [data-icon="poi-theme_23"]::before,
-[data-icon="poi-theme_23"]::before,
 .icon-poi-theme_23:before {
     content: "\e803"
 }
 
-[data-icon="poi-theme_32"]::before,
 [data-icon="poi-theme_32"]::before,
 .icon-poi-theme_32:before {
     content: "\e804"
 }
 
 [data-icon="poi-theme_67"]::before,
-[data-icon="poi-theme_67"]::before,
 .icon-poi-theme_67:before {
     content: "\e805"
 }
 
-[data-icon="poi-theme_68"]::before,
 [data-icon="poi-theme_68"]::before,
 .icon-poi-theme_68:before {
     content: "\e806"
 }
 
 [data-icon="poi-transport"]::before,
-[data-icon="poi-transport"]::before,
 .icon-poi-transport:before {
     content: "\e807"
 }
 
-[data-icon="poi-autre"]::before,
 [data-icon="poi-autre"]::before,
 .icon-poi-autre:before {
     content: "\e808"
 }
 
 [data-icon="poi-commerce"]::before,
-[data-icon="poi-commerce"]::before,
 .icon-poi-commerce:before {
     content: "\e809"
 }
 
-[data-icon="poi-education"]::before,
 [data-icon="poi-education"]::before,
 .icon-poi-education:before {
     content: "\e80a"
 }
 
 [data-icon="poi-hotel"]::before,
-[data-icon="poi-hotel"]::before,
 .icon-poi-hotel:before {
     content: "\e80b"
 }
 
-[data-icon="poi-loisir"]::before,
 [data-icon="poi-loisir"]::before,
 .icon-poi-loisir:before {
     content: "\e80c"
 }
 
 [data-icon="poi-parc"]::before,
-[data-icon="poi-parc"]::before,
 .icon-poi-parc:before {
     content: "\e80d"
 }
 
-[data-icon="poi-sante"]::before,
 [data-icon="poi-sante"]::before,
 .icon-poi-sante:before {
     content: "\e80e"
 }
 
 [data-icon="poi-service_pub"]::before,
-[data-icon="poi-service_pub"]::before,
 .icon-poi-service_pub:before {
     content: "\e80f"
 }
 
-[data-icon="poi-service"]::before,
 [data-icon="poi-service"]::before,
 .icon-poi-service:before {
     content: "\e810"
 }
 
 [data-icon="poi-theme_2"]::before,
-[data-icon="poi-theme_2"]::before,
 .icon-poi-theme_2:before {
     content: "\e811"
 }
 
-[data-icon="poi-theme_3"]::before,
 [data-icon="poi-theme_3"]::before,
 .icon-poi-theme_3:before {
     content: "\e812"
 }
 
 [data-icon="poi-theme_4"]::before,
-[data-icon="poi-theme_4"]::before,
 .icon-poi-theme_4:before {
     content: "\e813"
 }
 
-[data-icon="poi-theme_5"]::before,
 [data-icon="poi-theme_5"]::before,
 .icon-poi-theme_5:before {
     content: "\e814"
 }
 
 [data-icon="poi-theme_6"]::before,
-[data-icon="poi-theme_6"]::before,
 .icon-poi-theme_6:before {
     content: "\e815"
 }
 
-[data-icon="poi-theme_7"]::before,
 [data-icon="poi-theme_7"]::before,
 .icon-poi-theme_7:before {
     content: "\e816"
 }
 
 [data-icon="poi-theme_8"]::before,
-[data-icon="poi-theme_8"]::before,
 .icon-poi-theme_8:before {
     content: "\e817"
 }
 
-[data-icon="poi-theme_9"]::before,
 [data-icon="poi-theme_9"]::before,
 .icon-poi-theme_9:before {
     content: "\e818"
 }
 
 [data-icon="poi-theme_10"]::before,
-[data-icon="poi-theme_10"]::before,
 .icon-poi-theme_10:before {
     content: "\e819"
 }
 
-[data-icon="poi-theme_12"]::before,
 [data-icon="poi-theme_12"]::before,
 .icon-poi-theme_12:before {
     content: "\e81a"
 }
 
 [data-icon="poi-theme_13"]::before,
-[data-icon="poi-theme_13"]::before,
 .icon-poi-theme_13:before {
     content: "\e81b"
 }
 
-[data-icon="poi-theme_15"]::before,
 [data-icon="poi-theme_15"]::before,
 .icon-poi-theme_15:before {
     content: "\e81c"
 }
 
 [data-icon="poi-theme_16"]::before,
-[data-icon="poi-theme_16"]::before,
 .icon-poi-theme_16:before {
     content: "\e81d"
 }
 
-[data-icon="poi-theme_17"]::before,
 [data-icon="poi-theme_17"]::before,
 .icon-poi-theme_17:before {
     content: "\e81e"
 }
 
 [data-icon="poi-theme_18"]::before,
-[data-icon="poi-theme_18"]::before,
 .icon-poi-theme_18:before {
     content: "\e81f"
 }
 
-[data-icon="poi-theme_19"]::before,
 [data-icon="poi-theme_19"]::before,
 .icon-poi-theme_19:before {
     content: "\e820"
 }
 
 [data-icon="poi-theme_20"]::before,
-[data-icon="poi-theme_20"]::before,
 .icon-poi-theme_20:before {
     content: "\e821"
 }
 
-[data-icon="poi-theme_22"]::before,
 [data-icon="poi-theme_22"]::before,
 .icon-poi-theme_22:before {
     content: "\e822"
 }
 
 [data-icon="poi-theme_24"]::before,
-[data-icon="poi-theme_24"]::before,
 .icon-poi-theme_24:before {
     content: "\e823"
 }
 
-[data-icon="poi-theme_25"]::before,
 [data-icon="poi-theme_25"]::before,
 .icon-poi-theme_25:before {
     content: "\e824"
 }
 
 [data-icon="poi-theme_26"]::before,
-[data-icon="poi-theme_26"]::before,
 .icon-poi-theme_26:before {
     content: "\e825"
 }
 
-[data-icon="poi-theme_27"]::before,
 [data-icon="poi-theme_27"]::before,
 .icon-poi-theme_27:before {
     content: "\e826"
 }
 
 [data-icon="poi-theme_28"]::before,
-[data-icon="poi-theme_28"]::before,
 .icon-poi-theme_28:before {
     content: "\e827"
 }
 
-[data-icon="poi-theme_29"]::before,
 [data-icon="poi-theme_29"]::before,
 .icon-poi-theme_29:before {
     content: "\e828"
 }
 
 [data-icon="poi-theme_30"]::before,
-[data-icon="poi-theme_30"]::before,
 .icon-poi-theme_30:before {
     content: "\e829"
 }
 
-[data-icon="poi-theme_31"]::before,
 [data-icon="poi-theme_31"]::before,
 .icon-poi-theme_31:before {
     content: "\e82a"
 }
 
 [data-icon="poi-theme_34"]::before,
-[data-icon="poi-theme_34"]::before,
 .icon-poi-theme_34:before {
     content: "\e82b"
 }
 
-[data-icon="poi-theme_35"]::before,
 [data-icon="poi-theme_35"]::before,
 .icon-poi-theme_35:before {
     content: "\e82c"
 }
 
 [data-icon="poi-theme_36"]::before,
-[data-icon="poi-theme_36"]::before,
 .icon-poi-theme_36:before {
     content: "\e82d"
 }
 
-[data-icon="poi-theme_47"]::before,
 [data-icon="poi-theme_47"]::before,
 .icon-poi-theme_47:before {
     content: "\e82e"
 }
 
 [data-icon="poi-theme_48"]::before,
-[data-icon="poi-theme_48"]::before,
 .icon-poi-theme_48:before {
     content: "\e82f"
 }
 
-[data-icon="poi-theme_49"]::before,
 [data-icon="poi-theme_49"]::before,
 .icon-poi-theme_49:before {
     content: "\e830"
 }
 
 [data-icon="poi-theme_50"]::before,
-[data-icon="poi-theme_50"]::before,
 .icon-poi-theme_50:before {
     content: "\e831"
 }
 
-[data-icon="poi-theme_51"]::before,
 [data-icon="poi-theme_51"]::before,
 .icon-poi-theme_51:before {
     content: "\e832"
 }
 
 [data-icon="poi-theme_52"]::before,
-[data-icon="poi-theme_52"]::before,
 .icon-poi-theme_52:before {
     content: "\e833"
 }
 
-[data-icon="poi-theme_54"]::before,
 [data-icon="poi-theme_54"]::before,
 .icon-poi-theme_54:before {
     content: "\e834"
 }
 
 [data-icon="poi-theme_56"]::before,
-[data-icon="poi-theme_56"]::before,
 .icon-poi-theme_56:before {
     content: "\e835"
 }
 
-[data-icon="poi-theme_57"]::before,
 [data-icon="poi-theme_57"]::before,
 .icon-poi-theme_57:before {
     content: "\e836"
 }
 
 [data-icon="poi-theme_58"]::before,
-[data-icon="poi-theme_58"]::before,
 .icon-poi-theme_58:before {
     content: "\e837"
 }
 
-[data-icon="poi-theme_59"]::before,
 [data-icon="poi-theme_59"]::before,
 .icon-poi-theme_59:before {
     content: "\e838"
 }
 
 [data-icon="poi-theme_60"]::before,
-[data-icon="poi-theme_60"]::before,
 .icon-poi-theme_60:before {
     content: "\e839"
 }
 
-[data-icon="poi-theme_61"]::before,
 [data-icon="poi-theme_61"]::before,
 .icon-poi-theme_61:before {
     content: "\e83a"
 }
 
 [data-icon="poi-theme_62"]::before,
-[data-icon="poi-theme_62"]::before,
 .icon-poi-theme_62:before {
     content: "\e83b"
 }
 
-[data-icon="poi-theme_63"]::before,
 [data-icon="poi-theme_63"]::before,
 .icon-poi-theme_63:before {
     content: "\e83c"
 }
 
 [data-icon="poi-theme_64"]::before,
-[data-icon="poi-theme_64"]::before,
 .icon-poi-theme_64:before {
     content: "\e83d"
 }
 
-[data-icon="poi-theme_65"]::before,
 [data-icon="poi-theme_65"]::before,
 .icon-poi-theme_65:before {
     content: "\e83e"
 }
 
 [data-icon="poi-theme_241"]::before,
-[data-icon="poi-theme_241"]::before,
 .icon-poi-theme_241:before {
     content: "\e83f"
 }
 
-[data-icon="poi-bus-clear"]::before,
 [data-icon="poi-bus-clear"]::before,
 .icon-poi-bus-clear:before {
     content: "\e840"
 }
 
 [data-icon="poi-metro-clear"]::before,
-[data-icon="poi-metro-clear"]::before,
 .icon-poi-metro-clear:before {
     content: "\e841"
 }
 
 [data-icon="poi-rer-clear"]::before,
-[data-icon="poi-rer-clear"]::before,
 .icon-poi-rer-clear:before {
     content: "\e842"
 }
 
-[data-icon="poi-tram-clear"]::before,
 [data-icon="poi-tram-clear"]::before,
 .icon-poi-tram-clear:before {
     content: "\e843"

@@ -20,9 +20,7 @@
 }
 
 .ps-badge__icon {
-  inline-size: var(--size-3); /* 12px */
-  block-size: var(--size-3); /* 12px */
-  flex-shrink: 0;
+  margin-right: var(--size-1);
 }
 
 .ps-badge__text { white-space: nowrap; }
@@ -31,11 +29,6 @@
 .ps-badge--small {
   font-size: var(--font-size-xs); /* 11px */
   padding: var(--size-05) var(--size-105); /* 2px 6px */
-}
-
-.ps-badge--small .ps-badge__icon {
-  inline-size: var(--font-size-xs); /* 10px */
-  block-size: var(--font-size-xs); /* 10px */
 }
 
 /* .ps-badge--medium: Uses base styles (already defined in .ps-badge) */

@@ -2,8 +2,8 @@
 #
 # Available Props:
 # - text: string (required) - Texte affiché dans le badge
-# - icon: string (optional) - Nom de l'icône (ex: 'icon-calendar', 'icon-check')
-# - variant: default | primary | secondary | gold | info | success | warning | danger (default: default)
+# - icon: string (optional) - Nom de l'icône (ex: 'calendar', 'check', 'medal')
+# - color: default | primary | secondary | gold | info | success | warning | danger (default: default)
 #   * default: gray background
 #   * primary: green (brand primary)
 #   * secondary: purple (brand secondary)
@@ -22,7 +22,7 @@
 
 # Default: Gray badge, medium size
 text: "Badge"
-variant: default
+color: default
 pill: false
 size: medium
 icon: ''
