@@ -106,3 +106,33 @@ export const AllSizes = {
     </div>
   `,
 };
+
+export const AllShapes = {
+  render: () => `
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=47', shape: 'circle', size: 'lg', alt: 'Circle' })}
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=47', shape: 'square', size: 'lg', alt: 'Square' })}
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=47', shape: 'rounded', size: 'lg', alt: 'Rounded' })}
+    </div>
+  `,
+};
+
+export const AllStatuses = {
+  render: () => `
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=12', status: 'online', size: 'lg', alt: 'Online' })}
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=12', status: 'offline', size: 'lg', alt: 'Offline' })}
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=12', status: 'busy', size: 'lg', alt: 'Busy' })}
+    </div>
+  `,
+};
+
+export const AllTypes = {
+  render: () => `
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      ${avatar({ src: 'https://i.pravatar.cc/150?img=47', size: 'lg', alt: 'Image' })}
+      ${avatar({ initials: 'JD', size: 'lg', src: '' })}
+      ${avatar({ src: '', initials: '', size: 'lg', alt: 'Icon fallback' })}
+    </div>
+  `,
+};

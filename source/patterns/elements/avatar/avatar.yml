@@ -1,8 +1,27 @@
+# Avatar Component - Default Configuration
+#
+# Available Props:
+# - src: string - URL de l'image avatar (optionnel)
+# - alt: string - Texte alternatif pour l'image (optionnel)
+# - initials: string - Initiales (2 lettres max, ex: "JD") - fallback si pas d'image
+# - size: xs | sm | md | lg | xl (default: md)
+#   * xs: 24px
+#   * sm: 32px
+#   * md: 40px
+#   * lg: 56px
+#   * xl: 80px
+# - shape: circle | square | rounded (default: circle)
+# - status: online | offline | busy (optionnel) - Badge de statut
+# - bordered: boolean (default: false) - Bordure blanche
+# - clickable: boolean (default: false) - Effet hover/focus
+# - href: string - URL si clickable (transforme en lien <a>)
+# - attributes: Attribute - Attributs HTML additionnels
 
+# Default: Image avatar with medium size
 src: 'https://i.pravatar.cc/150?img=12'
 alt: 'John Doe'
 initials: ''
-size: 'xl'
+size: 'md'
 shape: 'circle'
 status: ''
 bordered: false
