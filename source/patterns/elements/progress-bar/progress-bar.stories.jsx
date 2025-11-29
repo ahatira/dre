@@ -215,8 +215,11 @@ export const AllVariants = {
       <div style="margin-top: 1rem;">
         <p style="margin: 0 0 1rem; font-weight: 500;">Circular Variants</p>
         <div style="display: flex; gap: 2rem; align-items: center;">
+          ${progressBarTwig({ variant: 'circular', value: 60, color: 'default', size: 'lg', showLabel: true })}
           ${progressBarTwig({ variant: 'circular', value: 60, color: 'primary', size: 'lg', showLabel: true })}
           ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'lg', showLabel: true })}
+          ${progressBarTwig({ variant: 'circular', value: 45, color: 'warning', size: 'lg', showLabel: true })}
+          ${progressBarTwig({ variant: 'circular', value: 30, color: 'danger', size: 'lg', showLabel: true })}
           ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'info', size: 'lg', label: 'Chargement' })}
         </div>
       </div>
