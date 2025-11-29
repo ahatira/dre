@@ -2,7 +2,7 @@
 .ps-progress { position: relative; font-family: 'BNPP Sans Condensed', sans-serif; }
 .ps-progress--linear { display: flex; align-items: center; gap: var(--ps-spacing-2); }
 .ps-progress__track { flex: 1; height: var(--size-2); background: var(--ps-color-neutral-200); border-radius: var(--ps-border-radius-full, 999px); overflow: hidden; }
-.ps-progress__fill { height: 100%; background: var(--ps-color-neutral-500, var(--gray-500)); border-radius: var(--ps-border-radius-full, 999px); transition: width var(--ps-transition-duration-normal, 0.3s); }
+.ps-progress__fill { height: 100%; background: var(--ps-color-neutral-500, var(--gray-500)); transition: width var(--ps-transition-duration-normal, 0.3s); }
 .ps-progress--xs .ps-progress__track { height: 2px; }
 .ps-progress--sm .ps-progress__track { height: var(--size-1); }
 .ps-progress--md .ps-progress__track { height: var(--size-2); }
@@ -12,7 +12,9 @@
 .ps-progress__svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .ps-progress__track-circle { stroke: var(--ps-color-neutral-200); }
 .ps-progress__fill-circle { stroke: var(--ps-color-neutral-500, var(--gray-500)); stroke-linecap: round; transition: stroke-dashoffset var(--ps-transition-duration-normal, 0.3s); }
-.ps-progress__label { font-weight: var(--font-weight-medium, 500); color: var(--ps-color-neutral-700, var(--gray-700)); white-space: nowrap; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.ps-progress__label { font-weight: var(--font-weight-medium, 500); color: var(--ps-color-neutral-700, var(--gray-700)); white-space: nowrap; }
+/* Label centré pour circular uniquement */
+.ps-progress--circular .ps-progress__label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 /* Label sizes adaptatifs selon taille composant */
 .ps-progress--xs .ps-progress__label { font-size: 10px; }
 .ps-progress--sm .ps-progress__label { font-size: 11px; }
