@@ -78,6 +78,50 @@ export const Bars = {
   render: () => spinnerTwig({ variant: 'bars' }),
 };
 
+// === Size Stories ===
+
+export const SizeXS = {
+  render: () => spinnerTwig({ size: 'xs' }),
+};
+
+export const SizeSM = {
+  render: () => spinnerTwig({ size: 'sm' }),
+};
+
+export const SizeMD = {
+  render: () => spinnerTwig({ size: 'md' }),
+};
+
+export const SizeLG = {
+  render: () => spinnerTwig({ size: 'lg' }),
+};
+
+export const SizeXL = {
+  render: () => spinnerTwig({ size: 'xl' }),
+};
+
+// === Color Stories ===
+
+export const ColorPrimary = {
+  render: () => spinnerTwig({ color: 'primary' }),
+};
+
+export const ColorSecondary = {
+  render: () => spinnerTwig({ color: 'secondary' }),
+};
+
+export const ColorWhite = {
+  render: () => `
+    <div style="background: var(--gray-800); padding: 2rem; border-radius: var(--radius-2);">
+      ${spinnerTwig({ color: 'white' })}
+    </div>
+  `,
+};
+
+export const ColorNeutral = {
+  render: () => spinnerTwig({ color: 'neutral' }),
+};
+
 // === Grouped Showcases ===
 
 export const AllVariants = {

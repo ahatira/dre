@@ -55,10 +55,10 @@ Modifiers:
 - `--size-105` (6px) — Gap entre bars
 
 ### Colors
-- `--ps-color-primary-600` / `--brand-primary` — Primary (vert BNP)
-- `--ps-color-neutral-500` / `--gray-500` — Secondary (gris moyen)
+- `--brand-primary` — Primary (vert BNP #00915A)
+- `--brand-secondary` — Secondary (rose accent #E0388C)
 - `--white` — White (sur fond sombre)
-- `--ps-color-neutral-400` / `--gray-400` — Neutral (gris clair)
+- `--gray-400` — Neutral (gris clair)
 
 ### Visual
 - `--radius-round` — Border radius pour dots (cercles parfaits)

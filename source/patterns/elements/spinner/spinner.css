@@ -22,7 +22,7 @@
   height: var(--size-8);
   
   /* Default color (primary) */
-  color: var(--ps-color-primary-600, var(--brand-primary));
+  color: var(--brand-primary);
 }
 
 /* ==================== ELEMENTS ==================== */
@@ -130,7 +130,7 @@
 /* primary is default - no modifier needed */
 
 .ps-spinner--secondary {
-  color: var(--ps-color-neutral-500, var(--gray-500));
+  color: var(--brand-secondary);
 }
 
 .ps-spinner--white {
@@ -138,7 +138,7 @@
 }
 
 .ps-spinner--neutral {
-  color: var(--ps-color-neutral-400, var(--gray-400));
+  color: var(--gray-400);
 }
 
 /* ==================== MODIFIERS ==================== */
