@@ -1,4 +1,18 @@
  - Ajout tokens avatar : --size-20 (80px), --ps-color-primary-600, --ps-color-neutral-0, --ps-color-neutral-100, --ps-color-neutral-200, --ps-color-neutral-400, --ps-color-neutral-600, --ps-color-success-600, --ps-color-error-600, --ps-border-radius-full, --ps-border-radius-sm, --ps-border-width-default, --ps-transition-duration-fast (pixel perfect avatar)
+ - Ajout tokens shadow pour focus des champs : --shadow-focus-primary (blue focus ring), --shadow-focus-error (red error ring), --shadow-focus-success (green success ring)
+ - ✅ **field** - Composant complet conforme template standard - 2025-11-29
+   - Types : text (défaut), number, email, search, select/dropdown, textarea
+   - États : default, hover, focus, filled, error, disabled, done/success
+   - Icône : support via CSS pseudo-élément (bnpre-icons), position left/right
+   - BEM strict : `.ps-field`, `.ps-field__input`, `.ps-field__icon`, `.ps-field__error`
+   - Modifiers indépendants : `--text`, `--number`, `--email`, `--search`, `--select`, `--textarea`, `--error`, `--disabled`, `--filled`, `--done`, `--icon-left`, `--icon-right`
+   - HTML minimal : classe base seule par défaut, modifiers ajoutés seulement si différents
+   - Tokens créés : --ps-color-border-default (#D6DBDE), --ps-color-border-hover, --ps-color-border-focus (#0288D1), --ps-color-border-error (#EB3636), --ps-color-border-success, --ps-color-field-bg, --ps-color-field-text, --ps-color-field-placeholder, --ps-color-field-disabled-bg, --ps-color-field-disabled-text
+   - Tokens utilisés : --size-2, --size-3, --size-4, --size-5, --size-10, --size-20, --size-305, --border-size-2, --radius-2, --font-sans, --font-weight-400, --leading-normal
+   - Stories Storybook : 13 stories (Default, Text, Number, Email, Search, Select, Textarea, WithIconLeft, WithIconRight, Filled, Error, Disabled, AllTypes, AllStates, IconVariations, UseCases)
+   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+   - Accessibilité : aria-invalid, aria-describedby, aria-disabled, role="combobox" pour select, role="alert" pour erreurs, aria-hidden sur icônes décoratives
+   - Support : input types (text, number, email, search), textarea (resize vertical), select (styled combobox), placeholder natifs
  - ✅ **eyebrow** - Composant complet conforme template standard - 2025-11-29
    - Variants : primary, secondary, accent, neutral (couleurs sémantiques tokens)
    - Tailles : small (12px), medium (14px défaut)

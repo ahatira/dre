@@ -1,12 +1,235 @@
-@layer components {
-  .field {
-    /* Base styling */
-    padding: 0.5rem 1rem;
-    background: var(--bnp-green, #00A862);
-    color: #fff;
-    border-radius: 4px;
+/** 
+ * Field (Element/Atom)
+ * Base input/select/textarea field component without label/helper.
+ * 
+ * BEM: ps-field, ps-field__input, ps-field__icon, ps-field__error
+ * Variants: text | number | email | search | select | textarea
+ * Modifiers: --error, --disabled, --filled, --hover, --focus, --done, --icon-left, --icon-right
+ * States: default, hover, focus, filled, error, disabled
+ */
+
+.ps-field {
+  /* Reset */
+  margin: 0;
+  padding: 0;
+  
+  /* Layout */
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  
+  /* Sizing */
+  min-height: var(--size-10); /* 40px */
+  
+  /* Visual */
+  background-color: var(--ps-color-field-bg);
+  border: var(--border-size-1) solid var(--ps-color-border-default);
+  border-radius: var(--radius-2);
+  
+  /* Transitions */
+  transition: 
+    border-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+    border-width 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Input/Textarea/Select element */
+.ps-field__input {
+  /* Reset */
+  margin: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  
+  /* Layout */
+  display: block;
+  width: 100%;
+  flex: 1;
+  
+  /* Sizing */
+  padding: var(--size-2) var(--size-3); /* 8px 12px */
+  min-height: inherit;
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--size-4); /* 16px */
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-normal);
+  color: var(--ps-color-field-text);
+  
+  /* Placeholder */
+  &::placeholder {
+    color: var(--ps-color-field-placeholder);
+    opacity: 1;
   }
-  .field__text {
-    font: inherit;
+  
+  /* Remove default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Textarea specific */
+textarea.ps-field__input {
+  resize: vertical;
+  min-height: var(--size-20); /* 80px */
+  padding-top: var(--size-2);
+  padding-bottom: var(--size-2);
+}
+
+/* Select/Combobox specific */
+.ps-field--select .ps-field__input,
+.ps-field--dropdown .ps-field__input {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Icon element */
+.ps-field__icon {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  /* Sizing */
+  width: var(--size-5); /* 20px */
+  height: var(--size-5); /* 20px */
+  
+  /* Typography - icon font */
+  font-family: bnpre-icons;
+  font-size: var(--size-5); /* 20px */
+  font-style: normal;
+  font-weight: var(--font-weight-400);
+  line-height: 1;
+  
+  /* Visual */
+  color: var(--gray-500);
+  
+  /* Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Icon positions */
+.ps-field__icon--left {
+  margin-left: var(--size-3);
+  order: -1;
+}
+
+.ps-field__icon--right {
+  margin-right: var(--size-3);
+  order: 1;
+}
+
+/* Icon with left position adjustment */
+.ps-field--icon-left .ps-field__input {
+  padding-left: var(--size-2);
+}
+
+/* Icon with right position adjustment */
+.ps-field--icon-right .ps-field__input {
+  padding-right: var(--size-2);
+}
+
+/* Error message */
+.ps-field__error {
+  /* Layout */
+  display: block;
+  position: absolute;
+  bottom: calc(-1 * var(--size-7));
+  left: 0;
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--size-305); /* 14px */
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-normal);
+  color: var(--ps-color-border-error);
+  
+  /* Spacing */
+  margin-top: var(--size-1);
+}
+
+/* States */
+
+/* Hover state */
+.ps-field:hover:not(.ps-field--disabled):not(.ps-field--error) {
+  border-color: var(--ps-color-border-hover);
+}
+
+/* Focus state */
+.ps-field:focus-within:not(.ps-field--disabled):not(.ps-field--error):not(.ps-field--done) {
+  border-color: var(--black);
+  border-width: var(--border-size-2);
+}
+
+/* Error state */
+.ps-field--error {
+  border-color: var(--ps-color-border-error);
+  border-width: var(--border-size-2);
+}
+
+.ps-field--error .ps-field__icon {
+  color: var(--ps-color-border-error);
+}
+
+/* Disabled state */
+.ps-field--disabled {
+  background-color: var(--ps-color-field-disabled-bg);
+  border-color: var(--ps-color-border-default);
+  cursor: not-allowed;
+}
+
+.ps-field--disabled .ps-field__input {
+  color: var(--gray-500);
+  cursor: not-allowed;
+  user-select: none;
+  
+  &::placeholder {
+    color: var(--gray-400);
   }
+}
+
+.ps-field--disabled .ps-field__icon {
+  color: var(--ps-color-field-disabled-text);
+}
+
+/* Filled state (when has value) */
+.ps-field--filled .ps-field__input {
+  font-weight: var(--font-weight-400);
+}
+
+/* Success/Done state */
+.ps-field--done {
+  border-color: var(--ps-color-border-success);
+  border-width: var(--border-size-2);
+}
+
+.ps-field--done .ps-field__icon {
+  color: var(--ps-color-border-success);
+}
+
+/* Search field specific - icon handled by layout */
+.ps-field--search .ps-field__input {
+  /* Icon spacing handled by flex layout */
+}
+
+/* Number field specific */
+.ps-field--number .ps-field__input {
+  /* Remove default spinner */
+  -moz-appearance: textfield;
+  
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* Textarea variant */
+.ps-field--textarea {
+  align-items: flex-start;
 }

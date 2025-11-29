@@ -1,2 +1,8 @@
-text: 'field component placeholder'
-modifier: ''
+# Default: Text input field
+type: 'text'
+value: ''
+placeholder: 'Enter text...'
+disabled: false
+error: ''
+icon: ''
+iconPosition: 'right'

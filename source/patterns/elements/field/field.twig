@@ -1,5 +1,87 @@
-{# ps-field (element) - PS Theme #}
-{%- set text = text|default('') -%}
-<div class="ps-field">
-  {%- if text -%}<span class="ps-field__text">{{- text -}}</span>{%- endif -%}
+{#
+ * Field element (Atom)
+ * Base input/select/textarea field without label/helper text.
+ * 
+ * @param string type - Field type: text|number|email|search|select|textarea (optional, default: 'text')
+ * @param string value - Field value (optional)
+ * @param string placeholder - Placeholder text (optional)
+ * @param boolean disabled - Disabled state (optional, default: false)
+ * @param string error - Error message to display (optional)
+ * @param boolean done - Success/validated state (optional, default: false)
+ * @param string icon - Icon name to display (optional)
+ * @param string iconPosition - Icon position: left|right (optional, default: 'right')
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
+
+{%- set type = type|default('text') -%}
+{%- set value = value|default('') -%}
+{%- set placeholder = placeholder|default('') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set error = error|default('') -%}
+{%- set done = done|default(false) -%}
+{%- set icon = icon|default('') -%}
+{%- set iconPosition = iconPosition|default('right') -%}
+
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-field']) -%}
+{%- if type != 'text' -%}
+  {%- set classes = classes|merge(['ps-field--' ~ type]) -%}
+{%- endif -%}
+{%- if error -%}
+  {%- set classes = classes|merge(['ps-field--error']) -%}
+{%- elseif done -%}
+  {%- set classes = classes|merge(['ps-field--done']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-field--disabled']) -%}
+{%- endif -%}
+{%- if value -%}
+  {%- set classes = classes|merge(['ps-field--filled']) -%}
+{%- endif -%}
+{%- if icon -%}
+  {%- set classes = classes|merge(['ps-field--icon-' ~ iconPosition]) -%}
+{%- endif -%}
+
+<div
+  class="{{ classes|join(' ')|trim }}"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  {%- if icon and iconPosition == 'left' -%}
+    <i class="ps-field__icon ps-field__icon--left icon-{{ icon }}" aria-hidden="true"></i>
+  {%- endif -%}
+
+  {%- if type == 'textarea' -%}
+    <textarea
+      class="ps-field__input"
+      placeholder="{{ placeholder }}"
+      {% if disabled %}disabled aria-disabled="true"{% endif %}
+      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+    >{{ value }}</textarea>
+  {%- elseif type == 'select' -%}
+    <div
+      class="ps-field__input"
+      role="combobox"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+      {% if disabled %}aria-disabled="true"{% endif %}
+      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+    >{{ value|default(placeholder) }}</div>
+  {%- else -%}
+    <input
+      class="ps-field__input"
+      type="{{ type }}"
+      value="{{ value }}"
+      placeholder="{{ placeholder }}"
+      {% if disabled %}disabled aria-disabled="true"{% endif %}
+      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+    />
+  {%- endif -%}
+
+  {%- if icon and iconPosition == 'right' -%}
+    <i class="ps-field__icon ps-field__icon--right icon-{{ icon }}" aria-hidden="true"></i>
+  {%- endif -%}
+
+  {%- if error -%}
+    <div class="ps-field__error" id="field-error" role="alert">{{ error }}</div>
+  {%- endif -%}
 </div>

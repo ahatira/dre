@@ -1,0 +1,286 @@
+# Field (Element/Atom)
+
+Base input/select/textarea field component without label or helper text. Part of the atomic design system as an element/atom.
+
+## Description
+
+The Field component is a foundational form element that provides a consistent, accessible interface for text input, number input, email input, search, select dropdowns, and textarea fields. It supports multiple states (default, hover, focus, filled, error, disabled), optional icons (left or right positioned), and follows BNP Paribas RealEstate design system tokens.
+
+**Note:** This component does NOT include labels or helper text. For complete form fields with labels, use the `form-field` molecule component.
+
+## BEM Structure
+
+```
+.ps-field                    # Base container
+  .ps-field__input          # Input/textarea/select element
+  .ps-field__icon           # Optional icon (left or right)
+    .ps-field__icon--left   # Icon positioned on left
+    .ps-field__icon--right  # Icon positioned on right
+  .ps-field__error          # Error message display
+
+Modifiers:
+  .ps-field--text           # Text input (default)
+  .ps-field--number         # Number input
+  .ps-field--email          # Email input
+  .ps-field--search         # Search input
+  .ps-field--select         # Select dropdown
+  .ps-field--textarea       # Textarea
+  .ps-field--error          # Error state
+  .ps-field--disabled       # Disabled state
+  .ps-field--filled         # Has value
+  .ps-field--icon-left      # Icon on left side
+  .ps-field--icon-right     # Icon on right side
+  .ps-field--done           # Success/validated state
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `string` | `'text'` | Field type: `text`, `number`, `email`, `search`, `select`, `textarea` |
+| `value` | `string` | `''` | Current value of the field |
+| `placeholder` | `string` | `''` | Placeholder text shown when field is empty |
+| `disabled` | `boolean` | `false` | Disabled state of the field |
+| `error` | `string` | `''` | Error message to display below the field |
+| `icon` | `string` | `''` | Icon name to display (requires icon font) |
+| `iconPosition` | `string` | `'right'` | Icon position: `left` or `right` |
+| `attributes` | `Drupal.Core.Template.Attribute` | - | Additional HTML attributes |
+
+## Design Tokens Used
+
+### Colors
+- `--ps-color-field-bg` - Field background (white)
+- `--ps-color-field-text` - Field text color (#333333)
+- `--ps-color-field-placeholder` - Placeholder text color (gray)
+- `--ps-color-field-disabled-bg` - Disabled background (light gray)
+- `--ps-color-field-disabled-text` - Disabled text color (gray)
+- `--ps-color-border-default` - Default border color (#D6DBDE)
+- `--ps-color-border-hover` - Hover border color (darker gray)
+- `--ps-color-border-focus` - Focus border color (#0288D1 blue)
+- `--ps-color-border-error` - Error border color (#EB3636 red)
+- `--ps-color-border-success` - Success border color (BNP green)
+
+### Spacing & Sizing
+- `--size-2` (8px) - Input padding vertical, icon margins
+- `--size-3` (12px) - Input padding horizontal, icon spacing
+- `--size-4` (16px) - Base font size
+- `--size-5` (20px) - Icon size
+- `--size-10` (40px) - Minimum field height
+- `--size-20` (80px) - Minimum textarea height
+- `--size-305` (14px) - Error message font size
+
+### Borders & Radii
+- `--border-size-2` (2px) - Border width
+- `--radius-2` (4px) - Border radius
+
+### Typography
+- `--font-sans` - Font family
+- `--font-weight-400` - Regular font weight
+- `--leading-normal` - Line height
+
+## Usage Examples
+
+### Basic Text Input
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'text',
+  placeholder: 'Enter your name...',
+} %}
+```
+
+### Email Input with Icon
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'email',
+  placeholder: 'your.email@example.com',
+  icon: 'check',
+  iconPosition: 'right',
+} %}
+```
+
+### Search Field
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'search',
+  placeholder: 'Search properties...',
+  icon: 'search',
+  iconPosition: 'left',
+} %}
+```
+
+### Field with Error
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'email',
+  value: 'invalid-email',
+  error: 'Please enter a valid email address',
+} %}
+```
+
+### Disabled Field
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'text',
+  value: 'Read-only value',
+  disabled: true,
+} %}
+```
+
+### Textarea
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'textarea',
+  placeholder: 'Enter your message...',
+} %}
+```
+
+### Select Dropdown
+```twig
+{% include '@ps_theme/field/field.twig' with {
+  type: 'select',
+  value: 'Select an option',
+  icon: 'arrow-down',
+  iconPosition: 'right',
+} %}
+```
+
+## Real-World Use Cases
+
+### Contact Form
+```twig
+<form>
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'text',
+    placeholder: 'Full Name',
+  } %}
+  
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'email',
+    placeholder: 'Email Address',
+  } %}
+  
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'textarea',
+    placeholder: 'Your Message',
+  } %}
+</form>
+```
+
+### Property Search Form
+```twig
+<div class="search-form">
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'search',
+    placeholder: 'Search location...',
+    icon: 'search',
+    iconPosition: 'right',
+  } %}
+  
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'select',
+    value: 'Property Type',
+    icon: 'arrow-down',
+    iconPosition: 'right',
+  } %}
+  
+  {% include '@ps_theme/field/field.twig' with {
+    type: 'number',
+    placeholder: 'Max Price',
+  } %}
+</div>
+```
+
+### Form Validation
+```twig
+{# Valid email - success state #}
+{% include '@ps_theme/field/field.twig' with {
+  type: 'email',
+  value: 'user@example.com',
+  icon: 'check',
+  iconPosition: 'right',
+} %}
+
+{# Invalid email - error state #}
+{% include '@ps_theme/field/field.twig' with {
+  type: 'email',
+  value: 'invalid-email',
+  error: 'Please enter a valid email address',
+} %}
+```
+
+## States
+
+### Default
+Empty field with placeholder text, default border color.
+
+### Hover
+Darker border on mouse hover (non-disabled, non-error fields).
+
+### Focus
+Blue border (`--ps-color-border-focus`) with subtle box-shadow on focus.
+
+### Filled
+Field has a value, maintains default styling with value displayed.
+
+### Error
+Red border (`--ps-color-border-error`) with error message below, red icon color.
+
+### Disabled
+Light gray background, reduced opacity, cursor not-allowed, non-interactive.
+
+### Done/Success
+Green border (`--ps-color-border-success`) indicating validated/successful input.
+
+## Accessibility
+
+- **ARIA Labels**: Input elements use `aria-invalid="true"` when in error state
+- **ARIA Describedby**: Error messages linked via `aria-describedby="field-error"`
+- **ARIA Disabled**: Disabled fields use `aria-disabled="true"`
+- **ARIA Roles**: Select fields use `role="combobox"` with `aria-expanded` and `aria-haspopup`
+- **Focus Management**: Clear focus indicators with `:focus-visible` styles
+- **Error Alerts**: Error messages use `role="alert"` for screen reader announcements
+- **Icon Hiding**: Decorative icons use `aria-hidden="true"`
+- **Keyboard Navigation**: All interactive elements are keyboard accessible
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- Follows progressive enhancement principles
+- CSS custom properties with fallbacks
+- Removes default browser input styling for consistency
+
+## Notes
+
+- Icon display requires the `bnpre-icons` icon font to be loaded
+- Icon positioning adjusts input padding automatically
+- Textarea resizes vertically by default (`resize: vertical`)
+- Number input hides native browser spinners
+- Select field is styled as combobox, actual dropdown functionality requires JavaScript
+- This component does NOT include labels - use the `form-field` molecule for complete form fields
+- All spacing uses design tokens for consistency
+- Border widths and colors follow brand guidelines
+
+## Related Components
+
+- **Form Field (Molecule)**: Complete form field with label, helper text, and field
+- **Label (Element)**: Standalone label component
+- **Icon (Element)**: Icon component used for decorative icons
+- **Checkbox (Element)**: Checkbox input component
+- **Radio (Element)**: Radio button input component
+
+## Validation
+
+✅ BEM naming convention with `ps-` prefix  
+✅ All CSS values use design tokens (no hardcoded values)  
+✅ Complete Twig template with all props documented  
+✅ Comprehensive Storybook stories (Default, variants, states, showcases)  
+✅ README with full documentation  
+✅ ARIA attributes for accessibility  
+✅ Interactive states (hover, focus, active, disabled)  
+✅ Pixel-perfect implementation matching design specs  
+✅ Error handling and validation states  
+✅ Icon support (left/right positioning)  
+
+## Version
+
+**1.0.0** - Initial implementation following PS Theme component template standard

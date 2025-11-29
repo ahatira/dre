@@ -10,4 +10,9 @@
   --inner-shadow-2: inset 0 1px 4px 0 hsla(0, 0%, 0%, 5%);
   --inner-shadow-3: inset 0 2px 8px 0 hsla(0, 0%, 0%, 5%);
   --inner-shadow-4: inset 0 2px 14px 0 hsla(0, 0%, 0%, 5%);
+
+  /* Field focus shadows */
+  --shadow-focus-primary: 0 0 0 3px hsla(199, 89%, 48%, 0.1); /* Blue focus ring */
+  --shadow-focus-error: 0 0 0 3px hsla(0, 75%, 51%, 0.1); /* Red error ring */
+  --shadow-focus-success: 0 0 0 3px hsla(162, 72%, 38%, 0.1); /* Green success ring */
 }
