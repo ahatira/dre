@@ -5,7 +5,7 @@
 **Type**: Atom / Element  
 **Category**: Feedback / Loading
 
-Indicateur de chargement animé pour états asynchrones (chargement de données, soumission de formulaire, etc.). Trois variantes visuelles disponibles : circular (défaut), dots, et bars.
+Indicateur de chargement animé pour états asynchrones (chargement de données, soumission de formulaire, etc.). Trois variantes visuelles disponibles : circular (défaut), dots, et bars. Support complet des couleurs sémantiques (default, primary, secondary, success, info, warning, danger, white).
 
 ---
 
@@ -15,7 +15,7 @@ Indicateur de chargement animé pour états asynchrones (chargement de données,
 |------|------|---------|----------|-------------|
 | `variant` | `string` | `'circular'` | ❌ | Type de spinner : `circular` \| `dots` \| `bars` |
 | `size` | `string` | `'md'` | ❌ | Taille : `xs` (16px) \| `sm` (24px) \| `md` (32px) \| `lg` (48px) \| `xl` (64px) |
-| `color` | `string` | `'primary'` | ❌ | Couleur : `primary` \| `secondary` \| `white` \| `neutral` |
+| `color` | `string` | `'default'` | ❌ | Couleur : `default` \| `primary` \| `secondary` \| `success` \| `info` \| `warning` \| `danger` \| `white` |
 | `text` | `string` | `'Chargement en cours...'` | ❌ | Texte pour lecteurs d'écran (annoncé mais masqué visuellement) |
 | `centered` | `boolean` | `false` | ❌ | Centrer dans le conteneur parent (position absolute) |
 | `attributes` | `Attribute` | — | ❌ | Attributs HTML additionnels Drupal |
@@ -37,7 +37,7 @@ Modifiers:
   .ps-spinner--dots              ← Variante 3 points bouncing
   .ps-spinner--bars              ← Variante 3 barres stretching
   .ps-spinner--xs|sm|md|lg|xl    ← Tailles
-  .ps-spinner--primary|secondary|white|neutral ← Couleurs
+  .ps-spinner--default|primary|secondary|success|info|warning|danger|white ← Couleurs
   .ps-spinner--centered          ← Centrage absolu
 ```
 
@@ -55,10 +55,14 @@ Modifiers:
 - `--size-105` (6px) — Gap entre bars
 
 ### Colors
+- `--gray-500` — Default (gris neutre par défaut)
 - `--brand-primary` — Primary (vert BNP #00915A)
 - `--brand-secondary` — Secondary (rose accent #E0388C)
+- `--btn-success` — Success (vert succès)
+- `--btn-info` — Info (bleu information)
+- `--btn-warning` — Warning (jaune avertissement)
+- `--btn-danger` — Danger (rouge erreur)
 - `--white` — White (sur fond sombre)
-- `--gray-400` — Neutral (gris clair)
 
 ### Visual
 - `--radius-round` — Border radius pour dots (cercles parfaits)
@@ -73,7 +77,7 @@ Modifiers:
 {% include '@elements/spinner/spinner.twig' with {
   variant: 'circular',
   size: 'md',
-  color: 'primary',
+  color: 'default',
 } %}
 ```
 
@@ -113,9 +117,39 @@ Modifiers:
 ### Colors
 
 ```twig
-{# Primary (vert) #}
+{# Default (gris) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'default',
+} %}
+
+{# Primary (vert BNP) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'primary',
+} %}
+
+{# Secondary (rose) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'secondary',
+} %}
+
+{# Success (vert succès) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'success',
+} %}
+
+{# Info (bleu) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'info',
+} %}
+
+{# Warning (jaune) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'warning',
+} %}
+
+{# Danger (rouge) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'danger',
 } %}
 
 {# White (sur fond sombre) #}

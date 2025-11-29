@@ -3,7 +3,7 @@
  * Indicateur de chargement animé pour états asynchrones
  * @param string variant - Type de spinner (optional, default: 'circular') - Options: circular | dots | bars
  * @param string size - Taille du spinner (optional, default: 'md') - Options: xs | sm | md | lg | xl
- * @param string color - Couleur du spinner (optional, default: 'primary') - Options: primary | secondary | white | neutral
+ * @param string color - Couleur du spinner (optional, default: 'default') - Options: default | primary | secondary | success | info | warning | danger | white
  * @param string text - Texte pour lecteurs d'écran (optional, default: 'Chargement en cours...')
  * @param boolean centered - Centrer dans le conteneur (optional, default: false)
  * @param Drupal\Core\Template\Attribute attributes - Attributs HTML additionnels (optional)
@@ -11,7 +11,7 @@
 
 {%- set variant = variant|default('circular') -%}
 {%- set size = size|default('md') -%}
-{%- set color = color|default('primary') -%}
+{%- set color = color|default('default') -%}
 {%- set text = text|default('Chargement en cours...') -%}
 {%- set centered = centered|default(false) -%}
 
@@ -22,7 +22,7 @@
 {%- if size != 'md' -%}
   {%- set classes = classes|merge(['ps-spinner--' ~ size]) -%}
 {%- endif -%}
-{%- if color != 'primary' -%}
+{%- if color != 'default' -%}
   {%- set classes = classes|merge(['ps-spinner--' ~ color]) -%}
 {%- endif -%}
 {%- if centered -%}

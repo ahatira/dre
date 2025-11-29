@@ -5,7 +5,7 @@
  * BEM: ps-spinner, ps-spinner__svg, ps-spinner__circle, ps-spinner__dot, ps-spinner__bar, ps-spinner__text
  * Variants: circular (défaut) | dots | bars
  * Sizes: xs | sm | md (défaut) | lg | xl
- * Colors: primary (défaut) | secondary | white | neutral
+ * Colors: default (défaut) | primary | secondary | success | info | warning | danger | white
  * Modifiers: --centered
  */
 
@@ -21,8 +21,8 @@
   width: var(--size-8); /* 32px */
   height: var(--size-8);
   
-  /* Default color (primary) */
-  color: var(--brand-primary);
+  /* Default color (default: gris) */
+  color: var(--gray-500);
 }
 
 /* ==================== ELEMENTS ==================== */
@@ -127,18 +127,34 @@
 
 /* ==================== COLORS ==================== */
 
-/* primary is default - no modifier needed */
+/* default is base (gray) - no modifier needed */
+
+.ps-spinner--primary {
+  color: var(--brand-primary);
+}
 
 .ps-spinner--secondary {
   color: var(--brand-secondary);
 }
 
-.ps-spinner--white {
-  color: var(--white);
+.ps-spinner--success {
+  color: var(--btn-success);
 }
 
-.ps-spinner--neutral {
-  color: var(--gray-400);
+.ps-spinner--info {
+  color: var(--btn-info);
+}
+
+.ps-spinner--warning {
+  color: var(--btn-warning);
+}
+
+.ps-spinner--danger {
+  color: var(--btn-danger);
+}
+
+.ps-spinner--white {
+  color: var(--white);
 }
 
 /* ==================== MODIFIERS ==================== */
