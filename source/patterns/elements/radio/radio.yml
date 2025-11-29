@@ -1,5 +1,6 @@
-name: 'option'
-value: '1'
-label: 'Option label'
-checked: false
-disabled: false
+# Defaults for Radio preview
+name: 'option'  # Options: shared name for radio group
+value: '1'  # Options: unique value for this radio
+label: 'Option label'  # Options: text label displayed
+checked: false  # Options: true | false
+disabled: false  # Options: true | false

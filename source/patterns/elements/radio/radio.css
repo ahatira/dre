@@ -1,17 +1,28 @@
-/* PS Radio Atom - Pixel Perfect */
+/**
+ * Radio (Element/Atom)
+ * Bouton radio pour sélection unique avec icon font
+ * 
+ * BEM: ps-radio, ps-radio__input, ps-radio__circle, ps-radio__label
+ * States: checked, disabled
+ */
+
+/* ==================== BASE ==================== */
 
 .ps-radio {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--size-2); /* 8px gap per mockup */
+  gap: var(--size-2); /* 8px */
   cursor: pointer;
   user-select: none;
+
   /* Icon codepoints controlled via CSS variables */
   --ps-radio-icon-unselected: "\e86a";
   --ps-radio-icon-selected: "\e869";
-  --ps-radio-icon-color-unselected: var(--text-default);
-  --ps-radio-icon-color-selected: var(--bnp-green);
+  --ps-radio-icon-color-unselected: var(--ps-color-neutral-700, var(--gray-700));
+  --ps-radio-icon-color-selected: var(--brand-primary, var(--bnp-green));
 }
+
+/* ==================== ELEMENTS ==================== */
 
 .ps-radio__input {
   position: absolute;
@@ -25,52 +36,62 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--size-5);
+  width: var(--size-5); /* 20px */
   height: var(--size-5);
   min-width: var(--size-5);
   border: 0; /* border rendered by icon glyph */
   border-radius: 0;
   background: transparent;
-  transition: all 0.15s ease;
+  transition: all var(--transition-fast, 0.15s) ease;
+
+  /* Render icon via pseudo-element to avoid extra markup */
+  &::before {
+    font-family: 'bnpre-icons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    content: var(--ps-radio-icon-unselected);
+    color: var(--ps-radio-icon-color-unselected);
+    font-size: var(--font-size-2); /* 16px */
+    margin: 0;
+  }
 }
 
-/* Render icon via pseudo-element on the circle to avoid extra markup */
-.ps-radio__circle::before {
-  font-family: 'bnpre-icons';
-  speak: none;
+.ps-radio__label {
+  font-family: var(--font-sans);
   font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  content: var(--ps-radio-icon-unselected);
-  color: var(--ps-radio-icon-color-unselected);
-  font-size: var(--font-size-2);
-  margin: 0;
+  font-weight: var(--font-weight-400);
+  font-size: var(--font-size-1); /* 14px */
+  line-height: var(--leading-6); /* 24px */
+  color: var(--ps-color-neutral-900, var(--gray-900));
+  transition: color var(--transition-fast, 0.15s) ease;
 }
+
+/* ==================== STATES ==================== */
 
 /* Checked state */
 .ps-radio__input:checked + .ps-radio__circle {
   background: transparent;
+
+  &::before {
+    content: var(--ps-radio-icon-selected);
+    color: var(--ps-radio-icon-color-selected);
+  }
 }
 
-/* Toggle icon and color when checked */
-.ps-radio__input:checked + .ps-radio__circle::before {
-  content: var(--ps-radio-icon-selected);
-  color: var(--ps-radio-icon-color-selected);
-}
-
-/* Hover state */
-.ps-radio:hover .ps-radio__circle {
-  /* hover border handled by glyph color; circle has no border */
+.ps-radio__input:checked ~ .ps-radio__label {
+  color: var(--brand-primary, var(--bnp-green));
 }
 
 /* Focus state */
 .ps-radio__input:focus-visible + .ps-radio__circle {
-  outline: 2px solid var(--blue-600);
+  outline: 2px solid var(--ps-color-primary-600, var(--blue-600));
   outline-offset: 2px;
 }
 
@@ -78,24 +99,8 @@
 .ps-radio--disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
 
-.ps-radio--disabled .ps-radio__circle {
-  background: transparent;
-}
-
-/* Label */
-.ps-radio__label {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-weight: var(--font-weight-400);
-  font-size: var(--font-size-1); /* 16px */
-  line-height: var(--leading-6); /* 24px */
-  color: var(--text-default); /* #333333 per mockup */
-  transition: color 0.15s ease;
-}
-
-/* Label turns green when checked */
-.ps-radio__input:checked ~ .ps-radio__label {
-  color: var(--bnp-green);
+  .ps-radio__circle {
+    background: transparent;
+  }
 }
