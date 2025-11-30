@@ -54,9 +54,6 @@
 >
   <span class="ps-link__text">{{ text }}</span>
   {% if icon %}
-    {% include '@elements/icon/icon.twig' with {
-      name: icon,
-      size: 'small'
-    } only %}
+    <span class="ps-link__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
 </{{ tag }}>
