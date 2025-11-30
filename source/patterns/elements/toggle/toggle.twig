@@ -1,6 +1,23 @@
 {#
- * PS Toggle Atom
- * Props: name, checked, label, description, disabled, size, showLabels, onLabel, offLabel
+ * ps-toggle (Atom)
+ * Accessible on/off switch built on a native checkbox.
+ *
+ * Parameters:
+ * - name (string): Form field name (required for form submission)
+ * - label (string): Visible external label (recommended)
+ * - description (string): Optional helper / context text below
+ * - checked (boolean): Initial state (default false)
+ * - disabled (boolean): Disable interaction (default false)
+ * - size (string): small | medium | large (default medium)
+ * - showLabels (boolean): Show internal ON/OFF labels inside track (default false)
+ * - onLabel (string): Internal ON text (default 'On')
+ * - offLabel (string): Internal OFF text (default 'Off')
+ *
+ * Accessibility:
+ * - role="switch" communicates binary toggle semantics
+ * - aria-checked reflects current state
+ * - Focus outline must remain visible (handled in CSS)
+ * - Provide either external label or internal labels; never omit all
  #}
 {% set size = size|default('medium') %}
 {% set checked = checked|default(false) %}

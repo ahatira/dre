@@ -1,6 +1,6 @@
 name: notifications
-label: Activer les notifications
-description: Recevoir des notifications par email
+label: Enable notifications
+description: Receive notifications by email
 checked: false
 disabled: false
 size: medium
