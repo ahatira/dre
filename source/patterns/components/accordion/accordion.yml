@@ -1,0 +1,16 @@
+items:
+  - id: 'section-1'
+    title: 'What is BNP Paribas RealEstate?'
+    content: '<p>BNP Paribas RealEstate is a leading international real estate services provider offering comprehensive solutions for property investment, management, and advisory services across major global markets.</p>'
+    open: true
+  - id: 'section-2'
+    title: 'How do I schedule a property viewing?'
+    content: '<p>You can schedule a viewing by contacting our team directly through the property listing page or by calling our office during business hours (9 AM - 6 PM, Monday to Friday).</p>'
+  - id: 'section-3'
+    title: 'What documents do I need for a property purchase?'
+    content: '<p>Required documents typically include:</p><ul><li>Valid identification (passport or national ID)</li><li>Proof of income (pay slips, tax returns)</li><li>Bank statements (last 3 months)</li><li>Pre-approval letter from your lender</li></ul><p>Additional documents may be required based on your specific situation.</p>'
+
+singleOpen: true
+bordered: true
+flush: false
+headingLevel: 'h3'

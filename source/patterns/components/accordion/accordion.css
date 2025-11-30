@@ -1,0 +1,158 @@
+/**
+ * Accordion Component (Molecule/Disclosure)
+ * Expandable/collapsible content sections with ARIA support
+ *
+ * BEM: ps-accordion, ps-accordion__item, ps-accordion__header, ps-accordion__trigger, ps-accordion__title, ps-accordion__icon, ps-accordion__panel
+ * Variants: bordered (default) | no-bordered
+ * Modifiers: --flush, --no-bordered
+ * States: ps-accordion__item--open, [aria-expanded="true"], :focus-visible
+ */
+
+.ps-accordion {
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  line-height: var(--leading-normal);
+  
+  /* Default: bordered variant */
+  & .ps-accordion__item {
+    border-bottom: var(--border-size-1) solid var(--gray-200);
+    
+    &:first-child {
+      border-top: var(--border-size-1) solid var(--gray-200);
+    }
+  }
+  
+  & .ps-accordion__header {
+    margin: 0;
+    padding: 0;
+  }
+  
+  & .ps-accordion__trigger {
+    /* Reset button */
+    appearance: none;
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-3);
+    width: 100%;
+    padding: var(--size-4) var(--size-5);
+    text-align: left;
+    
+    /* Transitions */
+    transition: background-color 150ms var(--ease-out-2);
+    
+    &:hover {
+      background-color: var(--gray-50);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--brand-primary);
+      outline-offset: calc(-1 * var(--border-size-2));
+      position: relative;
+      z-index: 1;
+    }
+    
+    &:active {
+      background-color: var(--gray-100);
+    }
+  }
+  
+  & .ps-accordion__title {
+    flex: 1;
+    font-weight: var(--font-weight-600);
+    color: var(--gray-900);
+  }
+  
+  & .ps-accordion__icon {
+    /* Icon container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-5);
+    height: var(--size-5);
+    flex-shrink: 0;
+    
+    /* Plus icon via CSS (collapsed state) */
+    &::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23374151' d='M8 3v10M3 8h10' stroke='currentColor' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 200ms var(--ease-out-2);
+    }
+    
+    /* Rotate to minus when expanded */
+    [aria-expanded="true"] & {
+      &::before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+  
+  & .ps-accordion__panel {
+    padding: 0 var(--size-5) var(--size-5);
+    color: var(--gray-700);
+    
+    /* Smooth height animation handled by JS */
+    overflow: hidden;
+    
+    &[hidden] {
+      display: none;
+    }
+    
+    /* Allow HTML content styling */
+    & p {
+      margin: 0 0 var(--size-3);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    & a {
+      color: var(--brand-primary);
+      text-decoration: underline;
+      
+      &:hover {
+        color: var(--green-700);
+      }
+    }
+  }
+  
+  /* Open state styling */
+  & .ps-accordion__item--open {
+    & .ps-accordion__trigger {
+      background-color: var(--gray-50);
+    }
+  }
+}
+
+/* Variant: No borders */
+.ps-accordion--no-bordered {
+  & .ps-accordion__item {
+    border: none;
+  }
+}
+
+/* Modifier: Flush (minimal padding) */
+.ps-accordion--flush {
+  & .ps-accordion__trigger {
+    padding: var(--size-3) 0;
+  }
+  
+  & .ps-accordion__panel {
+    padding: 0 0 var(--size-3);
+  }
+}

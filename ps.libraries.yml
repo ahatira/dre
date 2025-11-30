@@ -11,3 +11,11 @@ alert:
     - core/drupal
     - core/drupalSettings
     - core/once
+
+accordion:
+  js:
+    dist/js/accordion.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

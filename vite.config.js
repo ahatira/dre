@@ -36,6 +36,7 @@ export default defineConfig({
             styles: path.resolve(__dirname, 'source/patterns/styles.css'),
             // JS behaviors (add here as we create more)
             alert: path.resolve(__dirname, 'source/patterns/components/alert/alert.behavior.js'),
+            accordion: path.resolve(__dirname, 'source/patterns/components/accordion/accordion.behavior.js'),
           };
           return entries;
         })(),

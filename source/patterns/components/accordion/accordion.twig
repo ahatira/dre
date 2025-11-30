@@ -1,0 +1,72 @@
+{#
+ * Accordion Component (Molecule)
+ * Disclosure pattern for showing/hiding content sections
+ * 
+ * @param array items - Array of accordion items (required)
+ *   - string id - Optional unique ID (auto-generated if omitted)
+ *   - string title - Section title (required)
+ *   - string content - Section content, HTML supported (required)
+ *   - boolean open - Initial open state (default: false)
+ * @param boolean singleOpen - Only one section open at a time (default: true)
+ * @param boolean bordered - Show borders between items (default: true)
+ * @param boolean flush - Remove padding (default: false)
+ * @param string headingLevel - Semantic heading level: h2|h3|h4|h5 (default: 'h3')
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
+
+{%- set items = items|default([]) -%}
+{%- set singleOpen = singleOpen is defined ? singleOpen : true -%}
+{%- set bordered = bordered is defined ? bordered : true -%}
+{%- set flush = flush|default(false) -%}
+{%- set headingLevel = headingLevel|default('h3') -%}
+
+{{ attach_library('ps_theme/accordion') }}
+
+{# Build classes array - only add modifiers if different from defaults #}
+{%- set classes = ['ps-accordion'] -%}
+{%- if not bordered -%}
+  {%- set classes = classes|merge(['ps-accordion--no-bordered']) -%}
+{%- endif -%}
+{%- if flush -%}
+  {%- set classes = classes|merge(['ps-accordion--flush']) -%}
+{%- endif -%}
+
+<div
+  class="{{ classes|join(' ')|trim }}"
+  data-accordion
+  data-single-open="{{ singleOpen ? 'true' : 'false' }}"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  {%- for item in items -%}
+    {%- set panelId = item.id ?? ('accordion-panel-' ~ loop.index) -%}
+    {%- set labelId = panelId ~ '-label' -%}
+    {%- set isOpen = item.open ?? false -%}
+    
+    <div class="ps-accordion__item{% if isOpen %} ps-accordion__item--open{% endif %}">
+      <{{ headingLevel }} class="ps-accordion__header">
+        <button
+          class="ps-accordion__trigger"
+          type="button"
+          aria-expanded="{{ isOpen ? 'true' : 'false' }}"
+          aria-controls="{{ panelId }}"
+          id="{{ labelId }}"
+          data-accordion-trigger
+        >
+          <span class="ps-accordion__title">{{ item.title }}</span>
+          <span class="ps-accordion__icon" aria-hidden="true"></span>
+        </button>
+      </{{ headingLevel }}>
+      
+      <div
+        class="ps-accordion__panel"
+        id="{{ panelId }}"
+        role="region"
+        aria-labelledby="{{ labelId }}"
+        data-accordion-panel
+        {% if not isOpen %}hidden{% endif %}
+      >
+        {{ item.content|raw }}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
