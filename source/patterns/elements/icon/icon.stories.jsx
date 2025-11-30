@@ -8,20 +8,8 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: `Icon font system using bnpre-icons and bnpre-icons-poi fonts.
-
-**Key Features:**
-- Icon fonts defined in \`source/props/icons.css\` (generated from SVGs)
-- Organized by category: Generic, Mobile, Tutoffice, Social, Tools, Univers, Ad, POI
-- 4 sizes: small (16px), medium (20px), large (24px), xlarge (32px)
-- Supports custom colors via CSS color property
-- Accessibility: aria-label for informative icons, aria-hidden for decorative
-- Icon names without "icon-" prefix in component prop
-
-**Usage:**
-- Use \`@elements/icon/icon.twig\` component for controllable icons
-- Icon name prop: \`search\`, \`check\`, \`poi-hotel\` (without "icon-" prefix)
-- All icon mappings centralized in \`source/props/icons.css\``,
+        component: `Semantic icon component using BNPRE icon fonts.
+Supports sizes, color tokens, and accessibility for informative vs decorative usage.`,
       },
     },
   },

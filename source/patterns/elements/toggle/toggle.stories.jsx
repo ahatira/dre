@@ -7,32 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Accessible on/off switch for boolean preferences.
-
-**Key Features:**
-- 3 sizes: small | medium (default) | large
-- States: unchecked (default), checked, disabled
-- Optional internal ON/OFF labels (showLabels)
-- External label + optional description text
-- Uses native checkbox input with role="switch" and aria-checked
-
-**Usage Guidelines:**
-- Prefer switches for immediate state changes (e.g. notifications) over checkboxes for forms
-- Keep labels concise; description can add context below
-- Only show internal on/off labels when necessary (clearer state differentiation)
-- Medium size is default; small for dense settings, large for prominent preferences
-
-**Accessibility:**
-- role="switch" communicates binary state semantics to assistive tech
-- aria-checked reflects current state, updated automatically by the browser
-- Focus visible outline must be preserved (do not remove it)
-- Provide either external label or internal labels (never both missing)
-
-**Do Not:**
-- Use for multi-step confirmations
-- Replace checkboxes in large forms arbitrarily
-- Hardcode colors – always use design tokens
-        `,
+        component: `Semantic on/off switch for immediate boolean preferences.
+Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibility.`,
       },
     },
   },

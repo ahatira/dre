@@ -55,24 +55,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Progress indicator for determinate or indeterminate tasks (upload, download, multi-step form).
-
-**Key Features:**
-- Two variants: linear (horizontal bar), circular (ring)
-- Semantic colors: primary, secondary, success, warning, danger, info (tokens via \`--ps-color-*-600\`)
-- Five sizes: xs, sm, md (default), lg, xl
-  * Linear heights: 2px, 4px, 8px, 12px, 16px
-  * Circular sizes: 24px, 32px, 40px, 48px, 64px
-- States: indeterminate (infinite animation), striped (animated stripes for linear)
-- Label: \`showLabel\` displays percentage; \`label\` provides screen reader text
-- Accessibility: role="progressbar", aria-valuenow/min/max, aria-label; not focusable
-
-**Usage:**
-- Default variant is linear with gray (neutral) color
-- Use semantic colors for status indication
-- Indeterminate mode for unknown duration tasks
-- Striped animation for visual feedback on linear bars
-- Minimal markup: modifiers only added when value differs from default`,
+        component: `Semantic progress indicator (linear or circular) for task status.
+Supports sizes, semantic colors, indeterminate/striped states, and accessible labels.`,
       },
     },
   },

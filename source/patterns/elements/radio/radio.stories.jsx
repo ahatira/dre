@@ -7,28 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Radio button for single selection within a group.
-
-**Key Features:**
-- Native HTML radio input with custom icon font styling
-- Icons from bnpre-icons font (radio-unselected, radio-selected)
-- Semantic states: unchecked, checked, disabled (with reduced opacity)
-- Focus-visible outline for keyboard navigation
-- Label text optional but recommended for accessibility
-- Group behavior: all radios with same 'name' allow only one selection
-
-**Usage:**
-- Always use same 'name' attribute for radios in a group
-- Each radio must have unique 'value' attribute
-- Only one radio in a group can be checked at a time
-- Use 'label' for visible text and screen readers
-- Disabled state prevents interaction and reduces opacity to 50%
-
-**Icons:**
-- Unselected: \\e86a (gray circle outline)
-- Selected: \\e869 (green filled circle)
-- Size: 20px (--size-5)
-- Colors: --ps-color-neutral-700 (unselected), --brand-primary (selected)`,
+        component: `Semantic radio control for single selection within a group.
+Supports checked/disabled states, focus-visible, and accessible labeling.`,
       },
     },
   },

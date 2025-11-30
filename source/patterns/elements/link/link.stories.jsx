@@ -8,21 +8,8 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: `Text link element with interactive states and optional icon.
-
-**Key Features:**
-- Semantic color variants: primary, secondary, info, inverse (default uses base text color)
-- Interactive states: hover removes underline, visited/active states
-- Optional icon with configurable position (left/right)
-- External link support with automatic rel="noopener noreferrer"
-- Disabled state renders as <span> with aria-disabled
-- Focus-visible outline for keyboard navigation
-
-**Usage:**
-- Default link uses base text color with underline
-- Use color variants for semantic emphasis
-- Icon names without "icon-" prefix (handled automatically)
-- External links with target="_blank" get security attributes`,
+        component: `Semantic text link with optional icon and variant colors.
+Supports underline control, external target handling, and focus-visible accessibility.`,
       },
     },
   },

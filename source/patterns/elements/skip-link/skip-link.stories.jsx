@@ -7,28 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `WCAG skip link for keyboard navigation to main content.
-
-**Key Features:**
-- Hidden by default, visible only on keyboard focus (Tab key)
-- Positioned absolute at top-left with high z-index
-- Links to specific page sections via target ID (main-content, navigation, search)
-- Green background (--brand-primary) with white text
-- Smooth transform animation (translateY from -150% to 0)
-- Required for WCAG 2.2 Level A compliance (criterion 2.4.1)
-
-**Usage:**
-- Must be the first focusable element on the page
-- Allows keyboard users to bypass repetitive navigation
-- Target element must have matching id attribute
-- Typical targets: #main-content, #navigation, #search
-- Always visible on focus, invisible otherwise
-
-**Accessibility:**
-- Meets WCAG 2.4.1 Bypass Blocks (Level A)
-- Essential for keyboard-only users
-- Focus-visible outline for keyboard navigation
-- No aria attributes needed (native link semantics)`,
+        component: `WCAG “Skip to content” link for keyboard navigation.
+Hidden by default, appears on focus; targets an in-page anchor by id.`,
       },
     },
   },

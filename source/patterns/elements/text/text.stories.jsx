@@ -10,30 +10,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Typographic atom for paragraphs and inline textual content.
-
-**Key Features:**
-- 3 size variants: body (16px default), small (14px), large (18px)
-- Emphasis states: muted (secondary tone), strong (bold weight) – combinable
-- Alignment options: left (default), center, right
-- Semantic HTML tag selection: p | span | div
-- Pure text rendering (no markup injection) for safety
-
-**Usage Guidelines:**
-- Use body for standard paragraph copy
-- Use large for lead paragraphs or introductory emphasis (often combined with strong)
-- Use small for captions, footnotes, disclaimers
-- Prefer muted for secondary/informational text that should have reduced prominence
-- Apply strong for inline emphasis instead of manually wrapping with <strong>
-- Prefer left alignment for readability; use center for callouts; right for numeric / metadata alignment
-
-**Accessibility:**
-- Ensures sufficient contrast (default and muted variants use tokens with WCAG-compliant values)
-- Text is not truncated or visually hidden; provide semantic HTML tag matching context
-- Supports screen reader reading order without disruption
-
-**Performance:** Lightweight styles — no layout shifts, only font-size/weight/color adjustments.
-`,
+        component: `Semantic text component for paragraphs and inline content.
+Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
       },
     },
   },

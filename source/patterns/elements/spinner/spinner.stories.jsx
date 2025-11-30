@@ -7,28 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Animated loading indicator for asynchronous states.
-
-**Key Features:**
-- 3 variants: circular (rotating SVG, default), dots (3 bouncing dots), bars (3 stretching bars)
-- 5 sizes: xs (16px), sm (24px), md (32px, default), lg (48px), xl (64px)
-- 8 colors: default (gray), primary (BNP green), secondary (pink), success, info, warning, danger, white (for dark backgrounds)
-- Accessibility: role="status" and aria-live="polite" for screen reader announcements
-- Centered option: absolute positioning with transform for perfect centering
-
-**Usage:**
-- Use circular for general loading states
-- Use dots for subtle, less intrusive loading
-- Use bars for alternative visual effect
-- Size xs for buttons, sm/md for inline content, lg/xl for page loading
-- Always provide descriptive text for screen readers
-- Use semantic colors for contextual feedback
-
-**Accessibility:**
-- role="status" announces loading state to screen readers
-- aria-live="polite" ensures non-intrusive announcements
-- Visually hidden text provides context for screen reader users
-- No user interaction required (not focusable)`,
+        component: `Semantic loading indicator for asynchronous states.
+Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
       },
     },
   },
