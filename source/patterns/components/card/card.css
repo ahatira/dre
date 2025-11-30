@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   background: var(--white);
-  border: 1.5px solid #EBEDEF; /* Figma exact: Grey #6 */
+  border: var(--border-size-15) solid var(--ps-color-border-card);
   border-radius: var(--radius-4);
   overflow: hidden;
   transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2);
@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-4); /* 16px gap - Figma */
-    padding: 30px 24px; /* Figma exact: medium size */
+    padding: var(--ps-card-padding-y-medium) var(--ps-card-padding-x-medium);
     flex: 1;
   }
 
@@ -98,9 +98,9 @@
 
     .ps-card__image {
       flex-shrink: 0;
-      width: 242px; /* Figma exact */
+      width: var(--ps-card-image-width-horizontal);
       height: auto;
-      min-height: 212px; /* Figma exact */
+      min-height: var(--ps-card-image-min-height-horizontal);
     }
 
     .ps-card__content {
@@ -110,9 +110,16 @@
     }
   }
 
-  /* Modifier: Image position right (horizontal only) */
-  &--horizontal&--image-right {
+  /* Modifier: Image position right */
+  &--image-right {
     flex-direction: row-reverse;
+
+    .ps-card__image {
+      flex-shrink: 0;
+      width: var(--ps-card-image-width-horizontal);
+      height: auto;
+      min-height: var(--ps-card-image-min-height-horizontal);
+    }
   }
 
   /* Modifier: Image position bottom (vertical layout) */

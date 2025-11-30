@@ -80,6 +80,12 @@
   --ps-spacing-4: var(--size-4);
   --ps-spacing-5: var(--size-5);
 
+  /* Card component specific spacing and dimensions (Figma exact) */
+  --ps-card-padding-y-medium: 1.875rem; /* 30px */
+  --ps-card-padding-x-medium: var(--size-6); /* 24px */
+  --ps-card-image-width-horizontal: 15.125rem; /* 242px */
+  --ps-card-image-min-height-horizontal: 13.25rem; /* 212px */
+
   /* Icon size token (16px) for accordion trigger icon */
   --ps-icon-size-16: var(--size-4);
 

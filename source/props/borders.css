@@ -1,5 +1,6 @@
 :where(html) {
   --border-size-1: 1px;
+  --border-size-15: 1.5px; /* For components requiring mid-weight borders */
   --border-size-2: 2px;
   --border-size-3: 3px;
   --border-size-4: 4px;

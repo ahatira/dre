@@ -86,6 +86,8 @@
   --sky-900: hsl(202, 80%, 24%);
 
   /* Field-specific semantic colors */
+  /* Card component border (Figma exact #EBEDEF) */
+  --ps-color-border-card: #EBEDEF;
   --ps-color-border-default: hsl(216, 22%, 86%); /* #D6DBDE */
   --ps-color-border-hover: hsl(216, 22%, 70%); /* hover state */
   --ps-color-border-focus: hsl(199, 89%, 48%); /* #0288D1 - blue focus */
