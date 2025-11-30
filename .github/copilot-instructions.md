@@ -82,6 +82,17 @@
 ---
 **For AI agents:**
 
+## 🗣️ Directive Langue (Chat)
+
+Toutes les réponses fournies dans le chat à l'équipe / utilisateur doivent être rédigées en **Français** (langue naturelle, claire et professionnelle), sauf si l'utilisateur demande explicitement une autre langue ou impose l'anglais pour un extrait spécifique. Les noms de tokens, classes BEM, chemins de fichiers et code restent inchangés (anglais technique). La documentation interne (README, props, Storybook descriptions) continue d'être en anglais conformément aux règles existantes, mais le ton conversationnel dans le chat est en Français par défaut.
+
+Règles spécifiques:
+- Garder les explications techniques précises, éviter les traductions des identifiants (`ps-accordion__trigger`, `--size-4`, etc.).
+- Si une question arrive dans une autre langue, confirmer en Français puis s'adapter si demandé.
+- Ne jamais traduire les noms de fichiers, tokens, classes ou attributs ARIA.
+
+Cette directive s'applique immédiatement à toutes les interactions Chat.
+
 ## 🔒 PRIMARY DIRECTIVE
 
 **BEFORE ANY COMPONENT WORK**: Read `.github/COMPLETE_RULES.md` - the ABSOLUTE REFERENCE (1000+ lines, 18 sections, covering ALL standards).

@@ -12,4 +12,8 @@
   --radius-6: 1rem; /* 16px */
   --radius-7: 1.5rem; /* 24px */
   --radius-round: 1e5px;
+  /* Alias tokens for component specs (accordion + future components) */
+  --ps-border-width-default: var(--border-size-1);
+  --ps-border-width-focus: var(--border-size-2);
+  --ps-border-radius-sm: var(--radius-2);
 }

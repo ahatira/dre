@@ -27,19 +27,32 @@ export default defineConfig({
     emptyOutDir: true,
     outDir: 'dist',
     rollupOptions: {
-      // Collect all CSS/JS under patterns; provide fallback if none found.
-        // Collect JS entry points under patterns; CSS should be imported from JS.
-        // Fallback to global.css if no JS entries are found.
-        input: (() => {
-          const entries = {
-            // Single consolidated stylesheet that imports all component CSS via @import-glob
-            styles: path.resolve(__dirname, 'source/patterns/styles.css'),
-            // JS behaviors (add here as we create more)
-            alert: path.resolve(__dirname, 'source/patterns/components/alert/alert.behavior.js'),
-            accordion: path.resolve(__dirname, 'source/patterns/components/accordion/accordion.behavior.js'),
-          };
-          return entries;
-        })(),
+      // Auto-managed entries: one CSS bundle + one JS entry per behavior file
+      // JS files are discovered automatically under source/patterns/**, excluding Storybook files.
+      input: (() => {
+        const entries = {
+          styles: path.resolve(__dirname, 'source/patterns/styles.css'),
+        };
+        const files = glob.sync('source/patterns/**/*.js', { nodir: true });
+        for (const file of files) {
+          const rel = path.relative(path.resolve(__dirname, 'source/patterns'), path.resolve(__dirname, file)).replace(/\\/g, '/');
+          // Exclusions: storybook stories, test/spec files, and internal build helpers
+          if (
+            rel.includes('stories.') ||
+            rel.includes('.spec.') ||
+            rel.includes('.test.') ||
+            rel.startsWith('storybook/') ||
+            rel === 'scripts.js'
+          ) {
+            continue;
+          }
+          const base = path.basename(file, '.js');
+          const parent = path.basename(path.dirname(file));
+          const name = base === parent ? base : `${parent}-${base}`;
+          entries[name] = path.resolve(__dirname, file);
+        }
+        return entries;
+      })(),
       output: {
         assetFileNames: (assetInfo) => {
           // Preserve original subfolder by prefixing fonts/ and using original name including subpath
@@ -51,6 +64,9 @@ export default defineConfig({
             return 'css/[name][extname]';
         },
         entryFileNames: 'js/[name].js',
+        // Shared vendor chunk to avoid duplication. Each component library should depend on ps_theme/vendors.
+        chunkFileNames: (chunkInfo) => (chunkInfo.name === 'vendors' ? 'js/vendors/[name].js' : 'js/[name].js'),
+        manualChunks: (id) => (id.includes('node_modules') ? 'vendors' : undefined),
       },
     },
   },

@@ -246,6 +246,18 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
   - --ps-color-text, --ps-color-text-muted (colors.css)
   - --ps-font-family-primary, --ps-font-size-sm, --ps-font-weight-medium, --ps-font-weight-bold (fonts.css)
   - --ps-spacing-1, --ps-spacing-2 (sizes.css)
+29/11/2025 - ✅ **accordion** - Composant conforme template standard
+ - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+ - Props : items[] (id,title,content,open,icon), singleOpen (bool, défaut true), bordered (bool, défaut false), flush (bool, défaut false), headingLevel (h2-h5, défaut h3)
+ - Modifiers : `--bordered`, `--flush`, `__item--open` (état)
+ - HTML minimal : base `.ps-accordion` sans modifiers pour l'état par défaut (non-borderé, non-flush)
+ - Icône : `<span class="ps-accordion__icon">` + pseudo-élément (font bnpre-icons) avec swap glyph plus/minus sur état ouvert
+ - Tokens ajoutés : `--ps-spacing-3`, `--ps-spacing-4`, `--ps-spacing-5`, `--ps-icon-size-16` (sizes.css) ; `--ps-border-width-default`, `--ps-border-width-focus`, `--ps-border-radius-sm` (borders.css)
+ - Tokens utilisés : typographie (`--ps-font-family-primary`, `--font-size-1`), espace (`--ps-spacing-2..5`), bordures (`--ps-border-width-default`, `--ps-color-border-focus`, `--gray-300`, `--ps-border-width-focus`, `--ps-border-radius-sm`), icône (`--ps-icon-size-16`)
+ - Accessibilité : aria-expanded + hidden, panels role="region" aria-labelledby, navigation clavier Enter/Espace, outline focus tokenisé
+ - Stories : Default, Bordered, Flush, MultipleOpen, HeadingLevelH4, AllVariants
+ - Conformité : Aucun hardcode (remplacement de var(--size-*) par var(--ps-spacing-*)), défaut bordered inversé pour respecter règle HTML minimal
+ - Justification tokens : Spacing 3/4/5 et alias border width/radius nécessaires pour harmoniser API design et éviter fallback valeurs; icon size normalisée
 ---
 
 ### Phase 4 : PAGES COMPLÈTES (Priorité Haute) - Q2 2026

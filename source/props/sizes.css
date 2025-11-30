@@ -75,6 +75,13 @@
   /* Label tokens */
   --ps-spacing-1: var(--size-1);
   --ps-spacing-2: var(--size-2);
+  /* Added spacing tokens for accordion component (padding/gaps) */
+  --ps-spacing-3: var(--size-3);
+  --ps-spacing-4: var(--size-4);
+  --ps-spacing-5: var(--size-5);
+
+  /* Icon size token (16px) for accordion trigger icon */
+  --ps-icon-size-16: var(--size-4);
 
   /* Toggle component tokens */
   --ps-toggle-inset: var(--size-05); /* 2px internal thumb inset */

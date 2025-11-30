@@ -1,149 +1,135 @@
 /**
- * Accordion Component (Molecule/Disclosure)
- * Expandable/collapsible content sections with ARIA support
- *
- * BEM: ps-accordion, ps-accordion__item, ps-accordion__header, ps-accordion__trigger, ps-accordion__title, ps-accordion__icon, ps-accordion__panel
- * Variants: bordered (default) | no-bordered
- * Modifiers: --flush, --no-bordered
- * States: ps-accordion__item--open, [aria-expanded="true"], :focus-visible
+ * Accordion (Molecule / Disclosure)
+ * Pixel-perfect: bordered separators, CSS-only animated chevron, smooth transitions.
+ * BEM: ps-accordion, ps-accordion__item, ps-accordion__header, ps-accordion__trigger, ps-accordion__icon, ps-accordion__title, ps-accordion__panel
+ * Modifiers: ps-accordion--flush | ps-accordion__item--open
  */
 
 .ps-accordion {
-  /* Typography */
-  font-family: var(--font-sans);
-  font-size: var(--font-size-1);
-  line-height: var(--leading-normal);
-  
-  /* Default: bordered variant */
-  & .ps-accordion__item {
-    border-bottom: var(--border-size-1) solid var(--gray-200);
-    
-    &:first-child {
-      border-top: var(--border-size-1) solid var(--gray-200);
-    }
+  font-family: var(--ps-font-family-primary);
+
+  &__item {
+    border-bottom: var(--ps-border-width-default) solid var(--gray-300);
+    &:first-child { border-top: var(--ps-border-width-default) solid var(--gray-300); }
   }
-  
-  & .ps-accordion__header {
-    margin: 0;
-    padding: 0;
-  }
-  
-  & .ps-accordion__trigger {
-    /* Reset button */
+
+  &__header { margin: 0; }
+
+  &__trigger {
+    -webkit-appearance: none;
     appearance: none;
-    border: none;
-    background: transparent;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    
-    /* Layout */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--size-4);
-    width: 100%;
-    padding: var(--size-4) var(--size-5);
+    gap: var(--ps-spacing-3);
+    padding: var(--size-4) 0;
+    background: transparent;
+    border: none;
     text-align: left;
-    
-    /* Transitions */
-    transition: background-color 150ms var(--ease-out-2);
-    
+    cursor: pointer;
+    font-family: var(--ps-font-family-primary);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-normal);
+    color: var(--gray-900);
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--gray-700);
+    }
+
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--brand-primary);
-      outline-offset: calc(-1 * var(--border-size-2));
-      position: relative;
-      z-index: 1;
+      outline: var(--ps-border-width-focus) solid var(--ps-color-border-focus);
+      outline-offset: var(--border-size-1);
     }
   }
-  
-  & .ps-accordion__title {
-    flex: 1;
-    font-weight: var(--font-weight-500);
-    color: var(--gray-900);
+
+  &__title {
+    font-family: var(--ps-font-family-primary);
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-6);
+    color: var(--text-default);
   }
-  
-  & .ps-accordion__icon {
-    /* Icon container */
+
+  &__icon {
+    position: relative;
+    width: 19px;
+    height: 12px;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--size-5);
-    height: var(--size-5);
-    flex-shrink: 0;
-    
-    /* Chevron down icon (collapsed state) */
-    &::before {
+
+    &::before,
+    &::after {
       content: '';
-      display: block;
-      width: 12px;
-      height: 12px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23111827' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: transform 200ms var(--ease-out-2);
+      position: absolute;
+      width: 13px;
+      height: var(--border-size-2);
+      background-color: currentColor;
+      transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      top: 50%;
     }
-    
-    /* Rotate 180deg to chevron up when expanded */
-    [aria-expanded="true"] & {
-      &::before {
-        transform: rotate(180deg);
-      }
+
+    &::before {
+      left: 50%;
+      top: 100%;
+      transform: translate(-93%, -145%) rotate(44deg);
+      transform-origin: right center;
+    }
+
+    &::after {
+      left: 50%;
+      top: 100%;
+      transform: translate(-7%, -145%) rotate(-44deg);
+      transform-origin: left center;
     }
   }
-  
-  & .ps-accordion__panel {
-    padding: var(--size-3) var(--size-5) var(--size-5);
-    color: var(--gray-700);
-    
-    /* Smooth height animation handled by JS */
+
+  &__panel {
+    padding: 0 0 var(--size-4);
     overflow: hidden;
-    
-    &[hidden] {
-      display: none;
+    max-height: 0;
+    opacity: 0;
+    font-family: var(--ps-font-family-primary);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-normal);
+    color: var(--gray-600);
+    transition: 
+      max-height 300ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      padding 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &--flush {
+    & .ps-accordion__trigger {
+      padding-top: var(--ps-spacing-2);
+      padding-bottom: var(--ps-spacing-2);
     }
-    
-    /* Allow HTML content styling */
-    & p {
-      margin: 0 0 var(--size-3);
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-    
-    & a {
-      color: var(--brand-primary);
-      text-decoration: underline;
-      
-      &:hover {
-        color: var(--green-700);
-      }
+    & .ps-accordion__panel {
+      padding-bottom: var(--ps-spacing-2);
     }
   }
-  
 }
 
-/* Open state styling - no visual change, managed by icon rotation */
 .ps-accordion__item--open {
-  /* State class for JS, no additional styling needed */
-}
-
-/* Variant: No borders */
-.ps-accordion--no-bordered {
-  & .ps-accordion__item {
-    border: none;
+  & > .ps-accordion__header > .ps-accordion__trigger > .ps-accordion__icon {
+    &::before {
+      top: 50%;
+      transform: translate(-93%, -245%) rotate(-44deg);
+    }
+    &::after {
+      top: 50%;
+      transform: translate(-7%, -245%) rotate(44deg);
+    }
   }
-}
 
-/* Modifier: Flush (minimal padding) */
-.ps-accordion--flush {
-  & .ps-accordion__trigger {
-    padding: var(--size-3) 0;
-  }
-  
-  & .ps-accordion__panel {
-    padding: 0 0 var(--size-3);
+  & > .ps-accordion__panel {
+    max-height: 2000px;
+    opacity: 1;
+    padding-bottom: var(--size-4);
   }
 }

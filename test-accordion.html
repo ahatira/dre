@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accordion Test</title>
+  <link rel="stylesheet" href="dist/css/styles.css">
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    h1 {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Accordion Test - Bootstrap Approach</h1>
+  
+  <div class="ps-accordion" data-accordion="exclusive" data-animation="slide">
+    <div class="ps-accordion__item ps-accordion__item--expanded">
+      <h3 class="ps-accordion__header">
+        <button
+          class="ps-accordion__trigger"
+          type="button"
+          aria-expanded="true"
+          aria-controls="accordion-panel-1"
+          id="accordion-panel-1-label"
+          data-accordion-trigger
+        >
+          <span class="ps-accordion__title">What is BNP Paribas RealEstate?</span>
+          <span class="ps-accordion__icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      
+      <div
+        class="ps-accordion__panel ps-accordion__panel--show"
+        id="accordion-panel-1"
+        role="region"
+        aria-labelledby="accordion-panel-1-label"
+        data-accordion-panel
+      >
+        <p>BNP Paribas RealEstate is a leading international real estate services provider offering comprehensive solutions for property investment, management, and advisory services across major global markets.</p>
+      </div>
+    </div>
+
+    <div class="ps-accordion__item">
+      <h3 class="ps-accordion__header">
+        <button
+          class="ps-accordion__trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="accordion-panel-2"
+          id="accordion-panel-2-label"
+          data-accordion-trigger
+        >
+          <span class="ps-accordion__title">How do I schedule a property viewing?</span>
+          <span class="ps-accordion__icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      
+      <div
+        class="ps-accordion__panel"
+        id="accordion-panel-2"
+        role="region"
+        aria-labelledby="accordion-panel-2-label"
+        data-accordion-panel
+      >
+        <p>You can schedule a viewing by contacting our team directly through the property listing page or by calling our office during business hours (9 AM - 6 PM, Monday to Friday).</p>
+      </div>
+    </div>
+
+    <div class="ps-accordion__item">
+      <h3 class="ps-accordion__header">
+        <button
+          class="ps-accordion__trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="accordion-panel-3"
+          id="accordion-panel-3-label"
+          data-accordion-trigger
+        >
+          <span class="ps-accordion__title">What documents do I need for a property purchase?</span>
+          <span class="ps-accordion__icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      
+      <div
+        class="ps-accordion__panel"
+        id="accordion-panel-3"
+        role="region"
+        aria-labelledby="accordion-panel-3-label"
+        data-accordion-panel
+      >
+        <p>Required documents typically include:</p>
+        <ul>
+          <li>Valid identification (passport or national ID)</li>
+          <li>Proof of income (pay slips, tax returns)</li>
+          <li>Bank statements (last 3 months)</li>
+          <li>Pre-approval letter from your lender</li>
+        </ul>
+        <p>Additional documents may be required based on your specific situation.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="dist/js/accordion.js"></script>
+  
+  <script>
+    // Debug logs
+    document.addEventListener('accordion:show', (e) => {
+      console.log('🟢 accordion:show', e.detail);
+    });
+    document.addEventListener('accordion:shown', (e) => {
+      console.log('✅ accordion:shown', e.detail);
+    });
+    document.addEventListener('accordion:hide', (e) => {
+      console.log('🟡 accordion:hide', e.detail);
+    });
+    document.addEventListener('accordion:hidden', (e) => {
+      console.log('❌ accordion:hidden', e.detail);
+    });
+  </script>
+</body>
+</html>

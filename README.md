@@ -5,6 +5,12 @@ default front-end theme for BNP Paribas RealEstate.
 
 PS Theme is built using [Storybook](https://storybook.js.org/) (HTML edition), and [Vite](https://vitejs.dev/) (Vanilla JS edition), with the help of many NodeJS packages to improve automation and make use of the latest Front-End tooling. See `package.json` for specifics about packages being used.
 
+## JavaScript bundling standard
+
+- Single Drupal bundle: `dist/js/scripts.js`.
+- Aggregator: `source/patterns/scripts.js` eagerly imports all component behaviors via `import.meta.glob`. Any new `*.js` behavior placed under `source/patterns/**` is auto-included; no config changes needed.
+- Vendors: All modules from `node_modules` are emitted into `dist/js/vendors/vendors.js` using Rollup `manualChunks`. If you need a separate vendor split, extend `manualChunks` in `vite.config.js`.
+
 ## Running the project
 
 There are several custom npm commands that allows developers to build and run different
