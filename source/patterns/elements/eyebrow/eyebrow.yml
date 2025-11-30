@@ -1,4 +1,17 @@
-text: 'Nouveauté'
+# Eyebrow Component - Default Configuration
+# Contextual label/kicker placed above a heading
+#
+# Props:
+# - text: Text content displayed in the eyebrow (required)
+# - variant: 'primary' | 'secondary' | 'accent' | 'neutral' (default) | 'muted' - Semantic color variant
+# - size: 'small' (12px) | 'medium' (14px, default) - Text size
+# - uppercase: true (default) | false - Transform text to uppercase
+# - bold: true | false (default) - Apply bold font weight
+# - withLine: true | false (default) - Add decorative horizontal line before text
+# - withDot: true | false (default) - Add decorative dot before text
+# - icon: Optional icon name (without "icon-" prefix)
+
+text: 'News'
 variant: 'primary'
 size: 'medium'
 uppercase: true
