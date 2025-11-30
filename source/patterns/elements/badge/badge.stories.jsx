@@ -14,15 +14,15 @@ export default {
     docs: {
       description: {
         component:
-          'Badge compact indiquant un état ou une étiquette.\n\n' +
-          '- **Couleurs**: default (gris), primary (vert), secondary (violet), gold, info, success, warning, danger — couleurs via tokens sémantiques.\n' +
-          '- **Tailles**: small, medium (défaut), large — espacements/typos pilotés par tokens.\n' +
-          '- **Forme**: base arrondie (rayon par défaut), option `pill` pour pilule.\n' +
-          "- **Icônes**: via nom d'icône (font `bnpre-icons`) sans balise supplémentaire.\n" +
-          '- **Liens**: `url` rend une balise <a> accessible.\n' +
-          "- **Accessibilité**: texte toujours lisible (contraste défini par tokens); focus visible sur les liens; rôle implicite d'étiquette.\n" +
-          '- **Design tokens**: espacements (--size-*), typos (--font-size-*, --font-weight-*), couleurs (--brand-primary, --brand-secondary, --btn-*), bordures (--radius-*).\n' +
-          "- **Rendu minimal**: `.ps-badge` fournit les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
+          'Compact badge indicating a status or label.\n\n' +
+          '- **Colors**: default (gray), primary (green), secondary (purple), gold, info, success, warning, danger — semantic token colors.\n' +
+          '- **Sizes**: small, medium (default), large — spacing/typography driven by tokens.\n' +
+          '- **Shape**: rounded base (default radius), `pill` option for fully rounded.\n' +
+          '- **Icons**: via icon name (font `bnpre-icons`) without extra markup.\n' +
+          '- **Links**: `url` renders an accessible <a> tag.\n' +
+          '- **Accessibility**: always readable text (contrast defined by tokens); visible focus on links; implicit label role.\n' +
+          '- **Design tokens**: spacing (--size-*), typography (--font-size-*, --font-weight-*), colors (--brand-primary, --brand-secondary, --btn-*), borders (--radius-*).\n' +
+          '- **Minimal markup**: `.ps-badge` provides default styles; modifiers appear only when an option differs from default.',
       },
     },
   },
@@ -30,19 +30,21 @@ export default {
     // Content
     text: {
       control: 'text',
-      description: 'Badge text',
+      description: 'Text content displayed in the badge.',
       table: {
         category: 'Content',
         type: { summary: 'string', required: true },
+        defaultValue: { summary: 'Badge' },
       },
     },
     icon: {
       control: 'select',
       options: ['', ...iconsList.categories.generic],
-      description: 'Icon name without icon- prefix (e.g., check, calendar, medal)',
+      description: 'Optional icon name (without "icon-" prefix).',
       table: {
         category: 'Content',
         type: { summary: 'string' },
+        defaultValue: { summary: '""' },
       },
     },
 
@@ -50,26 +52,29 @@ export default {
     color: {
       control: { type: 'select' },
       options: colorsList.extended.values,
-      description: 'Semantic color',
+      description: 'Semantic color variant (default: gray, primary: green, secondary: purple, etc.).',
       table: {
         category: 'Appearance',
+        type: { summary: 'default | primary | secondary | gold | info | success | warning | danger' },
         defaultValue: { summary: 'default' },
       },
     },
     size: {
       control: { type: 'inline-radio' },
       options: sizesList.compact.values,
-      description: 'Badge size',
+      description: 'Badge size (small: 11px, medium: 12px, large: 14px).',
       table: {
         category: 'Appearance',
+        type: { summary: 'small | medium | large' },
         defaultValue: { summary: 'medium' },
       },
     },
     pill: {
       control: 'boolean',
-      description: 'Rounded pill shape',
+      description: 'Apply fully rounded pill shape.',
       table: {
         category: 'Appearance',
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
@@ -77,10 +82,11 @@ export default {
     // Link
     url: {
       control: 'text',
-      description: 'Link URL (renders <a>)',
+      description: 'Optional link URL (renders <a> instead of <span>).',
       table: {
         category: 'Link',
         type: { summary: 'string' },
+        defaultValue: { summary: '""' },
       },
     },
   },

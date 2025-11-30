@@ -1,14 +1,15 @@
 {#
- * Eyebrow (Atom)
- * @param string text - Texte affiché (obligatoire)
- * @param string variant - Couleur: primary, secondary, accent, neutral (optionnel, défaut: neutral)
- * @param string size - Taille: small, medium (optionnel, défaut: medium)
- * @param boolean uppercase - Majuscules (optionnel, défaut: true)
- * @param boolean bold - Gras (optionnel, défaut: false)
- * @param boolean withLine - Ligne décorative (optionnel, défaut: false)
- * @param boolean withDot - Point décoratif (optionnel, défaut: false)
- * @param string icon - Nom d'icône optionnel
- * @param object attributes - Attributs HTML supplémentaires
+ * Eyebrow (Atom) - Contextual label/kicker above heading
+ *
+ * @param string text - Displayed text (required)
+ * @param string variant - Color: primary, secondary, accent, neutral, muted (optional, default: neutral)
+ * @param string size - Size: small, medium (optional, default: medium)
+ * @param boolean uppercase - Uppercase text (optional, default: true)
+ * @param boolean bold - Bold text (optional, default: false)
+ * @param boolean withLine - Decorative line (optional, default: false)
+ * @param boolean withDot - Decorative dot (optional, default: false)
+ * @param string icon - Optional icon name
+ * @param object attributes - Additional HTML attributes
  #}
 
 {% set variant = variant|default('neutral') %}

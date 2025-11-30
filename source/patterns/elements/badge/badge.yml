@@ -1,8 +1,8 @@
 # Badge Component - Default Configuration
 #
 # Available Props:
-# - text: string (required) - Texte affiché dans le badge
-# - icon: string (optional) - Nom de l'icône (ex: 'calendar', 'check', 'medal')
+# - text: string (required) - Text displayed in the badge
+# - icon: string (optional) - Icon name (e.g., 'calendar', 'check', 'medal')
 # - color: default | primary | secondary | gold | info | success | warning | danger (default: default)
 #   * default: gray background
 #   * primary: green (brand primary)
@@ -16,9 +16,9 @@
 #   * small: 11px font, compact padding
 #   * medium: 12px font, standard padding
 #   * large: 14px font, spacious padding
-# - pill: boolean (default: false) - Forme pilule complètement arrondie
-# - url: string (optional) - URL de destination (transforme en lien <a>)
-# - attributes: Attribute - Attributs HTML additionnels
+# - pill: boolean (default: false) - Fully rounded pill shape
+# - url: string (optional) - Destination URL (transforms into <a> link)
+# - attributes: Attribute - Additional HTML attributes
 
 # Default: Gray badge, medium size
 text: "Badge"

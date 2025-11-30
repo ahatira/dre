@@ -1,12 +1,13 @@
 {#
- * Badge atom - Compact indicator
- * Props:
- *   text (string) - Badge text (required)
- *   icon (string) - Icon name (optional, e.g., 'check', 'calendar')
- *   color (string) - default|primary|secondary|gold|info|success|warning|danger (default: default)
- *   pill (boolean) - Rounded pill shape (default: false)
- *   url (string) - Link URL (renders <a>)
- *   size (string) - small|medium|large (default: medium)
+ * Badge (Atom) - Compact status/label indicator
+ *
+ * @param string text - Badge text content (required)
+ * @param string icon - Optional icon name (e.g., 'check', 'calendar')
+ * @param string color - Semantic color: default|primary|secondary|gold|info|success|warning|danger (default: default)
+ * @param boolean pill - Fully rounded pill shape (default: false)
+ * @param string url - Optional link URL (renders <a> tag)
+ * @param string size - Badge size: small|medium|large (default: medium)
+ * @param object attributes - Additional HTML attributes
  #}
 
 {%- set color = color|default('default') -%}
