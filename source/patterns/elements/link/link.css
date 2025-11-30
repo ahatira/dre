@@ -175,28 +175,4 @@
   &__text {
     display: inline-block;
   }
-
-  &__icon {
-    display: inline-flex;
-    align-items: center;
-    font-size: var(--size-5);
-    flex-shrink: 0;
-    font-family: 'bnpre-icons';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    &::before {
-      content: var(--ps-link-icon-content, "\e800");
-    }
-
-    &[data-icon="arrow-right"]::before { content: "\e802"; }
-    &[data-icon="arrow-left"]::before { content: "\e803"; }
-    &[data-icon="arrow-up"]::before { content: "\e804"; }
-    &[data-icon="arrow-down"]::before { content: "\e805"; }
-    &[data-icon="external-link"]::before { content: "\e806"; }
-    &[data-icon="download"]::before { content: "\e807"; }
-  }
 }
