@@ -1,8 +1,6 @@
 import component from './badge.twig';
 import data from './badge.yml';
 import './badge.css';
-import colorsList from '../../documentation/colors-list.json';
-import sizesList from '../../documentation/sizes-list.json';
 import iconsList from '../../documentation/icons-list.json';
 
 export default {
@@ -14,15 +12,14 @@ export default {
     docs: {
       description: {
         component:
-          'Compact badge indicating a status or label.\n\n' +
-          '- **Colors**: default (gray), primary (green), secondary (purple), gold, info, success, warning, danger — semantic token colors.\n' +
-          '- **Sizes**: small, medium (default), large — spacing/typography driven by tokens.\n' +
-          '- **Shape**: rounded base (default radius), `pill` option for fully rounded.\n' +
-          '- **Icons**: via icon name (font `bnpre-icons`) without extra markup.\n' +
-          '- **Links**: `url` renders an accessible <a> tag.\n' +
-          '- **Accessibility**: always readable text (contrast defined by tokens); visible focus on links; implicit label role.\n' +
-          '- **Design tokens**: spacing (--size-*), typography (--font-size-*, --font-weight-*), colors (--brand-primary, --brand-secondary, --btn-*), borders (--radius-*).\n' +
-          '- **Minimal markup**: `.ps-badge` provides default styles; modifiers appear only when an option differs from default.',
+          'Compact semantic label/status indicator rendered as text or link.\n\n' +
+          'Structure: base `.ps-badge` + optional modifiers (`--small|--large`, `--pill`, color variants).\n' +
+          'Color variants (semantic): default, primary, secondary, gold (legacy accent), info, success, warning, danger.\n' +
+          'Icons: decorative; pass icon name (no `icon-` prefix); rendered inside `.ps-badge__icon` with `data-icon` attribute.\n' +
+          'Links: supply `url` to render `<a>` with accessible focus outline.\n' +
+          'Tokens used: spacing (`--size-*`), typography (`--font-size-*`, `--font-weight-*`), colors (`--brand-*`, semantic scales), radius (`--radius-*`), transition (`--ps-transition-duration-fast`).\n' +
+          'Accessibility: text always present; icon decorative (aria-hidden); focus-visible styling for interactive links only.\n' +
+          'Minimal markup: no classes for default values; each modifier works independently.',
       },
     },
   },
@@ -51,8 +48,8 @@ export default {
     // Appearance
     color: {
       control: { type: 'select' },
-      options: colorsList.extended.values,
-      description: 'Semantic color variant (default: gray, primary: green, secondary: purple, etc.).',
+      options: ['default','primary','secondary','gold','info','success','warning','danger'],
+      description: 'Semantic color variant (supports legacy gold accent).',
       table: {
         category: 'Appearance',
         type: { summary: 'default | primary | secondary | gold | info | success | warning | danger' },
@@ -61,8 +58,8 @@ export default {
     },
     size: {
       control: { type: 'inline-radio' },
-      options: sizesList.compact.values,
-      description: 'Badge size (small: 11px, medium: 12px, large: 14px).',
+      options: ['small','medium','large'],
+      description: 'Badge size driven by typography & padding tokens.',
       table: {
         category: 'Appearance',
         type: { summary: 'small | medium | large' },

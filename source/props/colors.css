@@ -1,6 +1,8 @@
 :where(html) {
   /* Avatar tokens */
   --ps-color-primary-600: hsl(162, 72%, 38%); /* #0DB089 - vert BNP */
+  /* Badge accent (legacy gold) */
+  --accent-gold: hsl(39, 48%, 63%); /* legacy gold accent for badge */
   /* Progress semantic colors */
   --ps-color-info-600: hsl(220, 89%, 53%); /* align with blue-600 */
   --ps-color-warning-600: hsl(47, 96%, 53%); /* align with yellow-300/500 */
