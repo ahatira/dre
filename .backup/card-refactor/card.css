@@ -1,0 +1,454 @@
+/* ============================================
+   Card (Molecule) - Content presentation
+   ============================================ */
+
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1.5px solid #EBEDEF; /* Figma exact: Grey #6 */
+  border-radius: var(--radius-4);
+  overflow: hidden;
+  transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2);
+
+  /* Base: Image */
+  &__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--gray-100);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Base: Content wrapper */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4); /* 16px gap - Figma */
+    padding: 30px 24px; /* Figma exact */
+  }
+
+  /* Base: Eyebrow */
+  &__eyebrow {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-600);
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  /* Base: Title */
+  &__title {
+    margin: 0;
+    font-size: var(--font-size-1); /* 16px - Figma exact */
+    font-weight: var(--font-weight-400); /* Regular - Figma exact */
+    line-height: 1.5; /* 24px line-height */
+    color: #333333; /* Grey #1 - Figma exact */
+  }
+
+  /* Base: Body section (Title + Surface + Meta) */
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* No gap, direct stacking - Figma */
+  }
+
+  /* Base: Description */
+  &__description {
+    margin: 0;
+    font-size: var(--font-size-1);
+    line-height: var(--leading-normal);
+    color: var(--gray-700);
+  }
+
+  /* Base: Meta list */
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2); /* 8px - Figma */
+    font-family: var(--font-sans);
+    font-size: var(--font-size-0); /* 14px - Figma */
+    font-weight: var(--font-weight-400);
+    line-height: 24px;
+    color: #777E83; /* Grey #3 - Figma exact */
+  }
+
+  &__meta-icon {
+    display: inline-flex;
+    width: 16px; /* Figma exact */
+    height: 16px; /* Figma exact */
+    color: #777E83; /* Grey #3 - Figma exact */
+  }
+
+  /* Base: Actions */
+  &__cta-wrapper {
+    margin-top: auto;
+    padding-top: var(--size-2);
+  }
+
+  /* Modifier: Footer (price + CTA) */
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Figma exact */
+    align-items: center;
+    gap: 9px; /* Figma exact */
+    height: 24px;
+    margin-top: auto; /* Push to bottom */
+  }
+
+  /* Modifier: Product variant (default but explicit for clarity) */
+  &--product {
+    .ps-card__image {
+      aspect-ratio: 1 / 1; /* Square for product cards */
+    }
+  }
+
+  /* Modifier: Horizontal layout */
+  &--horizontal {
+    flex-direction: row;
+    align-items: center;
+
+    .ps-card__image {
+      flex-shrink: 0;
+      width: 242px; /* Figma exact */
+      height: 212px; /* Figma exact */
+      aspect-ratio: auto; /* Don't use aspect-ratio, use fixed dimensions */
+      border-radius: 0; /* No border radius on image in horizontal */
+    }
+
+    .ps-card__content {
+      flex: 1;
+      height: 212px; /* Figma exact */
+    }
+  }
+
+  /* Modifier: News variant */
+  &--news {
+    .ps-card__eyebrow {
+      color: var(--blue-600);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 16 / 9; /* Pixel perfect - same as default */
+    }
+  }
+
+  /* Modifier: Publication variant */
+  &--publication {
+    .ps-card__eyebrow {
+      color: var(--sky-600);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  /* Modifier: Solution variant */
+  &--solution {
+    text-align: center; /* Centered content */
+
+    .ps-card__content {
+      align-items: center; /* Center flex items */
+    }
+
+    .ps-card__icon {
+      font-size: var(--size-12); /* 48px icon */
+      width: var(--size-12);
+      height: var(--size-12);
+      color: var(--gray-900);
+      margin-bottom: var(--size-4);
+    }
+
+    .ps-card__eyebrow {
+      color: var(--green-600);
+    }
+  }
+
+  /* Modifier: Study variant */
+  &--study {
+    .ps-card__eyebrow {
+      color: var(--gray-700);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  /* Modifier: Push variant (featured highlight) */
+  &--push {
+    background: var(--gray-50); /* Gray background */
+    border: none; /* No border */
+
+    .ps-card__content {
+      padding: var(--size-8); /* Larger padding 32px */
+    }
+
+    .ps-card__title {
+      font-size: var(--font-size-3); /* Larger title 20px */
+    }
+  }
+
+  /* Modifier: Featured variant */
+  &--featured {
+    box-shadow: var(--shadow-3);
+
+    .ps-card__content {
+      padding: var(--size-6);
+    }
+
+    .ps-card__title {
+      font-size: var(--font-size-4);
+    }
+  }
+
+  /* Modifier: Compact variant */
+  &--compact {
+    .ps-card__content {
+      gap: var(--size-2);
+      padding: var(--size-4);
+    }
+
+    .ps-card__title {
+      font-size: var(--font-size-1); /* 16px for compact */
+    }
+
+    .ps-card__description {
+      font-size: var(--font-size-0);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  /* Modifier: Card header (badges left + actions right) */
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Figma: badges left, actions right */
+    align-items: flex-start;
+    height: 24px;
+    margin-bottom: var(--size-4); /* 16px - Figma gap */
+  }
+
+  /* Badges container */
+  &__badges {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--size-2); /* 8px - Figma */
+    flex: 1;
+  }
+
+  /* Actions container (compare + favorite) */
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px; /* Figma exact */
+    height: 24px;
+  }
+
+  /* Action icon (compare, favorite) */
+  &__action-icon {
+    display: inline-flex;
+    width: 24px; /* Figma exact */
+    height: 24px; /* Figma exact */
+    color: #777E83; /* Grey #3 - default */
+    cursor: pointer;
+    transition: color var(--ps-transition-duration-fast) var(--ease-out-1);
+
+    &:hover {
+      color: var(--brand-primary);
+    }
+
+    /* Favorite active state */
+    &--favorite-active {
+      color: #A22B66; /* Pink #4 - Figma exact */
+
+      &:hover {
+        color: #8A1F54; /* Darker on hover */
+      }
+    }
+  }
+
+  &__tag {
+    display: inline-block;
+    padding: var(--size-1) var(--size-3); /* 4px 12px */
+    background: var(--blue-600);
+    color: var(--white);
+    font-size: var(--font-size-xs); /* 12px */
+    font-weight: var(--font-weight-600);
+    text-transform: uppercase;
+    border-radius: var(--radius-1); /* 2px */
+    line-height: 1;
+  }
+
+  &__date {
+    font-size: var(--font-size-xs); /* 12px */
+    color: var(--gray-400);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-400);
+  }
+
+  /* Modifier: Price/Surface line */
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2); /* Space around bullet */
+    font-family: var(--font-sans);
+    font-size: var(--font-size-3); /* 20px - Figma exact */
+    font-weight: var(--font-weight-700); /* Bold - Figma exact */
+    line-height: 24px; /* 120% - Figma exact */
+    color: #333333; /* Grey #1 - Figma exact */
+    margin-bottom: var(--size-2);
+
+    &::after {
+      content: '•';
+      color: var(--gray-400);
+    }
+  }
+
+  &__surface {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-1); /* 16px - Figma */
+    font-weight: var(--font-weight-700); /* Bold - Figma */
+    line-height: 24px;
+    color: #333333; /* Grey #1 - Figma exact */
+  }
+
+  /* Modifier: Favorite icon */
+  &__favorite {
+    position: absolute;
+    top: var(--size-3); /* 12px */
+    right: var(--size-3);
+    width: var(--size-6); /* 24px */
+    height: var(--size-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-round);
+    cursor: pointer;
+    transition: all var(--ps-transition-duration-fast) var(--ease-out-2);
+
+    &:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    &[data-icon] {
+      font-size: var(--size-5); /* 20px icon */
+      color: var(--gray-600);
+    }
+
+    &--active[data-icon] {
+      color: var(--red-600);
+    }
+  }
+
+  /* Modifier: Status badges */
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: var(--size-3);
+    margin-bottom: var(--size-3);
+  }
+
+  &__viewed {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px; /* Figma exact */
+    gap: var(--size-2); /* 8px */
+    height: 24px;
+    background: #EBEDEF; /* Grey #6 - Figma exact */
+    border-radius: 16px; /* Figma exact */
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-0); /* 14px */
+    line-height: 24px;
+    color: #434F57; /* Grey #2 - Figma exact */
+
+    &::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      /* Eye icon will be added via data-icon */
+    }
+  }
+
+  /* Badge: Gold variant (Exclusivity) */
+  &__badge--gold {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px; /* Figma exact */
+    gap: var(--size-2); /* 8px */
+    height: 24px;
+    background: #D1AE6E; /* Figma exact - Gold */
+    border-radius: 16px; /* Figma exact */
+    font-family: var(--font-sans);
+    font-size: var(--font-size-0); /* 14px */
+    font-weight: var(--font-weight-400);
+    line-height: 24px;
+    color: #FFFFFF; /* White text - Figma */
+  }
+
+  /* Modifier: Icon for solution cards */
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-12); /* 48px */
+    height: var(--size-12);
+    font-size: var(--size-12);
+    color: var(--gray-900);
+    margin: 0 auto var(--size-4); /* Center with bottom margin */
+  }
+
+  /* State: Hover (for linked cards) */
+  &:hover {
+    box-shadow: var(--shadow-4);
+  }
+
+  /* State: Focus (for linked cards) */
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--blue-600);
+    outline-offset: var(--size-1);
+  }
+
+  /* Link card styling */
+  &[href] {
+    text-decoration: none;
+    cursor: pointer;
+
+    .ps-card__title {
+      color: var(--gray-900);
+      transition: color var(--ps-transition-duration-normal) var(--ease-out-2);
+    }
+
+    &:hover .ps-card__title {
+      color: var(--green-600);
+    }
+  }
+}

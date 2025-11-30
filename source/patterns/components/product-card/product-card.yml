@@ -1,0 +1,50 @@
+# Default product card (vertical layout - Figma exact)
+layout: vertical
+title: 'Rent Offices MADRID Barrio de Chamberí'
+surface: '611.3 m²'
+price: '20 000 € HT/HC/m²/an'
+status:
+  viewed: true
+  exclusivity: true
+image:
+  url: 'https://picsum.photos/400/400?random=1'
+  alt: 'Office space in Madrid'
+meta:
+  - icon: 'pin-map'
+    text: '28010 MADRID'
+cta:
+  text: 'View the property'
+  url: '#property-123'
+
+# Horizontal layout example (Figma exact 721×212px)
+# layout: horizontal
+# title: 'Rent Offices MADRID Barrio de Chamberí'
+# surface: '611.3 m²'
+# price: '20 000 € HT/HC/m²/an'
+# status:
+#   viewed: true
+#   exclusivity: true
+# image:
+#   url: 'https://picsum.photos/242/212?random=2'
+#   alt: 'Office space'
+# meta:
+#   - icon: 'pin-map'
+#     text: '28010 MADRID'
+# cta:
+#   text: 'View the property'
+#   url: '#property-456'
+
+# Without status badges
+# layout: vertical
+# title: 'Sale Apartment PARIS 16ème'
+# surface: '120 m²'
+# price: '1 500 000 €'
+# image:
+#   url: 'https://picsum.photos/400/400?random=3'
+#   alt: 'Apartment in Paris'
+# meta:
+#   - icon: 'pin-map'
+#     text: '75016 PARIS'
+# cta:
+#   text: 'View the property'
+#   url: '#property-789'

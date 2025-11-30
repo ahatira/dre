@@ -1,0 +1,187 @@
+/**
+ * Product Card - Specialized styles for real estate product cards
+ * 
+ * Extends the generic Card component with product-specific styling.
+ * All layout/container styles are inherited from ps-card.
+ * 
+ * BEM Structure:
+ * - .ps-product-card__header (badges + actions)
+ * - .ps-product-card__badges (left side)
+ * - .ps-product-card__badge (individual badge)
+ * - .ps-product-card__actions (right side)
+ * - .ps-product-card__action (icon button)
+ * - .ps-product-card__body (title + surface + meta)
+ * - .ps-product-card__title (property title)
+ * - .ps-product-card__surface (surface area)
+ * - .ps-product-card__meta (location list)
+ * - .ps-product-card__footer (price + CTA)
+ * - .ps-product-card__price (price text)
+ */
+
+.ps-product-card {
+  /* Header: Badges + Actions */
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 24px;
+  }
+
+  /* Badges container (left) */
+  &__badges {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--size-2); /* 8px */
+    flex: 1;
+  }
+
+  /* Individual badge */
+  &__badge {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    gap: var(--size-2);
+    height: 24px;
+    border-radius: 16px;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-0); /* 14px */
+    font-weight: var(--font-weight-400);
+    line-height: 24px;
+
+    &--viewed {
+      background: #EBEDEF; /* Grey #6 - Figma */
+      color: #434F57; /* Grey #2 - Figma */
+    }
+
+    &--gold {
+      background: #D1AE6E; /* Gold - Figma */
+      color: #FFFFFF;
+    }
+  }
+
+  &__badge-icon {
+    display: inline-flex;
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Actions container (right) */
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    height: 24px;
+  }
+
+  /* Action button */
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #777E83; /* Grey #3 */
+    cursor: pointer;
+    transition: color var(--ps-transition-duration-fast) var(--ease-out-1);
+
+    &:hover {
+      color: var(--brand-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--blue-600);
+      outline-offset: 2px;
+      border-radius: var(--radius-1);
+    }
+
+    &--active {
+      color: #A22B66; /* Pink #4 - Figma */
+
+      &:hover {
+        color: #8A1F54;
+      }
+    }
+  }
+
+  /* Body section */
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Title */
+  &__title {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-1); /* 16px - Figma */
+    font-weight: var(--font-weight-400); /* Regular - Figma */
+    line-height: 1.5; /* 24px */
+    color: #333333; /* Grey #1 - Figma */
+  }
+
+  /* Surface area */
+  &__surface {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-1); /* 16px - Figma */
+    font-weight: var(--font-weight-700); /* Bold - Figma */
+    line-height: 24px;
+    color: #333333; /* Grey #1 - Figma */
+  }
+
+  /* Meta list (location) */
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2); /* 8px - Figma */
+    font-family: var(--font-sans);
+    font-size: var(--font-size-0); /* 14px - Figma */
+    font-weight: var(--font-weight-400);
+    line-height: 24px;
+    color: #777E83; /* Grey #3 - Figma */
+  }
+
+  &__meta-icon {
+    display: inline-flex;
+    width: 16px; /* Figma exact */
+    height: 16px; /* Figma exact */
+    color: #777E83; /* Grey #3 - Figma */
+  }
+
+  /* Footer section */
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 9px; /* Figma exact */
+    height: 24px;
+  }
+
+  /* Price */
+  &__price {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-3); /* 20px - Figma */
+    font-weight: var(--font-weight-700); /* Bold - Figma */
+    line-height: 24px;
+    color: #333333; /* Grey #1 - Figma */
+  }
+}

@@ -1,107 +1,33 @@
-# Default card (product variant, vertical layout - PIXEL PERFECT)
-variant: product
+# Generic card with simple content (default variant)
+variant: default
 layout: vertical
-title: 'Product title'
-price: '20 000 €'
-surface: '611.3 m²'
-favorite: false
-favoriteActive: false
-image:
-  url: 'https://picsum.photos/400/400?random=1'
-  alt: 'Product image'
-meta:
-  - icon: 'pin-map'
-    text: 'Location'
-cta:
-  text: 'Consulter l''annonce'
-  url: '#property-123'
-  outline: false
+size: medium
 
-# News card variant example (PIXEL PERFECT)
-# variant: news
-# layout: vertical
-# tag: 'TAG LABEL'
-# date: 'DATE'
-# title: 'News title'
-# description: 'Lorem ipsum dolor sit amet consectetur. Ut nulla convallis tincidunt lacinia volutpat diam pharetra...'
-# image:
-#   url: 'https://picsum.photos/800/450?random=2'
-#   alt: 'News image'
-# cta:
-#   text: 'Lire la suite'
-#   url: '#news-456'
-#   outline: false
+# Note: Card is a generic container. Content is composed using Twig blocks.
+# See card.stories.jsx for usage examples with blocks.
 
-# Product card horizontal with status (FIGMA PIXEL PERFECT)
-# variant: product
-# layout: horizontal
-# title: 'Rent Offices MADRID Barrio de Chamberí'
-# surface: '611.3 m²'
-# price: '20 000 € HT/HC/m²/an'
-# favoriteActive: false
-# status:
-#   viewed: true
-#   exclusivity: true
-# image:
-#   url: 'https://picsum.photos/242/212?random=3'
-#   alt: 'Office space'
-# meta:
-#   - icon: 'pin-map'
-#     text: '28010 MADRID'
-# cta:
-#   text: 'View the property'
-#   url: '#property-789'
-#   outline: false
+# Example usage:
+# {% embed '@components/card/card.twig' with { variant: 'elevated' } %}
+#   {% block image %}
+#     <img src="image.jpg" alt="Description" />
+#   {% endblock %}
+#   {% block content %}
+#     <h3>Title</h3>
+#     <p>Description text...</p>
+#   {% endblock %}
+# {% endembed %}
 
-# Publication card variant (PIXEL PERFECT)
-# variant: publication
-# layout: vertical
-# title: 'Publication title'
-# description: 'Lorem ipsum dolor sit amet consectetur. Nunc sit a quis...'
-# date: 'DATE'
-# image:
-#   url: 'https://picsum.photos/600/800?random=4'
-#   alt: 'Publication cover'
-# meta:
-#   - icon: 'pin-map'
-#     text: 'Location'
-# cta:
-#   text: 'Lire l''étude'
-#   url: '#publication-321'
-#   outline: false
+# Available variants:
+# - default: Standard card with border
+# - outlined: Thicker border, no shadow
+# - flat: No border, no shadow
+# - elevated: Visible shadow always
 
-# Solutions card variant (PIXEL PERFECT - no image, centered, with icon)
-# variant: solution
-# layout: vertical
-# icon: 'close-square'
-# title: 'Solutions title'
-# description: 'Solutions details'
-# cta:
-#   text: 'Consulter les solutions'
-#   url: '#solutions'
-#   outline: false
+# Available layouts:
+# - vertical: Image on top (default)
+# - horizontal: Image on left (242px width)
 
-# Studies card horizontal (PIXEL PERFECT)
-# variant: study
-# layout: horizontal
-# tag: 'TAG LABEL'
-# date: 'DATE'
-# title: 'Study title'
-# description: 'Lorem ipsum dolor sit amet consectetur. Enim fames hendrerit amet nibh tempus sit nibh facilisis. Viverra tincidunt risus a non.'
-# image:
-#   url: 'https://picsum.photos/400/400?random=5'
-#   alt: 'Study illustration'
-# cta:
-#   text: 'Télécharger l''étude'
-#   url: '#study-download'
-#   outline: true
-
-# Push card variant (PIXEL PERFECT - gray background, no border, no image)
-# variant: push
-# layout: vertical
-# title: 'Calculate the target surface area of your future offices !'
-# description: 'Quick and easy to use, the surface area calculator lets you define the m2 surface area you need in just a few clicks.'
-# cta:
-#   text: 'Start calculator'
-#   url: '#calculator'
-#   outline: true
+# Available sizes:
+# - small: 16px padding
+# - medium: 30px 24px padding (default)
+# - large: 32px padding

@@ -1,166 +1,74 @@
 {#
- * Card (Molecule) - Content presentation with image, title, description, meta, and actions
+ * Card (Generic Container) - Flexible card structure for content composition
  *
- * @param string variant - Card variant: product|news|publication|solution|study|push|featured|compact (default: product)
- * @param string layout - Card layout: vertical|horizontal (default: vertical)
- * @param object image - Image data with url and alt properties (optional)
- * @param string image.url - Image source URL
- * @param string image.alt - Image alternative text
- * @param boolean favorite - Show favorite icon (product cards) (default: false)
- * @param boolean favoriteActive - Favorite active state (default: false)
- * @param string icon - Icon name for solution cards (optional)
- * @param string tag - Tag label (news/study cards) (optional)
- * @param string date - Date text (separate from meta) (optional)
- * @param string badge - Badge text to display on the card (optional)
- * @param string eyebrow - Eyebrow text above title (optional)
- * @param string price - Price text (product cards) (optional)
- * @param string surface - Surface/area text (product cards) (optional)
- * @param object status - Status info: viewed (boolean), exclusivity (boolean)
- * @param string title - Card title (required)
- * @param string description - Card description text (optional)
- * @param array meta - Array of metadata items with icon and text properties (optional)
- * @param string meta[].icon - Icon name for metadata item
- * @param string meta[].text - Text for metadata item
- * @param object cta - Call-to-action button configuration (optional)
- * @param string cta.text - CTA button text
- * @param string cta.url - CTA button URL
- * @param string cta.variant - CTA button variant (default: primary)
- * @param boolean cta.outline - Use outline button style (default: false)
- * @param string url - Card link URL (optional, wraps entire card)
+ * A card is a generic container that provides visual structure (border, padding, shadow)
+ * and layout options. Content is composed using Twig blocks for maximum flexibility.
+ *
+ * @param string variant - Visual variant: default|outlined|flat|elevated (default: default)
+ * @param string layout - Layout: vertical|horizontal (default: vertical)
+ * @param string size - Size: small|medium|large (default: medium)
+ * @param string url - Optional link URL (wraps entire card as <a>)
  * @param object attributes - Additional HTML attributes
+ *
+ * Blocks (all optional):
+ * - image: Card image/media area
+ * - content: Main content area (default block if no header/body/footer defined)
+ * - header: Header section (e.g., badges, meta, actions)
+ * - body: Body section (e.g., title, description)
+ * - footer: Footer section (e.g., CTA, price, actions)
+ *
+ * Usage:
+ * {% embed '@components/card/card.twig' with { variant: 'elevated' } %}
+ *   {% block image %}<img src="..." alt="..." />{% endblock %}
+ *   {% block content %}<h3>Title</h3><p>Description</p>{% endblock %}
+ * {% endembed %}
  #}
 
-{%- set variant = variant|default('product') -%}
+{%- set variant = variant|default('default') -%}
 {%- set layout = layout|default('vertical') -%}
-{%- set favorite = favorite|default(false) -%}
-{%- set favoriteActive = favoriteActive|default(false) -%}
+{%- set size = size|default('medium') -%}
 
 {%- set card_classes = ['ps-card'] -%}
-{%- if variant != 'product' -%}
+{%- if variant != 'default' -%}
   {%- set card_classes = card_classes|merge(['ps-card--' ~ variant]) -%}
 {%- endif -%}
 {%- if layout != 'vertical' -%}
   {%- set card_classes = card_classes|merge(['ps-card--' ~ layout]) -%}
 {%- endif -%}
+{%- if size != 'medium' -%}
+  {%- set card_classes = card_classes|merge(['ps-card--' ~ size]) -%}
+{%- endif -%}
 
-{%- set tag = url ? 'a' : 'article' -%}
+{%- set tag = url ? 'a' : 'div' -%}
 
 <{{ tag }}
   {%- if attributes %} {{ attributes.addClass(card_classes) }}{% else %} class="{{ card_classes|join(' ')|trim }}"{% endif -%}
   {%- if url %} href="{{ url }}"{% endif -%}
 >
-  {%- if image -%}
+  {%- if block('image') is defined -%}
     <div class="ps-card__image">
-      <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" />
+      {{ block('image') }}
     </div>
   {%- endif -%}
 
   <div class="ps-card__content">
-    {%- if icon -%}
-      <span class="ps-card__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-    {%- endif -%}
-
-    {# Header: Badges (left) + Actions (right) - Figma layout #}
-    {%- if status or badge -%}
+    {%- if block('header') is defined -%}
       <div class="ps-card__header">
-        {# Badges container (left side) #}
-        <div class="ps-card__badges">
-          {%- if status.viewed -%}
-            <span class="ps-card__viewed">
-              <span data-icon="eye" style="width: 12px; height: 12px;" aria-hidden="true"></span>
-              Already viewed
-            </span>
-          {%- endif -%}
-          {%- if status.exclusivity -%}
-            <span class="ps-card__badge--gold">Exclusivity</span>
-          {%- endif -%}
-          {%- if badge -%}
-            {%- include '@elements/badge/badge.twig' with {
-              text: badge,
-              size: 'small',
-              color: 'primary'
-            } only -%}
-          {%- endif -%}
-        </div>
-
-        {# Actions container (right side) - Compare + Favorite #}
-        <div class="ps-card__actions">
-          <span class="ps-card__action-icon" data-icon="compare" role="button" aria-label="Add to compare" tabindex="0"></span>
-          <span class="ps-card__action-icon{% if favoriteActive %} ps-card__action-icon--favorite-active{% endif %}" 
-                data-icon="heart" 
-                role="button" 
-                aria-label="{% if favoriteActive %}Remove from favorites{% else %}Add to favorites{% endif %}"
-                tabindex="0"></span>
-        </div>
+        {{ block('header') }}
       </div>
     {%- endif -%}
 
-    {%- if tag or date -%}
-      <div class="ps-card__tag-date">
-        {%- if tag -%}
-          <span class="ps-card__tag">{{ tag }}</span>
-        {%- endif -%}
-        {%- if date -%}
-          <span class="ps-card__date">{{ date }}</span>
-        {%- endif -%}
+    {%- if block('body') is defined -%}
+      <div class="ps-card__body">
+        {{ block('body') }}
       </div>
+    {%- elseif block('content') is defined -%}
+      {{ block('content') }}
     {%- endif -%}
 
-    {%- if eyebrow -%}
-      <div class="ps-card__eyebrow">{{ eyebrow }}</div>
-    {%- endif -%}
-
-    {# Body: Title + Surface + Location #}
-    <div class="ps-card__body">
-      <h3 class="ps-card__title">{{ title }}</h3>
-
-      {%- if surface -%}
-        <p class="ps-card__surface">{{ surface }}</p>
-      {%- endif -%}
-
-      {%- if meta -%}
-        <ul class="ps-card__meta">
-          {%- for item in meta -%}
-            <li class="ps-card__meta-item">
-              {%- if item.icon -%}
-                <span class="ps-card__meta-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-              {%- endif -%}
-              <span class="ps-card__meta-text">{{ item.text }}</span>
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-    </div>
-
-    {%- if description -%}
-      <p class="ps-card__description">{{ description }}</p>
-    {%- endif -%}
-
-    {# Footer: Price + Link #}
-    {%- if price or cta -%}
+    {%- if block('footer') is defined -%}
       <div class="ps-card__footer">
-        {%- if price -%}
-          <span class="ps-card__price">{{ price }}</span>
-        {%- endif -%}
-
-        {%- if cta -%}
-          {%- if cta.outline -%}
-            {%- include '@elements/button/button.twig' with {
-              label: cta.text,
-              url: cta.url,
-              variant: cta.variant|default('primary'),
-              outline: true,
-              size: 'small'
-            } only -%}
-          {%- else -%}
-            {%- include '@elements/link/link.twig' with {
-              text: cta.text,
-              url: cta.url,
-              icon: 'arrow-right',
-              color: 'green'
-            } only -%}
-          {%- endif -%}
-        {%- endif -%}
+        {{ block('footer') }}
       </div>
     {%- endif -%}
   </div>

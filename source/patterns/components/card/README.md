@@ -1,273 +1,255 @@
-# Card
+# Card (Generic Container)
 
-Versatile content presentation with image, title, description, metadata, and actions. Supports multiple variants (product, news, publication) and flexible layouts.
+Card is a flexible container component that provides visual structure (border, padding, shadow) and layout options. Content is composed freely using Twig blocks, allowing maximum reusability across different use cases.
 
-## Properties
+## Architecture Philosophy
 
-| Property     | Type     | Default   | Required | Description                                                       |
-| ------------ | -------- | --------- | -------- | ----------------------------------------------------------------- |
-| `variant`    | `string` | `product` | No       | Card variant: `product`, `news`, `publication`, `solution`, `study`, `push`, `featured`, `compact` |
-| `layout`     | `string` | `vertical`| No       | Card layout: `vertical`, `horizontal`                             |
-| `title`      | `string` | —         | Yes      | Card title (required)                                             |
-| `description`| `string` | —         | No       | Card description text                                             |
-| `eyebrow`    | `string` | —         | No       | Eyebrow text above title                                          |
-| `badge`      | `string` | —         | No       | Badge text to display on card                                     |
-| `image`      | `object` | —         | No       | Image data: `{ url: string, alt: string }`                        |
-| `meta`       | `array`  | —         | No       | Metadata items: `[{ icon: string, text: string }]`                |
-| `cta`        | `object` | —         | No       | Call-to-action: `{ text: string, url: string, variant?: string }`|
-| `url`        | `string` | —         | No       | Card link URL (makes entire card clickable)                       |
-| `attributes` | `object` | —         | No       | Additional HTML attributes (Drupal Attribute object)              |
+Card is **NOT** a specialized component. It's a **generic container** that:
+- ✅ Defines visual structure (border, radius, shadow, padding)
+- ✅ Provides layout variants (vertical, horizontal)
+- ✅ Offers size options (small, medium, large)
+- ❌ Does NOT impose content structure (no title, price, badges, etc.)
+- ❌ Does NOT include business logic (no favorites, status, etc.)
+
+**Use composition** to create specialized cards (ProductCard, NewsCard, etc.) that embed Card.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `string` | `default` | Visual variant: `default`, `outlined`, `flat`, `elevated` |
+| `layout` | `string` | `vertical` | Layout orientation: `vertical`, `horizontal` |
+| `size` | `string` | `medium` | Padding size: `small`, `medium`, `large` |
+| `url` | `string` | — | Optional link URL (wraps entire card as `<a>`) |
+| `attributes` | `object` | — | Additional HTML attributes |
 
 ## BEM Structure
 
 ```
-ps-card                        # Base card container
-  ps-card__image               # Image wrapper
-  ps-card__content             # Content wrapper
-  ps-card__eyebrow             # Eyebrow text
-  ps-card__title               # Title heading
-  ps-card__description         # Description text
-  ps-card__meta                # Metadata list
-    ps-card__meta-item         # Individual metadata item
-    ps-card__meta-icon         # Metadata icon
-    ps-card__meta-text         # Metadata text
-  ps-card__actions             # Actions wrapper
-  
+.ps-card (base container)
+├── .ps-card__image (optional image/media zone)
+└── .ps-card__content (main content wrapper)
+    ├── .ps-card__header (optional header zone)
+    ├── .ps-card__body (optional body zone)
+    └── .ps-card__footer (optional footer zone)
+
 Modifiers:
-  ps-card--product             # Product variant (default)
-  ps-card--news                # News variant
-  ps-card--publication         # Publication variant
-  ps-card--solution            # Solution variant
-  ps-card--study               # Study variant
-  ps-card--push                # Push/featured highlight variant
-  ps-card--featured            # Featured variant (larger padding, shadow)
-  ps-card--compact             # Compact variant (smaller spacing)
-  ps-card--vertical            # Vertical layout (default)
-  ps-card--horizontal          # Horizontal layout
+├── .ps-card--outlined
+├── .ps-card--flat
+├── .ps-card--elevated
+├── .ps-card--horizontal
+├── .ps-card--small
+└── .ps-card--large
 ```
+
+## Twig Blocks
+
+Card uses **Twig blocks** for content composition:
+
+| Block | Description |
+|-------|-------------|
+| `image` | Image/media area (optional) |
+| `content` | Main content (default block if no header/body/footer) |
+| `header` | Header section (optional) |
+| `body` | Body section (optional) |
+| `footer` | Footer section (optional) |
 
 ## Design Tokens
 
-### Colors
-- **Text**: `--gray-900` (title), `--gray-700` (description), `--gray-600` (eyebrow, meta)
-- **Background**: `--white`
-- **Borders**: `--gray-200`
-- **Variant colors**: `--blue-600` (news), `--sky-600` (publication), `--green-600` (solution, push hover)
+### Visual
+- Border: `1.5px solid #EBEDEF` (Figma exact: Grey #6)
+- Border radius: `var(--radius-4)`
+- Background: `var(--white)`
+- Shadow (hover/elevated): `var(--shadow-4)`
 
 ### Spacing
-- **Padding**: `--size-5` (default content), `--size-6` (featured), `--size-4` (compact)
-- **Gaps**: `--size-3` (content items), `--size-4` (meta items), `--size-2` (meta icon-text)
+- Small padding: `var(--size-4)` (16px)
+- Medium padding: `30px 24px` (Figma exact)
+- Large padding: `var(--size-6)` (32px)
+- Content gap: `var(--size-4)` (16px)
 
-### Typography
-- **Title**: `--font-size-3` (default), `--font-size-4` (featured), `--font-size-2` (compact), `--font-weight-700`
-- **Description**: `--font-size-1` (default), `--font-size-0` (compact), `--leading-normal`
-- **Eyebrow**: `--font-size-sm`, `--font-weight-600`, `--tracking-wide`
-- **Meta**: `--font-size-0`
-
-### Borders & Radius
-- **Border**: `--border-size-1` (default), `--border-size-2` (push variant)
-- **Radius**: `--radius-4`
-
-### Shadows
-- **Default**: `--shadow-4` (hover)
-- **Featured**: `--shadow-3` (base)
+### Horizontal Layout
+- Image width: `242px` (Figma exact)
+- Image min-height: `212px` (Figma exact)
 
 ### Transitions
-- **Duration**: `--duration-2`
-- **Easing**: `--ease-out`
+- Shadow: `var(--ps-transition-duration-normal)` + `var(--ease-out-2)`
+- Transform: `var(--ps-transition-duration-fast)` + `var(--ease-out-1)`
 
-## Variants
+## Usage
 
-### Product (default)
-Standard product card with 16:9 image aspect ratio. Used for property listings, product showcases.
-
-### News
-News article card with 4:3 image and blue eyebrow color.
-
-### Publication
-Publication/report card with 3:4 image (portrait) and sky-blue eyebrow.
-
-### Solution
-Service/solution card with green eyebrow, 16:9 image.
-
-### Study
-Case study card with 1:1 square image and gray eyebrow.
-
-### Push
-Highlighted card with green border (2px), draws attention to featured content.
-
-### Featured
-Premium variant with larger padding (`--size-6`), shadow, and bigger title font.
-
-### Compact
-Space-saving variant with reduced padding and smaller typography.
-
-## Layouts
-
-### Vertical (default)
-Image on top, content below. Standard card layout.
-
-### Horizontal
-Image on left (40% width, 1:1 aspect), content on right. Suitable for list views.
-
-## Usage Examples
-
-### Basic Product Card
+### Basic Card with Simple Content
 
 ```twig
-{% include '@components/card/card.twig' with {
-  title: 'Luxury Apartment Paris 15th',
-  description: 'Modern 3-room apartment, 65m², close to metro.',
-  eyebrow: 'Apartment',
-  image: {
-    url: '/images/property.jpg',
-    alt: 'Modern apartment'
-  },
-  meta: [
-    { icon: 'pin-map', text: 'Paris 15th' },
-    { icon: 'surface', text: '65 m²' },
-    { icon: 'bedroom', text: '3 rooms' }
-  ],
-  cta: {
-    text: 'View Property',
-    url: '/property/123',
-    variant: 'primary'
-  }
-} only %}
+{% embed '@components/card/card.twig' %}
+  {% block content %}
+    <h3>Card Title</h3>
+    <p>Simple description text...</p>
+  {% endblock %}
+{% endembed %}
 ```
 
-### News Card (Horizontal)
+### Card with Image
 
 ```twig
-{% include '@components/card/card.twig' with {
-  variant: 'news',
-  layout: 'horizontal',
-  title: 'Q4 Market Results Released',
-  description: 'Strong performance across all business units.',
-  eyebrow: 'Company News',
-  image: {
-    url: '/images/news.jpg',
-    alt: 'Office building'
-  },
-  meta: [
-    { icon: 'calendar', text: 'March 15, 2025' },
-    { icon: 'user', text: 'John Doe' }
-  ],
-  cta: {
-    text: 'Read More',
-    url: '/news/q4-results'
-  }
-} only %}
+{% embed '@components/card/card.twig' with { variant: 'elevated' } %}
+  {% block image %}
+    <img src="image.jpg" alt="Description" />
+  {% endblock %}
+
+  {% block content %}
+    <h3>Title</h3>
+    <p>Content goes here...</p>
+  {% endblock %}
+{% endembed %}
 ```
 
-### Clickable Card (No Button)
+### Card with Header, Body, Footer
 
 ```twig
-{% include '@components/card/card.twig' with {
-  url: '/property/456',
-  title: 'Featured Villa Cannes',
-  description: '5 bedrooms, sea view, pool.',
-  eyebrow: 'Villa',
-  badge: 'Exclusive',
-  image: {
-    url: '/images/villa.jpg',
-    alt: 'Villa with pool'
-  },
-  meta: [
-    { icon: 'pin-map', text: 'Cannes' },
-    { icon: 'surface', text: '250 m²' }
-  ]
-} only %}
+{% embed '@components/card/card.twig' %}
+  {% block image %}
+    <img src="image.jpg" alt="Image" />
+  {% endblock %}
+
+  {% block header %}
+    <span class="badge">News</span>
+    <span class="date">Nov 30, 2025</span>
+  {% endblock %}
+
+  {% block body %}
+    <h3>Article Title</h3>
+    <p>Article excerpt...</p>
+  {% endblock %}
+
+  {% block footer %}
+    <a href="#">Read more →</a>
+  {% endblock %}
+{% endembed %}
 ```
 
-### Featured Push Card
+### Horizontal Layout
 
 ```twig
-{% include '@components/card/card.twig' with {
-  variant: 'push',
-  title: 'Exclusive Investment Opportunity',
-  description: 'Limited time offer for premium properties.',
-  eyebrow: 'Featured',
-  badge: 'Hot Deal',
-  image: {
-    url: '/images/featured.jpg',
-    alt: 'Featured property'
-  },
-  meta: [
-    { icon: 'pin-map', text: 'Paris CBD' },
-    { icon: 'calendar', text: 'Expires Soon' }
-  ],
-  cta: {
-    text: 'Contact Us',
-    url: '/contact'
-  }
-} only %}
+{% embed '@components/card/card.twig' with { layout: 'horizontal' } %}
+  {% block image %}
+    <img src="image.jpg" alt="Image" />
+  {% endblock %}
+
+  {% block content %}
+    <h3>Horizontal Card</h3>
+    <p>Image on left (242px width)</p>
+  {% endblock %}
+{% endembed %}
 ```
 
-### Compact Card (No Image)
+### As Link (clickable card)
 
 ```twig
-{% include '@components/card/card.twig' with {
-  variant: 'compact',
-  title: 'Quick Update',
-  description: 'New listings available this week.',
-  eyebrow: 'Update',
-  meta: [
-    { icon: 'calendar', text: 'Today' }
-  ]
-} only %}
+{% embed '@components/card/card.twig' with { url: '/article/123' } %}
+  {% block content %}
+    <h3>Clickable Card</h3>
+    <p>Entire card is a link</p>
+  {% endblock %}
+{% endembed %}
 ```
 
-## Real-World Use Cases
+### Visual Variants
 
-### Property Listings Grid
-Display multiple property cards in a grid layout for search results or category pages.
+```twig
+{# Default: Standard border + hover shadow #}
+{% embed '@components/card/card.twig' with { variant: 'default' } %}...{% endembed %}
 
-### News/Blog Feed
-Present articles with news variant, horizontal layout for easy scanning.
+{# Outlined: Thicker border, no shadow #}
+{% embed '@components/card/card.twig' with { variant: 'outlined' } %}...{% endembed %}
 
-### Publications Library
-Showcase reports, whitepapers with publication variant (portrait images).
+{# Flat: No border, no shadow #}
+{% embed '@components/card/card.twig' with { variant: 'flat' } %}...{% endembed %}
 
-### Featured Content
-Highlight special offers or premium listings with push or featured variants.
+{# Elevated: Shadow always visible #}
+{% embed '@components/card/card.twig' with { variant: 'elevated' } %}...{% endembed %}
+```
 
-### Related Content
-Use compact variant for sidebar or footer suggestions.
+### Size Options
 
-### Service Pages
-Display solutions/services with solution variant and descriptive icons.
+```twig
+{# Small: 16px padding #}
+{% embed '@components/card/card.twig' with { size: 'small' } %}...{% endembed %}
+
+{# Medium: 30px 24px padding (default) #}
+{% embed '@components/card/card.twig' with { size: 'medium' } %}...{% endembed %}
+
+{# Large: 32px padding #}
+{% embed '@components/card/card.twig' with { size: 'large' } %}...{% endembed %}
+```
+
+## Composition Pattern
+
+For specialized cards (products, news, events, etc.), **create dedicated components** that embed Card:
+
+```twig
+{# source/patterns/components/product-card/product-card.twig #}
+{% embed '@components/card/card.twig' with { layout: layout } %}
+  {% block image %}
+    <img src="{{ image.url }}" alt="{{ image.alt }}" />
+  {% endblock %}
+
+  {% block content %}
+    {# Product-specific structure #}
+    <div class="ps-product-card__header">
+      {# Status badges, actions, etc. #}
+    </div>
+    <h3 class="ps-product-card__title">{{ title }}</h3>
+    <p class="ps-product-card__price">{{ price }}</p>
+    {# ... #}
+  {% endblock %}
+{% endembed %}
+```
+
+This approach:
+- ✅ Keeps Card generic and reusable
+- ✅ Separates container (Card) from content (ProductCard)
+- ✅ Allows different card types without modifying Card
+- ✅ Easier maintenance and testing
+
+## Specialized Components
+
+These components **use** Card via composition:
+- **ProductCard** - Real estate product listings (status, price, location, CTA)
+- **NewsCard** - News articles (tag, date, excerpt, read more)
+- **EventCard** - Events (date, location, registration)
+- **TestimonialCard** - Customer testimonials (quote, author, avatar)
+
+See individual component documentation for details.
 
 ## Accessibility
 
-- **Semantic HTML**: Uses `<article>` for standalone cards, `<a>` when entire card is linked
-- **Heading hierarchy**: Title uses `<h3>` (adjust level based on page context)
-- **Alt text**: Always provide meaningful `alt` text for images
-- **Focus states**: Linked cards have visible focus outline (`:focus-visible`)
-- **Keyboard navigation**: Clickable cards are keyboard accessible
-- **Loading**: Images use `loading="lazy"` for performance
-- **Icon decoration**: Meta icons use `aria-hidden="true"` (text conveys meaning)
-- **Color contrast**: All text meets WCAG AA standards (4.5:1 minimum)
-
-### Recommendations
-
-- Keep titles concise (max 60 characters)
-- Limit metadata to 2-4 items for readability
-- Provide descriptive alt text for images (not just "image")
-- Use appropriate heading level based on page hierarchy
-- For card grids, consider wrapping in `<section>` with heading
-- Test keyboard navigation: Tab → Enter should activate card link
-
-## Notes
-
-- **Image aspect ratios** vary by variant (16:9 default, 4:3 news, 3:4 publication, 1:1 study/horizontal)
-- **Horizontal layout** changes image to 40% width with 1:1 aspect ratio
-- **Badge** displays via Badge atom component (primary color, small size)
-- **CTA button** displays via Button atom (customizable variant)
-- **Meta icons** use centralized icon system (no "icon-" prefix in code)
-- **Independent modifiers**: All variants and layout modifiers work independently
-- **Minimal markup**: Only applies modifier classes when different from defaults
+- **Focus states**: Visible outline on linked cards (`:focus-visible`)
+- **Keyboard navigation**: All interactive cards accessible via Tab/Enter
+- **Semantic HTML**: Uses `<div>` by default, `<a>` when `url` provided
+- **Image alt**: Required for images in blocks
+- **Screen readers**: No ARIA needed for container (semantic zones)
 
 ## Browser Support
 
-Modern browsers supporting CSS nesting, custom properties, aspect-ratio, and object-fit. Autoprefixed via PostCSS.
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- CSS nesting via PostCSS (postcss-nested)
+- No JavaScript dependencies
+
+## Related Components
+
+- **ProductCard** - Specialized card for real estate products
+- **Link** (element) - Used for card links
+- **Badge** (element) - Can be used in composed content
+- **Button** (element) - Can be used in composed content
+
+## Migration Notes
+
+If migrating from old Card component with specific props:
+1. Create specialized component (e.g., `ProductCard`)
+2. Move business logic to specialized component
+3. Use `{% embed %}` with blocks to compose content
+4. Update templates to use new component
+5. Test all variants and layouts
+
+See `.backup/card-refactor/` for old implementation reference.

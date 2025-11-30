@@ -1,0 +1,100 @@
+{#
+ * Product Card - Specialized card for real estate products
+ *
+ * Composes the generic Card component with product-specific content structure.
+ * 
+ * @param string layout - Layout: vertical|horizontal (default: vertical)
+ * @param object image - Image data with url and alt properties (required)
+ * @param string image.url - Image source URL
+ * @param string image.alt - Image alternative text
+ * @param object status - Status badges: viewed (boolean), exclusivity (boolean)
+ * @param string title - Property title (required)
+ * @param string surface - Surface area (e.g., "611.3 m²")
+ * @param array meta - Metadata array with icon and text (e.g., location)
+ * @param string price - Price text (e.g., "20 000 € HT/HC/m²/an")
+ * @param object cta - Call-to-action configuration
+ * @param string cta.text - CTA text
+ * @param string cta.url - CTA URL
+ * @param string url - Optional card link URL (wraps entire card)
+ * @param object attributes - Additional HTML attributes
+ #}
+
+{%- set layout = layout|default('vertical') -%}
+
+{% embed '@components/card/card.twig' with {
+  layout: layout,
+  url: url,
+  attributes: attributes
+} %}
+
+  {% block image %}
+    <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" />
+  {% endblock %}
+
+  {% block content %}
+    {# Header: Status badges + Actions #}
+    {% if status %}
+      <div class="ps-product-card__header">
+        <div class="ps-product-card__badges">
+          {% if status.viewed %}
+            <span class="ps-product-card__badge ps-product-card__badge--viewed">
+              <span class="ps-product-card__badge-icon" data-icon="eye" aria-hidden="true"></span>
+              Already viewed
+            </span>
+          {% endif %}
+          {% if status.exclusivity %}
+            <span class="ps-product-card__badge ps-product-card__badge--gold">
+              Exclusivity
+            </span>
+          {% endif %}
+        </div>
+        
+        <div class="ps-product-card__actions">
+          <button class="ps-product-card__action" data-icon="compare" aria-label="Add to compare" type="button"></button>
+          <button class="ps-product-card__action" data-icon="heart" aria-label="Add to favorites" type="button"></button>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Body: Title + Surface + Meta #}
+    <div class="ps-product-card__body">
+      <h3 class="ps-product-card__title">{{ title }}</h3>
+
+      {% if surface %}
+        <p class="ps-product-card__surface">{{ surface }}</p>
+      {% endif %}
+
+      {% if meta %}
+        <ul class="ps-product-card__meta">
+          {% for item in meta %}
+            <li class="ps-product-card__meta-item">
+              {% if item.icon %}
+                <span class="ps-product-card__meta-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+              {% endif %}
+              <span class="ps-product-card__meta-text">{{ item.text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    {# Footer: Price + CTA #}
+    {% if price or cta %}
+      <div class="ps-product-card__footer">
+        {% if price %}
+          <strong class="ps-product-card__price">{{ price }}</strong>
+        {% endif %}
+
+        {% if cta %}
+          {% include '@elements/link/link.twig' with {
+            text: cta.text,
+            url: cta.url,
+            icon: 'arrow-right',
+            color: 'green'
+          } only %}
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+{% endembed %}
