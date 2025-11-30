@@ -1,7 +1,11 @@
-import button from './button.twig';
+import buttonTwig from './button.twig';
 import data from './button.yml';
+import colorsList from '../../documentation/colors-list.json';
+import sizesList from '../../documentation/sizes-list.json';
+import iconsList from '../../documentation/icons-list.json';
+import variantsList from '../../documentation/variants-list.json';
 
-const settings = {
+export default {
   title: 'Elements/Button',
   tags: ['autodocs'],
   parameters: {
@@ -9,56 +13,34 @@ const settings = {
       description: {
         component:
           "Bouton d'action sémantique conforme au Design System.\n\n" +
-          '- Variants: primary, secondary, success, info, warning, danger, dark, light — couleurs via tokens de marque.\n' +
-          '- Styles: plein (par défaut) et `outline` (fond transparent, bordure tokenisée).\n' +
-          '- Tailles: small, medium (défaut), large — hauteurs/espacements pilotés par tokens.\n' +
-          "- Icônes: optionnelles à gauche/droite, via nom d'icône (police `bnpre-icons`).\n" +
-          '- États: disabled et loading avec styles/accessibilité conformes.\n' +
-          '- Mise en page: `fullWidth` étend à 100% du conteneur.\n' +
-          '- Accessibilité: rôle/comportement bouton ou lien selon `url`; focus visible; libellé textuel requis.\n' +
-          "- Marquage minimal: `.ps-button` porte les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
+          '- **Variants**: primary, secondary, success, info, warning, danger, dark, light — couleurs via tokens de marque.\n' +
+          '- **Styles**: plein (par défaut) et `outline` (fond transparent, bordure tokenisée).\n' +
+          '- **Tailles**: small, medium (défaut), large — hauteurs/espacements pilotés par tokens.\n' +
+          "- **Icônes**: optionnelles à gauche/droite, via nom d'icône (police `bnpre-icons`).\n" +
+          '- **États**: disabled et loading avec styles/accessibilité conformes.\n' +
+          '- **Mise en page**: `fullWidth` étend à 100% du conteneur.\n' +
+          '- **Accessibilité**: rôle/comportement bouton ou lien selon `url`; focus visible; libellé textuel requis.\n' +
+          "- **Rendu minimal**: `.ps-button` porte les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
       },
     },
   },
   argTypes: {
+    // Content
     label: {
       description: 'Texte affiché dans le bouton',
       control: { type: 'text' },
       table: {
-        type: { summary: 'string' },
+        category: 'Content',
+        type: { summary: 'string', required: true },
         defaultValue: { summary: 'Button' },
-      },
-    },
-    variant: {
-      description: 'Variant sémantique du bouton',
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'],
-      table: {
-        type: { summary: 'primary | secondary | success | info | warning | danger | dark | light' },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    outline: {
-      description: 'Version outline (bordure uniquement, fond transparent)',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    size: {
-      description: 'Taille du bouton : small (33.98px), medium (36px), large (40px)',
-      control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
-      table: {
-        type: { summary: 'small | medium | large' },
-        defaultValue: { summary: 'medium' },
       },
     },
     icon: {
       description: "Nom de l'icône à afficher (optionnel)",
-      control: { type: 'text' },
+      control: { type: 'select' },
+      options: iconsList.categories.generic,
       table: {
+        category: 'Content',
         type: { summary: 'string' },
       },
     },
@@ -67,153 +49,148 @@ const settings = {
       control: { type: 'select' },
       options: ['left', 'right'],
       table: {
+        category: 'Content',
         type: { summary: 'left | right' },
         defaultValue: { summary: 'right' },
       },
     },
-    disabled: {
-      description: "Désactive le bouton (réduit l'opacité à 50%)",
-      control: { type: 'boolean' },
+    // Appearance
+    variant: {
+      description: 'Variant sémantique du bouton',
+      control: { type: 'select' },
+      options: variantsList.color.components.button,
       table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: 'Appearance',
+        type: { summary: variantsList.color.components.button.join(' | ') },
+        defaultValue: { summary: 'primary' },
       },
     },
-    loading: {
-      description: 'Affiche un état de chargement',
+    outline: {
+      description: 'Version outline (bordure uniquement, fond transparent)',
       control: { type: 'boolean' },
       table: {
+        category: 'Appearance',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: false },
+      },
+    },
+    size: {
+      description: 'Taille du bouton',
+      control: { type: 'select' },
+      options: variantsList.size.compact,
+      table: {
+        category: 'Appearance',
+        type: { summary: variantsList.size.compact.join(' | ') },
+        defaultValue: { summary: 'medium' },
       },
     },
     fullWidth: {
       description: 'Bouton en pleine largeur (width: 100%)',
       control: { type: 'boolean' },
       table: {
+        category: 'Appearance',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: false },
       },
     },
+    // Behavior
+    disabled: {
+      description: "Désactive le bouton (réduit l'opacité à 50%)",
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
+    },
+    loading: {
+      description: 'Affiche un état de chargement',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
+    },
+    // Link
     url: {
       description: 'URL de destination (transforme le bouton en lien)',
       control: { type: 'text' },
       table: {
+        category: 'Link',
         type: { summary: 'string' },
+      },
+    },
+    target: {
+      description: 'Attribut target du lien',
+      control: { type: 'select' },
+      options: ['_self', '_blank'],
+      table: {
+        category: 'Link',
+        type: { summary: '_self | _blank' },
+        defaultValue: { summary: '_self' },
       },
     },
   },
 };
 
 export const Default = {
-  render: (args) => button(args),
+  render: (args) => buttonTwig(args),
   args: { ...data },
-};
-
-export const Primary = {
-  render: () => button({ label: 'Primary', variant: 'primary', size: 'medium' }),
-};
-
-export const Secondary = {
-  render: () => button({ label: 'Secondary', variant: 'secondary', size: 'medium' }),
-};
-
-export const Success = {
-  render: () => button({ label: 'Success', variant: 'success', size: 'medium' }),
-};
-
-export const Info = {
-  render: () => button({ label: 'Info', variant: 'info', size: 'medium' }),
-};
-
-export const Warning = {
-  render: () => button({ label: 'Warning', variant: 'warning', size: 'medium' }),
-};
-
-export const Danger = {
-  render: () => button({ label: 'Danger', variant: 'danger', size: 'medium' }),
-};
-
-export const Dark = {
-  render: () => button({ label: 'Dark', variant: 'dark', size: 'medium' }),
-};
-
-export const Light = {
-  render: () => button({ label: 'Light', variant: 'light', size: 'medium' }),
 };
 
 export const AllVariants = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: 16px;">
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        ${button({ label: 'Primary', variant: 'primary' })}
-        ${button({ label: 'Secondary', variant: 'secondary' })}
-        ${button({ label: 'Success', variant: 'success' })}
-        ${button({ label: 'Info', variant: 'info' })}
-        ${button({ label: 'Warning', variant: 'warning' })}
-        ${button({ label: 'Danger', variant: 'danger' })}
-        ${button({ label: 'Dark', variant: 'dark' })}
-        ${button({ label: 'Light', variant: 'light' })}
-      </div>
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+      ${variantsList.color.components.button.map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
     </div>
   `,
 };
 
 export const AllOutlines = {
   render: () => `
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      ${button({ label: 'Primary', variant: 'primary', outline: true })}
-      ${button({ label: 'Secondary', variant: 'secondary', outline: true })}
-      ${button({ label: 'Success', variant: 'success', outline: true })}
-      ${button({ label: 'Info', variant: 'info', outline: true })}
-      ${button({ label: 'Warning', variant: 'warning', outline: true })}
-      ${button({ label: 'Danger', variant: 'danger', outline: true })}
-      ${button({ label: 'Dark', variant: 'dark', outline: true })}
-      ${button({ label: 'Light', variant: 'light', outline: true })}
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+      ${variantsList.color.components.button.map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
     </div>
   `,
 };
 
-export const Sizes = {
+export const AllSizes = {
   render: () => `
-    <div style="display: flex; gap: 12px; align-items: center;">
-      ${button({ label: 'Small', variant: 'primary', size: 'small' })}
-      ${button({ label: 'Medium', variant: 'primary', size: 'medium' })}
-      ${button({ label: 'Large', variant: 'primary', size: 'large' })}
+    <div style="display: flex; gap: var(--size-4); align-items: center;">
+      ${variantsList.size.compact.map(size => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
     </div>
   `,
 };
 
 export const WithIcons = {
   render: () => `
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      ${button({ label: 'Rechercher', variant: 'primary', icon: 'search', iconPosition: 'left' })}
-      ${button({ label: 'Suivant', variant: 'primary', icon: 'arrow-right', iconPosition: 'right' })}
-      ${button({ icon: 'close', variant: 'primary', size: 'medium' })}
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+      ${buttonTwig({ label: 'Rechercher', variant: 'primary', icon: 'search', iconPosition: 'left' })}
+      ${buttonTwig({ label: 'Suivant', variant: 'primary', icon: 'arrow-right', iconPosition: 'right' })}
+      ${buttonTwig({ icon: 'close', variant: 'primary', size: 'medium' })}
     </div>
   `,
 };
 
 export const FullWidth = {
-  render: () => button({ label: 'Full Width Button', variant: 'primary', fullWidth: true }),
+  render: () => buttonTwig({ label: 'Full Width Button', variant: 'primary', fullWidth: true }),
 };
 
 export const Loading = {
   render: () => `
-    <div style="display: flex; gap: 12px; align-items: center;">
-      ${button({ label: 'Chargement...', variant: 'primary', loading: true })}
-      ${button({ label: 'Chargement...', variant: 'secondary', outline: true, loading: true })}
+    <div style="display: flex; gap: var(--size-4); align-items: center;">
+      ${buttonTwig({ label: 'Chargement...', variant: 'primary', loading: true })}
+      ${buttonTwig({ label: 'Chargement...', variant: 'secondary', outline: true, loading: true })}
     </div>
   `,
 };
 
 export const Disabled = {
   render: () => `
-    <div style="display: flex; gap: 12px; align-items: center;">
-      ${button({ label: 'Désactivé', variant: 'primary', disabled: true })}
-      ${button({ label: 'Désactivé', variant: 'secondary', outline: true, disabled: true })}
+    <div style="display: flex; gap: var(--size-4); align-items: center;">
+      ${buttonTwig({ label: 'Désactivé', variant: 'primary', disabled: true })}
+      ${buttonTwig({ label: 'Désactivé', variant: 'secondary', outline: true, disabled: true })}
     </div>
   `,
 };
-
-export default settings;
