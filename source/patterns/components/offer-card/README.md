@@ -1,6 +1,6 @@
-# Product Card
+# Offer Card
 
-Product Card is a specialized component for real estate listings that extends the generic Card container with product-specific content and styling.
+Offer Card is a specialized component for real estate listings that extends the generic Card container with offer-specific content and styling.
 
 ## Props
 
@@ -23,33 +23,27 @@ Product Card is a specialized component for real estate listings that extends th
 .ps-card (from generic Card)
 └── .ps-card__image
 └── .ps-card__content
-    ├── .ps-product-card__header
-    │   ├── .ps-product-card__badges
-    │   │   └── .ps-product-card__badge (--viewed, --gold)
-    │   │       └── .ps-product-card__badge-icon
-    │   └── .ps-product-card__actions
-    │       └── .ps-product-card__action
-    ├── .ps-product-card__body
-    │   ├── .ps-product-card__title
-    │   ├── .ps-product-card__surface
-    │   └── .ps-product-card__meta
-    │       └── .ps-product-card__meta-item
-    │           ├── .ps-product-card__meta-icon
-    │           └── .ps-product-card__meta-text
-    └── .ps-product-card__footer
-        ├── .ps-product-card__price
+    ├── .ps-offer-card__header
+    │   ├── .ps-offer-card__badges
+    │   │   └── .ps-offer-card__badge (--viewed, --gold)
+    │   │       └── .ps-offer-card__badge-icon
+    │   └── .ps-offer-card__actions
+    │       └── .ps-offer-card__action
+    ├── .ps-offer-card__body
+    │   ├── .ps-offer-card__title
+    │   ├── .ps-offer-card__surface
+    │   └── .ps-offer-card__meta
+    │       └── .ps-offer-card__meta-item
+    │           ├── .ps-offer-card__meta-icon
+    │           └── .ps-offer-card__meta-text
+    └── .ps-offer-card__footer
+        ├── .ps-offer-card__price
         └── CTA link
 ```
 
 ## Design Tokens
 
-### Colors (Figma exact)
-- Border: `#EBEDEF` (Grey #6)
-- Viewed badge: `#EBEDEF` background, `#434F57` text (Grey #2)
-- Gold badge: `#D1AE6E` background, `#FFFFFF` text
-- Title/Surface/Price: `#333333` (Grey #1)
-- Meta text: `#777E83` (Grey #3)
-- Action icons: `#777E83` default, `#A22B66` active (Pink #4)
+Note: This component currently mirrors Figma exact values for badges, text, and actions. A follow-up task will align all hardcoded values with PS tokens per `.github/COMPLETE_RULES.md`.
 
 ### Typography
 - Title: `16px` regular (--font-size-1, --font-weight-400)
@@ -67,10 +61,10 @@ Product Card is a specialized component for real estate listings that extends th
 
 ## Usage
 
-### Basic Product Card
+### Basic Offer Card
 
 ```twig
-{% include '@components/product-card/product-card.twig' with {
+{% include '@components/offer-card/offer-card.twig' with {
   title: 'Rent Offices MADRID',
   surface: '611.3 m²',
   price: '20 000 €',
@@ -88,7 +82,7 @@ Product Card is a specialized component for real estate listings that extends th
 ### With Status Badges
 
 ```twig
-{% include '@components/product-card/product-card.twig' with {
+{% include '@components/offer-card/offer-card.twig' with {
   title: 'Office Space',
   status: {
     viewed: true,
@@ -101,7 +95,7 @@ Product Card is a specialized component for real estate listings that extends th
 ### Horizontal Layout
 
 ```twig
-{% include '@components/product-card/product-card.twig' with {
+{% include '@components/offer-card/offer-card.twig' with {
   layout: 'horizontal',
   ...
 } %}
@@ -109,14 +103,14 @@ Product Card is a specialized component for real estate listings that extends th
 
 ## Composition Architecture
 
-Product Card **composes** the generic Card component using Twig `{% embed %}`:
+Offer Card **composes** the generic Card component using Twig `{% embed %}`:
 - Inherits all layout/container styles from `ps-card`
-- Adds product-specific content structure via blocks
-- Defines product-specific styling with `ps-product-card` prefix
+- Adds offer-specific content structure via blocks
+- Defines offer-specific styling with `ps-offer-card` prefix
 
 This separation allows:
 - ✅ Card reusability for other content types (news, events, testimonials)
-- ✅ Product-specific features without bloating the base component
+- ✅ Offer-specific features without bloating the base component
 - ✅ Easy maintenance and testing of both components independently
 
 ## Accessibility

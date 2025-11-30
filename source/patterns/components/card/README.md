@@ -11,7 +11,7 @@ Card is **NOT** a specialized component. It's a **generic container** that:
 - ❌ Does NOT impose content structure (no title, price, badges, etc.)
 - ❌ Does NOT include business logic (no favorites, status, etc.)
 
-**Use composition** to create specialized cards (ProductCard, NewsCard, etc.) that embed Card.
+**Use composition** to create specialized cards (OfferCard, NewsCard, etc.) that embed Card.
 
 ## Props
 
@@ -244,19 +244,19 @@ Card uses **Twig blocks** for content composition:
 For specialized cards (products, news, events, etc.), **create dedicated components** that embed Card:
 
 ```twig
-{# source/patterns/components/product-card/product-card.twig #}
+{# source/patterns/components/offer-card/offer-card.twig #}
 {% embed '@components/card/card.twig' with { layout: layout } %}
   {% block image %}
     <img src="{{ image.url }}" alt="{{ image.alt }}" />
   {% endblock %}
 
   {% block content %}
-    {# Product-specific structure #}
-    <div class="ps-product-card__header">
+    {# Offer-specific structure #}
+    <div class="ps-offer-card__header">
       {# Status badges, actions, etc. #}
     </div>
-    <h3 class="ps-product-card__title">{{ title }}</h3>
-    <p class="ps-product-card__price">{{ price }}</p>
+    <h3 class="ps-offer-card__title">{{ title }}</h3>
+    <p class="ps-offer-card__price">{{ price }}</p>
     {# ... #}
   {% endblock %}
 {% endembed %}
@@ -271,7 +271,7 @@ This approach:
 ## Specialized Components
 
 These components **use** Card via composition:
-- **ProductCard** - Real estate product listings (status, price, location, CTA)
+- **OfferCard** - Real estate offer listings (status, price, location, CTA)
 - **NewsCard** - News articles (tag, date, excerpt, read more)
 - **EventCard** - Events (date, location, registration)
 - **TestimonialCard** - Customer testimonials (quote, author, avatar)

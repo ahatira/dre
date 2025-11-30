@@ -1,9 +1,9 @@
-import productCardTwig from './product-card.twig';
+import offerCardTwig from './offer-card.twig';
 
 export default {
-  title: 'Components/Product Card',
+  title: 'Components/Offer Card',
   tags: ['autodocs'],
-  render: (args) => productCardTwig(args),
+  render: (args) => offerCardTwig(args),
   argTypes: {
     // Layout
     layout: {

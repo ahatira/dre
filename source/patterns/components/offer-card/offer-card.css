@@ -1,24 +1,24 @@
 /**
- * Product Card - Specialized styles for real estate product cards
+ * Offer Card - Specialized styles for real estate offer cards
  * 
- * Extends the generic Card component with product-specific styling.
+ * Extends the generic Card component with offer-specific styling.
  * All layout/container styles are inherited from ps-card.
  * 
  * BEM Structure:
- * - .ps-product-card__header (badges + actions)
- * - .ps-product-card__badges (left side)
- * - .ps-product-card__badge (individual badge)
- * - .ps-product-card__actions (right side)
- * - .ps-product-card__action (icon button)
- * - .ps-product-card__body (title + surface + meta)
- * - .ps-product-card__title (property title)
- * - .ps-product-card__surface (surface area)
- * - .ps-product-card__meta (location list)
- * - .ps-product-card__footer (price + CTA)
- * - .ps-product-card__price (price text)
+ * - .ps-offer-card__header (badges + actions)
+ * - .ps-offer-card__badges (left side)
+ * - .ps-offer-card__badge (individual badge)
+ * - .ps-offer-card__actions (right side)
+ * - .ps-offer-card__action (icon button)
+ * - .ps-offer-card__body (title + surface + meta)
+ * - .ps-offer-card__title (property title)
+ * - .ps-offer-card__surface (surface area)
+ * - .ps-offer-card__meta (location list)
+ * - .ps-offer-card__footer (price + CTA)
+ * - .ps-offer-card__price (price text)
  */
 
-.ps-product-card {
+.ps-offer-card {
   /* Header: Badges + Actions */
   &__header {
     display: flex;

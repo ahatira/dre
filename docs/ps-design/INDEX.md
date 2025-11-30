@@ -1,7 +1,7 @@
 # PS Design System - Index des Composants
 
 **Version** : 1.0.0  
-**Dernière mise à jour** : 29 novembre 2025  
+**Dernière mise à jour** : 30 novembre 2025  
 **Statut** : 🟡 En développement
 
 ---
@@ -44,7 +44,7 @@ source/patterns/
 │   ├── alert/        ✅ IMPLÉMENTÉ
 │   ├── breadcrumb/   ✅ IMPLÉMENTÉ
 │   ├── callout/      ⏳ À implémenter
-│   ├── card/         ⏳ À implémenter
+│   ├── card/         ✅ IMPLÉMENTÉ (générique; compose `offer-card`)
 │   ├── date-badge/   ⏳ À implémenter
 │   ├── dropdown/     ⏳ À implémenter
 │   ├── featured-card/⏳ À implémenter
@@ -109,12 +109,12 @@ source/patterns/
 | Catégorie | Implémentés | Total | Pourcentage |
 |-----------|-------------|-------|-------------|
 | **Elements** (Atoms) | 3 | 19 | 🟡 16% |
-| **Components** (Molecules) | 2 | 20 | 🔴 10% |
+| **Components** (Molecules) | 3 | 20 | 🟠 15% |
 | **Collections** (Organisms) | 0 | 12 | 🔴 0% |
 | **Layouts** (Templates) | 0 | 8 | 🔴 0% |
 | **Pages** | 0 | 8 | 🔴 0% |
 | **Design Tokens** | ✅ | ✅ | ✅ 100% |
-| **TOTAL** | **5** | **87** | **🔴 6%** |
+| **TOTAL** | **6** | **87** | **🟡 7%** |
 
 ---
 
@@ -344,6 +344,11 @@ Tous les tokens sont disponibles dans `source/props/ps-tokens.css` :
 2. ✅ **breadcrumb** - `source/patterns/components/breadcrumb/`
    - Implémentation partielle (à compléter)
 
+3. ✅ **card** - `source/patterns/components/card/`
+   - Conteneur générique composable (blocs Twig image/content/header/body/footer)
+   - Modifiers indépendants (layout horizontal, imagePosition, radius none|sm|md|lg)
+   - Compose des cartes spécialisées comme `offer-card`
+
 ---
 
 ## 🔄 Prochaines Étapes Immédiates
@@ -362,11 +367,11 @@ Tous les tokens sont disponibles dans `source/props/ps-tokens.css` :
 
 ---
 
-**Statut actuel** : 🟡 6% complété (5/87 composants)  
+**Statut actuel** : 🟡 7% complété (6/87 composants)  
 **Objectif Q1 2026** : 🎯 Phase 1-2 complètes (25% - 21 composants)  
 **Objectif Q2 2026** : 🎯 Phase 1-4 complètes (70% - 33 composants)
 
 ---
 
 **Version** : 1.0.0  
-**Dernière mise à jour** : 28 novembre 2025
+**Dernière mise à jour** : 30 novembre 2025

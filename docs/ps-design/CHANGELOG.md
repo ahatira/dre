@@ -1,4 +1,14 @@
-- 2025-11-30: **card** - Composant complet conforme template standard
+ - 2025-11-30: **card** - Refactor en conteneur générique + nouveaux props
+   - Architecture: `ps-card` devient un conteneur générique avec blocs Twig (`image`, `content`, `header`, `body`, `footer`) et markup minimal.
+  - Composition: création d'un composant spécialisé `offer-card` qui compose `card` via `embed` Twig.
+   - Props ajoutées: `radius` (none|sm|md|lg, défaut `none`), `imagePosition` (top|right|bottom; défaut `top`).
+   - Defaults harmonisés: radius par défaut `none` documenté et implémenté dans `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`.
+   - Tokens: remplacement des valeurs en dur par tokens (borders, colors, sizes); ajout `--border-size-15`, `--ps-color-border-card`, `--ps-card-*` (paddings et dimensions media horizontales).
+   - Stories: argTypes complétés pour `radius` et `imagePosition`; contrôles Demo cachés; placeholders immo réalistes; showcases Radius/Positions ajoutées.
+   - Règles critiques: BEM strict avec préfixe `ps-`, modifiers indépendants (ex: `--image-right` autonome), cascade base → modifiers, HTML minimal.
+   - Build/Lint: validés (Vite/Storybook), aucun hardcode détecté, tailles CSS stables.
+ 
+ - 2025-11-30: **card** - Composant complet conforme template standard
   - Props : variant (product|news|publication|solution|study|push|featured|compact), layout (vertical|horizontal), title (required), description, eyebrow, badge, image (url,alt), meta[] (icon,text), cta (text,url,variant), url (clickable card), attributes
   - Variants : product (défaut 16:9), news (4:3 blue eyebrow), publication (3:4 portrait sky eyebrow), solution (green eyebrow), study (1:1 gray eyebrow), push (green 2px border), featured (shadow + large padding), compact (reduced spacing)
   - Layouts : vertical (défaut), horizontal (image 40% left, 1:1 aspect)
