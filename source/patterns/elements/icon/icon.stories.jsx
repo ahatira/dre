@@ -88,13 +88,13 @@ export const Default = {
 export const AllSizes = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-search', size: 'small' })}
+      ${icon({ name: 'search', size: 'small' })}
       <span style="font-size: var(--font-size-0); color: var(--gray-600);">small (16px)</span>
-      ${icon({ name: 'icon-search', size: 'medium' })}
+      ${icon({ name: 'search', size: 'medium' })}
       <span style="font-size: var(--font-size-0); color: var(--gray-600);">medium (20px)</span>
-      ${icon({ name: 'icon-search', size: 'large' })}
+      ${icon({ name: 'search', size: 'large' })}
       <span style="font-size: var(--font-size-0); color: var(--gray-600);">large (24px)</span>
-      ${icon({ name: 'icon-search', size: 'xlarge' })}
+      ${icon({ name: 'search', size: 'xlarge' })}
       <span style="font-size: var(--font-size-0); color: var(--gray-600);">xlarge (32px)</span>
     </div>
   `,
@@ -103,13 +103,13 @@ export const AllSizes = {
 export const AllColors = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-check', size: 'xlarge', color: 'var(--bnp-green)' })}
+      ${icon({ name: 'check', size: 'xlarge', color: 'var(--bnp-green)' })}
       <span>Success (green)</span>
-      ${icon({ name: 'icon-close', size: 'xlarge', color: 'var(--red-600)' })}
+      ${icon({ name: 'close', size: 'xlarge', color: 'var(--red-600)' })}
       <span>Danger (red)</span>
-      ${icon({ name: 'icon-infos', size: 'xlarge', color: 'var(--blue-500)' })}
+      ${icon({ name: 'infos', size: 'xlarge', color: 'var(--blue-500)' })}
       <span>Info (blue)</span>
-      ${icon({ name: 'icon-help', size: 'xlarge', color: 'var(--amber-500)' })}
+      ${icon({ name: 'help', size: 'xlarge', color: 'var(--amber-500)' })}
       <span>Warning (amber)</span>
     </div>
   `,
@@ -118,9 +118,9 @@ export const AllColors = {
 export const AllStates = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-search', size: 'xlarge', disabled: false })}
+      ${icon({ name: 'search', size: 'xlarge', disabled: false })}
       <span style="font-size: var(--font-size-1); color: var(--gray-600);">Normal</span>
-      ${icon({ name: 'icon-search', size: 'xlarge', disabled: true })}
+      ${icon({ name: 'search', size: 'xlarge', disabled: true })}
       <span style="font-size: var(--font-size-1); color: var(--gray-600);">Disabled (50% opacity)</span>
     </div>
   `,
@@ -182,29 +182,29 @@ export const UseCases = {
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Search & Navigation</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${icon({ name: 'icon-search', size: 'medium' })}
-          ${icon({ name: 'icon-pin-map', size: 'medium' })}
-          ${icon({ name: 'icon-arrow-left', size: 'medium' })}
-          ${icon({ name: 'icon-arrow-right', size: 'medium' })}
+          ${icon({ name: 'search', size: 'medium' })}
+          ${icon({ name: 'pin-map', size: 'medium' })}
+          ${icon({ name: 'arrow-left', size: 'medium' })}
+          ${icon({ name: 'arrow-right', size: 'medium' })}
         </div>
       </div>
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Actions</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${icon({ name: 'icon-check', size: 'medium', color: 'var(--bnp-green)' })}
-          ${icon({ name: 'icon-close', size: 'medium', color: 'var(--red-600)' })}
-          ${icon({ name: 'icon-edit', size: 'medium' })}
-          ${icon({ name: 'icon-bin', size: 'medium' })}
-          ${icon({ name: 'icon-share', size: 'medium' })}
+          ${icon({ name: 'check', size: 'medium', color: 'var(--bnp-green)' })}
+          ${icon({ name: 'close', size: 'medium', color: 'var(--red-600)' })}
+          ${icon({ name: 'edit', size: 'medium' })}
+          ${icon({ name: 'bin', size: 'medium' })}
+          ${icon({ name: 'share', size: 'medium' })}
         </div>
       </div>
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Form Controls</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${icon({ name: 'icon-checkbox', size: 'medium' })}
-          ${icon({ name: 'icon-checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
-          ${icon({ name: 'icon-radio-unselected', size: 'medium' })}
-          ${icon({ name: 'icon-radio-selected', size: 'medium', color: 'var(--bnp-green)' })}
+          ${icon({ name: 'checkbox', size: 'medium' })}
+          ${icon({ name: 'checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
+          ${icon({ name: 'radio-unselected', size: 'medium' })}
+          ${icon({ name: 'radio-selected', size: 'medium', color: 'var(--bnp-green)' })}
         </div>
       </div>
     </div>
