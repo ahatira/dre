@@ -1,0 +1,17 @@
+# Alert Component - Default Configuration
+# Semantic status message with dismissible option
+#
+# Props:
+# - variant: 'info' (default) | 'success' | 'warning' | 'error' | 'default' | 'primary' | 'secondary' | 'light' | 'dark' - Semantic variant
+# - title: Optional title text
+# - message: Message content (required, supports HTML)
+# - icon: true (default) | false - Show icon
+# - dismissible: true | false (default) - Show close button
+# - compact: true | false (default) - Reduced padding
+
+variant: 'info'
+title: 'Information'
+message: 'This is an informational alert message.'
+icon: true
+dismissible: false
+compact: false

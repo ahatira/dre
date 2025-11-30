@@ -1,0 +1,384 @@
+/**
+ * Alert Component (Molecule/Feedback)
+ * Semantic status message with variants and dismissible option
+ *
+ * BEM: ps-alert, ps-alert__icon, ps-alert__content, ps-alert__title, ps-alert__message, ps-alert__close
+ * Variants: info (default) | success | warning | error | default | primary | secondary | light | dark
+ * Modifiers: --info, --success, --warning, --error, --default, --primary, --secondary, --light, --dark, --dismissible, --compact, --no-icon
+ * States: hover (close button), focus (close button)
+ */
+
+.ps-alert {
+  /* Layout */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--size-3);
+  
+  /* Sizing */
+  padding: var(--size-4);
+  
+  /* Visual */
+  border-radius: var(--radius-2);
+  border-left: var(--size-1) solid;
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  line-height: var(--leading-normal);
+  color: var(--white);
+  
+  /* Default: info variant */
+  background-color: var(--btn-info);
+  border-left-color: var(--blue-700);
+  
+  /* Icon styling */
+  & .ps-alert__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-5);
+    height: var(--size-5);
+    font-size: var(--font-size-3);
+    line-height: 1;
+    color: var(--white);
+  }
+  
+  /* Layout without icon */
+  &:not(:has(.ps-alert__icon)) {
+    grid-template-columns: 1fr auto;
+  }
+  
+  & .ps-alert__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+    min-width: 0; /* Allow text truncation */
+  }
+  
+  & .ps-alert__title {
+    margin: 0;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-600);
+    line-height: var(--leading-snug);
+    color: inherit;
+  }
+  
+  & .ps-alert__message {
+    font-size: var(--font-size-1);
+    line-height: var(--leading-normal);
+    color: inherit;
+    
+    /* Allow HTML content */
+    & p {
+      margin: 0 0 var(--size-2);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    & a {
+      color: var(--white);
+      text-decoration: underline;
+      font-weight: var(--font-weight-600);
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  
+  & .ps-alert__close {
+    /* Reset button */
+    appearance: none;
+    margin: 0;
+    padding: var(--size-1);
+    border: none;
+    background: transparent;
+    
+    /* Styling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-6);
+    height: var(--size-6);
+    font-size: var(--font-size-4);
+    line-height: 1;
+    color: var(--white);
+    cursor: pointer;
+    border-radius: var(--radius-1);
+    
+    /* Transitions */
+    transition: background-color 150ms var(--ease-out-2);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--white);
+      outline-offset: var(--border-size-1);
+    }
+    
+    &:active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+/* Variant: Success */
+.ps-alert--success {
+  background-color: var(--btn-success);
+  border-left-color: var(--green-700);
+}
+
+/* Variant: Warning */
+.ps-alert--warning {
+  background-color: var(--btn-warning);
+  border-left-color: var(--yellow-700);
+}
+
+/* Variant: Error */
+.ps-alert--error {
+  background-color: var(--btn-danger);
+  border-left-color: var(--red-700);
+}
+
+/* Variant: Default (neutral gray) */
+.ps-alert--default {
+  background-color: var(--gray-600);
+  border-left-color: var(--gray-800);
+}
+
+/* Variant: Primary (brand green) */
+.ps-alert--primary {
+  background-color: var(--brand-primary);
+  border-left-color: var(--green-700);
+}
+
+/* Variant: Secondary (brand pink) */
+.ps-alert--secondary {
+  background-color: var(--brand-secondary);
+  border-left-color: hsl(330, 75%, 40%);
+}
+
+/* Variant: Light */
+.ps-alert--light {
+  background-color: var(--gray-100);
+  border-left-color: var(--gray-300);
+  color: var(--gray-900);
+  
+  & .ps-alert__icon {
+    color: var(--gray-700);
+  }
+  
+  & .ps-alert__message a {
+    color: var(--brand-primary);
+    
+    &:hover {
+      color: var(--green-700);
+    }
+  }
+  
+  & .ps-alert__close {
+    color: var(--gray-700);
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    &:focus-visible {
+      outline-color: var(--brand-primary);
+    }
+    
+    &:active {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+/* Variant: Dark */
+.ps-alert--dark {
+  background-color: var(--gray-900);
+  border-left-color: var(--black);
+}
+
+/* Subtle Variants (soft backgrounds with colored text/border) */
+.ps-alert--info-subtle {
+  background-color: var(--blue-50);
+  border-left-color: var(--btn-info);
+  color: var(--blue-900);
+  
+  & .ps-alert__icon {
+    color: var(--btn-info);
+  }
+  
+  & .ps-alert__message a {
+    color: var(--btn-info);
+    
+    &:hover {
+      color: var(--blue-700);
+    }
+  }
+  
+  & .ps-alert__close {
+    color: var(--blue-700);
+    
+    &:hover {
+      background-color: var(--blue-100);
+    }
+    
+    &:focus-visible {
+      outline-color: var(--btn-info);
+    }
+    
+    &:active {
+      background-color: var(--blue-200);
+    }
+  }
+}
+
+.ps-alert--success-subtle {
+  background-color: var(--green-50);
+  border-left-color: var(--btn-success);
+  color: var(--green-900);
+  
+  & .ps-alert__icon {
+    color: var(--btn-success);
+  }
+  
+  & .ps-alert__message a {
+    color: var(--btn-success);
+    
+    &:hover {
+      color: var(--green-700);
+    }
+  }
+  
+  & .ps-alert__close {
+    color: var(--green-700);
+    
+    &:hover {
+      background-color: var(--green-100);
+    }
+    
+    &:focus-visible {
+      outline-color: var(--btn-success);
+    }
+    
+    &:active {
+      background-color: var(--green-200);
+    }
+  }
+}
+
+.ps-alert--warning-subtle {
+  background-color: var(--yellow-50);
+  border-left-color: var(--btn-warning);
+  color: var(--yellow-900);
+  
+  & .ps-alert__icon {
+    color: var(--btn-warning);
+  }
+  
+  & .ps-alert__message a {
+    color: var(--btn-warning);
+    
+    &:hover {
+      color: var(--yellow-700);
+    }
+  }
+  
+  & .ps-alert__close {
+    color: var(--yellow-700);
+    
+    &:hover {
+      background-color: var(--yellow-100);
+    }
+    
+    &:focus-visible {
+      outline-color: var(--btn-warning);
+    }
+    
+    &:active {
+      background-color: var(--yellow-200);
+    }
+  }
+}
+
+.ps-alert--error-subtle {
+  background-color: var(--red-50);
+  border-left-color: var(--btn-danger);
+  color: var(--red-900);
+  
+  & .ps-alert__icon {
+    color: var(--btn-danger);
+  }
+  
+  & .ps-alert__message a {
+    color: var(--btn-danger);
+    
+    &:hover {
+      color: var(--red-700);
+    }
+  }
+  
+  & .ps-alert__close {
+    color: var(--red-700);
+    
+    &:hover {
+      background-color: var(--red-100);
+    }
+    
+    &:focus-visible {
+      outline-color: var(--btn-danger);
+    }
+    
+    &:active {
+      background-color: var(--red-200);
+    }
+  }
+}
+
+/* Modifier: Compact */
+.ps-alert--compact {
+  padding: var(--size-3);
+  gap: var(--size-2);
+  
+  & .ps-alert__icon {
+    width: var(--size-4);
+    height: var(--size-4);
+    font-size: var(--font-size-1);
+  }
+  
+  & .ps-alert__title {
+    font-size: var(--font-size-0);
+  }
+  
+  & .ps-alert__message {
+    font-size: var(--font-size-0);
+  }
+  
+  & .ps-alert__close {
+    width: var(--size-5);
+    height: var(--size-5);
+    font-size: var(--font-size-3);
+  }
+}
+
+/* Dismissal animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.ps-alert.is-closing {
+  animation: fadeOut 200ms var(--ease-out-2) forwards;
+}

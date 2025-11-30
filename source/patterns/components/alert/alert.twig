@@ -1,0 +1,83 @@
+{#
+ * Alert Component (Molecule)
+ * Semantic status message with dismissible option
+ * 
+ * @param string variant - Semantic variant: 'info' | 'success' | 'warning' | 'error' | 'info-subtle' | 'success-subtle' | 'warning-subtle' | 'error-subtle' | 'default' | 'primary' | 'secondary' | 'light' | 'dark' (default: 'info')
+ * @param string title - Optional title text (optional)
+ * @param string message - Message content (required)
+ * @param boolean icon - Show icon (optional, default: true)
+ * @param boolean dismissible - Show close button (optional, default: false)
+ * @param boolean compact - Reduced padding (optional, default: false)
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
+
+{%- set variant = variant|default('info') -%}
+{%- set icon = icon is defined ? icon : true -%}
+{%- set dismissible = dismissible|default(false) -%}
+{%- set compact = compact|default(false) -%}
+{%- set title = title|default('') -%}
+{%- set message = message|default('') -%}
+
+{{ attach_library('ps_theme/alert') }}
+
+{# Icon mapping per variant #}
+{%- set iconMap = {
+  'info': 'infos',
+  'success': 'check',
+  'warning': 'help',
+  'error': 'close',
+  'info-subtle': 'infos',
+  'success-subtle': 'check',
+  'warning-subtle': 'help',
+  'error-subtle': 'close',
+  'default': 'infos',
+  'primary': 'infos',
+  'secondary': 'infos',
+  'light': 'infos',
+  'dark': 'infos'
+} -%}
+{%- set iconName = iconMap[variant] -%}
+
+{# ARIA role and live region #}
+{%- set role = (variant == 'error' or variant == 'error-subtle') ? 'alert' : 'status' -%}
+{%- set ariaLive = (variant == 'error' or variant == 'error-subtle') ? 'assertive' : 'polite' -%}
+
+{# Build classes array - only add modifiers if not default #}
+{%- set classes = ['ps-alert'] -%}
+{%- if variant != 'info' -%}
+  {%- set classes = classes|merge(['ps-alert--' ~ variant]) -%}
+{%- endif -%}
+{%- if dismissible -%}
+  {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
+{%- endif -%}
+{%- if compact -%}
+  {%- set classes = classes|merge(['ps-alert--compact']) -%}
+{%- endif -%}
+
+<div
+  class="{{ classes|join(' ')|trim }}"
+  role="{{ role }}"
+  aria-live="{{ ariaLive }}"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  {%- if icon -%}
+    <span class="ps-alert__icon" data-icon="{{ iconName }}" aria-hidden="true"></span>
+  {%- endif -%}
+
+  <div class="ps-alert__content">
+    {%- if title -%}
+      <h3 class="ps-alert__title">{{ title }}</h3>
+    {%- endif -%}
+    <div class="ps-alert__message">{{ message|raw }}</div>
+  </div>
+
+  {%- if dismissible -%}
+    <button
+      class="ps-alert__close"
+      type="button"
+      aria-label="Close alert"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  {%- endif -%}
+</div>
