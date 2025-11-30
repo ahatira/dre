@@ -1,13 +1,13 @@
 {#
- * Skip Link (Element/Atom)
- * Lien d'évitement WCAG pour accéder au contenu principal
- * @param string targetId - ID de l'ancre cible (required, default: 'main-content')
- * @param string label - Texte du lien (required, default: 'Passer au contenu principal')
- * @param Drupal\Core\Template\Attribute attributes - Attributs HTML additionnels (optional)
+ * Skip Link (Element/Atom) - WCAG skip link for keyboard navigation
+ *
+ * @param string targetId - ID of the target anchor element (required, e.g., 'main-content', 'navigation', 'search')
+ * @param string label - Link text displayed on focus (required, e.g., 'Skip to main content')
+ * @param Attribute attributes - Additional HTML attributes (optional)
  #}
 
 {%- set targetId = targetId|default('main-content') -%}
-{%- set label = label|default('Passer au contenu principal') -%}
+{%- set label = label|default('Skip to main content') -%}
 {%- set href = '#' ~ targetId -%}
 
 <a class="ps-skip-link" href="{{ href }}"{% if attributes %} {{ attributes }}{% endif %}>{{ label }}</a>

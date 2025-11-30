@@ -7,26 +7,50 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          "Lien d'évitement WCAG permettant d'accéder directement au contenu principal. Invisible par défaut, visible au focus clavier uniquement. Obligatoire pour conformité WCAG 2.2 AA.",
+        component: `WCAG skip link for keyboard navigation to main content.
+
+**Key Features:**
+- Hidden by default, visible only on keyboard focus (Tab key)
+- Positioned absolute at top-left with high z-index
+- Links to specific page sections via target ID (main-content, navigation, search)
+- Green background (--brand-primary) with white text
+- Smooth transform animation (translateY from -150% to 0)
+- Required for WCAG 2.2 Level A compliance (criterion 2.4.1)
+
+**Usage:**
+- Must be the first focusable element on the page
+- Allows keyboard users to bypass repetitive navigation
+- Target element must have matching id attribute
+- Typical targets: #main-content, #navigation, #search
+- Always visible on focus, invisible otherwise
+
+**Accessibility:**
+- Meets WCAG 2.4.1 Bypass Blocks (Level A)
+- Essential for keyboard-only users
+- Focus-visible outline for keyboard navigation
+- No aria attributes needed (native link semantics)`,
       },
     },
   },
   argTypes: {
-    targetId: {
-      control: 'text',
-      description: "ID de l'ancre cible (ex: main-content, navigation, search)",
+    // Content
+    label: {
+      description: 'Link text displayed to user (e.g., "Skip to main content", "Skip to navigation")',
+      control: { type: 'text' },
       table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'main-content' },
+        category: 'Content',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'Skip to main content' },
       },
     },
-    label: {
-      control: 'text',
-      description: 'Texte du lien affiché',
+    // Link
+    targetId: {
+      description: 'ID of the target anchor element (must exist in page, e.g., main-content, navigation, search)',
+      control: { type: 'text' },
       table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Passer au contenu principal' },
+        category: 'Link',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'main-content' },
       },
     },
   },
@@ -38,34 +62,40 @@ export const Default = {
   args: { ...data },
 };
 
-export const ToNavigation = {
-  render: () => skipLinkTwig({ targetId: 'navigation', label: 'Passer à la navigation' }),
-};
-
-export const ToSearch = {
-  render: () => skipLinkTwig({ targetId: 'search', label: 'Passer à la recherche' }),
-};
-
 export const UseCases = {
   render: () => `
     <div style="position: relative; padding: 4rem 1rem 1rem; border: 2px dashed var(--gray-300); min-height: 200px;">
-      <p style="position: absolute; top: 1rem; left: 1rem; margin: 0; font-size: 12px; color: var(--gray-600);">
-        👆 Appuyez sur Tab pour voir le skip link apparaître en haut à gauche
+      <p style="position: absolute; top: var(--size-4); left: var(--size-4); margin: 0; font-size: var(--font-size-0); color: var(--gray-600);">
+        👆 Press Tab to see the skip link appear at top-left
       </p>
-      ${skipLinkTwig({ targetId: 'main-content', label: 'Passer au contenu principal' })}
-      <div style="margin-top: 2rem;">
-        <h3 style="margin: 0 0 0.5rem;">Cas d'usage</h3>
-        <ul style="margin: 0; padding-left: 1.5rem;">
-          <li>Doit être le premier élément focusable de la page</li>
-          <li>Permet aux utilisateurs clavier de sauter la navigation répétitive</li>
-          <li>Conformité WCAG 2.2 critère 2.4.1 (Niveau A)</li>
-          <li>Apparaît uniquement au focus, invisible autrement</li>
+      ${skipLinkTwig({ targetId: 'main-content', label: 'Skip to main content' })}
+      <div style="margin-top: var(--size-8);">
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Multiple Skip Links Example</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+          ${skipLinkTwig({ targetId: 'main-content', label: 'Skip to main content' })}
+          ${skipLinkTwig({ targetId: 'navigation', label: 'Skip to navigation' })}
+          ${skipLinkTwig({ targetId: 'search', label: 'Skip to search' })}
+        </div>
+      </div>
+      <div style="margin-top: var(--size-6);">
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Implementation Guidelines</h3>
+        <ul style="margin: 0; padding-left: var(--size-6); font-size: var(--font-size-1);">
+          <li>Must be the first focusable element on the page</li>
+          <li>Allows keyboard users to bypass repetitive navigation</li>
+          <li>Required for WCAG 2.2 criterion 2.4.1 (Level A)</li>
+          <li>Visible only on keyboard focus, hidden otherwise</li>
+          <li>Target element must have matching id attribute</li>
         </ul>
       </div>
-      <div id="main-content" style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: var(--radius-2);">
-        <p style="margin: 0;"><strong>Zone de contenu principal</strong> - Le skip link pointe ici (id="main-content")</p>
+      <div id="main-content" style="margin-top: var(--size-8); padding: var(--size-4); background: var(--gray-50); border-radius: var(--radius-2);">
+        <p style="margin: 0;"><strong>Main Content Area</strong> - Skip link points here (id="main-content")</p>
+      </div>
+      <div id="navigation" style="margin-top: var(--size-4); padding: var(--size-4); background: var(--blue-50); border-radius: var(--radius-2);">
+        <p style="margin: 0;"><strong>Navigation Area</strong> - Alternative target (id="navigation")</p>
+      </div>
+      <div id="search" style="margin-top: var(--size-4); padding: var(--size-4); background: var(--green-50); border-radius: var(--radius-2);">
+        <p style="margin: 0;"><strong>Search Area</strong> - Alternative target (id="search")</p>
       </div>
     </div>
   `,
-  args: {},
 };
