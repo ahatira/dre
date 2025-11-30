@@ -7,7 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Accessible form field label with required indicator, disabled state, and flexible attributes. Uses semantic <label> binding and supports screen reader text via tokens and structured markup.'
+        component:
+          'Accessible form field label with required indicator, disabled state, and flexible attributes. Uses semantic <label> binding and supports screen reader text via tokens and structured markup.',
       },
     },
   },

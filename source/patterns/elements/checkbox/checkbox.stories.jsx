@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component:
-          'Native checkbox with accessible label and token-based styling. Supports checked/disabled states, auto ID binding, and focus-visible for keyboard users.'
+          'Native checkbox with accessible label and token-based styling. Supports checked/disabled states, auto ID binding, and focus-visible for keyboard users.',
       },
     },
   },
@@ -82,7 +82,11 @@ export const NoLabel = {
 
 // Story: WithLongLabel (multi-lignes)
 export const WithLongLabel = {
-  render: () => checkboxTwig({ ...data, label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.' }),
+  render: () =>
+    checkboxTwig({
+      ...data,
+      label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.',
+    }),
 };
 
 // Story: AllStates (checked/unchecked, enabled/disabled)

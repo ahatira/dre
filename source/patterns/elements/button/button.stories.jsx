@@ -1,6 +1,6 @@
+import iconsList from '../../documentation/icons-list.json';
 import buttonTwig from './button.twig';
 import data from './button.yml';
-import iconsList from '../../documentation/icons-list.json';
 
 export default {
   title: 'Elements/Button',
@@ -9,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          'Interactive action trigger with semantic variants, sizes, and styles. Supports icons, loading/disabled states, links, and full-width layout using design tokens.'
+          'Interactive action trigger with semantic variants, sizes, and styles. Supports icons, loading/disabled states, links, and full-width layout using design tokens.',
       },
     },
   },
@@ -45,7 +45,8 @@ export default {
     },
     // Appearance
     variant: {
-      description: 'Semantic variant (primary: green, secondary: pink, success/info/warning/danger, dark/light)',
+      description:
+        'Semantic variant (primary: green, secondary: pink, success/info/warning/danger, dark/light)',
       control: { type: 'select' },
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'],
       table: {
@@ -131,7 +132,7 @@ export const Default = {
 export const AllVariants = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
+      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
     </div>
   `,
 };
@@ -139,7 +140,7 @@ export const AllVariants = {
 export const AllOutlines = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
+      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
     </div>
   `,
 };
@@ -147,7 +148,7 @@ export const AllOutlines = {
 export const AllSizes = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${['small', 'medium', 'large'].map(size => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
+      ${['small', 'medium', 'large'].map((size) => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
     </div>
   `,
 };

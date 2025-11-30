@@ -1,4 +1,3 @@
-
 /**
  * PS Progress Bar — Atom
  * Linear or circular progress indicator for determinate or indeterminate tasks.
@@ -101,7 +100,8 @@ Supports sizes, semantic colors, indeterminate/striped states, and accessible la
       },
     },
     color: {
-      description: 'Semantic color variant (default: neutral gray, others use --ps-color-*-600 tokens)',
+      description:
+        'Semantic color variant (default: neutral gray, others use --ps-color-*-600 tokens)',
       control: { type: 'select' },
       options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
       table: {
@@ -111,7 +111,8 @@ Supports sizes, semantic colors, indeterminate/striped states, and accessible la
       },
     },
     size: {
-      description: 'Size variant (xs: 2px/24px, sm: 4px/32px, md: 8px/40px, lg: 12px/48px, xl: 16px/64px - linear height / circular diameter)',
+      description:
+        'Size variant (xs: 2px/24px, sm: 4px/32px, md: 8px/40px, lg: 12px/48px, xl: 16px/64px - linear height / circular diameter)',
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       table: {
@@ -150,7 +151,8 @@ Supports sizes, semantic colors, indeterminate/striped states, and accessible la
     },
     // Accessibility
     label: {
-      description: 'Accessibility label for screen readers (e.g., "Upload in progress", "Processing data")',
+      description:
+        'Accessibility label for screen readers (e.g., "Upload in progress", "Processing data")',
       control: { type: 'text' },
       table: {
         category: 'Accessibility',

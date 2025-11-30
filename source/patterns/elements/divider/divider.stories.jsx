@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component:
-          'Visual separator for content sections with horizontal and vertical orientations. Supports styles, thickness, semantic colors, and centered text or icon using design tokens.'
+          'Visual separator for content sections with horizontal and vertical orientations. Supports styles, thickness, semantic colors, and centered text or icon using design tokens.',
       },
     },
   },
@@ -19,62 +19,62 @@ export default {
       control: 'select',
       options: ['horizontal', 'vertical'],
       description: 'Orientation of the divider.',
-      table: { 
+      table: {
         category: 'Layout',
-        defaultValue: { summary: 'horizontal' }
+        defaultValue: { summary: 'horizontal' },
       },
     },
     style: {
       control: 'select',
       options: ['solid', 'dashed', 'dotted'],
       description: 'Line style (solid, dashed, or dotted).',
-      table: { 
+      table: {
         category: 'Appearance',
-        defaultValue: { summary: 'solid' }
+        defaultValue: { summary: 'solid' },
       },
     },
     thickness: {
       control: 'select',
       options: ['thin', 'medium', 'thick'],
       description: 'Line thickness (thin: 1px, medium: 2px, thick: 4px).',
-      table: { 
+      table: {
         category: 'Appearance',
-        defaultValue: { summary: 'medium' }
+        defaultValue: { summary: 'medium' },
       },
     },
     color: {
       control: 'select',
       options: ['neutral', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
       description: 'Semantic color of the divider.',
-      table: { 
+      table: {
         category: 'Appearance',
-        defaultValue: { summary: 'neutral' }
+        defaultValue: { summary: 'neutral' },
       },
     },
     spacing: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
       description: 'Spacing around the divider (sm: 8px, md: 16px, lg: 24px).',
-      table: { 
+      table: {
         category: 'Layout',
-        defaultValue: { summary: 'md' }
+        defaultValue: { summary: 'md' },
       },
     },
     text: {
       control: 'text',
       description: 'Optional centered text content.',
-      table: { 
+      table: {
         category: 'Content',
-        defaultValue: { summary: '""' }
+        defaultValue: { summary: '""' },
       },
     },
     icon: {
       control: 'select',
       options: ['', 'check', 'star', 'arrow-right', 'plus', 'info', 'warning', 'heart'],
       description: 'Optional centered icon name (without "icon-" prefix).',
-      table: { 
+      table: {
         category: 'Content',
-        defaultValue: { summary: '""' }
+        defaultValue: { summary: '""' },
       },
     },
   },

@@ -15,7 +15,8 @@ Hidden by default, appears on focus; targets an in-page anchor by id.`,
   argTypes: {
     // Content
     label: {
-      description: 'Link text displayed to user (e.g., "Skip to main content", "Skip to navigation")',
+      description:
+        'Link text displayed to user (e.g., "Skip to main content", "Skip to navigation")',
       control: { type: 'text' },
       table: {
         category: 'Content',
@@ -25,7 +26,8 @@ Hidden by default, appears on focus; targets an in-page anchor by id.`,
     },
     // Link
     targetId: {
-      description: 'ID of the target anchor element (must exist in page, e.g., main-content, navigation, search)',
+      description:
+        'ID of the target anchor element (must exist in page, e.g., main-content, navigation, search)',
       control: { type: 'text' },
       table: {
         category: 'Link',

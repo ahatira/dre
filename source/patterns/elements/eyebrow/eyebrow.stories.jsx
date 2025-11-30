@@ -8,7 +8,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Short contextual label placed above headings to provide category or context. Supports semantic colors, sizes, uppercase/bold, and optional line/dot/icon using design tokens.'
+          'Short contextual label placed above headings to provide category or context. Supports semantic colors, sizes, uppercase/bold, and optional line/dot/icon using design tokens.',
       },
     },
   },
@@ -16,10 +16,10 @@ const settings = {
     text: {
       description: 'Text content displayed in the eyebrow.',
       control: { type: 'text' },
-      table: { 
+      table: {
         category: 'Content',
-        type: { summary: 'string' }, 
-        defaultValue: { summary: '""' } 
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
       },
     },
     variant: {
@@ -36,56 +36,56 @@ const settings = {
       description: 'Text size (small: 12px, medium: 14px).',
       control: { type: 'select' },
       options: ['small', 'medium'],
-      table: { 
+      table: {
         category: 'Appearance',
-        type: { summary: 'small | medium' }, 
-        defaultValue: { summary: 'medium' } 
+        type: { summary: 'small | medium' },
+        defaultValue: { summary: 'medium' },
       },
     },
     uppercase: {
       description: 'Transform text to uppercase.',
       control: { type: 'boolean' },
-      table: { 
+      table: {
         category: 'Appearance',
-        type: { summary: 'boolean' }, 
-        defaultValue: { summary: true } 
+        type: { summary: 'boolean' },
+        defaultValue: { summary: true },
       },
     },
     bold: {
       description: 'Apply bold font weight.',
       control: { type: 'boolean' },
-      table: { 
+      table: {
         category: 'Appearance',
-        type: { summary: 'boolean' }, 
-        defaultValue: { summary: false } 
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
       },
     },
     withLine: {
       description: 'Add decorative horizontal line before text.',
       control: { type: 'boolean' },
-      table: { 
+      table: {
         category: 'Appearance',
-        type: { summary: 'boolean' }, 
-        defaultValue: { summary: false } 
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
       },
     },
     withDot: {
       description: 'Add decorative dot before text.',
       control: { type: 'boolean' },
-      table: { 
+      table: {
         category: 'Appearance',
-        type: { summary: 'boolean' }, 
-        defaultValue: { summary: false } 
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
       },
     },
     icon: {
       description: 'Optional icon name (without "icon-" prefix).',
       control: { type: 'select' },
       options: ['', 'check', 'medal', 'star', 'info', 'arrow-right', 'heart', 'document'],
-      table: { 
+      table: {
         category: 'Content',
-        type: { summary: 'string' }, 
-        defaultValue: { summary: '""' } 
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
       },
     },
   },

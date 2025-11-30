@@ -1,6 +1,6 @@
+import iconsList from '../../documentation/icons-list.json';
 import fieldTwig from './field.twig';
 import data from './field.yml';
-import iconsList from '../../documentation/icons-list.json';
 
 const settings = {
   title: 'Elements/Field',
@@ -9,7 +9,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Base field component (input/select/textarea) with token-based styling and accessible states. Supports icons, error/disabled/done states, and multiple input types.'
+          'Base field component (input/select/textarea) with token-based styling and accessible states. Supports icons, error/disabled/done states, and multiple input types.',
       },
     },
   },
@@ -85,7 +85,8 @@ const settings = {
     },
     // Accessibility
     error: {
-      description: 'Error message to display below the field (sets aria-invalid and aria-describedby)',
+      description:
+        'Error message to display below the field (sets aria-invalid and aria-describedby)',
       control: { type: 'text' },
       table: {
         category: 'Accessibility',

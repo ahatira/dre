@@ -17,7 +17,11 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
     label: {
       control: { type: 'text' },
       description: 'External visible label describing the preference.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Enable notifications' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Enable notifications' },
+      },
     },
     description: {
       control: { type: 'text' },
@@ -39,29 +43,49 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
       description: 'Visual size variant (medium is default).',
-      table: { category: 'Appearance', type: { summary: 'small | medium | large' }, defaultValue: { summary: 'medium' } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'small | medium | large' },
+        defaultValue: { summary: 'medium' },
+      },
     },
     showLabels: {
       control: { type: 'boolean' },
       description: 'Show internal ON/OFF indicators inside the track.',
-      table: { category: 'Appearance', type: { summary: 'boolean' }, defaultValue: { summary: false } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
     // Behavior
     checked: {
       control: { type: 'boolean' },
       description: 'Switch state (true = on).',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: false } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
     disabled: {
       control: { type: 'boolean' },
       description: 'Disable interaction and reduce opacity.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: false } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
     // Form / Structure
     name: {
       control: { type: 'text' },
       description: 'Form field name attribute.',
-      table: { category: 'Structure', type: { summary: 'string' }, defaultValue: { summary: 'notifications' } },
+      table: {
+        category: 'Structure',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'notifications' },
+      },
     },
   },
   args: { ...data },
@@ -90,7 +114,9 @@ export const AllStates = {
       </div>
     </div>
   `,
-  parameters: { docs: { description: { story: 'Core interaction states: unchecked, checked, disabled.' } } },
+  parameters: {
+    docs: { description: { story: 'Core interaction states: unchecked, checked, disabled.' } },
+  },
 };
 
 export const AllSizes = {
@@ -101,7 +127,14 @@ export const AllSizes = {
       ${toggleTwig({ ...data, size: 'large', label: 'Large size' })}
     </div>
   `,
-  parameters: { docs: { description: { story: 'Size variants: small (dense settings), medium (default), large (prominent toggles).' } } },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Size variants: small (dense settings), medium (default), large (prominent toggles).',
+      },
+    },
+  },
 };
 
 export const WithInternalLabels = {
@@ -112,7 +145,11 @@ export const WithInternalLabels = {
       ${toggleTwig({ ...data, showLabels: true, size: 'large', onLabel: 'YES', offLabel: 'NO' })}
     </div>
   `,
-  parameters: { docs: { description: { story: 'Internal labels clarify state when surrounding context is minimal.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'Internal labels clarify state when surrounding context is minimal.' },
+    },
+  },
 };
 
 export const UseCases = {
@@ -131,5 +168,12 @@ export const UseCases = {
       </div>
     </div>
   `,
-  parameters: { docs: { description: { story: 'Real usage: grouped preference panels combining states, sizes, and internal labels.' } } },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Real usage: grouped preference panels combining states, sizes, and internal labels.',
+      },
+    },
+  },
 };

@@ -938,3 +938,16 @@
 .icon-poi-tram-clear:before {
     content: "\e843"
 }
+
+/* Alert semantic icons (aliases) */
+[data-icon="info"]::before {
+    content: "\e824" /* virtual-tour icon */
+}
+
+[data-icon="warning"]::before {
+    content: "\e83f" /* mail-outline icon */
+}
+
+[data-icon="error"]::before {
+    content: "\e808" /* poi-autre icon */
+}

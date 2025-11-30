@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component:
-          'User or entity avatar with automatic fallbacks: image, initials, or generic icon. Supports shapes, sizes, status badge, optional border, and clickable variant using tokens.'
+          'User or entity avatar with automatic fallbacks: image, initials, or generic icon. Supports shapes, sizes, status badge, optional border, and clickable variant using tokens.',
       },
     },
   },
@@ -121,13 +121,16 @@ export const Initials = {
     const gridCols = sizes.length + 1;
     const headRow = [
       '<div class="cell cell--label"></div>',
-      ...sizes.map(s => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
+      ...sizes.map((s) => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
     ].join('');
     const rows = shapes
-      .map(shape => {
+      .map((shape) => {
         const label = `<div class=\"cell cell--label\">${shape}</div>`;
         const cells = sizes
-          .map(s => `<div class=\"cell\">${avatarTwig({ src: '', initials: 'JD', size: s, shape, alt: `Initials ${shape} ${s}` })}</div>`)
+          .map(
+            (s) =>
+              `<div class=\"cell\">${avatarTwig({ src: '', initials: 'JD', size: s, shape, alt: `Initials ${shape} ${s}` })}</div>`
+          )
           .join('');
         return label + cells;
       })
@@ -163,7 +166,7 @@ export const StatusVariants = {
 export const AllSizes = {
   render: () => `
     <div style="display:flex;gap:1rem;align-items:center;">
-      ${['xs', 'sm', 'md', 'lg', 'xl'].map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', size: s, alt: s.toUpperCase() })).join('')}
+      ${['xs', 'sm', 'md', 'lg', 'xl'].map((s) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', size: s, alt: s.toUpperCase() })).join('')}
     </div>
   `,
 };
@@ -171,7 +174,7 @@ export const AllSizes = {
 export const AllShapes = {
   render: () => `
     <div style="display:flex;gap:1rem;align-items:center;">
-      ${['circle','square','rounded'].map(shape => avatarTwig({ src: 'https://i.pravatar.cc/150?img=47', shape, size: 'lg', alt: shape })).join('')}
+      ${['circle', 'square', 'rounded'].map((shape) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=47', shape, size: 'lg', alt: shape })).join('')}
     </div>
   `,
 };
@@ -189,7 +192,7 @@ export const Modes = {
 export const RoundedScaling = {
   render: () => `
     <div style="display:flex;gap:1rem;align-items:center;">
-      ${['xs', 'sm', 'md', 'lg', 'xl'].map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=18', shape: 'rounded', size: s, alt: `Rounded ${s}` })).join('')}
+      ${['xs', 'sm', 'md', 'lg', 'xl'].map((s) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=18', shape: 'rounded', size: s, alt: `Rounded ${s}` })).join('')}
     </div>
   `,
 };

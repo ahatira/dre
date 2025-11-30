@@ -94,7 +94,8 @@ export const AllSizes = {
   parameters: {
     docs: {
       description: {
-        story: '3 size variants: Large (18px) for lead paragraphs, Body (16px) default for main content, Small (14px) for secondary/supporting text.',
+        story:
+          '3 size variants: Large (18px) for lead paragraphs, Body (16px) default for main content, Small (14px) for secondary/supporting text.',
       },
     },
   },
@@ -124,7 +125,8 @@ export const AllStates = {
   parameters: {
     docs: {
       description: {
-        story: 'States: Normal (default), Muted (secondary tone), Strong (bold emphasis). States can be combined for nuanced emphasis.',
+        story:
+          'States: Normal (default), Muted (secondary tone), Strong (bold emphasis). States can be combined for nuanced emphasis.',
       },
     },
   },
@@ -141,7 +143,8 @@ export const AllAlignments = {
   parameters: {
     docs: {
       description: {
-        story: '3 alignments: Left (default, best readability), Center (headings/callouts), Right (numeric / metadata alignment).',
+        story:
+          '3 alignments: Left (default, best readability), Center (headings/callouts), Right (numeric / metadata alignment).',
       },
     },
   },
@@ -178,7 +181,8 @@ export const UseCases = {
   parameters: {
     docs: {
       description: {
-        story: 'Real usage example: lead paragraph (large + strong) for introduction, body paragraphs for primary content, small muted for disclaimers / footnotes.',
+        story:
+          'Real usage example: lead paragraph (large + strong) for introduction, body paragraphs for primary content, small muted for disclaimers / footnotes.',
       },
     },
   },
@@ -218,7 +222,8 @@ export const AllCombinations = {
   parameters: {
     docs: {
       description: {
-        story: 'All possible combinations of size (large/body/small) and state (normal/muted/strong). Any size can pair with any emphasis state.',
+        story:
+          'All possible combinations of size (large/body/small) and state (normal/muted/strong). Any size can pair with any emphasis state.',
       },
     },
   },

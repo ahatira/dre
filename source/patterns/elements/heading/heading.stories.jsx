@@ -11,7 +11,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic heading component (h1–h6) with token-based typography, colors, weights, and alignment. Supports optional icon and visually hidden mode for accessibility.'
+          'Semantic heading component (h1–h6) with token-based typography, colors, weights, and alignment. Supports optional icon and visually hidden mode for accessibility.',
       },
     },
   },
@@ -39,7 +39,8 @@ export default {
     level: {
       control: { type: 'select' },
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      description: 'Semantic heading level (h1: 48px, h2: 36px, h3: 28px, h4: 24px, h5: 20px, h6: 16px)',
+      description:
+        'Semantic heading level (h1: 48px, h2: 36px, h3: 28px, h4: 24px, h5: 20px, h6: 16px)',
       table: {
         category: 'Structure',
         type: { summary: 'h1 | h2 | h3 | h4 | h5 | h6' },

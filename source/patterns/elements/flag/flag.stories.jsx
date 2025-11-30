@@ -56,7 +56,8 @@ const settings = {
       },
     },
     shape: {
-      description: 'Flag shape (square: 4:3 ratio, rounded: 4:3 with 4px radius, circle: 1:1 ratio)',
+      description:
+        'Flag shape (square: 4:3 ratio, rounded: 4:3 with 4px radius, circle: 1:1 ratio)',
       control: { type: 'select' },
       options: ['square', 'rounded', 'circle'],
       table: {
@@ -86,7 +87,8 @@ const settings = {
       },
     },
     decorative: {
-      description: 'Marks flag as decorative only (adds aria-hidden, removes from accessibility tree)',
+      description:
+        'Marks flag as decorative only (adds aria-hidden, removes from accessibility tree)',
       control: { type: 'boolean' },
       table: {
         category: 'Accessibility',

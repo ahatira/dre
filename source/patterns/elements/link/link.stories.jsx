@@ -1,6 +1,6 @@
+import iconsList from '../../documentation/icons-list.json';
 import linkTwig from './link.twig';
 import data from './link.yml';
-import iconsList from '../../documentation/icons-list.json';
 
 const settings = {
   title: 'Elements/Link',
@@ -25,7 +25,8 @@ Supports underline control, external target handling, and focus-visible accessib
       },
     },
     icon: {
-      description: 'Icon name without "icon-" prefix (e.g., arrow-right, arrow-left, external-link, download)',
+      description:
+        'Icon name without "icon-" prefix (e.g., arrow-right, arrow-left, external-link, download)',
       control: { type: 'select' },
       options: ['', ...iconsList.all],
       table: {
@@ -36,7 +37,8 @@ Supports underline control, external target handling, and focus-visible accessib
     },
     // Appearance
     color: {
-      description: 'Link color variant (omit for default text color, or use: primary, secondary, info, inverse)',
+      description:
+        'Link color variant (omit for default text color, or use: primary, secondary, info, inverse)',
       control: { type: 'select' },
       options: ['', 'primary', 'secondary', 'info', 'inverse'],
       table: {
@@ -75,7 +77,8 @@ Supports underline control, external target handling, and focus-visible accessib
       },
     },
     target: {
-      description: 'Link target (_self for same window, _blank for new tab with security attributes)',
+      description:
+        'Link target (_self for same window, _blank for new tab with security attributes)',
       control: { type: 'select' },
       options: ['_self', '_blank'],
       table: {

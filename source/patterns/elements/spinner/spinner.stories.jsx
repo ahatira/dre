@@ -15,7 +15,8 @@ Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
   argTypes: {
     // Appearance
     variant: {
-      description: 'Spinner animation type (circular: rotating SVG, dots: bouncing, bars: stretching)',
+      description:
+        'Spinner animation type (circular: rotating SVG, dots: bouncing, bars: stretching)',
       control: { type: 'select' },
       options: ['circular', 'dots', 'bars'],
       table: {
@@ -35,12 +36,15 @@ Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
       },
     },
     color: {
-      description: 'Spinner color (semantic colors from design tokens, use white for dark backgrounds)',
+      description:
+        'Spinner color (semantic colors from design tokens, use white for dark backgrounds)',
       control: { type: 'select' },
       options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'white'],
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | success | info | warning | danger | white' },
+        type: {
+          summary: 'default | primary | secondary | success | info | warning | danger | white',
+        },
         defaultValue: { summary: 'default' },
       },
     },
@@ -56,7 +60,8 @@ Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
     },
     // Accessibility
     text: {
-      description: 'Screen reader text announced to users (e.g., "Loading content...", "Processing data...")',
+      description:
+        'Screen reader text announced to users (e.g., "Loading content...", "Processing data...")',
       control: { type: 'text' },
       table: {
         category: 'Accessibility',
@@ -309,7 +314,7 @@ export const UseCases = {
     docs: {
       description: {
         story:
-          "Real-world usage examples of the spinner in different contexts: loading buttons (xs size), centered pages (xl size), inline text (sm/md size), and semantic contexts (success, info, warning, danger).",
+          'Real-world usage examples of the spinner in different contexts: loading buttons (xs size), centered pages (xl size), inline text (sm/md size), and semantic contexts (success, info, warning, danger).',
       },
     },
   },

@@ -150,14 +150,7 @@
     ],
     "mobile": ["menu", "touch"],
     "tutoffice": ["next", "pause", "play", "previous"],
-    "social": [
-      "facebook",
-      "linkedin",
-      "twitter",
-      "x-twitter",
-      "youtube",
-      "youtube-1"
-    ],
+    "social": ["facebook", "linkedin", "twitter", "x-twitter", "youtube", "youtube-1"],
     "tools": ["open-space", "common-areas"],
     "univers": [
       "offices",

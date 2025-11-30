@@ -12,7 +12,7 @@ export default {
     docs: {
       description: {
         component:
-          'Compact badge for statuses and metadata with semantic colors, sizes, and optional pill or icon. Fully token-based for spacing, typography, colors, and radius.'
+          'Compact badge for statuses and metadata with semantic colors, sizes, and optional pill or icon. Fully token-based for spacing, typography, colors, and radius.',
       },
     },
   },
@@ -41,17 +41,19 @@ export default {
     // Appearance
     color: {
       control: { type: 'select' },
-      options: ['default','primary','secondary','gold','info','success','warning','danger'],
+      options: ['default', 'primary', 'secondary', 'gold', 'info', 'success', 'warning', 'danger'],
       description: 'Semantic color variant (supports legacy gold accent).',
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | gold | info | success | warning | danger' },
+        type: {
+          summary: 'default | primary | secondary | gold | info | success | warning | danger',
+        },
         defaultValue: { summary: 'default' },
       },
     },
     size: {
       control: { type: 'inline-radio' },
-      options: ['small','medium','large'],
+      options: ['small', 'medium', 'large'],
       description: 'Badge size driven by typography & padding tokens.',
       table: {
         category: 'Appearance',
