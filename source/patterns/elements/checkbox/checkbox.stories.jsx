@@ -8,13 +8,13 @@ export default {
     docs: {
       description: {
         component:
-          'Case à cocher accessible conforme au Design System.\n\n' +
-          '- **Contenu**: input natif + label optionnel lié par `id`/`for`.\n' +
-          '- **États**: checked, disabled — styles et curseur adaptés.\n' +
-          "- **Icône**: rendu via pseudo-éléments (police d'icônes), sans balise supplémentaire.\n" +
-          '- **Accessibilité**: cible clavier, focus visible; annonce ARIA native; label recommandé pour la compréhension.\n' +
-          '- **Tokens**: couleurs, espacements, bordures et typos uniquement via tokens.\n' +
-          '- **Marquage minimal**: classe de base applique les styles par défaut; modificateurs ajoutés uniquement si nécessaires.',
+          'Accessible checkbox compliant with the Design System.\n\n' +
+          '- **Content**: native input + optional label linked by `id`/`for`.\n' +
+          '- **States**: checked, disabled — adapted styles and cursor.\n' +
+          '- **Icon**: rendered via pseudo-elements (icon font), without additional markup.\n' +
+          '- **Accessibility**: keyboard target, focus visible; native ARIA announcement; label recommended for understanding.\n' +
+          '- **Tokens**: colors, spacing, borders and typography only via tokens.\n' +
+          '- **Minimal markup**: base class applies default styles; modifiers added only if necessary.',
       },
     },
   },
