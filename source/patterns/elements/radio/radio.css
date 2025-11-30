@@ -1,17 +1,15 @@
 /**
  * Radio (Element/Atom)
- * Bouton radio pour sélection unique avec icon font
+ * Radio button for single selection with icon font
  * 
  * BEM: ps-radio, ps-radio__input, ps-radio__circle, ps-radio__label
  * States: checked, disabled
  */
 
-/* ==================== BASE ==================== */
-
 .ps-radio {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--size-2); /* 8px */
+  gap: var(--size-2);
   cursor: pointer;
   user-select: none;
 
@@ -20,87 +18,84 @@
   --ps-radio-icon-selected: "\e869";
   --ps-radio-icon-color-unselected: var(--ps-color-neutral-700, var(--gray-700));
   --ps-radio-icon-color-selected: var(--brand-primary, var(--bnp-green));
-}
 
-/* ==================== ELEMENTS ==================== */
+  /* Elements */
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 
-.ps-radio__input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+    /* Checked state */
+    &:checked + .ps-radio__circle {
+      background: transparent;
 
-.ps-radio__circle {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--size-5); /* 20px */
-  height: var(--size-5);
-  min-width: var(--size-5);
-  border: 0; /* border rendered by icon glyph */
-  border-radius: 0;
-  background: transparent;
-  transition: all var(--transition-fast, 0.15s) ease;
+      &::before {
+        content: var(--ps-radio-icon-selected);
+        color: var(--ps-radio-icon-color-selected);
+      }
+    }
 
-  /* Render icon via pseudo-element to avoid extra markup */
-  &::before {
-    font-family: 'bnpre-icons';
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: inline-block;
-    content: var(--ps-radio-icon-unselected);
-    color: var(--ps-radio-icon-color-unselected);
-    font-size: var(--font-size-2); /* 16px */
-    margin: 0;
+    &:checked ~ .ps-radio__label {
+      color: var(--brand-primary, var(--bnp-green));
+    }
+
+    /* Focus state */
+    &:focus-visible + .ps-radio__circle {
+      outline: 2px solid var(--ps-color-primary-600, var(--blue-600));
+      outline-offset: 2px;
+    }
   }
-}
 
-.ps-radio__label {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-weight: var(--font-weight-400);
-  font-size: var(--font-size-1); /* 14px */
-  line-height: var(--leading-6); /* 24px */
-  color: var(--ps-color-neutral-900, var(--gray-900));
-  transition: color var(--transition-fast, 0.15s) ease;
-}
-
-/* ==================== STATES ==================== */
-
-/* Checked state */
-.ps-radio__input:checked + .ps-radio__circle {
-  background: transparent;
-
-  &::before {
-    content: var(--ps-radio-icon-selected);
-    color: var(--ps-radio-icon-color-selected);
-  }
-}
-
-.ps-radio__input:checked ~ .ps-radio__label {
-  color: var(--brand-primary, var(--bnp-green));
-}
-
-/* Focus state */
-.ps-radio__input:focus-visible + .ps-radio__circle {
-  outline: 2px solid var(--ps-color-primary-600, var(--blue-600));
-  outline-offset: 2px;
-}
-
-/* Disabled state */
-.ps-radio--disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-
-  .ps-radio__circle {
+  &__circle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-5);
+    height: var(--size-5);
+    min-width: var(--size-5);
+    border: 0;
+    border-radius: 0;
     background: transparent;
+    transition: all var(--transition-fast, 0.15s) ease;
+
+    /* Render icon via pseudo-element */
+    &::before {
+      font-family: 'bnpre-icons';
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: inline-block;
+      content: var(--ps-radio-icon-unselected);
+      color: var(--ps-radio-icon-color-unselected);
+      font-size: var(--font-size-2);
+      margin: 0;
+    }
+  }
+
+  &__label {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1);
+    line-height: var(--leading-6);
+    color: var(--ps-color-neutral-900, var(--gray-900));
+    transition: color var(--transition-fast, 0.15s) ease;
+  }
+
+  /* Disabled state */
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    .ps-radio__circle {
+      background: transparent;
+    }
   }
 }

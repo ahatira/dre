@@ -1,6 +1,6 @@
 # Defaults for Radio preview
-name: 'option'  # Options: shared name for radio group
-value: '1'  # Options: unique value for this radio
-label: 'Option label'  # Options: text label displayed
-checked: false  # Options: true | false
-disabled: false  # Options: true | false
+name: 'option' # Radio group name (shared across group)
+value: '1' # Unique value for this radio
+label: 'Option label' # Visible label text
+checked: false # Checked state (true | false)
+disabled: false # Disabled state (true | false)

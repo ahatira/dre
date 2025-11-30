@@ -4,12 +4,82 @@ import data from './radio.yml';
 export default {
   title: 'Elements/Radio',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `Radio button for single selection within a group.
+
+**Key Features:**
+- Native HTML radio input with custom icon font styling
+- Icons from bnpre-icons font (radio-unselected, radio-selected)
+- Semantic states: unchecked, checked, disabled (with reduced opacity)
+- Focus-visible outline for keyboard navigation
+- Label text optional but recommended for accessibility
+- Group behavior: all radios with same 'name' allow only one selection
+
+**Usage:**
+- Always use same 'name' attribute for radios in a group
+- Each radio must have unique 'value' attribute
+- Only one radio in a group can be checked at a time
+- Use 'label' for visible text and screen readers
+- Disabled state prevents interaction and reduces opacity to 50%
+
+**Icons:**
+- Unselected: \\e86a (gray circle outline)
+- Selected: \\e869 (green filled circle)
+- Size: 20px (--size-5)
+- Colors: --ps-color-neutral-700 (unselected), --brand-primary (selected)`,
+      },
+    },
+  },
   argTypes: {
-    name: { control: 'text', description: 'Nom du groupe radio (requis pour sélection unique)' },
-    value: { control: 'text', description: 'Valeur unique du radio' },
-    label: { control: 'text', description: 'Texte du label' },
-    checked: { control: 'boolean', description: 'État coché' },
-    disabled: { control: 'boolean', description: 'État désactivé' },
+    // Content
+    label: {
+      description: 'Visible label text displayed next to radio button',
+      control: { type: 'text' },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Option label' },
+      },
+    },
+    value: {
+      description: 'Unique value for this radio button within the group',
+      control: { type: 'text' },
+      table: {
+        category: 'Content',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: '1' },
+      },
+    },
+    // Behavior
+    name: {
+      description: 'Radio group name (all radios with same name allow single selection)',
+      control: { type: 'text' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'option' },
+      },
+    },
+    checked: {
+      description: 'Checked state (only one radio per group should be checked)',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    disabled: {
+      description: 'Disabled state (50% opacity, not-allowed cursor, prevents interaction)',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
   args: { ...data },
 };
@@ -23,47 +93,53 @@ export const Default = {
 
 export const AllStates = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem;">
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Unchecked</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Unchecked (default icon)</p>
         ${radioTwig({ name: 'demo1', value: '1', label: 'Option 1', checked: false })}
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Checked</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Checked (filled green icon)</p>
         ${radioTwig({ name: 'demo2', value: '2', label: 'Option 2', checked: true })}
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Disabled Unchecked</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Disabled unchecked (50% opacity)</p>
         ${radioTwig({ name: 'demo3', value: '3', label: 'Option 3', checked: false, disabled: true })}
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Disabled Checked</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Disabled checked (50% opacity)</p>
         ${radioTwig({ name: 'demo4', value: '4', label: 'Option 4', checked: true, disabled: true })}
       </div>
     </div>
   `,
-  args: {},
 };
 
 export const UseCases = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: 2rem; padding: 1rem;">
+    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Choix unique</p>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          ${radioTwig({ name: 'plan', value: 'basic', label: 'Plan Basic', checked: false })}
-          ${radioTwig({ name: 'plan', value: 'premium', label: 'Plan Premium', checked: true })}
-          ${radioTwig({ name: 'plan', value: 'enterprise', label: 'Plan Enterprise', checked: false })}
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Single Choice Selection</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+          ${radioTwig({ name: 'plan', value: 'basic', label: 'Basic Plan - Free', checked: false })}
+          ${radioTwig({ name: 'plan', value: 'premium', label: 'Premium Plan - $9.99/month', checked: true })}
+          ${radioTwig({ name: 'plan', value: 'enterprise', label: 'Enterprise Plan - Contact us', checked: false })}
         </div>
       </div>
       <div>
-        <p style="margin: 0 0 0.5rem; font-weight: 500;">Sélection de type</p>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          ${radioTwig({ name: 'type', value: 'individual', label: 'Particulier', checked: true })}
-          ${radioTwig({ name: 'type', value: 'business', label: 'Professionnel', checked: false })}
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Account Type</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+          ${radioTwig({ name: 'type', value: 'individual', label: 'Individual', checked: true })}
+          ${radioTwig({ name: 'type', value: 'business', label: 'Business', checked: false })}
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Payment Method</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+          ${radioTwig({ name: 'payment', value: 'card', label: 'Credit Card', checked: true })}
+          ${radioTwig({ name: 'payment', value: 'paypal', label: 'PayPal', checked: false })}
+          ${radioTwig({ name: 'payment', value: 'bank', label: 'Bank Transfer', checked: false, disabled: true })}
         </div>
       </div>
     </div>
   `,
-  args: {},
 };

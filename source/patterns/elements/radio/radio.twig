@@ -1,4 +1,12 @@
-{# ps-radio (element) - PS Theme #}
+{#
+ * PS Radio (Atom) - Radio button for single selection
+ *
+ * @param string name - Radio group name for single selection (required, all radios in group share same name)
+ * @param string value - Unique value for this radio button (required)
+ * @param string label - Visible label text displayed next to radio (optional but recommended)
+ * @param boolean checked - Checked state, only one per group should be true (default: false)
+ * @param boolean disabled - Disabled state with 50% opacity (default: false)
+ #}
 {%- set name = name|default('radio') -%}
 {%- set value = value|default('1') -%}
 {%- set label = label|default('Option label') -%}
