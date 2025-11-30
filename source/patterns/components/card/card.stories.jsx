@@ -92,7 +92,7 @@ export const VisualVariants = {
           })
             .replace(
               '<div class="ps-card__content">',
-              `<div class="ps-card__image"><img src="https://picsum.photos/400/300?random=${variant}" alt="Card" /></div><div class="ps-card__content"><h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #333;">${variant.charAt(0).toUpperCase() + variant.slice(1)} Card</h3><p style="margin: 8px 0 0; color: #666;">Visual variant: ${variant}</p>`
+              `<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&q=80" alt="Card" /></div><div class="ps-card__content"><h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #333;">${variant.charAt(0).toUpperCase() + variant.slice(1)} Card</h3><p style="margin: 8px 0 0; color: #666;">Visual variant: ${variant}</p>`
             )
             .replace('</div></div>', '</div></div></div>')
         )
@@ -110,7 +110,7 @@ export const Layouts = {
         ${cardTwig({ layout: 'vertical' })
           .replace(
             '<div class="ps-card__content">',
-            '<div class="ps-card__image"><img src="https://picsum.photos/400/300?random=v" alt="Vertical" /></div><div class="ps-card__content"><h3 style="margin: 0;">Vertical Card</h3><p style="margin: 8px 0 0;">Image on top</p>'
+            '<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=300&fit=crop&q=80" alt="Vertical" /></div><div class="ps-card__content"><h3 style="margin: 0;">Vertical Card</h3><p style="margin: 8px 0 0;">Image on top</p>'
           )
           .replace('</div></div>', '</div></div></div>')}
       </div>
@@ -119,7 +119,7 @@ export const Layouts = {
         ${cardTwig({ layout: 'horizontal' })
           .replace(
             '<div class="ps-card__content">',
-            '<div class="ps-card__image"><img src="https://picsum.photos/242/212?random=h" alt="Horizontal" /></div><div class="ps-card__content"><h3 style="margin: 0;">Horizontal Card</h3><p style="margin: 8px 0 0;">Image on left (242px width)</p>'
+            '<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=242&h=212&fit=crop&q=80" alt="Horizontal" /></div><div class="ps-card__content"><h3 style="margin: 0;">Horizontal Card</h3><p style="margin: 8px 0 0;">Image on left (242px width)</p>'
           )
           .replace('</div></div>', '</div></div></div>')}
       </div>
@@ -143,6 +143,62 @@ export const Sizes = {
   `,
 };
 
+// Radius Options
+export const RadiusOptions = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+      ${['none', 'sm', 'md', 'lg']
+        .map((radius) =>
+          cardTwig({ radius })
+            .replace(
+              '<div class="ps-card__content">',
+              `<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop&q=80" alt="Card" /></div><div class="ps-card__content"><h3 style="margin: 0; font-size: 18px;">${radius === 'none' ? 'No Radius' : `${radius.toUpperCase()} Radius`}</h3><p style="margin: 8px 0 0;">Border radius: ${radius}</p>`
+            )
+            .replace('</div></div>', '</div></div></div>')
+        )
+        .join('')}
+    </div>
+  `,
+};
+
+// Image Position Options
+export const ImagePositions = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div>
+        <h4 style="margin-bottom: 12px;">Vertical Layout - Image Positions</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+          ${['top', 'bottom']
+            .map((pos) =>
+              cardTwig({ layout: 'vertical', imagePosition: pos })
+                .replace(
+                  '<div class="ps-card__content">',
+                  `<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=300&fit=crop&q=80" alt="Card" /></div><div class="ps-card__content"><h3 style="margin: 0;">Image ${pos === 'top' ? 'Top' : 'Bottom'}</h3><p style="margin: 8px 0 0;">Position: ${pos}</p>`
+                )
+                .replace('</div></div>', '</div></div></div>')
+            )
+            .join('')}
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 12px;">Horizontal Layout - Image Positions</h4>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          ${['left', 'right']
+            .map((pos) =>
+              cardTwig({ layout: 'horizontal', imagePosition: pos })
+                .replace(
+                  '<div class="ps-card__content">',
+                  `<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=242&h=212&fit=crop&q=80" alt="Card" /></div><div class="ps-card__content"><h3 style="margin: 0;">Image ${pos === 'left' ? 'Left' : 'Right'}</h3><p style="margin: 8px 0 0;">Position: ${pos} (242px width)</p>`
+                )
+                .replace('</div></div>', '</div></div></div>')
+            )
+            .join('')}
+        </div>
+      </div>
+    </div>
+  `,
+};
+
 // As Link (clickable card)
 export const AsLink = {
   args: {
@@ -151,7 +207,8 @@ export const AsLink = {
     size: 'medium',
     url: '#card-link',
     showImage: true,
-    imageUrl: 'https://picsum.photos/400/300?random=link',
+    imageUrl:
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop&q=80',
     contentHTML:
       '<h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #333;">Clickable Card</h3><p style="margin: 12px 0 0; color: #666;">This entire card is clickable. Hover to see the shadow effect.</p>',
   },
@@ -165,7 +222,7 @@ export const CompositionExample = {
       ${cardTwig({ variant: 'elevated' })
         .replace(
           '<div class="ps-card__content">',
-          `<div class="ps-card__image"><img src="https://picsum.photos/400/300?random=news" alt="News" /></div><div class="ps-card__content">
+          `<div class="ps-card__image"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop&q=80" alt="News" /></div><div class="ps-card__content">
           <div class="ps-card__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <span style="display: inline-block; padding: 4px 8px; background: #00915A; color: white; font-size: 12px; font-weight: 600; border-radius: 4px; text-transform: uppercase;">News</span>
             <span style="font-size: 14px; color: #777;">Nov 30, 2025</span>

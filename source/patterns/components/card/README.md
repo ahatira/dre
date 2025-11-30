@@ -20,6 +20,8 @@ Card is **NOT** a specialized component. It's a **generic container** that:
 | `variant` | `string` | `default` | Visual variant: `default`, `outlined`, `flat`, `elevated` |
 | `layout` | `string` | `vertical` | Layout orientation: `vertical`, `horizontal` |
 | `size` | `string` | `medium` | Padding size: `small`, `medium`, `large` |
+| `radius` | `string` | `md` | Border radius: `none`, `sm`, `md`, `lg` |
+| `imagePosition` | `string` | `top`/`left` | Image position: `top`/`bottom` (vertical), `left`/`right` (horizontal) |
 | `url` | `string` | — | Optional link URL (wraps entire card as `<a>`) |
 | `attributes` | `object` | — | Additional HTML attributes |
 
@@ -39,7 +41,13 @@ Modifiers:
 ├── .ps-card--elevated
 ├── .ps-card--horizontal
 ├── .ps-card--small
-└── .ps-card--large
+├── .ps-card--large
+├── .ps-card--radius-none
+├── .ps-card--radius-sm
+├── .ps-card--radius-md
+├── .ps-card--radius-lg
+├── .ps-card--image-right (horizontal only)
+└── .ps-card--image-bottom (vertical only)
 ```
 
 ## Twig Blocks
@@ -58,7 +66,11 @@ Card uses **Twig blocks** for content composition:
 
 ### Visual
 - Border: `1.5px solid #EBEDEF` (Figma exact: Grey #6)
-- Border radius: `var(--radius-4)`
+- Border radius (default): `var(--radius-4)` (customizable via `radius` prop)
+  - None: `0`
+  - Small: `var(--radius-2)`
+  - Medium: `var(--radius-4)` (default)
+  - Large: `var(--radius-6)`
 - Background: `var(--white)`
 - Shadow (hover/elevated): `var(--shadow-4)`
 
@@ -181,6 +193,50 @@ Card uses **Twig blocks** for content composition:
 
 {# Large: 32px padding #}
 {% embed '@components/card/card.twig' with { size: 'large' } %}...{% endembed %}
+```
+
+### Border Radius Options
+
+```twig
+{# No radius: Sharp corners #}
+{% embed '@components/card/card.twig' with { radius: 'none' } %}...{% endembed %}
+
+{# Small radius: var(--radius-2) #}
+{% embed '@components/card/card.twig' with { radius: 'sm' } %}...{% endembed %}
+
+{# Medium radius: var(--radius-4) (default) #}
+{% embed '@components/card/card.twig' with { radius: 'md' } %}...{% endembed %}
+
+{# Large radius: var(--radius-6) #}
+{% embed '@components/card/card.twig' with { radius: 'lg' } %}...{% endembed %}
+```
+
+### Image Position Options
+
+```twig
+{# Vertical layout with image on top (default) #}
+{% embed '@components/card/card.twig' with { layout: 'vertical', imagePosition: 'top' } %}
+  {% block image %}<img src="..." alt="Image" />{% endblock %}
+  {% block content %}<h3>Image Top</h3>{% endblock %}
+{% endembed %}
+
+{# Vertical layout with image on bottom #}
+{% embed '@components/card/card.twig' with { layout: 'vertical', imagePosition: 'bottom' } %}
+  {% block image %}<img src="..." alt="Image" />{% endblock %}
+  {% block content %}<h3>Image Bottom</h3>{% endblock %}
+{% endembed %}
+
+{# Horizontal layout with image on left (default) #}
+{% embed '@components/card/card.twig' with { layout: 'horizontal', imagePosition: 'left' } %}
+  {% block image %}<img src="..." alt="Image" />{% endblock %}
+  {% block content %}<h3>Image Left</h3>{% endblock %}
+{% endembed %}
+
+{# Horizontal layout with image on right #}
+{% embed '@components/card/card.twig' with { layout: 'horizontal', imagePosition: 'right' } %}
+  {% block image %}<img src="..." alt="Image" />{% endblock %}
+  {% block content %}<h3>Image Right</h3>{% endblock %}
+{% endembed %}
 ```
 
 ## Composition Pattern

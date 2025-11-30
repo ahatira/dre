@@ -110,6 +110,16 @@
     }
   }
 
+  /* Modifier: Image position right (horizontal only) */
+  &--horizontal&--image-right {
+    flex-direction: row-reverse;
+  }
+
+  /* Modifier: Image position bottom (vertical layout) */
+  &--image-bottom {
+    flex-direction: column-reverse;
+  }
+
   /* Modifier: Small size */
   &--small {
     .ps-card__content {
@@ -124,6 +134,23 @@
       padding: var(--size-6); /* 32px */
       gap: var(--size-5); /* 20px */
     }
+  }
+
+  /* Modifier: Radius variants */
+  &--radius-none {
+    border-radius: 0;
+  }
+
+  &--radius-sm {
+    border-radius: var(--radius-2);
+  }
+
+  &--radius-md {
+    border-radius: var(--radius-4);
+  }
+
+  &--radius-lg {
+    border-radius: var(--radius-6);
   }
 
   /* State: Hover (for linked cards) */

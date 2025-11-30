@@ -79,7 +79,7 @@ export const Default = {
       exclusivity: true,
     },
     image: {
-      url: 'https://picsum.photos/400/400?random=1',
+      url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=400&fit=crop&q=80',
       alt: 'Office space in Madrid',
     },
     meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
@@ -102,7 +102,7 @@ export const HorizontalLayout = {
       exclusivity: true,
     },
     image: {
-      url: 'https://picsum.photos/242/212?random=2',
+      url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=242&h=212&fit=crop&q=80',
       alt: 'Office space',
     },
     meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
@@ -121,7 +121,7 @@ export const WithoutStatus = {
     surface: '120 m²',
     price: '1 500 000 €',
     image: {
-      url: 'https://picsum.photos/400/400?random=3',
+      url: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=400&fit=crop&q=80',
       alt: 'Apartment in Paris',
     },
     meta: [{ icon: 'pin-map', text: '75016 PARIS' }],
@@ -141,7 +141,7 @@ export const AsLink = {
     price: '15 000 € HT/HC/m²/an',
     url: '#property-full-link',
     image: {
-      url: 'https://picsum.photos/400/400?random=4',
+      url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=400&fit=crop&q=80',
       alt: 'Office in Lyon',
     },
     meta: [{ icon: 'pin-map', text: '69003 LYON' }],

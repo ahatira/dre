@@ -7,6 +7,8 @@
  * @param string variant - Visual variant: default|outlined|flat|elevated (default: default)
  * @param string layout - Layout: vertical|horizontal (default: vertical)
  * @param string size - Size: small|medium|large (default: medium)
+ * @param string radius - Border radius: none|sm|md|lg (default: md)
+ * @param string imagePosition - Image position: top|bottom (vertical) | left|right (horizontal) (default: top/left)
  * @param string url - Optional link URL (wraps entire card as <a>)
  * @param object attributes - Additional HTML attributes
  *
@@ -27,6 +29,8 @@
 {%- set variant = variant|default('default') -%}
 {%- set layout = layout|default('vertical') -%}
 {%- set size = size|default('medium') -%}
+{%- set radius = radius|default('md') -%}
+{%- set imagePosition = imagePosition|default(layout == 'horizontal' ? 'left' : 'top') -%}
 
 {%- set card_classes = ['ps-card'] -%}
 {%- if variant != 'default' -%}
@@ -37,6 +41,12 @@
 {%- endif -%}
 {%- if size != 'medium' -%}
   {%- set card_classes = card_classes|merge(['ps-card--' ~ size]) -%}
+{%- endif -%}
+{%- if radius != 'md' -%}
+  {%- set card_classes = card_classes|merge(['ps-card--radius-' ~ radius]) -%}
+{%- endif -%}
+{%- if imagePosition != (layout == 'horizontal' ? 'left' : 'top') -%}
+  {%- set card_classes = card_classes|merge(['ps-card--image-' ~ imagePosition]) -%}
 {%- endif -%}
 
 {%- set tag = url ? 'a' : 'div' -%}
