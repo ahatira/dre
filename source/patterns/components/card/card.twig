@@ -52,14 +52,6 @@
   {%- if image -%}
     <div class="ps-card__image">
       <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" />
-      
-      {%- if favorite -%}
-        <span class="ps-card__favorite{% if favoriteActive %} ps-card__favorite--active{% endif %}" 
-              data-icon="heart" 
-              role="button" 
-              aria-label="{% if favoriteActive %}Remove from favorites{% else %}Add to favorites{% endif %}"
-              tabindex="0"></span>
-      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -68,31 +60,43 @@
       <span class="ps-card__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {%- endif -%}
 
-    {%- if status -%}
-      <div class="ps-card__status">
-        {%- if status.viewed -%}
-          <span class="ps-card__viewed">Already viewed</span>
-        {%- endif -%}
-        {%- if status.exclusivity -%}
-          {%- include '@elements/badge/badge.twig' with {
-            text: 'EXCLUSIVITY',
-            color: 'gold',
-            size: 'small'
-          } only -%}
-        {%- endif -%}
+    {# Header: Badges (left) + Actions (right) - Figma layout #}
+    {%- if status or badge -%}
+      <div class="ps-card__header">
+        {# Badges container (left side) #}
+        <div class="ps-card__badges">
+          {%- if status.viewed -%}
+            <span class="ps-card__viewed">
+              <span data-icon="eye" style="width: 12px; height: 12px;" aria-hidden="true"></span>
+              Already viewed
+            </span>
+          {%- endif -%}
+          {%- if status.exclusivity -%}
+            <span class="ps-card__badge--gold">Exclusivity</span>
+          {%- endif -%}
+          {%- if badge -%}
+            {%- include '@elements/badge/badge.twig' with {
+              text: badge,
+              size: 'small',
+              color: 'primary'
+            } only -%}
+          {%- endif -%}
+        </div>
+
+        {# Actions container (right side) - Compare + Favorite #}
+        <div class="ps-card__actions">
+          <span class="ps-card__action-icon" data-icon="compare" role="button" aria-label="Add to compare" tabindex="0"></span>
+          <span class="ps-card__action-icon{% if favoriteActive %} ps-card__action-icon--favorite-active{% endif %}" 
+                data-icon="heart" 
+                role="button" 
+                aria-label="{% if favoriteActive %}Remove from favorites{% else %}Add to favorites{% endif %}"
+                tabindex="0"></span>
+        </div>
       </div>
     {%- endif -%}
 
-    {%- if badge -%}
-      {%- include '@elements/badge/badge.twig' with {
-        text: badge,
-        size: 'small',
-        color: 'primary'
-      } only -%}
-    {%- endif -%}
-
     {%- if tag or date -%}
-      <div class="ps-card__header">
+      <div class="ps-card__tag-date">
         {%- if tag -%}
           <span class="ps-card__tag">{{ tag }}</span>
         {%- endif -%}
@@ -106,53 +110,56 @@
       <div class="ps-card__eyebrow">{{ eyebrow }}</div>
     {%- endif -%}
 
-    {%- if price or surface -%}
-      <div style="display: flex; align-items: center; gap: var(--size-1); margin-bottom: var(--size-2);">
-        {%- if price -%}
-          <span class="ps-card__price">{{ price }}</span>
-        {%- endif -%}
-        {%- if surface -%}
-          <span class="ps-card__surface">{{ surface }}</span>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
+    {# Body: Title + Surface + Location #}
+    <div class="ps-card__body">
+      <h3 class="ps-card__title">{{ title }}</h3>
 
-    <h3 class="ps-card__title">{{ title }}</h3>
+      {%- if surface -%}
+        <p class="ps-card__surface">{{ surface }}</p>
+      {%- endif -%}
+
+      {%- if meta -%}
+        <ul class="ps-card__meta">
+          {%- for item in meta -%}
+            <li class="ps-card__meta-item">
+              {%- if item.icon -%}
+                <span class="ps-card__meta-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+              {%- endif -%}
+              <span class="ps-card__meta-text">{{ item.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
 
     {%- if description -%}
       <p class="ps-card__description">{{ description }}</p>
     {%- endif -%}
 
-    {%- if meta -%}
-      <ul class="ps-card__meta">
-        {%- for item in meta -%}
-          <li class="ps-card__meta-item">
-            {%- if item.icon -%}
-              <span class="ps-card__meta-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-            {%- endif -%}
-            <span class="ps-card__meta-text">{{ item.text }}</span>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+    {# Footer: Price + Link #}
+    {%- if price or cta -%}
+      <div class="ps-card__footer">
+        {%- if price -%}
+          <span class="ps-card__price">{{ price }}</span>
+        {%- endif -%}
 
-    {%- if cta -%}
-      <div class="ps-card__actions">
-        {%- if cta.outline -%}
-          {%- include '@elements/button/button.twig' with {
-            label: cta.text,
-            url: cta.url,
-            variant: cta.variant|default('primary'),
-            outline: true,
-            size: 'small'
-          } only -%}
-        {%- else -%}
-          {%- include '@elements/link/link.twig' with {
-            text: cta.text,
-            url: cta.url,
-            icon: 'arrow-right',
-            color: 'green'
-          } only -%}
+        {%- if cta -%}
+          {%- if cta.outline -%}
+            {%- include '@elements/button/button.twig' with {
+              label: cta.text,
+              url: cta.url,
+              variant: cta.variant|default('primary'),
+              outline: true,
+              size: 'small'
+            } only -%}
+          {%- else -%}
+            {%- include '@elements/link/link.twig' with {
+              text: cta.text,
+              url: cta.url,
+              icon: 'arrow-right',
+              color: 'green'
+            } only -%}
+          {%- endif -%}
         {%- endif -%}
       </div>
     {%- endif -%}

@@ -32,19 +32,18 @@ cta:
 #   url: '#news-456'
 #   outline: false
 
-# Product card horizontal with status (PIXEL PERFECT)
+# Product card horizontal with status (FIGMA PIXEL PERFECT)
 # variant: product
 # layout: horizontal
 # title: 'Rent Offices MADRID Barrio de Chamberí'
 # surface: '611.3 m²'
 # price: '20 000 € HT/HC/m²/an'
-# favorite: true
 # favoriteActive: false
 # status:
 #   viewed: true
 #   exclusivity: true
 # image:
-#   url: 'https://picsum.photos/600/450?random=3'
+#   url: 'https://picsum.photos/242/212?random=3'
 #   alt: 'Office space'
 # meta:
 #   - icon: 'pin-map'
