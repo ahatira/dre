@@ -11,46 +11,7 @@ export default {
     docs: {
       description: {
         component:
-          '**Key Features**\n\n' +
-          '- **Semantic HTML**: Uses native heading elements (h1–h6) for proper document structure\n' +
-          '- **6 hierarchy levels**: h1 (48px) to h6 (16px) with consistent typographic scale\n' +
-          '- **7 semantic colors**: Default, primary, secondary, success, warning, danger, info\n' +
-          '- **4 font weights**: Light (300), regular (400), bold (700, default), extra (800)\n' +
-          '- **3 text alignments**: Left (default), center, right\n' +
-          '- **Optional icons**: Supports left or right icon positioning\n' +
-          '- **Tokenized design**: All typography, colors, and spacing use design tokens\n' +
-          '- **Minimal markup**: Default h1 requires no modifier classes\n\n' +
-          '**Usage Guidelines**\n\n' +
-          '- Use h1 once per page for the main page title\n' +
-          '- Maintain logical heading hierarchy (don\'t skip levels: h1 → h3)\n' +
-          '- Use semantic levels (h1–h6) for document structure, not visual styling\n' +
-          '- Apply color variants to emphasize importance (primary for key sections, warning for alerts)\n' +
-          '- Use regular or light weight for less prominent headings\n' +
-          '- Add icons sparingly to enhance meaning (location, events, actions)\n' +
-          '- Use center/right alignment intentionally for specific layouts\n' +
-          '- Use visuallyHidden for structural headings that don\'t need visual presence\n\n' +
-          '**Accessibility**\n\n' +
-          '- Headings create document outline for screen readers and keyboard navigation\n' +
-          '- Logical hierarchy is critical (h1 → h2 → h3, no skipping)\n' +
-          '- One h1 per page establishes main topic\n' +
-          '- visuallyHidden option preserves semantic structure while hiding visually\n' +
-          '- Icons marked with `aria-hidden="true"` (decorative only)\n' +
-          '- Color contrast meets WCAG AA standards via design tokens\n' +
-          '- Text wrapped in `<span class="ps-heading__text">` for styling flexibility\n\n' +
-          '**Design Tokens**\n\n' +
-          '- **Typography**: `--ps-heading-h1-size` through `--ps-heading-h6-size` (48px to 16px), `--line-height-tight|snug|normal`\n' +
-          '- **Weights**: `--font-weight-300` (light), `--font-weight-400` (regular), `--ps-font-weight-bold` (700), `--font-weight-800` (extra)\n' +
-          '- **Colors**: `--ps-color-text` (default), `--brand-primary`, `--brand-secondary`, `--btn-success/warning/danger/info`\n' +
-          '- **Spacing**: `--ps-spacing-6` (bottom margin), `--size-2` (icon gap)\n' +
-          '- **Font family**: `--font-sans` (BNPP Sans)\n\n' +
-          '**Do Not**\n\n' +
-          '- Don\'t skip heading levels (h1 → h3)—it breaks document structure\n' +
-          '- Don\'t use multiple h1 elements on the same page\n' +
-          '- Don\'t choose heading level based on visual appearance—use semantic structure first\n' +
-          '- Don\'t hardcode font sizes, colors, or weights—always use design tokens\n' +
-          '- Don\'t use headings for non-heading content (use styled text instead)\n' +
-          '- Don\'t combine multiple icons in one heading\n' +
-          '- Don\'t rely on color alone to convey meaning (use text + color)',
+          'Semantic heading component (h1–h6) with token-based typography, colors, weights, and alignment. Supports optional icon and visually hidden mode for accessibility.'
       },
     },
   },

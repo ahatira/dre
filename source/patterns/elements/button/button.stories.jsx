@@ -8,47 +8,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Interactive action trigger with semantic variants and multiple states.
-
-**Key Features:**
-- 8 semantic variants: primary (green), secondary (pink), success, info, warning, danger, dark, light
-- 2 styles: filled (default), outline (transparent bg + border)
-- 3 sizes: small (34px), medium (36px, default), large (40px)
-- Icon support: optional left/right positioning, icon-only mode
-- States: disabled (50% opacity), loading (spinner overlay)
-- Layout: fullWidth option for block-level buttons
-- Pure token implementation (colors, spacing, typography, transitions)
-
-**Usage Guidelines:**
-- Use primary for main actions; secondary for alternatives
-- Prefer semantic colors (success/danger) over generic for contextual actions
-- Outline style for less prominent actions or when stacking multiple buttons
-- Icon-only buttons require accessible label (aria-label)
-- Loading state automatically disables interaction
-- Size small for compact UIs; large for hero/CTA contexts
-- Full width for forms or mobile layouts
-
-**Accessibility:**
-- Renders <button> by default; <a> when url provided
-- Disabled state: aria-disabled + disabled attribute (button) or pointer-events none (link)
-- Loading state: aria-busy="true" announces to screen readers
-- Focus outline visible for keyboard navigation (:focus-visible)
-- Icons marked aria-hidden (label always present, visually hidden if icon-only)
-- Minimum touch target 36px (WCAG 2.2 Level A)
-- Color contrast verified for all variants (AA minimum)
-
-**Design Tokens:**
-- Colors: --btn-primary/secondary/success/info/warning/danger/dark/light + hover/active variants
-- Sizing: --size-2 (gap), --size-4 (padding), --size-9 (height md), --size-10 (height lg)
-- Typography: --font-sans, --font-weight-400, --size-305/4 (font sizes)
-- Border: --border-size-2 (outline + focus)
-- Transition: cubic-bezier(0.4, 0.0, 0.2, 1) 150ms
-
-**Do Not:**
-- Use for navigation alone (prefer link component unless button styling required)
-- Stack too many primary buttons (max 1 per screen section)
-- Omit label text (icon-only requires aria-label)
-- Hardcode colors or dimensions`,
+        component:
+          'Interactive action trigger with semantic variants, sizes, and styles. Supports icons, loading/disabled states, links, and full-width layout using design tokens.'
       },
     },
   },

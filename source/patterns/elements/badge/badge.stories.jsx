@@ -11,42 +11,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Compact semantic label / status indicator.
-
-**Key Features:**
-- 8 color variants: default, primary, secondary, gold (legacy accent), info, success, warning, danger
-- 3 sizes: small | medium (default) | large
-- Optional pill shape for fully rounded ends
-- Optional decorative icon (never replaces text)
-- Link support: render as <a> when url provided
-- Pure token implementation (spacing, font, color, radius, transition)
-
-**Usage Guidelines:**
-- Keep text short (1–2 words) for scannability
-- Prefer semantic color matching meaning (success for positive, warning for caution)
-- Use pill shape for tags or emphasis, not for every badge
-- Use small in dense metadata contexts; large for emphasis in hero/feature areas
-- Avoid stacking too many variants together (visual noise)
-
-**Accessibility:**
-- Text always present (icon is decorative via data-icon mapping)
-- Focus outline only on interactive link badges (url provided)
-- Color palette chosen for sufficient contrast on light backgrounds
-- Do not use badge as the only indicator of critical state (pair with text context)
-
-**Design Tokens:**
-- Spacing: --size-05 --size-1 --size-2 --size-3
-- Typography: --font-size-xs --font-size-sm --font-size-0 --font-weight-500
-- Colors: --gray-* --brand-primary --brand-secondary --accent-gold semantic (blue/green/yellow/red)
-- Radius: --radius-2 --radius-round
-- Transition: --ps-transition-duration-fast
-
-**Do Not:**
-- Hardcode hex/HSL values
-- Rely on icon alone for meaning
-- Combine multiple shape modifiers (only pill)
-- Use badge for interactive actions beyond simple link navigation
-`,
+        component:
+          'Compact badge for statuses and metadata with semantic colors, sizes, and optional pill or icon. Fully token-based for spacing, typography, colors, and radius.'
       },
     },
   },
@@ -54,11 +20,11 @@ export default {
     // Content
     text: {
       control: 'text',
-      description: 'Text content displayed in the badge.',
+      description: 'Badge text (short: 1–2 words).',
       table: {
         category: 'Content',
         type: { summary: 'string', required: true },
-        defaultValue: { summary: 'Badge' },
+        defaultValue: { summary: data.text || '""' },
       },
     },
     icon: {

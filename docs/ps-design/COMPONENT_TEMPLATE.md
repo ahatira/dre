@@ -14,7 +14,7 @@ source/patterns/{level}/{component-name}/
 ├── {component-name}.twig         # Template Twig avec paramètres
 ├── {component-name}.yml          # Données par défaut pour preview
 ├── {component-name}.stories.jsx  # Stories Storybook (variants)
-└── {component-name}.mdx          # Documentation Storybook
+└── {component-name}.mdx          # Documentation Storybook (opening description ≤ 2 lines)
 ```
 
 **Niveaux (levels)** : `elements`, `components`, `collections`, `layouts`, `pages`
@@ -243,7 +243,7 @@ import * as ComponentStories from './component.stories';
 
 # {Component Name}
 
-Le {component name} est un {level} qui permet de {description courte}.
+Brève description en deux lignes maximum : rôle du composant et comportement principal. Les détails (props, accessibilité, tokens, variants, cas d’usage) sont documentés dans les sections suivantes.
 
 ## Spécifications techniques
 

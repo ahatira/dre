@@ -9,44 +9,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `User or entity visual representation with automatic fallback modes.
-
-**Key Features:**
-- 3 display modes: image (src) → initials fallback → gender icon fallback
-- 5 sizes: xs (24px), sm (32px), md (40px, default), lg (48px), xl (80px)
-- 3 shapes: circle (default), square, rounded (adaptive radius per size)
-- Status badge: online (green), offline (gray), busy (red) at bottom-right corner
-- Optional white border for dark backgrounds
-- Clickable variant with hover scale and focus outline
-
-**Usage Guidelines:**
-- Always provide alt text when image is present
-- Use initials (2 chars max) as first fallback before icon
-- Prefer circle for profiles; rounded for team/group contexts
-- Status badge only for real-time presence indicators
-- Size xs for buttons/lists, sm for comments, md for headers, lg/xl for profiles
-- Border only on dark/image backgrounds where contrast is low
-
-**Accessibility:**
-- alt attribute required when src provided (screen reader label)
-- Initials displayed as readable text (no aria-label needed)
-- Icon fallback marked aria-hidden (decorative only)
-- Status badge includes descriptive aria-label ("Online", "Busy", "Offline")
-- Focus outline only when clickable=true (keyboard navigation)
-- Contrast verified for all color variants (WCAG AA)
-
-**Design Tokens:**
-- Sizing: --size-6 (xs), --size-8 (sm), --size-10 (md), --size-12 (lg), --size-20 (xl)
-- Typography: --font-size-xs/sm/0/2/4 --font-weight-600
-- Colors: --brand-primary (initials bg), --gray-* (backgrounds), --green/red-600 (status)
-- Radius: --radius-2/3/4/5/6 (adaptive rounded scaling)
-- Border: --border-size-1/2
-
-**Do Not:**
-- Use avatar as sole identifier (pair with name text)
-- Omit alt when image present
-- Rely on status color alone (include text context)
-- Hardcode dimensions or colors`,
+        component:
+          'User or entity avatar with automatic fallbacks: image, initials, or generic icon. Supports shapes, sizes, status badge, optional border, and clickable variant using tokens.'
       },
     },
   },

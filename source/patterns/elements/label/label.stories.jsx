@@ -7,19 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Form field label component with required indicator and accessibility support.
-
-**Key Features:**
-- Semantic <label> element with proper for attribute binding
-- Required indicator with visual (*) and accessible text
-- Disabled state with reduced opacity
-- Flexible attributes for custom HTML attributes
-- Visually hidden text for screen readers on required fields
-
-**Usage:**
-- Always associate label with input via forId parameter
-- Use required parameter to add visual and accessible required indicator
-- Disabled state should match associated input field state`,
+        component: 'Accessible form field label with required indicator, disabled state, and flexible attributes. Uses semantic <label> binding and supports screen reader text via tokens and structured markup.'
       },
     },
   },

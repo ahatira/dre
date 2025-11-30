@@ -16,7 +16,7 @@ source/patterns/{category}/{component-name}/
 ├── {component-name}.css        # Styles BEM avec tokens uniquement
 ├── {component-name}.yml        # Données par défaut pour preview
 ├── {component-name}.stories.jsx # Stories Storybook (Twig render)
-└── README.md                   # Documentation (optionnel mais recommandé)
+└── README.md                   # Documentation (obligatoire, concise description ≤ 2 lines)
 ```
 
 ---
@@ -215,7 +215,7 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: 'Description complète du composant avec variants, modifiers, et use cases.',
+        component: 'Brève description (deux lignes max) résumant le rôle et le comportement. Les détails (props, accessibilité, tokens, use cases) sont documentés dans les sections dédiées.',
       },
     },
   },

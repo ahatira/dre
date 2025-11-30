@@ -37,7 +37,7 @@
   2. `.css` - Styles BEM avec tokens uniquement
   3. `.yml` - Données par défaut pour preview
   4. `.stories.jsx` - Stories Storybook (variants)
-  5. `.mdx` - Documentation Storybook
+  5. `.mdx` - Documentation Storybook (opening description ≤ 2 lines)
 - **Intégration Drupal** : Exemples dans `templates/`.
 - **Linting** : Automatique via watch/build (voir `vite.config.js`).
 - **Demo** : Storybook statique [ici](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/).
@@ -75,6 +75,7 @@
 - **See `.github/COMPONENT_TEMPLATE_STANDARD.md` for MANDATORY component template (analyzed from button reference).**
 - **See `.github/CSS_STANDARDS.md` for complete CSS standards (stack, nesting, tokens, accessibility, performance).**
 - **See `.github/STORYBOOK_DOC_TEMPLATE.md` for Storybook documentation format (Autodocs, argTypes, stories structure).**
+  - Enforce concise descriptions: main description MUST be ≤ two lines.
 - **See `.github/COMPONENT_AUDIT_PROMPT.md` for conformity audit (run after implementation).**
 - **See `.github/STANDARDIZE_COMPONENT_PROMPT.md` for standardization workflow.**
 
@@ -196,6 +197,7 @@ These will ALWAYS be rejected:
 - Classes for default values in markup
 - Flat CSS without nesting (new components)
 - Skipping accessibility (focus-visible, ARIA, contrast)
+ - Overly long component descriptions (Storybook/MDX): opening text must be ≤ two lines
 
 ## 📚 Complete Documentation Hierarchy
 
@@ -205,6 +207,7 @@ These will ALWAYS be rejected:
 4. `.github/STORYBOOK_DOC_TEMPLATE.md` ← Autodocs format
 5. `.github/COMPONENT_AUDIT_PROMPT.md` ← Post-implementation audit
 6. `.github/STANDARDIZE_COMPONENT_PROMPT.md` ← Refactor workflow
+ 7. Concise Descriptions Standard → All component docs must start with a short two-line summary; move details to Props, Accessibility, Tokens, Variants, Use Cases.
 
 **When in doubt**: Consult `.github/COMPLETE_RULES.md` first, then specific docs as needed.
 

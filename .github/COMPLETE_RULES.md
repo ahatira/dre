@@ -961,6 +961,16 @@ This includes:
 
 **Exception**: User-facing content in Twig templates (e.g., button labels, form placeholders) can be in French.
 
+### C. Concise Descriptions (MANDATORY)
+
+All component documentation descriptions must be concise:
+
+- Max two lines total (roughly 160–220 characters)
+- Applies to Storybook `parameters.docs.description.component` and the opening of README.md
+- Use a plain, action-oriented summary (purpose + key behavior)
+- Move details to Props, Accessibility, Tokens, and Showcase sections
+- Do not include exhaustive feature lists or multi-paragraph text at the top
+
 ### B. README.md Obligatoire
 
 Chaque composant **DOIT** avoir un `README.md` avec :
@@ -1226,6 +1236,7 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 - [ ] **ArgTypes catégorisés** (Content, Appearance, Behavior, Link, Accessibility, Layout)
 - [ ] **Listes centralisées** (JSON imports)
 - [ ] **Autodocs** avec description complète
+- [ ] Main description ≤ two lines (concise)
 - [ ] **Tags** : `['autodocs']`
 
 ### YAML
@@ -1236,6 +1247,7 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 ### README
 
 - [ ] Description concise
+- [ ] Opening description ≤ two lines (concise)
 - [ ] Table des props complète
 - [ ] BEM structure documentée
 - [ ] Design tokens listés

@@ -55,7 +55,7 @@ This applies to:
 
 ---
 
-### 2. Export default avec parameters.docs.description.component (OBLIGATOIRE)
+### 2. Export default avec parameters.docs.description.component (OBLIGATOIRE, BRÈVE)
 
 ```jsx
 export default {
@@ -67,13 +67,8 @@ export default {
     docs: {
       description: {
         component:
-          '[Description principale du composant].\n\n' +
-          '- **[Section 1]**: [Détails].\n' +
-          '- **[Section 2]**: [Détails].\n' +
-          '- **[Section 3]**: [Détails].\n' +
-          '- **Accessibilité**: [Points clés].\n' +
-          '- **Design tokens**: [Tokens principaux].\n' +
-          '- **Rendu minimal**: [Note sur le markup minimal].',
+          '[Brève description en deux lignes max: rôle et comportement principal].\n\n' +
+          'Détails complets dans les sections Props, Accessibilité, Tokens et Showcases.',
       },
     },
   },
