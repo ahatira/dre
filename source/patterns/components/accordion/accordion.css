@@ -49,25 +49,17 @@
     /* Transitions */
     transition: background-color 150ms var(--ease-out-2);
     
-    &:hover {
-      background-color: var(--gray-50);
-    }
-    
     &:focus-visible {
       outline: var(--border-size-2) solid var(--brand-primary);
       outline-offset: calc(-1 * var(--border-size-2));
       position: relative;
       z-index: 1;
     }
-    
-    &:active {
-      background-color: var(--gray-100);
-    }
   }
   
   & .ps-accordion__title {
     flex: 1;
-    font-weight: var(--font-weight-600);
+    font-weight: var(--font-weight-500);
     color: var(--gray-900);
   }
   
@@ -80,23 +72,23 @@
     height: var(--size-5);
     flex-shrink: 0;
     
-    /* Plus icon via CSS (collapsed state) */
+    /* Chevron down icon (collapsed state) */
     &::before {
       content: '';
       display: block;
       width: 16px;
       height: 16px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23374151' d='M8 3v10M3 8h10' stroke='currentColor' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23374151' d='M4 6l4 4 4-4' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
       transition: transform 200ms var(--ease-out-2);
     }
     
-    /* Rotate to minus when expanded */
+    /* Rotate 180deg to chevron up when expanded */
     [aria-expanded="true"] & {
       &::before {
-        transform: rotate(90deg);
+        transform: rotate(180deg);
       }
     }
   }
@@ -131,12 +123,11 @@
     }
   }
   
-  /* Open state styling */
-  & .ps-accordion__item--open {
-    & .ps-accordion__trigger {
-      background-color: var(--gray-50);
-    }
-  }
+}
+
+/* Open state styling - no visual change, managed by icon rotation */
+.ps-accordion__item--open {
+  /* State class for JS, no additional styling needed */
 }
 
 /* Variant: No borders */
