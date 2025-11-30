@@ -1,10 +1,11 @@
 {#
- * Icon element - Uses icon fonts from source/props/icons.css
- * @param string name - Icon class name (required) - Full class: 'icon-account', 'icon-search', 'icon-poi-hotel', etc.
- * @param string size - small | medium | large | xlarge (default: medium)
- * @param string color - Custom color (optional, inherits by default)
- * @param boolean disabled - Disabled state (default: false)
- * @param string ariaLabel - Accessibility label (optional, use for informative icons)
+ * Icon (Atom) - Icon font element from bnpre-icons
+ *
+ * @param string name - Icon name WITHOUT "icon-" prefix (e.g., 'search', 'check', 'poi-hotel') (required)
+ * @param string size - small|medium|large|xlarge (default: medium)
+ * @param string color - Custom CSS color value or design token (default: inherit)
+ * @param boolean disabled - Disabled state with reduced opacity (default: false)
+ * @param string ariaLabel - Accessibility label for informative icons (optional, omit for decorative)
  #}
 
 {% set name = name|default('icon-search') %}

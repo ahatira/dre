@@ -1,35 +1,35 @@
-/** 
+/**
  * Icon (Element/Atom)
- * Icon font system using bnpre-icons and bnpre-icons-poi fonts from source/props/icons.css
- * 
+ * Icon font system using bnpre-icons and bnpre-icons-poi fonts
+ *
+ * BEM: ps-icon (used as modifiers on base icon classes)
  * Base classes: .icon-* and .icon-poi-* (defined in source/props/icons.css)
- * Modifiers: --small, --medium, --large, --xlarge, --disabled
- * Sizes: small (16px), medium (20px), large (24px), xlarge (32px)
- * 
+ * Modifiers: --small (16px), --medium (20px), --large (24px), --xlarge (32px), --disabled
+ *
  * Usage: <i class="icon-search ps-icon--medium"></i>
  * Usage: <i class="icon-poi-hotel ps-icon--large"></i>
  */
 
-/* Size Modifiers */
-.ps-icon--small {
-  font-size: var(--size-4) !important; /* 16px */
-}
+.ps-icon {
+  &--small {
+    font-size: var(--size-4) !important;
+  }
 
-.ps-icon--medium {
-  font-size: var(--size-5) !important; /* 20px */
-}
+  &--medium {
+    font-size: var(--size-5) !important;
+  }
 
-.ps-icon--large {
-  font-size: var(--size-6) !important; /* 24px */
-}
+  &--large {
+    font-size: var(--size-6) !important;
+  }
 
-.ps-icon--xlarge {
-  font-size: var(--size-8) !important; /* 32px */
-}
+  &--xlarge {
+    font-size: var(--size-8) !important;
+  }
 
-/* State Modifiers - Disabled */
-.ps-icon--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }

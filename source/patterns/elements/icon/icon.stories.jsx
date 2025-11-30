@@ -8,34 +8,74 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: `Système d'icônes (bnpre-icons + bnpre-icons-poi). 
-Groupement visuel par catégorie selon la maquette: Generic, Mobile only, Tutoffice, Social media, Tools, Univers, Ad, Autres.
-Toutes les classes proviennent de \`source/props/icons.css\` (générées depuis le SVG).`,
+        component: `Icon font system using bnpre-icons and bnpre-icons-poi fonts.
+
+**Key Features:**
+- Icon fonts defined in \`source/props/icons.css\` (generated from SVGs)
+- Organized by category: Generic, Mobile, Tutoffice, Social, Tools, Univers, Ad, POI
+- 4 sizes: small (16px), medium (20px), large (24px), xlarge (32px)
+- Supports custom colors via CSS color property
+- Accessibility: aria-label for informative icons, aria-hidden for decorative
+- Icon names without "icon-" prefix in component prop
+
+**Usage:**
+- Use \`@elements/icon/icon.twig\` component for controllable icons
+- Icon name prop: \`search\`, \`check\`, \`poi-hotel\` (without "icon-" prefix)
+- All icon mappings centralized in \`source/props/icons.css\``,
       },
     },
   },
   argTypes: {
+    // Content
     name: {
-      description: 'Nom de classe icone',
+      description: 'Icon name without "icon-" prefix (e.g., search, check, pin-map, poi-hotel)',
       control: { type: 'select' },
       options: iconsList.all,
+      table: {
+        category: 'Content',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'search' },
+      },
     },
+    // Appearance
     size: {
-      description: 'Taille',
+      description: 'Icon size (small: 16px, medium: 20px, large: 24px, xlarge: 32px)',
       control: { type: 'select' },
       options: ['small', 'medium', 'large', 'xlarge'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'small | medium | large | xlarge' },
+        defaultValue: { summary: 'medium' },
+      },
     },
     color: {
-      description: 'Couleur (token ou valeur CSS)',
+      description: 'Custom color (CSS color value or design token)',
       control: { type: 'color' },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'inherit' },
+      },
     },
+    // Behavior
     disabled: {
-      description: 'État disabled',
+      description: 'Disabled state (50% opacity, no pointer events)',
       control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
+    // Accessibility
     ariaLabel: {
-      description: 'Label accessibilité',
+      description: 'Accessibility label (use for informative icons, omit for decorative)',
       control: { type: 'text' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
     },
   },
 };
@@ -60,18 +100,22 @@ export const AllSizes = {
   `,
 };
 
-export const CustomColors = {
+export const AllColors = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); align-items: center;">
       ${icon({ name: 'icon-check', size: 'xlarge', color: 'var(--bnp-green)' })}
+      <span>Success (green)</span>
       ${icon({ name: 'icon-close', size: 'xlarge', color: 'var(--red-600)' })}
+      <span>Danger (red)</span>
       ${icon({ name: 'icon-infos', size: 'xlarge', color: 'var(--blue-500)' })}
+      <span>Info (blue)</span>
       ${icon({ name: 'icon-help', size: 'xlarge', color: 'var(--amber-500)' })}
+      <span>Warning (amber)</span>
     </div>
   `,
 };
 
-export const Disabled = {
+export const AllStates = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); align-items: center;">
       ${icon({ name: 'icon-search', size: 'xlarge', disabled: false })}
@@ -82,8 +126,8 @@ export const Disabled = {
   `,
 };
 
-export const Categories = {
-  name: 'Galerie catégorisée',
+export const AllIcons = {
+  name: 'All Icons (Categorized)',
   render: () => {
     const categories = iconsList.categories || {};
     const used = new Set();
@@ -113,7 +157,7 @@ export const Categories = {
           )
           .join('')}
         <section>
-          <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">Autres</h3>
+          <h3 style="margin:0 0 var(--size-4); font-size: var(--font-size-3);">Others</h3>
           <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--size-4);">
             ${others
               .map(
@@ -132,55 +176,37 @@ export const Categories = {
   },
 };
 
-export const SearchExample = {
-  name: 'Example: Search Icons',
+export const UseCases = {
   render: () => `
-    <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-search', size: 'medium' })}
-      ${icon({ name: 'icon-pin-map', size: 'medium' })}
-      ${icon({ name: 'icon-map', size: 'medium' })}
-      ${icon({ name: 'icon-around-me', size: 'medium' })}
-    </div>
-  `,
-};
-
-export const NavigationExample = {
-  name: 'Example: Navigation Icons',
-  render: () => `
-    <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-arrow-left', size: 'medium' })}
-      ${icon({ name: 'icon-arrow-right', size: 'medium' })}
-      ${icon({ name: 'icon-arrow-top', size: 'medium' })}
-      ${icon({ name: 'icon-arrow-down', size: 'medium' })}
-      ${icon({ name: 'icon-big-arrow-left', size: 'medium' })}
-      ${icon({ name: 'icon-big-arrow-right', size: 'medium' })}
-    </div>
-  `,
-};
-
-export const ActionsExample = {
-  name: 'Example: Action Icons',
-  render: () => `
-    <div style="display: flex; gap: var(--size-6); align-items: center;">
-      ${icon({ name: 'icon-check', size: 'medium', color: 'var(--bnp-green)' })}
-      ${icon({ name: 'icon-close', size: 'medium', color: 'var(--red-600)' })}
-      ${icon({ name: 'icon-edit', size: 'medium' })}
-      ${icon({ name: 'icon-bin', size: 'medium' })}
-      ${icon({ name: 'icon-share', size: 'medium' })}
-      ${icon({ name: 'icon-send', size: 'medium' })}
-    </div>
-  `,
-};
-
-// Exemples spécifiques conservés
-export const CheckboxIcons = {
-  name: 'Exemple: Checkbox',
-  render: () => `
-    <div style="display:flex; gap:var(--size-6); align-items:center;">
-      ${icon({ name: 'icon-checkbox', size: 'medium' })}
-      ${icon({ name: 'icon-checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
-      ${icon({ name: 'icon-radio-unselected', size: 'medium' })}
-      ${icon({ name: 'icon-radio-selected', size: 'medium', color: 'var(--bnp-green)' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Search & Navigation</h3>
+        <div style="display: flex; gap: var(--size-6); align-items: center;">
+          ${icon({ name: 'icon-search', size: 'medium' })}
+          ${icon({ name: 'icon-pin-map', size: 'medium' })}
+          ${icon({ name: 'icon-arrow-left', size: 'medium' })}
+          ${icon({ name: 'icon-arrow-right', size: 'medium' })}
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Actions</h3>
+        <div style="display: flex; gap: var(--size-6); align-items: center;">
+          ${icon({ name: 'icon-check', size: 'medium', color: 'var(--bnp-green)' })}
+          ${icon({ name: 'icon-close', size: 'medium', color: 'var(--red-600)' })}
+          ${icon({ name: 'icon-edit', size: 'medium' })}
+          ${icon({ name: 'icon-bin', size: 'medium' })}
+          ${icon({ name: 'icon-share', size: 'medium' })}
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Form Controls</h3>
+        <div style="display: flex; gap: var(--size-6); align-items: center;">
+          ${icon({ name: 'icon-checkbox', size: 'medium' })}
+          ${icon({ name: 'icon-checkbox-checked', size: 'medium', color: 'var(--bnp-green)' })}
+          ${icon({ name: 'icon-radio-unselected', size: 'medium' })}
+          ${icon({ name: 'icon-radio-selected', size: 'medium', color: 'var(--bnp-green)' })}
+        </div>
+      </div>
     </div>
   `,
 };

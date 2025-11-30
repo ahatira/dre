@@ -1,4 +1,5 @@
-# Default: Search icon
-name: 'icon-search'
-size: 'medium'
-disabled: false
+# Icon (Atom) - Icon font element
+# Default configuration: Search icon, medium size
+name: 'icon-search' # Icon name (without "icon-" prefix in component usage)
+size: 'medium' # Size: small (16px), medium (20px), large (24px), xlarge (32px)
+disabled: false # Disabled state (50% opacity, no pointer events)
