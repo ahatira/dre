@@ -1,0 +1,90 @@
+{#
+ * Card (Molecule) - Content presentation with image, title, description, meta, and actions
+ *
+ * @param string variant - Card variant: product|news|publication|solution|study|push|featured|compact (default: product)
+ * @param string layout - Card layout: vertical|horizontal (default: vertical)
+ * @param object image - Image data with url and alt properties (optional)
+ * @param string image.url - Image source URL
+ * @param string image.alt - Image alternative text
+ * @param string badge - Badge text to display on the card (optional)
+ * @param string eyebrow - Eyebrow text above title (optional)
+ * @param string title - Card title (required)
+ * @param string description - Card description text (optional)
+ * @param array meta - Array of metadata items with icon and text properties (optional)
+ * @param string meta[].icon - Icon name for metadata item
+ * @param string meta[].text - Text for metadata item
+ * @param object cta - Call-to-action button configuration (optional)
+ * @param string cta.text - CTA button text
+ * @param string cta.url - CTA button URL
+ * @param string cta.variant - CTA button variant (default: primary)
+ * @param string url - Card link URL (optional, wraps entire card)
+ * @param object attributes - Additional HTML attributes
+ #}
+
+{%- set variant = variant|default('product') -%}
+{%- set layout = layout|default('vertical') -%}
+
+{%- set card_classes = ['ps-card'] -%}
+{%- if variant != 'product' -%}
+  {%- set card_classes = card_classes|merge(['ps-card--' ~ variant]) -%}
+{%- endif -%}
+{%- if layout != 'vertical' -%}
+  {%- set card_classes = card_classes|merge(['ps-card--' ~ layout]) -%}
+{%- endif -%}
+
+{%- set tag = url ? 'a' : 'article' -%}
+
+<{{ tag }}
+  {%- if attributes %} {{ attributes.addClass(card_classes) }}{% else %} class="{{ card_classes|join(' ')|trim }}"{% endif -%}
+  {%- if url %} href="{{ url }}"{% endif -%}
+>
+  {%- if image -%}
+    <div class="ps-card__image">
+      <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" />
+    </div>
+  {%- endif -%}
+
+  <div class="ps-card__content">
+    {%- if badge -%}
+      {%- include '@elements/badge/badge.twig' with {
+        text: badge,
+        size: 'small',
+        color: 'primary'
+      } only -%}
+    {%- endif -%}
+
+    {%- if eyebrow -%}
+      <div class="ps-card__eyebrow">{{ eyebrow }}</div>
+    {%- endif -%}
+
+    <h3 class="ps-card__title">{{ title }}</h3>
+
+    {%- if description -%}
+      <p class="ps-card__description">{{ description }}</p>
+    {%- endif -%}
+
+    {%- if meta -%}
+      <ul class="ps-card__meta">
+        {%- for item in meta -%}
+          <li class="ps-card__meta-item">
+            {%- if item.icon -%}
+              <span class="ps-card__meta-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+            {%- endif -%}
+            <span class="ps-card__meta-text">{{ item.text }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if cta -%}
+      <div class="ps-card__actions">
+        {%- include '@elements/button/button.twig' with {
+          label: cta.text,
+          url: cta.url,
+          variant: cta.variant|default('primary'),
+          size: 'small'
+        } only -%}
+      </div>
+    {%- endif -%}
+  </div>
+</{{ tag }}>

@@ -1,0 +1,217 @@
+/* ============================================
+   Card (Molecule) - Content presentation
+   ============================================ */
+
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: var(--border-size-1) solid var(--gray-200);
+  border-radius: var(--radius-4);
+  overflow: hidden;
+  transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2);
+
+  /* Base: Image */
+  &__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--gray-100);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Base: Content wrapper */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    padding: var(--size-5);
+  }
+
+  /* Base: Eyebrow */
+  &__eyebrow {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-600);
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  /* Base: Title */
+  &__title {
+    margin: 0;
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-700);
+    line-height: var(--leading-tight);
+    color: var(--gray-900);
+  }
+
+  /* Base: Description */
+  &__description {
+    margin: 0;
+    font-size: var(--font-size-1);
+    line-height: var(--leading-normal);
+    color: var(--gray-700);
+  }
+
+  /* Base: Meta list */
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    font-size: var(--font-size-0);
+    color: var(--gray-600);
+  }
+
+  &__meta-icon {
+    display: inline-flex;
+    width: var(--size-4);
+    height: var(--size-4);
+    color: var(--gray-500);
+  }
+
+  /* Base: Actions */
+  &__actions {
+    margin-top: auto;
+    padding-top: var(--size-2);
+  }
+
+  /* Modifier: Horizontal layout */
+  &--horizontal {
+    flex-direction: row;
+
+    .ps-card__image {
+      flex-shrink: 0;
+      width: 40%;
+      aspect-ratio: 1 / 1;
+    }
+
+    .ps-card__content {
+      flex: 1;
+    }
+  }
+
+  /* Modifier: News variant */
+  &--news {
+    .ps-card__eyebrow {
+      color: var(--blue-600);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  /* Modifier: Publication variant */
+  &--publication {
+    .ps-card__eyebrow {
+      color: var(--sky-600);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  /* Modifier: Solution variant */
+  &--solution {
+    .ps-card__eyebrow {
+      color: var(--green-600);
+    }
+  }
+
+  /* Modifier: Study variant */
+  &--study {
+    .ps-card__eyebrow {
+      color: var(--gray-700);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  /* Modifier: Push variant (featured highlight) */
+  &--push {
+    border-color: var(--green-600);
+    border-width: var(--border-size-2);
+
+    .ps-card__title {
+      color: var(--green-600);
+    }
+  }
+
+  /* Modifier: Featured variant */
+  &--featured {
+    box-shadow: var(--shadow-3);
+
+    .ps-card__content {
+      padding: var(--size-6);
+    }
+
+    .ps-card__title {
+      font-size: var(--font-size-4);
+    }
+  }
+
+  /* Modifier: Compact variant */
+  &--compact {
+    .ps-card__content {
+      gap: var(--size-2);
+      padding: var(--size-4);
+    }
+
+    .ps-card__title {
+      font-size: var(--font-size-2);
+    }
+
+    .ps-card__description {
+      font-size: var(--font-size-0);
+    }
+
+    .ps-card__image {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  /* State: Hover (for linked cards) */
+  &:hover {
+    box-shadow: var(--shadow-4);
+  }
+
+  /* State: Focus (for linked cards) */
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--blue-600);
+    outline-offset: var(--size-1);
+  }
+
+  /* Link card styling */
+  &[href] {
+    text-decoration: none;
+    cursor: pointer;
+
+    .ps-card__title {
+      color: var(--gray-900);
+      transition: color var(--ps-transition-duration-normal) var(--ease-out-2);
+    }
+
+    &:hover .ps-card__title {
+      color: var(--green-600);
+    }
+  }
+}

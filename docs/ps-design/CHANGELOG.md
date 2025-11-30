@@ -1,3 +1,24 @@
+- 2025-11-30: **card** - Composant complet conforme template standard
+  - Props : variant (product|news|publication|solution|study|push|featured|compact), layout (vertical|horizontal), title (required), description, eyebrow, badge, image (url,alt), meta[] (icon,text), cta (text,url,variant), url (clickable card), attributes
+  - Variants : product (défaut 16:9), news (4:3 blue eyebrow), publication (3:4 portrait sky eyebrow), solution (green eyebrow), study (1:1 gray eyebrow), push (green 2px border), featured (shadow + large padding), compact (reduced spacing)
+  - Layouts : vertical (défaut), horizontal (image 40% left, 1:1 aspect)
+  - BEM strict : `.ps-card`, `.ps-card__image`, `.ps-card__content`, `.ps-card__eyebrow`, `.ps-card__title`, `.ps-card__description`, `.ps-card__meta`, `.ps-card__meta-item`, `.ps-card__meta-icon`, `.ps-card__meta-text`, `.ps-card__actions`
+  - Modifiers indépendants : `--news`, `--publication`, `--solution`, `--study`, `--push`, `--featured`, `--compact`, `--horizontal`
+  - HTML minimal : classe base seule par défaut (product + vertical), modifiers ajoutés seulement si variant/layout différents
+  - **Badge via @elements/badge** : utilise composant badge.twig (size small, color primary)
+  - **Button via @elements/button** : utilise composant button.twig (size small, variant customizable)
+  - **Icons via data-icon** : meta icons utilisent attribut `data-icon` (sans préfixe "icon-"), aria-hidden décoratif
+  - Tokens utilisés : --white, --gray-* (100,200,500,600,700,900), --blue-600, --sky-600, --green-600, --font-size-* (sm,0,1,2,3,4), --font-weight-* (600,700), --leading-* (tight,normal), --tracking-wide, --size-* (1,2,3,4,5,6), --radius-4, --border-size-* (1,2), --shadow-* (3,4), --ps-transition-duration-normal, --ease-out-2
+  - Aucun nouveau token créé : tous les tokens existants suffisants
+  - Stories Storybook : 10 stories (Default, AllVariants, FeaturedAndCompact, AllLayouts, WithAndWithoutImages, AsLinks, UseCases)
+  - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+  - Accessibilité : `<article>` par défaut ou `<a>` si url fourni, `<h3>` pour titre (ajustable), alt obligatoire sur images, loading="lazy", focus-visible outline, aria-hidden sur meta icons, keyboard navigation pour cards cliquables, contraste WCAG AA
+  - Semantic HTML : article autonome, heading hierarchy, ordered list pour meta, figure pour images
+  - CSS nesting moderne : structure &__element, &--modifier, cascade order (base → elements → modifiers → states)
+  - Hover & focus : box-shadow transition sur hover, outline focus visible, title color change sur linked cards
+  - Use cases : property listings grid, news/blog feed (horizontal), publications library (portrait), featured content (push/featured), related content (compact), service pages (solution variant)
+  - Build : validé (npm run build) - aucune erreur après formatage Biome
+  - **Audit conformité** : 100% - 5 fichiers obligatoires, BEM strict ps- préfixe, tokens uniquement (0 hardcoded values), minimal markup, modifiers indépendants, CSS nesting complet, description README ≤ 2 lignes, argTypes catégorisés, stories showcases (pas individual), accessibilité complète
 - 2025-11-30: **breadcrumb** - Composant complet conforme template standard + **PIXEL PERFECT Figma**
   - Props : items (array required - label, url?, icon?), compact (bool), truncate (bool), attributes
   - Variants : standard (défaut), compact (font réduite + gaps réduits), truncate (max-width 16ch)

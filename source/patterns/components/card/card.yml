@@ -1,0 +1,59 @@
+# Default card (product variant, vertical layout)
+variant: product
+layout: vertical
+title: 'Luxury Apartment in Paris 15th'
+description: 'Bright 3-room apartment, close to metro, 65m², fully renovated with modern amenities.'
+image:
+  url: 'https://picsum.photos/800/450?random=1'
+  alt: 'Modern apartment interior'
+eyebrow: 'Apartment'
+meta:
+  - icon: 'pin-map'
+    text: 'Paris 15th'
+  - icon: 'surface'
+    text: '65 m²'
+  - icon: 'bedroom'
+    text: '3 rooms'
+cta:
+  text: 'View Property'
+  url: '#property-123'
+  variant: 'primary'
+
+# News card variant example
+# variant: news
+# layout: vertical
+# title: 'BNP Paribas Real Estate announces Q4 results'
+# description: 'Strong performance across all business units with significant growth in commercial real estate.'
+# image:
+#   url: 'https://picsum.photos/800/600?random=2'
+#   alt: 'Office building'
+# eyebrow: 'Company News'
+# meta:
+#   - icon: 'calendar'
+#     text: 'March 15, 2025'
+#   - icon: 'user'
+#     text: 'John Doe'
+# cta:
+#   text: 'Read More'
+#   url: '#news-456'
+#   variant: 'primary'
+
+# Publication card variant example
+# variant: publication
+# layout: vertical
+# title: 'Market Trends 2025: Real Estate Outlook'
+# description: 'Comprehensive analysis of global real estate markets and investment opportunities.'
+# image:
+#   url: 'https://picsum.photos/600/800?random=3'
+#   alt: 'Report cover'
+# badge: 'New Report'
+# eyebrow: 'Research Report'
+# meta:
+#   - icon: 'download'
+#     text: 'PDF 2.5 MB'
+#   - icon: 'calendar'
+#     text: 'March 2025'
+# cta:
+#   text: 'Download'
+#   url: '#download-789'
+#   variant: 'primary'
