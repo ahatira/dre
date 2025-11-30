@@ -1,59 +1,108 @@
-# Default card (product variant, vertical layout)
+# Default card (product variant, vertical layout - PIXEL PERFECT)
 variant: product
 layout: vertical
-title: 'Luxury Apartment in Paris 15th'
-description: 'Bright 3-room apartment, close to metro, 65m², fully renovated with modern amenities.'
+title: 'Product title'
+price: '20 000 €'
+surface: '611.3 m²'
+favorite: false
+favoriteActive: false
 image:
-  url: 'https://picsum.photos/800/450?random=1'
-  alt: 'Modern apartment interior'
-eyebrow: 'Apartment'
+  url: 'https://picsum.photos/400/400?random=1'
+  alt: 'Product image'
 meta:
   - icon: 'pin-map'
-    text: 'Paris 15th'
-  - icon: 'surface'
-    text: '65 m²'
-  - icon: 'bedroom'
-    text: '3 rooms'
+    text: 'Location'
 cta:
-  text: 'View Property'
+  text: 'Consulter l''annonce'
   url: '#property-123'
-  variant: 'primary'
+  outline: false
 
-# News card variant example
+# News card variant example (PIXEL PERFECT)
 # variant: news
 # layout: vertical
-# title: 'BNP Paribas Real Estate announces Q4 results'
-# description: 'Strong performance across all business units with significant growth in commercial real estate.'
+# tag: 'TAG LABEL'
+# date: 'DATE'
+# title: 'News title'
+# description: 'Lorem ipsum dolor sit amet consectetur. Ut nulla convallis tincidunt lacinia volutpat diam pharetra...'
 # image:
-#   url: 'https://picsum.photos/800/600?random=2'
-#   alt: 'Office building'
-# eyebrow: 'Company News'
-# meta:
-#   - icon: 'calendar'
-#     text: 'March 15, 2025'
-#   - icon: 'user'
-#     text: 'John Doe'
+#   url: 'https://picsum.photos/800/450?random=2'
+#   alt: 'News image'
 # cta:
-#   text: 'Read More'
+#   text: 'Lire la suite'
 #   url: '#news-456'
-#   variant: 'primary'
+#   outline: false
 
-# Publication card variant example
+# Product card horizontal with status (PIXEL PERFECT)
+# variant: product
+# layout: horizontal
+# title: 'Rent Offices MADRID Barrio de Chamberí'
+# surface: '611.3 m²'
+# price: '20 000 € HT/HC/m²/an'
+# favorite: true
+# favoriteActive: false
+# status:
+#   viewed: true
+#   exclusivity: true
+# image:
+#   url: 'https://picsum.photos/600/450?random=3'
+#   alt: 'Office space'
+# meta:
+#   - icon: 'pin-map'
+#     text: '28010 MADRID'
+# cta:
+#   text: 'View the property'
+#   url: '#property-789'
+#   outline: false
+
+# Publication card variant (PIXEL PERFECT)
 # variant: publication
 # layout: vertical
-# title: 'Market Trends 2025: Real Estate Outlook'
-# description: 'Comprehensive analysis of global real estate markets and investment opportunities.'
+# title: 'Publication title'
+# description: 'Lorem ipsum dolor sit amet consectetur. Nunc sit a quis...'
+# date: 'DATE'
 # image:
-#   url: 'https://picsum.photos/600/800?random=3'
-#   alt: 'Report cover'
-# badge: 'New Report'
-# eyebrow: 'Research Report'
+#   url: 'https://picsum.photos/600/800?random=4'
+#   alt: 'Publication cover'
 # meta:
-#   - icon: 'download'
-#     text: 'PDF 2.5 MB'
-#   - icon: 'calendar'
-#     text: 'March 2025'
+#   - icon: 'pin-map'
+#     text: 'Location'
 # cta:
-#   text: 'Download'
-#   url: '#download-789'
-#   variant: 'primary'
+#   text: 'Lire l''étude'
+#   url: '#publication-321'
+#   outline: false
+
+# Solutions card variant (PIXEL PERFECT - no image, centered, with icon)
+# variant: solution
+# layout: vertical
+# icon: 'close-square'
+# title: 'Solutions title'
+# description: 'Solutions details'
+# cta:
+#   text: 'Consulter les solutions'
+#   url: '#solutions'
+#   outline: false
+
+# Studies card horizontal (PIXEL PERFECT)
+# variant: study
+# layout: horizontal
+# tag: 'TAG LABEL'
+# date: 'DATE'
+# title: 'Study title'
+# description: 'Lorem ipsum dolor sit amet consectetur. Enim fames hendrerit amet nibh tempus sit nibh facilisis. Viverra tincidunt risus a non.'
+# image:
+#   url: 'https://picsum.photos/400/400?random=5'
+#   alt: 'Study illustration'
+# cta:
+#   text: 'Télécharger l''étude'
+#   url: '#study-download'
+#   outline: true
+
+# Push card variant (PIXEL PERFECT - gray background, no border, no image)
+# variant: push
+# layout: vertical
+# title: 'Calculate the target surface area of your future offices !'
+# description: 'Quick and easy to use, the surface area calculator lets you define the m2 surface area you need in just a few clicks.'
+# cta:
+#   text: 'Start calculator'
+#   url: '#calculator'
+#   outline: true

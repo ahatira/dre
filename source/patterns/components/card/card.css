@@ -46,7 +46,7 @@
   /* Base: Title */
   &__title {
     margin: 0;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-2); /* 18px - pixel perfect */
     font-weight: var(--font-weight-700);
     line-height: var(--leading-tight);
     color: var(--gray-900);
@@ -91,14 +91,22 @@
     padding-top: var(--size-2);
   }
 
+  /* Modifier: Product variant (default but explicit for clarity) */
+  &--product {
+    .ps-card__image {
+      aspect-ratio: 1 / 1; /* Square for product cards */
+    }
+  }
+
   /* Modifier: Horizontal layout */
   &--horizontal {
     flex-direction: row;
 
     .ps-card__image {
       flex-shrink: 0;
-      width: 40%;
-      aspect-ratio: 1 / 1;
+      width: 35%; /* Pixel perfect - 35% max */
+      aspect-ratio: 4 / 3; /* Horizontal cards use 4:3 */
+      border-radius: var(--radius-4) 0 0 var(--radius-4); /* Left-only radius */
     }
 
     .ps-card__content {
@@ -113,7 +121,7 @@
     }
 
     .ps-card__image {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9; /* Pixel perfect - same as default */
     }
   }
 
@@ -130,6 +138,20 @@
 
   /* Modifier: Solution variant */
   &--solution {
+    text-align: center; /* Centered content */
+
+    .ps-card__content {
+      align-items: center; /* Center flex items */
+    }
+
+    .ps-card__icon {
+      font-size: var(--size-12); /* 48px icon */
+      width: var(--size-12);
+      height: var(--size-12);
+      color: var(--gray-900);
+      margin-bottom: var(--size-4);
+    }
+
     .ps-card__eyebrow {
       color: var(--green-600);
     }
@@ -148,11 +170,15 @@
 
   /* Modifier: Push variant (featured highlight) */
   &--push {
-    border-color: var(--green-600);
-    border-width: var(--border-size-2);
+    background: var(--gray-50); /* Gray background */
+    border: none; /* No border */
+
+    .ps-card__content {
+      padding: var(--size-8); /* Larger padding 32px */
+    }
 
     .ps-card__title {
-      color: var(--green-600);
+      font-size: var(--font-size-3); /* Larger title 20px */
     }
   }
 
@@ -177,7 +203,7 @@
     }
 
     .ps-card__title {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-1); /* 16px for compact */
     }
 
     .ps-card__description {
@@ -187,6 +213,118 @@
     .ps-card__image {
       aspect-ratio: 16 / 9;
     }
+  }
+
+  /* Modifier: Tag + Date header */
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2); /* 8px gap */
+    margin-bottom: var(--size-3); /* 12px margin */
+  }
+
+  &__tag {
+    display: inline-block;
+    padding: var(--size-1) var(--size-3); /* 4px 12px */
+    background: var(--blue-600);
+    color: var(--white);
+    font-size: var(--font-size-xs); /* 12px */
+    font-weight: var(--font-weight-600);
+    text-transform: uppercase;
+    border-radius: var(--radius-1); /* 2px */
+    line-height: 1;
+  }
+
+  &__date {
+    font-size: var(--font-size-xs); /* 12px */
+    color: var(--gray-400);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-400);
+  }
+
+  /* Modifier: Price/Surface line */
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2); /* Space around bullet */
+    font-size: var(--font-size-1); /* 16px */
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+    margin-bottom: var(--size-2);
+
+    &::after {
+      content: '•';
+      color: var(--gray-400);
+    }
+  }
+
+  &__surface {
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+  }
+
+  /* Modifier: Favorite icon */
+  &__favorite {
+    position: absolute;
+    top: var(--size-3); /* 12px */
+    right: var(--size-3);
+    width: var(--size-6); /* 24px */
+    height: var(--size-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-round);
+    cursor: pointer;
+    transition: all var(--ps-transition-duration-fast) var(--ease-out-2);
+
+    &:hover {
+      background: var(--white);
+      transform: scale(1.1);
+    }
+
+    &[data-icon] {
+      font-size: var(--size-5); /* 20px icon */
+      color: var(--gray-600);
+    }
+
+    &--active[data-icon] {
+      color: var(--red-600);
+    }
+  }
+
+  /* Modifier: Status badges */
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: var(--size-3);
+    margin-bottom: var(--size-3);
+  }
+
+  &__viewed {
+    display: flex;
+    align-items: center;
+    gap: var(--size-1);
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+
+    &::before {
+      content: '👁';
+      font-size: var(--size-4);
+    }
+  }
+
+  /* Modifier: Icon for solution cards */
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-12); /* 48px */
+    height: var(--size-12);
+    font-size: var(--size-12);
+    color: var(--gray-900);
+    margin: 0 auto var(--size-4); /* Center with bottom margin */
   }
 
   /* State: Hover (for linked cards) */
