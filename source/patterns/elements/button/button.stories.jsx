@@ -1,9 +1,6 @@
 import buttonTwig from './button.twig';
 import data from './button.yml';
-import colorsList from '../../documentation/colors-list.json';
-import sizesList from '../../documentation/sizes-list.json';
 import iconsList from '../../documentation/icons-list.json';
-import variantsList from '../../documentation/variants-list.json';
 
 export default {
   title: 'Elements/Button',
@@ -11,16 +8,47 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          'Semantic action button compliant with the Design System.\n\n' +
-          '- **Variants**: primary, secondary, success, info, warning, danger, dark, light — colors via brand tokens.\n' +
-          '- **Styles**: filled (default) and `outline` (transparent background, tokenized border).\n' +
-          '- **Sizes**: small, medium (default), large — heights/spacing driven by tokens.\n' +
-          '- **Icons**: optional left/right, via icon name (font `bnpre-icons`).\n' +
-          '- **States**: disabled and loading with compliant styles/accessibility.\n' +
-          '- **Layout**: `fullWidth` extends to 100% of container.\n' +
-          '- **Accessibility**: role/behavior button or link according to `url`; focus visible; textual label required.\n' +
-          '- **Minimal markup**: `.ps-button` carries default styles; modifiers only appear when option differs from default.',
+        component: `Interactive action trigger with semantic variants and multiple states.
+
+**Key Features:**
+- 8 semantic variants: primary (green), secondary (pink), success, info, warning, danger, dark, light
+- 2 styles: filled (default), outline (transparent bg + border)
+- 3 sizes: small (34px), medium (36px, default), large (40px)
+- Icon support: optional left/right positioning, icon-only mode
+- States: disabled (50% opacity), loading (spinner overlay)
+- Layout: fullWidth option for block-level buttons
+- Pure token implementation (colors, spacing, typography, transitions)
+
+**Usage Guidelines:**
+- Use primary for main actions; secondary for alternatives
+- Prefer semantic colors (success/danger) over generic for contextual actions
+- Outline style for less prominent actions or when stacking multiple buttons
+- Icon-only buttons require accessible label (aria-label)
+- Loading state automatically disables interaction
+- Size small for compact UIs; large for hero/CTA contexts
+- Full width for forms or mobile layouts
+
+**Accessibility:**
+- Renders <button> by default; <a> when url provided
+- Disabled state: aria-disabled + disabled attribute (button) or pointer-events none (link)
+- Loading state: aria-busy="true" announces to screen readers
+- Focus outline visible for keyboard navigation (:focus-visible)
+- Icons marked aria-hidden (label always present, visually hidden if icon-only)
+- Minimum touch target 36px (WCAG 2.2 Level A)
+- Color contrast verified for all variants (AA minimum)
+
+**Design Tokens:**
+- Colors: --btn-primary/secondary/success/info/warning/danger/dark/light + hover/active variants
+- Sizing: --size-2 (gap), --size-4 (padding), --size-9 (height md), --size-10 (height lg)
+- Typography: --font-sans, --font-weight-400, --size-305/4 (font sizes)
+- Border: --border-size-2 (outline + focus)
+- Transition: cubic-bezier(0.4, 0.0, 0.2, 1) 150ms
+
+**Do Not:**
+- Use for navigation alone (prefer link component unless button styling required)
+- Stack too many primary buttons (max 1 per screen section)
+- Omit label text (icon-only requires aria-label)
+- Hardcode colors or dimensions`,
       },
     },
   },
@@ -56,12 +84,12 @@ export default {
     },
     // Appearance
     variant: {
-      description: 'Semantic variant',
+      description: 'Semantic variant (primary: green, secondary: pink, success/info/warning/danger, dark/light)',
       control: { type: 'select' },
-      options: variantsList.color.components.button,
+      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'],
       table: {
         category: 'Appearance',
-        type: { summary: variantsList.color.components.button.join(' | ') },
+        type: { summary: 'primary | secondary | success | info | warning | danger | dark | light' },
         defaultValue: { summary: 'primary' },
       },
     },
@@ -75,12 +103,12 @@ export default {
       },
     },
     size: {
-      description: 'Button size',
+      description: 'Button size (small: 34px, medium: 36px, large: 40px)',
       control: { type: 'select' },
-      options: variantsList.size.compact,
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Appearance',
-        type: { summary: variantsList.size.compact.join(' | ') },
+        type: { summary: 'small | medium | large' },
         defaultValue: { summary: 'medium' },
       },
     },
@@ -142,7 +170,7 @@ export const Default = {
 export const AllVariants = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${variantsList.color.components.button.map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
+      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
     </div>
   `,
 };
@@ -150,7 +178,7 @@ export const AllVariants = {
 export const AllOutlines = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${variantsList.color.components.button.map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
+      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map(variant => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
     </div>
   `,
 };
@@ -158,7 +186,7 @@ export const AllOutlines = {
 export const AllSizes = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${variantsList.size.compact.map(size => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
+      ${['small', 'medium', 'large'].map(size => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
     </div>
   `,
 };
@@ -166,8 +194,8 @@ export const AllSizes = {
 export const WithIcons = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${buttonTwig({ label: 'Rechercher', variant: 'primary', icon: 'search', iconPosition: 'left' })}
-      ${buttonTwig({ label: 'Suivant', variant: 'primary', icon: 'arrow-right', iconPosition: 'right' })}
+      ${buttonTwig({ label: 'Search', variant: 'primary', icon: 'search', iconPosition: 'left' })}
+      ${buttonTwig({ label: 'Next', variant: 'primary', icon: 'arrow-right', iconPosition: 'right' })}
       ${buttonTwig({ icon: 'close', variant: 'primary', size: 'medium' })}
     </div>
   `,
@@ -180,8 +208,8 @@ export const FullWidth = {
 export const Loading = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${buttonTwig({ label: 'Chargement...', variant: 'primary', loading: true })}
-      ${buttonTwig({ label: 'Chargement...', variant: 'secondary', outline: true, loading: true })}
+      ${buttonTwig({ label: 'Loading...', variant: 'primary', loading: true })}
+      ${buttonTwig({ label: 'Loading...', variant: 'secondary', outline: true, loading: true })}
     </div>
   `,
 };
@@ -189,8 +217,8 @@ export const Loading = {
 export const Disabled = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${buttonTwig({ label: 'Désactivé', variant: 'primary', disabled: true })}
-      ${buttonTwig({ label: 'Désactivé', variant: 'secondary', outline: true, disabled: true })}
+      ${buttonTwig({ label: 'Disabled', variant: 'primary', disabled: true })}
+      ${buttonTwig({ label: 'Disabled', variant: 'secondary', outline: true, disabled: true })}
     </div>
   `,
 };
