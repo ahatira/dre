@@ -71,194 +71,137 @@
 - See `docs/ps-design/COMPONENT_TEMPLATE.md` for standard component structure (5 required files).
 - See `docs/ps-design/INDEX.md` for complete inventory and implementation phases.
 - See `docs/design/` for detailed specifications of all 87 components to implement.
+- **See `.github/COMPLETE_RULES.md` for ABSOLUTE REFERENCE - ALL project rules (1000+ lines covering EVERY standard).**
 - **See `.github/COMPONENT_TEMPLATE_STANDARD.md` for MANDATORY component template (analyzed from button reference).**
+- **See `.github/CSS_STANDARDS.md` for complete CSS standards (stack, nesting, tokens, accessibility, performance).**
+- **See `.github/STORYBOOK_DOC_TEMPLATE.md` for Storybook documentation format (Autodocs, argTypes, stories structure).**
+- **See `.github/COMPONENT_AUDIT_PROMPT.md` for conformity audit (run after implementation).**
+- **See `.github/STANDARDIZE_COMPONENT_PROMPT.md` for standardization workflow.**
 
 ---
 **For AI agents:**
-- Always follow the custom category naming and BEM conventions.
-- Use the provided npm scripts for builds and dev workflows.
-- Reference `vite.config.js` for automation details.
-- **CRITICAL - COMPONENT TEMPLATE**: ALWAYS follow `.github/COMPONENT_TEMPLATE_STANDARD.md` EXACTLY. This template is based on the validated button reference and defines the MANDATORY structure for all components (5 files: .twig, .css, .yml, .stories.jsx, README.md).
-- **CRITICAL - COMPONENT AUDIT**: After implementing a component, run conformity audit using `.github/COMPONENT_AUDIT_PROMPT.md` to ensure 100% compliance with all project rules.
-- **CRITICAL - COMPLETE IMPLEMENTATION**: When implementing a component, ALWAYS deliver:
-  1. ✅ Functional Twig template with all props and variants
-  2. ✅ Complete CSS with ALL modifiers and states working on base class
-  3. ✅ YAML with sensible defaults and documented options
-  4. ✅ **COMPLETE Storybook stories** with ALL variants individually + grouped showcase stories (AllStyles, UseCases, etc.)
-  5. ✅ **DETAILED README.md** with: description, props table, BEM structure, design tokens used, usage examples, real-world use cases, accessibility notes
-  - ❌ NEVER stop at just template/CSS - stories and docs are MANDATORY
-- **CRITICAL - STORYBOOK STORIES**: 
-  - ❌ NEVER use React/JSX in `.stories.jsx` files (this is HTML-Vite Storybook, not React)
-  - ✅ ALWAYS import Twig: `import componentTwig from './component.twig';` (use unique name like `componentTwig` to avoid conflicts)
-  - ✅ ALWAYS import YAML: `import data from './component.yml';`
-  - ✅ ALWAYS use Twig render: `render: (args) => componentTwig(args)`
-  - ✅ ALWAYS return HTML strings for showcase stories: `` `${componentTwig(args)}` ``
-  - ✅ Use Storybook Autodocs exclusively: set `tags: ['autodocs']` on the default export and DO NOT create `.mdx` docs files for components.
-  - ✅ Create individual variant stories (Default, Variant1, Variant2, etc.) AND grouped showcase stories (AllStyles, UseCases, etc.)
-- **CRITICAL - MINIMAL HTML OUTPUT**: 
-  - Default component render should produce MINIMAL markup with ONLY base class
-  - Example: `<hr class="ps-divider" />` NOT `<hr class="ps-divider ps-divider--horizontal ps-divider--solid ps-divider--medium" />`
-  - Only add modifier classes when values differ from defaults
-  - Base class (`.ps-divider`) must contain all default styles
-  - Example Twig logic:
-    ```twig
-    {%- set root_classes = ['ps-component'] -%}
-    {%- if variant != 'default' -%}
-      {%- set root_classes = root_classes|merge(['ps-component--' ~ variant]) -%}
-    {%- endif -%}
-    ```
-- **CRITICAL - CSS MODIFIERS INDEPENDENCE**: 
-  - ALL modifiers MUST work on the base class alone
-  - ❌ WRONG: `.ps-divider--horizontal.ps-divider--primary { color: green; }` (requires two classes)
-  - ✅ CORRECT: `.ps-divider--primary { border-color: var(--color-primary); }` (works alone)
-  - Base class contains default styles; modifiers override only what changes
-  - Example:
-    ```css
-    .ps-divider {
-      border-top: 2px solid var(--gray-300); /* defaults */
-      margin: var(--size-4) 0;
-    }
-    .ps-divider--primary { border-top-color: var(--bnp-green); } /* works alone */
-    .ps-divider--thick { border-top-width: 4px; } /* works alone */
-    ```
-- **CRITICAL - ICONS IMPLEMENTATION**: 
-  - **Component icon element**: Use dedicated icon component `@elements/icon/icon.twig`
-    ```twig
-    {%- include '@elements/icon/icon.twig' with {
-      name: icon,
-      size: 'small'
-    } only -%}
-    ```
-  - **Decorative icons in CSS**: Render via CSS pseudo-elements when icon is purely decorative
-  - ❌ Avoid extra markup: `<i class="icon-name"></i>` or `<svg>` or classes `ps-icon ps-icon-*`
-  - ✅ For decorative icons, use `data-icon` attribute **WITHOUT "icon-" prefix**:
-    ```html
-    <span class="ps-component__icon" data-icon="check"></span>
-    <span class="ps-component__icon" data-icon="calendar"></span>
-    ```
-  - ✅ CSS implementation: **DO NOT add data-icon mappings in component CSS**
-    - All `[data-icon]` mappings are centralized in `source/props/icons.css`
-    - Component CSS only needs font-family and basic styling:
-    ```css
-    .ps-component__icon {
-      font-family: 'bnpre-icons';
-      font-style: normal;
-      line-height: 1;
-    }
-    /* NO content mappings here - they're in icons.css */
-    ```
-  - **Props naming**: Icon prop should be named `icon` (string) accepting icon name WITHOUT prefix (e.g., 'check', 'calendar', 'medal')
-  - **Storybook control**: Use select control with `iconsList.categories.generic` for icon picker
-  - **Important**: Icon names are stored/used WITHOUT "icon-" prefix in props, data-icon, and documentation
-- **CRITICAL - SEMANTIC COLOR NAMING**:
-  - ❌ **NEVER** use color names: `'green'`, `'purple'`, `'blue'`, `'red'`, `'yellow'`
-  - ✅ **ALWAYS** use semantic names:
-    - `primary` → `--brand-primary` (green #00915A) - Main action
-    - `secondary` → `--brand-secondary` (purple #E0388C) - Secondary action
-    - `success` → `--btn-success` (green-600) - Success/validation
-    - `warning` → `--btn-warning` (yellow-500) - Warning
-    - `danger` → `--btn-danger` (red-600) - Error/danger
-    - `info` → `--btn-info` (blue-600) - Information
-  - Apply to: props, BEM classes, CSS tokens, documentation, stories, YAML
-  - If component has color variants, it MUST support ALL 6 semantic colors
-  - Example:
-    ```yaml
-    # ❌ WRONG
-    color: 'green'  # Options: green | purple | blue
-    
-    # ✅ CORRECT
-    color: 'primary'  # Options: primary | secondary | success | warning | danger | info
-    ```
-- **CRITICAL - DESIGN TOKENS FROM SPEC**: 
-  - ALWAYS read `docs/design/{level}/{component}.md` to identify correct tokens
-  - Use official spec tokens (e.g., `--ps-color-primary-600`, `--ps-color-neutral-300`) not generic ones
-  - Add fallbacks for compatibility: `var(--ps-color-neutral-300, var(--gray-300))`
-  - Verify token hex values match spec exactly
-  - Check spec sections: "Design Tokens", "🎨 Design Tokens"
-- **CRITICAL - TWIG CLASS HANDLING**: 
-  - Never add empty or undefined classes to markup
-  - Use conditional `merge()` to add classes only when needed
-  - ❌ WRONG: `text ? 'class--with-text' : ''` (adds empty string)
-  - ✅ CORRECT: 
-    ```twig
-    {%- set classes = ['base-class'] -%}
-    {%- if text -%}
-      {%- set classes = classes|merge(['base-class--with-text']) -%}
-    {%- endif -%}
-    ```
-  - Filter functions may not exist in Twig - use conditional merge instead
-- **CRITICAL - PIXEL PERFECT MANDATORY**: BEFORE implementing ANY component:
-  1. Read COMPLETE spec in `docs/design/{level}/{component}.md` (ALL sections: BEM, Props, Variants, Tokens, States, Accessibility)
-  2. Verify ALL dimensions are EXACT (heights, widths, paddings, margins, gaps, borders)
-  3. Verify ALL colors match tokens EXACTLY (check hex values in source/props/*.css)
-  4. Verify ALL typography specs (font-family, font-size, font-weight, line-height, letter-spacing)
-  5. Implement ALL interactive states (hover, focus, active, disabled) with EXACT values from spec
-  6. Test visually in Storybook - component must be IDENTICAL to design spec
-  7. NO approximations, NO "close enough" - PIXEL PERFECT or it's wrong
-- **CRITICAL**: Follow `.github/COMPONENT_TEMPLATE_STANDARD.md` structure for every new component (5 files: .twig, .css, .yml, .stories.jsx, README.md).
-- **CRITICAL**: After implementation, run audit: "Vérifie la cohérence du composant [Name] avec nos règles du projet" (see `.github/COMPONENT_AUDIT_PROMPT.md`).
-- **CRITICAL**: Always use tokens from `source/props/*.css` (colors.css, fonts.css, brand.css, sizes.css, etc.). NEVER hardcode values (#00915A, 16px, etc.).
-- **CRITICAL**: BEFORE creating a new token, ALWAYS:
-  1. Search if similar token exists: `grep -r "--token-name" source/props/`
-  2. Check for consistency with existing tokens (naming, values, progression)
-  3. Reuse existing tokens when possible
-  4. Only add new token if truly necessary
-  5. Add to appropriate file following exact naming conventions (--brand-*, --font-*, --size-*, etc.)
-  6. Document in CHANGELOG.md with justification
-- **CRITICAL - SEMANTIC COLOR NAMING**: When specs or requirements mention color variants, ALWAYS use semantic tokens from `source/props/brand.css`:
-  - **Primary** = `--brand-primary` (green #00915A)
-  - **Secondary** = `--brand-secondary` (purple/pink #E0388C)
-  - **Success** = `--btn-success` (green-600)
-  - **Warning** = `--btn-warning` (yellow-500)
-  - **Danger** = `--btn-danger` (red-600)
-  - **Info** = `--btn-info` (blue-600)
-  - ❌ NEVER use arbitrary colors - these semantic tokens are the ONLY source for variant colors
-  - Example: `.component--primary { color: var(--brand-primary); }` NOT `var(--bnp-green)` directly
-- **CRITICAL**: Read spec in `docs/design/{level}/{component}.md` before implementing.
-- **CRITICAL**: DO NOT create `ps-tokens.css` or similar - tokens are organized in separate files by category.
-- Refer to `source/patterns/elements/button/` and `source/patterns/elements/divider/` as reference implementation examples.
-- Update `docs/ps-design/CHANGELOG.md` after each component implementation and any token additions.
 
-### Example: Token Verification Workflow
+## 🔒 PRIMARY DIRECTIVE
 
-**❌ WRONG - Creating token without checking:**
-```css
-.ps-card {
-  padding: 1.5rem; /* JAMAIS en dur ! */
-  background: #FFFFFF; /* JAMAIS en dur ! */
-}
-```
+**BEFORE ANY COMPONENT WORK**: Read `.github/COMPLETE_RULES.md` - the ABSOLUTE REFERENCE (1000+ lines, 18 sections, covering ALL standards).
 
-**✅ CORRECT - Verify then use existing:**
-```bash
-# 1. Search for spacing tokens
-grep -r "--size-" source/props/sizes.css
-# Found: --size-6: 1.5rem; /* 24px */
+This is the **SINGLE SOURCE OF TRUTH**. All other documents are subsets or implementations of these rules.
 
-# 2. Search for white color
-grep -r "--white" source/props/colors.css
-# Found: --white: hsl(0 0% 100%);
+## 🎯 Quick Decision Tree
 
-# 3. Use existing tokens
-```
-```css
-.ps-card {
-  padding: var(--size-6);      /* ✅ Existing token */
-  background: var(--white);    /* ✅ Existing token */
-}
-```
+**New Component?** → Follow `.github/COMPLETE_RULES.md` Section 18 (Checklist Complet)
 
-**✅ If truly needed - Add with justification:**
-```bash
-# 1. Verified: --size-5 doesn't exist (progression: --size-4 = 16px, --size-6 = 24px)
-# 2. Needed: 20px spacing for specific design requirement
-# 3. Add to source/props/sizes.css following convention:
-```
-```css
-/* sizes.css */
---size-5: 1.25rem;  /* 20px - Added for card header spacing */
-```
-```bash
-# 4. Document in CHANGELOG.md:
-echo "- Added --size-5 (20px) for card header spacing consistency" >> docs/ps-design/CHANGELOG.md
-```
+**Refactor/Fix?** → Audit with `.github/COMPONENT_AUDIT_PROMPT.md`, fix per `.github/COMPLETE_RULES.md`
+
+**CSS Issue?** → Consult `.github/COMPLETE_RULES.md` Sections 4-6 (Tokens, Nesting, Cascade)
+
+**Storybook?** → Follow `.github/COMPLETE_RULES.md` Section 11 + `.github/STORYBOOK_DOC_TEMPLATE.md`
+
+**Unsure?** → Default to `.github/COMPLETE_RULES.md`
+
+## ⚡ Critical Rules Summary (Non-Exhaustive)
+
+These are the **most common violations** - but `.github/COMPLETE_RULES.md` contains MANY more:
+
+### 1. Design Tokens (ABSOLUTE)
+- ❌ NEVER hardcode: `#00915A`, `16px`, `150ms ease`
+- ✅ ALWAYS tokens: `var(--brand-primary)`, `var(--size-4)`, `cubic-bezier(0.4, 0.0, 0.2, 1)`
+- Before creating token: `grep -r "--token-name" source/props/` (reuse if exists)
+
+### 2. CSS Nesting (MANDATORY)
+- ✅ Use `&` syntax for all new components (postcss-nested supported)
+- ✅ Order: Base → Elements → Modifiers → States
+- ❌ No over-nesting (max 3 levels)
+
+### 3. Cascade Order (CRITICAL)
+- ✅ Base styles BEFORE modifiers in source order
+- Example: `.ps-component__text { }` then `.ps-component--lg .ps-component__text { }`
+- Wrong order = modifiers won't override
+
+### 4. Minimal Markup (REQUIRED)
+- ✅ Default: `<div class="ps-component">` (no modifier classes)
+- ✅ Only add modifiers when value differs from default
+- Twig: conditional `merge()`, never ternary with empty strings
+
+### 5. Modifiers Independence (REQUIRED)
+- ✅ Each modifier works alone on base class
+- ❌ Never: `.ps-component--a.ps-component--b { }` (requires both)
+- ✅ Always: `.ps-component--a { }` (works alone)
+
+### 6. Semantic Colors (MANDATORY)
+- ✅ primary | secondary | success | warning | danger | info
+- ❌ NEVER: green | purple | blue | red | yellow
+- If component has color variants, support ALL 6
+
+### 7. Icons System (STRICT)
+- **Controllable icon**: Use `@elements/icon/icon.twig` (prop: `icon`, no "icon-" prefix)
+- **Decorative icon**: `<span data-icon="check">` (no "icon-" prefix)
+- Component CSS: NO `[data-icon]` mappings (centralized in `icons.css`)
+
+### 8. Storybook (NO REACT)
+- ✅ Import: `import componentTwig from './component.twig';`
+- ✅ Render: `render: (args) => componentTwig(args)`
+- ✅ Stories: Default + Showcases (AllColors, AllSizes, UseCases)
+- ❌ NO individual stories (Primary, Secondary, Small, etc.)
+- ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
+
+### 9. Required Files (5 ALWAYS)
+- `.twig` - Template with commented params
+- `.css` - Tokens + nesting + BEM
+- `.yml` - Defaults + comments
+- `.stories.jsx` - Default + showcases + Autodocs
+- `README.md` - Props table + BEM + tokens + usage + accessibility
+
+### 10. BEM Strict
+- ✅ Prefix `ps-` mandatory
+- ✅ Format: `.ps-block__element--modifier`
+- ❌ NO double underscore: `.ps-block__element__nested`
+
+## 📋 Implementation Workflow
+
+1. **Read spec**: `docs/design/{level}/{component}.md` (COMPLETE, all sections)
+2. **Verify tokens**: `grep -r` in `source/props/` before creating new
+3. **Follow template**: `.github/COMPONENT_TEMPLATE_STANDARD.md` (5 files structure)
+4. **Apply rules**: `.github/COMPLETE_RULES.md` (all 18 sections)
+5. **Build**: `npm run build` (check errors)
+6. **Test**: `npm run watch` → Storybook visual verification
+7. **Audit**: "Vérifie la cohérence du composant [Name] avec nos règles du projet"
+8. **Commit**: Structured message with detailed changes
+9. **Update**: `docs/ps-design/CHANGELOG.md`
+
+## 🚨 Zero Tolerance Rules
+
+These will ALWAYS be rejected:
+
+- Hardcoded values (colors, sizes, spacing, transitions)
+- Missing any of the 5 required files
+- React/JSX in Storybook stories
+- Color names instead of semantic (green → primary)
+- Icon names with "icon-" prefix
+- Modifier classes requiring combinations
+- Wrong cascade order (modifiers before base)
+- Classes for default values in markup
+- Flat CSS without nesting (new components)
+- Skipping accessibility (focus-visible, ARIA, contrast)
+
+## 📚 Complete Documentation Hierarchy
+
+1. **`.github/COMPLETE_RULES.md`** ← START HERE (absolute reference, 1000+ lines)
+2. `.github/COMPONENT_TEMPLATE_STANDARD.md` ← Structure & examples
+3. `.github/CSS_STANDARDS.md` ← CSS deep dive (400+ lines)
+4. `.github/STORYBOOK_DOC_TEMPLATE.md` ← Autodocs format
+5. `.github/COMPONENT_AUDIT_PROMPT.md` ← Post-implementation audit
+6. `.github/STANDARDIZE_COMPONENT_PROMPT.md` ← Refactor workflow
+
+**When in doubt**: Consult `.github/COMPLETE_RULES.md` first, then specific docs as needed.
+
+## 🎓 Reference Components
+
+Perfect implementations to study:
+
+- **`source/patterns/elements/button/`** - CSS nesting, all states, complete stories
+- **`source/patterns/elements/avatar/`** - Minimal markup, adaptive sizing, gender SVG fallback
+- **`source/patterns/elements/badge/`** - Semantic colors, pill variant, icon integration
+- **`source/patterns/elements/divider/`** - Simplicity, orientation variants, minimal code
+
+Always prefer reading actual component code over guessing patterns.

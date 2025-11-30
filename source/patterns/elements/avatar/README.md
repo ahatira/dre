@@ -21,12 +21,13 @@ Le composant Avatar est conçu pour identifier visuellement les utilisateurs dan
 | `src` | `string` | - | URL de l'image avatar (optionnel) |
 | `alt` | `string` | `''` | Texte alternatif pour l'image |
 | `initials` | `string` | - | Initiales (2 lettres max, ex: "JD") - fallback si pas d'image |
-| `size` | `string` | `'md'` | Taille : `xs` (24px) \| `sm` (32px) \| `md` (40px) \| `lg` (56px) \| `xl` (80px) |
+| `size` | `string` | `'md'` | Taille : `xs` (24px) \| `sm` (32px) \| `md` (40px) \| `lg` (48px) \| `xl` (80px) |
 | `shape` | `string` | `'circle'` | Forme : `circle` \| `square` \| `rounded` |
 | `status` | `string` | - | Badge de statut : `online` \| `offline` \| `busy` |
 | `bordered` | `boolean` | `false` | Ajoute une bordure blanche de 2px |
 | `clickable` | `boolean` | `false` | Active l'effet hover et focus |
 | `href` | `string` | - | URL de destination (transforme en lien `<a>`) |
+| `gender` | `string` | `'male'` | Icône fallback selon genre : `male` \| `female` |
 | `attributes` | `Attribute` | - | Attributs HTML additionnels |
 
 ---
@@ -37,7 +38,7 @@ Le composant Avatar est conçu pour identifier visuellement les utilisateurs dan
 .ps-avatar-wrapper                      // Wrapper pour positionnement status
   .ps-avatar-wrapper--xs                // Taille 24px
   .ps-avatar-wrapper--sm                // Taille 32px
-  .ps-avatar-wrapper--md                // Taille 40px (default)
+  .ps-avatar-wrapper                    // Taille 40px (default, minimal markup)
   .ps-avatar-wrapper--lg                // Taille 56px
   .ps-avatar-wrapper--xl                // Taille 80px
   .ps-avatar-wrapper--has-status        // Avec badge de statut
@@ -49,7 +50,7 @@ Le composant Avatar est conçu pour identifier visuellement les utilisateurs dan
   .ps-avatar__status                    // Badge de statut
 
 Modifiers de forme:
-  .ps-avatar--circle                    // Rond (default)
+  .ps-avatar (circle par défaut)        // Rond (default sans modificateur)
   .ps-avatar--square                    // Carré
   .ps-avatar--rounded                   // Coins arrondis (4px)
 
@@ -108,6 +109,13 @@ Status variants:
 - `--border-size-1` (1px) - Bordure status badge
 - `--border-size-2` (2px) - Bordure avatar, focus outline
 - `--blue-500` - Couleur focus outline
+
+#### Arrondis "rounded" par taille
+- `xs` → `var(--radius-2)` (4px)
+- `sm` → `var(--radius-3)` (6px)
+- `md` (défaut) → `var(--radius-4)` (8px)
+- `lg` → `var(--radius-5)` (12px)
+- `xl` → `var(--radius-6)` (16px)
 
 ---
 
@@ -324,7 +332,10 @@ Le wrapper `.ps-avatar-wrapper` est nécessaire pour :
 - Maintenir aspect ratio carré
 
 ### Icon System
-L'icône fallback utilise CSS pseudo-element `::before` avec la font `bnpre-icons` (code point `\e800`).
+L'icône fallback utilise un **SVG masqué via CSS** selon le genre :
+- Fichiers: `source/assets/images/agent/male.svg`, `source/assets/images/agent/female.svg`
+- La couleur suit `currentColor` (contrôlée par CSS du composant)
+- Sélecteur: `.ps-avatar__icon[data-agent="male|female"]`
 
 ### Status Badge
 - Position : `bottom: 0; right: 0` (coin inférieur droit)

@@ -3,6 +3,7 @@
  * @param string src - Image URL (optional)
  * @param string alt - Alt text (optional)
  * @param string initials - Initials fallback (optional)
+ * @param string gender - male|female (optional, for icon fallback)
  * @param string size - xs|sm|md|lg|xl (default: xl)
  * @param string shape - circle|square|rounded (default: circle)
  * @param string status - online|offline|busy (optional)
@@ -19,19 +20,32 @@
 {%- set has_image = src -%}
 {%- set has_initials = initials and not has_image -%}
 {%- set has_icon = not has_image and not has_initials -%}
+{%- set gender = gender|default('male') -%}
 
-{%- set wrapper_classes = [] -%}
-{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper']) -%}
-{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--' ~ size]) -%}
-{%- if status -%}{%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--has-status']) -%}{%- endif -%}
+{%- set wrapper_classes = ['ps-avatar-wrapper'] -%}
+{%- if size != 'md' -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--' ~ size]) -%}
+{%- endif -%}
+{%- if status -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--has-status']) -%}
+{%- endif -%}
 
-{%- set avatar_classes = [] -%}
-{%- set avatar_classes = avatar_classes|merge(['ps-avatar']) -%}
-{%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ shape]) -%}
-{%- if has_initials -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--initials']) -%}{%- endif -%}
-{%- if has_icon -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--icon']) -%}{%- endif -%}
-{%- if bordered -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--bordered']) -%}{%- endif -%}
-{%- if clickable -%}{%- set avatar_classes = avatar_classes|merge(['ps-avatar--clickable']) -%}{%- endif -%}
+{%- set avatar_classes = ['ps-avatar'] -%}
+{%- if shape != 'circle' -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ shape]) -%}
+{%- endif -%}
+{%- if has_initials -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--initials']) -%}
+{%- endif -%}
+{%- if has_icon -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--icon']) -%}
+{%- endif -%}
+{%- if bordered -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--bordered']) -%}
+{%- endif -%}
+{%- if clickable -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--clickable']) -%}
+{%- endif -%}
 
 {%- set tag = href ? 'a' : 'div' -%}
 
@@ -45,7 +59,7 @@
     {%- elseif has_initials -%}
       <span class="ps-avatar__text">{{ initials }}</span>
     {%- else -%}
-      <span class="ps-avatar__icon" aria-hidden="true"></span>
+      <span class="ps-avatar__icon" data-agent="{{ gender == 'female' ? 'female' : 'male' }}" aria-hidden="true"></span>
     {%- endif -%}
   </{{ tag }}>
   
