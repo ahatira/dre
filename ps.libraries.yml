@@ -30,15 +30,6 @@ alert:
     - core/once
     - ps_theme/vendors
 
-alert-alert.behavior:
-  js:
-    dist/js/alert-alert.behavior.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/once
-    - ps_theme/vendors
-
 animations:
   js:
     dist/js/animations.js: {}

@@ -1,0 +1,44 @@
+{#
+ * Breadcrumb (Component/Molecule)
+ * Navigational trail to show page hierarchy
+ * @param array items - Breadcrumb items (required)
+ *   Each item: { label: string, url: string (optional), icon: string (optional) }
+ * @param bool compact - Use compact spacing (optional, default: false)
+ * @param bool truncate - Enable CSS truncation (optional, default: false)
+ * @param Attribute attributes - Additional HTML attributes (optional)
+ #}
+
+{% set compact = compact|default(false) %}
+{% set truncate = truncate|default(false) %}
+
+{% set classes = ['ps-breadcrumb'] %}
+{% if compact %}
+  {% set classes = classes|merge(['ps-breadcrumb--compact']) %}
+{% endif %}
+{% if truncate %}
+  {% set classes = classes|merge(['ps-breadcrumb--truncate']) %}
+{% endif %}
+
+<nav {{ attributes ? attributes.addClass(classes) : create_attribute().addClass(classes) }} aria-label="Breadcrumb">
+  <ol class="ps-breadcrumb__list">
+    {% for item in items %}
+      {% set is_last = loop.last %}
+      
+      <li class="ps-breadcrumb__item{{ is_last ? ' ps-breadcrumb__item--current' : '' }}"{{ is_last ? ' aria-current="page"' : '' }}>
+        {% if not is_last and item.url %}
+          <a class="ps-breadcrumb__link" href="{{ item.url }}">
+            {% if item.icon %}
+              {% include '@elements/icon/icon.twig' with {
+                name: item.icon,
+                size: 'small'
+              } only %}
+            {% endif %}
+            {{ item.label }}
+          </a>
+        {% else %}
+          {{ item.label }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>

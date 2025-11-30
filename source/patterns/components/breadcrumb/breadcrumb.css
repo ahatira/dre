@@ -1,0 +1,102 @@
+/**
+ * Breadcrumb (Component/Molecule)
+ * Navigational trail displaying page hierarchy with accessible markup
+ * 
+ * BEM: ps-breadcrumb, ps-breadcrumb__list, ps-breadcrumb__item, ps-breadcrumb__link, ps-breadcrumb__current, ps-breadcrumb__separator
+ * Modifiers: --compact, --truncate
+ */
+
+/* ======================================== */
+/* Base Styles */
+/* ======================================== */
+
+.ps-breadcrumb {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  line-height: var(--leading-6);
+  color: var(--text-default);
+  
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--size-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-1);
+    
+    [data-icon] {
+      color: currentColor;
+    }
+    
+    &:not(:last-child)::after {
+      content: '\e851';
+      display: inline-block;
+      font-family: 'bnpre-icons';
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: var(--font-size-2);
+      color: currentColor;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    &--current {
+      font-weight: var(--font-weight-400);
+    }
+  }
+  
+  &__link {
+    color: var(--text-default);
+    text-decoration: underline;
+    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    &:hover {
+      color: var(--brand-primary);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--blue-500);
+      outline-offset: var(--border-size-2);
+      border-radius: var(--radius-1);
+    }
+    
+    &:visited {
+      color: var(--text-default);
+    }
+  }
+}
+
+/* ======================================== */
+/* Modifiers */
+/* ======================================== */
+
+.ps-breadcrumb {
+  &--compact {
+    font-size: var(--font-size-0);
+    line-height: var(--leading-5);
+  }
+  
+  &--truncate {
+    .ps-breadcrumb__item {
+      max-width: 16ch;
+    }
+    
+    .ps-breadcrumb__link,
+    .ps-breadcrumb__current {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+}

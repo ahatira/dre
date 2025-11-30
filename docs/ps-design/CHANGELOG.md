@@ -1,3 +1,22 @@
+- 2025-11-30: **breadcrumb** - Composant complet conforme template standard + **PIXEL PERFECT Figma**
+  - Props : items (array required - label, url?, icon?), compact (bool), truncate (bool), attributes
+  - Variants : standard (défaut), compact (font réduite + gaps réduits), truncate (max-width 16ch)
+  - BEM strict : `.ps-breadcrumb`, `.ps-breadcrumb__list`, `.ps-breadcrumb__item`, `.ps-breadcrumb__link`, `.ps-breadcrumb__current`, `.ps-breadcrumb__separator`, `.ps-breadcrumb__item--current`
+  - Modifiers indépendants : `--compact`, `--truncate`
+  - HTML minimal : classe base seule par défaut, modifiers ajoutés seulement si compact/truncate activés
+  - **Icons via @elements/icon** : utilise composant icon.twig (prop name sans préfixe "icon-")
+  - **PIXEL PERFECT Figma** : font-size 16px (--font-size-1), line-height 24px (--leading-6), gap 4px (--size-1), couleur #333333 (--text-default), underline sur liens uniquement, gap icon-text 8px (--size-2)
+  - Tokens utilisés : --font-sans, --font-size-1 (16px), --font-size-0 (14px compact), --leading-6 (24px), --leading-5 (20px compact), --text-default (#333333), --brand-primary (hover), --gray-400, --blue-500, --font-weight-400, --size-1 (4px gap items), --size-2 (8px gap icon), --border-size-2, --radius-1
+  - Aucun nouveau token créé : tous les tokens existants étaient suffisants
+  - Stories Storybook : 7 stories (Default, WithIcons, Compact, Truncated, Simple, Deep, ShowcaseVariants)
+  - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+  - Accessibilité : `<nav aria-label="Breadcrumb">`, `aria-current="page"` sur dernier item, séparateur `aria-hidden="true"`, focus-visible outline, couleurs WCAG AA
+  - Navigation sémantique : `<ol>` ordered list, dernier item non-cliquable (span), liens avec underline standard
+  - CSS nesting moderne : structure &__element, &--modifier, transitions fluides
+  - SEO : compatible structured data (JSON-LD BreadcrumbList), améliore crawlabilité
+  - Use cases : navigation immobilier (home → location → property), blog (category path), e-commerce (home → category → product), documentation
+  - Build : validé (npm run build) - aucune erreur
+  - **Audit conformité** : 100% - Tokens uniquement, BEM strict, HTML minimal, modifiers indépendants, documentation anglaise complète, description concise ≤ 2 lignes, **PIXEL PERFECT selon maquette Figma analysée**
 - 2025-11-29: Progress Bar tokens added
   - Added `--ps-color-info-600`, `--ps-color-warning-600`, `--ps-color-neutral-500`, `--ps-color-neutral-700` in `source/props/colors.css` to support semantic colors for Progress Bar variants.
   - Added `--ps-transition-duration-normal` and normalized `--ps-transition-duration-fast` under `:where(html)` in `source/props/animations.css` for consistent transitions.
