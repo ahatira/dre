@@ -7,55 +7,81 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          'Indicateur de chargement animé pour états asynchrones. Disponible en 3 variantes (circular, dots, bars), 5 tailles, et 4 couleurs. Inclut role="status" et aria-live pour accessibilité.',
+        component: `Animated loading indicator for asynchronous states.
+
+**Key Features:**
+- 3 variants: circular (rotating SVG, default), dots (3 bouncing dots), bars (3 stretching bars)
+- 5 sizes: xs (16px), sm (24px), md (32px, default), lg (48px), xl (64px)
+- 8 colors: default (gray), primary (BNP green), secondary (pink), success, info, warning, danger, white (for dark backgrounds)
+- Accessibility: role="status" and aria-live="polite" for screen reader announcements
+- Centered option: absolute positioning with transform for perfect centering
+
+**Usage:**
+- Use circular for general loading states
+- Use dots for subtle, less intrusive loading
+- Use bars for alternative visual effect
+- Size xs for buttons, sm/md for inline content, lg/xl for page loading
+- Always provide descriptive text for screen readers
+- Use semantic colors for contextual feedback
+
+**Accessibility:**
+- role="status" announces loading state to screen readers
+- aria-live="polite" ensures non-intrusive announcements
+- Visually hidden text provides context for screen reader users
+- No user interaction required (not focusable)`,
       },
     },
   },
   argTypes: {
+    // Appearance
     variant: {
-      control: 'select',
+      description: 'Spinner animation type (circular: rotating SVG, dots: bouncing, bars: stretching)',
+      control: { type: 'select' },
       options: ['circular', 'dots', 'bars'],
-      description: 'Type de spinner',
       table: {
+        category: 'Appearance',
         type: { summary: 'circular | dots | bars' },
         defaultValue: { summary: 'circular' },
       },
     },
     size: {
-      control: 'select',
+      description: 'Spinner size (xs: 16px, sm: 24px, md: 32px, lg: 48px, xl: 64px)',
+      control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Taille du spinner',
       table: {
+        category: 'Appearance',
         type: { summary: 'xs | sm | md | lg | xl' },
         defaultValue: { summary: 'md' },
       },
     },
     color: {
-      control: 'select',
+      description: 'Spinner color (semantic colors from design tokens, use white for dark backgrounds)',
+      control: { type: 'select' },
       options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'white'],
-      description: 'Couleur du spinner',
       table: {
-        type: {
-          summary: 'default | primary | secondary | success | info | warning | danger | white',
-        },
+        category: 'Appearance',
+        type: { summary: 'default | primary | secondary | success | info | warning | danger | white' },
         defaultValue: { summary: 'default' },
       },
     },
-    text: {
-      control: 'text',
-      description: "Texte pour lecteurs d'écran (annoncé aux utilisateurs)",
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Chargement en cours...' },
-      },
-    },
+    // Layout
     centered: {
-      control: 'boolean',
-      description: 'Centrer le spinner dans son conteneur parent',
+      description: 'Center spinner in parent container (parent must have position: relative)',
+      control: { type: 'boolean' },
       table: {
+        category: 'Layout',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+      },
+    },
+    // Accessibility
+    text: {
+      description: 'Screen reader text announced to users (e.g., "Loading content...", "Processing data...")',
+      control: { type: 'text' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'Loading...' },
       },
     },
   },
@@ -75,17 +101,17 @@ export const AllVariants = {
       <div style="text-align: center;">
         <div style="margin-bottom: 1rem;">${spinnerTwig({ variant: 'circular', size: 'lg' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 14px; color: var(--gray-700);">Circular</p>
-        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">SVG rotatif</p>
+        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">Rotating SVG</p>
       </div>
       <div style="text-align: center;">
         <div style="margin-bottom: 1rem;">${spinnerTwig({ variant: 'dots', size: 'lg' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 14px; color: var(--gray-700);">Dots</p>
-        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">3 points bouncing</p>
+        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">3 bouncing dots</p>
       </div>
       <div style="text-align: center;">
         <div style="margin-bottom: 1rem;">${spinnerTwig({ variant: 'bars', size: 'lg' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 14px; color: var(--gray-700);">Bars</p>
-        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">3 barres stretch</p>
+        <p style="margin: 0.25rem 0 0; font-size: 12px; color: var(--gray-500);">3 stretching bars</p>
       </div>
     </div>
   `,
@@ -93,7 +119,7 @@ export const AllVariants = {
     docs: {
       description: {
         story:
-          'Les trois variantes de spinner disponibles. Circular est recommandé par défaut, Dots pour un effet plus subtil, et Bars pour une alternative visuelle.',
+          'The three spinner variants available. Circular is recommended by default, Dots for a more subtle effect, and Bars for a visual alternative.',
       },
     },
   },
@@ -115,7 +141,7 @@ export const AllSizes = {
       <div style="text-align: center;">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ size: 'md' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 12px; color: var(--gray-700);">MD</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">32px · Défaut</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">32px · Default</p>
       </div>
       <div style="text-align: center;">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ size: 'lg' })}</div>
@@ -133,7 +159,7 @@ export const AllSizes = {
     docs: {
       description: {
         story:
-          '5 tailles disponibles : XS (16px) pour boutons, SM (24px) pour inline, MD (32px) par défaut, LG (48px) pour zones centrées, XL (64px) pour chargements pleine page.',
+          '5 sizes available: XS (16px) for buttons, SM (24px) for inline, MD (32px) default, LG (48px) for centered areas, XL (64px) for full page loading.',
       },
     },
   },
@@ -145,42 +171,42 @@ export const AllColors = {
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'default' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Default</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Gris neutre</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Neutral gray</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'primary' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Primary</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Vert BNP</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">BNP green</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'secondary' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Secondary</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Rose accent</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Pink accent</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'success' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Success</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Vert succès</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Green success</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'info' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Info</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Bleu info</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Blue info</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'warning' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Warning</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Jaune alert</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Yellow alert</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'danger' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Danger</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Rouge erreur</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Red error</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: var(--gray-800); border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'white' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: white;">White</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-400);">Sur fond sombre</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-400);">For dark backgrounds</p>
       </div>
     </div>
   `,
@@ -188,7 +214,7 @@ export const AllColors = {
     docs: {
       description: {
         story:
-          'Toutes les couleurs sémantiques disponibles : Default (gris neutre), Primary (vert BNP), Secondary (rose accent), Success/Info/Warning/Danger pour états contextuels, et White pour fonds sombres.',
+          'All semantic colors available: Default (neutral gray), Primary (BNP green), Secondary (pink accent), Success/Info/Warning/Danger for contextual states, and White for dark backgrounds.',
       },
     },
   },
@@ -197,7 +223,7 @@ export const AllColors = {
 export const Centered = {
   render: () => `
     <div style="position: relative; height: 200px; border: 2px dashed var(--gray-300); border-radius: var(--radius-2); background: var(--gray-50);">
-      <p style="margin: 1rem; font-size: 14px; color: var(--gray-600); font-weight: 500;">Le spinner est centré verticalement et horizontalement dans ce conteneur</p>
+      <p style="margin: 1rem; font-size: 14px; color: var(--gray-600); font-weight: 500;">The spinner is centered vertically and horizontally in this container</p>
       ${spinnerTwig({ centered: true, size: 'lg', color: 'primary' })}
     </div>
   `,
@@ -205,7 +231,7 @@ export const Centered = {
     docs: {
       description: {
         story:
-          'Le modifier `centered: true` positionne le spinner en absolute avec transform translate pour un centrage parfait. Le conteneur parent doit avoir `position: relative`.',
+          'The `centered: true` modifier positions the spinner absolutely with transform translate for perfect centering. The parent container must have `position: relative`.',
       },
     },
   },
@@ -215,63 +241,63 @@ export const UseCases = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: 2.5rem; padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
       
-      <!-- Boutons avec différentes couleurs -->
+      <!-- Buttons with different colors -->
       <div>
-        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Boutons de chargement</p>
+        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Loading buttons</p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <button class="ps-button ps-button--primary" disabled style="display: inline-flex; align-items: center; gap: var(--size-2);">
             ${spinnerTwig({ size: 'xs', color: 'white' })}
-            Enregistrer...
+            Saving...
           </button>
           <button class="ps-button ps-button--secondary" disabled style="display: inline-flex; align-items: center; gap: var(--size-2);">
             ${spinnerTwig({ size: 'xs', color: 'white' })}
-            Traitement...
+            Processing...
           </button>
           <button class="ps-button ps-button--success" disabled style="display: inline-flex; align-items: center; gap: var(--size-2);">
             ${spinnerTwig({ size: 'xs', color: 'white' })}
-            Validation...
+            Validating...
           </button>
           <button class="ps-button ps-button--danger" disabled style="display: inline-flex; align-items: center; gap: var(--size-2);">
             ${spinnerTwig({ size: 'xs', color: 'white' })}
-            Suppression...
+            Deleting...
           </button>
         </div>
       </div>
 
-      <!-- Chargement de page centré -->
+      <!-- Centered page loading -->
       <div>
-        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Chargement de page</p>
+        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Page loading</p>
         <div style="position: relative; height: 180px; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200);">
-          ${spinnerTwig({ centered: true, size: 'xl', color: 'primary', text: 'Chargement de la page...' })}
+          ${spinnerTwig({ centered: true, size: 'xl', color: 'primary', text: 'Loading page content...' })}
         </div>
       </div>
 
-      <!-- Inline avec texte -->
+      <!-- Inline with text -->
       <div>
-        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Chargement inline</p>
+        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Inline loading</p>
         <div style="display: flex; flex-direction: column; gap: 0.75rem; background: white; padding: 1.5rem; border-radius: var(--radius-2); border: 1px solid var(--gray-200);">
           <p style="display: flex; align-items: center; gap: var(--size-2); margin: 0; font-size: 14px;">
             ${spinnerTwig({ size: 'sm', color: 'default' })}
-            Chargement des données...
+            Loading data...
           </p>
           <p style="display: flex; align-items: center; gap: var(--size-2); margin: 0; font-size: 14px;">
             ${spinnerTwig({ size: 'sm', color: 'info' })}
-            Synchronisation en cours...
+            Synchronizing...
           </p>
           <p style="display: flex; align-items: center; gap: var(--size-2); margin: 0; font-size: 14px;">
             ${spinnerTwig({ size: 'sm', color: 'warning', variant: 'dots' })}
-            Traitement des fichiers...
+            Processing files...
           </p>
         </div>
       </div>
 
-      <!-- Contextes sémantiques -->
+      <!-- Semantic contexts -->
       <div>
-        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Contextes sémantiques</p>
+        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Semantic contexts</p>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
           <div style="padding: 1.5rem; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200); text-align: center;">
             ${spinnerTwig({ variant: 'circular', size: 'md', color: 'success' })}
-            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Validation...</p>
+            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Validating...</p>
           </div>
           <div style="padding: 1.5rem; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200); text-align: center;">
             ${spinnerTwig({ variant: 'dots', size: 'md', color: 'info' })}
@@ -279,21 +305,21 @@ export const UseCases = {
           </div>
           <div style="padding: 1.5rem; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200); text-align: center;">
             ${spinnerTwig({ variant: 'bars', size: 'md', color: 'warning' })}
-            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Attention...</p>
+            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Warning...</p>
           </div>
           <div style="padding: 1.5rem; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200); text-align: center;">
             ${spinnerTwig({ variant: 'circular', size: 'md', color: 'danger' })}
-            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Suppression...</p>
+            <p style="margin: 0.75rem 0 0; font-size: 13px; color: var(--gray-700);">Deleting...</p>
           </div>
         </div>
       </div>
 
-      <!-- Sur fond sombre -->
+      <!-- On dark background -->
       <div>
-        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">Sur fond sombre</p>
+        <p style="margin: 0 0 1rem; font-weight: 600; font-size: 15px; color: var(--gray-800);">On dark background</p>
         <div style="padding: 2rem; background: var(--gray-800); border-radius: var(--radius-2); display: flex; gap: 2rem; align-items: center; justify-content: center;">
           ${spinnerTwig({ size: 'lg', color: 'white' })}
-          <p style="color: white; margin: 0; font-size: 14px;">Chargement...</p>
+          <p style="color: white; margin: 0; font-size: 14px;">Loading...</p>
         </div>
       </div>
 
@@ -303,7 +329,7 @@ export const UseCases = {
     docs: {
       description: {
         story:
-          "Exemples d'utilisation réels du spinner dans différents contextes : boutons de chargement (taille xs), pages centrées (taille xl), texte inline (taille sm/md), et contextes sémantiques (success, info, warning, danger).",
+          "Real-world usage examples of the spinner in different contexts: loading buttons (xs size), centered pages (xl size), inline text (sm/md size), and semantic contexts (success, info, warning, danger).",
       },
     },
   },

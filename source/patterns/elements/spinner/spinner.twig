@@ -1,18 +1,18 @@
 {#
  * Spinner (Element/Atom)
- * Indicateur de chargement animé pour états asynchrones
- * @param string variant - Type de spinner (optional, default: 'circular') - Options: circular | dots | bars
- * @param string size - Taille du spinner (optional, default: 'md') - Options: xs | sm | md | lg | xl
- * @param string color - Couleur du spinner (optional, default: 'default') - Options: default | primary | secondary | success | info | warning | danger | white
- * @param string text - Texte pour lecteurs d'écran (optional, default: 'Chargement en cours...')
- * @param boolean centered - Centrer dans le conteneur (optional, default: false)
- * @param Drupal\Core\Template\Attribute attributes - Attributs HTML additionnels (optional)
+ * Animated loading indicator for asynchronous states
+ * @param string variant - Spinner type (optional, default: 'circular') - Options: circular | dots | bars
+ * @param string size - Spinner size (optional, default: 'md') - Options: xs | sm | md | lg | xl
+ * @param string color - Spinner color (optional, default: 'default') - Options: default | primary | secondary | success | info | warning | danger | white
+ * @param string text - Screen reader text (optional, default: 'Loading...')
+ * @param boolean centered - Center in container (optional, default: false)
+ * @param Drupal\Core\Template\Attribute attributes - Additional HTML attributes (optional)
  #}
 
 {%- set variant = variant|default('circular') -%}
 {%- set size = size|default('md') -%}
 {%- set color = color|default('default') -%}
-{%- set text = text|default('Chargement en cours...') -%}
+{%- set text = text|default('Loading...') -%}
 {%- set centered = centered|default(false) -%}
 
 {%- set classes = ['ps-spinner'] -%}
