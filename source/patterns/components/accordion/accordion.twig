@@ -11,6 +11,7 @@
  * @param boolean bordered - Show borders between items (default: true)
  * @param boolean flush - Remove padding (default: false)
  * @param string headingLevel - Semantic heading level: h2|h3|h4|h5 (default: 'h3')
+ * @param string animation - Animation type: 'slide'|'fade'|'scale'|'none' (default: 'slide')
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
@@ -19,6 +20,7 @@
 {%- set bordered = bordered is defined ? bordered : true -%}
 {%- set flush = flush|default(false) -%}
 {%- set headingLevel = headingLevel|default('h3') -%}
+{%- set animation = animation|default('slide') -%}
 
 {{ attach_library('ps_theme/accordion') }}
 
@@ -35,6 +37,7 @@
   class="{{ classes|join(' ')|trim }}"
   data-accordion
   data-single-open="{{ singleOpen ? 'true' : 'false' }}"
+  data-animation="{{ animation }}"
   {% if attributes %}{{ attributes }}{% endif %}
 >
   {%- for item in items -%}

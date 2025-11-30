@@ -61,6 +61,16 @@ const settings = {
         defaultValue: { summary: 'h3' },
       },
     },
+    animation: {
+      description: 'Animation type for expand/collapse transitions',
+      control: { type: 'select' },
+      options: ['slide', 'fade', 'scale', 'none'],
+      table: {
+        category: 'Behavior',
+        type: { summary: 'slide | fade | scale | none' },
+        defaultValue: { summary: 'slide' },
+      },
+    },
   },
 };
 
@@ -249,6 +259,116 @@ export const ProductDetails = {
         },
       ],
     }),
+};
+
+export const Animations = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--font-size-2);">Slide (Default)</h3>
+        <p style="margin: 0 0 var(--size-3) 0; color: var(--gray-600); font-size: var(--font-size-0);">Smooth vertical height animation with ease-out timing</p>
+        ${accordionTwig({
+          animation: 'slide',
+          singleOpen: true,
+          bordered: true,
+          items: [
+            {
+              title: 'Question 1',
+              content:
+                '<p>The slide animation expands the panel vertically with a smooth height transition. This is the default and most commonly used animation for accordions.</p>',
+            },
+            {
+              title: 'Question 2',
+              content:
+                '<p>Perfect for most use cases as it provides clear visual feedback of the content being revealed.</p>',
+            },
+            {
+              title: 'Question 3',
+              content: '<p>Uses CSS transitions with cubic-bezier easing for natural motion.</p>',
+            },
+          ],
+        })}
+      </div>
+
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--font-size-2);">Fade</h3>
+        <p style="margin: 0 0 var(--size-3) 0; color: var(--gray-600); font-size: var(--font-size-0);">Simple opacity transition for subtle appearance/disappearance</p>
+        ${accordionTwig({
+          animation: 'fade',
+          singleOpen: true,
+          bordered: true,
+          items: [
+            {
+              title: 'Question 1',
+              content:
+                '<p>The fade animation uses opacity for a gentle appearance effect. Content fades in and out smoothly.</p>',
+            },
+            {
+              title: 'Question 2',
+              content:
+                '<p>Best for minimal, clean interfaces where you want subtle transitions.</p>',
+            },
+            {
+              title: 'Question 3',
+              content: '<p>Faster than slide (250ms) for quicker interactions.</p>',
+            },
+          ],
+        })}
+      </div>
+
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--font-size-2);">Scale</h3>
+        <p style="margin: 0 0 var(--size-3) 0; color: var(--gray-600); font-size: var(--font-size-0);">Combined opacity and zoom effect for dynamic feel</p>
+        ${accordionTwig({
+          animation: 'scale',
+          singleOpen: true,
+          bordered: true,
+          items: [
+            {
+              title: 'Question 1',
+              content:
+                '<p>The scale animation combines opacity with a subtle vertical zoom effect (scaleY). Content appears to grow from the top.</p>',
+            },
+            {
+              title: 'Question 2',
+              content: '<p>Adds a more dynamic, modern feel to the interaction.</p>',
+            },
+            {
+              title: 'Question 3',
+              content: '<p>Great for premium interfaces and hero sections.</p>',
+            },
+          ],
+        })}
+      </div>
+
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--font-size-2);">None (Instant)</h3>
+        <p style="margin: 0 0 var(--size-3) 0; color: var(--gray-600); font-size: var(--font-size-0);">No animation for immediate display - accessibility option</p>
+        ${accordionTwig({
+          animation: 'none',
+          singleOpen: true,
+          bordered: true,
+          items: [
+            {
+              title: 'Question 1',
+              content:
+                '<p>No animation means instant show/hide. Content appears and disappears immediately without transitions.</p>',
+            },
+            {
+              title: 'Question 2',
+              content:
+                '<p>Recommended for users who prefer reduced motion or have accessibility needs.</p>',
+            },
+            {
+              title: 'Question 3',
+              content:
+                '<p>Can also be used when performance is critical or for very long content.</p>',
+            },
+          ],
+        })}
+      </div>
+    </div>
+  `,
 };
 
 export default settings;

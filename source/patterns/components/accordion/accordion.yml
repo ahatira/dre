@@ -14,3 +14,4 @@ singleOpen: true
 bordered: true
 flush: false
 headingLevel: 'h3'
+animation: 'slide'
