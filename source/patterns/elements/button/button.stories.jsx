@@ -12,22 +12,22 @@ export default {
     docs: {
       description: {
         component:
-          "Bouton d'action sémantique conforme au Design System.\n\n" +
-          '- **Variants**: primary, secondary, success, info, warning, danger, dark, light — couleurs via tokens de marque.\n' +
-          '- **Styles**: plein (par défaut) et `outline` (fond transparent, bordure tokenisée).\n' +
-          '- **Tailles**: small, medium (défaut), large — hauteurs/espacements pilotés par tokens.\n' +
-          "- **Icônes**: optionnelles à gauche/droite, via nom d'icône (police `bnpre-icons`).\n" +
-          '- **États**: disabled et loading avec styles/accessibilité conformes.\n' +
-          '- **Mise en page**: `fullWidth` étend à 100% du conteneur.\n' +
-          '- **Accessibilité**: rôle/comportement bouton ou lien selon `url`; focus visible; libellé textuel requis.\n' +
-          "- **Rendu minimal**: `.ps-button` porte les styles par défaut; les modificateurs n'apparaissent que si une option diffère du défaut.",
+          'Semantic action button compliant with the Design System.\n\n' +
+          '- **Variants**: primary, secondary, success, info, warning, danger, dark, light — colors via brand tokens.\n' +
+          '- **Styles**: filled (default) and `outline` (transparent background, tokenized border).\n' +
+          '- **Sizes**: small, medium (default), large — heights/spacing driven by tokens.\n' +
+          '- **Icons**: optional left/right, via icon name (font `bnpre-icons`).\n' +
+          '- **States**: disabled and loading with compliant styles/accessibility.\n' +
+          '- **Layout**: `fullWidth` extends to 100% of container.\n' +
+          '- **Accessibility**: role/behavior button or link according to `url`; focus visible; textual label required.\n' +
+          '- **Minimal markup**: `.ps-button` carries default styles; modifiers only appear when option differs from default.',
       },
     },
   },
   argTypes: {
     // Content
     label: {
-      description: 'Texte affiché dans le bouton',
+      description: 'Button text',
       control: { type: 'text' },
       table: {
         category: 'Content',
@@ -36,7 +36,7 @@ export default {
       },
     },
     icon: {
-      description: "Nom de l'icône à afficher (optionnel)",
+      description: 'Icon name to display (optional)',
       control: { type: 'select' },
       options: iconsList.categories.generic,
       table: {
@@ -45,7 +45,7 @@ export default {
       },
     },
     iconPosition: {
-      description: "Position de l'icône par rapport au texte",
+      description: 'Icon position relative to text',
       control: { type: 'select' },
       options: ['left', 'right'],
       table: {
@@ -56,7 +56,7 @@ export default {
     },
     // Appearance
     variant: {
-      description: 'Variant sémantique du bouton',
+      description: 'Semantic variant',
       control: { type: 'select' },
       options: variantsList.color.components.button,
       table: {
@@ -66,7 +66,7 @@ export default {
       },
     },
     outline: {
-      description: 'Version outline (bordure uniquement, fond transparent)',
+      description: 'Outline version (border only, transparent background)',
       control: { type: 'boolean' },
       table: {
         category: 'Appearance',
@@ -75,7 +75,7 @@ export default {
       },
     },
     size: {
-      description: 'Taille du bouton',
+      description: 'Button size',
       control: { type: 'select' },
       options: variantsList.size.compact,
       table: {
@@ -85,7 +85,7 @@ export default {
       },
     },
     fullWidth: {
-      description: 'Bouton en pleine largeur (width: 100%)',
+      description: 'Full width button (width: 100%)',
       control: { type: 'boolean' },
       table: {
         category: 'Appearance',
@@ -95,7 +95,7 @@ export default {
     },
     // Behavior
     disabled: {
-      description: "Désactive le bouton (réduit l'opacité à 50%)",
+      description: 'Disable button (reduces opacity to 50%)',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
@@ -104,7 +104,7 @@ export default {
       },
     },
     loading: {
-      description: 'Affiche un état de chargement',
+      description: 'Display loading state',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
@@ -114,7 +114,7 @@ export default {
     },
     // Link
     url: {
-      description: 'URL de destination (transforme le bouton en lien)',
+      description: 'Destination URL (transforms button to link)',
       control: { type: 'text' },
       table: {
         category: 'Link',
@@ -122,7 +122,7 @@ export default {
       },
     },
     target: {
-      description: 'Attribut target du lien',
+      description: 'Link target attribute',
       control: { type: 'select' },
       options: ['_self', '_blank'],
       table: {
