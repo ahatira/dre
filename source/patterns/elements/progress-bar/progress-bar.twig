@@ -1,6 +1,17 @@
 {#
- * PS Progress Bar Atom
- * Variables: value, min, max, variant, color, size, indeterminate, striped, showLabel, label, attributes
+ * PS Progress Bar (Atom) - Linear or circular progress indicator
+ *
+ * @param number value - Current progress value (0-100)
+ * @param number min - Minimum value (default: 0)
+ * @param number max - Maximum value (default: 100)
+ * @param string variant - Type: linear | circular (default: linear)
+ * @param string color - Semantic color: default | primary | secondary | success | warning | danger | info (default: default)
+ * @param string size - Size: xs | sm | md | lg | xl (default: md)
+ * @param boolean indeterminate - Infinite animation without value (default: false)
+ * @param boolean striped - Animated stripes (linear only, default: false)
+ * @param boolean showLabel - Display percentage label (default: false)
+ * @param string label - Accessibility label for screen readers
+ * @param Attribute attributes - Additional HTML attributes
  #}
 {% set variant = variant|default('linear') %}
 {% set color = color|default('default') %}

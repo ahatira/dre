@@ -1,11 +1,11 @@
-# Defaults for Progress Bar preview (simple data)
-value: 60
-min: 0
-max: 100
-variant: 'linear'  # Options: linear | circular
-color: 'default'  # Options: default | primary | secondary | success | warning | danger | info
-size: 'md'  # Options: xs | sm | md | lg | xl
-indeterminate: false  # true = animation infinie sans valeur
-striped: false  # true = rayures animées (linear uniquement)
-showLabel: true  # true = affiche le pourcentage
-label: 'Upload en cours'  # Label pour accessibilité (lecteurs d'écran)
+# Defaults for Progress Bar preview
+value: 60 # Current progress value (0-100)
+min: 0 # Minimum value
+max: 100 # Maximum value
+variant: 'linear' # Options: linear | circular
+color: 'default' # Options: default | primary | secondary | success | warning | danger | info
+size: 'md' # Options: xs | sm | md | lg | xl
+indeterminate: false # true = infinite animation without value
+striped: false # true = animated stripes (linear only)
+showLabel: true # true = display percentage
+label: 'Upload in progress' # Label for accessibility (screen readers)
