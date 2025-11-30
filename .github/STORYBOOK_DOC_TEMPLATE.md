@@ -12,6 +12,20 @@ Définir un format standardisé pour la documentation des composants dans Storyb
 
 ---
 
+## 🌍 Language Rule (MANDATORY)
+
+**ALL Storybook documentation MUST be written in English.**
+
+This applies to:
+- `parameters.docs.description.component` text
+- `argTypes` descriptions
+- Story comments and names
+- Section titles (Variants, Accessibility, Design Tokens, etc.)
+
+**Exception**: User-facing content in demo stories (e.g., "Rechercher" button label) can remain in French for realistic examples.
+
+---
+
 ## 📐 Structure obligatoire
 
 ### 1. Bloc JSDoc (optionnel, en tête de fichier)

@@ -87,6 +87,19 @@
 
 This is the **SINGLE SOURCE OF TRUTH**. All other documents are subsets or implementations of these rules.
 
+### 🌍 CRITICAL: Documentation Language
+
+**ALL documentation MUST be written in English.**
+
+This includes:
+- README.md files
+- Storybook descriptions and argTypes
+- Code comments (Twig, CSS, JS)
+- Props tables and usage examples
+- Accessibility notes
+
+**Exception**: User-facing content in templates (button labels, form text) can be in French.
+
 ## 🎯 Quick Decision Tree
 
 **New Component?** → Follow `.github/COMPLETE_RULES.md` Section 18 (Checklist Complet)

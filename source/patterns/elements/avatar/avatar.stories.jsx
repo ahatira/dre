@@ -12,71 +12,111 @@ export default {
     docs: {
       description: {
         component:
-          'Avatar affichant une photo, des initiales ou une icône par défaut.\n\n' +
-          '- Modes: image (`src`), initiales (`initials`), fallback icône (si `src` et `initials` sont vides).\n' +
-          '- Tailles: xs, sm, md (défaut), lg, xl — valeurs exactes via tokens.\n' +
-          '- Formes: circle (défaut), square, rounded.\n' +
-          '- Statut: `status` = online | offline | busy (badge en bas à droite).\n' +
-          '- Bordure: `bordered` ajoute un liseré blanc pour fond sombre.\n' +
-          '- Accessibilité: `alt` requis si image; les initiales servent de contenu textuel; focus visible quand `clickable` est vrai.\n' +
-          "- Rendu minimal: la classe de base applique les styles par défaut; les modificateurs n'apparaissent que si l'option change du défaut.",
+          'Avatar displaying a photo, initials, or a default icon.\n\n' +
+          '- **Modes**: image (`src`), initials (`initials`), fallback icon (if `src` and `initials` are empty).\n' +
+          '- **Sizes**: xs, sm, md (default), lg, xl — exact values via tokens.\n' +
+          '- **Shapes**: circle (default), square, rounded.\n' +
+          '- **Status**: `status` = online | offline | busy (badge at bottom right).\n' +
+          '- **Border**: `bordered` adds white outline for dark backgrounds.\n' +
+          '- **Accessibility**: `alt` required if image; initials serve as textual content; focus visible when `clickable` is true.\n' +
+          '- **Minimal markup**: base class applies default styles; modifiers only appear when option differs from default.',
       },
     },
   },
   argTypes: {
+    // Content
     src: {
       control: 'text',
-      description: "URL de l'image avatar",
-      table: { category: 'Content' },
-    },
-    alt: {
-      control: 'text',
-      description: 'Texte alternatif (requis si image)',
-      table: { category: 'Accessibility' },
+      description: 'Avatar image URL',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     initials: {
       control: 'text',
-      description: 'Initiales (2 lettres max, fallback si pas d’image)',
-      table: { category: 'Content' },
+      description: 'Initials (2 letters max, fallback if no image)',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
+    // Appearance
     size: {
       control: 'select',
       options: sizesList.avatar.values,
-      description: `Taille (md défaut) → ${sizesList.avatar.values.map(v => v + ':' + sizesList.avatar.tokens[v]).join(' ')}`,
-      table: { category: 'Appearance' },
+      description: 'Avatar size',
+      table: {
+        category: 'Appearance',
+        type: { summary: sizesList.avatar.values.join(' | ') },
+        defaultValue: { summary: 'md' },
+      },
     },
     shape: {
       control: 'select',
       options: variantsList.shape.avatar,
-      description: 'Forme (circle défaut)',
-      table: { category: 'Appearance' },
+      description: 'Avatar shape',
+      table: {
+        category: 'Appearance',
+        type: { summary: variantsList.shape.avatar.join(' | ') },
+        defaultValue: { summary: 'circle' },
+      },
     },
     status: {
       control: 'select',
       options: ['', 'online', 'offline', 'busy'],
-      description: 'Badge de statut (laisser vide pour aucun)',
-      table: { category: 'Appearance' },
+      description: 'Status badge (leave empty for none)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'online | offline | busy' },
+      },
     },
     bordered: {
       control: 'boolean',
-      description: 'Ajoute une bordure blanche (fond sombre)',
-      table: { category: 'Appearance' },
-    },
-    clickable: {
-      control: 'boolean',
-      description: 'Active hover + focus visible',
-      table: { category: 'Behavior' },
-    },
-    href: {
-      control: 'text',
-      description: 'URL (transforme en lien <a>)',
-      table: { category: 'Link' },
+      description: 'Add white border (for dark backgrounds)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
     gender: {
       control: 'select',
       options: ['male', 'female'],
-      description: 'Icône fallback selon le genre (image manquante et sans initiales)',
-      table: { category: 'Appearance' },
+      description: 'Fallback icon gender (when image missing and no initials)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'male | female' },
+        defaultValue: { summary: 'male' },
+      },
+    },
+    // Behavior
+    clickable: {
+      control: 'boolean',
+      description: 'Enable hover + focus visible',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
+    },
+    // Link
+    href: {
+      control: 'text',
+      description: 'URL (transforms to <a> link)',
+      table: {
+        category: 'Link',
+        type: { summary: 'string' },
+      },
+    },
+    // Accessibility
+    alt: {
+      control: 'text',
+      description: 'Alternative text (required if image)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+      },
     },
   },
 };

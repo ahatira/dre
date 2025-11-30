@@ -671,7 +671,17 @@ color: 'primary' # Options: primary | secondary | success | warning | danger | i
 
 ## 11. Storybook Standards
 
-### A. Pas de React/JSX
+### A. Language (MANDATORY)
+
+**ALL Storybook documentation MUST be written in English.**
+
+This includes:
+- `parameters.docs.description.component` (main description)
+- `argTypes[prop].description` (prop descriptions)
+- Story names and comments
+- Section titles (e.g., "Variants", "States", "Accessibility")
+
+### B. Pas de React/JSX
 
 **Storybook HTML/Vite edition** - **PAS** de React.
 
@@ -935,14 +945,30 @@ disabled: false
 
 ## 14. Documentation
 
-### A. README.md Obligatoire
+### A. Language (MANDATORY)
+
+**ALL documentation MUST be written in English.**
+
+This includes:
+- README.md files
+- Storybook descriptions (parameters.docs.description.component)
+- ArgTypes descriptions
+- Code comments (Twig, CSS, JS)
+- Props tables
+- Usage examples
+- Accessibility notes
+- Design tokens descriptions
+
+**Exception**: User-facing content in Twig templates (e.g., button labels, form placeholders) can be in French.
+
+### B. README.md Obligatoire
 
 Chaque composant **DOIT** avoir un `README.md` avec :
 
 ```markdown
 # Component Name
 
-Description concise.
+Concise description.
 
 ## Props
 
@@ -1160,6 +1186,11 @@ transition: all 150ms ease;
 ## 18. Checklist Composant Complet
 
 Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
+
+### Language
+
+- [ ] **ALL documentation in English** (README, Storybook, comments)
+- [ ] User-facing content in French (optional, for realistic demos)
 
 ### Fichiers
 
