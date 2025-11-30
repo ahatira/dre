@@ -1,5 +1,6 @@
 import linkTwig from './link.twig';
 import data from './link.yml';
+import iconsList from '../../documentation/icons-list.json';
 
 const settings = {
   title: 'Elements/Link',
@@ -38,7 +39,8 @@ const settings = {
     },
     icon: {
       description: 'Icon name without "icon-" prefix (e.g., arrow-right, arrow-left, external-link, download)',
-      control: { type: 'text' },
+      control: { type: 'select' },
+      options: ['', ...iconsList.all],
       table: {
         category: 'Content',
         type: { summary: 'string' },
