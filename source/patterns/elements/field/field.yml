@@ -1,8 +1,10 @@
-# Default: Text input field
-type: 'text'
-value: ''
-placeholder: 'Enter text...'
-disabled: false
-error: ''
-icon: ''
-iconPosition: 'right'
+# Field (Atom) - Base input/select/textarea field component
+# Default configuration: text input field
+type: 'text' # Field type: text, number, email, search, select, textarea
+value: '' # Current value
+placeholder: 'Enter text...' # Placeholder text
+disabled: false # Disabled state
+error: '' # Error message (shows below field with aria-invalid)
+done: false # Success/validated state (green border)
+icon: '' # Icon name from icon font (optional)
+iconPosition: 'right' # Icon position: left or right

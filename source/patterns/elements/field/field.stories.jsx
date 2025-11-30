@@ -1,5 +1,6 @@
 import fieldTwig from './field.twig';
 import data from './field.yml';
+import iconsList from '../../documentation/icons-list.json';
 
 const settings = {
   title: 'Elements/Field',
@@ -13,19 +14,12 @@ const settings = {
     },
   },
   argTypes: {
-    type: {
-      description: 'Type of field input',
-      control: { type: 'select' },
-      options: ['text', 'number', 'email', 'search', 'select', 'textarea'],
-      table: {
-        type: { summary: 'text | number | email | search | select | textarea' },
-        defaultValue: { summary: 'text' },
-      },
-    },
+    // Content
     value: {
       description: 'Current value of the field',
       control: { type: 'text' },
       table: {
+        category: 'Content',
         type: { summary: 'string' },
         defaultValue: { summary: '' },
       },
@@ -34,38 +28,28 @@ const settings = {
       description: 'Placeholder text shown when field is empty',
       control: { type: 'text' },
       table: {
+        category: 'Content',
         type: { summary: 'string' },
         defaultValue: { summary: '' },
       },
     },
-    disabled: {
-      description: 'Disabled state of the field',
-      control: { type: 'boolean' },
+    // Appearance
+    type: {
+      description: 'Type of field input',
+      control: { type: 'select' },
+      options: ['text', 'number', 'email', 'search', 'select', 'textarea'],
       table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    error: {
-      description: 'Error message to display below the field',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '' },
-      },
-    },
-    done: {
-      description: 'Success/validated state of the field',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: 'Appearance',
+        type: { summary: 'text | number | email | search | select | textarea' },
+        defaultValue: { summary: 'text' },
       },
     },
     icon: {
-      description: 'Icon to display (requires icon name from icon font)',
-      control: { type: 'text' },
+      description: 'Icon to display (optional)',
+      control: { type: 'select' },
+      options: ['', ...iconsList.all],
       table: {
+        category: 'Appearance',
         type: { summary: 'string' },
         defaultValue: { summary: '' },
       },
@@ -75,8 +59,38 @@ const settings = {
       control: { type: 'select' },
       options: ['left', 'right'],
       table: {
+        category: 'Appearance',
         type: { summary: 'left | right' },
         defaultValue: { summary: 'right' },
+      },
+    },
+    // Behavior
+    disabled: {
+      description: 'Disabled state of the field',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    done: {
+      description: 'Success/validated state of the field',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    // Accessibility
+    error: {
+      description: 'Error message to display below the field (sets aria-invalid and aria-describedby)',
+      control: { type: 'text' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
       },
     },
   },
@@ -85,118 +99,6 @@ const settings = {
 export const Default = {
   render: (args) => fieldTwig(args),
   args: { ...data },
-};
-
-export const Text = {
-  render: () =>
-    fieldTwig({
-      type: 'text',
-      placeholder: 'Enter your name...',
-    }),
-};
-
-export const NumberField = {
-  render: () =>
-    fieldTwig({
-      type: 'number',
-      placeholder: 'Enter a number...',
-    }),
-};
-
-export const Email = {
-  render: () =>
-    fieldTwig({
-      type: 'email',
-      placeholder: 'your.email@example.com',
-    }),
-};
-
-export const Search = {
-  render: () =>
-    fieldTwig({
-      type: 'search',
-      placeholder: 'Search...',
-      icon: 'search',
-      iconPosition: 'right',
-    }),
-};
-
-export const Select = {
-  render: () =>
-    fieldTwig({
-      type: 'select',
-      value: 'Select an option',
-      icon: 'arrow-down',
-      iconPosition: 'right',
-    }),
-};
-
-export const Textarea = {
-  render: () =>
-    fieldTwig({
-      type: 'textarea',
-      placeholder: 'Enter your message...',
-    }),
-};
-
-export const WithIconLeft = {
-  render: () =>
-    fieldTwig({
-      type: 'search',
-      placeholder: 'Search...',
-      icon: 'search',
-      iconPosition: 'left',
-    }),
-};
-
-export const WithIconRight = {
-  render: () =>
-    fieldTwig({
-      type: 'email',
-      placeholder: 'your.email@example.com',
-      icon: 'check',
-      iconPosition: 'right',
-    }),
-};
-
-export const Filled = {
-  render: () =>
-    fieldTwig({
-      type: 'text',
-      value: 'John Doe',
-      placeholder: 'Enter your name...',
-    }),
-};
-
-export const ErrorState = {
-  render: () =>
-    fieldTwig({
-      type: 'email',
-      value: 'invalid-email',
-      placeholder: 'your.email@example.com',
-      error: 'Please enter a valid email address',
-    }),
-};
-
-export const Done = {
-  render: () =>
-    fieldTwig({
-      type: 'text',
-      value: 'Valid input',
-      placeholder: 'Enter text...',
-      done: true,
-      icon: 'check',
-      iconPosition: 'left',
-    }),
-};
-
-export const Disabled = {
-  render: () =>
-    fieldTwig({
-      type: 'text',
-      value: 'Disabled field',
-      disabled: true,
-    }),
 };
 
 export const AllTypes = {

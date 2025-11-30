@@ -1,15 +1,15 @@
 {#
- * Field element (Atom)
- * Base input/select/textarea field without label/helper text.
- * 
- * @param string type - Field type: text|number|email|search|select|textarea (optional, default: 'text')
+ * Field (Atom) - Base input/select/textarea field component
+ * Base field without label or helper text.
+ *
+ * @param string type - Field type: text|number|email|search|select|textarea (default: 'text')
  * @param string value - Field value (optional)
  * @param string placeholder - Placeholder text (optional)
- * @param boolean disabled - Disabled state (optional, default: false)
- * @param string error - Error message to display (optional)
- * @param boolean done - Success/validated state (optional, default: false)
- * @param string icon - Icon name to display (optional)
- * @param string iconPosition - Icon position: left|right (optional, default: 'right')
+ * @param boolean disabled - Disabled state (default: false)
+ * @param string error - Error message to display (optional, sets aria-invalid)
+ * @param boolean done - Success/validated state (default: false, shows green border)
+ * @param string icon - Icon name to display (optional, no "icon-" prefix)
+ * @param string iconPosition - Icon position: left|right (default: 'right')
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
