@@ -21,9 +21,9 @@ Atom: Typography for paragraphs and text content
 
 - Block: `ps-text`
 - Modifiers:
-  - Size: `--small`, `--large` (body est le défaut, pas de classe)
+  - Size: `--small`, `--large` (body is default so no modifier class)
   - State: `--muted`, `--strong`
-  - Alignment: `--align-center`, `--align-right` (left est le défaut, pas de classe)
+  - Alignment: `--align-center`, `--align-right` (left is default so no modifier class)
 
 ## Usage
 

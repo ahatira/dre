@@ -1,10 +1,11 @@
 /**
- * Text (Element/Atom)
- * Typography pour paragraphes et contenus textuels
- * 
- * BEM: ps-text
- * Variants: body (défaut) | small | large
- * Modifiers: --muted, --strong, --align-center, --align-right
+ * Text (Element / Atom)
+ * Typography for paragraphs and inline textual content.
+ *
+ * BEM Block: ps-text
+ * Size Variants: body (default) | small | large
+ * State Modifiers: --muted | --strong (can combine)
+ * Alignment Modifiers: --align-center | --align-right (left is default)
  */
 
 .ps-text {

@@ -10,60 +10,88 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          'Composant typographique pour paragraphes et contenus textuels. 3 tailles (body 16px, small 14px, large 18px), états muted/strong, et alignement configurable.',
+        component: `Typographic atom for paragraphs and inline textual content.
+
+**Key Features:**
+- 3 size variants: body (16px default), small (14px), large (18px)
+- Emphasis states: muted (secondary tone), strong (bold weight) – combinable
+- Alignment options: left (default), center, right
+- Semantic HTML tag selection: p | span | div
+- Pure text rendering (no markup injection) for safety
+
+**Usage Guidelines:**
+- Use body for standard paragraph copy
+- Use large for lead paragraphs or introductory emphasis (often combined with strong)
+- Use small for captions, footnotes, disclaimers
+- Prefer muted for secondary/informational text that should have reduced prominence
+- Apply strong for inline emphasis instead of manually wrapping with <strong>
+- Prefer left alignment for readability; use center for callouts; right for numeric / metadata alignment
+
+**Accessibility:**
+- Ensures sufficient contrast (default and muted variants use tokens with WCAG-compliant values)
+- Text is not truncated or visually hidden; provide semantic HTML tag matching context
+- Supports screen reader reading order without disruption
+
+**Performance:** Lightweight styles — no layout shifts, only font-size/weight/color adjustments.
+`,
       },
     },
   },
   argTypes: {
     text: {
-      control: 'text',
-      description: 'Text content',
+      control: { type: 'text' },
+      description: 'Text content rendered directly (no HTML parsing).',
       table: {
-        category: 'content',
+        category: 'Content',
         type: { summary: 'string', required: true },
+        defaultValue: { summary: 'Body text example' },
       },
     },
     variant: {
       control: { type: 'select' },
       options: ['body', 'small', 'large'],
-      description: 'Text size variant',
+      description: 'Size variant: body (16px), small (14px), large (18px).',
       table: {
-        category: 'appearance',
+        category: 'Appearance',
+        type: { summary: 'body | small | large' },
         defaultValue: { summary: 'body' },
       },
     },
     tag: {
       control: { type: 'select' },
       options: ['p', 'span', 'div'],
-      description: 'HTML tag',
+      description: 'Semantic HTML tag used for rendering.',
       table: {
-        category: 'structure',
+        category: 'Structure',
+        type: { summary: 'p | span | div' },
         defaultValue: { summary: 'p' },
       },
     },
     align: {
       control: { type: 'inline-radio' },
       options: ['left', 'center', 'right'],
-      description: 'Text alignment',
+      description: 'Horizontal text alignment.',
       table: {
-        category: 'appearance',
+        category: 'Layout',
+        type: { summary: 'left | center | right' },
         defaultValue: { summary: 'left' },
       },
     },
     muted: {
-      control: 'boolean',
-      description: 'Muted color (secondary text)',
+      control: { type: 'boolean' },
+      description: 'Apply secondary tone (muted) for de‑emphasized information.',
       table: {
-        category: 'appearance',
+        category: 'Appearance',
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
     strong: {
-      control: 'boolean',
-      description: 'Bold weight (emphasis)',
+      control: { type: 'boolean' },
+      description: 'Apply bold weight for emphasis (can combine with muted).',
       table: {
-        category: 'appearance',
+        category: 'Appearance',
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
@@ -80,16 +108,15 @@ export const Default = {
 export const AllSizes = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ text: 'Large text (18px) — Lead paragraphs et introductions', variant: 'large' })}
-      ${component({ text: 'Body text (16px) — Paragraphes standards et contenu principal', variant: 'body' })}
-      ${component({ text: 'Small text (14px) — Captions, helper text, et footnotes', variant: 'small' })}
+      ${component({ text: 'Large text (18px) — Lead paragraphs and introductions', variant: 'large' })}
+      ${component({ text: 'Body text (16px) — Standard paragraphs and primary content', variant: 'body' })}
+      ${component({ text: 'Small text (14px) — Captions, helper text, and footnotes', variant: 'small' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story:
-          '3 tailles disponibles : Large (18px) pour lead paragraphs, Body (16px) par défaut pour contenu principal, Small (14px) pour texte secondaire.',
+        story: '3 size variants: Large (18px) for lead paragraphs, Body (16px) default for main content, Small (14px) for secondary/supporting text.',
       },
     },
   },
@@ -100,27 +127,26 @@ export const AllStates = {
     <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
       <div>
         <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Normal</p>
-        ${component({ text: 'Texte standard avec couleur et poids par défaut', variant: 'body' })}
+        ${component({ text: 'Standard text with default color and weight', variant: 'body' })}
       </div>
       <div>
         <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Muted</p>
-        ${component({ text: 'Texte muted pour informations secondaires (couleur gris-600)', variant: 'body', muted: true })}
+        ${component({ text: 'Muted text for secondary information (reduced prominence)', variant: 'body', muted: true })}
       </div>
       <div>
         <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Strong</p>
-        ${component({ text: 'Texte strong pour emphase et mise en avant (font-weight-700)', variant: 'body', strong: true })}
+        ${component({ text: 'Strong text for emphasis and highlighted importance (bold weight)', variant: 'body', strong: true })}
       </div>
       <div>
         <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Muted + Strong</p>
-        ${component({ text: 'Combinaison muted et strong possible', variant: 'body', muted: true, strong: true })}
+        ${component({ text: 'Combination of muted and strong is possible', variant: 'body', muted: true, strong: true })}
       </div>
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story:
-          'États disponibles : Normal (défaut), Muted (couleur gris-600 pour texte secondaire), Strong (font-weight-700 pour emphase). Les états peuvent être combinés.',
+        story: 'States: Normal (default), Muted (secondary tone), Strong (bold emphasis). States can be combined for nuanced emphasis.',
       },
     },
   },
@@ -129,16 +155,15 @@ export const AllStates = {
 export const AllAlignments = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ text: 'Left aligned text (default) — Alignement standard pour lecture', variant: 'body', align: 'left' })}
-      ${component({ text: 'Center aligned text — Pour titres et contenus centrés', variant: 'body', align: 'center' })}
-      ${component({ text: 'Right aligned text — Pour dates, montants, ou layouts spécifiques', variant: 'body', align: 'right' })}
+      ${component({ text: 'Left aligned text (default) — Optimal for continuous reading', variant: 'body', align: 'left' })}
+      ${component({ text: 'Center aligned text — Use for callouts and headings', variant: 'body', align: 'center' })}
+      ${component({ text: 'Right aligned text — Use for numeric values or metadata blocks', variant: 'body', align: 'right' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story:
-          '3 alignements disponibles : Left (défaut), Center, Right. Utilisez left pour lecture optimale, center pour titres/callouts, right pour données numériques.',
+        story: '3 alignments: Left (default, best readability), Center (headings/callouts), Right (numeric / metadata alignment).',
       },
     },
   },
@@ -175,8 +200,7 @@ export const UseCases = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Exemple d'utilisation réelle : Lead paragraph (large + strong) pour accroche, body paragraphs pour contenu principal, small muted pour disclaimers et footnotes.",
+        story: 'Real usage example: lead paragraph (large + strong) for introduction, body paragraphs for primary content, small muted for disclaimers / footnotes.',
       },
     },
   },
@@ -216,8 +240,7 @@ export const AllCombinations = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Toutes les combinaisons possibles de tailles (large/body/small) et états (normal/muted/strong). Chaque taille peut avoir n'importe quel état.",
+        story: 'All possible combinations of size (large/body/small) and state (normal/muted/strong). Any size can pair with any emphasis state.',
       },
     },
   },
