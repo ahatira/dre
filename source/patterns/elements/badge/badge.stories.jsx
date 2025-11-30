@@ -11,15 +11,42 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          'Compact semantic label/status indicator rendered as text or link.\n\n' +
-          'Structure: base `.ps-badge` + optional modifiers (`--small|--large`, `--pill`, color variants).\n' +
-          'Color variants (semantic): default, primary, secondary, gold (legacy accent), info, success, warning, danger.\n' +
-          'Icons: decorative; pass icon name (no `icon-` prefix); rendered inside `.ps-badge__icon` with `data-icon` attribute.\n' +
-          'Links: supply `url` to render `<a>` with accessible focus outline.\n' +
-          'Tokens used: spacing (`--size-*`), typography (`--font-size-*`, `--font-weight-*`), colors (`--brand-*`, semantic scales), radius (`--radius-*`), transition (`--ps-transition-duration-fast`).\n' +
-          'Accessibility: text always present; icon decorative (aria-hidden); focus-visible styling for interactive links only.\n' +
-          'Minimal markup: no classes for default values; each modifier works independently.',
+        component: `Compact semantic label / status indicator.
+
+**Key Features:**
+- 8 color variants: default, primary, secondary, gold (legacy accent), info, success, warning, danger
+- 3 sizes: small | medium (default) | large
+- Optional pill shape for fully rounded ends
+- Optional decorative icon (never replaces text)
+- Link support: render as <a> when url provided
+- Pure token implementation (spacing, font, color, radius, transition)
+
+**Usage Guidelines:**
+- Keep text short (1–2 words) for scannability
+- Prefer semantic color matching meaning (success for positive, warning for caution)
+- Use pill shape for tags or emphasis, not for every badge
+- Use small in dense metadata contexts; large for emphasis in hero/feature areas
+- Avoid stacking too many variants together (visual noise)
+
+**Accessibility:**
+- Text always present (icon is decorative via data-icon mapping)
+- Focus outline only on interactive link badges (url provided)
+- Color palette chosen for sufficient contrast on light backgrounds
+- Do not use badge as the only indicator of critical state (pair with text context)
+
+**Design Tokens:**
+- Spacing: --size-05 --size-1 --size-2 --size-3
+- Typography: --font-size-xs --font-size-sm --font-size-0 --font-weight-500
+- Colors: --gray-* --brand-primary --brand-secondary --accent-gold semantic (blue/green/yellow/red)
+- Radius: --radius-2 --radius-round
+- Transition: --ps-transition-duration-fast
+
+**Do Not:**
+- Hardcode hex/HSL values
+- Rely on icon alone for meaning
+- Combine multiple shape modifiers (only pill)
+- Use badge for interactive actions beyond simple link navigation
+`,
       },
     },
   },
@@ -79,7 +106,7 @@ export default {
     // Link
     url: {
       control: 'text',
-      description: 'Optional link URL (renders <a> instead of <span>).',
+      description: 'Optional link URL (renders <a> with focus outline).',
       table: {
         category: 'Link',
         type: { summary: 'string' },
