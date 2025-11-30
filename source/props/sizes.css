@@ -75,4 +75,16 @@
   /* Label tokens */
   --ps-spacing-1: var(--size-1);
   --ps-spacing-2: var(--size-2);
+
+  /* Toggle component tokens */
+  --ps-toggle-inset: var(--size-05); /* 2px internal thumb inset */
+  --ps-toggle-width-small: var(--size-9);  /* 36px */
+  --ps-toggle-width-medium: var(--size-11);/* 44px */
+  --ps-toggle-width-large: var(--size-13); /* 52px */
+  --ps-toggle-height-small: var(--size-5); /* 20px */
+  --ps-toggle-height-medium: var(--size-6);/* 24px */
+  --ps-toggle-height-large: var(--size-7); /* 28px */
+  --ps-toggle-thumb-small: var(--size-4);  /* 16px */
+  --ps-toggle-thumb-medium: var(--size-5); /* 20px */
+  --ps-toggle-thumb-large: var(--size-6);  /* 24px */
 }

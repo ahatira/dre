@@ -29,7 +29,14 @@ Accessible on/off switch for binary preferences (enable / disable). Uses a style
 
 ## Tokens
 
-Color, spacing, radius, font, transition, and size tokens only. No hardcoded hex or pixel values allowed. Add missing tokens to the appropriate token file if needed (re-use first).
+Toggle-specific size tokens added:
+- `--ps-toggle-inset` (2px inner thumb inset)
+- `--ps-toggle-width-small` / `--ps-toggle-width-medium` / `--ps-toggle-width-large`
+- `--ps-toggle-height-small` / `--ps-toggle-height-medium` / `--ps-toggle-height-large`
+- `--ps-toggle-thumb-small` / `--ps-toggle-thumb-medium` / `--ps-toggle-thumb-large`
+- `--font-size-xxs` (9px internal ON/OFF label text)
+
+Used along with existing spacing, color, radius, font-weight, and transition tokens. All geometry now derives from tokens (no raw px values in component CSS).
 
 ## Usage
 

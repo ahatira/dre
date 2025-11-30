@@ -58,4 +58,6 @@
   --tracking-widest: 0.1em;
   --ps-font-weight-medium: 500;
   --ps-font-weight-bold: 700;
+  /* Component specific (Toggle internal label) */
+  --font-size-xxs: 0.5625rem; /* 9px */
 }
