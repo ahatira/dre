@@ -1,9 +1,9 @@
 # Avatar Component - Default Configuration
 #
 # Available Props:
-# - src: string - URL de l'image avatar (optionnel)
-# - alt: string - Texte alternatif pour l'image (optionnel)
-# - initials: string - Initiales (2 lettres max, ex: "JD") - fallback si pas d'image
+# - src: string - Avatar image URL (optional)
+# - alt: string - Alternative text for image (optional)
+# - initials: string - Initials (2 letters max, e.g. "JD") - fallback if no image
 # - size: xs | sm | md | lg | xl (default: md)
 #   * xs: 24px (var(--size-6))
 #   * sm: 32px (var(--size-8))
@@ -11,12 +11,12 @@
 #   * lg: 48px (var(--size-12))
 #   * xl: 80px (var(--size-20))
 # - shape: circle | square | rounded (default: circle)
-# - status: online | offline | busy (optionnel) - Badge de statut
-# - bordered: boolean (default: false) - Bordure blanche
-# - clickable: boolean (default: false) - Effet hover/focus
-# - href: string - URL si clickable (transforme en lien <a>)
-# - gender: male | female (optionnel) - Icône fallback selon genre
-# - attributes: Attribute - Attributs HTML additionnels
+# - status: online | offline | busy (optional) - Status badge
+# - bordered: boolean (default: false) - White border
+# - clickable: boolean (default: false) - Hover/focus effect
+# - href: string - URL if clickable (transforms to <a> link)
+# - gender: male | female (optional) - Icon fallback by gender
+# - attributes: Attribute - Additional HTML attributes
 
 # Default: Image avatar with medium size
 src: 'https://i.pravatar.cc/150?img=12'

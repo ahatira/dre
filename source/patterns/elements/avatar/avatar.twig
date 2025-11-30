@@ -64,6 +64,6 @@
   </{{ tag }}>
   
   {%- if status -%}
-    <span class="ps-avatar__status ps-avatar__status--{{ status }}" aria-label="{% if status == 'online' %}En ligne{% elseif status == 'busy' %}Occupé{% else %}Hors ligne{% endif %}"></span>
+    <span class="ps-avatar__status ps-avatar__status--{{ status }}" aria-label="{% if status == 'online' %}Online{% elseif status == 'busy' %}Busy{% else %}Offline{% endif %}"></span>
   {%- endif -%}
 </div>

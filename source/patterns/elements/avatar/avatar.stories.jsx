@@ -1,7 +1,5 @@
 import avatarTwig from './avatar.twig';
 import data from './avatar.yml';
-import sizesList from '../../documentation/sizes-list.json';
-import variantsList from '../../documentation/variants-list.json';
 
 export default {
   title: 'Elements/Avatar',
@@ -11,15 +9,44 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          'Avatar displaying a photo, initials, or a default icon.\n\n' +
-          '- **Modes**: image (`src`), initials (`initials`), fallback icon (if `src` and `initials` are empty).\n' +
-          '- **Sizes**: xs, sm, md (default), lg, xl — exact values via tokens.\n' +
-          '- **Shapes**: circle (default), square, rounded.\n' +
-          '- **Status**: `status` = online | offline | busy (badge at bottom right).\n' +
-          '- **Border**: `bordered` adds white outline for dark backgrounds.\n' +
-          '- **Accessibility**: `alt` required if image; initials serve as textual content; focus visible when `clickable` is true.\n' +
-          '- **Minimal markup**: base class applies default styles; modifiers only appear when option differs from default.',
+        component: `User or entity visual representation with automatic fallback modes.
+
+**Key Features:**
+- 3 display modes: image (src) → initials fallback → gender icon fallback
+- 5 sizes: xs (24px), sm (32px), md (40px, default), lg (48px), xl (80px)
+- 3 shapes: circle (default), square, rounded (adaptive radius per size)
+- Status badge: online (green), offline (gray), busy (red) at bottom-right corner
+- Optional white border for dark backgrounds
+- Clickable variant with hover scale and focus outline
+
+**Usage Guidelines:**
+- Always provide alt text when image is present
+- Use initials (2 chars max) as first fallback before icon
+- Prefer circle for profiles; rounded for team/group contexts
+- Status badge only for real-time presence indicators
+- Size xs for buttons/lists, sm for comments, md for headers, lg/xl for profiles
+- Border only on dark/image backgrounds where contrast is low
+
+**Accessibility:**
+- alt attribute required when src provided (screen reader label)
+- Initials displayed as readable text (no aria-label needed)
+- Icon fallback marked aria-hidden (decorative only)
+- Status badge includes descriptive aria-label ("Online", "Busy", "Offline")
+- Focus outline only when clickable=true (keyboard navigation)
+- Contrast verified for all color variants (WCAG AA)
+
+**Design Tokens:**
+- Sizing: --size-6 (xs), --size-8 (sm), --size-10 (md), --size-12 (lg), --size-20 (xl)
+- Typography: --font-size-xs/sm/0/2/4 --font-weight-600
+- Colors: --brand-primary (initials bg), --gray-* (backgrounds), --green/red-600 (status)
+- Radius: --radius-2/3/4/5/6 (adaptive rounded scaling)
+- Border: --border-size-1/2
+
+**Do Not:**
+- Use avatar as sole identifier (pair with name text)
+- Omit alt when image present
+- Rely on status color alone (include text context)
+- Hardcode dimensions or colors`,
       },
     },
   },
@@ -44,21 +71,21 @@ export default {
     // Appearance
     size: {
       control: 'select',
-      options: sizesList.avatar.values,
-      description: 'Avatar size',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Avatar size (xs: 24px, sm: 32px, md: 40px, lg: 48px, xl: 80px)',
       table: {
         category: 'Appearance',
-        type: { summary: sizesList.avatar.values.join(' | ') },
+        type: { summary: 'xs | sm | md | lg | xl' },
         defaultValue: { summary: 'md' },
       },
     },
     shape: {
       control: 'select',
-      options: variantsList.shape.avatar,
-      description: 'Avatar shape',
+      options: ['circle', 'square', 'rounded'],
+      description: 'Avatar shape (rounded has adaptive radius per size)',
       table: {
         category: 'Appearance',
-        type: { summary: variantsList.shape.avatar.join(' | ') },
+        type: { summary: 'circle | square | rounded' },
         defaultValue: { summary: 'circle' },
       },
     },
@@ -125,9 +152,9 @@ export const Default = { args: { ...data } };
 
 export const Initials = {
   render: () => {
-    const sizes = sizesList.avatar.values;
-    const shapes = variantsList.shape.avatar;
-    const gridCols = sizes.length + 1; // 1 for row labels
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    const shapes = ['circle', 'square', 'rounded'];
+    const gridCols = sizes.length + 1;
     const headRow = [
       '<div class="cell cell--label"></div>',
       ...sizes.map(s => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
@@ -172,7 +199,7 @@ export const StatusVariants = {
 export const AllSizes = {
   render: () => `
     <div style="display:flex;gap:1rem;align-items:center;">
-      ${sizesList.avatar.values.map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', size: s, alt: s.toUpperCase() })).join('')}
+      ${['xs', 'sm', 'md', 'lg', 'xl'].map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', size: s, alt: s.toUpperCase() })).join('')}
     </div>
   `,
 };
@@ -198,7 +225,7 @@ export const Modes = {
 export const RoundedScaling = {
   render: () => `
     <div style="display:flex;gap:1rem;align-items:center;">
-      ${sizesList.avatar.values.map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=18', shape: 'rounded', size: s, alt: `Rounded ${s}` })).join('')}
+      ${['xs', 'sm', 'md', 'lg', 'xl'].map(s => avatarTwig({ src: 'https://i.pravatar.cc/150?img=18', shape: 'rounded', size: s, alt: `Rounded ${s}` })).join('')}
     </div>
   `,
 };
