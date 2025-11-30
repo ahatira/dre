@@ -5,6 +5,42 @@ default front-end theme for BNP Paribas RealEstate.
 
 PS Theme is built using [Storybook](https://storybook.js.org/) (HTML edition), and [Vite](https://vitejs.dev/) (Vanilla JS edition), with the help of many NodeJS packages to improve automation and make use of the latest Front-End tooling. See `package.json` for specifics about packages being used.
 
+## JavaScript (Drupal-friendly behaviors)
+
+All component scripts MUST be Drupal-ready:
+
+- Use `Drupal.behaviors` and `once()` to prevent multiple attachments and support Ajax/BigPipe re-render.
+- Scope DOM queries to the `context` passed to the behavior.
+- Register built files in `ps.libraries.yml` with dependencies: `core/drupal`, `core/drupalSettings`, `core/once`.
+- Avoid global `document` listeners; attach events to elements discovered in `context`.
+- Dispatch custom events when helpful (e.g., `accordion:show|shown|hide|hidden`).
+
+Example skeleton:
+
+```js
+/** @file Accordion behavior */
+((Drupal, once) => {
+  Drupal.behaviors.psAccordion = {
+    attach(context) {
+      once('ps-accordion', '[data-accordion]', context).forEach((root) => {
+        root.querySelectorAll('[data-accordion-trigger]').forEach((trigger) => {
+          trigger.addEventListener('click', () => this.toggleItem(root, trigger));
+          trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.toggleItem(root, trigger);
+            }
+          });
+        });
+      });
+    },
+    toggleItem(root, trigger) {
+      // ...
+    },
+  };
+})(Drupal, once);
+```
+
 ## JavaScript bundling standard
 
 - Single Drupal bundle: `dist/js/scripts.js`.
