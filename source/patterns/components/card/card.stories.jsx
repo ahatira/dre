@@ -40,6 +40,22 @@ export default {
       table: { category: 'Layout' },
     },
 
+    // Appearance (radius)
+    radius: {
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg'],
+      description: 'Border radius',
+      table: { category: 'Appearance' },
+    },
+
+    // Layout (image position)
+    imagePosition: {
+      control: 'select',
+      options: ['top', 'bottom', 'left', 'right'],
+      description: 'Image position (vertical: top/bottom, horizontal: left/right)',
+      table: { category: 'Layout' },
+    },
+
     // Link
     url: {
       control: 'text',
@@ -72,8 +88,11 @@ export const Default = {
     variant: 'default',
     layout: 'vertical',
     size: 'medium',
+    radius: 'md',
+    imagePosition: 'top',
     showImage: true,
-    imageUrl: 'https://picsum.photos/400/300?random=1',
+    imageUrl:
+      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop&q=80',
     contentHTML:
       '<h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #333;">Card Title</h3><p style="margin: 12px 0 0; color: #666;">This is a generic card container. Content is composed using Twig blocks for maximum flexibility.</p>',
   },
