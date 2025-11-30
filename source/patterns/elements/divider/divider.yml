@@ -1,3 +1,15 @@
+# Divider Component - Default Configuration
+# Visual separator to structure content sections
+#
+# Props:
+# - orientation: 'horizontal' (default) | 'vertical' - Divider orientation
+# - style: 'solid' (default) | 'dashed' | 'dotted' - Line style
+# - thickness: 'thin' (1px) | 'medium' (2px, default) | 'thick' (4px) - Line thickness
+# - color: 'neutral' (default) | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' - Semantic color
+# - spacing: 'sm' (8px) | 'md' (16px, default) | 'lg' (24px) - Spacing around divider
+# - text: Optional centered text content
+# - icon: Optional centered icon name (without "icon-" prefix)
+
 orientation: 'horizontal'
 style: 'solid'
 thickness: 'medium'
@@ -5,4 +17,3 @@ color: 'neutral'
 spacing: 'md'
 text: ''
 icon: ''
-# Available colors: neutral, primary (green), secondary (purple), success (green), warning (yellow), danger (red), info (blue)

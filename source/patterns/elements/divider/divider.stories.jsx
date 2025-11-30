@@ -1,6 +1,5 @@
 import dividerTwig from './divider.twig';
 import data from './divider.yml';
-import iconsList from '../../documentation/icons-list.json';
 
 export default {
   title: 'Elements/Divider',
@@ -11,15 +10,36 @@ export default {
     docs: {
       description: {
         component:
-          'Visual separator to structure content.\n\n' +
-          '- **Orientation**: horizontal (default) or vertical.\n' +
-          '- **Styles**: solid, dashed, dotted — tokenized borders only.\n' +
-          '- **Thickness**: thin, medium (default), thick — values via tokens.\n' +
-          '- **Colors**: neutral, primary, secondary, success, warning, danger, info — semantic brand colors.\n' +
-          '- **Spacing**: sm, md (default), lg around the separator.\n' +
-          '- **Content**: centered text or icon (icon font), without superfluous markup.\n' +
-          '- **Accessibility**: decorative role; avoid interrupting navigation; contrast ensured by tokens.\n' +
-          '- **Minimal markup**: `.ps-divider` carries default styles; modifiers appear only when an option differs from default.',
+          '**Key Features**\n\n' +
+          '- **Semantic structure**: Uses native `<hr>` for horizontal separators and `role="separator"` for vertical orientation\n' +
+          '- **Flexible styling**: Supports 3 line styles (solid, dashed, dotted), 3 thicknesses (thin/medium/thick), and 7 semantic colors\n' +
+          '- **Centered content**: Optional text or icon can be displayed in the center of the divider\n' +
+          '- **Tokenized design**: All colors, spacing, and sizes use design tokens exclusively\n' +
+          '- **Minimal markup**: Default divider requires no modifier classes (horizontal, solid, medium, neutral, md spacing)\n\n' +
+          '**Usage Guidelines**\n\n' +
+          '- Use horizontal dividers to separate content sections or create visual breaks in vertical layouts\n' +
+          '- Use vertical dividers to separate items in horizontal layouts (toolbars, button groups, inline navigation)\n' +
+          '- Use text dividers ("or", "and") in forms to separate alternative authentication methods\n' +
+          '- Use colored dividers to emphasize section importance (primary for key sections, danger for warnings)\n' +
+          '- Keep divider thickness proportional to content hierarchy (thin for subtle separation, thick for major sections)\n' +
+          '- For vertical dividers, ensure parent container has defined height\n\n' +
+          '**Accessibility**\n\n' +
+          '- Horizontal dividers use semantic `<hr>` element for proper screen reader recognition\n' +
+          '- Vertical dividers include `role="separator"` and `aria-orientation="vertical"` attributes\n' +
+          '- Dividers are non-interactive and receive no keyboard focus\n' +
+          '- Color contrast ensured by design tokens (minimum 3:1 against background)\n' +
+          '- Icons in dividers are decorative and marked with `aria-hidden="true"`\n\n' +
+          '**Design Tokens**\n\n' +
+          '- **Colors**: `--ps-color-neutral-300` (default), `--brand-primary`, `--brand-secondary`, semantic scales (`--btn-success/warning/danger/info`)\n' +
+          '- **Spacing**: `--size-2` (8px/sm), `--size-4` (16px/md), `--size-6` (24px/lg)\n' +
+          '- **Typography**: `--font-size-0` (14px), `--font-weight-500` (medium), `--font-sans` (BNPP Sans)\n' +
+          '- **Thickness**: 1px (thin), 2px (medium), 4px (thick)\n\n' +
+          '**Do Not**\n\n' +
+          '- Don\'t use dividers excessively—they can fragment content and create visual clutter\n' +
+          '- Don\'t hardcode colors, spacing, or thickness values—always use design tokens\n' +
+          '- Don\'t use vertical dividers without a defined container height (they will collapse)\n' +
+          '- Don\'t use dividers to replace proper semantic structure (headings, sections, lists)\n' +
+          '- Don\'t combine text and icon in the same divider—choose one or neither',
       },
     },
   },
@@ -79,7 +99,7 @@ export default {
     },
     icon: {
       control: 'select',
-      options: ['', ...iconsList.all],
+      options: ['', 'check', 'star', 'arrow-right', 'plus', 'info', 'warning', 'heart'],
       description: 'Optional centered icon name (without "icon-" prefix).',
       table: { 
         category: 'Content',
