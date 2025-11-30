@@ -1,8 +1,10 @@
-text: "Heading text"
-level: h1 # options: h1|h2|h3|h4|h5|h6 (default: h1)
-align: left # options: left|center|right (default: left)
-color: default # options: default|primary|secondary|success|warning|danger|info
-weight: bold # options: light|regular|bold|extra (default: bold)
-visuallyHidden: false # hide visually but keep for screen readers
-icon: '' # optional icon class from icons.css, e.g. 'icon-pin-map'
-iconPosition: left # options: left|right
+# Heading (Atom) - Semantic typographic heading
+# Default configuration: H1, bold weight, default color, left aligned
+text: "Heading text" # Heading text content
+level: h1 # Semantic level: h1 (48px), h2 (36px), h3 (28px), h4 (24px), h5 (20px), h6 (16px)
+color: default # Color: default (gray), primary (green), secondary (purple), success, warning, danger, info
+weight: bold # Weight: light (300), regular (400), bold (700), extra (800)
+align: left # Alignment: left, center, right
+icon: '' # Optional icon class (e.g., 'icon-pin-map', 'icon-calendar')
+iconPosition: left # Icon position: left or right
+visuallyHidden: false # Hide visually but keep for screen readers (accessibility)

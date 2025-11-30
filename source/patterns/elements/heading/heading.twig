@@ -1,12 +1,14 @@
 {#
- * Heading atom - Semantic typographic heading (h1-h6)
- * Props:
- *   text (string) - Heading text (required)
- *   level (string) - h1|h2|h3|h4|h5|h6 (default: h2)
- *   align (string) - left|center|right (default: left)
- *   visuallyHidden (boolean) - Screen reader only (default: false)
- *   icon (string) - Icon name (optional, e.g., 'icon-pin-map')
- *   iconPosition (string) - left|right (default: left)
+ * Heading (Atom) - Semantic typographic heading (h1-h6)
+ *
+ * @param string text - Heading text content (required)
+ * @param string level - h1|h2|h3|h4|h5|h6 (default: h1)
+ * @param string color - default|primary|secondary|success|warning|danger|info (default: default)
+ * @param string weight - light|regular|bold|extra (default: bold)
+ * @param string align - left|center|right (default: left)
+ * @param string icon - Icon class without prefix (optional, e.g., 'icon-pin-map')
+ * @param string iconPosition - left|right (default: left)
+ * @param boolean visuallyHidden - Hide visually but keep for screen readers (default: false)
  #}
 
 {%- set level = level|default('h1') -%}
