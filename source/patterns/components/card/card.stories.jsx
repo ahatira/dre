@@ -65,19 +65,19 @@ export default {
 
     // Storybook helpers (not real props)
     showImage: {
-      control: 'boolean',
+      control: false,
       description: '[Storybook only] Show image block',
-      table: { category: 'Demo' },
+      table: { category: 'Demo', disable: true },
     },
     imageUrl: {
-      control: 'text',
+      control: false,
       description: '[Storybook only] Image URL',
-      table: { category: 'Demo' },
+      table: { category: 'Demo', disable: true },
     },
     contentHTML: {
-      control: 'text',
+      control: false,
       description: '[Storybook only] Content HTML',
-      table: { category: 'Demo' },
+      table: { category: 'Demo', disable: true },
     },
   },
 };
