@@ -31,7 +31,7 @@
   flex-direction: column;
   background: var(--white);
   border: var(--border-size-15) solid var(--ps-color-border-card);
-  border-radius: var(--radius-4);
+  border-radius: 0; /* default radius is none */
   overflow: hidden;
   transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2);
 

@@ -88,7 +88,7 @@ export const Default = {
     variant: 'default',
     layout: 'vertical',
     size: 'medium',
-    radius: 'md',
+    radius: 'none',
     imagePosition: 'top',
     showImage: true,
     imageUrl:

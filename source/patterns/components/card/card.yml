@@ -2,7 +2,7 @@
 variant: default
 layout: vertical
 size: medium
-radius: md
+ radius: none
 imagePosition: top
 
 # Note: Card is a generic container. Content is composed using Twig blocks.

@@ -20,7 +20,7 @@ Card is **NOT** a specialized component. It's a **generic container** that:
 | `variant` | `string` | `default` | Visual variant: `default`, `outlined`, `flat`, `elevated` |
 | `layout` | `string` | `vertical` | Layout orientation: `vertical`, `horizontal` |
 | `size` | `string` | `medium` | Padding size: `small`, `medium`, `large` |
-| `radius` | `string` | `md` | Border radius: `none`, `sm`, `md`, `lg` |
+| `radius` | `string` | `none` | Border radius: `none`, `sm`, `md`, `lg` |
 | `imagePosition` | `string` | `top`/`left` | Image position: `top`/`bottom` (vertical), `left`/`right` (horizontal) |
 | `url` | `string` | — | Optional link URL (wraps entire card as `<a>`) |
 | `attributes` | `object` | — | Additional HTML attributes |
@@ -66,10 +66,10 @@ Card uses **Twig blocks** for content composition:
 
 ### Visual
 - Border: `1.5px solid #EBEDEF` (Figma exact: Grey #6)
-- Border radius (default): `var(--radius-4)` (customizable via `radius` prop)
-  - None: `0`
+- Border radius (default): `0` (customizable via `radius` prop)
+  - None: `0` (default)
   - Small: `var(--radius-2)`
-  - Medium: `var(--radius-4)` (default)
+  - Medium: `var(--radius-4)`
   - Large: `var(--radius-6)`
 - Background: `var(--white)`
 - Shadow (hover/elevated): `var(--shadow-4)`
