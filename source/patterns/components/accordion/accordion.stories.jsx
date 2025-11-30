@@ -1,5 +1,6 @@
 import accordionTwig from './accordion.twig';
 import data from './accordion.yml';
+import './accordion.js';
 
 const settings = {
   title: 'Components/Accordion',
