@@ -14,11 +14,13 @@ const settings = {
     },
   },
   argTypes: {
+    // Content
     code: {
       description: 'Country code ISO 3166-1 alpha-2 (ex: FR, GB, DE, ES, IT, NL)',
       control: { type: 'select' },
       options: ['FR', 'GB', 'DE', 'ES', 'IT', 'NL', 'IE', 'PL'],
       table: {
+        category: 'Content',
         type: { summary: 'string' },
         defaultValue: { summary: 'FR' },
       },
@@ -28,53 +30,66 @@ const settings = {
       control: { type: 'select' },
       options: ['fr-FR', 'en-GB', 'de-DE', 'es-ES', 'it-IT', 'nl-NL'],
       table: {
+        category: 'Content',
         type: { summary: 'string' },
-      },
-    },
-    label: {
-      description: 'Accessible label (ex: "France", "United Kingdom")',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
+        defaultValue: { summary: '' },
       },
     },
     src: {
-      description: 'Explicit flag image path (optional)',
+      description: 'Explicit flag image path (overrides automatic /flags/{code}.svg path)',
       control: { type: 'text' },
       table: {
+        category: 'Content',
         type: { summary: 'string' },
+        defaultValue: { summary: '' },
       },
     },
+    // Appearance
     size: {
-      description: 'Flag size',
+      description: 'Flag size (xs: 12px, sm: 16px, md: 20px, lg: 24px, xl: 48px height)',
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       table: {
+        category: 'Appearance',
         type: { summary: 'xs | sm | md | lg | xl' },
         defaultValue: { summary: 'md' },
       },
     },
     shape: {
-      description: 'Flag shape',
+      description: 'Flag shape (square: 4:3 ratio, rounded: 4:3 with 4px radius, circle: 1:1 ratio)',
       control: { type: 'select' },
       options: ['square', 'rounded', 'circle'],
       table: {
+        category: 'Appearance',
         type: { summary: 'square | rounded | circle' },
         defaultValue: { summary: 'square' },
       },
     },
+    // Behavior
     disabled: {
-      description: 'Disabled state (grayed out)',
+      description: 'Disabled state (reduced opacity and grayscale)',
       control: { type: 'boolean' },
       table: {
+        category: 'Behavior',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
+    // Accessibility
+    label: {
+      description: 'Accessible label for screen readers (ex: "France", "United Kingdom")',
+      control: { type: 'text' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
+    },
     decorative: {
-      description: 'Decorative only (hides from screen readers)',
+      description: 'Marks flag as decorative only (adds aria-hidden, removes from accessibility tree)',
       control: { type: 'boolean' },
       table: {
+        category: 'Accessibility',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -85,105 +100,6 @@ const settings = {
 export const Default = {
   render: (args) => flagTwig(args),
   args: { ...data },
-};
-
-export const Sizes = {
-  render: () => {
-    const wrapStyle = 'display:flex;gap:var(--size-8);align-items:flex-end;flex-wrap:wrap';
-    const itemStyle = 'display:flex;flex-direction:column;align-items:center;gap:var(--size-2)';
-    const labelStyle =
-      'font-size:var(--size-3);color:var(--gray-600);font-weight:var(--font-weight-500)';
-
-    return `
-      <div style="${wrapStyle}">
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', size: 'xs' })}
-          <span style="${labelStyle}">xs (12px)</span>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', size: 'sm' })}
-          <span style="${labelStyle}">sm (16px)</span>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', size: 'md' })}
-          <span style="${labelStyle}">md (20px)</span>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', size: 'lg' })}
-          <span style="${labelStyle}">lg (24px)</span>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', size: 'xl' })}
-          <span style="${labelStyle}">xl (48px)</span>
-        </div>
-      </div>
-    `;
-  },
-};
-
-export const Shapes = {
-  render: () => {
-    const wrapStyle = 'display:flex;gap:var(--size-8);align-items:flex-end;flex-wrap:wrap';
-    const itemStyle = 'display:flex;flex-direction:column;align-items:center;gap:var(--size-3)';
-    const titleStyle =
-      'font-size:var(--size-305);color:var(--gray-800);font-weight:var(--font-weight-600);margin-bottom:var(--size-1)';
-    const descStyle = 'font-size:var(--size-3);color:var(--gray-600)';
-
-    return `
-      <div style="${wrapStyle}">
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', shape: 'square', size: 'xl' })}
-          <div style="text-align:center">
-            <div style="${titleStyle}">Square</div>
-            <div style="${descStyle}">Default (no radius)</div>
-          </div>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', shape: 'rounded', size: 'xl' })}
-          <div style="text-align:center">
-            <div style="${titleStyle}">Rounded</div>
-            <div style="${descStyle}">4px radius</div>
-          </div>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', shape: 'circle', size: 'xl' })}
-          <div style="text-align:center">
-            <div style="${titleStyle}">Circle</div>
-            <div style="${descStyle}">Perfect circle (1:1)</div>
-          </div>
-        </div>
-      </div>
-    `;
-  },
-};
-
-export const DisabledState = {
-  render: () => {
-    const wrapStyle = 'display:flex;gap:var(--size-10);align-items:flex-end;flex-wrap:wrap';
-    const itemStyle = 'display:flex;flex-direction:column;align-items:center;gap:var(--size-3)';
-    const titleStyle =
-      'font-size:var(--size-305);color:var(--gray-800);font-weight:var(--font-weight-600);margin-bottom:var(--size-1)';
-    const descStyle = 'font-size:var(--size-3);color:var(--gray-600)';
-
-    return `
-      <div style="${wrapStyle}">
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', disabled: false, size: 'xl' })}
-          <div style="text-align:center">
-            <div style="${titleStyle}">Normal</div>
-            <div style="${descStyle}">Full color</div>
-          </div>
-        </div>
-        <div style="${itemStyle}">
-          ${flagTwig({ code: 'FR', label: 'France', disabled: true, size: 'xl' })}
-          <div style="text-align:center">
-            <div style="${titleStyle}">Disabled</div>
-            <div style="${descStyle}">Reduced opacity</div>
-          </div>
-        </div>
-      </div>
-    `;
-  },
 };
 
 export const AllCountries = {

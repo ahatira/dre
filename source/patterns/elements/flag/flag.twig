@@ -1,13 +1,14 @@
 {#
- * Flag atom
+ * Flag (Atom) - Country/language visual indicator
+ *
  * @param string code - Country code ISO 3166-1 alpha-2 (ex: FR, GB, DE) (optional)
- * @param string locale - BCP 47 locale tag (ex: fr-FR, en-GB) (optional)
- * @param string label - Accessible label (ex: 'France', 'United Kingdom') (optional)
- * @param string src - Explicit flag image path (optional, default: /flags/{code}.svg)
+ * @param string locale - BCP 47 locale tag (ex: fr-FR, en-GB) - auto-extracts country code (optional)
+ * @param string label - Accessible label for screen readers (ex: 'France', 'United Kingdom') (optional)
+ * @param string src - Explicit flag image path (default: /flags/{code}.svg) (optional)
  * @param string size - xs|sm|md|lg|xl (default: md)
  * @param string shape - square|rounded|circle (default: square)
- * @param boolean disabled - Disabled state (default: false)
- * @param boolean decorative - Decorative only (hides from screen readers) (default: false)
+ * @param boolean disabled - Disabled state with reduced opacity (default: false)
+ * @param boolean decorative - Marks as decorative only, adds aria-hidden (default: false)
  #}
 
 {%- set size = size|default('md') -%}

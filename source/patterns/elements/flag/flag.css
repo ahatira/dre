@@ -1,7 +1,7 @@
-/** 
+/**
  * Flag (Element/Atom)
  * Visual indicator for country/language as a flag
- * 
+ *
  * BEM: ps-flag, ps-flag__img
  * Sizes: xs (12px height), sm (16px height), md (20px height - default), lg (24px height), xl (48px height)
  * Aspect ratio: 4:3 (standard flag format)
@@ -10,97 +10,79 @@
  */
 
 .ps-flag {
-  /* Layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
-  /* Sizing - Default: md (height 20px, width auto 4:3 ratio = ~26.67px) */
-  block-size: var(--size-5); /* 20px height */
-  inline-size: calc(var(--size-5) * 4 / 3); /* ~26.67px width (4:3 ratio) */
-  
-  /* Reset */
+  block-size: var(--size-5);
+  inline-size: calc(var(--size-5) * 4 / 3);
   margin: 0;
   padding: 0;
-  
-  /* Visual */
   overflow: hidden;
-  
-  /* Maintain aspect ratio */
   aspect-ratio: 4 / 3;
-  
-  /* Transitions */
-  transition: 
+  transition:
     opacity 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
     filter 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-}
 
-/* Element: Image */
-.ps-flag__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  
-  /* Default shape: square (no border-radius) */
-  border-radius: 0;
-}
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
 
-/* Size Modifiers */
-.ps-flag--xs {
-  block-size: var(--size-3); /* 12px height */
-  inline-size: calc(var(--size-3) * 4 / 3); /* 16px width (4:3 ratio) */
-}
+  &--xs {
+    block-size: var(--size-3);
+    inline-size: calc(var(--size-3) * 4 / 3);
+  }
 
-.ps-flag--sm {
-  block-size: var(--size-4); /* 16px height */
-  inline-size: calc(var(--size-4) * 4 / 3); /* ~21.33px width (4:3 ratio) */
-}
+  &--sm {
+    block-size: var(--size-4);
+    inline-size: calc(var(--size-4) * 4 / 3);
+  }
 
-.ps-flag--lg {
-  block-size: var(--size-6); /* 24px height */
-  inline-size: calc(var(--size-6) * 4 / 3); /* 32px width (4:3 ratio) */
-}
+  &--lg {
+    block-size: var(--size-6);
+    inline-size: calc(var(--size-6) * 4 / 3);
+  }
 
-.ps-flag--xl {
-  block-size: var(--size-12); /* 48px height */
-  inline-size: calc(var(--size-12) * 4 / 3); /* 64px width (4:3 ratio) */
-}
+  &--xl {
+    block-size: var(--size-12);
+    inline-size: calc(var(--size-12) * 4 / 3);
+  }
 
-/* Shape Modifiers - Apply to image element */
-.ps-flag--rounded .ps-flag__img {
-  border-radius: var(--radius-2); /* 4px */
-}
+  &--rounded &__img {
+    border-radius: var(--radius-2);
+  }
 
-/* Shape: circle - Force 1:1 aspect ratio for perfect circle */
-.ps-flag--circle {
-  aspect-ratio: 1 / 1; /* Override 4:3 to force square */
-  inline-size: var(--size-5); /* Use height as width for square */
-}
+  &--circle {
+    aspect-ratio: 1 / 1;
+    inline-size: var(--size-5);
 
-.ps-flag--circle.ps-flag--xs {
-  inline-size: var(--size-3); /* 12px square */
-}
+    &.ps-flag--xs {
+      inline-size: var(--size-3);
+    }
 
-.ps-flag--circle.ps-flag--sm {
-  inline-size: var(--size-4); /* 16px square */
-}
+    &.ps-flag--sm {
+      inline-size: var(--size-4);
+    }
 
-.ps-flag--circle.ps-flag--lg {
-  inline-size: var(--size-6); /* 24px square */
-}
+    &.ps-flag--lg {
+      inline-size: var(--size-6);
+    }
 
-.ps-flag--circle.ps-flag--xl {
-  inline-size: var(--size-12); /* 48px square */
-}
+    &.ps-flag--xl {
+      inline-size: var(--size-12);
+    }
 
-.ps-flag--circle .ps-flag__img {
-  border-radius: var(--radius-round); /* Full circle */
-}
+    .ps-flag__img {
+      border-radius: var(--radius-round);
+    }
+  }
 
-/* State: Disabled */
-.ps-flag--disabled {
-  opacity: 0.5;
-  filter: grayscale(0.2);
-  cursor: not-allowed;
+  &--disabled {
+    opacity: 0.5;
+    filter: grayscale(0.2);
+    cursor: not-allowed;
+  }
 }
