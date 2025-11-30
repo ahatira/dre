@@ -1,11 +1,11 @@
 {#
- * PS Label (Atom)
- * Variables:
- * - text: string (requis)
- * - forId: string (id du champ ciblé)
- * - required: bool
- * - disabled: bool
- * - attributes: Attribute
+ * PS Label (Atom) - Form field label with required indicator
+ *
+ * @param string text - Label text content (required)
+ * @param string forId - ID of the associated form field for label-input binding
+ * @param boolean required - Adds visual asterisk and accessible required text (default: false)
+ * @param boolean disabled - Disabled state with reduced opacity (default: false)
+ * @param Attribute attributes - Additional HTML attributes
  #}
 
 {%- set classes = ['ps-label'] -%}
@@ -20,6 +20,6 @@
   <span class="ps-label__text">{{ text }}</span>
   {% if required %}
     <span class="ps-label__required" aria-hidden="true">*</span>
-    <span class="visually-hidden">(champ obligatoire)</span>
+    <span class="visually-hidden">(required field)</span>
   {% endif %}
 </label>

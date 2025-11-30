@@ -3,10 +3,10 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc
 name: 'PS Label'
 status: stable
 group: atoms
-description: 'Label de champ de formulaire accessible avec indicateur requis.'
+description: 'Form field label with required indicator and accessibility support.'
 props:
-  text: 'Votre nom'
-  forId: 'field-id'
-  required: false
-  disabled: false
-  attributes: {}
+  text: 'Your name' # Label text content
+  forId: 'field-id' # ID of associated form field
+  required: false # Adds asterisk + screen reader text
+  disabled: false # Disabled state (70% opacity)
+  attributes: {} # Additional HTML attributes

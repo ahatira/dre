@@ -8,20 +8,24 @@
     font-family: var(--ps-font-family-primary);
     font-size: var(--ps-font-size-sm);
     font-weight: var(--ps-font-weight-medium);
+
+    &--disabled {
+      color: var(--ps-color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &__text {
+      font: inherit;
+    }
+
+    &__required {
+      color: var(--ps-color-error-600);
+      margin-left: 0.25em;
+      font-weight: var(--ps-font-weight-bold);
+    }
   }
-  .ps-label--disabled {
-    color: var(--ps-color-text-muted);
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-  .ps-label__text {
-    font: inherit;
-  }
-  .ps-label__required {
-    color: var(--ps-color-error-600);
-    margin-left: 0.25em;
-    font-weight: var(--ps-font-weight-bold);
-  }
+
   .visually-hidden {
     position: absolute;
     width: 1px;
