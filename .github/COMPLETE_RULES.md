@@ -32,6 +32,7 @@ Ce document centralise **TOUTES** les règles, normes et standards du projet PS 
 16. [Performance](#16-performance)
 17. [Workflow & Validation](#17-workflow--validation)
 18. [Checklist Composant Complet](#18-checklist-composant-complet)
+19. [JavaScript & Drupal Behaviors](#19-javascript--drupal-behaviors)
 
 ---
 
@@ -1278,6 +1279,325 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 
 - [ ] `docs/ps-design/CHANGELOG.md` mis à jour
 - [ ] Si nouveaux tokens : Justification documentée
+
+---
+
+## 19. JavaScript & Drupal Behaviors
+
+### Objectif
+
+Standardiser l'ajout de comportements JavaScript pour les composants qui en ont besoin, en respectant Drupal 11+, Vite, et Storybook HTML. Le JavaScript doit être modulaire, non-intrusif, accessible, activé via Drupal behaviors et compatible avec l'environnement Storybook de mock Drupal.
+
+### Principes Clés
+
+- **Progressive enhancement**: Le composant fonctionne sans JS (markup + CSS). JS ajoute interaction (toggle, disclosure, inertial navigation, async fetch, etc.).
+- **Simplicité d'abord**: Utiliser une fonction d'initialisation + `once()` si le composant n'a qu'un seul listener simple. N'utiliser une classe que si :
+  - état interne complexe (timers, multiple sous-éléments, roving tabindex) ;
+  - besoin de `destroy()` pour `detach` ;
+  - options dynamiques multi-sources (`data-*`, `drupalSettings`).
+- **Modulaire**: Une unité logique par racine (`.ps-*`). Pas de singletons globaux.
+- **Idempotent**: Behavior ré-exécuté => aucune duplication (utiliser `once()` ou garde locale `if (el.__psInit)`).
+- **Accessible**: Clavier + ARIA + focus-visible. Jamais masquer focus.
+- **Data attributes**: Source principale de configuration locale (`data-timeout`, `data-close-key="Escape"`).
+- **`drupalSettings`**: Pour config server-driven globale (p.ex. délais par défaut, activation features). Ne pas surcharger avec données purement locales.
+- **Cleanup**: Si listeners multiples → `AbortController` + `destroy()` dans `detach`.
+- **No jQuery / No inline JS**: API DOM moderne uniquement.
+- **Performant**: Éviter recalcul layout en boucle; privilégier delegation si nombre élevé d'items.
+- **Isolé**: Ne pas modifier structure BEM critique (ajout d'éléments décoratifs autorisé si documenté).
+
+### Outils Drupal 11+
+
+- **`once()`**: Prévenir ré-initialisations. Dans build ES module Drupal 11: `import { once } from 'drupal/once';` ou via global Storybook mock `window.once`. Usage:
+  ```js
+  once('psAccordion', '.ps-accordion', context).forEach(initAccordion);
+  ```
+- **`drupalSettings`**: Objet global (mocké en Storybook). Lire sans muter structure profonde sauf ajout clé namespacée:
+  ```js
+  const cfg = drupalSettings.psTheme?.components?.accordion || {};
+  ```
+- **Behaviors**: `attach(context, settings)` / `detach(context, settings, trigger)` ; `trigger === 'unload'` lors du retrait DOM.
+
+### Matrice de Décision (Fonction vs Classe)
+
+| Cas | Implémentation recommandée |
+|-----|----------------------------|
+| Simple : un clic toggle (ex: badge dismissible) | Fonction + `once()` |
+| Plusieurs listeners + timers | Classe + `AbortController` |
+| Roving tabindex / menu complexe | Classe |
+| AJAX re-injecte fragment | Classe (support `destroy()`) |
+| Interaction pure CSS (hover, focus) | Aucun JS |
+
+### Patron Minimal (Fonction + once)
+
+```js
+(function (Drupal, once) {
+  Drupal.behaviors.psBadge = {
+    attach(context) {
+      once('psBadge', '.ps-badge[data-dismissible="true"]', context).forEach((el) => {
+        const close = el.querySelector('[data-badge-dismiss]');
+        if (!close) return;
+        close.addEventListener('click', () => {
+          el.remove();
+        });
+      });
+    }
+  };
+})(Drupal, once);
+```
+
+### Patron Complet (Classe + Cleanup)
+
+### Structure de Fichier (AJOUT facultatif par composant)
+
+```
+source/patterns/{level}/{component}/
+├── {component}.js          # Module ES6 (class + init)
+└── index.js                # (optionnel) export barrel si le composant a plusieurs modules
+```
+
+### Patron de Classe (Obligatoire)
+
+```js
+// source/patterns/elements/{component}/{component}.js
+export class PsComponent {
+  constructor(root, options = {}) {
+    this.root = root;
+    this.options = { ...PsComponent.defaults, ...options };
+    this.controllers = []; // AbortController instances for cleanup
+    this.initialized = false;
+  }
+
+  static defaults = {
+    // default options, e.g., selectors, timings from tokens if relevant
+  };
+
+  init() {
+    if (this.initialized) return;
+    this.initialized = true;
+    // Wire listeners using AbortController
+    const ac = new AbortController();
+    this.controllers.push(ac);
+    this.root.addEventListener('keydown', this.onKeyDown.bind(this), { signal: ac.signal });
+    // Other listeners...
+  }
+
+  onKeyDown(e) {
+    // Keyboard accessibility logic
+  }
+
+  destroy() {
+    // Abort all listeners
+    this.controllers.forEach((c) => c.abort());
+    this.controllers = [];
+    this.initialized = false;
+  }
+}
+```
+
+### Behavior avec Classe + once + drupalSettings
+
+```js
+import { PsComponent as PsAccordion } from './accordion.js';
+
+(function (Drupal, once, drupalSettings) {
+  Drupal.behaviors.psAccordion = {
+    attach(context) {
+      const globalCfg = drupalSettings.psTheme?.components?.accordion || {};
+      once('psAccordion', '.ps-accordion', context).forEach((el) => {
+        const localCfg = readOptions(el); // data-* merge
+        const inst = new PsAccordion(el, { ...globalCfg, ...localCfg });
+        inst.init();
+        el.__psInstance = inst; // trace
+      });
+    },
+    detach(context, settings, trigger) {
+      if (trigger !== 'unload') return;
+      context.querySelectorAll('.ps-accordion').forEach((el) => {
+        if (el.__psInstance) {
+          el.__psInstance.destroy();
+          el.__psInstance = null;
+        }
+      });
+    },
+  };
+  function readOptions(root) {
+    return {
+      allowMultiple: root.dataset.allowMultiple === 'true',
+      animationMs: Number(root.dataset.animationMs) || 150,
+    };
+  }
+})(Drupal, once, drupalSettings);
+```
+
+### Storybook Intégration
+
+Storybook mock (`.storybook/drupal/*.js`) fournit `Drupal`, `once`, `drupalSettings`. Dans une story interactive :
+```jsx
+export const Interactive = {
+  render: (args) => {
+    const html = accordionTwig(args);
+    setTimeout(() => Drupal.attachBehaviors(), 0);
+    return html;
+  },
+};
+```
+
+### Accessibilité (Rappels Spécifiques JS)
+
+- Ajouter / mettre à jour `aria-expanded`, `aria-hidden` lors de toggle.
+- Gérer focus retour (ex: fermer dialog → focus sur déclencheur initial).
+- Escape ferme overlays; Tab cycle uniquement si modal (sinon laisser flux naturel).
+- Lire labels dynamiques sans injecter HTML dangereux (jamais innerHTML depuis externe non filtré).
+
+### Utilisation des Tokens en JS
+
+- Timings: Préférer lire valeur CSS si nécessaire:
+  ```js
+  const ms = parseFloat(getComputedStyle(el).getPropertyValue('--duration-fast')) || 150;
+  ```
+- Couleurs: JS ne devrait pas fixer couleurs inline; laisser CSS gérer.
+
+### Anti-Patterns JS (Interdits)
+
+- Ajout d'écouteurs sans `once()` ou garde → duplication.
+- Stockage d'état global dans `window` (hors `drupalSettings`).
+- Mutation profonde de `drupalSettings` côté client (lecture seule excepté ajout espace namespacé nécessaire).
+- Utilisation de `innerHTML` pour re-render complet d'un composant interactif (préférer mises à jour ciblées ou rerender Twig côté serveur).
+- Chaînage de timeouts multiples non nettoyés (utiliser `AbortController` ou stocker ID pour clear).
+
+### Checklist JS Additionnelle
+
+- [ ] Composant fonctionne sans JS.
+- [ ] Choix pattern (fonction simple / classe) justifié.
+- [ ] `once()` utilisé pour éviter ré-init.
+- [ ] Options fusionnées (`data-*` + `drupalSettings`).
+- [ ] Accessibilité (ARIA + clavier) couverte.
+- [ ] Cleanup sur `detach` si nécessaire.
+- [ ] Aucune dépendance jQuery / inline handlers.
+- [ ] Pas de duplication listeners après multiples `attachBehaviors()` (Storybook test).
+
+---
+
+### Initialisation via Drupal Behaviors (Drupal 11+)
+
+Ajouter un behavior générique par type de composant dans un bundle JS chargé par la librairie Drupal correspondante.
+
+```js
+// Example: source/patterns/base/behaviors.js (aggregated by Vite)
+import { PsComponent as PsBadge } from '../elements/badge/badge.js';
+
+(function (Drupal) {
+  Drupal.behaviors.psBadge = {
+    attach(context) {
+      const roots = context.querySelectorAll('.ps-badge');
+      roots.forEach((root) => {
+        // Prevent double init
+        if (root.__psInstance) return;
+        const options = parseOptions(root);
+        const instance = new PsBadge(root, options);
+        instance.init();
+        root.__psInstance = instance;
+      });
+    },
+    detach(context, settings, trigger) {
+      if (trigger !== 'unload') return;
+      const roots = context.querySelectorAll('.ps-badge');
+      roots.forEach((root) => {
+        if (root.__psInstance) {
+          root.__psInstance.destroy();
+          root.__psInstance = null;
+        }
+      });
+    },
+  };
+
+  function parseOptions(root) {
+    // Read data-* attributes and map to options types
+    const opts = {};
+    // e.g., data-dismissible, data-timeout, etc.
+    return opts;
+  }
+})(Drupal);
+```
+
+### Mapping des Options (Data → JS)
+
+- Booleans: `data-dismissible="true"` → `true` (case-insensitive)
+- Numbers: `data-timeout="150"` → `150` (ms, utiliser tokens durations si possible)
+- Strings: `data-target="#id"`
+- Lists: `data-keys="Enter,Space"` → `["Enter","Space"]`
+
+### Accessibilité par Type d’Interaction
+
+- Button-like: Space/Enter activent l’action, `role="button"` si non `<button>`, `tabindex="0"`, `aria-disabled`, `:focus-visible` déjà géré en CSS.
+- Disclosure/Accordion: `aria-expanded`, `aria-controls`, cible focusable, gestion Escape et cycle tab.
+- Dismissible: `aria-live` si feedback, `data-dismissible`, bouton Close avec label accessible.
+- Menu/Combobox: Navigations fléchées, `aria-activedescendant`, roving tabindex.
+
+### Storybook Integration (HTML Edition)
+
+- Les stories ne doivent pas dépendre d’un runtime React. Pour tester JS, utiliser `render` qui injecte markup puis appeler un `init` utilitaire dans le wrapper.
+- Exposer un utilitaire d’init pour Storybook seulement si nécessaire :
+
+```js
+// source/patterns/elements/badge/init-storybook.js
+import { PsComponent as PsBadge } from './badge.js';
+export function initBadgeStorybook(container = document) {
+  container.querySelectorAll('.ps-badge').forEach((root) => {
+    if (!root.__psInstance) {
+      const inst = new PsBadge(root);
+      inst.init();
+      root.__psInstance = inst;
+    }
+  });
+}
+```
+
+Puis dans la story:
+
+```jsx
+import badgeTwig from './badge.twig';
+import data from './badge.yml';
+import { initBadgeStorybook } from './init-storybook.js';
+
+export const Interactive = {
+  render: (args) => {
+    const html = badgeTwig(args);
+    setTimeout(() => initBadgeStorybook(document), 0);
+    return html;
+  },
+};
+```
+
+### Librairies Drupal (`ps.libraries.yml`)
+
+- Déclarer un asset JS par groupe de composants ou par besoin.
+- Charger sur les pages pertinentes via `attach_library()` dans Twig si spécifique, sinon via thème global.
+
+```yaml
+ps_theme.components:
+  js:
+    dist/components.js: {}
+  css:
+    theme:
+      dist/components.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+```
+
+### Tests & Qualité
+
+- Lint: Biome pour ES modules (no unused vars, no implicit any, etc.).
+- E2E léger: Stories interactives pour cas critiques.
+- No DOM assumptions cassantes: Toujours requêter via sélecteurs BEM (`.ps-...`).
+
+### Anti-Patterns (Interdits)
+
+- Muter le DOM structurel du composant (ajouter/supprimer des éléments requis) sans justification.
+- Utiliser `innerHTML` pour injecter des templates (préfère Twig server-side, ou fragments sûrs).
+- Créer des singletons globaux; chaque racine a sa propre instance.
+- Empêcher la tabulation ou piéger le focus sans raisons accessibles.
 
 ---
 
