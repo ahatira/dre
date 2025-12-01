@@ -9,22 +9,24 @@
 
 :where(html) {
   /* ============================================
-     PRIMARY (Brand Green - BNP Paribas)
+     PRIMARY (Brand Green - BNP Paribas #00915A)
+     Base: #00915A, Hover: #017F4F (darker), Active: #047857 (darkest)
      ============================================ */
-  --primary: hsl(162, 72%, 38%); /* #0DB089 */
-  --primary-hover: hsl(162, 72%, 33%);
-  --primary-active: hsl(162, 72%, 28%);
+  --primary: hsl(162, 100%, 28%); /* #00915A - Official BNP green */
+  --primary-hover: hsl(162, 100%, 25%); /* #017F4F - Dark variant from maquette */
+  --primary-active: hsl(162, 92%, 25%); /* #047857 - Darkest for pressed state */
   --primary-text: hsl(0, 0%, 100%); /* White on primary */
-  --primary-border: hsl(162, 72%, 38%);
+  --primary-border: hsl(162, 100%, 28%); /* Match base */
 
   /* ============================================
-     SECONDARY (Brand Pink)
+     SECONDARY (Brand Magenta - #A12B66)
+     Base: #A12B66, Hover: #BA3075 (lighter), Active: #8A2456 (darker)
      ============================================ */
-  --secondary: hsl(330, 65%, 40%); /* #A22B66 */
-  --secondary-hover: hsl(330, 65%, 35%);
-  --secondary-active: hsl(330, 65%, 30%);
+  --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
+  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter variant from maquette */
+  --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
   --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
-  --secondary-border: hsl(330, 65%, 40%);
+  --secondary-border: hsl(330, 65%, 40%); /* Match base */
 
   /* ============================================
      SUCCESS (Green - positive actions)
@@ -36,13 +38,14 @@
   --success-border: hsl(162, 92%, 25%);
 
   /* ============================================
-     DANGER (Red - destructive actions)
+     DANGER (Red Status - #EB3636)
+     From maquette Status color
      ============================================ */
-  --danger: hsl(0, 75%, 51%); /* #EB3636 (red-600) */
-  --danger-hover: hsl(0, 74%, 45%); /* red-700 */
-  --danger-active: hsl(0, 69%, 36%); /* red-800 */
+  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
+  --danger-hover: hsl(0, 82%, 52%); /* Slightly darker */
+  --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
   --danger-text: hsl(0, 0%, 100%); /* White on danger */
-  --danger-border: hsl(0, 75%, 51%);
+  --danger-border: hsl(0, 82%, 57%); /* Match base */
 
   /* ============================================
      WARNING (Yellow - caution)

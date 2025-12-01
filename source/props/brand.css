@@ -12,19 +12,20 @@
 :where(html) {
   /* ============================================
      BNP Brand Colors (Reference only)
+     From official BNP Paribas RealEstate design system
      ============================================ */
-  --bnp-green: hsl(162, 100%, 28%); /* #00915A - Primary base (converted to HSL) */
+  --bnp-green: hsl(162, 100%, 28%); /* #00915A - Primary base */
   --bnp-dark-green: hsl(162, 100%, 25%); /* #017F4F - Primary dark */
   --bnp-mid-green: hsl(162, 94%, 33%); /* #04A46E - Primary bright */
   --bnp-light-green: hsl(162, 48%, 72%); /* #99D3BD - Primary light */
-  --bnp-graphite: hsl(0, 0%, 17%); /* #2B2B2B */
-  --bnp-neutral-gray: hsl(0, 0%, 43%); /* #6A6D6F */
+  --bnp-graphite: hsl(0, 0%, 17%); /* #2B2B2B - Grey dark (not in maquette, kept) */
+  --bnp-neutral-gray: hsl(0, 0%, 43%); /* #6A6D6F - Grey mid (not in maquette, kept) */
 
-  /* Secondary accent palette */
-  --bnp-accent-purple: hsl(330, 60%, 50%); /* #BA3075 */
-  --bnp-accent-pink: hsl(330, 76%, 56%); /* #E0388C */
-  --bnp-accent-rose: hsl(330, 48%, 73%); /* #D998BB */
-  --bnp-accent-magenta: hsl(330, 65%, 40%); /* #A12B66 */
+  /* Secondary accent palette (from maquette) */
+  --bnp-accent-purple: hsl(330, 60%, 50%); /* #BA3075 - Magenta */
+  --bnp-accent-pink: hsl(330, 76%, 56%); /* #E0388C - Pink vif */
+  --bnp-accent-rose: hsl(330, 48%, 73%); /* #D998BB - Rose clair */
+  --bnp-accent-magenta: hsl(330, 65%, 40%); /* #A12B66 - Magenta foncé */
 
   /* ============================================
      Legacy Aliases (DEPRECATED - Use semantic.css)
