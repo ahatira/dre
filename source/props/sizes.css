@@ -88,6 +88,13 @@
 
   /* Icon size token (16px) for accordion trigger icon */
   --ps-icon-size-16: var(--size-4);
+  /* Icon size token (20px) for dropdown chevron */
+  --ps-icon-size-20: var(--size-5);
+
+  /* Dropdown component min-widths */
+  --ps-dropdown-min-width-small: 11.25rem;  /* 180px */
+  --ps-dropdown-min-width-medium: 13.75rem; /* 220px */
+  --ps-dropdown-min-width-large: 16.25rem;  /* 260px */
 
   /* Toggle component tokens */
   --ps-toggle-inset: var(--size-05); /* 2px internal thumb inset */

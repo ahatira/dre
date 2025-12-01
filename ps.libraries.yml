@@ -48,3 +48,12 @@ carousel:
     - core/once
     - ps_theme/vendors
 
+dropdown:
+  js:
+    dist/js/dropdown.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+

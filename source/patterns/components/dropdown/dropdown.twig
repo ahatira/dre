@@ -1,0 +1,101 @@
+{#
+ * Dropdown component
+ * Accessible select dropdown with custom styling and keyboard navigation
+ * 
+ * @param string name - Form field name (required)
+ * @param string label - Visible button label
+ * @param string placeholder - Placeholder text when no selection
+ * @param string size - small|medium|large (default: medium)
+ * @param string shape - none|rounded|pill (default: rounded)
+ * @param boolean disabled - Disable dropdown (default: false)
+ * @param array options - Array of option objects (required)
+ *   Each option:
+ *   - label: string (required) - Display text
+ *   - value: string (required) - Form value
+ *   - selected: boolean (default: false)
+ *   - disabled: boolean (default: false)
+ * @param object attributes - Additional HTML attributes (optional)
+ * 
+ * Example:
+ * {{ include('@components/dropdown/dropdown.twig', {
+ *   name: 'category',
+ *   label: 'Property type',
+ *   options: [
+ *     { label: 'Apartment', value: 'apartment', selected: true },
+ *     { label: 'House', value: 'house' },
+ *     { label: 'Villa', value: 'villa', disabled: true }
+ *   ]
+ * }) }}
+ #}
+
+{%- set size = size|default('medium') -%}
+{%- set shape = shape|default('rounded') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set options = options|default([]) -%}
+{# Attributes: Drupal create_attribute() or empty string for Storybook #}
+{%- set attributes = attributes|default('') -%}
+
+{%- set selectedOption = null -%}
+{%- for option in options -%}
+  {%- if option.selected -%}
+    {%- set selectedOption = option -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- set displayLabel = label ?? (selectedOption ? selectedOption.label : (placeholder ?? 'Select an option')) -%}
+
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-dropdown']) -%}
+{%- if size and size != 'medium' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ size]) -%}{%- endif -%}
+{%- if shape and shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
+{%- if disabled -%}{%- set classes = classes|merge(['ps-dropdown--disabled']) -%}{%- endif -%}
+
+<div class="{{ classes|join(' ')|trim }}" {%- if attributes %} {{ attributes }}{% endif -%} data-dropdown>
+  <button
+    class="ps-dropdown__button"
+    type="button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    data-dropdown-button
+    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
+  >
+    <span class="ps-dropdown__label">{{ displayLabel }}</span>
+    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
+  </button>
+
+  <ul
+    class="ps-dropdown__list"
+    role="listbox"
+    tabindex="-1"
+    hidden
+    data-dropdown-list
+  >
+    {%- for option in options -%}
+      <li
+        class="ps-dropdown__option{% if option.disabled %} ps-dropdown__option--disabled{% endif %}"
+        role="option"
+        aria-selected="{{ option.selected ? 'true' : 'false' }}"
+        data-value="{{ option.value }}"
+        {%- if option.disabled %} aria-disabled="true"{% endif -%}
+      >
+        {{ option.label }}
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <select
+    class="ps-dropdown__native"
+    name="{{ name }}"
+    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
+  >
+    {%- for option in options -%}
+      <option
+        value="{{ option.value }}"
+        {%- if option.selected %} selected{% endif -%}
+        {%- if option.disabled %} disabled{% endif -%}
+      >
+        {{ option.label }}
+      </option>
+    {%- endfor -%}
+  </select>
+</div>

@@ -8,6 +8,7 @@
   /* Alias for docs consistency */
   --ps-font-family-condensed: var(--font-condensed);
   --ps-font-family-primary: var(--font-sans);
+  --font-body: var(--font-sans);
   --font-weight-100: 100;
   --font-weight-200: 200;
   --font-weight-300: 300;

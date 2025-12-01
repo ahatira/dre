@@ -1,0 +1,214 @@
+/**
+ * Dropdown (Molecule/Form)
+ * Accessible select dropdown with custom styling
+ * 
+ * BEM: ps-dropdown
+ * Elements: __button, __label, __icon, __list, __option, __native
+ * Modifiers: --small, --large, --none, --pill, --disabled
+ * States: hover, focus-visible, disabled, [aria-selected], [aria-expanded]
+ * 
+ * Design Tokens:
+ * - Layout: --size-1 to --size-4, --ps-dropdown-min-width-*
+ * - Icons: --ps-icon-size-16, --ps-icon-size-20
+ * - Colors: --white, --ps-color-text, --gray-*, --blue-600, --brand-primary
+ * - Typography: --ps-font-family-primary, --font-size-1/2, --leading-normal, --font-weight-600
+ * - Borders: --border-size-1, --radius-2, --ps-border-width-focus
+ * - Effects: --shadow-4, --ps-transition-duration-fast, --ease-3, --layer-40
+ * 
+ * Future Enhancements (per mockups):
+ * - Multiselect variant with checkboxes
+ * - Grouped options with section headers (optgroups)
+ * - Footer button slot (Apply, Clear filters, etc.)
+ */
+
+.ps-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  /* Button (trigger) */
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-2);
+    width: 100%;
+    min-width: var(--ps-dropdown-min-width-medium);
+    padding: var(--size-2) var(--size-3);
+    border: var(--border-size-1) solid var(--gray-300);
+    border-radius: var(--radius-2);
+    background: var(--white);
+    color: var(--ps-color-text);
+    font-family: var(--ps-font-family-primary);
+    font-size: var(--font-size-1);
+    line-height: var(--leading-normal);
+    cursor: pointer;
+    transition: border-color var(--ps-transition-duration-fast) var(--ease-3),
+                box-shadow var(--ps-transition-duration-fast) var(--ease-3);
+
+    &:hover:not(:disabled) {
+      border-color: var(--gray-400);
+    }
+
+    &:focus-visible {
+      outline: var(--ps-border-width-focus) solid var(--blue-600);
+      outline-offset: var(--size-05);
+      border-color: var(--blue-600);
+    }
+
+    &:disabled {
+      background: var(--gray-100);
+      color: var(--ps-color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &[aria-expanded="true"] .ps-dropdown__icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__label {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: var(--ps-icon-size-20);
+    height: var(--ps-icon-size-20);
+    font-size: var(--ps-icon-size-20);
+    line-height: 1;
+    transition: transform var(--ps-transition-duration-fast) var(--ease-3);
+  }
+
+  /* Dropdown list (overlay) */
+  &__list {
+    position: absolute;
+    z-index: var(--layer-40);
+    top: calc(100% + var(--size-1));
+    left: 0;
+    min-width: 100%;
+    max-height: var(--size-80);
+    overflow-y: auto;
+    background: var(--white);
+    border: var(--border-size-1) solid var(--gray-300);
+    border-radius: var(--radius-2);
+    box-shadow: var(--shadow-4);
+    padding: var(--size-2) 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  /* Options */
+  &__option {
+    padding: var(--size-205) var(--size-3);
+    cursor: pointer;
+    color: var(--ps-color-text);
+    font-size: var(--font-size-1);
+    transition: background-color var(--ps-transition-duration-fast) var(--ease-3);
+
+    &:hover:not(&--disabled) {
+      background: var(--gray-100);
+    }
+
+    &[aria-selected="true"] {
+      background: var(--gray-50);
+      color: var(--brand-primary);
+      font-weight: var(--font-weight-600);
+    }
+
+    &--disabled {
+      color: var(--ps-color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &:focus-visible {
+      outline: var(--ps-border-width-focus) solid var(--blue-600);
+      outline-offset: calc(var(--size-05) * -1);
+    }
+  }
+
+  /* Native select fallback (hidden by default) */
+  &__native {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+  }
+
+  /* Shape modifiers */
+  &--none {
+    .ps-dropdown__button {
+      border-radius: 0;
+    }
+
+    .ps-dropdown__list {
+      border-radius: 0;
+    }
+  }
+
+  &--pill {
+    .ps-dropdown__button {
+      border-radius: var(--radius-round);
+    }
+
+    .ps-dropdown__list {
+      border-radius: var(--radius-4);
+    }
+  }
+
+  /* Size modifiers */
+  &--small {
+    .ps-dropdown__button {
+      padding: var(--size-105) var(--size-2);
+      font-size: var(--ps-font-size-sm);
+      min-width: var(--ps-dropdown-min-width-small);
+    }
+
+    .ps-dropdown__icon {
+      width: var(--ps-icon-size-16);
+      height: var(--ps-icon-size-16);
+      font-size: var(--ps-icon-size-16);
+    }
+
+    .ps-dropdown__option {
+      padding: var(--size-2) var(--size-2);
+      font-size: var(--ps-font-size-sm);
+    }
+  }
+
+  &--large {
+    .ps-dropdown__button {
+      padding: var(--size-3) var(--size-4);
+      font-size: var(--font-size-2);
+      min-width: var(--ps-dropdown-min-width-large);
+    }
+
+    .ps-dropdown__icon {
+      width: var(--ps-icon-size-20);
+      height: var(--ps-icon-size-20);
+    }
+
+    .ps-dropdown__option {
+      padding: var(--size-3) var(--size-4);
+      font-size: var(--font-size-2);
+    }
+  }
+
+  /* Disabled state */
+  &--disabled {
+    .ps-dropdown__list {
+      display: none;
+    }
+  }
+}
