@@ -1,0 +1,64 @@
+/**
+ * Semantic Colors (Bootstrap-style Base-Modifier system)
+ * 
+ * 6 semantic colors with 5 states each for automatic modifier generation
+ * Usage: var(--primary), var(--primary-hover), var(--primary-text), etc.
+ * 
+ * Components using these: button, badge, alert, link, divider, eyebrow, etc.
+ */
+
+:where(html) {
+  /* ============================================
+     PRIMARY (Brand Green - BNP Paribas)
+     ============================================ */
+  --primary: hsl(162, 72%, 38%); /* #0DB089 */
+  --primary-hover: hsl(162, 72%, 33%);
+  --primary-active: hsl(162, 72%, 28%);
+  --primary-text: hsl(0, 0%, 100%); /* White on primary */
+  --primary-border: hsl(162, 72%, 38%);
+
+  /* ============================================
+     SECONDARY (Brand Pink)
+     ============================================ */
+  --secondary: hsl(330, 65%, 40%); /* #A22B66 */
+  --secondary-hover: hsl(330, 65%, 35%);
+  --secondary-active: hsl(330, 65%, 30%);
+  --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
+  --secondary-border: hsl(330, 65%, 40%);
+
+  /* ============================================
+     SUCCESS (Green - positive actions)
+     ============================================ */
+  --success: hsl(162, 92%, 25%); /* #047857 (green-600) */
+  --success-hover: hsl(163, 93%, 22%); /* green-700 */
+  --success-active: hsl(164, 93%, 17%); /* green-800 */
+  --success-text: hsl(0, 0%, 100%); /* White on success */
+  --success-border: hsl(162, 92%, 25%);
+
+  /* ============================================
+     DANGER (Red - destructive actions)
+     ============================================ */
+  --danger: hsl(0, 75%, 51%); /* #EB3636 (red-600) */
+  --danger-hover: hsl(0, 74%, 45%); /* red-700 */
+  --danger-active: hsl(0, 69%, 36%); /* red-800 */
+  --danger-text: hsl(0, 0%, 100%); /* White on danger */
+  --danger-border: hsl(0, 75%, 51%);
+
+  /* ============================================
+     WARNING (Yellow - caution)
+     ============================================ */
+  --warning: hsl(42, 93%, 46%); /* #D97706 (yellow-400) */
+  --warning-hover: hsl(37, 97%, 39%); /* yellow-500 */
+  --warning-active: hsl(31, 88%, 33%); /* yellow-600 */
+  --warning-text: hsl(0, 0%, 0%); /* Black on yellow (contrast) */
+  --warning-border: hsl(42, 93%, 46%);
+
+  /* ============================================
+     INFO (Blue - informational)
+     ============================================ */
+  --info: hsl(220, 89%, 53%); /* #2563EB (blue-600) */
+  --info-hover: hsl(221, 79%, 48%); /* blue-700 */
+  --info-active: hsl(223, 68%, 37%); /* blue-800 */
+  --info-text: hsl(0, 0%, 100%); /* White on info */
+  --info-border: hsl(220, 89%, 53%);
+}

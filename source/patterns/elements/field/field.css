@@ -9,6 +9,19 @@
  */
 
 .ps-field {
+  /* Component-specific color tokens */
+  --ps-color-border-default: hsl(216, 22%, 86%); /* #D6DBDE */
+  --ps-color-border-hover: hsl(216, 22%, 70%);
+  --ps-color-border-focus: hsl(199, 89%, 48%); /* #0288D1 - blue focus */
+  --ps-color-border-error: hsl(0, 75%, 51%); /* #EB3636 - red error */
+  --ps-color-border-success: hsl(162, 72%, 38%); /* green success */
+  --ps-color-field-bg: hsl(0, 0%, 100%); /* white background */
+  --ps-color-field-text: hsl(0, 0%, 20%); /* #333333 text */
+  --ps-color-field-placeholder: hsl(220, 9%, 46%); /* gray placeholder */
+  --ps-color-field-disabled-bg: hsl(210, 20%, 98%); /* F3F6F9 disabled bg */
+  --ps-color-field-disabled-text: hsl(220, 9%, 46%); /* gray disabled text */
+  
+  /* Styles */
   margin: 0;
   padding: 0;
   display: inline-flex;

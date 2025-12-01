@@ -1,46 +1,18 @@
+/**
+ * Base Color Palette
+ * Pure color definitions (no component-specific tokens)
+ * Component tokens should live in their respective component CSS files
+ * Semantic colors (primary, secondary, etc.) are in semantic.css
+ */
+
 :where(html) {
-  /* Avatar tokens */
-  --ps-color-primary-600: hsl(162, 72%, 38%); /* #0DB089 - vert BNP */
-  /* Badge accent (legacy gold) */
-  --accent-gold: hsl(39, 48%, 63%); /* legacy gold accent for badge */
-  /* Progress semantic colors */
-  --ps-color-info-600: hsl(220, 89%, 53%); /* align with blue-600 */
-  --ps-color-warning-600: hsl(47, 96%, 53%); /* align with yellow-300/500 */
-  --ps-color-neutral-500: hsl(220, 9%, 46%); /* gray-500 fallback */
-  --ps-color-neutral-700: hsl(217, 19%, 27%); /* gray-700 fallback */
-  --ps-color-neutral-0: hsl(0, 0%, 100%); /* #FFF - blanc */
-  --ps-color-neutral-100: hsl(210, 20%, 98%); /* #F3F6F9 */
-  --ps-color-neutral-200: hsl(216, 22%, 92%); /* #E8EBEF */
-  --ps-color-neutral-400: hsl(210, 15%, 70%); /* #9AA6B2 */
-  --ps-color-neutral-600: hsl(210, 15%, 35%); /* #54636F */
-  --ps-color-success-600: hsl(162, 72%, 38%); /* #0DB089 */
-  --ps-color-error-600: hsl(2, 80%, 58%); /* #E53935 */
+  /* ============================================
+     NEUTRALS (Gray Scale)
+     ============================================ */
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
 
-  /* Label tokens */
-  --ps-color-text: #1F2A33;
-  --ps-color-text-muted: #6B7780;
-
-  /* Progress bar stripe overlay */
-  --progress-stripe-overlay: hsla(0, 0%, 100%, 0.25); /* White 25% opacity for animated stripes */
-
-  /* Alert component overlays */
-  --alert-overlay-hover: hsla(0, 0%, 100%, 0.2); /* White 20% for hover state */
-  --alert-overlay-active: hsla(0, 0%, 100%, 0.3); /* White 30% for active state */
-  --alert-overlay-subtle-hover: hsla(0, 0%, 0%, 0.05); /* Black 5% for subtle variants hover */
-  --alert-overlay-subtle-active: hsla(0, 0%, 0%, 0.1); /* Black 10% for subtle variants active */
-
-  /* Offer card specific colors */
-  --offer-badge-viewed-bg: hsl(210, 15%, 92%); /* #EBEDEF - Grey #6 */
-  --offer-badge-viewed-text: hsl(210, 15%, 31%); /* #434F57 - Grey #2 */
-  --offer-badge-gold-bg: hsl(39, 48%, 63%); /* #D1AE6E - Gold */
-  --offer-text-muted: hsl(205, 10%, 49%); /* #777E83 - Grey #3 */
-  --offer-text-default: hsl(0, 0%, 20%); /* #333333 - Grey #1 */
-  --offer-action-active: hsl(330, 65%, 40%); /* #A22B66 - Pink #4 */
-  --offer-action-active-hover: hsl(330, 67%, 33%); /* #8A1F54 - Pink darker */
-  
-  /* Base colors */
-  --white: hsl(0 0% 100%);
-  --text-default: #333333; /* Default text color */
+  /* Gray scale (50-900) */
   --gray-50: hsl(210, 20%, 98%);
   --gray-100: hsl(220, 14%, 96%);
   --gray-200: hsl(220, 13%, 91%);
@@ -51,7 +23,12 @@
   --gray-700: hsl(217, 19%, 27%);
   --gray-800: hsl(215, 28%, 17%);
   --gray-900: hsl(221, 39%, 11%);
-  --black: hsl(0 0% 0%);
+
+  /* ============================================
+     COLOR PALETTES (Extended scales)
+     ============================================ */
+
+  /* Red scale (50-900) */
   --red-50: hsl(0, 73%, 97%);
   --red-100: hsl(0, 84%, 95%);
   --red-200: hsl(0, 83%, 91%);
@@ -62,6 +39,9 @@
   --red-700: hsl(0, 74%, 45%);
   --red-800: hsl(0, 69%, 36%);
   --red-900: hsl(0, 61%, 29%);
+
+  /* Yellow scale (50-900) */
+  /* Yellow scale (50-900) */
   --yellow-50: hsl(60, 83%, 95%);
   --yellow-100: hsl(54, 95%, 85%);
   --yellow-200: hsl(52, 96%, 70%);
@@ -72,6 +52,8 @@
   --yellow-700: hsl(28, 80%, 31%);
   --yellow-800: hsl(25, 71%, 26%);
   --yellow-900: hsl(23, 69%, 23%);
+
+  /* Green scale (50-900) */
   --green-50: hsl(154, 41%, 97%);
   --green-100: hsl(154, 61%, 92%);
   --green-200: hsl(155, 63%, 84%);
@@ -82,6 +64,8 @@
   --green-700: hsl(163, 93%, 22%);
   --green-800: hsl(164, 93%, 17%);
   --green-900: hsl(166, 97%, 14%);
+
+  /* Blue scale (50-900) */
   --blue-50: hsl(210, 100%, 96%);
   --blue-100: hsl(211, 94%, 94%);
   --blue-200: hsl(213, 94%, 88%);
@@ -92,6 +76,8 @@
   --blue-700: hsl(221, 79%, 48%);
   --blue-800: hsl(223, 68%, 37%);
   --blue-900: hsl(225, 54%, 30%);
+
+  /* Sky scale (50-900) */
   --sky-50: hsl(204, 100%, 97%);
   --sky-100: hsl(204, 94%, 94%);
   --sky-200: hsl(201, 94%, 86%);
@@ -102,40 +88,4 @@
   --sky-700: hsl(201, 96%, 32%);
   --sky-800: hsl(201, 90%, 27%);
   --sky-900: hsl(202, 80%, 24%);
-
-  /* Field-specific semantic colors */
-  /* Card component border (Figma exact #EBEDEF) */
-  --ps-color-border-card: #EBEDEF;
-  --ps-color-border-default: hsl(216, 22%, 86%); /* #D6DBDE */
-  --ps-color-border-hover: hsl(216, 22%, 70%); /* hover state */
-  --ps-color-border-focus: hsl(199, 89%, 48%); /* #0288D1 - blue focus */
-  --ps-color-border-error: hsl(0, 75%, 51%); /* #EB3636 - red error */
-  --ps-color-border-success: hsl(162, 72%, 38%); /* green success */
-  --ps-color-field-bg: hsl(0, 0%, 100%); /* white background */
-  --ps-color-field-text: hsl(0, 0%, 20%); /* #333333 text */
-  --ps-color-field-placeholder: hsl(220, 9%, 46%); /* gray placeholder */
-  --ps-color-field-disabled-bg: hsl(210, 20%, 98%); /* F3F6F9 disabled bg */
-  --ps-color-field-disabled-text: hsl(220, 9%, 46%); /* gray disabled text */
-
-  /* Link semantic colors (interactive states) */
-  --ps-link-primary: #00915A; /* Primary link (green) - base */
-  --ps-link-primary-hover: #006B43; /* Primary link - hover */
-  --ps-link-primary-active: #004A2D; /* Primary link - active */
-  --ps-link-primary-visited: #8E2A68; /* Primary link - visited */
-  --ps-link-primary-disabled: hsl(220, 9%, 46%); /* Primary link - disabled */
-  --ps-link-secondary: #BA3075; /* Secondary link (purple) - base */
-  --ps-link-secondary-hover: #A12B66; /* Secondary link - hover */
-  --ps-link-secondary-active: #8E2A68; /* Secondary link - active */
-  --ps-link-secondary-visited: #6B1F4D; /* Secondary link - visited */
-  --ps-link-secondary-disabled: hsl(220, 9%, 46%); /* Secondary link - disabled */
-  --ps-link-inverse: hsl(0, 0%, 100%); /* Inverse link (white on dark) - base */
-  --ps-link-inverse-hover: hsl(0, 0%, 90%); /* Inverse link - hover */
-  --ps-link-inverse-active: hsl(0, 0%, 80%); /* Inverse link - active */
-  --ps-link-inverse-visited: hsl(0, 0%, 85%); /* Inverse link - visited */
-  --ps-link-inverse-disabled: hsl(0, 0%, 60%); /* Inverse link - disabled */
-  --ps-link-info: hsl(220, 89%, 53%); /* Info link (blue) - base */
-  --ps-link-info-hover: hsl(221, 79%, 48%); /* Info link - hover */
-  --ps-link-info-active: hsl(223, 68%, 37%); /* Info link - active */
-  --ps-link-info-visited: hsl(225, 54%, 30%); /* Info link - visited */
-  --ps-link-info-disabled: hsl(220, 9%, 46%); /* Info link - disabled */
 }

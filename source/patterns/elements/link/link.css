@@ -9,6 +9,28 @@
  */
 
 .ps-link {
+  /* Component-specific color tokens (semantic link states) */
+  --ps-link-primary: hsl(162, 100%, 28%); /* #00915A */
+  --ps-link-primary-hover: hsl(162, 100%, 21%); /* #006B43 */
+  --ps-link-primary-active: hsl(162, 100%, 14%); /* #004A2D */
+  --ps-link-primary-visited: hsl(320, 55%, 45%); /* #8E2A68 */
+  --ps-link-primary-disabled: hsl(220, 9%, 46%);
+  --ps-link-secondary: hsl(330, 60%, 50%); /* #BA3075 */
+  --ps-link-secondary-hover: hsl(330, 65%, 40%); /* #A12B66 */
+  --ps-link-secondary-active: hsl(320, 55%, 45%); /* #8E2A68 */
+  --ps-link-secondary-visited: hsl(320, 55%, 35%); /* #6B1F4D */
+  --ps-link-secondary-disabled: hsl(220, 9%, 46%);
+  --ps-link-inverse: hsl(0, 0%, 100%);
+  --ps-link-inverse-hover: hsl(0, 0%, 90%);
+  --ps-link-inverse-active: hsl(0, 0%, 80%);
+  --ps-link-inverse-visited: hsl(0, 0%, 85%);
+  --ps-link-inverse-disabled: hsl(0, 0%, 60%);
+  --ps-link-info: hsl(220, 89%, 53%);
+  --ps-link-info-hover: hsl(221, 79%, 48%);
+  --ps-link-info-active: hsl(223, 68%, 37%);
+  --ps-link-info-visited: hsl(225, 54%, 30%);
+  --ps-link-info-disabled: hsl(220, 9%, 46%);
+  
   /* Reset */
   margin: 0;
   padding: 0;

@@ -67,7 +67,7 @@
   /* Focus-within effect for better UX */
   &:focus-within:not(.ps-form-field--disabled):not(.ps-form-field--error) {
     & .ps-label {
-      color: var(--blue-600);
+      font-weight: var(--font-weight-400);
     }
   }
 }
