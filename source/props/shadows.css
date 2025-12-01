@@ -11,10 +11,10 @@
   --inner-shadow-3: inset 0 2px 8px 0 hsla(0, 0%, 0%, 5%);
   --inner-shadow-4: inset 0 2px 14px 0 hsla(0, 0%, 0%, 5%);
 
-  /* Field focus shadows */
-  --shadow-focus-primary: 0 0 0 3px hsla(199, 89%, 48%, 0.1); /* Blue focus ring */
-  --shadow-focus-error: 0 0 0 3px hsla(0, 75%, 51%, 0.1); /* Red error ring */
-  --shadow-focus-success: 0 0 0 3px hsla(162, 72%, 38%, 0.1); /* Green success ring */
+  /* Field focus shadows (using brand tokens) */
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--border-focus) 10%, transparent); /* Default focus ring */
+  --shadow-focus-error: 0 0 0 3px color-mix(in srgb, var(--border-error) 10%, transparent); /* Error state ring */
+  --shadow-focus-success: 0 0 0 3px color-mix(in srgb, var(--border-success) 10%, transparent); /* Success state ring */
 
   /* Toggle thumb shadows */
   --shadow-toggle-thumb: 0 2px 4px hsla(0, 0%, 0%, 0.2); /* Default thumb shadow */
