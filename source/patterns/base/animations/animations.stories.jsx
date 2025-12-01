@@ -5,7 +5,7 @@ import animations from './animations.twig';
  *
  * Design system timing and easing for consistent motion:
  * - 6 Duration tokens: instant to slowest (0.1s to 1s)
- * - 20 Animation presets: fade, scale, slide, shake, spin, etc.
+ * - 20 Animation presets: fade, scale, slide (8 directions), shake (2 axes), spin, ping, blink, float, bounce, pulse
  * - 35 Easing curves: ease-*, in-out-*, elastic-*, spring-*
  *
  * All tokens defined in `source/props/animations.css` and `source/props/easing.css`
@@ -35,13 +35,37 @@ transition: all var(--duration-slowest) var(--ease-elastic-1); /* 1s */
 ### Animation Presets (20)
 
 \`\`\`css
-animation: var(--animation-fade-in); /* Fade in */
-animation: var(--animation-fade-out); /* Fade out */
-animation: var(--animation-scale-up); /* Scale up */
-animation: var(--animation-slide-up); /* Slide up */
-animation: var(--animation-shake); /* Shake effect */
-animation: var(--animation-spin); /* Spin 360° */
-/* + 14 more presets in source/props/animations.css */
+/* Fade */
+animation: var(--animation-fade-in);
+animation: var(--animation-fade-out);
+
+/* Scale */
+animation: var(--animation-scale-up);
+animation: var(--animation-scale-down);
+
+/* Slide In (4 directions) */
+animation: var(--animation-slide-in-up);
+animation: var(--animation-slide-in-down);
+animation: var(--animation-slide-in-left);
+animation: var(--animation-slide-in-right);
+
+/* Slide Out (4 directions) */
+animation: var(--animation-slide-out-up);
+animation: var(--animation-slide-out-down);
+animation: var(--animation-slide-out-left);
+animation: var(--animation-slide-out-right);
+
+/* Shake (2 axes) */
+animation: var(--animation-shake-x);
+animation: var(--animation-shake-y);
+
+/* Continuous */
+animation: var(--animation-spin); /* Rotate 360° */
+animation: var(--animation-ping); /* Scale + fade pulse */
+animation: var(--animation-blink); /* Opacity pulse */
+animation: var(--animation-float); /* Vertical float */
+animation: var(--animation-bounce); /* Bounce effect */
+animation: var(--animation-pulse); /* Scale pulse */
 \`\`\`
 
 ### Easing Curves (35)
