@@ -17,8 +17,8 @@
 {%- set bordered = bordered|default(false) -%}
 {%- set clickable = clickable|default(false) -%}
 
-{%- set has_image = src -%}
-{%- set has_initials = initials and not has_image -%}
+{%- set has_image = src and src is not empty -%}
+{%- set has_initials = initials and initials is not empty and not has_image -%}
 {%- set has_icon = not has_image and not has_initials -%}
 {%- set gender = gender|default('male') -%}
 
