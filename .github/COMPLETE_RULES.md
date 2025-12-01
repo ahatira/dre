@@ -1,7 +1,7 @@
 # 📋 PS Theme - Règles Complètes et Standards (REFERENCE ABSOLUE)
 
-**Version**: 2.0.0  
-**Date**: 2025-11-30  
+**Version**: 3.0.0  
+**Date**: 2025-12-01  
 **Statut**: 🔒 **DOCUMENT DE RÉFÉRENCE OBLIGATOIRE - À APPLIQUER SYSTÉMATIQUEMENT**
 
 ---
@@ -10,14 +10,31 @@
 
 Ce document centralise **TOUTES** les règles, normes et standards du projet PS Theme. **Aucune exception n'est tolérée** - ces règles doivent être appliquées **à chaque composant, à chaque modification, à chaque commit**.
 
+**📖 For complete documentation navigation, see [INDEX.md](./INDEX.md)**
+
+---
+
+## 🔗 Related Documentation
+
+This is the **master reference**. For deep dives into specific topics:
+
+- **[ATOMIC_DESIGN_RULES.md](./ATOMIC_DESIGN_RULES.md)** - Brad Frost methodology, composition workflow, reusability matrix
+- **[CSS_VARIABLES_SYSTEM.md](./CSS_VARIABLES_SYSTEM.md)** - Bootstrap 5-inspired component-scoped variables, 3-layer cascade, migration strategy
+- **[CSS_STANDARDS.md](./CSS_STANDARDS.md)** - CSS authoring deep dive, nesting patterns, accessibility, performance
+- **[COMPONENT_TEMPLATE_STANDARD.md](./COMPONENT_TEMPLATE_STANDARD.md)** - Exact 5-file structure, examples, naming conventions
+- **[STORYBOOK_DOC_TEMPLATE.md](./STORYBOOK_DOC_TEMPLATE.md)** - Autodocs format, argTypes categorization, stories structure
+- **[COMPONENT_AUDIT_PROMPT.md](./COMPONENT_AUDIT_PROMPT.md)** - Conformity checklist for auditing components
+- **[STANDARDIZE_COMPONENT_PROMPT.md](./STANDARDIZE_COMPONENT_PROMPT.md)** - Refactoring workflow for legacy components
+- **[INDEX.md](./INDEX.md)** - Documentation navigation hub (start here if new)
+
 ---
 
 ## 📚 Table des Matières
 
 1. [Stack Technique](#1-stack-technique)
-2. [Architecture des Fichiers](#2-architecture-des-fichiers)
+2. [Architecture des Fichiers & Atomic Design](#2-architecture-des-fichiers--atomic-design)
 3. [BEM & Nomenclature](#3-bem--nomenclature)
-4. [Design Tokens](#4-design-tokens)
+4. [Design Tokens & CSS Variables](#4-design-tokens--css-variables)
 5. [CSS Moderne (Nesting)](#5-css-moderne-nesting)
 6. [Cascade & Spécificité](#6-cascade--spécificité)
 7. [Minimal Markup](#7-minimal-markup)
@@ -81,10 +98,60 @@ source/patterns/{level}/{component}/
 └── README.md                 # Documentation
 ```
 
+---
+
+## 2. Architecture des Fichiers & Atomic Design
+
+> **📖 For complete Atomic Design methodology (Brad Frost), see [ATOMIC_DESIGN_RULES.md](./ATOMIC_DESIGN_RULES.md)**
+
+### Structure Obligatoire par Composant
+
+Chaque composant **DOIT** contenir exactement **5 fichiers** :
+
+```
+source/patterns/{level}/{component}/
+├── {component}.twig          # Template Twig
+├── {component}.css           # Styles CSS
+├── {component}.yml           # Données par défaut
+├── {component}.stories.jsx   # Stories Storybook
+└── README.md                 # Documentation
+```
+
 **❌ INTERDIT** :
 - Fichiers manquants
 - Nommage incohérent (tous les fichiers doivent avoir le même nom de base)
 - Fichiers supplémentaires non documentés
+
+### Atomic Design Hierarchy
+
+**PS Theme** follows Brad Frost's Atomic Design methodology:
+
+| Level | Directory | Count | Definition | Examples |
+|-------|-----------|-------|------------|----------|
+| **Atoms** | `elements/` | 19 | Basic building blocks (buttons, icons, labels) | `button`, `icon`, `badge`, `avatar` |
+| **Molecules** | `components/` | 20 | Groups of atoms functioning together | `form-field`, `card`, `breadcrumb` |
+| **Organisms** | `collections/` | 12 | Complex UI sections | `header`, `footer`, `product-grid` |
+| **Templates** | `layouts/` | 8 | Page-level layouts | `homepage`, `article`, `listing` |
+| **Pages** | `pages/` | 8 | Specific instances of templates | Specific page implementations |
+
+### Composition Before Creation Rule
+
+**⚠️ CRITICAL**: Before creating any component above Atom level, you **MUST**:
+
+1. **Identify required atoms** - What basic elements does this need?
+2. **Check existing atoms** - Run `ls source/patterns/elements/`
+3. **Analyze composition strategy** - Can I compose existing atoms, or do I need new ones?
+4. **Document composition** - In README, list all composed atoms
+
+```twig
+{# ✅ CORRECT - FormField (Molecule) composes Field (Atom) #}
+{% include '@elements/field/field.twig' with field|merge({...}) %}
+
+{# ❌ WRONG - Recreating field markup inside form-field #}
+<input type="text" ...>  {# Should use field.twig #}
+```
+
+**See [ATOMIC_DESIGN_RULES.md](./ATOMIC_DESIGN_RULES.md) Section 3 for the mandatory 4-step workflow.**
 
 ### Organisation des Design Tokens
 
@@ -143,7 +210,9 @@ source/props/
 
 ---
 
-## 4. Design Tokens
+## 4. Design Tokens & CSS Variables
+
+> **📖 For complete CSS Variables System (Bootstrap 5-inspired architecture), see [CSS_VARIABLES_SYSTEM.md](./CSS_VARIABLES_SYSTEM.md)**
 
 ### Règle Absolue : JAMAIS de Valeurs en Dur
 
@@ -166,6 +235,44 @@ source/props/
   transition: 150ms cubic-bezier(0.4, 0.0, 0.2, 1); /* ✅ */
 }
 ```
+
+### Three-Layer CSS Variables Architecture (NEW)
+
+**PS Theme** adopts Bootstrap 5's component-scoped variables system:
+
+```css
+/* Layer 1: Root Primitives (source/props/*.css) */
+:root {
+  --ps-green-600: hsl(162, 72%, 38%);
+  --ps-size-4: 1rem;
+}
+
+/* Layer 2: Component-Scoped Variables (component.css) */
+.ps-button {
+  --ps-button-bg: var(--ps-brand-primary);
+  --ps-button-padding-y: var(--ps-size-3);
+  --ps-button-padding-x: var(--ps-size-6);
+  
+  background: var(--ps-button-bg);
+  padding: var(--ps-button-padding-y) var(--ps-button-padding-x);
+}
+
+/* Layer 3: Context Overrides */
+.sidebar .ps-button {
+  --ps-button-padding-y: var(--ps-size-2); /* Override for sidebar */
+}
+```
+
+**Benefits**:
+- **Cascade control** - Override component variables without specificity wars
+- **Runtime customization** - JavaScript can modify `--ps-button-bg`
+- **Dark mode** - `[data-theme="dark"] { --ps-button-bg: ... }`
+- **Reusability** - Component maintains defaults, contexts customize
+
+**Migration Strategy**:
+- ✅ **NEW components** - MUST use component-scoped variables
+- ⚠️ **Legacy components** - Gradual migration (opportunistic)
+- 📖 **Full guide**: [CSS_VARIABLES_SYSTEM.md](./CSS_VARIABLES_SYSTEM.md)
 
 ### Tokens par Catégorie
 
