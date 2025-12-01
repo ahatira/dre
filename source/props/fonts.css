@@ -18,6 +18,8 @@
   --font-weight-800: 800;
   --font-weight-900: 900;
   /* Font size scale (rem-based, 1rem = 16px) */
+  --font-size--2: 0.625rem;  /* 10px - extra small (avatar xs initials) */
+  --font-size--1: 0.75rem;   /* 12px - very small */
   --font-size-0: 0.875rem;   /* 14px */
   --font-size-1: 1rem;       /* 16px */
   --font-size-2: 1.125rem;   /* 18px */

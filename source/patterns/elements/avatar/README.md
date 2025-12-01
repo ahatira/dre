@@ -69,7 +69,7 @@ User or entity visual representation with automatic fallback hierarchy.
 ## Design Tokens Used
 - Sizing: `--size-6` (xs), `--size-8` (sm), `--size-10` (md), `--size-12` (lg), `--size-20` (xl)
 - Icon sizing: `--size-3` to `--size-10` (50% of wrapper per size)
-- Typography: `--font-size-xs/0/2/4` + `--size-9` (xl), `--font-weight-600`
+- Typography: `--font-size--2` (10px xs), `--font-size-0` (14px sm), `--font-size-2` (18px md), `--font-size-4` (22px lg), `--size-9` (36px xl), `--font-weight-600`
 - Colors: `--brand-primary` (initials bg), `--gray-*` (backgrounds/icon), `--green/red-600` (status), `--white` (border/text)
 - Radius: `--radius-2/3/4/5/6` (adaptive rounded scaling: 4px xs → 16px xl)
 - Border: `--border-size-1` (status), `--border-size-2` (avatar/focus)
