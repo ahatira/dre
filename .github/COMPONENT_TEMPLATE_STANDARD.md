@@ -620,7 +620,7 @@ Après implémentation, exécuter:
 ```
 Vérifie la cohérence du composant [ComponentName] avec nos règles du projet.
 ```
-Voir `.github/COMPONENT_AUDIT_PROMPT.md` pour l'audit complet.
+Voir `.github/COMPONENT_CONFORMITY_PROMPT.md` pour l'audit complet.
 
 ---
 

@@ -1,3 +1,13 @@
+> DEPRECATED — Use `.github/STANDARDIZE_COMPONENT_PROMPT.md`
+
+Ce guide a été consolidé. Les instructions d'utilisation et le workflow sont désormais centralisés dans `STANDARDIZE_COMPONENT_PROMPT.md` (voir la section "Usage").
+
+Pourquoi ce changement :
+- Réduire la duplication entre un prompt et un guide séparé
+- Maintenir une seule source de vérité
+
+Veuillez vous référer à : `.github/STANDARDIZE_COMPONENT_PROMPT.md`
+
 # 🚀 Guide d'utilisation : Standardiser un composant Storybook
 
 ## 📖 Comment utiliser ce prompt dans une nouvelle session

@@ -690,7 +690,7 @@ export default {
 
 - [Storybook Autodocs](https://storybook.js.org/docs/react/writing-docs/autodocs)
 - [Component Template Standard](.github/COMPONENT_TEMPLATE_STANDARD.md)
-- [Component Audit Prompt](.github/COMPONENT_AUDIT_PROMPT.md)
+- [Component Conformity Prompt](.github/COMPONENT_CONFORMITY_PROMPT.md)
 
 ---
 

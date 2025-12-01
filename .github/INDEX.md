@@ -31,13 +31,13 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 3. Consult **[CSS_STANDARDS.md](#6-css_standardsmd)** → CSS best practices
 4. Reference **[CSS_VARIABLES_SYSTEM.md](#3-css_variables_systemmd)** → Token usage (new system)
 5. Follow **[STORYBOOK_DOC_TEMPLATE.md](#7-storybook_doc_templatemd)** → Documentation format
-6. Audit with **[COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd)** → Verify conformity
+6. Audit with **[COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd)** → Verify conformity
 
 ### I'm Refactoring an Existing Component
 
 **Workflow:**
 
-1. Run **[COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd)** → Identify issues
+1. Run **[COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd)** → Identify issues
 2. Apply **[STANDARDIZE_COMPONENT_PROMPT.md](#9-standardize_component_promptmd)** → Fix workflow
 3. Consult **[COMPLETE_RULES.md](#1-complete_rulesmd)** → Verify all standards
 4. Migrate to **[CSS_VARIABLES_SYSTEM.md](#3-css_variables_systemmd)** (optional but recommended)
@@ -54,7 +54,7 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 | "What files does a component need?" | [COMPONENT_TEMPLATE_STANDARD.md](#4-component_template_standardmd) |
 | "How do I write Storybook docs?" | [STORYBOOK_DOC_TEMPLATE.md](#7-storybook_doc_templatemd) |
 | "What are the CSS best practices?" | [CSS_STANDARDS.md](#6-css_standardsmd) |
-| "How do I check if my component is correct?" | [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd) |
+| "How do I check if my component is correct?" | [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd) |
 | "How do I migrate legacy code?" | [STANDARDIZE_COMPONENT_PROMPT.md](#9-standardize_component_promptmd) |
 
 ---
@@ -96,7 +96,7 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 **Cross-references**:
 - Extends: [ATOMIC_DESIGN_RULES.md](#2-atomic_design_rulesmd), [CSS_VARIABLES_SYSTEM.md](#3-css_variables_systemmd)
 - Implemented by: [COMPONENT_TEMPLATE_STANDARD.md](#4-component_template_standardmd)
-- Verified by: [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd)
+- Verified by: [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd)
 
 ---
 
@@ -226,7 +226,7 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 **Cross-references**:
 - Implements: [COMPLETE_RULES.md](#1-complete_rulesmd) Section 2
 - Examples: Button, Avatar, Badge, Divider, FormField
-- Verified by: [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd) checklist
+- Verified by: [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd) checklist
 
 ---
 
@@ -330,8 +330,8 @@ export default {
 
 ### Audit & Quality Tools
 
-#### 8. COMPONENT_AUDIT_PROMPT.md
-**Path**: `.github/COMPONENT_AUDIT_PROMPT.md`  
+#### 8. COMPONENT_CONFORMITY_PROMPT.md
+**Path**: `.github/COMPONENT_CONFORMITY_PROMPT.md`  
 **Size**: ~200 lines  
 **Status**: ✅ **CONFORMITY CHECKLIST**
 
@@ -399,7 +399,7 @@ STRICTEMENT toutes les règles du projet"
 **Cross-references**:
 - Implements: [COMPLETE_RULES.md](#1-complete_rulesmd) refactoring strategy
 - May apply: [CSS_VARIABLES_SYSTEM.md](#3-css_variables_systemmd) migration
-- Verified by: [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd)
+- Verified by: [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd)
 
 ---
 
@@ -496,7 +496,7 @@ COMPONENT_TEMPLATE_STANDARD.md
     ↓ implemented by
     └── All components in source/patterns/
 
-COMPONENT_AUDIT_PROMPT.md
+COMPONENT_CONFORMITY_PROMPT.md
     ↓ verifies
     └── Conformity against COMPLETE_RULES.md + ATOMIC_DESIGN_RULES.md
     
@@ -505,7 +505,7 @@ STANDARDIZE_COMPONENT_PROMPT.md
     ├── COMPLETE_RULES.md standards
     └── CSS_VARIABLES_SYSTEM.md migration
     ↓ validated by
-    └── COMPONENT_AUDIT_PROMPT.md
+    └── COMPONENT_CONFORMITY_PROMPT.md
 ```
 
 ### Implementation Flow
@@ -527,7 +527,7 @@ STANDARDIZE_COMPONENT_PROMPT.md
    STORYBOOK_DOC_TEMPLATE.md → Documentation
    
 5. Audit Conformity
-   COMPONENT_AUDIT_PROMPT.md → Verify 100% compliance
+  COMPONENT_CONFORMITY_PROMPT.md → Verify 100% compliance
    
 6. Commit
    Git commit with detailed message
@@ -562,7 +562,7 @@ STANDARDIZE_COMPONENT_PROMPT.md
 - [ ] Read [CSS_VARIABLES_SYSTEM.md](#3-css_variables_systemmd) fully
 - [ ] Study molecule composition: `form-field`, `card`
 - [ ] Create a molecule composing 2+ atoms
-- [ ] Use [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd) to self-check
+- [ ] Use [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd) to self-check
 
 ### Level 3: Advanced (Week 3+)
 
@@ -636,7 +636,7 @@ grep -r "--brand-primary" source/props/
 → Check [COMPLETE_RULES.md](#1-complete_rulesmd), cross-reference examples
 
 **"My component audit failed"**
-→ Run [COMPONENT_AUDIT_PROMPT.md](#8-component_audit_promptmd), fix issues, recheck
+→ Run [COMPONENT_CONFORMITY_PROMPT.md](#8-component_conformity_promptmd), fix issues, recheck
 
 **"How do I compose atoms?"**
 → Read [ATOMIC_DESIGN_RULES.md](#2-atomic_design_rulesmd) Section 3 (4-step workflow)
@@ -658,7 +658,7 @@ grep -r "--brand-primary" source/props/
 | **CSS Tokens** | CSS_VARIABLES_SYSTEM.md | COMPLETE_RULES (Sec 4) | Button, FormField |
 | **File Structure** | COMPONENT_TEMPLATE.md | COMPLETE_RULES (Sec 2) | All components |
 | **Storybook** | STORYBOOK_DOC_TEMPLATE.md | COMPLETE_RULES (Sec 11) | *.stories.jsx files |
-| **Audit** | COMPONENT_AUDIT_PROMPT.md | STANDARDIZE_PROMPT.md | Post-implementation |
+| **Audit** | COMPONENT_CONFORMITY_PROMPT.md | STANDARDIZE_PROMPT.md | Post-implementation |
 | **Accessibility** | COMPLETE_RULES (Sec 15) | CSS_STANDARDS.md | All components |
 
 ---

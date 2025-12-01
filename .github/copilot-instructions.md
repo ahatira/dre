@@ -43,10 +43,10 @@
   1. `.twig` - Template avec params commentés
   2. `.css` - Styles BEM avec tokens uniquement
   3. `.yml` - Données par défaut pour preview
-  4. `.stories.jsx` - Stories Storybook (Default + showcases + Autodocs)
+  4. `.stories.jsx` - Stories Storybook (Default + showcases + **tags: ['autodocs']**)
   5. `README.md` - Documentation (Props, BEM, Tokens, Usage, Accessibility)
   
-  Note: La documentation Storybook est fournie via Autodocs dans `.stories.jsx` en utilisant `parameters.docs.description.component` (≤ 2 lignes). Les fichiers `.mdx` sont facultatifs et réservés aux composants complexes si besoin spécifique.
+  Note: La documentation Storybook est fournie via Autodocs dans `.stories.jsx` en utilisant **tags: ['autodocs']** + `parameters.docs.description.component` (≤ 2 lignes). Les fichiers `.mdx` sont facultatifs et réservés aux composants complexes si besoin spécifique.
 - **Intégration Drupal** : Exemples dans `templates/`.
 - **Linting** : Automatique via watch/build (voir `vite.config.js`).
 - **Demo** : Storybook statique [ici](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/).
@@ -86,7 +86,7 @@
 - **See `.github/CSS_STANDARDS.md` for complete CSS standards (stack, nesting, tokens, accessibility, performance).**
 - **See `.github/STORYBOOK_DOC_TEMPLATE.md` for Storybook documentation format (Autodocs, argTypes, stories structure).**
   - Enforce concise descriptions: main description MUST be ≤ two lines.
-- **See `.github/COMPONENT_AUDIT_PROMPT.md` for conformity audit (run after implementation).**
+- **See `.github/COMPONENT_CONFORMITY_PROMPT.md` for conformity audit (run after implementation).**
 - **See `.github/STANDARDIZE_COMPONENT_PROMPT.md` for standardization workflow.**
 - **See `.github/COMPLETE_RULES.md` Section 14.5 for Base Stories Standards (token documentation workflow).**
 
@@ -127,7 +127,7 @@ This includes:
 
 **New Component?** → Follow `.github/COMPLETE_RULES.md` Section 18 (Checklist Complet)
 
-**Refactor/Fix?** → Audit with `.github/COMPONENT_AUDIT_PROMPT.md`, fix per `.github/COMPLETE_RULES.md`
+**Refactor/Fix?** → Audit with `.github/COMPONENT_CONFORMITY_PROMPT.md`, fix per `.github/COMPLETE_RULES.md`
 
 **CSS Issue?** → Consult `.github/COMPLETE_RULES.md` Sections 4-6 (Tokens, Nesting, Cascade)
 
@@ -175,12 +175,13 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 - Component CSS: NO `[data-icon]` mappings (centralized in `icons.css`)
 
 ### 8. Storybook (Autodocs, HTML)
+- ✅ **MANDATORY**: `tags: ['autodocs']` in export default (activates auto-documentation)
 - ✅ Import: `import componentTwig from './component.twig';`
 - ✅ Render: `render: (args) => componentTwig(args)`
 - ✅ Stories: Default + Showcases (AllColors, AllSizes, UseCases)
 - ❌ NO individual stories (Primary, Secondary, Small, etc.)
 - ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
- - ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
+- ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
 
 ### 11. Required Files (5 ALWAYS)
 See single source under "Conventions & Patterns" → "Structure de composant" (5 required files). Avoid duplicating this list elsewhere.
@@ -211,6 +212,7 @@ These will ALWAYS be rejected:
 
 - Hardcoded values (colors, sizes, spacing, transitions)
 - Missing any of the 5 required files
+- **Missing `tags: ['autodocs']` in .stories.jsx export default**
 - React/JSX in Storybook stories
 - Color names instead of semantic (green → primary)
 - Icon names with "icon-" prefix
@@ -227,7 +229,7 @@ These will ALWAYS be rejected:
 2. `.github/COMPONENT_TEMPLATE_STANDARD.md` ← Structure & examples
 3. `.github/CSS_STANDARDS.md` ← CSS deep dive (400+ lines)
 4. `.github/STORYBOOK_DOC_TEMPLATE.md` ← Autodocs format
-5. `.github/COMPONENT_AUDIT_PROMPT.md` ← Post-implementation audit
+5. `.github/COMPONENT_CONFORMITY_PROMPT.md` ← Post-implementation audit
 6. `.github/STANDARDIZE_COMPONENT_PROMPT.md` ← Refactor workflow
  7. Concise Descriptions Standard → All component docs must start with a short two-line summary; move details to Props, Accessibility, Tokens, Variants, Use Cases.
 

@@ -23,7 +23,7 @@ This is the **master reference**. For deep dives into specific topics:
 - **[CSS_STANDARDS.md](./CSS_STANDARDS.md)** - CSS authoring deep dive, nesting patterns, accessibility, performance
 - **[COMPONENT_TEMPLATE_STANDARD.md](./COMPONENT_TEMPLATE_STANDARD.md)** - Exact 5-file structure, examples, naming conventions
 - **[STORYBOOK_DOC_TEMPLATE.md](./STORYBOOK_DOC_TEMPLATE.md)** - Autodocs format, argTypes categorization, stories structure
-- **[COMPONENT_AUDIT_PROMPT.md](./COMPONENT_AUDIT_PROMPT.md)** - Conformity checklist for auditing components
+- **[COMPONENT_CONFORMITY_PROMPT.md](./COMPONENT_CONFORMITY_PROMPT.md)** - Conformity checklist for auditing components
 - **[STANDARDIZE_COMPONENT_PROMPT.md](./STANDARDIZE_COMPONENT_PROMPT.md)** - Refactoring workflow for legacy components
 - **[INDEX.md](./INDEX.md)** - Documentation navigation hub (start here if new)
 
@@ -1469,7 +1469,7 @@ transition: all 150ms ease;
    ```
    Vérifie la cohérence du composant [ComponentName] avec nos règles du projet.
    ```
-   (Voir `.github/COMPONENT_AUDIT_PROMPT.md`)
+  (Voir `.github/COMPONENT_CONFORMITY_PROMPT.md`)
 
 4. **Commit** avec message structuré :
    ```
@@ -1577,7 +1577,7 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 - [ ] `npm run build` → Aucune erreur
 - [ ] `npm run watch` → Storybook affiche toutes les stories correctement
 - [ ] Pas d'erreur console navigateur
-- [ ] Audit de conformité passé (`.github/COMPONENT_AUDIT_PROMPT.md`)
+- [ ] Audit de conformité passé (`.github/COMPONENT_CONFORMITY_PROMPT.md`)
 
 ### Documentation Projet
 
@@ -2103,7 +2103,7 @@ ps_theme.components:
 ### Documents du Projet
 
 - **`.github/COMPONENT_TEMPLATE_STANDARD.md`** - Template standard obligatoire
-- **`.github/COMPONENT_AUDIT_PROMPT.md`** - Prompt d'audit de conformité
+- **`.github/COMPONENT_CONFORMITY_PROMPT.md`** - Prompt d'audit de conformité
 - **`.github/CSS_STANDARDS.md`** - Standards CSS complets (400+ lignes)
 - **`.github/STORYBOOK_DOC_TEMPLATE.md`** - Format de documentation Storybook
 - **`.github/STANDARDIZE_COMPONENT_PROMPT.md`** - Workflow de standardisation
