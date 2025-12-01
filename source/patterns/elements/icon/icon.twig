@@ -1,20 +1,21 @@
-{# PS Theme Icon component (Twig) #}
-{# Props:
-  - name (string, required): unique icon name (e.g., 'arrow-right')
-  - size (number, enum: 16|20|24|32, default 24)
-  - state (string, enum: 'default'|'disabled'|'hover'|'selected', default 'default')
-  - colorVariant (string, enum: 'dark-grey'|'light-grey'|'green'|'white', default 'dark-grey')
-  - color (string, optional): custom CSS color value (overrides colorVariant)
-  - ariaLabel (string, optional): accessibility label for informative icons
-#}
-{% set classes = [
-  'ps-icon',
-  size == 16 ? 'ps-icon--small' : (size == 20 ? 'ps-icon--medium' : (size == 32 ? 'ps-icon--xlarge' : 'ps-icon--large')),
-  state ? 'ps-icon--' ~ state,
-  colorVariant ? 'ps-icon--' ~ colorVariant
-] %}
+{# Icon (Atom) using global icon font via data-icon #}
+{# Props: name (required), size: xs|sm|md|lg|xl|xxl (default md), color: default|primary|secondary|success|warning|danger|info (default 'default'), disabled (bool), ariaLabel (string) #}
+{% set name = name|default('search') %}
+{% set size = size|default('md') %}
+{% set color = color|default('default') %}
+{% set disabled = disabled|default(false) %}
 
-{# Minimal markup: base class with optional independent modifiers #}
-<span class="{{ classes|join(' ') }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}{% if color %} style="color: {{ color }}"{% endif %}>
+{% set classes = ['ps-icon'] %}
+{% if size != 'md' %}
+  {% set classes = classes|merge(['ps-icon--' ~ size]) %}
+{% endif %}
+{% if color != 'default' %}
+  {% set classes = classes|merge(['ps-icon--' ~ color]) %}
+{% endif %}
+{% if disabled %}
+  {% set classes = classes|merge(['ps-icon--disabled']) %}
+{% endif %}
+
+<span class="{{ classes|join(' ') }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}>
   <span class="ps-icon__icon" data-icon="{{ name }}"></span>
 </span>

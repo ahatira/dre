@@ -1,29 +1,98 @@
-/* PS Theme Icon component CSS */
+/**
+ * Icon (Element/Atom)
+ * 3-layer CSS variable system for flexible theming
+ * BEM: ps-icon, ps-icon__icon
+ * Modifiers: --xs, --sm, --md (default), --lg, --xl, --xxl, --primary, --secondary, --success, --warning, --danger, --info, --disabled
+ */
+
 .ps-icon {
-  display: inline-block;
-  color: var(--gray-600);
-  font-size: var(--ps-icon-size-24);
-}
+  /* ======================================== */
+  /* Layer 1: Component Tokens (private) */
+  /* ======================================== */
+  --ps-icon-size-xs: var(--size-205);  /* 10px */
+  --ps-icon-size-sm: var(--size-4);    /* 16px */
+  --ps-icon-size-md: var(--size-5);    /* 20px */
+  --ps-icon-size-lg: var(--size-6);    /* 24px */
+  --ps-icon-size-xl: var(--size-8);    /* 32px */
+  --ps-icon-size-xxl: var(--size-12);  /* 48px */
+  --ps-icon-color: var(--gray-600);    /* Default color */
 
-.ps-icon .ps-icon__icon {
+  /* ======================================== */
+  /* Base Styles */
+  /* ======================================== */
+  font-size: var(--ps-icon-size-md);
+  color: var(--ps-icon-color);
   display: inline-block;
+  vertical-align: middle;
   line-height: 1;
+
+  /* ======================================== */
+  /* Element */
+  /* ======================================== */
+  & .ps-icon__icon {
+    display: inline-block;
+  }
+
+  /* ======================================== */
+  /* Modifiers - Sizes */
+  /* ======================================== */
+  &--xs {
+    font-size: var(--ps-icon-size-xs);
+  }
+
+  &--sm {
+    font-size: var(--ps-icon-size-sm);
+  }
+
+  &--md {
+    font-size: var(--ps-icon-size-md);
+  }
+
+  &--lg {
+    font-size: var(--ps-icon-size-lg);
+  }
+
+  &--xl {
+    font-size: var(--ps-icon-size-xl);
+  }
+
+  &--xxl {
+    font-size: var(--ps-icon-size-xxl);
+  }
+
+  /* ======================================== */
+  /* Modifiers - Semantic Colors */
+  /* ======================================== */
+  &--primary {
+    --ps-icon-color: var(--primary);
+  }
+
+  &--secondary {
+    --ps-icon-color: var(--secondary);
+  }
+
+  &--success {
+    --ps-icon-color: var(--success);
+  }
+
+  &--warning {
+    --ps-icon-color: var(--warning);
+  }
+
+  &--danger {
+    --ps-icon-color: var(--danger);
+  }
+
+  &--info {
+    --ps-icon-color: var(--info);
+  }
+
+  /* ======================================== */
+  /* States */
+  /* ======================================== */
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }
-
-/* Size modifiers (independent) */
-.ps-icon--small { font-size: var(--ps-icon-size-16); }
-.ps-icon--medium { font-size: var(--ps-icon-size-20); }
-.ps-icon--large { font-size: var(--ps-icon-size-24); }
-.ps-icon--xlarge { font-size: var(--ps-icon-size-32); }
-
-/* Color variants (independent) */
-.ps-icon--dark-grey { color: var(--gray-600); }
-.ps-icon--light-grey { color: var(--gray-400); }
-.ps-icon--green { color: var(--primary); }
-.ps-icon--white { color: var(--white); }
-
-/* State modifiers (independent) */
-.ps-icon--default { color: currentColor; }
-.ps-icon--disabled { color: var(--gray-400); }
-.ps-icon--hover { color: var(--primary-hover); }
-.ps-icon--selected { color: var(--primary-active); }
