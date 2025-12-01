@@ -1,6 +1,6 @@
 # Divider Component
 
-A flexible visual separator to structure content sections. Supports horizontal and vertical orientations with customizable styles, colors, and optional centered content.
+A flexible visual separator to structure content sections with component-scoped CSS variables. Supports horizontal and vertical orientations with customizable styles, colors, and optional centered content.
 
 ## Component Props
 
@@ -73,36 +73,115 @@ ps-divider                       # Root element (<hr> or <div>/<span>)
 - `ps-divider--with-text` - Applied when text prop is provided
 - `ps-divider--with-icon` - Applied when icon prop is provided
 
-## Design Tokens Used
+## CSS Variables System (3-Layer Architecture)
 
-### Colors
-- `--ps-color-neutral-300` (fallback `--gray-300`) - Default neutral color
-- `--brand-primary` - Primary brand color (green)
-- `--brand-secondary` - Secondary brand color (purple)
-- `--btn-success` (fallback `--green-600`) - Success state
-- `--btn-warning` (fallback `--yellow-500`) - Warning state
-- `--btn-danger` (fallback `--red-600`) - Danger state
-- `--btn-info` (fallback `--blue-600`) - Info state
-- `--ps-color-neutral-600` (fallback `--gray-600`) - Text color
-- `--ps-color-neutral-500` (fallback `--gray-500`) - Icon color
-- `--ps-color-neutral-50` (fallback `--gray-50`) - Background for content
+### Layer 1: Root Primitives (Referenced by Component)
 
-### Spacing
+**Sizing & Spacing**
+- `--border-size-1` (1px) - Thin thickness
+- `--border-size-2` (2px) - Medium thickness (default)
+- `--border-size-4` (4px) - Thick thickness
 - `--size-2` (8px) - Small spacing
+- `--size-3` (12px) - Content gap
 - `--size-4` (16px) - Medium spacing (default)
 - `--size-6` (24px) - Large spacing
-- `--size-3` (12px) - Gap around centered content
+
+**Colors (Semantic)**
+- `--border-default` - Default neutral divider color
+- `--primary` - Brand primary (#00915A)
+- `--secondary` - Brand secondary (#A12B66)
+- `--success` - Success green
+- `--warning` - Warning yellow
+- `--danger` - Danger red
+- `--info` - Info blue
+- `--text-secondary` - Text/icon color for centered content
+
+**Typography (for centered content)**
+- `--font-sans` - Font family
+- `--font-size-0` (14px) - Text size
+- `--font-size-1` (16px) - Icon size
+- `--font-weight-500` - Text weight (medium)
+
+### Layer 2: Component-Scoped Variables (Customizable)
+
+```css
+.ps-divider {
+  /* Sizing & Spacing */
+  --ps-divider-thickness: var(--border-size-2);
+  --ps-divider-spacing-y: var(--size-4);
+  --ps-divider-spacing-x: var(--size-4);
+  --ps-divider-content-gap: var(--size-3);
+  
+  /* Colors */
+  --ps-divider-color: var(--border-default);
+  --ps-divider-text-color: var(--text-secondary);
+  --ps-divider-icon-color: var(--text-secondary);
+  
+  /* Typography (for centered content) */
+  --ps-divider-text-font-family: var(--font-sans);
+  --ps-divider-text-font-size: var(--font-size-0);
+  --ps-divider-text-font-weight: var(--font-weight-500);
+  --ps-divider-icon-size: var(--font-size-1);
+  
+  /* Line styles */
+  --ps-divider-style: solid;
+}
+```
+
+### Layer 3: Context Overrides (Example)
+
+Override component variables for specific contexts:
+
+```css
+/* Compact layout variant */
+.sidebar .ps-divider {
+  --ps-divider-spacing-y: var(--size-2);
+  --ps-divider-thickness: var(--border-size-1);
+}
+
+/* Custom brand color */
+.premium-section .ps-divider {
+  --ps-divider-color: var(--secondary);
+  --ps-divider-thickness: var(--border-size-4);
+}
+
+/* Dark theme override */
+[data-theme="dark"] .ps-divider {
+  --ps-divider-color: hsla(0, 0%, 100%, 0.2);
+  --ps-divider-text-color: hsla(0, 0%, 100%, 0.7);
+}
+```
+
+## Design Tokens Used (Legacy Reference)
+
+> **Note**: This section documents the primitive tokens referenced by component variables. For customization, use component-scoped variables (`--ps-divider-*`) instead of overriding primitives directly.
+
+### Colors
+- `--border-default` - Default neutral color
+- `--primary` - Primary brand color
+- `--secondary` - Secondary brand color
+- `--success` - Success state
+- `--warning` - Warning state
+- `--danger` - Danger state
+- `--info` - Info state
+- `--text-secondary` - Text/icon color
+
+### Spacing
+- `--size-2` - Small spacing (8px)
+- `--size-3` - Content gap (12px)
+- `--size-4` - Medium spacing (16px, default)
+- `--size-6` - Large spacing (24px)
+
+### Thickness
+- `--border-size-1` - Thin (1px)
+- `--border-size-2` - Medium (2px, default)
+- `--border-size-4` - Thick (4px)
 
 ### Typography (for centered content)
 - `--font-sans` - Font family (BNPP Sans)
-- `--font-size-0` (14px) - Text size
+- `--font-size-0` - Text size (14px)
 - `--font-weight-500` - Text weight (medium)
-- `--font-size-1` (16px) - Icon size
-
-### Thickness
-- `1px` - Thin
-- `2px` - Medium (default)
-- `4px` - Thick
+- `--font-size-1` - Icon size (16px)
 
 ## Usage Examples
 
@@ -312,19 +391,22 @@ ps-divider                       # Root element (<hr> or <div>/<span>)
 
 - [x] Uses semantic `<hr>` for horizontal orientation
 - [x] Uses `role="separator"` with `aria-orientation="vertical"` for vertical
-- [x] All colors use design tokens (no hardcoded values)
-- [x] All spacing uses design tokens (`--size-*`)
-- [x] Typography uses design tokens (`--font-*`)
-- [x] BEM methodology with `ps-` prefix
-- [x] CSS uses PostCSS nesting syntax
-- [x] Minimal markup (default props require no modifier classes)
-- [x] Supports 7 semantic colors (neutral, primary, secondary, success, warning, danger, info)
-- [x] Supports 3 line styles (solid, dashed, dotted)
-- [x] Supports 3 thickness levels (thin, medium, thick)
-- [x] Supports 3 spacing levels (sm, md, lg)
-- [x] Optional centered text/icon content
-- [x] Icons use `data-icon` attribute pattern
-- [x] Non-interactive (no focus states)
-- [x] Accessible color contrast
-- [x] Storybook documentation complete with structured sections
-- [x] All content in English
+- [x] **CSS Variables System**: 3-layer architecture (primitives → component → context)
+- [x] **All colors use semantic tokens** (`--primary`, `--success`, `--danger`, `--info`, `--warning`, `--secondary`, `--border-default`)
+- [x] **All spacing uses design tokens** (`--size-*`, `--border-size-*`)
+- [x] **Typography uses design tokens** (`--font-sans`, `--font-size-*`, `--font-weight-500`)
+- [x] **BEM methodology with `ps-` prefix** (`ps-divider`, `ps-divider__line`, `ps-divider__text`, `ps-divider__icon`)
+- [x] **CSS uses PostCSS nesting syntax** (modern `&` syntax throughout)
+- [x] **Minimal markup**: Modifiers only added when value differs from default (strict conditionals)
+- [x] **Cascade order correct**: Base → Modifiers (no combined class selectors)
+- [x] **Supports 7 semantic colors** (neutral, primary, secondary, success, warning, danger, info)
+- [x] **Supports 3 line styles** (solid, dashed, dotted)
+- [x] **Supports 3 thickness levels** (thin, medium, thick)
+- [x] **Supports 3 spacing levels** (sm, md, lg)
+- [x] **Optional centered text/icon content**
+- [x] **Icons use `data-icon` attribute** pattern
+- [x] **Non-interactive** (no focus states)
+- [x] **Accessible color contrast**
+- [x] **Storybook documentation complete** (`tags: ['autodocs']`, showcases: AllVariants, Vertical, UseCases)
+- [x] **No hardcoded values** in CSS (all values use component variables)
+- [x] **All content in English**

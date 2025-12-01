@@ -9,25 +9,40 @@
 {%- set has_content = text or icon -%}
 
 {%- set root_classes = ['ps-divider'] -%}
-{%- if orientation != 'horizontal' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--' ~ orientation]) -%}
+{%- if orientation == 'vertical' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--vertical']) -%}
 {%- endif -%}
-{%- if style != 'solid' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--' ~ style]) -%}
+{%- if style == 'dashed' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--dashed']) -%}
+{%- elseif style == 'dotted' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--dotted']) -%}
 {%- endif -%}
-{%- if thickness != 'medium' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--' ~ thickness]) -%}
+{%- if thickness == 'thin' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--thin']) -%}
+{%- elseif thickness == 'thick' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--thick']) -%}
 {%- endif -%}
-{%- if color != 'neutral' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--' ~ color]) -%}
+{%- if color == 'primary' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--primary']) -%}
+{%- elseif color == 'secondary' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--secondary']) -%}
+{%- elseif color == 'success' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--success']) -%}
+{%- elseif color == 'warning' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--warning']) -%}
+{%- elseif color == 'danger' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--danger']) -%}
+{%- elseif color == 'info' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--info']) -%}
 {%- endif -%}
-{%- if spacing != 'md' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--spacing-' ~ spacing]) -%}
+{%- if spacing == 'sm' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--spacing-sm']) -%}
+{%- elseif spacing == 'lg' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--spacing-lg']) -%}
 {%- endif -%}
 {%- if text -%}
   {%- set root_classes = root_classes|merge(['ps-divider--with-text']) -%}
-{%- endif -%}
-{%- if icon -%}
+{%- elseif icon -%}
   {%- set root_classes = root_classes|merge(['ps-divider--with-icon']) -%}
 {%- endif -%}
 

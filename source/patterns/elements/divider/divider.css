@@ -1,268 +1,167 @@
-/* PS Divider Atom */
+/**
+ * Divider (Element/Atom)
+ * Visual separator for content sections with horizontal/vertical orientations
+ * 
+ * BEM: ps-divider, ps-divider__line, ps-divider__text, ps-divider__icon
+ * Modifiers: orientation, style, thickness, color (semantic), spacing, --with-text, --with-icon
+ * States: none (non-interactive)
+ */
 
 .ps-divider {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Bootstrap 5 inspired - Override these for customization
+     ============================================ */
+  
+  /* Sizing & Spacing */
+  --ps-divider-thickness: var(--border-size-2);
+  --ps-divider-spacing-y: var(--size-4);
+  --ps-divider-spacing-x: var(--size-4);
+  --ps-divider-content-gap: var(--size-3);
+  
+  /* Colors */
+  --ps-divider-color: var(--border-default);
+  --ps-divider-text-color: var(--text-secondary);
+  --ps-divider-icon-color: var(--text-secondary);
+  
+  /* Typography (for centered content) */
+  --ps-divider-text-font-family: var(--font-sans);
+  --ps-divider-text-font-size: var(--font-size-0);
+  --ps-divider-text-font-weight: var(--font-weight-500);
+  --ps-divider-icon-size: var(--font-size-1);
+  
+  /* Line styles */
+  --ps-divider-style: solid;
+  
+  /* ============================================
+     Apply Component Variables
+     ============================================ */
+  
+  /* Base horizontal divider (default) */
   border: none;
   background: none;
-  margin: var(--size-4) 0;
+  margin: var(--ps-divider-spacing-y) 0;
   padding: 0;
   display: block;
   height: 0;
-  border-top: 2px solid var(--ps-color-neutral-300, var(--gray-300));
-  border-top-style: solid;
-
-  /* Spacing modifiers */
-  &--spacing-sm {
-    margin: var(--size-2) 0;
-  }
-
-  &--spacing-lg {
-    margin: var(--size-6) 0;
-  }
-
-  /* Orientation: vertical */
+  border-top: var(--ps-divider-thickness) var(--ps-divider-style) var(--ps-divider-color);
+  
+  /* ============================================
+     Modifiers - Orientation
+     ============================================ */
+  
   &--vertical {
     display: inline-block;
     width: 0;
     height: 100%;
-    margin: 0 var(--size-4);
+    margin: 0 var(--ps-divider-spacing-x);
     border-top: 0;
-    border-left: 2px solid var(--ps-color-neutral-300, var(--gray-300));
-    border-left-style: solid;
+    border-left: var(--ps-divider-thickness) var(--ps-divider-style) var(--ps-divider-color);
     vertical-align: middle;
-
-    &.ps-divider--spacing-sm {
-      margin: 0 var(--size-2);
-    }
-
-    &.ps-divider--spacing-lg {
-      margin: 0 var(--size-6);
-    }
   }
-
-  /* Line styles */
+  
+  /* ============================================
+     Modifiers - Line Style
+     ============================================ */
+  
   &--dashed {
-    border-top-style: dashed;
-
-    &.ps-divider--vertical {
-      border-top-style: solid;
-      border-left-style: dashed;
-    }
+    --ps-divider-style: dashed;
   }
-
+  
   &--dotted {
-    border-top-style: dotted;
-
-    &.ps-divider--vertical {
-      border-top-style: solid;
-      border-left-style: dotted;
-    }
+    --ps-divider-style: dotted;
   }
-
-  /* Thickness */
+  
+  /* ============================================
+     Modifiers - Thickness
+     ============================================ */
+  
   &--thin {
-    border-top-width: 1px;
-
-    &.ps-divider--vertical {
-      border-top-width: 2px;
-      border-left-width: 1px;
-    }
+    --ps-divider-thickness: var(--border-size-1);
   }
-
+  
   &--thick {
-    border-top-width: 4px;
-
-    &.ps-divider--vertical {
-      border-top-width: 2px;
-      border-left-width: 4px;
-    }
+    --ps-divider-thickness: var(--border-size-4);
   }
-
-  /* Semantic colors */
+  
+  /* ============================================
+     Modifiers - Semantic Colors
+     ============================================ */
+  
   &--primary {
-    border-top-color: var(--brand-primary);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--brand-primary);
-    }
+    --ps-divider-color: var(--primary);
   }
-
+  
   &--secondary {
-    border-top-color: var(--brand-secondary);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--brand-secondary);
-    }
+    --ps-divider-color: var(--secondary);
   }
-
+  
   &--success {
-    border-top-color: var(--btn-success);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--btn-success);
-    }
+    --ps-divider-color: var(--success);
   }
-
+  
   &--warning {
-    border-top-color: var(--btn-warning);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--btn-warning);
-    }
+    --ps-divider-color: var(--warning);
   }
-
+  
   &--danger {
-    border-top-color: var(--btn-danger);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--btn-danger);
-    }
+    --ps-divider-color: var(--danger);
   }
-
+  
   &--info {
-    border-top-color: var(--btn-info);
-
-    &.ps-divider--vertical {
-      border-top-color: var(--ps-color-neutral-300, var(--gray-300));
-      border-left-color: var(--btn-info);
-    }
+    --ps-divider-color: var(--info);
   }
-
-  /* With text/icon content */
+  
+  /* ============================================
+     Modifiers - Spacing
+     ============================================ */
+  
+  &--spacing-sm {
+    --ps-divider-spacing-y: var(--size-2);
+    --ps-divider-spacing-x: var(--size-2);
+  }
+  
+  &--spacing-lg {
+    --ps-divider-spacing-y: var(--size-6);
+    --ps-divider-spacing-x: var(--size-6);
+  }
+  
+  /* ============================================
+     Modifiers - With Content (text/icon)
+     ============================================ */
+  
   &--with-text,
   &--with-icon {
     display: flex;
     align-items: center;
-    gap: var(--size-3);
+    gap: var(--ps-divider-content-gap);
     border: none;
+    height: auto;
   }
-
-  /* Elements */
+  
+  /* ============================================
+     Elements - Line segments (for content variants)
+     ============================================ */
+  
   &__line {
     flex: 1;
     height: 0;
-    border-top: 2px solid var(--ps-color-neutral-300, var(--gray-300));
+    border-top: var(--ps-divider-thickness) var(--ps-divider-style) var(--ps-divider-color);
   }
-
+  
   &__text {
-    font-family: var(--font-sans);
-    font-size: var(--font-size-0);
-    font-weight: var(--font-weight-500);
-    color: var(--ps-color-neutral-600, var(--gray-600));
+    font-family: var(--ps-divider-text-font-family);
+    font-size: var(--ps-divider-text-font-size);
+    font-weight: var(--ps-divider-text-font-weight);
+    color: var(--ps-divider-text-color);
     white-space: nowrap;
-  }
-
-  &__icon {
-    font-size: var(--font-size-1);
-    color: var(--ps-color-neutral-500, var(--gray-500));
     flex-shrink: 0;
-    font-style: normal;
+  }
+  
+  &__icon {
+    font-size: var(--ps-divider-icon-size);
+    color: var(--ps-divider-icon-color);
+    flex-shrink: 0;
     line-height: 1;
-  }
-
-  /* Modifiers for with-content variants - line styles */
-  &--solid {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-style: solid;
-      }
-    }
-  }
-
-  &--dashed {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-style: dashed;
-      }
-    }
-  }
-
-  &--dotted {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-style: dotted;
-      }
-    }
-  }
-
-  /* Modifiers for with-content variants - line thickness */
-  &--thin {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-width: 1px;
-      }
-    }
-  }
-
-  &--thick {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-width: 4px;
-      }
-    }
-  }
-
-  /* Modifiers for with-content variants - line colors */
-  &--primary {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--brand-primary);
-      }
-    }
-  }
-
-  &--secondary {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--brand-secondary);
-      }
-    }
-  }
-
-  &--success {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--btn-success);
-      }
-    }
-  }
-
-  &--warning {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--btn-warning);
-      }
-    }
-  }
-
-  &--danger {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--btn-danger);
-      }
-    }
-  }
-
-  &--info {
-    &.ps-divider--with-text,
-    &.ps-divider--with-icon {
-      .ps-divider__line {
-        border-top-color: var(--btn-info);
-      }
-    }
   }
 }

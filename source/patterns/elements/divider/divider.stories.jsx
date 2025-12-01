@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component:
-          'Visual separator for content sections with horizontal and vertical orientations. Supports styles, thickness, semantic colors, and centered text or icon using design tokens.',
+          'Visual separator with horizontal/vertical orientations, component-scoped CSS variables, and optional centered content.',
       },
     },
   },
@@ -84,115 +84,51 @@ export const Default = {
   args: { ...data },
 };
 
-export const AllStyles = {
+export const AllVariants = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--size-8); max-width: 1000px;">
+      <!-- Styles -->
       <div>
-        <h3 style="margin: 0 0 1rem 0; font-size: 14px; font-weight: 600;">Horizontal Styles</h3>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Solid (default)</small>
-            ${dividerTwig({ style: 'solid', spacing: 'sm' })}
-          </div>
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Dashed</small>
-            ${dividerTwig({ style: 'dashed', spacing: 'sm' })}
-          </div>
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Dotted</small>
-            ${dividerTwig({ style: 'dotted', spacing: 'sm' })}
-          </div>
+        <strong style="display: block; margin-bottom: var(--size-3);">Styles</strong>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          <div><small style="color: var(--text-secondary);">Solid (default)</small>${dividerTwig({ spacing: 'sm' })}</div>
+          <div><small style="color: var(--text-secondary);">Dashed</small>${dividerTwig({ style: 'dashed', spacing: 'sm' })}</div>
+          <div><small style="color: var(--text-secondary);">Dotted</small>${dividerTwig({ style: 'dotted', spacing: 'sm' })}</div>
         </div>
       </div>
-
+      
+      <!-- Thickness -->
       <div>
-        <h3 style="margin: 0 0 1rem 0; font-size: 14px; font-weight: 600;">Thickness</h3>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Thin (1px)</small>
-            ${dividerTwig({ thickness: 'thin', spacing: 'sm' })}
-          </div>
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Medium (2px, default)</small>
-            ${dividerTwig({ thickness: 'medium', spacing: 'sm' })}
-          </div>
-          <div>
-            <small style="color: #666; display: block; margin-bottom: 0.5rem;">Thick (4px)</small>
-            ${dividerTwig({ thickness: 'thick', spacing: 'sm' })}
-          </div>
+        <strong style="display: block; margin-bottom: var(--size-3);">Thickness</strong>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          <div><small style="color: var(--text-secondary);">Thin (1px)</small>${dividerTwig({ thickness: 'thin', spacing: 'sm' })}</div>
+          <div><small style="color: var(--text-secondary);">Medium (2px, default)</small>${dividerTwig({ spacing: 'sm' })}</div>
+          <div><small style="color: var(--text-secondary);">Thick (4px)</small>${dividerTwig({ thickness: 'thick', spacing: 'sm' })}</div>
         </div>
       </div>
-    </div>
-  `,
-};
-
-export const AllColors = {
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Neutral (gray, default)</small>
-        ${dividerTwig({ color: 'neutral', spacing: 'sm' })}
+      
+      <!-- Semantic Colors -->
+      <div style="grid-column: 1 / -1;">
+        <strong style="display: block; margin-bottom: var(--size-3);">Semantic Colors</strong>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--size-3);">
+          ${dividerTwig({ color: 'neutral', spacing: 'sm' })}
+          ${dividerTwig({ color: 'primary', spacing: 'sm' })}
+          ${dividerTwig({ color: 'secondary', spacing: 'sm' })}
+          ${dividerTwig({ color: 'success', spacing: 'sm' })}
+          ${dividerTwig({ color: 'warning', spacing: 'sm' })}
+          ${dividerTwig({ color: 'danger', spacing: 'sm' })}
+          ${dividerTwig({ color: 'info', spacing: 'sm' })}
+        </div>
       </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Primary (green)</small>
-        ${dividerTwig({ color: 'primary', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Secondary (purple)</small>
-        ${dividerTwig({ color: 'secondary', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Success</small>
-        ${dividerTwig({ color: 'success', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Warning</small>
-        ${dividerTwig({ color: 'warning', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Danger</small>
-        ${dividerTwig({ color: 'danger', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Info</small>
-        ${dividerTwig({ color: 'info', spacing: 'sm' })}
-      </div>
-    </div>
-  `,
-};
-
-export const AllSpacing = {
-  render: () => `
-    <div style="background: #f5f5f5; padding: 1rem;">
-      <div style="background: white; padding: 0.5rem;">Content before</div>
-      ${dividerTwig({ spacing: 'sm', color: 'primary' })}
-      <div style="background: white; padding: 0.5rem;">Small spacing (8px)</div>
-      ${dividerTwig({ spacing: 'md', color: 'primary' })}
-      <div style="background: white; padding: 0.5rem;">Medium spacing (16px, default)</div>
-      ${dividerTwig({ spacing: 'lg', color: 'primary' })}
-      <div style="background: white; padding: 0.5rem;">Large spacing (24px)</div>
-    </div>
-  `,
-};
-
-export const WithContent = {
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">With text</small>
-        ${dividerTwig({ text: 'or', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">With text + primary color</small>
-        ${dividerTwig({ text: 'Section', color: 'primary', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">With text + dashed</small>
-        ${dividerTwig({ text: 'Or', style: 'dashed', spacing: 'sm' })}
-      </div>
-      <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">With icon</small>
-        ${dividerTwig({ icon: 'check', spacing: 'sm' })}
+      
+      <!-- With Content -->
+      <div style="grid-column: 1 / -1;">
+        <strong style="display: block; margin-bottom: var(--size-3);">With Content</strong>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          ${dividerTwig({ text: 'or', spacing: 'sm' })}
+          ${dividerTwig({ text: 'Section', color: 'primary', spacing: 'sm' })}
+          ${dividerTwig({ icon: 'check', spacing: 'sm' })}
+        </div>
       </div>
     </div>
   `,
@@ -200,62 +136,40 @@ export const WithContent = {
 
 export const Vertical = {
   render: () => `
-    <div style="display: flex; align-items: center; height: 100px; gap: 1rem;">
+    <div style="display: flex; align-items: center; height: 80px;">
       <span>Left text</span>
-      ${dividerTwig({ orientation: 'vertical', spacing: 'md' })}
+      ${dividerTwig({ orientation: 'vertical' })}
       <span>Right text</span>
-    </div>
-  `,
-};
-
-export const VerticalMultiple = {
-  render: () => `
-    <div style="display: flex; align-items: center; height: 80px; gap: 0.5rem;">
-      <span>Option 1</span>
-      ${dividerTwig({ orientation: 'vertical', thickness: 'thin', spacing: 'sm' })}
-      <span>Option 2</span>
-      ${dividerTwig({ orientation: 'vertical', thickness: 'thin', spacing: 'sm' })}
-      <span>Option 3</span>
     </div>
   `,
 };
 
 export const UseCases = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 600px;">
-      <div>
-        <h3 style="margin: 0 0 1rem 0; font-size: 14px; font-weight: 600;">Login form with text divider</h3>
-        <div style="border: 1px solid #e0e0e0; padding: 1.5rem; border-radius: 4px;">
-          <input type="email" placeholder="Email" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" />
-          <br/><br/>
-          <input type="password" placeholder="Password" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" />
-          <br/><br/>
-          <button style="width: 100%; padding: 0.75rem; background: #00915A; color: white; border: none; border-radius: 4px; cursor: pointer;">Sign in</button>
-          ${dividerTwig({ text: 'or', spacing: 'md' })}
-          <button style="width: 100%; padding: 0.75rem; background: white; color: #333; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">Continue with Google</button>
-        </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-8); max-width: 600px;">
+      <!-- Login form with "or" divider -->
+      <div style="border: 1px solid var(--border-default); padding: var(--size-6); border-radius: var(--radius-2);">
+        <input type="email" placeholder="Email" style="width: 100%; padding: var(--size-2); border: 1px solid var(--border-default); border-radius: var(--radius-1); margin-bottom: var(--size-3);" />
+        <input type="password" placeholder="Password" style="width: 100%; padding: var(--size-2); border: 1px solid var(--border-default); border-radius: var(--radius-1); margin-bottom: var(--size-3);" />
+        <button style="width: 100%; padding: var(--size-3); background: var(--primary); color: var(--primary-text); border: none; border-radius: var(--radius-1); cursor: pointer; margin-bottom: var(--size-4);">Sign in</button>
+        ${dividerTwig({ text: 'or' })}
+        <button style="width: 100%; padding: var(--size-3); background: white; color: var(--text-primary); border: 1px solid var(--border-default); border-radius: var(--radius-1); cursor: pointer; margin-top: var(--size-4);">Continue with Google</button>
       </div>
-
+      
+      <!-- Content sections -->
       <div>
-        <h3 style="margin: 0 0 1rem 0; font-size: 14px; font-weight: 600;">Content sections</h3>
-        <div>
-          <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          ${dividerTwig({ spacing: 'lg', thickness: 'thin' })}
-          <p style="margin: 0;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          ${dividerTwig({ spacing: 'lg', thickness: 'thin' })}
-          <p style="margin: 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        </div>
+        <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        ${dividerTwig({ spacing: 'lg', thickness: 'thin' })}
+        <p style="margin: 0;">Ut enim ad minim veniam, quis nostrud exercitation.</p>
       </div>
-
-      <div>
-        <h3 style="margin: 0 0 1rem 0; font-size: 14px; font-weight: 600;">Divider with accent</h3>
-        <div>
-          <h4 style="margin: 0 0 0.5rem 0; color: #00915A;">Important section</h4>
-          <p style="margin: 0; color: #666;">Highlighted content with primary divider.</p>
-          ${dividerTwig({ spacing: 'md', color: 'primary', thickness: 'thick' })}
-          <h4 style="margin: 0 0 0.5rem 0;">Standard section</h4>
-          <p style="margin: 0; color: #666;">Normal content with neutral divider.</p>
-        </div>
+      
+      <!-- Vertical in toolbar -->
+      <div style="display: flex; align-items: center; height: 40px; gap: var(--size-2);">
+        <button style="padding: var(--size-2) var(--size-3); background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-1); cursor: pointer;">Edit</button>
+        ${dividerTwig({ orientation: 'vertical', thickness: 'thin', spacing: 'sm' })}
+        <button style="padding: var(--size-2) var(--size-3); background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-1); cursor: pointer;">Delete</button>
+        ${dividerTwig({ orientation: 'vertical', thickness: 'thin', spacing: 'sm' })}
+        <button style="padding: var(--size-2) var(--size-3); background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-1); cursor: pointer;">Share</button>
       </div>
     </div>
   `,
