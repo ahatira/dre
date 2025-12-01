@@ -74,9 +74,9 @@
      ============================================ */
   --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders */
   --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators */
-  --border-focus: hsl(199, 89%, 48%); /* #0288D1 - Focus ring (accessibility) */
-  --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders (matches danger) */
-  --border-success: hsl(162, 100%, 28%); /* #00915A - Success state borders (matches primary) */
+  --border-focus: hsl(162, 100%, 28%); /* #00915A - Focus ring (BNP green from maquette) */
+  --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders */
+  --border-success: hsl(162, 100%, 28%); /* #00915A - Success state borders (same as focus) */
 
   /* ============================================
      BACKGROUND COLORS (Surfaces)
