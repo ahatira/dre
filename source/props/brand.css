@@ -18,11 +18,11 @@
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
-  --primary: hsl(162, 100%, 28%); /* #00915A - Official BNP green */
-  --primary-hover: hsl(162, 100%, 25%); /* #017F4F - Dark variant from maquette */
-  --primary-active: hsl(162, 92%, 25%); /* #047857 - Darkest for pressed state */
+  --primary: hsl(157, 100%, 28%); /* #00915A - Official BNP green */
+  --primary-hover: hsl(157, 100%, 25%); /* #017F4F - Dark variant from maquette */
+  --primary-active: hsl(157, 92%, 25%); /* #047857 - Darkest for pressed state */
   --primary-text: hsl(0, 0%, 100%); /* White on primary */
-  --primary-border: hsl(162, 100%, 28%); /* Match base */
+  --primary-border: hsl(157, 100%, 28%); /* Match base */
 
   /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
   --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
@@ -32,11 +32,11 @@
   --secondary-border: hsl(330, 65%, 40%); /* Match base */
 
   /* SUCCESS (Green - Positive actions) */
-  --success: hsl(162, 92%, 25%); /* #047857 (green-600) */
-  --success-hover: hsl(163, 93%, 22%); /* green-700 */
-  --success-active: hsl(164, 93%, 17%); /* green-800 */
+  --success: hsl(157, 92%, 25%); /* #047857 (green-600) */
+  --success-hover: hsl(158, 93%, 22%); /* green-700 */
+  --success-active: hsl(159, 93%, 17%); /* green-800 */
   --success-text: hsl(0, 0%, 100%); /* White on success */
-  --success-border: hsl(162, 92%, 25%);
+  --success-border: hsl(157, 92%, 25%);
 
   /* DANGER (Status Red - Official BNP #EB3636) */
   --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
@@ -74,9 +74,9 @@
      ============================================ */
   --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders */
   --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators */
-  --border-focus: hsl(162, 100%, 28%); /* #00915A - Focus ring (BNP green from maquette) */
+  --border-focus: hsl(157, 100%, 28%); /* #00915A - Focus ring (BNP green from maquette) */
   --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders */
-  --border-success: hsl(162, 100%, 28%); /* #00915A - Success state borders (same as focus) */
+  --border-success: hsl(157, 100%, 28%); /* #00915A - Success state borders (same as focus) */
 
   /* ============================================
      BACKGROUND COLORS (Surfaces)
@@ -85,7 +85,7 @@
   --bg-page: hsl(0, 0%, 100%); /* #FFFFFF - Main page background */
   --bg-section: hsl(210, 20%, 98%); /* #F9F9FB - Section backgrounds */
   --bg-disabled: hsl(220, 14%, 96%); /* #F4F5F6 - Disabled inputs/buttons */
-  --bg-success-light: hsl(162, 48%, 72%); /* #99D3BD - Light success backgrounds (alerts, notifications) */
+  --bg-success-light: hsl(157, 48%, 72%); /* #99D3BD - Light success backgrounds (alerts, notifications) */
   --bg-danger-light: hsl(0, 82%, 90%); /* Light red backgrounds (error alerts) */
   --bg-warning-light: hsl(42, 93%, 90%); /* Light yellow backgrounds (warning alerts) */
   --bg-info-light: hsl(220, 89%, 90%); /* Light blue backgrounds (info alerts) */
