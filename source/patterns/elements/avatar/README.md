@@ -59,6 +59,39 @@ User or entity visual representation with automatic fallback hierarchy.
 - Modifiers (shape): `--square` `--rounded` (circle default)
 - Modifiers (type): `--initials` `--icon`
 - Modifiers (state): `--bordered` `--clickable` `--has-status`
+
+## Component-Scoped Variables (Bootstrap 5 Pattern)
+
+### Wrapper Variables
+```css
+--ps-avatar-size           /* Container size: 24px (xs) → 80px (xl) */
+--ps-avatar-text-size      /* Initials font-size: 10px → 36px */
+--ps-avatar-icon-size      /* Icon size: 12px → 40px */
+--ps-avatar-rounded-radius /* Adaptive rounded corners: 4px → 16px */
+```
+
+### Avatar Variables
+```css
+--ps-avatar-bg            /* Background: gray-200 | brand-primary | gray-100 */
+--ps-avatar-text-color    /* Initials color: white */
+--ps-avatar-icon-color    /* Icon color: gray-600 */
+--ps-avatar-radius        /* Border radius: 0 | 50% | adaptive */
+--ps-avatar-border-width  /* Border: 0 | 2px */
+--ps-avatar-border-color  /* Border color: white */
+```
+
+### Status Badge Variables
+```css
+--ps-avatar-status-size         /* Badge size: 8px (xs) → 20px (xl) */
+--ps-avatar-status-bg           /* Background: success | gray-400 | danger */
+--ps-avatar-status-border-width /* Border: 1px (xs) → 3px (xl) */
+--ps-avatar-status-border-color /* Border color: white */
+```
+
+**Usage**: Override variables in context:
+```css
+.sidebar .ps-avatar { --ps-avatar-bg: var(--purple); }
+```
 - Status variants: `--online` `--offline` `--busy`
 
 ## Display Mode Hierarchy
@@ -67,12 +100,18 @@ User or entity visual representation with automatic fallback hierarchy.
 3. **Icon fallback** (neither src nor initials) → `<span class="ps-avatar__icon" data-agent="male|female">`
 
 ## Design Tokens Used
-- Sizing: `--size-6` (xs), `--size-8` (sm), `--size-10` (md), `--size-12` (lg), `--size-20` (xl)
-- Icon sizing: `--size-3` to `--size-10` (50% of wrapper per size)
-- Typography: `--font-size--2` (10px xs), `--font-size-0` (14px sm), `--font-size-2` (18px md), `--font-size-4` (22px lg), `--size-9` (36px xl), `--font-weight-600`
-- Colors: `--brand-primary` (initials bg), `--gray-*` (backgrounds/icon), `--green/red-600` (status), `--white` (border/text)
-- Radius: `--radius-2/3/4/5/6` (adaptive rounded scaling: 4px xs → 16px xl)
-- Border: `--border-size-1` (status), `--border-size-2` (avatar/focus)
+
+### Root Tokens (Layer 1)
+- **Sizing**: `--size-6` (24px xs), `--size-8` (32px sm), `--size-10` (40px md), `--size-12` (48px lg), `--size-20` (80px xl)
+- **Typography**: `--font-size--2` (10px), `--font-size-0` (14px), `--font-size-2` (18px), `--font-size-4` (22px), `--size-9` (36px), `--font-weight-600`
+- **Colors**: `--brand-primary` (green), `--gray-100/200/400/600`, `--white`, `--success`, `--danger`
+- **Radius**: `--radius-2` (4px), `--radius-3` (6px), `--radius-4` (8px), `--radius-5` (12px), `--radius-6` (16px)
+- **Borders**: `--border-size-1` (1px), `--border-size-2` (2px), `--border-size-3` (3px)
+
+### Component Tokens (Layer 2)
+All properties wrapped in `--ps-avatar-*` variables for runtime customization (see Component-Scoped Variables section above).
+
+**Three-layer architecture**: Root tokens → Component defaults → Context overrides.
 
 ## Accessibility
 - **Image mode**: `alt` attribute required (screen reader label).

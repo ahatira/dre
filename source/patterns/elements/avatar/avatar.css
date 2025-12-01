@@ -7,47 +7,74 @@
  * Shapes: circle (default) | square | rounded
  * Gender: male (default) | female (pour fallback icon)
  * Status: online | offline | busy
+ * 
+ * Component-scoped variables (Bootstrap 5 approach):
+ * Base class defines defaults via CSS variables, modifiers override them.
  */
 
 /* ========================================
- * Wrapper - Controls sizing
+ * Wrapper - Controls sizing via component variables
  * ======================================== */
 
 .ps-avatar-wrapper {
+  /* Component-scoped variables (Layer 2) */
+  --ps-avatar-size: var(--size-10); /* md 40px default */
+  --ps-avatar-text-size: var(--font-size-2); /* 18px */
+  --ps-avatar-icon-size: var(--size-5); /* 20px */
+  --ps-avatar-rounded-radius: var(--radius-4); /* 8px md */
+  
+  /* Base layout using component variables */
   position: relative;
   display: inline-block;
-  width: var(--size-10); /* md 40px default */
-  height: var(--size-10);
+  width: var(--ps-avatar-size);
+  height: var(--ps-avatar-size);
   
-  /* Size modifiers */
+  /* Size modifiers - override component variables (Layer 3) */
   &--xs {
-    width: var(--size-6);  /* 24px */
-    height: var(--size-6);
+    --ps-avatar-size: var(--size-6);  /* 24px */
+    --ps-avatar-text-size: var(--font-size--2); /* 10px */
+    --ps-avatar-icon-size: var(--size-3); /* 12px */
+    --ps-avatar-rounded-radius: var(--radius-2); /* 4px */
   }
   
   &--sm {
-    width: var(--size-8);  /* 32px */
-    height: var(--size-8);
+    --ps-avatar-size: var(--size-8);  /* 32px */
+    --ps-avatar-text-size: var(--font-size-0); /* 14px */
+    --ps-avatar-icon-size: var(--size-4); /* 16px */
+    --ps-avatar-rounded-radius: var(--radius-3); /* 6px */
   }
   
-  /* md handled by base (minimal markup) */
+  /* md handled by base defaults (minimal markup) */
   
   &--lg {
-    width: var(--size-12); /* 48px */
-    height: var(--size-12);
+    --ps-avatar-size: var(--size-12); /* 48px */
+    --ps-avatar-text-size: var(--font-size-4); /* 22px */
+    --ps-avatar-icon-size: var(--size-6); /* 24px */
+    --ps-avatar-rounded-radius: var(--radius-5); /* 12px */
   }
   
   &--xl {
-    width: var(--size-20); /* 80px */
-    height: var(--size-20);
+    --ps-avatar-size: var(--size-20); /* 80px */
+    --ps-avatar-text-size: var(--size-9); /* 36px */
+    --ps-avatar-icon-size: var(--size-10); /* 40px */
+    --ps-avatar-rounded-radius: var(--radius-6); /* 16px */
   }
 }
 
 /* ========================================
- * Avatar Container
+ * Avatar Container - Uses component variables
  * ======================================== */
 
 .ps-avatar {
+  /* Component-scoped variables */
+  --ps-avatar-bg: var(--gray-200);
+  --ps-avatar-text-color: var(--white);
+  --ps-avatar-icon-color: var(--gray-600);
+  --ps-avatar-radius: 50%; /* circle default */
+  --ps-avatar-border-width: 0;
+  --ps-avatar-border-color: var(--white);
+  
+  /* Base layout using component variables */
   position: relative;
   width: 100%;
   height: 100%;
@@ -56,11 +83,12 @@
   justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--gray-200);
+  background: var(--ps-avatar-bg);
+  border-radius: var(--ps-avatar-radius);
+  border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
   text-decoration: none;
-  border-radius: 50%; /* circle default */
   
-  /* Elements */
+  /* Elements - use wrapper's size variables */
   &__image {
     width: 100%;
     height: 100%;
@@ -69,8 +97,9 @@
   
   &__text {
     font-family: var(--font-sans);
+    font-size: var(--ps-avatar-text-size);
     font-weight: var(--font-weight-600);
-    color: var(--white);
+    color: var(--ps-avatar-text-color);
     text-transform: uppercase;
     user-select: none;
   }
@@ -78,7 +107,9 @@
   &__icon {
     display: block;
     position: relative;
-    color: var(--gray-600);
+    width: var(--ps-avatar-icon-size);
+    height: var(--ps-avatar-icon-size);
+    color: var(--ps-avatar-icon-color);
     background-color: currentColor;
     -webkit-mask: url('../../../assets/images/agent/male.svg') no-repeat center / contain;
     mask: url('../../../assets/images/agent/male.svg') no-repeat center / contain;
@@ -89,27 +120,27 @@
     }
   }
   
-  /* Shape modifiers */
+  /* Shape modifiers - override radius variable */
   &--square {
-    border-radius: 0;
+    --ps-avatar-radius: 0;
   }
   
   &--rounded {
-    border-radius: var(--radius-4); /* 8px - md default */
+    --ps-avatar-radius: var(--ps-avatar-rounded-radius); /* Adaptive per size */
   }
   
-  /* Type modifiers */
+  /* Type modifiers - override background */
   &--initials {
-    background: var(--brand-primary);
+    --ps-avatar-bg: var(--brand-primary);
   }
   
   &--icon {
-    background: var(--gray-100);
+    --ps-avatar-bg: var(--gray-100);
   }
   
-  /* State modifiers */
+  /* State modifiers - override border */
   &--bordered {
-    border: var(--border-size-2) solid var(--white);
+    --ps-avatar-border-width: var(--border-size-2);
   }
   
   &--clickable {
@@ -128,119 +159,53 @@
 }
 
 /* ========================================
- * Text & Icon Sizing
- * Base styles first, then size modifiers (cascade order)
- * ======================================== */
-
-.ps-avatar-wrapper {
-  /* MD - 40px avatar (default base) */
-  .ps-avatar__text {
-    font-size: var(--font-size-2); /* 18px - 45% ratio */
-  }
-  
-  .ps-avatar__icon {
-    width: var(--size-5); /* 20px - 50% */
-    height: var(--size-5);
-  }
-  
-  /* Size modifier overrides */
-  &--xs {
-    .ps-avatar__text {
-      font-size: var(--font-size--2); /* 10px - 42% ratio */
-    }
-    
-    .ps-avatar__icon {
-      width: var(--size-3); /* 12px - 50% */
-      height: var(--size-3);
-    }
-  }
-  
-  &--sm {
-    .ps-avatar__text {
-      font-size: var(--font-size-0); /* 14px - 44% ratio */
-    }
-    
-    .ps-avatar__icon {
-      width: var(--size-4); /* 16px - 50% */
-      height: var(--size-4);
-    }
-  }
-  
-  &--lg {
-    .ps-avatar__text {
-      font-size: var(--font-size-4); /* 22px - 46% ratio */
-    }
-    
-    .ps-avatar__icon {
-      width: var(--size-6); /* 24px - 50% */
-      height: var(--size-6);
-    }
-  }
-  
-  &--xl {
-    .ps-avatar__text {
-      font-size: var(--size-9); /* 36px - 45% ratio */
-    }
-    
-    .ps-avatar__icon {
-      width: var(--size-10); /* 40px - 50% */
-      height: var(--size-10);
-    }
-  }
-}
-
-/* ========================================
- * Shape Responsive Radius
- * Rounded corners scale proportionally per size
- * ======================================== */
-
-.ps-avatar-wrapper {
-  /* Rounded radius scaling */
-  &--xs .ps-avatar--rounded {
-    border-radius: var(--radius-2); /* 4px */
-  }
-  
-  &--sm .ps-avatar--rounded {
-    border-radius: var(--radius-3); /* 6px */
-  }
-  
-  /* md uses base .ps-avatar--rounded (8px) */
-  
-  &--lg .ps-avatar--rounded {
-    border-radius: var(--radius-5); /* 12px */
-  }
-  
-  &--xl .ps-avatar--rounded {
-    border-radius: var(--radius-6); /* 16px */
-  }
-}
-
-/* ========================================
- * Status Badge
- * Positioned absolutely in wrapper corner
+ * Status Badge (optional)
  * ======================================== */
 
 .ps-avatar__status {
+  /* Component-scoped variables */
+  --ps-avatar-status-size: var(--size-3); /* 12px md */
+  --ps-avatar-status-bg: var(--success);
+  --ps-avatar-status-border-width: var(--border-size-2);
+  --ps-avatar-status-border-color: var(--white);
+  
+  /* Base layout using component variables */
   position: absolute;
-  width: 30%;
-  height: 30%;
-  min-width: var(--size-2); /* 8px */
-  min-height: var(--size-2);
-  border-radius: 50%;
-  border: var(--border-size-1) solid var(--white);
   bottom: 0;
   right: 0;
+  width: var(--ps-avatar-status-size);
+  height: var(--ps-avatar-status-size);
+  border-radius: 50%;
+  background: var(--ps-avatar-status-bg);
+  border: var(--ps-avatar-status-border-width) solid var(--ps-avatar-status-border-color);
   
-  /* Status variants */
-  &--online {
-    background: var(--green-600);
+  /* Size-specific adjustments (from wrapper context) */
+  .ps-avatar-wrapper--xs & {
+    --ps-avatar-status-size: var(--size-2); /* 8px */
+    --ps-avatar-status-border-width: var(--border-size-1);
   }
   
-  &--offline {
-    background: var(--gray-400);
+  .ps-avatar-wrapper--sm & {
+    --ps-avatar-status-size: var(--size-2-5); /* 10px */
   }
   
-  &--busy {
-    background: var(--red-600);
+  /* md uses defaults (minimal markup) */
+  
+  .ps-avatar-wrapper--lg & {
+    --ps-avatar-status-size: var(--size-3-5); /* 14px */
+  }
+  
+  .ps-avatar-wrapper--xl & {
+    --ps-avatar-status-size: var(--size-5); /* 20px */
+    --ps-avatar-status-border-width: var(--border-size-3);
+  }
+  
+  /* Status type modifiers */
+  &[data-status="offline"] {
+    --ps-avatar-status-bg: var(--gray-400);
+  }
+  
+  &[data-status="busy"] {
+    --ps-avatar-status-bg: var(--danger);
   }
 }
