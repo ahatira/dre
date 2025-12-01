@@ -46,13 +46,13 @@ export default {
     // Appearance
     variant: {
       description:
-        'Semantic variant (primary: green, secondary: pink, success/info/warning/danger, dark/light)',
+        'Semantic variant (neutral: gray default, primary: green, secondary: pink, success/info/warning/danger)',
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'],
+      options: ['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'],
       table: {
         category: 'Appearance',
-        type: { summary: 'primary | secondary | success | info | warning | danger | dark | light' },
-        defaultValue: { summary: 'primary' },
+        type: { summary: 'primary | secondary | neutral | success | info | warning | danger' },
+        defaultValue: { summary: 'neutral' },
       },
     },
     outline: {
@@ -126,13 +126,13 @@ export default {
 
 export const Default = {
   render: (args) => buttonTwig(args),
-  args: { ...data },
+  args: { ...data, variant: 'neutral' },
 };
 
 export const AllVariants = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
+      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
     </div>
   `,
 };
@@ -140,7 +140,24 @@ export const AllVariants = {
 export const AllOutlines = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant, outline: true })).join('')}
+      ${[
+        // Show neutral outline first as the default
+        'neutral',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+      ]
+        .map((variant) =>
+          buttonTwig({
+            label: variant.charAt(0).toUpperCase() + variant.slice(1),
+            variant,
+            outline: true,
+          })
+        )
+        .join('')}
     </div>
   `,
 };

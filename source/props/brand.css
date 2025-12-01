@@ -59,6 +59,13 @@
   --info-text: hsl(0, 0%, 100%); /* White on info */
   --info-border: hsl(220, 89%, 53%);
 
+  /* NEUTRAL (Gray - Default/neutral actions) */
+  --neutral: hsl(215, 14%, 34%); /* gray-600 - Neutral default */
+  --neutral-hover: hsl(217, 19%, 27%); /* gray-700 - Darker on hover */
+  --neutral-active: hsl(215, 28%, 17%); /* gray-800 - Darkest for pressed */
+  --neutral-text: hsl(0, 0%, 100%); /* White on neutral */
+  --neutral-border: hsl(215, 14%, 34%); /* Match base */
+
   /* ============================================
      TEXT COLORS (Typography)
      4 tokens for text hierarchy

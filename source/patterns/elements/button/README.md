@@ -1,22 +1,17 @@
 # Button
 
-Interactive action trigger with semantic variants and accessible states.
-
-## Overview
-- **Purpose**: Primary call-to-action element for user interactions.
-- **Variants**: 8 semantic colors (primary, secondary, success, info, warning, danger, dark, light).
-- **Styles**: filled (default), outline (transparent bg + border).
-- **Sizes**: small (34px), medium (36px, default), large (40px).
-- **Icons**: optional left/right positioning; icon-only mode supported.
-- **States**: disabled (50% opacity), loading (spinner overlay).
-- **Layout**: fullWidth for block-level display.
-- **Accessibility**: renders `<button>` or `<a>` based on url; focus visible; aria attributes for states.
+Interactive action trigger with semantic variants (neutral default, primary, secondary, success, info, warning, danger), multiple sizes (small/medium/large), icon support (left/right/only), disabled/loading states, outline style, and full-width layout.
 
 ## Markup
 ```html
-<!-- Default button -->
+<!-- Default neutral button (gray) -->
 <button class="ps-button">
   <span class="ps-button__label">Button</span>
+</button>
+
+<!-- Primary (brand green) -->
+<button class="ps-button ps-button--primary">
+  <span class="ps-button__label">Cancel</span>
 </button>
 
 <!-- Primary with icon -->
@@ -41,7 +36,7 @@ Interactive action trigger with semantic variants and accessible states.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | string (required) | `'Button'` | Button text content. |
-| `variant` | enum | `primary` | Semantic color (primary \| secondary \| success \| info \| warning \| danger \| dark \| light). |
+| `variant` | enum | `neutral` | Semantic color (neutral \| primary \| secondary \| success \| info \| warning \| danger). |
 | `outline` | boolean | `false` | Outline style (border only). |
 | `size` | enum | `medium` | Size scale (small \| medium \| large). |
 | `url` | string | `''` | Link URL (renders `<a>`). |
@@ -56,7 +51,7 @@ Interactive action trigger with semantic variants and accessible states.
 ## BEM Structure
 - Block: `.ps-button`
 - Elements: `.ps-button__label`, `.ps-button__icon`, `.ps-button__spinner`
-- Modifiers (variant): `--secondary` `--success` `--info` `--warning` `--danger` `--dark` `--light` (primary default)
+- Modifiers (variant): `--neutral` (default), `--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`
 - Modifiers (style): `--outline`
 - Modifiers (size): `--small` `--large` (medium default)
 - Modifiers (state): `--disabled` `--loading` `--full-width`
@@ -65,21 +60,82 @@ Interactive action trigger with semantic variants and accessible states.
 ## Variant Colors
 | Variant | Base Token | Hover Token | Active Token |
 |---------|-----------|-------------|--------------|
-| primary | `--btn-primary` | `--btn-primary-hover` | `--btn-primary-active` |
-| secondary | `--btn-secondary` | `--btn-secondary-hover` | `--btn-secondary-active` |
-| success | `--btn-success` | `--btn-success-hover` | `--btn-success-active` |
-| info | `--btn-info` | `--btn-info-hover` | `--btn-info-active` |
-| warning | `--btn-warning` | `--btn-warning-hover` | `--btn-warning-active` |
-| danger | `--btn-danger` | `--btn-danger-hover` | `--btn-danger-active` |
-| dark | `--btn-dark` | `--btn-dark-hover` | `--btn-dark-active` |
-| light | `--btn-light` | `--btn-light-hover` | `--btn-light-active` |
+| primary | `--primary` | `--primary-hover` | `--primary-active` |
+| secondary | `--secondary` | `--secondary-hover` | `--secondary-active` |
+| neutral | `--neutral` | `--neutral-hover` | `--neutral-active` |
+| success | `--success` | `--success-hover` | `--success-active` |
+| info | `--info` | `--info-hover` | `--info-active` |
+| warning | `--warning` | `--warning-hover` | `--warning-active` |
+| danger | `--danger` | `--danger-hover` | `--danger-active` |
 
-## Design Tokens Used
-- Colors: `--btn-*` variant tokens (base/hover/active), `--white` (text on colored)
+## CSS Variables System (3 Layers - Bootstrap 5 Inspired)
+
+### Layer 2: Component-Scoped Variables (Customizable)
+
+The button component uses **component-scoped CSS variables** that can be overridden in context:
+
+```css
+.ps-button {
+  /* Spacing */
+  --ps-button-gap: var(--size-2);
+  --ps-button-padding-y: var(--size-2);
+  --ps-button-padding-x: var(--size-4);
+  --ps-button-height: var(--size-9);
+  
+  /* Colors */
+  --ps-button-bg: var(--primary);
+  --ps-button-color: var(--primary-text);
+  --ps-button-hover-bg: var(--primary-hover);
+  --ps-button-active-bg: var(--primary-active);
+  --ps-button-spinner-color: var(--white);
+  
+  /* States */
+  --ps-button-disabled-opacity: 0.5;
+  --ps-button-focus-outline-width: var(--border-size-2);
+  --ps-button-focus-outline-color: var(--border-focus);
+  
+  /* Transitions */
+  --ps-button-transition-duration: var(--duration-fast);
+  --ps-button-transition-timing: var(--ease-4);
+}
+```
+
+### Customization Examples
+
+**Contextual Theming (Layer 3):**
+```css
+/* Sidebar buttons with different colors */
+.sidebar .ps-button {
+  --ps-button-bg: var(--secondary);
+  --ps-button-hover-bg: var(--secondary-hover);
+}
+```
+
+**Runtime Customization (JavaScript):**
+```javascript
+button.style.setProperty('--ps-button-bg', 'var(--success)');
+```
+
+**Size Overrides:**
+```css
+.ps-button--small {
+  --ps-button-height: 2.12375rem;
+  --ps-button-padding-y: var(--size-105);
+  --ps-button-font-size: var(--size-305);
+}
+```
+
+**Benefits:**
+- **Cascade control**: Variants override variables, not properties directly.
+- **Runtime customization**: JavaScript can modify variables without specificity wars.
+- **Contextual theming**: Parent selectors can adjust button colors/sizes for specific contexts.
+
+## Design Tokens Used (Layer 1)
+- Colors: `--primary`, `--secondary`, `--neutral`, `--success`, `--info`, `--warning`, `--danger` (base/hover/active/text variants)
 - Sizing: `--size-2` (gap/padding-v), `--size-4` (padding-h), `--size-9` (height md), `--size-10` (height lg)
 - Typography: `--font-sans`, `--font-weight-400`, `--size-305` (14px small), `--size-4` (16px md), `1.125rem` (18px lg)
 - Border: `--border-size-2` (outline + focus)
-- Transition: `cubic-bezier(0.4, 0.0, 0.2, 1)` 150ms
+- Transition: `--duration-fast` (0.15s), `--ease-4` (cubic-bezier)
 
 ## Accessibility
 - **Button vs Link**: `<button>` by default; `<a>` when url provided (semantic correctness).
@@ -92,14 +148,17 @@ Interactive action trigger with semantic variants and accessible states.
 
 ## Usage Examples
 ```twig
-{# Primary action #}
+{# Primary action (green) #}
 {{ include('@elements/button/button.twig', { label: 'Submit', variant: 'primary' }) }}
 
-{# Secondary outline #}
-{{ include('@elements/button/button.twig', { label: 'Cancel', variant: 'secondary', outline: true }) }}
+{# Neutral/default (gray) #}
+{{ include('@elements/button/button.twig', { label: 'Cancel', variant: 'neutral' }) }}
 
-{# Link button #}
-{{ include('@elements/button/button.twig', { label: 'Learn more', variant: 'primary', url: '/about', icon: 'arrow-right' }) }}
+{# Outline without variant -> neutral by default #}
+{{ include('@elements/button/button.twig', { label: 'Outline default', outline: true }) }}
+
+{# Secondary outline (pink) #}
+{{ include('@elements/button/button.twig', { label: 'Learn more', variant: 'secondary', outline: true }) }}
 
 {# Icon left #}
 {{ include('@elements/button/button.twig', { label: 'Download', variant: 'success', icon: 'download', iconPosition: 'left' }) }}

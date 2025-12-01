@@ -1,18 +1,68 @@
 /** 
  * Button (Element/Atom)
- * Bouton d'action avec variants semantic (primary, secondary, success, info, warning, danger, dark, light)
+ * Bouton d'action avec variants semantic (primary, secondary, neutral, success, info, warning, danger)
  * 
  * BEM: ps-button, ps-button__label, ps-button__icon
- * Variants: primary (vert) | secondary (pink) | success | info | warning | danger | dark | light
+ * Variants: primary | secondary | neutral | success | info | warning | danger
  * Modifiers: --outline pour version bordure uniquement
  * Sizes: small, medium (défaut), large
  */
 
 .ps-button {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Bootstrap 5 inspired - Override these for customization
+     ============================================ */
+  
+  /* Spacing */
+  --ps-button-gap: var(--size-2);
+  --ps-button-padding-y: var(--size-2);
+  --ps-button-padding-x: var(--size-4);
+  --ps-button-min-width: var(--size-9);
+  --ps-button-height: var(--size-9);
+  
+  /* Typography */
+  --ps-button-font-family: var(--font-sans);
+  --ps-button-font-size: var(--size-4);
+  --ps-button-font-weight: var(--font-weight-400);
+  --ps-button-line-height: 1.5;
+  
+  /* Colors (Neutral defaults) */
+  --ps-button-bg: var(--neutral);
+  --ps-button-color: var(--neutral-text);
+  --ps-button-border-color: transparent;
+  
+  /* States */
+  --ps-button-hover-bg: var(--neutral-hover);
+  --ps-button-hover-border-color: transparent;
+  --ps-button-hover-color: var(--neutral-text);
+  --ps-button-hover-transform: translateY(-1px);
+  --ps-button-active-bg: var(--neutral-active);
+  --ps-button-active-transform: translateY(0);
+  --ps-button-disabled-opacity: 0.5;
+  
+  /* Visual */
+  --ps-button-border-width: 0;
+  --ps-button-border-radius: 0;
+  
+  /* Focus */
+  --ps-button-focus-outline-width: var(--border-size-2);
+  --ps-button-focus-outline-color: var(--border-focus);
+  --ps-button-focus-outline-offset: var(--border-size-2);
+  
+  /* Transitions */
+  --ps-button-transition-duration: var(--duration-fast);
+  --ps-button-transition-timing: var(--ease-4);
+  
+  /* ============================================
+     Apply Component Variables
+     ============================================ */
+  
   /* Reset */
   appearance: none;
   margin: 0;
   border: 0;
+  border-style: solid; /* Required for border-width to work */
   background: none;
   font: inherit;
   color: inherit;
@@ -24,46 +74,50 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--size-2); /* 8px */
+  gap: var(--ps-button-gap);
   width: auto;
   
-  /* Sizing - Medium par défaut */
-  height: var(--size-9); /* 36px */
-  padding: var(--size-2) var(--size-4); /* 8px 16px */
-  min-width: var(--size-9);
+  /* Sizing */
+  height: var(--ps-button-height);
+  padding: var(--ps-button-padding-y) var(--ps-button-padding-x);
+  min-width: var(--ps-button-min-width);
   
   /* Typography */
-  font-family: var(--font-sans);
-  font-weight: var(--font-weight-400);
-  font-size: var(--size-4); /* 16px */
-  line-height: 1.5;
+  font-family: var(--ps-button-font-family);
+  font-weight: var(--ps-button-font-weight);
+  font-size: var(--ps-button-font-size);
+  line-height: var(--ps-button-line-height);
   text-align: center;
   white-space: nowrap;
   
-  /* Visual - Primary defaults */
-  background-color: var(--btn-primary);
-  color: var(--white);
-  border-radius: 0;
+  /* Visual */
+  background-color: var(--ps-button-bg);
+  color: var(--ps-button-color);
+  border-width: var(--ps-button-border-width);
+  border-color: var(--ps-button-border-color);
+  border-radius: var(--ps-button-border-radius);
   transition: 
-    background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    border-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    background-color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
+    color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
+    border-color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
+    transform var(--ps-button-transition-duration) var(--ps-button-transition-timing);
   
   /* States */
   &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-primary-hover);
-    transform: translateY(-1px);
+    background-color: var(--ps-button-hover-bg);
+    border-color: var(--ps-button-hover-border-color);
+    color: var(--ps-button-hover-color);
+    transform: var(--ps-button-hover-transform);
   }
   
   &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-primary-active);
-    transform: translateY(0);
+    background-color: var(--ps-button-active-bg);
+    transform: var(--ps-button-active-transform);
   }
   
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--blue-500);
-    outline-offset: var(--border-size-2);
+    outline: var(--ps-button-focus-outline-width) solid var(--ps-button-focus-outline-color);
+    outline-offset: var(--ps-button-focus-outline-offset);
   }
 }
 
@@ -80,274 +134,175 @@
 
 /* Variant - PRIMARY (vert) */
 .ps-button--primary {
-  background-color: var(--btn-primary);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-primary-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-primary-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-primary);
-    color: var(--btn-primary);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(0, 145, 90, 0.08);
-      border-color: var(--btn-primary-hover);
-      color: var(--btn-primary-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(0, 145, 90, 0.16);
-    }
-  }
+  --ps-button-bg: var(--primary);
+  --ps-button-color: var(--primary-text);
+  --ps-button-hover-bg: var(--primary-hover);
+  --ps-button-active-bg: var(--primary-active);
+}
+
+.ps-button--primary.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--primary);
+  --ps-button-color: var(--primary);
+  --ps-button-hover-bg: color-mix(in srgb, var(--primary) 8%, transparent);
+  --ps-button-hover-border-color: var(--primary-hover);
+  --ps-button-hover-color: var(--primary-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--primary) 16%, transparent);
 }
 
 /* Variant - SECONDARY (pink) */
 .ps-button--secondary {
-  background-color: var(--btn-secondary);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-secondary-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-secondary-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-secondary);
-    color: var(--btn-secondary);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(224, 56, 140, 0.08);
-      border-color: var(--btn-secondary-hover);
-      color: var(--btn-secondary-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(224, 56, 140, 0.16);
-    }
-  }
+  --ps-button-bg: var(--secondary);
+  --ps-button-color: var(--secondary-text);
+  --ps-button-hover-bg: var(--secondary-hover);
+  --ps-button-active-bg: var(--secondary-active);
+}
+
+.ps-button--secondary.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--secondary);
+  --ps-button-color: var(--secondary);
+  --ps-button-hover-bg: color-mix(in srgb, var(--secondary) 8%, transparent);
+  --ps-button-hover-border-color: var(--secondary-hover);
+  --ps-button-hover-color: var(--secondary-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--secondary) 16%, transparent);
 }
 
 /* Variant - SUCCESS */
 .ps-button--success {
-  background-color: var(--btn-success);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-success-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-success-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-success);
-    color: var(--btn-success);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(5, 150, 105, 0.08);
-      border-color: var(--btn-success-hover);
-      color: var(--btn-success-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(5, 150, 105, 0.16);
-      border-color: var(--btn-success-active);
-    }
-  }
+  --ps-button-bg: var(--success);
+  --ps-button-color: var(--success-text);
+  --ps-button-hover-bg: var(--success-hover);
+  --ps-button-active-bg: var(--success-active);
+}
+
+.ps-button--success.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--success);
+  --ps-button-color: var(--success);
+  --ps-button-hover-bg: color-mix(in srgb, var(--success) 8%, transparent);
+  --ps-button-hover-border-color: var(--success-hover);
+  --ps-button-hover-color: var(--success-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--success) 16%, transparent);
 }
 
 /* Variant - INFO */
 .ps-button--info {
-  background-color: var(--btn-info);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-info-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-info-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-info);
-    color: var(--btn-info);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(37, 99, 235, 0.08);
-      border-color: var(--btn-info-hover);
-      color: var(--btn-info-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(37, 99, 235, 0.16);
-      border-color: var(--btn-info-active);
-    }
-  }
+  --ps-button-bg: var(--info);
+  --ps-button-color: var(--info-text);
+  --ps-button-hover-bg: var(--info-hover);
+  --ps-button-active-bg: var(--info-active);
+}
+
+.ps-button--info.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--info);
+  --ps-button-color: var(--info);
+  --ps-button-hover-bg: color-mix(in srgb, var(--info) 8%, transparent);
+  --ps-button-hover-border-color: var(--info-hover);
+  --ps-button-hover-color: var(--info-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--info) 16%, transparent);
 }
 
 /* Variant - WARNING */
 .ps-button--warning {
-  background-color: var(--btn-warning);
-  color: var(--gray-900);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-warning-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-warning-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-warning);
-    color: var(--btn-warning);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(245, 158, 11, 0.08);
-      border-color: var(--btn-warning-hover);
-      color: var(--btn-warning-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(245, 158, 11, 0.16);
-      border-color: var(--btn-warning-active);
-    }
-  }
+  --ps-button-bg: var(--warning);
+  --ps-button-color: var(--warning-text);
+  --ps-button-hover-bg: var(--warning-hover);
+  --ps-button-active-bg: var(--warning-active);
+}
+
+.ps-button--warning.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--warning);
+  --ps-button-color: var(--warning);
+  --ps-button-hover-bg: color-mix(in srgb, var(--warning) 8%, transparent);
+  --ps-button-hover-border-color: var(--warning-hover);
+  --ps-button-hover-color: var(--warning-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--warning) 16%, transparent);
 }
 
 /* Variant - DANGER */
 .ps-button--danger {
-  background-color: var(--btn-danger);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-danger-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-danger-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-danger);
-    color: var(--btn-danger);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(220, 38, 38, 0.08);
-      border-color: var(--btn-danger-hover);
-      color: var(--btn-danger-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(220, 38, 38, 0.16);
-      border-color: var(--btn-danger-active);
-    }
-  }
+  --ps-button-bg: var(--danger);
+  --ps-button-color: var(--danger-text);
+  --ps-button-hover-bg: var(--danger-hover);
+  --ps-button-active-bg: var(--danger-active);
 }
 
-/* Variant - DARK */
-.ps-button--dark {
-  background-color: var(--btn-dark);
-  color: var(--white);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-dark-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-dark-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-dark);
-    color: var(--btn-dark);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(31, 41, 55, 0.08);
-      border-color: var(--btn-dark-hover);
-      color: var(--btn-dark-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: rgba(31, 41, 55, 0.16);
-      border-color: var(--btn-dark-active);
-    }
-  }
+.ps-button--danger.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--danger);
+  --ps-button-color: var(--danger);
+  --ps-button-hover-bg: color-mix(in srgb, var(--danger) 8%, transparent);
+  --ps-button-hover-border-color: var(--danger-hover);
+  --ps-button-hover-color: var(--danger-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--danger) 16%, transparent);
 }
 
-/* Variant - LIGHT */
-.ps-button--light {
-  background-color: var(--btn-light);
-  color: var(--gray-900);
-  
-  &:hover:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-light-hover);
-  }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
-    background-color: var(--btn-light-active);
-  }
-  
-  &.ps-button--outline {
-    background-color: transparent;
-    border: var(--border-size-2) solid var(--btn-light);
-    color: var(--gray-900);
-    
-    &:hover:not(:disabled):not(.ps-button--disabled) {
-      background-color: var(--btn-light);
-      border-color: var(--btn-light-hover);
-    }
-    
-    &:active:not(:disabled):not(.ps-button--disabled) {
-      background-color: var(--btn-light-hover);
-      border-color: var(--btn-light-active);
-    }
-  }
+/* Outline default (neutral when no variant class) */
+.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--neutral);
+  --ps-button-color: var(--neutral);
+  --ps-button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
+  --ps-button-hover-border-color: var(--neutral-hover);
+  --ps-button-hover-color: var(--neutral-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
 }
+
+/* Variant - NEUTRAL (gray) outline explicit (redundant but kept for clarity) */
+.ps-button--neutral.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--neutral);
+  --ps-button-color: var(--neutral);
+  --ps-button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
+  --ps-button-hover-border-color: var(--neutral-hover);
+  --ps-button-hover-color: var(--neutral-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
+}
+
+/* Variant - LIGHT - REMOVED (no tokens available) */
+/* Variant - DARK - REMOVED (no tokens available) */
 
 /* Sizes */
+
 .ps-button--small {
-  height: 2.12375rem; /* 33.98px exact selon spec */
-  padding: var(--size-105) var(--size-305); /* 6px 14px */
-  font-size: var(--size-305); /* 14px */
-  line-height: 1.428; /* 20px */
+  --ps-button-height: 2.12375rem; /* 33.98px exact selon spec */
+  --ps-button-padding-y: var(--size-105); /* 6px */
+  --ps-button-padding-x: var(--size-305); /* 14px */
+  --ps-button-font-size: var(--size-305); /* 14px */
+  --ps-button-line-height: 1.428; /* 20px */
 }
 
 .ps-button--medium {
-  height: var(--size-9); /* 36px */
-  padding: var(--size-2) var(--size-4); /* 8px 16px */
-  font-size: var(--size-4); /* 16px */
-  line-height: 1.5; /* 24px */
+  --ps-button-height: var(--size-9); /* 36px */
+  --ps-button-padding-y: var(--size-2); /* 8px */
+  --ps-button-padding-x: var(--size-4); /* 16px */
+  --ps-button-font-size: var(--size-4); /* 16px */
+  --ps-button-line-height: 1.5; /* 24px */
 }
 
 .ps-button--large {
-  height: var(--size-10); /* 40px */
-  padding: var(--size-205) var(--size-5); /* 10px 20px */
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.444; /* 26px */
+  --ps-button-height: var(--size-10); /* 40px */
+  --ps-button-padding-y: var(--size-205); /* 10px */
+  --ps-button-padding-x: var(--size-5); /* 20px */
+  --ps-button-font-size: 1.125rem; /* 18px */
+  --ps-button-line-height: 1.444; /* 26px */
 }
 
 /* Icon only */
 .ps-button--icon-only {
-  padding: var(--size-2); /* 8px */
+  --ps-button-padding-y: var(--size-2); /* 8px */
+  --ps-button-padding-x: var(--size-2);
   
   .ps-button__label {
     position: absolute;
@@ -362,38 +317,40 @@
   }
   
   &.ps-button--small {
+    --ps-button-padding-y: var(--size-105); /* 6px */
+    --ps-button-padding-x: var(--size-105);
     width: 2.12375rem; /* 33.98px carré */
-    height: 2.12375rem;
-    padding: var(--size-105); /* 6px */
   }
   
   &.ps-button--medium {
     width: var(--size-9); /* 36px carré */
-    height: var(--size-9);
   }
   
   &.ps-button--large {
+    --ps-button-padding-y: var(--size-205); /* 10px */
+    --ps-button-padding-x: var(--size-205);
     width: var(--size-10); /* 40px carré */
-    height: var(--size-10);
-    padding: var(--size-205); /* 10px */
   }
 }
 
 /* Full width */
 .ps-button--full-width {
-  width: 100%;
+  width: 100%; /* Cannot use CSS var for percentage width */
 }
 
 /* States - Disabled */
 .ps-button--disabled,
 .ps-button:disabled {
-  opacity: 0.5;
+  opacity: var(--ps-button-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
 }
 
 /* States - Loading */
 .ps-button--loading {
+  /* Spinner color variable (overridable) */
+  --ps-button-spinner-color: var(--white);
+  
   position: relative;
   color: transparent !important;
   pointer-events: none;
@@ -409,10 +366,10 @@
       content: "";
       width: 1rem;
       height: 1rem;
-      border: 2px solid var(--white);
+      border: var(--border-size-2) solid var(--ps-button-spinner-color);
       border-top-color: transparent;
       border-radius: 50%;
-      animation: ps-button-spin 0.6s linear infinite;
+      animation: spin 0.6s linear infinite;
     }
   }
   
@@ -423,40 +380,33 @@
 }
 
 /* Spinner colors for outline variants */
-.ps-button--outline.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-primary);
-  border-top-color: transparent;
+.ps-button--outline.ps-button--loading {
+  --ps-button-spinner-color: var(--neutral);
 }
 
-.ps-button--outline.ps-button--secondary.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-secondary);
+.ps-button--outline.ps-button--secondary.ps-button--loading {
+  --ps-button-spinner-color: var(--secondary);
 }
 
-.ps-button--outline.ps-button--success.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-success);
+.ps-button--outline.ps-button--success.ps-button--loading {
+  --ps-button-spinner-color: var(--success);
 }
 
-.ps-button--outline.ps-button--info.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-info);
+.ps-button--outline.ps-button--info.ps-button--loading {
+  --ps-button-spinner-color: var(--info);
 }
 
-.ps-button--outline.ps-button--warning.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-warning);
+.ps-button--outline.ps-button--warning.ps-button--loading {
+  --ps-button-spinner-color: var(--warning);
 }
 
-.ps-button--outline.ps-button--danger.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-danger);
+.ps-button--outline.ps-button--danger.ps-button--loading {
+  --ps-button-spinner-color: var(--danger);
 }
 
-.ps-button--outline.ps-button--dark.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--btn-dark);
+.ps-button--outline.ps-button--neutral.ps-button--loading {
+  --ps-button-spinner-color: var(--neutral);
 }
 
-.ps-button--outline.ps-button--light.ps-button--loading .ps-button__spinner::before {
-  border-color: var(--gray-900);
-}
+/* Note: Using global 'spin' keyframe from animations.css */
 
-@keyframes ps-button-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}

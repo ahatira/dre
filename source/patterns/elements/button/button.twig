@@ -1,7 +1,7 @@
 {#
  * Button atom
  * @param string label - Button text (required)
- * @param string variant - primary|secondary|success|info|warning|danger|dark|light (default: primary)
+ * @param string variant - primary|secondary|success|info|warning|danger (default: primary)
  * @param boolean outline - Outline style (default: false)
  * @param string size - small|medium|large (default: medium)
  * @param string url - Destination URL (optional)
@@ -13,7 +13,7 @@
  * @param boolean fullWidth - Full width (default: false)
  #}
 
-{%- set variant = variant|default('primary') -%}
+{%- set variant = variant|default('neutral') -%}
 {%- set outline = outline|default(false) -%}
 {%- set size = size|default('medium') -%}
 {%- set iconPosition = iconPosition|default('right') -%}
@@ -24,11 +24,10 @@
 
 {%- set classes = [] -%}
 {%- set classes = classes|merge(['ps-button']) -%}
-{%- if variant != 'primary' -%}{%- set classes = classes|merge(['ps-button--' ~ variant]) -%}{%- endif -%}
+{%- if variant != 'neutral' -%}{%- set classes = classes|merge(['ps-button--' ~ variant]) -%}{%- endif -%}
 {%- if size != 'medium' -%}{%- set classes = classes|merge(['ps-button--' ~ size]) -%}{%- endif -%}
 {%- if outline -%}{%- set classes = classes|merge(['ps-button--outline']) -%}{%- endif -%}
-{%- if icon and not label -%}{%- set classes = classes|merge(['ps-button--icon-only']) -%}{%- endif -%}
-{%- if icon and label and iconPosition -%}{%- set classes = classes|merge(['ps-button--icon-' ~ iconPosition]) -%}{%- endif -%}
+{%- if not label -%}{%- set classes = classes|merge(['ps-button--icon-only']) -%}{%- endif -%}
 {%- if disabled -%}{%- set classes = classes|merge(['ps-button--disabled']) -%}{%- endif -%}
 {%- if loading -%}{%- set classes = classes|merge(['ps-button--loading']) -%}{%- endif -%}
 {%- if fullWidth -%}{%- set classes = classes|merge(['ps-button--full-width']) -%}{%- endif -%}
@@ -47,7 +46,7 @@
   {%- endif -%}
 
   {%- if icon and iconPosition == 'left' and label -%}
-    <span class="ps-button__icon ps-button__icon--left" data-icon="{{ icon }}" aria-hidden="true"></span>
+    <span class="ps-button__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 
   {%- if label -%}
@@ -55,6 +54,6 @@
   {%- endif -%}
 
   {%- if icon and (iconPosition == 'right' or not label) -%}
-    <span class="ps-button__icon{% if iconPosition == 'right' %} ps-button__icon--right{% endif %}" data-icon="{{ icon }}" aria-hidden="true"></span>
+    <span class="ps-button__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 </{{ tag }}>

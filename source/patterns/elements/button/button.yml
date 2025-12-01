@@ -2,7 +2,7 @@
 #
 # Available Props:
 # - label: string (required) - Button text
-# - variant: primary | secondary | success | info | warning | danger | dark | light (default: primary)
+# - variant: primary | secondary | success | info | warning | danger (default: primary)
 # - outline: boolean (default: false) - Border-only version
 # - size: small | medium | large (default: medium)
 #   * small: 34px height
