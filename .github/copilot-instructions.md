@@ -27,6 +27,7 @@
 - **Storybook Build** : `npm run storybook:build` (build statique dans `/storybook`)
 - **Storybook Dev** : Accessible sur [http://localhost:6006](http://localhost:6006) après `npm run watch`
 - **Vite Config** : Détails des tâches build/watch dans `vite.config.js`
+- **JavaScript dans Storybook** : Les comportements JS des composants doivent être importés **globalement** dans `.storybook/preview.js`, pas dans les fichiers `.stories.jsx` individuels (voir section JavaScript Integration)
 
 ## Conventions & Patterns
 - **Component Naming** : Utiliser categories spécifiques (elements, components, collections, layouts, pages).
@@ -170,17 +171,24 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 - ❌ NO individual stories (Primary, Secondary, Small, etc.)
 - ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
 
-### 9. Required Files (5 ALWAYS)
+### 11. Required Files (5 ALWAYS)
 - `.twig` - Template with commented params
 - `.css` - Tokens + nesting + BEM
 - `.yml` - Defaults + comments
 - `.stories.jsx` - Default + showcases + Autodocs
 - `README.md` - Props table + BEM + tokens + usage + accessibility
+- `.js` (optional) - If component needs JavaScript, create behavior file and import in `.storybook/preview.js`
 
 ### 10. BEM Strict
 - ✅ Prefix `ps-` mandatory
 - ✅ Format: `.ps-block__element--modifier`
 - ❌ NO double underscore: `.ps-block__element__nested`
+
+### 11. JavaScript Integration in Storybook
+- ✅ Import behaviors globally in `.storybook/preview.js`: `import '../source/patterns/components/{component}/{component}.js';`
+- ❌ NEVER import in individual `.stories.jsx` files (timing issue with Drupal.attachBehaviors() decorator)
+- ✅ Use Drupal behaviors pattern with `once()` for re-initialization prevention
+- ✅ For external libraries (Swiper, etc.), configure PostCSS with `path: [node_modules]` and create separate CSS wrapper file for imports
 
 ## 📋 Implementation Workflow
 

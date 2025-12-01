@@ -112,6 +112,23 @@
     content: "\e84f"
 }
 
+/* Chevron aliases for carousel navigation */
+[data-icon="chevron-left"]::before {
+    content: "\e84e" /* arrow-left */
+}
+
+[data-icon="chevron-right"]::before {
+    content: "\e851" /* arrow-right */
+}
+
+[data-icon="chevron-up"]::before {
+    content: "\e84f" /* arrow-top */
+}
+
+[data-icon="chevron-down"]::before {
+    content: "\e84d" /* arrow-down */
+}
+
 [data-icon="big-arrow-down"]::before,
 .icon-big-arrow-down:before {
     content: "\e850"

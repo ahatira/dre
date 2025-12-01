@@ -188,7 +188,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: var(--size-2) var(--size-3); /* 8px 12px */
+    padding: var(--size-2) var(--size-5); /* 8px 20px */
     gap: var(--size-2); /* 8px */
     background-color: var(--gray-50); /* #F3F6F9 - Light background */
     border-radius: var(--size-6); /* 24px */
@@ -201,9 +201,9 @@
   &__toolbar-item {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     gap: var(--size-1); /* 4px */
-    padding: var(--size-1) var(--size-2); /* 4px 8px */
+    padding: var(--size-0) var(--size-2); /* 4px 8px */
     border: none;
     border-radius: var(--radius-3); /* 12px */
     background-color: transparent;

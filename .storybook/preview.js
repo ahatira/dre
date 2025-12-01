@@ -12,8 +12,10 @@ import customViewports from './viewports';
 import './drupal/drupal';
 import './drupal/once';
 
-// Imports FontAwesome icons from a specific kit.
-import 'https://kit.fontawesome.com/a0eb0bad75.js';
+// Import component behaviors (with JS)
+import '../source/patterns/components/accordion/accordion.js';
+import '../source/patterns/components/alert/alert.js';
+import '../source/patterns/components/carousel/carousel.js';
 
 // Imports the CSS for all components combined into a single stylesheet.
 import '../source/patterns/styles.css';

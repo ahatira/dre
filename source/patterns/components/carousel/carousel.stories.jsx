@@ -287,10 +287,10 @@ export const OfferCarousel = {
       withPagination: false,
       toolbar: {
         items: [
-          { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
-          { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
-          { type: 'plan', label: '6 plans', icon: 'cards', slideIndex: 16 },
-          { type: 'brochure', label: '1 brochure', icon: 'document', slideIndex: 22 },
+          { type: 'photos', label: '13 photos', icon: 'picture', slideIndex: 0 },
+          { type: '3d-visit', label: '3 visites 3D', icon: 'select-area-map', slideIndex: 13 },
+          { type: 'plan', label: '6 plans', icon: 'last-articles', slideIndex: 16 },
+          { type: 'brochure', label: '1 brochure', icon: 'map', slideIndex: 22 },
         ],
       },
       ariaLabel: 'Property media gallery with photos, 3D visits, plans and brochure',

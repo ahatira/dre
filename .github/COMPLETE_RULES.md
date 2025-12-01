@@ -33,6 +33,7 @@ Ce document centralise **TOUTES** les règles, normes et standards du projet PS 
 17. [Workflow & Validation](#17-workflow--validation)
 18. [Checklist Composant Complet](#18-checklist-composant-complet)
 19. [JavaScript & Drupal Behaviors](#19-javascript--drupal-behaviors)
+20. [JavaScript Integration in Storybook](#20-javascript-integration-in-storybook)
 
 ---
 
@@ -1288,7 +1289,200 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 
 Standardiser l'ajout de comportements JavaScript pour les composants qui en ont besoin, en respectant Drupal 11+, Vite, et Storybook HTML. Le JavaScript doit être modulaire, non-intrusif, accessible, activé via Drupal behaviors et compatible avec l'environnement Storybook de mock Drupal.
 
-### Principes Clés
+### 🎯 Règle Prioritaire : Librairies Externes vs Custom JS
+
+**AVANT toute implémentation JS custom, TOUJOURS suivre cette méthodologie :**
+
+#### 1. Évaluer la Complexité
+
+**Questions à poser :**
+- Le composant nécessite-t-il des interactions complexes ? (carousel, datepicker, drag-drop, etc.)
+- Existe-t-il des standards UI établis pour ce pattern ? (WAI-ARIA authoring practices)
+- La maintenance du code custom sera-t-elle coûteuse ?
+
+#### 2. Rechercher des Librairies Établies
+
+**Critères de sélection (par ordre de priorité) :**
+
+1. **Popularité & Maintenance** ⭐
+   - GitHub stars > 5000
+   - Dernière release < 6 mois
+   - Issues actives résolues
+   - Communauté active
+
+2. **Bundle Size** 📦
+   - Minified + gzipped < 50KB (préféré < 30KB)
+   - Tree-shakeable / modulaire
+   - Pas de dépendances lourdes (ex: éviter jQuery)
+
+3. **Accessibilité Native** ♿
+   - WCAG AA compliance
+   - ARIA patterns natifs
+   - Keyboard navigation intégrée
+   - Focus management
+
+4. **Framework-Agnostic** 🔄
+   - Vanilla JS ou adaptable
+   - Compatible Drupal behaviors
+   - Pas de coupling React/Vue/etc.
+
+5. **Documentation & DX** 📚
+   - Documentation complète
+   - Exemples clairs
+   - TypeScript definitions (bonus)
+   - API intuitive
+
+**Process de décision :**
+
+```mermaid
+flowchart TD
+    A[Besoin JS identifié] --> B{Complexité haute?}
+    B -->|Oui| C[Rechercher librairies]
+    B -->|Non| D[Custom JS simple]
+    C --> E{Proposer 2-3 options}
+    E --> F[Présenter tableau comparatif]
+    F --> G{Validation équipe}
+    G -->|Librairie choisie| H[Implémenter wrapper Drupal]
+    G -->|Custom décidé| D
+    D --> I[Implémenter selon patterns section 19]
+```
+
+#### 3. Proposition Standard (Template)
+
+**Quand une librairie est envisagée, TOUJOURS proposer ce format :**
+
+```markdown
+## 🎠 Librairies Recommandées pour [Component]
+
+### Option 1: [Nom] ⭐ RECOMMANDÉ
+- **Stars GitHub**: XXk+
+- **Bundle size**: XXkB minified
+- **Maintenance**: Active (dernière release: YYYY-MM)
+- **Accessibilité**: WCAG AA natif
+- **Avantages**: 
+  - Point fort 1
+  - Point fort 2
+- **Inconvénients**:
+  - Limitation 1
+- **Installation**: `npm install library-name`
+
+### Option 2: [Alternative]
+[Mêmes métriques]
+
+### Option 3: Custom JS
+- **Bundle size**: ~XKB estimé
+- **Avantages**: Contrôle total, pas de dépendance
+- **Inconvénients**: Maintenance interne, features limitées
+```
+
+#### 4. Intégration d'une Librairie Externe
+
+**Pattern obligatoire pour wrapper une librairie :**
+
+```js
+// source/patterns/{level}/{component}/{component}.js
+import Library from 'library-name';
+import { parseDataAttributes } from '@/utils/dom';
+
+export class PsComponentWrapper {
+  constructor(root, options = {}) {
+    this.root = root;
+    this.options = { ...PsComponentWrapper.defaults, ...options };
+    this.instance = null;
+  }
+
+  static defaults = {
+    // Mapping options Drupal → Library
+  };
+
+  init() {
+    if (this.instance) return;
+    
+    // Transform Drupal options to library format
+    const libraryConfig = this.mapOptions(this.options);
+    
+    // Initialize library
+    this.instance = new Library(this.root, libraryConfig);
+    
+    // Add custom enhancements if needed (ARIA, events)
+    this.enhanceAccessibility();
+  }
+
+  mapOptions(drupalOpts) {
+    // Transform naming conventions
+    return {
+      navigation: {
+        nextEl: drupalOpts.nextSelector,
+        prevEl: drupalOpts.prevSelector,
+      },
+      // ...
+    };
+  }
+
+  enhanceAccessibility() {
+    // Add custom ARIA if library doesn't provide
+  }
+
+  destroy() {
+    if (this.instance?.destroy) {
+      this.instance.destroy();
+    }
+    this.instance = null;
+  }
+}
+```
+
+**Behavior Drupal standard :**
+
+```js
+import { PsCarouselWrapper } from './carousel.js';
+
+(function (Drupal, once) {
+  Drupal.behaviors.psCarousel = {
+    attach(context) {
+      once('psCarousel', '.ps-carousel', context).forEach((el) => {
+        const wrapper = new PsCarouselWrapper(el, {
+          // Options from data-* or drupalSettings
+        });
+        wrapper.init();
+        el.__psInstance = wrapper;
+      });
+    },
+    detach(context, settings, trigger) {
+      if (trigger !== 'unload') return;
+      context.querySelectorAll('.ps-carousel').forEach((el) => {
+        el.__psInstance?.destroy();
+      });
+    },
+  };
+})(Drupal, once);
+```
+
+#### 5. Documentation Obligatoire
+
+Quand une librairie est utilisée, documenter dans `README.md` du composant :
+
+```markdown
+## JavaScript Library
+
+This component uses **[Library Name]** v[X.X.X] for interactive behavior.
+
+**Why this library?**
+- Reason 1 (e.g., industry standard, 40k+ stars)
+- Reason 2 (e.g., native WCAG AA accessibility)
+- Reason 3 (e.g., modular, only 15KB gzipped)
+
+**Installation:**
+```bash
+npm install library-name
+```
+
+**Wrapper implementation:** See `carousel.js` for Drupal behavior integration.
+```
+
+---
+
+### Principes Clés (JS Custom)
 
 - **Progressive enhancement**: Le composant fonctionne sans JS (markup + CSS). JS ajoute interaction (toggle, disclosure, inertial navigation, async fetch, etc.).
 - **Simplicité d'abord**: Utiliser une fonction d'initialisation + `once()` si le composant n'a qu'un seul listener simple. N'utiliser une classe que si :
@@ -1632,6 +1826,127 @@ ps_theme.components:
 
 ---
 
+## 20. JavaScript Integration in Storybook
+
+### Component JS Loading
+
+**Pour les composants avec JavaScript** (comportements interactifs, libraries externes), le JS doit être chargé **globalement dans Storybook** via `.storybook/preview.js`.
+
+#### ✅ Procédure Correcte
+
+**1. Créer le fichier JavaScript du composant**
+
+```javascript
+// source/patterns/components/{component}/{component}.js
+
+// Drupal behavior wrapper
+if (typeof Drupal !== 'undefined') {
+  Drupal.behaviors.psComponentName = {
+    attach(context) {
+      const elements = context.querySelectorAll('[data-component]');
+      
+      elements.forEach((element) => {
+        // Use once() to prevent re-initialization
+        if (typeof once !== 'undefined') {
+          once('ps-component', element).forEach((el) => {
+            // Initialize component
+            initComponent(el);
+          });
+        }
+      });
+    },
+
+    detach(context, _settings, trigger) {
+      if (trigger === 'unload') {
+        // Cleanup logic
+      }
+    },
+  };
+}
+
+// Standalone for non-Drupal contexts (Storybook)
+if (typeof Drupal === 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('[data-component]');
+    elements.forEach(initComponent);
+  });
+}
+```
+
+**2. Importer dans `.storybook/preview.js`**
+
+```javascript
+// .storybook/preview.js
+
+// Import component behaviors (with JS)
+import '../source/patterns/components/accordion/accordion.js';
+import '../source/patterns/components/alert/alert.js';
+import '../source/patterns/components/carousel/carousel.js'; // ✅ Import global
+```
+
+**3. Le decorator appelle automatiquement les behaviors**
+
+```javascript
+export const decorators = [
+  (storyFn) => {
+    useEffect(() => Drupal.attachBehaviors(), []); // ✅ Appelle tous les behaviors après chaque render
+    return storyFn();
+  },
+];
+```
+
+#### ❌ Erreurs Fréquentes
+
+**NE PAS importer dans le fichier `.stories.jsx` individuel** :
+```javascript
+// ❌ MAUVAIS - carousel.stories.jsx
+import './carousel.js'; // Timing issue : le decorator s'exécute AVANT cet import
+```
+
+**Pourquoi ?** Le decorator avec `useEffect(() => Drupal.attachBehaviors(), [])` s'exécute **avant** que les imports du story soient traités. Résultat : `Drupal.behaviors.psCarousel` n'existe pas encore au moment de l'appel.
+
+#### ✅ Solution : Import Global
+
+En important dans `preview.js`, le JavaScript est chargé **avant** l'exécution du decorator, garantissant que tous les behaviors sont disponibles.
+
+#### Librairies Externes (Swiper, etc.)
+
+**Configuration PostCSS pour node_modules** :
+
+```javascript
+// postcss.config.js
+import { join } from 'node:path';
+
+export default {
+  plugins: {
+    'postcss-import': {
+      path: [join(process.cwd(), 'node_modules')], // ✅ Résout les imports depuis node_modules
+    },
+    // ...
+  },
+};
+```
+
+**CSS séparé pour imports node_modules** :
+
+```css
+/* carousel-swiper.css */
+@import 'swiper/swiper-bundle.css'; /* ✅ Import depuis node_modules */
+```
+
+```css
+/* carousel.css */
+@import './carousel-swiper.css'; /* ✅ Import le wrapper d'abord */
+
+.ps-carousel {
+  /* Custom styles */
+}
+```
+
+**Pourquoi ?** `postcss-import` avec `@import-normalize` ne supporte pas les résolutions de chemins complexes. Créer un fichier wrapper séparé contourne cette limitation.
+
+---
+
 ## 🔒 Enforcement
 
 **Ces règles sont NON-NÉGOCIABLES.**
@@ -1663,7 +1978,7 @@ Vérifie la cohérence du composant [ComponentName] avec nos règles du projet.
 
 ## 🎓 Résumé Ultra-Condensé
 
-**10 Commandements PS Theme** :
+**11 Commandements PS Theme** :
 
 1. **Tokens uniquement** - Jamais de valeurs en dur
 2. **BEM strict** - Préfixe `ps-`, nommage correct
@@ -1675,6 +1990,7 @@ Vérifie la cohérence du composant [ComponentName] avec nos règles du projet.
 8. **Couleurs sémantiques** - primary/secondary/success/warning/danger/info
 9. **Storybook showcase** - Pas de stories individuelles
 10. **5 fichiers obligatoires** - .twig/.css/.yml/.stories.jsx/README.md
+11. **JS global dans preview.js** - Import dans `.storybook/preview.js`, pas dans `.stories.jsx`
 
 ---
 

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel - Toutes les Variantes Pixel Perfect</title>
+  <link rel="stylesheet" href="dist/css/styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #f5f5f5;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin-bottom: 32px;
+      color: #333;
+    }
+    .demo-section {
+      margin-bottom: 60px;
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+    }
+    .demo-section h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #333;
+      font-size: 24px;
+    }
+    .demo-section p {
+      margin-bottom: 24px;
+      color: #666;
+    }
+    .spec-list {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f9f9fb;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #666;
+    }
+    .spec-list li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Carousel - Toutes les Variantes Pixel Perfect (Figma)</h1>
+
+    <!-- Variant 1: Simple (Maquette 1) -->
+    <div class="demo-section">
+      <h2>1️⃣ Carousel Simple</h2>
+      <p>Boutons overlay carrés blancs, chevrons verts, pas de toolbar ni favoris</p>
+      
+      <section class="swiper ps-carousel" aria-label="Simple Property Gallery" data-carousel>
+        <div class="swiper-wrapper ps-carousel__track">
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnMSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDkxNUE7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDRBRjZFO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnMSkiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjQ4IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1tZXVibGUgTW9kZXJuZTwvdGV4dD48L3N2Zz4="
+              alt="Immeuble moderne"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnMiIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDkxNUE7c3RvcC1vcGFjaXR5OjAuOCIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwNEFGNkU7c3RvcC1vcGFjaXR5OjAuOCIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZzIpIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0OCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkludMOpcmlldXI8L3RleHQ+PC9zdmc+"
+              alt="Intérieur"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 3 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnMyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDkxNUE7c3RvcC1vcGFjaXR5OjAuNiIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwNEFGNkU7c3RvcC1vcGFjaXR5OjAuNiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZzMpIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0OCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkV4dMOpcmlldXI8L3RleHQ+PC9zdmc+"
+              alt="Extérieur"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="ps-carousel__controls">
+          <button class="ps-carousel__button ps-carousel__prev" type="button" aria-label="Previous slide" data-carousel-prev>
+            <span class="ps-carousel__icon" data-icon="chevron-left" aria-hidden="true"></span>
+          </button>
+          <button class="ps-carousel__button ps-carousel__next" type="button" aria-label="Next slide" data-carousel-next>
+            <span class="ps-carousel__icon" data-icon="chevron-right" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="swiper-pagination ps-carousel__pagination"></div>
+      </section>
+
+      <ul class="spec-list">
+        <li>✅ Boutons: 48×48px carrés, blanc, padding 4px, border-radius subtle</li>
+        <li>✅ Chevrons: Vert #00915A (--ps-color-primary-600), 32px</li>
+        <li>✅ Pagination: Bullets 12px blancs, actif vert, bottom 24px</li>
+      </ul>
+    </div>
+
+    <!-- Variant 2: Avec Toolbar (Maquette 2-3) -->
+    <div class="demo-section">
+      <h2>2️⃣ Carousel avec Toolbar</h2>
+      <p>Style complet: toolbar en bas avec "13 photos | 3D visit | Plan"</p>
+      
+      <section class="swiper ps-carousel ps-carousel--with-toolbar" aria-label="Property Gallery with Toolbar" data-carousel>
+        <div class="swiper-wrapper ps-carousel__track">
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnNCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlZWU7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojY2NjO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnNCkiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjQ4IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1tZXVibGUgUGFyaXNpZW48L3RleHQ+PC9zdmc+"
+              alt="Immeuble parisien"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnNSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNkZGQ7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojYmJiO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnNSkiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjQ4IiBmaWxsPSIjNTU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+QmFsY29uczwvdGV4dD48L3N2Zz4="
+              alt="Balcons"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 3 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnNiIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNjY2M7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojYWFhO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnNikiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjQ4IiBmaWxsPSIjNDQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RmHDp2FkZTwvdGV4dD48L3N2Zz4="
+              alt="Façade"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="ps-carousel__controls">
+          <button class="ps-carousel__button ps-carousel__prev" type="button" aria-label="Previous slide" data-carousel-prev>
+            <span class="ps-carousel__icon" data-icon="chevron-left" aria-hidden="true"></span>
+          </button>
+          <button class="ps-carousel__button ps-carousel__next" type="button" aria-label="Next slide" data-carousel-next>
+            <span class="ps-carousel__icon" data-icon="chevron-right" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="swiper-pagination ps-carousel__pagination"></div>
+
+        <div class="ps-carousel__toolbar">
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="camera" aria-hidden="true"></span>
+            <a href="#photos" class="ps-carousel__toolbar-link">13 photos</a>
+          </div>
+          <span class="ps-carousel__toolbar-divider"></span>
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="cube-focus" aria-hidden="true"></span>
+            <a href="#3d-visit" class="ps-carousel__toolbar-link">3D visit</a>
+          </div>
+          <span class="ps-carousel__toolbar-divider"></span>
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="cards" aria-hidden="true"></span>
+            <a href="#plan" class="ps-carousel__toolbar-link">Plan</a>
+          </div>
+        </div>
+      </section>
+
+      <ul class="spec-list">
+        <li>✅ Toolbar: Background #F9F9FB, border-radius 24px, padding 8×12px</li>
+        <li>✅ Items: Icônes 20px vertes, liens soulignés verts, gap 8px</li>
+        <li>✅ Dividers: 1px × 22px, couleur #B4BABE (grey #4)</li>
+        <li>✅ Pagination: Déplacée au-dessus de la toolbar (bottom 64px)</li>
+      </ul>
+    </div>
+
+    <!-- Variant 3: Avec Favorite (Maquette 2-3) -->
+    <div class="demo-section">
+      <h2>3️⃣ Carousel avec Bouton Favoris</h2>
+      <p>Bouton cœur rose en haut à droite</p>
+      
+      <section class="swiper ps-carousel ps-carousel--with-favorite ps-carousel--with-toolbar" aria-label="Property Gallery with Favorite" data-carousel>
+        <div class="swiper-wrapper ps-carousel__track">
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnNyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2VlZTtzdG9wLW9wYWNpdHk6MSIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNkZGQ7c3RvcC1vcGFjaXR5OjEiIC8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSJ1cmwoI2c3KSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5BcHBhcnRlbWVudDwvdGV4dD48L3N2Zz4="
+              alt="Appartement"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnOCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2RkZDtzdG9wLW9wYWNpdHk6MSIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNjY2M7c3RvcC1vcGFjaXR5OjEiIC8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSJ1cmwoI2c4KSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IiM4ODgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5TYWxvbjwvdGV4dD48L3N2Zz4="
+              alt="Salon"
+              loading="lazy"
+            />
+          </div>
+          <div class="swiper-slide ps-carousel__slide" role="group" aria-roledescription="slide" aria-label="Slide 3 of 3">
+            <img 
+              class="ps-carousel__image" 
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnOSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2NjYztzdG9wLW9wYWNpdHk6MSIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNiYmI7c3RvcC1vcGFjaXR5OjEiIC8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSJ1cmwoI2c5KSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IiM3NzciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5DdWlzaW5lPC90ZXh0Pjwvc3ZnPg=="
+              alt="Cuisine"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="ps-carousel__controls">
+          <button class="ps-carousel__button ps-carousel__prev" type="button" aria-label="Previous slide" data-carousel-prev>
+            <span class="ps-carousel__icon" data-icon="chevron-left" aria-hidden="true"></span>
+          </button>
+          <button class="ps-carousel__button ps-carousel__next" type="button" aria-label="Next slide" data-carousel-next>
+            <span class="ps-carousel__icon" data-icon="chevron-right" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="swiper-pagination ps-carousel__pagination"></div>
+
+        <div class="ps-carousel__toolbar">
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="camera" aria-hidden="true"></span>
+            <a href="#photos" class="ps-carousel__toolbar-link">13 photos</a>
+          </div>
+          <span class="ps-carousel__toolbar-divider"></span>
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="cube-focus" aria-hidden="true"></span>
+            <a href="#3d-visit" class="ps-carousel__toolbar-link">3D visit</a>
+          </div>
+          <span class="ps-carousel__toolbar-divider"></span>
+          <div class="ps-carousel__toolbar-item">
+            <span class="ps-carousel__toolbar-icon" data-icon="cards" aria-hidden="true"></span>
+            <a href="#plan" class="ps-carousel__toolbar-link">Plan</a>
+          </div>
+        </div>
+
+        <button class="ps-carousel__favorite" type="button" aria-label="Add to favorites" data-carousel-favorite>
+          <span class="ps-carousel__favorite-icon" data-icon="heart" aria-hidden="true"></span>
+        </button>
+      </section>
+
+      <ul class="spec-list">
+        <li>✅ Favoris: 48×48px carré blanc, top/right 24px, padding 4px</li>
+        <li>✅ Icône: Cœur 32px rose #A22B66 (Figma exact)</li>
+        <li>✅ Hover: Scale 1.05 + ombre renforcée</li>
+        <li>✅ État actif: classe .is-favorite pour remplir le cœur</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 40px; padding: 24px; background: #00915A; color: white; border-radius: 8px;">
+      <h2 style="margin-top: 0; color: white;">✨ Spécifications Globales Figma</h2>
+      <ul style="margin-bottom: 0;">
+        <li><strong>Boutons navigation:</strong> 48×48px carrés, blanc #FFFFFF, padding 4px, border-radius subtle, chevrons verts #00915A (32px)</li>
+        <li><strong>Toolbar:</strong> Background #F9F9FB, border-radius 24px, padding 8×12px, bottom 20px, gap 8px</li>
+        <li><strong>Toolbar items:</strong> Icônes 20px vertes, liens 16px soulignés verts, dividers 1×22px #B4BABE</li>
+        <li><strong>Bouton favoris:</strong> 48×48px carré blanc, top/right 24px, padding 4px, icône cœur 32px rose #A22B66</li>
+        <li><strong>Pagination:</strong> Bullets 12px blancs avec ombre, actif vert #00915A, bottom 24px (ou 64px si toolbar)</li>
+        <li><strong>Transitions:</strong> 150ms cubic-bezier(0.4, 0.0, 0.2, 1) pour hover/active</li>
+        <li><strong>Shadows:</strong> Subtle sur boutons (0 2px 8px rgba(0,0,0,0.12)), renforcée au hover (0 4px 12px rgba(0,0,0,0.16))</li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="module" src="dist/js/vendors/vendors.js"></script>
+  <script type="module" src="dist/js/carousel.js"></script>
+</body>
+</html>
