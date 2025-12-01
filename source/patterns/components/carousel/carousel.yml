@@ -16,5 +16,4 @@ variant: 'images'
 loop: false
 autoHeight: false
 withPagination: false
-withToolbar: false
 ariaLabel: 'Property gallery'

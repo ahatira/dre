@@ -5,7 +5,7 @@
  */
 
 import Swiper from 'swiper';
-import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules';
+import { A11y, Keyboard, Navigation, Pagination, Thumbs } from 'swiper/modules';
 
 /**
  * Wrapper class for Swiper carousel
@@ -27,6 +27,9 @@ class PsCarouselWrapper {
     // Read configuration from data attributes
     const loop = this.element.classList.contains('ps-carousel--loop');
     const autoHeight = this.element.classList.contains('ps-carousel--auto-height');
+    const isCards = this.element.classList.contains('ps-carousel--cards');
+    const thumbsId = this.element.dataset.carouselThumbs; // ID of thumbs carousel
+    const isThumbsCarousel = this.element.dataset.carouselRole === 'thumbs';
 
     // Find navigation and pagination elements within this carousel
     const nextButton = this.element.querySelector('[data-carousel-next]');
@@ -38,12 +41,13 @@ class PsCarouselWrapper {
 
     // Build configuration with DOM elements (not selectors)
     const config = {
-      modules: [Navigation, Pagination, Keyboard, A11y],
-      slidesPerView: 1,
-      spaceBetween: 0,
+      modules: [Navigation, Pagination, Keyboard, A11y, Thumbs],
+      slidesPerView: isCards ? 4 : isThumbsCarousel ? 5 : 1,
+      spaceBetween: isCards ? 16 : isThumbsCarousel ? 8 : 0,
       speed: 300,
-      loop,
+      loop: isThumbsCarousel ? false : loop, // Disable loop for thumbs carousel
       autoHeight,
+      watchSlidesProgress: isThumbsCarousel, // Required for thumbs
 
       // Navigation - Must use DOM elements (not selectors)
       navigation: {
@@ -85,11 +89,49 @@ class PsCarouselWrapper {
       };
     }
 
+    // Add thumbs synchronization if thumbsId is specified
+    if (thumbsId) {
+      const thumbsElement = document.getElementById(thumbsId);
+      // Always configure thumbs module, even if thumbs element doesn't exist yet
+      config.thumbs = {
+        swiper: thumbsElement?.swiper || null,
+      };
+
+      if (!thumbsElement?.swiper) {
+        // Store thumbsId for later binding (thumbs carousel might not be initialized yet)
+        this.pendingThumbsId = thumbsId;
+      }
+    }
+
     // Initialize Swiper
     this.swiper = new Swiper(this.element, config);
 
+    // If this is a thumbs carousel, try to bind any pending main carousels
+    if (this.element.dataset.carouselRole === 'thumbs') {
+      this.bindPendingMainCarousels();
+    }
+
     // Setup toolbar navigation
     this.setupToolbarNavigation();
+  }
+
+  /**
+   * Bind pending main carousels that are waiting for this thumbs carousel
+   */
+  bindPendingMainCarousels() {
+    const thumbsId = this.element.id;
+    document.querySelectorAll(`[data-carousel-thumbs="${thumbsId}"]`).forEach((mainEl) => {
+      if (mainEl.psCarouselWrapper?.pendingThumbsId) {
+        // Update thumbs swiper reference and reinitialize
+        const mainSwiper = mainEl.psCarouselWrapper.swiper;
+        if (mainSwiper.params.thumbs) {
+          mainSwiper.params.thumbs.swiper = this.swiper;
+          mainSwiper.thumbs.init();
+          mainSwiper.thumbs.update();
+          delete mainEl.psCarouselWrapper.pendingThumbsId;
+        }
+      }
+    });
   }
 
   /**
@@ -103,7 +145,7 @@ class PsCarouselWrapper {
     this.toolbarItems.forEach((item) => {
       item.addEventListener('click', () => {
         const slideIndex = parseInt(item.dataset.slideIndex, 10);
-        if (!isNaN(slideIndex) && this.swiper) {
+        if (!Number.isNaN(slideIndex) && this.swiper) {
           this.swiper.slideTo(slideIndex);
         }
       });
@@ -128,9 +170,7 @@ class PsCarouselWrapper {
     this.toolbarItems.forEach((item) => {
       const slideIndex = parseInt(item.dataset.slideIndex, 10);
       const nextItem = item.nextElementSibling?.nextElementSibling; // Skip divider
-      const nextSlideIndex = nextItem
-        ? parseInt(nextItem.dataset.slideIndex, 10)
-        : Infinity;
+      const nextSlideIndex = nextItem ? parseInt(nextItem.dataset.slideIndex, 10) : Infinity;
 
       // Check if current slide is in this item's range
       if (currentIndex >= slideIndex && currentIndex < nextSlideIndex) {
@@ -202,18 +242,45 @@ if (typeof Drupal !== 'undefined') {
     attach(context) {
       const carousels = context.querySelectorAll('[data-carousel]');
 
+      // Initialize thumbs carousels first
+      const thumbsCarousels = [];
+      const mainCarousels = [];
+
       carousels.forEach((element) => {
-        // Use once() to prevent re-initialization
+        if (element.dataset.carouselRole === 'thumbs') {
+          thumbsCarousels.push(element);
+        } else {
+          mainCarousels.push(element);
+        }
+      });
+
+      // Init thumbs first
+      thumbsCarousels.forEach((element) => {
         if (typeof once !== 'undefined') {
           once('ps-carousel', element).forEach((el) => {
             const wrapper = new PsCarouselWrapper(el);
             wrapper.init();
-
-            // Store reference for cleanup
             el.psCarouselWrapper = wrapper;
           });
         } else {
-          // Fallback without once()
+          if (!element.dataset.carouselInitialized) {
+            const wrapper = new PsCarouselWrapper(element);
+            wrapper.init();
+            element.dataset.carouselInitialized = 'true';
+            element.psCarouselWrapper = wrapper;
+          }
+        }
+      });
+
+      // Then init main carousels
+      mainCarousels.forEach((element) => {
+        if (typeof once !== 'undefined') {
+          once('ps-carousel', element).forEach((el) => {
+            const wrapper = new PsCarouselWrapper(el);
+            wrapper.init();
+            el.psCarouselWrapper = wrapper;
+          });
+        } else {
           if (!element.dataset.carouselInitialized) {
             const wrapper = new PsCarouselWrapper(element);
             wrapper.init();

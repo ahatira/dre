@@ -11,12 +11,12 @@
  *   - pdf: url for PDF files
  *   - card: HTML string for card content
  * 
- * @param string variant - images|cards (default: images)
+* @param string variant - images|cards (default: images)
+* @param string fit - cover|contain (default: cover) controls image object-fit in images variant
  * @param boolean loop - Enable looping behavior (default: false)
  * @param boolean autoHeight - Auto adjust height based on slide content (default: false)
  * @param boolean withPagination - Show pagination bullets (default: true)
- * @param boolean withToolbar - Show toolbar with media type navigation (default: false)
- * @param object toolbar - Toolbar configuration with items array
+ * @param object toolbar - Toolbar configuration with items array (optional, auto-shows if items present)
  *   Structure: {
  *     items: [
  *       { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
@@ -44,10 +44,10 @@
  #}
 
 {%- set variant = variant|default('images') -%}
+{%- set fit = fit|default('cover') -%}
 {%- set loop = loop|default(false) -%}
 {%- set autoHeight = autoHeight|default(false) -%}
 {%- set withPagination = withPagination is defined ? withPagination : true -%}
-{%- set withToolbar = withToolbar|default(false) -%}
 {%- set toolbar = toolbar|default({}) -%}
 {%- set ariaLabel = ariaLabel|default('Carousel') -%}
 {%- set slides = slides|default([]) -%}
@@ -57,13 +57,14 @@
 {%- if variant != 'images' -%}{%- set classes = classes|merge(['ps-carousel--' ~ variant]) -%}{%- endif -%}
 {%- if loop -%}{%- set classes = classes|merge(['ps-carousel--loop']) -%}{%- endif -%}
 {%- if autoHeight -%}{%- set classes = classes|merge(['ps-carousel--auto-height']) -%}{%- endif -%}
-{%- if withToolbar -%}{%- set classes = classes|merge(['ps-carousel--with-toolbar']) -%}{%- endif -%}
+{%- if toolbar.items|default([])|length > 0 -%}{%- set classes = classes|merge(['ps-carousel--with-toolbar']) -%}{%- endif -%}
+{%- if variant == 'images' and fit == 'contain' -%}{%- set classes = classes|merge(['ps-carousel--fit-contain']) -%}{%- endif -%}
 
 <section
   class="swiper {{ classes|join(' ')|trim }}"
   aria-label="{{ ariaLabel }}"
   data-carousel
-  {%- if attributes %}{{ attributes }}{% endif -%}
+  {%- if attributes %} {{ attributes }}{% endif -%}
 >
   <div class="swiper-wrapper ps-carousel__track">
     {%- for slide in slides -%}
@@ -112,7 +113,7 @@
   <div class="swiper-pagination ps-carousel__pagination"></div>
   {%- endif -%}
 
-  {%- if withToolbar and toolbar.items|default([])|length > 0 -%}
+  {%- if toolbar.items|default([])|length > 0 -%}
   <div class="ps-carousel__toolbar">
     {%- for item in toolbar.items -%}
       <button

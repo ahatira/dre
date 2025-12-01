@@ -14,24 +14,36 @@ const settings = {
     docs: {
       description: {
         component:
-          'Responsive carousel for images or cards with prev/next navigation, pagination bullets, keyboard support, and touch swipe gestures.',
+          'Responsive carousel component built with Swiper.js (v12). Supports multiple variants (images, cards), navigation controls, pagination, keyboard navigation, touch/swipe gestures, and optional toolbar for multi-media galleries.',
       },
     },
   },
   argTypes: {
     // Content
     slides: {
-      description: 'Array of slide objects containing image or card content',
+      description:
+        'Array of slide objects. Each slide must have an `id` and content (image or card HTML).',
       control: { type: 'object' },
       table: {
         category: 'Content',
         type: { summary: 'array' },
       },
     },
+    toolbar: {
+      description:
+        'Toolbar configuration for multi-media navigation (e.g., photos, 3D visits, plans). Auto-displayed if items array is provided.',
+      control: { type: 'object' },
+      table: {
+        category: 'Content',
+        type: { summary: 'object' },
+        defaultValue: { summary: '{}' },
+      },
+    },
 
     // Appearance
     variant: {
-      description: 'Display variant (images or cards)',
+      description:
+        'Display variant: `images` (default, single slide) or `cards` (multiple cards with external buttons and gradients)',
       control: { type: 'select' },
       options: ['images', 'cards'],
       table: {
@@ -40,10 +52,22 @@ const settings = {
         defaultValue: { summary: 'images' },
       },
     },
+    fit: {
+      description:
+        'Image object-fit mode: `cover` (default, fills area) or `contain` (fits within area with letterboxing). Only applies to images variant.',
+      control: { type: 'select' },
+      options: ['cover', 'contain'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'cover' },
+      },
+    },
 
     // Behavior
     loop: {
-      description: 'Enable infinite loop navigation',
+      description:
+        'Enable infinite loop navigation (requires at least 2× slidesPerView slides for cards variant)',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
@@ -52,7 +76,7 @@ const settings = {
       },
     },
     autoHeight: {
-      description: 'Automatically adjust height based on slide content',
+      description: 'Automatically adjust carousel height based on active slide content',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
@@ -61,12 +85,12 @@ const settings = {
       },
     },
     withPagination: {
-      description: 'Show pagination bullets',
+      description: 'Show pagination bullets below carousel',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: true },
       },
     },
 
@@ -278,12 +302,16 @@ export const OfferCarousel = {
           id: 'brochure-1',
           type: 'brochure',
           image: {
-            src: createPlaceholderSVG(1200, 800, '#00915A', 'Property Brochure - Click to download'),
+            src: createPlaceholderSVG(
+              1200,
+              800,
+              '#00915A',
+              'Property Brochure - Click to download'
+            ),
             alt: 'Downloadable property brochure',
           },
         },
       ],
-      withToolbar: true,
       withPagination: false,
       toolbar: {
         items: [
@@ -297,38 +325,132 @@ export const OfferCarousel = {
     }),
 };
 
-// Modal Carousel - Lightbox/fullscreen mode for property images (from screenshot 2)
+// Modal Carousel - Lightbox/fullscreen mode with main carousel + thumbs (from screenshot)
 export const ModalCarousel = {
-  render: () => `
-    <div style="position: relative; height: 600px; background: #000;">
-      ${carouselTwig({
-        slides: [
-          {
-            id: 'modal1',
-            image: {
-              src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=1200&fit=crop',
-              alt: 'Building exterior - large view',
-            },
-          },
-          {
-            id: 'modal2',
-            image: {
-              src: 'https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=1600&h=1200&fit=crop',
-              alt: 'Living room - large view',
-            },
-          },
-          {
-            id: 'modal3',
-            image: {
-              src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&h=1200&fit=crop',
-              alt: 'Kitchen - large view',
-            },
-          },
-        ],
-        ariaLabel: 'Property photos - fullscreen gallery',
-      })}
-    </div>
-  `,
+  render: () => {
+    const slides = [
+      {
+        id: 'modal1',
+        image: {
+          src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=1200&fit=crop',
+          alt: 'Building exterior - large view',
+        },
+      },
+      {
+        id: 'modal2',
+        image: {
+          src: 'https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=1600&h=1200&fit=crop',
+          alt: 'Living room - large view',
+        },
+      },
+      {
+        id: 'modal3',
+        image: {
+          src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&h=1200&fit=crop',
+          alt: 'Kitchen - large view',
+        },
+      },
+      {
+        id: 'modal4',
+        image: {
+          src: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&h=1200&fit=crop',
+          alt: 'Bedroom - large view',
+        },
+      },
+      {
+        id: 'modal5',
+        image: {
+          src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&h=1200&fit=crop',
+          alt: 'Bathroom - large view',
+        },
+      },
+    ];
+
+    // Main carousel (large images)
+    const mainCarousel = carouselTwig({
+      slides,
+      ariaLabel: 'Property photos - fullscreen gallery',
+      withPagination: false,
+      attributes: 'data-carousel-thumbs="carousel-thumbs-modal"',
+    });
+
+    // Thumbs carousel (miniatures)
+    const thumbsCarousel = carouselTwig({
+      slides,
+      ariaLabel: 'Photo thumbnails',
+      withPagination: false,
+      attributes: 'data-carousel-role="thumbs" id="carousel-thumbs-modal"',
+    });
+
+    return `
+      <div style="background: #fff; display: flex; flex-direction: column; gap: 16px; padding: 16px; height: 100vh; box-sizing: border-box;">
+        <!-- Main carousel (auto-fit within viewport) -->
+        <div style="width: 100%; flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; background: #fff;">
+          <style>
+            /* Ensure swiper takes available height */
+            [data-carousel-thumbs].swiper,
+            [data-carousel-thumbs] .ps-carousel__track,
+            [data-carousel-thumbs] .ps-carousel__slide {
+              height: 100% !important;
+            }
+            [data-carousel-thumbs] .ps-carousel__image {
+              max-width: 100%;
+              max-height: 100%;
+              object-fit: contain;
+            }
+          </style>
+          ${mainCarousel}
+        </div>
+        
+        <!-- Thumbs carousel -->
+        <div style="height: 120px; width: 100%; flex: 0 0 120px;">
+          <style>
+            /* Thumbs carousel specific styles */
+            [data-carousel-role="thumbs"] {
+              height: 120px !important;
+            }
+            [data-carousel-role="thumbs"] .swiper-slide {
+              opacity: 0.4;
+              cursor: pointer;
+              transition: opacity 150ms ease;
+              height: 120px;
+            }
+            [data-carousel-role="thumbs"] .swiper-slide:hover {
+              opacity: 0.7;
+            }
+            [data-carousel-role="thumbs"] .swiper-slide-thumb-active {
+              opacity: 1 !important;
+            }
+            [data-carousel-role="thumbs"] .ps-carousel__image {
+              height: 120px;
+              width: 100%;
+              object-fit: cover;
+            }
+            [data-carousel-role="thumbs"].swiper {
+              --swiper-navigation-size: 24px;
+            }
+            [data-carousel-role="thumbs"] .ps-carousel__button {
+              width: 32px;
+              height: 32px;
+            }
+            
+            /* Modal carousel full height */
+            [data-carousel-thumbs] .ps-carousel__slide {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            [data-carousel-thumbs] .ps-carousel__image {
+              max-width: 100%;
+              max-height: 100%;
+              object-fit: contain;
+            }
+          </style>
+          ${thumbsCarousel}
+        </div>
+      </div>
+    `;
+  },
 };
 
 // Teaser Carousel - Property listing preview (from screenshot 3 - single property)
@@ -367,8 +489,8 @@ export const TeaserCarousel = {
 
 // Cards Carousel - Property listing cards (from screenshot 4 - multiple properties)
 export const CardsCarousel = {
-  render: () =>
-    carouselTwig({
+  render: () => {
+    const carouselHtml = carouselTwig({
       slides: [
         {
           id: 'card1',
@@ -458,12 +580,103 @@ export const CardsCarousel = {
             </div>
           `,
         },
+        {
+          id: 'card5',
+          card: `
+            <div style="position: relative;">
+              <img src="https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=400&h=300&fit=crop" alt="Property 5" style="width: 100%; height: 200px; object-fit: cover;" />
+              <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 24px; color: #A22B66;">♥</span>
+              </button>
+              <div style="padding: 16px;">
+                <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #6A7078;">Price • m²</div>
+                <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">Product title</h4>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: #6A7078;">
+                  <span style="font-size: 20px;">📍</span>
+                  <span>Location</span>
+                </div>
+                <a href="#" style="color: #00915A; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+                  View the property →
+                </a>
+              </div>
+            </div>
+          `,
+        },
+        {
+          id: 'card6',
+          card: `
+            <div style="position: relative;">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop" alt="Property 6" style="width: 100%; height: 200px; object-fit: cover;" />
+              <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 24px; color: #A22B66;">♥</span>
+              </button>
+              <div style="padding: 16px;">
+                <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #6A7078;">Price • m²</div>
+                <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">Product title</h4>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: #6A7078;">
+                  <span style="font-size: 20px;">📍</span>
+                  <span>Location</span>
+                </div>
+                <a href="#" style="color: #00915A; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+                  View the property →
+                </a>
+              </div>
+            </div>
+          `,
+        },
+        {
+          id: 'card7',
+          card: `
+            <div style="position: relative;">
+              <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&h=300&fit=crop" alt="Property 7" style="width: 100%; height: 200px; object-fit: cover;" />
+              <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 24px; color: #A22B66;">♥</span>
+              </button>
+              <div style="padding: 16px;">
+                <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #6A7078;">Price • m²</div>
+                <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">Product title</h4>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: #6A7078;">
+                  <span style="font-size: 20px;">📍</span>
+                  <span>Location</span>
+                </div>
+                <a href="#" style="color: #00915A; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+                  View the property →
+                </a>
+              </div>
+            </div>
+          `,
+        },
+        {
+          id: 'card8',
+          card: `
+            <div style="position: relative;">
+              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop" alt="Property 8" style="width: 100%; height: 200px; object-fit: cover;" />
+              <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 24px; color: #A22B66;">♥</span>
+              </button>
+              <div style="padding: 16px;">
+                <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #6A7078;">Price • m²</div>
+                <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">Product title</h4>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: #6A7078;">
+                  <span style="font-size: 20px;">📍</span>
+                  <span>Location</span>
+                </div>
+                <a href="#" style="color: #00915A; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+                  View the property →
+                </a>
+              </div>
+            </div>
+          `,
+        },
       ],
       variant: 'cards',
       loop: true,
       withPagination: false,
       ariaLabel: 'Property listings carousel',
-    }),
+    });
+
+    return carouselHtml;
+  },
 };
 
 export default settings;
