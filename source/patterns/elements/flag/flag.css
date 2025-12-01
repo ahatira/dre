@@ -4,85 +4,121 @@
  *
  * BEM: ps-flag, ps-flag__img
  * Sizes: xs (12px height), sm (16px height), md (20px height - default), lg (24px height), xl (48px height)
- * Aspect ratio: 4:3 (standard flag format)
+ * Aspect ratio: 4:3 (standard flag format), 1:1 (circle)
  * Shapes: square (default), rounded, circle
- * States: disabled
+ * States: hover, focus-visible, disabled
+ *
+ * Architecture: 3-layer CSS variables system (Bootstrap 5 inspired)
+ * - Layer 1: Root tokens (--size-*, --radius-*, --duration-*, --ease-*)
+ * - Layer 2: Component variables (--ps-flag-*)
+ * - Layer 3: Context overrides (.sidebar .ps-flag { --ps-flag-size: ... })
  */
 
 .ps-flag {
+  /* ============================================
+     LAYER 2: COMPONENT-SCOPED VARIABLES
+     Default values referencing Layer 1 tokens
+     ============================================ */
+
+  /* Layout */
+  --ps-flag-size: var(--size-5); /* 20px - default (md) */
+  --ps-flag-aspect-ratio: calc(4 / 3); /* 4:3 standard flag aspect ratio */
+
+  /* Visual */
+  --ps-flag-border-radius: 0; /* Square by default */
+
+  /* States */
+  --ps-flag-disabled-opacity: 0.5;
+  --ps-flag-disabled-grayscale: 0.2;
+  --ps-flag-hover-opacity: 0.9;
+
+  /* Transitions */
+  --ps-flag-transition-duration: var(--duration-fast); /* 150ms */
+  --ps-flag-transition-timing: var(--ease-4); /* cubic-bezier(0.25, 0, 0.2, 1) */
+
+  /* ============================================
+     BASE STYLES - Use component variables
+     ============================================ */
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  block-size: var(--size-5);
-  inline-size: calc(var(--size-5) * 4 / 3);
+  block-size: var(--ps-flag-size);
+  inline-size: calc(var(--ps-flag-size) * var(--ps-flag-aspect-ratio));
   margin: 0;
   padding: 0;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: var(--ps-flag-aspect-ratio);
   transition:
-    opacity 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    filter 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    opacity var(--ps-flag-transition-duration) var(--ps-flag-transition-timing),
+    filter var(--ps-flag-transition-duration) var(--ps-flag-transition-timing);
+
+  /* ============================================
+     ELEMENT: Image
+     ============================================ */
 
   &__img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0;
+    border-radius: var(--ps-flag-border-radius);
   }
 
+  /* ============================================
+     MODIFIERS: Sizes
+     ============================================ */
+
   &--xs {
-    block-size: var(--size-3);
-    inline-size: calc(var(--size-3) * 4 / 3);
+    --ps-flag-size: var(--size-3); /* 12px */
   }
 
   &--sm {
-    block-size: var(--size-4);
-    inline-size: calc(var(--size-4) * 4 / 3);
+    --ps-flag-size: var(--size-4); /* 16px */
   }
 
   &--lg {
-    block-size: var(--size-6);
-    inline-size: calc(var(--size-6) * 4 / 3);
+    --ps-flag-size: var(--size-6); /* 24px */
   }
 
   &--xl {
-    block-size: var(--size-12);
-    inline-size: calc(var(--size-12) * 4 / 3);
+    --ps-flag-size: var(--size-12); /* 48px */
   }
 
-  &--rounded &__img {
-    border-radius: var(--radius-2);
+  /* ============================================
+     MODIFIERS: Shapes
+     ============================================ */
+
+  &--rounded {
+    --ps-flag-border-radius: var(--radius-2); /* 4px rounded corners */
   }
 
   &--circle {
-    aspect-ratio: 1 / 1;
-    inline-size: var(--size-5);
-
-    &.ps-flag--xs {
-      inline-size: var(--size-3);
-    }
-
-    &.ps-flag--sm {
-      inline-size: var(--size-4);
-    }
-
-    &.ps-flag--lg {
-      inline-size: var(--size-6);
-    }
-
-    &.ps-flag--xl {
-      inline-size: var(--size-12);
-    }
-
-    .ps-flag__img {
-      border-radius: var(--radius-round);
-    }
+    --ps-flag-aspect-ratio: 1; /* 1:1 aspect ratio (square) */
+    --ps-flag-border-radius: var(--radius-round); /* Fully rounded */
   }
 
+  /* ============================================
+     STATES: Interactive
+     ============================================ */
+
+  &:hover:not(&--disabled) {
+    opacity: var(--ps-flag-hover-opacity);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--size-1);
+  }
+
+  /* ============================================
+     STATES: Disabled
+     ============================================ */
+
   &--disabled {
-    opacity: 0.5;
-    filter: grayscale(0.2);
+    opacity: var(--ps-flag-disabled-opacity);
+    filter: grayscale(var(--ps-flag-disabled-grayscale));
     cursor: not-allowed;
+    pointer-events: none;
   }
 }

@@ -9,7 +9,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Visual indicator for country/language as a flag. Supports ISO 3166-1 alpha-2 country codes or BCP 47 locale tags. Always provide a label for accessibility when not purely decorative. Sizes: xs (12px), sm (16px), md (20px), lg (24px), xl (48px). Shapes: square, rounded, circle.',
+          'Visual indicator for country/language using flag images. Supports ISO 3166-1 alpha-2 codes (FR, GB, DE) or BCP 47 locale tags (fr-FR, en-GB).',
       },
     },
   },
@@ -46,7 +46,7 @@ const settings = {
     },
     // Appearance
     size: {
-      description: 'Flag size (xs: 12px, sm: 16px, md: 20px, lg: 24px, xl: 48px height)',
+      description: 'Flag size (xs: 12px, sm: 16px, md: 20px, lg: 24px, xl: 48px)',
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       table: {
