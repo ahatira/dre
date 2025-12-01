@@ -18,6 +18,9 @@ import '../source/patterns/components/alert/alert.js';
 import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
 
+// Import base pattern behaviors
+import '../source/patterns/base/animations/animations.js';
+
 // Imports the CSS for all components combined into a single stylesheet.
 import '../source/patterns/styles.css';
 
