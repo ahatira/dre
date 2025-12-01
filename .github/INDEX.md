@@ -65,7 +65,7 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 
 #### 1. COMPLETE_RULES.md
 **Path**: `.github/COMPLETE_RULES.md`  
-**Size**: ~2000 lines  
+**Size**: ~2300 lines  
 **Status**: 🔒 **ABSOLUTE REFERENCE**
 
 **Purpose**: **Single source of truth** for ALL project standards.
@@ -85,10 +85,11 @@ This index provides a **navigation map** for all PS Theme documentation. Use it 
 - Twig templates
 - YAML configuration
 - Documentation requirements
+- **Base Stories Standards (Section 14.5)** - Token documentation workflow
 - Accessibilité (WCAG 2.2 AA)
 - Performance
 - Workflow & validation
-- Checklist complet (18 sections)
+- Checklist complet (20 sections)
 
 **When to read**: ALWAYS before any component work.
 
@@ -436,8 +437,8 @@ docs/design/
 ```
 docs/ps-design/
 ├── README.md               - Design system overview + roadmap
-├── INDEX.md                - Component inventory + progress (5/87 done)
-├── CHANGELOG.md            - Implementation history
+├── INDEX.md                - Component inventory + progress (6/87 done)
+├── CHANGELOG.md            - Implementation history (includes base stories audit)
 └── COMPONENT_TEMPLATE.md   - Template for new component specs
 ```
 
@@ -445,6 +446,37 @@ docs/ps-design/
 - To check project progress
 - To see what components are done/pending
 - To understand implementation phases
+- To review base stories completeness audit (2025-12-01 entry)
+
+### source/patterns/base/
+
+**Purpose**: Base stories documenting design tokens in Storybook.
+
+**Structure**:
+```
+source/patterns/base/
+├── animations/     - Durations (6) + Presets (20) + Easing curves (35)
+├── aspects/        - Aspect ratios (7)
+├── borders/        - Widths (6) + Radii (8) + Colors (5 from brand.css)
+├── brand/          - Semantic colors (52 tokens)
+├── colors/         - Neutrals (11) + Palettes (60)
+├── fonts/          - Font families (3) + Size scale (15) + Weights (3)
+├── shadows/        - Elevation shadows (16)
+└── sizes/          - Spacing scale (33)
+```
+
+**Standards**: See [COMPLETE_RULES.md Section 14.5](#1-complete_rulesmd) for:
+- Data source synchronization (CSS ↔ YAML ↔ Twig)
+- Template structure requirements
+- Token coverage verification
+- Legacy token cleanup workflow
+- Documentation accuracy requirements
+
+**When to read**:
+- When updating design tokens (props files)
+- When creating/modifying base stories
+- When documenting token systems
+- When auditing token coverage completeness
 
 ---
 
@@ -489,7 +521,7 @@ STANDARDIZE_COMPONENT_PROMPT.md
    COMPONENT_TEMPLATE_STANDARD.md → 5 required files
    
 4. Apply Standards
-   COMPLETE_RULES.md → All 18 sections
+   COMPLETE_RULES.md → All 20 sections
    CSS_VARIABLES_SYSTEM.md → Component-scoped variables
    CSS_STANDARDS.md → CSS authoring
    STORYBOOK_DOC_TEMPLATE.md → Documentation

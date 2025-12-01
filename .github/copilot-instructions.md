@@ -45,6 +45,7 @@
 
 ## Key Files & Directories
 - `source/patterns/` — codebase principal des composants (1/87 en cours)
+  - `base/` — Base stories : Documentation Storybook des design tokens (8 stories)
   - `elements/` — Atoms : button (CSS pixel perfect, awaiting validation), + 18 à faire
   - `components/` — Molecules : 20 à faire
   - `collections/` — Organisms : 12 à faire
@@ -61,7 +62,7 @@
   - Documentation détaillée : BEM, props, variants, tokens, accessibilité, exemples
 - `docs/ps-design/` — Documentation du projet réel (état actuel + roadmap) :
   - `README.md` — Documentation principale + workflow
-  - `INDEX.md` — Inventaire complet + progression (5/87 = 6%)
+  - `INDEX.md` — Inventaire complet + progression (6/87 = 7%)
   - `CHANGELOG.md` — Historique des implémentations
   - `COMPONENT_TEMPLATE.md` — Template standard avec structure 5 fichiers obligatoires
 
@@ -79,6 +80,7 @@
   - Enforce concise descriptions: main description MUST be ≤ two lines.
 - **See `.github/COMPONENT_AUDIT_PROMPT.md` for conformity audit (run after implementation).**
 - **See `.github/STANDARDIZE_COMPONENT_PROMPT.md` for standardization workflow.**
+- **See `.github/COMPLETE_RULES.md` Section 14.5 for Base Stories Standards (token documentation workflow).**
 
 ---
 **For AI agents:**
@@ -96,7 +98,7 @@ Cette directive s'applique immédiatement à toutes les interactions Chat.
 
 ## 🔒 PRIMARY DIRECTIVE
 
-**BEFORE ANY COMPONENT WORK**: Read `.github/COMPLETE_RULES.md` - the ABSOLUTE REFERENCE (1000+ lines, 18 sections, covering ALL standards).
+**BEFORE ANY COMPONENT WORK**: Read `.github/COMPLETE_RULES.md` - the ABSOLUTE REFERENCE (2300+ lines, 20 sections + subsections, covering ALL standards).
 
 This is the **SINGLE SOURCE OF TRUTH**. All other documents are subsets or implementations of these rules.
 
@@ -195,7 +197,7 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 1. **Read spec**: `docs/design/{level}/{component}.md` (COMPLETE, all sections)
 2. **Verify tokens**: `grep -r` in `source/props/` before creating new
 3. **Follow template**: `.github/COMPONENT_TEMPLATE_STANDARD.md` (5 files structure)
-4. **Apply rules**: `.github/COMPLETE_RULES.md` (all 18 sections)
+4. **Apply rules**: `.github/COMPLETE_RULES.md` (all 20 sections)
 5. **Build**: `npm run build` (check errors)
 6. **Test**: `npm run watch` → Storybook visual verification
 7. **Audit**: "Vérifie la cohérence du composant [Name] avec nos règles du projet"
