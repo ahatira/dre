@@ -1,6 +1,6 @@
 import flagTwig from './flag.twig';
 import data from './flag.yml';
-import flags from './flags-full.json';
+import flags from '../../documentation/flags-list.json';
 
 const settings = {
   title: 'Elements/Flag',
