@@ -1,70 +1,85 @@
 /**
  * Brand Tokens (BNP Paribas RealEstate)
  * 
- * Unified semantic color system based on official BNP Paribas RealEstate maquette.
- * Bootstrap-style Base-Modifier pattern: 6 semantic colors × 5 states = 30 tokens.
+ * Complete theme system: semantic colors + UI tokens
+ * - 6 semantic colors × 5 states = 30 tokens (Bootstrap Base-Modifier)
+ * - Text colors: 4 tokens (primary, secondary, disabled, inverse)
+ * - Border colors: 3 tokens (default, light, focus)
+ * - Background colors: 3 tokens (page, section, disabled)
  * 
- * Colors from official design system:
- * - Primary: #00915A, #017F4F, #04A46E, #99D3BD (greens)
- * - Secondary: #BA3075, #E0388C, #D998BB, #A12B66 (magentas)
- * - Status: #EB3636 (red error)
+ * All values from official BNP Paribas RealEstate design system.
  */
 
 :where(html) {
   /* ============================================
-     PRIMARY (Brand Green - Official BNP #00915A)
-     Base → Hover → Active progression
+     SEMANTIC COLORS (Bootstrap Base-Modifier)
+     6 colors × 5 states = 30 tokens
      ============================================ */
+
+  /* PRIMARY (Brand Green - Official BNP #00915A) */
   --primary: hsl(162, 100%, 28%); /* #00915A - Official BNP green */
   --primary-hover: hsl(162, 100%, 25%); /* #017F4F - Dark variant from maquette */
   --primary-active: hsl(162, 92%, 25%); /* #047857 - Darkest for pressed state */
   --primary-text: hsl(0, 0%, 100%); /* White on primary */
   --primary-border: hsl(162, 100%, 28%); /* Match base */
 
-  /* ============================================
-     SECONDARY (Brand Magenta - Official BNP #A12B66)
-     Base → Hover → Active progression
-     ============================================ */
+  /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
   --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
   --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter variant from maquette */
   --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
   --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
   --secondary-border: hsl(330, 65%, 40%); /* Match base */
 
-  /* ============================================
-     SUCCESS (Green - Positive actions)
-     ============================================ */
+  /* SUCCESS (Green - Positive actions) */
   --success: hsl(162, 92%, 25%); /* #047857 (green-600) */
   --success-hover: hsl(163, 93%, 22%); /* green-700 */
   --success-active: hsl(164, 93%, 17%); /* green-800 */
   --success-text: hsl(0, 0%, 100%); /* White on success */
   --success-border: hsl(162, 92%, 25%);
 
-  /* ============================================
-     DANGER (Status Red - Official BNP #EB3636)
-     From maquette Status color
-     ============================================ */
+  /* DANGER (Status Red - Official BNP #EB3636) */
   --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
   --danger-hover: hsl(0, 82%, 52%); /* Slightly darker */
   --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
   --danger-text: hsl(0, 0%, 100%); /* White on danger */
   --danger-border: hsl(0, 82%, 57%); /* Match base */
 
-  /* ============================================
-     WARNING (Yellow - Caution)
-     ============================================ */
+  /* WARNING (Yellow - Caution) */
   --warning: hsl(42, 93%, 46%); /* #D97706 (yellow-400) */
   --warning-hover: hsl(37, 97%, 39%); /* yellow-500 */
   --warning-active: hsl(31, 88%, 33%); /* yellow-600 */
   --warning-text: hsl(0, 0%, 0%); /* Black on yellow (contrast) */
   --warning-border: hsl(42, 93%, 46%);
 
-  /* ============================================
-     INFO (Blue - Informational)
-     ============================================ */
+  /* INFO (Blue - Informational) */
   --info: hsl(220, 89%, 53%); /* #2563EB (blue-600) */
   --info-hover: hsl(221, 79%, 48%); /* blue-700 */
   --info-active: hsl(223, 68%, 37%); /* blue-800 */
   --info-text: hsl(0, 0%, 100%); /* White on info */
   --info-border: hsl(220, 89%, 53%);
+
+  /* ============================================
+     TEXT COLORS (Typography)
+     4 tokens for text hierarchy
+     ============================================ */
+  --text-primary: hsl(217, 19%, 27%); /* #434F57 - Main text (WCAG AAA) */
+  --text-secondary: hsl(220, 9%, 46%); /* #777E83 - Secondary text (WCAG AA) */
+  --text-disabled: hsl(218, 11%, 65%); /* #B0B8BD - Disabled state */
+  --text-inverse: hsl(0, 0%, 100%); /* #FFFFFF - Text on dark backgrounds */
+
+  /* ============================================
+     BORDER COLORS (UI Boundaries)
+     3 tokens for border hierarchy
+     ============================================ */
+  --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders */
+  --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators */
+  --border-focus: hsl(199, 89%, 48%); /* #0288D1 - Focus ring (accessibility) */
+
+  /* ============================================
+     BACKGROUND COLORS (Surfaces)
+     3 tokens for background hierarchy
+     ============================================ */
+  --bg-page: hsl(0, 0%, 100%); /* #FFFFFF - Main page background */
+  --bg-section: hsl(210, 20%, 98%); /* #F9F9FB - Section backgrounds */
+  --bg-disabled: hsl(220, 14%, 96%); /* #F4F5F6 - Disabled inputs/buttons */
 }
