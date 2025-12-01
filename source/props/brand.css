@@ -4,10 +4,11 @@
  * Complete theme system: semantic colors + UI tokens
  * - 6 semantic colors × 5 states = 30 tokens (Bootstrap Base-Modifier)
  * - Text colors: 4 tokens (primary, secondary, disabled, inverse)
- * - Border colors: 3 tokens (default, light, focus)
- * - Background colors: 3 tokens (page, section, disabled)
+ * - Border colors: 5 tokens (default, light, focus, error, success)
+ * - Background colors: 7 tokens (page, section, disabled, success-light, danger-light, warning-light, info-light)
+ * - Overlay colors: 6 tokens (dark heavy/medium/light, brand base/medium/light)
  * 
- * All values from official BNP Paribas RealEstate design system.
+ * Total: 52 tokens from official BNP Paribas RealEstate design system.
  */
 
 :where(html) {
@@ -69,17 +70,34 @@
 
   /* ============================================
      BORDER COLORS (UI Boundaries)
-     3 tokens for border hierarchy
+     5 tokens for border hierarchy
      ============================================ */
   --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders */
   --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators */
   --border-focus: hsl(199, 89%, 48%); /* #0288D1 - Focus ring (accessibility) */
+  --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders (matches danger) */
+  --border-success: hsl(162, 100%, 28%); /* #00915A - Success state borders (matches primary) */
 
   /* ============================================
      BACKGROUND COLORS (Surfaces)
-     3 tokens for background hierarchy
+     7 tokens for background hierarchy
      ============================================ */
   --bg-page: hsl(0, 0%, 100%); /* #FFFFFF - Main page background */
   --bg-section: hsl(210, 20%, 98%); /* #F9F9FB - Section backgrounds */
   --bg-disabled: hsl(220, 14%, 96%); /* #F4F5F6 - Disabled inputs/buttons */
+  --bg-success-light: hsl(162, 48%, 72%); /* #99D3BD - Light success backgrounds (alerts, notifications) */
+  --bg-danger-light: hsl(0, 82%, 90%); /* Light red backgrounds (error alerts) */
+  --bg-warning-light: hsl(42, 93%, 90%); /* Light yellow backgrounds (warning alerts) */
+  --bg-info-light: hsl(220, 89%, 90%); /* Light blue backgrounds (info alerts) */
+
+  /* ============================================
+     OVERLAY COLORS (Modals, dropdowns, shadows)
+     6 tokens for overlay hierarchy
+     ============================================ */
+  --overlay-dark-heavy: hsla(0, 0%, 0%, 0.6); /* rgba(0, 0, 0, 0.6) - Modals, heavy overlays */
+  --overlay-dark-medium: hsla(0, 0%, 0%, 0.36); /* rgba(0, 0, 0, 0.36) - Medium overlays */
+  --overlay-dark-light: hsla(0, 0%, 0%, 0.12); /* rgba(0, 0, 0, 0.12) - Light overlays */
+  --overlay-brand-base: hsl(204, 33%, 25%); /* #1C2D37 - Brand overlay base color */
+  --overlay-brand-medium: hsla(204, 33%, 25%, 0.36); /* rgba(28, 45, 55, 0.36) - Medium brand overlay */
+  --overlay-brand-light: hsla(204, 33%, 25%, 0.12); /* rgba(28, 45, 55, 0.12) - Light brand overlay */
 }
