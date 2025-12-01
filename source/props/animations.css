@@ -1,31 +1,39 @@
 :where(html) {
-  --ps-transition-duration-fast: 0.15s;
-  --ps-transition-duration-normal: 0.3s;
-}
-:where(html) {
-  --animation-fade-in: fade-in 0.5s var(--ease-3);
-  --animation-fade-out: fade-out 0.5s var(--ease-3);
-  --animation-scale-up: scale-up 0.5s var(--ease-3);
-  --animation-scale-down: scale-down 0.5s var(--ease-3);
-  --animation-slide-out-up: slide-out-up 0.5s var(--ease-3);
-  --animation-slide-out-down: slide-out-down 0.5s var(--ease-3);
-  --animation-slide-out-right: slide-out-right 0.5s var(--ease-3);
-  --animation-slide-out-left: slide-out-left 0.5s var(--ease-3);
-  --animation-slide-in-up: slide-in-up 0.5s var(--ease-3);
-  --animation-slide-in-down: slide-in-down 0.5s var(--ease-3);
-  --animation-slide-in-right: slide-in-right 0.5s var(--ease-3);
-  --animation-slide-in-left: slide-in-left 0.5s var(--ease-3);
-  --animation-shake-x: shake-x 0.75s var(--ease-out-5);
-  --animation-shake-y: shake-y 0.75s var(--ease-out-5);
+  /* ============================================
+     TRANSITION DURATIONS
+     Standard timing values for UI transitions
+     ============================================ */
+  --duration-instant: 0.1s; /* Instant feedback */
+  --duration-fast: 0.15s; /* Quick transitions */
+  --duration-normal: 0.3s; /* Default transitions */
+  --duration-slow: 0.5s; /* Deliberate animations */
+  --duration-slower: 0.75s; /* Emphasis animations */
+  --duration-slowest: 1s; /* Large transitions */
+
+  /* ============================================
+     ANIMATION PRESETS
+     Reusable animation combinations
+     ============================================ */
+  --animation-fade-in: fade-in var(--duration-slow) var(--ease-3);
+  --animation-fade-out: fade-out var(--duration-slow) var(--ease-3);
+  --animation-scale-up: scale-up var(--duration-slow) var(--ease-3);
+  --animation-scale-down: scale-down var(--duration-slow) var(--ease-3);
+  --animation-slide-out-up: slide-out-up var(--duration-slow) var(--ease-3);
+  --animation-slide-out-down: slide-out-down var(--duration-slow) var(--ease-3);
+  --animation-slide-out-right: slide-out-right var(--duration-slow) var(--ease-3);
+  --animation-slide-out-left: slide-out-left var(--duration-slow) var(--ease-3);
+  --animation-slide-in-up: slide-in-up var(--duration-slow) var(--ease-3);
+  --animation-slide-in-down: slide-in-down var(--duration-slow) var(--ease-3);
+  --animation-slide-in-right: slide-in-right var(--duration-slow) var(--ease-3);
+  --animation-slide-in-left: slide-in-left var(--duration-slow) var(--ease-3);
+  --animation-shake-x: shake-x var(--duration-slower) var(--ease-out-5);
+  --animation-shake-y: shake-y var(--duration-slower) var(--ease-out-5);
   --animation-spin: spin 2s linear infinite;
   --animation-ping: ping 5s var(--ease-out-3) infinite;
-  --animation-blink: blink 1s var(--ease-out-3) infinite;
+  --animation-blink: blink var(--duration-slowest) var(--ease-out-3) infinite;
   --animation-float: float 3s var(--ease-in-out-3) infinite;
   --animation-bounce: bounce 2s var(--ease-squish-2) infinite;
   --animation-pulse: pulse 2s var(--ease-out-3) infinite;
-
-  /* Transitions */
-  --transition-soft-linear: all 0.15s linear;
 }
 
 @keyframes fade-in {
