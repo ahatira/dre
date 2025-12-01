@@ -2,31 +2,46 @@
  * Badge (Atom) – Compact status / label indicator.
  *
  * Design tokens ONLY (no hardcoded colors, sizes or durations).
+ * Component-scoped variables for runtime customization (Bootstrap 5 pattern).
  * Structure order: Base → Elements → Sizes → Shape → Variants → Interactive states.
  */
 
 .ps-badge {
-  /* Base layout */
+  /* Component-scoped variables (defaults) */
+  --ps-badge-bg: var(--gray-200);
+  --ps-badge-color: var(--gray-600);
+  --ps-badge-padding-y: var(--size-1);
+  --ps-badge-padding-x: var(--size-2);
+  --ps-badge-font-size: var(--font-size--1); /* 12px */
+  --ps-badge-font-weight: var(--font-weight-500);
+  --ps-badge-radius: var(--radius-2);
+  --ps-badge-icon-size: var(--font-size--1);
+  --ps-badge-gap: var(--size-1);
+  
+  /* Base layout using component variables */
   display: inline-flex;
   align-items: center;
-  gap: var(--size-1);
-  padding: var(--size-1) var(--size-2);
+  gap: var(--ps-badge-gap);
+  padding: var(--ps-badge-padding-y) var(--ps-badge-padding-x);
   font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-500);
+  font-size: var(--ps-badge-font-size);
+  font-weight: var(--ps-badge-font-weight);
   line-height: 1.2;
-  border-radius: var(--radius-2);
+  border-radius: var(--ps-badge-radius);
   text-decoration: none;
   white-space: nowrap;
-  background: var(--gray-200);
-  color: var(--gray-600);
-  transition: background var(--ps-transition-duration-fast) cubic-bezier(0.4, 0.0, 0.2, 1);
+  background: var(--ps-badge-bg);
+  color: var(--ps-badge-color);
+  transition: background var(--duration-fast) cubic-bezier(0.4, 0.0, 0.2, 1);
 
-  /* Elements */
+  /* ========================================
+   * Elements
+   * ======================================== */
+  
   &__icon {
-    margin-right: var(--size-1);
-    inline-size: var(--font-size-sm);
-    block-size: var(--font-size-sm);
+    margin-right: var(--ps-badge-gap);
+    inline-size: var(--ps-badge-icon-size);
+    block-size: var(--ps-badge-icon-size);
     flex-shrink: 0;
   }
 
@@ -34,38 +49,88 @@
     white-space: nowrap;
   }
 
-  /* Sizes */
+  /* ========================================
+   * Modifiers - Sizes
+   * ======================================== */
+  
   &--small {
-    font-size: var(--font-size-xs);
-    padding: var(--size-05) var(--size-1);
-    .ps-badge__icon { inline-size: var(--font-size-xs); block-size: var(--font-size-xs); }
+    --ps-badge-font-size: var(--font-size--2); /* 10px */
+    --ps-badge-padding-y: var(--size-05);
+    --ps-badge-padding-x: var(--size-1);
+    --ps-badge-icon-size: var(--font-size--2);
   }
 
   &--large {
-    font-size: var(--font-size-0);
-    padding: var(--size-105) var(--size-3);
-    .ps-badge__icon { inline-size: var(--font-size-0); block-size: var(--font-size-0); }
+    --ps-badge-font-size: var(--font-size-0); /* 14px */
+    --ps-badge-padding-y: var(--size-105);
+    --ps-badge-padding-x: var(--size-3);
+    --ps-badge-icon-size: var(--font-size-0);
   }
 
-  /* Pill shape */
-  &--pill { border-radius: var(--radius-round); }
+  /* ========================================
+   * Modifiers - Shape
+   * ======================================== */
+  
+  &--pill {
+    --ps-badge-radius: var(--radius-round);
+  }
 
-  /* Color variants (semantic palette + legacy gold) */
-  &--default { background: var(--gray-200); color: var(--gray-600); }
-  &--primary { background: var(--brand-primary); color: var(--white); }
-  &--secondary { background: var(--brand-secondary); color: var(--white); }
-  &--gold { background: var(--accent-gold); color: var(--white); }
-  &--info { background: var(--blue-100); color: var(--blue-700); }
-  &--success { background: var(--green-100); color: var(--green-700); }
-  &--warning { background: var(--yellow-100); color: var(--yellow-700); }
-  &--danger { background: var(--red-100); color: var(--red-700); }
+  /* ========================================
+   * Modifiers - Color Variants (Semantic)
+   * ======================================== */
+  
+  &--default {
+    --ps-badge-bg: var(--gray-200);
+    --ps-badge-color: var(--gray-600);
+  }
+  
+  &--primary {
+    --ps-badge-bg: var(--primary);
+    --ps-badge-color: var(--white);
+  }
+  
+  &--secondary {
+    --ps-badge-bg: var(--secondary);
+    --ps-badge-color: var(--white);
+  }
+  
+  &--gold {
+    --ps-badge-bg: var(--yellow-500); /* Legacy gold replaced with semantic yellow */
+    --ps-badge-color: var(--white);
+  }
+  
+  &--info {
+    --ps-badge-bg: var(--blue-100);
+    --ps-badge-color: var(--blue-700);
+  }
+  
+  &--success {
+    --ps-badge-bg: var(--green-100);
+    --ps-badge-color: var(--green-700);
+  }
+  
+  &--warning {
+    --ps-badge-bg: var(--yellow-100);
+    --ps-badge-color: var(--yellow-700);
+  }
+  
+  &--danger {
+    --ps-badge-bg: var(--red-100);
+    --ps-badge-color: var(--red-700);
+  }
 }
 
-/* Interactive link states (applies only when rendered as <a>) */
+/* ========================================
+ * Interactive Link States (a.ps-badge only)
+ * ======================================== */
+
 a.ps-badge {
-  &:hover { filter: brightness(0.95); }
+  &:hover {
+    filter: brightness(0.95);
+  }
+  
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-primary);
+    outline: var(--border-size-2) solid var(--primary);
     outline-offset: var(--size-05);
   }
 }

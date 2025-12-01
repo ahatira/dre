@@ -47,20 +47,37 @@ Compact semantic label / status indicator supporting size, color and shape modif
 | Variant | Background Token | Text Token |
 |---------|------------------|-----------|
 | default | `--gray-200` | `--gray-600` |
-| primary | `--brand-primary` | `--white` |
-| secondary | `--brand-secondary` | `--white` |
-| gold | `--accent-gold` | `--white` |
+| primary | `--primary` | `--white` |
+| secondary | `--secondary` | `--white` |
+| gold | `--yellow-500` | `--white` |
 | info | `--blue-100` | `--blue-700` |
 | success | `--green-100` | `--green-700` |
 | warning | `--yellow-100` | `--yellow-700` |
 | danger | `--red-100` | `--red-700` |
 
 ## Design Tokens Used
-- Spacing: `--size-05` `--size-1` `--size-2` `--size-3`
-- Typography: `--font-size-xs` `--font-size-sm` `--font-size-0` `--font-weight-500`
-- Colors: `--gray-*` `--brand-primary` `--brand-secondary` `--accent-gold` semantic scales (blue/green/yellow/red)
+- Spacing: `--size-05` `--size-1` `--size-2` `--size-3` `--size-105`
+- Typography: `--font-size--2` (10px) `--font-size--1` (12px) `--font-size-0` (14px) `--font-weight-500`
+- Colors: `--gray-*` `--primary` `--secondary` `--yellow-500` semantic scales (blue/green/yellow/red)
 - Radius: `--radius-2` `--radius-round`
-- Transition: `--ps-transition-duration-fast`
+- Transition: `--duration-fast`
+
+## Component-Scoped Variables
+Badge uses Bootstrap 5-inspired component-scoped variables:
+
+```css
+.ps-badge {
+  --ps-badge-bg: var(--gray-200);
+  --ps-badge-color: var(--gray-600);
+  --ps-badge-padding-y: var(--size-1);
+  --ps-badge-padding-x: var(--size-2);
+  --ps-badge-font-size: var(--font-size--1);
+  --ps-badge-radius: var(--radius-2);
+  /* ... */
+}
+```
+
+Modifiers only change variables, enabling runtime customization and context overrides.
 
 ## Accessibility
 - Text is always present ensuring descriptive label.
@@ -92,8 +109,12 @@ Compact semantic label / status indicator supporting size, color and shape modif
 | Provide `url` for interactive link style | Add link styles to non-link elements |
 
 ## Migration Notes
-- `--accent-gold` token introduced replacing previous hardcoded HSL gold value.
-- `secondary` now uses `--brand-secondary` token instead of accent magenta direct value.
+- `--yellow-500` token used for legacy gold variant (replaces non-existent `--accent-gold`).
+- `--secondary` now uses direct semantic token instead of `--brand-secondary`.
+- `--primary` replaces `--brand-primary`.
+- Font sizes migrated: `--font-size--2` (10px), `--font-size--1` (12px), `--font-size-0` (14px).
+- Transition token: `--duration-fast` replaces `--ps-transition-duration-fast`.
+- **Component-scoped variables** implemented (Bootstrap 5 pattern) - all tokens centralized in `.ps-badge` base.
 
 ## Audit Checklist
 - No hardcoded sizes/colors/durations.
