@@ -1,0 +1,20 @@
+# Default: Images carousel with 3 slides
+slides:
+  - id: 'slide1'
+    image:
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCBmaWxsPSIjMDA5MTVBIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIvPjx0ZXh0IGZpbGw9IiNGRkYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlNsaWRlIDE8L3RleHQ+PC9zdmc+'
+      alt: 'Property living room'
+  - id: 'slide2'
+    image:
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCBmaWxsPSIjRTAzODhDIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIvPjx0ZXh0IGZpbGw9IiNGRkYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlNsaWRlIDI8L3RleHQ+PC9zdmc+'
+      alt: 'Property kitchen'
+  - id: 'slide3'
+    image:
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCBmaWxsPSIjMEI1RkZGIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIvPjx0ZXh0IGZpbGw9IiNGRkYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlNsaWRlIDM8L3RleHQ+PC9zdmc+'
+      alt: 'Property bedroom'
+variant: 'images'
+loop: false
+autoHeight: false
+withPagination: false
+withToolbar: false
+ariaLabel: 'Property gallery'

@@ -1,0 +1,295 @@
+/**
+ * Carousel (Component/Molecule)
+ * Responsive carousel for images or cards with navigation, pagination, keyboard and touch support.
+ * 
+ * Built with Swiper.js (v12) - https://swiperjs.com/
+ * 
+ * BEM: ps-carousel, ps-carousel__track, ps-carousel__slide, 
+ *      ps-carousel__image, ps-carousel__controls, ps-carousel__button, ps-carousel__prev, 
+ *      ps-carousel__next, ps-carousel__pagination, ps-carousel__toolbar, ps-carousel__favorite
+ * Variants: images (default) | cards
+ * Modifiers: --loop, --auto-height, --with-toolbar, --with-favorite, --lightbox
+ * 
+ * Styles Pixel Perfect from Figma:
+ * - Buttons: 48×48px white squares, 4px padding, green chevrons (#00915A)
+ * - Toolbar: #F9F9FB background, 24px border-radius, 8×12px padding
+ * - Favorite: 48×48px white, pink heart (#A22B66)
+ * 
+ * Note: Swiper base styles are imported separately in carousel-swiper.css
+ * to avoid postcss-import resolution issues with node_modules.
+ */
+
+/* Import Swiper base styles first (from separate file for postcss-import compatibility) */
+@import './carousel-swiper.css';
+
+.ps-carousel {
+  position: relative;
+  width: 100%;
+  
+  /* Override Swiper container defaults */
+  &.swiper {
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* CRITICAL: Swiper needs overflow hidden */
+  }
+  
+  /* Track (swiper-wrapper) */
+  &__track {
+    /* Swiper adds display: flex automatically */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  /* Individual slide (swiper-slide) */
+  &__slide {
+    /* Swiper handles flex sizing */
+    min-width: 0;
+    position: relative;
+    outline: none;
+  }
+  
+  /* Image inside slide */
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Card container */
+  &__card {
+    padding: var(--ps-spacing-4);
+  }
+  
+  /* Controls container - Overlay positioning */
+  &__controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--size-6); /* 24px comme Figma */
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  /* Navigation buttons - Square white 48×48px with 4px padding (Figma spec) */
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-12); /* 48px */
+    height: var(--size-12); /* 48px */
+    padding: var(--size-1); /* 4px */
+    border: none;
+    border-radius: 0; /* Pixel perfect: no rounded corners */
+    background-color: var(--ps-color-neutral-0);
+    color: var(--ps-color-primary-600); /* #00915A green */
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Subtle shadow */
+    transition: 
+      box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+      transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+      background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+      background-color: var(--ps-color-neutral-0);
+    }
+    
+    &:active {
+      transform: scale(0.96);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--ps-color-primary-600);
+      outline-offset: var(--border-size-2);
+    }
+    
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  
+  /* Icon inside button */
+  &__icon {
+    font-family: 'bnpre-icons';
+    font-style: normal;
+    font-weight: var(--font-weight-400);
+    font-size: var(--size-5);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    &::before {
+      display: block;
+    }
+  }
+  
+  /* Pagination container (swiper-pagination) - Overlay at bottom */
+  &__pagination {
+    position: absolute !important;
+    bottom: var(--size-6) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--size-2);
+    padding: 0;
+    z-index: 10;
+    width: auto !important;
+    
+    /* Swiper pagination bullet overrides - White with shadow */
+    :global(.swiper-pagination-bullet) {
+      width: var(--size-3);
+      height: var(--size-3);
+      margin: 0 !important;
+      border-radius: var(--radius-round);
+      background-color: var(--ps-color-neutral-0);
+      opacity: 1;
+      box-shadow: var(--shadow-2);
+      transition: 
+        background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+        transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
+        box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+      
+      &:hover {
+        transform: scale(1.15);
+        box-shadow: var(--shadow-3);
+      }
+      
+      &:focus-visible {
+        outline: var(--border-size-2) solid var(--ps-color-primary-600);
+        outline-offset: var(--border-size-2);
+      }
+    }
+    
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--ps-color-primary-600);
+      box-shadow: var(--shadow-3);
+    }
+  }
+  
+  /* Toolbar - Overlay at bottom with media type navigation (Figma: #F9F9FB, border-radius 24px) */
+  &__toolbar {
+    position: absolute;
+    bottom: var(--size-5); /* 20px */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--size-2) var(--size-3); /* 8px 12px */
+    gap: var(--size-2); /* 8px */
+    background-color: var(--gray-50); /* #F3F6F9 - Light background */
+    border-radius: var(--size-6); /* 24px */
+    z-index: 11;
+    
+    /* Hidden by default, shown with --with-toolbar modifier */
+    display: none;
+  }
+  
+  &__toolbar-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-1); /* 4px */
+    padding: var(--size-1) var(--size-2); /* 4px 8px */
+    border: none;
+    border-radius: var(--radius-3); /* 12px */
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    &:hover {
+      .ps-carousel__toolbar-label,
+      .ps-carousel__toolbar-icon {
+        color: var(--bnp-dark-green); /* #017F4F - Dark green hover */
+      }
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--ps-color-primary-600);
+      outline-offset: var(--border-size-1);
+    }
+    
+    /* Active state when current slide matches this item's group */
+    &[data-active="true"] {
+      .ps-carousel__toolbar-label,
+      .ps-carousel__toolbar-icon {
+        color: var(--brand-secondary); /* #E0388C - Secondary color for active state */
+      }
+    }
+  }
+  
+  &__toolbar-icon {
+    width: var(--size-5); /* 20px */
+    height: var(--size-5); /* 20px */
+    color: var(--ps-color-primary-600); /* Green #00915A */
+    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  &__toolbar-label {
+    font-family: 'BNPP Sans', sans-serif;
+    font-size: var(--font-size-0); /* 16px */
+    line-height: var(--size-6); /* 24px */
+    color: var(--ps-color-primary-600);
+    text-decoration: underline; /* Underlined links */
+    white-space: nowrap; /* Force single line */
+    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  &__toolbar-divider {
+    width: 1px;
+    height: calc(var(--size-5) + var(--size-05)); /* 20px + 2px = 22px */
+    background-color: var(--gray-400); /* #9AA6B2 - Divider gray */
+  }
+  
+  /* Variant: Cards */
+  &--cards {
+    .ps-carousel__slide {
+      padding: var(--ps-spacing-3);
+    }
+  }
+  
+  /* Modifier: With toolbar - Shows toolbar overlay at bottom */
+  &--with-toolbar {
+    .ps-carousel__toolbar {
+      display: flex;
+    }
+    
+    /* Adjust pagination position when toolbar is present */
+    .ps-carousel__pagination {
+      bottom: var(--size-16) !important; /* 64px - above toolbar */
+    }
+  }
+  
+  /* Modifier: Lightbox mode - Full screen overlay */
+  &--lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.95);
+    
+    .ps-carousel__image {
+      object-fit: contain;
+      max-height: 80vh;
+    }
+  }
+  
+  /* Modifiers: Auto height and Loop handled by Swiper config */
+}

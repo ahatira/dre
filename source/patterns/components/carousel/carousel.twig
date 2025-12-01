@@ -1,0 +1,135 @@
+{#
+ * Carousel component
+ * Multi-media carousel with grouped navigation (photos, 3D visits, plans, brochures, etc.)
+ * 
+ * @param array slides - Array of slide objects with id, type, and content (required)
+ *   Each slide should have:
+ *   - id: unique identifier
+ *   - type: 'image' | '3d-visit' | 'plan' | 'brochure' | 'video' | 'card'
+ *   - image: { src, alt } for image types
+ *   - iframe: url for embedded content (3D visits, videos)
+ *   - pdf: url for PDF files
+ *   - card: HTML string for card content
+ * 
+ * @param string variant - images|cards (default: images)
+ * @param boolean loop - Enable looping behavior (default: false)
+ * @param boolean autoHeight - Auto adjust height based on slide content (default: false)
+ * @param boolean withPagination - Show pagination bullets (default: true)
+ * @param boolean withToolbar - Show toolbar with media type navigation (default: false)
+ * @param object toolbar - Toolbar configuration with items array
+ *   Structure: {
+ *     items: [
+ *       { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
+ *       { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
+ *       { type: 'plan', label: '6 plans', icon: 'cards', slideIndex: 16 }
+ *     ]
+ *   }
+ *   Each item allows jumping to the first slide of that media group.
+ * 
+ * @param string ariaLabel - Accessible label for carousel (default: Carousel)
+ * @param object attributes - Additional HTML attributes (optional)
+ * 
+ * Example usage:
+ * {{ include('@components/carousel/carousel.twig', {
+ *   slides: [...13 photos, ...3 3D visits, ...6 plans],
+ *   withToolbar: true,
+ *   toolbar: {
+ *     items: [
+ *       { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
+ *       { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
+ *       { type: 'plan', label: '6 plans', icon: 'cards', slideIndex: 16 }
+ *     ]
+ *   }
+ * }) }}
+ #}
+
+{%- set variant = variant|default('images') -%}
+{%- set loop = loop|default(false) -%}
+{%- set autoHeight = autoHeight|default(false) -%}
+{%- set withPagination = withPagination is defined ? withPagination : true -%}
+{%- set withToolbar = withToolbar|default(false) -%}
+{%- set toolbar = toolbar|default({}) -%}
+{%- set ariaLabel = ariaLabel|default('Carousel') -%}
+{%- set slides = slides|default([]) -%}
+
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-carousel']) -%}
+{%- if variant != 'images' -%}{%- set classes = classes|merge(['ps-carousel--' ~ variant]) -%}{%- endif -%}
+{%- if loop -%}{%- set classes = classes|merge(['ps-carousel--loop']) -%}{%- endif -%}
+{%- if autoHeight -%}{%- set classes = classes|merge(['ps-carousel--auto-height']) -%}{%- endif -%}
+{%- if withToolbar -%}{%- set classes = classes|merge(['ps-carousel--with-toolbar']) -%}{%- endif -%}
+
+<section
+  class="swiper {{ classes|join(' ')|trim }}"
+  aria-label="{{ ariaLabel }}"
+  data-carousel
+  {%- if attributes %}{{ attributes }}{% endif -%}
+>
+  <div class="swiper-wrapper ps-carousel__track">
+    {%- for slide in slides -%}
+      <div
+        class="swiper-slide ps-carousel__slide"
+        role="group"
+        aria-roledescription="slide"
+        aria-label="Slide {{ loop.index }} of {{ slides|length }}"
+      >
+        {%- if variant == 'images' and slide.image -%}
+          <img
+            class="ps-carousel__image"
+            src="{{ slide.image.src }}"
+            alt="{{ slide.image.alt }}"
+            loading="lazy"
+          />
+        {%- elseif variant == 'cards' and slide.card -%}
+          <div class="ps-carousel__card">
+            {{ slide.card }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="ps-carousel__controls">
+    <button
+      class="ps-carousel__button ps-carousel__prev"
+      type="button"
+      aria-label="Previous slide"
+      data-carousel-prev
+    >
+      <span class="ps-carousel__icon" data-icon="chevron-left" aria-hidden="true"></span>
+    </button>
+    <button
+      class="ps-carousel__button ps-carousel__next"
+      type="button"
+      aria-label="Next slide"
+      data-carousel-next
+    >
+      <span class="ps-carousel__icon" data-icon="chevron-right" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  {%- if withPagination -%}
+  <div class="swiper-pagination ps-carousel__pagination"></div>
+  {%- endif -%}
+
+  {%- if withToolbar and toolbar.items|default([])|length > 0 -%}
+  <div class="ps-carousel__toolbar">
+    {%- for item in toolbar.items -%}
+      <button
+        class="ps-carousel__toolbar-item"
+        type="button"
+        data-toolbar-item
+        data-slide-index="{{ item.slideIndex }}"
+        data-media-type="{{ item.type }}"
+        aria-label="Go to {{ item.label }}"
+      >
+        <span class="ps-carousel__toolbar-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+        <span class="ps-carousel__toolbar-label">{{ item.label }}</span>
+      </button>
+      {%- if not loop.last -%}
+        <span class="ps-carousel__toolbar-divider" aria-hidden="true"></span>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>
