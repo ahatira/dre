@@ -121,7 +121,7 @@
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--primary), 0 0 var(--white);
+      box-shadow: var(--shadow-focus);
       outline: 2px solid transparent;
       outline-offset: 2px;
     }
@@ -347,7 +347,7 @@
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--primary), 0 0 var(--white);
+      box-shadow: var(--shadow-focus);
       outline: 2px solid transparent;
       outline-offset: 2px;
     }
@@ -375,7 +375,7 @@
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--success), 0 0 var(--white);
+      box-shadow: var(--shadow-focus-success);
     }
 
     &:active {
