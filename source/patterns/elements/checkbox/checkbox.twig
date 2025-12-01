@@ -12,9 +12,10 @@
 {%- set disabled = disabled|default(false) -%}
 {%- set id = id|default(name ~ '-' ~ value) -%}
 
-{%- set classes = [] -%}
-{%- set classes = classes|merge(['ps-checkbox']) -%}
-{%- if disabled -%}{%- set classes = classes|merge(['ps-checkbox--disabled']) -%}{%- endif -%}
+{%- set classes = ['ps-checkbox'] -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-checkbox--disabled']) -%}
+{%- endif -%}
 
 <label class="{{ classes|join(' ')|trim }}" for="{{ id }}">
   <input
@@ -23,11 +24,10 @@
     id="{{ id }}"
     name="{{ name }}"
     value="{{ value }}"
-    {%- if checked %}checked{% endif -%}
-    {%- if disabled %}disabled aria-disabled="true"{% endif -%}
+    {%- if checked %} checked{% endif -%}
+    {%- if disabled %} disabled{% endif -%}
   />
-  <span class="ps-checkbox__box" aria-hidden="true">
-  </span>
+  <span class="ps-checkbox__box" aria-hidden="true"></span>
   {%- if label -%}
     <span class="ps-checkbox__label">{{ label }}</span>
   {%- endif -%}

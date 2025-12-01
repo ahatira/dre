@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component:
-          'Native checkbox with accessible label and token-based styling. Supports checked/disabled states, auto ID binding, and focus-visible for keyboard users.',
+          'Native checkbox with accessible label and component-scoped CSS variables. Supports checked/disabled states with semantic color tokens.',
       },
     },
   },
@@ -16,132 +16,103 @@ export default {
     // Content
     name: {
       control: 'text',
-      description: 'Input name attribute',
-      table: {
-        category: 'Content',
-        type: { summary: 'string', required: true },
-      },
-    },
-    value: {
-      control: 'text',
-      description: 'Input value',
-      table: {
-        category: 'Content',
-        type: { summary: 'string', required: true },
-      },
-    },
-    label: {
-      control: 'text',
-      description: 'Label text (optional)',
+      description: 'Input `name` attribute (required)',
       table: {
         category: 'Content',
         type: { summary: 'string' },
       },
     },
-    // Appearance
-    id: {
+    value: {
       control: 'text',
-      description: 'Input ID (auto-generated if empty)',
+      description: 'Input `value` attribute (required)',
       table: {
-        category: 'Appearance',
+        category: 'Content',
+        type: { summary: 'string' },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Label text displayed next to checkbox',
+      table: {
+        category: 'Content',
         type: { summary: 'string' },
       },
     },
     // Behavior
     checked: {
       control: 'boolean',
-      description: 'Checked state',
+      description: 'Whether checkbox is checked',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state',
+      description: 'Whether checkbox is disabled',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    // Accessibility
+    id: {
+      control: 'text',
+      description: 'Unique input ID (auto-generated from name+value if omitted)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
       },
     },
   },
 };
 
-// Story: Default
+// Story: Default (interactive)
 export const Default = {
   render: (args) => checkboxTwig(args),
   args: { ...data },
 };
 
-// Story: NoLabel (accessibilité)
-export const NoLabel = {
-  render: () => checkboxTwig({ ...data, label: '' }),
-};
-
-// Story: WithLongLabel (multi-lignes)
-export const WithLongLabel = {
-  render: () =>
-    checkboxTwig({
-      ...data,
-      label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.',
-    }),
-};
-
-// Story: AllStates (checked/unchecked, enabled/disabled)
+// Story: AllStates (showcase all checked/disabled combinations)
 export const AllStates = {
   render: () => `
-    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${checkboxTwig({ ...data, checked: false, disabled: false, label: 'Unchecked' })}
-      ${checkboxTwig({ ...data, checked: true, disabled: false, label: 'Checked' })}
-      ${checkboxTwig({ ...data, checked: false, disabled: true, label: 'Disabled' })}
-      ${checkboxTwig({ ...data, checked: true, disabled: true, label: 'Checked Disabled' })}
+    <div style="display: flex; gap: var(--size-6); flex-wrap: wrap; align-items: flex-start;">
+      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        <strong>Enabled</strong>
+        ${checkboxTwig({ name: 'enabled', value: '1', label: 'Unchecked', checked: false, disabled: false })}
+        ${checkboxTwig({ name: 'enabled', value: '2', label: 'Checked', checked: true, disabled: false })}
+      </div>
+      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        <strong>Disabled</strong>
+        ${checkboxTwig({ name: 'disabled', value: '1', label: 'Unchecked', checked: false, disabled: true })}
+        ${checkboxTwig({ name: 'disabled', value: '2', label: 'Checked', checked: true, disabled: true })}
+      </div>
+      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        <strong>No Label</strong>
+        ${checkboxTwig({ name: 'nolabel', value: '1', label: '', checked: false, disabled: false })}
+        ${checkboxTwig({ name: 'nolabel', value: '2', label: '', checked: true, disabled: false })}
+      </div>
+      <div style="display: flex; flex-direction: column; gap: var(--size-3); max-width: 300px;">
+        <strong>Long Label</strong>
+        ${checkboxTwig({ name: 'long', value: '1', label: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Cursus posuere et egestas id metus sit amet magna.', checked: false })}
+      </div>
     </div>
   `,
 };
 
-// Story: AllLabels (label, no label, long label)
-export const AllLabels = {
-  render: () => `
-    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${checkboxTwig({ ...data, label: 'Option label' })}
-      ${checkboxTwig({ ...data, label: '' })}
-      ${checkboxTwig({ ...data, label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.' })}
-    </div>
-  `,
-};
-
-// Story: AllCombinations (checked/unchecked × enabled/disabled × label/no label)
-export const AllCombinations = {
-  render: () => `
-    <div style="display: grid; gap: var(--size-4); grid-template-columns: repeat(4, minmax(0, 1fr));">
-      <div><strong>Checked + Label</strong><br/>${checkboxTwig({ ...data, checked: true, disabled: false, label: 'Checked' })}</div>
-      <div><strong>Unchecked + Label</strong><br/>${checkboxTwig({ ...data, checked: false, disabled: false, label: 'Unchecked' })}</div>
-      <div><strong>Checked + NoLabel</strong><br/>${checkboxTwig({ ...data, checked: true, disabled: false, label: '' })}</div>
-      <div><strong>Unchecked + NoLabel</strong><br/>${checkboxTwig({ ...data, checked: false, disabled: false, label: '' })}</div>
-      <div><strong>Checked + Disabled + Label</strong><br/>${checkboxTwig({ ...data, checked: true, disabled: true, label: 'Checked Disabled' })}</div>
-      <div><strong>Unchecked + Disabled + Label</strong><br/>${checkboxTwig({ ...data, checked: false, disabled: true, label: 'Disabled' })}</div>
-      <div><strong>Checked + Disabled + NoLabel</strong><br/>${checkboxTwig({ ...data, checked: true, disabled: true, label: '' })}</div>
-      <div><strong>Unchecked + Disabled + NoLabel</strong><br/>${checkboxTwig({ ...data, checked: false, disabled: true, label: '' })}</div>
-    </div>
-  `,
-};
-
-// Story: Group (usage réel)
+// Story: Group (real-world usage in forms)
 export const Group = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
-      <div>
-        <strong>Options:</strong><br/><br/>
-        ${checkboxTwig({ name: 'group1', value: '1', label: 'Option label', checked: false })}
-        ${checkboxTwig({ name: 'group1', value: '2', label: 'Option label', checked: true })}
+    <fieldset style="border: 0; padding: 0; margin: 0;">
+      <legend style="font-weight: var(--font-weight-600); margin-bottom: var(--size-3);">Select your preferences</legend>
+      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        ${checkboxTwig({ name: 'preferences[]', value: 'newsletter', label: 'Subscribe to newsletter', checked: true })}
+        ${checkboxTwig({ name: 'preferences[]', value: 'updates', label: 'Receive product updates', checked: false })}
+        ${checkboxTwig({ name: 'preferences[]', value: 'offers', label: 'Get special offers and promotions', checked: false })}
+        ${checkboxTwig({ name: 'preferences[]', value: 'terms', label: 'I accept the terms and conditions', checked: false })}
       </div>
-      <div>
-        <strong>Long label:</strong><br/><br/>
-        ${checkboxTwig({ name: 'group2', value: '1', label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.', checked: false })}
-        ${checkboxTwig({ name: 'group2', value: '2', label: 'Lorem ipsum dolor sit amet consectetur. Cursus posuere et egestas id metus sit.', checked: true })}
-      </div>
-    </div>
+    </fieldset>
   `,
 };
