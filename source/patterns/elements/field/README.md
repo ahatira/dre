@@ -64,17 +64,16 @@ Modifiers:
 - `--gray-500` - Icon color default
 
 #### Spacing
-- `--size-2` (0.5rem / 8px) - Input padding vertical
-- `--size-3` (0.75rem / 12px) - Input padding horizontal, icon margins
-- `--size-4` (1rem / 16px) - Base font size
-- `--size-5` (1.25rem / 20px) - Icon size
+- `--size-2` (0.5rem / 8px) - Input padding vertical, gap between elements
+- `--size-3` (0.75rem / 12px) - Icon margins
+- `--size-4` (1rem / 16px) - Input padding horizontal, icon size
 - `--size-7` (1.75rem / 28px) - Error spacing
-- `--size-10` (2.5rem / 40px) - Minimum field height
+- `--size-10` (2.5rem / 40px) - Minimum field height (Figma spec)
 - `--size-20` (5rem / 80px) - Minimum textarea height
-- `--size-305` (0.875rem / 14px) - Error message font size
+- `--size-305` (0.875rem / 14px) - Base font size, error message font size (Figma spec)
 
 #### Borders & Radii
-- `--border-size-1` (1px) - Border width
+- `--border-size-2` (2px) - Border width (Figma spec)
 - `--radius-2` (4px) - Border radius
 
 #### Typography
@@ -97,19 +96,20 @@ The field component uses component-scoped variables for easy customization (Boot
 
 /* Spacing */
 --ps-field-padding-y: var(--size-2);
---ps-field-padding-x: var(--size-3);
+--ps-field-padding-x: var(--size-4);
+--ps-field-gap: var(--size-2);
 
 /* Typography */
 --ps-field-font-family: var(--font-sans);
---ps-field-font-size: var(--size-4);
+--ps-field-font-size: var(--size-305);
 --ps-field-font-weight: var(--font-weight-400);
---ps-field-line-height: var(--leading-normal);
+--ps-field-line-height: 1.71;
 
 /* Colors - Default state */
 --ps-field-bg: var(--white);
 --ps-field-color: var(--text-primary);
 --ps-field-border-color: var(--border-default);
---ps-field-placeholder-color: var(--text-secondary);
+--ps-field-placeholder-color: var(--gray-400);
 
 /* Colors - Hover state */
 --ps-field-hover-border-color: var(--border-light);
@@ -132,12 +132,12 @@ The field component uses component-scoped variables for easy customization (Boot
 --ps-field-disabled-border-color: var(--border-default);
 
 /* Borders */
---ps-field-border-width: var(--border-size-1);
+--ps-field-border-width: var(--border-size-2);
 --ps-field-border-radius: var(--radius-2);
---ps-field-focus-shadow-width: var(--border-size-1);
+--ps-field-focus-shadow-width: var(--border-size-2);
 
 /* Icon */
---ps-field-icon-size: var(--size-5);
+--ps-field-icon-size: var(--size-4);
 --ps-field-icon-margin: var(--size-3);
 --ps-field-icon-color: var(--gray-500);
 --ps-field-icon-spacing-reduce: var(--size-2);
