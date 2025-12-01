@@ -34,8 +34,10 @@ FormField combines all necessary elements for accessible form inputs: label with
 
 ```
 ps-form-field                           # Base wrapper
-├── ps-form-field__label                # Label element
-│   └── ps-form-field__required-indicator # Asterisk for required fields
+├── ps-label.ps-form-field__label       # Label atom with context class
+│   ├── ps-label__text                  # Label text
+│   ├── ps-label__required              # Asterisk for required fields
+│   └── ps-visually-hidden              # Screen reader text "(required field)"
 ├── ps-form-field__input-wrapper        # Input wrapper (contains ps-field)
 ├── ps-form-field__helper               # Helper text (hidden when error present)
 └── ps-form-field__error                # Error message (role="alert")
@@ -277,6 +279,11 @@ $form_state->setErrorByName('email', t('Please enter a valid email address.'));
 6. **Multi-step Validation** - Progressive validation indicators
 
 ## Changelog
+
+### Version 1.1.0 (2025-12-01)
+- ✅ Refactored to use Label atom (composition instead of direct markup)
+- ✅ Better Atomic Design hierarchy (molecule → atom)
+- ✅ Label class override via attributes for form-field context styles
 
 ### Version 1.0.0 (2025-12-01)
 - ✅ Initial implementation with complete feature set

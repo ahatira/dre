@@ -53,12 +53,13 @@
   {% if attributes %}{{ attributes }}{% endif %}
 >
   {%- if label -%}
-    <label class="ps-form-field__label" for="{{ id }}">
-      {{ label }}
-      {%- if required -%}
-        <span class="ps-form-field__required-indicator" aria-label="required">*</span>
-      {%- endif -%}
-    </label>
+    {% include '@elements/label/label.twig' with {
+      text: label,
+      forId: id,
+      required: required,
+      disabled: disabled,
+      attributes: create_attribute().addClass('ps-form-field__label'),
+    } only %}
   {%- endif -%}
 
   <div class="ps-form-field__input-wrapper">
