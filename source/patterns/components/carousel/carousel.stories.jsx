@@ -3,7 +3,7 @@ import carouselData from './carousel.yml';
 
 // Helper to generate SVG data URIs (avoids external network requests)
 const createPlaceholderSVG = (width, height, bgColor, text) => {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect fill="${bgColor}" width="${width}" height="${height}"/><text fill="#FFF" font-family="Arial" font-size="32" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">${text}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect fill="${bgColor}" width="${width}" height="${height}"/><text fill="#FFF" font-family="sans-serif" font-size="32" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">${text}</text></svg>`;
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 };
 
