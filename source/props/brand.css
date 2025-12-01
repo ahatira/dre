@@ -67,14 +67,4 @@
   --info-active: hsl(223, 68%, 37%); /* blue-800 */
   --info-text: hsl(0, 0%, 100%); /* White on info */
   --info-border: hsl(220, 89%, 53%);
-
-  /* ============================================
-     LEGACY ALIASES (Backward compatibility)
-     DEPRECATED: Use semantic tokens directly
-     ============================================ */
-  --brand-primary: var(--primary); /* @deprecated Use var(--primary) */
-  --brand-secondary: var(--secondary); /* @deprecated Use var(--secondary) */
-  --brand-text-strong: hsl(0, 0%, 17%); /* #2B2B2B - Graphite */
-  --brand-text-muted: hsl(0, 0%, 43%); /* #6A6D6F - Neutral gray */
-  --brand-on-primary: var(--white);
 }
