@@ -6,60 +6,137 @@
  * Variants: text | number | email | search | select | textarea
  * Modifiers: --error, --disabled, --filled, --hover, --focus, --done, --icon-left, --icon-right
  * States: default, hover, focus, filled, error, disabled
+ * 
+ * Component-scoped variables pattern (Bootstrap 5 inspired)
  */
 
 .ps-field {
-  /* Component-specific color tokens */
-  --ps-color-border-default: hsl(216, 22%, 86%); /* #D6DBDE */
-  --ps-color-border-hover: hsl(216, 22%, 70%);
-  --ps-color-border-focus: hsl(199, 89%, 48%); /* #0288D1 - blue focus */
-  --ps-color-border-error: hsl(0, 75%, 51%); /* #EB3636 - red error */
-  --ps-color-border-success: hsl(162, 72%, 38%); /* green success */
-  --ps-color-field-bg: hsl(0, 0%, 100%); /* white background */
-  --ps-color-field-text: hsl(0, 0%, 20%); /* #333333 text */
-  --ps-color-field-placeholder: hsl(220, 9%, 46%); /* gray placeholder */
-  --ps-color-field-disabled-bg: hsl(210, 20%, 98%); /* F3F6F9 disabled bg */
-  --ps-color-field-disabled-text: hsl(220, 9%, 46%); /* gray disabled text */
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Override these for customization
+     ============================================ */
   
-  /* Styles */
+  /* Sizing */
+  --ps-field-min-height: var(--size-10);
+  --ps-field-width: 100%;
+  
+  /* Spacing */
+  --ps-field-padding-y: var(--size-2);
+  --ps-field-padding-x: var(--size-3);
+  
+  /* Typography */
+  --ps-field-font-family: var(--font-sans);
+  --ps-field-font-size: var(--size-4);
+  --ps-field-font-weight: var(--font-weight-400);
+  --ps-field-line-height: var(--leading-normal);
+  
+  /* Colors - Default state */
+  --ps-field-bg: var(--white);
+  --ps-field-color: var(--text-primary);
+  --ps-field-border-color: var(--border-default);
+  --ps-field-placeholder-color: var(--text-secondary);
+  
+  /* Colors - Hover state */
+  --ps-field-hover-border-color: var(--border-light);
+  
+  /* Colors - Focus state */
+  --ps-field-focus-border-color: var(--black);
+  --ps-field-focus-shadow-color: var(--black);
+  
+  /* Colors - Error state */
+  --ps-field-error-border-color: var(--danger);
+  --ps-field-error-color: var(--danger);
+  
+  /* Colors - Success state */
+  --ps-field-success-border-color: var(--success);
+  --ps-field-success-color: var(--success);
+  
+  /* Colors - Disabled state */
+  --ps-field-disabled-bg: var(--bg-disabled);
+  --ps-field-disabled-color: var(--text-disabled);
+  --ps-field-disabled-border-color: var(--border-default);
+  
+  /* Borders */
+  --ps-field-border-width: var(--border-size-1);
+  --ps-field-border-radius: var(--radius-2);
+  --ps-field-focus-shadow-width: var(--border-size-1);
+  
+  /* Icon */
+  --ps-field-icon-size: var(--size-5);
+  --ps-field-icon-margin: var(--size-3);
+  --ps-field-icon-color: var(--gray-500);
+  --ps-field-icon-spacing-reduce: var(--size-2);
+  
+  /* Error message */
+  --ps-field-error-font-size: var(--size-305);
+  --ps-field-error-spacing: var(--size-7);
+  --ps-field-error-margin-top: var(--size-1);
+  
+  /* Transitions */
+  --ps-field-transition-duration: var(--duration-fast);
+  --ps-field-transition-timing: var(--ease-4);
+  
+  /* Textarea specific */
+  --ps-field-textarea-min-height: var(--size-20);
+  
+  /* ============================================
+     Apply Component Variables
+     ============================================ */
+  
+  /* Reset */
   margin: 0;
   padding: 0;
+  
+  /* Layout */
   display: inline-flex;
   position: relative;
   align-items: center;
-  width: 100%;
+  width: var(--ps-field-width);
   max-width: 100%;
-  min-height: var(--size-10);
-  background-color: var(--ps-color-field-bg);
-  border: var(--border-size-1) solid var(--ps-color-border-default);
-  border-radius: var(--radius-2);
+  min-height: var(--ps-field-min-height);
+  
+  /* Visual */
+  background-color: var(--ps-field-bg);
+  border: var(--ps-field-border-width) solid var(--ps-field-border-color);
+  border-radius: var(--ps-field-border-radius);
   box-shadow: inset 0 0 0 0 transparent;
+  
+  /* Transitions */
   transition:
-    border-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    border-color var(--ps-field-transition-duration) var(--ps-field-transition-timing),
+    background-color var(--ps-field-transition-duration) var(--ps-field-transition-timing),
+    box-shadow var(--ps-field-transition-duration) var(--ps-field-transition-timing);
+
+  /* ========================================
+   * Elements
+   * ======================================== */
 
   &__input {
+    /* Reset */
     margin: 0;
     border: none;
     outline: none;
     background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Layout */
     display: block;
     width: 100%;
     flex: 1;
-    padding: var(--size-2) var(--size-3);
     min-height: inherit;
-    font-family: var(--font-sans);
-    font-size: var(--size-4);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-normal);
-    color: var(--ps-color-field-text);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    padding: var(--ps-field-padding-y) var(--ps-field-padding-x);
+    
+    /* Typography */
+    font-family: var(--ps-field-font-family);
+    font-size: var(--ps-field-font-size);
+    font-weight: var(--ps-field-font-weight);
+    line-height: var(--ps-field-line-height);
+    color: var(--ps-field-color);
 
     &::placeholder {
-      color: var(--ps-color-field-placeholder);
+      color: var(--ps-field-placeholder-color);
       opacity: 1;
     }
   }
@@ -69,24 +146,17 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--size-5);
-    height: var(--size-5);
-    font-family: bnpre-icons;
-    font-size: var(--size-5);
-    font-style: normal;
-    font-weight: var(--font-weight-400);
-    line-height: 1;
-    color: var(--gray-500);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    width: var(--ps-field-icon-size);
+    height: var(--ps-field-icon-size);
+    color: var(--ps-field-icon-color);
 
     &--left {
-      margin-left: var(--size-3);
+      margin-left: var(--ps-field-icon-margin);
       order: -1;
     }
 
     &--right {
-      margin-right: var(--size-3);
+      margin-right: var(--ps-field-icon-margin);
       order: 1;
     }
   }
@@ -94,82 +164,99 @@
   &__error {
     display: block;
     position: absolute;
-    bottom: calc(-1 * var(--size-7));
+    bottom: calc(-1 * var(--ps-field-error-spacing));
     left: 0;
-    font-family: var(--font-sans);
-    font-size: var(--size-305);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-normal);
-    color: var(--ps-color-border-error);
-    margin-top: var(--size-1);
+    margin-top: var(--ps-field-error-margin-top);
+    font-family: var(--ps-field-font-family);
+    font-size: var(--ps-field-error-font-size);
+    font-weight: var(--ps-field-font-weight);
+    line-height: var(--ps-field-line-height);
+    color: var(--ps-field-error-color);
   }
 
+  /* ========================================
+   * States
+   * ======================================== */
+
   &:hover:not(&--disabled):not(&--error) {
-    border-color: var(--ps-color-border-hover);
+    --ps-field-border-color: var(--ps-field-hover-border-color);
   }
 
   &:focus-within:not(&--disabled):not(&--error):not(&--done) {
-    border-color: var(--black);
-    box-shadow: inset 0 0 0 var(--border-size-1) var(--black);
+    --ps-field-border-color: var(--ps-field-focus-border-color);
+    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-focus-shadow-color);
   }
 
-  &--error {
-    border-color: var(--ps-color-border-error);
-    box-shadow: inset 0 0 0 var(--border-size-1) var(--ps-color-border-error);
+  /* ========================================
+   * Modifiers - States
+   * ======================================== */
 
-    .ps-field__icon {
-      color: var(--ps-color-border-error);
+  &--error {
+    --ps-field-border-color: var(--ps-field-error-border-color);
+    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-error-border-color);
+
+    & .ps-field__icon {
+      color: var(--ps-field-error-color);
     }
   }
 
   &--disabled {
-    background-color: var(--ps-color-field-disabled-bg);
-    border-color: var(--ps-color-border-default);
+    --ps-field-bg: var(--ps-field-disabled-bg);
+    --ps-field-border-color: var(--ps-field-disabled-border-color);
     cursor: not-allowed;
 
-    .ps-field__input {
-      color: var(--gray-500);
+    & .ps-field__input {
+      color: var(--ps-field-disabled-color);
       cursor: not-allowed;
       user-select: none;
 
       &::placeholder {
-        color: var(--gray-400);
+        color: var(--ps-field-disabled-color);
+        opacity: 0.7;
       }
     }
 
-    .ps-field__icon {
-      color: var(--ps-color-field-disabled-text);
+    & .ps-field__icon {
+      color: var(--ps-field-disabled-color);
     }
   }
 
-  &--filled .ps-field__input {
-    font-weight: var(--font-weight-400);
+  &--filled & .ps-field__input {
+    font-weight: var(--ps-field-font-weight);
   }
 
   &--done {
-    border-color: var(--ps-color-border-success);
-    box-shadow: inset 0 0 0 var(--border-size-1) var(--ps-color-border-success);
+    --ps-field-border-color: var(--ps-field-success-border-color);
+    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-success-border-color);
 
-    .ps-field__icon {
-      color: var(--ps-color-border-success);
+    & .ps-field__icon {
+      color: var(--ps-field-success-color);
     }
   }
 
-  &--icon-left .ps-field__input {
-    padding-left: var(--size-2);
+  /* ========================================
+   * Modifiers - Icon Position
+   * ======================================== */
+
+  &--icon-left & .ps-field__input {
+    padding-left: var(--ps-field-icon-spacing-reduce);
   }
 
-  &--icon-right .ps-field__input {
-    padding-right: var(--size-2);
+  &--icon-right & .ps-field__input {
+    padding-right: var(--ps-field-icon-spacing-reduce);
   }
 
-  &--select .ps-field__input,
-  &--dropdown .ps-field__input {
+  /* ========================================
+   * Modifiers - Field Types
+   * ======================================== */
+
+  &--select & .ps-field__input,
+  &--dropdown & .ps-field__input {
     cursor: pointer;
     user-select: none;
   }
 
-  &--number .ps-field__input {
+  &--number & .ps-field__input {
     -moz-appearance: textfield;
 
     &::-webkit-outer-spin-button,
@@ -184,9 +271,13 @@
   }
 }
 
+/* ========================================
+ * Textarea Specific Styles
+ * ======================================== */
+
 textarea.ps-field__input {
   resize: vertical;
-  min-height: var(--size-20);
-  padding-top: var(--size-2);
-  padding-bottom: var(--size-2);
+  min-height: var(--ps-field-textarea-min-height);
+  padding-top: var(--ps-field-padding-y);
+  padding-bottom: var(--ps-field-padding-y);
 }

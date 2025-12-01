@@ -47,7 +47,7 @@
   {% if attributes %}{{ attributes }}{% endif %}
 >
   {%- if icon and iconPosition == 'left' -%}
-    <i class="ps-field__icon ps-field__icon--left icon-{{ icon }}" aria-hidden="true"></i>
+    <span class="ps-field__icon ps-field__icon--left" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 
   {%- if type == 'textarea' -%}
@@ -78,7 +78,7 @@
   {%- endif -%}
 
   {%- if icon and iconPosition == 'right' -%}
-    <i class="ps-field__icon ps-field__icon--right icon-{{ icon }}" aria-hidden="true"></i>
+    <span class="ps-field__icon ps-field__icon--right" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 
   {%- if error -%}

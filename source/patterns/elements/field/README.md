@@ -48,35 +48,149 @@ Modifiers:
 
 ## Design Tokens Used
 
-### Colors
-- `--ps-color-field-bg` - Field background (white)
-- `--ps-color-field-text` - Field text color (#333333)
-- `--ps-color-field-placeholder` - Placeholder text color (gray)
-- `--ps-color-field-disabled-bg` - Disabled background (light gray)
-- `--ps-color-field-disabled-text` - Disabled text color (gray)
-- `--ps-color-border-default` - Default border color (#D6DBDE)
-- `--ps-color-border-hover` - Hover border color (darker gray)
-- `--ps-color-border-focus` - Focus border color (#0288D1 blue)
-- `--ps-color-border-error` - Error border color (#EB3636 red)
-- `--ps-color-border-success` - Success border color (BNP green)
+### Layer 1: Root Tokens (Global)
 
-### Spacing & Sizing
-- `--size-2` (8px) - Input padding vertical, icon margins
-- `--size-3` (12px) - Input padding horizontal, icon spacing
-- `--size-4` (16px) - Base font size
-- `--size-5` (20px) - Icon size
-- `--size-10` (40px) - Minimum field height
-- `--size-20` (80px) - Minimum textarea height
-- `--size-305` (14px) - Error message font size
+#### Colors (Semantic)
+- `--white` - Field background (white)
+- `--black` - Focus border color
+- `--text-primary` - Field text color (#333333)
+- `--text-secondary` - Placeholder text color (gray-500)
+- `--text-disabled` - Disabled text color (gray-400)
+- `--border-default` - Default border color (#D6DBDE)
+- `--border-light` - Hover border color (lighter gray)
+- `--danger` - Error border/text color (#EB3636 - BNP official red)
+- `--success` - Success border/icon color (green - BNP official)
+- `--bg-disabled` - Disabled background (light gray #F9F9FB)
+- `--gray-500` - Icon color default
 
-### Borders & Radii
-- `--border-size-2` (2px) - Border width
+#### Spacing
+- `--size-2` (0.5rem / 8px) - Input padding vertical
+- `--size-3` (0.75rem / 12px) - Input padding horizontal, icon margins
+- `--size-4` (1rem / 16px) - Base font size
+- `--size-5` (1.25rem / 20px) - Icon size
+- `--size-7` (1.75rem / 28px) - Error spacing
+- `--size-10` (2.5rem / 40px) - Minimum field height
+- `--size-20` (5rem / 80px) - Minimum textarea height
+- `--size-305` (0.875rem / 14px) - Error message font size
+
+#### Borders & Radii
+- `--border-size-1` (1px) - Border width
 - `--radius-2` (4px) - Border radius
 
-### Typography
-- `--font-sans` - Font family
+#### Typography
+- `--font-sans` - Font family (BNPP Sans)
 - `--font-weight-400` - Regular font weight
 - `--leading-normal` - Line height
+
+#### Transitions
+- `--duration-fast` (150ms) - Transition duration
+- `--ease-4` - Cubic bezier timing function
+
+### Layer 2: Component-Scoped Variables
+
+The field component uses component-scoped variables for easy customization (Bootstrap 5 pattern):
+
+```css
+/* Sizing */
+--ps-field-min-height: var(--size-10);
+--ps-field-width: 100%;
+
+/* Spacing */
+--ps-field-padding-y: var(--size-2);
+--ps-field-padding-x: var(--size-3);
+
+/* Typography */
+--ps-field-font-family: var(--font-sans);
+--ps-field-font-size: var(--size-4);
+--ps-field-font-weight: var(--font-weight-400);
+--ps-field-line-height: var(--leading-normal);
+
+/* Colors - Default state */
+--ps-field-bg: var(--white);
+--ps-field-color: var(--text-primary);
+--ps-field-border-color: var(--border-default);
+--ps-field-placeholder-color: var(--text-secondary);
+
+/* Colors - Hover state */
+--ps-field-hover-border-color: var(--border-light);
+
+/* Colors - Focus state */
+--ps-field-focus-border-color: var(--black);
+--ps-field-focus-shadow-color: var(--black);
+
+/* Colors - Error state */
+--ps-field-error-border-color: var(--danger);
+--ps-field-error-color: var(--danger);
+
+/* Colors - Success state */
+--ps-field-success-border-color: var(--success);
+--ps-field-success-color: var(--success);
+
+/* Colors - Disabled state */
+--ps-field-disabled-bg: var(--bg-disabled);
+--ps-field-disabled-color: var(--text-disabled);
+--ps-field-disabled-border-color: var(--border-default);
+
+/* Borders */
+--ps-field-border-width: var(--border-size-1);
+--ps-field-border-radius: var(--radius-2);
+--ps-field-focus-shadow-width: var(--border-size-1);
+
+/* Icon */
+--ps-field-icon-size: var(--size-5);
+--ps-field-icon-margin: var(--size-3);
+--ps-field-icon-color: var(--gray-500);
+--ps-field-icon-spacing-reduce: var(--size-2);
+
+/* Error message */
+--ps-field-error-font-size: var(--size-305);
+--ps-field-error-spacing: var(--size-7);
+--ps-field-error-margin-top: var(--size-1);
+
+/* Transitions */
+--ps-field-transition-duration: var(--duration-fast);
+--ps-field-transition-timing: var(--ease-4);
+
+/* Textarea specific */
+--ps-field-textarea-min-height: var(--size-20);
+```
+
+#### Customization Examples
+
+**Context Override:**
+```css
+/* Compact fields in sidebar */
+.sidebar .ps-field {
+  --ps-field-min-height: var(--size-8);
+  --ps-field-padding-y: var(--size-1);
+  --ps-field-font-size: var(--size-3);
+}
+```
+
+**Theme Override:**
+```css
+/* Dark theme fields */
+[data-theme="dark"] .ps-field {
+  --ps-field-bg: var(--gray-800);
+  --ps-field-color: var(--white);
+  --ps-field-border-color: var(--gray-700);
+}
+```
+
+**Inline Override:**
+```html
+<div class="ps-field" style="--ps-field-border-color: var(--primary);">
+  <input class="ps-field__input" type="text" placeholder="Custom border" />
+</div>
+```
+
+**JavaScript Override:**
+```javascript
+document.querySelector('.ps-field').style.setProperty(
+  '--ps-field-focus-border-color', 
+  'var(--primary)'
+);
+```
 
 ## Usage Examples
 
@@ -251,14 +365,17 @@ Green border (`--ps-color-border-success`) indicating validated/successful input
 
 ## Notes
 
-- Icon display requires the `bnpre-icons` icon font to be loaded
-- Icon positioning adjusts input padding automatically
+- Icons use the centralized `data-icon` attribute system (managed by `icons.css`)
+- Icon name passed WITHOUT "icon-" prefix (e.g., `icon: 'search'` not `icon: 'icon-search'`)
+- Icon positioning adjusts input padding automatically via component variables
 - Textarea resizes vertically by default (`resize: vertical`)
 - Number input hides native browser spinners
 - Select field is styled as combobox, actual dropdown functionality requires JavaScript
 - This component does NOT include labels - use the `form-field` molecule for complete form fields
 - All spacing uses design tokens for consistency
 - Border widths and colors follow brand guidelines
+- **Component-scoped variables** enable easy runtime customization
+- **3-layer cascade system**: Root tokens → Component variables → Context overrides
 
 ## Related Components
 
@@ -279,7 +396,11 @@ Green border (`--ps-color-border-success`) indicating validated/successful input
 ✅ Interactive states (hover, focus, active, disabled)  
 ✅ Pixel-perfect implementation matching design specs  
 ✅ Error handling and validation states  
-✅ Icon support (left/right positioning)  
+✅ Icon support with centralized `data-icon` system  
+✅ **Component-scoped variables implemented (Bootstrap 5 pattern)**  
+✅ **3-layer variable cascade (Root → Component → Context)**  
+✅ **Runtime customization support via CSS variables**  
+✅ **All transitions use design tokens**  
 
 ## Version
 
