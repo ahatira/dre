@@ -1,0 +1,78 @@
+{#
+ * FormField (Molecule) - Complete form field with label, input, helper, and error message
+ * Wraps ps-field (atom) with label, helper text, and error messages.
+ *
+ * @param string label - Label text for the field (required)
+ * @param string id - Unique ID for field and label association (optional, auto-generated if not provided)
+ * @param object field - Props to pass through to ps-field component (required):
+ *   - type: 'text'|'email'|'number'|'search'|'select'|'textarea' (default: 'text')
+ *   - value: field value
+ *   - placeholder: placeholder text
+ *   - disabled: disabled state
+ *   - icon: icon name without "icon-" prefix
+ *   - iconPosition: 'left'|'right' (default: 'right')
+ * @param string helperText - Optional helper text below field
+ * @param string error - Error message to display (sets error state)
+ * @param boolean required - Mark field as required (default: false)
+ * @param boolean disabled - Disable entire field group (default: false)
+ * @param object attributes - Additional HTML attributes for wrapper
+ #}
+
+{%- set label = label|default('') -%}
+{%- set id = id|default('field-' ~ random()) -%}
+{%- set field = field|default({}) -%}
+{%- set helperText = helperText|default('') -%}
+{%- set error = error|default('') -%}
+{%- set required = required|default(false) -%}
+{%- set disabled = disabled|default(false) -%}
+
+{# Merge disabled state from form-field to field #}
+{%- if disabled -%}
+  {%- set field = field|merge({ disabled: true }) -%}
+{%- endif -%}
+
+{# Merge error state from form-field to field #}
+{%- if error -%}
+  {%- set field = field|merge({ error: error }) -%}
+{%- endif -%}
+
+{# Build wrapper classes - only add modifiers when value differs from default #}
+{%- set classes = ['ps-form-field'] -%}
+{%- if required -%}
+  {%- set classes = classes|merge(['ps-form-field--required']) -%}
+{%- endif -%}
+{%- if error -%}
+  {%- set classes = classes|merge(['ps-form-field--error']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-form-field--disabled']) -%}
+{%- endif -%}
+
+<div
+  class="{{ classes|join(' ')|trim }}"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  {%- if label -%}
+    <label class="ps-form-field__label" for="{{ id }}">
+      {{ label }}
+      {%- if required -%}
+        <span class="ps-form-field__required-indicator" aria-label="required">*</span>
+      {%- endif -%}
+    </label>
+  {%- endif -%}
+
+  <div class="ps-form-field__input-wrapper">
+    {# Pass through field props to ps-field atom, add ID for label association #}
+    {% include '@elements/field/field.twig' with field|merge({ attributes: create_attribute({ 'id': id }) }) %}
+  </div>
+
+  {%- if helperText and not error -%}
+    <div class="ps-form-field__helper" id="{{ id }}-helper">{{ helperText }}</div>
+  {%- endif -%}
+
+  {%- if error -%}
+    <div class="ps-form-field__error" id="{{ id }}-error" role="alert" aria-live="polite">
+      {{ error }}
+    </div>
+  {%- endif -%}
+</div>
