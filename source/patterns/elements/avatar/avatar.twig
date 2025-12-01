@@ -26,9 +26,6 @@
 {%- if size != 'md' -%}
   {%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--' ~ size]) -%}
 {%- endif -%}
-{%- if status -%}
-  {%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--has-status']) -%}
-{%- endif -%}
 
 {%- set avatar_classes = ['ps-avatar'] -%}
 {%- if shape != 'circle' -%}
@@ -49,10 +46,9 @@
 
 {%- set tag = href ? 'a' : 'div' -%}
 
-<div class="{{ wrapper_classes|join(' ')|trim }}">
+<div class="{{ wrapper_classes|join(' ')|trim }}"{%- if attributes %} {{ attributes }}{% endif -%}>
   <{{ tag }} class="{{ avatar_classes|join(' ')|trim }}"
     {%- if href %}href="{{ href }}"{% endif -%}
-    {%- if clickable and href %}role="link"{% endif -%}
   >
     {%- if has_image -%}
       <img class="ps-avatar__image" src="{{ src }}" alt="{{ alt|default('') }}" loading="lazy" />

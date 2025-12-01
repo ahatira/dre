@@ -196,3 +196,38 @@ export const RoundedScaling = {
     </div>
   `,
 };
+
+export const StatusMatrix = {
+  render: () => {
+    const statuses = ['online', 'offline', 'busy'];
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    const gridCols = sizes.length + 1;
+    const headRow = [
+      '<div class="cell cell--label"></div>',
+      ...sizes.map((s) => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
+    ].join('');
+    const rows = statuses
+      .map((status) => {
+        const label = `<div class=\"cell cell--label\">${status}</div>`;
+        const cells = sizes
+          .map(
+            (s) =>
+              `<div class=\"cell\">${avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', status, size: s, alt: `${status} ${s}` })}</div>`
+          )
+          .join('');
+        return label + cells;
+      })
+      .join('');
+
+    return `
+      <div style="display:grid;grid-template-columns:repeat(${gridCols}, auto);gap:12px;align-items:center;">
+        <style>
+          .cell--label{font:600 var(--font-size-0)/1 var(--font-sans);color:var(--gray-600);text-transform:capitalize}
+          .cell{display:flex;align-items:center;justify-content:center}
+        </style>
+        ${headRow}
+        ${rows}
+      </div>
+    `;
+  },
+};

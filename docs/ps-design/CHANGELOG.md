@@ -4,6 +4,17 @@
 
 ## 2025
 
+- 2025-12-01: **Standards Harmonization (Transitions) + MDX cleanup**
+  - **Transitions tokenisées** : remplacement de tous les exemples `150ms cubic-bezier(0.4, 0.0, 0.2, 1)` par tokens `var(--duration-fast) var(--ease-3)`
+    - Fichiers mis à jour : `.github/CSS_STANDARDS.md`, `.github/COMPLETE_RULES.md`, `.github/CSS_VARIABLES_SYSTEM.md`, `.github/COMPONENT_TEMPLATE_STANDARD.md`
+    - Multipropriétés: `background|color|transform` désormais avec `var(--duration-fast) var(--ease-3)`
+    - Checklists mises à jour pour exiger l’usage des tokens (durée + easing)
+  - **Storybook Docs** : suppression de `source/patterns/elements/avatar/avatar.mdx` (conflit avec Autodocs) → Autodocs seul
+  - **Builds** :
+    - `npm run build` ✓ (Biome: 0 issues, Vite OK, CSS 151.10 kB)
+    - `npm run storybook:build` ✓ (sortie `storybook/` générée)
+  - Impact: documentation/standards uniquement (aucun changement fonctionnel côté composants)
+
 - 2025-12-01: **Base Stories Completeness Audit** - Vérification et correction complète des stories de tokens
   - **Audit systématique** : Vérification de toutes les stories `source/patterns/base/` pour s'assurer qu'elles documentent 100% des tokens de leurs fichiers props respectifs
   - **Borders story complétée** : Ajout de 5 border colors (--border-default, --border-light, --border-focus, --border-error, --border-success) depuis brand.css

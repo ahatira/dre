@@ -115,9 +115,9 @@ source/patterns/{category}/{component-name}/
   
   /* Transitions */
   transition: 
-    background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    background-color var(--duration-fast) var(--ease-3),
+    color var(--duration-fast) var(--ease-3),
+    transform var(--duration-fast) var(--ease-3);
   
   /* States */
   &:hover {
@@ -199,9 +199,10 @@ disabled: false
 - ❌ **JAMAIS d'import React** (Storybook HTML/Vite)
 - ✅ **Import du Twig** : `import component from './component.twig';`
 - ✅ **Import des données** : `import data from './component.yml';`
-- Render via fonction Twig : `render: (args) => component(args)`
-- Stories multiples pour variants, sizes, états
-- Un `AllVariants` showcase obligatoire
+- ✅ Render via fonction Twig : `render: (args) => component(args)`
+- ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
+- ✅ Stories: `Default` + showcases groupés (ex: `AllVariants`, `AllSizes`, `UseCases`)
+- ❌ Pas de stories individuelles (Primary, Secondary, Small, etc.)
 
 **Template exact à suivre :**
 
@@ -262,14 +263,6 @@ export const Default = {
   args: { ...data },
 };
 
-export const Variant1 = {
-  render: () => component({ paramName: 'value', variant: 'variant1' }),
-};
-
-export const Variant2 = {
-  render: () => component({ paramName: 'value', variant: 'variant2' }),
-};
-
 export const AllVariants = {
   render: () => `
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
@@ -309,7 +302,7 @@ export default settings;
 Avant de considérer un composant terminé :
 
 ### Fichiers
-- [ ] Les 5 fichiers existent : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md` (optionnel)
+- [ ] Les 5 fichiers existent : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
 - [ ] Nomenclature cohérente : même nom pour tous les fichiers
 
 ### Twig

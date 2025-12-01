@@ -115,7 +115,7 @@ source/
   padding: var(--size-4);
   background: var(--gray-100);
   border-radius: var(--radius-2);
-  transition: background 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: background var(--duration-fast) var(--ease-3);
 }
 
 /* ❌ INCORRECT - One-liner (sauf cas très simples) */
@@ -408,7 +408,7 @@ Le projet utilise `postcss-nested` → **Nesting natif supporté**.
   padding: var(--size-2) var(--size-4);
   background: var(--btn-primary);
   color: var(--white);
-  transition: background 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: background var(--duration-fast) var(--ease-3);
   
   &:hover:not(:disabled) {
     background: var(--btn-primary-hover);
@@ -544,9 +544,9 @@ Le projet utilise `postcss-nested` → **Nesting natif supporté**.
   background: var(--gray-200);
   color: var(--gray-900);
   transition: 
-    background 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-    transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    background var(--duration-fast) var(--ease-3),
+    color var(--duration-fast) var(--ease-3),
+    transform var(--duration-fast) var(--ease-3);
   
   /* Hover state */
   &:hover:not(:disabled):not(.ps-component--disabled) {
@@ -579,14 +579,14 @@ Le projet utilise `postcss-nested` → **Nesting natif supporté**.
 ### Transitions Standard
 
 ```css
-/* Transition cubic-bezier standard (Material Design ease-out) */
-transition: property 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+/* Tokenized transition standard (duration + easing tokens) */
+transition: property var(--duration-fast) var(--ease-3);
 
 /* Multiples propriétés */
 transition: 
-  background 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-  color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-  transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  background var(--duration-fast) var(--ease-3),
+  color var(--duration-fast) var(--ease-3),
+  transform var(--duration-fast) var(--ease-3);
 ```
 
 ---
@@ -711,6 +711,7 @@ Utiliser avec parcimonie pour animations fréquentes :
 - [ ] **Cascade correcte** : Base avant modifiers (spécificité)
 - [ ] **Focus visible** : `:focus-visible` sur tous les interactifs
 - [ ] **Transitions** : Cubic-bezier standard `(0.4, 0.0, 0.2, 1)`
+ - [ ] **Transitions** : Duration + easing via tokens (`var(--duration-*)`, `var(--ease-*)`)
 - [ ] **Commentaires** : Sections et règles complexes documentées
 - [ ] **Stylelint pass** : `npm run stylelint:check`
 

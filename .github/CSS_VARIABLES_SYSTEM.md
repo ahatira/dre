@@ -142,7 +142,7 @@
   --ps-button-color: var(--ps-white);
   --ps-button-border-radius: var(--ps-radius-1);
   --ps-button-font-weight: var(--ps-font-weight-600);
-  --ps-button-transition: 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ps-button-transition: var(--ps-duration-fast) var(--ps-ease-3);
   
   /* Apply component variables */
   padding: var(--ps-button-padding-y) var(--ps-button-padding-x);

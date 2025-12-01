@@ -233,7 +233,7 @@ source/props/
   font-size: var(--font-size-2);              /* ✅ */
   padding: var(--size-3) var(--size-6);       /* ✅ */
   border-radius: var(--radius-4);             /* ✅ */
-  transition: 150ms cubic-bezier(0.4, 0.0, 0.2, 1); /* ✅ */
+  transition: var(--duration-fast) var(--ease-3); /* ✅ */
 }
 ```
 
@@ -1416,9 +1416,9 @@ div.ps-component.ps-component--primary { }
 ```css
 /* ✅ CORRECT - Propriétés spécifiques */
 transition:
-  background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-  color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-  transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  background-color var(--duration-fast) var(--ease-3),
+  color var(--duration-fast) var(--ease-3),
+  transform var(--duration-fast) var(--ease-3);
 
 /* ❌ À ÉVITER - Transition all (moins performant) */
 transition: all 150ms ease;
@@ -1528,6 +1528,7 @@ Avant de considérer un composant terminé, **VALIDER TOUS CES POINTS** :
 - [ ] **Modifiers indépendants** (fonctionnent seuls)
 - [ ] **Focus-visible** sur éléments interactifs
 - [ ] **Transitions** avec cubic-bezier standard
+ - [ ] **Transitions** avec tokens (duration + easing)
 - [ ] **Contraste WCAG AA** respecté
 
 ### Storybook

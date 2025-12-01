@@ -55,7 +55,7 @@
   
   &--xl {
     --ps-avatar-size: var(--size-20); /* 80px */
-    --ps-avatar-text-size: var(--size-9); /* 36px */
+    --ps-avatar-text-size: var(--font-size-8); /* 36px */
     --ps-avatar-icon-size: var(--size-10); /* 40px */
     --ps-avatar-rounded-radius: var(--radius-6); /* 16px */
   }
@@ -145,7 +145,7 @@
   
   &--clickable {
     cursor: pointer;
-    transition: transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: transform var(--duration-fast) var(--ease-3);
     
     &:hover {
       transform: scale(1.05);

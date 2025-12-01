@@ -29,11 +29,11 @@ User or entity visual representation with automatic fallback hierarchy.
 </div>
 
 {# Icon fallback with status #}
-<div class="ps-avatar-wrapper ps-avatar-wrapper--has-status">
+<div class="ps-avatar-wrapper">
   <div class="ps-avatar ps-avatar--icon">
     <span class="ps-avatar__icon" data-agent="male" aria-hidden="true"></span>
   </div>
-  <span class="ps-avatar__status ps-avatar__status--online" aria-label="Online"></span>
+  <span class="ps-avatar__status" data-status="online" aria-label="Online"></span>
 </div>
 ```
 
@@ -92,7 +92,8 @@ User or entity visual representation with automatic fallback hierarchy.
 ```css
 .sidebar .ps-avatar { --ps-avatar-bg: var(--purple); }
 ```
-- Status variants: `--online` `--offline` `--busy`
+- Status variants are applied via `data-status` attribute on `.ps-avatar__status`:
+  - `data-status="online" | "offline" | "busy"`
 
 ## Display Mode Hierarchy
 1. **Image** (if `src` provided) → `<img class="ps-avatar__image">`
@@ -117,7 +118,7 @@ All properties wrapped in `--ps-avatar-*` variables for runtime customization (s
 - **Image mode**: `alt` attribute required (screen reader label).
 - **Initials mode**: Text rendered directly (readable, no aria needed).
 - **Icon mode**: `aria-hidden="true"` (decorative fallback only).
-- **Status badge**: `aria-label` with descriptive text ("Online", "Busy", "Offline").
+- **Status badge**: `aria-label` with descriptive text ("Online", "Busy", "Offline"). Use `data-status` for visual state.
 - **Focus**: Outline 2px only when `clickable=true`; keyboard navigable.
 - **Contrast**: Initials white on green (7.2:1 AAA); icon gray on light (4.8:1 AA).
 
@@ -162,7 +163,7 @@ All properties wrapped in `--ps-avatar-*` variables for runtime customization (s
 ## Migration Notes
 - Icon fallback uses CSS mask with gender data-attribute; SVG files at `source/assets/images/agent/male.svg` and `female.svg`.
 - Rounded radius adapts per size via responsive BEM nesting (4px xs → 16px xl).
-- Status badge sized at 30% wrapper with 8px minimum.
+- Status badge colors are controlled via `data-status` selectors.
 
 ## Audit Checklist
 - No hardcoded dimensions/colors.

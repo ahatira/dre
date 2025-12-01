@@ -1,5 +1,12 @@
 # Copilot Instructions for PS Theme (Surface)
 
+## At-a-Glance
+- Start here: `.github/COMPLETE_RULES.md` (single source of truth)
+- Required files: `.twig`, `.css`, `.yml`, `.stories.jsx` (Autodocs), `README.md`
+- Tokens only: no hardcoded sizes/colors/transitions
+- BEM strict + minimal markup (defaults without modifiers)
+- Storybook: HTML + Autodocs (two-line description), JS behaviors imported globally
+
 ## Project Overview
 - **PS Theme** is a custom Drupal theme for BNP Paribas RealEstate, compatible with Drupal 10/11.
 - Built with [Storybook](https://storybook.js.org/) (HTML edition) and [Vite](https://vitejs.dev/) (Vanilla JS edition).
@@ -22,12 +29,11 @@
 - **JavaScript** : ES6, comportements modulaires.
 
 ## Developer Workflows
-- **Build** : `npm run build` (compile tous les assets ; à exécuter en premier sur nouveau setup)
-- **Watch/Dev** : `npm run watch` (lance Vite + Storybook, nettoie `dist/`, lint, watch changements)
-- **Storybook Build** : `npm run storybook:build` (build statique dans `/storybook`)
-- **Storybook Dev** : Accessible sur [http://localhost:6006](http://localhost:6006) après `npm run watch`
-- **Vite Config** : Détails des tâches build/watch dans `vite.config.js`
-- **JavaScript dans Storybook** : Les comportements JS des composants doivent être importés **globalement** dans `.storybook/preview.js`, pas dans les fichiers `.stories.jsx` individuels (voir section JavaScript Integration)
+- **Build** : `npm run build` — compile assets + lint/format checks
+- **Watch/Dev** : `npm run watch` — Vite + Storybook (http://localhost:6006)
+- **Storybook Build** : `npm run storybook:build` — sortie statique `storybook/`
+- **Lint/Format** : exécutés via build/watch (voir `vite.config.js`)
+- **Config** : détails des tâches dans `vite.config.js`
 
 ## Conventions & Patterns
 - **Component Naming** : Utiliser categories spécifiques (elements, components, collections, layouts, pages).
@@ -37,8 +43,10 @@
   1. `.twig` - Template avec params commentés
   2. `.css` - Styles BEM avec tokens uniquement
   3. `.yml` - Données par défaut pour preview
-  4. `.stories.jsx` - Stories Storybook (variants)
-  5. `.mdx` - Documentation Storybook (opening description ≤ 2 lines)
+  4. `.stories.jsx` - Stories Storybook (Default + showcases + Autodocs)
+  5. `README.md` - Documentation (Props, BEM, Tokens, Usage, Accessibility)
+  
+  Note: La documentation Storybook est fournie via Autodocs dans `.stories.jsx` en utilisant `parameters.docs.description.component` (≤ 2 lignes). Les fichiers `.mdx` sont facultatifs et réservés aux composants complexes si besoin spécifique.
 - **Intégration Drupal** : Exemples dans `templates/`.
 - **Linting** : Automatique via watch/build (voir `vite.config.js`).
 - **Demo** : Storybook statique [ici](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/).
@@ -166,20 +174,16 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 - **Decorative icon**: `<span data-icon="check">` (no "icon-" prefix)
 - Component CSS: NO `[data-icon]` mappings (centralized in `icons.css`)
 
-### 8. Storybook (NO REACT)
+### 8. Storybook (Autodocs, HTML)
 - ✅ Import: `import componentTwig from './component.twig';`
 - ✅ Render: `render: (args) => componentTwig(args)`
 - ✅ Stories: Default + Showcases (AllColors, AllSizes, UseCases)
 - ❌ NO individual stories (Primary, Secondary, Small, etc.)
 - ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
+ - ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
 
 ### 11. Required Files (5 ALWAYS)
-- `.twig` - Template with commented params
-- `.css` - Tokens + nesting + BEM
-- `.yml` - Defaults + comments
-- `.stories.jsx` - Default + showcases + Autodocs
-- `README.md` - Props table + BEM + tokens + usage + accessibility
-- `.js` (optional) - If component needs JavaScript, create behavior file and import in `.storybook/preview.js`
+See single source under "Conventions & Patterns" → "Structure de composant" (5 required files). Avoid duplicating this list elsewhere.
 
 ### 10. BEM Strict
 - ✅ Prefix `ps-` mandatory
@@ -194,15 +198,12 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 
 ## 📋 Implementation Workflow
 
-1. **Read spec**: `docs/design/{level}/{component}.md` (COMPLETE, all sections)
-2. **Verify tokens**: `grep -r` in `source/props/` before creating new
-3. **Follow template**: `.github/COMPONENT_TEMPLATE_STANDARD.md` (5 files structure)
-4. **Apply rules**: `.github/COMPLETE_RULES.md` (all 20 sections)
-5. **Build**: `npm run build` (check errors)
-6. **Test**: `npm run watch` → Storybook visual verification
-7. **Audit**: "Vérifie la cohérence du composant [Name] avec nos règles du projet"
-8. **Commit**: Structured message with detailed changes
-9. **Update**: `docs/ps-design/CHANGELOG.md`
+1. Read spec: `docs/design/{level}/{component}.md` (complete)
+2. Create 5 files using `.github/COMPONENT_TEMPLATE_STANDARD.md`
+3. Apply rules: `.github/COMPLETE_RULES.md` (tokens, BEM, nesting, a11y)
+4. Build and verify: `npm run build` → then `npm run watch` for visual checks
+5. Audit and fix: run the conformity audit prompt if needed
+6. Commit (structured) and update `docs/ps-design/CHANGELOG.md`
 
 ## 🚨 Zero Tolerance Rules
 
@@ -218,7 +219,7 @@ These will ALWAYS be rejected:
 - Classes for default values in markup
 - Flat CSS without nesting (new components)
 - Skipping accessibility (focus-visible, ARIA, contrast)
- - Overly long component descriptions (Storybook/MDX): opening text must be ≤ two lines
+- Overly long component descriptions (Storybook Autodocs): opening text must be ≤ two lines
 
 ## 📚 Complete Documentation Hierarchy
 
