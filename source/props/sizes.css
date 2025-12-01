@@ -1,4 +1,7 @@
 :where(html) {
+  /* ============================================
+     Base Spacing Scale (4px increments)
+     ============================================ */
   --size-px: 0.063rem; /* 1px */
   --size-05: 0.125rem; /* 2px */
   --size-1: 0.25rem;   /* 4px */
@@ -18,11 +21,16 @@
   --size-12: 3rem;     /* 48px */
   --size-13: 3.25rem;  /* 52px */
   --size-14: 3.5rem;   /* 56px */
-  --size-20: 5rem;     /* 80px - Ajout pour avatar xl */
   --size-15: 3.75rem;  /* 60px */
   --size-16: 4rem;     /* 64px */
+  --size-17: 4.25rem;  /* 68px */
   --size-18: 4.5rem;   /* 72px */
+  --size-19: 4.75rem;  /* 76px */
   --size-20: 5rem;     /* 80px */
+
+  /* ============================================
+     Large Spacing Scale (8px+ increments)
+     ============================================ */
   --size-22: 5.5rem;   /* 88px */
   --size-24: 6rem;     /* 96px */
   --size-25: 6.25rem;  /* 100px */
@@ -39,14 +47,18 @@
   --size-52: 13rem;    /* 208px */
   --size-56: 14rem;    /* 224px */
   --size-60: 15rem;    /* 240px */
-  --size-61: 15.3rem;  /* 245px */
   --size-64: 16rem;    /* 256px */
   --size-72: 18rem;    /* 288px */
-  --size-75: 18.8rem;  /* 300px */
   --size-80: 20rem;    /* 320px */
   --size-84: 21rem;    /* 336px */
   --size-96: 24rem;    /* 384px */
-  --size-113: 28.1rem;  /* 450px */
+
+  /* ============================================
+     Custom Sizes (component-specific from Figma)
+     ============================================ */
+  --size-61: 15.3rem;  /* 245px - specific component requirement */
+  --size-75: 18.75rem; /* 300px - rounded from Figma */
+  --size-113: 28.125rem; /* 450px - rounded from Figma */
   --size-fluid-1: clamp(0.5rem, 1vw, 1rem);
   --size-fluid-2: clamp(1rem, 2vw, 1.5rem);
   --size-fluid-3: clamp(1.5rem, 3vw, 2rem);
@@ -57,24 +69,35 @@
   --size-fluid-8: clamp(10rem, 20vw, 15rem);
   --size-fluid-9: clamp(15rem, 30vw, 20rem);
   --size-fluid-10: clamp(20rem, 40vw, 30rem);
+
+  /* ============================================
+     Content Width Scales (character-based)
+     ============================================ */
   --size-content-1: 20ch;
   --size-content-2: 45ch;
   --size-content-3: 60ch;
   --size-header-1: 20ch;
   --size-header-2: 25ch;
   --size-header-3: 35ch;
+
+  /* ============================================
+     Breakpoints & Container Widths (px-based)
+     ============================================ */
   --size-mobile: 640px;
   --size-mobile-large: 720px;
   --size-tablet: 768px;
-  --size-laptop: 1024px;
-  --size-desktop: 1280px;
-  --size-max-content-width: 1376px;
-  --size-container: 1440px;
   --size-max-site-width: 1900px;
 
-  /* Label tokens */
-  --ps-spacing-1: var(--size-1);
-  --ps-spacing-2: var(--size-2);
+  /* ============================================
+     Component-Specific Spacing & Dimensions
+     ============================================ */
+  
+  /* General spacing aliases */-width: 1376px;
+  --ps-spacing-1: var(--size-1); /* 4px */
+  --ps-spacing-2: var(--size-2); /* 8px */
+  --ps-spacing-3: var(--size-3); /* 12px */
+  --ps-spacing-4: var(--size-4); /* 16px */
+  --ps-spacing-5: var(--size-5); /* 20px */
   /* Added spacing tokens for accordion component (padding/gaps) */
   --ps-spacing-3: var(--size-3);
   --ps-spacing-4: var(--size-4);
