@@ -1,8 +1,8 @@
 :where([data-theme="surface"]) {
   --font-body: helvetica, sans-serif;
   --font-heading: helvetica, sans-serif;
-  --blockquote-border-color: var(--brand-primary);
-  --blockquote-color: var(--brand-primary);
+  --blockquote-border-color: var(--primary);
+  --blockquote-color: var(--primary);
   /* Progress striped gradient token */
   --progress-striped-gradient: linear-gradient(
     45deg,
