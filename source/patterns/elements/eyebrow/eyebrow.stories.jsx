@@ -25,10 +25,10 @@ const settings = {
     variant: {
       description: 'Semantic color variant.',
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'accent', 'neutral', 'muted'],
+      options: ['primary', 'secondary', 'info', 'neutral', 'muted'],
       table: {
         category: 'Appearance',
-        type: { summary: 'primary | secondary | accent | neutral | muted' },
+        type: { summary: 'primary | secondary | info | neutral | muted' },
         defaultValue: { summary: 'neutral' },
       },
     },
@@ -108,8 +108,8 @@ export const AllVariants = {
         ${eyebrowTwig({ text: 'Article', variant: 'secondary' })}
       </div>
       <div>
-        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Accent</small>
-        ${eyebrowTwig({ text: 'Case Study', variant: 'accent' })}
+        <small style="color: #666; display: block; margin-bottom: 0.5rem;">Info</small>
+        ${eyebrowTwig({ text: 'Case Study', variant: 'info' })}
       </div>
       <div>
         <small style="color: #666; display: block; margin-bottom: 0.5rem;">Neutral (default)</small>

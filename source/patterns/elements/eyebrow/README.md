@@ -7,7 +7,7 @@ A contextual label or kicker placed above a heading to provide category or conte
 | Prop | Type | Options | Default | Description |
 |------|------|---------|---------|-------------|
 | `text` | string | any | `''` | Text content displayed (required) |
-| `variant` | string | `'primary'`, `'secondary'`, `'accent'`, `'neutral'`, `'muted'` | `'neutral'` | Semantic color variant |
+| `variant` | string | `'primary'`, `'secondary'`, `'info'`, `'neutral'`, `'muted'` | `'neutral'` | Semantic color variant |
 | `size` | string | `'small'`, `'medium'` | `'medium'` | Text size (12px/14px) |
 | `uppercase` | boolean | `true`, `false` | `true` | Transform text to uppercase |
 | `bold` | boolean | `true`, `false` | `false` | Apply bold font weight |
@@ -40,9 +40,9 @@ ps-eyebrow                       # Root element (<span>)
 
 **Color Variants**
 - Default (neutral) - No modifier class
-- `ps-eyebrow--primary` - Brand primary (green)
-- `ps-eyebrow--secondary` - Brand secondary (purple)
-- `ps-eyebrow--accent` - Accent gold
+- `ps-eyebrow--primary` - Brand primary (green #00915A)
+- `ps-eyebrow--secondary` - Brand secondary (magenta #A12B66)
+- `ps-eyebrow--info` - Info blue (#2563EB)
 - `ps-eyebrow--muted` - Muted gray (for subtle labels like "DATE")
 
 **Size**
@@ -59,24 +59,92 @@ ps-eyebrow                       # Root element (<span>)
 
 ## Design Tokens Used
 
-### Colors
-- `--brand-primary` - Primary variant (green)
-- `--brand-secondary` - Secondary variant (purple)
-- `--accent-gold` - Accent variant (gold)
-- `--ps-color-neutral-600` (fallback `--gray-600`) - Default neutral color
-- `--ps-color-neutral-500` (fallback `--gray-500`) - Muted variant color
+### Layer 1: Root Tokens (Global)
 
-### Typography
-- `--font-size-00` (12px) - Small size
-- `--font-size-0` (14px) - Medium size (default)
-- `--font-weight-regular` (400) - Regular weight
-- `--font-weight-semibold` (600) - Bold weight
-- `--line-height-1` (20px) - Line height
-- `--font-sans` - Font family (BNPP Sans)
+#### Colors (Semantic)
+- `--primary` - Primary variant (green #00915A - BNP official)
+- `--secondary` - Secondary variant (magenta #A12B66 - BNP official)
+- `--info` - Info variant (blue #2563EB)
+- `--text-secondary` - Neutral color (gray-500)
+- `--text-disabled` - Muted variant (gray-400)
 
-### Spacing
-- `--size-2` (8px) - Gap for decorative elements
-- `--size-3` (12px) - Bottom margin (spacing below eyebrow)
+#### Typography
+- `--font-condensed` - Condensed font family for eyebrows
+- `--font-sans` - Fallback sans-serif font family
+- `--font-size-0` - Small size (14px)
+- `--font-size-1` - Medium size (16px, default)
+- `--font-weight-500` - Regular weight
+- `--font-weight-600` - Bold weight
+- `--tracking-wide` - Letter spacing (wider for uppercase)
+- `--tracking-wider` - Letter spacing (even wider for uppercase)
+
+#### Spacing
+- `--size-05` - Line height (0.125rem / 2px)
+- `--size-2` - Gap between elements (0.5rem / 8px)
+- `--size-3` - Icon size (0.75rem / 12px)
+- `--size-8` - Small line width (2rem / 32px)
+- `--size-10` - Default line width (2.5rem / 40px)
+
+#### Borders
+- `--border-size-1` - Small line height (1px)
+
+### Layer 2: Component-Scoped Variables
+
+The eyebrow component now uses component-scoped variables for easy customization (Bootstrap 5 pattern):
+
+```css
+/* Layout */
+--ps-eyebrow-gap: var(--size-2);
+--ps-eyebrow-display: inline-flex;
+
+/* Typography */
+--ps-eyebrow-font-family: var(--font-condensed);
+--ps-eyebrow-font-size: var(--font-size-1);
+--ps-eyebrow-font-weight: var(--font-weight-500);
+--ps-eyebrow-line-height: 1.2;
+--ps-eyebrow-letter-spacing: var(--tracking-wide);
+
+/* Colors */
+--ps-eyebrow-color: var(--text-secondary);
+
+/* Icon */
+--ps-eyebrow-icon-size: var(--size-3);
+
+/* Line decoration */
+--ps-eyebrow-line-width: var(--size-10);
+--ps-eyebrow-line-height: var(--size-05);
+--ps-eyebrow-line-opacity: 0.3;
+
+/* Dot decoration */
+--ps-eyebrow-dot-size: 1.2em;
+--ps-eyebrow-dot-opacity: 0.5;
+```
+
+#### Customization Examples
+
+**Context Override:**
+```css
+/* Sidebar has different spacing */
+.sidebar .ps-eyebrow {
+  --ps-eyebrow-gap: var(--size-1);
+  --ps-eyebrow-font-size: var(--font-size-0);
+}
+```
+
+**Inline Override:**
+```html
+<span class="ps-eyebrow" style="--ps-eyebrow-color: var(--purple-600);">
+  Custom Color
+</span>
+```
+
+**JavaScript Override:**
+```javascript
+document.querySelector('.ps-eyebrow').style.setProperty(
+  '--ps-eyebrow-color', 
+  'var(--danger)'
+);
+```
 
 ## Usage Examples
 
@@ -131,6 +199,8 @@ ps-eyebrow                       # Root element (<span>)
 } %}
 <h3>Premium Content</h3>
 ```
+
+**Note**: Icons use the centralized `data-icon` attribute pattern. The icon name is passed WITHOUT the "icon-" prefix.
 
 ### Bold Variant
 ```twig
@@ -262,11 +332,11 @@ ps-eyebrow                       # Root element (<span>)
 ## Design Patterns
 
 ### Variant Usage
-- **Primary**: Key sections, important announcements, featured content
-- **Secondary**: Blog posts, articles, alternative categories
-- **Accent**: Special promotions, case studies, highlighted content
-- **Neutral**: General sections, standard categories (default)
-- **Muted**: Subtle labels like "DATE" in cards, less prominent context
+- **Primary**: Key sections, important announcements, featured content (green #00915A)
+- **Secondary**: Blog posts, articles, alternative categories (magenta #A12B66)
+- **Info**: Informational content, case studies, highlights (blue #2563EB)
+- **Neutral**: General sections, standard categories (default - gray)
+- **Muted**: Subtle labels like "DATE" in cards, less prominent context (light gray)
 
 ### Size Guidelines
 - **Small (12px)**: Subtle labels, date indicators, secondary context
@@ -307,13 +377,16 @@ ps-eyebrow                       # Root element (<span>)
 - [x] BEM methodology with `ps-` prefix
 - [x] CSS uses PostCSS nesting syntax
 - [x] Minimal markup (default props require no modifier classes)
-- [x] Supports 5 semantic variants (primary, secondary, accent, neutral, muted)
+- [x] Supports semantic variants (primary, secondary, info, neutral, muted)
 - [x] Supports 2 size options (small, medium)
 - [x] Text transformations (uppercase, bold) properly implemented
 - [x] Optional decorations (line, dot, icon) marked `aria-hidden="true"`
-- [x] Icons use `data-icon` attribute pattern
+- [x] Icons use `data-icon` attribute pattern (centralized system)
 - [x] Non-interactive (no focus states)
 - [x] Accessible color contrast (WCAG AA)
 - [x] Placed before heading in DOM order
 - [x] Storybook documentation complete with structured sections
 - [x] All content in English
+- [x] **Component-scoped variables implemented (Bootstrap 5 pattern)**
+- [x] **3-layer variable cascade (Root → Component → Context)**
+- [x] **Runtime customization support via CSS variables**

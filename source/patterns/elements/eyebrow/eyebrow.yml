@@ -3,7 +3,7 @@
 #
 # Props:
 # - text: Text content displayed in the eyebrow (required)
-# - variant: 'primary' | 'secondary' | 'accent' | 'neutral' (default) | 'muted' - Semantic color variant
+# - variant: 'primary' | 'secondary' | 'info' | 'neutral' (default) | 'muted' - Semantic color variant
 # - size: 'small' (12px) | 'medium' (14px, default) - Text size
 # - uppercase: true (default) | false - Transform text to uppercase
 # - bold: true | false (default) - Apply bold font weight

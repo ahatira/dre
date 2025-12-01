@@ -2,13 +2,13 @@
  * Eyebrow (Atom) - Contextual label/kicker above heading
  *
  * @param string text - Displayed text (required)
- * @param string variant - Color: primary, secondary, accent, neutral, muted (optional, default: neutral)
+ * @param string variant - Color: primary, secondary, info, neutral, muted (optional, default: neutral)
  * @param string size - Size: small, medium (optional, default: medium)
  * @param boolean uppercase - Uppercase text (optional, default: true)
  * @param boolean bold - Bold text (optional, default: false)
  * @param boolean withLine - Decorative line (optional, default: false)
  * @param boolean withDot - Decorative dot (optional, default: false)
- * @param string icon - Optional icon name
+ * @param string icon - Optional icon name (without "icon-" prefix)
  * @param object attributes - Additional HTML attributes
  #}
 
@@ -42,7 +42,7 @@
 
 <span class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %}>
   {% if icon %}
-    <span class="ps-eyebrow__icon" aria-hidden="true"></span>
+    <span class="ps-eyebrow__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
   <span class="ps-eyebrow__text">{{ text }}</span>
   {% if withLine %}
