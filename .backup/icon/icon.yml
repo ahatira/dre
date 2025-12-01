@@ -1,0 +1,11 @@
+# Icon (Atom) - Icon font element
+# Default configuration: Search icon, medium size, primary color
+name: 'search' # Icon name (without "icon-" prefix)
+size: 'medium' # Size: small (16px), medium (20px), large (24px), xlarge (32px)
+color: 'primary' # Color: primary, secondary, success, warning, danger, info (semantic)
+disabled: false # Disabled state (50% opacity, no pointer events)
+# Options:
+# - name: string, required, see icons-list.json
+# - size: small|medium|large|xlarge (default: medium)
+# - color: primary|secondary|success|warning|danger|info (default: primary)
+# - disabled: boolean (default: false)

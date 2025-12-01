@@ -1,35 +1,29 @@
-/**
- * Icon (Element/Atom)
- * Icon font system using bnpre-icons and bnpre-icons-poi fonts
- *
- * BEM: ps-icon (used as modifiers on base icon classes)
- * Base classes: .icon-* and .icon-poi-* (defined in source/props/icons.css)
- * Modifiers: --small (16px), --medium (20px), --large (24px), --xlarge (32px), --disabled
- *
- * Usage: <i class="icon-search ps-icon--medium"></i>
- * Usage: <i class="icon-poi-hotel ps-icon--large"></i>
- */
-
+/* PS Theme Icon component CSS */
 .ps-icon {
-  &--small {
-    font-size: var(--size-4) !important;
-  }
-
-  &--medium {
-    font-size: var(--size-5) !important;
-  }
-
-  &--large {
-    font-size: var(--size-6) !important;
-  }
-
-  &--xlarge {
-    font-size: var(--size-8) !important;
-  }
-
-  &--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+  display: inline-block;
+  color: var(--gray-600);
+  font-size: var(--ps-icon-size-24);
 }
+
+.ps-icon .ps-icon__icon {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Size modifiers (independent) */
+.ps-icon--small { font-size: var(--ps-icon-size-16); }
+.ps-icon--medium { font-size: var(--ps-icon-size-20); }
+.ps-icon--large { font-size: var(--ps-icon-size-24); }
+.ps-icon--xlarge { font-size: var(--ps-icon-size-32); }
+
+/* Color variants (independent) */
+.ps-icon--dark-grey { color: var(--gray-600); }
+.ps-icon--light-grey { color: var(--gray-400); }
+.ps-icon--green { color: var(--primary); }
+.ps-icon--white { color: var(--white); }
+
+/* State modifiers (independent) */
+.ps-icon--default { color: currentColor; }
+.ps-icon--disabled { color: var(--gray-400); }
+.ps-icon--hover { color: var(--primary-hover); }
+.ps-icon--selected { color: var(--primary-active); }

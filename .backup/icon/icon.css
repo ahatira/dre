@@ -1,0 +1,75 @@
+/**
+ * Icon (Element/Atom)
+ * Système de variables CSS à 3 couches
+ * BEM: ps-icon, ps-icon--size, ps-icon--color, ps-icon--disabled
+ * Modifiers: --small, --medium, --large, --xlarge, --primary, --secondary, --success, --warning, --danger, --info, --disabled
+ */
+
+.ps-icon {
+  /* ======================================== */
+  /* Base Styles */
+  /* ======================================== */
+  --ps-icon-size-small: var(--size-4);   /* 16px */
+  --ps-icon-size-medium: var(--size-5);  /* 20px */
+  --ps-icon-size-large: var(--size-6);   /* 24px */
+  --ps-icon-size-xlarge: var(--size-8);  /* 32px */
+  --ps-icon-color: var(--text-primary);  /* Default color (semantic) */
+  font-size: var(--ps-icon-size-medium);
+  color: var(--ps-icon-color);
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* ======================================== */
+/* Modifiers - Sizes */
+/* ======================================== */
+.ps-icon {
+  &--small {
+    font-size: var(--ps-icon-size-small);
+  }
+  &--medium {
+    font-size: var(--ps-icon-size-medium);
+  }
+  &--large {
+    font-size: var(--ps-icon-size-large);
+  }
+  &--xlarge {
+    font-size: var(--ps-icon-size-xlarge);
+  }
+}
+
+/* ======================================== */
+/* Modifiers - Colors (semantic) */
+/* ======================================== */
+.ps-icon {
+  &--primary {
+    --ps-icon-color: var(--brand-primary);
+  }
+  &--secondary {
+    --ps-icon-color: var(--brand-secondary);
+  }
+  &--success {
+    --ps-icon-color: var(--success);
+  }
+  &--warning {
+    --ps-icon-color: var(--warning);
+  }
+  &--danger {
+    --ps-icon-color: var(--danger);
+  }
+  &--info {
+    --ps-icon-color: var(--info);
+  }
+}
+
+/* ======================================== */
+/* States */
+/* ======================================== */
+.ps-icon {
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

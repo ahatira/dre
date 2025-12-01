@@ -223,6 +223,16 @@ These will ALWAYS be rejected:
 - Skipping accessibility (focus-visible, ARIA, contrast)
 - Overly long component descriptions (Storybook Autodocs): opening text must be ≤ two lines
 
+## 🚫🚫🚫 CRITICAL OVERRIDE — DO NOT EDIT TOKENS 🚫🚫🚫
+
+IMPORTANT: NEVER modify any files under `source/props/*.css` directly.
+
+- Do NOT add, change, or remove tokens in `source/props/*.css` during component work.
+- If a token appears missing, STOP and document the need; then propose the addition via a dedicated tokens-change PR/process as per `.github/COMPLETE_RULES.md`.
+- Components must only CONSUME tokens; token definitions are maintained separately.
+
+Any direct edit in `source/props/*.css` will be rejected.
+
 ## 📚 Complete Documentation Hierarchy
 
 1. **`.github/COMPLETE_RULES.md`** ← START HERE (absolute reference, 1000+ lines)

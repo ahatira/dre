@@ -92,42 +92,10 @@
      Component-Specific Spacing & Dimensions
      ============================================ */
   
-  /* General spacing aliases */-width: 1376px;
+  /* General spacing aliases */
   --ps-spacing-1: var(--size-1); /* 4px */
   --ps-spacing-2: var(--size-2); /* 8px */
   --ps-spacing-3: var(--size-3); /* 12px */
   --ps-spacing-4: var(--size-4); /* 16px */
   --ps-spacing-5: var(--size-5); /* 20px */
-  /* Added spacing tokens for accordion component (padding/gaps) */
-  --ps-spacing-3: var(--size-3);
-  --ps-spacing-4: var(--size-4);
-  --ps-spacing-5: var(--size-5);
-
-  /* Card component specific spacing and dimensions (Figma exact) */
-  --ps-card-padding-y-medium: 1.875rem; /* 30px */
-  --ps-card-padding-x-medium: var(--size-6); /* 24px */
-  --ps-card-image-width-horizontal: 15.125rem; /* 242px */
-  --ps-card-image-min-height-horizontal: 13.25rem; /* 212px */
-
-  /* Icon size token (16px) for accordion trigger icon */
-  --ps-icon-size-16: var(--size-4);
-  /* Icon size token (20px) for dropdown chevron */
-  --ps-icon-size-20: var(--size-5);
-
-  /* Dropdown component min-widths */
-  --ps-dropdown-min-width-small: 11.25rem;  /* 180px */
-  --ps-dropdown-min-width-medium: 13.75rem; /* 220px */
-  --ps-dropdown-min-width-large: 16.25rem;  /* 260px */
-
-  /* Toggle component tokens */
-  --ps-toggle-inset: var(--size-05); /* 2px internal thumb inset */
-  --ps-toggle-width-small: var(--size-9);  /* 36px */
-  --ps-toggle-width-medium: var(--size-11);/* 44px */
-  --ps-toggle-width-large: var(--size-13); /* 52px */
-  --ps-toggle-height-small: var(--size-5); /* 20px */
-  --ps-toggle-height-medium: var(--size-6);/* 24px */
-  --ps-toggle-height-large: var(--size-7); /* 28px */
-  --ps-toggle-thumb-small: var(--size-4);  /* 16px */
-  --ps-toggle-thumb-medium: var(--size-5); /* 20px */
-  --ps-toggle-thumb-large: var(--size-6);  /* 24px */
 }

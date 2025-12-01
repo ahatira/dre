@@ -4,6 +4,13 @@
 
 ## 2025
 
+- 2025-12-01: **Icon component + tokens update**
+  - Added icon size tokens `--ps-icon-size-24` and `--ps-icon-size-32` in `source/props/sizes.css`.
+  - Implemented `source/patterns/elements/icon/` with 5 required files (`icon.twig`, `icon.css`, `icon.yml`, `icon.stories.jsx`, `README.md`).
+  - BEM strict (`ps-icon`, `ps-icon__icon`), modifiers independent (sizes, colors, states), minimal markup.
+  - Uses only tokens for sizes/colors; glyphs via global `source/props/icons.css` `[data-icon]::before`.
+  - Storybook: Autodocs enabled, variants stories (Sizes, Colors, States, AllVariants).
+
 - 2025-12-01: **Standards Harmonization (Transitions) + MDX cleanup**
   - **Transitions tokenisées** : remplacement de tous les exemples `150ms cubic-bezier(0.4, 0.0, 0.2, 1)` par tokens `var(--duration-fast) var(--ease-3)`
     - Fichiers mis à jour : `.github/CSS_STANDARDS.md`, `.github/COMPLETE_RULES.md`, `.github/CSS_VARIABLES_SYSTEM.md`, `.github/COMPONENT_TEMPLATE_STANDARD.md`

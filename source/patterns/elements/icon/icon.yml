@@ -1,5 +1,32 @@
-# Icon (Atom) - Icon font element
-# Default configuration: Search icon, medium size
-name: 'search' # Icon name (without "icon-" prefix in component usage)
-size: 'medium' # Size: small (16px), medium (20px), large (24px), xlarge (32px)
-disabled: false # Disabled state (50% opacity, no pointer events)
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
+name: 'PS Icon'
+status: stable
+group: elements
+props:
+  type: object
+  properties:
+    name:
+      type: string
+      title: Icon name
+      description: Unique icon name (e.g. arrow-right, pin-map, facebook)
+    size:
+      type: number
+      enum: [16, 20, 24, 32]
+      default: 24
+    state:
+      type: string
+      enum: ['default','disabled','hover','selected']
+      default: 'default'
+    colorVariant:
+      type: string
+      enum: ['dark-grey','light-grey','green','white']
+      default: 'dark-grey'
+    color:
+      type: string
+      title: Custom CSS color
+      description: Overrides colorVariant when provided
+    ariaLabel:
+      type: string
+      title: Accessibility label
+  required: ['name']
+slots: {}
