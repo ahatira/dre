@@ -13,9 +13,9 @@
   gap: var(--ps-spacing-1, var(--size-1));
   margin-bottom: var(--ps-spacing-2, var(--size-2));
   color: var(--ps-color-text, var(--gray-900));
-  font-family: var(--ps-font-family-primary, var(--font-sans));
-  font-size: var(--ps-font-size-sm, var(--font-size-sm));
-  font-weight: var(--ps-font-weight-medium, var(--font-weight-600));
+  font-family: var(--font-sans);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-500);
   line-height: var(--leading-5);
   cursor: pointer;
 
@@ -26,7 +26,7 @@
   &__required {
     color: var(--ps-color-error-600, var(--red-600));
     margin-left: var(--size-1); /* 4px gap before asterisk */
-    font-weight: var(--ps-font-weight-bold, var(--font-weight-700));
+    font-weight: var(--font-weight-700);
     line-height: 1;
   }
 

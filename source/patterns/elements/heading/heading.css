@@ -11,8 +11,8 @@
 .ps-heading {
   margin: 0 0 var(--ps-spacing-6, var(--size-6));
   color: var(--ps-color-text, var(--gray-900));
-  font-family: var(--ps-font-family-primary, var(--font-sans));
-  font-weight: var(--ps-font-weight-bold, var(--font-weight-700));
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-700);
   font-size: var(--ps-heading-h1-size, var(--font-size-10));
   line-height: var(--ps-heading-h1-line-height, var(--leading-tight));
   text-align: left;

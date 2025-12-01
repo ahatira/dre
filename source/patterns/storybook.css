@@ -83,7 +83,7 @@
     span {
       color: var(--black);
       display: block;
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-0);
 
       &.name {
         font-size: var(--font-size-0);

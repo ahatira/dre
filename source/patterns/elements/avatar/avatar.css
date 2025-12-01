@@ -146,7 +146,7 @@
   /* Size modifier overrides */
   &--xs {
     .ps-avatar__text {
-      font-size: var(--font-size-xs); /* 10px - 42% ratio */
+      font-size: 0.625rem; /* 10px - 42% ratio (component-specific) */
     }
     
     .ps-avatar__icon {

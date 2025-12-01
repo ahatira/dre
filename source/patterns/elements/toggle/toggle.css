@@ -85,7 +85,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: var(--font-size-xxs); /* 9px token */
+    font-size: 0.5625rem; /* 9px - internal label only (component-specific) */
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
