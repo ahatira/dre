@@ -1,46 +1,80 @@
 /**
  * Brand Tokens (BNP Paribas RealEstate)
  * 
- * NOTE: Semantic colors (primary, secondary, etc.) are now in semantic.css
- * This file contains only BNP-specific brand tokens and legacy aliases.
+ * Unified semantic color system based on official BNP Paribas RealEstate maquette.
+ * Bootstrap-style Base-Modifier pattern: 6 semantic colors × 5 states = 30 tokens.
  * 
- * For component development, prefer semantic.css tokens:
- * - Use var(--primary) instead of var(--brand-primary)
- * - Use var(--secondary) instead of var(--brand-secondary)
+ * Colors from official design system:
+ * - Primary: #00915A, #017F4F, #04A46E, #99D3BD (greens)
+ * - Secondary: #BA3075, #E0388C, #D998BB, #A12B66 (magentas)
+ * - Status: #EB3636 (red error)
  */
 
 :where(html) {
   /* ============================================
-     BNP Brand Colors (Reference only)
-     From official BNP Paribas RealEstate design system
+     PRIMARY (Brand Green - Official BNP #00915A)
+     Base → Hover → Active progression
      ============================================ */
-  --bnp-green: hsl(162, 100%, 28%); /* #00915A - Primary base */
-  --bnp-dark-green: hsl(162, 100%, 25%); /* #017F4F - Primary dark */
-  --bnp-mid-green: hsl(162, 94%, 33%); /* #04A46E - Primary bright */
-  --bnp-light-green: hsl(162, 48%, 72%); /* #99D3BD - Primary light */
-  --bnp-graphite: hsl(0, 0%, 17%); /* #2B2B2B - Grey dark (not in maquette, kept) */
-  --bnp-neutral-gray: hsl(0, 0%, 43%); /* #6A6D6F - Grey mid (not in maquette, kept) */
-
-  /* Secondary accent palette (from maquette) */
-  --bnp-accent-purple: hsl(330, 60%, 50%); /* #BA3075 - Magenta */
-  --bnp-accent-pink: hsl(330, 76%, 56%); /* #E0388C - Pink vif */
-  --bnp-accent-rose: hsl(330, 48%, 73%); /* #D998BB - Rose clair */
-  --bnp-accent-magenta: hsl(330, 65%, 40%); /* #A12B66 - Magenta foncé */
+  --primary: hsl(162, 100%, 28%); /* #00915A - Official BNP green */
+  --primary-hover: hsl(162, 100%, 25%); /* #017F4F - Dark variant from maquette */
+  --primary-active: hsl(162, 92%, 25%); /* #047857 - Darkest for pressed state */
+  --primary-text: hsl(0, 0%, 100%); /* White on primary */
+  --primary-border: hsl(162, 100%, 28%); /* Match base */
 
   /* ============================================
-     Legacy Aliases (DEPRECATED - Use semantic.css)
-     ============================================
-     
-     @deprecated Use var(--primary) instead
-     @deprecated Use var(--secondary) instead
-     
-     These aliases remain for backward compatibility only.
-     New code should use semantic tokens from semantic.css.
-  */
-  --brand-primary: var(--primary); /* → Use var(--primary) */
-  --brand-secondary: var(--secondary); /* → Use var(--secondary) */
-  --brand-accent: var(--bnp-mid-green); /* → Consider using var(--success) */
-  --brand-text-strong: var(--bnp-graphite);
-  --brand-text-muted: var(--bnp-neutral-gray);
+     SECONDARY (Brand Magenta - Official BNP #A12B66)
+     Base → Hover → Active progression
+     ============================================ */
+  --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
+  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter variant from maquette */
+  --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
+  --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
+  --secondary-border: hsl(330, 65%, 40%); /* Match base */
+
+  /* ============================================
+     SUCCESS (Green - Positive actions)
+     ============================================ */
+  --success: hsl(162, 92%, 25%); /* #047857 (green-600) */
+  --success-hover: hsl(163, 93%, 22%); /* green-700 */
+  --success-active: hsl(164, 93%, 17%); /* green-800 */
+  --success-text: hsl(0, 0%, 100%); /* White on success */
+  --success-border: hsl(162, 92%, 25%);
+
+  /* ============================================
+     DANGER (Status Red - Official BNP #EB3636)
+     From maquette Status color
+     ============================================ */
+  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
+  --danger-hover: hsl(0, 82%, 52%); /* Slightly darker */
+  --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
+  --danger-text: hsl(0, 0%, 100%); /* White on danger */
+  --danger-border: hsl(0, 82%, 57%); /* Match base */
+
+  /* ============================================
+     WARNING (Yellow - Caution)
+     ============================================ */
+  --warning: hsl(42, 93%, 46%); /* #D97706 (yellow-400) */
+  --warning-hover: hsl(37, 97%, 39%); /* yellow-500 */
+  --warning-active: hsl(31, 88%, 33%); /* yellow-600 */
+  --warning-text: hsl(0, 0%, 0%); /* Black on yellow (contrast) */
+  --warning-border: hsl(42, 93%, 46%);
+
+  /* ============================================
+     INFO (Blue - Informational)
+     ============================================ */
+  --info: hsl(220, 89%, 53%); /* #2563EB (blue-600) */
+  --info-hover: hsl(221, 79%, 48%); /* blue-700 */
+  --info-active: hsl(223, 68%, 37%); /* blue-800 */
+  --info-text: hsl(0, 0%, 100%); /* White on info */
+  --info-border: hsl(220, 89%, 53%);
+
+  /* ============================================
+     LEGACY ALIASES (Backward compatibility)
+     DEPRECATED: Use semantic tokens directly
+     ============================================ */
+  --brand-primary: var(--primary); /* @deprecated Use var(--primary) */
+  --brand-secondary: var(--secondary); /* @deprecated Use var(--secondary) */
+  --brand-text-strong: hsl(0, 0%, 17%); /* #2B2B2B - Graphite */
+  --brand-text-muted: hsl(0, 0%, 43%); /* #6A6D6F - Neutral gray */
   --brand-on-primary: var(--white);
 }

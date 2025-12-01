@@ -9,9 +9,8 @@
 @import "shadows";
 @import "aspects";
 @import "colors";
-@import "semantic"; /* Bootstrap-style semantic colors (primary, secondary, etc.) */
 @import "animations";
 @import "borders";
-@import "brand";
+@import "brand"; /* Semantic colors (primary, secondary, etc.) + BNP tokens */
 @import "theme";
 
