@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component:
-          'User or entity avatar with automatic fallbacks: image, initials, or generic icon. Supports shapes, sizes, status badge, optional border, and clickable variant using tokens.',
+          'User or entity visual representation with automatic fallback hierarchy (image → initials → icon).',
       },
     },
   },
@@ -26,7 +26,7 @@ export default {
     },
     initials: {
       control: 'text',
-      description: 'Initials (2 letters max, fallback if no image)',
+      description: 'Initials text (2 letters, fallback if no image)',
       table: {
         category: 'Content',
         type: { summary: 'string' },
@@ -36,7 +36,7 @@ export default {
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Avatar size (xs: 24px, sm: 32px, md: 40px, lg: 48px, xl: 80px)',
+      description: 'Avatar size',
       table: {
         category: 'Appearance',
         type: { summary: 'xs | sm | md | lg | xl' },
@@ -46,7 +46,7 @@ export default {
     shape: {
       control: 'select',
       options: ['circle', 'square', 'rounded'],
-      description: 'Avatar shape (rounded has adaptive radius per size)',
+      description: 'Border radius style',
       table: {
         category: 'Appearance',
         type: { summary: 'circle | square | rounded' },
@@ -55,8 +55,8 @@ export default {
     },
     status: {
       control: 'select',
-      options: ['', 'online', 'offline', 'busy'],
-      description: 'Status badge (leave empty for none)',
+      options: ['online', 'offline', 'busy'],
+      description: 'Status badge indicator',
       table: {
         category: 'Appearance',
         type: { summary: 'online | offline | busy' },
@@ -64,7 +64,7 @@ export default {
     },
     bordered: {
       control: 'boolean',
-      description: 'Add white border (for dark backgrounds)',
+      description: 'White border',
       table: {
         category: 'Appearance',
         type: { summary: 'boolean' },
@@ -74,7 +74,7 @@ export default {
     gender: {
       control: 'select',
       options: ['male', 'female'],
-      description: 'Fallback icon gender (when image missing and no initials)',
+      description: 'Icon gender variant',
       table: {
         category: 'Appearance',
         type: { summary: 'male | female' },
@@ -84,7 +84,7 @@ export default {
     // Behavior
     clickable: {
       control: 'boolean',
-      description: 'Enable hover + focus visible',
+      description: 'Interactive states',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
@@ -94,7 +94,7 @@ export default {
     // Link
     href: {
       control: 'text',
-      description: 'URL (transforms to <a> link)',
+      description: 'Link URL',
       table: {
         category: 'Link',
         type: { summary: 'string' },
@@ -103,7 +103,7 @@ export default {
     // Accessibility
     alt: {
       control: 'text',
-      description: 'Alternative text (required if image)',
+      description: 'Image alt text',
       table: {
         category: 'Accessibility',
         type: { summary: 'string' },
