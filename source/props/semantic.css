@@ -1,0 +1,67 @@
+/**
+ * Semantic Colors (Bootstrap-style Base-Modifier system)
+ * 
+ * 6 semantic colors with 5 states each for automatic modifier generation
+ * Usage: var(--primary), var(--primary-hover), var(--primary-text), etc.
+ * 
+ * Components using these: button, badge, alert, link, divider, eyebrow, etc.
+ */
+
+:where(html) {
+  /* ============================================
+     PRIMARY (Brand Green - BNP Paribas #00915A)
+     Base: #00915A, Hover: #017F4F (darker), Active: #047857 (darkest)
+     ============================================ */
+  --primary: hsl(162, 100%, 28%); /* #00915A - Official BNP green */
+  --primary-hover: hsl(162, 100%, 25%); /* #017F4F - Dark variant from maquette */
+  --primary-active: hsl(162, 92%, 25%); /* #047857 - Darkest for pressed state */
+  --primary-text: hsl(0, 0%, 100%); /* White on primary */
+  --primary-border: hsl(162, 100%, 28%); /* Match base */
+
+  /* ============================================
+     SECONDARY (Brand Magenta - #A12B66)
+     Base: #A12B66, Hover: #BA3075 (lighter), Active: #8A2456 (darker)
+     ============================================ */
+  --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
+  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter variant from maquette */
+  --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
+  --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
+  --secondary-border: hsl(330, 65%, 40%); /* Match base */
+
+  /* ============================================
+     SUCCESS (Green - positive actions)
+     ============================================ */
+  --success: hsl(162, 92%, 25%); /* #047857 (green-600) */
+  --success-hover: hsl(163, 93%, 22%); /* green-700 */
+  --success-active: hsl(164, 93%, 17%); /* green-800 */
+  --success-text: hsl(0, 0%, 100%); /* White on success */
+  --success-border: hsl(162, 92%, 25%);
+
+  /* ============================================
+     DANGER (Red Status - #EB3636)
+     From maquette Status color
+     ============================================ */
+  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
+  --danger-hover: hsl(0, 82%, 52%); /* Slightly darker */
+  --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
+  --danger-text: hsl(0, 0%, 100%); /* White on danger */
+  --danger-border: hsl(0, 82%, 57%); /* Match base */
+
+  /* ============================================
+     WARNING (Yellow - caution)
+     ============================================ */
+  --warning: hsl(42, 93%, 46%); /* #D97706 (yellow-400) */
+  --warning-hover: hsl(37, 97%, 39%); /* yellow-500 */
+  --warning-active: hsl(31, 88%, 33%); /* yellow-600 */
+  --warning-text: hsl(0, 0%, 0%); /* Black on yellow (contrast) */
+  --warning-border: hsl(42, 93%, 46%);
+
+  /* ============================================
+     INFO (Blue - informational)
+     ============================================ */
+  --info: hsl(220, 89%, 53%); /* #2563EB (blue-600) */
+  --info-hover: hsl(221, 79%, 48%); /* blue-700 */
+  --info-active: hsl(223, 68%, 37%); /* blue-800 */
+  --info-text: hsl(0, 0%, 100%); /* White on info */
+  --info-border: hsl(220, 89%, 53%);
+}
