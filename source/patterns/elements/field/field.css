@@ -97,12 +97,12 @@
 
   &:focus-within:not(&--disabled):not(&--error):not(&--done) {
     border-color: var(--black);
-    box-shadow: inset 0 0 0 1px var(--black);
+    box-shadow: inset 0 0 0 var(--border-size-1) var(--black);
   }
 
   &--error {
     border-color: var(--ps-color-border-error);
-    box-shadow: inset 0 0 0 1px var(--ps-color-border-error);
+    box-shadow: inset 0 0 0 var(--border-size-1) var(--ps-color-border-error);
 
     .ps-field__icon {
       color: var(--ps-color-border-error);
@@ -135,7 +135,7 @@
 
   &--done {
     border-color: var(--ps-color-border-success);
-    box-shadow: inset 0 0 0 1px var(--ps-color-border-success);
+    box-shadow: inset 0 0 0 var(--border-size-1) var(--ps-color-border-success);
 
     .ps-field__icon {
       color: var(--ps-color-border-success);

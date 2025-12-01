@@ -107,6 +107,10 @@
     font-weight: var(--font-weight-800);
   }
 
+  /* Visually hidden utility - WCAG standard pattern
+   * Exception: 1px values are acceptable (standard CSS pattern for screen reader only content)
+   * Reference: https://www.w3.org/WAI/WCAG21/Techniques/css/C7
+   */
   &--visually-hidden {
     position: absolute !important;
     width: 1px;
