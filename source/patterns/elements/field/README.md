@@ -134,7 +134,6 @@ The field component uses component-scoped variables for easy customization (Boot
 /* Borders */
 --ps-field-border-width: var(--border-size-2);
 --ps-field-border-radius: var(--radius-2);
---ps-field-focus-shadow-width: var(--border-size-2);
 
 /* Icon */
 --ps-field-icon-size: var(--size-4);

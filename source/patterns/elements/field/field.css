@@ -60,7 +60,7 @@
   /* Borders */
   --ps-field-border-width: var(--border-size-2);
   --ps-field-border-radius: var(--radius-2);
-  --ps-field-focus-shadow-width: var(--border-size-2);
+  --ps-field-focus-shadow-width: 0;
   
   /* Icon */
   --ps-field-icon-size: var(--size-4);
@@ -188,7 +188,6 @@
 
   &:focus-within:not(&--disabled):not(&--error):not(&--done) {
     --ps-field-border-color: var(--ps-field-focus-border-color);
-    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-focus-shadow-color);
   }
 
   /* ========================================
@@ -197,7 +196,6 @@
 
   &--error {
     --ps-field-border-color: var(--ps-field-error-border-color);
-    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-error-border-color);
 
     & .ps-field__icon {
       color: var(--ps-field-error-color);
@@ -231,7 +229,6 @@
 
   &--done {
     --ps-field-border-color: var(--ps-field-success-border-color);
-    box-shadow: inset 0 0 0 var(--ps-field-focus-shadow-width) var(--ps-field-success-border-color);
 
     & .ps-field__icon {
       color: var(--ps-field-success-color);
