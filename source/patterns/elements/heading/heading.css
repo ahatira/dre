@@ -2,109 +2,116 @@
  * Heading (Element/Atom)
  * Semantic typographic headings (h1-h6)
  *
- * BEM: ps-heading, ps-heading__text, ps-heading__icon
+ * BEM: ps-heading, ps-heading__text
  * Levels: h1 (48px), h2 (36px), h3 (28px), h4 (24px), h5 (20px), h6 (16px)
  * Colors: default | primary | secondary | success | warning | danger | info
  * Weights: light (300) | regular (400) | bold (700) | extra (800)
+ *
+ * CSS Variables (3-layer system):
+ * - Component-scoped: --ps-heading-* (defined here, customizable)
+ * - Semantic tokens: --primary, --gray-900, etc. (from semantic.css)
+ * - Base tokens: --font-size-*, --size-*, etc. (from fonts.css, sizes.css)
  */
 
 .ps-heading {
-  margin: 0 0 var(--ps-spacing-6, var(--size-6));
-  color: var(--ps-color-text, var(--gray-900));
-  font-family: var(--font-sans);
-  font-weight: var(--font-weight-700);
-  font-size: var(--ps-heading-h1-size, var(--font-size-10));
-  line-height: var(--ps-heading-h1-line-height, var(--leading-tight));
-  text-align: left;
+  /* Layer 2: Component-scoped variables with semantic defaults */
+  --ps-heading-margin-bottom: var(--size-6);
+  --ps-heading-color: var(--gray-900);
+  --ps-heading-font-family: var(--font-sans);
+  --ps-heading-font-weight: var(--font-weight-700);
+  --ps-heading-font-size: var(--font-size-10);
+  --ps-heading-line-height: var(--leading-tight);
+  --ps-heading-text-align: left;
 
-  &__icon {
-    font-family: bnpre-icons;
-    font-style: normal;
-    line-height: 1;
-    font-size: 1em;
-  }
+  /* Apply component variables */
+  margin: 0 0 var(--ps-heading-margin-bottom);
+  color: var(--ps-heading-color);
+  font-family: var(--ps-heading-font-family);
+  font-weight: var(--ps-heading-font-weight);
+  font-size: var(--ps-heading-font-size);
+  line-height: var(--ps-heading-line-height);
+  text-align: var(--ps-heading-text-align);
 
-  &--with-icon {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--size-2);
-  }
-
+  /* Level modifiers (override font-size and line-height) */
   &--h2 {
-    font-size: var(--ps-heading-h2-size, var(--font-size-8));
-    line-height: var(--ps-heading-h2-line-height, var(--leading-tight));
+    --ps-heading-font-size: var(--font-size-8);
+    --ps-heading-line-height: var(--leading-tight);
   }
 
   &--h3 {
-    font-size: var(--ps-heading-h3-size, var(--font-size-6));
-    line-height: var(--ps-heading-h3-line-height, var(--leading-snug));
+    --ps-heading-font-size: var(--font-size-6);
+    --ps-heading-line-height: var(--leading-snug);
   }
 
   &--h4 {
-    font-size: var(--ps-heading-h4-size, var(--font-size-5));
-    line-height: var(--ps-heading-h4-line-height, var(--leading-snug));
+    --ps-heading-font-size: var(--font-size-5);
+    --ps-heading-line-height: var(--leading-snug);
   }
 
   &--h5 {
-    font-size: var(--ps-heading-h5-size, var(--font-size-3));
-    line-height: var(--ps-heading-h5-line-height, var(--leading-normal));
-    font-weight: var(--font-weight-600);
+    --ps-heading-font-size: var(--font-size-3);
+    --ps-heading-line-height: var(--leading-normal);
+    --ps-heading-font-weight: var(--font-weight-600);
   }
 
   &--h6 {
-    font-size: var(--ps-heading-h6-size, var(--font-size-1));
-    line-height: var(--ps-heading-h6-line-height, var(--leading-normal));
-    font-weight: var(--font-weight-600);
+    --ps-heading-font-size: var(--font-size-1);
+    --ps-heading-line-height: var(--leading-normal);
+    --ps-heading-font-weight: var(--font-weight-600);
+
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
   }
 
+  /* Alignment modifiers */
   &--align-center {
-    text-align: center;
+    --ps-heading-text-align: center;
   }
 
   &--align-right {
-    text-align: right;
+    --ps-heading-text-align: right;
   }
 
+  /* Color modifiers (semantic colors from semantic.css) */
   &--primary {
-    color: var(--brand-primary);
+    --ps-heading-color: var(--primary);
   }
 
   &--secondary {
-    color: var(--brand-secondary);
+    --ps-heading-color: var(--secondary);
   }
 
   &--success {
-    color: var(--btn-success);
+    --ps-heading-color: var(--success);
   }
 
   &--warning {
-    color: var(--btn-warning);
+    --ps-heading-color: var(--warning);
   }
 
   &--danger {
-    color: var(--btn-danger);
+    --ps-heading-color: var(--danger);
   }
 
   &--info {
-    color: var(--btn-info);
+    --ps-heading-color: var(--info);
   }
 
+  /* Weight modifiers */
   &--light {
-    font-weight: var(--font-weight-300);
+    --ps-heading-font-weight: var(--font-weight-300);
   }
 
   &--regular {
-    font-weight: var(--font-weight-400);
+    --ps-heading-font-weight: var(--font-weight-400);
   }
 
   &--bold {
-    font-weight: var(--font-weight-700);
+    --ps-heading-font-weight: var(--font-weight-700);
   }
 
   &--extra {
-    font-weight: var(--font-weight-800);
+    --ps-heading-font-weight: var(--font-weight-800);
   }
 
   /* Visually hidden utility - WCAG standard pattern

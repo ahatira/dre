@@ -11,7 +11,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic heading component (h1–h6) with token-based typography, colors, weights, and alignment. Supports optional icon and visually hidden mode for accessibility.',
+          'Semantic heading component (h1–h6) with component-scoped CSS variables for typography, colors, weights, and alignment. Supports visually hidden mode for accessibility.',
       },
     },
   },
@@ -24,15 +24,6 @@ export default {
         category: 'Content',
         type: { summary: 'string', required: true },
         defaultValue: { summary: 'Heading text' },
-      },
-    },
-    icon: {
-      control: 'text',
-      description: 'Optional icon class (e.g., icon-pin-map, icon-calendar)',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-        defaultValue: { summary: '' },
       },
     },
     // Structure
@@ -78,16 +69,6 @@ export default {
         defaultValue: { summary: 'left' },
       },
     },
-    iconPosition: {
-      control: { type: 'inline-radio' },
-      options: ['left', 'right'],
-      description: 'Icon position relative to text',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'left | right' },
-        defaultValue: { summary: 'left' },
-      },
-    },
     // Accessibility
     visuallyHidden: {
       control: 'boolean',
@@ -108,81 +89,84 @@ export const Default = {
 
 export const AllLevels = {
   render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-3);">
-      ${component({ level: 'h1', text: 'H1 - Main Page Title (48px)' })}
-      ${component({ level: 'h2', text: 'H2 - Section Title (36px)' })}
-      ${component({ level: 'h3', text: 'H3 - Subsection Title (28px)' })}
-      ${component({ level: 'h4', text: 'H4 - Content Block Title (24px)' })}
-      ${component({ level: 'h5', text: 'H5 - Small Heading (20px)' })}
-      ${component({ level: 'h6', text: 'H6 - Micro Title (16px)' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
+      ${component({ level: 'h1', text: 'H1 - Main Page Title' })}
+      ${component({ level: 'h2', text: 'H2 - Section Title' })}
+      ${component({ level: 'h3', text: 'H3 - Subsection Title' })}
+      ${component({ level: 'h4', text: 'H4 - Content Block Title' })}
+      ${component({ level: 'h5', text: 'H5 - Small Heading' })}
+      ${component({ level: 'h6', text: 'H6 - Micro Title' })}
     </div>
   `,
 };
 
 export const AllColors = {
   render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-4);">
-      ${component({ text: 'Default Heading (gray)', color: 'default' })}
-      ${component({ text: 'Primary Heading (green)', color: 'primary' })}
-      ${component({ text: 'Secondary Heading (purple)', color: 'secondary' })}
-      ${component({ text: 'Success Heading', color: 'success' })}
-      ${component({ text: 'Warning Heading', color: 'warning' })}
-      ${component({ text: 'Danger Heading', color: 'danger' })}
-      ${component({ text: 'Info Heading', color: 'info' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
+      ${component({ level: 'h2', text: 'Default Heading', color: 'default' })}
+      ${component({ level: 'h2', text: 'Primary Heading', color: 'primary' })}
+      ${component({ level: 'h2', text: 'Secondary Heading', color: 'secondary' })}
+      ${component({ level: 'h2', text: 'Success Heading', color: 'success' })}
+      ${component({ level: 'h2', text: 'Warning Heading', color: 'warning' })}
+      ${component({ level: 'h2', text: 'Danger Heading', color: 'danger' })}
+      ${component({ level: 'h2', text: 'Info Heading', color: 'info' })}
     </div>
   `,
 };
 
 export const AllWeights = {
   render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-3);">
-      ${component({ text: 'Light Weight (300)', weight: 'light', level: 'h2' })}
-      ${component({ text: 'Regular Weight (400)', weight: 'regular', level: 'h2' })}
-      ${component({ text: 'Bold Weight (700 - default)', weight: 'bold', level: 'h2' })}
-      ${component({ text: 'Extra Weight (800)', weight: 'extra', level: 'h2' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
+      ${component({ level: 'h2', text: 'Light Weight Heading', weight: 'light' })}
+      ${component({ level: 'h2', text: 'Regular Weight Heading', weight: 'regular' })}
+      ${component({ level: 'h2', text: 'Bold Weight Heading', weight: 'bold' })}
+      ${component({ level: 'h2', text: 'Extra Weight Heading', weight: 'extra' })}
     </div>
   `,
 };
 
 export const AllAlignments = {
   render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-4);">
-      ${component({ text: 'Left Aligned (default)', align: 'left', level: 'h2' })}
-      ${component({ text: 'Center Aligned', align: 'center', level: 'h2' })}
-      ${component({ text: 'Right Aligned', align: 'right', level: 'h2' })}
-    </div>
-  `,
-};
-export const WithIcons = {
-  render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-4);">
-      ${component({ level: 'h2', text: 'Location', icon: 'icon-pin-map' })}
-      ${component({ level: 'h3', text: 'Upcoming Events', icon: 'icon-calendar' })}
-      ${component({ level: 'h4', text: 'View Details', icon: 'icon-arrow-right', iconPosition: 'right' })}
-      ${component({ level: 'h2', text: 'Our Offices', icon: 'icon-offices', align: 'center' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
+      ${component({ level: 'h2', text: 'Left Aligned Heading', align: 'left' })}
+      ${component({ level: 'h2', text: 'Center Aligned Heading', align: 'center' })}
+      ${component({ level: 'h2', text: 'Right Aligned Heading', align: 'right' })}
     </div>
   `,
 };
 
 export const UseCases = {
   render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-8);">
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Page Structure</h3>
-        ${component({ level: 'h1', text: 'Main Page Title', color: 'primary' })}
-        ${component({ level: 'h2', text: 'Section Heading' })}
-        ${component({ level: 'h3', text: 'Subsection Title', weight: 'regular' })}
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">With Icons</h3>
-        ${component({ level: 'h2', text: 'Property Search', icon: 'icon-search', color: 'primary' })}
-        ${component({ level: 'h3', text: 'Contact Information', icon: 'icon-phone' })}
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Semantic Colors</h3>
-        ${component({ level: 'h3', text: 'Success Message', color: 'success', icon: 'icon-check' })}
-        ${component({ level: 'h3', text: 'Warning Notice', color: 'warning', icon: 'icon-infos' })}
-      </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-10);">
+      <section>
+        <h3 style="margin: 0 0 var(--size-5) 0; font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-700);">Page Structure Example</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          ${component({ level: 'h1', text: 'Real Estate Services', color: 'primary' })}
+          ${component({ level: 'h2', text: 'Our Properties' })}
+          ${component({ level: 'h3', text: 'Luxury Apartments', weight: 'regular' })}
+          ${component({ level: 'h4', text: 'Property Features' })}
+        </div>
+      </section>
+      
+      <section>
+        <h3 style="margin: 0 0 var(--size-5) 0; font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-700);">Semantic Status Messages</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          ${component({ level: 'h3', text: 'Operation Successful', color: 'success' })}
+          ${component({ level: 'h3', text: 'Important Notice', color: 'warning' })}
+          ${component({ level: 'h3', text: 'Critical Error', color: 'danger' })}
+          ${component({ level: 'h3', text: 'Information', color: 'info' })}
+        </div>
+      </section>
+      
+      <section>
+        <h3 style="margin: 0 0 var(--size-5) 0; font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-700);">Combined Variants</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+          ${component({ level: 'h2', text: 'Primary Bold Title', color: 'primary', weight: 'bold' })}
+          ${component({ level: 'h2', text: 'Secondary Light Title', color: 'secondary', weight: 'light' })}
+          ${component({ level: 'h2', text: 'Centered Success Title', color: 'success', align: 'center' })}
+          ${component({ level: 'h3', text: 'Extra Weight Info Title', color: 'info', weight: 'extra' })}
+        </div>
+      </section>
     </div>
   `,
 };

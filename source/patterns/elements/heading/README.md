@@ -1,6 +1,6 @@
 # Heading Component
 
-Semantic typographic headings (h1–h6) with color and weight variants. Provides proper document structure while supporting visual customization through design tokens.
+Semantic typographic headings (h1–h6) with color and weight variants. Uses component-scoped CSS variables (3-layer system) for easy customization. Provides proper document structure while supporting visual customization.
 
 ## Component Props
 
@@ -11,8 +11,6 @@ Semantic typographic headings (h1–h6) with color and weight variants. Provides
 | `color` | string | `'default'`, `'primary'`, `'secondary'`, `'success'`, `'warning'`, `'danger'`, `'info'` | `'default'` | Semantic color variant |
 | `weight` | string | `'light'`, `'regular'`, `'bold'`, `'extra'` | `'bold'` | Font weight |
 | `align` | string | `'left'`, `'center'`, `'right'` | `'left'` | Text alignment |
-| `icon` | string | icon class | `''` | Optional icon class (e.g., 'icon-pin-map') |
-| `iconPosition` | string | `'left'`, `'right'` | `'left'` | Icon position relative to text |
 | `visuallyHidden` | boolean | `true`, `false` | `false` | Hide visually but keep for screen readers |
 | `attributes` | object | any | - | Additional HTML attributes |
 
@@ -47,11 +45,9 @@ ps-heading                       # Root element (<h1>-<h6>)
 ├── ps-heading--extra
 ├── ps-heading--align-center     # Alignment
 ├── ps-heading--align-right
-├── ps-heading--with-icon        # Icon presence
 ├── ps-heading--visually-hidden  # Screen reader only
 │
-├── ps-heading__text             # Text content wrapper
-└── ps-heading__icon             # Icon element (decorative)
+└── ps-heading__text             # Text content wrapper
 ```
 
 ### Modifiers by Category
@@ -82,49 +78,71 @@ ps-heading                       # Root element (<h1>-<h6>)
 
 **Special States**
 - `ps-heading--with-icon` - Applied when icon prop is provided
+**Special States**
 - `ps-heading--visually-hidden` - Accessible but visually hidden
+## Design Tokens (3-Layer System)
 
-## Design Tokens Used
+### Component-Scoped Variables (Layer 2 - Customizable)
 
-### Typography
-- `--ps-heading-h1-size` (fallback `--font-size-10`) - 48px
-- `--ps-heading-h2-size` (fallback `--font-size-8`) - 36px
-- `--ps-heading-h3-size` (fallback `--font-size-6`) - 28px
-- `--ps-heading-h4-size` (fallback `--font-size-5`) - 24px
-- `--ps-heading-h5-size` (fallback `--font-size-3`) - 20px
-- `--ps-heading-h6-size` (fallback `--font-size-1`) - 16px
+These can be overridden in context without modifying the CSS:
 
-### Line Heights
+```css
+--ps-heading-margin-bottom     /* Default: var(--size-6) - 24px */
+--ps-heading-color              /* Default: var(--gray-900) */
+--ps-heading-font-family        /* Default: var(--font-sans) */
+--ps-heading-font-weight        /* Default: var(--font-weight-700) */
+--ps-heading-font-size          /* Default: var(--font-size-10) for h1 */
+--ps-heading-line-height        /* Default: var(--leading-tight) for h1 */
+--ps-heading-text-align         /* Default: left */
+```
+
+**Example - Override in context:**
+```css
+.sidebar .ps-heading {
+  --ps-heading-font-size: var(--font-size-6);
+  --ps-heading-color: var(--gray-700);
+}
+```
+
+### Base Tokens Referenced (Layer 1)
+
+#### Typography
+- `--font-size-10` (48px) - h1
+- `--font-size-8` (36px) - h2
+- `--font-size-6` (28px) - h3
+- `--font-size-5` (24px) - h4
+- `--font-size-3` (20px) - h5
+- `--font-size-1` (16px) - h6
+
+#### Line Heights
 - `--leading-tight` (1.25) - h1, h2
 - `--leading-snug` (1.375) - h3, h4
 - `--leading-normal` (1.5) - h5, h6
 
-### Font Weights
+#### Font Weights
 - `--font-weight-300` - Light
 - `--font-weight-400` - Regular
 - `--font-weight-600` - Semi-bold (h5/h6 default)
-- `--ps-font-weight-bold` (fallback `--font-weight-700`) - Bold (default)
+- `--font-weight-700` - Bold (default)
 - `--font-weight-800` - Extra
 
-### Colors
-- `--ps-color-text` (fallback `--gray-900`) - Default text color
-- `--brand-primary` - Primary variant
-- `--brand-secondary` - Secondary variant
-- `--btn-success` (fallback `--green-600`) - Success
-- `--btn-warning` (fallback `--yellow-500`) - Warning
-- `--btn-danger` (fallback `--red-600`) - Danger
-- `--btn-info` (fallback `--blue-600`) - Info
+#### Semantic Colors (from semantic.css)
+- `--gray-900` - Default text color
+- `--primary` - Primary variant (brand green)
+- `--secondary` - Secondary variant (brand purple)
+- `--success` - Success green
+- `--warning` - Warning yellow
+- `--danger` - Danger red
+- `--info` - Info blue
 
-### Spacing
-- `--ps-spacing-6` (fallback `--size-6`) - Bottom margin (24px)
-- `--size-2` (8px) - Icon gap
+#### Spacing
+- `--size-6` (24px) - Bottom margin
 
-### Font Family
+#### Font Family
 - `--font-sans` - BNPP Sans
 
-### Special (h6)
+#### Special (h6)
 - `--tracking-wide` - Letter spacing for uppercase h6
-
 ## Usage Examples
 
 ### Default h1
@@ -169,25 +187,6 @@ ps-heading                       # Root element (<h1>-<h6>)
 } %}
 ```
 
-### h3 with Left Icon
-```twig
-{% include '@elements/heading/heading.twig' with {
-  text: 'Location',
-  level: 'h3',
-  icon: 'icon-pin-map'
-} %}
-```
-
-### h3 with Right Icon
-```twig
-{% include '@elements/heading/heading.twig' with {
-  text: 'View Details',
-  level: 'h3',
-  icon: 'icon-arrow-right',
-  iconPosition: 'right'
-} %}
-```
-
 ### Visually Hidden (Accessibility)
 ```twig
 {% include '@elements/heading/heading.twig' with {
@@ -204,8 +203,7 @@ ps-heading                       # Root element (<h1>-<h6>)
   level: 'h2',
   color: 'primary',
   weight: 'extra',
-  align: 'center',
-  icon: 'icon-offices'
+  align: 'center'
 } %}
 ```
 
@@ -237,39 +235,31 @@ ps-heading                       # Root element (<h1>-<h6>)
 </main>
 ```
 
-### 2. Content Cards with Icons
-```twig
-<div class="card">
-  {% include '@elements/heading/heading.twig' with {
-    text: 'Contact Us',
-    level: 'h3',
-    icon: 'icon-phone',
-    color: 'primary'
-  } %}
-  <p>Get in touch with our team...</p>
-</div>
-```
-
-### 3. Semantic Status Messages
+### 2. Semantic Status Messages
 ```twig
 {# Success message #}
 {% include '@elements/heading/heading.twig' with {
   text: 'Operation Successful',
   level: 'h3',
-  color: 'success',
-  icon: 'icon-check'
+  color: 'success'
 } %}
 
 {# Warning notice #}
 {% include '@elements/heading/heading.twig' with {
   text: 'Important Notice',
   level: 'h3',
-  color: 'warning',
-  icon: 'icon-infos'
+  color: 'warning'
+} %}
+
+{# Danger alert #}
+{% include '@elements/heading/heading.twig' with {
+  text: 'Critical Error',
+  level: 'h3',
+  color: 'danger'
 } %}
 ```
 
-### 4. Centered Hero Section
+### 3. Centered Hero Section
 ```twig
 <section class="hero">
   {% include '@elements/heading/heading.twig' with {
@@ -281,13 +271,18 @@ ps-heading                       # Root element (<h1>-<h6>)
 </section>
 ```
 
-### 5. Property Search Section
+### 4. Weight Variations
 ```twig
 {% include '@elements/heading/heading.twig' with {
-  text: 'Property Search',
+  text: 'Bold Section Title',
   level: 'h2',
-  icon: 'icon-search',
-  color: 'primary'
+  weight: 'bold'
+} %}
+
+{% include '@elements/heading/heading.twig' with {
+  text: 'Light Section Title',
+  level: 'h2',
+  weight: 'light'
 } %}
 ```
 
@@ -311,11 +306,6 @@ ps-heading                       # Root element (<h1>-<h6>)
 - Content remains in accessibility tree and keyboard navigation
 - Example: "Navigation" heading for a nav section
 
-### Icons
-- Icons marked with `aria-hidden="true"` (decorative only)
-- Icon presence doesn't convey essential information
-- Text content always present for screen readers
-
 ### Color Contrast
 - All color tokens meet WCAG AA standards (4.5:1 minimum for text)
 - Don't rely on color alone to convey meaning (combine with text/icons)
@@ -335,8 +325,8 @@ ps-heading                       # Root element (<h1>-<h6>)
 - Choose heading level based on semantic structure, not visual appearance
 - Use color variants to emphasize importance (primary for key sections)
 - Use weight variants to create visual hierarchy within same level
-- Add icons to enhance meaning (location, events, actions)
 - Use visuallyHidden for structural headings that don't need display
+- Use component-scoped CSS variables for contextual customization
 - Always use design tokens for styling
 
 ### DON'T ❌
@@ -345,15 +335,16 @@ ps-heading                       # Root element (<h1>-<h6>)
 - Don't choose heading level based on desired size (use weight/color instead)
 - Don't hardcode font sizes, colors, or weights
 - Don't use headings for non-heading content (use styled paragraphs instead)
-- Don't combine multiple icons in one heading
 - Don't rely on color alone to convey meaning
 
 ## Component Audit Checklist
 
 - [x] Uses semantic HTML heading elements (h1–h6)
-- [x] All typography uses design tokens (`--ps-heading-*`, `--font-*`)
-- [x] All colors use design tokens (no hardcoded values)
-- [x] All spacing uses design tokens (`--ps-spacing-*`, `--size-*`)
+- [x] Uses semantic HTML heading elements (h1–h6)
+- [x] Component-scoped CSS variables (3-layer system)
+- [x] All typography uses design tokens (`--font-*`)
+- [x] All colors use semantic tokens (`--primary`, `--gray-900`, etc.)
+- [x] All spacing uses design tokens (`--size-*`)
 - [x] BEM methodology with `ps-` prefix
 - [x] CSS uses PostCSS nesting syntax
 - [x] Minimal markup (default h1 requires no modifier classes)
@@ -361,10 +352,8 @@ ps-heading                       # Root element (<h1>-<h6>)
 - [x] Supports 7 semantic colors (default, primary, secondary, success, warning, danger, info)
 - [x] Supports 4 font weights (light, regular, bold, extra)
 - [x] Supports 3 text alignments (left, center, right)
-- [x] Optional icon support with left/right positioning
-- [x] Icons marked `aria-hidden="true"` (decorative)
 - [x] visuallyHidden option for accessibility
 - [x] Proper document outline maintained
 - [x] Color contrast meets WCAG AA standards
-- [x] Storybook documentation complete with structured sections
+- [x] Storybook documentation complete with Autodocs
 - [x] All content in English

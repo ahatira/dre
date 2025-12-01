@@ -6,15 +6,13 @@
  * @param string color - default|primary|secondary|success|warning|danger|info (default: default)
  * @param string weight - light|regular|bold|extra (default: bold)
  * @param string align - left|center|right (default: left)
- * @param string icon - Icon class without prefix (optional, e.g., 'icon-pin-map')
- * @param string iconPosition - left|right (default: left)
  * @param boolean visuallyHidden - Hide visually but keep for screen readers (default: false)
+ * @param Attribute attributes - Additional HTML attributes (optional)
  #}
 
 {%- set level = level|default('h1') -%}
 {%- set align = align|default('left') -%}
 {%- set visuallyHidden = visuallyHidden|default(false) -%}
-{%- set iconPosition = iconPosition|default('left') -%}
 {%- set color = color|default('default') -%}
 {%- set weight = weight|default('bold') -%}
 
@@ -27,9 +25,6 @@
 {%- endif -%}
 {%- if visuallyHidden -%}
   {%- set classes = classes|merge(['ps-heading--visually-hidden']) -%}
-{%- endif -%}
-{%- if icon -%}
-  {%- set classes = classes|merge(['ps-heading--with-icon']) -%}
 {%- endif -%}
 {%- if color != 'default' -%}
   {%- set classes = classes|merge(['ps-heading--' ~ color]) -%}
@@ -44,11 +39,5 @@
   {%- else -%}
     class="{{ classes|join(' ') }}"
   {%- endif -%}>
-  {%- if icon and iconPosition == 'left' -%}
-    <span class="ps-heading__icon {{ icon }}" aria-hidden="true"></span>
-  {%- endif -%}
   <span class="ps-heading__text">{{- text -}}</span>
-  {%- if icon and iconPosition == 'right' -%}
-    <span class="ps-heading__icon {{ icon }}" aria-hidden="true"></span>
-  {%- endif -%}
 </{{ level }}>
