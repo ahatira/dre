@@ -71,25 +71,34 @@ animation: var(--animation-pulse); /* Scale pulse */
 ### Easing Curves (35)
 
 \`\`\`css
-/* Standard easing (5) */
+/* Standard easing (5) - General purpose */
 var(--ease-1) to var(--ease-5)
 
-/* In-Out easing (5) */
+/* In easing (5) - Accelerate (slow start) */
+var(--ease-in-1) to var(--ease-in-5)
+
+/* Out easing (5) - Decelerate (slow end) */
+var(--ease-out-1) to var(--ease-out-5)
+
+/* In-Out easing (5) - Smooth acceleration & deceleration */
 var(--ease-in-out-1) to var(--ease-in-out-5)
 
-/* Elastic easing (5) */
+/* Elastic easing (5) - Bounce/spring effect */
 var(--ease-elastic-1) to var(--ease-elastic-5)
 
-/* Spring easing (5) */
-var(--ease-spring-1) to var(--ease-spring-5)
+/* Squish easing (5) - Overshoot effect */
+var(--ease-squish-1) to var(--ease-squish-5)
 
-/* + 15 more specialized curves */
+/* Step easing (5) - Discrete jumps */
+var(--ease-step-1) to var(--ease-step-5) /* 2, 3, 4, 7, 10 steps */
 \`\`\`
+
+**Total**: 35 cubic-bezier curves + step functions for all animation needs.
 
 ### Reference
 
 - **Durations**: \`source/props/animations.css\` (6 tokens + 20 presets)
-- **Easing**: \`source/props/easing.css\` (35 curves)
+- **Easing**: \`source/props/easing.css\` (35 curves: 30 cubic-bezier + 5 steps)
 - **Usage**: Combine durations with easing for custom transitions
         `,
       },

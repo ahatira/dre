@@ -23,4 +23,112 @@
       <div style="border-radius: var(--radius-round);">round</div>
     </article>
   </div>
+
+  <div class="just-for-gap">
+    <div class="heading">Border Colors (from brand.css)</div>
+    <article class="border-color-demo">
+      <div class="border-swatch">
+        <div class="swatch" style="background-color: var(--border-default);"></div>
+        <div class="meta">
+          <span class="name">Default</span>
+          <span class="var">--border-default</span>
+          <span class="value">#D6DBDE</span>
+          <span class="usage">Standard borders</span>
+        </div>
+      </div>
+      <div class="border-swatch">
+        <div class="swatch" style="background-color: var(--border-light);"></div>
+        <div class="meta">
+          <span class="name">Light</span>
+          <span class="var">--border-light</span>
+          <span class="value">#EBEDEF</span>
+          <span class="usage">Light separators</span>
+        </div>
+      </div>
+      <div class="border-swatch">
+        <div class="swatch" style="background-color: var(--border-focus);"></div>
+        <div class="meta">
+          <span class="name">Focus</span>
+          <span class="var">--border-focus</span>
+          <span class="value">#333333</span>
+          <span class="usage">Focus rings</span>
+        </div>
+      </div>
+      <div class="border-swatch">
+        <div class="swatch" style="background-color: var(--border-error);"></div>
+        <div class="meta">
+          <span class="name">Error</span>
+          <span class="var">--border-error</span>
+          <span class="value">#EB3636</span>
+          <span class="usage">Error states</span>
+        </div>
+      </div>
+      <div class="border-swatch">
+        <div class="swatch" style="background-color: var(--border-success);"></div>
+        <div class="meta">
+          <span class="name">Success</span>
+          <span class="var">--border-success</span>
+          <span class="value">#00915A</span>
+          <span class="usage">Success/done</span>
+        </div>
+      </div>
+    </article>
+  </div>
 </section>
+
+<style>
+/* Border color swatches */
+.border-color-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--size-4);
+}
+
+.border-swatch {
+  display: flex;
+  gap: var(--size-3);
+  padding: var(--size-3);
+  background: var(--bg-section);
+  border-radius: var(--radius-2);
+}
+
+.border-swatch .swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.border-swatch .meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-05);
+  font-size: var(--font-size-0);
+  min-width: 0;
+}
+
+.border-swatch .name {
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+}
+
+.border-swatch .var {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  color: var(--primary);
+  word-break: break-all;
+}
+
+.border-swatch .value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+}
+
+.border-swatch .usage {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+</style>
