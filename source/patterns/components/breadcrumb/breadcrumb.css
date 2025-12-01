@@ -11,6 +11,9 @@
 /* ======================================== */
 
 .ps-breadcrumb {
+  /* Icon codepoint for separator */
+  --ps-breadcrumb-separator-icon: '\e851'; /* chevron-right from bnpre-icons */
+  
   font-family: var(--font-sans);
   font-size: var(--font-size-1);
   line-height: var(--leading-6);
@@ -36,7 +39,7 @@
     }
     
     &:not(:last-child)::after {
-      content: '\e851';
+      content: var(--ps-breadcrumb-separator-icon);
       display: inline-block;
       font-family: 'bnpre-icons';
       font-style: normal;

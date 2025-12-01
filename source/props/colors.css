@@ -22,6 +22,12 @@
 
   /* Progress bar stripe overlay */
   --progress-stripe-overlay: hsla(0, 0%, 100%, 0.25); /* White 25% opacity for animated stripes */
+
+  /* Alert component overlays */
+  --alert-overlay-hover: hsla(0, 0%, 100%, 0.2); /* White 20% for hover state */
+  --alert-overlay-active: hsla(0, 0%, 100%, 0.3); /* White 30% for active state */
+  --alert-overlay-subtle-hover: hsla(0, 0%, 0%, 0.05); /* Black 5% for subtle variants hover */
+  --alert-overlay-subtle-active: hsla(0, 0%, 0%, 0.1); /* Black 10% for subtle variants active */
   
   /* Base colors */
   --white: hsl(0 0% 100%);

@@ -137,7 +137,11 @@
     }
   }
 
-  /* Native select fallback (hidden by default) */
+  /* Native select fallback (hidden by default)
+   * Visually hidden pattern - WCAG standard
+   * Exception: 1px values are acceptable (standard CSS pattern)
+   * Reference: https://www.w3.org/WAI/WCAG21/Techniques/css/C7
+   */
   &__native {
     position: absolute;
     opacity: 0;

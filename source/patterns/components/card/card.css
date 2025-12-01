@@ -76,7 +76,7 @@
 
   /* Modifier: Outlined variant */
   &--outlined {
-    border: 2px solid var(--gray-300);
+    border: var(--border-size-2) solid var(--gray-300);
     box-shadow: none;
   }
 
@@ -179,7 +179,7 @@
       transform var(--ps-transition-duration-fast) var(--ease-out-1);
 
     &:active {
-      transform: translateY(1px);
+      transform: translateY(var(--border-size-1));
     }
   }
 }

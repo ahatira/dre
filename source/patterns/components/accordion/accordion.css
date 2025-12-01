@@ -55,8 +55,8 @@
 
   &__icon {
     position: relative;
-    width: 19px;
-    height: 12px;
+    width: var(--size-5);
+    height: var(--size-3);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
@@ -66,7 +66,7 @@
     &::after {
       content: '';
       position: absolute;
-      width: 13px;
+      width: var(--size-3);
       height: var(--border-size-2);
       background-color: currentColor;
       transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
