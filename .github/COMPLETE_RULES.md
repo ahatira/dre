@@ -45,6 +45,7 @@ This is the **master reference**. For deep dives into specific topics:
 12. [Twig Templates](#12-twig-templates)
 13. [YAML Configuration](#13-yaml-configuration)
 14. [Documentation](#14-documentation)
+   - 14.5. [Base Stories Standards](#145-base-stories-standards-sourcepatternsbase)
 15. [Accessibilité](#15-accessibilité)
 16. [Performance](#16-performance)
 17. [Workflow & Validation](#17-workflow--validation)
@@ -1139,6 +1140,200 @@ Concise description.
 ### B. Storybook Autodocs
 
 Voir section [11. Storybook Standards](#11-storybook-standards).
+
+---
+
+## 14.5. Base Stories Standards (source/patterns/base/)
+
+### A. Purpose & Organization
+
+Base stories document the **design tokens system** (props files) in Storybook. Each story visualizes tokens from one or more props files for developer reference.
+
+**Location**: `source/patterns/base/{category}/`
+
+**Existing Base Stories** (8):
+1. **animations/** - Durations (6) + Presets (20) + Easing curves (35)
+2. **aspects/** - Aspect ratios (7)
+3. **borders/** - Widths (6) + Radii (8) + Colors (5 from brand.css)
+4. **brand/** - Semantic colors (52 tokens across 5 categories)
+5. **colors/** - Neutrals (11) + Palettes (60)
+6. **fonts/** - Font families (3) + Size scale (15) + Weights (3)
+7. **shadows/** - Elevation shadows (16)
+8. **sizes/** - Spacing scale (33)
+
+### B. Data Source Requirements (CRITICAL)
+
+Base stories use **YAML data files** to drive Twig templates. When updating token structure:
+
+**✅ MUST synchronize**:
+1. **Props CSS file** - Token definitions (e.g., `source/props/colors.css`)
+2. **YAML data file** - Story data (e.g., `source/patterns/base/colors/colors.yml`)
+3. **Twig template** - Rendering logic (e.g., `source/patterns/base/colors/colors.twig`)
+
+**❌ COMMON ERROR**: Updating YAML structure without updating Twig template.
+
+**Example Issue** (colors story):
+- Updated `colors.yml` structure: `colors` → `neutrals` + `palettes`
+- ❌ Template still looked for `colors` key → blank display
+- ✅ Fixed by updating Twig loop: `{% for title, list in colors %}` → separate loops for `neutrals` and `palettes`
+
+### C. Template Structure Requirements
+
+**All base story templates MUST**:
+
+1. **Handle new data structure**:
+   ```twig
+   {# BEFORE (legacy) #}
+   {% for title, list in colors %}
+   
+   {# AFTER (modern) #}
+   {% if neutrals %}
+     {% for title, list in neutrals %}
+   {% endif %}
+   {% if palettes %}
+     {% for title, list in palettes %}
+   {% endif %}
+   ```
+
+2. **Display all required fields**:
+   - `name` - Human-readable name
+   - `var` - CSS custom property (e.g., `--gray-500`)
+   - `value` - Computed value (e.g., `hsl(220, 9%, 46%)`)
+   - `usage` (optional) - Usage description for neutrals/key tokens
+
+3. **Include token counts in headers**:
+   ```twig
+   <div class="heading">Neutrals (11 tokens)</div>
+   <div class="heading">Color Palettes (60 tokens)</div>
+   ```
+
+4. **Add inline styles for custom elements**:
+   ```twig
+   <style>
+   .category-title {
+     font-size: var(--font-size-1);
+     font-weight: var(--font-weight-600);
+     margin-block-end: var(--size-3);
+   }
+   </style>
+   ```
+
+### D. Token Coverage Verification
+
+**When auditing completeness**, verify:
+
+1. **Token count matches**:
+   - Count tokens in props CSS: `grep -c "^  --" source/props/file.css`
+   - Count displayed in story template
+   - Update story header with accurate count
+
+2. **Cross-file tokens included**:
+   - Example: Border colors are in `brand.css`, not `borders.css`
+   - ✅ `borders/` story must document both sources
+   - Document in story header: "Tokens from: borders.css (14) + brand.css (5)"
+
+3. **All token categories covered**:
+   ```
+   ✅ animations.css → animations/ story
+   ✅ aspects.css → aspects/ story
+   ✅ borders.css → borders/ story (+ brand.css colors)
+   ✅ brand.css → brand/ story (+ referenced in borders/)
+   ✅ colors.css → colors/ story
+   ✅ fonts.css → fonts/ story
+   ✅ shadows.css → shadows/ story
+   ✅ sizes.css → sizes/ story
+   ⚠️ easing.css → Documented in animations/ story (not separate)
+   ⚠️ media.css → No story (breakpoints are @media queries, not visual)
+   ⚠️ zindex.css → No story (simple numeric layers, well-documented in CSS)
+   ```
+
+### E. Legacy Token Cleanup Process
+
+**When removing legacy tokens from YAML**:
+
+1. ✅ **Verify tokens don't exist in CSS**:
+   ```bash
+   grep -r "--bnp-green" source/props/  # Should return no matches
+   grep -r "--overlay-" source/props/   # Should return no matches
+   ```
+
+2. ✅ **Update YAML structure**:
+   - Remove legacy keys (e.g., `--bnp-*`, `--overlay-*`)
+   - Replace with current system (e.g., semantic colors from brand.css)
+   - Add comments pointing to new token locations
+
+3. ✅ **Update Twig template**:
+   - Adjust loops to match new YAML structure
+   - Add conditional checks: `{% if neutrals %}`
+   - Update section headers and counts
+
+4. ✅ **Test in Storybook**:
+   - Build: `npm run build`
+   - Visual check: All tokens display correctly
+   - No blank sections or missing data
+
+### F. Documentation Accuracy
+
+**Base story documentation MUST**:
+
+1. **List correct token sources**:
+   ```markdown
+   ### Reference
+   - **Widths & Radii**: `source/props/borders.css` (14 tokens)
+   - **Colors**: `source/props/brand.css` (5 semantic tokens)
+   - **Total**: 19 border tokens
+   ```
+
+2. **Document all token groups**:
+   - Easing story must list all 7 categories (35 curves)
+   - ❌ Don't reference non-existent tokens (e.g., `--ease-spring-*`)
+   - ✅ Verify every documented token exists in props CSS
+
+3. **Include usage examples**:
+   ```css
+   /* Border colors (semantic) */
+   border-color: var(--border-default); /* Standard borders */
+   border-color: var(--border-focus);   /* Focus rings */
+   border-color: var(--border-error);   /* Error states */
+   ```
+
+### G. Commit Message Format
+
+When updating base stories:
+
+```
+Complete [story-name] story documentation
+
+[STORY NAME] ([directory]/)
+- Fix/Add [specific changes]
+  • [Detail 1]
+  • [Detail 2]
+- Update [file].stories.jsx documentation
+  • [Documentation change]
+
+ISSUE: [Root cause description]
+TOKENS: [Before count] → [After count]
+
+Build: ✓ 0 errors ([size] CSS)
+```
+
+**Example**:
+```
+Complete base stories documentation gaps
+
+BORDERS STORY (borders/)
+- Add Border Colors section to borders.twig
+  • 5 new swatches: default, light, focus, error, success
+- Update borders.stories.jsx documentation
+  • Total tokens: 13 → 19 (added 5 border colors from brand.css)
+
+COLORS DATA (colors.yml)
+- Replace legacy token structure
+  • Remove: --bnp-green, --bnp-accent-*, --overlay-*
+  • Add: Current structure (neutrals + 6 palettes)
+
+Build: ✓ 0 errors (150.29 kB CSS)
+```
 
 ---
 

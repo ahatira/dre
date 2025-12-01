@@ -1,3 +1,54 @@
+# PS Design System - Changelog
+
+> Log chronologique inversé (plus récent en haut) des implémentations de composants.
+
+## 2025
+
+- 2025-12-01: **Base Stories Completeness Audit** - Vérification et correction complète des stories de tokens
+  - **Audit systématique** : Vérification de toutes les stories `source/patterns/base/` pour s'assurer qu'elles documentent 100% des tokens de leurs fichiers props respectifs
+  - **Borders story complétée** : Ajout de 5 border colors (--border-default, --border-light, --border-focus, --border-error, --border-success) depuis brand.css
+    - Tokens avant : 13 (6 widths + 8 radii seulement)
+    - Tokens après : **19 total** (6 widths + 8 radii + 5 colors)
+    - Nouvelle section Border Colors avec swatches + métadonnées (name, var, value, usage)
+    - Documentation borders.stories.jsx mise à jour avec exemples focus/error states
+  - **Colors.yml modernisé** : Suppression de 16 tokens legacy obsolètes (--bnp-green, --bnp-accent-*, --overlay-*)
+    - Structure avant : keys legacy (Primary color, Secondary color, Status, Grey levels, Overlay colors)
+    - Structure après : **neutrals (11) + palettes (60)** avec usage notes
+    - Neutrals : gray-50 à gray-900 + white avec descriptions d'usage ("Lightest backgrounds", "Body text", etc.)
+    - Palettes : red, yellow, green, blue, purple, pink (10 shades chacune)
+    - Note ajoutée pointant vers brand.css pour les 52 semantic tokens
+  - **Colors.twig corrigé** : Template adapté à la nouvelle structure YAML
+    - Bug fix : template cherchait key `colors` mais YAML utilise maintenant `neutrals` + `palettes` → affichage vide
+    - Ajout loops séparés pour neutrals et palettes avec headers comptant tokens
+    - Ajout category titles pour chaque groupe de couleurs
+    - Ajout affichage du champ `usage` pour les neutrals
+    - Styles CSS inline pour category-title et usage text
+  - **Animations story corrigée** : Documentation easing curves complète et précise
+    - Bug fix : documentation mentionnait --ease-spring-* (n'existe pas dans easing.css)
+    - Liste complète des 7 catégories : ease (5), ease-in (5), ease-out (5), ease-in-out (5), ease-elastic (5), ease-squish (5), ease-step (5)
+    - **35 curves total** : 30 cubic-bezier + 5 steps functions
+    - Ajout descriptions comportementales (accelerate, decelerate, bounce, overshoot, jumps)
+  - **Media & Z-index vérifiés** : Pas de stories nécessaires
+    - media.css : 7 breakpoints (@custom-media, bien documentés en CSS)
+    - zindex.css : 9 layers (0, 1, 10, 20, 30, 40, 50, auto, important)
+    - Décision : tokens simples et bien documentés dans CSS, pas de démo visuelle critique
+  - **Documentation projet mise à jour** : Nouvelle section 14.5 dans `.github/COMPLETE_RULES.md`
+    - Base Stories Standards : purpose, organization, data source requirements
+    - Template structure requirements : data handling, field display, token counts, inline styles
+    - Token coverage verification : cross-file tokens, category coverage checklist
+    - Legacy token cleanup process : verification workflow, YAML updates, Twig template sync, testing
+    - Documentation accuracy : correct sources, all token groups, usage examples
+    - Commit message format pour base stories updates
+  - **Findings résumé** :
+    - ✅ Borders : 13 → 19 tokens (added 5 border colors from brand.css)
+    - ✅ Colors : Removed 16 legacy tokens, added modern structure (71 total)
+    - ✅ Animations : Fixed easing documentation (35 curves accurately listed)
+    - ✅ Media : 7 breakpoints well-documented (no story needed)
+    - ✅ Z-index : 9 layers well-documented (no story needed)
+  - **Leçon clé** : Lors de la mise à jour d'une structure YAML, TOUJOURS synchroniser le template Twig correspondant pour éviter les affichages vides
+  - Commits : 3 commits (`3af7b9a`, `5f6431e`, + COMPLETE_RULES.md update)
+  - Build : ✓ 0 errors (150.29 kB CSS) sur tous les commits
+
 - 2025-11-30: **carousel** - Composant complet conforme template standard + **Intégration Swiper.js v11** + **PIXEL PERFECT maquette overlay**
   - **Architecture librairie** : implémentation via [Swiper.js](https://swiperjs.com/) (39k+ GitHub stars) suivant méthodologie `.github/COMPLETE_RULES.md` Section 19 (library evaluation: complexity assessment, research criteria, integration pattern)
   - **Justification Swiper** : carousel interactions (touch, loop, RTL, lazy load) complexes et error-prone à implémenter from scratch; library battle-tested avec native WCAG AA accessibility, GPU-accelerated, modular (~15KB gzipped), mobile-optimized, active maintenance
