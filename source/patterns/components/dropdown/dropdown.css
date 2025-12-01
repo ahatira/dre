@@ -12,7 +12,7 @@
  * - Icons: --ps-icon-size-16, --ps-icon-size-20
  * - Colors: --white, --ps-color-text, --gray-*, --blue-600, --brand-primary
  * - Typography: --font-sans, --font-size-1/2, --leading-normal, --font-weight-600
- * - Borders: --border-size-1, --radius-2, --ps-border-width-focus
+ * - Borders: --border-size-1, --radius-2, --border-size-2 (focus)
  * - Effects: --shadow-4, --ps-transition-duration-fast, --ease-3, --layer-40
  * 
  * Future Enhancements (per mockups):
@@ -51,7 +51,7 @@
     }
 
     &:focus-visible {
-      outline: var(--ps-border-width-focus) solid var(--blue-600);
+      outline: var(--border-size-2) solid var(--blue-600);
       outline-offset: var(--size-05);
       border-color: var(--blue-600);
     }

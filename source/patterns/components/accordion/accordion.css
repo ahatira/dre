@@ -9,8 +9,8 @@
   font-family: var(--ps-font-family-primary);
 
   &__item {
-    border-bottom: var(--ps-border-width-default) solid var(--gray-300);
-    &:first-child { border-top: var(--ps-border-width-default) solid var(--gray-300); }
+    border-bottom: var(--border-size-1) solid var(--gray-300);
+    &:first-child { border-top: var(--border-size-1) solid var(--gray-300); }
   }
 
   &__header { margin: 0; }
