@@ -112,7 +112,7 @@ The field component uses component-scoped variables for easy customization (Boot
 --ps-field-placeholder-color: var(--gray-400);
 
 /* Colors - Hover state */
---ps-field-hover-border-color: var(--border-light);
+--ps-field-hover-border-color: var(--gray-300);
 
 /* Colors - Focus state */
 --ps-field-focus-border-color: var(--black);
