@@ -1,98 +1,65 @@
 /**
  * Avatar (Element/Atom)
- * Représentation visuelle d'un utilisateur ou entité
+ * User or entity visual representation with automatic fallback hierarchy
  * 
- * BEM: ps-avatar-wrapper, ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__icon, ps-avatar__status
+ * BEM: ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__status
  * Sizes: xs (24px) | sm (32px) | md (40px - default) | lg (48px) | xl (80px)
  * Shapes: circle (default) | square | rounded
- * Gender: male (default) | female (pour fallback icon)
+ * Types: image | initials | agent fallback (male/female)
  * Status: online | offline | busy
- * 
- * Component-scoped variables (Bootstrap 5 approach):
- * Base class defines defaults via CSS variables, modifiers override them.
  */
 
 /* ========================================
- * Wrapper - Controls sizing via component variables
- * ======================================== */
-
-.ps-avatar-wrapper {
-  /* Component-scoped variables (Layer 2) */
-  --ps-avatar-size: var(--size-10); /* md 40px default */
-  --ps-avatar-text-size: var(--font-size-2); /* 18px */
-  --ps-avatar-icon-size: var(--size-5); /* 20px */
-  --ps-avatar-rounded-radius: var(--radius-4); /* 8px md */
-  
-  /* Base layout using component variables */
-  position: relative;
-  display: inline-block;
-  width: var(--ps-avatar-size);
-  height: var(--ps-avatar-size);
-  
-  /* Size modifiers - override component variables (Layer 3) */
-  &--xs {
-    --ps-avatar-size: var(--size-6);  /* 24px */
-    --ps-avatar-text-size: var(--font-size--2); /* 10px */
-    --ps-avatar-icon-size: var(--size-3); /* 12px */
-    --ps-avatar-rounded-radius: var(--radius-2); /* 4px */
-  }
-  
-  &--sm {
-    --ps-avatar-size: var(--size-8);  /* 32px */
-    --ps-avatar-text-size: var(--font-size-0); /* 14px */
-    --ps-avatar-icon-size: var(--size-4); /* 16px */
-    --ps-avatar-rounded-radius: var(--radius-3); /* 6px */
-  }
-  
-  /* md handled by base defaults (minimal markup) */
-  
-  &--lg {
-    --ps-avatar-size: var(--size-12); /* 48px */
-    --ps-avatar-text-size: var(--font-size-4); /* 22px */
-    --ps-avatar-icon-size: var(--size-6); /* 24px */
-    --ps-avatar-rounded-radius: var(--radius-5); /* 12px */
-  }
-  
-  &--xl {
-    --ps-avatar-size: var(--size-20); /* 80px */
-    --ps-avatar-text-size: var(--font-size-8); /* 36px */
-    --ps-avatar-icon-size: var(--size-10); /* 40px */
-    --ps-avatar-rounded-radius: var(--radius-6); /* 16px */
-  }
-}
-
-/* ========================================
- * Avatar Container - Uses component variables
+ * Base Avatar
  * ======================================== */
 
 .ps-avatar {
   /* Component-scoped variables */
+  --ps-avatar-size: var(--size-10); /* md 40px default */
+  --ps-avatar-text-size: var(--font-size-1); /* 16px */
   --ps-avatar-bg: var(--gray-200);
   --ps-avatar-text-color: var(--white);
-  --ps-avatar-icon-color: var(--gray-600);
   --ps-avatar-radius: 50%; /* circle default */
   --ps-avatar-border-width: 0;
   --ps-avatar-border-color: var(--white);
+  --ps-avatar-status-size: var(--size-3); /* 12px md */
+  --ps-avatar-status-bg: var(--success);
+  --ps-avatar-status-border-width: var(--border-size-2);
+  --ps-avatar-status-border-color: var(--white);
   
   /* Base layout using component variables */
   position: relative;
-  width: 100%;
-  height: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  width: var(--ps-avatar-size);
+  height: var(--ps-avatar-size);
   flex-shrink: 0;
-  background: var(--ps-avatar-bg);
-  border-radius: var(--ps-avatar-radius);
-  border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
+  overflow: hidden;
   text-decoration: none;
   
-  /* Elements - use wrapper's size variables */
+  /* ========================================
+   * Elements
+   * ======================================== */
+  
+  &__image-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--ps-avatar-bg);
+    border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
+    border-radius: var(--ps-avatar-radius);
+    overflow: hidden;
+  }
+  
   &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
   
   &__text {
@@ -101,44 +68,116 @@
     font-weight: var(--font-weight-600);
     color: var(--ps-avatar-text-color);
     text-transform: uppercase;
+    line-height: 1;
+    -webkit-user-select: none;
     user-select: none;
   }
   
-  &__icon {
-    display: block;
-    position: relative;
-    width: var(--ps-avatar-icon-size);
-    height: var(--ps-avatar-icon-size);
-    color: var(--ps-avatar-icon-color);
-    background-color: currentColor;
-    -webkit-mask: url('../../../assets/images/agent/male.svg') no-repeat center / contain;
-    mask: url('../../../assets/images/agent/male.svg') no-repeat center / contain;
-    
-    &[data-agent="female"] {
-      -webkit-mask-image: url('../../../assets/images/agent/female.svg');
-      mask-image: url('../../../assets/images/agent/female.svg');
-    }
+  &__status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: var(--ps-avatar-status-size);
+    height: var(--ps-avatar-status-size);
+    border-radius: 50%;
+    background: var(--ps-avatar-status-bg);
+    border: var(--ps-avatar-status-border-width) solid var(--ps-avatar-status-border-color);
   }
   
-  /* Shape modifiers - override radius variable */
+  /* ========================================
+   * Modifiers - Sizes
+   * ======================================== */
+  
+  &--xs {
+    --ps-avatar-size: var(--size-6); /* 24px */
+    --ps-avatar-text-size: var(--font-size--2); /* 10px */
+    --ps-avatar-status-size: var(--size-2); /* 8px */
+    --ps-avatar-status-border-width: var(--border-size-1);
+  }
+  
+  &--sm {
+    --ps-avatar-size: var(--size-8); /* 32px */
+    --ps-avatar-text-size: var(--font-size-0); /* 14px */
+    --ps-avatar-status-size: var(--size-205); /* 10px */
+  }
+  
+  /* md handled by base defaults (minimal markup) */
+  
+  &--lg {
+    --ps-avatar-size: var(--size-12); /* 48px */
+    --ps-avatar-text-size: var(--font-size-3); /* 20px */
+    --ps-avatar-status-size: var(--size-305); /* 14px */
+  }
+  
+  &--xl {
+    --ps-avatar-size: var(--size-20); /* 80px */
+    --ps-avatar-text-size: var(--font-size-7); /* 32px */
+    --ps-avatar-status-size: var(--size-5); /* 20px */
+    --ps-avatar-status-border-width: var(--border-size-3);
+  }
+  
+  /* ========================================
+   * Modifiers - Shapes
+   * ======================================== */
+  
   &--square {
     --ps-avatar-radius: 0;
   }
   
   &--rounded {
-    --ps-avatar-radius: var(--ps-avatar-rounded-radius); /* Adaptive per size */
+    --ps-avatar-radius: var(--radius-3); /* 6px */
   }
   
-  /* Type modifiers - override background */
+  &--rounded.ps-avatar--xs {
+    --ps-avatar-radius: var(--radius-2); /* 4px */
+  }
+  
+  &--rounded.ps-avatar--lg {
+    --ps-avatar-radius: var(--radius-4); /* 8px */
+  }
+  
+  &--rounded.ps-avatar--xl {
+    --ps-avatar-radius: var(--radius-5); /* 12px */
+  }
+  
+  /* ========================================
+   * Modifiers - Types
+   * ======================================== */
+  
   &--initials {
-    --ps-avatar-bg: var(--brand-primary);
+    --ps-avatar-bg: var(--primary);
   }
   
-  &--icon {
-    --ps-avatar-bg: var(--gray-100);
+  /* ========================================
+   * Modifiers - Gender (Fallback)
+   * ======================================== */
+  
+  &--male {
+    --ps-avatar-bg: var(--primary);
+    
+    .ps-avatar__image-wrapper {
+      background-image: url('/images/agent/male.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
   
-  /* State modifiers - override border */
+  &--female {
+    --ps-avatar-bg: var(--secondary);
+    
+    .ps-avatar__image-wrapper {
+      background-image: url('/images/agent/female.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+  
+  /* ========================================
+   * Modifiers - States
+   * ======================================== */
+  
   &--bordered {
     --ps-avatar-border-width: var(--border-size-2);
   }
@@ -152,60 +191,22 @@
     }
     
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--brand-secondary);
+      outline: var(--border-size-2) solid var(--secondary);
       outline-offset: var(--border-size-2);
     }
   }
 }
 
 /* ========================================
- * Status Badge (optional)
+ * Status Badge Modifiers
  * ======================================== */
 
 .ps-avatar__status {
-  /* Component-scoped variables */
-  --ps-avatar-status-size: var(--size-3); /* 12px md */
-  --ps-avatar-status-bg: var(--success);
-  --ps-avatar-status-border-width: var(--border-size-2);
-  --ps-avatar-status-border-color: var(--white);
-  
-  /* Base layout using component variables */
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: var(--ps-avatar-status-size);
-  height: var(--ps-avatar-status-size);
-  border-radius: 50%;
-  background: var(--ps-avatar-status-bg);
-  border: var(--ps-avatar-status-border-width) solid var(--ps-avatar-status-border-color);
-  
-  /* Size-specific adjustments (from wrapper context) */
-  .ps-avatar-wrapper--xs & {
-    --ps-avatar-status-size: var(--size-2); /* 8px */
-    --ps-avatar-status-border-width: var(--border-size-1);
-  }
-  
-  .ps-avatar-wrapper--sm & {
-    --ps-avatar-status-size: var(--size-2-5); /* 10px */
-  }
-  
-  /* md uses defaults (minimal markup) */
-  
-  .ps-avatar-wrapper--lg & {
-    --ps-avatar-status-size: var(--size-3-5); /* 14px */
-  }
-  
-  .ps-avatar-wrapper--xl & {
-    --ps-avatar-status-size: var(--size-5); /* 20px */
-    --ps-avatar-status-border-width: var(--border-size-3);
-  }
-  
-  /* Status type modifiers */
-  &[data-status="offline"] {
+  &--offline {
     --ps-avatar-status-bg: var(--gray-400);
   }
   
-  &[data-status="busy"] {
+  &--busy {
     --ps-avatar-status-bg: var(--danger);
   }
 }

@@ -1,174 +1,267 @@
 # Avatar
 
-User or entity visual representation with automatic fallback hierarchy.
-
-## Overview
-- **Purpose**: Identify users/entities visually in profiles, comments, lists, headers.
-- **Display modes**: image → initials → gender icon (automatic fallback).
-- **Sizes**: xs (24px), sm (32px), md (40px, default), lg (48px), xl (80px).
-- **Shapes**: circle (default), square, rounded (adaptive radius scaling).
-- **Status badge**: online (green), offline (gray), busy (red) at bottom-right.
-- **Border**: optional white outline for dark backgrounds.
-- **Interactive**: clickable variant with hover scale and focus outline.
-- **Accessibility**: alt required for images; initials as text; icon aria-hidden; status with descriptive label.
+User or entity visual representation with automatic fallback hierarchy (image → initials → icon). Supports multiple sizes, shapes, status indicators, and interactive states.
 
 ## Markup
+
 ```twig
-{# Image avatar (default) #}
-<div class="ps-avatar-wrapper">
-  <div class="ps-avatar">
-    <img class="ps-avatar__image" src="/user.jpg" alt="John Doe" loading="lazy" />
-  </div>
-</div>
+{# Default: Image avatar #}
+{% include '@elements/avatar/avatar.twig' with {
+  src: 'https://i.pravatar.cc/150',
+  alt: 'John Doe',
+} %}
 
 {# Initials fallback #}
-<div class="ps-avatar-wrapper ps-avatar-wrapper--lg">
-  <div class="ps-avatar ps-avatar--initials">
-    <span class="ps-avatar__text">JD</span>
-  </div>
-</div>
+{% include '@elements/avatar/avatar.twig' with {
+  initials: 'JD',
+  size: 'lg',
+} %}
 
-{# Icon fallback with status #}
-<div class="ps-avatar-wrapper">
-  <div class="ps-avatar ps-avatar--icon">
-    <span class="ps-avatar__icon" data-agent="male" aria-hidden="true"></span>
-  </div>
-  <span class="ps-avatar__status" data-status="online" aria-label="Online"></span>
-</div>
+{# Icon fallback with gender #}
+{% include '@elements/avatar/avatar.twig' with {
+  gender: 'female',
+  size: 'md',
+} %}
+
+{# Icon fallback (automatic, male by default) #}
+{% include '@elements/avatar/avatar.twig' %}
+
+{# Icon fallback with specific gender #}
+{% include '@elements/avatar/avatar.twig' with {
+  gender: 'female',
+} %}
+
+{# With status badge #}
+{% include '@elements/avatar/avatar.twig' with {
+  src: 'https://i.pravatar.cc/150',
+  alt: 'John Doe',
+  status: 'online',
+} %}
+
+{# Clickable link #}
+{% include '@elements/avatar/avatar.twig' with {
+  src: 'https://i.pravatar.cc/150',
+  alt: 'John Doe',
+  clickable: true,
+  href: '/profile',
+} %}
 ```
 
 ## Props
-| Prop | Type | Default | Description |
+
+| Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `src` | string | `''` | Image URL (triggers image mode). |
-| `alt` | string | `''` | Image alt text (required when src present). |
-| `initials` | string | `''` | 2-letter initials (fallback when no image). |
-| `gender` | enum | `male` | Icon gender variant (male \| female). |
-| `size` | enum | `md` | Avatar size (xs \| sm \| md \| lg \| xl). |
-| `shape` | enum | `circle` | Shape variant (circle \| square \| rounded). |
-| `status` | enum | `''` | Status badge (online \| offline \| busy). |
-| `bordered` | boolean | `false` | White border (2px). |
-| `clickable` | boolean | `false` | Hover/focus effects. |
-| `href` | string | `''` | Link URL (renders `<a>`). |
-| `attributes` | Attribute | — | Additional HTML attributes. |
+| `src` | `string` | `''` | Avatar image URL. If omitted, falls back to initials or icon. |
+| `alt` | `string` | `''` | Alternative text for the image. Required when `src` is provided. |
+| `initials` | `string` | `''` | Initials text (2 letters max, e.g. "JD"). Fallback if no image. |
+| `gender` | `string` | `'male'` | Gender for icon fallback: `male` \| `female`. Uses agent silhouette images. |
+| `size` | `string` | `'md'` | Avatar size: `xs` (24px) \| `sm` (32px) \| `md` (40px) \| `lg` (48px) \| `xl` (80px) |
+| `shape` | `string` | `'circle'` | Avatar shape: `circle` \| `square` \| `rounded` |
+| `status` | `string` | `''` | Status badge indicator: `online` \| `offline` \| `busy` |
+| `bordered` | `boolean` | `false` | Add white border around avatar |
+| `clickable` | `boolean` | `false` | Enable hover/focus interactive effect |
+| `href` | `string` | `''` | URL if avatar should be clickable link. Transforms element to `<a>`. |
+| `attributes` | `Attribute` | - | Additional HTML attributes |
 
 ## BEM Structure
-- Block: `.ps-avatar-wrapper` (sizing container), `.ps-avatar` (visual block)
-- Elements: `.ps-avatar__image`, `.ps-avatar__text`, `.ps-avatar__icon`, `.ps-avatar__status`
-- Modifiers (size): `--xs` `--sm` (md default) `--lg` `--xl`
-- Modifiers (shape): `--square` `--rounded` (circle default)
-- Modifiers (type): `--initials` `--icon`
-- Modifiers (state): `--bordered` `--clickable` `--has-status`
 
-## Component-Scoped Variables (Bootstrap 5 Pattern)
+```
+ps-avatar                      # Block (base container)
+├── ps-avatar__image-wrapper   # Image wrapper (handles radius + status position)
+│   ├── ps-avatar__image       # Image element (for src)
+│   └── ps-avatar__text        # Initials text element
+└── ps-avatar__status          # Status badge
+    ├── ps-avatar__status--online
+    ├── ps-avatar__status--offline
+    └── ps-avatar__status--busy
 
-### Wrapper Variables
-```css
---ps-avatar-size           /* Container size: 24px (xs) → 80px (xl) */
---ps-avatar-text-size      /* Initials font-size: 10px → 36px */
---ps-avatar-icon-size      /* Icon size: 12px → 40px */
---ps-avatar-rounded-radius /* Adaptive rounded corners: 4px → 16px */
+Modifiers (sizes):
+├── ps-avatar--xs              # 24px
+├── ps-avatar--sm              # 32px
+├── ps-avatar--md              # 40px (default, no class)
+├── ps-avatar--lg              # 48px
+└── ps-avatar--xl              # 80px
+
+Modifiers (shapes):
+├── ps-avatar--circle          # Circle (default, no class)
+├── ps-avatar--square          # Square
+└── ps-avatar--rounded         # Rounded corners
+
+Modifiers (types/states):
+├── ps-avatar--initials        # Applied when initials are displayed
+├── ps-avatar--male            # Applied for male gender fallback (primary bg + male.svg)
+├── ps-avatar--female          # Applied for female gender fallback (secondary bg + female.svg)
+├── ps-avatar--bordered        # White border
+└── ps-avatar--clickable       # Hover/focus effect
 ```
 
-### Avatar Variables
+## Component-Scoped Variables
+
+Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customization:
+
 ```css
---ps-avatar-bg            /* Background: gray-200 | brand-primary | gray-100 */
---ps-avatar-text-color    /* Initials color: white */
---ps-avatar-icon-color    /* Icon color: gray-600 */
---ps-avatar-radius        /* Border radius: 0 | 50% | adaptive */
---ps-avatar-border-width  /* Border: 0 | 2px */
---ps-avatar-border-color  /* Border color: white */
+.ps-avatar {
+  /* Layer 2: Component defaults */
+  --ps-avatar-size: var(--size-10);              /* 40px md */
+  --ps-avatar-text-size: var(--font-size-1);     /* 16px */
+  --ps-avatar-icon-size: var(--size-5);          /* 20px */
+  --ps-avatar-bg: var(--gray-200);
+  --ps-avatar-text-color: var(--white);
+  --ps-avatar-icon-color: var(--gray-600);
+  --ps-avatar-radius: 50%;                       /* circle */
+  --ps-avatar-border-width: 0;
+  --ps-avatar-border-color: var(--white);
+}
+
+.ps-avatar__status {
+  --ps-avatar-status-size: var(--size-3);        /* 12px md */
+  --ps-avatar-status-bg: var(--success);
+  --ps-avatar-status-border-width: var(--border-size-2);
+  --ps-avatar-status-border-color: var(--white);
+}
 ```
 
-### Status Badge Variables
-```css
---ps-avatar-status-size         /* Badge size: 8px (xs) → 20px (xl) */
---ps-avatar-status-bg           /* Background: success | gray-400 | danger */
---ps-avatar-status-border-width /* Border: 1px (xs) → 3px (xl) */
---ps-avatar-status-border-color /* Border color: white */
-```
+**Customization examples:**
 
-**Usage**: Override variables in context:
 ```css
-.sidebar .ps-avatar { --ps-avatar-bg: var(--purple); }
-```
-- Status variants are applied via `data-status` attribute on `.ps-avatar__status`:
-  - `data-status="online" | "offline" | "busy"`
+/* Custom avatar size */
+.custom-avatar {
+  --ps-avatar-size: 64px;
+  --ps-avatar-text-size: var(--font-size-4);
+}
 
-## Display Mode Hierarchy
-1. **Image** (if `src` provided) → `<img class="ps-avatar__image">`
-2. **Initials** (if `initials` provided, no src) → `<span class="ps-avatar__text">`
-3. **Icon fallback** (neither src nor initials) → `<span class="ps-avatar__icon" data-agent="male|female">`
+/* Custom colors */
+.warning-avatar {
+  --ps-avatar-bg: var(--warning);
+  --ps-avatar-text-color: var(--gray-900);
+}
+```
 
 ## Design Tokens Used
 
-### Root Tokens (Layer 1)
-- **Sizing**: `--size-6` (24px xs), `--size-8` (32px sm), `--size-10` (40px md), `--size-12` (48px lg), `--size-20` (80px xl)
-- **Typography**: `--font-size--2` (10px), `--font-size-0` (14px), `--font-size-2` (18px), `--font-size-4` (22px), `--size-9` (36px), `--font-weight-600`
-- **Colors**: `--brand-primary` (green), `--gray-100/200/400/600`, `--white`, `--success`, `--danger`
-- **Radius**: `--radius-2` (4px), `--radius-3` (6px), `--radius-4` (8px), `--radius-5` (12px), `--radius-6` (16px)
-- **Borders**: `--border-size-1` (1px), `--border-size-2` (2px), `--border-size-3` (3px)
+### Sizes
+- `--size-2` (8px) - Status badge xs
+- `--size-3` (12px) - Status badge md, Icon xs
+- `--size-4` (16px) - Icon sm
+- `--size-5` (20px) - Icon md
+- `--size-6` (24px) - Avatar xs
+- `--size-8` (32px) - Avatar sm
+- `--size-10` (40px) - Avatar md (default), Icon xl
+- `--size-12` (48px) - Avatar lg
+- `--size-20` (80px) - Avatar xl
+- `--size-205` (10px) - Status badge sm
+- `--size-305` (14px) - Status badge lg
 
-### Component Tokens (Layer 2)
-All properties wrapped in `--ps-avatar-*` variables for runtime customization (see Component-Scoped Variables section above).
+### Typography
+- `--font-sans` - Font family (BNPPSans)
+- `--font-weight-600` - Semibold weight for initials
+- `--font-size--2` (10px) - Text xs
+- `--font-size-0` (14px) - Text sm
+- `--font-size-1` (16px) - Text md
+- `--font-size-3` (20px) - Text lg
+- `--font-size-7` (32px) - Text xl
 
-**Three-layer architecture**: Root tokens → Component defaults → Context overrides.
+### Colors
+- `--white` - Text color, border color
+- `--gray-100` - Icon fallback background
+- `--gray-200` - Default background
+- `--gray-400` - Offline status
+- `--gray-600` - Icon color
+- `--brand-primary` - Initials background
+- `--brand-secondary` - Focus outline
+- `--success` - Online status
+- `--danger` - Busy status
+
+### Borders
+- `--border-size-1` (1px) - Status border xs
+- `--border-size-2` (2px) - Default border, Focus outline
+- `--border-size-3` (3px) - Status border xl
+- `--radius-2` (4px) - Rounded xs
+- `--radius-3` (6px) - Rounded md
+- `--radius-4` (8px) - Rounded lg
+- `--radius-5` (12px) - Rounded xl
+
+### Animations
+- `--duration-fast` - Hover transition
+- `--ease-3` - Easing function
 
 ## Accessibility
-- **Image mode**: `alt` attribute required (screen reader label).
-- **Initials mode**: Text rendered directly (readable, no aria needed).
-- **Icon mode**: `aria-hidden="true"` (decorative fallback only).
-- **Status badge**: `aria-label` with descriptive text ("Online", "Busy", "Offline"). Use `data-status` for visual state.
-- **Focus**: Outline 2px only when `clickable=true`; keyboard navigable.
-- **Contrast**: Initials white on green (7.2:1 AAA); icon gray on light (4.8:1 AA).
 
-## Usage Examples
+- **Image alt text**: Always provide `alt` prop when using `src` for screen readers
+### Do ✅
+- Use image avatars with proper `alt` text for user profiles
+- Provide 2-letter initials as fallback (first + last name)
+- Use `gender` prop to show appropriate agent silhouette (male/female) when no image/initials
+- Use status badges for real-time presence indicators
+- Match avatar size to context (xs/sm for lists, lg/xl for headers)
+- Use `bordered` on colored backgrounds for visual separation
+- Provide `href` when avatar should navigate
+  - Status colors meet WCAG AA standards
+
+## Usage
+
+### Do ✅
+- Use image avatars with proper `alt` text for user profiles
+- Provide 2-letter initials as fallback (first + last name)
+- Use status badges for real-time presence indicators
+- Match avatar size to context (xs/sm for lists, lg/xl for headers)
+- Use `bordered` on colored backgrounds for visual separation
+- Provide `href` when avatar should navigate
+
+### Don't ❌
+- Don't use avatars smaller than `xs` (24px minimum for accessibility)
+- Don't use more than 2 characters for initials (readability)
+- Don't omit `alt` text when using images (screen reader requirement)
+- Don't use status badges for non-presence states (use badges component)
+- Don't make avatars clickable without clear visual affordance
+- Don't use `square` shape for user avatars (reserve for entities/brands)
+
+## Examples
+
+### User Profile Header
 ```twig
-{# Profile header with status #}
-{{ include('@elements/avatar/avatar.twig', { 
-  src: user.picture, 
-  alt: user.name, 
-  size: 'lg', 
-  status: user.online ? 'online' : 'offline' 
-}) }}
-
-{# Comment author (initials fallback) #}
-{{ include('@elements/avatar/avatar.twig', { 
-  src: comment.author.picture, 
-  initials: comment.author.initials, 
-  alt: comment.author.name, 
-  size: 'sm', 
-  shape: 'circle' 
-}) }}
-
-{# Clickable team member #}
-{{ include('@elements/avatar/avatar.twig', { 
-  initials: member.initials, 
-  size: 'lg', 
-  shape: 'rounded', 
-  bordered: true, 
-  clickable: true, 
-  href: member.profile_url 
-}) }}
+{% include '@elements/avatar/avatar.twig' with {
+  src: user.avatar_url,
+  alt: user.full_name,
+  size: 'xl',
+  status: user.online_status,
+  clickable: true,
+  href: user.profile_url,
+} %}
 ```
 
-## Do & Don't
-| Do | Don't |
-|----|-------|
-| Always provide alt when image present | Use avatar as sole identifier (pair with name) |
-| Use initials (2 chars) as primary fallback | Omit gender when icon fallback likely |
-| Prefer circle for profiles; rounded for groups | Mix multiple shape modifiers |
-| Add border on dark/busy backgrounds | Hardcode sizes or colors |
+### Comment Author (with fallback)
+```twig
+{% include '@elements/avatar/avatar.twig' with {
+  src: author.avatar,
+  alt: author.name,
+  initials: author.initials,
+  size: 'sm',
+} %}
+```
 
-## Migration Notes
-- Icon fallback uses CSS mask with gender data-attribute; SVG files at `source/assets/images/agent/male.svg` and `female.svg`.
-- Rounded radius adapts per size via responsive BEM nesting (4px xs → 16px xl).
-- Status badge colors are controlled via `data-status` selectors.
+### Team Member List
+```twig
+<div class="team-list">
+  {% for member in team %}
+    {% include '@elements/avatar/avatar.twig' with {
+      initials: member.initials,
+      size: 'md',
+      shape: 'rounded',
+      bordered: true,
+      clickable: true,
+      href: member.profile_url,
+    } %}
+  {% endfor %}
+</div>
+```
 
-## Audit Checklist
-- No hardcoded dimensions/colors.
-- Alt text present when image used.
-- Initials or icon fallback always available.
-- Status aria-label in English.
-- Each modifier works independently.
-- README in English.
+### Status Indicator
+```twig
+{% include '@elements/avatar/avatar.twig' with {
+  src: user.avatar,
+  alt: user.name,
+  size: 'lg',
+  status: user.is_online ? 'online' : 'offline',
+} %}
+```

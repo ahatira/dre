@@ -1,41 +1,40 @@
 {#
- * Avatar atom
+ * Avatar (Element/Atom)
  * @param string src - Image URL (optional)
- * @param string alt - Alt text (optional)
- * @param string initials - Initials fallback (optional)
- * @param string gender - male|female (optional, for icon fallback)
- * @param string size - xs|sm|md|lg|xl (default: xl)
- * @param string shape - circle|square|rounded (default: circle)
- * @param string status - online|offline|busy (optional)
- * @param boolean bordered - Border (default: false)
- * @param boolean clickable - Clickable (default: false)
- * @param string href - URL if clickable (optional)
+ * @param string alt - Alt text for image (required when src provided)
+ * @param string initials - Initials text (2 letters max, fallback if no image)
+ * @param string gender - male | female (default: male, used for icon fallback)
+ * @param string size - xs | sm | md | lg | xl (default: md)
+ * @param string shape - circle | square | rounded (default: circle)
+ * @param string status - online | offline | busy (optional, status badge)
+ * @param boolean bordered - White border (default: false)
+ * @param boolean clickable - Interactive hover/focus (default: false)
+ * @param string href - Link URL if clickable (optional)
+ * @param Attribute attributes - Additional HTML attributes
  #}
 
 {%- set size = size|default('md') -%}
 {%- set shape = shape|default('circle') -%}
+{%- set gender = gender|default('male') -%}
 {%- set bordered = bordered|default(false) -%}
 {%- set clickable = clickable|default(false) -%}
 
 {%- set has_image = src and src is not empty -%}
 {%- set has_initials = initials and initials is not empty and not has_image -%}
-{%- set has_icon = not has_image and not has_initials -%}
-{%- set gender = gender|default('male') -%}
-
-{%- set wrapper_classes = ['ps-avatar-wrapper'] -%}
-{%- if size != 'md' -%}
-  {%- set wrapper_classes = wrapper_classes|merge(['ps-avatar-wrapper--' ~ size]) -%}
-{%- endif -%}
+{%- set has_fallback = not has_image and not has_initials -%}
 
 {%- set avatar_classes = ['ps-avatar'] -%}
+{%- if size != 'md' -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ size]) -%}
+{%- endif -%}
 {%- if shape != 'circle' -%}
   {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ shape]) -%}
 {%- endif -%}
 {%- if has_initials -%}
   {%- set avatar_classes = avatar_classes|merge(['ps-avatar--initials']) -%}
 {%- endif -%}
-{%- if has_icon -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--icon']) -%}
+{%- if has_fallback -%}
+  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ gender]) -%}
 {%- endif -%}
 {%- if bordered -%}
   {%- set avatar_classes = avatar_classes|merge(['ps-avatar--bordered']) -%}
@@ -46,20 +45,19 @@
 
 {%- set tag = href ? 'a' : 'div' -%}
 
-<div class="{{ wrapper_classes|join(' ')|trim }}"{%- if attributes %} {{ attributes }}{% endif -%}>
-  <{{ tag }} class="{{ avatar_classes|join(' ')|trim }}"
-    {%- if href %}href="{{ href }}"{% endif -%}
-  >
+<{{ tag }} class="{{ avatar_classes|join(' ')|trim }}"
+  {%- if href %} href="{{ href }}"{% endif -%}
+  {%- if attributes %} {{ attributes }}{% endif -%}
+>
+  <div class="ps-avatar__image-wrapper">
     {%- if has_image -%}
       <img class="ps-avatar__image" src="{{ src }}" alt="{{ alt|default('') }}" loading="lazy" />
     {%- elseif has_initials -%}
       <span class="ps-avatar__text">{{ initials }}</span>
-    {%- else -%}
-      <span class="ps-avatar__icon" data-agent="{{ gender == 'female' ? 'female' : 'male' }}" aria-hidden="true"></span>
     {%- endif -%}
-  </{{ tag }}>
+  </div>
   
   {%- if status -%}
-    <span class="ps-avatar__status" data-status="{{ status }}" aria-label="{% if status == 'online' %}Online{% elseif status == 'busy' %}Busy{% else %}Offline{% endif %}"></span>
+    <span class="ps-avatar__status ps-avatar__status--{{ status }}" aria-label="{% if status == 'online' %}Online{% elseif status == 'busy' %}Busy{% else %}Offline{% endif %}"></span>
   {%- endif -%}
-</div>
+</{{ tag }}>

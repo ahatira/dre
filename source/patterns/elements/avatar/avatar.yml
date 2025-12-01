@@ -2,8 +2,9 @@
 #
 # Available Props:
 # - src: string - Avatar image URL (optional)
-# - alt: string - Alternative text for image (optional)
+# - alt: string - Alternative text for image (required when src provided)
 # - initials: string - Initials (2 letters max, e.g. "JD") - fallback if no image
+# - gender: male | female (default: male) - Icon fallback image variant
 # - size: xs | sm | md | lg | xl (default: md)
 #   * xs: 24px (var(--size-6))
 #   * sm: 32px (var(--size-8))
@@ -15,17 +16,16 @@
 # - bordered: boolean (default: false) - White border
 # - clickable: boolean (default: false) - Hover/focus effect
 # - href: string - URL if clickable (transforms to <a> link)
-# - gender: male | female (optional) - Icon fallback by gender
 # - attributes: Attribute - Additional HTML attributes
 
 # Default: Image avatar with medium size
 src: 'https://i.pravatar.cc/150?img=12'
 alt: 'John Doe'
 initials: ''
+gender: 'male'
 size: 'md'
 shape: 'circle'
 status: ''
 bordered: false
 clickable: false
 href: ''
-gender: 'male'

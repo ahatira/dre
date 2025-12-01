@@ -1,24 +1,26 @@
 import avatarTwig from './avatar.twig';
-import data from './avatar.yml';
+import avatarData from './avatar.yml';
 
+/**
+ * Storybook Definition - Avatar (Element/Atom)
+ */
 export default {
   title: 'Elements/Avatar',
   tags: ['autodocs'],
   render: (args) => avatarTwig(args),
-  args: data,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'User or entity visual representation with automatic fallback hierarchy (image → initials → icon).',
-      },
-    },
-  },
   argTypes: {
     // Content
     src: {
       control: 'text',
-      description: 'Avatar image URL',
+      description: 'Avatar image URL. If omitted, falls back to initials or icon.',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
+    },
+    alt: {
+      control: 'text',
+      description: 'Alternative text for the image. Required when src is provided.',
       table: {
         category: 'Content',
         type: { summary: 'string' },
@@ -26,208 +28,438 @@ export default {
     },
     initials: {
       control: 'text',
-      description: 'Initials text (2 letters, fallback if no image)',
+      description: 'Initials text (2 letters max, e.g. "JD"). Fallback if no image.',
       table: {
         category: 'Content',
         type: { summary: 'string' },
       },
     },
+    gender: {
+      control: 'select',
+      options: ['male', 'female'],
+      description: 'Gender for icon fallback image (agent silhouette).',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'male' },
+      },
+    },
+
     // Appearance
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Avatar size',
+      description: 'Avatar size: xs (24px) | sm (32px) | md (40px) | lg (48px) | xl (80px)',
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl' },
+        type: { summary: 'string' },
         defaultValue: { summary: 'md' },
       },
     },
     shape: {
       control: 'select',
       options: ['circle', 'square', 'rounded'],
-      description: 'Border radius style',
+      description: 'Avatar shape',
       table: {
         category: 'Appearance',
-        type: { summary: 'circle | square | rounded' },
+        type: { summary: 'string' },
         defaultValue: { summary: 'circle' },
       },
     },
     status: {
       control: 'select',
-      options: ['online', 'offline', 'busy'],
+      options: ['', 'online', 'offline', 'busy'],
       description: 'Status badge indicator',
       table: {
         category: 'Appearance',
-        type: { summary: 'online | offline | busy' },
+        type: { summary: 'string' },
       },
     },
     bordered: {
       control: 'boolean',
-      description: 'White border',
+      description: 'Add white border around avatar',
       table: {
         category: 'Appearance',
         type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
-    gender: {
-      control: 'select',
-      options: ['male', 'female'],
-      description: 'Icon gender variant',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'male | female' },
-        defaultValue: { summary: 'male' },
-      },
-    },
+
     // Behavior
     clickable: {
       control: 'boolean',
-      description: 'Interactive states',
+      description: 'Enable hover/focus interactive effect',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
+
     // Link
     href: {
       control: 'text',
-      description: 'Link URL',
+      description: 'URL if avatar should be clickable link. Transforms element to <a>.',
       table: {
         category: 'Link',
         type: { summary: 'string' },
       },
     },
-    // Accessibility
-    alt: {
-      control: 'text',
-      description: 'Image alt text',
-      table: {
-        category: 'Accessibility',
-        type: { summary: 'string' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'User or entity visual representation with automatic fallback hierarchy (image → initials → icon). Supports status badges and interactive states.',
       },
     },
   },
 };
 
-export const Default = { args: { ...data } };
+/**
+ * Default Story - Image Avatar
+ */
+export const Default = {
+  args: {
+    ...avatarData,
+  },
+};
 
+/**
+ * Initials Avatars - Complete Grid
+ */
 export const Initials = {
   render: () => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
     const shapes = ['circle', 'square', 'rounded'];
-    const gridCols = sizes.length + 1;
-    const headRow = [
-      '<div class="cell cell--label"></div>',
-      ...sizes.map((s) => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
-    ].join('');
-    const rows = shapes
+
+    const shapeRows = shapes
       .map((shape) => {
-        const label = `<div class=\"cell cell--label\">${shape}</div>`;
-        const cells = sizes
-          .map(
-            (s) =>
-              `<div class=\"cell\">${avatarTwig({ src: '', initials: 'JD', size: s, shape, alt: `Initials ${shape} ${s}` })}</div>`
+        const avatars = sizes
+          .map((size) =>
+            avatarTwig({
+              initials: 'JD',
+              size: size,
+              shape: shape,
+              src: '',
+            })
           )
           .join('');
-        return label + cells;
+
+        return `<div>
+        <h3 style="margin: 0 0 16px; font-family: var(--font-sans); font-size: var(--font-size-3); color: var(--gray-900);">
+          Shape: ${shape}
+        </h3>
+        <div style="display: flex; gap: 24px; align-items: center;">
+          ${avatars}
+        </div>
+      </div>`;
       })
       .join('');
 
-    return `
-      <div style="display:grid;grid-template-columns:repeat(${gridCols}, auto);gap:12px;align-items:center;">
-        <style>
-          .cell--label{font:600 var(--font-size-0)/1 var(--font-sans);color:var(--gray-600);text-transform:capitalize}
-          .cell{display:flex;align-items:center;justify-content:center}
-        </style>
-        ${headRow}
-        ${rows}
-      </div>
-    `;
+    return `<div style="display: flex; flex-direction: column; gap: 32px;">
+      ${shapeRows}
+    </div>`;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Initials avatars in all size/shape combinations. Uses `--brand-primary` background automatically when initials are provided.',
+      },
+    },
   },
 };
 
+/**
+ * Icon Fallback - No Image or Initials
+ */
 export const FallbackIcon = {
-  args: { ...data, src: '', initials: '', size: 'xs', gender: 'female' },
+  render: () => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    const genders = ['male', 'female'];
+
+    return `
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        ${genders
+          .map(
+            (gender) => `
+          <div>
+            <h4 style="margin: 0 0 16px; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-900); text-transform: capitalize;">
+              ${gender} avatar
+            </h4>
+            <div style="display: flex; gap: 24px; align-items: center;">
+              ${sizes
+                .map((size) =>
+                  avatarTwig({
+                    src: '',
+                    initials: '',
+                    gender,
+                    size,
+                  })
+                )
+                .join('')}
+            </div>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Icon fallback when neither image nor initials are provided. Uses gender-specific agent silhouette images (male.svg / female.svg).',
+      },
+    },
+  },
 };
 
+/**
+ * Status Variants
+ */
 export const StatusVariants = {
-  render: () => `
-    <div style="display:flex;gap:1rem;align-items:center;">
-      ${avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', status: 'online', size: 'lg', alt: 'Online' })}
-      ${avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', status: 'offline', size: 'lg', alt: 'Offline' })}
-      ${avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', status: 'busy', size: 'lg', alt: 'Busy' })}
-    </div>
-  `,
+  render: () => {
+    const statuses = [
+      { value: 'online', label: 'Online' },
+      { value: 'offline', label: 'Offline' },
+      { value: 'busy', label: 'Busy' },
+    ];
+
+    return `
+      <div style="display: flex; gap: 32px; align-items: center;">
+        ${statuses
+          .map(
+            ({ value, label }) => `
+          <div style="text-align: center;">
+            ${avatarTwig({
+              src: 'https://i.pravatar.cc/150?img=3',
+              alt: 'User',
+              status: value,
+              size: 'lg',
+            })}
+            <div style="margin-top: 8px; font-family: var(--font-sans); font-size: var(--font-size-0); color: var(--gray-700);">
+              ${label}
+            </div>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Status badge indicators: online (success), offline (gray), busy (danger). Badge scales with avatar size.',
+      },
+    },
+  },
 };
 
+/**
+ * All Sizes
+ */
 export const AllSizes = {
-  render: () => `
-    <div style="display:flex;gap:1rem;align-items:center;">
-      ${['xs', 'sm', 'md', 'lg', 'xl'].map((s) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', size: s, alt: s.toUpperCase() })).join('')}
-    </div>
-  `,
+  render: () => {
+    const sizes = [
+      { value: 'xs', label: 'XS (24px)' },
+      { value: 'sm', label: 'SM (32px)' },
+      { value: 'md', label: 'MD (40px)' },
+      { value: 'lg', label: 'LG (48px)' },
+      { value: 'xl', label: 'XL (80px)' },
+    ];
+
+    return `
+      <div style="display: flex; gap: 32px; align-items: center;">
+        ${sizes
+          .map(
+            ({ value, label }) => `
+          <div style="text-align: center;">
+            ${avatarTwig({
+              src: 'https://i.pravatar.cc/150?img=5',
+              alt: 'User',
+              size: value,
+            })}
+            <div style="margin-top: 8px; font-family: var(--font-sans); font-size: var(--font-size-0); color: var(--gray-700);">
+              ${label}
+            </div>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'All available avatar sizes with corresponding pixel dimensions.',
+      },
+    },
+  },
 };
 
+/**
+ * All Shapes
+ */
 export const AllShapes = {
-  render: () => `
-    <div style="display:flex;gap:1rem;align-items:center;">
-      ${['circle', 'square', 'rounded'].map((shape) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=47', shape, size: 'lg', alt: shape })).join('')}
-    </div>
-  `,
+  render: () => {
+    const shapes = [
+      { value: 'circle', label: 'Circle (default)' },
+      { value: 'square', label: 'Square' },
+      { value: 'rounded', label: 'Rounded' },
+    ];
+
+    return `
+      <div style="display: flex; gap: 32px; align-items: center;">
+        ${shapes
+          .map(
+            ({ value, label }) => `
+          <div style="text-align: center;">
+            ${avatarTwig({
+              src: 'https://i.pravatar.cc/150?img=7',
+              alt: 'User',
+              size: 'lg',
+              shape: value,
+            })}
+            <div style="margin-top: 8px; font-family: var(--font-sans); font-size: var(--font-size-0); color: var(--gray-700);">
+              ${label}
+            </div>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'All available shapes. Rounded corners scale with avatar size (xs: 4px, md: 6px, xl: 12px).',
+      },
+    },
+  },
 };
 
-export const Modes = {
-  render: () => `
-    <div style="display:flex;gap:1rem;align-items:center;">
-      ${avatarTwig({ src: 'https://i.pravatar.cc/150?img=47', size: 'lg', alt: 'Image' })}
-      ${avatarTwig({ initials: 'JD', src: '', size: 'lg', alt: 'Initials' })}
-      ${avatarTwig({ src: '', initials: '', size: 'lg', alt: 'Icon Fallback' })}
-    </div>
-  `,
+/**
+ * Bordered Avatars
+ */
+export const Bordered = {
+  render: () => {
+    const sizes = ['sm', 'md', 'lg', 'xl'];
+
+    return `
+      <div style="display: flex; gap: 24px; align-items: center; padding: 24px; background: var(--gray-100); border-radius: var(--radius-3);">
+        ${sizes
+          .map((size) =>
+            avatarTwig({
+              src: 'https://i.pravatar.cc/150?img=9',
+              alt: 'User',
+              size,
+              bordered: true,
+            })
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'White border around avatars. Useful for avatars displayed on colored backgrounds.',
+      },
+    },
+  },
 };
 
-export const RoundedScaling = {
-  render: () => `
-    <div style="display:flex;gap:1rem;align-items:center;">
-      ${['xs', 'sm', 'md', 'lg', 'xl'].map((s) => avatarTwig({ src: 'https://i.pravatar.cc/150?img=18', shape: 'rounded', size: s, alt: `Rounded ${s}` })).join('')}
-    </div>
-  `,
+/**
+ * Clickable Avatars
+ */
+export const Clickable = {
+  render: () => {
+    return `
+      <div style="display: flex; gap: 24px; align-items: center;">
+        ${avatarTwig({
+          src: 'https://i.pravatar.cc/150?img=11',
+          alt: 'User',
+          size: 'md',
+          clickable: true,
+        })}
+        ${avatarTwig({
+          src: 'https://i.pravatar.cc/150?img=13',
+          alt: 'User',
+          size: 'lg',
+          clickable: true,
+          href: '#',
+        })}
+        ${avatarTwig({
+          initials: 'AB',
+          size: 'lg',
+          clickable: true,
+          href: '/profile',
+        })}
+      </div>
+      <p style="margin-top: 16px; font-family: var(--font-sans); font-size: var(--font-size-0); color: var(--gray-700);">
+        First avatar: clickable (div), Second & Third: links (a) with hover scale effect
+      </p>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Interactive avatars with hover scale effect and focus outline. Provide `href` to render as `<a>` link.',
+      },
+    },
+  },
 };
 
+/**
+ * Complete Matrix - Sizes × Status
+ */
 export const StatusMatrix = {
   render: () => {
-    const statuses = ['online', 'offline', 'busy'];
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
-    const gridCols = sizes.length + 1;
-    const headRow = [
-      '<div class="cell cell--label"></div>',
-      ...sizes.map((s) => `<div class="cell cell--label">${s.toUpperCase()}</div>`),
-    ].join('');
-    const rows = statuses
+    const statuses = ['online', 'offline', 'busy'];
+
+    const statusRows = statuses
       .map((status) => {
-        const label = `<div class=\"cell cell--label\">${status}</div>`;
-        const cells = sizes
-          .map(
-            (s) =>
-              `<div class=\"cell\">${avatarTwig({ src: 'https://i.pravatar.cc/150?img=12', status, size: s, alt: `${status} ${s}` })}</div>`
+        const avatars = sizes
+          .map((size) =>
+            avatarTwig({
+              initials: 'JD',
+              size: size,
+              status: status,
+            })
           )
           .join('');
-        return label + cells;
+
+        return `<div>
+        <h4 style="margin: 0 0 12px; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-900); text-transform: capitalize;">
+          ${status}
+        </h4>
+        <div style="display: flex; gap: 20px; align-items: center;">
+          ${avatars}
+        </div>
+      </div>`;
       })
       .join('');
 
-    return `
-      <div style="display:grid;grid-template-columns:repeat(${gridCols}, auto);gap:12px;align-items:center;">
-        <style>
-          .cell--label{font:600 var(--font-size-0)/1 var(--font-sans);color:var(--gray-600);text-transform:capitalize}
-          .cell{display:flex;align-items:center;justify-content:center}
-        </style>
-        ${headRow}
-        ${rows}
-      </div>
-    `;
+    return `<div style="display: flex; flex-direction: column; gap: 24px;">
+      ${statusRows}
+    </div>`;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Status badge scaling across all avatar sizes. Badge size and border width adapt proportionally.',
+      },
+    },
   },
 };
