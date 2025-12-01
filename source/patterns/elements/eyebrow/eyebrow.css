@@ -62,7 +62,7 @@
 
     .ps-eyebrow__line {
       width: var(--size-8);
-      height: 1px;
+      height: var(--border-size-1);
     }
   }
 

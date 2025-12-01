@@ -27,7 +27,10 @@
 
 /* ==================== ELEMENTS ==================== */
 
-/* Hidden text for screen readers only */
+/* Visually hidden text - WCAG standard pattern
+ * Exception: 1px values are acceptable (standard CSS pattern)
+ * Reference: https://www.w3.org/WAI/WCAG21/Techniques/css/C7
+ */
 .ps-spinner__text {
   position: absolute;
   width: 1px;

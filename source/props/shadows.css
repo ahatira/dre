@@ -15,4 +15,8 @@
   --shadow-focus-primary: 0 0 0 3px hsla(199, 89%, 48%, 0.1); /* Blue focus ring */
   --shadow-focus-error: 0 0 0 3px hsla(0, 75%, 51%, 0.1); /* Red error ring */
   --shadow-focus-success: 0 0 0 3px hsla(162, 72%, 38%, 0.1); /* Green success ring */
+
+  /* Toggle thumb shadows */
+  --shadow-toggle-thumb: 0 2px 4px hsla(0, 0%, 0%, 0.2); /* Default thumb shadow */
+  --shadow-toggle-thumb-active: 0 2px 6px hsla(0, 0%, 0%, 0.3); /* Active/checked thumb shadow */
 }

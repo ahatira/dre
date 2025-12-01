@@ -47,7 +47,7 @@
     height: var(--ps-toggle-thumb-size);
     background: var(--white);
     border-radius: var(--radius-round);
-    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    box-shadow: var(--shadow-toggle-thumb);
     transition: left var(--ps-transition-duration-normal) cubic-bezier(0.4,0,0.2,1), transform var(--ps-transition-duration-fast) ease;
   }
 
@@ -57,7 +57,7 @@
   /* Checked track */
   &__input:checked + &__track { background: var(--brand-primary); }
   &:hover:not(.ps-toggle--disabled) &__input:checked + &__track { background: var(--green-600); }
-  &__input:checked + &__track &__thumb { box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+  &__input:checked + &__track &__thumb { box-shadow: var(--shadow-toggle-thumb-active); }
 
   /* Thumb travel (left offset based on track & thumb tokens) */
   &--small &__input:checked + &__track &__thumb { left: calc(var(--ps-toggle-track-width) - var(--ps-toggle-thumb-size) - var(--ps-toggle-inset)); }
@@ -88,7 +88,7 @@
     font-size: var(--font-size-xxs); /* 9px token */
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .5px;
+    letter-spacing: var(--tracking-wide);
     pointer-events: none;
     user-select: none;
     transition: opacity var(--ps-transition-duration-fast) ease;
@@ -99,7 +99,7 @@
   &__input:checked + &__track &__on-label { opacity: 1; }
   &__input:checked + &__track &__off-label { opacity: 0; }
 
-  &__input:focus-visible + &__track { outline: 3px solid var(--ps-color-border-focus, var(--sky-500)); outline-offset: 2px; }
+  &__input:focus-visible + &__track { outline: var(--border-size-3) solid var(--ps-color-border-focus, var(--sky-500)); outline-offset: var(--border-size-2); }
   &:active:not(.ps-toggle--disabled) &__thumb { transform: scale(.95); }
 
   @media (prefers-reduced-motion: reduce) {

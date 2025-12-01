@@ -19,6 +19,9 @@
   /* Label tokens */
   --ps-color-text: #1F2A33;
   --ps-color-text-muted: #6B7780;
+
+  /* Progress bar stripe overlay */
+  --progress-stripe-overlay: hsla(0, 0%, 100%, 0.25); /* White 25% opacity for animated stripes */
   
   /* Base colors */
   --white: hsl(0 0% 100%);
