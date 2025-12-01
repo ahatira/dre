@@ -10,6 +10,9 @@
               <span class="name">{{ item.name }}</span>
               <span class="value">{{ item.value }}</span>
               <span class="var">{{ item.var }}</span>
+              {% if item.description %}
+                <span class="description">{{ item.description }}</span>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

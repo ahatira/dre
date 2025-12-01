@@ -1,0 +1,309 @@
+<section class="demo-animations">
+  {# DURATIONS #}
+  <div class="just-for-gap">
+    <div class="heading">Duration Scale</div>
+    <article class="duration-demo">
+      <div class="demo-item">
+        <div class="animated-box" data-duration="instant"></div>
+        <div class="label">
+          <span class="name">Instant</span>
+          <span class="var">--duration-instant</span>
+          <span class="value">0.1s</span>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="animated-box" data-duration="fast"></div>
+        <div class="label">
+          <span class="name">Fast</span>
+          <span class="var">--duration-fast</span>
+          <span class="value">0.15s</span>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="animated-box" data-duration="normal"></div>
+        <div class="label">
+          <span class="name">Normal</span>
+          <span class="var">--duration-normal</span>
+          <span class="value">0.3s</span>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="animated-box" data-duration="slow"></div>
+        <div class="label">
+          <span class="name">Slow</span>
+          <span class="var">--duration-slow</span>
+          <span class="value">0.5s</span>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="animated-box" data-duration="slower"></div>
+        <div class="label">
+          <span class="name">Slower</span>
+          <span class="var">--duration-slower</span>
+          <span class="value">0.75s</span>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="animated-box" data-duration="slowest"></div>
+        <div class="label">
+          <span class="name">Slowest</span>
+          <span class="var">--duration-slowest</span>
+          <span class="value">1s</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  {# ANIMATION PRESETS #}
+  <div class="just-for-gap">
+    <div class="heading">Animation Presets</div>
+    <p class="description">
+      Click on boxes to trigger animations. All presets use duration tokens and easing curves from our design system.
+    </p>
+    <article class="animation-demo">
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="fade-in">
+          <div class="animated-preset"></div>
+          <span class="name">Fade In</span>
+          <span class="var">--animation-fade-in</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="fade-out">
+          <div class="animated-preset"></div>
+          <span class="name">Fade Out</span>
+          <span class="var">--animation-fade-out</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="scale-up">
+          <div class="animated-preset"></div>
+          <span class="name">Scale Up</span>
+          <span class="var">--animation-scale-up</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="scale-down">
+          <div class="animated-preset"></div>
+          <span class="name">Scale Down</span>
+          <span class="var">--animation-scale-down</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="slide-up">
+          <div class="animated-preset"></div>
+          <span class="name">Slide Up</span>
+          <span class="var">--animation-slide-up</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="slide-down">
+          <div class="animated-preset"></div>
+          <span class="name">Slide Down</span>
+          <span class="var">--animation-slide-down</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="shake">
+          <div class="animated-preset"></div>
+          <span class="name">Shake</span>
+          <span class="var">--animation-shake</span>
+        </button>
+      </div>
+      <div class="demo-item">
+        <button class="trigger-btn" data-animation="spin">
+          <div class="animated-preset"></div>
+          <span class="name">Spin</span>
+          <span class="var">--animation-spin</span>
+        </button>
+      </div>
+    </article>
+  </div>
+
+  {# EASING REFERENCE #}
+  <div class="just-for-gap">
+    <div class="heading">Easing Curves (35 available)</div>
+    <p class="description">
+      See <code>source/props/easing.css</code> for complete list of 35 easing functions (ease-*, in-out-*, spring-*, etc.)
+    </p>
+    <article class="easing-reference">
+      <div class="easing-card">
+        <span class="var">--ease-1</span>
+        <span class="value">cubic-bezier(0.25, 0, 0.5, 1)</span>
+      </div>
+      <div class="easing-card">
+        <span class="var">--ease-in-out-1</span>
+        <span class="value">cubic-bezier(0.1, 0, 0.9, 1)</span>
+      </div>
+      <div class="easing-card">
+        <span class="var">--ease-elastic-1</span>
+        <span class="value">cubic-bezier(0.5, 0.75, 0.75, 1.25)</span>
+      </div>
+      <div class="easing-card">
+        <span class="var">--ease-spring-1</span>
+        <span class="value">cubic-bezier(0.5, 1.25, 0.75, 1.25)</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+/* Duration Demo Styles */
+.duration-demo {
+  display: flex;
+  gap: var(--size-6);
+  flex-wrap: wrap;
+}
+
+.duration-demo .demo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.animated-box {
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+  transition: transform var(--duration-normal) var(--ease-3);
+}
+
+.animated-box:hover {
+  transform: scale(1.1);
+}
+
+.animated-box[data-duration="instant"]:hover {
+  transition-duration: var(--duration-instant);
+}
+
+.animated-box[data-duration="fast"]:hover {
+  transition-duration: var(--duration-fast);
+}
+
+.animated-box[data-duration="normal"]:hover {
+  transition-duration: var(--duration-normal);
+}
+
+.animated-box[data-duration="slow"]:hover {
+  transition-duration: var(--duration-slow);
+}
+
+.animated-box[data-duration="slower"]:hover {
+  transition-duration: var(--duration-slower);
+}
+
+.animated-box[data-duration="slowest"]:hover {
+  transition-duration: var(--duration-slowest);
+}
+
+/* Animation Preset Demo Styles */
+.animation-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--size-4);
+}
+
+.trigger-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-2);
+  padding: var(--size-4);
+  background: var(--bg-section);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-2);
+}
+
+.trigger-btn:hover {
+  background: var(--border-light);
+}
+
+.animated-preset {
+  width: 50px;
+  height: 50px;
+  background: var(--secondary);
+  border-radius: var(--radius-2);
+}
+
+/* Easing Reference */
+.easing-reference {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--size-3);
+}
+
+.easing-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  padding: var(--size-3);
+  background: var(--bg-section);
+  border-radius: var(--radius-1);
+  font-size: var(--font-size-0);
+}
+
+.easing-card .var {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-600);
+  color: var(--primary);
+}
+
+.easing-card .value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+}
+
+/* Common Demo Styles */
+.demo-animations .heading {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  margin-block-end: var(--size-3);
+}
+
+.demo-animations .description {
+  font-size: var(--font-size-1);
+  color: var(--text-secondary);
+  margin-block-end: var(--size-4);
+}
+
+.demo-animations .label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-05);
+  font-size: var(--font-size-0);
+  text-align: center;
+}
+
+.demo-animations .label .name {
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+}
+
+.demo-animations .label .var {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  color: var(--primary);
+}
+
+.demo-animations .label .value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+}
+
+.demo-animations .just-for-gap {
+  margin-block-end: var(--size-12);
+}
+
+.demo-animations .just-for-gap:last-child {
+  margin-block-end: 0;
+}
+</style>
