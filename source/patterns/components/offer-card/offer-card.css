@@ -42,30 +42,30 @@
   &__badge {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: var(--size-2) var(--size-3);
     gap: var(--size-2);
-    height: 24px;
-    border-radius: 16px;
+    height: var(--size-6);
+    border-radius: var(--radius-4);
     font-family: var(--font-sans);
-    font-size: var(--font-size-0); /* 14px */
+    font-size: var(--font-size-0);
     font-weight: var(--font-weight-400);
-    line-height: 24px;
+    line-height: var(--leading-6);
 
     &--viewed {
-      background: #EBEDEF; /* Grey #6 - Figma */
-      color: #434F57; /* Grey #2 - Figma */
+      background: var(--offer-badge-viewed-bg);
+      color: var(--offer-badge-viewed-text);
     }
 
     &--gold {
-      background: #D1AE6E; /* Gold - Figma */
-      color: #FFFFFF;
+      background: var(--offer-badge-gold-bg);
+      color: var(--white);
     }
   }
 
   &__badge-icon {
     display: inline-flex;
-    width: 12px;
-    height: 12px;
+    width: var(--size-3);
+    height: var(--size-3);
   }
 
   /* Actions container (right) */
@@ -73,8 +73,8 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 12px;
-    height: 24px;
+    gap: var(--size-3);
+    height: var(--size-6);
   }
 
   /* Action button */
@@ -82,12 +82,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: var(--size-6);
+    height: var(--size-6);
     padding: 0;
     background: none;
     border: none;
-    color: #777E83; /* Grey #3 */
+    color: var(--offer-text-muted);
     cursor: pointer;
     transition: color var(--ps-transition-duration-fast) var(--ease-out-1);
 
@@ -96,16 +96,16 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--blue-600);
-      outline-offset: 2px;
+      outline: var(--border-size-2) solid var(--blue-600);
+      outline-offset: var(--border-size-2);
       border-radius: var(--radius-1);
     }
 
     &--active {
-      color: #A22B66; /* Pink #4 - Figma */
+      color: var(--offer-action-active);
 
       &:hover {
-        color: #8A1F54;
+        color: var(--offer-action-active-hover);
       }
     }
   }
@@ -121,20 +121,20 @@
   &__title {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: var(--font-size-1); /* 16px - Figma */
-    font-weight: var(--font-weight-400); /* Regular - Figma */
-    line-height: 1.5; /* 24px */
-    color: #333333; /* Grey #1 - Figma */
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-6);
+    color: var(--offer-text-default);
   }
 
   /* Surface area */
   &__surface {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: var(--font-size-1); /* 16px - Figma */
-    font-weight: var(--font-weight-700); /* Bold - Figma */
-    line-height: 24px;
-    color: #333333; /* Grey #1 - Figma */
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-700);
+    line-height: var(--leading-6);
+    color: var(--offer-text-default);
   }
 
   /* Meta list (location) */
@@ -150,19 +150,19 @@
   &__meta-item {
     display: flex;
     align-items: center;
-    gap: var(--size-2); /* 8px - Figma */
+    gap: var(--size-2);
     font-family: var(--font-sans);
-    font-size: var(--font-size-0); /* 14px - Figma */
+    font-size: var(--font-size-0);
     font-weight: var(--font-weight-400);
-    line-height: 24px;
-    color: #777E83; /* Grey #3 - Figma */
+    line-height: var(--leading-6);
+    color: var(--offer-text-muted);
   }
 
   &__meta-icon {
     display: inline-flex;
-    width: 16px; /* Figma exact */
-    height: 16px; /* Figma exact */
-    color: #777E83; /* Grey #3 - Figma */
+    width: var(--size-4);
+    height: var(--size-4);
+    color: var(--offer-text-muted);
   }
 
   /* Footer section */
@@ -172,16 +172,16 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 9px; /* Figma exact */
-    height: 24px;
+    gap: var(--size-2);
+    height: var(--size-6);
   }
 
   /* Price */
   &__price {
     font-family: var(--font-sans);
-    font-size: var(--font-size-3); /* 20px - Figma */
-    font-weight: var(--font-weight-700); /* Bold - Figma */
-    line-height: 24px;
-    color: #333333; /* Grey #1 - Figma */
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-700);
+    line-height: var(--leading-6);
+    color: var(--offer-text-default);
   }
 }

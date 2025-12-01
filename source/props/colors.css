@@ -28,6 +28,15 @@
   --alert-overlay-active: hsla(0, 0%, 100%, 0.3); /* White 30% for active state */
   --alert-overlay-subtle-hover: hsla(0, 0%, 0%, 0.05); /* Black 5% for subtle variants hover */
   --alert-overlay-subtle-active: hsla(0, 0%, 0%, 0.1); /* Black 10% for subtle variants active */
+
+  /* Offer card specific colors */
+  --offer-badge-viewed-bg: hsl(210, 15%, 92%); /* #EBEDEF - Grey #6 */
+  --offer-badge-viewed-text: hsl(210, 15%, 31%); /* #434F57 - Grey #2 */
+  --offer-badge-gold-bg: hsl(39, 48%, 63%); /* #D1AE6E - Gold */
+  --offer-text-muted: hsl(205, 10%, 49%); /* #777E83 - Grey #3 */
+  --offer-text-default: hsl(0, 0%, 20%); /* #333333 - Grey #1 */
+  --offer-action-active: hsl(330, 65%, 40%); /* #A22B66 - Pink #4 */
+  --offer-action-active-hover: hsl(330, 67%, 33%); /* #8A1F54 - Pink darker */
   
   /* Base colors */
   --white: hsl(0 0% 100%);

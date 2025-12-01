@@ -10,11 +10,6 @@
  * Variants: images (default) | cards
  * Modifiers: --loop, --auto-height, --with-toolbar, --with-favorite, --lightbox
  * 
- * Styles Pixel Perfect from Figma:
- * - Buttons: 48×48px white squares, 4px padding, green chevrons (#00915A)
- * - Toolbar: #F9F9FB background, 24px border-radius, 8×12px padding
- * - Favorite: 48×48px white, pink heart (#A22B66)
- * 
  * Note: Swiper base styles are imported separately in carousel-swiper.css
  * to avoid postcss-import resolution issues with node_modules.
  */
@@ -91,14 +86,14 @@
     color: var(--ps-color-primary-600); /* #00915A green */
     cursor: pointer;
     pointer-events: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Subtle shadow */
+    box-shadow: var(--shadow-carousel-button);
     transition: 
       box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
       transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
       background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
     
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+      box-shadow: var(--shadow-carousel-button-hover);
       background-color: var(--ps-color-neutral-0);
     }
     
@@ -249,7 +244,7 @@
   }
   
   &__toolbar-divider {
-    width: 1px;
+    width: var(--border-size-1);
     height: calc(var(--size-5) + var(--size-05)); /* 20px + 2px = 22px */
     background-color: var(--gray-400); /* #9AA6B2 - Divider gray */
   }
@@ -266,7 +261,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 167px;
+      width: var(--size-42);
       height: 100%;
       background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
       pointer-events: none;
@@ -279,7 +274,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 167px;
+      width: var(--size-42);
       height: 100%;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
       pointer-events: none;
@@ -350,7 +345,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: hsla(0, 0%, 0%, 0.95);
     
     .ps-carousel__image {
       object-fit: contain;
