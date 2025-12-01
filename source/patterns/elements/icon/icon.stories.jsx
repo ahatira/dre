@@ -109,7 +109,8 @@ export const AllColors = {
   parameters: {
     docs: {
       description: {
-        story: 'All semantic colors: default (gray), primary (BNP green), secondary (magenta), success, warning, danger, and info.',
+        story:
+          'All semantic colors: default (gray), primary (BNP green), secondary (magenta), success, warning, danger, and info.',
       },
     },
   },
@@ -158,7 +159,8 @@ export const AllVariants = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive showcase of all icon capabilities: sizes, colors, and states in one view.',
+        story:
+          'Comprehensive showcase of all icon capabilities: sizes, colors, and states in one view.',
       },
     },
   },

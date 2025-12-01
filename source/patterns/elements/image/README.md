@@ -1,358 +1,212 @@
-# Image Component
+# Image
 
-**Type:** Element / Atom  
-**Category:** Media  
-**Status:** ✅ Complete  
-**Version:** 1.0.0
+Responsive image with lazy loading, srcset/sizes support, object-fit and border-radius options.
 
-## Description
+## Overview
 
-Responsive image component with lazy loading, srcset/sizes support, optional aspect ratios, and border radius variants. Designed for optimal performance (Core Web Vitals: CLS/LCP) with built-in accessibility features.
+The Image component is a fundamental atom for displaying images with built-in responsive behavior, lazy loading, and flexible styling options. It handles the `<img>` element only. For figures with captions, use the Figure component.
 
-## Props
+**Key Features:**
+- Responsive by default (`max-width: 100%; height: auto`)
+- Lazy loading enabled by default for performance
+- Srcset/sizes support for responsive images
+- Object-fit control for image scaling
+- Border-radius variants for visual styling
+- Accessibility-first with required alt text
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | `''` | **Required.** Image source URL |
-| `alt` | `string` | `''` | **Required.** Alternative text for accessibility |
-| `width` | `int` | - | Intrinsic width in pixels (prevents CLS) |
-| `height` | `int` | - | Intrinsic height in pixels (prevents CLS) |
-| `srcset` | `array<string>` | - | Array of srcset strings (e.g., `['/img-400.jpg 400w', '/img-800.jpg 800w']`) |
-| `sizes` | `string` | - | Sizes attribute (e.g., `'(min-width: 768px) 50vw, 100vw'`) |
-| `loading` | `string` | `'lazy'` | Loading strategy: `'lazy'` \| `'eager'` |
-| `decoding` | `string` | `'auto'` | Decoding strategy: `'auto'` \| `'async'` \| `'sync'` |
-| `fit` | `string` | `'cover'` | Object-fit value: `'cover'` \| `'contain'` |
-| `rounded` | `string` | `'none'` | Border radius: `'none'` \| `'sm'` \| `'md'` \| `'lg'` \| `'full'` |
-| `ratio` | `string` | `'none'` | Aspect ratio: `'none'` \| `'16x9'` \| `'1x1'` \| `'4x3'` |
-| `attributes` | `object` | - | Additional HTML attributes |
-
-## BEM Structure
-
-```text
-ps-image                 // Block (figure wrapper)
-  ps-image__img          // Image element
-  ps-image__ratio        // Ratio helper element (only if ratio != 'none')
-
-Modifiers:
-  ps-image--fit-contain  // Object-fit: contain
-  ps-image--rounded-sm   // Small border radius (4px)
-  ps-image--rounded-md   // Medium border radius (6px)
-  ps-image--rounded-lg   // Large border radius (12px)
-  ps-image--rounded-full // Full circle (9999px)
-  ps-image--ratio-16x9   // 16:9 aspect ratio
-  ps-image--ratio-1x1    // 1:1 aspect ratio (square)
-  ps-image--ratio-4x3    // 4:3 aspect ratio
-```
-
-**Note:** Only modifier classes are added when values differ from defaults. The base class `.ps-image` contains all default styles.
-
-## Design Tokens Used
-
-### Colors
-
-- `--ps-color-neutral-100` (fallback: `--gray-50`) - Placeholder background
-
-### Border Radius Tokens
-
-- `--radius-2` (4px) - Small rounded
-- `--radius-3` (6px) - Medium rounded
-- `--radius-5` (12px) - Large rounded
-- `--radius-round` (9999px) - Full circle
-
-## Usage Examples
-
-### Basic Responsive Image
+## Usage
 
 ```twig
-{% include '@atoms/image/image.twig' with {
+{# Basic responsive image #}
+{% include '@elements/image/image.twig' with {
   src: '/images/hero.jpg',
-  alt: 'Hero banner image',
-  width: 1200,
-  height: 675,
+  alt: 'Modern commercial property in downtown district',
+  width: 800,
+  height: 450
 } %}
-```
 
-### Image with Srcset for Responsive Loading
+{# Image with object-fit and rounded corners #}
+{% include '@elements/image/image.twig' with {
+  src: '/images/avatar.jpg',
+  alt: 'John Smith, Real Estate Broker',
+  width: 200,
+  height: 200,
+  fit: 'cover',
+  rounded: 'full'
+} %}
 
-```twig
-{% include '@atoms/image/image.twig' with {
+{# Responsive image with srcset/sizes #}
+{% include '@elements/image/image.twig' with {
   src: '/images/hero-800.jpg',
-  alt: 'Responsive hero image',
+  alt: 'Luxury apartment building exterior',
   width: 800,
   height: 450,
   srcset: [
     '/images/hero-400.jpg 400w',
     '/images/hero-800.jpg 800w',
-    '/images/hero-1200.jpg 1200w',
-    '/images/hero-1600.jpg 1600w',
+    '/images/hero-1200.jpg 1200w'
   ],
-  sizes: '(min-width: 1024px) 960px, 100vw',
-  rounded: 'md',
+  sizes: '(min-width: 1024px) 960px, 100vw'
 } %}
 ```
 
-### Fixed Aspect Ratio (16:9)
+## Props
 
-```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/video-thumbnail.jpg',
-  alt: 'Video thumbnail',
-  width: 1600,
-  height: 900,
-  ratio: '16x9',
-  rounded: 'md',
-} %}
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | *required* | Image source URL |
+| `alt` | `string` | *required* | Alternative text for accessibility |
+| `width` | `integer` | — | Intrinsic width in pixels (prevents CLS) |
+| `height` | `integer` | — | Intrinsic height in pixels (prevents CLS) |
+| `srcset` | `array<string>` | — | Responsive image sources (e.g., `['/img-400.jpg 400w']`) |
+| `sizes` | `string` | — | Sizes attribute (e.g., `'(min-width: 768px) 50vw, 100vw'`) |
+| `loading` | `string` | `'lazy'` | Loading strategy: `'lazy'` \| `'eager'` |
+| `decoding` | `string` | `'auto'` | Decoding hint: `'auto'` \| `'async'` \| `'sync'` |
+| `fit` | `string` | `'none'` | Object-fit: `'none'` \| `'cover'` \| `'contain'` \| `'fill'` \| `'scale-down'` |
+| `rounded` | `string` | `'none'` | Border-radius: `'none'` \| `'sm'` \| `'md'` \| `'lg'` \| `'full'` |
+| `attributes` | `Attribute` | — | Additional HTML attributes |
+
+## BEM Structure
+
+```
+ps-image                           // Base image element
+
+Modifiers:
+  ps-image--fit-cover              // Object-fit: cover
+  ps-image--fit-contain            // Object-fit: contain
+  ps-image--fit-fill               // Object-fit: fill
+  ps-image--fit-none               // Object-fit: none
+  ps-image--fit-scale-down         // Object-fit: scale-down
+  
+  ps-image--rounded-sm             // Border-radius: 4px
+  ps-image--rounded-md             // Border-radius: 8px
+  ps-image--rounded-lg             // Border-radius: 16px
+  ps-image--rounded-full           // Border-radius: circular
 ```
 
-### Avatar (Circular)
+**Minimal Markup:** By default, only `ps-image` class is applied. Modifiers are added only when values differ from defaults (`fit: 'none'`, `rounded: 'none'`).
 
-```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/avatar.jpg',
-  alt: 'User avatar',
-  width: 200,
-  height: 200,
-  ratio: '1x1',
-  rounded: 'full',
-} %}
-```
+## Design Tokens
 
-### Object-fit Contain
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-2` | `0.25rem` (4px) | Small border-radius |
+| `--radius-4` | `0.5rem` (8px) | Medium border-radius |
+| `--radius-6` | `1rem` (16px) | Large border-radius |
+| `--radius-round` | `1e5px` | Full circular border-radius |
 
-```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/portrait.jpg',
-  alt: 'Portrait photo',
-  width: 400,
-  height: 600,
-  fit: 'contain',
-  ratio: '16x9',
-} %}
-```
+**Note:** Object-fit values use native CSS properties and don't require custom tokens.
+
+## Variants
+
+### Object-fit
+
+Controls how the image fills its container:
+
+- **`none`** (default): Original dimensions, may overflow
+- **`cover`**: Fills container, maintains aspect ratio, may crop
+- **`contain`**: Fits within container, maintains aspect ratio, may letterbox
+- **`fill`**: Stretches to fill container, may distort
+- **`scale-down`**: Scales down like `contain` or `none` (whichever is smaller)
+
+### Border-radius
+
+- **`none`** (default): No border-radius
+- **`sm`**: Small rounded corners (4px)
+- **`md`**: Medium rounded corners (8px)
+- **`lg`**: Large rounded corners (16px)
+- **`full`**: Circular/pill shape (for avatars)
 
 ## Real-World Use Cases
 
-### 1. Hero Banner
-
-Full-width hero image with 16:9 ratio and medium rounded corners:
-
+### Hero Image
 ```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/hero-banner.jpg',
-  alt: 'Modern office building facade',
-  width: 1600,
-  height: 900,
-  ratio: '16x9',
-  rounded: 'md',
-  srcset: [
-    '/images/hero-banner-800.jpg 800w',
-    '/images/hero-banner-1200.jpg 1200w',
-    '/images/hero-banner-1600.jpg 1600w',
-  ],
-  sizes: '100vw',
-} %}
-```
-
-### 2. Card Thumbnail
-
-Card images with consistent 4:3 ratio:
-
-```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/property-card.jpg',
-  alt: 'Luxury apartment interior',
-  width: 800,
+{% include '@elements/image/image.twig' with {
+  src: '/images/hero-800.jpg',
+  alt: 'Panoramic view of downtown business district',
+  width: 1200,
   height: 600,
-  ratio: '4x3',
-  rounded: 'md',
+  srcset: ['/images/hero-400.jpg 400w', '/images/hero-800.jpg 800w', '/images/hero-1200.jpg 1200w'],
+  sizes: '100vw',
+  loading: 'eager',
+  fit: 'cover'
 } %}
 ```
 
-### 3. User Profile Avatar
-
-Circular avatar with 1:1 ratio:
-
+### Avatar
 ```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/user-avatar.jpg',
-  alt: 'Jean Dupont profile picture',
-  width: 200,
-  height: 200,
-  ratio: '1x1',
-  rounded: 'full',
-  loading: 'eager', {# Above the fold #}
+{% include '@elements/image/image.twig' with {
+  src: '/images/users/jane-doe.jpg',
+  alt: 'Jane Doe, Senior Property Consultant',
+  width: 48,
+  height: 48,
+  fit: 'cover',
+  rounded: 'full'
 } %}
 ```
 
-### 4. Gallery Thumbnail
-
-Square thumbnails for image galleries:
-
+### Card Thumbnail
 ```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/gallery-thumb.jpg',
-  alt: 'Gallery image 1',
+{% include '@elements/image/image.twig' with {
+  src: '/images/properties/listing-123.jpg',
+  alt: 'Contemporary apartment with open floor plan',
   width: 400,
-  height: 400,
-  ratio: '1x1',
-  rounded: 'sm',
+  height: 300,
+  fit: 'cover',
+  rounded: 'md'
 } %}
 ```
 
-### 5. Logo/Brand Image with Contain
-
-Preserve logo aspect ratio within container:
-
+### Decorative Image (no alt needed)
 ```twig
-{% include '@atoms/image/image.twig' with {
-  src: '/images/partner-logo.png',
-  alt: 'Partner company logo',
-  width: 300,
-  height: 150,
-  fit: 'contain',
-  ratio: '16x9',
-  loading: 'lazy',
+{% include '@elements/image/image.twig' with {
+  src: '/images/patterns/decorative.svg',
+  alt: '',
+  width: 100,
+  height: 100
 } %}
 ```
 
 ## Accessibility
 
-### WCAG 2.1 Compliance
+- **`alt` is required**: Provide descriptive text for screen readers. For decorative images, use `alt=""` (empty string).
+- **Dimensions prevent CLS**: Always provide `width` and `height` to avoid Cumulative Layout Shift.
+- **Lazy loading**: Enabled by default for performance. Use `loading: 'eager'` for above-the-fold images (LCP optimization).
+- **Keyboard**: Images are not interactive by default. Wrap in `<a>` or `<button>` if clickable.
 
-1. **Alternative Text (Level A)**
-   - `alt` attribute is **required** for all images
-   - Descriptive alt text should accurately describe the image content
-   - For decorative images, use `alt=""` (empty string)
-   - Avoid phrases like "image of" or "picture of"
+## Responsive Behavior
 
-2. **Prevent Layout Shift (CLS)**
-   - Always provide `width` and `height` attributes
-   - These prevent Cumulative Layout Shift (CLS) during page load
-   - Improves Core Web Vitals score
+- **Responsive by default**: `max-width: 100%; height: auto` ensures images scale with their container.
+- **Srcset/Sizes**: Use for art direction and resolution switching. The browser selects the optimal image based on viewport and pixel density.
+- **Aspect ratio**: This component doesn't enforce aspect ratios. For fixed ratios, use the Figure component with ratio wrapper.
 
-3. **Lazy Loading**
-   - Default `loading="lazy"` improves page load performance
-   - Use `loading="eager"` for above-the-fold images (LCP candidates)
+## Performance
 
-4. **Semantic HTML**
-   - Uses `<figure>` element for semantic structure
-   - Ratio helper uses `aria-hidden="true"` to hide from screen readers
-
-### Best Practices
-
-```twig
-{# ✅ GOOD: Descriptive alt text #}
-{% include '@atoms/image/image.twig' with {
-  src: '/images/building.jpg',
-  alt: 'Three-story brick office building with glass entrance',
-  width: 800,
-  height: 600,
-} %}
-
-{# ✅ GOOD: Decorative image #}
-{% include '@atoms/image/image.twig' with {
-  src: '/images/decorative-pattern.svg',
-  alt: '',
-  width: 100,
-  height: 100,
-} %}
-
-{# ❌ BAD: Missing alt text #}
-{% include '@atoms/image/image.twig' with {
-  src: '/images/photo.jpg',
-} %}
-
-{# ❌ BAD: Generic alt text #}
-{% include '@atoms/image/image.twig' with {
-  src: '/images/building.jpg',
-  alt: 'Image',
-} %}
-```
-
-## Performance Considerations
-
-### Core Web Vitals
-
-1. **LCP (Largest Contentful Paint)**
-   - Use `loading="eager"` for hero images above the fold
-   - Provide appropriate srcset for different screen sizes
-   - Consider using preload for critical images
-
-2. **CLS (Cumulative Layout Shift)**
-   - Always specify `width` and `height` attributes
-   - Use ratio modifiers for consistent aspect ratios
-   - Browser will reserve space before image loads
-
-3. **Responsive Images**
-   - Use `srcset` and `sizes` attributes
-   - Deliver appropriate image sizes for different devices
-   - Example:
-
-     ```twig
-     srcset: [
-       '/img-400.jpg 400w',
-       '/img-800.jpg 800w',
-       '/img-1200.jpg 1200w',
-     ],
-     sizes: '(min-width: 768px) 50vw, 100vw',
-     ```
-
-### Lazy Loading
-
-- Default `loading="lazy"` defers offscreen images
-- Reduces initial page weight and improves load time
-- Browser native, no JavaScript required
-
-## Variants
-
-### Object Fit
-
-- **cover** (default): Fills container, may crop image
-- **contain**: Entire image visible, may show letterboxing
-
-### Rounded Corners
-
-- **none** (default): No rounded corners
-- **sm**: 4px rounded corners
-- **md**: 6px rounded corners
-- **lg**: 12px rounded corners
-- **full**: Full circle (for avatars)
-
-### Aspect Ratios
-
-- **none** (default): Natural image dimensions
-- **16x9**: Widescreen (video/hero banners)
-- **1x1**: Square (avatars/thumbnails)
-- **4x3**: Classic photo ratio (cards)
+- **Lazy loading**: Images load when near the viewport, reducing initial page weight.
+- **Decoding**: `decoding="auto"` lets the browser optimize image decode timing.
+- **CLS prevention**: Providing dimensions reserves layout space, preventing content shift.
 
 ## Browser Support
 
-- Modern browsers with native lazy loading support
-- Fallback: Images load normally in older browsers
-- srcset/sizes supported in all modern browsers (IE11+)
-
-## Implementation Notes
-
-1. **Minimal HTML Output**: Base class only by default, modifiers added only when needed
-2. **Independent Modifiers**: All modifier classes work independently on the base class
-3. **Token-based**: All values use design tokens from `source/props/*.css`
-4. **Responsive**: Uses srcset/sizes for art direction
-5. **Performance**: Lazy loading by default, supports preload patterns
+- **Object-fit**: Supported in all modern browsers (IE11 requires polyfill).
+- **Lazy loading**: Native support in modern browsers; gracefully degrades to eager loading.
+- **Srcset/Sizes**: Widely supported; falls back to `src` in older browsers.
 
 ## Related Components
 
-- **Avatar**: Specialized circular image component with status indicators
-- **Icon**: Vector icons using icon font
-- **Logo**: Brand logo component with proper sizing
+- **Figure**: Wrapper component with caption support
+- **Avatar**: Specialized image component for user profiles
+- **Icon**: For vector graphics and UI icons
 
-## References
+## Resources
 
-- [MDN: Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
-- [Web.dev: Optimize LCP](https://web.dev/optimize-lcp/)
-- [Web.dev: Image Best Practices](https://web.dev/fast/#optimize-your-images)
+- [MDN: `<img>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+- [Web.dev: Responsive Images](https://web.dev/learn/design/responsive-images/)
+- [Core Web Vitals](https://web.dev/vitals/)
 - Design spec: `docs/design/atoms/image.md`
 
 ---
 
-**Last Updated:** November 29, 2025  
-**Author:** PS Theme Team
+**Component Status**: ✅ Complete  
+**Last Updated**: December 2, 2025  
+**Maintainer**: Design System Team

@@ -1,51 +1,49 @@
 {#
- * Image element
- * @param string src - Image source URL (required)
- * @param string alt - Alternative text for accessibility (required)
- * @param int width - Intrinsic width in pixels (optional)
- * @param int height - Intrinsic height in pixels (optional)
- * @param array srcset - Array of srcset strings (optional, e.g., ['/img-400.jpg 400w','/img-800.jpg 800w'])
- * @param string sizes - Sizes attribute (optional, e.g., '(min-width: 768px) 50vw, 100vw')
- * @param string loading - Loading strategy (optional, default: 'lazy')
- * @param string decoding - Decoding strategy (optional, default: 'auto')
- * @param string fit - Object-fit value (optional, default: 'cover')
- * @param string rounded - Border radius variant (optional, default: 'none')
- * @param string ratio - Aspect ratio variant (optional, default: 'none')
- * @param object attributes - Additional HTML attributes (optional)
- #}
+/**
+ * @file
+ * Image component (Atom)
+ * 
+ * Responsive image with lazy loading, srcset/sizes support, object-fit and border-radius options.
+ * This component handles the <img> element only. For figures with captions, see Figure component.
+ * 
+ * Available variables:
+ * - src: (string) Image source URL (required)
+ * - alt: (string) Alternative text for accessibility (required)
+ * - width: (int) Intrinsic width in pixels
+ * - height: (int) Intrinsic height in pixels
+ * - srcset: (array<string>) Responsive image sources (e.g., ['/img-400.jpg 400w', '/img-800.jpg 800w'])
+ * - sizes: (string) Sizes attribute for responsive images (e.g., '(min-width: 768px) 50vw, 100vw')
+ * - loading: (string) Loading strategy: 'lazy' (default) | 'eager'
+ * - decoding: (string) Decoding hint: 'auto' (default) | 'async' | 'sync'
+ * - fit: (string) Object-fit behavior: 'none' (default) | 'cover' | 'contain' | 'fill' | 'scale-down'
+ * - rounded: (string) Border-radius style: 'none' (default) | 'sm' | 'md' | 'lg' | 'full'
+ * - attributes: (Drupal\Core\Template\Attribute) Additional HTML attributes
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+ * @see https://web.dev/learn/design/responsive-images/
+ */
+#}
 
-{%- set src = src|default('') -%}
-{%- set alt = alt|default('') -%}
-{%- set loading = loading|default('lazy') -%}
-{%- set decoding = decoding|default('auto') -%}
-{%- set fit = fit|default('cover') -%}
-{%- set rounded = rounded|default('none') -%}
-{%- set ratio = ratio|default('none') -%}
+{% set fit = fit|default('none') %}
+{% set rounded = rounded|default('none') %}
+{% set loading = loading|default('lazy') %}
+{% set decoding = decoding|default('auto') %}
 
-{%- set classes = ['ps-image'] -%}
-{%- if fit != 'cover' -%}
-  {%- set classes = classes|merge(['ps-image--fit-' ~ fit]) -%}
-{%- endif -%}
-{%- if rounded != 'none' -%}
-  {%- set classes = classes|merge(['ps-image--rounded-' ~ rounded]) -%}
-{%- endif -%}
-{%- if ratio != 'none' -%}
-  {%- set classes = classes|merge(['ps-image--ratio-' ~ ratio]) -%}
-{%- endif -%}
+{# Build minimal class array - only add modifiers if different from default #}
+{% set classes = [
+  'ps-image',
+  fit != 'none' ? 'ps-image--fit-' ~ fit : null,
+  rounded != 'none' ? 'ps-image--rounded-' ~ rounded : null,
+] %}
 
-<figure class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %}>
-  {%- if ratio != 'none' -%}
-    <span class="ps-image__ratio" aria-hidden="true"></span>
-  {%- endif -%}
-  <img
-    class="ps-image__img"
-    src="{{ src }}"
-    alt="{{ alt }}"
-    {%- if width %} width="{{ width }}"{% endif -%}
-    {%- if height %} height="{{ height }}"{% endif -%}
-    {%- if srcset %} srcset="{{ srcset|join(', ') }}"{% endif -%}
-    {%- if sizes %} sizes="{{ sizes }}"{% endif -%}
-    loading="{{ loading }}"
-    decoding="{{ decoding }}"
-  />
-</figure>
+<img
+  {{- attributes.addClass(classes) -}}
+  src="{{ src }}"
+  alt="{{ alt }}"
+  {% if width %}width="{{ width }}"{% endif %}
+  {% if height %}height="{{ height }}"{% endif %}
+  {% if srcset %}srcset="{{ srcset|join(', ') }}"{% endif %}
+  {% if sizes %}sizes="{{ sizes }}"{% endif %}
+  loading="{{ loading }}"
+  decoding="{{ decoding }}"
+/>

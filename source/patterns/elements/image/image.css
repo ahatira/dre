@@ -1,113 +1,76 @@
-/** 
+/**
  * Image (Element/Atom)
- * Responsive image with lazy loading, srcset/sizes support, optional ratio and rounded corners
+ * Responsive image with lazy loading, srcset/sizes, object-fit and border-radius.
  * 
- * BEM: ps-image, ps-image__img, ps-image__ratio
- * Fit: cover (default) | contain
- * Rounded: none (default) | sm | md | lg | full
- * Ratio: none (default) | 16x9 | 1x1 | 4x3
+ * BEM: ps-image
+ * Object-fit: none (default) | cover | contain | fill | scale-down
+ * Border-radius: none (default) | sm | md | lg | full
+ * 
+ * @see docs/design/atoms/image.md
  */
 
+/* ========================================
+ * Base Image
+ * ======================================== */
+
 .ps-image {
-  /* Reset */
-  margin: 0;
-  padding: 0;
-  
-  /* Layout */
+  /* Base responsive behavior */
   display: block;
-  position: relative;
   max-width: 100%;
-  overflow: hidden;
-  
-  /* Visual - placeholder background */
-  background-color: var(--ps-color-neutral-100, var(--gray-50));
-}
-
-/* Image element */
-.ps-image__img {
-  display: block;
-  width: 100%;
   height: auto;
-  object-fit: cover;
-  border-radius: 0;
-}
-
-/* Ratio helper (padding technique for aspect ratio) */
-.ps-image__ratio {
-  display: block;
-  width: 100%;
-  padding-top: 0;
-}
-
-/* Object-fit modifiers (work independently) */
-.ps-image--fit-contain .ps-image__img {
-  object-fit: contain;
-}
-
-/* Note: fit-cover is default, no modifier class needed */
-
-/* Border radius modifiers (work independently) */
-.ps-image--rounded-sm .ps-image__img {
-  border-radius: var(--radius-2);
-}
-
-.ps-image--rounded-md .ps-image__img {
-  border-radius: var(--radius-3);
-}
-
-.ps-image--rounded-lg .ps-image__img {
-  border-radius: var(--radius-5);
-}
-
-.ps-image--rounded-full .ps-image__img {
-  border-radius: var(--radius-round);
-}
-
-/* Ratio modifiers (work independently) */
-.ps-image--ratio-16x9 {
-  position: relative;
-}
-
-.ps-image--ratio-16x9 .ps-image__ratio {
-  padding-top: 56.25%; /* 9/16 * 100 */
-}
-
-.ps-image--ratio-16x9 .ps-image__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.ps-image--ratio-1x1 {
-  position: relative;
-}
-
-.ps-image--ratio-1x1 .ps-image__ratio {
-  padding-top: 100%; /* 1/1 * 100 */
-}
-
-.ps-image--ratio-1x1 .ps-image__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.ps-image--ratio-4x3 {
-  position: relative;
-}
-
-.ps-image--ratio-4x3 .ps-image__ratio {
-  padding-top: 75%; /* 3/4 * 100 */
-}
-
-.ps-image--ratio-4x3 .ps-image__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  vertical-align: middle;
+  
+  /* ========================================
+   * Object-fit Modifiers
+   * Native CSS properties, no tokens needed
+   * ======================================== */
+  
+  &--fit-cover {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &--fit-contain {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &--fit-fill {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &--fit-none {
+    object-fit: none;
+  }
+  
+  &--fit-scale-down {
+    object-fit: scale-down;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* ========================================
+   * Border-radius Modifiers
+   * Using border radius tokens
+   * ======================================== */
+  
+  &--rounded-sm {
+    border-radius: var(--radius-2);
+  }
+  
+  &--rounded-md {
+    border-radius: var(--radius-4);
+  }
+  
+  &--rounded-lg {
+    border-radius: var(--radius-6);
+  }
+  
+  &--rounded-full {
+    border-radius: var(--radius-round);
+  }
 }

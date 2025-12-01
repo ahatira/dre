@@ -40,13 +40,25 @@
 - **BEM avec `ps-` prefix** : Nouveaux composants DOIVENT utiliser BEM avec préfixe `ps-` (ex : `ps-badge`, `ps-badge__icon`, `ps-badge--small`). Composants legacy sans préfixe existent et peuvent être migrés progressivement.
 - **Design Tokens** : TOUJOURS utiliser CSS Custom Properties de `source/props/*.css` (ex : `var(--brand-primary)`, `var(--font-size-1)`, `var(--size-4)`). ❌ JAMAIS de valeurs en dur (#00915A, 16px, etc.). Si un token manque, l'ajouter dans le fichier approprié (`colors.css`, `fonts.css`, `sizes.css`, etc.) en respectant les conventions existantes.
 - **Structure de composant** : 5 fichiers obligatoires par composant :
-  1. `.twig` - Template avec params commentés
+  1. `.twig` - Template **Drupal-ready** avec params commentés (utiliser ternaire avec `null`, pas `filter(v => v)`)
   2. `.css` - Styles BEM avec tokens uniquement
   3. `.yml` - Données par défaut pour preview
   4. `.stories.jsx` - Stories Storybook (Default + showcases + **tags: ['autodocs']**)
   5. `README.md` - Documentation (Props, BEM, Tokens, Usage, Accessibility)
   
   Note: La documentation Storybook est fournie via Autodocs dans `.stories.jsx` en utilisant **tags: ['autodocs']** + `parameters.docs.description.component` (≤ 2 lignes). Les fichiers `.mdx` sont facultatifs et réservés aux composants complexes si besoin spécifique.
+  
+  **Twig Drupal-friendly** : Les templates doivent être compatibles Drupal 10/11. Pour classes conditionnelles, utiliser l'opérateur ternaire avec `null` (ex: `condition ? 'class' : null`) au lieu de `filter()` ou arrow functions non supportées par Twig.
+  
+  **Placeholders contextuels** : Tous les placeholders (textes, images, vidéos, médias, données de test) doivent évoquer l'immobilier (Real Estate) - ex: "Modern office building", "Apartment for sale", "Property listing", "Real estate agent", "Property tour video", etc.
+  
+  **Faker.js pour données réalistes** : Utiliser `@faker-js/faker` dans les `.stories.jsx` pour générer des données de test contextuelles et réalistes. Privilégier les méthodes adaptées à l'immobilier :
+  - `faker.location.streetAddress()`, `faker.location.city()` pour adresses
+  - `faker.person.fullName()`, `faker.person.jobTitle()` pour agents immobiliers
+  - `faker.commerce.price()` pour prix de propriétés
+  - `faker.image.urlLoremFlickr({ category: 'building' })` pour images d'immeubles
+  - `faker.lorem.sentence()` pour descriptions courtes
+  - Configurer locale: `import { faker } from '@faker-js/faker/locale/fr';` pour contenu français si nécessaire
 - **Intégration Drupal** : Exemples dans `templates/`.
 - **Linting** : Automatique via watch/build (voir `vite.config.js`).
 - **Demo** : Storybook statique [ici](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/).
@@ -159,22 +171,29 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 - ✅ Only add modifiers when value differs from default
 - Twig: conditional `merge()`, never ternary with empty strings
 
-### 5. Modifiers Independence (REQUIRED)
+### 5. Twig Drupal-Ready (CRITICAL)
+- ✅ ALWAYS use ternary with `null`: `condition ? 'class' : null`
+- ❌ NEVER use `filter(v => v)` - arrow functions NOT supported in Drupal Twig
+- ❌ NEVER use JavaScript methods (`.filter()`, `.map()`, etc.)
+- ✅ Templates MUST be compatible with Drupal 10/11 Twig
+- Example: `{% set classes = ['base', variant != 'default' ? 'mod-' ~ variant : null] %}`
+
+### 6. Modifiers Independence (REQUIRED)
 - ✅ Each modifier works alone on base class
 - ❌ Never: `.ps-component--a.ps-component--b { }` (requires both)
 - ✅ Always: `.ps-component--a { }` (works alone)
 
-### 6. Semantic Colors (MANDATORY)
+### 7. Semantic Colors (MANDATORY)
 - ✅ primary | secondary | success | warning | danger | info
 - ❌ NEVER: green | purple | blue | red | yellow
 - If component has color variants, support ALL 6
 
-### 7. Icons System (STRICT)
+### 8. Icons System (STRICT)
 - **Controllable icon**: Use `@elements/icon/icon.twig` (prop: `icon`, no "icon-" prefix)
 - **Decorative icon**: `<span data-icon="check">` (no "icon-" prefix)
 - Component CSS: NO `[data-icon]` mappings (centralized in `icons.css`)
 
-### 8. Storybook (Autodocs, HTML)
+### 9. Storybook (Autodocs, HTML)
 - ✅ **MANDATORY**: `tags: ['autodocs']` in export default (activates auto-documentation)
 - ✅ Import: `import componentTwig from './component.twig';`
 - ✅ Render: `render: (args) => componentTwig(args)`
@@ -183,15 +202,15 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 - ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
 - ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
 
-### 11. Required Files (5 ALWAYS)
+### 10. Required Files (5 ALWAYS)
 See single source under "Conventions & Patterns" → "Structure de composant" (5 required files). Avoid duplicating this list elsewhere.
 
-### 10. BEM Strict
+### 11. BEM Strict
 - ✅ Prefix `ps-` mandatory
 - ✅ Format: `.ps-block__element--modifier`
 - ❌ NO double underscore: `.ps-block__element__nested`
 
-### 11. JavaScript Integration in Storybook
+### 12. JavaScript Integration in Storybook
 - ✅ Import behaviors globally in `.storybook/preview.js`: `import '../source/patterns/components/{component}/{component}.js';`
 - ❌ NEVER import in individual `.stories.jsx` files (timing issue with Drupal.attachBehaviors() decorator)
 - ✅ Use Drupal behaviors pattern with `once()` for re-initialization prevention

@@ -1,10 +1,8 @@
-# Default: Responsive image with lazy loading
-src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=450&fit=crop'
-alt: 'Modern office building facade'
+src: '/images/sample-800.jpg'
+alt: 'Modern commercial building facade with glass windows'
 width: 800
 height: 450
 loading: 'lazy'
 decoding: 'auto'
-fit: 'cover'
+fit: 'none'
 rounded: 'none'
-ratio: 'none'
