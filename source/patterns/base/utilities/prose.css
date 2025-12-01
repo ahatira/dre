@@ -112,16 +112,16 @@
 
   :where(a):not(:where(.button, .link, [class~='not-prose'] *)) {
     border-block-end: 1px solid transparent;
-    color: var(--brand-primary);
+    color: var(--primary);
     font-weight: var(--font-weight-400);
 
     &:hover {
-      border-block-end: 1px solid var(--brand-secondary);
-      color: var(--brand-secondary);
+      border-block-end: 1px solid var(--secondary);
+      color: var(--secondary);
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--brand-primary), 0 0 var(--white);
+      box-shadow: 0 0 var(--white), 0 0 0 2px var(--primary), 0 0 var(--white);
       outline: 2px solid transparent;
       outline-offset: 2px;
     }
@@ -311,8 +311,8 @@
   :where(.button):not(:where([class~='not-prose'] *)) {
     align-items: center;
     appearance: none;
-    background-color: var(--brand-primary);
-    border-color: var(--brand-primary);
+    background-color: var(--primary);
+    border-color: var(--primary);
     border-radius: 0;
     border-width: 1px;
     color: var(--white);
@@ -336,50 +336,50 @@
     white-space: nowrap;
 
     &:visited {
-      background-color: var(--brand-primary);
+      background-color: var(--primary);
       color: var(--white);
     }
 
     &:hover {
-      background-color: var(--brand-secondary);
-      border-color: var(--brand-secondary);
+      background-color: var(--secondary);
+      border-color: var(--secondary);
       color: var(--white);
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--brand-primary), 0 0 var(--white);
+      box-shadow: 0 0 var(--white), 0 0 0 2px var(--primary), 0 0 var(--white);
       outline: 2px solid transparent;
       outline-offset: 2px;
     }
 
     &:active {
-      background-color: var(--brand-secondary);
+      background-color: var(--secondary);
       color: var(--white);
     }
   }
 
   :where(.button--secondary):not(:where([class~='not-prose'] *)) {
-    background-color: var(--brand-accent);
-    border-color: var(--brand-accent);
+    background-color: var(--success);
+    border-color: var(--success);
     color: var(--gray-900);
 
     &:visited {
-      background-color: var(--brand-accent);
+      background-color: var(--success);
       color: var(--gray-900);
     }
 
     &:hover {
-      background-color: var(--brand-secondary);
-      border-color: var(--brand-secondary);
+      background-color: var(--secondary);
+      border-color: var(--secondary);
       color: var(--gray-900);
     }
 
     &:focus {
-      box-shadow: 0 0 var(--white), 0 0 0 2px var(--brand-accent), 0 0 var(--white);
+      box-shadow: 0 0 var(--white), 0 0 0 2px var(--success), 0 0 var(--white);
     }
 
     &:active {
-      background-color: var(--brand-secondary);
+      background-color: var(--secondary);
       color: var(--gray-900);
     }
   }
@@ -426,12 +426,12 @@
   }
 
   :where(ul[class~='list--highlight']):not(:where([class~='not-prose'] *)) {
-    border-inline-start-color: var(--brand-primary);
+    border-inline-start-color: var(--primary);
     border-inline-start-width: var(--size-1);
 
     > li {
       &::marker {
-        color: var(--brand-primary);
+        color: var(--primary);
       }
     }
   }
@@ -445,7 +445,7 @@
       padding-inline-start: 0;
 
       a {
-        border-block-end-color: var(--brand-primary);
+        border-block-end-color: var(--primary);
         border-block-end-width: 1px;
         display: flex;
         padding-block: var(--size-2);
@@ -453,8 +453,8 @@
         transition: all 0.15s linear;
 
         &:hover {
-          background-color: var(--brand-secondary);
-          border-block-end-color: var(--brand-secondary);
+          background-color: var(--secondary);
+          border-block-end-color: var(--secondary);
           color: var(--white);
         }
       }
@@ -495,7 +495,7 @@
 
   :where(a[class~='link']):not(:where([class~='not-prose'] *)) {
     align-items: center;
-    color: var(--brand-primary);
+    color: var(--primary);
     display: flex;
     flex-direction: row;
     font-weight: var(--font-weight-600);
@@ -505,7 +505,7 @@
     transition: all 0.15s linear;
 
     &::after {
-      background-color: var(--brand-primary);
+      background-color: var(--primary);
       background-size: cover;
       block-size: 18px;
       content: '';
@@ -517,7 +517,7 @@
     }
 
     &:hover {
-      background-color: var(--brand-secondary);
+      background-color: var(--secondary);
       color: var(--white);
 
       &::after {

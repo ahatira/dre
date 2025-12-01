@@ -8,7 +8,7 @@
 }
 
 .bg-ucla-blue {
-  background-color: var(--brand-primary);
+  background-color: var(--primary);
 }
 
 .bg-midnight-joshua-tree {
@@ -16,7 +16,7 @@
 }
 
 .bg-gradient-linear-ucla-blue {
-  background-image: linear-gradient(to right, var(--sky-900), var(--brand-primary));
+  background-image: linear-gradient(to right, var(--sky-900), var(--primary));
 }
 
 /* PS token-based background utility aliases */

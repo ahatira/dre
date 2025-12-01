@@ -8,15 +8,15 @@
 }
 
 html {
-  accent-color: var(--accent-color, var(--brand-primary));
+  accent-color: var(--accent-color, var(--primary));
   background-color: var(--bg-color, var(--white));
-  caret-color: var(--caret-color, var(--brand-primary));
+  caret-color: var(--caret-color, var(--primary));
   color: var(--color, var(--gray-900));
   font-family: var(--font-body);
   font-size: 100%;
   line-height: var(--leading-normal);
   scroll-padding-top: var(--scroll-padding-top, 150px);
-  scrollbar-color: var(--scrollbar-color, var(--brand-primary)) transparent;
+  scrollbar-color: var(--scrollbar-color, var(--primary)) transparent;
   text-size-adjust: 100%;
 
   &:has(dialog[open]) {
