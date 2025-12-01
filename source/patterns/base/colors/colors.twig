@@ -1,19 +1,71 @@
 <section class="demo-colors">
-  {% for title, list in colors %}
+  {% if neutrals %}
     <div class="just-for-gap">
-      <div class="heading">{{ title }}</div>
-      <article class="color-demo">
-        {% for item in list %}
-          <div class="color-demo__swatch">
-            <div class="swatch" style="background-color: {{ item.value }}"></div>
-            <div class="meta">
-              <span class="name">{{ item.name }}</span>
-              <span class="value">{{ item.value }}</span>
-              <span class="var">{{ item.var }}</span>
-            </div>
-          </div>
-        {% endfor %}
-      </article>
+      <div class="heading">Neutrals (11 tokens)</div>
+      {% for title, list in neutrals %}
+        <div class="color-category">
+          <div class="category-title">{{ title }}</div>
+          <article class="color-demo">
+            {% for item in list %}
+              <div class="color-demo__swatch">
+                <div class="swatch" style="background-color: {{ item.value }}"></div>
+                <div class="meta">
+                  <span class="name">{{ item.name }}</span>
+                  <span class="value">{{ item.value }}</span>
+                  <span class="var">{{ item.var }}</span>
+                  {% if item.usage %}
+                    <span class="usage">{{ item.usage }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </article>
+        </div>
+      {% endfor %}
     </div>
-  {% endfor %}
+  {% endif %}
+
+  {% if palettes %}
+    <div class="just-for-gap">
+      <div class="heading">Color Palettes (60 tokens)</div>
+      {% for title, list in palettes %}
+        <div class="color-category">
+          <div class="category-title">{{ title }}</div>
+          <article class="color-demo">
+            {% for item in list %}
+              <div class="color-demo__swatch">
+                <div class="swatch" style="background-color: {{ item.value }}"></div>
+                <div class="meta">
+                  <span class="name">{{ item.name }}</span>
+                  <span class="value">{{ item.value }}</span>
+                  <span class="var">{{ item.var }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 </section>
+
+<style>
+.demo-colors .color-category {
+  margin-block-start: var(--size-5);
+}
+
+.demo-colors .category-title {
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+  margin-block-end: var(--size-3);
+  padding-inline-start: var(--size-2);
+}
+
+.demo-colors .color-demo__swatch .usage {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-block-start: var(--size-1);
+}
+</style>
