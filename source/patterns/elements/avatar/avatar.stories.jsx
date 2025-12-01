@@ -139,7 +139,7 @@ export const Initials = {
     return `
       <div style="display:grid;grid-template-columns:repeat(${gridCols}, auto);gap:12px;align-items:center;">
         <style>
-          .cell--label{font:600 var(--font-size-0)/1 var(--font-sans);color:var(--ps-color-neutral-600);text-transform:capitalize}
+          .cell--label{font:600 var(--font-size-0)/1 var(--font-sans);color:var(--gray-600);text-transform:capitalize}
           .cell{display:flex;align-items:center;justify-content:center}
         </style>
         ${headRow}
