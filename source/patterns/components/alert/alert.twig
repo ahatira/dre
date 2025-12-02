@@ -2,7 +2,7 @@
  * Alert Component (Molecule)
  * Semantic status message with dismissible option
  * 
- * @param string variant - Semantic variant: 'info' | 'success' | 'warning' | 'error' | 'info-subtle' | 'success-subtle' | 'warning-subtle' | 'error-subtle' | 'default' | 'primary' | 'secondary' | 'light' | 'dark' (default: 'info')
+ * @param string variant - Semantic variant: 'info' | 'success' | 'warning' | 'danger' | 'primary' | 'secondary' (default: 'info')
  * @param string title - Optional title text (optional)
  * @param string message - Message content (required)
  * @param boolean icon - Show icon (optional, default: true)
@@ -25,22 +25,15 @@
   'info': 'infos',
   'success': 'check',
   'warning': 'help',
-  'error': 'close',
-  'info-subtle': 'infos',
-  'success-subtle': 'check',
-  'warning-subtle': 'help',
-  'error-subtle': 'close',
-  'default': 'infos',
+  'danger': 'close',
   'primary': 'infos',
-  'secondary': 'infos',
-  'light': 'infos',
-  'dark': 'infos'
+  'secondary': 'infos'
 } -%}
 {%- set iconName = iconMap[variant] -%}
 
 {# ARIA role and live region #}
-{%- set role = (variant == 'error' or variant == 'error-subtle') ? 'alert' : 'status' -%}
-{%- set ariaLive = (variant == 'error' or variant == 'error-subtle') ? 'assertive' : 'polite' -%}
+{%- set role = (variant == 'danger') ? 'alert' : 'status' -%}
+{%- set ariaLive = (variant == 'danger') ? 'assertive' : 'polite' -%}
 
 {# Build classes array - only add modifiers if not default #}
 {%- set classes = ['ps-alert'] -%}
