@@ -43,16 +43,20 @@ args:
   flush: false
   headingLevel: h3
   items:
-    - id: faq-1
-      title: How to buy business premises ?
+    - id: property-faq-1
+      title: How to buy commercial real estate?
       content: >-
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla.</p>
+        <p>Commercial property acquisition involves several key steps: market research, financial pre-approval, property inspection, due diligence, negotiation, and closing. Our expert team guides you through each phase, ensuring compliance with local regulations and optimal investment decisions.</p>
       open: true
-    - id: faq-2
-      title: How to buy business premises
+    - id: property-faq-2
+      title: What financing options are available?
       content: >-
-        <p>Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.</p>
-    - id: faq-3
-      title: How to buy business premises
+        <p>Multiple financing solutions exist for real estate investments: traditional bank mortgages, commercial loans, SBA loans, bridge financing, and private equity partnerships. Each option has specific requirements, terms, and benefits tailored to different investor profiles and property types.</p>
+    - id: property-faq-3
+      title: How long does the acquisition process take?
       content: >-
-        <p>Quand un imprimeur anonyme assembla.</p>
+        <p>Typical commercial real estate transactions range from 60 to 120 days, depending on property complexity, financing type, and due diligence requirements. Residential properties generally close faster (30-60 days), while large commercial portfolios may require extended timelines for comprehensive evaluation.</p>
+    - id: property-faq-4
+      title: What are the tax implications?
+      content: >-
+        <p>Real estate investments offer various tax advantages: mortgage interest deductions, depreciation benefits, 1031 exchanges for capital gains deferral, and opportunity zone incentives. Consult with our tax advisors to optimize your investment structure and maximize returns.</p>
