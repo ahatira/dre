@@ -39,14 +39,14 @@ ps-alert-heading                 # Larger, bold headings within alerts (h4)
 
 | Variant | Use Case | Color Scheme |
 |---------|----------|--------------|
-| **primary** (default) | Brand-specific highlights, featured content | BNP Paribas primary brand color |
-| **secondary** | Secondary brand messaging, promotions | BNP Paribas secondary color |
-| **success** | Confirmations, completed actions | Green background, white text |
-| **danger** | Errors, critical issues (assertive ARIA) | Red background, white text |
-| **warning** | Cautions, attention needed (assertive ARIA) | Yellow background, dark text |
-| **info** | General information, tips, notifications | Blue background, white text |
-| **light** | Subtle alerts, light backgrounds | Light gray background, dark text |
-| **dark** | Dark theme alerts, high contrast | Dark gray/black background, white text |
+| **primary** (default) | Brand-specific highlights, featured content | Light blue background, blue border, dark text |
+| **secondary** | Secondary brand messaging, promotions | Light gray background, gray border, dark text |
+| **success** | Confirmations, completed actions | Light green background, green border, dark text |
+| **danger** | Errors, critical issues (assertive ARIA) | Light red background, red border, dark text |
+| **warning** | Cautions, attention needed (assertive ARIA) | Light yellow background, yellow border, dark text |
+| **info** | General information, tips, notifications | Light blue background, blue border, dark text |
+| **light** | Subtle alerts, light backgrounds | White background, light gray border, dark text |
+| **dark** | Dark theme alerts, high contrast | Dark gray background, darker border, white text |
 
 ## Design Tokens
 
