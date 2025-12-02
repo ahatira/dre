@@ -5,7 +5,7 @@
 **Type**: Atom / Element  
 **Category**: Feedback / Loading
 
-Indicateur de chargement animé pour états asynchrones (chargement de données, soumission de formulaire, etc.). Trois variantes visuelles disponibles : circular (défaut), dots, et bars. Support complet des couleurs sémantiques (default, primary, secondary, success, info, warning, danger, white).
+Animated loading indicator for asynchronous states (data loading, form submission, etc.). Three visual variants available: circular (default), dots, and bars. Full semantic color support (default, primary, secondary, success, info, warning, danger, dark, light, white).
 
 ---
 
@@ -13,32 +13,32 @@ Indicateur de chargement animé pour états asynchrones (chargement de données,
 
 | Prop | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `variant` | `string` | `'circular'` | ❌ | Type de spinner : `circular` \| `dots` \| `bars` |
-| `size` | `string` | `'md'` | ❌ | Taille : `xs` (16px) \| `sm` (24px) \| `md` (32px) \| `lg` (48px) \| `xl` (64px) |
-| `color` | `string` | `'default'` | ❌ | Couleur : `default` \| `primary` \| `secondary` \| `success` \| `info` \| `warning` \| `danger` \| `white` |
-| `text` | `string` | `'Chargement en cours...'` | ❌ | Texte pour lecteurs d'écran (annoncé mais masqué visuellement) |
-| `centered` | `boolean` | `false` | ❌ | Centrer dans le conteneur parent (position absolute) |
-| `attributes` | `Attribute` | — | ❌ | Attributs HTML additionnels Drupal |
+| `variant` | `string` | `'circular'` | ❌ | Spinner type: `circular` \| `dots` \| `bars` |
+| `size` | `string` | `'md'` | ❌ | Size: `xs` (16px) \| `sm` (24px) \| `md` (32px) \| `lg` (48px) \| `xl` (64px) \| `xxl` (80px) |
+| `color` | `string` | `'default'` | ❌ | Color: `default` \| `primary` \| `secondary` \| `success` \| `info` \| `warning` \| `danger` \| `dark` \| `light` \| `white` |
+| `text` | `string` | `'Loading...'` | ❌ | Screen reader text (announced but visually hidden) |
+| `centered` | `boolean` | `false` | ❌ | Center in parent container (position absolute) |
+| `attributes` | `Attribute` | — | ❌ | Additional Drupal HTML attributes |
 
 ---
 
 ## BEM Structure
 
 ```
-.ps-spinner                      ← Container avec role="status"
-  .ps-spinner__svg               ← SVG container (circular uniquement)
-  .ps-spinner__circle            ← Cercle animé (circular)
-  .ps-spinner__dot               ← Point animé (dots, 3x)
-  .ps-spinner__bar               ← Barre animée (bars, 3x)
-  .ps-spinner__text              ← Texte masqué visuellement (a11y)
+.ps-spinner                      ← Container with role="status"
+  .ps-spinner__svg               ← SVG container (circular only)
+  .ps-spinner__circle            ← Animated circle (circular)
+  .ps-spinner__dot               ← Animated dot (dots, 3x)
+  .ps-spinner__bar               ← Animated bar (bars, 3x)
+  .ps-spinner__text              ← Visually hidden text (a11y)
 
 Modifiers:
-  .ps-spinner--circular          ← Variante cercle rotatif (défaut, pas de classe)
-  .ps-spinner--dots              ← Variante 3 points bouncing
-  .ps-spinner--bars              ← Variante 3 barres stretching
-  .ps-spinner--xs|sm|md|lg|xl    ← Tailles
-  .ps-spinner--default|primary|secondary|success|info|warning|danger|white ← Couleurs
-  .ps-spinner--centered          ← Centrage absolu
+  .ps-spinner--circular          ← Circular rotating variant (default, no class needed)
+  .ps-spinner--dots              ← 3 bouncing dots variant
+  .ps-spinner--bars              ← 3 stretching bars variant
+  .ps-spinner--xs|sm|md|lg|xl|xxl ← Sizes
+  .ps-spinner--default|primary|secondary|success|info|warning|danger|dark|light|white ← Colors
+  .ps-spinner--centered          ← Absolute centering
 ```
 
 ---
@@ -46,28 +46,35 @@ Modifiers:
 ## Design Tokens Used
 
 ### Sizes
-- `--size-4` (16px) — xs
-- `--size-6` (24px) — sm
-- `--size-8` (32px) — md (défaut)
-- `--size-12` (48px) — lg
-- `--size-16` (64px) — xl
-- `--size-1` (4px) — Gap entre dots
-- `--size-105` (6px) — Gap entre bars
+
+
+## 🎨 Design Tokens (3-layer system)
 
 ### Colors
-- `--gray-500` — Default (gris neutre par défaut)
-- `--brand-primary` — Primary (vert BNP #00915A)
-- `--brand-secondary` — Secondary (rose accent #E0388C)
-- `--btn-success` — Success (vert succès)
-- `--btn-info` — Info (bleu information)
-- `--btn-warning` — Warning (jaune avertissement)
-- `--btn-danger` — Danger (rouge erreur)
-- `--white` — White (sur fond sombre)
+- Default: `var(--ps-spinner-color-default, var(--spinner-color-default, var(--text-primary, var(--gray-500))))`
+- Primary: `var(--ps-spinner-color-primary, var(--spinner-color-primary, var(--primary, var(--brand-primary))))`
+- Secondary: `var(--ps-spinner-color-secondary, var(--spinner-color-secondary, var(--secondary, var(--brand-secondary))))`
+- Success: `var(--ps-spinner-color-success, var(--spinner-color-success, var(--success, var(--btn-success))))`
+- Info: `var(--ps-spinner-color-info, var(--spinner-color-info, var(--info, var(--btn-info))))`
+- Warning: `var(--ps-spinner-color-warning, var(--spinner-color-warning, var(--warning, var(--btn-warning))))`
+- Danger: `var(--ps-spinner-color-danger, var(--spinner-color-danger, var(--danger, var(--btn-danger))))`
+- Dark: `var(--ps-spinner-color-dark, var(--spinner-color-dark, var(--neutral, var(--gray-800))))`
+- Light: `var(--ps-spinner-color-light, var(--spinner-color-light, var(--white)))`
+- White: `var(--ps-spinner-color-white, var(--spinner-color-white, var(--white)))`
 
-### Visual
-- `--radius-round` — Border radius pour dots (cercles parfaits)
+### Sizes
+- xs: `var(--ps-spinner-size-xs, var(--spinner-size-xs, var(--size-4)))` (16px)
+- sm: `var(--ps-spinner-size-sm, var(--spinner-size-sm, var(--size-6)))` (24px)
+- md: `var(--ps-spinner-size-md, var(--spinner-size-md, var(--size-8)))` (32px)
+- lg: `var(--ps-spinner-size-lg, var(--spinner-size-lg, var(--size-12)))` (48px)
+- xl: `var(--ps-spinner-size-xl, var(--spinner-size-xl, var(--size-16)))` (64px)
+- xxl: `var(--ps-spinner-size-xxl, var(--spinner-size-xxl, var(--size-20)))` (80px)
 
----
+### Animations
+- Rotation: `@keyframes ps-spinner-rotate` (1s linear infinite)
+- Dash: `@keyframes ps-spinner-dash` (1.5s ease-in-out infinite)
+- Bounce: `@keyframes ps-spinner-bounce` (1.4s ease-in-out infinite both)
+- Stretch: `@keyframes ps-spinner-stretch` (1.2s ease-in-out infinite)
 
 ## Usage Examples
 
@@ -84,7 +91,7 @@ Modifiers:
 ### Variants
 
 ```twig
-{# Circular (défaut) #}
+{# Circular (default) #}
 {% include '@elements/spinner/spinner.twig' with {
   variant: 'circular',
 } %}
@@ -112,47 +119,62 @@ Modifiers:
 {% include '@elements/spinner/spinner.twig' with {
   size: 'lg',
 } %}
+
+{# Extra extra large (80px) #}
+{% include '@elements/spinner/spinner.twig' with {
+  size: 'xxl',
+} %}
 ```
 
 ### Colors
 
 ```twig
-{# Default (gris) #}
+{# Default (gray) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'default',
 } %}
 
-{# Primary (vert BNP) #}
+{# Primary (BNP green) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'primary',
 } %}
 
-{# Secondary (rose) #}
+{# Secondary (pink) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'secondary',
 } %}
 
-{# Success (vert succès) #}
+{# Success (green) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'success',
 } %}
 
-{# Info (bleu) #}
+{# Info (blue) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'info',
 } %}
 
-{# Warning (jaune) #}
+{# Warning (yellow) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'warning',
 } %}
 
-{# Danger (rouge) #}
+{# Danger (red) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'danger',
 } %}
 
-{# White (sur fond sombre) #}
+{# Dark (neutral dark) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'dark',
+} %}
+
+{# Light (neutral light) #}
+{% include '@elements/spinner/spinner.twig' with {
+  color: 'light',
+} %}
+
+{# White (for dark backgrounds) #}
 {% include '@elements/spinner/spinner.twig' with {
   color: 'white',
 } %}
@@ -165,7 +187,7 @@ Modifiers:
   {% include '@elements/spinner/spinner.twig' with {
     centered: true,
     size: 'lg',
-    text: 'Chargement de la page...',
+    text: 'Loading page content...',
   } %}
 </div>
 ```
@@ -178,7 +200,7 @@ Modifiers:
     size: 'xs',
     color: 'white',
   } %}
-  Envoi en cours...
+  Submitting...
 </button>
 ```
 
@@ -186,12 +208,12 @@ Modifiers:
 
 ## Real-World Use Cases
 
-1. **Chargement de page** — Spinner centré pendant le chargement initial
-2. **Soumission de formulaire** — Inline dans le bouton submit
-3. **Chargement de données** — Dans un tableau ou liste pendant fetch
-4. **Upload de fichier** — Indique la progression d'upload
-5. **Recherche asynchrone** — À côté du champ de recherche
-6. **Navigation** — Pendant transition de page/route
+1. **Page loading** — Centered spinner during initial page load
+2. **Form submission** — Inline in submit button
+3. **Data loading** — In table or list during fetch
+4. **File upload** — Indicates upload progress
+5. **Asynchronous search** — Next to search field
+6. **Navigation** — During page/route transition
 
 ---
 
@@ -199,84 +221,84 @@ Modifiers:
 
 ### ✅ WCAG 2.2 Compliance
 
-- **role="status"** — Annonce les changements d'état aux lecteurs d'écran
-- **aria-live="polite"** — Annonce non-intrusive (attend que l'utilisateur finisse sa tâche)
-- **Texte masqué** — Visuellement caché mais annoncé (sr-only pattern)
-- **Pas de focus** — Spinner non-interactif, pas de tabindex
+- **role="status"** — Announces state changes to screen readers
+- **aria-live="polite"** — Non-intrusive announcement (waits for user to finish current task)
+- **Hidden text** — Visually hidden but announced (sr-only pattern)
+- **No focus** — Non-interactive spinner, no tabindex
 
 ### Best Practices
 
-1. **Toujours inclure du texte** — Le prop `text` est annoncé aux lecteurs d'écran
-2. **Contexte clair** — Le texte doit décrire ce qui charge ("Chargement des résultats...")
-3. **Contraste suffisant** — Toutes les couleurs respectent WCAG AA (4.5:1)
-4. **Animation réduite** — Respecter `prefers-reduced-motion` (à implémenter si besoin)
+1. **Always include text** — The `text` prop is announced to screen readers
+2. **Clear context** — Text should describe what's loading ("Loading search results...")
+3. **Sufficient contrast** — All colors meet WCAG AA (4.5:1)
+4. **Reduced motion** — Respect `prefers-reduced-motion` (to implement if needed)
 
 ### Implementation Checklist
 
-- [x] `role="status"` présent
-- [x] `aria-live="polite"` présent
-- [x] Texte descriptif fourni
-- [x] Texte masqué visuellement (sr-only)
-- [x] Pas de tabindex (non-interactif)
-- [x] Contraste suffisant pour toutes les couleurs
+- [x] `role="status"` present
+- [x] `aria-live="polite"` present
+- [x] Descriptive text provided
+- [x] Text visually hidden (sr-only)
+- [x] No tabindex (non-interactive)
+- [x] Sufficient contrast for all colors
 
 ---
 
 ## Animations
 
 ### Circular
-- **Rotation** : 1s linear infinite (cercle SVG tourne)
-- **Dash** : 1.5s ease-in-out infinite (stroke-dasharray animé)
+- **Rotation**: 1s linear infinite (SVG circle rotates)
+- **Dash**: 1.5s ease-in-out infinite (animated stroke-dasharray)
 
 ### Dots
-- **Bounce** : 1.4s ease-in-out infinite both
-- Délais par dot : -0.32s, -0.16s, 0s (effet vague)
+- **Bounce**: 1.4s ease-in-out infinite both
+- Delays per dot: -0.32s, -0.16s, 0s (wave effect)
 
 ### Bars
-- **Stretch** : 1.2s ease-in-out infinite
-- Délais par barre : -0.24s, -0.12s, 0s (effet vague)
+- **Stretch**: 1.2s ease-in-out infinite
+- Delays per bar: -0.24s, -0.12s, 0s (wave effect)
 
 ---
 
 ## Behavior
 
 ### Display
-- `display: inline-flex` — S'intègre naturellement inline ou block selon contexte
-- Centré via `align-items: center` et `justify-content: center`
+- `display: inline-flex` — Integrates naturally inline or block depending on context
+- Centered via `align-items: center` and `justify-content: center`
 
 ### Centered Variant
 - `position: absolute` + `top: 50%` + `left: 50%`
-- `transform: translate(-50%, -50%)` pour centrage parfait
-- Nécessite parent avec `position: relative`
+- `transform: translate(-50%, -50%)` for perfect centering
+- Requires parent with `position: relative`
 
 ### Color Inheritance
-- Utilise `currentColor` pour les éléments animés
-- Permet de contrôler la couleur via le modifier de couleur ou via CSS parent
+- Uses `currentColor` for animated elements
+- Allows color control via color modifier or parent CSS
 
 ---
 
 ## Browser Support
 
-✅ Tous navigateurs modernes (Chrome, Firefox, Safari, Edge)  
-✅ Animations CSS (keyframes)  
-✅ SVG support (pour circular)  
-✅ Lecteurs d'écran (NVDA, JAWS, VoiceOver)
+✅ All modern browsers (Chrome, Firefox, Safari, Edge)  
+✅ CSS animations (keyframes)  
+✅ SVG support (for circular)  
+✅ Screen readers (NVDA, JAWS, VoiceOver)
 
 ---
 
 ## Performance
 
-- **Animations GPU** — Utilise `transform` et `opacity` (pas de layout reflow)
-- **SVG léger** — Circular utilise un seul `<circle>` SVG
-- **Pas de JavaScript** — Animations 100% CSS
+- **GPU animations** — Uses `transform` and `opacity` (no layout reflow)
+- **Lightweight SVG** — Circular uses a single `<circle>` SVG element
+- **No JavaScript** — 100% CSS animations
 
 ---
 
 ## Related Components
 
-- **Button** — Spinner inline dans bouton loading
-- **Progress Bar** — Alternative pour progression déterminée
-- **Skeleton** — Alternative pour chargement de contenu
+- **Button** — Inline spinner in loading button
+- **Progress Bar** — Alternative for determinate progress
+- **Skeleton** — Alternative for content loading
 
 ---
 
@@ -284,10 +306,10 @@ Modifiers:
 
 ### Manual Testing
 
-1. Vérifier animation fluide dans tous navigateurs
-2. Tester avec lecteur d'écran (texte annoncé correctement)
-3. Vérifier contraste couleurs avec outils (Wave, axe DevTools)
-4. Tester centered variant dans différents conteneurs
+1. Verify smooth animation in all browsers
+2. Test with screen reader (text announced correctly)
+3. Verify color contrast with tools (Wave, axe DevTools)
+4. Test centered variant in different containers
 
 ### Automated Testing
 
@@ -295,18 +317,18 @@ Modifiers:
 // Playwright example
 await expect(page.locator('.ps-spinner')).toHaveAttribute('role', 'status');
 await expect(page.locator('.ps-spinner')).toHaveAttribute('aria-live', 'polite');
-await expect(page.locator('.ps-spinner__text')).toHaveText('Chargement en cours...');
+await expect(page.locator('.ps-spinner__text')).toHaveText('Loading...');
 ```
 
 ---
 
-## Notes Techniques
+## Technical Notes
 
-- **Minimal HTML** : Classes modifiers ajoutées seulement si différent du défaut
-- **currentColor** : Permet héritage de couleur depuis parent ou modifier
-- **sr-only pattern** : Texte masqué mais accessible (position absolute + clip)
-- **Animation delays** : Créent l'effet de vague/cascade pour dots et bars
-- **SVG viewBox** : Permet scaling parfait du circular variant
+- **Minimal HTML**: Modifier classes added only if different from default
+- **currentColor**: Allows color inheritance from parent or modifier
+- **sr-only pattern**: Text hidden but accessible (position absolute + clip)
+- **Animation delays**: Create wave/cascade effect for dots and bars
+- **SVG viewBox**: Allows perfect scaling of circular variant
 
 ---
 

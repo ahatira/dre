@@ -26,24 +26,24 @@ Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
       },
     },
     size: {
-      description: 'Spinner size (xs: 16px, sm: 24px, md: 32px, lg: 48px, xl: 64px)',
+      description: 'Spinner size (xs: 16px, sm: 24px, md: 32px, lg: 48px, xl: 64px, xxl: 80px)',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl' },
+        type: { summary: 'xs | sm | md | lg | xl | xxl' },
         defaultValue: { summary: 'md' },
       },
     },
     color: {
       description:
-        'Spinner color (semantic colors from design tokens, use white for dark backgrounds)',
+        'Spinner color (semantic colors from 3-layer tokens: default, primary, secondary, success, info, warning, danger, dark, light, white)',
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'white'],
+      options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light', 'white'],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'default | primary | secondary | success | info | warning | danger | white',
+          summary: 'default | primary | secondary | success | info | warning | danger | dark | light | white',
         },
         defaultValue: { summary: 'default' },
       },
@@ -138,13 +138,18 @@ export const AllSizes = {
         <p style="margin: 0; font-weight: 600; font-size: 12px; color: var(--gray-700);">XL</p>
         <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">64px</p>
       </div>
+      <div style="text-align: center;">
+        <div style="margin-bottom: 0.75rem;">${spinnerTwig({ size: 'xxl' })}</div>
+        <p style="margin: 0; font-weight: 600; font-size: 12px; color: var(--gray-700);">XXL</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">80px</p>
+      </div>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          '5 sizes available: XS (16px) for buttons, SM (24px) for inline, MD (32px) default, LG (48px) for centered areas, XL (64px) for full page loading.',
+          '6 sizes available: XS (16px) for buttons, SM (24px) for inline, MD (32px) default, LG (48px) for centered areas, XL (64px) for full page loading, XXL (80px) for hero sections.',
       },
     },
   },
@@ -152,7 +157,7 @@ export const AllSizes = {
 
 export const AllColors = {
   render: () => `
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'default' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Default</p>
@@ -187,6 +192,16 @@ export const AllColors = {
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'danger' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Danger</p>
         <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Red error</p>
+      </div>
+      <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'dark' })}</div>
+        <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Dark</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Neutral dark</p>
+      </div>
+      <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'light' })}</div>
+        <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Light</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Neutral light</p>
       </div>
       <div style="text-align: center; padding: 1rem; background: var(--gray-800); border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'white' })}</div>

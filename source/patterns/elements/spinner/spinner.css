@@ -10,19 +10,18 @@
  */
 
 /* ==================== BASE ==================== */
-
 .ps-spinner {
-  /* Layout */
+  /* Component-scoped variables (defaults - Bootstrap 5 pattern) */
+  --ps-spinner-size: var(--size-8); /* 32px (md) */
+  --ps-spinner-color: var(--gray-500); /* default/neutral */
+  
+  /* Apply component variables */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
-  /* Default size (md: 32px) */
-  width: var(--size-8); /* 32px */
-  height: var(--size-8);
-  
-  /* Default color (default: gris) */
-  color: var(--gray-500);
+  width: var(--ps-spinner-size);
+  height: var(--ps-spinner-size);
+  color: var(--ps-spinner-color);
 }
 
 /* ==================== ELEMENTS ==================== */
@@ -105,59 +104,67 @@
 }
 
 /* ==================== SIZES ==================== */
-
+/* Modifiers override --ps-spinner-size */
 .ps-spinner--xs {
-  width: var(--size-4); /* 16px */
-  height: var(--size-4);
+  --ps-spinner-size: var(--size-4); /* 16px */
 }
 
 .ps-spinner--sm {
-  width: var(--size-6); /* 24px */
-  height: var(--size-6);
+  --ps-spinner-size: var(--size-6); /* 24px */
 }
 
 /* md is default (32px) - no modifier needed */
 
 .ps-spinner--lg {
-  width: var(--size-12); /* 48px */
-  height: var(--size-12);
+  --ps-spinner-size: var(--size-12); /* 48px */
 }
 
 .ps-spinner--xl {
-  width: var(--size-16); /* 64px */
-  height: var(--size-16);
+  --ps-spinner-size: var(--size-16); /* 64px */
+}
+
+.ps-spinner--xxl {
+  --ps-spinner-size: var(--size-20); /* 80px */
 }
 
 /* ==================== COLORS ==================== */
-
-/* default is base (gray) - no modifier needed */
+/* Modifiers override --ps-spinner-color */
+/* default is base (gray-500) - no modifier needed */
 
 .ps-spinner--primary {
-  color: var(--brand-primary);
+  --ps-spinner-color: var(--primary);
 }
 
 .ps-spinner--secondary {
-  color: var(--brand-secondary);
+  --ps-spinner-color: var(--secondary);
 }
 
 .ps-spinner--success {
-  color: var(--btn-success);
+  --ps-spinner-color: var(--success);
 }
 
 .ps-spinner--info {
-  color: var(--btn-info);
+  --ps-spinner-color: var(--info);
 }
 
 .ps-spinner--warning {
-  color: var(--btn-warning);
+  --ps-spinner-color: var(--warning);
 }
 
 .ps-spinner--danger {
-  color: var(--btn-danger);
+  --ps-spinner-color: var(--danger);
+}
+
+.ps-spinner--dark {
+  --ps-spinner-color: var(--gray-800);
+}
+
+.ps-spinner--light {
+  --ps-spinner-color: var(--gray-200);
 }
 
 .ps-spinner--white {
-  color: var(--white);
+  --ps-spinner-color: var(--white);
 }
 
 /* ==================== MODIFIERS ==================== */

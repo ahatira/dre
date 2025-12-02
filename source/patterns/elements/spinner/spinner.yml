@@ -1,6 +1,6 @@
 # Defaults for Spinner preview
 variant: 'circular'  # Options: circular | dots | bars
-size: 'md'  # Options: xs | sm | md | lg | xl
-color: 'default'  # Options: default (gray) | primary (BNP green) | secondary (pink accent) | success | info | warning | danger | white (for dark backgrounds)
-text: 'Loading...'  # Options: any text for screen readers
-centered: false  # Options: true | false
+size: 'md'  # Options: xs | sm | md | lg | xl | xxl
+color: 'default'  # Options: default (gray) | primary (BNP green) | secondary (pink accent) | success | info | warning | danger | dark | light | white (for dark backgrounds)
+text: 'Loading...'  # Screen reader text
+centered: false  # Center in parent container (requires parent position: relative)
