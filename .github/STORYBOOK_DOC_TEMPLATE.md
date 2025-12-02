@@ -608,12 +608,12 @@ Toutes les listes de valeurs (icônes, tailles, couleurs, etc.) doivent être ex
   "neutral": ["default", "muted", "subtle"],
   "brand": ["primary", "secondary", "gold"],
   "tokens": {
-    "primary": "var(--brand-primary)",
-    "secondary": "var(--brand-secondary)",
-    "success": "var(--brand-primary)",
-    "warning": "var(--brand-warning)",
-    "danger": "var(--brand-danger)",
-    "info": "var(--brand-info)",
+    "primary": "var(--primary)",
+    "secondary": "var(--secondary)",
+    "success": "var(--success)",
+    "warning": "var(--warning)",
+    "danger": "var(--danger)",
+    "info": "var(--info)",
     "gold": "var(--gold-500)"
   }
 }

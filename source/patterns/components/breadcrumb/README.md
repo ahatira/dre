@@ -32,7 +32,7 @@ Note: Separator (›) is generated via CSS ::after pseudo-element
 ### Colors
 
 - `--text-default` - Text color (#333333) - links and current page
-- `--brand-primary` - Link hover color (#00915A)
+- `--primary` - Link hover color (#00915A)
 - `--gray-400` - Separator color
 - `--blue-500` - Focus outline color
 

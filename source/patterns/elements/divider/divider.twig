@@ -7,59 +7,32 @@
 {%- set text = text|default('') -%}
 {%- set icon = icon|default('') -%}
 {%- set has_content = text or icon -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set root_classes = ['ps-divider'] -%}
-{%- if orientation == 'vertical' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--vertical']) -%}
-{%- endif -%}
-{%- if style == 'dashed' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--dashed']) -%}
-{%- elseif style == 'dotted' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--dotted']) -%}
-{%- endif -%}
-{%- if thickness == 'thin' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--thin']) -%}
-{%- elseif thickness == 'thick' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--thick']) -%}
-{%- endif -%}
-{%- if color == 'primary' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--primary']) -%}
-{%- elseif color == 'secondary' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--secondary']) -%}
-{%- elseif color == 'success' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--success']) -%}
-{%- elseif color == 'warning' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--warning']) -%}
-{%- elseif color == 'danger' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--danger']) -%}
-{%- elseif color == 'info' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--info']) -%}
-{%- endif -%}
-{%- if spacing == 'sm' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--spacing-sm']) -%}
-{%- elseif spacing == 'lg' -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--spacing-lg']) -%}
-{%- endif -%}
-{%- if text -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--with-text']) -%}
-{%- elseif icon -%}
-  {%- set root_classes = root_classes|merge(['ps-divider--with-icon']) -%}
-{%- endif -%}
+{%- set root_classes = [
+  'ps-divider',
+  orientation == 'vertical' ? 'ps-divider--vertical' : null,
+  style == 'dashed' ? 'ps-divider--dashed' : (style == 'dotted' ? 'ps-divider--dotted' : null),
+  thickness == 'thin' ? 'ps-divider--thin' : (thickness == 'thick' ? 'ps-divider--thick' : null),
+  color in ['primary','secondary','success','warning','danger','info'] ? 'ps-divider--' ~ color : null,
+  spacing == 'sm' ? 'ps-divider--spacing-sm' : (spacing == 'lg' ? 'ps-divider--spacing-lg' : null),
+  text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null)
+] -%}
 
 {%- if has_content -%}
-  <div class="{{ root_classes|join(' ') }}">
-    <span class="ps-divider__line"></span>
+  <div {{ attributes.addClass(root_classes) }}>
+    <span class="ps-divider__line" aria-hidden="true"></span>
     {%- if text -%}
       <span class="ps-divider__text">{{ text }}</span>
     {%- elseif icon -%}
       <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {%- endif -%}
-    <span class="ps-divider__line"></span>
+    <span class="ps-divider__line" aria-hidden="true"></span>
   </div>
 {%- else -%}
   {%- if orientation == 'horizontal' -%}
-    <hr class="{{ root_classes|join(' ') }}" />
+    <hr {{ attributes.addClass(root_classes) }} />
   {%- else -%}
-    <span class="{{ root_classes|join(' ') }}" role="separator" aria-orientation="vertical"></span>
+    <span {{ attributes.addClass(root_classes) }} role="separator" aria-orientation="vertical"></span>
   {%- endif -%}
 {%- endif -%}

@@ -1,6 +1,6 @@
 # ps-text
 
-Atom: Semantic text component for paragraphs and inline content
+Atom: Semantic text component for paragraphs and inline content. **Composition-ready** with `attributes` support.
 
 ## API
 
@@ -11,8 +11,7 @@ Atom: Semantic text component for paragraphs and inline content
 - `align` (string) — left | center | right (default: left)
 - `muted` (boolean) — Secondary tone (overrides color to muted)
 - `strong` (boolean) — Bold emphasis
-
-Back-compat: `variant` (body | small | large) maps to `size` (md | sm | lg).
+- `attributes` (Attribute) — Additional HTML attributes for composition
 
 ## Sizes
 
@@ -65,6 +64,14 @@ Back-compat: `variant` (body | small | large) maps to `size` (md | sm | lg).
   text: 'Inline text',
   tag: 'span',
   size: 'md'
+} %}
+
+{# Composition: with additional classes for layout #}
+{% include '@elements/text/text.twig' with {
+  text: 'Text in a card footer',
+  size: 'sm',
+  muted: true,
+  attributes: create_attribute().addClass('ps-card__description')
 } %}
 ```
 

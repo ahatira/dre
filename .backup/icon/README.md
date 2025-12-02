@@ -35,7 +35,7 @@ Semantic icon component supporting 6 color variants and 4 sizes. Accessible for 
 - `--ps-icon-size-large` (24px)
 - `--ps-icon-size-xlarge` (32px)
 - `--ps-icon-color` (semantic, default: var(--text-primary))
-- Semantic colors: `--brand-primary`, `--brand-secondary`, `--success`, `--warning`, `--danger`, `--info`
+- Semantic colors: `--primary`, `--secondary`, `--success`, `--warning`, `--danger`, `--info`
 
 ## Usage
 

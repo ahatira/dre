@@ -52,8 +52,8 @@ Modifiers:
 
 ### Colors
 - Default: `var(--ps-spinner-color-default, var(--spinner-color-default, var(--text-primary, var(--gray-500))))`
-- Primary: `var(--ps-spinner-color-primary, var(--spinner-color-primary, var(--primary, var(--brand-primary))))`
-- Secondary: `var(--ps-spinner-color-secondary, var(--spinner-color-secondary, var(--secondary, var(--brand-secondary))))`
+- Primary: `var(--ps-spinner-color-primary, var(--spinner-color-primary, var(--primary)))`
+- Secondary: `var(--ps-spinner-color-secondary, var(--spinner-color-secondary, var(--secondary)))`
 - Success: `var(--ps-spinner-color-success, var(--spinner-color-success, var(--success, var(--btn-success))))`
 - Info: `var(--ps-spinner-color-info, var(--spinner-color-info, var(--info, var(--btn-info))))`
 - Warning: `var(--ps-spinner-color-warning, var(--spinner-color-warning, var(--warning, var(--btn-warning))))`

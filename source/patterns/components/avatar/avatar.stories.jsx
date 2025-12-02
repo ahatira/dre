@@ -2,7 +2,7 @@ import avatarTwig from './avatar.twig';
 import avatarData from './avatar.yml';
 
 /**
- * Storybook Definition - Avatar (Element/Atom)
+ * Storybook Definition - Avatar (Component/Molecule)
  */
 export default {
   title: 'Components/Avatar',
@@ -110,7 +110,7 @@ export default {
     docs: {
       description: {
         component:
-          'User or entity visual representation with automatic fallback hierarchy (image → initials → icon). Supports status badges and interactive states.',
+          'User or entity visual representation with automatic fallback hierarchy: image → initials → icon.',
       },
     },
   },
@@ -165,7 +165,7 @@ export const Initials = {
     docs: {
       description: {
         story:
-          'Initials avatars in all size/shape combinations. Uses `--brand-primary` background automatically when initials are provided.',
+          'Initials avatars in all size/shape combinations. Uses `--primary` background automatically when initials are provided.',
       },
     },
   },

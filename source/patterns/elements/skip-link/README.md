@@ -217,7 +217,7 @@ Lien d'évitement WCAG permettant aux utilisateurs clavier de naviguer directeme
 - `--size-4` (16px) — Padding horizontal
 
 ### Colors
-- `--brand-primary` — Background (vert BNP #00915A)
+- `--primary` — Background (vert BNP #00915A)
 - `--white` — Text color
 - `--blue-600` — Focus outline
 

@@ -21,31 +21,18 @@
 {%- set done = done|default(false) -%}
 {%- set icon = icon|default('') -%}
 {%- set iconPosition = iconPosition|default('right') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set classes = [] -%}
-{%- set classes = classes|merge(['ps-field']) -%}
-{%- if type != 'text' -%}
-  {%- set classes = classes|merge(['ps-field--' ~ type]) -%}
-{%- endif -%}
-{%- if error -%}
-  {%- set classes = classes|merge(['ps-field--error']) -%}
-{%- elseif done -%}
-  {%- set classes = classes|merge(['ps-field--done']) -%}
-{%- endif -%}
-{%- if disabled -%}
-  {%- set classes = classes|merge(['ps-field--disabled']) -%}
-{%- endif -%}
-{%- if value -%}
-  {%- set classes = classes|merge(['ps-field--filled']) -%}
-{%- endif -%}
-{%- if icon -%}
-  {%- set classes = classes|merge(['ps-field--icon-' ~ iconPosition]) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-field',
+  type != 'text' ? 'ps-field--' ~ type : null,
+  error ? 'ps-field--error' : (done ? 'ps-field--done' : null),
+  disabled ? 'ps-field--disabled' : null,
+  value ? 'ps-field--filled' : null,
+  icon ? 'ps-field--icon-' ~ iconPosition : null
+] -%}
 
-<div
-  class="{{ classes|join(' ')|trim }}"
-  {% if attributes %}{{ attributes }}{% endif %}
->
+<div {{ attributes.addClass(classes) }}>
   {%- if icon and iconPosition == 'left' -%}
     <span class="ps-field__icon ps-field__icon--left" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}

@@ -23,26 +23,17 @@
 {% set min = min|default(0) %}
 {% set max = max|default(100) %}
 {% set percent = value is not null ? ((value - min) / (max - min) * 100)|round : 0 %}
+{% set attributes = attributes|default(create_attribute()) %}
 {# Minimal HTML: base class only by default; add modifiers only when different from defaults #}
-{% set root_classes = ['ps-progress'] %}
-{% if variant != 'linear' %}
-  {% set root_classes = root_classes|merge(['ps-progress--' ~ variant]) %}
-{% endif %}
-{% if color != 'default' %}
-  {% set root_classes = root_classes|merge(['ps-progress--' ~ color]) %}
-{% endif %}
-{% if size != 'md' %}
-  {% set root_classes = root_classes|merge(['ps-progress--' ~ size]) %}
-{% endif %}
-{% if indeterminate %}
-  {% set root_classes = root_classes|merge(['ps-progress--indeterminate']) %}
-{% endif %}
-{% if striped and variant == 'linear' %}
-  {% set root_classes = root_classes|merge(['ps-progress--striped']) %}
-{% endif %}
-{% if showLabel %}
-  {% set root_classes = root_classes|merge(['ps-progress--with-label']) %}
-{% endif %}
+{% set root_classes = [
+  'ps-progress',
+  variant != 'linear' ? 'ps-progress--' ~ variant : null,
+  color != 'default' ? 'ps-progress--' ~ color : null,
+  size != 'md' ? 'ps-progress--' ~ size : null,
+  indeterminate ? 'ps-progress--indeterminate' : null,
+  striped and variant == 'linear' ? 'ps-progress--striped' : null,
+  showLabel ? 'ps-progress--with-label' : null
+] %}
 {% if variant == 'linear' %}
   <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
     <div class="ps-progress__track">

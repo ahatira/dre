@@ -326,7 +326,7 @@ Avant de considérer un composant comme complet :
 - [ ] **Cohérence validée** : Nommage, valeurs, progression respectent les patterns existants
 - [ ] **Réutilisation maximale** : Utilisation prioritaire des tokens déjà définis
 - [ ] **Nouveaux tokens** : Si nécessaires, ajoutés dans `source/props/{category}.css` approprié
-- [ ] **Conventions strictes** : Préfixes (--brand-*, --font-*, --size-*), structure, format respectés
+- [ ] **Conventions strictes** : Préfixes (--primary, --font-*, --size-*), structure, format respectés
 - [ ] **Documentation** : `CHANGELOG.md` mis à jour avec justification des ajouts
 
 ### Fichiers

@@ -1,8 +1,8 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
 name: 'PS Accordion'
 status: stable
-group: molecules
-description: 'Simplified accordion (pixel-perfect): default separators, flush optional, accessible aria-expanded/region.'
+group: collections
+description: 'Orchestrates multiple Collapse elements with optional single-open coordination.'
 
 props:
   type: object
@@ -19,35 +19,35 @@ props:
             type: string
           content:
             type: string
-          open:
+          text:
+            type: string
+          text_format:
+            type: string
+            default: body-medium
+          expanded:
             type: boolean
             default: false
-        required: ['title','content']
-    singleOpen:
+        required: ['title']
+    single_open:
       type: boolean
       title: Single open mode
       default: true
-    flush:
-      type: boolean
-      title: Remove horizontal padding
-      default: false
-    headingLevel:
+    variant:
       type: string
-      enum: ['h2','h3','h4','h5']
-      default: 'h3'
+      enum: ['default', 'flush']
+      default: 'default'
     attributes:
       type: Drupal\Core\Template\Attribute
 
 args:
-  singleOpen: true
-  flush: false
-  headingLevel: h3
+  single_open: true
+  variant: default
   items:
     - id: property-faq-1
       title: How to buy commercial real estate?
       content: >-
         <p>Commercial property acquisition involves several key steps: market research, financial pre-approval, property inspection, due diligence, negotiation, and closing. Our expert team guides you through each phase, ensuring compliance with local regulations and optimal investment decisions.</p>
-      open: true
+      expanded: true
     - id: property-faq-2
       title: What financing options are available?
       content: >-

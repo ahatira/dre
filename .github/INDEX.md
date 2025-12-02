@@ -620,7 +620,7 @@ ls source/patterns/elements/
 grep -r "ps-button" source/patterns/
 
 # Find design tokens
-grep -r "--brand-primary" source/props/
+grep -r "--primary" source/props/
 ```
 
 ---

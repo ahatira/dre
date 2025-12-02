@@ -1,5 +1,7 @@
 {#
- * Avatar (Element/Atom)
+ * Avatar (Component/Molecule)
+ * Composition: Image atom + Text atom (initials) + Status Badge atom
+ * 
  * @param string src - Image URL (optional)
  * @param string alt - Alt text for image (required when src provided)
  * @param string initials - Initials text (2 letters max, fallback if no image)
@@ -23,25 +25,15 @@
 {%- set has_initials = initials and initials is not empty and not has_image -%}
 {%- set has_fallback = not has_image and not has_initials -%}
 
-{%- set avatar_classes = ['ps-avatar'] -%}
-{%- if size != 'md' -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ size]) -%}
-{%- endif -%}
-{%- if shape != 'circle' -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ shape]) -%}
-{%- endif -%}
-{%- if has_initials -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--initials']) -%}
-{%- endif -%}
-{%- if has_fallback -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--' ~ gender]) -%}
-{%- endif -%}
-{%- if bordered -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--bordered']) -%}
-{%- endif -%}
-{%- if clickable -%}
-  {%- set avatar_classes = avatar_classes|merge(['ps-avatar--clickable']) -%}
-{%- endif -%}
+{%- set avatar_classes = [
+  'ps-avatar',
+  size != 'md' ? 'ps-avatar--' ~ size : null,
+  shape != 'circle' ? 'ps-avatar--' ~ shape : null,
+  has_initials ? 'ps-avatar--initials' : null,
+  has_fallback ? 'ps-avatar--' ~ gender : null,
+  bordered ? 'ps-avatar--bordered' : null,
+  clickable ? 'ps-avatar--clickable' : null
+] -%}
 
 {%- set tag = href ? 'a' : 'div' -%}
 
@@ -49,15 +41,38 @@
   {%- if href %} href="{{ href }}"{% endif -%}
   {%- if attributes %} {{ attributes }}{% endif -%}
 >
-  <div class="ps-avatar__image-wrapper">
-    {%- if has_image -%}
-      <img class="ps-avatar__image" src="{{ src }}" alt="{{ alt|default('') }}" loading="lazy" />
-    {%- elseif has_initials -%}
-      <span class="ps-avatar__text">{{ initials }}</span>
-    {%- endif -%}
-  </div>
-  
+  {# Atom 1: Image #}
+  {%- if has_image -%}
+    {% include '@elements/image/image.twig' with {
+      src: src,
+      alt: alt|default(''),
+      fit: 'cover',
+      rounded: shape == 'circle' ? 'full' : (shape == 'rounded' ? 'md' : 'none'),
+      loading: 'lazy',
+      attributes: create_attribute().addClass('ps-avatar__image')
+    } only %}
+  {%- endif -%}
+
+  {# Atom 2: Initials Text #}
+  {%- if has_initials -%}
+    {% include '@elements/text/text.twig' with {
+      text: initials,
+      tag: 'span',
+      strong: true,
+      attributes: create_attribute().addClass('ps-avatar__text')
+    } only %}
+  {%- endif -%}
+
+  {# Atom 3: Status Badge #}
   {%- if status -%}
-    <span class="ps-avatar__status ps-avatar__status--{{ status }}" aria-label="{% if status == 'online' %}Online{% elseif status == 'busy' %}Busy{% else %}Offline{% endif %}"></span>
+    {% include '@elements/badge/badge.twig' with {
+      text: '',
+      color: status == 'online' ? 'success' : (status == 'busy' ? 'danger' : 'default'),
+      pill: true,
+      size: 'small',
+      attributes: create_attribute()
+        .addClass('ps-avatar__status')
+        .setAttribute('aria-label', status == 'online' ? 'Online' : (status == 'busy' ? 'Busy' : 'Offline'))
+    } only %}
   {%- endif -%}
 </{{ tag }}>

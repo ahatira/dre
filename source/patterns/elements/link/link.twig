@@ -22,31 +22,22 @@
 {% set rel = rel|default('') %}
 {% set disabled = disabled|default(false) %}
 
-{% set classes = ['ps-link'] %}
-{% if color %}
-  {% set classes = classes|merge(['ps-link--' ~ color]) %}
-{% endif %}
-{% if size %}
-  {% set classes = classes|merge(['ps-link--' ~ size]) %}
-{% endif %}
-{% if underline == false %}
-  {% set classes = classes|merge(['ps-link--no-underline']) %}
-{% endif %}
-{% if iconPosition == 'left' %}
-  {% set classes = classes|merge(['ps-link--icon-left']) %}
-{% endif %}
-{% if disabled %}
-  {% set classes = classes|merge(['ps-link--disabled']) %}
-{% endif %}
+{% set classes = [
+  'ps-link',
+  color ? 'ps-link--' ~ color : null,
+  size ? 'ps-link--' ~ size : null,
+  underline == false ? 'ps-link--no-underline' : null,
+  iconPosition == 'left' ? 'ps-link--icon-left' : null,
+  disabled ? 'ps-link--disabled' : null
+] %}
 
 {% set tag = disabled ? 'span' : 'a' %}
 
 <{{ tag }}
-  class="{{ classes|join(' ') }}"
+  {% if attributes %}{{ attributes.addClass(classes) }}{% else %}class="{{ classes|join(' ')|trim }}"{% endif %}
   {% if not disabled %}href="{{ url }}"{% endif %}
   {% if target == '_blank' and not disabled %}target="_blank" rel="{{ rel ? rel : 'noopener noreferrer' }}"{% elseif rel %}rel="{{ rel }}"{% endif %}
   {% if disabled %}aria-disabled="true"{% endif %}
-  {% if attributes %}{{ attributes }}{% endif %}
 >
   <span class="ps-link__text">{{ text }}</span>
   {% if icon %}

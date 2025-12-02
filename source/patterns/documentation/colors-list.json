@@ -6,12 +6,12 @@
     "description": "Semantic colors for component states and variants",
     "values": ["primary", "secondary", "success", "warning", "danger", "info"],
     "tokens": {
-      "primary": "var(--brand-primary)",
-      "secondary": "var(--brand-secondary)",
-      "success": "var(--btn-success)",
-      "warning": "var(--btn-warning)",
-      "danger": "var(--btn-danger)",
-      "info": "var(--btn-info)"
+      "primary": "var(--primary)",
+      "secondary": "var(--secondary)",
+      "success": "var(--success)",
+      "warning": "var(--warning)",
+      "danger": "var(--danger)",
+      "info": "var(--info)"
     },
     "hex": {
       "primary": "#00915A",
@@ -35,8 +35,8 @@
     "description": "BNP Paribas RealEstate brand colors",
     "values": ["primary", "secondary", "gold"],
     "tokens": {
-      "primary": "var(--bnp-green)",
-      "secondary": "var(--bnp-accent-pink)",
+      "primary": "var(--primary)",
+      "secondary": "var(--secondary)",
       "gold": "var(--gold-500)"
     },
     "hex": {

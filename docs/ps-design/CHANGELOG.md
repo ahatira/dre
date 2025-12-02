@@ -147,7 +147,7 @@
   - HTML minimal : classe base seule par défaut, modifiers ajoutés seulement si compact/truncate activés
   - **Icons via @elements/icon** : utilise composant icon.twig (prop name sans préfixe "icon-")
   - **PIXEL PERFECT Figma** : font-size 16px (--font-size-1), line-height 24px (--leading-6), gap 4px (--size-1), couleur #333333 (--text-default), underline sur liens uniquement, gap icon-text 8px (--size-2)
-  - Tokens utilisés : --font-sans, --font-size-1 (16px), --font-size-0 (14px compact), --leading-6 (24px), --leading-5 (20px compact), --text-default (#333333), --brand-primary (hover), --gray-400, --blue-500, --font-weight-400, --size-1 (4px gap items), --size-2 (8px gap icon), --border-size-2, --radius-1
+  - Tokens utilisés : --font-sans, --font-size-1 (16px), --font-size-0 (14px compact), --leading-6 (24px), --leading-5 (20px compact), --text-default (#333333), --primary (hover), --gray-400, --blue-500, --font-weight-400, --size-1 (4px gap items), --size-2 (8px gap icon), --border-size-2, --radius-1
   - Aucun nouveau token créé : tous les tokens existants étaient suffisants
   - Stories Storybook : 7 stories (Default, WithIcons, Compact, Truncated, Simple, Deep, ShowcaseVariants)
   - Fichiers : `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`

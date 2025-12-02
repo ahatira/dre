@@ -132,7 +132,7 @@
 --ps-radio-icon-unselected: "\e86a";
 --ps-radio-icon-selected: "\e869";
 --ps-radio-icon-color-unselected: var(--ps-color-neutral-700, var(--gray-700));
---ps-radio-icon-color-selected: var(--brand-primary, var(--bnp-green));
+--ps-radio-icon-color-selected: var(--primary, var(--bnp-green));
 ```
 
 **Aucune correction nécessaire** - Composant exemplaire
@@ -288,17 +288,17 @@ outline-offset: var(--border-size-2);
 
 ```css
 /* Ligne 180 */
-background: var(--brand-secondary, var(--bnp-accent-pink, #E0388C));  /* ❌ */
+background: var(--secondary, var(--bnp-accent-pink, #A12B66));  /* ❌ */
 
 /* Ligne 184 */
-stroke: var(--brand-secondary, var(--bnp-accent-pink, #E0388C));  /* ❌ */
+stroke: var(--secondary, var(--bnp-accent-pink, #A12B66));  /* ❌ */
 ```
 
 **Correction Requise**:
 ```css
 /* ✅ SUPPRIMER FALLBACK HEX */
-background: var(--brand-secondary, var(--bnp-accent-pink));
-stroke: var(--brand-secondary, var(--bnp-accent-pink));
+background: var(--secondary, var(--bnp-accent-pink));
+stroke: var(--secondary, var(--bnp-accent-pink));
 
 /* OU créer dans colors.css si --bnp-accent-pink n'existe pas */
 --bnp-accent-pink: #E0388C;

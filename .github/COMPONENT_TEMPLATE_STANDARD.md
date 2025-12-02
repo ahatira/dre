@@ -109,7 +109,7 @@ source/patterns/{category}/{component-name}/
   line-height: var(--leading-normal);
   
   /* Visual */
-  background-color: var(--brand-primary); /* Jamais #00915A */
+  background-color: var(--primary); /* Jamais #00915A */
   color: var(--white);
   border-radius: var(--radius-2);
   
@@ -121,12 +121,12 @@ source/patterns/{category}/{component-name}/
   
   /* States */
   &:hover {
-    background-color: var(--brand-primary-hover);
+    background-color: var(--primary-hover);
     transform: translateY(-1px);
   }
   
   &:active {
-    background-color: var(--brand-primary-active);
+    background-color: var(--primary-active);
     transform: translateY(0);
   }
   
@@ -160,7 +160,7 @@ source/patterns/{category}/{component-name}/
 
 /* Modifiers */
 .ps-component-name--modifier {
-  border: var(--border-size-2) solid var(--brand-primary);
+  border: var(--border-size-2) solid var(--primary);
 }
 
 /* Sizes */
@@ -325,7 +325,7 @@ Avant de considérer un composant terminé :
     }
     
     .ps-component--primary {
-      .ps-component__fill { background: var(--brand-primary); }
+      .ps-component__fill { background: var(--primary); }
     }
     
     .ps-component--md {
@@ -387,7 +387,7 @@ Appliquons ce template à l'icon component :
  * 
  * BEM: ps-icon, ps-icon-{name}
  * Sizes: Controlled via font-size token (var(--font-size-*))
- * Colors: Controlled via color token (var(--brand-*), var(--gray-*), etc.)
+ * Colors: Controlled via color token (var(--primary), var(--gray-*), etc.)
  */
 
 [class^="ps-icon-"],
@@ -487,7 +487,7 @@ export const Colors = {
       ${icon({ name: 'warning', color: 'var(--yellow-600)' })}
       ${icon({ name: 'info', color: 'var(--blue-600)' })}
       ${icon({ name: 'close', color: 'var(--red-600)' })}
-      ${icon({ name: 'arrow-right', color: 'var(--brand-primary)' })}
+      ${icon({ name: 'arrow-right', color: 'var(--primary)' })}
     </div>
   `,
 };
@@ -548,8 +548,8 @@ export default settings;
 #### 2. Nomenclature Sémantique des Couleurs (OBLIGATOIRE)
 - ❌ **INTERDIT:** `color: 'green'`, `'purple'`, `'blue'`, `'red'`, `'yellow'`
 - ✅ **REQUIS:** Noms sémantiques UNIQUEMENT
-  - `primary` → `--brand-primary` (green #00915A)
-  - `secondary` → `--brand-secondary` (purple #E0388C)
+  - `primary` → `--primary` (green #00915A)
+  - `secondary` → `--secondary` (purple #A12B66)
   - `success` → `--btn-success` (green-600)
   - `warning` → `--btn-warning` (yellow-500)
   - `danger` → `--btn-danger` (red-600)
@@ -578,7 +578,7 @@ export default settings;
 ```css
 /* ✅ BON */
 .ps-component { color: var(--gray-500); } /* default */
-.ps-component--primary { color: var(--brand-primary); } /* seul */
+.ps-component--primary { color: var(--primary); } /* seul */
 ```
 
 #### 5. Documentation Complète (OBLIGATOIRE)
@@ -588,7 +588,7 @@ export default settings;
 
 #### 6. Design Tokens du Spec (OBLIGATOIRE)
 - Lire `docs/design/[level]/[component].md` avant d'implémenter
-- Utiliser tokens officiels avec fallbacks: `var(--brand-primary, var(--bnp-green))`
+- Utiliser tokens officiels avec fallbacks: `var(--primary, var(--bnp-green))`
 - Vérifier valeurs hex exactes du spec
 
 #### 7. Gestion des Classes Twig (OBLIGATOIRE)

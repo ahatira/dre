@@ -69,7 +69,7 @@
 source/
 ├── props/                    # Design tokens (CSS Custom Properties)
 │   ├── index.css            # Import central de tous les tokens
-│   ├── colors.css           # Couleurs (--gray-*, --brand-*, etc.)
+│   ├── colors.css           # Couleurs (--gray-*, --primary, etc.)
 │   ├── fonts.css            # Typographie (--font-*, --font-size-*)
 │   ├── sizes.css            # Espacements (--size-*)
 │   ├── borders.css          # Bordures et radius (--radius-*, --border-size-*)
@@ -235,7 +235,7 @@ source/
 }
 
 .ps-badge--primary {
-  background: var(--brand-primary); /* fonctionne seul */
+  background: var(--primary); /* fonctionne seul */
 }
 
 .ps-badge--large {
@@ -276,7 +276,7 @@ source/
 ### Règle Absolue
 
 **❌ JAMAIS de valeurs en dur** : `#00915A`, `16px`, `2px solid gray`, etc.  
-**✅ TOUJOURS utiliser les tokens** : `var(--brand-primary)`, `var(--size-4)`, etc.
+**✅ TOUJOURS utiliser les tokens** : `var(--primary)`, `var(--size-4)`, etc.
 
 ### Tokens Disponibles
 
@@ -298,11 +298,11 @@ source/
 --black: hsl(0, 0%, 0%);
 
 /* Brand colors */
---brand-primary: hsl(162, 100%, 28%);    /* #00915A - Vert BNP */
---brand-secondary: hsl(332, 75%, 45%);   /* #E0388C - Rose/Magenta */
+--primary: hsl(157, 100%, 28%);      /* #00915A - Vert BNP */
+--secondary: hsl(330, 65%, 40%);     /* #A12B66 - Rose/Magenta */
 
---bnp-green: var(--brand-primary);
---bnp-accent-pink: var(--brand-secondary);
+--bnp-green: var(--primary);
+--bnp-accent-pink: var(--secondary);
 --bnp-accent-magenta: hsl(332, 59%, 41%); /* #A12B66 */
 
 /* Semantic colors */
@@ -312,7 +312,7 @@ source/
 --blue-600: hsl(218, 85%, 56%);    /* Info */
 
 /* Buttons (alias sémantiques) */
---btn-primary: var(--brand-primary);
+--btn-primary: var(--primary);
 --btn-success: var(--green-600);
 --btn-warning: var(--yellow-500);
 --btn-danger: var(--red-600);
@@ -388,7 +388,7 @@ Utilisez des fallbacks pour compatibilité entre anciens/nouveaux tokens :
 /* ✅ CORRECT - Fallback pour migration progressive */
 .ps-component {
   background: var(--ps-color-neutral-200, var(--gray-200));
-  color: var(--ps-color-primary-600, var(--brand-primary));
+  color: var(--ps-color-primary-600, var(--primary));
 }
 ```
 
@@ -419,7 +419,7 @@ Le projet utilise `postcss-nested` → **Nesting natif supporté**.
   }
   
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-secondary);
+    outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
   }
   
@@ -562,7 +562,7 @@ Le projet utilise `postcss-nested` → **Nesting natif supporté**.
   
   /* Focus state (keyboard navigation) */
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-secondary);
+    outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
   }
   
@@ -600,7 +600,7 @@ transition:
 ```css
 .ps-interactive {
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-secondary);
+    outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
   }
   
@@ -626,7 +626,7 @@ Respecter WCAG 2.2 AA minimum :
 }
 
 .ps-badge--primary {
-  background: var(--brand-primary); /* #00915A */
+  background: var(--primary); /* #00915A */
   color: var(--white);              /* Ratio 7.2:1 ✓ */
 }
 ```

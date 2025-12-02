@@ -1,34 +1,34 @@
 {#
  * Badge (Atom) - Compact status/label indicator
+ * Composition-ready: Supports empty text for visual-only badges
  *
- * @param string text - Badge text content (required)
+ * @param string text - Badge text content (optional - can be empty for visual status)
  * @param string icon - Optional icon name (e.g., 'check', 'calendar')
  * @param string color - Semantic color: default|primary|secondary|gold|info|success|warning|danger (default: default)
  * @param boolean pill - Fully rounded pill shape (default: false)
  * @param string url - Optional link URL (renders <a> tag)
  * @param string size - Badge size: small|medium|large (default: medium)
- * @param object attributes - Additional HTML attributes
+ * @param object attributes - Additional HTML attributes for composition
  #}
 
 {%- set color = color|default('default') -%}
 {%- set size = size|default('medium') -%}
 {%- set pill = pill|default(false) -%}
 {%- set tag = url ? 'a' : 'span' -%}
+{%- set has_text = text is defined and text is not empty -%}
 
-{%- set badge_classes = ['ps-badge'] -%}
-{%- if color != 'default' -%}
-  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ color]) -%}
-{%- endif -%}
-{%- if size != 'medium' -%}
-  {%- set badge_classes = badge_classes|merge(['ps-badge--' ~ size]) -%}
-{%- endif -%}
-{%- if pill -%}
-  {%- set badge_classes = badge_classes|merge(['ps-badge--pill']) -%}
-{%- endif -%}
+{%- set badge_classes = [
+  'ps-badge',
+  color != 'default' ? 'ps-badge--' ~ color : null,
+  size != 'medium' ? 'ps-badge--' ~ size : null,
+  pill ? 'ps-badge--pill' : null
+] -%}
 
-<{{ tag }} class="{{ badge_classes|join(' ')|trim }}"{% if url %} href="{{ url }}"{% endif %}>
+<{{ tag }}{{ attributes ? attributes.addClass(badge_classes) : ' class="' ~ badge_classes|join(' ')|trim ~ '"' }}{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}
     <span class="ps-badge__icon" data-icon="{{ icon }}"></span>
   {%- endif -%}
-  <span class="ps-badge__text">{{- text -}}</span>
+  {%- if has_text -%}
+    <span class="ps-badge__text">{{- text -}}</span>
+  {%- endif -%}
 </{{ tag }}>

@@ -1,31 +1,51 @@
 /**
- * Avatar (Element/Atom)
- * User or entity visual representation with automatic fallback hierarchy
+ * Avatar (Component/Molecule)
+ * Composed of 3 atomic elements: Image + Text (initials) + Status Badge
  * 
  * BEM: ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__status
  * Sizes: xs (24px) | sm (32px) | md (40px - default) | lg (48px) | xl (80px)
  * Shapes: circle (default) | square | rounded
- * Types: image | initials | agent fallback (male/female)
+ * Fallback: image → initials → gender icon (male/female SVG)
  * Status: online | offline | busy
+ * Three-Layer CSS Variables System
  */
 
-/* ========================================
- * Base Avatar
- * ======================================== */
-
 .ps-avatar {
-  /* Component-scoped variables */
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Default values using Layer 1 primitives
+     ============================================ */
+  
+  /* Sizing */
   --ps-avatar-size: var(--size-10); /* md 40px default */
   --ps-avatar-text-size: var(--font-size-1); /* 16px */
+  
+  /* Colors */
   --ps-avatar-bg: var(--gray-200);
   --ps-avatar-text-color: var(--white);
+  
+  /* Shape */
   --ps-avatar-radius: 50%; /* circle default */
+  
+  /* Border */
   --ps-avatar-border-width: 0;
   --ps-avatar-border-color: var(--white);
+  
+  /* Status Badge */
   --ps-avatar-status-size: var(--size-3); /* 12px md */
   --ps-avatar-status-bg: var(--success);
   --ps-avatar-status-border-width: var(--border-size-2);
   --ps-avatar-status-border-color: var(--white);
+  
+  /* Transitions */
+  --ps-avatar-transition: transform var(--duration-fast) var(--ease-3);
+  /* Transitions */
+  --ps-avatar-transition: transform var(--duration-fast) var(--ease-3);
+  
+  /* ============================================
+     Component Styles
+     Using component-scoped variables
+     ============================================ */
   
   /* Base layout using component variables */
   position: relative;
@@ -38,22 +58,14 @@
   overflow: hidden;
   text-decoration: none;
   
-  /* ========================================
-   * Elements
-   * ======================================== */
+  /* Visual styling */
+  background: var(--ps-avatar-bg);
+  border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
+  border-radius: var(--ps-avatar-radius);
   
-  &__image-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background: var(--ps-avatar-bg);
-    border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
-    border-radius: var(--ps-avatar-radius);
-    overflow: hidden;
-  }
+  /* ============================================
+     Elements (Atomic Components)
+     ============================================ */
   
   &__image {
     width: 100%;
@@ -128,18 +140,6 @@
     --ps-avatar-radius: var(--radius-3); /* 6px */
   }
   
-  &--rounded.ps-avatar--xs {
-    --ps-avatar-radius: var(--radius-2); /* 4px */
-  }
-  
-  &--rounded.ps-avatar--lg {
-    --ps-avatar-radius: var(--radius-4); /* 8px */
-  }
-  
-  &--rounded.ps-avatar--xl {
-    --ps-avatar-radius: var(--radius-5); /* 12px */
-  }
-  
   /* ========================================
    * Modifiers - Types
    * ======================================== */
@@ -154,24 +154,18 @@
   
   &--male {
     --ps-avatar-bg: var(--primary);
-    
-    .ps-avatar__image-wrapper {
-      background-image: url('/images/agent/male.svg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+    background-image: url('/images/agent/male.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   &--female {
     --ps-avatar-bg: var(--secondary);
-    
-    .ps-avatar__image-wrapper {
-      background-image: url('/images/agent/female.svg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+    background-image: url('/images/agent/female.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   /* ========================================
@@ -184,7 +178,7 @@
   
   &--clickable {
     cursor: pointer;
-    transition: transform var(--duration-fast) var(--ease-3);
+    transition: var(--ps-avatar-transition);
     
     &:hover {
       transform: scale(1.05);

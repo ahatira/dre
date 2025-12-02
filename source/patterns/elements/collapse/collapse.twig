@@ -1,0 +1,71 @@
+{#
+/**
+ * Collapse - Collapsible disclosure element
+ *
+ * @param {string} id - Unique identifier for panel/trigger linkage (required)
+ * @param {string} title - Trigger text (required)
+ * @param {string} content - Panel content (raw HTML, use with content|raw)
+ * @param {string} text - Panel text (rendered via text atom)
+ * @param {string} text_format - Text format variant (body-medium, body-small, etc.)
+ * @param {boolean} expanded - Initial expanded state (default: false)
+ * @param {string} variant - Visual variant (default)
+ * @param {array} classes - Additional CSS classes
+ * @param {object} attributes - Additional HTML attributes
+ */
+#}
+
+{%- set baseClass = 'ps-collapse' -%}
+
+{%- set collapse_classes = [
+  baseClass,
+  variant != 'default' ? baseClass ~ '--' ~ variant : null,
+  expanded ? 'is-expanded' : null,
+  classes ? classes|join(' ') : null
+] -%}
+
+{%- set trigger_classes = [
+  baseClass ~ '__trigger'
+] -%}
+
+{%- set panel_classes = [
+  baseClass ~ '__panel'
+] -%}
+
+{%- set panel_id = id ~ '-panel' -%}
+{%- set trigger_id = id ~ '-trigger' -%}
+
+<div{{ attributes|default(create_attribute()).addClass(collapse_classes) }}>
+  <{{ trigger_tag|default('button') }}
+    id="{{ trigger_id }}"
+    {{ create_attribute()
+      .addClass(trigger_classes)
+      .setAttribute('aria-expanded', expanded ? 'true' : 'false')
+      .setAttribute('aria-controls', panel_id)
+      .setAttribute(trigger_tag|default('button') == 'button' ? 'type' : null, trigger_tag|default('button') == 'button' ? 'button' : null)
+    }}
+  >
+    <span class="{{ baseClass }}__title">{{ title }}</span>
+    <span class="{{ baseClass }}__icon" aria-hidden="true"></span>
+  </{{ trigger_tag|default('button') }}>
+
+  <div
+    id="{{ panel_id }}"
+    role="region"
+    aria-labelledby="{{ trigger_id }}"
+    {{ create_attribute()
+      .addClass(panel_classes)
+      .setAttribute('hidden', not expanded ? '' : false)
+    }}
+  >
+    <div class="{{ baseClass }}__content">
+      {%- if content -%}
+        {{ content|raw }}
+      {%- elseif text -%}
+        {% include '@elements/text/text.twig' with {
+          text: text,
+          format: text_format|default('body-medium')
+        } only %}
+      {%- endif -%}
+    </div>
+  </div>
+</div>

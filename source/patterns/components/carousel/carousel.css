@@ -221,7 +221,7 @@
     &[data-active="true"] {
       .ps-carousel__toolbar-label,
       .ps-carousel__toolbar-icon {
-        color: var(--brand-secondary); /* #E0388C - Secondary color for active state */
+        color: var(--secondary); /* Secondary color for active state */
       }
     }
   }

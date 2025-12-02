@@ -143,8 +143,8 @@ props:
 
 - Couleurs:
   - Neutral: `--ps-color-neutral-300` (gray, défaut)
-  - Primary: `--brand-primary` (green #00915A - BNP green)
-  - Secondary: `--brand-secondary` (purple #E0388C - BNP pink)
+  - Primary: `--primary` (green #00915A - BNP green)
+  - Secondary: `--secondary` (purple #A12B66 - BNP pink)
   - Success: `--btn-success` (green-600)
   - Warning: `--btn-warning` (yellow-500)
   - Danger: `--btn-danger` (red-600)
@@ -273,12 +273,12 @@ props:
     &.ps-divider--vertical { border-left-color: var(--ps-color-neutral-300, #D2D7DB); }
   }
   &--primary {
-    &.ps-divider--horizontal { border-top-color: var(--brand-primary, #00915A); }
-    &.ps-divider--vertical { border-left-color: var(--brand-primary, #00915A); }
+    &.ps-divider--horizontal { border-top-color: var(--primary, #00915A); }
+    &.ps-divider--vertical { border-left-color: var(--primary, #00915A); }
   }
   &--secondary {
-    &.ps-divider--horizontal { border-top-color: var(--brand-secondary, #E0388C); }
-    &.ps-divider--vertical { border-left-color: var(--brand-secondary, #E0388C); }
+    &.ps-divider--horizontal { border-top-color: var(--secondary, #A12B66); }
+    &.ps-divider--vertical { border-left-color: var(--secondary, #A12B66); }
   }
   &--success {
     &.ps-divider--horizontal { border-top-color: var(--btn-success, var(--green-600)); }
@@ -339,11 +339,11 @@ props:
   // Color for lines in with-text/icon variants
   &--primary.ps-divider--with-text .ps-divider__line,
   &--primary.ps-divider--with-icon .ps-divider__line {
-    border-top-color: var(--brand-primary, #00915A);
+    border-top-color: var(--primary, #00915A);
   }
   &--secondary.ps-divider--with-text .ps-divider__line,
   &--secondary.ps-divider--with-icon .ps-divider__line {
-    border-top-color: var(--brand-secondary, #E0388C);
+    border-top-color: var(--secondary, #A12B66);
   }
   &--success.ps-divider--with-text .ps-divider__line,
   &--success.ps-divider--with-icon .ps-divider__line {

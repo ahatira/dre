@@ -16,28 +16,20 @@
 {%- set color = color|default('default') -%}
 {%- set weight = weight|default('bold') -%}
 
-{%- set classes = ['ps-heading'] -%}
-{%- if level != 'h1' -%}
-  {%- set classes = classes|merge(['ps-heading--' ~ level]) -%}
-{%- endif -%}
-{%- if align != 'left' -%}
-  {%- set classes = classes|merge(['ps-heading--align-' ~ align]) -%}
-{%- endif -%}
-{%- if visuallyHidden -%}
-  {%- set classes = classes|merge(['ps-heading--visually-hidden']) -%}
-{%- endif -%}
-{%- if color != 'default' -%}
-  {%- set classes = classes|merge(['ps-heading--' ~ color]) -%}
-{%- endif -%}
-{%- if weight != 'bold' -%}
-  {%- set classes = classes|merge(['ps-heading--' ~ weight]) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-heading',
+  level != 'h1' ? 'ps-heading--' ~ level : null,
+  align != 'left' ? 'ps-heading--align-' ~ align : null,
+  visuallyHidden ? 'ps-heading--visually-hidden' : null,
+  color != 'default' ? 'ps-heading--' ~ color : null,
+  weight != 'bold' ? 'ps-heading--' ~ weight : null
+] -%}
 
 <{{ level }}
   {%- if attributes is defined -%}
     {{- attributes.addClass(classes) -}}
   {%- else -%}
-    class="{{ classes|join(' ') }}"
+    class="{{ classes|join(' ')|trim }}"
   {%- endif -%}>
   <span class="ps-heading__text">{{- text -}}</span>
 </{{ level }}>

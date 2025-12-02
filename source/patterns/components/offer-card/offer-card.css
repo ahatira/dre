@@ -92,7 +92,7 @@
     transition: color var(--ps-transition-duration-fast) var(--ease-out-1);
 
     &:hover {
-      color: var(--brand-primary);
+      color: var(--primary);
     }
 
     &:focus-visible {

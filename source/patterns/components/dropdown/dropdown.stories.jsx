@@ -396,7 +396,7 @@ export const GroupedWithCheckboxes = {
 
             <!-- Footer Button -->
             <div style="padding: var(--size-3) var(--size-3) var(--size-2); border-top: var(--border-size-1) solid var(--color-border-default); margin-top: var(--size-2);">
-              <button type="button" style="width: 100%; padding: var(--size-3) var(--size-4); background: var(--brand-primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-1); font-weight: var(--font-weight-600); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--brand-primary-hover)'" onmouseout="this.style.backgroundColor='var(--brand-primary)'">
+              <button type="button" style="width: 100%; padding: var(--size-3) var(--size-4); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-1); font-weight: var(--font-weight-600); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--primary-hover)'" onmouseout="this.style.backgroundColor='var(--primary)'">
                 Apply Selection
               </button>
             </div>
@@ -488,7 +488,7 @@ export const InForm = {
           <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Number of bedrooms</label>
           ${roomsDropdown}
         </div>
-        <button type="submit" style="padding: var(--size-3) var(--size-6); background: var(--brand-primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; transition: background-color var(--ps-transition-duration-fast) var(--ease-3);" onmouseover="this.style.backgroundColor='var(--brand-primary-hover)'" onmouseout="this.style.backgroundColor='var(--brand-primary)'">
+        <button type="submit" style="padding: var(--size-3) var(--size-6); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; transition: background-color var(--ps-transition-duration-fast) var(--ease-3);" onmouseover="this.style.backgroundColor='var(--primary-hover)'" onmouseout="this.style.backgroundColor='var(--primary)'">
           Search properties
         </button>
       </form>

@@ -19,28 +19,19 @@
 {% set withLine = withLine|default(false) %}
 {% set withDot = withDot|default(false) %}
 {% set icon = icon|default('') %}
+{% set attributes = attributes|default(create_attribute()) %}
 
-{% set classes = ['ps-eyebrow'] %}
-{% if variant != 'neutral' %}
-  {% set classes = classes|merge(['ps-eyebrow--' ~ variant]) %}
-{% endif %}
-{% if size != 'medium' %}
-  {% set classes = classes|merge(['ps-eyebrow--' ~ size]) %}
-{% endif %}
-{% if uppercase %}
-  {% set classes = classes|merge(['ps-eyebrow--uppercase']) %}
-{% endif %}
-{% if bold %}
-  {% set classes = classes|merge(['ps-eyebrow--bold']) %}
-{% endif %}
-{% if withLine %}
-  {% set classes = classes|merge(['ps-eyebrow--with-line']) %}
-{% endif %}
-{% if withDot %}
-  {% set classes = classes|merge(['ps-eyebrow--with-dot']) %}
-{% endif %}
+{% set classes = [
+  'ps-eyebrow',
+  variant != 'neutral' ? 'ps-eyebrow--' ~ variant : null,
+  size != 'medium' ? 'ps-eyebrow--' ~ size : null,
+  uppercase ? 'ps-eyebrow--uppercase' : null,
+  bold ? 'ps-eyebrow--bold' : null,
+  withLine ? 'ps-eyebrow--with-line' : null,
+  withDot ? 'ps-eyebrow--with-dot' : null
+] %}
 
-<span class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes }}{% endif %}>
+<span {{ attributes.addClass(classes) }}>
   {% if icon %}
     <span class="ps-eyebrow__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}

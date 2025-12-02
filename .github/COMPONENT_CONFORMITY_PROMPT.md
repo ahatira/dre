@@ -104,7 +104,7 @@ PROCESSUS:
    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
    
    /* ✅ APRÈS */
-   color: var(--brand-primary);
+   color: var(--primary);
    padding: var(--size-4) var(--size-6);
    box-shadow: var(--shadow-2);
    ```
@@ -179,7 +179,7 @@ RAPPORT AUDIT (format Markdown):
 
 ### Design Tokens (X/30)
 **Violations détectées**:
-- Ligne XX: `color: #00915A` ❌ → `var(--brand-primary)` ✅
+- Ligne XX: `color: #00915A` ❌ → `var(--primary)` ✅
 - Ligne YY: `padding: 16px` ❌ → `var(--size-4)` ✅
 [liste complète]
 

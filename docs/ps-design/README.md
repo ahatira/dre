@@ -161,9 +161,9 @@ Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme d
 
 ```css
 /* Couleurs Brand (brand.css) */
---brand-primary: var(--bnp-green);        /* #00915A - Vert BNP */
---brand-secondary: var(--bnp-dark-green); /* #017F4F */
---brand-accent: var(--bnp-mid-green);     /* #04A46E */
+--primary: var(--bnp-green);        /* #00915A - Vert BNP */
+--secondary: var(--bnp-dark-green); /* #017F4F */
+--accent: var(--bnp-mid-green);     /* #04A46E */
 --bnp-accent-purple: #BA3075;
 --bnp-accent-pink: #E0388C;
 
@@ -220,7 +220,7 @@ Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme d
 
 ```css
 .ps-button {
-  background-color: var(--brand-primary);   /* brand.css */
+  background-color: var(--primary);   /* brand.css */
   color: var(--white);                      /* colors.css */
   font-family: var(--font-sans);            /* fonts.css */
   font-size: var(--font-size-1);            /* fonts.css */
@@ -231,7 +231,7 @@ Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme d
 }
 
 .ps-button:hover {
-  background-color: var(--brand-secondary); /* brand.css */
+  background-color: var(--secondary); /* brand.css */
 }
 
 .ps-button:focus-visible {
@@ -243,7 +243,7 @@ Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme d
 ### Règles Absolues
 
 1. ❌ **JAMAIS de valeurs en dur** : `#00915A`, `16px`, `400`, etc.
-2. ✅ **TOUJOURS utiliser les tokens** : `var(--brand-primary)`, `var(--size-4)`, etc.
+2. ✅ **TOUJOURS utiliser les tokens** : `var(--primary)`, `var(--size-4)`, etc.
 3. ⚠️ **Si token manquant** : L'ajouter dans `source/props/{category}.css` approprié
 4. 📝 **Respecter les conventions** : Même structure/naming que tokens existants
 5. 🔄 **Documenter** : Mettre à jour `CHANGELOG.md` après ajout de tokens
@@ -340,7 +340,7 @@ Suivre l'ordre recommandé :
 echo "### [$(date +%Y-%m-%d)] - Ajout de {component}" >> docs/ps-design/CHANGELOG.md
 
 # Si ajout de tokens, le mentionner aussi
-echo "- Ajout tokens: --brand-*, --size-*, etc." >> docs/ps-design/CHANGELOG.md
+echo "- Ajout tokens: --primary, --size-*, etc." >> docs/ps-design/CHANGELOG.md
 
 # Commit
 git add source/patterns/{level}/{component}/

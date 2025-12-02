@@ -12,8 +12,14 @@
 {%- set label = label|default('Option label') -%}
 {%- set checked = checked|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
-<label class="ps-radio{% if disabled %} ps-radio--disabled{% endif %}">
+{%- set classes = [
+  'ps-radio',
+  disabled ? 'ps-radio--disabled' : null
+] -%}
+
+<label {{ attributes.addClass(classes) }}>
   <input
     type="radio"
     class="ps-radio__input"
@@ -21,6 +27,7 @@
     value="{{ value }}"
     {% if checked %}checked{% endif %}
     {% if disabled %}disabled{% endif %}
+    aria-checked="{{ checked ? 'true' : 'false' }}"
   />
   <span class="ps-radio__circle" aria-hidden="true"></span>
   {% if label %}

@@ -31,30 +31,20 @@
 {%- set size = size|default('medium') -%}
 {%- set radius = radius|default('none') -%}
 {%- set imagePosition = imagePosition|default(layout == 'horizontal' ? 'left' : 'top') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set card_classes = ['ps-card'] -%}
-{%- if variant != 'default' -%}
-  {%- set card_classes = card_classes|merge(['ps-card--' ~ variant]) -%}
-{%- endif -%}
-{%- if layout != 'vertical' -%}
-  {%- set card_classes = card_classes|merge(['ps-card--' ~ layout]) -%}
-{%- endif -%}
-{%- if size != 'medium' -%}
-  {%- set card_classes = card_classes|merge(['ps-card--' ~ size]) -%}
-{%- endif -%}
-{%- if radius != 'none' -%}
-  {%- set card_classes = card_classes|merge(['ps-card--radius-' ~ radius]) -%}
-{%- endif -%}
-{%- if imagePosition != (layout == 'horizontal' ? 'left' : 'top') -%}
-  {%- set card_classes = card_classes|merge(['ps-card--image-' ~ imagePosition]) -%}
-{%- endif -%}
+{%- set card_classes = [
+  'ps-card',
+  variant != 'default' ? 'ps-card--' ~ variant : null,
+  layout != 'vertical' ? 'ps-card--' ~ layout : null,
+  size != 'medium' ? 'ps-card--' ~ size : null,
+  radius != 'none' ? 'ps-card--radius-' ~ radius : null,
+  imagePosition != (layout == 'horizontal' ? 'left' : 'top') ? 'ps-card--image-' ~ imagePosition : null
+] -%}
 
 {%- set tag = url ? 'a' : 'div' -%}
 
-<{{ tag }}
-  {%- if attributes %} {{ attributes.addClass(card_classes) }}{% else %} class="{{ card_classes|join(' ')|trim }}"{% endif -%}
-  {%- if url %} href="{{ url }}"{% endif -%}
->
+<{{ tag }} {{ attributes.addClass(card_classes) }}{%- if url %} href="{{ url }}"{% endif -%}>
   {%- if block('image') is defined -%}
     <div class="ps-card__image">
       {{ block('image') }}

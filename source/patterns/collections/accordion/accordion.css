@@ -1,0 +1,50 @@
+/* ========================================================================
+   #ACCORDION (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Accordion orchestration layer - manages multiple Collapse elements.
+ * Individual item styles handled by ps-collapse component.
+ * This layer only controls group coordination and variant overrides.
+ */
+
+/* Container
+   ========================================================================= */
+
+.ps-accordion {
+  /* Base container - no visual styles, just coordination */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Item wrapper (Collapse instances)
+   ========================================================================= */
+
+.ps-accordion__item {
+  /* Collapse element within accordion - inherits ps-collapse styles */
+}
+
+/* Variants
+   ========================================================================= */
+
+.ps-accordion--flush {
+  & .ps-collapse__trigger {
+    --ps-collapse-trigger-padding: var(--size-2) 0;
+  }
+
+  & .ps-collapse__content {
+    --ps-collapse-content-padding: var(--size-2) 0;
+  }
+}
+
+/* Semantic variants propagate to child collapses */
+.ps-accordion--primary { & .ps-collapse { @extend .ps-collapse--primary; } }
+.ps-accordion--secondary { & .ps-collapse { @extend .ps-collapse--secondary; } }
+.ps-accordion--success { & .ps-collapse { @extend .ps-collapse--success; } }
+.ps-accordion--warning { & .ps-collapse { @extend .ps-collapse--warning; } }
+.ps-accordion--danger { & .ps-collapse { @extend .ps-collapse--danger; } }
+.ps-accordion--info { & .ps-collapse { @extend .ps-collapse--info; } }
+.ps-accordion--dark { & .ps-collapse { @extend .ps-collapse--dark; } }
+.ps-accordion--light { & .ps-collapse { @extend .ps-collapse--light; } }
+
+  

@@ -1,0 +1,199 @@
+/* ========================================================================
+   #COLLAPSE
+   ======================================================================== */
+
+/**
+ * Collapsible disclosure element with trigger and panel.
+ * Single-item expandable/collapsible behavior.
+ */
+
+/* Base
+   ========================================================================= */
+
+.ps-collapse {
+  /* ============================================
+    Layer 2: Component-Scoped Variables
+    Bootstrap 5 inspired - Override these for customization
+    ============================================ */
+
+  /* Container */
+  --ps-collapse-bg: transparent;
+  --ps-collapse-border-width: var(--border-size-15);
+  --ps-collapse-border-color: var(--gray-300);
+
+  /* Trigger */
+  --ps-collapse-trigger-padding-y: var(--size-6);
+  --ps-collapse-trigger-padding-x: 0;
+  --ps-collapse-trigger-bg: transparent;
+  --ps-collapse-trigger-bg-hover: var(--gray-100);
+
+  /* Title */
+  --ps-collapse-title-font-family: var(--font-sans);
+  --ps-collapse-title-font-weight: var(--font-weight-normal);
+  --ps-collapse-title-font-size: var(--font-size-3);
+  --ps-collapse-title-line-height: var(--leading-6);
+  --ps-collapse-title-color: var(--gray-900);
+
+  /* Icon */
+  --ps-collapse-icon-size: var(--size-8);
+  --ps-collapse-icon-spacing: var(--size-4);
+
+  /* Content */
+  --ps-collapse-content-padding-top: var(--size-4);
+  --ps-collapse-content-padding-bottom: var(--size-6);
+  --ps-collapse-content-font-size: var(--font-size-2);
+  --ps-collapse-content-line-height: var(--leading-6);
+  --ps-collapse-content-color: var(--gray-600);
+
+  /* Focus */
+  --ps-collapse-focus-ring-width: var(--focus-ring-width);
+  --ps-collapse-focus-ring-color: var(--focus-ring-color);
+
+  /* Transitions */
+  --ps-collapse-transition-duration: var(--duration-fast);
+  --ps-collapse-transition-timing: var(--easing-out);
+  --ps-collapse-panel-transition-duration: var(--duration-normal);
+
+  /* ============================================
+    Apply Component Variables
+    ============================================ */
+
+  /* Container */
+  background-color: var(--ps-collapse-bg);
+  border-top: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
+  border-bottom: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
+
+  /* Trigger button - Figma: padding 24px 0 */
+  & .ps-collapse__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--ps-collapse-trigger-padding-y) var(--ps-collapse-trigger-padding-x);
+    background: var(--ps-collapse-trigger-bg);
+    border: none;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing);
+
+    &:hover {
+      background-color: var(--ps-collapse-trigger-bg-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--ps-collapse-focus-ring-width) solid var(--ps-collapse-focus-ring-color);
+      outline-offset: calc(-1 * var(--ps-collapse-focus-ring-width));
+    }
+  }
+
+  /* Title text */
+  & .ps-collapse__title {
+    flex: 1;
+    font-family: var(--ps-collapse-title-font-family);
+    font-weight: var(--ps-collapse-title-font-weight);
+    font-size: var(--ps-collapse-title-font-size);
+    line-height: var(--ps-collapse-title-line-height);
+    color: var(--ps-collapse-title-color);
+  }
+
+  /* Chevron icon (CSS mask for color inheritance) */
+  & .ps-collapse__icon {
+    display: block;
+    width: var(--ps-collapse-icon-size);
+    height: var(--ps-collapse-icon-size);
+    margin-left: var(--ps-collapse-icon-spacing);
+    background-color: var(--ps-collapse-title-color);
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    transition: transform var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing);
+  }
+
+  /* Panel container */
+  & .ps-collapse__panel {
+    overflow: hidden;
+    transition:
+      max-height var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing),
+      opacity var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing),
+      padding var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  /* Panel content wrapper */
+  & .ps-collapse__content {
+    padding: var(--ps-collapse-content-padding-top) 0 var(--ps-collapse-content-padding-bottom);
+    font-size: var(--ps-collapse-content-font-size);
+    line-height: var(--ps-collapse-content-line-height);
+    color: var(--ps-collapse-content-color);
+  }
+}
+
+/* Expanded state
+   ========================================================================= */
+
+.ps-collapse.is-expanded {
+  & .ps-collapse__icon {
+    transform: rotate(180deg);
+  }
+}
+
+/* Semantic Variants
+   ========================================================================= */
+
+/**
+ * Semantic color variants
+ * Override component variables for contextual theming
+ */
+
+.ps-collapse--primary {
+  --ps-collapse-title-color: var(--primary);
+  --ps-collapse-border-color: var(--primary);
+  --ps-collapse-bg: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.ps-collapse--secondary {
+  --ps-collapse-title-color: var(--secondary);
+  --ps-collapse-border-color: var(--secondary);
+  --ps-collapse-bg: color-mix(in srgb, var(--secondary) 5%, transparent);
+}
+
+.ps-collapse--success {
+  --ps-collapse-title-color: var(--success);
+  --ps-collapse-border-color: var(--success);
+  --ps-collapse-bg: color-mix(in srgb, var(--success) 5%, transparent);
+}
+
+.ps-collapse--warning {
+  --ps-collapse-title-color: var(--warning);
+  --ps-collapse-border-color: var(--warning);
+  --ps-collapse-bg: color-mix(in srgb, var(--warning) 5%, transparent);
+}
+
+.ps-collapse--danger {
+  --ps-collapse-title-color: var(--danger);
+  --ps-collapse-border-color: var(--danger);
+  --ps-collapse-bg: color-mix(in srgb, var(--danger) 5%, transparent);
+}
+
+.ps-collapse--info {
+  --ps-collapse-title-color: var(--info);
+  --ps-collapse-border-color: var(--info);
+  --ps-collapse-bg: color-mix(in srgb, var(--info) 5%, transparent);
+}
+
+.ps-collapse--dark {
+  --ps-collapse-title-color: var(--gray-900);
+  --ps-collapse-border-color: var(--gray-900);
+  --ps-collapse-bg: color-mix(in srgb, var(--gray-900) 5%, transparent);
+}
+
+.ps-collapse--light {
+  --ps-collapse-title-color: var(--gray-600);
+  --ps-collapse-border-color: var(--gray-400);
+  --ps-collapse-bg: color-mix(in srgb, var(--gray-200) 30%, transparent);
+}

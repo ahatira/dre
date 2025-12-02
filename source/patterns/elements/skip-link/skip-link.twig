@@ -9,5 +9,8 @@
 {%- set targetId = targetId|default('main-content') -%}
 {%- set label = label|default('Skip to main content') -%}
 {%- set href = '#' ~ targetId -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
-<a class="ps-skip-link" href="{{ href }}"{% if attributes %} {{ attributes }}{% endif %}>{{ label }}</a>
+{%- set classes = ['ps-skip-link'] -%}
+
+<a {{ attributes.addClass(classes) }} href="{{ href }}">{{ label }}</a>

@@ -1,45 +1,45 @@
 # Avatar
 
-User or entity visual representation with automatic fallback hierarchy (image → initials → icon). Supports multiple sizes, shapes, status indicators, and interactive states.
+User or entity visual representation composed of three atomic elements: image, text (initials), and status badge. Features automatic fallback hierarchy and interactive states.
 
 ## Markup
 
 ```twig
 {# Default: Image avatar #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: 'https://i.pravatar.cc/150',
   alt: 'John Doe',
 } %}
 
 {# Initials fallback #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   initials: 'JD',
   size: 'lg',
 } %}
 
 {# Icon fallback with gender #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   gender: 'female',
   size: 'md',
 } %}
 
 {# Icon fallback (automatic, male by default) #}
-{% include '@elements/avatar/avatar.twig' %}
+{% include '@components/avatar/avatar.twig' %}
 
 {# Icon fallback with specific gender #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   gender: 'female',
 } %}
 
 {# With status badge #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: 'https://i.pravatar.cc/150',
   alt: 'John Doe',
   status: 'online',
 } %}
 
 {# Clickable link #}
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: 'https://i.pravatar.cc/150',
   alt: 'John Doe',
   clickable: true,
@@ -66,11 +66,10 @@ User or entity visual representation with automatic fallback hierarchy (image �
 ## BEM Structure
 
 ```
-ps-avatar                      # Block (base container)
-├── ps-avatar__image-wrapper   # Image wrapper (handles radius + status position)
-│   ├── ps-avatar__image       # Image element (for src)
-│   └── ps-avatar__text        # Initials text element
-└── ps-avatar__status          # Status badge
+ps-avatar                      # Block (base container with background/border/radius)
+├── ps-avatar__image           # Element: Image atom (when src provided)
+├── ps-avatar__text            # Element: Initials text atom (when initials provided)
+└── ps-avatar__status          # Element: Status badge atom (when status provided)
     ├── ps-avatar__status--online
     ├── ps-avatar__status--offline
     └── ps-avatar__status--busy
@@ -167,8 +166,8 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 - `--gray-200` - Default background
 - `--gray-400` - Offline status
 - `--gray-600` - Icon color
-- `--brand-primary` - Initials background
-- `--brand-secondary` - Focus outline
+- `--primary` - Initials background, male gender fallback
+- `--secondary` - Female gender fallback, focus outline
 - `--success` - Online status
 - `--danger` - Busy status
 
@@ -188,6 +187,12 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 ## Accessibility
 
 - **Image alt text**: Always provide `alt` prop when using `src` for screen readers
+- **Focus indicators**: Clickable avatars include visible focus outline (`outline: 2px solid var(--secondary)`) 
+- **ARIA labels**: Status badges include descriptive `aria-label` attributes (e.g., "Online", "Busy", "Offline")
+- **Keyboard navigation**: Clickable avatars with `href` are fully keyboard accessible via `<a>` elements
+- **Color contrast**: All text and status colors meet WCAG AA standards (4.5:1 minimum)
+- **Semantic HTML**: Uses `<img>` for photos, `<span>` for initials/status to ensure proper structure
+
 ### Do ✅
 - Use image avatars with proper `alt` text for user profiles
 - Provide 2-letter initials as fallback (first + last name)
@@ -220,7 +225,7 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 
 ### User Profile Header
 ```twig
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: user.avatar_url,
   alt: user.full_name,
   size: 'xl',
@@ -232,7 +237,7 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 
 ### Comment Author (with fallback)
 ```twig
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: author.avatar,
   alt: author.name,
   initials: author.initials,
@@ -244,7 +249,7 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 ```twig
 <div class="team-list">
   {% for member in team %}
-    {% include '@elements/avatar/avatar.twig' with {
+    {% include '@components/avatar/avatar.twig' with {
       initials: member.initials,
       size: 'md',
       shape: 'rounded',
@@ -258,7 +263,7 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 
 ### Status Indicator
 ```twig
-{% include '@elements/avatar/avatar.twig' with {
+{% include '@components/avatar/avatar.twig' with {
   src: user.avatar,
   alt: user.name,
   size: 'lg',

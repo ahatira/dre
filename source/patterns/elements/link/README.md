@@ -58,7 +58,7 @@ Modifiers - Behavior:
 ### Three-Layer CSS Variables System
 
 **Layer 1: Root Primitives** (`source/props/*.css`)
-- `--brand-primary`, `--brand-secondary`
+- `--primary`, `--secondary`
 - `--green-500` to `--green-800`, `--purple-600` to `--purple-800`
 - `--blue-600` to `--blue-900`, `--yellow-600` to `--yellow-900`
 - `--red-600` to `--red-900`, `--gray-100` to `--gray-900`
@@ -84,7 +84,7 @@ Modifiers - Behavior:
   --ps-link-text-underline-offset: var(--border-size-1);
   --ps-link-hover-text-decoration: none;
   --ps-link-focus-outline-width: var(--border-size-2);
-  --ps-link-focus-outline-color: var(--brand-secondary);
+  --ps-link-focus-outline-color: var(--secondary);
   --ps-link-focus-outline-offset: var(--border-size-1);
   --ps-link-focus-border-radius: var(--radius-1);
   --ps-link-transition-duration: var(--duration-fast);
@@ -283,7 +283,7 @@ Use for links to external websites:
 - `aria-hidden="true"` - Applied to decorative icons
 
 ### Focus States
-- Visible focus outline with `--brand-secondary` color
+- Visible focus outline with `--secondary` color
 - 2px outline with 1px offset for clear visibility
 - Border radius for smooth outline appearance
 - Meets WCAG 2.1 AA requirements for focus indicators

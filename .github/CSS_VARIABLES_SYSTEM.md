@@ -30,13 +30,13 @@
 /* Global tokens only */
 :where(html) {
   --size-4: 1rem;
-  --brand-primary: var(--green-600);
+  --primary: hsl(157, 100%, 28%);
 }
 
 /* Components use global tokens directly */
 .ps-button {
   padding: var(--size-3) var(--size-6);
-  color: var(--brand-primary);
+  color: var(--primary);
 }
 ```
 
@@ -441,7 +441,7 @@ source/props/
 --ps-form-field-padding-y
 
 /* ❌ WRONG */
---brand-primary    (no prefix)
+--primary    (no prefix)
 --ps_button_bg     (underscores)
 --PSButtonBg       (camelCase)
 ```
@@ -525,7 +525,7 @@ No timeline pressure, migrate as touched
 ```css
 .ps-button {
   padding: var(--size-3) var(--size-6);
-  background: var(--brand-primary);
+  background: var(--primary);
   color: var(--white);
   border-radius: var(--radius-1);
 }

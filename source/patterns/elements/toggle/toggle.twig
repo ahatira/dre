@@ -30,11 +30,14 @@
 {% set showLabels = showLabels|default(false) %}
 {% set onLabel = onLabel|default('On') %}
 {% set offLabel = offLabel|default('Off') %}
-{%- set root_classes = ['ps-toggle', size != 'md' ? 'ps-toggle--' ~ size : null, color != 'default' ? 'ps-toggle--' ~ color : null] -%}
-{%- if disabled -%}
-  {%- set root_classes = root_classes|merge(['ps-toggle--disabled']) -%}
-{%- endif -%}
-<label class="{{ root_classes|join(' ') }}">
+{% set attributes = attributes|default(create_attribute()) %}
+{%- set root_classes = [
+  'ps-toggle',
+  size != 'md' ? 'ps-toggle--' ~ size : null,
+  color != 'default' ? 'ps-toggle--' ~ color : null,
+  disabled ? 'ps-toggle--disabled' : null
+] -%}
+<label {{ attributes.addClass(root_classes) }}>
   <div class="ps-toggle__label">
     <input
       class="ps-toggle__input"

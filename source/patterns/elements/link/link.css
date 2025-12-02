@@ -36,7 +36,7 @@
   
   /* Focus */
   --ps-link-focus-outline-width: var(--border-size-2);
-  --ps-link-focus-outline-color: var(--brand-secondary);
+  --ps-link-focus-outline-color: var(--secondary);
   --ps-link-focus-outline-offset: var(--border-size-1);
   --ps-link-focus-border-radius: var(--radius-1);
   

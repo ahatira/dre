@@ -13,6 +13,11 @@
 {%- set dismissible = dismissible|default(false) -%}
 {%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
+{%- set title = title|default('') -%}
+{%- set text = text|default('') -%}
+{%- set icon = icon|default(null) -%}
+{%- set actions = actions|default([]) -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
 {{ attach_library('ps_theme/alert') }}
 
@@ -21,29 +26,43 @@
 {%- set ariaLive = (variant in ['danger', 'warning']) ? 'assertive' : 'polite' -%}
 
 {# Build classes array - variant always applied (no default omission) #}
-{%- set classes = ['ps-alert', 'ps-alert--' ~ variant] -%}
-{%- if dismissible -%}
-  {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
-{%- endif -%}
-{%- if rounded -%}
-  {%- set classes = classes|merge(['ps-alert--rounded']) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-alert',
+  'ps-alert--' ~ variant,
+  dismissible ? 'ps-alert--dismissible' : null,
+  rounded ? 'ps-alert--rounded' : null
+] -%}
 
-<div
-  class="{{ classes|join(' ')|trim }}"
-  role="{{ role }}"
-  aria-live="{{ ariaLive }}"
-  {% if attributes %}{{ attributes }}{% endif %}
->
-  {{- content|raw -}}
+<div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
+  {# If free content provided, render as-is (backward compatibility) #}
+  {%- if content -%}
+    {{- content|raw -}}
+  {%- else -%}
+    {%- if icon -%}
+      {% include '@elements/icon/icon.twig' with { name: icon, size: 'md', color: 'default' } only %}
+    {%- endif -%}
+    {%- if title -%}
+      {% include '@elements/heading/heading.twig' with { level: 4, text: title } only %}
+    {%- endif -%}
+    {%- if text -%}
+      {% include '@elements/text/text.twig' with { text: text } only %}
+    {%- endif -%}
+    {%- if actions is iterable and actions|length > 0 -%}
+      <div class="ps-alert__actions">
+        {%- for action in actions -%}
+          {% include '@elements/button/button.twig' with action only %}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
 
   {%- if dismissible -%}
-    <button
-      class="ps-alert__close"
-      type="button"
-      aria-label="Close alert"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
+    {% include '@elements/button/button.twig' with {
+      baseClass: 'ps-alert__close',
+      label: '',
+      icon: 'close',
+      size: 'small',
+      attributes: create_attribute().setAttribute('aria-label', 'Close alert')
+    } only %}
   {%- endif -%}
 </div>

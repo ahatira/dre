@@ -373,9 +373,9 @@ export const InFormContext = {
 
       <button 
         type="submit" 
-        style="padding: var(--size-3) var(--size-6); background: var(--brand-primary); color: var(--white); border: none; border-radius: var(--radius-1); font-size: var(--font-size-1); font-weight: var(--font-weight-600); cursor: pointer;"
-        onmouseover="this.style.background='var(--green-700)'"
-        onmouseout="this.style.background='var(--brand-primary)'"
+        style="padding: var(--size-3) var(--size-6); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-1); font-size: var(--font-size-1); font-weight: var(--font-weight-600); cursor: pointer;"
+        onmouseover="this.style.background='var(--primary-hover)'"
+        onmouseout="this.style.background='var(--primary)'"
       >
         Submit Form
       </button>

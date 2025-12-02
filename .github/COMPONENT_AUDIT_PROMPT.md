@@ -48,8 +48,8 @@ Vérifie TOUS ces points critiques:
 ### 2. SEMANTIC COLOR NAMING (Règle critique)
 ❌ PROBLÈME: Utilisation de noms de couleurs arbitraires (green, purple, blue, red, etc.) au lieu de noms sémantiques
 ✅ SOLUTION: Utiliser UNIQUEMENT les noms sémantiques standardisés:
-- **primary** = `--brand-primary` (green #00915A) - Action principale
-- **secondary** = `--brand-secondary` (purple #E0388C) - Action secondaire
+- **primary** = `--primary` (green #00915A) - Action principale
+- **secondary** = `--secondary` (purple #A12B66) - Action secondaire
 - **success** = `--btn-success` (green-600) - Succès/validation
 - **warning** = `--btn-warning` (yellow-500) - Avertissement
 - **danger** = `--btn-danger` (red-600) - Erreur/danger
@@ -65,7 +65,7 @@ Vérifie TOUS ces points critiques:
 **RÈGLES:**
 1. Les props DOIVENT accepter les noms sémantiques (primary, secondary, success, warning, danger, info)
 2. Les classes BEM DOIVENT utiliser les noms sémantiques (ps-component--primary, ps-component--secondary)
-3. Les tokens CSS DOIVENT mapper vers brand.css (--brand-primary, --brand-secondary, --btn-success, etc.)
+3. Les tokens CSS DOIVENT mapper vers brand.css (--primary, --secondary, --success, etc.)
 4. Si le composant a des variantes de couleur, il DOIT supporter TOUTES les 6 couleurs sémantiques
 5. La documentation (README, stories, YAML) DOIT utiliser exclusivement les noms sémantiques
 
@@ -84,8 +84,8 @@ color: 'primary'  # Options: primary | secondary | success | warning | danger | 
 .ps-component--purple { color: var(--bnp-accent-pink); }
 
 /* ✅ APRÈS (conforme) */
-.ps-component--primary { color: var(--brand-primary); }
-.ps-component--secondary { color: var(--brand-secondary); }
+.ps-component--primary { color: var(--primary); }
+.ps-component--secondary { color: var(--secondary); }
 ```
 
 ### 3. COMPLETE IMPLEMENTATION (Règle critique)

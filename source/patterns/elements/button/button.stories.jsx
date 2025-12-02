@@ -121,6 +121,17 @@ export default {
         defaultValue: { summary: '_self' },
       },
     },
+    // Advanced
+    baseClass: {
+      description:
+        'Override BEM block class name (for custom button variants in parent components)',
+      control: { type: 'text' },
+      table: {
+        category: 'Advanced',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'ps-button' },
+      },
+    },
   },
 };
 
@@ -198,6 +209,24 @@ export const Disabled = {
     <div style="display: flex; gap: var(--size-4); align-items: center;">
       ${buttonTwig({ label: 'Disabled', variant: 'primary', disabled: true })}
       ${buttonTwig({ label: 'Disabled', variant: 'secondary', outline: true, disabled: true })}
+    </div>
+  `,
+};
+
+export const CustomBaseClass = {
+  name: 'Custom Base Class (Advanced)',
+  render: () => `
+    <style>
+      .custom-action { padding: var(--size-3) var(--size-5); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; }
+      .custom-action:hover { background: var(--primary-hover); }
+      .custom-action__icon { margin-left: var(--size-2); }
+    </style>
+    <div style="display: flex; gap: var(--size-4); flex-direction: column;">
+      <p><strong>Default button:</strong></p>
+      ${buttonTwig({ label: 'Standard Button', variant: 'primary', icon: 'arrow-right' })}
+      <p><strong>With baseClass override (custom-action):</strong></p>
+      ${buttonTwig({ baseClass: 'custom-action', label: 'Custom Styled', icon: 'arrow-right' })}
+      <p><em>Note: baseClass is used by parent components (alert, modal, etc.) to fully control button styling via their own BEM classes.</em></p>
     </div>
   `,
 };

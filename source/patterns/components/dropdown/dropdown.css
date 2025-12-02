@@ -10,7 +10,7 @@
  * Design Tokens:
  * - Layout: --size-1 to --size-4, --ps-dropdown-min-width-*
  * - Icons: --ps-icon-size-16, --ps-icon-size-20
- * - Colors: --white, --ps-color-text, --gray-*, --blue-600, --brand-primary
+ * - Colors: --white, --ps-color-text, --gray-*, --blue-600, --primary
  * - Typography: --font-sans, --font-size-1/2, --leading-normal, --font-weight-600
  * - Borders: --border-size-1, --radius-2, --border-size-2 (focus)
  * - Effects: --shadow-4, --ps-transition-duration-fast, --ease-3, --layer-40
@@ -121,7 +121,7 @@
 
     &[aria-selected="true"] {
       background: var(--gray-50);
-      color: var(--brand-primary);
+      color: var(--primary);
       font-weight: var(--font-weight-600);
     }
 

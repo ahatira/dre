@@ -325,7 +325,7 @@ color: #00915A; /* Primary green */
 | Surface | Grey #1 | `#333333` | Hardcoded (exact) |
 | Meta text | Grey #3 | `#777E83` | Hardcoded (exact) |
 | Price | Grey #1 | `#333333` | Hardcoded (exact) |
-| Link text | Primary | `#00915A` | `var(--brand-primary)` |
+| Link text | Primary | `#00915A` | `var(--primary)` |
 | Action icons | Grey #3 | `#777E83` | Hardcoded (exact) |
 | Favorite active | Pink #4 | `#A22B66` | Hardcoded (exact) |
 

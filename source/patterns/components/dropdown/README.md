@@ -77,7 +77,7 @@ Modifiers:
 - `--ps-color-text-muted` - Disabled text
 - `--gray-50` / `100` / `300` / `400` - Borders, hover, selected states
 - `--blue-600` - Focus outline
-- `--brand-primary` - Selected text color (semantic)
+- `--primary` - Selected text color (semantic)
 
 ### Effects
 - `--radius-2` - Border radius (4px)
@@ -164,7 +164,7 @@ Modifiers:
 - **Tab** - Close dropdown and move to next focusable element
 
 ### Focus Management
-- Visible focus indicator on button (`outline: 2px solid --brand-primary`)
+- Visible focus indicator on button (`outline: 2px solid --primary`)
 - Focus moves to first/selected option when dropdown opens
 - Focus returns to button on close
 - Focus trapped within dropdown during navigation

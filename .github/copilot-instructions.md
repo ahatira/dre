@@ -38,7 +38,7 @@
 ## Conventions & Patterns
 - **Component Naming** : Utiliser categories spécifiques (elements, components, collections, layouts, pages).
 - **BEM avec `ps-` prefix** : Nouveaux composants DOIVENT utiliser BEM avec préfixe `ps-` (ex : `ps-badge`, `ps-badge__icon`, `ps-badge--small`). Composants legacy sans préfixe existent et peuvent être migrés progressivement.
-- **Design Tokens** : TOUJOURS utiliser CSS Custom Properties de `source/props/*.css` (ex : `var(--brand-primary)`, `var(--font-size-1)`, `var(--size-4)`). ❌ JAMAIS de valeurs en dur (#00915A, 16px, etc.). Si un token manque, l'ajouter dans le fichier approprié (`colors.css`, `fonts.css`, `sizes.css`, etc.) en respectant les conventions existantes.
+- **Design Tokens** : TOUJOURS utiliser CSS Custom Properties de `source/props/*.css` (ex : `var(--primary)`, `var(--font-size-1)`, `var(--size-4)`). ❌ JAMAIS de valeurs en dur (#00915A, 16px, etc.). Si un token manque, l'ajouter dans le fichier approprié (`colors.css`, `fonts.css`, `sizes.css`, etc.) en respectant les conventions existantes.
 - **Structure de composant** : 5 fichiers obligatoires par composant :
   1. `.twig` - Template **Drupal-ready** avec params commentés (utiliser ternaire avec `null`, pas `filter(v => v)`)
   2. `.css` - Styles BEM avec tokens uniquement
@@ -153,7 +153,7 @@ These are the **most common violations** - but `.github/COMPLETE_RULES.md` conta
 
 ### 1. Design Tokens (ABSOLUTE)
 - ❌ NEVER hardcode: `#00915A`, `16px`, `150ms ease`
-- ✅ ALWAYS tokens: `var(--brand-primary)`, `var(--size-4)`, `cubic-bezier(0.4, 0.0, 0.2, 1)`
+- ✅ ALWAYS tokens: `var(--primary)`, `var(--size-4)`, `cubic-bezier(0.4, 0.0, 0.2, 1)`
 - Before creating token: `grep -r "--token-name" source/props/` (reuse if exists)
 
 ### 2. CSS Nesting (MANDATORY)

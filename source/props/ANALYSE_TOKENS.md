@@ -282,7 +282,7 @@
 
 #### 🟢 Points positifs
 - Structure claire (BNP tokens → semantic aliases → button variants)
-- Nomenclature cohérente (--bnp-*, --brand-*, --btn-*)
+- Nomenclature cohérente (--bnp-*, --primary, --btn-*)
 - 6 couleurs sémantiques buttons (primary, secondary, success, info, warning, danger)
 
 #### 🟡 Problème: Duplication avec colors.css
@@ -293,7 +293,7 @@
 
 /* colors.css */
 --ps-color-primary-600: hsl(162, 72%, 38%); /* #0DB089 - différent ❌ */
---brand-primary: var(--bnp-green); /* Redéfini ailleurs ❌ */
+--primary: var(--bnp-green); /* Redéfini ailleurs ❌ */
 ```
 
 **Confusion:** Quelle est LA couleur primaire ? `#00915A` (brand) ou `#0DB089` (colors) ?
@@ -444,14 +444,14 @@
   ...
   --gray-900: hsl(...);
   
-  /* Brand colors (BNP specific) */
-  --brand-green: hsl(162, 72%, 38%); /* #0DB089 */
-  --brand-pink: hsl(330, 65%, 40%);
-  --brand-purple: hsl(320, 55%, 45%);
+  /* Brand colors (BNP specific - obsolete naming, use semantic instead) */
+  --bnp-green: hsl(157, 100%, 28%); /* #00915A - Use --primary instead */
+  --bnp-pink: hsl(330, 65%, 40%);   /* #A12B66 - Use --secondary instead */
+  --bnp-purple: hsl(320, 55%, 45%);
   
   /* Semantic base (6 couleurs Bootstrap) */
-  --primary: var(--brand-green);
-  --secondary: var(--brand-pink);
+  --primary: hsl(157, 100%, 28%);    /* #00915A - Direct definition */
+  --secondary: hsl(330, 65%, 40%);   /* #A12B66 - Direct definition */
   --success: var(--green-600);
   --danger: var(--red-600);
   --warning: var(--yellow-500);
@@ -473,7 +473,7 @@
 **Avantages:**
 - ✅ Permet génération automatique de modifiers (.ps-btn--primary, .ps-btn--danger, etc.)
 - ✅ 1 source de vérité pour chaque semantic color
-- ✅ Composants utilisent --primary au lieu de --brand-primary / --bnp-green / --ps-color-primary-600
+- ✅ Composants utilisent --primary au lieu de --bnp-green / --ps-color-primary-600
 - ✅ Compatible approche Bootstrap Base-Modifier
 
 #### Actions concrètes
@@ -782,7 +782,7 @@ Tous les --ps-spacing-*, --ps-card-*, --ps-icon-*, --ps-dropdown-*, --ps-toggle-
 
 1. ✅ Créer `source/props/semantic.css` avec 6 couleurs × 6 tokens (36 tokens)
 2. ✅ Ajouter import dans `index.css`: `@import "semantic";` (après colors)
-3. ✅ Migrer brand.css vers semantic.css (fusionner --bnp-*, --brand-*, --btn-*)
+3. ✅ Migrer brand.css vers semantic.css (fusionner --bnp-*, --btn-*)
 4. ✅ Tester dans 1 composant (button) avec modifiers --primary, --secondary, --success
 5. ✅ Valider build + Storybook
 6. ✅ Commit: "feat(tokens): add semantic.css for Base-Modifier system"

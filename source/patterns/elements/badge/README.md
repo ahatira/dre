@@ -110,8 +110,8 @@ Modifiers only change variables, enabling runtime customization and context over
 
 ## Migration Notes
 - `--yellow-500` token used for legacy gold variant (replaces non-existent `--accent-gold`).
-- `--secondary` now uses direct semantic token instead of `--brand-secondary`.
-- `--primary` replaces `--brand-primary`.
+- `--secondary` now uses direct semantic token.
+- `--primary` is primary semantic color.
 - Font sizes migrated: `--font-size--2` (10px), `--font-size--1` (12px), `--font-size-0` (14px).
 - Transition token: `--duration-fast` replaces `--ps-transition-duration-fast`.
 - **Component-scoped variables** implemented (Bootstrap 5 pattern) - all tokens centralized in `.ps-badge` base.

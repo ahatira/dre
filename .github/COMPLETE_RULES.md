@@ -160,7 +160,7 @@ source/patterns/{level}/{component}/
 source/props/
 ├── index.css          # Import global
 ├── colors.css         # Couleurs (--gray-*, --green-*, --blue-*, etc.)
-├── brand.css          # Marque (--brand-primary, --brand-secondary)
+├── brand.css          # Marque (--primary, --secondary)
 ├── fonts.css          # Typographie (--font-size-*, --font-weight-*)
 ├── sizes.css          # Espacements (--size-*)
 ├── borders.css        # Bordures (--radius-*, --border-size-*)
@@ -229,7 +229,7 @@ source/props/
 
 /* ✅ CORRECT - Tokens uniquement */
 .ps-component {
-  color: var(--brand-primary);                /* ✅ */
+  color: var(--primary);                /* ✅ */
   font-size: var(--font-size-2);              /* ✅ */
   padding: var(--size-3) var(--size-6);       /* ✅ */
   border-radius: var(--radius-4);             /* ✅ */
@@ -297,12 +297,12 @@ source/props/
 #### Brand (brand.css)
 
 ```css
---brand-primary: var(--green-600);     /* #00915A - Action principale */
---brand-secondary: var(--purple-600);  /* #E0388C - Action secondaire */
---btn-success: var(--green-600);
---btn-warning: var(--yellow-500);
---btn-danger: var(--red-600);
---btn-info: var(--blue-600);
+--primary: hsl(157, 100%, 28%);        /* #00915A - Action principale */
+--secondary: hsl(330, 65%, 40%);       /* #A12B66 - Action secondaire */
+--success: hsl(157, 92%, 25%);
+--warning: hsl(42, 93%, 46%);
+--danger: hsl(0, 82%, 57%);
+--info: hsl(220, 89%, 53%);
 ```
 
 #### Fonts (fonts.css)
@@ -403,7 +403,7 @@ source/props/
   
   /* Modifiers */
   &--primary {
-    background: var(--brand-primary);
+    background: var(--primary);
     color: var(--white);
   }
   
@@ -418,7 +418,7 @@ source/props/
   }
   
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-secondary);
+    outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
   }
   
@@ -563,10 +563,10 @@ source/props/
 ```css
 /* ✅ CORRECT - Même spécificité */
 .ps-component { color: var(--gray-700); }
-.ps-component--primary { color: var(--brand-primary); }
+.ps-component--primary { color: var(--primary); }
 
 /* ❌ FAUX - Spécificité augmentée */
-.ps-component.ps-component--primary { color: var(--brand-primary); }
+.ps-component.ps-component--primary { color: var(--primary); }
 ```
 
 ---
@@ -632,7 +632,7 @@ Le **markup HTML par défaut** doit être **minimal** - **AUCUNE** classe de mod
 ```css
 /* ❌ INTERDIT - Nécessite deux classes */
 .ps-divider--horizontal.ps-divider--primary {
-  border-color: var(--brand-primary);
+  border-color: var(--primary);
 }
 
 /* ✅ CORRECT - Fonctionne seul */
@@ -641,7 +641,7 @@ Le **markup HTML par défaut** doit être **minimal** - **AUCUNE** classe de mod
 }
 
 .ps-divider--primary {
-  border-top-color: var(--brand-primary); /* Override seul */
+  border-top-color: var(--primary); /* Override seul */
 }
 
 .ps-divider--vertical {
@@ -744,10 +744,10 @@ Utiliser `data-icon` attribute **SANS préfixe** :
 
 | Sémantique | Token CSS | Hex | Usage |
 |------------|-----------|-----|-------|
-| `primary` | `--brand-primary` | #00915A | Action principale, CTA |
-| `secondary` | `--brand-secondary` | #E0388C | Action secondaire |
-| `success` | `--btn-success` | green-600 | Succès, validation |
-| `warning` | `--btn-warning` | yellow-500 | Avertissement |
+| `primary` | `--primary` | #00915A | Action principale, CTA |
+| `secondary` | `--secondary` | #A12B66 | Action secondaire |
+| `success` | `--success` | green-600 | Succès, validation |
+| `warning` | `--warning` | yellow-500 | Avertissement |
 | `danger` | `--btn-danger` | red-600 | Erreur, danger, suppression |
 | `info` | `--btn-info` | blue-600 | Information |
 
@@ -769,8 +769,8 @@ color: 'primary' # Options: primary | secondary | success | warning | danger | i
 .ps-component--purple { color: var(--bnp-accent-pink); }
 
 /* ✅ CORRECT */
-.ps-component--primary { color: var(--brand-primary); }
-.ps-component--secondary { color: var(--brand-secondary); }
+.ps-component--primary { color: var(--primary); }
+.ps-component--secondary { color: var(--secondary); }
 ```
 
 ### Règle des 6 Couleurs
@@ -1106,7 +1106,7 @@ Concise description.
 
 ## Design Tokens
 
-- `--brand-primary` - Primary color
+- `--primary` - Primary color
 - `--size-4` - Medium size (16px)
 - `--font-size-2` - Text size (16px)
 
@@ -1346,7 +1346,7 @@ Build: ✓ 0 errors (150.29 kB CSS)
 ```css
 .ps-component--clickable {
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--brand-secondary);
+    outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
   }
 }

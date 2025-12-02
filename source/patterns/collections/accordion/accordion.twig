@@ -1,0 +1,42 @@
+{#
+/**
+ * Accordion - Collection/Organism
+ *
+ * Orchestrates multiple Collapse elements with single-open coordination.
+ * Manages group behavior and dispatches coordination events.
+ *
+ * @param {array} items - Array of collapse items: [{ id?, title, content?, text?, expanded? }]
+ * @param {boolean} single_open - One item open at a time (default: true)
+ * @param {string} variant - Visual variant (default, flush)
+ * @param {array} classes - Additional CSS classes
+ * @param {object} attributes - Additional HTML attributes
+ */
+#}
+
+{%- set single_open = single_open is defined ? single_open : true -%}
+{%- set variant = variant|default('default') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
+
+{{ attach_library('ps_theme/accordion') }}
+
+{%- set accordion_classes = [
+  'ps-accordion',
+  variant != 'default' ? 'ps-accordion--' ~ variant : null,
+  classes ? classes|join(' ') : null
+] -%}
+
+<div {{ attributes.addClass(accordion_classes) }} data-accordion data-single-open="{{ single_open ? 'true' : 'false' }}">
+  {%- for item in items -%}
+    {%- set collapse_id = item.id ?? ('accordion-' ~ loop.index) -%}
+    {% include '@elements/collapse/collapse.twig' with {
+      id: collapse_id,
+      title: item.title,
+      content: item.content ?? null,
+      text: item.text ?? null,
+      text_format: item.text_format ?? 'body-medium',
+      expanded: item.expanded ?? false,
+      classes: ['ps-accordion__item'],
+      attributes: create_attribute().setAttribute('data-accordion-item', '')
+    } only %}
+  {%- endfor -%}
+</div>

@@ -155,7 +155,7 @@
 	
 	/* Color - SECONDARY (purple) */
 	&.ps-progress--secondary {
-		--ps-progress-fill-bg: var(--brand-secondary, #7C3AED);
+		--ps-progress-fill-bg: var(--secondary);
 	}
 	
 	/* Color - INFO (blue) */

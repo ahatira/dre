@@ -1,15 +1,18 @@
 {#
  * Text atom - Typography for paragraphs and text content
+ * Composition-ready: Supports attributes for class injection
+ * 
  * Props:
  *   text (string) - Text content (required)
- *   variant (string) - body|small|large (default: body)
+ *   size (string) - xs|sm|md|lg|xl|xxl (default: md)
+ *   color (string) - default|primary|secondary|success|info|warning|danger|dark|light (default: default)
  *   tag (string) - p|span|div (default: p)
  *   align (string) - left|center|right (default: left)
  *   muted (boolean) - Muted color (default: false)
  *   strong (boolean) - Bold weight (default: false)
+ *   attributes (Attribute) - Additional HTML attributes for composition
  #}
 
-{%- set variant = variant|default('body') -%}
 {%- set size = size|default('md') -%}
 {%- set color = color|default('default') -%}
 {%- set tag = tag|default('p') -%}
@@ -17,30 +20,15 @@
 {%- set muted = muted|default(false) -%}
 {%- set strong = strong|default(false) -%}
 
-{%- set classes = ['ps-text'] -%}
-{%- if variant != 'body' -%}
-  {# Back-compat mapping: body|small|large → md|sm|lg #}
-  {%- set _size = variant == 'small' ? 'sm' : (variant == 'large' ? 'lg' : 'md') -%}
-  {%- if _size != 'md' -%}
-    {%- set classes = classes|merge(['ps-text--' ~ _size]) -%}
-  {%- endif -%}
-{%- endif -%}
-{%- if size != 'md' -%}
-  {%- set classes = classes|merge(['ps-text--' ~ size]) -%}
-{%- endif -%}
-{%- if color != 'default' -%}
-  {%- set classes = classes|merge(['ps-text--' ~ color]) -%}
-{%- endif -%}
-{%- if align != 'left' -%}
-  {%- set classes = classes|merge(['ps-text--align-' ~ align]) -%}
-{%- endif -%}
-{%- if muted -%}
-  {%- set classes = classes|merge(['ps-text--muted']) -%}
-{%- endif -%}
-{%- if strong -%}
-  {%- set classes = classes|merge(['ps-text--strong']) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-text',
+  size != 'md' ? 'ps-text--' ~ size : null,
+  color != 'default' ? 'ps-text--' ~ color : null,
+  align != 'left' ? 'ps-text--align-' ~ align : null,
+  muted ? 'ps-text--muted' : null,
+  strong ? 'ps-text--strong' : null
+] -%}
 
-<{{ tag }} class="{{ classes|join(' ') }}">
+<{{ tag }}{{ attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ')|trim ~ '"' }}>
   {{- text -}}
 </{{ tag }}>
