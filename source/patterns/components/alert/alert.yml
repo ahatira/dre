@@ -9,3 +9,4 @@
 variant: 'primary'
 content: 'A simple <strong>primary</strong> alert with <a href="#" class="ps-alert-link">an example link</a>. Give it a click if you like.'
 dismissible: false
+rounded: false

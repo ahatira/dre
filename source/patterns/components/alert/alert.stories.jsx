@@ -45,6 +45,15 @@ const settings = {
         defaultValue: { summary: 'false' },
       },
     },
+    rounded: {
+      description: 'Apply border radius (default: no radius)',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     attributes: {
       description: 'Drupal attributes object for root element',
       table: {
@@ -153,6 +162,38 @@ export const WithIcons = {
         content:
           '<span data-icon="close" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Payment processing failed',
       })}
+    </div>
+  `,
+};
+
+export const WithRoundedCorners = {
+  name: 'Rounded vs Sharp',
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      <div>
+        <p style="margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Sharp corners (default):</p>
+        ${alertTwig({
+          variant: 'primary',
+          content: 'Default alert with sharp corners (no border-radius)',
+        })}
+        ${alertTwig({
+          variant: 'success',
+          content: 'Success alert with sharp corners',
+        })}
+      </div>
+      <div>
+        <p style="margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Rounded corners (rounded: true):</p>
+        ${alertTwig({
+          variant: 'primary',
+          content: 'Alert with rounded corners (border-radius applied)',
+          rounded: true,
+        })}
+        ${alertTwig({
+          variant: 'success',
+          content: 'Success alert with rounded corners',
+          rounded: true,
+        })}
+      </div>
     </div>
   `,
 };

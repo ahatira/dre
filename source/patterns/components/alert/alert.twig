@@ -5,11 +5,13 @@
  * @param string variant - Semantic variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' (default: 'primary')
  * @param string content - Free HTML content (headings, paragraphs, links, icons optional) (required)
  * @param boolean dismissible - Show close button (optional, default: false)
+ * @param boolean rounded - Apply border radius (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
 {%- set variant = variant|default('primary') -%}
 {%- set dismissible = dismissible|default(false) -%}
+{%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
 
 {{ attach_library('ps_theme/alert') }}
@@ -22,6 +24,9 @@
 {%- set classes = ['ps-alert', 'ps-alert--' ~ variant] -%}
 {%- if dismissible -%}
   {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
+{%- endif -%}
+{%- if rounded -%}
+  {%- set classes = classes|merge(['ps-alert--rounded']) -%}
 {%- endif -%}
 
 <div

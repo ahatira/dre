@@ -17,7 +17,7 @@
   --ps-alert-padding-y: var(--size-4);
   --ps-alert-padding-x: var(--size-4);
   --ps-alert-margin-bottom: var(--size-4);
-  --ps-alert-border-radius: var(--radius-2);
+  --ps-alert-border-radius: 0;
   --ps-alert-border-width: var(--border-size-1);
   
   /* Typography */
@@ -113,6 +113,11 @@
   /* Padding adjustment when dismissible */
   &--dismissible {
     padding-right: calc(var(--ps-alert-padding-x) + var(--size-8));
+  }
+
+  /* Border radius modifier */
+  &--rounded {
+    --ps-alert-border-radius: var(--radius-2);
   }
 
   /* ============================================
