@@ -4,6 +4,17 @@
 
 ## 2025
 
+- 2025-12-02: **skip-link** – Migration to 3-layer CSS variables system + a11y refinements
+  - Rewrote `skip-link.css` using component-scoped variables (`--ps-skip-link-*`) referencing root tokens (Layer 1) enabling contextual overrides.
+  - Removed legacy fallbacks (`--bnp-green`, hardcoded `hsl(...)` hover) and direct token usage without Layer 2 indirection.
+  - Switched interaction reveal from `:focus` to `:focus-visible` per accessibility standards (reduces false positives on mouse click).
+  - Standardized transition to tokens: `var(--duration-fast) var(--ease-3)` (no hardcoded `200ms cubic-bezier`).
+  - Added focus outline tokens (`--ps-skip-link-focus-outline-*`) mapped to existing border tokens (`--border-size-2`, `--border-focus`).
+  - README fully rewritten in English (two-line intro, component variable table, no French descriptive blocks) per `.github/COMPLETE_RULES.md` doc language policy.
+  - Ensured default label consistency (`'Skip to main content'`) across `.twig`, `.yml`, and README.
+  - Removed duplicated legacy CSS block left after prior refactor attempt (preventing cascade conflicts & token drift).
+  - Build verified (`npm run build` ✓: no lint/format issues). No changes to global token files (respect "do not edit props" rule).
+
 - 2025-12-01: **Icon component + tokens update**
   - Added icon size tokens `--ps-icon-size-24` and `--ps-icon-size-32` in `source/props/sizes.css`.
   - Implemented `source/patterns/elements/icon/` with 5 required files (`icon.twig`, `icon.css`, `icon.yml`, `icon.stories.jsx`, `README.md`).

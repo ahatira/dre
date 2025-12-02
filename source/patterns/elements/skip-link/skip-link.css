@@ -1,48 +1,69 @@
 /**
  * Skip Link (Element/Atom)
  * WCAG skip link for keyboard navigation
- * 
  * BEM: ps-skip-link
- * Behavior: Hidden by default, visible on focus only
- * Position: Absolute top-left, high z-index
+ * Hidden off-screen until keyboard focus (focus-visible)
+ * Migrated to 3-layer variable system (component-scoped defaults)
  */
 
 .ps-skip-link {
+  /* Component-scoped variables (Layer 2) */
+  --ps-skip-link-top: var(--size-4);
+  --ps-skip-link-left: var(--size-4);
+  --ps-skip-link-z-index: var(--layer-important);
+  --ps-skip-link-padding-y: var(--size-3);
+  --ps-skip-link-padding-x: var(--size-4);
+  --ps-skip-link-bg: var(--primary);
+  --ps-skip-link-hover-bg: var(--primary-hover);
+  --ps-skip-link-color: var(--white);
+  --ps-skip-link-border-radius: var(--radius-2);
+  --ps-skip-link-shadow: var(--shadow-3);
+  --ps-skip-link-font-family: var(--font-sans);
+  --ps-skip-link-font-size: var(--font-size-1);
+  --ps-skip-link-font-weight: var(--font-weight-500);
+  --ps-skip-link-line-height: var(--leading-normal);
+  --ps-skip-link-transition-duration: var(--duration-fast);
+  --ps-skip-link-transition-timing: var(--ease-3);
+  --ps-skip-link-focus-outline-width: var(--border-size-2);
+  --ps-skip-link-focus-outline-color: var(--border-focus);
+  --ps-skip-link-focus-outline-offset: var(--border-size-2);
+  --ps-skip-link-hidden-offset-y: -150%;
+
   /* Positioning */
   position: absolute;
-  left: var(--size-4);
-  top: var(--size-4);
-  z-index: var(--layer-important);
-  
+  top: var(--ps-skip-link-top);
+  left: var(--ps-skip-link-left);
+  z-index: var(--ps-skip-link-z-index);
+
   /* Hidden by default */
-  transform: translateY(-150%);
-  
+  transform: translateY(var(--ps-skip-link-hidden-offset-y));
+
   /* Visual */
-  padding: var(--size-3) var(--size-4);
-  background-color: var(--brand-primary, var(--bnp-green));
-  color: var(--white);
-  border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
-  
+  padding: var(--ps-skip-link-padding-y) var(--ps-skip-link-padding-x);
+  background-color: var(--ps-skip-link-bg);
+  color: var(--ps-skip-link-color);
+  border-radius: var(--ps-skip-link-border-radius);
+  box-shadow: var(--ps-skip-link-shadow);
+
   /* Typography */
-  font-family: var(--font-sans);
-  font-size: var(--font-size-1);
-  font-weight: var(--font-weight-500);
-  line-height: var(--leading-normal);
+  font-family: var(--ps-skip-link-font-family);
+  font-size: var(--ps-skip-link-font-size);
+  font-weight: var(--ps-skip-link-font-weight);
+  line-height: var(--ps-skip-link-line-height);
   text-decoration: none;
   white-space: nowrap;
-  
-  /* Transitions */
-  transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Transition */
+  transition: transform var(--ps-skip-link-transition-duration) var(--ps-skip-link-transition-timing);
 
   /* States */
-  &:focus {
+  &:focus-visible {
     transform: translateY(0);
-    outline: var(--border-size-2) solid var(--blue-600);
-    outline-offset: var(--border-size-2);
+    outline: var(--ps-skip-link-focus-outline-width) solid var(--ps-skip-link-focus-outline-color);
+    outline-offset: var(--ps-skip-link-focus-outline-offset);
   }
 
   &:hover {
-    background-color: var(--bnp-green-hover, hsl(162, 72%, 33%));
+    background-color: var(--ps-skip-link-hover-bg);
   }
 }
