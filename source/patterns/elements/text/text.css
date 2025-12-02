@@ -63,5 +63,5 @@
   &--warning { --ps-text-color: var(--warning); }
   &--danger { --ps-text-color: var(--danger); }
   &--dark { --ps-text-color: var(--gray-900); }
-  &--light { --ps-text-color: var(--gray-600); }
+  &--light { --ps-text-color: var(--white); }
 }

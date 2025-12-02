@@ -39,11 +39,23 @@ Supports variants, sizes, semantic colors, centering, and screen-reader text.`,
       description:
         'Spinner color (semantic colors from 3-layer tokens: default, primary, secondary, success, info, warning, danger, dark, light, white)',
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light', 'white'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'dark',
+        'light',
+        'white',
+      ],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'default | primary | secondary | success | info | warning | danger | dark | light | white',
+          summary:
+            'default | primary | secondary | success | info | warning | danger | dark | light | white',
         },
         defaultValue: { summary: 'default' },
       },

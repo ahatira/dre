@@ -37,11 +37,25 @@ Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
     },
     color: {
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark', 'light'],
-      description: 'Semantic color: default (text), primary, secondary, success, info, warning, danger, dark, light.',
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'dark',
+        'light',
+      ],
+      description:
+        'Semantic color: default (text), primary, secondary, success, info, warning, danger, dark, light.',
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | success | info | warning | danger | dark | light' },
+        type: {
+          summary:
+            'default | primary | secondary | success | info | warning | danger | dark | light',
+        },
         defaultValue: { summary: 'default' },
       },
     },
@@ -109,6 +123,32 @@ export const AllSizes = {
       description: {
         story:
           '6 sizes: XXL (24px), XL (20px), LG (18px), MD (16px default), SM (14px), XS (12px). Use larger sizes for introductions and smaller sizes for captions/microcopy.',
+      },
+    },
+  },
+};
+
+export const AllColors = {
+  render: () => `
+    <div style="display: grid; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
+      ${component({ text: 'Default color — Standard body text', size: 'md', color: 'default' })}
+      ${component({ text: 'Primary color — Highlighted callouts', size: 'md', color: 'primary' })}
+      ${component({ text: 'Secondary color — Complementary information', size: 'md', color: 'secondary' })}
+      ${component({ text: 'Success color — Positive status', size: 'md', color: 'success' })}
+      ${component({ text: 'Info color — Informational notes', size: 'md', color: 'info' })}
+      ${component({ text: 'Warning color — Caution messages', size: 'md', color: 'warning' })}
+      ${component({ text: 'Danger color — Error messages', size: 'md', color: 'danger' })}
+      ${component({ text: 'Dark color — High contrast on light backgrounds', size: 'md', color: 'dark' })}
+      <div style="padding: var(--size-4); background: var(--gray-800); border-radius: var(--radius-2);">
+        ${component({ text: 'Light color — Inverted contexts on dark surfaces', size: 'md', color: 'light' })}
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '9 semantic colors: default, primary, secondary, success, info, warning, danger, dark, light. The `light` variant is showcased on a dark tile for proper contrast.',
       },
     },
   },
