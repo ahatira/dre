@@ -41,12 +41,36 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
     // Appearance
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
-      description: 'Visual size variant (medium is default).',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      description: 'Visual size variant (md is default).',
       table: {
         category: 'Appearance',
-        type: { summary: 'small | medium | large' },
-        defaultValue: { summary: 'medium' },
+        type: { summary: 'xs | sm | md | lg | xl | xxl' },
+        defaultValue: { summary: 'md' },
+      },
+    },
+    color: {
+      control: { type: 'select' },
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'dark',
+        'light',
+      ],
+      description:
+        'Semantic checked track color. Default uses primary; choose semantic variants for contextual toggles.',
+      table: {
+        category: 'Appearance',
+        type: {
+          summary:
+            'default | primary | secondary | success | info | warning | danger | dark | light',
+        },
+        defaultValue: { summary: 'default' },
       },
     },
     showLabels: {
@@ -122,16 +146,47 @@ export const AllStates = {
 export const AllSizes = {
   render: () => `
     <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
-      ${toggleTwig({ ...data, size: 'small', label: 'Small size' })}
-      ${toggleTwig({ ...data, size: 'medium', label: 'Medium size (default)' })}
-      ${toggleTwig({ ...data, size: 'large', label: 'Large size' })}
+      ${toggleTwig({ ...data, size: 'xs', label: 'XS size' })}
+      ${toggleTwig({ ...data, size: 'sm', label: 'SM size' })}
+      ${toggleTwig({ ...data, size: 'md', label: 'MD size (default)' })}
+      ${toggleTwig({ ...data, size: 'lg', label: 'LG size' })}
+      ${toggleTwig({ ...data, size: 'xl', label: 'XL size' })}
+      ${toggleTwig({ ...data, size: 'xxl', label: 'XXL size' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Size variants: small (dense settings), medium (default), large (prominent toggles).',
+          'Six sizes: XS, SM, MD (default), LG, XL, XXL. Use smaller sizes for dense settings and larger sizes for prominent toggles.',
+      },
+    },
+  },
+};
+
+export const AllColors = {
+  render: () => `
+    <div style="display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items:center;">
+      ${toggleTwig({ ...data, color: 'default', label: 'Default (primary)', checked: true })}
+      ${toggleTwig({ ...data, color: 'primary', label: 'Primary', checked: true })}
+      ${toggleTwig({ ...data, color: 'secondary', label: 'Secondary', checked: true })}
+      ${toggleTwig({ ...data, color: 'success', label: 'Success', checked: true })}
+      ${toggleTwig({ ...data, color: 'info', label: 'Info', checked: true })}
+      ${toggleTwig({ ...data, color: 'warning', label: 'Warning', checked: true })}
+      ${toggleTwig({ ...data, color: 'danger', label: 'Danger', checked: true })}
+      ${toggleTwig({ ...data, color: 'dark', label: 'Dark', checked: true })}
+      <div style="background: var(--gray-700); padding: var(--size-4); border-radius: var(--radius-2);
+        --ps-toggle-label-color: var(--white);
+        --ps-toggle-description-color: var(--gray-300);">
+        ${toggleTwig({ ...data, color: 'light', label: 'Light (on dark tile)', checked: true })}
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Semantic color variants for the checked state. The `light` variant is shown on a dark background for contrast.',
       },
     },
   },

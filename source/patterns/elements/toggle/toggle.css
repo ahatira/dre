@@ -2,27 +2,27 @@
 .ps-toggle {
   display: inline-flex;
   flex-direction: column;
-  gap: var(--ps-spacing-1);
+  gap: var(--size-2);
   cursor: pointer;
   font-family: var(--font-sans);
-  /* Computed spacing for description alignment (updated per size modifier) */
-  --ps-toggle-track-width: var(--ps-toggle-width-medium);
-  --ps-toggle-track-height: var(--ps-toggle-height-medium);
-  --ps-toggle-thumb-size: var(--ps-toggle-thumb-medium);
-  --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--ps-spacing-2));
 
-  &--small {
-    --ps-toggle-track-width: var(--ps-toggle-width-small);
-    --ps-toggle-track-height: var(--ps-toggle-height-small);
-    --ps-toggle-thumb-size: var(--ps-toggle-thumb-small);
-    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--ps-spacing-2));
-  }
-  &--large {
-    --ps-toggle-track-width: var(--ps-toggle-width-large);
-    --ps-toggle-track-height: var(--ps-toggle-height-large);
-    --ps-toggle-thumb-size: var(--ps-toggle-thumb-large);
-    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--ps-spacing-2));
-  }
+  /* Component-scoped variables (defaults: md) */
+  --ps-toggle-track-width: var(--size-12);
+  --ps-toggle-track-height: var(--size-6);
+  /* Thumb size computed from track height minus inset on both sides */
+  --ps-toggle-thumb-size: calc(var(--ps-toggle-track-height) - (var(--ps-toggle-inset) * 2));
+  --ps-toggle-inset: var(--border-size-1);
+  --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  --ps-toggle-track-color: var(--gray-300);
+  --ps-toggle-track-color-hover: var(--gray-400);
+  --ps-toggle-track-color-checked: var(--gray-600);
+  --ps-toggle-thumb-color: var(--white);
+  --ps-toggle-thumb-shadow: var(--shadow-1);
+  --ps-toggle-thumb-shadow-active: var(--shadow-2);
+  --ps-toggle-focus-outline: var(--primary);
+  --ps-toggle-transition-duration: var(--animation-duration-2);
+  --ps-toggle-transition-duration-fast: var(--animation-duration-1);
+  --ps-toggle-transition-easing: var(--ease-standard);
 
   &--disabled { cursor: not-allowed; opacity: .5; pointer-events: none; }
 
@@ -33,9 +33,9 @@
     display: inline-block;
     width: var(--ps-toggle-track-width);
     height: var(--ps-toggle-track-height);
-    background: var(--gray-200);
+    background: var(--ps-toggle-track-color);
     border-radius: var(--radius-round);
-    transition: background var(--ps-transition-duration-normal) ease;
+    transition: background var(--ps-toggle-transition-duration) var(--ps-toggle-transition-easing);
     flex-shrink: 0;
   }
 
@@ -45,39 +45,36 @@
     left: var(--ps-toggle-inset);
     width: var(--ps-toggle-thumb-size);
     height: var(--ps-toggle-thumb-size);
-    background: var(--white);
+    background: var(--ps-toggle-thumb-color);
     border-radius: var(--radius-round);
-    box-shadow: var(--shadow-toggle-thumb);
-    transition: left var(--ps-transition-duration-normal) cubic-bezier(0.4,0,0.2,1), transform var(--ps-transition-duration-fast) ease;
+    box-shadow: var(--ps-toggle-thumb-shadow);
+    transition: left var(--ps-toggle-transition-duration) var(--ease-standard), transform var(--ps-toggle-transition-duration-fast) var(--ease-standard);
   }
 
   /* Hover track color */
-  &:hover:not(.ps-toggle--disabled) &__track { background: var(--gray-400); }
+  &:hover:not(.ps-toggle--disabled) &__track { background: var(--ps-toggle-track-color-hover); }
 
   /* Checked track */
-  &__input:checked + &__track { background: var(--brand-primary); }
-  &:hover:not(.ps-toggle--disabled) &__input:checked + &__track { background: var(--green-600); }
-  &__input:checked + &__track &__thumb { box-shadow: var(--shadow-toggle-thumb-active); }
+  &__input:checked + &__track { background: var(--ps-toggle-track-color-checked); }
+  &__input:checked + &__track &__thumb { box-shadow: var(--ps-toggle-thumb-shadow-active); }
 
-  /* Thumb travel (left offset based on track & thumb tokens) */
-  &--small &__input:checked + &__track &__thumb { left: calc(var(--ps-toggle-track-width) - var(--ps-toggle-thumb-size) - var(--ps-toggle-inset)); }
-  &--medium &__input:checked + &__track &__thumb { left: calc(var(--ps-toggle-track-width) - var(--ps-toggle-thumb-size) - var(--ps-toggle-inset)); }
-  &--large &__input:checked + &__track &__thumb { left: calc(var(--ps-toggle-track-width) - var(--ps-toggle-thumb-size) - var(--ps-toggle-inset)); }
+  /* Thumb travel (left offset based on track & thumb variables) */
+  &__input:checked + &__track &__thumb { left: calc(var(--ps-toggle-track-width) - var(--ps-toggle-thumb-size) - var(--ps-toggle-inset)); }
 
   &__label {
     display: flex;
     align-items: center;
-    gap: var(--ps-spacing-2);
+    gap: var(--size-2);
     font-size: var(--font-size-2);
-    font-weight: 500;
-    color: var(--gray-900);
+    font-weight: var(--font-weight-500);
+    color: var(--ps-toggle-label-color, var(--gray-900));
   }
 
   &__description {
     margin-left: var(--ps-toggle-description-offset);
     font-size: var(--font-size-1);
-    line-height: 1.4;
-    color: var(--gray-600);
+    line-height: var(--leading-snug);
+    color: var(--ps-toggle-description-color, var(--gray-600));
   }
 
   &__on-label,
@@ -85,26 +82,70 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 0.5625rem; /* 9px - internal label only (component-specific) */
-    font-weight: 700;
+    font-size: var(--font-size--2);
+    font-weight: var(--font-weight-700);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
     pointer-events: none;
     user-select: none;
-    transition: opacity var(--ps-transition-duration-fast) ease;
+    transition: opacity var(--ps-toggle-transition-duration-fast) var(--ease-standard);
     color: var(--white);
   }
-  &__on-label { left: var(--ps-spacing-2); opacity: 0; }
-  &__off-label { right: var(--ps-spacing-2); opacity: .7; color: var(--gray-600); }
+  &__on-label { left: var(--size-2); opacity: 0; }
+  &__off-label { right: var(--size-2); opacity: .7; color: var(--gray-600); }
   &__input:checked + &__track &__on-label { opacity: 1; }
   &__input:checked + &__track &__off-label { opacity: 0; }
 
-  &__input:focus-visible + &__track { outline: var(--border-size-3) solid var(--ps-color-border-focus, var(--sky-500)); outline-offset: var(--border-size-2); }
+  &__input:focus-visible + &__track { outline: var(--border-size-2) solid var(--ps-toggle-focus-outline); outline-offset: var(--border-size-1); }
   &:active:not(.ps-toggle--disabled) &__thumb { transform: scale(.95); }
 
   @media (prefers-reduced-motion: reduce) {
     &__thumb { transition: none; }
     &__track { transition: none; }
     &__on-label,&__off-label { transition: none; }
+  }
+
+  /* Size modifiers (xs..xxl) override local variables */
+  &--xs {
+    --ps-toggle-track-width: var(--size-8);
+    --ps-toggle-track-height: var(--size-4);
+    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  }
+  &--sm {
+    --ps-toggle-track-width: var(--size-10);
+    --ps-toggle-track-height: var(--size-5);
+    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  }
+  /* md is default */
+  &--lg {
+    --ps-toggle-track-width: var(--size-14);
+    --ps-toggle-track-height: var(--size-7);
+    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  }
+  &--xl {
+    --ps-toggle-track-width: var(--size-16);
+    --ps-toggle-track-height: var(--size-8);
+    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  }
+  &--xxl {
+    --ps-toggle-track-width: var(--size-18);
+    --ps-toggle-track-height: var(--size-9);
+    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
+  }
+
+  /* Semantic color modifiers (override checked color) */
+  &--primary { --ps-toggle-track-color-checked: var(--primary); }
+  &--secondary { --ps-toggle-track-color-checked: var(--secondary); }
+  &--success { --ps-toggle-track-color-checked: var(--success); }
+  &--info { --ps-toggle-track-color-checked: var(--info); }
+  &--warning { --ps-toggle-track-color-checked: var(--warning); }
+  &--danger { --ps-toggle-track-color-checked: var(--danger); }
+  &--dark { --ps-toggle-track-color-checked: var(--gray-900); }
+  &--light { 
+    --ps-toggle-track-color-checked: var(--white);
+
+    .ps-toggle__thumb {
+      --ps-toggle-thumb-color: var(--gray-900);
+    }
   }
 }

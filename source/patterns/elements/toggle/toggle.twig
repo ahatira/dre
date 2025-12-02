@@ -19,13 +19,18 @@
  * - Focus outline must remain visible (handled in CSS)
  * - Provide either external label or internal labels; never omit all
  #}
-{% set size = size|default('medium') %}
+{# Size mapping: support legacy values and new xs..xxl #}
+{% set size = size|default('md') %}
+{% set size = size in ['xs','sm','md','lg','xl','xxl']
+  ? size
+  : (size == 'small' ? 'sm' : (size == 'medium' ? 'md' : (size == 'large' ? 'lg' : 'md'))) %}
 {% set checked = checked|default(false) %}
 {% set disabled = disabled|default(false) %}
+{% set color = color|default('default') %}
 {% set showLabels = showLabels|default(false) %}
 {% set onLabel = onLabel|default('On') %}
 {% set offLabel = offLabel|default('Off') %}
-{%- set root_classes = ['ps-toggle', 'ps-toggle--' ~ size] -%}
+{%- set root_classes = ['ps-toggle', size != 'md' ? 'ps-toggle--' ~ size : null, color != 'default' ? 'ps-toggle--' ~ color : null] -%}
 {%- if disabled -%}
   {%- set root_classes = root_classes|merge(['ps-toggle--disabled']) -%}
 {%- endif -%}

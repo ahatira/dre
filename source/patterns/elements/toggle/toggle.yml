@@ -3,7 +3,8 @@ label: Enable notifications
 description: Receive notifications by email
 checked: false
 disabled: false
-size: medium
+size: md
+color: default
 showLabels: false
 onLabel: On
 offLabel: Off
