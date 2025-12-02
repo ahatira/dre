@@ -75,20 +75,20 @@ export const AllStates = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Unchecked (default icon)</p>
-        ${radioTwig({ name: 'demo1', value: '1', label: 'Option 1', checked: false })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Unchecked (gray border circle)</p>
+        ${radioTwig({ name: 'demo1', value: '1', label: 'Option label', checked: false })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Checked (filled green icon)</p>
-        ${radioTwig({ name: 'demo2', value: '2', label: 'Option 2', checked: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Checked (green filled circle with white dot)</p>
+        ${radioTwig({ name: 'demo2', value: '2', label: 'Option label', checked: true })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Disabled unchecked (50% opacity)</p>
-        ${radioTwig({ name: 'demo3', value: '3', label: 'Option 3', checked: false, disabled: true })}
+        ${radioTwig({ name: 'demo3', value: '3', label: 'Option label', checked: false, disabled: true })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Disabled checked (50% opacity)</p>
-        ${radioTwig({ name: 'demo4', value: '4', label: 'Option 4', checked: true, disabled: true })}
+        ${radioTwig({ name: 'demo4', value: '4', label: 'Option label', checked: true, disabled: true })}
       </div>
     </div>
   `,
@@ -98,26 +98,28 @@ export const UseCases = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-8);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Single Choice Selection</h3>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Property Type Selection</h3>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          ${radioTwig({ name: 'plan', value: 'basic', label: 'Basic Plan - Free', checked: false })}
-          ${radioTwig({ name: 'plan', value: 'premium', label: 'Premium Plan - $9.99/month', checked: true })}
-          ${radioTwig({ name: 'plan', value: 'enterprise', label: 'Enterprise Plan - Contact us', checked: false })}
+          ${radioTwig({ name: 'property-type', value: 'apartment', label: 'Apartment', checked: false })}
+          ${radioTwig({ name: 'property-type', value: 'house', label: 'House', checked: true })}
+          ${radioTwig({ name: 'property-type', value: 'commercial', label: 'Commercial Property', checked: false })}
+          ${radioTwig({ name: 'property-type', value: 'land', label: 'Land / Plot', checked: false })}
         </div>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Account Type</h3>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Listing Status</h3>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          ${radioTwig({ name: 'type', value: 'individual', label: 'Individual', checked: true })}
-          ${radioTwig({ name: 'type', value: 'business', label: 'Business', checked: false })}
+          ${radioTwig({ name: 'status', value: 'sale', label: 'For Sale', checked: true })}
+          ${radioTwig({ name: 'status', value: 'rent', label: 'For Rent', checked: false })}
+          ${radioTwig({ name: 'status', value: 'sold', label: 'Sold', checked: false, disabled: true })}
         </div>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Payment Method</h3>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Mortgage Type</h3>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          ${radioTwig({ name: 'payment', value: 'card', label: 'Credit Card', checked: true })}
-          ${radioTwig({ name: 'payment', value: 'paypal', label: 'PayPal', checked: false })}
-          ${radioTwig({ name: 'payment', value: 'bank', label: 'Bank Transfer', checked: false, disabled: true })}
+          ${radioTwig({ name: 'mortgage', value: 'fixed', label: 'Fixed Rate Mortgage', checked: true })}
+          ${radioTwig({ name: 'mortgage', value: 'variable', label: 'Variable Rate Mortgage', checked: false })}
+          ${radioTwig({ name: 'mortgage', value: 'interest', label: 'Interest Only', checked: false })}
         </div>
       </div>
     </div>

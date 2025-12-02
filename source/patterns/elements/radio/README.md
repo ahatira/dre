@@ -1,10 +1,10 @@
 # Radio
 
-**Version**: 1.0.0  
+**Version**: 2.0.0  
 **Status**: ✅ Stable  
 **Type**: Atom / Element
 
-Bouton radio pour sélection unique dans un groupe d'options. Utilise les icon fonts BNP RE pour un rendu pixel perfect.
+Native accessible radio button for single selection within a group. Uses BNP RE icon font for visual rendering (icon-radio-unselected / icon-radio-selected).
 
 ---
 
@@ -12,17 +12,17 @@ Bouton radio pour sélection unique dans un groupe d'options. Utilise les icon f
 
 | Prop | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `name` | `string` | `'option'` | ✅ | Nom du groupe radio (même name = sélection unique) |
-| `value` | `string` | `'1'` | ✅ | Valeur unique de ce radio |
-| `label` | `string` | `'Option label'` | ❌ | Texte affiché à côté du radio |
-| `checked` | `boolean` | `false` | ❌ | État coché initial |
-| `disabled` | `boolean` | `false` | ❌ | État désactivé |
+| `name` | `string` | `'option'` | ✅ | Radio group name (same name = single selection) |
+| `value` | `string` | `'1'` | ✅ | Unique value for this radio button |
+| `label` | `string` | `'Option label'` | ❌ | Visible label text next to radio |
+| `checked` | `boolean` | `false` | ❌ | Initial checked state |
+| `disabled` | `boolean` | `false` | ❌ | Disabled state |
 
 ---
 
 ## BEM Structure
 
-```
+```css
 .ps-radio                    ← Container <label>
   .ps-radio__input           ← Input radio (visually hidden)
   .ps-radio__circle          ← Icon circle (renders via ::before)
@@ -36,24 +36,48 @@ Modifiers:
 
 ## Design Tokens Used
 
-### Colors
-- `--brand-primary` — Couleur checked (vert BNP)
-- `--ps-color-neutral-700` — Couleur unchecked
-- `--ps-color-neutral-900` — Texte label
-- `--ps-color-primary-600` — Focus outline
+### Component Variables (Layer 2)
 
-### Spacing
-- `--size-2` (8px) — Gap entre circle et label
-- `--size-5` (20px) — Taille du circle
+All customizable via CSS custom properties:
 
-### Typography
-- `--font-sans` — Police label
-- `--font-size-1` (14px) — Taille label
-- `--font-size-2` (16px) — Taille icon
-- `--leading-6` (24px) — Line-height label
+#### Layout
 
-### Transitions
-- `--transition-fast` (0.15s) — Durée transitions
+- `--ps-radio-gap` ← `--size-2` (8px) — Gap between circle and label
+- `--ps-radio-align` ← `flex-start` — Vertical alignment
+- `--ps-radio-circle-size` ← `--size-5` (20px) — Circle size
+
+#### Icon Colors
+
+- `--ps-radio-icon-color-unchecked` ← `--text-primary` — Icon color unselected
+- `--ps-radio-icon-color-checked` ← `--primary` — Icon color selected (green)
+- `--ps-radio-icon-size` ← `--font-size-2` (18px) — Icon font size
+
+#### Label Colors
+
+- `--ps-radio-label-color` ← `--text-primary` — Label text color
+- `--ps-radio-label-color-checked` ← `--primary` — Label color when selected
+
+#### Typography
+
+- `--ps-radio-label-font-family` ← `--font-sans` — Label font family
+- `--ps-radio-label-font-size` ← `--font-size-1` (16px) — Label font size
+- `--ps-radio-label-font-weight` ← `--font-weight-400` — Label font weight
+- `--ps-radio-label-line-height` ← `--leading-6` (24px) — Label line height
+
+#### Focus State
+
+- `--ps-radio-focus-outline-width` ← `--border-size-2` (2px) — Focus outline width
+- `--ps-radio-focus-outline-color` ← `--border-focus` — Focus outline color
+- `--ps-radio-focus-outline-offset` ← `--border-size-2` (2px) — Focus outline offset
+
+#### Transitions
+
+- `--ps-radio-transition-duration` ← `--duration-fast` (0.15s) — Transition duration
+- `--ps-radio-transition-timing` ← `--ease-3` — Transition timing function
+
+#### States
+
+- `--ps-radio-disabled-opacity` ← `0.5` — Opacity when disabled
 
 ---
 
@@ -63,9 +87,9 @@ Modifiers:
 
 ```twig
 {% include '@elements/radio/radio.twig' with {
-  name: 'plan',
-  value: 'basic',
-  label: 'Plan Basic',
+  name: 'property-type',
+  value: 'apartment',
+  label: 'Apartment',
 } %}
 ```
 
@@ -73,9 +97,9 @@ Modifiers:
 
 ```twig
 {% include '@elements/radio/radio.twig' with {
-  name: 'plan',
-  value: 'premium',
-  label: 'Plan Premium',
+  name: 'property-type',
+  value: 'house',
+  label: 'House',
   checked: true,
 } %}
 ```
@@ -84,9 +108,9 @@ Modifiers:
 
 ```twig
 {% include '@elements/radio/radio.twig' with {
-  name: 'plan',
-  value: 'enterprise',
-  label: 'Plan Enterprise (bientôt disponible)',
+  name: 'property-type',
+  value: 'commercial',
+  label: 'Commercial (coming soon)',
   disabled: true,
 } %}
 ```
@@ -95,22 +119,22 @@ Modifiers:
 
 ```twig
 <fieldset>
-  <legend>Choisissez votre plan</legend>
+  <legend>Select property type</legend>
   {% include '@elements/radio/radio.twig' with {
-    name: 'plan',
-    value: 'basic',
-    label: 'Plan Basic',
+    name: 'property-type',
+    value: 'apartment',
+    label: 'Apartment',
   } %}
   {% include '@elements/radio/radio.twig' with {
-    name: 'plan',
-    value: 'premium',
-    label: 'Plan Premium',
+    name: 'property-type',
+    value: 'house',
+    label: 'House',
     checked: true,
   } %}
   {% include '@elements/radio/radio.twig' with {
-    name: 'plan',
-    value: 'enterprise',
-    label: 'Plan Enterprise',
+    name: 'property-type',
+    value: 'commercial',
+    label: 'Commercial Property',
   } %}
 </fieldset>
 ```
@@ -119,34 +143,38 @@ Modifiers:
 
 ## Real-World Use Cases
 
-1. **Sélection de plan** — Basic, Premium, Enterprise
-2. **Type de compte** — Particulier, Professionnel
-3. **Mode de livraison** — Standard, Express, Retrait
-4. **Préférences** — Oui, Non, Peut-être
+1. **Property Type Selection** — Apartment, House, Commercial, Land
+2. **Listing Status** — For Sale, For Rent, Sold
+3. **Mortgage Type** — Fixed Rate, Variable Rate, Interest Only
+4. **Contact Preference** — Email, Phone, In-Person Visit
+5. **Property Condition** — New, Renovated, Original Condition
 
 ---
 
 ## Accessibility
 
-- ✅ Native `<input type="radio">` pour support clavier
-- ✅ `aria-hidden="true"` sur le circle décoratif
-- ✅ Label cliquable via `<label>` wrapper
-- ✅ Focus visible via `outline` sur `:focus-visible`
-- ✅ Disabled via attribut natif `disabled`
-- ⚠️ **Grouper via `<fieldset>` + `<legend>`** pour clarté contextuelle
+- ✅ Native `<input type="radio">` for keyboard support
+- ✅ `aria-hidden="true"` on decorative circle element
+- ✅ Clickable label via `<label>` wrapper
+- ✅ Focus visible via `outline` on `:focus-visible`
+- ✅ Disabled state via native `disabled` attribute
+- ⚠️ **Group with `<fieldset>` + `<legend>`** for contextual clarity
 
 ---
 
 ## Browser Support
 
-✅ Tous navigateurs modernes (Chrome, Firefox, Safari, Edge)  
-✅ Icon font BNP RE requis
+✅ All modern browsers (Chrome, Firefox, Safari, Edge)  
+✅ Requires BNP RE icon font
 
 ---
 
 ## Notes
 
-- **Icon Font**: Utilise `\e86a` (unchecked) et `\e869` (checked) de `bnpre-icons`
-- **No extra markup**: Circle rendu via `::before` pseudo-element
-- **Group behavior**: Radios avec même `name` forment un groupe de sélection unique
-- **Minimal HTML**: Pas de classes conditionnelles superflues
+- **Icon Font Rendering**: Uses `\e86a` (radio-unselected) and `\e869` (radio-selected) from `bnpre-icons`
+- **Native Accessibility**: Semantic `<input type="radio">` with visual icon overlay
+- **Keyboard Support**: Full keyboard navigation and focus-visible states
+- **Group behavior**: Radios with same `name` form single selection group
+- **Minimal HTML**: No unnecessary conditional classes
+- **Bootstrap 5 Inspired**: Component-scoped CSS variables for easy theming
+- **Smooth Transitions**: Icon color transitions on selection change
