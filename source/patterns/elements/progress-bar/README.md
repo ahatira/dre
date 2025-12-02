@@ -45,8 +45,8 @@ Indéterminé - Animation:
 | `min` | `number` | `0` | - | Valeur minimale |
 | `max` | `number` | `100` | - | Valeur maximale |
 | `variant` | `string` | `'linear'` | `linear` \| `circular` | Type d'indicateur |
-| `color` | `string` | `'default'` | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` \| `info` | Couleur sémantique (default = gris) |
-| `size` | `string` | `'md'` | `xs` \| `sm` \| `md` \| `lg` \| `xl` | Taille de l'indicateur |
+| `color` | `string` | `'default'` | `default` \| `primary` \| `secondary` \| `info` \| `warning` \| `success` \| `danger` \| `dark` \| `light` | Couleur sémantique (9 variants) |
+| `size` | `string` | `'md'` | `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `xxl` | Taille de l'indicateur (6 variants) |
 | `indeterminate` | `boolean` | `false` | - | Active l'animation indéterminée (pas de valeur) |
 | `striped` | `boolean` | `false` | - | Active les rayures animées (linéaire uniquement) |
 | `showLabel` | `boolean` | `false` | - | Affiche le pourcentage en texte |
@@ -71,17 +71,20 @@ Modificateurs:
   ps-progress--circular                      // Variante circulaire
   
   ps-progress--primary                       // Couleur primary (vert)
-  ps-progress--secondary                     // Couleur secondary (gris)
-  ps-progress--success                       // Couleur success (vert)
-  ps-progress--warning                       // Couleur warning (orange)
-  ps-progress--danger                        // Couleur danger (rouge)
+  ps-progress--secondary                     // Couleur secondary (purple)
   ps-progress--info                          // Couleur info (bleu)
+  ps-progress--warning                       // Couleur warning (orange)
+  ps-progress--success                       // Couleur success (vert)
+  ps-progress--danger                        // Couleur danger (rouge)
+  ps-progress--dark                          // Couleur dark (near black)
+  ps-progress--light                         // Couleur light (near white)
   
-  ps-progress--xs                            // Extra small
-  ps-progress--sm                            // Small
-  ps-progress--md                            // Medium (défaut)
-  ps-progress--lg                            // Large
-  ps-progress--xl                            // Extra large
+  ps-progress--xs                            // Extra small (2px / 24px)
+  ps-progress--sm                            // Small (4px / 32px)
+  ps-progress--md                            // Medium (8px / 40px - défaut)
+  ps-progress--lg                            // Large (12px / 48px)
+  ps-progress--xl                            // Extra large (16px / 64px)
+  ps-progress--xxl                           // Extra extra large (24px / 80px)
   
   ps-progress--indeterminate                 // Animation indéterminée
   ps-progress--striped                       // Rayures animées (linéaire)
@@ -115,77 +118,94 @@ Modificateurs:
 
 ## 🎨 Design Tokens Utilisés
 
-### Couleurs (Variantes sémantiques)
+### System (3-Layer CSS Variables)
 
+**Layer 1: Root primitives** (source/props/*.css)
 ```css
-/* Primary */
---ps-color-primary-600: #0DB089;
+/* Colors */
+--green-600: hsl(162, 72%, 38%);
+--blue-600: hsl(220, 89%, 53%);
+--red-600: hsl(0, 75%, 51%);
+--yellow-500: hsl(37, 97%, 39%);
+--gray-200: hsl(220, 13%, 91%);
+--gray-300: hsl(216, 12%, 84%);
+--gray-500: hsl(220, 9%, 46%);
+--gray-600: hsl(215, 14%, 34%);
+--gray-700: hsl(217, 19%, 27%);
+--gray-900: hsl(221, 39%, 11%);
 
-/* Secondary */
---ps-color-neutral-500: #6E7C89;
+/* Sizes */
+--size-1: 0.25rem;  /* 4px */
+--size-2: 0.5rem;   /* 8px */
+--size-3: 0.75rem;  /* 12px */
+--size-4: 1rem;     /* 16px */
+--size-6: 1.5rem;   /* 24px */
+--size-8: 2rem;     /* 32px */
+--size-10: 2.5rem;  /* 40px */
+--size-12: 3rem;    /* 48px */
+--size-16: 4rem;    /* 64px */
 
-/* Success */
---ps-color-success-600: #0DB089;
-
-/* Warning */
---ps-color-warning-600: #FB8C00;
-
-/* Danger */
---ps-color-error-600: #E53935;
---red-600: #E53935;  /* Fallback */
-
-/* Info */
---ps-color-info-600: #039BE5;
---blue-600: #039BE5;  /* Fallback */
-
-/* Track background */
---ps-color-neutral-200: #E8EBEF;
-```
-
-### Tailles (Dimensions)
-
-```css
-/* Linear heights */
---size-1: 0.25rem;   /* 4px - sm */
---size-2: 0.5rem;    /* 8px - md */
---size-3: 0.75rem;   /* 12px - lg */
---size-4: 1rem;      /* 16px - xl */
-/* xs = 2px (hardcoded) */
-
-/* Circular sizes */
---size-8: 2rem;      /* 32px - sm */
---size-10: 2.5rem;   /* 40px - md */
---size-12: 3rem;     /* 48px - lg */
---size-16: 4rem;     /* 64px - xl */
-/* xs = 24px (hardcoded) */
-
-/* Spacing */
---ps-spacing-2: 0.5rem;  /* 8px - gap entre barre et label */
-```
-
-### Autres tokens
-
-```css
 /* Borders */
---ps-border-radius-full: 999px;  /* Bordures arrondies */
+--radius-round: 1e5px; /* Pill shape */
 
 /* Typography */
-font-family: 'BNPP Sans Condensed', sans-serif;
-/* Label sizes adaptatifs selon taille composant: */
---xs: 10px
---sm: 11px
---md: 14px (--font-size-1)
---lg: 16px (--font-size-2)
---xl: 18px (--font-size-3)
---font-weight-medium: 500;
+--font-condensed: 'BNPP Sans Condensed', sans-serif;
+--font-size-0: 0.75rem;  /* 12px */
+--font-size-1: 1rem;     /* 16px */
+--font-size-2: 1.125rem; /* 18px */
+--font-size-3: 1.25rem;  /* 20px */
+--font-size-4: 1.5rem;   /* 24px */
+--font-weight-500: 500;
 
-/* Colors (text) */
---ps-color-neutral-700: #3B4754;
+/* Animations */
+--duration-normal: 0.3s;
+--duration-slower: 0.75s;
+--duration-slowest: 1s;
+--ease-3: cubic-bezier(0.25, 0, 0.3, 1);
+--ease-in-out-3: cubic-bezier(0.65, 0, 0.35, 1);
+```
 
-/* Transitions */
---ps-transition-duration-normal: 0.3s;
---ps-transition-duration-fast: 0.15s;
---transition-soft-linear: 2s linear;
+**Layer 2: Component variables** (.ps-progress)
+```css
+/* Layout */
+--ps-progress-gap: var(--ps-spacing-2, var(--size-2));
+
+/* Track (background) */
+--ps-progress-track-bg: var(--gray-200);
+--ps-progress-track-height: var(--size-2); /* 8px - MD default */
+--ps-progress-track-radius: var(--radius-round);
+
+/* Fill (foreground) */
+--ps-progress-fill-bg: var(--gray-500); /* Default neutral */
+--ps-progress-fill-transition: width var(--duration-normal) var(--ease-3);
+
+/* Circular */
+--ps-progress-circular-size: var(--size-10); /* 40px - MD default */
+--ps-progress-stroke-width: 8;
+--ps-progress-stroke-transition: stroke-dashoffset var(--duration-normal) var(--ease-3);
+
+/* Label */
+--ps-progress-label-size: var(--font-size-1); /* 16px - MD default */
+--ps-progress-label-weight: var(--font-weight-500);
+--ps-progress-label-color: var(--gray-700);
+
+/* Typography */
+--ps-progress-font-family: var(--font-condensed);
+```
+
+**Layer 3: Context overrides** (modifier classes)
+```css
+/* Example: Primary color modifier */
+.ps-progress--primary {
+  --ps-progress-fill-bg: var(--green-600);
+}
+
+/* Example: Large size modifier */
+.ps-progress--lg {
+  --ps-progress-track-height: var(--size-3);
+  --ps-progress-circular-size: var(--size-12);
+  --ps-progress-label-size: var(--font-size-2);
+}
 ```
 
 ---
@@ -419,22 +439,35 @@ font-family: 'BNPP Sans Condensed', sans-serif;
 - [WCAG 2.1 - Contrast Requirements](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
 
 ### Design tokens référencés
-- `/docs/design/tokens/colors.yml`
-- `/docs/design/tokens/spacing.yml`
-- `/docs/design/tokens/typography.yml`
-- `/docs/design/tokens/transitions.yml`
-- `/docs/design/tokens/borders.yml`
+### v2.0.0 (2025-12-02)
+- 🔥 **BREAKING**: Migration vers système CSS 3 couches (Bootstrap 5 inspired)
+  - Layer 1: Root primitives (--green-600, --size-*, etc.)
+  - Layer 2: Component-scoped variables (--ps-progress-*, runtime customizable)
+  - Layer 3: Context overrides (modifier classes)
+- ✅ **NEW**: Support de 9 couleurs sémantiques (ajout de `dark` et `light`)
+- ✅ **NEW**: Support de 6 tailles (ajout de `xxl`: 24px/80px)
+- 🔧 Harmonisation des tokens : suppression hardcoded values (2px, 10px, 24px, etc.)
+- 🔧 Fix animations : utilisation tokens corrects (--duration-*, --ease-*)
+- 🔧 Amélioration structure CSS : nesting complet, ordre cascade respecté
+- 📚 Documentation complète du système 3 couches dans README
+- 🌍 Placeholders immobiliers dans Stories (property, lease, agent, etc.)
 
-### Fichiers du composant
-- Template: `source/patterns/elements/progress-bar/progress-bar.twig`
-- Styles: `source/patterns/elements/progress-bar/progress-bar.css`
-- Stories: `source/patterns/elements/progress-bar/progress-bar.stories.jsx`
-- Data: `source/patterns/elements/progress-bar/progress-bar.yml`
-- Spec: `docs/design/atoms/progress-bar.md`
+### v1.1.0 (2025-11-29)
+- 🔧 **BREAKING**: Renommage tailles `small/medium/large` → `xs/sm/md/lg/xl`
+- 🔧 Correction couleur `secondary`: gray → purple (#E0388C)
+- 🔧 Font-family: `'BNPP Sans Condensed'` avec tailles adaptatives de label
+- 🐛 Fix animation `striped`: gradient corrigé, animation fonctionnelle
+- ✅ Support 5 tailles (xs | sm | md | lg | xl)
+- ✅ Label responsive selon taille composant (10px → 18px)
 
----
-
-## 📝 Changelog
+### v1.0.0 (2025-11-29)
+- ✅ Implémentation initiale (linear + circular)
+- ✅ Support 6 couleurs sémantiques (primary, secondary, success, warning, danger, info)
+- ✅ État indeterminate avec animation
+- ✅ Rayures animées (striped) pour linear
+- ✅ Accessibilité WCAG 2.1 complète
+- ✅ Stories Storybook complètes (toutes variantes + showcases)
+- ✅ Documentation README complète
 
 ### v1.1.0 (2025-11-29)
 - 🔧 **BREAKING**: Renommage tailles `small/medium/large` → `xs/sm/md/lg/xl`

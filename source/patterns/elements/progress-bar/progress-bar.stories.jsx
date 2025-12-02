@@ -9,20 +9,24 @@
  * | min           | number   | 0          | Minimum value                               |
  * | max           | number   | 100        | Maximum value                               |
  * | variant       | string   | 'linear'   | Type: 'linear' or 'circular'                |
- * | color         | string   | 'primary'  | Semantic color                              |
- * | size          | string   | 'md'       | Size: xs, sm, md, lg, xl                    |
+ * | color         | string   | 'default'  | Semantic color (9 variants)                 |
+ * | size          | string   | 'md'       | Size: xs, sm, md, lg, xl, xxl               |
  * | indeterminate | boolean  | false      | Indeterminate animation                     |
  * | striped       | boolean  | false      | Animated stripes (linear only)              |
  * | showLabel     | boolean  | false      | Show percentage label                       |
  * | label         | string   | ''         | Accessibility label                         |
  *
- * ## Design Tokens
- * - Colors: --ps-color-primary-600, --ps-color-neutral-500, --ps-color-info-600, --ps-color-success-600, --ps-color-warning-600, --ps-color-error-600
- * - Track: --ps-color-neutral-200
- * - Linear heights: 2px (xs), 4px (sm), 8px (md), 12px (lg), 16px (xl)
- * - Circular sizes: 24px (xs), 32px (sm), 40px (md), 48px (lg), 64px (xl)
- * - Border: --ps-border-radius-full
- * - Transitions: --ps-transition-duration-normal
+ * ## Design Tokens (3-layer system)
+ * ### Layer 1: Root primitives
+ * - Colors: --green-600, --blue-600, --red-600, --yellow-500, --gray-* (source/props/colors.css)
+ * - Sizes: --size-1 to --size-16, --radius-round (source/props/sizes.css, borders.css)
+ * - Durations: --duration-normal, --duration-slower (source/props/animations.css)
+ * - Easing: --ease-3, --ease-in-out-3 (source/props/easing.css)
+ * ### Layer 2: Component variables
+ * - --ps-progress-track-bg, --ps-progress-fill-bg, --ps-progress-track-height
+ * - --ps-progress-circular-size, --ps-progress-label-size, --ps-progress-gap
+ * ### Layer 3: Context overrides
+ * - Modifier classes (.ps-progress--primary, .ps-progress--lg, etc.)
  *
  * ## Accessibility
  * - role="progressbar"
@@ -32,7 +36,7 @@
  *
  * ## Usage Examples
  * Linear:
- *   <div class="ps-progress ps-progress--linear ps-progress--primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Upload in progress">
+ *   <div class="ps-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Property document upload">
  *     <div class="ps-progress__track">
  *       <div class="ps-progress__fill" style="width: 60%;"></div>
  *     </div>
@@ -100,24 +104,36 @@ Supports sizes, semantic colors, indeterminate/striped states, and accessible la
       },
     },
     color: {
-      description:
-        'Semantic color variant (default: neutral gray, others use --ps-color-*-600 tokens)',
+      description: 'Semantic color variant (default: neutral gray, others use component variables)',
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'danger',
+        'dark',
+        'light',
+      ],
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | success | warning | danger | info' },
+        type: {
+          summary:
+            'default | primary | secondary | info | warning | success | danger | dark | light',
+        },
         defaultValue: { summary: 'default' },
       },
     },
     size: {
       description:
-        'Size variant (xs: 2px/24px, sm: 4px/32px, md: 8px/40px, lg: 12px/48px, xl: 16px/64px - linear height / circular diameter)',
+        'Size variant (xs: 2px/24px, sm: 4px/32px, md: 8px/40px, lg: 12px/48px, xl: 16px/64px, xxl: 24px/80px - linear height / circular diameter)',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl' },
+        type: { summary: 'xs | sm | md | lg | xl | xxl' },
         defaultValue: { summary: 'md' },
       },
     },
@@ -174,31 +190,86 @@ export const AllColors = {
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Default (neutral gray)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'default', value: 60, showLabel: true })}
+        ${progressBarTwig({ variant: 'linear', color: 'default', value: 60, showLabel: true, label: 'Property listing progress' })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Primary (green)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'primary', value: 60, showLabel: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Primary (brand green)</p>
+        ${progressBarTwig({ variant: 'linear', color: 'primary', value: 60, showLabel: true, label: 'Document upload' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Secondary (purple)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'secondary', value: 60, showLabel: true })}
+        ${progressBarTwig({ variant: 'linear', color: 'secondary', value: 60, showLabel: true, label: 'Virtual tour loading' })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Success (75%)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'success', value: 75, showLabel: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Info (blue) - 85%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'info', value: 85, showLabel: true, label: 'Property data sync' })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Warning (45%)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'warning', value: 45, showLabel: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Warning (yellow) - 45%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'warning', value: 45, showLabel: true, label: 'Profile completion' })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Danger (30%)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'danger', value: 30, showLabel: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Success (green) - 100%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'success', value: 100, showLabel: true, label: 'Lease agreement signed' })}
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Info (85%)</p>
-        ${progressBarTwig({ variant: 'linear', color: 'info', value: 85, showLabel: true })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Danger (red) - 15%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'danger', value: 15, showLabel: true, label: 'Critical: Low storage' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Dark (near black)</p>
+        ${progressBarTwig({ variant: 'linear', color: 'dark', value: 70, showLabel: true, label: 'Report generation' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Light (near white)</p>
+        <div style="background: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
+          ${progressBarTwig({ variant: 'linear', color: 'light', value: 50, showLabel: true, label: 'Image optimization' })}
+        </div>
+      </div>
+    </div>
+  `,
+};
+
+export const AllStriped = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Default (neutral gray) - Striped</p>
+        ${progressBarTwig({ variant: 'linear', color: 'default', value: 60, showLabel: true, striped: true, label: 'Property listing progress' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Primary (brand green) - Striped</p>
+        ${progressBarTwig({ variant: 'linear', color: 'primary', value: 60, showLabel: true, striped: true, label: 'Document upload' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Secondary (purple) - Striped</p>
+        ${progressBarTwig({ variant: 'linear', color: 'secondary', value: 60, showLabel: true, striped: true, label: 'Virtual tour loading' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Info (blue) - Striped 85%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'info', value: 85, showLabel: true, striped: true, label: 'Property data sync' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Warning (yellow) - Striped 45%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'warning', value: 45, showLabel: true, striped: true, label: 'Profile completion' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Success (green) - Striped 100%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'success', value: 100, showLabel: true, striped: true, label: 'Lease agreement signed' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Danger (red) - Striped 15%</p>
+        ${progressBarTwig({ variant: 'linear', color: 'danger', value: 15, showLabel: true, striped: true, label: 'Critical: Low storage' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Dark (near black) - Striped</p>
+        ${progressBarTwig({ variant: 'linear', color: 'dark', value: 70, showLabel: true, striped: true, label: 'Report generation' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Light (near white) - Striped</p>
+        <div style="background: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
+          ${progressBarTwig({ variant: 'linear', color: 'light', value: 50, showLabel: true, striped: true, label: 'Image optimization' })}
+        </div>
       </div>
     </div>
   `,
@@ -212,39 +283,57 @@ export const AllSizes = {
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
           <div>
             <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">XS (2px height)</p>
-            ${progressBarTwig({ variant: 'linear', size: 'xs', value: 60, showLabel: true, color: 'primary' })}
+            ${progressBarTwig({ variant: 'linear', size: 'xs', value: 60, showLabel: true, color: 'primary', label: 'Compact view' })}
           </div>
           <div>
             <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">SM (4px height)</p>
-            ${progressBarTwig({ variant: 'linear', size: 'sm', value: 60, showLabel: true, color: 'primary' })}
+            ${progressBarTwig({ variant: 'linear', size: 'sm', value: 60, showLabel: true, color: 'primary', label: 'Small progress' })}
           </div>
           <div>
             <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">MD (8px height, default)</p>
-            ${progressBarTwig({ variant: 'linear', size: 'md', value: 60, showLabel: true, color: 'primary' })}
+            ${progressBarTwig({ variant: 'linear', size: 'md', value: 60, showLabel: true, color: 'primary', label: 'Standard size' })}
           </div>
           <div>
             <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">LG (12px height)</p>
-            ${progressBarTwig({ variant: 'linear', size: 'lg', value: 60, showLabel: true, color: 'primary' })}
+            ${progressBarTwig({ variant: 'linear', size: 'lg', value: 60, showLabel: true, color: 'primary', label: 'Large display' })}
           </div>
           <div>
             <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">XL (16px height)</p>
-            ${progressBarTwig({ variant: 'linear', size: 'xl', value: 60, showLabel: true, color: 'primary' })}
+            ${progressBarTwig({ variant: 'linear', size: 'xl', value: 60, showLabel: true, color: 'primary', label: 'Extra large' })}
+          </div>
+          <div>
+            <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">XXL (24px height)</p>
+            ${progressBarTwig({ variant: 'linear', size: 'xxl', value: 60, showLabel: true, color: 'primary', label: 'Hero display' })}
           </div>
         </div>
       </div>
       <div>
         <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Circular Sizes</h3>
-        <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${progressBarTwig({ variant: 'circular', size: 'xs', value: 60, showLabel: true, color: 'primary' })}
-          <span style="font-size: var(--font-size-0); color: var(--gray-600);">XS (24px)</span>
-          ${progressBarTwig({ variant: 'circular', size: 'sm', value: 60, showLabel: true, color: 'primary' })}
-          <span style="font-size: var(--font-size-0); color: var(--gray-600);">SM (32px)</span>
-          ${progressBarTwig({ variant: 'circular', size: 'md', value: 60, showLabel: true, color: 'primary' })}
-          <span style="font-size: var(--font-size-0); color: var(--gray-600);">MD (40px)</span>
-          ${progressBarTwig({ variant: 'circular', size: 'lg', value: 60, showLabel: true, color: 'primary' })}
-          <span style="font-size: var(--font-size-0); color: var(--gray-600);">LG (48px)</span>
-          ${progressBarTwig({ variant: 'circular', size: 'xl', value: 60, showLabel: true, color: 'primary' })}
-          <span style="font-size: var(--font-size-0); color: var(--gray-600);">XL (64px)</span>
+        <div style="display: flex; gap: var(--size-6); align-items: center; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'xs', value: 60, showLabel: true, color: 'primary', label: 'XS 24px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">XS (24px)</span>
+          </div>
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'sm', value: 60, showLabel: true, color: 'primary', label: 'SM 32px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">SM (32px)</span>
+          </div>
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'md', value: 60, showLabel: true, color: 'primary', label: 'MD 40px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">MD (40px)</span>
+          </div>
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'lg', value: 60, showLabel: true, color: 'primary', label: 'LG 48px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">LG (48px)</span>
+          </div>
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'xl', value: 60, showLabel: true, color: 'primary', label: 'XL 64px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">XL (64px)</span>
+          </div>
+          <div style="text-align: center;">
+            ${progressBarTwig({ variant: 'circular', size: 'xxl', value: 60, showLabel: true, color: 'primary', label: 'XXL 80px' })}
+            <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600);">XXL (80px)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -292,27 +381,38 @@ export const UseCases = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-8);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">File Upload Progress</h3>
-        ${progressBarTwig({ variant: 'linear', value: 45, color: 'info', showLabel: true, label: 'Upload (45%)' })}
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Property Document Upload</h3>
+        ${progressBarTwig({ variant: 'linear', value: 45, color: 'info', showLabel: true, label: 'Uploading floor plans and contracts' })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Processing Task (Indeterminate)</h3>
-        ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'primary', label: 'Processing data' })}
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Processing Lease Application (Indeterminate)</h3>
+        ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'primary', label: 'Processing tenant application data' })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Step Completion</h3>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Profile Completion Status</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${progressBarTwig({ variant: 'circular', value: 33, color: 'warning', size: 'lg', showLabel: true })}
-          <span>Step 1 of 3</span>
-          ${progressBarTwig({ variant: 'circular', value: 66, color: 'info', size: 'lg', showLabel: true })}
-          <span>Step 2 of 3</span>
-          ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'lg', showLabel: true })}
-          <span>Complete!</span>
+          ${progressBarTwig({ variant: 'circular', value: 33, color: 'warning', size: 'lg', showLabel: true, label: 'Agent profile 33% complete' })}
+          <span>Complete your agent profile</span>
         </div>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Loading with Stripes</h3>
-        ${progressBarTwig({ variant: 'linear', striped: true, animated: true, value: 70, color: 'primary', showLabel: true, label: 'Loading content' })}
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Property Tour Video Loading</h3>
+        ${progressBarTwig({ variant: 'linear', striped: true, animated: true, value: 70, color: 'primary', showLabel: true, label: 'Loading 3D virtual tour' })}
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Multi-Step Lease Process</h3>
+        <div style="display: flex; gap: var(--size-4); align-items: center;">
+          ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'md', showLabel: true, label: 'Step 1: Identity verified' })}
+          <span style="font-size: var(--font-size-1);">Identity</span>
+          ${progressBarTwig({ variant: 'circular', value: 66, color: 'info', size: 'md', showLabel: true, label: 'Step 2: Documents in progress' })}
+          <span style="font-size: var(--font-size-1);">Documents</span>
+          ${progressBarTwig({ variant: 'circular', value: 0, color: 'default', size: 'md', showLabel: false, label: 'Step 3: Payment pending' })}
+          <span style="font-size: var(--font-size-1);">Payment</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Critical: Storage Quota Low</h3>
+        ${progressBarTwig({ variant: 'linear', value: 92, color: 'danger', size: 'lg', showLabel: true, label: 'Storage usage: 92% - upgrade needed' })}
       </div>
     </div>
   `,

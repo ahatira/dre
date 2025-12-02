@@ -3,9 +3,9 @@ value: 60 # Current progress value (0-100)
 min: 0 # Minimum value
 max: 100 # Maximum value
 variant: 'linear' # Options: linear | circular
-color: 'default' # Options: default | primary | secondary | success | warning | danger | info
-size: 'md' # Options: xs | sm | md | lg | xl
+color: 'default' # Options: default | primary | secondary | info | warning | success | danger | dark | light
+size: 'md' # Options: xs | sm | md | lg | xl | xxl
 indeterminate: false # true = infinite animation without value
 striped: false # true = animated stripes (linear only)
 showLabel: true # true = display percentage
-label: 'Upload in progress' # Label for accessibility (screen readers)
+label: 'Property upload in progress' # Label for accessibility (screen readers)
