@@ -19,11 +19,10 @@
 {%- set ariaLive = (variant in ['danger', 'warning']) ? 'assertive' : 'polite' -%}
 
 {# Build classes array - variant always applied (no default omission) #}
-{%- set classes = [
-  'ps-alert',
-  'ps-alert--' ~ variant,
-  dismissible ? 'ps-alert--dismissible' : null
-]|filter(v => v) -%}
+{%- set classes = ['ps-alert', 'ps-alert--' ~ variant] -%}
+{%- if dismissible -%}
+  {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
+{%- endif -%}
 
 <div
   class="{{ classes|join(' ')|trim }}"
