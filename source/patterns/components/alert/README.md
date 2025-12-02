@@ -1,6 +1,6 @@
 # Alert Component
 
-Bootstrap 5.3-inspired alert component with 8 semantic variants, flexible HTML content, and optional dismissal functionality using the Three-Layer CSS Variables System.
+Semantic alert component with 8 variants, flexible HTML content, and optional dismissal functionality using the Three-Layer CSS Variables System.
 
 ## Component Props
 
@@ -28,14 +28,14 @@ ps-alert                         # Root element (single wrapper)
 └── ps-alert__close              # Close button (when dismissible)
 ```
 
-## Utility Classes (Bootstrap-inspired)
+## Utility Classes
 
 ```
 ps-alert-link                    # Darker/bolder links within alerts
 ps-alert-heading                 # Larger, bold headings within alerts (h4)
 ```
 
-## 8 Semantic Variants (Bootstrap 5.3)
+## 8 Semantic Variants
 
 | Variant | Use Case | Color Scheme |
 |---------|----------|--------------|
@@ -52,7 +52,7 @@ ps-alert-heading                 # Larger, bold headings within alerts (h4)
 
 ### Component-Scoped Variables (Layer 2)
 
-This component uses the **Three-Layer CSS Variables System** (Bootstrap 5.3 inspired):
+This component uses the **Three-Layer CSS Variables System**:
 
 ```css
 /* Layout & Spacing */
@@ -100,7 +100,7 @@ This component uses the **Three-Layer CSS Variables System** (Bootstrap 5.3 insp
 
 ## Usage Examples
 
-### Basic Alerts (Bootstrap-style)
+### Basic Alerts
 
 ```twig
 {# Simple primary alert #}
@@ -152,7 +152,7 @@ This component uses the **Three-Layer CSS Variables System** (Bootstrap 5.3 insp
 } %}
 ```
 
-### Alerts with Headings (Bootstrap-style)
+### Alerts with Headings
 
 ```twig
 {% include '@components/alert/alert.twig' with {
@@ -239,32 +239,6 @@ The close button functionality is handled by `alert.js` (Drupal behaviors):
 - Fade-out animation on dismissal (`.is-closing` class applied)
 - Element removal after animation completes
 - `once()` prevents multiple event bindings
-
-## Differences from Bootstrap 5.3
-
-### Similarities ✅
-- 8 semantic variants (primary, secondary, success, danger, warning, info, light, dark)
-- Free HTML content model (no enforced structure)
-- Optional `.ps-alert-link` and `.ps-alert-heading` utility classes
-- Optional dismissible behavior with close button
-- Three-layer CSS variables system
-- ARIA roles (`alert` vs `status`)
-
-### Differences 🔧
-- **Prefix**: `.ps-alert` (not `.alert`) - BEM with project namespace
-- **No `.fade` / `.show` classes**: Animation handled by `.is-closing` class
-- **Icons**: Optional via content slot (Bootstrap uses flexbox + external SVG sprites)
-- **Drupal integration**: `attach_library()`, `attributes` object support
-- **Close button**: Uses `&times;` entity (Bootstrap uses `.btn-close` SVG)
-
-## Bootstrap 5.3 Alignment
-
-This component is **fully aligned** with Bootstrap 5.3 Alert specification:
-- Same 8 variants with identical semantics
-- Free content model (no BEM elements like `__title`, `__message`, `__icon`)
-- Utility classes (`.ps-alert-link`, `.ps-alert-heading`) matching Bootstrap naming
-- ARIA roles match Bootstrap behavior (danger/warning = assertive)
-- Three-layer CSS variables system inspired by Bootstrap 5.3
 
 ## Browser Support
 

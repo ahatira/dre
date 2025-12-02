@@ -1,12 +1,12 @@
 /**
  * Alert Component (Molecule/Feedback)
- * Bootstrap 5.3-inspired alert with flexible content and 8 semantic variants
+ * Semantic alert with flexible content and 8 variants
  *
  * BEM: ps-alert, ps-alert__close
  * Utility Classes: ps-alert-link, ps-alert-heading
  * Variants: primary | secondary | success | danger | warning | info | light | dark
  * Modifiers: --dismissible
- * Three-Layer CSS Variables System (Bootstrap 5.3 inspired)
+ * Three-Layer CSS Variables System
  */
 
 .ps-alert {

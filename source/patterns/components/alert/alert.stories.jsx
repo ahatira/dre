@@ -10,13 +10,13 @@ const settings = {
     docs: {
       description: {
         component:
-          'Bootstrap 5.3-inspired alert component with 8 semantic variants, flexible content, and optional dismissal.',
+          'Semantic alert component with 8 variants, flexible HTML content, and optional dismissal functionality.',
       },
     },
   },
   argTypes: {
     variant: {
-      description: 'Semantic variant (8 options matching Bootstrap)',
+      description: 'Semantic variant (8 options)',
       control: { type: 'select' },
       options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
       table: {
@@ -61,7 +61,7 @@ export const Default = {
 };
 
 export const AllVariants = {
-  name: 'All 8 Variants (Bootstrap)',
+  name: 'All 8 Variants',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       ${alertTwig({ variant: 'primary', content: 'A simple <strong>primary</strong> alert—check it out!' })}
@@ -77,7 +77,7 @@ export const AllVariants = {
 };
 
 export const WithLinks = {
-  name: 'Alert Links (Bootstrap)',
+  name: 'Alert Links',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       ${alertTwig({
@@ -105,7 +105,7 @@ export const WithLinks = {
 };
 
 export const WithHeadings = {
-  name: 'Additional Content (Bootstrap)',
+  name: 'Additional Content',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       ${alertTwig({
@@ -158,7 +158,7 @@ export const WithIcons = {
 };
 
 export const DismissibleAlerts = {
-  name: 'Dismissible (Bootstrap)',
+  name: 'Dismissible',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       ${alertTwig({
