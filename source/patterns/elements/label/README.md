@@ -1,10 +1,6 @@
 # Label (Element/Atom)
 
-Accessible form field label with required indicator and semantic HTML association. Essential building block for form components.
-
-## Overview
-
-The Label component provides a semantic `<label>` element that associates text with form inputs using the `for` attribute. It supports required field indication with both visual (asterisk) and accessible (screen reader text) cues, plus disabled state styling.
+Form field label with semantic `<label>` binding, required indicator, and disabled state. Essential building block for form components.
 
 ## Props
 
@@ -27,27 +23,49 @@ Modifiers:
   .ps-label--required       # Applied when required=true
   .ps-label--disabled       # Applied when disabled=true
 
-Global Utilities:
-  .ps-visually-hidden       # Screen reader only text (WCAG standard)
+Global Utilities (from base/utilities/visibility.css):
+  .visually-hidden          # Screen reader only text (WCAG standard)
 ```
 
 ## Design Tokens Used
 
-### Colors
-- `--ps-color-text` / `--gray-900` — Default label text color
-- `--ps-color-text-muted` / `--gray-500` — Disabled label color
-- `--ps-color-error-600` / `--red-600` — Required indicator color (red asterisk)
+### Component Variables (Layer 2)
+Component uses scoped variables for easy customization:
+- `--ps-label-gap` — Gap between text and asterisk (default: `--size-1` = 4px)
+- `--ps-label-margin-bottom` — Bottom margin (default: `--size-2` = 8px)
+- `--ps-label-color` — Text color (default: `--text-primary` = #434F57)
+- `--ps-label-font-size` — Font size (default: `--font-size-0` = 14px)
+- `--ps-label-font-weight` — Font weight (default: `--font-weight-600` = semi-bold)
+- `--ps-label-required-color` — Asterisk color (default: `--danger` = #EB3636)
+- `--ps-label-disabled-color` — Disabled text (default: `--text-disabled` = #B0B8BD)
 
-### Typography
-- `--ps-font-family-primary` / `--font-sans` — Font family
-- `--ps-font-size-sm` / `--font-size-sm` — Label font size (12px)
-- `--ps-font-weight-medium` / `--font-weight-600` — Default weight (semi-bold)
-- `--ps-font-weight-bold` / `--font-weight-700` — Required asterisk weight
-- `--leading-5` — Line height (20px)
+### Root Primitives (Layer 1)
+References from `source/props/*.css`:
 
-### Spacing
-- `--ps-spacing-1` / `--size-1` — Gap between text and asterisk (4px)
-- `--ps-spacing-2` / `--size-2` — Bottom margin (8px)
+**Colors** (`colors.css` + `brand.css`):
+- `--text-primary` — Main text color (#434F57, gray-700)
+- `--text-disabled` — Disabled text (#B0B8BD, gray-400)
+- `--danger` — Error/required color (#EB3636, brand red)
+
+**Typography** (`fonts.css`):
+- `--font-sans` — BNPP Sans font family
+- `--font-size-0` — 14px (0.875rem)
+- `--font-weight-600` — Semi-bold (600)
+- `--font-weight-700` — Bold (700)
+- `--leading-5` — Line height 20px (1.25rem)
+
+**Spacing** (`sizes.css`):
+- `--size-1` — 4px (0.25rem)
+- `--size-2` — 8px (0.5rem)
+
+### Customization Example (Layer 3)
+```css
+/* Override in specific context */
+.compact-form .ps-label {
+  --ps-label-font-size: var(--font-size--1); /* Smaller: 12px */
+  --ps-label-margin-bottom: var(--size-1);   /* Tighter: 4px */
+}
+```
 
 ## Variants
 
@@ -80,8 +98,8 @@ Combines both modifiers - red asterisk with disabled styling.
 
 **Screen Readers**:
 - Visual asterisk has `aria-hidden="true"` (decorative only)
-- Hidden text "(required field)" announced by screen readers via `.ps-visually-hidden`
-- `.ps-visually-hidden` uses WCAG standard pattern (absolute positioning, 1px dimensions)
+- Hidden text "(required field)" announced by screen readers via `.visually-hidden`
+- `.visually-hidden` uses WCAG standard pattern (defined in `base/utilities/visibility.css`)
 
 **Keyboard Navigation**:
 - No direct keyboard interaction (label triggers input focus)

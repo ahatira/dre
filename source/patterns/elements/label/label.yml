@@ -5,8 +5,12 @@ status: stable
 group: atoms
 description: 'Form field label with required indicator and accessibility support.'
 props:
-  text: 'Your name' # Label text content
+  text: 'Property name' # Label text content (real estate context)
   forId: 'field-id' # ID of associated form field
   required: false # Adds asterisk + screen reader text
   disabled: false # Disabled state (70% opacity)
   attributes: {} # Additional HTML attributes
+
+# Options:
+# required: true | false (default)
+# disabled: true | false (default)

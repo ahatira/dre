@@ -16,10 +16,10 @@
   {%- set classes = classes|merge(['ps-label--disabled']) -%}
 {%- endif -%}
 
-<label{{ attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"' }}{% if forId %} for="{{ forId }}"{% endif %}>
+<label{% if attributes %} {{ attributes.addClass(classes) }}{% else %} class="{{ classes|join(' ') }}"{% endif %}{% if forId %} for="{{ forId }}"{% endif %}>
   <span class="ps-label__text">{{ text }}</span>
   {% if required %}
     <span class="ps-label__required" aria-hidden="true">*</span>
-    <span class="ps-visually-hidden">(required field)</span>
+    <span class="visually-hidden">(required field)</span>
   {% endif %}
 </label>
