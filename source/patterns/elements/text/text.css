@@ -3,49 +3,65 @@
  * Typography for paragraphs and inline textual content.
  *
  * BEM Block: ps-text
- * Size Variants: body (default) | small | large
- * State Modifiers: --muted | --strong (can combine)
- * Alignment Modifiers: --align-center | --align-right (left is default)
+ * Sizes: xs | sm | md (default) | lg | xl | xxl
+ * States: --muted | --strong (can combine)
+ * Colors: default (base) | primary | secondary | success | info | warning | danger | dark | light
+ * Alignment: --align-center | --align-right (left is default)
  */
 
 .ps-text {
+  /* Component-scoped variables (defaults - Bootstrap 5 pattern) */
+  --ps-text-size: var(--font-size-1); /* 16px (md default) */
+  --ps-text-line-height: var(--leading-normal); /* 1.5 */
+  --ps-text-color: var(--gray-900); /* default text color */
+
   /* Base styles */
   margin: 0 0 var(--size-4);
-  color: var(--gray-900);
   font-family: var(--font-sans);
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-normal); /* 1.5 */
-  
-  /* Default variant (body) */
-  font-size: var(--font-size-1); /* 16px */
   text-align: left;
-  
-  /* Variant sizes */
-  &--small {
-    font-size: var(--font-size-0); /* 14px */
-    line-height: var(--leading-snug); /* 1.375 */
-  }
-  
-  &--large {
-    font-size: var(--font-size-2); /* 18px */
-    line-height: var(--leading-relaxed); /* 1.625 */
-  }
-  
-  /* State modifiers */
-  &--muted {
-    color: var(--gray-600); /* Secondary text */
-  }
-  
-  &--strong {
-    font-weight: var(--font-weight-700); /* Bold emphasis */
-  }
-  
+  font-size: var(--ps-text-size);
+  line-height: var(--ps-text-line-height);
+  color: var(--ps-text-color);
+
   /* Alignment modifiers */
-  &--align-center {
-    text-align: center;
+  &--align-center { text-align: center; }
+  &--align-right { text-align: right; }
+
+  /* States */
+  &--muted { --ps-text-color: var(--gray-600); }
+  &--strong { font-weight: var(--font-weight-700); }
+
+  /* Size modifiers (override variables) */
+  &--xs {
+    --ps-text-size: var(--font-size--1); /* 12px */
+    --ps-text-line-height: var(--leading-tight); /* 1.25 or closest */
   }
-  
-  &--align-right {
-    text-align: right;
+  &--sm {
+    --ps-text-size: var(--font-size-0); /* 14px */
+    --ps-text-line-height: var(--leading-snug); /* 1.375 */
   }
+  /* md is default (16px) - no modifier needed */
+  &--lg {
+    --ps-text-size: var(--font-size-2); /* 18px */
+    --ps-text-line-height: var(--leading-relaxed); /* 1.625 */
+  }
+  &--xl {
+    --ps-text-size: var(--font-size-3); /* 20px */
+    --ps-text-line-height: var(--leading-relaxed); /* 1.625 or appropriate */
+  }
+  &--xxl {
+    --ps-text-size: var(--font-size-4); /* 24px */
+    --ps-text-line-height: var(--leading-loose); /* 1.75 or appropriate */
+  }
+
+  /* Color modifiers (override variable) */
+  &--primary { --ps-text-color: var(--primary); }
+  &--secondary { --ps-text-color: var(--secondary); }
+  &--success { --ps-text-color: var(--success); }
+  &--info { --ps-text-color: var(--info); }
+  &--warning { --ps-text-color: var(--warning); }
+  &--danger { --ps-text-color: var(--danger); }
+  &--dark { --ps-text-color: var(--gray-900); }
+  &--light { --ps-text-color: var(--gray-600); }
 }

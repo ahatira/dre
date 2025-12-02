@@ -1,89 +1,93 @@
 # ps-text
 
-Atom: Typography for paragraphs and text content
+Atom: Semantic text component for paragraphs and inline content
 
 ## API
 
-- `text` (string) - Text content **required**
-- `variant` (string) - body|small|large (default: body)
-- `tag` (string) - p|span|div (default: p)
-- `align` (string) - left|center|right (default: left)
-- `muted` (boolean) - Secondary text color (default: false)
-- `strong` (boolean) - Bold weight for emphasis (default: false)
+- `text` (string) — Text content (required)
+- `size` (string) — xs | sm | md (default) | lg | xl | xxl
+- `color` (string) — default | primary | secondary | success | info | warning | danger | dark | light
+- `tag` (string) — p | span | div (default: p)
+- `align` (string) — left | center | right (default: left)
+- `muted` (boolean) — Secondary tone (overrides color to muted)
+- `strong` (boolean) — Bold emphasis
 
-## Text Variants
+Back-compat: `variant` (body | small | large) maps to `size` (md | sm | lg).
 
-- **body**: 16px - Standard paragraph text (default)
-- **small**: 14px - Captions, helper text, footnotes
-- **large**: 18px - Lead paragraphs, emphasized content
+## Sizes
 
-## BEM
+- **xs**: 12px — Footnotes, microcopy
+- **sm**: 14px — Captions, helper text
+- **md**: 16px — Standard body text (default)
+- **lg**: 18px — Lead paragraphs
+- **xl**: 20px — Introductions
+- **xxl**: 24px — Hero intros / statements
 
-- Block: `ps-text`
-- Modifiers:
-  - Size: `--small`, `--large` (body is default so no modifier class)
-  - State: `--muted`, `--strong`
-  - Alignment: `--align-center`, `--align-right` (left is default so no modifier class)
+## Colors (Semantic)
+
+- **default**: Base text color
+- **primary**, **secondary**
+- **success**, **info**, **warning**, **danger**
+- **dark**, **light**
 
 ## Usage
 
 ```twig
 {# Standard paragraph #}
-{% include '@ps_theme/text/text.twig' with { 
-  text: 'This is a paragraph.'
+{% include '@elements/text/text.twig' with {
+  text: 'This is a paragraph.',
+  size: 'md'
 } %}
 
-{# Lead text (large + strong) #}
-{% include '@ps_theme/text/text.twig' with { 
+{# Lead text (lg + strong) #}
+{% include '@elements/text/text.twig' with {
   text: 'Introduction paragraph with emphasis.',
-  variant: 'large',
+  size: 'lg',
   strong: true
 } %}
 
 {# Small muted caption #}
-{% include '@ps_theme/text/text.twig' with { 
+{% include '@elements/text/text.twig' with {
   text: '* Information not contractual',
-  variant: 'small',
+  size: 'sm',
   muted: true
 } %}
 
 {# Centered body text #}
-{% include '@ps_theme/text/text.twig' with { 
+{% include '@elements/text/text.twig' with {
   text: 'Centered content',
+  size: 'md',
   align: 'center'
 } %}
 
 {# Inline span #}
-{% include '@ps_theme/text/text.twig' with { 
+{% include '@elements/text/text.twig' with {
   text: 'Inline text',
-  tag: 'span'
+  tag: 'span',
+  size: 'md'
 } %}
 ```
 
-## Tokens
+## Design Tokens (used)
 
-Uses:
-- `--font-sans` (BNPP Sans)
-- `--font-size-0` (14px - small)
-- `--font-size-1` (16px - body)
-- `--font-size-2` (18px - large)
-- `--font-weight-400` (regular)
-- `--font-weight-700` (bold - strong)
-- `--leading-normal` (1.5 - body)
-- `--leading-snug` (1.375 - small)
-- `--leading-relaxed` (1.625 - large)
-- `--gray-900` (#1F2A33 - default text)
-- `--gray-600` (#6B7780 - muted)
-- `--size-4` (16px - margin-bottom)
+- `--font-sans`
+- `--font-size--1` (12px) · `--font-size-0` (14px) · `--font-size-1` (16px) · `--font-size-2` (18px) · `--font-size-3` (20px) · `--font-size-4` (24px)
+- `--font-weight-400`, `--font-weight-700`
+- `--leading-tight`, `--leading-snug`, `--leading-normal`, `--leading-relaxed`, `--leading-loose`
+- `--gray-900` (default), `--gray-600` (muted)
+- `--size-4` (margin-bottom)
 
 ## Typography Scale
 
 ```
-large: 18px / 1.625 / 400
-body:  16px / 1.5 / 400
-small: 14px / 1.375 / 400
+xxl: 24px / 1.75 / 400
+xl:  20px / 1.625 / 400
+lg:  18px / 1.625 / 400
+md:  16px / 1.5   / 400
+sm:  14px / 1.375 / 400
+xs:  12px / 1.25  / 400
 
-muted: gray-600 (#6B7780)
+muted: gray-600
 strong: font-weight-700
 ```
 
@@ -92,7 +96,7 @@ strong: font-weight-700
 - Use semantic HTML tags (`p` for paragraphs)
 - Ensure text contrast ≥ 4.5:1 (WCAG AA)
 - Muted text maintains sufficient contrast with --gray-600
-- Limit line length to ~65-75 characters for readability
+- Limit line length to ~65–75 characters for readability
 
 ## Use Cases
 

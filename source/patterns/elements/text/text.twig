@@ -10,6 +10,8 @@
  #}
 
 {%- set variant = variant|default('body') -%}
+{%- set size = size|default('md') -%}
+{%- set color = color|default('default') -%}
 {%- set tag = tag|default('p') -%}
 {%- set align = align|default('left') -%}
 {%- set muted = muted|default(false) -%}
@@ -17,7 +19,17 @@
 
 {%- set classes = ['ps-text'] -%}
 {%- if variant != 'body' -%}
-  {%- set classes = classes|merge(['ps-text--' ~ variant]) -%}
+  {# Back-compat mapping: body|small|large → md|sm|lg #}
+  {%- set _size = variant == 'small' ? 'sm' : (variant == 'large' ? 'lg' : 'md') -%}
+  {%- if _size != 'md' -%}
+    {%- set classes = classes|merge(['ps-text--' ~ _size]) -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if size != 'md' -%}
+  {%- set classes = classes|merge(['ps-text--' ~ size]) -%}
+{%- endif -%}
+{%- if color != 'default' -%}
+  {%- set classes = classes|merge(['ps-text--' ~ color]) -%}
 {%- endif -%}
 {%- if align != 'left' -%}
   {%- set classes = classes|merge(['ps-text--align-' ~ align]) -%}
