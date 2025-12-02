@@ -120,8 +120,8 @@
      Soft pastel backgrounds with colored borders
      ============================================ */
   &--primary {
-    --ps-alert-bg: var(--green-100);
-    --ps-alert-color: var(--primary-hover);
+    --ps-alert-bg: var(--green-50);
+    --ps-alert-color: var(--primary);
     --ps-alert-border-color: var(--primary);
     --ps-alert-link-color: var(--primary);
   }
@@ -134,28 +134,28 @@
   }
 
   &--success {
-    --ps-alert-bg: var(--bg-success-light);
-    --ps-alert-color: var(--success-hover);
+    --ps-alert-bg: var(--green-100);
+    --ps-alert-color: var(--success);
     --ps-alert-border-color: var(--success);
     --ps-alert-link-color: var(--success);
   }
 
   &--danger {
-    --ps-alert-bg: var(--bg-danger-light);
+    --ps-alert-bg: var(--red-50);
     --ps-alert-color: var(--danger);
     --ps-alert-border-color: var(--danger);
     --ps-alert-link-color: var(--danger);
   }
 
   &--warning {
-    --ps-alert-bg: var(--bg-warning-light);
+    --ps-alert-bg: var(--yellow-50);
     --ps-alert-color: var(--warning-text);
     --ps-alert-border-color: var(--warning);
     --ps-alert-link-color: var(--warning);
   }
 
   &--info {
-    --ps-alert-bg: var(--bg-info-light);
+    --ps-alert-bg: var(--blue-50);
     --ps-alert-color: var(--info);
     --ps-alert-border-color: var(--info);
     --ps-alert-link-color: var(--info);
