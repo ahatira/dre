@@ -2,9 +2,10 @@
  * Link element
  * @param string text - Link text (required)
  * @param string url - Link URL (required)
- * @param string color - Link color variant (optional, default: 'primary')
+ * @param string color - Link color variant: default (no class), primary, secondary, info, warning, success, danger, dark, light (optional, default: null)
+ * @param string size - Link size variant: xs, sm, md, lg, xl, xxl (optional, default: null = md)
  * @param boolean underline - Show underline (optional, default: true)
- * @param string icon - Icon name (optional, default: '')
+ * @param string icon - Icon name without 'icon-' prefix (optional, default: '')
  * @param string iconPosition - Icon position left or right (optional, default: 'right')
  * @param string target - Link target (_self or _blank) (optional, default: '_self')
  * @param string rel - Link rel attribute (optional, default: '')
@@ -14,7 +15,6 @@
 
 {% set text = text|default('Link text') %}
 {% set url = url|default('#') %}
-{% set color = color|default('primary') %}
 {% set underline = underline is not null ? underline : true %}
 {% set icon = icon|default('') %}
 {% set iconPosition = iconPosition|default('right') %}
@@ -22,9 +22,7 @@
 {% set rel = rel|default('') %}
 {% set disabled = disabled|default(false) %}
 
-{% set size = size|default('md') %}
-{% set classes = [] %}
-{% set classes = classes|merge(['ps-link']) %}
+{% set classes = ['ps-link'] %}
 {% if color %}
   {% set classes = classes|merge(['ps-link--' ~ color]) %}
 {% endif %}
@@ -34,14 +32,8 @@
 {% if underline == false %}
   {% set classes = classes|merge(['ps-link--no-underline']) %}
 {% endif %}
-{% if icon %}
-  {% set classes = classes|merge(['ps-link--with-icon']) %}
-  {% if iconPosition == 'left' %}
-    {% set classes = classes|merge(['ps-link--icon-left']) %}
-  {% endif %}
-{% endif %}
-{% if target == '_blank' and not disabled %}
-  {% set classes = classes|merge(['ps-link--external']) %}
+{% if iconPosition == 'left' %}
+  {% set classes = classes|merge(['ps-link--icon-left']) %}
 {% endif %}
 {% if disabled %}
   {% set classes = classes|merge(['ps-link--disabled']) %}
@@ -50,7 +42,7 @@
 {% set tag = disabled ? 'span' : 'a' %}
 
 <{{ tag }}
-  class="{{ classes|join(' ')|trim }}"
+  class="{{ classes|join(' ') }}"
   {% if not disabled %}href="{{ url }}"{% endif %}
   {% if target == '_blank' and not disabled %}target="_blank" rel="{{ rel ? rel : 'noopener noreferrer' }}"{% elseif rel %}rel="{{ rel }}"{% endif %}
   {% if disabled %}aria-disabled="true"{% endif %}

@@ -8,8 +8,7 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component: `Semantic text link with optional icon and variant colors.
-Supports underline control, external target handling, and focus-visible accessibility.`,
+        component: `Semantic text link with optional icon and variant colors. Supports underline control, external target handling, and focus-visible accessibility.`,
       },
     },
   },
@@ -38,23 +37,36 @@ Supports underline control, external target handling, and focus-visible accessib
     // Appearance
     color: {
       description:
-        'Link color variant: semantic colors for navigation, CTAs, and status indicators',
+        'Link color variant: semantic colors for navigation, CTAs, and status indicators. Default (no class) uses current text color.',
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'info', 'warning', 'success', 'danger', 'dark', 'light'],
+      options: [
+        null,
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'danger',
+        'dark',
+        'light',
+      ],
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | info | warning | success | danger | dark | light' },
-        defaultValue: { summary: 'primary' },
+        type: {
+          summary: 'null | primary | secondary | info | warning | success | danger | dark | light',
+        },
+        defaultValue: { summary: 'null (currentColor)' },
       },
     },
     size: {
-      description: 'Link size variant: adapt for hierarchy, accessibility, and context',
+      description:
+        'Link size variant: adapt for hierarchy, accessibility, and context. Default (no class) uses md (16px).',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      options: [null, 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl | xxl' },
-        defaultValue: { summary: 'md' },
+        type: { summary: 'null | xs | sm | md | lg | xl | xxl' },
+        defaultValue: { summary: 'null (md)' },
       },
     },
     underline: {
@@ -126,43 +138,43 @@ export const Default = {
 
 export const AllColors = {
   render: () => `
-    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All available color variants for links. Use semantic colors for real estate navigation, CTAs, and status indicators.</p>
+    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All available color variants for links. Default uses current text color. Use semantic colors for real estate navigation, CTAs, and status indicators.</p>
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Default (base text color)</p>
-        ${linkTwig({ text: 'Default link', url: '#', color: 'default' })}
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Default (currentColor, no class)</p>
+        ${linkTwig({ text: 'View property details', url: '/property/details' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Primary variant</p>
-        ${linkTwig({ text: 'Primary link', url: '#', color: 'primary' })}
+        ${linkTwig({ text: 'Schedule property tour', url: '#', color: 'primary' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Secondary variant</p>
-        ${linkTwig({ text: 'Secondary link', url: '#', color: 'secondary' })}
+        ${linkTwig({ text: 'Contact real estate agent', url: '#', color: 'secondary' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Info variant</p>
-        ${linkTwig({ text: 'Info link', url: '#', color: 'info' })}
+        ${linkTwig({ text: 'Property information', url: '#', color: 'info' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Warning variant</p>
-        ${linkTwig({ text: 'Warning link', url: '#', color: 'warning' })}
+        ${linkTwig({ text: 'Limited time offer', url: '#', color: 'warning' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Success variant</p>
-        ${linkTwig({ text: 'Success link', url: '#', color: 'success' })}
+        ${linkTwig({ text: 'Property available', url: '#', color: 'success' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Danger variant</p>
-        ${linkTwig({ text: 'Danger link', url: '#', color: 'danger' })}
+        ${linkTwig({ text: 'Property sold', url: '#', color: 'danger' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Dark variant</p>
-        ${linkTwig({ text: 'Dark link', url: '#', color: 'dark' })}
+        ${linkTwig({ text: 'View all properties', url: '#', color: 'dark' })}
       </div>
       <div style="background-color: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--white);">Light variant (for dark backgrounds)</p>
-        ${linkTwig({ text: 'Light link', url: '#', color: 'light' })}
+        ${linkTwig({ text: 'Footer navigation link', url: '#', color: 'light' })}
       </div>
     </div>
   `,
@@ -172,12 +184,12 @@ export const AllSizes = {
   render: () => `
     <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All supported link sizes. Adapt link size for hierarchy, accessibility, and context (menus, footers, property listings).</p>
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      <div>${linkTwig({ text: 'Extra small', url: '#', size: 'xs' })}</div>
-      <div>${linkTwig({ text: 'Small', url: '#', size: 'sm' })}</div>
-      <div>${linkTwig({ text: 'Medium', url: '#', size: 'md' })}</div>
-      <div>${linkTwig({ text: 'Large', url: '#', size: 'lg' })}</div>
-      <div>${linkTwig({ text: 'Extra large', url: '#', size: 'xl' })}</div>
-      <div>${linkTwig({ text: 'XXL', url: '#', size: 'xxl' })}</div>
+      <div>${linkTwig({ text: 'Extra small property link', url: '#', size: 'xs', color: 'primary' })}</div>
+      <div>${linkTwig({ text: 'Small property link', url: '#', size: 'sm', color: 'primary' })}</div>
+      <div>${linkTwig({ text: 'Medium property link', url: '#', size: 'md', color: 'primary' })}</div>
+      <div>${linkTwig({ text: 'Large property link', url: '#', size: 'lg', color: 'primary' })}</div>
+      <div>${linkTwig({ text: 'Extra large property link', url: '#', size: 'xl', color: 'primary' })}</div>
+      <div>${linkTwig({ text: 'XXL property link', url: '#', size: 'xxl', color: 'primary' })}</div>
     </div>
   `,
 };
@@ -188,27 +200,27 @@ export const AllStates = {
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">With underline (default, hover removes it)</p>
-        ${linkTwig({ text: 'Link with underline', url: '#', underline: true })}
+        ${linkTwig({ text: 'Property with underline', url: '#', color: 'primary', underline: true })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Without underline</p>
-        ${linkTwig({ text: 'Link without underline', url: '#', underline: false })}
+        ${linkTwig({ text: 'Property without underline', url: '#', color: 'primary', underline: false })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Disabled (renders as span with aria-disabled)</p>
-        ${linkTwig({ text: 'Disabled link', url: '#', disabled: true })}
+        ${linkTwig({ text: 'Property unavailable', url: '#', disabled: true })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">With icon right</p>
-        ${linkTwig({ text: 'Next page', url: '#', icon: 'arrow-right', iconPosition: 'right' })}
+        ${linkTwig({ text: 'Next property listing', url: '#', icon: 'arrow-right', iconPosition: 'right', color: 'primary', underline: false })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">With icon left</p>
-        ${linkTwig({ text: 'Previous page', url: '#', icon: 'arrow-left', iconPosition: 'left' })}
+        ${linkTwig({ text: 'Previous property listing', url: '#', icon: 'arrow-left', iconPosition: 'left', color: 'primary', underline: false })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">External (target="_blank" with security rel)</p>
-        ${linkTwig({ text: 'External resource', url: 'https://example.com', target: '_blank' })}
+        ${linkTwig({ text: 'External property portal', url: 'https://example.com', target: '_blank', color: 'primary' })}
       </div>
     </div>
   `,
@@ -221,25 +233,25 @@ export const UseCases = {
       <div>
         <h3 style="margin: 0 0 var(--size-3) 0;">Standard link in paragraph</h3>
         <p style="max-width: 600px;">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          ${linkTwig({ text: 'Learn more', url: '#', color: 'primary' })} 
-          about our services and how we can help you achieve your goals.
+          Discover our portfolio of modern office buildings across Paris. 
+          ${linkTwig({ text: 'Learn more about commercial properties', url: '/properties/commercial', color: 'primary' })} 
+          and find the perfect space for your business needs.
         </p>
       </div>
       <div>
         <h3 style="margin: 0 0 var(--size-3) 0;">Navigation link with icon</h3>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          ${linkTwig({ text: 'Next page', url: '#', icon: 'arrow-right', iconPosition: 'right', underline: false })}
-          ${linkTwig({ text: 'Previous page', url: '#', icon: 'arrow-left', iconPosition: 'left', underline: false })}
+          ${linkTwig({ text: 'Next property listing', url: '#', icon: 'arrow-right', iconPosition: 'right', underline: false, color: 'primary' })}
+          ${linkTwig({ text: 'Previous property listing', url: '#', icon: 'arrow-left', iconPosition: 'left', underline: false, color: 'primary' })}
         </div>
       </div>
       <div>
         <h3 style="margin: 0 0 var(--size-3) 0;">External resource</h3>
-        ${linkTwig({ text: 'Open documentation', url: 'https://example.com', target: '_blank' })}
+        ${linkTwig({ text: 'View property on external portal', url: 'https://example.com', target: '_blank', color: 'primary' })}
       </div>
       <div style="background-color: var(--gray-800); padding: var(--size-6); border-radius: var(--radius-2);">
         <h3 style="margin: 0 0 var(--size-3) 0; color: var(--white);">Link on dark background</h3>
-        ${linkTwig({ text: 'Contact us', url: '#', color: 'light', underline: true })}
+        ${linkTwig({ text: 'Contact our real estate team', url: '/contact', color: 'light', underline: true })}
       </div>
     </div>
   `,
