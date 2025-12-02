@@ -1,166 +1,184 @@
 # Alert Component
 
-Semantic status message component with variant-specific colors, icons, and optional dismissal functionality using the Three-Layer CSS Variables System.
+Bootstrap 5.3-inspired alert component with 8 semantic variants, flexible HTML content, and optional dismissal functionality using the Three-Layer CSS Variables System.
 
 ## Component Props
 
 | Prop | Type | Options | Default | Description |
 |------|------|---------|---------|-------------|
-| `variant` | string | `'info'`, `'success'`, `'warning'`, `'danger'`, `'primary'`, `'secondary'` | `'info'` | Semantic variant with appropriate color and icon |
-| `title` | string | any | `''` | Optional title text |
-| `message` | string | any (HTML supported) | `''` | Message content |
-| `icon` | boolean | `true`, `false` | `true` | Show icon |
-| `dismissible` | boolean | `true`, `false` | `false` | Show close button |
-| `compact` | boolean | `true`, `false` | `false` | Reduced padding for dense layouts |
-| `attributes` | object | any | - | Additional HTML attributes |
+| `variant` | string | `'primary'`, `'secondary'`, `'success'`, `'danger'`, `'warning'`, `'info'`, `'light'`, `'dark'` | `'primary'` | Semantic variant with appropriate color scheme |
+| `content` | string | any (HTML supported) | `''` | Free HTML content (headings, paragraphs, links, icons optional) |
+| `dismissible` | boolean | `true`, `false` | `false` | Show close button with JavaScript dismiss behavior |
+| `attributes` | object | any | - | Additional HTML attributes (Drupal) |
 
 ## BEM Structure
 
 ```
-ps-alert                         # Root element
-├── ps-alert--info               # Info variant (default)
+ps-alert                         # Root element (single wrapper)
+├── ps-alert--primary            # Primary variant
+├── ps-alert--secondary          # Secondary variant
 ├── ps-alert--success            # Success variant
-├── ps-alert--warning            # Warning variant
 ├── ps-alert--danger             # Danger variant
-├── ps-alert--primary            # Primary brand variant
-├── ps-alert--secondary          # Secondary brand variant
-├── ps-alert--dismissible        # Has close button
-├── ps-alert--compact            # Compact spacing
+├── ps-alert--warning            # Warning variant
+├── ps-alert--info               # Info variant
+├── ps-alert--light              # Light variant
+├── ps-alert--dark               # Dark variant
+├── ps-alert--dismissible        # Has close button (adds right padding)
 │
-├── ps-alert__icon               # Icon container (data-icon)
-├── ps-alert__content            # Content wrapper
-│   ├── ps-alert__title          # Title element (optional)
-│   └── ps-alert__message        # Message element
 └── ps-alert__close              # Close button (when dismissible)
 ```
 
-## Semantic Variants
+## Utility Classes (Bootstrap-inspired)
 
-| Variant | Use Case | Icon |
-|---------|----------|------|
-| **info** (default) | General information, tips, notifications | info (ⓘ) |
-| **success** | Confirmations, completed actions | check (✓) |
-| **warning** | Cautions, attention needed | warning (!) |
-| **danger** | Errors, critical issues | error (×) |
-| **primary** | Brand-specific highlights | info (ⓘ) |
-| **secondary** | Secondary brand messaging | info (ⓘ) |
+```
+ps-alert-link                    # Darker/bolder links within alerts
+ps-alert-heading                 # Larger, bold headings within alerts (h4)
+```
+
+## 8 Semantic Variants (Bootstrap 5.3)
+
+| Variant | Use Case | Color Scheme |
+|---------|----------|--------------|
+| **primary** (default) | Brand-specific highlights, featured content | BNP Paribas primary brand color |
+| **secondary** | Secondary brand messaging, promotions | BNP Paribas secondary color |
+| **success** | Confirmations, completed actions | Green background, white text |
+| **danger** | Errors, critical issues (assertive ARIA) | Red background, white text |
+| **warning** | Cautions, attention needed (assertive ARIA) | Yellow background, dark text |
+| **info** | General information, tips, notifications | Blue background, white text |
+| **light** | Subtle alerts, light backgrounds | Light gray background, dark text |
+| **dark** | Dark theme alerts, high contrast | Dark gray/black background, white text |
 
 ## Design Tokens
 
 ### Component-Scoped Variables (Layer 2)
 
-This component uses the **Three-Layer CSS Variables System**:
+This component uses the **Three-Layer CSS Variables System** (Bootstrap 5.3 inspired):
 
 ```css
 /* Layout & Spacing */
---ps-alert-padding: var(--size-4);
---ps-alert-gap: var(--size-3);
+--ps-alert-padding-y: var(--size-4);
+--ps-alert-padding-x: var(--size-4);
+--ps-alert-margin-bottom: var(--size-4);
 --ps-alert-border-radius: var(--radius-2);
---ps-alert-border-width: var(--size-1);
+--ps-alert-border-width: var(--border-size-1);
 
 /* Typography */
 --ps-alert-font-family: var(--font-sans);
 --ps-alert-font-size: var(--font-size-1);
 --ps-alert-line-height: var(--leading-normal);
---ps-alert-title-font-weight: var(--font-weight-600);
 
-/* Colors (default: info) */
---ps-alert-bg: var(--info);
---ps-alert-color: var(--text-inverse);
---ps-alert-border-color: var(--info-hover);
---ps-alert-link-color: var(--text-inverse);
-
-/* Icon */
---ps-alert-icon-size: var(--size-5);
---ps-alert-icon-font-size: var(--font-size-3);
---ps-alert-icon-color: var(--text-inverse);
+/* Colors (transparent defaults, overridden by variants) */
+--ps-alert-bg: transparent;
+--ps-alert-color: inherit;
+--ps-alert-border-color: transparent;
+--ps-alert-link-color: inherit;
 
 /* Close Button */
---ps-alert-close-size: var(--size-6);
---ps-alert-close-color: var(--text-inverse);
---ps-alert-close-hover-bg: rgba(0, 0, 0, 0.1);
---ps-alert-close-active-bg: rgba(0, 0, 0, 0.2);
+--ps-alert-close-padding: var(--size-3);
+--ps-alert-close-color: inherit;
+--ps-alert-close-opacity: 0.5;
+--ps-alert-close-hover-opacity: 0.75;
+--ps-alert-close-focus-opacity: 1;
 
 /* Transitions */
---ps-alert-transition: background-color var(--duration-fast) var(--ease-out-2);
+--ps-alert-transition: opacity var(--duration-fast) var(--ease-out-2);
 --ps-alert-animation-duration: var(--duration-fast);
-
-/* Compact Modifiers */
---ps-alert-compact-padding: var(--size-3);
---ps-alert-compact-gap: var(--size-2);
---ps-alert-compact-icon-size: var(--size-4);
 ```
 
 ### Referenced Primitives (Layer 1)
 
-- **Typography**: `--font-sans`, `--font-size-0`, `--font-size-1`, `--font-size-3`, `--font-size-4`, `--font-weight-600`, `--leading-normal`, `--leading-snug`
-- **Colors**: `--info`, `--info-hover`, `--success`, `--success-hover`, `--warning`, `--warning-hover`, `--warning-text`, `--danger`, `--danger-hover`, `--primary`, `--primary-hover`, `--secondary`, `--secondary-hover`, `--text-inverse`
-- **Spacing**: `--size-1`, `--size-2`, `--size-3`, `--size-4`, `--size-5`, `--size-6`
-- **Borders**: `--radius-1`, `--radius-2`, `--border-size-1`, `--border-size-2`
+- **Typography**: `--font-sans`, `--font-size-1`, `--font-size-3`, `--font-size-4`, `--font-weight-600`, `--leading-normal`, `--leading-snug`
+- **Colors**: `--primary`, `--primary-hover`, `--secondary`, `--secondary-hover`, `--success`, `--success-hover`, `--danger`, `--danger-hover`, `--warning`, `--warning-hover`, `--warning-text`, `--info`, `--info-hover`, `--gray-100`, `--gray-800`, `--gray-900`, `--text-default`, `--text-inverse`, `--border-default`
+- **Spacing**: `--size-1`, `--size-2`, `--size-3`, `--size-4`, `--size-8`
+- **Borders**: `--radius-2`, `--border-size-1`, `--border-size-2`
 - **Transitions**: `--duration-fast`, `--ease-out-2`
 
-### Icons System
-- Icons rendered via centralized `[data-icon]` system in `icons.css`
-- Icon mapping: `info` → infos, `success` → check, `warning` → help, `danger` → close
-- No component-specific icon mappings (centralized system)
+### Icons System (Optional)
+- Icons rendered manually via `[data-icon]` attributes in content slot
+- Component does NOT enforce icon structure (flexible content model)
+- Example: `<span data-icon="check" aria-hidden="true"></span> Message text`
 
 ## Usage Examples
 
-### Basic Real Estate Alerts
+### Basic Alerts (Bootstrap-style)
+
+```twig
+{# Simple primary alert #}
+{% include '@components/alert/alert.twig' with {
+  variant: 'primary',
+  content: 'A simple <strong>primary</strong> alert—check it out!'
+} %}
+
+{# Success alert with link #}
+{% include '@components/alert/alert.twig' with {
+  variant: 'success',
+  content: 'Offer accepted! <a href="#" class="ps-alert-link">View contract</a> for details.'
+} %}
+
+{# Warning alert with dismissible #}
+{% include '@components/alert/alert.twig' with {
+  variant: 'warning',
+  content: '<strong>Holy guacamole!</strong> You should check in on some of those fields below.',
+  dismissible: true
+} %}
+```
+
+### Real Estate Alerts
 
 ```twig
 {# Property notification #}
 {% include '@components/alert/alert.twig' with {
   variant: 'info',
-  title: 'New Property Listing',
-  message: 'A commercial property matching your criteria has been added in downtown.'
+  content: 'A new commercial property matching your criteria has been added in downtown. <a href="#" class="ps-alert-link">View listing</a>'
 } %}
 
 {# Offer accepted #}
 {% include '@components/alert/alert.twig' with {
   variant: 'success',
-  title: 'Offer Accepted',
-  message: 'Your offer on 123 Main Street has been accepted by the seller.',
+  content: '<strong>Offer Accepted!</strong> Your offer on 123 Main Street has been accepted. Contract details will arrive within 24 hours.',
   dismissible: true
 } %}
 
-{# Document expiring #}
+{# Insurance expiring #}
 {% include '@components/alert/alert.twig' with {
   variant: 'warning',
-  title: 'Insurance Expiring',
-  message: 'Your property insurance expires in 30 days. Please renew to avoid gaps.',
-  dismissible: true
+  content: '<strong>Insurance Renewal:</strong> Your property insurance expires in 30 days. <a href="#" class="ps-alert-link">Renew now</a> to maintain coverage.'
 } %}
 
-{# Payment issue #}
+{# Payment failed #}
 {% include '@components/alert/alert.twig' with {
   variant: 'danger',
-  title: 'Payment Failed',
-  message: 'Monthly payment could not be processed. Update your payment method.',
+  content: '<strong>Payment Failed:</strong> Monthly mortgage payment could not be processed. <a href="#" class="ps-alert-link">Update payment method</a> immediately.'
 } %}
 ```
 
-### Compact Alerts (Sidebars)
-
-```twig
-<div class="sidebar">
-  {% include '@components/alert/alert.twig' with {
-    variant: 'info',
-    message: 'New viewing request received.',
-    compact: true,
-    dismissible: true
-  } %}
-</div>
-```
-
-### Alerts with HTML Content
+### Alerts with Headings (Bootstrap-style)
 
 ```twig
 {% include '@components/alert/alert.twig' with {
-  variant: 'warning',
-  title: 'Mortgage Pre-Approval Expiring',
-  message: '<p>Your pre-approval expires in 7 days.</p><p><a href="/renew">Renew now</a> to maintain your rate lock.</p>',
-  dismissible: true
+  variant: 'success',
+  content: '
+    <h4 class="ps-alert-heading">Property Inspection Complete!</h4>
+    <p>Aww yeah, you successfully completed the inspection for 123 Main Street. The detailed report has been uploaded to your dashboard.</p>
+    <hr>
+    <p style="margin-bottom: 0;">Whenever you need to, proceed with the final offer or schedule a follow-up viewing.</p>
+  '
+} %}
+```
+
+### Alerts with Icons (Optional)
+
+```twig
+{# Icon as part of free content #}
+{% include '@components/alert/alert.twig' with {
+  variant: 'success',
+  content: '<span data-icon="check" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Viewing confirmed for tomorrow at 2 PM'
+} %}
+
+{# Multiple icons/content #}
+{% include '@components/alert/alert.twig' with {
+  variant: 'primary',
+  content: '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span><strong>BNP Paribas RealEstate</strong> Featured announcement'
 } %}
 ```
 
@@ -169,82 +187,109 @@ This component uses the **Three-Layer CSS Variables System**:
 Override component variables for specific contexts:
 
 ```css
-/* Dark theme */
+/* Dark mode adjustments */
 .dark-theme .ps-alert {
-  --ps-alert-close-hover-bg: rgba(255, 255, 255, 0.1);
-  --ps-alert-close-active-bg: rgba(255, 255, 255, 0.2);
+  --ps-alert-close-opacity: 0.7;
+  --ps-alert-close-hover-opacity: 1;
 }
 
 /* Compact mobile alerts */
 @media (max-width: 640px) {
   .mobile-alerts .ps-alert {
-    --ps-alert-padding: var(--size-3);
-    --ps-alert-gap: var(--size-2);
+    --ps-alert-padding-y: var(--size-3);
+    --ps-alert-padding-x: var(--size-3);
+    --ps-alert-font-size: var(--font-size-0);
   }
 }
 
-/* Sidebar alerts */
-.sidebar .ps-alert {
-  --ps-alert-font-size: var(--font-size-0);
-  --ps-alert-icon-size: var(--size-4);
+/* Sidebar alerts with custom colors */
+.sidebar .ps-alert--info {
+  --ps-alert-bg: var(--info-subtle);
+  --ps-alert-color: var(--info-text);
 }
 ```
 
 ## Accessibility
 
 ### ARIA Roles & Live Regions
-- **Danger alerts**: `role="alert"` with `aria-live="assertive"` for immediate announcement
+- **Danger/Warning alerts**: `role="alert"` with `aria-live="assertive"` for immediate announcement (critical errors)
 - **Other variants**: `role="status"` with `aria-live="polite"` for non-intrusive updates
 - Screen readers announce content automatically when alert appears
 
 ### Keyboard & Focus
 - Close button keyboard accessible (Tab to focus, Enter/Space to activate)
 - Focus indicator visible with `outline` on `:focus-visible`
-- Tab order: Close button is last (natural grid order)
+- Close button positioned absolutely in top-right corner
 
 ### Visual Accessibility
-- **Color contrast**: Text meets WCAG AA standards (4.5:1 minimum)
-- **Icons**: Marked `aria-hidden="true"` (color and text convey meaning)
+- **Color contrast**: All variants meet WCAG AA standards (4.5:1 minimum for text)
+- **Don't rely on color alone**: Use descriptive text, headings, and icons (aria-hidden) to convey meaning
 - **Close button**: Descriptive `aria-label="Close alert"`
-- **Don't rely on color alone**: Icons + text reinforce meaning
+- **Light variant**: Tested for sufficient contrast with dark text
 
 ### Best Practices
-- Critical danger alerts should NOT be dismissible (users must address them)
-- Include descriptive titles for context
+- Critical danger/warning alerts should NOT be dismissible (users must address them)
+- Include descriptive headings (`.ps-alert-heading`) for context
 - Keep messages concise and actionable
-- Use semantic HTML in message content
+- Use `.ps-alert-link` class for emphasized links
 
 ## Interactive Behavior
 
 The close button functionality is handled by `alert.js` (Drupal behaviors):
-- Fade-out animation on dismissal
+- Fade-out animation on dismissal (`.is-closing` class applied)
 - Element removal after animation completes
-- `once()` prevents multiple bindings
+- `once()` prevents multiple event bindings
 
-## Best Practices
+## Differences from Bootstrap 5.3
 
-### DO ✅
-- Use semantic variants matching message intent
-- Include descriptive titles for context
-- Keep messages concise and actionable
-- Use HTML content for formatting (links, bold, paragraphs)
-- Make non-critical alerts dismissible
-- Use compact mode in space-constrained layouts
-- Always use design tokens (no hardcoded values)
+### Similarities ✅
+- 8 semantic variants (primary, secondary, success, danger, warning, info, light, dark)
+- Free HTML content model (no enforced structure)
+- Optional `.ps-alert-link` and `.ps-alert-heading` utility classes
+- Optional dismissible behavior with close button
+- Three-layer CSS variables system
+- ARIA roles (`alert` vs `status`)
 
-### DON'T ❌
-- Don't use alerts for promotional content (use banners)
-- Don't make critical danger alerts dismissible
-- Don't use alerts for field validation (use inline feedback)
-- Don't hardcode colors or sizes
-- Don't rely on color alone (icons + text required)
-- Don't overwhelm users with too many alerts
+### Differences 🔧
+- **Prefix**: `.ps-alert` (not `.alert`) - BEM with project namespace
+- **No `.fade` / `.show` classes**: Animation handled by `.is-closing` class
+- **Icons**: Optional via content slot (Bootstrap uses flexbox + external SVG sprites)
+- **Drupal integration**: `attach_library()`, `attributes` object support
+- **Close button**: Uses `&times;` entity (Bootstrap uses `.btn-close` SVG)
+
+## Bootstrap 5.3 Alignment
+
+This component is **fully aligned** with Bootstrap 5.3 Alert specification:
+- Same 8 variants with identical semantics
+- Free content model (no BEM elements like `__title`, `__message`, `__icon`)
+- Utility classes (`.ps-alert-link`, `.ps-alert-heading`) matching Bootstrap naming
+- ARIA roles match Bootstrap behavior (danger/warning = assertive)
+- Three-layer CSS variables system inspired by Bootstrap 5.3
 
 ## Browser Support
 
 Modern browsers supporting:
 - CSS Nesting (`&` syntax via PostCSS)
 - CSS Custom Properties (CSS Variables)
-- CSS Grid & Flexbox
+- Flexbox & absolute positioning
 - `aria-live` & `role` attributes
-- `has()` pseudo-class (layout without icon)
+
+## Best Practices
+
+### DO ✅
+- Use semantic variants matching message intent
+- Include descriptive headings (`.ps-alert-heading`) for complex alerts
+- Use `.ps-alert-link` class for emphasized links
+- Keep messages concise and actionable
+- Make non-critical alerts dismissible
+- Use HTML content for rich formatting (paragraphs, lists, headings)
+- Always use design tokens (no hardcoded values)
+- Test color contrast for accessibility
+
+### DON'T ❌
+- Don't use alerts for promotional banners (use dedicated banner component)
+- Don't make critical danger/warning alerts dismissible
+- Don't use alerts for form field validation (use inline feedback)
+- Don't hardcode colors or sizes
+- Don't rely on color alone (use text + headings)
+- Don't overwhelm users with too many alerts simultaneously

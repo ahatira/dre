@@ -1,17 +1,11 @@
-# Alert Component - Default Configuration
-# Semantic status message with dismissible option
+# Alert Component - Default Configuration (Bootstrap 5.3 inspired)
+# Flexible alert with free HTML content
 #
 # Props:
-# - variant: 'info' (default) | 'success' | 'warning' | 'danger' | 'primary' | 'secondary' - Semantic variant
-# - title: Optional title text
-# - message: Message content (required, supports HTML)
-# - icon: true (default) | false - Show icon
+# - variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' - Semantic variant (default: 'primary')
+# - content: Free HTML content (headings, paragraphs, links, icons optional) (required)
 # - dismissible: true | false (default) - Show close button
-# - compact: true | false (default) - Reduced padding
 
-variant: 'info'
-title: 'New Property Listing'
-message: 'A new commercial property matching your search criteria has been added in your preferred area. <a href="#">View details</a>'
-icon: true
+variant: 'primary'
+content: 'A simple <strong>primary</strong> alert with <a href="#" class="ps-alert-link">an example link</a>. Give it a click if you like.'
 dismissible: false
-compact: false

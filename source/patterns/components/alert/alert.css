@@ -1,11 +1,12 @@
 /**
  * Alert Component (Molecule/Feedback)
- * Semantic status message with variants and dismissible option
+ * Bootstrap 5.3-inspired alert with flexible content and 8 semantic variants
  *
- * BEM: ps-alert, ps-alert__icon, ps-alert__content, ps-alert__title, ps-alert__message, ps-alert__close
- * Variants: info (default) | success | warning | danger | primary | secondary
- * Modifiers: --info, --success, --warning, --danger, --primary, --secondary, --dismissible, --compact
- * Three-Layer CSS Variables System (Bootstrap 5 inspired)
+ * BEM: ps-alert, ps-alert__close
+ * Utility Classes: ps-alert-link, ps-alert-heading
+ * Variants: primary | secondary | success | danger | warning | info | light | dark
+ * Modifiers: --dismissible
+ * Three-Layer CSS Variables System (Bootstrap 5.3 inspired)
  */
 
 .ps-alert {
@@ -13,72 +14,51 @@
      Layer 2: Component-Scoped Variables
      Default values using Layer 1 primitives
      ============================================ */
-  --ps-alert-padding: var(--size-4);
-  --ps-alert-gap: var(--size-3);
+  --ps-alert-padding-y: var(--size-4);
+  --ps-alert-padding-x: var(--size-4);
+  --ps-alert-margin-bottom: var(--size-4);
   --ps-alert-border-radius: var(--radius-2);
-  --ps-alert-border-width: var(--size-1);
+  --ps-alert-border-width: var(--border-size-1);
   
   /* Typography */
   --ps-alert-font-family: var(--font-sans);
   --ps-alert-font-size: var(--font-size-1);
   --ps-alert-line-height: var(--leading-normal);
-  --ps-alert-title-font-size: var(--font-size-1);
-  --ps-alert-title-font-weight: var(--font-weight-600);
-  --ps-alert-title-line-height: var(--leading-snug);
   
-  /* Colors - Default (info) */
-  --ps-alert-bg: var(--info);
-  --ps-alert-color: var(--text-inverse);
-  --ps-alert-border-color: var(--info-hover);
-  --ps-alert-link-color: var(--text-inverse);
-  
-  /* Icon */
-  --ps-alert-icon-size: var(--size-5);
-  --ps-alert-icon-font-size: var(--font-size-3);
-  --ps-alert-icon-color: var(--text-inverse);
+  /* Colors - Transparent defaults (overridden by variants) */
+  --ps-alert-bg: transparent;
+  --ps-alert-color: inherit;
+  --ps-alert-border-color: transparent;
+  --ps-alert-link-color: inherit;
   
   /* Close button */
-  --ps-alert-close-size: var(--size-6);
-  --ps-alert-close-padding: var(--size-1);
-  --ps-alert-close-font-size: var(--font-size-4);
-  --ps-alert-close-color: var(--text-inverse);
-  --ps-alert-close-border-radius: var(--radius-1);
-  --ps-alert-close-hover-bg: rgba(0, 0, 0, 0.1);
-  --ps-alert-close-active-bg: rgba(0, 0, 0, 0.2);
+  --ps-alert-close-padding: var(--size-3);
+  --ps-alert-close-color: inherit;
+  --ps-alert-close-opacity: 0.5;
+  --ps-alert-close-hover-opacity: 0.75;
+  --ps-alert-close-focus-opacity: 1;
   --ps-alert-close-focus-outline-width: var(--border-size-2);
-  --ps-alert-close-focus-outline-color: var(--text-inverse);
-  --ps-alert-close-focus-outline-offset: var(--border-size-1);
+  --ps-alert-close-focus-outline-offset: calc(var(--border-size-1) * -1);
   
   /* Transitions */
-  --ps-alert-transition: background-color var(--duration-fast) var(--ease-out-2);
+  --ps-alert-transition: opacity var(--duration-fast) var(--ease-out-2);
   --ps-alert-animation-duration: var(--duration-fast);
-  
-  /* Compact */
-  --ps-alert-compact-padding: var(--size-3);
-  --ps-alert-compact-gap: var(--size-2);
-  --ps-alert-compact-icon-size: var(--size-4);
-  --ps-alert-compact-icon-font-size: var(--font-size-1);
-  --ps-alert-compact-title-font-size: var(--font-size-0);
-  --ps-alert-compact-message-font-size: var(--font-size-0);
-  --ps-alert-compact-close-size: var(--size-5);
-  --ps-alert-compact-close-font-size: var(--font-size-3);
 
   /* ============================================
      Component Styles
      Using component-scoped variables
      ============================================ */
   /* Layout */
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: start;
-  gap: var(--ps-alert-gap);
+  position: relative;
+  display: block;
   
   /* Sizing */
-  padding: var(--ps-alert-padding);
+  padding: var(--ps-alert-padding-y) var(--ps-alert-padding-x);
+  margin-bottom: var(--ps-alert-margin-bottom);
   
   /* Visual */
   border-radius: var(--ps-alert-border-radius);
-  border-left: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
+  border: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
   background-color: var(--ps-alert-bg);
   
   /* Typography */
@@ -86,161 +66,160 @@
   font-size: var(--ps-alert-font-size);
   line-height: var(--ps-alert-line-height);
   color: var(--ps-alert-color);
-  
+
   /* ============================================
-     Elements
+     Close Button Element
      ============================================ */
-  & .ps-alert__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--ps-alert-icon-size);
-    height: var(--ps-alert-icon-size);
-    font-size: var(--ps-alert-icon-font-size);
-    line-height: 1;
-    color: var(--ps-alert-icon-color);
-  }
-  
-  /* Layout without icon */
-  &:not(:has(.ps-alert__icon)) {
-    grid-template-columns: 1fr auto;
-  }
-  
-  & .ps-alert__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-1);
-    min-width: 0; /* Allow text truncation */
-  }
-  
-  & .ps-alert__title {
-    margin: 0;
-    font-size: var(--ps-alert-title-font-size);
-    font-weight: var(--ps-alert-title-font-weight);
-    line-height: var(--ps-alert-title-line-height);
-    color: inherit;
-  }
-  
-  & .ps-alert__message {
-    font-size: var(--ps-alert-font-size);
-    line-height: var(--ps-alert-line-height);
-    color: inherit;
-    
-    /* Allow HTML content */
-    & p {
-      margin: 0 0 var(--size-2);
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-    
-    & a {
-      color: var(--ps-alert-link-color);
-      text-decoration: underline;
-      font-weight: var(--font-weight-600);
-      
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-  
   & .ps-alert__close {
     /* Reset button */
     appearance: none;
     margin: 0;
-    padding: var(--ps-alert-close-padding);
     border: none;
     background: transparent;
+    
+    /* Positioning - Top right corner */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    
+    /* Sizing */
+    padding: var(--ps-alert-close-padding);
     
     /* Styling */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--ps-alert-close-size);
-    height: var(--ps-alert-close-size);
-    font-size: var(--ps-alert-close-font-size);
+    font-size: var(--font-size-4);
     line-height: 1;
     color: var(--ps-alert-close-color);
+    opacity: var(--ps-alert-close-opacity);
     cursor: pointer;
-    border-radius: var(--ps-alert-close-border-radius);
     
     /* Transitions */
     transition: var(--ps-alert-transition);
     
     &:hover {
-      background-color: var(--ps-alert-close-hover-bg);
+      opacity: var(--ps-alert-close-hover-opacity);
     }
     
     &:focus-visible {
-      outline: var(--ps-alert-close-focus-outline-width) solid var(--ps-alert-close-focus-outline-color);
+      opacity: var(--ps-alert-close-focus-opacity);
+      outline: var(--ps-alert-close-focus-outline-width) solid currentColor;
       outline-offset: var(--ps-alert-close-focus-outline-offset);
     }
-    
-    &:active {
-      background-color: var(--ps-alert-close-active-bg);
-    }
+  }
+
+  /* Padding adjustment when dismissible */
+  &--dismissible {
+    padding-right: calc(var(--ps-alert-padding-x) + var(--size-8));
   }
 
   /* ============================================
-     Variant Modifiers
+     Variant Modifiers (8 semantic variants)
      ============================================ */
-  &--success {
-    --ps-alert-bg: var(--success);
-    --ps-alert-border-color: var(--success-hover);
-  }
-
-  &--warning {
-    --ps-alert-bg: var(--warning);
-    --ps-alert-border-color: var(--warning-hover);
-    --ps-alert-color: var(--warning-text);
-    --ps-alert-icon-color: var(--warning-text);
-    --ps-alert-close-color: var(--warning-text);
-    --ps-alert-link-color: var(--warning-text);
-  }
-
-  &--danger {
-    --ps-alert-bg: var(--danger);
-    --ps-alert-border-color: var(--danger-hover);
-  }
-
   &--primary {
     --ps-alert-bg: var(--primary);
+    --ps-alert-color: var(--text-inverse);
     --ps-alert-border-color: var(--primary-hover);
+    --ps-alert-link-color: var(--text-inverse);
   }
 
   &--secondary {
     --ps-alert-bg: var(--secondary);
+    --ps-alert-color: var(--text-inverse);
     --ps-alert-border-color: var(--secondary-hover);
+    --ps-alert-link-color: var(--text-inverse);
   }
 
-  /* ============================================
-     Behavior Modifiers
-     ============================================ */
-  &--compact {
-    padding: var(--ps-alert-compact-padding);
-    gap: var(--ps-alert-compact-gap);
+  &--success {
+    --ps-alert-bg: var(--success);
+    --ps-alert-color: var(--text-inverse);
+    --ps-alert-border-color: var(--success-hover);
+    --ps-alert-link-color: var(--text-inverse);
+  }
+
+  &--danger {
+    --ps-alert-bg: var(--danger);
+    --ps-alert-color: var(--text-inverse);
+    --ps-alert-border-color: var(--danger-hover);
+    --ps-alert-link-color: var(--text-inverse);
+  }
+
+  &--warning {
+    --ps-alert-bg: var(--warning);
+    --ps-alert-color: var(--warning-text);
+    --ps-alert-border-color: var(--warning-hover);
+    --ps-alert-link-color: var(--warning-text);
+  }
+
+  &--info {
+    --ps-alert-bg: var(--info);
+    --ps-alert-color: var(--text-inverse);
+    --ps-alert-border-color: var(--info-hover);
+    --ps-alert-link-color: var(--text-inverse);
+  }
+
+  &--light {
+    --ps-alert-bg: var(--gray-100);
+    --ps-alert-color: var(--text-default);
+    --ps-alert-border-color: var(--border-default);
+    --ps-alert-link-color: var(--text-default);
+  }
+
+  &--dark {
+    --ps-alert-bg: var(--gray-900);
+    --ps-alert-color: var(--text-inverse);
+    --ps-alert-border-color: var(--gray-800);
+    --ps-alert-link-color: var(--text-inverse);
+  }
+}
+
+/* ============================================
+   Utility Classes (Bootstrap-inspired)
+   ============================================ */
+
+/* Alert Link - Darker/bolder links within alerts */
+.ps-alert-link {
+  color: var(--ps-alert-link-color);
+  text-decoration: underline;
+  font-weight: var(--font-weight-600);
+  
+  &:hover {
+    text-decoration: none;
+    filter: brightness(0.85);
+  }
+  
+  &:focus-visible {
+    outline: var(--border-size-2) solid currentColor;
+    outline-offset: var(--border-size-1);
+  }
+}
+
+/* Alert Heading - Larger, bold headings within alerts */
+.ps-alert-heading {
+  margin: 0 0 var(--size-2) 0;
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-600);
+  line-height: var(--leading-snug);
+  color: inherit;
+}
+
+/* Paragraph spacing within alerts */
+.ps-alert {
+  & p {
+    margin: 0 0 var(--size-2) 0;
     
-    & .ps-alert__icon {
-      width: var(--ps-alert-compact-icon-size);
-      height: var(--ps-alert-compact-icon-size);
-      font-size: var(--ps-alert-compact-icon-font-size);
+    &:last-child {
+      margin-bottom: 0;
     }
-    
-    & .ps-alert__title {
-      font-size: var(--ps-alert-compact-title-font-size);
-    }
-    
-    & .ps-alert__message {
-      font-size: var(--ps-alert-compact-message-font-size);
-    }
-    
-    & .ps-alert__close {
-      width: var(--ps-alert-compact-close-size);
-      height: var(--ps-alert-compact-close-size);
-      font-size: var(--ps-alert-compact-close-font-size);
-    }
+  }
+  
+  & hr {
+    margin: var(--size-3) 0;
+    border: 0;
+    border-top: var(--border-size-1) solid currentColor;
+    opacity: 0.2;
   }
 }
 

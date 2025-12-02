@@ -77,10 +77,10 @@ export const BehaviorShowcase = {
       </div>
       <div>
         <h3 style="margin-bottom: var(--size-4);">Multiple Open Mode</h3>
-        ${accordionTwig({ 
-          ...baseData, 
+        ${accordionTwig({
+          ...baseData,
           singleOpen: false,
-          items: baseData.items?.map((it, i) => ({ ...it, open: i < 2 })) || []
+          items: baseData.items?.map((it, i) => ({ ...it, open: i < 2 })) || [],
         })}
       </div>
     </div>

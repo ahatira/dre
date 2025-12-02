@@ -10,48 +10,30 @@ const settings = {
     docs: {
       description: {
         component:
-          'Semantic alert component for status messages with accessible ARIA roles and tokenized design system.',
+          'Bootstrap 5.3-inspired alert component with 8 semantic variants, flexible content, and optional dismissal.',
       },
     },
   },
   argTypes: {
     variant: {
-      description: 'Semantic variant (info, success, warning, danger, primary, secondary)',
+      description: 'Semantic variant (8 options matching Bootstrap)',
       control: { type: 'select' },
-      options: ['info', 'success', 'warning', 'danger', 'primary', 'secondary'],
+      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'info | success | warning | danger | primary | secondary',
+          summary: 'primary | secondary | success | danger | warning | info | light | dark',
         },
-        defaultValue: { summary: 'info' },
+        defaultValue: { summary: 'primary' },
       },
     },
-    title: {
-      description: 'Optional title text',
+    content: {
+      description: 'Free HTML content (headings, paragraphs, links, icons optional)',
       control: { type: 'text' },
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: { summary: 'string (HTML)' },
         defaultValue: { summary: '""' },
-      },
-    },
-    message: {
-      description: 'Message content (supports HTML)',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
-    },
-    icon: {
-      description: 'Show icon (info=infos, success=check, warning=help, danger=close)',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
       },
     },
     dismissible: {
@@ -59,15 +41,6 @@ const settings = {
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    compact: {
-      description: 'Reduced padding for dense layouts',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Appearance',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -87,98 +60,161 @@ export const Default = {
   args: { ...data },
 };
 
-export const SemanticVariants = {
-  name: 'Semantic Colors',
+export const AllVariants = {
+  name: 'All 8 Variants (Bootstrap)',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({ variant: 'info', title: 'New Property Listing', message: 'A new commercial property matching your criteria has been added to the market.' })}
-      ${alertTwig({ variant: 'success', title: 'Offer Accepted', message: 'Your offer on 123 Main Street has been accepted. Next steps will be sent via email.' })}
-      ${alertTwig({ variant: 'warning', title: 'Document Expiring', message: 'Your property insurance policy expires in 30 days. Please review and renew to avoid coverage gaps.' })}
-      ${alertTwig({ variant: 'danger', title: 'Payment Failed', message: 'Your monthly payment could not be processed. Please update your payment method to avoid service interruption.' })}
+      ${alertTwig({ variant: 'primary', content: 'A simple <strong>primary</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'secondary', content: 'A simple <strong>secondary</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'success', content: 'A simple <strong>success</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'danger', content: 'A simple <strong>danger</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'warning', content: 'A simple <strong>warning</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'info', content: 'A simple <strong>info</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'light', content: 'A simple <strong>light</strong> alert—check it out!' })}
+      ${alertTwig({ variant: 'dark', content: 'A simple <strong>dark</strong> alert—check it out!' })}
     </div>
   `,
 };
 
-export const BrandVariants = {
-  name: 'Brand Colors',
+export const WithLinks = {
+  name: 'Alert Links (Bootstrap)',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({ variant: 'primary', title: 'BNP Paribas RealEstate', message: 'Primary brand color for featured announcements and important highlights.' })}
-      ${alertTwig({ variant: 'secondary', title: 'Special Promotion', message: 'Secondary brand color for promotional content and accent messages.' })}
+      ${alertTwig({
+        variant: 'primary',
+        content:
+          'A property listing with <a href="#" class="ps-alert-link">an example link</a>. Give it a click if you like.',
+      })}
+      ${alertTwig({
+        variant: 'success',
+        content:
+          'Offer accepted! <a href="#" class="ps-alert-link">View contract details</a> in your dashboard.',
+      })}
+      ${alertTwig({
+        variant: 'warning',
+        content:
+          'Your insurance expires soon. <a href="#" class="ps-alert-link">Renew now</a> to avoid gaps.',
+      })}
+      ${alertTwig({
+        variant: 'danger',
+        content:
+          'Payment failed. <a href="#" class="ps-alert-link">Update payment method</a> immediately.',
+      })}
     </div>
   `,
 };
 
-export const BehaviorShowcase = {
-  name: 'Behaviors',
+export const WithHeadings = {
+  name: 'Additional Content (Bootstrap)',
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Dismissible Alerts</h3>
-        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-          ${alertTwig({ variant: 'info', title: 'Viewing Scheduled', message: 'Your property viewing is confirmed for tomorrow at 2 PM.', dismissible: true })}
-          ${alertTwig({ variant: 'success', message: 'Saved to favorites!', dismissible: true })}
-        </div>
-      </div>
-      
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Without Icon</h3>
-        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-          ${alertTwig({ variant: 'info', message: 'Text-only alert for minimal design.', icon: false })}
-          ${alertTwig({ variant: 'warning', title: 'Notice', message: 'Alert without visual icon indicator.', icon: false })}
-        </div>
-      </div>
-      
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Without Title</h3>
-        <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-          ${alertTwig({ variant: 'success', message: 'Simple success message without title.' })}
-          ${alertTwig({ variant: 'danger', message: 'Connection lost. Reconnecting...' })}
-        </div>
-      </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      ${alertTwig({
+        variant: 'success',
+        content: `
+          <h4 class="ps-alert-heading">Property Inspection Complete!</h4>
+          <p>Aww yeah, you successfully completed the inspection for 123 Main Street. The detailed report has been uploaded to your dashboard and is now available for review.</p>
+          <hr>
+          <p style="margin-bottom: 0;">Whenever you're ready, proceed with the final offer or schedule a follow-up viewing with the property agent.</p>
+        `,
+      })}
+      ${alertTwig({
+        variant: 'info',
+        content: `
+          <h4 class="ps-alert-heading">Market Analysis Available</h4>
+          <p>A comprehensive market analysis for downtown commercial properties has been prepared by your real estate advisor.</p>
+          <p style="margin-bottom: 0;"><a href="#" class="ps-alert-link">Download report</a> to review key insights and investment opportunities.</p>
+        `,
+      })}
     </div>
   `,
 };
 
-export const LayoutShowcase = {
-  name: 'Layout Variants',
+export const WithIcons = {
+  name: 'With Icons (Optional)',
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Default Spacing</h3>
-        ${alertTwig({ variant: 'info', title: 'Property Inspection', message: 'The inspection report for 456 Oak Avenue has been uploaded to your dashboard.' })}
-      </div>
-      
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4);">Compact (Sidebars, Mobile)</h3>
-        <div style="max-width: 400px; display: flex; flex-direction: column; gap: var(--size-3);">
-          ${alertTwig({ variant: 'info', message: 'New message received.', compact: true, dismissible: true })}
-          ${alertTwig({ variant: 'warning', message: 'Low battery.', compact: true })}
-          ${alertTwig({ variant: 'success', message: 'Saved!', compact: true })}
-        </div>
-      </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      ${alertTwig({
+        variant: 'primary',
+        content:
+          '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Featured property listing in your preferred area',
+      })}
+      ${alertTwig({
+        variant: 'success',
+        content:
+          '<span data-icon="check" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Viewing confirmed for tomorrow at 2 PM',
+      })}
+      ${alertTwig({
+        variant: 'warning',
+        content:
+          '<span data-icon="help" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Document expires in 30 days',
+      })}
+      ${alertTwig({
+        variant: 'danger',
+        content:
+          '<span data-icon="close" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Payment processing failed',
+      })}
     </div>
   `,
 };
 
-export const ContentShowcase = {
-  name: 'Rich Content',
+export const DismissibleAlerts = {
+  name: 'Dismissible (Bootstrap)',
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      ${alertTwig({
+        variant: 'warning',
+        content:
+          '<strong>Holy guacamole!</strong> You should check in on some of those fields below.',
+        dismissible: true,
+      })}
+      ${alertTwig({
+        variant: 'success',
+        content: 'Your property has been saved to favorites!',
+        dismissible: true,
+      })}
+      ${alertTwig({
+        variant: 'danger',
+        content: `
+          <h4 class="ps-alert-heading">Urgent: Payment Overdue</h4>
+          <p style="margin-bottom: 0;">Your monthly payment is now 15 days overdue. Please update your payment information immediately to avoid service interruption.</p>
+        `,
+        dismissible: true,
+      })}
+    </div>
+  `,
+};
+
+export const RealEstateExamples = {
+  name: 'Real Estate Use Cases',
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       ${alertTwig({
         variant: 'info',
-        title: 'Market Update Available',
-        message: '<p>New market analysis report is ready. <a href="#">Download now</a> to view the latest trends and insights.</p>',
+        content: `
+          <h4 class="ps-alert-heading">New Property Match</h4>
+          <p style="margin-bottom: 0;">A commercial property in your preferred area has been listed. 2,500 sqft office space with parking. <a href="#" class="ps-alert-link">View listing</a></p>
+        `,
+        dismissible: true,
       })}
       ${alertTwig({
         variant: 'success',
-        message: '<p><strong>Contract Signed!</strong></p><p>Your lease agreement has been executed. Documents will be available within 24 hours.</p>',
+        content:
+          '<strong>Offer Accepted!</strong> Your offer on 456 Oak Avenue has been accepted by the seller. Contract details will be sent within 24 hours.',
       })}
       ${alertTwig({
         variant: 'warning',
-        title: 'Action Required',
-        message: '<p>Your mortgage pre-approval expires in 7 days.</p><p><a href="#">Renew now</a> to maintain your rate lock.</p>',
-        dismissible: true,
+        content:
+          '<strong>Insurance Renewal:</strong> Your property insurance policy expires in 30 days. <a href="#" class="ps-alert-link">Review and renew</a> to maintain coverage.',
+      })}
+      ${alertTwig({
+        variant: 'danger',
+        content:
+          '<strong>Payment Failed:</strong> Your monthly mortgage payment could not be processed. Please <a href="#" class="ps-alert-link">update payment method</a> to avoid late fees.',
+      })}
+      ${alertTwig({
+        variant: 'primary',
+        content:
+          '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span><strong>BNP Paribas RealEstate</strong> Featured announcement for premium clients',
       })}
     </div>
   `,

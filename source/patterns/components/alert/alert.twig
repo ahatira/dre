@@ -1,51 +1,29 @@
 {#
  * Alert Component (Molecule)
- * Semantic status message with dismissible option
+ * Bootstrap 5.3-inspired semantic alert with flexible content
  * 
- * @param string variant - Semantic variant: 'info' | 'success' | 'warning' | 'danger' | 'primary' | 'secondary' (default: 'info')
- * @param string title - Optional title text (optional)
- * @param string message - Message content (required)
- * @param boolean icon - Show icon (optional, default: true)
+ * @param string variant - Semantic variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' (default: 'primary')
+ * @param string content - Free HTML content (headings, paragraphs, links, icons optional) (required)
  * @param boolean dismissible - Show close button (optional, default: false)
- * @param boolean compact - Reduced padding (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
-{%- set variant = variant|default('info') -%}
-{%- set icon = icon is defined ? icon : true -%}
+{%- set variant = variant|default('primary') -%}
 {%- set dismissible = dismissible|default(false) -%}
-{%- set compact = compact|default(false) -%}
-{%- set title = title|default('') -%}
-{%- set message = message|default('') -%}
+{%- set content = content|default('') -%}
 
 {{ attach_library('ps_theme/alert') }}
 
-{# Icon mapping per variant #}
-{%- set iconMap = {
-  'info': 'infos',
-  'success': 'check',
-  'warning': 'help',
-  'danger': 'close',
-  'primary': 'infos',
-  'secondary': 'infos'
-} -%}
-{%- set iconName = iconMap[variant] -%}
+{# ARIA role and live region - danger/warning are assertive #}
+{%- set role = (variant in ['danger', 'warning']) ? 'alert' : 'status' -%}
+{%- set ariaLive = (variant in ['danger', 'warning']) ? 'assertive' : 'polite' -%}
 
-{# ARIA role and live region #}
-{%- set role = (variant == 'danger') ? 'alert' : 'status' -%}
-{%- set ariaLive = (variant == 'danger') ? 'assertive' : 'polite' -%}
-
-{# Build classes array - only add modifiers if not default #}
-{%- set classes = ['ps-alert'] -%}
-{%- if variant != 'info' -%}
-  {%- set classes = classes|merge(['ps-alert--' ~ variant]) -%}
-{%- endif -%}
-{%- if dismissible -%}
-  {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
-{%- endif -%}
-{%- if compact -%}
-  {%- set classes = classes|merge(['ps-alert--compact']) -%}
-{%- endif -%}
+{# Build classes array - variant always applied (no default omission) #}
+{%- set classes = [
+  'ps-alert',
+  'ps-alert--' ~ variant,
+  dismissible ? 'ps-alert--dismissible' : null
+]|filter(v => v) -%}
 
 <div
   class="{{ classes|join(' ')|trim }}"
@@ -53,16 +31,7 @@
   aria-live="{{ ariaLive }}"
   {% if attributes %}{{ attributes }}{% endif %}
 >
-  {%- if icon -%}
-    <span class="ps-alert__icon" data-icon="{{ iconName }}" aria-hidden="true"></span>
-  {%- endif -%}
-
-  <div class="ps-alert__content">
-    {%- if title -%}
-      <h3 class="ps-alert__title">{{ title }}</h3>
-    {%- endif -%}
-    <div class="ps-alert__message">{{ message|raw }}</div>
-  </div>
+  {{- content|raw -}}
 
   {%- if dismissible -%}
     <button
