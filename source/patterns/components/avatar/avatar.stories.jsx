@@ -5,7 +5,7 @@ import avatarData from './avatar.yml';
  * Storybook Definition - Avatar (Element/Atom)
  */
 export default {
-  title: 'Elements/Avatar',
+  title: 'Components/Avatar',
   tags: ['autodocs'],
   render: (args) => avatarTwig(args),
   argTypes: {
