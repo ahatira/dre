@@ -38,13 +38,23 @@ Supports underline control, external target handling, and focus-visible accessib
     // Appearance
     color: {
       description:
-        'Link color variant (omit for default text color, or use: primary, secondary, info, inverse)',
+        'Link color variant: semantic colors for navigation, CTAs, and status indicators',
       control: { type: 'select' },
-      options: ['', 'primary', 'secondary', 'info', 'inverse'],
+      options: ['default', 'primary', 'secondary', 'info', 'warning', 'success', 'danger', 'dark', 'light'],
       table: {
         category: 'Appearance',
-        type: { summary: 'primary | secondary | info | inverse' },
-        defaultValue: { summary: '(base text color)' },
+        type: { summary: 'default | primary | secondary | info | warning | success | danger | dark | light' },
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    size: {
+      description: 'Link size variant: adapt for hierarchy, accessibility, and context',
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'xs | sm | md | lg | xl | xxl' },
+        defaultValue: { summary: 'md' },
       },
     },
     underline: {
@@ -116,10 +126,11 @@ export const Default = {
 
 export const AllColors = {
   render: () => `
+    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All available color variants for links. Use semantic colors for real estate navigation, CTAs, and status indicators.</p>
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Default (base text color)</p>
-        ${linkTwig({ text: 'Default link', url: '#' })}
+        ${linkTwig({ text: 'Default link', url: '#', color: 'default' })}
       </div>
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Primary variant</p>
@@ -133,16 +144,47 @@ export const AllColors = {
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Info variant</p>
         ${linkTwig({ text: 'Info link', url: '#', color: 'info' })}
       </div>
-      <div style="background-color: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--white);">Inverse variant (for dark backgrounds)</p>
-        ${linkTwig({ text: 'Inverse link', url: '#', color: 'inverse' })}
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Warning variant</p>
+        ${linkTwig({ text: 'Warning link', url: '#', color: 'warning' })}
       </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Success variant</p>
+        ${linkTwig({ text: 'Success link', url: '#', color: 'success' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Danger variant</p>
+        ${linkTwig({ text: 'Danger link', url: '#', color: 'danger' })}
+      </div>
+      <div>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">Dark variant</p>
+        ${linkTwig({ text: 'Dark link', url: '#', color: 'dark' })}
+      </div>
+      <div style="background-color: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--white);">Light variant (for dark backgrounds)</p>
+        ${linkTwig({ text: 'Light link', url: '#', color: 'light' })}
+      </div>
+    </div>
+  `,
+};
+
+export const AllSizes = {
+  render: () => `
+    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All supported link sizes. Adapt link size for hierarchy, accessibility, and context (menus, footers, property listings).</p>
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      <div>${linkTwig({ text: 'Extra small', url: '#', size: 'xs' })}</div>
+      <div>${linkTwig({ text: 'Small', url: '#', size: 'sm' })}</div>
+      <div>${linkTwig({ text: 'Medium', url: '#', size: 'md' })}</div>
+      <div>${linkTwig({ text: 'Large', url: '#', size: 'lg' })}</div>
+      <div>${linkTwig({ text: 'Extra large', url: '#', size: 'xl' })}</div>
+      <div>${linkTwig({ text: 'XXL', url: '#', size: 'xxl' })}</div>
     </div>
   `,
 };
 
 export const AllStates = {
   render: () => `
+    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">All interactive states and icon options. Demonstrates underline, disabled, external, and icon positioning for real estate use.</p>
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
         <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--gray-600);">With underline (default, hover removes it)</p>
@@ -174,6 +216,7 @@ export const AllStates = {
 
 export const UseCases = {
   render: () => `
+    <p style="margin-bottom: var(--size-3); color: var(--gray-700); font-size: var(--font-size-1);">Typical real estate use cases: navigation, call-to-action, external resources, and footer links. All examples use contextual real estate content.</p>
     <div style="display: flex; flex-direction: column; gap: var(--size-6);">
       <div>
         <h3 style="margin: 0 0 var(--size-3) 0;">Standard link in paragraph</h3>
@@ -196,7 +239,7 @@ export const UseCases = {
       </div>
       <div style="background-color: var(--gray-800); padding: var(--size-6); border-radius: var(--radius-2);">
         <h3 style="margin: 0 0 var(--size-3) 0; color: var(--white);">Link on dark background</h3>
-        ${linkTwig({ text: 'Contact us', url: '#', color: 'inverse', underline: true })}
+        ${linkTwig({ text: 'Contact us', url: '#', color: 'light', underline: true })}
       </div>
     </div>
   `,

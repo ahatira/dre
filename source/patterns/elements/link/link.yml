@@ -1,10 +1,12 @@
 # Default: Base link (uses default text color) with underline
+
 text: 'Link text'
 url: '#'
-# color: ''  # Optional. Variants: primary | secondary | info | inverse
-underline: true  # Show/hide underline decoration (default: true)
-icon: ''  # Icon name from bnpre-icons font (e.g., 'arrow-right', 'arrow-left', 'external-link', 'download')
-iconPosition: 'right'  # Options: left | right (default: right)
-target: '_self'  # Options: _self | _blank (external links)
-rel: ''  # Custom rel attribute (auto-set to 'noopener noreferrer' for _blank)
-disabled: false  # Disabled state (renders as <span> instead of <a>)
+color: 'primary' # Variants: default | primary | secondary | info | warning | success | danger | dark | light
+size: 'md' # Variants: xs | sm | md | lg | xl | xxl
+underline: true
+icon: ''
+iconPosition: 'right'
+target: '_self'
+rel: ''
+disabled: false

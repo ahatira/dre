@@ -12,10 +12,11 @@ The Link component provides a semantic and accessible way to create hyperlinks w
 |----------|------|---------|----------|-------------|
 | `text` | string | `'Link text'` | Yes | The link text content |
 | `url` | string | `'#'` | Yes | The link URL or path |
-| `color` | string | `''` | No | Optional color variant: `primary`, `secondary`, `info`, `inverse`. If omitted, link uses the default text color. |
+| `color` | string | `'primary'` | No | Color variant: `default`, `primary`, `secondary`, `info`, `warning`, `success`, `danger`, `dark`, `light`. |
 | `underline` | boolean | `true` | No | Show underline decoration |
 | `icon` | string | `''` | No | Icon name to display (from ps-icons font) |
 | `iconPosition` | string | `'right'` | No | Icon position: `left`, `right` |
+| `size` | string | `'md'` | No | Size variant: `xs`, `sm`, `md`, `lg`, `xl`, `xxl` |
 | `target` | string | `'_self'` | No | Link target: `_self`, `_blank` |
 | `rel` | string | `''` | No | Link rel attribute (auto-set for `_blank`) |
 | `disabled` | boolean | `false` | No | Disabled state |
@@ -29,57 +30,48 @@ ps-link                    # Base component (underline by default)
 └── ps-link__icon         # Icon element (optional, icon via CSS ::before)
 
 Modifiers:
-├── ps-link--primary      # Primary color (green)
-├── ps-link--secondary    # Secondary color (purple)
-├── ps-link--info         # Info color (blue)
-├── ps-link--inverse      # Inverse color (white, for dark backgrounds)
+├── ps-link--primary      # Primary color
+├── ps-link--secondary    # Secondary color
+├── ps-link--info         # Info color
+├── ps-link--warning      # Warning color
+├── ps-link--success      # Success color
+├── ps-link--danger       # Danger color
+├── ps-link--dark         # Dark color
+├── ps-link--light        # Light color
+├── ps-link--default      # Default text color
 ├── ps-link--no-underline # Remove underline decoration
 ├── ps-link--with-icon    # Contains icon
 ├── ps-link--icon-left    # Icon positioned on left side
 ├── ps-link--external     # External link (_blank)
-└── ps-link--disabled     # Disabled state
+├── ps-link--disabled     # Disabled state
+├── ps-link--xs           # Extra small size
+├── ps-link--sm           # Small size
+├── ps-link--md           # Medium size
+├── ps-link--lg           # Large size
+├── ps-link--xl           # Extra large size
+└── ps-link--xxl          # Double extra large size
 ```
 
 ## Design Tokens Used
-- `--ps-color-text` - Default text color (fallback `--text-default`)
+- Système à 3 couches :
+  - Palette de base : `colors.css` (ex : `--green-600`, `--blue-600`, ...)
+  - Sémantique : `semantic.css` (ex : `--color-link-primary`, ...)
+  - Composant : `link.css` (ex : `--ps-link-primary`, ...)
 
 ### Colors
-- `--ps-link-primary` - Primary link color (green #00915A)
-- `--ps-link-primary-hover` - Primary hover state (#006B43)
-- `--ps-link-primary-active` - Primary active state (#004A2D)
-- `--ps-link-primary-visited` - Primary visited state (#8E2A68)
-- `--ps-link-primary-disabled` - Primary disabled state
-- `--ps-link-secondary` - Secondary link color (purple #BA3075)
-- `--ps-link-secondary-hover` - Secondary hover state (#A12B66)
-- `--ps-link-secondary-active` - Secondary active state (#8E2A68)
-- `--ps-link-secondary-visited` - Secondary visited state (#6B1F4D)
-- `--ps-link-secondary-disabled` - Secondary disabled state
-- `--ps-link-info` - Info link color (blue)
-- `--ps-link-info-hover` - Info hover state
-- `--ps-link-info-active` - Info active state
-- `--ps-link-info-visited` - Info visited state
-- `--ps-link-info-disabled` - Info disabled state
-- `--ps-link-inverse` - Inverse link color (white)
-- `--ps-link-inverse-hover` - Inverse hover state
-- `--ps-link-inverse-active` - Inverse active state
-- `--ps-link-inverse-visited` - Inverse visited state
-- `--ps-link-inverse-disabled` - Inverse disabled state
-- `--blue-500` - Focus outline color
+- `--ps-link-primary`, `--ps-link-secondary`, `--ps-link-info`, `--ps-link-warning`, `--ps-link-success`, `--ps-link-danger`, `--ps-link-dark`, `--ps-link-light`, `--ps-link-default`
+- Chaque couleur a ses états : hover, active, visited, disabled
 
-### Typography
-- `--font-sans` - Font family
-- `--font-weight-400` - Regular font weight
-- `--size-4` - Base font size (16px)
-- `--leading-normal` - Line height
+### Typography & Sizes
+- `--ps-link-size-xs`, `--ps-link-size-sm`, `--ps-link-size-md`, `--ps-link-size-lg`, `--ps-link-size-xl`, `--ps-link-size-xxl`
+- `--font-sans`, `--font-weight-400`, `--leading-normal`
 
 ### Spacing
-- `--size-2` - Gap between icon and text (8px)
-- `--size-5` - Icon size (20px)
+- `--size-2` (gap icône/texte)
+- `--size-5` (icône)
 
 ### Borders & Radii
-- `--border-size-1` - Small border/offset (1px)
-- `--border-size-2` - Medium border (2px)
-- `--radius-1` - Small border radius (2px)
+- `--border-size-1`, `--border-size-2`, `--radius-1`
 
 ## Usage Examples
 

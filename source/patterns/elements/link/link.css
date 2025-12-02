@@ -9,27 +9,66 @@
  */
 
 .ps-link {
-  /* Component-specific color tokens (semantic link states) */
-  --ps-link-primary: hsl(162, 100%, 28%); /* #00915A */
-  --ps-link-primary-hover: hsl(162, 100%, 21%); /* #006B43 */
-  --ps-link-primary-active: hsl(162, 100%, 14%); /* #004A2D */
-  --ps-link-primary-visited: hsl(320, 55%, 45%); /* #8E2A68 */
-  --ps-link-primary-disabled: hsl(220, 9%, 46%);
-  --ps-link-secondary: hsl(330, 60%, 50%); /* #BA3075 */
-  --ps-link-secondary-hover: hsl(330, 65%, 40%); /* #A12B66 */
-  --ps-link-secondary-active: hsl(320, 55%, 45%); /* #8E2A68 */
-  --ps-link-secondary-visited: hsl(320, 55%, 35%); /* #6B1F4D */
-  --ps-link-secondary-disabled: hsl(220, 9%, 46%);
-  --ps-link-inverse: hsl(0, 0%, 100%);
-  --ps-link-inverse-hover: hsl(0, 0%, 90%);
-  --ps-link-inverse-active: hsl(0, 0%, 80%);
-  --ps-link-inverse-visited: hsl(0, 0%, 85%);
-  --ps-link-inverse-disabled: hsl(0, 0%, 60%);
-  --ps-link-info: hsl(220, 89%, 53%);
-  --ps-link-info-hover: hsl(221, 79%, 48%);
-  --ps-link-info-active: hsl(223, 68%, 37%);
-  --ps-link-info-visited: hsl(225, 54%, 30%);
-  --ps-link-info-disabled: hsl(220, 9%, 46%);
+
+  /* Migration: Use 3-layer token system */
+  /* Base palette: colors.css (e.g. --green-600, --blue-600, --yellow-600, etc.) */
+  /* Semantic: --color-link-primary, --color-link-secondary, etc. (to be defined in semantic.css) */
+  /* Component: --ps-link-primary, etc. (here, only as alias) */
+  --ps-link-primary: var(--color-link-primary, var(--green-600));
+  --ps-link-primary-hover: var(--color-link-primary-hover, var(--green-700));
+  --ps-link-primary-active: var(--color-link-primary-active, var(--green-800));
+  --ps-link-primary-visited: var(--color-link-primary-visited, var(--purple-600));
+  --ps-link-primary-disabled: var(--color-link-primary-disabled, var(--gray-500));
+
+  --ps-link-secondary: var(--color-link-secondary, var(--purple-500));
+  --ps-link-secondary-hover: var(--color-link-secondary-hover, var(--purple-600));
+  --ps-link-secondary-active: var(--color-link-secondary-active, var(--purple-700));
+  --ps-link-secondary-visited: var(--color-link-secondary-visited, var(--purple-800));
+  --ps-link-secondary-disabled: var(--color-link-secondary-disabled, var(--gray-500));
+
+  --ps-link-info: var(--color-link-info, var(--blue-600));
+  --ps-link-info-hover: var(--color-link-info-hover, var(--blue-700));
+  --ps-link-info-active: var(--color-link-info-active, var(--blue-800));
+  --ps-link-info-visited: var(--color-link-info-visited, var(--blue-900));
+  --ps-link-info-disabled: var(--color-link-info-disabled, var(--gray-500));
+
+  --ps-link-warning: var(--color-link-warning, var(--yellow-600));
+  --ps-link-warning-hover: var(--color-link-warning-hover, var(--yellow-700));
+  --ps-link-warning-active: var(--color-link-warning-active, var(--yellow-800));
+  --ps-link-warning-visited: var(--color-link-warning-visited, var(--yellow-900));
+  --ps-link-warning-disabled: var(--color-link-warning-disabled, var(--gray-500));
+
+  --ps-link-success: var(--color-link-success, var(--green-500));
+  --ps-link-success-hover: var(--color-link-success-hover, var(--green-600));
+  --ps-link-success-active: var(--color-link-success-active, var(--green-700));
+  --ps-link-success-visited: var(--color-link-success-visited, var(--green-800));
+  --ps-link-success-disabled: var(--color-link-success-disabled, var(--gray-500));
+
+  --ps-link-danger: var(--color-link-danger, var(--red-600));
+  --ps-link-danger-hover: var(--color-link-danger-hover, var(--red-700));
+  --ps-link-danger-active: var(--color-link-danger-active, var(--red-800));
+  --ps-link-danger-visited: var(--color-link-danger-visited, var(--red-900));
+  --ps-link-danger-disabled: var(--color-link-danger-disabled, var(--gray-500));
+
+  --ps-link-dark: var(--color-link-dark, var(--gray-900));
+  --ps-link-dark-hover: var(--color-link-dark-hover, var(--gray-800));
+  --ps-link-dark-active: var(--color-link-dark-active, var(--gray-700));
+  --ps-link-dark-visited: var(--color-link-dark-visited, var(--gray-600));
+  --ps-link-dark-disabled: var(--color-link-dark-disabled, var(--gray-500));
+
+  --ps-link-light: var(--color-link-light, var(--gray-100));
+  --ps-link-light-hover: var(--color-link-light-hover, var(--gray-200));
+  --ps-link-light-active: var(--color-link-light-active, var(--gray-300));
+  --ps-link-light-visited: var(--color-link-light-visited, var(--gray-400));
+  --ps-link-light-disabled: var(--color-link-light-disabled, var(--gray-500));
+
+  /* Tailles (xs, sm, md, lg, xl, xxl) */
+  --ps-link-size-xs: var(--font-size-0, 0.75rem);
+  --ps-link-size-sm: var(--font-size-1, 0.875rem);
+  --ps-link-size-md: var(--font-size-2, 1rem);
+  --ps-link-size-lg: var(--font-size-3, 1.125rem);
+  --ps-link-size-xl: var(--font-size-4, 1.25rem);
+  --ps-link-size-xxl: var(--font-size-5, 1.5rem);
   
   /* Reset */
   margin: 0;
@@ -45,7 +84,7 @@
   /* Typography */
   font-family: var(--font-sans);
   font-weight: var(--font-weight-400);
-  font-size: var(--size-4);
+  font-size: var(--ps-link-size-md);
   line-height: var(--leading-normal);
   text-decoration: none;
   
@@ -88,113 +127,79 @@
     pointer-events: none;
   }
 
-  /* Primary Variant */
+
+  /* Variants de couleur (harmonisation) */
   &--primary {
     color: var(--ps-link-primary);
-    
-    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-primary-hover);
-    }
-    
-    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-primary-active);
-    }
-    
-    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-primary-visited);
-    }
-    
-    &.ps-link--disabled,
-    &[aria-disabled="true"] {
-      color: var(--ps-link-primary-disabled);
-    }
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-primary-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-primary-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-primary-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-primary-disabled); }
   }
-
-  /* Secondary Variant */
   &--secondary {
     color: var(--ps-link-secondary);
-    
-    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-secondary-hover);
-    }
-    
-    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-secondary-active);
-    }
-    
-    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-secondary-visited);
-    }
-    
-    &.ps-link--disabled,
-    &[aria-disabled="true"] {
-      color: var(--ps-link-secondary-disabled);
-    }
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-secondary-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-secondary-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-secondary-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-secondary-disabled); }
   }
-
-  /* Info Variant */
   &--info {
     color: var(--ps-link-info);
-    
-    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-info-hover);
-    }
-    
-    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-info-active);
-    }
-    
-    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-info-visited);
-    }
-    
-    &.ps-link--disabled,
-    &[aria-disabled="true"] {
-      color: var(--ps-link-info-disabled);
-    }
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-info-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-info-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-info-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-info-disabled); }
   }
-
-  /* Inverse Variant */
-  &--inverse {
-    color: var(--ps-link-inverse);
-    
-    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-inverse-hover);
-    }
-    
-    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-inverse-active);
-    }
-    
-    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
-      color: var(--ps-link-inverse-visited);
-    }
-    
-    &.ps-link--disabled,
-    &[aria-disabled="true"] {
-      color: var(--ps-link-inverse-disabled);
-    }
+  &--warning {
+    color: var(--ps-link-warning);
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-warning-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-warning-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-warning-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-warning-disabled); }
+  }
+  &--success {
+    color: var(--ps-link-success);
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-success-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-success-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-success-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-success-disabled); }
+  }
+  &--danger {
+    color: var(--ps-link-danger);
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-danger-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-danger-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-danger-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-danger-disabled); }
+  }
+  &--dark {
+    color: var(--ps-link-dark);
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-dark-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-dark-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-dark-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-dark-disabled); }
+  }
+  &--light {
+    color: var(--ps-link-light);
+    &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-light-hover); }
+    &:active:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-light-active); }
+    &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) { color: var(--ps-link-light-visited); }
+    &.ps-link--disabled, &[aria-disabled="true"] { color: var(--ps-link-light-disabled); }
   }
 
   /* Modifiers */
-  &--no-underline {
-    text-decoration: none;
-  }
+  &--no-underline { text-decoration: none; }
+  &--with-icon { gap: var(--size-2); }
+  &--icon-left .ps-link__icon { order: -1; }
+  &--external .ps-link__icon::before { content: "\e800"; }
 
-  &--with-icon {
-    gap: var(--size-2);
-  }
-
-  &--icon-left .ps-link__icon {
-    order: -1;
-  }
-
-  &--external .ps-link__icon::before {
-    content: "\e800";
-  }
+  /* Tailles */
+  &--xs { font-size: var(--ps-link-size-xs); }
+  &--sm { font-size: var(--ps-link-size-sm); }
+  &--md { font-size: var(--ps-link-size-md); }
+  &--lg { font-size: var(--ps-link-size-lg); }
+  &--xl { font-size: var(--ps-link-size-xl); }
+  &--xxl { font-size: var(--ps-link-size-xxl); }
 
   /* Elements */
-  &__text {
-    display: inline-block;
-  }
+  &__text { display: inline-block; }
 }

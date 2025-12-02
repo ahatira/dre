@@ -14,7 +14,7 @@
 
 {% set text = text|default('Link text') %}
 {% set url = url|default('#') %}
-{% set color = color|default('') %}
+{% set color = color|default('primary') %}
 {% set underline = underline is not null ? underline : true %}
 {% set icon = icon|default('') %}
 {% set iconPosition = iconPosition|default('right') %}
@@ -22,10 +22,14 @@
 {% set rel = rel|default('') %}
 {% set disabled = disabled|default(false) %}
 
+{% set size = size|default('md') %}
 {% set classes = [] %}
 {% set classes = classes|merge(['ps-link']) %}
 {% if color %}
   {% set classes = classes|merge(['ps-link--' ~ color]) %}
+{% endif %}
+{% if size %}
+  {% set classes = classes|merge(['ps-link--' ~ size]) %}
 {% endif %}
 {% if underline == false %}
   {% set classes = classes|merge(['ps-link--no-underline']) %}
