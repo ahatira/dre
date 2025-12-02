@@ -120,17 +120,17 @@
      Soft pastel backgrounds with colored borders
      ============================================ */
   &--primary {
-    --ps-alert-bg: var(--bg-info-light);
+    --ps-alert-bg: var(--green-100);
     --ps-alert-color: var(--text-primary);
-    --ps-alert-border-color: var(--info);
-    --ps-alert-link-color: var(--info);
+    --ps-alert-border-color: var(--primary);
+    --ps-alert-link-color: var(--primary);
   }
 
   &--secondary {
-    --ps-alert-bg: var(--bg-section);
+    --ps-alert-bg: hsl(330, 65%, 95%);
     --ps-alert-color: var(--text-primary);
-    --ps-alert-border-color: var(--neutral);
-    --ps-alert-link-color: var(--neutral);
+    --ps-alert-border-color: var(--secondary);
+    --ps-alert-link-color: var(--secondary);
   }
 
   &--success {
