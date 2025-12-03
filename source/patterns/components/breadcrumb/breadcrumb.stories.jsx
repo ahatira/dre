@@ -173,7 +173,7 @@ export const ShowcaseColors = {
             color,
           })}
         </div>
-      `,
+      `
         )
         .join('')}
     </div>
@@ -197,7 +197,7 @@ export const ShowcaseSizes = {
             size,
           })}
         </div>
-      `,
+      `
         )
         .join('')}
     </div>
