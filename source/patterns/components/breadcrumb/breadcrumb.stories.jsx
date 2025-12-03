@@ -156,4 +156,44 @@ export const ShowcaseVariants = {
   `,
 };
 
+export const ShowcaseColors = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-6);">
+      ${['default','primary','secondary','info','warning','success','danger','dark','light'].map((color) => `
+        <div style="border: 1px solid var(--gray-200); padding: var(--size-4); border-radius: var(--radius-2);">
+          <h4 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-700);">Color: ${color}</h4>
+          ${breadcrumbTwig({
+            items: [
+              { label: 'Home', url: '/' },
+              { label: 'Locations', url: '/locations' },
+              { label: 'Paris 15e' },
+            ],
+            color,
+          })}
+        </div>
+      `).join('')}
+    </div>
+  `,
+};
+
+export const ShowcaseSizes = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-6);">
+      ${['xs','sm','md','lg','xl','xxl'].map((size) => `
+        <div style="border: 1px solid var(--gray-200); padding: var(--size-4); border-radius: var(--radius-2);">
+          <h4 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-700);">Size: ${size}</h4>
+          ${breadcrumbTwig({
+            items: [
+              { label: 'Home', url: '/' },
+              { label: 'Products', url: '/products' },
+              { label: 'Electronics' },
+            ],
+            size,
+          })}
+        </div>
+      `).join('')}
+    </div>
+  `,
+};
+
 export default settings;
