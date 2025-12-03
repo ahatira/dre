@@ -8,7 +8,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Navigation trail showing page hierarchy in site structure. Enhances SEO and UX with semantic markup, accessible states, and keyboard navigation support.',
+          'Breadcrumb shows the page hierarchy with semantic, accessible markup. Improves navigation and SEO with clear current-page indication.',
       },
     },
   },

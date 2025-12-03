@@ -11,20 +11,24 @@
 {% set compact = compact|default(false) %}
 {% set truncate = truncate|default(false) %}
 
-{% set classes = ['ps-breadcrumb'] %}
-{% if compact %}
-  {% set classes = classes|merge(['ps-breadcrumb--compact']) %}
-{% endif %}
-{% if truncate %}
-  {% set classes = classes|merge(['ps-breadcrumb--truncate']) %}
-{% endif %}
+{% set classes = [
+  'ps-breadcrumb',
+  compact ? 'ps-breadcrumb--compact' : null,
+  truncate ? 'ps-breadcrumb--truncate' : null,
+  color ? 'ps-breadcrumb--' ~ color : null,
+  size ? 'ps-breadcrumb--' ~ size : null
+] %}
 
 <nav {{ attributes ? attributes.addClass(classes) : create_attribute().addClass(classes) }} aria-label="Breadcrumb">
   <ol class="ps-breadcrumb__list">
     {% for item in items %}
       {% set is_last = loop.last %}
       
-      <li class="ps-breadcrumb__item{{ is_last ? ' ps-breadcrumb__item--current' : '' }}"{{ is_last ? ' aria-current="page"' : '' }}>
+      {% set item_classes = [
+        'ps-breadcrumb__item',
+        is_last ? 'ps-breadcrumb__item--current' : null
+      ] %}
+      <li class="{{ item_classes|join(' ') }}"{{ is_last ? ' aria-current="page"' : '' }}>
         {% if not is_last and item.url %}
           <a class="ps-breadcrumb__link" href="{{ item.url }}">
             {% if item.icon %}
