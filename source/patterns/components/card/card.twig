@@ -1,75 +1,101 @@
 {#
- * Card (Generic Container) - Flexible card structure for content composition
- *
- * A card is a generic container that provides visual structure (border, padding, shadow)
- * and layout options. Content is composed using Twig blocks for maximum flexibility.
- *
- * @param string variant - Visual variant: default|outlined|flat|elevated (default: default)
- * @param string layout - Layout: vertical|horizontal (default: vertical)
- * @param string size - Size: small|medium|large (default: medium)
- * @param string radius - Border radius: none|sm|md|lg (default: none)
- * @param string imagePosition - Image position: top|bottom (vertical) | left|right (horizontal) (default: top/left)
- * @param string url - Optional link URL (wraps entire card as <a>)
+ * Card (Molecule)
+ * Generic flexible container with visual structure and layout variants.
+ * 
+ * @param string variant - Visual variant (optional, default: 'default')
+ *   Options: default | outlined | flat | elevated
+ * @param string layout - Layout orientation (optional, default: 'vertical')
+ *   Options: vertical | horizontal
+ * @param string size - Padding size (optional, default: 'medium')
+ *   Options: small | medium | large
+ * @param string radius - Border radius (optional, default: 'none')
+ *   Options: none | sm | md | lg
+ * @param string imagePosition - Image position (optional, default: 'top')
+ *   Options: top | bottom (vertical) | left | right (horizontal)
+ * @param string url - Optional URL (makes card clickable as <a>)
+ * @param string|html image - Image/media HTML content (optional)
+ * @param string|html header - Header HTML content (optional)
+ * @param string|html body - Body HTML content (optional)
+ * @param string|html footer - Footer HTML content (optional)
+ * @param string|html content - Main content HTML (used if no header/body/footer)
  * @param object attributes - Additional HTML attributes
- *
- * Blocks (all optional):
- * - image: Card image/media area
- * - content: Main content area (default block if no header/body/footer defined)
- * - header: Header section (e.g., badges, meta, actions)
- * - body: Body section (e.g., title, description)
- * - footer: Footer section (e.g., CTA, price, actions)
- *
- * Usage:
- * {% embed '@components/card/card.twig' with { variant: 'elevated' } %}
- *   {% block image %}<img src="..." alt="..." />{% endblock %}
- *   {% block content %}<h3>Title</h3><p>Description</p>{% endblock %}
- * {% endembed %}
+ * 
+ * Note: For Drupal usage with Twig blocks, use {% embed %} pattern.
+ * For direct rendering (Storybook), pass HTML strings via props.
  #}
 
 {%- set variant = variant|default('default') -%}
 {%- set layout = layout|default('vertical') -%}
 {%- set size = size|default('medium') -%}
 {%- set radius = radius|default('none') -%}
-{%- set imagePosition = imagePosition|default(layout == 'horizontal' ? 'left' : 'top') -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
+{%- set imagePosition = imagePosition|default('top') -%}
 
-{%- set card_classes = [
-  'ps-card',
-  variant != 'default' ? 'ps-card--' ~ variant : null,
-  layout != 'vertical' ? 'ps-card--' ~ layout : null,
-  size != 'medium' ? 'ps-card--' ~ size : null,
-  radius != 'none' ? 'ps-card--radius-' ~ radius : null,
-  imagePosition != (layout == 'horizontal' ? 'left' : 'top') ? 'ps-card--image-' ~ imagePosition : null
-] -%}
+{# Build BEM classes #}
+{%- set classes = ['ps-card'] -%}
 
-{%- set tag = url ? 'a' : 'div' -%}
+{# Visual variants #}
+{%- if variant != 'default' -%}
+  {%- set classes = classes|merge(['ps-card--' ~ variant]) -%}
+{%- endif -%}
 
-<{{ tag }} {{ attributes.addClass(card_classes) }}{%- if url %} href="{{ url }}"{% endif -%}>
-  {%- if block('image') is defined -%}
+{# Layout #}
+{%- if layout == 'horizontal' -%}
+  {%- set classes = classes|merge(['ps-card--horizontal']) -%}
+{%- endif -%}
+
+{# Size #}
+{%- if size != 'medium' -%}
+  {%- set classes = classes|merge(['ps-card--' ~ size]) -%}
+{%- endif -%}
+
+{# Radius #}
+{%- if radius != 'none' -%}
+  {%- set classes = classes|merge(['ps-card--radius-' ~ radius]) -%}
+{%- endif -%}
+
+{# Image position modifiers #}
+{%- if layout == 'horizontal' and imagePosition == 'right' -%}
+  {%- set classes = classes|merge(['ps-card--image-right']) -%}
+{%- endif -%}
+
+{%- if layout == 'vertical' and imagePosition == 'bottom' -%}
+  {%- set classes = classes|merge(['ps-card--image-bottom']) -%}
+{%- endif -%}
+
+{# Determine HTML element (article or a) #}
+{%- set element = url ? 'a' : 'article' -%}
+
+<{{ element }}
+  class="{{ classes|join(' ')|trim }}"
+  {%- if url %} href="{{ url }}"{% endif -%}
+  {%- if attributes %} {{ attributes }}{% endif -%}
+>
+  {%- if image -%}
     <div class="ps-card__image">
-      {{ block('image') }}
+      {{- image|raw -}}
     </div>
   {%- endif -%}
 
   <div class="ps-card__content">
-    {%- if block('header') is defined -%}
+    {%- if header -%}
       <div class="ps-card__header">
-        {{ block('header') }}
+        {{- header|raw -}}
       </div>
     {%- endif -%}
 
-    {%- if block('body') is defined -%}
+    {%- if body -%}
       <div class="ps-card__body">
-        {{ block('body') }}
+        {{- body|raw -}}
       </div>
-    {%- elseif block('content') is defined -%}
-      {{ block('content') }}
+    {%- elseif content -%}
+      {# Fallback: if no body prop, render content prop directly #}
+      {{- content|raw -}}
     {%- endif -%}
 
-    {%- if block('footer') is defined -%}
+    {%- if footer -%}
       <div class="ps-card__footer">
-        {{ block('footer') }}
+        {{- footer|raw -}}
       </div>
     {%- endif -%}
   </div>
-</{{ tag }}>
+</{{ element }}>

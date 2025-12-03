@@ -1,45 +1,12 @@
-# Generic card with simple content (default variant)
-variant: default
-layout: vertical
-size: medium
- radius: none
-imagePosition: top
+# Default: Standard card with medium padding and vertical layout
+variant: 'default'
+layout: 'vertical'
+size: 'medium'
+radius: 'none'
+imagePosition: 'top'
 
-# Note: Card is a generic container. Content is composed using Twig blocks.
-# See card.stories.jsx for usage examples with blocks.
-
-# Example usage:
-# {% embed '@components/card/card.twig' with { variant: 'elevated', radius: 'lg' } %}
-#   {% block image %}
-#     <img src="image.jpg" alt="Description" />
-#   {% endblock %}
-#   {% block content %}
-#     <h3>Title</h3>
-#     <p>Description text...</p>
-#   {% endblock %}
-# {% endembed %}
-
-# Available variants:
-# - default: Standard card with border
-# - outlined: Thicker border, no shadow
-# - flat: No border, no shadow
-# - elevated: Visible shadow always
-
-# Available layouts:
-# - vertical: Image on top (default)
-# - horizontal: Image on left (242px width)
-
-# Available sizes:
-# - small: 16px padding
-# - medium: 30px 24px padding (default)
-# - large: 32px padding
-
-# Available radius options:
-# - none: No border radius
-# - sm: Small radius (var(--radius-2))
-# - md: Medium radius (var(--radius-4)) (default)
-# - lg: Large radius (var(--radius-6))
-
-# Available image positions:
-# - For vertical layout: top (default) | bottom
-# - For horizontal layout: left (default) | right
+# variant options: default (border), outlined (thick border), flat (no border), elevated (shadow)
+# layout options: vertical (image top/bottom), horizontal (image left/right)
+# size options: small (16px padding), medium (30px/24px padding), large (32px padding)
+# radius options: none (0), sm (4px), md (8px), lg (16px)
+# imagePosition options: top, bottom (vertical) | left, right (horizontal)

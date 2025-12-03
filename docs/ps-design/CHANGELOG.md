@@ -4,6 +4,25 @@
 
 ## 2025
 
+- 2025-12-03: **Card** – Generic flexible container molecule
+  - Implemented `source/patterns/components/card/` with 5 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`)
+  - Props: variant (default/outlined/flat/elevated), layout (vertical/horizontal), size (small/medium/large), radius (none/sm/md/lg), imagePosition (top/bottom/left/right), url (optional clickable)
+  - BEM strict: `.ps-card`, `.ps-card__image`, `.ps-card__content`, `.ps-card__header`, `.ps-card__body`, `.ps-card__footer`
+  - Twig blocks: image, header, body, footer, content (maximum composition flexibility)
+  - Visual variants: default (border), outlined (thick border), flat (no border), elevated (shadow)
+  - Layout variants: vertical (default), horizontal (40% image / 60% content)
+  - Size variants: small (16px), medium (30px/24px - Figma exact), large (32px)
+  - Border radius: none (0), sm (4px), md (8px), lg (16px)
+  - Image position: top/bottom (vertical), left/right (horizontal)
+  - Clickable cards: When `url` provided, renders as `<a>` with hover effects (shadow + translateY)
+  - Responsive: Horizontal cards stack vertically on mobile (< 768px)
+  - Accessibility: Semantic HTML (article/a), keyboard navigation, focus-visible, WCAG AA contrast
+  - Tokens: --white, --gray-200, --gray-300, --shadow-2/3/4, --radius-2/4/6, --size-4/8, --duration-fast, --ease-3
+  - Composition: Generic container for specialized cards (OfferCard, NewsCard, etc.)
+  - Use cases: Property listings, news/blog posts, info cards, any content requiring visual structure
+  - Storybook: 7 stories (Default + AllVariants + AllLayouts + AllSizes + AllRadius + ClickableCards + UseCases) with Autodocs
+  - Build: ✓ 0 errors (163.25 kB CSS)
+
 - 2025-12-03: **Documentation alignment with implementation** – Mise à jour complète de la documentation
   - **Architecture revisions** :
     - Moved `docs/design/atoms/avatar.md` → `docs/design/molecules/avatar.md` (reflects actual implementation in `components/avatar/`)

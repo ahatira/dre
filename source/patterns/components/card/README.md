@@ -1,311 +1,422 @@
-# Card (Generic Container)
+# Card
 
-Card is a flexible container component that provides visual structure (border, padding, shadow) and layout options. Content is composed freely using Twig blocks, allowing maximum reusability across different use cases.
-
-## Architecture Philosophy
-
-Card is **NOT** a specialized component. It's a **generic container** that:
-- ✅ Defines visual structure (border, radius, shadow, padding)
-- ✅ Provides layout variants (vertical, horizontal)
-- ✅ Offers size options (small, medium, large)
-- ❌ Does NOT impose content structure (no title, price, badges, etc.)
-- ❌ Does NOT include business logic (no favorites, status, etc.)
-
-**Use composition** to create specialized cards (OfferCard, NewsCard, etc.) that embed Card.
+Generic flexible container providing visual structure and layout variants for composable content.
 
 ## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `string` | `default` | Visual variant: `default`, `outlined`, `flat`, `elevated` |
-| `layout` | `string` | `vertical` | Layout orientation: `vertical`, `horizontal` |
-| `size` | `string` | `medium` | Padding size: `small`, `medium`, `large` |
-| `radius` | `string` | `none` | Border radius: `none`, `sm`, `md`, `lg` |
-| `imagePosition` | `string` | `top`/`left` | Image position: `top`/`bottom` (vertical), `left`/`right` (horizontal) |
-| `url` | `string` | — | Optional link URL (wraps entire card as `<a>`) |
-| `attributes` | `object` | — | Additional HTML attributes |
+| variant | string | 'default' | Visual variant (default, outlined, flat, elevated) |
+| layout | string | 'vertical' | Layout orientation (vertical, horizontal) |
+| size | string | 'medium' | Padding size (small, medium, large) |
+| radius | string | 'none' | Border radius (none, sm, md, lg) |
+| imagePosition | string | 'top' | Image position (top/bottom for vertical, left/right for horizontal) |
+| url | string | - | Optional URL (renders card as clickable `<a>` element) |
+| image | string/html | - | Image/media HTML content (optional) |
+| header | string/html | - | Header HTML content (optional) |
+| body | string/html | - | Body HTML content (optional) |
+| footer | string/html | - | Footer HTML content (optional) |
+| content | string/html | - | Main content HTML (used if no header/body/footer) |
+| attributes | object | - | Additional HTML attributes |
+
+## Two Usage Patterns
+
+### Pattern 1: Direct Props (Storybook, Simple Usage)
+
+Pass HTML content directly as props. Best for Storybook stories and simple use cases:
+
+```twig
+{% include '@components/card/card.twig' with {
+  radius: 'md',
+  image: '<img src="/path/to/image.jpg" alt="Property" />',
+  header: '<h3>Property Title</h3>',
+  body: '<p>Description here...</p>',
+  footer: '<a href="#">View details →</a>'
+} only %}
+```
+
+### Pattern 2: Twig Blocks (Drupal, Complex Composition)
+
+Use `{% embed %}` with Twig blocks for complex composition with child components:
+
+```twig
+{% embed '@components/card/card.twig' with {
+  layout: 'horizontal',
+  radius: 'md'
+} only %}
+  
+  {% block image %}
+    {% include '@elements/image/image.twig' with {
+      src: '/images/property.jpg',
+      alt: 'Property photo',
+      ratio: '16x9'
+    } only %}
+  {% endblock %}
+  
+  {% block content %}
+    <h3>Property Title</h3>
+    <p>Description here...</p>
+  {% endblock %}
+  
+{% endembed %}
+```
+
+**Note**: Twig blocks are only available with `{% embed %}` pattern, not with `{% include %}`.
 
 ## BEM Structure
 
 ```
-.ps-card (base container)
-├── .ps-card__image (optional image/media zone)
-└── .ps-card__content (main content wrapper)
-    ├── .ps-card__header (optional header zone)
-    ├── .ps-card__body (optional body zone)
-    └── .ps-card__footer (optional footer zone)
+ps-card                          (base container - article or a)
+├── ps-card__image               (optional image/media zone)
+└── ps-card__content             (main content wrapper)
+    ├── ps-card__header          (optional header zone)
+    ├── ps-card__body            (optional body zone)
+    └── ps-card__footer          (optional footer zone)
 
 Modifiers:
-├── .ps-card--outlined
-├── .ps-card--flat
-├── .ps-card--elevated
-├── .ps-card--horizontal
-├── .ps-card--small
-├── .ps-card--large
-├── .ps-card--radius-none
-├── .ps-card--radius-sm
-├── .ps-card--radius-md
-├── .ps-card--radius-lg
-├── .ps-card--image-right (horizontal only)
-└── .ps-card--image-bottom (vertical only)
+├── ps-card--outlined            (thick border)
+├── ps-card--flat                (no border)
+├── ps-card--elevated            (shadow)
+├── ps-card--horizontal          (horizontal layout)
+├── ps-card--small               (small padding: 16px)
+├── ps-card--large               (large padding: 32px)
+├── ps-card--radius-sm           (border radius: 4px)
+├── ps-card--radius-md           (border radius: 8px)
+├── ps-card--radius-lg           (border radius: 16px)
+├── ps-card--image-right         (horizontal: image on right)
+└── ps-card--image-bottom        (vertical: image on bottom)
 ```
-
-## Twig Blocks
-
-Card uses **Twig blocks** for content composition:
-
-| Block | Description |
-|-------|-------------|
-| `image` | Image/media area (optional) |
-| `content` | Main content (default block if no header/body/footer) |
-| `header` | Header section (optional) |
-| `body` | Body section (optional) |
-| `footer` | Footer section (optional) |
 
 ## Design Tokens
 
 ### Visual
-- Border: `1.5px solid #EBEDEF` (Figma exact: Grey #6)
-- Border radius (default): `0` (customizable via `radius` prop)
-  - None: `0` (default)
-  - Small: `var(--radius-2)`
-  - Medium: `var(--radius-4)`
-  - Large: `var(--radius-6)`
-- Background: `var(--white)`
-- Shadow (hover/elevated): `var(--shadow-4)`
+- `--white` - Background color
+- `--gray-200` - Default border color
+- `--gray-300` - Outlined variant border color
+- `--shadow-2` - Elevated variant shadow (default)
+- `--shadow-3` - Hover shadow (clickable cards)
+- `--shadow-4` - Elevated hover shadow
+
+### Border Radius
+- `--radius-2` (4px) - Small radius
+- `--radius-4` (8px) - Medium radius
+- `--radius-6` (16px) - Large radius
 
 ### Spacing
-- Small padding: `var(--size-4)` (16px)
-- Medium padding: `30px 24px` (Figma exact)
-- Large padding: `var(--size-6)` (32px)
-- Content gap: `var(--size-4)` (16px)
+- Small padding: `--size-4` (16px)
+- Medium padding: `1.875rem 1.5rem` (30px 24px - Figma exact)
+- Large padding: `--size-8` (32px)
+- Content gap: `--size-4` (16px)
 
-### Horizontal Layout
-- Image width: `242px` (Figma exact)
-- Image min-height: `212px` (Figma exact)
+### Layout
+- Horizontal image width: 40%
+- Horizontal content width: 60%
 
 ### Transitions
-- Shadow: `var(--ps-transition-duration-normal)` + `var(--ease-out-2)`
-- Transform: `var(--ps-transition-duration-fast)` + `var(--ease-out-1)`
+- `--duration-fast` - Animation duration
+- `--ease-3` - Easing function
 
 ## Usage
 
-### Basic Card with Simple Content
+### Simple Card with Direct Props
 
 ```twig
-{% embed '@components/card/card.twig' %}
-  {% block content %}
-    <h3>Card Title</h3>
-    <p>Simple description text...</p>
-  {% endblock %}
-{% endembed %}
+{% include '@components/card/card.twig' with {
+  radius: 'md',
+  image: '<img src="/property.jpg" alt="Property" style="width: 100%; height: 240px; object-fit: cover;" />',
+  header: '<h3>Modern Office Space</h3>',
+  body: '<p>Premium office building in Madrid...</p>',
+  footer: '<span>View details →</span>'
+} only %}
 ```
 
-### Card with Image
+### Card with Structured Sections
 
 ```twig
-{% embed '@components/card/card.twig' with { variant: 'elevated' } %}
+{% embed '@components/card/card.twig' with {
+  layout: 'vertical',
+  radius: 'md',
+  size: 'medium'
+} only %}
+  
   {% block image %}
-    <img src="image.jpg" alt="Description" />
+    {% include '@elements/image/image.twig' with {
+      src: '/images/property.jpg',
+      alt: 'Property photo',
+      ratio: '16x9'
+    } only %}
   {% endblock %}
-
-  {% block content %}
-    <h3>Title</h3>
-    <p>Content goes here...</p>
-  {% endblock %}
-{% endembed %}
-```
-
-### Card with Header, Body, Footer
-
-```twig
-{% embed '@components/card/card.twig' %}
-  {% block image %}
-    <img src="image.jpg" alt="Image" />
-  {% endblock %}
-
+  
   {% block header %}
-    <span class="badge">News</span>
-    <span class="date">Nov 30, 2025</span>
+    <h3>Property Title</h3>
   {% endblock %}
-
+  
   {% block body %}
-    <h3>Article Title</h3>
-    <p>Article excerpt...</p>
+    <p>Description here...</p>
   {% endblock %}
-
+  
   {% block footer %}
-    <a href="#">Read more →</a>
+    <a href="#">View details →</a>
   {% endblock %}
+  
 {% endembed %}
 ```
 
-### Horizontal Layout
+### Horizontal Card with Image on Right
 
 ```twig
-{% embed '@components/card/card.twig' with { layout: 'horizontal' } %}
+{% embed '@components/card/card.twig' with {
+  layout: 'horizontal',
+  imagePosition: 'right',
+  radius: 'lg',
+  variant: 'elevated'
+} only %}
+  
   {% block image %}
-    <img src="image.jpg" alt="Image" />
+    <img src="/path/to/image.jpg" alt="Description" />
   {% endblock %}
-
+  
   {% block content %}
-    <h3>Horizontal Card</h3>
-    <p>Image on left (242px width)</p>
+    <h3>Content Title</h3>
+    <p>Description...</p>
   {% endblock %}
+  
 {% endembed %}
 ```
 
-### As Link (clickable card)
+### Clickable Card (as Link)
 
 ```twig
-{% embed '@components/card/card.twig' with { url: '/article/123' } %}
-  {% block content %}
-    <h3>Clickable Card</h3>
-    <p>Entire card is a link</p>
-  {% endblock %}
-{% endembed %}
-```
-
-### Visual Variants
-
-```twig
-{# Default: Standard border + hover shadow #}
-{% embed '@components/card/card.twig' with { variant: 'default' } %}...{% endembed %}
-
-{# Outlined: Thicker border, no shadow #}
-{% embed '@components/card/card.twig' with { variant: 'outlined' } %}...{% endembed %}
-
-{# Flat: No border, no shadow #}
-{% embed '@components/card/card.twig' with { variant: 'flat' } %}...{% endembed %}
-
-{# Elevated: Shadow always visible #}
-{% embed '@components/card/card.twig' with { variant: 'elevated' } %}...{% endembed %}
-```
-
-### Size Options
-
-```twig
-{# Small: 16px padding #}
-{% embed '@components/card/card.twig' with { size: 'small' } %}...{% endembed %}
-
-{# Medium: 30px 24px padding (default) #}
-{% embed '@components/card/card.twig' with { size: 'medium' } %}...{% endembed %}
-
-{# Large: 32px padding #}
-{% embed '@components/card/card.twig' with { size: 'large' } %}...{% endembed %}
-```
-
-### Border Radius Options
-
-```twig
-{# No radius: Sharp corners #}
-{% embed '@components/card/card.twig' with { radius: 'none' } %}...{% endembed %}
-
-{# Small radius: var(--radius-2) #}
-{% embed '@components/card/card.twig' with { radius: 'sm' } %}...{% endembed %}
-
-{# Medium radius: var(--radius-4) (default) #}
-{% embed '@components/card/card.twig' with { radius: 'md' } %}...{% endembed %}
-
-{# Large radius: var(--radius-6) #}
-{% embed '@components/card/card.twig' with { radius: 'lg' } %}...{% endembed %}
-```
-
-### Image Position Options
-
-```twig
-{# Vertical layout with image on top (default) #}
-{% embed '@components/card/card.twig' with { layout: 'vertical', imagePosition: 'top' } %}
-  {% block image %}<img src="..." alt="Image" />{% endblock %}
-  {% block content %}<h3>Image Top</h3>{% endblock %}
-{% endembed %}
-
-{# Vertical layout with image on bottom #}
-{% embed '@components/card/card.twig' with { layout: 'vertical', imagePosition: 'bottom' } %}
-  {% block image %}<img src="..." alt="Image" />{% endblock %}
-  {% block content %}<h3>Image Bottom</h3>{% endblock %}
-{% endembed %}
-
-{# Horizontal layout with image on left (default) #}
-{% embed '@components/card/card.twig' with { layout: 'horizontal', imagePosition: 'left' } %}
-  {% block image %}<img src="..." alt="Image" />{% endblock %}
-  {% block content %}<h3>Image Left</h3>{% endblock %}
-{% endembed %}
-
-{# Horizontal layout with image on right #}
-{% embed '@components/card/card.twig' with { layout: 'horizontal', imagePosition: 'right' } %}
-  {% block image %}<img src="..." alt="Image" />{% endblock %}
-  {% block content %}<h3>Image Right</h3>{% endblock %}
-{% endembed %}
-```
-
-## Composition Pattern
-
-For specialized cards (products, news, events, etc.), **create dedicated components** that embed Card:
-
-```twig
-{# source/patterns/components/offer-card/offer-card.twig #}
-{% embed '@components/card/card.twig' with { layout: layout } %}
+{% embed '@components/card/card.twig' with {
+  url: '/property/123',
+  variant: 'elevated',
+  radius: 'md'
+} only %}
+  
   {% block image %}
-    <img src="{{ image.url }}" alt="{{ image.alt }}" />
+    <img src="/property.jpg" alt="Property" />
   {% endblock %}
-
+  
   {% block content %}
-    {# Offer-specific structure #}
-    <div class="ps-offer-card__header">
-      {# Status badges, actions, etc. #}
+    <h3>Click to view details</h3>
+    <p>Entire card is clickable.</p>
+  {% endblock %}
+  
+{% endembed %}
+```
+
+## Real-World Use Cases
+
+### Property Listing Card
+```twig
+{% embed '@components/card/card.twig' with {
+  url: '/property/456',
+  variant: 'elevated',
+  radius: 'lg'
+} only %}
+  {% block image %}
+    {% include '@elements/image/image.twig' with {
+      src: '/images/penthouse-paris.jpg',
+      alt: 'Penthouse Paris 16e',
+      ratio: '4x3'
+    } only %}
+  {% endblock %}
+  
+  {% block header %}
+    <div style="display: flex; justify-content: space-between;">
+      <h3>Penthouse Paris 16e</h3>
+      {% include '@elements/badge/badge.twig' with {
+        text: 'NEW',
+        variant: 'primary',
+        size: 'small'
+      } only %}
     </div>
-    <h3 class="ps-offer-card__title">{{ title }}</h3>
-    <p class="ps-offer-card__price">{{ price }}</p>
-    {# ... #}
+  {% endblock %}
+  
+  {% block body %}
+    <p>Exceptional duplex penthouse with 360° views...</p>
+    <div class="property-features">
+      <span>🛏️ 4 bedrooms</span>
+      <span>🚿 3 bathrooms</span>
+      <span>📏 280 m²</span>
+    </div>
+  {% endblock %}
+  
+  {% block footer %}
+    <div style="display: flex; justify-content: space-between;">
+      <span class="price">€2,500,000</span>
+      <span>View details →</span>
+    </div>
   {% endblock %}
 {% endembed %}
 ```
 
-This approach:
-- ✅ Keeps Card generic and reusable
-- ✅ Separates container (Card) from content (ProductCard)
-- ✅ Allows different card types without modifying Card
-- ✅ Easier maintenance and testing
+### News/Blog Card (Horizontal)
+```twig
+{% embed '@components/card/card.twig' with {
+  url: '/news/market-trends-2025',
+  layout: 'horizontal',
+  radius: 'md'
+} only %}
+  {% block image %}
+    <img src="/news/market-trends.jpg" alt="Market trends" />
+  {% endblock %}
+  
+  {% block header %}
+    <span class="category-badge">MARKET INSIGHTS</span>
+    <h3>European Real Estate Market Trends 2025</h3>
+  {% endblock %}
+  
+  {% block body %}
+    <p>Analysis of key trends shaping the commercial real estate sector...</p>
+  {% endblock %}
+  
+  {% block footer %}
+    <span class="meta">Dec 3, 2025 • 5 min read</span>
+  {% endblock %}
+{% endembed %}
+```
 
-## Specialized Components
+### Info Card (No Image)
+```twig
+{% embed '@components/card/card.twig' with {
+  variant: 'outlined',
+  radius: 'md',
+  size: 'small'
+} only %}
+  {% block header %}
+    <h3>Contact Information</h3>
+  {% endblock %}
+  
+  {% block body %}
+    <p>📧 contact@bnpparibas-realestate.com</p>
+    <p>📞 +33 1 55 65 20 00</p>
+    <p>📍 167 Quai de la Bataille de Stalingrad, Paris</p>
+  {% endblock %}
+{% endembed %}
+```
 
-These components **use** Card via composition:
-- **OfferCard** - Real estate offer listings (status, price, location, CTA)
-- **NewsCard** - News articles (tag, date, excerpt, read more)
-- **EventCard** - Events (date, location, registration)
-- **TestimonialCard** - Customer testimonials (quote, author, avatar)
+### Creating Specialized Cards
 
-See individual component documentation for details.
+For domain-specific cards (e.g., OfferCard, NewsCard), create a component that embeds Card:
+
+```twig
+{# offer-card.twig - Specialized card composing generic Card #}
+{% embed '@components/card/card.twig' with {
+  url: url,
+  variant: 'elevated',
+  radius: 'lg'
+} only %}
+  
+  {% block image %}
+    {% include '@elements/image/image.twig' with {
+      src: image.url,
+      alt: image.alt,
+      ratio: '4x3'
+    } only %}
+  {% endblock %}
+  
+  {% block header %}
+    <h3>{{ title }}</h3>
+    {% if badge %}
+      {% include '@elements/badge/badge.twig' with badge only %}
+    {% endif %}
+  {% endblock %}
+  
+  {% block body %}
+    <p>{{ description }}</p>
+    {% if meta %}
+      <div class="meta-info">
+        {% for item in meta %}
+          <span>{{ item.icon }} {{ item.text }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endblock %}
+  
+  {% block footer %}
+    <div class="price-cta">
+      <span class="price">{{ price }}</span>
+      <span class="cta">View details →</span>
+    </div>
+  {% endblock %}
+  
+{% endembed %}
+```
+
+## Composition with Atoms
+
+Card is a **generic container** that commonly composes these atoms:
+
+- **`@elements/image/image.twig`** - Images with aspect ratios
+- **`@elements/heading/heading.twig`** - Semantic headings
+- **`@elements/text/text.twig`** - Text/descriptions
+- **`@elements/link/link.twig`** - Links/CTAs
+- **`@elements/badge/badge.twig`** - Status badges/labels
+- **`@elements/button/button.twig`** - Action buttons
 
 ## Accessibility
 
-- **Focus states**: Visible outline on linked cards (`:focus-visible`)
-- **Keyboard navigation**: All interactive cards accessible via Tab/Enter
-- **Semantic HTML**: Uses `<div>` by default, `<a>` when `url` provided
-- **Image alt**: Required for images in blocks
-- **Screen readers**: No ARIA needed for container (semantic zones)
+- **Semantic HTML**: Uses `<article>` by default, `<a>` when URL provided
+- **Heading hierarchy**: Delegated to child components (use appropriate heading levels)
+- **Image alt text**: Required on images (delegated to image block)
+- **Keyboard navigation**: Clickable cards are fully keyboard accessible (Tab + Enter)
+- **Focus visible**: Clickable cards have visible focus outline (`:focus-visible`)
+- **Color contrast**: WCAG AA compliant (border color #E8EBEF vs white background)
+- **ARIA**: `role="article"` implicit, no additional ARIA needed
+- **Link semantics**: When URL provided, entire card is clickable (better UX than nested links)
+
+## Variants
+
+### Visual Variants
+- **default**: Standard border (`1px solid #E8EBEF`)
+- **outlined**: Thick border (`2px solid #D0D5DD`)
+- **flat**: No border
+- **elevated**: Shadow instead of border (hover effect enhanced)
+
+### Layout Variants
+- **vertical** (default): Image top/bottom, content below/above
+- **horizontal**: Image left/right (40% width), content beside (60% width)
+
+### Size Variants
+- **small**: 16px padding, 12px gap
+- **medium** (default): 30px/24px padding (Figma exact), 16px gap
+- **large**: 32px padding, 20px gap
+
+### Border Radius Variants
+- **none** (default): No border radius (0)
+- **sm**: 4px border radius
+- **md**: 8px border radius
+- **lg**: 16px border radius
+
+### Image Position
+- **Vertical layout**: top (default) | bottom
+- **Horizontal layout**: left (default) | right
+
+## Responsive Behavior
+
+- **Mobile (< 768px)**: Horizontal cards automatically stack vertically
+- **Padding**: Remains consistent across breakpoints (adjust via size prop if needed)
+- **Image**: Maintains aspect ratio, fills container width on mobile
+
+## Notes
+
+- **Generic container**: Card does NOT enforce content structure. Use Twig blocks for flexibility.
+- **Composition over specialization**: Create specialized cards (OfferCard, NewsCard) by embedding generic Card.
+- **No typography**: Card delegates font sizes, weights, colors to child components.
+- **No predefined slots**: Unlike specialized components, Card doesn't force title/price/meta structure.
+- **Progressive enhancement**: Works without JavaScript. Hover effects are CSS-only.
+- **Clickable pattern**: When `url` provided, entire card becomes clickable (better UX than small "Read more" links).
 
 ## Browser Support
 
 - Modern browsers (Chrome, Firefox, Safari, Edge)
-- CSS nesting via PostCSS (postcss-nested)
-- No JavaScript dependencies
+- CSS Grid and Flexbox required
+- `:focus-visible` supported (graceful degradation to `:focus` in older browsers)
 
-## Related Components
+---
 
-- **ProductCard** - Specialized card for real estate products
-- **Link** (element) - Used for card links
-- **Badge** (element) - Can be used in composed content
-- **Button** (element) - Can be used in composed content
-
-## Migration Notes
-
-If migrating from old Card component with specific props:
-1. Create specialized component (e.g., `ProductCard`)
-2. Move business logic to specialized component
-3. Use `{% embed %}` with blocks to compose content
-4. Update templates to use new component
-5. Test all variants and layouts
-
-See `.backup/card-refactor/` for old implementation reference.
+**Component Type**: Molecule (Generic Container)  
+**Category**: Components  
+**Status**: Stable  
+**Version**: 1.0.0

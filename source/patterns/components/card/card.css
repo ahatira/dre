@@ -1,185 +1,294 @@
 /**
- * Card (Generic Container)
+ * Card (Component/Molecule)
+ * Generic flexible container with visual structure and layout variants.
  * 
- * A flexible card component that provides visual structure (border, padding, shadow)
- * and layout options. Content is composed freely using the container's zones.
- * 
- * BEM Structure:
- * - .ps-card (base container)
- * - .ps-card__image (optional image/media zone)
- * - .ps-card__content (main content wrapper)
- * - .ps-card__header (optional header zone)
- * - .ps-card__body (optional body zone)
- * - .ps-card__footer (optional footer zone)
- * 
- * Modifiers:
- * - Layout: --horizontal
- * - Visual: --outlined, --flat, --elevated
- * - Size: --small, --large
- * 
- * Tokens Used:
- * - Border: 1.5px solid #EBEDEF (Figma exact)
- * - Radius: var(--radius-4)
- * - Padding: 30px 24px (medium), var(--size-4) (small), var(--size-6) (large)
- * - Shadow: var(--shadow-4) (hover, elevated)
- * - Transition: var(--ps-transition-duration-normal), var(--ease-out-2)
+ * BEM: ps-card, ps-card__image, ps-card__content, ps-card__header, ps-card__body, ps-card__footer
+ * Variants: default | outlined | flat | elevated
+ * Layouts: vertical (default) | horizontal
+ * Sizes: small | medium (default) | large
+ * Radius: none (default) | sm | md | lg
  */
 
+/* ======================================== */
+/* Base Card Container */
+/* ======================================== */
+
 .ps-card {
-  /* Base: Container */
+  /* Reset */
+  margin: 0;
+  
+  /* Layout */
   display: flex;
   flex-direction: column;
+  
+  /* Visual */
   background: var(--white);
-  border: var(--border-size-15) solid var(--ps-color-border-card);
-  border-radius: 0; /* default radius is none */
+  border: var(--border-size-1) solid var(--gray-200);
+  border-radius: 0; /* none by default */
+  
+  /* Typography delegated to child components */
+  
+  /* Transitions */
+  transition:
+    box-shadow var(--duration-fast) var(--ease-3),
+    transform var(--duration-fast) var(--ease-3);
+  
+  /* Clickable card states */
+  &[href] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    
+    &:hover {
+      box-shadow: var(--shadow-3);
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--secondary);
+      outline-offset: var(--border-size-2);
+    }
+  }
+}
+
+/* ======================================== */
+/* Elements */
+/* ======================================== */
+
+.ps-card__image {
+  flex-shrink: 0;
   overflow: hidden;
-  transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2);
-
-  /* Base: Image zone */
-  &__image {
-    position: relative;
+  
+  /* Image fills container */
+  img {
     width: 100%;
-    overflow: hidden;
-    background: var(--gray-100);
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
+}
 
-  /* Base: Content wrapper */
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-4); /* 16px gap - Figma */
-    padding: var(--ps-card-padding-y-medium) var(--ps-card-padding-x-medium);
-    flex: 1;
-  }
+.ps-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  
+  /* Medium padding by default (Figma exact: 30px 24px) */
+  padding: 1.875rem 1.5rem; /* 30px 24px */
+  gap: var(--size-4); /* 16px between sections */
+}
 
-  /* Base: Optional zones (styled by content) */
-  &__header {
-    /* Empty by default - styled by composed content */
-  }
+.ps-card__header {
+  /* Delegated to child components */
+}
 
-  &__body {
-    /* Empty by default - styled by composed content */
-    flex: 1;
-  }
+.ps-card__body {
+  flex: 1; /* Body takes available space */
+  /* Delegated to child components */
+}
 
-  &__footer {
-    /* Empty by default - styled by composed content */
-    margin-top: auto;
-  }
+.ps-card__footer {
+  /* Delegated to child components */
+}
 
-  /* Modifier: Outlined variant */
-  &--outlined {
-    border: var(--border-size-2) solid var(--gray-300);
-    box-shadow: none;
-  }
+/* ======================================== */
+/* Variants - Visual */
+/* ======================================== */
 
-  /* Modifier: Flat variant (no border, no shadow) */
-  &--flat {
-    border: none;
-    box-shadow: none;
-  }
+.ps-card--outlined {
+  border-width: var(--border-size-2);
+  border-color: var(--gray-300);
+}
 
-  /* Modifier: Elevated variant (shadow always visible) */
-  &--elevated {
-    box-shadow: var(--shadow-4);
-  }
+.ps-card--flat {
+  border: none;
+}
 
-  /* Modifier: Horizontal layout */
-  &--horizontal {
-    flex-direction: row;
-    align-items: stretch;
-
-    .ps-card__image {
-      flex-shrink: 0;
-      width: var(--ps-card-image-width-horizontal);
-      height: auto;
-      min-height: var(--ps-card-image-min-height-horizontal);
-    }
-
-    .ps-card__content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  /* Modifier: Image position right */
-  &--image-right {
-    flex-direction: row-reverse;
-
-    .ps-card__image {
-      flex-shrink: 0;
-      width: var(--ps-card-image-width-horizontal);
-      height: auto;
-      min-height: var(--ps-card-image-min-height-horizontal);
-    }
-  }
-
-  /* Modifier: Image position bottom (vertical layout) */
-  &--image-bottom {
-    flex-direction: column-reverse;
-  }
-
-  /* Modifier: Small size */
-  &--small {
-    .ps-card__content {
-      padding: var(--size-4); /* 16px */
-      gap: var(--size-3); /* 12px */
-    }
-  }
-
-  /* Modifier: Large size */
-  &--large {
-    .ps-card__content {
-      padding: var(--size-6); /* 32px */
-      gap: var(--size-5); /* 20px */
-    }
-  }
-
-  /* Modifier: Radius variants */
-  &--radius-none {
-    border-radius: 0;
-  }
-
-  &--radius-sm {
-    border-radius: var(--radius-2);
-  }
-
-  &--radius-md {
-    border-radius: var(--radius-4);
-  }
-
-  &--radius-lg {
-    border-radius: var(--radius-6);
-  }
-
-  /* State: Hover (for linked cards) */
+.ps-card--elevated {
+  border: none;
+  box-shadow: var(--shadow-2);
+  
   &:hover {
     box-shadow: var(--shadow-4);
   }
+}
 
-  /* State: Focus (for linked cards) */
-  &:focus-visible {
-    outline: var(--border-size-2) solid var(--blue-600);
-    outline-offset: var(--size-1);
+/* ======================================== */
+/* Variants - Layout Horizontal */
+/* ======================================== */
+
+.ps-card--horizontal {
+  flex-direction: row;
+  
+  .ps-card__image {
+    width: 40%; /* Figma exact */
+    height: auto;
+    min-height: 200px; /* Ensure minimum height */
   }
+  
+  .ps-card__content {
+    width: 60%; /* Figma exact */
+  }
+  
+  /* Image right variant */
+  &.ps-card--image-right {
+    flex-direction: row-reverse;
+  }
+}
 
-  /* Link card styling */
-  &[href] {
-    text-decoration: none;
-    cursor: pointer;
-    transition: box-shadow var(--ps-transition-duration-normal) var(--ease-out-2),
-      transform var(--ps-transition-duration-fast) var(--ease-out-1);
+/* ======================================== */
+/* Variants - Layout Vertical */
+/* ======================================== */
 
-    &:active {
-      transform: translateY(var(--border-size-1));
+.ps-card {
+  /* Image bottom variant */
+  &.ps-card--image-bottom {
+    flex-direction: column-reverse;
+  }
+}
+
+/* ======================================== */
+/* Modifiers - Sizes */
+/* ======================================== */
+
+.ps-card--small {
+  .ps-card__content {
+    padding: var(--size-4); /* 16px */
+    gap: var(--size-3); /* 12px */
+  }
+}
+
+.ps-card--large {
+  .ps-card__content {
+    padding: var(--size-8); /* 32px */
+    gap: var(--size-5); /* 20px */
+  }
+}
+
+/* ======================================== */
+/* Modifiers - Border Radius */
+/* ======================================== */
+
+.ps-card--radius-sm {
+  border-radius: var(--radius-2); /* 4px */
+  
+  .ps-card__image {
+    &:first-child {
+      border-top-left-radius: var(--radius-2);
+      border-top-right-radius: var(--radius-2);
+    }
+  }
+}
+
+.ps-card--radius-md {
+  border-radius: var(--radius-4); /* 8px */
+  
+  .ps-card__image {
+    &:first-child {
+      border-top-left-radius: var(--radius-4);
+      border-top-right-radius: var(--radius-4);
+    }
+  }
+}
+
+.ps-card--radius-lg {
+  border-radius: var(--radius-6); /* 16px */
+  
+  .ps-card__image {
+    &:first-child {
+      border-top-left-radius: var(--radius-6);
+      border-top-right-radius: var(--radius-6);
+    }
+  }
+}
+
+/* Horizontal radius adjustments */
+.ps-card--horizontal {
+  &.ps-card--radius-sm .ps-card__image:first-child {
+    border-top-left-radius: var(--radius-2);
+    border-bottom-left-radius: var(--radius-2);
+    border-top-right-radius: 0;
+  }
+  
+  &.ps-card--radius-md .ps-card__image:first-child {
+    border-top-left-radius: var(--radius-4);
+    border-bottom-left-radius: var(--radius-4);
+    border-top-right-radius: 0;
+  }
+  
+  &.ps-card--radius-lg .ps-card__image:first-child {
+    border-top-left-radius: var(--radius-6);
+    border-bottom-left-radius: var(--radius-6);
+    border-top-right-radius: 0;
+  }
+  
+  /* Image right adjustments */
+  &.ps-card--image-right {
+    &.ps-card--radius-sm .ps-card__image {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--radius-2);
+      border-bottom-right-radius: var(--radius-2);
+    }
+    
+    &.ps-card--radius-md .ps-card__image {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--radius-4);
+      border-bottom-right-radius: var(--radius-4);
+    }
+    
+    &.ps-card--radius-lg .ps-card__image {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--radius-6);
+      border-bottom-right-radius: var(--radius-6);
+    }
+  }
+}
+
+/* ======================================== */
+/* Responsive */
+/* ======================================== */
+
+@media (max-width: 768px) {
+  /* Horizontal cards stack on mobile */
+  .ps-card--horizontal {
+    flex-direction: column;
+    
+    .ps-card__image {
+      width: 100%;
+      min-height: 200px;
+    }
+    
+    .ps-card__content {
+      width: 100%;
+    }
+    
+    /* Reset radius for mobile stacking */
+    &.ps-card--radius-sm .ps-card__image:first-child {
+      border-top-left-radius: var(--radius-2);
+      border-top-right-radius: var(--radius-2);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    
+    &.ps-card--radius-md .ps-card__image:first-child {
+      border-top-left-radius: var(--radius-4);
+      border-top-right-radius: var(--radius-4);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    
+    &.ps-card--radius-lg .ps-card__image:first-child {
+      border-top-left-radius: var(--radius-6);
+      border-top-right-radius: var(--radius-6);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 }
