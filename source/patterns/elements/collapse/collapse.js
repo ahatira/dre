@@ -1,8 +1,9 @@
 /**
- * Collapse Behavior
+ * Collapse Behavior - Bootstrap-Inspired
  *
- * Handles expand/collapse interaction for single disclosure items.
- * Dispatches custom events for external coordination (e.g., accordion single-open).
+ * Handles expand/collapse with smooth state-class transitions.
+ * Uses .is-collapsing during animation, .is-expanded when open.
+ * Dispatches events for external coordination (accordion single-open).
  */
 
 ((Drupal, once) => {
@@ -18,88 +19,114 @@
           return;
         }
 
-        // Helpers
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const setExpandedAria = (state) => {
-          trigger.setAttribute('aria-expanded', state);
-          collapse.classList.toggle('is-expanded', state);
-        };
-
-        const animateOpen = () => {
-          // Make panel visible and prepare for animation
+        const show = () => {
+          // Start: remove hidden, set starting height
           panel.removeAttribute('hidden');
-          panel.style.opacity = '0';
           panel.style.height = '0px';
+
+          // Add transitioning class
+          collapse.classList.add('is-collapsing');
+          collapse.classList.remove('is-expanded');
+
           // Force reflow
           void panel.offsetHeight;
-          const target = panel.scrollHeight;
-          panel.style.height = `${target}px`;
-          panel.style.opacity = '1';
+
+          // Set target height
+          const targetHeight = panel.scrollHeight;
+          panel.style.height = `${targetHeight}px`;
 
           const onEnd = (e) => {
             if (e.propertyName !== 'height') {
               return;
             }
-            panel.style.height = 'auto';
+
             panel.removeEventListener('transitionend', onEnd);
-            collapse.dispatchEvent(
-              new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
-            );
-          };
-          panel.addEventListener('transitionend', onEnd);
-        };
-
-        const animateClose = () => {
-          // If currently 'auto', fix to pixel value then animate to 0
-          const currentAuto = panel.style.height === '' || panel.style.height === 'auto';
-          if (currentAuto) {
-            panel.style.height = `${panel.scrollHeight}px`;
-          }
-          // Force reflow
-          void panel.offsetHeight;
-          panel.style.opacity = '0';
-          panel.style.height = '0px';
-
-          const onEnd = (e) => {
-            if (e.propertyName !== 'height') {
-              return;
-            }
-            panel.setAttribute('hidden', '');
+            collapse.classList.remove('is-collapsing');
+            collapse.classList.add('is-expanded');
             panel.style.height = '';
-            panel.removeEventListener('transitionend', onEnd);
+
+            // Dispatch completion event
             collapse.dispatchEvent(
-              new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
+              new CustomEvent('collapse:shown', { bubbles: true, detail: { collapse } })
             );
           };
-          panel.addEventListener('transitionend', onEnd);
-        };
-
-        // Toggle expanded state with animation
-        const toggle = () => {
-          const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-          const newState = !isExpanded;
-          setExpandedAria(newState);
 
           if (prefersReducedMotion) {
-            if (newState) {
-              panel.removeAttribute('hidden');
-              collapse.dispatchEvent(
-                new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
-              );
-            } else {
-              panel.setAttribute('hidden', '');
-              collapse.dispatchEvent(
-                new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
-              );
-            }
-            return;
+            collapse.classList.remove('is-collapsing');
+            collapse.classList.add('is-expanded');
+            panel.style.height = '';
+            collapse.dispatchEvent(
+              new CustomEvent('collapse:shown', { bubbles: true, detail: { collapse } })
+            );
+          } else {
+            panel.addEventListener('transitionend', onEnd);
           }
 
-          if (newState) {
-            animateOpen();
+          // Dispatch show event immediately (Bootstrap pattern)
+          collapse.dispatchEvent(
+            new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
+          );
+        };
+
+        const hide = () => {
+          // Capture current height
+          panel.style.height = `${panel.scrollHeight}px`;
+
+          // Force reflow
+          void panel.offsetHeight;
+
+          // Add transitioning class
+          collapse.classList.add('is-collapsing');
+          collapse.classList.remove('is-expanded');
+
+          // Animate to 0
+          panel.style.height = '0px';
+
+          const onEnd = (e) => {
+            if (e.propertyName !== 'height') {
+              return;
+            }
+
+            panel.removeEventListener('transitionend', onEnd);
+            collapse.classList.remove('is-collapsing');
+            panel.setAttribute('hidden', '');
+            panel.style.height = '';
+
+            // Dispatch completion event
+            collapse.dispatchEvent(
+              new CustomEvent('collapse:hidden', { bubbles: true, detail: { collapse } })
+            );
+          };
+
+          if (prefersReducedMotion) {
+            collapse.classList.remove('is-collapsing');
+            panel.setAttribute('hidden', '');
+            panel.style.height = '';
+            collapse.dispatchEvent(
+              new CustomEvent('collapse:hidden', { bubbles: true, detail: { collapse } })
+            );
           } else {
-            animateClose();
+            panel.addEventListener('transitionend', onEnd);
+          }
+
+          // Dispatch hide event immediately (Bootstrap pattern)
+          collapse.dispatchEvent(
+            new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
+          );
+        };
+
+        const toggle = () => {
+          const isExpanded = collapse.classList.contains('is-expanded');
+
+          // Update ARIA
+          trigger.setAttribute('aria-expanded', !isExpanded);
+
+          if (isExpanded) {
+            hide();
+          } else {
+            show();
           }
         };
 
@@ -117,56 +144,30 @@
         // External control via custom event
         collapse.addEventListener('collapse:external-toggle', (e) => {
           const targetState = e.detail?.expanded;
-          const instant = e.detail?.instant === true;
-          const currentState = trigger.getAttribute('aria-expanded') === 'true';
+          const currentState = collapse.classList.contains('is-expanded');
 
           if (targetState === undefined || targetState === currentState) {
             return;
           }
 
-          if (instant) {
-            // Apply state immediately without animation (used by Accordion single_open)
-            setExpandedAria(targetState);
-            if (targetState) {
-              panel.removeAttribute('hidden');
-              panel.style.height = 'auto';
-              panel.style.opacity = '1';
-              collapse.dispatchEvent(
-                new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
-              );
-            } else {
-              panel.setAttribute('hidden', '');
-              panel.style.height = '';
-              panel.style.opacity = '0';
-              collapse.dispatchEvent(
-                new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
-              );
-            }
-            return;
-          }
+          // Update ARIA
+          trigger.setAttribute('aria-expanded', targetState);
 
-          // Default external toggle respects animations
-          toggle();
+          // Trigger transition
+          if (targetState) {
+            show();
+          } else {
+            hide();
+          }
         });
 
-        // Initialize panel state for smooth animation on first toggle
+        // Initialize
         const initiallyExpanded = trigger.getAttribute('aria-expanded') === 'true';
         if (initiallyExpanded) {
-          // Expanded at load → set height to auto after measuring
+          collapse.classList.add('is-expanded');
           panel.removeAttribute('hidden');
-          if (!prefersReducedMotion) {
-            panel.style.height = `${panel.scrollHeight}px`;
-            void panel.offsetHeight;
-            panel.style.height = 'auto';
-            panel.style.opacity = '1';
-          }
         } else {
-          // Collapsed at load
           panel.setAttribute('hidden', '');
-          if (!prefersReducedMotion) {
-            panel.style.height = '';
-            panel.style.opacity = '0';
-          }
         }
       });
     },

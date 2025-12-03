@@ -112,17 +112,11 @@
     transition: transform var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing);
   }
 
-  /* Panel container */
+  /* Panel container - Bootstrap-inspired state management */
   & .ps-collapse__panel {
-    height: 0; /* animated via JS to scrollHeight */
-    opacity: 0;
     overflow: hidden;
-    will-change: height, opacity, padding;
-    transition:
-      height var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing),
-      opacity var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing),
-      padding var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing);
-
+    
+    /* Default collapsed state (hidden) */
     &[hidden] {
       display: none;
     }
@@ -144,6 +138,16 @@
   border-bottom: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
 }
 
+/* Transition state - Applied during animation
+   ========================================================================= */
+
+.ps-collapse.is-collapsing {
+  & .ps-collapse__panel {
+    height: 0;
+    transition: height var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing);
+  }
+}
+
 /* Expanded state
    ========================================================================= */
 
@@ -153,8 +157,7 @@
   }
 
   & .ps-collapse__panel {
-    /* height is controlled by JS (auto -> fixed) */
-    opacity: 1;
+    height: auto;
   }
 }
 

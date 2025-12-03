@@ -1,8 +1,8 @@
 /**
- * Accordion Orchestration Behavior
+ * Accordion Orchestration Behavior - Bootstrap-Inspired
  *
  * Coordinates multiple Collapse elements with single-open logic.
- * Listens to collapse:show events and closes other items when needed.
+ * Listens to collapse:show events and triggers smooth animated closing of others.
  */
 
 ((Drupal, once) => {
@@ -21,16 +21,14 @@
         accordion.addEventListener('collapse:show', (e) => {
           const expandedCollapse = e.detail.collapse;
 
-          // Close all other collapses
-          // Note: data-accordion-item is set on the root .ps-collapse element itself
-          // so we must not look for a descendant .ps-collapse
+          // Close all other collapses with smooth animation (Bootstrap style)
           const collapses = accordion.querySelectorAll('[data-accordion-item].ps-collapse');
           collapses.forEach((collapse) => {
-            if (collapse !== expandedCollapse) {
-              // Trigger external close via custom event
+            if (collapse !== expandedCollapse && collapse.classList.contains('is-expanded')) {
+              // Trigger external close with animation
               collapse.dispatchEvent(
                 new CustomEvent('collapse:external-toggle', {
-                  detail: { expanded: false, instant: true },
+                  detail: { expanded: false },
                 })
               );
             }
