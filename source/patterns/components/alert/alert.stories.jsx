@@ -224,40 +224,4 @@ export const DismissibleAlerts = {
   `,
 };
 
-export const RealEstateExamples = {
-  name: 'Real Estate Use Cases',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'info',
-        content: `
-          <h4 class="ps-alert-heading">New Property Match</h4>
-          <p style="margin-bottom: 0;">A commercial property in your preferred area has been listed. 2,500 sqft office space with parking. <a href="#" class="ps-alert-link">View listing</a></p>
-        `,
-        dismissible: true,
-      })}
-      ${alertTwig({
-        variant: 'success',
-        content:
-          '<strong>Offer Accepted!</strong> Your offer on 456 Oak Avenue has been accepted by the seller. Contract details will be sent within 24 hours.',
-      })}
-      ${alertTwig({
-        variant: 'warning',
-        content:
-          '<strong>Insurance Renewal:</strong> Your property insurance policy expires in 30 days. <a href="#" class="ps-alert-link">Review and renew</a> to maintain coverage.',
-      })}
-      ${alertTwig({
-        variant: 'danger',
-        content:
-          '<strong>Payment Failed:</strong> Your monthly mortgage payment could not be processed. Please <a href="#" class="ps-alert-link">update payment method</a> to avoid late fees.',
-      })}
-      ${alertTwig({
-        variant: 'primary',
-        content:
-          '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span><strong>BNP Paribas RealEstate</strong> Featured announcement for premium clients',
-      })}
-    </div>
-  `,
-};
-
 export default settings;
