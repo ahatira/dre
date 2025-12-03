@@ -81,14 +81,16 @@ Collapse composes:
 
 **File:** `accordion.js`
 
-**Functionality:**
-- Listens for `collapse:show` events from child Collapse elements
+**Bootstrap-Inspired Coordination:**
+- Listens for `collapse:show` events from child Collapse elements (immediate, not completion)
 - When `single_open` is true, dispatches `collapse:external-toggle` to close other items
+- All items close/open with smooth animations (Bootstrap pattern - no instant mode)
 - No direct DOM manipulation - delegates to Collapse behaviors
 
 **Integration:**
 - Drupal behavior pattern with `once()`
 - Event-driven coordination (loose coupling)
+- Synchronized smooth transitions when switching between items
 
 ## Examples
 

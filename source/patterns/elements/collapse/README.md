@@ -42,8 +42,9 @@ The Collapse component is an atom-level disclosure pattern that manages the visi
   .ps-collapse__panel       # Collapsible panel (role="region")
   .ps-collapse__content     # Panel content wrapper
 
-State:
-  .is-expanded              # Active expanded state
+State Classes (Bootstrap-inspired):
+  .is-collapsing            # Transition state (opening or closing)
+  .is-expanded              # Fully expanded state (open)
 ```
 
 ## Design Tokens
@@ -168,17 +169,26 @@ Used by:
 
 **File:** `collapse.js`
 
+**Bootstrap-Inspired State Management:**
+- Uses `.is-collapsing` class during transition (CSS animates height)
+- Uses `.is-expanded` class when fully open
+- Measures `scrollHeight` for smooth height transitions
+- `transitionend` event triggers state class updates
+
 **Functionality:**
 - Click and keyboard toggle (Enter/Space)
 - ARIA attribute management (`aria-expanded`, `hidden`)
 - Custom events for external coordination:
-  - `collapse:show` - Dispatched when expanded
-  - `collapse:hide` - Dispatched when collapsed
+  - `collapse:show` - Dispatched immediately when opening starts (Bootstrap pattern)
+  - `collapse:shown` - Dispatched when opening completes (after transition)
+  - `collapse:hide` - Dispatched immediately when closing starts (Bootstrap pattern)
+  - `collapse:hidden` - Dispatched when closing completes (after transition)
   - `collapse:external-toggle` - Listens for external control (e.g., from accordion)
 
 **Integration:**
 - Drupal behavior pattern with `once()` for re-initialization prevention
 - Event bubbling allows parent components (accordion) to coordinate multiple collapses
+- Respects `prefers-reduced-motion` (skips animations when requested)
 
 ## Examples
 
