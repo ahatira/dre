@@ -6,10 +6,12 @@ Navigation trail showing page hierarchy within the site structure, improving SEO
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| items | array | `[]` | **Required**. Array of breadcrumb items. Each item: `{ label: string, url?: string, icon?: string }`. Last item is current page (no url). |
-| compact | boolean | `false` | Enable compact spacing (smaller font size and reduced gaps). |
-| truncate | boolean | `false` | Enable CSS text truncation for long labels (max-width: 16ch). |
-| attributes | Attribute | `null` | Additional HTML attributes for the `<nav>` element. |
+| `items` | array | `[]` | **Required**. Array of breadcrumb items. Each item: `{ label: string, url?: string, icon?: string }`. Last item is current page (no url). |
+| `compact` | boolean | `false` | Enable compact spacing (uses smaller typography tokens). |
+| `truncate` | boolean | `false` | Enable CSS text truncation for long labels (limit width, ellipsis). |
+| `color` | enum | `default` | Semantic color variant. One of: `default`, `primary`, `secondary`, `info`, `warning`, `success`, `danger`, `dark`, `light`. |
+| `size` | enum | `md` | Size variant. One of: `xs`, `sm`, `md`, `lg`, `xl`, `xxl`. |
+| `attributes` | Attribute | `null` | Additional HTML attributes for the `<nav>` element. |
 
 ## BEM Structure
 
@@ -23,37 +25,30 @@ ps-breadcrumb                    // Block (nav element)
 Modifiers:
   ps-breadcrumb--compact         // Reduced spacing and font size
   ps-breadcrumb--truncate        // Text truncation enabled
+  ps-breadcrumb--{color}         // Semantic color variant (see Props)
+  ps-breadcrumb--{size}          // Size variant (see Props)
 
 Note: Separator (›) is generated via CSS ::after pseudo-element
 ```
 
 ## Design Tokens
 
-### Colors
+This component consumes the design tokens via a 3-layer mapping (contextual → semantic → base). No hardcoded values are used.
 
-- `--text-default` - Text color (#333333) - links and current page
-- `--primary` - Link hover color (#00915A)
-- `--gray-400` - Separator color
-- `--blue-500` - Focus outline color
+### Component-level variables
 
-### Typography
+- `--ps-breadcrumb-color` → `var(--color-text-default, var(--text-default))`
+- `--ps-breadcrumb-link-hover` → `var(--color-primary, var(--primary))`
+- `--ps-breadcrumb-focus-color` → `var(--color-info, var(--info))`
 
-- `--font-sans` - Font family (BNPP Sans)
-- `--font-size-1` - Base font size (16px) - pixel perfect per Figma
-- `--font-size-0` - Compact font size (14px)
-- `--font-weight-400` - Regular font weight
-- `--leading-6` - Line height (24px) - pixel perfect per Figma
-- `--leading-5` - Compact line height (20px)
+### Core tokens referenced
 
-### Spacing
+- Typography: `--font-sans`, `--font-size-0`, `--font-size-1`, `--font-size-2`, `--font-size-3`, `--font-size-4`, `--leading-5`, `--leading-6`, `--leading-7`, `--leading-8`, `--leading-9`, `--font-weight-400`
+- Colors: `--text-default`, `--primary`, `--info`, contextual `--color-*` (semantic layer)
+- Spacing: `--size-1`, `--size-2`, `--border-size-2`, `--radius-1`
+- Animations/Easing: `--duration-fast`, `--ease-3`
 
-- `--size-1` - Gap between items (4px) - pixel perfect per Figma
-- `--size-2` - Gap between icon and text (8px) - pixel perfect per Figma
-- `--border-size-2` - Focus outline width (2px)
-
-### Borders
-
-- `--radius-1` - Focus outline border radius (2px)
+Note: The separator icon uses the `bnpre-icons` font; color is `currentColor` to inherit from `--ps-breadcrumb-color`.
 
 ## Usage
 
@@ -79,7 +74,9 @@ Note: Separator (›) is generated via CSS ::after pseudo-element
     { label: 'Products', url: '/products' },
     { label: 'Electronics' }
   ],
-  compact: true
+  compact: true,
+  color: 'default',
+  size: 'sm'
 } only %}
 ```
 
@@ -91,7 +88,9 @@ Note: Separator (›) is generated via CSS ::after pseudo-element
     { label: 'Home', url: '/', icon: 'home' },
     { label: 'Real Estate', url: '/real-estate', icon: 'building' },
     { label: 'Commercial Offices' }
-  ]
+  ],
+  color: 'primary',
+  size: 'md'
 } only %}
 ```
 
@@ -104,7 +103,9 @@ Note: Separator (›) is generated via CSS ::after pseudo-element
     { label: 'Very Long Category Name', url: '/category' },
     { label: 'Current Page with Long Name' }
   ],
-  truncate: true
+  truncate: true,
+  color: 'default',
+  size: 'xs'
 } only %}
 ```
 
@@ -121,7 +122,7 @@ Note: Separator (›) is generated via CSS ::after pseudo-element
 - **Semantic markup**: Uses `<nav aria-label="Breadcrumb">` for screen reader identification
 - **Current page indicator**: Last item has `aria-current="page"` attribute
 - **Separator handling**: Visual separator generated via CSS `::after` (invisible to screen readers)
-- **Focus states**: All links have visible `:focus-visible` outline with sufficient contrast
+- **Focus states**: All links have visible `:focus-visible` outline using semantic token (`--ps-breadcrumb-focus-color`) with sufficient contrast
 - **Color contrast**: Link colors meet WCAG AA requirements (4.5:1 minimum)
 - **Keyboard navigation**: Standard tab navigation through all links
 - **Visited links**: Distinct color for visited states to aid navigation
@@ -171,3 +172,4 @@ Limits label width to 16 characters with ellipsis. Best for:
 - Component uses `@elements/icon/icon.twig` for icon rendering
 - Responsive flex-wrap allows natural line breaking on narrow screens
 - `aria-current="page"` is automatically applied to the last item
+ - Use `color` and `size` props to adapt appearance contextually; modifiers are independent and can be applied singly.
