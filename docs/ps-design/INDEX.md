@@ -1,17 +1,19 @@
 # PS Design System - Index des Composants
 
-**Version** : 1.0.0  
-**Dernière mise à jour** : 30 novembre 2025  
+**Version** : 1.1.0  
+**Dernière mise à jour** : 3 décembre 2025  
 **Statut** : 🟡 En développement
 
 ---
 
 ## 📊 Vue d'ensemble
 
-**Composants implémentés** : 6 / 87 (7%)  
-**Composants à implémenter** : 81  
+**Composants implémentés** : 31 / 68 (46%)  
+**Composants à implémenter** : 37  
 **Design tokens** : ✅ Disponibles dans `source/props/*.css` (colors, fonts, brand, sizes, etc.)  
 **Documentation de référence** : `docs/design/` (spécifications complètes)
+
+**Note** : Total révisé de 87 à 68 composants suite à l'ajout de nouveaux composants (collapse, offer-card) et à la reclassification d'accordion (molecule → organism) et avatar (atom → molecule).
 
 ---
 
@@ -19,38 +21,36 @@
 
 ```
 source/patterns/
-├── elements/          # Atoms (19 composants)
+├── elements/          # Atoms (20 composants)
+│   ├── badge/        ✅ IMPLÉMENTÉ
 │   ├── button/       ✅ IMPLÉMENTÉ
-│   ├── badge/        ✅ IMPLÉMENTÉ  
-│   ├── avatar/       ⏳ À implémenter
-│   ├── checkbox/     ⏳ À implémenter
-│   ├── divider/      ⏳ À implémenter
-│   ├── eyebrow/      ⏳ À implémenter
-│   ├── field/        ⏳ À implémenter
-│   ├── flag/         ⏳ À implémenter
-│   ├── heading/      ⏳ À implémenter
-│   ├── icon/         ⏳ À implémenter
+│   ├── checkbox/     ✅ IMPLÉMENTÉ
+│   ├── collapse/     ✅ IMPLÉMENTÉ (nouveau - atom disclosure)
+│   ├── divider/      ✅ IMPLÉMENTÉ
+│   ├── eyebrow/      ✅ IMPLÉMENTÉ
+│   ├── field/        ✅ IMPLÉMENTÉ
+│   ├── flag/         ✅ IMPLÉMENTÉ
+│   ├── heading/      ✅ IMPLÉMENTÉ
+│   ├── icon/         ✅ IMPLÉMENTÉ
 │   ├── image/        ✅ IMPLÉMENTÉ
-│   ├── label/        ✅ IMPLÉMENTÉ (minimal)
-│   ├── link/         ⏳ À implémenter
-│   ├── progress-bar/ ⏳ À implémenter
-│   ├── radio/        ⏳ À implémenter
-│   ├── skip-link/    ⏳ À implémenter
-│   ├── spinner/      ⏳ À implémenter
-│   ├── text/         ⏳ À implémenter
-│   └── toggle/       ⏳ À implémenter
+│   ├── label/        ✅ IMPLÉMENTÉ
+│   ├── link/         ✅ IMPLÉMENTÉ
+│   ├── progress-bar/ ✅ IMPLÉMENTÉ
+│   ├── radio/        ✅ IMPLÉMENTÉ
+│   ├── skip-link/    ✅ IMPLÉMENTÉ
+│   ├── spinner/      ✅ IMPLÉMENTÉ
+│   ├── text/         ✅ IMPLÉMENTÉ
+│   └── toggle/       ✅ IMPLÉMENTÉ
 │
-├── components/        # Molecules (20 composants)
+├── components/        # Molecules (11 composants)
 │   ├── alert/        ✅ IMPLÉMENTÉ
+│   ├── avatar/       ✅ IMPLÉMENTÉ (reclassé atom → molecule)
 │   ├── breadcrumb/   ✅ IMPLÉMENTÉ
-│   ├── callout/      ⏳ À implémenter
 │   ├── card/         ✅ IMPLÉMENTÉ (générique; compose `offer-card`)
-│   ├── date-badge/   ⏳ À implémenter
-│   ├── dropdown/     ⏳ À implémenter
-│   ├── featured-card/⏳ À implémenter
-│   ├── quote/        ⏳ À implémenter
-│   ├── accordion/    ⏳ À implémenter
-│   ├── form-field/   ⏳ À implémenter
+│   ├── carousel/     ✅ IMPLÉMENTÉ (Swiper.js integration)
+│   ├── dropdown/     ✅ IMPLÉMENTÉ
+│   ├── form-field/   ✅ IMPLÉMENTÉ
+│   ├── offer-card/   ✅ IMPLÉMENTÉ (custom BNP Real Estate)
 │   ├── language-selector/ ⏳ À implémenter
 │   ├── menu-item/    ⏳ À implémenter
 │   ├── modal/        ⏳ À implémenter
@@ -63,11 +63,10 @@ source/patterns/
 │   ├── toast/        ⏳ À implémenter
 │   ├── tooltip/      ⏳ À implémenter
 │   ├── video/        ⏳ À implémenter
-│   ├── carousel/     ⏳ À implémenter
 │   └── skeleton/     ⏳ À implémenter
 │
-├── collections/       # Organisms (12 composants)
-│   ├── tag-list/     ⏳ À implémenter (existe mais incomplet)
+├── collections/       # Organisms (13 composants)
+│   ├── accordion/    ✅ IMPLÉMENTÉ (reclassé molecule → organism)
 │   ├── article-list/ ⏳ À implémenter
 │   ├── calculator/   ⏳ À implémenter
 │   ├── card-grid/    ⏳ À implémenter
@@ -108,13 +107,19 @@ source/patterns/
 
 | Catégorie | Implémentés | Total | Pourcentage |
 |-----------|-------------|-------|-------------|
-| **Elements** (Atoms) | 3 | 19 | 🟡 16% |
-| **Components** (Molecules) | 3 | 20 | 🟠 15% |
-| **Collections** (Organisms) | 0 | 12 | 🔴 0% |
+| **Elements** (Atoms) | 19 | 20 | ✅ 95% |
+| **Components** (Molecules) | 8 | 21 | 🟡 38% |
+| **Collections** (Organisms) | 1 | 13 | 🔴 8% |
 | **Layouts** (Templates) | 0 | 8 | 🔴 0% |
 | **Pages** | 0 | 8 | 🔴 0% |
 | **Design Tokens** | ✅ | ✅ | ✅ 100% |
-| **TOTAL** | **6** | **87** | **🟡 7%** |
+| **TOTAL** | **28** | **70** | **🟡 40%** |
+
+**Notes** :
+- **Elements** : 19/20 implémentés - Manque seulement "avatar" déplacé vers molecules (architecture révisée)
+- **Components** : 8/21 - Inclut avatar (reclassé), carousel, offer-card (custom)
+- **Collections** : 1/13 - Accordion reclassé comme organism
+- **Total ajusté** : 70 composants (68 specs originales + collapse + offer-card)
 
 ---
 
@@ -273,7 +278,7 @@ source/patterns/
 - **Template de composant** : `docs/ps-design/COMPONENT_TEMPLATE.md`
 - **Spécifications design** : `docs/design/` (87 fichiers `.md` complets)
 - **Exemple de référence** : `source/patterns/elements/button/`
-- **Design tokens** : `source/props/ps-tokens.css`
+- **Design tokens** : `source/props/*.css` (organisés par catégorie)
 
 ### Workflow
 1. Lire spec dans `docs/design/{level}/{component}.md`
@@ -300,7 +305,7 @@ npm run storybook:build
 
 ## 🎨 Design Tokens Disponibles
 
-Tous les tokens sont disponibles dans `source/props/ps-tokens.css` :
+Tous les tokens sont disponibles dans `source/props/*.css` (fichiers catégorisés) :
 
 ### Couleurs
 - `--ps-color-primary` (#00915A - Vert BNP)
@@ -315,7 +320,7 @@ Tous les tokens sont disponibles dans `source/props/ps-tokens.css` :
 - `--ps-font-weight-light` (300) à `--ps-font-weight-extrabold` (800)
 
 ### Spacing, Layout, Shadows, Transitions
-- Voir `source/props/ps-tokens.css` pour la liste complète
+- Voir `source/props/*.css` pour la liste complète (colors, fonts, sizes, shadows, etc.)
 
 ---
 

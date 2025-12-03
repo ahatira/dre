@@ -2,24 +2,31 @@
 
 **Niveau Atomic Design** : Molecule / Feedback  
 **Catégorie** : Status & Messaging  
-**Statut** : 🚧 Draft  
-**Version** : 1.0.0
+**Statut** : ✅ Stable  
+**Version** : 1.1.0  
+**Dernière mise à jour** : 3 décembre 2025
 
 ---
 
 ## 📋 Description
 
-Message d’état avec variants sémantiques (info, succès, avertissement, erreur). Option de fermeture. Rôles ARIA adaptés (`status` ou `alert`).
+Semantic alert with 8 color variants (primary, secondary, success, danger, warning, info, light, dark) and optional dismissal. Supports free HTML content and contextual feedback patterns for real estate notifications.
+
+**Implémentation** : `source/patterns/components/alert/`
 
 ---
 
 ## 🎨 Aperçu visuel
 
 ```
-[ i ] Information utile à l’utilisateur.
-[ ✓ ] Opération réalisée avec succès.
-[ ! ] Attention : action requise.
-[ × ] Une erreur est survenue.
+[PRIMARY] Brand-specific highlights, featured real estate content
+[SECONDARY] Muted notices and supplementary information
+[SUCCESS] ✓ Property saved successfully to your favorites
+[DANGER] × Error: Unable to schedule property viewing
+[WARNING] ! Your offer expires in 24 hours
+[INFO] i New listings available in your saved search area
+[LIGHT] General non-critical announcements
+[DARK] High-contrast important notifications
 ```
 
 ---
@@ -27,13 +34,28 @@ Message d’état avec variants sémantiques (info, succès, avertissement, erre
 ## 🏗️ Structure BEM
 
 ```html
-<div class="ps-alert ps-alert--info" role="status" aria-live="polite">
-  <span class="ps-alert__icon" aria-hidden="true"></span>
+<div class="ps-alert ps-alert--success" role="status">
   <div class="ps-alert__content">
-    <h3 class="ps-alert__title">Information</h3>
-    <div class="ps-alert__message">Détails du message.</div>
+    <h4 class="ps-alert-heading">Property saved!</h4>
+    <p>You can view this property in your <a href="/favorites" class="ps-alert-link">saved listings</a>.</p>
   </div>
-  <button class="ps-alert__close" type="button" aria-label="Fermer">×</button>
+</div>
+
+<!-- Dismissible variant -->
+<div class="ps-alert ps-alert--warning ps-alert--dismissible" role="alert">
+  <div class="ps-alert__content">
+    <p>Your offer expires in 24 hours.</p>
+  </div>
+  <button class="ps-alert__close" type="button" aria-label="Dismiss alert">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!-- With rounded borders -->
+<div class="ps-alert ps-alert--info ps-alert--rounded" role="status">
+  <div class="ps-alert__content">
+    5 new properties match your search criteria.
+  </div>
 </div>
 ```
 
@@ -41,16 +63,24 @@ Message d’état avec variants sémantiques (info, succès, avertissement, erre
 
 ```
 ps-alert                           // Block principal
-  ps-alert__icon                   // Icône contextuelle
-  ps-alert__content                // Wrapper textuel
-  ps-alert__title                  // Titre (optionnel)
-  ps-alert__message                // Message
-  ps-alert__close                  // Bouton de fermeture (optionnel)
+  ps-alert__content                // Free HTML content wrapper
+  ps-alert__close                  // Close button (when dismissible)
 
 Modificateurs :
-  ps-alert--info|success|warning|error
-  ps-alert--dismissible
-  ps-alert--compact
+  ps-alert--primary                // Brand green (BNP) - default
+  ps-alert--secondary              // Gray muted
+  ps-alert--success                // Green confirmation
+  ps-alert--danger                 // Red error/critical
+  ps-alert--warning                // Yellow/orange caution
+  ps-alert--info                   // Blue informational
+  ps-alert--light                  // Light gray
+  ps-alert--dark                   // Dark high-contrast
+  ps-alert--dismissible            // Has close button (adds padding-right)
+  ps-alert--rounded                // Border radius applied
+
+Utility classes:
+  ps-alert-link                    // Darker/bolder links within alerts
+  ps-alert-heading                 // Larger, bold headings (h4 recommended)
 ```
 
 ---

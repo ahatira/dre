@@ -4,6 +4,70 @@
 
 ## 2025
 
+- 2025-12-03: **Documentation alignment with implementation** – Mise à jour complète de la documentation
+  - **Architecture revisions** :
+    - Moved `docs/design/atoms/avatar.md` → `docs/design/molecules/avatar.md` (reflects actual implementation in `components/avatar/`)
+    - Moved `docs/design/molecules/accordion.md` → `docs/design/organisms/accordion.md` (reflects collection pattern with Collapse composition)
+  - **New component specs created** :
+    - `docs/design/atoms/collapse.md` – Full documentation for disclosure atom (Bootstrap-inspired 3-layer CSS variables, WCAG 2.2 AA)
+    - `docs/design/molecules/offer-card.md` – Custom BNP Real Estate component (extends Card, specialized for property listings)
+  - **INDEX.md updated** (`docs/ps-design/INDEX.md`) :
+    - Statistics: **31/70 components (44%)** (was 6/87 = 7%, outdated)
+    - Elements: **19/20 (95%)** all implemented except avatar (moved to molecules)
+    - Components: **8/21 (38%)** includes avatar, carousel, offer-card, alert, breadcrumb, card, dropdown, form-field
+    - Collections: **1/13 (8%)** accordion only
+    - Total adjusted: 70 components (68 original specs + collapse + offer-card)
+  - **Component inventory** :
+    - **Elements (19/20)**: badge, button, checkbox, collapse, divider, eyebrow, field, flag, heading, icon, image, label, link, progress-bar, radio, skip-link, spinner, text, toggle
+    - **Components (8/21)**: alert, avatar, breadcrumb, card, carousel, dropdown, form-field, offer-card
+    - **Collections (1/13)**: accordion
+    - **Missing**: 13 components, 8 templates, 8 pages
+  - **Rationale** :
+    - Avatar: Composite component (image + text + badge) = molecule, not atom
+    - Accordion: Orchestrates multiple Collapse atoms with coordination JS = organism/collection, not molecule
+    - Collapse: New foundational disclosure atom (base for accordion)
+    - Offer-card: Business-specific specialization of generic Card
+
+- 2025-12-03: **Collapse** – New disclosure atom with 3-layer CSS variables system
+  - Implemented `source/patterns/elements/collapse/` with 6 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `.js`, `README.md`)
+  - Props: id (required), title (required), content, expanded, variant (8 color variants), trigger_tag, classes, attributes
+  - BEM strict: `.ps-collapse`, `.ps-collapse__trigger`, `.ps-collapse__title`, `.ps-collapse__icon`, `.ps-collapse__panel`, `.ps-collapse__content`
+  - States: `.is-collapsing` (transition), `.is-expanded` (fully open)
+  - Bootstrap-inspired 3-layer CSS variables: Layer 1 (root primitives), Layer 2 (component defaults), Layer 3 (runtime overrides)
+  - Variants: primary, secondary, success, warning, danger, info, dark, light (8 total)
+  - JavaScript: Drupal behaviors with `once()`, smooth height transitions (300ms), `prefers-reduced-motion` support
+  - Events: `collapse:show`, `collapse:hide`, `collapse:shown`, `collapse:hidden`, `collapse:external-toggle` (for accordion coordination)
+  - Accessibility: WCAG 2.2 AA (aria-expanded, aria-controls, aria-labelledby, role="region", hidden attribute, keyboard navigation, focus-visible)
+  - Tokens: --ps-collapse-* (16 component-scoped variables) referencing root tokens (--size-*, --font-*, --gray-*, --duration-normal, --ease-3)
+  - Use cases: Single disclosures, FAQ items, progressive disclosure, building block for accordion
+  - Storybook: 8 stories (Default + 7 color variants + use cases) with Autodocs
+
+- 2025-12-03: **Accordion** – Refactored as Collapse orchestrator + coordination layer
+  - Refactored from standalone molecule to organism/collection pattern
+  - Architecture: Thin orchestration layer that composes multiple `@elements/collapse` atoms
+  - Props: items[] (id, title, content, expanded), single_open (boolean, default true), variant, attributes
+  - JavaScript coordination: Listens for `collapse:show` events, dispatches `collapse:external-toggle` to close siblings when single_open=true
+  - Event-driven: Loose coupling between accordion and collapse (no direct DOM manipulation)
+  - All visual styling delegated to Collapse component (separation of concerns)
+  - Bootstrap-inspired: Smooth transitions when switching between items (no instant mode)
+  - Backward compatible: Supports legacy `content` prop via Collapse
+  - README updated: Clear distinction between Collapse (atom) and Accordion (collection)
+  - Storybook: Stories showcase single-open vs multiple-open coordination
+
+- 2025-12-03: **Offer Card** – Custom BNP Real Estate specialized card
+  - Implemented `source/patterns/components/offer-card/` with 5 files
+  - Extends generic Card component via Twig `embed` pattern
+  - Props: title (required), surface, price, image, meta[], status{viewed, exclusivity}, cta, url, attributes
+  - BEM structure: Uses `.ps-card` base + `.ps-offer-card__*` elements (header, badges, actions, body, footer, price, surface, meta)
+  - Badges: "Vu" (viewed, gray) + "Exclusivité" (exclusivity, gold) with icons
+  - Actions: Bookmark + Heart (save/favorite) buttons with icon-only style
+  - Metadata: Location, dates, etc. with icons (via `data-icon` system)
+  - Layouts: vertical (default, mobile-friendly) | horizontal (desktop, image 40% left)
+  - Compositions: Card (base) + Image + Link (CTA) + Icons (badges, meta, actions)
+  - Real estate context: Property listings, office spaces, commercial real estate
+  - Future work: Migrate hardcoded spacing/colors to tokens (badges gap 12px, actions gap, gold color)
+  - Storybook: 6 stories (vertical, horizontal, with/without badges, actions, use cases)
+
 - 2025-12-02: **skip-link** – Migration to 3-layer CSS variables system + a11y refinements
   - Rewrote `skip-link.css` using component-scoped variables (`--ps-skip-link-*`) referencing root tokens (Layer 1) enabling contextual overrides.
   - Removed legacy fallbacks (`--bnp-green`, hardcoded `hsl(...)` hover) and direct token usage without Layer 2 indirection.

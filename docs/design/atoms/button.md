@@ -3,19 +3,18 @@
 **Niveau Atomic Design** : Atom / Element  
 **Catégorie** : Interactive  
 **Statut** : ✅ Stable  
-**Version** : 1.0.0
+**Version** : 1.1.0  
+**Dernière mise à jour** : 3 décembre 2025
 
 ---
 
 ## 📋 Description
 
-Le bouton est l'élément interactif fondamental pour déclencher des actions. Le PS Design System propose 4 variants principaux (primaire/secondaire × vert/violet/blanc) avec des états clairs et accessibles.
+Le bouton est l'élément interactif fondamental pour déclencher des actions. Le PS Design System propose 7 variants sémantiques (neutral, primary, secondary, success, info, warning, danger) avec support outline, tailles multiples (small/medium/large), icônes positionnables, états disabled/loading, et mode full-width.
 
-**Occurrences détectées dans Figma** : 298 instances
-- Primary Green : 120
-- Secondary Green : 151
-- Primary Purple : 23
-- Secondary White : 4
+**Implémentation** : `source/patterns/elements/button/`
+
+**Note** : L'implémentation utilise des variants sémantiques modernes au lieu des variants Figma originaux (green/purple/white) pour une meilleure évolutivité et cohérence avec les standards design system actuels.
 
 ---
 
@@ -23,28 +22,80 @@ Le bouton est l'élément interactif fondamental pour déclencher des actions. L
 
 ```
 ┌─────────────────────────┐    ┌─────────────────────────┐
-│ ●  Rechercher         → │    │    Découvrir          → │
+│    Button             → │    │    Button             → │
 └─────────────────────────┘    └─────────────────────────┘
-   Primary Green                  Secondary Green
+   Neutral (default gray)         Primary (brand green)
 
 ┌─────────────────────────┐    ┌─────────────────────────┐
-│ ●  Contacter          → │    │    En savoir plus     → │
+│    Cancel               │    │  ☰  Loading...          │
 └─────────────────────────┘    └─────────────────────────┘
-   Primary Purple                 Secondary White
-```
+   Outline Secondary              Loading State
 
----
-
+┌──────────────────────────────────────────────────────┐
+│                 Full Width Button                  → │
+└──────────────────────────────────────────────────────┘
 ## 🏗️ Structure BEM
 
 ```html
-<button class="ps-button ps-button--primary ps-button--green">
-  <span class="ps-button__label">Rechercher</span>
-  <svg class="ps-button__icon ps-button__icon--right">...</svg>
+<!-- Default neutral button -->
+<button class="ps-button">
+  <span class="ps-button__label">Button</span>
+</button>
+
+<!-- Primary with icon right -->
+<button class="ps-button ps-button--primary ps-button--icon-right">
+  <span class="ps-button__label">Next</span>
+  <span class="ps-button__icon ps-button__icon--right" data-icon="arrow-right" aria-hidden="true"></span>
+</button>
+
+<!-- Outline secondary -->
+<button class="ps-button ps-button--secondary ps-button--outline">
+  <span class="ps-button__label">Cancel</span>
+</button>
+
+<!-- Loading state -->
+<button class="ps-button ps-button--loading" aria-busy="true">
+  <span class="ps-button__spinner" aria-hidden="true"></span>
+  <span class="ps-button__label">Loading...</span>
 </button>
 ```
 
 ### Classes BEM
+
+```
+ps-button                          // Block principal
+  ps-button__label                // Texte du bouton
+  ps-button__icon                 // Icône (via data-icon)
+    ps-button__icon--left         // Icône à gauche
+    ps-button__icon--right        // Icône à droite
+  ps-button__spinner              // Spinner loading
+
+Modifiers (variants sémantiques):
+  ps-button--neutral              // Défaut (gris neutre) - NO CLASS NEEDED
+  ps-button--primary              // Primaire (vert brand)
+  ps-button--secondary            // Secondaire (violet brand)
+  ps-button--success              // Succès (vert)
+  ps-button--info                 // Info (bleu)
+  ps-button--warning              // Avertissement (orange)
+  ps-button--danger               // Danger (rouge)
+  
+Modifiers (styles):
+  ps-button--outline              // Style outline (bordure seule)
+  
+Modifiers (tailles):
+  ps-button--small                // Petit (height 32px)
+  ps-button--medium               // Moyen (height 40px) - NO CLASS NEEDED
+  ps-button--large                // Large (height 48px)
+  
+Modifiers (layout):
+  ps-button--full-width           // Largeur 100%
+  ps-button--icon-only            // Icône seule (carré)
+  ps-button--icon-left            // Avec icône à gauche
+  ps-button--icon-right           // Avec icône à droite
+  
+States:
+  ps-button--disabled             // État désactivé
+  ps-button--loading              // État chargement (avec spinner)
 
 ```
 ps-button                          // Block principal

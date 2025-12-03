@@ -2,21 +2,25 @@
 
 **Niveau Atomic Design** : Atom / Label  
 **Catégorie** : Status indicator  
-**Statut** : 🚧 Draft  
-**Version** : 1.0.0
+**Statut** : ✅ Stable  
+**Version** : 1.1.0  
+**Dernière mise à jour** : 3 décembre 2025
 
 ---
 
 ## 📋 Description
 
-Indicateur visuel compact pour afficher des statuts, dates, labels, ou compteurs. Disponible en plusieurs variantes sémantiques (info, success, warning, error, neutral) et types (date, status, label, count). Peut être iconifié, cliquable (pill), ou décoratif. Supporte les tailles et formes (rounded/square).
+Indicateur visuel compact pour afficher des statuts, labels, ou compteurs. Disponible en 8 variantes de couleur sémantiques (default, primary, secondary, gold, info, success, warning, danger), 3 tailles (small/medium/large), et forme pill optionnelle. Supporte icônes décoratives et comportement link cliquable.
+
+**Implémentation** : `source/patterns/elements/badge/`
 
 ---
 
 ## 🎨 Aperçu visuel
 
 ```
-[ Nouveau ]  [ 12 ]  [ ✓ Actif ]  [ 2025-01-15 ]
+[ Badge ]  [ ✓ Verified ]  [ 3 ]  [ Learn more → ]
+Default     Primary+icon    Small   Link pill
 ```
 
 ---
@@ -24,49 +28,46 @@ Indicateur visuel compact pour afficher des statuts, dates, labels, ou compteurs
 ## 🏗️ Structure BEM
 
 ```html
-<span class="ps-badge ps-badge--success ps-badge--small">
-  <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-check"></use></svg>
-  <span class="ps-badge__text">Actif</span>
+<!-- Default badge -->
+<span class="ps-badge">Default</span>
+
+<!-- Primary badge with icon -->
+<span class="ps-badge ps-badge--primary">
+  <span class="ps-badge__icon" data-icon="check"></span>
+  <span class="ps-badge__text">Verified</span>
 </span>
 
-<span class="ps-badge ps-badge--date ps-badge--neutral">
-  <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-calendar"></use></svg>
-  <span class="ps-badge__text">15 Jan 2025</span>
-</span>
+<!-- Small count -->
+<span class="ps-badge ps-badge--small">3</span>
 
-<span class="ps-badge ps-badge--count ps-badge--primary">3</span>
+<!-- Pill link badge -->
+<a href="#" class="ps-badge ps-badge--info ps-badge--pill">Learn more</a>
 ```
 
 ### Classes BEM
 
 ```
 ps-badge                                  // Block
-  ps-badge__icon                          // Icône optionnelle
+  ps-badge__icon                          // Icône optionnelle (via data-icon)
   ps-badge__text                          // Texte du badge
 
-Modificateurs :
-  ps-badge--primary                       // Couleur primaire (vert)
-  ps-badge--secondary                     // Couleur secondaire (gris)
-  ps-badge--info                          // Info (bleu)
-  ps-badge--success                       // Succès (vert)
-  ps-badge--warning                       // Avertissement (orange)
-  ps-badge--error                         // Erreur (rouge)
-  ps-badge--neutral                       // Neutre (gris clair)
+Modifiers (couleurs sémantiques):
+  (default - pas de classe)               // Gris neutre (--gray-200 bg)
+  ps-badge--primary                       // Primaire (vert brand)
+  ps-badge--secondary                     // Secondaire (violet brand)
+  ps-badge--gold                          // Or/accent (--yellow-500)
+  ps-badge--info                          // Info (bleu clair)
+  ps-badge--success                       // Succès (vert clair)
+  ps-badge--warning                       // Avertissement (jaune)
+  ps-badge--danger                        // Danger (rouge clair)
   
-  ps-badge--date                          // Type date
-  ps-badge--status                        // Type statut
-  ps-badge--label                         // Type label
-  ps-badge--count                         // Type compteur (arrondi)
+Modifiers (tailles):
+  ps-badge--small                         // Petite taille (font 10px)
+  (medium - pas de classe)                // Taille moyenne (font 12px) - DEFAULT
+  ps-badge--large                         // Grande taille (font 14px)
   
-  ps-badge--small                         // Petite taille
-  ps-badge--medium                        // Taille moyenne (défaut)
-  ps-badge--large                         // Grande taille
-  
-  ps-badge--rounded                       // Coins arrondis (défaut)
-  ps-badge--square                        // Coins carrés
-  ps-badge--pill                          // Complètement arrondi (count)
-  
-  ps-badge--clickable                     // Cliquable (avec hover)
+Modifiers (forme):
+  ps-badge--pill                          // Complètement arrondi (border-radius full)
 ```
 
 ---

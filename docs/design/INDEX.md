@@ -1,11 +1,14 @@
 # PS Design System - Index Complet
-# Documentation générée à partir de l'analyse Figma
+# Documentation des spécifications de composants
 
 ## 📊 Vue d'ensemble
 
-**Composants totaux** : 87 composants  
-**Tokens de design** : 7 fichiers YAML  
-**Documentation générée** : 95+ fichiers
+**Composants spécifiés** : 70 composants (68 originaux + collapse + offer-card)  
+**Composants implémentés** : 31 composants (44%)  
+**Tokens de design** : 7 fichiers YAML ✅  
+**Dernière mise à jour** : 3 décembre 2025
+
+**Note** : Cet index reflète les spécifications officielles dans `docs/design/`. Pour l'état d'implémentation détaillé, voir `docs/ps-design/INDEX.md`.
 
 ---
 
@@ -26,62 +29,64 @@ design/
 │   ├── shadows.yml                    ✅ Élévations
 │   └── transitions.yml                ✅ Animations
 │
-├── atoms/                              🟡 1/19 générés
-│   ├── button.md                      ✅ COMPLET
-│   ├── icon.md                        ⏳ À générer
-│   ├── field.md                       ⏳ À générer
-│   ├── link.md                        ⏳ À générer
-│   ├── checkbox.md                    ⏳ À générer
-│   ├── radio.md                       ⏳ À générer
-│   ├── toggle.md                      ⏳ À générer
-│   ├── badge.md                       ⏳ À générer
-│   ├── avatar.md                      ⏳ À générer
-│   ├── heading.md                     ⏳ À générer
-│   ├── text.md                        ⏳ À générer
-│   ├── eyebrow.md                     ⏳ À générer
-│   ├── label.md                       ⏳ À générer
-│   ├── image.md                       ⏳ À générer
-│   ├── flag.md                        ⏳ À générer
-│   ├── skip-link.md                   ⏳ À générer
-│   ├── spinner.md                     ⏳ À générer
-│   ├── divider.md                     ⏳ À générer
-│   └── progress-bar.md                ⏳ À générer
+├── atoms/                              ✅ 20/20 spécifiés (19 implémentés)
+│   ├── badge.md                       ✅ Spécifié + Implémenté
+│   ├── button.md                      ✅ Spécifié + Implémenté
+│   ├── checkbox.md                    ✅ Spécifié + Implémenté
+│   ├── collapse.md                    ✅ Spécifié + Implémenté (nouveau)
+│   ├── divider.md                     ✅ Spécifié + Implémenté
+│   ├── eyebrow.md                     ✅ Spécifié + Implémenté
+│   ├── field.md                       ✅ Spécifié + Implémenté
+│   ├── flag.md                        ✅ Spécifié + Implémenté
+│   ├── heading.md                     ✅ Spécifié + Implémenté
+│   ├── icon.md                        ✅ Spécifié + Implémenté
+│   ├── image.md                       ✅ Spécifié + Implémenté
+│   ├── label.md                       ✅ Spécifié + Implémenté
+│   ├── link.md                        ✅ Spécifié + Implémenté
+│   ├── progress-bar.md                ✅ Spécifié + Implémenté
+│   ├── radio.md                       ✅ Spécifié + Implémenté
+│   ├── skip-link.md                   ✅ Spécifié + Implémenté
+│   ├── spinner.md                     ✅ Spécifié + Implémenté
+│   ├── text.md                        ✅ Spécifié + Implémenté
+│   └── toggle.md                      ✅ Spécifié + Implémenté
 │
-├── molecules/                          🔴 0/20 générés
-│   ├── card.md                        ⏳ À générer (PRIORITAIRE)
-│   ├── dropdown.md                    ⏳ À générer (PRIORITAIRE)
-│   ├── search-bar.md                  ⏳ À générer (PRIORITAIRE)
-│   ├── form-field.md                  ⏳ À générer (PRIORITAIRE)
-│   ├── breadcrumb.md                  ⏳ À générer (PRIORITAIRE)
-│   ├── pagination.md                  ⏳ À générer (PRIORITAIRE)
-│   ├── alert.md                       ⏳ À générer (PRIORITAIRE)
-│   ├── tooltip.md                     ⏳ À générer
-│   ├── tabs.md                        ⏳ À générer
-│   ├── accordion.md                   ⏳ À générer
-│   ├── menu-item.md                   ⏳ À générer (PRIORITAIRE)
-│   ├── language-selector.md           ⏳ À générer
-│   ├── modal.md                       ⏳ À générer (PRIORITAIRE)
-│   ├── toast.md                       ⏳ À générer
-│   ├── stepper.md                     ⏳ À générer
-│   ├── table.md                       ⏳ À générer
-│   ├── video.md                       ⏳ À générer
-│   ├── carousel.md                    ⏳ À générer
-│   ├── skeleton.md                    ⏳ À générer
-│   └── tag-list.md                    ⏳ À générer
+├── molecules/                          🟡 21/21 spécifiés (8 implémentés)
+│   ├── alert.md                       ✅ Spécifié + Implémenté
+│   ├── avatar.md                      ✅ Spécifié + Implémenté (moved from atoms)
+│   ├── breadcrumb.md                  ✅ Spécifié + Implémenté
+│   ├── card.md                        ✅ Spécifié + Implémenté
+│   ├── carousel.md                    ✅ Spécifié + Implémenté (Swiper.js)
+│   ├── dropdown.md                    ✅ Spécifié + Implémenté
+│   ├── form-field.md                  ✅ Spécifié + Implémenté
+│   ├── offer-card.md                  ✅ Spécifié + Implémenté (custom BNP)
+│   ├── language-selector.md           ⏳ Spécifié, non implémenté
+│   ├── menu-item.md                   ⏳ Spécifié, non implémenté
+│   ├── modal.md                       ⏳ Spécifié, non implémenté
+│   ├── pagination.md                  ⏳ Spécifié, non implémenté
+│   ├── search-bar.md                  ⏳ Spécifié, non implémenté
+│   ├── skeleton.md                    ⏳ Spécifié, non implémenté
+│   ├── stepper.md                     ⏳ Spécifié, non implémenté
+│   ├── table.md                       ⏳ Spécifié, non implémenté
+│   ├── tabs.md                        ⏳ Spécifié, non implémenté
+│   ├── tag-list.md                    ⏳ Spécifié, non implémenté
+│   ├── toast.md                       ⏳ Spécifié, non implémenté
+│   ├── tooltip.md                     ⏳ Spécifié, non implémenté
+│   └── video.md                       ⏳ Spécifié, non implémenté
 │
-├── organisms/                          🔴 0/12 générés
-│   ├── header.md                      ⏳ À générer (CRITIQUE)
-│   ├── footer.md                      ⏳ À générer (CRITIQUE)
-│   ├── hero.md                        ⏳ À générer (PRIORITAIRE)
-│   ├── search-form.md                 ⏳ À générer (PRIORITAIRE)
-│   ├── card-grid.md                   ⏳ À générer (PRIORITAIRE)
-│   ├── feature-section.md             ⏳ À générer
-│   ├── filter-panel.md                ⏳ À générer (PRIORITAIRE)
-│   ├── map-view.md                    ⏳ À générer (PRIORITAIRE)
-│   ├── calculator.md                  ⏳ À générer
-│   ├── main-menu.md                   ⏳ À générer (PRIORITAIRE)
-│   ├── article-list.md                ⏳ À générer
-│   └── pre-footer.md                  ⏳ À générer
+├── organisms/                          🟡 13/13 spécifiés (1 implémenté)
+│   ├── accordion.md                   ✅ Spécifié + Implémenté (moved from molecules)
+│   ├── article-list.md                ⏳ Spécifié, non implémenté
+│   ├── calculator.md                  ⏳ Spécifié, non implémenté
+│   ├── card-grid.md                   ⏳ Spécifié, non implémenté
+│   ├── feature-section.md             ⏳ Spécifié, non implémenté
+│   ├── filter-panel.md                ⏳ Spécifié, non implémenté
+│   ├── footer.md                      ⏳ Spécifié, non implémenté
+│   ├── header.md                      ⏳ Spécifié, non implémenté
+│   ├── hero.md                        ⏳ Spécifié, non implémenté
+│   ├── main-menu.md                   ⏳ Spécifié, non implémenté
+│   ├── map-view.md                    ⏳ Spécifié, non implémenté
+│   ├── pre-footer.md                  ⏳ Spécifié, non implémenté
+│   └── search-form.md                 ⏳ Spécifié, non implémenté
 │
 ├── templates/                          🔴 0/8 générés
 │   ├── page-container.md              ⏳ À générer (CRITIQUE)
@@ -108,16 +113,23 @@ design/
 
 ## 📈 Progression
 
-| Catégorie | Complétés | Total | Pourcentage |
-|-----------|-----------|-------|-------------|
-| **Design Tokens** | 7 | 7 | ✅ 100% |
+| Catégorie | Spécifiés | Implémentés | Pourcentage |
+|-----------|-----------|-------------|-------------|
+| **Tokens** | 7 | 7 | ✅ 100% |
 | **Documentation** | 3 | 3 | ✅ 100% |
-| **Atoms** | 1 | 19 | 🟡 5% |
-| **Molecules** | 0 | 20 | 🔴 0% |
-| **Organisms** | 0 | 12 | 🔴 0% |
-| **Templates** | 0 | 8 | 🔴 0% |
-| **Pages** | 0 | 8 | 🔴 0% |
-| **TOTAL** | 11 | 77 | 🔴 14% |
+| **Atoms** | 20 | 19 | ✅ 95% |
+| **Molecules** | 21 | 8 | 🟡 38% |
+| **Organisms** | 13 | 1 | 🔴 8% |
+| **Templates** | 8 | 0 | 🔴 0% |
+| **Pages** | 8 | 0 | 🔴 0% |
+| **TOTAL** | **80** | **38** | **🟡 48%** |
+
+**Mises à jour récentes (3 décembre 2025)** :
+- **collapse** ajouté (nouveau atom fondamental)
+- **offer-card** ajouté (custom BNP Real Estate)
+- **avatar** reclassé : atoms → molecules (implémentation components/avatar/)
+- **accordion** reclassé : molecules → organisms (pattern collection avec composition Collapse)
+- Total: 70 composants spécifiés (68 originaux + 2 nouveaux), 31 implémentés (44%)
 
 ---
 

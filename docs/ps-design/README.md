@@ -57,7 +57,12 @@ ps_theme/
 │   │   └── pages/          # ⏳ À faire (0/8)
 │   │
 │   └── props/               # 🎨 Design tokens
-│       └── ps-tokens.css   # ✅ Tokens CSS complets
+│       ├── colors.css      # ✅ Semantic & brand colors
+│       ├── fonts.css       # ✅ Typography tokens
+│       ├── sizes.css       # ✅ Spacing & sizing scale
+│       ├── shadows.css     # ✅ Shadow definitions
+│       ├── borders.css     # ✅ Border styles
+│       └── ... (+ autres)  # ✅ Tokens organisés par catégorie
 │
 ├── storybook/               # 📚 Storybook build statique
 ├── templates/               # 🔧 Templates Drupal
@@ -151,11 +156,7 @@ Voir **[INDEX.md](./INDEX.md)** pour :
 
 ## 🎨 Design Tokens
 
-Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme de **CSS Custom Properties**.
-
-## 🎨 Design Tokens
-
-Tous les tokens sont centralisés dans `source/props/ps-tokens.css` sous forme de **CSS Custom Properties**.
+Tous les tokens sont centralisés dans `source/props/*.css` sous forme de **CSS Custom Properties** organisés par catégorie (colors, fonts, sizes, shadows, borders, animations, easing, zindex).
 
 ### Tokens Disponibles (source/props/*.css)
 
