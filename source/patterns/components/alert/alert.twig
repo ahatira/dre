@@ -13,10 +13,6 @@
 {%- set dismissible = dismissible|default(false) -%}
 {%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
-{%- set title = title|default('') -%}
-{%- set text = text|default('') -%}
-{%- set icon = icon|default(null) -%}
-{%- set actions = actions|default([]) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
 {{ attach_library('ps_theme/alert') }}
@@ -34,27 +30,7 @@
 ] -%}
 
 <div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
-  {# If free content provided, render as-is (backward compatibility) #}
-  {%- if content -%}
-    {{- content|raw -}}
-  {%- else -%}
-    {%- if icon -%}
-      {% include '@elements/icon/icon.twig' with { name: icon, size: 'md', color: 'default' } only %}
-    {%- endif -%}
-    {%- if title -%}
-      {% include '@elements/heading/heading.twig' with { level: 4, text: title } only %}
-    {%- endif -%}
-    {%- if text -%}
-      {% include '@elements/text/text.twig' with { text: text } only %}
-    {%- endif -%}
-    {%- if actions is iterable and actions|length > 0 -%}
-      <div class="ps-alert__actions">
-        {%- for action in actions -%}
-          {% include '@elements/button/button.twig' with action only %}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-  {%- endif -%}
+  {{- content|raw -}}
 
   {%- if dismissible -%}
     {% include '@elements/button/button.twig' with {

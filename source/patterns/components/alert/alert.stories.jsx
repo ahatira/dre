@@ -53,38 +53,6 @@ const settings = {
         defaultValue: { summary: 'false' },
       },
     },
-    title: {
-      description: 'Alert title (heading, composed via heading atom)',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-    },
-    text: {
-      description: 'Alert body text (composed via text atom)',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-    },
-    icon: {
-      description: 'Optional icon name (composed via icon atom)',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-    },
-    actions: {
-      description: 'Array of button props for action buttons (composed via button atoms)',
-      control: { type: 'object' },
-      table: {
-        category: 'Content',
-        type: { summary: 'array<ButtonProps>' },
-      },
-    },
     attributes: {
       description: 'Drupal attributes object for root element',
       table: {
@@ -287,39 +255,6 @@ export const RealEstateExamples = {
         variant: 'primary',
         content:
           '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span><strong>BNP Paribas RealEstate</strong> Featured announcement for premium clients',
-      })}
-    </div>
-  `,
-};
-
-export const ComposedWithAtoms = {
-  name: 'Composed with Atoms (New Pattern)',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'success',
-        icon: 'check',
-        title: 'Property Saved!',
-        text: 'Your favorite property has been added to your watchlist. You will receive updates on price changes.',
-        dismissible: true,
-      })}
-      ${alertTwig({
-        variant: 'warning',
-        icon: 'help',
-        title: 'Document Expiring Soon',
-        text: 'Your property insurance certificate expires in 15 days. Please renew to maintain coverage.',
-        actions: [
-          { label: 'Renew Now', variant: 'warning', size: 'small' },
-          { label: 'Remind Later', variant: 'warning', outline: true, size: 'small' },
-        ],
-        dismissible: true,
-      })}
-      ${alertTwig({
-        variant: 'danger',
-        icon: 'close',
-        title: 'Payment Failed',
-        text: 'Your monthly payment could not be processed. Please update your payment information immediately.',
-        actions: [{ label: 'Update Payment', variant: 'danger', size: 'small' }],
       })}
     </div>
   `,

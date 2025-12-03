@@ -28,10 +28,6 @@ The Alert component is a molecule-level feedback pattern for displaying importan
 | `content` | `string` | any (HTML) | `''` | Free HTML content for alert body |
 | `dismissible` | `boolean` | `true`, `false` | `false` | Show close button with dismiss behavior |
 | `rounded` | `boolean` | `true`, `false` | `false` | Apply border radius |
-| `title` | `string` | any | `null` | Optional title (composed via heading atom) |
-| `text` | `string` | any | `null` | Optional body text (composed via text atom) |
-| `icon` | `string` | icon name | `null` | Optional icon (composed via icon atom) |
-| `actions` | `array` | button props | `[]` | Optional action buttons (composed via button atoms) |
 | `attributes` | `object` | any | `{}` | Drupal attributes for root element |
 
 ## BEM Structure
@@ -127,14 +123,12 @@ From `source/props/*.css`:
 **Alert = Component (Molecule)**
 
 Composes (optional):
-- `@elements/button/button.twig` (for close button and action buttons)
-- `@elements/icon/icon.twig` (for optional icon)
-- `@elements/heading/heading.twig` (for optional title)
-- `@elements/text/text.twig` (for optional body text)
+- `@elements/button/button.twig` (for close button when dismissible)
 
-**Two usage patterns:**
-1. **Free content** (default): Pass HTML string via `content` prop
-2. **Composed atoms** (structured): Pass `title`, `text`, `icon`, `actions` props
+**Content model:**
+- Free HTML content via `content` prop
+- Users can include any HTML: headings, paragraphs, links, icons, lists, etc.
+- Use utility classes (`.ps-alert-link`, `.ps-alert-heading`) for styling
 
 ## Usage Examples
 
