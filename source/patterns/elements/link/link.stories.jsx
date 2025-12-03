@@ -128,6 +128,17 @@ const settings = {
         defaultValue: { summary: 'false' },
       },
     },
+    // Layout
+    baseClass: {
+      description:
+        'Override root class when composing inside other components. Modifiers map to baseClass variants; elements render as baseClass__*.',
+      control: { type: 'text' },
+      table: {
+        category: 'Layout',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'ps-link' },
+      },
+    },
   },
 };
 

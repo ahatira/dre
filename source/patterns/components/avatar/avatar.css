@@ -3,7 +3,7 @@
  * Composed of 3 atomic elements: Image + Text (initials) + Status Badge
  * 
  * BEM: ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__status
- * Sizes: xs (24px) | sm (32px) | md (40px - default) | lg (48px) | xl (80px)
+ * Sizes: xs (28px) | sm (48px) | md (68px) | lg (88px - default) | xl (112px)
  * Shapes: circle (default) | square | rounded
  * Fallback: image → initials → gender icon (male/female SVG)
  * Status: online | offline | busy
@@ -11,35 +11,28 @@
  */
 
 .ps-avatar {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     Default values using Layer 1 primitives
-     ============================================ */
-  
-  /* Sizing */
-  --ps-avatar-size: var(--size-10); /* md 40px default */
-  --ps-avatar-text-size: var(--font-size-1); /* 16px */
-  
-  /* Colors */
-  --ps-avatar-bg: var(--gray-200);
-  --ps-avatar-text-color: var(--white);
-  
-  /* Shape */
+  /* Layer 1 (global tokens) provided by props */
+  /* Layer 2: Semantic mapping for this component */
+  --ps-avatar-color-brand: var(--primary);
+  --ps-avatar-color-accent: var(--secondary);
+  --ps-avatar-color-text-on-brand: var(--white);
+  --ps-avatar-color-surface-default: var(--gray-200);
+  --ps-avatar-color-status-success: var(--success);
+  --ps-avatar-color-status-busy: var(--danger);
+  --ps-avatar-color-status-offline: var(--gray-400);
+
+  /* Layer 3: Contextual component variables */
+  --ps-avatar-size: var(--size-22); /* lg 88px default */
+  --ps-avatar-text-size: var(--font-size-8); /* 36px */
+  --ps-avatar-bg: var(--ps-avatar-color-surface-default);
+  --ps-avatar-text-color: var(--ps-avatar-color-text-on-brand);
   --ps-avatar-radius: 50%; /* circle default */
-  
-  /* Border */
   --ps-avatar-border-width: 0;
   --ps-avatar-border-color: var(--white);
-  
-  /* Status Badge */
-  --ps-avatar-status-size: var(--size-3); /* 12px md */
-  --ps-avatar-status-bg: var(--success);
+  --ps-avatar-status-size: 26px; /* 26px lg */
+  --ps-avatar-status-bg: var(--ps-avatar-color-status-success);
   --ps-avatar-status-border-width: var(--border-size-2);
   --ps-avatar-status-border-color: var(--white);
-  
-  /* Transitions */
-  --ps-avatar-transition: transform var(--duration-fast) var(--ease-3);
-  /* Transitions */
   --ps-avatar-transition: transform var(--duration-fast) var(--ease-3);
   
   /* ============================================
@@ -55,7 +48,7 @@
   width: var(--ps-avatar-size);
   height: var(--ps-avatar-size);
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
   text-decoration: none;
   
   /* Visual styling */
@@ -77,12 +70,16 @@
   &__text {
     font-family: var(--font-sans);
     font-size: var(--ps-avatar-text-size);
-    font-weight: var(--font-weight-600);
+    font-weight: var(--font-weight-200);
     color: var(--ps-avatar-text-color);
     text-transform: uppercase;
     line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     -webkit-user-select: none;
     user-select: none;
+    margin: 0;
   }
   
   &__status {
@@ -101,30 +98,34 @@
    * ======================================== */
   
   &--xs {
-    --ps-avatar-size: var(--size-6); /* 24px */
-    --ps-avatar-text-size: var(--font-size--2); /* 10px */
-    --ps-avatar-status-size: var(--size-2); /* 8px */
+    --ps-avatar-size: var(--size-7); /* 28px */
+    --ps-avatar-text-size: var(--font-size-0); /* 12px */
+    --ps-avatar-status-size: 8px;
     --ps-avatar-status-border-width: var(--border-size-1);
   }
   
   &--sm {
-    --ps-avatar-size: var(--size-8); /* 32px */
-    --ps-avatar-text-size: var(--font-size-0); /* 14px */
-    --ps-avatar-status-size: var(--size-205); /* 10px */
+    --ps-avatar-size: var(--size-12); /* 48px */
+    --ps-avatar-text-size: var(--font-size-2); /* 16px */
+    --ps-avatar-status-size: 14px;
   }
   
-  /* md handled by base defaults (minimal markup) */
+  &--md {
+    --ps-avatar-size: var(--size-17); /* 68px */
+    --ps-avatar-text-size: var(--font-size-6); /* 28px */
+    --ps-avatar-status-size: 20px;
+  }
   
   &--lg {
-    --ps-avatar-size: var(--size-12); /* 48px */
-    --ps-avatar-text-size: var(--font-size-3); /* 20px */
-    --ps-avatar-status-size: var(--size-305); /* 14px */
+    --ps-avatar-size: var(--size-22); /* 88px - DEFAULT */
+    --ps-avatar-text-size: var(--font-size-8); /* 36px */
+    --ps-avatar-status-size: 26px;
   }
   
   &--xl {
-    --ps-avatar-size: var(--size-20); /* 80px */
-    --ps-avatar-text-size: var(--font-size-7); /* 32px */
-    --ps-avatar-status-size: var(--size-5); /* 20px */
+    --ps-avatar-size: var(--size-28); /* 112px */
+    --ps-avatar-text-size: var(--font-size-10); /* 48px */
+    --ps-avatar-status-size: 33px;
     --ps-avatar-status-border-width: var(--border-size-3);
   }
   
@@ -144,25 +145,23 @@
    * Modifiers - Types
    * ======================================== */
   
-  &--initials {
-    --ps-avatar-bg: var(--primary);
-  }
+  &--initials { --ps-avatar-bg: var(--ps-avatar-color-brand); }
   
   /* ========================================
    * Modifiers - Gender (Fallback)
    * ======================================== */
   
   &--male {
-    --ps-avatar-bg: var(--primary);
-    background-image: url('/images/agent/male.svg');
+    --ps-avatar-bg: var(--ps-avatar-color-brand);
+    background-image: url('../../../assets/images/agent/male.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
-  
+
   &--female {
-    --ps-avatar-bg: var(--secondary);
-    background-image: url('/images/agent/female.svg');
+    --ps-avatar-bg: var(--ps-avatar-color-accent);
+    background-image: url('../../../assets/images/agent/female.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -196,11 +195,6 @@
  * ======================================== */
 
 .ps-avatar__status {
-  &--offline {
-    --ps-avatar-status-bg: var(--gray-400);
-  }
-  
-  &--busy {
-    --ps-avatar-status-bg: var(--danger);
-  }
+  &--offline { --ps-avatar-status-bg: var(--ps-avatar-color-status-offline); }
+  &--busy { --ps-avatar-status-bg: var(--ps-avatar-color-status-busy); }
 }

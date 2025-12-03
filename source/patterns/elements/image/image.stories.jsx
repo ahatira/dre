@@ -18,6 +18,16 @@ export default {
     },
   },
   argTypes: {
+    baseClass: {
+      control: 'text',
+      description:
+        'Override root BEM class for composition. When provided, Image emits only this class with mapped modifiers; otherwise emits ps-image classes.',
+      table: {
+        category: 'Structure',
+        type: { summary: 'string' },
+        defaultValue: { summary: null },
+      },
+    },
     // Content
     src: {
       control: 'text',

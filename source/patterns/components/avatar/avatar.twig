@@ -6,7 +6,7 @@
  * @param string alt - Alt text for image (required when src provided)
  * @param string initials - Initials text (2 letters max, fallback if no image)
  * @param string gender - male | female (default: male, used for icon fallback)
- * @param string size - xs | sm | md | lg | xl (default: md)
+ * @param string size - xs | sm | md | lg | xl (default: lg)
  * @param string shape - circle | square | rounded (default: circle)
  * @param string status - online | offline | busy (optional, status badge)
  * @param boolean bordered - White border (default: false)
@@ -15,7 +15,7 @@
  * @param Attribute attributes - Additional HTML attributes
  #}
 
-{%- set size = size|default('md') -%}
+{%- set size = size|default('lg') -%}
 {%- set shape = shape|default('circle') -%}
 {%- set gender = gender|default('male') -%}
 {%- set bordered = bordered|default(false) -%}
@@ -27,7 +27,7 @@
 
 {%- set avatar_classes = [
   'ps-avatar',
-  size != 'md' ? 'ps-avatar--' ~ size : null,
+  size != 'lg' ? 'ps-avatar--' ~ size : null,
   shape != 'circle' ? 'ps-avatar--' ~ shape : null,
   has_initials ? 'ps-avatar--initials' : null,
   has_fallback ? 'ps-avatar--' ~ gender : null,
@@ -59,20 +59,15 @@
       text: initials,
       tag: 'span',
       strong: true,
-      attributes: create_attribute().addClass('ps-avatar__text')
+      baseClass: 'ps-avatar__text',
+      attributes: create_attribute()
     } only %}
   {%- endif -%}
 
-  {# Atom 3: Status Badge #}
+  {# Atom 3: Status Dot #}
   {%- if status -%}
-    {% include '@elements/badge/badge.twig' with {
-      text: '',
-      color: status == 'online' ? 'success' : (status == 'busy' ? 'danger' : 'default'),
-      pill: true,
-      size: 'small',
-      attributes: create_attribute()
-        .addClass('ps-avatar__status')
-        .setAttribute('aria-label', status == 'online' ? 'Online' : (status == 'busy' ? 'Busy' : 'Offline'))
-    } only %}
+    {%- set status_label = status == 'online' ? 'Online' : (status == 'busy' ? 'Busy' : 'Offline') -%}
+    {%- set status_class = status in ['online','offline','busy'] ? 'ps-avatar__status--' ~ status : null -%}
+    <span class="ps-avatar__status {{ status_class }}" aria-label="{{ status_label }}"></span>
   {%- endif -%}
 </{{ tag }}>

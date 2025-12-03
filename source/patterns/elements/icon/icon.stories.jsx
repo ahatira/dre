@@ -13,6 +13,16 @@ export default {
     },
   },
   argTypes: {
+    baseClass: {
+      description:
+        'Override root BEM class for composition. When provided, Icon emits only this class and mapped modifiers; otherwise emits ps-icon classes.',
+      control: { type: 'text' },
+      table: {
+        category: 'Structure',
+        type: { summary: 'string' },
+        defaultValue: { summary: null },
+      },
+    },
     name: {
       description: 'Icon name without "icon-" prefix',
       control: 'text',

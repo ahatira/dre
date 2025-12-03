@@ -13,6 +13,7 @@ A flexible visual separator to structure content sections with component-scoped 
 | `spacing` | string | `'sm'`, `'md'`, `'lg'` | `'md'` | Spacing around divider (8px/16px/24px) |
 | `text` | string | any | `''` | Optional centered text content |
 | `icon` | string | icon name | `''` | Optional centered icon (without "icon-" prefix) |
+| `baseClass` | string | `'ps-divider'` | — | Override root class when composing inside other components (e.g., `'ps-section__divider'`). Modifiers and elements map to `baseClass--*` and `baseClass__*`.
 
 ## BEM Structure
 
@@ -38,6 +39,8 @@ ps-divider                       # Root element (<hr> or <div>/<span>)
 ├── ps-divider__text             # Centered text element
 └── ps-divider__icon             # Centered icon element
 ```
+
+When `baseClass` is provided, the same structure applies with `baseClass` instead of `ps-divider` (e.g., `ps-card__divider--dashed`, `ps-card__divider__line`).
 
 ### Modifiers by Category
 
@@ -410,3 +413,8 @@ Override component variables for specific contexts:
 - [x] **Storybook documentation complete** (`tags: ['autodocs']`, showcases: AllVariants, Vertical, UseCases)
 - [x] **No hardcoded values** in CSS (all values use component variables)
 - [x] **All content in English**
+
+---
+
+Component Status: ✅ Complete  
+Last Updated: December 3, 2025

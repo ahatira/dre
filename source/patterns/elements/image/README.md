@@ -64,6 +64,7 @@ The Image component is a fundamental atom for displaying images with built-in re
 | `decoding` | `string` | `'auto'` | Decoding hint: `'auto'` \| `'async'` \| `'sync'` |
 | `fit` | `string` | `'none'` | Object-fit: `'none'` \| `'cover'` \| `'contain'` \| `'fill'` \| `'scale-down'` |
 | `rounded` | `string` | `'none'` | Border-radius: `'none'` \| `'sm'` \| `'md'` \| `'lg'` \| `'full'` |
+| `baseClass` | `string` | `'ps-image'` | Override root class when composing inside other components (e.g., `'ps-avatar__image'`). Modifiers map to `baseClass--fit-*` and `baseClass--rounded-*`.
 | `attributes` | `Attribute` | — | Additional HTML attributes |
 
 ## BEM Structure
@@ -85,6 +86,8 @@ Modifiers:
 ```
 
 **Minimal Markup:** By default, only `ps-image` class is applied. Modifiers are added only when values differ from defaults (`fit: 'none'`, `rounded: 'none'`).
+
+**Composition with `baseClass`:** When `baseClass` is provided, the component uses it as the root class and maps modifiers accordingly (e.g., `ps-avatar__image--fit-cover`, `ps-avatar__image--rounded-full`). This keeps atomic elements clean inside higher-level components without leaking default atom classes.
 
 ## Design Tokens
 
@@ -142,6 +145,20 @@ Controls how the image fills its container:
   height: 48,
   fit: 'cover',
   rounded: 'full'
+} %}
+```
+
+### Composed inside another component (using `baseClass`)
+```twig
+{# Inside Avatar component template #}
+{% include '@elements/image/image.twig' with {
+  src: src,
+  alt: alt,
+  width: size_px,
+  height: size_px,
+  fit: 'cover',
+  rounded: shape == 'circle' ? 'full' : 'md',
+  baseClass: 'ps-avatar__image'
 } %}
 ```
 
@@ -208,5 +225,5 @@ Controls how the image fills its container:
 ---
 
 **Component Status**: ✅ Complete  
-**Last Updated**: December 2, 2025  
+**Last Updated**: December 3, 2025  
 **Maintainer**: Design System Team

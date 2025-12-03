@@ -8,6 +8,7 @@ Semantic icon component supporting 6 color variants and 4 sizes. Accessible for 
 - `color` (default|primary|secondary|success|warning|danger|info, default `default`): semantic color.
 - `disabled` (boolean, default `false`): disabled visual state.
 - `ariaLabel` (string, optional): accessibility label for informative icons.
+ - `baseClass` (string, optional): Override root BEM class for composition. When provided, Icon emits only this class and mapped modifiers; otherwise emits `ps-icon` classes.
 
 ## BEM
 - Block: `ps-icon`
@@ -28,6 +29,9 @@ Uses 3-layer architecture:
 ## Usage
 ```twig
 {% include '@elements/icon/icon.twig' with { name: 'search', size: 'md', color: 'default' } %}
+
+{# Composition: override root class (baseClass) #}
+{% include '@elements/icon/icon.twig' with { name: 'check', size: 'sm', color: 'success', baseClass: 'ps-alert__icon' } %}
 ```
 
 ## Accessibility

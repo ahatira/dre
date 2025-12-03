@@ -77,6 +77,15 @@ export default {
         defaultValue: { summary: '""' },
       },
     },
+    baseClass: {
+      control: 'text',
+      description:
+        'Override root class when composing inside other components. Modifiers map to baseClass variants; elements render as baseClass__*.',
+      table: {
+        category: 'Layout',
+        defaultValue: { summary: 'ps-divider' },
+      },
+    },
   },
 };
 

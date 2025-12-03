@@ -28,9 +28,14 @@
 {% set rounded = rounded|default('none') %}
 {% set loading = loading|default('lazy') %}
 {% set decoding = decoding|default('auto') %}
+{% set baseClass = baseClass|default(null) %}
 
 {# Build minimal class array - only add modifiers if different from default #}
-{% set classes = [
+{% set classes = baseClass ? [
+  baseClass,
+  fit != 'none' ? baseClass ~ '--fit-' ~ fit : null,
+  rounded != 'none' ? baseClass ~ '--rounded-' ~ rounded : null,
+] : [
   'ps-image',
   fit != 'none' ? 'ps-image--fit-' ~ fit : null,
   rounded != 'none' ? 'ps-image--rounded-' ~ rounded : null,

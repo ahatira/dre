@@ -10,6 +10,7 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
 | `forId` | `string` | — | ID of the associated form field for proper label-input binding |
 | `required` | `boolean` | `false` | Adds visual asterisk (*) and screen reader text "(required field)" |
 | `disabled` | `boolean` | `false` | Disabled state with reduced opacity and muted color |
+| `baseClass` | `string` | `'ps-label'` | Override root class when composing inside other components (e.g., `'ps-form-field__label'`). Modifiers map to `baseClass--required` and `baseClass--disabled`; elements use `baseClass__text` and `baseClass__required`.
 | `attributes` | `Drupal.Core.Template.Attribute` | — | Additional HTML attributes |
 
 ## BEM Structure
@@ -20,8 +21,8 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
   .ps-label__required       # Visual asterisk (*) for required fields
 
 Modifiers:
-  .ps-label--required       # Applied when required=true
-  .ps-label--disabled       # Applied when disabled=true
+  .ps-label--required       # Applied when required=true (or `baseClass--required` when overridden)
+  .ps-label--disabled       # Applied when disabled=true (or `baseClass--disabled` when overridden)
 
 Global Utilities (from base/utilities/visibility.css):
   .visually-hidden          # Screen reader only text (WCAG standard)
@@ -214,6 +215,17 @@ function ps_theme_preprocess_label(&$variables) {
 
 **Dependencies**: None (pure atom, no composed elements)
 
+### Composition Example with `baseClass`
+```twig
+{# Inside a form-field molecule #}
+{% include '@elements/label/label.twig' with {
+  text: 'Email address',
+  forId: 'contact-email',
+  required: true,
+  baseClass: 'ps-form-field__label'
+} %}
+```
+
 ## Notes
 
 - **Do NOT recreate label markup** in molecules - always compose this atom
@@ -221,3 +233,8 @@ function ps_theme_preprocess_label(&$variables) {
 - Asterisk color matches error color for consistency
 - `cursor: pointer` on default state for better UX (indicates clickability)
 - Works with all input types: text, email, number, select, textarea, checkbox, radio
+
+---
+
+Component Status: ✅ Complete
+Last Updated: December 3, 2025

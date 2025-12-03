@@ -16,6 +16,16 @@ Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
     },
   },
   argTypes: {
+    baseClass: {
+      control: { type: 'text' },
+      description:
+        'Override root BEM class for composition. When provided, Text emits only this class and `--strong` if applicable. Fallback emits `ps-text` classes.',
+      table: {
+        category: 'Structure',
+        type: { summary: 'string' },
+        defaultValue: { summary: null },
+      },
+    },
     text: {
       control: { type: 'text' },
       description: 'Text content rendered directly (no HTML parsing).',

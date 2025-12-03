@@ -22,13 +22,14 @@
 {% set rel = rel|default('') %}
 {% set disabled = disabled|default(false) %}
 
+{% set baseClass = baseClass|default('ps-link') %}
 {% set classes = [
-  'ps-link',
-  color ? 'ps-link--' ~ color : null,
-  size ? 'ps-link--' ~ size : null,
-  underline == false ? 'ps-link--no-underline' : null,
-  iconPosition == 'left' ? 'ps-link--icon-left' : null,
-  disabled ? 'ps-link--disabled' : null
+  baseClass,
+  color ? baseClass ~ '--' ~ color : null,
+  size ? baseClass ~ '--' ~ size : null,
+  underline == false ? baseClass ~ '--no-underline' : null,
+  iconPosition == 'left' ? baseClass ~ '--icon-left' : null,
+  disabled ? baseClass ~ '--disabled' : null
 ] %}
 
 {% set tag = disabled ? 'span' : 'a' %}
@@ -39,8 +40,8 @@
   {% if target == '_blank' and not disabled %}target="_blank" rel="{{ rel ? rel : 'noopener noreferrer' }}"{% elseif rel %}rel="{{ rel }}"{% endif %}
   {% if disabled %}aria-disabled="true"{% endif %}
 >
-  <span class="ps-link__text">{{ text }}</span>
+  <span class="{{ baseClass }}__text">{{ text }}</span>
   {% if icon %}
-    <span class="ps-link__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+    <span class="{{ baseClass }}__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
 </{{ tag }}>

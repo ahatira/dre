@@ -20,6 +20,7 @@ The Link component provides accessible hyperlinks with consistent styling across
 | `target` | string | `'_self'` | No | Link target: `_self`, `_blank` |
 | `rel` | string | `''` | No | Link rel attribute (auto-set for `_blank`) |
 | `disabled` | boolean | `false` | No | Disabled state |
+| `baseClass` | string | `'ps-link'` | No | Override root class when composing inside other components (e.g., `'ps-card__link'`). Modifiers and elements map to `baseClass--*` and `baseClass__*`.
 | `attributes` | Attribute | - | No | Additional Drupal attributes |
 
 ## BEM Structure
@@ -48,9 +49,9 @@ Modifiers - Sizes:
 └── ps-link--xxl           # Double extra large (24px)
 
 Modifiers - Behavior:
-├── ps-link--no-underline  # Remove underline decoration
-├── ps-link--icon-left     # Icon positioned on left side
-└── ps-link--disabled      # Disabled state
+├── ps-link--no-underline  # Remove underline decoration (or `baseClass--no-underline`)
+├── ps-link--icon-left     # Icon positioned on left side (or `baseClass--icon-left`)
+└── ps-link--disabled      # Disabled state (or `baseClass--disabled`)
 ```
 
 ## Design Tokens Used
@@ -127,6 +128,17 @@ Modifiers - Behavior:
   iconPosition: 'right',
   underline: false,
   color: 'primary',
+} %}
+```
+
+### Composed Link inside another component (using `baseClass`)
+```twig
+{# Inside a card component #}
+{% include '@elements/link/link.twig' with {
+  text: 'View property details',
+  url: '/property/modern-office-building',
+  color: 'primary',
+  baseClass: 'ps-card__link'
 } %}
 ```
 

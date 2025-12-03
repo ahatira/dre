@@ -1,19 +1,19 @@
 # Avatar
 
-User or entity visual representation composed of three atomic elements: image, text (initials), and status badge. Features automatic fallback hierarchy and interactive states.
+User or agent visual representation for real estate, composed of atomic elements (image, initials, status). Fallback: image → initials → icon.
 
 ## Markup
 
 ```twig
 {# Default: Image avatar #}
 {% include '@components/avatar/avatar.twig' with {
-  src: 'https://i.pravatar.cc/150',
-  alt: 'John Doe',
+  src: 'https://loremflickr.com/150/150/building,office?random=1',
+  alt: 'Modern office building in Paris',
 } %}
 
 {# Initials fallback #}
 {% include '@components/avatar/avatar.twig' with {
-  initials: 'JD',
+  initials: 'AG',
   size: 'lg',
 } %}
 
@@ -33,17 +33,17 @@ User or entity visual representation composed of three atomic elements: image, t
 
 {# With status badge #}
 {% include '@components/avatar/avatar.twig' with {
-  src: 'https://i.pravatar.cc/150',
-  alt: 'John Doe',
+  src: 'https://loremflickr.com/150/150/building,office?random=2',
+  alt: 'Property agent',
   status: 'online',
 } %}
 
 {# Clickable link #}
 {% include '@components/avatar/avatar.twig' with {
-  src: 'https://i.pravatar.cc/150',
-  alt: 'John Doe',
+  src: 'https://loremflickr.com/150/150/building,office?random=3',
+  alt: 'Agent profile',
   clickable: true,
-  href: '/profile',
+  href: '/agents/anne-girard',
 } %}
 ```
 
@@ -54,9 +54,9 @@ User or entity visual representation composed of three atomic elements: image, t
 | `src` | `string` | `''` | Avatar image URL. If omitted, falls back to initials or icon. |
 | `alt` | `string` | `''` | Alternative text for the image. Required when `src` is provided. |
 | `initials` | `string` | `''` | Initials text (2 letters max, e.g. "JD"). Fallback if no image. |
-| `gender` | `string` | `'male'` | Gender for icon fallback: `male` \| `female`. Uses agent silhouette images. |
-| `size` | `string` | `'md'` | Avatar size: `xs` (24px) \| `sm` (32px) \| `md` (40px) \| `lg` (48px) \| `xl` (80px) |
-| `shape` | `string` | `'circle'` | Avatar shape: `circle` \| `square` \| `rounded` |
+| `gender`  | `string`  | `'male'` | Gender for icon fallback: `male` \| `female`. Uses agent silhouette images. |
+| `size`    | `string`  | `'lg'`  | Avatar size: `xs` (28px) \| `sm` (48px) \| `md` (68px) \| `lg` (88px) \| `xl` (112px) |
+| `shape`   | `string`  | `'circle'` | Avatar shape: `circle` \| `square` \| `rounded` |
 | `status` | `string` | `''` | Status badge indicator: `online` \| `offline` \| `busy` |
 | `bordered` | `boolean` | `false` | Add white border around avatar |
 | `clickable` | `boolean` | `false` | Enable hover/focus interactive effect |
@@ -139,26 +139,25 @@ Avatar uses Bootstrap 5-inspired component-scoped variables for runtime customiz
 ## Design Tokens Used
 
 ### Sizes
-- `--size-2` (8px) - Status badge xs
-- `--size-3` (12px) - Status badge md, Icon xs
-- `--size-4` (16px) - Icon sm
-- `--size-5` (20px) - Icon md
-- `--size-6` (24px) - Avatar xs
-- `--size-8` (32px) - Avatar sm
-- `--size-10` (40px) - Avatar md (default), Icon xl
-- `--size-12` (48px) - Avatar lg
-- `--size-20` (80px) - Avatar xl
-- `--size-205` (10px) - Status badge sm
-- `--size-305` (14px) - Status badge lg
+- Avatar xs: 28px (--size-7)
+- Avatar sm: 48px (--size-12)
+- Avatar md: 68px (--size-17)
+- Avatar lg: 88px (--size-22, default)
+- Avatar xl: 112px (--size-28)
+- Status badge xs: 8px
+- Status badge sm: 14px
+- Status badge md: 20px
+- Status badge lg: 26px
+- Status badge xl: 33px
 
 ### Typography
 - `--font-sans` - Font family (BNPPSans)
 - `--font-weight-600` - Semibold weight for initials
-- `--font-size--2` (10px) - Text xs
-- `--font-size-0` (14px) - Text sm
-- `--font-size-1` (16px) - Text md
-- `--font-size-3` (20px) - Text lg
-- `--font-size-7` (32px) - Text xl
+- `--font-size-0` (12px) - Text xs
+- `--font-size-1` (14px) - Text sm
+- `--font-size-3` (18px) - Text md
+- `--font-size-4` (20px) - Text lg
+- `--font-size-6` (28px) - Text xl
 
 ### Colors
 - `--white` - Text color, border color

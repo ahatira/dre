@@ -4,18 +4,20 @@
 {% set size = size|default('md') %}
 {% set color = color|default('default') %}
 {% set disabled = disabled|default(false) %}
+{% set baseClass = baseClass|default(null) %}
 
-{% set classes = ['ps-icon'] %}
-{% if size != 'md' %}
-  {% set classes = classes|merge(['ps-icon--' ~ size]) %}
-{% endif %}
-{% if color != 'default' %}
-  {% set classes = classes|merge(['ps-icon--' ~ color]) %}
-{% endif %}
-{% if disabled %}
-  {% set classes = classes|merge(['ps-icon--disabled']) %}
-{% endif %}
+{% set classes = baseClass ? [
+  baseClass,
+  size != 'md' ? baseClass ~ '--' ~ size : null,
+  color != 'default' ? baseClass ~ '--' ~ color : null,
+  disabled ? baseClass ~ '--disabled' : null
+] : [
+  'ps-icon',
+  size != 'md' ? 'ps-icon--' ~ size : null,
+  color != 'default' ? 'ps-icon--' ~ color : null,
+  disabled ? 'ps-icon--disabled' : null
+] %}
 
-<span class="{{ classes|join(' ') }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}>
+<span class="{{ classes|join(' ')|trim }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}>
   <span class="ps-icon__icon" data-icon="{{ name }}"></span>
 </span>

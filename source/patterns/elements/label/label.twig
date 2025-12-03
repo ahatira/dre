@@ -8,16 +8,17 @@
  * @param Attribute attributes - Additional HTML attributes
  #}
 
+{%- set baseClass = baseClass|default('ps-label') -%}
 {%- set classes = [
-  'ps-label',
-  required ? 'ps-label--required' : null,
-  disabled ? 'ps-label--disabled' : null
+  baseClass,
+  required ? baseClass ~ '--required' : null,
+  disabled ? baseClass ~ '--disabled' : null
 ] -%}
 
 <label{% if attributes %} {{ attributes.addClass(classes) }}{% else %} class="{{ classes|join(' ')|trim }}"{% endif %}{% if forId %} for="{{ forId }}"{% endif %}>
-  <span class="ps-label__text">{{ text }}</span>
+  <span class="{{ baseClass }}__text">{{ text }}</span>
   {% if required %}
-    <span class="ps-label__required" aria-hidden="true">*</span>
+    <span class="{{ baseClass }}__required" aria-hidden="true">*</span>
     <span class="visually-hidden">(required field)</span>
   {% endif %}
 </label>
