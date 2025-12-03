@@ -25,9 +25,7 @@ The Collapse component is an atom-level disclosure pattern that manages the visi
 |------|------|---------|-------------|
 | `id` | `string` | required | Unique identifier for panel/trigger ARIA linkage |
 | `title` | `string` | required | Trigger button text |
-| `content` | `string` | `null` | Raw HTML content for panel (backward-compat) |
-| `text` | `string` | `null` | Text content rendered via text atom (atomic composition) |
-| `text_format` | `string` | `'body-medium'` | Format variant for text atom (`body-small`, `body-medium`, `body-large`) |
+| `content` | `string` | `null` | Raw HTML content for panel |
 | `expanded` | `boolean` | `false` | Initial expanded state |
 | `variant` | `string` | `null` | Visual style variant (`primary`, `secondary`, `success`, `warning`, `danger`, `info`, `dark`, `light`) |
 | `trigger_tag` | `string` | `'button'` | HTML tag for trigger (e.g., `'h3'` for semantic heading) |
@@ -81,7 +79,7 @@ Defined in `collapse.css`:
 /* Container */
 --ps-collapse-bg: transparent;
 --ps-collapse-border-width: var(--border-size-15);
---ps-collapse-border-color: var(--color-border-default);
+--ps-collapse-border-color: var(--gray-300);
 
 /* Trigger */
 --ps-collapse-trigger-padding-y: var(--size-6);
@@ -91,14 +89,14 @@ Defined in `collapse.css`:
 
 /* Title */
 --ps-collapse-title-font-family: var(--font-sans);
---ps-collapse-title-font-weight: var(--font-weight-semibold);
+--ps-collapse-title-font-weight: var(--font-weight-400);
 --ps-collapse-title-font-size: var(--font-size-3);
 --ps-collapse-title-line-height: var(--leading-6);
 --ps-collapse-title-color: var(--gray-900);
 
 /* Icon */
 --ps-collapse-icon-size: var(--size-8);
---ps-collapse-icon-spacing: var(--size-3);
+--ps-collapse-icon-spacing: var(--size-4);
 
 /* Content */
 --ps-collapse-content-padding-top: var(--size-4);
@@ -113,7 +111,7 @@ Defined in `collapse.css`:
 
 /* Transitions */
 --ps-collapse-transition-duration: var(--duration-fast);
---ps-collapse-transition-timing: var(--easing-out);
+--ps-collapse-transition-timing: var(--ease-out-3);
 --ps-collapse-panel-transition-duration: var(--duration-normal);
 
 #### Layer 3: Context Overrides (Runtime Customization)
@@ -163,9 +161,6 @@ document.querySelector('.ps-collapse').style.setProperty('--ps-collapse-title-fo
 
 **Collapse = Element (Atom)**
 
-Composes:
-- `@elements/text/text.twig` (optional, for panel text content)
-
 Used by:
 - `@collections/accordion/accordion.twig` (orchestrates multiple collapses with single-open behavior)
 
@@ -193,7 +188,7 @@ Used by:
 {% include '@elements/collapse/collapse.twig' with {
   id: 'faq-1',
   title: 'What are your office hours?',
-  text: 'Our real estate offices are open Monday through Friday, 9 AM to 6 PM, and Saturday 10 AM to 4 PM.',
+  content: 'Our real estate offices are open Monday through Friday, 9 AM to 6 PM, and Saturday 10 AM to 4 PM.',
   expanded: false
 } only %}
 ```
@@ -211,14 +206,13 @@ Used by:
 {% endfor %}
 ```
 
-### Composed with Text Atom
+### Rich HTML Content
 
 ```twig
 {% include '@elements/collapse/collapse.twig' with {
   id: 'property-details',
   title: 'Property Features',
-  text: 'This luxury apartment includes 3 bedrooms, 2 bathrooms, modern kitchen, and private balcony.',
-  text_format: 'body-large'
+  content: '<p>This luxury apartment includes <strong>3 bedrooms</strong>, 2 bathrooms, modern kitchen, and private balcony.</p>',
 } only %}
 ```
 
@@ -227,4 +221,4 @@ Used by:
 - **Single Responsibility:** Collapse manages ONE item's expand/collapse behavior
 - **Coordination:** For single-open (accordion) behavior, use the Accordion collection which orchestrates multiple Collapse instances
 - **Chevron Icon:** Generated via CSS (data URI SVG) for performance and theming simplicity
-- **Backward Compatibility:** Supports both `content` (raw HTML) and `text` (atomic composition) props
+- **Content Input:** Supports `content` (raw HTML) only

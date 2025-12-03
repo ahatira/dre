@@ -18,32 +18,88 @@
           return;
         }
 
-        // Toggle expanded state
+        // Helpers
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const setExpandedAria = (state) => {
+          trigger.setAttribute('aria-expanded', state);
+          collapse.classList.toggle('is-expanded', state);
+        };
+
+        const animateOpen = () => {
+          // Make panel visible and prepare for animation
+          panel.removeAttribute('hidden');
+          panel.style.opacity = '0';
+          panel.style.height = '0px';
+          // Force reflow
+          void panel.offsetHeight;
+          const target = panel.scrollHeight;
+          panel.style.height = `${target}px`;
+          panel.style.opacity = '1';
+
+          const onEnd = (e) => {
+            if (e.propertyName !== 'height') {
+              return;
+            }
+            panel.style.height = 'auto';
+            panel.removeEventListener('transitionend', onEnd);
+            collapse.dispatchEvent(
+              new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
+            );
+          };
+          panel.addEventListener('transitionend', onEnd);
+        };
+
+        const animateClose = () => {
+          // If currently 'auto', fix to pixel value then animate to 0
+          const currentAuto = panel.style.height === '' || panel.style.height === 'auto';
+          if (currentAuto) {
+            panel.style.height = `${panel.scrollHeight}px`;
+          }
+          // Force reflow
+          void panel.offsetHeight;
+          panel.style.opacity = '0';
+          panel.style.height = '0px';
+
+          const onEnd = (e) => {
+            if (e.propertyName !== 'height') {
+              return;
+            }
+            panel.setAttribute('hidden', '');
+            panel.style.height = '';
+            panel.removeEventListener('transitionend', onEnd);
+            collapse.dispatchEvent(
+              new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
+            );
+          };
+          panel.addEventListener('transitionend', onEnd);
+        };
+
+        // Toggle expanded state with animation
         const toggle = () => {
           const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
           const newState = !isExpanded;
+          setExpandedAria(newState);
 
-          trigger.setAttribute('aria-expanded', newState);
-          collapse.classList.toggle('is-expanded', newState);
+          if (prefersReducedMotion) {
+            if (newState) {
+              panel.removeAttribute('hidden');
+              collapse.dispatchEvent(
+                new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
+              );
+            } else {
+              panel.setAttribute('hidden', '');
+              collapse.dispatchEvent(
+                new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
+              );
+            }
+            return;
+          }
 
           if (newState) {
-            panel.removeAttribute('hidden');
-            // Dispatch show event for coordination
-            collapse.dispatchEvent(
-              new CustomEvent('collapse:show', {
-                bubbles: true,
-                detail: { collapse },
-              })
-            );
+            animateOpen();
           } else {
-            panel.setAttribute('hidden', '');
-            // Dispatch hide event
-            collapse.dispatchEvent(
-              new CustomEvent('collapse:hide', {
-                bubbles: true,
-                detail: { collapse },
-              })
-            );
+            animateClose();
           }
         };
 
@@ -67,6 +123,26 @@
             toggle();
           }
         });
+
+        // Initialize panel state for smooth animation on first toggle
+        const initiallyExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        if (initiallyExpanded) {
+          // Expanded at load → set height to auto after measuring
+          panel.removeAttribute('hidden');
+          if (!prefersReducedMotion) {
+            panel.style.height = `${panel.scrollHeight}px`;
+            void panel.offsetHeight;
+            panel.style.height = 'auto';
+            panel.style.opacity = '1';
+          }
+        } else {
+          // Collapsed at load
+          panel.setAttribute('hidden', '');
+          if (!prefersReducedMotion) {
+            panel.style.height = '';
+            panel.style.opacity = '0';
+          }
+        }
       });
     },
   };

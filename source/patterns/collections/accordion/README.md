@@ -22,22 +22,20 @@ Orchestrates multiple Collapse elements with optional single-open coordination. 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `items` | `array` | required | Array of collapse items: `[{ id?, title, content?, text?, expanded? }]` |
+| `items` | `array` | required | Array of collapse items: `[{ id?, title, content?, expanded? }]` |
 | `single_open` | `boolean` | `true` | Only one item open at a time (coordination) |
 | `variant` | `string` | `'default'` | Visual style variant (`default`, `flush`) |
 | `attributes` | `object` | `{}` | Drupal attributes for root element |
 
 ### Item Props (passed to Collapse)
 
-Each item supports all Collapse props:
+Each item supports Collapse props used by Accordion:
 
 | Prop | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | optional | Unique ID (auto-generated if omitted) |
 | `title` | `string` | **required** | Section heading text |
-| `content` | `string` | optional | Raw HTML content (backward-compat) |
-| `text` | `string` | optional | Text rendered via text atom (atomic composition) |
-| `text_format` | `string` | optional | Format variant for text atom |
+| `content` | `string` | optional | Raw HTML content for panel |
 | `expanded` | `boolean` | optional | Initial expanded state (default: `false`) |
 
 ## BEM Structure
@@ -56,8 +54,11 @@ Modifiers:
 ### Accordion-Level (Layer 2)
 
 ```css
-/* No accordion-specific tokens - orchestration layer only */
-/* Individual items styled via Collapse component tokens */
+/* Accordion-scoped variables influencing child Collapse paddings */
+--ps-accordion-trigger-padding-y: var(--size-6);
+--ps-accordion-trigger-padding-x: 0;
+--ps-accordion-content-padding-top: var(--size-4);
+--ps-accordion-content-padding-bottom: var(--size-6);
 ```
 
 ## Accessibility
@@ -91,13 +92,13 @@ Collapse composes:
 
 ## Examples
 
-### Basic Usage
+### Basic Usage (content only)
 
 ```twig
 {% include '@collections/accordion/accordion.twig' with {
   items: [
-    { title: 'Section 1', text: 'Content here' },
-    { title: 'Section 2', text: 'More content' }
+    { title: 'Section 1', content: '<p>Content here</p>' },
+    { title: 'Section 2', content: '<p>More content</p>' }
   ],
   single_open: true
 } only %}

@@ -25,11 +25,11 @@
   --ps-collapse-trigger-padding-y: var(--size-6);
   --ps-collapse-trigger-padding-x: 0;
   --ps-collapse-trigger-bg: transparent;
-  --ps-collapse-trigger-bg-hover: var(--gray-100);
+  --ps-collapse-trigger-bg-hover: var(--gray-50);
 
   /* Title */
   --ps-collapse-title-font-family: var(--font-sans);
-  --ps-collapse-title-font-weight: var(--font-weight-normal);
+  --ps-collapse-title-font-weight: var(--font-weight-400);
   --ps-collapse-title-font-size: var(--font-size-3);
   --ps-collapse-title-line-height: var(--leading-6);
   --ps-collapse-title-color: var(--gray-900);
@@ -51,7 +51,7 @@
 
   /* Transitions */
   --ps-collapse-transition-duration: var(--duration-fast);
-  --ps-collapse-transition-timing: var(--easing-out);
+  --ps-collapse-transition-timing: var(--ease-out-3);
   --ps-collapse-panel-transition-duration: var(--duration-normal);
 
   /* ============================================
@@ -60,8 +60,9 @@
 
   /* Container */
   background-color: var(--ps-collapse-bg);
+  /* Default: only top border to ensure single 1px separation */
   border-top: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
-  border-bottom: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
+  border-bottom: none;
 
   /* Trigger button - Figma: padding 24px 0 */
   & .ps-collapse__trigger {
@@ -113,9 +114,12 @@
 
   /* Panel container */
   & .ps-collapse__panel {
+    height: 0; /* animated via JS to scrollHeight */
+    opacity: 0;
     overflow: hidden;
+    will-change: height, opacity, padding;
     transition:
-      max-height var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing),
+      height var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing),
       opacity var(--ps-collapse-transition-duration) var(--ps-collapse-transition-timing),
       padding var(--ps-collapse-panel-transition-duration) var(--ps-collapse-transition-timing);
 
@@ -133,12 +137,24 @@
   }
 }
 
+/* Bottom border only on the last Collapse in a group
+   ========================================================================= */
+
+.ps-collapse:last-child {
+  border-bottom: var(--ps-collapse-border-width) solid var(--ps-collapse-border-color);
+}
+
 /* Expanded state
    ========================================================================= */
 
 .ps-collapse.is-expanded {
   & .ps-collapse__icon {
     transform: rotate(180deg);
+  }
+
+  & .ps-collapse__panel {
+    /* height is controlled by JS (auto -> fixed) */
+    opacity: 1;
   }
 }
 
@@ -187,9 +203,14 @@
 }
 
 .ps-collapse--dark {
-  --ps-collapse-title-color: var(--gray-900);
+  /* Darker variant for stronger contrast */
+  --ps-collapse-title-color: var(--gray-50);
+  --ps-collapse-content-color: var(--gray-100);
   --ps-collapse-border-color: var(--gray-900);
-  --ps-collapse-bg: color-mix(in srgb, var(--gray-900) 5%, transparent);
+  --ps-collapse-bg: var(--gray-800);
+  /* Dark-specific hover to keep text legible */
+  --ps-collapse-trigger-bg: var(--gray-800);
+  --ps-collapse-trigger-bg-hover: var(--gray-700);
 }
 
 .ps-collapse--light {

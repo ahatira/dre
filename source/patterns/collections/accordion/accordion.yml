@@ -19,11 +19,6 @@ props:
             type: string
           content:
             type: string
-          text:
-            type: string
-          text_format:
-            type: string
-            default: body-medium
           expanded:
             type: boolean
             default: false

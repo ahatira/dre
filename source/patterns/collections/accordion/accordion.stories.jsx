@@ -16,10 +16,10 @@ const settings = {
   },
   argTypes: {
     items: {
-      description: 'Array of collapse items. Each item: { id?, title, content?, text?, expanded? }',
+      description: 'Array of collapse items. Each item: { id?, title, content?, expanded? }',
       table: {
         category: 'Content',
-        type: { summary: 'Array<{ id?, title, content?, text?, expanded? }>' },
+        type: { summary: 'Array<{ id?, title, content?, expanded? }>' },
       },
     },
     single_open: {
@@ -120,24 +120,27 @@ export const ComposedWithAtoms = {
   name: 'Composed with Atoms (New Pattern)',
   render: () => `
     <div style="display:flex; flex-direction:column; gap: var(--size-4);">
-      <h3 style="margin-bottom: var(--size-2);">Using "text" prop (atomic composition)</h3>
-      ${accordionTwig({
-        items: [
-          {
-            title: 'Property Details',
-            text: 'This 2,500 sqft commercial space features modern amenities, ample parking, and is located in a prime downtown area with excellent accessibility.',
-            expanded: true,
-          },
-          {
-            title: 'Pricing & Terms',
-            text: 'Monthly lease rate of €3,200 includes property management and maintenance. Flexible lease terms available from 12 to 60 months.',
-          },
-          {
-            title: 'Contact Information',
-            text: 'For viewings and inquiries, please contact our commercial real estate team at +33 1 23 45 67 89 or email commercial@bnpparibas-realestate.com.',
-          },
-        ],
-      })}
+      <h3 style="margin-bottom: var(--size-2);">Using raw HTML content</h3>
+        ${accordionTwig({
+          items: [
+            {
+              title: 'Property Details',
+              content:
+                '<p>This 2,500 sqft commercial space features modern amenities, ample parking, and is located in a prime downtown area with excellent accessibility.</p>',
+              expanded: true,
+            },
+            {
+              title: 'Pricing & Terms',
+              content:
+                '<p>Monthly lease rate of €3,200 includes property management and maintenance. Flexible lease terms available from 12 to 60 months.</p>',
+            },
+            {
+              title: 'Contact Information',
+              content:
+                '<p>For viewings and inquiries, please contact our commercial real estate team at +33 1 23 45 67 89 or email commercial@bnpparibas-realestate.com.</p>',
+            },
+          ],
+        })}
     </div>
   `,
 };

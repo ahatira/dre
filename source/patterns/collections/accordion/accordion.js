@@ -22,7 +22,9 @@
           const expandedCollapse = e.detail.collapse;
 
           // Close all other collapses
-          const collapses = accordion.querySelectorAll('[data-accordion-item] .ps-collapse');
+          // Note: data-accordion-item is set on the root .ps-collapse element itself
+          // so we must not look for a descendant .ps-collapse
+          const collapses = accordion.querySelectorAll('[data-accordion-item].ps-collapse');
           collapses.forEach((collapse) => {
             if (collapse !== expandedCollapse) {
               // Trigger external close via custom event

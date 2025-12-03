@@ -5,7 +5,7 @@
  * Orchestrates multiple Collapse elements with single-open coordination.
  * Manages group behavior and dispatches coordination events.
  *
- * @param {array} items - Array of collapse items: [{ id?, title, content?, text?, expanded? }]
+ * @param {array} items - Array of collapse items: [{ id?, title, content?, expanded? }]
  * @param {boolean} single_open - One item open at a time (default: true)
  * @param {string} variant - Visual variant (default, flush)
  * @param {array} classes - Additional CSS classes
@@ -32,8 +32,6 @@
       id: collapse_id,
       title: item.title,
       content: item.content ?? null,
-      text: item.text ?? null,
-      text_format: item.text_format ?? 'body-medium',
       expanded: item.expanded ?? false,
       classes: ['ps-accordion__item'],
       attributes: create_attribute().setAttribute('data-accordion-item', '')
