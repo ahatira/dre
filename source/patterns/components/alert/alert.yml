@@ -1,12 +1,12 @@
-# Alert Component - Default Configuration (Bootstrap 5.3 inspired)
-# Flexible alert with free HTML content
+# Alert Component - Default Configuration
+# Semantic feedback messages with 8 color variants
 #
 # Props:
 # - variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' - Semantic variant (default: 'primary')
 # - content: Free HTML content (headings, paragraphs, links, icons optional) (required)
 # - dismissible: true | false (default) - Show close button
 
-variant: 'primary'
-content: 'A simple <strong>primary</strong> alert with <a href="#" class="ps-alert-link">an example link</a>. Give it a click if you like.'
-dismissible: false
+variant: 'success'
+content: 'Property listing successfully saved to your favorites! <a href="#" class="ps-alert-link">View your saved properties</a> to manage your watchlist.'
+dismissible: true
 rounded: false

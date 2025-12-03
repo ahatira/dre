@@ -132,7 +132,7 @@
   }
 
   &--secondary {
-    --ps-alert-bg: hsl(330, 65%, 95%);
+    --ps-alert-bg: var(--purple-50);
     --ps-alert-color: var(--secondary);
     --ps-alert-border-color: var(--secondary);
     --ps-alert-link-color: var(--secondary);
@@ -167,17 +167,17 @@
   }
 
   &--light {
-    --ps-alert-bg: var(--bg-page);
-    --ps-alert-color: var(--text-primary);
-    --ps-alert-border-color: var(--border-default);
-    --ps-alert-link-color: var(--text-primary);
+    --ps-alert-bg: var(--gray-50);
+    --ps-alert-color: var(--gray-900);
+    --ps-alert-border-color: var(--gray-300);
+    --ps-alert-link-color: var(--gray-900);
   }
 
   &--dark {
-    --ps-alert-bg: var(--neutral);
-    --ps-alert-color: var(--text-inverse);
-    --ps-alert-border-color: var(--neutral-hover);
-    --ps-alert-link-color: var(--text-inverse);
+    --ps-alert-bg: var(--gray-900);
+    --ps-alert-color: var(--gray-50);
+    --ps-alert-border-color: var(--gray-800);
+    --ps-alert-link-color: var(--gray-50);
   }
 }
 

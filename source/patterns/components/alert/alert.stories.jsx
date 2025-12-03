@@ -9,8 +9,7 @@ const settings = {
   parameters: {
     docs: {
       description: {
-        component:
-          'Semantic alert component with 8 variants, flexible HTML content, and optional dismissal functionality.',
+        component: 'Semantic alert with 8 color variants and optional dismissal.',
       },
     },
   },

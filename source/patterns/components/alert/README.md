@@ -1,15 +1,38 @@
 # Alert Component
 
-Semantic alert component with 8 variants, flexible HTML content, and optional dismissal functionality using the Three-Layer CSS Variables System.
+Semantic alert with 8 color variants and optional dismissal.
+
+## Purpose
+
+The Alert component is a molecule-level feedback pattern for displaying important messages, notifications, warnings, or confirmations to users. It supports free HTML content and optional dismiss functionality.
+
+## Usage
+
+**When to use:**
+- System notifications (success, error, warning, info)
+- Contextual feedback after user actions
+- Important announcements or status updates
+- Real estate notifications (new listings, offer status, payment reminders)
+
+**When not to use:**
+- Promotional banners (use dedicated banner component)
+- Form field validation (use inline feedback)
+- Persistent navigation or UI elements
+- Modal dialogs requiring user interaction (use modal component)
 
 ## Component Props
 
 | Prop | Type | Options | Default | Description |
 |------|------|---------|---------|-------------|
-| `variant` | string | `'primary'`, `'secondary'`, `'success'`, `'danger'`, `'warning'`, `'info'`, `'light'`, `'dark'` | `'primary'` | Semantic variant with appropriate color scheme |
-| `content` | string | any (HTML supported) | `''` | Free HTML content (headings, paragraphs, links, icons optional) |
-| `dismissible` | boolean | `true`, `false` | `false` | Show close button with JavaScript dismiss behavior |
-| `attributes` | object | any | - | Additional HTML attributes (Drupal) |
+| `variant` | `string` | `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark` | `primary` | Semantic variant with appropriate color scheme |
+| `content` | `string` | any (HTML) | `''` | Free HTML content for alert body |
+| `dismissible` | `boolean` | `true`, `false` | `false` | Show close button with dismiss behavior |
+| `rounded` | `boolean` | `true`, `false` | `false` | Apply border radius |
+| `title` | `string` | any | `null` | Optional title (composed via heading atom) |
+| `text` | `string` | any | `null` | Optional body text (composed via text atom) |
+| `icon` | `string` | icon name | `null` | Optional icon (composed via icon atom) |
+| `actions` | `array` | button props | `[]` | Optional action buttons (composed via button atoms) |
+| `attributes` | `object` | any | `{}` | Drupal attributes for root element |
 
 ## BEM Structure
 
@@ -87,16 +110,31 @@ This component uses the **Three-Layer CSS Variables System**:
 
 ### Referenced Primitives (Layer 1)
 
+From `source/props/*.css`:
+
 - **Typography**: `--font-sans`, `--font-size-1`, `--font-size-3`, `--font-size-4`, `--font-weight-600`, `--leading-normal`, `--leading-snug`
-- **Colors**: `--primary`, `--primary-hover`, `--secondary`, `--secondary-hover`, `--success`, `--success-hover`, `--danger`, `--danger-hover`, `--warning`, `--warning-hover`, `--warning-text`, `--info`, `--info-hover`, `--gray-100`, `--gray-800`, `--gray-900`, `--text-default`, `--text-inverse`, `--border-default`
-- **Spacing**: `--size-1`, `--size-2`, `--size-3`, `--size-4`, `--size-8`
+- **Colors**: 
+  - Semantic: `--primary`, `--secondary`, `--success`, `--danger`, `--warning`, `--info`
+  - Backgrounds: `--green-50`, `--green-100`, `--purple-50`, `--red-50`, `--yellow-50`, `--blue-50`, `--gray-50`, `--gray-900`
+  - Borders: `--gray-300`, `--gray-800`
+  - Special: `--warning-text` (for warning variant text contrast)
+- **Spacing**: `--size-2`, `--size-3`, `--size-4`, `--size-8`
 - **Borders**: `--radius-2`, `--border-size-1`, `--border-size-2`
 - **Transitions**: `--duration-fast`, `--ease-out-2`
 
-### Icons System (Optional)
-- Icons rendered manually via `[data-icon]` attributes in content slot
-- Component does NOT enforce icon structure (flexible content model)
-- Example: `<span data-icon="check" aria-hidden="true"></span> Message text`
+## Atomic Composition
+
+**Alert = Component (Molecule)**
+
+Composes (optional):
+- `@elements/button/button.twig` (for close button and action buttons)
+- `@elements/icon/icon.twig` (for optional icon)
+- `@elements/heading/heading.twig` (for optional title)
+- `@elements/text/text.twig` (for optional body text)
+
+**Two usage patterns:**
+1. **Free content** (default): Pass HTML string via `content` prop
+2. **Composed atoms** (structured): Pass `title`, `text`, `icon`, `actions` props
 
 ## Usage Examples
 
