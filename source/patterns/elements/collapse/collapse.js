@@ -117,11 +117,36 @@
         // External control via custom event
         collapse.addEventListener('collapse:external-toggle', (e) => {
           const targetState = e.detail?.expanded;
+          const instant = e.detail?.instant === true;
           const currentState = trigger.getAttribute('aria-expanded') === 'true';
 
-          if (targetState !== undefined && targetState !== currentState) {
-            toggle();
+          if (targetState === undefined || targetState === currentState) {
+            return;
           }
+
+          if (instant) {
+            // Apply state immediately without animation (used by Accordion single_open)
+            setExpandedAria(targetState);
+            if (targetState) {
+              panel.removeAttribute('hidden');
+              panel.style.height = 'auto';
+              panel.style.opacity = '1';
+              collapse.dispatchEvent(
+                new CustomEvent('collapse:show', { bubbles: true, detail: { collapse } })
+              );
+            } else {
+              panel.setAttribute('hidden', '');
+              panel.style.height = '';
+              panel.style.opacity = '0';
+              collapse.dispatchEvent(
+                new CustomEvent('collapse:hide', { bubbles: true, detail: { collapse } })
+              );
+            }
+            return;
+          }
+
+          // Default external toggle respects animations
+          toggle();
         });
 
         // Initialize panel state for smooth animation on first toggle

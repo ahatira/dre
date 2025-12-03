@@ -19,7 +19,7 @@
   /* Layer 2: Accordion-scoped variables to influence child Collapse */
   --ps-accordion-trigger-padding-y: var(--size-6);
   --ps-accordion-trigger-padding-x: 0;
-  --ps-accordion-content-padding-top: var(--size-4);
+  --ps-accordion-content-padding-top: 0;
   --ps-accordion-content-padding-bottom: var(--size-6);
 
   /* Propagate defaults to child Collapse via variables */

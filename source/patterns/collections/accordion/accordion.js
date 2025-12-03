@@ -30,7 +30,7 @@
               // Trigger external close via custom event
               collapse.dispatchEvent(
                 new CustomEvent('collapse:external-toggle', {
-                  detail: { expanded: false },
+                  detail: { expanded: false, instant: true },
                 })
               );
             }
