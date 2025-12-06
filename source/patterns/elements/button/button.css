@@ -1,87 +1,106 @@
-/** 
+/**
  * Button (Element/Atom)
- * Bouton d'action avec variants semantic (primary, secondary, neutral, success, info, warning, danger)
- * 
- * BEM: ps-button, ps-button__label, ps-button__icon
- * Variants: primary | secondary | neutral | success | info | warning | danger
- * Modifiers: --outline pour version bordure uniquement
- * Sizes: small, medium (défaut), large
+ *
+ * Interactive action trigger with semantic variants (primary, secondary, neutral,
+ * success, info, warning, danger), sizes (small/medium/large), icon support,
+ * disabled/loading states, outline style, and full-width layout.
+ *
+ * BEM Structure:
+ * - Block: .ps-button
+ * - Elements: .ps-button__label, .ps-button__icon, .ps-button__spinner
+ * - Modifiers (variant): --primary, --secondary, --neutral, --success, --info, --warning, --danger
+ * - Modifiers (style): --outline
+ * - Modifiers (size): --small, --large (medium is default)
+ * - Modifiers (state): --disabled, --loading, --full-width, --icon-only
+ *
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, etc.)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ * - Layer 3: Context Overrides (variant + modifier selectors)
  */
+
+/* ============================================
+   BASE BUTTON STYLES
+   ============================================ */
 
 .ps-button {
   /* ============================================
      Layer 2: Component-Scoped Variables
-     Bootstrap 5 inspired - Override these for customization
+     Override these variables in Layer 3 for variants & modifiers
      ============================================ */
-  
-  /* Spacing */
+
+  /* Spacing & Layout */
   --ps-button-gap: var(--size-2);
   --ps-button-padding-y: var(--size-2);
   --ps-button-padding-x: var(--size-4);
   --ps-button-min-width: var(--size-9);
   --ps-button-height: var(--size-9);
-  
-  /* Typography */
+
+  /* Typography (all from Layer 1 tokens) */
   --ps-button-font-family: var(--font-sans);
   --ps-button-font-size: var(--size-4);
   --ps-button-font-weight: var(--font-weight-400);
   --ps-button-line-height: 1.5;
-  
-  /* Colors (Neutral defaults) */
+
+  /* Colors (neutral defaults - Layer 3 overrides for variants) */
   --ps-button-bg: var(--neutral);
   --ps-button-color: var(--neutral-text);
   --ps-button-border-color: transparent;
-  
-  /* States */
+  --ps-button-border-width: 0;
+
+  /* States (hover/active/disabled) */
   --ps-button-hover-bg: var(--neutral-hover);
   --ps-button-hover-border-color: transparent;
   --ps-button-hover-color: var(--neutral-text);
   --ps-button-hover-transform: translateY(-1px);
   --ps-button-active-bg: var(--neutral-active);
+  --ps-button-active-border-color: transparent;
+  --ps-button-active-color: var(--neutral-text);
   --ps-button-active-transform: translateY(0);
   --ps-button-disabled-opacity: 0.5;
-  
-  /* Visual */
-  --ps-button-border-width: 0;
+
+  /* Visual (border radius from Layer 1) */
   --ps-button-border-radius: 0;
-  
-  /* Focus */
+
+  /* Focus (from Layer 1 tokens) */
   --ps-button-focus-outline-width: var(--border-size-2);
-  --ps-button-focus-outline-color: var(--border-focus);
+  --ps-button-focus-outline-color: var(--secondary);
   --ps-button-focus-outline-offset: var(--border-size-2);
-  
-  /* Transitions */
+
+  /* Transitions (from Layer 1 tokens) */
   --ps-button-transition-duration: var(--duration-fast);
   --ps-button-transition-timing: var(--ease-4);
-  
+
+  /* Spinner (for loading state) */
+  --ps-button-spinner-color: var(--white);
+
   /* ============================================
-     Apply Component Variables
+     Apply Component Variables to Properties
      ============================================ */
-  
-  /* Reset */
+
+  /* Reset browser defaults */
   appearance: none;
   margin: 0;
   border: 0;
-  border-style: solid; /* Required for border-width to work */
+  border-style: solid;
   background: none;
   font: inherit;
-  color: inherit;
   cursor: pointer;
   text-decoration: none;
   user-select: none;
-  
+
   /* Layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--ps-button-gap);
   width: auto;
-  
+
   /* Sizing */
   height: var(--ps-button-height);
   padding: var(--ps-button-padding-y) var(--ps-button-padding-x);
   min-width: var(--ps-button-min-width);
-  
+
   /* Typography */
   font-family: var(--ps-button-font-family);
   font-weight: var(--ps-button-font-weight);
@@ -89,50 +108,68 @@
   line-height: var(--ps-button-line-height);
   text-align: center;
   white-space: nowrap;
-  
+
   /* Visual */
   background-color: var(--ps-button-bg);
   color: var(--ps-button-color);
   border-width: var(--ps-button-border-width);
   border-color: var(--ps-button-border-color);
   border-radius: var(--ps-button-border-radius);
-  transition: 
+
+  /* Transitions for all interactive properties */
+  transition:
     background-color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
     color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
     border-color var(--ps-button-transition-duration) var(--ps-button-transition-timing),
     transform var(--ps-button-transition-duration) var(--ps-button-transition-timing);
-  
-  /* States */
-  &:hover:not(:disabled):not(.ps-button--disabled) {
+
+  /* ============================================
+     Interactive States
+     ============================================ */
+
+  &:hover:not(:disabled, .ps-button--disabled) {
     background-color: var(--ps-button-hover-bg);
     border-color: var(--ps-button-hover-border-color);
     color: var(--ps-button-hover-color);
     transform: var(--ps-button-hover-transform);
   }
-  
-  &:active:not(:disabled):not(.ps-button--disabled) {
+
+  &:active:not(:disabled, .ps-button--disabled) {
     background-color: var(--ps-button-active-bg);
+    border-color: var(--ps-button-active-border-color);
+    color: var(--ps-button-active-color);
     transform: var(--ps-button-active-transform);
   }
-  
+
   &:focus-visible {
     outline: var(--ps-button-focus-outline-width) solid var(--ps-button-focus-outline-color);
     outline-offset: var(--ps-button-focus-outline-offset);
   }
 }
 
-/* Elements BEM */
+/* ============================================
+   ELEMENTS (BEM)
+   ============================================ */
+
 .ps-button__label {
   display: inline-block;
 }
 
-/* Icon element - CSS-only via data-icon */
 .ps-button__icon {
   flex-shrink: 0;
   line-height: 1;
 }
 
-/* Variant - PRIMARY (vert) */
+.ps-button__spinner {
+  /* Styling in loading state section */
+}
+
+/* ============================================
+   LAYER 3: VARIANT COLORS (Primary, Secondary, etc.)
+   Each variant overrides Layer 2 component variables
+   ============================================ */
+
+/* PRIMARY (Brand Green) */
 .ps-button--primary {
   --ps-button-bg: var(--primary);
   --ps-button-color: var(--primary-text);
@@ -151,7 +188,7 @@
   --ps-button-active-bg: color-mix(in srgb, var(--primary) 16%, transparent);
 }
 
-/* Variant - SECONDARY (pink) */
+/* SECONDARY (Brand Magenta) */
 .ps-button--secondary {
   --ps-button-bg: var(--secondary);
   --ps-button-color: var(--secondary-text);
@@ -170,7 +207,26 @@
   --ps-button-active-bg: color-mix(in srgb, var(--secondary) 16%, transparent);
 }
 
-/* Variant - SUCCESS */
+/* NEUTRAL (Gray - Default) */
+.ps-button--neutral {
+  --ps-button-bg: var(--neutral);
+  --ps-button-color: var(--neutral-text);
+  --ps-button-hover-bg: var(--neutral-hover);
+  --ps-button-active-bg: var(--neutral-active);
+}
+
+.ps-button--neutral.ps-button--outline {
+  --ps-button-bg: transparent;
+  --ps-button-border-width: var(--border-size-2);
+  --ps-button-border-color: var(--neutral);
+  --ps-button-color: var(--neutral);
+  --ps-button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
+  --ps-button-hover-border-color: var(--neutral-hover);
+  --ps-button-hover-color: var(--neutral-hover);
+  --ps-button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
+}
+
+/* SUCCESS (Green - Positive) */
 .ps-button--success {
   --ps-button-bg: var(--success);
   --ps-button-color: var(--success-text);
@@ -189,7 +245,7 @@
   --ps-button-active-bg: color-mix(in srgb, var(--success) 16%, transparent);
 }
 
-/* Variant - INFO */
+/* INFO (Blue - Informational) */
 .ps-button--info {
   --ps-button-bg: var(--info);
   --ps-button-color: var(--info-text);
@@ -208,7 +264,7 @@
   --ps-button-active-bg: color-mix(in srgb, var(--info) 16%, transparent);
 }
 
-/* Variant - WARNING */
+/* WARNING (Yellow - Caution) */
 .ps-button--warning {
   --ps-button-bg: var(--warning);
   --ps-button-color: var(--warning-text);
@@ -227,7 +283,7 @@
   --ps-button-active-bg: color-mix(in srgb, var(--warning) 16%, transparent);
 }
 
-/* Variant - DANGER */
+/* DANGER (Red - Destructive) */
 .ps-button--danger {
   --ps-button-bg: var(--danger);
   --ps-button-color: var(--danger-text);
@@ -246,8 +302,8 @@
   --ps-button-active-bg: color-mix(in srgb, var(--danger) 16%, transparent);
 }
 
-/* Outline default (neutral when no variant class) */
-.ps-button--outline {
+/* Default outline (when no variant specified) */
+.ps-button--outline:not(.ps-button--primary, .ps-button--secondary, .ps-button--neutral, .ps-button--success, .ps-button--info, .ps-button--warning, .ps-button--danger) {
   --ps-button-bg: transparent;
   --ps-button-border-width: var(--border-size-2);
   --ps-button-border-color: var(--neutral);
@@ -258,52 +314,44 @@
   --ps-button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
 }
 
-/* Variant - NEUTRAL (gray) outline explicit (redundant but kept for clarity) */
-.ps-button--neutral.ps-button--outline {
-  --ps-button-bg: transparent;
-  --ps-button-border-width: var(--border-size-2);
-  --ps-button-border-color: var(--neutral);
-  --ps-button-color: var(--neutral);
-  --ps-button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
-  --ps-button-hover-border-color: var(--neutral-hover);
-  --ps-button-hover-color: var(--neutral-hover);
-  --ps-button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
-}
-
-/* Variant - LIGHT - REMOVED (no tokens available) */
-/* Variant - DARK - REMOVED (no tokens available) */
-
-/* Sizes */
+/* ============================================
+   LAYER 3: SIZES
+   ============================================ */
 
 .ps-button--small {
-  --ps-button-height: 2.12375rem; /* 33.98px exact selon spec */
-  --ps-button-padding-y: var(--size-105); /* 6px */
-  --ps-button-padding-x: var(--size-305); /* 14px */
-  --ps-button-font-size: var(--size-305); /* 14px */
-  --ps-button-line-height: 1.428; /* 20px */
+  --ps-button-height: 2.12375rem;
+  --ps-button-padding-y: var(--size-105);
+  --ps-button-padding-x: var(--size-305);
+  --ps-button-font-size: var(--size-305);
+  --ps-button-line-height: 1.428;
 }
 
 .ps-button--medium {
-  --ps-button-height: var(--size-9); /* 36px */
-  --ps-button-padding-y: var(--size-2); /* 8px */
-  --ps-button-padding-x: var(--size-4); /* 16px */
-  --ps-button-font-size: var(--size-4); /* 16px */
-  --ps-button-line-height: 1.5; /* 24px */
+  --ps-button-height: var(--size-9);
+  --ps-button-padding-y: var(--size-2);
+  --ps-button-padding-x: var(--size-4);
+  --ps-button-font-size: var(--size-4);
+  --ps-button-line-height: 1.5;
 }
 
 .ps-button--large {
-  --ps-button-height: var(--size-10); /* 40px */
-  --ps-button-padding-y: var(--size-205); /* 10px */
-  --ps-button-padding-x: var(--size-5); /* 20px */
-  --ps-button-font-size: 1.125rem; /* 18px */
-  --ps-button-line-height: 1.444; /* 26px */
+  --ps-button-height: var(--size-10);
+  --ps-button-padding-y: var(--size-205);
+  --ps-button-padding-x: var(--size-5);
+  --ps-button-font-size: var(--size-5);
+  --ps-button-line-height: 1.444;
 }
 
-/* Icon only */
+/* ============================================
+   LAYER 3: ICON-ONLY VARIANT
+   ============================================ */
+
 .ps-button--icon-only {
-  --ps-button-padding-y: var(--size-2); /* 8px */
+  --ps-button-padding-y: var(--size-2);
   --ps-button-padding-x: var(--size-2);
-  
+
+  aspect-ratio: var(--ratio-box);
+
   .ps-button__label {
     position: absolute;
     width: 1px;
@@ -315,30 +363,38 @@
     white-space: nowrap;
     border-width: 0;
   }
-  
+
   &.ps-button--small {
-    --ps-button-padding-y: var(--size-105); /* 6px */
+    --ps-button-padding-y: var(--size-105);
     --ps-button-padding-x: var(--size-105);
-    width: 2.12375rem; /* 33.98px carré */
+
+    width: 2.12375rem;
   }
-  
+
   &.ps-button--medium {
-    width: var(--size-9); /* 36px carré */
+    width: var(--size-9);
   }
-  
+
   &.ps-button--large {
-    --ps-button-padding-y: var(--size-205); /* 10px */
+    --ps-button-padding-y: var(--size-205);
     --ps-button-padding-x: var(--size-205);
-    width: var(--size-10); /* 40px carré */
+
+    width: var(--size-10);
   }
 }
 
-/* Full width */
+/* ============================================
+   LAYER 3: FULL-WIDTH VARIANT
+   ============================================ */
+
 .ps-button--full-width {
-  width: 100%; /* Cannot use CSS var for percentage width */
+  width: 100%;
 }
 
-/* States - Disabled */
+/* ============================================
+   LAYER 3: DISABLED STATE
+   ============================================ */
+
 .ps-button--disabled,
 .ps-button:disabled {
   opacity: var(--ps-button-disabled-opacity);
@@ -346,24 +402,24 @@
   pointer-events: none;
 }
 
-/* States - Loading */
+/* ============================================
+   LAYER 3: LOADING STATE
+   ============================================ */
+
 .ps-button--loading {
-  /* Spinner color variable (overridable) */
-  --ps-button-spinner-color: var(--white);
-  
   position: relative;
   color: transparent !important;
   pointer-events: none;
-  
+
   .ps-button__spinner {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     &::before {
-      content: "";
+      content: '';
       width: 1rem;
       height: 1rem;
       border: var(--border-size-2) solid var(--ps-button-spinner-color);
@@ -372,16 +428,20 @@
       animation: spin 0.6s linear infinite;
     }
   }
-  
+
   .ps-button__label,
   .ps-button__icon {
     visibility: hidden;
   }
 }
 
-/* Spinner colors for outline variants */
+/* Spinner color overrides for outline variants */
 .ps-button--outline.ps-button--loading {
   --ps-button-spinner-color: var(--neutral);
+}
+
+.ps-button--outline.ps-button--primary.ps-button--loading {
+  --ps-button-spinner-color: var(--primary);
 }
 
 .ps-button--outline.ps-button--secondary.ps-button--loading {
@@ -404,9 +464,197 @@
   --ps-button-spinner-color: var(--danger);
 }
 
-.ps-button--outline.ps-button--neutral.ps-button--loading {
-  --ps-button-spinner-color: var(--neutral);
+/* Note: 'spin' animation defined in animations.css */
+
+/* ============================================
+   LAYER 3: ACTIVE STATE (Non-Toggle)
+   ============================================ */
+
+.ps-button.active:not([data-ps-toggle='button']) {
+  background-color: var(--ps-button-active-bg);
+  border-color: var(--ps-button-active-border-color);
+  color: var(--ps-button-active-color);
+  transform: var(--ps-button-active-transform);
 }
 
-/* Note: Using global 'spin' keyframe from animations.css */
+.ps-button.active:not([data-ps-toggle='button']):hover:not(:disabled, .ps-button--disabled) {
+  background-color: var(--ps-button-active-bg);
+  border-color: var(--ps-button-active-border-color);
+  color: var(--ps-button-active-color);
+}
 
+.ps-button.active:not([data-ps-toggle='button']):focus-visible {
+  outline: var(--ps-button-focus-outline-width) solid var(--ps-button-focus-outline-color);
+  outline-offset: var(--ps-button-focus-outline-offset);
+}
+
+/* ============================================
+   LAYER 3: TOGGLE STATE (Icon-Only)
+   Data attribute: data-ps-toggle="button"
+   Controlled via button.js behavior
+   ============================================ */
+
+.ps-button--icon-only[data-ps-toggle='button'] {
+  --ps-button-toggle-inactive-color: var(--gray-600);
+  --ps-button-toggle-inactive-hover-color: var(--gray-700);
+  --ps-button-toggle-active-color: var(--primary);
+  --ps-button-toggle-bg: var(--white);
+
+  background-color: var(--ps-button-toggle-bg);
+  border: none;
+  color: var(--ps-button-toggle-inactive-color);
+  transition: color var(--duration-fast) var(--ease-out-1);
+
+  &:hover:not(.active) {
+    background-color: var(--ps-button-toggle-bg);
+    color: var(--ps-button-toggle-inactive-hover-color);
+  }
+
+  &.active {
+    background-color: var(--ps-button-toggle-bg);
+    color: var(--ps-button-toggle-active-color);
+
+    &:hover {
+      background-color: var(--ps-button-toggle-bg);
+      color: var(--ps-button-toggle-active-color);
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--ps-button-focus-outline-width) solid var(--ps-button-focus-outline-color);
+    outline-offset: var(--ps-button-focus-outline-offset);
+    background-color: var(--ps-button-toggle-bg);
+  }
+}
+
+/* Toggle variant colors (icon-only) */
+.ps-button--primary[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--primary);
+}
+
+.ps-button--secondary[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--secondary);
+}
+
+.ps-button--neutral[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--neutral);
+}
+
+.ps-button--success[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--success);
+}
+
+.ps-button--info[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--info);
+}
+
+.ps-button--warning[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--warning);
+}
+
+.ps-button--danger[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--danger);
+}
+
+/* ============================================
+   LAYER 3: TOGGLE STATE (Regular w/ Label)
+   Data attribute: data-ps-toggle="button"
+   Uses enabled/disabled color tokens for contrast
+   ============================================ */
+
+.ps-button:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--neutral-disabled);
+    --ps-button-hover-bg: var(--neutral-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--neutral-enabled);
+    --ps-button-hover-bg: var(--neutral-enabled);
+  }
+}
+
+/* Toggle variant colors (with label) */
+.ps-button--primary:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--primary-disabled);
+    --ps-button-hover-bg: var(--primary-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--primary-enabled);
+    --ps-button-hover-bg: var(--primary-enabled);
+  }
+}
+
+.ps-button--secondary:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--secondary-disabled);
+    --ps-button-hover-bg: var(--secondary-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--secondary-enabled);
+    --ps-button-hover-bg: var(--secondary-enabled);
+  }
+}
+
+.ps-button--neutral:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--neutral-disabled);
+    --ps-button-hover-bg: var(--neutral-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--neutral-enabled);
+    --ps-button-hover-bg: var(--neutral-enabled);
+  }
+}
+
+.ps-button--success:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--success-disabled);
+    --ps-button-hover-bg: var(--success-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--success-enabled);
+    --ps-button-hover-bg: var(--success-enabled);
+  }
+}
+
+.ps-button--info:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--info-disabled);
+    --ps-button-hover-bg: var(--info-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--info-enabled);
+    --ps-button-hover-bg: var(--info-enabled);
+  }
+}
+
+.ps-button--warning:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--warning-disabled);
+    --ps-button-hover-bg: var(--warning-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--warning-enabled);
+    --ps-button-hover-bg: var(--warning-enabled);
+  }
+}
+
+.ps-button--danger:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  &:not(.active) {
+    --ps-button-bg: var(--danger-disabled);
+    --ps-button-hover-bg: var(--danger-disabled);
+  }
+
+  &.active {
+    --ps-button-bg: var(--danger-enabled);
+    --ps-button-hover-bg: var(--danger-enabled);
+  }
+}

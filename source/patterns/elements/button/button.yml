@@ -17,9 +17,9 @@
 # - fullWidth: boolean (default: false)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Primary button (green)
+# Default: Neutral button (gray)
 label: 'Button'
-variant: 'primary'
+variant: 'neutral'
 outline: false
 size: 'medium'
 disabled: false
