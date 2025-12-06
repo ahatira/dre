@@ -1,0 +1,26 @@
+((a, i) => {
+  a.behaviors.psButton = {
+    attach(s) {
+      i('psButton', '[data-ps-toggle="button"]', s).forEach((e) => {
+        if (!e.hasAttribute('aria-pressed')) {
+          const t = e.classList.contains('active');
+          e.setAttribute('aria-pressed', t ? 'true' : 'false');
+        }
+        e.addEventListener('click', () => {
+          const t = e.classList.contains('active');
+          e.classList.toggle('active'),
+            e.setAttribute('aria-pressed', !t),
+            e.dispatchEvent(
+              new CustomEvent('button:toggle', { bubbles: !0, detail: { button: e, active: !t } })
+            );
+        }),
+          e.addEventListener('keydown', (t) => {
+            (t.key === ' ' || t.key === 'Enter') && (t.preventDefault(), e.click());
+          });
+      });
+    },
+    detach(s, c, e) {
+      e === 'unload' && s.querySelectorAll('[data-ps-toggle="button"]').forEach(() => {});
+    },
+  };
+})(Drupal, once);

@@ -1,12 +1,144 @@
-# Language Selector Component
-# Dropdown for language/locale switching (BNP multi-country)
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
+name: 'PS Language Selector'
+status: stable
+group: molecules
+description: 'Accessible language switcher with flags, labels and dropdown menu. Includes native select fallback for no-JS environments.'
 
-languages:
-  - code: 'fr'
-    label: 'Français'
-    active: true
-  - code: 'en'
-    label: 'English'
-  - code: 'de'
-    label: 'Deutsch'
-current: 'fr'
+props:
+  type: object
+  properties:
+    name:
+      type: string
+      title: Name
+      default: 'lang'
+      description: 'Input name attribute for the native select fallback.'
+      examples:
+        - 'lang'
+        - 'language'
+        - 'locale'
+
+    size:
+      type: string
+      title: Size
+      enum: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
+      default: 'sm'
+      description: 'Standardized sizing system: xs (24px), sm (36px - default/Figma), md (40px), lg (48px), xl (56px), xxl (64px).'
+      examples:
+        - 'sm'
+        - 'lg'
+
+    variant:
+      type: string
+      title: Variant
+      enum: ['default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info']
+      default: 'default'
+      description: 'Semantic color variants for border and text. Neutral by default.'
+      examples:
+        - 'default'
+        - 'primary'
+
+    disabled:
+      type: boolean
+      title: Disabled
+      default: false
+      description: 'Disables the entire selector (button and options).'
+
+    current:
+      type: object
+      title: Current language
+      description: 'Currently selected language with flag and label.'
+      properties:
+        code:
+          type: string
+          title: Country code
+          description: 'ISO 3166-1 alpha-2 country code for flag (ex: GB, FR, ES).'
+          examples:
+            - 'GB'
+            - 'FR'
+            - 'ES'
+        label:
+          type: string
+          title: Display label
+          description: 'Short label displayed (2-letter code, ex: En, Fr, Es).'
+          examples:
+            - 'En'
+            - 'Fr'
+            - 'Es'
+        locale:
+          type: string
+          title: BCP 47 locale
+          description: 'Optional BCP 47 locale tag (ex: en-GB, fr-FR, es-ES).'
+          examples:
+            - 'en-GB'
+            - 'fr-FR'
+            - 'es-ES'
+      required: ['code', 'label']
+
+    options:
+      type: array
+      title: Language options
+      description: 'Array of available language options.'
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+            title: Country code
+            description: 'ISO 3166-1 alpha-2 country code for flag.'
+            examples:
+              - 'GB'
+              - 'ES'
+              - 'DE'
+          label:
+            type: string
+            title: Display label
+            description: 'Short label for option.'
+            examples:
+              - 'En'
+              - 'Es'
+              - 'De'
+          value:
+            type: string
+            title: Value
+            description: 'Value for native select (language code).'
+            examples:
+              - 'en'
+              - 'es'
+              - 'de'
+          url:
+            type: string
+            title: URL
+            description: 'Optional URL for language switch (server-side redirect).'
+            examples:
+              - '/en'
+              - '/es'
+              - 'https://example.com/es'
+          locale:
+            type: string
+            title: BCP 47 locale
+            description: 'Optional BCP 47 locale tag.'
+            examples:
+              - 'en-GB'
+              - 'es-ES'
+          selected:
+            type: boolean
+            title: Selected
+            default: false
+            description: 'Whether this option is currently selected.'
+          disabled:
+            type: boolean
+            title: Disabled
+            default: false
+            description: 'Whether this option is disabled.'
+        required: ['code', 'label', 'value']
+
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: 'Additional HTML attributes for the nav element.'
+
+  required:
+    - current
+    - options
+
+slots: {}

@@ -1,0 +1,499 @@
+import { t as p, T as s } from './iframe-D21U4yYN.js';
+import { a as o, D as r } from './twig-BPJOkNgt.js';
+o(s);
+s.cache(!1);
+const a = (t) => t,
+  y = (t = {}) => {
+    const i = p.twig({
+      id: 'C:/wamp64/www/ps_theme/source/patterns/elements/icon/icon.twig',
+      data: [
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 54, end: 56 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 242, end: 244 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'name',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'name', match: ['name'] },
+              {
+                type: 'Twig.expression.type.filter',
+                value: 'default',
+                match: ['|default', 'default'],
+                params: [
+                  { type: 'Twig.expression.type.parameter.start', value: '(', match: ['('] },
+                  { type: 'Twig.expression.type.string', value: 'search' },
+                  {
+                    type: 'Twig.expression.type.parameter.end',
+                    value: ')',
+                    match: [')'],
+                    expression: !1,
+                  },
+                ],
+              },
+            ],
+            position: { start: 244, end: 283 },
+          },
+          position: { start: 244, end: 283 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 283, end: 285 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'size',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'size', match: ['size'] },
+              {
+                type: 'Twig.expression.type.filter',
+                value: 'default',
+                match: ['|default', 'default'],
+                params: [
+                  { type: 'Twig.expression.type.parameter.start', value: '(', match: ['('] },
+                  { type: 'Twig.expression.type.string', value: 'md' },
+                  {
+                    type: 'Twig.expression.type.parameter.end',
+                    value: ')',
+                    match: [')'],
+                    expression: !1,
+                  },
+                ],
+              },
+            ],
+            position: { start: 285, end: 320 },
+          },
+          position: { start: 285, end: 320 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 320, end: 322 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'color',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'color', match: ['color'] },
+              {
+                type: 'Twig.expression.type.filter',
+                value: 'default',
+                match: ['|default', 'default'],
+                params: [
+                  { type: 'Twig.expression.type.parameter.start', value: '(', match: ['('] },
+                  { type: 'Twig.expression.type.string', value: 'default' },
+                  {
+                    type: 'Twig.expression.type.parameter.end',
+                    value: ')',
+                    match: [')'],
+                    expression: !1,
+                  },
+                ],
+              },
+            ],
+            position: { start: 322, end: 364 },
+          },
+          position: { start: 322, end: 364 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 364, end: 366 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'disabled',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'disabled', match: ['disabled'] },
+              {
+                type: 'Twig.expression.type.filter',
+                value: 'default',
+                match: ['|default', 'default'],
+                params: [
+                  { type: 'Twig.expression.type.parameter.start', value: '(', match: ['('] },
+                  { type: 'Twig.expression.type.bool', value: !1 },
+                  {
+                    type: 'Twig.expression.type.parameter.end',
+                    value: ')',
+                    match: [')'],
+                    expression: !1,
+                  },
+                ],
+              },
+            ],
+            position: { start: 366, end: 410 },
+          },
+          position: { start: 366, end: 410 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+`,
+          position: { start: 410, end: 412 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'baseClass',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              {
+                type: 'Twig.expression.type.filter',
+                value: 'default',
+                match: ['|default', 'default'],
+                params: [
+                  { type: 'Twig.expression.type.parameter.start', value: '(', match: ['('] },
+                  { type: 'Twig.expression.type.null', value: null },
+                  {
+                    type: 'Twig.expression.type.parameter.end',
+                    value: ')',
+                    match: [')'],
+                    expression: !1,
+                  },
+                ],
+              },
+            ],
+            position: { start: 412, end: 457 },
+          },
+          position: { start: 412, end: 457 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+\r
+`,
+          position: { start: 457, end: 461 },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.set',
+            key: 'classes',
+            expression: [
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              { type: 'Twig.expression.type.array.start', value: '[', match: ['['] },
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'size', match: ['size'] },
+              { type: 'Twig.expression.type.string', value: 'md' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '!=',
+                precidence: 9,
+                associativity: 'leftToRight',
+                operator: '!=',
+              },
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              { type: 'Twig.expression.type.string', value: '--' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.variable', value: 'size', match: ['size'] },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'color', match: ['color'] },
+              { type: 'Twig.expression.type.string', value: 'default' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '!=',
+                precidence: 9,
+                associativity: 'leftToRight',
+                operator: '!=',
+              },
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              { type: 'Twig.expression.type.string', value: '--' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.variable', value: 'color', match: ['color'] },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'disabled', match: ['disabled'] },
+              { type: 'Twig.expression.type.variable', value: 'baseClass', match: ['baseClass'] },
+              { type: 'Twig.expression.type.string', value: '--disabled' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.array.end', value: ']', match: [']'] },
+              { type: 'Twig.expression.type.array.start', value: '[', match: ['['] },
+              { type: 'Twig.expression.type.string', value: 'ps-icon' },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'size', match: ['size'] },
+              { type: 'Twig.expression.type.string', value: 'md' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '!=',
+                precidence: 9,
+                associativity: 'leftToRight',
+                operator: '!=',
+              },
+              { type: 'Twig.expression.type.string', value: 'ps-icon--' },
+              { type: 'Twig.expression.type.variable', value: 'size', match: ['size'] },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'color', match: ['color'] },
+              { type: 'Twig.expression.type.string', value: 'default' },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '!=',
+                precidence: 9,
+                associativity: 'leftToRight',
+                operator: '!=',
+              },
+              { type: 'Twig.expression.type.string', value: 'ps-icon--' },
+              { type: 'Twig.expression.type.variable', value: 'color', match: ['color'] },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '~',
+                precidence: 6,
+                associativity: 'leftToRight',
+                operator: '~',
+              },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.comma' },
+              { type: 'Twig.expression.type.variable', value: 'disabled', match: ['disabled'] },
+              { type: 'Twig.expression.type.string', value: 'ps-icon--disabled' },
+              { type: 'Twig.expression.type.null', value: null },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+              { type: 'Twig.expression.type.array.end', value: ']', match: [']'] },
+              {
+                type: 'Twig.expression.type.operator.binary',
+                value: '?',
+                precidence: 16,
+                associativity: 'rightToLeft',
+                operator: '?',
+              },
+            ],
+            position: { start: 461, end: 823 },
+          },
+          position: { start: 461, end: 823 },
+        },
+        {
+          type: 'raw',
+          value: `\r
+\r
+<span class="`,
+          position: { start: 823, end: 840 },
+        },
+        {
+          type: 'output',
+          position: { start: 840, end: 868 },
+          stack: [
+            {
+              type: 'Twig.expression.type.variable',
+              value: 'classes',
+              match: ['classes'],
+              position: { start: 840, end: 868 },
+            },
+            {
+              type: 'Twig.expression.type.filter',
+              value: 'join',
+              match: ['|join', 'join'],
+              position: { start: 840, end: 868 },
+              params: [
+                {
+                  type: 'Twig.expression.type.parameter.start',
+                  value: '(',
+                  match: ['('],
+                  position: { start: 840, end: 868 },
+                },
+                {
+                  type: 'Twig.expression.type.string',
+                  value: ' ',
+                  position: { start: 840, end: 868 },
+                },
+                {
+                  type: 'Twig.expression.type.parameter.end',
+                  value: ')',
+                  match: [')'],
+                  position: { start: 840, end: 868 },
+                  expression: !1,
+                },
+              ],
+            },
+            {
+              type: 'Twig.expression.type.filter',
+              value: 'trim',
+              match: ['|trim', 'trim'],
+              position: { start: 840, end: 868 },
+            },
+          ],
+        },
+        { type: 'raw', value: '"', position: { start: 868, end: 869 } },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.if',
+            stack: [
+              { type: 'Twig.expression.type.variable', value: 'ariaLabel', match: ['ariaLabel'] },
+            ],
+            position: { start: 869, end: 887 },
+            output: [
+              { type: 'raw', value: ' aria-label="', position: { start: 887, end: 900 } },
+              {
+                type: 'output',
+                position: { start: 900, end: 915 },
+                stack: [
+                  {
+                    type: 'Twig.expression.type.variable',
+                    value: 'ariaLabel',
+                    match: ['ariaLabel'],
+                    position: { start: 900, end: 915 },
+                  },
+                ],
+              },
+              { type: 'raw', value: '" role="img"', position: { start: 915, end: 927 } },
+            ],
+          },
+          position: { open: { start: 869, end: 887 }, close: { start: 927, end: 937 } },
+        },
+        {
+          type: 'logic',
+          token: {
+            type: 'Twig.logic.type.else',
+            match: ['else'],
+            position: { start: 927, end: 937 },
+            output: [
+              { type: 'raw', value: ' aria-hidden="true"', position: { start: 937, end: 956 } },
+            ],
+          },
+          position: { open: { start: 927, end: 937 }, close: { start: 956, end: 967 } },
+        },
+        {
+          type: 'raw',
+          value: `>\r
+  <span class="ps-icon__icon" data-icon="`,
+          position: { start: 967, end: 1011 },
+        },
+        {
+          type: 'output',
+          position: { start: 1011, end: 1021 },
+          stack: [
+            {
+              type: 'Twig.expression.type.variable',
+              value: 'name',
+              match: ['name'],
+              position: { start: 1011, end: 1021 },
+            },
+          ],
+        },
+        {
+          type: 'raw',
+          value: `"></span>\r
+</span>\r
+`,
+          position: { start: 1021, end: 1021 },
+        },
+      ],
+      precompiled: !0,
+    });
+    i.options.allowInlineIncludes = !0;
+    try {
+      let e = t.defaultAttributes ? t.defaultAttributes : [];
+      return (
+        Array.isArray(e) || (e = Object.entries(e)), a(i.render({ attributes: new r(e), ...t }))
+      );
+    } catch (e) {
+      return a(
+        'An error occurred whilst rendering C:/wamp64/www/ps_theme/source/patterns/elements/icon/icon.twig: ' +
+          e.toString()
+      );
+    }
+  };
+export { y as i };

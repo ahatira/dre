@@ -10,7 +10,7 @@
  *  page => pages
  * Generates: <slug>.twig, <slug>.yml, <slug>.css, <slug>.stories.jsx
  */
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const typeMap = {

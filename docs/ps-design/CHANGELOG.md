@@ -4,6 +4,25 @@
 
 ## 2025
 
+- 2025-12-06: **Language Selector** – Accessible language/locale switcher molecule with flags and dropdown
+  - Implemented `source/patterns/components/language-selector/` with 6 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`, `.js`)
+  - Props: name (string), size (xs/sm/md/lg/xl/xxl), variant (default/primary/secondary/success/danger/warning/info), disabled (boolean), current (object: code, label, locale), options (array), attributes
+  - BEM strict: `.ps-language-selector`, `.ps-language-selector__control`, `.ps-language-selector__button`, `.ps-language-selector__current`, `.ps-language-selector__label`, `.ps-language-selector__icon`, `.ps-language-selector__list`, `.ps-language-selector__option`, `.ps-language-selector__native`
+  - Twig: Drupal-ready with conditional classes (ternary + null), includes Flag atom (rectangular 20×14px per Figma), SVG icon (chevron-down/up via CSS rotation), native `<select>` fallback with `.no-js` class
+  - Size system: Standardized 6 sizes – xs (24px), sm (36px - default/Figma), md (40px), lg (48px), xl (56px), xxl (64px)
+  - Variants: 7 semantic color variants for border and text (default/primary/secondary/success/danger/warning/info)
+  - States: Closed (default), Opened (aria-expanded="true"), Selected (aria-selected="true" with gray-100 background), Hover, Focus-visible, Disabled
+  - Accessibility: WCAG 2.2 AA compliant – ARIA (haspopup, expanded, listbox, option, selected, disabled), keyboard navigation (Tab, Enter/Space, Arrow keys, Home/End, Escape, letter keys), focus-visible 2px magenta outline, contrast ratios verified (text 14.8:1, border 3.1:1, focus 5.2:1)
+  - Tokens: --white, --gray-50/100/300/900, --primary, --secondary, --success, --danger, --warning, --info, --size-1/2/3/4/5/6/9/10/12/14/16, --font-sans, --font-size-1/3/4/5/6/7, --font-weight-400/600, --border-size-1/2, --shadow-3, --duration-fast, --ease-4
+  - Missing token: `--z-dropdown: 1000;` (hardcoded, TODO: add to `source/props/zindex.css`)
+  - JavaScript: Full Drupal behavior with `PsLanguageSelector` class, keyboard navigation (arrows, Home/End, letter search), AbortController for cleanup, outside click detection, URL navigation support via `data-url` attribute, custom event `ps-language-selector:navigate` (cancelable)
+  - Progressive enhancement: Native `<select>` visible with `.no-js`, JavaScript adds dropdown interaction only
+  - Dependencies: Flag (atom) for country flags, SVG icons (chevron-down)
+  - Stories: Default (sm/GB), AllSizes (6 sizes), AllVariants (7 colors), Disabled, RealEstateContext (6 European markets with URLs), LargeHeader (lg), CompactMobile (xs)
+  - Use cases: Header navigation, footer multi-market selector, mobile compact interface
+  - Build verified: 207.28 kB CSS (gzip 32.66 kB), 5.19 kB JS (gzip 1.68 kB), 0 errors
+  - Conformity: 100% to project rules (BEM, tokens only, CSS nesting, Drupal behavior with once(), Autodocs tags, English docs, WCAG 2.2 AA)
+
 - 2025-12-03: **Carousel - Pixel Perfect Implementation (Phase 2)** – Complete pixel-perfect refinement based on user feedback
   - **Pagination Fixes**: Centered properly with left/right 0 + justify-content center (removed transform translateX), withPagination default changed to `false` (was `true`)
   - **Cards Carousel - Responsive Breakpoints**: Corrected to match exact specs:

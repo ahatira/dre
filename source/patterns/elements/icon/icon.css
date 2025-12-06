@@ -1,36 +1,48 @@
 /**
  * Icon (Element/Atom)
- * 3-layer CSS variable system for flexible theming
- * BEM: ps-icon, ps-icon__icon
+ * SVG sprite-based implementation with optional icon-font fallback.
+ * BEM: ps-icon, ps-icon__svg, ps-icon__fallback
  * Modifiers: --xs, --sm, --md (default), --lg, --xl, --xxl, --primary, --secondary, --success, --warning, --danger, --info, --disabled
  */
 
+ 
 .ps-icon {
   /* ======================================== */
   /* Layer 1: Component Tokens (private) */
   /* ======================================== */
-  --ps-icon-size-xs: var(--size-205);  /* 10px */
-  --ps-icon-size-sm: var(--size-4);    /* 16px */
-  --ps-icon-size-md: var(--size-5);    /* 20px */
-  --ps-icon-size-lg: var(--size-6);    /* 24px */
-  --ps-icon-size-xl: var(--size-8);    /* 32px */
-  --ps-icon-size-xxl: var(--size-12);  /* 48px */
-  --ps-icon-color: var(--gray-600);    /* Default color */
+  --ps-icon-size-xs: var(--size-205); /* 10px */
+  --ps-icon-size-sm: var(--size-4); /* 16px */
+  --ps-icon-size-md: var(--size-5); /* 20px */
+  --ps-icon-size-lg: var(--size-6); /* 24px */
+  --ps-icon-size-xl: var(--size-8); /* 32px */
+  --ps-icon-size-xxl: var(--size-12); /* 48px */
+  --ps-icon-color: var(--gray-600); /* Default color */
+  --ps-icon-disabled-opacity: var(--opacity-disabled, 0.5);
 
   /* ======================================== */
   /* Base Styles */
   /* ======================================== */
   font-size: var(--ps-icon-size-md);
   color: var(--ps-icon-color);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   vertical-align: middle;
   line-height: 1;
 
   /* ======================================== */
-  /* Element */
+  /* Elements */
   /* ======================================== */
-  & .ps-icon__icon {
-    display: inline-block;
+  &__svg {
+    inline-size: 1em;
+    block-size: 1em;
+    fill: currentColor;
+    stroke: none;
+    flex-shrink: 0;
+  }
+
+  &__fallback {
+    display: none;
   }
 
   /* ======================================== */
@@ -91,7 +103,7 @@
   /* States */
   /* ======================================== */
   &--disabled {
-    opacity: 0.5;
+    opacity: var(--ps-icon-disabled-opacity);
     pointer-events: none;
     cursor: not-allowed;
   }

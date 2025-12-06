@@ -14,7 +14,7 @@ import './drupal/once';
 
 // Import Swiper.js for carousel component
 import Swiper from 'swiper';
-import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
+import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules';
 
 // Configure Swiper modules globally
 Swiper.use([Navigation, Pagination, Keyboard, A11y]);
@@ -26,6 +26,7 @@ window.Swiper = Swiper;
 import '../source/patterns/components/alert/alert.js';
 import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
+import '../source/patterns/components/language-selector/language-selector.js';
 
 // Import element behaviors
 import '../source/patterns/elements/button/button.js';

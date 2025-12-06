@@ -1,3 +1,4 @@
+import iconsList from '../../documentation/icons-list.json';
 import iconTwig from './icon.twig';
 import data from './icon.yml';
 
@@ -8,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic icon component with 6 sizes (xs to xxl), 7 color variants (default gray + semantic colors), and full accessibility support for decorative or informative icons.',
+          'Semantic SVG icon component using a generated sprite. Supports 6 sizes (xs to xxl), semantic colors, accessibility labels, and optional icon-font fallback for legacy use.',
       },
     },
   },
@@ -24,8 +25,10 @@ export default {
       },
     },
     name: {
-      description: 'Icon name without "icon-" prefix',
-      control: 'text',
+      description:
+        'Icon name without "icon-" prefix. Backed by sprite generated from source/assets/icons/*.svg.',
+      control: { type: 'select' },
+      options: iconsList.all,
       table: {
         category: 'Content',
         type: { summary: 'string', required: true },
@@ -149,28 +152,28 @@ export const AllStates = {
   },
 };
 
-export const AllVariants = {
+export const Gallery = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
-      <section>
-        <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-2);">Sizes</h3>
-        ${AllSizes.render({ ...data })}
-      </section>
-      <section>
-        <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-2);">Colors</h3>
-        ${AllColors.render({ ...data, name: 'check', size: 'xl' })}
-      </section>
-      <section>
-        <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-2);">States</h3>
-        ${AllStates.render({ ...data, name: 'search', size: 'xl' })}
-      </section>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--size-5); padding: var(--size-6);">
+      ${iconsList.all
+        .map(
+          (iconName) => `
+          <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-3); padding: var(--size-4); border: 1px solid var(--gray-300); border-radius: var(--radius-2); background: var(--white); transition: all 150ms var(--ease-3); cursor: pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.borderColor='var(--primary)'" onmouseout="this.style.boxShadow='none'; this.style.borderColor='var(--gray-300)'">
+            <div style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;">
+              ${iconTwig({ ...data, name: iconName, size: 'xl' })}
+            </div>
+            <span style="font-size: var(--font-size-0); color: var(--gray-700); text-align: center; word-break: break-word; font-weight: 500; line-height: 1.3;">${iconName}</span>
+          </div>
+        `
+        )
+        .join('')}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Comprehensive showcase of all icon capabilities: sizes, colors, and states in one view.',
+          'Full gallery of all available SVG icons built from source/assets/icons/*.svg via the generated sprite. Hover over icons for a subtle highlight.',
       },
     },
   },

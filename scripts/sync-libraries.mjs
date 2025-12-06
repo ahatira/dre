@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeFileSync, watch } from 'node:fs';
+import { watch, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { glob } from 'glob';
 
@@ -48,17 +48,19 @@ function main() {
   lines.push('');
 
   // Individual libraries
-  libs.sort((a, b) => a.name.localeCompare(b.name)).forEach(({ name, dist }) => {
-    lines.push(`${name}:`);
-    lines.push('  js:');
-    lines.push(`    ${dist}: {}`);
-    lines.push('  dependencies:');
-    lines.push('    - core/drupal');
-    lines.push('    - core/drupalSettings');
-    lines.push('    - core/once');
-    lines.push(`    - ${THEME_MACHINE_NAME}/vendors`);
-    lines.push('');
-  });
+  libs
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .forEach(({ name, dist }) => {
+      lines.push(`${name}:`);
+      lines.push('  js:');
+      lines.push(`    ${dist}: {}`);
+      lines.push('  dependencies:');
+      lines.push('    - core/drupal');
+      lines.push('    - core/drupalSettings');
+      lines.push('    - core/once');
+      lines.push(`    - ${THEME_MACHINE_NAME}/vendors`);
+      lines.push('');
+    });
 
   const content = lines.join('\n') + '\n';
   writeFileSync(LIB_FILE, content, 'utf8');
@@ -81,10 +83,14 @@ function startWatch() {
   // Initial run
   main();
   // Watch recursively on Windows/macOS
-  const watcher = watch(path.resolve(ROOT, 'source/patterns'), { recursive: true }, (event, filename) => {
-    if (!filename || !filename.endsWith('.js')) return;
-    trigger();
-  });
+  const watcher = watch(
+    path.resolve(ROOT, 'source/patterns'),
+    { recursive: true },
+    (event, filename) => {
+      if (!filename || !filename.endsWith('.js')) return;
+      trigger();
+    }
+  );
   console.log('Watching JS files to sync ps.libraries.yml...');
   return watcher;
 }

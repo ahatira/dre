@@ -1,12 +1,11 @@
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import postcssGlobalData from '@csstools/postcss-global-data';
 import autoprefixer from 'autoprefixer';
 import postcssImport from 'postcss-import';
 import postcssImportExtGlob from 'postcss-import-ext-glob';
 import postcssNested from 'postcss-nested';
 import postcssPresetEnv from 'postcss-preset-env';
-
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

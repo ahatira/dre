@@ -1,24 +1,98 @@
-{# Language Selector - Multi-language dropdown #}
-<div class="ps-language-selector" data-language-selector>
-  <button class="ps-language-selector__trigger" aria-haspopup="listbox" aria-label="Language selection">
-    {% if current %}
+{#
+ * Language Selector (Molecule/Navigation)
+ *
+ * @param string name - Input name attribute (default: 'lang')
+ * @param string size - xs|sm|md|lg|xl|xxl (default: sm, aligned with Figma spec)
+ * @param string variant - default|primary|secondary|success|danger|warning|info (default: default)
+ * @param boolean disabled - Disabled state (default: false)
+ * @param object current - Current language
+ *   @param string code - Country code ISO (ex: GB, ES, FR)
+ *   @param string label - Short label displayed (ex: En, Es, Fr)
+ *   @param string locale - Optional BCP 47 tag (ex: en-GB)
+ * @param array options - Array of language options
+ *   @param string code - Country code for flag
+ *   @param string label - Short label
+ *   @param string value - Native select value
+ *   @param string url - URL for language switch (optional)
+ *   @param string locale - Optional BCP 47 tag
+ *   @param boolean selected - Is selected (default: false)
+ *   @param boolean disabled - Is disabled (default: false)
+ * @param Attribute attributes - Additional HTML attributes
+ #}
+
+{%- set name = name|default('lang') -%}
+{%- set size = size|default('sm') -%}
+{%- set variant = variant|default('default') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
+
+{%- set classes = [
+  'ps-language-selector',
+  size != 'sm' ? 'ps-language-selector--' ~ size : null,
+  variant != 'default' ? 'ps-language-selector--' ~ variant : null,
+  disabled ? 'ps-language-selector--disabled' : null
+] -%}
+
+<nav {{ attributes.addClass(classes) }} aria-label="Language selector">
+  <div class="ps-language-selector__control">
+    {# Enhanced button with accessible states #}
+    <button
+      class="ps-language-selector__button"
+      type="button"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      {{ disabled ? 'disabled' : null }}
+      {{ disabled ? 'aria-disabled="true"' : null }}
+    >
       <span class="ps-language-selector__current">
-        {% for lang in languages %}
-          {% if lang.code == current %}{{ lang.label }}{% endif %}
-        {% endfor %}
+        {# Flag component with rect shape as per Figma spec (20x14px) #}
+        {% include '@elements/flag/flag.twig' with {
+          code: current.code,
+          locale: current.locale ?? null,
+          size: 'sm',
+          shape: 'square',
+          decorative: true
+        } only %}
+        <span class="ps-language-selector__label">{{ current.label }}</span>
       </span>
-    {% endif %}
-    <svg class="ps-language-selector__icon" aria-hidden="true" width="16" height="16">
-      <use href="#icon-chevron-down"></use>
-    </svg>
-  </button>
-  <ul class="ps-language-selector__menu" role="listbox" hidden>
-    {% for lang in languages %}
-      <li>
-        <a href="#" class="ps-language-selector__option{% if lang.code == current %} ps-language-selector__option--active{% endif %}" data-lang="{{ lang.code }}">
-          {{ lang.label }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+      {# Icon using SVG sprite - chevron-down by default, rotates to up when expanded #}
+      <svg class="ps-language-selector__icon" aria-hidden="true" focusable="false">
+        <use href="#icon-chevron-down"></use>
+      </svg>
+    </button>
+
+    {# Dropdown list - hidden by default #}
+    <ul class="ps-language-selector__list" role="listbox" hidden>
+      {% for option in options %}
+        <li
+          class="ps-language-selector__option"
+          role="option"
+          tabindex="{{ option.disabled ? '-1' : '0' }}"
+          aria-selected="{{ option.selected ? 'true' : 'false' }}"
+          {{ option.disabled ? 'aria-disabled="true"' : null }}
+          {{ option.url ? 'data-url="' ~ option.url ~ '"' : null }}
+          data-value="{{ option.value }}"
+        >
+          {# Flag component #}
+          {% include '@elements/flag/flag.twig' with {
+            code: option.code,
+            locale: option.locale ?? null,
+            size: 'sm',
+            shape: 'square',
+            decorative: true
+          } only %}
+          <span class="ps-language-selector__label">{{ option.label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {# Native fallback select - visible only with .no-js #}
+    <select class="ps-language-selector__native" name="{{ name }}" {{ disabled ? 'disabled' : null }}>
+      {% for option in options %}
+        <option value="{{ option.value }}" {{ option.selected ? 'selected' : null }} {{ option.disabled ? 'disabled' : null }}>
+          {{ option.label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+</nav>

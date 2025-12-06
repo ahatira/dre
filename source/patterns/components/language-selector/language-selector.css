@@ -1,76 +1,343 @@
-@layer components {
-  .ps-language-selector {
+/**
+ * Language Selector (Molecule/Navigation)
+ *
+ * Locale switcher with flags, labels and accessible dropdown.
+ * Aligned with Figma spec: rectangular flags (20x14px), compact spacing, border 1px.
+ *
+ * BEM Structure:
+ * - Block: .ps-language-selector
+ * - Elements: __control, __button, __current, __flag, __label, __icon, __list, __option, __native
+ * - Modifiers (size): --xs, --sm (default), --md, --lg, --xl, --xxl
+ * - Modifiers (variant): --primary, --secondary, --success, --danger, --warning, --info
+ * - Modifiers (state): --disabled
+ *
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, colors.css, etc.)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ * - Layer 3: Context Overrides (size + variant + state modifiers)
+ */
+
+/* ============================================
+   BASE COMPONENT STYLES
+   ============================================ */
+
+.ps-language-selector {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Override these in Layer 3 for sizes/variants
+     ============================================ */
+
+  /* Spacing & Layout */
+  --ps-language-selector-gap: var(--size-2); /* 8px */
+  --ps-language-selector-padding-y: var(--size-1); /* 4px */
+  --ps-language-selector-padding-x: var(--size-3); /* 12px */
+  --ps-language-selector-min-width: 120px;
+  --ps-language-selector-height: var(--size-9); /* 36px */
+
+  /* Typography */
+  --ps-language-selector-font-family: var(--font-sans);
+  --ps-language-selector-font-size: var(--font-size-3); /* 14px */
+  --ps-language-selector-font-weight: var(--font-weight-400);
+  --ps-language-selector-line-height: 1.43; /* 20px / 14px */
+
+  /* Colors (neutral default) */
+  --ps-language-selector-bg: var(--white);
+  --ps-language-selector-color: var(--gray-900);
+  --ps-language-selector-border-color: var(--gray-300);
+  --ps-language-selector-border-width: var(--border-size-1); /* 1px */
+
+  /* States */
+  --ps-language-selector-hover-bg: var(--gray-50);
+  --ps-language-selector-selected-bg: var(--gray-100);
+  --ps-language-selector-disabled-opacity: 0.5;
+
+  /* Visual */
+  --ps-language-selector-border-radius: 0; /* Square corners per Figma */
+
+  /* Focus (WCAG 2.2 AA required) */
+  --ps-language-selector-focus-outline-width: var(--border-size-2); /* 2px */
+  --ps-language-selector-focus-outline-color: var(--secondary);
+  --ps-language-selector-focus-outline-offset: var(--border-size-2); /* 2px */
+
+  /* Transitions */
+  --ps-language-selector-transition-duration: var(--duration-fast); /* 150ms */
+  --ps-language-selector-transition-timing: var(--ease-4);
+
+  /* Dropdown */
+  --ps-language-selector-dropdown-z-index: 1000; /* TODO: Add --z-dropdown token to zindex.css */
+  --ps-language-selector-dropdown-shadow: var(--shadow-3);
+  --ps-language-selector-option-gap: var(--size-2); /* 8px between options */
+
+  /* Icon */
+  --ps-language-selector-icon-size: var(--size-5); /* 20px */
+
+  /* ============================================
+     Apply Component Variables to Properties
+     ============================================ */
+
+  /* Reset & Base */
+  font-family: var(--ps-language-selector-font-family);
+  font-size: var(--ps-language-selector-font-size);
+  font-weight: var(--ps-language-selector-font-weight);
+  line-height: var(--ps-language-selector-line-height);
+  color: var(--ps-language-selector-color);
+
+  /* ============================================
+     ELEMENTS
+     ============================================ */
+
+  &__control {
     position: relative;
     display: inline-block;
   }
 
-  .ps-language-selector__trigger {
+  &__button {
+    /* Reset */
+    appearance: none;
+    margin: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+
+    /* Layout */
     display: inline-flex;
     align-items: center;
-    gap: var(--size-2);
-    padding: var(--size-2) var(--size-3);
-    font-family: var(--font-sans);
-    font-size: var(--size-4);
-    color: var(--neutral);
-    background: transparent;
-    border: var(--border-size-2) solid var(--border-default);
-    border-radius: var(--radius-2);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-4);
+    justify-content: space-between;
+    gap: var(--ps-language-selector-gap);
+
+    /* Sizing */
+    height: var(--ps-language-selector-height);
+    min-width: var(--ps-language-selector-min-width);
+    padding: var(--ps-language-selector-padding-y) var(--ps-language-selector-padding-x);
+
+    /* Visual */
+    background: var(--ps-language-selector-bg);
+    color: var(--ps-language-selector-color);
+    border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
+    border-radius: var(--ps-language-selector-border-radius);
+
+    /* Transition */
+    transition-property: background-color, border-color, transform;
+    transition-duration: var(--ps-language-selector-transition-duration);
+    transition-timing-function: var(--ps-language-selector-transition-timing);
+
+    /* States */
+    &:hover:not(:disabled) {
+      background: var(--ps-language-selector-hover-bg);
+    }
+
+    &:focus-visible {
+      outline: var(--ps-language-selector-focus-outline-width) solid var(--ps-language-selector-focus-outline-color);
+      outline-offset: var(--ps-language-selector-focus-outline-offset);
+      z-index: 1; /* Above dropdown */
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: var(--ps-language-selector-disabled-opacity);
+    }
   }
 
-  .ps-language-selector__trigger:hover {
-    border-color: var(--neutral-hover);
-    color: var(--neutral-hover);
+  &__current {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ps-language-selector-gap);
   }
 
-  .ps-language-selector__trigger:focus-visible {
-    outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--size-1);
+  &__icon {
+    width: var(--ps-language-selector-icon-size);
+    height: var(--ps-language-selector-icon-size);
+    flex-shrink: 0;
+    transition: transform var(--ps-language-selector-transition-duration) var(--ps-language-selector-transition-timing);
+
+    /* Rotate when aria-expanded="true" */
+    [aria-expanded="true"] & {
+      transform: rotate(180deg);
+    }
   }
 
-  .ps-language-selector__icon {
-    width: 1rem;
-    height: 1rem;
-    transition: transform var(--duration-fast) var(--ease-4);
+  &__label {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
   }
 
-  .ps-language-selector__trigger[aria-expanded="true"] .ps-language-selector__icon {
-    transform: rotate(180deg);
-  }
-
-  .ps-language-selector__menu {
+  &__list {
+    /* Positioning */
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 100%;
-    margin-top: var(--size-1);
-    padding: var(--size-2);
+    z-index: var(--ps-language-selector-dropdown-z-index);
+
+    /* Sizing */
+    width: 100%;
+    min-width: var(--ps-language-selector-min-width);
+    margin: 0;
+    padding: var(--ps-language-selector-padding-y) var(--ps-language-selector-padding-x);
+
+    /* Visual */
+    background: var(--ps-language-selector-bg);
+    border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
+    border-radius: var(--ps-language-selector-border-radius);
+    box-shadow: var(--ps-language-selector-dropdown-shadow);
+
+    /* Reset list */
     list-style: none;
-    background: var(--white);
-    border: var(--border-size-2) solid var(--border-default);
-    border-radius: var(--radius-2);
-    box-shadow: var(--shadow-2);
-    z-index: var(--layer-important);
+
+    /* Hidden state */
+    &[hidden] {
+      display: none;
+    }
   }
 
-  .ps-language-selector__option {
-    display: block;
-    padding: var(--size-2) var(--size-3);
-    color: var(--neutral);
-    text-decoration: none;
-    border-radius: var(--radius-1);
-    transition: all var(--duration-fast) var(--ease-4);
+  &__option {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    gap: var(--ps-language-selector-gap);
+    padding: 0;
+    cursor: pointer;
+
+    /* Spacing between options */
+    &:not(:last-child) {
+      margin-bottom: var(--ps-language-selector-option-gap);
+    }
+
+    /* States */
+    &:hover:not([aria-disabled="true"]) {
+      background: var(--ps-language-selector-hover-bg);
+    }
+
+    &[aria-selected="true"] {
+      background: var(--ps-language-selector-selected-bg);
+      font-weight: var(--font-weight-600); /* Semibold for selection */
+    }
+
+    &[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: var(--ps-language-selector-disabled-opacity);
+    }
+
+    &:focus-visible {
+      outline: var(--ps-language-selector-focus-outline-width) solid var(--ps-language-selector-focus-outline-color);
+      outline-offset: var(--ps-language-selector-focus-outline-offset);
+    }
   }
 
-  .ps-language-selector__option:hover {
-    background-color: var(--gray-100);
-    color: var(--neutral-hover);
+  &__native {
+    /* Hidden by default - visible if JS disabled */
+    display: none;
+
+    /* Fallback if JS disabled */
+    .no-js & {
+      display: block;
+      width: 100%;
+      padding: var(--ps-language-selector-padding-y) var(--ps-language-selector-padding-x);
+      border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
+      font: inherit;
+    }
   }
 
-  .ps-language-selector__option--active {
-    background-color: var(--primary);
-    color: var(--white);
-    font-weight: var(--font-weight-600);
+  /* ============================================
+     MODIFIERS - SIZES (Layer 3 Overrides)
+     Standardized system: xs, sm (default), md, lg, xl, xxl
+     ============================================ */
+
+  &--xs {
+    --ps-language-selector-padding-y: 2px;
+    --ps-language-selector-padding-x: var(--size-2); /* 8px */
+    --ps-language-selector-height: var(--size-6); /* 24px */
+    --ps-language-selector-font-size: var(--font-size-1); /* 12px */
+    --ps-language-selector-icon-size: var(--size-4); /* 16px */
+  }
+
+  &--sm {
+    /* Default - already defined in Layer 2 */
+    /* 4px × 12px, height 36px, font 14px */
+  }
+
+  &--md {
+    --ps-language-selector-padding-y: var(--size-2); /* 8px */
+    --ps-language-selector-padding-x: var(--size-4); /* 16px */
+    --ps-language-selector-height: var(--size-10); /* 40px */
+    --ps-language-selector-font-size: var(--font-size-4); /* 16px */
+  }
+
+  &--lg {
+    --ps-language-selector-padding-y: var(--size-3); /* 12px */
+    --ps-language-selector-padding-x: var(--size-5); /* 20px */
+    --ps-language-selector-height: var(--size-12); /* 48px */
+    --ps-language-selector-font-size: var(--font-size-5); /* 18px */
+    --ps-language-selector-icon-size: var(--size-6); /* 24px */
+  }
+
+  &--xl {
+    --ps-language-selector-padding-y: var(--size-4); /* 16px */
+    --ps-language-selector-padding-x: var(--size-6); /* 24px */
+    --ps-language-selector-height: var(--size-14); /* 56px */
+    --ps-language-selector-font-size: var(--font-size-6); /* 20px */
+    --ps-language-selector-icon-size: var(--size-7); /* 28px */
+  }
+
+  &--xxl {
+    --ps-language-selector-padding-y: var(--size-5); /* 20px */
+    --ps-language-selector-padding-x: var(--size-8); /* 32px */
+    --ps-language-selector-height: var(--size-16); /* 64px */
+    --ps-language-selector-font-size: var(--font-size-7); /* 24px */
+    --ps-language-selector-icon-size: var(--size-8); /* 32px */
+  }
+
+  /* ============================================
+     MODIFIERS - VARIANTS (Layer 3 Overrides)
+     Semantic colors: primary, secondary, success, danger, warning, info
+     ============================================ */
+
+  &--primary {
+    --ps-language-selector-border-color: var(--primary);
+    --ps-language-selector-color: var(--primary);
+    --ps-language-selector-focus-outline-color: var(--primary);
+  }
+
+  &--secondary {
+    --ps-language-selector-border-color: var(--secondary);
+    --ps-language-selector-color: var(--secondary);
+    --ps-language-selector-focus-outline-color: var(--secondary);
+  }
+
+  &--success {
+    --ps-language-selector-border-color: var(--success);
+    --ps-language-selector-color: var(--success);
+    --ps-language-selector-focus-outline-color: var(--success);
+  }
+
+  &--danger {
+    --ps-language-selector-border-color: var(--danger);
+    --ps-language-selector-color: var(--danger);
+    --ps-language-selector-focus-outline-color: var(--danger);
+  }
+
+  &--warning {
+    --ps-language-selector-border-color: var(--warning);
+    --ps-language-selector-color: var(--warning);
+    --ps-language-selector-focus-outline-color: var(--warning);
+  }
+
+  &--info {
+    --ps-language-selector-border-color: var(--info);
+    --ps-language-selector-color: var(--info);
+    --ps-language-selector-focus-outline-color: var(--info);
+  }
+
+  /* ============================================
+     MODIFIERS - STATES
+     ============================================ */
+
+  &--disabled {
+    pointer-events: none;
+    opacity: var(--ps-language-selector-disabled-opacity);
   }
 }

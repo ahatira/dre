@@ -75,3 +75,12 @@ dropdown:
     - core/once
     - ps_theme/vendors
 
+language-selector:
+  js:
+    dist/js/language-selector.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+

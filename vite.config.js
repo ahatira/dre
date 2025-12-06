@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite';
+import path, { join } from 'node:path';
 import yml from '@modyfi/vite-plugin-yaml';
-import twig from 'vite-plugin-twig-drupal';
-import { join } from 'node:path';
-import path from 'node:path';
 import { glob } from 'glob';
+import { defineConfig } from 'vite';
+import twig from 'vite-plugin-twig-drupal';
 
 export default defineConfig({
   plugins: [
@@ -35,7 +34,9 @@ export default defineConfig({
         };
         const files = glob.sync('source/patterns/**/*.js', { nodir: true });
         for (const file of files) {
-          const rel = path.relative(path.resolve(__dirname, 'source/patterns'), path.resolve(__dirname, file)).replace(/\\/g, '/');
+          const rel = path
+            .relative(path.resolve(__dirname, 'source/patterns'), path.resolve(__dirname, file))
+            .replace(/\\/g, '/');
           // Exclusions: storybook stories, test/spec files, and internal build helpers
           if (
             rel.includes('stories.') ||
@@ -58,14 +59,15 @@ export default defineConfig({
           // Preserve original subfolder by prefixing fonts/ and using original name including subpath
           if (/\.(woff2?|ttf|eot|otf|svg)$/.test(assetInfo.name)) {
             // assetInfo.name may include subfolders like BNPPSans/BNPPSans-Bold.woff2
-            return (assetInfo.name ? `fonts/${assetInfo.name}` : 'fonts/[name][extname]');
+            return assetInfo.name ? `fonts/${assetInfo.name}` : 'fonts/[name][extname]';
           }
-            // Emit CSS bundles under css/
-            return 'css/[name][extname]';
+          // Emit CSS bundles under css/
+          return 'css/[name][extname]';
         },
         entryFileNames: 'js/[name].js',
         // Shared vendor chunk to avoid duplication. Each component library should depend on ps_theme/vendors.
-        chunkFileNames: (chunkInfo) => (chunkInfo.name === 'vendors' ? 'js/vendors/[name].js' : 'js/[name].js'),
+        chunkFileNames: (chunkInfo) =>
+          chunkInfo.name === 'vendors' ? 'js/vendors/[name].js' : 'js/[name].js',
         manualChunks: (id) => (id.includes('node_modules') ? 'vendors' : undefined),
       },
     },

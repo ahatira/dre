@@ -8,41 +8,26 @@ Version: 1.0.0
 ---
 
 ## Description
-Bibliothèque complète d'icônes structurée en 13 catégories **documentaires** (organisation uniquement) :
-- **Generic** : Flèches, checkbox, search, edit, close, calendrier, validation, etc.
-- **Ad/Annonce** : Accessibilité, équipement, structure, favoris, hôte, parking, transport, etc.
-- **Blog** : Events, derniers articles, marché, tendances, témoignage
-- **Categories** : Compte, acheter/louer, marché capital, confier un bien, conseil
-- **Metropole** : Quartier, médaille
-- **Mobile-only** : Menu hamburger, touch
-- **Recherche** : Comparateur, créer alerte, drag & drop, liste, sélectionner zone carte
-- **Social Media** : Facebook, LinkedIn, Mail, Twitter, Youtube
-- **Tools** : Espace ouvert, parties communes
-- **Tutoffice** : Next, pause, play, previous
-- **Univers** : Bureaux, commerces, coworking, entrepôts logistiques, locaux d'activité, terrain
-- **Styles** : 4 couleurs (dark grey, light grey, green, white) × 4 états (default, disabled, hover, selected)
-- **Group 1** : Autres icônes génériques
+Système d'icônes basé sur un **sprite SVG généré automatiquement** depuis `source/icons-source/*.svg` (139 icônes actuelles). Les catégories Figma sont documentaires uniquement ; la référence reste le `name` unique (ex: `search`, `pin`, `facebook`).
 
-**Note** : Les catégories sont documentaires uniquement. L'icône est référencée par son `name` unique.
-
-D'après l'inventaire Figma, 2000+ occurrences au total.
+- **Source**: fichiers SVG dans `source/icons-source/` (hors du publicDir, non copiés en production).
+- **Sprite**: généré par `npm run icons:build` → `source/assets/icons/icons-sprite.svg` (copié vers `dist/icons/`).
+- **Inventaire**: `icons-list.json` généré automatiquement pour Storybook.
 
 ## BEM
 ```
 ps-icon
   ps-icon__svg
+  ps-icon__fallback (optionnel, icon-font)
   
 Modificateurs taille:
-  ps-icon--small | --medium | --large | --xlarge
+  ps-icon--xs | --sm | --md | --lg | --xl | --xxl
   
-Modificateurs style:
-  ps-icon--stroke | --fill
+Modificateurs style (couleur):
+  ps-icon--default | --primary | --secondary | --success | --warning | --danger | --info
   
 Modificateurs état:
-  ps-icon--default | --disabled | --hover | --selected
-  
-Modificateurs couleur:
-  ps-icon--dark-grey | --light-grey | --green | --white
+  ps-icon--disabled
 ```
 
 ## API (YAML)
@@ -57,28 +42,23 @@ props:
     name:
       type: string
       title: Icône
-      description: Nom unique de l'icône (ex: arrow-right, pin-map, facebook, fav-filled)
+      description: Nom unique (ex: search, pin, facebook)
     size:
-      type: number
-      enum: [16,20,24,32]
-      default: 24
-    state:
       type: string
-      enum: ['default','disabled','hover','selected']
-      default: 'default'
-      description: État visuel de l'icône
-    colorVariant:
-      type: string
-      enum: ['dark-grey','light-grey','green','white']
-      default: 'dark-grey'
-      description: Variante de couleur (UI spec)
+      enum: ['xs','sm','md','lg','xl','xxl']
+      default: 'md'
     color:
       type: string
-      title: Couleur CSS custom
-      description: Surcharge la colorVariant si fourni
+      enum: ['default','primary','secondary','success','warning','danger','info']
+      default: 'default'
+      description: Couleur sémantique (currentColor)
+    disabled:
+      type: boolean
+      default: false
+      description: État visuel désactivé (opacity)
     ariaLabel:
       type: string
-      title: Label accessibilité
+      title: Label accessibilité (requis pour icônes informatives)
   required: ['name']
 ```
 
@@ -87,17 +67,20 @@ props:
 {# @ps_theme/ps-icon/ps-icon.twig #}
 {% set classes = [
   'ps-icon',
-  size == 16 ? 'ps-icon--small' : (size == 20 ? 'ps-icon--medium' : (size == 32 ? 'ps-icon--xlarge' : 'ps-icon--large')),
-  state ? 'ps-icon--' ~ state,
-  colorVariant ? 'ps-icon--' ~ colorVariant
+  size != 'md' ? 'ps-icon--' ~ size : null,
+  color != 'default' ? 'ps-icon--' ~ color : null,
+  disabled ? 'ps-icon--disabled' : null
 ] %}
-<svg {{ attributes.addClass(classes) }} width="{{ size }}" height="{{ size }}" aria-label="{{ ariaLabel }}" role="img" fill="currentColor" style="{{ color ? 'color: ' ~ color }}">
-  <use href="#icon-{{ name }}" />
-</svg>
+<span class="{{ classes|join(' ')|trim }}"{% if ariaLabel %} role="img" aria-label="{{ ariaLabel }}"{% else %} aria-hidden="true"{% endif %}>
+  <svg class="ps-icon__svg" focusable="false" aria-hidden="true">
+    <use href="/icons/icons-sprite.svg#icon-{{ name }}"></use>
+  </svg>
+</span>
 ```
 
 ## Variants
-- **Taille**: 16/20/24/32px
+- **Taille**: xs (10px), sm (16px), md (20px), lg (24px), xl (32px), xxl (48px)
+- **Couleur**: default, primary, secondary, success, warning, danger, info
 - **Style**: stroke/fill
 - **États** (UI spec):
   - `default`: État normal

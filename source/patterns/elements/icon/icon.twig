@@ -1,12 +1,24 @@
-{# Icon (Atom) using global icon font via data-icon #}
-{# Props: name (required), size: xs|sm|md|lg|xl|xxl (default md), color: default|primary|secondary|success|warning|danger|info (default 'default'), disabled (bool), ariaLabel (string) #}
-{% set name = name|default('search') %}
-{% set size = size|default('md') %}
-{% set color = color|default('default') %}
-{% set disabled = disabled|default(false) %}
-{% set baseClass = baseClass|default(null) %}
+{#
+ * Icon (Element/Atom)
+ * @param string name - Icon name (required, without "icon-" prefix)
+ * @param string size - xs|sm|md|lg|xl|xxl (optional, default: md)
+ * @param string color - default|primary|secondary|success|warning|danger|info (optional, default: default)
+ * @param bool disabled - Disabled state (optional, default: false)
+ * @param string ariaLabel - Accessibility label for informative icons (optional)
+ * @param string baseClass - Override BEM block for composition (optional)
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
 
-{% set classes = baseClass ? [
+{%- set name = name|default('search') -%}
+{%- set size = size|default('md') -%}
+{%- set color = color|default('default') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set baseClass = baseClass|default(null) -%}
+{%- set iconId = 'icon-' ~ name -%}
+
+{%- set svgClass = baseClass ? baseClass ~ '__svg ps-icon__svg' : 'ps-icon__svg' -%}
+
+{%- set classes = baseClass ? [
   baseClass,
   size != 'md' ? baseClass ~ '--' ~ size : null,
   color != 'default' ? baseClass ~ '--' ~ color : null,
@@ -16,8 +28,10 @@
   size != 'md' ? 'ps-icon--' ~ size : null,
   color != 'default' ? 'ps-icon--' ~ color : null,
   disabled ? 'ps-icon--disabled' : null
-] %}
+] -%}
 
-<span class="{{ classes|join(' ')|trim }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}>
-  <span class="ps-icon__icon" data-icon="{{ name }}"></span>
+<span class="{{ classes|join(' ')|trim }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}{% if attributes %} {{ attributes }}{% endif %}>
+  <svg class="{{ svgClass }}" focusable="false" aria-hidden="true">
+    <use href="/icons/icons-sprite.svg#{{ iconId }}"></use>
+  </svg>
 </span>

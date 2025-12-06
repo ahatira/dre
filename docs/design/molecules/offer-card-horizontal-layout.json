@@ -30,12 +30,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "18:942",
-      "18:949",
-      "18:1008",
-      "234:1088"
-    ],
+    "childrenIds": ["18:942", "18:949", "18:1008", "234:1088"],
     "typography": {
       "textSample": "Products cards",
       "fontFamily": "BNPP Sans",
@@ -74,9 +69,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "18:943"
-    ],
+    "childrenIds": ["18:943"],
     "typography": {
       "textSample": "Products cards",
       "fontFamily": "BNPP Sans",
@@ -115,11 +108,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "18:944",
-      "18:945",
-      "18:948"
-    ],
+    "childrenIds": ["18:944", "18:945", "18:948"],
     "typography": {
       "textSample": "Products cards",
       "fontFamily": "BNPP Sans",
@@ -160,14 +149,9 @@
       "borderRadius": 0
     },
     "effects": {
-      "dropShadow": [
-        "rgba(0, 0, 0, 0.07999999821186066) 0px 8px 24px"
-      ]
+      "dropShadow": ["rgba(0, 0, 0, 0.07999999821186066) 0px 8px 24px"]
     },
-    "childrenIds": [
-      "101:1185",
-      "101:1188"
-    ],
+    "childrenIds": ["101:1185", "101:1188"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -206,9 +190,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2113"
-    ]
+    "childrenIds": ["251:2113"]
   },
   {
     "id": "251:2113",
@@ -241,9 +223,7 @@
       "borderRadius": 360
     },
     "effects": {},
-    "childrenIds": [
-      "251:2114"
-    ]
+    "childrenIds": ["251:2114"]
   },
   {
     "id": "251:2114",
@@ -274,9 +254,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2114;6:3451"
-    ]
+    "childrenIds": ["I251:2114;6:3451"]
   },
   {
     "id": "I251:2114;6:3451",
@@ -307,9 +285,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2114;6:3451;0:2246"
-    ]
+    "childrenIds": ["I251:2114;6:3451;0:2246"]
   },
   {
     "id": "101:1188",
@@ -340,10 +316,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "101:1189",
-      "101:1197"
-    ],
+    "childrenIds": ["101:1189", "101:1197"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -382,10 +355,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "101:1190",
-      "101:1191"
-    ],
+    "childrenIds": ["101:1190", "101:1191"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -424,10 +394,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "101:1192",
-      "101:1194"
-    ],
+    "childrenIds": ["101:1192", "101:1194"],
     "typography": {
       "textSample": "Product title",
       "fontFamily": "BNPP Sans",
@@ -466,9 +433,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "101:1193"
-    ],
+    "childrenIds": ["101:1193"],
     "typography": {
       "textSample": "Product title",
       "fontFamily": "BNPP Sans",
@@ -507,10 +472,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "101:1195",
-      "101:1196"
-    ],
+    "childrenIds": ["101:1195", "101:1196"],
     "typography": {
       "textSample": "Location",
       "fontFamily": "Open Sans",
@@ -549,9 +511,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I101:1195;6:3339"
-    ]
+    "childrenIds": ["I101:1195;6:3339"]
   },
   {
     "id": "I101:1195;6:3339",
@@ -582,9 +542,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I101:1195;6:3339;0:2674"
-    ]
+    "childrenIds": ["I101:1195;6:3339;0:2674"]
   },
   {
     "id": "101:1197",
@@ -615,10 +573,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I101:1197;10:6197",
-      "I101:1197;10:6198"
-    ],
+    "childrenIds": ["I101:1197;10:6197", "I101:1197;10:6198"],
     "typography": {
       "textSample": "Consulter l’annonce",
       "fontFamily": "BNPP Sans",
@@ -657,9 +612,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I101:1197;10:6198;6:3271"
-    ]
+    "childrenIds": ["I101:1197;10:6198;6:3271"]
   },
   {
     "id": "I101:1197;10:6198;6:3271",
@@ -690,9 +643,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I101:1197;10:6198;6:3271;0:2572"
-    ]
+    "childrenIds": ["I101:1197;10:6198;6:3271;0:2572"]
   },
   {
     "id": "251:2119",
@@ -725,14 +676,9 @@
       "borderRadius": 0
     },
     "effects": {
-      "dropShadow": [
-        "rgba(0, 0, 0, 0.07999999821186066) 0px 8px 24px"
-      ]
+      "dropShadow": ["rgba(0, 0, 0, 0.07999999821186066) 0px 8px 24px"]
     },
-    "childrenIds": [
-      "251:2120",
-      "251:2123"
-    ],
+    "childrenIds": ["251:2120", "251:2123"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -771,9 +717,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2121"
-    ]
+    "childrenIds": ["251:2121"]
   },
   {
     "id": "251:2121",
@@ -806,9 +750,7 @@
       "borderRadius": 360
     },
     "effects": {},
-    "childrenIds": [
-      "251:2122"
-    ]
+    "childrenIds": ["251:2122"]
   },
   {
     "id": "251:2122",
@@ -839,9 +781,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2122;6:3451"
-    ]
+    "childrenIds": ["I251:2122;6:3451"]
   },
   {
     "id": "I251:2122;6:3451",
@@ -872,9 +812,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2122;6:3451;0:2246"
-    ]
+    "childrenIds": ["I251:2122;6:3451;0:2246"]
   },
   {
     "id": "251:2123",
@@ -905,10 +843,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2124",
-      "251:2132"
-    ],
+    "childrenIds": ["251:2124", "251:2132"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -947,10 +882,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2125",
-      "251:2126"
-    ],
+    "childrenIds": ["251:2125", "251:2126"],
     "typography": {
       "textSample": "Price • m2",
       "fontFamily": "BNPP Sans",
@@ -989,10 +921,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2127",
-      "251:2129"
-    ],
+    "childrenIds": ["251:2127", "251:2129"],
     "typography": {
       "textSample": "Product title",
       "fontFamily": "BNPP Sans",
@@ -1031,9 +960,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2128"
-    ],
+    "childrenIds": ["251:2128"],
     "typography": {
       "textSample": "Product title",
       "fontFamily": "BNPP Sans",
@@ -1072,10 +999,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "251:2130",
-      "251:2131"
-    ],
+    "childrenIds": ["251:2130", "251:2131"],
     "typography": {
       "textSample": "Location",
       "fontFamily": "Open Sans",
@@ -1114,9 +1038,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2130;6:3339"
-    ]
+    "childrenIds": ["I251:2130;6:3339"]
   },
   {
     "id": "I251:2130;6:3339",
@@ -1147,9 +1069,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2130;6:3339;0:2674"
-    ]
+    "childrenIds": ["I251:2130;6:3339;0:2674"]
   },
   {
     "id": "251:2132",
@@ -1180,10 +1100,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2132;10:6197",
-      "I251:2132;10:6198"
-    ],
+    "childrenIds": ["I251:2132;10:6197", "I251:2132;10:6198"],
     "typography": {
       "textSample": "Consulter l’annonce",
       "fontFamily": "BNPP Sans",
@@ -1222,9 +1139,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2132;10:6198;6:3271"
-    ]
+    "childrenIds": ["I251:2132;10:6198;6:3271"]
   },
   {
     "id": "I251:2132;10:6198;6:3271",
@@ -1255,9 +1170,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I251:2132;10:6198;6:3271;0:2572"
-    ]
+    "childrenIds": ["I251:2132;10:6198;6:3271;0:2572"]
   },
   {
     "id": "203:2170",
@@ -1292,10 +1205,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2095",
-      "203:2101"
-    ],
+    "childrenIds": ["203:2095", "203:2101"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -1334,11 +1244,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2096",
-      "203:2097",
-      "203:2099"
-    ]
+    "childrenIds": ["203:2096", "203:2097", "203:2099"]
   },
   {
     "id": "203:2097",
@@ -1371,9 +1277,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2098"
-    ]
+    "childrenIds": ["203:2098"]
   },
   {
     "id": "203:2098",
@@ -1404,9 +1308,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2098;6:3255"
-    ]
+    "childrenIds": ["I203:2098;6:3255"]
   },
   {
     "id": "I203:2098;6:3255",
@@ -1437,9 +1339,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2098;6:3255;0:2560"
-    ]
+    "childrenIds": ["I203:2098;6:3255;0:2560"]
   },
   {
     "id": "203:2099",
@@ -1472,9 +1372,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2100"
-    ]
+    "childrenIds": ["203:2100"]
   },
   {
     "id": "203:2100",
@@ -1505,9 +1403,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2100;6:3251"
-    ]
+    "childrenIds": ["I203:2100;6:3251"]
   },
   {
     "id": "I203:2100;6:3251",
@@ -1538,9 +1434,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2100;6:3251;0:2558"
-    ]
+    "childrenIds": ["I203:2100;6:3251;0:2558"]
   },
   {
     "id": "203:2101",
@@ -1571,11 +1465,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2102",
-      "203:2109",
-      "203:2116"
-    ],
+    "childrenIds": ["203:2102", "203:2109", "203:2116"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -1614,10 +1504,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2103",
-      "203:2106"
-    ],
+    "childrenIds": ["203:2103", "203:2106"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -1656,10 +1543,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2104",
-      "203:2105"
-    ],
+    "childrenIds": ["203:2104", "203:2105"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -1700,11 +1584,7 @@
       "borderRadius": 16
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2104;137:982",
-      "I203:2104;137:983",
-      "I203:2104;137:984"
-    ],
+    "childrenIds": ["I203:2104;137:982", "I203:2104;137:983", "I203:2104;137:984"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -1743,9 +1623,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2104;137:982;134:1308"
-    ]
+    "childrenIds": ["I203:2104;137:982;134:1308"]
   },
   {
     "id": "I203:2104;137:984",
@@ -1776,9 +1654,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2104;137:984;6:3299"
-    ]
+    "childrenIds": ["I203:2104;137:984;6:3299"]
   },
   {
     "id": "I203:2104;137:984;6:3299",
@@ -1809,9 +1685,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2104;137:984;6:3299;0:2619"
-    ]
+    "childrenIds": ["I203:2104;137:984;6:3299;0:2619"]
   },
   {
     "id": "203:2105",
@@ -1844,11 +1718,7 @@
       "borderRadius": 16
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2105;137:982",
-      "I203:2105;137:983",
-      "I203:2105;137:984"
-    ],
+    "childrenIds": ["I203:2105;137:982", "I203:2105;137:983", "I203:2105;137:984"],
     "typography": {
       "textSample": "Exclusivity",
       "fontFamily": "BNPP Sans",
@@ -1887,9 +1757,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2105;137:982;6:3299"
-    ]
+    "childrenIds": ["I203:2105;137:982;6:3299"]
   },
   {
     "id": "I203:2105;137:982;6:3299",
@@ -1920,9 +1788,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2105;137:982;6:3299;0:2619"
-    ]
+    "childrenIds": ["I203:2105;137:982;6:3299;0:2619"]
   },
   {
     "id": "I203:2105;137:984",
@@ -1953,9 +1819,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2105;137:984;6:3299"
-    ]
+    "childrenIds": ["I203:2105;137:984;6:3299"]
   },
   {
     "id": "I203:2105;137:984;6:3299",
@@ -1986,9 +1850,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2105;137:984;6:3299;0:2619"
-    ]
+    "childrenIds": ["I203:2105;137:984;6:3299;0:2619"]
   },
   {
     "id": "203:2106",
@@ -2019,10 +1881,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2107",
-      "203:2108"
-    ]
+    "childrenIds": ["203:2107", "203:2108"]
   },
   {
     "id": "203:2107",
@@ -2053,9 +1912,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2107;6:3221"
-    ]
+    "childrenIds": ["I203:2107;6:3221"]
   },
   {
     "id": "I203:2107;6:3221",
@@ -2086,9 +1943,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2107;6:3221;0:2763"
-    ]
+    "childrenIds": ["I203:2107;6:3221;0:2763"]
   },
   {
     "id": "203:2108",
@@ -2119,9 +1974,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2108;6:3447"
-    ]
+    "childrenIds": ["I203:2108;6:3447"]
   },
   {
     "id": "I203:2108;6:3447",
@@ -2152,9 +2005,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2108;6:3447;0:2242"
-    ]
+    "childrenIds": ["I203:2108;6:3447;0:2242"]
   },
   {
     "id": "203:2109",
@@ -2185,11 +2036,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2110",
-      "203:2112",
-      "203:2113"
-    ],
+    "childrenIds": ["203:2110", "203:2112", "203:2113"],
     "typography": {
       "textSample": "Rent Offices MADRID Barrio de Chamberí",
       "fontFamily": "BNPP Sans",
@@ -2228,9 +2075,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2111"
-    ],
+    "childrenIds": ["203:2111"],
     "typography": {
       "textSample": "Rent Offices MADRID Barrio de Chamberí",
       "fontFamily": "BNPP Sans",
@@ -2269,10 +2114,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2114",
-      "203:2115"
-    ],
+    "childrenIds": ["203:2114", "203:2115"],
     "typography": {
       "textSample": "28010 MADRID",
       "fontFamily": "BNPP Sans",
@@ -2311,9 +2153,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2114;6:3339"
-    ]
+    "childrenIds": ["I203:2114;6:3339"]
   },
   {
     "id": "I203:2114;6:3339",
@@ -2344,9 +2184,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2114;6:3339;0:2674"
-    ]
+    "childrenIds": ["I203:2114;6:3339;0:2674"]
   },
   {
     "id": "203:2116",
@@ -2377,10 +2215,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "203:2117",
-      "203:2118"
-    ],
+    "childrenIds": ["203:2117", "203:2118"],
     "typography": {
       "textSample": "20 000 € HT/HC/m2/an",
       "lineHeight": 24,
@@ -2416,10 +2251,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2118;10:6197",
-      "I203:2118;10:6198"
-    ],
+    "childrenIds": ["I203:2118;10:6197", "I203:2118;10:6198"],
     "typography": {
       "textSample": "View the property",
       "fontFamily": "BNPP Sans",
@@ -2458,9 +2290,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2118;10:6198;6:3271"
-    ]
+    "childrenIds": ["I203:2118;10:6198;6:3271"]
   },
   {
     "id": "I203:2118;10:6198;6:3271",
@@ -2491,9 +2321,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I203:2118;10:6198;6:3271;0:2572"
-    ]
+    "childrenIds": ["I203:2118;10:6198;6:3271;0:2572"]
   },
   {
     "id": "234:1290",
@@ -2528,10 +2356,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1215",
-      "234:1221"
-    ],
+    "childrenIds": ["234:1215", "234:1221"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -2570,11 +2395,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1216",
-      "234:1217",
-      "234:1219"
-    ]
+    "childrenIds": ["234:1216", "234:1217", "234:1219"]
   },
   {
     "id": "234:1217",
@@ -2607,9 +2428,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1218"
-    ]
+    "childrenIds": ["234:1218"]
   },
   {
     "id": "234:1218",
@@ -2640,9 +2459,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1218;6:3255"
-    ]
+    "childrenIds": ["I234:1218;6:3255"]
   },
   {
     "id": "I234:1218;6:3255",
@@ -2673,9 +2490,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1218;6:3255;0:2560"
-    ]
+    "childrenIds": ["I234:1218;6:3255;0:2560"]
   },
   {
     "id": "234:1219",
@@ -2708,9 +2523,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1220"
-    ]
+    "childrenIds": ["234:1220"]
   },
   {
     "id": "234:1220",
@@ -2741,9 +2554,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1220;6:3251"
-    ]
+    "childrenIds": ["I234:1220;6:3251"]
   },
   {
     "id": "I234:1220;6:3251",
@@ -2774,9 +2585,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1220;6:3251;0:2558"
-    ]
+    "childrenIds": ["I234:1220;6:3251;0:2558"]
   },
   {
     "id": "234:1221",
@@ -2807,11 +2616,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1222",
-      "234:1229",
-      "234:1236"
-    ],
+    "childrenIds": ["234:1222", "234:1229", "234:1236"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -2850,10 +2655,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1223",
-      "234:1226"
-    ],
+    "childrenIds": ["234:1223", "234:1226"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -2892,10 +2694,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1224",
-      "234:1225"
-    ],
+    "childrenIds": ["234:1224", "234:1225"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -2936,11 +2735,7 @@
       "borderRadius": 16
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1224;137:982",
-      "I234:1224;137:983",
-      "I234:1224;137:984"
-    ],
+    "childrenIds": ["I234:1224;137:982", "I234:1224;137:983", "I234:1224;137:984"],
     "typography": {
       "textSample": "Already viewed",
       "fontFamily": "BNPP Sans",
@@ -2979,9 +2774,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1224;137:982;134:1308"
-    ]
+    "childrenIds": ["I234:1224;137:982;134:1308"]
   },
   {
     "id": "I234:1224;137:984",
@@ -3012,9 +2805,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1224;137:984;6:3299"
-    ]
+    "childrenIds": ["I234:1224;137:984;6:3299"]
   },
   {
     "id": "I234:1224;137:984;6:3299",
@@ -3045,9 +2836,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1224;137:984;6:3299;0:2619"
-    ]
+    "childrenIds": ["I234:1224;137:984;6:3299;0:2619"]
   },
   {
     "id": "234:1225",
@@ -3080,11 +2869,7 @@
       "borderRadius": 16
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1225;137:982",
-      "I234:1225;137:983",
-      "I234:1225;137:984"
-    ],
+    "childrenIds": ["I234:1225;137:982", "I234:1225;137:983", "I234:1225;137:984"],
     "typography": {
       "textSample": "Exclusivity",
       "fontFamily": "BNPP Sans",
@@ -3123,9 +2908,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1225;137:982;6:3299"
-    ]
+    "childrenIds": ["I234:1225;137:982;6:3299"]
   },
   {
     "id": "I234:1225;137:982;6:3299",
@@ -3156,9 +2939,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1225;137:982;6:3299;0:2619"
-    ]
+    "childrenIds": ["I234:1225;137:982;6:3299;0:2619"]
   },
   {
     "id": "I234:1225;137:984",
@@ -3189,9 +2970,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1225;137:984;6:3299"
-    ]
+    "childrenIds": ["I234:1225;137:984;6:3299"]
   },
   {
     "id": "I234:1225;137:984;6:3299",
@@ -3222,9 +3001,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1225;137:984;6:3299;0:2619"
-    ]
+    "childrenIds": ["I234:1225;137:984;6:3299;0:2619"]
   },
   {
     "id": "234:1226",
@@ -3255,10 +3032,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1227",
-      "234:1228"
-    ]
+    "childrenIds": ["234:1227", "234:1228"]
   },
   {
     "id": "234:1227",
@@ -3289,9 +3063,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1227;6:3221"
-    ]
+    "childrenIds": ["I234:1227;6:3221"]
   },
   {
     "id": "I234:1227;6:3221",
@@ -3322,9 +3094,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1227;6:3221;0:2763"
-    ]
+    "childrenIds": ["I234:1227;6:3221;0:2763"]
   },
   {
     "id": "234:1228",
@@ -3355,9 +3125,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1228;6:3447"
-    ]
+    "childrenIds": ["I234:1228;6:3447"]
   },
   {
     "id": "I234:1228;6:3447",
@@ -3388,9 +3156,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1228;6:3447;0:2242"
-    ]
+    "childrenIds": ["I234:1228;6:3447;0:2242"]
   },
   {
     "id": "234:1229",
@@ -3421,11 +3187,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1230",
-      "234:1232",
-      "234:1233"
-    ],
+    "childrenIds": ["234:1230", "234:1232", "234:1233"],
     "typography": {
       "textSample": "Rent Offices MADRID Barrio de Chamberí",
       "fontFamily": "BNPP Sans",
@@ -3464,9 +3226,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1231"
-    ],
+    "childrenIds": ["234:1231"],
     "typography": {
       "textSample": "Rent Offices MADRID Barrio de Chamberí",
       "fontFamily": "BNPP Sans",
@@ -3505,10 +3265,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1234",
-      "234:1235"
-    ],
+    "childrenIds": ["234:1234", "234:1235"],
     "typography": {
       "textSample": "28010 MADRID",
       "fontFamily": "BNPP Sans",
@@ -3547,9 +3304,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1234;6:3339"
-    ]
+    "childrenIds": ["I234:1234;6:3339"]
   },
   {
     "id": "I234:1234;6:3339",
@@ -3580,9 +3335,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1234;6:3339;0:2674"
-    ]
+    "childrenIds": ["I234:1234;6:3339;0:2674"]
   },
   {
     "id": "234:1236",
@@ -3613,10 +3366,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "234:1237",
-      "234:1238"
-    ],
+    "childrenIds": ["234:1237", "234:1238"],
     "typography": {
       "textSample": "20 000 € HT/HC/m2/an",
       "lineHeight": 24,
@@ -3652,10 +3402,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1238;10:6197",
-      "I234:1238;10:6198"
-    ],
+    "childrenIds": ["I234:1238;10:6197", "I234:1238;10:6198"],
     "typography": {
       "textSample": "View the property",
       "fontFamily": "BNPP Sans",
@@ -3694,9 +3441,7 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1238;10:6198;6:3271"
-    ]
+    "childrenIds": ["I234:1238;10:6198;6:3271"]
   },
   {
     "id": "I234:1238;10:6198;6:3271",
@@ -3727,8 +3472,6 @@
       "borderRadius": 0
     },
     "effects": {},
-    "childrenIds": [
-      "I234:1238;10:6198;6:3271;0:2572"
-    ]
+    "childrenIds": ["I234:1238;10:6198;6:3271;0:2572"]
   }
 ]
