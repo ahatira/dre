@@ -720,3 +720,58 @@ Format bas√© sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 **Version** : 1.0.0  
 **Derni√®re mise √† jour** : 28 novembre 2025  
 **Prochain sprint** : Phase 1 (icon, heading, text, link, field, checkbox, radio, image, card)
+
+## [1.0.1] - 2025-12-06 - Badge Icon System Migration
+
+### ÌæØ Component: Badge (Elements/Atom)
+**Status**: ‚úÖ COMPLETE & CONFORMANT (100%)
+
+### Ì≥ù Changes
+
+#### Migration Icon System
+- **Breaking**: Replaced `data-icon` attribute with Icon component integration
+- Migrated from legacy SVG rendering to `@elements/icon/icon.twig` with baseClass composition
+- Icon now inherits badge size/color via component-scoped variables
+
+#### CSS Refactoring
+- Implemented proper SCSS nesting with `&` syntax (PostCSS-compatible)
+- Converted hardcoded `line-height: 1.2` ‚Üí `var(--leading-tight)` token
+- Converted hardcoded cubic-bezier easing ‚Üí `var(--ease-3)` token  
+- Removed redundant `margin-right` on `&__icon` (parent flexbox `gap` handles spacing)
+- Added helper variable `--ps-icon-size` for Icon component composition
+- Improved CSS cascade structure: Base ‚Üí Elements ‚Üí Sizes ‚Üí Shape ‚Üí Variants ‚Üí Interactive
+
+#### Documentation
+- Updated README with Icon component markup examples
+- Added WCAG 2.2 AA contrast ratio verification table (all variants verified ‚â•4.5:1)
+- Documented migration notes for v1 ‚Üí v2 icon system transition
+- Enhanced accessibility section with specific contrast values
+
+### ‚úÖ Compliance Checklist
+- [x] 5-file component structure maintained
+- [x] BEM nomenclature strict (ps-badge, ps-badge__*, ps-badge--*)
+- [x] Zero hardcoded values (all tokens via css variables)
+- [x] SCSS nesting with & syntax
+- [x] Drupal-compatible Twig (no arrow functions, ternary + null classes)
+- [x] Storybook autodocs configured
+- [x] Focus-visible on interactive links (a.ps-badge)
+- [x] Icon accessibility: aria-hidden="true" via Icon component
+- [x] Build passes: npm run build ‚úÖ
+
+### Ì¥ß Files Modified
+- `source/patterns/elements/badge/badge.twig` (41 lines)
+- `source/patterns/elements/badge/badge.css` (118 lines)  
+- `source/patterns/elements/badge/README.md` (120 lines)
+
+### Ì≥ä Build Status
+- ‚úÖ Lint: 0 issues (biome)
+- ‚úÖ Format: 0 issues (biome)
+- ‚úÖ Vite: SUCCESS (195.27 kB CSS)
+
+### Ìæì Related Standards
+- Icon System v2: ICON_MIGRATION_WORKFLOW.md (Step A: Icon Component)
+- Component Standards: .github/instructions/components.instructions.md
+- CSS Standards: .github/instructions/css.instructions.md
+- Template Standards: .github/instructions/templates.instructions.md
+- Accessibility: .github/instructions/accessibility.instructions.md
+

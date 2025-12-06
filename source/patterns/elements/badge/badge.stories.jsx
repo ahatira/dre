@@ -29,7 +29,7 @@ export default {
     },
     icon: {
       control: 'select',
-      options: ['', ...iconsList.categories.generic],
+      options: ['', ...iconsList.all],
       description: 'Optional icon name (without "icon-" prefix).',
       table: {
         category: 'Content',
@@ -133,9 +133,9 @@ export const AllShapes = {
 export const WithIcons = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
-      ${component({ color: 'info', text: 'Location', icon: 'pin-map' })}
+      ${component({ color: 'info', text: 'Location', icon: 'pin' })}
       ${component({ color: 'success', text: 'Calendar', icon: 'calendar', pill: true })}
-      ${component({ color: 'gold', text: 'Exclusive', icon: 'medal', pill: true })}
+      ${component({ color: 'gold', text: 'Exclusive', icon: 'award', pill: true })}
       ${component({ color: 'primary', text: 'Verified', icon: 'check' })}
     </div>
   `,
@@ -146,7 +146,7 @@ export const AsLinks = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
       ${component({ color: 'primary', text: 'Link badge', url: '#' })}
-      ${component({ color: 'info', text: 'Learn more', icon: 'infos', url: '#', pill: true })}
+      ${component({ color: 'info', text: 'Learn more', icon: 'info', url: '#', pill: true })}
       ${component({ color: 'secondary', text: 'Discover', url: '#' })}
     </div>
   `,
@@ -160,14 +160,14 @@ export const UseCases = {
         <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Status badges</h4>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${component({ color: 'success', text: 'Available', icon: 'check' })}
-          ${component({ color: 'warning', text: 'Pending', icon: 'help' })}
+          ${component({ color: 'warning', text: 'Pending', icon: 'info' })}
           ${component({ color: 'danger', text: 'Sold', icon: 'close' })}
         </div>
       </div>
       <div>
         <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Property features</h4>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${component({ color: 'gold', text: 'Exclusive', icon: 'medal', pill: true })}
+          ${component({ color: 'gold', text: 'Exclusive', icon: 'award', pill: true })}
           ${component({ color: 'info', text: 'New', pill: true })}
           ${component({ color: 'secondary', text: 'Premium', pill: true })}
         </div>
@@ -176,7 +176,7 @@ export const UseCases = {
         <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Interactive labels</h4>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${component({ color: 'primary', text: 'View details', url: '#' })}
-          ${component({ color: 'info', text: 'Learn more', icon: 'infos', url: '#', pill: true })}
+          ${component({ color: 'info', text: 'Learn more', icon: 'info', url: '#', pill: true })}
         </div>
       </div>
     </div>

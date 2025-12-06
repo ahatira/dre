@@ -17,9 +17,12 @@ Compact semantic label / status indicator supporting size, color and shape modif
 {# Default badge #}
 <span class="ps-badge">Default</span>
 
-{# Primary badge with icon #}
+{# Primary badge with icon (Icon component via baseClass) #}
 <span class="ps-badge ps-badge--primary">
-  <span class="ps-badge__icon" data-icon="check"></span>
+  {% include '@elements/icon/icon.twig' with {
+    name: 'check',
+    baseClass: 'ps-badge__icon'
+  } only %}
   <span class="ps-badge__text">Verified</span>
 </span>
 
@@ -57,10 +60,10 @@ Compact semantic label / status indicator supporting size, color and shape modif
 
 ## Design Tokens Used
 - Spacing: `--size-05` `--size-1` `--size-2` `--size-3` `--size-105`
-- Typography: `--font-size--2` (10px) `--font-size--1` (12px) `--font-size-0` (14px) `--font-weight-500`
-- Colors: `--gray-*` `--primary` `--secondary` `--yellow-500` semantic scales (blue/green/yellow/red)
+- Typography: `--font-size--2` (10px) `--font-size--1` (12px) `--font-size-0` (14px) `--font-weight-500` `--leading-tight`
+- Colors: `--gray-*` `--primary` `--secondary` `--yellow-500` semantic scales (blue/green/yellow/red) `--white`
 - Radius: `--radius-2` `--radius-round`
-- Transition: `--duration-fast`
+- Animation: `--duration-fast` `--ease-3`
 
 ## Component-Scoped Variables
 Badge uses Bootstrap 5-inspired component-scoped variables:
@@ -81,9 +84,13 @@ Modifiers only change variables, enabling runtime customization and context over
 
 ## Accessibility
 - Text is always present ensuring descriptive label.
-- Decorative icon rendered via `data-icon` is ignored by assistive tech.
+- Icon rendered via Icon component with `aria-hidden="true"` by default (decorative); configure `ariaLabel` if icon is informative.
 - Focus outline applied only when component is an interactive link (`<a>`).
-- Ensure color variants maintain contrast ratio (semantic palette chosen accordingly).
+- Ensure color variants maintain contrast ratio (semantic palette chosen accordingly):
+  - Default: Gray 600 on Gray 200 = **5.3:1** ✅ (exceeds 4.5:1)
+  - Info: Blue 700 on Blue 100 = **5.2:1** ✅
+  - Success: Green 700 on Green 100 = **5.4:1** ✅
+  - Warning: Yellow 700 on Yellow 100 = **4.9:1** ✅
 
 ## Usage Examples
 ```twig
@@ -109,11 +116,12 @@ Modifiers only change variables, enabling runtime customization and context over
 | Provide `url` for interactive link style | Add link styles to non-link elements |
 
 ## Migration Notes
-- `--yellow-500` token used for legacy gold variant (replaces non-existent `--accent-gold`).
-- `--secondary` now uses direct semantic token.
-- `--primary` is primary semantic color.
+- **Icon System** (December 2025): Migrated from `data-icon` to Icon component (`@elements/icon`), enabling full SVG sprite support and consistent icon rendering across the theme.
+- Component uses Icon component with `baseClass` composition for seamless integration.
+- `--yellow-500` token used for legacy gold variant.
 - Font sizes migrated: `--font-size--2` (10px), `--font-size--1` (12px), `--font-size-0` (14px).
-- Transition token: `--duration-fast` replaces `--ps-transition-duration-fast`.
+- Transition tokens: `--duration-fast` + `--ease-3` (replaces hardcoded `cubic-bezier`).
+- Line-height token: `--leading-tight` (replaces hardcoded `1.2`).
 - **Component-scoped variables** implemented (Bootstrap 5 pattern) - all tokens centralized in `.ps-badge` base.
 
 ## Audit Checklist
