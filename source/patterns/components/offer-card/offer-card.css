@@ -1,9 +1,9 @@
 /**
  * Offer Card - Specialized styles for real estate offer cards
- * 
+ *
  * Extends the generic Card component with offer-specific styling.
  * All layout/container styles are inherited from ps-card.
- * 
+ *
  * BEM Structure:
  * - .ps-offer-card__header (badges + actions)
  * - .ps-offer-card__badges (left side)
@@ -16,16 +16,120 @@
  * - .ps-offer-card__meta (location list)
  * - .ps-offer-card__footer (price + CTA)
  * - .ps-offer-card__price (price text)
+ *
+ * Component-scoped variables pattern (3-layer CSS architecture)
+ * Layer 1: Global tokens (source/props/*.css)
+ * Layer 2: Component-scoped variables (root scope, customizable)
+ * Layer 3: Context overrides (selectors, states, variants)
  */
 
+@layer components {
+
 .ps-offer-card {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Override these for customization
+     ============================================ */
+
+  /* Header: Badges + Actions */
+  --ps-offer-card-header-height: var(--size-6);
+  --ps-offer-card-badges-gap: var(--size-2);
+  --ps-offer-card-actions-gap: var(--size-3);
+
+  /* Badge: Styling */
+  --ps-offer-card-badge-height: var(--size-6);
+  --ps-offer-card-badge-padding-y: var(--size-2);
+  --ps-offer-card-badge-padding-x: var(--size-3);
+  --ps-offer-card-badge-gap: var(--size-2);
+  --ps-offer-card-badge-radius: var(--radius-6);
+  --ps-offer-card-badge-font-family: var(--font-sans);
+  --ps-offer-card-badge-font-size: var(--font-size-0);
+  --ps-offer-card-badge-font-weight: var(--font-weight-400);
+  --ps-offer-card-badge-line-height: var(--leading-6);
+
+  /* Badge Variant: Viewed */
+  --ps-offer-card-badge-viewed-bg: var(--gray-100);
+  --ps-offer-card-badge-viewed-color: var(--gray-700);
+
+  /* Badge Variant: Gold (Exclusivity) */
+  --ps-offer-card-badge-gold-bg: var(--yellow-500);
+  --ps-offer-card-badge-gold-color: var(--white);
+
+  /* Badge Icon */
+  --ps-offer-card-badge-icon-size: var(--size-3);
+
+  /* Action Button */
+  --ps-offer-card-action-size: var(--size-6);
+  --ps-offer-card-action-color: var(--gray-500);
+  --ps-offer-card-action-hover-color: var(--primary);
+  --ps-offer-card-action-active-color: var(--red-600);
+  --ps-offer-card-action-active-hover-color: var(--red-700);
+  --ps-offer-card-action-focus-outline: var(--border-size-2) solid var(--blue-600);
+  --ps-offer-card-action-focus-offset: var(--border-size-2);
+  --ps-offer-card-action-focus-radius: 0;
+  --ps-offer-card-action-transition: color var(--duration-fast) var(--ease-out-1);
+
+  /* Body: Layout */
+  --ps-offer-card-body-gap: var(--size-6);
+
+  /* Title: Typography */
+  --ps-offer-card-title-font-family: var(--font-sans);
+  --ps-offer-card-title-font-size: var(--font-size-1);
+  --ps-offer-card-title-font-weight: var(--font-weight-400);
+  --ps-offer-card-title-line-height: var(--leading-6);
+  --ps-offer-card-title-color: var(--text-primary);
+
+  /* Surface Area: Typography */
+  --ps-offer-card-surface-font-family: var(--font-sans);
+  --ps-offer-card-surface-font-size: var(--font-size-1);
+  --ps-offer-card-surface-font-weight: var(--font-weight-700);
+  --ps-offer-card-surface-line-height: var(--leading-6);
+  --ps-offer-card-surface-color: var(--text-primary);
+
+  /* Meta: Location list */
+  --ps-offer-card-meta-gap: var(--size-2);
+  --ps-offer-card-meta-item-gap: var(--size-2);
+  --ps-offer-card-meta-font-family: var(--font-sans);
+  --ps-offer-card-meta-font-size: var(--font-size-0);
+  --ps-offer-card-meta-font-weight: var(--font-weight-400);
+  --ps-offer-card-meta-line-height: var(--leading-6);
+  --ps-offer-card-meta-color: var(--text-secondary);
+  --ps-offer-card-meta-icon-size: var(--size-4);
+
+  /* Footer: Layout */
+  --ps-offer-card-footer-gap: var(--size-3);
+  --ps-offer-card-footer-height: var(--size-6);
+
+  /* Price: Typography */
+  --ps-offer-card-price-font-family: var(--font-sans);
+  --ps-offer-card-price-font-size: var(--font-size-2);
+  --ps-offer-card-price-font-weight: var(--font-weight-700);
+  --ps-offer-card-price-line-height: var(--leading-6);
+  --ps-offer-card-price-color: var(--text-primary);
+
+  /* CTA Link: Color */
+  --ps-offer-card-cta-color: var(--primary);
+
+  /* Action Buttons: Semantic colors */
+  --ps-offer-card-action-compare-color: var(--gray-500);
+  --ps-offer-card-action-favorite-color: var(--secondary);
+
+  /* Media Carousel: Navigation buttons */
+  --ps-offer-card-media-nav-size: var(--size-8);
+  --ps-offer-card-media-nav-bg: var(--white);
+  --ps-offer-card-media-nav-color: var(--gray-700);
+  --ps-offer-card-media-nav-shadow: var(--shadow-2);
+
+  /* Horizontal Layout: Sizing */
+  --ps-offer-card-horizontal-image-width: 34%;
+  --ps-offer-card-horizontal-image-min-height: calc(var(--size-52) + var(--size-1));
   /* Header: Badges + Actions */
   &__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    height: 24px;
+    align-items: center;
+    height: var(--ps-offer-card-header-height);
   }
 
   /* Badges container (left) */
@@ -34,7 +138,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: var(--size-2); /* 8px */
+    gap: var(--ps-offer-card-badges-gap);
     flex: 1;
   }
 
@@ -42,39 +146,39 @@
   &__badge {
     display: flex;
     align-items: center;
-    padding: var(--size-2) var(--size-3);
-    gap: var(--size-2);
-    height: var(--size-6);
-    border-radius: var(--radius-4);
-    font-family: var(--font-sans);
-    font-size: var(--font-size-0);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-6);
+    padding: var(--ps-offer-card-badge-padding-y) var(--ps-offer-card-badge-padding-x);
+    gap: var(--ps-offer-card-badge-gap);
+    height: var(--ps-offer-card-badge-height);
+    border-radius: var(--ps-offer-card-badge-radius);
+    font-family: var(--ps-offer-card-badge-font-family);
+    font-size: var(--ps-offer-card-badge-font-size);
+    font-weight: var(--ps-offer-card-badge-font-weight);
+    line-height: var(--ps-offer-card-badge-line-height);
 
     &--viewed {
-      background: var(--offer-badge-viewed-bg);
-      color: var(--offer-badge-viewed-text);
+      background: var(--ps-offer-card-badge-viewed-bg);
+      color: var(--ps-offer-card-badge-viewed-color);
     }
 
     &--gold {
-      background: var(--offer-badge-gold-bg);
-      color: var(--white);
+      background: var(--ps-offer-card-badge-gold-bg);
+      color: var(--ps-offer-card-badge-gold-color);
     }
   }
 
   &__badge-icon {
     display: inline-flex;
-    width: var(--size-3);
-    height: var(--size-3);
+    width: var(--ps-offer-card-badge-icon-size);
+    height: var(--ps-offer-card-badge-icon-size);
   }
 
   /* Actions container (right) */
   &__actions {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: var(--size-3);
-    height: var(--size-6);
+    align-items: center;
+    gap: var(--ps-offer-card-actions-gap);
+    height: var(--ps-offer-card-header-height);
   }
 
   /* Action button */
@@ -82,31 +186,41 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--size-6);
-    height: var(--size-6);
+    width: var(--ps-offer-card-action-size);
+    height: var(--ps-offer-card-action-size);
     padding: 0;
     background: none;
     border: none;
-    color: var(--offer-text-muted);
+    color: var(--ps-offer-card-action-color);
     cursor: pointer;
-    transition: color var(--ps-transition-duration-fast) var(--ease-out-1);
+    transition: var(--ps-offer-card-action-transition);
 
     &:hover {
-      color: var(--primary);
+      color: var(--ps-offer-card-action-hover-color);
     }
 
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--blue-600);
-      outline-offset: var(--border-size-2);
-      border-radius: var(--radius-1);
+      outline: var(--ps-offer-card-action-focus-outline);
+      outline-offset: var(--ps-offer-card-action-focus-offset);
+      border-radius: var(--ps-offer-card-action-focus-radius);
     }
 
+    /* Support for .active class (toggle state via data-ps-toggle="button") */
+    &.active,
     &--active {
-      color: var(--offer-action-active);
+      color: var(--ps-offer-card-action-active-color);
 
       &:hover {
-        color: var(--offer-action-active-hover);
+        color: var(--ps-offer-card-action-active-hover-color);
       }
+    }
+
+    &--compare {
+      color: var(--ps-offer-card-action-compare-color);
+    }
+
+    &--favorite {
+      color: var(--ps-offer-card-action-favorite-color);
     }
   }
 
@@ -114,34 +228,34 @@
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--ps-offer-card-body-gap);
   }
 
   /* Title */
   &__title {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: var(--font-size-1);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-6);
-    color: var(--offer-text-default);
+    font-family: var(--ps-offer-card-title-font-family);
+    font-size: var(--ps-offer-card-title-font-size);
+    font-weight: var(--ps-offer-card-title-font-weight);
+    line-height: var(--ps-offer-card-title-line-height);
+    color: var(--ps-offer-card-title-color);
   }
 
   /* Surface area */
   &__surface {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: var(--font-size-1);
-    font-weight: var(--font-weight-700);
-    line-height: var(--leading-6);
-    color: var(--offer-text-default);
+    font-family: var(--ps-offer-card-surface-font-family);
+    font-size: var(--ps-offer-card-surface-font-size);
+    font-weight: var(--ps-offer-card-surface-font-weight);
+    line-height: var(--ps-offer-card-surface-line-height);
+    color: var(--ps-offer-card-surface-color);
   }
 
   /* Meta list (location) */
   &__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-4);
+    gap: var(--ps-offer-card-meta-gap);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -150,19 +264,19 @@
   &__meta-item {
     display: flex;
     align-items: center;
-    gap: var(--size-2);
-    font-family: var(--font-sans);
-    font-size: var(--font-size-0);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-6);
-    color: var(--offer-text-muted);
+    gap: var(--ps-offer-card-meta-item-gap);
+    font-family: var(--ps-offer-card-meta-font-family);
+    font-size: var(--ps-offer-card-meta-font-size);
+    font-weight: var(--ps-offer-card-meta-font-weight);
+    line-height: var(--ps-offer-card-meta-line-height);
+    color: var(--ps-offer-card-meta-color);
   }
 
   &__meta-icon {
     display: inline-flex;
-    width: var(--size-4);
-    height: var(--size-4);
-    color: var(--offer-text-muted);
+    width: var(--ps-offer-card-meta-icon-size);
+    height: var(--ps-offer-card-meta-icon-size);
+    color: var(--ps-offer-card-meta-color);
   }
 
   /* Footer section */
@@ -172,16 +286,106 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: var(--size-2);
-    height: var(--size-6);
+    gap: var(--ps-offer-card-footer-gap);
+    height: var(--ps-offer-card-footer-height);
   }
 
   /* Price */
   &__price {
-    font-family: var(--font-sans);
-    font-size: var(--font-size-3);
-    font-weight: var(--font-weight-700);
-    line-height: var(--leading-6);
-    color: var(--offer-text-default);
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--size-1);
+    font-family: var(--ps-offer-card-price-font-family);
+    color: var(--ps-offer-card-price-color);
   }
+
+  &__price-amount {
+    font-size: var(--ps-offer-card-price-font-size);
+    font-weight: var(--ps-offer-card-price-font-weight);
+    line-height: var(--ps-offer-card-price-line-height);
+  }
+
+  &__price-details {
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-6);
+  }
+
+  /* Media carousel shell */
+  &__media {
+    position: relative;
+  }
+
+  &__media-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--ps-offer-card-media-nav-size);
+    height: var(--ps-offer-card-media-nav-size);
+    border-radius: 50%;
+    border: none;
+    background: var(--ps-offer-card-media-nav-bg);
+    color: var(--ps-offer-card-media-nav-color);
+    box-shadow: var(--ps-offer-card-media-nav-shadow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: color var(--duration-fast) var(--ease-3), transform var(--duration-fast) var(--ease-3);
+
+    &:hover {
+      transform: translateY(-50%) scale(1.04);
+      color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--secondary);
+      outline-offset: var(--border-size-2);
+    }
+
+    &--prev {
+      left: var(--size-4);
+    }
+
+    &--next {
+      right: var(--size-4);
+    }
+  }
+
+  /* ============================================
+     Card Container Adjustments
+     ============================================ */
+
+  /* Base card border styling for offer variant */
+  .ps-offer-card .ps-card {
+    border-width: var(--border-size-15);
+    border-color: var(--border-light);
+  }
+
+  /* Horizontal layout: Side-by-side image and content */
+  .ps-offer-card .ps-card--horizontal {
+    min-height: var(--ps-offer-card-horizontal-image-min-height);
+
+    .ps-card__image {
+      flex: 0 0 var(--ps-offer-card-horizontal-image-width);
+      max-width: var(--ps-offer-card-horizontal-image-width);
+      min-height: var(--ps-offer-card-horizontal-image-min-height);
+    }
+
+    .ps-card__content {
+      flex: 1 1 auto;
+      min-height: var(--ps-offer-card-horizontal-image-min-height);
+    }
+
+    .ps-offer-card__body {
+      gap: 0;
+    }
+
+    .ps-offer-card__footer {
+      gap: var(--ps-offer-card-footer-gap);
+    }
+  }
+}
+
 }
