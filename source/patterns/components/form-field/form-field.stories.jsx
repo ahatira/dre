@@ -260,6 +260,43 @@ export const WithIcon = {
 };
 
 /**
+ * Accessibility: helper vs. error linkage (aria-describedby / aria-errormessage)
+ */
+export const AccessibilityIds = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
+      <div>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-1); color: var(--gray-700);">Helper linked to input</h3>
+        ${formFieldTwig({
+          id: 'field-helper-demo',
+          label: 'Username',
+          helperText: 'Use 6-20 characters, no spaces.',
+          field: {
+            type: 'text',
+            placeholder: 'your-name',
+          },
+        })}
+      </div>
+
+      <div>
+        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-1); color: var(--gray-700);">Error linked to input</h3>
+        ${formFieldTwig({
+          id: 'field-error-demo',
+          label: 'Email',
+          field: {
+            type: 'email',
+            value: 'invalid-email',
+            placeholder: 'example@domain.com',
+          },
+          error: 'Veuillez saisir une adresse email valide.',
+          required: true,
+        })}
+      </div>
+    </div>
+  `,
+};
+
+/**
  * Different Field Types - Text, Email, Number, Textarea
  */
 export const AllFieldTypes = {

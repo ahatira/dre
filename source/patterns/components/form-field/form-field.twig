@@ -25,6 +25,7 @@
 {%- set error = error|default('') -%}
 {%- set required = required|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
 {# Merge disabled state from form-field to field #}
 {%- if disabled -%}
@@ -35,20 +36,16 @@
 {# Just add ps-field--error class for styling the input border #}
 
 {# Build wrapper classes - only add modifiers when value differs from default #}
-{%- set classes = ['ps-form-field'] -%}
-{%- if required -%}
-  {%- set classes = classes|merge(['ps-form-field--required']) -%}
-{%- endif -%}
-{%- if error -%}
-  {%- set classes = classes|merge(['ps-form-field--error']) -%}
-{%- endif -%}
-{%- if disabled -%}
-  {%- set classes = classes|merge(['ps-form-field--disabled']) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-form-field',
+  required ? 'ps-form-field--required' : null,
+  error ? 'ps-form-field--error' : null,
+  disabled ? 'ps-form-field--disabled' : null,
+] -%}
 
 <div
   class="{{ classes|join(' ')|trim }}"
-  {% if attributes %}{{ attributes }}{% endif %}
+  {{ attributes }}
 >
   {%- if label -%}
     {% include '@elements/label/label.twig' with {
@@ -61,12 +58,20 @@
   {%- endif -%}
 
   <div class="ps-form-field__input-wrapper">
-    {# Pass through field props to ps-field atom, add ID for label association #}
-    {# If error exists, pass hideError: true to prevent field from rendering error message #}
-    {% set fieldProps = field|merge({ 
-      attributes: create_attribute({ 'id': id }),
-      hideError: error ? true : false
+    {# Pass through field props to ps-field atom with proper aria/linking #}
+    {%- set helper_id = helperText and not error ? id ~ '-helper' : null -%}
+    {%- set error_id = error ? id ~ '-error' : null -%}
+    {%- set described_by = error ? error_id : helper_id -%}
+
+    {% set fieldProps = field|merge({
+      id: id,
+      error: error,
+      hideError: true,
+      describedBy: described_by,
+      errorId: error_id,
+      helperId: helper_id,
     }) %}
+
     {% include '@elements/field/field.twig' with fieldProps %}
   </div>
 

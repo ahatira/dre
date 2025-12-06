@@ -6,6 +6,10 @@
  * @param string value - Field value (optional)
  * @param string placeholder - Placeholder text (optional)
  * @param boolean disabled - Disabled state (default: false)
+ * @param string id - Input ID (optional, recommended for label association)
+ * @param string describedBy - ID used for aria-describedby on input (optional)
+ * @param string errorId - ID for error message (default: `${id}-error` when id is provided)
+ * @param string helperId - ID for helper/description (optional)
  * @param string error - Error message to display (optional, sets aria-invalid and ps-field--error class)
  * @param boolean hideError - Hide error message rendering (optional, default: false, used by form-field parent)
  * @param boolean done - Success/validated state (default: false, shows green border)
@@ -18,12 +22,20 @@
 {%- set value = value|default('') -%}
 {%- set placeholder = placeholder|default('') -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set id = id|default('') -%}
+{%- set describedBy = describedBy|default(null) -%}
+{%- set helperId = helperId|default(null) -%}
 {%- set error = error|default('') -%}
+{%- set errorId = errorId|default(id ? id ~ '-error' : 'field-error') -%}
 {%- set hideError = hideError|default(false) -%}
 {%- set done = done|default(false) -%}
 {%- set icon = icon|default('') -%}
 {%- set iconPosition = iconPosition|default('right') -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
+
+{%- set ariaDescribedby = describedBy ?? (error ? errorId : helperId) -%}
+{%- set ariaErrormessage = error and errorId ? errorId : null -%}
+{%- set resolvedErrorId = errorId ?? 'field-error' -%}
 
 {%- set classes = [
   'ps-field',
@@ -42,9 +54,12 @@
   {%- if type == 'textarea' -%}
     <textarea
       class="ps-field__input"
+      {% if id %}id="{{ id }}"{% endif %}
       placeholder="{{ placeholder }}"
       {% if disabled %}disabled aria-disabled="true"{% endif %}
-      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+      {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+      {% if ariaErrormessage %}aria-errormessage="{{ ariaErrormessage }}"{% endif %}
+      {% if error %}aria-invalid="true"{% endif %}
     >{{ value }}</textarea>
   {%- elseif type == 'select' -%}
     <div
@@ -52,17 +67,23 @@
       role="combobox"
       aria-expanded="false"
       aria-haspopup="listbox"
+      {% if id %}id="{{ id }}"{% endif %}
+      {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+      {% if ariaErrormessage %}aria-errormessage="{{ ariaErrormessage }}"{% endif %}
       {% if disabled %}aria-disabled="true"{% endif %}
-      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+      {% if error %}aria-invalid="true"{% endif %}
     >{{ value|default(placeholder) }}</div>
   {%- else -%}
     <input
       class="ps-field__input"
+      {% if id %}id="{{ id }}"{% endif %}
       type="{{ type }}"
       value="{{ value }}"
       placeholder="{{ placeholder }}"
       {% if disabled %}disabled aria-disabled="true"{% endif %}
-      {% if error %}aria-invalid="true" aria-describedby="field-error"{% endif %}
+      {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+      {% if ariaErrormessage %}aria-errormessage="{{ ariaErrormessage }}"{% endif %}
+      {% if error %}aria-invalid="true"{% endif %}
     />
   {%- endif -%}
 
@@ -71,6 +92,6 @@
   {%- endif -%}
 
   {%- if error and not hideError -%}
-    <div class="ps-field__error" id="field-error" role="alert">{{ error }}</div>
+    <div class="ps-field__error" id="{{ resolvedErrorId }}" role="alert">{{ error }}</div>
   {%- endif -%}
 </div>

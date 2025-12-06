@@ -1,94 +1,122 @@
 /* FormField (Molecule) - Complete form field with label, input, helper, and error message */
 
 .ps-form-field {
+  /* Layer 2: Component-scoped variables (override via modifiers/context) */
+  --ps-form-field-gap: var(--size-2);
+
+  --ps-form-field-label-font-family: var(--font-sans);
+  --ps-form-field-label-font-size: var(--font-size-0);
+  --ps-form-field-label-font-weight: var(--font-weight-600);
+  --ps-form-field-label-font-weight-focus: var(--font-weight-400);
+  --ps-form-field-label-color: var(--text-primary);
+  --ps-form-field-label-color-error: var(--danger);
+
+  --ps-form-field-helper-font-family: var(--font-sans);
+  --ps-form-field-helper-font-size: var(--font-size--1);
+  --ps-form-field-helper-font-weight: var(--font-weight-400);
+  --ps-form-field-helper-line-height: var(--leading-tight);
+  --ps-form-field-helper-color: var(--gray-600);
+  --ps-form-field-helper-margin-top: var(--size-1);
+
+  --ps-form-field-error-font-family: var(--font-sans);
+  --ps-form-field-error-font-size: var(--font-size--1);
+  --ps-form-field-error-font-weight: var(--font-weight-500);
+  --ps-form-field-error-line-height: var(--leading-snug);
+  --ps-form-field-error-color: var(--danger);
+  --ps-form-field-error-gap: var(--size-2);
+  --ps-form-field-error-icon-size: var(--size-4);
+  --ps-form-field-error-icon-offset: var(--size-1);
+  --ps-form-field-error-padding-y: var(--size-2);
+  --ps-form-field-error-padding-x: var(--size-3);
+  --ps-form-field-error-margin-top: calc(var(--size-1) * -1);
+  --ps-form-field-error-bg: color-mix(in srgb, var(--danger) 8%, transparent);
+  --ps-form-field-error-border-color: var(--danger);
+  --ps-form-field-error-border-width: var(--border-size-2);
+
+  --ps-form-field-disabled-opacity: 0.6;
+  --ps-form-field-disabled-color: var(--gray-500);
+
+  --ps-form-field-input-error-border: var(--danger);
+
   display: flex;
   flex-direction: column;
-  gap: var(--size-2); /* 8px gap between label, field, helper */
+  gap: var(--ps-form-field-gap);
   width: 100%;
 
-  /* Label (uses ps-label atom with form-field context overrides) */
   & .ps-form-field__label {
-    /* Override atom styles for form-field context */
-    font-size: var(--size-3); /* 12px */
-    font-weight: var(--font-weight-600); /* Bold */
-    margin-bottom: 0; /* Remove atom's default margin, use form-field gap */
-    color: var(--text-primary);
+    font-family: var(--ps-form-field-label-font-family);
+    font-size: var(--ps-form-field-label-font-size);
+    font-weight: var(--ps-form-field-label-font-weight);
+    margin-bottom: 0;
+    color: var(--ps-form-field-label-color);
   }
 
-  /* Input wrapper */
   & .ps-form-field__input-wrapper {
     display: flex;
     position: relative;
     width: 100%;
   }
 
-  /* Helper text */
   & .ps-form-field__helper {
-    margin-top: var(--size-1);
-    font-family: var(--font-sans);
-    font-size: var(--size-2); /* 11px, smaller than error */
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-tight);
-    color: var(--gray-600);
+    margin-top: var(--ps-form-field-helper-margin-top);
+    font-family: var(--ps-form-field-helper-font-family);
+    font-size: var(--ps-form-field-helper-font-size);
+    font-weight: var(--ps-form-field-helper-font-weight);
+    line-height: var(--ps-form-field-helper-line-height);
+    color: var(--ps-form-field-helper-color);
   }
 
-  /* Error message */
   & .ps-form-field__error {
     display: flex;
     align-items: flex-start;
-    gap: var(--size-2); /* Spacing between icon and text */
-    margin-top: var(--size-2); /* Add top margin for spacing */
-    padding: var(--size-2) var(--size-3); /* Add padding for better readability */
-    background-color: rgba(220, 38, 38, 0.05); /* Light red background (5% opacity) */
-    border-left: var(--border-2) solid var(--danger); /* Left accent bar */
-    font-family: var(--font-sans);
-    font-size: var(--size-3); /* 12px */
-    font-weight: var(--font-weight-500);
-    line-height: var(--leading-snug); /* Better line height */
-    color: var(--danger);
+    gap: var(--ps-form-field-error-gap);
+    margin-top: var(--ps-form-field-error-margin-top);
+    padding: var(--ps-form-field-error-padding-y) var(--ps-form-field-error-padding-x);
+    background-color: var(--ps-form-field-error-bg);
+    border-left: var(--ps-form-field-error-border-width) solid var(--ps-form-field-error-border-color);
+    font-family: var(--ps-form-field-error-font-family);
+    font-size: var(--ps-form-field-error-font-size);
+    font-weight: var(--ps-form-field-error-font-weight);
+    line-height: var(--ps-form-field-error-line-height);
+    color: var(--ps-form-field-error-color);
   }
 
   & .ps-form-field__error-icon {
     flex-shrink: 0;
-    width: var(--size-4); /* 16px */
-    height: var(--size-4);
-    margin-top: var(--size-1); /* Align with text */
+    width: var(--ps-form-field-error-icon-size);
+    height: var(--ps-form-field-error-icon-size);
+    margin-top: var(--ps-form-field-error-icon-offset);
   }
 
-  /* --error modifier (applied when error exists) */
   &.ps-form-field--error {
-    /* Style the ps-field input to show error state (red border) */
     & .ps-field {
-      --ps-field-border-color: var(--danger);
-      border-color: var(--danger);
+      --ps-field-border-color: var(--ps-form-field-input-error-border);
+      border-color: var(--ps-form-field-input-error-border);
     }
 
-    /* Style label in red */
     & .ps-label {
-      color: var(--danger);
+      color: var(--ps-form-field-label-color-error);
     }
   }
 
-  /* --disabled modifier */
   &.ps-form-field--disabled {
-    opacity: 0.6;
+    opacity: var(--ps-form-field-disabled-opacity);
     pointer-events: none;
     user-select: none;
 
     & .ps-label {
-      color: var(--gray-500);
+      color: var(--ps-form-field-disabled-color);
       cursor: not-allowed;
     }
 
     & .ps-form-field__helper {
-      color: var(--gray-500);
+      color: var(--ps-form-field-disabled-color);
     }
   }
 
-  /* Focus-within effect for better UX */
   &:focus-within:not(.ps-form-field--disabled):not(.ps-form-field--error) {
     & .ps-label {
-      font-weight: var(--font-weight-400);
+      font-weight: var(--ps-form-field-label-font-weight-focus);
     }
   }
 }

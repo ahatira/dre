@@ -48,27 +48,23 @@ Modifiers:
 └── ps-form-field--disabled             # Disabled state (reduced opacity, no pointer)
 ```
 
-## Design Tokens Used
+## Design Tokens and Layer 2 Variables
 
-### Spacing
-- `--size-1` (4px) - Gap before asterisk, gap in error message
-- `--size-2` (8px) - Vertical gap between label, field, helper
+### Layer 1 Tokens
+- Spacing: `--size-1`, `--size-2`, `--size-3`, `--size-4`
+- Typography: `--font-sans`, `--font-size-0`, `--font-size--1`, `--font-weight-400`, `--font-weight-500`, `--font-weight-600`, `--leading-tight`, `--leading-snug`
+- Colors: `--text-primary`, `--text-secondary`, `--gray-600`, `--gray-500`, `--danger`
+- Borders: `--border-size-2`
 
-### Typography
-- `--font-sans` - Font family for all text
-- `--font-size-0` (14px) - Label size
-- `--font-size-sm` (12px) - Helper and error text size
-- `--font-weight-400` - Regular weight for helper/error
-- `--font-weight-600` - Semi-bold weight for label
-- `--leading-4` (16px) - Line height for helper/error
-- `--leading-5` (20px) - Line height for label
+### Layer 2 (Component-Scoped) Defaults
+- `--ps-form-field-gap` (vertical spacing between label/field/helper)
+- `--ps-form-field-label-*` (font family/size/weight/color)
+- `--ps-form-field-helper-*` (font family/size/weight/line-height/color)
+- `--ps-form-field-error-*` (font, padding, gap, accent width/color, background via `color-mix`)
+- `--ps-form-field-disabled-*` (opacity, text color)
+- `--ps-form-field-input-error-border` (passes error border to `ps-field` atom)
 
-### Colors
-- `--gray-900` - Default label color
-- `--gray-600` - Helper text color
-- `--gray-500` - Disabled label/helper color
-- `--red-600` - Error text, required indicator, error label
-- `--blue-600` - Focus-within label color
+These variables can be overridden by modifiers (`--error`, `--disabled`) or external contexts while keeping Layer 1 tokens intact.
 
 ## Usage Examples
 
@@ -160,6 +156,7 @@ Modifiers:
 - Label uses `for` attribute connected to field `id`
 - Auto-generates unique ID if not provided
 - Screen readers announce label when field receives focus
+- Field input receives the same `id` plus `aria-describedby` pointing to helper or error and `aria-errormessage` when an error is present
 
 ### Required Fields
 - Visual asterisk indicator with `aria-label="required"`
