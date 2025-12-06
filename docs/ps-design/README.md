@@ -470,6 +470,54 @@ ps-card:
 
 ---
 
+## 🔄 Icon System Migration Guides
+
+**Status**: SVG sprite system implemented (December 2025)  
+**Task**: Update all elements using `data-icon` to use modern SVG sprite approach  
+**Documentation**: Three comprehensive guides available
+
+### Migration Documents
+
+1. **[ICON_MIGRATION_START.md](./ICON_MIGRATION_START.md)** - Quick start guide
+   - Entry point with workflow overview
+   - Recommended component order
+   - Key migration pattern
+   - **START HERE** ⬅️
+
+2. **[ICON_MIGRATION_WORKFLOW.md](./ICON_MIGRATION_WORKFLOW.md)** - Detailed strategy
+   - Overall migration strategy
+   - Step-by-step workflow template
+   - Drupal compatibility notes
+   - Testing procedures
+
+3. **[COMPONENT_PROMPTS.md](./COMPONENT_PROMPTS.md)** - Specific instructions
+   - 6 component-specific detailed prompts
+   - Before/after code examples
+   - Testing checklists
+   - Commit message templates
+
+### Components to Migrate
+
+| Priority | Component | Status | Guide |
+|----------|-----------|--------|-------|
+| 1 (Easy) | Badge | ⏳ Pending | [Prompt](#) |
+| 1 (Easy) | Divider | ⏳ Pending | [Prompt](#) |
+| 1 (Easy) | Eyebrow | ⏳ Pending | [Prompt](#) |
+| 2 (Medium) | Button | ⏳ Pending | [Prompt](#) |
+| 2 (Medium) | Link | ⏳ Pending | [Prompt](#) |
+| 3 (Complex) | Field | ⏳ Pending | [Prompt](#) |
+
+### Quick Start
+
+1. Open: `COMPONENT_PROMPTS.md`
+2. Find: **BADGE** section
+3. Follow: Step-by-step instructions
+4. Test: `npm run lint:check && npm run format:check`
+5. Commit: Use provided template
+6. Repeat: For each component
+
+---
+
 ## 🎯 Prochaines Étapes
 
 ### Sprint Actuel (Décembre 2025)
