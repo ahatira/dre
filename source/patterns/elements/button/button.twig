@@ -1,9 +1,9 @@
 {#
  * Button atom
  * @param string label - Button text (required)
- * @param string variant - primary|secondary|success|info|warning|danger (default: primary)
+ * @param string variant - primary|secondary|success|info|warning|danger|neutral (default: neutral)
  * @param boolean outline - Outline style (default: false)
- * @param string size - small|medium|large (default: medium)
+ * @param string size - xs|sm|md|lg|xl|xxl (default: md)
  * @param string url - Destination URL (optional)
  * @param string target - _self|_blank (default: _self)
  * @param string icon - Icon name (optional)
@@ -17,7 +17,7 @@
 
 {%- set variant = variant|default('neutral') -%}
 {%- set outline = outline|default(false) -%}
-{%- set size = size|default('medium') -%}
+{%- set size = size|default('md') -%}
 {%- set iconPosition = iconPosition|default('right') -%}
 {%- set target = target|default('_self') -%}
 {%- set disabled = disabled|default(false) -%}
@@ -31,10 +31,21 @@
 {%- set el_label = baseClass ~ '__label' -%}
 {%- set el_spinner = baseClass ~ '__spinner' -%}
 
+{#- Map button size to icon size -#}
+{%- set icon_size_map = {
+  'xs': 'sm',
+  'sm': 'sm',
+  'md': 'md',
+  'lg': 'lg',
+  'xl': 'lg',
+  'xxl': 'lg'
+} -%}
+{%- set icon_size = icon_size_map[size] ?? 'md' -%}
+
 {%- set classes = [
   baseClass,
   variant != 'neutral' ? baseClass ~ '--' ~ variant : null,
-  size != 'medium' ? baseClass ~ '--' ~ size : null,
+  size != 'md' ? baseClass ~ '--' ~ size : null,
   outline ? baseClass ~ '--outline' : null,
   (not label) ? baseClass ~ '--icon-only' : null,
   disabled ? baseClass ~ '--disabled' : null,
@@ -57,7 +68,13 @@
   {%- endif -%}
 
   {%- if icon and iconPosition == 'left' and label -%}
-    <span class="{{ el_icon }}" data-icon="{{ icon }}" aria-hidden="true"></span>
+    {% include '@elements/icon/icon.twig' with {
+      name: icon,
+      size: icon_size,
+      color: 'default',
+      ariaLabel: null,
+      baseClass: el_icon
+    } only %}
   {%- endif -%}
 
   {%- if label -%}
@@ -65,6 +82,12 @@
   {%- endif -%}
 
   {%- if icon and (iconPosition == 'right' or not label) -%}
-    <span class="{{ el_icon }}" data-icon="{{ icon }}" aria-hidden="true"></span>
+    {% include '@elements/icon/icon.twig' with {
+      name: icon,
+      size: icon_size,
+      color: 'default',
+      ariaLabel: null,
+      baseClass: el_icon
+    } only %}
   {%- endif -%}
 </{{ tag }}>

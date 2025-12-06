@@ -315,18 +315,30 @@
 }
 
 /* ============================================
-   LAYER 3: SIZES
+   LAYER 3: SIZES (xs, sm, md, lg, xl, xxl)
+   md = medium is default (36px height)
    ============================================ */
 
-.ps-button--small {
-  --ps-button-height: 2.12375rem;
+/* Extra-small: 28px height */
+.ps-button--xs {
+  --ps-button-height: var(--size-7);
+  --ps-button-padding-y: var(--size-05);
+  --ps-button-padding-x: var(--size-2);
+  --ps-button-font-size: var(--size-305);
+  --ps-button-line-height: 1.428;
+}
+
+/* Small: 32px height */
+.ps-button--sm {
+  --ps-button-height: var(--size-8);
   --ps-button-padding-y: var(--size-105);
   --ps-button-padding-x: var(--size-305);
   --ps-button-font-size: var(--size-305);
   --ps-button-line-height: 1.428;
 }
 
-.ps-button--medium {
+/* Medium (Default): 36px height */
+.ps-button--md {
   --ps-button-height: var(--size-9);
   --ps-button-padding-y: var(--size-2);
   --ps-button-padding-x: var(--size-4);
@@ -334,12 +346,31 @@
   --ps-button-line-height: 1.5;
 }
 
-.ps-button--large {
+/* Large: 40px height */
+.ps-button--lg {
   --ps-button-height: var(--size-10);
   --ps-button-padding-y: var(--size-205);
   --ps-button-padding-x: var(--size-5);
   --ps-button-font-size: var(--size-5);
   --ps-button-line-height: 1.444;
+}
+
+/* Extra-large: 44px height */
+.ps-button--xl {
+  --ps-button-height: var(--size-11);
+  --ps-button-padding-y: var(--size-305);
+  --ps-button-padding-x: var(--size-6);
+  --ps-button-font-size: var(--size-5);
+  --ps-button-line-height: 1.4;
+}
+
+/* Extra-extra-large: 48px height */
+.ps-button--xxl {
+  --ps-button-height: var(--size-12);
+  --ps-button-padding-y: var(--size-4);
+  --ps-button-padding-x: var(--size-6);
+  --ps-button-font-size: var(--size-6);
+  --ps-button-line-height: 1.333;
 }
 
 /* ============================================
@@ -364,22 +395,43 @@
     border-width: 0;
   }
 
-  &.ps-button--small {
+  &.ps-button--xs {
+    --ps-button-padding-y: var(--size-05);
+    --ps-button-padding-x: var(--size-05);
+
+    width: var(--size-7);
+  }
+
+  &.ps-button--sm {
     --ps-button-padding-y: var(--size-105);
     --ps-button-padding-x: var(--size-105);
 
-    width: 2.12375rem;
+    width: var(--size-8);
   }
 
-  &.ps-button--medium {
+  &.ps-button--md {
     width: var(--size-9);
   }
 
-  &.ps-button--large {
+  &.ps-button--lg {
     --ps-button-padding-y: var(--size-205);
     --ps-button-padding-x: var(--size-205);
 
     width: var(--size-10);
+  }
+
+  &.ps-button--xl {
+    --ps-button-padding-y: var(--size-305);
+    --ps-button-padding-x: var(--size-305);
+
+    width: var(--size-11);
+  }
+
+  &.ps-button--xxl {
+    --ps-button-padding-y: var(--size-4);
+    --ps-button-padding-x: var(--size-4);
+
+    width: var(--size-12);
   }
 }
 
@@ -420,8 +472,8 @@
 
     &::before {
       content: '';
-      width: 1rem;
-      height: 1rem;
+      width: var(--size-4);
+      height: var(--size-4);
       border: var(--border-size-2) solid var(--ps-button-spinner-color);
       border-top-color: transparent;
       border-radius: 50%;

@@ -2,12 +2,15 @@
 #
 # Available Props:
 # - label: string (required) - Button text
-# - variant: primary | secondary | success | info | warning | danger (default: primary)
+# - variant: neutral | primary | secondary | success | info | warning | danger (default: neutral)
 # - outline: boolean (default: false) - Border-only version
-# - size: small | medium | large (default: medium)
-#   * small: 34px height
-#   * medium: 36px height
-#   * large: 40px height
+# - size: xs | sm | md | lg | xl | xxl (default: md)
+#   * xs: 28px height (extra-small)
+#   * sm: 32px height (small)
+#   * md: 36px height (medium - default)
+#   * lg: 40px height (large)
+#   * xl: 44px height (extra-large)
+#   * xxl: 48px height (extra-extra-large)
 # - url: string - Destination URL (transforms to <a> link)
 # - target: _self | _blank (default: _self)
 # - icon: string - Icon name (see @elements/icon)
@@ -15,13 +18,17 @@
 # - disabled: boolean (default: false)
 # - loading: boolean (default: false)
 # - fullWidth: boolean (default: false)
+# - toggle: boolean (default: false) - Enable toggle state behavior
+# - active: boolean (default: false) - Pre-toggled state (requires toggle=true)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Neutral button (gray)
+# Default: Neutral button (gray) at medium size
 label: 'Button'
 variant: 'neutral'
 outline: false
-size: 'medium'
+size: 'md'
 disabled: false
 loading: false
 fullWidth: false
+toggle: false
+active: false

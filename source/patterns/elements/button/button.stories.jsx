@@ -27,7 +27,7 @@ export default {
     icon: {
       description: 'Icon name to display (optional)',
       control: { type: 'select' },
-      options: iconsList.categories.generic,
+      options: iconsList.all,
       table: {
         category: 'Content',
         type: { summary: 'string' },
@@ -65,13 +65,14 @@ export default {
       },
     },
     size: {
-      description: 'Button size (small: 34px, medium: 36px, large: 40px)',
+      description:
+        'Button size scale (xs: 28px, sm: 32px, md: 36px, lg: 40px, xl: 44px, xxl: 48px)',
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
-        type: { summary: 'small | medium | large' },
-        defaultValue: { summary: 'medium' },
+        type: { summary: 'xs | sm | md | lg | xl | xxl' },
+        defaultValue: { summary: 'md' },
       },
     },
     fullWidth: {
@@ -161,7 +162,7 @@ export const Default = {
   args: { ...data, variant: 'neutral' },
 };
 
-export const AllVariants = {
+export const Variants = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
       ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'].map((variant) => buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })).join('')}
@@ -169,7 +170,7 @@ export const AllVariants = {
   `,
 };
 
-export const AllOutlines = {
+export const Outlines = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
       ${[
@@ -194,10 +195,10 @@ export const AllOutlines = {
   `,
 };
 
-export const AllSizes = {
+export const Sizes = {
   render: () => `
-    <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${['small', 'medium', 'large'].map((size) => buttonTwig({ label: size.charAt(0).toUpperCase() + size.slice(1), variant: 'primary', size })).join('')}
+    <div style="display: flex; gap: var(--size-4); align-items: flex-end;">
+      ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].map((size) => buttonTwig({ label: size.toUpperCase(), variant: 'primary', size })).join('')}
     </div>
   `,
 };
@@ -207,7 +208,7 @@ export const WithIcons = {
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
       ${buttonTwig({ label: 'Search', variant: 'primary', icon: 'search', iconPosition: 'left' })}
       ${buttonTwig({ label: 'Next', variant: 'primary', icon: 'arrow-right', iconPosition: 'right' })}
-      ${buttonTwig({ icon: 'close', variant: 'primary', size: 'medium' })}
+      ${buttonTwig({ icon: 'close', variant: 'primary', size: 'md' })}
     </div>
   `,
 };
@@ -234,79 +235,55 @@ export const Disabled = {
   `,
 };
 
-export const CustomBaseClass = {
-  name: 'Custom Base Class (Advanced)',
-  render: () => `
-    <style>
-      .custom-action { padding: var(--size-3) var(--size-5); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; }
-      .custom-action:hover { background: var(--primary-hover); }
-      .custom-action__icon { margin-left: var(--size-2); }
-    </style>
-    <div style="display: flex; gap: var(--size-4); flex-direction: column;">
-      <p><strong>Default button:</strong></p>
-      ${buttonTwig({ label: 'Standard Button', variant: 'primary', icon: 'arrow-right' })}
-      <p><strong>With baseClass override (custom-action):</strong></p>
-      ${buttonTwig({ baseClass: 'custom-action', label: 'Custom Styled', icon: 'arrow-right' })}
-      <p><em>Note: baseClass is used by parent components (alert, modal, etc.) to fully control button styling via their own BEM classes.</em></p>
-    </div>
-  `,
-};
-
 export const Toggle = {
-  name: 'Toggle State',
+  name: 'Toggle',
   render: () => `
-    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
-        .map((variant) =>
-          buttonTwig({
-            label: variant.charAt(0).toUpperCase() + variant.slice(1),
-            variant,
-            icon: 'heart',
-            toggle: true,
-          })
-        )
-        .join('')}
+    <div style="display: flex; flex-direction: column; gap: var(--size-6);">
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-305); font-weight: var(--font-weight-bold); color: var(--gray-900);">Inactive State</h3>
+        <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+          ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
+            .map((variant) =>
+              buttonTwig({
+                label: variant.charAt(0).toUpperCase() + variant.slice(1),
+                variant,
+                icon: 'heart',
+                toggle: true,
+              })
+            )
+            .join('')}
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-305); font-weight: var(--font-weight-bold); color: var(--gray-900);">Active State (Pre-Toggled)</h3>
+        <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+          ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
+            .map((variant) =>
+              buttonTwig({
+                label: variant.charAt(0).toUpperCase() + variant.slice(1),
+                variant,
+                icon: 'heart',
+                toggle: true,
+                active: true,
+              })
+            )
+            .join('')}
+        </div>
+      </div>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Toggle button functionality with all color variants. Click to toggle .active class and aria-pressed attribute. Uses data-ps-toggle="button" behavior.',
+          'Toggle button functionality with all color variants. Click to toggle .active class and aria-pressed attribute. Includes both inactive and active states with all variants. Uses data-ps-toggle="button" behavior.',
       },
     },
   },
 };
 
-export const ToggleActive = {
-  name: 'Toggle State (Pre-Active)',
-  render: () => `
-    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
-      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
-        .map((variant) =>
-          buttonTwig({
-            label: variant.charAt(0).toUpperCase() + variant.slice(1),
-            variant,
-            icon: 'heart',
-            toggle: true,
-            active: true,
-          })
-        )
-        .join('')}
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Pre-toggled buttons (initial active state) with all variants. Renders with .active class and aria-pressed="true".',
-      },
-    },
-  },
-};
-
-export const ToggleIcon = {
-  name: 'Toggle Icon (Icon-Only Buttons)',
+export const ToggleIconsOnly = {
+  name: 'Toggle Icons Only',
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
       ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
@@ -314,9 +291,7 @@ export const ToggleIcon = {
           (variant) => `
         <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2);">
           <span style="font-size: var(--size-305); color: var(--gray-700);">${variant}</span>
-          <button class="ps-button ps-button--${variant} ps-button--icon-only" data-ps-toggle="button" aria-label="Toggle ${variant}" aria-pressed="false" style="width: var(--size-6); height: var(--size-6);">
-            <span class="ps-button__icon" data-icon="heart" aria-hidden="true"></span>
-          </button>
+          ${buttonTwig({ icon: 'heart', variant, toggle: true, label: '' })}
         </div>
       `
         )

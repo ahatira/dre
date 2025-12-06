@@ -11,13 +11,17 @@ Interactive action trigger with semantic variants (neutral default, primary, sec
 
 <!-- Primary (brand green) -->
 <button class="ps-button ps-button--primary">
-  <span class="ps-button__label">Cancel</span>
+  <span class="ps-button__label">Submit</span>
 </button>
 
-<!-- Primary with icon -->
-<button class="ps-button ps-button--icon-right">
+<!-- Primary with icon (SVG sprite via Icon component) -->
+<button class="ps-button ps-button--primary">
+  <span class="ps-button__icon">
+    <svg class="ps-icon__svg" focusable="false" aria-hidden="true">
+      <use href="/icons/icons-sprite.svg#icon-arrow-right"></use>
+    </svg>
+  </span>
   <span class="ps-button__label">Next</span>
-  <span class="ps-button__icon ps-button__icon--right" data-icon="arrow-right" aria-hidden="true"></span>
 </button>
 
 <!-- Outline secondary -->
@@ -32,20 +36,50 @@ Interactive action trigger with semantic variants (neutral default, primary, sec
 </button>
 ```
 
+### Icon Integration (Approach A - Recommended)
+
+The button component now uses the Icon component for icons (Approach A). Icons are rendered via `{% include '@elements/icon/icon.twig' %}`:
+
+```twig
+{# Button with right-positioned icon #}
+{{ include('@elements/button/button.twig', {
+  label: 'Next',
+  variant: 'primary',
+  icon: 'arrow-right',
+  iconPosition: 'right'
+}) }}
+
+{# Icon-only button (label still required for accessibility) #}
+{{ include('@elements/button/button.twig', {
+  label: 'Close',
+  icon: 'close',
+  variant: 'primary',
+  size: 'medium'
+}) }}
+```
+
+**Icon names** (without prefix):
+- Valid: `search`, `arrow-right`, `close`, `heart`
+- Invalid: `icon-search`, `icon-arrow-right` (prefix is handled internally)
+
+See `@elements/icon` for complete icon documentation.
+
 ## Props
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | string (required) | `'Button'` | Button text content. |
 | `variant` | enum | `neutral` | Semantic color (neutral \| primary \| secondary \| success \| info \| warning \| danger). |
 | `outline` | boolean | `false` | Outline style (border only). |
-| `size` | enum | `medium` | Size scale (small \| medium \| large). |
+| `size` | enum | `md` | Size scale (xs \| sm \| md \| lg \| xl \| xxl). Heights: 28px, 32px, 36px, 40px, 44px, 48px. |
 | `url` | string | `''` | Link URL (renders `<a>`). |
 | `target` | enum | `_self` | Link target (_self \| _blank). |
-| `icon` | string | `''` | Icon name (no "icon-" prefix). |
+| `icon` | string | `''` | Icon name (no "icon-" prefix). Icon size scales with button size. |
 | `iconPosition` | enum | `right` | Icon placement (left \| right). |
 | `disabled` | boolean | `false` | Disabled state. |
 | `loading` | boolean | `false` | Loading state with spinner. |
 | `fullWidth` | boolean | `false` | Block-level width (100%). |
+| `toggle` | boolean | `false` | Enable toggle button behavior via data-ps-toggle="button". |
+| `active` | boolean | `false` | Pre-toggled state (only with toggle=true). |
 | `attributes` | Attribute | — | Additional HTML attributes. |
 
 ## BEM Structure
@@ -53,9 +87,8 @@ Interactive action trigger with semantic variants (neutral default, primary, sec
 - Elements: `.ps-button__label`, `.ps-button__icon`, `.ps-button__spinner`
 - Modifiers (variant): `--neutral` (default), `--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`
 - Modifiers (style): `--outline`
-- Modifiers (size): `--small` `--large` (medium default)
-- Modifiers (state): `--disabled` `--loading` `--full-width`
-- Modifiers (icon): `--icon-left` `--icon-right` `--icon-only`
+- Modifiers (size): `--xs`, `--sm`, `--lg`, `--xl`, `--xxl` (md is default, not output as class)
+- Modifiers (state): `--disabled`, `--loading`, `--full-width`, `--icon-only`
 
 ## Variant Colors
 | Variant | Base Token | Hover Token | Active Token |
