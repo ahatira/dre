@@ -4,6 +4,25 @@
 
 ## 2025
 
+- 2025-12-06: **Icon System Migration** – Refactor from icon-font to SVG sprite system
+  - Migration complete from legacy icon-font system to modern SVG sprite architecture
+  - **Source SVG organization**: 139 icon sources moved to `source/icons-source/` (dev only, excluded from dist via Vite config)
+  - **Build pipeline**: New `scripts/build-icons.mjs` script generates optimized sprite at `source/assets/icons/icons-sprite.svg` with watch mode support
+  - **Package scripts**: Added `icons:build` and `icons:watch` commands for manual and watch-mode compilation
+  - **Icon component API cleanup**: Removed deprecated `fontFallback` parameter (BREAKING CHANGE), removed `spriteHref` parameter (hardcoded for consistency)
+  - **Build optimization**: Fixed infinite watch loop issue with deduplication logic, source SVGs no longer copied to dist (only compiled sprite)
+  - **Icon inventory**: Complete list of 139 icons documented in `source/patterns/documentation/icons-list.json`
+  - **Documentation**: Updated icon.twig, icon.css, icon.stories.jsx, icon.yml, icon README.md, and design spec (docs/design/atoms/icon.md)
+  - **New documentation files**: 
+    * `docs/ICON_MANAGEMENT_QUICK_REFERENCE.md` - Quick commands and workflow
+    * `docs/ICON_MANAGEMENT_TECHNICAL_GUIDE.md` - Build system details
+    * `docs/ICON_MANAGEMENT_BEST_PRACTICES.md` - Design and optimization guidelines
+  - **Storybook rebuild**: All stories regenerated with new icon system (313 files modified)
+  - **Performance**: Sprite-based system improves caching, reduces HTTP requests, optimizes bundle size
+  - **Usage**: `{% include '@elements/icon/icon.twig' with { name: 'check' } only %}` - semantic names only
+  - **Breaking change**: Components using `fontFallback` must be updated to use semantic icon names only
+  - Commit: `801470b` - feat(icons): Migrate from icon-font to SVG sprite system
+
 - 2025-12-06: **Language Selector** – Accessible language/locale switcher molecule with flags and dropdown
   - Implemented `source/patterns/components/language-selector/` with 6 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`, `.js`)
   - Props: name (string), size (xs/sm/md/lg/xl/xxl), variant (default/primary/secondary/success/danger/warning/info), disabled (boolean), current (object: code, label, locale), options (array), attributes
