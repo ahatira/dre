@@ -79,6 +79,30 @@ Although Surface adheres to the Atomic Design methodology, it does not use the s
 - **Layouts** - equivalent to templates
 - **Pages** - same
 
+## SVG Icon System
+
+PS Theme uses an optimized **SVG sprite system** for icons:
+
+```bash
+# Icon source files (development only)
+source/icons-source/          # 139 SVG source files
+source/assets/icons/icons-sprite.svg  # Generated sprite (production asset)
+
+# Build commands
+npm run icons:build           # Generate sprite from source SVGs
+npm run icons:watch           # Auto-regenerate on file changes (runs in watch mode)
+
+# Usage in Twig templates
+{% include '@elements/icon/icon.twig' with { name: 'check' } only %}
+```
+
+**Features**:
+- 139 semantic icon names (e.g., `check`, `arrow-right`, `calendar`)
+- Auto-compiled from source SVGs via `scripts/build-icons.mjs`
+- Source files excluded from dist (only compiled sprite shipped)
+- Automatic watch mode during development
+- CSS-controlled styling (inherits `currentColor`)
+
 ## Development approach
 
 PS Theme is built using the latest development practices for CSS, JS, and Twig. Within Surface's Storybook, all components are built using BEM methodology for selector classes and ES6 for Javascript.

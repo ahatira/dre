@@ -376,7 +376,32 @@ npm run build              # Build complet (Vite + Storybook)
 npm run watch              # Dev mode (Vite + Storybook watch)
 npm run storybook:build    # Build Storybook uniquement
 npm run storybook:dev      # Storybook dev server uniquement
+
+# Icônes SVG (automatiquement exécuté pendant watch)
+npm run icons:build        # Générer sprite à partir des SVG sources
+npm run icons:watch        # Watch mode pour les changements SVG
 ```
+
+### Système d'Icônes SVG
+
+PS Theme utilise un système de **sprite SVG compilé** :
+
+```
+source/icons-source/              # 139 fichiers SVG sources (dev uniquement)
+source/assets/icons/icons-sprite.svg  # Sprite généré (asset production)
+source/props/icons.css            # CSS auto-généré pour le sprite
+```
+
+**Utilisation** :
+```twig
+{% include '@elements/icon/icon.twig' with { name: 'check' } only %}
+{% include '@elements/icon/icon.twig' with { name: 'arrow-right' } only %}
+```
+
+**Build**:
+- Le script `scripts/build-icons.mjs` compile les SVG sources en sprite optimisé
+- Automatiquement executé lors de `npm run build` et `npm run watch`
+- Les sources SVG ne sont **pas** incluées dans la distribution (optimisation bundle)
 
 ---
 

@@ -122,7 +122,7 @@ ps_theme/
 │   │   ├── animations.css      # Durations + delays
 │   │   ├── easing.css          # Timing functions
 │   │   ├── zindex.css          # Z-index scales
-│   │   └── icons.css           # Icon font mappings
+│   │   └── icons.css           # Generated from SVG sprite (auto-compiled)
 │   │
 │   └── patterns/               # Component source code
 │       ├── base/               # Base stories (token documentation)
@@ -182,7 +182,7 @@ Tokens are organized by category:
 | `animations.css` | Animation durations | `--duration-fast`, `--duration-normal` |
 | `easing.css` | Timing functions | `--ease-3`, `--ease-in-out-4` |
 | `zindex.css` | Z-index layers | `--z-dropdown`, `--z-modal` |
-| `icons.css` | Icon font mappings | `[data-icon="check"]` CSS content |
+| `icons.css` | SVG sprite CSS | Auto-generated from `source/icons-source/` SVG files |
 
 ### Token Naming Convention
 
