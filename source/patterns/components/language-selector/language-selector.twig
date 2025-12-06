@@ -1,0 +1,24 @@
+{# Language Selector - Multi-language dropdown #}
+<div class="ps-language-selector" data-language-selector>
+  <button class="ps-language-selector__trigger" aria-haspopup="listbox" aria-label="Language selection">
+    {% if current %}
+      <span class="ps-language-selector__current">
+        {% for lang in languages %}
+          {% if lang.code == current %}{{ lang.label }}{% endif %}
+        {% endfor %}
+      </span>
+    {% endif %}
+    <svg class="ps-language-selector__icon" aria-hidden="true" width="16" height="16">
+      <use href="#icon-chevron-down"></use>
+    </svg>
+  </button>
+  <ul class="ps-language-selector__menu" role="listbox" hidden>
+    {% for lang in languages %}
+      <li>
+        <a href="#" class="ps-language-selector__option{% if lang.code == current %} ps-language-selector__option--active{% endif %}" data-lang="{{ lang.code }}">
+          {{ lang.label }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

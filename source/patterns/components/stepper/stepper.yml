@@ -1,0 +1,5 @@
+steps:
+  - { label: "Step 1", completed: true, active: false }
+  - { label: "Step 2", completed: false, active: true }
+  - { label: "Step 3", completed: false, active: false }
+orientation: "horizontal"

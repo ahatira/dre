@@ -108,18 +108,18 @@ props:
 
 ```scss
 .ps-pre-footer {
-  display: grid; gap: var(--ps-spacing-5, 20px);
+  display: grid; gap: var(--size-5);
   grid-template-columns: repeat(3, 1fr);
-  padding: var(--ps-spacing-6, 24px) 0;
+  padding: var(--size-6) 0;
 
   &--2col { grid-template-columns: repeat(2, 1fr); }
   &--3col { grid-template-columns: repeat(3, 1fr); }
   &--4col { grid-template-columns: repeat(4, 1fr); }
 
-  &--dark { background: var(--ps-color-neutral-900, #0E1A23); color: var(--ps-color-neutral-0, #FFF); }
+  &--dark { background: var(--gray-900); color: var(--white); }
 
-  @media (max-width: 992px) { & { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { & { grid-template-columns: 1fr; } }
+  @media (max-width: var(--size-tablet)) { & { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: var(--size-mobile)) { & { grid-template-columns: 1fr; } }
 }
 ```
 

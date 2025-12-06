@@ -136,10 +136,10 @@ props:
 
 ## 🎨 Design Tokens
 
-- Typo: `--ps-font-family-primary`, `--ps-font-size-base`, `--ps-font-weight-medium`
-- Spacing: `--ps-spacing-3|4` pour gaps/paddings
-- Couleurs liens: palette `--ps-link*`, séparateurs en option via `--ps-color-neutral-200`
-- Focus: `--ps-color-interactive-focus-outline`, `--ps-border-width-focus`
+- Typo: `--font-sans`, tailles `--font-size-1|2`, poids `--font-weight-600`
+- Spacing: `--size-3|4` pour gaps/paddings
+- Couleurs liens: sémantiques (`--primary`/`--text-primary`), séparateurs via `--border-default`
+- Focus: contour `--border-focus`, largeur `--border-size-2`
 
 ---
 
@@ -185,32 +185,32 @@ props:
 
 ```scss
 .ps-main-menu {
-  font-family: var(--ps-font-family-primary);
+  font-family: var(--font-sans);
 
   &__toggle {
     display: none; // visible via media queries pour mobile
-    padding: var(--ps-spacing-3, 12px) var(--ps-spacing-4, 16px);
-    border: 1px solid var(--ps-color-neutral-300, #D2D7DB);
-    border-radius: var(--ps-border-radius-sm, 4px);
-    background: var(--ps-color-white, #FFFFFF);
+    padding: var(--size-3) var(--size-4);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-2);
+    background: var(--white);
   }
 
   &__list {
     list-style: none; margin: 0; padding: 0;
-    display: flex; gap: var(--ps-spacing-2, 8px);
+    display: flex; gap: var(--size-2);
   }
 
   &--vertical &__list { flex-direction: column; }
 
   // Sous-menus
-  &__list--level-2 { position: absolute; background: var(--ps-color-white, #FFF); border: 1px solid var(--ps-color-neutral-300, #D2D7DB); border-radius: var(--ps-border-radius-sm, 4px); padding: var(--ps-spacing-2, 8px) 0; box-shadow: var(--ps-shadow-md, 0 8px 24px rgba(0,0,0,0.12)); }
+  &__list--level-2 { position: absolute; background: var(--white); border: 1px solid var(--border-default); border-radius: var(--radius-2); padding: var(--size-2) 0; box-shadow: var(--shadow-4); }
 
   // Démonstration CSS-only: affichage au :focus-within du parent (progressive enhancement)
   .ps-menu-item--has-children:focus-within > &__list--level-2,
   .ps-menu-item--has-children:hover > &__list--level-2 { display: block; position: absolute; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--size-tablet)) {
   .ps-main-menu {
     &__toggle { display: inline-flex; }
     &__list { display: none; }

@@ -116,14 +116,12 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Tailles: `--ps-flag-size-sm: 16px`, `--ps-flag-size-md: 20px`, `--ps-flag-size-lg: 24px`
-- Radius: `--ps-border-radius-none|sm|full`
-- Couleurs: héritées (image)
-- Opacité disabled: `--ps-opacity-disabled` (proposition si manquant)
-
-Si `--ps-flag-size-*` manquent, proposer `sizes.flag.{sm,md,lg}`.
+- Tailles : sm = `--size-4` (16px), md = `--size-5` (20px), lg = `--size-6` (24px)
+- Radius : `--radius-1` (square/rounded léger), `--radius-2` (rounded), `--radius-round` (circle)
+- Couleurs : héritées de l’image
+- Disabled : opacité à définir dans le composant (peut utiliser `0.5` ou `--text-disabled` comme teinte sur le wrapper)
 
 ---
 
@@ -174,21 +172,53 @@ Si `--ps-flag-size-*` manquent, proposer `sizes.flag.{sm,md,lg}`.
 
 ```scss
 .ps-flag {
+  /* Variables composant (Layer 2) */
+  --flag-size: var(--size-5); /* 20px par défaut */
+  --flag-aspect-ratio: calc(4 / 3);
+  --flag-border-radius: 0;
+  --flag-disabled-opacity: 0.5;
+  --flag-disabled-grayscale: 0.2;
+  --flag-hover-opacity: 0.9;
+  --flag-transition-duration: var(--duration-fast);
+  --flag-transition-timing: var(--ease-4);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  block-size: var(--flag-size);
+  inline-size: calc(var(--flag-size) * var(--flag-aspect-ratio));
+  aspect-ratio: var(--flag-aspect-ratio);
+  overflow: hidden;
+  transition:
+    opacity var(--flag-transition-duration) var(--flag-transition-timing),
+    filter var(--flag-transition-duration) var(--flag-transition-timing);
 
-  &__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--flag-border-radius);
+  }
 
-  &--sm { inline-size: var(--ps-flag-size-sm, 16px); block-size: var(--ps-flag-size-sm, 16px); }
-  &--md { inline-size: var(--ps-flag-size-md, 20px); block-size: var(--ps-flag-size-md, 20px); }
-  &--lg { inline-size: var(--ps-flag-size-lg, 24px); block-size: var(--ps-flag-size-lg, 24px); }
+  // Tailles
+  &--xs { --flag-size: var(--size-3); }
+  &--sm { --flag-size: var(--size-4); }
+  &--md { --flag-size: var(--size-5); }
+  &--lg { --flag-size: var(--size-6); }
+  &--xl { --flag-size: var(--size-12); }
 
-  &--square .ps-flag__img { border-radius: var(--ps-border-radius-none, 0); }
-  &--rounded .ps-flag__img { border-radius: var(--ps-border-radius-sm, 4px); }
-  &--circle .ps-flag__img { border-radius: var(--ps-border-radius-full, 9999px); }
+  // Formes
+  &--rounded { --flag-border-radius: var(--radius-2); }
+  &--circle { --flag-aspect-ratio: 1; --flag-border-radius: var(--radius-round); }
 
-  &--disabled { opacity: var(--ps-opacity-disabled, 0.5); filter: grayscale(0.2); }
+  // États
+  &:hover:not(&--disabled) { opacity: var(--flag-hover-opacity); }
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--size-1);
+  }
+  &--disabled { opacity: var(--flag-disabled-opacity); filter: grayscale(var(--flag-disabled-grayscale)); cursor: not-allowed; pointer-events: none; }
 }
 ```
 

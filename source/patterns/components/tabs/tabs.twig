@@ -1,0 +1,15 @@
+{# Tabs - Tab navigation component #}
+<div class="ps-tabs">
+  <div class="ps-tabs__list" role="tablist">
+    {% for tab in tabs %}
+      <button class="ps-tabs__tab {% if tab.active %}ps-tabs__tab--active{% endif %}" role="tab" id="{{ tab.id }}" aria-selected="{% if tab.active %}true{% else %}false{% endif %}" aria-controls="{{ tab.id }}-panel">
+        {{ tab.label }}
+      </button>
+    {% endfor %}
+  </div>
+  {% for tab in tabs %}
+    <div class="ps-tabs__panel {% if tab.active %}ps-tabs__panel--active{% endif %}" role="tabpanel" id="{{ tab.id }}-panel" aria-labelledby="{{ tab.id }}">
+      {{ tab.content }}
+    </div>
+  {% endfor %}
+</div>

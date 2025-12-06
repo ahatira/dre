@@ -39,6 +39,15 @@ animations:
     - core/once
     - ps_theme/vendors
 
+button:
+  js:
+    dist/js/button.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 carousel:
   js:
     dist/js/carousel.js: {}

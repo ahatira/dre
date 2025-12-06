@@ -1,0 +1,54 @@
+{# Pagination - Page navigation #}
+<nav class="ps-pagination" aria-label="Pagination">
+  <ul class="ps-pagination__list">
+    {% if has_previous %}
+      <li class="ps-pagination__item">
+        <a href="#" class="ps-pagination__link ps-pagination__link--prev" aria-label="Previous page">
+          <span class="visually-hidden">Previous</span>
+          <svg class="icon icon--prev" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
+          </svg>
+        </a>
+      </li>
+    {% else %}
+      <li class="ps-pagination__item">
+        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
+          <span class="visually-hidden">Previous page unavailable</span>
+          <svg class="icon icon--prev" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
+          </svg>
+        </span>
+      </li>
+    {% endif %}
+
+    {% for page in range(1, total_pages + 1) %}
+      <li class="ps-pagination__item">
+        {% if page == current_page %}
+          <span class="ps-pagination__link ps-pagination__link--active" aria-current="page">{{ page }}</span>
+        {% else %}
+          <a href="#" class="ps-pagination__link">{{ page }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+
+    {% if has_next %}
+      <li class="ps-pagination__item">
+        <a href="#" class="ps-pagination__link ps-pagination__link--next" aria-label="Next page">
+          <span class="visually-hidden">Next</span>
+          <svg class="icon icon--next" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 6L8.59 7.41 12.17 11 8.59 14.59 10 16l6-6z" fill="currentColor"/>
+          </svg>
+        </a>
+      </li>
+    {% else %}
+      <li class="ps-pagination__item">
+        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
+          <span class="visually-hidden">Next page unavailable</span>
+          <svg class="icon icon--next" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 6L8.59 7.41 12.17 11 8.59 14.59 10 16l6-6z" fill="currentColor"/>
+          </svg>
+        </span>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

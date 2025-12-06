@@ -1,0 +1,12 @@
+# Language Selector Component
+# Dropdown for language/locale switching (BNP multi-country)
+
+languages:
+  - code: 'fr'
+    label: 'Français'
+    active: true
+  - code: 'en'
+    label: 'English'
+  - code: 'de'
+    label: 'Deutsch'
+current: 'fr'

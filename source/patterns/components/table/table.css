@@ -1,0 +1,45 @@
+@layer components {
+  .ps-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .ps-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    border: var(--border-1) solid var(--gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .ps-table__head {
+    background-color: var(--gray-50);
+  }
+
+  .ps-table__header {
+    padding: var(--size-3) var(--size-4);
+    text-align: left;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--size-3);
+    color: var(--text-primary);
+    border-bottom: var(--border-2) solid var(--gray-300);
+  }
+
+  .ps-table__body .ps-table__row:not(:last-child) {
+    border-bottom: var(--border-1) solid var(--gray-100);
+  }
+
+  .ps-table__row {
+    transition: background-color var(--duration-short) var(--ease-out-quad);
+
+    &:hover {
+      background-color: var(--gray-50);
+    }
+  }
+
+  .ps-table__cell {
+    padding: var(--size-3) var(--size-4);
+    font-size: var(--size-3);
+    color: var(--text-primary);
+  }
+}

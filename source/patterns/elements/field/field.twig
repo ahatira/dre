@@ -6,7 +6,8 @@
  * @param string value - Field value (optional)
  * @param string placeholder - Placeholder text (optional)
  * @param boolean disabled - Disabled state (default: false)
- * @param string error - Error message to display (optional, sets aria-invalid)
+ * @param string error - Error message to display (optional, sets aria-invalid and ps-field--error class)
+ * @param boolean hideError - Hide error message rendering (optional, default: false, used by form-field parent)
  * @param boolean done - Success/validated state (default: false, shows green border)
  * @param string icon - Icon name to display (optional, no "icon-" prefix)
  * @param string iconPosition - Icon position: left|right (default: 'right')
@@ -18,6 +19,7 @@
 {%- set placeholder = placeholder|default('') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set error = error|default('') -%}
+{%- set hideError = hideError|default(false) -%}
 {%- set done = done|default(false) -%}
 {%- set icon = icon|default('') -%}
 {%- set iconPosition = iconPosition|default('right') -%}
@@ -68,7 +70,7 @@
     <span class="ps-field__icon ps-field__icon--right" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
 
-  {%- if error -%}
+  {%- if error and not hideError -%}
     <div class="ps-field__error" id="field-error" role="alert">{{ error }}</div>
   {%- endif -%}
 </div>

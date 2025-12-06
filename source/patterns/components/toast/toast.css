@@ -1,0 +1,96 @@
+@layer components {
+  .ps-toast {
+    --ps-toast-padding: var(--size-3) var(--size-4);
+    --ps-toast-border-radius: var(--radius-md);
+    --ps-toast-shadow: var(--shadow-4);
+    --ps-toast-bg: var(--white);
+    --ps-toast-color: var(--text-primary);
+    --ps-toast-border: var(--gray-200);
+
+    position: fixed;
+    bottom: var(--size-4);
+    right: var(--size-4);
+    max-width: 400px;
+    padding: var(--ps-toast-padding);
+    background-color: var(--ps-toast-bg);
+    border: var(--border-1) solid var(--ps-toast-border);
+    border-radius: var(--ps-toast-border-radius);
+    box-shadow: var(--ps-toast-shadow);
+    color: var(--ps-toast-color);
+    display: flex;
+    gap: var(--size-3);
+    align-items: flex-start;
+    z-index: var(--layer-toast);
+    animation: slideIn 300ms var(--ease-out-quad);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .ps-toast--success {
+    --ps-toast-border: var(--success-300);
+    --ps-toast-bg: var(--success-50);
+    --ps-toast-color: var(--success-900);
+  }
+
+  .ps-toast--error {
+    --ps-toast-border: var(--danger-300);
+    --ps-toast-bg: var(--danger-50);
+    --ps-toast-color: var(--danger-900);
+  }
+
+  .ps-toast--warning {
+    --ps-toast-border: var(--warning-300);
+    --ps-toast-bg: var(--warning-50);
+    --ps-toast-color: var(--warning-900);
+  }
+
+  .ps-toast--info {
+    --ps-toast-border: var(--info-300);
+    --ps-toast-bg: var(--info-50);
+    --ps-toast-color: var(--info-900);
+  }
+
+  .ps-toast__content {
+    flex: 1;
+    font-size: var(--size-3);
+  }
+
+  .ps-toast__close {
+    flex-shrink: 0;
+    width: var(--size-5);
+    height: var(--size-5);
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity var(--duration-short) var(--ease-out-quad);
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: var(--border-2) solid var(--primary);
+      outline-offset: var(--size-1);
+    }
+  }
+}

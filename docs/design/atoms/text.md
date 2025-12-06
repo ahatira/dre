@@ -110,13 +110,11 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Typo: `--ps-font-family-primary`, `--ps-font-size-base`, `--ps-font-size-sm`, `--ps-font-size-lg`, `--ps-line-height-*`, `--ps-font-weight-regular`, `--ps-font-weight-bold`
-- Couleur: `--ps-color-text`, `--ps-color-text-muted`
-- Spacing: `--ps-spacing-4` (marges verticales selon contexte)
-
-Si `--ps-color-text-muted` n’existe pas, proposer token: `colors.text.muted`.
+- Typo : `--font-body`, tailles `--font-size-1` (body), `--font-size-0` (small), `--font-size-2` (large), graisse `--font-weight-400|700`, line-height `--leading-normal|loose`
+- Couleur : `--text-primary`, texte atténué `--text-secondary`
+- Spacing (marges contextuelles) : `--size-4` recommandé en marge basse
 
 ---
 
@@ -157,18 +155,18 @@ Si `--ps-color-text-muted` n’existe pas, proposer token: `colors.text.muted`.
 
 ```scss
 .ps-text {
-  margin: 0 0 var(--ps-spacing-4);
-  color: var(--ps-color-text, #1F2A33);
-  font-family: var(--ps-font-family-primary);
-  font-weight: var(--ps-font-weight-regular, 400);
-  line-height: var(--ps-line-height-normal, 1.5);
+  margin: 0 0 var(--size-4);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-normal);
 
-  &--body { font-size: var(--ps-font-size-base, 16px); }
-  &--small { font-size: var(--ps-font-size-sm, 14px); }
-  &--large { font-size: var(--ps-font-size-lg, 18px); line-height: var(--ps-line-height-loose, 1.6); }
+  &--body { font-size: var(--font-size-1); }
+  &--small { font-size: var(--font-size-0); }
+  &--large { font-size: var(--font-size-2); line-height: var(--leading-loose); }
 
-  &--muted { color: var(--ps-color-text-muted, #6B7780); }
-  &--strong { font-weight: var(--ps-font-weight-bold, 700); }
+  &--muted { color: var(--text-secondary); }
+  &--strong { font-weight: var(--font-weight-700); }
 
   &--align-left { text-align: left; }
   &--align-center { text-align: center; }
@@ -180,14 +178,14 @@ Si `--ps-color-text-muted` n’existe pas, proposer token: `colors.text.muted`.
 
 ## ♿ Accessibilité
 
-- Contraste de `--ps-color-text` vs fond ≥ 4.5:1.
+- Contraste de `--text-primary` vs fond ≥ 4.5:1.
 - Le tag HTML doit être sémantique selon le contexte (`p` pour paragraphe).
 
 ---
 
 ## 📱 Comportement responsive
 
-- Échelles de typo responsives via tokens (`--ps-font-size-*`).
+- Échelles de typo responsives via tokens (`--font-size-*`).
 - Limiter la longueur de ligne (~65–75 caractères) via styles de layout si nécessaire.
 
 ---

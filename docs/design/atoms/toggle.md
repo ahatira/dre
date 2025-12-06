@@ -110,18 +110,18 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Couleurs:
-  - Unchecked: `--ps-color-neutral-300` (track), `--ps-color-neutral-0` (thumb)
-  - Checked: `--ps-color-primary-600` (track), `--ps-color-neutral-0` (thumb)
-  - Disabled: `--ps-color-neutral-200` (track), `--ps-color-neutral-300` (thumb)
-- Bordures: `--ps-border-radius-full` (thumb), `--ps-border-radius-lg` (track)
-- Transitions: `--ps-transition-duration-normal`, `--ps-transition-easing-default`
-- Espacements: `--ps-spacing-1` (padding track), `--ps-spacing-2` (gap label)
-- Focus: `--ps-color-interactive-focus-outline`, `--ps-border-width-focus`
-
-Proposition si manquant: tailles de toggle (track width/height, thumb diameter).
+- Couleurs :
+  - Track off : `--gray-300`
+  - Track on : `--primary`
+  - Thumb : `--white`
+  - Disabled : `--gray-200` (track), thumb `--gray-300`
+- Bordures / rayon : thumb arrondi `--radius-round`, track `--radius-3`
+- Tailles suggérées : track (sm|md|lg) = 36|44|52px → `--size-9|11|13`; thumb 18|22|24px → `--size-5|6|7`
+- Espacements : padding interne du track `--size-1`, gap label `--size-2`
+- Focus : outline via `--border-focus` et offset `--border-size-1`
+- Transition : `--duration-normal` + `--ease-3`
 
 ---
 
@@ -175,7 +175,7 @@ Proposition si manquant: tailles de toggle (track width/height, thumb diameter).
 
 ```scss
 .ps-toggle {
-  display: inline-flex; align-items: center; gap: var(--ps-spacing-2, 8px);
+  display: inline-flex; align-items: center; gap: var(--size-2);
   cursor: pointer;
 
   &--disabled { cursor: not-allowed; opacity: 0.6; }
@@ -188,43 +188,43 @@ Proposition si manquant: tailles de toggle (track width/height, thumb diameter).
   &__track {
     position: relative; display: inline-flex; align-items: center;
     width: 44px; height: 24px;
-    background: var(--ps-color-neutral-300, #D2D7DB);
-    border-radius: var(--ps-border-radius-lg, 12px);
-    transition: background var(--ps-transition-duration-normal, 0.3s) var(--ps-transition-easing-default, ease);
+    background: var(--gray-300);
+    border-radius: var(--radius-3);
+    transition: background var(--duration-normal) var(--ease-3);
     flex-shrink: 0;
   }
 
   &__thumb {
     position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
     width: 20px; height: 20px;
-    background: var(--ps-color-neutral-0, #FFF);
-    border-radius: var(--ps-border-radius-full, 50%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: left var(--ps-transition-duration-normal, 0.3s) var(--ps-transition-easing-default, ease);
+    background: var(--white);
+    border-radius: var(--radius-round);
+    box-shadow: var(--shadow-2);
+    transition: left var(--duration-normal) var(--ease-3);
   }
 
   &__label {
-    font-family: var(--ps-font-family-primary);
-    font-size: var(--ps-font-size-base, 16px);
-    color: var(--ps-color-neutral-900, #111);
+    font-family: var(--font-body);
+    font-size: var(--font-size-1);
+    color: var(--text-primary);
   }
 
   // Checked state
   &__input:checked + &__track {
-    background: var(--ps-color-primary-600, #0DB089);
+    background: var(--primary);
     .ps-toggle__thumb { left: calc(100% - 22px); }
   }
 
   // Focus state
   &__input:focus-visible + &__track {
-    outline: var(--ps-border-width-focus, 2px) solid var(--ps-color-interactive-focus-outline, #0B5FFF);
-    outline-offset: 2px;
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
   }
 
   // Disabled state
   &__input:disabled + &__track {
-    background: var(--ps-color-neutral-200, #E8EBEF);
-    .ps-toggle__thumb { background: var(--ps-color-neutral-300, #D2D7DB); }
+    background: var(--gray-200);
+    .ps-toggle__thumb { background: var(--gray-300); }
   }
 
   // Sizes
@@ -246,12 +246,12 @@ Proposition si manquant: tailles de toggle (track width/height, thumb diameter).
   // Optional internal labels
   &__on-label, &__off-label {
     position: absolute;
-    font-size: var(--ps-font-size-xs, 10px);
-    font-weight: var(--ps-font-weight-semibold, 600);
-    color: var(--ps-color-neutral-0, #FFF);
+    font-size: var(--font-size--2);
+    font-weight: var(--font-weight-600);
+    color: var(--white);
     text-transform: uppercase;
     opacity: 0;
-    transition: opacity var(--ps-transition-duration-fast, 0.15s);
+    transition: opacity var(--duration-fast) var(--ease-3);
   }
   &__on-label { left: 6px; }
   &__off-label { right: 6px; }

@@ -102,16 +102,19 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-Références principales:
-- Typo: `--ps-font-family-primary`, `--ps-heading-h1-size..h6`, `--ps-heading-h1-line-height..h6`, `--ps-font-weight-bold`
-- Couleur: `--ps-color-text` (défaut)
-- Spacing: marges via `--ps-spacing-6` (ex. marge bas)
-
-Si ces variables manquent, proposer:
-- `typography.headings.h1..h6` avec taille/line-height/weight
-- `typography.align.left|center|right`
+- Typo : `--font-heading` (ou `--font-body`), `--font-weight-700`
+- Échelle suggérée (rem) à partir des tokens existants :
+  - h1 : `--font-size-8` (2.25rem) + `--leading-tight`
+  - h2 : `--font-size-7` (2rem) + `--leading-tight`
+  - h3 : `--font-size-6` (1.75rem) + `--leading-tight`
+  - h4 : `--font-size-5` (1.5rem) + `--leading-normal`
+  - h5 : `--font-size-4` (1.375rem) + `--leading-normal`
+  - h6 : `--font-size-3` (1.25rem) + `--leading-normal`
+- Couleur : `--text-primary` (défaut)
+- Spacing (marge basse) : `--size-4` ou `--size-6` selon contexte
+- Alignements : `text-align` via classes, pas de token dédié
 
 ---
 
@@ -148,17 +151,17 @@ Si ces variables manquent, proposer:
 
 ```scss
 .ps-heading {
-  margin: 0 0 var(--ps-spacing-6);
-  color: var(--ps-color-text, #1F2A33);
-  font-family: var(--ps-font-family-primary);
-  font-weight: var(--ps-font-weight-bold, 700);
+  margin: 0 0 var(--size-4);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-700);
 
-  &--h1 { font-size: var(--ps-heading-h1-size); line-height: var(--ps-heading-h1-line-height); }
-  &--h2 { font-size: var(--ps-heading-h2-size); line-height: var(--ps-heading-h2-line-height); }
-  &--h3 { font-size: var(--ps-heading-h3-size); line-height: var(--ps-heading-h3-line-height); }
-  &--h4 { font-size: var(--ps-heading-h4-size); line-height: var(--ps-heading-h4-line-height); }
-  &--h5 { font-size: var(--ps-heading-h5-size); line-height: var(--ps-heading-h5-line-height); }
-  &--h6 { font-size: var(--ps-heading-h6-size); line-height: var(--ps-heading-h6-line-height); }
+  &--h1 { font-size: var(--font-size-8); line-height: var(--leading-tight); }
+  &--h2 { font-size: var(--font-size-7); line-height: var(--leading-tight); }
+  &--h3 { font-size: var(--font-size-6); line-height: var(--leading-tight); }
+  &--h4 { font-size: var(--font-size-5); line-height: var(--leading-normal); }
+  &--h5 { font-size: var(--font-size-4); line-height: var(--leading-normal); }
+  &--h6 { font-size: var(--font-size-3); line-height: var(--leading-normal); }
 
   &--align-left { text-align: left; }
   &--align-center { text-align: center; }
@@ -180,7 +183,7 @@ Si ces variables manquent, proposer:
 
 ## 📱 Comportement responsive
 
-- Les tailles de titre sont responsives via tokens (`--ps-heading-*-size`).
+- Les tailles de titre sont responsives via l'échelle `--font-size-*` (voir mapping h1..h6 ci-dessus).
 - Les alignements s’adaptent naturellement; ajouter utilitaires si nécessaires.
 
 ---

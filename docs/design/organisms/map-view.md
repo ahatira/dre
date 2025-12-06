@@ -90,9 +90,9 @@ props:
 
 ```scss
 .ps-map-view {
-  &__map { width: 100%; height: 420px; border-radius: var(--ps-border-radius-md, 8px); overflow: hidden; }
-  &__panel { margin-top: var(--ps-spacing-3, 12px); font-size: var(--ps-font-size-sm, 14px); color: var(--ps-color-neutral-700, #3B4754); }
-  @media (max-width: 768px) { &__map { height: 320px; } }
+  &__map { width: 100%; height: clamp(var(--size-80), 50vh, var(--size-96)); border-radius: var(--radius-5); overflow: hidden; }
+  &__panel { margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); }
+  @media (max-width: var(--size-tablet)) { &__map { height: var(--size-80); } }
 }
 ```
 

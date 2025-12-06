@@ -111,16 +111,16 @@ props:
 
 ```scss
 .ps-block {
-  padding: var(--ps-spacing-6, 24px) 0;
-  &__header { margin-bottom: var(--ps-spacing-4, 16px); }
-  &__title { font-size: var(--ps-font-size-2xl, 28px); }
-  &__text { color: var(--ps-color-neutral-700, #3B4754); }
-  &__actions { margin-top: var(--ps-spacing-4, 16px); display: flex; gap: var(--ps-spacing-3, 12px); }
+  padding: var(--size-6) 0;
+  &__header { margin-bottom: var(--size-4); }
+  &__title { font-size: var(--font-size-6); }
+  &__text { color: var(--text-secondary); }
+  &__actions { margin-top: var(--size-4); display: flex; gap: var(--size-3); }
 
-  &--dark { background: var(--ps-color-neutral-900, #0E1A23); color: var(--ps-color-neutral-0, #FFF); }
+  &--dark { background: var(--gray-900); color: var(--white); }
   &--full { width: 100%; }
-  &--contained { max-width: 1200px; margin: 0 auto; padding-left: var(--ps-spacing-4, 16px); padding-right: var(--ps-spacing-4, 16px); }
-  &--alt { background: var(--ps-color-neutral-100, #F5F7F9); }
+  &--contained { max-width: 1200px; margin: 0 auto; padding-left: var(--size-4); padding-right: var(--size-4); }
+  &--alt { background: var(--gray-100); }
 }
 ```
 

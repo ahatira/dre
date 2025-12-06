@@ -1,0 +1,11 @@
+{# Skeleton - Loading placeholder (shimmer animation) #}
+<div class="ps-skeleton ps-skeleton--{{ type }}">
+  {% if show_avatar %}
+    <div class="ps-skeleton__avatar"></div>
+  {% endif %}
+  <div class="ps-skeleton__content">
+    {% for i in range(1, lines + 1) %}
+      <div class="ps-skeleton__line ps-skeleton__line--{{ height }}" style="width: {% if i == lines %}75%{% else %}100%{% endif %}"></div>
+    {% endfor %}
+  </div>
+</div>

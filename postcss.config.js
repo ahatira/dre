@@ -16,7 +16,7 @@ export default {
     autoprefixer(),
     postcssImportExtGlob(),
     postcssImport({
-      // Allow imports from node_modules (for Swiper CSS)
+      // Allow imports from node_modules (for external libs like Swiper)
       path: [join(__dirname, 'node_modules')],
     }),
     postcssNested(),

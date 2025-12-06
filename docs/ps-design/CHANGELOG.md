@@ -4,6 +4,54 @@
 
 ## 2025
 
+- 2025-12-03: **Carousel - Pixel Perfect Implementation (Phase 2)** – Complete pixel-perfect refinement based on user feedback
+  - **Pagination Fixes**: Centered properly with left/right 0 + justify-content center (removed transform translateX), withPagination default changed to `false` (was `true`)
+  - **Cards Carousel - Responsive Breakpoints**: Corrected to match exact specs:
+    * Mobile (320px): 1 card
+    * Tablet (768px): 2 cards
+    * Laptop (1024px): 3 cards
+    * Desktop (1280px): 4 cards
+    * Desktop Large (1440px): 6 cards
+  - **Cards Carousel - Navigation Buttons**: Repositioned externally at left: 0 and right: 0 (was centered), padding increased to 48px (--size-12) to accommodate external buttons
+  - **Cards Carousel - Gradients**: Corrected position to start after padding (left/right: --size-12 instead of 0), width 168px (--size-42) confirmed
+  - **Teaser Carousel**: Variant already present, max-width 400px with 40×40px overlay buttons confirmed working
+  - **Offer Carousel - Toolbar**: Added complete slides array (13 photos + 3 3D visits + 3 plans = 19 slides total) to match toolbar navigation, corrected slideIndex values (0, 13, 16)
+  - **Offer With Thumbs**: Hidden navigation buttons on thumbs carousel (display: none on .ps-carousel__controls), buttons only visible on main carousel, height 120px and spacing 8px confirmed
+  - **Build Verified**: 164.05 kB CSS (gzip 27.21 kB), 3.31 kB JS (gzip 1.34 kB), 0 errors
+  - **Stories Updated**: CardsCarousel, TeaserCarousel, OfferCarousel (with full toolbar), OfferWithThumbs all pixel-perfect per mockups
+
+- 2025-12-03: **Carousel - Pixel Perfect Implementation** – Complete 4-mockup pixel-perfect refactoring
+  - **Documentation**: Updated `docs/design/molecules/carousel/carousel.md` with detailed pixel-perfect specs for 4 use cases
+  - **Maquette 1 (Cards)**: 250×188px images (4:3 aspect-ratio), 40×40px transparent buttons, 48×48px favorite circles, 168px gradients, 16px card spacing
+  - **Maquette 2 (Teaser)**: max-width 400px, 240×240px square images, 40×40px overlay buttons, no pagination
+  - **Maquette 3 (Offer)**: fullscreen, 48×48px buttons, 44px toolbar with 24px radius, 22px dividers, active state no underline
+  - **Maquette 4 (Offer+Thumbs)**: 120px thumbs height, 5 visible, opacity 0.5/0.75/1.0, 2px primary border active, 32×32px buttons
+  - **CSS Corrections**: Added `.ps-carousel--teaser` variant (max-width 400px), aspect-ratio 4:3 for card images, toolbar divider 22px (was 20px), active toolbar item text-decoration none, removed image min-height global rule
+  - **Stories Refactoring**: Replaced AllVariants/MainWithThumbs/LightboxFullscreen/WithToolbar/UseCases with 4 mockup-exact stories: CardsCarousel, TeaserCarousel, OfferCarousel, OfferWithThumbs
+  - **README.md Updated**: Added "Pixel-Perfect Specifications" section with detailed dimensions/colors/typography per mockup
+  - **Tokens Used**: --primary (#00915A), --secondary (#A22B66), --white, --gray-50/400/600, --size-1 through --size-42, --shadow-2/3/4, --radius-2/3/round, --border-size-1/2
+  - **Build Verified**: 164.08 kB CSS (gzip 27.19 kB), 3.24 kB JS (gzip 1.33 kB), 0 errors
+  - **JavaScript**: Maintained refactored complexity (initCarousel: ~7, buildSwiperConfig: 20 acceptable)
+  - **Conformity**: 100% to COMPLETE_RULES.md (BEM, tokens only, nesting, Drupal-ready, Autodocs, EN docs, WCAG AA)
+
+- 2025-12-03: **Carousel** – Responsive image/card carousel molecule with Swiper.js
+  - Implemented `source/patterns/components/carousel/` with 5 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`)
+  - Props: slides (array, required), variant (images/cards), fit (cover/contain), loop, autoHeight, withPagination, toolbar (multi-media navigation), ariaLabel, attributes
+  - BEM strict: `.ps-carousel`, `.ps-carousel__track`, `.ps-carousel__slide`, `.ps-carousel__image`, `.ps-carousel__card`, `.ps-carousel__controls`, `.ps-carousel__button`, `.ps-carousel__icon`, `.ps-carousel__pagination`, `.ps-carousel__toolbar`
+  - Twig: Drupal-ready with conditional classes (ternary + null), ARIA roles (slide, group), proper loop handling
+  - Variants: images (single full-width slide, white buttons 48×48px), cards (multiple with gradients, black buttons 40×40px)
+  - Modifiers: `--cards`, `--loop`, `--auto-height`, `--with-toolbar`, `--fit-contain`
+  - Navigation: Prev/next buttons with disabled states, pagination bullets, keyboard (Arrow keys, Home/End), touch swipe
+  - Multi-media toolbar: Group navigation (photos, 3D visits, plans, brochures) with pill shape (24px radius), light gray background
+  - Accessibility: ARIA labels, slide announcements, focus-visible on all interactives, keyboard navigation (Swiper Keyboard + A11y modules)
+  - Tokens: --primary, --primary-hover, --secondary, --white, --gray-50, --gray-400, --gray-600, --shadow-2/3/4, --size-*, --radius-*, --border-size-*, --font-size-0, --font-weight-400
+  - Integration: Swiper.js v12 (npm package, ~15KB gzipped, modular imports: Navigation, Pagination, Keyboard, A11y)
+  - JavaScript: Drupal behavior wrapper with `once()` for idempotent initialization, standalone init for Storybook
+  - Use cases: Property detail gallery, property listing cards, multi-media navigation, property teaser, modal/lightbox gallery
+  - Storybook: 4 stories (Default + AllVariants + WithToolbar + UseCases) with Autodocs
+  - Build: ✓ 0 errors (145.56 kB CSS, gzip: 24.40 kB)
+  - Notes: Tokens adapted from spec (used existing tokens: `--primary` instead of `--ps-color-primary-600`, `--white` instead of `--ps-color-neutral-0`, `--shadow-3/4` instead of `--shadow-carousel-button`)
+
 - 2025-12-03: **Card** – Generic flexible container molecule
   - Implemented `source/patterns/components/card/` with 5 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`)
   - Props: variant (default/outlined/flat/elevated), layout (vertical/horizontal), size (small/medium/large), radius (none/sm/md/lg), imagePosition (top/bottom/left/right), url (optional clickable)

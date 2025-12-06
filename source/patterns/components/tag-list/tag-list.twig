@@ -1,0 +1,14 @@
+{# Tag List - List of tags/chips #}
+<div class="ps-tag-list" role="group" aria-label="Tags">
+  {% for tag in tags %}
+    <div class="ps-tag-list__item">
+      <label class="ps-tag">
+        <input type="checkbox" class="ps-tag__input" {% if tag.selected %}checked{% endif %} aria-label="{{ tag.label }}" />
+        <span class="ps-tag__label">{{ tag.label }}</span>
+        {% if tag.removable %}
+          <button type="button" class="ps-tag__remove" aria-label="Remove {{ tag.label }}">×</button>
+        {% endif %}
+      </label>
+    </div>
+  {% endfor %}
+</div>

@@ -113,8 +113,8 @@ export const Default = {
   args: { ...carouselData },
 };
 
-// Offer Carousel - Property detail page with toolbar (multi-media navigation)
-export const OfferCarousel = {
+// Carousel With Toolbar - Property detail page with toolbar (multi-media navigation)
+export const CarouselWithToolbar = {
   render: () =>
     carouselTwig({
       slides: [
@@ -123,7 +123,7 @@ export const OfferCarousel = {
           id: 'photo-1',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 1 - Exterior'),
             alt: 'Exterior view of classic Parisian building',
           },
         },
@@ -131,7 +131,7 @@ export const OfferCarousel = {
           id: 'photo-2',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 2 - Living room'),
             alt: 'Living room interior',
           },
         },
@@ -139,7 +139,7 @@ export const OfferCarousel = {
           id: 'photo-3',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 3 - Kitchen'),
             alt: 'Kitchen view',
           },
         },
@@ -147,7 +147,7 @@ export const OfferCarousel = {
           id: 'photo-4',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 4 - Bedroom'),
             alt: 'Bedroom view',
           },
         },
@@ -155,7 +155,7 @@ export const OfferCarousel = {
           id: 'photo-5',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 5 - Bathroom'),
             alt: 'Bathroom view',
           },
         },
@@ -163,7 +163,7 @@ export const OfferCarousel = {
           id: 'photo-6',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 6 - Balcony'),
             alt: 'Balcony view',
           },
         },
@@ -171,7 +171,7 @@ export const OfferCarousel = {
           id: 'photo-7',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 7 - Entrance'),
             alt: 'Dining area',
           },
         },
@@ -179,7 +179,7 @@ export const OfferCarousel = {
           id: 'photo-8',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 8 - Common areas'),
             alt: 'Home office',
           },
         },
@@ -187,7 +187,7 @@ export const OfferCarousel = {
           id: 'photo-9',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 9 - Rooftop'),
             alt: 'Second bedroom',
           },
         },
@@ -195,7 +195,7 @@ export const OfferCarousel = {
           id: 'photo-10',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 10 - Street'),
             alt: 'Guest bathroom',
           },
         },
@@ -203,7 +203,7 @@ export const OfferCarousel = {
           id: 'photo-11',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 11 - Courtyard'),
             alt: 'Storage space',
           },
         },
@@ -211,7 +211,7 @@ export const OfferCarousel = {
           id: 'photo-12',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 12 - Night'),
             alt: 'Building entrance',
           },
         },
@@ -219,7 +219,7 @@ export const OfferCarousel = {
           id: 'photo-13',
           type: 'image',
           image: {
-            src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop',
+            src: createPlaceholderSVG(1200, 800, '#cccccc', 'Photo 13 - Aerial'),
             alt: 'Parking area',
           },
         },
@@ -332,35 +332,35 @@ export const ModalCarousel = {
       {
         id: 'modal1',
         image: {
-          src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=1200&fit=crop',
+          src: createPlaceholderSVG(1600, 1200, '#cccccc', 'Exterior view'),
           alt: 'Building exterior - large view',
         },
       },
       {
         id: 'modal2',
         image: {
-          src: 'https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=1600&h=1200&fit=crop',
+          src: createPlaceholderSVG(1600, 1200, '#cccccc', 'Living room'),
           alt: 'Living room - large view',
         },
       },
       {
         id: 'modal3',
         image: {
-          src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&h=1200&fit=crop',
+          src: createPlaceholderSVG(1600, 1200, '#cccccc', 'Kitchen'),
           alt: 'Kitchen - large view',
         },
       },
       {
         id: 'modal4',
         image: {
-          src: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&h=1200&fit=crop',
+          src: createPlaceholderSVG(1600, 1200, '#cccccc', 'Bedroom'),
           alt: 'Bedroom - large view',
         },
       },
       {
         id: 'modal5',
         image: {
-          src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&h=1200&fit=crop',
+          src: createPlaceholderSVG(1600, 1200, '#cccccc', 'Bathroom'),
           alt: 'Bathroom - large view',
         },
       },
@@ -379,7 +379,8 @@ export const ModalCarousel = {
       slides,
       ariaLabel: 'Photo thumbnails',
       withPagination: false,
-      attributes: 'data-carousel-role="thumbs" id="carousel-thumbs-modal"',
+      attributes:
+        'data-carousel-role="thumbs" id="carousel-thumbs-modal" data-slides-per-view="auto" data-space-between="8"',
     });
 
     return `
@@ -408,12 +409,14 @@ export const ModalCarousel = {
             /* Thumbs carousel specific styles */
             [data-carousel-role="thumbs"] {
               height: 120px !important;
+              width: 100% !important;
             }
             [data-carousel-role="thumbs"] .swiper-slide {
               opacity: 0.4;
               cursor: pointer;
               transition: opacity 150ms ease;
               height: 120px;
+              width: 160px; /* ensure consistent thumb width for auto layout */
             }
             [data-carousel-role="thumbs"] .swiper-slide:hover {
               opacity: 0.7;
@@ -428,6 +431,7 @@ export const ModalCarousel = {
             }
             [data-carousel-role="thumbs"].swiper {
               --swiper-navigation-size: 24px;
+              width: 100% !important;
             }
             [data-carousel-role="thumbs"] .ps-carousel__button {
               width: 32px;
@@ -462,21 +466,21 @@ export const TeaserCarousel = {
           {
             id: 'teaser1',
             image: {
-              src: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+              src: createPlaceholderSVG(800, 800, '#cccccc', 'Preview 1'),
               alt: 'Modern building exterior',
             },
           },
           {
             id: 'teaser2',
             image: {
-              src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+              src: createPlaceholderSVG(800, 800, '#cccccc', 'Preview 2'),
               alt: 'Building facade',
             },
           },
           {
             id: 'teaser3',
             image: {
-              src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+              src: createPlaceholderSVG(800, 800, '#cccccc', 'Preview 3'),
               alt: 'Property view',
             },
           },
@@ -496,7 +500,7 @@ export const CardsCarousel = {
           id: 'card1',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop" alt="Property 1" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 1')}" alt="Property 1" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -518,7 +522,7 @@ export const CardsCarousel = {
           id: 'card2',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop" alt="Property 2" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 2') + "" alt="Property 2" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -540,7 +544,7 @@ export const CardsCarousel = {
           id: 'card3',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop" alt="Property 3" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 3') + "" alt="Property 3" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -562,7 +566,7 @@ export const CardsCarousel = {
           id: 'card4',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop" alt="Property 4" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 1') + "" alt="Property 4" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -584,7 +588,7 @@ export const CardsCarousel = {
           id: 'card5',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1502672260066-6bc2614179d7?w=400&h=300&fit=crop" alt="Property 5" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 5')}" alt="Property 5" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -606,7 +610,7 @@ export const CardsCarousel = {
           id: 'card6',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop" alt="Property 6" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 6')}" alt="Property 6" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -628,7 +632,7 @@ export const CardsCarousel = {
           id: 'card7',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&h=300&fit=crop" alt="Property 7" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 7')}" alt="Property 7" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -650,7 +654,7 @@ export const CardsCarousel = {
           id: 'card8',
           card: `
             <div style="position: relative;">
-              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop" alt="Property 8" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 8')}" alt="Property 8" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>

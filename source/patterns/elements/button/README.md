@@ -190,3 +190,81 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 - Focus outline visible for keyboard users.
 - Icon marked aria-hidden.
 - README in English.
+
+## Toggle States
+
+Add `data-ps-toggle="button"` to enable toggle functionality. The button will automatically toggle the `.active` class and `aria-pressed` attribute on click.
+
+### Basic Toggle Button (JavaScript Auto-Management)
+
+```twig
+{# Add toggle behavior via data-ps-toggle="button" #}
+{{ include('@elements/button/button.twig', { 
+  label: 'Add to favorites', 
+  icon: 'heart',
+  toggle: true
+}) }}
+```
+
+The `button.js` behavior will:
+1. Initialize `aria-pressed="false"` on click
+2. Toggle `.active` class on click
+3. Update `aria-pressed` accordingly
+4. Dispatch `button:toggle` custom event with detail: `{ button, active }`
+
+### Pre-Toggled Button (Initial Active State)
+
+If you need a button to start in the active state, use `active: true`:
+
+```twig
+{# Pre-toggled button (already active) #}
+{{ include('@elements/button/button.twig', { 
+  label: 'Remove from favorites', 
+  icon: 'heart',
+  toggle: true,
+  active: true
+}) }}
+```
+
+This will:
+- Render `.active` class initially
+- Set `aria-pressed="true"` in markup
+- Behave normally on subsequent clicks
+
+### Styling Toggle State
+
+The `.active` class applies the same visual treatment as `:active` pseudo-class:
+
+```css
+.ps-button.active {
+  background-color: var(--ps-button-active-bg);
+  transform: var(--ps-button-active-transform);
+}
+
+/* Active state persists on hover */
+.ps-button.active:hover {
+  background-color: var(--ps-button-active-bg);
+}
+```
+
+### Listening to Toggle Events
+
+```javascript
+button.addEventListener('button:toggle', (e) => {
+  console.log('Button toggled:', e.detail.active); // true or false
+  // Perform side effects (update compare list, favorite flag, etc.)
+});
+```
+
+### Accessibility Requirements
+
+- `aria-pressed` attribute always present (managed by behavior)
+- Keyboard support: Space and Enter keys trigger toggle
+- Focus must be visible during toggle state
+- Label text must clearly describe toggle action
+
+### Use Cases in PS Theme
+
+- **Offer Card Actions**: Compare/Favorite buttons toggle to indicate selection
+- **Filter Controls**: Toggle buttons for filtering options
+- **Form Controls**: Checkbox-like behavior using buttons

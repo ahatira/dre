@@ -128,12 +128,12 @@ props:
 
 ```scss
 .ps-filter-panel {
-  &__section { border-bottom: 1px solid var(--ps-color-neutral-300, #D2D7DB); padding: var(--ps-spacing-3, 12px) 0; }
-  &__toggle { display: flex; width: 100%; background: none; border: none; text-align: left; font-weight: 600; cursor: pointer; }
-  &__content { padding-top: var(--ps-spacing-2, 8px); }
-  &__actions { display: flex; gap: var(--ps-spacing-3, 12px); margin-top: var(--ps-spacing-4, 16px); }
+  &__section { border-bottom: 1px solid var(--border-default); padding: var(--size-3) 0; }
+  &__toggle { display: flex; width: 100%; background: none; border: none; text-align: left; font-weight: var(--font-weight-600); cursor: pointer; }
+  &__content { padding-top: var(--size-2); }
+  &__actions { display: flex; gap: var(--size-3); margin-top: var(--size-4); }
 
-  &--drawer { position: fixed; inset: 0 0 0 auto; width: 320px; background: #fff; box-shadow: var(--ps-shadow-md, 0 4px 12px rgba(0,0,0,0.12)); }
+  &--drawer { position: fixed; inset: 0 0 0 auto; width: var(--size-80); background: var(--white); box-shadow: var(--shadow-4); }
 
   @media (max-width: 768px) {
     &--sidebar { position: static; }

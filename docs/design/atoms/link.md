@@ -79,45 +79,48 @@ props:
 
 ## CSS Variables
 ```scss
---ps-primary: #00915A
---ps-link-hover: #006B43
---ps-link-active: #004A2D
---ps-link-visited: #8E2A68
---ps-transition-standard: 150ms ease
+--link-color: var(--primary)
+--link-hover: var(--primary-hover)
+--link-active: var(--primary-active)
+--link-visited: #8E2A68
+--link-transition-duration: var(--duration-fast)
 ```
 
 ## SCSS (states mapping)
 ```scss
 .ps-link {
-  color: var(--ps-link);
-  transition: color var(--ps-transition-standard);
+  color: var(--primary);
+  transition: color var(--duration-fast) var(--ease-3);
 
-  &:hover { color: var(--ps-link-hover); }
-  &:active { color: var(--ps-link-active); }
-  &:visited { color: var(--ps-link-visited); }
+  &:hover { color: var(--primary-hover); }
+  &:active { color: var(--primary-active); }
+  &:visited { color: var(--secondary); }
 
   &--disabled,
-  &[aria-disabled='true'] { color: var(--ps-link-disabled); pointer-events: none; }
+  &[aria-disabled='true'] {
+    color: var(--text-disabled);
+    pointer-events: none;
+  }
 
   &--purple {
-    color: var(--ps-link-purple);
-    &:hover { color: var(--ps-link-purple-hover); }
-    &:active { color: var(--ps-link-purple-active); }
-    &:visited { color: var(--ps-link-purple-visited); }
+    color: var(--secondary);
+    &:hover { color: var(--secondary-hover); }
+    &:active { color: var(--secondary-active); }
+    &:visited { color: var(--secondary); }
   }
 
   &--white {
-    color: var(--ps-link-inverse);
-    &:hover { color: var(--ps-link-inverse-hover); }
-    &:active { color: var(--ps-link-inverse-active); }
-    &:visited { color: var(--ps-link-inverse-visited); }
+    color: var(--text-inverse);
+    &:hover { color: var(--overlay-brand-light); }
+    &:active { color: var(--overlay-brand-medium); }
+    &:visited { color: var(--text-inverse); }
   }
 
   &--purple&--disabled,
-  &--purple[aria-disabled='true'] { color: var(--ps-link-purple-disabled); }
+  &--purple[aria-disabled='true'] { color: var(--text-disabled); }
 
   &--white&--disabled,
-  &--white[aria-disabled='true'] { color: var(--ps-link-inverse-disabled); }
+  &--white[aria-disabled='true'] { color: var(--text-disabled); }
 }
 ```
 

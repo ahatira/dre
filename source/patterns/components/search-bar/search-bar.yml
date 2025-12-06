@@ -1,0 +1,8 @@
+placeholder: "Search properties..."
+search_text: ""
+has_suggestions: true
+suggestions:
+  - "Paris Office"
+  - "London Residences"
+  - "Berlin Complex"
+show_icon: true

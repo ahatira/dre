@@ -59,7 +59,7 @@
   
   /* Borders */
   --ps-field-border-width: var(--border-size-2);
-  --ps-field-border-radius: var(--radius-2);
+  --ps-field-border-radius: 0;
   --ps-field-focus-shadow-width: 0;
   
   /* Icon */

@@ -89,22 +89,22 @@ SCSS (example)
 ```scss
 .ps-page-container {
   margin-inline: auto;
-  padding-inline: var(--ps-spacing-6);
-  max-width: var(--ps-container-max);
+  padding-inline: var(--size-6);
+  max-width: var(--size-max-site-width);
 
-  &--narrow { max-width: var(--ps-container-narrow); }
-  &--default { max-width: var(--ps-container-default); }
-  &--wide { max-width: var(--ps-container-wide); }
+  &--narrow { max-width: var(--size-content-3); }
+  &--default { max-width: var(--size-max-site-width); }
+  &--wide { max-width: var(--size-max-site-width); }
   &--full { max-width: 100%; }
-  &--fluid { padding-inline: var(--ps-spacing-4); }
+  &--fluid { padding-inline: var(--size-4); }
 
-  &__inner { display: grid; gap: var(--ps-spacing-6); }
+  &__inner { display: grid; gap: var(--size-6); }
   &__main { min-width: 0; }
   &__sidebar { min-width: 0; }
-  &__pre-footer { margin-top: var(--ps-spacing-10); }
+  &__pre-footer { margin-top: var(--size-10); }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: var(--size-tablet)) {
   .ps-page-container__inner {
     grid-template-columns: 1fr auto;
   }

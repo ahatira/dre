@@ -151,8 +151,8 @@ props:
 
 ```scss
 .ps-search-form {
-  &__fields { display: grid; gap: var(--ps-spacing-3, 12px); grid-template-columns: repeat(4, 1fr); }
-  &__actions { display: flex; gap: var(--ps-spacing-3, 12px); margin-top: var(--ps-spacing-3, 12px); }
+  &__fields { display: grid; gap: var(--size-3); grid-template-columns: repeat(4, 1fr); }
+  &__actions { display: flex; gap: var(--size-3); margin-top: var(--size-3); }
 
   &--inline {
     & .ps-form-field { display: flex; flex-direction: column; }
@@ -161,14 +161,14 @@ props:
     &__fields { grid-template-columns: 1fr; }
   }
   &--compact {
-    &__fields { gap: var(--ps-spacing-2, 8px); }
-    &__actions { gap: var(--ps-spacing-2, 8px); }
+    &__fields { gap: var(--size-2); }
+    &__actions { gap: var(--size-2); }
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: var(--size-tablet)) {
     &__fields { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 600px) {
+  @media (max-width: var(--size-mobile)) {
     &__fields { grid-template-columns: 1fr; }
   }
 }
@@ -222,7 +222,7 @@ props:
 
 ```scss
 // Optional style hook for error messages inside search-form
-.ps-field__error { margin-top: 4px; color: var(--ps-color-error-700, #C62828); font-size: var(--ps-font-size-xs, 12px); }
+.ps-field__error { margin-top: var(--size-1); color: var(--danger); font-size: var(--font-size--1); }
 ```
 
 ---

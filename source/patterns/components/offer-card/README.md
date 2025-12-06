@@ -41,23 +41,45 @@ Offer Card is a specialized component for real estate listings that extends the 
         └── CTA link
 ```
 
-## Design Tokens
+## Component Variables (Layer 2)
 
-Note: This component currently mirrors Figma exact values for badges, text, and actions. A follow-up task will align all hardcoded values with PS tokens per `.github/COMPLETE_RULES.md`.
+Offer Card uses a 3-layer token system. Override these component-scoped variables for customization:
+
+### Header
+- `--ps-offer-card-header-height`: `var(--size-6)` - Header container height
+- `--ps-offer-card-badges-gap`: `var(--size-2)` - Gap between badges
+- `--ps-offer-card-actions-gap`: `var(--size-3)` - Gap between action buttons
+
+### Badge
+- `--ps-offer-card-badge-height`: `var(--size-6)` - Badge height
+- `--ps-offer-card-badge-padding-y`: `var(--size-2)` - Vertical padding
+- `--ps-offer-card-badge-padding-x`: `var(--size-3)` - Horizontal padding
+- `--ps-offer-card-badge-radius`: `0` - Border radius (no rounding by default)
+- `--ps-offer-card-badge-viewed-bg`: `var(--gray-100)` - "Viewed" badge background
+- `--ps-offer-card-badge-viewed-color`: `var(--gray-700)` - "Viewed" badge text color
+- `--ps-offer-card-badge-gold-bg`: `var(--yellow-500)` - "Exclusivity" badge background
+- `--ps-offer-card-badge-gold-color`: `var(--white)` - "Exclusivity" badge text color
+
+### Action Buttons
+- `--ps-offer-card-action-size`: `var(--size-6)` - Button size (width/height)
+- `--ps-offer-card-action-color`: `var(--gray-500)` - Default icon color
+- `--ps-offer-card-action-hover-color`: `var(--primary)` - Hover color
+- `--ps-offer-card-action-active-color`: `var(--red-600)` - Active state color
+- `--ps-offer-card-action-focus-radius`: `0` - Focus outline radius
 
 ### Typography
-- Title: `16px` regular (--font-size-1, --font-weight-400)
-- Surface: `16px` bold (--font-size-1, --font-weight-700)
-- Price: `20px` bold (--font-size-3, --font-weight-700)
-- Meta: `14px` regular (--font-size-0, --font-weight-400)
-- Badges: `14px` regular (--font-size-0, --font-weight-400)
+- `--ps-offer-card-title-font-size`: `var(--font-size-1)` - Title (16px)
+- `--ps-offer-card-title-font-weight`: `var(--font-weight-400)` - Title weight
+- `--ps-offer-card-surface-font-size`: `var(--font-size-1)` - Surface (16px)
+- `--ps-offer-card-surface-font-weight`: `var(--font-weight-700)` - Surface weight (bold)
+- `--ps-offer-card-price-font-size`: `var(--font-size-3)` - Price (20px)
+- `--ps-offer-card-price-font-weight`: `var(--font-weight-700)` - Price weight (bold)
+- `--ps-offer-card-meta-font-size`: `var(--font-size-0)` - Meta text (14px)
 
-### Spacing
-- Content padding: `30px 24px` (inherited from Card medium size)
-- Badges gap: `8px` (--size-2)
-- Actions gap: `12px`
-- Footer gap: `9px`
-- Icon sizes: `12px` (badge), `16px` (meta), `24px` (actions)
+### Colors
+- `--ps-offer-card-title-color`: `var(--text-primary)` - Title text color
+- `--ps-offer-card-meta-color`: `var(--gray-600)` - Meta text color
+- `--ps-offer-card-price-color`: `var(--text-primary)` - Price text color
 
 ## Usage
 

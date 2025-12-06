@@ -46,17 +46,19 @@ props:
 </label>
 ```
 
-## Tokens
-- `borders.radius.full` pour cercle
-- `color.semantic.*` pour états
+## Tokens (réels)
+- Couleurs : `--primary`, `--primary-hover`, `--primary-active`, `--border-default`, `--border-error`, `--text-inverse`
+- Bordure : `--border-size-2`, rayon `--radius-round` (cercle)
+- Tailles : case `--size-5` (20px), dot `--size-3` (12px) ou `--size-2` (8px) selon design
 
-## CSS Variables
+## CSS Variables (exemple aligné tokens)
 ```scss
---ps-radio-size: 20px
---ps-primary: #00915A
---ps-border-default: #D6DBDE
---ps-border-width: 2px
---ps-radio-dot-size: 10px
+--radio-size: var(--size-5);          /* 20px */
+--radio-dot-size: var(--size-3);      /* 12px */
+--radio-border-width: var(--border-size-2);
+--radio-border-color: var(--border-default);
+--radio-color: var(--primary);
+--radio-dot-color: var(--text-inverse);
 ```
 
 ## A11y

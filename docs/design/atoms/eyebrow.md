@@ -121,18 +121,16 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Typo: `--ps-font-family-primary`, `--ps-font-size-xs|sm`, `--ps-font-weight-semibold`, `--ps-letter-spacing-wide`
-- Couleurs par variante:
-  - Primary: `--ps-color-primary-600`
-  - Secondary: `--ps-color-neutral-600`
-  - Accent: `--ps-color-info-600`
-  - Neutral: `--ps-color-neutral-500`
-- Ligne décorative: `--ps-color-neutral-300` (ligne), `--ps-spacing-2` (gap)
-- Espacements: `--ps-spacing-1|2` (gap icône/texte)
-
-Proposition si manquant: `--ps-letter-spacing-wide` (0.05em pour majuscules).
+- Typo : `--font-body`, `--font-size-0|1`, `--font-weight-600`, `--tracking-wide` (ou `--tracking-wider`), `--leading-tight`
+- Couleurs par variante :
+  - Primary : `--primary`
+  - Secondary : `--text-secondary`
+  - Accent : `--info`
+  - Neutral : `--gray-500` ou `--text-secondary`
+- Ligne/points décoratifs : couleur `currentColor`, épaisseur `--border-size-1`, espacement `--size-2`
+- Espacements internes : `--size-1|2` pour le gap icône/texte/ornements
 
 ---
 
@@ -181,65 +179,58 @@ Proposition si manquant: `--ps-letter-spacing-wide` (0.05em pour majuscules).
 
 ```scss
 .ps-eyebrow {
-  display: inline-flex; align-items: center; gap: var(--ps-spacing-2, 8px);
-  font-family: var(--ps-font-family-primary);
-  font-size: var(--ps-font-size-sm, 14px);
-  font-weight: var(--ps-font-weight-medium, 500);
-  letter-spacing: var(--ps-letter-spacing-wide, 0.05em);
-  line-height: 1.2;
+  /* Layer 2: variables composant */
+  --eyebrow-gap: var(--size-2);
+  --eyebrow-display: inline-flex;
+  --eyebrow-font-family: var(--font-condensed);
+  --eyebrow-font-size: var(--font-size-1);
+  --eyebrow-font-weight: var(--font-weight-500);
+  --eyebrow-line-height: 1.2;
+  --eyebrow-letter-spacing: var(--tracking-wide);
+  --eyebrow-color: var(--text-secondary);
+  --eyebrow-icon-size: var(--size-3);
+  --eyebrow-line-width: var(--size-10);
+  --eyebrow-line-height: var(--size-05);
+  --eyebrow-line-opacity: 0.3;
+  --eyebrow-dot-size: 1.2em;
+  --eyebrow-dot-opacity: 0.5;
 
-  &__icon {
-    width: 14px; height: 14px; flex-shrink: 0;
-  }
+  display: var(--eyebrow-display);
+  align-items: center;
+  gap: var(--eyebrow-gap);
+  font-family: var(--eyebrow-font-family);
+  font-size: var(--eyebrow-font-size);
+  font-weight: var(--eyebrow-font-weight);
+  letter-spacing: var(--eyebrow-letter-spacing);
+  line-height: var(--eyebrow-line-height);
+  color: var(--eyebrow-color);
 
-  &__line {
-    width: 40px; height: 2px;
-    background: currentColor;
-    opacity: 0.3;
-  }
+  &__icon { width: var(--eyebrow-icon-size); height: var(--eyebrow-icon-size); flex-shrink: 0; }
+  &__text { font: inherit; color: inherit; }
+  &__line { width: var(--eyebrow-line-width); height: var(--eyebrow-line-height); background: currentColor; opacity: var(--eyebrow-line-opacity); }
+  &__dot { font-size: var(--eyebrow-dot-size); opacity: var(--eyebrow-dot-opacity); }
 
-  &__dot {
-    font-size: 1.2em;
-    opacity: 0.5;
-  }
-
-  // Sizes
+  // Tailles
   &--small {
-    font-size: var(--ps-font-size-xs, 12px);
-    .ps-eyebrow__icon { width: 12px; height: 12px; }
-    .ps-eyebrow__line { width: 30px; height: 1px; }
-  }
-  &--medium {
-    font-size: var(--ps-font-size-sm, 14px);
+    --eyebrow-font-size: var(--font-size-0);
+    --eyebrow-icon-size: var(--size-2);
+    --eyebrow-line-width: var(--size-8);
+    --eyebrow-line-height: var(--border-size-1);
   }
 
-  // Styles
-  &--uppercase {
-    text-transform: uppercase;
-  }
-  &--bold {
-    font-weight: var(--ps-font-weight-semibold, 600);
-  }
+  // Styles texte
+  &--uppercase { text-transform: uppercase; letter-spacing: var(--tracking-wider); }
+  &--bold { --eyebrow-font-weight: var(--font-weight-600); }
 
-  // Variants
-  &--primary {
-    color: var(--ps-color-primary-600, #0DB089);
-  }
-  &--secondary {
-    color: var(--ps-color-neutral-600, #54636F);
-  }
-  &--accent {
-    color: var(--ps-color-info-600, #039BE5);
-  }
-  &--neutral {
-    color: var(--ps-color-neutral-500, #6E7C89);
-  }
+  // Variantes sémantiques
+  &--primary { --eyebrow-color: var(--primary); }
+  &--secondary { --eyebrow-color: var(--secondary); }
+  &--info { --eyebrow-color: var(--info); }
+  &--muted { --eyebrow-color: var(--text-disabled); }
 
-  // With line variant (full layout)
-  &--with-line {
-    .ps-eyebrow__text { order: -1; }
-    .ps-eyebrow__line { flex: 1; margin-left: var(--ps-spacing-2, 8px); }
-  }
+  // Décorations
+  &--with-line { & .ps-eyebrow__line { flex: 1; margin-left: var(--eyebrow-gap); } }
+  &--with-dot { & .ps-eyebrow__dot { color: currentColor; } }
 }
 ```
 

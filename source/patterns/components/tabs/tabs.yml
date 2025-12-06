@@ -1,0 +1,4 @@
+tabs:
+  - { id: "tab1", label: "Overview", content: "Overview content", active: true }
+  - { id: "tab2", label: "Details", content: "Details content", active: false }
+  - { id: "tab3", label: "Reviews", content: "Reviews content", active: false }

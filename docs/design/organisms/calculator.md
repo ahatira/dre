@@ -126,15 +126,15 @@ props:
 
 ```scss
 .ps-calculator {
-  &__title { font-size: var(--ps-font-size-xl, 24px); margin-bottom: var(--ps-spacing-3, 12px); }
-  &__form { display: grid; gap: var(--ps-spacing-3, 12px); grid-template-columns: repeat(2, 1fr); }
+  &__title { font-size: var(--font-size-5); margin-bottom: var(--size-3); }
+  &__form { display: grid; gap: var(--size-3); grid-template-columns: repeat(2, 1fr); }
   &__actions { grid-column: 1 / -1; display: flex; justify-content: flex-start; }
-  &__results { margin-top: var(--ps-spacing-4, 16px); }
-  &__result-line { display: flex; justify-content: space-between; padding: var(--ps-spacing-2, 8px) 0; }
+  &__results { margin-top: var(--size-4); }
+  &__result-line { display: flex; justify-content: space-between; padding: var(--size-2) 0; }
 
-  &--compact { &__form { gap: var(--ps-spacing-2, 8px); } }
+  &--compact { &__form { gap: var(--size-2); } }
 
-  &--panel { padding: var(--ps-spacing-4, 16px); border: 1px solid var(--ps-color-neutral-300, #D2D7DB); border-radius: var(--ps-border-radius-md, 8px); box-shadow: var(--ps-shadow-sm, 0 1px 2px rgba(0,0,0,0.08)); }
+  &--panel { padding: var(--size-4); border: var(--border-size-1) solid var(--border-default); border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
 
   @media (max-width: 768px) { &__form { grid-template-columns: 1fr; } }
 }

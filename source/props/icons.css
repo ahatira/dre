@@ -234,6 +234,7 @@
     content: "\e805"
 }
 
+[data-icon="heart"]::before,
 [data-icon="fav-filled"]::before,
 .icon-fav-filled:before {
     content: "\e80a"

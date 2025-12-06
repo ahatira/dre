@@ -71,7 +71,7 @@ props:
 
 ```scss
 .ps-hero-layout {
-  &__hero { margin-bottom: var(--ps-spacing-6, 24px); }
+  &__hero { margin-bottom: var(--size-6); }
 }
 ```
 

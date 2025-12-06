@@ -132,20 +132,24 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Typo: `--ps-font-family-primary`, `--ps-font-size-xs|sm`, `--ps-font-weight-medium|semibold`
-- Couleurs par variante (bg/text/border):
-  - Primary: `--ps-color-primary-100`, `--ps-color-primary-700`, `--ps-color-primary-600`
-  - Secondary: `--ps-color-neutral-200`, `--ps-color-neutral-700`
-  - Info: `--ps-color-info-100`, `--ps-color-info-700`
-  - Success: `--ps-color-success-100`, `--ps-color-success-700`
-  - Warning: `--ps-color-warning-100`, `--ps-color-warning-800`
-  - Error: `--ps-color-error-100`, `--ps-color-error-700`
-  - Neutral: `--ps-color-neutral-100`, `--ps-color-neutral-600`
-- Bordures: `--ps-border-radius-xs` (2px), `--ps-border-radius-sm` (4px), `--ps-border-radius-full` (999px)
-- Espacements: `--ps-spacing-1|2|3` (padding)
-- Transitions: `--ps-transition-duration-fast`, `--ps-transition-easing-default`
+- Typo : `--font-body`, `--font-size-0|1`, `--font-weight-600`, `--leading-tight`
+- Couleurs (bg/text/border) en sémantique existante :
+  - Default/neutral : `--neutral`, `--neutral-hover`, `--neutral-text`, `--border-default`
+  - Primary : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--primary-border`
+  - Secondary : `--secondary`, `--secondary-hover`, `--secondary-active`, `--secondary-text`, `--secondary-border`
+  - Info : `--info`, `--info-hover`, `--info-active`, `--info-text`, `--info-border`
+  - Success : `--success`, `--success-hover`, `--success-active`, `--success-text`, `--success-border`
+  - Warning : `--warning`, `--warning-hover`, `--warning-active`, `--warning-text`, `--warning-border`
+  - Danger : `--danger`, `--danger-hover`, `--danger-active`, `--danger-text`, `--danger-border`
+- Rayon : `--radius-2` (4px), `--radius-3` (6px), `--radius-round` (pill)
+- Bordure : `--border-size-1` (1px) ou `--border-size-2` (2px)
+- Espacements : `--size-1|2|3` pour les paddings internes
+- Ombre optionnelle : `--shadow-1` ou `--shadow-2`
+- Transition : `--duration-fast` + `--ease-3`
+
+ℹ️ Le variant « gold » n’existe pas dans les tokens : à remplacer par `warning` ou définir un token approuvé avant usage.
 
 ---
 
@@ -199,83 +203,72 @@ props:
 
 ```scss
 .ps-badge {
-  display: inline-flex; align-items: center; gap: var(--ps-spacing-1, 4px);
-  padding: var(--ps-spacing-1, 4px) var(--ps-spacing-2, 8px);
-  font-family: var(--ps-font-family-primary);
-  font-size: var(--ps-font-size-xs, 12px);
-  font-weight: var(--ps-font-weight-medium, 500);
+  /* Layer 2: composant (variables overridables) */
+  --badge-bg: var(--gray-200);
+  --badge-color: var(--gray-600);
+  --badge-padding-y: var(--size-1);
+  --badge-padding-x: var(--size-2);
+  --badge-font-size: var(--font-size--1); // 12px
+  --badge-font-weight: var(--font-weight-500);
+  --badge-radius: var(--radius-2);
+  --badge-icon-size: var(--font-size--1);
+  --badge-gap: var(--size-1);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--badge-gap);
+  padding: var(--badge-padding-y) var(--badge-padding-x);
+  font-family: var(--font-sans);
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
   line-height: 1.2;
-  border-radius: var(--ps-border-radius-sm, 4px);
+  border-radius: var(--badge-radius);
   text-decoration: none;
   white-space: nowrap;
-  transition: background var(--ps-transition-duration-fast, 0.15s) var(--ps-transition-easing-default, ease);
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  transition: background var(--duration-fast) var(--ease-4);
 
-  &__icon { width: 12px; height: 12px; flex-shrink: 0; }
+  &__icon {
+    inline-size: var(--badge-icon-size);
+    block-size: var(--badge-icon-size);
+    flex-shrink: 0;
+  }
 
-  // Sizes
+  // Tailles
   &--small {
-    font-size: var(--ps-font-size-xs, 11px);
-    padding: 2px var(--ps-spacing-1, 6px);
-    .ps-badge__icon { width: 10px; height: 10px; }
+    --badge-font-size: var(--font-size--2);
+    --badge-padding-y: var(--size-05);
+    --badge-padding-x: var(--size-1);
+    --badge-icon-size: var(--font-size--2);
   }
-  &--medium {
-    font-size: var(--ps-font-size-xs, 12px);
-    padding: var(--ps-spacing-1, 4px) var(--ps-spacing-2, 8px);
-  }
+
   &--large {
-    font-size: var(--ps-font-size-sm, 14px);
-    padding: var(--ps-spacing-2, 6px) var(--ps-spacing-3, 12px);
-    .ps-badge__icon { width: 14px; height: 14px; }
+    --badge-font-size: var(--font-size-0);
+    --badge-padding-y: var(--size-105);
+    --badge-padding-x: var(--size-3);
+    --badge-icon-size: var(--font-size-0);
   }
 
-  // Shapes
-  &--rounded { border-radius: var(--ps-border-radius-sm, 4px); }
-  &--square { border-radius: var(--ps-border-radius-xs, 2px); }
-  &--pill, &--count { border-radius: var(--ps-border-radius-full, 999px); }
+  // Formes
+  &--pill { --badge-radius: var(--radius-round); }
 
-  // Count type: compact circular
-  &--count {
-    min-width: 20px; height: 20px;
-    padding: 0 var(--ps-spacing-1, 6px);
-    justify-content: center;
-    font-weight: var(--ps-font-weight-semibold, 600);
-  }
+  // Variantes sémantiques
+  &--default { --badge-bg: var(--gray-200); --badge-color: var(--gray-600); }
+  &--primary { --badge-bg: var(--primary); --badge-color: var(--white); }
+  &--secondary { --badge-bg: var(--secondary); --badge-color: var(--white); }
+  &--info { --badge-bg: var(--blue-100); --badge-color: var(--blue-700); }
+  &--success { --badge-bg: var(--green-100); --badge-color: var(--green-700); }
+  &--warning { --badge-bg: var(--yellow-100); --badge-color: var(--yellow-700); }
+  &--danger { --badge-bg: var(--red-100); --badge-color: var(--red-700); }
 
-  // Variants
-  &--primary {
-    background: var(--ps-color-primary-100, #C5F4E9);
-    color: var(--ps-color-primary-700, #0E7A5F);
-  }
-  &--secondary {
-    background: var(--ps-color-neutral-200, #E8EBEF);
-    color: var(--ps-color-neutral-700, #3B4754);
-  }
-  &--info {
-    background: var(--ps-color-info-100, #B3E5FC);
-    color: var(--ps-color-info-700, #0277BD);
-  }
-  &--success {
-    background: var(--ps-color-success-100, #C5F4E9);
-    color: var(--ps-color-success-700, #0E7A5F);
-  }
-  &--warning {
-    background: var(--ps-color-warning-100, #FFE0B2);
-    color: var(--ps-color-warning-800, #E65100);
-  }
-  &--error {
-    background: var(--ps-color-error-100, #FFCDD2);
-    color: var(--ps-color-error-700, #C62828);
-  }
-  &--neutral {
-    background: var(--ps-color-neutral-100, #F3F6F9);
-    color: var(--ps-color-neutral-600, #54636F);
-  }
-
-  // Clickable state
-  &--clickable {
-    cursor: pointer;
+  // État cliquable (lien)
+  &:is(a) {
     &:hover { filter: brightness(0.95); }
-    &:focus-visible { outline: var(--ps-border-width-focus, 2px) solid var(--ps-color-interactive-focus-outline, #0B5FFF); outline-offset: 2px; }
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--primary);
+      outline-offset: var(--size-05);
+    }
   }
 }
 ```

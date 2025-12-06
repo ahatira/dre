@@ -12,12 +12,23 @@ import customViewports from './viewports';
 import './drupal/drupal';
 import './drupal/once';
 
+// Import Swiper.js for carousel component
+import Swiper from 'swiper';
+import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
+
+// Configure Swiper modules globally
+Swiper.use([Navigation, Pagination, Keyboard, A11y]);
+
+// Make Swiper available globally for carousel behavior
+window.Swiper = Swiper;
+
 // Import component behaviors (with JS)
 import '../source/patterns/components/alert/alert.js';
 import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
 
 // Import element behaviors
+import '../source/patterns/elements/button/button.js';
 import '../source/patterns/elements/collapse/collapse.js';
 
 // Import collection behaviors

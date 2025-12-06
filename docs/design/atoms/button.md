@@ -8,40 +8,25 @@
 
 ---
 
-## 📋 Description
+## 🎨 Design Tokens (réels)
 
-Le bouton est l'élément interactif fondamental pour déclencher des actions. Le PS Design System propose 7 variants sémantiques (neutral, primary, secondary, success, info, warning, danger) avec support outline, tailles multiples (small/medium/large), icônes positionnables, états disabled/loading, et mode full-width.
-
-**Implémentation** : `source/patterns/elements/button/`
-
-**Note** : L'implémentation utilise des variants sémantiques modernes au lieu des variants Figma originaux (green/purple/white) pour une meilleure évolutivité et cohérence avec les standards design system actuels.
-
----
-
-## 🎨 Aperçu visuel
-
-```
-┌─────────────────────────┐    ┌─────────────────────────┐
-│    Button             → │    │    Button             → │
-└─────────────────────────┘    └─────────────────────────┘
-   Neutral (default gray)         Primary (brand green)
-
-┌─────────────────────────┐    ┌─────────────────────────┐
-│    Cancel               │    │  ☰  Loading...          │
-└─────────────────────────┘    └─────────────────────────┘
-   Outline Secondary              Loading State
-
-┌──────────────────────────────────────────────────────┐
-│                 Full Width Button                  → │
-└──────────────────────────────────────────────────────┘
-## 🏗️ Structure BEM
-
-```html
-<!-- Default neutral button -->
-<button class="ps-button">
-  <span class="ps-button__label">Button</span>
-</button>
-
+- Typo : `--font-body`, `--font-size-1|2`, `--font-weight-600`, `--leading-tight`
+- Espacements : `--size-3|4|5|6` pour les paddings internes, gap icône `--size-2`
+- Hauteurs indicatives : `--size-8` (32px), `--size-10` (40px), `--size-12` (48px)
+- Rayon : `--radius-2` (4px), `--radius-3` (6px), `--radius-round` (icon-only/pill)
+- Bordures : `--border-size-1` (outline fin) ou `--border-size-2`
+- Couleurs sémantiques disponibles (fond/texte/bordure) :
+  - Neutral : `--neutral`, `--neutral-hover`, `--neutral-active`, `--neutral-text`, `--border-default`
+  - Primary : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--primary-border`
+  - Secondary : `--secondary`, `--secondary-hover`, `--secondary-active`, `--secondary-text`, `--secondary-border`
+  - Success : `--success`, `--success-hover`, `--success-active`, `--success-text`, `--success-border`
+  - Info : `--info`, `--info-hover`, `--info-active`, `--info-text`, `--info-border`
+  - Warning : `--warning`, `--warning-hover`, `--warning-active`, `--warning-text`, `--warning-border`
+  - Danger : `--danger`, `--danger-hover`, `--danger-active`, `--danger-text`, `--danger-border`
+- Outline : fond `transparent`, bordure sur la couleur sémantique correspondante
+- Focus : utiliser `--border-focus` pour l’outline visible AA
+- Ombres optionnelles : `--shadow-1` (repos), `--shadow-2` (hover)
+- Transition : `--duration-fast` + `--ease-3`
 <!-- Primary with icon right -->
 <button class="ps-button ps-button--primary ps-button--icon-right">
   <span class="ps-button__label">Next</span>
@@ -451,163 +436,212 @@ button_border_width: 2px (secondary uniquement)
 ## 🎨 Styles SCSS
 
 ```scss
-// _ps-button.scss
-
 .ps-button {
-  // Reset
-  appearance: none;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  text-decoration: none;
-  
-  // Layout
+  /* Variables composant (Layer 2) */
+  --button-gap: var(--size-2);
+  --button-padding-y: var(--size-2);
+  --button-padding-x: var(--size-4);
+  --button-min-width: var(--size-9);
+  --button-height: var(--size-9);
+  --button-font-family: var(--font-sans);
+  --button-font-size: var(--size-4);
+  --button-font-weight: var(--font-weight-400);
+  --button-line-height: 1.5;
+  --button-bg: var(--neutral);
+  --button-color: var(--neutral-text);
+  --button-border-width: 0;
+  --button-border-color: transparent;
+  --button-border-radius: 0;
+  --button-hover-bg: var(--neutral-hover);
+  --button-hover-border-color: transparent;
+  --button-hover-color: var(--neutral-text);
+  --button-hover-transform: translateY(-1px);
+  --button-active-bg: var(--neutral-active);
+  --button-active-transform: translateY(0);
+  --button-disabled-opacity: 0.5;
+  --button-focus-outline-width: var(--border-size-2);
+  --button-focus-outline-color: var(--border-focus);
+  --button-focus-outline-offset: var(--border-size-2);
+  --button-transition-duration: var(--duration-fast);
+  --button-transition-timing: var(--ease-4);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--ps-spacing-2);
-  
-  // Sizing
-  height: var(--ps-button-height-medium);
-  padding: var(--ps-button-padding-vertical) var(--ps-button-padding-horizontal);
-  
-  // Typography
-  font-family: var(--ps-font-family-primary);
-  font-weight: var(--ps-font-weight-regular);
-  font-size: var(--ps-font-size-base);
-  line-height: var(--ps-line-height-normal);
+  gap: var(--button-gap);
+  padding: var(--button-padding-y) var(--button-padding-x);
+  min-width: var(--button-min-width);
+  height: var(--button-height);
+  font-family: var(--button-font-family);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: var(--button-line-height);
   text-align: center;
   white-space: nowrap;
-  
-  // Visual
-  border-radius: var(--ps-border-radius-none);
-  transition: var(--ps-transition-button);
-  
-  // States
-  &:hover {
-    transform: translateY(-1px);
+  background-color: var(--button-bg);
+  color: var(--button-color);
+  border-style: solid;
+  border-width: var(--button-border-width);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+  transition:
+    background-color var(--button-transition-duration) var(--button-transition-timing),
+    color var(--button-transition-duration) var(--button-transition-timing),
+    border-color var(--button-transition-duration) var(--button-transition-timing),
+    transform var(--button-transition-duration) var(--button-transition-timing);
+
+  &:hover:not(:disabled):not(.ps-button--disabled) {
+    background-color: var(--button-hover-bg);
+    border-color: var(--button-hover-border-color);
+    color: var(--button-hover-color);
+    transform: var(--button-hover-transform);
   }
-  
-  &:active {
-    transform: translateY(0);
+
+  &:active:not(:disabled):not(.ps-button--disabled) {
+    background-color: var(--button-active-bg);
+    transform: var(--button-active-transform);
   }
-  
+
   &:focus-visible {
-    outline: var(--ps-border-width-focus) solid var(--ps-color-interactive-focus-outline);
-    outline-offset: 2px;
-  }
-  
-  // Disabled
-  &--disabled,
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  
-  // Loading
-  &--loading {
-    position: relative;
-    color: transparent;
-    pointer-events: none;
-    
-    .ps-button__spinner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    outline: var(--button-focus-outline-width) solid var(--button-focus-outline-color);
+    outline-offset: var(--button-focus-outline-offset);
   }
 }
 
-// Variants
-.ps-button--primary {
-  color: var(--ps-color-white);
-  
-  &.ps-button--green {
-    background-color: var(--ps-color-primary-green);
-    
-    &:hover {
-      background-color: #006B43;
-    }
-    
-    &:active {
-      background-color: #004A2D;
-    }
-  }
-  
-  &.ps-button--purple {
-    background-color: var(--ps-color-primary-purple);
-    
-    &:hover {
-      background-color: #8E2A68;
-    }
-    
-    &:active {
-      background-color: #621C47;
-    }
-  }
+.ps-button__label { display: inline-block; }
+.ps-button__icon { flex-shrink: 0; line-height: 1; }
+
+// Variantes sémantiques
+.ps-button--primary { --button-bg: var(--primary); --button-color: var(--primary-text); --button-hover-bg: var(--primary-hover); --button-active-bg: var(--primary-active); }
+.ps-button--secondary { --button-bg: var(--secondary); --button-color: var(--secondary-text); --button-hover-bg: var(--secondary-hover); --button-active-bg: var(--secondary-active); }
+.ps-button--success { --button-bg: var(--success); --button-color: var(--success-text); --button-hover-bg: var(--success-hover); --button-active-bg: var(--success-active); }
+.ps-button--info { --button-bg: var(--info); --button-color: var(--info-text); --button-hover-bg: var(--info-hover); --button-active-bg: var(--info-active); }
+.ps-button--warning { --button-bg: var(--warning); --button-color: var(--warning-text); --button-hover-bg: var(--warning-hover); --button-active-bg: var(--warning-active); }
+.ps-button--danger { --button-bg: var(--danger); --button-color: var(--danger-text); --button-hover-bg: var(--danger-hover); --button-active-bg: var(--danger-active); }
+.ps-button--neutral { --button-bg: var(--neutral); --button-color: var(--neutral-text); --button-hover-bg: var(--neutral-hover); --button-active-bg: var(--neutral-active); }
+
+// Variante outline (appliquée seule ou combinée)
+.ps-button--outline {
+  --button-bg: transparent;
+  --button-border-width: var(--border-size-2);
+  --button-border-color: var(--neutral);
+  --button-color: var(--neutral);
+  --button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
+  --button-hover-border-color: var(--neutral-hover);
+  --button-hover-color: var(--neutral-hover);
+  --button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
 }
 
-.ps-button--secondary {
-  background-color: transparent;
-  border: var(--ps-border-width-default) solid currentColor;
-  
-  &.ps-button--green {
-    color: var(--ps-color-primary-green);
-    
-    &:hover {
-      background-color: rgba(0, 145, 90, 0.1);
-    }
-  }
-  
-  &.ps-button--purple {
-    color: var(--ps-color-primary-purple);
-    
-    &:hover {
-      background-color: rgba(186, 48, 117, 0.1);
-    }
-  }
-  
-  &.ps-button--white {
-    color: var(--ps-color-white);
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
-}
+// Outline par variante
+.ps-button--outline.ps-button--primary { --button-border-color: var(--primary); --button-color: var(--primary); --button-hover-bg: color-mix(in srgb, var(--primary) 8%, transparent); --button-hover-border-color: var(--primary-hover); --button-hover-color: var(--primary-hover); --button-active-bg: color-mix(in srgb, var(--primary) 16%, transparent); }
+.ps-button--outline.ps-button--secondary { --button-border-color: var(--secondary); --button-color: var(--secondary); --button-hover-bg: color-mix(in srgb, var(--secondary) 8%, transparent); --button-hover-border-color: var(--secondary-hover); --button-hover-color: var(--secondary-hover); --button-active-bg: color-mix(in srgb, var(--secondary) 16%, transparent); }
+.ps-button--outline.ps-button--success { --button-border-color: var(--success); --button-color: var(--success); --button-hover-bg: color-mix(in srgb, var(--success) 8%, transparent); --button-hover-border-color: var(--success-hover); --button-hover-color: var(--success-hover); --button-active-bg: color-mix(in srgb, var(--success) 16%, transparent); }
+.ps-button--outline.ps-button--info { --button-border-color: var(--info); --button-color: var(--info); --button-hover-bg: color-mix(in srgb, var(--info) 8%, transparent); --button-hover-border-color: var(--info-hover); --button-hover-color: var(--info-hover); --button-active-bg: color-mix(in srgb, var(--info) 16%, transparent); }
+.ps-button--outline.ps-button--warning { --button-border-color: var(--warning); --button-color: var(--warning); --button-hover-bg: color-mix(in srgb, var(--warning) 8%, transparent); --button-hover-border-color: var(--warning-hover); --button-hover-color: var(--warning-hover); --button-active-bg: color-mix(in srgb, var(--warning) 16%, transparent); }
+.ps-button--outline.ps-button--danger { --button-border-color: var(--danger); --button-color: var(--danger); --button-hover-bg: color-mix(in srgb, var(--danger) 8%, transparent); --button-hover-border-color: var(--danger-hover); --button-hover-color: var(--danger-hover); --button-active-bg: color-mix(in srgb, var(--danger) 16%, transparent); }
+.ps-button--outline.ps-button--neutral { --button-border-color: var(--neutral); --button-color: var(--neutral); --button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent); --button-hover-border-color: var(--neutral-hover); --button-hover-color: var(--neutral-hover); --button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent); }
 
 // Tailles
 .ps-button--small {
-  height: var(--ps-button-height-small);
-  padding: 6px 12px;
-  font-size: var(--ps-font-size-sm);
+  --button-height: 2.12375rem; /* 34px */
+  --button-padding-y: var(--size-105); /* 6px */
+  --button-padding-x: var(--size-305); /* 14px */
+  --button-font-size: var(--size-305); /* 14px */
+  --button-line-height: 1.428; /* 20px */
+}
+
+.ps-button--medium {
+  --button-height: var(--size-9); /* 36px */
+  --button-padding-y: var(--size-2);
+  --button-padding-x: var(--size-4);
+  --button-font-size: var(--size-4);
+  --button-line-height: 1.5;
 }
 
 .ps-button--large {
-  height: var(--ps-button-height-large);
-  padding: 10px 20px;
-  font-size: var(--ps-font-size-lg);
+  --button-height: var(--size-10); /* 40px */
+  --button-padding-y: var(--size-205); /* 10px */
+  --button-padding-x: var(--size-5); /* 20px */
+  --button-font-size: 1.125rem; /* 18px */
+  --button-line-height: 1.444; /* 26px */
 }
 
-// Full width
-.ps-button--full-width {
-  width: 100%;
-}
-
-// Icon
-.ps-button__icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
+// Icône seule
 .ps-button--icon-only {
-  padding: var(--ps-button-padding-vertical);
-  aspect-ratio: 1;
+  --button-padding-y: var(--size-2);
+  --button-padding-x: var(--size-2);
+
+  .ps-button__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  &.ps-button--small {
+    --button-padding-y: var(--size-105);
+    --button-padding-x: var(--size-105);
+    width: 2.12375rem;
+  }
+
+  &.ps-button--medium { width: var(--size-9); }
+
+  &.ps-button--large {
+    --button-padding-y: var(--size-205);
+    --button-padding-x: var(--size-205);
+    width: var(--size-10);
+  }
 }
+
+// Pleine largeur
+.ps-button--full-width { width: 100%; }
+
+// États
+.ps-button--disabled,
+.ps-button:disabled { opacity: var(--button-disabled-opacity); cursor: not-allowed; pointer-events: none; }
+
+.ps-button--loading {
+  --button-spinner-color: var(--white);
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+
+  .ps-button__spinner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      width: 1rem;
+      height: 1rem;
+      border: var(--border-size-2) solid var(--button-spinner-color);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+  }
+
+  .ps-button__label,
+  .ps-button__icon { visibility: hidden; }
+}
+
+// Couleur du spinner pour outlines
+.ps-button--outline.ps-button--primary.ps-button--loading { --button-spinner-color: var(--primary); }
+.ps-button--outline.ps-button--secondary.ps-button--loading { --button-spinner-color: var(--secondary); }
+.ps-button--outline.ps-button--success.ps-button--loading { --button-spinner-color: var(--success); }
+.ps-button--outline.ps-button--info.ps-button--loading { --button-spinner-color: var(--info); }
+.ps-button--outline.ps-button--warning.ps-button--loading { --button-spinner-color: var(--warning); }
+.ps-button--outline.ps-button--danger.ps-button--loading { --button-spinner-color: var(--danger); }
+.ps-button--outline.ps-button--neutral.ps-button--loading { --button-spinner-color: var(--neutral); }
 ```
 
 ---

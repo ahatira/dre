@@ -75,12 +75,11 @@ props:
 
 ## 🎨 Design Tokens
 
-- Couleurs: `--ps-color-white`, `--ps-color-primary-green`, `--ps-color-interactive-focus-outline`
-- Typo: `--ps-font-family-primary`, `--ps-font-size-base`, `--ps-font-weight-medium`
-- Spacing: `--ps-spacing-3`, `--ps-spacing-4`
-- Ombre (optionnel): `--ps-shadow-md`
-
-Si `--ps-color-interactive-focus-outline` n’existe pas, proposer `colors.interactive.focus_outline`.
+- Couleurs: `--primary`, `--primary-hover`, `--white`, `--border-focus`
+- Typo: `--font-sans`, `--font-size-1`, `--font-weight-500`, `--leading-normal`
+- Spacing: `--size-3`, `--size-4`
+- Ombre (optionnel): `--shadow-3`
+- Z-index: `--layer-important`
 
 ---
 
@@ -105,24 +104,55 @@ Si `--ps-color-interactive-focus-outline` n’existe pas, proposer `colors.inter
 
 ```scss
 .ps-skip-link {
+  --skip-link-top: var(--size-4);
+  --skip-link-left: var(--size-4);
+  --skip-link-z-index: var(--layer-important);
+  --skip-link-padding-y: var(--size-3);
+  --skip-link-padding-x: var(--size-4);
+  --skip-link-bg: var(--primary);
+  --skip-link-hover-bg: var(--primary-hover);
+  --skip-link-color: var(--white);
+  --skip-link-border-radius: var(--radius-2);
+  --skip-link-shadow: var(--shadow-3);
+  --skip-link-font-family: var(--font-sans);
+  --skip-link-font-size: var(--font-size-1);
+  --skip-link-font-weight: var(--font-weight-500);
+  --skip-link-line-height: var(--leading-normal);
+  --skip-link-transition-duration: var(--duration-fast);
+  --skip-link-transition-timing: var(--ease-3);
+  --skip-link-focus-outline-width: var(--border-size-2);
+  --skip-link-focus-outline-color: var(--border-focus);
+  --skip-link-focus-outline-offset: var(--border-size-2);
+  --skip-link-hidden-offset-y: -150%;
+
   position: absolute;
-  left: var(--ps-spacing-4, 16px);
-  top: var(--ps-spacing-4, 16px);
-  transform: translateY(-150%);
-  z-index: 1000;
+  top: var(--skip-link-top);
+  left: var(--skip-link-left);
+  z-index: var(--skip-link-z-index);
+  transform: translateY(var(--skip-link-hidden-offset-y));
 
-  background: var(--ps-color-primary-green, #00915A);
-  color: var(--ps-color-white, #FFFFFF);
-  padding: var(--ps-spacing-3, 12px) var(--ps-spacing-4, 16px);
-  border-radius: var(--ps-border-radius-sm, 4px);
+  padding: var(--skip-link-padding-y) var(--skip-link-padding-x);
+  background-color: var(--skip-link-bg);
+  color: var(--skip-link-color);
+  border-radius: var(--skip-link-border-radius);
+  box-shadow: var(--skip-link-shadow);
+
+  font-family: var(--skip-link-font-family);
+  font-size: var(--skip-link-font-size);
+  font-weight: var(--skip-link-font-weight);
+  line-height: var(--skip-link-line-height);
   text-decoration: none;
-  box-shadow: var(--ps-shadow-md, 0 2px 8px rgba(0,0,0,0.15));
+  white-space: nowrap;
 
-  &:focus {
+  transition: transform var(--skip-link-transition-duration) var(--skip-link-transition-timing);
+
+  &:focus-visible {
     transform: translateY(0);
-    outline: 2px solid var(--ps-color-interactive-focus-outline, #0B5FFF);
-    outline-offset: 2px;
+    outline: var(--skip-link-focus-outline-width) solid var(--skip-link-focus-outline-color);
+    outline-offset: var(--skip-link-focus-outline-offset);
   }
+
+  &:hover { background-color: var(--skip-link-hover-bg); }
 }
 ```
 

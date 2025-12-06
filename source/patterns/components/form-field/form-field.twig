@@ -31,10 +31,8 @@
   {%- set field = field|merge({ disabled: true }) -%}
 {%- endif -%}
 
-{# Merge error state from form-field to field #}
-{%- if error -%}
-  {%- set field = field|merge({ error: error }) -%}
-{%- endif -%}
+{# DO NOT merge error to field - form-field handles error display #}
+{# Just add ps-field--error class for styling the input border #}
 
 {# Build wrapper classes - only add modifiers when value differs from default #}
 {%- set classes = ['ps-form-field'] -%}
@@ -64,7 +62,12 @@
 
   <div class="ps-form-field__input-wrapper">
     {# Pass through field props to ps-field atom, add ID for label association #}
-    {% include '@elements/field/field.twig' with field|merge({ attributes: create_attribute({ 'id': id }) }) %}
+    {# If error exists, pass hideError: true to prevent field from rendering error message #}
+    {% set fieldProps = field|merge({ 
+      attributes: create_attribute({ 'id': id }),
+      hideError: error ? true : false
+    }) %}
+    {% include '@elements/field/field.twig' with fieldProps %}
   </div>
 
   {%- if helperText and not error -%}
@@ -73,7 +76,11 @@
 
   {%- if error -%}
     <div class="ps-form-field__error" id="{{ id }}-error" role="alert" aria-live="polite">
-      {{ error }}
+      <svg class="ps-form-field__error-icon" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+        <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>{{ error }}</span>
     </div>
   {%- endif -%}
 </div>

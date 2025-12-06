@@ -79,18 +79,27 @@ props:
 - States: default, placeholder, hover, focus, done, error, disabled
 - Icon position: left or right
 
-## Tokens
-- `borders.preset.field.*`
-- `spacing.semantic.field.*`
+## Tokens (réels)
+- Couleurs : `--border-default`, `--border-focus`, `--border-error`, `--bg-disabled`, `--text-primary`, `--text-secondary`, `--text-inverse` (check icon), `--white`
+- Espacements : `--size-2|3|4` (padding horizontal/vertical selon variantes), gap icône `--size-2`
+- Hauteur : `--size-10` (40px) pour le champ par défaut
+- Bordures : `--border-size-2`, rayon `--radius-2`
+- Focus : outline via `--border-focus` et offset `--border-size-1`
+- Transition : `--duration-fast` + `--ease-3`
 
-## CSS Variables
+## CSS Variables (exemple aligné tokens)
 ```scss
---ps-border-default: #D6DBDE
---ps-border-focus: #0288D1
---ps-border-error: #EB3636
---ps-field-padding: 8px 12px
---ps-field-height: 40px
---ps-border-width: 2px
+--field-padding-y: var(--size-2);      /* 8px */
+--field-padding-x: var(--size-3);      /* 12px */
+--field-height: var(--size-10);        /* 40px */
+--field-border-width: var(--border-size-2);
+--field-border-color: var(--border-default);
+--field-radius: var(--radius-2);
+--field-bg: var(--white);
+--field-text: var(--text-primary);
+--field-placeholder: var(--text-secondary);
+--field-focus-color: var(--border-focus);
+--field-error-color: var(--border-error);
 ```
 
 ## Accessibilité

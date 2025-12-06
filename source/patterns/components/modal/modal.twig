@@ -1,0 +1,21 @@
+{# Modal - Dialog overlay component #}
+<div class="ps-modal{% if show %} ps-modal--visible{% endif %}" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  {% if backdrop %}<div class="ps-modal__backdrop"></div>{% endif %}
+  <div class="ps-modal__content ps-modal__content--{{ size }}">
+    <div class="ps-modal__header">
+      <h2 class="ps-modal__title" id="modal-title">{{ title }}</h2>
+      <button class="ps-modal__close" aria-label="Close dialog">
+        <svg aria-hidden="true" width="24" height="24">
+          <use href="#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="ps-modal__body">
+      {{ content }}
+    </div>
+    <div class="ps-modal__footer">
+      <button class="ps-button ps-button--secondary">Cancel</button>
+      <button class="ps-button ps-button--primary">Confirm</button>
+    </div>
+  </div>
+</div>

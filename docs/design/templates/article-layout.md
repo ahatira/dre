@@ -91,10 +91,10 @@ props:
 
 ```scss
 .ps-article-layout {
-  &__header { margin-bottom: var(--ps-spacing-4, 16px); }
-  &__title { font-size: var(--ps-font-size-3xl, 32px); }
-  &__meta { color: var(--ps-color-neutral-600, #54636F); display: flex; gap: var(--ps-spacing-2, 8px); }
-  display: grid; gap: var(--ps-spacing-4, 16px); grid-template-columns: 3fr 1fr;
+  &__header { margin-bottom: var(--size-4); }
+  &__title { font-size: var(--font-size-7); }
+  &__meta { color: var(--text-secondary); display: flex; gap: var(--size-2); }
+  display: grid; gap: var(--size-4); grid-template-columns: 3fr 1fr;
   &__body { grid-column: 1; }
   &__sidebar { grid-column: 2; }
   @media (max-width: 768px) { grid-template-columns: 1fr; &__sidebar { grid-column: 1; } }

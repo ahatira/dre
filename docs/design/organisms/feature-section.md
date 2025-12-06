@@ -150,18 +150,18 @@ props:
 
 ```scss
 .ps-feature-section {
-  padding: var(--ps-spacing-6, 24px) 0;
-  &__header { text-align: center; margin-bottom: var(--ps-spacing-5, 20px); }
-  &__title { font-size: var(--ps-font-size-2xl, 28px); }
-  &__text { color: var(--ps-color-neutral-700, #3B4754); }
+  padding: var(--size-6) 0;
+  &__header { text-align: center; margin-bottom: var(--size-5); }
+  &__title { font-size: var(--font-size-5); }
+  &__text { color: var(--text-secondary); }
 
-  &__list { display: grid; gap: var(--ps-spacing-5, 20px); list-style: none; padding: 0; margin: 0; }
+  &__list { display: grid; gap: var(--size-5); list-style: none; padding: 0; margin: 0; }
   &--2col &__list { grid-template-columns: repeat(2, 1fr); }
   &--3col &__list { grid-template-columns: repeat(3, 1fr); }
   &--4col &__list { grid-template-columns: repeat(4, 1fr); }
 
   &--left { &__header { text-align: left; } }
-  &--dark { background: var(--ps-color-neutral-900, #0E1A23); color: var(--ps-color-neutral-0, #FFF); }
+  &--dark { background: var(--gray-900); color: var(--white); }
 
   @media (max-width: 992px) { &--4col &__list { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { &__list { grid-template-columns: 1fr; } }

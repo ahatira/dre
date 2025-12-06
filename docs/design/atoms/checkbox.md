@@ -47,17 +47,20 @@ props:
 </label>
 ```
 
-## Tokens
-- `borders.*`, `color.semantic.*`
+## Tokens (réels)
+- Couleurs : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--border-default`, `--border-error`, `--text-inverse`
+- Taille/espacement : `--size-5` (20px) pour la case, `--size-2|3` pour les gaps éventuels
+- Bordures : `--border-size-2` (2px) pour le trait, rayon `--radius-2` (4px)
+- État disabled : `--text-disabled` et opacité contrôlée dans le composant
 
-## CSS Variables
+## CSS Variables (exemple aligé tokens)
 ```scss
---ps-checkbox-size: 20px
---ps-primary: #00915A
---ps-border-default: #D6DBDE
---ps-border-width: 2px
---ps-border-radius: 2px
---ps-checkbox-checkmark-color: #FFFFFF
+--checkbox-size: var(--size-5);            /* 20px */
+--checkbox-border-width: var(--border-size-2);
+--checkbox-border-color: var(--border-default);
+--checkbox-radius: var(--radius-2);
+--checkbox-checkmark-color: var(--text-inverse);
+--checkbox-color: var(--primary);
 ```
 
 ## A11y

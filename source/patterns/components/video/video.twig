@@ -1,0 +1,14 @@
+{# Video - Responsive video embed #}
+<div class="ps-video ps-video--{{ aspect_ratio | replace(':', '-') }}">
+  {% if provider == "youtube" %}
+    <iframe
+      class="ps-video__player"
+      src="https://www.youtube.com/embed/{{ video_id }}"
+      title="{{ title }}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      aria-label="{{ title }}"
+    ></iframe>
+  {% endif %}
+</div>

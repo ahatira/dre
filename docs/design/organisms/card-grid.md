@@ -133,12 +133,12 @@ props:
 
 ```scss
 .ps-card-grid {
-  &__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--ps-spacing-4, 16px); }
-  &__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--ps-spacing-4, 16px); list-style: none; padding: 0; margin: 0; }
+  &__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--size-4); }
+  &__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--size-4); list-style: none; padding: 0; margin: 0; }
   &__item { display: block; }
-  &__footer { margin-top: var(--ps-spacing-4, 16px); }
+  &__footer { margin-top: var(--size-4); }
 
-  &--compact { &__list { gap: var(--ps-spacing-3, 12px); } }
+  &--compact { &__list { gap: var(--size-3); } }
 
   @media (max-width: 992px) { &__list { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { &__list { grid-template-columns: 1fr; } }

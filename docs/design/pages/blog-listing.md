@@ -65,7 +65,7 @@ props:
 ## 🎨 Styles SCSS
 
 ```scss
-.ps-blog-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--ps-spacing-4, 16px); }
+.ps-blog-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--size-4); }
 @media (max-width: 992px) { .ps-blog-layout { grid-template-columns: 1fr; } }
 ```
 

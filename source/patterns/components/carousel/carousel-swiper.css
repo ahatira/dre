@@ -1,8 +1,0 @@
-/**
- * Swiper Core Styles Import
- * This file imports Swiper.js base styles from node_modules.
- * Imported before carousel.css custom styles.
- */
-
-/* Swiper Bundle (includes core + all modules: navigation, pagination, a11y, etc.) */
-@import 'swiper/swiper-bundle.css';

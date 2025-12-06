@@ -77,7 +77,7 @@ props:
 
 ```scss
 .ps-two-col {
-  display: grid; gap: var(--ps-spacing-4, 16px);
+  display: grid; gap: var(--size-4);
   grid-template-columns: 3fr 2fr; // default 60-40
 
   &--50-50 { grid-template-columns: 1fr 1fr; }

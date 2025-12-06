@@ -1,0 +1,4 @@
+tags:
+  - { label: "Paris", removable: true, selected: true }
+  - { label: "London", removable: true, selected: false }
+  - { label: "Berlin", removable: true, selected: true }

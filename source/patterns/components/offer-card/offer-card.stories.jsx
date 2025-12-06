@@ -3,6 +3,14 @@ import offerCardTwig from './offer-card.twig';
 export default {
   title: 'Components/Offer Card',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Specialized card for real estate offers that extends the generic Card component. Features property image, status badges (viewed, exclusivity), title, surface area, location metadata, price, and call-to-action. Supports vertical and horizontal layouts.',
+      },
+    },
+  },
   render: (args) => offerCardTwig(args),
   argTypes: {
     // Layout
@@ -27,6 +35,16 @@ export default {
     price: {
       control: 'text',
       description: 'Price text',
+      table: { category: 'Content' },
+    },
+    price_value: {
+      control: 'text',
+      description: 'Price amount (bold part)',
+      table: { category: 'Content' },
+    },
+    price_details: {
+      control: 'text',
+      description: 'Price suffix (regular part)',
       table: { category: 'Content' },
     },
 
@@ -69,11 +87,32 @@ export default {
 
 // Default Story
 export const Default = {
+  render: (args) => {
+    if (typeof args.image?.url === 'string') {
+      return offerCardTwig(args);
+    }
+    return offerCardTwig({
+      ...args,
+      layout: 'vertical',
+      title: 'Rent Offices MADRID Barrio de Chamberí',
+      surface: '611.3 m²',
+      price: '20 000 € HT/HC/m²/an',
+      status: { viewed: true, exclusivity: true },
+      image: {
+        url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=400&fit=crop&q=80',
+        alt: 'Office space in Madrid',
+      },
+      meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
+      cta: { text: 'View the property', url: '#property-123' },
+    });
+  },
   args: {
     layout: 'vertical',
     title: 'Rent Offices MADRID Barrio de Chamberí',
     surface: '611.3 m²',
     price: '20 000 € HT/HC/m²/an',
+    price_value: '20 000 €',
+    price_details: 'HT/HC/m²/an',
     status: {
       viewed: true,
       exclusivity: true,
@@ -97,6 +136,8 @@ export const HorizontalLayout = {
     title: 'Rent Offices MADRID Barrio de Chamberí',
     surface: '611.3 m²',
     price: '20 000 € HT/HC/m²/an',
+    price_value: '20 000 €',
+    price_details: 'HT/HC/m²/an',
     status: {
       viewed: true,
       exclusivity: true,
@@ -120,6 +161,8 @@ export const WithoutStatus = {
     title: 'Sale Apartment PARIS 16ème',
     surface: '120 m²',
     price: '1 500 000 €',
+    price_value: '1 500 000 €',
+    price_details: null,
     image: {
       url: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=400&fit=crop&q=80',
       alt: 'Apartment in Paris',
@@ -139,6 +182,8 @@ export const AsLink = {
     title: 'Rent Office LYON Part-Dieu',
     surface: '450 m²',
     price: '15 000 € HT/HC/m²/an',
+    price_value: '15 000 €',
+    price_details: 'HT/HC/m²/an',
     url: '#property-full-link',
     image: {
       url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=400&fit=crop&q=80',

@@ -56,7 +56,7 @@ props:
 ## 🎨 Styles SCSS
 
 ```scss
-.ps-contact__content { display: grid; gap: var(--ps-spacing-4, 16px); grid-template-columns: 1fr 1fr; }
+.ps-contact__content { display: grid; gap: var(--size-4); grid-template-columns: 1fr 1fr; }
 @media (max-width: 768px) { .ps-contact__content { grid-template-columns: 1fr; } }
 ```
 

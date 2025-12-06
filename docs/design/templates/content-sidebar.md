@@ -77,7 +77,7 @@ props:
 
 ```scss
 .ps-content-sidebar {
-  display: grid; gap: var(--ps-spacing-4, 16px);
+  display: grid; gap: var(--size-4);
   grid-template-columns: 3fr 1fr;
   &--left { direction: rtl; }
   @media (max-width: 768px) { grid-template-columns: 1fr; }

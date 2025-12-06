@@ -1,63 +1,142 @@
 /**
- * Carousel (Component/Molecule)
- * Responsive carousel for images or cards with navigation, pagination, keyboard and touch support.
- * 
- * Built with Swiper.js (v12) - https://swiperjs.com/
- * 
- * BEM: ps-carousel, ps-carousel__track, ps-carousel__slide, 
- *      ps-carousel__image, ps-carousel__controls, ps-carousel__button, ps-carousel__prev, 
- *      ps-carousel__next, ps-carousel__pagination, ps-carousel__toolbar, ps-carousel__favorite
- * Variants: images (default) | cards
- * Modifiers: --loop, --auto-height, --with-toolbar, --with-favorite, --lightbox
- * 
- * Note: Swiper base styles are imported separately in carousel-swiper.css
- * to avoid postcss-import resolution issues with node_modules.
+ * Carousel Component (Molecule)
+ * Responsive carousel for images or cards with Swiper.js integration.
+ * Supports navigation, pagination, keyboard, touch gestures, and optional multi-media toolbar.
+ *
+ * BEM Structure:
+ * - Block: .ps-carousel (also .swiper)
+ * - Elements: __track, __slide, __image, __card, __controls, __button, __icon,
+ *   __pagination, __toolbar, __toolbar-item, __toolbar-icon, __toolbar-label, __toolbar-divider
+ * - Modifiers: --cards, --loop, --auto-height, --with-toolbar, --fit-contain, --lightbox
+ *
+ * Design Tokens (3-Layer System):
+ * - Layer 1 (Root Primitives): --ps-green-600, --ps-white, --ps-size-4, --ps-radius-1, etc. (in source/props/*.css)
+ * - Layer 2 (Component-Scoped): --ps-carousel-*, defined in this file with defaults
+ * - Layer 3 (Context Overrides): .sidebar .ps-carousel { --ps-carousel-* } (consumer responsibility)
+ *
+ * @see .github/CSS_VARIABLES_SYSTEM.md for migration strategy
  */
 
-/* Import Swiper base styles first (from separate file for postcss-import compatibility) */
-@import './carousel-swiper.css';
+/* Import Swiper bundle (core + all modules) */
+@import 'swiper/swiper-bundle.css';
+
+/* ===================================
+   Component-Scoped Variables (Layer 2)
+   =================================== */
+.ps-carousel {
+  /* Navigation button styles */
+  --ps-carousel-button-width: var(--size-12); /* 48px */
+  --ps-carousel-button-height: var(--size-12); /* 48px */
+  --ps-carousel-button-padding: var(--size-1); /* 4px */
+  --ps-carousel-button-bg: var(--white);
+  --ps-carousel-button-color: var(--primary);
+  --ps-carousel-button-border-radius: 0;
+  --ps-carousel-button-shadow: var(--shadow-3);
+  --ps-carousel-button-shadow-hover: var(--shadow-4);
+  --ps-carousel-button-icon-size: var(--size-5); /* 20px */
+  
+  /* Pagination styles */
+  --ps-carousel-pagination-bullet-width: var(--size-3); /* 12px */
+  --ps-carousel-pagination-bullet-height: var(--size-3); /* 12px */
+  --ps-carousel-pagination-bullet-margin: 0;
+  --ps-carousel-pagination-bullet-radius: var(--radius-round);
+  --ps-carousel-pagination-bullet-bg: var(--white);
+  --ps-carousel-pagination-bullet-shadow: var(--shadow-2);
+  --ps-carousel-pagination-bullet-active-bg: var(--primary);
+  --ps-carousel-pagination-bullet-active-shadow: var(--shadow-3);
+  --ps-carousel-pagination-gap: var(--size-2); /* 8px */
+  --ps-carousel-pagination-bottom: var(--size-6); /* 24px */
+  --ps-carousel-pagination-z-index: 10;
+  
+  /* Toolbar styles */
+  --ps-carousel-toolbar-bg: var(--gray-50);
+  --ps-carousel-toolbar-padding: var(--size-2) var(--size-5); /* 8px 20px */
+  --ps-carousel-toolbar-gap: var(--size-2); /* 8px */
+  --ps-carousel-toolbar-border-radius: var(--size-6); /* 24px */
+  --ps-carousel-toolbar-bottom: var(--size-5); /* 20px */
+  --ps-carousel-toolbar-z-index: 11;
+  --ps-carousel-toolbar-item-padding: var(--size-05) var(--size-2); /* 4px 8px */
+  --ps-carousel-toolbar-item-border-radius: var(--radius-3); /* 6px */
+  --ps-carousel-toolbar-item-color: var(--primary);
+  --ps-carousel-toolbar-item-color-hover: var(--primary-hover);
+  --ps-carousel-toolbar-item-color-active: var(--secondary);
+  --ps-carousel-toolbar-item-gap: var(--size-1); /* 4px */
+  --ps-carousel-toolbar-icon-width: var(--size-5); /* 20px */
+  --ps-carousel-toolbar-icon-height: var(--size-5); /* 20px */
+  --ps-carousel-toolbar-label-font-family: 'BNPP Sans', sans-serif;
+  --ps-carousel-toolbar-label-font-size: var(--font-size-0); /* 14px */
+  --ps-carousel-toolbar-label-line-height: var(--size-6); /* 24px */
+  --ps-carousel-toolbar-divider-width: var(--border-size-1); /* 1px */
+  --ps-carousel-toolbar-divider-height: 22px;
+  --ps-carousel-toolbar-divider-bg: var(--gray-400);
+  
+  /* Cards variant */
+  --ps-carousel-cards-padding: 0 var(--size-12); /* 0 48px */
+  --ps-carousel-cards-button-width: var(--size-10); /* 40px */
+  --ps-carousel-cards-button-height: var(--size-10); /* 40px */
+  --ps-carousel-cards-button-bg: transparent;
+  --ps-carousel-cards-button-color: var(--gray-600);
+  --ps-carousel-cards-button-color-hover: var(--secondary);
+  --ps-carousel-cards-button-icon-size: var(--size-8); /* 32px */
+  --ps-carousel-cards-gradient-width: 167px;
+  --ps-carousel-cards-button-z-index: 12;
+  
+  /* Controls positioning */
+  --ps-carousel-controls-padding: 0 var(--size-6); /* 0 24px */
+  --ps-carousel-controls-z-index: 10;
+  
+  /* Spacing and alignment */
+  --ps-carousel-slide-outline: none;
+  --ps-carousel-image-object-fit: cover;
+  --ps-carousel-card-padding: 0;
+  
+  /* Focus & Interaction */
+  --ps-carousel-focus-outline-width: var(--border-size-2); /* 2px */
+  --ps-carousel-focus-outline-color: var(--primary);
+  --ps-carousel-focus-outline-offset: var(--border-size-2); /* 2px */
+  
+  /* Transitions */
+  --ps-carousel-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .ps-carousel {
   position: relative;
   width: 100%;
-  
-  /* Override Swiper container defaults */
+
   &.swiper {
     margin-left: auto;
     margin-right: auto;
-    overflow: hidden; /* CRITICAL: Swiper needs overflow hidden */
+    overflow: hidden;
   }
-  
+
   /* Track (swiper-wrapper) */
   &__track {
-    /* Swiper adds display: flex automatically */
     margin: 0;
     padding: 0;
     list-style: none;
   }
-  
-  /* Individual slide (swiper-slide) */
+
+  /* Individual slide */
   &__slide {
-    /* Swiper handles flex sizing */
     min-width: 0;
     position: relative;
-    outline: none;
+    outline: var(--ps-carousel-slide-outline);
   }
-  
+
   /* Image inside slide */
   &__image {
     display: block;
     width: 100%;
     height: auto;
-    object-fit: cover;
+    object-fit: var(--ps-carousel-image-object-fit);
   }
-  
+
   /* Card container */
   &__card {
-    padding: var(--ps-spacing-0);
+    padding: var(--ps-carousel-card-padding);
   }
-  
-  /* Controls container - Overlay positioning */
+
+  /* Controls container */
   &__controls {
     position: absolute;
     top: 50%;
@@ -67,306 +146,339 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--size-6); /* 24px comme Figma */
+    padding: var(--ps-carousel-controls-padding);
     pointer-events: none;
-    z-index: 10;
+    z-index: var(--ps-carousel-controls-z-index);
   }
-  
-  /* Navigation buttons - Square white 48×48px with 4px padding (Figma spec) */
+
+  /* Navigation buttons */
   &__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--size-12); /* 48px */
-    height: var(--size-12); /* 48px */
-    padding: var(--size-1); /* 4px */
+    width: var(--ps-carousel-button-width);
+    height: var(--ps-carousel-button-height);
+    padding: var(--ps-carousel-button-padding);
     border: none;
-    border-radius: 0; /* Pixel perfect: no rounded corners */
-    background-color: var(--ps-color-neutral-0);
-    color: var(--ps-color-primary-600); /* #00915A green */
+    border-radius: var(--ps-carousel-button-border-radius);
+    background-color: var(--ps-carousel-button-bg);
+    color: var(--ps-carousel-button-color);
     cursor: pointer;
     pointer-events: auto;
-    box-shadow: var(--shadow-carousel-button);
-    transition: 
-      box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-      transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-      background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-    
-    &:hover {
-      box-shadow: var(--shadow-carousel-button-hover);
-      background-color: var(--ps-color-neutral-0);
+    box-shadow: var(--ps-carousel-button-shadow);
+    transition: box-shadow var(--ps-carousel-transition), transform var(--ps-carousel-transition), background-color var(--ps-carousel-transition);
+
+    &:hover:not(:disabled) {
+      box-shadow: var(--ps-carousel-button-shadow-hover);
     }
-    
-    &:active {
+
+    &:active:not(:disabled) {
       transform: scale(0.96);
     }
-    
+
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--ps-color-primary-600);
-      outline-offset: var(--border-size-2);
+      outline: var(--ps-carousel-focus-outline-width) solid var(--ps-carousel-focus-outline-color);
+      outline-offset: var(--ps-carousel-focus-outline-offset);
     }
-    
+
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
       pointer-events: none;
     }
   }
-  
+
   /* Icon inside button */
   &__icon {
     font-family: 'bnpre-icons';
     font-style: normal;
     font-weight: var(--font-weight-400);
-    font-size: var(--size-5);
+    font-size: var(--ps-carousel-button-icon-size);
     line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    
-    &::before {
-      display: block;
-    }
   }
-  
-  /* Pagination container (swiper-pagination) - Overlay at bottom */
+
+  /* Pagination container */
   &__pagination {
-    position: absolute !important;
-    bottom: var(--size-6) !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    position: absolute;
+    bottom: var(--ps-carousel-pagination-bottom);
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--size-2);
+    gap: var(--ps-carousel-pagination-gap);
     padding: 0;
-    z-index: 10;
-    width: auto !important;
-    
-    /* Swiper pagination bullet overrides - White with shadow */
-    :global(.swiper-pagination-bullet) {
-      width: var(--size-3);
-      height: var(--size-3);
-      margin: 0 !important;
-      border-radius: var(--radius-round);
-      background-color: var(--ps-color-neutral-0);
-      opacity: 1;
-      box-shadow: var(--shadow-2);
-      transition: 
-        background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-        transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1),
-        box-shadow 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-      
-      &:hover {
-        transform: scale(1.15);
-        box-shadow: var(--shadow-3);
-      }
-      
-      &:focus-visible {
-        outline: var(--border-size-2) solid var(--ps-color-primary-600);
-        outline-offset: var(--border-size-2);
-      }
-    }
-    
-    :global(.swiper-pagination-bullet-active) {
-      background-color: var(--ps-color-primary-600);
-      box-shadow: var(--shadow-3);
-    }
+    z-index: var(--ps-carousel-pagination-z-index);
+    text-align: center;
   }
-  
-  /* Toolbar - Overlay at bottom with media type navigation (Figma: #F9F9FB, border-radius 24px) */
+
+  /* Toolbar */
   &__toolbar {
     position: absolute;
-    bottom: var(--size-5); /* 20px */
+    bottom: var(--ps-carousel-toolbar-bottom);
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
-    padding: var(--size-2) var(--size-5); /* 8px 20px */
-    gap: var(--size-2); /* 8px */
-    background-color: var(--gray-50); /* #F3F6F9 - Light background */
-    border-radius: var(--size-6); /* 24px */
-    z-index: 11;
-    
-    /* Hidden by default, shown with --with-toolbar modifier */
-    display: none;
+    padding: var(--ps-carousel-toolbar-padding);
+    gap: var(--ps-carousel-toolbar-gap);
+    background-color: var(--ps-carousel-toolbar-bg);
+    border-radius: var(--ps-carousel-toolbar-border-radius);
+    z-index: var(--ps-carousel-toolbar-z-index);
   }
-  
+
   &__toolbar-item {
     display: flex;
-    flex-direction: row;
     align-items: baseline;
-    gap: var(--size-1); /* 4px */
-    padding: var(--size-0) var(--size-2); /* 4px 8px */
+    gap: var(--ps-carousel-toolbar-item-gap);
+    padding: var(--ps-carousel-toolbar-item-padding);
     border: none;
-    border-radius: var(--radius-3); /* 12px */
+    border-radius: var(--ps-carousel-toolbar-item-border-radius);
     background-color: transparent;
     cursor: pointer;
-    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-    
+    transition: color var(--ps-carousel-transition);
+
     &:hover {
-      .ps-carousel__toolbar-label,
-      .ps-carousel__toolbar-icon {
-        color: var(--bnp-dark-green); /* #017F4F - Dark green hover */
+      & .ps-carousel__toolbar-label,
+      & .ps-carousel__toolbar-icon {
+        color: var(--ps-carousel-toolbar-item-color-hover);
       }
     }
-    
+
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--ps-color-primary-600);
+      outline: var(--ps-carousel-focus-outline-width) solid var(--ps-carousel-focus-outline-color);
       outline-offset: var(--border-size-1);
     }
-    
-    /* Active state when current slide matches this item's group */
-    &[data-active="true"] {
-      .ps-carousel__toolbar-label,
-      .ps-carousel__toolbar-icon {
-        color: var(--secondary); /* Secondary color for active state */
+
+    &[data-active='true'] {
+      & .ps-carousel__toolbar-label,
+      & .ps-carousel__toolbar-icon {
+        color: var(--ps-carousel-toolbar-item-color-active);
+      }
+
+      & .ps-carousel__toolbar-label {
+        text-decoration: none;
       }
     }
   }
-  
-  &__toolbar-icon {
-    width: var(--size-5); /* 20px */
-    height: var(--size-5); /* 20px */
-    color: var(--ps-color-primary-600); /* Green #00915A */
-    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-  }
-  
+
+  &__toolbar-icon,
   &__toolbar-label {
-    font-family: 'BNPP Sans', sans-serif;
-    font-size: var(--font-size-0); /* 16px */
-    line-height: var(--size-6); /* 24px */
-    color: var(--ps-color-primary-600);
-    text-decoration: underline; /* Underlined links */
-    white-space: nowrap; /* Force single line */
-    transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: color var(--ps-carousel-transition);
   }
-  
+
+  &__toolbar-icon {
+    width: var(--ps-carousel-toolbar-icon-width);
+    height: var(--ps-carousel-toolbar-icon-height);
+    color: var(--ps-carousel-toolbar-item-color);
+    font-family: 'bnpre-icons';
+    font-style: normal;
+    line-height: 1;
+  }
+
+  &__toolbar-label {
+    font-family: var(--ps-carousel-toolbar-label-font-family);
+    font-size: var(--ps-carousel-toolbar-label-font-size);
+    line-height: var(--ps-carousel-toolbar-label-line-height);
+    color: var(--ps-carousel-toolbar-item-color);
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
   &__toolbar-divider {
-    width: var(--border-size-1);
-    height: calc(var(--size-5) + var(--size-05)); /* 20px + 2px = 22px */
-    background-color: var(--gray-400); /* #9AA6B2 - Divider gray */
+    width: var(--ps-carousel-toolbar-divider-width);
+    height: var(--ps-carousel-toolbar-divider-height);
+    background-color: var(--ps-carousel-toolbar-divider-bg);
   }
-  
+
   /* Variant: Cards */
   &--cards {
-    /* Padding creates space for external buttons */
-    padding: 0 var(--size-5); /* 40px for buttons (40px) + gap (24px) */
+    padding: var(--ps-carousel-cards-padding);
     position: relative;
-    
+
     /* Left gradient overlay (covers left cards) */
     &::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: var(--size-42);
+      width: var(--ps-carousel-cards-gradient-width);
       height: 100%;
-      background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(90deg, var(--white) 0%, rgba(255, 255, 255, 0) 100%);
       pointer-events: none;
-      z-index: 11;
+      z-index: var(--ps-carousel-toolbar-z-index);
     }
-    
+
     /* Right gradient overlay (covers right cards) */
     &::after {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
-      width: var(--size-42);
+      width: var(--ps-carousel-cards-gradient-width);
       height: 100%;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--white) 100%);
       pointer-events: none;
-      z-index: 11;
+      z-index: var(--ps-carousel-toolbar-z-index);
     }
-    
-    .ps-carousel__slide {
-      /* Cards have no internal padding (managed by Swiper spaceBetween) */
-    }
-    
-    /* Navigation buttons - Positioned in padding area (external) */
-    .ps-carousel__controls {
+
+    /* Navigation controls - positioned in padding area (external to carousel content) */
+    & .ps-carousel__controls {
       position: absolute;
       top: 50%;
       left: 0;
       right: 0;
       transform: translateY(-50%);
-      padding: 0; /* No padding - buttons at container edges */
-      justify-content: space-between;
-      z-index: 12; /* Above gradients (z-index: 11) */
-    }
-    
-    .ps-carousel__button {
-      /* Black buttons 40x40px for cards variant */
-      width: var(--size-5); /* 40px */
-      height: var(--size-10); /* 40px */
-      background-color: transparent;
-      color: #333333; /* Grey #1 from Figma */
-      box-shadow: none;
-      border-radius: var(--radius-2); /* Subtle 4px */
       padding: 0;
-      transition: color 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
-      
-      &:hover {
+      justify-content: space-between;
+      z-index: var(--ps-carousel-cards-button-z-index);
+    }
+
+    /* Navigation buttons - External positioning with transparent styling */
+    & .ps-carousel__button {
+      width: var(--ps-carousel-cards-button-width);
+      height: var(--ps-carousel-cards-button-height);
+      background-color: var(--ps-carousel-cards-button-bg);
+      color: var(--ps-carousel-cards-button-color);
+      box-shadow: none;
+      border-radius: var(--radius-2);
+      padding: 0;
+      transition: color var(--ps-carousel-transition);
+
+      &:hover:not(:disabled) {
+        color: var(--ps-carousel-cards-button-color-hover);
         box-shadow: none;
-        color: var(--ps-color-neutral-400); /* #E0388C pink */
       }
-      
+
       &:disabled {
         opacity: 0.3;
       }
     }
-    
-    .ps-carousel__icon {
-      font-size: var(--size-8); /* 32px icon size */
-    }
-  }
-  
-  /* Modifier: With toolbar - Shows toolbar overlay at bottom */
-  &--with-toolbar {
-    .ps-carousel__toolbar {
-      display: flex;
-    }
-    
-    /* Adjust pagination position when toolbar is present */
-    .ps-carousel__pagination {
-      bottom: var(--size-16) !important; /* 64px - above toolbar */
-    }
-  }
-  
-  /* Modifier: Lightbox mode - Full screen overlay */
-  &--lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    background-color: hsla(0, 0%, 0%, 0.95);
-    
-    .ps-carousel__image {
-      object-fit: contain;
-      max-height: 80vh;
+
+    & .ps-carousel__icon {
+      font-size: var(--ps-carousel-cards-button-icon-size);
     }
   }
 
-  /* Modifier: Fit contain for images variant */
+  /* Modifier: With toolbar */
+  &--with-toolbar {
+    & .ps-carousel__toolbar {
+      display: flex;
+    }
+
+    /* Adjust pagination position when toolbar is present */
+    & .ps-carousel__pagination {
+      bottom: var(--size-16);
+    }
+  }
+
+  /* Modifier: Fit contain */
   &--fit-contain {
-    .ps-carousel__slide {
+    & .ps-carousel__slide {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .ps-carousel__image {
+
+    & .ps-carousel__image {
       object-fit: contain;
       width: 100%;
       height: 100%;
       max-height: none;
     }
   }
-  
-  /* Modifiers: Auto height and Loop handled by Swiper config */
+
+  /* Modifier: Lightbox (fullscreen) */
+  &--lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: hsla(0, 0%, 0%, 0.85);
+
+    & .ps-carousel__slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    & .ps-carousel__image {
+      max-width: 90vw;
+      max-height: 85vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    & .ps-carousel__button {
+      background-color: var(--white);
+      box-shadow: var(--shadow-4);
+    }
+  }
+}
+
+/* Swiper pagination bullet overrides (global scope required) */
+.ps-carousel__pagination .swiper-pagination-bullet {
+  width: var(--ps-carousel-pagination-bullet-width);
+  height: var(--ps-carousel-pagination-bullet-height);
+  margin: var(--ps-carousel-pagination-bullet-margin);
+  border-radius: var(--ps-carousel-pagination-bullet-radius);
+  background-color: var(--ps-carousel-pagination-bullet-bg);
+  opacity: 1;
+  box-shadow: var(--ps-carousel-pagination-bullet-shadow);
+  transition: background-color var(--ps-carousel-transition), transform var(--ps-carousel-transition), box-shadow var(--ps-carousel-transition);
+
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: var(--shadow-3);
+  }
+
+  &:focus-visible {
+    outline: var(--ps-carousel-focus-outline-width) solid var(--ps-carousel-focus-outline-color);
+    outline-offset: var(--ps-carousel-focus-outline-offset);
+  }
+
+  &.swiper-pagination-bullet-active {
+    background-color: var(--ps-carousel-pagination-bullet-active-bg);
+    box-shadow: var(--ps-carousel-pagination-bullet-active-shadow);
+  }
+}
+
+/* Modifier - pagination adjustment with toolbar */
+.ps-carousel--with-toolbar .ps-carousel__pagination {
+  bottom: var(--size-16);
+}
+
+/* Thumbs carousel specific styles */
+[data-carousel-role='thumbs'] {
+  & .ps-carousel__slide {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity var(--ps-carousel-transition);
+    height: 120px;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    &.swiper-slide-thumb-active {
+      opacity: 1;
+      outline: var(--ps-carousel-focus-outline-width) solid var(--primary);
+      outline-offset: var(--border-size-1);
+    }
+  }
+
+  & .ps-carousel__image {
+    height: 120px;
+    min-height: 120px;
+    object-fit: cover;
+  }
+
+  /* Hide navigation buttons on thumbs */
+  & .ps-carousel__controls {
+    display: none;
+  }
 }

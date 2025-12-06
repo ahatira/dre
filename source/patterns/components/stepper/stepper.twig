@@ -1,0 +1,17 @@
+{# Stepper - Step progress indicator #}
+<ol class="ps-stepper ps-stepper--{{ orientation }}" aria-label="Progress">
+  {% for step in steps %}
+    <li class="ps-stepper__item {% if step.active %}ps-stepper__item--active{% endif %} {% if step.completed %}ps-stepper__item--completed{% endif %}">
+      <div class="ps-stepper__step-marker">
+        {% if step.completed %}
+          <svg class="ps-stepper__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+          </svg>
+        {% else %}
+          <span class="ps-stepper__number">{{ loop.index }}</span>
+        {% endif %}
+      </div>
+      <span class="ps-stepper__label">{{ step.label }}</span>
+    </li>
+  {% endfor %}
+</ol>

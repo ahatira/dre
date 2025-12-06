@@ -1,0 +1,21 @@
+{# Menu Item - Navigation menu entry #}
+<li class="ps-menu-item{% if active %} ps-menu-item--active{% endif %}{% if disabled %} ps-menu-item--disabled{% endif %}">
+  <a href="{{ href }}" class="ps-menu-item__link" {% if disabled %}aria-disabled="true"{% endif %}>
+    {% if icon %}
+      <svg class="ps-menu-item__icon" aria-hidden="true" width="20" height="20">
+        <use href="#icon-{{ icon }}"></use>
+      </svg>
+    {% endif %}
+    <span class="ps-menu-item__label">{{ label }}</span>
+    {% if badge %}
+      <span class="ps-menu-item__badge">{{ badge }}</span>
+    {% endif %}
+  </a>
+  {% if submenu and submenu|length > 0 %}
+    <ul class="ps-menu-item__submenu">
+      {% for item in submenu %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</li>

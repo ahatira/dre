@@ -1,0 +1,5 @@
+headers: ["Property", "Location", "Type", "Price"]
+rows:
+  - ["Central Office", "Paris", "Office", "€2.5M"]
+  - ["Residential Complex", "London", "Residential", "€4.2M"]
+  - ["Retail Space", "Berlin", "Retail", "€1.8M"]

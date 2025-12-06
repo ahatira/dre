@@ -149,10 +149,10 @@ Accordion définit des variables qui influencent les Collapse enfants :
 
 ```css
 /* Variables CSS scoped à .ps-accordion */
---ps-accordion-trigger-padding-y: var(--size-6);      /* 24px */
---ps-accordion-trigger-padding-x: 0;
---ps-accordion-content-padding-top: var(--size-4);     /* 16px */
---ps-accordion-content-padding-bottom: var(--size-6);  /* 24px */
+--accordion-trigger-padding-y: var(--size-6);      /* 24px */
+--accordion-trigger-padding-x: 0;
+--accordion-content-padding-top: var(--size-4);     /* 16px */
+--accordion-content-padding-bottom: var(--size-6);  /* 24px */
 ```
 
 **Note** : Tous les autres tokens (colors, fonts, borders, animations) sont gérés par le composant Collapse atom.

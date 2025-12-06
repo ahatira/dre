@@ -129,20 +129,15 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Couleurs par variante:
-  - Primary: `--ps-color-primary-600`
-  - Secondary: `--ps-color-neutral-500`
-  - White: `--ps-color-neutral-0`
-  - Neutral: `--ps-color-neutral-400`
-- Tailles:
-  - xs: 16px
-  - sm: 24px
-  - md: 32px
-  - lg: 48px
-  - xl: 64px
-- Transitions/animations: `--ps-transition-duration-normal`, durée rotation 1s
+- Couleurs par variante :
+  - Primary : `--primary`
+  - Secondary : `--secondary`
+  - White : `--white`
+  - Neutral : `--gray-400`
+- Tailles : xs `--size-4` (16px), sm `--size-6` (24px), md `--size-8` (32px), lg `--size-12` (48px), xl `--size-16` (64px)
+- Animations : durées `--duration-normal` ou `--duration-slow`; easing `--ease-3`; keyframes définies dans le composant
 
 ---
 
@@ -252,10 +247,10 @@ props:
   }
 
   // Colors
-  &--primary { color: var(--ps-color-primary-600, #0DB089); }
-  &--secondary { color: var(--ps-color-neutral-500, #6E7C89); }
-  &--white { color: var(--ps-color-neutral-0, #FFF); }
-  &--neutral { color: var(--ps-color-neutral-400, #9AA6B2); }
+  &--primary { color: var(--primary); }
+  &--secondary { color: var(--secondary); }
+  &--white { color: var(--white); }
+  &--neutral { color: var(--gray-400); }
 }
 
 // Animations

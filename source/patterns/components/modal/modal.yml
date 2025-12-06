@@ -1,0 +1,8 @@
+# Modal Component
+# Dialog with overlay, backdrop, and focus trap
+
+title: 'Confirm Action'
+content: 'Are you sure you want to proceed?'
+show: false
+backdrop: true
+size: 'md'

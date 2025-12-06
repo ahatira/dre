@@ -132,6 +132,27 @@ export default {
         defaultValue: { summary: 'ps-button' },
       },
     },
+    // Toggle
+    toggle: {
+      description:
+        'Enable toggle functionality via data-ps-toggle="button". Toggles .active class and aria-pressed attribute on click.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
+    },
+    active: {
+      description:
+        'Pre-toggled state (only applies when toggle=true). Renders .active class and aria-pressed="true".',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
+    },
   },
 };
 
@@ -229,4 +250,85 @@ export const CustomBaseClass = {
       <p><em>Note: baseClass is used by parent components (alert, modal, etc.) to fully control button styling via their own BEM classes.</em></p>
     </div>
   `,
+};
+
+export const Toggle = {
+  name: 'Toggle State',
+  render: () => `
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
+        .map((variant) =>
+          buttonTwig({
+            label: variant.charAt(0).toUpperCase() + variant.slice(1),
+            variant,
+            icon: 'heart',
+            toggle: true,
+          })
+        )
+        .join('')}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Toggle button functionality with all color variants. Click to toggle .active class and aria-pressed attribute. Uses data-ps-toggle="button" behavior.',
+      },
+    },
+  },
+};
+
+export const ToggleActive = {
+  name: 'Toggle State (Pre-Active)',
+  render: () => `
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap;">
+      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
+        .map((variant) =>
+          buttonTwig({
+            label: variant.charAt(0).toUpperCase() + variant.slice(1),
+            variant,
+            icon: 'heart',
+            toggle: true,
+            active: true,
+          })
+        )
+        .join('')}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pre-toggled buttons (initial active state) with all variants. Renders with .active class and aria-pressed="true".',
+      },
+    },
+  },
+};
+
+export const ToggleIcon = {
+  name: 'Toggle Icon (Icon-Only Buttons)',
+  render: () => `
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
+      ${['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger']
+        .map(
+          (variant) => `
+        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2);">
+          <span style="font-size: var(--size-305); color: var(--gray-700);">${variant}</span>
+          <button class="ps-button ps-button--${variant} ps-button--icon-only" data-ps-toggle="button" aria-label="Toggle ${variant}" aria-pressed="false" style="width: var(--size-6); height: var(--size-6);">
+            <span class="ps-button__icon" data-icon="heart" aria-hidden="true"></span>
+          </button>
+        </div>
+      `
+        )
+        .join('')}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Toggle icon-only buttons with all color variants. Inactive: gray (#333333), Active: variant color. Perfect for favorite/like/bookmark actions.',
+      },
+    },
+  },
 };

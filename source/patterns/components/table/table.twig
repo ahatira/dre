@@ -1,0 +1,21 @@
+{# Table - Data table component #}
+<div class="ps-table-wrapper">
+  <table class="ps-table">
+    <thead class="ps-table__head">
+      <tr class="ps-table__row">
+        {% for header in headers %}
+          <th class="ps-table__header">{{ header }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody class="ps-table__body">
+      {% for row in rows %}
+        <tr class="ps-table__row">
+          {% for cell in row %}
+            <td class="ps-table__cell">{{ cell }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

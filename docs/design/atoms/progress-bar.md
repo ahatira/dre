@@ -152,26 +152,20 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Couleurs par variante:
-  - Primary: `--ps-color-primary-600`
-  - Secondary: `--ps-color-neutral-500`
-  - Info: `--ps-color-info-600`
-  - Success: `--ps-color-success-600`
-  - Warning: `--ps-color-warning-600`
-  - Error: `--ps-color-error-600`
-- Track (fond): `--ps-color-neutral-200`
-- Hauteurs linéaires:
-  - Small: 4px
-  - Medium: 8px
-  - Large: 12px
-- Tailles circulaires:
-  - Small: 40px
-  - Medium: 64px
-  - Large: 96px
-- Bordures: `--ps-border-radius-full` (linéaire arrondi)
-- Transitions: `--ps-transition-duration-normal`
+- Couleurs par variante :
+  - Primary : `--primary`
+  - Secondary : `--secondary`
+  - Info : `--info`
+  - Success : `--success`
+  - Warning : `--warning`
+  - Danger/Error : `--danger`
+- Track : `--gray-200` ou `--border-light`
+- Hauteurs linéaires : small `--size-1` (4px), medium `--size-2` (8px), large `--size-3` (12px)
+- Tailles circulaires : small `--size-10` (40px), medium `--size-16` (64px), large `--size-24` (96px)
+- Rayon : `--radius-round` pour la barre linéaire
+- Transition : `--duration-normal` + `--ease-3`
 
 ---
 
@@ -235,24 +229,24 @@ props:
 ```scss
 .ps-progress {
   position: relative;
-  font-family: var(--ps-font-family-primary);
+  font-family: var(--font-body);
 
   // Linear variant
   &--linear {
-    display: flex; align-items: center; gap: var(--ps-spacing-2, 8px);
+    display: flex; align-items: center; gap: var(--size-2);
     
     .ps-progress__track {
       flex: 1; height: 8px;
-      background: var(--ps-color-neutral-200, #E8EBEF);
-      border-radius: var(--ps-border-radius-full, 999px);
+      background: var(--gray-200);
+      border-radius: var(--radius-round);
       overflow: hidden;
     }
 
     .ps-progress__fill {
       height: 100%;
-      background: var(--ps-color-primary-600, #0DB089);
-      border-radius: var(--ps-border-radius-full, 999px);
-      transition: width var(--ps-transition-duration-normal, 0.3s) ease;
+      background: var(--primary);
+      border-radius: var(--radius-round);
+      transition: width var(--duration-normal) var(--ease-3);
     }
 
     &.ps-progress--small .ps-progress__track { height: 4px; }
@@ -267,11 +261,11 @@ props:
     width: 64px; height: 64px;
 
     .ps-progress__svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .ps-progress__track-circle { stroke: var(--ps-color-neutral-200, #E8EBEF); }
+    .ps-progress__track-circle { stroke: var(--gray-200); }
     .ps-progress__fill-circle {
-      stroke: var(--ps-color-primary-600, #0DB089);
+      stroke: var(--primary);
       stroke-linecap: round;
-      transition: stroke-dashoffset var(--ps-transition-duration-normal, 0.3s) ease;
+      transition: stroke-dashoffset var(--duration-normal) var(--ease-3);
     }
 
     .ps-progress__label {
@@ -284,23 +278,23 @@ props:
   }
 
   // Colors
-  &--primary .ps-progress__fill { background: var(--ps-color-primary-600, #0DB089); }
-  &--primary .ps-progress__fill-circle { stroke: var(--ps-color-primary-600, #0DB089); }
+  &--primary .ps-progress__fill { background: var(--primary); }
+  &--primary .ps-progress__fill-circle { stroke: var(--primary); }
   
-  &--secondary .ps-progress__fill { background: var(--ps-color-neutral-500, #6E7C89); }
-  &--secondary .ps-progress__fill-circle { stroke: var(--ps-color-neutral-500, #6E7C89); }
+  &--secondary .ps-progress__fill { background: var(--secondary); }
+  &--secondary .ps-progress__fill-circle { stroke: var(--secondary); }
   
-  &--info .ps-progress__fill { background: var(--ps-color-info-600, #039BE5); }
-  &--info .ps-progress__fill-circle { stroke: var(--ps-color-info-600, #039BE5); }
+  &--info .ps-progress__fill { background: var(--info); }
+  &--info .ps-progress__fill-circle { stroke: var(--info); }
   
-  &--success .ps-progress__fill { background: var(--ps-color-success-600, #0DB089); }
-  &--success .ps-progress__fill-circle { stroke: var(--ps-color-success-600, #0DB089); }
+  &--success .ps-progress__fill { background: var(--success); }
+  &--success .ps-progress__fill-circle { stroke: var(--success); }
   
-  &--warning .ps-progress__fill { background: var(--ps-color-warning-600, #FB8C00); }
-  &--warning .ps-progress__fill-circle { stroke: var(--ps-color-warning-600, #FB8C00); }
+  &--warning .ps-progress__fill { background: var(--warning); }
+  &--warning .ps-progress__fill-circle { stroke: var(--warning); }
   
-  &--error .ps-progress__fill { background: var(--ps-color-error-600, #E53935); }
-  &--error .ps-progress__fill-circle { stroke: var(--ps-color-error-600, #E53935); }
+  &--error .ps-progress__fill { background: var(--danger); }
+  &--error .ps-progress__fill-circle { stroke: var(--danger); }
 
   // Indeterminate state
   &--indeterminate.ps-progress--linear .ps-progress__fill {
@@ -331,9 +325,9 @@ props:
   }
 
   &__label {
-    font-size: var(--ps-font-size-sm, 14px);
-    font-weight: var(--ps-font-weight-medium, 500);
-    color: var(--ps-color-neutral-700, #3B4754);
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-600);
+    color: var(--text-secondary);
     white-space: nowrap;
   }
 }

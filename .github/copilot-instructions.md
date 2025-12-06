@@ -1,276 +1,183 @@
 # Copilot Instructions for PS Theme (Surface)
 
-## At-a-Glance
-- Start here: `.github/COMPLETE_RULES.md` (single source of truth)
-- Required files: `.twig`, `.css`, `.yml`, `.stories.jsx` (Autodocs), `README.md`
-- Tokens only: no hardcoded sizes/colors/transitions
-- BEM strict + minimal markup (defaults without modifiers)
-- Storybook: HTML + Autodocs (two-line description), JS behaviors imported globally
-
-## Project Overview
-- **PS Theme** is a custom Drupal theme for BNP Paribas RealEstate, compatible with Drupal 10/11.
-- Built with [Storybook](https://storybook.js.org/) (HTML edition) and [Vite](https://vitejs.dev/) (Vanilla JS edition).
-- **87 composants à implémenter** suivant les spécifications de `docs/design/`.
-- **1 composant en cours (button)** - CSS rewritten pixel perfect, awaiting visual validation.
-- **PIXEL PERFECT OBLIGATOIRE** : Chaque composant doit respecter EXACTEMENT les specs (dimensions, couleurs, espacements, typographie).
-- Uses NodeJS tooling for automation; see `package.json` for dependencies.
-
-## Architecture & Structure
-- **Design System** : Composants développés dans Storybook (`storybook/`) avant intégration Drupal.
-- **Source Code** : Patterns dans `source/patterns/` :
-  - `elements/` (Atoms) - 19 composants (1 fait pixel perfect, 18 à faire)
-  - `components/` (Molecules) - 20 composants (0 faits, 20 à faire)
-  - `collections/` (Organisms) - 12 composants (0 faits, 12 à faire)
-  - `layouts/` (Templates) - 8 composants (0 faits, 8 à faire)
-  - `pages/` (Pages) - 8 composants (0 faits, 8 à faire)
-- **Templates Drupal** : Exemples d'intégration dans `templates/`.
-- **Design Tokens** : `source/props/*.css` organisés par catégorie (colors, fonts, brand, sizes, shadows, borders, animations, easing, zindex). **NE PAS utiliser ps-tokens.css**.
-- **BEM strict** : Préfixe `ps-` obligatoire pour nouveaux composants, legacy sans préfixe à migrer.
-- **JavaScript** : ES6, comportements modulaires.
-
-## Developer Workflows
-- **Build** : `npm run build` — compile assets + lint/format checks
-- **Watch/Dev** : `npm run watch` — Vite + Storybook (http://localhost:6006)
-- **Storybook Build** : `npm run storybook:build` — sortie statique `storybook/`
-- **Lint/Format** : exécutés via build/watch (voir `vite.config.js`)
-- **Config** : détails des tâches dans `vite.config.js`
-
-## Conventions & Patterns
-- **Component Naming** : Utiliser categories spécifiques (elements, components, collections, layouts, pages).
-- **BEM avec `ps-` prefix** : Nouveaux composants DOIVENT utiliser BEM avec préfixe `ps-` (ex : `ps-badge`, `ps-badge__icon`, `ps-badge--small`). Composants legacy sans préfixe existent et peuvent être migrés progressivement.
-- **Design Tokens** : TOUJOURS utiliser CSS Custom Properties de `source/props/*.css` (ex : `var(--primary)`, `var(--font-size-1)`, `var(--size-4)`). ❌ JAMAIS de valeurs en dur (#00915A, 16px, etc.). Si un token manque, l'ajouter dans le fichier approprié (`colors.css`, `fonts.css`, `sizes.css`, etc.) en respectant les conventions existantes.
-- **Structure de composant** : 5 fichiers obligatoires par composant :
-  1. `.twig` - Template **Drupal-ready** avec params commentés (utiliser ternaire avec `null`, pas `filter(v => v)`)
-  2. `.css` - Styles BEM avec tokens uniquement
-  3. `.yml` - Données par défaut pour preview
-  4. `.stories.jsx` - Stories Storybook (Default + showcases + **tags: ['autodocs']**)
-  5. `README.md` - Documentation (Props, BEM, Tokens, Usage, Accessibility)
-  
-  Note: La documentation Storybook est fournie via Autodocs dans `.stories.jsx` en utilisant **tags: ['autodocs']** + `parameters.docs.description.component` (≤ 2 lignes). Les fichiers `.mdx` sont facultatifs et réservés aux composants complexes si besoin spécifique.
-  
-  **Twig Drupal-friendly** : Les templates doivent être compatibles Drupal 10/11. Pour classes conditionnelles, utiliser l'opérateur ternaire avec `null` (ex: `condition ? 'class' : null`) au lieu de `filter()` ou arrow functions non supportées par Twig.
-  
-  **Placeholders contextuels** : Tous les placeholders (textes, images, vidéos, médias, données de test) doivent évoquer l'immobilier (Real Estate) - ex: "Modern office building", "Apartment for sale", "Property listing", "Real estate agent", "Property tour video", etc.
-  
-  **Faker.js pour données réalistes** : Utiliser `@faker-js/faker` dans les `.stories.jsx` pour générer des données de test contextuelles et réalistes. Privilégier les méthodes adaptées à l'immobilier :
-  - `faker.location.streetAddress()`, `faker.location.city()` pour adresses
-  - `faker.person.fullName()`, `faker.person.jobTitle()` pour agents immobiliers
-  - `faker.commerce.price()` pour prix de propriétés
-  - `faker.image.urlLoremFlickr({ category: 'building' })` pour images d'immeubles
-  - `faker.lorem.sentence()` pour descriptions courtes
-  - Configurer locale: `import { faker } from '@faker-js/faker/locale/fr';` pour contenu français si nécessaire
-- **Intégration Drupal** : Exemples dans `templates/`.
-- **Linting** : Automatique via watch/build (voir `vite.config.js`).
-- **Demo** : Storybook statique [ici](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/).
-
-## Key Files & Directories
-- `source/patterns/` — codebase principal des composants (1/87 en cours)
-  - `base/` — Base stories : Documentation Storybook des design tokens (8 stories)
-  - `elements/` — Atoms : button (CSS pixel perfect, awaiting validation), + 18 à faire
-  - `components/` — Molecules : 20 à faire
-  - `collections/` — Organisms : 12 à faire
-  - `layouts/` — Templates : 8 à faire
-  - `pages/` — Pages : 8 à faire
-- `source/props/*.css` — Design tokens organisés par catégorie (colors, fonts, brand, sizes, shadows, borders, animations, easing, zindex)
-- `storybook/` — Build statique Storybook
-- `templates/` — Exemples d'intégration Drupal
-- `vite.config.js` — Configuration build/watch
-- `package.json` — Scripts et dépendances
-- `docs/design/` — **Spécifications complètes des 87 composants à implémenter** :
-  - `atoms/` (19 fichiers .md), `molecules/` (20), `organisms/` (12), `templates/` (8), `pages/` (8)
-  - `tokens/` (7 fichiers YAML de référence)
-  - Documentation détaillée : BEM, props, variants, tokens, accessibilité, exemples
-- `docs/ps-design/` — Documentation du projet réel (état actuel + roadmap) :
-  - `README.md` — Documentation principale + workflow
-  - `INDEX.md` — Inventaire complet + progression (6/87 = 7%)
-  - `CHANGELOG.md` — Historique des implémentations
-  - `COMPONENT_TEMPLATE.md` — Template standard avec structure 5 fichiers obligatoires
-
-## References
-- [Drupal Theming Guide](https://www.drupal.org/docs/develop/theming-drupal)
-- [Storybook Blog Series](https://mariohernandez.io/series/storybook/)
-- See `docs/ps-design/README.md` for PS Design System overview, workflow, and roadmap.
-- See `docs/ps-design/COMPONENT_TEMPLATE.md` for standard component structure (5 required files).
-- See `docs/ps-design/INDEX.md` for complete inventory and implementation phases.
-- See `docs/design/` for detailed specifications of all 87 components to implement.
-- **See `.github/COMPLETE_RULES.md` for ABSOLUTE REFERENCE - ALL project rules (1000+ lines covering EVERY standard).**
-- **See `.github/COMPONENT_TEMPLATE_STANDARD.md` for MANDATORY component template (analyzed from button reference).**
-- **See `.github/CSS_STANDARDS.md` for complete CSS standards (stack, nesting, tokens, accessibility, performance).**
-- **See `.github/STORYBOOK_DOC_TEMPLATE.md` for Storybook documentation format (Autodocs, argTypes, stories structure).**
-  - Enforce concise descriptions: main description MUST be ≤ two lines.
-- **See `.github/COMPONENT_CONFORMITY_PROMPT.md` for conformity audit (run after implementation).**
-- **See `.github/STANDARDIZE_COMPONENT_PROMPT.md` for standardization workflow.**
-- **See `.github/COMPLETE_RULES.md` Section 14.5 for Base Stories Standards (token documentation workflow).**
+**Version**: 3.0.0  
+**Last Updated**: 2025-12-05
 
 ---
-**For AI agents:**
 
-## 🗣️ Directive Langue (Chat)
+## 📚 Documentation Structure
 
-Toutes les réponses fournies dans le chat à l'équipe / utilisateur doivent être rédigées en **Français** (langue naturelle, claire et professionnelle), sauf si l'utilisateur demande explicitement une autre langue ou impose l'anglais pour un extrait spécifique. Les noms de tokens, classes BEM, chemins de fichiers et code restent inchangés (anglais technique). La documentation interne (README, props, Storybook descriptions) continue d'être en anglais conformément aux règles existantes, mais le ton conversationnel dans le chat est en Français par défaut.
+**All detailed rules are now in modular instruction files under `.github/instructions/`:**
 
-Règles spécifiques:
-- Garder les explications techniques précises, éviter les traductions des identifiants (`ps-accordion__trigger`, `--size-4`, etc.).
-- Si une question arrive dans une autre langue, confirmer en Français puis s'adapter si demandé.
-- Ne jamais traduire les noms de fichiers, tokens, classes ou attributs ARIA.
+- **Core** → `instructions/core.instructions.md` - Stack, tokens, build system
+- **Atomic Design** → `instructions/atomic-design.instructions.md` - Composition methodology
+- **Components** → `instructions/components.instructions.md` - 5-file structure, BEM
+- **CSS** → `instructions/css.instructions.md` - Tokens, nesting, cascade
+- **Storybook** → `instructions/storybook.instructions.md` - Autodocs, stories format
+- **JavaScript** → `instructions/javascript.instructions.md` - Drupal behaviors, ES6
+- **Templates** → `instructions/templates.instructions.md` - Twig, YAML, Faker.js
+- **Accessibility** → `instructions/accessibility.instructions.md` - WCAG, ARIA, keyboard
+- **Workflows** → `instructions/workflows.instructions.md` - Generation, audit, standardization
 
-Cette directive s'applique immédiatement à toutes les interactions Chat.
+**These files are path-scoped** (YAML frontmatter `applyTo:`) for contextual AI assistance.
 
-## 🔒 PRIMARY DIRECTIVE
+---
 
-**BEFORE ANY COMPONENT WORK**: Read `.github/COMPLETE_RULES.md` - the ABSOLUTE REFERENCE (2300+ lines, 20 sections + subsections, covering ALL standards).
+## 🎯 Project At-a-Glance
 
-This is the **SINGLE SOURCE OF TRUTH**. All other documents are subsets or implementations of these rules.
+**PS Theme**: Custom Drupal 10/11 theme for BNP Paribas Real Estate  
+**Stack**: Storybook (HTML edition) + Vite + PostCSS + Twig  
+**Methodology**: Atomic Design (Brad Frost)
 
-### 🌍 CRITICAL: Documentation Language
+**87 Components to Implement**:
+- 19 Atoms (elements/)
+- 20 Molecules (components/)
+- 12 Organisms (collections/)
+- 8 Templates (layouts/)
+- 8 Pages (pages/)
 
-**ALL documentation MUST be written in English.**
+**Current Progress**: 6/87 (7%) - See `docs/ps-design/INDEX.md`
 
-This includes:
-- README.md files
-- Storybook descriptions and argTypes
-- Code comments (Twig, CSS, JS)
-- Props tables and usage examples
-- Accessibility notes
+---
 
-**Exception**: User-facing content in templates (button labels, form text) can be in French.
+## 🗣️ Language Directive
 
-## 🎯 Quick Decision Tree
+**Chat responses**: French (default)  
+**Documentation**: English (README, Storybook, code comments)  
+**Exception**: User-facing content in templates (button labels, form text) can be French
 
-**New Component?** → Follow `.github/COMPLETE_RULES.md` Section 18 (Checklist Complet)
+All technical identifiers (tokens, classes, ARIA) remain unchanged (English).
 
-**Refactor/Fix?** → Audit with `.github/COMPONENT_CONFORMITY_PROMPT.md`, fix per `.github/COMPLETE_RULES.md`
+---
 
-**CSS Issue?** → Consult `.github/COMPLETE_RULES.md` Sections 4-6 (Tokens, Nesting, Cascade)
+## ⚡ Quick Decision Tree
 
-**Storybook?** → Follow `.github/COMPLETE_RULES.md` Section 11 + `.github/STORYBOOK_DOC_TEMPLATE.md`
+**New Component?**  
+→ Read spec: `docs/design/{level}/{component}.md`  
+→ Follow workflow: `instructions/workflows.instructions.md`  
+→ Use standards: `instructions/components.instructions.md`
 
-**Unsure?** → Default to `.github/COMPLETE_RULES.md`
+**CSS Issue?**  
+→ Consult: `instructions/css.instructions.md`  
+→ Token missing? Document need, don't add (see `instructions/core.instructions.md`)
 
-## ⚡ Critical Rules Summary (Non-Exhaustive)
+**Storybook Config?**  
+→ Follow: `instructions/storybook.instructions.md`  
+→ MANDATORY: `tags: ['autodocs']` in export default
 
-These are the **most common violations** - but `.github/COMPLETE_RULES.md` contains MANY more:
+**Twig Template?**  
+→ Standards: `instructions/templates.instructions.md`  
+→ CRITICAL: NO arrow functions, NO `.filter(v => v)` (Drupal incompatible)
 
-### 1. Design Tokens (ABSOLUTE)
-- ❌ NEVER hardcode: `#00915A`, `16px`, `150ms ease`
-- ✅ ALWAYS tokens: `var(--primary)`, `var(--size-4)`, `cubic-bezier(0.4, 0.0, 0.2, 1)`
-- Before creating token: `grep -r "--token-name" source/props/` (reuse if exists)
+**JavaScript Behavior?**  
+→ Patterns: `instructions/javascript.instructions.md`  
+→ Use Drupal behaviors with `once()` for idempotency
 
-### 2. CSS Nesting (MANDATORY)
-- ✅ Use `&` syntax for all new components (postcss-nested supported)
-- ✅ Order: Base → Elements → Modifiers → States
-- ❌ No over-nesting (max 3 levels)
+**Accessibility?**  
+→ Requirements: `instructions/accessibility.instructions.md`  
+→ WCAG 2.2 AA minimum (contrast, focus-visible, ARIA, keyboard)
 
-### 3. Cascade Order (CRITICAL)
-- ✅ Base styles BEFORE modifiers in source order
-- Example: `.ps-component__text { }` then `.ps-component--lg .ps-component__text { }`
-- Wrong order = modifiers won't override
+**Refactor Legacy?**  
+→ Audit: `instructions/workflows.instructions.md` (Conformity checklist)  
+→ Standardize: Fix tokens, nesting, BEM, Autodocs
 
-### 4. Minimal Markup (REQUIRED)
-- ✅ Default: `<div class="ps-component">` (no modifier classes)
-- ✅ Only add modifiers when value differs from default
-- Twig: conditional `merge()`, never ternary with empty strings
-
-### 5. Twig Drupal-Ready (CRITICAL)
-- ✅ ALWAYS use ternary with `null`: `condition ? 'class' : null`
-- ❌ NEVER use `filter(v => v)` - arrow functions NOT supported in Drupal Twig
-- ❌ NEVER use JavaScript methods (`.filter()`, `.map()`, etc.)
-- ✅ Templates MUST be compatible with Drupal 10/11 Twig
-- Example: `{% set classes = ['base', variant != 'default' ? 'mod-' ~ variant : null] %}`
-
-### 6. Modifiers Independence (REQUIRED)
-- ✅ Each modifier works alone on base class
-- ❌ Never: `.ps-component--a.ps-component--b { }` (requires both)
-- ✅ Always: `.ps-component--a { }` (works alone)
-
-### 7. Semantic Colors (MANDATORY)
-- ✅ primary | secondary | success | warning | danger | info
-- ❌ NEVER: green | purple | blue | red | yellow
-- If component has color variants, support ALL 6
-
-### 8. Icons System (STRICT)
-- **Controllable icon**: Use `@elements/icon/icon.twig` (prop: `icon`, no "icon-" prefix)
-- **Decorative icon**: `<span data-icon="check">` (no "icon-" prefix)
-- Component CSS: NO `[data-icon]` mappings (centralized in `icons.css`)
-
-### 9. Storybook (Autodocs, HTML)
-- ✅ **MANDATORY**: `tags: ['autodocs']` in export default (activates auto-documentation)
-- ✅ Import: `import componentTwig from './component.twig';`
-- ✅ Render: `render: (args) => componentTwig(args)`
-- ✅ Stories: Default + Showcases (AllColors, AllSizes, UseCases)
-- ❌ NO individual stories (Primary, Secondary, Small, etc.)
-- ✅ ArgTypes categorized: Content | Appearance | Behavior | Link | Accessibility | Layout
-- ✅ Autodocs: `parameters.docs.description.component` (≤ 2 lignes, concis)
-
-### 10. Required Files (5 ALWAYS)
-See single source under "Conventions & Patterns" → "Structure de composant" (5 required files). Avoid duplicating this list elsewhere.
-
-### 11. BEM Strict
-- ✅ Prefix `ps-` mandatory
-- ✅ Format: `.ps-block__element--modifier`
-- ❌ NO double underscore: `.ps-block__element__nested`
-
-### 12. JavaScript Integration in Storybook
-- ✅ Import behaviors globally in `.storybook/preview.js`: `import '../source/patterns/components/{component}/{component}.js';`
-- ❌ NEVER import in individual `.stories.jsx` files (timing issue with Drupal.attachBehaviors() decorator)
-- ✅ Use Drupal behaviors pattern with `once()` for re-initialization prevention
-- ✅ For external libraries (Swiper, etc.), configure PostCSS with `path: [node_modules]` and create separate CSS wrapper file for imports
-
-## 📋 Implementation Workflow
-
-1. Read spec: `docs/design/{level}/{component}.md` (complete)
-2. Create 5 files using `.github/COMPONENT_TEMPLATE_STANDARD.md`
-3. Apply rules: `.github/COMPLETE_RULES.md` (tokens, BEM, nesting, a11y)
-4. Build and verify: `npm run build` → then `npm run watch` for visual checks
-5. Audit and fix: run the conformity audit prompt if needed
-6. Commit (structured) and update `docs/ps-design/CHANGELOG.md`
+---
 
 ## 🚨 Zero Tolerance Rules
 
 These will ALWAYS be rejected:
 
-- Hardcoded values (colors, sizes, spacing, transitions)
-- Missing any of the 5 required files
-- **Missing `tags: ['autodocs']` in .stories.jsx export default**
-- React/JSX in Storybook stories
-- Color names instead of semantic (green → primary)
-- Icon names with "icon-" prefix
-- Modifier classes requiring combinations
-- Wrong cascade order (modifiers before base)
-- Classes for default values in markup
-- Flat CSS without nesting (new components)
-- Skipping accessibility (focus-visible, ARIA, contrast)
-- Overly long component descriptions (Storybook Autodocs): opening text must be ≤ two lines
+- ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
+- ❌ Missing any of 5 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+- ❌ Missing `tags: ['autodocs']` in Storybook export default
+- ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`
+- ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
+- ❌ Color names instead of semantic: `green` → `success`, `red` → `danger`
+- ❌ Icon names with prefix: `icon-check` → `check` (prefix handled by system)
+- ❌ Modifier classes requiring combinations: `.ps-badge--a.ps-badge--b` → Each must work alone
+- ❌ Wrong cascade order: Modifiers before base → Base FIRST, then modifiers
+- ❌ Flat CSS without nesting: New components MUST use `&` syntax
+- ❌ Missing focus-visible: All interactives MUST have visible focus indicator
+- ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
 
-## 🚫🚫🚫 CRITICAL OVERRIDE — DO NOT EDIT TOKENS 🚫🚫🚫
+---
 
-IMPORTANT: NEVER modify any files under `source/props/*.css` directly.
+## 📋 Component Checklist (Quick)
 
-- Do NOT add, change, or remove tokens in `source/props/*.css` during component work.
-- If a token appears missing, STOP and document the need; then propose the addition via a dedicated tokens-change PR/process as per `.github/COMPLETE_RULES.md`.
-- Components must only CONSUME tokens; token definitions are maintained separately.
+**Before starting**:
+- [ ] Read spec: `docs/design/{level}/{component}.md`
+- [ ] Verify dependencies exist (atoms for molecules/organisms)
+- [ ] Check required tokens exist (`grep -r "--token-name" source/props/`)
 
-Any direct edit in `source/props/*.css` will be rejected.
+**Implementation**:
+- [ ] Create 5 files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+- [ ] Twig: Header comment, defaults, ternary + `null`, `{% include %}` with `only`
+- [ ] CSS: ALL tokens, nesting with `&`, cascade order, semantic colors, focus-visible
+- [ ] YAML: Real Estate context, Faker.js in stories
+- [ ] Storybook: `tags: ['autodocs']`, argTypes categorized, Default + Showcases
+- [ ] README: Usage, Props table, BEM structure, Tokens, Accessibility, Examples
 
-## 📚 Complete Documentation Hierarchy
+**Validation**:
+- [ ] Build passes: `npm run build`
+- [ ] Visual check: `npm run watch` → http://localhost:6006
+- [ ] Conformity audit: 100% score (see `instructions/workflows.instructions.md`)
+- [ ] Commit with structured message
+- [ ] Update `docs/ps-design/CHANGELOG.md`
 
-1. **`.github/COMPLETE_RULES.md`** ← START HERE (absolute reference, 1000+ lines)
-2. `.github/COMPONENT_TEMPLATE_STANDARD.md` ← Structure & examples
-3. `.github/CSS_STANDARDS.md` ← CSS deep dive (400+ lines)
-4. `.github/STORYBOOK_DOC_TEMPLATE.md` ← Autodocs format
-5. `.github/COMPONENT_CONFORMITY_PROMPT.md` ← Post-implementation audit
-6. `.github/STANDARDIZE_COMPONENT_PROMPT.md` ← Refactor workflow
- 7. Concise Descriptions Standard → All component docs must start with a short two-line summary; move details to Props, Accessibility, Tokens, Variants, Use Cases.
-
-**When in doubt**: Consult `.github/COMPLETE_RULES.md` first, then specific docs as needed.
+---
 
 ## 🎓 Reference Components
 
-Perfect implementations to study:
+**Perfect implementations to study**:
 
-- **`source/patterns/elements/button/`** - CSS nesting, all states, complete stories
-- **`source/patterns/elements/avatar/`** - Minimal markup, adaptive sizing, gender SVG fallback
-- **`source/patterns/elements/badge/`** - Semantic colors, pill variant, icon integration
-- **`source/patterns/elements/divider/`** - Simplicity, orientation variants, minimal code
+- **Button** (`source/patterns/elements/button/`) - CSS nesting, all states, complete stories
+- **Avatar** (`source/patterns/elements/avatar/`) - Minimal markup, adaptive sizing, SVG fallback
+- **Badge** (`source/patterns/elements/badge/`) - Semantic colors, pill variant, icon integration
+- **Divider** (`source/patterns/elements/divider/`) - Simplicity, orientation variants, minimal code
 
 Always prefer reading actual component code over guessing patterns.
+
+---
+
+## 🔧 Build Commands
+
+```bash
+npm run build          # Compile assets + lint/format checks
+npm run watch          # Vite + Storybook (http://localhost:6006)
+npm run storybook:build # Static Storybook output (storybook/)
+npm run generate:pattern # Scaffold new component (interactive)
+```
+
+**Build validates**:
+- Biome lint/format (JavaScript, JSON)
+- CSS compilation (Vite + PostCSS)
+- No syntax errors (Twig via Storybook)
+
+---
+
+## 🔗 Key Resources
+
+- **Design Specs**: `docs/design/` - Complete specifications for all 87 components
+- **Project Status**: `docs/ps-design/INDEX.md` - Inventory + phases
+- **Changelog**: `docs/ps-design/CHANGELOG.md` - Implementation history
+- **Storybook Demo**: [Surface Storybook](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/)
+
+---
+
+## 🤖 For AI Agents
+
+**PRIMARY DIRECTIVE**:  
+Before ANY component work, consult the relevant instruction file(s) under `.github/instructions/`. These are the SINGLE SOURCE OF TRUTH (replacing old monolithic COMPLETE_RULES.md).
+
+**Workflow**:
+1. Read: `instructions/workflows.instructions.md` (Component generation steps 1-11)
+2. Apply: Domain-specific instructions (CSS, Storybook, Templates, etc.)
+3. Validate: Conformity audit (100% score required)
+4. Commit: Structured message + changelog update
+
+**When in doubt**: Consult instruction files first, then ask for clarification (never guess).
+
+---
+
+**Maintainers**: Design System Team  
+**Contact**: See project README for support channels

@@ -67,7 +67,7 @@ props:
 
 ```scss
 .ps-property-search { }
-.ps-layout { display: grid; grid-template-columns: 280px 1fr; gap: var(--ps-spacing-4, 16px); }
+.ps-layout { display: grid; grid-template-columns: 280px 1fr; gap: var(--size-4); }
 @media (max-width: 992px) { .ps-layout { grid-template-columns: 1fr; } }
 ```
 

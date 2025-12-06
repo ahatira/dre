@@ -93,13 +93,12 @@ props:
 
 ---
 
-## 🎨 Design Tokens
+## 🎨 Design Tokens (réels)
 
-- Typo: `--ps-font-family-primary`, `--ps-font-size-sm|base`, `--ps-font-weight-medium|bold`
-- Couleur: `--ps-color-text`, `--ps-color-text-muted`, `--ps-color-error`
-- Spacing: `--ps-spacing-2` (espacement avec le champ)
-
-Si `--ps-color-text-muted` n’existe pas, proposer `colors.text.muted`.
+- Typo : `--font-body`, `--font-size-0`, `--font-weight-500|600`, `--leading-tight`
+- Couleurs : texte `--text-primary`, état disabled `--text-disabled`, accent requis `--danger`
+- Espacement vertical : `--size-2` (ex: marge basse)
+- Espacement interne/gap : `--size-1` pour le gap entre texte et astérisque
 
 ---
 
@@ -139,17 +138,17 @@ Si `--ps-color-text-muted` n’existe pas, proposer `colors.text.muted`.
 .ps-label {
   display: inline-flex;
   align-items: baseline;
-  gap: var(--ps-spacing-1, 4px);
-  margin-bottom: var(--ps-spacing-2, 8px);
+  gap: var(--size-1);
+  margin-bottom: var(--size-2);
 
-  color: var(--ps-color-text, #1F2A33);
-  font-family: var(--ps-font-family-primary);
-  font-size: var(--ps-font-size-sm, 14px);
-  font-weight: var(--ps-font-weight-medium, 500);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-600);
 
-  &--disabled { color: var(--ps-color-text-muted, #6B7780); }
+  &--disabled { color: var(--text-disabled); }
 
-  &__required { color: var(--ps-color-error, #EB3636); }
+  &__required { color: var(--danger); }
 }
 ```
 

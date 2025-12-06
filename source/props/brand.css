@@ -98,6 +98,40 @@
   --bg-info-light: hsl(220, 89%, 90%); /* Light blue backgrounds (info alerts) */
 
   /* ============================================
+     TOGGLE STATES (Button toggle variants)
+     Inactive = couleur de base du variant (charte)
+     Active = teinte contrastée issue des palettes
+     ============================================ */
+
+  /* PRIMARY toggle states */
+  --primary-disabled: var(--primary); /* Inactif (base brand green) */
+  --primary-enabled: var(--green-600); /* Actif (green-600 palette) */
+
+  /* SECONDARY toggle states */
+  --secondary-disabled: var(--secondary); /* Inactif (base magenta) */
+  --secondary-enabled: var(--secondary-active); /* Actif (darker magenta) */
+
+  /* SUCCESS toggle states */
+  --success-disabled: var(--success); /* Inactif (base success) */
+  --success-enabled: var(--success-active); /* Actif (darker success) */
+
+  /* INFO toggle states */
+  --info-disabled: var(--info); /* Inactif (base info) */
+  --info-enabled: var(--info-active); /* Actif (darker info) */
+
+  /* WARNING toggle states */
+  --warning-disabled: var(--warning); /* Inactif (base warning) */
+  --warning-enabled: var(--warning-active); /* Actif (darker warning) */
+
+  /* DANGER toggle states */
+  --danger-disabled: var(--danger); /* Inactif (base danger) */
+  --danger-enabled: var(--danger-active); /* Actif (darker danger) */
+
+  /* NEUTRAL toggle states */
+  --neutral-disabled: var(--neutral); /* Inactif (gray-600) */
+  --neutral-enabled: var(--gray-500); /* Actif (gray-500) */
+
+  /* ============================================
      OVERLAY COLORS (Modals, dropdowns, shadows)
      6 tokens for overlay hierarchy
      ============================================ */

@@ -160,36 +160,36 @@ Variables CSS au niveau du composant (défauts personnalisables)
 
 ```css
 /* Container */
---ps-collapse-bg: transparent
---ps-collapse-border-width: var(--border-size-15)
---ps-collapse-border-color: var(--gray-300)
+--collapse-bg: transparent
+--collapse-border-width: var(--border-size-15)
+--collapse-border-color: var(--gray-300)
 
 /* Trigger */
---ps-collapse-trigger-padding-y: var(--size-6)    /* 24px */
---ps-collapse-trigger-padding-x: 0
---ps-collapse-trigger-bg: transparent
---ps-collapse-trigger-bg-hover: var(--gray-100)
+--collapse-trigger-padding-y: var(--size-6)    /* 24px */
+--collapse-trigger-padding-x: 0
+--collapse-trigger-bg: transparent
+--collapse-trigger-bg-hover: var(--gray-100)
 
 /* Title */
---ps-collapse-title-font-family: var(--font-sans)
---ps-collapse-title-font-weight: var(--font-weight-400)
---ps-collapse-title-font-size: var(--font-size-3)    /* 20px */
---ps-collapse-title-line-height: var(--leading-6)
---ps-collapse-title-color: var(--gray-900)
+--collapse-title-font-family: var(--font-sans)
+--collapse-title-font-weight: var(--font-weight-400)
+--collapse-title-font-size: var(--font-size-3)    /* 20px */
+--collapse-title-line-height: var(--leading-6)
+--collapse-title-color: var(--gray-900)
 
 /* Icon */
---ps-collapse-icon-size: var(--size-8)            /* 32px */
---ps-collapse-icon-spacing: var(--size-4)         /* 16px */
---ps-collapse-icon-color: var(--gray-600)
+--collapse-icon-size: var(--size-8)            /* 32px */
+--collapse-icon-spacing: var(--size-4)         /* 16px */
+--collapse-icon-color: var(--gray-600)
 
 /* Panel */
---ps-collapse-panel-padding-top: var(--size-4)     /* 16px */
---ps-collapse-panel-padding-bottom: var(--size-6)  /* 24px */
---ps-collapse-panel-padding-x: 0
+--collapse-panel-padding-top: var(--size-4)     /* 16px */
+--collapse-panel-padding-bottom: var(--size-6)  /* 24px */
+--collapse-panel-padding-x: 0
 
 /* Animation */
---ps-collapse-transition-duration: var(--duration-normal)  /* 300ms */
---ps-collapse-transition-easing: var(--ease-3)
+--collapse-transition-duration: var(--duration-normal)  /* 300ms */
+--collapse-transition-easing: var(--ease-3)
 ```
 
 #### Layer 3: Contexte runtime
@@ -198,9 +198,9 @@ Surcharge via classes parentes ou inline styles
 ```css
 /* Exemple: variant primary */
 .ps-collapse--primary {
-  --ps-collapse-title-color: var(--primary);
-  --ps-collapse-icon-color: var(--primary);
-  --ps-collapse-border-color: var(--primary);
+  --collapse-title-color: var(--primary);
+  --collapse-border-color: var(--primary);
+  --collapse-bg: color-mix(in srgb, var(--primary) 5%, transparent);
 }
 ```
 

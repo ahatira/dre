@@ -1,70 +1,66 @@
 {#
- * Carousel component
- * Multi-media carousel with grouped navigation (photos, 3D visits, plans, brochures, etc.)
- * 
- * @param array slides - Array of slide objects with id, type, and content (required)
- *   Each slide should have:
- *   - id: unique identifier
- *   - type: 'image' | '3d-visit' | 'plan' | 'brochure' | 'video' | 'card'
- *   - image: { src, alt } for image types
- *   - iframe: url for embedded content (3D visits, videos)
- *   - pdf: url for PDF files
- *   - card: HTML string for card content
- * 
-* @param string variant - images|cards (default: images)
-* @param string fit - cover|contain (default: cover) controls image object-fit in images variant
- * @param boolean loop - Enable looping behavior (default: false)
- * @param boolean autoHeight - Auto adjust height based on slide content (default: false)
- * @param boolean withPagination - Show pagination bullets (default: true)
- * @param object toolbar - Toolbar configuration with items array (optional, auto-shows if items present)
- *   Structure: {
- *     items: [
- *       { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
- *       { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
- *       { type: 'plan', label: '6 plans', icon: 'cards', slideIndex: 16 }
- *     ]
- *   }
- *   Each item allows jumping to the first slide of that media group.
- * 
- * @param string ariaLabel - Accessible label for carousel (default: Carousel)
+/**
+ * Carousel Component (Molecule)
+ * Responsive image/card carousel with Swiper.js integration
+ *
+ * @param array slides - Array of slide objects (REQUIRED)
+ *   Each slide: { id: string, image?: { src: string, alt: string }, card?: string }
+ * @param string variant - Display variant: 'images' | 'cards' (default: 'images')
+ * @param string fit - Image object-fit: 'cover' | 'contain' (default: 'cover')
+ * @param boolean loop - Enable infinite loop navigation (default: false)
+ * @param boolean autoHeight - Auto-adjust height based on active slide (default: false)
+ * @param boolean withPagination - Show pagination bullets (default: false)
+ * @param object toolbar - Multi-media toolbar config (optional)
+ *   Structure: { items: [{ type: string, label: string, icon: string, slideIndex: number }] }
+ * @param string ariaLabel - Accessible label for carousel region (default: 'Carousel')
  * @param object attributes - Additional HTML attributes (optional)
- * 
- * Example usage:
- * {{ include('@components/carousel/carousel.twig', {
- *   slides: [...13 photos, ...3 3D visits, ...6 plans],
- *   withToolbar: true,
- *   toolbar: {
- *     items: [
- *       { type: 'photos', label: '13 photos', icon: 'camera', slideIndex: 0 },
- *       { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
- *       { type: 'plan', label: '6 plans', icon: 'cards', slideIndex: 16 }
- *     ]
- *   }
- * }) }}
- #}
+ *
+ * @example
+ * {% include '@components/carousel/carousel.twig' with {
+ *   slides: [
+ *     { id: 'slide1', image: { src: '/images/property-1.jpg', alt: 'Modern office building' } },
+ *     { id: 'slide2', image: { src: '/images/property-2.jpg', alt: 'Luxury apartment' } }
+ *   ],
+ *   ariaLabel: 'Property gallery'
+ * } only %}
+ */
+#}
 
 {%- set variant = variant|default('images') -%}
 {%- set fit = fit|default('cover') -%}
 {%- set loop = loop|default(false) -%}
 {%- set autoHeight = autoHeight|default(false) -%}
-{%- set withPagination = withPagination is defined ? withPagination : true -%}
+{%- set withPagination = withPagination is defined ? withPagination : false -%}
+{%- set lightbox = lightbox|default(false) -%}
 {%- set toolbar = toolbar|default({}) -%}
 {%- set ariaLabel = ariaLabel|default('Carousel') -%}
 {%- set slides = slides|default([]) -%}
 
-{%- set classes = [] -%}
-{%- set classes = classes|merge(['ps-carousel']) -%}
-{%- if variant != 'images' -%}{%- set classes = classes|merge(['ps-carousel--' ~ variant]) -%}{%- endif -%}
-{%- if loop -%}{%- set classes = classes|merge(['ps-carousel--loop']) -%}{%- endif -%}
-{%- if autoHeight -%}{%- set classes = classes|merge(['ps-carousel--auto-height']) -%}{%- endif -%}
-{%- if toolbar.items|default([])|length > 0 -%}{%- set classes = classes|merge(['ps-carousel--with-toolbar']) -%}{%- endif -%}
-{%- if variant == 'images' and fit == 'contain' -%}{%- set classes = classes|merge(['ps-carousel--fit-contain']) -%}{%- endif -%}
+{%- set classes = ['ps-carousel'] -%}
+{%- if variant != 'images' -%}
+  {%- set classes = classes|merge(['ps-carousel--' ~ variant]) -%}
+{%- endif -%}
+{%- if loop -%}
+  {%- set classes = classes|merge(['ps-carousel--loop']) -%}
+{%- endif -%}
+{%- if autoHeight -%}
+  {%- set classes = classes|merge(['ps-carousel--auto-height']) -%}
+{%- endif -%}
+{%- if toolbar.items|default([])|length > 0 -%}
+  {%- set classes = classes|merge(['ps-carousel--with-toolbar']) -%}
+{%- endif -%}
+{%- if variant == 'images' and fit == 'contain' -%}
+  {%- set classes = classes|merge(['ps-carousel--fit-contain']) -%}
+{%- endif -%}
+{%- if lightbox -%}
+  {%- set classes = classes|merge(['ps-carousel--lightbox']) -%}
+{%- endif -%}
 
 <section
   class="swiper {{ classes|join(' ')|trim }}"
   aria-label="{{ ariaLabel }}"
   data-carousel
-  {%- if attributes %} {{ attributes }}{% endif -%}
+  {%- if attributes %} {{ attributes|raw }}{% endif -%}
 >
   <div class="swiper-wrapper ps-carousel__track">
     {%- for slide in slides -%}
@@ -74,16 +70,16 @@
         aria-roledescription="slide"
         aria-label="Slide {{ loop.index }} of {{ slides|length }}"
       >
-        {%- if variant == 'images' and slide.image -%}
+        {%- if slide.image -%}
           <img
             class="ps-carousel__image"
             src="{{ slide.image.src }}"
             alt="{{ slide.image.alt }}"
             loading="lazy"
           />
-        {%- elseif variant == 'cards' and slide.card -%}
+        {%- elseif slide.card -%}
           <div class="ps-carousel__card">
-            {{ slide.card }}
+            {{ slide.card|raw }}
           </div>
         {%- endif -%}
       </div>
@@ -92,7 +88,7 @@
 
   <div class="ps-carousel__controls">
     <button
-      class="ps-carousel__button ps-carousel__prev"
+      class="ps-carousel__button ps-carousel__button--prev"
       type="button"
       aria-label="Previous slide"
       data-carousel-prev
@@ -100,7 +96,7 @@
       <span class="ps-carousel__icon" data-icon="chevron-left" aria-hidden="true"></span>
     </button>
     <button
-      class="ps-carousel__button ps-carousel__next"
+      class="ps-carousel__button ps-carousel__button--next"
       type="button"
       aria-label="Next slide"
       data-carousel-next
@@ -114,7 +110,7 @@
   {%- endif -%}
 
   {%- if toolbar.items|default([])|length > 0 -%}
-  <div class="ps-carousel__toolbar">
+  <div class="ps-carousel__toolbar" role="tablist" aria-label="Media groups">
     {%- for item in toolbar.items -%}
       <button
         class="ps-carousel__toolbar-item"
@@ -122,6 +118,9 @@
         data-toolbar-item
         data-slide-index="{{ item.slideIndex }}"
         data-media-type="{{ item.type }}"
+        role="tab"
+        aria-selected="{{ loop.first ? 'true' : 'false' }}"
+        tabindex="{{ loop.first ? '0' : '-1' }}"
         aria-label="Go to {{ item.label }}"
       >
         <span class="ps-carousel__toolbar-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>

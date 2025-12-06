@@ -140,13 +140,12 @@ slots:
 
 ## 🎨 Design Tokens
 
-- Couleurs sémantiques: `--ps-color-info`, `--ps-color-success`, `--ps-color-warning`, `--ps-color-error`
-- Arrière-plans doux: `--ps-color-info-soft`, `--ps-color-success-soft`, `--ps-color-warning-soft`, `--ps-color-error-soft`
-- Typo: `--ps-font-family-primary`, `--ps-font-size-base`, `--ps-font-weight-medium`
-- Spacing: `--ps-spacing-3`, `--ps-spacing-4`
-- Icone: `--ps-icon-size-20`
-
-Si les variantes "soft" manquent, proposer `colors.feedback.<variant>.soft`.
+- Couleurs sémantiques: `--primary`, `--secondary`, `--success`, `--danger`, `--warning`, `--info`, `--gray-50`, `--gray-900`
+- Arrière-plans doux: `--green-50`, `--purple-50`, `--red-50`, `--yellow-50`, `--blue-50`, `--gray-50`
+- Bordure: `--border-size-1`
+- Typo: `--font-sans`, `--font-size-1`, `--leading-normal`
+- Spacing: `--size-3`, `--size-4`, `--size-8`
+- Bouton close: `--font-size-4`, `--border-size-2`
 
 ---
 
@@ -206,36 +205,69 @@ Si les variantes "soft" manquent, proposer `colors.feedback.<variant>.soft`.
 
 ```scss
 .ps-alert {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: start;
-  gap: var(--ps-spacing-3, 12px);
-  padding: var(--ps-spacing-4, 16px);
-  border-radius: var(--ps-border-radius-sm, 4px);
-  font-family: var(--ps-font-family-primary);
-  color: var(--ps-color-text, #1F2A33);
+  /* Variables composant */
+  --ps-alert-padding-y: var(--size-4);
+  --ps-alert-padding-x: var(--size-4);
+  --ps-alert-border-radius: 0;
+  --ps-alert-border-width: var(--border-size-1);
+  --ps-alert-font-family: var(--font-sans);
+  --ps-alert-font-size: var(--font-size-1);
+  --ps-alert-line-height: var(--leading-normal);
+  --ps-alert-bg: transparent;
+  --ps-alert-color: inherit;
+  --ps-alert-border-color: transparent;
+  --ps-alert-link-color: inherit;
+  --ps-alert-close-padding: var(--size-3);
+  --ps-alert-close-opacity: 0.5;
+  --ps-alert-close-hover-opacity: 0.75;
+  --ps-alert-close-focus-opacity: 1;
+  --ps-alert-close-focus-outline-width: var(--border-size-2);
+  --ps-alert-close-focus-outline-offset: calc(var(--border-size-1) * -1);
 
-  &--compact { padding: var(--ps-spacing-3, 12px); }
+  position: relative;
+  display: block;
+  padding: var(--ps-alert-padding-y) var(--ps-alert-padding-x);
+  border-radius: var(--ps-alert-border-radius);
+  border: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
+  background-color: var(--ps-alert-bg);
+  font-family: var(--ps-alert-font-family);
+  font-size: var(--ps-alert-font-size);
+  line-height: var(--ps-alert-line-height);
+  color: var(--ps-alert-color);
 
-  &__icon-svg { width: 20px; height: 20px; }
-  &__title { margin: 0 0 var(--ps-spacing-1, 4px); font-size: var(--ps-font-size-base, 16px); font-weight: var(--ps-font-weight-medium, 500); }
-  &__message { font-size: var(--ps-font-size-base, 16px); }
+  &--dismissible { padding-right: calc(var(--ps-alert-padding-x) + var(--size-8)); }
+  &--rounded { --ps-alert-border-radius: var(--radius-2); }
 
-  &--info { background: var(--ps-color-info-soft, #E6F3FF); border: 1px solid var(--ps-color-info, #0B5FFF); }
-  &--success { background: var(--ps-color-success-soft, #E8F6EF); border: 1px solid var(--ps-color-success, #2DBE6C); }
-  &--warning { background: var(--ps-color-warning-soft, #FFF4E5); border: 1px solid var(--ps-color-warning, #FF9800); }
-  &--error { background: var(--ps-color-error-soft, #FDEBEC); border: 1px solid var(--ps-color-error, #EB3636); }
+  // Variantes sémantiques
+  &--primary { --ps-alert-bg: var(--green-50); --ps-alert-color: var(--primary); --ps-alert-border-color: var(--primary); --ps-alert-link-color: var(--primary); }
+  &--secondary { --ps-alert-bg: var(--purple-50); --ps-alert-color: var(--secondary); --ps-alert-border-color: var(--secondary); --ps-alert-link-color: var(--secondary); }
+  &--success { --ps-alert-bg: var(--green-100); --ps-alert-color: var(--success); --ps-alert-border-color: var(--success); --ps-alert-link-color: var(--success); }
+  &--danger { --ps-alert-bg: var(--red-50); --ps-alert-color: var(--danger); --ps-alert-border-color: var(--danger); --ps-alert-link-color: var(--danger); }
+  &--warning { --ps-alert-bg: var(--yellow-50); --ps-alert-color: var(--warning-text); --ps-alert-border-color: var(--warning); --ps-alert-link-color: var(--warning); }
+  &--info { --ps-alert-bg: var(--blue-50); --ps-alert-color: var(--info); --ps-alert-border-color: var(--info); --ps-alert-link-color: var(--info); }
+  &--light { --ps-alert-bg: var(--gray-50); --ps-alert-color: var(--gray-900); --ps-alert-border-color: var(--gray-300); --ps-alert-link-color: var(--gray-900); }
+  &--dark { --ps-alert-bg: var(--gray-900); --ps-alert-color: var(--gray-50); --ps-alert-border-color: var(--gray-800); --ps-alert-link-color: var(--gray-50); }
 
+  // Bouton de fermeture
   &__close {
-    align-self: start;
-    appearance: none;
-    border: 0;
-    background: transparent;
-    color: inherit;
+    position: absolute;
+    top: 0; right: 0;
+    padding: var(--ps-alert-close-padding);
+    font-size: var(--font-size-4);
+    color: var(--ps-alert-color);
+    opacity: var(--ps-alert-close-opacity);
     cursor: pointer;
+    background: transparent;
+    border: none;
     line-height: 1;
-    padding: 0 4px;
-    &:focus-visible { outline: var(--ps-border-width-focus, 2px) solid var(--ps-color-interactive-focus-outline, #0B5FFF); outline-offset: 2px; }
+    transition: opacity var(--duration-fast) var(--ease-out-2);
+
+    &:hover { opacity: var(--ps-alert-close-hover-opacity); }
+    &:focus-visible {
+      opacity: var(--ps-alert-close-focus-opacity);
+      outline: var(--ps-alert-close-focus-outline-width) solid currentColor;
+      outline-offset: var(--ps-alert-close-focus-outline-offset);
+    }
   }
 }
 ```

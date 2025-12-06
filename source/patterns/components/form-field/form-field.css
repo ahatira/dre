@@ -9,8 +9,10 @@
   /* Label (uses ps-label atom with form-field context overrides) */
   & .ps-form-field__label {
     /* Override atom styles for form-field context */
-    font-size: var(--font-size-0); /* 14px (larger than atom default) */
+    font-size: var(--size-3); /* 12px */
+    font-weight: var(--font-weight-600); /* Bold */
     margin-bottom: 0; /* Remove atom's default margin, use form-field gap */
+    color: var(--text-primary);
   }
 
   /* Input wrapper */
@@ -22,10 +24,11 @@
 
   /* Helper text */
   & .ps-form-field__helper {
+    margin-top: var(--size-1);
     font-family: var(--font-sans);
-    font-size: var(--font-size-sm); /* 12px */
+    font-size: var(--size-2); /* 11px, smaller than error */
     font-weight: var(--font-weight-400);
-    line-height: var(--leading-4); /* 16px */
+    line-height: var(--leading-tight);
     color: var(--gray-600);
   }
 
@@ -33,18 +36,36 @@
   & .ps-form-field__error {
     display: flex;
     align-items: flex-start;
-    gap: var(--size-1); /* 4px */
+    gap: var(--size-2); /* Spacing between icon and text */
+    margin-top: var(--size-2); /* Add top margin for spacing */
+    padding: var(--size-2) var(--size-3); /* Add padding for better readability */
+    background-color: rgba(220, 38, 38, 0.05); /* Light red background (5% opacity) */
+    border-left: var(--border-2) solid var(--danger); /* Left accent bar */
     font-family: var(--font-sans);
-    font-size: var(--font-size-sm); /* 12px */
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-4); /* 16px */
-    color: var(--red-600);
+    font-size: var(--size-3); /* 12px */
+    font-weight: var(--font-weight-500);
+    line-height: var(--leading-snug); /* Better line height */
+    color: var(--danger);
+  }
+
+  & .ps-form-field__error-icon {
+    flex-shrink: 0;
+    width: var(--size-4); /* 16px */
+    height: var(--size-4);
+    margin-top: var(--size-1); /* Align with text */
   }
 
   /* --error modifier (applied when error exists) */
   &.ps-form-field--error {
+    /* Style the ps-field input to show error state (red border) */
+    & .ps-field {
+      --ps-field-border-color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    /* Style label in red */
     & .ps-label {
-      color: var(--red-600);
+      color: var(--danger);
     }
   }
 

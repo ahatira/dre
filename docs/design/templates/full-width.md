@@ -75,9 +75,9 @@ props:
 ```scss
 .ps-full-width {
   width: 100%;
-  &__inner { padding: var(--ps-spacing-6, 24px) var(--ps-spacing-4, 16px); }
+  &__inner { padding: var(--size-6) var(--size-4); }
   &--contained &__inner { max-width: 1200px; margin: 0 auto; }
-  &--dark { background: var(--ps-color-neutral-900, #0E1A23); color: var(--ps-color-neutral-0, #FFF); }
+  &--dark { background: var(--gray-900); color: var(--white); }
 }
 ```
 

@@ -1,0 +1,10 @@
+# Menu Item Component
+# Reusable navigation menu item (used in menus, sidebars, etc.)
+
+label: 'Menu Item'
+href: '#'
+active: false
+disabled: false
+icon: null
+badge: null
+submenu: []
