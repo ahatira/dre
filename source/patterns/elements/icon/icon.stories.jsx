@@ -9,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic SVG icon component using a generated sprite. Supports 6 sizes (xs to xxl), semantic colors, accessibility labels, and optional icon-font fallback for legacy use.',
+          'Semantic SVG icon component using a generated sprite. Supports 6 sizes (xs to xxl) and semantic colors with full accessibility support.',
       },
     },
   },

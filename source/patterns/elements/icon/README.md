@@ -1,6 +1,6 @@
 # Icon (Element)
 
-SVG sprite-based icon component with semantic sizes, colors, and optional legacy icon-font fallback.
+SVG sprite-based icon component with semantic sizes and colors.
 
 ## Props
 - `name` (string, required): icon name without `icon-` prefix.

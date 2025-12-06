@@ -1,7 +1,7 @@
 /**
  * Icon (Element/Atom)
- * SVG sprite-based implementation with optional icon-font fallback.
- * BEM: ps-icon, ps-icon__svg, ps-icon__fallback
+ * SVG sprite-based implementation.
+ * BEM: ps-icon, ps-icon__svg
  * Modifiers: --xs, --sm, --md (default), --lg, --xl, --xxl, --primary, --secondary, --success, --warning, --danger, --info, --disabled
  */
 

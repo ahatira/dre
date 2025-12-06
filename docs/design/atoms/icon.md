@@ -18,7 +18,6 @@ Système d'icônes basé sur un **sprite SVG généré automatiquement** depuis 
 ```
 ps-icon
   ps-icon__svg
-  ps-icon__fallback (optionnel, icon-font)
   
 Modificateurs taille:
   ps-icon--xs | --sm | --md | --lg | --xl | --xxl
