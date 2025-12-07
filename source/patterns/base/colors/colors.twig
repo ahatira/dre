@@ -1,49 +1,66 @@
 <section class="demo-colors">
   {% if neutrals %}
-    <div class="just-for-gap">
-      <div class="heading">Neutrals (11 tokens)</div>
+    <div class="color-group">
+      <h3 class="color-group__title">Neutrals (12 tokens)</h3>
       {% for title, list in neutrals %}
-        <div class="color-category">
-          <div class="category-title">{{ title }}</div>
-          <article class="color-demo">
+        <h4 class="color-category__title">{{ title }}</h4>
+        <table class="color-table">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Color</th>
+              <th style="width: 200px;" class="ps-0">Swatch</th>
+              <th>Variables</th>
+            </tr>
+          </thead>
+          <tbody>
             {% for item in list %}
-              <div class="color-demo__swatch">
-                <div class="swatch" style="background-color: {{ item.value }}"></div>
-                <div class="meta">
-                  <span class="name">{{ item.name }}</span>
-                  <span class="value">{{ item.value }}</span>
-                  <span class="var">{{ item.var }}</span>
-                  {% if item.usage %}
-                    <span class="usage">{{ item.usage }}</span>
-                  {% endif %}
-                </div>
-              </div>
+              <tr>
+                <td>
+                  <p><strong>{{ item.name }}</strong>{% if item.usage %} — {{ item.usage }}{% endif %}</p>
+                </td>
+                <td class="ps-0">
+                  <div class="p-3 rounded-2" style="background-color: {{ item.value }}">&nbsp;</div>
+                </td>
+                <td>
+                  <p><code>{{ item.var }}</code><br><code>{{ item.value }}</code></p>
+                </td>
+              </tr>
             {% endfor %}
-          </article>
-        </div>
+          </tbody>
+        </table>
       {% endfor %}
     </div>
   {% endif %}
 
   {% if palettes %}
-    <div class="just-for-gap">
-      <div class="heading">Color Palettes (60 tokens)</div>
+    <div class="color-group">
+      <h3 class="color-group__title">Color Palettes (70 tokens)</h3>
       {% for title, list in palettes %}
-        <div class="color-category">
-          <div class="category-title">{{ title }}</div>
-          <article class="color-demo">
+        <h4 class="color-category__title">{{ title }}</h4>
+        <table class="color-table">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Color</th>
+              <th style="width: 200px;" class="ps-0">Swatch</th>
+              <th>Variables</th>
+            </tr>
+          </thead>
+          <tbody>
             {% for item in list %}
-              <div class="color-demo__swatch">
-                <div class="swatch" style="background-color: {{ item.value }}"></div>
-                <div class="meta">
-                  <span class="name">{{ item.name }}</span>
-                  <span class="value">{{ item.value }}</span>
-                  <span class="var">{{ item.var }}</span>
-                </div>
-              </div>
+              <tr>
+                <td>
+                  <p><strong>{{ item.name }}</strong></p>
+                </td>
+                <td class="ps-0">
+                  <div class="p-3 rounded-2" style="background-color: {{ item.value }}">&nbsp;</div>
+                </td>
+                <td>
+                  <p><code>{{ item.var }}</code><br><code>{{ item.value }}</code></p>
+                </td>
+              </tr>
             {% endfor %}
-          </article>
-        </div>
+          </tbody>
+        </table>
       {% endfor %}
     </div>
   {% endif %}
