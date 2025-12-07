@@ -177,11 +177,7 @@
      Hover State (Layer 3 Override)
      ============================================ */
 
-  /* Hover - Unchecked */
-  &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark {
-    color: var(--ps-checkbox-hover-checkmark-color);
-  }
-
+  /* Hover - Unchecked (label only, icon stays gray) */
   &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark + .ps-checkbox__label {
     color: var(--ps-checkbox-label-color-hover);
   }
@@ -199,7 +195,6 @@
      ============================================ */
 
   &--primary {
-    --ps-checkbox-checkmark-color-default: var(--primary, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--primary);
     --ps-checkbox-hover-checkmark-color: var(--primary-hover, var(--primary));
     --ps-checkbox-label-color-checked: var(--primary);
@@ -207,7 +202,6 @@
   }
 
   &--secondary {
-    --ps-checkbox-checkmark-color-default: var(--secondary, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--secondary);
     --ps-checkbox-hover-checkmark-color: var(--secondary-hover, var(--secondary));
     --ps-checkbox-label-color-checked: var(--secondary);
@@ -215,7 +209,6 @@
   }
 
   &--success {
-    --ps-checkbox-checkmark-color-default: var(--success, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--success);
     --ps-checkbox-hover-checkmark-color: var(--success-hover, var(--success));
     --ps-checkbox-label-color-checked: var(--success);
@@ -223,7 +216,6 @@
   }
 
   &--warning {
-    --ps-checkbox-checkmark-color-default: var(--warning, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--warning);
     --ps-checkbox-hover-checkmark-color: var(--warning-hover, var(--warning));
     --ps-checkbox-label-color-checked: var(--warning);
@@ -231,7 +223,6 @@
   }
 
   &--danger {
-    --ps-checkbox-checkmark-color-default: var(--danger, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--danger);
     --ps-checkbox-hover-checkmark-color: var(--danger-hover, var(--danger));
     --ps-checkbox-label-color-checked: var(--danger);
@@ -239,7 +230,6 @@
   }
 
   &--info {
-    --ps-checkbox-checkmark-color-default: var(--info, var(--gray-700));
     --ps-checkbox-checkmark-color-checked: var(--info);
     --ps-checkbox-hover-checkmark-color: var(--info-hover, var(--info));
     --ps-checkbox-label-color-checked: var(--info);
@@ -247,7 +237,6 @@
   }
 
   &--dark {
-    --ps-checkbox-checkmark-color-default: var(--gray-700);
     --ps-checkbox-checkmark-color-checked: var(--gray-700);
     --ps-checkbox-hover-checkmark-color: var(--gray-800);
     --ps-checkbox-label-color-checked: var(--gray-700);
@@ -255,7 +244,6 @@
   }
 
   &--light {
-    --ps-checkbox-checkmark-color-default: var(--gray-100);
     --ps-checkbox-checkmark-color-checked: var(--gray-100);
     --ps-checkbox-hover-checkmark-color: var(--white);
     --ps-checkbox-label-color-checked: var(--gray-100);
