@@ -2,22 +2,22 @@
  * Brand Tokens (BNP Paribas Real Estate)
  * 
  * Complete semantic color system following Bootstrap Base-Modifier pattern.
- * Each semantic color has 6 states: base, hover, active, text, border, subtle
+ * Each semantic color has 9 states: base, hover, active, text, border, subtle, bg-subtle, border-subtle, text-emphasis
  * 
  * Structure:
- * - 8 semantic colors × 6 states = 48 tokens
+ * - 8 semantic colors × 9 states = 72 tokens
  * - 4 text hierarchy tokens
  * - 6 border tokens
  * - 10 background tokens (including light variants)
  * - 6 overlay tokens
  * 
- * Total: 74 semantic tokens from BNP Paribas Real Estate design system.
+ * Total: 98 semantic tokens from BNP Paribas Real Estate design system.
  */
 
 :where(html) {
   /* ============================================
      SEMANTIC COLORS (Bootstrap Base-Modifier)
-     8 colors × 6 states = 48 tokens
+     8 colors × 9 states = 72 tokens
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
@@ -27,6 +27,9 @@
   --primary-text: hsl(0, 0%, 100%); /* White text on primary background */
   --primary-border: hsl(157, 100%, 28%); /* Match base color */
   --primary-subtle: hsl(157, 100%, 95%); /* Light tint for badges, alerts */
+  --primary-bg-subtle: hsl(157, 100%, 97%); /* Very light background */
+  --primary-border-subtle: hsl(157, 100%, 85%); /* Subtle border color */
+  --primary-text-emphasis: hsl(157, 100%, 20%); /* Dark text on light backgrounds */
 
   /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
   --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
@@ -35,6 +38,9 @@
   --secondary-text: hsl(0, 0%, 100%); /* White text on secondary background */
   --secondary-border: hsl(330, 65%, 40%); /* Match base color */
   --secondary-subtle: hsl(330, 65%, 95%); /* Light tint for badges, alerts */
+  --secondary-bg-subtle: hsl(330, 65%, 97%); /* Very light background */
+  --secondary-border-subtle: hsl(330, 65%, 85%); /* Subtle border color */
+  --secondary-text-emphasis: hsl(330, 65%, 25%); /* Dark text on light backgrounds */
 
   /* SUCCESS (Green - Positive actions/confirmations) */
   --success: hsl(157, 92%, 25%); /* #047857 - Success base */
@@ -43,6 +49,9 @@
   --success-text: hsl(0, 0%, 100%); /* White text on success background */
   --success-border: hsl(157, 92%, 25%); /* Match base color */
   --success-subtle: hsl(157, 92%, 95%); /* Light tint for badges, alerts */
+  --success-bg-subtle: hsl(157, 92%, 97%); /* Very light background */
+  --success-border-subtle: hsl(157, 92%, 85%); /* Subtle border color */
+  --success-text-emphasis: hsl(157, 92%, 18%); /* Dark text on light backgrounds */
 
   /* DANGER (Red - Errors/destructive actions) */
   --danger: hsl(0, 82%, 57%); /* #EB3636 - Official BNP status red */
@@ -51,6 +60,9 @@
   --danger-text: hsl(0, 0%, 100%); /* White text on danger background */
   --danger-border: hsl(0, 82%, 57%); /* Match base color */
   --danger-subtle: hsl(0, 82%, 95%); /* Light tint for badges, alerts */
+  --danger-bg-subtle: hsl(0, 82%, 97%); /* Very light background */
+  --danger-border-subtle: hsl(0, 82%, 85%); /* Subtle border color */
+  --danger-text-emphasis: hsl(0, 82%, 40%); /* Dark text on light backgrounds */
 
   /* WARNING (Yellow - Caution/attention) */
   --warning: hsl(42, 93%, 46%); /* #D97706 - Warning base */
@@ -59,6 +71,9 @@
   --warning-text: hsl(0, 0%, 0%); /* Black text on yellow (WCAG contrast) */
   --warning-border: hsl(42, 93%, 46%); /* Match base color */
   --warning-subtle: hsl(42, 93%, 95%); /* Light tint for badges, alerts */
+  --warning-bg-subtle: hsl(42, 93%, 97%); /* Very light background */
+  --warning-border-subtle: hsl(42, 93%, 85%); /* Subtle border color */
+  --warning-text-emphasis: hsl(42, 93%, 30%); /* Dark text on light backgrounds */
 
   /* INFO (Blue - Informational content) */
   --info: hsl(220, 89%, 53%); /* #2563EB - Info base */
@@ -67,6 +82,9 @@
   --info-text: hsl(0, 0%, 100%); /* White text on info background */
   --info-border: hsl(220, 89%, 53%); /* Match base color */
   --info-subtle: hsl(220, 89%, 95%); /* Light tint for badges, alerts */
+  --info-bg-subtle: hsl(220, 89%, 97%); /* Very light background */
+  --info-border-subtle: hsl(220, 89%, 85%); /* Subtle border color */
+  --info-text-emphasis: hsl(220, 89%, 35%); /* Dark text on light backgrounds */
 
   /* LIGHT (For dark backgrounds - inverse theme) */
   --light: hsl(220, 14%, 96%); /* gray-100 - Light base for dark backgrounds */
@@ -75,6 +93,9 @@
   --light-text: hsl(217, 19%, 27%); /* gray-700 - Dark text on light background */
   --light-border: hsl(220, 14%, 96%); /* Match base color */
   --light-subtle: hsl(0, 0%, 100%); /* Pure white for subtle light backgrounds */
+  --light-bg-subtle: hsl(0, 0%, 100%); /* Pure white background */
+  --light-border-subtle: hsl(220, 13%, 91%); /* gray-200 subtle border */
+  --light-text-emphasis: hsl(215, 28%, 17%); /* gray-800 - High emphasis text */
 
   /* DARK (For light backgrounds - high contrast) */
   --dark: hsl(217, 19%, 27%); /* gray-700 - Dark base */
@@ -83,6 +104,9 @@
   --dark-text: hsl(0, 0%, 100%); /* White text on dark background */
   --dark-border: hsl(217, 19%, 27%); /* Match base color */
   --dark-subtle: hsl(217, 19%, 95%); /* Very light gray for subtle dark backgrounds */
+  --dark-bg-subtle: hsl(217, 19%, 97%); /* Very light gray background */
+  --dark-border-subtle: hsl(217, 19%, 85%); /* Light gray subtle border */
+  --dark-text-emphasis: hsl(221, 39%, 11%); /* gray-900 - Darkest emphasis text */
 
   /* ============================================
      TEXT COLORS (Typography)
