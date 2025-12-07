@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Color Card Grid - Large semantic color cards
+ * 
+ * Usage:
+ *   {% include '../_templates/color-cards.twig' with {
+ *     colors: [
+ *       { name: 'Primary', slug: 'primary', var: '--primary' },
+ *       { name: 'Success', slug: 'success', var: '--success' },
+ *       ...
+ *     ]
+ *   } only %}
+ */
+#}
+
+<div class="ps-color-cards">
+  {% for color in colors %}
+    <div class="ps-color-card ps-color-card--{{ color.slug }}">
+      <span class="ps-card-name">{{ color.name }}</span>
+      {% if color.var %}
+        <code class="ps-card-token">{{ color.var }}</code>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

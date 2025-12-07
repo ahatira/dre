@@ -450,7 +450,7 @@
 
     .font-meta__preview {
       border-block-start: var(--border-size-1) solid var(--gray-300);
-      inline-size: fit-content;
+      width: fit-content;
       margin: var(--size-4) 0 0;
       padding: var(--size-4) 0 0;
 
@@ -1090,5 +1090,530 @@ em {
 
   th[colspan="2"] {
     text-align: center;
+  }
+}
+
+/* Animation Demo Styles */
+
+.animation-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  border-radius: var(--radius-2);
+  background-color: var(--light);
+  border: 2px dashed var(--gray-400);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.animation-demo:hover {
+  background-color: var(--gray-100);
+}
+
+.animation-demo__box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-2);
+  background-color: #00915a;
+}
+
+/* Duration animations */
+.animation-demo--instant .animation-demo__box {
+  animation: bounce var(--duration-instant) var(--ease-bounce) infinite;
+}
+
+.animation-demo--fast .animation-demo__box {
+  animation: bounce var(--duration-fast) var(--ease-bounce) infinite;
+}
+
+.animation-demo--normal .animation-demo__box {
+  animation: bounce var(--duration-normal) var(--ease-bounce) infinite;
+}
+
+.animation-demo--slow .animation-demo__box {
+  animation: bounce var(--duration-slow) var(--ease-bounce) infinite;
+}
+
+.animation-demo--slower .animation-demo__box {
+  animation: bounce var(--duration-slower) var(--ease-bounce) infinite;
+}
+
+.animation-demo--slowest .animation-demo__box {
+  animation: bounce var(--duration-slowest) var(--ease-bounce) infinite;
+}
+
+/* Easing demo animations */
+.animation-demo--1 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.25, 0, 0.5, 1) infinite;
+}
+
+.animation-demo--2 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.25, 0.25, 0.75, 0.75)
+    infinite;
+}
+
+.animation-demo--3 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animation-demo--4 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.4, 0, 1, 1) infinite;
+}
+
+.animation-demo--5 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.25, 0.25, 0.75, 0.75)
+    infinite;
+}
+
+.animation-demo--in-out-5 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
+.animation-demo--out-5 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animation-demo--in-5 .animation-demo__box {
+  animation: slide var(--duration-slow) cubic-bezier(0.8, 0, 0.4, 1) infinite;
+}
+
+.animation-demo--bounce .animation-demo__box {
+  animation: bounce var(--duration-normal) cubic-bezier(0.68, -0.55, 0.265, 1.55)
+    infinite;
+}
+
+.animation-demo--elastic .animation-demo__box {
+  animation: bounce var(--duration-normal) cubic-bezier(0.68, -0.55, 0.265, 1.55)
+    infinite;
+}
+
+/* Preset animations */
+.animation-demo--fade-in .animation-demo__box {
+  animation: fadeInDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--fade-out .animation-demo__box {
+  animation: fadeOutDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--scale-up .animation-demo__box {
+  animation: scaleUpDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--scale-down .animation-demo__box {
+  animation: scaleDownDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-in-up .animation-demo__box {
+  animation: slideUpDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-in-down .animation-demo__box {
+  animation: slideDownDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-in-left .animation-demo__box {
+  animation: slideLeftDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-in-right .animation-demo__box {
+  animation: slideRightDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-out-up .animation-demo__box {
+  animation: slideUpDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-out-down .animation-demo__box {
+  animation: slideDownDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-out-left .animation-demo__box {
+  animation: slideLeftDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--slide-out-right .animation-demo__box {
+  animation: slideRightDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--shake-x .animation-demo__box {
+  animation: shakeXDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--shake-y .animation-demo__box {
+  animation: shakeYDemo var(--duration-normal) ease-out infinite;
+}
+
+.animation-demo--pulse .animation-demo__box {
+  animation: pulseDemo var(--duration-slow) ease-out infinite;
+}
+
+.animation-demo--spin .animation-demo__box {
+  animation: spinDemo var(--duration-slow) linear infinite;
+}
+
+/* Keyframes */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes slide {
+  0%,
+  100% {
+    transform: translateX(-40px);
+  }
+
+  50% {
+    transform: translateX(40px);
+  }
+}
+
+@keyframes fadeInDemo {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutDemo {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleUpDemo {
+  0%,
+  100% {
+    transform: scale(0.5);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes scaleDownDemo {
+  0%,
+  100% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+}
+
+@keyframes slideUpDemo {
+  0%,
+  100% {
+    transform: translateY(40px);
+  }
+
+  50% {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes slideDownDemo {
+  0%,
+  100% {
+    transform: translateY(-40px);
+  }
+
+  50% {
+    transform: translateY(40px);
+  }
+}
+
+@keyframes slideLeftDemo {
+  0%,
+  100% {
+    transform: translateX(40px);
+  }
+
+  50% {
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes slideRightDemo {
+  0%,
+  100% {
+    transform: translateX(-40px);
+  }
+
+  50% {
+    transform: translateX(40px);
+  }
+}
+
+@keyframes shakeXDemo {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes shakeYDemo {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-10px);
+  }
+
+  75% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes pulseDemo {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes spinDemo {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   ANIMATION STORY DEMOS
+   ============================================ */
+
+.demo-animations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--size-6);
+  padding: var(--size-8);
+}
+
+/* ============================================
+   ANIMATION CARD DESIGN
+   ============================================ */
+
+.anim-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  background: white;
+  border: 1px solid var(--border-light);
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.anim-card__header {
+  padding: var(--size-2) var(--size-5);
+  background: var(--gray-800);
+  color: white;
+}
+
+.anim-card__title {
+  margin: 0;
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-700);
+  color: white;
+  font-family: var(--font-mono);
+  letter-spacing: -0.3px;
+}
+
+.anim-card__area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  background: var(--gray-500);
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.anim-card__box {
+  width: 60px;
+  height: 60px;
+  background: var(--secondary);
+  border-radius: var(--radius-2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.anim-card__footer {
+  padding: var(--size-4) var(--size-5);
+  background: white;
+  border-top: 1px solid var(--border-light);
+  font-size: var(--font-size-0);
+}
+
+.anim-card__detail {
+  margin: 0 0 var(--size-2) 0;
+  color: var(--text-secondary);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.anim-card__detail-label {
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: var(--size-1);
+}
+
+.anim-card__code {
+  display: inline-block;
+  font-size: var(--font-size--1);
+  color: var(--primary);
+  background: var(--gray-100);
+  padding: var(--size-1) var(--size-2);
+  border-radius: var(--radius-1);
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+@media (width < 1024px) {
+  .demo-animations-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--size-5);
+    padding: var(--size-6);
+  }
+
+  .anim-card__area {
+    min-height: 120px;
+  }
+
+  .anim-card__box {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (width < 640px) {
+  .demo-animations-grid {
+    grid-template-columns: 1fr;
+    gap: var(--size-4);
+    padding: var(--size-4);
+  }
+
+  .anim-card__area {
+    min-height: 110px;
+  }
+
+  .anim-card__box {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ============================================
+   DURATION CIRCLE ANIMATIONS
+   ============================================ */
+
+.duration-circle {
+  --duration-fill: 1s;
+  --angle: 0deg;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      var(--primary) 0deg,
+      var(--primary) var(--angle),
+      transparent var(--angle),
+      transparent 360deg
+    ),
+    color-mix(in srgb, var(--primary) 20%, transparent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 20%, transparent);
+  animation: none;
+}
+
+.duration-circle--instant {
+  --duration-fill: 0.1s;
+}
+
+.duration-circle--fast {
+  --duration-fill: 0.15s;
+}
+
+.duration-circle--normal {
+  --duration-fill: 0.3s;
+}
+
+.duration-circle--slow {
+  --duration-fill: 0.5s;
+}
+
+.duration-circle--slower {
+  --duration-fill: 0.75s;
+}
+
+.duration-circle--slowest {
+  --duration-fill: 1s;
+}
+
+@keyframes duration-fill {
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
   }
 }

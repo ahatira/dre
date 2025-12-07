@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Color Swatch Column - Reusable component for color palettes
+ * 
+ * Usage:
+ *   {% include '../_templates/color-column.twig' with {
+ *     title: 'Primary',
+ *     base_var: '--primary-600',
+ *     base_value: '#00915A',
+ *     shades: [
+ *       { var: '--primary-50', index: 1 },
+ *       { var: '--primary-100', index: 2 },
+ *       ...
+ *     ]
+ *   } only %}
+ */
+#}
+
+<div class="ps-color-column">
+  {# Main color swatch #}
+  <div class="ps-color-main" style="background-color: var({{ base_var }})">
+    <strong class="ps-color-title">{{ title }}</strong>
+    <code class="ps-color-token">{{ base_var }}</code>
+    <span class="ps-color-value">{{ base_value }}</span>
+  </div>
+  
+  {# Shade swatches #}
+  <div class="ps-color-shades">
+    {% for shade in shades %}
+      {% set is_light = shade.index <= 3 %}
+      <div class="ps-color-shade {{ is_light ? 'is-light' : 'is-dark' }}" style="background-color: var({{ shade.var }})">
+        <code class="ps-shade-token">{{ shade.var }}</code>
+      </div>
+    {% endfor %}
+  </div>
+</div>

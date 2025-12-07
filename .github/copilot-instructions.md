@@ -14,6 +14,7 @@
 - **Components** → `instructions/components.instructions.md` - 5-file structure, BEM
 - **CSS** → `instructions/css.instructions.md` - Tokens, nesting, cascade
 - **Storybook** → `instructions/storybook.instructions.md` - Autodocs, stories format
+- **Base Stories** → `instructions/base-stories.instructions.md` - Token documentation stories
 - **JavaScript** → `instructions/javascript.instructions.md` - Drupal behaviors, ES6
 - **Templates** → `instructions/templates.instructions.md` - Twig, YAML, Faker.js
 - **Accessibility** → `instructions/accessibility.instructions.md` - WCAG, ARIA, keyboard

@@ -1,49 +1,73 @@
 /**
  * Animation Demo Behavior
  *
- * Handles interactive animation preset demonstrations.
- * Triggers animations on click for Storybook animation showcase.
+ * Handles interactive animation demonstrations in Storybook.
+ * Click on animation cards to trigger the animations.
  */
 
 ((Drupal) => {
   Drupal.behaviors.animationDemo = {
     attach(context) {
-      // Handle animation preset triggers
-      const triggers = context.querySelectorAll('.trigger-btn[data-animation]');
+      // Get all animation boxes
+      const boxes = context.querySelectorAll('.anim-card__box');
 
-      triggers.forEach((trigger) => {
+      // Duration circles (trigger fill on click)
+      const circles = context.querySelectorAll('.duration-circle');
+
+      boxes.forEach((box) => {
         // Prevent multiple attachments
-        if (trigger.dataset.animationAttached) {
+        if (box.dataset.animationAttached) {
           return;
         }
-        trigger.dataset.animationAttached = 'true';
+        box.dataset.animationAttached = 'true';
 
-        trigger.addEventListener('click', function () {
-          const animationName = this.dataset.animation;
-          const target = this.querySelector('.animated-preset');
+        // Get the animation name from the data attribute
+        const animationName = box.dataset.animation;
 
-          if (!target) {
-            return;
-          }
+        // Click handler to trigger animation
+        box.parentElement.addEventListener('click', (e) => {
+          e.preventDefault();
 
-          // Remove any existing animation
-          target.style.animation = 'none';
+          // Remove animation to reset
+          box.style.animation = 'none';
 
           // Force reflow to restart animation
-          void target.offsetWidth;
+          void box.offsetWidth;
 
-          // Apply animation from CSS custom property
-          target.style.animation = `var(--animation-${animationName})`;
+          // Apply animation using CSS custom properties
+          box.style.animation = `var(--animation-${animationName})`;
 
           // Remove animation after it completes
-          target.addEventListener(
+          box.addEventListener(
             'animationend',
             function handler() {
-              target.style.animation = 'none';
-              target.removeEventListener('animationend', handler);
+              box.style.animation = 'none';
+              box.removeEventListener('animationend', handler);
             },
             { once: true }
           );
+        });
+      });
+
+      circles.forEach((circle) => {
+        if (circle.dataset.durationAttached) {
+          return;
+        }
+        circle.dataset.durationAttached = 'true';
+
+        circle.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          // Reset animation and angle
+          circle.style.animation = 'none';
+          circle.style.setProperty('--angle', '0deg');
+          // Force reflow
+          void circle.offsetWidth;
+
+          const duration =
+            window.getComputedStyle(circle).getPropertyValue('--duration-fill').trim() || '1s';
+
+          circle.style.animation = `duration-fill ${duration} linear forwards`;
         });
       });
     },

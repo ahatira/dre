@@ -17,6 +17,8 @@ applyTo:
 
 ## 🗂 Required File Structure
 
+### For `elements/`, `components/`, `collections/` (ACTUAL COMPONENTS)
+
 Every component MUST contain exactly **5 files**:
 
 ```
@@ -32,6 +34,10 @@ source/patterns/{level}/{component}/
 ```
 └── {component}.js            # JavaScript behaviors
 ```
+
+### ⚠️ Exception: `base/*` Directory
+
+Stories in `source/patterns/base/` are **NOT components** — they document design tokens. See `instructions/base-stories.instructions.md` for the simplified 4-file structure (no README.md needed).
 
 ### Naming Convention
 

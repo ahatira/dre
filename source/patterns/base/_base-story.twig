@@ -1,0 +1,270 @@
+{#
+/**
+ * @file
+ * Base Story Template - Ready-to-use documentation template
+ * 
+ * Professional template for design system documentation with:
+ * - Semantic HTML structure
+ * - Complete styling with design tokens
+ * - Responsive layout
+ * - Accessible markup
+ * 
+ * Usage:
+ *   {% include '../_base-story.twig' with {
+ *     header: { 
+ *       title: 'System Name',
+ *       description: 'Lead paragraph...',
+ *       badge: 'Design Tokens',
+ *       meta: [{ label: 'Total', value: '42' }]
+ *     },
+ *     sections: [{ 
+ *       badge: 'Category',
+ *       title: 'Section Title',
+ *       description: 'Intro text...',
+ *       content: html_block
+ *     }]
+ *   } only %}
+ */
+#}
+
+<article class="ps-base-story">
+  
+  {# ========================================
+     STORY HEADER
+     ======================================== #}
+  {% if header %}
+    <header class="ps-base-story__header">
+      {% if header.badge %}
+        <span class="ps-story-badge">{{ header.badge }}</span>
+      {% endif %}
+      
+      <h1 class="ps-story-title">{{ header.title }}</h1>
+      
+      {% if header.description %}
+        <p class="ps-story-lead">{{ header.description }}</p>
+      {% endif %}
+      
+      {% if header.meta %}
+        <dl class="ps-story-meta">
+          {% for item in header.meta %}
+            <div class="ps-meta-item">
+              <dt>{{ item.label }}</dt>
+              <dd>{{ item.value }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# ========================================
+     CONTENT SECTIONS
+     ======================================== #}
+  {% if sections %}
+    {% for section in sections %}
+      <section class="ps-base-section{% if section.class %} {{ section.class }}{% endif %}">
+        
+        {# Section Header #}
+        {% if section.badge or section.title or section.description %}
+          <header class="ps-section-header">
+            {% if section.badge %}
+              <span class="ps-section-badge">{{ section.badge }}</span>
+            {% endif %}
+            
+            {% if section.title %}
+              <h2 class="ps-section-title">{{ section.title }}</h2>
+            {% endif %}
+            
+            {% if section.description %}
+              <p class="ps-section-intro">{{ section.description }}</p>
+            {% endif %}
+          </header>
+        {% endif %}
+
+        {# Section Content #}
+        {% if section.content %}
+          <div class="ps-section-content">
+            {{ section.content|raw }}
+          </div>
+        {% endif %}
+        
+      </section>
+    {% endfor %}
+  {% endif %}
+
+</article>
+
+{# ========================================
+   TEMPLATE STYLES - Token-based
+   ======================================== #}
+<style>
+/* ========================================
+   Story Container
+   ======================================== */
+.ps-base-story {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--size-10) var(--size-8);
+  background: var(--white);
+}
+
+/* ========================================
+   Story Header
+   ======================================== */
+.ps-base-story__header {
+  margin-block-end: var(--size-12);
+  padding-block-end: var(--size-8);
+  border-block-end: 1px solid var(--border-light);
+}
+
+.ps-story-badge {
+  display: inline-block;
+  padding: var(--size-1) var(--size-3);
+  margin-block-end: var(--size-4);
+  background: var(--primary-subtle);
+  color: var(--primary-text-emphasis);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-pill);
+}
+
+.ps-story-title {
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin: 0 0 var(--size-5) 0;
+}
+
+.ps-story-lead {
+  font-size: var(--font-size-5);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin: 0 0 var(--size-6) 0;
+  max-width: 80ch;
+}
+
+.ps-story-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--size-4);
+  margin: var(--size-6) 0 0 0;
+  padding: var(--size-5);
+  background: var(--gray-50);
+  border-radius: var(--radius-3);
+  border: 1px solid var(--border-light);
+}
+
+.ps-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  
+  dt {
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-600);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  
+  dd {
+    margin: 0;
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-600);
+    color: var(--text-primary);
+  }
+}
+
+/* ========================================
+   Sections
+   ======================================== */
+.ps-base-section {
+  margin-block-end: var(--size-10);
+  
+  &:last-child {
+    margin-block-end: 0;
+  }
+}
+
+.ps-section-header {
+  margin-block-end: var(--size-8);
+}
+
+.ps-section-badge {
+  display: inline-block;
+  padding: var(--size-1) var(--size-2);
+  margin-block-end: var(--size-3);
+  background: var(--gray-100);
+  color: var(--text-secondary);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-1);
+}
+
+.ps-section-title {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin: 0 0 var(--size-4) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+.ps-section-intro {
+  font-size: var(--font-size-3);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 75ch;
+}
+
+.ps-section-content {
+  margin-block-start: var(--size-8);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (width < 768px) {
+  .ps-base-story {
+    padding: var(--size-8) var(--size-5);
+  }
+  
+  .ps-story-title {
+    font-size: var(--font-size-8);
+  }
+  
+  .ps-story-lead {
+    font-size: var(--font-size-4);
+  }
+  
+  .ps-story-meta {
+    grid-template-columns: 1fr;
+  }
+  
+  .ps-section-title {
+    font-size: var(--font-size-6);
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+@media print {
+  .ps-base-story {
+    padding: 0;
+  }
+  
+  .ps-story-badge,
+  .ps-section-badge {
+    border: 1px solid currentColor;
+  }
+}
+</style>

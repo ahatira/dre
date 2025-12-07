@@ -1,0 +1,309 @@
+/**
+ * Base Template Components Styles
+ * Ready-to-use components for documentation stories
+ * 
+ * Components:
+ * - Color Column: Vertical color scale display
+ * - Token Table: Reference table for design tokens
+ * - Color Cards: Large semantic color cards
+ * - Type Sample: Typography specimens
+ * - Swatch Grid: Generic token swatches
+ */
+
+/* ========================================
+   Color Column Component
+   ======================================== */
+.ps-color-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  min-width: 200px;
+}
+
+.ps-color-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  padding: var(--size-4);
+  border-radius: var(--radius-2);
+  min-height: 120px;
+  color: var(--white);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+  }
+}
+
+.ps-color-title {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-700);
+}
+
+.ps-color-token {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2);
+  opacity: 0.9;
+}
+
+.ps-color-value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-1);
+  opacity: 0.8;
+  margin-block-start: auto;
+}
+
+.ps-color-shades {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ps-color-shade {
+  padding: var(--size-2) var(--size-3);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-1);
+  border-radius: var(--radius-1);
+  
+  &.is-light {
+    color: var(--gray-900);
+  }
+  
+  &.is-dark {
+    color: var(--white);
+  }
+}
+
+/* ========================================
+   Token Table Component
+   ======================================== */
+.ps-token-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--border-light);
+  background: var(--white);
+}
+
+.ps-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  thead {
+    background: var(--gray-50);
+    
+    th {
+      padding: var(--size-3) var(--size-4);
+      text-align: left;
+      font-size: var(--font-size-2);
+      font-weight: var(--font-weight-600);
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-default);
+    }
+  }
+  
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--border-light);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      &:hover {
+        background: var(--gray-50);
+      }
+    }
+    
+    td {
+      padding: var(--size-3) var(--size-4);
+      font-size: var(--font-size-3);
+    }
+  }
+}
+
+.ps-token-name {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2);
+  color: var(--primary);
+  font-weight: var(--font-weight-600);
+}
+
+.ps-token-value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2);
+  color: var(--text-secondary);
+}
+
+.ps-token-usage {
+  color: var(--text-secondary);
+}
+
+.ps-token-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--border-light);
+}
+
+/* ========================================
+   Color Cards Component
+   ======================================== */
+.ps-color-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--size-4);
+}
+
+.ps-color-card {
+  aspect-ratio: 3 / 2;
+  padding: var(--size-5);
+  border-radius: var(--radius-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--size-2);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+.ps-color-card--primary { background: var(--primary); color: var(--white); }
+.ps-color-card--secondary { background: var(--secondary); color: var(--white); }
+.ps-color-card--success { background: var(--success); color: var(--white); }
+.ps-color-card--danger { background: var(--danger); color: var(--white); }
+.ps-color-card--warning { background: var(--warning); color: var(--gray-900); }
+.ps-color-card--info { background: var(--info); color: var(--white); }
+.ps-color-card--light { background: var(--light); color: var(--gray-900); }
+.ps-color-card--dark { background: var(--dark); color: var(--white); }
+.ps-color-card--gold { background: var(--gold); color: var(--gray-900); }
+
+.ps-card-name {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-700);
+}
+
+.ps-card-token {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-1);
+  opacity: 0.8;
+}
+
+/* ========================================
+   Typography Sample Component
+   ======================================== */
+.ps-type-sample {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+  padding: var(--size-5);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+  background: var(--white);
+}
+
+.ps-type-label {
+  code {
+    font-size: var(--font-size-1);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-600);
+  }
+}
+
+.ps-type-display {
+  * {
+    margin: 0;
+  }
+}
+
+.ps-type-specs {
+  font-size: var(--font-size-1);
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* ========================================
+   Swatch Grid Component
+   ======================================== */
+.ps-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 4), 1fr);
+  gap: var(--size-5);
+}
+
+.ps-swatch-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}
+
+.ps-swatch-preview {
+  aspect-ratio: 1;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &--color {
+    background: currentColor;
+  }
+  
+  &--box {
+    background: var(--white);
+  }
+  
+  &--text {
+    font-size: 48px;
+    font-weight: var(--font-weight-700);
+  }
+}
+
+.ps-swatch-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.ps-swatch-name {
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+}
+
+.ps-swatch-token {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-1);
+  color: var(--primary);
+}
+
+.ps-swatch-value {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-0);
+  color: var(--text-tertiary);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (width < 768px) {
+  .ps-color-cards {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  
+  .ps-swatch-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

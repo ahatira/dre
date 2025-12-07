@@ -354,3 +354,304 @@
     background-color: var(--gray-100);
   }
 }
+
+/* ============================================
+   STORYBOOK DEMO STYLES
+   Styles specific to backgrounds.twig story
+   ============================================ */
+
+.demo-backgrounds {
+  .sb-intro {
+    margin-block-end: var(--size-10);
+
+    h1 {
+      font-size: var(--font-size-10);
+      line-height: var(--leading-11);
+      font-weight: var(--font-weight-700);
+      color: var(--text-primary);
+      margin-block-end: var(--size-4);
+    }
+
+    .lead {
+      font-size: var(--font-size-5);
+      line-height: var(--leading-7);
+      color: var(--text-secondary);
+      max-width: 80ch;
+    }
+  }
+
+  .section-title {
+    font-size: var(--font-size-7);
+    line-height: var(--leading-9);
+    font-weight: var(--font-weight-700);
+    color: var(--text-primary);
+    margin-block-end: var(--size-3);
+  }
+
+  .section-intro {
+    font-size: var(--font-size-4);
+    line-height: var(--leading-6);
+    color: var(--text-secondary);
+    margin-block-end: var(--size-6);
+    max-width: 70ch;
+  }
+
+  .bg-section {
+    padding: var(--size-8) var(--size-6);
+    margin-block-end: var(--size-6);
+    border-radius: var(--radius-3);
+  }
+
+  /* Semantic colors grid */
+  .bg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--size-5);
+  }
+
+  .bg-card-demo {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-2);
+    padding: var(--size-5);
+
+    .demo-title {
+      font-size: var(--font-size-4);
+      font-weight: var(--font-weight-700);
+      color: var(--text-primary);
+      margin-block-end: var(--size-2);
+    }
+
+    .demo-description {
+      font-size: var(--font-size-3);
+      color: var(--text-secondary);
+      margin-block-end: var(--size-4);
+    }
+  }
+
+  .demo-swatches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-3);
+  }
+
+  .demo-swatch {
+    padding: var(--size-5);
+    border-radius: var(--radius-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .swatch-label {
+      font-size: var(--font-size-2);
+      font-weight: var(--font-weight-700);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    code {
+      font-size: var(--font-size-2);
+      font-family: var(--font-mono);
+    }
+  }
+
+  /* Neutrals grid */
+  .bg-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--size-4);
+  }
+
+  .demo-swatch-small {
+    padding: var(--size-4);
+    border-radius: var(--radius-2);
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    min-height: 80px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .swatch-label-small {
+      font-size: var(--font-size-2);
+      font-weight: var(--font-weight-600);
+    }
+
+    code {
+      font-size: var(--font-size-1);
+      font-family: var(--font-mono);
+    }
+  }
+
+  /* Contextual grid */
+  .contextual-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--size-4);
+  }
+
+  .contextual-demo {
+    padding: var(--size-5);
+    border-radius: var(--radius-2);
+    border: 1px solid var(--border-light);
+
+    .contextual-label {
+      margin-block-end: var(--size-2);
+
+      strong {
+        display: block;
+        font-size: var(--font-size-3);
+        font-weight: var(--font-weight-700);
+        margin-block-end: var(--size-1);
+      }
+
+      code {
+        font-size: var(--font-size-2);
+        font-family: var(--font-mono);
+      }
+    }
+
+    .contextual-description {
+      font-size: var(--font-size-2);
+      opacity: 0.8;
+    }
+  }
+
+  /* Gradients grid */
+  .gradient-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--size-4);
+  }
+
+  .gradient-demo {
+    padding: var(--size-6);
+    border-radius: var(--radius-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    min-height: 120px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .gradient-label {
+      font-size: var(--font-size-4);
+      font-weight: var(--font-weight-700);
+    }
+
+    code {
+      font-size: var(--font-size-2);
+      font-family: var(--font-mono);
+    }
+
+    .gradient-description {
+      font-size: var(--font-size-2);
+      opacity: 0.9;
+    }
+  }
+
+  /* Usage examples */
+  .usage-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--size-6);
+  }
+
+  .example-block {
+    h3 {
+      font-size: var(--font-size-4);
+      font-weight: var(--font-weight-700);
+      color: var(--text-primary);
+      margin-block-end: var(--size-4);
+    }
+  }
+
+  .alert-demo {
+    padding: var(--size-4);
+    border-radius: var(--radius-2);
+    margin-block-end: var(--size-3);
+
+    strong {
+      display: block;
+      margin-block-end: var(--size-1);
+    }
+  }
+
+  .card-demo {
+    padding: var(--size-5);
+    border-radius: var(--radius-2);
+    border: 1px solid var(--border-light);
+    margin-block-end: var(--size-3);
+
+    strong {
+      display: block;
+      font-size: var(--font-size-4);
+      margin-block-end: var(--size-2);
+    }
+
+    p {
+      font-size: var(--font-size-3);
+      color: var(--text-secondary);
+    }
+  }
+
+  .premium-demo {
+    padding: var(--size-6);
+    border-radius: var(--radius-2);
+    text-align: center;
+
+    strong {
+      display: block;
+      font-size: var(--font-size-5);
+      margin-block-end: var(--size-2);
+    }
+
+    p {
+      font-size: var(--font-size-3);
+    }
+  }
+
+  /* Reference grid */
+  .reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--size-6);
+  }
+
+  .reference-section {
+    h4 {
+      font-size: var(--font-size-4);
+      font-weight: var(--font-weight-700);
+      color: var(--text-primary);
+      margin-block-end: var(--size-3);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: var(--size-2) 0;
+        border-bottom: 1px solid var(--border-light);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        code {
+          font-size: var(--font-size-2);
+          font-family: var(--font-mono);
+          color: var(--primary);
+        }
+      }
+    }
+  }
+}

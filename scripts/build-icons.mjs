@@ -65,7 +65,7 @@ async function buildIcons() {
     '',
   ].join('\n');
 
-  const listContent = JSON.stringify({ all: names, regular: names, poi: [] }, null, 2);
+  const listContent = JSON.stringify({ all: names, regular: names, poi: [] }, null, 2) + '\n';
 
   // Only write if content changed (prevents infinite reload in watch mode)
   let spriteChanged = true;

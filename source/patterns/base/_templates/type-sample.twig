@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Typography Sample - Font display component
+ * 
+ * Usage:
+ *   {% include '../_templates/type-sample.twig' with {
+ *     label: 'h1 — Main Heading',
+ *     element: 'h1',
+ *     text: 'The quick brown fox',
+ *     specs: '48px / 60px • Bold'
+ *   } only %}
+ */
+#}
+
+<div class="ps-type-sample">
+  <div class="ps-type-label">
+    <code>{{ label }}</code>
+  </div>
+  
+  <div class="ps-type-display">
+    {% if element == 'h1' %}<h1>{{ text }}</h1>{% endif %}
+    {% if element == 'h2' %}<h2>{{ text }}</h2>{% endif %}
+    {% if element == 'h3' %}<h3>{{ text }}</h3>{% endif %}
+    {% if element == 'h4' %}<h4>{{ text }}</h4>{% endif %}
+    {% if element == 'h5' %}<h5>{{ text }}</h5>{% endif %}
+    {% if element == 'h6' %}<h6>{{ text }}</h6>{% endif %}
+    {% if element == 'p' %}<p>{{ text }}</p>{% endif %}
+    {% if element == 'div' %}<div class="{{ class }}">{{ text }}</div>{% endif %}
+  </div>
+  
+  {% if specs %}
+    <small class="ps-type-specs">{{ specs }}</small>
+  {% endif %}
+</div>
