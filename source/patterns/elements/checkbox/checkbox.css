@@ -253,6 +253,7 @@
   }
 
   &--light {
+    --ps-checkbox-label-color: var(--gray-100); /* Light text on dark backgrounds */
     --ps-checkbox-checkmark-color-checked: var(--gray-100);
     --ps-checkbox-hover-checkmark-color: var(--white);
     --ps-checkbox-label-color-checked: var(--gray-100);
