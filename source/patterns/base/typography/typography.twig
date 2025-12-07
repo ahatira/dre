@@ -1,0 +1,467 @@
+<section class="demo-typography">
+  {# Main header #}
+  <div class="typography-header">
+    <h1 class="section-title">Typography</h1>
+    <p class="section-intro">PS Theme typography system provides a comprehensive scale of headings, body text, and utility sizes for all UI needs.</p>
+  </div>
+
+  {# Headings showcase #}
+  {% if headings %}
+    <div class="typography-section">
+      <h2 class="section-title-secondary">Headings</h2>
+      <p class="section-description">Semantic heading hierarchy from h1 to h6</p>
+      
+      <div class="headings-showcase">
+        {% for heading in headings %}
+          <div class="heading-item">
+            <div class="heading-label">
+              <code class="font-monospace">{{ heading.level }}</code>
+              <span class="heading-name">{{ heading.name }}</span>
+            </div>
+            <div class="heading-description">{{ heading.description }}</div>
+            
+            {# Heading preview with actual styles #}
+            {% if heading.level == 'h1' %}
+              <h1 class="heading-preview">{{ heading.example }}</h1>
+            {% elseif heading.level == 'h2' %}
+              <h2 class="heading-preview">{{ heading.example }}</h2>
+            {% elseif heading.level == 'h3' %}
+              <h3 class="heading-preview">{{ heading.example }}</h3>
+            {% elseif heading.level == 'h4' %}
+              <h4 class="heading-preview">{{ heading.example }}</h4>
+            {% elseif heading.level == 'h5' %}
+              <h5 class="heading-preview">{{ heading.example }}</h5>
+            {% elseif heading.level == 'h6' %}
+              <h6 class="heading-preview">{{ heading.example }}</h6>
+            {% endif %}
+            
+            {# Token details #}
+            <div class="heading-tokens">
+              <div class="token-detail">
+                <span class="token-label">Size:</span>
+                <code class="font-monospace">{{ heading.size }}</code>
+                <span class="token-value">{{ heading.size_value }}</span>
+              </div>
+              <div class="token-detail">
+                <span class="token-label">Weight:</span>
+                <code class="font-monospace">{{ heading.weight }}</code>
+              </div>
+              <div class="token-detail">
+                <span class="token-label">Line Height:</span>
+                <code class="font-monospace">{{ heading.leading }}</code>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Body text showcase #}
+  {% if body %}
+    <div class="typography-section">
+      <h2 class="section-title-secondary">Body Text</h2>
+      <p class="section-description">Text styles for content and interface copy</p>
+      
+      <div class="body-showcase">
+        {% for text in body %}
+          <div class="body-item">
+            <div class="body-label">{{ text.name }}</div>
+            <p class="body-description">{{ text.description }}</p>
+            
+            {# Body preview with conditional styling #}
+            {% if text.name == 'Body Large' %}
+              <p class="lead">{{ text.example }}</p>
+            {% elseif text.name == 'Body Regular' %}
+              <p>{{ text.example }}</p>
+            {% elseif text.name == 'Body Small' %}
+              <p class="small">{{ text.example }}</p>
+            {% endif %}
+            
+            {# Tokens #}
+            <div class="text-tokens">
+              <span class="token-badge">{{ text.size }}: {{ text.size_value }}</span>
+              <span class="token-badge">Weight: {{ text.weight }}</span>
+              <span class="token-badge">Line height: {{ text.leading }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Utility text showcase #}
+  {% if utility %}
+    <div class="typography-section">
+      <h2 class="section-title-secondary">Utility Styles</h2>
+      <p class="section-description">Specialized text styles for labels, captions, and code</p>
+      
+      <div class="utility-showcase">
+        {% for util in utility %}
+          <div class="utility-item">
+            <div class="utility-label">{{ util.name }}</div>
+            <p class="utility-description">{{ util.description }}</p>
+            
+            {# Utility preview #}
+            {% if util.name == 'Overline' %}
+              <div class="text-uppercase fw-bold small" style="letter-spacing: var(--tracking-wide);">{{ util.example }}</div>
+            {% elseif util.name == 'Caption' %}
+              <p class="small text-secondary">{{ util.example }}</p>
+            {% elseif util.name == 'Code' %}
+              <code class="font-monospace">{{ util.example }}</code>
+            {% endif %}
+            
+            {# Tokens #}
+            <div class="text-tokens">
+              <span class="token-badge">{{ util.size }}: {{ util.size_value }}</span>
+              <span class="token-badge">Weight: {{ util.weight }}</span>
+              {% if util.tracking %}<span class="token-badge">Tracking: {{ util.tracking }}</span>{% endif %}
+              {% if util.family %}<span class="token-badge">Font: {{ util.family }}</span>{% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Token scales #}
+  {% if scales %}
+    <div class="typography-section">
+      <h2 class="section-title-secondary">Token Scales</h2>
+      <p class="section-description">Complete typography token reference</p>
+      
+      <div class="scales-grid">
+        {% for scale in scales %}
+          <div class="scale-card">
+            <h3 class="scale-title">{{ scale.name }}</h3>
+            <div class="scale-tokens">
+              {% for token in scale.tokens %}
+                <div class="scale-token">
+                  <code class="font-monospace">{{ token }}</code>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+.demo-typography {
+  padding-block: var(--size-12);
+  padding-inline: var(--size-8);
+  background: white;
+}
+
+.typography-header {
+  margin-bottom: var(--size-16);
+}
+
+.section-title {
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  margin: 0 0 var(--size-3) 0;
+  letter-spacing: -0.5px;
+}
+
+.section-intro {
+  font-size: var(--font-size-2);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--leading-7);
+  max-width: 600px;
+}
+
+.typography-section {
+  margin-block: var(--size-12);
+  padding-block: var(--size-8);
+  border-top: 1px solid var(--border-light);
+
+  &:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+.section-title-secondary {
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  margin: 0 0 var(--size-2) 0;
+  letter-spacing: -0.25px;
+}
+
+.section-description {
+  font-size: var(--font-size-0);
+  color: var(--text-secondary);
+  margin: 0 0 var(--size-8) 0;
+}
+
+/* Headings showcase */
+.headings-showcase {
+  display: grid;
+  gap: var(--size-8);
+}
+
+.heading-item {
+  padding: var(--size-6) var(--size-8);
+  background: var(--bg-section);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+}
+
+.heading-label {
+  display: flex;
+  align-items: center;
+  gap: var(--size-3);
+  margin-bottom: var(--size-2);
+
+  code {
+    font-size: var(--font-size--1);
+    padding: var(--size-1) var(--size-2);
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-1);
+    color: var(--text-primary);
+  }
+}
+
+.heading-name {
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-600);
+  color: var(--text-primary);
+}
+
+.heading-description {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+  margin-bottom: var(--size-4);
+}
+
+.heading-preview {
+  margin: var(--size-4) 0;
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+.heading-tokens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--size-4);
+  margin-top: var(--size-4);
+  padding-top: var(--size-4);
+  border-top: 1px solid var(--border-light);
+}
+
+.token-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+
+  code {
+    font-size: var(--font-size--1);
+    color: var(--primary);
+    font-weight: var(--font-weight-600);
+  }
+}
+
+.token-label {
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-600);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.token-value {
+  font-size: var(--font-size--1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Body text showcase */
+.body-showcase {
+  display: grid;
+  gap: var(--size-8);
+}
+
+.body-item {
+  padding: var(--size-6);
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+}
+
+.body-label {
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--size-2);
+}
+
+.body-description {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+  margin-bottom: var(--size-4);
+}
+
+.body-item p,
+.utility-item p {
+  margin: var(--size-4) 0;
+  color: var(--text-primary);
+
+  &.lead {
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-400);
+    line-height: var(--leading-7);
+  }
+
+  &.small {
+    font-size: var(--font-size-0);
+    line-height: var(--leading-5);
+  }
+}
+
+/* Utility showcase */
+.utility-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--size-6);
+}
+
+.utility-item {
+  padding: var(--size-6);
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+}
+
+.utility-label {
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--size-2);
+}
+
+.utility-description {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+  margin-bottom: var(--size-4);
+}
+
+.utility-item code,
+.utility-item .text-uppercase {
+  display: block;
+  margin: var(--size-4) 0;
+  padding: var(--size-4);
+  background: var(--bg-section);
+  border-radius: var(--radius-1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.utility-item .text-uppercase {
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-600);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Text tokens badges */
+.text-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-2);
+  margin-top: var(--size-4);
+  padding-top: var(--size-4);
+  border-top: 1px solid var(--border-light);
+}
+
+.token-badge {
+  display: inline-block;
+  padding: var(--size-1) var(--size-2);
+  background: var(--bg-section);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-1);
+  font-size: var(--font-size--1);
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Token scales grid */
+.scales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--size-8);
+}
+
+.scale-card {
+  padding: var(--size-6);
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+}
+
+.scale-title {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-700);
+  color: var(--text-primary);
+  margin: 0 0 var(--size-4) 0;
+}
+
+.scale-tokens {
+  display: grid;
+  gap: var(--size-2);
+}
+
+.scale-token {
+  padding: var(--size-2) var(--size-3);
+  background: var(--bg-section);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-1);
+  font-size: var(--font-size--1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  overflow-x: auto;
+}
+
+/* Utility classes */
+.font-monospace {
+  font-family: var(--font-mono);
+}
+
+.fw-bold {
+  font-weight: var(--font-weight-700);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (width < 768px) {
+  .demo-typography {
+    padding-inline: var(--size-4);
+  }
+
+  .heading-tokens,
+  .utility-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .scales-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
