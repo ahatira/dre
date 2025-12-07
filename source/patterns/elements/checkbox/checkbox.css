@@ -77,13 +77,6 @@
   position: relative;
   cursor: pointer;
 
-  & .ps-checkbox__input-wrapper {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--ps-checkbox-gap);
-    position: relative;
-  }
-
   /* Hide native input visually but keep accessible */
   & .ps-checkbox__input {
     position: absolute;
