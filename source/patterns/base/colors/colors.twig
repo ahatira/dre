@@ -43,7 +43,15 @@
             </div>
             {# All shades from 50 to 900 #}
             {% for item in list %}
-              <div class="p-3 font-monospace color-shade {% if loop.index <= 3 %}swatch-dark{% else %}swatch-light{% endif %}" style="background-color: var({{ item.var }})">
+              {% set contrast_class = 'swatch-light' %}
+              {% if loop.index <= 3 %}
+                {% set contrast_class = 'swatch-dark' %}
+              {% endif %}
+              {# Special case: Black needs light text #}
+              {% if item.var == '--black' %}
+                {% set contrast_class = 'swatch-light' %}
+              {% endif %}
+              <div class="p-3 font-monospace color-shade {{ contrast_class }}" style="background-color: var({{ item.var }})">
                 {{ item.var }}
               </div>
             {% endfor %}
