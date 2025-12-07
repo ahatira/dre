@@ -26,22 +26,24 @@
      ============================================ */
 
   /* Box Sizing & Spacing */
-  --ps-checkbox-size: var(--size-5); /* 20px */
-  --ps-checkbox-gap: var(--size-3); /* 12px - gap between box and label (maquette) */
+  --ps-checkbox-size: var(--size-6); /* 24px - spec requirement */
+  --ps-checkbox-gap: var(--size-2); /* 8px - spec requirement */
 
   /* Border & Visual */
-  --ps-checkbox-border-width: var(--border-size-1); /* 1px - maquette shows thin border */
-  --ps-checkbox-border-color: var(--border-default);
+  --ps-checkbox-border-width: var(--border-size-1); /* 1px - thin border */
+  --ps-checkbox-border-color: var(--gray-400); /* Gray border for unselected */
   --ps-checkbox-border-radius: var(--radius-2); /* 4px */
   --ps-checkbox-bg: var(--white);
 
   /* Checked State */
-  --ps-checkbox-checked-bg: var(--primary);
-  --ps-checkbox-checked-border-color: var(--primary); /* Same as bg = no visible border */
-  --ps-checkbox-checkmark-color: var(--white);
+  --ps-checkbox-checked-bg: var(--white); /* White background when checked */
+  --ps-checkbox-checked-border-color: var(--primary); /* #00915A green border */
+  --ps-checkbox-checkmark-color: var(--primary); /* #00915A green checkmark */
 
   /* Hover State */
-  --ps-checkbox-hover-border-color: var(--primary);
+  --ps-checkbox-hover-color: hsl(157, 95%, 35%); /* #04AF6E - lighter green for hover */
+  --ps-checkbox-hover-border-color: hsl(157, 95%, 35%);
+  --ps-checkbox-hover-checkmark-color: hsl(157, 95%, 35%);
 
   /* Focus State */
   --ps-checkbox-focus-outline-width: var(--border-size-2);
@@ -56,8 +58,9 @@
   --ps-checkbox-label-font-size: var(--font-size-2);
   --ps-checkbox-label-font-weight: var(--font-weight-400);
   --ps-checkbox-label-line-height: var(--leading-normal);
-  --ps-checkbox-label-color: var(--gray-900); /* Darker text for better contrast */
-  --ps-checkbox-label-color-checked: var(--primary); /* Green when checked (maquette) */
+  --ps-checkbox-label-color: var(--gray-700); /* #333333 - spec requirement */
+  --ps-checkbox-label-color-checked: var(--primary); /* #00915A green when checked */
+  --ps-checkbox-label-color-hover: hsl(157, 95%, 35%); /* #04AF6E green on hover */
 
   /* Transitions */
   --ps-checkbox-transition-duration: var(--duration-fast);
@@ -108,6 +111,19 @@
       color: var(--ps-checkbox-label-color-checked);
     }
 
+    /* Hover State - Checked */
+    &:checked:not(:disabled):hover ~ .ps-checkbox__box {
+      border-color: var(--ps-checkbox-hover-border-color);
+
+      & .ps-checkbox__checkmark {
+        color: var(--ps-checkbox-hover-checkmark-color);
+      }
+    }
+
+    &:checked:not(:disabled):hover ~ .ps-checkbox__label {
+      color: var(--ps-checkbox-label-color-hover);
+    }
+
     /* Disabled State */
     &:disabled {
       cursor: var(--ps-checkbox-disabled-cursor);
@@ -134,17 +150,17 @@
     background: var(--ps-checkbox-bg);
     border: var(--ps-checkbox-border-width) solid var(--ps-checkbox-border-color);
     border-radius: var(--ps-checkbox-border-radius);
+    transition:
+      background var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
+      border-color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+  }
+
   /* Checkmark Icon */
   & .ps-checkbox__checkmark {
-    width: calc(var(--ps-checkbox-size) * 0.75); /* 15px when checkbox is 20px - slightly larger per maquette */
-    height: calc(var(--ps-checkbox-size) * 0.75);
+    width: calc(var(--ps-checkbox-size) * 0.625); /* 15px when checkbox is 24px */
+    height: calc(var(--ps-checkbox-size) * 0.625);
     color: var(--ps-checkbox-checkmark-color);
     opacity: 0;
-    transform: scale(0.8);
-    transition:
-      opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
-      transform var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
-  } opacity: 0;
     transform: scale(0.8);
     transition:
       opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
@@ -164,8 +180,13 @@
      Hover State (Layer 3 Override)
      ============================================ */
 
-  &:hover .ps-checkbox__input:not(:disabled) ~ .ps-checkbox__box {
+  /* Hover - Unchecked */
+  &:hover .ps-checkbox__input:not(:checked):not(:disabled) ~ .ps-checkbox__box {
     border-color: var(--ps-checkbox-hover-border-color);
+  }
+
+  &:hover .ps-checkbox__input:not(:checked):not(:disabled) ~ .ps-checkbox__label {
+    color: var(--ps-checkbox-label-color-hover);
   }
 
   /* ============================================

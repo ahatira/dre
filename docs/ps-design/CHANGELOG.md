@@ -4,6 +4,18 @@
 
 ## 2025
 
+- 2025-12-07: **Checkbox (FINAL)** – Corrections finales selon spécifications exactes
+  - **Taille**: 24×24px (`--size-6`) au lieu de 20×20px
+  - **Espacement**: 8px (`--size-2`) entre case et label au lieu de 12px
+  - **Couleurs précises**:
+    * Unselected: texte #333333 (`--gray-700`), bordure grise (`--gray-400`)
+    * Selected: bordure + checkmark + texte en vert #00915A (`--primary`)
+    * Hover: bordure + checkmark + texte en vert clair #04AF6E (`hsl(157, 95%, 35%)`)
+  - **États hover**: Bordure ET label deviennent verts au survol (unchecked et checked)
+  - **Background**: Toujours blanc (pas de fond vert sur checked)
+  - **Checkmark**: Vert `--primary`, proportion 0.625 (15px sur 24px)
+  - Conformité 100% aux spécifications design
+
 - 2025-12-07: **Checkbox** – Native checkbox input with custom styling (atom)
   - Implemented `source/patterns/elements/checkbox/` with 5 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`)
   - Props: name (string, required), value (string, required), label (string, optional), checked (boolean, default: false), disabled (boolean, default: false), id (string, auto-generated), attributes (Attribute)

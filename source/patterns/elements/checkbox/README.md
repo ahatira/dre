@@ -56,22 +56,35 @@ Modifiers:
 
 ### Sizing & Spacing
 
-- `--size-5` (20px) - Checkbox box size
-- `--size-3` (12px) - Gap between box and label (per maquette)
+- `--size-6` (24px) - Checkbox box size (spec requirement)
+- `--size-2` (8px) - Gap between box and label (spec requirement)
 
 ### Border & Visual
 
-- `--border-size-1` (1px) - Border width (per maquette)
-- `--border-default` - Default border color
+- `--border-size-1` (1px) - Border width
+- `--gray-400` - Border color (unselected)
 - `--radius-2` (4px) - Border radius
 
 ### Colors
 
-- `--white` - Background (unchecked)
-- `--primary` - Background (checked), border blends with background
-- `--white` - Checkmark color (white on green)
-- `--gray-900` - Label text color (default)
-- `--primary` - Label text color (when checked, per maquette)
+**Unselected state:**
+- Background: `--white`
+- Border: `--gray-400` (gray)
+- Label: `--gray-700` (#333333)
+
+**Selected state:**
+- Background: `--white`
+- Border: `--primary` (#00915A green)
+- Checkmark: `--primary` (#00915A green)
+- Label: `--primary` (#00915A green)
+
+**Hover state (both unchecked/checked):**
+- Border: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
+- Checkmark: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
+- Label: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
+
+### Focus
+
 - `--border-focus` - Focus outline color
 
 ### Typography
