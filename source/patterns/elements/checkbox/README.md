@@ -63,7 +63,7 @@ Modifiers:
 
 - `--border-size-1` (1px) - Border width
 - `--gray-400` - Border color (unselected)
-- `--radius-2` (4px) - Border radius
+- `--radius-3` (6px) - Border radius (visible rounding on 24px box)
 
 ### Colors
 

@@ -32,7 +32,7 @@
   /* Border & Visual */
   --ps-checkbox-border-width: var(--border-size-1); /* 1px - thin border */
   --ps-checkbox-border-color: var(--gray-400); /* Gray border for unselected */
-  --ps-checkbox-border-radius: var(--radius-2); /* 4px */
+  --ps-checkbox-border-radius: var(--radius-3); /* 6px for visible rounding on 24px box */
   --ps-checkbox-bg: var(--white);
 
   /* Checked State */
