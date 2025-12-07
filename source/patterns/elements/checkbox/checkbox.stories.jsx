@@ -54,7 +54,7 @@ export default {
     },
     size: {
       description: 'Size variant',
-      control: { type: 'inline-radio' },
+      control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
