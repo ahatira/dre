@@ -10,7 +10,7 @@
               style="background-color: {{ item.value }}"
               title="Token: {{ item.var }}"
             >
-              {% if item.name contains 'Base' or item.name contains 'Primary' or item.name contains 'Secondary' %}
+              {% if item.name matches '/Base|Primary|Secondary/' %}
                 <span class="swatch-label">{{ item.value }}</span>
               {% endif %}
             </div>
