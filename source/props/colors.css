@@ -12,33 +12,33 @@
   --white: #ffffff;
   --black: #000000;
 
-  /* Gray scale (50-900) */
-  --gray-50: #fafbfc;
-  --gray-100: #f6f7f9;
-  --gray-200: #ebedf2;
-  --gray-300: #dfe2eb;
-  --gray-400: #b5bcc9;
-  --gray-500: #76808d;
-  --gray-600: #475569;
-  --gray-700: #364152;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
+  /* Gray scale (50-900) - BNP Grey */
+  --gray-50: #f9f9fb;
+  --gray-100: #ebedef;
+  --gray-200: #d6dbde;
+  --gray-300: #c4c9cf;
+  --gray-400: #b4babe;
+  --gray-500: #977e83;
+  --gray-600: #555f66;
+  --gray-700: #434f57;
+  --gray-800: #3a4551;
+  --gray-900: #333333;
 
   /* ============================================
      COLOR PALETTES (Extended scales)
      ============================================ */
 
-  /* Red scale (50-900) */
-  --red-50: #fef2f2;
-  --red-100: #fee2e2;
-  --red-200: #fecaca;
-  --red-300: #fca5a5;
-  --red-400: #f87171;
-  --red-500: #ef4444;
-  --red-600: #dc2626;
-  --red-700: #b91c1c;
-  --red-800: #991b1b;
-  --red-900: #7f1d1d;
+  /* Red scale (50-900) - BNP Error Red */
+  --red-50: #fef7f7;
+  --red-100: #fdebeb;
+  --red-200: #f9d1d1;
+  --red-300: #f5b5b5;
+  --red-400: #f08b8b;
+  --red-500: #eb6161;
+  --red-600: #eb3636;
+  --red-700: #d43131;
+  --red-800: #bd2c2c;
+  --red-900: #a62626;
 
   /* Yellow scale (50-900) */
   --yellow-50: #fefce8;
@@ -52,17 +52,17 @@
   --yellow-800: #92400e;
   --yellow-900: #78350f;
 
-  /* Green scale (50-900) */
-  --green-50: #f0fdf4;
-  --green-100: #dcfce7;
-  --green-200: #bbf7d0;
-  --green-300: #86efac;
-  --green-400: #4ade80;
-  --green-500: #22c55e;
-  --green-600: #16a34a;
-  --green-700: #15803d;
-  --green-800: #166534;
-  --green-900: #145231;
+  /* Green scale (50-900) - Primary Green (BNP Brand) */
+  --green-50: #ebf7f4;
+  --green-100: #d9efe9;
+  --green-200: #c7e8df;
+  --green-300: #99d3bd;
+  --green-400: #6bc49a;
+  --green-500: #04af6e;
+  --green-600: #00915a;
+  --green-700: #017f4f;
+  --green-800: #016b44;
+  --green-900: #01563a;
 
   /* Blue scale (50-900) */
   --blue-50: #eff6ff;
@@ -87,4 +87,28 @@
   --sky-700: #0369a1;
   --sky-800: #075985;
   --sky-900: #0c4a6e;
+
+  /* Pink scale (50-900) - Secondary Pink (BNP Brand) */
+  --pink-50: #f9ecf2;
+  --pink-100: #f3d9e5;
+  --pink-200: #ecc6d8;
+  --pink-300: #d998b8;
+  --pink-400: #e9589d;
+  --pink-500: #e0388c;
+  --pink-600: #ba3075;
+  --pink-700: #a12b66;
+  --pink-800: #8b245a;
+  --pink-900: #751d4e;
+
+  /* Teal scale (50-900) - Success Green */
+  --teal-50: #e7f4f1;
+  --teal-100: #d1e7dd;
+  --teal-200: #a3cfbb;
+  --teal-300: #7fb9a3;
+  --teal-400: #52a98b;
+  --teal-500: #25936f;
+  --teal-600: #198754;
+  --teal-700: #167a48;
+  --teal-800: #146247;
+  --teal-900: #124a3b;
 }

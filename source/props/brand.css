@@ -20,46 +20,46 @@
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
-  --primary: #00915a; /* Official BNP green (keep exact for brand fidelity) */
+  --primary: var(--green-600); /* #00915A - BNP Primary Green */
   --primary-hover: var(--green-700); /* Darker on hover */
   --primary-active: var(--green-800); /* Darkest for pressed state */
   --primary-text: var(--white); /* White text on primary background */
-  --primary-border: #00915a; /* Match base color */
+  --primary-border: var(--green-600); /* Match base color */
   --primary-subtle: var(--green-50); /* Light tint for badges, alerts */
-  --primary-bg-subtle: #f7fdf9; /* Very light background (custom 97%) */
+  --primary-bg-subtle: var(--green-50); /* Very light background */
   --primary-border-subtle: var(--green-200); /* Subtle border color */
   --primary-text-emphasis: var(--green-900); /* Dark text on light backgrounds */
 
-  /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
-  --secondary: #a12b66; /* Official BNP magenta */
-  --secondary-hover: #ba3075; /* Lighter on hover */
-  --secondary-active: #8a2456; /* Darker for pressed state */
-  --secondary-text: #ffffff; /* White text on secondary background */
-  --secondary-border: #a12b66; /* Match base color */
-  --secondary-subtle: #f9f2f5; /* Light tint for badges, alerts */
-  --secondary-bg-subtle: #fdf6f8; /* Very light background */
-  --secondary-border-subtle: #e5c8d4; /* Subtle border color */
-  --secondary-text-emphasis: #47152a; /* Dark text on light backgrounds */
+  /* SECONDARY (Brand Pink - Official BNP #A12B66) */
+  --secondary: var(--pink-700); /* #A12B66 - BNP Secondary Pink */
+  --secondary-hover: var(--pink-600); /* Lighter on hover */
+  --secondary-active: var(--pink-800); /* Darker for pressed state */
+  --secondary-text: var(--white); /* White text on secondary background */
+  --secondary-border: var(--pink-700); /* Match base color */
+  --secondary-subtle: var(--pink-50); /* Light tint for badges, alerts */
+  --secondary-bg-subtle: var(--pink-50); /* Very light background */
+  --secondary-border-subtle: var(--pink-200); /* Subtle border color */
+  --secondary-text-emphasis: var(--pink-900); /* Dark text on light backgrounds */
 
-  /* SUCCESS (Green - Positive actions/confirmations) */
-  --success: var(--green-600); /* #047857 - Success base */
-  --success-hover: var(--green-700); /* Darker on hover */
-  --success-active: var(--green-800); /* Darkest for pressed state */
+  /* SUCCESS (Success Green - BNP Success #198754) */
+  --success: var(--teal-600); /* #198754 - BNP Success Green */
+  --success-hover: var(--teal-700); /* Darker on hover */
+  --success-active: var(--teal-800); /* Darkest for pressed state */
   --success-text: var(--white); /* White text on success background */
-  --success-border: var(--green-600); /* Match base color */
-  --success-subtle: var(--green-50); /* Light tint for badges, alerts */
-  --success-bg-subtle: #f7fdf9; /* Very light background */
-  --success-border-subtle: var(--green-200); /* Subtle border color */
-  --success-text-emphasis: var(--green-900); /* Dark text on light backgrounds */
+  --success-border: var(--teal-600); /* Match base color */
+  --success-subtle: var(--teal-50); /* Light tint for badges, alerts */
+  --success-bg-subtle: var(--teal-50); /* Very light background */
+  --success-border-subtle: var(--teal-200); /* Subtle border color */
+  --success-text-emphasis: var(--teal-900); /* Dark text on light backgrounds */
 
-  /* DANGER (Red - Errors/destructive actions) */
-  --danger: #eb3636; /* Official BNP status red (keep exact for brand fidelity) */
-  --danger-hover: var(--red-600); /* Darker on hover */
-  --danger-active: var(--red-700); /* Darkest for pressed state */
+  /* DANGER (Error Red - Official BNP #EB3636) */
+  --danger: var(--red-600); /* #EB3636 - BNP Error Red */
+  --danger-hover: var(--red-700); /* Darker on hover */
+  --danger-active: var(--red-800); /* Darkest for pressed state */
   --danger-text: var(--white); /* White text on danger background */
-  --danger-border: #eb3636; /* Match base color */
+  --danger-border: var(--red-600); /* Match base color */
   --danger-subtle: var(--red-50); /* Light tint for badges, alerts */
-  --danger-bg-subtle: #fdf7f7; /* Very light background (custom 97%) */
+  --danger-bg-subtle: var(--red-50); /* Very light background */
   --danger-border-subtle: var(--red-200); /* Subtle border color */
   --danger-text-emphasis: var(--red-900); /* Dark text on light backgrounds */
 
@@ -120,12 +120,12 @@
      BORDER COLORS (UI Boundaries)
      6 tokens for complete border hierarchy
      ============================================ */
-  --border-default: #ebedf2; /* Default borders (gray-200) */
-  --border-light: #f6f7f9; /* Light separators (gray-100) */
-  --border-focus: #333333; /* Focus ring (dark gray) */
-  --border-disabled: #b5bcc9; /* Disabled borders (gray-400) */
-  --border-error: #eb3636; /* Error state borders */
-  --border-success: #00915a; /* Success/validation borders */
+  --border-default: var(--gray-200); /* Default borders */
+  --border-light: var(--gray-100); /* Light separators */
+  --border-focus: var(--gray-900); /* Focus ring */
+  --border-disabled: var(--gray-400); /* Disabled borders */
+  --border-error: var(--red-600); /* Error state borders */
+  --border-success: var(--teal-600); /* Success/validation borders */
 
   /* ============================================
      OVERLAY COLORS (Modals, dropdowns, shadows)
