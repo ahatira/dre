@@ -37,7 +37,12 @@
           <div class="color-column">
             {# Find base color (usually 600) or use first #}
             {% set base_color = list[5] %}
-            <div class="p-3 mb-2 position-relative swatch-main font-monospace swatch-dark" style="background-color: var({{ base_color.var }})">
+            {% set title_contrast = 'swatch-dark' %}
+            {# Special case: Black header needs light text #}
+            {% if base_color.var == '--black' %}
+              {% set title_contrast = 'swatch-light' %}
+            {% endif %}
+            <div class="p-3 mb-2 position-relative swatch-main font-monospace {{ title_contrast }}" style="background-color: var({{ base_color.var }})">
               <strong class="d-block">{{ title }}</strong>
               {{ base_color.value }}
             </div>
