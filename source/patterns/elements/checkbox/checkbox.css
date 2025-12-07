@@ -253,11 +253,12 @@
   }
 
   &--light {
-    --ps-checkbox-label-color: var(--gray-100); /* Light text on dark backgrounds */
-    --ps-checkbox-checkmark-color-checked: var(--gray-100);
-    --ps-checkbox-hover-checkmark-color: var(--white);
-    --ps-checkbox-label-color-checked: var(--gray-100);
-    --ps-checkbox-label-color-hover: var(--white);
+    --ps-checkbox-checkmark-color-default: var(--gray-200); /* Light gray icon for unchecked on dark bg */
+    --ps-checkbox-label-color: var(--white); /* White text for visibility on dark backgrounds */
+    --ps-checkbox-checkmark-color-checked: var(--white);
+    --ps-checkbox-hover-checkmark-color: var(--gray-50);
+    --ps-checkbox-label-color-checked: var(--white);
+    --ps-checkbox-label-color-hover: var(--gray-50);
   }
 
   /* ============================================
