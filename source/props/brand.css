@@ -66,6 +66,20 @@
   --neutral-text: hsl(0, 0%, 100%); /* White on neutral */
   --neutral-border: hsl(215, 14%, 34%); /* Match base */
 
+  /* LIGHT (For dark backgrounds - inverse theme) */
+  --light: hsl(220, 14%, 96%); /* gray-100 - Light base for dark backgrounds */
+  --light-hover: hsl(220, 13%, 91%); /* gray-200 - Slightly darker on hover */
+  --light-active: hsl(216, 12%, 84%); /* gray-300 - Active state */
+  --light-text: hsl(217, 19%, 27%); /* gray-700 - Dark text on light */
+  --light-border: hsl(220, 14%, 96%); /* Match base */
+
+  /* DARK (For light backgrounds - high contrast) */
+  --dark: hsl(217, 19%, 27%); /* gray-700 - Dark base */
+  --dark-hover: hsl(215, 28%, 17%); /* gray-800 - Darker on hover */
+  --dark-active: hsl(221, 39%, 11%); /* gray-900 - Darkest for pressed */
+  --dark-text: hsl(0, 0%, 100%); /* White on dark */
+  --dark-border: hsl(217, 19%, 27%); /* Match base */
+
   /* ============================================
      TEXT COLORS (Typography)
      4 tokens for text hierarchy
