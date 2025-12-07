@@ -1,137 +1,172 @@
 /**
  * Checkbox (Element/Atom)
- * Native accessible checkbox with icon-based visual and optional label
- * 
- * BEM: ps-checkbox, ps-checkbox__input, ps-checkbox__box, ps-checkbox__label
- * Modifier: --disabled (applied when disabled=true)
- * States: checked (via :checked), focus-visible, hover
+ *
+ * Native checkbox input with custom visual styling. Supports checked, unchecked,
+ * and disabled states. Fully accessible with keyboard navigation and screen readers.
+ *
+ * BEM Structure:
+ * - Block: .ps-checkbox
+ * - Elements: .ps-checkbox__input, .ps-checkbox__box, .ps-checkbox__checkmark, .ps-checkbox__label
+ * - Modifiers: --checked, --disabled
+ *
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, borders.css)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ * - Layer 3: Context Overrides (state selectors)
  */
+
+/* ============================================
+   BASE CHECKBOX STYLES
+   ============================================ */
 
 .ps-checkbox {
   /* ============================================
      Layer 2: Component-Scoped Variables
-     Bootstrap 5 inspired - Override these for customization
+     Override these variables for customization
      ============================================ */
-  
-  /* Layout */
-  --ps-checkbox-gap: var(--size-2);
-  --ps-checkbox-align: flex-start;
-  
-  /* Box sizing */
-  --ps-checkbox-box-size: var(--size-5);
-  
-  /* Typography */
-  --ps-checkbox-label-font-family: var(--font-sans);
-  --ps-checkbox-label-font-size: var(--font-size-1);
-  --ps-checkbox-label-font-weight: var(--font-weight-400);
-  --ps-checkbox-label-line-height: var(--leading-6);
-  --ps-checkbox-label-color: var(--text-primary);
-  --ps-checkbox-label-color-checked: var(--primary);
-  
-  /* Icon colors */
-  --ps-checkbox-icon-color-unchecked: var(--text-primary);
-  --ps-checkbox-icon-color-checked: var(--primary);
-  --ps-checkbox-icon-size: var(--font-size-2);
-  
-  /* Focus state */
+
+  /* Box Sizing & Spacing */
+  --ps-checkbox-size: var(--size-5); /* 20px */
+  --ps-checkbox-gap: var(--size-2); /* 8px - gap between box and label */
+
+  /* Border & Visual */
+  --ps-checkbox-border-width: var(--border-size-2); /* 2px */
+  --ps-checkbox-border-color: var(--border-default);
+  --ps-checkbox-border-radius: var(--radius-2); /* 4px */
+  --ps-checkbox-bg: var(--white);
+
+  /* Checked State */
+  --ps-checkbox-checked-bg: var(--primary);
+  --ps-checkbox-checked-border-color: var(--primary);
+  --ps-checkbox-checkmark-color: var(--text-inverse);
+
+  /* Hover State */
+  --ps-checkbox-hover-border-color: var(--primary);
+
+  /* Focus State */
   --ps-checkbox-focus-outline-width: var(--border-size-2);
   --ps-checkbox-focus-outline-color: var(--border-focus);
   --ps-checkbox-focus-outline-offset: var(--border-size-2);
-  
-  /* Disabled state */
+
+  /* Disabled State */
   --ps-checkbox-disabled-opacity: 0.5;
-  
+  --ps-checkbox-disabled-cursor: not-allowed;
+
+  /* Label Typography */
+  --ps-checkbox-label-font-size: var(--font-size-2);
+  --ps-checkbox-label-font-weight: var(--font-weight-400);
+  --ps-checkbox-label-line-height: var(--leading-normal);
+  --ps-checkbox-label-color: var(--text-primary);
+
   /* Transitions */
   --ps-checkbox-transition-duration: var(--duration-fast);
   --ps-checkbox-transition-timing: var(--ease-3);
-  
+
   /* ============================================
-     Apply Component Variables
+     Apply Component Variables to Properties
      ============================================ */
-  
+
   /* Layout */
   display: inline-flex;
-  align-items: var(--ps-checkbox-align);
+  align-items: flex-start;
   gap: var(--ps-checkbox-gap);
+  position: relative;
   cursor: pointer;
-  user-select: none;
-  
-  /* Elements */
+
+  /* Hide native input visually but keep accessible */
   & .ps-checkbox__input {
-    /* Hide native input visually but keep accessible */
     position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-  }
-  
-  & .ps-checkbox__box {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--ps-checkbox-box-size);
-    height: var(--ps-checkbox-box-size);
-    min-width: var(--ps-checkbox-box-size);
-    flex-shrink: 0;
-    background: transparent;
-    
-    /* Icon rendered via data-icon attribute (centralized in icons.css) */
-    &::before {
-      font-family: 'bnpre-icons';
-      speak: none;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: inline-block;
-      content: "\e859"; /* checkbox icon unchecked */
-      color: var(--ps-checkbox-icon-color-unchecked);
-      font-size: var(--ps-checkbox-icon-size);
-      transition: color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+
+    /* Focus State */
+    &:focus-visible ~ .ps-checkbox__box {
+      outline: var(--ps-checkbox-focus-outline-width) solid var(--ps-checkbox-focus-outline-color);
+      outline-offset: var(--ps-checkbox-focus-outline-offset);
+    }
+
+    /* Checked State */
+    &:checked ~ .ps-checkbox__box {
+      background: var(--ps-checkbox-checked-bg);
+      border-color: var(--ps-checkbox-checked-border-color);
+
+      & .ps-checkbox__checkmark {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Disabled State */
+    &:disabled {
+      cursor: var(--ps-checkbox-disabled-cursor);
+
+      & ~ .ps-checkbox__box {
+        opacity: var(--ps-checkbox-disabled-opacity);
+      }
+
+      & ~ .ps-checkbox__label {
+        opacity: var(--ps-checkbox-disabled-opacity);
+        cursor: var(--ps-checkbox-disabled-cursor);
+      }
     }
   }
-  
+
+  /* Custom Checkbox Box */
+  & .ps-checkbox__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ps-checkbox-size);
+    height: var(--ps-checkbox-size);
+    min-width: var(--ps-checkbox-size); /* Prevent shrinking */
+    background: var(--ps-checkbox-bg);
+    border: var(--ps-checkbox-border-width) solid var(--ps-checkbox-border-color);
+    border-radius: var(--ps-checkbox-border-radius);
+    transition:
+      background var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
+      border-color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+  }
+
+  /* Checkmark Icon */
+  & .ps-checkbox__checkmark {
+    width: calc(var(--ps-checkbox-size) * 0.7); /* 14px when checkbox is 20px */
+    height: calc(var(--ps-checkbox-size) * 0.7);
+    color: var(--ps-checkbox-checkmark-color);
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
+      transform var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+  }
+
+  /* Label Text */
   & .ps-checkbox__label {
-    font-family: var(--ps-checkbox-label-font-family);
-    font-weight: var(--ps-checkbox-label-font-weight);
     font-size: var(--ps-checkbox-label-font-size);
+    font-weight: var(--ps-checkbox-label-font-weight);
     line-height: var(--ps-checkbox-label-line-height);
     color: var(--ps-checkbox-label-color);
-    transition: color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+    cursor: pointer;
   }
-  
+
   /* ============================================
-     States (Cascade Order: Base → Elements → States → Modifiers)
+     Hover State (Layer 3 Override)
      ============================================ */
-  
-  /* Checked state */
-  & .ps-checkbox__input:checked + .ps-checkbox__box::before {
-    content: "\e858"; /* checkbox-checked icon */
-    color: var(--ps-checkbox-icon-color-checked);
+
+  &:hover .ps-checkbox__input:not(:disabled) ~ .ps-checkbox__box {
+    border-color: var(--ps-checkbox-hover-border-color);
   }
-  
-  & .ps-checkbox__input:checked ~ .ps-checkbox__label {
-    color: var(--ps-checkbox-label-color-checked);
-  }
-  
-  /* Focus state (keyboard only) */
-  & .ps-checkbox__input:focus-visible + .ps-checkbox__box {
-    outline: var(--ps-checkbox-focus-outline-width) solid var(--ps-checkbox-focus-outline-color);
-    outline-offset: var(--ps-checkbox-focus-outline-offset);
-  }
-  
+
   /* ============================================
-     Modifiers
+     Modifier: Disabled (Layer 3 Override)
      ============================================ */
-  
+
   &.ps-checkbox--disabled {
-    cursor: not-allowed;
-    opacity: var(--ps-checkbox-disabled-opacity);
-    pointer-events: none;
+    cursor: var(--ps-checkbox-disabled-cursor);
   }
 }

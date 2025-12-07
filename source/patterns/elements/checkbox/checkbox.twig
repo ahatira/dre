@@ -1,36 +1,42 @@
 {#
- * Checkbox atom
- * @param string name - Input name (required)
- * @param string value - Input value (required)
- * @param string label - Label text (optional)
+ * Checkbox (Atom)
+ * @param string name - Input name attribute (required)
+ * @param string value - Input value attribute (required)
+ * @param string label - Checkbox label text (optional)
  * @param boolean checked - Checked state (default: false)
  * @param boolean disabled - Disabled state (default: false)
- * @param string id - Input ID (optional)
+ * @param string id - Unique ID for input (optional, auto-generated if not provided)
+ * @param object attributes - Additional HTML attributes (optional)
  #}
 
 {%- set checked = checked|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set id = id|default(name ~ '-' ~ value) -%}
+{%- set id = id|default('checkbox-' ~ random()) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
+{%- set has_label = label is defined and label is not empty -%}
 
-{%- set classes = [
+{%- set checkbox_classes = [
   'ps-checkbox',
+  checked ? 'ps-checkbox--checked' : null,
   disabled ? 'ps-checkbox--disabled' : null
 ] -%}
 
-<label {{ attributes.addClass(classes) }} for="{{ id }}">
+<div{{ attributes.addClass(checkbox_classes) }}>
   <input
     class="ps-checkbox__input"
     type="checkbox"
     id="{{ id }}"
     name="{{ name }}"
     value="{{ value }}"
-    {%- if checked %} checked{% endif -%}
-    {%- if disabled %} disabled{% endif -%}
-    aria-checked="{{ checked ? 'true' : 'false' }}"
+    {% if checked %}checked{% endif %}
+    {% if disabled %}disabled aria-disabled="true"{% endif %}
   />
-  <span class="ps-checkbox__box" aria-hidden="true"></span>
-  {%- if label -%}
-    <span class="ps-checkbox__label">{{ label }}</span>
+  <span class="ps-checkbox__box" aria-hidden="true">
+    <svg class="ps-checkbox__checkmark" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M13.5 3.5L6 11L2.5 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  {%- if has_label -%}
+    <label class="ps-checkbox__label" for="{{ id }}">{{- label -}}</label>
   {%- endif -%}
-</label>
+</div>

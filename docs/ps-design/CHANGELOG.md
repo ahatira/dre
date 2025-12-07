@@ -4,6 +4,23 @@
 
 ## 2025
 
+- 2025-12-07: **Checkbox** ‚Äì Native checkbox input with custom styling (atom)
+  - Implemented `source/patterns/elements/checkbox/` with 5 files (`.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`)
+  - Props: name (string, required), value (string, required), label (string, optional), checked (boolean, default: false), disabled (boolean, default: false), id (string, auto-generated), attributes (Attribute)
+  - BEM strict: `.ps-checkbox`, `.ps-checkbox__input`, `.ps-checkbox__box`, `.ps-checkbox__checkmark`, `.ps-checkbox__label`
+  - Modifiers: `--checked`, `--disabled`
+  - Twig: Drupal-ready with conditional classes (ternary + null), native input visually hidden but accessible, custom box with SVG checkmark, optional label with for attribute
+  - States: Unchecked (default), Checked (green background with white checkmark), Disabled (50% opacity), Focus-visible (dark gray outline)
+  - Accessibility: WCAG 2.2 AA compliant ‚Äì Native semantics preserved, keyboard navigation (Tab/Space), focus-visible outline (2px), screen reader support (aria-disabled), proper label association
+  - Tokens: --white, --primary, --primary-hover, --text-inverse, --text-primary, --border-default, --border-focus, --size-5 (20px box), --size-2 (8px gap), --border-size-2, --radius-2, --font-size-2, --font-weight-400, --leading-normal, --duration-fast, --ease-3
+  - CSS Variables: 3-layer architecture with component-scoped variables for customization
+  - Stories: Default, Checked, Disabled, DisabledChecked, NoLabel, LongLabel, RealEstateForm (property types/features), GridLayout (amenities)
+  - Use cases: Property search filters (type, features, amenities), contact forms (consent), listing forms (available features), settings (preferences)
+  - Progressive enhancement: No JavaScript required, fully functional with native checkbox
+  - Build verified: 210.34 kB CSS (gzip 32.39 kB), 0 errors
+  - Conformity: 100% to project rules (BEM, tokens only, CSS nesting, Drupal-compatible Twig, Autodocs tags, English docs, WCAG 2.2 AA)
+  - Ultra-simple implementation: Inline SVG checkmark, no icon dependency, minimal markup, Drupal Forms API compatible
+
 - 2025-12-06: **Icon System Migration** ‚Äì Refactor from icon-font to SVG sprite system
   - Migration complete from legacy icon-font system to modern SVG sprite architecture
   - **Source SVG organization**: 139 icon sources moved to `source/icons-source/` (dev only, excluded from dist via Vite config)
@@ -119,12 +136,12 @@
   - **INDEX.md updated** (`docs/ps-design/INDEX.md`) :
     - Statistics: **31/70 components (44%)** (was 6/87 = 7%, outdated)
     - Elements: **19/20 (95%)** all implemented except avatar (moved to molecules)
-    - Components: **8/21 (38%)** includes avatar, carousel, offer-card, alert, breadcrumb, card, dropdown, form-field
+    - Components: **8/21 (38%)** includes avatar, carousel, offer-card, alert, breadcrumb, card, dropdown, form-element
     - Collections: **1/13 (8%)** accordion only
     - Total adjusted: 70 components (68 original specs + collapse + offer-card)
   - **Component inventory** :
     - **Elements (19/20)**: badge, button, checkbox, collapse, divider, eyebrow, field, flag, heading, icon, image, label, link, progress-bar, radio, skip-link, spinner, text, toggle
-    - **Components (8/21)**: alert, avatar, breadcrumb, card, carousel, dropdown, form-field, offer-card
+    - **Components (8/21)**: alert, avatar, breadcrumb, card, carousel, dropdown, form-element, offer-card
     - **Collections (1/13)**: accordion
     - **Missing**: 13 components, 8 templates, 8 pages
   - **Rationale** :
@@ -723,10 +740,10 @@ Format bas√© sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [1.0.1] - 2025-12-06 - Badge Icon System Migration
 
-### ÌæØ Component: Badge (Elements/Atom)
+### ÔøΩÔøΩÔøΩ Component: Badge (Elements/Atom)
 **Status**: ‚úÖ COMPLETE & CONFORMANT (100%)
 
-### Ì≥ù Changes
+### ÔøΩÔøΩÔøΩ Changes
 
 #### Migration Icon System
 - **Breaking**: Replaced `data-icon` attribute with Icon component integration
@@ -758,17 +775,17 @@ Format bas√© sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - [x] Icon accessibility: aria-hidden="true" via Icon component
 - [x] Build passes: npm run build ‚úÖ
 
-### Ì¥ß Files Modified
+### ÔøΩÔøΩÔøΩ Files Modified
 - `source/patterns/elements/badge/badge.twig` (41 lines)
 - `source/patterns/elements/badge/badge.css` (118 lines)  
 - `source/patterns/elements/badge/README.md` (120 lines)
 
-### Ì≥ä Build Status
+### ÔøΩÔøΩÔøΩ Build Status
 - ‚úÖ Lint: 0 issues (biome)
 - ‚úÖ Format: 0 issues (biome)
 - ‚úÖ Vite: SUCCESS (195.27 kB CSS)
 
-### Ìæì Related Standards
+### ÔøΩÔøΩÔøΩ Related Standards
 - Icon System v2: ICON_MIGRATION_WORKFLOW.md (Step A: Icon Component)
 - Component Standards: .github/instructions/components.instructions.md
 - CSS Standards: .github/instructions/css.instructions.md

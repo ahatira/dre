@@ -1,17 +1,5 @@
-# Checkbox Component - Default Configuration
-#
-# Available Props:
-# - name: string (required) - Input name attribute
-# - value: string (required) - Input value
-# - label: string (optional) - Label text
-# - checked: boolean (default: false) - Checked state
-# - disabled: boolean (default: false) - Disabled state
-# - id: string (optional) - Input ID (auto-generated from name+value if empty)
-
-# Default: Unchecked checkbox with label
-name: 'option'
-value: '1'
-label: 'Option label'
+name: 'Checkbox Option'
+value: 'property-option'
+label: 'Property available for sale'
 checked: false
 disabled: false
-id: ''

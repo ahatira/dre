@@ -8,111 +8,205 @@ export default {
     docs: {
       description: {
         component:
-          'Native checkbox with accessible label and component-scoped CSS variables. Supports checked/disabled states with semantic color tokens.',
+          'Native checkbox input with custom styling. Supports checked/unchecked states, disabled state, and optional labels. Fully accessible with keyboard navigation.',
       },
     },
   },
   argTypes: {
     // Content
     name: {
-      control: 'text',
-      description: 'Input `name` attribute (required)',
+      description: 'Input name attribute (required)',
+      control: { type: 'text' },
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'checkbox-name' },
       },
     },
     value: {
-      control: 'text',
-      description: 'Input `value` attribute (required)',
+      description: 'Input value attribute (required)',
+      control: { type: 'text' },
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: 'checkbox-value' },
       },
     },
     label: {
-      control: 'text',
-      description: 'Label text displayed next to checkbox',
+      description: 'Checkbox label text (optional)',
+      control: { type: 'text' },
       table: {
         category: 'Content',
         type: { summary: 'string' },
       },
     },
-    // Behavior
+    // State
     checked: {
-      control: 'boolean',
-      description: 'Whether checkbox is checked',
+      description: 'Checked state',
+      control: { type: 'boolean' },
       table: {
-        category: 'Behavior',
+        category: 'State',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Whether checkbox is disabled',
+      description: 'Disabled state',
+      control: { type: 'boolean' },
       table: {
-        category: 'Behavior',
+        category: 'State',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
-    // Accessibility
+    // Advanced
     id: {
-      control: 'text',
-      description: 'Unique input ID (auto-generated from name+value if omitted)',
+      description: 'Unique ID for input (auto-generated if not provided)',
+      control: { type: 'text' },
       table: {
-        category: 'Accessibility',
+        category: 'Advanced',
         type: { summary: 'string' },
       },
     },
   },
+  args: {
+    ...data,
+  },
 };
 
-// Story: Default (interactive)
+/**
+ * Default: Standard checkbox with label
+ */
 export const Default = {
-  render: (args) => checkboxTwig(args),
-  args: { ...data },
+  args: {
+    name: 'property-type',
+    value: 'apartment',
+    label: 'Apartment',
+    checked: false,
+    disabled: false,
+  },
 };
 
-// Story: AllStates (showcase all checked/disabled combinations)
-export const AllStates = {
-  render: () => `
-    <div style="display: flex; gap: var(--size-6); flex-wrap: wrap; align-items: flex-start;">
-      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-        <strong>Enabled</strong>
-        ${checkboxTwig({ name: 'enabled', value: '1', label: 'Unchecked', checked: false, disabled: false })}
-        ${checkboxTwig({ name: 'enabled', value: '2', label: 'Checked', checked: true, disabled: false })}
-      </div>
-      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-        <strong>Disabled</strong>
-        ${checkboxTwig({ name: 'disabled', value: '1', label: 'Unchecked', checked: false, disabled: true })}
-        ${checkboxTwig({ name: 'disabled', value: '2', label: 'Checked', checked: true, disabled: true })}
-      </div>
-      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-        <strong>No Label</strong>
-        ${checkboxTwig({ name: 'nolabel', value: '1', label: '', checked: false, disabled: false })}
-        ${checkboxTwig({ name: 'nolabel', value: '2', label: '', checked: true, disabled: false })}
-      </div>
-      <div style="display: flex; flex-direction: column; gap: var(--size-3); max-width: 300px;">
-        <strong>Long Label</strong>
-        ${checkboxTwig({ name: 'long', value: '1', label: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Cursus posuere et egestas id metus sit amet magna.', checked: false })}
-      </div>
-    </div>
-  `,
+/**
+ * Checked: Pre-selected checkbox
+ */
+export const Checked = {
+  args: {
+    name: 'property-features',
+    value: 'parking',
+    label: 'Parking available',
+    checked: true,
+    disabled: false,
+  },
 };
 
-// Story: Group (real-world usage in forms)
-export const Group = {
-  render: () => `
-    <fieldset style="border: 0; padding: 0; margin: 0;">
-      <legend style="font-weight: var(--font-weight-600); margin-bottom: var(--size-3);">Select your preferences</legend>
-      <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-        ${checkboxTwig({ name: 'preferences[]', value: 'newsletter', label: 'Subscribe to newsletter', checked: true })}
-        ${checkboxTwig({ name: 'preferences[]', value: 'updates', label: 'Receive product updates', checked: false })}
-        ${checkboxTwig({ name: 'preferences[]', value: 'offers', label: 'Get special offers and promotions', checked: false })}
-        ${checkboxTwig({ name: 'preferences[]', value: 'terms', label: 'I accept the terms and conditions', checked: false })}
+/**
+ * Disabled: Non-interactive state
+ */
+export const Disabled = {
+  args: {
+    name: 'property-features',
+    value: 'garden',
+    label: 'Garden (not available)',
+    checked: false,
+    disabled: true,
+  },
+};
+
+/**
+ * Disabled Checked: Pre-selected and non-interactive
+ */
+export const DisabledChecked = {
+  args: {
+    name: 'property-features',
+    value: 'balcony',
+    label: 'Balcony (included)',
+    checked: true,
+    disabled: true,
+  },
+};
+
+/**
+ * No Label: Checkbox without label text
+ */
+export const NoLabel = {
+  args: {
+    name: 'agreement',
+    value: 'accepted',
+    label: null,
+    checked: false,
+    disabled: false,
+  },
+};
+
+/**
+ * Long Label: Checkbox with multiline text
+ */
+export const LongLabel = {
+  args: {
+    name: 'terms',
+    value: 'accepted',
+    label:
+      'I agree to the terms and conditions of the real estate transaction, including the payment schedule and property inspection requirements.',
+    checked: false,
+    disabled: false,
+  },
+};
+
+/**
+ * Real Estate Form: Multiple checkboxes for property search
+ */
+export const RealEstateForm = {
+  render: () => {
+    const properties = [
+      { name: 'property-type', value: 'apartment', label: 'Apartment', checked: true },
+      { name: 'property-type', value: 'house', label: 'House', checked: false },
+      { name: 'property-type', value: 'commercial', label: 'Commercial Space', checked: false },
+      { name: 'property-type', value: 'land', label: 'Land', checked: false },
+    ];
+
+    const features = [
+      { name: 'features', value: 'parking', label: 'Parking', checked: true },
+      { name: 'features', value: 'elevator', label: 'Elevator', checked: true },
+      { name: 'features', value: 'balcony', label: 'Balcony', checked: false },
+      { name: 'features', value: 'garden', label: 'Garden', checked: false },
+      { name: 'features', value: 'pool', label: 'Swimming Pool', checked: false },
+    ];
+
+    return `
+      <div style="max-width: 600px;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600;">Property Type</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
+          ${properties.map((prop) => checkboxTwig(prop)).join('')}
+        </div>
+
+        <h3 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600;">Required Features</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          ${features.map((feat) => checkboxTwig(feat)).join('')}
+        </div>
       </div>
-    </fieldset>
-  `,
+    `;
+  },
+};
+
+/**
+ * Grid Layout: Checkboxes in two columns
+ */
+export const GridLayout = {
+  render: () => {
+    const amenities = [
+      { name: 'amenities', value: 'gym', label: 'Fitness Center' },
+      { name: 'amenities', value: 'concierge', label: '24/7 Concierge' },
+      { name: 'amenities', value: 'security', label: 'Security System' },
+      { name: 'amenities', value: 'storage', label: 'Storage Space' },
+      { name: 'amenities', value: 'bike', label: 'Bike Storage' },
+      { name: 'amenities', value: 'terrace', label: 'Rooftop Terrace' },
+    ];
+
+    return `
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; max-width: 600px;">
+        ${amenities.map((item) => checkboxTwig(item)).join('')}
+      </div>
+    `;
+  },
 };
