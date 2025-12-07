@@ -11,7 +11,7 @@ brands:
   # SEMANTIC COLORS (8 brand colors with 9 states each = 72 tokens)
   # Each color follows: base, hover, active, text, border, subtle, bg-subtle, border-subtle, text-emphasis
 
-  Primary (Brand Identity - BNP Green #00915A):
+  'Primary (Brand Identity - BNP Green #00915A)':
     - name: 'Base'
       var: '--primary'
       value: '#00915A'
@@ -49,7 +49,7 @@ brands:
       value: '#01563A'
       description: 'Emphasized text (dark green-900)'
 
-  Secondary (Secondary Brand - BNP Pink #A12B66):
+  'Secondary (Secondary Brand - BNP Pink #A12B66)':
     - name: 'Base'
       var: '--secondary'
       value: '#A12B66'
@@ -87,7 +87,7 @@ brands:
       value: '#751D4E'
       description: 'Emphasized text (dark pink-900)'
 
-  Success (Positive Feedback - BNP Teal #198754 - DISTINCT from Primary):
+  'Success (Positive Feedback - BNP Teal #198754 - DISTINCT from Primary)':
     - name: 'Base'
       var: '--success'
       value: '#198754'
@@ -126,7 +126,7 @@ brands:
       description: 'Emphasized text (dark teal-900)'
 
 
-  Danger (Error/Destructive - BNP Red #EB3636):
+  'Danger (Error/Destructive - BNP Red #EB3636)':
     - name: 'Base'
       var: '--danger'
       value: '#EB3636'
@@ -164,7 +164,7 @@ brands:
       value: '#A62626'
       description: 'Emphasized text (dark red-900)'
 
-  Warning (Caution/Attention - Yellow):
+  'Warning (Caution/Attention - Yellow)':
     - name: 'Base'
       var: '--warning'
       value: '#D97706'
@@ -202,7 +202,7 @@ brands:
       value: '#78350F'
       description: 'Emphasized text (dark yellow-900)'
 
-  Info (Informational - Blue):
+  'Info (Informational - Blue)':
     - name: 'Base'
       var: '--info'
       value: '#2563EB'
@@ -240,7 +240,7 @@ brands:
       value: '#1E3A8A'
       description: 'Emphasized text (dark blue-900)'
 
-  Light (Light Background Mode):
+  'Light (Light Background Mode)':
     - name: 'Base'
       var: '--light'
       value: '#F9F9FB'
@@ -278,7 +278,7 @@ brands:
       value: '#333333'
       description: 'Emphasized text (dark gray-900)'
 
-  Dark (Dark Background Mode):
+  'Dark (Dark Background Mode)':
     - name: 'Base'
       var: '--dark'
       value: '#333333'

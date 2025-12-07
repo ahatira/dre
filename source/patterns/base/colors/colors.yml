@@ -57,7 +57,7 @@ neutrals:
       usage: 'Darkest text (BNP Official)'
 
 palettes:
-  Red (Error - BNP Official #EB3636):
+  'Red (Error - BNP Official #EB3636)':
     - name: 'Red 50'
       var: '--red-50'
       value: '#fef7f7'
@@ -90,7 +90,7 @@ palettes:
       var: '--red-900'
       value: '#a62626'
 
-  Yellow (Warning):
+  'Yellow (Warning)':
     - name: 'Yellow 50'
       var: '--yellow-50'
       value: '#fefce8'
@@ -123,7 +123,7 @@ palettes:
       var: '--yellow-900'
       value: '#78350f'
 
-  Green (Primary - BNP Official #00915A):
+  'Green (Primary - BNP Official #00915A)':
     - name: 'Green 50'
       var: '--green-50'
       value: '#ebf7f4'
@@ -157,7 +157,7 @@ palettes:
       var: '--green-900'
       value: '#01563a'
 
-  Blue (Info):
+  'Blue (Info)':
     - name: 'Blue 50'
       var: '--blue-50'
       value: '#eff6ff'
@@ -190,7 +190,7 @@ palettes:
       var: '--blue-900'
       value: '#1e3a8a'
 
-  Sky (Alternative Blue):
+  'Sky (Alternative Blue)':
     - name: 'Sky 50'
       var: '--sky-50'
       value: '#f0f9ff'
@@ -222,7 +222,7 @@ palettes:
       var: '--sky-900'
       value: '#0c4a6e'
 
-  Pink (Secondary - BNP Official #A12B66):
+  'Pink (Secondary - BNP Official #A12B66)':
     - name: 'Pink 50'
       var: '--pink-50'
       value: '#f9ecf2'
@@ -256,7 +256,7 @@ palettes:
       var: '--pink-900'
       value: '#751d4e'
 
-  Teal (Success - BNP Official #198754):
+  'Teal (Success - BNP Official #198754)':
     - name: 'Teal 50'
       var: '--teal-50'
       value: '#e7f4f1'

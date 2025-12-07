@@ -52,42 +52,109 @@
 /* Brand & Color Demo */
 .demo-brands,
 .demo-colors {
-  display: grid;
-  gap: var(--size-8);
-  justify-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-12);
   padding-block: var(--size-12);
+  padding-inline: var(--size-6);
+
+  .just-for-gap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-6);
+  }
+
+  .heading {
+    font-size: var(--font-size-6);
+    font-weight: var(--font-weight-700);
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: var(--size-3);
+    margin: 0;
+  }
 
   .brand-demo,
   .color-demo {
     display: grid;
-    gap: var(--size-4);
-    grid-template-columns: repeat(auto-fill, minmax(max(var(--size-40), 10rem), 1fr));
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 
   .brand-demo__swatch,
   .color-demo__swatch {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-2);
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    background: white;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
     .swatch {
-      aspect-ratio: var(--ratio-box);
-      border-color: var(--gray-300);
-      border-radius: var(--radius-1);
-      border-width: var(--border-size-1);
-      display: grid;
-      inline-size: var(--size-40);
+      aspect-ratio: 16 / 9;
+      border-radius: 0;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 100%;
+      font-weight: var(--font-weight-700);
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+      .swatch-label {
+        font-size: var(--font-size-0);
+        font-family: 'Monaco', 'Courier New', monospace;
+        background: rgba(0, 0, 0, 0.2);
+        padding: var(--size-2) var(--size-3);
+        border-radius: var(--radius-1);
+      }
     }
 
     .meta {
-      padding-block: var(--size-2);
-      padding-inline: var(--size-2);
-    }
+      padding: var(--size-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      background: white;
+      border-top: 1px solid var(--border-light);
 
-    span {
-      color: var(--black);
-      display: block;
-      font-size: var(--font-size-0);
-
-      &.name {
+      span {
+        display: block;
         font-size: var(--font-size-0);
-        font-weight: var(--font-weight-700);
+        line-height: var(--line-height-2);
+        margin: 0;
+
+        &.name {
+          font-weight: var(--font-weight-700);
+          color: var(--text-primary);
+          font-size: var(--font-size-1);
+        }
+
+        &.var {
+          font-family: 'Monaco', 'Courier New', monospace;
+          color: var(--primary);
+          font-size: var(--font-size-00);
+          font-weight: var(--font-weight-600);
+        }
+
+        &.value {
+          font-family: 'Monaco', 'Courier New', monospace;
+          color: var(--text-secondary);
+          font-size: var(--font-size-00);
+          font-weight: var(--font-weight-600);
+        }
+
+        &.description {
+          color: var(--text-secondary);
+          font-size: var(--font-size-00);
+          font-style: italic;
+          margin-top: var(--size-1);
+        }
       }
     }
   }
