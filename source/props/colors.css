@@ -88,6 +88,18 @@
   --sky-800: #075985;
   --sky-900: #0c4a6e;
 
+   /* Gold scale (50-900) */
+   --gold-50: #f6eddc;
+   --gold-100: #eddfc0;
+   --gold-200: #e2cfa2;
+   --gold-300: #d9bf84;
+   --gold-400: #d1ae6e; /* Base gold */
+   --gold-500: #bc9d63;
+   --gold-600: #a38856;
+   --gold-700: #8a7349;
+   --gold-800: #715e3b;
+   --gold-900: #58492e;
+
   /* Pink scale (50-900) - Secondary Pink (BNP Brand) */
   --pink-50: #f9ecf2;
   --pink-100: #f3d9e5;

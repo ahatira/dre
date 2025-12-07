@@ -116,19 +116,59 @@ font:
   line_height:
     tight:
       value: 1.25
-      usage: "Headings courts, titres impactants"
+      usage: "Display classes (tight leading)"
+      
+    snug:
+      value: 1.375
+      usage: "Headings h4-h6 (compact)"
       
     normal:
       value: 1.5
-      usage: "Textes courants (défaut)"
+      usage: "Body text (readable, recommended)"
       
     relaxed:
-      value: 1.75
-      usage: "Textes longs, articles, body"
+      value: 1.625
+      usage: "Long-form content, improved readability"
       
     loose:
       value: 2
-      usage: "Textes très aérés, citations"
+      usage: "Form fields, widely spaced content"
+      
+    # Specific heading line heights (added 2025-12-07)
+    h1_mobile:
+      value: "3.25rem"
+      px: "52px"
+      usage: "h1 mobile"
+      
+    h1_desktop:
+      value: "3.75rem"
+      px: "60px"
+      usage: "h1 desktop"
+      
+    h2:
+      value: "2.75rem"
+      px: "44px"
+      usage: "h2 (both mobile and desktop)"
+      
+    h3:
+      value: "2.5rem"
+      px: "40px"
+      usage: "h3 (both mobile and desktop)"
+      
+    h4:
+      value: "1.875rem"
+      px: "30px"
+      usage: "h4 (both mobile and desktop)"
+      
+    h5:
+      value: "1.5rem"
+      px: "24px"
+      usage: "h5 (both mobile and desktop)"
+      
+    h6:
+      value: "1.25rem"
+      px: "20px"
+      usage: "h6 (both mobile and desktop)"
 
 # =============================================================================
 # LETTER SPACING (TRACKING)
@@ -156,48 +196,73 @@ font:
 # =============================================================================
 
 text_style:
-  # Headings
+  # Headings with responsive scaling (added 2025-12-07)
   h1:
     font_family: "BNPP Sans"
     font_weight: 700
-    font_size: "40px"
-    line_height: "48px"
-    letter_spacing: "-0.02em"
-    color: "#434F57"
-    usage: "Titres de page principaux"
+    font_size_mobile: "40px"
+    font_size_desktop: "48px"
+    line_height_mobile: "52px"
+    line_height_desktop: "60px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: true
+    breakpoint: "1024px"
+    usage: "Main page heading (h1, .h1)"
     
   h2:
     font_family: "BNPP Sans"
     font_weight: 700
-    font_size: "32px"
-    line_height: "40px"
-    letter_spacing: "-0.01em"
-    color: "#434F57"
-    usage: "Titres de sections"
+    font_size_mobile: "36px"
+    font_size_desktop: "44px"
+    line_height: "44px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: true
+    breakpoint: "1024px"
+    usage: "Section title (h2, .h2)"
     
   h3:
     font_family: "BNPP Sans"
     font_weight: 700
-    font_size: "24px"
-    line_height: "32px"
-    letter_spacing: "0"
-    color: "#434F57"
-    usage: "Sous-titres, card titles"
+    font_size_mobile: "28px"
+    font_size_desktop: "32px"
+    line_height: "40px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: true
+    breakpoint: "1024px"
+    usage: "Subsection (h3, .h3)"
     
   h4:
     font_family: "BNPP Sans"
     font_weight: 700
-    font_size: "20px"
-    line_height: "32px"
-    letter_spacing: "0"
-    color: "#434F57"
-    usage: "Titres tertiaires"
+    font_size: "24px"
+    line_height: "30px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: false
+    usage: "Tertiary title (h4, .h4)"
     
   h5:
     font_family: "BNPP Sans"
     font_weight: 700
-    font_size: "16px"
+    font_size: "20px"
     line_height: "24px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: false
+    usage: "Minor heading (h5, .h5)"
+    
+  h6:
+    font_family: "BNPP Sans"
+    font_weight: 700
+    font_size: "14px"
+    line_height: "20px"
+    letter_spacing: "normal"
+    color: "var(--gray-900)"
+    responsive: false
+    usage: "Small heading (h6, .h6)"
     letter_spacing: "0"
     color: "#434F57"
     usage: "Petits titres, labels emphase"

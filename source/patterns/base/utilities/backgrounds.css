@@ -1,56 +1,356 @@
 /**
  * @file
  * Background utility classes.
+ * 
+ * Complete background system based on BNP Paribas Real Estate semantic tokens.
+ * Architecture: 9 semantic colors × 3 states (base, subtle, hover) + contextual utilities
  */
+
+/* ============================================
+   SEMANTIC COLOR BACKGROUNDS
+   9 semantic colors with base and subtle variants
+   ============================================ */
+
+/* PRIMARY (Brand Green) */
+.bg-primary {
+  background-color: var(--primary);
+  color: var(--primary-text);
+}
+
+.bg-primary-subtle {
+  background-color: var(--primary-bg-subtle);
+  color: var(--primary-text-emphasis);
+}
+
+/* SECONDARY (Brand Pink) */
+.bg-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-text);
+}
+
+.bg-secondary-subtle {
+  background-color: var(--secondary-bg-subtle);
+  color: var(--secondary-text-emphasis);
+}
+
+/* SUCCESS (Teal) */
+.bg-success {
+  background-color: var(--success);
+  color: var(--success-text);
+}
+
+.bg-success-subtle {
+  background-color: var(--success-bg-subtle);
+  color: var(--success-text-emphasis);
+}
+
+/* DANGER (Error Red) */
+.bg-danger {
+  background-color: var(--danger);
+  color: var(--danger-text);
+}
+
+.bg-danger-subtle {
+  background-color: var(--danger-bg-subtle);
+  color: var(--danger-text-emphasis);
+}
+
+/* WARNING (Yellow) */
+.bg-warning {
+  background-color: var(--warning);
+  color: var(--warning-text);
+}
+
+.bg-warning-subtle {
+  background-color: var(--warning-bg-subtle);
+  color: var(--warning-text-emphasis);
+}
+
+/* INFO (Blue) */
+.bg-info {
+  background-color: var(--info);
+  color: var(--info-text);
+}
+
+.bg-info-subtle {
+  background-color: var(--info-bg-subtle);
+  color: var(--info-text-emphasis);
+}
+
+/* GOLD (Accent) */
+.bg-gold {
+  background-color: var(--gold);
+  color: var(--gold-text);
+}
+
+.bg-gold-subtle {
+  background-color: var(--gold-bg-subtle);
+  color: var(--gold-text-emphasis);
+}
+
+/* LIGHT (For dark backgrounds) */
+.bg-light {
+  background-color: var(--light);
+  color: var(--light-text);
+}
+
+.bg-light-subtle {
+  background-color: var(--light-bg-subtle);
+  color: var(--light-text-emphasis);
+}
+
+/* DARK (High contrast) */
+.bg-dark {
+  background-color: var(--dark);
+  color: var(--dark-text);
+}
+
+.bg-dark-subtle {
+  background-color: var(--dark-bg-subtle);
+  color: var(--dark-text-emphasis);
+}
+
+/* ============================================
+   NEUTRAL BACKGROUNDS
+   Grayscale and transparent utilities
+   ============================================ */
+
+.bg-white {
+  background-color: var(--white);
+  color: var(--text-primary);
+}
+
+.bg-black {
+  background-color: var(--black);
+  color: var(--text-inverse);
+}
 
 .bg-transparent {
   background-color: transparent;
 }
 
-.bg-ucla-blue {
-  background-color: var(--primary);
+/* Gray scale backgrounds (50-900) */
+.bg-gray-50 {
+  background-color: var(--gray-50);
+  color: var(--text-primary);
 }
 
-.bg-midnight-joshua-tree {
-  background-color: var(--midnight-joshua-tree);
+.bg-gray-100 {
+  background-color: var(--gray-100);
+  color: var(--text-primary);
 }
 
-.bg-gradient-linear-ucla-blue {
-  background-image: linear-gradient(to right, var(--sky-900), var(--primary));
+.bg-gray-200 {
+  background-color: var(--gray-200);
+  color: var(--text-primary);
 }
 
-/* PS token-based background utility aliases */
+.bg-gray-300 {
+  background-color: var(--gray-300);
+  color: var(--text-primary);
+}
+
+.bg-gray-400 {
+  background-color: var(--gray-400);
+  color: var(--text-primary);
+}
+
+.bg-gray-500 {
+  background-color: var(--gray-500);
+  color: var(--white);
+}
+
+.bg-gray-600 {
+  background-color: var(--gray-600);
+  color: var(--white);
+}
+
+.bg-gray-700 {
+  background-color: var(--gray-700);
+  color: var(--white);
+}
+
+.bg-gray-800 {
+  background-color: var(--gray-800);
+  color: var(--white);
+}
+
+.bg-gray-900 {
+  background-color: var(--gray-900);
+  color: var(--white);
+}
+
+/* ============================================
+   CONTEXTUAL BACKGROUNDS
+   Semantic utility classes for common UI patterns
+   ============================================ */
+
+/* Page and section backgrounds */
 .bg-page {
   background-color: var(--white);
+  color: var(--text-primary);
 }
 
-.bg-section-light {
+.bg-section {
   background-color: var(--gray-50);
+  color: var(--text-primary);
 }
 
-.bg-section-medium {
+.bg-section-alt {
   background-color: var(--gray-100);
+  color: var(--text-primary);
 }
 
+/* Card backgrounds */
 .bg-card {
   background-color: var(--white);
+  color: var(--text-primary);
 }
 
+.bg-card-muted {
+  background-color: var(--gray-50);
+  color: var(--text-primary);
+}
+
+/* Form input backgrounds */
 .bg-input {
   background-color: var(--white);
+  color: var(--text-primary);
 }
 
 .bg-input-disabled {
   background-color: var(--gray-100);
+  color: var(--text-disabled);
 }
 
-/* Background colors for components when in a one column layout, and background color is selected. */
-.bg-santa-barbara-sand {
- background-color: var(--santa-barbara-sand);
- color: var(--midnight-joshua-tree);
+.bg-input-readonly {
+  background-color: var(--gray-50);
+  color: var(--text-primary);
 }
 
-.bg-venice-canal {
- background-color: var(--venice-canal);
- color: var(--white);
+/* Overlay backgrounds */
+.bg-overlay {
+  background-color: var(--overlay-dark-light);
+  color: var(--text-inverse);
+}
+
+.bg-overlay-medium {
+  background-color: var(--overlay-dark-medium);
+  color: var(--text-inverse);
+}
+
+.bg-overlay-heavy {
+  background-color: var(--overlay-dark-heavy);
+  color: var(--text-inverse);
+}
+
+/* ============================================
+   GRADIENT BACKGROUNDS
+   Linear gradients for premium features
+   ============================================ */
+
+/* Primary gradients */
+.bg-gradient-primary {
+  background-image: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: var(--primary-text);
+}
+
+.bg-gradient-primary-light {
+  background-image: linear-gradient(135deg, var(--primary-subtle) 0%, var(--primary-bg-subtle) 100%);
+  color: var(--primary-text-emphasis);
+}
+
+/* Secondary gradients */
+.bg-gradient-secondary {
+  background-image: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-hover) 100%);
+  color: var(--secondary-text);
+}
+
+/* Success gradients */
+.bg-gradient-success {
+  background-image: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+  color: var(--success-text);
+}
+
+/* Gold gradients */
+.bg-gradient-gold {
+  background-image: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
+  color: var(--gold-text);
+}
+
+.bg-gradient-gold-light {
+  background-image: linear-gradient(135deg, var(--gold-subtle) 0%, var(--gold-bg-subtle) 100%);
+  color: var(--gold-text-emphasis);
+}
+
+/* Dark gradients */
+.bg-gradient-dark {
+  background-image: linear-gradient(135deg, var(--dark) 0%, var(--black) 100%);
+  color: var(--dark-text);
+}
+
+/* Brand overlay gradient */
+.bg-gradient-overlay {
+  background-image: linear-gradient(135deg, var(--overlay-brand-base) 0%, var(--overlay-dark-heavy) 100%);
+  color: var(--text-inverse);
+}
+
+/* ============================================
+   HOVER STATES
+   Interactive background changes on hover
+   ============================================ */
+
+.bg-hover-primary {
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+}
+
+.bg-hover-secondary {
+  &:hover {
+    background-color: var(--secondary-hover);
+  }
+}
+
+.bg-hover-success {
+  &:hover {
+    background-color: var(--success-hover);
+  }
+}
+
+.bg-hover-danger {
+  &:hover {
+    background-color: var(--danger-hover);
+  }
+}
+
+.bg-hover-gold {
+  &:hover {
+    background-color: var(--gold-hover);
+  }
+}
+
+.bg-hover-light {
+  &:hover {
+    background-color: var(--light-hover);
+  }
+}
+
+.bg-hover-dark {
+  &:hover {
+    background-color: var(--dark-hover);
+  }
+}
+
+/* Subtle hover states */
+.bg-hover-subtle {
+  &:hover {
+    background-color: var(--gray-50);
+  }
+}
+
+.bg-hover-muted {
+  &:hover {
+    background-color: var(--gray-100);
+  }
 }

@@ -46,6 +46,49 @@ color:
       rgb: "rgba(161, 43, 102, 1)"
       usage: "Éléments forts, visited links"
 
+  accent:
+    gold:
+      50:
+        value: "#E1CAA1"
+        rgb: "rgba(225, 202, 161, 1)"
+        usage: "Fonds très clairs, highlights soft"
+      100:
+        value: "#DCC292"
+        rgb: "rgba(220, 194, 146, 1)"
+        usage: "Backgrounds clairs, tags subtils"
+      200:
+        value: "#D8BA84"
+        rgb: "rgba(216, 186, 132, 1)"
+        usage: "Badges neutres, hover clair"
+      300:
+        value: "#D5B47A"
+        rgb: "rgba(213, 180, 122, 1)"
+        usage: "Hover soft, pictos discrets"
+      400:
+        value: "#D1AE6E"
+        rgb: "rgba(209, 174, 110, 1)"
+        usage: "Base Gold (brand accent)"
+      500:
+        value: "#BC9D63"
+        rgb: "rgba(188, 157, 99, 1)"
+        usage: "Boutons/CTA gold clair"
+      600:
+        value: "#A38856"
+        rgb: "rgba(163, 136, 86, 1)"
+        usage: "État hover/dark sur fond clair"
+      700:
+        value: "#8A7349"
+        rgb: "rgba(138, 115, 73, 1)"
+        usage: "Textes gold contrastés"
+      800:
+        value: "#715E3B"
+        rgb: "rgba(113, 94, 59, 1)"
+        usage: "Borders, icônes sur fonds gold"
+      900:
+        value: "#58492E"
+        rgb: "rgba(88, 73, 46, 1)"
+        usage: "État actif/pressed, focus rings gold"
+
   # ===========================================================================
   # COULEURS NEUTRES
   # ===========================================================================

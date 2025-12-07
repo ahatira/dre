@@ -40,9 +40,9 @@
                 {% set first_variant = item.variants[0] %}
                 <td class="ps-0">
                   <div class="p-3 rounded-2{% if first_variant.type == 'base' %} bg-{{ item.slug }}{% endif %}{% if first_variant.type == 'border' %} border{% endif %}" 
-                    {% if first_variant.type == 'subtle' %}style="background-color: {{ first_variant.value }}"{% endif %}
-                    {% if first_variant.type == 'border' %}style="border: 5px {{ first_variant.value }} solid"{% endif %}
-                    {% if first_variant.type == 'text' %}style="color: {{ first_variant.value }}"{% endif %}>
+                    {% if first_variant.type == 'subtle' %}style="background-color: var({{ first_variant.var }})"{% endif %}
+                    {% if first_variant.type == 'border' %}style="border: 5px var({{ first_variant.var }}) solid"{% endif %}
+                    {% if first_variant.type == 'text' %}style="color: var({{ first_variant.var }})"{% endif %}>
                     {% if first_variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
                   </div>
                 </td>
@@ -56,9 +56,9 @@
                 <tr>
                   <td class="ps-0">
                     <div class="p-3 rounded-2{% if variant.type == 'border' %} border{% endif %}" 
-                      {% if variant.type == 'subtle' %}style="background-color: {{ variant.value }}"{% endif %}
-                      {% if variant.type == 'border' %}style="border: 5px {{ variant.value }} solid"{% endif %}
-                      {% if variant.type == 'text' %}style="color: {{ variant.value }}"{% endif %}>
+                      {% if variant.type == 'subtle' %}style="background-color: var({{ variant.var }})"{% endif %}
+                      {% if variant.type == 'border' %}style="border: 5px var({{ variant.var }}) solid"{% endif %}
+                      {% if variant.type == 'text' %}style="color: var({{ variant.var }})"{% endif %}>
                       {% if variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
                     </div>
                   </td>

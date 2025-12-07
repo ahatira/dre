@@ -85,6 +85,17 @@
   --info-border-subtle: var(--blue-200); /* Subtle border color */
   --info-text-emphasis: var(--blue-900); /* Dark text on light backgrounds */
 
+   /* GOLD (Accent Gold) */
+   --gold: var(--gold-400); /* Base gold */
+   --gold-hover: var(--gold-500); /* Darker on hover */
+   --gold-active: var(--gold-600); /* Darkest for pressed state */
+   --gold-text: var(--black); /* High contrast text on gold */
+   --gold-border: var(--gold-400); /* Match base color */
+   --gold-subtle: var(--gold-50); /* Light tint for badges, alerts */
+   --gold-bg-subtle: var(--gold-50); /* Very light background */
+   --gold-border-subtle: var(--gold-200); /* Subtle border color */
+   --gold-text-emphasis: var(--gold-800); /* Dark text on light backgrounds */
+
   /* LIGHT (For dark backgrounds - inverse theme) */
   --light: var(--gray-100); /* Light base for dark backgrounds */
   --light-hover: var(--gray-200); /* Darker on hover */

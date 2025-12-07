@@ -1,210 +1,384 @@
-# Typography
+# Typography System - PS Design System
 
-Comprehensive typography system providing semantic scales for headings, body text, and utility styles.
+**Documentation Pattern** | **Complete Reference** | **Base Component**
+
+---
 
 ## Overview
 
-PS Theme typography is built on a modular scale system with:
-- **6 heading levels** (h1-h6) for hierarchical structure
-- **3 body text sizes** for content hierarchy
-- **3 utility styles** for labels, captions, and code
-- **Complete token scales** for all font sizes, weights, and line heights
+The PS Design System Typography System provides a **token-driven, semantic, and accessible** approach to text styling across all BNP Paribas Real Estate digital properties. This pattern documents the complete typography scale, usage guidelines, and best practices.
 
-All typography is token-based using CSS custom properties for consistency and maintainability.
+### Key Characteristics
 
-## Heading Levels
+- ✅ **Token-First**: All values defined in CSS custom properties (zero hardcoded values)
+- ✅ **Semantic HTML**: Always use native elements (`<h1>–<h6>`, `<strong>`, `<em>`, etc.)
+- ✅ **Accessible**: WCAG 2.2 AA compliance by default
+- ✅ **Responsive**: rem-based sizing scales seamlessly across all devices
+- ✅ **Real Estate Context**: Examples and language tailored for BNP Paribas Real Estate
 
-| Level | Usage | Size | Weight |
-|-------|-------|------|--------|
-| h1 | Page titles, main headings | 3rem (48px) | 700 |
-| h2 | Section titles | 2.25rem (36px) | 700 |
-| h3 | Subsection titles | 1.75rem (28px) | 700 |
-| h4 | Component headings | 1.5rem (24px) | 700 |
-| h5 | Card titles | 1.25rem (20px) | 700 |
-| h6 | Minor labels | 1.125rem (18px) | 600 |
+---
 
-## Body Text Styles
+## Files
 
-### Body Large (Lead)
-- **Size**: 1.125rem (18px)
-- **Weight**: 400 (Regular)
-- **Line Height**: 1.75rem (28px)
-- **Use case**: Introductory paragraphs, emphasized content
-- **Token**: `--font-size-2`
+| File | Purpose |
+|------|---------|
+| `typography.twig` | Complete typography demo with 9 sections and live examples |
+| `typography.yml` | Metadata for Storybook story (demo data structure) |
+| `typography.stories.jsx` | Storybook story with comprehensive Markdown documentation |
+| `README.md` | This file (usage guidelines) |
 
-### Body Regular (Default)
-- **Size**: 1rem (16px)
-- **Weight**: 400 (Regular)
-- **Line Height**: 1.5rem (24px)
-- **Use case**: Standard paragraph text, article content
-- **Token**: `--font-size-1`
+---
 
-### Body Small
-- **Size**: 0.875rem (14px)
-- **Weight**: 400 (Regular)
-- **Line Height**: 1.25rem (20px)
-- **Use case**: Captions, secondary content, metadata
-- **Token**: `--font-size-0`
+## Structure
 
-## Utility Styles
+### 1. Heading Elements (h1 → h6)
 
-### Overline
-- **Size**: 0.75rem (12px)
-- **Weight**: 600 (Semibold)
-- **Transform**: UPPERCASE
-- **Letter Spacing**: wide (0.025em)
-- **Use case**: Category labels, tags, badges
-- **Token**: `--font-size--1` + `--tracking-wide`
+Semantic heading levels with CSS class equivalents (`.h1`–`.h6`) using **Bold (700)** weight:
 
-### Caption
-- **Size**: 0.75rem (12px)
-- **Weight**: 400 (Regular)
-- **Color**: secondary text
-- **Use case**: Timestamps, hints, supplementary info
-- **Token**: `--font-size--1`
-
-### Code
-- **Size**: 0.75rem (12px)
-- **Weight**: 400 (Regular)
-- **Family**: Monospace
-- **Use case**: Code snippets, technical identifiers
-- **Token**: `--font-size--1` + `--font-mono`
-
-## Font Families
-
-| Token | Font | Use Case |
-|-------|------|----------|
-| `--font-sans` | BNPP Sans (primary) | Body text, UI |
-| `--font-condensed` | BNPP Sans Condensed | Compact layouts, headlines |
-| `--font-alt` | Open Sans (fallback) | Secondary text |
-| `--font-system` | System fonts | Fallback chain |
-| `--font-mono` | Monospace | Code, technical text |
-
-## Font Sizes Scale
-
-Complete scale from extra-small to display sizes:
-
-```css
---font-size--2: 0.625rem  /* 10px */
---font-size--1: 0.75rem   /* 12px */
---font-size-0:  0.875rem  /* 14px */
---font-size-1:  1rem      /* 16px - Default */
---font-size-2:  1.125rem  /* 18px */
---font-size-3:  1.25rem   /* 20px */
---font-size-4:  1.375rem  /* 22px */
---font-size-5:  1.5rem    /* 24px */
---font-size-6:  1.75rem   /* 28px */
---font-size-7:  2rem      /* 32px */
---font-size-8:  2.25rem   /* 36px */
---font-size-9:  2.5rem    /* 40px */
---font-size-10: 3rem      /* 48px */
---font-size-11: 3.5rem    /* 56px */
---font-size-12: 4rem      /* 64px */
---font-size-13: 5rem      /* 80px */
---font-size-14: 7.5rem    /* 120px */
-```
-
-## Line Height Scale
-
-Proportional line heights for optimal readability:
-
-```css
---leading-none:    1
---leading-tight:   1.25
---leading-snug:    1.375
---leading-normal:  1.5     /* Default */
---leading-relaxed: 1.625
---leading-loose:   2
-
-/* Fixed pixel values */
---leading-3: 0.75rem   /* 12px */
---leading-4: 1rem      /* 16px */
---leading-5: 1.25rem   /* 20px */
---leading-6: 1.5rem    /* 24px */
---leading-7: 1.75rem   /* 28px */
---leading-8: 2rem      /* 32px */
---leading-9: 2.25rem   /* 36px */
---leading-10: 2.5rem   /* 40px */
-```
-
-## Font Weight Scale
-
-```css
---font-weight-300: 300 /* Light */
---font-weight-400: 400 /* Regular (Default) */
---font-weight-500: 500 /* Medium */
---font-weight-600: 600 /* Semibold */
---font-weight-700: 700 /* Bold */
---font-weight-800: 800 /* Extra Bold */
-```
-
-## Letter Spacing Scale
-
-```css
---tracking-tighter: -0.05em
---tracking-tight:   -0.025em
---tracking-normal:  0        /* Default */
---tracking-wide:    0.025em
---tracking-wider:   0.05em
---tracking-widest:  0.1em
-```
-
-## Usage Examples
-
-### Heading with all styles
 ```html
-<h1 style="
-  font-size: var(--font-size-10);
+<h1>Main page heading</h1>        <!-- Desktop: 48px / 60px | Mobile: 40px / 52px | Weight: 700 -->
+<h2>Section title</h2>            <!-- Desktop: 44px / 44px | Mobile: 36px / 44px | Weight: 700 -->
+<h3>Subsection</h3>               <!-- Desktop: 32px / 40px | Mobile: 28px / 40px | Weight: 700 -->
+<h4>Tertiary title</h4>           <!-- 24px / 30px | Weight: 700 -->
+<h5>Minor heading</h5>            <!-- 20px / 24px | Weight: 700 -->
+<h6>Small heading</h6>            <!-- 14px / 20px | Weight: 700 -->
+```
+
+**Rules:**
+- Always use native heading elements, never skip levels (`h1 → h3` is wrong)
+- Use `.h*` classes only when semantic markup isn't possible
+- One h1 per page (SEO, accessibility)
+- All headings use **Bold (700)** font weight for strong visual hierarchy
+- h1, h2, h3 are responsive (scale mobile → desktop)
+- h4, h5, h6 are fixed size on all devices
+
+### 2. Display Classes (.display-1 → .display-6)
+
+Non-semantic display utilities for applying heading-like styles to generic elements with **Bold (700)** weight:
+
+```html
+<div class="display-1">Hero text</div>              <!-- 7.5rem / 120px | Weight: 700 -->
+<div class="display-2">Large impact</div>           <!-- 5rem / 80px | Weight: 700 -->
+<div class="display-3">Campaign headline</div>     <!-- 4rem / 64px | Weight: 700 -->
+<div class="display-4">Feature title</div>         <!-- 3.5rem / 56px | Weight: 700 -->
+<div class="display-5">Emphasis text</div>         <!-- 3rem / 48px | Weight: 700 -->
+<div class="display-6">Alternative heading</div>  <!-- 2.5rem / 40px | Weight: 700 -->
+```
+
+**When to use:**
+- ✅ Non-semantic content requiring heading-like styling
+- ✅ CMS-generated content where HTML structure is limited
+- ✅ Hero sections, campaigns, promotional content
+- ❌ Replace native heading elements
+- ❌ Skip semantic markup for convenience
+
+**Note**: Display classes are presented as visual cards in the Storybook story for easy comparison.
+
+### 3. Body Text & Paragraph Utilities
+
+Standard paragraph text with semantic size variations:
+
+```html
+<!-- Default body paragraph -->
+<p>Standard paragraph text (--font-size-1, 1rem/16px)</p>
+
+<!-- Lead text for introductions -->
+<p class="lead">Lead paragraph for article intro or abstract (--font-size-2, 1.125rem/18px)</p>
+
+<!-- Small text for secondary info -->
+<small>Small text for captions and metadata (--font-size-0, 0.875rem/14px)</small>
+
+<!-- Micro text for minimal UI labels -->
+<p class="micro">Micro text for avatar initials or compact UI (--font-size--1, 0.75rem/12px)</p>
+```
+
+### 4. Font Weight Variations
+
+Three primary weights from BNPP Sans:
+
+```css
+font-weight: var(--font-weight-300);  /* Light (rarely used) */
+font-weight: var(--font-weight-400);  /* Regular (body text, default) */
+font-weight: var(--font-weight-700);  /* Bold (headings, emphasis) */
+```
+
+### 5. Inline Semantic Elements
+
+Always use semantic elements for proper meaning:
+
+```html
+<strong>Important emphasis</strong>              <!-- Strong importance -->
+<em>Alternative tone or mood</em>               <!-- Emphasis -->
+<mark>Highlighted content</mark>                <!-- Visual highlight -->
+<del>Deleted text</del>                         <!-- Deletion -->
+<ins>Inserted text</ins>                        <!-- Insertion -->
+<kbd>Ctrl + Alt + Delete</kbd>                  <!-- Keyboard input -->
+<code>calculateTotal(items)</code>              <!-- Inline code -->
+<abbr title="BNP Paribas Real Estate">BNPE</abbr>  <!-- Abbreviation -->
+<cite>Citation source</cite>                    <!-- Citation -->
+```
+
+### 6. Lists
+
+Semantic list structures:
+
+```html
+<!-- Unordered list (bullets) -->
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+</ul>
+
+<!-- Ordered list (numbers) -->
+<ol>
+  <li>First step</li>
+  <li>Second step</li>
+</ol>
+
+<!-- Definition list (term-definition pairs) -->
+<dl>
+  <dt>Cap Rate</dt>
+  <dd>Capitalization rate; net operating income divided by property price.</dd>
+</dl>
+
+<!-- Nested lists -->
+<ul>
+  <li>Parent item
+    <ul>
+      <li>Nested item 1.1</li>
+      <li>Nested item 1.2</li>
+    </ul>
+  </li>
+</ul>
+```
+
+### 7. Blockquotes & Citations
+
+Semantic markup for quoted content:
+
+```html
+<blockquote>
+  <p>
+    Real estate is the best investment for long-term wealth creation.
+    It provides tangible assets, steady income, and capital appreciation potential.
+  </p>
+  <footer>
+    <cite>Investment Strategy Guide</cite>
+  </footer>
+</blockquote>
+```
+
+### 8. Text Utility Classes
+
+Reusable utility classes from `source/patterns/base/utilities/typography.css`:
+
+```html
+<!-- Color utilities -->
+<p class="text-primary">Primary text (main content)</p>
+<p class="text-secondary">Secondary text (metadata)</p>
+<p class="text-tertiary">Tertiary text (hints)</p>
+<p class="text-link">Link text (--primary color)</p>
+
+<!-- Alignment -->
+<p class="text-left">Left-aligned</p>
+<p class="text-center">Center-aligned</p>
+<p class="text-right">Right-aligned</p>
+
+<!-- Transform -->
+<p class="uppercase">uppercase text</p>
+<p class="lowercase">LOWERCASE TEXT</p>
+<p class="capitalize">capitalize text</p>
+
+<!-- Decoration -->
+<p class="underline">Underlined text</p>
+<p class="line-through">Struck-through text</p>
+<p class="no-underline"><a href="#">Link without underline</a></p>
+```
+
+---
+
+## Token Reference
+
+### Font Families
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--font-body`, `--font-sans` | 'BNPP Sans', system fonts | Primary body & headings |
+| `--font-alt` | 'Open Sans', system fonts | Alternative paragraph text |
+| `--font-mono` | Courier New, monospace | Code and technical content |
+
+### Font Sizes (14-point scale)
+
+From `--font-size--2` (10px) to `--font-size-14` (120px). All rem-based for user-controlled scaling.
+
+| Token | Value (rem) | Pixels (16px base) | Usage |
+|-------|-------------|-------------------|-------|
+| `--font-size--2` | 0.625rem | 10px | Avatar initials |
+| `--font-size--1` | 0.75rem | 12px | Micro labels |
+| `--font-size-0` | 0.875rem | 14px | Small text |
+| `--font-size-1` | 1rem | 16px | Body text (default) |
+| `--font-size-2` | 1.125rem | 18px | Lead text |
+| `--font-size-3` | 1.25rem | 20px | Emphasis |
+| `--font-size-4` | 1.375rem | 22px | Minor emphasis |
+| `--font-size-5` | 1.5rem | 24px | h4 and .h4 |
+| `--font-size-6` | 1.75rem | 28px | h3 and .h3 (mobile) |
+| `--font-size-7` | 2rem | 32px | h3 and .h3 (desktop) |
+| `--font-size-8` | 2.25rem | 36px | h2 and .h2 (mobile) |
+| `--font-size-9` | 2.5rem | 40px | h1 (mobile) / h2 (desktop) |
+| `--font-size-10` | 3rem | 48px | h1 and .h1 (desktop) |
+| `--font-size-11` | 3.5rem | 56px | .display-4 |
+| `--font-size-12` | 4rem | 64px | .display-3 |
+| `--font-size-13` | 5rem | 80px | .display-2 |
+| `--font-size-14` | 7.5rem | 120px | .display-1 |
+
+### Line Height (Leading)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--leading-none` | 1 | Display headlines, abbreviations |
+| `--leading-tight` | 1.25 | Headings (h1–h3), compact |
+| `--leading-snug` | 1.375 | Headings (h4–h6), medium |
+| `--leading-normal` | 1.5 | **Body text (recommended)** |
+| `--leading-relaxed` | 1.625 | Long-form content, accessibility |
+| `--leading-loose` | 2 | Form fields, widely spaced |
+
+**Accessibility Rule**: Maintain at least 1.5x line height (`--leading-normal`) for body text to ensure readability for people with dyslexia and vision impairments.
+
+### Letter Spacing (Tracking)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--tracking-tighter` | -0.05em | Tight uppercase headlines (rare) |
+| `--tracking-tight` | -0.025em | Condensed display text |
+| `--tracking-normal` | 0 | Standard spacing (default) |
+| `--tracking-wide` | 0.025em | Uppercase labels, form hints |
+| `--tracking-wider` | 0.05em | Spaced uppercase headings |
+| `--tracking-widest` | 0.1em | Decorative text (very rare) |
+
+**⚠️ Warning**: Excessive letter spacing reduces readability. Use only on short text (headlines, labels) and test with screen readers.
+
+---
+
+## Accessibility Checklist
+
+Before deploying typography changes:
+
+- ✅ **Semantic HTML**: Headings use `<h1>–<h6>`, inline emphasis uses `<strong>`, `<em>`, etc.
+- ✅ **Heading Hierarchy**: No skipped levels (e.g., `<h1>` to `<h3>`). Proper outline.
+- ✅ **Contrast**: WCAG 2.2 AA minimum: 4.5:1 for normal text, 3:1 for large text (18pt+)
+- ✅ **Focus Indicators**: All interactive text (links, buttons) has visible `:focus-visible`
+- ✅ **Font Scaling**: Uses rem units (not px). Users can resize via browser zoom (100–200%)
+- ✅ **Line Height**: Body text uses `--leading-normal` (1.5) or better
+- ✅ **Color Alone**: Never the only indicator of meaning. Use weight, icons, or text
+- ✅ **Lists**: Semantic markup (`<ul>`, `<ol>`, `<dl>`). Screen readers announce structure
+- ✅ **Links**: Visually distinct from body text (underlined, colored, or other)
+- ✅ **Code**: Escaped and syntax-highlighted. Monospace font for clarity
+- ✅ **Justified Text**: Avoided. Right-edge alignment causes word-spacing issues
+
+---
+
+## Usage in Components
+
+All components must use typography tokens from this system:
+
+```css
+/* ✅ CORRECT - Token reference */
+h2 {
+  font-size: var(--font-size-9);
   font-weight: var(--font-weight-700);
-  line-height: var(--leading-8);
-  font-family: var(--font-heading);
-">
-  Page Title
-</h1>
+  line-height: var(--leading-tight);
+}
+
+/* ❌ INCORRECT - Hardcoded value */
+h2 {
+  font-size: 2.5rem;        /* NO! Use --font-size-9 */
+  font-weight: 700;         /* NO! Use --font-weight-700 */
+  line-height: 1.25;        /* NO! Use --leading-tight */
+}
 ```
 
-### Body text with optimal readability
+### Example: Card Component
+
 ```html
-<p style="
-  font-size: var(--font-size-1);
-  font-weight: var(--font-weight-400);
-  line-height: var(--leading-6);
-  color: var(--text-primary);
-">
-  Standard paragraph text...
-</p>
+<article class="card">
+  <h3 class="card__title">Investment Opportunity</h3>
+  <p class="card__description">
+    High-yield residential property in central Paris.
+  </p>
+  <small class="card__meta">Updated 3 hours ago</small>
+  <a href="/properties/paris-001" class="card__link">View Details</a>
+</article>
 ```
 
-### Overline label
-```html
-<span style="
-  font-size: var(--font-size--1);
-  font-weight: var(--font-weight-600);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-">
-  CATEGORY
-</span>
+**Typography tokens:**
+- `<h3>` → --font-size-8, --font-weight-700, --leading-tight
+- `<p>` → --font-size-1, --leading-normal
+- `<small>` → --font-size-0
+
+---
+
+## Related Patterns
+
+This typography system is referenced by all PS Design System components:
+
+- **[Button](/?path=/story/elements-button--default)** - Heading levels + font weights
+- **[Avatar](/?path=/story/elements-avatar--default)** - Micro text for initials
+- **[Badge](/?path=/story/elements-badge--default)** - Small text with semantic colors
+- **[Breadcrumb](/?path=/story/components-breadcrumb--default)** - Navigation hierarchy
+- **[Card](/?path=/story/components-card--default)** - Title + description + metadata
+- **[Form Controls](/?path=/story/components-input--default)** - Labels, hints, errors
+- **[Table](/?path=/story/components-table--default)** - Headers + row data
+- **[Navigation](/?path=/story/components-navigation--default)** - Menu items, states
+
+---
+
+## File References
+
+| File | Purpose |
+|------|---------|
+| `source/props/fonts.css` | Official token definitions (families, weights, sizes, leading, tracking) |
+| `source/patterns/base/utilities/typography.css` | Utility classes (.h1–.h6, .display-*, .text-*) |
+| `source/patterns/base/typography/` | This documentation pattern |
+| `.github/instructions/core.instructions.md` | Token usage rules |
+| `.github/instructions/css.instructions.md` | CSS implementation patterns |
+
+---
+
+## Design Philosophy
+
+The PS Design System typography is built on three core principles:
+
+1. **Token-First**: All values defined once in CSS custom properties. Components reference tokens, never hardcoded values.
+
+2. **Semantic HTML**: Always use native elements (`<h1>–<h6>`, `<strong>`, `<em>`, etc.). Meaningful markup is accessible markup.
+
+3. **Inclusive Design**: WCAG 2.2 AA compliance by default. Font sizes, contrast ratios, line heights, and focus indicators meet accessibility standards.
+
+---
+
+## Storybook Story
+
+View the complete interactive demo and documentation:
+
+```
+Base/Typography → Typography
 ```
 
-## Accessibility
+The story includes:
+- Live demonstration of all heading levels and display classes
+- Body text scales with font weight variations
+- Inline semantic elements
+- Lists (unordered, ordered, definition, nested)
+- Blockquotes and citations
+- Text utility classes
+- Complete token reference tables
+- Accessibility guidelines and best practices
 
-- **Font sizes**: Respect user preferences, don't disable zoom
-- **Line height**: Minimum 1.5 for body text (WCAG AA)
-- **Contrast**: All text meets WCAG AA standards (4.5:1 minimum)
-- **Font families**: Include system font fallbacks for performance
+---
 
-## Tokens
+## Questions or Issues?
 
-All typography uses CSS custom properties from `source/props/fonts.css`:
-- Font families
-- Font sizes
-- Font weights
-- Line heights
-- Letter spacing
+See project README for support channels and contribution guidelines.
 
-## See Also
-
-- [Bootstrap Typography](https://getbootstrap.com/docs/5.3/content/typography/)
-- [Design System - Fonts](../fonts/)
-- [WCAG Text Guidelines](https://www.w3.org/WAI/WCAG22/Understanding/font-size)
+**Last Updated**: 2025-12-07
+**Version**: 1.0.0

@@ -40,9 +40,14 @@
   --leading-5: 1.25rem;      /* 20px */
   --leading-6: 1.5rem;       /* 24px */
   --leading-7: 1.75rem;      /* 28px */
+  --leading-h4: 1.875rem;    /* 30px - Heading 4 line height */
   --leading-8: 2rem;         /* 32px */
   --leading-9: 2.25rem;      /* 36px */
   --leading-10: 2.5rem;      /* 40px */
+  --leading-11: 2.75rem;     /* 44px */
+  --leading-12: 3rem;        /* 48px */
+  --leading-13: 3.25rem;     /* 52px */
+  --leading-14: 3.75rem;     /* 60px */
   --leading-none: 1;
   --leading-tight: 1.25;
   --leading-snug: 1.375;

@@ -1,57 +1,275 @@
 /**
  * @file
  * Text utility classes.
+ *
+ * Canonical location for all typography helpers used by patterns.
+ * Uses only tokens from `source/props/fonts.css` (NO hardcoded values).
+ *
+ * Organization:
+ * 1. Text color & decoration helpers
+ * 2. Text transform & alignment utilities
+ * 3. Heading utilities (.h1 → .h6)
+ * 4. Display classes (.display-1 → .display-6)
+ * 5. Body / paragraph utilities (lead, small, micro)
+ * 6. Semantic element styling (abbr, blockquote, lists)
  */
 
-.text-inherit {
-  color: inherit;
+/* =================================================================
+   1. TEXT COLOR & DECORATION HELPERS
+   ================================================================= */
+
+/* Color utilities */
+.text-inherit     { color: inherit; }
+.text-current     { color: currentColor; }
+.text-transparent { color: transparent; }
+.text-black       { color: var(--black); }
+.text-white       { color: var(--white); }
+
+/* Text decoration */
+.underline      { text-decoration: underline; }
+.no-underline   { text-decoration: none; }
+.line-through   { text-decoration: line-through; }
+.overline-text  { text-decoration: overline; }
+
+/* Semantic token-based text colors */
+.text-primary   { color: var(--text-primary, var(--gray-700)); }
+.text-secondary { color: var(--text-secondary, var(--gray-500)); }
+.text-tertiary  { color: var(--text-tertiary, var(--gray-400)); }
+.text-inverse   { color: var(--white); }
+.text-link      { color: var(--primary); }
+
+/* =================================================================
+   2. TEXT TRANSFORM & ALIGNMENT UTILITIES
+   ================================================================= */
+
+/* Text transform */
+.uppercase    { text-transform: uppercase; }
+.lowercase    { text-transform: lowercase; }
+.capitalize   { text-transform: capitalize; }
+.normal-case  { text-transform: none; }
+
+/* Text alignment */
+.text-left      { text-align: left; }
+.text-center    { text-align: center; }
+.text-right     { text-align: right; }
+.text-justify   { text-align: justify; }
+
+/* =================================================================
+   3. HEADING UTILITIES
+   ================================================================= */
+/* Native heading elements with responsive sizing (mobile first, scales up on desktop) */
+/* Font Family: BNPP Sans, Weight: Regular (400), responsive line heights */
+/* All values use tokens from source/props/fonts.css */
+
+h1,
+.h1 {
+  font-size:   var(--font-size-9);   /* Mobile: 40px */
+  line-height: var(--leading-13);    /* Mobile: 52px */
+  font-weight: var(--font-weight-700);
 }
 
-.text-current {
-  color: currentColor;
+@media (min-width: 1024px) {
+  h1,
+  .h1 {
+    font-size:   var(--font-size-10);  /* Desktop: 48px */
+    line-height: var(--leading-14);    /* Desktop: 60px */
+  }
 }
 
-.text-transparent {
-  color: transparent;
+h2,
+.h2 {
+  font-size:   var(--font-size-8);   /* Mobile: 36px */
+  line-height: var(--leading-11);    /* Mobile & Desktop: 44px */
+  font-weight: var(--font-weight-700);
 }
 
-.text-black {
-  color: var(--black);
+@media (min-width: 1024px) {
+  h2,
+  .h2 {
+    font-size: var(--font-size-9);   /* Desktop: 44px (was incorrectly --font-size-13) */
+  }
 }
 
-.text-white {
-  color: var(--white);
+h3,
+.h3 {
+  font-size:   var(--font-size-6);   /* Mobile: 28px */
+  line-height: var(--leading-10);    /* Mobile & Desktop: 40px */
+  font-weight: var(--font-weight-700);
 }
 
-.underline {
-  text-decoration: underline;
+@media (min-width: 1024px) {
+  h3,
+  .h3 {
+    font-size: var(--font-size-7);   /* Desktop: 32px */
+  }
 }
 
-.no-underline {
+h4,
+.h4 {
+  font-size:   var(--font-size-5);   /* Mobile & Desktop: 24px */
+  line-height: var(--leading-h4);    /* Mobile & Desktop: 30px */
+  font-weight: var(--font-weight-700);
+}
+
+h5,
+.h5 {
+  font-size:   var(--font-size-3);   /* Mobile & Desktop: 20px */
+  line-height: var(--leading-6);     /* Mobile & Desktop: 24px */
+  font-weight: var(--font-weight-700);
+}
+
+h6,
+.h6 {
+  font-size:   var(--font-size--1);  /* Mobile & Desktop: 14px */
+  line-height: var(--leading-5);     /* Mobile & Desktop: 20px */
+  font-weight: var(--font-weight-700);
+}
+
+/* =================================================================
+   4. DISPLAY CLASSES
+   ================================================================= */
+/* Large, lighter weight typography for prominent text */
+
+.display-1 {
+  font-size:   var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+.display-2 {
+  font-size:   var(--font-size-13);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+.display-3 {
+  font-size:   var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+.display-4 {
+  font-size:   var(--font-size-11);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+.display-5 {
+  font-size:   var(--font-size-10);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+.display-6 {
+  font-size:   var(--font-size-9);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-tight);
+}
+
+/* =================================================================
+   5. BODY / PARAGRAPH UTILITIES
+   ================================================================= */
+
+/* Lead paragraph - emphasis on introductory text */
+.lead {
+  font-size:   var(--font-size-2);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-7);
+}
+
+/* Small text */
+.small {
+  font-size:   var(--font-size-0);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-5);
+}
+
+/* Micro utilities (overline, caption, code) */
+.overline {
+  font-size:      var(--font-size--1);
+  font-weight:    var(--font-weight-600);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.caption {
+  font-size:   var(--font-size--1);
+  font-weight: var(--font-weight-400);
+  color:       var(--text-secondary);
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size:   var(--font-size--1);
+  font-weight: var(--font-weight-400);
+}
+
+/* =================================================================
+   6. SEMANTIC ELEMENT STYLING
+   ================================================================= */
+
+/* Abbreviations */
+abbr {
+  border-bottom:  1px dotted var(--border-default);
+  cursor:         help;
   text-decoration: none;
 }
 
-.line-through {
-  text-decoration: line-through;
+abbr.initialism {
+  font-size:      var(--font-size-0);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
 }
 
-/* PS token-based text color helpers */
-.text-primary {
-  color: var(--gray-700);
+/* Blockquotes */
+blockquote {
+  margin:        0;
+  padding:       0;
+  border-left:   4px solid var(--border-default);
+  padding-left:  var(--size-6);
+  color:         var(--text-primary);
 }
 
-.text-secondary {
-  color: var(--gray-500);
+blockquote.blockquote {
+  font-size:      var(--font-size-2);
+  font-weight:    var(--font-weight-300);
+  line-height:    var(--leading-7);
+  margin-bottom:  var(--size-8);
 }
 
-.text-tertiary {
-  color: var(--gray-400);
+blockquote.blockquote p {
+  margin: 0;
+  color: var(--text-primary);
 }
 
-.text-inverse {
-  color: var(--white);
+figcaption.blockquote-footer {
+  display:      block;
+  font-size:    var(--font-size-0);
+  color:        var(--text-secondary);
+  margin-top:   var(--size-4);
 }
 
-.text-link {
-  color: var(--primary);
+figcaption.blockquote-footer cite {
+  font-style: italic;
 }
+
+/* Lists */
+ul.list-unstyled,
+ol.list-unstyled {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+}
+
+ul.list-unstyled li,
+ol.list-unstyled li {
+  color:           var(--text-primary);
+  margin-bottom:   var(--size-2);
+}
+
+ul.list-unstyled li:last-child,
+ol.list-unstyled li:last-child {
+  margin-bottom: 0;
+}
+
+

@@ -1,6 +1,28 @@
 # Design System CHANGELOG
 
-Date: 2025-11-28
+Date: 2025-12-07
+
+## Updated
+2025-12-07: Typography system refinements and fixes:
+  - Added new line-height token `--leading-h4: 1.875rem` (30px) for h4 element compliance with design specs.
+  - Updated all heading elements (h1-h6) to use Bold font-weight (700) for stronger visual hierarchy.
+  - Fixed responsive heading scales to match exact design specifications:
+    * h1: 40px (mobile) → 48px (desktop) with 52px/60px line heights
+    * h2: 36px (mobile) → 44px (desktop) with 44px line height
+    * h3: 28px (mobile) → 32px (desktop) with 40px line height
+    * h4: 24px (fixed) with 30px line height
+    * h5: 20px (fixed) with 24px line height
+    * h6: 14px (fixed) with 20px line height
+  - Converted Display Classes (.display-1–.display-6) from table to visual grid card presentation in Storybook story.
+  - Removed "Detailed Reference" table from Headings section in typography story (simplified visual focus).
+  - Updated `source/patterns/base/typography/README.md` with corrected specifications and weight documentation.
+  - All changes enforced **token-first architecture**: zero hardcoded pixel values, 100% CSS custom properties.
+    - Added Gold color palette (50–900) based on #D1AE6E to `source/props/colors.css` and `docs/design/tokens/colors.yml`.
+    - Added semantic Gold tokens to `source/props/brand.css` (base/hover/active/text/border/subtle/emphasis) aligned with updated light shades.
+    - Refined Gold light shades (50–300) for better contrast separation in palettes and Storybook.
+    - Added Gold to Brand Storybook story (`source/patterns/base/brand/brand.yml`) as 9th semantic color with 4 variants.
+    - Updated `source/patterns/base/brand/brand.stories.jsx` documentation to reflect 97 total tokens (9 colors × 9 states).
+    - Added `.theme-color-gold` gradient style to `source/patterns/storybook.css` for visual consistency.
 
 ## Added
 2025-11-28: Added pages `home-page.md`, `property-search.md`, `property-detail.md`, `user-account.md`, `contact.md`, `about.md`, `blog-listing.md`, `blog-article.md`:

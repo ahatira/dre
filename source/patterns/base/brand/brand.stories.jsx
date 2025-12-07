@@ -5,19 +5,20 @@ import data from './brand.yml';
  * BNP Paribas RealEstate Brand System - Semantic Color Tokens
  *
  * 3-Layer Architecture:
- * 1. source/props/colors.css   → Official BNP palettes (8 palettes: GREEN, PINK, TEAL, RED, YELLOW, BLUE, SKY, GREY)
+ * 1. source/props/colors.css   → Official BNP palettes (9 palettes: GREEN, PINK, TEAL, RED, YELLOW, BLUE, SKY, GREY, GOLD)
  * 2. source/props/brand.css    → Semantic tokens mapping colors to meanings
  * 3. Components               → Reference semantic tokens only
  *
- * 88 tokens total:
- * - Semantic Colors (72 tokens): 8 colors × 9 states each
+ * 97 tokens total:
+ * - Semantic Colors (81 tokens): 9 colors × 9 states each
  * - Text Colors (4 tokens): Primary, Secondary, Disabled, Inverse
  * - Border Colors (6 tokens): Default, Light, Focus, Error, Success, Disabled
  * - Overlay Colors (6 tokens): Dark and Brand variations
  *
- * Key Distinction:
+ * Key Distinctions:
  * - PRIMARY (Green #00915A): Brand identity, primary actions
  * - SUCCESS (Teal #198754):  System feedback, success states (DISTINCT from primary!)
+ * - GOLD (#D1AE6E): Accent color for premium features, highlights, decorative elements
  */
 
 const settings = {
@@ -28,7 +29,7 @@ const settings = {
         component: `
 ## BNP Paribas RealEstate Brand System - Semantic Color Tokens
 
-Complete design token system (88 tokens) based on official BNP Paribas RealEstate color palette.
+Complete design token system (97 tokens) based on official BNP Paribas RealEstate color palette.
 
 ### 3-Layer Architecture
 
@@ -45,10 +46,11 @@ Components (var() References)
 - SECONDARY PINK: #A12B66 (bnp official)
 - SUCCESS TEAL: #198754 (distinct from primary!)
 - ERROR RED: #EB3636 (bnp official)
+- GOLD: #D1AE6E (accent color)
 - WARNING YELLOW, INFO BLUE, SKY, GREY
 
 **Layer 2: Semantic Tokens** (source/props/brand.css)
-- 8 semantic colors with 9 states each
+- 9 semantic colors with 9 states each
 - Each color: base, hover, active, text, border, subtle, bg-subtle, border-subtle, text-emphasis
 
 ### Usage Examples
@@ -83,10 +85,10 @@ background: var(--overlay-dark-heavy); /* Modals, rgba(0,0,0,0.6) */
 ### Key Features
 
 ✅ **Official BNP Colors**: All palettes from official brand guidelines
-✅ **Semantic Meaning**: Each color has clear purpose (primary, success, danger, etc.)
+✅ **Semantic Meaning**: Each color has clear purpose (primary, success, danger, gold, etc.)
 ✅ **9 States per Color**: Base, Hover, Active + Text, Border + Subtle variants
 ✅ **Accessibility**: WCAG 2.2 AA minimum contrast on all interactive elements
-✅ **Comprehensive**: 88 tokens cover all UI states and patterns
+✅ **Comprehensive**: 97 tokens cover all UI states and patterns
 
 ### Documentation
 
