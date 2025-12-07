@@ -46,9 +46,7 @@
   --ps-checkbox-checkmark-color-checked: var(--primary); /* #00915A green checkmark */
 
   /* Hover State */
-  --ps-checkbox-hover-color: hsl(157, 95%, 35%); /* #04AF6E - lighter green for hover */
-  --ps-checkbox-hover-border-color: hsl(157, 95%, 35%);
-  --ps-checkbox-hover-checkmark-color: hsl(157, 95%, 35%);
+  --ps-checkbox-hover-checkmark-color: var(--primary-hover, var(--primary)); /* Fallback to primary if no hover variant */
 
   /* Focus State */
   --ps-checkbox-focus-outline-width: var(--border-size-2);
@@ -65,7 +63,7 @@
   --ps-checkbox-label-line-height: var(--leading-normal);
   --ps-checkbox-label-color: var(--gray-700); /* #333333 - spec requirement */
   --ps-checkbox-label-color-checked: var(--primary); /* #00915A green when checked */
-  --ps-checkbox-label-color-hover: hsl(157, 95%, 35%); /* #04AF6E green on hover */
+  --ps-checkbox-label-color-hover: var(--primary-hover, var(--primary)); /* Hover state */
 
   /* Transitions */
   --ps-checkbox-transition-duration: var(--duration-fast);
@@ -78,7 +76,7 @@
 
   /* Layout */
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--ps-checkbox-gap);
   position: relative;
   cursor: pointer;
@@ -181,7 +179,7 @@
 
   /* Hover - Unchecked */
   &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark {
-    color: var(--ps-checkbox-hover-border-color);
+    color: var(--ps-checkbox-hover-checkmark-color);
   }
 
   &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark + .ps-checkbox__label {
@@ -194,5 +192,80 @@
 
   &.ps-checkbox--disabled {
     cursor: var(--ps-checkbox-disabled-cursor);
+  }
+
+  /* ============================================
+     Modifiers: Color Variants
+     ============================================ */
+
+  &--primary {
+    --ps-checkbox-checkmark-color-checked: var(--primary);
+  }
+
+  &--secondary {
+    --ps-checkbox-checkmark-color-checked: var(--secondary);
+  }
+
+  &--success {
+    --ps-checkbox-checkmark-color-checked: var(--success);
+  }
+
+  &--warning {
+    --ps-checkbox-checkmark-color-checked: var(--warning);
+  }
+
+  &--danger {
+    --ps-checkbox-checkmark-color-checked: var(--danger);
+  }
+
+  &--info {
+    --ps-checkbox-checkmark-color-checked: var(--info);
+  }
+
+  &--dark {
+    --ps-checkbox-checkmark-color-checked: var(--dark);
+  }
+
+  &--light {
+    --ps-checkbox-checkmark-color-checked: var(--light);
+  }
+
+  /* ============================================
+     Modifiers: Size Variants
+     ============================================ */
+
+  &--xs {
+    --ps-checkbox-size: var(--size-3); /* 12px */
+    --ps-checkbox-label-font-size: var(--font-size--1); /* 12px */
+  }
+
+  &--sm {
+    --ps-checkbox-size: var(--size-4); /* 16px */
+    --ps-checkbox-label-font-size: var(--font-size-1); /* 14px */
+  }
+
+  /* md is default (24px, font-size-2) */
+
+  &--lg {
+    --ps-checkbox-size: var(--size-7); /* 28px */
+    --ps-checkbox-label-font-size: var(--font-size-3); /* 18px */
+  }
+
+  &--xl {
+    --ps-checkbox-size: var(--size-8); /* 32px */
+    --ps-checkbox-label-font-size: var(--font-size-4); /* 22px */
+  }
+
+  &--xxl {
+    --ps-checkbox-size: var(--size-10); /* 40px */
+    --ps-checkbox-label-font-size: var(--font-size-5); /* 28px */
+  }
+
+  /* ============================================
+     Modifier: Indeterminate State
+     ============================================ */
+
+  &--indeterminate .ps-checkbox__input:indeterminate + .ps-checkbox__checkmark {
+    color: var(--ps-checkbox-checkmark-color-checked);
   }
 }
