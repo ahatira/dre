@@ -189,7 +189,7 @@ Each semantic color has 9 states:
 
 ```css
 --text-primary: var(--gray-700);     /* #434F57 - Main text (high contrast) */
---text-secondary: var(--gray-500);   /* #977E83 - Secondary text */
+--text-secondary: var(--gray-500);   /* #8A9097 - Secondary text */
 --text-disabled: var(--gray-400);    /* #B4BABE - Disabled text */
 --text-inverse: var(--white);        /* #FFFFFF - Text on dark backgrounds */
 ```
