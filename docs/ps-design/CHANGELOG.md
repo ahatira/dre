@@ -4,6 +4,28 @@
 
 ## 2025
 
+- 2025-12-07: **Storybook Stories Update** – Synchronisation avec refactorisation palettes BNP
+  - **colors.yml**: Conversion complète HSL → hex pour tous palettes
+    * Neutrals: Gray 50→900 + White/Black en hexadécimal
+    * Red, Yellow, Blue, Sky: Conversion des shades 50→900
+    * Green: Remplacement palette générique → PRIMARY GREEN BNP (#00915A)
+    * Pink: Remplacement palette générique → SECONDARY PINK BNP (#A12B66)
+    * Teal: Nouvelle palette → SUCCESS colors BNP (#198754)
+    * Total: 82 swatches de couleurs (12 neutrals + 70 palette)
+  - **brand.yml**: Expansion documentation tokens sémantiques
+    * 8 semantic colors: Primary, Secondary, Success, Danger, Warning, Info, Light, Dark
+    * 9 states chaque couleur: base, hover, active, text, border, subtle, bg-subtle, border-subtle, text-emphasis
+    * Total: 88 tokens documentés (72 semantic + 4 text + 6 border + 6 overlay)
+    * Descriptions détaillées pour chaque token
+  - **brand.stories.jsx**: Réécriture documentation Storybook
+    * Explication architecture 3-layer (colors.css → brand.css → components)
+    * Exemples d'usage pour tous 8 couleurs sémantiques
+    * Note: PRIMARY vs SUCCESS distinction (#00915A vs #198754)
+    * Lien vers COLORS_REFERENCE.md
+    * Conformité WCAG 2.2 AA
+  - **Build**: ✅ 216.12 kB, Linting/Formatting passed, Zero errors
+  - **Commit**: 50b056c - 455 insertions, 184 deletions
+
 - 2025-12-07: **Color System Refactor** – Implémentation palettes officielles BNP
   - **New Palettes in colors.css**: Remplacement des palettes génériques par palettes BNP officielles
     * **PRIMARY GREEN**: #00915A (Vert primaire BNP) – palettes --green-50 à --green-900
