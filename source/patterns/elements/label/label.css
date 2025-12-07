@@ -68,3 +68,59 @@
     opacity: var(--ps-label-disabled-opacity);
   }
 }
+
+/* ============================================
+   Modifiers - Color
+   ============================================ */
+.ps-label--primary {
+  --ps-label-color: var(--primary);
+}
+
+.ps-label--secondary {
+  --ps-label-color: var(--secondary);
+}
+
+.ps-label--info {
+  --ps-label-color: var(--info);
+}
+
+.ps-label--warning {
+  --ps-label-color: var(--warning);
+}
+
+.ps-label--danger {
+  --ps-label-color: var(--danger);
+}
+
+.ps-label--success {
+  --ps-label-color: var(--success);
+}
+
+/* ============================================
+   Modifiers - Size
+   ============================================ */
+.ps-label--xs {
+  --ps-label-font-size: var(--font-size--1);
+  --ps-label-line-height: var(--leading-4);
+  --ps-label-margin-bottom: var(--size-1);
+}
+
+.ps-label--sm {
+  --ps-label-font-size: var(--font-size-0);
+  --ps-label-line-height: var(--leading-5);
+  --ps-label-margin-bottom: var(--size-105);
+}
+
+/* md is default */
+
+.ps-label--lg {
+  --ps-label-font-size: var(--font-size-2);
+  --ps-label-line-height: var(--leading-7);
+  --ps-label-margin-bottom: var(--size-3);
+}
+
+.ps-label--xl {
+  --ps-label-font-size: var(--font-size-3);
+  --ps-label-line-height: var(--leading-8);
+  --ps-label-margin-bottom: var(--size-4);
+}

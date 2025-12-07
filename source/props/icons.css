@@ -63,6 +63,12 @@
 [data-icon="pin"]          { background-image: url('/icons/icons-sprite.svg#icon-pin'); }
 [data-icon="home"]         { background-image: url('/icons/icons-sprite.svg#icon-house'); }
 
+/* Form component icons */
+[data-icon="checkbox-unchecked"] { background-image: url('/icons/icons-sprite.svg#icon-checkbox-unchecked'); }
+[data-icon="checkbox-checked"]   { background-image: url('/icons/icons-sprite.svg#icon-checkbox-checked'); }
+[data-icon="radio-off"]          { background-image: url('/icons/icons-sprite.svg#icon-radio-off'); }
+[data-icon="radio-on"]           { background-image: url('/icons/icons-sprite.svg#icon-radio-on'); }
+
 /* Note: This is a partial list for common icons. 
    For full icon support, use the ps-icon component with {% include '@elements/icon/icon.twig' %}
    or extend this CSS with generated rules from source/patterns/documentation/icons-list.json */

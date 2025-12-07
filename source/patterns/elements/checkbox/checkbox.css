@@ -27,18 +27,18 @@
 
   /* Box Sizing & Spacing */
   --ps-checkbox-size: var(--size-5); /* 20px */
-  --ps-checkbox-gap: var(--size-2); /* 8px - gap between box and label */
+  --ps-checkbox-gap: var(--size-3); /* 12px - gap between box and label (maquette) */
 
   /* Border & Visual */
-  --ps-checkbox-border-width: var(--border-size-2); /* 2px */
+  --ps-checkbox-border-width: var(--border-size-1); /* 1px - maquette shows thin border */
   --ps-checkbox-border-color: var(--border-default);
   --ps-checkbox-border-radius: var(--radius-2); /* 4px */
   --ps-checkbox-bg: var(--white);
 
   /* Checked State */
   --ps-checkbox-checked-bg: var(--primary);
-  --ps-checkbox-checked-border-color: var(--primary);
-  --ps-checkbox-checkmark-color: var(--text-inverse);
+  --ps-checkbox-checked-border-color: var(--primary); /* Same as bg = no visible border */
+  --ps-checkbox-checkmark-color: var(--white);
 
   /* Hover State */
   --ps-checkbox-hover-border-color: var(--primary);
@@ -56,7 +56,8 @@
   --ps-checkbox-label-font-size: var(--font-size-2);
   --ps-checkbox-label-font-weight: var(--font-weight-400);
   --ps-checkbox-label-line-height: var(--leading-normal);
-  --ps-checkbox-label-color: var(--text-primary);
+  --ps-checkbox-label-color: var(--gray-900); /* Darker text for better contrast */
+  --ps-checkbox-label-color-checked: var(--primary); /* Green when checked (maquette) */
 
   /* Transitions */
   --ps-checkbox-transition-duration: var(--duration-fast);
@@ -68,7 +69,7 @@
 
   /* Layout */
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center; /* Center alignment per maquette */
   gap: var(--ps-checkbox-gap);
   position: relative;
   cursor: pointer;
@@ -102,6 +103,11 @@
       }
     }
 
+    /* Checked Label Color */
+    &:checked ~ .ps-checkbox__label {
+      color: var(--ps-checkbox-label-color-checked);
+    }
+
     /* Disabled State */
     &:disabled {
       cursor: var(--ps-checkbox-disabled-cursor);
@@ -128,17 +134,17 @@
     background: var(--ps-checkbox-bg);
     border: var(--ps-checkbox-border-width) solid var(--ps-checkbox-border-color);
     border-radius: var(--ps-checkbox-border-radius);
-    transition:
-      background var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
-      border-color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
-  }
-
   /* Checkmark Icon */
   & .ps-checkbox__checkmark {
-    width: calc(var(--ps-checkbox-size) * 0.7); /* 14px when checkbox is 20px */
-    height: calc(var(--ps-checkbox-size) * 0.7);
+    width: calc(var(--ps-checkbox-size) * 0.75); /* 15px when checkbox is 20px - slightly larger per maquette */
+    height: calc(var(--ps-checkbox-size) * 0.75);
     color: var(--ps-checkbox-checkmark-color);
     opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
+      transform var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+  } opacity: 0;
     transform: scale(0.8);
     transition:
       opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),

@@ -28,9 +28,10 @@
  * }) }}
  #}
 
-{%- set size = size|default('medium') -%}
+{%- set size = size|default('md') -%}
 {%- set shape = shape|default('rounded') -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set color = color|default('default') -%}
 {%- set options = options|default([]) -%}
 {# Attributes: Drupal create_attribute() or empty string for Storybook #}
 {%- set attributes = attributes|default('') -%}
@@ -46,7 +47,7 @@
 
 {%- set classes = [] -%}
 {%- set classes = classes|merge(['ps-dropdown']) -%}
-{%- if size and size != 'medium' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ size]) -%}{%- endif -%}
+{%- if size and size != 'md' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ size]) -%}{%- endif -%}
 {%- if shape and shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
 {%- if disabled -%}{%- set classes = classes|merge(['ps-dropdown--disabled']) -%}{%- endif -%}
 
@@ -60,7 +61,9 @@
     {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   >
     <span class="ps-dropdown__label">{{ displayLabel }}</span>
-    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
+    <svg class="ps-dropdown__icon" aria-hidden="true" focusable="false">
+      <use xlink:href="#icon-chevron-down" />
+    </svg>
   </button>
 
   <ul

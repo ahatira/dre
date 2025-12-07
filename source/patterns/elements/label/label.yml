@@ -9,6 +9,8 @@ props:
   forId: 'field-id' # ID of associated form field
   required: false # Adds asterisk + screen reader text
   disabled: false # Disabled state (70% opacity)
+  color: 'default' # Color variant (default|primary|secondary|info|warning|danger|success)
+  size: 'md' # Size variant (xs|sm|md|lg|xl)
   attributes: {} # Additional HTML attributes
 
 # Options:

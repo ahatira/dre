@@ -1,0 +1,45 @@
+{#
+ * Textarea (Atom)
+ * Native <textarea> without label, Drupal-friendly attributes.
+ *
+ * @param string name - Name attribute (optional)
+ * @param string id - ID attribute (defaults to name-based)
+ * @param string value - Initial content (optional)
+ * @param string placeholder - Placeholder text (optional)
+ * @param boolean disabled - Disabled state (default: false)
+ * @param boolean required - Required state (default: false)
+ * @param number rows - Rows attribute (optional)
+ * @param object attributes - Drupal attributes for the <textarea>
+ * @param object wrapper_attributes - Drupal attributes for the wrapper
+ #}
+
+{%- set name = name|default('') -%}
+{%- set id = id|default(name ? name ~ '-textarea' : 'ps-textarea') -%}
+{%- set value = value|default('') -%}
+{%- set placeholder = placeholder|default('') -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set required = required|default(false) -%}
+{%- set rows = rows|default(null) -%}
+{%- set color = color|default('default') -%}
+{%- set size = size|default('md') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
+{%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
+
+{%- set classes = [
+  'ps-textarea',
+  disabled ? 'ps-textarea--disabled' : null,
+  color != 'default' ? 'ps-textarea--' ~ color : null,
+  size != 'md' ? 'ps-textarea--' ~ size : null
+] -%}
+
+<textarea
+  {{ attributes
+    .addClass(classes)
+    .setAttribute('id', id)
+    .setAttribute('name', name)
+    .setAttribute('placeholder', placeholder)
+    .setAttribute('rows', rows)
+  }}
+  {%- if disabled %} disabled aria-disabled="true"{% endif -%}
+  {%- if required %} required aria-required="true"{% endif -%}
+>{{ value }}</textarea>

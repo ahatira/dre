@@ -1,0 +1,11 @@
+# Default props for input atom
+name: "input"
+value: ""
+placeholder: "Enter text..."
+type: "text"
+autocomplete: null
+id: null
+disabled: false
+required: false
+color: "default"
+size: "md"

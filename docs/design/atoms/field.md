@@ -104,7 +104,7 @@ props:
 
 ## Accessibilité
 - Rôles/ARIA corrects pour combobox
-- Label géré au niveau molecule `form-field`
+- Label géré au niveau molecule `form-element`
 
 ## Exemples
 ```twig

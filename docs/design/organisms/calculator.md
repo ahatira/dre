@@ -19,19 +19,19 @@ Calculateur hypothécaire / budget: champs pour prix, apport, durée, taux; affi
 <section class="ps-calculator ps-calculator--panel" aria-labelledby="calc-title">
   <h2 id="calc-title" class="ps-calculator__title">Calculateur de mensualité</h2>
   <form class="ps-calculator__form" novalidate>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-price">Prix (€)</label>
       <input class="ps-field" id="calc-price" type="number" min="0" step="1000" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-down">Apport (€)</label>
       <input class="ps-field" id="calc-down" type="number" min="0" step="1000" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-years">Durée (années)</label>
       <input class="ps-field" id="calc-years" type="number" min="1" step="1" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-rate">Taux (%)</label>
       <input class="ps-field" id="calc-rate" type="number" min="0" step="0.01" />
     </div>
@@ -92,20 +92,20 @@ props:
 <section {{ attributes.addClass(classes) }} aria-labelledby="calc-title">
   <h2 id="calc-title" class="ps-calculator__title">{{ title|default('Calculateur de mensualité') }}</h2>
   <form class="ps-calculator__form" novalidate>
-    {# Field markup can be rendered via molecules/form-field in integration #}
-    <div class="ps-form-field">
+    {# Field markup can be rendered via molecules/form-element in integration #}
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-price">Prix (€)</label>
       <input class="ps-field" id="calc-price" type="number" min="0" step="1000" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-down">Apport (€)</label>
       <input class="ps-field" id="calc-down" type="number" min="0" step="1000" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-years">Durée (années)</label>
       <input class="ps-field" id="calc-years" type="number" min="1" step="1" />
     </div>
-    <div class="ps-form-field">
+    <div class="ps-form-element">
       <label class="ps-label" for="calc-rate">Taux (%)</label>
       <input class="ps-field" id="calc-rate" type="number" min="0" step="0.01" />
     </div>

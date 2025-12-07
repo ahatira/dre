@@ -1,6 +1,7 @@
-# Defaults for Radio preview
-name: 'option' # Radio group name (shared across group)
-value: '1' # Unique value for this radio
-label: 'Option label' # Visible label text
-checked: false # Checked state (true | false)
-disabled: false # Disabled state (true | false)
+# Default props for radio-item
+name: "option"
+value: "1"
+id: "option-1"
+label: "Option label"
+checked: false
+disabled: false

@@ -1,137 +1,88 @@
 /**
- * Radio (Element/Atom)
- * Native accessible radio button with icon-based visual and optional label
- * 
- * BEM: ps-radio, ps-radio__input, ps-radio__circle, ps-radio__label
- * Modifier: --disabled (applied when disabled=true)
- * States: checked (via :checked), focus-visible, hover
+ * Radio (Atom)
+ * Individual radio with label
+ * Drupal-compatible, using sprite SVG with mask-image technique
  */
 
-.ps-radio {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     Bootstrap 5 inspired - Override these for customization
-     ============================================ */
-  
-  /* Layout */
-  --ps-radio-gap: var(--size-2);
-  --ps-radio-align: flex-start;
-  
-  /* Circle sizing */
-  --ps-radio-circle-size: var(--size-5);
-  
-  /* Typography */
-  --ps-radio-label-font-family: var(--font-sans);
-  --ps-radio-label-font-size: var(--font-size-1);
-  --ps-radio-label-font-weight: var(--font-weight-400);
-  --ps-radio-label-line-height: var(--leading-6);
-  --ps-radio-label-color: var(--text-primary);
-  --ps-radio-label-color-checked: var(--primary);
-  
-  /* Icon colors */
-  --ps-radio-icon-color-unchecked: var(--text-primary);
-  --ps-radio-icon-color-checked: var(--primary);
-  --ps-radio-icon-size: var(--font-size-2);
-  
-  /* Focus state */
-  --ps-radio-focus-outline-width: var(--border-size-2);
-  --ps-radio-focus-outline-color: var(--border-focus);
-  --ps-radio-focus-outline-offset: var(--border-size-2);
-  
-  /* Disabled state */
+.form-item.form-type-radio {
+  --ps-radio-icon-unchecked: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 12C4 7.58172 7.58172 4 12 4C14.1217 4 16.1566 4.84285 17.6569 6.34315C19.1571 7.84344 20 9.87827 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 18.6667C15.6819 18.6667 18.6667 15.6819 18.6667 12C18.6667 8.3181 15.6819 5.33333 12 5.33333C8.3181 5.33333 5.33333 8.3181 5.33333 12C5.33333 15.6819 8.3181 18.6667 12 18.6667Z'/%3E%3C/svg%3E");
+  --ps-radio-icon-checked: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4ZM12 18.6667C8.3181 18.6667 5.33333 15.6819 5.33333 12C5.33333 8.3181 8.3181 5.33333 12 5.33333C15.6819 5.33333 18.6667 8.3181 18.6667 12C18.6667 15.6819 15.6819 18.6667 12 18.6667ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z'/%3E%3C/svg%3E");
+  --ps-radio-icon-color: var(--primary);
+  --ps-radio-icon-color-hover: var(--primary-dark);
   --ps-radio-disabled-opacity: 0.5;
-  
-  /* Transitions */
-  --ps-radio-transition-duration: var(--duration-fast);
-  --ps-radio-transition-timing: var(--ease-3);
-  
-  /* ============================================
-     Apply Component Variables
-     ============================================ */
-  
-  /* Layout */
-  display: inline-flex;
-  align-items: var(--ps-radio-align);
-  gap: var(--ps-radio-gap);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--size-3);
+}
+
+.form-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
   cursor: pointer;
-  user-select: none;
-  
-  /* Elements */
-  & .ps-radio__input {
-    /* Hide native input visually but keep accessible */
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+  border: none;
+  padding: 0;
+  transition: all 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    -webkit-mask-image: var(--ps-radio-icon-unchecked);
+    mask-image: var(--ps-radio-icon-unchecked);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    background-color: var(--gray-500);
+    transition: all 150ms ease;
   }
-  
-  & .ps-radio__circle {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--ps-radio-circle-size);
-    height: var(--ps-radio-circle-size);
-    min-width: var(--ps-radio-circle-size);
-    flex-shrink: 0;
-    background: transparent;
-    
-    /* Icon rendered via font icon (centralized in icons.css) */
-    &::before {
-      font-family: 'bnpre-icons';
-      speak: none;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: inline-block;
-      content: "\e86a"; /* radio-unselected icon */
-      color: var(--ps-radio-icon-color-unchecked);
-      font-size: var(--ps-radio-icon-size);
-      transition: color var(--ps-radio-transition-duration) var(--ps-radio-transition-timing);
-    }
+
+  &:hover::before {
+    background-color: var(--gray-700);
   }
-  
-  & .ps-radio__label {
-    font-family: var(--ps-radio-label-font-family);
-    font-weight: var(--ps-radio-label-font-weight);
-    font-size: var(--ps-radio-label-font-size);
-    line-height: var(--ps-radio-label-line-height);
-    color: var(--ps-radio-label-color);
-    transition: color var(--ps-radio-transition-duration) var(--ps-radio-transition-timing);
+
+  &:checked::before {
+    -webkit-mask-image: var(--ps-radio-icon-checked);
+    mask-image: var(--ps-radio-icon-checked);
+    background-color: var(--ps-radio-icon-color);
   }
-  
-  /* ============================================
-     States (Cascade Order: Base → Elements → States → Modifiers)
-     ============================================ */
-  
-  /* Checked state */
-  & .ps-radio__input:checked + .ps-radio__circle::before {
-    content: "\e869"; /* radio-selected icon */
-    color: var(--ps-radio-icon-color-checked);
+
+  &:checked:hover::before {
+    background-color: var(--ps-radio-icon-color-hover);
   }
-  
-  & .ps-radio__input:checked ~ .ps-radio__label {
-    color: var(--ps-radio-label-color-checked);
-  }
-  
-  /* Focus state (keyboard only) */
-  & .ps-radio__input:focus-visible + .ps-radio__circle {
-    outline: var(--ps-radio-focus-outline-width) solid var(--ps-radio-focus-outline-color);
-    outline-offset: var(--ps-radio-focus-outline-offset);
-  }
-  
-  /* ============================================
-     Modifiers
-     ============================================ */
-  
-  &.ps-radio--disabled {
+
+  &:disabled {
     cursor: not-allowed;
     opacity: var(--ps-radio-disabled-opacity);
-    pointer-events: none;
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}
+
+.form-item.form-type-radio label {
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  font-size: var(--text-sm);
+  color: var(--text-default);
+  flex: 1;
+  word-break: break-word;
 }

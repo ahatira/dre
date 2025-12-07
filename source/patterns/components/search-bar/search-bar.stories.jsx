@@ -25,6 +25,12 @@ const settings = {
       description: 'Display search icon',
       table: { category: 'Configuration' },
     },
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      description: 'Size variant',
+      table: { category: 'Appearance' },
+    },
   },
 };
 
@@ -38,6 +44,27 @@ export const WithSuggestions = {
   name: 'With Suggestions',
   render: (args) => markup(args),
   args: { ...data, search_text: 'Paris', has_suggestions: true },
+};
+
+// Size Variants
+export const Sizes = {
+  render: () => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 600px;">
+        ${sizes
+          .map(
+            (size) => `
+          <div>
+            <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600); text-transform: uppercase;">${size}</label>
+            ${markup({ ...data, size, placeholder: `Search (${size.toUpperCase()})...`, has_suggestions: false })}
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
 };
 
 export default settings;

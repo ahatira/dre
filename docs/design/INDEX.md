@@ -57,7 +57,7 @@ design/
 │   ├── card.md                        ✅ Spécifié + Implémenté
 │   ├── carousel.md                    ✅ Spécifié + Implémenté (Swiper.js)
 │   ├── dropdown.md                    ✅ Spécifié + Implémenté
-│   ├── form-field.md                  ✅ Spécifié + Implémenté
+│   ├── form-element.md                ✅ Spécifié + Implémenté
 │   ├── offer-card.md                  ✅ Spécifié + Implémenté (custom BNP)
 │   ├── language-selector.md           ⏳ Spécifié, non implémenté
 │   ├── menu-item.md                   ⏳ Spécifié, non implémenté

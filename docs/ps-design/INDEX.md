@@ -49,7 +49,7 @@ source/patterns/
 │   ├── card/         ✅ IMPLÉMENTÉ (générique; compose `offer-card`)
 │   ├── carousel/     ✅ IMPLÉMENTÉ (Swiper.js integration)
 │   ├── dropdown/     ✅ IMPLÉMENTÉ
-│   ├── form-field/   ✅ IMPLÉMENTÉ
+│   ├── form-element/ ✅ IMPLÉMENTÉ
 │   ├── offer-card/   ✅ IMPLÉMENTÉ (custom BNP Real Estate)
 │   ├── language-selector/ ⏳ À implémenter
 │   ├── menu-item/    ⏳ À implémenter

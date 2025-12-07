@@ -57,20 +57,21 @@ Modifiers:
 ### Sizing & Spacing
 
 - `--size-5` (20px) - Checkbox box size
-- `--size-2` (8px) - Gap between box and label
+- `--size-3` (12px) - Gap between box and label (per maquette)
 
 ### Border & Visual
 
-- `--border-size-2` (2px) - Border width
+- `--border-size-1` (1px) - Border width (per maquette)
 - `--border-default` - Default border color
 - `--radius-2` (4px) - Border radius
 
 ### Colors
 
 - `--white` - Background (unchecked)
-- `--primary` - Background (checked) and hover border
-- `--text-inverse` - Checkmark color
-- `--text-primary` - Label text color
+- `--primary` - Background (checked), border blends with background
+- `--white` - Checkmark color (white on green)
+- `--gray-900` - Label text color (default)
+- `--primary` - Label text color (when checked, per maquette)
 - `--border-focus` - Focus outline color
 
 ### Typography

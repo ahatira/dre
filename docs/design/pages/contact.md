@@ -16,7 +16,7 @@ Page de contact avec formulaire et carte.
 ## 🧩 Composition
 
 - organisms/header
-- molecules/form-field (fields)
+- molecules/form-element (fields)
 - organisms/map-view
 - organisms/footer
 
@@ -44,7 +44,7 @@ props:
 <section class="ps-page ps-contact" aria-label="Contact">
   {{ include('@ps_theme/ps-header/ps-header.twig', {}, with_context=false) }}
   <div class="ps-contact__content">
-    {{ include('@ps_theme/ps-form-field/ps-form-field.twig', form, with_context=false) }}
+    {{ include('@ps_theme/ps-form-element/ps-form-element.twig', form, with_context=false) }}
     {{ include('@ps_theme/ps-map-view/ps-map-view.twig', map, with_context=false) }}
   </div>
   {{ include('@ps_theme/ps-footer/ps-footer.twig', {}, with_context=false) }}

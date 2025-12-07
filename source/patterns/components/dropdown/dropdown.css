@@ -6,213 +6,267 @@
  * Elements: __button, __label, __icon, __list, __option, __native
  * Modifiers: --small, --large, --none, --pill, --disabled
  * States: hover, focus-visible, disabled, [aria-selected], [aria-expanded]
- * 
- * Design Tokens:
- * - Layout: --size-1 to --size-4, --ps-dropdown-min-width-*
- * - Icons: --ps-icon-size-16, --ps-icon-size-20
- * - Colors: --white, --ps-color-text, --gray-*, --blue-600, --primary
- * - Typography: --font-sans, --font-size-1/2, --leading-normal, --font-weight-600
- * - Borders: --border-size-1, --radius-2, --border-size-2 (focus)
- * - Effects: --shadow-4, --ps-transition-duration-fast, --ease-3, --layer-40
- * 
- * Future Enhancements (per mockups):
- * - Multiselect variant with checkboxes
- * - Grouped options with section headers (optgroups)
- * - Footer button slot (Apply, Clear filters, etc.)
  */
 
 .ps-dropdown {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     ============================================ */
+  
+  /* Layout */
+  --ps-dropdown-min-width: 200px;
+  --ps-dropdown-max-height: var(--size-80);
+  
+  /* Padding */
+  --ps-dropdown-button-padding-y: var(--size-2);
+  --ps-dropdown-button-padding-x: var(--size-3);
+  --ps-dropdown-option-padding-y: var(--size-205);
+  --ps-dropdown-option-padding-x: var(--size-3);
+  --ps-dropdown-list-padding: var(--size-2);
+  
+  /* Spacing */
+  --ps-dropdown-gap: var(--size-2);
+  --ps-dropdown-list-offset: var(--size-1);
+  
+  /* Icon */
+  --ps-dropdown-icon-size: var(--size-5);
+  
+  /* Colors */
+  --ps-dropdown-bg: var(--white);
+  --ps-dropdown-text-color: var(--text-primary);
+  --ps-dropdown-text-muted: var(--text-secondary);
+  --ps-dropdown-border-color: var(--gray-300);
+  --ps-dropdown-border-color-hover: var(--gray-400);
+  --ps-dropdown-border-color-focus: var(--primary);
+  --ps-dropdown-disabled-bg: var(--gray-100);
+  --ps-dropdown-option-hover-bg: var(--gray-100);
+  --ps-dropdown-option-selected-bg: var(--gray-50);
+  --ps-dropdown-option-selected-color: var(--primary);
+  
+  /* Borders */
+  --ps-dropdown-border-width: var(--border-size-1);
+  --ps-dropdown-border-radius: var(--radius-2);
+  --ps-dropdown-focus-outline-width: var(--border-size-2);
+  
+  /* Effects */
+  --ps-dropdown-shadow: var(--shadow-4);
+  --ps-dropdown-z-index: var(--layer-40);
+  --ps-dropdown-disabled-opacity: 0.6;
+  
+  /* Typography */
+  --ps-dropdown-font-family: var(--font-sans);
+  --ps-dropdown-font-size: var(--font-size-1);
+  --ps-dropdown-font-weight: var(--font-weight-400);
+  --ps-dropdown-font-weight-selected: var(--font-weight-600);
+  --ps-dropdown-line-height: var(--leading-normal);
+  
+  /* Transitions */
+  --ps-dropdown-transition-duration: var(--duration-fast);
+  --ps-dropdown-transition-timing: var(--ease-3);
+  
+  /* ============================================
+     Base Styles
+     ============================================ */
   position: relative;
   display: inline-block;
   width: 100%;
+}
 
-  /* Button (trigger) */
-  &__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--size-2);
-    width: 100%;
-    min-width: var(--ps-dropdown-min-width-medium);
-    padding: var(--size-2) var(--size-3);
-    border: var(--border-size-1) solid var(--gray-300);
-    border-radius: var(--radius-2);
-    background: var(--white);
-    color: var(--ps-color-text);
-    font-family: var(--font-sans);
-    font-size: var(--font-size-1);
-    line-height: var(--leading-normal);
-    cursor: pointer;
-    transition: border-color var(--ps-transition-duration-fast) var(--ease-3),
-                box-shadow var(--ps-transition-duration-fast) var(--ease-3);
+.ps-dropdown__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ps-dropdown-gap);
+  width: 100%;
+  min-width: var(--ps-dropdown-min-width);
+  padding: var(--ps-dropdown-button-padding-y) var(--ps-dropdown-button-padding-x);
+  border: var(--ps-dropdown-border-width) solid var(--ps-dropdown-border-color);
+  border-radius: var(--ps-dropdown-border-radius);
+  background: var(--ps-dropdown-bg);
+  color: var(--ps-dropdown-text-color);
+  font-family: var(--ps-dropdown-font-family);
+  font-size: var(--ps-dropdown-font-size);
+  font-weight: var(--ps-dropdown-font-weight);
+  line-height: var(--ps-dropdown-line-height);
+  cursor: pointer;
+  transition: 
+    border-color var(--ps-dropdown-transition-duration) var(--ps-dropdown-transition-timing),
+    box-shadow var(--ps-dropdown-transition-duration) var(--ps-dropdown-transition-timing);
 
-    &:hover:not(:disabled) {
-      border-color: var(--gray-400);
-    }
-
-    &:focus-visible {
-      outline: var(--border-size-2) solid var(--blue-600);
-      outline-offset: var(--size-05);
-      border-color: var(--blue-600);
-    }
-
-    &:disabled {
-      background: var(--gray-100);
-      color: var(--ps-color-text-muted);
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    &[aria-expanded="true"] .ps-dropdown__icon {
-      transform: rotate(180deg);
-    }
+  &:hover:not(:disabled) {
+    border-color: var(--ps-dropdown-border-color-hover);
   }
 
-  &__label {
-    flex: 1;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &:focus-visible {
+    outline: var(--ps-dropdown-focus-outline-width) solid var(--ps-dropdown-border-color-focus);
+    outline-offset: 2px;
+    border-color: var(--ps-dropdown-border-color-focus);
   }
 
-  &__icon {
-    flex-shrink: 0;
-    width: var(--ps-icon-size-20);
-    height: var(--ps-icon-size-20);
-    font-size: var(--ps-icon-size-20);
-    line-height: 1;
-    transition: transform var(--ps-transition-duration-fast) var(--ease-3);
+  &:disabled {
+    background: var(--ps-dropdown-disabled-bg);
+    color: var(--ps-dropdown-text-muted);
+    cursor: not-allowed;
+    opacity: var(--ps-dropdown-disabled-opacity);
   }
 
-  /* Dropdown list (overlay) */
-  &__list {
-    position: absolute;
-    z-index: var(--layer-40);
-    top: calc(100% + var(--size-1));
-    left: 0;
-    min-width: 100%;
-    max-height: var(--size-80);
-    overflow-y: auto;
-    background: var(--white);
-    border: var(--border-size-1) solid var(--gray-300);
-    border-radius: var(--radius-2);
-    box-shadow: var(--shadow-4);
-    padding: var(--size-2) 0;
-    margin: 0;
-    list-style: none;
-
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  /* Options */
-  &__option {
-    padding: var(--size-205) var(--size-3);
-    cursor: pointer;
-    color: var(--ps-color-text);
-    font-size: var(--font-size-1);
-    transition: background-color var(--ps-transition-duration-fast) var(--ease-3);
-
-    &:hover:not(&--disabled) {
-      background: var(--gray-100);
-    }
-
-    &[aria-selected="true"] {
-      background: var(--gray-50);
-      color: var(--primary);
-      font-weight: var(--font-weight-600);
-    }
-
-    &--disabled {
-      color: var(--ps-color-text-muted);
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    &:focus-visible {
-      outline: var(--ps-border-width-focus) solid var(--blue-600);
-      outline-offset: calc(var(--size-05) * -1);
-    }
-  }
-
-  /* Native select fallback (hidden by default)
-   * Visually hidden pattern - WCAG standard
-   * Exception: 1px values are acceptable (standard CSS pattern)
-   * Reference: https://www.w3.org/WAI/WCAG21/Techniques/css/C7
-   */
-  &__native {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 1px;
-    height: 1px;
-  }
-
-  /* Shape modifiers */
-  &--none {
-    .ps-dropdown__button {
-      border-radius: 0;
-    }
-
-    .ps-dropdown__list {
-      border-radius: 0;
-    }
-  }
-
-  &--pill {
-    .ps-dropdown__button {
-      border-radius: var(--radius-round);
-    }
-
-    .ps-dropdown__list {
-      border-radius: var(--radius-4);
-    }
-  }
-
-  /* Size modifiers */
-  &--small {
-    .ps-dropdown__button {
-      padding: var(--size-105) var(--size-2);
-      font-size: var(--ps-font-size-sm);
-      min-width: var(--ps-dropdown-min-width-small);
-    }
-
-    .ps-dropdown__icon {
-      width: var(--ps-icon-size-16);
-      height: var(--ps-icon-size-16);
-      font-size: var(--ps-icon-size-16);
-    }
-
-    .ps-dropdown__option {
-      padding: var(--size-2) var(--size-2);
-      font-size: var(--ps-font-size-sm);
-    }
-  }
-
-  &--large {
-    .ps-dropdown__button {
-      padding: var(--size-3) var(--size-4);
-      font-size: var(--font-size-2);
-      min-width: var(--ps-dropdown-min-width-large);
-    }
-
-    .ps-dropdown__icon {
-      width: var(--ps-icon-size-20);
-      height: var(--ps-icon-size-20);
-    }
-
-    .ps-dropdown__option {
-      padding: var(--size-3) var(--size-4);
-      font-size: var(--font-size-2);
-    }
-  }
-
-  /* Disabled state */
-  &--disabled {
-    .ps-dropdown__list {
-      display: none;
-    }
+  &[aria-expanded="true"] .ps-dropdown__icon svg {
+    transform: rotate(180deg);
   }
 }
+
+.ps-dropdown__label {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-dropdown__icon {
+  flex-shrink: 0;
+  width: var(--ps-dropdown-icon-size);
+  height: var(--ps-dropdown-icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-dropdown__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  transition: transform var(--ps-dropdown-transition-duration) var(--ps-dropdown-transition-timing);
+}
+
+.ps-dropdown__list {
+  position: absolute;
+  z-index: var(--ps-dropdown-z-index);
+  top: calc(100% + var(--ps-dropdown-list-offset));
+  left: 0;
+  min-width: 100%;
+  max-height: var(--ps-dropdown-max-height);
+  overflow-y: auto;
+  background: var(--ps-dropdown-bg);
+  border: var(--ps-dropdown-border-width) solid var(--ps-dropdown-border-color);
+  border-radius: var(--ps-dropdown-border-radius);
+  box-shadow: var(--ps-dropdown-shadow);
+  padding: var(--ps-dropdown-list-padding) 0;
+  margin: 0;
+  list-style: none;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.ps-dropdown__option {
+  padding: var(--ps-dropdown-option-padding-y) var(--ps-dropdown-option-padding-x);
+  cursor: pointer;
+  color: var(--ps-dropdown-text-color);
+  font-size: var(--ps-dropdown-font-size);
+  font-weight: var(--ps-dropdown-font-weight);
+  transition: background-color var(--ps-dropdown-transition-duration) var(--ps-dropdown-transition-timing);
+
+  &:hover:not(&--disabled) {
+    background: var(--ps-dropdown-option-hover-bg);
+  }
+
+  &[aria-selected="true"] {
+    background: var(--ps-dropdown-option-selected-bg);
+    color: var(--ps-dropdown-option-selected-color);
+    font-weight: var(--ps-dropdown-font-weight-selected);
+  }
+
+  &--disabled {
+    color: var(--ps-dropdown-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: var(--ps-dropdown-focus-outline-width) solid var(--ps-dropdown-border-color-focus);
+    outline-offset: calc(var(--ps-dropdown-focus-outline-width) * -1);
+  }
+}
+
+/* Native select fallback (hidden by default) */
+.ps-dropdown__native {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+/* ============================================
+   Modifiers - Shape
+   ============================================ */
+
+.ps-dropdown--none {
+  .ps-dropdown__button,
+  .ps-dropdown__list {
+    border-radius: 0;
+  }
+}
+
+.ps-dropdown--pill {
+  .ps-dropdown__button {
+    border-radius: var(--radius-round);
+  }
+  
+  .ps-dropdown__list {
+    border-radius: var(--radius-4);
+  }
+}
+
+/* ============================================
+   Modifiers - Size
+   ============================================ */
+
+.ps-dropdown--xs {
+  --ps-dropdown-button-padding-y: var(--size-1);
+  --ps-dropdown-button-padding-x: var(--size-2);
+  --ps-dropdown-option-padding-y: var(--size-1);
+  --ps-dropdown-option-padding-x: var(--size-2);
+  --ps-dropdown-font-size: var(--font-size--1);
+  --ps-dropdown-icon-size: var(--size-3);
+  --ps-dropdown-min-width: 140px;
+}
+
+.ps-dropdown--sm {
+  --ps-dropdown-button-padding-y: var(--size-105);
+  --ps-dropdown-button-padding-x: var(--size-2);
+  --ps-dropdown-option-padding-y: var(--size-2);
+  --ps-dropdown-option-padding-x: var(--size-2);
+  --ps-dropdown-font-size: var(--font-size-0);
+  --ps-dropdown-icon-size: var(--size-4);
+  --ps-dropdown-min-width: 160px;
+}
+
+/* md is default (200px min-width) */
+
+.ps-dropdown--lg {
+  --ps-dropdown-button-padding-y: var(--size-3);
+  --ps-dropdown-button-padding-x: var(--size-4);
+  --ps-dropdown-font-size: var(--font-size-2);
+  --ps-dropdown-icon-size: var(--size-6);
+  --ps-dropdown-min-width: 240px;
+}
+
+.ps-dropdown--xl {
+  --ps-dropdown-button-padding-y: var(--size-4);
+  --ps-dropdown-button-padding-x: var(--size-5);
+  --ps-dropdown-font-size: var(--font-size-3);
+  --ps-dropdown-icon-size: var(--size-7);
+  --ps-dropdown-min-width: 280px;
+}
+
+.ps-dropdown--xxl {
+  --ps-dropdown-button-padding-y: var(--size-5);
+  --ps-dropdown-button-padding-x: var(--size-6);
+  --ps-dropdown-font-size: var(--font-size-4);
+  --ps-dropdown-icon-size: var(--size-8);
+  --ps-dropdown-min-width: 320px;
+}
+

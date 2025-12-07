@@ -1,0 +1,10 @@
+/**
+ * Radios (Molecule)
+ * Drupal radios group wrapper
+ */
+
+.form-radios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}

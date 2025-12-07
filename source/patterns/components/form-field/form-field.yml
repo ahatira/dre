@@ -1,19 +1,13 @@
-# FormField (Molecule) - Complete form field component
-# Default configuration with label, field, and helper text
-
-label: 'Email Address' # Label text (required)
-id: 'email-field' # Unique ID for label/field association (auto-generated if omitted)
-
-# Field configuration (pass-through to ps-field atom)
-field:
-  type: 'email' # Field type: text|email|number|search|select|textarea
-  value: '' # Current value
-  placeholder: 'Enter your email address' # Placeholder text
-  disabled: false # Disabled state
-  icon: '' # Optional icon name (without "icon-" prefix)
-  iconPosition: 'right' # Icon position: left|right
-
-helperText: 'We will never share your email with anyone.' # Optional helper text below field
-error: '' # Error message (when present, sets error state and replaces helper)
-required: false # Mark field as required (shows asterisk)
-disabled: false # Disable entire field group (cascades to field)
+# Default props for form-field
+label: "Field label"
+type: "text"
+name: "field"
+id: "field"
+value: ""
+placeholder: "Enter value..."
+required: false
+disabled: false
+helper: "This is a helper text"
+error: ""
+rows: 4
+options: []

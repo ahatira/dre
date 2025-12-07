@@ -17,7 +17,8 @@ Accessible select dropdown with custom styling, keyboard navigation, and native 
 | `name` | `string` | — | ✅ | Form field name attribute |
 | `label` | `string` | — | — | Visible button label (uses selected option if not provided) |
 | `placeholder` | `string` | `'Select an option'` | — | Placeholder text when no selection |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | — | Size variant |
+| `color` | `string` | `'default'` | — | Color variant (default, primary, secondary, info, warning, danger, success) |
+| `size` | `string` | `'md'` | — | Size variant (xs, sm, md, lg, xl, xxl) |
 | `shape` | `'none' \| 'rounded' \| 'pill'` | `'rounded'` | — | Border radius style |
 | `disabled` | `boolean` | `false` | — | Disable dropdown |
 | `options` | `array` | `[]` | ✅ | Array of option objects (see below) |
@@ -46,9 +47,18 @@ ps-dropdown                         # Block
   ps-dropdown__native               # Fallback <select>
 
 Modifiers:
-  ps-dropdown--small                # Small size
-  ps-dropdown--medium               # Medium size (default)
-  ps-dropdown--large                # Large size
+  ps-dropdown--xs                   # Extra small size
+  ps-dropdown--sm                   # Small size
+  ps-dropdown--md                   # Medium size (default)
+  ps-dropdown--lg                   # Large size
+  ps-dropdown--xl                   # Extra large size
+  ps-dropdown--xxl                  # Extra extra large size
+  ps-dropdown--primary              # Primary color variant
+  ps-dropdown--secondary            # Secondary color variant
+  ps-dropdown--info                 # Info color variant
+  ps-dropdown--warning              # Warning color variant
+  ps-dropdown--danger               # Danger color variant
+  ps-dropdown--success              # Success color variant
   ps-dropdown--none                 # No border-radius (sharp corners)
   ps-dropdown--pill                 # Fully rounded ends
   ps-dropdown--disabled             # Disabled state
@@ -142,6 +152,55 @@ Modifiers:
 {% include '@components/dropdown/dropdown.twig' with {
   name: 'locked_field',
   disabled: true,
+  options: [...]
+} %}
+```
+
+---
+
+## Variants
+
+### Color Variants
+
+The `color` prop modifies the border and focus colors of the dropdown button:
+
+- **default** (default): Standard gray border (`--border-default`)
+- **primary**: Brand green border (`--primary`)
+- **secondary**: Secondary blue border (`--secondary`)
+- **info**: Informational blue border (`--info`)
+- **warning**: Warning orange border (`--warning`)
+- **danger**: Error red border (`--danger`)
+- **success**: Success green border (`--success`)
+
+### Size Variants
+
+The `size` prop adjusts the dropdown height, padding, and font-size:
+
+- **xs**: Extra small (height: 28px, font: 12px)
+- **sm**: Small (height: 32px, font: 13px)
+- **md** (default): Medium (height: 40px, font: 14px)
+- **lg**: Large (height: 48px, font: 16px)
+- **xl**: Extra large (height: 56px, font: 18px)
+- **xxl**: Extra extra large (height: 64px, font: 20px)
+
+### Shape Variants
+
+```twig
+{# Sharp corners #}
+{% include '@components/dropdown/dropdown.twig' with {
+  shape: 'none',
+  options: [...]
+} %}
+
+{# Rounded corners (default) #}
+{% include '@components/dropdown/dropdown.twig' with {
+  shape: 'rounded',
+  options: [...]
+} %}
+
+{# Pill shape #}
+{% include '@components/dropdown/dropdown.twig' with {
+  shape: 'pill',
   options: [...]
 } %}
 ```

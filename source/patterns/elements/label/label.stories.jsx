@@ -73,12 +73,66 @@ export default {
         defaultValue: { summary: 'ps-label' },
       },
     },
+    color: {
+      description: 'Color variant',
+      control: 'select',
+      options: ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'],
+      table: { category: 'Appearance' },
+    },
+    size: {
+      description: 'Size variant',
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      table: { category: 'Appearance' },
+    },
   },
 };
 
 export const Default = {
   render: (args) => labelTwig(args),
   args: { ...data.props },
+};
+
+// Color Variants
+export const Colors = {
+  render: () => {
+    const colors = ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'];
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+        ${colors
+          .map(
+            (color) => `
+          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+            <p style="margin: 0; font-size: var(--font-size-0); color: var(--gray-600); text-transform: capitalize;">${color}</p>
+            ${labelTwig({ text: `${color.charAt(0).toUpperCase() + color.slice(1)} label`, color, required: true })}
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+};
+
+// Size Variants
+export const Sizes = {
+  render: () => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+        ${sizes
+          .map(
+            (size) => `
+          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+            <p style="margin: 0; font-size: var(--font-size-0); color: var(--gray-600); text-transform: uppercase;">${size}</p>
+            ${labelTwig({ text: `Size ${size.toUpperCase()} label`, size, required: true })}
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
 };
 
 export const AllStates = {

@@ -1,0 +1,10 @@
+/**
+ * Checkboxes (Molecule)
+ * Drupal checkboxes group wrapper
+ */
+
+.form-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}

@@ -10,7 +10,9 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
 | `forId` | `string` | — | ID of the associated form field for proper label-input binding |
 | `required` | `boolean` | `false` | Adds visual asterisk (*) and screen reader text "(required field)" |
 | `disabled` | `boolean` | `false` | Disabled state with reduced opacity and muted color |
-| `baseClass` | `string` | `'ps-label'` | Override root class when composing inside other components (e.g., `'ps-form-field__label'`). Modifiers map to `baseClass--required` and `baseClass--disabled`; elements use `baseClass__text` and `baseClass__required`.
+| `color` | `string` | `default` | Color variant (default, primary, secondary, info, warning, danger, success) |
+| `size` | `string` | `md` | Size variant (xs, sm, md, lg, xl) |
+| `baseClass` | `string` | `'ps-label'` | Override root class when composing inside other components (e.g., `'ps-form-element__label'`). Modifiers map to `baseClass--required` and `baseClass--disabled`; elements use `baseClass__text` and `baseClass__required`.
 | `attributes` | `Drupal.Core.Template.Attribute` | — | Additional HTML attributes |
 
 ## BEM Structure
@@ -23,6 +25,8 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
 Modifiers:
   .ps-label--required       # Applied when required=true (or `baseClass--required` when overridden)
   .ps-label--disabled       # Applied when disabled=true (or `baseClass--disabled` when overridden)
+  .ps-label--primary, .ps-label--secondary, .ps-label--info, .ps-label--warning, .ps-label--danger, .ps-label--success # Color variants
+  .ps-label--xs, .ps-label--sm, .ps-label--md, .ps-label--lg, .ps-label--xl # Size variants
 
 Global Utilities (from base/utilities/visibility.css):
   .visually-hidden          # Screen reader only text (WCAG standard)
@@ -72,6 +76,28 @@ References from `source/props/*.css`:
 
 ### Default
 Standard label with black text, semi-bold weight, clickable cursor.
+
+### Color Variants
+
+- **default** (default): Standard text color (`--text-primary`)
+- **primary**: Brand green color (`--primary`)
+- **secondary**: Secondary blue color (`--secondary`)
+- **info**: Informational blue color (`--info`)
+- **warning**: Warning orange color (`--warning`)
+- **danger**: Error red color (`--danger`)
+- **success**: Success green color (`--success`)
+
+Color variants modify the label text color via CSS custom properties.
+
+### Size Variants
+
+- **xs**: Extra small (font: 12px)
+- **sm**: Small (font: 13px)
+- **md** (default): Medium (font: 14px)
+- **lg**: Large (font: 16px)
+- **xl**: Extra large (font: 18px)
+
+Size variants adjust the font-size via Layer 2 CSS variables.
 
 ### Required (`required: true`)
 Adds:
@@ -152,14 +178,15 @@ Combines both modifiers - red asterisk with disabled styling.
 }) }}
 ```
 
-### 5. With Form-Field Molecule
-Label is typically composed within `form-field` molecule:
+### 5. With Form-Element Molecule
+Label is typically composed within `form-element` molecule:
 ```twig
-{# form-field uses label internally #}
-{{ include('@components/form-field/form-field.twig', {
+{# form-element uses label internally #}
+{{ include('@components/form-element/form-element.twig', {
   label: 'Your name',
   required: true,
-  field: { type: 'text', placeholder: 'John Doe' }
+  type: 'text',
+  placeholder: 'John Doe'
 }) }}
 ```
 
@@ -209,7 +236,7 @@ function ps_theme_preprocess_label(&$variables) {
 ## Component Composition
 
 **Used By** (Molecules that compose this atom):
-- `form-field` — Combines label + field + helper/error
+- `form-element` — Combines label + field + helper/error
 - `checkbox` — May use label pattern
 - `radio` — May use label pattern
 
@@ -217,12 +244,12 @@ function ps_theme_preprocess_label(&$variables) {
 
 ### Composition Example with `baseClass`
 ```twig
-{# Inside a form-field molecule #}
+{# Inside a form-element molecule #}
 {% include '@elements/label/label.twig' with {
   text: 'Email address',
   forId: 'contact-email',
   required: true,
-  baseClass: 'ps-form-field__label'
+  baseClass: 'ps-form-element__label'
 } %}
 ```
 

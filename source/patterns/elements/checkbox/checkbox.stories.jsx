@@ -3,6 +3,7 @@ import data from './checkbox.yml';
 
 export default {
   title: 'Elements/Checkbox',
+  render: (args) => checkboxTwig(args),
   tags: ['autodocs'],
   parameters: {
     docs: {

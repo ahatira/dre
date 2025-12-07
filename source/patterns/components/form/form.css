@@ -1,0 +1,17 @@
+/**
+ * Form (Molecule)
+ * Drupal form wrapper
+ * Base styling for form elements
+ */
+
+.form {
+  /* Base form styling */
+}
+
+.form-item {
+  margin-bottom: var(--size-4);
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}

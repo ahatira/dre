@@ -51,13 +51,14 @@ export default {
 
     // Appearance
     size: {
-      description: 'Size variant: small (compact), medium (default), or large (prominent)',
+      description:
+        'Size variant: xs (extra small), sm (small), md (default), lg (large), xl (extra large), xxl (extra extra large)',
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
-        defaultValue: { summary: 'medium' },
+        defaultValue: { summary: 'md' },
       },
     },
     shape: {
@@ -97,56 +98,6 @@ export default {
 export const Default = {
   render: (args) => dropdownTwig(args),
   args: { ...dropdownData },
-};
-
-// All sizes showcase
-export const AllSizes = {
-  render: () => {
-    const baseData = {
-      name: 'size_demo',
-      options: [
-        { label: 'Apartment', value: 'apartment', selected: true },
-        { label: 'House', value: 'house' },
-        { label: 'Loft', value: 'loft' },
-      ],
-    };
-
-    const small = dropdownTwig({
-      ...baseData,
-      name: 'small',
-      label: 'Small dropdown',
-      size: 'small',
-    });
-    const medium = dropdownTwig({
-      ...baseData,
-      name: 'medium',
-      label: 'Medium dropdown',
-      size: 'medium',
-    });
-    const large = dropdownTwig({
-      ...baseData,
-      name: 'large',
-      label: 'Large dropdown',
-      size: 'large',
-    });
-
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 400px;">
-        <div>
-          <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Small</label>
-          ${small}
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Medium (Default)</label>
-          ${medium}
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Large</label>
-          ${large}
-        </div>
-      </div>
-    `;
-  },
 };
 
 // All shapes showcase
@@ -194,6 +145,35 @@ export const AllShapes = {
           <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Pill (Fully rounded)</label>
           ${pill}
         </div>
+      </div>
+    `;
+  },
+};
+
+// All sizes showcase
+export const AllSizes = {
+  render: () => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+    const baseData = {
+      options: [
+        { label: 'Apartment', value: 'apartment', selected: true },
+        { label: 'House', value: 'house' },
+        { label: 'Loft', value: 'loft' },
+      ],
+    };
+
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 600px;">
+        ${sizes
+          .map(
+            (size) => `
+          <div>
+            <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600); text-transform: uppercase;">${size}</label>
+            ${dropdownTwig({ ...baseData, name: `dropdown-${size}`, label: `Property type (${size.toUpperCase()})`, size })}
+          </div>
+        `
+          )
+          .join('')}
       </div>
     `;
   },

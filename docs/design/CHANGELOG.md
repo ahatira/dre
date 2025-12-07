@@ -49,7 +49,7 @@ Date: 2025-11-28
   - All components reference existing tokens and follow SDC API structure.
   - Updated COMPONENT_MANIFEST.yml to mark completed.
 
- 2025-11-28: Added atoms (icon, link, field, checkbox, radio), molecules (form-field, card), organisms (header, footer), templates (grid-layout). Recorded [QUESTION] on card variants strategy.
+ 2025-11-28: Added atoms (icon, link, field, checkbox, radio), molecules (form-element, card), organisms (header, footer), templates (grid-layout). Recorded [QUESTION] on card variants strategy.
  2025-11-28: Added template `templates/page-container.md` with props, Twig, a11y, tokens references. Updated `design/COMPONENT_MANIFEST.yml` to mark `templates.grid-layout` and `templates.page-container` as completed.
 2025-11-28: Synced `design/tokens/typography.yml` with `UI/02-text-styles.png`:
   - Added `font.family.secondary` = Open Sans.

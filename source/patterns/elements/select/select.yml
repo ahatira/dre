@@ -1,0 +1,12 @@
+# Default props for select atom
+name: "select"
+id: null
+placeholder: null
+disabled: false
+required: false
+color: "default"
+size: "md"
+options:
+  - { value: "", label: "Select an option", disabled: true, selected: true }
+  - { value: "opt1", label: "Option 1" }
+  - { value: "opt2", label: "Option 2" }

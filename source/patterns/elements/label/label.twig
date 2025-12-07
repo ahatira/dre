@@ -9,10 +9,14 @@
  #}
 
 {%- set baseClass = baseClass|default('ps-label') -%}
+{%- set color = color|default('default') -%}
+{%- set size = size|default('md') -%}
 {%- set classes = [
   baseClass,
   required ? baseClass ~ '--required' : null,
-  disabled ? baseClass ~ '--disabled' : null
+  disabled ? baseClass ~ '--disabled' : null,
+  color != 'default' ? baseClass ~ '--' ~ color : null,
+  size != 'md' ? baseClass ~ '--' ~ size : null
 ] -%}
 
 <label{% if attributes %} {{ attributes.addClass(classes) }}{% else %} class="{{ classes|join(' ')|trim }}"{% endif %}{% if forId %} for="{{ forId }}"{% endif %}>

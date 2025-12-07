@@ -3,6 +3,9 @@
 @import './breadcrumb/breadcrumb.css';
 @import './card/card.css';
 @import './carousel/carousel.css';
+@import './checkboxes/checkboxes.css';
 @import './dropdown/dropdown.css';
+@import './form/form.css';
 @import './form-field/form-field.css';
 @import './offer-card/offer-card.css';
+@import './radios/radios.css';

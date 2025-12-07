@@ -1,36 +1,33 @@
 {#
- * PS Radio (Atom) - Radio button for single selection
+ * Radio Item (Atom-like)
+ * Individual radio input with label wrapper
+ * Derived from Drupal form radio item
  *
- * @param string name - Radio group name for single selection (required, all radios in group share same name)
- * @param string value - Unique value for this radio button (required)
- * @param string label - Visible label text displayed next to radio (optional but recommended)
- * @param boolean checked - Checked state, only one per group should be true (default: false)
- * @param boolean disabled - Disabled state with 50% opacity (default: false)
+ * @param string name - Input name (group identifier)
+ * @param string value - Input value
+ * @param string id - Input ID
+ * @param boolean checked - Checked state
+ * @param boolean disabled - Disabled state
+ * @param string label - Label text
+ * @param object attributes - Drupal attributes for input
  #}
-{%- set name = name|default('radio') -%}
+{%- set name = name|default('option') -%}
 {%- set value = value|default('1') -%}
-{%- set label = label|default('Option label') -%}
+{%- set id = id|default(name ~ '-' ~ value) -%}
 {%- set checked = checked|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set label = label|default('') -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set classes = [
-  'ps-radio',
-  disabled ? 'ps-radio--disabled' : null
-] -%}
-
-<label {{ attributes.addClass(classes) }}>
+<div class="form-item form-type-radio">
   <input
     type="radio"
-    class="ps-radio__input"
-    name="{{ name }}"
-    value="{{ value }}"
-    {% if checked %}checked{% endif %}
-    {% if disabled %}disabled{% endif %}
-    aria-checked="{{ checked ? 'true' : 'false' }}"
+    {{ attributes.addClass('form-radio') }}
+    {%- if id %} id="{{ id }}"{% endif -%}
+    {%- if name %} name="{{ name }}"{% endif -%}
+    {%- if value %} value="{{ value }}"{% endif -%}
+    {%- if checked %} checked{% endif -%}
+    {%- if disabled %} disabled{% endif -%}
   />
-  <span class="ps-radio__circle" aria-hidden="true"></span>
-  {% if label %}
-    <span class="ps-radio__label">{{ label }}</span>
-  {% endif %}
-</label>
+  {%- if label %}<label for="{{ id }}">{{ label }}</label>{% endif -%}
+</div>

@@ -1,0 +1,49 @@
+{#
+ * Input (Atom)
+ * Base text-like input (no label) compatible with Drupal form attributes.
+ *
+ * @param string type - Input type (text|email|password|number|search|tel|url, default: text)
+ * @param string name - Input name attribute (optional but recommended)
+ * @param string value - Input value (optional)
+ * @param string placeholder - Placeholder text (optional)
+ * @param string id - Input ID (optional, defaults to name-based id when provided)
+ * @param string autocomplete - Autocomplete attribute (optional)
+ * @param boolean disabled - Disabled state (default: false)
+ * @param boolean required - Required state (default: false)
+ * @param object attributes - Drupal attributes object applied to the input element (optional)
+ * @param object wrapper_attributes - Drupal attributes for an optional wrapper (optional)
+ #}
+
+{%- set type = type|default('text') -%}
+{%- set name = name|default('') -%}
+{%- set value = value|default('') -%}
+{%- set placeholder = placeholder|default('') -%}
+{%- set id = id|default(name ? name ~ '-input' : 'ps-input') -%}
+{%- set autocomplete = autocomplete|default(null) -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set required = required|default(false) -%}
+{%- set color = color|default('default') -%}
+{%- set size = size|default('md') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
+{%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
+
+{%- set classes = [
+  'ps-input',
+  disabled ? 'ps-input--disabled' : null,
+  color != 'default' ? 'ps-input--' ~ color : null,
+  size != 'md' ? 'ps-input--' ~ size : null
+] -%}
+
+<input
+  {{ attributes
+    .addClass(classes)
+    .setAttribute('type', type)
+    .setAttribute('id', id)
+    .setAttribute('name', name)
+    .setAttribute('value', value)
+    .setAttribute('placeholder', placeholder)
+    .setAttribute('autocomplete', autocomplete)
+  }}
+  {%- if disabled %} disabled aria-disabled="true"{% endif -%}
+  {%- if required %} required aria-required="true"{% endif -%}
+/>

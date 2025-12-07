@@ -1,105 +1,198 @@
-@layer components {
-  .ps-search-bar {
-    --ps-search-bar-input-height: var(--size-9);
-    --ps-search-bar-input-padding: var(--size-2) var(--size-3);
-    --ps-search-bar-icon-size: var(--size-5);
+/**
+ * Search Bar (Molecule)
+ * Search input with icon and optional suggestions
+ *
+ * BEM: ps-search-bar, ps-search-bar__form, ps-search-bar__input-wrapper,
+ *      ps-search-bar__icon, ps-search-bar__input, ps-search-bar__suggestions,
+ *      ps-search-bar__suggestion, ps-search-bar__suggestion-link
+ * States: :hover, :focus-visible
+ */
 
-    position: relative;
-    width: 100%;
-    max-width: 400px;
+.ps-search-bar {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     ============================================ */
+  --ps-search-bar-input-height: var(--size-10);
+  --ps-search-bar-input-padding-y: var(--size-2);
+  --ps-search-bar-input-padding-x: var(--size-3);
+  --ps-search-bar-icon-size: var(--size-5);
+  --ps-search-bar-icon-spacing: var(--size-2);
+
+  /* Colors */
+  --ps-search-bar-bg: var(--white);
+  --ps-search-bar-border-color: var(--gray-300);
+  --ps-search-bar-border-color-hover: var(--gray-400);
+  --ps-search-bar-border-color-focus: var(--primary);
+  --ps-search-bar-text-color: var(--text-primary);
+  --ps-search-bar-placeholder-color: var(--gray-500);
+  --ps-search-bar-icon-color: var(--gray-500);
+
+  /* Borders */
+  --ps-search-bar-border-width: var(--border-size-1);
+  --ps-search-bar-border-radius: var(--radius-3);
+  --ps-search-bar-focus-ring-width: var(--border-size-2);
+
+  /* Suggestions */
+  --ps-search-bar-suggestions-bg: var(--white);
+  --ps-search-bar-suggestions-border: var(--gray-300);
+  --ps-search-bar-suggestions-shadow: var(--shadow-3);
+  --ps-search-bar-suggestion-hover-bg: var(--gray-100);
+  --ps-search-bar-suggestions-z-index: var(--layer-40);
+
+  /* Typography */
+  --ps-search-bar-font-family: var(--font-sans);
+  --ps-search-bar-font-size: var(--font-size-1);
+
+  /* Transitions */
+  --ps-search-bar-transition-duration: var(--duration-fast);
+  --ps-search-bar-transition-timing: var(--ease-3);
+
+  /* ============================================
+     Base Styles
+     ============================================ */
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.ps-search-bar__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.ps-search-bar__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ps-search-bar__icon {
+  position: absolute;
+  left: var(--ps-search-bar-icon-spacing);
+  width: var(--ps-search-bar-icon-size);
+  height: var(--ps-search-bar-icon-size);
+  fill: var(--ps-search-bar-icon-color);
+  pointer-events: none;
+}
+
+.ps-search-bar__input {
+  width: 100%;
+  height: var(--ps-search-bar-input-height);
+  padding: var(--ps-search-bar-input-padding-y) var(--ps-search-bar-input-padding-x);
+  padding-left: calc(var(--ps-search-bar-icon-spacing) + var(--ps-search-bar-icon-size) + var(--ps-search-bar-icon-spacing));
+  border: var(--ps-search-bar-border-width) solid var(--ps-search-bar-border-color);
+  border-radius: var(--ps-search-bar-border-radius);
+  background-color: var(--ps-search-bar-bg);
+  color: var(--ps-search-bar-text-color);
+  font-size: var(--ps-search-bar-font-size);
+  font-family: var(--ps-search-bar-font-family);
+  transition: 
+    border-color var(--ps-search-bar-transition-duration) var(--ps-search-bar-transition-timing), 
+    box-shadow var(--ps-search-bar-transition-duration) var(--ps-search-bar-transition-timing);
+
+  &::placeholder {
+    color: var(--ps-search-bar-placeholder-color);
   }
 
-  .ps-search-bar__form {
-    display: flex;
-    flex-direction: column;
+  &:hover:not(:focus-visible) {
+    border-color: var(--ps-search-bar-border-color-hover);
   }
 
-  .ps-search-bar__input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .ps-search-bar__icon {
-    position: absolute;
-    left: var(--size-2);
-    width: var(--ps-search-bar-icon-size);
-    height: var(--ps-search-bar-icon-size);
-    color: var(--gray-500);
-    pointer-events: none;
-  }
-
-  .ps-search-bar__input {
-    width: 100%;
-    height: var(--ps-search-bar-input-height);
-    padding: var(--ps-search-bar-input-padding);
-    padding-left: calc(var(--size-2) + var(--ps-search-bar-icon-size) + var(--size-2));
-    border: var(--border-1) solid var(--gray-300);
-    border-radius: var(--radius-md);
-    background-color: var(--white);
-    color: var(--text-primary);
-    font-size: var(--size-3);
-    font-family: var(--font-sans);
-    transition: border-color var(--duration-short) var(--ease-out-quad), box-shadow var(--duration-short) var(--ease-out-quad);
-
-    &:hover {
-      border-color: var(--gray-400);
-    }
-
-    &:focus-visible {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 var(--border-2) var(--primary-200);
-    }
-
-    &::placeholder {
-      color: var(--gray-500);
-    }
-  }
-
-  .ps-search-bar__suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: var(--size-2);
-    background-color: var(--white);
-    border: var(--border-1) solid var(--gray-300);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-3);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: var(--layer-dropdown);
-  }
-
-  .ps-search-bar__suggestion {
-    margin: 0;
-    padding: 0;
-
-    &:first-child .ps-search-bar__suggestion-link {
-      border-radius: var(--radius-md) var(--radius-md) 0 0;
-    }
-
-    &:last-child .ps-search-bar__suggestion-link {
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
-    }
-  }
-
-  .ps-search-bar__suggestion-link {
-    display: block;
-    padding: var(--size-2) var(--size-3);
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: background-color var(--duration-short) var(--ease-out-quad);
-
-    &:hover {
-      background-color: var(--gray-100);
-    }
-
-    &:focus-visible {
-      outline: var(--border-2) solid var(--primary);
-      outline-offset: calc(-1 * var(--border-2));
-    }
+  &:focus-visible {
+    outline: none;
+    border-color: var(--ps-search-bar-border-color-focus);
+    box-shadow: 0 0 0 var(--ps-search-bar-focus-ring-width) color-mix(in srgb, var(--primary) 20%, transparent);
   }
 }
+
+.ps-search-bar__suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--size-2);
+  background-color: var(--ps-search-bar-suggestions-bg);
+  border: var(--ps-search-bar-border-width) solid var(--ps-search-bar-suggestions-border);
+  border-radius: var(--ps-search-bar-border-radius);
+  box-shadow: var(--ps-search-bar-suggestions-shadow);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: var(--ps-search-bar-suggestions-z-index);
+}
+
+.ps-search-bar__suggestion {
+  margin: 0;
+  padding: 0;
+
+  &:first-child .ps-search-bar__suggestion-link {
+    border-radius: var(--ps-search-bar-border-radius) var(--ps-search-bar-border-radius) 0 0;
+  }
+
+  &:last-child .ps-search-bar__suggestion-link {
+    border-radius: 0 0 var(--ps-search-bar-border-radius) var(--ps-search-bar-border-radius);
+  }
+}
+
+.ps-search-bar__suggestion-link {
+  display: block;
+  padding: var(--size-2) var(--size-3);
+  color: var(--ps-search-bar-text-color);
+  text-decoration: none;
+  transition: background-color var(--ps-search-bar-transition-duration) var(--ps-search-bar-transition-timing);
+
+  &:hover {
+    background-color: var(--ps-search-bar-suggestion-hover-bg);
+  }
+
+  &:focus-visible {
+    outline: var(--ps-search-bar-focus-ring-width) solid var(--ps-search-bar-border-color-focus);
+    outline-offset: calc(var(--ps-search-bar-focus-ring-width) * -1);
+  }
+}
+
+/* ============================================
+   Modifiers - Size
+   ============================================ */
+.ps-search-bar--xs {
+  --ps-search-bar-input-height: var(--size-7);
+  --ps-search-bar-input-padding-y: var(--size-1);
+  --ps-search-bar-input-padding-x: var(--size-2);
+  --ps-search-bar-icon-size: var(--size-3);
+  --ps-search-bar-font-size: var(--font-size--1);
+}
+
+.ps-search-bar--sm {
+  --ps-search-bar-input-height: var(--size-8);
+  --ps-search-bar-input-padding-y: var(--size-105);
+  --ps-search-bar-input-padding-x: var(--size-3);
+  --ps-search-bar-icon-size: var(--size-4);
+  --ps-search-bar-font-size: var(--font-size-0);
+}
+
+/* md is default */
+
+.ps-search-bar--lg {
+  --ps-search-bar-input-height: var(--size-12);
+  --ps-search-bar-input-padding-y: var(--size-3);
+  --ps-search-bar-input-padding-x: var(--size-5);
+  --ps-search-bar-icon-size: var(--size-6);
+  --ps-search-bar-font-size: var(--font-size-2);
+}
+
+.ps-search-bar--xl {
+  --ps-search-bar-input-height: var(--size-14);
+  --ps-search-bar-input-padding-y: var(--size-4);
+  --ps-search-bar-input-padding-x: var(--size-6);
+  --ps-search-bar-icon-size: var(--size-7);
+  --ps-search-bar-font-size: var(--font-size-3);
+}
+
+.ps-search-bar--xxl {
+  --ps-search-bar-input-height: var(--size-16);
+  --ps-search-bar-input-padding-y: var(--size-5);
+  --ps-search-bar-input-padding-x: var(--size-7);
+  --ps-search-bar-icon-size: var(--size-8);
+  --ps-search-bar-font-size: var(--font-size-4);
+}
+

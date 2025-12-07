@@ -1,91 +1,91 @@
 {#
- * FormField (Molecule) - Complete form field with label, input, helper, and error message
- * Wraps ps-field (atom) with label, helper text, and error messages.
+ * Form Field (Molecule)
+ * Complete form field with label, input/select/textarea, helper, and error
+ * Derived from Drupal form field rendering
  *
- * @param string label - Label text for the field (required)
- * @param string id - Unique ID for field and label association (optional, auto-generated if not provided)
- * @param object field - Props to pass through to ps-field component (required):
- *   - type: 'text'|'email'|'number'|'search'|'select'|'textarea' (default: 'text')
- *   - value: field value
- *   - placeholder: placeholder text
- *   - disabled: disabled state
- *   - icon: icon name without "icon-" prefix
- *   - iconPosition: 'left'|'right' (default: 'right')
- * @param string helperText - Optional helper text below field
- * @param string error - Error message to display (sets error state)
- * @param boolean required - Mark field as required (default: false)
- * @param boolean disabled - Disable entire field group (default: false)
- * @param object attributes - Additional HTML attributes for wrapper
+ * @param string label - Label text
+ * @param string type - Field type (text, email, password, number, search, tel, url, select, textarea)
+ * @param string name - Field name
+ * @param string id - Field ID
+ * @param string value - Field value
+ * @param string placeholder - Placeholder text
+ * @param boolean required - Required state
+ * @param boolean disabled - Disabled state
+ * @param string helper - Helper/description text
+ * @param string error - Error message
+ * @param string rows - Rows for textarea
+ * @param array options - Options for select
+ * @param object attributes - Drupal attributes for field
  #}
-
+{%- set type = type|default('text') -%}
 {%- set label = label|default('') -%}
-{%- set id = id|default('field-' ~ random()) -%}
-{%- set field = field|default({}) -%}
-{%- set helperText = helperText|default('') -%}
-{%- set error = error|default('') -%}
+{%- set name = name|default('field') -%}
+{%- set id = id|default(name) -%}
+{%- set value = value|default('') -%}
+{%- set placeholder = placeholder|default('') -%}
 {%- set required = required|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set helper = helper|default('') -%}
+{%- set error = error|default('') -%}
+{%- set rows = rows|default(4) -%}
+{%- set options = options|default([]) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
-{# Merge disabled state from form-field to field #}
-{%- if disabled -%}
-  {%- set field = field|merge({ disabled: true }) -%}
-{%- endif -%}
-
-{# DO NOT merge error to field - form-field handles error display #}
-{# Just add ps-field--error class for styling the input border #}
-
-{# Build wrapper classes - only add modifiers when value differs from default #}
-{%- set classes = [
-  'ps-form-field',
-  required ? 'ps-form-field--required' : null,
-  error ? 'ps-form-field--error' : null,
-  disabled ? 'ps-form-field--disabled' : null,
-] -%}
-
-<div
-  class="{{ classes|join(' ')|trim }}"
-  {{ attributes }}
->
+<div class="form-item form-group">
   {%- if label -%}
-    {% include '@elements/label/label.twig' with {
-      text: label,
-      forId: id,
-      required: required,
-      disabled: disabled,
-      attributes: create_attribute().addClass('ps-form-field__label'),
-    } only %}
+    <label for="{{ id }}" class="form-label">
+      {{ label }}
+      {%- if required %}<span class="form-required">*</span>{% endif -%}
+    </label>
   {%- endif -%}
 
-  <div class="ps-form-field__input-wrapper">
-    {# Pass through field props to ps-field atom with proper aria/linking #}
-    {%- set helper_id = helperText and not error ? id ~ '-helper' : null -%}
-    {%- set error_id = error ? id ~ '-error' : null -%}
-    {%- set described_by = error ? error_id : helper_id -%}
+  {%- if type == 'textarea' -%}
+    <textarea
+      {{ attributes.addClass('form-control form-textarea') }}
+      id="{{ id }}"
+      name="{{ name }}"
+      rows="{{ rows }}"
+      placeholder="{{ placeholder }}"
+      {% if required %}required{% endif %}
+      {% if disabled %}disabled{% endif %}
+    >{{ value }}</textarea>
 
-    {% set fieldProps = field|merge({
-      id: id,
-      error: error,
-      hideError: true,
-      describedBy: described_by,
-      errorId: error_id,
-      helperId: helper_id,
-    }) %}
+  {%- elseif type == 'select' -%}
+    <select
+      {{ attributes.addClass('form-control form-select') }}
+      id="{{ id }}"
+      name="{{ name }}"
+      {% if required %}required{% endif %}
+      {% if disabled %}disabled{% endif %}
+    >
+      {%- for option in options -%}
+        <option value="{{ option.value }}" {% if option.selected %}selected{% endif %}>{{ option.label }}</option>
+      {%- endfor -%}
+    </select>
 
-    {% include '@elements/field/field.twig' with fieldProps %}
-  </div>
-
-  {%- if helperText and not error -%}
-    <div class="ps-form-field__helper" id="{{ id }}-helper">{{ helperText }}</div>
+  {%- else -%}
+    <input
+      type="{{ type }}"
+      {{ attributes.addClass('form-control form-input') }}
+      id="{{ id }}"
+      name="{{ name }}"
+      value="{{ value }}"
+      placeholder="{{ placeholder }}"
+      {% if required %}required{% endif %}
+      {% if disabled %}disabled{% endif %}
+    />
   {%- endif -%}
 
   {%- if error -%}
-    <div class="ps-form-field__error" id="{{ id }}-error" role="alert" aria-live="polite">
-      <svg class="ps-form-field__error-icon" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
-        <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <div class="form-error" role="alert">
+      <svg class="form-error-icon" aria-hidden="true" focusable="false">
+        <use xlink:href="#icon-alert-circle" />
       </svg>
-      <span>{{ error }}</span>
+      {{ error }}
+    </div>
+  {%- elseif helper -%}
+    <div class="form-helper" id="{{ id }}-help">
+      {{ helper }}
     </div>
   {%- endif -%}
 </div>

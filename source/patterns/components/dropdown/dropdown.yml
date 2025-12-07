@@ -24,9 +24,10 @@
 # Default: Medium property type dropdown
 name: 'property_type'
 label: 'Property type'
-size: 'medium'
+size: 'md'
 shape: 'rounded'
 disabled: false
+color: 'default'
 options:
   - label: 'Apartment'
     value: 'apartment'
