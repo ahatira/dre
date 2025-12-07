@@ -3,42 +3,55 @@
     {% for title, list in brands %}
       <div class="brand-group">
         <h3 class="brand-group__title">{{ title }}</h3>
-        <div class="brand-group__table">
-          <div class="brand-table-header">
-            <div class="brand-col--description">Token</div>
-            <div class="brand-col--swatch">Swatch</div>
-            <div class="brand-col--variables">Variables</div>
-          </div>
-          {% for item in list %}
-            <div class="brand-row">
-              <!-- Description Column -->
-              <div class="brand-col--description">
-                <span class="brand-token-name">{{ item.name }}</span>
-                {% if item.description %}
-                  <p class="brand-token-desc">{{ item.description }}</p>
-                {% endif %}
-              </div>
-
-              <!-- Swatch Column -->
-              <div class="brand-col--swatch">
-                <div 
-                  class="swatch" 
-                  style="background-color: {{ item.value }}"
-                  title="{{ item.var }}"
-                  data-hex="{{ item.value }}"
-                ></div>
-              </div>
-
-              <!-- Variables Column -->
-              <div class="brand-col--variables">
-                <div class="brand-var-item">
-                  <code class="brand-var-name">{{ item.var }}</code>
-                  <code class="brand-var-value">{{ item.value }}</code>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
+        <table class="brand-table">
+          <thead>
+            <tr>
+              <th style="width: 340px;">Description</th>
+              <th style="width: 200px;" class="ps-0">Swatch</th>
+              <th>Variables</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in list %}
+              {# First row with description spanning multiple variant rows #}
+              <tr>
+                <td rowspan="{{ item.variants|length }}">
+                  <p><strong>{{ item.name }} —</strong> {{ item.description }}</p>
+                </td>
+                {# First variant #}
+                {% set first_variant = item.variants[0] %}
+                <td class="ps-0">
+                  <div class="p-3 rounded-2{% if first_variant.type == 'base' %} bg-{{ item.slug }}{% endif %}{% if first_variant.type == 'border' %} border{% endif %}" 
+                    {% if first_variant.type == 'subtle' %}style="background-color: {{ first_variant.value }}"{% endif %}
+                    {% if first_variant.type == 'border' %}style="border: 5px {{ first_variant.value }} solid"{% endif %}
+                    {% if first_variant.type == 'text' %}style="color: {{ first_variant.value }}"{% endif %}>
+                    {% if first_variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
+                  </div>
+                </td>
+                <td>
+                  <p><code>{{ first_variant.var }}</code></p>
+                </td>
+              </tr>
+              
+              {# Remaining variants (if any) #}
+              {% for variant in item.variants|slice(1) %}
+                <tr>
+                  <td class="ps-0">
+                    <div class="p-3 rounded-2{% if variant.type == 'border' %} border{% endif %}" 
+                      {% if variant.type == 'subtle' %}style="background-color: {{ variant.value }}"{% endif %}
+                      {% if variant.type == 'border' %}style="border: 5px {{ variant.value }} solid"{% endif %}
+                      {% if variant.type == 'text' %}style="color: {{ variant.value }}"{% endif %}>
+                      {% if variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
+                    </div>
+                  </td>
+                  <td>
+                    <p><code>{{ variant.var }}</code></p>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     {% endfor %}
   </div>
