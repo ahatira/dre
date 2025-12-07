@@ -241,17 +241,17 @@
   }
 
   &--dark {
-    --ps-checkbox-checkmark-color-default: var(--dark, var(--gray-700));
-    --ps-checkbox-checkmark-color-checked: var(--dark);
-    --ps-checkbox-label-color-checked: var(--dark);
-    --ps-checkbox-label-color-hover: var(--dark-hover, var(--dark));
+    --ps-checkbox-checkmark-color-default: var(--gray-700);
+    --ps-checkbox-checkmark-color-checked: var(--gray-700);
+    --ps-checkbox-label-color-checked: var(--gray-700);
+    --ps-checkbox-label-color-hover: var(--gray-800);
   }
 
   &--light {
-    --ps-checkbox-checkmark-color-default: var(--light, var(--gray-700));
-    --ps-checkbox-checkmark-color-checked: var(--light);
-    --ps-checkbox-label-color-checked: var(--light);
-    --ps-checkbox-label-color-hover: var(--light-hover, var(--light));
+    --ps-checkbox-checkmark-color-default: var(--gray-100);
+    --ps-checkbox-checkmark-color-checked: var(--gray-100);
+    --ps-checkbox-label-color-checked: var(--gray-100);
+    --ps-checkbox-label-color-hover: var(--white);
   }
 
   /* ============================================

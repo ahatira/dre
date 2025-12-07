@@ -88,20 +88,20 @@ State Modifiers:
 ### Color Variants
 
 All colors follow the project's semantic color system. Default is `primary`. Each color affects:
-- Checked state icon color
-- Hover state icon color (lighter variant via `--{color}-hover` token)
-- Associated label text color when checked
+- Unchecked and checked state icon colors
+- Hover state icon color (lighter/darker variant)
+- Associated label text color
 
-| Variant | Checked Color | Hover Color |
-|---------|---------------|-------------|
-| `primary` | var(--primary) | var(--primary-hover) |
-| `secondary` | var(--secondary) | var(--secondary-hover) |
-| `success` | var(--success) | var(--success-hover) |
-| `warning` | var(--warning) | var(--warning-hover) |
-| `danger` | var(--danger) | var(--danger-hover) |
-| `info` | var(--info) | var(--info-hover) |
-| `dark` | var(--dark) | var(--dark-hover) |
-| `light` | var(--light) | var(--light-hover) |
+| Variant | Icon Color | Hover Color | Use Case |
+|---------|------------|-------------|----------|
+| `primary` | var(--primary) | var(--primary-hover) | Default, primary actions |
+| `secondary` | var(--secondary) | var(--secondary-hover) | Alternative/secondary actions |
+| `success` | var(--success) | var(--success-hover) | Positive/approved status |
+| `warning` | var(--warning) | var(--warning-hover) | Caution/pending status |
+| `danger` | var(--danger) | var(--danger-hover) | Error/critical status |
+| `info` | var(--info) | var(--info-hover) | Information/informational |
+| `dark` | var(--gray-700) | var(--gray-800) | Dark backgrounds/dark text |
+| `light` | var(--gray-100) | var(--white) | Light/neutral, white backgrounds |
 
 ### Core Tokens
 
