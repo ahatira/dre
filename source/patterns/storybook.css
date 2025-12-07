@@ -548,6 +548,93 @@
   }
 }
 
+/* Heading utility classes - match .h1 through .h6 to heading elements */
+.h1 {
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.h2 {
+  font-size: var(--font-size-9);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.h3 {
+  font-size: var(--font-size-8);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.h4 {
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.h5 {
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.h6 {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-normal);
+}
+
+/* Display heading utility classes */
+.display-1 {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+.display-2 {
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+.display-3 {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+.display-4 {
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+.display-5 {
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+.display-6 {
+  font-size: var(--font-size-9);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+}
+
+/* Lead paragraph */
+.lead {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-7);
+}
+
+/* Text utilities */
+.small {
+  font-size: var(--font-size-0);
+  line-height: var(--leading-5);
+}
+
 /* Styles for various elements in stories docs pages. */
 .sb-story + h2 {
   margin-block-start: var(--size-10) !important;

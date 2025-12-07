@@ -1,157 +1,178 @@
 <section class="demo-typography">
-  <div class="typography-header">
-    <h1 class="typography-title">Typography</h1>
-    <p class="typography-lead">Documentation and examples for PS Theme typography, including global settings, headings, body text, lists, and more.</p>
+  <div class="typography-intro">
+    <h1>Typography</h1>
+    <p class="lead">Documentation and examples for PS Theme typography, including global settings, headings, body text, lists, and more.</p>
   </div>
 
-  {# Headings section #}
+  {# ====== HEADINGS ====== #}
   {% if headings %}
     <div class="typography-section">
       <h2>Headings</h2>
+      <p>All HTML headings, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, are available.</p>
       
-      <div class="headings-grid">
+      <div class="headings-table">
         {% for heading in headings %}
-          <div class="heading-showcase">
-            {% if heading.level == 'h1' %}<h1>{{ heading.example }}</h1>
-            {% elseif heading.level == 'h2' %}<h2>{{ heading.example }}</h2>
-            {% elseif heading.level == 'h3' %}<h3>{{ heading.example }}</h3>
-            {% elseif heading.level == 'h4' %}<h4>{{ heading.example }}</h4>
-            {% elseif heading.level == 'h5' %}<h5>{{ heading.example }}</h5>
-            {% elseif heading.level == 'h6' %}<h6>{{ heading.example }}</h6>
-            {% endif %}
-            
-            <div class="heading-specs">
-              <code>{{ heading.level }}</code>
-              <span class="spec-text">{{ heading.size_value }} • {{ heading.weight }} • {{ heading.leading }}</span>
+          <div class="heading-row">
+            <div class="heading-preview">
+              {% if heading.level == 'h1' %}<h1>{{ heading.example }}</h1>
+              {% elseif heading.level == 'h2' %}<h2>{{ heading.example }}</h2>
+              {% elseif heading.level == 'h3' %}<h3>{{ heading.example }}</h3>
+              {% elseif heading.level == 'h4' %}<h4>{{ heading.example }}</h4>
+              {% elseif heading.level == 'h5' %}<h5>{{ heading.example }}</h5>
+              {% elseif heading.level == 'h6' %}<h6>{{ heading.example }}</h6>
+              {% endif %}
             </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <h3 style="margin-top: var(--size-12);">Heading Classes</h3>
+      <p><code>.h1</code> through <code>.h6</code> classes are also available, for when you want to match the font styling of a heading but cannot use the associated HTML element.</p>
+      
+      <div class="heading-classes">
+        {% for heading in headings %}
+          <div class="heading-class-example">
+            <p class="class-preview {{ 'h' ~ heading.level[-1] }}">{{ heading.example }}</p>
           </div>
         {% endfor %}
       </div>
     </div>
   {% endif %}
 
-  {# Display headings section #}
+  {# ====== DISPLAY HEADINGS ====== #}
   <div class="typography-section">
     <h2>Display headings</h2>
     <p>Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a <strong>display heading</strong>—a larger, slightly more opinionated heading style.</p>
     
     <div class="display-headings">
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-1">Display 1</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-1"</code></div>
-      </div>
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-2">Display 2</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-2"</code></div>
-      </div>
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-3">Display 3</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-3"</code></div>
-      </div>
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-4">Display 4</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-4"</code></div>
-      </div>
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-5">Display 5</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-5"</code></div>
-      </div>
-      <div class="display-item">
-        <div class="display-preview">
-          <div class="display-heading display-6">Display 6</div>
-        </div>
-        <div class="display-code"><code>class="display-heading display-6"</code></div>
-      </div>
+      <h1 class="display-1">Display 1</h1>
+      <h1 class="display-2">Display 2</h1>
+      <h1 class="display-3">Display 3</h1>
+      <h1 class="display-4">Display 4</h1>
+      <h1 class="display-5">Display 5</h1>
+      <h1 class="display-6">Display 6</h1>
     </div>
   </div>
 
-  {# Body text section #}
-  {% if body %}
-    <div class="typography-section">
-      <h2>Body text</h2>
-      
-      <div class="body-examples">
-        {% for text in body %}
-          <div class="body-example">
-            <h3 class="body-example-title">{{ text.name }}</h3>
-            <p class="body-example-desc">{{ text.description }}</p>
-            
-            {% if text.name == 'Body Large' %}
-              <p class="lead">{{ text.example }}</p>
-            {% elseif text.name == 'Body Regular' %}
-              <p>{{ text.example }}</p>
-            {% elseif text.name == 'Body Small' %}
-              <p class="small">{{ text.example }}</p>
-            {% endif %}
-            
-            <div class="body-specs">
-              <code>{{ text.size }}</code> <span>{{ text.size_value }} • {{ text.weight }} • {{ text.leading }}</span>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+  {# ====== LEAD ====== #}
+  <div class="typography-section">
+    <h2>Lead</h2>
+    <p>Make a paragraph stand out by adding <code>.lead</code>.</p>
+    
+    <div class="lead-example">
+      <p class="lead">This is a lead paragraph. It stands out from regular paragraphs.</p>
     </div>
-  {% endif %}
+  </div>
 
-  {# Inline text elements #}
+  {# ====== INLINE TEXT ELEMENTS ====== #}
   <div class="typography-section">
     <h2>Inline text elements</h2>
     <p>Styling for common inline HTML5 elements.</p>
     
     <div class="inline-elements">
-      <p><mark>This line of text is meant to be treated as mark.</mark></p>
-      <p><small>This line of text is meant to be treated as fine print.</small></p>
+      <p>You can use the <mark>mark tag to highlight</mark> text.</p>
       <p><del>This line of text is meant to be treated as deleted text.</del></p>
-      <p><ins>This line of text is meant to be treated as inserted text.</ins></p>
+      <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+      <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
       <p><u>This line of text will render as underlined.</u></p>
+      <p><small>This line of text is meant to be treated as fine print.</small></p>
       <p><strong>This line rendered as bold text.</strong></p>
       <p><em>This line rendered as italicized text.</em></p>
     </div>
   </div>
 
-  {# Utility text section #}
-  {% if utility %}
-    <div class="typography-section">
-      <h2>Utility text styles</h2>
-      
-      <div class="utility-examples">
-        {% for util in utility %}
-          <div class="utility-example">
-            <h3 class="utility-title">{{ util.name }}</h3>
-            <p class="utility-desc">{{ util.description }}</p>
-            
-            {% if util.name == 'Overline' %}
-              <div class="overline-demo">{{ util.example }}</div>
-            {% elseif util.name == 'Caption' %}
-              <p class="caption-demo">{{ util.example }}</p>
-            {% elseif util.name == 'Code' %}
-              <code class="code-demo">{{ util.example }}</code>
-            {% endif %}
-            
-            <div class="utility-specs">
-              <code>{{ util.size }}</code> <span>{{ util.size_value }}{% if util.weight %} • {{ util.weight }}{% endif %}{% if util.tracking %} • {{ util.tracking }}{% endif %}</span>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+  {# ====== ABBREVIATIONS ====== #}
+  <div class="typography-section">
+    <h2>Abbreviations</h2>
+    <p>Stylized implementation of HTML's <code>&lt;abbr&gt;</code> element for abbreviations and acronyms to show the expanded version on hover. Abbreviations have a default underline and gain a help cursor to provide additional context on hover and to users of assistive technologies.</p>
+    <p>Add <code>.initialism</code> to an abbreviation for a slightly smaller font-size.</p>
+    
+    <div class="abbreviations">
+      <p><abbr title="attribute">attr</abbr></p>
+      <p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
     </div>
-  {% endif %}
+  </div>
 
-  {# Token Reference section #}
+  {# ====== BLOCKQUOTES ====== #}
+  <div class="typography-section">
+    <h2>Blockquotes</h2>
+    <p>For quoting blocks of content from another source within your document. Wrap <code>&lt;blockquote class="blockquote"&gt;</code> around any HTML as the quote.</p>
+    
+    <div class="blockquote-example">
+      <blockquote class="blockquote">
+        <p>A well-known quote, contained in a blockquote element.</p>
+      </blockquote>
+    </div>
+
+    <h3>Naming a source</h3>
+    <p>The HTML spec requires that blockquote attribution be placed outside the <code>&lt;blockquote&gt;</code>. When providing attribution, wrap your <code>&lt;blockquote&gt;</code> in a <code>&lt;figure&gt;</code> and use a <code>&lt;figcaption&gt;</code> or a block level element (e.g., <code>&lt;p&gt;</code>) with the <code>.blockquote-footer</code> class. Be sure to wrap the name of the source work in <code>&lt;cite&gt;</code> as well.</p>
+    
+    <div class="blockquote-attribution">
+      <figure>
+        <blockquote class="blockquote">
+          <p>A well-known quote, contained in a blockquote element.</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          Someone famous in <cite title="Source Title">Source Title</cite>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  {# ====== LISTS ====== #}
+  <div class="typography-section">
+    <h2>Lists</h2>
+
+    <h3>Unstyled</h3>
+    <p>Remove the default <code>list-style</code> and left margin on list items (immediate children only). This only applies to immediate children list items, meaning you will need to add the class for any nested lists as well.</p>
+    
+    <div class="list-example">
+      <ul class="list-unstyled">
+        <li>This is a list.</li>
+        <li>It appears completely unstyled.</li>
+        <li>Structurally, it's still a list.</li>
+        <li>However, this style only applies to immediate child elements.
+          <ul>
+            <li>Nested lists:</li>
+            <li>are unaffected by this style</li>
+            <li>will still show a bullet</li>
+            <li>and have appropriate left margin</li>
+          </ul>
+        </li>
+        <li>This may still come in handy in some situations.</li>
+      </ul>
+    </div>
+
+    <h3>Inline</h3>
+    <p>Remove a list's bullets and apply some light <code>margin</code> with a combination of two classes, <code>.list-inline</code> and <code>.list-inline-item</code>.</p>
+    
+    <div class="list-example">
+      <ul class="list-inline">
+        <li class="list-inline-item">This is a list item.</li>
+        <li class="list-inline-item">And another one.</li>
+        <li class="list-inline-item">But they're displayed inline.</li>
+      </ul>
+    </div>
+  </div>
+
+  {# ====== TEXT UTILITIES ====== #}
+  <div class="typography-section">
+    <h2>Text utilities</h2>
+    <p>Change text alignment, transform, style, weight, line-height, decoration and color with our text utilities.</p>
+    
+    <div class="text-utilities">
+      <p><strong>Alignment:</strong> Use <code>.text-start</code>, <code>.text-center</code>, <code>.text-end</code> for text alignment.</p>
+      <p><strong>Weight:</strong> Use <code>.fw-light</code>, <code>.fw-normal</code>, <code>.fw-bold</code> for font weight.</p>
+      <p><strong>Style:</strong> Use <code>.fst-italic</code>, <code>.fst-normal</code> for font style.</p>
+      <p><strong>Decoration:</strong> Use <code>.text-decoration-underline</code>, <code>.text-decoration-line-through</code>, <code>.text-decoration-none</code> for text decoration.</p>
+    </div>
+  </div>
+
+  {# ====== TOKEN REFERENCE ====== #}
   {% if scales %}
     <div class="typography-section">
-      <h2>Typography tokens</h2>
-      <p>Complete reference of all typography design tokens.</p>
+      <h2>CSS Variables</h2>
+      <p>Complete reference of all typography design tokens available as CSS custom properties.</p>
       
       <div class="tokens-container">
         {% for scale in scales %}
@@ -159,9 +180,7 @@
             <h3>{{ scale.name }}</h3>
             <div class="tokens-list">
               {% for token in scale.tokens %}
-                <div class="token-row">
-                  <code>{{ token }}</code>
-                </div>
+                <div class="token-item">{{ token }}</div>
               {% endfor %}
             </div>
           </div>
@@ -172,36 +191,34 @@
 </section>
 
 <style>
-/* Main container */
 .demo-typography {
   padding: var(--size-12);
   background: white;
-  line-height: var(--leading-6);
 }
 
-.typography-header {
-  margin-bottom: var(--size-20);
+/* Intro section */
+.typography-intro {
+  margin-bottom: var(--size-16);
 }
 
-.typography-title {
+.typography-intro h1 {
   font-size: var(--font-size-10);
   font-weight: var(--font-weight-700);
   margin: 0 0 var(--size-4) 0;
   color: var(--text-primary);
 }
 
-.typography-lead {
+.typography-intro .lead {
   font-size: var(--font-size-2);
-  font-weight: var(--font-weight-400);
   color: var(--text-secondary);
-  line-height: var(--leading-7);
-  max-width: 800px;
   margin: 0;
+  line-height: var(--leading-7);
+  max-width: 70ch;
 }
 
-/* Sections */
+/* Section structure */
 .typography-section {
-  margin-bottom: var(--size-20);
+  margin-bottom: var(--size-16);
   padding-bottom: var(--size-12);
   border-bottom: 1px solid var(--border-light);
 }
@@ -215,296 +232,361 @@
 .typography-section h2 {
   font-size: var(--font-size-8);
   font-weight: var(--font-weight-700);
-  margin: 0 0 var(--size-8) 0;
+  margin: 0 0 var(--size-4) 0;
   color: var(--text-primary);
 }
 
 .typography-section h3 {
   font-size: var(--font-size-5);
   font-weight: var(--font-weight-600);
-  margin: 0 0 var(--size-3) 0;
+  margin: var(--size-8) 0 var(--size-4) 0;
   color: var(--text-primary);
 }
 
 .typography-section p {
-  font-size: var(--font-size-1);
   color: var(--text-secondary);
-  margin: 0 0 var(--size-8) 0;
+  margin: 0 0 var(--size-6) 0;
   line-height: var(--leading-7);
 }
 
-/* Headings grid */
-.headings-grid {
-  display: grid;
-  gap: var(--size-8);
-  margin-bottom: var(--size-12);
-}
-
-.heading-showcase {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--size-8);
-  padding: var(--size-8);
+.typography-section code {
   background: var(--bg-section);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-2);
-}
-
-.heading-showcase h1,
-.heading-showcase h2,
-.heading-showcase h3,
-.heading-showcase h4,
-.heading-showcase h5,
-.heading-showcase h6 {
-  margin: 0;
-  flex: 1;
-  color: var(--text-primary);
-}
-
-.heading-specs {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2);
-  white-space: nowrap;
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  text-align: right;
-}
-
-.heading-specs code {
-  background: white;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-1);
   padding: var(--size-1) var(--size-2);
+  border-radius: var(--radius-1);
   color: var(--primary);
+  font-family: var(--font-mono);
   font-weight: var(--font-weight-600);
 }
 
-.spec-text {
-  color: var(--text-secondary);
-  font-size: var(--font-size--1);
-}
-
-/* Display headings */
-.display-headings {
+/* HEADINGS TABLE */
+.headings-table {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--size-8);
+  gap: 0;
   margin-bottom: var(--size-12);
-}
-
-.display-item {
-  padding: var(--size-8);
-  background: white;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2);
+  overflow: hidden;
 }
 
-.display-preview {
-  margin-bottom: var(--size-6);
+.heading-row {
+  padding: var(--size-6) var(--size-8);
+  border-bottom: 1px solid var(--border-light);
 }
 
-.display-heading {
+.heading-row:last-child {
+  border-bottom: none;
+}
+
+.heading-preview h1,
+.heading-preview h2,
+.heading-preview h3,
+.heading-preview h4,
+.heading-preview h5,
+.heading-preview h6 {
   margin: 0;
+  color: var(--text-primary);
+}
+
+/* HEADING CLASSES */
+.heading-classes {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+  overflow: hidden;
+}
+
+.heading-class-example {
+  padding: var(--size-6) var(--size-8);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.heading-class-example:last-child {
+  border-bottom: none;
+}
+
+.class-preview {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* Heading utility classes */
+.h1 {
+  font-size: var(--font-size-10);
   font-weight: var(--font-weight-700);
   line-height: var(--leading-tight);
-  color: var(--text-primary);
+}
+
+.h2 {
+  font-size: var(--font-size-9);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.h3 {
+  font-size: var(--font-size-8);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.h4 {
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.h5 {
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.h6 {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-normal);
+}
+
+/* DISPLAY HEADINGS */
+.display-headings {
+  display: grid;
+  gap: var(--size-8);
+  margin-bottom: var(--size-12);
 }
 
 .display-1 {
   font-size: var(--font-size-14);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
 .display-2 {
   font-size: var(--font-size-13);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
 .display-3 {
   font-size: var(--font-size-12);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
 .display-4 {
   font-size: var(--font-size-11);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
 .display-5 {
   font-size: var(--font-size-10);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
 .display-6 {
   font-size: var(--font-size-9);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--text-primary);
 }
 
-.display-code {
-  padding-top: var(--size-6);
-  border-top: 1px solid var(--border-light);
-}
-
-.display-code code {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-}
-
-/* Body text examples */
-.body-examples {
-  display: grid;
-  gap: var(--size-12);
-  margin-bottom: var(--size-12);
-}
-
-.body-example {
+/* LEAD PARAGRAPH */
+.lead-example {
   padding: var(--size-8);
-  background: white;
+  background: var(--bg-section);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2);
 }
 
-.body-example-title {
-  font-size: var(--font-size-3);
-  font-weight: var(--font-weight-600);
-  margin: 0 0 var(--size-2) 0;
-  color: var(--text-primary);
-}
-
-.body-example-desc {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  margin: 0 0 var(--size-6) 0;
-}
-
-.body-example p {
-  margin: 0 0 var(--size-4) 0;
-  color: var(--text-primary);
-}
-
-.body-example .lead {
+.lead-example .lead {
+  margin: 0;
   font-size: var(--font-size-2);
+  font-weight: var(--font-weight-300);
   line-height: var(--leading-7);
 }
 
-.body-example .small {
-  font-size: var(--font-size-0);
-  line-height: var(--leading-5);
-}
-
-.body-specs {
-  padding-top: var(--size-6);
-  border-top: 1px solid var(--border-light);
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-}
-
-.body-specs code {
-  background: var(--bg-section);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-1);
-  padding: var(--size-1) var(--size-2);
-  color: var(--primary);
-  font-weight: var(--font-weight-600);
-  margin-right: var(--size-2);
-}
-
-/* Inline elements */
+/* INLINE ELEMENTS */
 .inline-elements {
   padding: var(--size-8);
-  background: white;
+  background: var(--bg-section);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2);
 }
 
 .inline-elements p {
   margin: 0 0 var(--size-4) 0;
+  color: var(--text-primary);
 }
 
 .inline-elements p:last-child {
   margin-bottom: 0;
 }
 
-/* Utility examples */
-.utility-examples {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--size-8);
-  margin-bottom: var(--size-12);
+.inline-elements mark {
+  background-color: var(--yellow-100);
+  color: inherit;
+  padding: var(--size-1) 0;
 }
 
-.utility-example {
+.inline-elements del {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.inline-elements s {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.inline-elements ins {
+  background-color: var(--green-100);
+  color: inherit;
+  text-decoration: none;
+}
+
+.inline-elements small {
+  font-size: var(--font-size--1);
+  color: var(--text-secondary);
+}
+
+/* ABBREVIATIONS */
+.abbreviations {
   padding: var(--size-8);
-  background: white;
+  background: var(--bg-section);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2);
 }
 
-.utility-title {
-  font-size: var(--font-size-3);
-  font-weight: var(--font-weight-600);
-  margin: 0 0 var(--size-2) 0;
+.abbreviations p {
+  margin: 0 0 var(--size-4) 0;
   color: var(--text-primary);
 }
 
-.utility-desc {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  margin: 0 0 var(--size-6) 0;
+.abbreviations p:last-child {
+  margin-bottom: 0;
 }
 
-.overline-demo {
-  font-size: var(--font-size--1);
-  font-weight: var(--font-weight-600);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--text-primary);
-  margin: 0 0 var(--size-4) 0;
-  padding: var(--size-4);
-  background: var(--bg-section);
-  border-radius: var(--radius-1);
+.abbreviations abbr {
+  border-bottom: 1px dotted var(--border-default);
+  cursor: help;
 }
 
-.caption-demo {
+.abbreviations .initialism {
   font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  margin: 0 0 var(--size-4) 0;
-  padding: var(--size-4);
-  background: var(--bg-section);
-  border-radius: var(--radius-1);
 }
 
-.code-demo {
-  font-family: var(--font-mono);
-  font-size: var(--font-size--1);
-  color: var(--text-primary);
-  display: block;
-  margin: 0 0 var(--size-4) 0;
-  padding: var(--size-4);
-  background: var(--bg-section);
-  border-radius: var(--radius-1);
-  overflow-x: auto;
-}
-
-.utility-specs {
-  padding-top: var(--size-6);
-  border-top: 1px solid var(--border-light);
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-}
-
-.utility-specs code {
+/* BLOCKQUOTES */
+.blockquote-example,
+.blockquote-attribution {
+  padding: var(--size-8);
   background: var(--bg-section);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-1);
-  padding: var(--size-1) var(--size-2);
-  color: var(--primary);
-  font-weight: var(--font-weight-600);
-  margin-right: var(--size-2);
+  border-radius: var(--radius-2);
+  margin-bottom: var(--size-8);
 }
 
-/* Token reference */
+.blockquote {
+  margin: 0 0 var(--size-4) 0;
+  padding: 0;
+  border-left: 4px solid var(--border-default);
+  padding-left: var(--size-6);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-300);
+  line-height: var(--leading-7);
+}
+
+.blockquote p {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.blockquote-footer {
+  display: block;
+  font-size: var(--font-size-0);
+  color: var(--text-secondary);
+  margin-top: var(--size-4);
+}
+
+.blockquote-footer cite {
+  font-style: italic;
+}
+
+/* LISTS */
+.list-example {
+  padding: var(--size-8);
+  background: var(--bg-section);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+  margin-bottom: var(--size-8);
+}
+
+.list-unstyled,
+.list-inline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-unstyled li {
+  color: var(--text-primary);
+  margin-bottom: var(--size-2);
+}
+
+.list-unstyled li:last-child {
+  margin-bottom: 0;
+}
+
+.list-unstyled ul {
+  margin: var(--size-4) 0 0 var(--size-6);
+  padding: 0;
+}
+
+.list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--size-4) * -1);
+}
+
+.list-inline-item {
+  display: inline-block;
+  margin-left: var(--size-4);
+  color: var(--text-primary);
+}
+
+/* TEXT UTILITIES */
+.text-utilities {
+  padding: var(--size-8);
+  background: var(--bg-section);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2);
+}
+
+.text-utilities p {
+  margin: 0 0 var(--size-4) 0;
+  color: var(--text-primary);
+}
+
+.text-utilities p:last-child {
+  margin-bottom: 0;
+}
+
+/* TOKEN REFERENCE */
 .tokens-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--size-8);
-  margin-bottom: var(--size-12);
 }
 
 .token-group {
@@ -515,29 +597,26 @@
 }
 
 .token-group h3 {
-  margin-bottom: var(--size-4);
-  font-size: var(--font-size-2);
+  margin: 0 0 var(--size-6) 0;
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-600);
 }
 
 .tokens-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--size-2);
 }
 
-.token-row {
-  padding: var(--size-2) var(--size-3);
+.token-item {
+  padding: var(--size-3) var(--size-4);
   background: var(--bg-section);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-1);
-  font-size: var(--font-size--1);
-  color: var(--text-primary);
   font-family: var(--font-mono);
-  overflow-x: auto;
-}
-
-.token-row code {
+  font-size: var(--font-size--1);
   color: var(--primary);
+  overflow-x: auto;
+  word-break: break-all;
 }
 
 /* Responsive */
@@ -546,17 +625,12 @@
     padding: var(--size-8);
   }
 
-  .heading-showcase {
-    flex-direction: column;
+  .typography-intro h1 {
+    font-size: var(--font-size-8);
   }
 
-  .heading-specs {
-    text-align: left;
-  }
-
-  .display-headings,
-  .utility-examples {
-    grid-template-columns: 1fr;
+  .display-headings {
+    gap: var(--size-6);
   }
 
   .tokens-container {
