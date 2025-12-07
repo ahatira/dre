@@ -8,10 +8,9 @@
  * - 8 semantic colors × 9 states = 72 tokens
  * - 4 text hierarchy tokens
  * - 6 border tokens
- * - 10 background tokens (including light variants)
  * - 6 overlay tokens
  * 
- * Total: 98 semantic tokens from BNP Paribas Real Estate design system.
+ * Total: 88 semantic tokens from BNP Paribas Real Estate design system.
  */
 
 :where(html) {
@@ -127,21 +126,6 @@
   --border-disabled: hsl(218, 11%, 65%); /* #B0B8BD - Disabled borders (gray-400) */
   --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders */
   --border-success: hsl(157, 100%, 28%); /* #00915A - Success/validation borders */
-
-  /* ============================================
-     BACKGROUND COLORS (Surfaces)
-     10 tokens for complete background hierarchy
-     ============================================ */
-  --bg-page: hsl(0, 0%, 100%); /* #FFFFFF - Main page background */
-  --bg-section: hsl(210, 20%, 98%); /* #F9F9FB - Section backgrounds */
-  --bg-disabled: hsl(220, 14%, 96%); /* #F4F5F6 - Disabled inputs/buttons */
-  --bg-primary-light: hsl(157, 100%, 95%); /* Light primary tint for highlights */
-  --bg-secondary-light: hsl(330, 65%, 95%); /* Light secondary tint for highlights */
-  --bg-success-light: hsl(157, 48%, 72%); /* #99D3BD - Light success (alerts, notifications) */
-  --bg-danger-light: hsl(0, 82%, 90%); /* Light red (error alerts, warnings) */
-  --bg-warning-light: hsl(42, 93%, 90%); /* Light yellow (warning alerts, caution) */
-  --bg-info-light: hsl(220, 89%, 90%); /* Light blue (info alerts, tips) */
-  --bg-neutral-light: hsl(220, 13%, 96%); /* Light gray (neutral backgrounds) */
 
   /* ============================================
      OVERLAY COLORS (Modals, dropdowns, shadows)
