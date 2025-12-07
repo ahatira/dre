@@ -3,34 +3,40 @@
     {% for title, list in brands %}
       <div class="brand-group">
         <h3 class="brand-group__title">{{ title }}</h3>
-        
-        {% for item in list %}
-          <div class="brand-row">
-            <!-- Description Column -->
-            <div class="brand-row__description">
-              <span class="label">{{ item.name }}</span>
-              {% if item.description %}
-                <p class="description">{{ item.description }}</p>
-              {% endif %}
-            </div>
+        <div class="brand-group__content">
+          {% for item in list %}
+            <div class="brand-row">
+              <!-- Description Column -->
+              <div class="brand-row__description">
+                <span class="label">{{ item.name }}</span>
+                {% if item.description %}
+                  <p class="description">{{ item.description }}</p>
+                {% endif %}
+              </div>
 
-            <!-- Swatch Column -->
-            <div class="brand-row__swatch">
-              <div 
-                class="swatch" 
-                style="background-color: {{ item.value }}"
-              ></div>
-            </div>
+              <!-- Swatch Column -->
+              <div class="brand-row__swatch">
+                <div 
+                  class="swatch" 
+                  style="background-color: {{ item.value }}"
+                  title="{{ item.var }}"
+                ></div>
+              </div>
 
-            <!-- Variables Column -->
-            <div class="brand-row__variables">
-              <div class="variable">
-                <code class="variable-name">{{ item.var }}</code>
-                <code class="variable-value">{{ item.value }}</code>
+              <!-- Variables Column -->
+              <div class="brand-row__variables">
+                <div class="variable">
+                  <span class="variable-label">var:</span>
+                  <code class="variable-name">{{ item.var }}</code>
+                </div>
+                <div class="variable">
+                  <span class="variable-label">hex:</span>
+                  <code class="variable-value">{{ item.value }}</code>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     {% endfor %}
   </div>
