@@ -14,7 +14,7 @@ neutrals:
       value: '#000000'
       usage: 'Pure black'
 
-  Gray (BNP Official #333333 → #FFFFFF):
+  'Gray (BNP Official #333333 → #FFFFFF)':
     - name: 'Gray 50'
       var: '--gray-50'
       value: '#f9f9fb'
