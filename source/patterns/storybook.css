@@ -52,111 +52,121 @@
 /* Brand & Color Demo */
 .demo-brands,
 .demo-colors {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-12);
   padding-block: var(--size-12);
   padding-inline: var(--size-6);
 
-  .just-for-gap {
+  .brand-grid {
     display: flex;
     flex-direction: column;
-    gap: var(--size-6);
+    gap: var(--size-12);
   }
 
-  .heading {
+  .brand-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-8);
+  }
+
+  .brand-group__title {
     font-size: var(--font-size-6);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: var(--size-3);
+    border-bottom: 1px solid var(--border-default);
+    padding-bottom: var(--size-4);
     margin: 0;
   }
 
-  .brand-demo,
-  .color-demo {
+  .brand-row {
     display: grid;
+    grid-template-columns: 1fr 200px 200px;
     gap: var(--size-6);
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    align-items: center;
+    padding-block: var(--size-4);
+    border-bottom: 1px solid var(--border-light);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    @media (width < 1024px) {
+      grid-template-columns: 1fr;
+      gap: var(--size-4);
+    }
   }
 
-  .brand-demo__swatch,
-  .color-demo__swatch {
+  .brand-row__description {
     display: flex;
     flex-direction: column;
-    border-radius: var(--radius-2);
-    overflow: hidden;
-    border: 1px solid var(--border-default);
-    background: white;
-    transition: box-shadow 0.2s ease;
+    gap: var(--size-2);
 
-    &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .label {
+      font-weight: var(--font-weight-700);
+      color: var(--text-primary);
+      font-size: var(--font-size-1);
+      display: block;
     }
+
+    .description {
+      color: var(--text-secondary);
+      font-size: var(--font-size-0);
+      line-height: var(--line-height-2);
+      margin: 0;
+    }
+  }
+
+  .brand-row__swatch {
+    display: flex;
+    justify-content: center;
 
     .swatch {
-      aspect-ratio: 16 / 9;
-      border-radius: 0;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: 100%;
-      font-weight: var(--font-weight-700);
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-
-      .swatch-label {
-        font-size: var(--font-size-0);
-        font-family: 'Monaco', 'Courier New', monospace;
-        background: rgba(0, 0, 0, 0.2);
-        padding: var(--size-2) var(--size-3);
-        border-radius: var(--radius-1);
-      }
+      width: 100%;
+      height: 60px;
+      border-radius: var(--radius-1);
+      border: 1px solid var(--border-default);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
+  }
 
-    .meta {
-      padding: var(--size-3);
+  .brand-row__variables {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+
+    .variable {
       display: flex;
       flex-direction: column;
-      gap: var(--size-2);
-      background: white;
-      border-top: 1px solid var(--border-light);
+      gap: var(--size-1);
 
-      span {
+      code {
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: var(--font-size-00);
+        padding: var(--size-1) var(--size-2);
+        border-radius: var(--radius-1);
         display: block;
-        font-size: var(--font-size-0);
-        line-height: var(--line-height-2);
-        margin: 0;
+      }
 
-        &.name {
-          font-weight: var(--font-weight-700);
-          color: var(--text-primary);
-          font-size: var(--font-size-1);
-        }
+      .variable-name {
+        color: var(--primary);
+        background: rgba(0, 145, 90, 0.08);
+        font-weight: var(--font-weight-600);
+      }
 
-        &.var {
-          font-family: 'Monaco', 'Courier New', monospace;
-          color: var(--primary);
-          font-size: var(--font-size-00);
-          font-weight: var(--font-weight-600);
-        }
-
-        &.value {
-          font-family: 'Monaco', 'Courier New', monospace;
-          color: var(--text-secondary);
-          font-size: var(--font-size-00);
-          font-weight: var(--font-weight-600);
-        }
-
-        &.description {
-          color: var(--text-secondary);
-          font-size: var(--font-size-00);
-          font-style: italic;
-          margin-top: var(--size-1);
-        }
+      .variable-value {
+        color: var(--text-secondary);
+        background: var(--bg-section);
+        font-weight: var(--font-weight-500);
       }
     }
+  }
+
+  .color-demo,
+  .brand-demo {
+    display: none;
+  }
+
+  .color-demo__swatch,
+  .brand-demo__swatch {
+    display: none;
   }
 }
 
