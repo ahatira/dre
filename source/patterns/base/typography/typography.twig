@@ -1,55 +1,39 @@
 <section class="demo-typography">
-  {# Main header #}
   <div class="typography-header">
     <h1 class="section-title">Typography</h1>
-    <p class="section-intro">PS Theme typography system provides a comprehensive scale of headings, body text, and utility sizes for all UI needs.</p>
+    <p class="section-intro">Complete typography system with semantic heading scales, body text styles, and utility text for all UI needs.</p>
   </div>
 
   {# Headings showcase #}
   {% if headings %}
     <div class="typography-section">
-      <h2 class="section-title-secondary">Headings</h2>
-      <p class="section-description">Semantic heading hierarchy from h1 to h6</p>
+      <h2 class="section-title-secondary">Heading Scales</h2>
+      <p class="section-description">Semantic heading hierarchy from h1 to h6 with actual styling</p>
       
       <div class="headings-showcase">
         {% for heading in headings %}
           <div class="heading-item">
-            <div class="heading-label">
-              <code class="font-monospace">{{ heading.level }}</code>
-              <span class="heading-name">{{ heading.name }}</span>
-            </div>
-            <div class="heading-description">{{ heading.description }}</div>
-            
             {# Heading preview with actual styles #}
             {% if heading.level == 'h1' %}
-              <h1 class="heading-preview">{{ heading.example }}</h1>
+              <h1 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h1>
             {% elseif heading.level == 'h2' %}
-              <h2 class="heading-preview">{{ heading.example }}</h2>
+              <h2 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h2>
             {% elseif heading.level == 'h3' %}
-              <h3 class="heading-preview">{{ heading.example }}</h3>
+              <h3 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h3>
             {% elseif heading.level == 'h4' %}
-              <h4 class="heading-preview">{{ heading.example }}</h4>
+              <h4 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h4>
             {% elseif heading.level == 'h5' %}
-              <h5 class="heading-preview">{{ heading.example }}</h5>
+              <h5 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h5>
             {% elseif heading.level == 'h6' %}
-              <h6 class="heading-preview">{{ heading.example }}</h6>
+              <h6 style="margin: 0 0 var(--size-2) 0;">{{ heading.example }}</h6>
             {% endif %}
             
-            {# Token details #}
-            <div class="heading-tokens">
-              <div class="token-detail">
-                <span class="token-label">Size:</span>
-                <code class="font-monospace">{{ heading.size }}</code>
-                <span class="token-value">{{ heading.size_value }}</span>
-              </div>
-              <div class="token-detail">
-                <span class="token-label">Weight:</span>
-                <code class="font-monospace">{{ heading.weight }}</code>
-              </div>
-              <div class="token-detail">
-                <span class="token-label">Line Height:</span>
-                <code class="font-monospace">{{ heading.leading }}</code>
-              </div>
+            {# Meta info #}
+            <div class="heading-meta">
+              <span class="meta-item"><code>{{ heading.level }}</code> {{ heading.name }}</span>
+              <span class="meta-item">{{ heading.size_value }}</span>
+              <span class="meta-item">Weight: {{ heading.weight }}</span>
+              <span class="meta-item">Line: {{ heading.leading }}</span>
             </div>
           </div>
         {% endfor %}
@@ -61,28 +45,24 @@
   {% if body %}
     <div class="typography-section">
       <h2 class="section-title-secondary">Body Text</h2>
-      <p class="section-description">Text styles for content and interface copy</p>
+      <p class="section-description">Text styles for paragraphs, captions, and interface copy</p>
       
       <div class="body-showcase">
         {% for text in body %}
           <div class="body-item">
-            <div class="body-label">{{ text.name }}</div>
-            <p class="body-description">{{ text.description }}</p>
-            
-            {# Body preview with conditional styling #}
+            {# Body preview #}
             {% if text.name == 'Body Large' %}
-              <p class="lead">{{ text.example }}</p>
+              <p class="lead" style="margin: 0 0 var(--size-3) 0;">{{ text.example }}</p>
             {% elseif text.name == 'Body Regular' %}
-              <p>{{ text.example }}</p>
+              <p style="margin: 0 0 var(--size-3) 0;">{{ text.example }}</p>
             {% elseif text.name == 'Body Small' %}
-              <p class="small">{{ text.example }}</p>
+              <p class="small" style="margin: 0 0 var(--size-3) 0;">{{ text.example }}</p>
             {% endif %}
             
-            {# Tokens #}
-            <div class="text-tokens">
-              <span class="token-badge">{{ text.size }}: {{ text.size_value }}</span>
-              <span class="token-badge">Weight: {{ text.weight }}</span>
-              <span class="token-badge">Line height: {{ text.leading }}</span>
+            {# Meta info #}
+            <div class="body-meta">
+              <span class="meta-label">{{ text.name }}</span>
+              <span class="meta-value">{{ text.size_value }} • Weight: {{ text.weight }} • Line: {{ text.leading }}</span>
             </div>
           </div>
         {% endfor %}
@@ -94,29 +74,24 @@
   {% if utility %}
     <div class="typography-section">
       <h2 class="section-title-secondary">Utility Styles</h2>
-      <p class="section-description">Specialized text styles for labels, captions, and code</p>
+      <p class="section-description">Specialized text for labels, captions, and code</p>
       
       <div class="utility-showcase">
         {% for util in utility %}
           <div class="utility-item">
-            <div class="utility-label">{{ util.name }}</div>
-            <p class="utility-description">{{ util.description }}</p>
-            
             {# Utility preview #}
             {% if util.name == 'Overline' %}
-              <div class="text-uppercase fw-bold small" style="letter-spacing: var(--tracking-wide);">{{ util.example }}</div>
+              <div class="text-uppercase fw-bold" style="font-size: var(--font-size--1); letter-spacing: var(--tracking-wide); margin: 0 0 var(--size-3) 0;">{{ util.example }}</div>
             {% elseif util.name == 'Caption' %}
-              <p class="small text-secondary">{{ util.example }}</p>
+              <p class="small text-secondary" style="margin: 0 0 var(--size-3) 0;">{{ util.example }}</p>
             {% elseif util.name == 'Code' %}
-              <code class="font-monospace">{{ util.example }}</code>
+              <code style="font-family: var(--font-mono); font-size: var(--font-size--1); display: block; margin: 0 0 var(--size-3) 0;">{{ util.example }}</code>
             {% endif %}
             
-            {# Tokens #}
-            <div class="text-tokens">
-              <span class="token-badge">{{ util.size }}: {{ util.size_value }}</span>
-              <span class="token-badge">Weight: {{ util.weight }}</span>
-              {% if util.tracking %}<span class="token-badge">Tracking: {{ util.tracking }}</span>{% endif %}
-              {% if util.family %}<span class="token-badge">Font: {{ util.family }}</span>{% endif %}
+            {# Meta info #}
+            <div class="utility-meta">
+              <span class="meta-label">{{ util.name }}</span>
+              <span class="meta-value">{{ util.size_value }} • Weight: {{ util.weight }}{% if util.tracking %} • {{ util.tracking }}{% endif %}</span>
             </div>
           </div>
         {% endfor %}
@@ -124,11 +99,11 @@
     </div>
   {% endif %}
 
-  {# Token scales #}
+  {# Token reference tables #}
   {% if scales %}
     <div class="typography-section">
-      <h2 class="section-title-secondary">Token Scales</h2>
-      <p class="section-description">Complete typography token reference</p>
+      <h2 class="section-title-secondary">Token Reference</h2>
+      <p class="section-description">Complete typography token scales for fonts, sizes, weights, and spacing</p>
       
       <div class="scales-grid">
         {% for scale in scales %}
@@ -137,7 +112,7 @@
             <div class="scale-tokens">
               {% for token in scale.tokens %}
                 <div class="scale-token">
-                  <code class="font-monospace">{{ token }}</code>
+                  <code>{{ token }}</code>
                 </div>
               {% endfor %}
             </div>
@@ -172,18 +147,17 @@
   color: var(--text-secondary);
   margin: 0;
   line-height: var(--leading-7);
-  max-width: 600px;
 }
 
 .typography-section {
   margin-block: var(--size-12);
   padding-block: var(--size-8);
   border-top: 1px solid var(--border-light);
+}
 
-  &:first-of-type {
-    border-top: none;
-    padding-top: 0;
-  }
+.typography-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
 }
 
 .section-title-secondary {
@@ -191,7 +165,6 @@
   font-weight: var(--font-weight-700);
   color: var(--text-primary);
   margin: 0 0 var(--size-2) 0;
-  letter-spacing: -0.25px;
 }
 
 .section-description {
@@ -203,89 +176,53 @@
 /* Headings showcase */
 .headings-showcase {
   display: grid;
-  gap: var(--size-8);
+  gap: var(--size-6);
 }
 
 .heading-item {
-  padding: var(--size-6) var(--size-8);
+  padding: var(--size-6);
   background: var(--bg-section);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2);
 }
 
-.heading-label {
-  display: flex;
-  align-items: center;
-  gap: var(--size-3);
-  margin-bottom: var(--size-2);
-
-  code {
-    font-size: var(--font-size--1);
-    padding: var(--size-1) var(--size-2);
-    background: white;
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-1);
-    color: var(--text-primary);
-  }
-}
-
-.heading-name {
-  font-size: var(--font-size-0);
-  font-weight: var(--font-weight-600);
-  color: var(--text-primary);
-}
-
-.heading-description {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  margin-bottom: var(--size-4);
-}
-
-.heading-preview {
-  margin: var(--size-4) 0;
+.heading-item h1,
+.heading-item h2,
+.heading-item h3,
+.heading-item h4,
+.heading-item h5,
+.heading-item h6 {
   color: var(--text-primary);
   line-height: var(--leading-tight);
 }
 
-.heading-tokens {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.heading-meta {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--size-4);
   margin-top: var(--size-4);
   padding-top: var(--size-4);
   border-top: 1px solid var(--border-light);
-}
-
-.token-detail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-1);
-
-  code {
-    font-size: var(--font-size--1);
-    color: var(--primary);
-    font-weight: var(--font-weight-600);
-  }
-}
-
-.token-label {
   font-size: var(--font-size--1);
-  font-weight: var(--font-weight-600);
+}
+
+.meta-item {
   color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
 }
 
-.token-value {
-  font-size: var(--font-size--1);
-  color: var(--text-primary);
-  font-family: var(--font-mono);
+.meta-item code {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-1);
+  padding: var(--size-1) var(--size-2);
+  color: var(--primary);
+  font-weight: var(--font-weight-600);
 }
 
 /* Body text showcase */
 .body-showcase {
   display: grid;
-  gap: var(--size-8);
+  gap: var(--size-6);
 }
 
 .body-item {
@@ -295,42 +232,45 @@
   border-radius: var(--radius-2);
 }
 
-.body-label {
+.body-item p {
+  color: var(--text-primary);
+}
+
+.body-item .lead {
+  font-size: var(--font-size-2);
+  line-height: var(--leading-7);
+}
+
+.body-item .small {
   font-size: var(--font-size-0);
-  font-weight: var(--font-weight-700);
+  line-height: var(--leading-5);
+}
+
+.body-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+  margin-top: var(--size-4);
+  padding-top: var(--size-4);
+  border-top: 1px solid var(--border-light);
+  font-size: var(--font-size--1);
+}
+
+.meta-label {
+  font-weight: var(--font-weight-600);
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--size-2);
 }
 
-.body-description {
-  font-size: var(--font-size--1);
+.meta-value {
   color: var(--text-secondary);
-  margin-bottom: var(--size-4);
-}
-
-.body-item p,
-.utility-item p {
-  margin: var(--size-4) 0;
-  color: var(--text-primary);
-
-  &.lead {
-    font-size: var(--font-size-2);
-    font-weight: var(--font-weight-400);
-    line-height: var(--leading-7);
-  }
-
-  &.small {
-    font-size: var(--font-size-0);
-    line-height: var(--leading-5);
-  }
 }
 
 /* Utility showcase */
 .utility-showcase {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--size-6);
 }
 
@@ -341,61 +281,25 @@
   border-radius: var(--radius-2);
 }
 
-.utility-label {
-  font-size: var(--font-size-0);
-  font-weight: var(--font-weight-700);
-  color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--size-2);
-}
-
-.utility-description {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  margin-bottom: var(--size-4);
-}
-
-.utility-item code,
-.utility-item .text-uppercase {
-  display: block;
-  margin: var(--size-4) 0;
-  padding: var(--size-4);
+.utility-item code {
   background: var(--bg-section);
+  padding: var(--size-3);
   border-radius: var(--radius-1);
-  color: var(--text-primary);
   font-family: var(--font-mono);
+  color: var(--text-primary);
 }
 
-.utility-item .text-uppercase {
-  font-size: var(--font-size--1);
-  font-weight: var(--font-weight-600);
-  letter-spacing: var(--tracking-wide);
-}
-
-/* Text tokens badges */
-.text-tokens {
+.utility-meta {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--size-2);
   margin-top: var(--size-4);
   padding-top: var(--size-4);
   border-top: 1px solid var(--border-light);
-}
-
-.token-badge {
-  display: inline-block;
-  padding: var(--size-1) var(--size-2);
-  background: var(--bg-section);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-1);
   font-size: var(--font-size--1);
-  font-family: var(--font-mono);
-  color: var(--text-primary);
-  white-space: nowrap;
 }
 
-/* Token scales grid */
+/* Token scales */
 .scales-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -432,17 +336,18 @@
   overflow-x: auto;
 }
 
-/* Utility classes */
-.font-monospace {
-  font-family: var(--font-mono);
+/* Utility CSS */
+.text-uppercase {
+  text-transform: uppercase;
 }
 
 .fw-bold {
   font-weight: var(--font-weight-700);
 }
 
-.text-uppercase {
-  text-transform: uppercase;
+.small {
+  font-size: var(--font-size-0);
+  line-height: var(--leading-5);
 }
 
 .text-secondary {
@@ -455,7 +360,6 @@
     padding-inline: var(--size-4);
   }
 
-  .heading-tokens,
   .utility-showcase {
     grid-template-columns: 1fr;
   }
