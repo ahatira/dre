@@ -135,7 +135,7 @@ Used for: Neutral UI, text, borders, backgrounds
 --gray-200: #d6dbde  /* Light background */
 --gray-300: #c4c9cf
 --gray-400: #b4babe  /* Medium gray */
---gray-500: #977e83
+--gray-500: #8a9097
 --gray-600: #555f66
 --gray-700: #434f57  /* Dark text */
 --gray-800: #3a4551
