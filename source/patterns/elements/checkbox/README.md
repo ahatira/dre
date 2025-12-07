@@ -41,8 +41,7 @@ Native checkbox input with custom visual styling. Fully accessible with keyboard
 ```css
 .ps-checkbox                    /* Block: Container */
 ├── .ps-checkbox__input         /* Element: Native input (visually hidden) */
-├── .ps-checkbox__box           /* Element: Custom visual box */
-│   └── .ps-checkbox__checkmark /* Element: SVG checkmark icon */
+├── .ps-checkbox__checkmark     /* Element: Custom visual box using background SVGs (checked/unchecked) */
 └── .ps-checkbox__label         /* Element: Label text */
 
 Modifiers:
@@ -61,9 +60,11 @@ Modifiers:
 
 ### Border & Visual
 
-- `--border-size-1` (1px) - Border width
+- `--border-size-1` (1px) - Border width (unused when using full SVG backgrounds but kept for overrides)
 - `--gray-400` - Border color (unselected)
 - `--radius-3` (6px) - Border radius (visible rounding on 24px box)
+- `--ps-checkbox-icon-unchecked` - Inline SVG background (full box outline)
+- `--ps-checkbox-icon-checked` - Inline SVG background (box + check)
 
 ### Colors
 
@@ -74,13 +75,12 @@ Modifiers:
 
 **Selected state:**
 - Background: `--white`
-- Border: `--primary` (#00915A green)
-- Checkmark: `--primary` (#00915A green)
+- Border: handled via `--ps-checkbox-icon-checked` (SVG fill uses currentColor)
+- Checkmark + box: `--primary` (#00915A green) via inline SVG background
 - Label: `--primary` (#00915A green)
 
 **Hover state (both unchecked/checked):**
-- Border: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
-- Checkmark: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
+- Border + check: `hsl(157, 95%, 35%)` (#04AF6E lighter green) via inline SVG color
 - Label: `hsl(157, 95%, 35%)` (#04AF6E lighter green)
 
 ### Focus
@@ -258,8 +258,8 @@ Example use cases:
 ## Notes
 
 - Native `<input type="checkbox">` preserved for full accessibility
-- Visual styling applied through custom `.ps-checkbox__box` element
-- Checkmark appears with smooth scale animation
+- Visual styling applied through `.ps-checkbox__checkmark` element using full background SVGs (checked/unchecked)
+- Color changes drive the inline SVG fills for hover/checked states
 - No JavaScript required for basic functionality
 - Fully compatible with Drupal Forms API
 - Works with or without label text

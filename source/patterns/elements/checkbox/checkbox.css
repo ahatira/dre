@@ -6,7 +6,7 @@
  *
  * BEM Structure:
  * - Block: .ps-checkbox
- * - Elements: .ps-checkbox__input, .ps-checkbox__box, .ps-checkbox__checkmark, .ps-checkbox__label
+ * - Elements: .ps-checkbox__input, .ps-checkbox__checkmark, .ps-checkbox__label
  * - Modifiers: --checked, --disabled
  *
  * CSS Variables System (3-Layer Architecture):
@@ -32,13 +32,18 @@
   /* Border & Visual */
   --ps-checkbox-border-width: var(--border-size-1); /* 1px - thin border */
   --ps-checkbox-border-color: var(--gray-400); /* Gray border for unselected */
-  --ps-checkbox-border-radius: var(--radius-3); /* 6px for visible rounding on 24px box */
+  --ps-checkbox-border-radius: 0; /* Square corners per spec update */
   --ps-checkbox-bg: var(--white);
+
+  /* Checkmark Drawing (SVG background) */
+  --ps-checkbox-icon-unchecked-mask: svg-load('checkbox-unchecked.svg');
+  --ps-checkbox-icon-checked-mask: svg-load('checkbox-checked.svg');
 
   /* Checked State */
   --ps-checkbox-checked-bg: var(--white); /* White background when checked */
   --ps-checkbox-checked-border-color: var(--primary); /* #00915A green border */
-  --ps-checkbox-checkmark-color: var(--primary); /* #00915A green checkmark */
+  --ps-checkbox-checkmark-color-default: var(--gray-700); /* default icon color per spec (#333333) */
+  --ps-checkbox-checkmark-color-checked: var(--primary); /* #00915A green checkmark */
 
   /* Hover State */
   --ps-checkbox-hover-color: hsl(157, 95%, 35%); /* #04AF6E - lighter green for hover */
@@ -65,6 +70,7 @@
   /* Transitions */
   --ps-checkbox-transition-duration: var(--duration-fast);
   --ps-checkbox-transition-timing: var(--ease-3);
+  --ps-checkbox-transition-delay: 0s;
 
   /* ============================================
      Apply Component Variables to Properties
@@ -72,7 +78,7 @@
 
   /* Layout */
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--ps-checkbox-gap);
   position: relative;
   cursor: pointer;
@@ -90,37 +96,29 @@
     border: 0;
 
     /* Focus State */
-    &:focus-visible + .ps-checkbox__box {
+    &:focus-visible + .ps-checkbox__checkmark {
       outline: var(--ps-checkbox-focus-outline-width) solid var(--ps-checkbox-focus-outline-color);
       outline-offset: var(--ps-checkbox-focus-outline-offset);
     }
 
     /* Checked State */
-    &:checked + .ps-checkbox__box {
-      background: var(--ps-checkbox-checked-bg);
-      border-color: var(--ps-checkbox-checked-border-color);
-
-      & .ps-checkbox__checkmark {
-        opacity: 1;
-        transform: scale(1);
-      }
+    &:checked + .ps-checkbox__checkmark {
+      color: var(--ps-checkbox-checkmark-color-checked);
+      mask-image: var(--ps-checkbox-icon-checked-mask);
+      -webkit-mask-image: var(--ps-checkbox-icon-checked-mask);
     }
 
     /* Checked Label Color */
-    &:checked + .ps-checkbox__box + .ps-checkbox__label {
+    &:checked + .ps-checkbox__checkmark + .ps-checkbox__label {
       color: var(--ps-checkbox-label-color-checked);
     }
 
     /* Hover State - Checked */
-    &:checked:not(:disabled):hover + .ps-checkbox__box {
-      border-color: var(--ps-checkbox-hover-border-color);
-
-      & .ps-checkbox__checkmark {
-        color: var(--ps-checkbox-hover-checkmark-color);
-      }
+    &:checked:not(:disabled):hover + .ps-checkbox__checkmark {
+      color: var(--ps-checkbox-hover-checkmark-color);
     }
 
-    &:checked:not(:disabled):hover + .ps-checkbox__box + .ps-checkbox__label {
+    &:checked:not(:disabled):hover + .ps-checkbox__checkmark + .ps-checkbox__label {
       color: var(--ps-checkbox-label-color-hover);
     }
 
@@ -128,43 +126,42 @@
     &:disabled {
       cursor: var(--ps-checkbox-disabled-cursor);
 
-      & + .ps-checkbox__box {
+      & + .ps-checkbox__checkmark {
         opacity: var(--ps-checkbox-disabled-opacity);
       }
 
-      & + .ps-checkbox__box + .ps-checkbox__label {
+      & + .ps-checkbox__checkmark + .ps-checkbox__label {
         opacity: var(--ps-checkbox-disabled-opacity);
         cursor: var(--ps-checkbox-disabled-cursor);
       }
     }
   }
 
-  /* Custom Checkbox Box */
-  & .ps-checkbox__box {
-    display: flex;
+  /* Checkmark Box (masked icon) */
+  & .ps-checkbox__checkmark {
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: var(--ps-checkbox-size);
     height: var(--ps-checkbox-size);
-    min-width: var(--ps-checkbox-size); /* Prevent shrinking */
-    background: var(--ps-checkbox-bg);
-    border: var(--ps-checkbox-border-width) solid var(--ps-checkbox-border-color);
+    min-width: var(--ps-checkbox-size);
+    background-color: currentColor;
+    border: none;
     border-radius: var(--ps-checkbox-border-radius);
+    color: var(--ps-checkbox-checkmark-color-default);
+    mask-image: var(--ps-checkbox-icon-unchecked-mask);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-image: var(--ps-checkbox-icon-unchecked-mask);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
     transition:
-      background var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
-      border-color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
-  }
-
-  /* Checkmark Icon */
-  & .ps-checkbox__checkmark {
-    width: calc(var(--ps-checkbox-size) * 0.625); /* 15px when checkbox is 24px */
-    height: calc(var(--ps-checkbox-size) * 0.625);
-    color: var(--ps-checkbox-checkmark-color);
-    opacity: 0;
-    transform: scale(0.8);
-    transition:
-      opacity var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing),
-      transform var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing);
+      color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing) var(--ps-checkbox-transition-delay),
+      background-color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing) var(--ps-checkbox-transition-delay),
+      mask-image var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing) var(--ps-checkbox-transition-delay);
   }
 
   /* Label Text */
@@ -174,6 +171,8 @@
     line-height: var(--ps-checkbox-label-line-height);
     color: var(--ps-checkbox-label-color);
     cursor: pointer;
+    transition:
+      color var(--ps-checkbox-transition-duration) var(--ps-checkbox-transition-timing) var(--ps-checkbox-transition-delay);
   }
 
   /* ============================================
@@ -181,11 +180,11 @@
      ============================================ */
 
   /* Hover - Unchecked */
-  &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__box {
-    border-color: var(--ps-checkbox-hover-border-color);
+  &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark {
+    color: var(--ps-checkbox-hover-border-color);
   }
 
-  &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__box + .ps-checkbox__label {
+  &:hover .ps-checkbox__input:not(:checked):not(:disabled) + .ps-checkbox__checkmark + .ps-checkbox__label {
     color: var(--ps-checkbox-label-color-hover);
   }
 

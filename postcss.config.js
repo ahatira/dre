@@ -4,6 +4,7 @@ import postcssGlobalData from '@csstools/postcss-global-data';
 import autoprefixer from 'autoprefixer';
 import postcssImport from 'postcss-import';
 import postcssImportExtGlob from 'postcss-import-ext-glob';
+import postcssInlineSvg from 'postcss-inline-svg';
 import postcssNested from 'postcss-nested';
 import postcssPresetEnv from 'postcss-preset-env';
 
@@ -17,6 +18,9 @@ export default {
     postcssImport({
       // Allow imports from node_modules (for external libs like Swiper)
       path: [join(__dirname, 'node_modules')],
+    }),
+    postcssInlineSvg({
+      paths: [join(__dirname, 'source/icons-source')],
     }),
     postcssNested(),
     postcssGlobalData({
