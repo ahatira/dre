@@ -1,84 +1,80 @@
 /**
- * Brand Tokens (BNP Paribas RealEstate)
+ * Brand Tokens (BNP Paribas Real Estate)
  * 
- * Complete theme system: semantic colors + UI tokens
- * - 6 semantic colors × 5 states = 30 tokens (Bootstrap Base-Modifier)
- * - Text colors: 4 tokens (primary, secondary, disabled, inverse)
- * - Border colors: 5 tokens (default, light, focus, error, success)
- * - Background colors: 7 tokens (page, section, disabled, success-light, danger-light, warning-light, info-light)
- * - Overlay colors: 6 tokens (dark heavy/medium/light, brand base/medium/light)
+ * Complete semantic color system following Bootstrap Base-Modifier pattern.
+ * Each semantic color has 5 states: base, hover, active, text, border
  * 
- * Total: 52 tokens from official BNP Paribas RealEstate design system.
+ * Structure:
+ * - 8 semantic colors × 5 states = 40 tokens
+ * - 4 text hierarchy tokens
+ * - 6 border tokens
+ * - 10 background tokens (including light variants)
+ * - 6 overlay tokens
+ * 
+ * Total: 66 semantic tokens from BNP Paribas Real Estate design system.
  */
 
 :where(html) {
   /* ============================================
      SEMANTIC COLORS (Bootstrap Base-Modifier)
-     6 colors × 5 states = 30 tokens
+     8 colors × 5 states = 40 tokens
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
   --primary: hsl(157, 100%, 28%); /* #00915A - Official BNP green */
-  --primary-hover: hsl(157, 100%, 25%); /* #017F4F - Dark variant from maquette */
+  --primary-hover: hsl(157, 100%, 25%); /* #017F4F - Darker on hover */
   --primary-active: hsl(157, 92%, 25%); /* #047857 - Darkest for pressed state */
-  --primary-text: hsl(0, 0%, 100%); /* White on primary */
-  --primary-border: hsl(157, 100%, 28%); /* Match base */
+  --primary-text: hsl(0, 0%, 100%); /* White text on primary background */
+  --primary-border: hsl(157, 100%, 28%); /* Match base color */
 
   /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
   --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
-  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter variant from maquette */
+  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter on hover */
   --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
-  --secondary-text: hsl(0, 0%, 100%); /* White on secondary */
-  --secondary-border: hsl(330, 65%, 40%); /* Match base */
+  --secondary-text: hsl(0, 0%, 100%); /* White text on secondary background */
+  --secondary-border: hsl(330, 65%, 40%); /* Match base color */
 
-  /* SUCCESS (Green - Positive actions) */
-  --success: hsl(157, 92%, 25%); /* #047857 (green-600) */
-  --success-hover: hsl(158, 93%, 22%); /* green-700 */
-  --success-active: hsl(159, 93%, 17%); /* green-800 */
-  --success-text: hsl(0, 0%, 100%); /* White on success */
-  --success-border: hsl(157, 92%, 25%);
+  /* SUCCESS (Green - Positive actions/confirmations) */
+  --success: hsl(157, 92%, 25%); /* #047857 - Success base */
+  --success-hover: hsl(158, 93%, 22%); /* Darker on hover */
+  --success-active: hsl(159, 93%, 17%); /* Darkest for pressed state */
+  --success-text: hsl(0, 0%, 100%); /* White text on success background */
+  --success-border: hsl(157, 92%, 25%); /* Match base color */
 
-  /* DANGER (Status Red - Official BNP #EB3636) */
-  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official status red */
-  --danger-hover: hsl(0, 82%, 52%); /* Slightly darker */
+  /* DANGER (Red - Errors/destructive actions) */
+  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official BNP status red */
+  --danger-hover: hsl(0, 82%, 52%); /* Darker on hover */
   --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
-  --danger-text: hsl(0, 0%, 100%); /* White on danger */
-  --danger-border: hsl(0, 82%, 57%); /* Match base */
+  --danger-text: hsl(0, 0%, 100%); /* White text on danger background */
+  --danger-border: hsl(0, 82%, 57%); /* Match base color */
 
-  /* WARNING (Yellow - Caution) */
-  --warning: hsl(42, 93%, 46%); /* #D97706 (yellow-400) */
-  --warning-hover: hsl(37, 97%, 39%); /* yellow-500 */
-  --warning-active: hsl(31, 88%, 33%); /* yellow-600 */
-  --warning-text: hsl(0, 0%, 0%); /* Black on yellow (contrast) */
-  --warning-border: hsl(42, 93%, 46%);
+  /* WARNING (Yellow - Caution/attention) */
+  --warning: hsl(42, 93%, 46%); /* #D97706 - Warning base */
+  --warning-hover: hsl(37, 97%, 39%); /* Darker on hover */
+  --warning-active: hsl(31, 88%, 33%); /* Darkest for pressed state */
+  --warning-text: hsl(0, 0%, 0%); /* Black text on yellow (WCAG contrast) */
+  --warning-border: hsl(42, 93%, 46%); /* Match base color */
 
-  /* INFO (Blue - Informational) */
-  --info: hsl(220, 89%, 53%); /* #2563EB (blue-600) */
-  --info-hover: hsl(221, 79%, 48%); /* blue-700 */
-  --info-active: hsl(223, 68%, 37%); /* blue-800 */
-  --info-text: hsl(0, 0%, 100%); /* White on info */
-  --info-border: hsl(220, 89%, 53%);
-
-  /* NEUTRAL (Gray - Default/neutral actions) */
-  --neutral: hsl(215, 14%, 34%); /* gray-600 - Neutral default */
-  --neutral-hover: hsl(217, 19%, 27%); /* gray-700 - Darker on hover */
-  --neutral-active: hsl(215, 28%, 17%); /* gray-800 - Darkest for pressed */
-  --neutral-text: hsl(0, 0%, 100%); /* White on neutral */
-  --neutral-border: hsl(215, 14%, 34%); /* Match base */
+  /* INFO (Blue - Informational content) */
+  --info: hsl(220, 89%, 53%); /* #2563EB - Info base */
+  --info-hover: hsl(221, 79%, 48%); /* Darker on hover */
+  --info-active: hsl(223, 68%, 37%); /* Darkest for pressed state */
+  --info-text: hsl(0, 0%, 100%); /* White text on info background */
+  --info-border: hsl(220, 89%, 53%); /* Match base color */
 
   /* LIGHT (For dark backgrounds - inverse theme) */
   --light: hsl(220, 14%, 96%); /* gray-100 - Light base for dark backgrounds */
-  --light-hover: hsl(220, 13%, 91%); /* gray-200 - Slightly darker on hover */
-  --light-active: hsl(216, 12%, 84%); /* gray-300 - Active state */
-  --light-text: hsl(217, 19%, 27%); /* gray-700 - Dark text on light */
-  --light-border: hsl(220, 14%, 96%); /* Match base */
+  --light-hover: hsl(220, 13%, 91%); /* gray-200 - Darker on hover */
+  --light-active: hsl(216, 12%, 84%); /* gray-300 - Darkest for pressed state */
+  --light-text: hsl(217, 19%, 27%); /* gray-700 - Dark text on light background */
+  --light-border: hsl(220, 14%, 96%); /* Match base color */
 
   /* DARK (For light backgrounds - high contrast) */
   --dark: hsl(217, 19%, 27%); /* gray-700 - Dark base */
   --dark-hover: hsl(215, 28%, 17%); /* gray-800 - Darker on hover */
-  --dark-active: hsl(221, 39%, 11%); /* gray-900 - Darkest for pressed */
-  --dark-text: hsl(0, 0%, 100%); /* White on dark */
-  --dark-border: hsl(217, 19%, 27%); /* Match base */
+  --dark-active: hsl(221, 39%, 11%); /* gray-900 - Darkest for pressed state */
+  --dark-text: hsl(0, 0%, 100%); /* White text on dark background */
+  --dark-border: hsl(217, 19%, 27%); /* Match base color */
 
   /* ============================================
      TEXT COLORS (Typography)
@@ -91,59 +87,29 @@
 
   /* ============================================
      BORDER COLORS (UI Boundaries)
-     5 tokens for border hierarchy
+     6 tokens for complete border hierarchy
      ============================================ */
-  --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders */
-  --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators */
-  --border-focus: hsl(0, 0%, 20%); /* #333333 - Focus ring (dark gray from maquette) */
+  --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders (gray-200) */
+  --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators (gray-100) */
+  --border-focus: hsl(0, 0%, 20%); /* #333333 - Focus ring (dark gray) */
+  --border-disabled: hsl(218, 11%, 65%); /* #B0B8BD - Disabled borders (gray-400) */
   --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders */
-  --border-success: hsl(157, 100%, 28%); /* #00915A - Success/done state borders */
+  --border-success: hsl(157, 100%, 28%); /* #00915A - Success/validation borders */
 
   /* ============================================
      BACKGROUND COLORS (Surfaces)
-     7 tokens for background hierarchy
+     10 tokens for complete background hierarchy
      ============================================ */
   --bg-page: hsl(0, 0%, 100%); /* #FFFFFF - Main page background */
   --bg-section: hsl(210, 20%, 98%); /* #F9F9FB - Section backgrounds */
   --bg-disabled: hsl(220, 14%, 96%); /* #F4F5F6 - Disabled inputs/buttons */
-  --bg-success-light: hsl(157, 48%, 72%); /* #99D3BD - Light success backgrounds (alerts, notifications) */
-  --bg-danger-light: hsl(0, 82%, 90%); /* Light red backgrounds (error alerts) */
-  --bg-warning-light: hsl(42, 93%, 90%); /* Light yellow backgrounds (warning alerts) */
-  --bg-info-light: hsl(220, 89%, 90%); /* Light blue backgrounds (info alerts) */
-
-  /* ============================================
-     TOGGLE STATES (Button toggle variants)
-     Inactive = couleur de base du variant (charte)
-     Active = teinte contrastée issue des palettes
-     ============================================ */
-
-  /* PRIMARY toggle states */
-  --primary-disabled: var(--primary); /* Inactif (base brand green) */
-  --primary-enabled: var(--green-600); /* Actif (green-600 palette) */
-
-  /* SECONDARY toggle states */
-  --secondary-disabled: var(--secondary); /* Inactif (base magenta) */
-  --secondary-enabled: var(--secondary-active); /* Actif (darker magenta) */
-
-  /* SUCCESS toggle states */
-  --success-disabled: var(--success); /* Inactif (base success) */
-  --success-enabled: var(--success-active); /* Actif (darker success) */
-
-  /* INFO toggle states */
-  --info-disabled: var(--info); /* Inactif (base info) */
-  --info-enabled: var(--info-active); /* Actif (darker info) */
-
-  /* WARNING toggle states */
-  --warning-disabled: var(--warning); /* Inactif (base warning) */
-  --warning-enabled: var(--warning-active); /* Actif (darker warning) */
-
-  /* DANGER toggle states */
-  --danger-disabled: var(--danger); /* Inactif (base danger) */
-  --danger-enabled: var(--danger-active); /* Actif (darker danger) */
-
-  /* NEUTRAL toggle states */
-  --neutral-disabled: var(--neutral); /* Inactif (gray-600) */
-  --neutral-enabled: var(--gray-500); /* Actif (gray-500) */
+  --bg-primary-light: hsl(157, 100%, 95%); /* Light primary tint for highlights */
+  --bg-secondary-light: hsl(330, 65%, 95%); /* Light secondary tint for highlights */
+  --bg-success-light: hsl(157, 48%, 72%); /* #99D3BD - Light success (alerts, notifications) */
+  --bg-danger-light: hsl(0, 82%, 90%); /* Light red (error alerts, warnings) */
+  --bg-warning-light: hsl(42, 93%, 90%); /* Light yellow (warning alerts, caution) */
+  --bg-info-light: hsl(220, 89%, 90%); /* Light blue (info alerts, tips) */
+  --bg-neutral-light: hsl(220, 13%, 96%); /* Light gray (neutral backgrounds) */
 
   /* ============================================
      OVERLAY COLORS (Modals, dropdowns, shadows)
@@ -151,7 +117,7 @@
      ============================================ */
   --overlay-dark-heavy: hsla(0, 0%, 0%, 0.6); /* rgba(0, 0, 0, 0.6) - Modals, heavy overlays */
   --overlay-dark-medium: hsla(0, 0%, 0%, 0.36); /* rgba(0, 0, 0, 0.36) - Medium overlays */
-  --overlay-dark-light: hsla(0, 0%, 0%, 0.12); /* rgba(0, 0, 0, 0.12) - Light overlays */
+  --overlay-dark-light: hsla(0, 0%, 0%, 0.12); /* rgba(0, 0, 0, 0.12) - Light overlays, hover states */
   --overlay-brand-base: hsl(204, 33%, 25%); /* #1C2D37 - Brand overlay base color */
   --overlay-brand-medium: hsla(204, 33%, 25%, 0.36); /* rgba(28, 45, 55, 0.36) - Medium brand overlay */
   --overlay-brand-light: hsla(204, 33%, 25%, 0.12); /* rgba(28, 45, 55, 0.12) - Light brand overlay */
