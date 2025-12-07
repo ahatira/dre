@@ -1,5 +1,23 @@
 <section class="demo-brands">
+  {# Theme Colors - Large cards display #}
+  <div class="theme-colors-section">
+    <h3 class="section-title">Theme colors</h3>
+    <p class="section-intro">Official BNP Paribas Real Estate semantic color palette for UI components and states.</p>
+    <div class="theme-colors-grid">
+      {% for title, list in brands %}
+        {% for item in list %}
+          <div class="theme-color-card theme-color-{{ item.slug }}">
+            <span class="theme-color-name">{{ item.name }}</span>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {# Semantic Colors - Table with variants #}
   <div class="brand-grid">
+    <h3 class="section-title">All colors and variants</h3>
+    <p class="section-intro">Complete semantic token system with base, subtle, border, and text-emphasis variants for each theme color.</p>
     {% for title, list in brands %}
       <div class="brand-group">
         <h3 class="brand-group__title">{{ title }}</h3>
