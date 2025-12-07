@@ -3,7 +3,6 @@ import data from './typography.yml';
 
 const settings = {
   title: 'Base/Typography',
-  tags: ['autodocs'],
 };
 
 const Typography = {
