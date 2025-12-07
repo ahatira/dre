@@ -22,7 +22,6 @@ import data from './brand.yml';
 
 const settings = {
   title: 'Base/Brand',
-  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
