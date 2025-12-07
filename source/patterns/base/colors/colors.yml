@@ -261,7 +261,7 @@ palettes:
       usage: 'Placeholders'
     - name: 'Gray 500'
       var: '--gray-500'
-      value: '#977e83'
+      value: '#8a9097'
       usage: 'Secondary text'
     - name: 'Gray 600'
       var: '--gray-600'
