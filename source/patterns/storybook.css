@@ -585,6 +585,43 @@
   line-height: var(--leading-normal);
 }
 
+/* Native heading elements styling - applies within Storybook demos */
+.demo-typography h1 {
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.demo-typography h2 {
+  font-size: var(--font-size-9);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.demo-typography h3 {
+  font-size: var(--font-size-8);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
+
+.demo-typography h4 {
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.demo-typography h5 {
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-snug);
+}
+
+.demo-typography h6 {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-normal);
+}
+
 /* Display heading utility classes */
 .display-1 {
   font-size: var(--font-size-14);
