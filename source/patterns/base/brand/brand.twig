@@ -3,35 +3,37 @@
     {% for title, list in brands %}
       <div class="brand-group">
         <h3 class="brand-group__title">{{ title }}</h3>
-        <div class="brand-group__content">
+        <div class="brand-group__table">
+          <div class="brand-table-header">
+            <div class="brand-col--description">Token</div>
+            <div class="brand-col--swatch">Swatch</div>
+            <div class="brand-col--variables">Variables</div>
+          </div>
           {% for item in list %}
             <div class="brand-row">
               <!-- Description Column -->
-              <div class="brand-row__description">
-                <span class="label">{{ item.name }}</span>
+              <div class="brand-col--description">
+                <span class="brand-token-name">{{ item.name }}</span>
                 {% if item.description %}
-                  <p class="description">{{ item.description }}</p>
+                  <p class="brand-token-desc">{{ item.description }}</p>
                 {% endif %}
               </div>
 
               <!-- Swatch Column -->
-              <div class="brand-row__swatch">
+              <div class="brand-col--swatch">
                 <div 
                   class="swatch" 
                   style="background-color: {{ item.value }}"
                   title="{{ item.var }}"
+                  data-hex="{{ item.value }}"
                 ></div>
               </div>
 
               <!-- Variables Column -->
-              <div class="brand-row__variables">
-                <div class="variable">
-                  <span class="variable-label">var:</span>
-                  <code class="variable-name">{{ item.var }}</code>
-                </div>
-                <div class="variable">
-                  <span class="variable-label">hex:</span>
-                  <code class="variable-value">{{ item.value }}</code>
+              <div class="brand-col--variables">
+                <div class="brand-var-item">
+                  <code class="brand-var-name">{{ item.var }}</code>
+                  <code class="brand-var-value">{{ item.value }}</code>
                 </div>
               </div>
             </div>
@@ -41,3 +43,4 @@
     {% endfor %}
   </div>
 </section>
+
