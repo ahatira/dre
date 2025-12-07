@@ -111,7 +111,16 @@
       color: var(--ps-checkbox-label-color-checked);
     }
 
-    /* Hover State - Checked */
+    /* Hover State - Unchecked (icon + label) */
+    &:not(:checked):not(:disabled):hover + .ps-checkbox__checkmark {
+      color: var(--ps-checkbox-hover-checkmark-color);
+    }
+
+    &:not(:checked):not(:disabled):hover + .ps-checkbox__checkmark + .ps-checkbox__label {
+      color: var(--ps-checkbox-label-color-hover);
+    }
+
+    /* Hover State - Checked (icon + label) */
     &:checked:not(:disabled):hover + .ps-checkbox__checkmark {
       color: var(--ps-checkbox-hover-checkmark-color);
     }
