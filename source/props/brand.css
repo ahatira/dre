@@ -2,22 +2,22 @@
  * Brand Tokens (BNP Paribas Real Estate)
  * 
  * Complete semantic color system following Bootstrap Base-Modifier pattern.
- * Each semantic color has 5 states: base, hover, active, text, border
+ * Each semantic color has 6 states: base, hover, active, text, border, subtle
  * 
  * Structure:
- * - 8 semantic colors × 5 states = 40 tokens
+ * - 8 semantic colors × 6 states = 48 tokens
  * - 4 text hierarchy tokens
  * - 6 border tokens
  * - 10 background tokens (including light variants)
  * - 6 overlay tokens
  * 
- * Total: 66 semantic tokens from BNP Paribas Real Estate design system.
+ * Total: 74 semantic tokens from BNP Paribas Real Estate design system.
  */
 
 :where(html) {
   /* ============================================
      SEMANTIC COLORS (Bootstrap Base-Modifier)
-     8 colors × 5 states = 40 tokens
+     8 colors × 6 states = 48 tokens
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
@@ -26,6 +26,7 @@
   --primary-active: hsl(157, 92%, 25%); /* #047857 - Darkest for pressed state */
   --primary-text: hsl(0, 0%, 100%); /* White text on primary background */
   --primary-border: hsl(157, 100%, 28%); /* Match base color */
+  --primary-subtle: hsl(157, 100%, 95%); /* Light tint for badges, alerts */
 
   /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
   --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
@@ -33,6 +34,7 @@
   --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
   --secondary-text: hsl(0, 0%, 100%); /* White text on secondary background */
   --secondary-border: hsl(330, 65%, 40%); /* Match base color */
+  --secondary-subtle: hsl(330, 65%, 95%); /* Light tint for badges, alerts */
 
   /* SUCCESS (Green - Positive actions/confirmations) */
   --success: hsl(157, 92%, 25%); /* #047857 - Success base */
@@ -40,6 +42,7 @@
   --success-active: hsl(159, 93%, 17%); /* Darkest for pressed state */
   --success-text: hsl(0, 0%, 100%); /* White text on success background */
   --success-border: hsl(157, 92%, 25%); /* Match base color */
+  --success-subtle: hsl(157, 92%, 95%); /* Light tint for badges, alerts */
 
   /* DANGER (Red - Errors/destructive actions) */
   --danger: hsl(0, 82%, 57%); /* #EB3636 - Official BNP status red */
@@ -47,6 +50,7 @@
   --danger-active: hsl(0, 82%, 47%); /* Darkest for pressed state */
   --danger-text: hsl(0, 0%, 100%); /* White text on danger background */
   --danger-border: hsl(0, 82%, 57%); /* Match base color */
+  --danger-subtle: hsl(0, 82%, 95%); /* Light tint for badges, alerts */
 
   /* WARNING (Yellow - Caution/attention) */
   --warning: hsl(42, 93%, 46%); /* #D97706 - Warning base */
@@ -54,6 +58,7 @@
   --warning-active: hsl(31, 88%, 33%); /* Darkest for pressed state */
   --warning-text: hsl(0, 0%, 0%); /* Black text on yellow (WCAG contrast) */
   --warning-border: hsl(42, 93%, 46%); /* Match base color */
+  --warning-subtle: hsl(42, 93%, 95%); /* Light tint for badges, alerts */
 
   /* INFO (Blue - Informational content) */
   --info: hsl(220, 89%, 53%); /* #2563EB - Info base */
@@ -61,6 +66,7 @@
   --info-active: hsl(223, 68%, 37%); /* Darkest for pressed state */
   --info-text: hsl(0, 0%, 100%); /* White text on info background */
   --info-border: hsl(220, 89%, 53%); /* Match base color */
+  --info-subtle: hsl(220, 89%, 95%); /* Light tint for badges, alerts */
 
   /* LIGHT (For dark backgrounds - inverse theme) */
   --light: hsl(220, 14%, 96%); /* gray-100 - Light base for dark backgrounds */
@@ -68,6 +74,7 @@
   --light-active: hsl(216, 12%, 84%); /* gray-300 - Darkest for pressed state */
   --light-text: hsl(217, 19%, 27%); /* gray-700 - Dark text on light background */
   --light-border: hsl(220, 14%, 96%); /* Match base color */
+  --light-subtle: hsl(0, 0%, 100%); /* Pure white for subtle light backgrounds */
 
   /* DARK (For light backgrounds - high contrast) */
   --dark: hsl(217, 19%, 27%); /* gray-700 - Dark base */
@@ -75,6 +82,7 @@
   --dark-active: hsl(221, 39%, 11%); /* gray-900 - Darkest for pressed state */
   --dark-text: hsl(0, 0%, 100%); /* White text on dark background */
   --dark-border: hsl(217, 19%, 27%); /* Match base color */
+  --dark-subtle: hsl(217, 19%, 95%); /* Very light gray for subtle dark backgrounds */
 
   /* ============================================
      TEXT COLORS (Typography)
