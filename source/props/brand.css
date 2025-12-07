@@ -20,26 +20,26 @@
      ============================================ */
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
-  --primary: hsl(157, 100%, 28%); /* #00915A - Official BNP green (keep exact for brand fidelity) */
+  --primary: #00915a; /* Official BNP green (keep exact for brand fidelity) */
   --primary-hover: var(--green-700); /* Darker on hover */
   --primary-active: var(--green-800); /* Darkest for pressed state */
   --primary-text: var(--white); /* White text on primary background */
-  --primary-border: hsl(157, 100%, 28%); /* Match base color */
+  --primary-border: #00915a; /* Match base color */
   --primary-subtle: var(--green-50); /* Light tint for badges, alerts */
-  --primary-bg-subtle: hsl(157, 100%, 97%); /* Very light background (custom 97%) */
+  --primary-bg-subtle: #f7fdf9; /* Very light background (custom 97%) */
   --primary-border-subtle: var(--green-200); /* Subtle border color */
   --primary-text-emphasis: var(--green-900); /* Dark text on light backgrounds */
 
   /* SECONDARY (Brand Magenta - Official BNP #A12B66) */
-  --secondary: hsl(330, 65%, 40%); /* #A12B66 - Official BNP magenta */
-  --secondary-hover: hsl(330, 60%, 50%); /* #BA3075 - Lighter on hover */
-  --secondary-active: hsl(330, 65%, 35%); /* #8A2456 - Darker for pressed state */
-  --secondary-text: hsl(0, 0%, 100%); /* White text on secondary background */
-  --secondary-border: hsl(330, 65%, 40%); /* Match base color */
-  --secondary-subtle: hsl(330, 65%, 95%); /* Light tint for badges, alerts */
-  --secondary-bg-subtle: hsl(330, 65%, 97%); /* Very light background */
-  --secondary-border-subtle: hsl(330, 65%, 85%); /* Subtle border color */
-  --secondary-text-emphasis: hsl(330, 65%, 25%); /* Dark text on light backgrounds */
+  --secondary: #a12b66; /* Official BNP magenta */
+  --secondary-hover: #ba3075; /* Lighter on hover */
+  --secondary-active: #8a2456; /* Darker for pressed state */
+  --secondary-text: #ffffff; /* White text on secondary background */
+  --secondary-border: #a12b66; /* Match base color */
+  --secondary-subtle: #f9f2f5; /* Light tint for badges, alerts */
+  --secondary-bg-subtle: #fdf6f8; /* Very light background */
+  --secondary-border-subtle: #e5c8d4; /* Subtle border color */
+  --secondary-text-emphasis: #47152a; /* Dark text on light backgrounds */
 
   /* SUCCESS (Green - Positive actions/confirmations) */
   --success: var(--green-600); /* #047857 - Success base */
@@ -48,18 +48,18 @@
   --success-text: var(--white); /* White text on success background */
   --success-border: var(--green-600); /* Match base color */
   --success-subtle: var(--green-50); /* Light tint for badges, alerts */
-  --success-bg-subtle: hsl(157, 92%, 97%); /* Very light background */
+  --success-bg-subtle: #f7fdf9; /* Very light background */
   --success-border-subtle: var(--green-200); /* Subtle border color */
   --success-text-emphasis: var(--green-900); /* Dark text on light backgrounds */
 
   /* DANGER (Red - Errors/destructive actions) */
-  --danger: hsl(0, 82%, 57%); /* #EB3636 - Official BNP status red (keep exact for brand fidelity) */
+  --danger: #eb3636; /* Official BNP status red (keep exact for brand fidelity) */
   --danger-hover: var(--red-600); /* Darker on hover */
   --danger-active: var(--red-700); /* Darkest for pressed state */
   --danger-text: var(--white); /* White text on danger background */
-  --danger-border: hsl(0, 82%, 57%); /* Match base color */
+  --danger-border: #eb3636; /* Match base color */
   --danger-subtle: var(--red-50); /* Light tint for badges, alerts */
-  --danger-bg-subtle: hsl(0, 82%, 97%); /* Very light background (custom 97%) */
+  --danger-bg-subtle: #fdf7f7; /* Very light background (custom 97%) */
   --danger-border-subtle: var(--red-200); /* Subtle border color */
   --danger-text-emphasis: var(--red-900); /* Dark text on light backgrounds */
 
@@ -70,7 +70,7 @@
   --warning-text: var(--black); /* Black text on yellow (WCAG contrast) */
   --warning-border: var(--yellow-400); /* Match base color */
   --warning-subtle: var(--yellow-50); /* Light tint for badges, alerts */
-  --warning-bg-subtle: hsl(42, 93%, 97%); /* Very light background */
+  --warning-bg-subtle: #fffdf3; /* Very light background */
   --warning-border-subtle: var(--yellow-200); /* Subtle border color */
   --warning-text-emphasis: var(--yellow-800); /* Dark text on light backgrounds */
 
@@ -81,7 +81,7 @@
   --info-text: var(--white); /* White text on info background */
   --info-border: var(--blue-600); /* Match base color */
   --info-subtle: var(--blue-50); /* Light tint for badges, alerts */
-  --info-bg-subtle: hsl(220, 89%, 97%); /* Very light background */
+  --info-bg-subtle: #f7faff; /* Very light background */
   --info-border-subtle: var(--blue-200); /* Subtle border color */
   --info-text-emphasis: var(--blue-900); /* Dark text on light backgrounds */
 
@@ -111,30 +111,30 @@
      TEXT COLORS (Typography)
      4 tokens for text hierarchy
      ============================================ */
-  --text-primary: hsl(217, 19%, 27%); /* #434F57 - Main text (WCAG AAA) */
-  --text-secondary: hsl(220, 9%, 46%); /* #777E83 - Secondary text (WCAG AA) */
-  --text-disabled: hsl(218, 11%, 65%); /* #B0B8BD - Disabled state */
-  --text-inverse: hsl(0, 0%, 100%); /* #FFFFFF - Text on dark backgrounds */
+  --text-primary: #364152; /* Main text (WCAG AAA) */
+  --text-secondary: #76808d; /* Secondary text (WCAG AA) */
+  --text-disabled: #b5bcc9; /* Disabled state */
+  --text-inverse: #ffffff; /* Text on dark backgrounds */
 
   /* ============================================
      BORDER COLORS (UI Boundaries)
      6 tokens for complete border hierarchy
      ============================================ */
-  --border-default: hsl(220, 13%, 91%); /* #D6DBDE - Default borders (gray-200) */
-  --border-light: hsl(220, 14%, 96%); /* #EBEDEF - Light separators (gray-100) */
-  --border-focus: hsl(0, 0%, 20%); /* #333333 - Focus ring (dark gray) */
-  --border-disabled: hsl(218, 11%, 65%); /* #B0B8BD - Disabled borders (gray-400) */
-  --border-error: hsl(0, 82%, 57%); /* #EB3636 - Error state borders */
-  --border-success: hsl(157, 100%, 28%); /* #00915A - Success/validation borders */
+  --border-default: #ebedf2; /* Default borders (gray-200) */
+  --border-light: #f6f7f9; /* Light separators (gray-100) */
+  --border-focus: #333333; /* Focus ring (dark gray) */
+  --border-disabled: #b5bcc9; /* Disabled borders (gray-400) */
+  --border-error: #eb3636; /* Error state borders */
+  --border-success: #00915a; /* Success/validation borders */
 
   /* ============================================
      OVERLAY COLORS (Modals, dropdowns, shadows)
      6 tokens for overlay hierarchy
      ============================================ */
-  --overlay-dark-heavy: hsla(0, 0%, 0%, 0.6); /* rgba(0, 0, 0, 0.6) - Modals, heavy overlays */
-  --overlay-dark-medium: hsla(0, 0%, 0%, 0.36); /* rgba(0, 0, 0, 0.36) - Medium overlays */
-  --overlay-dark-light: hsla(0, 0%, 0%, 0.12); /* rgba(0, 0, 0, 0.12) - Light overlays, hover states */
-  --overlay-brand-base: hsl(204, 33%, 25%); /* #1C2D37 - Brand overlay base color */
-  --overlay-brand-medium: hsla(204, 33%, 25%, 0.36); /* rgba(28, 45, 55, 0.36) - Medium brand overlay */
-  --overlay-brand-light: hsla(204, 33%, 25%, 0.12); /* rgba(28, 45, 55, 0.12) - Light brand overlay */
+  --overlay-dark-heavy: rgba(0, 0, 0, 0.6); /* Modals, heavy overlays */
+  --overlay-dark-medium: rgba(0, 0, 0, 0.36); /* Medium overlays */
+  --overlay-dark-light: rgba(0, 0, 0, 0.12); /* Light overlays, hover states */
+  --overlay-brand-base: #1c2d37; /* Brand overlay base color */
+  --overlay-brand-medium: rgba(28, 45, 55, 0.36); /* Medium brand overlay */
+  --overlay-brand-light: rgba(28, 45, 55, 0.12); /* Light brand overlay */
 }
