@@ -165,6 +165,16 @@ source/patterns/{level}/{component}/
 
 ## 🎨 Design Tokens Organization
 
+### Token Architecture (3 Layers)
+
+```
+colors.css (Base Palettes)        ← Official BNP color specifications
+    ↓
+brand.css (Semantic Tokens)       ← Meaningful names for use cases
+    ↓
+Components (var(--primary), etc.) ← Never reference palettes directly
+```
+
 ### Token Files (source/props/*.css)
 
 **⚠️ CRITICAL RULE**: NEVER edit `source/props/*.css` directly during component work.
@@ -173,8 +183,8 @@ Tokens are organized by category:
 
 | File | Content | Examples |
 |------|---------|----------|
-| `colors.css` | Color scales (0-900) + base | `--gray-100`, `--green-600`, `--white` |
-| `brand.css` | Brand semantic colors | `--primary`, `--secondary`, `--success` |
+| `colors.css` | **Official BNP Palettes** (50-900 scales) | `--green-600` (#00915A), `--pink-700` (#A12B66), `--teal-600` (#198754), `--red-600` (#EB3636), `--gray-900` (#333333) |
+| `brand.css` | **Semantic tokens** mapping palettes to use cases | `--primary` (green-600), `--secondary` (pink-700), `--success` (teal-600), `--danger` (red-600) |
 | `fonts.css` | Typography scales | `--font-size-2`, `--font-weight-600` |
 | `sizes.css` | Spacing/sizing scales | `--size-4` (1rem), `--size-6` (1.5rem) |
 | `borders.css` | Radii + border widths | `--radius-2`, `--border-size-1` |
@@ -184,27 +194,87 @@ Tokens are organized by category:
 | `zindex.css` | Z-index layers | `--z-dropdown`, `--z-modal` |
 | `icons.css` | SVG sprite CSS | Auto-generated from `source/icons-source/` SVG files |
 
+### Official BNP Color Palettes
+
+**colors.css contains 5 complete 50-900 palettes:**
+
+```css
+/* PRIMARY GREEN - Brand Primary (#00915A) */
+--green-50: #ebf7f4;   --green-600: #00915a;   --green-900: #01563a;
+
+/* SECONDARY PINK - Brand Secondary (#A12B66) */
+--pink-50: #f9ecf2;    --pink-700: #a12b66;    --pink-900: #751d4e;
+
+/* SUCCESS TEAL - Distinct Success Green (#198754) */
+--teal-50: #e7f4f1;    --teal-600: #198754;    --teal-900: #124a3b;
+
+/* ERROR RED - Error/Danger (#EB3636) */
+--red-50: #fef7f7;     --red-600: #eb3636;     --red-900: #a62626;
+
+/* GREY SCALE - Neutrals (#333333 → #FFFFFF) */
+--gray-50: #f9f9fb;    --gray-700: #434f57;    --gray-900: #333333;
+```
+
+**Key Design Decision**: PRIMARY green (#00915A) ≠ SUCCESS teal (#198754)
+- Prevents color bleeding between brand identity and system feedback
+- Enables distinct border colors: `--border-primary` vs `--border-success`
+- Proper semantic meaning in UI
+
+### Semantic Tokens in brand.css
+
+```css
+/* Use ONLY these in components, never reference palettes directly */
+--primary: var(--green-600);      /* #00915A - Brand primary */
+--secondary: var(--pink-700);     /* #A12B66 - Brand secondary */
+--success: var(--teal-600);       /* #198754 - Success feedback (distinct!) */
+--danger: var(--red-600);         /* #EB3636 - Error feedback */
+--text-primary: var(--gray-700);  /* #434F57 - Main text */
+--border-default: var(--gray-200);/* #D6DBDE - Standard borders */
+--border-success: var(--teal-600);/* #198754 - Success borders (uses teal, not primary) */
+```
+
 ### Token Naming Convention
 
 ```css
-/* Primitive tokens - raw values */
---{category}-{name}-{scale}
+/* Primitive tokens - raw values from BNP specs */
+--{color}-{scale}
 
 /* Examples */
---gray-600                /* Color with scale */
---size-4                  /* Spacing with scale */
---font-size-2             /* Typography with scale */
+--green-600      /* Green palette, scale 600 (primary) */
+--pink-50        /* Pink palette, scale 50 (lightest) */
+--gray-700       /* Gray palette, scale 700 (dark) */
 
-/* Semantic tokens - meaningful names */
---{purpose}
+/* Semantic tokens - meaningful names for use cases */
+--{purpose}[-{state}]
 
 /* Examples */
---primary                 /* Brand primary color */
---btn-danger              /* Danger button color */
---success                 /* Success state color */
+--primary              /* Primary color (main use) */
+--primary-hover        /* Primary on hover */
+--success              /* Success state (distinct from primary) */
+--border-success       /* Success borders (uses teal, not primary) */
 ```
 
 ### Token Usage Workflow
+
+**COMPONENTS: Use semantic tokens ONLY**
+
+```css
+/* ✅ CORRECT: Reference semantic tokens */
+.ps-button {
+  background-color: var(--primary);
+  color: var(--primary-text);
+}
+
+/* ❌ WRONG: Never reference palettes in components */
+.ps-button {
+  background-color: var(--green-600);  /* Don't do this */
+}
+
+/* ❌ WRONG: Never hardcode colors */
+.ps-button {
+  background-color: #00915A;  /* Don't do this */
+}
+```
 
 **BEFORE creating a new token**:
 

@@ -4,6 +4,34 @@
 
 ## 2025
 
+- 2025-12-07: **Color System Refactor** – Implémentation palettes officielles BNP
+  - **New Palettes in colors.css**: Remplacement des palettes génériques par palettes BNP officielles
+    * **PRIMARY GREEN**: #00915A (Vert primaire BNP) – palettes --green-50 à --green-900
+    * **SECONDARY PINK**: #A12B66 (Rose secondaire BNP) – palettes --pink-50 à --pink-900
+    * **SUCCESS TEAL**: #198754 (Vert succès BNP) – palettes --teal-50 à --teal-900
+    * **ERROR RED**: #EB3636 (Rouge erreur BNP) – palettes --red-50 à --red-900
+    * **GREY SCALE**: #333333 → #FFFFFF (Gris BNP) – palettes --gray-50 à --gray-900
+  - **Updated brand.css Semantic Tokens**:
+    * `--primary` → `var(--green-600)` (#00915A)
+    * `--secondary` → `var(--pink-700)` (#A12B66)
+    * `--success` → `var(--teal-600)` (#198754) – maintenant distinct du primary
+    * `--danger` → `var(--red-600)` (#EB3636)
+    * `--border-success` → `var(--teal-600)` au lieu de `--primary` pour distinction sémantique
+  - **Architecture Benefits**:
+    * Single source of truth: spécifications BNP → colors.css → brand.css → components
+    * Séparation des palettes: PRIMARY green ≠ SUCCESS teal (évite contamination couleur)
+    * Escalles complètes 50-900 pour nuanciation et hiérarchie
+    * Fidélité complète à identité visuelle BNP Paribas Real Estate
+  - **Files Modified**: colors.css, brand.css
+  - **Build**: ✅ 216.12 kB, npm run build passing
+
+- 2025-12-07: **HSL to Hex Conversion** – Conversion format colors.css et brand.css
+  - **colors.css**: 62 HSL → hex conversions (toutes palettes)
+  - **brand.css**: 31 HSL → hex conversions (semantic tokens + text + border + overlay)
+  - **Total**: 93 color values standardisés au format hexadécimal
+  - **Benefits**: Lisibilité, compatibilité outils design, optimisation CSS (-0.97 kB)
+  - **Build**: ✅ 215.56 kB, npm run build passing
+
 - 2025-12-07: **Checkbox (FINAL)** – Corrections finales selon spécifications exactes
   - **Taille**: 24×24px (`--size-6`) au lieu de 20×20px
   - **Espacement**: 8px (`--size-2`) entre case et label au lieu de 12px

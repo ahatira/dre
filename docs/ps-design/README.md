@@ -56,8 +56,9 @@ ps_theme/
 │   │   ├── layouts/        # ⏳ À faire (0/8)
 │   │   └── pages/          # ⏳ À faire (0/8)
 │   │
-│   └── props/               # 🎨 Design tokens
-│       ├── colors.css      # ✅ Semantic & brand colors
+│   └── props/               # 🎨 Design tokens (couleurs + typo + spacing)
+│       ├── colors.css      # ✅ Palettes base (GREEN, PINK, TEAL, RED, GREY)
+│       ├── brand.css       # ✅ Tokens sémantiques (primary, secondary, success, etc.)
 │       ├── fonts.css       # ✅ Typography tokens
 │       ├── sizes.css       # ✅ Spacing & sizing scale
 │       ├── shadows.css     # ✅ Shadow definitions
@@ -158,63 +159,75 @@ Voir **[INDEX.md](./INDEX.md)** pour :
 
 Tous les tokens sont centralisés dans `source/props/*.css` sous forme de **CSS Custom Properties** organisés par catégorie (colors, fonts, sizes, shadows, borders, animations, easing, zindex).
 
-### Tokens Disponibles (source/props/*.css)
+### Architecture des Tokens de Couleur
+
+**3 couches :**
+1. **colors.css** - Palettes de base (50-900) avec couleurs officielles BNP
+2. **brand.css** - Tokens sémantiques (primary, secondary, success, danger, etc.)
+3. **Components** - Références aux tokens sémantiques via `var(--primary)`, etc.
+
+### Palettes Officielles BNP (colors.css)
 
 ```css
-/* Couleurs Brand (brand.css) */
---primary: var(--bnp-green);        /* #00915A - Vert BNP */
---secondary: var(--bnp-dark-green); /* #017F4F */
---accent: var(--bnp-mid-green);     /* #04A46E */
---bnp-accent-purple: #BA3075;
---bnp-accent-pink: #E0388C;
+/* Primary Green (Vert BNP #00915A) */
+--green-50: #ebf7f4;   /* Très clair */
+--green-600: #00915a;  /* Principal */
+--green-700: #017f4f;  /* Hover */
+--green-800: #016b44;  /* Active */
+--green-900: #01563a;  /* Emphasis */
 
-/* Couleurs Système (colors.css) */
---white: hsl(0 0% 100%);
---gray-50: hsl(210, 20%, 98%);
---gray-900: hsl(221, 39%, 11%);
---black: hsl(0 0% 0%);
---red-500: hsl(0, 84%, 63%);
---green-500: hsl(160, 84%, 34%);
---blue-500: hsl(218, 93%, 61%);
+/* Secondary Pink (Rose BNP #A12B66) */
+--pink-50: #f9ecf2;    /* Très clair */
+--pink-600: #ba3075;   /* Principal */
+--pink-700: #a12b66;   /* Darker */
+--pink-900: #751d4e;   /* Emphasis */
 
-/* Typographie (fonts.css) */
---font-sans: 'BNPP Sans', sans-serif;     /* Police principale */
---font-alt: 'Open Sans', sans-serif;      /* Police secondaire */
---font-condensed: 'BNPP Sans Condensed';
---font-size-xs: 0.625rem;  /* 10px */
---font-size-1: 1rem;       /* 16px */
---font-size-10: 3rem;      /* 48px */
---font-weight-300: 300;
---font-weight-400: 400;
---font-weight-700: 700;
---font-weight-800: 800;
---leading-normal: 1.5;
---leading-tight: 1.25;
+/* Success Teal (Vert succès #198754) */
+--teal-50: #e7f4f1;    /* Très clair */
+--teal-600: #198754;   /* Principal */
+--teal-700: #167a48;   /* Darker */
+--teal-900: #124a3b;   /* Emphasis */
 
-/* Tailles / Spacing (sizes.css) */
---size-1: 0.25rem;   /* 4px */
---size-2: 0.5rem;    /* 8px */
---size-4: 1rem;      /* 16px */
---size-6: 1.5rem;    /* 24px */
---size-8: 2rem;      /* 32px */
---size-10: 2.5rem;   /* 40px */
---size-16: 4rem;     /* 64px */
+/* Error Red (Rouge BNP #EB3636) */
+--red-50: #fef7f7;     /* Très clair */
+--red-600: #eb3636;    /* Principal */
+--red-700: #d43131;    /* Darker */
+--red-900: #a62626;    /* Emphasis */
 
-/* Borders (borders.css) */
---radius-1: 0.125rem;  /* 2px */
---radius-2: 0.25rem;   /* 4px */
---radius-3: 0.5rem;    /* 8px */
---radius-round: 50%;
+/* Grey Scale (Gris BNP #333333 → #FFFFFF) */
+--gray-50: #f9f9fb;    /* Très clair */
+--gray-100: #ebedef;   /* Clair */
+--gray-200: #d6dbde;   /* Light */
+--gray-400: #b4babe;   /* Medium */
+--gray-500: #977e83;   /* Medium-dark */
+--gray-700: #434f57;   /* Dark */
+--gray-900: #333333;   /* Très sombre */
+```
 
-/* Shadows (shadows.css) */
---shadow-1: 0 1px 2px rgba(0,0,0,0.05);
---shadow-3: 0 4px 6px rgba(0,0,0,0.1);
---shadow-5: 0 10px 15px rgba(0,0,0,0.1);
+### Tokens Sémantiques (brand.css)
 
-/* Z-index (zindex.css) */
---layer-1: 1;
---layer-10: 10;
---layer-50: 50;
+```css
+/* Couleurs Brand Sémantiques */
+--primary: var(--green-600);      /* #00915A - Vert primaire BNP */
+--secondary: var(--pink-700);     /* #A12B66 - Rose secondaire BNP */
+--success: var(--teal-600);       /* #198754 - Vert succès */
+--danger: var(--red-600);         /* #EB3636 - Rouge erreur BNP */
+--warning: var(--yellow-400);     /* Jaune attention */
+--info: var(--blue-600);          /* Bleu info */
+--light: var(--gray-100);         /* Clair sur fond sombre */
+--dark: var(--gray-700);          /* Sombre sur fond clair */
+
+/* États (Hover, Active, Subtle) */
+--primary-hover: var(--green-700);
+--primary-active: var(--green-800);
+--primary-subtle: var(--green-50);
+
+/* Texte et Bordures */
+--text-primary: var(--gray-700);     /* Texte principal */
+--text-secondary: var(--gray-500);   /* Texte secondaire */
+--border-default: var(--gray-200);   /* Bordures standard */
+--border-success: var(--teal-600);   /* Bordures succès (distinct du primary) */
+--border-error: var(--red-600);      /* Bordures erreur */
 ```
 
 ### Utilisation dans les Composants
