@@ -13,13 +13,13 @@
           <div class="color-column">
             {# First item as header with main color #}
             {% set first = list|first %}
-            <div class="p-3 mb-2 position-relative swatch-main font-monospace" style="background-color: var({{ first.var }})">
+            <div class="p-3 mb-2 position-relative swatch-main font-monospace swatch-light" style="background-color: var({{ first.var }})">
               <strong class="d-block">{{ first.var }}</strong>
               {{ first.value }}
             </div>
-            {# Remaining shades #}
+            {# Remaining shades - neutrals use contrasting logic: light colors get dark text #}
             {% for item in list|slice(1) %}
-              <div class="p-3 font-monospace color-shade" style="background-color: var({{ item.var }})">
+              <div class="p-3 font-monospace color-shade {% if loop.index <= 3 %}swatch-dark{% else %}swatch-light{% endif %}" style="background-color: var({{ item.var }})">
                 {{ item.var }}
               </div>
             {% endfor %}
@@ -37,13 +37,13 @@
           <div class="color-column">
             {# Find base color (usually 600) or use first #}
             {% set base_color = list[5] %}
-            <div class="p-3 mb-2 position-relative swatch-main font-monospace" style="background-color: var({{ base_color.var }})">
+            <div class="p-3 mb-2 position-relative swatch-main font-monospace swatch-dark" style="background-color: var({{ base_color.var }})">
               <strong class="d-block">{{ title }}</strong>
               {{ base_color.value }}
             </div>
             {# All shades from 50 to 900 #}
             {% for item in list %}
-              <div class="p-3 font-monospace color-shade" style="background-color: var({{ item.var }})">
+              <div class="p-3 font-monospace color-shade {% if loop.index <= 3 %}swatch-dark{% else %}swatch-light{% endif %}" style="background-color: var({{ item.var }})">
                 {{ item.var }}
               </div>
             {% endfor %}

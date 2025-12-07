@@ -235,8 +235,13 @@
     }
   }
 
-  .font-monospace {
-    font-family: 'Monaco', 'Courier New', monospace;
+  /* Text color contrast for swatches */
+  .swatch-light {
+    color: white !important;
+  }
+
+  .swatch-dark {
+    color: #1a1a1a !important;
   }
 
   .position-relative {
