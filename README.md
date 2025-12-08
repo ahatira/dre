@@ -81,27 +81,222 @@ Although Surface adheres to the Atomic Design methodology, it does not use the s
 
 ## SVG Icon System
 
-PS Theme uses an optimized **SVG sprite system** for icons:
+PS Theme uses an optimized **SVG sprite system** supporting **3 access patterns** for 141 semantic icons:
+
+### Icon Source & Build
 
 ```bash
 # Icon source files (development only)
-source/icons-source/          # 139 SVG source files
+source/icons-source/          # 141 SVG source files
 source/assets/icons/icons-sprite.svg  # Generated sprite (production asset)
 
-# Build commands
-npm run icons:build           # Generate sprite from source SVGs
-npm run icons:watch           # Auto-regenerate on file changes (runs in watch mode)
+# Auto-generated outputs
+source/props/icons-generated.css              # CSS with all 141 [data-icon] rules
+source/patterns/documentation/icons-registry.json  # Icon metadata + categories
 
-# Usage in Twig templates
-{% include '@elements/icon/icon.twig' with { name: 'check' } only %}
+# Build commands
+npm run build                 # Generates all outputs (CSS, sprite, registry)
+npm run watch                 # Auto-regenerates on file changes during development
 ```
 
-**Features**:
-- 139 semantic icon names (e.g., `check`, `arrow-right`, `calendar`)
-- Auto-compiled from source SVGs via `scripts/build-icons.mjs`
-- Source files excluded from dist (only compiled sprite shipped)
-- Automatic watch mode during development
-- CSS-controlled styling (inherits `currentColor`)
+### 3 Icon Access Patterns
+
+All 3 patterns work simultaneously and access the same icon source:
+
+#### Pattern 1: Twig Component (Recommended for consistency)
+
+Use the `icon` element component for type-safe icon rendering with automatic SVG fallback:
+
+```twig
+{# In any Twig template #}
+{% include '@elements/icon/icon.twig' with {
+  icon: 'check',           # Icon name (required)
+  size: 'md',              # Size: xs, sm, md, lg, xl (optional, default: md)
+  class: 'my-custom-class' # Extra CSS classes (optional)
+} only %}
+```
+
+**Benefits**:
+- Type-safe icon names validated against registry
+- Consistent sizing via `size` prop
+- Automatic SVG fallback for unsupported browsers
+- Integrates with component styling system
+
+**Supported icon names** (141 total):
+`accessibility`, `account`, `alert`, `arrow-right`, `check`, `calendar`, `search`, etc.  
+See `source/patterns/documentation/icons-registry.json` for complete list.
+
+---
+
+#### Pattern 2: data-icon Attribute (Direct HTML - 141 icons!)
+
+Use HTML `data-icon` attribute for lightweight, direct icon rendering:
+
+```html
+<!-- Simple span element with data-icon -->
+<span data-icon="check"></span>
+
+<!-- In combination with other classes -->
+<span class="button__icon" data-icon="arrow-right"></span>
+
+<!-- All 141 icons available -->
+<span data-icon="accessibility"></span>
+<span data-icon="account"></span>
+<span data-icon="air-conditioning"></span>
+<!-- ... and 138 more -->
+```
+
+**CSS Styling** (auto-generated):
+```css
+/* Generated in source/props/icons-generated.css */
+[data-icon] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+[data-icon="check"] { 
+  background-image: url('/icons/icons-sprite.svg#icon-check'); 
+}
+/* ... 140 more icon rules */
+```
+
+**Benefits**:
+- Minimal HTML markup
+- Direct CSS control
+- Perfect for component libraries
+- Inherits parent color via `currentColor`
+
+**Example in components**:
+```html
+<!-- Button with icon -->
+<button class="ps-button">
+  <span class="ps-button__icon" data-icon="check"></span>
+  Save
+</button>
+
+<!-- Badge with icon -->
+<div class="ps-badge">
+  <span class="ps-badge__icon" data-icon="award"></span>
+  Premium
+</div>
+```
+
+---
+
+#### Pattern 3: SVG with `<use>` (Full control)
+
+Use SVG `<use>` element for advanced styling and manipulation:
+
+```html
+<!-- SVG sprite reference -->
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <use href="/icons/icons-sprite.svg#icon-check"></use>
+</svg>
+
+<!-- With custom styling -->
+<svg class="custom-icon" width="32" height="32" viewBox="0 0 24 24">
+  <use href="/icons/icons-sprite.svg#icon-arrow-right"></use>
+</svg>
+```
+
+**Benefits**:
+- Full SVG control (transforms, animations, etc.)
+- Custom sizing and styling
+- Direct sprite reference
+- Best for complex icon interactions
+
+**CSS Example**:
+```css
+.custom-icon {
+  fill: var(--primary);
+  transition: transform 200ms ease;
+}
+
+.custom-icon:hover {
+  transform: translateX(4px);
+}
+```
+
+---
+
+### Icon Categories (Auto-Discovered)
+
+The registry JSON automatically categorizes all 141 icons:
+
+```json
+{
+  "generated": "2025-12-08T12:16:11.959Z",
+  "total": 141,
+  "names": ["accessibility", "account", ...],
+  "categories": {
+    "ui": ["alert", "check", "info", ...],
+    "navigation": ["arrow-down", "arrow-left", ...],
+    "forms": ["checkbox-off", "checkbox-on", ...],
+    "communication": ["email", "phone", "share"],
+    "media": ["download", "upload"],
+    "business": ["map", "pin", ...]
+  }
+}
+```
+
+Find this file at: `source/patterns/documentation/icons-registry.json`
+
+---
+
+### Best Practices
+
+| Use Case | Recommended Pattern | Why |
+|----------|-------------------|-----|
+| In Twig templates | Pattern 1 (Component) | Type-safe, consistent, maintainable |
+| Button/Badge icons | Pattern 2 (data-icon) | Lightweight, CSS-controlled |
+| Complex interactions | Pattern 3 (SVG `<use>`) | Full SVG manipulation |
+| Icon libraries | Pattern 2 (data-icon) | Easy to scale, auto-updated |
+| Animation heavy | Pattern 3 (SVG `<use>`) | Direct transform control |
+
+---
+
+### Adding New Icons
+
+To add a new icon:
+
+1. **Create SVG file**: Drop new SVG in `source/icons-source/` (e.g., `my-icon.svg`)
+2. **Verify format**: Ensure SVG has proper viewBox attribute
+3. **Rebuild**: Run `npm run build`
+4. **Verify**: New icon appears in:
+   - `source/props/icons-generated.css` (auto-generated)
+   - `source/patterns/documentation/icons-registry.json` (metadata)
+5. **Use**: Access via any of 3 patterns immediately
+
+```bash
+# Add icon source
+echo '<svg viewBox="0 0 24 24"><circle r="10"/></svg>' > source/icons-source/my-icon.svg
+
+# Rebuild (generates CSS + registry)
+npm run build
+
+# Use in templates
+{% include '@elements/icon/icon.twig' with { icon: 'my-icon' } only %}
+<!-- or -->
+<span data-icon="my-icon"></span>
+```
+
+---
+
+### Features
+
+- ✅ **141 semantic icon names** (fully indexed)
+- ✅ **Auto-compiled from source SVGs** via `scripts/build-icons.mjs`
+- ✅ **3 access patterns** (Twig component, data-icon attribute, SVG direct)
+- ✅ **Auto-generated CSS** with all 141 rules (zero manual maintenance)
+- ✅ **Registry-based validation** for icon discovery
+- ✅ **Source files excluded from dist** (only compiled sprite shipped)
+- ✅ **Automatic watch mode** during development
+- ✅ **CSS-controlled styling** (inherits `currentColor`)
+- ✅ **Zero breaking changes** from existing icon system
 
 ## Development approach
 
