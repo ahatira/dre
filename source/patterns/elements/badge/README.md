@@ -17,11 +17,13 @@ Compact semantic label / status indicator supporting size, color and shape modif
 {# Default badge #}
 <span class="ps-badge">Default</span>
 
-{# Primary badge with icon (Icon component via baseClass) #}
+{# Primary badge with icon #}
 <span class="ps-badge ps-badge--primary">
   {% include '@elements/icon/icon.twig' with {
     name: 'check',
-    baseClass: 'ps-badge__icon'
+    size: 'md',
+    color: 'default',
+    attributes: create_attribute().addClass('ps-badge__icon')
   } only %}
   <span class="ps-badge__text">Verified</span>
 </span>
@@ -52,16 +54,18 @@ Compact semantic label / status indicator supporting size, color and shape modif
 | default | `--gray-200` | `--gray-600` |
 | primary | `--primary` | `--white` |
 | secondary | `--secondary` | `--white` |
-| gold | `--yellow-500` | `--white` |
-| info | `--blue-100` | `--blue-700` |
-| success | `--green-100` | `--green-700` |
-| warning | `--yellow-100` | `--yellow-700` |
-| danger | `--red-100` | `--red-700` |
+| gold | `--gold` | `--white` |
+| info | `--info-subtle` | `--info-text-emphasis` |
+| success | `--success-subtle` | `--success-text-emphasis` |
+| warning | `--warning-subtle` | `--warning-text-emphasis` |
+| danger | `--danger-subtle` | `--danger-text-emphasis` |
 
 ## Design Tokens Used
 - Spacing: `--size-05` `--size-1` `--size-2` `--size-3` `--size-105`
 - Typography: `--font-size--2` (10px) `--font-size--1` (12px) `--font-size-0` (14px) `--font-weight-500` `--leading-tight`
-- Colors: `--gray-*` `--primary` `--secondary` `--yellow-500` semantic scales (blue/green/yellow/red) `--white`
+- Colors (semantic): `--primary` `--secondary` `--gold` `--info` `--success` `--warning` `--danger`
+- Colors (semantic variants): `-subtle` `-text-emphasis` (for light backgrounds)
+- Colors (fallback): `--gray-200` `--gray-600` `--white`
 - Radius: `--radius-2` `--radius-round`
 - Animation: `--duration-fast` `--ease-3`
 
@@ -117,8 +121,8 @@ Modifiers only change variables, enabling runtime customization and context over
 
 ## Migration Notes
 - **Icon System** (December 2025): Migrated from `data-icon` to Icon component (`@elements/icon`), enabling full SVG sprite support and consistent icon rendering across the theme.
-- Component uses Icon component with `baseClass` composition for seamless integration.
-- `--yellow-500` token used for legacy gold variant.
+- **Icon Composition** (v4.0.0+): Uses Icon component with `attributes.addClass()` instead of deprecated `baseClass` parameter (removed in v4.0.0).
+- **Semantic Colors** (v3.0.0+): All color variants use semantic tokens (`--primary`, `--secondary`, `--gold`, `--info`, `--success`, `--warning`, `--danger`) with their variants (`-subtle`, `-text-emphasis`).
 - Font sizes migrated: `--font-size--2` (10px), `--font-size--1` (12px), `--font-size-0` (14px).
 - Transition tokens: `--duration-fast` + `--ease-3` (replaces hardcoded `cubic-bezier`).
 - Line-height token: `--leading-tight` (replaces hardcoded `1.2`).

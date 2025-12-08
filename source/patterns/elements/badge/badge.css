@@ -85,28 +85,28 @@
   }
 
   &--gold {
-    --ps-badge-bg: var(--yellow-500);
+    --ps-badge-bg: var(--gold);
     --ps-badge-color: var(--white);
   }
 
   &--info {
-    --ps-badge-bg: var(--blue-100);
-    --ps-badge-color: var(--blue-700);
+    --ps-badge-bg: var(--info-subtle);
+    --ps-badge-color: var(--info-text-emphasis);
   }
 
   &--success {
-    --ps-badge-bg: var(--green-100);
-    --ps-badge-color: var(--green-700);
+    --ps-badge-bg: var(--success-subtle);
+    --ps-badge-color: var(--success-text-emphasis);
   }
 
   &--warning {
-    --ps-badge-bg: var(--yellow-100);
-    --ps-badge-color: var(--yellow-700);
+    --ps-badge-bg: var(--warning-subtle);
+    --ps-badge-color: var(--warning-text-emphasis);
   }
 
   &--danger {
-    --ps-badge-bg: var(--red-100);
-    --ps-badge-color: var(--red-700);
+    --ps-badge-bg: var(--danger-subtle);
+    --ps-badge-color: var(--danger-text-emphasis);
   }
 }
 
