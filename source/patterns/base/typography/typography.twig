@@ -5,44 +5,212 @@
  */
 #}
 
+{% set overview_content %}
+  <div class="typography-demo">
+    <div class="demo-table-wrapper">
+      <h3>Typography Scale Reference</h3>
+      <table class="demo-table demo-table--compact">
+        <thead>
+          <tr>
+            <th>Element/Class</th>
+            <th>Token</th>
+            <th>Size (rem/px)</th>
+            <th>Line Height</th>
+            <th>Weight</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-section-header">
+            <td colspan="6"><strong>Heading Elements</strong></td>
+          </tr>
+          <tr>
+            <td><code>h1</code></td>
+            <td><code>--font-size-10</code></td>
+            <td>3rem / 48px</td>
+            <td>1.25 (tight)</td>
+            <td>400 (Regular)</td>
+            <td>Main page heading</td>
+          </tr>
+          <tr>
+            <td><code>h2</code></td>
+            <td><code>--font-size-9</code></td>
+            <td>2.75rem / 44px</td>
+            <td>1.25 (tight)</td>
+            <td>400 (Regular)</td>
+            <td>Section title</td>
+          </tr>
+          <tr>
+            <td><code>h3</code></td>
+            <td><code>--font-size-8</code></td>
+            <td>2rem / 32px</td>
+            <td>1.375 (snug)</td>
+            <td>400 (Regular)</td>
+            <td>Subsection</td>
+          </tr>
+          <tr>
+            <td><code>h4</code></td>
+            <td><code>--font-size-7</code></td>
+            <td>1.5rem / 24px</td>
+            <td>1.375 (snug)</td>
+            <td>400 (Regular)</td>
+            <td>Tertiary title</td>
+          </tr>
+          <tr>
+            <td><code>h5</code></td>
+            <td><code>--font-size-6</code></td>
+            <td>1.25rem / 20px</td>
+            <td>1.5 (normal)</td>
+            <td>400 (Regular)</td>
+            <td>Minor heading</td>
+          </tr>
+          <tr>
+            <td><code>h6</code></td>
+            <td><code>--font-size-5</code></td>
+            <td>0.875rem / 14px</td>
+            <td>1.5 (normal)</td>
+            <td>400 (Regular)</td>
+            <td>Small heading</td>
+          </tr>
+          <tr class="table-section-header">
+            <td colspan="6"><strong>Display Classes</strong></td>
+          </tr>
+          <tr>
+            <td><code>.display-1</code></td>
+            <td><code>--font-size-14</code></td>
+            <td>7.5rem / 120px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Hero/showcase headlines</td>
+          </tr>
+          <tr>
+            <td><code>.display-2</code></td>
+            <td><code>--font-size-13</code></td>
+            <td>5rem / 80px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Large impact text</td>
+          </tr>
+          <tr>
+            <td><code>.display-3</code></td>
+            <td><code>--font-size-12</code></td>
+            <td>4rem / 64px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Campaign headlines</td>
+          </tr>
+          <tr>
+            <td><code>.display-4</code></td>
+            <td><code>--font-size-11</code></td>
+            <td>3.5rem / 56px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Feature titles</td>
+          </tr>
+          <tr>
+            <td><code>.display-5</code></td>
+            <td><code>--font-size-10</code></td>
+            <td>3rem / 48px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Emphasis text</td>
+          </tr>
+          <tr>
+            <td><code>.display-6</code></td>
+            <td><code>--font-size-9</code></td>
+            <td>2.5rem / 40px</td>
+            <td>1 (none)</td>
+            <td>700 (Bold)</td>
+            <td>Alternative heading</td>
+          </tr>
+          <tr class="table-section-header">
+            <td colspan="6"><strong>Body Text</strong></td>
+          </tr>
+          <tr>
+            <td><code>.lead</code></td>
+            <td><code>--font-size-2</code></td>
+            <td>1.125rem / 18px</td>
+            <td>1.625 (relaxed)</td>
+            <td>400 (Regular)</td>
+            <td>Lead paragraphs</td>
+          </tr>
+          <tr>
+            <td><code>p</code> (default)</td>
+            <td><code>--font-size-1</code></td>
+            <td>1rem / 16px</td>
+            <td>1.5 (normal)</td>
+            <td>400 (Regular)</td>
+            <td>Body text</td>
+          </tr>
+          <tr>
+            <td><code>small</code></td>
+            <td><code>--font-size-0</code></td>
+            <td>0.875rem / 14px</td>
+            <td>1.5 (normal)</td>
+            <td>400 (Regular)</td>
+            <td>Captions, footnotes</td>
+          </tr>
+          <tr>
+            <td><code>.micro</code></td>
+            <td><code>--font-size--1</code></td>
+            <td>0.75rem / 12px</td>
+            <td>1.5 (normal)</td>
+            <td>400 (Regular)</td>
+            <td>Metadata, labels</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endset %}
+
 {% set headings_content %}
   <div class="typography-demo">
     <section class="typography-section">
       <div class="typography-demo__grid">
         <div class="typography-demo__item">
           <div class="demo-code">h1 — Main page heading</div>
-          <h1 style="margin: 0;">This is a h1 heading</h1>
-          <small class="demo-notes">Desktop: 48px / 60px • Mobile: 40px / 52px</small>
+          <h1 style="margin: 0;">Appartement exceptionnel avec vue panoramique</h1>
+          <div class="demo-alphabet" style="margin-top: var(--size-3);">
+            <h1 style="margin: 0; font-size: 1.5rem;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)</h1>
+          </div>
+          <small class="demo-notes">Token: --font-size-10 • 48px / 60px • Weight: 400</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">h2 — Section title</div>
-          <h2 style="margin: 0;">This is a h2 heading</h2>
-          <small class="demo-notes">Desktop: 44px / 44px • Mobile: 36px / 44px</small>
+          <h2 style="margin: 0;">Découvrez nos biens immobiliers premium</h2>
+          <div class="demo-alphabet" style="margin-top: var(--size-3);">
+            <h2 style="margin: 0; font-size: 1.25rem;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)</h2>
+          </div>
+          <small class="demo-notes">Token: --font-size-9 • 44px / 44px • Weight: 400</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">h3 — Subsection</div>
-          <h3 style="margin: 0;">This is a h3 heading</h3>
-          <small class="demo-notes">Desktop: 32px / 40px • Mobile: 28px / 40px</small>
+          <h3 style="margin: 0;">Caractéristiques du bien</h3>
+          <div class="demo-alphabet" style="margin-top: var(--size-3);">
+            <h3 style="margin: 0; font-size: 1rem;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)</h3>
+          </div>
+          <small class="demo-notes">Token: --font-size-8 • 32px / 40px • Weight: 400</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">h4 — Tertiary title</div>
-          <h4 style="margin: 0;">This is a h4 heading</h4>
-          <small class="demo-notes">Desktop: 24px / 30px • Mobile: 24px / 30px</small>
+          <h4 style="margin: 0;">Équipements et services</h4>
+          <small class="demo-notes">Token: --font-size-7 • 24px / 30px • Weight: 400</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">h5 — Minor heading</div>
-          <h5 style="margin: 0;">This is a h5 heading</h5>
-          <small class="demo-notes">Desktop: 20px / 24px • Mobile: 20px / 24px</small>
+          <h5 style="margin: 0;">Informations complémentaires</h5>
+          <small class="demo-notes">Token: --font-size-6 • 20px / 24px • Weight: 400</small>
         </div>
 
         <div class="typography-demo__item">
-          <div class="demo-code">h6 — Tertiary text</div>
-          <h6 style="margin: 0;">This is a h6 heading</h6>
-          <small class="demo-notes">Desktop: 14px / 20px • Mobile: 14px / 20px</small>
+          <div class="demo-code">h6 — Small heading</div>
+          <h6 style="margin: 0;">Notes et références</h6>
+          <small class="demo-notes">Token: --font-size-5 • 14px / 20px • Weight: 400</small>
         </div>
       </div>
     </section>
@@ -55,38 +223,44 @@
       <div class="typography-demo__grid typography-demo__grid--display">
         <div class="typography-demo__item">
           <div class="demo-code">.display-1 — Hero/showcase</div>
-          <div class="display-1" style="margin: 0;">Display 1</div>
-          <small class="demo-notes">120px • Token: --font-size-14</small>
+          <div class="display-1" style="margin: 0;">Paris</div>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-size: 1.5rem; font-weight: 700;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890
+          </div>
+          <small class="demo-notes">Token: --font-size-14 • 120px • Weight: 700</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">.display-2 — Large impact</div>
-          <div class="display-2" style="margin: 0;">Display 2</div>
-          <small class="demo-notes">80px • Token: --font-size-13</small>
+          <div class="display-2" style="margin: 0;">Prestige</div>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-size: 1.25rem; font-weight: 700;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890
+          </div>
+          <small class="demo-notes">Token: --font-size-13 • 80px • Weight: 700</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">.display-3 — Campaign</div>
-          <div class="display-3" style="margin: 0;">Display 3</div>
-          <small class="demo-notes">64px • Token: --font-size-12</small>
+          <div class="display-3" style="margin: 0;">Investir</div>
+          <small class="demo-notes">Token: --font-size-12 • 64px • Weight: 700</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">.display-4 — Feature title</div>
-          <div class="display-4" style="margin: 0;">Display 4</div>
-          <small class="demo-notes">56px • Token: --font-size-11</small>
+          <div class="display-4" style="margin: 0;">Excellence</div>
+          <small class="demo-notes">Token: --font-size-11 • 56px • Weight: 700</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">.display-5 — Emphasis</div>
-          <div class="display-5" style="margin: 0;">Display 5</div>
-          <small class="demo-notes">48px • Token: --font-size-10</small>
+          <div class="display-5" style="margin: 0;">Premium</div>
+          <small class="demo-notes">Token: --font-size-10 • 48px • Weight: 700</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">.display-6 — Alternative</div>
-          <div class="display-6" style="margin: 0;">Display 6</div>
-          <small class="demo-notes">40px • Token: --font-size-9</small>
+          <div class="display-6" style="margin: 0;">Découvrir</div>
+          <small class="demo-notes">Token: --font-size-9 • 40px • Weight: 700</small>
         </div>
       </div>
     </section>
@@ -98,53 +272,90 @@
     <section class="typography-section">
       <div class="typography-demo__grid">
         <div class="typography-demo__item">
-          <div class="demo-code">&lt;p&gt; (default)</div>
-          <p style="margin: 0;">This is a body paragraph using the default paragraph font size (1rem/16px) with normal line height for readability.</p>
-          <small class="demo-notes">Token: --font-size-1 (1rem/16px), --leading-normal</small>
+          <div class="demo-code">.lead — Lead paragraph</div>
+          <p class="lead" style="margin: 0;">Situé au cœur du 8ème arrondissement de Paris, cet appartement d'exception offre une vue imprenable sur les Champs-Élysées. Avec ses 180 m² parfaitement agencés, ce bien prestigieux saura séduire les clients les plus exigeants.</p>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-size: 1.125rem;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)
+          </div>
+          <small class="demo-notes">Token: --font-size-2 • 18px • Line-height: 1.625 (relaxed)</small>
         </div>
 
         <div class="typography-demo__item">
-          <div class="demo-code">.lead</div>
-          <p class="lead" style="margin: 0;">This is a lead paragraph using larger text (1.125rem/18px) with relaxed line height for emphasis.</p>
-          <small class="demo-notes">Token: --font-size-2 (1.125rem/18px), --leading-relaxed</small>
+          <div class="demo-code">&lt;p&gt; — Body paragraph (default)</div>
+          <p style="margin: 0;">Ce magnifique appartement de 4 pièces dispose d'un double séjour lumineux, de trois chambres spacieuses, de deux salles de bains modernes et d'une cuisine équipée haut de gamme. Les prestations comprennent le parquet massif, les moulures d'époque, une cheminée en marbre et une cave.</p>
+          <div class="demo-alphabet" style="margin-top: var(--size-3);">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)
+          </div>
+          <small class="demo-notes">Token: --font-size-1 • 16px • Line-height: 1.5 (normal)</small>
         </div>
 
         <div class="typography-demo__item">
-          <div class="demo-code">&lt;small&gt;</div>
-          <p><small style="margin: 0;">This is small text for captions, footnotes, and supplementary information (0.875rem/14px).</small></p>
-          <small class="demo-notes">Token: --font-size-0 (0.875rem/14px)</small>
+          <div class="demo-code">&lt;small&gt; — Small text</div>
+          <p><small style="margin: 0;">Charges mensuelles : 450€ • Taxe foncière : 2 800€/an • Copropriété de 12 lots • DPE : C (110 kWh/m²/an) • GES : B (8 kg CO2/m²/an) • Honoraires à la charge du vendeur.</small></p>
+          <small class="demo-notes">Token: --font-size-0 • 14px • Usage: Captions, legal text</small>
         </div>
 
         <div class="typography-demo__item">
-          <div class="demo-code">.micro</div>
-          <p class="micro" style="margin: 0;">Micro text for metadata, timestamps, and UI labels (0.75rem/12px).</p>
-          <small class="demo-notes">Token: --font-size--1 (0.75rem/12px)</small>
+          <div class="demo-code">.micro — Micro text</div>
+          <p class="micro" style="margin: 0;">Réf. 2024-PAR-8-001 • Publié le 15/11/2024 • Dernière mise à jour : 08/12/2024 à 14:32</p>
+          <small class="demo-notes">Token: --font-size--1 • 12px • Usage: Metadata, timestamps</small>
         </div>
       </div>
     </section>
   </div>
 {% endset %}
 
-{% set weights_content %}
+{% set styling_content %}
   <div class="typography-demo">
     <section class="typography-section">
+      <h3>Font Weights</h3>
       <div class="typography-demo__grid">
         <div class="typography-demo__item">
           <div class="demo-code">Light (300)</div>
-          <p style="font-weight: var(--font-weight-300); margin: 0;">Light weight text for subtle emphasis</p>
-          <small class="demo-notes">Token: --font-weight-300 • Usage: Rarely, for delicate emphasis</small>
+          <p style="font-weight: var(--font-weight-300); margin: 0; font-size: 1.5rem;">Un immeuble haussmannien de prestige</p>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-weight: 300;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)
+          </div>
+          <small class="demo-notes">Token: --font-weight-300 • Usage: Subtle emphasis (rare)</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">Regular (400)</div>
-          <p style="font-weight: var(--font-weight-400); margin: 0;">Regular weight text for body content and default text</p>
+          <p style="font-weight: var(--font-weight-400); margin: 0; font-size: 1.5rem;">Un immeuble haussmannien de prestige</p>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-weight: 400;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)
+          </div>
           <small class="demo-notes">Token: --font-weight-400 • Usage: Body text (default)</small>
         </div>
 
         <div class="typography-demo__item">
           <div class="demo-code">Bold (700)</div>
-          <p style="font-weight: var(--font-weight-700); margin: 0;">Bold weight text for headings and emphasis</p>
-          <small class="demo-notes">Token: --font-weight-700 • Usage: Headings and strong emphasis</small>
+          <p style="font-weight: var(--font-weight-700); margin: 0; font-size: 1.5rem;">Un immeuble haussmannien de prestige</p>
+          <div class="demo-alphabet" style="margin-top: var(--size-3); font-weight: 700;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890(,.;:?!$&*)
+          </div>
+          <small class="demo-notes">Token: --font-weight-700 • Usage: Headings, strong emphasis</small>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--size-12);">Line Heights (Leading)</h3>
+      <div class="typography-demo__grid">
+        <div class="typography-demo__item">
+          <div class="demo-code">--leading-tight (1.25)</div>
+          <p style="line-height: var(--leading-tight); margin: 0;">Cet appartement d'exception offre des prestations haut de gamme dans un cadre architectural remarquable. Les volumes généreux et la luminosité naturelle créent une atmosphère unique.</p>
+          <small class="demo-notes">Usage: Headings h1–h3</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">--leading-normal (1.5)</div>
+          <p style="line-height: var(--leading-normal); margin: 0;">Cet appartement d'exception offre des prestations haut de gamme dans un cadre architectural remarquable. Les volumes généreux et la luminosité naturelle créent une atmosphère unique.</p>
+          <small class="demo-notes">Usage: Body text (default)</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">--leading-relaxed (1.625)</div>
+          <p style="line-height: var(--leading-relaxed); margin: 0;">Cet appartement d'exception offre des prestations haut de gamme dans un cadre architectural remarquable. Les volumes généreux et la luminosité naturelle créent une atmosphère unique.</p>
+          <small class="demo-notes">Usage: Lead paragraphs, long-form content</small>
         </div>
       </div>
     </section>
@@ -155,6 +366,12 @@
   header: header,
   sections: [
     {
+      title: 'Typography Scale Overview',
+      description: 'Complete reference table of all typography tokens, sizes, and their intended usage across the design system.',
+      badge: 'Quick Reference',
+      content: overview_content
+    },
+    {
       title: 'Heading Elements',
       description: 'Semantic heading elements (h1–h6) form the document structure with responsive sizing. Always prefer semantic markup for accessibility and SEO.',
       badge: 'Semantic Elements',
@@ -162,21 +379,21 @@
     },
     {
       title: 'Display Classes',
-      description: 'Non-semantic display classes (.display-1 to .display-6) apply heading-like styles to generic elements when semantic markup isn\'t possible. Use sparingly.',
+      description: 'Non-semantic display classes (.display-1 to .display-6) for large, impactful text in hero sections and campaigns. Use sparingly when semantic markup isn\'t possible.',
       badge: 'Display Utilities',
       content: display_content
     },
     {
       title: 'Body Text',
-      description: 'Reading text styles for paragraphs, lead text, and small text. Choose the appropriate size for content hierarchy and readability.',
+      description: 'Reading text styles for content hierarchy. Lead paragraphs introduce sections, body text for main content, small text for captions, and micro text for metadata.',
       badge: 'Reading Text',
       content: body_content
     },
     {
-      title: 'Font Weights',
-      description: 'Three weight levels available: Light (300) for subtle emphasis, Regular (400) for body text, and Bold (700) for headings.',
-      badge: 'Text Styling',
-      content: weights_content
+      title: 'Text Styling',
+      description: 'Font weights and line heights to control text emphasis and readability. Combine these utilities with size tokens for precise typography control.',
+      badge: 'Utilities',
+      content: styling_content
     }
   ]
 } only %}
