@@ -1,22 +1,17 @@
-# PS Theme Typography System Demo
-# ============================================================================
-#
-# Data structure for the Typography documentation story.
-# Provides demo content for rendering heading, body text, and utility examples.
-#
-# This file is intentionally minimal - the Twig template contains all demo content.
-# The YAML is here for potential future expansion (responsive scaling configs, etc.).
-#
-# Documentation: source/patterns/base/typography/README.md
-# Related tokens: source/props/fonts.css
-#
-# =============================================================================
+header:
+  title: 'Typography'
+  description: 'Complete PS Design System typography scale, including semantic headings, display classes, body text, and font weights.'
+  badge: 'Design Tokens'
+  meta:
+    - label: 'Heading Levels'
+      value: '6 (h1–h6)'
+    - label: 'Display Sizes'
+      value: '6 (.display-1 to .display-6)'
+    - label: 'Font Weights'
+      value: '3 (300, 400, 700)'
+    - label: 'Source'
+      value: 'props/fonts.css'
 
-# Basic metadata for Storybook story
-title: 'Base/Typography'
-description: 'Complete PS Design System typography scale and utilities'
-
-# Typography demo data (expanded in template)
 demo:
   headings:
     - level: 'h1'
@@ -85,55 +80,3 @@ demo:
       token: '--font-weight-700'
       value: 700
       usage: 'Headings and emphasis'
-
-  line_heights:
-    - name: 'none'
-      token: '--leading-none'
-      value: 1
-      usage: 'Display headlines'
-    - name: 'tight'
-      token: '--leading-tight'
-      value: 1.25
-      usage: 'Headings h1–h3'
-    - name: 'snug'
-      token: '--leading-snug'
-      value: 1.375
-      usage: 'Headings h4–h6'
-    - name: 'normal'
-      token: '--leading-normal'
-      value: 1.5
-      usage: 'Body text (recommended)'
-    - name: 'relaxed'
-      token: '--leading-relaxed'
-      value: 1.625
-      usage: 'Long-form content'
-    - name: 'loose'
-      token: '--leading-loose'
-      value: 2
-      usage: 'Form fields, widely spaced'
-
-  letter_spacing:
-    - name: 'tighter'
-      token: '--tracking-tighter'
-      value: '-0.05em'
-      usage: 'Tight uppercase headlines'
-    - name: 'tight'
-      token: '--tracking-tight'
-      value: '-0.025em'
-      usage: 'Condensed display'
-    - name: 'normal'
-      token: '--tracking-normal'
-      value: '0'
-      usage: 'Standard (default)'
-    - name: 'wide'
-      token: '--tracking-wide'
-      value: '0.025em'
-      usage: 'Uppercase labels'
-    - name: 'wider'
-      token: '--tracking-wider'
-      value: '0.05em'
-      usage: 'Spaced uppercase'
-    - name: 'widest'
-      token: '--tracking-widest'
-      value: '0.1em'
-      usage: 'Decorative (very rare)'

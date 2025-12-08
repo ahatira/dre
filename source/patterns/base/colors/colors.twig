@@ -1,84 +1,104 @@
-<section class="demo-colors">
-  {# Main Color Swatches - Semantic colors from brand #}
-  <div class="theme-colors-section">
-    <h3 class="section-title">Official BNP Paribas Real Estate Palettes</h3>
-    <p class="section-intro">Complete color palettes including neutrals, primary brand colors, and semantic color scales for UI components.</p>
-  </div>
+{#
+/**
+ * @file
+ * Color tokens documentation story.
+ */
+#}
 
+{% set neutrals_section %}
   {% if neutrals %}
-    <div class="color-section">
-      <h3 class="color-section__title">Neutrals</h3>
+    <div class="demo-colors">
       <div class="color-grid">
-        {% for title, list in neutrals %}
-          <div class="color-column">
-            {# First item as header with main color #}
-            {% set first = list|first %}
-            <div class="p-3 mb-2 position-relative swatch-main font-monospace swatch-light" style="background-color: var({{ first.var }})">
-              <strong class="d-block">{{ first.var }}</strong>
-              {{ first.value }}
-            </div>
-            {# Remaining shades - neutrals use contrasting logic: light colors get dark text #}
-            {% for item in list|slice(1) %}
-              <div class="p-3 font-monospace color-shade {% if loop.index <= 3 %}swatch-dark{% else %}swatch-light{% endif %}" style="background-color: var({{ item.var }})">
-                {{ item.var }}
+          {% for title, list in neutrals %}
+            <div class="color-column">
+              {% set first = list|first %}
+              {% set main_contrast_class = first.var == '--black' ? 'swatch-light' : 'swatch-dark' %}
+              <div class="swatch-main {{ main_contrast_class }} font-monospace" style="background-color: var({{ first.var }});">
+                <strong class="d-block">{{ first.var }}</strong>
+                <div class="demo-code">{{ first.value }}</div>
+                {% if first.usage %}<div class="demo-notes">{{ first.usage }}</div>{% endif %}
               </div>
-            {% endfor %}
-          </div>
-        {% endfor %}
+              {% for item in list|slice(1) %}
+                {% set contrast_class = loop.index <= 3 ? 'swatch-dark' : 'swatch-light' %}
+                {% if item.var == '--black' %}
+                  {% set contrast_class = 'swatch-light' %}
+                {% endif %}
+                <div class="color-shade font-monospace {{ contrast_class }}" style="background-color: var({{ item.var }});">
+                  {{ item.var }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endif %}
+{% endset %}
 
+{% set semantic_section %}
+  {% if semantic %}
+    <div class="demo-colors">
+      <div class="theme-colors-grid">
+          {% for item in semantic %}
+            {% set contrast_class = item.contrast is defined ? item.contrast : 'swatch-light' %}
+            <div class="theme-color-card {{ contrast_class }}" style="background-color: var({{ item.token }});">
+              <div class="theme-color-name">{{ item.name }}</div>
+              <div class="demo-code">{{ item.token }}</div>
+              {% if item.usage %}<div class="demo-notes">{{ item.usage }}</div>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endset %}
+
+{% set palettes_section %}
   {% if palettes %}
-    <div class="color-section">
-      <h3 class="color-section__title">Color Palettes</h3>
+    <div class="demo-colors">
       <div class="color-grid">
-        {% for title, list in palettes %}
-          <div class="color-column">
-            {# Find base color (usually 600) or use first #}
-            {% set base_color = list[5] %}
-            <div class="p-3 mb-2 position-relative swatch-main font-monospace" style="background-color: var({{ base_color.var }})">
-              <strong class="d-block">{{ title }}</strong>
-              {{ base_color.value }}
-            </div>
-            {# All shades from 50 to 900 #}
-            {% for item in list %}
-              {% set contrast_class = 'swatch-light' %}
-              {% if loop.index <= 3 %}
-                {% set contrast_class = 'swatch-dark' %}
-              {% endif %}
-              {# Special case: Black needs light text #}
-              {% if item.var == '--black' %}
-                {% set contrast_class = 'swatch-light' %}
-              {% endif %}
-              <div class="p-3 font-monospace color-shade {{ contrast_class }}" style="background-color: var({{ item.var }})">
-                {{ item.var }}
+          {% for title, list in palettes %}
+            <div class="color-column">
+              {% set base_color = list[5] is defined ? list[5] : list|first %}
+              <div class="swatch-main swatch-light font-monospace" style="background-color: var({{ base_color.var }});">
+                <strong class="d-block">{{ title }}</strong>
+                <div class="demo-code">{{ base_color.var }}</div>
+                <div class="demo-notes">{{ base_color.value }}</div>
+                {% if base_color.usage %}<div class="demo-notes">{{ base_color.usage }}</div>{% endif %}
               </div>
-            {% endfor %}
-          </div>
-        {% endfor %}
-      </div>
+              {% for item in list %}
+                {% set contrast_class = loop.index <= 3 ? 'swatch-dark' : 'swatch-light' %}
+                {% if item.var == '--black' %}
+                  {% set contrast_class = 'swatch-light' %}
+                {% endif %}
+                <div class="color-shade font-monospace {{ contrast_class }}" style="background-color: var({{ item.var }});">
+                  {{ item.var }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
     </div>
   {% endif %}
-</section>
+{% endset %}
 
-<style>
-.demo-colors .color-category {
-  margin-block-start: var(--size-5);
-}
-
-.demo-colors .category-title {
-  font-size: var(--font-size-1);
-  font-weight: var(--font-weight-600);
-  color: var(--text-primary);
-  margin-block-end: var(--size-3);
-  padding-inline-start: var(--size-2);
-}
-
-.demo-colors .color-demo__swatch .usage {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-block-start: var(--size-1);
-}
-</style>
+{% include '../_base-story.twig' with {
+  header: header,
+  sections: [
+    {
+      title: 'Neutral palette',
+      description: 'Gray ramp plus white/black for structural surfaces and typography.',
+      content: neutrals_section,
+    },
+    {
+      title: 'Semantic colors',
+      description: 'Brand and feedback colors from semantic tokens in brand.css.',
+      content: semantic_section,
+    },
+    {
+      title: 'Brand and semantic palettes',
+      description: 'Official BNP Paribas Real Estate color scales (50–900) for brand and semantic usage.',
+      content: palettes_section,
+    },
+  ],
+} only %}

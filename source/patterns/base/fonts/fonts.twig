@@ -1,7 +1,13 @@
-<section class="demo-fonts">
-  {% for title, list in fonts %}
-    <div class="just-for-gap">
-      <div class="heading">{{ title|capitalize }}</div>
+{#
+/**
+ * @file
+ * Fonts documentation
+ */
+#}
+
+{% set fonts_content %}
+  <div class="demo-fonts">
+    {% for title, list in fonts %}
       {% for item in list %}
         {% set font_family = 'font-family: ' ~ item.family ~ '; ' %}
         {% set font_style = 'font-style: ' ~ item.style ~ '; ' %}
@@ -20,6 +26,17 @@
           </div>
         </article>
       {% endfor %}
-    </div>
-  {% endfor %}
-</section>
+    {% endfor %}
+  </div>
+{% endset %}
+
+{% include '../_base-story.twig' with {
+  header: header,
+  sections: [
+    {
+      title: 'Available Fonts',
+      description: 'All font families available in the design system with their supported weights and styles.',
+      content: fonts_content
+    }
+  ]
+} only %}

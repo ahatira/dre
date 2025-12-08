@@ -1,875 +1,182 @@
 {#
 /**
  * @file
- * PS Theme Typography System Demo
- *
- * Complete documentation and showcase of the PS Design System typography scale.
- * Demonstrates all heading levels, display sizes, body text weights, and semantic utilities.
- *
- * Tokens used (source/props/fonts.css):
- * - Font families: --font-sans (BNPP Sans), --font-alt (Open Sans), --font-mono
- * - Font weights: --font-weight-300 (Light), --font-weight-400 (Regular), --font-weight-700 (Bold)
- * - Font sizes: --font-size-* (scale from --font-size--2 to --font-size-14)
- * - Line heights: --leading-* (none to loose)
- * - Letter spacing: --tracking-* (tighter to widest)
- *
- * Context: BNP Paribas Real Estate - Professional, accessible, semantic HTML
+ * Typography documentation
  */
 #}
 
-<article class="typography-demo">
-
-  {# ===================================================================
-      SECTION 1: HEADINGS (h1 → h6)
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Semantic Elements</div>
-      <h2 class="typography-section__title">Heading Elements (h1 → h6)</h2>
-      <p class="typography-section__description">
-        Native heading elements form the document structure with responsive sizing.
-        Each level scales from mobile to desktop. Always prefer semantic markup for accessibility and SEO.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Font Family:</strong> BNPP Sans (Regular 400)</span>
-        <span class="meta-item"><strong>Font Weight:</strong> Regular (400)</span>
-        <span class="meta-item"><strong>Responsive:</strong> Yes (mobile & desktop)</span>
-      </div>
-    </header>
-
-    {# Visual preview cards #}
-    <div class="typography-demo__grid">
-      <div class="typography-demo__item">
-        <div class="demo-code">h1 — Main page heading</div>
-        <h1>This is a h1 heading</h1>
-        <small class="demo-notes">Desktop: 48px / 60px • Mobile: 40px / 52px</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">h2 — Section title</div>
-        <h2>This is a h2 heading</h2>
-        <small class="demo-notes">Desktop: 44px / 44px • Mobile: 36px / 44px</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">h3 — Subsection</div>
-        <h3>This is a h3 heading</h3>
-        <small class="demo-notes">Desktop: 32px / 40px • Mobile: 28px / 40px</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">h4 — Tertiary title</div>
-        <h4>This is a h4 heading</h4>
-        <small class="demo-notes">Desktop: 24px / 30px • Mobile: 24px / 30px</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">h5 — Minor heading</div>
-        <h5>This is a h5 heading</h5>
-        <small class="demo-notes">Desktop: 20px / 24px • Mobile: 20px / 24px</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">h6 — Tertiary text</div>
-        <h6>This is a h6 heading</h6>
-        <small class="demo-notes">Desktop: 14px / 20px • Mobile: 14px / 20px</small>
-      </div>
-    </div>
-
-
-  </section>
-
-
-  {# ===================================================================
-      SECTION 2: DISPLAY CLASSES (.display-1 → .display-6)
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Display Utilities</div>
-      <h2 class="typography-section__title">Display Classes (.display-1 → .display-6)</h2>
-      <p class="typography-section__description">
-        Non-semantic display classes apply heading-like styles to generic elements (<code>&lt;div&gt;</code>, 
-        <code>&lt;span&gt;</code>) when semantic markup isn't possible. Use sparingly—always prefer native 
-        heading elements for proper document structure.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Use Case:</strong> Hero sections, campaigns, CMS content</span>
-        <span class="meta-item"><strong>Font Weight:</strong> Bold (700)</span>
-        <span class="meta-item"><strong>Range:</strong> 7.5rem (120px) to 2.5rem (40px)</span>
-      </div>
-    </header>
-
-    {# Visual preview cards #}
-    <div class="typography-demo__grid">
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-1 — Hero/showcase</div>
-        <div class="display-1" style="margin: 0;">Display 1</div>
-        <small class="demo-notes">120px • Token: --font-size-14</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-2 — Large impact</div>
-        <div class="display-2" style="margin: 0;">Display 2</div>
-        <small class="demo-notes">80px • Token: --font-size-13</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-3 — Campaign</div>
-        <div class="display-3" style="margin: 0;">Display 3</div>
-        <small class="demo-notes">64px • Token: --font-size-12</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-4 — Feature title</div>
-        <div class="display-4" style="margin: 0;">Display 4</div>
-        <small class="demo-notes">56px • Token: --font-size-11</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-5 — Emphasis</div>
-        <div class="display-5" style="margin: 0;">Display 5</div>
-        <small class="demo-notes">48px • Token: --font-size-10</small>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">.display-6 — Alternative</div>
-        <div class="display-6" style="margin: 0;">Display 6</div>
-        <small class="demo-notes">40px • Token: --font-size-9</small>
-      </div>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 3: BODY TEXT & PARAGRAPH UTILITIES
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Reading Text</div>
-      <h2 class="typography-section__title">Body Text & Paragraph Utilities</h2>
-      <p class="typography-section__description">
-        Standard paragraph and body text classes with semantic font sizes optimized
-        for readability and accessibility on all devices. These are the foundation of long-form content.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Font Family:</strong> BNPP Sans / Open Sans</span>
-        <span class="meta-item"><strong>Font Weight:</strong> Regular (400)</span>
-        <span class="meta-item"><strong>Line Height:</strong> Normal / Relaxed (1.5–1.75)</span>
-        <span class="meta-item"><strong>Use Case:</strong> Body text, articles, descriptions</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__content">
-      <h3>Text Sizes & Styles</h3>
-      <table class="demo-table typography-demo__body-text-table">
-        <thead>
-          <tr>
-            <th>Element/Class</th>
-            <th>Preview</th>
-            <th>Token</th>
-            <th>Size</th>
-            <th>Weight</th>
-            <th>Line Height</th>
-            <th>Use Case</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>&lt;p&gt;</code></td>
-            <td><p style="margin: 0;">Standard paragraph text</p></td>
-            <td><code>--font-size-1</code></td>
-            <td>1rem (16px)</td>
-            <td>Regular (400)</td>
-            <td>Normal (1.5)</td>
-            <td>Body copy, main content</td>
-          </tr>
-          <tr>
-            <td><code>.lead</code></td>
-            <td><p class="lead" style="margin: 0;">Introductory lead paragraph text</p></td>
-            <td><code>--font-size-2</code></td>
-            <td>1.125rem (18px)</td>
-            <td>Regular (400)</td>
-            <td>Relaxed (1.75)</td>
-            <td>Introductions, abstracts, summaries</td>
-          </tr>
-          <tr>
-            <td><code>&lt;small&gt;</code></td>
-            <td><small style="margin: 0;">Small supplementary text</small></td>
-            <td><code>--font-size-0</code></td>
-            <td>0.875rem (14px)</td>
-            <td>Regular (400)</td>
-            <td>Normal (1.5)</td>
-            <td>Secondary info, disclaimers, captions</td>
-          </tr>
-          <tr>
-            <td><code>.micro</code></td>
-            <td><p class="micro" style="margin: 0;">Micro label text</p></td>
-            <td><code>--font-size--1</code></td>
-            <td>0.75rem (12px)</td>
-            <td>Regular (400)</td>
-            <td>Tight (1.25)</td>
-            <td>UI labels, metadata, badges</td>
-          </tr>
-          <tr>
-            <td><code>.text-xs</code></td>
-            <td><p class="text-xs" style="margin: 0;">Extra tiny text</p></td>
-            <td><code>--font-size--2</code></td>
-            <td>0.625rem (10px)</td>
-            <td>Regular (400)</td>
-            <td>Tight (1.25)</td>
-            <td>Avatar initials, compact UI</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3 style="margin-top: var(--size-12);">Font Weight Options</h3>
-      <table class="demo-table typography-demo__weight-table">
-        <thead>
-          <tr>
-            <th>Weight</th>
-            <th>Preview</th>
-            <th>Token</th>
-            <th>Use Case</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Light</strong></td>
-            <td><p style="margin: 0; font-weight: var(--font-weight-300);">Light elegant text for subtle emphasis</p></td>
-            <td><code>--font-weight-300</code></td>
-            <td>Elegant typography, contrast</td>
-          </tr>
-          <tr>
-            <td><strong>Regular</strong></td>
-            <td><p style="margin: 0; font-weight: var(--font-weight-400);">Regular standard text for body copy</p></td>
-            <td><code>--font-weight-400</code></td>
-            <td>Body copy, paragraphs (default)</td>
-          </tr>
-          <tr>
-            <td><strong>Bold</strong></td>
-            <td><p style="margin: 0; font-weight: var(--font-weight-700);">Bold emphasized text for importance</p></td>
-            <td><code>--font-weight-700</code></td>
-            <td>Emphasis, headings, strong statements</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 4: INLINE ELEMENTS & SEMANTIC MARKUP
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Semantic Markup</div>
-      <h2 class="typography-section__title">Inline Elements & Semantic Markup</h2>
-      <p class="typography-section__description">
-        Semantic inline elements for text emphasis and special content types.
-        Always prefer semantic markup over generic <code>&lt;div&gt;</code> elements for better accessibility.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Elements:</strong> strong, em, mark, abbr, code, etc.</span>
-        <span class="meta-item"><strong>Inline?:</strong> Yes (flow within text)</span>
-        <span class="meta-item"><strong>Use Case:</strong> Emphasis, abbreviations, code snippets</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__grid">
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;strong&gt; or &lt;b&gt;</div>
-        <p>
-          This text contains <strong>important emphasis</strong> using semantic
-          <code>&lt;strong&gt;</code> tags. Use for critical information.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;em&gt; or &lt;i&gt;</div>
-        <p>
-          This text contains <em>emphasized content</em> using semantic
-          <code>&lt;em&gt;</code> tags. Use for alternative tone or mood.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;mark&gt;</div>
-        <p>
-          This text contains <mark>highlighted content</mark> using the
-          <code>&lt;mark&gt;</code> tag. Use to draw attention to relevant passages.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;del&gt; &lt;ins&gt;</div>
-        <p>
-          This text shows <del>removed content</del> and <ins>inserted content</ins>.
-          Use for document revisions and edit tracking.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;kbd&gt;</div>
-        <p>
-          Press <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Delete</kbd> to open the task manager.
-          Use for keyboard shortcuts and user input instructions.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;code&gt;</div>
-        <p>
-          The function <code>calculateTotal(items)</code> computes the sum of all item values.
-          Use for inline code snippets and technical references.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;a&gt; (Link)</div>
-        <p>
-          This is a <a href="#">text link with semantic styling</a>.
-          Links are styled to indicate interactivity and meet WCAG AA contrast requirements.
-        </p>
-      </div>
-
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;abbr&gt;</div>
-        <p>
-          The <abbr title="BNP Paribas Real Estate">BNPE</abbr> organization manages
-          real estate portfolios. Use <code>&lt;abbr&gt;</code> with <code>title</code> attribute.
-        </p>
-      </div>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 5: LISTS (Ordered, Unordered, Definition)
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Content Structure</div>
-      <h2 class="typography-section__title">Lists</h2>
-      <p class="typography-section__description">
-        Semantic list structures for content organization. Each list type has
-        distinct visual styling and accessibility support for different use cases.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Types:</strong> &lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;</span>
-        <span class="meta-item"><strong>Semantic:</strong> Yes (proper structure matters)</span>
-        <span class="meta-item"><strong>Use Case:</strong> Navigation, steps, features, terms</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__grid">
-      {# Unordered list #}
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;ul&gt; (Unordered)</div>
-        <ul>
-          <li>First item in an unordered list</li>
-          <li>Second item with nested content</li>
-          <li>Third item concluding the list</li>
-        </ul>
-        <small class="demo-notes">Bullet points for non-sequential content</small>
-      </div>
-
-      {# Ordered list #}
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;ol&gt; (Ordered)</div>
-        <ol>
-          <li>First step in a sequential process</li>
-          <li>Second step with required action</li>
-          <li>Third step completing the sequence</li>
-        </ol>
-        <small class="demo-notes">Numbered sequence for instructions, recipes, etc.</small>
-      </div>
-
-      {# Definition list #}
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;dl&gt; (Definition)</div>
-        <dl>
-          <dt>Asset Management</dt>
-          <dd>Strategic management of company resources and properties.</dd>
-          <dt>Portfolio Optimization</dt>
-          <dd>Improving resource allocation across real estate investments.</dd>
-          <dt>Due Diligence</dt>
-          <dd>Comprehensive assessment of property and market conditions.</dd>
-        </dl>
-        <small class="demo-notes">Term-definition pairs for glossaries and explanations</small>
-      </div>
-
-      {# Nested list #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Nested Lists</div>
-        <ul>
-          <li>Parent item 1
-            <ul>
-              <li>Nested item 1.1</li>
-              <li>Nested item 1.2</li>
-            </ul>
-          </li>
-          <li>Parent item 2
-            <ol>
-              <li>Nested ordered 2.1</li>
-              <li>Nested ordered 2.2</li>
-            </ol>
-          </li>
-        </ul>
-        <small class="demo-notes">Lists can be nested for hierarchical information</small>
-      </div>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 6: BLOCKQUOTES & CITATIONS
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Quotations</div>
-      <h2 class="typography-section__title">Blockquotes & Citations</h2>
-      <p class="typography-section__description">
-        Semantic markup for quoted content, citations, and testimonials.
-        Always indicate the source of external quotes for proper attribution and context.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Element:</strong> &lt;blockquote&gt;, &lt;cite&gt;</span>
-        <span class="meta-item"><strong>Styling:</strong> Left border, italic text, light background</span>
-        <span class="meta-item"><strong>Use Case:</strong> Testimonials, expert quotes, references</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__grid">
-      {# Standard blockquote #}
-      <div class="typography-demo__item">
-        <div class="demo-code">&lt;blockquote&gt;</div>
-        <blockquote>
-          <p>
-            Real estate is the best investment for long-term wealth creation.
-            It provides tangible assets, steady income, and capital appreciation potential.
-          </p>
-          <footer>
-            <cite>Investment Strategy Guide</cite>
-          </footer>
-        </blockquote>
-        <small class="demo-notes">Use with <code>&lt;footer&gt;</code> and <code>&lt;cite&gt;</code> for attribution</small>
-      </div>
-
-      {# Blockquote with attribution #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Quote with Author</div>
-        <blockquote>
-          <p>
-            "Successful property portfolio management requires strategic planning,
-            market insight, and disciplined execution."
-          </p>
-          <footer>
-            — <cite>Jane Doe</cite>, Real Estate Executive
-          </footer>
-        </blockquote>
-        <small class="demo-notes">Include author name for attribution</small>
-      </div>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 7: TEXT UTILITY CLASSES
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Utilities</div>
-      <h2 class="typography-section__title">Text Utility Classes</h2>
-      <p class="typography-section__description">
-        Reusable utility classes for text formatting, color, and alignment.
-        From <code>source/patterns/base/utilities/typography.css</code>.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Source:</strong> utilities/typography.css</span>
-        <span class="meta-item"><strong>Token-based:</strong> All use CSS variables</span>
-        <span class="meta-item"><strong>Use Case:</strong> Quick text styling without custom CSS</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__grid">
-      {# Text color #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Text Colors</div>
-        <p class="text-primary">Primary text (--text-primary)</p>
-        <p class="text-secondary">Secondary text (--text-secondary)</p>
-        <p class="text-tertiary">Tertiary text (--text-tertiary)</p>
-        <p class="text-link">Link color (--primary)</p>
-        <div class="bg-gray-900 p-2 rounded">
-          <p class="text-inverse">Inverse text on dark background</p>
+{% set headings_content %}
+  <div class="typography-demo">
+    <section class="typography-section">
+      <div class="typography-demo__grid">
+        <div class="typography-demo__item">
+          <div class="demo-code">h1 — Main page heading</div>
+          <h1 style="margin: 0;">This is a h1 heading</h1>
+          <small class="demo-notes">Desktop: 48px / 60px • Mobile: 40px / 52px</small>
         </div>
-        <small class="demo-notes">Semantic color tokens for all text types</small>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">h2 — Section title</div>
+          <h2 style="margin: 0;">This is a h2 heading</h2>
+          <small class="demo-notes">Desktop: 44px / 44px • Mobile: 36px / 44px</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">h3 — Subsection</div>
+          <h3 style="margin: 0;">This is a h3 heading</h3>
+          <small class="demo-notes">Desktop: 32px / 40px • Mobile: 28px / 40px</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">h4 — Tertiary title</div>
+          <h4 style="margin: 0;">This is a h4 heading</h4>
+          <small class="demo-notes">Desktop: 24px / 30px • Mobile: 24px / 30px</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">h5 — Minor heading</div>
+          <h5 style="margin: 0;">This is a h5 heading</h5>
+          <small class="demo-notes">Desktop: 20px / 24px • Mobile: 20px / 24px</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">h6 — Tertiary text</div>
+          <h6 style="margin: 0;">This is a h6 heading</h6>
+          <small class="demo-notes">Desktop: 14px / 20px • Mobile: 14px / 20px</small>
+        </div>
       </div>
+    </section>
+  </div>
+{% endset %}
 
-      {# Text alignment #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Text Alignment</div>
-        <p class="text-left">Left-aligned text (default for LTR)</p>
-        <p class="text-center">Center-aligned text for focus</p>
-        <p class="text-right">Right-aligned text</p>
-        <p class="text-justify">Justified text for formal documents. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <small class="demo-notes">.text-left, .text-center, .text-right, .text-justify</small>
+{% set display_content %}
+  <div class="typography-demo">
+    <section class="typography-section">
+      <div class="typography-demo__grid typography-demo__grid--display">
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-1 — Hero/showcase</div>
+          <div class="display-1" style="margin: 0;">Display 1</div>
+          <small class="demo-notes">120px • Token: --font-size-14</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-2 — Large impact</div>
+          <div class="display-2" style="margin: 0;">Display 2</div>
+          <small class="demo-notes">80px • Token: --font-size-13</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-3 — Campaign</div>
+          <div class="display-3" style="margin: 0;">Display 3</div>
+          <small class="demo-notes">64px • Token: --font-size-12</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-4 — Feature title</div>
+          <div class="display-4" style="margin: 0;">Display 4</div>
+          <small class="demo-notes">56px • Token: --font-size-11</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-5 — Emphasis</div>
+          <div class="display-5" style="margin: 0;">Display 5</div>
+          <small class="demo-notes">48px • Token: --font-size-10</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.display-6 — Alternative</div>
+          <div class="display-6" style="margin: 0;">Display 6</div>
+          <small class="demo-notes">40px • Token: --font-size-9</small>
+        </div>
       </div>
+    </section>
+  </div>
+{% endset %}
 
-      {# Text transform #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Text Transform</div>
-        <p class="uppercase">uppercase text utility</p>
-        <p class="lowercase">LOWERCASE TEXT UTILITY</p>
-        <p class="capitalize">capitalize each word utility</p>
-        <p class="normal-case">NORMAL CASE UTILITY</p>
-        <small class="demo-notes">.uppercase, .lowercase, .capitalize, .normal-case</small>
+{% set body_content %}
+  <div class="typography-demo">
+    <section class="typography-section">
+      <div class="typography-demo__grid">
+        <div class="typography-demo__item">
+          <div class="demo-code">&lt;p&gt; (default)</div>
+          <p style="margin: 0;">This is a body paragraph using the default paragraph font size (1rem/16px) with normal line height for readability.</p>
+          <small class="demo-notes">Token: --font-size-1 (1rem/16px), --leading-normal</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.lead</div>
+          <p class="lead" style="margin: 0;">This is a lead paragraph using larger text (1.125rem/18px) with relaxed line height for emphasis.</p>
+          <small class="demo-notes">Token: --font-size-2 (1.125rem/18px), --leading-relaxed</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">&lt;small&gt;</div>
+          <p><small style="margin: 0;">This is small text for captions, footnotes, and supplementary information (0.875rem/14px).</small></p>
+          <small class="demo-notes">Token: --font-size-0 (0.875rem/14px)</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">.micro</div>
+          <p class="micro" style="margin: 0;">Micro text for metadata, timestamps, and UI labels (0.75rem/12px).</p>
+          <small class="demo-notes">Token: --font-size--1 (0.75rem/12px)</small>
+        </div>
       </div>
+    </section>
+  </div>
+{% endset %}
 
-      {# Text decoration #}
-      <div class="typography-demo__item">
-        <div class="demo-code">Text Decoration</div>
-        <p class="underline">Underlined text</p>
-        <p class="line-through">Struck-through text</p>
-        <p class="overline-text">Overlined text</p>
-        <p class="no-underline"><a href="#">Link without underline</a></p>
-        <small class="demo-notes">.underline, .line-through, .overline-text, .no-underline</small>
+{% set weights_content %}
+  <div class="typography-demo">
+    <section class="typography-section">
+      <div class="typography-demo__grid">
+        <div class="typography-demo__item">
+          <div class="demo-code">Light (300)</div>
+          <p style="font-weight: var(--font-weight-300); margin: 0;">Light weight text for subtle emphasis</p>
+          <small class="demo-notes">Token: --font-weight-300 • Usage: Rarely, for delicate emphasis</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">Regular (400)</div>
+          <p style="font-weight: var(--font-weight-400); margin: 0;">Regular weight text for body content and default text</p>
+          <small class="demo-notes">Token: --font-weight-400 • Usage: Body text (default)</small>
+        </div>
+
+        <div class="typography-demo__item">
+          <div class="demo-code">Bold (700)</div>
+          <p style="font-weight: var(--font-weight-700); margin: 0;">Bold weight text for headings and emphasis</p>
+          <small class="demo-notes">Token: --font-weight-700 • Usage: Headings and strong emphasis</small>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+{% endset %}
 
-
-  {# ===================================================================
-      SECTION 8: RESPONSIVE TYPOGRAPHY & ACCESSIBILITY
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Standards</div>
-      <h2 class="typography-section__title">Responsive Typography & Accessibility</h2>
-      <p class="typography-section__description">
-        Key principles for responsive text scaling and WCAG 2.2 compliance.
-        These ensure readability on all devices and for all users without exceptions.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Standard:</strong> WCAG 2.2 Level AA</span>
-        <span class="meta-item"><strong>Testing:</strong> Zoom 200%, screen readers, keyboard navigation</span>
-        <span class="meta-item"><strong>Requirement:</strong> Contrast 4.5:1 (body), 3:1 (large)</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__content">
-      <h3>Design Principles</h3>
-      <ul>
-        <li><strong>Semantic HTML:</strong> Always use appropriate heading levels and inline elements</li>
-        <li><strong>Font Scaling:</strong> Use rem-based sizes (1rem = 16px) for user-controlled sizing</li>
-        <li><strong>Line Height:</strong> Maintain 1.5+ for body text (--leading-normal: 1.5)</li>
-        <li><strong>Contrast:</strong> WCAG AA minimum 4.5:1 for normal text, 3:1 for large text (18pt+)</li>
-        <li><strong>Font Weight:</strong> Avoid using color alone for emphasis; use weight variation</li>
-        <li><strong>Spacing:</strong> Use letter-spacing (--tracking-*) sparingly for headlines only</li>
-      </ul>
-
-      <h3>Accessibility Checklist</h3>
-      <ul>
-        <li>✅ Headings form a logical outline (no skipped levels like h1 → h3)</li>
-        <li>✅ Focus indicators visible on all interactive text (links, buttons)</li>
-        <li>✅ Text is not justified (hyphens can interfere with screen readers)</li>
-        <li>✅ Color is never the only indicator of meaning (use weight, icons, text)</li>
-        <li>✅ Links are underlined or otherwise distinguished from body text</li>
-        <li>✅ Lists use semantic markup (&lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;)</li>
-        <li>✅ Form labels are properly associated with inputs</li>
-        <li>✅ Code blocks are escaped and syntax-highlighted appropriately</li>
-      </ul>
-
-      <h3>Responsive Scaling</h3>
-      <p>
-        The typography scale is designed to adapt to viewport size via media queries.
-        Font sizes scale smoothly from mobile to desktop, maintaining readability
-        without explicit breakpoint declarations in component CSS.
-      </p>
-      <p>
-        Developers should test text on multiple devices and support browser zoom
-        (100–200%) to verify accessibility and responsiveness.
-      </p>
-    </div>
-  </section>
-
-
-  {# ===================================================================
-      SECTION 9: REFERENCE GUIDE
-      ===================================================================== #}
-  <section class="typography-section">
-    <header class="typography-section__header">
-      <div class="typography-section__badge">Reference</div>
-      <h2 class="typography-section__title">Token Reference</h2>
-      <p class="typography-section__description">
-        Complete list of typography tokens defined in <code>source/props/fonts.css</code>.
-        Use these tokens in all components and utilities—never hardcode values.
-      </p>
-      <div class="typography-section__meta">
-        <span class="meta-item"><strong>Source:</strong> source/props/fonts.css</span>
-        <span class="meta-item"><strong>Scope:</strong> 40+ CSS custom properties</span>
-        <span class="meta-item"><strong>Rule:</strong> No hardcoded px values in components</span>
-      </div>
-    </header>
-
-    <div class="typography-demo__content">
-      <h3>Font Families</h3>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--font-body</code> or <code>--font-sans</code></td>
-            <td>'BNPP Sans', system fonts, Arial, sans-serif</td>
-            <td>Primary body text and headings (BNP brand)</td>
-          </tr>
-          <tr>
-            <td><code>--font-alt</code></td>
-            <td>'Open Sans', system fonts, Arial, sans-serif</td>
-            <td>Alternative paragraph text and secondary copy</td>
-          </tr>
-          <tr>
-            <td><code>--font-mono</code></td>
-            <td>Menlo, Consolas, Courier New, monospace</td>
-            <td>Code blocks and technical content</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Font Weights</h3>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--font-weight-300</code></td>
-            <td>300 (Light)</td>
-            <td>Subtle emphasis, elegant typography (rarely used)</td>
-          </tr>
-          <tr>
-            <td><code>--font-weight-400</code></td>
-            <td>400 (Regular)</td>
-            <td>Body text, paragraphs, standard content (default)</td>
-          </tr>
-          <tr>
-            <td><code>--font-weight-700</code></td>
-            <td>700 (Bold)</td>
-            <td>Headings, emphasis, important information</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Font Sizes (Scale)</h3>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value (rem)</th>
-            <th>Pixels (16px base)</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--font-size--2</code></td>
-            <td>0.625rem</td>
-            <td>10px</td>
-            <td>Avatar initials (smallest)</td>
-          </tr>
-          <tr>
-            <td><code>--font-size--1</code></td>
-            <td>0.75rem</td>
-            <td>12px</td>
-            <td>Micro labels, captions</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-0</code></td>
-            <td>0.875rem</td>
-            <td>14px</td>
-            <td>Small text, secondary info</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-1</code></td>
-            <td>1rem</td>
-            <td>16px</td>
-            <td>Body text, default (base)</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-2</code></td>
-            <td>1.125rem</td>
-            <td>18px</td>
-            <td>Lead text, introductions</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-3</code></td>
-            <td>1.25rem</td>
-            <td>20px</td>
-            <td>Emphasis, highlights</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-4</code></td>
-            <td>1.375rem</td>
-            <td>22px</td>
-            <td>Subheading level 6</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-5</code></td>
-            <td>1.5rem</td>
-            <td>24px</td>
-            <td>h6 and .h6</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-6</code></td>
-            <td>1.75rem</td>
-            <td>28px</td>
-            <td>h5 and .h5</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-7</code></td>
-            <td>2rem</td>
-            <td>32px</td>
-            <td>h4 and .h4</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-8</code></td>
-            <td>2.25rem</td>
-            <td>36px</td>
-            <td>h3 and .h3</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-9</code></td>
-            <td>2.5rem</td>
-            <td>40px</td>
-            <td>h2 and .h2</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-10</code></td>
-            <td>3rem</td>
-            <td>48px</td>
-            <td>h1 and .h1</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-11</code></td>
-            <td>3.5rem</td>
-            <td>56px</td>
-            <td>.display-4</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-12</code></td>
-            <td>4rem</td>
-            <td>64px</td>
-            <td>.display-3</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-13</code></td>
-            <td>5rem</td>
-            <td>80px</td>
-            <td>.display-2</td>
-          </tr>
-          <tr>
-            <td><code>--font-size-14</code></td>
-            <td>7.5rem</td>
-            <td>120px</td>
-            <td>.display-1 (hero)</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Line Height (Leading)</h3>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--leading-none</code></td>
-            <td>1</td>
-            <td>No space between lines (display headlines, abbreviations)</td>
-          </tr>
-          <tr>
-            <td><code>--leading-tight</code></td>
-            <td>1.25</td>
-            <td>Headings (h1–h6), compact display</td>
-          </tr>
-          <tr>
-            <td><code>--leading-snug</code></td>
-            <td>1.375</td>
-            <td>Headings h4–h6 and medium-sized text</td>
-          </tr>
-          <tr>
-            <td><code>--leading-normal</code></td>
-            <td>1.5</td>
-            <td>Body text, paragraphs (recommended for readability)</td>
-          </tr>
-          <tr>
-            <td><code>--leading-relaxed</code></td>
-            <td>1.625</td>
-            <td>Long-form content, accessibility-focused reading</td>
-          </tr>
-          <tr>
-            <td><code>--leading-loose</code></td>
-            <td>2</td>
-            <td>Form fields, widely spaced text blocks (rare)</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Letter Spacing (Tracking)</h3>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--tracking-tighter</code></td>
-            <td>-0.05em</td>
-            <td>Tightly spaced uppercase headlines (rare)</td>
-          </tr>
-          <tr>
-            <td><code>--tracking-tight</code></td>
-            <td>-0.025em</td>
-            <td>Condensed display text (use sparingly)</td>
-          </tr>
-          <tr>
-            <td><code>--tracking-normal</code></td>
-            <td>0</td>
-            <td>Standard spacing (default)</td>
-          </tr>
-          <tr>
-            <td><code>--tracking-wide</code></td>
-            <td>0.025em</td>
-            <td>Uppercase labels, form hints, metadata</td>
-          </tr>
-          <tr>
-            <td><code>--tracking-wider</code></td>
-            <td>0.05em</td>
-            <td>Spaced uppercase headings for emphasis</td>
-          </tr>
-          <tr>
-            <td><code>--tracking-widest</code></td>
-            <td>0.1em</td>
-            <td>Maximum spacing for decorative text (very rare)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-</article>
+{% include '../_base-story.twig' with {
+  header: header,
+  sections: [
+    {
+      title: 'Heading Elements',
+      description: 'Semantic heading elements (h1–h6) form the document structure with responsive sizing. Always prefer semantic markup for accessibility and SEO.',
+      badge: 'Semantic Elements',
+      content: headings_content
+    },
+    {
+      title: 'Display Classes',
+      description: 'Non-semantic display classes (.display-1 to .display-6) apply heading-like styles to generic elements when semantic markup isn\'t possible. Use sparingly.',
+      badge: 'Display Utilities',
+      content: display_content
+    },
+    {
+      title: 'Body Text',
+      description: 'Reading text styles for paragraphs, lead text, and small text. Choose the appropriate size for content hierarchy and readability.',
+      badge: 'Reading Text',
+      content: body_content
+    },
+    {
+      title: 'Font Weights',
+      description: 'Three weight levels available: Light (300) for subtle emphasis, Regular (400) for body text, and Bold (700) for headings.',
+      badge: 'Text Styling',
+      content: weights_content
+    }
+  ]
+} only %}

@@ -1,4 +1,15 @@
----
+header:
+  title: 'Sizes'
+  description: 'Spacing scale based on a 4px grid. All sizes available as CSS custom properties.'
+  badge: 'Design Tokens'
+  meta:
+    - label: 'Total Sizes'
+      value: '35'
+    - label: 'Scale'
+      value: '4px grid'
+    - label: 'Source'
+      value: 'props/sizes.css'
+
 spacing:
   - size: --size-px
     px: 1px

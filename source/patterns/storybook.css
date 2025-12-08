@@ -49,6 +49,63 @@
   }
 }
 
+/* Border Color Swatches */
+.border-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--size-6);
+  padding-block: var(--size-4);
+
+  .border-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    padding: var(--size-5);
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-3);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .swatch {
+      width: 100%;
+      height: 80px;
+      border-radius: var(--radius-2);
+      border: 1px solid var(--border-light);
+      flex-shrink: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      font-size: var(--font-size-0);
+
+      .name {
+        font-weight: var(--font-weight-600);
+        color: var(--text-primary);
+        font-size: var(--font-size-2);
+      }
+
+      .var {
+        font-family: monospace;
+        font-size: var(--font-size--1);
+        color: var(--primary);
+        word-break: break-all;
+      }
+
+      .usage {
+        font-size: var(--font-size--1);
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+    }
+  }
+}
+
 /* Brand & Color Demo */
 .demo-brands,
 .demo-colors {
@@ -78,21 +135,23 @@
 
   .theme-colors-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--size-8);
     margin-bottom: var(--size-12);
   }
 
   .theme-color-card {
-    padding: var(--size-4) var(--size-8);
+    padding: var(--size-7) var(--size-9);
     border-radius: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-    min-height: 60px;
+    min-height: 120px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--size-3);
 
     &:hover {
       transform: translateY(-2px);
@@ -103,8 +162,8 @@
   .theme-color-name {
     font-size: var(--font-size-4);
     font-weight: var(--font-weight-600);
-    color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: #f0f0f0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   /* Theme color variants */
@@ -178,6 +237,13 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-6);
+    padding-bottom: var(--size-8);
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .brand-group:last-child,
+  .color-group:last-child {
+    border-bottom: none;
   }
 
   .brand-group__title,
@@ -218,9 +284,15 @@
   .swatch-main {
     background-color: var(--gray-900);
     color: white;
-    border-radius: 0;
+    border-radius: var(--radius-2);
+    border: 1px solid var(--border-light);
     font-weight: var(--font-weight-300);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    padding: var(--size-5);
+    line-height: var(--line-height-3);
 
     strong {
       font-size: var(--font-size-2);
@@ -234,6 +306,7 @@
     font-size: var(--font-size-00);
     color: var(--text-primary);
     transition: background-color 0.2s ease;
+    padding: var(--size-3) var(--size-4);
 
     &:hover {
       background-color: var(--bg-hover);
@@ -278,7 +351,7 @@
   .brand-table,
   .color-table {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0;
     border: 1px solid var(--border-light);
     border-radius: var(--radius-2);
@@ -288,7 +361,7 @@
       background: var(--bg-section);
 
       th {
-        padding: var(--size-3) var(--size-4);
+        padding: var(--size-6) var(--size-5);
         text-align: left;
         font-weight: var(--font-weight-700);
         font-size: var(--font-size-0);
@@ -303,7 +376,6 @@
 
     tbody {
       tr {
-        border-bottom: 1px solid var(--border-light);
         transition: background-color 0.2s ease;
 
         &:hover {
@@ -316,9 +388,8 @@
       }
 
       td {
-        padding: var(--size-4);
+        padding: var(--size-7) var(--size-5);
         vertical-align: top;
-        border-bottom: 1px solid var(--border-light);
 
         &.ps-0 {
           padding-left: 0;
@@ -395,6 +466,23 @@
         }
       }
     }
+  }
+
+  .demo-brand-swatch {
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-2);
+  }
+
+  .demo-brand-text {
+    color: var(--text-secondary);
+  }
+
+  .brand-table tr.demo-brand-divider td,
+  .brand-table tr.demo-brand-divider th {
+    border-top: 2px solid var(--border-default);
   }
 
   .color-demo,
