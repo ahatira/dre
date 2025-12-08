@@ -17,6 +17,7 @@
     "storybook:build": "storybook build -o storybook",
     "storybook:test": "test-storybook",
     "generate:pattern": "node scripts/generate-pattern.mjs",
+    "tokens:check": "node scripts/check-tokens.mjs",
     "build": "npm run lint:check && npm run format:check && node scripts/build-icons.mjs && node scripts/sync-libraries.mjs && npm run vite:build",
     "icons:build": "node scripts/build-icons.mjs",
     "icons:watch": "node scripts/build-icons.mjs --watch",
