@@ -78,9 +78,10 @@
 
   {%- if error -%}
     <div class="form-error" role="alert">
-      <svg class="form-error-icon" aria-hidden="true" focusable="false">
-        <use xlink:href="#icon-alert-circle" />
-      </svg>
+      {% include '@elements/icon/icon.twig' with {
+        name: 'alert',
+        attributes: create_attribute().addClass('form-error-icon')
+      } only %}
       {{ error }}
     </div>
   {%- elseif helper -%}

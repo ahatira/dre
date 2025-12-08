@@ -69,10 +69,11 @@
 .ps-search-bar__icon {
   position: absolute;
   left: var(--ps-search-bar-icon-spacing);
-  width: var(--ps-search-bar-icon-size);
-  height: var(--ps-search-bar-icon-size);
-  fill: var(--ps-search-bar-icon-color);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ps-search-bar-icon-color);
   pointer-events: none;
+  --ps-icon-size: var(--ps-search-bar-icon-size);
 }
 
 .ps-search-bar__input {

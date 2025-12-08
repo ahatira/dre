@@ -15,6 +15,22 @@ const REGISTRY_OUTPUT_PATH = path.join(__dirname, '../source/patterns/documentat
 const SVG_SYMBOL_RE = /<svg[^>]*>([\s\S]*?)<\/svg>/i;
 const VIEWBOX_RE = /viewBox="([^"]+)"/i;
 
+const CATEGORY_LABELS = {
+  ad: 'Ad',
+  website: 'Website',
+  generic: 'Generic',
+  search: 'Search',
+  metropole: 'Metropole',
+  'social-media': 'Social media',
+  'mobile-only': 'Mobile only',
+  tutoffice: 'TutOffice',
+  univers: 'Univers',
+  tools: 'Tools',
+  blog: 'Blog',
+  other: 'Other',
+  country: 'Country',
+};
+
 /**
  * Strip inline fill/stroke from SVG path elements to allow CSS currentColor control.
  * Keeps viewBox and other attributes, removes fill="#..." and stroke="#..." from paths.
@@ -79,34 +95,70 @@ function generateIconsCss(iconNames) {
 }
 
 /**
- * Generate icons registry JSON for validation and discovery
- * Input: Array of icon names
- * Output: JSON object with metadata
+ * Build category registry from directory structure
+ * Input: Array of { name, category } objects
+ * Output: { categories, order, unmapped }
  */
-function generateIconsRegistry(iconNames) {
-  // Categorize icons based on naming patterns
-  const categories = {
-    ui: iconNames.filter(n => ['close', 'check', 'info', 'alert', 'help', 'star', 'heart'].includes(n)),
-    navigation: iconNames.filter(n => n.includes('arrow') || n.includes('chevron') || n.includes('menu')),
-    forms: iconNames.filter(n => n.includes('checkbox') || n.includes('radio')),
-    communication: iconNames.filter(n => ['phone', 'email', 'share'].includes(n)),
-    media: iconNames.filter(n => ['download', 'upload', 'image'].includes(n)),
-    business: iconNames.filter(n => ['map', 'location', 'pin', 'house', 'building'].includes(n)),
-  };
+function buildCategoryRegistry(iconsWithCategories) {
+  const categoriesMap = new Map();
+  const unmapped = [];
+
+  // Group icons by category
+  iconsWithCategories.forEach(({ name, category }) => {
+    if (!category) {
+      unmapped.push(name);
+      return;
+    }
+
+    if (!categoriesMap.has(category)) {
+      categoriesMap.set(category, []);
+    }
+    categoriesMap.get(category).push(name);
+  });
+
+  // Sort icons within each category
+  categoriesMap.forEach((icons) => icons.sort());
+
+  // Build final structure with labels
+  const categories = {};
+  const order = Array.from(categoriesMap.keys()).sort();
+
+  order.forEach((slug) => {
+    categories[slug] = {
+      label: CATEGORY_LABELS[slug] || slug,
+      icons: categoriesMap.get(slug),
+    };
+  });
+
+  return { categories, order, unmapped };
+}
+
+/**
+ * Generate icons registry JSON for validation and discovery
+ * Input: Array of { name, category } objects
+ * Output: JSON string
+ */
+function generateIconsRegistry(iconsWithCategories) {
+  const sortedNames = iconsWithCategories.map((icon) => icon.name).sort();
+  const { categories, order, unmapped } = buildCategoryRegistry(iconsWithCategories);
 
   const registry = {
     generated: new Date().toISOString(),
-    total: iconNames.length,
-    names: iconNames.sort(),
-    categories: categories,
+    total: sortedNames.length,
+    names: sortedNames,
+    order,
+    categories,
   };
 
-  // Format with proper indentation for biome (2 spaces, max 100 chars line width)
+  if (unmapped.length) {
+    registry.unmapped = unmapped.sort();
+  }
+
   return JSON.stringify(registry, null, 2);
 }
 
 async function buildIcons() {
-  const svgFiles = await glob('*.svg', {
+  const svgFiles = await glob('**/*.svg', {
     cwd: ICONS_SOURCE_DIR,
   });
 
@@ -115,11 +167,15 @@ async function buildIcons() {
   }
 
   const symbols = [];
-  const names = [];
+  const iconsWithCategories = [];
 
   for (const file of svgFiles.sort()) {
     const name = path.basename(file, '.svg');
     const raw = fs.readFileSync(path.join(ICONS_SOURCE_DIR, file), 'utf8');
+
+    // Extract category from directory structure
+    const pathParts = file.split(path.sep);
+    const category = pathParts.length > 1 ? pathParts[0] : null;
 
     const viewBox = VIEWBOX_RE.exec(raw)?.[1] ?? '0 0 24 24';
     const bodyMatch = SVG_SYMBOL_RE.exec(raw);
@@ -128,7 +184,7 @@ async function buildIcons() {
     // Strip inline fill/stroke to allow currentColor
     body = stripSVGFillStroke(body);
 
-    names.push(name);
+    iconsWithCategories.push({ name, category });
     symbols.push(`<symbol id="icon-${name}" viewBox="${viewBox}">${body}</symbol>`);
   }
 
@@ -139,6 +195,7 @@ async function buildIcons() {
     '',
   ].join('\n');
 
+  const names = iconsWithCategories.map((icon) => icon.name);
   const listContent = JSON.stringify({ all: names, regular: names, poi: [] }, null, 2) + '\n';
 
   // Only write if content changed (prevents infinite reload in watch mode)
@@ -165,7 +222,7 @@ async function buildIcons() {
   }
 
   // Generate and write registry
-  const registryContent = generateIconsRegistry(names);
+  const registryContent = generateIconsRegistry(iconsWithCategories);
   if (fs.existsSync(REGISTRY_OUTPUT_PATH)) {
     const existing = fs.readFileSync(REGISTRY_OUTPUT_PATH, 'utf8');
     registryChanged = existing !== registryContent;

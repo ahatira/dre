@@ -27,9 +27,10 @@
   <form class="ps-search-bar__form" role="search">
     <div class="ps-search-bar__input-wrapper">
       {% if show_icon %}
-        <svg class="ps-search-bar__icon" aria-hidden="true" focusable="false">
-          <use xlink:href="#icon-search" />
-        </svg>
+        {% include '@elements/icon/icon.twig' with {
+          name: 'search',
+          attributes: create_attribute().addClass('ps-search-bar__icon')
+        } only %}
       {% endif %}
       <input
         type="search"

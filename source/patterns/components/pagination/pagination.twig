@@ -5,18 +5,20 @@
       <li class="ps-pagination__item">
         <a href="#" class="ps-pagination__link ps-pagination__link--prev" aria-label="Previous page">
           <span class="visually-hidden">Previous</span>
-          <svg class="icon icon--prev" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
-          </svg>
+          {% include '@elements/icon/icon.twig' with {
+            name: 'arrow-left',
+            attributes: create_attribute().addClass(['icon', 'icon--prev'])
+          } only %}
         </a>
       </li>
     {% else %}
       <li class="ps-pagination__item">
         <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
           <span class="visually-hidden">Previous page unavailable</span>
-          <svg class="icon icon--prev" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
-          </svg>
+          {% include '@elements/icon/icon.twig' with {
+            name: 'arrow-left',
+            attributes: create_attribute().addClass(['icon', 'icon--prev'])
+          } only %}
         </span>
       </li>
     {% endif %}
@@ -35,18 +37,20 @@
       <li class="ps-pagination__item">
         <a href="#" class="ps-pagination__link ps-pagination__link--next" aria-label="Next page">
           <span class="visually-hidden">Next</span>
-          <svg class="icon icon--next" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M10 6L8.59 7.41 12.17 11 8.59 14.59 10 16l6-6z" fill="currentColor"/>
-          </svg>
+          {% include '@elements/icon/icon.twig' with {
+            name: 'arrow-right',
+            attributes: create_attribute().addClass(['icon', 'icon--next'])
+          } only %}
         </a>
       </li>
     {% else %}
       <li class="ps-pagination__item">
         <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
           <span class="visually-hidden">Next page unavailable</span>
-          <svg class="icon icon--next" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M10 6L8.59 7.41 12.17 11 8.59 14.59 10 16l6-6z" fill="currentColor"/>
-          </svg>
+          {% include '@elements/icon/icon.twig' with {
+            name: 'arrow-right',
+            attributes: create_attribute().addClass(['icon', 'icon--next'])
+          } only %}
         </span>
       </li>
     {% endif %}

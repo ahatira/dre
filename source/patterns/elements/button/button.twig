@@ -31,17 +31,6 @@
 {%- set el_label = baseClass ~ '__label' -%}
 {%- set el_spinner = baseClass ~ '__spinner' -%}
 
-{#- Map button size to icon size -#}
-{%- set icon_size_map = {
-  'xs': 'sm',
-  'sm': 'sm',
-  'md': 'md',
-  'lg': 'lg',
-  'xl': 'lg',
-  'xxl': 'lg'
-} -%}
-{%- set icon_size = icon_size_map[size] ?? 'md' -%}
-
 {%- set classes = [
   baseClass,
   variant != 'neutral' ? baseClass ~ '--' ~ variant : null,
@@ -70,10 +59,7 @@
   {%- if icon and iconPosition == 'left' and label -%}
     {% include '@elements/icon/icon.twig' with {
       name: icon,
-      size: icon_size,
-      color: 'default',
-      ariaLabel: null,
-      baseClass: el_icon
+      attributes: create_attribute().addClass(el_icon)
     } only %}
   {%- endif -%}
 
@@ -84,10 +70,7 @@
   {%- if icon and (iconPosition == 'right' or not label) -%}
     {% include '@elements/icon/icon.twig' with {
       name: icon,
-      size: icon_size,
-      color: 'default',
-      ariaLabel: null,
-      baseClass: el_icon
+      attributes: create_attribute().addClass(el_icon)
     } only %}
   {%- endif -%}
 </{{ tag }}>

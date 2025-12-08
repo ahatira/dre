@@ -27,6 +27,8 @@ Modificateurs style (couleur):
   
 Modificateurs état:
   ps-icon--disabled
+
+> Les modificateurs ne sont plus appliqués automatiquement par l'API. Utiliser `attributes.addClass()` pour les attacher selon le contexte (ex: badges, alertes).
 ```
 
 ## API (YAML)
@@ -42,35 +44,20 @@ props:
       type: string
       title: Icône
       description: Nom unique (ex: search, pin, facebook)
-    size:
-      type: string
-      enum: ['xs','sm','md','lg','xl','xxl']
-      default: 'md'
-    color:
-      type: string
-      enum: ['default','primary','secondary','success','warning','danger','info']
-      default: 'default'
-      description: Couleur sémantique (currentColor)
-    disabled:
-      type: boolean
-      default: false
-      description: État visuel désactivé (opacity)
     ariaLabel:
       type: string
       title: Label accessibilité (requis pour icônes informatives)
+    attributes:
+      type: object
+      description: Objet Drupal Attributes pour composition (classes, data-*)
   required: ['name']
 ```
 
 ## Twig
 ```twig
 {# @ps_theme/ps-icon/ps-icon.twig #}
-{% set classes = [
-  'ps-icon',
-  size != 'md' ? 'ps-icon--' ~ size : null,
-  color != 'default' ? 'ps-icon--' ~ color : null,
-  disabled ? 'ps-icon--disabled' : null
-] %}
-<span class="{{ classes|join(' ')|trim }}"{% if ariaLabel %} role="img" aria-label="{{ ariaLabel }}"{% else %} aria-hidden="true"{% endif %}>
+{% set attributes = attributes|default(create_attribute()).addClass('ps-icon') %}
+<span{{ attributes }}{% if ariaLabel %} role="img" aria-label="{{ ariaLabel }}"{% else %} aria-hidden="true"{% endif %}>
   <svg class="ps-icon__svg" focusable="false" aria-hidden="true">
     <use href="/icons/icons-sprite.svg#icon-{{ name }}"></use>
   </svg>
@@ -78,8 +65,8 @@ props:
 ```
 
 ## Variants
-- **Taille**: xs (10px), sm (16px), md (20px), lg (24px), xl (32px), xxl (48px)
-- **Couleur**: default, primary, secondary, success, warning, danger, info
+- **Taille**: xs (10px), sm (16px), md (20px), lg (24px), xl (32px), xxl (48px) via classes `ps-icon--{size}`
+- **Couleur**: default, primary, secondary, success, warning, danger, info via classes `ps-icon--{color}`
 - **Style**: stroke/fill
 - **États** (UI spec):
   - `default`: État normal
@@ -105,62 +92,61 @@ props:
 ## Exemples
 ```twig
 {% include '@ps_theme/ps-icon/ps-icon.twig' with {
-  name: 'arrow-right', size: 24, ariaLabel: 'Aller à droite'
+  name: 'arrow-right',
+  ariaLabel: 'Aller à droite'
 } %}
 
 {% include '@ps_theme/ps-icon/ps-icon.twig' with {
-  name: 'facebook', size: 20, colorVariant: 'green', state: 'hover'
+  name: 'facebook',
+  attributes: create_attribute().addClass('ps-social-link__icon')
 } %}
 
 {% include '@ps_theme/ps-icon/ps-icon.twig' with {
-  name: 'fav-filled', size: 24, colorVariant: 'green', state: 'selected'
+  name: 'fav-filled',
+  attributes: create_attribute().addClass(['ps-icon--success', 'ps-favorite__icon'])
 } %}
 ```
 
 ## Inventaire des icônes par catégorie
 
+### Ad
+- `accessibility`, `air-conditioning`, `camera`, `changing-room`, `details`, `elevator`, `energy`, `equipment`, `floors`, `guide`, `gym`, `heart`, `heart-outline`, `host`, `hotel`, `kitchen`, `lounge`, `meeting-room`, `office-partitions`, `parking`, `people`, `phone`, `picture`, `price`, `reception`, `restaurant`, `sanitary`, `structure`, `unavailable`, `virtual-tour`, `waiting-room`
+
+### Website
+- `account`, `buy-rent`, `euro`, `finance`, `logout`, `mandate`, `notifications`, `send`, `settings`
+
 ### Generic
-- Navigation: `arrow-down`, `arrow-left`, `arrow-right`, `arrow-top`, `big-arrow-down`, `big-arrow-left`, `big-arrow-right`, `big-arrow-top`, `big-arrow-corner`
-- Actions: `close`, `edit`, `download`, `upload`, `send`, `plus-big`, `plus-small`, `minus-big`, `minus-small`
-- Interface: `checkbox-checked`, `checkbox-unchecked`, `radio-selected`, `radio-unselected`, `search`, `settings`, `filter`, `unfold`
-- Infos: `calendar`, `check`, `help`, `infos`, `information`, `pin-map`, `map`, `picture`
-- Visibilité: `pwd-hide`, `pwd-show`, `eye`, `eye-closed`
-- Menu: `menu` (hamburger)
+- `alert`, `arrow-corner`, `arrow-down`, `arrow-left`, `arrow-right`, `arrow-up`, `bin`, `calendar`, `check`, `checkbox-check`, `checkbox-checked`, `checkbox-stroke`, `checkbox-unchecked`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `cloud`, `download`, `edit`, `exit`, `eye`, `eye-closed`, `help`, `hidden`, `info`, `minus`, `minus-small`, `plus`, `plus-small`, `pwd-hide`, `pwd-show`, `radio`, `radio-off`, `radio-on`, `show`, `square`, `start-outline`, `tooltip`, `trash`, `unfold`
 
-### Ad/Annonce
-- Équipements: `accessibility`, `elevator`, `partitioned-offices`, `bus`, `car`, `air-conditioning`, `equipement`, `structure`, `kitchen`, `subway`, `train`, `tram`, `transport`, `bike`, `changing-rooms`
-- Favoris: `fav-filled`, `fav-stroke`
-- Propriétés: `comparator-empty`, `hotel`, `walking`, `meeting-rooms`, `outdoor`, `people-number`, `phone`, `prix`, `rer`, `restaurant`, `sanitary`, `share`, `sport-room`, `floors`, `surface`, `virtual-tour`, `waiting-room`, `welcome-room`, `energy-consumption`, `gas-emission`, `the-mosts`, `airport`, `boat`, `details`, `guided-visit`, `burger-menu`, `notification`, `logout`, `delete`, `filter`
-
-### Blog
-- `events`, `last-articles`, `market`, `trends`, `testimony`
-
-### Categories (Website)
-- `account`, `acheter-louer` (buy-rent), `capital-market`, `entrusting-property`, `advise`
+### Search
+- `alert-add`, `area-select`, `around-me`, `cards`, `comparateur-empty`, `compare`, `drag`, `filter`, `list`, `map`, `marker`, `nearby`, `pin`, `search`
 
 ### Metropole
-- `district`, `medal`
+- `area`, `award`, `district`
 
-### Mobile-only
-- `menu`, `touch`
+### Social media
+- `email`, `email-outline`, `facebook`, `linkedin`, `share`, `twitter`, `youtube`
 
-### Recherche (Search)
-- `comparator`, `create-alert`, `drag-and-drop`, `list`, `select-area-map`
+### Mobile only
+- `burger-menu`, `menu`, `touch`
 
-### Social Media
-- `facebook`, `linkedin`, `mail`, `mail-outlined`, `twitter`, `youtube`
-
-### Tools
-- `open-space`, `common-areas`
-
-### Tutoffice (Video/Tuto controls)
+### TutOffice
 - `next`, `pause`, `play`, `previous`
 
-### Univers (Property types)
-- `offices`, `shops`, `coworking`, `logistic-warehouses`, `business-premises`, `terrain` (land)
+### Univers
+- `commercial-space`, `coworking`, `land`, `office`, `shop`, `warehouse`
 
-### Other (Generic/Group 1)
-- `full-screen`, `chart`, `video`
+### Tools
+- `cube-focus`, `open-space`, `shared-areas`
+
+### Blog
+- `events`, `market`, `recent-posts`, `testimonial`, `trends`
+
+### Other
+- `chart`, `fullscreen`, `video`
+
+### Country
+- `bike`, `boat`, `bus`, `car`, `metro`, `plane`, `rer`, `train`, `tram`, `transport`, `walking`
 
 ## Cohérence Atomic
 Utilisé par Button, Card, Header, Language selector, etc.

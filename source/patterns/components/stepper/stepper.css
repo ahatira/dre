@@ -63,8 +63,8 @@
   }
 
   .ps-stepper__icon {
-    width: var(--size-5);
-    height: var(--size-5);
+    --ps-icon-size: var(--size-5);
+    color: currentColor;
   }
 
   .ps-stepper__label {

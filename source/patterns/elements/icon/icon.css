@@ -16,13 +16,13 @@
   --ps-icon-size-lg: var(--size-6); /* 24px */
   --ps-icon-size-xl: var(--size-8); /* 32px */
   --ps-icon-size-xxl: var(--size-12); /* 48px */
-  --ps-icon-color: var(--gray-600); /* Default color */
+  --ps-icon-color: currentColor; /* Default color inherits from context */
   --ps-icon-disabled-opacity: var(--opacity-disabled, 0.5);
 
   /* ======================================== */
   /* Base Styles */
   /* ======================================== */
-  font-size: var(--ps-icon-size-md);
+  font-size: var(--ps-icon-size, var(--ps-icon-size-md));
   color: var(--ps-icon-color);
   display: inline-flex;
   align-items: center;

@@ -2,10 +2,10 @@
 <div class="ps-tooltip">
   <button type="button" class="ps-tooltip__trigger" aria-describedby="tooltip-content">
     {{ trigger_text }}
-    <svg class="ps-tooltip__icon" viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="1" fill="currentColor"/>
-      <path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9zm0 16a7 7 0 0 1-7-7 7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7z" fill="currentColor"/>
-    </svg>
+    {% include '@elements/icon/icon.twig' with {
+      name: 'info',
+      attributes: create_attribute().addClass('ps-tooltip__icon')
+    } only %}
   </button>
   <div class="ps-tooltip__content ps-tooltip__content--{{ position }}" id="tooltip-content" role="tooltip">
     {{ text }}

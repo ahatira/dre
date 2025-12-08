@@ -1,5 +1,5 @@
 {
-  "generated": "2025-12-08T12:20:03.033Z",
+  "generated": "2025-12-08T16:17:17.737Z",
   "total": 141,
   "names": [
     "accessibility",
@@ -144,48 +144,185 @@
     "warehouse",
     "youtube"
   ],
+  "order": [
+    "ad",
+    "blog",
+    "country",
+    "generic",
+    "metropole",
+    "mobile-only",
+    "other",
+    "search",
+    "social-media",
+    "tools",
+    "tutoffice",
+    "univers",
+    "website"
+  ],
   "categories": {
-    "ui": [
-      "alert",
-      "check",
-      "close",
-      "heart",
-      "help",
-      "info"
-    ],
-    "navigation": [
-      "arrow-corner",
-      "arrow-down",
-      "arrow-left",
-      "arrow-right",
-      "arrow-up",
-      "burger-menu",
-      "chevron-down",
-      "chevron-left",
-      "chevron-right",
-      "chevron-up",
-      "menu"
-    ],
-    "forms": [
-      "checkbox-check",
-      "checkbox-checked",
-      "checkbox-stroke",
-      "checkbox-unchecked",
-      "radio",
-      "radio-off",
-      "radio-on"
-    ],
-    "communication": [
-      "email",
-      "phone",
-      "share"
-    ],
-    "media": [
-      "download"
-    ],
-    "business": [
-      "map",
-      "pin"
-    ]
+    "ad": {
+      "label": "Ad",
+      "icons": [
+        "accessibility",
+        "air-conditioning",
+        "camera",
+        "changing-room",
+        "details",
+        "elevator",
+        "energy",
+        "equipment",
+        "floors",
+        "guide",
+        "gym",
+        "heart",
+        "heart-outline",
+        "host",
+        "hotel",
+        "kitchen",
+        "lounge",
+        "meeting-room",
+        "office-partitions",
+        "parking",
+        "people",
+        "phone",
+        "picture",
+        "price",
+        "reception",
+        "restaurant",
+        "sanitary",
+        "structure",
+        "unavailable",
+        "virtual-tour",
+        "waiting-room"
+      ]
+    },
+    "blog": {
+      "label": "Blog",
+      "icons": ["events", "market", "recent-posts", "testimonial", "trends"]
+    },
+    "country": {
+      "label": "Country",
+      "icons": [
+        "bike",
+        "boat",
+        "bus",
+        "car",
+        "metro",
+        "plane",
+        "rer",
+        "train",
+        "tram",
+        "transport",
+        "walking"
+      ]
+    },
+    "generic": {
+      "label": "Generic",
+      "icons": [
+        "alert",
+        "arrow-corner",
+        "arrow-down",
+        "arrow-left",
+        "arrow-right",
+        "arrow-up",
+        "bin",
+        "calendar",
+        "check",
+        "checkbox-check",
+        "checkbox-checked",
+        "checkbox-stroke",
+        "checkbox-unchecked",
+        "chevron-down",
+        "chevron-left",
+        "chevron-right",
+        "chevron-up",
+        "close",
+        "cloud",
+        "download",
+        "edit",
+        "exit",
+        "eye",
+        "eye-closed",
+        "help",
+        "hidden",
+        "info",
+        "minus",
+        "minus-small",
+        "plus",
+        "plus-small",
+        "pwd-hide",
+        "pwd-show",
+        "radio",
+        "radio-off",
+        "radio-on",
+        "show",
+        "square",
+        "start-outline",
+        "tooltip",
+        "trash",
+        "unfold"
+      ]
+    },
+    "metropole": {
+      "label": "Metropole",
+      "icons": ["area", "award", "district"]
+    },
+    "mobile-only": {
+      "label": "Mobile only",
+      "icons": ["burger-menu", "menu", "touch"]
+    },
+    "other": {
+      "label": "Other",
+      "icons": ["chart", "fullscreen", "video"]
+    },
+    "search": {
+      "label": "Search",
+      "icons": [
+        "alert-add",
+        "area-select",
+        "around-me",
+        "cards",
+        "comparateur-empty",
+        "compare",
+        "drag",
+        "filter",
+        "list",
+        "map",
+        "marker",
+        "nearby",
+        "pin",
+        "search"
+      ]
+    },
+    "social-media": {
+      "label": "Social media",
+      "icons": ["email", "email-outline", "facebook", "linkedin", "share", "twitter", "youtube"]
+    },
+    "tools": {
+      "label": "Tools",
+      "icons": ["cube-focus", "open-space", "shared-areas"]
+    },
+    "tutoffice": {
+      "label": "TutOffice",
+      "icons": ["next", "pause", "play", "previous"]
+    },
+    "univers": {
+      "label": "Univers",
+      "icons": ["commercial-space", "coworking", "land", "office", "shop", "warehouse"]
+    },
+    "website": {
+      "label": "Website",
+      "icons": [
+        "account",
+        "buy-rent",
+        "euro",
+        "finance",
+        "logout",
+        "mandate",
+        "notifications",
+        "send",
+        "settings"
+      ]
+    }
   }
 }

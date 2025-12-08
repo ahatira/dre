@@ -74,6 +74,9 @@
   /* Spinner (for loading state) */
   --ps-button-spinner-color: var(--white);
 
+  /* Icon sizing (inherits into ps-icon component) */
+  --ps-icon-size: var(--size-5);
+
   /* ============================================
      Apply Component Variables to Properties
      ============================================ */
@@ -158,6 +161,7 @@
 .ps-button__icon {
   flex-shrink: 0;
   line-height: 1;
+  color: inherit;
 }
 
 .ps-button__spinner {
@@ -326,6 +330,7 @@
   --ps-button-padding-x: var(--size-2);
   --ps-button-font-size: var(--size-305);
   --ps-button-line-height: 1.428;
+  --ps-icon-size: var(--size-4);
 }
 
 /* Small: 32px height */
@@ -335,6 +340,7 @@
   --ps-button-padding-x: var(--size-305);
   --ps-button-font-size: var(--size-305);
   --ps-button-line-height: 1.428;
+  --ps-icon-size: var(--size-4);
 }
 
 /* Medium (Default): 36px height */
@@ -344,6 +350,7 @@
   --ps-button-padding-x: var(--size-4);
   --ps-button-font-size: var(--size-4);
   --ps-button-line-height: 1.5;
+  --ps-icon-size: var(--size-5);
 }
 
 /* Large: 40px height */
@@ -353,6 +360,7 @@
   --ps-button-padding-x: var(--size-5);
   --ps-button-font-size: var(--size-5);
   --ps-button-line-height: 1.444;
+  --ps-icon-size: var(--size-6);
 }
 
 /* Extra-large: 44px height */
@@ -362,6 +370,7 @@
   --ps-button-padding-x: var(--size-6);
   --ps-button-font-size: var(--size-5);
   --ps-button-line-height: 1.4;
+  --ps-icon-size: var(--size-6);
 }
 
 /* Extra-extra-large: 48px height */
@@ -371,6 +380,7 @@
   --ps-button-padding-x: var(--size-6);
   --ps-button-font-size: var(--size-6);
   --ps-button-line-height: 1.333;
+  --ps-icon-size: var(--size-6);
 }
 
 /* ============================================

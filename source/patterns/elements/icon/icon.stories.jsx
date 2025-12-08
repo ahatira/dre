@@ -1,4 +1,3 @@
-import iconsList from '../../documentation/icons-list.json';
 import iconRegistry from '../../documentation/icons-registry.json';
 import iconTwig from './icon.twig';
 import data from './icon.yml';
@@ -6,70 +5,41 @@ import data from './icon.yml';
 export default {
   title: 'Elements/Icon',
   tags: ['autodocs'],
+  args: { ...data },
   parameters: {
     docs: {
       description: {
         component:
-          'Semantic SVG icon component using a generated sprite. Supports 6 sizes (xs to xxl) and semantic colors with full accessibility support.',
+          'Sprite-based icon atom that inherits typography and color from its context.\n\n' +
+          '- **API**: `name` (required), optional `ariaLabel`, and `attributes` for composition.\n' +
+          '- **Sizing**: defaults to 20px (`--ps-icon-size-md`); override via `--ps-icon-size` or contextual font-size.\n' +
+          '- **Color**: follows `currentColor`; semantic modifier classes remain available for manual use.\n' +
+          '- **Integration**: use `attributes.addClass()` to attach component-level selectors (badge, button, etc.).',
       },
     },
   },
   argTypes: {
-    baseClass: {
-      description:
-        'Override root BEM class for composition. When provided, Icon emits only this class and mapped modifiers; otherwise emits ps-icon classes.',
-      control: { type: 'text' },
-      table: {
-        category: 'Structure',
-        type: { summary: 'string' },
-        defaultValue: { summary: null },
-      },
-    },
     name: {
       description:
-        'Icon name without "icon-" prefix. Backed by sprite generated from source/assets/icons/*.svg.',
+        'Icon name without "icon-" prefix. Backed by sprite generated from source/icons-source/*.svg.',
       control: { type: 'select' },
-      options: iconsList.all,
+      options: iconRegistry.names,
       table: {
         category: 'Content',
         type: { summary: 'string', required: true },
         defaultValue: { summary: 'search' },
       },
     },
-    size: {
-      description: 'Size: xs (10px), sm (16px), md (20px), lg (24px), xl (32px), xxl (48px)',
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      table: {
-        category: 'Appearance',
-        type: { summary: 'xs|sm|md|lg|xl|xxl' },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    color: {
-      description:
-        'Semantic color: default (gray), primary, secondary, success, warning, danger, info',
-      control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
-      table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
-      },
-    },
-    disabled: {
-      description: 'Disabled state (50% opacity)',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
     ariaLabel: {
       description: 'Accessibility label (informative icons)',
       control: { type: 'text' },
       table: { category: 'Accessibility', type: { summary: 'string' } },
+    },
+    attributes: {
+      description:
+        'Drupal attributes object for composition (e.g., `create_attribute().addClass(...)`).',
+      control: { type: 'object' },
+      table: { category: 'Structure', type: { summary: 'Drupal\Attribute' } },
     },
   },
 };
@@ -80,167 +50,149 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Default icon configuration with medium size and default gray color.',
+        story:
+          'Default icon with medium size. Use the controls to test different icons from the sprite.',
       },
     },
   },
 };
 
-export const AllSizes = {
-  render: (args) => `
-    <div style="display: flex; align-items: center; gap: var(--size-6);">
-      ${iconTwig({ ...args, size: 'xs' })}
-      ${iconTwig({ ...args, size: 'sm' })}
-      ${iconTwig({ ...args, size: 'md' })}
-      ${iconTwig({ ...args, size: 'lg' })}
-      ${iconTwig({ ...args, size: 'xl' })}
-      ${iconTwig({ ...args, size: 'xxl' })}
-    </div>
-  `,
-  args: { ...data },
-  parameters: {
-    docs: {
-      description: {
-        story: 'All available sizes from xs (10px) to xxl (48px), scaling via design tokens.',
-      },
-    },
-  },
-};
+export const HowToUse = {
+  render: () => `
+    <div style="display: grid; gap: var(--size-8); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+      <section style="display: grid; gap: var(--size-4);">
+        <h3 style="margin: 0; font-size: var(--font-size-4); color: var(--gray-900);">3 Ways to Use Icons</h3>
+        
+        <div style="display: grid; gap: var(--size-4);">
+          <div style="padding: var(--size-4); background: var(--white); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
+            <h4 style="margin: 0 0 var(--size-2) 0; color: var(--primary); font-size: var(--font-size-2);">1. Twig Component (Recommended)</h4>
+            <code style="display: block; padding: var(--size-3); background: var(--gray-100); border-radius: var(--radius-1); font-family: monospace; font-size: var(--font-size-0); overflow-x: auto;">{% include '@elements/icon/icon.twig' with { name: 'search' } only %}</code>
+            <p style="margin: var(--size-2) 0 0 0; font-size: var(--font-size-0); color: var(--gray-600);">Full component with accessibility support and composition via attributes.</p>
+          </div>
 
-export const AllColors = {
-  render: (args) => `
-    <div style="display: flex; align-items: center; gap: var(--size-6);">
-      ${iconTwig({ ...args, color: 'default' })}
-      ${iconTwig({ ...args, color: 'primary' })}
-      ${iconTwig({ ...args, color: 'secondary' })}
-      ${iconTwig({ ...args, color: 'success' })}
-      ${iconTwig({ ...args, color: 'warning' })}
-      ${iconTwig({ ...args, color: 'danger' })}
-      ${iconTwig({ ...args, color: 'info' })}
+          <div style="padding: var(--size-4); background: var(--white); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
+            <h4 style="margin: 0 0 var(--size-2) 0; color: var(--secondary); font-size: var(--font-size-2);">2. Data Attribute (CSS-driven)</h4>
+            <code style="display: block; padding: var(--size-3); background: var(--gray-100); border-radius: var(--radius-1); font-family: monospace; font-size: var(--font-size-0); overflow-x: auto;">&lt;span data-icon="search" aria-hidden="true"&gt;&lt;/span&gt;</code>
+            <p style="margin: var(--size-2) 0 0 0; font-size: var(--font-size-0); color: var(--gray-600);">Lightweight approach using CSS background-image (see source/props/icons-generated.css).</p>
+          </div>
+
+          <div style="padding: var(--size-4); background: var(--white); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
+            <h4 style="margin: 0 0 var(--size-2) 0; color: var(--info); font-size: var(--font-size-2);">3. SVG Use (Direct sprite)</h4>
+            <code style="display: block; padding: var(--size-3); background: var(--gray-100); border-radius: var(--radius-1); font-family: monospace; font-size: var(--font-size-0); overflow-x: auto;">&lt;svg class="ps-icon__svg"&gt;&lt;use href="/icons/icons-sprite.svg#icon-search"&gt;&lt;/use&gt;&lt;/svg&gt;</code>
+            <p style="margin: var(--size-2) 0 0 0; font-size: var(--font-size-0); color: var(--gray-600);">Direct SVG reference for custom implementations.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="display: grid; gap: var(--size-4);">
+        <h3 style="margin: 0; font-size: var(--font-size-4); color: var(--gray-900);">Adding New Icons</h3>
+        <div style="padding: var(--size-4); background: var(--white); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
+          <ol style="margin: 0; padding-left: var(--size-5); font-size: var(--font-size-1); color: var(--gray-700); display: grid; gap: var(--size-2);">
+            <li>Place SVG in appropriate category folder: <code style="background: var(--gray-100); padding: 2px 6px; border-radius: var(--radius-1);">source/icons-source/{category}/icon-name.svg</code></li>
+            <li>Run: <code style="background: var(--gray-100); padding: 2px 6px; border-radius: var(--radius-1);">npm run icons:build</code></li>
+            <li>Icon automatically added to sprite, CSS, and registry</li>
+            <li>Use immediately: <code style="background: var(--gray-100); padding: 2px 6px; border-radius: var(--radius-1);">{% include '@elements/icon/icon.twig' with { name: 'icon-name' } %}</code></li>
+          </ol>
+          <p style="margin: var(--size-3) 0 0 0; font-size: var(--font-size-0); color: var(--gray-600);"><strong>Categories:</strong> ad, website, generic, search, metropole, social-media, mobile-only, tutoffice, univers, tools, blog, other, country</p>
+        </div>
+      </section>
     </div>
   `,
-  args: { ...data, name: 'check', size: 'xl' },
   parameters: {
     docs: {
       description: {
         story:
-          'All semantic colors: default (gray), primary (BNP green), secondary (magenta), success, warning, danger, and info.',
-      },
-    },
-  },
-};
-
-export const AllStates = {
-  render: (args) => `
-    <div style="display: flex; align-items: center; gap: var(--size-8);">
-      <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2);">
-        ${iconTwig({ ...args, disabled: false })}
-        <span style="font-size: var(--font-size-0); color: var(--gray-600);">Enabled</span>
-      </div>
-      <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2);">
-        ${iconTwig({ ...args, disabled: true })}
-        <span style="font-size: var(--font-size-0); color: var(--gray-600);">Disabled</span>
-      </div>
-    </div>
-  `,
-  args: { ...data, name: 'search', size: 'xl', color: 'primary' },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Enabled vs disabled state (50% opacity when disabled).',
+          'Complete guide for using icons in templates, sizing, color inheritance, and adding new icons to the sprite.',
       },
     },
   },
 };
 
 export const Gallery = {
-  render: () => `
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--size-5); padding: var(--size-6);">
-      ${iconsList.all
-        .map(
-          (iconName) => `
-          <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-3); padding: var(--size-4); border: 1px solid var(--gray-300); border-radius: var(--radius-2); background: var(--white); transition: all 150ms var(--ease-3); cursor: pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.borderColor='var(--primary)'" onmouseout="this.style.boxShadow='none'; this.style.borderColor='var(--gray-300)'">
-            <div style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;">
-              ${iconTwig({ ...data, name: iconName, size: 'xl' })}
-            </div>
-            <span style="font-size: var(--font-size-0); color: var(--gray-700); text-align: center; word-break: break-word; font-weight: 500; line-height: 1.3;">${iconName}</span>
-          </div>
-        `
-        )
-        .join('')}
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Full gallery of all available SVG icons built from source/assets/icons/*.svg via the generated sprite. Hover over icons for a subtle highlight.',
-      },
-    },
-  },
-};
-
-export const CategorizedGallery = {
   render: () => {
-    const categoryColors = {
-      ui: 'var(--primary)',
-      navigation: 'var(--secondary)',
-      forms: 'var(--success)',
-      communication: 'var(--warning)',
-      media: 'var(--danger)',
-      business: 'var(--info)',
+    const categoryPalette = {
+      ad: 'var(--primary)',
+      website: 'var(--secondary)',
+      generic: 'var(--text-secondary)',
+      search: 'var(--info)',
+      metropole: 'var(--gold)',
+      'social-media': 'var(--secondary)',
+      'mobile-only': 'var(--success)',
+      tutoffice: 'var(--danger)',
+      univers: 'var(--warning)',
+      tools: 'var(--info)',
+      blog: 'var(--primary)',
+      other: 'var(--text-secondary)',
+      country: 'var(--success)',
     };
 
-    return `
-      <div style="padding: var(--size-6); background: var(--white);">
-        <div style="margin-bottom: var(--size-8);">
-          <h2 style="margin: 0 0 var(--size-4) 0; font-size: var(--font-size-6); color: var(--gray-900);">All ${iconRegistry.total} Icons by Category</h2>
-          <p style="margin: 0; color: var(--gray-600); font-size: var(--font-size-2);">Icons are auto-generated from source/icons-source/*.svg and categorized via source/patterns/documentation/icons-registry.json</p>
-        </div>
+    const orderedCategories = (iconRegistry.order || Object.keys(iconRegistry.categories)).map(
+      (slug) => {
+        const entry = iconRegistry.categories[slug] || { label: slug, icons: [] };
+        return {
+          slug,
+          label: entry.label || slug,
+          icons: entry.icons || [],
+        };
+      }
+    );
 
-        ${Object.entries(iconRegistry.categories)
-          .map(
-            ([category, icons]) => `
-            <div style="margin-bottom: var(--size-8);">
-              <h3 style="margin: 0 0 var(--size-4) 0; padding-bottom: var(--size-3); border-bottom: 2px solid ${categoryColors[category]}; color: ${categoryColors[category]}; text-transform: capitalize; font-size: var(--font-size-4);">
-                ${category} (${icons.length} icons)
-              </h3>
-              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: var(--size-4);">
-                ${icons
-                  .map(
-                    (iconName) => `
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2); padding: var(--size-3); border: 1px solid var(--gray-200); border-radius: var(--radius-2); background: var(--gray-50); transition: all 150ms var(--ease-3); cursor: pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.borderColor='${categoryColors[category]}'; this.style.backgroundColor='${categoryColors[category]}15'" onmouseout="this.style.boxShadow='none'; this.style.borderColor='var(--gray-200)'; this.style.backgroundColor='var(--gray-50)'">
-                      <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: ${categoryColors[category]};">
-                        ${iconTwig({ ...data, name: iconName, size: 'lg' })}
-                      </div>
-                      <span style="font-size: var(--font-size-0); color: var(--gray-700); text-align: center; word-break: break-word; line-height: 1.2;">${iconName}</span>
-                    </div>
-                  `
-                  )
-                  .join('')}
-              </div>
-            </div>
-          `
-          )
+    const populatedCategories = orderedCategories.filter((category) => category.icons.length > 0);
+
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-6); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+        <header style="display: grid; gap: var(--size-2);">
+          <h2 style="margin: 0; font-size: var(--font-size-6); color: var(--gray-900);">All ${iconRegistry.total} icons by category</h2>
+          <p style="margin: 0; color: var(--gray-600); font-size: var(--font-size-1);">Dataset generated from source/patterns/documentation/icons-registry.json during the icon build step.</p>
+          <nav aria-label="Icon categories" style="display: flex; flex-wrap: wrap; gap: var(--size-2);">
+            ${populatedCategories
+              .map(({ slug, label }) => {
+                const accent = categoryPalette[slug] || 'var(--text-secondary)';
+                return `
+                  <a href="#icon-category-${slug}"
+                     style="display: inline-flex; align-items: center; gap: var(--size-1); padding: var(--size-1) var(--size-3); border: 1px solid var(--border-default); border-radius: var(--radius-2); color: var(--gray-700); text-decoration: none; background: var(--white);">
+                    <span style="inline-size: var(--size-4); block-size: var(--size-4); border-radius: var(--radius-round); background: color-mix(in srgb, ${accent} 25%, transparent);"></span>
+                    <span style="font-size: var(--font-size--1);">${label}</span>
+                  </a>`;
+              })
+              .join('')}
+          </nav>
+        </header>
+
+        ${populatedCategories
+          .map(({ slug, label, icons }) => {
+            const accent = categoryPalette[slug] || 'var(--text-secondary)';
+
+            return `
+                <section id="icon-category-${slug}" style="display: flex; flex-direction: column; gap: var(--size-4);">
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--size-3);">
+                    <h3 style="margin: 0; font-size: var(--font-size-4); color: ${accent};">${label}</h3>
+                    <span style="font-size: var(--font-size--1); color: var(--gray-600);">${icons.length} icons</span>
+                  </div>
+                  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: var(--size-4);">
+                    ${icons
+                      .map(
+                        (iconName) => `
+                          <div style="display: flex; flex-direction: column; align-items: center; gap: var(--size-2); padding: var(--size-3); border: 1px solid var(--border-default); border-radius: var(--radius-2); background: var(--white); color: ${accent}; --ps-icon-size: var(--size-8);">
+                            <div style="display: flex; align-items: center; justify-content: center; inline-size: var(--size-12); block-size: var(--size-12);">
+                              ${iconTwig({ name: iconName })}
+                            </div>
+                            <span style="font-size: var(--font-size--1); color: var(--gray-700); text-align: center; line-height: 1.2;">${iconName}</span>
+                          </div>
+                        `
+                      )
+                      .join('')}
+                  </div>
+                </section>
+              `;
+          })
           .join('')}
 
-        <div style="margin-top: var(--size-8); padding: var(--size-5); background: var(--gray-50); border-left: 4px solid var(--primary); border-radius: var(--radius-2);">
-          <h4 style="margin: 0 0 var(--size-3) 0; color: var(--gray-900);">How to Use Icons</h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--size-4); font-size: var(--font-size-1); color: var(--gray-700);">
-            <div>
-              <strong style="color: var(--primary);">Pattern 1: Twig Component</strong>
-              <code style="display: block; margin-top: var(--size-2); padding: var(--size-2); background: var(--white); border-radius: var(--radius-1); font-family: monospace; overflow-x: auto;">{% include '@elements/icon/icon.twig' with { icon: 'check' } %}</code>
-            </div>
-            <div>
-              <strong style="color: var(--secondary);">Pattern 2: data-icon</strong>
-              <code style="display: block; margin-top: var(--size-2); padding: var(--size-2); background: var(--white); border-radius: var(--radius-1); font-family: monospace; overflow-x: auto;">&lt;span data-icon="check"&gt;&lt;/span&gt;</code>
-            </div>
-            <div>
-              <strong style="color: var(--success);">Pattern 3: SVG Use</strong>
-              <code style="display: block; margin-top: var(--size-2); padding: var(--size-2); background: var(--white); border-radius: var(--radius-1); font-family: monospace; overflow-x: auto;">&lt;use href="/icons/icons-sprite.svg#icon-check"&gt;</code>
-            </div>
-          </div>
-        </div>
+        ${
+          iconRegistry.unmapped && iconRegistry.unmapped.length
+            ? `<p style="margin: 0; font-size: var(--font-size--1); color: var(--danger);">Unmapped icons detected in registry: ${iconRegistry.unmapped.join(', ')}</p>`
+            : ''
+        }
       </div>
     `;
   },
@@ -248,7 +200,7 @@ export const CategorizedGallery = {
     docs: {
       description: {
         story:
-          'Complete icon gallery organized by category (UI, Navigation, Forms, Communication, Media, Business). All ${iconRegistry.total} icons are auto-generated and validated. Use any of the 3 access patterns shown below.',
+          'Full taxonomy-aligned gallery mirroring the design mockup (Ad, Website, Generic, Search, Metropole, Social media, Mobile only, TutOffice, Univers, Tools, Blog, Other, Country).',
       },
     },
   },

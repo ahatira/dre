@@ -61,9 +61,10 @@
     {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   >
     <span class="ps-dropdown__label">{{ displayLabel }}</span>
-    <svg class="ps-dropdown__icon" aria-hidden="true" focusable="false">
-      <use xlink:href="#icon-chevron-down" />
-    </svg>
+    {% include '@elements/icon/icon.twig' with {
+      name: 'chevron-down',
+      attributes: create_attribute().addClass('ps-dropdown__icon')
+    } only %}
   </button>
 
   <ul

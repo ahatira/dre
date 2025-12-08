@@ -41,6 +41,11 @@
     [data-icon] {
       color: currentColor;
     }
+
+    .ps-breadcrumb__icon {
+      --ps-icon-size: var(--font-size-2);
+      color: currentColor;
+    }
     
     &:not(:last-child)::after {
       content: var(--ps-breadcrumb-separator-icon);

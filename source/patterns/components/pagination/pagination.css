@@ -68,8 +68,9 @@
     padding: var(--size-2);
 
     .icon {
-      width: var(--size-5);
-      height: var(--size-5);
+      display: inline-flex;
+      color: currentColor;
+      --ps-icon-size: var(--size-5);
     }
   }
 }

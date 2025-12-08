@@ -34,7 +34,7 @@
             {% if item.icon %}
               {% include '@elements/icon/icon.twig' with {
                 name: item.icon,
-                size: 'small'
+                attributes: create_attribute().addClass('ps-breadcrumb__icon')
               } only %}
             {% endif %}
             {{ item.label }}

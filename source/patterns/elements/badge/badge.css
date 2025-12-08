@@ -41,10 +41,7 @@
     inline-size: var(--ps-badge-icon-size);
     block-size: var(--ps-badge-icon-size);
     flex-shrink: 0;
-
-    &.ps-badge__icon {
-      --ps-icon-size: var(--ps-badge-icon-size);
-    }
+    --ps-icon-size: var(--ps-badge-icon-size);
   }
 
   &__text {

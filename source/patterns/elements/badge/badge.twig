@@ -28,9 +28,6 @@
   {%- if icon -%}
     {%- include '@elements/icon/icon.twig' with {
       name: icon,
-      size: 'md',
-      color: 'default',
-      ariaLabel: null,
       attributes: create_attribute().addClass('ps-badge__icon')
     } only -%}
   {%- endif -%}
