@@ -334,7 +334,32 @@ npm run tokens:check -- <token-name>  # Search token in props/ (definition + usa
 **PRIMARY DIRECTIVE**:  
 Before ANY component work, consult the relevant instruction file(s) under `.github/instructions/`. These are the SINGLE SOURCE OF TRUTH (replacing old monolithic COMPLETE_RULES.md).
 
-**Workflow**:
+**Advanced Mode - Multi-Expert Analysis**:
+
+For complex component work, refactoring, or when decisions require multi-disciplinary analysis, use the **Mode Multi-Experts + Sens Critique**:
+
+→ Read: [`.github/instructions/multi-expert-mode.instructions.md`](.github/instructions/multi-expert-mode.instructions.md)
+
+**What it provides**:
+- 6-role expert analysis (Drupal, Atomic Design, CSS, Storybook, PO, Real Estate métier)
+- Automatic risk detection & ambiguity clarification
+- Dependency checking (atomic hierarchy validation)
+- Impact matrix (role-by-role assessment)
+- Accessibility-first (WCAG 2.2 AA non-negotiable)
+- Real Estate context awareness (Faker.js examples)
+- Escalation protocol when contradictions detected
+- Executable validation commands
+
+**When to activate** (usually automatic for CRITICAL/HAUTE priority):
+- ✅ New component implementation
+- ✅ Refactoring or standardization (100% audit)
+- ✅ Token/design system changes
+- ✅ Complex dependencies or compositions
+- ✅ Ambiguous or potentially contradictory requirements
+
+**Status**: ACTIVE since 2025-12-08 (permanent default)
+
+**Standard Workflow**:
 1. Read: `instructions/workflows.instructions.md` (Component generation steps 1-11)
 2. Apply: Domain-specific instructions (CSS, Storybook, Templates, etc.)
 3. Validate: Conformity audit (100% score required)
