@@ -89,17 +89,96 @@ All technical identifiers (tokens, classes, ARIA) remain unchanged (English).
 These will ALWAYS be rejected:
 
 - ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
-- ❌ Missing any of 5 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
-- ❌ Missing `tags: ['autodocs']` in Storybook export default
+- ❌ Missing any of 5 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md` (exception: `base/*` stories use 4 files, no README)
+- ❌ Missing `tags: ['autodocs']` in Storybook export default (exception: `base/*` stories don't use autodocs)
 - ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`
 - ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
 - ❌ Color names instead of semantic: `green` → `success`, `red` → `danger`
-- ❌ Icon names with prefix: `icon-check` → `check` (prefix handled by system)
+- ❌ Icon names with prefix: `icon-check` → `check` (prefix auto-added by CSS)
 - ❌ Modifier classes requiring combinations: `.ps-badge--a.ps-badge--b` → Each must work alone
 - ❌ Wrong cascade order: Modifiers before base → Base FIRST, then modifiers
 - ❌ Flat CSS without nesting: New components MUST use `&` syntax
 - ❌ Missing focus-visible: All interactives MUST have visible focus indicator
 - ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
+
+### 🎨 Semantic Colors Reference
+
+**Always use semantic tokens** (from `brand.css`), never raw color names:
+
+| Semantic Token | Base Color | Usage | States Available |
+|----------------|------------|-------|------------------|
+| **--primary** | Green #00915A | Brand actions, main CTAs | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--secondary** | Pink #A12B66 | Secondary actions, accents | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--success** | Teal #198754 | Success states, confirmations | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--danger** | Red #EB3636 | Errors, destructive actions | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--warning** | Yellow #D97706 | Warnings, cautions | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--info** | Blue #2563EB | Informational content | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--gold** | Gold #B8860B | Premium features, highlights | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--light** | Gray 100 | Light backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--dark** | Gray 700 | Dark backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+
+**Additional semantic tokens**:
+- **Text**: `--text-primary`, `--text-secondary`, `--text-disabled`, `--text-inverse`
+- **Borders**: `--border-default`, `--border-light`, `--border-focus`, `--border-disabled`, `--border-error`, `--border-success`
+- **Overlays**: `--overlay-dark-heavy`, `--overlay-dark-medium`, `--overlay-dark-light`, `--overlay-brand-base`, `--overlay-brand-medium`, `--overlay-brand-light`
+
+**Examples**:
+```css
+/* ✅ CORRECT - Semantic tokens */
+.ps-button--primary { background: var(--primary); }
+.ps-alert--success { background: var(--success-subtle); color: var(--success-text-emphasis); }
+.ps-badge--danger { background: var(--danger-bg-subtle); color: var(--danger); }
+
+/* ❌ WRONG - Color names or raw palette */
+.ps-button--primary { background: green; }
+.ps-button--primary { background: var(--green-600); }
+```
+
+### 🎭 Icon System Reference
+
+**Icon prefix handling** - NEVER include `icon-` prefix in code:
+
+**How it works**:
+1. Store SVG files in `source/icons-source/` (e.g., `check.svg`)
+2. Build script (`npm run build:icons`) generates sprite with `#icon-{name}` IDs
+3. CSS maps `[data-icon="name"]` → `url('/icons/icons-sprite.svg#icon-{name}')`
+4. Use icon name WITHOUT prefix in templates
+
+**Examples**:
+```twig
+{# ✅ CORRECT - No icon- prefix #}
+<span class="ps-button__icon" data-icon="check"></span>
+<span class="ps-button__icon" data-icon="arrow-right"></span>
+
+{# ✅ CORRECT - Via icon atom #}
+{% include '@elements/icon/icon.twig' with {
+  icon: 'search',
+  size: 'md'
+} only %}
+
+{# ❌ WRONG - Including icon- prefix #}
+<span data-icon="icon-check"></span>
+{% include '@elements/icon/icon.twig' with { icon: 'icon-search' } %}
+```
+
+**CSS Implementation** (`source/props/icons.css`):
+```css
+/* Base styling for all icons */
+[data-icon] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Auto-generated mappings (scripts/build-icons.mjs) */
+[data-icon="check"] { background-image: url('/icons/icons-sprite.svg#icon-check'); }
+[data-icon="search"] { background-image: url('/icons/icons-sprite.svg#icon-search'); }
+```
+
+**Available icons**: See `source/patterns/documentation/icons-list.json` or Storybook Elements/Icon story.
 
 ---
 
@@ -122,8 +201,76 @@ These will ALWAYS be rejected:
 - [ ] Build passes: `npm run build`
 - [ ] Visual check: `npm run watch` → http://localhost:6006
 - [ ] Conformity audit: 100% score (see `instructions/workflows.instructions.md`)
-- [ ] Commit with structured message
+- [ ] Commit with structured message (see format below)
 - [ ] Update `docs/ps-design/CHANGELOG.md`
+
+---
+
+## 📝 Git Commit Message Format
+
+**Structure**:
+```
+type(scope): Subject line (max 72 chars)
+
+- Detailed explanation point 1
+- Detailed explanation point 2
+- References spec: docs/design/{level}/{component}.md
+- Closes #issue-number (if applicable)
+```
+
+**Types**:
+- `feat` - New component, feature, or enhancement
+- `fix` - Bug fix or correction
+- `refactor` - Code restructuring without functional changes
+- `docs` - Documentation updates (README, instructions)
+- `style` - Code formatting, whitespace, CSS adjustments
+- `test` - Adding or updating tests
+- `chore` - Build process, tooling, dependencies
+
+**Scopes**:
+- `elements` - Atoms (button, badge, icon, etc.)
+- `components` - Molecules (card, form-field, etc.)
+- `collections` - Organisms (header, footer, etc.)
+- `layouts` - Templates (page layouts)
+- `pages` - Page implementations
+- `base` - Base stories (colors, typography, etc.)
+- `tokens` - Design tokens (colors.css, sizes.css, etc.)
+- `docs` - Documentation files
+- `build` - Build system, scripts, config
+
+**Examples**:
+```bash
+# New component
+feat(elements): Add badge component with semantic colors
+
+- Implement 5-file structure (twig, css, yml, stories, README)
+- Support 9 semantic colors with all state variants
+- Add pill modifier and icon integration
+- Full Autodocs with categorized argTypes
+- References spec: docs/design/atoms/badge.md
+
+# Bug fix
+fix(components): Correct card CTA alignment on mobile
+
+- Fix flexbox gap issue causing CTA misalignment
+- Update breakpoint from 768px to 640px
+- Tested on iPhone SE, Pixel 5, iPad
+
+# Refactoring
+refactor(base): Standardize all base stories with _base-story.twig
+
+- Convert colors, fonts, shadows, sizes to template
+- Remove custom CSS, use storybook.css classes only
+- Add header metadata (title, badge, meta)
+- Update stories exports (remove autodocs tags)
+
+# Documentation
+docs(instructions): Clarify icon prefix handling and composition rules
+
+- Document data-icon attribute system in copilot-instructions.md
+- Add exception for atoms including rendering systems
+- Update semantic colors reference table
+```
 
 ---
 

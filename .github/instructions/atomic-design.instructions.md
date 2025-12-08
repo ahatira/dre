@@ -310,21 +310,53 @@ Before creating/validating a molecule, organism, or template:
 
 **Exception**: Organisms CAN include molecules (that's their purpose).
 
-### 4. Atoms Including Atoms
+### 4. Atoms Including Other Atoms (Special Cases)
+
+**General Rule**: Atoms should be indivisible and self-contained.
+
+**Exception**: Atoms CAN include **rendering system atoms** (icons, flags) when:
+1. The included atom is purely presentational (no logic/state)
+2. The included atom is a symbol/glyph system (icon font, SVG sprite, flag system)
+3. The parent atom manages the semantic context
 
 ```twig
-{# ❌ WRONG - Button atom includes icon atom #}
+{# ✅ ALLOWED - Button atom includes icon system #}
 <button class="ps-button">
-  {% include '@elements/icon/icon.twig' %}
-  {{ text }}
+  {% if icon_start %}
+    {% include '@elements/icon/icon.twig' with {
+      icon: icon_start,
+      size: 'inherit'
+    } only %}
+  {% endif %}
+  <span class="ps-button__text">{{ text }}</span>
 </button>
 ```
 
-**Why wrong?** Atoms should be indivisible. If a button needs an icon, the icon is rendered as part of the button's internal structure, not via include.
+**Why allowed?** Icon atom is a **rendering system** (displays glyph via CSS), not a full component. Button maintains semantic control.
 
-**Correct approach**:
+**❌ NOT ALLOWED - Atoms including functional atoms**:
 ```twig
-{# Button atom with icon (internal, not included) #}
+{# ❌ WRONG - Button includes badge (functional component) #}
+<button class="ps-button">
+  {% include '@elements/badge/badge.twig' with { text: '3' } %}
+  {{ text }}
+</button>
+{# This creates a molecule, not an atom #}
+```
+
+**Decision Matrix**:
+
+| Included Atom Type | Allowed in Atom? | Reason |
+|-------------------|------------------|---------|
+| Icon system | ✅ Yes | Presentational glyph renderer |
+| Flag system | ✅ Yes | Symbol/image display |
+| Badge | ❌ No | Functional component with state |
+| Label | ❌ No | Semantic form element |
+| Button | ❌ No | Interactive component |
+
+**Alternative for non-rendering atoms**:
+```twig
+{# ✅ CORRECT - Render icon internally (no include) #}
 <button class="ps-button">
   {% if icon_start %}
     <span class="ps-button__icon" data-icon="{{ icon_start }}"></span>

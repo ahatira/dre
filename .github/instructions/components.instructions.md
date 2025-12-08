@@ -37,7 +37,20 @@ source/patterns/{level}/{component}/
 
 ### ⚠️ Exception: `base/*` Directory
 
-Stories in `source/patterns/base/` are **NOT components** — they document design tokens. See `instructions/base-stories.instructions.md` for the simplified 4-file structure (no README.md needed).
+**Stories in `source/patterns/base/` are NOT components** — they document design tokens (colors, typography, spacing, etc.).
+
+**Different structure for base stories** (only 4 files required):
+```
+source/patterns/base/{story}/
+├── {story}.twig          # Documentation markup
+├── {story}.yml           # Data/context
+├── {story}.stories.jsx   # Story export (NO autodocs tag)
+└── {story}.css           # (Optional) Custom styles
+```
+
+❌ **DO NOT create `README.md` in `base/*`** — documentation is in the story itself.
+
+See `instructions/base-stories.instructions.md` for complete base stories standards.
 
 ### Naming Convention
 
@@ -191,7 +204,7 @@ button/
 ```
 
 **Why?**
-- Twig's `join()` automatically skips `null` values
+- Twig's `join()` automatically skips `null` values (no `.filter()` needed)
 - No arrow functions (Drupal incompatible)
 - No `.merge()` complexity (use array syntax)
 - Clean, readable, maintainable
@@ -204,8 +217,15 @@ button/
   {%- set classes = classes|merge(['ps-component--' ~ size]) -%}
 {%- endif -%}
 
-{# Wrong: Arrow functions #}
+{# Wrong: Arrow functions (NOT Drupal-compatible) #}
 {%- set classes = ['ps-component', size, color]|filter(v => v) -%}
+
+{# Wrong: Using .filter() unnecessarily #}
+{%- set classes = [
+  'ps-component',
+  size != 'md' ? 'ps-component--' ~ size : null
+]|filter(v => v) -%}
+{# join() already skips null - no filter needed! #}
 ```
 
 ### Element Tag

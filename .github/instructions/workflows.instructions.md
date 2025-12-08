@@ -151,10 +151,10 @@ source/patterns/{level}/{component}/
   variant != 'default' ? 'ps-badge--' ~ variant : null,
   size != 'md' ? 'ps-badge--' ~ size : null,
   pill ? 'ps-badge--pill' : null,
-  modifier_class,
-]|filter(v => v) %}
+  modifier_class
+] %}
 
-<span{{ attributes.addClass(classes) }}>
+<span class="{{ classes|join(' ')|trim }}"{{ attributes|default('') }}>
   {% if icon %}
     {% include '@elements/icon/icon.twig' with {
       icon: icon,
