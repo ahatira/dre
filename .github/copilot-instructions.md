@@ -111,9 +111,9 @@ These will ALWAYS be rejected:
 | **--secondary** | Pink #A12B66 | Secondary actions, accents | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--success** | Teal #198754 | Success states, confirmations | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--danger** | Red #EB3636 | Errors, destructive actions | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
-| **--warning** | Yellow #D97706 | Warnings, cautions | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--warning** | Yellow #FBBF24 | Warnings, cautions | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--info** | Blue #2563EB | Informational content | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
-| **--gold** | Gold #B8860B | Premium features, highlights | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
+| **--gold** | Gold #D1AE6E | Premium features, highlights | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--light** | Gray 100 | Light backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--dark** | Gray 700 | Dark backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 

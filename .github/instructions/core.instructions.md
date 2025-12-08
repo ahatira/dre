@@ -183,11 +183,11 @@ Tokens are organized by category:
 
 | File | Content | Examples |
 |------|---------|----------|
-| `colors.css` | **Official BNP Palettes** (50-900 scales) | `--green-600` (#00915A), `--pink-700` (#A12B66), `--teal-600` (#198754), `--red-600` (#EB3636), `--gray-900` (#333333) |
+| `colors.css` | **Official BNP Palettes** (50-900 scales) | `--green-600` (#00915A), `--pink-700` (#A12B66), `--teal-600` (#198754), `--red-600` (#EB3636), `--yellow-400` (#FBBF24), `--blue-600` (#2563EB), `--gold-400` (#D1AE6E), `--gray-900` (#333333) |
 | `brand.css` | **Semantic tokens** mapping palettes to use cases | `--primary` (green-600), `--secondary` (pink-700), `--success` (teal-600), `--danger` (red-600) |
-| `fonts.css` | Typography scales | `--font-size-2`, `--font-weight-600` |
-| `sizes.css` | Spacing/sizing scales | `--size-4` (1rem), `--size-6` (1.5rem) |
-| `borders.css` | Radii + border widths | `--radius-2`, `--border-size-1` |
+| `fonts.css` | Typography scales | `--font-size--2` (10px), `--font-size--1` (12px), `--font-size-0` to `--font-size-14` (14px-120px), `--font-weight-300/400/700` |
+| `sizes.css` | Spacing/sizing scales | `--size-1` (4px), `--size-4` (16px), `--size-96` (384px), `--size-fluid-*` (clamp), `--size-content-*` (ch), `--size-header-*` (ch) |
+| `borders.css` | Radii + border widths | `--radius-2`, `--radius-round` (pill), `--border-size-1` (1px), `--border-size-15` (1.5px), `--border-size-2` to `--border-size-5` |
 | `shadows.css` | Box shadows | `--shadow-2`, `--shadow-4` |
 | `animations.css` | Animation durations | `--duration-fast`, `--duration-normal` |
 | `easing.css` | Timing functions | `--ease-3`, `--ease-in-out-4` |
@@ -228,7 +228,11 @@ Tokens are organized by category:
 --secondary: var(--pink-700);     /* #A12B66 - Brand secondary */
 --success: var(--teal-600);       /* #198754 - Success feedback (distinct!) */
 --danger: var(--red-600);         /* #EB3636 - Error feedback */
---text-primary: var(--gray-700);  /* #434F57 - Main text */
+--warning: var(--yellow-400);     /* #FBBF24 - Warning feedback */
+--info: var(--blue-600);          /* #2563EB - Info feedback */
+--gold: var(--gold-400);          /* #D1AE6E - Premium/accent */
+--text-primary: #364152;          /* Custom text (not gray-700) */
+--text-secondary: #76808d;        /* Secondary text */
 --border-default: var(--gray-200);/* #D6DBDE - Standard borders */
 --border-success: var(--teal-600);/* #198754 - Success borders (uses teal, not primary) */
 ```
