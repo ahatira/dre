@@ -12,7 +12,7 @@ export default {
     docs: {
       description: {
         component:
-          'Compact badge for statuses and metadata with semantic colors, sizes, and optional pill or icon. Fully token-based for spacing, typography, colors, and radius.',
+          'Compact badge for statuses and metadata with semantic colors. Uses relative em units to scale with parent font-size. Fully token-based with bold text and saturated backgrounds for high visibility.',
       },
     },
   },
@@ -41,20 +41,30 @@ export default {
     // Appearance
     color: {
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'gold', 'info', 'success', 'warning', 'danger'],
-      description: 'Semantic color variant (supports legacy gold accent).',
+      options: [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+        'gold',
+      ],
+      description: 'Semantic color variant with saturated backgrounds.',
       table: {
         category: 'Appearance',
         type: {
-          summary: 'default | primary | secondary | gold | info | success | warning | danger',
+          summary: 'primary | secondary | success | danger | warning | info | light | dark | gold',
         },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: 'primary' },
       },
     },
     size: {
       control: { type: 'inline-radio' },
       options: ['small', 'medium', 'large'],
-      description: 'Badge size driven by typography & padding tokens.',
+      description: 'Badge size using relative em units (scales with parent font-size).',
       table: {
         category: 'Appearance',
         type: { summary: 'small | medium | large' },
@@ -90,41 +100,71 @@ export const Default = {
   args: { ...data },
 };
 
-// === Showcase Stories ===
+// === Core Variants ===
 
-// All colors
-export const AllColors = {
+// Background colors - All semantic color variants
+export const BackgroundColors = {
   render: () => `
-    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
-      ${component({ color: 'default', text: 'Default' })}
+    <div style="display: flex; gap: var(--size-3); flex-wrap: wrap; align-items: center;">
       ${component({ color: 'primary', text: 'Primary' })}
       ${component({ color: 'secondary', text: 'Secondary' })}
-      ${component({ color: 'gold', text: 'Gold' })}
-      ${component({ color: 'info', text: 'Info' })}
       ${component({ color: 'success', text: 'Success' })}
-      ${component({ color: 'warning', text: 'Warning' })}
       ${component({ color: 'danger', text: 'Danger' })}
+      ${component({ color: 'warning', text: 'Warning' })}
+      ${component({ color: 'info', text: 'Info' })}
+      ${component({ color: 'light', text: 'Light' })}
+      ${component({ color: 'dark', text: 'Dark' })}
+      ${component({ color: 'gold', text: 'Gold' })}
     </div>
   `,
 };
 
-// All sizes
-export const AllSizes = {
+// Pill badges - Rounded pill shape
+export const PillBadges = {
   render: () => `
-    <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${component({ size: 'small', text: 'Small', color: 'primary' })}
-      ${component({ size: 'medium', text: 'Medium', color: 'primary' })}
-      ${component({ size: 'large', text: 'Large', color: 'primary' })}
+    <div style="display: flex; gap: var(--size-3); flex-wrap: wrap; align-items: center;">
+      ${component({ color: 'primary', text: 'Primary', pill: true })}
+      ${component({ color: 'secondary', text: 'Secondary', pill: true })}
+      ${component({ color: 'success', text: 'Success', pill: true })}
+      ${component({ color: 'danger', text: 'Danger', pill: true })}
+      ${component({ color: 'warning', text: 'Warning', pill: true })}
+      ${component({ color: 'info', text: 'Info', pill: true })}
+      ${component({ color: 'light', text: 'Light', pill: true })}
+      ${component({ color: 'dark', text: 'Dark', pill: true })}
+      ${component({ color: 'gold', text: 'Gold', pill: true })}
     </div>
   `,
 };
 
-// All shapes (pill vs default)
-export const AllShapes = {
+// === Integration Examples ===
+
+// Headings - Badges scale to match parent font size
+export const InHeadings = {
   render: () => `
-    <div style="display: flex; gap: var(--size-4); align-items: center;">
-      ${component({ text: 'Rounded', color: 'primary', pill: false })}
-      ${component({ text: 'Pill', color: 'primary', pill: true })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
+      <h1 style="margin: 0; font-size: var(--font-size-7);">Example heading ${component({ text: 'New' })}</h1>
+      <h2 style="margin: 0; font-size: var(--font-size-6);">Example heading ${component({ text: 'New' })}</h2>
+      <h3 style="margin: 0; font-size: var(--font-size-5);">Example heading ${component({ text: 'New' })}</h3>
+      <h4 style="margin: 0; font-size: var(--font-size-4);">Example heading ${component({ text: 'New' })}</h4>
+      <h5 style="margin: 0; font-size: var(--font-size-3);">Example heading ${component({ text: 'New' })}</h5>
+      <h6 style="margin: 0; font-size: var(--font-size-2);">Example heading ${component({ text: 'New' })}</h6>
+    </div>
+  `,
+};
+
+// Buttons - Badges as part of buttons to provide a counter
+export const InButtons = {
+  render: () => `
+    <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
+      <button type="button" style="padding: var(--size-2) var(--size-4); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-1); font-size: var(--font-size-1); font-weight: 500; cursor: pointer;">
+        Notifications ${component({ text: '4', color: 'secondary' })}
+      </button>
+      <button type="button" style="padding: var(--size-2) var(--size-4); background: var(--info); color: var(--white); border: none; border-radius: var(--radius-1); font-size: var(--font-size-1); font-weight: 500; cursor: pointer;">
+        Messages ${component({ text: '9', color: 'light' })}
+      </button>
+      <button type="button" style="padding: var(--size-2) var(--size-4); background: var(--success); color: var(--white); border: none; border-radius: var(--radius-1); font-size: var(--font-size-1); font-weight: 500; cursor: pointer;">
+        Updates ${component({ text: '12', color: 'danger' })}
+      </button>
     </div>
   `,
 };
@@ -133,10 +173,10 @@ export const AllShapes = {
 export const WithIcons = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); flex-wrap: wrap; align-items: center;">
-      ${component({ color: 'info', text: 'Location', icon: 'pin' })}
-      ${component({ color: 'success', text: 'Calendar', icon: 'calendar', pill: true })}
-      ${component({ color: 'gold', text: 'Exclusive', icon: 'award', pill: true })}
-      ${component({ color: 'primary', text: 'Verified', icon: 'check' })}
+      ${component({ color: 'success', text: 'Verified', icon: 'check' })}
+      ${component({ color: 'info', text: 'Info', icon: 'info' })}
+      ${component({ color: 'warning', text: 'Warning', icon: 'alert', pill: true })}
+      ${component({ color: 'gold', text: 'Premium', icon: 'award', pill: true })}
     </div>
   `,
 };
@@ -148,37 +188,6 @@ export const AsLinks = {
       ${component({ color: 'primary', text: 'Link badge', url: '#' })}
       ${component({ color: 'info', text: 'Learn more', icon: 'info', url: '#', pill: true })}
       ${component({ color: 'secondary', text: 'Discover', url: '#' })}
-    </div>
-  `,
-};
-
-// Use cases
-export const UseCases = {
-  render: () => `
-    <div style="display: grid; gap: var(--size-6); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-      <div>
-        <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Status badges</h4>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${component({ color: 'success', text: 'Available', icon: 'check' })}
-          ${component({ color: 'warning', text: 'Pending', icon: 'info' })}
-          ${component({ color: 'danger', text: 'Sold', icon: 'close' })}
-        </div>
-      </div>
-      <div>
-        <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Property features</h4>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${component({ color: 'gold', text: 'Exclusive', icon: 'award', pill: true })}
-          ${component({ color: 'info', text: 'New', pill: true })}
-          ${component({ color: 'secondary', text: 'Premium', pill: true })}
-        </div>
-      </div>
-      <div>
-        <h4 style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); font-weight: 500;">Interactive labels</h4>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${component({ color: 'primary', text: 'View details', url: '#' })}
-          ${component({ color: 'info', text: 'Learn more', icon: 'info', url: '#', pill: true })}
-        </div>
-      </div>
     </div>
   `,
 };

@@ -4,14 +4,14 @@
  *
  * @param string text - Badge text content (optional - can be empty for visual status)
  * @param string icon - Optional icon name (e.g., 'check', 'calendar')
- * @param string color - Semantic color: default|primary|secondary|gold|info|success|warning|danger (default: default)
+ * @param string color - Semantic color: primary|secondary|success|danger|warning|info|light|dark|gold (default: primary)
  * @param boolean pill - Fully rounded pill shape (default: false)
  * @param string url - Optional link URL (renders <a> tag)
  * @param string size - Badge size: small|medium|large (default: medium)
  * @param object attributes - Additional HTML attributes for composition
  #}
 
-{%- set color = color|default('default') -%}
+{%- set color = color|default('primary') -%}
 {%- set size = size|default('medium') -%}
 {%- set pill = pill|default(false) -%}
 {%- set tag = url ? 'a' : 'span' -%}
@@ -19,7 +19,7 @@
 
 {%- set badge_classes = [
   'ps-badge',
-  color != 'default' ? 'ps-badge--' ~ color : null,
+  color != 'primary' ? 'ps-badge--' ~ color : null,
   size != 'medium' ? 'ps-badge--' ~ size : null,
   pill ? 'ps-badge--pill' : null
 ] -%}

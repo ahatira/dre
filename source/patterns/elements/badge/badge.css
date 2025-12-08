@@ -7,17 +7,17 @@
  */
 
 .ps-badge {
-  /* Component-scoped variables (defaults) */
-  --ps-badge-bg: var(--gray-200);
-  --ps-badge-color: var(--gray-600);
-  --ps-badge-padding-y: var(--size-1);
-  --ps-badge-padding-x: var(--size-2);
-  --ps-badge-font-size: var(--font-size--1);
-  --ps-badge-font-weight: var(--font-weight-500);
+  /* Component-scoped variables (defaults - relative units for scalability) */
+  --ps-badge-bg: var(--primary);
+  --ps-badge-color: var(--white);
+  --ps-badge-padding-y: 0.35em;
+  --ps-badge-padding-x: 0.65em;
+  --ps-badge-font-size: 0.75em;
+  --ps-badge-font-weight: var(--font-weight-700);
   --ps-badge-radius: var(--radius-2);
-  --ps-badge-icon-size: var(--font-size--1);
-  --ps-badge-gap: var(--size-1);
-  --ps-badge-line-height: var(--leading-tight);
+  --ps-badge-icon-size: 1em;
+  --ps-badge-gap: 0.25em;
+  --ps-badge-line-height: 1;
   --ps-badge-transition: var(--duration-fast);
   --ps-badge-ease: var(--ease-3);
   
@@ -52,26 +52,21 @@
   }
 
   &--small {
-    --ps-badge-font-size: var(--font-size--2);
-    --ps-badge-padding-y: var(--size-05);
-    --ps-badge-padding-x: var(--size-1);
-    --ps-badge-icon-size: var(--font-size--2);
+    --ps-badge-font-size: 0.65em;
+    --ps-badge-padding-y: 0.25em;
+    --ps-badge-padding-x: 0.5em;
+    --ps-badge-icon-size: 0.875em;
   }
 
   &--large {
-    --ps-badge-font-size: var(--font-size-0);
-    --ps-badge-padding-y: var(--size-105);
-    --ps-badge-padding-x: var(--size-3);
-    --ps-badge-icon-size: var(--font-size-0);
+    --ps-badge-font-size: 0.875em;
+    --ps-badge-padding-y: 0.5em;
+    --ps-badge-padding-x: 0.85em;
+    --ps-badge-icon-size: 1.125em;
   }
 
   &--pill {
     --ps-badge-radius: var(--radius-round);
-  }
-
-  &--default {
-    --ps-badge-bg: var(--gray-200);
-    --ps-badge-color: var(--gray-600);
   }
 
   &--primary {
@@ -84,29 +79,39 @@
     --ps-badge-color: var(--white);
   }
 
-  &--gold {
-    --ps-badge-bg: var(--gold);
+  &--success {
+    --ps-badge-bg: var(--success);
     --ps-badge-color: var(--white);
   }
 
-  &--info {
-    --ps-badge-bg: var(--info-subtle);
-    --ps-badge-color: var(--info-text-emphasis);
-  }
-
-  &--success {
-    --ps-badge-bg: var(--success-subtle);
-    --ps-badge-color: var(--success-text-emphasis);
+  &--danger {
+    --ps-badge-bg: var(--danger);
+    --ps-badge-color: var(--white);
   }
 
   &--warning {
-    --ps-badge-bg: var(--warning-subtle);
-    --ps-badge-color: var(--warning-text-emphasis);
+    --ps-badge-bg: var(--warning);
+    --ps-badge-color: var(--gray-900);
   }
 
-  &--danger {
-    --ps-badge-bg: var(--danger-subtle);
-    --ps-badge-color: var(--danger-text-emphasis);
+  &--info {
+    --ps-badge-bg: var(--info);
+    --ps-badge-color: var(--white);
+  }
+
+  &--light {
+    --ps-badge-bg: var(--light);
+    --ps-badge-color: var(--dark);
+  }
+
+  &--dark {
+    --ps-badge-bg: var(--dark);
+    --ps-badge-color: var(--white);
+  }
+
+  &--gold {
+    --ps-badge-bg: var(--gold);
+    --ps-badge-color: var(--white);
   }
 }
 

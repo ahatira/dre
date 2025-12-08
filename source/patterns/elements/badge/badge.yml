@@ -2,27 +2,28 @@
 #
 # Available Props:
 # - text: string (required) - Text displayed in the badge
-# - icon: string (optional) - Icon name (e.g., 'calendar', 'check', 'medal')
-# - color: default | primary | secondary | gold | info | success | warning | danger (default: default)
-#   * default: gray background
-#   * primary: green (brand primary)
-#   * secondary: purple (brand secondary)
-#   * gold: gold accent (legacy)
-#   * info: blue semantic
-#   * success: green semantic
-#   * warning: yellow/orange semantic
-#   * danger: red semantic
+# - icon: string (optional) - Icon name (e.g., 'calendar', 'check', 'award')
+# - color: primary | secondary | success | danger | warning | info | light | dark | gold (default: primary)
+#   * primary: green (brand primary) - saturated background
+#   * secondary: purple (brand secondary) - saturated background
+#   * success: teal semantic - saturated background
+#   * danger: red semantic - saturated background
+#   * warning: yellow semantic - saturated background
+#   * info: blue semantic - saturated background
+#   * light: light gray - for dark text
+#   * dark: dark gray - for light text
+#   * gold: gold accent - premium/exclusive
 # - size: small | medium | large (default: medium)
-#   * small: 11px font, compact padding
-#   * medium: 12px font, standard padding
-#   * large: 14px font, spacious padding
+#   * small: 0.65em font, compact padding (scales with parent)
+#   * medium: 0.75em font, standard padding (scales with parent)
+#   * large: 0.875em font, spacious padding (scales with parent)
 # - pill: boolean (default: false) - Fully rounded pill shape
 # - url: string (optional) - Destination URL (transforms into <a> link)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Gray badge, medium size
+# Default: Primary badge, medium size (scales with parent font)
 text: "Badge"
-color: default
+color: primary
 pill: false
 size: medium
 icon: ''
