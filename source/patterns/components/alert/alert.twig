@@ -34,11 +34,10 @@
 
   {%- if dismissible -%}
     {% include '@elements/button/button.twig' with {
-      baseClass: 'ps-alert__close',
       label: '',
       icon: 'close',
       size: 'small',
-      attributes: create_attribute().setAttribute('aria-label', 'Close alert')
+      attributes: create_attribute().addClass('ps-alert__close').setAttribute('aria-label', 'Close alert')
     } only %}
   {%- endif -%}
 </div>

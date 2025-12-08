@@ -504,6 +504,27 @@ Brief description (max 2 lines).
 This component uses:
 - **Atom Name** (`@elements/atom/atom.twig`) - Purpose
 
+**CRITICAL**: For composition with additional classes, ALWAYS use `attributes.addClass()`:
+
+```twig
+{# ✅ CORRECT - attributes.addClass() for parent context classes #}
+{% include '@elements/icon/icon.twig' with {
+  name: 'check',
+  attributes: create_attribute().addClass('ps-badge__icon')
+} only %}
+
+{# ❌ FORBIDDEN - baseClass parameter (legacy pattern, now removed) #}
+{% include '@elements/icon/icon.twig' with {
+  name: 'check',
+  baseClass: 'ps-badge__icon'  {# NEVER USE THIS #}
+} only %}
+```
+
+**Result**: Atom emits BOTH its own class + additional parent class:
+```html
+<span class="ps-icon ps-badge__icon">...</span>
+```
+
 ## References
 
 - Design spec: `docs/design/{level}/{component}.md`

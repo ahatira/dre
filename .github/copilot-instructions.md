@@ -100,6 +100,7 @@ These will ALWAYS be rejected:
 - ❌ Flat CSS without nesting: New components MUST use `&` syntax
 - ❌ Missing focus-visible: All interactives MUST have visible focus indicator
 - ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
+- ❌ `baseClass` parameter for composition: FORBIDDEN → Use `attributes.addClass()` instead
 
 ### 🎨 Semantic Colors Reference
 
@@ -287,19 +288,35 @@ Always prefer reading actual component code over guessing patterns.
 
 ---
 
-## 🔧 Build Commands
+## 🔧 Build & Productivity Commands
 
 ```bash
 npm run build          # Compile assets + lint/format checks
 npm run watch          # Vite + Storybook (http://localhost:6006)
 npm run storybook:build # Static Storybook output (storybook/)
-npm run generate:pattern # Scaffold new component (interactive)
+
+# Component generation
+npm run generate:pattern              # Interactive mode (prompts for type/name)
+npm run generate:pattern -- --type=element --name="Badge"  # Flag mode
+
+# Token utilities
+npm run tokens:check -- <token-name>  # Search token in props/ (definition + usages)
+# Example: npm run tokens:check -- --primary
 ```
 
 **Build validates**:
 - Biome lint/format (JavaScript, JSON)
 - CSS compilation (Vite + PostCSS)
 - No syntax errors (Twig via Storybook)
+
+**Productivity tools**:
+- **Token checker** (`scripts/check-tokens.mjs`): Search design tokens with line numbers and statistics
+- **Enhanced generator** (`scripts/generate-pattern.mjs`): Interactive scaffolding with README.md generation
+- **VS Code snippets** (`.vscode/ps-theme.code-snippets`): 10 snippets (type `ps<TAB>` in files):
+  - **Twig**: `psheader`, `psclasses`, `psinclude`, `psdefault`
+  - **CSS**: `pscomponent`, `pselement`, `psmodifier`
+  - **Storybook**: `psstory`, `psargtype`
+  - **Markdown**: `psreadme`
 
 ---
 

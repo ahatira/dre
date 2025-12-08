@@ -19,12 +19,8 @@
 {%- set align = align|default('left') -%}
 {%- set muted = muted|default(false) -%}
 {%- set strong = strong|default(false) -%}
-{%- set baseClass = baseClass|default(null) -%}
 
-{%- set classes = baseClass ? [
-  baseClass,
-  strong ? baseClass ~ '--strong' : null
-] : [
+{%- set classes = [
   'ps-text',
   size != 'md' ? 'ps-text--' ~ size : null,
   color != 'default' ? 'ps-text--' ~ color : null,

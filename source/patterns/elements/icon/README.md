@@ -8,7 +8,6 @@ SVG sprite-based icon component with semantic sizes and colors.
 - `color` (`default|primary|secondary|success|warning|danger|info`, default `default`): semantic colors.
 - `disabled` (boolean, default `false`): disabled visual state (reduced opacity + pointer lock).
 - `ariaLabel` (string, optional): accessibility label for informative icons; omit for decorative.
-- `baseClass` (string, optional): override root BEM block for composition.
 
 ## BEM
 - Block: `ps-icon`
@@ -26,8 +25,8 @@ SVG sprite-based icon component with semantic sizes and colors.
 {# Default sprite usage #}
 {% include '@elements/icon/icon.twig' with { name: 'search', size: 'md', color: 'default' } %}
 
-{# Composition: override root class (baseClass) #}
-{% include '@elements/icon/icon.twig' with { name: 'check', size: 'sm', color: 'success', baseClass: 'ps-alert__icon' } %}
+{# Composition: additional class for parent context #}
+{% include '@elements/icon/icon.twig' with { name: 'check', size: 'sm', color: 'success', attributes: create_attribute().addClass('ps-alert__icon') } %}
 ```
 
 ## Accessibility

@@ -11,10 +11,7 @@ Atom: Semantic text component for paragraphs and inline content. **Composition-r
 - `align` (string) — left | center | right (default: left)
 - `muted` (boolean) — Secondary tone (overrides color to muted)
 - `strong` (boolean) — Bold emphasis
-- `attributes` (Attribute) — Additional HTML attributes for composition
- - `baseClass` (string) — Override root BEM class for composition. When provided, Text emits only this class and `--strong` if applicable. Fallback emits `ps-text` + modifiers.
-
-## Sizes
+ - `attributes` (Attribute) — Additional HTML attributes for composition## Sizes
 
 - **xs**: 12px — Footnotes, microcopy
 - **sm**: 14px — Captions, helper text
@@ -75,12 +72,12 @@ Atom: Semantic text component for paragraphs and inline content. **Composition-r
   attributes: create_attribute().addClass('ps-card__description')
 } %}
 
-{# Composition: override root class (baseClass) #}
+{# Composition: additional class for parent context #}
 {% include '@elements/text/text.twig' with {
   text: 'Avatar initials',
   tag: 'span',
   strong: true,
-  baseClass: 'ps-avatar__text'
+  attributes: create_attribute().addClass('ps-avatar__text')
 } %}
 ```
 
