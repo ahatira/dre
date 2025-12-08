@@ -2,11 +2,11 @@ import aspects from './aspects.twig';
 import data from './aspects.yml';
 
 const settings = {
-  title: 'Base/Aspect ratios',
+  title: 'Base/Aspects',
 };
 
 const Aspects = {
-  name: 'Aspect ratios',
+  name: 'Aspect Ratios',
   render: (args) => aspects(args),
   args: { ...data },
 };

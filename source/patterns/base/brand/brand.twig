@@ -1,77 +1,129 @@
-<section class="demo-brands">
-  {# Theme Colors - Large cards display #}
-  <div class="theme-colors-section">
-    <h3 class="section-title">Theme colors</h3>
-    <p class="section-intro">Official BNP Paribas Real Estate semantic color palette for UI components and states.</p>
-    <div class="theme-colors-grid">
-      {% for title, list in brands %}
-        {% for item in list %}
-          <div class="theme-color-card theme-color-{{ item.slug }}">
-            <span class="theme-color-name">{{ item.name }}</span>
-          </div>
+{#
+/**
+ * @file
+ * Brand Colors documentation
+ *
+ * Semantic color tokens for BNP Paribas Real Estate: primary, secondary, success, danger,
+ * warning, info, light, dark, gold. Uses the base story template and existing Storybook
+ * demo classes; no custom CSS.
+ */
+#}
+
+{# Theme color cards (large gradient tiles) #}
+{% set theme_colors_section %}
+  <div class="demo-brands">
+    <div class="theme-colors-section">
+      <div class="theme-colors-grid">
+        {% for title, list in brands %}
+          {% for item in list %}
+            <div class="theme-color-card theme-color-{{ item.slug }}" style="min-height: var(--size-20);">
+              <span class="theme-color-name">{{ item.name }}</span>
+            </div>
+          {% endfor %}
         {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endset %}
+
+{# Semantic tokens table with swatches #}
+{% set semantic_colors_section %}
+  <div class="demo-brands">
+    <div class="brand-grid">
+      {% for title, list in brands %}
+        <div class="brand-group">
+          <h3 class="brand-group__title">{{ title }}</h3>
+          <table class="brand-table">
+            <thead>
+              <tr>
+                <th style="width: 45%;">Description</th>
+                <th style="width: 200px;" class="ps-0">Swatch</th>
+                <th>Variables</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in list %}
+                {% set variants = item.variants %}
+                {% set subtle_var = null %}
+                {% for v in variants %}
+                  {% if v.type == 'subtle' %}
+                    {% set subtle_var = v.var %}
+                  {% endif %}
+                {% endfor %}
+                <tr style="border-top: 1px solid var(--border-default);">
+                  <td rowspan="{{ variants|length }}" style="padding: var(--size-4) var(--size-5); vertical-align: top;">
+                    <p><strong>{{ item.name }} —</strong> {{ item.description }}</p>
+                  </td>
+                  {% set first_variant = variants[0] %}
+                  <td class="ps-0" style="padding: var(--size-2) var(--size-4); vertical-align: middle;">
+                    <div class="demo-brand-swatch"
+                      {% if first_variant.type == 'base' or first_variant.type == 'subtle' %}
+                        style="background-color: var({{ first_variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2);"
+                      {% elseif first_variant.type == 'border' %}
+                        style="background-color: var({{ subtle_var|default('--gray-50') }}); border: 5px solid var({{ first_variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2);"
+                      {% elseif first_variant.type == 'text' %}
+                        style="background-color: var({{ subtle_var|default('--gray-50') }}); color: var({{ first_variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2); border: 1px solid var(--border-light);"
+                      {% endif %}>
+                      {% if first_variant.type == 'text' %}<span class="demo-brand-text">Text</span>{% else %}&nbsp;{% endif %}
+                    </div>
+                  </td>
+                  <td style="padding: var(--size-2) var(--size-4); vertical-align: middle;">
+                    <p><code>{{ first_variant.var }}</code></p>
+                  </td>
+                </tr>
+
+                {% for variant in variants|slice(1) %}
+                  <tr>
+                    <td class="ps-0" style="padding: var(--size-2) var(--size-4); vertical-align: middle;">
+                      <div class="demo-brand-swatch"
+                        {% if variant.type == 'base' or variant.type == 'subtle' %}
+                          style="background-color: var({{ variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2);"
+                        {% elseif variant.type == 'border' %}
+                          style="background-color: var({{ subtle_var|default('--gray-50') }}); border: 5px solid var({{ variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2);"
+                        {% elseif variant.type == 'text' %}
+                          style="background-color: var({{ subtle_var|default('--gray-50') }}); color: var({{ variant.var }}); min-height: var(--size-10); min-width: var(--size-24); padding: var(--size-2); border-radius: var(--radius-2); border: 1px solid var(--border-light);"
+                        {% endif %}>
+                        {% if variant.type == 'text' %}<span class="demo-brand-text">Text</span>{% else %}&nbsp;{% endif %}
+                      </div>
+                    </td>
+                    <td style="padding: var(--size-2) var(--size-4); vertical-align: middle;">
+                      <p><code>{{ variant.var }}</code></p>
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       {% endfor %}
     </div>
   </div>
+{% endset %}
 
-  {# Semantic Colors - Table with variants #}
-  <div class="brand-grid">
-    <h3 class="section-title">All colors and variants</h3>
-    <p class="section-intro">Complete semantic token system with base, subtle, border, and text-emphasis variants for each theme color.</p>
-    {% for title, list in brands %}
-      <div class="brand-group">
-        <h3 class="brand-group__title">{{ title }}</h3>
-        <table class="brand-table">
-          <thead>
-            <tr>
-              <th style="width: 50%;">Description</th>
-              <th style="width: 200px;" class="ps-0">Swatch</th>
-              <th>Variables</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in list %}
-              {# First row with description spanning multiple variant rows #}
-              <tr>
-                <td rowspan="{{ item.variants|length }}">
-                  <p><strong>{{ item.name }} —</strong> {{ item.description }}</p>
-                </td>
-                {# First variant #}
-                {% set first_variant = item.variants[0] %}
-                <td class="ps-0">
-                  <div class="p-3 rounded-2{% if first_variant.type == 'base' %} bg-{{ item.slug }}{% endif %}{% if first_variant.type == 'border' %} border{% endif %}" 
-                    {% if first_variant.type == 'subtle' %}style="background-color: var({{ first_variant.var }})"{% endif %}
-                    {% if first_variant.type == 'border' %}style="border: 5px var({{ first_variant.var }}) solid"{% endif %}
-                    {% if first_variant.type == 'text' %}style="color: var({{ first_variant.var }})"{% endif %}>
-                    {% if first_variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
-                  </div>
-                </td>
-                <td>
-                  <p><code>{{ first_variant.var }}</code></p>
-                </td>
-              </tr>
-              
-              {# Remaining variants (if any) #}
-              {% for variant in item.variants|slice(1) %}
-                <tr>
-                  <td class="ps-0">
-                    <div class="p-3 rounded-2{% if variant.type == 'border' %} border{% endif %}" 
-                      {% if variant.type == 'subtle' %}style="background-color: var({{ variant.var }})"{% endif %}
-                      {% if variant.type == 'border' %}style="border: 5px var({{ variant.var }}) solid"{% endif %}
-                      {% if variant.type == 'text' %}style="color: var({{ variant.var }})"{% endif %}>
-                      {% if variant.type == 'text' %}<span class="fw-bold">Text</span>{% else %}&nbsp;{% endif %}
-                    </div>
-                  </td>
-                  <td>
-                    <p><code>{{ variant.var }}</code></p>
-                  </td>
-                </tr>
-              {% endfor %}
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    {% endfor %}
-  </div>
-</section>
-
+{# Include base story template #}
+{% include '../_base-story.twig' with {
+  header: {
+    title: 'Brand Colors',
+    description: 'Complete semantic color system for UI components and design states. BNP Paribas Real Estate brand palette with base, subtle, border, and text-emphasis variants.',
+    badge: 'Design Tokens',
+    meta: [
+      { label: 'Colors', value: '9' },
+      { label: 'Variants', value: '36' },
+      { label: 'Source', value: 'source/props/brand.css' }
+    ]
+  },
+  sections: [
+    {
+      badge: 'Theme Colors',
+      title: 'Semantic Color Cards',
+      description: 'Official BNP Paribas Real Estate semantic palette for components and states.',
+      content: theme_colors_section
+    },
+    {
+      badge: 'Color System',
+      title: 'All Tokens and Variants',
+      description: 'Base, subtle, border, and text-emphasis tokens with semantic naming.',
+      content: semantic_colors_section
+    }
+  ]
+} only %}

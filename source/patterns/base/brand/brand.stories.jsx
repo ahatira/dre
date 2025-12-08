@@ -6,7 +6,7 @@ const settings = {
 };
 
 const Brand = {
-  name: 'Brand',
+  name: 'Brand Colors',
   render: (args) => brand(args),
   args: { ...data },
 };

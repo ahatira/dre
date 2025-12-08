@@ -29,6 +29,51 @@ source/patterns/base/{story}/
 
 ---
 
+## 📝 Storybook Stories Format
+
+### Story Export Pattern
+
+Base stories MUST follow this exact naming pattern:
+
+```jsx
+// ✅ CORRECT - Named export matches story name
+import aspects from './aspects.twig';
+import data from './aspects.yml';
+
+const settings = {
+  title: 'Base/Aspects',
+};
+
+const Aspects = {
+  name: 'Aspect Ratios',
+  render: (args) => aspects(args),
+  args: { ...data },
+};
+
+export default settings;
+export { Aspects };
+```
+
+```jsx
+// ❌ WRONG - Using generic "Default" name
+const Default = {
+  name: 'Aspect Ratios',
+  render: (args) => aspects(args),
+  args: { ...data },
+};
+
+export default settings;
+export { Default };  // ❌ Avoid generic names
+```
+
+**Rules**:
+- ✅ Named export should match the story subject (e.g., `Aspects`, `Colors`, `Typography`)
+- ✅ Use PascalCase for the constant name
+- ❌ **DO NOT** use generic names like `Default`, `Story`, or `Base`
+- ❌ **NO** `tags: ['autodocs']` in settings (base stories don't use Autodocs)
+
+---
+
 ## 🎯 Purpose
 
 Stories in `source/patterns/base/` document **design tokens and utilities** (colors, typography, spacing, backgrounds, etc.). They are NOT components with BEM classes or behaviors.

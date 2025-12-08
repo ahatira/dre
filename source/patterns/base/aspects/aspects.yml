@@ -2,6 +2,6 @@
 # Aspect Ratio Tokens
 # Documentation: source/props/aspects.css
 
-title: 'Aspect Ratios'
-description: 'Common aspect ratios for images and media containers'
+title: 'Aspect Ratio System'
+description: 'CSS aspect ratio tokens for consistent image and media container sizing across the design system.'
 count: 7

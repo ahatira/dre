@@ -1,288 +1,93 @@
-{% set header = header %}
-{% set semantic_backgrounds = semantic_backgrounds %}
-{% set neutral_backgrounds = neutral_backgrounds %}
-{% set utilities_reference = utilities_reference %}
+{#
+/**
+ * @file
+ * Background utilities documentation story.
+ */
+#}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <style>
-    .ps-backgrounds-doc {
-      padding: var(--size-10) var(--size-8);
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+{% set semantic_section %}
+  <div class="demo-colors">
+    <div class="color-grid">
+      {% for background in semantic_backgrounds %}
+        <div class="color-column">
+          <h3 class="color-category__title">{{ background.name }}</h3>
+          {% for variant in background.variants %}
+            <div class="swatch-main{% if 'subtle' in variant.class %} swatch-dark{% else %} swatch-light{% endif %}"
+              style="background-color: var({{ variant.token }});">
+              <strong>.{{ variant.class }}</strong>
+              <div class="demo-code">{{ variant.token }}</div>
+              <div class="demo-notes">{{ variant.description }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endset %}
 
-    .ps-doc-header {
-      margin-bottom: var(--size-10);
-    }
-
-    .ps-doc-title {
-      font-size: var(--font-size-8);
-      font-weight: var(--font-weight-700);
-      color: var(--text-primary);
-      margin-bottom: var(--size-4);
-    }
-
-    .ps-doc-lead {
-      font-size: var(--font-size-4);
-      color: var(--text-secondary);
-      max-width: 80ch;
-      line-height: var(--leading-relaxed);
-    }
-
-    .ps-doc-meta {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: var(--size-6);
-      margin-top: var(--size-8);
-      padding-top: var(--size-8);
-      border-top: 1px solid var(--light);
-    }
-
-    .ps-doc-meta__item {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-2);
-    }
-
-    .ps-doc-meta__label {
-      font-size: var(--font-size-1);
-      font-weight: var(--font-weight-600);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-tertiary);
-    }
-
-    .ps-doc-meta__value {
-      font-size: var(--font-size-4);
-      font-weight: var(--font-weight-600);
-      color: var(--text-primary);
-    }
-
-    .ps-doc-section {
-      margin-bottom: var(--size-10);
-      padding-bottom: var(--size-10);
-      border-bottom: 1px solid var(--light);
-    }
-
-    .ps-doc-section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .ps-doc-section__header {
-      margin-bottom: var(--size-8);
-    }
-
-    .ps-doc-section__title {
-      font-size: var(--font-size-5);
-      font-weight: var(--font-weight-400);
-      color: var(--text-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      opacity: 0.85;
-      margin-bottom: var(--size-4);
-    }
-
-    .ps-doc-section__description {
-      font-size: var(--font-size-3);
-      color: var(--text-secondary);
-      line-height: var(--leading-relaxed);
-      max-width: 75ch;
-    }
-
-    /* Background swatches */
-    .bg-swatch {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-3);
-      padding: var(--size-4);
-      border-radius: var(--radius-2);
-      border: 1px solid var(--light);
-    }
-
-    .bg-swatch__preview {
-      height: 120px;
-      border-radius: var(--radius-1);
-      border: 1px solid var(--light);
-      transition: transform 0.2s ease;
-    }
-
-    .bg-swatch__preview:hover {
-      transform: scale(1.02);
-    }
-
-    .bg-swatch__info {
-      display: grid;
-      gap: var(--size-2);
-    }
-
-    .bg-swatch__label {
-      font-size: var(--font-size-1);
-      font-weight: var(--font-weight-600);
-      color: var(--text-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .bg-swatch__token {
-      font-size: var(--font-size-0);
-      font-family: var(--font-mono);
-      color: var(--text-secondary);
-    }
-
-    .bg-swatch__description {
-      font-size: var(--font-size-2);
-      color: var(--text-secondary);
-    }
-
-    .bg-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--size-5);
-    }
-
-    .bg-group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-4);
-    }
-
-    .bg-group__title {
-      font-size: var(--font-size-3);
-      font-weight: var(--font-weight-600);
-      color: var(--text-primary);
-      margin-bottom: var(--size-2);
-      padding-bottom: var(--size-2);
-      border-bottom: 2px solid var(--light);
-    }
-
-    /* Token table */
-    .ps-token-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: var(--size-6);
-    }
-
-    .ps-token-table th,
-    .ps-token-table td {
-      padding: var(--size-4);
-      text-align: left;
-      border-bottom: 1px solid var(--light);
-    }
-
-    .ps-token-table th {
-      background-color: var(--light);
-      font-weight: var(--font-weight-600);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: var(--font-size-0);
-    }
-
-    .ps-token-table td {
-      font-size: var(--font-size-2);
-    }
-
-    .ps-token-table code {
-      font-family: var(--font-mono);
-      background-color: var(--light);
-      padding: var(--size-1) var(--size-2);
-      border-radius: var(--radius-1);
-      color: var(--text-primary);
-    }
-  </style>
-</head>
-<body>
-  <div class="ps-backgrounds-doc">
-    <!-- Header -->
-    <header class="ps-doc-header">
-      <h1 class="ps-doc-title">{{ header.title }}</h1>
-      <p class="ps-doc-lead">{{ header.description }}</p>
-      <dl class="ps-doc-meta">
-        {% for meta in header.meta %}
-          <div class="ps-doc-meta__item">
-            <dt class="ps-doc-meta__label">{{ meta.label }}</dt>
-            <dd class="ps-doc-meta__value">{{ meta.value }}</dd>
-          </div>
-        {% endfor %}
-      </dl>
-    </header>
-
-    <!-- Semantic Backgrounds Section -->
-    <section class="ps-doc-section">
-      <header class="ps-doc-section__header">
-        <h2 class="ps-doc-section__title">Semantic Backgrounds</h2>
-        <p class="ps-doc-section__description">Color-coded backgrounds for semantic meaning. Each color has three levels: subtle (light), base (standard), and emphasis (dark).</p>
-      </header>
-      {% for bg in semantic_backgrounds %}
-        <div class="bg-group">
-          <h3 class="bg-group__title">{{ bg.name }}</h3>
-          <div class="bg-grid">
-            {% for variant in bg.variants %}
-              <div class="bg-swatch">
-                <div class="bg-swatch__preview" style="background-color: var({{ variant.token }});"></div>
-                <div class="bg-swatch__info">
-                  <div class="bg-swatch__label">.{{ variant.class }}</div>
-                  <div class="bg-swatch__token">{{ variant.token }}</div>
-                  <div class="bg-swatch__description">{{ variant.description }}</div>
-                </div>
-              </div>
-            {% endfor %}
+{% set neutral_section %}
+  <div class="demo-colors">
+    <div class="color-grid">
+      {% for background in neutral_backgrounds %}
+        <div class="color-column">
+          <h3 class="color-category__title">{{ background.name }}</h3>
+          <div class="swatch-main{% if 'dark' in background.class %} swatch-light{% else %} swatch-dark{% endif %}"
+            style="background-color: var({{ background.token }});">
+            <strong>.{{ background.class }}</strong>
+            <div class="demo-code">{{ background.token }}</div>
+            <div class="demo-notes">{{ background.usage }}</div>
           </div>
         </div>
       {% endfor %}
-    </section>
-
-    <!-- Neutral Backgrounds Section -->
-    <section class="ps-doc-section">
-      <header class="ps-doc-section__header">
-        <h2 class="ps-doc-section__title">Neutral Backgrounds</h2>
-        <p class="ps-doc-section__description">Neutral color options for flexible layout and content presentation.</p>
-      </header>
-      <div class="bg-grid">
-        {% for bg in neutral_backgrounds %}
-          <div class="bg-swatch">
-            <div class="bg-swatch__preview" style="background-color: var({{ bg.token }});"></div>
-            <div class="bg-swatch__info">
-              <div class="bg-swatch__label">.{{ bg.class }}</div>
-              <div class="bg-swatch__token">{{ bg.token }}</div>
-              <div class="bg-swatch__description">{{ bg.usage }}</div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </section>
-
-    <!-- Reference Section -->
-    <section class="ps-doc-section">
-      <header class="ps-doc-section__header">
-        <h2 class="ps-doc-section__title">Usage Reference</h2>
-        <p class="ps-doc-section__description">Complete reference for all background utility classes and their applications.</p>
-      </header>
-      <table class="ps-token-table">
-        <thead>
-          <tr>
-            <th>Utility Class</th>
-            <th>Description</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in utilities_reference %}
-            <tr>
-              <td><code>{{ row.utility }}</code></td>
-              <td>{{ row.description }}</td>
-              <td><code>{{ row.example }}</code></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
+    </div>
   </div>
-</body>
-</html>
+{% endset %}
+
+{% set reference_section %}
+  <div class="demo-table">
+    <table class="demo-table">
+      <thead>
+        <tr>
+          <th>Utility Class</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in utilities_reference %}
+          <tr>
+            <td><code>{{ row.utility }}</code></td>
+            <td>{{ row.description }}</td>
+            <td><code>{{ row.example }}</code></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endset %}
+
+{% include '../_base-story.twig' with {
+  header: header,
+  sections: [
+    {
+      badge: 'Semantic',
+      title: 'Semantic backgrounds',
+      description: 'Color-coded backgrounds with subtle, base, and emphasis levels for status-driven surfaces.',
+      content: semantic_section,
+    },
+    {
+      badge: 'Neutral',
+      title: 'Neutral backgrounds',
+      description: 'Foundational neutrals for content surfaces and inverse layouts.',
+      content: neutral_section,
+    },
+    {
+      badge: 'Reference',
+      title: 'Utility reference',
+      description: 'Available background utility classes and how to apply them.',
+      content: reference_section,
+    },
+  ],
+} only %}
 
 

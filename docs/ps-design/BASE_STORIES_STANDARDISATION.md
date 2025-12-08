@@ -53,7 +53,6 @@ const settings = {
 ```bash
 npm run lint:check
 npm run build
-npm run watch  # Vérifier visuellement
 ```
 
 ---
@@ -65,8 +64,6 @@ npm run watch  # Vérifier visuellement
 - [ ] Pas de `README.md`
 - [ ] `npm run build` ✓
 - [ ] Storybook visuel OK
-
-**Commit**: `refactor(base): standardise {story}`
 
 ---
 

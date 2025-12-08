@@ -1,18 +1,34 @@
-<section class="demo-borders">
-  <div class="just-for-gap">
-    <div class="heading">Border Size</div>
-    <article class="border-demo">
+{#
+/**
+ * @file
+ * Borders documentation
+ *
+ * Design tokens for border widths, radii, and semantic colors.
+ * Reference: source/props/borders.css + source/props/brand.css
+ */
+#}
+
+{# ========================================
+   BORDER WIDTHS CONTENT BLOCK
+   ======================================== #}
+{% set border_widths %}
+  <div class="demo-borders">
+    <div class="border-demo">
       <div style="border-width: var(--border-size-1);">1</div>
       <div style="border-width: var(--border-size-2);">2</div>
       <div style="border-width: var(--border-size-3);">3</div>
       <div style="border-width: var(--border-size-4);">4</div>
       <div style="border-width: var(--border-size-5);">5</div>
-    </article>
+    </div>
   </div>
+{% endset %}
 
-  <div class="just-for-gap">
-    <div class="heading">Border Radius</div>
-    <article class="border-demo">
+{# ========================================
+   BORDER RADIUS CONTENT BLOCK
+   ======================================== #}
+{% set border_radii %}
+  <div class="demo-borders">
+    <div class="border-demo">
       <div style="border-radius: var(--radius-1);">1</div>
       <div style="border-radius: var(--radius-2);">2</div>
       <div style="border-radius: var(--radius-3);">3</div>
@@ -21,114 +37,88 @@
       <div style="border-radius: var(--radius-6);">6</div>
       <div style="border-radius: var(--radius-7);">7</div>
       <div style="border-radius: var(--radius-round);">round</div>
-    </article>
+    </div>
   </div>
+{% endset %}
 
-  <div class="just-for-gap">
-    <div class="heading">Border Colors (from brand.css)</div>
-    <article class="border-color-demo">
-      <div class="border-swatch">
-        <div class="swatch" style="background-color: var(--border-default);"></div>
-        <div class="meta">
-          <span class="name">Default</span>
-          <span class="var">--border-default</span>
-          <span class="value">#D6DBDE</span>
-          <span class="usage">Standard borders</span>
-        </div>
+{# ========================================
+   BORDER COLORS CONTENT BLOCK
+   ======================================== #}
+{% set border_colors %}
+  <div class="border-color-grid">
+    <div class="border-swatch">
+      <div class="swatch" style="background-color: var(--border-default);"></div>
+      <div class="meta">
+        <span class="name">Default</span>
+        <span class="var">--border-default</span>
+        <span class="usage">Standard borders</span>
       </div>
-      <div class="border-swatch">
-        <div class="swatch" style="background-color: var(--border-light);"></div>
-        <div class="meta">
-          <span class="name">Light</span>
-          <span class="var">--border-light</span>
-          <span class="value">#EBEDEF</span>
-          <span class="usage">Light separators</span>
-        </div>
+    </div>
+    <div class="border-swatch">
+      <div class="swatch" style="background-color: var(--border-light);"></div>
+      <div class="meta">
+        <span class="name">Light</span>
+        <span class="var">--border-light</span>
+        <span class="usage">Light separators</span>
       </div>
-      <div class="border-swatch">
-        <div class="swatch" style="background-color: var(--border-focus);"></div>
-        <div class="meta">
-          <span class="name">Focus</span>
-          <span class="var">--border-focus</span>
-          <span class="value">#333333</span>
-          <span class="usage">Focus rings</span>
-        </div>
+    </div>
+    <div class="border-swatch">
+      <div class="swatch" style="background-color: var(--border-focus);"></div>
+      <div class="meta">
+        <span class="name">Focus</span>
+        <span class="var">--border-focus</span>
+        <span class="usage">Focus rings</span>
       </div>
-      <div class="border-swatch">
-        <div class="swatch" style="background-color: var(--border-error);"></div>
-        <div class="meta">
-          <span class="name">Error</span>
-          <span class="var">--border-error</span>
-          <span class="value">#EB3636</span>
-          <span class="usage">Error states</span>
-        </div>
+    </div>
+    <div class="border-swatch">
+      <div class="swatch" style="background-color: var(--border-error);"></div>
+      <div class="meta">
+        <span class="name">Error</span>
+        <span class="var">--border-error</span>
+        <span class="usage">Error states</span>
       </div>
-      <div class="border-swatch">
-        <div class="swatch" style="background-color: var(--border-success);"></div>
-        <div class="meta">
-          <span class="name">Success</span>
-          <span class="var">--border-success</span>
-          <span class="value">#00915A</span>
-          <span class="usage">Success/done</span>
-        </div>
+    </div>
+    <div class="border-swatch">
+      <div class="swatch" style="background-color: var(--border-success);"></div>
+      <div class="meta">
+        <span class="name">Success</span>
+        <span class="var">--border-success</span>
+        <span class="usage">Success/done</span>
       </div>
-    </article>
+    </div>
   </div>
-</section>
+{% endset %}
 
-<style>
-/* Border color swatches */
-.border-color-demo {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: var(--size-4);
-}
-
-.border-swatch {
-  display: flex;
-  gap: var(--size-3);
-  padding: var(--size-3);
-  background: var(--bg-section);
-  border-radius: var(--radius-2);
-}
-
-.border-swatch .swatch {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-2);
-  border: 1px solid var(--border-light);
-  flex-shrink: 0;
-}
-
-.border-swatch .meta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-05);
-  font-size: var(--font-size-0);
-  min-width: 0;
-}
-
-.border-swatch .name {
-  font-weight: var(--font-weight-600);
-  color: var(--text-primary);
-}
-
-.border-swatch .var {
-  font-family: var(--font-mono);
-  font-size: var(--font-size--1);
-  color: var(--primary);
-  word-break: break-all;
-}
-
-.border-swatch .value {
-  font-family: var(--font-mono);
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-}
-
-.border-swatch .usage {
-  font-size: var(--font-size--1);
-  color: var(--text-secondary);
-  font-style: italic;
-}
-</style>
+{# Include base story template #}
+{% include '../_base-story.twig' with {
+  header: {
+    title: 'Borders',
+    description: 'Complete border system: widths, radii, and semantic colors for consistent visual hierarchy.',
+    badge: 'Design Tokens',
+    meta: [
+      { label: 'Widths', value: '5' },
+      { label: 'Radii', value: '8' },
+      { label: 'Colors', value: '5' }
+    ]
+  },
+  sections: [
+    {
+      badge: 'Spacing',
+      title: 'Border Widths',
+      description: 'Five predefined border width tokens from 1px to 5px for visual emphasis and hierarchy.',
+      content: border_widths
+    },
+    {
+      badge: 'Spacing',
+      title: 'Border Radius',
+      description: 'Eight radius tokens from sharp (1) to fully rounded (round). Use for corners, pills, and curves.',
+      content: border_radii
+    },
+    {
+      badge: 'Colors',
+      title: 'Border Colors',
+      description: 'Semantic border colors for different states and contexts (standard, light, focus, error, success).',
+      content: border_colors
+    }
+  ]
+} only %}

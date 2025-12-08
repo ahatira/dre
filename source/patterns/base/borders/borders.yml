@@ -1,7 +1,4 @@
 ---
 # Border Tokens
 # Documentation: source/props/borders.css + source/props/brand.css
-
-title: 'Borders'
-description: 'Border widths, radii, and semantic colors'
-count: 19
+# Complete border system: widths, radii, and semantic colors
