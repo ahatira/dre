@@ -1,11 +1,10 @@
 # Default props for input atom
-name: "input"
+name: "email"
 value: ""
-placeholder: "Enter text..."
+placeholder: "Entrez votre email..."
 type: "text"
-autocomplete: null
-id: null
+autocomplete: "email"
+id: "input-email"
 disabled: false
 required: false
-color: "default"
-size: "md"
+state: null

@@ -1,143 +1,216 @@
 import inputTwig from './input.twig';
-import data from './input.yml';
+import inputData from './input.yml';
 
 export default {
   title: 'Elements/Input',
   tags: ['autodocs'],
-  render: (args) => inputTwig(args),
-  args: data,
   parameters: {
     docs: {
       description: {
         component:
-          'Base text-like input field (no label), Drupal-friendly attributes. Supports common types, disabled/required states, and token-based styling.',
+          'Base input field (ATOM). Without label, icon, or helper. For complete input, use Form-element (Molecule).',
       },
     },
   },
   argTypes: {
-    // Content
     value: {
-      description: 'Current value',
       control: 'text',
-      table: { category: 'Content' },
+      description: 'Current field value',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
     },
     placeholder: {
-      description: 'Placeholder text',
       control: 'text',
-      table: { category: 'Content' },
+      description: 'Text displayed when field is empty',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
     },
-
-    // Appearance
     type: {
-      description: 'Input type',
       control: 'select',
       options: ['text', 'email', 'password', 'number', 'search', 'tel', 'url'],
-      table: { category: 'Appearance' },
+      description: 'HTML5 input type',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: '"text"' },
+      },
     },
-    color: {
-      description: 'Color variant',
+    state: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'],
-      table: { category: 'Appearance' },
+      options: [null, 'error', 'success', 'warning'],
+      description: 'Validation state of the field',
+      table: {
+        category: 'State',
+        type: { summary: 'null | "error" | "success" | "warning"' },
+        defaultValue: { summary: 'null' },
+      },
     },
-    size: {
-      description: 'Size variant',
-      control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      table: { category: 'Appearance' },
-    },
-
-    // Behavior
     disabled: {
-      description: 'Disable the input',
       control: 'boolean',
-      table: { category: 'Behavior' },
+      description: 'Disable the field (read-only, non-editable)',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     required: {
-      description: 'Mark input as required',
       control: 'boolean',
-      table: { category: 'Behavior' },
+      description: 'Mark field as required',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
-
-    // Accessibility
     name: {
-      description: 'Name attribute (recommended)',
       control: 'text',
-      table: { category: 'Accessibility' },
+      description: 'Name attribute (for form submission)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: '"email"' },
+      },
     },
     id: {
-      description: 'ID attribute (for external label association)',
       control: 'text',
-      table: { category: 'Accessibility' },
+      description: 'ID attribute (for label association)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
+      },
     },
     autocomplete: {
-      description: 'Autocomplete attribute',
       control: 'text',
-      table: { category: 'Accessibility' },
+      description: 'HTML5 autocomplete (email, password, current-password, etc.)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
+      },
     },
   },
 };
 
-export const Default = {
-  args: { ...data },
-};
+const Template = (args) => inputTwig(args);
 
-export const Password = {
-  args: {
-    ...data,
-    type: 'password',
-    placeholder: 'Enter password',
+// ============ MOCKUP STATES ============
+
+export const Default = Template.bind({});
+Default.args = { ...inputData };
+
+export const Placeholder = Template.bind({});
+Placeholder.args = { ...inputData, value: '', placeholder: 'Placeholder' };
+
+export const Focus = Template.bind({});
+Focus.args = { ...inputData, value: 'Value' };
+Focus.parameters = {
+  docs: {
+    description: {
+      story: 'Visible focus: 2px black border (WCAG 2.2 AA)',
+    },
   },
 };
 
-export const Disabled = {
+export const Success = Template.bind({});
+Success.args = { ...inputData, value: 'Value', state: 'success' };
+
+export const ErrorState = Template.bind({});
+ErrorState.args = { ...inputData, value: 'Value', state: 'error' };
+
+export const Warning = Template.bind({});
+Warning.args = { ...inputData, value: 'Value', state: 'warning' };
+
+export const DisabledPlaceholder = {
+  render: Template,
   args: {
-    ...data,
+    ...inputData,
+    value: '',
+    placeholder: 'Placeholder',
     disabled: true,
-    value: 'Disabled value',
   },
+  name: 'Disabled (placeholder)',
 };
 
-export const Numeric = {
+export const DisabledValue = {
+  render: Template,
+  args: { ...inputData, value: 'Value', disabled: true },
+  name: 'Disabled (value)',
+};
+
+// ============ TYPES ============
+
+export const TypeEmail = {
+  render: Template,
   args: {
-    ...data,
-    type: 'number',
-    placeholder: '123',
+    ...inputData,
+    type: 'email',
+    placeholder: 'you@example.com',
+    autocomplete: 'email',
+    value: '',
   },
+  name: 'Type: Email',
 };
 
-export const WithExternalLabel = {
-  render: (args) => {
-    const id = args.id || 'input-with-label';
-    const name = args.name || 'input';
-
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-2); max-width: 320px;">
-        <label for="${id}" style="font-weight: var(--font-weight-600);">Label</label>
-        ${inputTwig({ ...args, id, name })}
-      </div>
-    `;
-  },
+export const TypePassword = {
+  render: Template,
   args: {
-    ...data,
-    id: 'input-with-label',
-    name: 'input',
-    placeholder: 'Enter text...',
+    ...inputData,
+    type: 'password',
+    placeholder: 'Password',
+    autocomplete: 'current-password',
+    value: '',
   },
+  name: 'Type: Password',
 };
 
-// Color Variants
-export const Colors = {
+export const TypeNumber = {
+  render: Template,
+  args: { ...inputData, type: 'number', placeholder: 'Ex: 250000', value: '' },
+  name: 'Type: Number',
+};
+
+export const TypeSearch = {
+  render: Template,
+  args: { ...inputData, type: 'search', placeholder: 'Search...', value: '' },
+  name: 'Type: Search',
+};
+
+// ============ SHOWCASE ============
+
+export const AllStates = {
   render: () => {
-    const colors = ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'];
+    const states = [
+      { label: 'Default', args: { ...inputData, value: 'Value' } },
+      { label: 'Placeholder', args: { ...inputData, value: '', placeholder: 'Placeholder' } },
+      { label: 'Focus', args: { ...inputData, value: 'Value' } },
+      { label: 'Success', args: { ...inputData, value: 'Value', state: 'success' } },
+      { label: 'Error', args: { ...inputData, value: 'Value', state: 'error' } },
+      { label: 'Warning', args: { ...inputData, value: 'Value', state: 'warning' } },
+      {
+        label: 'Disabled (placeholder)',
+        args: { ...inputData, value: '', placeholder: 'Placeholder', disabled: true },
+      },
+      { label: 'Disabled (value)', args: { ...inputData, value: 'Value', disabled: true } },
+    ];
+
     return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 400px;">
-        ${colors
+      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 500px;">
+        ${states
           .map(
-            (color) => `
-          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
-            <label style="font-weight: var(--font-weight-600); text-transform: capitalize;">${color}</label>
-            ${inputTwig({ ...data, color, placeholder: `${color} input` })}
+            (state) => `
+          <div>
+            <p style="margin-bottom: var(--size-2); font-weight: 600; font-size: 12px; color: var(--text-secondary);">
+              ${state.label}
+            </p>
+            ${inputTwig(state.args)}
           </div>
         `
           )
@@ -145,25 +218,5 @@ export const Colors = {
       </div>
     `;
   },
-};
-
-// Size Variants
-export const Sizes = {
-  render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
-        ${sizes
-          .map(
-            (size) => `
-          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
-            <label style="font-weight: var(--font-weight-600); text-transform: uppercase;">${size}</label>
-            ${inputTwig({ ...data, size, placeholder: `Size ${size.toUpperCase()}` })}
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  },
+  name: 'Showcase: All States',
 };

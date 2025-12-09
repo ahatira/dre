@@ -1,6 +1,10 @@
 {#
  * Input (Atom)
- * Base text-like input (no label) compatible with Drupal form attributes.
+ * Base text-like input (no label, no icon) compatible with Drupal form attributes.
+ *
+ * NOTE: This is an ATOM component - no labels or icons here.
+ * For inputs with labels, helper text, error messages, and/or icons,
+ * use the Form-element (Molecule) component instead.
  *
  * @param string type - Input type (text|email|password|number|search|tel|url, default: text)
  * @param string name - Input name attribute (optional but recommended)
@@ -10,8 +14,8 @@
  * @param string autocomplete - Autocomplete attribute (optional)
  * @param boolean disabled - Disabled state (default: false)
  * @param boolean required - Required state (default: false)
+ * @param string state - Validation state: null | 'error' | 'success' | 'warning' (optional)
  * @param object attributes - Drupal attributes object applied to the input element (optional)
- * @param object wrapper_attributes - Drupal attributes for an optional wrapper (optional)
  #}
 
 {%- set type = type|default('text') -%}
@@ -22,16 +26,13 @@
 {%- set autocomplete = autocomplete|default(null) -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set required = required|default(false) -%}
-{%- set color = color|default('default') -%}
-{%- set size = size|default('md') -%}
+{%- set state = state|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
-{%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-input',
   disabled ? 'ps-input--disabled' : null,
-  color != 'default' ? 'ps-input--' ~ color : null,
-  size != 'md' ? 'ps-input--' ~ size : null
+  state ? 'ps-input--' ~ state : null
 ] -%}
 
 <input
@@ -46,4 +47,5 @@
   }}
   {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   {%- if required %} required aria-required="true"{% endif -%}
+  {%- if state == 'error' %} aria-invalid="true"{% endif -%}
 />

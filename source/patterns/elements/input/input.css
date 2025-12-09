@@ -3,7 +3,7 @@
  * Base text-like input field without label. Drupal-friendly attributes.
  *
  * BEM: ps-input
- * Modifiers: --disabled, --error, --success
+ * Modifiers: --disabled, --error, --success, --warning
  * States: :hover, :focus-visible, :disabled
  */
 
@@ -27,17 +27,14 @@
   --ps-input-placeholder-color: var(--gray-400);
 
   --ps-input-hover-border-color: var(--gray-300);
-  --ps-input-focus-border-color: var(--border-focus);
-  --ps-input-focus-ring-color: var(--border-focus);
-  --ps-input-focus-ring-width: 0;
+  --ps-input-focus-border-color: var(--text-primary);
 
-  --ps-input-disabled-bg: var(--bg-disabled);
-  --ps-input-disabled-color: var(--text-disabled);
-  --ps-input-disabled-border-color: var(--border-default);
-  --ps-input-disabled-opacity: 0.6;
+  --ps-input-disabled-bg: var(--gray-100);
+  --ps-input-disabled-color: var(--gray-500);
+  --ps-input-disabled-border-color: var(--gray-300);
 
   --ps-input-border-width: var(--border-size-2);
-  --ps-input-border-radius: var(--radius-2);
+  --ps-input-border-radius: 0;
 
   --ps-input-transition-duration: var(--duration-fast);
   --ps-input-transition-timing: var(--ease-3);
@@ -56,7 +53,6 @@
   font-size: var(--ps-input-font-size);
   font-weight: var(--ps-input-font-weight);
   line-height: var(--ps-input-line-height);
-  box-shadow: 0 0 0 var(--ps-input-focus-ring-width) var(--ps-input-focus-ring-color);
   transition:
     border-color var(--ps-input-transition-duration) var(--ps-input-transition-timing),
     box-shadow var(--ps-input-transition-duration) var(--ps-input-transition-timing),
@@ -73,7 +69,7 @@
 
   &:focus-visible {
     border-color: var(--ps-input-focus-border-color);
-    box-shadow: 0 0 0 var(--ps-input-focus-ring-width) var(--ps-input-focus-ring-color);
+    border-width: 2px;
     outline: none;
   }
 
@@ -81,7 +77,6 @@
     background-color: var(--ps-input-disabled-bg);
     color: var(--ps-input-disabled-color);
     border-color: var(--ps-input-disabled-border-color);
-    opacity: var(--ps-input-disabled-opacity);
     cursor: not-allowed;
   }
 }
@@ -90,42 +85,15 @@
    Modifiers - State (Validation)
    ============================================ */
 .ps-input--error {
-  border-color: var(--danger);
-
-  &:focus-visible {
-    border-color: var(--danger);
-    box-shadow: 0 0 0 var(--ps-input-focus-ring-width) var(--danger);
-  }
+  --ps-input-border-color: var(--danger);
+  --ps-input-focus-border-color: var(--danger);
+  --ps-input-focus-ring-color: var(--danger);
 }
 
 .ps-input--success {
-  border-color: var(--success);
-
-  &:focus-visible {
-    border-color: var(--success);
-    box-shadow: 0 0 0 var(--ps-input-focus-ring-width) var(--success);
-  }
-}
-
-/* ============================================
-   Modifiers - Color
-   ============================================ */
-.ps-input--primary {
-  --ps-input-border-color: var(--primary);
-  --ps-input-focus-border-color: var(--primary);
-  --ps-input-focus-ring-color: var(--primary);
-}
-
-.ps-input--secondary {
-  --ps-input-border-color: var(--secondary);
-  --ps-input-focus-border-color: var(--secondary);
-  --ps-input-focus-ring-color: var(--secondary);
-}
-
-.ps-input--info {
-  --ps-input-border-color: var(--info);
-  --ps-input-focus-border-color: var(--info);
-  --ps-input-focus-ring-color: var(--info);
+  --ps-input-border-color: var(--success);
+  --ps-input-focus-border-color: var(--success);
+  --ps-input-focus-ring-color: var(--success);
 }
 
 .ps-input--warning {
@@ -134,48 +102,3 @@
   --ps-input-focus-ring-color: var(--warning);
 }
 
-.ps-input--danger {
-  --ps-input-border-color: var(--danger);
-  --ps-input-focus-border-color: var(--danger);
-  --ps-input-focus-ring-color: var(--danger);
-}
-
-/* ============================================
-   Modifiers - Size
-   ============================================ */
-.ps-input--xs {
-  --ps-input-min-height: var(--size-7);
-  --ps-input-padding-x: var(--size-2);
-  --ps-input-padding-y: var(--size-1);
-  --ps-input-font-size: var(--font-size--1);
-}
-
-.ps-input--sm {
-  --ps-input-min-height: var(--size-8);
-  --ps-input-padding-x: var(--size-3);
-  --ps-input-padding-y: var(--size-105);
-  --ps-input-font-size: var(--font-size-0);
-}
-
-/* md is default */
-
-.ps-input--lg {
-  --ps-input-min-height: var(--size-12);
-  --ps-input-padding-x: var(--size-5);
-  --ps-input-padding-y: var(--size-3);
-  --ps-input-font-size: var(--font-size-2);
-}
-
-.ps-input--xl {
-  --ps-input-min-height: var(--size-14);
-  --ps-input-padding-x: var(--size-6);
-  --ps-input-padding-y: var(--size-4);
-  --ps-input-font-size: var(--font-size-3);
-}
-
-.ps-input--xxl {
-  --ps-input-min-height: var(--size-16);
-  --ps-input-padding-x: var(--size-7);
-  --ps-input-padding-y: var(--size-5);
-  --ps-input-font-size: var(--font-size-4);
-}
