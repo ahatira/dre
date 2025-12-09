@@ -1,7 +1,7 @@
 {#
  * Button atom
  * @param string label - Button text (required)
- * @param string variant - primary|secondary|success|info|warning|danger|neutral (default: neutral)
+ * @param string variant - neutral|primary|secondary|gold|success|info|warning|danger|dark|light (default: neutral)
  * @param boolean outline - Outline style (default: false)
  * @param string size - xs|sm|md|lg|xl|xxl (default: md)
  * @param string url - Destination URL (optional)
@@ -34,7 +34,6 @@
 {%- set classes = [
   baseClass,
   variant != 'neutral' ? baseClass ~ '--' ~ variant : null,
-  (variant in ['gold', 'dark', 'light']) ? baseClass ~ '--' ~ variant : null,
   size != 'md' ? baseClass ~ '--' ~ size : null,
   outline ? baseClass ~ '--outline' : null,
   (not label) ? baseClass ~ '--icon-only' : null,

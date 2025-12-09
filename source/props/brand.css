@@ -21,7 +21,7 @@
 
   /* PRIMARY (Brand Green - Official BNP #00915A) */
   --primary: var(--green-600); /* #00915A - BNP Primary Green */
-  --primary-hover: var(--green-700); /* Darker on hover */
+  --primary-hover: var(--green-500); /* Darker on hover */
   --primary-active: var(--green-800); /* Darkest for pressed state */
   --primary-text: var(--white); /* White text on primary background */
   --primary-border: var(--green-600); /* Match base color */

@@ -1,16 +1,16 @@
 /**
  * Button (Element/Atom)
  *
- * Interactive action trigger with semantic variants (primary, secondary, neutral,
- * success, info, warning, danger), sizes (small/medium/large), icon support,
+ * Interactive action trigger with semantic variants (neutral, primary, secondary, gold,
+ * success, info, warning, danger, dark, light), sizes (xs/sm/md/lg/xl/xxl), icon support,
  * disabled/loading states, outline style, and full-width layout.
  *
  * BEM Structure:
  * - Block: .ps-button
  * - Elements: .ps-button__label, .ps-button__icon, .ps-button__spinner
- * - Modifiers (variant): --primary, --secondary, --neutral, --success, --info, --warning, --danger
+ * - Modifiers (variant): --neutral, --primary, --secondary, --gold, --success, --info, --warning, --danger, --dark, --light
  * - Modifiers (style): --outline
- * - Modifiers (size): --small, --large (medium is default)
+ * - Modifiers (size): --xs, --sm, --lg, --xl, --xxl (md is default, not output as class)
  * - Modifiers (state): --disabled, --loading, --full-width, --icon-only
  *
  * CSS Variables System (3-Layer Architecture):
@@ -677,6 +677,18 @@
   --ps-button-toggle-active-color: var(--danger);
 }
 
+.ps-button--gold[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--gold);
+}
+
+.ps-button--dark[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--dark);
+}
+
+.ps-button--light[data-ps-toggle='button'] {
+  --ps-button-toggle-active-color: var(--light);
+}
+
 /* ============================================
    LAYER 3: TOGGLE STATE (Regular w/ Label)
    Data attribute: data-ps-toggle="button"
@@ -685,97 +697,173 @@
 
 .ps-button:not(.ps-button--icon-only)[data-ps-toggle='button'] {
   &:not(.active) {
-    --ps-button-bg: var(--neutral-disabled);
-    --ps-button-hover-bg: var(--neutral-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
   &.active {
-    --ps-button-bg: var(--neutral-enabled);
-    --ps-button-hover-bg: var(--neutral-enabled);
+    --ps-button-bg: var(--gray-600);
+    --ps-button-hover-bg: var(--gray-700);
+    --ps-button-color: var(--white);
   }
 }
 
 /* Toggle variant colors (with label) */
 .ps-button--primary:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray (uniform for all variants) */
   &:not(.active) {
-    --ps-button-bg: var(--primary-disabled);
-    --ps-button-hover-bg: var(--primary-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--primary-enabled);
-    --ps-button-hover-bg: var(--primary-enabled);
+    --ps-button-bg: var(--primary);
+    --ps-button-hover-bg: var(--primary-hover);
+    --ps-button-color: var(--primary-text);
   }
 }
 
 .ps-button--secondary:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
   &:not(.active) {
-    --ps-button-bg: var(--secondary-disabled);
-    --ps-button-hover-bg: var(--secondary-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--secondary-enabled);
-    --ps-button-hover-bg: var(--secondary-enabled);
+    --ps-button-bg: var(--secondary);
+    --ps-button-hover-bg: var(--secondary-hover);
+    --ps-button-color: var(--secondary-text);
   }
 }
 
 .ps-button--neutral:not(.ps-button--icon-only)[data-ps-toggle='button'] {
   &:not(.active) {
-    --ps-button-bg: var(--gray-400);
-    --ps-button-hover-bg: var(--gray-400);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
   &.active {
     --ps-button-bg: var(--gray-600);
-    --ps-button-hover-bg: var(--gray-600);
+    --ps-button-hover-bg: var(--gray-700);
+    --ps-button-color: var(--white);
   }
 }
 
 .ps-button--success:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
   &:not(.active) {
-    --ps-button-bg: var(--success-disabled);
-    --ps-button-hover-bg: var(--success-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--success-enabled);
-    --ps-button-hover-bg: var(--success-enabled);
+    --ps-button-bg: var(--success);
+    --ps-button-hover-bg: var(--success-hover);
+    --ps-button-color: var(--success-text);
   }
 }
 
 .ps-button--info:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
   &:not(.active) {
-    --ps-button-bg: var(--info-disabled);
-    --ps-button-hover-bg: var(--info-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--info-enabled);
-    --ps-button-hover-bg: var(--info-enabled);
+    --ps-button-bg: var(--info);
+    --ps-button-hover-bg: var(--info-hover);
+    --ps-button-color: var(--info-text);
   }
 }
 
 .ps-button--warning:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
   &:not(.active) {
-    --ps-button-bg: var(--warning-disabled);
-    --ps-button-hover-bg: var(--warning-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--warning-enabled);
-    --ps-button-hover-bg: var(--warning-enabled);
+    --ps-button-bg: var(--warning);
+    --ps-button-hover-bg: var(--warning-hover);
+    --ps-button-color: var(--warning-text);
   }
 }
 
 .ps-button--danger:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
   &:not(.active) {
-    --ps-button-bg: var(--danger-disabled);
-    --ps-button-hover-bg: var(--danger-disabled);
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
   }
 
+  /* Active: semantic color */
   &.active {
-    --ps-button-bg: var(--danger-enabled);
-    --ps-button-hover-bg: var(--danger-enabled);
+    --ps-button-bg: var(--danger);
+    --ps-button-hover-bg: var(--danger-hover);
+    --ps-button-color: var(--danger-text);
+  }
+}
+
+.ps-button--gold:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
+  &:not(.active) {
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
+  }
+
+  /* Active: semantic color */
+  &.active {
+    --ps-button-bg: var(--gold);
+    --ps-button-hover-bg: var(--gold-hover);
+    --ps-button-color: var(--gold-text);
+  }
+}
+
+.ps-button--dark:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
+  &:not(.active) {
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
+  }
+
+  /* Active: semantic color */
+  &.active {
+    --ps-button-bg: var(--dark);
+    --ps-button-hover-bg: var(--dark-hover);
+    --ps-button-color: var(--dark-text);
+  }
+}
+
+.ps-button--light:not(.ps-button--icon-only)[data-ps-toggle='button'] {
+  /* Inactive: neutral gray */
+  &:not(.active) {
+    --ps-button-bg: var(--gray-200);
+    --ps-button-hover-bg: var(--gray-300);
+    --ps-button-color: var(--gray-700);
+  }
+
+  /* Active: semantic color */
+  &.active {
+    --ps-button-bg: var(--light);
+    --ps-button-hover-bg: var(--light-hover);
+    --ps-button-color: var(--light-text);
   }
 }

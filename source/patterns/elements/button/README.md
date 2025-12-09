@@ -86,13 +86,13 @@ See `@elements/icon` for complete icon documentation.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | string (required) | `'Button'` | Button text content. |
-| `variant` | enum | `neutral` | Semantic color (neutral \| primary \| secondary \| success \| info \| warning \| danger). |
+| `variant` | enum | `neutral` | Semantic color (neutral \| primary \| secondary \| gold \| success \| info \| warning \| danger \| dark \| light). |
 | `outline` | boolean | `false` | Outline style (border only). |
 | `size` | enum | `md` | Size scale (xs \| sm \| md \| lg \| xl \| xxl). Heights: 28px, 32px, 36px, 40px, 44px, 48px. |
 | `url` | string | `''` | Link URL (renders `<a>`). |
 | `target` | enum | `_self` | Link target (\_self or \_blank). |
 | `icon` | string | `''` | Icon name (no "icon-" prefix). Icon size scales with button size. |
-| `iconPosition` | enum | `right` | Icon placement (left \| right). |
+| `iconPosition` | enum | `start` | Icon placement (start \| end). start = before text, end = after text. |
 | `disabled` | boolean | `false` | Disabled state. |
 | `loading` | boolean | `false` | Loading state with spinner. |
 | `fullWidth` | boolean | `false` | Block-level width (100%). |
@@ -104,7 +104,7 @@ See `@elements/icon` for complete icon documentation.
 
 - Block: `.ps-button`
 - Elements: `.ps-button__label`, `.ps-button__icon`, `.ps-button__spinner`
-- Modifiers (variant): `--neutral` (default), `--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`
+- Modifiers (variant): `--neutral` (default), `--primary`, `--secondary`, `--gold`, `--success`, `--info`, `--warning`, `--danger`, `--dark`, `--light`
 - Modifiers (style): `--outline`
 - Modifiers (size): `--xs`, `--sm`, `--lg`, `--xl`, `--xxl` (md is default, not output as class)
 - Modifiers (state): `--disabled`, `--loading`, `--full-width`, `--icon-only`
@@ -112,14 +112,25 @@ See `@elements/icon` for complete icon documentation.
 ## Variant Colors
 
 | Variant | Base Token | Hover Token | Active Token |
-|---------|-----------|-------------|--------------|
+|---------|-----------|-------------|--------------||
 | primary | `--primary` | `--primary-hover` | `--primary-active` |
 | secondary | `--secondary` | `--secondary-hover` | `--secondary-active` |
-| neutral | `--neutral` | `--neutral-hover` | `--neutral-active` |
+| neutral | `--gray-500` | `--gray-600` | `--gray-700` |
 | success | `--success` | `--success-hover` | `--success-active` |
 | info | `--info` | `--info-hover` | `--info-active` |
 | warning | `--warning` | `--warning-hover` | `--warning-active` |
 | danger | `--danger` | `--danger-hover` | `--danger-active` |
+| gold | `--gold` | `--gold-hover` | `--gold-active` |
+| dark | `--dark` | `--dark-hover` | `--dark-active` |
+| light | `--light` | `--light-hover` | `--light-active` |
+
+### Toggle Colors (Special Behavior)
+
+Toggle buttons use a unified color system:
+
+- **Inactive state** (all variants): Gray `--gray-200` background, `--gray-700` text
+- **Active state**: Uses semantic variant color (primary = green, secondary = pink, etc.)
+- **Icon-only toggles**: Inactive = `--gray-600`, Active = variant color on white background
 
 ## CSS Variables System (3 Layers - Bootstrap 5 Inspired)
 
@@ -189,7 +200,7 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 
 ## Design Tokens Used (Layer 1)
 
-- Colors: `--primary`, `--secondary`, `--neutral`, `--success`, `--info`, `--warning`, `--danger` (base/hover/active/text variants)
+- Colors: `--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`, `--gold`, `--dark`, `--light` (base/hover/active/text variants), `--gray-*` (for neutral variant)
 - Sizing: `--size-2` (gap/padding-v), `--size-4` (padding-h), `--size-9` (height md), `--size-10` (height lg)
 - Typography: `--font-sans`, `--font-weight-400`, `--size-305` (14px small), `--size-4` (16px md), `1.125rem` (18px lg)
 - Border: `--border-size-2` (outline + focus)
