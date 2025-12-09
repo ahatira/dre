@@ -4,6 +4,53 @@
 
 ## 2025
 
+- 2025-12-09: **Icon System - Pseudo-Element Architecture (::before/::after)** – Refonte majeure ✨ BREAKING
+  - **Context**: Migration de `[data-icon]` direct elements vers pseudo-elements pour meilleure séparation sémantique
+  - **Changes**: Architectural shift avec backward-compatible output
+    * Suppression: `source/patterns/elements/icon/icon.css` (modifieurs BEM `.ps-icon--*` plus inutiles)
+    * Renommage: `source/props/icons-generated.css` → `source/props/icons.css` (responsabilité unique)
+    * Modification script: `scripts/build-icons.mjs` génère désormais `[data-icon]::before` et `[data-icon]::after`
+    * Support: Nouvel attribut `data-icon-position="start|end"` (start=::before défaut, end=::after)
+  - **Implementation**:
+    * `icon.twig`: Changé `<i class="ps-icon">` → `<span>` (pseudo-elements gérés par CSS)
+    * `icons.css` (généré): Base `[data-icon]::before`, `[data-icon]::after` (140 règles, 1 par icon)
+    * Pseudo-element properties: `content: ""`, `display: inline-block|none`, `mask-image`, `background-color: currentColor`
+    * Position swap: `[data-icon-position="end"]::before { display: none; }`, `[data-icon-position="end"]::after { display: inline-block; }`
+  - **Consumer Updates**:
+    * `dropdown.css`: `.ps-icon__svg` → `[data-icon]::before` (for chevron rotation state)
+    * `source/patterns/styles.css`: Import `../props/icons.css` (au lieu de icons-generated.css)
+    * `source/props/index.css`: Import `icons.css` (au lieu de icons-generated.css)
+    * `vite.config.js`: Entry point `source/props/icons.css` (au lieu de icons-generated.css)
+  - **Build Pipeline**:
+    * `package.json`: `icons:build` script + post-processing: `node scripts/build-icons.mjs && npx biome format --write icons-registry.json`
+    * Registry JSON: Manual formatting in script (140 names array, 13 categories with proper indentation)
+    * Validation: Linting, formatting, build all pass (✓ Checked 71 files, ✓ built in 3.7s)
+  - **Output**:
+    * Icons CSS: 222.59 KB (minified distribution), 37.36 KB gzip
+    * Registry: 140 icons available, 13 categories (ad, blog, country, generic, metropole, mobile-only, etc.)
+    * Sprite: SVG symbols with viewBox, `fill="currentColor"` for color inheritance
+  - **Backward Compatibility**:
+    * ✅ External consumers: `<span data-icon="check">` still works (pseudo-element invisible, no DOM change)
+    * ✅ Icon positioning: Default `::before` matches old behavior
+    * ✅ Color inheritance: `currentColor` via `background-color` on pseudo-elements (same as before)
+  - **Benefits**:
+    * No extra DOM nodes (pseudo-elements are not in DOM)
+    * Cleaner markup semantics (no hidden `<i>` or `.ps-icon` wrapper needed)
+    * CSS-only rendering (easier to style, animate, override via CSS)
+    * Flexible positioning with data attributes (start/end)
+    * Smaller footprint (removed icon.css BEM modifiers, centralised in icons.css)
+  - **Files Modified/Created**:
+    * MOD: `scripts/build-icons.mjs` (generateIconsCss function, registry JSON formatting)
+    * DEL: `source/patterns/elements/icon/icon.css` (100 lines, BEM modifiers no longer needed)
+    * DEL: `source/props/icons-generated.css` (renamed to icons.css)
+    * NEW: `source/props/icons.css` (331 lines, ::before/::after rules for 140 icons)
+    * MOD: `source/patterns/elements/icon/icon.twig` (removed `.ps-icon` class, simplified)
+    * MOD: `source/patterns/components/dropdown/dropdown.css` (selectors updated for pseudo-elements)
+    * MOD: `source/patterns/styles.css` (import path updated)
+    * MOD: `source/props/index.css` (import path updated)
+    * MOD: `vite.config.js` (build entry point updated)
+    * MOD: `package.json` (icons:build script with biome formatting)
+
 - 2025-12-08: **Icon System - Bootstrap Icons Approach** – Optimisation SVGO et validation automatique + Webfonts ✨
   - **Context**: Adoption des meilleures pratiques de Bootstrap Icons pour optimisation SVG + génération fonts
   - **Phase 1: SVGO Integration**
