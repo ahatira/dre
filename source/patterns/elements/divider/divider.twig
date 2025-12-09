@@ -24,7 +24,7 @@
   orientation == 'vertical' ? 'ps-divider--vertical' : null,
   style == 'dashed' ? 'ps-divider--dashed' : (style == 'dotted' ? 'ps-divider--dotted' : null),
   thickness == 'thin' ? 'ps-divider--thin' : (thickness == 'thick' ? 'ps-divider--thick' : null),
-  color in ['primary','secondary','success','warning','danger','info'] ? 'ps-divider--' ~ color : null,
+  color != 'neutral' ? 'ps-divider--' ~ color : null,
   spacing == 'sm' ? 'ps-divider--spacing-sm' : (spacing == 'lg' ? 'ps-divider--spacing-lg' : null),
   text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null)
 ] -%}

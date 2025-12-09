@@ -3,12 +3,12 @@
 #
 # Props:
 # - orientation: 'horizontal' (default) | 'vertical' - Divider orientation
-# - style: 'solid' (default) | 'dashed' | 'dotted' - Line style
-# - thickness: 'thin' (1px) | 'medium' (2px, default) | 'thick' (4px) - Line thickness
-# - color: 'neutral' (default) | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' - Semantic color
-# - spacing: 'sm' (8px) | 'md' (16px, default) | 'lg' (24px) - Spacing around divider
-# - text: Optional centered text content
-# - icon: Optional centered icon name (without "icon-" prefix)
+# - style: 'solid' (default) | 'dashed' | 'dotted' - Line style (maps to --ps-divider-style)
+# - thickness: 'thin' (--border-size-1) | 'medium' (--border-size-2, default) | 'thick' (--border-size-4) - Token-based thickness
+# - color: 'neutral' (default, --border-default) | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' - Semantic tokens
+# - spacing: 'sm' (--size-2) | 'md' (--size-4, default) | 'lg' (--size-6) - Spacing tokens
+# - text: Optional centered text content (uses --ps-divider-text-* variables)
+# - icon: Optional centered icon name (without "icon-" prefix, rendered with @elements/icon)
 
 orientation: 'horizontal'
 style: 'solid'

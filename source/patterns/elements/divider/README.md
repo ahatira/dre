@@ -145,10 +145,10 @@ Override component variables for specific contexts:
   --ps-divider-thickness: var(--border-size-4);
 }
 
-/* Dark theme override */
+/* Dark theme override (use semantic tokens for inverse styling) */
 [data-theme="dark"] .ps-divider {
-  --ps-divider-color: hsla(0, 0%, 100%, 0.2);
-  --ps-divider-text-color: hsla(0, 0%, 100%, 0.7);
+  --ps-divider-color: var(--light-border-subtle);
+  --ps-divider-text-color: var(--text-inverse);
 }
 ```
 
@@ -346,6 +346,30 @@ Override component variables for specific contexts:
 - **Icon Treatment**: Icons in centered content are marked `aria-hidden="true"` (decorative only)
 - **Screen Readers**: Horizontal `<hr>` elements properly announce content breaks
 
+### Interacting with Dividers
+
+**Standard dividers are NOT interactive** — they have no focus states, click handlers, or keyboard interactions.
+
+However, if you need to make a divider interactive (e.g., a clickable divider that toggles content):
+
+```css
+/* IF you create an interactive divider variant */
+.ps-divider--clickable {
+  cursor: pointer;
+  
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--secondary);
+    outline-offset: var(--border-size-2);
+  }
+}
+```
+
+**Rules for interactive dividers**:
+- ✅ MUST have visible `:focus-visible` indicator (2px solid outline in brand color)
+- ✅ MUST be keyboard accessible (Tab, Enter/Space to activate)
+- ✅ MUST have sufficient color contrast (3:1 minimum)
+- ⚠️ Rare use case—consider semantic alternatives (buttons, links) first
+
 ### Best Practices
 - Don't rely on color alone to convey meaning (use headings/labels)
 - Use dividers to enhance visual hierarchy, not replace semantic structure
@@ -405,13 +429,15 @@ Override component variables for specific contexts:
 - [x] **Supports 3 spacing levels** (sm, md, lg)
 - [x] **Optional centered text/icon content**
 - [x] **Icons use `data-icon` attribute** pattern
-- [x] **Non-interactive** (no focus states)
+- [x] **Non-interactive** (no focus states — documented with exceptions)
 - [x] **Accessible color contrast**
 - [x] **Storybook documentation complete** (`tags: ['autodocs']`, showcases: AllVariants, Vertical, UseCases)
-- [x] **No hardcoded values** in CSS (all values use component variables)
+- [x] **No hardcoded values** in CSS (all values use component variables, NO hardcoded HSLA)
+- [x] **All references to tokens use correct 3-layer naming** (`--ps-divider-*` in CSS, primitives without prefix)
 - [x] **All content in English**
 
 ---
 
-Component Status: ✅ Complete  
-Last Updated: December 3, 2025
+**Audit Status**: ✅ **PASSED** — All conformity issues fixed  
+**Last Audit**: December 9, 2025  
+**Last Updated**: December 3, 2025

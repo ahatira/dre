@@ -1,3 +1,4 @@
+import iconsRegistry from '../../documentation/icons-registry.json';
 import dividerTwig from './divider.twig';
 import data from './divider.yml';
 
@@ -70,11 +71,20 @@ export default {
     },
     icon: {
       control: 'select',
-      options: ['', 'check', 'star', 'arrow-right', 'plus', 'info', 'warning', 'heart'],
+      options: ['', ...iconsRegistry.names],
       description: 'Optional centered icon name (without "icon-" prefix).',
       table: {
         category: 'Content',
         defaultValue: { summary: '""' },
+      },
+    },
+    attributes: {
+      description: 'Additional HTML attributes (ID, data attributes, custom props).',
+      control: { type: 'object' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'object' },
+        defaultValue: { summary: '{}' },
       },
     },
   },
