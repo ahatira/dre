@@ -4,6 +4,28 @@
 
 ## 2025
 
+- 2025-12-09: **Input (ATOM)** – Champ de saisie base avec états de validation ✅
+  - **Context**: ATOM input field (sans label/icon/helper, voir Form-element MOLECULE pour version complète)
+  - **Implementation**:
+    * `input.twig` (49 lignes): 10 params (@param type, value, placeholder, state, disabled, required, name, id, autocomplete, attributes)
+    * `input.css` (105 lignes): 3-layer token system, CSS nesting postcss-nested
+    * `input.yml`: Defaults (autocomplete: "email", id: "input-email" pour accessibilité)
+    * `input.stories.jsx` (211 lignes): 8 mockup states + 4 types + 1 showcase, CSF3 object format
+    * `README.md` (250+ lignes): Documentation complète en anglais
+  - **Styles (Maquette-Aligned)**:
+    * Border-radius: 0 (angles droits, pas de rounded corners)
+    * Disabled: `background: var(--gray-100)` (visible gray, pas opacity)
+    * Focus: `border-width: 2px; border-color: var(--text-primary)` (2px black border WCAG 2.2 AA)
+  - **Validation States**:
+    * `.ps-input--error` (danger tokens)
+    * `.ps-input--success` (success tokens)
+    * `.ps-input--warning` (warning tokens)
+    * `.ps-input--disabled` (gray-100 background)
+  - **Stories**: Default, Placeholder, Focus, Success, Error, Warning, Disabled×2, TypeEmail, TypePassword, TypeNumber, TypeSearch, AllStates
+  - **ArgTypes**: 9 complete (value, placeholder, type, state, disabled, required, name, id, autocomplete) avec descriptions, categories, defaults
+  - **Build**: ✓ 3.15s, 72 files, 0 errors, Storybook indexing success
+  - **Commit**: `e814ca8` - feat(elements): Add Input component with validation states
+
 - 2025-12-09: **Icon System - Pseudo-Element Architecture (::before/::after)** – Refonte majeure ✨ BREAKING
   - **Context**: Migration de `[data-icon]` direct elements vers pseudo-elements pour meilleure séparation sémantique
   - **Changes**: Architectural shift avec backward-compatible output
