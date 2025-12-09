@@ -118,6 +118,11 @@ These will ALWAYS be rejected:
 | **--light** | Gray 100 | Light backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 | **--dark** | Gray 700 | Dark backgrounds | -hover, -active, -text, -border, -subtle, -bg-subtle, -border-subtle, -text-emphasis |
 
+**Note on "neutral" variant:**
+- `neutral` is a **component-level default state**, not a global semantic token
+- Components typically use `var(--gray-500)` or context-appropriate gray for neutral states
+- Each component can define its own neutral appearance based on its design requirements
+
 **Additional semantic tokens**:
 - **Text**: `--text-primary`, `--text-secondary`, `--text-disabled`, `--text-inverse`
 - **Borders**: `--border-default`, `--border-light`, `--border-focus`, `--border-disabled`, `--border-error`, `--border-success`
@@ -129,6 +134,10 @@ These will ALWAYS be rejected:
 .ps-button--primary { background: var(--primary); }
 .ps-alert--success { background: var(--success-subtle); color: var(--success-text-emphasis); }
 .ps-badge--danger { background: var(--danger-bg-subtle); color: var(--danger); }
+
+/* ✅ CORRECT - Component-level neutral (gray) */
+.ps-button--neutral { background: var(--gray-500); color: var(--white); }
+.ps-badge--neutral { background: var(--gray-100); color: var(--gray-700); }
 
 /* ❌ WRONG - Color names or raw palette */
 .ps-button--primary { background: green; }

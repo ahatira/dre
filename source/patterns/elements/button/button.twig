@@ -34,6 +34,7 @@
 {%- set classes = [
   baseClass,
   variant != 'neutral' ? baseClass ~ '--' ~ variant : null,
+  (variant in ['gold', 'dark', 'light']) ? baseClass ~ '--' ~ variant : null,
   size != 'md' ? baseClass ~ '--' ~ size : null,
   outline ? baseClass ~ '--outline' : null,
   (not label) ? baseClass ~ '--icon-only' : null,

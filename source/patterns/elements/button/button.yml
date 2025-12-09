@@ -36,3 +36,5 @@ loading: false
 fullWidth: false
 toggle: false
 active: false
+
+# Available variants: neutral, primary, secondary, success, info, warning, danger, gold, dark, light

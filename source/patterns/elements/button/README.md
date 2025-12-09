@@ -3,6 +3,7 @@
 Interactive action trigger with semantic variants (neutral default, primary, secondary, success, info, warning, danger), multiple sizes (small/medium/large), icon support (left/right/only), disabled/loading states, outline style, and full-width layout.
 
 ## Markup
+
 ```html
 <!-- Default neutral button (gray) -->
 <button class="ps-button">
@@ -12,6 +13,21 @@ Interactive action trigger with semantic variants (neutral default, primary, sec
 <!-- Primary (brand green) -->
 <button class="ps-button ps-button--primary">
   <span class="ps-button__label">Submit</span>
+</button>
+
+<!-- Gold variant -->
+<button class="ps-button ps-button--gold">
+  <span class="ps-button__label">Premium</span>
+</button>
+
+<!-- Dark variant -->
+<button class="ps-button ps-button--dark">
+  <span class="ps-button__label">Dark</span>
+</button>
+
+<!-- Light variant -->
+<button class="ps-button ps-button--light">
+  <span class="ps-button__label">Light</span>
 </button>
 
 <!-- Primary with icon (SVG sprite via Icon component) -->
@@ -59,12 +75,14 @@ The button component now uses the Icon component for icons (Approach A). Icons a
 ```
 
 **Icon names** (without prefix):
+
 - Valid: `search`, `arrow-right`, `close`, `heart`
 - Invalid: `icon-search`, `icon-arrow-right` (prefix is handled internally)
 
 See `@elements/icon` for complete icon documentation.
 
 ## Props
+
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | string (required) | `'Button'` | Button text content. |
@@ -72,7 +90,7 @@ See `@elements/icon` for complete icon documentation.
 | `outline` | boolean | `false` | Outline style (border only). |
 | `size` | enum | `md` | Size scale (xs \| sm \| md \| lg \| xl \| xxl). Heights: 28px, 32px, 36px, 40px, 44px, 48px. |
 | `url` | string | `''` | Link URL (renders `<a>`). |
-| `target` | enum | `_self` | Link target (_self \| _blank). |
+| `target` | enum | `_self` | Link target (\_self or \_blank). |
 | `icon` | string | `''` | Icon name (no "icon-" prefix). Icon size scales with button size. |
 | `iconPosition` | enum | `right` | Icon placement (left \| right). |
 | `disabled` | boolean | `false` | Disabled state. |
@@ -83,6 +101,7 @@ See `@elements/icon` for complete icon documentation.
 | `attributes` | Attribute | — | Additional HTML attributes. |
 
 ## BEM Structure
+
 - Block: `.ps-button`
 - Elements: `.ps-button__label`, `.ps-button__icon`, `.ps-button__spinner`
 - Modifiers (variant): `--neutral` (default), `--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`
@@ -91,6 +110,7 @@ See `@elements/icon` for complete icon documentation.
 - Modifiers (state): `--disabled`, `--loading`, `--full-width`, `--icon-only`
 
 ## Variant Colors
+
 | Variant | Base Token | Hover Token | Active Token |
 |---------|-----------|-------------|--------------|
 | primary | `--primary` | `--primary-hover` | `--primary-active` |
@@ -136,6 +156,7 @@ The button component uses **component-scoped CSS variables** that can be overrid
 ### Customization Examples
 
 **Contextual Theming (Layer 3):**
+
 ```css
 /* Sidebar buttons with different colors */
 .sidebar .ps-button {
@@ -145,11 +166,13 @@ The button component uses **component-scoped CSS variables** that can be overrid
 ```
 
 **Runtime Customization (JavaScript):**
+
 ```javascript
 button.style.setProperty('--ps-button-bg', 'var(--success)');
 ```
 
 **Size Overrides:**
+
 ```css
 .ps-button--small {
   --ps-button-height: 2.12375rem;
@@ -159,11 +182,13 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 ```
 
 **Benefits:**
+
 - **Cascade control**: Variants override variables, not properties directly.
 - **Runtime customization**: JavaScript can modify variables without specificity wars.
 - **Contextual theming**: Parent selectors can adjust button colors/sizes for specific contexts.
 
 ## Design Tokens Used (Layer 1)
+
 - Colors: `--primary`, `--secondary`, `--neutral`, `--success`, `--info`, `--warning`, `--danger` (base/hover/active/text variants)
 - Sizing: `--size-2` (gap/padding-v), `--size-4` (padding-h), `--size-9` (height md), `--size-10` (height lg)
 - Typography: `--font-sans`, `--font-weight-400`, `--size-305` (14px small), `--size-4` (16px md), `1.125rem` (18px lg)
@@ -171,6 +196,7 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 - Transition: `--duration-fast` (0.15s), `--ease-4` (cubic-bezier)
 
 ## Accessibility
+
 - **Button vs Link**: `<button>` by default; `<a>` when url provided (semantic correctness).
 - **Disabled**: `disabled` + `aria-disabled="true"` on button; `pointer-events: none` on link.
 - **Loading**: `aria-busy="true"` announces state to screen readers.
@@ -180,6 +206,7 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 - **Contrast**: All variants meet WCAG AA minimum (verified).
 
 ## Usage Examples
+
 ```twig
 {# Primary action (green) #}
 {{ include('@elements/button/button.twig', { label: 'Submit', variant: 'primary' }) }}
@@ -204,6 +231,7 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 ```
 
 ## Do & Don't
+
 | Do | Don't |
 |----|-------|
 | Use primary for main action (one per section) | Stack multiple primaries together |
@@ -212,11 +240,13 @@ button.style.setProperty('--ps-button-bg', 'var(--success)');
 | Use outline for secondary actions | Mix outline and filled of same variant next to each other |
 
 ## Migration Notes
+
 - Small size height corrected from 33.98px to 34px (simplified token).
 - Transition uses cubic-bezier for smooth animation.
 - Loading state uses spinner overlay with preserved layout (no content shift).
 
 ## Audit Checklist
+
 - No hardcoded colors/sizes (all via tokens).
 - Label prop always present (required).
 - Each variant has hover/active states defined.
@@ -240,6 +270,7 @@ Add `data-ps-toggle="button"` to enable toggle functionality. The button will au
 ```
 
 The `button.js` behavior will:
+
 1. Initialize `aria-pressed="false"` on click
 2. Toggle `.active` class on click
 3. Update `aria-pressed` accordingly
@@ -260,6 +291,7 @@ If you need a button to start in the active state, use `active: true`:
 ```
 
 This will:
+
 - Render `.active` class initially
 - Set `aria-pressed="true"` in markup
 - Behave normally on subsequent clicks

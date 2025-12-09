@@ -48,7 +48,18 @@ export default {
       description:
         'Semantic variant (neutral: gray default, primary: green, secondary: pink, success/info/warning/danger)',
       control: { type: 'select' },
-      options: ['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'],
+      options: [
+        'neutral',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'gold',
+        'dark',
+        'light',
+      ],
       table: {
         category: 'Appearance',
         type: { summary: 'primary | secondary | neutral | success | info | warning | danger' },
