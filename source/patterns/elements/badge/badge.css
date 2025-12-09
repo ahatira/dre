@@ -1,31 +1,60 @@
 /**
- * Badge (Atom) – Compact status / label indicator.
+ * Badge (Atom) – Compact status / label indicator
  *
  * Design tokens ONLY (no hardcoded colors, sizes or durations).
- * Component-scoped variables for runtime customization (Bootstrap 5 pattern).
- * Structure order: Base → Elements → Sizes → Shape → Variants → Interactive states.
+ * 3-Layer CSS Architecture:
+ *   - Layer 1: Global design tokens (brand.css, sizes.css, etc.)
+ *   - Layer 2: Component-scoped variables (defaults, customizable at runtime)
+ *   - Layer 3: Context overrides (variants, modifiers, pseudo-classes)
+ *
+ * Structure: Base → Elements → Shape → Variants → Interactive states
  */
 
+/* ============================================
+   LAYER 2: COMPONENT-SCOPED VARIABLES
+   (Customizable defaults using Layer 1 tokens)
+   ============================================ */
+
 .ps-badge {
-  /* Component-scoped variables (defaults - relative units for scalability) */
-  --ps-badge-bg: var(--primary);
-  --ps-badge-color: var(--white);
+  /* Spacing & Layout (relative em units for scalability with parent font-size) */
   --ps-badge-padding-y: 0.35em;
   --ps-badge-padding-x: 0.65em;
+  --ps-badge-gap: 0.25em;
+  
+  /* Typography (relative em units) */
   --ps-badge-font-size: 0.75em;
   --ps-badge-font-weight: var(--font-weight-700);
-  --ps-badge-radius: var(--radius-2);
-  --ps-badge-icon-size: 1em;
-  --ps-badge-gap: 0.25em;
   --ps-badge-line-height: 1;
-  --ps-badge-transition: var(--duration-fast);
-  --ps-badge-ease: var(--ease-3);
   
-  /* Base layout using component variables */
-  display: inline-flex;
-  align-items: center;
-  gap: var(--ps-badge-gap);
+  /* Colors (Layer 1 tokens - semantic) */
+  --ps-badge-bg: var(--primary);
+  --ps-badge-color: var(--white);
+  
+  /* Shape */
+  --ps-badge-radius: var(--radius-2);
+  
+  /* Icon */
+  --ps-badge-icon-size: 1em;
+  
+  /* Interactive (Layer 1 tokens) */
+  --ps-badge-focus-outline-width: var(--border-size-2);
+  --ps-badge-focus-outline-color: var(--secondary);
+  --ps-badge-focus-outline-offset: var(--size-05);
+  
+  /* Transitions (Layer 1 tokens) */
+  --ps-badge-transition-duration: var(--duration-fast);
+  --ps-badge-transition-timing: var(--ease-3);
+
+  /* ============================================
+     BASE STYLES (apply component variables)
+     ============================================ */
+
+  /* Reset browser defaults */
+  margin: 0;
   padding: var(--ps-badge-padding-y) var(--ps-badge-padding-x);
+  border: 0;
+  background-color: var(--ps-badge-bg);
+  color: var(--ps-badge-color);
   font-family: var(--font-sans);
   font-size: var(--ps-badge-font-size);
   font-weight: var(--ps-badge-font-weight);
@@ -33,32 +62,37 @@
   border-radius: var(--ps-badge-radius);
   text-decoration: none;
   white-space: nowrap;
-  background: var(--ps-badge-bg);
-  color: var(--ps-badge-color);
-  transition: background var(--ps-badge-transition) var(--ps-badge-ease);
 
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ps-badge-gap);
+
+  /* Interactions (only for links) */
+  transition:
+    background-color var(--ps-badge-transition-duration) var(--ps-badge-transition-timing),
+    color var(--ps-badge-transition-duration) var(--ps-badge-transition-timing);
+
+  /* ============================================
+     ELEMENTS
+     ============================================ */
 
   &__text {
     white-space: nowrap;
   }
 
-  &--small {
-    --ps-badge-font-size: 0.65em;
-    --ps-badge-padding-y: 0.25em;
-    --ps-badge-padding-x: 0.5em;
-    --ps-badge-icon-size: 0.875em;
-  }
-
-  &--large {
-    --ps-badge-font-size: 0.875em;
-    --ps-badge-padding-y: 0.5em;
-    --ps-badge-padding-x: 0.85em;
-    --ps-badge-icon-size: 1.125em;
-  }
+  /* ============================================
+     LAYER 3: SHAPE VARIANTS (modifiers)
+     ============================================ */
 
   &--pill {
     --ps-badge-radius: var(--radius-round);
   }
+
+  /* ============================================
+     LAYER 3: COLOR VARIANTS (semantic)
+     Override Layer 2 defaults for specific contexts
+     ============================================ */
 
   &--primary {
     --ps-badge-bg: var(--primary);
@@ -106,13 +140,19 @@
   }
 }
 
+/* ============================================
+   LAYER 3: INTERACTIVE STATES (as link)
+   ============================================ */
+
 a.ps-badge {
+  cursor: pointer;
+
   &:hover {
     filter: brightness(0.95);
   }
 
   &:focus-visible {
-    outline: var(--border-size-2) solid var(--primary);
-    outline-offset: var(--size-05);
+    outline: var(--ps-badge-focus-outline-width) solid var(--ps-badge-focus-outline-color);
+    outline-offset: var(--ps-badge-focus-outline-offset);
   }
 }

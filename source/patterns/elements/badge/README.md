@@ -5,13 +5,11 @@ Compact semantic label / status indicator with bold text and saturated backgroun
 ## Overview
 - **Purpose**: Highlight statuses, categories, counts or meta labels inline.
 - **Variants (color)**: `primary` (default) `secondary` `success` `danger` `warning` `info` `light` `dark` `gold`.
-- **Sizes**: `small` `medium` (default) `large` — scale proportionally with parent element.
 - **Shape**: Base rounded radius, optional `pill` modifier for fully circular ends.
-- **Icon**: Decorative glyph before text; never the sole accessible label (text always required).
+- **Icon**: Decorative glyph before/after text.
 - **Link**: Provide `url` to render `<a>` with focus outline.
-- **Accessibility**: Bold text + saturated backgrounds ensure high contrast; icon is decorative (`aria-hidden` via icon system); focus visible only for interactive links.
-- **Markup principle**: No modifier classes for default values; each modifier works independently.
-- **Relative sizing**: Badge scales with parent font-size using em units (e.g., larger in headings, smaller in body text).
+- **Accessibility**: Bold text + saturated backgrounds ensure high contrast; icon is decorative; focus visible only for interactive links.
+- **Responsive**: Scales proportionally with parent font-size using em units (e.g., larger in headings, smaller in body text).
 
 ## Markup
 ```twig
@@ -19,8 +17,7 @@ Compact semantic label / status indicator with bold text and saturated backgroun
 <span class="ps-badge">New</span>
 
 {# Secondary badge with icon #}
-<span class="ps-badge ps-badge--secondary">
-  <span class="ps-badge__icon" data-icon="check" aria-hidden="true"></span>
+<span class="ps-badge ps-badge--secondary" data-icon="check">
   <span class="ps-badge__text">Verified</span>
 </span>
 
@@ -36,16 +33,16 @@ Compact semantic label / status indicator with bold text and saturated backgroun
 |------|------|---------|-------------|
 | `text` | string (required) | `"Badge"` | Visible label text. |
 | `icon` | string | `''` | Decorative icon name (no `icon-` prefix). |
+| `iconPosition` | enum | `start` | Icon position (`start` = before text, `end` = after text). |
 | `color` | enum | `primary` | Semantic color variant (saturated backgrounds). |
-| `size` | enum | `medium` | Size scale in relative em units (scales with parent font-size). |
 | `pill` | boolean | `false` | Fully rounded pill shape. |
 | `url` | string | `''` | Link URL (renders `<a>`). |
 | `attributes` | Attribute | — | Additional HTML attributes merged onto root element. |
 
 ## BEM Structure
 - Block: `.ps-badge`
-- Elements: `.ps-badge__icon`, `.ps-badge__text`
-- Modifiers: `--small` `--large` `--pill` color variants listed above
+- Elements: `.ps-badge__text`
+- Modifiers: `--pill` and 9 color variants (primary, secondary, success, danger, warning, info, light, dark, gold)
 
 ## Color Variants (Semantic)
 | Variant | Background Token | Text Token | Use Case |

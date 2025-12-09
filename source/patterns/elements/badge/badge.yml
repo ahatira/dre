@@ -16,19 +16,14 @@
 #   * light: light gray - for dark text
 #   * dark: dark gray - for light text
 #   * gold: gold accent - premium/exclusive
-# - size: small | medium | large (default: medium)
-#   * small: 0.65em font, compact padding (scales with parent)
-#   * medium: 0.75em font, standard padding (scales with parent)
-#   * large: 0.875em font, spacious padding (scales with parent)
 # - pill: boolean (default: false) - Fully rounded pill shape
 # - url: string (optional) - Destination URL (transforms into <a> link)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Primary badge, medium size (scales with parent font)
+# Default: Primary badge (scales with parent font)
 text: "Badge"
 color: primary
 pill: false
-size: medium
 icon: ''
 iconPosition: 'start'
 url: ''
