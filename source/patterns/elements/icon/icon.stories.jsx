@@ -9,15 +9,18 @@ export default {
     docs: {
       description: {
         component:
-          'SVG sprite-based icon atom with semantic sizing and color inheritance.\n\n' +
-          'Icons are rendered via `data-icon` attribute, inherit font-size and color from parent, and support positioning modifiers.',
+          'Reusable Twig wrapper (atom component) that renders an `<i>` element with icon rendering.\n\n' +
+          'Icon.twig uses the `data-icon` CSS system to display SVG icons via pseudo-elements (::before/::after). ' +
+          'Icons inherit color from parent via currentColor and scale with parent font-size.\n\n' +
+          '**Note**: Icon.twig renders ONLY the `<i>` element. For icon + text content, apply `data-icon` directly to any HTML element (button, span, etc.) — ' +
+          'see "Data-Icon System" story below.',
       },
     },
   },
   render: (args) => iconTwig(args),
   argTypes: {
     icon: {
-      description: 'Icon name from sprite (no "icon-" prefix)',
+      description: 'Icon name from sprite (no "icon-" prefix, e.g., "check", "arrow-right")',
       control: { type: 'select' },
       options: iconsRegistry.names,
       table: {
@@ -26,7 +29,8 @@ export default {
       },
     },
     position: {
-      description: 'Icon position relative to text',
+      description:
+        'Pseudo-element position: start uses ::before (default), end uses ::after. Controls which pseudo-element renders the icon.',
       control: { type: 'inline-radio' },
       options: ['start', 'end'],
       table: {
@@ -36,7 +40,7 @@ export default {
       },
     },
     ariaLabel: {
-      description: 'ARIA label for icon-only or decorative usage',
+      description: 'ARIA label for icon-only buttons or decorative icon usage',
       control: 'text',
       table: {
         category: 'Accessibility',
@@ -44,7 +48,7 @@ export default {
       },
     },
     ariaHidden: {
-      description: 'Hide from screen readers (for purely decorative icons)',
+      description: 'Hide from screen readers (for purely decorative icons without meaning)',
       control: 'boolean',
       table: {
         category: 'Accessibility',
@@ -59,36 +63,49 @@ export const Default = {
   args: { ...data },
 };
 
-// With positioning
+// Position parameter (controls ::before vs ::after pseudo-element)
 export const WithPositioning = {
   render: () => `
     <div style="display: flex; gap: var(--size-8); flex-direction: column;">
+      <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
+        <p style="margin: 0; color: var(--info); font-size: var(--font-size-1);">
+          💡 The <code>position</code> parameter controls which pseudo-element (::before or ::after) renders the icon. 
+          This is useful when Icon.twig output is combined with text in a layout.
+        </p>
+      </div>
+
       <div style="background: var(--gray-50); padding: var(--size-6); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-        <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Position: start (default)</h4>
+        <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">position="start" (::before, default)</h4>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            ${iconTwig({ icon: 'check', position: 'start' })}<span>Mark as complete</span>
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            ${iconTwig({ icon: 'check', position: 'start' })}
+            <span>Mark as complete</span>
           </div>
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            ${iconTwig({ icon: 'search', position: 'start' })}<span>Search properties</span>
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            ${iconTwig({ icon: 'search', position: 'start' })}
+            <span>Search properties</span>
           </div>
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            ${iconTwig({ icon: 'phone', position: 'start' })}<span>Contact agent</span>
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            ${iconTwig({ icon: 'phone', position: 'start' })}
+            <span>Contact agent</span>
           </div>
         </div>
       </div>
       
       <div style="background: var(--gray-50); padding: var(--size-6); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-        <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Position: end</h4>
+        <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">position="end" (::after)</h4>
         <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            <span>Proceed to next step</span>${iconTwig({ icon: 'arrow-right', position: 'end' })}
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            <span>Proceed to next step</span>
+            ${iconTwig({ icon: 'arrow-right', position: 'end' })}
           </div>
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            <span>View details</span>${iconTwig({ icon: 'chevron-right', position: 'end' })}
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            <span>View details</span>
+            ${iconTwig({ icon: 'chevron-right', position: 'end' })}
           </div>
-          <div style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-            <span>Download brochure</span>${iconTwig({ icon: 'download', position: 'end' })}
+          <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
+            <span>Download brochure</span>
+            ${iconTwig({ icon: 'download', position: 'end' })}
           </div>
         </div>
       </div>
@@ -98,7 +115,8 @@ export const WithPositioning = {
     docs: {
       description: {
         story:
-          'Icons can be positioned at the start (before text) or end (after text) using the `position` parameter.',
+          'The `position` parameter controls which pseudo-element renders the icon: start (::before, default) or end (::after). ' +
+          'This is useful for controlling icon placement when Icon.twig output is combined with other elements in a layout.',
       },
     },
   },
@@ -263,6 +281,127 @@ export const IconOnly = {
       </button>
     </div>
   `,
+};
+
+// Data-icon system: Direct HTML usage (no Icon.twig wrapper)
+export const DataIconSystem = {
+  render: () => `
+    <div style="display: flex; gap: var(--size-8); flex-direction: column;">
+      <div style="background: var(--primary-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--primary);">
+        <p style="margin: 0; color: var(--primary); font-size: var(--font-size-1);">
+          🚀 The <code>data-icon</code> CSS system can be applied directly to ANY HTML element (button, span, link, heading, etc.) 
+          without using Icon.twig. Use <code>data-icon-position="end"</code> for ::after positioning.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--size-5);">
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Button with Icon (end position)</h4>
+          <button style="
+            background: var(--primary);
+            color: white;
+            padding: var(--size-3) var(--size-4);
+            border: none;
+            border-radius: var(--radius-2);
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.15s ease;
+          " data-icon="arrow-right" data-icon-position="end" onmouseenter="this.style.background='var(--primary-hover)'" onmouseleave="this.style.background='var(--primary)'">
+            Proceed to next
+          </button>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="arrow-right" data-icon-position="end"&gt;</code>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Badge with Icon (start position)</h4>
+          <span style="
+            background: var(--success-bg-subtle);
+            color: var(--success);
+            padding: var(--size-2) var(--size-3);
+            border-radius: var(--radius-2);
+            font-weight: 500;
+            display: inline-block;
+          " data-icon="check" data-icon-position="start">
+            Approved
+          </span>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span data-icon="check"&gt;</code>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Link with Icon (end position)</h4>
+          <a href="#" style="
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--size-2);
+            font-weight: 500;
+          " data-icon="external-link" data-icon-position="end">
+            View full listing
+          </a>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;a data-icon="external-link" data-icon-position="end"&gt;</code>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Heading with Icon (start position)</h4>
+          <h2 style="margin: 0; color: var(--text-primary); font-size: var(--font-size-4);" data-icon="star" data-icon-position="start">
+            Featured Properties
+          </h2>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;h2 data-icon="star"&gt;</code>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon-only (icon on button)</h4>
+          <button style="
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: var(--gray-100);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-2);
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: var(--font-size-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          " data-icon="search" aria-label="Search">
+          </button>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="search"&gt;&lt;/button&gt;</code>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon inherits color</h4>
+          <div style="display: flex; gap: var(--size-4); align-items: center;">
+            <span style="color: var(--success);" data-icon="check">Verified</span>
+            <span style="color: var(--warning);" data-icon="alert">Caution</span>
+            <span style="color: var(--danger);" data-icon="close">Error</span>
+          </div>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span style="color: var(--success);" data-icon="check"&gt;</code>
+        </div>
+      </div>
+
+      <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
+        <strong style="color: var(--info); display: block; margin-bottom: var(--size-2);">Key Differences from Icon.twig:</strong>
+        <ul style="margin: 0; padding-left: var(--size-5); color: var(--text-secondary); font-size: var(--font-size-1);">
+          <li><strong>No wrapper needed</strong> — Use <code>data-icon</code> directly on your HTML element</li>
+          <li><strong>Text content supported</strong> — Icon + text automatically spaced via flexbox + gap</li>
+          <li><strong>Color inheritance</strong> — Icon inherits <code>currentColor</code> from parent</li>
+          <li><strong>Position control</strong> — Use <code>data-icon-position="start"</code> (::before, default) or <code>"end"</code> (::after)</li>
+          <li><strong>No Twig required</strong> — Use in any HTML template directly</li>
+        </ul>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `data-icon` CSS system is a low-level primitive that can be applied directly to any HTML element. ' +
+          'No Icon.twig component needed. Use `data-icon-position="end"` to position icon after text (uses ::after pseudo-element).',
+      },
+    },
+  },
 };
 
 // Gallery - All icons organized by category
