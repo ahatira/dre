@@ -6,8 +6,8 @@
  * @param string size - xs|sm|md|lg|xl|xxl (default: md)
  * @param string url - Destination URL (optional)
  * @param string target - _self|_blank (default: _self)
- * @param string icon - Icon name (optional)
- * @param string iconPosition - left|right (default: right)
+ * @param string icon - Icon name (e.g., 'check', 'arrow-right'). Leave empty for no icon. (optional)
+ * @param string iconPosition - start|end (default: start). start = ::before, end = ::after
  * @param boolean disabled - Disabled state (default: false)
  * @param boolean loading - Loading state (default: false)
  * @param boolean fullWidth - Full width (default: false)
@@ -18,7 +18,8 @@
 {%- set variant = variant|default('neutral') -%}
 {%- set outline = outline|default(false) -%}
 {%- set size = size|default('md') -%}
-{%- set iconPosition = iconPosition|default('right') -%}
+{%- set icon = icon|default(null) -%}
+{%- set iconPosition = iconPosition|default('start') -%}
 {%- set target = target|default('_self') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set loading = loading|default(false) -%}
@@ -27,7 +28,6 @@
 {%- set active = active|default(false) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set baseClass = baseClass|default('ps-button') -%}
-{%- set el_icon = baseClass ~ '__icon' -%}
 {%- set el_label = baseClass ~ '__label' -%}
 {%- set el_spinner = baseClass ~ '__spinner' -%}
 
@@ -51,26 +51,14 @@
   {%- if disabled and tag == 'button' %}disabled aria-disabled="true"{% endif -%}
   {%- if loading %}aria-busy="true"{% endif -%}
   {%- if toggle %}data-ps-toggle="button" aria-pressed="{{ active ? 'true' : 'false' }}"{% endif -%}
+  {%- if icon %}data-icon="{{ icon }}"{% endif -%}
+  {%- if icon and iconPosition != 'start' %}data-icon-position="{{ iconPosition }}"{% endif -%}
 >
   {%- if loading -%}
     <span class="{{ el_spinner }}" aria-hidden="true"></span>
   {%- endif -%}
 
-  {%- if icon and iconPosition == 'left' and label -%}
-    {% include '@elements/icon/icon.twig' with {
-      name: icon,
-      attributes: create_attribute().addClass(el_icon)
-    } only %}
-  {%- endif -%}
-
   {%- if label -%}
     <span class="{{ el_label }}">{{- label -}}</span>
-  {%- endif -%}
-
-  {%- if icon and (iconPosition == 'right' or not label) -%}
-    {% include '@elements/icon/icon.twig' with {
-      name: icon,
-      attributes: create_attribute().addClass(el_icon)
-    } only %}
   {%- endif -%}
 </{{ tag }}>

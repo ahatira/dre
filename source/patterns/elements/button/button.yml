@@ -13,8 +13,10 @@
 #   * xxl: 48px height (extra-extra-large)
 # - url: string - Destination URL (transforms to <a> link)
 # - target: _self | _blank (default: _self)
-# - icon: string - Icon name (see @elements/icon)
-# - iconPosition: left | right (default: right)
+# - icon: string - Icon name (e.g., 'check', 'arrow-right'). Leave empty for no icon.
+# - iconPosition: start | end (default: start)
+#   * start: Icon displays before text (::before pseudo-element)
+#   * end: Icon displays after text (::after pseudo-element)
 # - disabled: boolean (default: false)
 # - loading: boolean (default: false)
 # - fullWidth: boolean (default: false)
@@ -27,6 +29,8 @@ label: 'Button'
 variant: 'neutral'
 outline: false
 size: 'md'
+icon: null
+iconPosition: 'start'
 disabled: false
 loading: false
 fullWidth: false

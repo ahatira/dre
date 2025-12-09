@@ -25,7 +25,7 @@ export default {
       },
     },
     icon: {
-      description: 'Icon name to display (optional)',
+      description: 'Icon name from sprite (no "icon-" prefix, e.g., "check", "arrow-right")',
       control: { type: 'select' },
       options: [null, ...iconsRegistry.names],
       table: {
@@ -34,13 +34,13 @@ export default {
       },
     },
     iconPosition: {
-      description: 'Icon position relative to text',
-      control: { type: 'select' },
-      options: ['left', 'right'],
+      description: 'Icon position: start (::before, default) or end (::after)',
+      control: { type: 'inline-radio' },
+      options: ['start', 'end'],
       table: {
-        category: 'Content',
-        type: { summary: 'left | right' },
-        defaultValue: { summary: 'right' },
+        category: 'Appearance',
+        type: { summary: 'start | end' },
+        defaultValue: { summary: 'start' },
       },
     },
     // Appearance
@@ -201,6 +201,11 @@ export const Sizes = {
       ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].map((size) => buttonTwig({ label: size.toUpperCase(), variant: 'primary', size })).join('')}
     </div>
   `,
+};
+
+export const WithIcon = {
+  render: (args) => buttonTwig(args),
+  args: { ...data, label: 'Proceed', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' },
 };
 
 export const WithIcons = {
