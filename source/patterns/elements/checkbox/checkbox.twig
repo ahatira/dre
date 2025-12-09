@@ -1,10 +1,13 @@
 {#
  * Checkbox (Atom)
+ *
+ * Native checkbox input with custom visual styling. Supports checked, unchecked,
+ * indeterminate, and disabled states. Fully accessible with keyboard navigation
+ * and screen reader support.
+ *
  * @param string name - Input name attribute (required)
  * @param string value - Input value attribute (required)
  * @param string label - Checkbox label text (optional)
- * @param string color - Color variant (optional, default: 'primary') - primary|secondary|success|warning|danger|info|dark|light
- * @param string size - Size variant (optional, default: 'md') - xs|sm|md|lg|xl|xxl
  * @param boolean checked - Checked state (default: false)
  * @param boolean indeterminate - Indeterminate state (default: false)
  * @param boolean disabled - Disabled state (default: false)
@@ -15,8 +18,6 @@
 {%- set checked = checked|default(false) -%}
 {%- set indeterminate = indeterminate|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set color = color|default('primary') -%}
-{%- set size = size|default('md') -%}
 {%- set id = id|default('checkbox-' ~ random()) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set has_label = label is defined and label is not empty -%}
@@ -25,9 +26,7 @@
   'ps-checkbox',
   checked ? 'ps-checkbox--checked' : null,
   indeterminate ? 'ps-checkbox--indeterminate' : null,
-  disabled ? 'ps-checkbox--disabled' : null,
-  color != 'primary' ? 'ps-checkbox--' ~ color : null,
-  size != 'md' ? 'ps-checkbox--' ~ size : null
+  disabled ? 'ps-checkbox--disabled' : null
 ] -%}
 
 <label{{ attributes.addClass(checkbox_classes) }}>
@@ -38,7 +37,7 @@
     name="{{ name }}"
     value="{{ value }}"
     {% if checked %}checked{% endif %}
-    {% if indeterminate %}indeterminate{% endif %}
+    {% if indeterminate %}data-indeterminate="true"{% endif %}
     {% if disabled %}disabled aria-disabled="true"{% endif %}
   />
   <span class="ps-checkbox__checkmark" aria-hidden="true"></span>

@@ -57,6 +57,15 @@ carousel:
     - core/once
     - ps_theme/vendors
 
+checkbox:
+  js:
+    dist/js/checkbox.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 collapse:
   js:
     dist/js/collapse.js: {}

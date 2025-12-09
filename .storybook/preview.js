@@ -30,6 +30,7 @@ import '../source/patterns/components/language-selector/language-selector.js';
 
 // Import element behaviors
 import '../source/patterns/elements/button/button.js';
+import '../source/patterns/elements/checkbox/checkbox.js';
 import '../source/patterns/elements/collapse/collapse.js';
 
 // Import collection behaviors

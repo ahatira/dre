@@ -20,37 +20,71 @@ export default {
     text: {
       control: 'text',
       description: 'Badge text label (short, 1–2 words).',
-      table: { category: 'Content', type: { summary: 'string', required: true }, defaultValue: { summary: data.text } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string', required: true },
+        defaultValue: { summary: data.text },
+      },
     },
     color: {
       control: { type: 'select' },
       options: [
-        'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'gold'
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+        'gold',
       ],
       description: 'Semantic color variant.',
-      table: { category: 'Appearance', type: { summary: 'primary | secondary | success | danger | warning | info | light | dark | gold' }, defaultValue: { summary: data.color } },
+      table: {
+        category: 'Appearance',
+        type: {
+          summary: 'primary | secondary | success | danger | warning | info | light | dark | gold',
+        },
+        defaultValue: { summary: data.color },
+      },
     },
     pill: {
       control: 'boolean',
       description: 'Fully rounded pill shape.',
-      table: { category: 'Appearance', type: { summary: 'boolean' }, defaultValue: { summary: data.pill } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: data.pill },
+      },
     },
     icon: {
       control: 'select',
       options: [null, ...iconsList.all],
       description: 'Icon name (without icon- prefix).',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: data.icon || '""' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: data.icon || '""' },
+      },
     },
     iconPosition: {
       control: { type: 'inline-radio' },
       options: ['start', 'end'],
       description: 'Icon position (start or end).',
-      table: { category: 'Appearance', type: { summary: 'start | end' }, defaultValue: { summary: data.iconPosition } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'start | end' },
+        defaultValue: { summary: data.iconPosition },
+      },
     },
     url: {
       control: 'text',
       description: 'Link URL (renders as <a> tag).',
-      table: { category: 'Link', type: { summary: 'string' }, defaultValue: { summary: data.url || '""' } },
+      table: {
+        category: 'Link',
+        type: { summary: 'string' },
+        defaultValue: { summary: data.url || '""' },
+      },
     },
   },
 };

@@ -29,8 +29,6 @@ Native checkbox input with custom visual styling. Fully accessible with keyboard
 | `name` | `string` | ✅ Yes | - | Input name attribute |
 | `value` | `string` | ✅ Yes | - | Input value attribute |
 | `label` | `string` | No | `null` | Checkbox label text |
-| `color` | `string` | No | `primary` | Color variant: primary, secondary, success, warning, danger, info, dark, light |
-| `size` | `string` | No | `md` | Size variant: xs, sm, md, lg, xl, xxl |
 | `checked` | `boolean` | No | `false` | Checked state |
 | `indeterminate` | `boolean` | No | `false` | Indeterminate state (partial selection) |
 | `disabled` | `boolean` | No | `false` | Disabled state |
@@ -47,25 +45,8 @@ Native checkbox input with custom visual styling. Fully accessible with keyboard
 ├── .ps-checkbox__checkmark     /* Element: Custom visual icon using SVG mask */
 └── .ps-checkbox__label         /* Element: Label text */
 
-Color Modifiers (checked state color):
-├── .ps-checkbox--primary       /* Primary color (default) */
-├── .ps-checkbox--secondary     /* Secondary color */
-├── .ps-checkbox--success       /* Success/positive color */
-├── .ps-checkbox--warning       /* Warning/caution color */
-├── .ps-checkbox--danger        /* Danger/error color */
-├── .ps-checkbox--info          /* Info/informational color */
-├── .ps-checkbox--dark          /* Dark text color */
-└── .ps-checkbox--light         /* Light/neutral color */
-
-Size Modifiers (box and label sizing):
-├── .ps-checkbox--xs            /* Extra small (12px box) */
-├── .ps-checkbox--sm            /* Small (16px box) */
-├── .ps-checkbox--md            /* Medium (24px box, default) */
-├── .ps-checkbox--lg            /* Large (28px box) */
-├── .ps-checkbox--xl            /* Extra large (32px box) */
-└── .ps-checkbox--xxl           /* Extra extra large (40px box) */
-
 State Modifiers:
+├── .ps-checkbox--checked       /* Checked state */
 ├── .ps-checkbox--indeterminate /* Indeterminate/partial selection state */
 └── .ps-checkbox--disabled      /* Disabled (non-interactive) state */
 ```
@@ -74,35 +55,6 @@ State Modifiers:
 
 ## Design Tokens
 
-### Size Variants
-
-| Variant | Box Size | Label Font Size | Gap |
-|---------|----------|-----------------|-----|
-| `xs` | var(--size-3) | 12px | 6px |
-| `sm` | var(--size-4) | 14px | 8px |
-| `md` | var(--size-6) | 16px | 8px |
-| `lg` | var(--size-7) | 18px | 10px |
-| `xl` | var(--size-8) | 20px | 12px |
-| `xxl` | var(--size-10) | 22px | 14px |
-
-### Color Variants
-
-All colors follow the project's semantic color system. Default is `primary`. Each color affects:
-- Unchecked and checked state icon colors
-- Hover state icon color (lighter/darker variant)
-- Associated label text color
-
-| Variant | Icon Color | Hover Color | Use Case |
-|---------|------------|-------------|----------|
-| `primary` | var(--primary) | var(--primary-hover) | Default, primary actions |
-| `secondary` | var(--secondary) | var(--secondary-hover) | Alternative/secondary actions |
-| `success` | var(--success) | var(--success-hover) | Positive/approved status |
-| `warning` | var(--warning) | var(--warning-hover) | Caution/pending status |
-| `danger` | var(--danger) | var(--danger-hover) | Error/critical status |
-| `info` | var(--info) | var(--info-hover) | Information/informational |
-| `dark` | var(--gray-700) | var(--gray-800) | Dark backgrounds/dark text |
-| `light` | var(--gray-100) | var(--white) | Light/neutral, white backgrounds |
-
 ### Core Tokens
 
 **Sizing & Spacing:**
@@ -110,25 +62,26 @@ All colors follow the project's semantic color system. Default is `primary`. Eac
 - `--ps-checkbox-gap` - Gap between box and label (default: var(--size-2), 8px)
 
 **Visual & Styling:**
-- `--ps-checkbox-icon-unchecked-mask` - SVG mask for unchecked state (checkbox-unchecked.svg)
-- `--ps-checkbox-icon-checked-mask` - SVG mask for checked state (checkbox-checked.svg)
-- `--ps-checkbox-border-radius` - Border radius (default: 0, square corners per spec)
+- `--ps-checkbox-icon-unchecked-mask` - SVG mask for unchecked state
+- `--ps-checkbox-icon-checked-mask` - SVG mask for checked state
+- `--ps-checkbox-icon-indeterminate-mask` - SVG mask for indeterminate state
+- `--ps-checkbox-border-radius` - Border radius (default: 0, square corners)
 
 **Colors:**
-- `--ps-checkbox-checkmark-color-unchecked` - Unchecked icon color (default: var(--gray-700))
+- `--ps-checkbox-checkmark-color-default` - Unchecked icon color (default: var(--gray-700))
 - `--ps-checkbox-checkmark-color-checked` - Checked icon color (default: var(--primary))
-- `--ps-checkbox-hover-checkmark-color` - Hover icon color (derived from checked color's hover variant)
+- `--ps-checkbox-hover-checkmark-color` - Hover icon color (default: var(--primary-hover))
 - `--ps-checkbox-disabled-opacity` - Disabled state opacity (default: 0.5)
 
 **Typography:**
-- `--ps-checkbox-label-font-size` - Label font size (size-variant dependent)
-- `--ps-checkbox-label-color-unchecked` - Unchecked label text color (default: var(--gray-700))
-- `--ps-checkbox-label-color-checked` - Checked label text color (matches icon color)
+- `--ps-checkbox-label-font-size` - Label font size (default: var(--font-size-2))
+- `--ps-checkbox-label-color` - Unchecked label text color (default: var(--gray-700))
+- `--ps-checkbox-label-color-checked` - Checked label text color (default: var(--primary))
+- `--ps-checkbox-label-color-hover` - Hover label text color
 
 **Animation:**
-- `--ps-checkbox-transition-duration` - Transition duration for color/mask changes
-- `--ps-checkbox-transition-timing` - Transition easing function
-- `--ps-checkbox-transition-delay` - Optional transition delay
+- `--ps-checkbox-transition-duration` - Transition duration (default: var(--duration-fast))
+- `--ps-checkbox-transition-timing` - Transition easing (default: var(--ease-3))
 
 ---
 
@@ -143,7 +96,7 @@ All colors follow the project's semantic color system. Default is `primary`. Eac
 ### Screen Readers
 
 - Native checkbox semantics preserved
-- Label properly associated with input via `for` attribute
+- Label properly associated with input via `<label>` element
 - Disabled state announced via `aria-disabled="true"`
 - Custom visual box hidden from screen readers with `aria-hidden="true"`
 
@@ -229,88 +182,6 @@ All colors follow the project's semantic color system. Default is `primary`. Eac
 </fieldset>
 ```
 
-### Color Variants
-
-```twig
-{# Primary (default) #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'status',
-  value: 'active',
-  label: 'Active',
-  color: 'primary',
-  checked: true
-} only %}
-
-{# Success variant #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'features',
-  value: 'parking',
-  label: 'Parking available',
-  color: 'success',
-  checked: true
-} only %}
-
-{# Warning variant #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'status',
-  value: 'pending',
-  label: 'Pending approval',
-  color: 'warning'
-} only %}
-
-{# Danger variant #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'features',
-  value: 'restrictions',
-  label: 'Property has restrictions',
-  color: 'danger'
-} only %}
-```
-
-### Size Variants
-
-```twig
-{# Extra small #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'compact',
-  value: 'yes',
-  label: 'Compact view',
-  size: 'xs'
-} only %}
-
-{# Small #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'sidebar',
-  value: 'filter',
-  label: 'Filter options',
-  size: 'sm'
-} only %}
-
-{# Medium (default) #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'form',
-  value: 'agreed',
-  label: 'I agree',
-  size: 'md'
-} only %}
-
-{# Large #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'featured',
-  value: 'highlight',
-  label: 'Featured listing',
-  size: 'lg'
-} only %}
-
-{# Extra large #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'important',
-  value: 'confirm',
-  label: 'Important confirmation',
-  size: 'xl'
-} only %}
-```
-
 ### Indeterminate State (Parent Selector)
 
 ```twig
@@ -337,28 +208,6 @@ All colors follow the project's semantic color system. Default is `primary`. Eac
 } only %}
 ```
 
-### Combined Color + Size
-
-```twig
-{# Warning color with large size #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'alert',
-  value: 'pending-review',
-  label: 'Requires attention',
-  color: 'warning',
-  size: 'lg'
-} only %}
-
-{# Success color with small size in sidebar #}
-{% include '@elements/checkbox/checkbox.twig' with {
-  name: 'filters',
-  value: 'verified',
-  label: 'Verified only',
-  color: 'success',
-  size: 'sm'
-} only %}
-```
-
 ---
 
 ## CSS Variables (Customization)
@@ -368,11 +217,11 @@ Override these CSS variables for custom styling:
 ```css
 .ps-checkbox {
   /* Override default sizing */
-  --ps-checkbox-size: 28px; /* Larger than md (24px) */
+  --ps-checkbox-size: 28px; /* Larger than default (24px) */
   --ps-checkbox-gap: 12px; /* More spacing between box and label */
   
   /* Override default colors */
-  --ps-checkbox-checkmark-color-unchecked: var(--gray-600); /* Darker unchecked icon */
+  --ps-checkbox-checkmark-color-default: var(--gray-600); /* Darker unchecked icon */
   --ps-checkbox-checkmark-color-checked: var(--secondary); /* Use secondary instead of primary */
   
   /* Override animation timing */
@@ -380,13 +229,53 @@ Override these CSS variables for custom styling:
 }
 ```
 
-All component-scoped variables can be overridden at the `.ps-checkbox` level or via the BEM modifiers (`--primary`, `--success`, etc.).
+All component-scoped variables can be overridden at the `.ps-checkbox` level.
+
+---
+
+## JavaScript Behavior
+
+### Indeterminate State
+
+The indeterminate state **cannot be set via HTML attribute** - it requires JavaScript. The component includes a Drupal behavior (`psCheckbox`) that automatically applies the indeterminate state to checkboxes with `data-indeterminate="true"`.
+
+**How it works:**
+
+1. When you set `indeterminate: true` in Twig, it adds `data-indeterminate="true"` attribute
+2. The JavaScript behavior (`checkbox.js`) detects this attribute on page load
+3. It sets `element.indeterminate = true` via JavaScript API
+4. The CSS detects the `:indeterminate` pseudo-class and applies the indeterminate icon
+
+**User interaction:**
+- When a user clicks an indeterminate checkbox, it becomes checked (or unchecked)
+- The indeterminate state is automatically removed on user interaction
+- This follows the standard UX pattern for tri-state checkboxes
+
+**Manual control (JavaScript):**
+```javascript
+// Set indeterminate state manually
+const checkbox = document.querySelector('#my-checkbox');
+checkbox.indeterminate = true;
+
+// Check if indeterminate
+if (checkbox.indeterminate) {
+  console.log('Checkbox is indeterminate');
+}
+
+// Clear indeterminate state
+checkbox.indeterminate = false;
+```
+
+**AJAX/Dynamic content:**
+The behavior uses Drupal's `once()` API, so it works automatically with AJAX-loaded content.
 
 ---
 
 ## Component Dependencies
 
-**None** - This is a standalone atom component.
+**JavaScript**: Requires `checkbox.js` (automatically included via Drupal libraries)  
+**Drupal**: Uses `Drupal.behaviors` and `once()` API  
+**Icons**: Uses SVG masks from icon system (`checkbox-unchecked.svg`, `checkbox-checked.svg`, `checkbox-indeterminate.svg`)
 
 ---
 
@@ -419,25 +308,37 @@ Example use cases:
 
 ---
 
-## Notes
+## Design Rationale
 
-- Native `<input type="checkbox">` preserved for full accessibility
-- Visual styling applied through `.ps-checkbox__checkmark` element using SVG mask-image technique
-- SVG icons loaded via `postcss-inline-svg` plugin for dynamic color control
-- Icon color follows checkbox state via CSS `currentColor` and pseudo-class selectors
-- Icon and label color transitions are synchronized for smooth visual feedback
-- No JavaScript required for basic functionality
-- Fully compatible with Drupal Forms API
-- Works with or without label text
-- Label automatically wraps for long text content
-- Support for indeterminate state useful in hierarchical selection patterns (parent/child checkboxes)
-- All color and size variants can be combined (e.g., `color: 'warning'` + `size: 'lg'`)
+### Why No Color Variants?
+
+A checkbox is a **binary input control** (checked/unchecked), not a status indicator. Color variants (success, danger, warning) imply semantic meaning that should belong to the containing **form element** or **status message**, not the checkbox itself.
+
+**Correct pattern**: Use a status message or form-field wrapper to communicate semantic state:
+
+```twig
+{# ✅ CORRECT - Status via form-field wrapper, not checkbox color #}
+{% include '@components/form-field/form-field.twig' with {
+  status: 'success',
+  label: 'Property verified',
+  input: checkboxTwig(...)
+} only %}
+
+{# ❌ WRONG - Semantic color on checkbox itself #}
+{% include '@elements/checkbox/checkbox.twig' with {
+  label: 'Property verified',
+  color: 'success'  # Not supported
+} only %}
+```
+
+### Why Single Size?
+
+A checkbox requires a **minimum touch target of 24px** for accessibility (WCAG 2.1 guideline). Smaller sizes (12-16px) become difficult for users with tremors or motor impairments. Larger sizes (28-40px) create disproportionate visual weight in typical forms.
+
+The single **24px default size** balances accessibility (sufficient touch target) with visual harmony (standard form layouts).
 
 ---
 
 ## Version History
 
-- **1.2.0** (2025-12-07): Add color and size variants, indeterminate state support, synchronized animations
-- **1.1.0** (2025-12-07): Implement SVG mask-based icon styling with postcss-inline-svg
-- **1.0.0** (2025-12-07): Initial stable release
-
+- **1.0.0** (2025-12-09): Initial stable release with checked/unchecked/indeterminate/disabled states, SVG mask-based icon styling

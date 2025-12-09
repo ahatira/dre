@@ -1,5 +1,5 @@
 {
-  "generated": "2025-12-09T17:06:35.270Z",
+  "generated": "2025-12-09T20:13:24.861Z",
   "total": 141,
   "names": [
     "accessibility",
@@ -29,8 +29,8 @@
     "changing-room",
     "chart",
     "check",
-    "checkbox-check",
     "checkbox-checked",
+    "checkbox-indeterminate",
     "checkbox-unchecked",
     "chevron-down",
     "chevron-left",
@@ -208,8 +208,8 @@
       "bin",
       "calendar",
       "check",
-      "checkbox-check",
       "checkbox-checked",
+      "checkbox-indeterminate",
       "checkbox-unchecked",
       "chevron-down",
       "chevron-left",
