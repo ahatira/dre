@@ -45,6 +45,7 @@ function stripSVGFillStroke(svgContent) {
  * Supports data-icon-position attribute: 'start' (::before) or 'end' (::after)
  * Default is 'start' (renders ::before pseudo-element)
  * Uses mask-image with inline data URIs for currentColor support
+ * Automatically adds spacing between icon and text content
  * Input: Array of { name, viewBox, body } objects
  * Output: CSS content string
  */
@@ -58,13 +59,21 @@ function generateIconsCss(icons) {
     ' * This file contains all [data-icon] pseudo-element (::before, ::after) CSS rules.',
     ' * Icons use mask-image with inline SVG data URIs for currentColor support.',
     ' * Position control: Use data-icon-position="start" (::before, default) or "end" (::after)',
+    ' * Spacing: Automatic margin added between icon and text content based on position',
     ' * To add icons: Drop SVG in source/icons-source/, run: npm run build',
     ' */',
     '',
     '/* Base styling for [data-icon] pseudo-elements */',
+    '[data-icon] {',
+    '  display: inline-flex;',
+    '  align-items: center;',
+    '  gap: var(--ps-icon-gap, 0.375em);',
+    '}',
+    '',
     '[data-icon]::before,',
     '[data-icon]::after {',
     '  content: "";',
+    '  flex-shrink: 0;',
     '  display: inline-block;',
     '  width: 1em;',
     '  height: 1em;',
@@ -97,6 +106,18 @@ function generateIconsCss(icons) {
     '',
     '[data-icon-position="end"]::after {',
     '  display: inline-block;',
+    '}',
+    '',
+    '/* Icon-only (no text content): remove gap and flex layout */',
+    '[data-icon]:not(:has(::after + *)):not(:has(* + ::before)) {',
+    '  display: inline-block;',
+    '  gap: 0;',
+    '}',
+    '',
+    '/* Fallback for browsers without :has() - use explicit class or inline-block for icon-only */',
+    '[data-icon][data-icon-only] {',
+    '  display: inline-block;',
+    '  gap: 0;',
     '}',
     '',
     `/* Icon mappings (auto-generated - ${icons.length} icons) */`,

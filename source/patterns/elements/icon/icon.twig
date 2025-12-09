@@ -2,12 +2,20 @@
  * Icon (Element/Atom)
  * SVG sprite system with pseudo-element (::before/::after) rendering.
  * Position attribute controls which pseudo-element renders the icon.
+ * Supports optional text content with automatic spacing.
  *
  * @param string icon - Icon name from sprite (required)
  * @param string position - Icon position: start (::before, default) | end (::after)
  * @param string ariaLabel - ARIA label for accessibility (optional)
  * @param boolean ariaHidden - Hide from screen readers (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
+ * @slot text - Optional text content to display with icon
+ *
+ * Example:
+ * {% include '@elements/icon/icon.twig' with {
+ *   icon: 'arrow-right',
+ *   position: 'end'
+ * %}Proceed to next step{% endinclude %}
  #}
 
 {% set position = position|default('start') %}
@@ -19,4 +27,4 @@
   {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
   {% if ariaHidden %}aria-hidden="true"{% endif %}
   {% if attributes %}{{ attributes }}{% endif %}
-></span>
+>{{ caller() }}</span>
