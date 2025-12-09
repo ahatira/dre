@@ -1,6 +1,6 @@
 {
-  "generated": "2025-12-09T14:07:19.268Z",
-  "total": 140,
+  "generated": "2025-12-09T14:46:24.710Z",
+  "total": 141,
   "names": [
     "accessibility",
     "account",
@@ -56,6 +56,7 @@
     "euro",
     "events",
     "exit",
+    "external-link",
     "eye",
     "eye-closed",
     "facebook",
@@ -213,6 +214,7 @@
       "download",
       "edit",
       "exit",
+      "external-link",
       "eye",
       "eye-closed",
       "help",
