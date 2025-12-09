@@ -1,9 +1,10 @@
 {#
  * Icon (Element/Atom)
- * SVG sprite system with semantic sizing and colors.
+ * SVG sprite system with pseudo-element (::before/::after) rendering.
+ * Position attribute controls which pseudo-element renders the icon.
  *
  * @param string icon - Icon name from sprite (required)
- * @param string position - Icon position: start (default) | end
+ * @param string position - Icon position: start (::before, default) | end (::after)
  * @param string ariaLabel - ARIA label for accessibility (optional)
  * @param boolean ariaHidden - Hide from screen readers (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
@@ -12,10 +13,10 @@
 {% set position = position|default('start') %}
 {% set ariaHidden = ariaHidden|default(false) %}
 
-<i class="ps-icon"
+<span
   data-icon="{{ icon }}"
   {% if position != 'start' %}data-icon-position="{{ position }}"{% endif %}
   {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
   {% if ariaHidden %}aria-hidden="true"{% endif %}
   {% if attributes %}{{ attributes }}{% endif %}
-></i>
+></span>

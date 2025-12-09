@@ -1,4 +1,4 @@
-@import-glob '../props/icons-generated.css';
+@import-glob '../props/icons.css';
 @import-glob 'base/global.css';
 @import-glob 'base/utilities.css';
 @import-glob 'elements/**/*.css';

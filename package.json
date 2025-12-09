@@ -18,7 +18,7 @@
     "storybook:test": "test-storybook",
     "generate:pattern": "node scripts/generate-pattern.mjs",
     "tokens:check": "node scripts/check-tokens.mjs",
-    "icons:build": "node scripts/build-icons.mjs",
+    "icons:build": "node scripts/build-icons.mjs && npx biome format --write source/patterns/documentation/icons-registry.json",
     "icons:watch": "node scripts/build-icons.mjs --watch",
     "build": "npm run lint:check && npm run format:check && npm run icons:build && node scripts/sync-libraries.mjs && npm run vite:build",
     "watch": "concurrently -k -n vite,storybook,libs,icons -c green,blue,magenta,cyan \"npm:vite:watch\" \"npm:storybook:dev\" \"npm:sync:libraries:watch\" \"npm:icons:watch\"",

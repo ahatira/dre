@@ -110,7 +110,7 @@
     opacity: var(--ps-dropdown-disabled-opacity);
   }
 
-  &[aria-expanded="true"] .ps-dropdown__icon .ps-icon__svg {
+  &[aria-expanded="true"] .ps-dropdown__icon [data-icon]::before {
     transform: rotate(180deg);
   }
 }
@@ -132,7 +132,7 @@
   --ps-icon-size: var(--ps-dropdown-icon-size);
 }
 
-.ps-dropdown__icon .ps-icon__svg {
+.ps-dropdown__icon [data-icon]::before {
   transition: transform var(--ps-dropdown-transition-duration) var(--ps-dropdown-transition-timing);
 }
 

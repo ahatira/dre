@@ -23,7 +23,9 @@ export default defineConfig({
     yml(),
   ],
   build: {
-    emptyOutDir: true,
+    // In watch mode on Windows, clearing dist can fail due to locked assets (flags).
+    // Keep dist contents to avoid ENOTEMPTY during vite build --watch.
+    emptyOutDir: false,
     outDir: 'dist',
     rollupOptions: {
       // Auto-managed entries: one CSS bundle + one JS entry per behavior file
@@ -31,6 +33,7 @@ export default defineConfig({
       input: (() => {
         const entries = {
           styles: path.resolve(__dirname, 'source/patterns/styles.css'),
+          icons: path.resolve(__dirname, 'source/props/icons.css'),
         };
         const files = glob.sync('source/patterns/**/*.js', { nodir: true });
         for (const file of files) {
