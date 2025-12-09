@@ -76,13 +76,16 @@ export const WithPositioning = {
 
       <div style="background: var(--gray-50); padding: var(--size-6); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
         <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">position="start" (::before, default) — Icon BEFORE text</h4>
-        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        <p style="margin: 0 0 var(--size-3); color: var(--text-secondary); font-size: var(--font-size-1);">
+          Using Icon.twig component:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3); margin-bottom: var(--size-4);">
           <div>
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);">
               ${iconTwig({ icon: 'check', position: 'start' })}
               <span>Mark as complete</span>
             </div>
-            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;i data-icon="check" data-icon-position="start"&gt; + text</code>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">{% include '@elements/icon/icon.twig' with { icon: 'check', position: 'start' } %}</code>
           </div>
           <div>
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);">
@@ -99,17 +102,44 @@ export const WithPositioning = {
             <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">Uses ::before pseudo-element</code>
           </div>
         </div>
+
+        <p style="margin: 0 0 var(--size-3); color: var(--text-secondary); font-size: var(--font-size-1);">
+          Or using data-icon directly on HTML (no Icon.twig wrapper):
+        </p>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+          <div>
+            <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="check" data-icon-position="start">
+              <span>Mark as complete</span>
+            </div>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;div data-icon="check" data-icon-position="start"&gt;&lt;span&gt;Mark as complete&lt;/span&gt;&lt;/div&gt;</code>
+          </div>
+          <div>
+            <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="search" data-icon-position="start">
+              <span>Search properties</span>
+            </span>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;span data-icon="search"&gt;Search properties&lt;/span&gt;</code>
+          </div>
+          <div>
+            <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="phone">
+              <span>Contact agent</span>
+            </span>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;span data-icon="phone"&gt;Contact agent&lt;/span&gt;</code>
+          </div>
+        </div>
       </div>
       
       <div style="background: var(--gray-50); padding: var(--size-6); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
         <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">position="end" (::after) — Icon AFTER text</h4>
-        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+        <p style="margin: 0 0 var(--size-3); color: var(--text-secondary); font-size: var(--font-size-1);">
+          Using Icon.twig component:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3); margin-bottom: var(--size-4);">
           <div>
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);">
               <span>Proceed to next step</span>
               ${iconTwig({ icon: 'arrow-right', position: 'end' })}
             </div>
-            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;i data-icon="arrow-right" data-icon-position="end"&gt;</code>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">{% include '@elements/icon/icon.twig' with { icon: 'arrow-right', position: 'end' } %}</code>
           </div>
           <div>
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);">
@@ -124,6 +154,30 @@ export const WithPositioning = {
               ${iconTwig({ icon: 'download', position: 'end' })}
             </div>
             <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">Uses ::after pseudo-element</code>
+          </div>
+        </div>
+
+        <p style="margin: 0 0 var(--size-3); color: var(--text-secondary); font-size: var(--font-size-1);">
+          Or using data-icon directly on HTML:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+          <div>
+            <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="arrow-right" data-icon-position="end">
+              <span>Proceed to next step</span>
+            </div>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;div data-icon="arrow-right" data-icon-position="end"&gt;&lt;span&gt;Proceed to next step&lt;/span&gt;&lt;/div&gt;</code>
+          </div>
+          <div>
+            <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="chevron-right" data-icon-position="end">
+              <span>View details</span>
+            </span>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;span data-icon="chevron-right" data-icon-position="end"&gt;View details&lt;/span&gt;</code>
+          </div>
+          <div>
+            <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2); margin-bottom: var(--size-2);" data-icon="download" data-icon-position="end">
+              <span>Download brochure</span>
+            </span>
+            <code style="font-size: var(--font-size-0); color: var(--text-secondary); margin-left: var(--size-3);">&lt;span data-icon="download" data-icon-position="end"&gt;Download brochure&lt;/span&gt;</code>
           </div>
         </div>
       </div>
