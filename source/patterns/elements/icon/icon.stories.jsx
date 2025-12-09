@@ -9,8 +9,8 @@ export default {
     docs: {
       description: {
         component:
-          'Reusable Twig wrapper (atom component) that renders an `<i>` element with icon rendering.\n\n' +
-          'Icon.twig uses the `data-icon` CSS system to display SVG icons via pseudo-elements (::before/::after). ' +
+          'Semantic wrapper (atom component) that renders an `<i>` element with icon rendering via data-icon CSS system.\n\n' +
+          'Icon.twig uses the `data-icon` CSS system (source/props/icons.css) to display SVG icons via pseudo-elements (::before). ' +
           'Icons inherit color from parent via currentColor and scale with parent font-size.\n\n' +
           '**Note**: Icon.twig renders ONLY the `<i>` element. For icon + text content, apply `data-icon` directly to any HTML element (button, span, etc.) — ' +
           'see "Data-Icon System" story below.',
@@ -28,19 +28,8 @@ export default {
         type: { summary: 'string', required: true },
       },
     },
-    position: {
-      description:
-        'Pseudo-element position: start uses ::before (default), end uses ::after. Controls which pseudo-element renders the icon.',
-      control: { type: 'inline-radio' },
-      options: ['start', 'end'],
-      table: {
-        category: 'Appearance',
-        type: { summary: 'start | end' },
-        defaultValue: { summary: 'start' },
-      },
-    },
     ariaLabel: {
-      description: 'ARIA label for icon-only buttons or decorative icon usage',
+      description: 'ARIA label for icon-only buttons or semantic icon usage',
       control: 'text',
       table: {
         category: 'Accessibility',
@@ -48,11 +37,11 @@ export default {
       },
     },
     ariaHidden: {
-      description: 'Hide from screen readers (for purely decorative icons without meaning)',
+      description: 'Hide from screen readers (true for decorative icons, false for semantic icons)',
       control: 'boolean',
       table: {
         category: 'Accessibility',
-        defaultValue: { summary: false },
+        defaultValue: { summary: true },
       },
     },
   },
@@ -63,13 +52,14 @@ export const Default = {
   args: { ...data },
 };
 
-// Position parameter (controls ::before vs ::after pseudo-element)
-export const WithPositioning = {
+// Position parameter demo (data-icon-position for end positioning)
+export const Positioning = {
   render: () => `
     <div style="display: flex; gap: var(--size-8); flex-direction: column;">
       <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
         <p style="margin: 0; color: var(--info); font-size: var(--font-size-1);">
-          💡 The <code>position</code> parameter controls which pseudo-element (::before or ::after) renders the icon.
+          💡 Icon positioning (start/end) is controlled by <code>data-icon-position</code> attribute on the element with text content.
+          Icon.twig (standalone <code>&lt;i&gt;</code>) doesn't support positioning — use data-icon directly on your element for that.
         </p>
       </div>
 
@@ -78,28 +68,24 @@ export const WithPositioning = {
           <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon.twig (component)</h4>
           <div style="display: flex; flex-direction: column; gap: var(--size-2); margin-bottom: var(--size-4);">
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-              ${iconTwig({ icon: 'check', position: 'start' })}
-              <span>Mark complete</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
-              <span>Next step</span>
-              ${iconTwig({ icon: 'arrow-right', position: 'end' })}
+              ${iconTwig({ icon: 'check' })}
+              <span>Icon-only (no positioning)</span>
             </div>
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">{% include '@elements/icon/icon.twig' with { icon: 'check', position: 'start' } %}</code>
+          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">{% include '@elements/icon/icon.twig' with { icon: 'check' } %}</code>
         </div>
 
         <div>
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">data-icon (direct on HTML)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">data-icon (with text + positioning)</h4>
           <div style="display: flex; flex-direction: column; gap: var(--size-2); margin-bottom: var(--size-4);">
             <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);" data-icon="check" data-icon-position="start">
-              <span>Mark complete</span>
+              Icon at start
             </span>
             <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);" data-icon="arrow-right" data-icon-position="end">
-              <span>Next step</span>
+              Icon at end
             </span>
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">&lt;span data-icon="check"&gt;Mark complete&lt;/span&gt;</code>
+          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">&lt;span data-icon="check" data-icon-position="start"&gt;...</code>
         </div>
       </div>
     </div>
@@ -108,7 +94,7 @@ export const WithPositioning = {
     docs: {
       description: {
         story:
-          'Compare Icon.twig component vs data-icon system. Both support position parameter: start (::before, default) or end (::after).',
+          'Icon positioning (start/end) is controlled via data-icon-position attribute. Icon.twig renders standalone icons without text, use data-icon directly for icon + text combinations.',
       },
     },
   },

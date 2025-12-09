@@ -1,30 +1,29 @@
 {#
  * Icon (Element/Atom)
- * SVG sprite system with pseudo-element (::before/::after) rendering.
- * Position attribute controls which pseudo-element renders the icon.
+ * Semantic wrapper for SVG sprite icons rendered via pseudo-elements.
  *
- * @param string icon - Icon name from sprite (required)
- * @param string position - Icon position: start (::before, default) | end (::after)
+ * @param string icon - Icon name from sprite (required, e.g., 'check', 'arrow-right')
  * @param string ariaLabel - ARIA label for accessibility (optional)
- * @param boolean ariaHidden - Hide from screen readers (optional, default: false)
+ * @param boolean ariaHidden - Hide from screen readers (optional, default: true)
  * @param object attributes - Additional HTML attributes (optional)
  *
  * Example:
- * {% include '@elements/icon/icon.twig' with {
- *   icon: 'arrow-right',
- *   position: 'end'
- * } %}
+ * {% include '@elements/icon/icon.twig' with { icon: 'check' } %}
  *
  * NOTE: Icon.twig renders <i> element ONLY. For icon + text, use data-icon directly on HTML element.
+ * Example: <button data-icon="arrow-right" data-icon-position="end">Next</button>
  #}
 
-{% set position = position|default('start') %}
-{% set ariaHidden = ariaHidden|default(false) %}
+{% set ariaHidden = ariaHidden|default(true) %}
+{% set attributes = attributes|default(create_attribute()) %}
 
-<i class="ps-icon"
+{%- set classes = [
+  'ps-icon'
+] -%}
+
+<i {{ attributes.addClass(classes) }}
   data-icon="{{ icon }}"
-  {% if position != 'start' %}data-icon-position="{{ position }}"{% endif %}
   {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
   {% if ariaHidden %}aria-hidden="true"{% endif %}
-  {% if attributes %}{{ attributes }}{% endif %}
 ></i>
+

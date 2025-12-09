@@ -1,14 +1,12 @@
 # Icon (Element/Atom) - Default data
-# SVG sprite system for responsive, accessible icons
+# Semantic wrapper for SVG sprite icons
 
 # Default icon
 icon: 'check'
 
-# Position options: start | end
-# position: start
-
-# ARIA label (for icon-only or decorative cases)
+# ARIA label (for icon-only with semantic meaning)
 # ariaLabel: 'Success'
 
-# Hide from screen readers (for decorative icons)
-# ariaHidden: false
+# Hide from screen readers (true for decorative icons)
+ariaHidden: true
+
