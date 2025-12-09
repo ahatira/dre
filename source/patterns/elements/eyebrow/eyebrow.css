@@ -2,11 +2,17 @@
  * Eyebrow (Atom) - Contextual label above main heading
  *
  * BEM: ps-eyebrow, ps-eyebrow__icon, ps-eyebrow__text, ps-eyebrow__line, ps-eyebrow__dot
- * Variants: primary | secondary | info | neutral | muted
+ * Variants: primary | secondary | accent | neutral | muted
  * Modifiers: --uppercase, --bold, --with-line, --with-dot
  * Sizes: small, medium (default)
  * 
  * Component-scoped variables pattern (Bootstrap 5 inspired)
+ * Token mapping:
+ *   - primary: --primary (green #00915A)
+ *   - secondary: --secondary (magenta #A12B66)
+ *   - accent: --gold (gold #D1AE6E - premium/featured)
+ *   - neutral: --text-secondary (default, gray-500)
+ *   - muted: --text-disabled (subtle gray)
  */
 
 .ps-eyebrow {
@@ -120,8 +126,8 @@
     --ps-eyebrow-color: var(--secondary);
   }
 
-  &--info {
-    --ps-eyebrow-color: var(--info);
+  &--accent {
+    --ps-eyebrow-color: var(--gold);
   }
 
   &--muted {

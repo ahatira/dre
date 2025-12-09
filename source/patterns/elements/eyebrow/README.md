@@ -1,13 +1,13 @@
 # Eyebrow Component
 
-A contextual label or kicker placed above a heading to provide category or context. Typically short, uppercase text in a semantic color.
+A contextual label or kicker placed above a heading to provide category or context. Typically short, uppercase text in a semantic color. Used for categorizing content, highlighting updates, or providing metadata (dates, tags) in real estate applications.
 
 ## Component Props
 
 | Prop | Type | Options | Default | Description |
 |------|------|---------|---------|-------------|
 | `text` | string | any | `''` | Text content displayed (required) |
-| `variant` | string | `'primary'`, `'secondary'`, `'info'`, `'neutral'`, `'muted'` | `'neutral'` | Semantic color variant |
+| `variant` | string | `'primary'`, `'secondary'`, `'accent'`, `'neutral'`, `'muted'` | `'neutral'` | Semantic color variant |
 | `size` | string | `'small'`, `'medium'` | `'medium'` | Text size (12px/14px) |
 | `uppercase` | boolean | `true`, `false` | `true` | Transform text to uppercase |
 | `bold` | boolean | `true`, `false` | `false` | Apply bold font weight |
@@ -20,33 +20,35 @@ A contextual label or kicker placed above a heading to provide category or conte
 
 ```
 ps-eyebrow                       # Root element (<span>)
-├── ps-eyebrow--primary          # Primary color variant
-├── ps-eyebrow--secondary        # Secondary color variant
-├── ps-eyebrow--accent           # Accent color variant
-├── ps-eyebrow--muted            # Muted color variant (subtle)
+├── ps-eyebrow--primary          # Primary color variant (green brand)
+├── ps-eyebrow--secondary        # Secondary color variant (magenta)
+├── ps-eyebrow--accent           # Accent color variant (gold - premium/featured)
+├── ps-eyebrow--muted            # Muted color variant (subtle gray - metadata)
 ├── ps-eyebrow--small            # Small size (12px)
 ├── ps-eyebrow--uppercase        # Uppercase text transformation
 ├── ps-eyebrow--bold             # Bold font weight
 ├── ps-eyebrow--with-line        # Has decorative line
 ├── ps-eyebrow--with-dot         # Has decorative dot
 │
-├── ps-eyebrow__icon             # Icon element (decorative)
+├── ps-eyebrow__icon             # Icon element (decorative, data-icon attribute)
 ├── ps-eyebrow__text             # Text content wrapper
 ├── ps-eyebrow__line             # Decorative line element
 └── ps-eyebrow__dot              # Decorative dot element
 ```
 
+**Note on neutral**: The `neutral` variant is the default state. No modifier class is applied when `variant = 'neutral'`.
+
 ### Modifiers by Category
 
 **Color Variants**
 - Default (neutral) - No modifier class
-- `ps-eyebrow--primary` - Brand primary (green #00915A)
-- `ps-eyebrow--secondary` - Brand secondary (magenta #A12B66)
-- `ps-eyebrow--info` - Info blue (#2563EB)
-- `ps-eyebrow--muted` - Muted gray (for subtle labels like "DATE")
+- `ps-eyebrow--primary` - Brand primary (green #00915A) — Main actions, market news
+- `ps-eyebrow--secondary` - Brand secondary (magenta #A12B66) — Secondary actions, blog articles
+- `ps-eyebrow--accent` - Accent/Gold (#D1AE6E) — Premium features, featured properties
+- `ps-eyebrow--muted` - Muted gray (#B5BCC9) — Subtle metadata like publication dates
 
 **Size**
-- `ps-eyebrow--small` - 12px text
+- `ps-eyebrow--small` - 12px text (compact, ideal for metadata)
 - Default (medium) - 14px text, no modifier class
 
 **Text Styles**
@@ -54,29 +56,29 @@ ps-eyebrow                       # Root element (<span>)
 - `ps-eyebrow--bold` - Bold font weight (600)
 
 **Decorations**
-- `ps-eyebrow--with-line` - Shows decorative line before text
-- `ps-eyebrow--with-dot` - Shows decorative dot before text
+- `ps-eyebrow--with-line` - Shows decorative line before text (section dividers)
+- `ps-eyebrow--with-dot` - Shows decorative dot before text (bullet point style)
 
 ## Design Tokens Used
 
 ### Layer 1: Root Tokens (Global)
 
 #### Colors (Semantic)
-- `--primary` - Primary variant (green #00915A - BNP official)
-- `--secondary` - Secondary variant (magenta #A12B66 - BNP official)
-- `--info` - Info variant (blue #2563EB)
+- `--primary` - Primary variant (green #00915A - BNP official brand)
+- `--secondary` - Secondary variant (magenta #A12B66 - BNP official brand)
+- `--gold` - Gold accent (#D1AE6E - premium/featured content)
 - `--text-secondary` - Neutral color (gray-500)
-- `--text-disabled` - Muted variant (gray-400)
+- `--text-disabled` - Muted variant (gray-400, subtle metadata)
 
 #### Typography
-- `--font-condensed` - Condensed font family for eyebrows
-- `--font-sans` - Fallback sans-serif font family
-- `--font-size-0` - Small size (14px)
-- `--font-size-1` - Medium size (16px, default)
+- `--font-condensed` - Condensed font family for eyebrows (BNPP Sans Condensed)
+- `--font-size-0` - Small size (12px)
+- `--font-size-1` - Medium size (14px, default)
 - `--font-weight-500` - Regular weight
 - `--font-weight-600` - Bold weight
 - `--tracking-wide` - Letter spacing (wider for uppercase)
-- `--tracking-wider` - Letter spacing (even wider for uppercase)
+- `--tracking-wider` - Letter spacing (even wider for emphasis uppercase)
+- `--leading-tight` - Line height (1.2)
 
 #### Spacing
 - `--size-05` - Line height (0.125rem / 2px)
@@ -90,7 +92,7 @@ ps-eyebrow                       # Root element (<span>)
 
 ### Layer 2: Component-Scoped Variables
 
-The eyebrow component now uses component-scoped variables for easy customization (Bootstrap 5 pattern):
+The eyebrow component uses component-scoped variables for easy customization (Bootstrap 5 pattern):
 
 ```css
 /* Layout */
@@ -124,7 +126,7 @@ The eyebrow component now uses component-scoped variables for easy customization
 
 **Context Override:**
 ```css
-/* Sidebar has different spacing */
+/* Sidebar has different spacing and size */
 .sidebar .ps-eyebrow {
   --ps-eyebrow-gap: var(--size-1);
   --ps-eyebrow-font-size: var(--font-size-0);
@@ -133,8 +135,8 @@ The eyebrow component now uses component-scoped variables for easy customization
 
 **Inline Override:**
 ```html
-<span class="ps-eyebrow" style="--ps-eyebrow-color: var(--purple-600);">
-  Custom Color
+<span class="ps-eyebrow ps-eyebrow--primary" style="--ps-eyebrow-color: var(--secondary);">
+  Custom Color Override
 </span>
 ```
 
@@ -142,12 +144,176 @@ The eyebrow component now uses component-scoped variables for easy customization
 ```javascript
 document.querySelector('.ps-eyebrow').style.setProperty(
   '--ps-eyebrow-color', 
-  'var(--danger)'
+  'var(--accent)'
 );
+```
+
+## Accessibility
+
+- **Semantics**: Uses neutral `<span>` element (appropriate for labels, not headings)
+- **Decorative elements**: `aria-hidden="true"` applied to:
+  - Icon (via `data-icon` attribute with `aria-hidden`)
+  - Decorative line (`ps-eyebrow__line`)
+  - Decorative dot (`ps-eyebrow__dot`)
+- **Contrast**: All text colors meet WCAG AA standard (4.5:1 minimum for normal text)
+- **No interactivity**: Eyebrow is a static label; no keyboard/focus requirements
+- **Screen reader**: Text content is announced naturally; decorations are hidden
+- **DOM Order**: Eyebrow placed above heading in DOM order (correct reading order)
+
+## Real Estate Use Cases
+
+### 1. Market News / Actualités Marché
+**Primary variant** for market updates, announcements
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Actualité marché',
+  variant: 'primary'
+} %}
+```
+
+### 2. Featured Property / Bien Phare
+**Accent (Gold) variant** with icon for premium/featured properties
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Bien phare',
+  variant: 'accent',
+  bold: true,
+  icon: 'medal'
+} %}
+```
+
+### 3. Blog Articles / Articles Blog
+**Secondary variant** for blog content
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Article blog',
+  variant: 'secondary',
+  withDot: true
+} %}
+```
+
+### 4. Publication Metadata / Métadonnées
+**Muted variant** for dates, author, reading time (small size)
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Publié 5 décembre',
+  variant: 'muted',
+  size: 'small'
+} %}
+```
+
+### 5. Section Headers / En-têtes de section
+**Neutral variant** with decorative line for section breaks
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Nos services',
+  variant: 'neutral',
+  withLine: true,
+  size: 'small'
+} %}
+```
+
+### 6. Category Tags / Tags de catégorie
+**Neutral variant** for property types or filters (small, no uppercase)
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Bureau',
+  variant: 'neutral',
+  size: 'small',
+  uppercase: false
+} %}
 ```
 
 ## Usage Examples
 
+### Simple Text Label
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Nouvelle annonce',
+  variant: 'primary'
+} %}
+```
+
+### With Icon (Featured Content)
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Sélection',
+  variant: 'accent',
+  icon: 'medal',
+  bold: true
+} %}
+```
+
+### With Decorative Line (Section Separator)
+```twig
+{% include '@elements/eyebrow/eyebrow.twig' with {
+  text: 'Portfolio immobilier',
+  variant: 'neutral',
+  withLine: true,
+  size: 'small'
+} %}
+```
+
+### Card Header with Date (Muted Metadata)
+```html
+<div class="card">
+  <div style="margin-bottom: 12px;">
+    {% include '@elements/eyebrow/eyebrow.twig' with {
+      text: 'Publié 9 décembre',
+      variant: 'muted',
+      size: 'small'
+    } %}
+  </div>
+  <h3>Titre de l'article</h3>
+  <p>Contenu...</p>
+</div>
+```
+
+### Multiple Categories (Tags)
+```html
+<div style="display: flex; gap: 8px;">
+  {% include '@elements/eyebrow/eyebrow.twig' with {
+    text: 'Bureau',
+    variant: 'neutral',
+    size: 'small',
+    uppercase: false
+  } %}
+  {% include '@elements/eyebrow/eyebrow.twig' with {
+    text: 'Île-de-France',
+    variant: 'neutral',
+    size: 'small',
+    uppercase: false
+  } %}
+</div>
+```
+
+## CSS Classes Reference
+
+All available CSS classes for the eyebrow component:
+
+| Class | Type | Purpose |
+|-------|------|---------|
+| `.ps-eyebrow` | Block | Root container |
+| `.ps-eyebrow--primary` | Modifier | Primary green color |
+| `.ps-eyebrow--secondary` | Modifier | Secondary magenta color |
+| `.ps-eyebrow--accent` | Modifier | Accent gold color (premium) |
+| `.ps-eyebrow--muted` | Modifier | Muted gray color (subtle) |
+| `.ps-eyebrow--small` | Modifier | Small size (12px) |
+| `.ps-eyebrow--uppercase` | Modifier | Uppercase transformation |
+| `.ps-eyebrow--bold` | Modifier | Bold font weight (600) |
+| `.ps-eyebrow--with-line` | Modifier | Decorative line visible |
+| `.ps-eyebrow--with-dot` | Modifier | Decorative dot visible |
+| `.ps-eyebrow__icon` | Element | Icon placeholder |
+| `.ps-eyebrow__text` | Element | Text content wrapper |
+| `.ps-eyebrow__line` | Element | Decorative line |
+| `.ps-eyebrow__dot` | Element | Decorative dot |
+
+## Browser Compatibility
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- CSS variables (all modern browsers, IE 11 not supported)
+- Flexbox layout (all modern browsers)
+- `data-icon` attribute for icon system (all modern browsers)
 ### Basic Eyebrow
 ```twig
 {% include '@elements/eyebrow/eyebrow.twig' with {
