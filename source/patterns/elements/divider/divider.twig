@@ -35,7 +35,10 @@
     {%- if text -%}
       <span class="ps-divider__text">{{ text }}</span>
     {%- elseif icon -%}
-      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+      {% include '@elements/icon/icon.twig' with {
+        icon: icon,
+        attributes: create_attribute().addClass('ps-divider__icon')
+      } only %}
     {%- endif -%}
     <span class="ps-divider__line" aria-hidden="true"></span>
   </div>
