@@ -1,4 +1,14 @@
-{# ps-divider (element) - PS Theme #}
+{#
+ * Divider (Element/Atom)
+ * @param string orientation - Orientation (optional, default: 'horizontal')
+ * @param string style - Line style (optional, default: 'solid')
+ * @param string thickness - Line thickness (optional, default: 'medium')
+ * @param string color - Semantic color (optional, default: 'neutral')
+ * @param string spacing - Spacing around divider (optional, default: 'md')
+ * @param string text - Centered text content (optional, default: '')
+ * @param string icon - Centered icon name without prefix (optional, default: '')
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
 {%- set orientation = orientation|default('horizontal') -%}
 {%- set style = style|default('solid') -%}
 {%- set thickness = thickness|default('medium') -%}
@@ -9,26 +19,25 @@
 {%- set has_content = text or icon -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set baseClass = baseClass|default('ps-divider') -%}
 {%- set root_classes = [
-  baseClass,
-  orientation == 'vertical' ? baseClass ~ '--vertical' : null,
-  style == 'dashed' ? baseClass ~ '--dashed' : (style == 'dotted' ? baseClass ~ '--dotted' : null),
-  thickness == 'thin' ? baseClass ~ '--thin' : (thickness == 'thick' ? baseClass ~ '--thick' : null),
-  color in ['primary','secondary','success','warning','danger','info'] ? baseClass ~ '--' ~ color : null,
-  spacing == 'sm' ? baseClass ~ '--spacing-sm' : (spacing == 'lg' ? baseClass ~ '--spacing-lg' : null),
-  text ? baseClass ~ '--with-text' : (icon ? baseClass ~ '--with-icon' : null)
+  'ps-divider',
+  orientation == 'vertical' ? 'ps-divider--vertical' : null,
+  style == 'dashed' ? 'ps-divider--dashed' : (style == 'dotted' ? 'ps-divider--dotted' : null),
+  thickness == 'thin' ? 'ps-divider--thin' : (thickness == 'thick' ? 'ps-divider--thick' : null),
+  color in ['primary','secondary','success','warning','danger','info'] ? 'ps-divider--' ~ color : null,
+  spacing == 'sm' ? 'ps-divider--spacing-sm' : (spacing == 'lg' ? 'ps-divider--spacing-lg' : null),
+  text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null)
 ] -%}
 
 {%- if has_content -%}
   <div {{ attributes.addClass(root_classes) }}>
-    <span class="{{ baseClass }}__line" aria-hidden="true"></span>
+    <span class="ps-divider__line" aria-hidden="true"></span>
     {%- if text -%}
-      <span class="{{ baseClass }}__text">{{ text }}</span>
+      <span class="ps-divider__text">{{ text }}</span>
     {%- elseif icon -%}
-      <span class="{{ baseClass }}__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {%- endif -%}
-    <span class="{{ baseClass }}__line" aria-hidden="true"></span>
+    <span class="ps-divider__line" aria-hidden="true"></span>
   </div>
 {%- else -%}
   {%- if orientation == 'horizontal' -%}
