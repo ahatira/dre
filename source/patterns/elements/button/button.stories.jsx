@@ -1,4 +1,4 @@
-import iconsList from '../../documentation/icons-list.json';
+import iconsRegistry from '../../documentation/icons-registry.json';
 import buttonTwig from './button.twig';
 import data from './button.yml';
 
@@ -27,7 +27,7 @@ export default {
     icon: {
       description: 'Icon name to display (optional)',
       control: { type: 'select' },
-      options: iconsList.all,
+      options: [null, ...iconsRegistry.names],
       table: {
         category: 'Content',
         type: { summary: 'string' },

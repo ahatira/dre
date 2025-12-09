@@ -8,53 +8,45 @@ const __dirname = path.dirname(__filename);
 
 const ICONS_SOURCE_DIR = path.join(__dirname, '../source/icons-source');
 const SPRITE_OUTPUT_PATH = path.join(__dirname, '../source/assets/icons/icons-sprite.svg');
-const LIST_PATH = path.join(__dirname, '../source/patterns/documentation/icons-list.json');
 const CSS_OUTPUT_PATH = path.join(__dirname, '../source/props/icons-generated.css');
 const REGISTRY_OUTPUT_PATH = path.join(__dirname, '../source/patterns/documentation/icons-registry.json');
 
 const SVG_SYMBOL_RE = /<svg[^>]*>([\s\S]*?)<\/svg>/i;
 const VIEWBOX_RE = /viewBox="([^"]+)"/i;
 
-const CATEGORY_LABELS = {
-  ad: 'Ad',
-  website: 'Website',
-  generic: 'Generic',
-  search: 'Search',
-  metropole: 'Metropole',
-  'social-media': 'Social media',
-  'mobile-only': 'Mobile only',
-  tutoffice: 'TutOffice',
-  univers: 'Univers',
-  tools: 'Tools',
-  blog: 'Blog',
-  other: 'Other',
-  country: 'Country',
-};
-
 /**
- * Strip inline fill/stroke from SVG path elements to allow CSS currentColor control.
- * Keeps viewBox and other attributes, removes fill="#..." and stroke="#..." from paths.
+ * Strip inline fill/stroke from SVG and add fill="currentColor" for CSS color inheritance.
+ * This allows icons to inherit color from parent via background-image.
  */
 function stripSVGFillStroke(svgContent) {
-  // Remove fill and stroke attributes more carefully
-  return (
-    svgContent
-      .replace(/\s*fill="[^"]*"/g, '')
-      .replace(/\s*stroke="[^"]*"/g, '')
-      .replace(/\s*fill='[^']*'/g, '')
-      .replace(/\s*stroke='[^']*'/g, '')
-      // Remove any double spaces that may have resulted
-      .replace(/\s+/g, ' ')
-      .trim()
-  );
+  // Remove existing fill and stroke attributes
+  let cleaned = svgContent
+    .replace(/\s*fill="[^"]*"/g, '')
+    .replace(/\s*stroke="[^"]*"/g, '')
+    .replace(/\s*fill='[^']*'/g, '')
+    .replace(/\s*stroke='[^']*'/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  
+  // Add fill="currentColor" to all path elements
+  cleaned = cleaned.replace(/<path\s/g, '<path fill="currentColor" ');
+  
+  // Also handle other SVG shape elements (circle, rect, polygon, etc.)
+  cleaned = cleaned.replace(/<circle\s/g, '<circle fill="currentColor" ');
+  cleaned = cleaned.replace(/<rect\s/g, '<rect fill="currentColor" ');
+  cleaned = cleaned.replace(/<polygon\s/g, '<polygon fill="currentColor" ');
+  cleaned = cleaned.replace(/<ellipse\s/g, '<ellipse fill="currentColor" ');
+  
+  return cleaned;
 }
 
 /**
  * Generate complete CSS file with all [data-icon="..."] rules
- * Input: Array of icon names
+ * Uses mask-image with inline data URIs (SVG fragments don't work with background-image)
+ * Input: Array of { name, viewBox, body } objects
  * Output: CSS content string
  */
-function generateIconsCss(iconNames) {
+function generateIconsCss(icons) {
   const cssLines = [
     '/**',
     ' * GENERATED FILE - DO NOT EDIT MANUALLY',
@@ -62,6 +54,7 @@ function generateIconsCss(iconNames) {
     ' * Generated: ' + new Date().toISOString(),
     ' *',
     ' * This file contains all data-icon CSS rules.',
+    ' * Icons use mask-image with inline SVG data URIs for currentColor support.',
     ' * To add icons: Drop SVG in source/icons-source/, run: npm run build',
     ' */',
     '',
@@ -76,18 +69,35 @@ function generateIconsCss(iconNames) {
     '  line-height: 1;',
     '  -webkit-font-smoothing: antialiased;',
     '  -moz-osx-font-smoothing: grayscale;',
-    '  background-repeat: no-repeat;',
-    '  background-position: center;',
-    '  background-size: contain;',
+    '  /* Use mask-image to inherit color via background-color */',
+    '  background-color: currentColor;',
+    '  mask-repeat: no-repeat;',
+    '  mask-position: center;',
+    '  mask-size: contain;',
+    '  -webkit-mask-repeat: no-repeat;',
+    '  -webkit-mask-position: center;',
+    '  -webkit-mask-size: contain;',
     '}',
     '',
-    `/* Icon mappings (auto-generated - ${iconNames.length} icons) */`,
+    `/* Icon mappings (auto-generated - ${icons.length} icons) */`,
   ];
 
-  // Generate one rule per icon, sorted alphabetically
-  for (const name of iconNames.sort()) {
+  // Generate one rule per icon with inline SVG data URI
+  for (const { name, viewBox, body } of icons.sort((a, b) => a.name.localeCompare(b.name))) {
+    // Create complete SVG with viewBox
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}">${body}</svg>`;
+    // URL-encode for data URI
+    const encoded = svg
+      .replace(/%/g, '%25')
+      .replace(/</g, '%3C')
+      .replace(/>/g, '%3E')
+      .replace(/#/g, '%23')
+      .replace(/"/g, "'")
+      .replace(/\s+/g, ' ')
+      .trim();
+    
     cssLines.push(
-      `[data-icon="${name}"] { background-image: url('/icons/icons-sprite.svg#icon-${name}'); }`
+      `[data-icon="${name}"] { mask-image: url("data:image/svg+xml,${encoded}"); -webkit-mask-image: url("data:image/svg+xml,${encoded}"); }`
     );
   }
 
@@ -95,65 +105,37 @@ function generateIconsCss(iconNames) {
 }
 
 /**
- * Build category registry from directory structure
- * Input: Array of { name, category } objects
- * Output: { categories, order, unmapped }
+ * Generate icons registry JSON for validation and discovery
+ * Categories are based on source folder structure in icons-source/
+ * Input: Array of { name, folder } objects
+ * Output: JSON object with metadata
  */
-function buildCategoryRegistry(iconsWithCategories) {
-  const categoriesMap = new Map();
-  const unmapped = [];
-
-  // Group icons by category
-  iconsWithCategories.forEach(({ name, category }) => {
-    if (!category) {
-      unmapped.push(name);
-      return;
+function generateIconsRegistry(icons) {
+  // Group icons by their source folder
+  const categories = {};
+  
+  for (const { name, folder } of icons) {
+    if (!categories[folder]) {
+      categories[folder] = [];
     }
-
-    if (!categoriesMap.has(category)) {
-      categoriesMap.set(category, []);
-    }
-    categoriesMap.get(category).push(name);
-  });
+    categories[folder].push(name);
+  }
 
   // Sort icons within each category
-  categoriesMap.forEach((icons) => icons.sort());
+  for (const folder in categories) {
+    categories[folder].sort();
+  }
 
-  // Build final structure with labels
-  const categories = {};
-  const order = Array.from(categoriesMap.keys()).sort();
-
-  order.forEach((slug) => {
-    categories[slug] = {
-      label: CATEGORY_LABELS[slug] || slug,
-      icons: categoriesMap.get(slug),
-    };
-  });
-
-  return { categories, order, unmapped };
-}
-
-/**
- * Generate icons registry JSON for validation and discovery
- * Input: Array of { name, category } objects
- * Output: JSON string
- */
-function generateIconsRegistry(iconsWithCategories) {
-  const sortedNames = iconsWithCategories.map((icon) => icon.name).sort();
-  const { categories, order, unmapped } = buildCategoryRegistry(iconsWithCategories);
+  const iconNames = icons.map(i => i.name).sort();
 
   const registry = {
     generated: new Date().toISOString(),
-    total: sortedNames.length,
-    names: sortedNames,
-    order,
-    categories,
+    total: iconNames.length,
+    names: iconNames,
+    categories: categories,
   };
 
-  if (unmapped.length) {
-    registry.unmapped = unmapped.sort();
-  }
-
+  // Format with proper indentation for biome (2 spaces, max 100 chars line width)
   return JSON.stringify(registry, null, 2);
 }
 
@@ -167,15 +149,13 @@ async function buildIcons() {
   }
 
   const symbols = [];
-  const iconsWithCategories = [];
+  const names = [];
+  const icons = []; // Store complete icon data for CSS generation
 
   for (const file of svgFiles.sort()) {
     const name = path.basename(file, '.svg');
+    const folder = path.dirname(file).split(path.sep)[0] || 'root'; // Get first folder level
     const raw = fs.readFileSync(path.join(ICONS_SOURCE_DIR, file), 'utf8');
-
-    // Extract category from directory structure
-    const pathParts = file.split(path.sep);
-    const category = pathParts.length > 1 ? pathParts[0] : null;
 
     const viewBox = VIEWBOX_RE.exec(raw)?.[1] ?? '0 0 24 24';
     const bodyMatch = SVG_SYMBOL_RE.exec(raw);
@@ -184,8 +164,9 @@ async function buildIcons() {
     // Strip inline fill/stroke to allow currentColor
     body = stripSVGFillStroke(body);
 
-    iconsWithCategories.push({ name, category });
+    names.push(name);
     symbols.push(`<symbol id="icon-${name}" viewBox="${viewBox}">${body}</symbol>`);
+    icons.push({ name, viewBox, body, folder }); // Collect with folder info
   }
 
   const spriteContent = [
@@ -195,12 +176,8 @@ async function buildIcons() {
     '',
   ].join('\n');
 
-  const names = iconsWithCategories.map((icon) => icon.name);
-  const listContent = JSON.stringify({ all: names, regular: names, poi: [] }, null, 2) + '\n';
-
   // Only write if content changed (prevents infinite reload in watch mode)
   let spriteChanged = true;
-  let listChanged = true;
   let cssChanged = true;
   let registryChanged = true;
 
@@ -209,20 +186,14 @@ async function buildIcons() {
     spriteChanged = existing !== spriteContent;
   }
 
-  if (fs.existsSync(LIST_PATH)) {
-    const existing = fs.readFileSync(LIST_PATH, 'utf8');
-    listChanged = existing !== listContent;
-  }
-
-  // Generate and write CSS
-  const cssContent = generateIconsCss(names);
+  // Generate and write CSS with icon data
+  const cssContent = generateIconsCss(icons);
   if (fs.existsSync(CSS_OUTPUT_PATH)) {
     const existing = fs.readFileSync(CSS_OUTPUT_PATH, 'utf8');
     cssChanged = existing !== cssContent;
   }
-
-  // Generate and write registry
-  const registryContent = generateIconsRegistry(iconsWithCategories);
+  // Generate and write registry with folder-based categories
+  const registryContent = generateIconsRegistry(icons);
   if (fs.existsSync(REGISTRY_OUTPUT_PATH)) {
     const existing = fs.readFileSync(REGISTRY_OUTPUT_PATH, 'utf8');
     registryChanged = existing !== registryContent;
@@ -233,13 +204,6 @@ async function buildIcons() {
     fs.mkdirSync(path.dirname(SPRITE_OUTPUT_PATH), { recursive: true });
     fs.writeFileSync(SPRITE_OUTPUT_PATH, spriteContent, 'utf8');
     console.log(`✔ Updated sprite (${symbols.length} symbols) → ${SPRITE_OUTPUT_PATH}`);
-  }
-
-  // Write list (legacy)
-  if (listChanged) {
-    fs.mkdirSync(path.dirname(LIST_PATH), { recursive: true });
-    fs.writeFileSync(LIST_PATH, listContent, 'utf8');
-    console.log(`✔ Updated icons list (${names.length} entries) → ${LIST_PATH}`);
   }
 
   // Write CSS
@@ -256,7 +220,7 @@ async function buildIcons() {
     console.log(`✔ Generated registry (${names.length} icons) → ${REGISTRY_OUTPUT_PATH}`);
   }
 
-  if (!spriteChanged && !listChanged && !cssChanged && !registryChanged) {
+  if (!spriteChanged && !cssChanged && !registryChanged) {
     console.log(`✔ No changes detected (${symbols.length} icons)`);
   }
 }

@@ -1,1 +1,14 @@
-name: 'search'
+# Icon (Element/Atom) - Default data
+# SVG sprite system for responsive, accessible icons
+
+# Default icon
+icon: 'check'
+
+# Position options: start | end
+# position: start
+
+# ARIA label (for icon-only or decorative cases)
+# ariaLabel: 'Success'
+
+# Hide from screen readers (for decorative icons)
+# ariaHidden: false

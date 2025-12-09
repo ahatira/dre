@@ -26,10 +26,7 @@
 
 <{{ tag }}{{ attributes ? attributes.addClass(badge_classes) : ' class="' ~ badge_classes|join(' ')|trim ~ '"' }}{% if url %} href="{{ url }}"{% endif %}>
   {%- if icon -%}
-    {%- include '@elements/icon/icon.twig' with {
-      name: icon,
-      attributes: create_attribute().addClass('ps-badge__icon')
-    } only -%}
+    <span class="ps-badge__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}
   {%- if has_text -%}
     <span class="ps-badge__text">{{- text -}}</span>

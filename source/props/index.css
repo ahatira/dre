@@ -1,16 +1,16 @@
 /* Props - Do not sort */
-@import "media";
-@import "fonts";
-@import "font-face";
-@import "icons-generated";
-@import "sizes";
-@import "easing";
-@import "zindex";
-@import "shadows";
-@import "aspects";
-@import "colors";
-@import "animations";
-@import "borders";
-@import "brand"; /* Semantic colors (primary, secondary, etc.) + BNP tokens */
-@import "theme";
+@import "media.css";
+@import "fonts.css";
+@import "font-face.css";
+@import "icons-generated.css";
+@import "sizes.css";
+@import "easing.css";
+@import "zindex.css";
+@import "shadows.css";
+@import "aspects.css";
+@import "colors.css";
+@import "animations.css";
+@import "borders.css";
+@import "brand.css"; /* Semantic colors (primary, secondary, etc.) + BNP tokens */
+@import "theme.css";
 

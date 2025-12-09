@@ -20,12 +20,7 @@ Compact semantic label / status indicator with bold text and saturated backgroun
 
 {# Secondary badge with icon #}
 <span class="ps-badge ps-badge--secondary">
-  {% include '@elements/icon/icon.twig' with {
-    name: 'check',
-    size: 'md',
-    color: 'default',
-    attributes: create_attribute().addClass('ps-badge__icon')
-  } only %}
+  <span class="ps-badge__icon" data-icon="check" aria-hidden="true"></span>
   <span class="ps-badge__text">Verified</span>
 </span>
 
@@ -93,7 +88,7 @@ Badge uses component-scoped CSS variables with relative units:
 Modifiers only change variables, enabling runtime customization and proportional scaling.
 ## Accessibility
 - Bold text (font-weight 700) with saturated backgrounds ensure high visibility and contrast.
-- Icon rendered via Icon component with `aria-hidden="true"` by default (decorative); configure `ariaLabel` if icon is informative.
+- Icon rendered via `data-icon` attribute with `aria-hidden="true"` (always decorative in badges).
 - Focus outline applied only when component is an interactive link (`<a>`).
 - All color variants maintain WCAG AA contrast ratios:
   - Primary/Secondary/Success/Danger/Info/Dark: White text on saturated background ≥ **4.5:1** ✅

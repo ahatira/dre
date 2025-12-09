@@ -1,11 +1,13 @@
 /**
  * Icon (Element/Atom)
- * SVG sprite-based implementation.
- * BEM: ps-icon, ps-icon__svg
+ * SVG sprite-based implementation via [data-icon] background-images.
+ * BEM: ps-icon
  * Modifiers: --xs, --sm, --md (default), --lg, --xl, --xxl, --primary, --secondary, --success, --warning, --danger, --info, --disabled
+ * 
+ * IMPORTANT: Base [data-icon] styles defined in source/props/icons-generated.css (auto-generated).
+ * This file adds BEM class .ps-icon for semantic context + size/color modifiers.
  */
 
- 
 .ps-icon {
   /* ======================================== */
   /* Layer 1: Component Tokens (private) */
@@ -20,30 +22,18 @@
   --ps-icon-disabled-opacity: var(--opacity-disabled, 0.5);
 
   /* ======================================== */
-  /* Base Styles */
+  /* Base Styles - Extend [data-icon] from icons-generated.css */
   /* ======================================== */
-  font-size: var(--ps-icon-size, var(--ps-icon-size-md));
+  /* Note: [data-icon] base already defines:
+   * - display: inline-block
+   * - width: 1em, height: 1em (adapts to font-size)
+   * - mask-image with currentColor support
+   * We DON'T set font-size here to allow parent inheritance.
+   * Use BEM modifiers (--xs, --sm, etc.) for explicit sizing.
+   */
   color: var(--ps-icon-color);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  /* Ensure vertical alignment with text */
   vertical-align: middle;
-  line-height: 1;
-
-  /* ======================================== */
-  /* Elements */
-  /* ======================================== */
-  &__svg {
-    inline-size: 1em;
-    block-size: 1em;
-    fill: currentColor;
-    stroke: none;
-    flex-shrink: 0;
-  }
-
-  &__fallback {
-    display: none;
-  }
 
   /* ======================================== */
   /* Modifiers - Sizes */

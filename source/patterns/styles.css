@@ -1,4 +1,4 @@
-/* This is only used in Storybook to combine all project styles into a single stylesheet. */
+@import-glob '../props/icons-generated.css';
 @import-glob 'base/global.css';
 @import-glob 'base/utilities.css';
 @import-glob 'elements/**/*.css';

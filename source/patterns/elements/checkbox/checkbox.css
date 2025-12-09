@@ -36,8 +36,8 @@
   --ps-checkbox-bg: var(--white);
 
   /* Checkmark Drawing (SVG background) */
-  --ps-checkbox-icon-unchecked-mask: svg-load('checkbox-unchecked.svg');
-  --ps-checkbox-icon-checked-mask: svg-load('checkbox-checked.svg');
+  --ps-checkbox-icon-unchecked-mask: svg-load('generic/checkbox-unchecked.svg');
+  --ps-checkbox-icon-checked-mask: svg-load('generic/checkbox-checked.svg');
 
   /* Checked State */
   --ps-checkbox-checked-bg: var(--white); /* White background when checked */

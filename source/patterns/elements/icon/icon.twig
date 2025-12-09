@@ -1,18 +1,21 @@
 {#
  * Icon (Element/Atom)
- * @param string name - Icon name (required, without "icon-" prefix)
- * @param string ariaLabel - Accessibility label for informative icons (optional)
+ * SVG sprite system with semantic sizing and colors.
+ *
+ * @param string icon - Icon name from sprite (required)
+ * @param string position - Icon position: start (default) | end
+ * @param string ariaLabel - ARIA label for accessibility (optional)
+ * @param boolean ariaHidden - Hide from screen readers (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
-{%- set name = name|default('search') -%}
-{%- set iconId = 'icon-' ~ name -%}
+{% set position = position|default('start') %}
+{% set ariaHidden = ariaHidden|default(false) %}
 
-{%- set attributes = attributes|default(create_attribute()) -%}
-{%- set attributes = attributes.addClass(['ps-icon']) -%}
-
-<span{{ attributes }}{% if ariaLabel %} aria-label="{{ ariaLabel }}" role="img"{% else %} aria-hidden="true"{% endif %}>
-  <svg class="ps-icon__svg" focusable="false" aria-hidden="true">
-    <use href="/icons/icons-sprite.svg#{{ iconId }}"></use>
-  </svg>
-</span>
+<i class="ps-icon"
+  data-icon="{{ icon }}"
+  {% if position != 'start' %}data-icon-position="{{ position }}"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if ariaHidden %}aria-hidden="true"{% endif %}
+  {% if attributes %}{{ attributes }}{% endif %}
+></i>

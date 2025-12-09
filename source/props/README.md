@@ -38,8 +38,6 @@ This directory contains all **CSS Custom Properties** (design tokens) for the PS
 - **`aspects.css`** – Aspect ratio utilities
 - **`media.css`** – Responsive breakpoints
 - **`theme.css`** – Theme variables (rarely used)
-- **`icons.css`** – Auto-generated SVG sprite styles
-
 ### Utility
 
 - **`index.css`** – Main entry point (@import orchestration)
@@ -195,7 +193,6 @@ Semantic tokens provide meaningful names for use cases. **Always use semantic to
 @import './aspects.css';
 @import './media.css';
 @import './theme.css';
-@import './icons.css';       /* Auto-generated */
 ```
 
 ### Build Process

@@ -4,6 +4,57 @@
 
 ## 2025
 
+- 2025-12-08: **Icon System - Bootstrap Icons Approach** – Optimisation SVGO et validation automatique + Webfonts ✨
+  - **Context**: Adoption des meilleures pratiques de Bootstrap Icons pour optimisation SVG + génération fonts
+  - **Phase 1: SVGO Integration**
+    * Installation: `svgo@^3.3.2` en dev dependency
+    * Configuration: `svgo.config.mjs` avec preset-default + removeAttrs
+    * Plugins: `multipass`, `removeViewBox: false`, suppression `fill`/`stroke`/`clip-rule`
+    * Intégration dans `scripts/build-icons.mjs`: optimisation avant génération sprite
+    * Fallback: Si SVGO échoue, utilise SVG original (robustesse)
+  - **Phase 2: Icon Validation**
+    * Nouveau script: `scripts/validate-icons.mjs` (164 lignes)
+    * Checks: viewBox, hardcoded colors, inline styles, XSS (scripts), file size
+    * Commande: `npm run icons:validate` (intégrable CI/CD)
+    * Résultats: Détection 139/141 icônes avec couleurs hardcodées (sources)
+  - **Phase 3: Webfonts Generation** ✨ NEW
+    * Installation: `@twbs/fantasticon@^3.1.0` (Bootstrap version)
+    * Script: `scripts/build-fonts.mjs` (166 lignes) - Préparation flat + génération
+    * Config: `.fantasticonrc.mjs` + template CSS custom
+    * Commande: `npm run fonts:build`
+    * Outputs: woff2 (12.73KB), woff (15.06KB), ttf (24.27KB), CSS (7.96KB), JSON, HTML
+    * Nomenclature: `.icon-{category}-{name}` (ex: `.icon-generic-check`)
+  - **Optimisations appliquées**:
+    * Sprite: 47KB, 141 symboles sans `fill="#..."` hardcodés
+    * Fonts: ~90KB total, ~25KB gzippé, 141 icônes
+    * Support `currentColor`: ✅ Fonctionne maintenant (CSS `color` appliquée)
+    * Réduction taille: ~2KB économisés (-5% sprite)
+    * Flexibilité: Filters CSS, animations, thèmes dynamiques possibles
+  - **Documentation**:
+    * Nouveau: `docs/ICONS_SYSTEM.md` (200+ lignes) - Architecture et usage
+    * Nouveau: `docs/ICONS_MIGRATION.md` (250+ lignes) - Guide de migration
+    * Nouveau: `docs/WEBFONTS_USAGE.md` (400+ lignes) - Guide complet webfonts ✨
+    * Sections: Build, optimisation, troubleshooting, roadmap, performance
+  - **Files Modified/Created**:
+    * NEW: `svgo.config.mjs` (65 lignes, configuration optimisation)
+    * NEW: `scripts/validate-icons.mjs` (164 lignes, 7 checks de validation)
+    * NEW: `scripts/build-fonts.mjs` (166 lignes, génération webfonts) ✨
+    * NEW: `.fantasticonrc.mjs` + `scripts/fantasticon-templates/css.hbs` ✨
+    * NEW: `docs/WEBFONTS_USAGE.md` (guide usage fonts) ✨
+    * NEW: `source/assets/fonts/ps-icons.{woff2,woff,ttf,css,json,html}` ✨
+    * MODIFIED: `package.json` (commandes `icons:validate`, `fonts:build`) ✨
+  - **Breaking Changes**: ❌ AUCUN (100% rétrocompatible)
+    * Sprite généré au même endroit
+    * CSS identique (`data-icon` inchangé)
+    * Atom `icon.twig` fonctionne tel quel
+    * Fonts: Nouveau système optionnel (`.icon-*` classes)
+  - **Résultats**:
+    * Build: ✅ Passing
+    * Sprite: ✅ 141/141 symboles optimisés
+    * Fonts: ✅ 141 icônes générées (woff2 12.73KB) ✨
+    * Performance: +5% compression sprite, +100% flexibilité CSS
+  - **References**: Inspiré de [Bootstrap Icons](https://github.com/twbs/icons) (7.8k stars)
+
 - 2025-12-08: **Icon System Overhaul - Phase 1-2 Complete** – Auto-generation de CSS et Registry
   - **Phase 1: Build System Enhancement**
     * Ajout fonction `generateIconsCss()` dans `scripts/build-icons.mjs`
