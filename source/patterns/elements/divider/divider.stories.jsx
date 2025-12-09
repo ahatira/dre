@@ -231,7 +231,7 @@ export const WithIcon = {
 
 export const Vertical = {
   render: () => `
-    <div style="display: flex; align-items: center; gap: var(--size-3);">
+    <div style="display: flex; align-items: center; gap: var(--size-3); height: 48px;">
       <span style="font-size: var(--font-size-1);">Gauche</span>
       ${dividerTwig({ orientation: 'vertical' })}
       <span style="font-size: var(--font-size-1);">Centre</span>
