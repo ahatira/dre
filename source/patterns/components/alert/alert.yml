@@ -4,9 +4,16 @@
 # Props:
 # - variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' - Semantic variant (default: 'primary')
 # - content: Free HTML content (headings, paragraphs, links, icons optional) (required)
+# - icon: string (optional) - Icon name (e.g., 'alert', 'check', 'info'). Leave empty for no icon.
+# - iconPosition: start | end (default: start)
+#   * start: Icon displays before content (::before pseudo-element)
+#   * end: Icon displays after content (::after pseudo-element)
 # - dismissible: true | false (default) - Show close button
+# - rounded: true | false (default: false) - Apply border radius
 
 variant: 'success'
 content: 'Property listing successfully saved to your favorites! <a href="#" class="ps-alert-link">View your saved properties</a> to manage your watchlist.'
+icon: ''
+iconPosition: 'start'
 dismissible: true
 rounded: false

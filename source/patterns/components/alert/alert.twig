@@ -4,6 +4,8 @@
  * 
  * @param string variant - Semantic variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' (default: 'primary')
  * @param string content - Free HTML content (headings, paragraphs, links, icons optional) (required)
+ * @param string icon - Optional icon name (e.g., 'alert', 'check', 'info'). Leave empty for no icon. (optional)
+ * @param string iconPosition - Icon position: start|end (default: start). start = ::before, end = ::after
  * @param boolean dismissible - Show close button (optional, default: false)
  * @param boolean rounded - Apply border radius (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
@@ -13,6 +15,8 @@
 {%- set dismissible = dismissible|default(false) -%}
 {%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
+{%- set icon = icon|default(null) -%}
+{%- set iconPosition = iconPosition|default('start') -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
 {{ attach_library('ps_theme/alert') }}
@@ -29,7 +33,7 @@
   rounded ? 'ps-alert--rounded' : null
 ] -%}
 
-<div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
+<div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}"{% if icon %} data-icon="{{ icon }}"{% endif %}{% if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif %}>
   {{- content|raw -}}
 
   {%- if dismissible -%}

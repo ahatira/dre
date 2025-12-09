@@ -1,3 +1,4 @@
+import iconsRegistry from '../../documentation/icons-registry.json';
 import alertTwig from './alert.twig';
 import data from './alert.yml';
 
@@ -51,6 +52,25 @@ const settings = {
         category: 'Appearance',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+      },
+    },
+    icon: {
+      description: 'Optional icon name (e.g., "check", "alert", "info")',
+      control: { type: 'select' },
+      options: [null, ...iconsRegistry.names],
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
+    },
+    iconPosition: {
+      description: 'Icon position: start (::before, default) or end (::after)',
+      control: { type: 'inline-radio' },
+      options: ['start', 'end'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'start | end' },
+        defaultValue: { summary: 'start' },
       },
     },
     attributes: {
@@ -163,6 +183,17 @@ export const WithIcons = {
       })}
     </div>
   `,
+};
+
+export const WithIconNative = {
+  render: (args) => alertTwig(args),
+  args: {
+    ...data,
+    variant: 'success',
+    content: 'Your property has been saved to favorites!',
+    icon: 'check',
+    dismissible: false,
+  },
 };
 
 export const WithRoundedCorners = {
