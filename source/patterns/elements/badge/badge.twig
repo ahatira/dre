@@ -4,6 +4,7 @@
  *
  * @param string text - Badge text content (optional - can be empty for visual status)
  * @param string icon - Optional icon name (e.g., 'check', 'calendar')
+ * @param string iconPosition - Icon position: start|end (default: start). start = ::before, end = ::after
  * @param string color - Semantic color: primary|secondary|success|danger|warning|info|light|dark|gold (default: primary)
  * @param boolean pill - Fully rounded pill shape (default: false)
  * @param string url - Optional link URL (renders <a> tag)
@@ -14,6 +15,8 @@
 {%- set color = color|default('primary') -%}
 {%- set size = size|default('medium') -%}
 {%- set pill = pill|default(false) -%}
+{%- set icon = icon|default(null) -%}
+{%- set iconPosition = iconPosition|default('start') -%}
 {%- set tag = url ? 'a' : 'span' -%}
 {%- set has_text = text is defined and text is not empty -%}
 
@@ -24,10 +27,7 @@
   pill ? 'ps-badge--pill' : null
 ] -%}
 
-<{{ tag }}{{ attributes ? attributes.addClass(badge_classes) : ' class="' ~ badge_classes|join(' ')|trim ~ '"' }}{% if url %} href="{{ url }}"{% endif %}>
-  {%- if icon -%}
-    <span class="ps-badge__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-  {%- endif -%}
+<{{ tag }}{{ attributes ? attributes.addClass(badge_classes) : ' class="' ~ badge_classes|join(' ')|trim ~ '"' }}{% if url %} href="{{ url }}"{% endif %}{% if icon %} data-icon="{{ icon }}"{% endif %}{% if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif %}>
   {%- if has_text -%}
     <span class="ps-badge__text">{{- text -}}</span>
   {%- endif -%}

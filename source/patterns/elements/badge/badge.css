@@ -37,11 +37,6 @@
   color: var(--ps-badge-color);
   transition: background var(--ps-badge-transition) var(--ps-badge-ease);
 
-  &__icon {
-    inline-size: var(--ps-badge-icon-size);
-    block-size: var(--ps-badge-icon-size);
-    flex-shrink: 0;
-  }
 
   &__text {
     white-space: nowrap;

@@ -3,6 +3,9 @@
 # Available Props:
 # - text: string (required) - Text displayed in the badge
 # - icon: string (optional) - Icon name (e.g., 'calendar', 'check', 'award')
+# - iconPosition: start | end (default: start)
+#   * start: Icon displays before text (::before pseudo-element)
+#   * end: Icon displays after text (::after pseudo-element)
 # - color: primary | secondary | success | danger | warning | info | light | dark | gold (default: primary)
 #   * primary: green (brand primary) - saturated background
 #   * secondary: purple (brand secondary) - saturated background
@@ -27,4 +30,5 @@ color: primary
 pill: false
 size: medium
 icon: ''
+iconPosition: 'start'
 url: ''

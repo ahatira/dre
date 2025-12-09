@@ -37,6 +37,16 @@ export default {
         defaultValue: { summary: '""' },
       },
     },
+    iconPosition: {
+      control: { type: 'inline-radio' },
+      options: ['start', 'end'],
+      description: 'Icon position: start (::before, default) or end (::after)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'start | end' },
+        defaultValue: { summary: 'start' },
+      },
+    },
 
     // Appearance
     color: {
@@ -179,6 +189,12 @@ export const WithIcons = {
       ${component({ color: 'gold', text: 'Premium', icon: 'award', pill: true })}
     </div>
   `,
+};
+
+// With icon position end
+export const WithIconPositionEnd = {
+  render: (args) => component(args),
+  args: { ...data, text: 'Check', color: 'success', icon: 'check', iconPosition: 'end' },
 };
 
 // As links
