@@ -256,25 +256,6 @@ export const ColorInheritance = {
   },
 };
 
-// Accessibility: Icon-only with aria-label
-export const IconOnly = {
-  render: () => `
-    <div style="display: flex; gap: var(--size-4);">
-      <button aria-label="Close dialog" style="padding: var(--size-2); background: var(--gray-100); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
-        ${iconTwig({ icon: 'close', ariaHidden: true })}
-      </button>
-      
-      <button aria-label="Search properties" style="padding: var(--size-2); background: var(--gray-100); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
-        ${iconTwig({ icon: 'search', ariaHidden: true })}
-      </button>
-      
-      <button aria-label="Open menu" style="padding: var(--size-2); background: var(--gray-100); border: 1px solid var(--border-default); border-radius: var(--radius-2);">
-        ${iconTwig({ icon: 'menu', ariaHidden: true })}
-      </button>
-    </div>
-  `,
-};
-
 // Data-icon system: Direct HTML usage (no Icon.twig wrapper)
 export const DataIconSystem = {
   render: () => `
