@@ -122,6 +122,7 @@
     --ps-breadcrumb-link-color: var(--white);
     --ps-breadcrumb-link-hover-color: var(--gray-300);
     --ps-breadcrumb-separator-color: var(--white);
+    --ps-breadcrumb-back-arrow-color: var(--white);
   }
   
   &--no-underline {
