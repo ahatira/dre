@@ -1,6 +1,6 @@
-text: "This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+text: "Découvrez notre sélection de biens immobiliers prêts à visiter cette semaine."
 size: 'md'  # Options: xs | sm | md | lg | xl | xxl
-color: 'default'  # Options: default | primary | secondary | success | info | warning | danger | dark | light
+color: 'default'  # Options: default | primary | secondary | success | info | warning | danger | gold | dark | light
 tag: 'p'  # Options: p | span | div
 align: 'left'  # Options: left | center | right
 muted: false  # Options: true | false

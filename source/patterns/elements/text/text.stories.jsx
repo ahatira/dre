@@ -2,6 +2,19 @@ import component from './text.twig';
 import data from './text.yml';
 import './text.css';
 
+const semanticColors = [
+  'default',
+  'primary',
+  'secondary',
+  'gold',
+  'info',
+  'warning',
+  'success',
+  'danger',
+  'dark',
+  'light',
+];
+
 export default {
   title: 'Elements/Text',
   render: (args) => component(args),
@@ -10,35 +23,25 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Semantic text component for paragraphs and inline content.
-Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
+        component:
+          'Semantic text atom for paragraphs and inline content with six sizes, semantic colors (including gold), alignment, and emphasis states. Uses component-scoped CSS variables (layered) for easy overrides.',
       },
     },
   },
   argTypes: {
-    baseClass: {
-      control: { type: 'text' },
-      description:
-        'Override root BEM class for composition. When provided, Text emits only this class and `--strong` if applicable. Fallback emits `ps-text` classes.',
-      table: {
-        category: 'Structure',
-        type: { summary: 'string' },
-        defaultValue: { summary: null },
-      },
-    },
     text: {
       control: { type: 'text' },
       description: 'Text content rendered directly (no HTML parsing).',
       table: {
         category: 'Content',
         type: { summary: 'string', required: true },
-        defaultValue: { summary: 'Body text example' },
+        defaultValue: { summary: data.text },
       },
     },
     size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      description: 'Text size: xs (12px), sm (14px), md (16px), lg (18px), xl (20px), xxl (24px).',
+      description: 'Size variants from compact helper text (xs) to hero copy (xxl).',
       table: {
         category: 'Appearance',
         type: { summary: 'xs | sm | md | lg | xl | xxl' },
@@ -47,34 +50,21 @@ Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
     },
     color: {
       control: { type: 'select' },
-      options: [
-        'default',
-        'primary',
-        'secondary',
-        'success',
-        'info',
-        'warning',
-        'danger',
-        'dark',
-        'light',
-      ],
+      options: semanticColors,
       description:
-        'Semantic color: default (text), primary, secondary, success, info, warning, danger, dark, light.',
+        'Semantic color: default text plus brand/status options (primary, secondary, gold, info, warning, success, danger, dark, light).',
       table: {
         category: 'Appearance',
-        type: {
-          summary:
-            'default | primary | secondary | success | info | warning | danger | dark | light',
-        },
+        type: { summary: semanticColors.join(' | ') },
         defaultValue: { summary: 'default' },
       },
     },
     tag: {
       control: { type: 'select' },
       options: ['p', 'span', 'div'],
-      description: 'Semantic HTML tag used for rendering.',
+      description: 'HTML tag used for rendering (paragraph by default).',
       table: {
-        category: 'Structure',
+        category: 'Content',
         type: { summary: 'p | span | div' },
         defaultValue: { summary: 'p' },
       },
@@ -91,7 +81,7 @@ Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
     },
     muted: {
       control: { type: 'boolean' },
-      description: 'Apply secondary tone (muted) for de‑emphasized information.',
+      description: 'Secondary tone using `--text-secondary` (can combine with strong).',
       table: {
         category: 'Appearance',
         type: { summary: 'boolean' },
@@ -100,7 +90,7 @@ Supports size variants, emphasis (muted/strong), alignment, and semantic tags.`,
     },
     strong: {
       control: { type: 'boolean' },
-      description: 'Apply bold weight for emphasis (can combine with muted).',
+      description: 'Bold emphasis via `--font-weight-700` (can combine with muted).',
       table: {
         category: 'Appearance',
         type: { summary: 'boolean' },
@@ -115,126 +105,135 @@ export const Default = {
   args: { ...data },
 };
 
-// === Grouped Showcases ===
+export const Sizes = {
+  render: () => {
+    const sizes = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
 
-export const AllSizes = {
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ text: 'XXL text (24px) — Hero intro and featured statements', size: 'xxl', strong: true })}
-      ${component({ text: 'XL text (20px) — Lead paragraphs and introductions', size: 'xl' })}
-      ${component({ text: 'LG text (18px) — Lead paragraphs', size: 'lg' })}
-      ${component({ text: 'MD text (16px) — Standard body content (default)', size: 'md' })}
-      ${component({ text: 'SM text (14px) — Captions, helper text', size: 'sm' })}
-      ${component({ text: 'XS text (12px) — Footnotes, microcopy', size: 'xs', muted: true })}
-    </div>
-  `,
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+        ${sizes
+          .map((size) =>
+            component({
+              ...data,
+              size,
+              text:
+                size === 'xxl'
+                  ? 'XXL — Hero intro for premium property highlights'
+                  : size === 'xl'
+                    ? 'XL — Lead paragraph for brochure openings'
+                    : size === 'lg'
+                      ? 'LG — Lead paragraph for landing pages'
+                      : size === 'md'
+                        ? 'MD — Standard body text (default)'
+                        : size === 'sm'
+                          ? 'SM — Captions, helper text, legal mentions'
+                          : 'XS — Microcopy and footnotes',
+              strong: size === 'xxl',
+              muted: size === 'xs',
+            })
+          )
+          .join('\n')}
+      </div>
+    `;
+  },
   parameters: {
     docs: {
       description: {
         story:
-          '6 sizes: XXL (24px), XL (20px), LG (18px), MD (16px default), SM (14px), XS (12px). Use larger sizes for introductions and smaller sizes for captions/microcopy.',
+          'Six sizes mapped to the typography scale. Larger sizes support hero/lead copy; smaller sizes support helper text and microcopy.',
       },
     },
   },
 };
 
-export const AllColors = {
-  render: () => `
-    <div style="display: grid; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ text: 'Default color — Standard body text', size: 'md', color: 'default' })}
-      ${component({ text: 'Primary color — Highlighted callouts', size: 'md', color: 'primary' })}
-      ${component({ text: 'Secondary color — Complementary information', size: 'md', color: 'secondary' })}
-      ${component({ text: 'Success color — Positive status', size: 'md', color: 'success' })}
-      ${component({ text: 'Info color — Informational notes', size: 'md', color: 'info' })}
-      ${component({ text: 'Warning color — Caution messages', size: 'md', color: 'warning' })}
-      ${component({ text: 'Danger color — Error messages', size: 'md', color: 'danger' })}
-      ${component({ text: 'Dark color — High contrast on light backgrounds', size: 'md', color: 'dark' })}
-      <div style="padding: var(--size-4); background: var(--gray-800); border-radius: var(--radius-2);">
-        ${component({ text: 'Light color — Inverted contexts on dark surfaces', size: 'md', color: 'light' })}
+export const Colors = {
+  render: () => {
+    const items = semanticColors.map((color) => {
+      if (color === 'light') {
+        return `
+          <div style="padding: var(--size-4); background: var(--gray-800); border-radius: var(--radius-2);">
+            ${component({ ...data, text: 'Light — Use on dark backgrounds', color })}
+          </div>
+        `;
+      }
+
+      return component({
+        ...data,
+        color,
+        text: `${color.charAt(0).toUpperCase()}${color.slice(1)} semantic color`,
+      });
+    });
+
+    return `
+      <div style="display: grid; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+        ${items.join('\n')}
       </div>
-    </div>
-  `,
+    `;
+  },
   parameters: {
     docs: {
       description: {
         story:
-          '9 semantic colors: default, primary, secondary, success, info, warning, danger, dark, light. The `light` variant is showcased on a dark tile for proper contrast.',
+          'Semantic colors aligned with design tokens, including the gold accent. The light variant is demonstrated on a dark tile to preserve contrast.',
       },
     },
   },
 };
 
-export const AllStates = {
+export const Emphasis = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      <div>
-        <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Normal</p>
-        ${component({ text: 'Standard text with default color and weight', size: 'md' })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Muted</p>
-        ${component({ text: 'Muted text for secondary information (reduced prominence)', size: 'md', muted: true })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Strong</p>
-        ${component({ text: 'Strong text for emphasis and highlighted importance (bold weight)', size: 'md', strong: true })}
-      </div>
-      <div>
-        <p style="margin: 0 0 0.5rem; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--gray-600);">Muted + Strong</p>
-        ${component({ text: 'Combination of muted and strong is possible', size: 'md', muted: true, strong: true })}
-      </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+      ${component({ ...data, text: 'Normal tone — default weight and color' })}
+      ${component({ ...data, text: 'Muted tone — secondary information', muted: true })}
+      ${component({ ...data, text: 'Strong emphasis — bold highlight', strong: true })}
+      ${component({ ...data, text: 'Muted + strong — secondary yet highlighted', muted: true, strong: true })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story:
-          'States: Normal (default), Muted (secondary tone), Strong (bold emphasis). States can be combined for nuanced emphasis.',
+        story: 'Combine muted and strong to balance hierarchy for helper text, disclaimers, and emphasis.',
       },
     },
   },
 };
 
-export const AllAlignments = {
+export const Alignments = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ text: 'Left aligned text (default) — Optimal for continuous reading', size: 'md', align: 'left' })}
-      ${component({ text: 'Center aligned text — Use for callouts and headings', size: 'md', align: 'center' })}
-      ${component({ text: 'Right aligned text — Use for numeric values or metadata blocks', size: 'md', align: 'right' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
+      ${component({ ...data, text: 'Left aligned — best readability for paragraphs', align: 'left' })}
+      ${component({ ...data, text: 'Center aligned — promotional callouts and short copy', align: 'center' })}
+      ${component({ ...data, text: 'Right aligned — metadata, numbers, or prices', align: 'right' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story:
-          '3 alignments: Left (default, best readability), Center (headings/callouts), Right (numeric / metadata alignment).',
+        story: 'Alignment options adapt the text to layouts such as cards, callouts, and metadata blocks.',
       },
     },
   },
 };
 
-export const UseCases = {
+export const RealEstateUseCase = {
   render: () => `
-    <div style="max-width: 650px; padding: 2rem; background: white; border-radius: var(--radius-2); border: 1px solid var(--gray-200);">
+    <div style="max-width: 720px; padding: var(--size-6); background: var(--white); border-radius: var(--radius-2); border: 1px solid var(--border-default); display: grid; gap: var(--size-3);">
       ${component({
-        text: "Découvrez notre sélection exclusive de biens immobiliers d'exception à Paris et en Île-de-France.",
+        text: 'Programme neuf – bureaux modulables à La Défense, livrables au T3',
         size: 'lg',
         strong: true,
       })}
-      
       ${component({
-        text: 'BNP Paribas Real Estate vous accompagne dans tous vos projets immobiliers professionnels. Fort de notre expertise et de notre réseau international, nous vous proposons des solutions adaptées à vos besoins.',
+        text: 'Plateaux lumineux de 450 à 900 m² avec terrasses végétalisées, à deux minutes du RER et de la future ligne 15. Certification HQE Excellent et espaces collaboratifs modulables.',
         size: 'md',
       })}
-      
       ${component({
-        text: "Notre équipe d'experts analyse le marché en temps réel pour vous offrir les meilleures opportunités d'investissement.",
+        text: 'Accompagnement complet : recherche de financement, space-planning, et pilotage des travaux d’aménagement.',
         size: 'md',
       })}
-      
-      <div style="margin-top: var(--size-6); padding-top: var(--size-4); border-top: 1px solid var(--gray-200);">
+      <div style="padding-top: var(--size-3); border-top: 1px solid var(--border-default);">
         ${component({
-          text: '* Informations non contractuelles. Prix indicatifs sous réserve de disponibilité.',
+          text: '* Informations non contractuelles. Disponibilités et loyers indicatifs, sous réserve de signature du bail.',
           size: 'sm',
           muted: true,
         })}
@@ -245,48 +244,7 @@ export const UseCases = {
     docs: {
       description: {
         story:
-          'Real usage example: lead paragraph (large + strong) for introduction, body paragraphs for primary content, small muted for disclaimers / footnotes.',
-      },
-    },
-  },
-};
-
-export const AllCombinations = {
-  render: () => `
-    <div style="display: grid; gap: var(--size-6); padding: 2rem; background: var(--gray-50); border-radius: var(--radius-2);">
-      <div>
-        <h3 style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--gray-700); margin: 0 0 var(--size-3); letter-spacing: 0.5px;">Large Variants (18–24px)</h3>
-        <div style="background: white; padding: var(--size-4); border-radius: var(--radius-2); display: flex; flex-direction: column; gap: var(--size-2);">
-          ${component({ text: 'LG text — Normal', size: 'lg' })}
-          ${component({ text: 'XL text — Muted', size: 'xl', muted: true })}
-          ${component({ text: 'XXL text — Strong', size: 'xxl', strong: true })}
-        </div>
-      </div>
-      
-      <div>
-        <h3 style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--gray-700); margin: 0 0 var(--size-3); letter-spacing: 0.5px;">Body Variants (16px)</h3>
-        <div style="background: white; padding: var(--size-4); border-radius: var(--radius-2); display: flex; flex-direction: column; gap: var(--size-2);">
-          ${component({ text: 'Body text — Normal', size: 'md' })}
-          ${component({ text: 'Body text — Muted', size: 'md', muted: true })}
-          ${component({ text: 'Body text — Strong', size: 'md', strong: true })}
-        </div>
-      </div>
-      
-      <div>
-        <h3 style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--gray-700); margin: 0 0 var(--size-3); letter-spacing: 0.5px;">Small Variants (12–14px)</h3>
-        <div style="background: white; padding: var(--size-4); border-radius: var(--radius-2); display: flex; flex-direction: column; gap: var(--size-2);">
-          ${component({ text: 'Small text — Normal', size: 'sm' })}
-          ${component({ text: 'Small text — Muted', size: 'sm', muted: true })}
-          ${component({ text: 'Small text — Strong', size: 'sm', strong: true })}
-        </div>
-      </div>
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'All possible combinations of size (large/body/small) and state (normal/muted/strong). Any size can pair with any emphasis state.',
+          'Real-estate narrative mixing lead paragraph, body copy, and a muted disclaimer to showcase sizing and emphasis in context.',
       },
     },
   },

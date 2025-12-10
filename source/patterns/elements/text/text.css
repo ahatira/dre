@@ -1,67 +1,75 @@
 /**
  * Text (Element / Atom)
- * Typography for paragraphs and inline textual content.
+ * Typography for paragraphs and inline content with semantic colors and sizes.
  *
- * BEM Block: ps-text
+ * BEM: ps-text, modifiers --{size|color|align|muted|strong}
  * Sizes: xs | sm | md (default) | lg | xl | xxl
- * States: --muted | --strong (can combine)
- * Colors: default (base) | primary | secondary | success | info | warning | danger | dark | light
- * Alignment: --align-center | --align-right (left is default)
+ * Colors: default | primary | secondary | success | info | warning | danger | gold | dark | light
  */
 
 .ps-text {
-  /* Component-scoped variables (defaults - Bootstrap 5 pattern) */
-  --ps-text-size: var(--font-size-1); /* 16px (md default) */
-  --ps-text-line-height: var(--leading-normal); /* 1.5 */
-  --ps-text-color: var(--gray-900); /* default text color */
+  /* ==============================================
+   * Component-scoped defaults (Layer 2)
+   * ============================================== */
+  --ps-text-font-size: var(--font-size-1);
+  --ps-text-line-height: var(--leading-normal);
+  --ps-text-font-weight: var(--font-weight-400);
+  --ps-text-color: var(--text-primary);
+  --ps-text-margin-bottom: var(--size-4);
 
   /* Base styles */
-  margin: 0 0 var(--size-4);
+  margin: 0 0 var(--ps-text-margin-bottom);
   font-family: var(--font-sans);
-  font-weight: var(--font-weight-400);
-  text-align: left;
-  font-size: var(--ps-text-size);
+  font-size: var(--ps-text-font-size);
   line-height: var(--ps-text-line-height);
+  font-weight: var(--ps-text-font-weight);
   color: var(--ps-text-color);
+  text-align: left;
 
   /* Alignment modifiers */
   &--align-center { text-align: center; }
   &--align-right { text-align: right; }
 
-  /* States */
-  &--muted { --ps-text-color: var(--gray-600); }
-  &--strong { font-weight: var(--font-weight-700); }
+  /* Emphasis states */
+  &--muted { --ps-text-color: var(--text-secondary); }
+  &--strong { --ps-text-font-weight: var(--font-weight-700); }
 
-  /* Size modifiers (override variables) */
+  /* Size modifiers (Layer 3 overrides) */
   &--xs {
-    --ps-text-size: var(--font-size--1); /* 12px */
-    --ps-text-line-height: var(--leading-tight); /* 1.25 or closest */
-  }
-  &--sm {
-    --ps-text-size: var(--font-size-0); /* 14px */
-    --ps-text-line-height: var(--leading-snug); /* 1.375 */
-  }
-  /* md is default (16px) - no modifier needed */
-  &--lg {
-    --ps-text-size: var(--font-size-2); /* 18px */
-    --ps-text-line-height: var(--leading-relaxed); /* 1.625 */
-  }
-  &--xl {
-    --ps-text-size: var(--font-size-3); /* 20px */
-    --ps-text-line-height: var(--leading-relaxed); /* 1.625 or appropriate */
-  }
-  &--xxl {
-    --ps-text-size: var(--font-size-4); /* 24px */
-    --ps-text-line-height: var(--leading-loose); /* 1.75 or appropriate */
+    --ps-text-font-size: var(--font-size--1);
+    --ps-text-line-height: var(--leading-tight);
   }
 
-  /* Color modifiers (override variable) */
-  &--primary { --ps-text-color: var(--primary); }
-  &--secondary { --ps-text-color: var(--secondary); }
-  &--success { --ps-text-color: var(--success); }
-  &--info { --ps-text-color: var(--info); }
-  &--warning { --ps-text-color: var(--warning); }
-  &--danger { --ps-text-color: var(--danger); }
-  &--dark { --ps-text-color: var(--gray-900); }
-  &--light { --ps-text-color: var(--white); }
+  &--sm {
+    --ps-text-font-size: var(--font-size-0);
+    --ps-text-line-height: var(--leading-snug);
+  }
+
+  /* md is default */
+
+  &--lg {
+    --ps-text-font-size: var(--font-size-2);
+    --ps-text-line-height: var(--leading-relaxed);
+  }
+
+  &--xl {
+    --ps-text-font-size: var(--font-size-3);
+    --ps-text-line-height: var(--leading-relaxed);
+  }
+
+  &--xxl {
+    --ps-text-font-size: var(--font-size-4);
+    --ps-text-line-height: var(--leading-loose);
+  }
+
+  /* Color modifiers (Layer 3 overrides) */
+  &--primary { --ps-text-color: var(--primary-text-emphasis); }
+  &--secondary { --ps-text-color: var(--secondary-text-emphasis); }
+  &--success { --ps-text-color: var(--success-text-emphasis); }
+  &--info { --ps-text-color: var(--info-text-emphasis); }
+  &--warning { --ps-text-color: var(--warning-text-emphasis); }
+  &--danger { --ps-text-color: var(--danger-text-emphasis); }
+  &--gold { --ps-text-color: var(--gold-text-emphasis); }
+  &--dark { --ps-text-color: var(--dark-text-emphasis); }
+  &--light { --ps-text-color: var(--text-inverse); }
 }

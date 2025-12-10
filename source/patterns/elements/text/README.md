@@ -6,12 +6,14 @@ Atom: Semantic text component for paragraphs and inline content. **Composition-r
 
 - `text` (string) — Text content (required)
 - `size` (string) — xs | sm | md (default) | lg | xl | xxl
-- `color` (string) — default | primary | secondary | success | info | warning | danger | dark | light
+- `color` (string) — default | primary | secondary | success | info | warning | danger | gold | dark | light
 - `tag` (string) — p | span | div (default: p)
 - `align` (string) — left | center | right (default: left)
 - `muted` (boolean) — Secondary tone (overrides color to muted)
 - `strong` (boolean) — Bold emphasis
- - `attributes` (Attribute) — Additional HTML attributes for composition## Sizes
+- `attributes` (Attribute) — Additional HTML attributes for composition
+
+## Sizes
 
 - **xs**: 12px — Footnotes, microcopy
 - **sm**: 14px — Captions, helper text
@@ -23,9 +25,9 @@ Atom: Semantic text component for paragraphs and inline content. **Composition-r
 ## Colors (Semantic)
 
 - **default**: Base text color
-- **primary**, **secondary**
+- **primary**, **secondary**, **gold**
 - **success**, **info**, **warning**, **danger**
-- **dark**, **light**
+- **dark**, **light** (use on dark backgrounds)
 
 ## Usage
 
@@ -84,11 +86,23 @@ Atom: Semantic text component for paragraphs and inline content. **Composition-r
 ## Design Tokens (used)
 
 - `--font-sans`
-- `--font-size--1` (12px) · `--font-size-0` (14px) · `--font-size-1` (16px) · `--font-size-2` (18px) · `--font-size-3` (20px) · `--font-size-4` (24px)
+- `--font-size--1` · `--font-size-0` · `--font-size-1` · `--font-size-2` · `--font-size-3` · `--font-size-4`
 - `--font-weight-400`, `--font-weight-700`
 - `--leading-tight`, `--leading-snug`, `--leading-normal`, `--leading-relaxed`, `--leading-loose`
-- `--gray-900` (default), `--gray-600` (muted)
+- `--text-primary`, `--text-secondary`, `--text-inverse`
+- `--primary-text-emphasis`, `--secondary-text-emphasis`, `--success-text-emphasis`, `--info-text-emphasis`, `--warning-text-emphasis`, `--danger-text-emphasis`, `--gold-text-emphasis`, `--dark-text-emphasis`
 - `--size-4` (margin-bottom)
+
+## BEM Structure
+
+```
+.ps-text                /* Block */
+.ps-text--{size}        /* xs | sm | md | lg | xl | xxl */
+.ps-text--{color}       /* default | primary | secondary | success | info | warning | danger | gold | dark | light */
+.ps-text--align-{pos}   /* left | center | right */
+.ps-text--muted         /* Secondary tone */
+.ps-text--strong        /* Bold emphasis */
+```
 
 ## Typography Scale
 
@@ -100,7 +114,7 @@ md:  16px / 1.5   / 400
 sm:  14px / 1.375 / 400
 xs:  12px / 1.25  / 400
 
-muted: gray-600
+muted: text-secondary
 strong: font-weight-700
 ```
 
