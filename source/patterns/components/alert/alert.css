@@ -1,11 +1,12 @@
 /**
  * Alert Component (Molecule/Feedback)
- * Semantic alert with flexible content and 8 variants
+ * Semantic alert with flexible content and 10 variants
  *
- * BEM: ps-alert, ps-alert__close
+ * BEM: ps-alert, ps-alert__content, ps-alert__close
  * Utility Classes: ps-alert-link, ps-alert-heading
- * Variants: primary | secondary | success | danger | warning | info | light | dark
- * Modifiers: --dismissible
+ * Variants: default | primary | secondary | success | danger | warning | info | gold | light | dark
+ * Sizes: xs | sm | md | lg | xl | xxl (default: md)
+ * Modifiers: --dismissible, --rounded
  * Three-Layer CSS Variables System
  */
 
@@ -68,36 +69,47 @@
   color: var(--ps-alert-color);
 
   /* ============================================
-     Close Button Element
+     Close Button Element (Button Component)
+     Context overrides for ps-button when used as .ps-alert__close
      ============================================ */
-  & .ps-alert__close {
-    /* Reset button */
-    appearance: none;
-    margin: 0;
-    border: none;
-    background: transparent;
-    
+  & .ps-alert__close.ps-button {
     /* Positioning - Top right corner */
     position: absolute;
-    top: 0;
-    right: 0;
+    top: var(--size-3);
+    right: var(--size-3);
     z-index: 2;
     
-    /* Sizing */
-    padding: var(--ps-alert-close-padding);
+    /* Sizing overrides - Compact for alert context */
+    --ps-button-min-width: auto;
+    --ps-button-height: auto;
+    --ps-button-padding-y: var(--size-1);
+    --ps-button-padding-x: var(--size-1);
+    --ps-icon-size: var(--size-4);
     
-    /* Styling */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-4);
-    line-height: 1;
-    color: var(--ps-alert-close-color);
+    /* Visual overrides - Always transparent background */
+    --ps-button-bg: transparent;
+    --ps-button-color: currentColor;
+    --ps-button-border-color: transparent;
+    
+    /* Hover state - Transparent background, only opacity changes */
+    --ps-button-hover-bg: transparent;
+    --ps-button-hover-color: currentColor;
+    --ps-button-hover-border-color: transparent;
+    --ps-button-hover-transform: none;
+    
+    /* Active state - Transparent background, only opacity changes */
+    --ps-button-active-bg: transparent;
+    --ps-button-active-color: currentColor;
+    --ps-button-active-border-color: transparent;
+    --ps-button-active-transform: none;
+    
+    /* Focus state - Inherit alert close focus styling */
+    --ps-button-focus-outline-width: var(--border-size-2);
+    --ps-button-focus-outline-color: currentColor;
+    --ps-button-focus-outline-offset: var(--border-size-1);
+    
+    /* Opacity progression */
     opacity: var(--ps-alert-close-opacity);
-    cursor: pointer;
-    
-    /* Transitions */
-    transition: var(--ps-alert-transition);
     
     &:hover {
       opacity: var(--ps-alert-close-hover-opacity);
@@ -105,79 +117,97 @@
     
     &:focus-visible {
       opacity: var(--ps-alert-close-focus-opacity);
-      outline: var(--ps-alert-close-focus-outline-width) solid currentColor;
-      outline-offset: var(--ps-alert-close-focus-outline-offset);
     }
   }
 
   /* Padding adjustment when dismissible */
   &--dismissible {
-    padding-right: calc(var(--ps-alert-padding-x) + var(--size-8));
+    padding-right: calc(var(--ps-alert-padding-x) + var(--size-10));
   }
 
   /* Border radius modifier */
   &--rounded {
     --ps-alert-border-radius: var(--radius-2);
+    
+    /* Rounded close button to match */
+    & .ps-alert__close.ps-button {
+      border-radius: var(--radius-2);
+    }
   }
 
   /* ============================================
-     Variant Modifiers (8 semantic variants)
+     Variant Modifiers (10 semantic variants)
      Soft pastel backgrounds with colored borders
      ============================================ */
+  /* --- Harmonisation tokens 3 couches --- */
+  &--default {
+    --ps-alert-bg: var(--gray-50);
+    --ps-alert-color: var(--gray-800);
+    --ps-alert-border-color: var(--border-default);
+    --ps-alert-link-color: var(--primary);
+  }
+
   &--primary {
-    --ps-alert-bg: var(--green-50);
-    --ps-alert-color: var(--primary);
+    --ps-alert-bg: var(--primary-bg-subtle);
+    --ps-alert-color: var(--primary-text-emphasis);
     --ps-alert-border-color: var(--primary);
     --ps-alert-link-color: var(--primary);
   }
 
   &--secondary {
-    --ps-alert-bg: var(--purple-50);
-    --ps-alert-color: var(--secondary);
+    --ps-alert-bg: var(--secondary-bg-subtle);
+    --ps-alert-color: var(--secondary-text-emphasis);
     --ps-alert-border-color: var(--secondary);
     --ps-alert-link-color: var(--secondary);
   }
 
   &--success {
-    --ps-alert-bg: var(--green-100);
-    --ps-alert-color: var(--success);
+    --ps-alert-bg: var(--success-bg-subtle);
+    --ps-alert-color: var(--success-text-emphasis);
     --ps-alert-border-color: var(--success);
     --ps-alert-link-color: var(--success);
   }
 
   &--danger {
-    --ps-alert-bg: var(--red-50);
-    --ps-alert-color: var(--danger);
+    --ps-alert-bg: var(--danger-bg-subtle);
+    --ps-alert-color: var(--danger-text-emphasis);
     --ps-alert-border-color: var(--danger);
     --ps-alert-link-color: var(--danger);
   }
 
   &--warning {
-    --ps-alert-bg: var(--yellow-50);
-    --ps-alert-color: var(--warning-text);
+    --ps-alert-bg: var(--warning-bg-subtle);
+    --ps-alert-color: var(--warning-text-emphasis);
     --ps-alert-border-color: var(--warning);
     --ps-alert-link-color: var(--warning);
   }
 
   &--info {
-    --ps-alert-bg: var(--blue-50);
-    --ps-alert-color: var(--info);
+    --ps-alert-bg: var(--info-bg-subtle);
+    --ps-alert-color: var(--info-text-emphasis);
     --ps-alert-border-color: var(--info);
     --ps-alert-link-color: var(--info);
   }
 
+  &--gold {
+    --ps-alert-bg: var(--gold-bg-subtle);
+    --ps-alert-color: var(--gold-text-emphasis);
+    --ps-alert-border-color: var(--gold);
+    --ps-alert-link-color: var(--gold);
+  }
+
   &--light {
-    --ps-alert-bg: var(--gray-50);
-    --ps-alert-color: var(--gray-900);
-    --ps-alert-border-color: var(--gray-300);
-    --ps-alert-link-color: var(--gray-900);
+    --ps-alert-bg: var(--light-bg-subtle);
+    --ps-alert-color: var(--light-text-emphasis);
+    --ps-alert-border-color: var(--light);
+    --ps-alert-link-color: var(--light);
   }
 
   &--dark {
-    --ps-alert-bg: var(--gray-900);
-    --ps-alert-color: var(--gray-50);
-    --ps-alert-border-color: var(--gray-800);
-    --ps-alert-link-color: var(--gray-50);
+    --ps-alert-bg: var(--dark-bg-subtle);
+    --ps-alert-color: var(--dark-text-emphasis);
+    --ps-alert-border-color: var(--dark);
+    --ps-alert-link-color: var(--dark);
   }
 }
 

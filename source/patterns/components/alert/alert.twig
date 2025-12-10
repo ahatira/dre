@@ -1,31 +1,29 @@
 {#
  * Alert Component (Molecule)
- * Semantic alert with flexible content and 8 variants
+ * Semantic alert with flexible content and 10 variants
  * 
- * @param string variant - Semantic variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' (default: 'primary')
- * @param string content - Free HTML content (headings, paragraphs, links, icons optional) (required)
- * @param string icon - Optional icon name (e.g., 'alert', 'check', 'info'). Leave empty for no icon. (optional)
- * @param string iconPosition - Icon position: start|end (default: start). start = ::before, end = ::after
+ * @param string variant - Semantic variant: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'gold' | 'light' | 'dark' (default: 'default')
+ * @param string content - Free HTML content (headings, paragraphs, links) (required)
  * @param boolean dismissible - Show close button (optional, default: false)
  * @param boolean rounded - Apply border radius (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
-{%- set variant = variant|default('primary') -%}
+
+{# --- Defaults --- #}
+{%- set variant = variant|default('default') -%}
 {%- set dismissible = dismissible|default(false) -%}
 {%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
-{%- set icon = icon|default(null) -%}
-{%- set iconPosition = iconPosition|default('start') -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
 {{ attach_library('ps_theme/alert') }}
 
-{# ARIA role and live region - danger/warning are assertive #}
+{# ARIA role et live region - danger/error/warning sont assertive #}
 {%- set role = (variant in ['danger', 'warning']) ? 'alert' : 'status' -%}
 {%- set ariaLive = (variant in ['danger', 'warning']) ? 'assertive' : 'polite' -%}
 
-{# Build classes array - variant always applied (no default omission) #}
+{# Build classes array - variant toujours appliqué #}
 {%- set classes = [
   'ps-alert',
   'ps-alert--' ~ variant,
@@ -33,14 +31,17 @@
   rounded ? 'ps-alert--rounded' : null
 ] -%}
 
-<div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}"{% if icon %} data-icon="{{ icon }}"{% endif %}{% if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif %}>
-  {{- content|raw -}}
+<div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
+  <div class="ps-alert__content">
+    {{- content|raw -}}
+  </div>
 
   {%- if dismissible -%}
     {% include '@elements/button/button.twig' with {
       label: '',
       icon: 'close',
-      size: 'small',
+      variant: 'neutral',
+      size: 'sm',
       attributes: create_attribute().addClass('ps-alert__close').setAttribute('aria-label', 'Close alert')
     } only %}
   {%- endif -%}

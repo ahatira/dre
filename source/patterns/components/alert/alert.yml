@@ -1,19 +1,14 @@
 # Alert Component - Default Configuration
-# Semantic feedback messages with 8 color variants
+# Semantic feedback messages with 10 color variants
 #
 # Props:
-# - variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' - Semantic variant (default: 'primary')
-# - content: Free HTML content (headings, paragraphs, links, icons optional) (required)
-# - icon: string (optional) - Icon name (e.g., 'alert', 'check', 'info'). Leave empty for no icon.
-# - iconPosition: start | end (default: start)
-#   * start: Icon displays before content (::before pseudo-element)
-#   * end: Icon displays after content (::after pseudo-element)
+# - variant: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'gold' | 'light' | 'dark' - Semantic variant (default: 'default')
+# - content: Free HTML content (headings, paragraphs, links) (required)
 # - dismissible: true | false (default) - Show close button
 # - rounded: true | false (default: false) - Apply border radius
 
-variant: 'success'
-content: 'Property listing successfully saved to your favorites! <a href="#" class="ps-alert-link">View your saved properties</a> to manage your watchlist.'
-icon: ''
-iconPosition: 'start'
-dismissible: true
+# Default example
+variant: 'default'
+content: '<strong>Information importante :</strong> Ceci est un message d''alerte générique.'
+dismissible: false
 rounded: false

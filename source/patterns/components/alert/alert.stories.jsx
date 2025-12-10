@@ -1,258 +1,170 @@
-import iconsRegistry from '../../documentation/icons-registry.json';
 import alertTwig from './alert.twig';
 import data from './alert.yml';
 
-const settings = {
+export default {
   title: 'Components/Alert',
   tags: ['autodocs'],
   render: (args) => alertTwig(args),
   args: data,
+
   parameters: {
     docs: {
       description: {
-        component: 'Semantic alert with 8 color variants and optional dismissal.',
+        component:
+          'Semantic alert component with 10 color variants for displaying important feedback messages.\n\n' +
+          'Supports free HTML content, optional dismissal, and rounded corners. Automatically applies appropriate ARIA roles and live regions.',
       },
     },
   },
+
   argTypes: {
     variant: {
-      description: 'Semantic variant (8 options)',
+      description: 'Semantic variant defining color scheme and intent',
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'gold',
+        'light',
+        'dark',
+      ],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'primary | secondary | success | danger | warning | info | light | dark',
+          summary:
+            'default | primary | secondary | success | danger | warning | info | gold | light | dark',
         },
-        defaultValue: { summary: 'primary' },
+        defaultValue: { summary: 'default' },
       },
     },
+
     content: {
-      description: 'Free HTML content (headings, paragraphs, links, icons optional)',
+      description: 'HTML content for alert body (headings, paragraphs, links)',
       control: { type: 'text' },
       table: {
         category: 'Content',
         type: { summary: 'string (HTML)' },
-        defaultValue: { summary: '""' },
+        defaultValue: { summary: '' },
       },
     },
+
     dismissible: {
-      description: 'Show close button with JavaScript dismiss behavior',
+      description: 'Show close button with dismiss behavior',
       control: { type: 'boolean' },
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: false },
       },
     },
+
     rounded: {
-      description: 'Apply border radius (default: no radius)',
+      description: 'Apply border radius',
       control: { type: 'boolean' },
       table: {
         category: 'Appearance',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    icon: {
-      description: 'Optional icon name (e.g., "check", "alert", "info")',
-      control: { type: 'select' },
-      options: [null, ...iconsRegistry.names],
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-    },
-    iconPosition: {
-      description: 'Icon position: start (::before, default) or end (::after)',
-      control: { type: 'inline-radio' },
-      options: ['start', 'end'],
-      table: {
-        category: 'Appearance',
-        type: { summary: 'start | end' },
-        defaultValue: { summary: 'start' },
-      },
-    },
-    attributes: {
-      description: 'Drupal attributes object for root element',
-      table: {
-        category: 'Layout',
-        type: { summary: 'Drupal.Attribute' },
+        defaultValue: { summary: false },
       },
     },
   },
 };
+
+// ============================================
+// BASIC STORIES
+// ============================================
 
 export const Default = {
-  render: (args) => alertTwig(args),
-  args: { ...data },
-};
-
-export const AllVariants = {
-  name: 'All 8 Variants',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({ variant: 'primary', content: 'A simple <strong>primary</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'secondary', content: 'A simple <strong>secondary</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'success', content: 'A simple <strong>success</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'danger', content: 'A simple <strong>danger</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'warning', content: 'A simple <strong>warning</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'info', content: 'A simple <strong>info</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'light', content: 'A simple <strong>light</strong> alert—check it out!' })}
-      ${alertTwig({ variant: 'dark', content: 'A simple <strong>dark</strong> alert—check it out!' })}
-    </div>
-  `,
-};
-
-export const WithLinks = {
-  name: 'Alert Links',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'primary',
-        content:
-          'A property listing with <a href="#" class="ps-alert-link">an example link</a>. Give it a click if you like.',
-      })}
-      ${alertTwig({
-        variant: 'success',
-        content:
-          'Offer accepted! <a href="#" class="ps-alert-link">View contract details</a> in your dashboard.',
-      })}
-      ${alertTwig({
-        variant: 'warning',
-        content:
-          'Your insurance expires soon. <a href="#" class="ps-alert-link">Renew now</a> to avoid gaps.',
-      })}
-      ${alertTwig({
-        variant: 'danger',
-        content:
-          'Payment failed. <a href="#" class="ps-alert-link">Update payment method</a> immediately.',
-      })}
-    </div>
-  `,
-};
-
-export const WithHeadings = {
-  name: 'Additional Content',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'success',
-        content: `
-          <h4 class="ps-alert-heading">Property Inspection Complete!</h4>
-          <p>Aww yeah, you successfully completed the inspection for 123 Main Street. The detailed report has been uploaded to your dashboard and is now available for review.</p>
-          <hr>
-          <p style="margin-bottom: 0;">Whenever you're ready, proceed with the final offer or schedule a follow-up viewing with the property agent.</p>
-        `,
-      })}
-      ${alertTwig({
-        variant: 'info',
-        content: `
-          <h4 class="ps-alert-heading">Market Analysis Available</h4>
-          <p>A comprehensive market analysis for downtown commercial properties has been prepared by your real estate advisor.</p>
-          <p style="margin-bottom: 0;"><a href="#" class="ps-alert-link">Download report</a> to review key insights and investment opportunities.</p>
-        `,
-      })}
-    </div>
-  `,
-};
-
-export const WithIcons = {
-  name: 'With Icons (Optional)',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'primary',
-        content:
-          '<span data-icon="infos" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Featured property listing in your preferred area',
-      })}
-      ${alertTwig({
-        variant: 'success',
-        content:
-          '<span data-icon="check" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Viewing confirmed for tomorrow at 2 PM',
-      })}
-      ${alertTwig({
-        variant: 'warning',
-        content:
-          '<span data-icon="help" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Document expires in 30 days',
-      })}
-      ${alertTwig({
-        variant: 'danger',
-        content:
-          '<span data-icon="close" aria-hidden="true" style="margin-right: var(--size-3); font-size: var(--font-size-3);"></span> Payment processing failed',
-      })}
-    </div>
-  `,
-};
-
-export const WithIconNative = {
-  render: (args) => alertTwig(args),
+  name: 'Default (Neutral)',
   args: {
-    ...data,
-    variant: 'success',
-    content: 'Your property has been saved to favorites!',
-    icon: 'check',
-    dismissible: false,
+    variant: 'default',
+    content: '<strong>Information:</strong> This is a neutral default alert.',
   },
 };
 
-export const WithRoundedCorners = {
-  name: 'Rounded vs Sharp',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      <div>
-        <p style="margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Sharp corners (default):</p>
-        ${alertTwig({
-          variant: 'primary',
-          content: 'Default alert with sharp corners (no border-radius)',
-        })}
-        ${alertTwig({
-          variant: 'success',
-          content: 'Success alert with sharp corners',
-        })}
-      </div>
-      <div>
-        <p style="margin-bottom: var(--size-2); font-weight: var(--font-weight-600);">Rounded corners (rounded: true):</p>
-        ${alertTwig({
-          variant: 'primary',
-          content: 'Alert with rounded corners (border-radius applied)',
-          rounded: true,
-        })}
-        ${alertTwig({
-          variant: 'success',
-          content: 'Success alert with rounded corners',
-          rounded: true,
-        })}
-      </div>
-    </div>
-  `,
+// ============================================
+// ALL VARIANTS SHOWCASE
+// ============================================
+
+export const AllVariants = {
+  name: 'Variants',
+  render: () => {
+    const variants = [
+      { variant: 'default', label: 'Default', content: 'Standard neutral message' },
+      { variant: 'primary', label: 'Primary', content: 'Brand highlight (BNP green)' },
+      { variant: 'secondary', label: 'Secondary', content: 'Secondary information (BNP pink)' },
+      { variant: 'success', label: 'Success', content: 'Success confirmation' },
+      { variant: 'danger', label: 'Danger', content: 'Error or critical action' },
+      { variant: 'warning', label: 'Warning', content: 'Important warning' },
+      { variant: 'info', label: 'Info', content: 'Contextual information' },
+      { variant: 'gold', label: 'Gold', content: 'Premium or exclusive content' },
+      { variant: 'light', label: 'Light', content: 'General non-critical announcement' },
+      { variant: 'dark', label: 'Dark', content: 'High contrast notification' },
+    ];
+
+    return variants
+      .map((v) =>
+        alertTwig({
+          variant: v.variant,
+          content: `<strong>${v.label} :</strong> ${v.content}`,
+        })
+      )
+      .join('<br style="margin-bottom: var(--size-4)">');
+  },
 };
 
-export const DismissibleAlerts = {
+// ============================================
+// MODIFIERS
+// ============================================
+
+export const Dismissible = {
   name: 'Dismissible',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      ${alertTwig({
-        variant: 'warning',
-        content:
-          '<strong>Holy guacamole!</strong> You should check in on some of those fields below.',
-        dismissible: true,
-      })}
-      ${alertTwig({
-        variant: 'success',
-        content: 'Your property has been saved to favorites!',
-        dismissible: true,
-      })}
-      ${alertTwig({
-        variant: 'danger',
-        content: `
-          <h4 class="ps-alert-heading">Urgent: Payment Overdue</h4>
-          <p style="margin-bottom: 0;">Your monthly payment is now 15 days overdue. Please update your payment information immediately to avoid service interruption.</p>
-        `,
-        dismissible: true,
-      })}
-    </div>
-  `,
+  render: () => {
+    const variants = [
+      { variant: 'default', label: 'Default' },
+      { variant: 'primary', label: 'Primary' },
+      { variant: 'secondary', label: 'Secondary' },
+      { variant: 'success', label: 'Success' },
+      { variant: 'danger', label: 'Danger' },
+      { variant: 'warning', label: 'Warning' },
+      { variant: 'info', label: 'Info' },
+      { variant: 'gold', label: 'Gold' },
+      { variant: 'light', label: 'Light' },
+      { variant: 'dark', label: 'Dark' },
+    ];
+
+    return variants
+      .map((v) =>
+        alertTwig({
+          variant: v.variant,
+          dismissible: true,
+          content: `<strong>${v.label}:</strong> This alert can be dismissed by user.`,
+        })
+      )
+      .join('<br style="margin-bottom: var(--size-4)">');
+  },
 };
 
-export default settings;
+export const Rounded = {
+  name: 'Rounded Corners',
+  args: {
+    variant: 'success',
+    rounded: true,
+    content: '<strong>Modern design:</strong> Alert with rounded corners.',
+  },
+};
+
+export const RoundedDismissible = {
+  name: 'Rounded + Dismissible',
+  args: {
+    variant: 'warning',
+    rounded: true,
+    dismissible: true,
+    content: '<strong>Session expired:</strong> Please reconnect.',
+  },
+};
