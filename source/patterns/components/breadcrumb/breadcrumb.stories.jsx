@@ -14,29 +14,11 @@ const settings = {
   },
   argTypes: {
     items: {
-      description: 'Array of breadcrumb items with label, optional url, and optional icon',
+      description: 'Array of breadcrumb items with label and optional url',
       control: { type: 'object' },
       table: {
         category: 'Content',
-        type: { summary: 'array<{label: string, url?: string, icon?: string}>' },
-      },
-    },
-    compact: {
-      description: 'Enable compact spacing (reduced font size and gaps)',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: false },
-      },
-    },
-    truncate: {
-      description: 'Enable CSS text truncation for long labels',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        type: { summary: 'array<{label: string, url?: string}>' },
       },
     },
   },
@@ -45,44 +27,6 @@ const settings = {
 export const Default = {
   render: (args) => breadcrumbTwig(args),
   args: { ...breadcrumbData },
-};
-
-export const WithIcons = {
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/', icon: 'home' },
-        { label: 'Locations', url: '/locations', icon: 'map' },
-        { label: 'Paris 15e', url: '/locations/paris-15', icon: 'building' },
-        { label: 'Family Apartment' },
-      ],
-    }),
-};
-
-export const Compact = {
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Products', url: '/products' },
-        { label: 'Electronics', url: '/products/electronics' },
-        { label: 'Smartphones' },
-      ],
-      compact: true,
-    }),
-};
-
-export const Truncated = {
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Very Long Category Name That Should Be Truncated', url: '/category' },
-        { label: 'Another Extremely Long Subcategory Name', url: '/category/subcategory' },
-        { label: 'Final Item with Very Long Name' },
-      ],
-      truncate: true,
-    }),
 };
 
 export const Simple = {
@@ -99,109 +43,24 @@ export const Deep = {
         { label: 'Home', url: '/' },
         { label: 'Real Estate', url: '/real-estate' },
         { label: 'Commercial', url: '/real-estate/commercial' },
-        { label: 'Offices', url: '/real-estate/commercial/offices' },
+        { label: 'Office Buildings', url: '/real-estate/commercial/offices' },
         { label: 'Paris', url: '/real-estate/commercial/offices/paris' },
         { label: '8th District', url: '/real-estate/commercial/offices/paris/8th' },
-        { label: 'Champs-Élysées Building' },
+        { label: 'Champs-Élysées Premium Office Space' },
       ],
     }),
 };
 
-export const ShowcaseVariants = {
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
-      <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-2); color: var(--gray-700);">Standard</h3>
-        ${breadcrumbTwig({
-          items: [
-            { label: 'Home', url: '/' },
-            { label: 'Locations', url: '/locations' },
-            { label: 'Paris 15e' },
-          ],
-        })}
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-2); color: var(--gray-700);">Compact</h3>
-        ${breadcrumbTwig({
-          items: [
-            { label: 'Home', url: '/' },
-            { label: 'Locations', url: '/locations' },
-            { label: 'Paris 15e' },
-          ],
-          compact: true,
-        })}
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-2); color: var(--gray-700);">With Icons</h3>
-        ${breadcrumbTwig({
-          items: [
-            { label: 'Home', url: '/', icon: 'home' },
-            { label: 'Products', url: '/products', icon: 'grid' },
-            { label: 'Laptop' },
-          ],
-        })}
-      </div>
-      <div style="max-width: 400px; border: 1px solid var(--gray-200); padding: var(--size-4); border-radius: var(--radius-2);">
-        <h3 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-2); color: var(--gray-700);">Truncated (narrow container)</h3>
-        ${breadcrumbTwig({
-          items: [
-            { label: 'Home', url: '/' },
-            { label: 'Long Category Name', url: '/category' },
-            { label: 'Very Long Subcategory Name' },
-          ],
-          truncate: true,
-        })}
-      </div>
-    </div>
-  `,
-};
-
-export const ShowcaseColors = {
-  render: () => `
-    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-6);">
-      ${['default', 'primary', 'secondary', 'info', 'warning', 'success', 'danger', 'dark', 'light']
-        .map(
-          (color) => `
-        <div style="border: 1px solid var(--gray-200); padding: var(--size-4); border-radius: var(--radius-2);">
-          <h4 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-700);">Color: ${color}</h4>
-          ${breadcrumbTwig({
-            items: [
-              { label: 'Home', url: '/' },
-              { label: 'Locations', url: '/locations' },
-              { label: 'Paris 15e' },
-            ],
-            color,
-          })}
-        </div>
-      `
-        )
-        .join('')}
-    </div>
-  `,
-};
-
-export const ShowcaseSizes = {
-  render: () => `
-    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-6);">
-      ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
-        .map(
-          (size) => `
-        <div style="border: 1px solid var(--gray-200); padding: var(--size-4); border-radius: var(--radius-2);">
-          <h4 style="margin: 0 0 var(--size-3) 0; font-family: var(--font-sans); font-size: var(--font-size-1); color: var(--gray-700);">Size: ${size}</h4>
-          ${breadcrumbTwig({
-            items: [
-              { label: 'Home', url: '/' },
-              { label: 'Products', url: '/products' },
-              { label: 'Electronics' },
-            ],
-            size,
-          })}
-        </div>
-      `
-        )
-        .join('')}
-    </div>
-  `,
+export const Residential = {
+  render: () =>
+    breadcrumbTwig({
+      items: [
+        { label: 'Home', url: '/' },
+        { label: 'Residential Properties', url: '/residential' },
+        { label: 'Paris 15e Apartments', url: '/residential/paris-15' },
+        { label: 'Modern 3-Bedroom Apartment' },
+      ],
+    }),
 };
 
 export default settings;

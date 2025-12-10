@@ -2,32 +2,21 @@
  * Breadcrumb (Component/Molecule)
  * Navigational trail displaying page hierarchy with accessible markup
  * 
- * BEM: ps-breadcrumb, ps-breadcrumb__list, ps-breadcrumb__item, ps-breadcrumb__link, ps-breadcrumb__current, ps-breadcrumb__separator
- * Modifiers: --compact, --truncate
+ * BEM: ps-breadcrumb, ps-breadcrumb__list, ps-breadcrumb__item, ps-breadcrumb__link
+ * Separator: ›
  */
 
-/* ======================================== */
-/* Base Styles */
-/* ======================================== */
-
 .ps-breadcrumb {
-  /* Icon codepoint for separator */
-  --ps-breadcrumb-separator-icon: '\e851'; /* chevron-right from bnpre-icons */
-  /* 3-layer token mapping: contextual overrides → semantic → base */
-  --ps-breadcrumb-color: var(--color-text-default, var(--text-default));
-  --ps-breadcrumb-link-hover: var(--color-primary, var(--primary));
-  --ps-breadcrumb-focus-color: var(--color-info, var(--info));
-  
   font-family: var(--font-sans);
   font-size: var(--font-size-1);
   line-height: var(--leading-6);
-  color: var(--ps-breadcrumb-color);
+  color: var(--text-primary);
   
   &__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--size-1);
+    gap: 0;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -36,30 +25,20 @@
   &__item {
     display: inline-flex;
     align-items: center;
-    gap: var(--size-1);
-    
-    [data-icon] {
-      color: currentColor;
-    }
-
-    .ps-breadcrumb__icon {
-      --ps-icon-size: var(--font-size-2);
-      color: currentColor;
-    }
     
     &:not(:last-child)::after {
-      content: var(--ps-breadcrumb-separator-icon);
-      display: inline-block;
-      font-family: 'bnpre-icons';
-      font-style: normal;
-      font-weight: normal;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      font-size: var(--font-size-2);
-      color: currentColor;
-      -webkit-user-select: none;
-      user-select: none;
+      content: '';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      margin: 0 var(--size-1);
+      background-image: svg-load('generic/chevron-right.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      color: var(--text-primary);
     }
     
     &--current {
@@ -68,85 +47,22 @@
   }
   
   &__link {
-    color: var(--ps-breadcrumb-color);
+    color: var(--text-primary);
     text-decoration: underline;
     transition: color var(--duration-fast) var(--ease-3);
     
     &:hover {
-      color: var(--ps-breadcrumb-link-hover);
+      color: var(--primary);
     }
     
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--ps-breadcrumb-focus-color);
+      outline: var(--border-size-2) solid var(--info);
       outline-offset: var(--border-size-2);
       border-radius: var(--radius-1);
     }
     
     &:visited {
-      color: var(--ps-breadcrumb-color);
+      color: var(--text-primary);
     }
   }
-}
-
-/* ======================================== */
-/* Modifiers */
-/* ======================================== */
-
-.ps-breadcrumb {
-  &--compact {
-    font-size: var(--font-size-0);
-    line-height: var(--leading-5);
-  }
-  /* Size variants (harmonized): xs, sm, md, lg, xl, xxl */
-  &--xs {
-    font-size: var(--font-size-0);
-    line-height: var(--leading-5);
-  }
-  &--sm {
-    font-size: var(--font-size-1);
-    line-height: var(--leading-6);
-  }
-  &--md {
-    font-size: var(--font-size-1);
-    line-height: var(--leading-6);
-  }
-  &--lg {
-    font-size: var(--font-size-2);
-    line-height: var(--leading-7);
-  }
-  &--xl {
-    font-size: var(--font-size-3);
-    line-height: var(--leading-8);
-  }
-  &--xxl {
-    font-size: var(--font-size-4);
-    line-height: var(--leading-9);
-  }
-  
-  &--truncate {
-    .ps-breadcrumb__item {
-      max-width: 16ch;
-    }
-    
-    .ps-breadcrumb__link,
-    .ps-breadcrumb__current {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-    }
-  }
-}
-
-/* Color variants (semantic): default, primary, secondary, info, warning, success, danger, dark, light */
-.ps-breadcrumb {
-  &--default { --ps-breadcrumb-color: var(--color-text-default, var(--text-default)); --ps-breadcrumb-link-hover: var(--color-primary, var(--primary)); }
-  &--primary { --ps-breadcrumb-color: var(--color-primary-contrast, var(--text-on-primary, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-primary, var(--primary)); }
-  &--secondary { --ps-breadcrumb-color: var(--color-secondary-contrast, var(--text-on-secondary, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-secondary, var(--secondary)); }
-  &--info { --ps-breadcrumb-color: var(--color-info-contrast, var(--text-on-info, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-info, var(--info)); }
-  &--warning { --ps-breadcrumb-color: var(--color-warning-contrast, var(--text-on-warning, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-warning, var(--warning)); }
-  &--success { --ps-breadcrumb-color: var(--color-success-contrast, var(--text-on-success, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-success, var(--success)); }
-  &--danger { --ps-breadcrumb-color: var(--color-danger-contrast, var(--text-on-danger, var(--text-default))); --ps-breadcrumb-link-hover: var(--color-danger, var(--danger)); }
-  &--dark { --ps-breadcrumb-color: var(--color-text-on-dark, var(--text-inverse)); --ps-breadcrumb-link-hover: var(--color-primary, var(--primary)); }
-  &--light { --ps-breadcrumb-color: var(--color-text-on-light, var(--text-default)); --ps-breadcrumb-link-hover: var(--color-primary, var(--primary)); }
 }

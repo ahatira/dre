@@ -1,19 +1,13 @@
-# Default: Standard breadcrumb with 4 levels
+# Default: Standard breadcrumb with Real Estate navigation
 items:
   - label: 'Home'
     url: '/'
-  - label: 'Locations'
-    url: '/locations'
-  - label: 'Paris 15e'
-    url: '/locations/paris-15'
-  - label: 'Family Apartment'
-compact: false
-truncate: false
+  - label: 'Commercial Real Estate'
+    url: '/real-estate/commercial'
+  - label: 'Office Buildings Paris 8th'
+    url: '/real-estate/commercial/offices/paris-8'
+  - label: 'Champs-Élysées Premium Office Space'
 
-# Available options:
-# compact: boolean (false | true) - Use compact spacing (14px instead of 16px)
-# truncate: boolean (false | true) - Enable CSS text truncation
 # items[].label: string (required) - Breadcrumb item label
 # items[].url: string (optional) - Link URL (omit for last/current item)
-# items[].icon: string (optional) - Icon name without "icon-" prefix
-# Design: Pixel perfect per Figma - 16px font, 24px line-height, 4px gap, underline on links
+# Design: Pixel perfect - 14px font, 24px line-height, 4px gap (--size-1), underline on links, › separator

@@ -2,43 +2,18 @@
  * Breadcrumb (Component/Molecule)
  * Navigational trail to show page hierarchy
  * @param array items - Breadcrumb items (required)
- *   Each item: { label: string, url: string (optional), icon: string (optional) }
- * @param bool compact - Use compact spacing (optional, default: false)
- * @param bool truncate - Enable CSS truncation (optional, default: false)
+ *   Each item: { label: string, url: string (optional) }
  * @param Attribute attributes - Additional HTML attributes (optional)
  #}
 
-{% set compact = compact|default(false) %}
-{% set truncate = truncate|default(false) %}
-
-{% set classes = [
-  'ps-breadcrumb',
-  compact ? 'ps-breadcrumb--compact' : null,
-  truncate ? 'ps-breadcrumb--truncate' : null,
-  color ? 'ps-breadcrumb--' ~ color : null,
-  size ? 'ps-breadcrumb--' ~ size : null
-] %}
-
-<nav {{ attributes ? attributes.addClass(classes) : create_attribute().addClass(classes) }} aria-label="Breadcrumb">
+<nav {{ attributes ? attributes.addClass('ps-breadcrumb') : create_attribute().addClass('ps-breadcrumb') }} aria-label="Breadcrumb">
   <ol class="ps-breadcrumb__list">
     {% for item in items %}
       {% set is_last = loop.last %}
       
-      {% set item_classes = [
-        'ps-breadcrumb__item',
-        is_last ? 'ps-breadcrumb__item--current' : null
-      ] %}
-      <li class="{{ item_classes|join(' ') }}"{{ is_last ? ' aria-current="page"' : '' }}>
+      <li class="ps-breadcrumb__item{{ is_last ? ' ps-breadcrumb__item--current' : '' }}"{% if is_last %} aria-current="page"{% endif %}>
         {% if not is_last and item.url %}
-          <a class="ps-breadcrumb__link" href="{{ item.url }}">
-            {% if item.icon %}
-              {% include '@elements/icon/icon.twig' with {
-                name: item.icon,
-                attributes: create_attribute().addClass('ps-breadcrumb__icon')
-              } only %}
-            {% endif %}
-            {{ item.label }}
-          </a>
+          <a class="ps-breadcrumb__link" href="{{ item.url }}">{{ item.label }}</a>
         {% else %}
           {{ item.label }}
         {% endif %}
