@@ -54,7 +54,7 @@
 
   /* Icon (chevron) */
   --ps-select-icon-color: var(--gray-700);
-  --ps-select-icon-size: var(--size-5); /* 20px */
+  --ps-select-icon-size: var(--size-6); /* 24px */
   --ps-select-icon-chevron-mask: svg-load('generic/chevron-down.svg');
 
   /* Transitions */
