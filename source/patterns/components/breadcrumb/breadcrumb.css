@@ -109,4 +109,38 @@
       color: var(--ps-breadcrumb-link-color);
     }
   }
+  
+  &__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: var(--size-1);
+  }
+  
+  /* ============================================
+     Modifiers
+     ============================================ */
+  
+  /* Compact: reduced size and spacing */
+  &--compact {
+    --ps-breadcrumb-font-size: var(--font-size-0);
+    --ps-breadcrumb-separator-margin: var(--size-05);
+  }
+  
+  /* Truncate: ellipsis on intermediate items (keeps first and last visible) */
+  &--truncate {
+    .ps-breadcrumb__item:not(:first-child):not(:last-child) {
+      max-width: 20ch;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  /* Inverted: for dark backgrounds */
+  &--inverted {
+    --ps-breadcrumb-color: var(--white);
+    --ps-breadcrumb-link-color: var(--white);
+    --ps-breadcrumb-link-hover-color: var(--primary-light);
+    --ps-breadcrumb-separator-color: var(--gray-300);
+  }
 }

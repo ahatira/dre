@@ -2,13 +2,22 @@
 items:
   - label: 'Home'
     url: '/'
+    icon: 'home'
   - label: 'Commercial Real Estate'
     url: '/real-estate/commercial'
   - label: 'Office Buildings Paris 8th'
     url: '/real-estate/commercial/offices/paris-8'
   - label: 'Champs-Élysées Premium Office Space'
 
+compact: false
+truncate: false
+inverted: false
+
 # items[].label: string (required) - Breadcrumb item label
 # items[].url: string (optional) - Link URL (omit for last/current item)
+# items[].icon: string (optional) - Icon name (from icon system)
+# compact: boolean (optional) - Reduced size (12px font, 2px separator margin)
+# truncate: boolean (optional) - Truncate intermediate items (max 20ch, keeps first/last)
+# inverted: boolean (optional) - Dark theme for light backgrounds
 # Design: 14px font (--font-size-1), 24px line-height (--leading-6), 4px separator margin (--size-1)
 # Separator: › (U+203A) auto-generated via CSS ::after pseudo-element
