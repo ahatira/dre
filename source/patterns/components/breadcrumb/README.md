@@ -6,10 +6,10 @@ Navigation trail showing page hierarchy within the site structure, improving SEO
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `items` | array | `[]` | **Required**. Array of breadcrumb items. Each item: `{ label: string, url?: string, icon?: string }`. Last item is current page (no url). |
+| `items` | array | `[]` | **Required**. Array of breadcrumb items. Each item: `{ label: string, url?: string }`. Last item is current page (no url). |
 | `compact` | boolean | `false` | Reduced size variant (12px font, 2px separator margin). Useful for sidebars, footers. |
-| `truncate` | boolean | `false` | Truncate intermediate items with ellipsis (max 20ch). First and last items remain fully visible. |
 | `inverted` | boolean | `false` | Dark theme variant with white text for light backgrounds (hero sections, dark headers). |
+| `noUnderline` | boolean | `false` | Remove underline from links (shows on hover only). Clean, modern design. |
 | `attributes` | Attribute | `null` | Additional HTML attributes for the `<nav>` element. |
 
 ## BEM Structure
@@ -19,13 +19,12 @@ ps-breadcrumb                    // Block (nav element)
   ps-breadcrumb__list            // Ordered list
   ps-breadcrumb__item            // List item
   ps-breadcrumb__link            // Link element
-  ps-breadcrumb__icon            // Icon container (optional, via data-icon)
   ps-breadcrumb__item--current   // Modifier for current item
 
 Modifiers:
   ps-breadcrumb--compact         // Reduced size (12px font, 2px separator)
-  ps-breadcrumb--truncate        // Ellipsis on intermediate items
   ps-breadcrumb--inverted        // Dark theme (white text)
+  ps-breadcrumb--no-underline    // No underline (shows on hover)
 
 Note: Separator (›) is auto-generated via ::after pseudo-element (not a BEM element)
 ```
@@ -112,19 +111,6 @@ The component defines customizable variables that can be overridden in context:
 } only %}
 ```
 
-### With Icons
-
-```twig
-{% include '@components/breadcrumb/breadcrumb.twig' with {
-  items: [
-    { label: 'Home', url: '/', icon: 'home' },
-    { label: 'Commercial Properties', url: '/commercial', icon: 'office' },
-    { label: 'Office Buildings', url: '/commercial/offices', icon: 'commercial-space' },
-    { label: 'Premium Office Space' }
-  ]
-} only %}
-```
-
 ### Compact Variant
 
 ```twig
@@ -138,22 +124,6 @@ The component defines customizable variables that can be overridden in context:
 } only %}
 ```
 
-## Real-World Use Cases
-
-- **Property page navigation**: Show hierarchy from homepage → location → property type → specific property
-- **Compact layouts**: Use `compact: true` for sidebars, footers, or space-constrained areas
-- **Deep hierarchies**: Use `truncate: true` for very deep navigation paths (>5 levels) with long labels
-- **Dark hero sections**: Use `inverted: true` for breadcrumbs on dark backgrounds
-- **Branded navigation**: Add icons (home, office, building) for better visual hierarchy
-- **SEO optimization**: Structured navigation path improves crawlability and rich snippets
-    { label: 'Commercial Real Estate Premium Listings', url: '/commercial' },
-    { label: 'Office Buildings and Workspaces', url: '/offices' },
-    { label: 'Current Property with Very Long Descriptive Name' }
-  ],
-  truncate: true
-} only %}
-```
-
 ### Inverted Theme (Dark Background)
 
 ```twig
@@ -164,6 +134,21 @@ The component defines customizable variables that can be overridden in context:
     { label: 'Exclusive Penthouse' }
   ],
   inverted: true
+} only %}
+```
+
+## Real-World Use Cases
+
+- **Property page navigation**: Show hierarchy from homepage → location → property type → specific property
+- **Compact layouts**: Use `compact: true` for sidebars, footers, or space-constrained areas
+- **Dark hero sections**: Use `inverted: true` for breadcrumbs on dark backgrounds
+- **Modern design**: Use `noUnderline: true` for clean, minimalist interfaces
+- **Deep hierarchies**: Flex-wrap handles long paths gracefully (7+ levels)
+- **SEO optimization**: Structured navigation path improves crawlability and rich snippets
+    { label: 'Office Spaces', url: '/offices' },
+    { label: 'Premium Office' }
+  ],
+  noUnderline: true
 } only %}
 ```
 
@@ -197,9 +182,8 @@ The component defines customizable variables that can be overridden in context:
 - All separator styling controlled via `--ps-breadcrumb-separator-*` CSS variables
 - `aria-current="page"` is automatically applied to the last item
 - Component uses 3-layer CSS variables system for maximum customization flexibility
-- **Icons**: Use icon names from the icon system (e.g., 'home', 'office', 'commercial-space')
 - **Compact**: Reduces font from 14px to 12px and separator margin from 4px to 2px
-- **Truncate**: Applies `max-width: 20ch` with ellipsis to intermediate items only
 - **Inverted**: Changes all colors to white/light variants for dark backgrounds
+- **No Underline**: Links have no underline by default, appears on hover only
 - `aria-current="page"` is automatically applied to the last item
 - Component uses 3-layer CSS variables system for maximum customization flexibility

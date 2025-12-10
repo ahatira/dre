@@ -18,7 +18,7 @@ const settings = {
       control: { type: 'object' },
       table: {
         category: 'Content',
-        type: { summary: 'array<{label: string, url?: string, icon?: string}>' },
+        type: { summary: 'array<{label: string, url?: string}>' },
       },
     },
     compact: {
@@ -30,8 +30,8 @@ const settings = {
         defaultValue: { summary: 'false' },
       },
     },
-    truncate: {
-      description: 'Truncate intermediate items with ellipsis (max 20ch, keeps first and last)',
+    inverted: {
+      description: 'Dark theme for light backgrounds (white text, light hover)',
       control: { type: 'boolean' },
       table: {
         category: 'Modifiers',
@@ -39,8 +39,8 @@ const settings = {
         defaultValue: { summary: 'false' },
       },
     },
-    inverted: {
-      description: 'Dark theme for light backgrounds (white text, light hover)',
+    noUnderline: {
+      description: 'Remove underline from links (shows on hover only)',
       control: { type: 'boolean' },
       table: {
         category: 'Modifiers',
@@ -139,27 +139,6 @@ export const ResidentialComplex = {
   },
 };
 
-export const WithIcons = {
-  name: 'With Icons',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/', icon: 'home' },
-        { label: 'Commercial Properties', url: '/commercial', icon: 'office' },
-        { label: 'Office Buildings', url: '/commercial/offices', icon: 'commercial-space' },
-        { label: 'Champs-Élysées Premium Space' },
-      ],
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Breadcrumb with icons for each item (except last). Icons use the data-icon attribute system and come from the icon sprite.',
-      },
-    },
-  },
-};
-
 export const Compact = {
   name: 'Compact Variant',
   render: () =>
@@ -177,39 +156,6 @@ export const Compact = {
       description: {
         story:
           'Compact variant with reduced font size (12px) and tighter spacing (2px separator margin). Useful for sidebars, footers, or space-constrained layouts.',
-      },
-    },
-  },
-};
-
-export const Truncated = {
-  name: 'Truncated Intermediate Items',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Real Estate Properties', url: '/real-estate' },
-        {
-          label: 'Commercial Real Estate Premium Listings',
-          url: '/real-estate/commercial',
-        },
-        {
-          label: 'Office Buildings and Workspaces in Paris',
-          url: '/real-estate/commercial/offices',
-        },
-        {
-          label: 'Paris 8th District Luxury Offices',
-          url: '/real-estate/commercial/offices/paris-8',
-        },
-        { label: 'Champs-Élysées Premium Office Space with Panoramic Views' },
-      ],
-      truncate: true,
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Truncated variant with ellipsis on intermediate items (max 20 characters). First and last items remain fully visible. Useful for very deep hierarchies or long labels.',
       },
     },
   },
@@ -240,6 +186,28 @@ export const Inverted = {
         { name: 'dark', value: '#1F2A33' },
         { name: 'primary', value: '#00915A' },
       ],
+    },
+  },
+};
+
+export const NoUnderline = {
+  name: 'No Underline Variant',
+  render: () =>
+    breadcrumbTwig({
+      items: [
+        { label: 'Home', url: '/' },
+        { label: 'Properties', url: '/properties' },
+        { label: 'Office Spaces', url: '/properties/offices' },
+        { label: 'Premium Office Space' },
+      ],
+      noUnderline: true,
+    }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Clean design without underline on links by default. Underline appears on hover for better visual feedback. Useful for modern, minimalist designs.',
+      },
     },
   },
 };

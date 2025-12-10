@@ -2,18 +2,18 @@
  * Breadcrumb (Component/Molecule)
  * Navigational trail to show page hierarchy
  * @param array items - Breadcrumb items (required)
- *   Each item: { label: string, url: string (optional), icon: string (optional) }
+ *   Each item: { label: string, url: string (optional) }
  * @param boolean compact - Reduced size and spacing (optional, default: false)
- * @param boolean truncate - Truncate intermediate items with ellipsis (optional, default: false)
  * @param boolean inverted - Dark theme for light backgrounds (optional, default: false)
+ * @param boolean noUnderline - Remove underline from links (optional, default: false)
  * @param Attribute attributes - Additional HTML attributes (optional)
  #}
 
 {% set classes = [
   'ps-breadcrumb',
   compact ? 'ps-breadcrumb--compact',
-  truncate ? 'ps-breadcrumb--truncate',
-  inverted ? 'ps-breadcrumb--inverted'
+  inverted ? 'ps-breadcrumb--inverted',
+  noUnderline ? 'ps-breadcrumb--no-underline'
 ] %}
 
 <nav {{ attributes ? attributes.addClass(classes) : create_attribute().addClass(classes) }} aria-label="Breadcrumb">
@@ -23,16 +23,8 @@
       
       <li class="ps-breadcrumb__item{{ is_last ? ' ps-breadcrumb__item--current' : '' }}"{% if is_last %} aria-current="page"{% endif %}>
         {% if not is_last and item.url %}
-          <a class="ps-breadcrumb__link" href="{{ item.url }}">
-            {% if item.icon %}
-              <span class="ps-breadcrumb__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-            {% endif %}
-            {{ item.label }}
-          </a>
+          <a class="ps-breadcrumb__link" href="{{ item.url }}">{{ item.label }}</a>
         {% else %}
-          {% if item.icon %}
-            <span class="ps-breadcrumb__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-          {% endif %}
           {{ item.label }}
         {% endif %}
       </li>
