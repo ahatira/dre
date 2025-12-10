@@ -4,6 +4,74 @@
 
 ## 2025
 
+- 2025-12-10: **Textarea (ATOM)** – Audit complet et standardisation conformité ♻️ REFACTOR
+  - **Context**: Verification exhaustive Textarea vs maquette, standards projet, et 3-layer CSS architecture
+  - **Issues Identifiés**:
+    * ❌ CSS: 8 modifiers color inutiles (`--primary`, `--secondary`, `--info`, `--warning`, `--danger`, `--success`, `--gold`, `--dark`, `--light`)
+    * ❌ CSS: 6 size modifiers (xs, sm, md, lg, xl, xxl) sans valeur UX reelle pour textarea
+    * ❌ CSS: Variables `--ps-textarea-focus-ring-color` et `--ps-textarea-focus-ring-width` declared but `box-shadow: none` always applied
+    * ❌ Twig: Parametres `color` et `size` jamais utilises dans le template (dead code)
+    * ❌ Stories: 7 stories peu pertinentes - `FocusVisible` redondant, pas de contexte real estate
+    * ⚠️ CSS: Incoherence avec Input (Input n'a pas de color modifiers, juste validation states)
+  - **Fixes Appliqués**:
+    * ✨ Twig: Suppression parametres `color` et `size` (avec commentaire @param updated)
+    * 🔧 CSS Layer Refactor:
+      - **Layer 1**: Tokens globaux herites (colors, sizes, fonts from source/props/)
+      - **Layer 2**: Variables component-scoped optimisees (seulement utilisees):
+        * `--ps-textarea-width`, `--ps-textarea-min-height`, `--ps-textarea-padding-*`
+        * `--ps-textarea-font-*` (family, size, weight, line-height)
+        * `--ps-textarea-bg`, `--ps-textarea-color`, `--ps-textarea-border-*`
+        * `--ps-textarea-placeholder-color`, `--ps-textarea-hover-*`, `--ps-textarea-focus-*`
+        * `--ps-textarea-disabled-*`, `--ps-textarea-border-*`, `--ps-textarea-transition-*`
+      - **Layer 3**: Modifiers (validation states ONLY):
+        * `.ps-textarea--error` (border: danger)
+        * `.ps-textarea--success` (border: success)
+        * `.ps-textarea--warning` (border: warning)
+    * 🗑️ Suppression: Tous color modifiers (--primary, --secondary, etc.)
+    * 🗑️ Suppression: Tous size modifiers (--xs, --sm, --lg, --xl, --xxl)
+    * 🗑️ Suppression: Variables focus-ring inutiles (`--ps-textarea-focus-ring-color`, `--ps-textarea-focus-ring-width`)
+    * 📝 CSS: Ajout header avec documentation 3-layer architecture
+    * 🎯 CSS: Focus-visible behavior aligned with Input (border color change, no shadow)
+  - **YAML**: Suppression `color: "default"` et `size: "md"` - conserve defaults pertinents
+  - **Stories**: Redesign complet avec 8 stories pertinentes:
+    * `Default`: Minimal, sans decoration
+    * `WithLabel`: Real estate context "Détails de la propriété" avec helper text
+    * `ValidationError`: Avec label + error message + aria-live
+    * `ValidationSuccess`: Avec label + success feedback
+    * `ValidationWarning`: Avec label + warning indicator
+    * `Disabled`: State read-only avec explanation
+    * `Required`: Field obligatoire avec asterisque
+    * `RowVariations`: Showcase rows=2,6,10 pour demonstrer adaptabilite
+  - **argTypes**: Categorization stricte per standards (Content, Appearance, Behavior, Accessibility)
+    * Suppression color/size argTypes
+    * Suppression duplicate `size` row dans props table
+    * Clarification: state category = Appearance (validation visuelle)
+  - **README**: Refactor complet English (per project standard):
+    * Section Props: Updated avec descriptions precises
+    * Section BEM: Clarification modifiers (validation states ONLY)
+    * Section CSS Variables (3-Layer Architecture):
+      - Layer 1: Global tokens liste (colors, typography, spacing, borders, animations)
+      - Layer 2: Component defaults table (`--ps-textarea-*` avec defaults et purpose)
+      - Layer 3: Context overrides (modifiers override Layer 2 variables)
+    * Section States: Validation (null, error, success, warning) + Interactive (:hover, :focus-visible, :disabled)
+    * Accessibility: Keyboard navigation detail (Tab, Shift+Tab, arrows, Ctrl+A)
+    * Design Notes: Per maquette specs + real estate context
+    * Examples: Minimal, all options, error handling patterns
+    * Testing: Visual + accessibility checklist
+  - **Conformity Checklist**: ✓ 100%
+    * ✓ 5-file structure (twig, css, yml, stories, README)
+    * ✓ BEM modifiers (validation states only, no color combinations)
+    * ✓ 3-layer CSS (Layer 1 tokens, Layer 2 component-scoped, Layer 3 modifiers)
+    * ✓ All tokens used (zero hardcoded values)
+    * ✓ Nesting mandatory (CSS uses & syntax)
+    * ✓ Focus-visible WCAG 2.2 AA (border color change, no shadow)
+    * ✓ Stories tags: ['autodocs']
+    * ✓ argTypes: Categorized (Content, Appearance, Behavior, Accessibility)
+    * ✓ Twig: No arrow functions, no .filter()/.map()
+    * ✓ Real estate context (property search, agent notes)
+  - **Build**: ✓ 450.78 kB CSS (gzip 72.52 kB), 0 errors, all lints pass
+  - **Git**: `feat(elements): Refactor Textarea component - 3-layer CSS, remove color/size modifiers, redesign stories`
+
 - 2025-12-10: **Spinner (ATOM)** – Audit complet et conformité 100% ♻️ REFACTOR
   - **Context**: Vérification systématique de la cohérence Spinner contre règles projet
   - **Issues Identifiés**:

@@ -6,6 +6,4 @@ placeholder: "Décrivez votre besoin immobilier..."
 disabled: false
 required: false
 rows: 4
-color: "default"
-size: "md"
 state: null

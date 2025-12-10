@@ -2,16 +2,14 @@
  * Textarea (Atom)
  * Native <textarea> without label. Drupal-friendly attributes; external label handled upstream.
  *
- * @param string name - Name attribute (optional)
- * @param string id - ID attribute (defaults to name-based)
- * @param string value - Initial content (optional)
- * @param string placeholder - Placeholder text (optional)
+ * @param string name - Name attribute (optional, default: 'message')
+ * @param string id - ID attribute (optional, defaults to name-based)
+ * @param string value - Initial content (optional, default: '')
+ * @param string placeholder - Placeholder text (optional, default: '')
  * @param boolean disabled - Disabled state (default: false)
  * @param boolean required - Required state (default: false)
  * @param number rows - Rows attribute (default: 4)
- * @param string color - Visual variant (optional, default: 'default')
- * @param string size - Size variant (optional, default: 'md')
- * @param string state - Validation state (optional: error|success|warning)
+ * @param string state - Validation state (optional: error|success|warning|null)
  * @param object attributes - Drupal attributes for the <textarea>
  #}
 
@@ -22,15 +20,12 @@
 {%- set disabled = disabled|default(false) -%}
 {%- set required = required|default(false) -%}
 {%- set rows = rows|default(4) -%}
-{%- set color = color|default('default') -%}
-{%- set size = size|default('md') -%}
 {%- set state = state|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-textarea',
   disabled ? 'ps-textarea--disabled' : null,
-  size != 'md' ? 'ps-textarea--' ~ size : null,
   state ? 'ps-textarea--' ~ state : null
 ] -%}
 

@@ -10,129 +10,262 @@ export default {
     docs: {
       description: {
         component:
-          'Textarea atom sans label. À utiliser avec un label externe. Styles alignés sur Input : radius=0, border, pas de box-shadow, focus visible, tokens Surface.',
+          'Textarea atom without label. Always pair with external <label> element. Supports validation states (error, success, warning) and disabled state. Styled per maquette: radius=0, single border, no shadow, focus-visible border color change.',
       },
     },
   },
   argTypes: {
+    /* Content */
     value: {
       control: 'text',
-      description: 'Contenu du textarea',
-      table: { category: 'Content', type: { summary: 'string' } },
+      description: 'Current textarea content',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
     },
     placeholder: {
       control: 'text',
-      description: 'Texte d’exemple',
-      table: { category: 'Content', type: { summary: 'string' } },
-    },
-    state: {
-      control: 'select',
-      options: [null, 'error', 'success', 'warning'],
-      description: 'État de validation',
-      table: { category: 'State', type: { summary: 'null | error | success | warning' }, defaultValue: { summary: 'null' } },
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Champ désactivé',
-      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
-    },
-    required: {
-      control: 'boolean',
-      description: 'Champ requis',
-      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      description: 'Placeholder text when empty',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Decrivez votre besoin...' },
+      },
     },
     rows: {
       control: 'number',
-      description: 'Nombre de lignes',
-      table: { category: 'Content', type: { summary: 'number' }, defaultValue: { summary: '4' } },
+      description: 'Number of visible rows (HTML rows attribute)',
+      table: {
+        category: 'Content',
+        type: { summary: 'number' },
+        defaultValue: { summary: '4' },
+      },
     },
-  },
-};
 
-export const Default = {
-  args: {
-    ...data,
-    value: '',
-    state: null,
-    disabled: false,
-    required: false,
-    placeholder: 'Décrivez votre besoin immobilier...'
-  },
-};
+    /* Appearance - Validation State */
+    state: {
+      control: 'select',
+      options: [null, 'error', 'success', 'warning'],
+      description: 'Validation state (changes border color)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'null | "error" | "success" | "warning"' },
+        defaultValue: { summary: 'null' },
+      },
+    },
 
-export const Error = {
-  args: {
-    ...data,
-    value: '',
-    state: 'error',
-    placeholder: 'Erreur de saisie',
-  },
-};
+    /* Behavior */
+    disabled: {
+      control: 'boolean',
+      description: 'Disable textarea (read-only, non-editable)',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    required: {
+      control: 'boolean',
+      description: 'Mark field as required',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
 
-export const Success = {
-  args: {
-    ...data,
-    value: 'Demande envoyée',
-    state: 'success',
-    placeholder: 'Succès',
-  },
-};
-
-export const Warning = {
-  args: {
-    ...data,
-    value: '',
-    state: 'warning',
-    placeholder: 'Attention',
-  },
-};
-
-export const Disabled = {
-  args: {
-    ...data,
-    value: 'Champ désactivé',
-    disabled: true,
-    placeholder: 'Non éditable',
-  },
-};
-
-export const Required = {
-  args: {
-    ...data,
-    required: true,
-    placeholder: 'Champ obligatoire',
-  },
-};
-
-export const FocusVisible = {
-  args: {
-    ...data,
-    value: '',
-    state: null,
-    placeholder: 'Tabulez pour voir le focus',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Utilisez la touche Tab pour vérifier le focus visible (conforme WCAG 2.2 AA).',
+    /* Accessibility */
+    name: {
+      control: 'text',
+      description: 'Name attribute (form submission)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'message' },
+      },
+    },
+    id: {
+      control: 'text',
+      description: 'ID attribute (link to external label via for)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
       },
     },
   },
 };
 
-export const WithExternalLabel = {
-  render: (args) => {
-    const id = args.id || 'textarea-label-demo';
+/**
+ * Default
+ * Minimal textarea with placeholder
+ */
+export const Default = {
+  render: (args) => textareaTwig(args),
+  args: { ...data },
+};
+
+// ============ SHOWCASE ============
+
+/**
+ * All States
+ * Grid showcase of all validation & disabled states
+ */
+export const AllStates = {
+  render: () => {
+    const states = [
+      {
+        label: 'Default',
+        args: { ...data, value: 'Text content' },
+      },
+      {
+        label: 'Placeholder',
+        args: { ...data, value: '', placeholder: 'Placeholder' },
+      },
+      {
+        label: 'Focus',
+        args: { ...data, value: 'Text content' },
+      },
+      {
+        label: 'Success',
+        args: { ...data, value: 'Text content', state: 'success' },
+      },
+      {
+        label: 'Error',
+        args: { ...data, value: 'Text content', state: 'error' },
+      },
+      {
+        label: 'Warning',
+        args: { ...data, value: 'Text content', state: 'warning' },
+      },
+      {
+        label: 'Disabled (placeholder)',
+        args: {
+          ...data,
+          value: '',
+          placeholder: 'Not available',
+          disabled: true,
+        },
+      },
+      {
+        label: 'Disabled (value)',
+        args: { ...data, value: 'Read-only content', disabled: true },
+      },
+    ];
+
     return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-2); max-width: 420px;">
-        <label for="${id}" style="font-weight: var(--font-weight-600);">Votre message</label>
-        ${textareaTwig({ ...args, id })}
+      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 500px;">
+        ${states
+          .map(
+            (state) => `
+          <div>
+            <p style="margin-bottom: var(--size-2); font-weight: 600; font-size: 12px; color: var(--text-secondary);">
+              ${state.label}
+            </p>
+            ${textareaTwig(state.args)}
+          </div>
+        `
+          )
+          .join('')}
       </div>
     `;
   },
-  args: {
-    ...data,
-    id: 'textarea-label-demo',
-    value: 'Je souhaite visiter le loft.',
+};
+
+// ============ IN CONTEXT ============
+
+/**
+ * In Context
+ * Real Estate: Property inquiry form with textarea
+ */
+export const InContext = {
+  render: () => {
+    return `
+      <form style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px; font-family: var(--font-sans);">
+        <fieldset style="border: 1px solid var(--gray-300); padding: var(--size-4); border-radius: var(--radius-2);">
+          <legend style="padding: 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-900);">
+            Property Inquiry
+          </legend>
+
+          <div style="display: flex; flex-direction: column; gap: var(--size-4); margin-top: var(--size-3);">
+            <!-- Field 1: Required, empty -->
+            <div style="display: flex; flex-direction: column; gap: var(--size-1);">
+              <label for="form-property" style="font-weight: var(--font-weight-600); color: var(--text-primary);">
+                Property Details
+                <span style="color: var(--danger);">*</span>
+              </label>
+              ${textareaTwig({
+                id: 'form-property',
+                name: 'property',
+                required: true,
+                rows: 4,
+                placeholder: 'Location, surface area, rooms, features, condition...',
+              })}
+              <small style="color: var(--text-secondary);">Required. Help us understand the property.</small>
+            </div>
+
+            <!-- Field 2: Required + successful validation -->
+            <div style="display: flex; flex-direction: column; gap: var(--size-1);">
+              <label for="form-criteria" style="font-weight: var(--font-weight-600); color: var(--text-primary);">
+                Your Search Criteria
+                <span style="color: var(--danger);">*</span>
+              </label>
+              ${textareaTwig({
+                id: 'form-criteria',
+                name: 'criteria',
+                required: true,
+                rows: 4,
+                state: 'success',
+                value: '4BR house with garden, suburbs, max 450k budget, close to schools',
+              })}
+              <small style="color: var(--success); display: flex; align-items: center; gap: var(--size-05);">
+                <span>✓</span> <span>Clear and complete</span>
+              </small>
+            </div>
+
+            <!-- Field 3: Optional + error state -->
+            <div style="display: flex; flex-direction: column; gap: var(--size-1);">
+              <label for="form-special" style="font-weight: var(--font-weight-600); color: var(--text-primary);">
+                Special Requests
+              </label>
+              ${textareaTwig({
+                id: 'form-special',
+                name: 'special',
+                rows: 3,
+                state: 'error',
+                value: 'URGENT!!!',
+              })}
+              <small style="color: var(--danger); display: flex; align-items: center; gap: var(--size-05);">
+                <span>!</span> <span>Provide more context (financing, timeline, flexibility)</span>
+              </small>
+            </div>
+
+            <!-- Field 4: Required + warning state -->
+            <div style="display: flex; flex-direction: column; gap: var(--size-1);">
+              <label for="form-contact" style="font-weight: var(--font-weight-600); color: var(--text-primary);">
+                Best Time to Contact
+                <span style="color: var(--danger);">*</span>
+              </label>
+              ${textareaTwig({
+                id: 'form-contact',
+                name: 'contact',
+                required: true,
+                rows: 2,
+                state: 'warning',
+                value: 'Weekdays after 7PM or weekend mornings (call only, no SMS)',
+              })}
+              <small style="color: var(--warning);">
+                Tip: Clear phone preferences help our agents reach you faster.
+              </small>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" style="padding: var(--size-3) var(--size-6); background: var(--primary); color: white; border: none; border-radius: var(--radius-1); font-weight: var(--font-weight-600); cursor: pointer; align-self: flex-start;">
+          Submit Inquiry
+        </button>
+      </form>
+    `;
   },
 };

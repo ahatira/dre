@@ -3,15 +3,19 @@
  * Native textarea without label. Drupal-friendly attributes.
  *
  * BEM: ps-textarea
- * Modifiers: --disabled, --state-error, --state-success, --state-warning
- * Variants: default | primary | secondary | info | warning | danger | success | gold | dark | light
- * Sizes: xs | sm | md | lg | xl | xxl
+ * Modifiers: --disabled, --error, --success, --warning
  * States: :hover, :focus-visible, :disabled
+ * 
+ * CSS Architecture:
+ * - Layer 1: Global tokens (colors, sizes, fonts from source/props/)
+ * - Layer 2: Component-scoped defaults (--ps-textarea-*)
+ * - Layer 3: Context overrides (modifiers, pseudo-classes)
  */
 
 .ps-textarea {
   /* ============================================
-     Layer 2: Component-scoped variables
+     Layer 2: Component-Scoped Variables
+     (Defaults from Layer 1 tokens)
      ============================================ */
   --ps-textarea-width: 100%;
   --ps-textarea-min-height: var(--size-12);
@@ -29,9 +33,7 @@
   --ps-textarea-placeholder-color: var(--text-secondary);
 
   --ps-textarea-hover-border-color: var(--gray-400);
-  --ps-textarea-focus-border-color: var(--primary);
-  --ps-textarea-focus-ring-color: transparent;
-  --ps-textarea-focus-ring-width: 0;
+  --ps-textarea-focus-border-color: var(--text-primary);
 
   --ps-textarea-disabled-bg: var(--gray-100);
   --ps-textarea-disabled-color: var(--text-disabled);
@@ -45,7 +47,7 @@
   --ps-textarea-transition-timing: var(--ease-3);
 
   /* ============================================
-     Base
+     Base Styles
      ============================================ */
   width: var(--ps-textarea-width);
   min-height: var(--ps-textarea-min-height);
@@ -62,7 +64,6 @@
   box-shadow: none;
   transition:
     border-color var(--ps-textarea-transition-duration) var(--ps-textarea-transition-timing),
-    box-shadow var(--ps-textarea-transition-duration) var(--ps-textarea-transition-timing),
     background-color var(--ps-textarea-transition-duration) var(--ps-textarea-transition-timing),
     color var(--ps-textarea-transition-duration) var(--ps-textarea-transition-timing);
   caret-color: var(--ps-textarea-color);
@@ -72,18 +73,20 @@
     opacity: 1;
   }
 
+  /* ============================================
+     Layer 3: Pseudo-classes (States)
+     ============================================ */
   &:hover:not(:disabled):not(.ps-textarea--disabled) {
     border-color: var(--ps-textarea-hover-border-color);
   }
 
   &:focus-visible {
     border-color: var(--ps-textarea-focus-border-color);
-    box-shadow: none;
     outline: none;
   }
 
   &:disabled,
-  &--disabled {
+  &.ps-textarea--disabled {
     background-color: var(--ps-textarea-disabled-bg);
     color: var(--ps-textarea-disabled-color);
     border-color: var(--ps-textarea-disabled-border-color);
@@ -92,120 +95,21 @@
   }
 
   /* ============================================
-     Modifiers - Color
+     Layer 3: Modifiers - Validation States
      ============================================ */
-  &--primary {
-    --ps-textarea-border-color: var(--primary);
-    --ps-textarea-focus-border-color: var(--primary);
-    --ps-textarea-focus-ring-color: var(--primary);
-  }
-
-  &--secondary {
-    --ps-textarea-border-color: var(--secondary);
-    --ps-textarea-focus-border-color: var(--secondary);
-    --ps-textarea-focus-ring-color: var(--secondary);
-  }
-
-  &--info {
-    --ps-textarea-border-color: var(--info);
-    --ps-textarea-focus-border-color: var(--info);
-    --ps-textarea-focus-ring-color: var(--info);
-  }
-
-  &--warning {
-    --ps-textarea-border-color: var(--warning);
-    --ps-textarea-focus-border-color: var(--warning);
-    --ps-textarea-focus-ring-color: var(--warning);
-  }
-
-  &--danger {
+  &.ps-textarea--error {
     --ps-textarea-border-color: var(--danger);
     --ps-textarea-focus-border-color: var(--danger);
-    --ps-textarea-focus-ring-color: var(--danger);
   }
 
-  &--success {
+  &.ps-textarea--success {
     --ps-textarea-border-color: var(--success);
     --ps-textarea-focus-border-color: var(--success);
-    --ps-textarea-focus-ring-color: var(--success);
   }
 
-  &--gold {
-    --ps-textarea-border-color: var(--gold);
-    --ps-textarea-focus-border-color: var(--gold);
-    --ps-textarea-focus-ring-color: var(--gold);
-  }
-
-  &--dark {
-    --ps-textarea-border-color: var(--dark);
-    --ps-textarea-focus-border-color: var(--dark);
-    --ps-textarea-focus-ring-color: var(--dark);
-  }
-
-  &--light {
-    --ps-textarea-border-color: var(--light);
-    --ps-textarea-focus-border-color: var(--light);
-    --ps-textarea-focus-ring-color: var(--light);
-  }
-
-  /* ============================================
-     Modifiers - Size
-     ============================================ */
-  &--xs {
-    --ps-textarea-min-height: var(--size-7);
-    --ps-textarea-padding-inline: var(--size-2);
-    --ps-textarea-padding-block: var(--size-1);
-    --ps-textarea-font-size: var(--font-size--1);
-  }
-
-  &--sm {
-    --ps-textarea-min-height: var(--size-8);
-    --ps-textarea-padding-inline: var(--size-3);
-    --ps-textarea-padding-block: var(--size-105);
-    --ps-textarea-font-size: var(--font-size-0);
-  }
-
-  /* md is default */
-
-  &--lg {
-    --ps-textarea-min-height: var(--size-12);
-    --ps-textarea-padding-inline: var(--size-5);
-    --ps-textarea-padding-block: var(--size-3);
-    --ps-textarea-font-size: var(--font-size-2);
-  }
-
-  &--xl {
-    --ps-textarea-min-height: var(--size-14);
-    --ps-textarea-padding-inline: var(--size-6);
-    --ps-textarea-padding-block: var(--size-4);
-    --ps-textarea-font-size: var(--font-size-3);
-  }
-
-  &--xxl {
-    --ps-textarea-min-height: var(--size-16);
-    --ps-textarea-padding-inline: var(--size-7);
-    --ps-textarea-padding-block: var(--size-5);
-    --ps-textarea-font-size: var(--font-size-4);
-  }
-
-  /* ============================================
-     Modifiers - Validation State
-     ============================================ */
-  &--error {
-    --ps-textarea-border-color: var(--danger);
-    --ps-textarea-focus-border-color: var(--danger);
-    --ps-textarea-focus-ring-color: var(--danger-bg-subtle);
-  }
-
-  &--success {
-    --ps-textarea-border-color: var(--success);
-    --ps-textarea-focus-border-color: var(--success);
-    --ps-textarea-focus-ring-color: var(--success-bg-subtle);
-  }
-
-  &--warning {
+  &.ps-textarea--warning {
     --ps-textarea-border-color: var(--warning);
     --ps-textarea-focus-border-color: var(--warning);
-    --ps-textarea-focus-ring-color: var(--warning-bg-subtle);
   }
 }
+

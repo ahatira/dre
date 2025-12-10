@@ -192,7 +192,8 @@ export const Emphasis = {
   parameters: {
     docs: {
       description: {
-        story: 'Combine muted and strong to balance hierarchy for helper text, disclaimers, and emphasis.',
+        story:
+          'Combine muted and strong to balance hierarchy for helper text, disclaimers, and emphasis.',
       },
     },
   },
@@ -209,7 +210,8 @@ export const Alignments = {
   parameters: {
     docs: {
       description: {
-        story: 'Alignment options adapt the text to layouts such as cards, callouts, and metadata blocks.',
+        story:
+          'Alignment options adapt the text to layouts such as cards, callouts, and metadata blocks.',
       },
     },
   },
