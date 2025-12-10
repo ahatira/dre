@@ -1,12 +1,77 @@
-# Default: Standard card with medium padding and vertical layout
-variant: 'default'
-layout: 'vertical'
-size: 'medium'
-radius: 'none'
-imagePosition: 'top'
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
+name: 'PS Card'
+status: stable
+group: components
+description: 'Generic flexible container with extensible Twig blocks for maximum composition.'
 
-# variant options: default (border), outlined (thick border), flat (no border), elevated (shadow)
-# layout options: vertical (image top/bottom), horizontal (image left/right)
-# size options: small (16px padding), medium (30px/24px padding), large (32px padding)
-# radius options: none (0), sm (4px), md (8px), lg (16px)
-# imagePosition options: top, bottom (vertical) | left, right (horizontal)
+props:
+  type: object
+  properties:
+    variant:
+      type: string
+      enum: ['default','outlined','flat','elevated']
+      default: 'default'
+      title: Visual variant
+      description: 'Visual style (default: border | outlined: thick border | flat: no border | elevated: shadow)'
+    layout:
+      type: string
+      enum: ['vertical','horizontal']
+      default: 'vertical'
+      title: Layout orientation
+      description: 'Vertical (image top/bottom) or horizontal (image left/right)'
+    size:
+      type: string
+      enum: ['small','medium','large']
+      default: 'medium'
+      title: Padding size
+      description: 'small: 16px | medium: 32px/24px | large: 32px'
+    radius:
+      type: string
+      enum: ['none','sm','md','lg']
+      default: 'none'
+      title: Border radius
+      description: 'none: 0 | sm: 4px | md: 8px | lg: 16px'
+    imagePosition:
+      type: string
+      enum: ['top','bottom','left','right']
+      default: 'top'
+      title: Image position
+      description: 'top/bottom for vertical layout, left/right for horizontal layout'
+    image:
+      type: object
+      title: Image object (simple usage)
+      description: 'For Storybook/simple cases - use media block for advanced'
+      properties:
+        src:
+          type: string
+          title: Image source URL
+        alt:
+          type: string
+          title: Alternative text
+        ratio:
+          type: string
+          title: Aspect ratio (16x9, 4x3, 1x1, etc.)
+    url:
+      type: string
+      title: URL (makes entire card clickable)
+      description: 'If provided, card renders as <a> instead of <article>'
+    header:
+      type: string
+      title: Header content (HTML)
+      description: 'For Storybook - use header block for Drupal'
+    body:
+      type: string
+      title: Body content (HTML)
+      description: 'For Storybook - use body block for Drupal'
+    content:
+      type: string
+      title: Content (HTML fallback)
+      description: 'Alternative to body - for Storybook'
+    footer:
+      type: string
+      title: Footer content (HTML)
+      description: 'For Storybook - use footer block for Drupal'
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Additional HTML attributes
+

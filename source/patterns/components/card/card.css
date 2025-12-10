@@ -7,13 +7,50 @@
  * Layouts: vertical (default) | horizontal
  * Sizes: small | medium (default) | large
  * Radius: none (default) | sm | md | lg
+ * 
+ * CSS Variables (3-Layer System):
+ * Layer 1 (Global): --white, --gray-200, --shadow-2, etc. (from props/)
+ * Layer 2 (Component): --ps-card-* variables (below)
+ * Layer 3 (Modifiers): Overrides via .ps-card--* classes
  */
 
 /* ======================================== */
-/* Base Card Container */
+/* Layer 2: Component-Scoped Variables */
 /* ======================================== */
 
 .ps-card {
+  /* Visual defaults (Layer 1) */
+  --ps-card-bg: var(--white);
+  --ps-card-border-width: var(--border-size-1);
+  --ps-card-border-color: var(--gray-200);
+  --ps-card-border-radius: 0;
+  
+  /* Spacing defaults */
+  --ps-card-padding-y: var(--size-8); /* 32px (adjusted from 30px - closest token) */
+  --ps-card-padding-x: var(--size-6); /* 24px */
+  --ps-card-gap: var(--size-4);       /* 16px */
+  
+  /* States (hover/active/focus) */
+  --ps-card-hover-shadow: var(--shadow-3);
+  --ps-card-hover-transform: translateY(-2px);
+  --ps-card-active-transform: translateY(-1px);
+  --ps-card-focus-outline-width: var(--border-size-2);
+  --ps-card-focus-outline-color: var(--secondary);
+  --ps-card-focus-outline-offset: var(--border-size-2);
+  
+  /* Transitions */
+  --ps-card-transition-duration: var(--duration-fast);
+  --ps-card-transition-easing: var(--ease-3);
+  
+  /* Layout */
+  --ps-card-horizontal-image-width: 40%;
+  --ps-card-horizontal-image-min-height: 12.5rem; /* 200px - using rem for consistency */
+  --ps-card-horizontal-content-width: 60%;
+  
+  /* ======================================== */
+  /* Layer 1: Base Styles (Using Component Variables) */
+  /* ======================================== */
+  
   /* Reset */
   margin: 0;
   
@@ -22,35 +59,36 @@
   flex-direction: column;
   
   /* Visual */
-  background: var(--white);
-  border: var(--border-size-1) solid var(--gray-200);
-  border-radius: 0; /* none by default */
-  
-  /* Typography delegated to child components */
+  background: var(--ps-card-bg);
+  border: var(--ps-card-border-width) solid var(--ps-card-border-color);
+  border-radius: var(--ps-card-border-radius);
   
   /* Transitions */
   transition:
-    box-shadow var(--duration-fast) var(--ease-3),
-    transform var(--duration-fast) var(--ease-3);
+    box-shadow var(--ps-card-transition-duration) var(--ps-card-transition-easing),
+    transform var(--ps-card-transition-duration) var(--ps-card-transition-easing);
   
-  /* Clickable card states */
+  /* ======================================== */
+  /* Clickable Card States */
+  /* ======================================== */
+  
   &[href] {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
     
     &:hover {
-      box-shadow: var(--shadow-3);
-      transform: translateY(-2px);
+      box-shadow: var(--ps-card-hover-shadow);
+      transform: var(--ps-card-hover-transform);
     }
     
     &:active {
-      transform: translateY(-1px);
+      transform: var(--ps-card-active-transform);
     }
     
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--secondary);
-      outline-offset: var(--border-size-2);
+      outline: var(--ps-card-focus-outline-width) solid var(--ps-card-focus-outline-color);
+      outline-offset: var(--ps-card-focus-outline-offset);
     }
   }
 }
@@ -59,7 +97,8 @@
 /* Elements */
 /* ======================================== */
 
-.ps-card__image {
+.ps-card__media {
+  position: relative; /* For media_overlay positioning */
   flex-shrink: 0;
   overflow: hidden;
   
@@ -77,9 +116,9 @@
   flex-direction: column;
   flex: 1;
   
-  /* Medium padding by default (Figma exact: 30px 24px) */
-  padding: 1.875rem 1.5rem; /* 30px 24px */
-  gap: var(--size-4); /* 16px between sections */
+  /* Use component variables for content spacing */
+  padding: var(--ps-card-padding-y) var(--ps-card-padding-x);
+  gap: var(--ps-card-gap);
 }
 
 .ps-card__header {
@@ -96,199 +135,184 @@
 }
 
 /* ======================================== */
-/* Variants - Visual */
+/* Layer 3: Modifiers - Visual Variants */
 /* ======================================== */
 
 .ps-card--outlined {
-  border-width: var(--border-size-2);
-  border-color: var(--gray-300);
+  --ps-card-border-width: var(--border-size-2);
+  --ps-card-border-color: var(--gray-300);
 }
 
 .ps-card--flat {
-  border: none;
+  --ps-card-border-width: 0;
+  --ps-card-border-color: transparent;
 }
 
 .ps-card--elevated {
-  border: none;
+  --ps-card-border-width: 0;
+  --ps-card-border-color: transparent;
+  
   box-shadow: var(--shadow-2);
   
-  &:hover {
+  &[href]:hover {
     box-shadow: var(--shadow-4);
   }
 }
 
 /* ======================================== */
-/* Variants - Layout Horizontal */
+/* Layer 3: Modifiers - Layout */
 /* ======================================== */
 
+/* Horizontal layout: flexbox row, 40/60 split */
 .ps-card--horizontal {
   flex-direction: row;
   
-  .ps-card__image {
-    width: 40%; /* Figma exact */
+  .ps-card__media {
+    width: var(--ps-card-horizontal-image-width);
     height: auto;
-    min-height: 200px; /* Ensure minimum height */
+    min-height: var(--ps-card-horizontal-image-min-height);
   }
   
   .ps-card__content {
-    width: 60%; /* Figma exact */
-  }
-  
-  /* Image right variant */
-  &.ps-card--image-right {
-    flex-direction: row-reverse;
+    width: var(--ps-card-horizontal-content-width);
   }
 }
 
-/* ======================================== */
-/* Variants - Layout Vertical */
-/* ======================================== */
+/* Image position modifiers */
+.ps-card--image-right {
+  flex-direction: row-reverse;
+}
 
-.ps-card {
-  /* Image bottom variant */
-  &.ps-card--image-bottom {
-    flex-direction: column-reverse;
-  }
+.ps-card--image-bottom {
+  flex-direction: column-reverse;
 }
 
 /* ======================================== */
-/* Modifiers - Sizes */
+/* Layer 3: Modifiers - Sizes */
 /* ======================================== */
 
 .ps-card--small {
-  .ps-card__content {
-    padding: var(--size-4); /* 16px */
-    gap: var(--size-3); /* 12px */
-  }
+  --ps-card-padding-y: var(--size-4);      /* 16px */
+  --ps-card-padding-x: var(--size-4);      /* 16px */
+  --ps-card-gap: var(--size-3);            /* 12px */
 }
 
 .ps-card--large {
-  .ps-card__content {
-    padding: var(--size-8); /* 32px */
-    gap: var(--size-5); /* 20px */
-  }
+  --ps-card-padding-y: var(--size-8);      /* 32px */
+  --ps-card-padding-x: var(--size-8);      /* 32px */
+  --ps-card-gap: var(--size-5);            /* 20px */
 }
 
 /* ======================================== */
-/* Modifiers - Border Radius */
+/* Layer 3: Modifiers - Border Radius */
 /* ======================================== */
 
+/* Small radius (4px) */
+/* Small radius (4px) */
 .ps-card--radius-sm {
-  border-radius: var(--radius-2); /* 4px */
+  --ps-card-border-radius: var(--radius-2);
   
-  .ps-card__image {
-    &:first-child {
-      border-top-left-radius: var(--radius-2);
-      border-top-right-radius: var(--radius-2);
-    }
+  .ps-card__media:first-child {
+    border-radius: var(--radius-2) var(--radius-2) 0 0;
   }
 }
 
+/* Medium radius (8px) */
 .ps-card--radius-md {
-  border-radius: var(--radius-4); /* 8px */
+  --ps-card-border-radius: var(--radius-4);
   
-  .ps-card__image {
-    &:first-child {
-      border-top-left-radius: var(--radius-4);
-      border-top-right-radius: var(--radius-4);
-    }
+  .ps-card__media:first-child {
+    border-radius: var(--radius-4) var(--radius-4) 0 0;
   }
 }
 
+/* Large radius (16px) */
 .ps-card--radius-lg {
-  border-radius: var(--radius-6); /* 16px */
+  --ps-card-border-radius: var(--radius-6);
   
-  .ps-card__image {
-    &:first-child {
-      border-top-left-radius: var(--radius-6);
-      border-top-right-radius: var(--radius-6);
-    }
+  .ps-card__media:first-child {
+    border-radius: var(--radius-6) var(--radius-6) 0 0;
   }
 }
 
-/* Horizontal radius adjustments */
+/* Horizontal layout: adjust radius for left/right image position */
 .ps-card--horizontal {
-  &.ps-card--radius-sm .ps-card__image:first-child {
-    border-top-left-radius: var(--radius-2);
-    border-bottom-left-radius: var(--radius-2);
-    border-top-right-radius: 0;
+  /* Small radius - horizontal left (default) */
+  &.ps-card--radius-sm .ps-card__media:first-child {
+    border-radius: var(--radius-2) 0 0 var(--radius-2);
   }
   
-  &.ps-card--radius-md .ps-card__image:first-child {
-    border-top-left-radius: var(--radius-4);
-    border-bottom-left-radius: var(--radius-4);
-    border-top-right-radius: 0;
+  /* Medium radius - horizontal left (default) */
+  &.ps-card--radius-md .ps-card__media:first-child {
+    border-radius: var(--radius-4) 0 0 var(--radius-4);
   }
   
-  &.ps-card--radius-lg .ps-card__image:first-child {
-    border-top-left-radius: var(--radius-6);
-    border-bottom-left-radius: var(--radius-6);
-    border-top-right-radius: 0;
+  /* Large radius - horizontal left (default) */
+  &.ps-card--radius-lg .ps-card__media:first-child {
+    border-radius: var(--radius-6) 0 0 var(--radius-6);
+  }
+}
+
+/* Image at right (horizontal): adjust corners */
+.ps-card--image-right {
+  &.ps-card--radius-sm .ps-card__media {
+    border-radius: 0 var(--radius-2) var(--radius-2) 0;
   }
   
-  /* Image right adjustments */
-  &.ps-card--image-right {
-    &.ps-card--radius-sm .ps-card__image {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-top-right-radius: var(--radius-2);
-      border-bottom-right-radius: var(--radius-2);
-    }
-    
-    &.ps-card--radius-md .ps-card__image {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-top-right-radius: var(--radius-4);
-      border-bottom-right-radius: var(--radius-4);
-    }
-    
-    &.ps-card--radius-lg .ps-card__image {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-top-right-radius: var(--radius-6);
-      border-bottom-right-radius: var(--radius-6);
-    }
+  &.ps-card--radius-md .ps-card__media {
+    border-radius: 0 var(--radius-4) var(--radius-4) 0;
+  }
+  
+  &.ps-card--radius-lg .ps-card__media {
+    border-radius: 0 var(--radius-6) var(--radius-6) 0;
+  }
+}
+
+/* Image at bottom (vertical): adjust corners */
+.ps-card--image-bottom {
+  &.ps-card--radius-sm .ps-card__media {
+    border-radius: 0 0 var(--radius-2) var(--radius-2);
+  }
+  
+  &.ps-card--radius-md .ps-card__media {
+    border-radius: 0 0 var(--radius-4) var(--radius-4);
+  }
+  
+  &.ps-card--radius-lg .ps-card__media {
+    border-radius: 0 0 var(--radius-6) var(--radius-6);
   }
 }
 
 /* ======================================== */
-/* Responsive */
+/* Responsive Behavior */
 /* ======================================== */
 
-@media (max-width: 768px) {
-  /* Horizontal cards stack on mobile */
-  .ps-card--horizontal {
+@media (max-width: 48rem) { /* 768px - using rem for consistency with design tokens */
+  /* Horizontal cards stack to vertical on mobile */
+  .ps-card--horizontal,
+  .ps-card--image-right {
     flex-direction: column;
     
-    .ps-card__image {
+    .ps-card__media {
       width: 100%;
-      min-height: 200px;
+      min-height: var(--ps-card-horizontal-image-min-height);
     }
     
     .ps-card__content {
       width: 100%;
     }
     
-    /* Reset radius for mobile stacking */
-    &.ps-card--radius-sm .ps-card__image:first-child {
-      border-top-left-radius: var(--radius-2);
-      border-top-right-radius: var(--radius-2);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    /* Reset radius back to vertical style on mobile */
+    &.ps-card--radius-sm .ps-card__media:first-child {
+      border-radius: var(--radius-2) var(--radius-2) 0 0;
     }
     
-    &.ps-card--radius-md .ps-card__image:first-child {
-      border-top-left-radius: var(--radius-4);
-      border-top-right-radius: var(--radius-4);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    &.ps-card--radius-md .ps-card__media:first-child {
+      border-radius: var(--radius-4) var(--radius-4) 0 0;
     }
     
-    &.ps-card--radius-lg .ps-card__image:first-child {
-      border-top-left-radius: var(--radius-6);
-      border-top-right-radius: var(--radius-6);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    &.ps-card--radius-lg .ps-card__media:first-child {
+      border-radius: var(--radius-6) var(--radius-6) 0 0;
     }
   }
 }

@@ -31,8 +31,7 @@ export default {
     },
     noUnderline: {
       control: 'boolean',
-      description:
-        '**DEPRECATED** Removes underline from links. Default has underline.',
+      description: '**DEPRECATED** Removes underline from links. Default has underline.',
       table: {
         category: 'Modifiers',
         defaultValue: { summary: 'false' },
@@ -80,7 +79,10 @@ export const LongLabels = {
       { label: 'Accueil', url: '/' },
       { label: 'Locations', url: '/locations' },
       { label: 'Paris 15ème Arrondissement', url: '/locations/paris-15' },
-      { label: 'Appartement familial T4 - Vue sur Tour Eiffel - Long title to test overflow and wrap behaviour' },
+      {
+        label:
+          'Appartement familial T4 - Vue sur Tour Eiffel - Long title to test overflow and wrap behaviour',
+      },
     ],
   },
 };
