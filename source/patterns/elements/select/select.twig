@@ -1,12 +1,20 @@
 {#
  * Select (Atom)
- * Native <select> without label, Drupal-friendly attributes.
+ * Native <select> wrapped with custom chevron icon
+ *
+ * BEM Structure:
+ * - Block: .ps-select (wrapper div)
+ * - Element: .ps-select__input (native select)
+ * - Element: .ps-select__icon (chevron-down icon)
+ * - Modifiers: --disabled, --error, --success
  *
  * @param array options - List of options: [{ value, label, disabled=false, selected=false }]
- * @param string name - Name attribute (optional)
+ * @param string name - Name attribute
  * @param string id - ID attribute (defaults to name-based)
  * @param boolean disabled - Disabled state (default: false)
  * @param boolean required - Required state (default: false)
+ * @param string error - Error state (default: null)
+ * @param string success - Success state (default: null)
  * @param object attributes - Drupal attributes for the <select>
  * @param object wrapper_attributes - Drupal attributes for the wrapper
  #}
@@ -16,32 +24,35 @@
 {%- set id = id|default(name ? name ~ '-select' : 'ps-select') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set required = required|default(false) -%}
-{%- set color = color|default('default') -%}
-{%- set size = size|default('md') -%}
+{%- set error = error|default(null) -%}
+{%- set success = success|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 
-{%- set classes = [
+{%- set wrapper_classes = [
   'ps-select',
   disabled ? 'ps-select--disabled' : null,
-  color != 'default' ? 'ps-select--' ~ color : null,
-  size != 'md' ? 'ps-select--' ~ size : null
+  error ? 'ps-select--error' : null,
+  success ? 'ps-select--success' : null
 ] -%}
 
-<select
-  {{ attributes
-    .addClass(classes)
-    .setAttribute('id', id)
-    .setAttribute('name', name)
-  }}
-  {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-  {%- if required %} required aria-required="true"{% endif -%}
->
-  {%- for option in options -%}
-    <option
-      value="{{ option.value|default('') }}"
-      {%- if option.disabled|default(false) %} disabled{% endif -%}
-      {%- if option.selected|default(false) %} selected{% endif -%}
-    >{{ option.label|default('') }}</option>
-  {%- endfor -%}
-</select>
+<div {{ wrapper_attributes.addClass(wrapper_classes) }}>
+  <select
+    class="ps-select__input"
+    {{ attributes
+      .setAttribute('id', id)
+      .setAttribute('name', name)
+    }}
+    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
+    {%- if required %} required aria-required="true"{% endif -%}
+  >
+    {%- for option in options -%}
+      <option
+        value="{{ option.value|default('') }}"
+        {%- if option.disabled|default(false) %} disabled{% endif -%}
+        {%- if option.selected|default(false) %} selected{% endif -%}
+      >{{ option.label|default('') }}</option>
+    {%- endfor -%}
+  </select>
+  <span class="ps-select__icon" data-icon="chevron-down" aria-hidden="true"></span>
+</div>

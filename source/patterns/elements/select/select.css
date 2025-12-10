@@ -1,183 +1,198 @@
 /**
- * Select (Element/Atom)
- * Native select without label. Drupal-friendly attributes.
+ * Select (Atom)
+ * Native select wrapper with custom chevron icon
+ * Implements CSS 3-layer system with semantic tokens
  *
- * BEM: ps-select
- * Modifiers: --disabled, --error, --success
- * States: :hover, :focus-visible, :disabled
+ * BEM Structure:
+ * - Block: .ps-select (wrapper div)
+ * - Element: .ps-select__input (native select)
+ * - Element: .ps-select__icon (chevron-down icon)
+ * - Modifiers: --disabled, --error, --success, --{color}, --{size}
  */
 
 .ps-select {
-  /* Layer 2: component-scoped variables */
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Override these variables for customization
+     ============================================ */
+
+  /* Box Sizing & Spacing */
   --ps-select-width: 100%;
-  --ps-select-min-height: var(--size-10);
-  --ps-select-padding-y: var(--size-2);
-  --ps-select-padding-x: var(--size-4);
-  --ps-select-padding-right: var(--size-7);
+  --ps-select-min-height: var(--size-10); /* 40px */
+  --ps-select-padding-y: var(--size-2); /* 8px */
+  --ps-select-padding-x: var(--size-4); /* 16px */
+  --ps-select-padding-right: var(--size-7); /* 28px for icon */
 
+  /* Typography */
   --ps-select-font-family: var(--font-sans);
-  --ps-select-font-size: var(--font-size-1);
+  --ps-select-font-size: var(--font-size-1); /* 16px */
   --ps-select-font-weight: var(--font-weight-400);
-  --ps-select-line-height: var(--leading-6);
+  --ps-select-line-height: var(--leading-normal); /* 1.5 */
 
+  /* Colors - Base State */
   --ps-select-bg: var(--white);
-  --ps-select-color: var(--text-primary);
-  --ps-select-border-color: var(--border-default);
-  --ps-select-placeholder-color: var(--gray-400);
+  --ps-select-color: var(--gray-900); /* Dark text, not --text-primary */
+  --ps-select-border-color: var(--gray-300); /* Light gray border, not --border-default */
 
-  --ps-select-hover-border-color: var(--gray-300);
-  --ps-select-focus-border-color: var(--border-focus);
-  --ps-select-focus-ring-color: var(--border-focus);
-  --ps-select-focus-ring-width: 0;
+  /* Colors - Hover */
+  --ps-select-hover-border-color: var(--gray-400);
+  --ps-select-hover-bg: var(--white);
 
-  --ps-select-disabled-bg: var(--bg-disabled);
-  --ps-select-disabled-color: var(--text-disabled);
-  --ps-select-disabled-border-color: var(--border-default);
+  /* Colors - Focus */
+  --ps-select-focus-border-color: var(--border-focus); /* Gray-900 focus ring */
+  --ps-select-focus-bg: var(--white);
+
+  /* Colors - Disabled */
+  --ps-select-disabled-bg: var(--gray-100); /* Light gray, not --bg-disabled */
+  --ps-select-disabled-color: var(--gray-500);
+  --ps-select-disabled-border-color: var(--gray-300);
   --ps-select-disabled-opacity: 0.6;
 
-  --ps-select-border-width: var(--border-size-2);
+  /* Borders & Radius */
+  --ps-select-border-width: var(--border-size-2); /* 2px */
   --ps-select-border-radius: var(--radius-2);
 
-  --ps-select-transition-duration: var(--duration-fast);
-  --ps-select-transition-timing: var(--ease-3);
+  /* Icon (chevron) */
+  --ps-select-icon-color: var(--gray-700);
+  --ps-select-icon-size: var(--size-3); /* 12px */
 
+  /* Transitions */
+  --ps-select-transition-duration: var(--duration-fast); /* 150ms */
+  --ps-select-transition-timing: var(--ease-3); /* cubic-bezier */
+
+  /* ============================================
+     Layout: Wrapper with relative positioning
+     ============================================ */
+
+  position: relative;
+  display: inline-block;
   width: var(--ps-select-width);
-  min-height: var(--ps-select-min-height);
-  padding: var(--ps-select-padding-y) var(--ps-select-padding-right) var(--ps-select-padding-y) var(--ps-select-padding-x);
-  border: var(--ps-select-border-width) solid var(--ps-select-border-color);
-  border-radius: var(--ps-select-border-radius);
-  background-color: var(--ps-select-bg);
-  color: var(--ps-select-color);
-  font-family: var(--ps-select-font-family);
-  font-size: var(--ps-select-font-size);
-  font-weight: var(--ps-select-font-weight);
-  line-height: var(--ps-select-line-height);
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-repeat: no-repeat;
-  background-position: right var(--ps-select-padding-x) center;
-  background-size: var(--size-3) var(--size-2);
-  box-shadow: 0 0 0 var(--ps-select-focus-ring-width) var(--ps-select-focus-ring-color);
-  transition:
-    border-color var(--ps-select-transition-duration) var(--ps-select-transition-timing),
-    box-shadow var(--ps-select-transition-duration) var(--ps-select-transition-timing),
-    background-color var(--ps-select-transition-duration) var(--ps-select-transition-timing);
 
-  &::placeholder {
-    color: var(--ps-select-placeholder-color);
-    opacity: 1;
+  /* Native select styling */
+  & .ps-select__input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    min-height: var(--ps-select-min-height);
+    padding: var(--ps-select-padding-y) var(--ps-select-padding-right) var(--ps-select-padding-y) var(--ps-select-padding-x);
+    border: var(--ps-select-border-width) solid var(--ps-select-border-color);
+    border-radius: var(--ps-select-border-radius);
+
+    background-color: var(--ps-select-bg);
+    color: var(--ps-select-color);
+
+    font-family: var(--ps-select-font-family);
+    font-size: var(--ps-select-font-size);
+    font-weight: var(--ps-select-font-weight);
+    line-height: var(--ps-select-line-height);
+
+    cursor: pointer;
+    transition:
+      border-color var(--ps-select-transition-duration) var(--ps-select-transition-timing),
+      background-color var(--ps-select-transition-duration) var(--ps-select-transition-timing),
+      box-shadow var(--ps-select-transition-duration) var(--ps-select-transition-timing);
+
+    /* Hover State */
+    &:hover:not(:disabled) {
+      border-color: var(--ps-select-hover-border-color);
+      background-color: var(--ps-select-hover-bg);
+    }
+
+    /* Focus State */
+    &:focus-visible {
+      border-color: var(--ps-select-focus-border-color);
+      background-color: var(--ps-select-focus-bg);
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: var(--border-size-2);
+    }
+
+    /* Disabled State */
+    &:disabled {
+      background-color: var(--ps-select-disabled-bg);
+      color: var(--ps-select-disabled-color);
+      border-color: var(--ps-select-disabled-border-color);
+      opacity: var(--ps-select-disabled-opacity);
+      cursor: not-allowed;
+    }
   }
 
-  &:hover:not(:disabled) {
-    border-color: var(--ps-select-hover-border-color);
+  /* Chevron Icon (positioned over select) */
+  & .ps-select__icon {
+    position: absolute;
+    top: 50%;
+    right: var(--ps-select-padding-x);
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: var(--ps-select-icon-size);
+    height: var(--ps-select-icon-size);
+    color: var(--ps-select-icon-color);
+    transition: color var(--ps-select-transition-duration) var(--ps-select-transition-timing);
   }
 
-  &:focus-visible {
-    border-color: var(--ps-select-focus-border-color);
-    box-shadow: 0 0 0 var(--ps-select-focus-ring-width) var(--ps-select-focus-ring-color);
-    outline: none;
+  /* Icon color on hover (not disabled) */
+  &:has(.ps-select__input:hover:not(:disabled)) .ps-select__icon {
+    color: var(--gray-600);
   }
 
-  &:disabled {
-    background-color: var(--ps-select-disabled-bg);
-    color: var(--ps-select-disabled-color);
-    border-color: var(--ps-select-disabled-border-color);
-    opacity: var(--ps-select-disabled-opacity);
-    cursor: not-allowed;
+  /* Icon color on focus */
+  &:has(.ps-select__input:focus-visible) .ps-select__icon {
+    color: var(--border-focus);
+  }
+
+  /* Icon color on disabled */
+  &:has(.ps-select__input:disabled) .ps-select__icon {
+    color: var(--gray-500);
   }
 }
 
 /* ============================================
-   Modifiers - State (Validation)
+   Modifiers - Validation States
    ============================================ */
-.ps-select--error {
-  border-color: var(--danger);
 
-  &:focus-visible {
+.ps-select--error {
+  & .ps-select__input {
     border-color: var(--danger);
-    box-shadow: 0 0 0 var(--ps-select-focus-ring-width) var(--danger);
+
+    &:focus-visible {
+      border-color: var(--danger);
+      outline-color: var(--danger);
+    }
+  }
+
+  & .ps-select__icon {
+    color: var(--danger);
   }
 }
 
 .ps-select--success {
-  border-color: var(--success);
-
-  &:focus-visible {
+  & .ps-select__input {
     border-color: var(--success);
-    box-shadow: 0 0 0 var(--ps-select-focus-ring-width) var(--success);
+
+    &:focus-visible {
+      border-color: var(--success);
+      outline-color: var(--success);
+    }
+  }
+
+  & .ps-select__icon {
+    color: var(--success);
   }
 }
 
 /* ============================================
-   Modifiers - Color
+   Modifiers - Disabled (applied to wrapper)
    ============================================ */
-.ps-select--primary {
-  --ps-select-border-color: var(--primary);
-  --ps-select-focus-border-color: var(--primary);
-  --ps-select-focus-ring-color: var(--primary);
-}
 
-.ps-select--secondary {
-  --ps-select-border-color: var(--secondary);
-  --ps-select-focus-border-color: var(--secondary);
-  --ps-select-focus-ring-color: var(--secondary);
-}
+.ps-select--disabled {
+  cursor: not-allowed;
 
-.ps-select--info {
-  --ps-select-border-color: var(--info);
-  --ps-select-focus-border-color: var(--info);
-  --ps-select-focus-ring-color: var(--info);
-}
+  & .ps-select__input {
+    cursor: not-allowed;
+  }
 
-.ps-select--warning {
-  --ps-select-border-color: var(--warning);
-  --ps-select-focus-border-color: var(--warning);
-  --ps-select-focus-ring-color: var(--warning);
-}
-
-.ps-select--danger {
-  --ps-select-border-color: var(--danger);
-  --ps-select-focus-border-color: var(--danger);
-  --ps-select-focus-ring-color: var(--danger);
-}
-
-/* ============================================
-   Modifiers - Size
-   ============================================ */
-.ps-select--xs {
-  --ps-select-min-height: var(--size-7);
-  --ps-select-padding-x: var(--size-2);
-  --ps-select-padding-y: var(--size-1);
-  --ps-select-font-size: var(--font-size--1);
-}
-
-.ps-select--sm {
-  --ps-select-min-height: var(--size-8);
-  --ps-select-padding-x: var(--size-3);
-  --ps-select-padding-y: var(--size-105);
-  --ps-select-font-size: var(--font-size-0);
-}
-
-/* md is default */
-
-.ps-select--lg {
-  --ps-select-min-height: var(--size-12);
-  --ps-select-padding-x: var(--size-5);
-  --ps-select-padding-y: var(--size-3);
-  --ps-select-font-size: var(--font-size-2);
-}
-
-.ps-select--xl {
-  --ps-select-min-height: var(--size-14);
-  --ps-select-padding-x: var(--size-6);
-  --ps-select-padding-y: var(--size-4);
-  --ps-select-font-size: var(--font-size-3);
-}
-
-.ps-select--xxl {
-  --ps-select-min-height: var(--size-16);
-  --ps-select-padding-x: var(--size-7);
-  --ps-select-padding-y: var(--size-5);
-  --ps-select-font-size: var(--font-size-4);
+  & .ps-select__icon {
+    color: var(--gray-500);
+  }
 }

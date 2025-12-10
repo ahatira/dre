@@ -4,156 +4,256 @@ import data from './select.yml';
 export default {
   title: 'Elements/Select',
   tags: ['autodocs'],
-  render: (args) => selectTwig(args),
-  args: data,
   parameters: {
     docs: {
       description: {
         component:
-          'Native select atom (no label), Drupal-friendly attributes. Supports options list, disabled/required states, and token-based styling.',
+          'Native select element wrapped with custom chevron icon. Supports validation states (error, success) and disabled state. Typically used within form-field molecule for complete form control with label, help text, and error messages.',
       },
     },
   },
   argTypes: {
     // Content
     options: {
-      description: 'Options array [{ value, label, disabled, selected }]',
+      description:
+        'Array of option objects: [{ value, label, disabled?, selected? }]. First option often used as placeholder with disabled+selected flags.',
       control: 'object',
       table: { category: 'Content' },
     },
 
-    // Appearance
-    placeholder: {
-      description: 'Placeholder option label (use disabled selected item)',
-      control: 'text',
-      table: { category: 'Appearance' },
-    },
-    color: {
-      description: 'Color variant',
-      control: 'select',
-      options: ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'],
-      table: { category: 'Appearance' },
-    },
-    size: {
-      description: 'Size variant',
-      control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      table: { category: 'Appearance' },
-    },
-
     // Behavior
-    disabled: {
-      description: 'Disable the select',
-      control: 'boolean',
-      table: { category: 'Behavior' },
-    },
-    required: {
-      description: 'Mark select as required',
-      control: 'boolean',
-      table: { category: 'Behavior' },
-    },
-
-    // Accessibility
     name: {
-      description: 'Name attribute',
+      description: 'Form control name attribute (group identifier)',
       control: 'text',
-      table: { category: 'Accessibility' },
+      table: { category: 'Behavior' },
     },
     id: {
-      description: 'ID attribute',
+      description: 'HTML ID for label association (auto-generated from name if omitted)',
       control: 'text',
-      table: { category: 'Accessibility' },
+      table: { category: 'Behavior' },
+    },
+    disabled: {
+      description: 'Disable the select (applies ps-select--disabled modifier)',
+      control: 'boolean',
+      table: { category: 'Behavior', defaultValue: { summary: false } },
+    },
+    required: {
+      description: 'Mark as required form control (adds aria-required="true")',
+      control: 'boolean',
+      table: { category: 'Behavior', defaultValue: { summary: false } },
+    },
+
+    // States
+    error: {
+      description: 'Error state with red border and icon (applies ps-select--error)',
+      control: 'text',
+      table: { category: 'States' },
+    },
+    success: {
+      description: 'Success/valid state with green border and icon (applies ps-select--success)',
+      control: 'text',
+      table: { category: 'States' },
+    },
+
+    // Attributes
+    attributes: {
+      description: 'Drupal attributes object for native <select> element',
+      control: false,
+      table: { category: 'Attributes' },
+    },
+    wrapper_attributes: {
+      description: 'Drupal attributes object for wrapper <div> element',
+      control: false,
+      table: { category: 'Attributes' },
     },
   },
+  render: (args) => selectTwig(args),
 };
 
+/**
+ * Default
+ * Standard select with placeholder option and real estate property types
+ */
 export const Default = {
-  args: { ...data },
+  args: data,
 };
 
-export const Disabled = {
-  args: {
-    ...data,
-    disabled: true,
-  },
-};
-
-export const Required = {
-  args: {
-    ...data,
-    required: true,
-  },
-};
-
-export const CustomOptions = {
-  args: {
-    ...data,
-    options: [
-      { value: '', label: 'Choose...', disabled: true, selected: true },
-      { value: 'fr', label: 'France' },
-      { value: 'es', label: 'Spain' },
-      { value: 'de', label: 'Germany' },
-    ],
-  },
-};
-
-export const WithExternalLabel = {
-  render: (args) => {
-    const id = args.id || 'select-with-label';
-    const name = args.name || 'select';
-
+/**
+ * States
+ * All possible select states: default, hover, focus, success, error, disabled, disabled+placeholder
+ */
+export const States = {
+  render: () => {
     return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-2); max-width: 320px;">
-        <label for="${id}" style="font-weight: var(--font-weight-600);">Select</label>
-        ${selectTwig({ ...args, id, name })}
+      <div style="display: flex; flex-direction: column; gap: var(--size-6);">
+        <!-- Default / Placeholder -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Default (Placeholder)</div>
+          ${selectTwig({
+            name: 'states_default',
+            id: 'states-default',
+            options: [
+              { value: '', label: 'Select an option', disabled: true, selected: true },
+              { value: 'opt1', label: 'Option 1' },
+              { value: 'opt2', label: 'Option 2' },
+            ],
+          })}
+        </div>
+
+        <!-- Hover -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Hover</div>
+          ${selectTwig({
+            name: 'states_hover',
+            id: 'states-hover',
+            options: [
+              { value: 'apartment', label: 'Appartement', selected: true },
+              { value: 'house', label: 'Maison' },
+            ],
+          })}
+        </div>
+
+        <!-- Focus -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Focus (outline visible on interaction)</div>
+          ${selectTwig({
+            name: 'states_focus',
+            id: 'states-focus',
+            options: [
+              { value: 'apartment', label: 'Appartement', selected: true },
+              { value: 'house', label: 'Maison' },
+            ],
+          })}
+        </div>
+
+        <!-- Success -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--success);">Success (validated)</div>
+          ${selectTwig({
+            name: 'states_success',
+            id: 'states-success',
+            success: true,
+            options: [
+              { value: 'apartment', label: 'Appartement', selected: true },
+              { value: 'house', label: 'Maison' },
+            ],
+          })}
+        </div>
+
+        <!-- Error -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--danger);">Error (validation failed)</div>
+          ${selectTwig({
+            name: 'states_error',
+            id: 'states-error',
+            error: true,
+            options: [
+              { value: '', label: 'Select an option', disabled: true, selected: true },
+              { value: 'apartment', label: 'Appartement' },
+            ],
+          })}
+        </div>
+
+        <!-- Disabled (with placeholder) -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Disabled (placeholder)</div>
+          ${selectTwig({
+            name: 'states_disabled_placeholder',
+            id: 'states-disabled-placeholder',
+            disabled: true,
+            options: [
+              { value: '', label: 'Not available', disabled: true, selected: true },
+              { value: 'apartment', label: 'Appartement' },
+            ],
+          })}
+        </div>
+
+        <!-- Disabled (with value) -->
+        <div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Disabled (value selected)</div>
+          ${selectTwig({
+            name: 'states_disabled_value',
+            id: 'states-disabled-value',
+            disabled: true,
+            options: [
+              { value: 'apartment', label: 'Appartement', selected: true },
+              { value: 'house', label: 'Maison' },
+            ],
+          })}
+        </div>
       </div>
     `;
   },
-  args: {
-    ...data,
-    id: 'select-with-label',
-    name: 'select',
-  },
 };
 
-// Color Variants
-export const Colors = {
+/**
+ * In Context
+ * Real Estate: Property type selection in a form fieldset
+ */
+export const InContext = {
   render: () => {
-    const colors = ['default', 'primary', 'secondary', 'info', 'warning', 'danger', 'success'];
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 400px;">
-        ${colors
-          .map(
-            (color) => `
-          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
-            <label style="font-weight: var(--font-weight-600); text-transform: capitalize;">${color}</label>
-            ${selectTwig({ ...data, color })}
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  },
-};
+    const propertyTypes = [
+      { value: '', label: 'Choisir un type...', disabled: true, selected: true },
+      { value: 'apartment', label: 'Appartement' },
+      { value: 'house', label: 'Maison' },
+      { value: 'commercial', label: 'Local commercial' },
+      { value: 'office', label: 'Bureau' },
+    ];
 
-// Size Variants
-export const Sizes = {
-  render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
     return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
-        ${sizes
-          .map(
-            (size) => `
+      <fieldset style="border: 1px solid var(--gray-300); padding: var(--size-4); border-radius: var(--radius-2); max-width: 400px;">
+        <legend style="padding: 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-900);">
+          Recherche de bien immobilier
+        </legend>
+        
+        <div style="display: flex; flex-direction: column; gap: var(--size-4); margin-top: var(--size-3);">
+          <!-- Type de bien -->
           <div style="display: flex; flex-direction: column; gap: var(--size-2);">
-            <label style="font-weight: var(--font-weight-600); text-transform: uppercase;">${size}</label>
-            ${selectTwig({ ...data, size })}
+            <label for="in-context-property-type" style="font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--gray-900);">
+              Type de bien
+            </label>
+            ${selectTwig({
+              name: 'property_type',
+              id: 'in-context-property-type',
+              options: propertyTypes,
+            })}
           </div>
-        `
-          )
-          .join('')}
-      </div>
+
+          <!-- Service -->
+          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+            <label for="in-context-service" style="font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--gray-900);">
+              Type de service
+            </label>
+            ${selectTwig({
+              name: 'service_type',
+              id: 'in-context-service',
+              options: [
+                { value: '', label: 'Sélectionner...', disabled: true, selected: true },
+                { value: 'sale', label: 'Vente' },
+                { value: 'rental', label: 'Location' },
+                { value: 'management', label: 'Gestion de patrimoine' },
+              ],
+            })}
+          </div>
+
+          <!-- Location -->
+          <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+            <label for="in-context-location" style="font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--gray-900);">
+              Région
+            </label>
+            ${selectTwig({
+              name: 'region',
+              id: 'in-context-location',
+              options: [
+                { value: '', label: 'Choisir une région...', disabled: true, selected: true },
+                { value: 'ile-de-france', label: 'Île-de-France' },
+                { value: 'rhone-alpes', label: 'Rhône-Alpes' },
+                { value: 'paca', label: 'PACA' },
+              ],
+            })}
+          </div>
+        </div>
+      </fieldset>
     `;
   },
 };
