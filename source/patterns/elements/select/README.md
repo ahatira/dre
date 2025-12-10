@@ -55,12 +55,25 @@ Native select element wrapped with custom chevron icon. Implements BEM methodolo
 ```
 .ps-select                    (Block - wrapper div with relative positioning)
 ├── .ps-select__input         (Element - native <select>)
-└── .ps-select__icon          (Element - chevron-down icon, positioned absolute)
+└── ::after pseudo-element    (Icon - chevron-down, CSS-only, no DOM element)
 
 Modifiers:
 ├── .ps-select--disabled      (State - applied to wrapper when disabled)
 ├── .ps-select--error         (State - red border/icon for validation error)
 └── .ps-select--success       (State - green border/icon for validation success)
+```
+
+### Icon Implementation
+
+The chevron icon is rendered as a CSS `::after` pseudo-element on `.ps-select`, using the icon system's SVG sprite for rendering. This keeps the DOM clean while maintaining styling consistency.
+
+```css
+.ps-select::after {
+  content: '';
+  mask-image: url('/icons/icons-sprite.svg#icon-chevron-down'); /* From icon registry */
+  background-color: var(--ps-select-icon-color);
+  /* ... positioning and sizing ... */
+}
 ```
 
 ## CSS Tokens (3-Layer System)

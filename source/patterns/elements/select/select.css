@@ -120,8 +120,9 @@
     }
   }
 
-  /* Chevron Icon (positioned over select) */
-  & .ps-select__icon {
+  /* Chevron Icon (pseudo-element positioned over select) */
+  &::after {
+    content: '';
     position: absolute;
     top: 50%;
     right: var(--ps-select-padding-x);
@@ -129,23 +130,31 @@
     pointer-events: none;
     width: var(--ps-select-icon-size);
     height: var(--ps-select-icon-size);
-    color: var(--ps-select-icon-color);
-    transition: color var(--ps-select-transition-duration) var(--ps-select-transition-timing);
+    background-color: var(--ps-select-icon-color);
+    mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
+    -webkit-mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    transition: background-color var(--ps-select-transition-duration) var(--ps-select-transition-timing);
   }
 
   /* Icon color on hover (not disabled) */
-  &:has(.ps-select__input:hover:not(:disabled)) .ps-select__icon {
-    color: var(--gray-600);
+  &:has(.ps-select__input:hover:not(:disabled))::after {
+    background-color: var(--gray-600);
   }
 
   /* Icon color on focus */
-  &:has(.ps-select__input:focus-visible) .ps-select__icon {
-    color: var(--border-focus);
+  &:has(.ps-select__input:focus-visible)::after {
+    background-color: var(--border-focus);
   }
 
   /* Icon color on disabled */
-  &:has(.ps-select__input:disabled) .ps-select__icon {
-    color: var(--gray-500);
+  &:has(.ps-select__input:disabled)::after {
+    background-color: var(--gray-500);
   }
 }
 
@@ -163,8 +172,8 @@
     }
   }
 
-  & .ps-select__icon {
-    color: var(--danger);
+  &::after {
+    background-color: var(--danger);
   }
 }
 
@@ -178,8 +187,8 @@
     }
   }
 
-  & .ps-select__icon {
-    color: var(--success);
+  &::after {
+    background-color: var(--success);
   }
 }
 
@@ -194,7 +203,7 @@
     cursor: not-allowed;
   }
 
-  & .ps-select__icon {
-    color: var(--gray-500);
+  &::after {
+    background-color: var(--gray-500);
   }
 }
