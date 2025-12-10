@@ -4,6 +4,72 @@
 
 ## 2025
 
+- 2025-12-10: **Card (MOLECULE)** – Refonte complète avec architecture Twig blocks extensible ♻️ REFACTOR
+  - **Context**: Analyse de 8 types de cards requis pour BNP Real Estate (maquettes fournies) + besoin d'extensibilité maximale via composition
+  - **Types Identifiés**:
+    1. Publication Card (Location + Date | Image | Title | Description | CTA Link)
+    2. News Card (Tag Badge + Date | Image | Title | Description | CTA Link)
+    3. Product/Property Card Simple (Image | Price+Surface | Title | Location | CTA | Favorite)
+    4. Offer Card Vertical (Carousel | Badges+Actions | Title | Location | Surface | Price | CTA)
+    5. Offer Card Horizontal (Layout horizontal du précédent)
+    6. CTA Card (Title | Description | CTA Button - sans image)
+    7. Solution/Service Card (Icon | Title | Description | CTA Link)
+    8. Study/Trendbook Card (Tag+Date | Illustration | Title | Description | CTA Button - vertical/horizontal)
+  - **Architecture Redesign**:
+    * **6 Twig Blocks Extensibles** (composition via `{% embed %}`):
+      - `media`: Zone image/media (optional)
+      - `media_overlay`: Content overlaid (badges, actions, navigation over image)
+      - `header`: Top metadata (tags, dates, location, status badges)
+      - `content`: Main content wrapper (default block)
+      - `body`: Main text content (titles, descriptions, metadata)
+      - `footer`: Bottom actions/CTAs (buttons, links, pricing)
+    * **Props Support Maintained**: Backward compatibility pour Storybook (image object, header/body/footer HTML strings)
+    * **Generic Container Philosophy**: NO hardcoded content structure, ALL via blocks composition
+  - **Twig Changes**:
+    * `ps-card__image` → `ps-card__media` (semantic + overlay support)
+    * Added `position: relative` to media for overlay positioning
+    * `imagePosition`: start/end → **top/bottom/left/right** (explicit values)
+    * Block detection: `{% if block('media') is defined or image %}`
+    * Props fallback: `header`, `body`, `footer` strings for Storybook
+  - **CSS Refactor**:
+    * `.ps-card__image` → `.ps-card__media` throughout
+    * Image position modifiers: `.ps-card--image-right`, `.ps-card--image-bottom` (replace start/end)
+    * Border radius adjustments for all 4 image positions (top/bottom/left/right)
+    * Responsive: Horizontal layouts stack to vertical on mobile (<48rem)
+    * Fixed duplicate radius rules, cleaned up nested selectors
+  - **YAML (Drupal SDC Schema)**:
+    * Full `$schema` declaration avec props documentation
+    * `imagePosition`: enum ['top','bottom','left','right'] (updated from start/end)
+    * `image` object: src, alt, ratio (simple usage for Storybook)
+    * `header`, `body`, `footer`: HTML strings for Storybook (use blocks in Drupal)
+  - **Stories Updates**:
+    * argTypes: `imagePosition` control updated to select with explicit values
+    * Layouts story: Renamed examples (Image Start → Image Top/Left, Image End → Image Bottom/Right)
+    * All 7 existing stories maintained (Default, VisualVariants, Layouts, Sizes, BorderRadius, ClickableCards, RealEstateUseCases, CompositionWithEmbed)
+  - **README Complete Rewrite**:
+    * **Architecture Philosophy**: Generic container approach, composition over features
+    * **8 Complete Card Types Reference** avec code examples complets pour chaque type
+    * **Twig Blocks table**: Description et usage de chaque block
+    * **Real Estate Use Cases Extended**: Property Listing, Agent Contact avec exemples complets
+    * **Composition Pattern**: PropertyCard example embedding Card
+    * **Atoms Composition**: Liste des components atomic composables (image, badge, button, heading, text, link)
+    * Sections: Props, Twig Blocks, CSS Variables (3-Layer), Accessibility (WCAG 2.2 AA), Responsive, Variants, Design Notes, Browser Support, Design Tokens
+  - **Benefits**:
+    * ✨ Maximum flexibility: All 8 BNP card types achievable with base component
+    * 🎯 `media_overlay` block: Perfect for badges/actions over images (Offer Cards)
+    * 🔧 Explicit positioning: No ambiguity (top/bottom/left/right)
+    * 🏗️ Composition-first: Specialized cards inherit Card via embed
+    * ♿ Accessibility maintained: Semantic HTML, keyboard nav, focus-visible, WCAG 2.2 AA
+    * 📱 Responsive: Auto-stacking horizontal layouts on mobile
+  - **Verified**:
+    * ✅ Build passes (`npm run build`)
+    * ✅ All visual variants functional (default, outlined, flat, elevated)
+    * ✅ All layouts functional (vertical, horizontal + 4 image positions)
+    * ✅ All size/radius combinations work
+    * ✅ CSS valid (no syntax errors)
+    * ✅ Backward compatible with existing stories
+  - **References**: `docs/design/molecules/card.md`, maquettes (8 types identified), BNP Real Estate requirements
+
 - 2025-12-10: **Textarea (ATOM)** – Audit complet et standardisation conformité ♻️ REFACTOR
   - **Context**: Verification exhaustive Textarea vs maquette, standards projet, et 3-layer CSS architecture
   - **Issues Identifiés**:
