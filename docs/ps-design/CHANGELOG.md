@@ -4,6 +4,62 @@
 
 ## 2025
 
+- 2025-12-09: **Link (ATOM)** – Standardisation complète avec tokens sémantiques ♻️ REFACTOR
+  - **Context**: Nettoyage du composant Link pour conformité 100% aux règles projet
+  - **Changes**: Suppression baseClass + migration tokens sémantiques + ajout gold
+    * ❌ Removed: `baseClass` parameter (FORBIDDEN) - lignes 25 twig, 132-141 stories
+    * ♻️ Migrated: 4 variantes couleur vers semantic tokens
+      - `--info`: `--blue-600` → `--info` (+hover/active/visited states)
+      - `--warning`: `--yellow-600` → `--warning`
+      - `--success`: `--green-500` → `--success`
+      - `--danger`: `--red-600` → `--danger`
+    * ✨ Added: Variante `gold` (requirement: harmonisation couleurs)
+      - `--ps-link-color: var(--gold)`
+      - `--ps-link-hover-color: var(--gold-hover)`
+      - `--ps-link-active-color: var(--gold-active)`
+      - `--ps-link-visited-color: var(--gold-active)`
+  - **Stories Refactoring**: 5→4 stories (consolidation logique)
+    * Removed: `AllColors` (redondant avec Colors showcase)
+    * Removed: `AllSizes` (intégré dans UseCases)
+    * Consolidated: `AllStates` → `WithIcons` (états + icons en 1 story)
+    * Updated: `Colors` story avec gold + contexte immobilier français
+    * Updated: `UseCases` avec tailles variées + cas réels
+  - **Documentation**:
+    * README.md: Suppression toutes refs `baseClass` (props table, BEM, exemples)
+    * README.md: Ajout `gold` dans listes couleurs (props, BEM, stories)
+    * README.md: Layer 1 tokens mis à jour (semantic: --info, --warning, --success, --danger, --gold)
+    * argTypes: Suppression `baseClass` category Layout, ajout `gold` dans options color
+  - **Real Estate Context**: Labels français dans stories (Consulter détails bien, Planifier visite, etc.)
+  - **Build**: ✓ 3.17s, 72 files, 0 errors
+  - **Conformity**: 100% (baseClass removed, semantic tokens, gold added)
+  - **Commit**: `61036be` - refactor(elements): Standardize Link component with semantic tokens and gold variant
+
+- 2025-12-09: **Label (ATOM)** – Standardisation complète avec Layer 2 CSS variables ♻️ REFACTOR
+  - **Context**: Nettoyage du composant Label pour conformité 100% aux règles projet
+  - **Changes**: Suppression baseClass + variantes over-engineered + migration 3-layer tokens
+    * ❌ Removed: `baseClass` parameter (FORBIDDEN par règles projet)
+    * ❌ Removed: `color` prop (pas dans spec atom label, over-engineering)
+    * ❌ Removed: `size` prop (pas dans spec, over-engineering)
+    * CSS: 135→70 lignes (-48% complexity)
+    * Stories: 5→3 (Default, States, WithFormFields)
+  - **3-Layer CSS Variables** (Bootstrap 5-inspired):
+    * Layer 1: Root primitives (`--gray-700`, `--gray-500`, `--font-sans`, `--font-size-2`, etc.)
+    * Layer 2: Component-scoped (11 vars: `--ps-label-*`)
+      - `--ps-label-color`, `--ps-label-required-color`, `--ps-label-disabled-color`
+      - `--ps-label-font-family`, `--ps-label-font-size`, `--ps-label-font-weight`, `--ps-label-line-height`
+      - `--ps-label-display`, `--ps-label-gap`, `--ps-label-transition-duration`, `--ps-label-transition-timing`
+    * Layer 3: Context overrides (examples in README: `.form-compact .ps-label { --ps-label-font-size: var(--font-size-1); }`)
+  - **BEM Simplification**:
+    * `.ps-label` (base)
+    * `.ps-label__text` (text wrapper)
+    * `.ps-label__required` (asterisk indicator)
+    * `.ps-label--disabled` (1 modifier state only)
+  - **Real Estate Context**: Stories avec labels immobiliers (Surface habitable, Prix du bien, Type de bien, etc.)
+  - **Documentation**: README.md complet (250+ lignes) avec 11 exemples real-world, props table, tokens, accessibility
+  - **Build**: ✓ 3.15s, 72 files checked, 0 errors
+  - **Conformity**: 100% (baseClass removed, only spec-defined props, 3-layer tokens)
+  - **Commit**: `35deab3` - refactor(elements): Standardize Label component with Layer 2 CSS variables
+
 - 2025-12-09: **Input (ATOM)** – Champ de saisie base avec états de validation ✅
   - **Context**: ATOM input field (sans label/icon/helper, voir Form-element MOLECULE pour version complète)
   - **Implementation**:
