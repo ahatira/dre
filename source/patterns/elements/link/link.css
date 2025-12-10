@@ -3,8 +3,8 @@
  * Text link with interactive states (hover, active, visited) and optional icon
  * 
  * BEM: ps-link, ps-link__text, ps-link__icon
- * Variants: default (no class) | primary | secondary | info | warning | success | danger | dark | light
- * Modifiers: --no-underline, --with-icon, --icon-left, --external, --disabled
+ * Variants: default (no class) | primary | secondary | gold | info | warning | success | danger | dark | light
+ * Modifiers: --no-underline, --icon-left, --disabled
  * Sizes: xs | sm | md (default) | lg | xl | xxl
  * Base: default text color with underline, icon on right by default
  */
@@ -130,32 +130,39 @@
     --ps-link-visited-color: var(--secondary-active);
   }
   
+  &--gold {
+    --ps-link-color: var(--gold);
+    --ps-link-hover-color: var(--gold-hover);
+    --ps-link-active-color: var(--gold-active);
+    --ps-link-visited-color: var(--gold-active);
+  }
+  
   &--info {
-    --ps-link-color: var(--blue-600);
-    --ps-link-hover-color: var(--blue-700);
-    --ps-link-active-color: var(--blue-800);
-    --ps-link-visited-color: var(--blue-900);
+    --ps-link-color: var(--info);
+    --ps-link-hover-color: var(--info-hover);
+    --ps-link-active-color: var(--info-active);
+    --ps-link-visited-color: var(--info-active);
   }
   
   &--warning {
-    --ps-link-color: var(--yellow-600);
-    --ps-link-hover-color: var(--yellow-700);
-    --ps-link-active-color: var(--yellow-800);
-    --ps-link-visited-color: var(--yellow-900);
+    --ps-link-color: var(--warning);
+    --ps-link-hover-color: var(--warning-hover);
+    --ps-link-active-color: var(--warning-active);
+    --ps-link-visited-color: var(--warning-active);
   }
   
   &--success {
-    --ps-link-color: var(--green-500);
-    --ps-link-hover-color: var(--green-600);
-    --ps-link-active-color: var(--green-700);
-    --ps-link-visited-color: var(--green-800);
+    --ps-link-color: var(--success);
+    --ps-link-hover-color: var(--success-hover);
+    --ps-link-active-color: var(--success-active);
+    --ps-link-visited-color: var(--success-active);
   }
   
   &--danger {
-    --ps-link-color: var(--red-600);
-    --ps-link-hover-color: var(--red-700);
-    --ps-link-active-color: var(--red-800);
-    --ps-link-visited-color: var(--red-900);
+    --ps-link-color: var(--danger);
+    --ps-link-hover-color: var(--danger-hover);
+    --ps-link-active-color: var(--danger-active);
+    --ps-link-visited-color: var(--danger-active);
   }
   
   &--dark {

@@ -12,7 +12,7 @@ The Link component provides accessible hyperlinks with consistent styling across
 |----------|------|---------|----------|-------------|
 | `text` | string | `'Link text'` | Yes | The link text content |
 | `url` | string | `'#'` | Yes | The link URL or path |
-| `color` | string | `null` | No | Color variant: `null` (currentColor), `primary`, `secondary`, `info`, `warning`, `success`, `danger`, `dark`, `light` |
+| `color` | string | `null` | No | Color variant: `null` (currentColor), `primary`, `secondary`, `gold`, `info`, `warning`, `success`, `danger`, `dark`, `light` |
 | `size` | string | `null` | No | Size variant: `null` (md), `xs`, `sm`, `md`, `lg`, `xl`, `xxl` |
 | `underline` | boolean | `true` | No | Show underline decoration (hover removes it) |
 | `icon` | string | `''` | No | Icon name without 'icon-' prefix (from ps-icons font) |
@@ -20,7 +20,6 @@ The Link component provides accessible hyperlinks with consistent styling across
 | `target` | string | `'_self'` | No | Link target: `_self`, `_blank` |
 | `rel` | string | `''` | No | Link rel attribute (auto-set for `_blank`) |
 | `disabled` | boolean | `false` | No | Disabled state |
-| `baseClass` | string | `'ps-link'` | No | Override root class when composing inside other components (e.g., `'ps-card__link'`). Modifiers and elements map to `baseClass--*` and `baseClass__*`.
 | `attributes` | Attribute | - | No | Additional Drupal attributes |
 
 ## BEM Structure
@@ -33,6 +32,7 @@ ps-link                     # Base component (currentColor + underline)
 Modifiers - Colors:
 ├── ps-link--primary       # Primary color (green)
 ├── ps-link--secondary     # Secondary color (pink)
+├── ps-link--gold          # Gold color (premium)
 ├── ps-link--info          # Info color (blue)
 ├── ps-link--warning       # Warning color (yellow)
 ├── ps-link--success       # Success color (green light)
@@ -49,9 +49,9 @@ Modifiers - Sizes:
 └── ps-link--xxl           # Double extra large (24px)
 
 Modifiers - Behavior:
-├── ps-link--no-underline  # Remove underline decoration (or `baseClass--no-underline`)
-├── ps-link--icon-left     # Icon positioned on left side (or `baseClass--icon-left`)
-└── ps-link--disabled      # Disabled state (or `baseClass--disabled`)
+├── ps-link--no-underline  # Remove underline decoration
+├── ps-link--icon-left     # Icon positioned on left side
+└── ps-link--disabled      # Disabled state
 ```
 
 ## Design Tokens Used
@@ -59,14 +59,13 @@ Modifiers - Behavior:
 ### Three-Layer CSS Variables System
 
 **Layer 1: Root Primitives** (`source/props/*.css`)
-- `--primary`, `--secondary`
-- `--green-500` to `--green-800`, `--purple-600` to `--purple-800`
-- `--blue-600` to `--blue-900`, `--yellow-600` to `--yellow-900`
-- `--red-600` to `--red-900`, `--gray-100` to `--gray-900`
-- `--font-sans`, `--font-size-0` to `--font-size-5`
-- `--font-weight-400`, `--leading-normal`
-- `--size-2`, `--border-size-1`, `--border-size-2`, `--radius-1`
-- `--duration-fast`, `--ease-4`
+- Semantic colors: `--primary`, `--secondary`, `--gold`, `--info`, `--warning`, `--success`, `--danger`
+- Semantic states: `--{color}-hover`, `--{color}-active`, `--{color}-text`, etc.
+- Grays: `--gray-100` to `--gray-900`
+- Typography: `--font-sans`, `--font-size-0` to `--font-size-5`, `--font-weight-400`, `--leading-normal`
+- Spacing: `--size-2`
+- Borders: `--border-size-1`, `--border-size-2`, `--radius-1`
+- Animations: `--duration-fast`, `--ease-4`
 
 **Layer 2: Component-Scoped Variables** (Override for customization)
 ```css
@@ -128,17 +127,6 @@ Modifiers - Behavior:
   iconPosition: 'right',
   underline: false,
   color: 'primary',
-} %}
-```
-
-### Composed Link inside another component (using `baseClass`)
-```twig
-{# Inside a card component #}
-{% include '@elements/link/link.twig' with {
-  text: 'View property details',
-  url: '/property/modern-office-building',
-  color: 'primary',
-  baseClass: 'ps-card__link'
 } %}
 ```
 
