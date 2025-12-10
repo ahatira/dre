@@ -12,8 +12,8 @@ Indicateur visuel de progression pour des tâches déterminées ou indéterminé
 
 **Points clés:**
 - 2 variantes: linéaire (barre) et circulaire (anneau SVG)
-- 6 couleurs sémantiques (primary, secondary, success, warning, danger, info)
-- 5 tailles (xs, sm, md, lg, xl)
+- 10 couleurs sémantiques (default, primary, secondary, gold, info, warning, success, danger, dark, light)
+- 6 tailles (xs, sm, md, lg, xl, xxl)
 - État indéterminé avec animation infinie
 - Rayures animées pour la variante linéaire
 - Label accessible pour lecteurs d'écran
@@ -45,7 +45,7 @@ Indéterminé - Animation:
 | `min` | `number` | `0` | - | Valeur minimale |
 | `max` | `number` | `100` | - | Valeur maximale |
 | `variant` | `string` | `'linear'` | `linear` \| `circular` | Type d'indicateur |
-| `color` | `string` | `'default'` | `default` \| `primary` \| `secondary` \| `info` \| `warning` \| `success` \| `danger` \| `dark` \| `light` | Couleur sémantique (9 variants) |
+| `color` | `string` | `'default'` | `default` \| `primary` \| `secondary` \| `gold` \| `info` \| `warning` \| `success` \| `danger` \| `dark` \| `light` | Couleur sémantique (10 variants) |
 | `size` | `string` | `'md'` | `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `xxl` | Taille de l'indicateur (6 variants) |
 | `indeterminate` | `boolean` | `false` | - | Active l'animation indéterminée (pas de valeur) |
 | `striped` | `boolean` | `false` | - | Active les rayures animées (linéaire uniquement) |
@@ -72,6 +72,7 @@ Modificateurs:
   
   ps-progress--primary                       // Couleur primary (vert)
   ps-progress--secondary                     // Couleur secondary (purple)
+  ps-progress--gold                          // Couleur gold (accent)
   ps-progress--info                          // Couleur info (bleu)
   ps-progress--warning                       // Couleur warning (orange)
   ps-progress--success                       // Couleur success (vert)
@@ -122,11 +123,16 @@ Modificateurs:
 
 **Layer 1: Root primitives** (source/props/*.css)
 ```css
-/* Colors */
---green-600: hsl(162, 72%, 38%);
---blue-600: hsl(220, 89%, 53%);
---red-600: hsl(0, 75%, 51%);
---yellow-500: hsl(37, 97%, 39%);
+/* Semantic Colors (brand.css) */
+--primary: var(--green-600);     /* #00915A - BNP Primary Green */
+--secondary: var(--pink-700);    /* #A12B66 - BNP Secondary Pink */
+--success: var(--teal-600);      /* #198754 - BNP Success Green */
+--danger: var(--red-600);        /* #EB3636 - BNP Error Red */
+--info: var(--blue-600);         /* #2563EB - Info Blue */
+--warning: var(--yellow-400);    /* #FBBF24 - Warning Yellow */
+--gold: var(--gold-400);         /* #D1AE6E - Accent Gold */
+
+/* Grays (colors.css) */
 --gray-200: hsl(220, 13%, 91%);
 --gray-300: hsl(216, 12%, 84%);
 --gray-500: hsl(220, 9%, 46%);
@@ -134,7 +140,7 @@ Modificateurs:
 --gray-700: hsl(217, 19%, 27%);
 --gray-900: hsl(221, 39%, 11%);
 
-/* Sizes */
+/* Sizes (sizes.css) */
 --size-1: 0.25rem;  /* 4px */
 --size-2: 0.5rem;   /* 8px */
 --size-3: 0.75rem;  /* 12px */
@@ -144,11 +150,12 @@ Modificateurs:
 --size-10: 2.5rem;  /* 40px */
 --size-12: 3rem;    /* 48px */
 --size-16: 4rem;    /* 64px */
+--size-20: 5rem;    /* 80px */
 
-/* Borders */
+/* Borders (borders.css) */
 --radius-round: 1e5px; /* Pill shape */
 
-/* Typography */
+/* Typography (fonts.css) */
 --font-condensed: 'BNPP Sans Condensed', sans-serif;
 --font-size-0: 0.75rem;  /* 12px */
 --font-size-1: 1rem;     /* 16px */
@@ -157,7 +164,7 @@ Modificateurs:
 --font-size-4: 1.5rem;   /* 24px */
 --font-weight-500: 500;
 
-/* Animations */
+/* Animations (animations.css, easing.css) */
 --duration-normal: 0.3s;
 --duration-slower: 0.75s;
 --duration-slowest: 1s;
@@ -197,7 +204,12 @@ Modificateurs:
 ```css
 /* Example: Primary color modifier */
 .ps-progress--primary {
-  --ps-progress-fill-bg: var(--green-600);
+  --ps-progress-fill-bg: var(--primary);
+}
+
+/* Example: Gold color modifier */
+.ps-progress--gold {
+  --ps-progress-fill-bg: var(--gold);
 }
 
 /* Example: Large size modifier */
@@ -439,37 +451,28 @@ Modificateurs:
 - [WCAG 2.1 - Contrast Requirements](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
 
 ### Design tokens référencés
+## 📚 Historique des versions
+
+### v3.0.0 (2025-12-10)
+- 🔥 **BREAKING**: Migration complète vers tokens sémantiques (brand.css)
+  - Primary : `--green-600` → `--primary`
+  - Secondary : `--pink-700` → `--secondary` (déjà correct)
+  - Success : `--green-600` → `--success` (pointe vers `--teal-600`)
+  - Danger : `--red-600` → `--danger`
+  - Info : `--blue-600` → `--info`
+  - Warning : `--yellow-500` → `--warning`
+- ✅ **NEW**: Ajout couleur `gold` (10ème couleur sémantique)
+- 🔧 Fix taille XXL circular : `calc(var(--size-16) * 1.25)` → `var(--size-20)` (80px)
+- 🔧 Fix taille XS circular : suppression calcul inutile `calc(var(--size-6) * 1)`
+- 📚 Refactorisation complète des Stories :
+  - Suppression : `AllColors`, `AllStriped`, `AllSizes`, `AllStates`, `UseCases`
+  - Nouvelles stories : `Default`, `Variants`, `Sizes`, `States`, `RealEstateCases`
+  - Optimisation : utilisation `.map()` pour générer grids dynamiques
+  - Organisation : séparation claire Linear vs Circular
+- 📖 Documentation Layer 1 : ajout tokens sémantiques (--primary, --success, --gold, etc.)
+- 🐛 Fix README : suppression changelog dupliqué (v1.1.0/v1.0.0 en double)
+
 ### v2.0.0 (2025-12-02)
-- 🔥 **BREAKING**: Migration vers système CSS 3 couches (Bootstrap 5 inspired)
-  - Layer 1: Root primitives (--green-600, --size-*, etc.)
-  - Layer 2: Component-scoped variables (--ps-progress-*, runtime customizable)
-  - Layer 3: Context overrides (modifier classes)
-- ✅ **NEW**: Support de 9 couleurs sémantiques (ajout de `dark` et `light`)
-- ✅ **NEW**: Support de 6 tailles (ajout de `xxl`: 24px/80px)
-- 🔧 Harmonisation des tokens : suppression hardcoded values (2px, 10px, 24px, etc.)
-- 🔧 Fix animations : utilisation tokens corrects (--duration-*, --ease-*)
-- 🔧 Amélioration structure CSS : nesting complet, ordre cascade respecté
-- 📚 Documentation complète du système 3 couches dans README
-- 🌍 Placeholders immobiliers dans Stories (property, lease, agent, etc.)
-
-### v1.1.0 (2025-11-29)
-- 🔧 **BREAKING**: Renommage tailles `small/medium/large` → `xs/sm/md/lg/xl`
-- 🔧 Correction couleur `secondary`: gray → purple (#E0388C)
-- 🔧 Font-family: `'BNPP Sans Condensed'` avec tailles adaptatives de label
-- 🐛 Fix animation `striped`: gradient corrigé, animation fonctionnelle
-- ✅ Support 5 tailles (xs | sm | md | lg | xl)
-- ✅ Label responsive selon taille composant (10px → 18px)
-
-### v1.0.0 (2025-11-29)
-- ✅ Implémentation initiale (linear + circular)
-- ✅ Support 6 couleurs sémantiques (primary, secondary, success, warning, danger, info)
-- ✅ État indeterminate avec animation
-- ✅ Rayures animées (striped) pour linear
-- ✅ Accessibilité WCAG 2.1 complète
-- ✅ Stories Storybook complètes (toutes variantes + showcases)
-- ✅ Documentation README complète
-
-### v1.1.0 (2025-11-29)
 - 🔧 **BREAKING**: Renommage tailles `small/medium/large` → `xs/sm/md/lg/xl`
 - 🔧 Correction couleur `secondary`: gray → purple (#E0388C)
 - 🔧 Font-family: `'BNPP Sans Condensed'` avec tailles adaptatives de label

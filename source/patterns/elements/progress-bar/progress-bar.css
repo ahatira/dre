@@ -108,7 +108,7 @@
 	/* Size - XS (Extra Small) */
 	&.ps-progress--xs {
 		--ps-progress-track-height: calc(var(--size-1) / 2); /* 2px */
-		--ps-progress-circular-size: calc(var(--size-6) * 1); /* 24px */
+		--ps-progress-circular-size: var(--size-6); /* 24px */
 		--ps-progress-label-size: var(--font-size-0, 0.75rem); /* 12px */
 	}
 	
@@ -119,10 +119,7 @@
 		--ps-progress-label-size: var(--font-size-0, 0.75rem); /* 12px */
 	}
 	
-	/* Size - MD (Medium - default, no modifier needed) */
-	&.ps-progress--md {
-		/* Uses base component variables (8px / 40px / 16px) */
-	}
+	/* Size - MD (Medium - default, uses base component variables) */
 	
 	/* Size - LG (Large) */
 	&.ps-progress--lg {
@@ -141,7 +138,7 @@
 	/* Size - XXL (Extra Extra Large) */
 	&.ps-progress--xxl {
 		--ps-progress-track-height: var(--size-6); /* 24px */
-		--ps-progress-circular-size: calc(var(--size-16) * 1.25); /* 80px */
+		--ps-progress-circular-size: var(--size-20); /* 80px */
 		--ps-progress-label-size: var(--font-size-4, 1.5rem); /* 24px */
 	}
 
@@ -150,7 +147,7 @@
 	
 	/* Color - PRIMARY (green) */
 	&.ps-progress--primary {
-		--ps-progress-fill-bg: var(--green-600);
+		--ps-progress-fill-bg: var(--primary);
 	}
 	
 	/* Color - SECONDARY (purple) */
@@ -160,27 +157,32 @@
 	
 	/* Color - INFO (blue) */
 	&.ps-progress--info {
-		--ps-progress-fill-bg: var(--blue-600);
+		--ps-progress-fill-bg: var(--info);
 	}
 	
 	/* Color - WARNING (orange/yellow) */
 	&.ps-progress--warning {
-		--ps-progress-fill-bg: var(--yellow-500);
+		--ps-progress-fill-bg: var(--warning);
 	}
 	
 	/* Color - SUCCESS (green) */
 	&.ps-progress--success {
-		--ps-progress-fill-bg: var(--green-600);
+		--ps-progress-fill-bg: var(--success);
 	}
 	
 	/* Color - DANGER (red) */
 	&.ps-progress--danger {
-		--ps-progress-fill-bg: var(--red-600);
+		--ps-progress-fill-bg: var(--danger);
 	}
 	
 	/* Color - DARK (near black) */
 	&.ps-progress--dark {
 		--ps-progress-fill-bg: var(--gray-900);
+	}
+	
+	/* Color - GOLD (accent gold) */
+	&.ps-progress--gold {
+		--ps-progress-fill-bg: var(--gold);
 	}
 	
 	/* Color - LIGHT (near white) */
