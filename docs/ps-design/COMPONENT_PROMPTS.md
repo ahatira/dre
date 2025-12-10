@@ -39,7 +39,7 @@ TO:
 
 **badge.css**: No changes needed (icon component handles styling)
 
-**badge.stories.jsx**: Ensure icon examples use valid icon names from `source/patterns/documentation/icons-list.json`
+**badge.stories.jsx**: Ensure icon examples use valid icon names from `source/patterns/documentation/icons-registry.json`
 
 **badge.yml**: Add icon to props if not present
 
@@ -393,5 +393,5 @@ refactor(eyebrow): Migrate to SVG sprite-based icon component
 
 ## 🔗 Resources
 - Icon Component Reference: `source/patterns/elements/icon/icon.twig`
-- Icon List: `source/patterns/documentation/icons-list.json`
+- Icon Registry: `source/patterns/documentation/icons-registry.json` (auto-generated)
 - Migration Guide: `docs/ps-design/ICON_MIGRATION_WORKFLOW.md`

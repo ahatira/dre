@@ -188,7 +188,7 @@ These will ALWAYS be rejected:
 [data-icon="search"] { background-image: url('/icons/icons-sprite.svg#icon-search'); }
 ```
 
-**Available icons**: See `source/patterns/documentation/icons-list.json` or Storybook Elements/Icon story.
+**Available icons**: See `source/patterns/documentation/icons-registry.json` (auto-generated) or Storybook Elements/Icon story.
 
 ---
 

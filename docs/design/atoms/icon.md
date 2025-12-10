@@ -12,7 +12,7 @@ Système d'icônes basé sur un **sprite SVG généré automatiquement** depuis 
 
 - **Source**: fichiers SVG dans `source/icons-source/` (hors du publicDir, non copiés en production).
 - **Sprite**: généré par `npm run icons:build` → `source/assets/icons/icons-sprite.svg` (copié vers `dist/icons/`).
-- **Inventaire**: `icons-list.json` généré automatiquement pour Storybook.
+- **Inventaire**: `icons-registry.json` généré automatiquement par `npm run build:icons` (141 icônes).
 
 ## BEM
 ```

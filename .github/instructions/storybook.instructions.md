@@ -48,7 +48,7 @@ import data from './button.yml';
 // 3. Import centralized lists (relative paths)
 import colorsList from '../../documentation/colors-list.json';
 import sizesList from '../../documentation/sizes-list.json';
-import iconsList from '../../documentation/icons-list.json';
+import iconsRegistry from '../../documentation/icons-registry.json';
 import variantsList from '../../documentation/variants-list.json';
 ```
 
@@ -113,7 +113,7 @@ argTypes: {
   icon: {
     description: 'Icon name (without "icon-" prefix)',
     control: { type: 'select' },
-    options: iconsList.categories.generic,
+    options: iconsRegistry.names,
     table: {
       category: 'Content',
       type: { summary: 'string' },
@@ -383,7 +383,7 @@ export const UseCases = {
 ```jsx
 import colorsList from '../../documentation/colors-list.json';
 import sizesList from '../../documentation/sizes-list.json';
-import iconsList from '../../documentation/icons-list.json';
+import iconsRegistry from '../../documentation/icons-registry.json';
 import variantsList from '../../documentation/variants-list.json';
 ```
 
@@ -434,7 +434,7 @@ size: {
 
 icon: {
   control: { type: 'select' },
-  options: iconsList.categories.generic, // ← Centralized list
+  options: iconsRegistry.names, // ← Complete generated registry
   description: 'Icon name',
 },
 ```

@@ -141,8 +141,8 @@ Migration obligatoire vers: @elements/icon/icon.twig
 
 ### Vérifier existence des icones
 Avant d'utiliser une icone, vérifier qu'elle existe dans:
-- Fichier liste: source/patterns/documentation/icons-list.json
-- OU: Storybook → Elements/Icon → voir liste complète
+- Fichier registre (auto-généré): `source/patterns/documentation/icons-registry.json`
+- OU: Storybook → Elements/Icon → voir liste complète dans les argTypes du select 'icon'
 
 ### Utilisation correcte
 ```twig

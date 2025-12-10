@@ -420,7 +420,7 @@
   - **Package scripts**: Added `icons:build` and `icons:watch` commands for manual and watch-mode compilation
   - **Icon component API cleanup**: Removed deprecated `fontFallback` parameter (BREAKING CHANGE), removed `spriteHref` parameter (hardcoded for consistency)
   - **Build optimization**: Fixed infinite watch loop issue with deduplication logic, source SVGs no longer copied to dist (only compiled sprite)
-  - **Icon inventory**: Complete list of 139 icons documented in `source/patterns/documentation/icons-list.json`
+  - **Icon inventory**: Complete registry of 141 icons auto-generated in `source/patterns/documentation/icons-registry.json`
   - **Documentation**: Updated icon.twig, icon.css, icon.stories.jsx, icon.yml, icon README.md, and design spec (docs/design/atoms/icon.md)
   - **New documentation files**: 
     * `docs/ICON_MANAGEMENT_QUICK_REFERENCE.md` - Quick commands and workflow

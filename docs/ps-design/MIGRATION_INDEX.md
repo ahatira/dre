@@ -202,7 +202,7 @@ When all components are migrated:
 
 ### Documentation References
 - **Icon Component**: `source/patterns/elements/icon/icon.twig`
-- **Icon List**: `source/patterns/documentation/icons-list.json` (139 icons)
+- **Icon Registry**: `source/patterns/documentation/icons-registry.json` (auto-generated, 141 icons)
 - **Icon Sprite**: `source/assets/icons/icons-sprite.svg`
 - **Build Script**: `scripts/build-icons.mjs`
 

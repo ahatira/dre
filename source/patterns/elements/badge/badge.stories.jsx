@@ -1,7 +1,7 @@
 import badgeTwig from './badge.twig';
 import data from './badge.yml';
 import './badge.css';
-import iconsList from '../../documentation/icons-list.json';
+import iconsRegistry from '../../documentation/icons-registry.json';
 
 export default {
   title: 'Elements/Badge',
@@ -59,7 +59,7 @@ export default {
     },
     icon: {
       control: 'select',
-      options: [null, ...iconsList.all],
+      options: [null, ...iconsRegistry.names],
       description: 'Icon name (without icon- prefix).',
       table: {
         category: 'Content',
