@@ -1,21 +1,12 @@
-# Default: Standard breadcrumb with Real Estate navigation (4 levels)
 items:
-  - label: 'Home'
+  - label: 'Accueil'
     url: '/'
-  - label: 'Commercial Real Estate'
-    url: '/real-estate/commercial'
-  - label: 'Office Buildings Paris 8th'
-    url: '/real-estate/commercial/offices/paris-8'
-  - label: 'Champs-Élysées Premium Office Space'
+  - label: 'Locations'
+    url: '/locations'
+  - label: 'Paris 15ème Arrondissement'
+    url: '/locations/paris-15'
+  - label: 'Appartement familial T4 - Vue sur Tour Eiffel'
 
 compact: false
 inverted: false
 noUnderline: false
-
-# items[].label: string (required) - Breadcrumb item label
-# items[].url: string (optional) - Link URL (omit for last/current item)
-# compact: boolean (optional) - Reduced size (12px font, 2px separator margin)
-# inverted: boolean (optional) - Dark theme for light backgrounds (white text)
-# noUnderline: boolean (optional) - Remove underline from links (shows on hover)
-# Design: 14px font (--font-size-1), 24px line-height (--leading-6), 4px separator margin (--size-1)
-# Separator: › (U+203A) auto-generated via CSS ::after pseudo-element

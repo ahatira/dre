@@ -19,10 +19,10 @@ export default {
       // Allow imports from source/props and node_modules
       path: [join(__dirname, 'source/props'), join(__dirname, 'source'), join(__dirname, 'node_modules')],
     }),
+    postcssNested(),
     postcssInlineSvg({
       paths: [join(__dirname, 'source/icons-source')],
     }),
-    postcssNested(),
     postcssGlobalData({
       files: ['./source/props/media.css'],
     }),

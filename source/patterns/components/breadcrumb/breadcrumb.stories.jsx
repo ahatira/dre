@@ -1,215 +1,129 @@
-import breadcrumbTwig from './breadcrumb.twig';
-import breadcrumbData from './breadcrumb.yml';
+import markup from './breadcrumb.twig';
+import data from './breadcrumb.yml';
 
 const settings = {
   title: 'Components/Breadcrumb',
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Breadcrumb shows the page hierarchy with semantic, accessible markup. Improves navigation and SEO with clear current-page indication. Separator (›) is auto-generated via CSS ::after pseudo-element.',
-      },
-    },
-  },
+  render: (args) => markup(args),
+  args: { ...data },
   argTypes: {
     items: {
-      description: 'Array of breadcrumb items with label and optional url',
-      control: { type: 'object' },
+      control: 'object',
+      description: 'List of breadcrumb items with `label` and optional `url`',
       table: {
         category: 'Content',
         type: { summary: 'array<{label: string, url?: string}>' },
       },
     },
     compact: {
-      description: 'Reduced size and spacing (12px font, 2px separator margin)',
-      control: { type: 'boolean' },
+      control: 'boolean',
+      description: 'Reduced size variant (12px font, 2px separator margin)',
       table: {
         category: 'Modifiers',
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     inverted: {
-      description: 'Dark theme for light backgrounds (white text, light hover)',
-      control: { type: 'boolean' },
+      control: 'boolean',
+      description: 'Dark theme with white text (for light backgrounds)',
       table: {
         category: 'Modifiers',
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     noUnderline: {
-      description: 'Remove underline from links (shows on hover only)',
-      control: { type: 'boolean' },
+      control: 'boolean',
+      description: 'Remove underline from links (shows on hover)',
       table: {
         category: 'Modifiers',
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-      },
-    },
-  },
-};
-
-export const Default = {
-  render: (args) => breadcrumbTwig(args),
-  args: { ...breadcrumbData },
-};
-
-export const ShortPath = {
-  name: 'Short Path (2 levels)',
-  render: () =>
-    breadcrumbTwig({
-      items: [{ label: 'Home', url: '/' }, { label: 'Properties for Sale' }],
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Minimal breadcrumb with only 2 levels - useful for shallow navigation hierarchies or landing pages.',
-      },
-    },
-  },
-};
-
-export const DeepHierarchy = {
-  name: 'Deep Hierarchy (7 levels)',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Real Estate', url: '/real-estate' },
-        { label: 'Commercial', url: '/real-estate/commercial' },
-        { label: 'Office Buildings', url: '/real-estate/commercial/offices' },
-        { label: 'Paris', url: '/real-estate/commercial/offices/paris' },
-        { label: '8th District', url: '/real-estate/commercial/offices/paris/8th' },
-        { label: 'Champs-Élysées Premium Office Space' },
-      ],
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Complex navigation path with 7 levels - demonstrates flex-wrap behavior on narrow viewports and handles long hierarchies gracefully.',
-      },
-    },
-  },
-};
-
-export const CommercialProperty = {
-  name: 'Commercial Property Path',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Commercial Real Estate', url: '/commercial' },
-        { label: 'Retail Spaces', url: '/commercial/retail' },
-        { label: 'Paris 16th - Luxury Boutique Space' },
-      ],
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Real Estate métier example - Commercial property navigation path showing category hierarchy (Home → Category → Subcategory → Property).',
-      },
-    },
-  },
-};
-
-export const ResidentialComplex = {
-  name: 'Residential Complex Path',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Residential Properties', url: '/residential' },
-        { label: 'Apartment Complexes', url: '/residential/complexes' },
-        { label: 'Paris 15th District', url: '/residential/complexes/paris-15' },
-        { label: 'Les Jardins de Vaugirard - Modern 3BR Apartment' },
-      ],
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Real Estate métier example - Residential complex navigation showing Location → Type → District → Specific Property with descriptive final label.',
-      },
-    },
-  },
-};
-
-export const Compact = {
-  name: 'Compact Variant',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Real Estate', url: '/real-estate' },
-        { label: 'Commercial', url: '/real-estate/commercial' },
-        { label: 'Office Buildings Paris 8th' },
-      ],
-      compact: true,
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Compact variant with reduced font size (12px) and tighter spacing (2px separator margin). Useful for sidebars, footers, or space-constrained layouts.',
-      },
-    },
-  },
-};
-
-export const Inverted = {
-  name: 'Inverted Theme (Dark Backgrounds)',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Luxury Properties', url: '/luxury' },
-        { label: 'Penthouse Apartments', url: '/luxury/penthouses' },
-        { label: 'Paris 16th - Exclusive Penthouse' },
-      ],
-      inverted: true,
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Inverted theme with white text for dark backgrounds (hero sections, dark headers). Links use lighter hover colors for better contrast.',
-      },
-    },
-    backgrounds: {
-      default: 'dark',
-      values: [
-        { name: 'dark', value: '#1F2A33' },
-        { name: 'primary', value: '#00915A' },
-      ],
-    },
-  },
-};
-
-export const NoUnderline = {
-  name: 'No Underline Variant',
-  render: () =>
-    breadcrumbTwig({
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Properties', url: '/properties' },
-        { label: 'Office Spaces', url: '/properties/offices' },
-        { label: 'Premium Office Space' },
-      ],
-      noUnderline: true,
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Clean design without underline on links by default. Underline appears on hover for better visual feedback. Useful for modern, minimalist designs.',
       },
     },
   },
 };
 
 export default settings;
+
+// ========================================
+// STORIES
+// ========================================
+
+export const Default = {
+  name: 'Default',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: 'Locations', url: '/locations' },
+      { label: 'Paris 15ème Arrondissement', url: '/locations/paris-15' },
+      { label: 'Appartement familial T4 - Vue sur Tour Eiffel' },
+    ],
+  },
+};
+
+export const Compact = {
+  name: 'Compact',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: 'Bureaux', url: '/bureaux' },
+      { label: 'La Défense', url: '/bureaux/la-defense' },
+      { label: 'Tour Granite - Plateau 1200m²' },
+    ],
+    compact: true,
+  },
+};
+
+export const Inverted = {
+  name: 'Inverted (Dark Background)',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: 'Investissement', url: '/investissement' },
+      { label: 'Résidences Services Seniors', url: '/investissement/seniors' },
+      { label: 'Programme Villa Medicis - Neuilly-sur-Seine' },
+    ],
+    inverted: true,
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+};
+
+export const NoUnderline = {
+  name: 'No Underline',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: 'Terrains', url: '/terrains' },
+      { label: 'Île-de-France', url: '/terrains/ile-de-france' },
+      { label: 'Terrain constructible 2500m² - Versailles' },
+    ],
+    noUnderline: true,
+  },
+};
+
+export const LongPath = {
+  name: 'Long Path (8 levels)',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: "Immobilier d'Entreprise", url: '/immobilier-entreprise' },
+      { label: 'Bureaux', url: '/immobilier-entreprise/bureaux' },
+      { label: 'Île-de-France', url: '/immobilier-entreprise/bureaux/idf' },
+      { label: 'Paris Ouest', url: '/immobilier-entreprise/bureaux/idf/ouest' },
+      { label: '8ème Arrondissement', url: '/immobilier-entreprise/bureaux/idf/ouest/75008' },
+      {
+        label: 'Quartier Champs-Élysées',
+        url: '/immobilier-entreprise/bureaux/idf/ouest/75008/champs-elysees',
+      },
+      { label: 'Immeuble Haussmannien - 3500m² divisibles' },
+    ],
+  },
+};
+
+export const ShortPath = {
+  name: 'Short Path (2 levels)',
+  args: {
+    items: [{ label: 'Accueil', url: '/' }, { label: 'Contact' }],
+  },
+};

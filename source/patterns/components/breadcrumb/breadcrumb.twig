@@ -1,31 +1,32 @@
 {#
  * Breadcrumb (Component/Molecule)
- * Navigational trail to show page hierarchy
- * @param array items - Breadcrumb items (required)
- *   Each item: { label: string, url: string (optional) }
- * @param boolean compact - Reduced size and spacing (optional, default: false)
+ * @param array items - List of breadcrumb items with 'label' and optional 'url' (required)
+ * @param boolean compact - Reduced size variant (optional, default: false)
  * @param boolean inverted - Dark theme for light backgrounds (optional, default: false)
  * @param boolean noUnderline - Remove underline from links (optional, default: false)
  * @param Attribute attributes - Additional HTML attributes (optional)
  #}
 
+{% set items = items ?? [] %}
+{% set compact = compact ?? false %}
+{% set inverted = inverted ?? false %}
+{% set noUnderline = noUnderline ?? false %}
+
 {% set classes = [
   'ps-breadcrumb',
-  compact ? 'ps-breadcrumb--compact',
-  inverted ? 'ps-breadcrumb--inverted',
-  noUnderline ? 'ps-breadcrumb--no-underline'
+  compact ? 'ps-breadcrumb--compact' : null,
+  inverted ? 'ps-breadcrumb--inverted' : null,
+  noUnderline ? 'ps-breadcrumb--no-underline' : null,
 ] %}
 
-<nav {{ attributes ? attributes.addClass(classes) : create_attribute().addClass(classes) }} aria-label="Breadcrumb">
+<nav {{ attributes.addClass(classes) }} aria-label="Breadcrumb">
   <ol class="ps-breadcrumb__list">
     {% for item in items %}
-      {% set is_last = loop.last %}
-      
-      <li class="ps-breadcrumb__item{{ is_last ? ' ps-breadcrumb__item--current' : '' }}"{% if is_last %} aria-current="page"{% endif %}>
-        {% if not is_last and item.url %}
+      <li class="ps-breadcrumb__item"{{ loop.last ? ' aria-current="page"' : '' }}>
+        {% if item.url and not loop.last %}
           <a class="ps-breadcrumb__link" href="{{ item.url }}">{{ item.label }}</a>
         {% else %}
-          {{ item.label }}
+          <span class="ps-breadcrumb__link">{{ item.label }}</span>
         {% endif %}
       </li>
     {% endfor %}

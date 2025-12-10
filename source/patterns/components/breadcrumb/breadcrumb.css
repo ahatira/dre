@@ -1,62 +1,44 @@
-/**
- * Breadcrumb (Component/Molecule)
- * Navigational trail displaying page hierarchy with accessible markup
- * 
- * BEM: ps-breadcrumb, ps-breadcrumb__list, ps-breadcrumb__item, ps-breadcrumb__link
- * Separator: › (U+203A - Single Right-Pointing Angle Quotation Mark)
- * 
- * CSS Variables System (3-Layer Architecture):
- * - Layer 1: Global Tokens (brand.css, sizes.css, fonts.css, etc.)
- * - Layer 2: Component-Scoped Variables (customizable defaults)
- * - Layer 3: Context Overrides (variant + modifier selectors)
- */
-
-.ps-breadcrumb {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     Override these variables in Layer 3 for customization
-     ============================================ */
+@layer components {
+  .ps-breadcrumb {
+    /* Layer 2: Component-scoped CSS Variables */
+    
+    /* Typography */
+    --ps-breadcrumb-font-family: var(--font-sans);
+    --ps-breadcrumb-font-size: var(--font-size-1);
+    --ps-breadcrumb-font-weight: var(--font-weight-400);
+    --ps-breadcrumb-line-height: var(--leading-6);
+    
+    /* Colors */
+    --ps-breadcrumb-color: var(--text-primary);
+    --ps-breadcrumb-link-color: var(--text-primary);
+    --ps-breadcrumb-link-hover-color: var(--primary);
+    
+    /* Separator (::after pseudo-element with svg-load) */
+    --ps-breadcrumb-separator-color: var(--text-primary);
+    --ps-breadcrumb-separator-margin: var(--size-1);
+    --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
+    
+    /* Layout */
+    --ps-breadcrumb-list-gap: 0;
+    
+    /* Focus */
+    --ps-breadcrumb-focus-outline-width: var(--border-size-2);
+    --ps-breadcrumb-focus-outline-color: var(--primary);
+    --ps-breadcrumb-focus-outline-offset: var(--border-size-2);
+    
+    /* Transitions */
+    --ps-breadcrumb-transition-duration: var(--duration-fast);
+    --ps-breadcrumb-transition-timing: var(--ease-3);
+    
+    /* Base styles */
+    font-family: var(--ps-breadcrumb-font-family);
+    font-size: var(--ps-breadcrumb-font-size);
+    font-weight: var(--ps-breadcrumb-font-weight);
+    line-height: var(--ps-breadcrumb-line-height);
+    color: var(--ps-breadcrumb-color);
+  }
   
-  /* Typography */
-  --ps-breadcrumb-font-family: var(--font-sans);
-  --ps-breadcrumb-font-size: var(--font-size-1);
-  --ps-breadcrumb-font-weight: var(--font-weight-400);
-  --ps-breadcrumb-line-height: var(--leading-6);
-  
-  /* Colors */
-  --ps-breadcrumb-color: var(--text-primary);
-  --ps-breadcrumb-link-color: var(--text-primary);
-  --ps-breadcrumb-link-hover-color: var(--primary);
-  --ps-breadcrumb-separator-color: var(--text-primary);
-  
-  /* Spacing */
-  --ps-breadcrumb-separator-margin: var(--size-1);
-  --ps-breadcrumb-list-gap: 0;
-  
-  /* Focus */
-  --ps-breadcrumb-focus-outline-width: var(--border-size-2);
-  --ps-breadcrumb-focus-outline-color: var(--secondary);
-  --ps-breadcrumb-focus-outline-offset: var(--border-size-2);
-  --ps-breadcrumb-focus-border-radius: var(--radius-1);
-  
-  /* Transitions */
-  --ps-breadcrumb-transition-duration: var(--duration-fast);
-  --ps-breadcrumb-transition-timing: var(--ease-3);
-  
-  /* Separator (U+203A) */
-  --ps-breadcrumb-separator-content: '›';
-  --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
-  
-  /* ============================================
-     Apply Component Variables to Properties
-     ============================================ */
-  
-  font-family: var(--ps-breadcrumb-font-family);
-  font-size: var(--ps-breadcrumb-font-size);
-  line-height: var(--ps-breadcrumb-line-height);
-  color: var(--ps-breadcrumb-color);
-  
-  &__list {
+  .ps-breadcrumb__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -66,71 +48,76 @@
     list-style: none;
   }
   
-  &__item {
+  .ps-breadcrumb__item {
     display: inline-flex;
     align-items: center;
     
+    /* ::after pseudo-element separator (chevron via mask-image) */
     &:not(:last-child)::after {
       content: '';
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      margin: 0 var(--ps-breadcrumb-separator-margin);
-      background-color: var(--ps-breadcrumb-separator-color);
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-inline: var(--ps-breadcrumb-separator-margin);
+      
+      /* svg-load() transforms to data URI during PostCSS compilation */
       mask-image: var(--ps-breadcrumb-separator-icon-mask);
+      -webkit-mask-image: var(--ps-breadcrumb-separator-icon-mask);
+      
+      /* Webkit prefixes for Safari/Chrome compatibility */
       mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
       mask-position: center;
+      -webkit-mask-position: center;
       mask-size: contain;
-    }
-    
-    &--current {
-      font-weight: var(--ps-breadcrumb-font-weight);
+      -webkit-mask-size: contain;
+      
+      /* Background color inherits separator color (currentColor context) */
+      background-color: var(--ps-breadcrumb-separator-color);
     }
   }
   
-  &__link {
+  .ps-breadcrumb__link {
     color: var(--ps-breadcrumb-link-color);
     text-decoration: underline;
     transition: color var(--ps-breadcrumb-transition-duration) var(--ps-breadcrumb-transition-timing);
     
-    &:hover {
-      color: var(--ps-breadcrumb-link-hover-color);
+    /* Link styles */
+    &:is(a) {
+      &:hover {
+        color: var(--ps-breadcrumb-link-hover-color);
+      }
+      
+      &:focus-visible {
+        outline: var(--ps-breadcrumb-focus-outline-width) solid var(--ps-breadcrumb-focus-outline-color);
+        outline-offset: var(--ps-breadcrumb-focus-outline-offset);
+        border-radius: var(--radius-1);
+      }
     }
     
-    &:focus-visible {
-      outline: var(--ps-breadcrumb-focus-outline-width) solid var(--ps-breadcrumb-focus-outline-color);
-      outline-offset: var(--ps-breadcrumb-focus-outline-offset);
-      border-radius: var(--ps-breadcrumb-focus-border-radius);
-    }
-    
-    &:visited {
-      color: var(--ps-breadcrumb-link-color);
+    /* Current page (span) */
+    &:is(span) {
+      text-decoration: none;
+      font-weight: var(--font-weight-600);
     }
   }
   
-  /* ============================================
-     Modifiers
-     ============================================ */
+  /* Layer 3: Modifier Overrides */
   
-  /* Compact: reduced size and spacing */
-  &--compact {
-    --ps-breadcrumb-font-size: var(--font-size-0);
-    --ps-breadcrumb-separator-margin: var(--size-05);
+  .ps-breadcrumb--compact {
+    --ps-breadcrumb-font-size: 0.75rem; /* 12px */
+    --ps-breadcrumb-separator-margin: 0.125rem; /* 2px */
   }
   
-  /* Inverted: for dark backgrounds */
-  &--inverted {
+  .ps-breadcrumb--inverted {
     --ps-breadcrumb-color: var(--white);
     --ps-breadcrumb-link-color: var(--white);
-    --ps-breadcrumb-link-hover-color: var(--primary-light);
-    --ps-breadcrumb-separator-color: var(--gray-300);
+    --ps-breadcrumb-link-hover-color: var(--gray-300);
+    --ps-breadcrumb-separator-color: var(--white);
   }
   
-  /* No underline: clean design without default underline */
-  &--no-underline {
-    .ps-breadcrumb__link {
+  .ps-breadcrumb--no-underline {
+    .ps-breadcrumb__link:is(a) {
       text-decoration: none;
       
       &:hover {
