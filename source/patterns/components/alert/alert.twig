@@ -4,6 +4,7 @@
  * 
  * @param string variant - Semantic variant: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'gold' | 'light' | 'dark' (default: 'default')
  * @param string content - Free HTML content (headings, paragraphs, links) (required)
+ * @param string icon - Icon name (without icon- prefix) for leading icon (optional)
  * @param boolean dismissible - Show close button (optional, default: false)
  * @param boolean rounded - Apply border radius (optional, default: false)
  * @param object attributes - Additional HTML attributes (optional)
@@ -12,6 +13,7 @@
 
 {# --- Defaults --- #}
 {%- set variant = variant|default('default') -%}
+{%- set icon = icon|default(null) -%}
 {%- set dismissible = dismissible|default(false) -%}
 {%- set rounded = rounded|default(false) -%}
 {%- set content = content|default('') -%}
@@ -27,9 +29,15 @@
 {%- set classes = [
   'ps-alert',
   'ps-alert--' ~ variant,
+  icon ? 'ps-alert--with-icon' : null,
   dismissible ? 'ps-alert--dismissible' : null,
   rounded ? 'ps-alert--rounded' : null
 ] -%}
+
+{# Apply data-icon attribute if icon provided #}
+{%- if icon -%}
+  {%- set attributes = attributes.setAttribute('data-icon', icon) -%}
+{%- endif -%}
 
 <div {{ attributes.addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
   <div class="ps-alert__content">

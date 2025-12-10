@@ -1,3 +1,4 @@
+import iconsRegistry from '../../documentation/icons-registry.json';
 import alertTwig from './alert.twig';
 import data from './alert.yml';
 
@@ -50,6 +51,17 @@ export default {
         category: 'Content',
         type: { summary: 'string (HTML)' },
         defaultValue: { summary: '' },
+      },
+    },
+
+    icon: {
+      description: 'Icon name (without icon- prefix) for leading icon',
+      control: { type: 'select' },
+      options: iconsRegistry.names,
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
       },
     },
 
@@ -112,6 +124,48 @@ export const AllVariants = {
         alertTwig({
           variant: v.variant,
           content: `<strong>${v.label} :</strong> ${v.content}`,
+        })
+      )
+      .join('<br style="margin-bottom: var(--size-4)">');
+  },
+};
+
+// ============================================
+// WITH ICONS
+// ============================================
+
+export const WithIcons = {
+  name: 'With Icons',
+  render: () => {
+    const examples = [
+      {
+        variant: 'info',
+        icon: 'info',
+        content: '<strong>Information:</strong> An example alert with an icon',
+      },
+      {
+        variant: 'success',
+        icon: 'check',
+        content: '<strong>Success:</strong> An example success alert with an icon',
+      },
+      {
+        variant: 'warning',
+        icon: 'alert',
+        content: '<strong>Warning:</strong> An example warning alert with an icon',
+      },
+      {
+        variant: 'danger',
+        icon: 'alert',
+        content: '<strong>Danger:</strong> An example danger alert with an icon',
+      },
+    ];
+
+    return examples
+      .map((ex) =>
+        alertTwig({
+          variant: ex.variant,
+          icon: ex.icon,
+          content: ex.content,
         })
       )
       .join('<br style="margin-bottom: var(--size-4)">');

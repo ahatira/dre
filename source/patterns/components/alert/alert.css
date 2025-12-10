@@ -1,12 +1,12 @@
 /**
  * Alert Component (Molecule/Feedback)
- * Semantic alert with flexible content and 10 variants
+ * Semantic alert with flexible content, optional icons, and 10 variants
  *
  * BEM: ps-alert, ps-alert__content, ps-alert__close
  * Utility Classes: ps-alert-link, ps-alert-heading
  * Variants: default | primary | secondary | success | danger | warning | info | gold | light | dark
- * Sizes: xs | sm | md | lg | xl | xxl (default: md)
- * Modifiers: --dismissible, --rounded
+ * Modifiers: --with-icon, --dismissible, --rounded
+ * Icon: Applied via data-icon attribute on root element (styled when --with-icon present)
  * Three-Layer CSS Variables System
  */
 
@@ -31,6 +31,11 @@
   --ps-alert-color: inherit;
   --ps-alert-border-color: transparent;
   --ps-alert-link-color: inherit;
+  
+  /* Icon */
+  --ps-alert-icon-size: var(--size-5);
+  --ps-alert-icon-margin-right: var(--size-3);
+  --ps-alert-icon-color: inherit;
   
   /* Close button */
   --ps-alert-close-padding: var(--size-3);
@@ -67,6 +72,24 @@
   font-size: var(--ps-alert-font-size);
   line-height: var(--ps-alert-line-height);
   color: var(--ps-alert-color);
+
+  /* ============================================
+     Icon via data-icon attribute
+     ============================================ */
+  /* With icon modifier - Activate flexbox layout and style icon pseudo-element */
+  &--with-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    
+    /* Icon pseudo-element styling */
+    &::before {
+      width: var(--ps-alert-icon-size);
+      height: var(--ps-alert-icon-size);
+      margin-right: var(--ps-alert-icon-margin-right);
+      flex-shrink: 0;
+    }
+  }
 
   /* ============================================
      Close Button Element (Button Component)

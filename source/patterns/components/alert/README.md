@@ -1,10 +1,10 @@
 # Alert Component
 
-Semantic alert component with 10 color variants and 6 sizes for displaying important feedback messages.
+Semantic alert component with 10 color variants for displaying important feedback messages.
 
 ## Purpose
 
-The Alert component is a molecule-level feedback pattern for displaying important messages, notifications, warnings, or confirmations to users. It supports free HTML content, optional sizes, and dismissal functionality.
+The Alert component is a molecule-level feedback pattern for displaying important messages, notifications, warnings, or confirmations to users. It supports free HTML content, optional leading icons, and dismissal functionality.
 
 ## Usage
 
@@ -26,7 +26,7 @@ The Alert component is a molecule-level feedback pattern for displaying importan
 |--------------|-----------|------------------------------------------------------------------------|-----------|--------------------------------------------------|
 | `variant`    | `string`  | `default`, `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `gold`, `light`, `dark` | `default` | Semantic variant with appropriate color scheme   |
 | `content`    | `string`  | any (HTML)                                                            | `''`      | Free HTML content for alert body                 |
-| `size`       | `string`  | `xs`, `sm`, `md`, `lg`, `xl`, `xxl`                                   | `md`      | Alert size (affects padding and font size)       |
+| `icon`       | `string`  | any icon name (without `icon-` prefix)                                | `null`    | Leading icon displayed before content            |
 | `dismissible`| `boolean` | `true`, `false`                                                        | `false`   | Show close button with dismiss behavior          |
 | `rounded`    | `boolean` | `true`, `false`                                                        | `false`   | Apply border radius                              |
 | `attributes` | `object`  | any                                                                   | `{}`      | Drupal attributes for root element               |
@@ -34,7 +34,7 @@ The Alert component is a molecule-level feedback pattern for displaying importan
 ## BEM Structure
 
 ```
-ps-alert                         # Root element (single wrapper)
+ps-alert                         # Root element (with optional data-icon attribute)
 ├── ps-alert--default            # Default neutral variant
 ├── ps-alert--primary            # Primary brand variant (green)
 ├── ps-alert--secondary          # Secondary brand variant (pink)
@@ -45,17 +45,15 @@ ps-alert                         # Root element (single wrapper)
 ├── ps-alert--gold               # Gold/premium variant
 ├── ps-alert--light              # Light variant
 ├── ps-alert--dark               # Dark variant
-├── ps-alert--xs                 # Extra small size
-├── ps-alert--sm                 # Small size
-├── ps-alert--lg                 # Large size
-├── ps-alert--xl                 # Extra large size
-├── ps-alert--xxl                # Extra extra large size
+├── ps-alert--with-icon          # Flexbox layout when icon present (automatic)
 ├── ps-alert--dismissible        # Has close button (adds right padding)
 ├── ps-alert--rounded            # Border radius applied
 │
 ├── ps-alert__content            # Content wrapper
 └── ps-alert__close              # Close button (when dismissible)
 ```
+
+**Note**: Icon is rendered via `data-icon` attribute on root `.ps-alert` element. The `--with-icon` modifier is automatically applied when an icon is provided to activate flexbox layout and style the icon pseudo-element.
 
 ## Utility Classes
 
@@ -78,17 +76,6 @@ ps-alert-heading                 # Larger, bold headings within alerts (h4)
 | **gold** | Premium features, exclusive content | Light gold background, gold border, dark text |
 | **light** | Subtle alerts, light backgrounds | White background, light gray border, dark text |
 | **dark** | Dark theme alerts, high contrast | Dark gray background, darker border, white text |
-
-## 6 Size Variations
-
-| Size | Padding | Font Size | Use Case |
-|------|---------|-----------|----------|
-| **xs** | 8px × 12px | 14px | Compact inline alerts |
-| **sm** | 12px × 12px | 14px | Small notifications |
-| **md** (default) | 16px × 16px | 16px | Standard alerts |
-| **lg** | 20px × 20px | 18px | Prominent messages |
-| **xl** | 24px × 24px | 20px | Large announcements |
-| **xxl** | 32px × 32px | 24px | Hero-level alerts |
 
 ## Design Tokens
 
