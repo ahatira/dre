@@ -46,12 +46,6 @@ Accessible navigation breadcrumb component for hierarchical website structure in
   items: breadcrumb_items,
   inverted: true
 } only %}
-
-{# No underline (modern design) #}
-{% include '@components/breadcrumb/breadcrumb.twig' with {
-  items: breadcrumb_items,
-  noUnderline: true
-} only %}
 ```
 
 ---
@@ -63,7 +57,7 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 | `items` | `array<{label: string, url?: string}>` | `[]` | **Required**. List of breadcrumb items. Last item is current page (no link). |
 | `compact` | `boolean` | `false` | Reduced size variant (12px font, 2px separator margin). |
 | `inverted` | `boolean` | `false` | Dark theme with white text (for light backgrounds). |
-| `noUnderline` | `boolean` | `false` | Remove underline from links (shows on hover). |
+| `noUnderline` | `boolean` | `false` | **DEPRECATED**. Default behavior now has no underline (matches design). Kept for backward compatibility. |
 | `attributes` | `Attribute` | `null` | Additional HTML attributes for `<nav>` element. |
 
 ---
@@ -102,7 +96,7 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 |----------|-------------|
 | `.ps-breadcrumb--compact` | Reduced font size (12px) and separator margin (2px). |
 | `.ps-breadcrumb--inverted` | White text and light hover colors (dark backgrounds). |
-| `.ps-breadcrumb--no-underline` | No default underline on links (shows on hover). |
+| `.ps-breadcrumb--no-underline` | **DEPRECATED**. Default behavior now matches capture (no underline by default, shows on hover). |
 
 ---
 

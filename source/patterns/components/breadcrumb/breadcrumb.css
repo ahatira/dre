@@ -79,13 +79,14 @@
   
   .ps-breadcrumb__link {
     color: var(--ps-breadcrumb-link-color);
-    text-decoration: underline;
+    text-decoration: none; /* Pas de soulignement par défaut (design capture) */
     transition: color var(--ps-breadcrumb-transition-duration) var(--ps-breadcrumb-transition-timing);
     
     /* Link styles */
     &:is(a) {
       &:hover {
         color: var(--ps-breadcrumb-link-hover-color);
+        text-decoration: underline; /* Soulignement au hover seulement */
       }
       
       &:focus-visible {
@@ -95,10 +96,11 @@
       }
     }
     
-    /* Current page (span) */
+    /* Current page (span) - Bold comme dans la capture */
     &:is(span) {
       text-decoration: none;
       font-weight: var(--font-weight-600);
+      color: var(--ps-breadcrumb-color); /* Même couleur que le texte de base */
     }
   }
   
@@ -117,12 +119,7 @@
   }
   
   .ps-breadcrumb--no-underline {
-    .ps-breadcrumb__link:is(a) {
-      text-decoration: none;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    /* DEPRECATED: Default behavior now matches capture (no underline) */
+    /* This modifier is kept for backward compatibility but has no effect */
   }
 }
