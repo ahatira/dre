@@ -1,198 +1,277 @@
 import offerCardTwig from './offer-card.twig';
+import data from './offer-card.yml';
 
-export default {
+const settings = {
   title: 'Components/Offer Card',
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'Specialized card for real estate offers that extends the generic Card component. Features property image, status badges (viewed, exclusivity), title, surface area, location metadata, price, and call-to-action. Supports vertical and horizontal layouts.',
+          '**Specialized card for real estate property listings** that embeds the generic Card component.\n\n' +
+          '### Key Features\n' +
+          '- **Image Overlay**: Status badges (viewed, exclusivity) and action buttons (compare, favorite) positioned over property image\n' +
+          '- **Property Information**: Title, surface area, location metadata, and price\n' +
+          '- **Responsive Layouts**: Vertical (default, mobile-friendly) or horizontal (desktop grid)\n' +
+          '- **Clickable Cards**: Add `url` prop to make entire card interactive\n' +
+          '- **Pixel Perfect**: Matches Figma design specifications exactly\n\n' +
+          '### Composition\n' +
+          'Embeds `@components/card/card.twig` using Twig blocks pattern for maximum flexibility.',
       },
     },
   },
-  render: (args) => offerCardTwig(args),
   argTypes: {
-    // Layout
     layout: {
-      control: 'select',
+      control: { type: 'inline-radio' },
       options: ['vertical', 'horizontal'],
       description: 'Card layout orientation',
-      table: { category: 'Layout' },
+      table: {
+        category: 'Layout',
+        type: { summary: 'vertical | horizontal' },
+        defaultValue: { summary: 'vertical' },
+      },
     },
-
-    // Content
     title: {
       control: 'text',
       description: 'Property title',
-      table: { category: 'Content' },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     surface: {
       control: 'text',
       description: 'Surface area (e.g., "611.3 m²")',
-      table: { category: 'Content' },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     price: {
       control: 'text',
-      description: 'Price text',
-      table: { category: 'Content' },
+      description: 'Price with unit (e.g., "20 000 € HT/HC/m²/an")',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
-    price_value: {
+    'image.url': {
       control: 'text',
-      description: 'Price amount (bold part)',
-      table: { category: 'Content' },
+      description: 'Image URL',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
-    price_details: {
+    'image.alt': {
       control: 'text',
-      description: 'Price suffix (regular part)',
-      table: { category: 'Content' },
+      description: 'Image alt text',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
-
-    // Image
-    image: {
-      control: 'object',
-      description: 'Image data with url and alt',
-      table: { category: 'Content' },
-    },
-
-    // Meta
     meta: {
       control: 'object',
-      description: 'Array of metadata items (icon, text)',
-      table: { category: 'Content' },
+      description: 'Metadata items: [{ icon: string, text: string }]',
+      table: {
+        category: 'Content',
+        type: { summary: 'array' },
+      },
     },
-
-    // Status
-    status: {
-      control: 'object',
-      description: 'Status badges: { viewed: boolean, exclusivity: boolean }',
-      table: { category: 'Appearance' },
+    'status.viewed': {
+      control: 'boolean',
+      description: 'Show "Already viewed" badge',
+      table: {
+        category: 'Status',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
-
-    // CTA
-    cta: {
-      control: 'object',
-      description: 'Call-to-action: { text: string, url: string }',
-      table: { category: 'Behavior' },
+    'status.exclusivity': {
+      control: 'boolean',
+      description: 'Show "Exclusivity" badge',
+      table: {
+        category: 'Status',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: false },
+      },
     },
-
-    // Link
+    'cta.text': {
+      control: 'text',
+      description: 'CTA link text',
+      table: {
+        category: 'CTA',
+        type: { summary: 'string' },
+      },
+    },
+    'cta.url': {
+      control: 'text',
+      description: 'CTA link URL',
+      table: {
+        category: 'CTA',
+        type: { summary: 'string' },
+      },
+    },
     url: {
       control: 'text',
-      description: 'Optional card link URL',
-      table: { category: 'Behavior' },
-    },
-  },
-};
-
-// Default Story
-export const Default = {
-  render: (args) => {
-    if (typeof args.image?.url === 'string') {
-      return offerCardTwig(args);
-    }
-    return offerCardTwig({
-      ...args,
-      layout: 'vertical',
-      title: 'Rent Offices MADRID Barrio de Chamberí',
-      surface: '611.3 m²',
-      price: '20 000 € HT/HC/m²/an',
-      status: { viewed: true, exclusivity: true },
-      image: {
-        url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=400&fit=crop&q=80',
-        alt: 'Office space in Madrid',
+      description: 'Optional card link URL (makes entire card clickable)',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'string | undefined' },
       },
-      meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
-      cta: { text: 'View the property', url: '#property-123' },
-    });
-  },
-  args: {
-    layout: 'vertical',
-    title: 'Rent Offices MADRID Barrio de Chamberí',
-    surface: '611.3 m²',
-    price: '20 000 € HT/HC/m²/an',
-    price_value: '20 000 €',
-    price_details: 'HT/HC/m²/an',
-    status: {
-      viewed: true,
-      exclusivity: true,
-    },
-    image: {
-      url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=400&fit=crop&q=80',
-      alt: 'Office space in Madrid',
-    },
-    meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
-    cta: {
-      text: 'View the property',
-      url: '#property-123',
     },
   },
 };
 
-// Horizontal Layout
-export const HorizontalLayout = {
+export default settings;
+
+// ==============================================
+// STORY 1: Default (Interactive Playground)
+// ==============================================
+
+export const Default = {
+  render: (args) => offerCardTwig(args),
   args: {
-    layout: 'horizontal',
-    title: 'Rent Offices MADRID Barrio de Chamberí',
-    surface: '611.3 m²',
-    price: '20 000 € HT/HC/m²/an',
-    price_value: '20 000 €',
-    price_details: 'HT/HC/m²/an',
-    status: {
-      viewed: true,
-      exclusivity: true,
-    },
-    image: {
-      url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=242&h=212&fit=crop&q=80',
-      alt: 'Office space',
-    },
-    meta: [{ icon: 'pin-map', text: '28010 MADRID' }],
-    cta: {
-      text: 'View the property',
-      url: '#property-456',
+    ...data,
+  },
+};
+
+// ==============================================
+// STORY 2: Variants (Badge Combinations)
+// ==============================================
+
+export const Variants = {
+  render: () => {
+    const variants = [
+      {
+        key: 'all-badges',
+        label: 'All Badges',
+        status: { viewed: true, exclusivity: true },
+      },
+      {
+        key: 'viewed-only',
+        label: 'Viewed Only',
+        status: { viewed: true, exclusivity: false },
+      },
+      {
+        key: 'exclusivity-only',
+        label: 'Exclusivity Only',
+        status: { viewed: false, exclusivity: true },
+      },
+      {
+        key: 'no-badges',
+        label: 'No Badges',
+        status: { viewed: false, exclusivity: false },
+      },
+    ];
+
+    return `
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        ${variants
+          .map(
+            ({ label, status }) => `
+          <div style="flex: 1; min-width: 280px;">
+            <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 600;">${label}</h4>
+            ${offerCardTwig({
+              ...data,
+              status,
+              layout: 'vertical',
+            })}
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Badge combinations** demonstrate different status states:\n\n' +
+          '- **All Badges**: Viewed + Exclusivity (most common)\n' +
+          '- **Viewed Only**: Property previously viewed by user\n' +
+          '- **Exclusivity Only**: Exclusive property listing\n' +
+          '- **No Badges**: Clean state for new listings',
+      },
     },
   },
 };
 
-// Without Status Badges
-export const WithoutStatus = {
-  args: {
-    layout: 'vertical',
-    title: 'Sale Apartment PARIS 16ème',
-    surface: '120 m²',
-    price: '1 500 000 €',
-    price_value: '1 500 000 €',
-    price_details: null,
-    image: {
-      url: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=400&fit=crop&q=80',
-      alt: 'Apartment in Paris',
-    },
-    meta: [{ icon: 'pin-map', text: '75016 PARIS' }],
-    cta: {
-      text: 'View the property',
-      url: '#property-789',
+// ==============================================
+// STORY 3: Layouts (Vertical + Horizontal)
+// ==============================================
+
+export const Layouts = {
+  render: () => {
+    return `
+      <div style="display: flex; flex-direction: column; gap: 3rem;">
+        <div>
+          <h3 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600;">Vertical Layout (Default)</h3>
+          <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-600);">
+            Mobile-friendly layout with image on top, content below
+          </p>
+          <div style="max-width: 400px;">
+            ${offerCardTwig({
+              ...data,
+              layout: 'vertical',
+            })}
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600;">Horizontal Layout</h3>
+          <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-600);">
+            Desktop grid layout with image on left, content on right
+          </p>
+          ${offerCardTwig({
+            ...data,
+            layout: 'horizontal',
+          })}
+        </div>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Two responsive layouts** for different contexts:\n\n' +
+          '- **Vertical**: Image top, content below - ideal for mobile and card grids\n' +
+          '- **Horizontal**: Image left (40%), content right (60%) - desktop list view\n\n' +
+          'Horizontal layout automatically stacks to vertical on screens < 768px.',
+      },
     },
   },
 };
 
-// As Link (entire card clickable)
+// ==============================================
+// STORY 4: As Link (Clickable Card)
+// ==============================================
+
 export const AsLink = {
-  args: {
-    layout: 'vertical',
-    title: 'Rent Office LYON Part-Dieu',
-    surface: '450 m²',
-    price: '15 000 € HT/HC/m²/an',
-    price_value: '15 000 €',
-    price_details: 'HT/HC/m²/an',
-    url: '#property-full-link',
-    image: {
-      url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=400&fit=crop&q=80',
-      alt: 'Office in Lyon',
-    },
-    meta: [{ icon: 'pin-map', text: '69003 LYON' }],
-    cta: {
-      text: 'View the property',
-      url: '#property-cta',
+  render: () => {
+    return `
+      <div style="max-width: 400px;">
+        <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-600);">
+          Card with <code>url</code> prop renders as clickable <code>&lt;a&gt;</code> element
+        </p>
+        ${offerCardTwig({
+          ...data,
+          url: '#property-detail-page',
+          status: { viewed: false, exclusivity: true },
+        })}
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Entire card is clickable** when `url` prop is provided.\n\n' +
+          'Card renders as `<a>` element with proper accessibility. The CTA link inside uses pseudo-element technique to extend clickable area.',
+      },
     },
   },
 };

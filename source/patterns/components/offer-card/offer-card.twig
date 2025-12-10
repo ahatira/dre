@@ -1,107 +1,116 @@
 {#
- * Offer Card - Specialized card for real estate offers
- *
- * Composes the generic Card component with offer-specific content structure.
+/**
+ * Offer Card (Component/Molecule)
+ * Specialized card for real estate property listings.
  * 
- * @param string layout - Layout: vertical|horizontal (default: vertical)
- * @param object image - Image data with url and alt properties (required)
- * @param string image.url - Image source URL
- * @param string image.alt - Image alternative text
- * @param object status - Status badges: viewed (boolean), exclusivity (boolean)
+ * Embeds the generic Card component and adds:
+ * - Image with overlay badges and actions
+ * - Property title, surface, location metadata
+ * - Price and call-to-action
+ * 
+ * @param string layout - Layout orientation (default: 'vertical')
+ *   Options: vertical | horizontal
  * @param string title - Property title (required)
  * @param string surface - Surface area (e.g., "611.3 m²")
- * @param array meta - Metadata array with icon and text (e.g., location)
  * @param string price - Price text (e.g., "20 000 € HT/HC/m²/an")
- * @param string price_value - Price main value (bold, e.g., "20 000 €")
- * @param string price_details - Price suffix (regular, e.g., "HT/HC/m²/an")
- * @param object cta - Call-to-action configuration
- * @param string cta.text - CTA text
- * @param string cta.url - CTA URL
- * @param string url - Optional card link URL (wraps entire card)
+ * @param object image - Image data: { url: string, alt: string } (required)
+ * @param array meta - Metadata items: [{ icon: string, text: string }]
+ * @param object status - Status badges: { viewed: boolean, exclusivity: boolean }
+ * @param object cta - Call-to-action: { text: string, url: string }
+ * @param string url - Optional URL (makes entire card clickable)
  * @param object attributes - Additional HTML attributes
- #}
+ * 
+ * Usage:
+ *   {% include '@components/offer-card/offer-card.twig' with {
+ *     title: 'Rent Offices MADRID',
+ *     surface: '611.3 m²',
+ *     price: '20 000 € HT/HC/m²/an',
+ *     image: { url: '/images/property.jpg', alt: 'Office space' },
+ *     meta: [{ icon: 'pin-map', text: 'Madrid' }],
+ *     cta: { text: 'View property', url: '/property/123' }
+ *   } only %}
+ * 
+ * @see offer-card.yml for full props documentation
+ * @see README.md for detailed usage examples
+ */
+#}
 
 {%- set layout = layout|default('vertical') -%}
-{%- set status = status|default({
-  viewed: false,
-  exclusivity: false
-}) -%}
-{%- set price_value = price_value|default(price) -%}
-{%- set price_details = price_details|default(null) -%}
+{%- set status = status|default({ viewed: false, exclusivity: false }) -%}
+{%- set cta = cta|default({ text: 'View the property', url: '#' }) -%}
 
-{# Build image HTML #}
-{%- set imageHtml -%}
-  <div class="ps-offer-card__media">
-    <button class="ps-offer-card__media-nav ps-offer-card__media-nav--prev" type="button" aria-label="Previous image">
-      <span data-icon="arrow-left" aria-hidden="true"></span>
-    </button>
+{% embed '@components/card/card.twig' with {
+  layout: layout,
+  variant: 'elevated',
+  radius: 'md',
+  size: 'medium',
+  url: url,
+  attributes: attributes
+} only %}
 
-    <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" />
-
-    <button class="ps-offer-card__media-nav ps-offer-card__media-nav--next" type="button" aria-label="Next image">
-      <span data-icon="arrow-right" aria-hidden="true"></span>
-    </button>
-  </div>
-{%- endset -%}
-
-{# Header: Status badges + Actions #}
-{%- set headerHtml %}
-  <div class="ps-offer-card__header">
-    <div class="ps-offer-card__badges">
-      {% if status.viewed %}
-        <span class="ps-offer-card__badge ps-offer-card__badge--viewed">
-          <span class="ps-offer-card__badge-icon" data-icon="eye" aria-hidden="true"></span>
-          Already viewed
-        </span>
-      {% endif %}
-      {% if status.exclusivity %}
-        <span class="ps-offer-card__badge ps-offer-card__badge--gold">
-          Exclusivity
-        </span>
-      {% endif %}
-    </div>
-
-    <div class="ps-offer-card__actions">
-      {# Compare action - Toggle Icon Button #}
-      {% include '@elements/button/button.twig' with {
-        icon: 'comparateur',
-        variant: 'secondary',
-        outline: true,
-        size: 'medium',
-        toggle: true,
-        url: null,
-        attributes: create_attribute()
-          .setAttribute('data-action', 'compare')
-          .setAttribute('data-ajax-url', '#ajax/compare')
-          .setAttribute('aria-label', 'Add to compare')
+  {# MEDIA BLOCK - Image with overlay (badges + actions) #}
+  {% block media %}
+    <div class="ps-offer-card__media">
+      {# Property Image #}
+      {% include '@elements/image/image.twig' with {
+        src: image.url,
+        alt: image.alt,
+        ratio: '3x2',
+        loading: 'lazy'
       } only %}
-
-      {# Favorite action - Toggle Icon Button #}
-      {% include '@elements/button/button.twig' with {
-        icon: 'fav-filled',
-        variant: 'secondary',
-        outline: true,
-        size: 'medium',
-        toggle: true,
-        url: null,
-        attributes: create_attribute()
-          .setAttribute('data-action', 'favorite')
-          .setAttribute('data-ajax-url', '#ajax/favorite')
-          .setAttribute('aria-label', 'Add to favorites')
-      } only %}
+      
+      {# Overlay: Badges (left) + Actions (right) #}
+      <div class="ps-offer-card__overlay">
+        {# Status Badges (left side) #}
+        {% if status.viewed or status.exclusivity %}
+          <div class="ps-offer-card__badges">
+            {% if status.viewed %}
+              <span class="ps-offer-card__badge ps-offer-card__badge--viewed">
+                <span class="ps-offer-card__badge-icon" data-icon="eye" aria-hidden="true"></span>
+                <span class="ps-offer-card__badge-text">Already viewed</span>
+              </span>
+            {% endif %}
+            
+            {% if status.exclusivity %}
+              <span class="ps-offer-card__badge ps-offer-card__badge--gold">
+                <span class="ps-offer-card__badge-text">Exclusivity</span>
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {# Action Buttons (right side) #}
+        <div class="ps-offer-card__actions">
+          <button 
+            type="button" 
+            class="ps-offer-card__action ps-offer-card__action--compare"
+            aria-label="Add to comparison"
+            data-action="compare"
+          >
+            <span data-icon="comparateur" aria-hidden="true"></span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="ps-offer-card__action ps-offer-card__action--favorite"
+            aria-label="Add to favorites"
+            data-action="favorite"
+          >
+            <span data-icon="fav-filled" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-{%- endset -%}
+  {% endblock %}
 
-{# Body: Title + Surface + Meta #}
-{%- set bodyHtml %}
-  <div class="ps-offer-card__body">
+  {# BODY BLOCK - Title + Surface + Meta #}
+  {% block body %}
     <h3 class="ps-offer-card__title">{{ title }}</h3>
-
+    
     {% if surface %}
       <p class="ps-offer-card__surface">{{ surface }}</p>
     {% endif %}
-
+    
     {% if meta %}
       <ul class="ps-offer-card__meta">
         {% for item in meta %}
@@ -114,43 +123,23 @@
         {% endfor %}
       </ul>
     {% endif %}
-  </div>
-{%- endset -%}
+  {% endblock %}
 
-{# Footer: Price + CTA #}
-{%- set footerHtml %}
-  {% if price or cta %}
-    <div class="ps-offer-card__footer">
-      {% if price_value %}
-        <div class="ps-offer-card__price">
-          <span class="ps-offer-card__price-amount">{{ price_value }}</span>
-          {% if price_details %}
-            <span class="ps-offer-card__price-details"> {{ price_details }}</span>
-          {% endif %}
-        </div>
-      {% endif %}
+  {# FOOTER BLOCK - Price + CTA #}
+  {% block footer %}
+    {% if price %}
+      <div class="ps-offer-card__price">{{ price }}</div>
+    {% endif %}
+    
+    {% if cta and cta.url %}
+      {% include '@elements/link/link.twig' with {
+        text: cta.text,
+        url: cta.url,
+        icon: 'arrow-right',
+        iconPosition: 'end',
+        color: 'primary'
+      } only %}
+    {% endif %}
+  {% endblock %}
 
-      {% if cta %}
-        {% include '@elements/link/link.twig' with {
-          text: cta.text,
-          url: cta.url,
-          icon: 'arrow-right',
-          color: 'primary'
-        } only %}
-      {% endif %}
-    </div>
-  {% endif %}
-{%- endset -%}
-
-{# Include card with separated regions so layout is respected #}
-<div class="ps-offer-card">
-  {% include '@components/card/card.twig' with {
-    layout: layout,
-    url: url,
-    attributes: attributes,
-    image: imageHtml,
-    header: headerHtml,
-    body: bodyHtml,
-    footer: footerHtml
-  } only %}
-</div>
+{% endembed %}

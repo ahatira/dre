@@ -1,54 +1,121 @@
-# Default offer card (vertical layout - Figma exact)
+# Offer Card - Real Estate Property Card
+# Specialized card component for real estate listings (embeds Card component)
+
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/Component/schema.json
+name: 'Offer Card'
+status: stable
+group: components
+description: 'Specialized card for real estate property listings with image overlay, badges, price, and metadata.'
+
+props:
+  type: object
+  required:
+    - title
+    - image
+  properties:
+    layout:
+      type: string
+      title: 'Layout orientation'
+      description: 'Card layout: vertical (default) or horizontal'
+      enum:
+        - vertical
+        - horizontal
+      default: vertical
+    
+    title:
+      type: string
+      title: 'Property title'
+      description: 'Main property title (e.g., "Rent Offices MADRID Barrio de Chamberí")'
+    
+    surface:
+      type: string
+      title: 'Surface area'
+      description: 'Property surface area with unit (e.g., "611.3 m²")'
+    
+    price:
+      type: string
+      title: 'Price'
+      description: 'Property price with unit (e.g., "20 000 € HT/HC/m²/an")'
+    
+    image:
+      type: object
+      title: 'Property image'
+      required:
+        - url
+        - alt
+      properties:
+        url:
+          type: string
+          title: 'Image URL'
+        alt:
+          type: string
+          title: 'Image alt text'
+    
+    meta:
+      type: array
+      title: 'Metadata items'
+      description: 'Array of metadata items (location, features, etc.)'
+      items:
+        type: object
+        properties:
+          icon:
+            type: string
+            title: 'Icon name'
+            description: 'Icon name without icon- prefix (e.g., "pin-map")'
+          text:
+            type: string
+            title: 'Meta text'
+    
+    status:
+      type: object
+      title: 'Status badges'
+      description: 'Display status badges (viewed, exclusivity)'
+      properties:
+        viewed:
+          type: boolean
+          title: 'Already viewed badge'
+          default: false
+        exclusivity:
+          type: boolean
+          title: 'Exclusivity badge'
+          default: false
+    
+    cta:
+      type: object
+      title: 'Call-to-action'
+      description: 'CTA link configuration'
+      properties:
+        text:
+          type: string
+          title: 'CTA text'
+          default: 'View the property'
+        url:
+          type: string
+          title: 'CTA URL'
+    
+    url:
+      type: string
+      title: 'Card link URL'
+      description: 'Optional URL to make entire card clickable'
+    
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: 'Additional HTML attributes'
+
+# Default values for Storybook
 layout: vertical
 title: 'Rent Offices MADRID Barrio de Chamberí'
 surface: '611.3 m²'
 price: '20 000 € HT/HC/m²/an'
-price_value: '20 000 €'
-price_details: 'HT/HC/m²/an'
 status:
   viewed: true
   exclusivity: true
 image:
-  url: 'https://picsum.photos/400/400?random=1'
-  alt: 'Office space in Madrid'
+  url: '/images/3-2.jpg'
+  alt: 'Modern office space in Madrid'
 meta:
   - icon: 'pin-map'
     text: '28010 MADRID'
 cta:
   text: 'View the property'
   url: '#property-123'
-
-# Horizontal layout example (Figma exact 721×212px)
-# layout: horizontal
-# title: 'Rent Offices MADRID Barrio de Chamberí'
-# surface: '611.3 m²'
-# price: '20 000 € HT/HC/m²/an'
-# price_value: '20 000 €'
-# price_details: 'HT/HC/m²/an'
-# status:
-#   viewed: true
-#   exclusivity: true
-# image:
-#   url: 'https://picsum.photos/242/212?random=2'
-#   alt: 'Office space'
-# meta:
-#   - icon: 'pin-map'
-#     text: '28010 MADRID'
-# cta:
-#   text: 'View the property'
-#   url: '#property-456'
-
-# Without status badges
-# layout: vertical
-# title: 'Sale Apartment PARIS 16ème'
-# surface: '120 m²'
-# price: '1 500 000 €'
-# image:
-#   url: 'https://picsum.photos/400/400?random=3'
-#   alt: 'Apartment in Paris'
-# meta:
-#   - icon: 'pin-map'
-#     text: '75016 PARIS'
-# cta:
-#   text: 'View the property'
-#   url: '#property-789'
