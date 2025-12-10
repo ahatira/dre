@@ -1,5 +1,5 @@
 {
-  "generated": "2025-12-10T01:49:59.024Z",
+  "generated": "2025-12-10T02:18:25.844Z",
   "total": 141,
   "names": [
     "accessibility",
@@ -178,7 +178,13 @@
       "virtual-tour",
       "waiting-room"
     ],
-    "blog": ["events", "market", "recent-posts", "testimonial", "trends"],
+    "blog": [
+      "events",
+      "market",
+      "recent-posts",
+      "testimonial",
+      "trends"
+    ],
     "country": [
       "bike",
       "boat",
@@ -236,9 +242,21 @@
       "trash",
       "unfold"
     ],
-    "metropole": ["area", "award", "district"],
-    "mobile-only": ["burger-menu", "menu", "touch"],
-    "other": ["chart", "fullscreen", "video"],
+    "metropole": [
+      "area",
+      "award",
+      "district"
+    ],
+    "mobile-only": [
+      "burger-menu",
+      "menu",
+      "touch"
+    ],
+    "other": [
+      "chart",
+      "fullscreen",
+      "video"
+    ],
     "search": [
       "alert-add",
       "area-select",
@@ -264,9 +282,25 @@
       "twitter",
       "youtube"
     ],
-    "tools": ["cube-focus", "open-space", "shared-areas"],
-    "tutoffice": ["next", "pause", "play", "previous"],
-    "univers": ["commercial-space", "coworking", "land", "office", "shop", "warehouse"],
+    "tools": [
+      "cube-focus",
+      "open-space",
+      "shared-areas"
+    ],
+    "tutoffice": [
+      "next",
+      "pause",
+      "play",
+      "previous"
+    ],
+    "univers": [
+      "commercial-space",
+      "coworking",
+      "land",
+      "office",
+      "shop",
+      "warehouse"
+    ],
     "website": [
       "account",
       "buy-rent",

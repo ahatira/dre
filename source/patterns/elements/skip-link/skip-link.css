@@ -11,18 +11,20 @@
   --ps-skip-link-top: var(--size-4);
   --ps-skip-link-left: var(--size-4);
   --ps-skip-link-z-index: var(--layer-important);
-  --ps-skip-link-padding-y: var(--size-3);
-  --ps-skip-link-padding-x: var(--size-4);
-  --ps-skip-link-bg: var(--primary);
-  --ps-skip-link-hover-bg: var(--primary-hover);
+  --ps-skip-link-padding-y: var(--size-3); /* 12px */
+  --ps-skip-link-padding-x: var(--size-5); /* 20px - increased for better spacing */
+  --ps-skip-link-bg: var(--primary); /* #00915A - green BNP */
+  --ps-skip-link-hover-bg: var(--primary-hover); /* Darker green on hover */
+  --ps-skip-link-active-bg: var(--primary); /* Reset on active */
   --ps-skip-link-color: var(--white);
-  --ps-skip-link-border-radius: var(--radius-2);
+  --ps-skip-link-border-radius: var(--radius-3); /* 6px - more polished */
   --ps-skip-link-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Elevation shadow */
+  --ps-skip-link-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
   --ps-skip-link-font-family: var(--font-sans);
-  --ps-skip-link-font-size: var(--font-size-1);
-  --ps-skip-link-font-weight: var(--font-weight-500);
+  --ps-skip-link-font-size: var(--font-size-1); /* 16px */
+  --ps-skip-link-font-weight: var(--font-weight-600); /* 600 - semi-bold for presence */
   --ps-skip-link-line-height: var(--leading-normal);
-  --ps-skip-link-transition-duration: var(--duration-fast);
+  --ps-skip-link-transition-duration: var(--duration-fast); /* 150ms */
   --ps-skip-link-transition-timing: var(--ease-3);
   --ps-skip-link-focus-outline-width: var(--border-size-2);
   --ps-skip-link-focus-outline-color: var(--border-focus);
@@ -53,22 +55,36 @@
   text-decoration: none;
   white-space: nowrap;
 
-  /* Transition */
-  transition: transform var(--ps-skip-link-transition-duration) var(--ps-skip-link-transition-timing);
+  /* Transition - Enhanced with box-shadow and background-color */
+  transition:
+    transform var(--ps-skip-link-transition-duration) var(--ps-skip-link-transition-timing),
+    background-color var(--ps-skip-link-transition-duration) var(--ps-skip-link-transition-timing),
+    box-shadow var(--ps-skip-link-transition-duration) var(--ps-skip-link-transition-timing);
 
   /* States */
+  &:hover {
+    background-color: var(--ps-skip-link-hover-bg);
+    box-shadow: var(--ps-skip-link-shadow-hover);
+  }
+
+  &:active {
+    background-color: var(--ps-skip-link-active-bg);
+  }
+
   &:focus-visible {
     transform: translateY(0);
     outline: var(--ps-skip-link-focus-outline-width) solid var(--ps-skip-link-focus-outline-color);
     outline-offset: var(--ps-skip-link-focus-outline-offset);
   }
 
-  &:hover {
-    background-color: var(--ps-skip-link-hover-bg);
-  }
-
   /* Combined focus + hover state */
   &:focus-visible:hover {
     background-color: var(--ps-skip-link-hover-bg);
+    box-shadow: var(--ps-skip-link-shadow-hover);
+  }
+
+  /* Combined focus + active state */
+  &:focus-visible:active {
+    background-color: var(--ps-skip-link-active-bg);
   }
 }
