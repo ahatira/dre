@@ -17,7 +17,7 @@ export default {
     options: {
       description:
         'Array of option objects: [{ value, label, disabled?, selected? }]. First option often used as placeholder with disabled+selected flags.',
-      control: 'object',
+      control: false,
       table: { category: 'Content' },
     },
 
@@ -43,16 +43,17 @@ export default {
       table: { category: 'Behavior', defaultValue: { summary: false } },
     },
 
-    // States
+    // States - Validation
     error: {
-      description: 'Error state with red border and icon (applies ps-select--error)',
-      control: 'text',
-      table: { category: 'States' },
+      description: 'Error state with red border and icon (applies ps-select--error modifier)',
+      control: 'boolean',
+      table: { category: 'States', defaultValue: { summary: false } },
     },
     success: {
-      description: 'Success/valid state with green border and icon (applies ps-select--success)',
-      control: 'text',
-      table: { category: 'States' },
+      description:
+        'Success/valid state with green border and icon (applies ps-select--success modifier)',
+      control: 'boolean',
+      table: { category: 'States', defaultValue: { summary: false } },
     },
 
     // Attributes
