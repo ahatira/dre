@@ -48,17 +48,7 @@ export default settings;
 // STORIES
 // ========================================
 
-export const Default = {
-  name: 'Default',
-  args: {
-    items: [
-      { label: 'Accueil', url: '/' },
-      { label: 'Locations', url: '/locations' },
-      { label: 'Paris 15ème Arrondissement', url: '/locations/paris-15' },
-      { label: 'Appartement familial T4 - Vue sur Tour Eiffel' },
-    ],
-  },
-};
+export const Default = {};
 
 export const Compact = {
   name: 'Compact',
