@@ -1,4 +1,4 @@
-# Default: Standard breadcrumb with Real Estate navigation
+# Default: Standard breadcrumb with Real Estate navigation (4 levels)
 items:
   - label: 'Home'
     url: '/'
@@ -10,4 +10,5 @@ items:
 
 # items[].label: string (required) - Breadcrumb item label
 # items[].url: string (optional) - Link URL (omit for last/current item)
-# Design: Pixel perfect - 14px font, 24px line-height, 4px gap (--size-1), underline on links, › separator
+# Design: 14px font (--font-size-1), 24px line-height (--leading-6), 4px separator margin (--size-1)
+# Separator: › (U+203A) auto-generated via CSS ::after pseudo-element

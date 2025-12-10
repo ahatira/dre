@@ -8,7 +8,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Breadcrumb shows the page hierarchy with semantic, accessible markup. Improves navigation and SEO with clear current-page indication.',
+          'Breadcrumb shows the page hierarchy with semantic, accessible markup. Improves navigation and SEO with clear current-page indication. Separator (›) is auto-generated via CSS ::after pseudo-element.',
       },
     },
   },
@@ -29,14 +29,24 @@ export const Default = {
   args: { ...breadcrumbData },
 };
 
-export const Simple = {
+export const ShortPath = {
+  name: 'Short Path (2 levels)',
   render: () =>
     breadcrumbTwig({
-      items: [{ label: 'Home', url: '/' }, { label: 'Current Page' }],
+      items: [{ label: 'Home', url: '/' }, { label: 'Properties for Sale' }],
     }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Minimal breadcrumb with only 2 levels - useful for shallow navigation hierarchies or landing pages.',
+      },
+    },
+  },
 };
 
-export const Deep = {
+export const DeepHierarchy = {
+  name: 'Deep Hierarchy (7 levels)',
   render: () =>
     breadcrumbTwig({
       items: [
@@ -49,18 +59,57 @@ export const Deep = {
         { label: 'Champs-Élysées Premium Office Space' },
       ],
     }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Complex navigation path with 7 levels - demonstrates flex-wrap behavior on narrow viewports and handles long hierarchies gracefully.',
+      },
+    },
+  },
 };
 
-export const Residential = {
+export const CommercialProperty = {
+  name: 'Commercial Property Path',
+  render: () =>
+    breadcrumbTwig({
+      items: [
+        { label: 'Home', url: '/' },
+        { label: 'Commercial Real Estate', url: '/commercial' },
+        { label: 'Retail Spaces', url: '/commercial/retail' },
+        { label: 'Paris 16th - Luxury Boutique Space' },
+      ],
+    }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Real Estate métier example - Commercial property navigation path showing category hierarchy (Home → Category → Subcategory → Property).',
+      },
+    },
+  },
+};
+
+export const ResidentialComplex = {
+  name: 'Residential Complex Path',
   render: () =>
     breadcrumbTwig({
       items: [
         { label: 'Home', url: '/' },
         { label: 'Residential Properties', url: '/residential' },
-        { label: 'Paris 15e Apartments', url: '/residential/paris-15' },
-        { label: 'Modern 3-Bedroom Apartment' },
+        { label: 'Apartment Complexes', url: '/residential/complexes' },
+        { label: 'Paris 15th District', url: '/residential/complexes/paris-15' },
+        { label: 'Les Jardins de Vaugirard - Modern 3BR Apartment' },
       ],
     }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Real Estate métier example - Residential complex navigation showing Location → Type → District → Specific Property with descriptive final label.',
+      },
+    },
+  },
 };
 
 export default settings;

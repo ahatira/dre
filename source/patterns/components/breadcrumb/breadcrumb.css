@@ -3,20 +3,64 @@
  * Navigational trail displaying page hierarchy with accessible markup
  * 
  * BEM: ps-breadcrumb, ps-breadcrumb__list, ps-breadcrumb__item, ps-breadcrumb__link
- * Separator: ›
+ * Separator: › (U+203A - Single Right-Pointing Angle Quotation Mark)
+ * 
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, fonts.css, etc.)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ * - Layer 3: Context Overrides (variant + modifier selectors)
  */
 
 .ps-breadcrumb {
-  font-family: var(--font-sans);
-  font-size: var(--font-size-1);
-  line-height: var(--leading-6);
-  color: var(--text-primary);
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Override these variables in Layer 3 for customization
+     ============================================ */
+  
+  /* Typography */
+  --ps-breadcrumb-font-family: var(--font-sans);
+  --ps-breadcrumb-font-size: var(--font-size-1);
+  --ps-breadcrumb-font-weight: var(--font-weight-400);
+  --ps-breadcrumb-line-height: var(--leading-6);
+  
+  /* Colors */
+  --ps-breadcrumb-color: var(--text-primary);
+  --ps-breadcrumb-link-color: var(--text-primary);
+  --ps-breadcrumb-link-hover-color: var(--primary);
+  --ps-breadcrumb-separator-color: var(--text-primary);
+  
+  /* Spacing */
+  --ps-breadcrumb-separator-margin: var(--size-1);
+  --ps-breadcrumb-list-gap: 0;
+  
+  /* Focus */
+  --ps-breadcrumb-focus-outline-width: var(--border-size-2);
+  --ps-breadcrumb-focus-outline-color: var(--secondary);
+  --ps-breadcrumb-focus-outline-offset: var(--border-size-2);
+  --ps-breadcrumb-focus-border-radius: var(--radius-1);
+  
+  /* Transitions */
+  --ps-breadcrumb-transition-duration: var(--duration-fast);
+  --ps-breadcrumb-transition-timing: var(--ease-3);
+  
+  /* Separator (U+203A) */
+  --ps-breadcrumb-separator-content: '›';
+  --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
+  
+  /* ============================================
+     Apply Component Variables to Properties
+     ============================================ */
+  
+  font-family: var(--ps-breadcrumb-font-family);
+  font-size: var(--ps-breadcrumb-font-size);
+  line-height: var(--ps-breadcrumb-line-height);
+  color: var(--ps-breadcrumb-color);
   
   &__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0;
+    gap: var(--ps-breadcrumb-list-gap);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -33,36 +77,36 @@
       justify-content: center;
       width: 16px;
       height: 16px;
-      margin: 0 var(--size-1);
-      background-image: svg-load('generic/chevron-right.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      color: var(--text-primary);
+      margin: 0 var(--ps-breadcrumb-separator-margin);
+      background-color: var(--ps-breadcrumb-separator-color);
+      mask-image: var(--ps-breadcrumb-separator-icon-mask);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
     }
     
     &--current {
-      font-weight: var(--font-weight-400);
+      font-weight: var(--ps-breadcrumb-font-weight);
     }
   }
   
   &__link {
-    color: var(--text-primary);
+    color: var(--ps-breadcrumb-link-color);
     text-decoration: underline;
-    transition: color var(--duration-fast) var(--ease-3);
+    transition: color var(--ps-breadcrumb-transition-duration) var(--ps-breadcrumb-transition-timing);
     
     &:hover {
-      color: var(--primary);
+      color: var(--ps-breadcrumb-link-hover-color);
     }
     
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--info);
-      outline-offset: var(--border-size-2);
-      border-radius: var(--radius-1);
+      outline: var(--ps-breadcrumb-focus-outline-width) solid var(--ps-breadcrumb-focus-outline-color);
+      outline-offset: var(--ps-breadcrumb-focus-outline-offset);
+      border-radius: var(--ps-breadcrumb-focus-border-radius);
     }
     
     &:visited {
-      color: var(--text-primary);
+      color: var(--ps-breadcrumb-link-color);
     }
   }
 }
