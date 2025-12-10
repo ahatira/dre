@@ -85,11 +85,10 @@
     
     /* Link styles */
     &:is(a) {
-      text-decoration: none; /* Maquette visuelle: pas de underline par défaut */
+      text-decoration: underline; /* Maquette visuelle: underline PAR DÉFAUT */
       
       &:hover {
         color: var(--ps-breadcrumb-link-hover-color);
-        text-decoration: underline; /* Apparaît au hover */
       }
       
       &:focus-visible {
@@ -99,7 +98,7 @@
       }
     }
     
-    /* Current page (span) - Maquette: font-weight normal */
+    /* Current page (span) - Pas de underline */
     &:is(span) {
       text-decoration: none;
     }
@@ -126,7 +125,13 @@
   }
   
   .ps-breadcrumb--no-underline {
-    /* DEPRECATED: Default behavior now matches mockup (no underline) */
-    /* This modifier is kept for backward compatibility but has no effect */
+    /* Remove underline from links (cleaner alternative) */
+    .ps-breadcrumb__link:is(a) {
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
