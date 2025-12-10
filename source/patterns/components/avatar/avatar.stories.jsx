@@ -80,7 +80,7 @@ export default {
 
 export const Default = {
   args: {
-    src: 'https://loremflickr.com/300/300/building,office?random=1',
+    src: '/source/assets/images/1-1.jpg',
     alt: 'Real estate agent',
     initials: '',
   },
@@ -157,7 +157,7 @@ export const AllSizes = {
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
-            src: 'https://loremflickr.com/300/300/building,office?random=2',
+            src: '/source/assets/images/1-1.jpg',
             alt: 'Agent',
             size: value,
           })}
@@ -188,7 +188,7 @@ export const AllShapes = {
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
-            src: 'https://loremflickr.com/300/300/building,office?random=3',
+            src: '/source/assets/images/1-1.jpg',
             alt: 'Agent',
             shape: value,
           })}
@@ -219,7 +219,7 @@ export const StatusVariants = {
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
-            src: 'https://loremflickr.com/300/300/building,office?random=4',
+            src: '/source/assets/images/1-1.jpg',
             alt: 'Agent',
             status: value,
           })}
@@ -249,7 +249,7 @@ export const Bordered = {
       ${sizes
         .map((size) =>
           avatarTwig({
-            src: 'https://loremflickr.com/300/300/building,office?random=5',
+            src: '/source/assets/images/1-1.jpg',
             alt: 'Agent',
             size,
             bordered: true,
@@ -271,12 +271,12 @@ export const Clickable = {
   render: () => {
     return `<div style="display:flex; gap: 24px; align-items:center;">
       ${avatarTwig({
-        src: 'https://loremflickr.com/300/300/building,office?random=6',
+        src: '/source/assets/images/1-1.jpg',
         alt: 'Agent',
         clickable: true,
       })}
       ${avatarTwig({
-        src: 'https://loremflickr.com/300/300/building,office?random=7',
+        src: '/source/assets/images/1-1.jpg',
         alt: 'Agent',
         clickable: true,
         href: '/agents/profile',
