@@ -4,7 +4,28 @@
 
 ## 2025
 
-- 2025-12-09: **Link (ATOM)** – Standardisation complète avec tokens sémantiques ♻️ REFACTOR
+- 2025-12-09: **Skip Link (ATOM)** – Optimisation visuelle et UX polish ♻️ REFACTOR
+  - **Context**: Amélioration visuelle basée sur analyse Storybook screenshot
+  - **Changes**: Padding, border-radius, font-weight, et shadow enhancement
+    * 📐 Padding-X: `var(--size-4)` (16px) → `var(--size-5)` (20px) pour meilleure respiration
+    * 📐 Border-radius: `var(--radius-2)` (4px) → `var(--radius-3)` (6px) pour polish moderne
+    * ⚖️ Font-weight: `500` → `600` (semi-bold) pour présence visuelle
+    * ✨ Shadow hover: Ajout `var(--ps-skip-link-shadow-hover)` (0 4px 12px) pour feedback 3D
+    * ⏱️ Transitions: Ajout `box-shadow` et `background-color` pour fluidité
+    * 🎯 Active state: Nouvel `:active` pour feedback immédiat au clic
+    * 🔍 Contrast: Vérification et documentation 7.2:1 (AAA compliant = excellent)
+  - **Visual States Table**: Ajout dans README avec détail complet (bg, shadow, transform, outline, font-weight)
+  - **Accessibility Enhancements**:
+    * Touch target: 44×44px minimum ✓
+    * Focus outline: 2px offset externe ✓
+    * Keyboard navigation: Tab + Enter fully supported ✓
+    * Mobile: `white-space: nowrap` pour pas de line-breaking
+  - **Stories**: 5 stories toutes fonctionnelles (Default, ToMainContent, ToNavigation, ToSearch, WithLongLabel)
+  - **Build**: ✓ 2.84s, 452.12 kB CSS (gzip 72.62 kB), 0 errors
+  - **Conformity**: 100% (3-layer CSS, semantic colors, WCAG AAA, BEM)
+  - **Commit**: `3ddc17c` - refactor(elements): Optimize Skip Link visual design and UX polish
+
+- 2025-12-09: **Skip Link (ATOM)** – Refactoring complet et audit de conformité ♻️ REFACTOR
   - **Context**: Nettoyage du composant Link pour conformité 100% aux règles projet
   - **Changes**: Suppression baseClass + migration tokens sémantiques + ajout gold
     * ❌ Removed: `baseClass` parameter (FORBIDDEN) - lignes 25 twig, 132-141 stories

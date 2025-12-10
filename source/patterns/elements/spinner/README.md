@@ -43,38 +43,104 @@ Modifiers:
 
 ---
 
+## Component Variables (Layer 2)
+
+Defined in `spinner.css`; override any of these in context or custom CSS:
+
+| Variable | Default (references) | Purpose |
+|----------|----------------------|---------|
+| `--ps-spinner-size` | `var(--size-8)` | Spinner dimension (width & height) - 32px default |
+| `--ps-spinner-color` | `var(--gray-500)` | Text/stroke color |
+| `--ps-spinner-display` | `inline-flex` | Display type |
+| `--ps-spinner-align-items` | `center` | Vertical alignment |
+| `--ps-spinner-justify-content` | `center` | Horizontal alignment |
+
+### Size Modifiers (Override --ps-spinner-size)
+
+| Size | Modifier Class | Dimension | Use Case |
+|------|----------------|-----------|----------|
+| `xs` | `.ps-spinner--xs` | 16px (`--size-4`) | Button loading states |
+| `sm` | `.ps-spinner--sm` | 24px (`--size-6`) | Inline/compact spaces |
+| `md` | `.ps-spinner--md` | 32px (`--size-8`) | **Default** - standard usage |
+| `lg` | `.ps-spinner--lg` | 48px (`--size-12`) | Centered loaders |
+| `xl` | `.ps-spinner--xl` | 64px (`--size-16`) | Full page loading |
+| `xxl` | `.ps-spinner--xxl` | 80px (`--size-20`) | Hero/splash screens |
+
+### Color Modifiers (Override --ps-spinner-color)
+
+| Color | Modifier Class | Token | Use Case |
+|-------|----------------|-------|----------|
+| `default` | — (no class) | `var(--gray-500)` | Neutral/default state |
+| `primary` | `.ps-spinner--primary` | `var(--primary)` | BNP brand green |
+| `secondary` | `.ps-spinner--secondary` | `var(--secondary)` | Pink accent |
+| `success` | `.ps-spinner--success` | `var(--success)` | Success/confirmation |
+| `info` | `.ps-spinner--info` | `var(--info)` | Informational |
+| `warning` | `.ps-spinner--warning` | `var(--warning)` | Warning states |
+| `danger` | `.ps-spinner--danger` | `var(--danger)` | Error/destructive |
+| `dark` | `.ps-spinner--dark` | `var(--gray-800)` | Dark backgrounds (light mode) |
+| `light` | `.ps-spinner--light` | `var(--gray-200)` | Light backgrounds |
+| `white` | `.ps-spinner--white` | `var(--white)` | Dark background overlays |
+
+### Variant Modifiers
+
+| Variant | Modifier Class | Animation | Use Case |
+|---------|----------------|-----------|----------|
+| `circular` | — (no class) | Rotating SVG circle | **Default** - most common |
+| `dots` | `.ps-spinner--dots` | 3 bouncing dots | Subtle alternative |
+| `bars` | `.ps-spinner--bars` | 3 stretching bars | Visual variety |
+
+### Animations (Defined in CSS)
+
+| Animation | Duration | Easing | Purpose |
+|-----------|----------|--------|---------|
+| `ps-spinner-rotate` | 1s | linear | SVG rotation (circular) |
+| `ps-spinner-dash` | 1.5s | ease-in-out | Dash animation (circular stroke) |
+| `ps-spinner-bounce` | 1.4s | ease-in-out | Bounce effect (dots) |
+| `ps-spinner-stretch` | 1.2s | ease-in-out | Stretch effect (bars) |
+
+---
+
 ## Design Tokens Used
 
-### Sizes
+### Layer 1: Global Primitives (from `source/props/*.css`)
 
+- **Colors**: `var(--gray-500)`, `var(--gray-200)`, `var(--gray-800)`, `var(--white)`
+- **Semantic Colors**: `var(--primary)`, `var(--secondary)`, `var(--success)`, `var(--info)`, `var(--warning)`, `var(--danger)`
+- **Sizes**: `var(--size-4)` through `var(--size-20)`
 
-## 🎨 Design Tokens (3-layer system)
+### Layer 2: Component Scoped (from `spinner.css`)
 
-### Colors
-- Default: `var(--ps-spinner-color-default, var(--spinner-color-default, var(--text-primary, var(--gray-500))))`
-- Primary: `var(--ps-spinner-color-primary, var(--spinner-color-primary, var(--primary)))`
-- Secondary: `var(--ps-spinner-color-secondary, var(--spinner-color-secondary, var(--secondary)))`
-- Success: `var(--ps-spinner-color-success, var(--spinner-color-success, var(--success, var(--btn-success))))`
-- Info: `var(--ps-spinner-color-info, var(--spinner-color-info, var(--info, var(--btn-info))))`
-- Warning: `var(--ps-spinner-color-warning, var(--spinner-color-warning, var(--warning, var(--btn-warning))))`
-- Danger: `var(--ps-spinner-color-danger, var(--spinner-color-danger, var(--danger, var(--btn-danger))))`
-- Dark: `var(--ps-spinner-color-dark, var(--spinner-color-dark, var(--neutral, var(--gray-800))))`
-- Light: `var(--ps-spinner-color-light, var(--spinner-color-light, var(--white)))`
-- White: `var(--ps-spinner-color-white, var(--spinner-color-white, var(--white)))`
+- `--ps-spinner-size`: Dimension variable
+- `--ps-spinner-color`: Text/stroke color
+- `--ps-spinner-display`: Display type
+- `--ps-spinner-align-items`: Alignment
+- `--ps-spinner-justify-content`: Alignment
 
-### Sizes
-- xs: `var(--ps-spinner-size-xs, var(--spinner-size-xs, var(--size-4)))` (16px)
-- sm: `var(--ps-spinner-size-sm, var(--spinner-size-sm, var(--size-6)))` (24px)
-- md: `var(--ps-spinner-size-md, var(--spinner-size-md, var(--size-8)))` (32px)
-- lg: `var(--ps-spinner-size-lg, var(--spinner-size-lg, var(--size-12)))` (48px)
-- xl: `var(--ps-spinner-size-xl, var(--spinner-size-xl, var(--size-16)))` (64px)
-- xxl: `var(--ps-spinner-size-xxl, var(--spinner-size-xxl, var(--size-20)))` (80px)
+### Layer 3: Context Overrides (in custom CSS)
 
-### Animations
-- Rotation: `@keyframes ps-spinner-rotate` (1s linear infinite)
-- Dash: `@keyframes ps-spinner-dash` (1.5s ease-in-out infinite)
-- Bounce: `@keyframes ps-spinner-bounce` (1.4s ease-in-out infinite both)
-- Stretch: `@keyframes ps-spinner-stretch` (1.2s ease-in-out infinite)
+Override `--ps-spinner-size`, `--ps-spinner-color`, or other variables in parent CSS for context-specific styling.
+
+---
+
+## 🎨 Semantic Colors Reference
+
+The spinner uses **semantic tokens** for all colors to ensure consistency with brand guidelines:
+
+**Primary Colors**:
+- `default` → `var(--gray-500)` (neutral gray)
+- `primary` → `var(--primary)` (BNP brand green #00915A)
+- `secondary` → `var(--secondary)` (pink accent #A12B66)
+
+**Contextual Colors**:
+- `success` → `var(--success)` (validation states)
+- `info` → `var(--info)` (informational content)
+- `warning` → `var(--warning)` (caution states)
+- `danger` → `var(--danger)` (error/destructive actions)
+
+**Light/Dark Variants**:
+- `dark` → `var(--gray-800)` (dark backgrounds in light mode)
+- `light` → `var(--gray-200)` (light backgrounds)
+- `white` → `var(--white)` (overlays on dark backgrounds)
 
 ## Usage Examples
 

@@ -11,14 +11,17 @@
 
 /* ==================== BASE ==================== */
 .ps-spinner {
-  /* Component-scoped variables (defaults - Bootstrap 5 pattern) */
+  /* Component-scoped variables (Layer 2) */
   --ps-spinner-size: var(--size-8); /* 32px (md) */
   --ps-spinner-color: var(--gray-500); /* default/neutral */
+  --ps-spinner-display: inline-flex;
+  --ps-spinner-align-items: center;
+  --ps-spinner-justify-content: center;
   
   /* Apply component variables */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--ps-spinner-display);
+  align-items: var(--ps-spinner-align-items);
+  justify-content: var(--ps-spinner-justify-content);
   width: var(--ps-spinner-size);
   height: var(--ps-spinner-size);
   color: var(--ps-spinner-color);
@@ -169,11 +172,13 @@
 
 /* ==================== MODIFIERS ==================== */
 
-.ps-spinner--centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.ps-spinner {
+  &--centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* ==================== ANIMATIONS ==================== */

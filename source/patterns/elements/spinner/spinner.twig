@@ -21,7 +21,7 @@
   variant != 'circular' ? 'ps-spinner--' ~ variant : null,
   size != 'md' ? 'ps-spinner--' ~ size : null,
   color != 'default' ? 'ps-spinner--' ~ color : null,
-  centered ? 'ps-spinner--centered' : null
+  centered ? 'ps-spinner--centered' : null,
 ] -%}
 
 <div {{ attributes.addClass(classes) }} role="status" aria-live="polite">
