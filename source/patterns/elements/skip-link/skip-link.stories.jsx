@@ -44,40 +44,34 @@ export const Default = {
   args: { ...data },
 };
 
-export const UseCases = {
-  render: () => `
-    <div style="position: relative; padding: 4rem 1rem 1rem; border: 2px dashed var(--gray-300); min-height: 200px;">
-      <p style="position: absolute; top: var(--size-4); left: var(--size-4); margin: 0; font-size: var(--font-size-0); color: var(--gray-600);">
-        👆 Press Tab to see the skip link appear at top-left
-      </p>
-      ${skipLinkTwig({ targetId: 'main-content', label: 'Skip to main content' })}
-      <div style="margin-top: var(--size-8);">
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Multiple Skip Links Example</h3>
-        <div style="display: flex; flex-direction: column; gap: var(--size-2);">
-          ${skipLinkTwig({ targetId: 'main-content', label: 'Skip to main content' })}
-          ${skipLinkTwig({ targetId: 'navigation', label: 'Skip to navigation' })}
-          ${skipLinkTwig({ targetId: 'search', label: 'Skip to search' })}
-        </div>
-      </div>
-      <div style="margin-top: var(--size-6);">
-        <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-2);">Implementation Guidelines</h3>
-        <ul style="margin: 0; padding-left: var(--size-6); font-size: var(--font-size-1);">
-          <li>Must be the first focusable element on the page</li>
-          <li>Allows keyboard users to bypass repetitive navigation</li>
-          <li>Required for WCAG 2.2 criterion 2.4.1 (Level A)</li>
-          <li>Visible only on keyboard focus, hidden otherwise</li>
-          <li>Target element must have matching id attribute</li>
-        </ul>
-      </div>
-      <div id="main-content" style="margin-top: var(--size-8); padding: var(--size-4); background: var(--gray-50); border-radius: var(--radius-2);">
-        <p style="margin: 0;"><strong>Main Content Area</strong> - Skip link points here (id="main-content")</p>
-      </div>
-      <div id="navigation" style="margin-top: var(--size-4); padding: var(--size-4); background: var(--blue-50); border-radius: var(--radius-2);">
-        <p style="margin: 0;"><strong>Navigation Area</strong> - Alternative target (id="navigation")</p>
-      </div>
-      <div id="search" style="margin-top: var(--size-4); padding: var(--size-4); background: var(--green-50); border-radius: var(--radius-2);">
-        <p style="margin: 0;"><strong>Search Area</strong> - Alternative target (id="search")</p>
-      </div>
-    </div>
-  `,
+export const ToMainContent = {
+  render: (args) => skipLinkTwig(args),
+  args: {
+    targetId: 'main-content',
+    label: 'Skip to main content',
+  },
+};
+
+export const ToNavigation = {
+  render: (args) => skipLinkTwig(args),
+  args: {
+    targetId: 'navigation',
+    label: 'Skip to navigation',
+  },
+};
+
+export const ToSearch = {
+  render: (args) => skipLinkTwig(args),
+  args: {
+    targetId: 'search',
+    label: 'Skip to search',
+  },
+};
+
+export const WithLongLabel = {
+  render: (args) => skipLinkTwig(args),
+  args: {
+    targetId: 'main-content',
+    label: 'Skip to main content area',
+  },
 };

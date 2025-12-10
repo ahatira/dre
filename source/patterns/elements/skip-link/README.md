@@ -5,7 +5,8 @@
 **Type**: Atom / Element  
 **Category**: Accessibility
 
-WCAG skip link allowing keyboard users to bypass repeated navigation and jump directly to the main content. Hidden off-screen until it receives keyboard focus.
+WCAG skip link allowing keyboard users to bypass repeated navigation and jump directly to the main content. Hidden off-screen until it receives keyboard focus (Tab key).
+
 ## Props
 
 | Prop | Type | Default | Required | Description |
@@ -35,7 +36,7 @@ Defined in `skip-link.css`; override any of these in context or via modifiers (n
 | `--ps-skip-link-hover-bg` | `var(--primary-hover)` | Hover background |
 | `--ps-skip-link-color` | `var(--white)` | Text color |
 | `--ps-skip-link-border-radius` | `var(--radius-2)` | Corner radius |
-| `--ps-skip-link-shadow` | `var(--shadow-3)` | Elevation shadow |
+| `--ps-skip-link-shadow` | `0 2px 8px rgba(0, 0, 0, 0.15)` | Elevation shadow |
 | `--ps-skip-link-font-family` | `var(--font-sans)` | Typeface |
 | `--ps-skip-link-font-size` | `var(--font-size-1)` | Font size |
 | `--ps-skip-link-font-weight` | `var(--font-weight-500)` | Font weight |
@@ -362,9 +363,17 @@ Lien d'évitement WCAG permettant aux utilisateurs clavier de naviguer directeme
 
 ---
 
-## Testing
+## Storybook Stories
 
-### Manual Testing
+| Story | Purpose |
+|-------|---------|
+| **Default** | Standard skip link to main content (argTypes controls) |
+| **ToMainContent** | Skip to main content area (primary use case) |
+| **ToNavigation** | Skip to navigation region (alternative target) |
+| **ToSearch** | Skip to search functionality (alternative target) |
+| **WithLongLabel** | Test with extended label text wrapping behavior |
+
+All stories demonstrate keyboard focus behavior (press Tab to reveal).
 
 1. Ouvrir la page dans un navigateur
 2. Appuyer sur `Tab` → Le skip link DOIT apparaître en haut à gauche

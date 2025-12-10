@@ -17,7 +17,7 @@
   --ps-skip-link-hover-bg: var(--primary-hover);
   --ps-skip-link-color: var(--white);
   --ps-skip-link-border-radius: var(--radius-2);
-  --ps-skip-link-shadow: var(--shadow-3);
+  --ps-skip-link-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Elevation shadow */
   --ps-skip-link-font-family: var(--font-sans);
   --ps-skip-link-font-size: var(--font-size-1);
   --ps-skip-link-font-weight: var(--font-weight-500);
@@ -64,6 +64,11 @@
   }
 
   &:hover {
+    background-color: var(--ps-skip-link-hover-bg);
+  }
+
+  /* Combined focus + hover state */
+  &:focus-visible:hover {
     background-color: var(--ps-skip-link-hover-bg);
   }
 }
