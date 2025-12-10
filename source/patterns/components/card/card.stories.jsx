@@ -8,60 +8,49 @@ const settings = {
     docs: {
       description: {
         component:
-          'Generic flexible container providing visual structure (border, padding, shadow) and layout variants. ' +
-          'Supports vertical and horizontal layouts with optional images, composable content sections (header, body, footer), ' +
-          'and clickable link mode.\n\n' +
-          '- **Variants**: default (border), outlined (thick border), flat (no border), elevated (shadow).\n' +
-          '- **Layouts**: vertical (image top/bottom), horizontal (image left/right).\n' +
-          '- **Sizes**: small (16px), medium (32px, default), large (32px extended).\n' +
-          '- **Radius**: none (default), sm (4px), md (8px), lg (16px).\n' +
-          '- **Image Position**: start (top/left), end (bottom/right).\n' +
-          '- **Clickable**: Pass `url` prop to render as `<a>` with hover effects.\n' +
-          '- **Composition**: Use `{% embed %}` blocks for complex layouts with child components.\n' +
-          '- **Design tokens**: `--ps-card-*` component-scoped variables (3-layer system).\n' +
-          '- **Real Estate context**: Perfect for property cards, office listings, news articles.',
+          '**Flexible container component** for displaying content with optional media, header, body, and footer sections.\n\n' +
+          '### Key Features\n' +
+          '- **6 Extensible Blocks**: `media`, `media_overlay`, `header`, `content`, `body`, `footer` for Drupal composition\n' +
+          '- **4 Visual Variants**: default (border), outlined (thick border), flat (no border), elevated (shadow)\n' +
+          '- **Responsive Layouts**: Vertical or horizontal (automatically stacks on mobile)\n' +
+          '- **Flexible Positioning**: Image can be placed at start (top/left) or end (bottom/right)\n' +
+          '- **Clickable Cards**: Add `url` prop to make entire card interactive\n\n' +
+          '### Design System\n' +
+          '3-layer CSS architecture: Global tokens → Component CSS variables (`--ps-card-*`) → Modifier classes.',
       },
     },
   },
   argTypes: {
-    // Appearance - Visual variants
     variant: {
       control: { type: 'select' },
       options: ['default', 'outlined', 'flat', 'elevated'],
-      description: 'Visual appearance variant',
+      description: 'Visual style variant',
       table: {
         category: 'Appearance',
         type: { summary: 'default | outlined | flat | elevated' },
         defaultValue: { summary: 'default' },
       },
     },
-
-    // Appearance - Layout
     layout: {
       control: { type: 'inline-radio' },
       options: ['vertical', 'horizontal'],
-      description: 'Layout orientation (vertical: image top/bottom, horizontal: image left/right)',
+      description: 'Layout orientation',
       table: {
         category: 'Appearance',
         type: { summary: 'vertical | horizontal' },
         defaultValue: { summary: 'vertical' },
       },
     },
-
-    // Appearance - Image position
     imagePosition: {
-      control: { type: 'select' },
-      options: ['top', 'bottom', 'left', 'right'],
-      description:
-        'Image position (top/bottom for vertical layout, left/right for horizontal layout)',
+      control: { type: 'inline-radio' },
+      options: ['start', 'end'],
+      description: 'Image position: start (top/left) or end (bottom/right)',
       table: {
         category: 'Appearance',
-        type: { summary: 'top | bottom | left | right' },
-        defaultValue: { summary: 'top' },
+        type: { summary: 'start | end' },
+        defaultValue: { summary: 'start' },
       },
     },
-
-    // Appearance - Spacing
     size: {
       control: { type: 'inline-radio' },
       options: ['small', 'medium', 'large'],
@@ -72,8 +61,6 @@ const settings = {
         defaultValue: { summary: 'medium' },
       },
     },
-
-    // Appearance - Radius
     radius: {
       control: { type: 'inline-radio' },
       options: ['none', 'sm', 'md', 'lg'],
@@ -84,51 +71,41 @@ const settings = {
         defaultValue: { summary: 'none' },
       },
     },
-
-    // Link - Navigation
     url: {
       control: 'text',
-      description: 'Optional URL - renders card as clickable <a> element with hover effects',
+      description: 'Optional URL - renders card as clickable <a> element',
       table: {
         category: 'Link',
         type: { summary: 'string | undefined' },
       },
     },
-
-    // Content - Image
     image: {
       control: 'text',
-      description: 'Image/media HTML content (optional)',
+      description: 'Image/media HTML or object {src, alt, ratio}',
       table: {
         category: 'Content',
-        type: { summary: 'string | html' },
+        type: { summary: 'string | object' },
       },
     },
-
-    // Content - Header
     header: {
       control: 'text',
-      description: 'Header section HTML (optional)',
+      description: 'Header section HTML',
       table: {
         category: 'Content',
         type: { summary: 'string | html' },
       },
     },
-
-    // Content - Body
     body: {
       control: 'text',
-      description: 'Body/content section HTML (optional)',
+      description: 'Body/content section HTML',
       table: {
         category: 'Content',
         type: { summary: 'string | html' },
       },
     },
-
-    // Content - Footer
     footer: {
       control: 'text',
-      description: 'Footer section HTML (optional)',
+      description: 'Footer section HTML',
       table: {
         category: 'Content',
         type: { summary: 'string | html' },
@@ -137,58 +114,52 @@ const settings = {
   },
 };
 
-// ==============================================
-// STORY 1: Default Card (Interactive Playground)
-// ==============================================
-
+// Shared assets
 const baseImage =
-  '<img src="/source/assets/images/3-2.jpg" alt="Modern office building" style="display: block; width: 100%; height: 100%; object-fit: cover;" />';
+  '<img src="/images/3-2.jpg" alt="Sample image" style="display: block; width: 100%; height: 100%; object-fit: cover;" />';
+
+// ==============================================
+// STORY 1: Default (Interactive Playground)
+// ==============================================
 
 export const Default = {
-  render: (args) => {
-    return cardTwig({
-      ...args,
-      image: baseImage,
-      header: `<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Bureau Premium - Madrid</h3>`,
-      body: `<p style="margin: 0; font-size: 1rem; color: var(--gray-600); line-height: 1.5;">Immeuble de bureaux moderne avec équipements haut de gamme, parking souterrain et excellentes connexions transports en commun.</p>`,
-      footer: `<div style="display: flex; gap: 1rem; align-items: center; font-size: 0.875rem; color: var(--gray-500);">
-        <span>📍 Madrid</span>
-        <span>📏 611 m²</span>
-        <span style="margin-left: auto; font-weight: 600; color: var(--primary);">€850,000</span>
-      </div>`,
-    });
+  render: (args) => cardTwig(args),
+  args: {
+    ...data,
+    image: baseImage,
+    header: '<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600;">Card Title</h3>',
+    body: '<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">This is the card description text. Customize all props using the controls below.</p>',
+    footer: '<span style="color: var(--primary); font-weight: 600;">Action link →</span>',
   },
-  args: { ...data },
 };
 
 // ==============================================
-// SHOWCASE 1: Visual Variants
+// STORY 2: Variants
 // ==============================================
 
-export const VisualVariants = {
+export const Variants = {
   render: () => {
     const variants = [
-      { variant: 'default', desc: 'Standard border (1px)' },
-      { variant: 'outlined', desc: 'Thick border (2px)' },
-      { variant: 'flat', desc: 'No border' },
-      { variant: 'elevated', desc: 'Shadow elevation' },
+      { key: 'default', label: 'Default', desc: '1px border' },
+      { key: 'outlined', label: 'Outlined', desc: '2px border' },
+      { key: 'flat', label: 'Flat', desc: 'No border' },
+      { key: 'elevated', label: 'Elevated', desc: 'Shadow' },
     ];
 
     return `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
         ${variants
           .map(
-            ({ variant, desc }) => `
-          <div>
-            <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 600; color: var(--gray-700);">${variant.charAt(0).toUpperCase() + variant.slice(1)}</h4>
-            <p style="margin: 0 0 1rem 0; font-size: 0.75rem; color: var(--gray-500);">${desc}</p>
+            ({ key, label, desc }) => `
+          <div style="flex: 1; min-width: 200px;">
+            <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 600;">${label}</h4>
+            <p style="margin: 0 0 0.75rem 0; font-size: 0.75rem; color: var(--gray-500);">${desc}</p>
             ${cardTwig({
-              variant,
+              variant: key,
               radius: 'md',
               size: 'small',
               image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--gray-900);">Office Space</h3>`,
-              body: `<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">Modern workspace with premium amenities.</p>`,
+              body: '<h3 style="margin: 0; font-size: 1rem; font-weight: 600;">Card Title</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">Sample description</p>',
             })}
           </div>
         `
@@ -197,410 +168,143 @@ export const VisualVariants = {
       </div>
     `;
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Visual variants** provide different emphasis levels:\n\n' +
+          '- `default`: Standard 1px border\n' +
+          '- `outlined`: Emphasized 2px border\n' +
+          '- `flat`: No border, minimal style\n' +
+          '- `elevated`: No border, shadow depth',
+      },
+    },
+  },
 };
 
 // ==============================================
-// SHOWCASE 2: Layout Orientations & Image Position
+// STORY 3: Layouts
 // ==============================================
 
 export const Layouts = {
   render: () => {
     return `
       <div style="display: grid; gap: 3rem;">
-        <!-- Vertical Layout: Image Top -->
+        <!-- Vertical Layout -->
         <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Vertical Layout - Image Top</h4>
-          <div style="max-width: 400px;">
+          <h3 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600;">Vertical Layout</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
             ${cardTwig({
               layout: 'vertical',
-              imagePosition: 'top',
+              imagePosition: 'start',
+              radius: 'md',
+              image: baseImage,
+              body: '<h3 style="margin: 0; font-size: 1rem; font-weight: 600;">Image Start</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">Image at top</p>',
+            })}
+            ${cardTwig({
+              layout: 'vertical',
+              imagePosition: 'end',
               radius: 'md',
               variant: 'outlined',
+              header:
+                '<h3 style="margin: 0; font-size: 1rem; font-weight: 600;">Image End</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">Image at bottom</p>',
               image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Appartement de Luxe</h3>`,
-              body: `<p style="margin: 0; font-size: 1rem; color: var(--gray-600);">Spacieux appartement en centre-ville avec plafonds hauts et finitions modernes.</p>`,
-              footer: `<div style="display: flex; gap: 1rem;"><span>📍 Paris</span><span>📏 125 m²</span></div>`,
             })}
           </div>
         </div>
         
-        <!-- Vertical Layout: Image Bottom -->
+        <!-- Horizontal Layout -->
         <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Vertical Layout - Image Bottom</h4>
-          <div style="max-width: 400px;">
+          <h3 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600;">Horizontal Layout (responsive)</h3>
+          <div style="display: grid; gap: 1.5rem;">
             ${cardTwig({
-              layout: 'vertical',
-              imagePosition: 'bottom',
+              layout: 'horizontal',
+              imagePosition: 'start',
+              radius: 'md',
+              image: baseImage,
+              body: '<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600;">Image Start</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">40/60 split. Image left, content right. Stacks on mobile.</p>',
+            })}
+            ${cardTwig({
+              layout: 'horizontal',
+              imagePosition: 'end',
               radius: 'md',
               variant: 'elevated',
               image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Villa Côte d'Azur</h3>`,
-              body: `<p style="margin: 0; font-size: 1rem; color: var(--gray-600);">Propriété exceptionnelle en bord de mer avec vue panoramique sur la Méditerranée.</p>`,
-              footer: `<div style="display: flex; gap: 1rem;"><span>📍 Nice</span><span>📏 350 m²</span></div>`,
+              body: '<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600;">Image End</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">Content left, image right. Automatically responsive.</p>',
             })}
           </div>
         </div>
-        
-        <!-- Horizontal Layout: Image Left -->
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Layout options:**\n\n' +
+          '- **Vertical**: Image above or below content (`imagePosition: "start"` or `"end"`)\n' +
+          '- **Horizontal**: Image left or right (40/60 split, `imagePosition: "start"` or `"end"`)\n\n' +
+          '**Responsive:** Horizontal cards automatically stack to vertical on mobile (<768px)',
+      },
+    },
+  },
+};
+
+// ==============================================
+// STORY 4: Content Sections
+// ==============================================
+
+export const ContentSections = {
+  render: () => {
+    return `
+      <div style="display: grid; gap: 2rem; max-width: 600px;">
         <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Horizontal Layout - Image Left</h4>
+          <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 600;">Full Card (all sections)</h3>
           ${cardTwig({
-            layout: 'horizontal',
-            imagePosition: 'left',
-            radius: 'md',
-            image: baseImage,
-            header: `<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Espace Commercial Barcelone</h3>`,
-            body: `<p style="margin: 0; font-size: 1rem; color: var(--gray-600);">Emplacement commercial premium sur Las Ramblas avec fort trafic piéton et excellente visibilité.</p>`,
-            footer: `<div style="display: flex; gap: 1rem; align-items: center;"><span>📍 Barcelone</span><span>📏 280 m²</span><span style="margin-left: auto; font-weight: 600; color: var(--primary);">€1,200,000</span></div>`,
-          })}
-        </div>
-        
-        <!-- Horizontal Layout: Image Right -->
-        <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Horizontal Layout - Image Right</h4>
-          ${cardTwig({
-            layout: 'horizontal',
-            imagePosition: 'right',
-            radius: 'md',
-            variant: 'outlined',
-            image: baseImage,
-            header: `<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Terrain à Bâtir</h3>`,
-            body: `<p style="margin: 0; font-size: 1rem; color: var(--gray-600);">Emplacement urbain stratégique avec permis de construire approuvé pour projet mixte résidentiel-commercial.</p>`,
-            footer: `<div style="display: flex; gap: 1rem;"><span>📍 Lyon</span><span>📏 1500 m²</span></div>`,
-          })}
-        </div>
-      </div>
-    `;
-  },
-};
-
-// ==============================================
-// SHOWCASE 3: Padding Sizes
-// ==============================================
-
-export const Sizes = {
-  render: () => {
-    const sizes = [
-      { size: 'small', padding: '16px', desc: 'Compact cards' },
-      { size: 'medium', padding: '32px', desc: 'Default size' },
-      { size: 'large', padding: '32px extended', desc: 'Spacious cards' },
-    ];
-
-    return `
-      <div style="display: grid; gap: 2rem;">
-        ${sizes
-          .map(
-            ({ size, padding, desc }) => `
-          <div>
-            <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: var(--gray-900);">${size.charAt(0).toUpperCase() + size.slice(1)} (${padding})</h4>
-            <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-500);">${desc}</p>
-            ${cardTwig({
-              size,
-              radius: 'md',
-              variant: 'outlined',
-              header: `<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Bureau ${size}</h3>`,
-              body: `<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">Exemple avec padding ${size}.</p>`,
-            })}
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  },
-};
-
-// ==============================================
-// SHOWCASE 4: Border Radius
-// ==============================================
-
-export const BorderRadius = {
-  render: () => {
-    const radii = [
-      { radius: 'none', value: '0px', desc: 'Sharp corners' },
-      { radius: 'sm', value: '4px', desc: 'Subtle rounding' },
-      { radius: 'md', value: '8px', desc: 'Medium rounding' },
-      { radius: 'lg', value: '16px', desc: 'Strong rounding' },
-    ];
-
-    return `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-        ${radii
-          .map(
-            ({ radius, value, desc }) => `
-          <div>
-            <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 600; color: var(--gray-700);">Radius: ${radius} (${value})</h4>
-            <p style="margin: 0 0 1rem 0; font-size: 0.75rem; color: var(--gray-500);">${desc}</p>
-            ${cardTwig({
-              radius,
-              variant: 'elevated',
-              size: 'small',
-              image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--gray-900);">Card ${radius}</h3>`,
-              body: `<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">Border radius: ${value}</p>`,
-            })}
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  },
-};
-
-// ==============================================
-// SHOWCASE 5: Clickable Cards (with URL)
-// ==============================================
-
-export const ClickableCards = {
-  render: () => {
-    return `
-      <div style="display: grid; gap: 2rem;">
-        <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Standard Card (Static)</h4>
-          <div style="max-width: 400px;">
-            ${cardTwig({
-              radius: 'md',
-              variant: 'outlined',
-              image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Non-clickable Card</h3>`,
-              body: `<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">Renders as &lt;article&gt; element.</p>`,
-            })}
-          </div>
-        </div>
-        
-        <div>
-          <h4 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Clickable Card (with URL)</h4>
-          <div style="max-width: 400px;">
-            ${cardTwig({
-              url: '#property-details',
-              radius: 'md',
-              variant: 'elevated',
-              image: baseImage,
-              header: `<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">Clickable Card</h3>`,
-              body: `<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">Renders as &lt;a&gt; with hover effects. Try hovering!</p>`,
-              footer: `<span style="color: var(--primary); font-weight: 600;">Voir les détails →</span>`,
-            })}
-          </div>
-        </div>
-      </div>
-    `;
-  },
-};
-
-// ==============================================
-// SHOWCASE 6: Real Estate Use Cases
-// ==============================================
-
-export const RealEstateUseCases = {
-  render: () => {
-    return `
-      <div style="display: grid; gap: 3rem;">
-        <!-- Property Listing Card -->
-        <div>
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">📋 Fiche Propriété</h3>
-          <div style="max-width: 400px;">
-            ${cardTwig({
-              url: '#property-123',
-              layout: 'vertical',
-              radius: 'md',
-              variant: 'elevated',
-              image: baseImage,
-              header: `
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                  <div>
-                    <span style="display: inline-block; padding: 0.25rem 0.5rem; background: var(--success-bg-subtle); color: var(--success); font-size: 0.75rem; font-weight: 600; border-radius: 4px; margin-bottom: 0.5rem;">DISPONIBLE</span>
-                    <h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Bureau Prestige La Défense</h3>
-                  </div>
-                </div>
-              `,
-              body: `
-                <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-600); line-height: 1.6;">
-                  Surface de bureaux premium dans immeuble classé, finitions haut de gamme, terrasse privative.
-                </p>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; font-size: 0.875rem;">
-                  <div><span style="color: var(--gray-500);">📏 Surface:</span> <strong>611 m²</strong></div>
-                  <div><span style="color: var(--gray-500);">🚇 Métro:</span> <strong>2 min</strong></div>
-                  <div><span style="color: var(--gray-500);">🅿️ Parking:</span> <strong>15 places</strong></div>
-                  <div><span style="color: var(--gray-500);">📅 Disponible:</span> <strong>Immédiat</strong></div>
-                </div>
-              `,
-              footer: `
-                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
-                  <div>
-                    <div style="font-size: 0.75rem; color: var(--gray-500);">Prix de vente</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">2 850 000 €</div>
-                  </div>
-                  <span style="color: var(--primary); font-weight: 600;">Voir détails →</span>
-                </div>
-              `,
-            })}
-          </div>
-        </div>
-        
-        <!-- News Article Card -->
-        <div>
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">📰 Article Actualités</h3>
-          ${cardTwig({
-            url: '#article-456',
-            layout: 'horizontal',
-            radius: 'md',
-            variant: 'outlined',
-            image: baseImage,
-            header: `
-              <div>
-                <span style="display: inline-block; padding: 0.25rem 0.5rem; background: var(--info-bg-subtle); color: var(--info); font-size: 0.75rem; font-weight: 600; border-radius: 4px; margin-bottom: 0.5rem;">MARCHÉ</span>
-                <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--gray-900);">L'immobilier tertiaire en forte croissance</h3>
-              </div>
-            `,
-            body: `
-              <p style="margin: 0; font-size: 0.875rem; color: var(--gray-600); line-height: 1.6;">
-                Le marché des bureaux affiche une progression de 12% ce trimestre, porté par la demande en espaces flexibles et la transformation digitale des entreprises.
-              </p>
-            `,
-            footer: `
-              <div style="display: flex; gap: 1rem; align-items: center; font-size: 0.75rem; color: var(--gray-500);">
-                <span>👤 Marie Dubois</span>
-                <span>📅 5 décembre 2025</span>
-                <span>⏱️ 3 min</span>
-              </div>
-            `,
-          })}
-        </div>
-        
-        <!-- Agent Contact Card -->
-        <div>
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">👤 Fiche Agent</h3>
-          <div style="max-width: 350px;">
-            ${cardTwig({
-              layout: 'vertical',
-              radius: 'lg',
-              variant: 'elevated',
-              size: 'small',
-              image:
-                '<div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">👤</div>',
-              header: `
-                <div style="text-align: center;">
-                  <h3 style="margin: 0 0 0.25rem 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Sophie Martin</h3>
-                  <p style="margin: 0; font-size: 0.875rem; color: var(--primary); font-weight: 500;">Conseillère Senior</p>
-                </div>
-              `,
-              body: `
-                <div style="text-align: center; font-size: 0.875rem; color: var(--gray-600);">
-                  <p style="margin: 0 0 0.75rem 0;">Spécialiste immobilier tertiaire Paris & Île-de-France</p>
-                  <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
-                    <div>📧 sophie.martin@bnpparibas.com</div>
-                    <div>📱 +33 6 12 34 56 78</div>
-                  </div>
-                </div>
-              `,
-              footer: `
-                <div style="text-align: center;">
-                  <button style="width: 100%; padding: 0.75rem; background: var(--primary); color: var(--white); border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
-                    Prendre rendez-vous
-                  </button>
-                </div>
-              `,
-            })}
-          </div>
-        </div>
-      </div>
-    `;
-  },
-};
-
-// ==============================================
-// SHOWCASE 7: Composition Example (Documentation)
-// ==============================================
-
-export const CompositionWithEmbed = {
-  render: () => {
-    return `
-      <div style="max-width: 800px;">
-        <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">📦 Composition Pattern (Drupal)</h3>
-        <p style="margin: 0 0 2rem 0; font-size: 1rem; color: var(--gray-600); line-height: 1.6;">
-          For complex layouts in Drupal, use <code>{% embed %}</code> blocks to compose Card with child components (buttons, badges, etc.).
-          This example shows the recommended pattern for Real Estate property cards.
-        </p>
-        
-        <div style="background: var(--gray-50); border: 2px dashed var(--gray-300); border-radius: 8px; padding: 2rem;">
-          <pre style="margin: 0; font-family: 'Courier New', monospace; font-size: 0.875rem; color: var(--gray-800); overflow-x: auto; line-height: 1.6;"><code>{# Drupal: Property Card with composition #}
-{% embed '@components/card/card.twig' with {
-  layout: 'vertical',
-  radius: 'md',
-  variant: 'elevated',
-  url: property.url
-} only %}
-  
-  {% block image %}
-    {% include '@elements/image/image.twig' with {
-      src: property.image.url,
-      alt: property.image.alt,
-      ratio: '16x9'
-    } only %}
-  {% endblock %}
-  
-  {% block header %}
-    {% include '@elements/badge/badge.twig' with {
-      text: property.status,
-      color: property.status_color
-    } only %}
-    &lt;h3&gt;{{ property.title }}&lt;/h3&gt;
-  {% endblock %}
-  
-  {% block body %}
-    &lt;p&gt;{{ property.description }}&lt;/p&gt;
-    &lt;div class="property-specs"&gt;
-      &lt;span&gt;📏 {{ property.surface }}&lt;/span&gt;
-      &lt;span&gt;📍 {{ property.location }}&lt;/span&gt;
-    &lt;/div&gt;
-  {% endblock %}
-  
-  {% block footer %}
-    &lt;div class="price-cta"&gt;
-      &lt;strong&gt;{{ property.price }}&lt;/strong&gt;
-      {% include '@elements/button/button.twig' with {
-        text: 'Voir détails',
-        color: 'primary',
-        size: 'sm'
-      } only %}
-    &lt;/div&gt;
-  {% endblock %}
-  
-{% endembed %}</code></pre>
-        </div>
-        
-        <div style="margin-top: 2rem;">
-          <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600; color: var(--gray-900);">Result Preview:</h4>
-          ${cardTwig({
-            url: '#example',
-            layout: 'vertical',
-            radius: 'md',
             variant: 'elevated',
+            radius: 'md',
             image: baseImage,
-            header: `
-              <span style="display: inline-block; padding: 0.25rem 0.5rem; background: var(--success-bg-subtle); color: var(--success); font-size: 0.75rem; font-weight: 600; border-radius: 4px; margin-bottom: 0.5rem;">DISPONIBLE</span>
-              <h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--gray-900);">Bureau Composé</h3>
-            `,
-            body: `
-              <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--gray-600);">Example de card composée avec blocks Twig.</p>
-              <div style="display: flex; gap: 1rem; font-size: 0.875rem; color: var(--gray-500);">
-                <span>📏 450 m²</span>
-                <span>📍 Paris</span>
-              </div>
-            `,
-            footer: `
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <strong style="font-size: 1.25rem; color: var(--primary);">1 250 000 €</strong>
-                <button style="padding: 0.5rem 1rem; background: var(--primary); color: var(--white); border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
-                  Voir détails
-                </button>
-              </div>
-            `,
+            header:
+              '<div style="padding-bottom: 0.5rem; border-bottom: 1px solid var(--gray-200);"><span style="font-size: 0.75rem; color: var(--primary); font-weight: 600;">CATEGORY</span></div>',
+            body: '<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600;">Card with Header, Body & Footer</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600); line-height: 1.5;">This card demonstrates all available content sections working together.</p>',
+            footer:
+              '<div style="display: flex; gap: 1rem; align-items: center; font-size: 0.875rem;"><span style="color: var(--gray-500);">📅 Dec 10, 2025</span><span style="margin-left: auto; color: var(--primary); font-weight: 600;">View →</span></div>',
+          })}
+        </div>
+        
+        <div>
+          <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 600;">Content Only (no image)</h3>
+          ${cardTwig({
+            variant: 'outlined',
+            radius: 'md',
+            size: 'large',
+            body: '<h3 style="margin: 0; font-size: 1.25rem; font-weight: 600;">Heading Without Media</h3><p style="margin: 1rem 0 0; font-size: 1rem; color: var(--gray-600); line-height: 1.6;">Cards don\'t always need images. This layout works well for announcements, CTAs, or text-focused content.</p>',
+            footer:
+              '<button style="padding: 0.75rem 2rem; background: var(--primary); color: var(--white); border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Call to Action</button>',
+          })}
+        </div>
+        
+        <div>
+          <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 600;">Minimal Card</h3>
+          ${cardTwig({
+            variant: 'flat',
+            radius: 'none',
+            body: '<h3 style="margin: 0; font-size: 1rem; font-weight: 600;">Simple Text Card</h3><p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--gray-600);">Minimal styling with just body content.</p>',
           })}
         </div>
       </div>
     `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Content flexibility examples:**\n\n' +
+          '- **Full card**: All sections (media, header, body, footer)\n' +
+          '- **Content only**: No image, useful for announcements or CTAs\n' +
+          '- **Minimal**: Single section, simple layout',
+      },
+    },
   },
 };
 
