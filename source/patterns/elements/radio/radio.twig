@@ -1,7 +1,7 @@
 {#
- * Radio Item (Atom-like)
- * Individual radio input with label wrapper
- * Derived from Drupal form radio item
+ * Radio (Atom)
+ * Individual radio button with custom visual indicator
+ * Follows BEM methodology with ps- prefix
  *
  * @param string name - Input name (group identifier)
  * @param string value - Input value
@@ -9,7 +9,7 @@
  * @param boolean checked - Checked state
  * @param boolean disabled - Disabled state
  * @param string label - Label text
- * @param object attributes - Drupal attributes for input
+ * @param object attributes - Drupal attributes for wrapper
  #}
 {%- set name = name|default('option') -%}
 {%- set value = value|default('1') -%}
@@ -19,15 +19,24 @@
 {%- set label = label|default('') -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
-<div class="form-item form-type-radio">
+{%- set classes = [
+  'ps-radio',
+  checked ? 'ps-radio--checked' : null,
+  disabled ? 'ps-radio--disabled' : null,
+] -%}
+
+<label {{ attributes.addClass(classes) }}>
   <input
     type="radio"
-    {{ attributes.addClass('form-radio') }}
+    class="ps-radio__input"
     {%- if id %} id="{{ id }}"{% endif -%}
     {%- if name %} name="{{ name }}"{% endif -%}
     {%- if value %} value="{{ value }}"{% endif -%}
     {%- if checked %} checked{% endif -%}
-    {%- if disabled %} disabled{% endif -%}
+    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   />
-  {%- if label %}<label for="{{ id }}">{{ label }}</label>{% endif -%}
-</div>
+  <span class="ps-radio__circle" aria-hidden="true"></span>
+  {%- if label %}
+    <span class="ps-radio__label">{{ label }}</span>
+  {% endif -%}
+</label>

@@ -1,7 +1,7 @@
-# Default props for radio-item
-name: "option"
-value: "1"
-id: "option-1"
-label: "Option label"
+# Default props for Radio (Real Estate context)
+name: "property_type"
+value: "apartment"
+id: "property-apartment"
+label: "Appartement"
 checked: false
 disabled: false
