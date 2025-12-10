@@ -12,27 +12,27 @@
  * Layer 3: Context overrides (parent selectors)
  */
 
-/* ======================================== */
-/* Base Styles + Component Variables */
-/* ======================================== */
-
 .ps-label {
-  /* Layer 2: Component-scoped variables with defaults */
-  --ps-label-gap: var(--size-1);           /* 4px gap between text and asterisk */
-  --ps-label-margin-bottom: var(--size-2); /* 8px margin below label */
-  --ps-label-color: var(--text-primary);   /* Main text color (#434F57) */
+  /* ======================================== */
+  /* Layer 2: Component-scoped variables */
+  /* ======================================== */
+  --ps-label-gap: var(--size-1);
+  --ps-label-margin-bottom: var(--size-2);
+  --ps-label-color: var(--text-primary);
   --ps-label-font-family: var(--font-sans);
-  --ps-label-font-size: var(--font-size-0); /* 14px */
-  --ps-label-font-weight: var(--font-weight-600); /* Semi-bold */
-  --ps-label-line-height: var(--leading-5); /* 20px */
+  --ps-label-font-size: var(--font-size-0);
+  --ps-label-font-weight: var(--font-weight-600);
+  --ps-label-line-height: var(--leading-5);
   --ps-label-cursor: pointer;
-  --ps-label-required-color: var(--danger); /* Red asterisk (#EB3636) */
-  --ps-label-required-weight: var(--font-weight-700); /* Bold asterisk */
-  --ps-label-disabled-color: var(--text-disabled); /* Muted gray (#B0B8BD) */
+  --ps-label-required-color: var(--danger);
+  --ps-label-required-weight: var(--font-weight-700);
+  --ps-label-disabled-color: var(--text-disabled);
   --ps-label-disabled-opacity: 0.7;
   --ps-label-disabled-cursor: not-allowed;
 
-  /* Apply component variables */
+  /* ======================================== */
+  /* Base styles using component variables */
+  /* ======================================== */
   display: inline-flex;
   align-items: baseline;
   gap: var(--ps-label-gap);
@@ -45,7 +45,7 @@
   cursor: var(--ps-label-cursor);
 
   /* ======================================== */
-  /* Elements */
+  /* Elements (nested) */
   /* ======================================== */
 
   &__text {
@@ -59,7 +59,7 @@
   }
 
   /* ======================================== */
-  /* Modifiers */
+  /* Modifiers (nested) */
   /* ======================================== */
 
   &--disabled {
@@ -67,60 +67,4 @@
     --ps-label-cursor: var(--ps-label-disabled-cursor);
     opacity: var(--ps-label-disabled-opacity);
   }
-}
-
-/* ============================================
-   Modifiers - Color
-   ============================================ */
-.ps-label--primary {
-  --ps-label-color: var(--primary);
-}
-
-.ps-label--secondary {
-  --ps-label-color: var(--secondary);
-}
-
-.ps-label--info {
-  --ps-label-color: var(--info);
-}
-
-.ps-label--warning {
-  --ps-label-color: var(--warning);
-}
-
-.ps-label--danger {
-  --ps-label-color: var(--danger);
-}
-
-.ps-label--success {
-  --ps-label-color: var(--success);
-}
-
-/* ============================================
-   Modifiers - Size
-   ============================================ */
-.ps-label--xs {
-  --ps-label-font-size: var(--font-size--1);
-  --ps-label-line-height: var(--leading-4);
-  --ps-label-margin-bottom: var(--size-1);
-}
-
-.ps-label--sm {
-  --ps-label-font-size: var(--font-size-0);
-  --ps-label-line-height: var(--leading-5);
-  --ps-label-margin-bottom: var(--size-105);
-}
-
-/* md is default */
-
-.ps-label--lg {
-  --ps-label-font-size: var(--font-size-2);
-  --ps-label-line-height: var(--leading-7);
-  --ps-label-margin-bottom: var(--size-3);
-}
-
-.ps-label--xl {
-  --ps-label-font-size: var(--font-size-3);
-  --ps-label-line-height: var(--leading-8);
-  --ps-label-margin-bottom: var(--size-4);
 }

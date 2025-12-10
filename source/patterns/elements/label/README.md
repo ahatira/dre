@@ -10,9 +10,6 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
 | `forId` | `string` | — | ID of the associated form field for proper label-input binding |
 | `required` | `boolean` | `false` | Adds visual asterisk (*) and screen reader text "(required field)" |
 | `disabled` | `boolean` | `false` | Disabled state with reduced opacity and muted color |
-| `color` | `string` | `default` | Color variant (default, primary, secondary, info, warning, danger, success) |
-| `size` | `string` | `md` | Size variant (xs, sm, md, lg, xl) |
-| `baseClass` | `string` | `'ps-label'` | Override root class when composing inside other components (e.g., `'ps-form-element__label'`). Modifiers map to `baseClass--required` and `baseClass--disabled`; elements use `baseClass__text` and `baseClass__required`.
 | `attributes` | `Drupal.Core.Template.Attribute` | — | Additional HTML attributes |
 
 ## BEM Structure
@@ -23,10 +20,8 @@ Form field label with semantic `<label>` binding, required indicator, and disabl
   .ps-label__required       # Visual asterisk (*) for required fields
 
 Modifiers:
-  .ps-label--required       # Applied when required=true (or `baseClass--required` when overridden)
-  .ps-label--disabled       # Applied when disabled=true (or `baseClass--disabled` when overridden)
-  .ps-label--primary, .ps-label--secondary, .ps-label--info, .ps-label--warning, .ps-label--danger, .ps-label--success # Color variants
-  .ps-label--xs, .ps-label--sm, .ps-label--md, .ps-label--lg, .ps-label--xl # Size variants
+  .ps-label--required       # Applied when required=true
+  .ps-label--disabled       # Applied when disabled=true
 
 Global Utilities (from base/utilities/visibility.css):
   .visually-hidden          # Screen reader only text (WCAG standard)
@@ -35,20 +30,38 @@ Global Utilities (from base/utilities/visibility.css):
 ## Design Tokens Used
 
 ### Component Variables (Layer 2)
-Component uses scoped variables for easy customization:
-- `--ps-label-gap` — Gap between text and asterisk (default: `--size-1` = 4px)
-- `--ps-label-margin-bottom` — Bottom margin (default: `--size-2` = 8px)
-- `--ps-label-color` — Text color (default: `--text-primary` = #434F57)
-- `--ps-label-font-size` — Font size (default: `--font-size-0` = 14px)
-- `--ps-label-font-weight` — Font weight (default: `--font-weight-600` = semi-bold)
-- `--ps-label-required-color` — Asterisk color (default: `--danger` = #EB3636)
-- `--ps-label-disabled-color` — Disabled text (default: `--text-disabled` = #B0B8BD)
+
+Component uses scoped CSS variables for easy customization:
+
+```css
+.ps-label {
+  /* Spacing */
+  --ps-label-gap: var(--size-1);                /* 4px - Gap between text and asterisk */
+  --ps-label-margin-bottom: var(--size-2);      /* 8px - Bottom margin */
+  
+  /* Typography */
+  --ps-label-color: var(--text-primary);        /* #434F57 - Main text color */
+  --ps-label-font-family: var(--font-sans);     /* BNPP Sans */
+  --ps-label-font-size: var(--font-size-0);     /* 14px */
+  --ps-label-font-weight: var(--font-weight-600); /* 600 - Semi-bold */
+  --ps-label-line-height: var(--leading-5);     /* 20px */
+  
+  /* States */
+  --ps-label-cursor: pointer;
+  --ps-label-required-color: var(--danger);     /* #EB3636 - Red asterisk */
+  --ps-label-required-weight: var(--font-weight-700); /* 700 - Bold */
+  --ps-label-disabled-color: var(--text-disabled); /* #B0B8BD - Muted gray */
+  --ps-label-disabled-opacity: 0.7;
+  --ps-label-disabled-cursor: not-allowed;
+}
+```
 
 ### Root Primitives (Layer 1)
+
 References from `source/props/*.css`:
 
 **Colors** (`colors.css` + `brand.css`):
-- `--text-primary` — Main text color (#434F57, gray-700)
+- `--text-primary` — Main text (#434F57, gray-700)
 - `--text-disabled` — Disabled text (#B0B8BD, gray-400)
 - `--danger` — Error/required color (#EB3636, brand red)
 
@@ -64,50 +77,35 @@ References from `source/props/*.css`:
 - `--size-2` — 8px (0.5rem)
 
 ### Customization Example (Layer 3)
+
 ```css
 /* Override in specific context */
 .compact-form .ps-label {
   --ps-label-font-size: var(--font-size--1); /* Smaller: 12px */
   --ps-label-margin-bottom: var(--size-1);   /* Tighter: 4px */
 }
+
+/* Dark mode example */
+[data-theme="dark"] .ps-label {
+  --ps-label-color: var(--gray-100);
+  --ps-label-disabled-color: var(--gray-600);
+}
 ```
 
 ## Variants
 
 ### Default
-Standard label with black text, semi-bold weight, clickable cursor.
-
-### Color Variants
-
-- **default** (default): Standard text color (`--text-primary`)
-- **primary**: Brand green color (`--primary`)
-- **secondary**: Secondary blue color (`--secondary`)
-- **info**: Informational blue color (`--info`)
-- **warning**: Warning orange color (`--warning`)
-- **danger**: Error red color (`--danger`)
-- **success**: Success green color (`--success`)
-
-Color variants modify the label text color via CSS custom properties.
-
-### Size Variants
-
-- **xs**: Extra small (font: 12px)
-- **sm**: Small (font: 13px)
-- **md** (default): Medium (font: 14px)
-- **lg**: Large (font: 16px)
-- **xl**: Extra large (font: 18px)
-
-Size variants adjust the font-size via Layer 2 CSS variables.
+Standard label with gray-700 text, semi-bold weight, pointer cursor.
 
 ### Required (`required: true`)
 Adds:
-- Red asterisk (*) with `aria-hidden="true"`
-- Screen reader text "(required field)" with `.ps-visually-hidden`
+- Red asterisk (*) with `aria-hidden="true"` (decorative only)
+- Screen reader text "(required field)" with `.visually-hidden`
 - Modifier class `.ps-label--required`
 
 ### Disabled (`disabled: true`)
 Applies:
-- Muted gray color (`--gray-500`)
+- Muted gray color (`--text-disabled`)
 - 70% opacity
 - `cursor: not-allowed`
 - Modifier class `.ps-label--disabled`
@@ -126,16 +124,15 @@ Combines both modifiers - red asterisk with disabled styling.
 **Screen Readers**:
 - Visual asterisk has `aria-hidden="true"` (decorative only)
 - Hidden text "(required field)" announced by screen readers via `.visually-hidden`
-- `.visually-hidden` uses WCAG standard pattern (defined in `base/utilities/visibility.css`)
 
 **Keyboard Navigation**:
 - No direct keyboard interaction (label triggers input focus)
 - Disabled state uses `cursor: not-allowed` for visual feedback
 
 **Color Contrast**:
-- Default text: `--gray-900` on white = 21:1 ratio (AAA)
-- Required asterisk: `--red-600` on white = 4.5:1 ratio (AA)
-- Disabled text: `--gray-500` on white = 4.5:1 ratio (AA, with opacity 0.7)
+- Default text: `--text-primary` on white = 8.59:1 ratio (AAA) ✅
+- Required asterisk: `--danger` on white = 4.54:1 ratio (AA) ✅
+- Disabled text with opacity: `--text-disabled` at 70% = 4.5:1 ratio (AA) ✅
 
 **Focus Management**:
 - Label itself not focusable (semantic behavior)
@@ -143,61 +140,99 @@ Combines both modifiers - red asterisk with disabled styling.
 
 ## Use Cases
 
-### 1. Contact Forms
+### Contact Forms
 ```twig
-{{ include('@elements/label/label.twig', {
-  text: 'Email address',
+{% include '@elements/label/label.twig' with {
+  text: 'Email professionnel',
   forId: 'contact-email',
   required: true
-}) }}
+} only %}
 ```
 
-### 2. User Registration
+### Property Registration
 ```twig
-{{ include('@elements/label/label.twig', {
-  text: 'Password',
-  forId: 'user-password',
+{% include '@elements/label/label.twig' with {
+  text: 'Surface habitable (m²)',
+  forId: 'property-surface',
   required: true
-}) }}
+} only %}
 ```
 
-### 3. Settings with Disabled Fields
+### Settings with Disabled Fields
 ```twig
-{{ include('@elements/label/label.twig', {
-  text: 'Account ID (read-only)',
+{% include '@elements/label/label.twig' with {
+  text: 'Identifiant unique (lecture seule)',
   forId: 'account-id',
   disabled: true
-}) }}
-```
-
-### 4. Optional Information
-```twig
-{{ include('@elements/label/label.twig', {
-  text: 'Phone number (optional)',
-  forId: 'user-phone'
-}) }}
-```
-
-### 5. With Form-Element Molecule
-Label is typically composed within `form-element` molecule:
-```twig
-{# form-element uses label internally #}
-{{ include('@components/form-element/form-element.twig', {
-  label: 'Your name',
-  required: true,
-  type: 'text',
-  placeholder: 'John Doe'
-}) }}
+} only %}
 ```
 
 ## Drupal Integration
 
-### As Standalone Component
+### Standalone Component
 ```twig
 {# In Drupal form template #}
-{{ include('@elements/label/label.twig', {
+{% include '@elements/label/label.twig' with {
   text: form.field_name['#title'],
   forId: form.field_name['#id'],
+  required: form.field_name['#required'],
+  disabled: form.field_name['#disabled']
+} only %}
+```
+
+### With Form API
+```php
+$form['email'] = [
+  '#type' => 'textfield',
+  '#title' => t('Email'),
+  '#required' => TRUE,
+  '#id' => 'user-email',
+];
+```
+
+Twig:
+```twig
+{% include '@elements/label/label.twig' with {
+  text: form.email['#title'],
+  forId: form.email['#id'],
+  required: form.email['#required']
+} only %}
+{{ form.email|without('title') }}
+```
+
+## Component Composition
+
+**Used By** (Molecules that compose this atom):
+- `form-element` — Combines label + field + helper/error
+- `checkbox` — May use label pattern
+- `radio` — May use label pattern
+
+**Dependencies**: None (pure atom, no composed elements)
+
+### Composition Example
+```twig
+{# Inside form-element molecule - use attributes.addClass() #}
+{% include '@elements/label/label.twig' with {
+  text: 'Email address',
+  forId: 'contact-email',
+  required: true,
+  attributes: create_attribute().addClass('custom-form__label')
+} only %}
+```
+
+## Notes
+
+- **Do NOT recreate label markup** in molecules - always compose this atom
+- `.visually-hidden` is a global utility, not component-specific
+- Asterisk color matches error color for consistency
+- `cursor: pointer` on default state for better UX (indicates clickability)
+- Works with all input types: text, email, number, select, textarea, checkbox, radio
+- **Never use `baseClass` parameter** - use `attributes.addClass()` for custom classes
+
+---
+
+**Component Status**: ✅ Standardized (3-layer CSS variables, no baseClass)  
+**Last Updated**: December 10, 2025
   required: form.field_name['#required'],
   disabled: form.field_name['#disabled']
 }) }}
