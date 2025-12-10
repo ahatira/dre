@@ -50,11 +50,12 @@
 
   /* Borders & Radius */
   --ps-select-border-width: var(--border-size-2); /* 2px */
-  --ps-select-border-radius: var(--radius-4); /* 8px rounded corners */
+  --ps-select-border-radius: var(--radius-0); /* 0px (no rounded corners) */
 
   /* Icon (chevron) */
   --ps-select-icon-color: var(--gray-700);
   --ps-select-icon-size: var(--size-3); /* 12px */
+  --ps-select-icon-chevron-mask: svg-load('generic/chevron-down.svg');
 
   /* Transitions */
   --ps-select-transition-duration: var(--duration-fast); /* 150ms */
@@ -131,8 +132,8 @@
     width: var(--ps-select-icon-size);
     height: var(--ps-select-icon-size);
     background-color: var(--ps-select-icon-color);
-    mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
-    -webkit-mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
+    mask-image: var(--ps-select-icon-chevron-mask);
+    -webkit-mask-image: var(--ps-select-icon-chevron-mask);
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;

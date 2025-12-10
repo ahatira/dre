@@ -65,14 +65,18 @@ Modifiers:
 
 ### Icon Implementation
 
-The chevron icon is rendered as a CSS `::after` pseudo-element on `.ps-select`, using the icon system's SVG sprite for rendering. This keeps the DOM clean while maintaining styling consistency.
+The chevron icon is rendered as a CSS `::after` pseudo-element on `.ps-select`, using `svg-load()` for SVG loading. This keeps the DOM clean while maintaining styling consistency.
 
 ```css
-.ps-select::after {
-  content: '';
-  mask-image: url('/icons/icons-sprite.svg#icon-chevron-down'); /* From icon registry */
-  background-color: var(--ps-select-icon-color);
-  /* ... positioning and sizing ... */
+.ps-select {
+  --ps-select-icon-chevron-mask: svg-load('generic/chevron-down.svg');
+  
+  &::after {
+    content: '';
+    mask-image: var(--ps-select-icon-chevron-mask);
+    background-color: var(--ps-select-icon-color);
+    /* ... positioning and sizing ... */
+  }
 }
 ```
 
