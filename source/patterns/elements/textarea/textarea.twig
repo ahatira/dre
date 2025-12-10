@@ -1,6 +1,6 @@
 {#
  * Textarea (Atom)
- * Native <textarea> without label, Drupal-friendly attributes.
+ * Native <textarea> without label. Drupal-friendly attributes; external label handled upstream.
  *
  * @param string name - Name attribute (optional)
  * @param string id - ID attribute (defaults to name-based)
@@ -8,28 +8,30 @@
  * @param string placeholder - Placeholder text (optional)
  * @param boolean disabled - Disabled state (default: false)
  * @param boolean required - Required state (default: false)
- * @param number rows - Rows attribute (optional)
+ * @param number rows - Rows attribute (default: 4)
+ * @param string color - Visual variant (optional, default: 'default')
+ * @param string size - Size variant (optional, default: 'md')
+ * @param string state - Validation state (optional: error|success|warning)
  * @param object attributes - Drupal attributes for the <textarea>
- * @param object wrapper_attributes - Drupal attributes for the wrapper
  #}
 
-{%- set name = name|default('') -%}
+{%- set name = name|default('message') -%}
 {%- set id = id|default(name ? name ~ '-textarea' : 'ps-textarea') -%}
 {%- set value = value|default('') -%}
 {%- set placeholder = placeholder|default('') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set required = required|default(false) -%}
-{%- set rows = rows|default(null) -%}
+{%- set rows = rows|default(4) -%}
 {%- set color = color|default('default') -%}
 {%- set size = size|default('md') -%}
+{%- set state = state|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
-{%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-textarea',
   disabled ? 'ps-textarea--disabled' : null,
-  color != 'default' ? 'ps-textarea--' ~ color : null,
-  size != 'md' ? 'ps-textarea--' ~ size : null
+  size != 'md' ? 'ps-textarea--' ~ size : null,
+  state ? 'ps-textarea--' ~ state : null
 ] -%}
 
 <textarea
@@ -42,4 +44,5 @@
   }}
   {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   {%- if required %} required aria-required="true"{% endif -%}
+  {%- if state == 'error' %} aria-invalid="true"{% endif -%}
 >{{ value }}</textarea>

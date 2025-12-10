@@ -1,16 +1,29 @@
 # Textarea (Atom)
 
-Native `<textarea>` without label, Drupal-friendly attributes. Use external labels via `for`/`id` at higher levels.
+Native `<textarea>` without label. External labels are handled upstream via `for`/`id` and this atom exposes validation, sizing, and semantic color variants.
 
 ## Usage
+
 
 ```twig
 {% include '@elements/textarea/textarea.twig' with {
   name: 'message',
-  id: 'message',
+  id: 'message-textarea',
+  placeholder: 'Décrivez votre besoin immobilier...',
   rows: 6,
-  placeholder: 'Your message...',
-  attributes: attributes,
+  state: null
+} only %}
+```
+
+Example with external label:
+
+```twig
+<label for="message-textarea">Votre message</label>
+{% include '@elements/textarea/textarea.twig' with {
+  name: 'message',
+  id: 'message-textarea',
+  value: 'Je souhaite visiter le loft proche de La Defense',
+  required: true
 } only %}
 ```
 
@@ -18,30 +31,29 @@ Native `<textarea>` without label, Drupal-friendly attributes. Use external labe
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `name` | string | `''` | Name attribute |
+| `name` | string | `message` | Name attribute |
 | `id` | string | `name + '-textarea'` | ID attribute |
 | `value` | string | `''` | Initial content |
-| `placeholder` | string | `''` | Placeholder text |
-| `rows` | number | `4` | Rows attribute |
-| `disabled` | boolean | `false` | Disabled state |
-| `required` | boolean | `false` | Required state |
-| `color` | string | `default` | Color variant (default, primary, secondary, info, warning, danger, success) |
-| `size` | string | `md` | Size variant (xs, sm, md, lg, xl, xxl) |
-| `attributes` | Drupal Attribute | `create_attribute()` | Attributes for `<textarea>` |
-| `wrapper_attributes` | Drupal Attribute | `create_attribute()` | Attributes for wrapper div |
+| `placeholder` | string | `Decrivez votre besoin immobilier (budget, localisation, surface)...` | Placeholder text |
+| `rows` | number | `4` | Native `rows` attribute |
+| `disabled` | boolean | `false` | Disabled state (adds `aria-disabled`) |
+| `required` | boolean | `false` | Required state (adds `aria-required`) |
+| `size` | string | `md` | Size variant: xs, sm, md, lg, xl, xxl |
+| `size` | string | `md` | Size variant: xs, sm, md, lg, xl, xxl |
+| `state` | string \| null | `null` | Validation state: error, success, warning (sets `aria-invalid` on error) |
+| `attributes` | Drupal Attribute | `create_attribute()` | Attributes applied to `<textarea>` |
 
 ## BEM
 
-- Block: `ps-textarea` (on `<textarea>`)  
-- Element: `ps-textarea__wrapper`  
+- Block: `ps-textarea`
 - Modifiers:
   - `ps-textarea--disabled`
-  - `ps-textarea--primary`, `ps-textarea--secondary`, `ps-textarea--info`, `ps-textarea--warning`, `ps-textarea--danger`, `ps-textarea--success` (color variants)
-  - `ps-textarea--xs`, `ps-textarea--sm`, `ps-textarea--md`, `ps-textarea--lg`, `ps-textarea--xl`, `ps-textarea--xxl` (size variants)
+  - `ps-textarea--{size}` (xs, sm, md, lg, xl, xxl)
+  - `ps-textarea--error`, `ps-textarea--success`, `ps-textarea--warning`
 
 ## CSS Variables (Layer 2)
 
-- Dimensions: `--ps-textarea-width`, `--ps-textarea-min-height`, `--ps-textarea-padding-y`, `--ps-textarea-padding-x`
+- Dimensions: `--ps-textarea-width`, `--ps-textarea-min-height`, `--ps-textarea-padding-block`, `--ps-textarea-padding-inline`
 - Typography: `--ps-textarea-font-family`, `--ps-textarea-font-size`, `--ps-textarea-font-weight`, `--ps-textarea-line-height`
 - Colors: `--ps-textarea-bg`, `--ps-textarea-color`, `--ps-textarea-border-color`, `--ps-textarea-placeholder-color`
 - States: `--ps-textarea-hover-border-color`, `--ps-textarea-focus-border-color`, `--ps-textarea-focus-ring-color`, `--ps-textarea-focus-ring-width`
@@ -51,40 +63,17 @@ Native `<textarea>` without label, Drupal-friendly attributes. Use external labe
 
 ## Variants
 
-### Color Variants
 
-- **default** (default): Standard gray border (`--border-default`)
-- **primary**: Brand green border (`--primary`)
-- **secondary**: Secondary blue border (`--secondary`)
-- **info**: Informational blue border (`--info`)
-- **warning**: Warning orange border (`--warning`)
-- **danger**: Error red border (`--danger`)
-- **success**: Success green border (`--success`)
-
-Color variants modify border, focus ring, and related state colors via CSS custom properties.
-
-### Size Variants
-
-- **xs**: Extra small (min-height: 28px, font: 12px)
-- **sm**: Small (min-height: 32px, font: 13px)
-- **md** (default): Medium (min-height: 40px, font: 14px)
-- **lg**: Large (min-height: 48px, font: 16px)
-- **xl**: Extra large (min-height: 56px, font: 18px)
-- **xxl**: Extra extra large (min-height: 64px, font: 20px)
-
-Size variants adjust minimum height, padding, and font-size via Layer 2 CSS variables.
+- **Sizes**: xs, sm, md, lg, xl, xxl adjust min-height, padding, and font size through Layer 2 variables (md matches la maquette).
+- **Validation**: `state` peut être error, success ou warning ; error ajoute `aria-invalid="true"` dans le template.
 
 ## Accessibility
 
-- Native `<textarea>` semantics.
-- `disabled` adds `aria-disabled="true"`; `required` adds `aria-required="true"`.
-- Use external label + `for`/`id` association via parent components.
-
-## States
-
-- Default / Hover / Focus-visible / Disabled
+- Focus visible conforme WCAG 2.2 AA (border-color et ring visible, pas de shadow, radius 0).
+- `disabled` ajoute `aria-disabled="true"` ; `required` ajoute `aria-required="true"` ; `state: 'error'` ajoute `aria-invalid="true"`.
+- Toujours associer un `<label>` externe avec l’attribut `for`/`id` pour l’accessibilité.
 
 ## Notes
 
-- Resizable vertically only.
-- For helper/error text, compose with higher-level wrappers (form-element).
+- Redimensionnement vertical uniquement.
+- À combiner avec les composants de formulaire pour afficher l’aide ou les messages d’erreur.

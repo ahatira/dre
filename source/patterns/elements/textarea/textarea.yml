@@ -1,10 +1,11 @@
-# Default props for textarea atom
-name: "textarea"
+# Default props for textarea atom (real estate context)
+name: "message"
 id: null
 value: ""
-placeholder: "Enter text..."
+placeholder: "Décrivez votre besoin immobilier..."
 disabled: false
 required: false
 rows: 4
 color: "default"
 size: "md"
+state: null

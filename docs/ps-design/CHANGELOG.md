@@ -4,6 +4,37 @@
 
 ## 2025
 
+- 2025-12-10: **Spinner (ATOM)** – Audit complet et conformité 100% ♻️ REFACTOR
+  - **Context**: Vérification systématique de la cohérence Spinner contre règles projet
+  - **Issues Identifiés**:
+    * ❌ CSS: Pas de nesting `&` dans MODIFIERS (--centered)
+    * ❌ CSS: Variables Layer 2 incomplètes (seulement size + color)
+    * ❌ README: Section tokens confuse avec nested var(..., var(...))
+    * ⚠️ Twig: Minor - manquait virgule trailing dans classes array
+  - **Fixes Appliqués**:
+    * ✨ Layer 2 variables: Ajout `--ps-spinner-display`, `--ps-spinner-align-items`, `--ps-spinner-justify-content`
+    * 🔧 CSS nesting: Conversion `--centered` en `&--centered` (ligne 155+)
+    * 📝 README refactor complet:
+      - Nouvelle section "Component Variables (Layer 2)" avec tableau détaillé
+      - Size Modifiers table (6 sizes avec dimensions et cas d'usage)
+      - Color Modifiers table (10 couleurs sémantiques)
+      - Variant Modifiers table (circular, dots, bars)
+      - Animations table (4 animations avec duration/easing/purpose)
+      - "Design Tokens Used" (Layer 1/2/3 séparées)
+      - "Semantic Colors Reference" (remplacement nested vars confus)
+    * 🎯 Token validation: `--size-105` (6px) confirmé valide dans sizes.css
+  - **Components Features**:
+    * 3 variants (circular, dots, bars)
+    * 6 sizes (xs→xxl: 16px→80px)
+    * 10 semantic colors (default, primary, secondary, success, info, warning, danger, dark, light, white)
+    * Centered modifier pour absolute positioning
+    * Accessibility: role='status', aria-live='polite', visually hidden text
+  - **Stories**: 6 showcases (Default, AllVariants, AllSizes, AllColors, Centered, UseCases)
+  - **BEM**: ✓ Compliant (`ps-spinner` + 8 elements/modifiers)
+  - **Build**: ✓ 452.29 kB CSS (gzip 72.65 kB), 0 errors
+  - **Conformity**: 100% (3-layer CSS, semantic tokens, BEM, 5-file structure, nesting)
+  - **Commit**: `9ca0c39` - refactor(elements): Audit and fix Spinner component conformity
+
 - 2025-12-09: **Skip Link (ATOM)** – Optimisation visuelle et UX polish ♻️ REFACTOR
   - **Context**: Amélioration visuelle basée sur analyse Storybook screenshot
   - **Changes**: Padding, border-radius, font-weight, et shadow enhancement
