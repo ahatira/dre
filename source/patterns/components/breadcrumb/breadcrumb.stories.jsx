@@ -1,11 +1,9 @@
 import markup from './breadcrumb.twig';
 import data from './breadcrumb.yml';
 
-const settings = {
+export default {
   title: 'Components/Breadcrumb',
   tags: ['autodocs'],
-  render: (args) => markup(args),
-  args: { ...data },
   argTypes: {
     items: {
       control: 'object',
@@ -42,13 +40,14 @@ const settings = {
   },
 };
 
-export default settings;
-
 // ========================================
 // STORIES
 // ========================================
 
-export const Default = {};
+export const Default = {
+  render: (args) => markup(args),
+  args: { ...data },
+};
 
 export const Compact = {
   name: 'Compact',
