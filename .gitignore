@@ -30,3 +30,4 @@ _backup_components/
 # Temporary
 *.tmp
 .temp/
+storybook/

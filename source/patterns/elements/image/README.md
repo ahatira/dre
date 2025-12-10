@@ -64,7 +64,6 @@ The Image component is a fundamental atom for displaying images with built-in re
 | `decoding` | `string` | `'auto'` | Decoding hint: `'auto'` \| `'async'` \| `'sync'` |
 | `fit` | `string` | `'none'` | Object-fit: `'none'` \| `'cover'` \| `'contain'` \| `'fill'` \| `'scale-down'` |
 | `rounded` | `string` | `'none'` | Border-radius: `'none'` \| `'sm'` \| `'md'` \| `'lg'` \| `'full'` |
-| `baseClass` | `string` | `'ps-image'` | Override root class when composing inside other components (e.g., `'ps-avatar__image'`). Modifiers map to `baseClass--fit-*` and `baseClass--rounded-*`.
 | `attributes` | `Attribute` | — | Additional HTML attributes |
 
 ## BEM Structure
@@ -87,9 +86,11 @@ Modifiers:
 
 **Minimal Markup:** By default, only `ps-image` class is applied. Modifiers are added only when values differ from defaults (`fit: 'none'`, `rounded: 'none'`).
 
-**Composition with `baseClass`:** When `baseClass` is provided, the component uses it as the root class and maps modifiers accordingly (e.g., `ps-avatar__image--fit-cover`, `ps-avatar__image--rounded-full`). This keeps atomic elements clean inside higher-level components without leaking default atom classes.
+**Composition:** When used inside other components (like Avatar), use `attributes.addClass()` to add component-specific classes while keeping the `ps-image` base classes.
 
 ## Design Tokens
+
+### Layer 1: Global Tokens (from `source/props/borders.css`)
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -97,6 +98,38 @@ Modifiers:
 | `--radius-4` | `0.5rem` (8px) | Medium border-radius |
 | `--radius-6` | `1rem` (16px) | Large border-radius |
 | `--radius-round` | `1e5px` | Full circular border-radius |
+
+### Layer 2: Component-Scoped Variables
+
+| Variable | Default Value | Description |
+|----------|---------------|-------------|
+| `--ps-image-radius` | `0` | Border-radius (set by modifiers) |
+
+**How modifiers customize the variable**:
+```css
+.ps-image {
+  --ps-image-radius: 0; /* Default: no rounding */
+  border-radius: var(--ps-image-radius);
+}
+
+.ps-image--rounded-sm {
+  --ps-image-radius: var(--radius-2); /* Override to 4px */
+}
+
+.ps-image--rounded-md {
+  --ps-image-radius: var(--radius-4); /* Override to 8px */
+}
+
+/* ... and so on */
+```
+
+**Layer 2 benefits**: Single variable that modifiers override, enabling contextual overrides:
+```css
+/* Custom context override */
+.card .ps-image--rounded-md {
+  --ps-image-radius: var(--radius-3); /* 6px instead of default 8px */
+}
+```
 
 **Note:** Object-fit values use native CSS properties and don't require custom tokens.
 
@@ -148,9 +181,12 @@ Controls how the image fills its container:
 } %}
 ```
 
-### Composed inside another component (using `baseClass`)
+### Composed inside another component
 ```twig
 {# Inside Avatar component template #}
+{% set image_attributes = create_attribute() %}
+{% set image_attributes = image_attributes.addClass('ps-avatar__image') %}
+
 {% include '@elements/image/image.twig' with {
   src: src,
   alt: alt,
@@ -158,8 +194,8 @@ Controls how the image fills its container:
   height: size_px,
   fit: 'cover',
   rounded: shape == 'circle' ? 'full' : 'md',
-  baseClass: 'ps-avatar__image'
-} %}
+  attributes: image_attributes
+} only %}
 ```
 
 ### Card Thumbnail

@@ -76,6 +76,7 @@
     ]
   },
   "dependencies": {
+    "sharp": "^0.34.5",
     "swiper": "^12.0.3"
   }
 }
