@@ -15,7 +15,7 @@ export default {
     },
     compact: {
       control: 'boolean',
-      description: 'Reduced size variant (12px font, 2px separator margin)',
+      description: 'Reduced size variant (12px font, 12px separator, 2px separator margin)',
       table: {
         category: 'Modifiers',
         defaultValue: { summary: 'false' },
@@ -32,7 +32,7 @@ export default {
     noUnderline: {
       control: 'boolean',
       description:
-        '**DEPRECATED**. Default behavior now has no underline (shows on hover only). Kept for backward compatibility.',
+        'Remove underline from links (opposite of Figma default with underline). Shows on hover only.',
       table: {
         category: 'Modifiers',
         defaultValue: { summary: 'false' },
@@ -79,6 +79,19 @@ export const Inverted = {
   },
 };
 
+export const NoUnderline = {
+  name: 'No Underline',
+  args: {
+    items: [
+      { label: 'Accueil', url: '/' },
+      { label: 'Terrains', url: '/terrains' },
+      { label: 'Île-de-France', url: '/terrains/ile-de-france' },
+      { label: 'Terrain constructible 2500m² - Versailles' },
+    ],
+    noUnderline: true,
+  },
+};
+
 export const AllModifiers = {
   name: 'All Modifiers',
   render: () => `
@@ -118,6 +131,19 @@ export const AllModifiers = {
             { label: 'Villa Medicis' },
           ],
           inverted: true,
+        })}
+      </div>
+      
+      <div>
+        <h4 style="margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">No Underline</h4>
+        ${markup({
+          items: [
+            { label: 'Accueil', url: '/' },
+            { label: 'Terrains', url: '/terrains' },
+            { label: 'Île-de-France', url: '/terrains/idf' },
+            { label: 'Versailles' },
+          ],
+          noUnderline: true,
         })}
       </div>
     </div>

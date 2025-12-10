@@ -46,6 +46,12 @@ Accessible navigation breadcrumb component for hierarchical website structure in
   items: breadcrumb_items,
   inverted: true
 } only %}
+
+{# No underline (cleaner design, opposite of Figma default) #}
+{% include '@components/breadcrumb/breadcrumb.twig' with {
+  items: breadcrumb_items,
+  noUnderline: true
+} only %}
 ```
 
 ---
@@ -55,9 +61,9 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `items` | `array<{label: string, url?: string}>` | `[]` | **Required**. List of breadcrumb items. Last item is current page (no link). |
-| `compact` | `boolean` | `false` | Reduced size variant (12px font, 2px separator margin). |
+| `compact` | `boolean` | `false` | Reduced size variant (12px font, 12px separator, 2px separator margin). |
 | `inverted` | `boolean` | `false` | Dark theme with white text (for light backgrounds). |
-| `noUnderline` | `boolean` | `false` | **DEPRECATED**. Default behavior now has no underline (matches design). Kept for backward compatibility. |
+| `noUnderline` | `boolean` | `false` | Remove underline from links (opposite of Figma default). Shows on hover only. |
 | `attributes` | `Attribute` | `null` | Additional HTML attributes for `<nav>` element. |
 
 ---
@@ -94,9 +100,9 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 
 | Modifier | Description |
 |----------|-------------|
-| `.ps-breadcrumb--compact` | Reduced font size (12px) and separator margin (2px). |
+| `.ps-breadcrumb--compact` | Reduced font size (12px), separator margin (2px), and separator size (12px). |
 | `.ps-breadcrumb--inverted` | White text and light hover colors (dark backgrounds). |
-| `.ps-breadcrumb--no-underline` | **DEPRECATED**. Default behavior now matches capture (no underline by default, shows on hover). |
+| `.ps-breadcrumb--no-underline` | Remove underline from links (opposite of Figma default). Shows on hover only. |
 
 ---
 
@@ -108,9 +114,9 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 .ps-breadcrumb {
   /* Typography */
   --ps-breadcrumb-font-family: var(--font-sans);
-  --ps-breadcrumb-font-size: var(--font-size-0);           /* 14px */
+  --ps-breadcrumb-font-size: var(--font-size-1);           /* 16px - Figma spec */
   --ps-breadcrumb-font-weight: var(--font-weight-400);
-  --ps-breadcrumb-line-height: var(--leading-6);           /* 1.5 */
+  --ps-breadcrumb-line-height: var(--leading-6);           /* 24px - Figma spec */
   
   /* Colors */
   --ps-breadcrumb-color: var(--text-primary);
@@ -141,9 +147,9 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--font-sans` | `"BNPP Sans", sans-serif` | Font family |
-| `--font-size-0` | `0.875rem` (14px) | Default font size |
+| `--font-size-1` | `1rem` (16px) | Default font size (Figma spec) |
 | `--font-size--1` | `0.75rem` (12px) | Compact font size |
-| `--text-primary` | `var(--gray-900)` | Text color |
+| `--text-primary` | `var(--gray-900)` | Text color (#333333) |
 | `--primary` | `var(--green-600)` | Hover color |
 | `--white` | `hsl(0, 0%, 100%)` | Inverted theme color |
 | `--size-1` | `0.25rem` (4px) | Separator margin default |

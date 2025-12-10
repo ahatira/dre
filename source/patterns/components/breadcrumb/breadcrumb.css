@@ -4,9 +4,9 @@
     
     /* Typography */
     --ps-breadcrumb-font-family: var(--font-sans);
-    --ps-breadcrumb-font-size: var(--font-size-0);
+    --ps-breadcrumb-font-size: var(--font-size-1); /* 16px - Figma spec */
     --ps-breadcrumb-font-weight: var(--font-weight-400);
-    --ps-breadcrumb-line-height: var(--leading-6);
+    --ps-breadcrumb-line-height: var(--leading-6); /* 24px - Figma spec */
     
     /* Colors */
     --ps-breadcrumb-color: var(--text-primary);
@@ -19,7 +19,7 @@
     --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
     
     /* Layout */
-    --ps-breadcrumb-list-gap: 0;
+    --ps-breadcrumb-list-gap: var(--size-1); /* 4px - Figma spec */
     
     /* Focus */
     --ps-breadcrumb-focus-outline-width: var(--border-size-2);
@@ -56,8 +56,8 @@
     &:not(:last-child)::after {
       content: '';
       display: inline-block;
-      width: 1em;
-      height: 1em;
+      width: 16px; /* Figma spec: fixed 16px */
+      height: 16px; /* Figma spec: fixed 16px */
       margin-inline: var(--ps-breadcrumb-separator-margin);
       
       /* svg-load() transforms to data URI during PostCSS compilation */
@@ -78,15 +78,17 @@
   }
   
   .ps-breadcrumb__link {
+    display: flex;
+    align-items: center;
     color: var(--ps-breadcrumb-link-color);
-    text-decoration: none; /* Pas de soulignement par défaut (design capture) */
     transition: color var(--ps-breadcrumb-transition-duration) var(--ps-breadcrumb-transition-timing);
     
     /* Link styles */
     &:is(a) {
+      text-decoration: underline; /* Figma spec: underline par défaut */
+      
       &:hover {
         color: var(--ps-breadcrumb-link-hover-color);
-        text-decoration: underline; /* Soulignement au hover seulement */
       }
       
       &:focus-visible {
@@ -96,11 +98,9 @@
       }
     }
     
-    /* Current page (span) - Bold comme dans la capture */
+    /* Current page (span) - Figma spec: pas de underline, font-weight 400 (pas bold) */
     &:is(span) {
       text-decoration: none;
-      font-weight: var(--font-weight-600);
-      color: var(--ps-breadcrumb-color); /* Même couleur que le texte de base */
     }
   }
   
@@ -109,6 +109,12 @@
   .ps-breadcrumb--compact {
     --ps-breadcrumb-font-size: var(--font-size--1); /* 12px */
     --ps-breadcrumb-separator-margin: var(--size-05); /* 2px */
+    
+    /* Smaller separator for compact mode */
+    .ps-breadcrumb__item:not(:last-child)::after {
+      width: 12px;
+      height: 12px;
+    }
   }
   
   .ps-breadcrumb--inverted {
@@ -119,7 +125,13 @@
   }
   
   .ps-breadcrumb--no-underline {
-    /* DEPRECATED: Default behavior now matches capture (no underline) */
-    /* This modifier is kept for backward compatibility but has no effect */
+    /* Remove underline from links (opposite of Figma default) */
+    .ps-breadcrumb__link:is(a) {
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
