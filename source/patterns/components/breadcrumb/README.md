@@ -57,7 +57,7 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 | `items` | `array<{label: string, url?: string}>` | `[]` | **Required**. List of breadcrumb items. Last item is current page (no link). |
 | `compact` | `boolean` | `false` | Reduced size variant (12px font, 12px separator, 2px separator margin). |
 | `inverted` | `boolean` | `false` | Dark theme with white text (for light backgrounds). |
-| `noUnderline` | `boolean` | `false` | **DEPRECATED**. Default behavior matches visual mockup (no underline). Kept for backward compatibility. |
+| `noUnderline` | `boolean` | `false` | **DEPRECATED**. Backward compatibility flag — default behaviour is no-underline. Prefer removing uses of this modifier. |
 | `attributes` | `Attribute` | `null` | Additional HTML attributes for `<nav>` element. |
 
 ---
@@ -94,9 +94,9 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 
 | Modifier | Description |
 |----------|-------------|
-| `.ps-breadcrumb--compact` | Reduced font size (12px), separator margin (2px), and separator size (12px). |
+| `.ps-breadcrumb--compact` | Reduced font size (12px), separator margin (2px), and separator size (14px). |
 | `.ps-breadcrumb--inverted` | White text and light hover colors (dark backgrounds). |
-| `.ps-breadcrumb--no-underline` | **DEPRECATED**. Default matches visual mockup (no underline, shows on hover). |
+| `.ps-breadcrumb--no-underline` | **DEPRECATED**. Removes underline from links. Default has underline. |
 
 ---
 
@@ -120,6 +120,7 @@ Accessible navigation breadcrumb component for hierarchical website structure in
   /* Separator (::after with mask-image) */
   --ps-breadcrumb-separator-color: var(--text-primary);
   --ps-breadcrumb-separator-margin: var(--size-1);         /* 4px */
+  --ps-breadcrumb-separator-size: 18px;                   /* 18px - Figma spec */
   --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
   
   /* Layout */

@@ -32,7 +32,7 @@ export default {
     noUnderline: {
       control: 'boolean',
       description:
-        '**DEPRECATED**. Default behavior matches visual mockup (no underline, shows on hover). Kept for backward compatibility.',
+        '**DEPRECATED** Removes underline from links. Default has underline.',
       table: {
         category: 'Modifiers',
         defaultValue: { summary: 'false' },
@@ -51,143 +51,45 @@ export const Default = {
 };
 
 export const Compact = {
-  name: 'Compact',
+  render: (args) => markup(args),
   args: {
-    items: [
-      { label: 'Accueil', url: '/' },
-      { label: 'Bureaux', url: '/bureaux' },
-      { label: 'La Défense', url: '/bureaux/la-defense' },
-      { label: 'Tour Granite - Plateau 1200m²' },
-    ],
+    ...data,
     compact: true,
   },
 };
 
 export const Inverted = {
-  name: 'Inverted (Dark Background)',
+  render: (args) => {
+    return `
+      <div style="background-color: var(--gray-900); padding: var(--size-8); border-radius: var(--radius-2);">
+        ${markup(args)}
+      </div>
+    `;
+  },
+  args: {
+    ...data,
+    inverted: true,
+  },
+};
+
+export const LongLabels = {
+  name: 'Long labels / Overflow',
+  render: (args) => markup(args),
   args: {
     items: [
       { label: 'Accueil', url: '/' },
-      { label: 'Investissement', url: '/investissement' },
-      { label: 'Résidences Services Seniors', url: '/investissement/seniors' },
-      { label: 'Programme Villa Medicis - Neuilly-sur-Seine' },
+      { label: 'Locations', url: '/locations' },
+      { label: 'Paris 15ème Arrondissement', url: '/locations/paris-15' },
+      { label: 'Appartement familial T4 - Vue sur Tour Eiffel - Long title to test overflow and wrap behaviour' },
     ],
-    inverted: true,
-  },
-  parameters: {
-    backgrounds: { default: 'dark' },
   },
 };
 
-export const AllModifiers = {
-  name: 'All Modifiers',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
-      <div>
-        <h4 style="margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Default</h4>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Locations', url: '/locations' },
-            { label: 'Paris 15ème', url: '/locations/paris-15' },
-            { label: 'Appartement T4' },
-          ],
-        })}
-      </div>
-      
-      <div>
-        <h4 style="margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Compact</h4>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Bureaux', url: '/bureaux' },
-            { label: 'La Défense', url: '/bureaux/la-defense' },
-            { label: 'Tour Granite' },
-          ],
-          compact: true,
-        })}
-      </div>
-      
-      <div style="background: var(--gray-900); padding: var(--size-4); border-radius: var(--radius-2);">
-        <h4 style="margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--white);">Inverted</h4>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Investissement', url: '/investissement' },
-            { label: 'Résidences Seniors', url: '/investissement/seniors' },
-            { label: 'Villa Medicis' },
-          ],
-          inverted: true,
-        })}
-      </div>
-    </div>
-  `,
-};
-
-export const RealEstateUseCases = {
-  name: 'Real Estate Use Cases',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
-      <div>
-        <h3 style="margin-bottom: var(--size-3); color: var(--gray-900);">Property Listing Page</h3>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Locations', url: '/locations' },
-            { label: 'Paris 15ème Arrondissement', url: '/locations/paris-15' },
-            { label: 'Appartement familial T4 - Vue sur Tour Eiffel' },
-          ],
-        })}
-      </div>
-      
-      <div>
-        <h3 style="margin-bottom: var(--size-3); color: var(--gray-900);">Office Space Listing</h3>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Bureaux', url: '/bureaux' },
-            { label: 'La Défense', url: '/bureaux/la-defense' },
-            { label: 'Tour Granite - Plateau 1200m² - Vue panoramique Seine' },
-          ],
-        })}
-      </div>
-      
-      <div>
-        <h3 style="margin-bottom: var(--size-3); color: var(--gray-900);">Investment Program</h3>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Investissement', url: '/investissement' },
-            { label: 'Résidences Services Seniors', url: '/investissement/seniors' },
-            { label: 'Programme Villa Medicis - Neuilly-sur-Seine' },
-          ],
-        })}
-      </div>
-      
-      <div>
-        <h3 style="margin-bottom: var(--size-3); color: var(--gray-900);">Land Listing</h3>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Terrains', url: '/terrains' },
-            { label: 'Île-de-France', url: '/terrains/ile-de-france' },
-            { label: 'Terrain constructible 2500m² - Versailles' },
-          ],
-        })}
-      </div>
-      
-      <div style="background: var(--gray-100); padding: var(--size-4); border-radius: var(--radius-2);">
-        <h3 style="margin-bottom: var(--size-3); color: var(--gray-900);">Sidebar Navigation (Compact)</h3>
-        ${markup({
-          items: [
-            { label: 'Accueil', url: '/' },
-            { label: 'Commerces', url: '/commerces' },
-            { label: 'Paris', url: '/commerces/paris' },
-            { label: 'Boutique Champs-Élysées' },
-          ],
-          compact: true,
-        })}
-      </div>
-    </div>
-  `,
+export const NoUnderlineDeprecated = {
+  name: 'No underline (deprecated)',
+  render: (args) => markup(args),
+  args: {
+    ...data,
+    noUnderline: true,
+  },
 };

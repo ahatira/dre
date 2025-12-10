@@ -1,44 +1,50 @@
-@layer components {
-  .ps-breadcrumb {
-    /* Layer 2: Component-scoped CSS Variables */
-    
-    /* Typography */
-    --ps-breadcrumb-font-family: var(--font-sans);
-    --ps-breadcrumb-font-size: var(--font-size-1); /* 16px - Figma spec */
-    --ps-breadcrumb-font-weight: var(--font-weight-400);
-    --ps-breadcrumb-line-height: var(--leading-6); /* 24px - Figma spec */
-    
-    /* Colors */
-    --ps-breadcrumb-color: var(--text-primary);
-    --ps-breadcrumb-link-color: var(--text-primary);
-    --ps-breadcrumb-link-hover-color: var(--primary);
-    
-    /* Separator (::after pseudo-element with svg-load) */
-    --ps-breadcrumb-separator-color: var(--text-primary);
-    --ps-breadcrumb-separator-margin: var(--size-1);
-    --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
-    
-    /* Layout */
-    --ps-breadcrumb-list-gap: var(--size-1); /* 4px - Figma spec */
-    
-    /* Focus */
-    --ps-breadcrumb-focus-outline-width: var(--border-size-2);
-    --ps-breadcrumb-focus-outline-color: var(--primary);
-    --ps-breadcrumb-focus-outline-offset: var(--border-size-2);
-    
-    /* Transitions */
-    --ps-breadcrumb-transition-duration: var(--duration-fast);
-    --ps-breadcrumb-transition-timing: var(--ease-3);
-    
-    /* Base styles */
-    font-family: var(--ps-breadcrumb-font-family);
-    font-size: var(--ps-breadcrumb-font-size);
-    font-weight: var(--ps-breadcrumb-font-weight);
-    line-height: var(--ps-breadcrumb-line-height);
-    color: var(--ps-breadcrumb-color);
-  }
+.ps-breadcrumb {
+  /* Layer 2: Component-scoped CSS Variables */
   
-  .ps-breadcrumb__list {
+  /* Typography */
+  --ps-breadcrumb-font-family: var(--font-sans);
+  --ps-breadcrumb-font-size: var(--font-size-1); /* 16px - Figma spec */
+  --ps-breadcrumb-font-weight: var(--font-weight-400);
+  --ps-breadcrumb-line-height: var(--leading-6); /* 24px - Figma spec */
+  
+  /* Colors */
+  --ps-breadcrumb-color: var(--text-primary);
+  --ps-breadcrumb-link-color: var(--text-primary);
+  --ps-breadcrumb-link-hover-color: var(--primary);
+  
+  /* Separator (::after pseudo-element with svg-load) */
+  --ps-breadcrumb-separator-color: var(--text-primary);
+  --ps-breadcrumb-separator-margin: var(--size-1);
+  --ps-breadcrumb-separator-size: calc(var(--size-4) + var(--size-05)); /* 18px = 16px + 2px */
+  --ps-breadcrumb-separator-icon-mask: svg-load('generic/chevron-right.svg');
+  
+  /* Mobile back button arrow (hidden by default) */
+  --ps-breadcrumb-back-arrow-color: var(--text-primary);
+  --ps-breadcrumb-back-arrow-size: 18px;
+  --ps-breadcrumb-back-arrow-margin: var(--size-2);
+  --ps-breadcrumb-back-arrow-icon-mask: svg-load('generic/arrow-left.svg');
+  
+  /* Layout */
+  --ps-breadcrumb-list-gap: var(--size-1); /* 4px - Figma spec */
+  
+  /* Focus */
+  --ps-breadcrumb-focus-outline-width: var(--border-size-2);
+  --ps-breadcrumb-focus-outline-color: var(--primary);
+  --ps-breadcrumb-focus-outline-offset: var(--border-size-2);
+  
+  /* Transitions */
+  --ps-breadcrumb-transition-duration: var(--duration-fast);
+  --ps-breadcrumb-transition-timing: var(--ease-3);
+  
+  /* Base styles */
+  font-family: var(--ps-breadcrumb-font-family);
+  font-size: var(--ps-breadcrumb-font-size);
+  font-weight: var(--ps-breadcrumb-font-weight);
+  line-height: var(--ps-breadcrumb-line-height);
+  color: var(--ps-breadcrumb-color);
+  
+  /* Elements */
+  &__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -48,7 +54,7 @@
     list-style: none;
   }
   
-  .ps-breadcrumb__item {
+  &__item {
     display: inline-flex;
     align-items: center;
     
@@ -56,8 +62,8 @@
     &:not(:last-child)::after {
       content: '';
       display: inline-block;
-      width: 16px; /* Figma spec: fixed 16px */
-      height: 16px; /* Figma spec: fixed 16px */
+      width: var(--ps-breadcrumb-separator-size);
+      height: var(--ps-breadcrumb-separator-size);
       margin-inline: var(--ps-breadcrumb-separator-margin);
       
       /* svg-load() transforms to data URI during PostCSS compilation */
@@ -77,7 +83,7 @@
     }
   }
   
-  .ps-breadcrumb__link {
+  &__link {
     display: flex;
     align-items: center;
     color: var(--ps-breadcrumb-link-color);
@@ -85,12 +91,12 @@
     
     /* Link styles */
     &:is(a) {
-      text-decoration: underline; /* Maquette visuelle: underline PAR DÉFAUT */
-      
+      text-decoration: underline;
+
       &:hover {
         color: var(--ps-breadcrumb-link-hover-color);
       }
-      
+
       &:focus-visible {
         outline: var(--ps-breadcrumb-focus-outline-width) solid var(--ps-breadcrumb-focus-outline-color);
         outline-offset: var(--ps-breadcrumb-focus-outline-offset);
@@ -104,33 +110,60 @@
     }
   }
   
-  /* Layer 3: Modifier Overrides */
-  
-  .ps-breadcrumb--compact {
+  /* Modifiers */
+  &--compact {
     --ps-breadcrumb-font-size: var(--font-size--1); /* 12px */
     --ps-breadcrumb-separator-margin: var(--size-05); /* 2px */
-    
-    /* Smaller separator for compact mode */
-    .ps-breadcrumb__item:not(:last-child)::after {
-      width: 12px;
-      height: 12px;
-    }
+    --ps-breadcrumb-separator-size: calc(var(--size-3) + var(--size-05)); /* 14px = 12px + 2px */
   }
   
-  .ps-breadcrumb--inverted {
+  &--inverted {
     --ps-breadcrumb-color: var(--white);
     --ps-breadcrumb-link-color: var(--white);
     --ps-breadcrumb-link-hover-color: var(--gray-300);
     --ps-breadcrumb-separator-color: var(--white);
   }
   
-  .ps-breadcrumb--no-underline {
-    /* Remove underline from links (cleaner alternative) */
+  &--no-underline {
+    /* Deprecated modifier - kept for backward compatibility */
     .ps-breadcrumb__link:is(a) {
       text-decoration: none;
+    }
+  }
+}
+
+/* Mobile responsive: show only back button on small screens */
+@media (width < 640px) {
+  .ps-breadcrumb__item {
+    display: none;
+    
+    /* Show only the second-to-last item (previous page) as back button */
+    &:nth-last-child(2) {
+      display: inline-flex;
       
-      &:hover {
-        text-decoration: underline;
+      /* Add back arrow (SVG) before the previous page link only */
+      .ps-breadcrumb__link::before {
+        content: '';
+        display: inline-block;
+        width: var(--ps-breadcrumb-back-arrow-size);
+        height: var(--ps-breadcrumb-back-arrow-size);
+        margin-inline-end: var(--ps-breadcrumb-back-arrow-margin);
+        background-color: var(--ps-breadcrumb-back-arrow-color);
+        
+        /* SVG mask for arrow-left icon */
+        mask-image: var(--ps-breadcrumb-back-arrow-icon-mask);
+        -webkit-mask-image: var(--ps-breadcrumb-back-arrow-icon-mask);
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-position: center;
+        mask-size: contain;
+        -webkit-mask-size: contain;
+      }
+    
+      /* Hide separator chevron on all items in mobile view */
+      &::after {
+        display: none;
       }
     }
   }
