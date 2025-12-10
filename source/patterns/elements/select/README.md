@@ -91,7 +91,7 @@ Modifiers:
 
 /* Borders */
 --border-size-2: 2px;
---radius-2: 6px;
+--radius-4: 8px;
 --border-focus: var(--gray-900);
 
 /* Typography */
@@ -147,7 +147,7 @@ Modifiers:
 
   /* Borders */
   --ps-select-border-width: var(--border-size-2);
-  --ps-select-border-radius: var(--radius-2);
+  --ps-select-border-radius: var(--radius-4);          /* 8px rounded corners */
 
   /* Animations */
   --ps-select-transition-duration: var(--duration-fast);

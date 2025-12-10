@@ -50,7 +50,7 @@
 
   /* Borders & Radius */
   --ps-select-border-width: var(--border-size-2); /* 2px */
-  --ps-select-border-radius: var(--radius-2);
+  --ps-select-border-radius: var(--radius-4); /* 8px rounded corners */
 
   /* Icon (chevron) */
   --ps-select-icon-color: var(--gray-700);
@@ -67,6 +67,8 @@
   position: relative;
   display: inline-block;
   width: var(--ps-select-width);
+  border-radius: var(--ps-select-border-radius);
+  overflow: hidden;
 
   /* Native select styling */
   & .ps-select__input {
