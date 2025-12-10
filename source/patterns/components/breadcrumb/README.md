@@ -114,7 +114,7 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 .ps-breadcrumb {
   /* Typography */
   --ps-breadcrumb-font-family: var(--font-sans);
-  --ps-breadcrumb-font-size: var(--font-size-1);           /* 14px */
+  --ps-breadcrumb-font-size: var(--font-size-0);           /* 14px */
   --ps-breadcrumb-font-weight: var(--font-weight-400);
   --ps-breadcrumb-line-height: var(--leading-6);           /* 1.5 */
   
@@ -147,11 +147,13 @@ Accessible navigation breadcrumb component for hierarchical website structure in
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--font-sans` | `"BNPP Sans", sans-serif` | Font family |
-| `--font-size-1` | `0.875rem` (14px) | Default font size |
+| `--font-size-0` | `0.875rem` (14px) | Default font size |
+| `--font-size--1` | `0.75rem` (12px) | Compact font size |
 | `--text-primary` | `var(--gray-900)` | Text color |
 | `--primary` | `var(--green-600)` | Hover color |
 | `--white` | `hsl(0, 0%, 100%)` | Inverted theme color |
-| `--size-1` | `0.25rem` (4px) | Separator margin |
+| `--size-1` | `0.25rem` (4px) | Separator margin default |
+| `--size-05` | `0.125rem` (2px) | Compact separator margin |
 | `--border-size-2` | `2px` | Focus outline width |
 | `--duration-fast` | `150ms` | Transition duration |
 | `--ease-3` | `cubic-bezier(...)` | Transition timing |

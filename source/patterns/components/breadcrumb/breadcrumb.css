@@ -4,7 +4,7 @@
     
     /* Typography */
     --ps-breadcrumb-font-family: var(--font-sans);
-    --ps-breadcrumb-font-size: var(--font-size-1);
+    --ps-breadcrumb-font-size: var(--font-size-0);
     --ps-breadcrumb-font-weight: var(--font-weight-400);
     --ps-breadcrumb-line-height: var(--leading-6);
     
@@ -105,8 +105,8 @@
   /* Layer 3: Modifier Overrides */
   
   .ps-breadcrumb--compact {
-    --ps-breadcrumb-font-size: 0.75rem; /* 12px */
-    --ps-breadcrumb-separator-margin: 0.125rem; /* 2px */
+    --ps-breadcrumb-font-size: var(--font-size--1); /* 12px */
+    --ps-breadcrumb-separator-margin: var(--size-05); /* 2px */
   }
   
   .ps-breadcrumb--inverted {
