@@ -85,10 +85,11 @@
     
     /* Link styles */
     &:is(a) {
-      text-decoration: underline; /* Figma spec: underline par défaut */
+      text-decoration: none; /* Maquette visuelle: pas de underline par défaut */
       
       &:hover {
         color: var(--ps-breadcrumb-link-hover-color);
+        text-decoration: underline; /* Apparaît au hover */
       }
       
       &:focus-visible {
@@ -98,7 +99,7 @@
       }
     }
     
-    /* Current page (span) - Figma spec: pas de underline, font-weight 400 (pas bold) */
+    /* Current page (span) - Maquette: font-weight normal */
     &:is(span) {
       text-decoration: none;
     }
@@ -125,13 +126,7 @@
   }
   
   .ps-breadcrumb--no-underline {
-    /* Remove underline from links (opposite of Figma default) */
-    .ps-breadcrumb__link:is(a) {
-      text-decoration: none;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    /* DEPRECATED: Default behavior now matches mockup (no underline) */
+    /* This modifier is kept for backward compatibility but has no effect */
   }
 }
