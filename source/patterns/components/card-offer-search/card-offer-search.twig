@@ -1,0 +1,233 @@
+{#
+/**
+ * Card Offer Search (Component/Molecule)
+ * Search result card for property listings with horizontal layout (desktop).
+ * 
+ * Extends Card component with:
+ * - Image carousel with navigation
+ * - Status badges (viewed, exclusivity)
+ * - Action buttons (comparator, favorite)
+ * - Horizontal layout on desktop, vertical on mobile
+ * - Price with detailed unit
+ * - CTA button in footer
+ * 
+ * @param string title - Property title (required)
+ * @param string price - Price value (e.g., "20 000 €")
+ * @param string priceUnit - Price unit (e.g., "HT/HC/m²/an")
+ * @param string surface - Surface area (e.g., "611.3 m²")
+ * @param array images - Array of image objects: [{ url: string, alt: string }] (required)
+ * @param string location - Location text (e.g., "28010 MADRID")
+ * @param string locationIcon - Location icon name (default: 'pin')
+ * @param object cta - Call-to-action: { text: string, url: string }
+ * @param boolean isViewed - Already viewed state (default: false)
+ * @param boolean isExclusive - Exclusivity state (default: false)
+ * @param boolean isComparator - Comparator active state (default: false)
+ * @param boolean isFavorite - Favorite state (default: false)
+ * @param string bundle - Drupal content type/bundle (default: 'offer')
+ * @param string view_mode - Drupal view mode (default: 'search')
+ * @param object attributes - Additional HTML attributes
+ * 
+ * Usage:
+ *   {% include '@components/card-offer-search/card-offer-search.twig' with {
+ *     title: 'Rent Offices MADRID Barrio de Chamberí',
+ *     price: '20 000 €',
+ *     priceUnit: 'HT/HC/m²/an',
+ *     surface: '611.3 m²',
+ *     images: [
+ *       { url: '/images/building-1.jpg', alt: 'Office view 1' },
+ *       { url: '/images/building-2.jpg', alt: 'Office view 2' }
+ *     ],
+ *     location: '28010 MADRID',
+ *     cta: { text: 'View the property', url: '/property/123' },
+ *     isViewed: true,
+ *     isExclusive: true,
+ *     isFavorite: false
+ *   } only %}
+ */
+#}
+
+{%- set title = title|default('Property title') -%}
+{%- set price = price|default(null) -%}
+{%- set priceUnit = priceUnit|default(null) -%}
+{%- set surface = surface|default(null) -%}
+{%- set images = images|default([]) -%}
+{%- set location = location|default(null) -%}
+{%- set locationIcon = locationIcon|default('pin') -%}
+{%- set cta = cta|default({ text: 'View the property', url: '#' }) -%}
+{%- set isViewed = isViewed|default(false) -%}
+{%- set isExclusive = isExclusive|default(false) -%}
+{%- set isComparator = isComparator|default(false) -%}
+{%- set isFavorite = isFavorite|default(false) -%}
+{%- set bundle = bundle|default('offer') -%}
+{%- set view_mode = view_mode|default('search') -%}
+
+{# Embed Card component for structure reuse #}
+{% embed '@components/card/card.twig' with {
+  attributes: attributes.addClass('ps-card-offer-search'),
+  bundle: bundle,
+  view_mode: view_mode,
+  title: title,
+  price: price,
+  priceUnit: priceUnit,
+  surface: surface,
+  images: images,
+  location: location,
+  locationIcon: locationIcon,
+  cta: cta,
+  isViewed: isViewed,
+  isExclusive: isExclusive,
+  isComparator: isComparator,
+  isFavorite: isFavorite
+} %}
+
+  {# Media block - Image carousel #}
+  {% block media %}
+    {% if images and images|length > 0 %}
+      <div class="ps-card-offer-search__carousel">
+        {# First image as primary #}
+        {% include '@elements/image/image.twig' with {
+          src: images[0].url,
+          alt: images[0].alt|default(''),
+          class: 'ps-card-offer-search__image'
+        } only %}
+        
+        {# Carousel navigation (if multiple images) #}
+        {% if images|length > 1 %}
+          <div class="ps-card-offer-search__carousel-nav">
+            {% include '@elements/button/button.twig' with {
+              class: 'ps-card-offer-search__carousel-prev',
+              variant: 'ghost',
+              size: 'sm',
+              icon: 'chevron-left',
+              attributes: create_attribute()
+                .setAttribute('aria-label', 'Previous image')
+                .setAttribute('data-action', 'carousel-prev')
+            } only %}
+            {% include '@elements/button/button.twig' with {
+              class: 'ps-card-offer-search__carousel-next',
+              variant: 'ghost',
+              size: 'sm',
+              icon: 'chevron-right',
+              attributes: create_attribute()
+                .setAttribute('aria-label', 'Next image')
+                .setAttribute('data-action', 'carousel-next')
+            } only %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {# Header block - Badges and action buttons #}
+  {% block header %}
+    <div class="ps-card-offer-search__header">
+      {# Left section - Badges #}
+      <div class="ps-card-offer-search__badges">
+        {% if isViewed %}
+          <span class="ps-card-offer-search__badge ps-card-offer-search__badge--viewed">
+            {% include '@elements/icon/icon.twig' with {
+              icon: 'eye',
+              class: 'ps-card-offer-search__badge-icon',
+              ariaHidden: true
+            } only %}
+            <span class="ps-card-offer-search__badge-text">Already viewed</span>
+          </span>
+        {% endif %}
+        
+        {% if isExclusive %}
+          <span class="ps-card-offer-search__badge ps-card-offer-search__badge--exclusive">
+            <span class="ps-card-offer-search__badge-text">Exclusivity</span>
+          </span>
+        {% endif %}
+      </div>
+      
+      {# Right section - Action buttons #}
+      <div class="ps-card-offer-search__actions">
+        {% include '@elements/button/button.twig' with {
+          class: 'ps-card-offer-search__action',
+          variant: 'ghost',
+          size: 'sm',
+          icon: 'compare',
+          toggle: true,
+          active: isComparator,
+          attributes: create_attribute()
+            .setAttribute('aria-label', isComparator ? 'Remove from comparator' : 'Add to comparator')
+            .setAttribute('data-action', 'comparator')
+        } only %}
+        
+        {% include '@elements/button/button.twig' with {
+          class: 'ps-card-offer-search__action',
+          variant: 'ghost',
+          size: 'sm',
+          icon: isFavorite ? 'heart' : 'heart-outline',
+          toggle: true,
+          active: isFavorite,
+          attributes: create_attribute()
+            .setAttribute('aria-label', isFavorite ? 'Remove from favorites' : 'Add to favorites')
+            .setAttribute('data-action', 'favorite')
+        } only %}
+      </div>
+    </div>
+  {% endblock %}
+  
+  {# Body block - Title, surface, location #}
+  {% block body %}
+    
+    {# Property title #}
+    {% include '@elements/heading/heading.twig' with {
+      level: 'h3',
+      text: title,
+      class: 'ps-card-offer-search__title'
+    } only %}
+    
+    {# Surface area #}
+    {% if surface %}
+      <div class="ps-card-offer-search__surface">
+        <span class="ps-card-offer-search__surface-text">{{ surface }}</span>
+      </div>
+    {% endif %}
+    
+    {# Location with icon #}
+    {% if location %}
+      <div class="ps-card-offer-search__location">
+        {% include '@elements/icon/icon.twig' with {
+          icon: locationIcon,
+          class: 'ps-card-offer-search__location-icon',
+          ariaHidden: true
+        } only %}
+        <span class="ps-card-offer-search__location-text">{{ location }}</span>
+      </div>
+    {% endif %}
+    
+  {% endblock %}
+  
+  {# Footer block - Price and CTA #}
+  {% block footer %}
+    <div class="ps-card-offer-search__footer">
+      {# Price with unit #}
+      {% if price %}
+        <div class="ps-card-offer-search__price">
+          <span class="ps-card-offer-search__price-value">{{ price }}</span>
+          {% if priceUnit %}
+            <span class="ps-card-offer-search__price-unit">{{ priceUnit }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      {# CTA button #}
+      {% if cta and cta.url %}
+        {% include '@elements/button/button.twig' with {
+          text: cta.text,
+          url: cta.url,
+          variant: 'primary',
+          size: 'sm',
+          icon: 'arrow-right',
+          iconPosition: 'end',
+          class: 'ps-card-offer-search__cta',
+          attributes: create_attribute()
+        } only %}
+      {% endif %}
+    </div>
+  {% endblock %}
+
+{% endembed %}

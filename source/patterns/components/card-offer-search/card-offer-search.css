@@ -1,0 +1,281 @@
+/**
+ * Card Offer Search
+ * Search result card for property listings with horizontal layout (desktop).
+ * 
+ * Features:
+ * - Horizontal layout on desktop (40% image / 60% content)
+ * - Vertical layout on mobile (stacked)
+ * - Image carousel with navigation
+ * - Status badges (viewed, exclusivity)
+ * - Action buttons (comparator, favorite)
+ * - Price with detailed unit
+ */
+
+/* ==========================================
+   Component Tokens
+   Defined on .ps-card for cascade access
+   ========================================== */
+:where(.ps-card.ps-card--offer--search),
+:where(.ps-card.ps-card-offer-search) {
+  /* Layout - Responsive breakpoint */
+  --ps-card-offer-search-breakpoint: 768px;
+  --ps-card-offer-search-media-width-desktop: 40%;
+  --ps-card-offer-search-content-width-desktop: 60%;
+  
+  /* Container */
+  --ps-card-offer-search-max-width: 100%;
+  --ps-card-offer-search-gap: var(--size-4);  /* 16px between media/content */
+  
+  /* Image */
+  --ps-card-offer-search-image-aspect-ratio: 3/2;
+  
+  /* Carousel navigation */
+  --ps-card-offer-search-carousel-nav-inset: var(--size-2);
+  --ps-card-offer-search-carousel-nav-bg: var(--white);
+  --ps-card-offer-search-carousel-nav-shadow: var(--shadow-1);
+  
+  /* Header */
+  --ps-card-offer-search-header-gap: var(--size-3);  /* 12px */
+  --ps-card-offer-search-header-margin-bottom: var(--size-3);
+  
+  /* Badges */
+  --ps-card-offer-search-badge-padding-x: var(--size-2);  /* 8px */
+  --ps-card-offer-search-badge-padding-y: var(--size-1);  /* 4px */
+  --ps-card-offer-search-badge-radius: var(--radius-1);  /* 4px */
+  --ps-card-offer-search-badge-font-size: var(--font-size-0);  /* 12px */
+  --ps-card-offer-search-badge-font-weight: var(--font-weight-500);  /* Medium */
+  --ps-card-offer-search-badge-gap: var(--size-1);  /* 4px icon-text */
+  --ps-card-offer-search-badge-viewed-bg: var(--gray-100);
+  --ps-card-offer-search-badge-viewed-color: var(--gray-700);
+  --ps-card-offer-search-badge-exclusive-bg: var(--gold-bg-subtle);
+  --ps-card-offer-search-badge-exclusive-color: var(--gold);
+  
+  /* Actions */
+  --ps-card-offer-search-actions-gap: var(--size-2);  /* 8px */
+  
+  /* Title */
+  --ps-card-offer-search-title-font-size: var(--font-size-3);  /* 20px */
+  --ps-card-offer-search-title-font-weight: var(--font-weight-600);  /* Semi-bold */
+  --ps-card-offer-search-title-line-height: var(--leading-6);  /* 1.5 */
+  --ps-card-offer-search-title-color: var(--text-primary);
+  --ps-card-offer-search-title-margin-bottom: var(--size-2);  /* 8px */
+  
+  /* Surface */
+  --ps-card-offer-search-surface-font-size: var(--font-size-1);  /* 16px */
+  --ps-card-offer-search-surface-font-weight: var(--font-weight-400);
+  --ps-card-offer-search-surface-color: var(--text-primary);
+  --ps-card-offer-search-surface-margin-bottom: var(--size-2);
+  
+  /* Location */
+  --ps-card-offer-search-location-font-size: var(--font-size-0);  /* 14px */
+  --ps-card-offer-search-location-font-weight: var(--font-weight-400);
+  --ps-card-offer-search-location-color: var(--text-secondary);
+  --ps-card-offer-search-location-gap: var(--size-1);  /* 4px */
+  --ps-card-offer-search-location-icon-color: var(--gray-600);
+  --ps-card-offer-search-location-icon-size: var(--font-size-2);
+  --ps-card-offer-search-location-margin-bottom: var(--size-4);
+  
+  /* Footer */
+  --ps-card-offer-search-footer-gap: var(--size-3);  /* 12px */
+  --ps-card-offer-search-footer-align-desktop: space-between;
+  --ps-card-offer-search-footer-align-mobile: flex-start;
+  
+  /* Price */
+  --ps-card-offer-search-price-value-font-size: var(--font-size-7);  /* 28px */
+  --ps-card-offer-search-price-value-font-weight: var(--font-weight-700);  /* Bold */
+  --ps-card-offer-search-price-value-color: var(--text-primary);
+  --ps-card-offer-search-price-unit-font-size: var(--font-size-00);  /* 10px */
+  --ps-card-offer-search-price-unit-font-weight: var(--font-weight-400);
+  --ps-card-offer-search-price-unit-color: var(--text-secondary);
+  --ps-card-offer-search-price-gap: var(--size-1);  /* 4px */
+}
+
+/* ==========================================
+   Component Styles
+   ========================================== */
+.ps-card-offer-search {
+  max-width: var(--ps-card-offer-search-max-width);
+  
+  /* Desktop: Horizontal layout */
+  @media (min-width: 768px) {
+    & .ps-card__container {
+      display: flex;
+      flex-direction: row;
+      gap: var(--ps-card-offer-search-gap);
+    }
+    
+    & .ps-card__media {
+      flex: 0 0 var(--ps-card-offer-search-media-width-desktop);
+      max-width: var(--ps-card-offer-search-media-width-desktop);
+    }
+    
+    & .ps-card__content {
+      flex: 1 1 var(--ps-card-offer-search-content-width-desktop);
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  /* Carousel */
+  &__carousel {
+    position: relative;
+    width: 100%;
+  }
+  
+  &__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--ps-card-offer-search-image-aspect-ratio);
+    object-fit: cover;
+    display: block;
+  }
+  
+  &__carousel-nav {
+    position: absolute;
+    inset: var(--ps-card-offer-search-carousel-nav-inset);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+  
+  &__carousel-prev,
+  &__carousel-next {
+    pointer-events: auto;
+    background: var(--ps-card-offer-search-carousel-nav-bg);
+    box-shadow: var(--ps-card-offer-search-carousel-nav-shadow);
+  }
+  
+  /* Header - Badges and actions */
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--ps-card-offer-search-header-gap);
+    margin-bottom: var(--ps-card-offer-search-header-margin-bottom);
+  }
+  
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    flex: 1;
+  }
+  
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ps-card-offer-search-badge-gap);
+    padding: var(--ps-card-offer-search-badge-padding-y) var(--ps-card-offer-search-badge-padding-x);
+    border-radius: var(--ps-card-offer-search-badge-radius);
+    font-size: var(--ps-card-offer-search-badge-font-size);
+    font-weight: var(--ps-card-offer-search-badge-font-weight);
+    line-height: 1;
+    
+    &--viewed {
+      background: var(--ps-card-offer-search-badge-viewed-bg);
+      color: var(--ps-card-offer-search-badge-viewed-color);
+    }
+    
+    &--exclusive {
+      background: var(--ps-card-offer-search-badge-exclusive-bg);
+      color: var(--ps-card-offer-search-badge-exclusive-color);
+    }
+  }
+  
+  &__badge-icon {
+    font-size: var(--font-size-1);
+  }
+  
+  &__badge-text {
+    white-space: nowrap;
+  }
+  
+  &__actions {
+    display: flex;
+    gap: var(--ps-card-offer-search-actions-gap);
+    flex-shrink: 0;
+  }
+  
+  /* Title */
+  &__title {
+    font-size: var(--ps-card-offer-search-title-font-size);
+    font-weight: var(--ps-card-offer-search-title-font-weight);
+    line-height: var(--ps-card-offer-search-title-line-height);
+    color: var(--ps-card-offer-search-title-color);
+    margin-bottom: var(--ps-card-offer-search-title-margin-bottom);
+    margin-top: 0;
+  }
+  
+  /* Surface */
+  &__surface {
+    font-size: var(--ps-card-offer-search-surface-font-size);
+    font-weight: var(--ps-card-offer-search-surface-font-weight);
+    color: var(--ps-card-offer-search-surface-color);
+    margin-bottom: var(--ps-card-offer-search-surface-margin-bottom);
+  }
+  
+  /* Location */
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: var(--ps-card-offer-search-location-gap);
+    font-size: var(--ps-card-offer-search-location-font-size);
+    font-weight: var(--ps-card-offer-search-location-font-weight);
+    color: var(--ps-card-offer-search-location-color);
+    margin-bottom: var(--ps-card-offer-search-location-margin-bottom);
+  }
+  
+  &__location-icon {
+    color: var(--ps-card-offer-search-location-icon-color);
+    font-size: var(--ps-card-offer-search-location-icon-size);
+    flex-shrink: 0;
+  }
+  
+  &__location-text {
+    line-height: 1.4;
+  }
+  
+  /* Footer - Price and CTA */
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--ps-card-offer-search-footer-gap);
+    flex-wrap: wrap;
+    margin-top: auto;
+    
+    @media (min-width: 768px) {
+      justify-content: var(--ps-card-offer-search-footer-align-desktop);
+    }
+    
+    @media (max-width: 767px) {
+      justify-content: var(--ps-card-offer-search-footer-align-mobile);
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ps-card-offer-search-price-gap);
+  }
+  
+  &__price-value {
+    font-size: var(--ps-card-offer-search-price-value-font-size);
+    font-weight: var(--ps-card-offer-search-price-value-font-weight);
+    color: var(--ps-card-offer-search-price-value-color);
+    line-height: 1.2;
+  }
+  
+  &__price-unit {
+    font-size: var(--ps-card-offer-search-price-unit-font-size);
+    font-weight: var(--ps-card-offer-search-price-unit-font-weight);
+    color: var(--ps-card-offer-search-price-unit-color);
+    line-height: 1.4;
+  }
+  
+  &__cta {
+    flex-shrink: 0;
+  }
+}
