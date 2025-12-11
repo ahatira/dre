@@ -114,19 +114,7 @@ The **Card Offer Search** is a specialized card variant designed for property se
 | `--ps-card-offer-search-badges-gap` | `var(--size-2)` | Gap between badges |
 | `--ps-card-offer-search-actions-gap` | `var(--size-2)` | Gap between action buttons |
 
-### Badge Variants
-
-| Token | Default Value | Description |
-|-------|---------------|-------------|
-| `--ps-card-offer-search-badge-padding` | `var(--size-1) var(--size-2)` | Badge padding |
-| `--ps-card-offer-search-badge-border-radius` | `var(--radius-full)` | Badge border radius (pill) |
-| `--ps-card-offer-search-badge-font-size` | `var(--font-size-00)` | Badge font size (tiny) |
-| `--ps-card-offer-search-badge-font-weight` | `500` | Badge font weight |
-| `--ps-card-offer-search-badge-gap` | `var(--size-1)` | Gap between icon and text |
-| `--ps-card-offer-search-badge-viewed-bg` | `var(--gray-100)` | Viewed badge background |
-| `--ps-card-offer-search-badge-viewed-color` | `var(--gray-700)` | Viewed badge text color |
-| `--ps-card-offer-search-badge-exclusive-bg` | `var(--gold-bg-subtle)` | Exclusive badge background |
-| `--ps-card-offer-search-badge-exclusive-color` | `var(--gold)` | Exclusive badge text color |
+**Note**: Status badges (viewed, exclusive) use the embedded `@elements/badge/badge.twig` component with `pill: true` variant. Badge styling (colors, padding, border-radius) is controlled by the Badge component. See Badge documentation for customization options.
 
 ### Action Buttons
 
@@ -328,9 +316,10 @@ This component **embeds** the base `Card` component and overrides 4 blocks:
 
 - **Card** (parent component) - `@components/card/card.twig`
 - **Carousel** (molecule) - `@components/carousel/carousel.twig` - Swiper.js integration for image navigation
-- **Button** - `@elements/button/button.twig` (2 instances - action buttons)
-- **Heading** - `@elements/heading/heading.twig`
-- **Icon** - `@elements/icon/icon.twig` (3 instances)
+- **Badge** (atom) - `@elements/badge/badge.twig` (2 instances - viewed, exclusive pills with semantic colors)
+- **Button** (atom) - `@elements/button/button.twig` (2 instances - action buttons)
+- **Heading** (atom) - `@elements/heading/heading.twig`
+- **Icon** (atom) - `@elements/icon/icon.twig` (1 instance - location pin)
 
 ### Carousel Behavior
 

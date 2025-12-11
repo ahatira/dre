@@ -116,20 +116,22 @@
       {# Left section - Badges #}
       <div class="ps-card-offer-search__badges">
         {% if isViewed %}
-          <span class="ps-card-offer-search__badge ps-card-offer-search__badge--viewed">
-            {% include '@elements/icon/icon.twig' with {
-              icon: 'eye',
-              class: 'ps-card-offer-search__badge-icon',
-              ariaHidden: true
-            } only %}
-            <span class="ps-card-offer-search__badge-text">Already viewed</span>
-          </span>
+          {% include '@elements/badge/badge.twig' with {
+            text: 'Already viewed',
+            icon: 'eye',
+            color: 'light',
+            pill: true,
+            class: 'ps-card-offer-search__badge ps-card-offer-search__badge--viewed'
+          } only %}
         {% endif %}
         
         {% if isExclusive %}
-          <span class="ps-card-offer-search__badge ps-card-offer-search__badge--exclusive">
-            <span class="ps-card-offer-search__badge-text">Exclusivity</span>
-          </span>
+          {% include '@elements/badge/badge.twig' with {
+            text: 'Exclusivity',
+            color: 'gold',
+            pill: true,
+            class: 'ps-card-offer-search__badge ps-card-offer-search__badge--exclusive'
+          } only %}
         {% endif %}
       </div>
       
