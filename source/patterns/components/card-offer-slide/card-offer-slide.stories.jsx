@@ -173,7 +173,7 @@ export const PropertyGrid = {
         price: '650 €/m²/an',
         surface: '2 450 m²',
         location: 'Paris - La Défense',
-        image: { url: '/images/building.jpg', alt: 'Bureau moderne à La Défense' },
+        image: { url: '/images/1-1.jpg', alt: 'Bureau moderne à La Défense' },
         isFavorite: true,
         cta: { text: "Consulter l'annonce", url: '#property-paris' },
       },
@@ -200,7 +200,7 @@ export const PropertyGrid = {
         price: '380 €',
         surface: '890 m²',
         location: 'Barcelona - Passeig de Gràcia',
-        image: { url: '/images/building.jpg', alt: 'Bureau prestige à Barcelone' },
+        image: { url: '/images/4-3.jpg', alt: 'Bureau prestige à Barcelone' },
         isFavorite: true,
         cta: { text: "Consulter l'annonce", url: '#property-barcelona' },
       },
@@ -209,7 +209,7 @@ export const PropertyGrid = {
         price: '1 200 €/mois',
         surface: '450 m²',
         location: 'Madrid - Salamanca',
-        image: { url: '/images/3-2.jpg', alt: 'Surface commerciale à Madrid' },
+        image: { url: '/images/2-3.jpg', alt: 'Surface commerciale à Madrid' },
         isFavorite: false,
         cta: { text: "Consulter l'annonce", url: '#property-madrid' },
       },
@@ -218,7 +218,7 @@ export const PropertyGrid = {
         price: '12 500 € HT/HC',
         surface: '15 000 m²',
         location: 'Lisbon - Avenida da Liberdade',
-        image: { url: '/images/building.jpg', alt: 'Immeuble de bureaux à Lisbonne' },
+        image: { url: '/images/3-4.jpg', alt: 'Immeuble de bureaux à Lisbonne' },
         isFavorite: false,
         cta: { text: "Consulter l'annonce", url: '#property-lisbon' },
       },
@@ -234,12 +234,20 @@ export const PropertyGrid = {
     docs: {
       description: {
         story:
-          '**Responsive property listing grid** with 6 real estate cards.\n\n' +
+          '**Responsive property listing grid** with 6 real estate cards demonstrating **varied image aspect ratios**.\n\n' +
           '**Grid Features**:\n' +
           '- Auto-fill layout with minimum 280px per card\n' +
           '- Responsive columns (1-4 depending on viewport)\n' +
           '- Mixed favorite states (2 active, 4 inactive)\n' +
           '- Realistic Real Estate content (offices, retail, warehouses)\n\n' +
+          '**Image Aspect Ratio Testing**:\n' +
+          '- Card 1: 1:1 (square) → Cropped to 3:2\n' +
+          '- Card 2: 3:2 (native ratio) → No cropping\n' +
+          '- Card 3: 16:9 (wide) → Cropped to 3:2\n' +
+          '- Card 4: 4:3 (traditional) → Cropped to 3:2\n' +
+          '- Card 5: 2:3 (portrait) → Cropped to 3:2\n' +
+          '- Card 6: 3:4 (portrait) → Cropped to 3:2\n\n' +
+          'All images are normalized to 3:2 aspect ratio via CSS `aspect-ratio` property, demonstrating consistent visual presentation regardless of source image dimensions.\n\n' +
           '**Use Cases**: Property search results, listing pages, homepage featured properties, slider/carousel content.',
       },
     },
