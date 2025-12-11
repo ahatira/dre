@@ -26,13 +26,8 @@
   --ps-card-offer-search-max-width: 100%;
   --ps-card-offer-search-gap: var(--size-4);  /* 16px between media/content */
   
-  /* Image */
+  /* Image - Carousel integration */
   --ps-card-offer-search-image-aspect-ratio: 3/2;
-  
-  /* Carousel navigation */
-  --ps-card-offer-search-carousel-nav-inset: var(--size-2);
-  --ps-card-offer-search-carousel-nav-bg: var(--white);
-  --ps-card-offer-search-carousel-nav-shadow: var(--shadow-1);
   
   /* Header */
   --ps-card-offer-search-header-gap: var(--size-3);  /* 12px */
@@ -116,34 +111,13 @@
     }
   }
   
-  /* Carousel */
+  /* Carousel - Integration with Carousel component */
   &__carousel {
-    position: relative;
-    width: 100%;
-  }
-  
-  &__image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: var(--ps-card-offer-search-image-aspect-ratio);
-    object-fit: cover;
-    display: block;
-  }
-  
-  &__carousel-nav {
-    position: absolute;
-    inset: var(--ps-card-offer-search-carousel-nav-inset);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-  }
-  
-  &__carousel-prev,
-  &__carousel-next {
-    pointer-events: auto;
-    background: var(--ps-card-offer-search-carousel-nav-bg);
-    box-shadow: var(--ps-card-offer-search-carousel-nav-shadow);
+    /* Carousel component inherits its own styles */
+    /* Override image aspect ratio for property photos */
+    & .ps-carousel__image {
+      aspect-ratio: var(--ps-card-offer-search-image-aspect-ratio);
+    }
   }
   
   /* Header - Badges and actions */

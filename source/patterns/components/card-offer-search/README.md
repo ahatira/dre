@@ -52,10 +52,12 @@ The **Card Offer Search** is a specialized card variant designed for property se
 .ps-card.ps-card-offer-search             # Root component (Card + view mode)
 ├── .ps-card__container                   # Main flex container (horizontal desktop)
 │   ├── .ps-card__media                   # Media section (40% desktop)
-│   │   ├── .ps-card-offer-search__image  # Property image
-│   │   └── .ps-card-offer-search__nav    # Carousel navigation
-│   │       ├── .ps-card-offer-search__prev-button  # Previous image button
-│   │       └── .ps-card-offer-search__next-button  # Next image button
+│   │   └── .ps-card-offer-search__carousel  # Carousel wrapper
+│   │       └── .ps-carousel              # Carousel component (Swiper.js)
+│   │           ├── .ps-carousel__slide   # Each image slide
+│   │           │   └── .ps-carousel__image  # Property image
+│   │           ├── .ps-carousel__button--prev  # Previous image button
+│   │           └── .ps-carousel__button--next  # Next image button
 │   │
 │   └── .ps-card__content                 # Content section (60% desktop)
 │       ├── .ps-card__header              # Badges + Actions
@@ -97,14 +99,9 @@ The **Card Offer Search** is a specialized card variant designed for property se
 
 | Token | Default Value | Description |
 |-------|---------------|-------------|
-| `--ps-card-offer-search-image-aspect` | `4 / 3` | Image aspect ratio |
-| `--ps-card-offer-search-image-object-fit` | `cover` | Image object-fit |
-| `--ps-card-offer-search-nav-position` | `absolute` | Nav buttons positioning |
-| `--ps-card-offer-search-nav-inset` | `var(--size-2)` | Nav buttons distance from edges |
-| `--ps-card-offer-search-button-size` | `var(--size-8)` | Nav button size (square) |
-| `--ps-card-offer-search-button-bg` | `var(--white)` | Nav button background |
-| `--ps-card-offer-search-button-opacity` | `0.9` | Nav button opacity |
-| `--ps-card-offer-search-button-hover-opacity` | `1` | Nav button hover opacity |
+| `--ps-card-offer-search-image-aspect-ratio` | `3/2` | Image aspect ratio (applied to Carousel images) |
+
+**Note**: Carousel navigation and behavior are controlled by the embedded `@components/carousel/carousel.twig` component. See Carousel documentation for customization options.
 
 ### Header (Badges + Actions)
 
@@ -330,16 +327,18 @@ This component **embeds** the base `Card` component and overrides 4 blocks:
 ### Atomic Dependencies
 
 - **Card** (parent component) - `@components/card/card.twig`
-- **Image** - `@elements/image/image.twig`
-- **Button** - `@elements/button/button.twig` (4 instances)
+- **Carousel** (molecule) - `@components/carousel/carousel.twig` - Swiper.js integration for image navigation
+- **Button** - `@elements/button/button.twig` (2 instances - action buttons)
 - **Heading** - `@elements/heading/heading.twig`
 - **Icon** - `@elements/icon/icon.twig` (3 instances)
 
 ### Carousel Behavior
 
-- **Single image**: Navigation buttons hidden (CSS `display: none`)
-- **Multiple images**: Navigation buttons visible (absolute positioning)
-- **JavaScript**: Not required for basic static display (can be enhanced with JS for functional carousel)
+- **Component**: Uses `@components/carousel/carousel.twig` with Swiper.js integration
+- **Single image**: Carousel initialized but navigation hidden (handled by Carousel component)
+- **Multiple images**: Full navigation (prev/next buttons) with swipe support on touch devices
+- **Loop**: Enabled when more than 1 image (infinite scroll)
+- **JavaScript**: Swiper.js required for functional carousel (included in Carousel component)
 
 ### CSS Cascade
 

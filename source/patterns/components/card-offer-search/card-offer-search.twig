@@ -77,44 +77,36 @@
   isViewed: isViewed,
   isExclusive: isExclusive,
   isComparator: isComparator,
-  isFavorite: isFavorite
+  isFavorite: isFavorite,
+  layout: 'horizontal',
 } %}
 
-  {# Media block - Image carousel #}
+  {# Media block - Image carousel using Carousel component #}
   {% block media %}
     {% if images and images|length > 0 %}
-      <div class="ps-card-offer-search__carousel">
-        {# First image as primary #}
-        {% include '@elements/image/image.twig' with {
-          src: images[0].url,
-          alt: images[0].alt|default(''),
-          class: 'ps-card-offer-search__image'
-        } only %}
-        
-        {# Carousel navigation (if multiple images) #}
-        {% if images|length > 1 %}
-          <div class="ps-card-offer-search__carousel-nav">
-            {% include '@elements/button/button.twig' with {
-              class: 'ps-card-offer-search__carousel-prev',
-              variant: 'ghost',
-              size: 'sm',
-              icon: 'chevron-left',
-              attributes: create_attribute()
-                .setAttribute('aria-label', 'Previous image')
-                .setAttribute('data-action', 'carousel-prev')
-            } only %}
-            {% include '@elements/button/button.twig' with {
-              class: 'ps-card-offer-search__carousel-next',
-              variant: 'ghost',
-              size: 'sm',
-              icon: 'chevron-right',
-              attributes: create_attribute()
-                .setAttribute('aria-label', 'Next image')
-                .setAttribute('data-action', 'carousel-next')
-            } only %}
-          </div>
-        {% endif %}
-      </div>
+      {# Transform images array to slides format for Carousel component #}
+      {% set carouselSlides = [] %}
+      {% for image in images %}
+        {% set carouselSlides = carouselSlides|merge([{
+          id: 'slide-' ~ loop.index,
+          image: {
+            src: image.url,
+            alt: image.alt|default('Property image ' ~ loop.index)
+          }
+        }]) %}
+      {% endfor %}
+      
+      {# Include Carousel component #}
+      {% include '@components/carousel/carousel.twig' with {
+        slides: carouselSlides,
+        variant: 'images',
+        fit: 'cover',
+        loop: carouselSlides|length > 1,
+        autoHeight: false,
+        withPagination: false,
+        ariaLabel: 'Property images',
+        attributes: create_attribute().addClass('ps-card-offer-search__carousel')
+      } only %}
     {% endif %}
   {% endblock %}
 
