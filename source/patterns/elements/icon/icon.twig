@@ -15,7 +15,6 @@
  #}
 
 {% set ariaHidden = ariaHidden|default(true) %}
-{% set attributes = attributes|default(create_attribute()) %}
 {%- set class = class|default(null) -%}
 
 {%- set classes = [
@@ -24,7 +23,7 @@
 ] -%}
 
 <i class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if attributes is defined and attributes %} {{ attributes|without('class') }}{% endif -%}
   data-icon="{{ icon }}"
   {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
   {% if ariaHidden %}aria-hidden="true"{% endif %}

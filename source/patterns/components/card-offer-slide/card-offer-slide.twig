@@ -121,7 +121,8 @@
       <div class="ps-card-offer-slide__location">
         {% include '@elements/icon/icon.twig' with {
           icon: locationIcon,
-          class: 'ps-card-offer-slide__location-icon'
+          class: 'ps-card-offer-slide__location-icon',
+          ariaHidden: true
         } only %}
         <span class="ps-card-offer-slide__location-text">{{ location }}</span>
       </div>
