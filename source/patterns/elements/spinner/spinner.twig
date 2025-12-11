@@ -15,6 +15,7 @@
 {%- set text = text|default('Loading...') -%}
 {%- set centered = centered|default(false) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
+{%- set class = class|default(null) -%}
 
 {%- set classes = [
   'ps-spinner',
@@ -22,9 +23,11 @@
   size != 'md' ? 'ps-spinner--' ~ size : null,
   color != 'default' ? 'ps-spinner--' ~ color : null,
   centered ? 'ps-spinner--centered' : null,
+  class ? class : null
 ] -%}
 
-<div {{ attributes.addClass(classes) }} role="status" aria-live="polite">
+<div class="{{ classes|join(' ')|trim }}" role="status" aria-live="polite"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   {%- if variant == 'circular' -%}
     <svg class="ps-spinner__svg" viewBox="0 0 50 50">
       <circle class="ps-spinner__circle" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>

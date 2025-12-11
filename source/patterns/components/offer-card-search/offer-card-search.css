@@ -16,21 +16,18 @@
  * - .ps-offer-card__meta (location/features list)
  * - .ps-offer-card__price (price text)
  * 
- * Design Tokens Usage (3-layer architecture):
- * - Layer 1: Global tokens (source/props/*.css)
- * - Layer 2: Component variables (customizable)
- * - Layer 3: BEM selectors (states, modifiers)
+ * CSS Variables (3-Layer System):
+ * - Layer 1 (Global): Design tokens from source/props/*.css
+ * - Layer 2 (Component): --ps-offer-card-* variables (customizable defaults)
+ * - Layer 3 (Modifiers): Overrides via BEM modifiers and states
  */
 
-@layer components {
+/* ============================================
+   Layer 2: Component-Scoped Variables
+   Customizable defaults using Layer 1 tokens
+   ============================================ */
 
 .ps-offer-card {
-  
-  /* ============================================
-     Layer 2: Component Variables
-     Override these for customization
-     ============================================ */
-  
   /* Media Container */
   --ps-offer-card-media-position: relative;
   
@@ -89,12 +86,14 @@
   --ps-offer-card-price-font-size: var(--font-size-3);
   --ps-offer-card-price-font-weight: var(--font-weight-700);
   --ps-offer-card-price-color: var(--text-primary);
-  
-  
-  /* ============================================
-     Layer 3: Component Styles
-     ============================================ */
-  
+}
+
+/* ============================================
+   Layer 3: Component Styles (BEM)
+   Using Layer 2 variables
+   ============================================ */
+
+.ps-offer-card {
   /* Media Container - Position relative for overlay */
   &__media {
     position: var(--ps-offer-card-media-position);
@@ -245,5 +244,3 @@
     color: var(--ps-offer-card-price-color);
   }
 }
-
-} /* @layer components */

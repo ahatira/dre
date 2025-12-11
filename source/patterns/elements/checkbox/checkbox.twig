@@ -15,6 +15,7 @@
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
+{%- set class = class|default(null) -%}
 {%- set checked = checked|default(false) -%}
 {%- set indeterminate = indeterminate|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
@@ -26,10 +27,12 @@
   'ps-checkbox',
   checked ? 'ps-checkbox--checked' : null,
   indeterminate ? 'ps-checkbox--indeterminate' : null,
-  disabled ? 'ps-checkbox--disabled' : null
+  disabled ? 'ps-checkbox--disabled' : null,
+  class ? class : null
 ] -%}
 
-<label{{ attributes.addClass(checkbox_classes) }}>
+<label class="{{ checkbox_classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   <input
     class="ps-checkbox__input"
     type="checkbox"

@@ -10,13 +10,17 @@
 
 {%- set required = required|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
+{%- set class = class|default(null) -%}
 {%- set classes = [
   'ps-label',
   required ? 'ps-label--required' : null,
-  disabled ? 'ps-label--disabled' : null
+  disabled ? 'ps-label--disabled' : null,
+  class ? class : null
 ] -%}
 
-<label{% if attributes %} {{ attributes.addClass(classes) }}{% else %} class="{{ classes|join(' ')|trim }}"{% endif %}{% if forId %} for="{{ forId }}"{% endif %}>
+<label class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if forId %} for="{{ forId }}"{% endif -%}>
   <span class="ps-label__text">{{ text }}</span>
   {% if required %}
     <span class="ps-label__required" aria-hidden="true">*</span>

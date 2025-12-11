@@ -26,10 +26,10 @@
 {%- set fullWidth = fullWidth|default(false) -%}
 {%- set toggle = toggle|default(false) -%}
 {%- set active = active|default(false) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 {%- set baseClass = baseClass|default('ps-button') -%}
 {%- set el_label = baseClass ~ '__label' -%}
 {%- set el_spinner = baseClass ~ '__spinner' -%}
+{%- set class = class|default(null) -%}
 
 {%- set classes = [
   baseClass,
@@ -40,19 +40,21 @@
   disabled ? baseClass ~ '--disabled' : null,
   loading ? baseClass ~ '--loading' : null,
   fullWidth ? baseClass ~ '--full-width' : null,
-  (toggle and active) ? 'active' : null
+  (toggle and active) ? 'active' : null,
+  class ? class : null
 ] -%}
 
 {%- set tag = url ? 'a' : 'button' -%}
 
-<{{ tag }} {{ attributes.addClass(classes) }}
-  {%- if url %}href="{{ url }}"{% endif -%}
-  {%- if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif -%}
-  {%- if disabled and tag == 'button' %}disabled aria-disabled="true"{% endif -%}
-  {%- if loading %}aria-busy="true"{% endif -%}
-  {%- if toggle %}data-ps-toggle="button" aria-pressed="{{ active ? 'true' : 'false' }}"{% endif -%}
-  {%- if icon %}data-icon="{{ icon }}"{% endif -%}
-  {%- if icon and iconPosition != 'start' %}data-icon-position="{{ iconPosition }}"{% endif -%}
+<{{ tag }} class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if url %} href="{{ url }}"{% endif -%}
+  {%- if target == '_blank' %} target="_blank" rel="noopener noreferrer"{% endif -%}
+  {%- if disabled and tag == 'button' %} disabled aria-disabled="true"{% endif -%}
+  {%- if loading %} aria-busy="true"{% endif -%}
+  {%- if toggle %} data-ps-toggle="button" aria-pressed="{{ active ? 'true' : 'false' }}"{% endif -%}
+  {%- if icon %} data-icon="{{ icon }}"{% endif -%}
+  {%- if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif -%}
 >
   {%- if loading -%}
     <span class="{{ el_spinner }}" aria-hidden="true"></span>

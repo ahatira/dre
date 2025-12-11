@@ -19,6 +19,8 @@
 - **Templates** → `instructions/templates.instructions.md` - Twig, YAML, Faker.js
 - **Accessibility** → `instructions/accessibility.instructions.md` - WCAG, ARIA, keyboard
 - **Workflows** → `instructions/workflows.instructions.md` - Generation, audit, standardization
+- **Card Inheritance** → `instructions/card-inheritance.instructions.md` - Card component embedding pattern
+- **Card Prompt** → `instructions/card-inheritance-prompt.md` - Complete analysis/implementation prompt
 
 **These files are path-scoped** (YAML frontmatter `applyTo:`) for contextual AI assistance.
 

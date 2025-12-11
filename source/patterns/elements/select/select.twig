@@ -19,6 +19,7 @@
  * @param object wrapper_attributes - Drupal attributes for the wrapper
  #}
 
+{%- set class = class|default(null) -%}
 {%- set options = options|default([]) -%}
 {%- set name = name|default('') -%}
 {%- set id = id|default(name ? name ~ '-select' : 'ps-select') -%}
@@ -33,10 +34,12 @@
   'ps-select',
   disabled ? 'ps-select--disabled' : null,
   error ? 'ps-select--error' : null,
-  success ? 'ps-select--success' : null
+  success ? 'ps-select--success' : null,
+  class ? class : null
 ] -%}
 
-<div {{ wrapper_attributes.addClass(wrapper_classes) }}>
+<div class="{{ wrapper_classes|join(' ')|trim }}"
+  {%- if wrapper_attributes %} {{ wrapper_attributes|without('class') }}{% endif -%}>
   <select
     class="ps-select__input"
     {{ attributes

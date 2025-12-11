@@ -21,6 +21,7 @@
 {% set target = target|default('_self') %}
 {% set rel = rel|default('') %}
 {% set disabled = disabled|default(false) %}
+{%- set class = class|default(null) -%}
 
 {% set classes = [
   'ps-link',
@@ -28,13 +29,14 @@
   size ? 'ps-link--' ~ size : null,
   underline == false ? 'ps-link--no-underline' : null,
   iconPosition == 'left' ? 'ps-link--icon-left' : null,
-  disabled ? 'ps-link--disabled' : null
+  disabled ? 'ps-link--disabled' : null,
+  class ? class : null
 ] %}
 
 {% set tag = disabled ? 'span' : 'a' %}
 
-<{{ tag }}
-  {% if attributes %}{{ attributes.addClass(classes) }}{% else %}class="{{ classes|join(' ')|trim }}"{% endif %}
+<{{ tag }} class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
   {% if not disabled %}href="{{ url }}"{% endif %}
   {% if target == '_blank' and not disabled %}target="_blank" rel="{{ rel ? rel : 'noopener noreferrer' }}"{% elseif rel %}rel="{{ rel }}"{% endif %}
   {% if disabled %}aria-disabled="true"{% endif %}

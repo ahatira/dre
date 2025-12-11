@@ -1,0 +1,122 @@
+{#
+/**
+ * Card Offer Slide (Component/Molecule)
+ * Compact card for property listings in vertical layout.
+ * 
+ * Simple variant with:
+ * - Property image
+ * - Price and surface (compact format)
+ * - Product title
+ * - Location
+ * - CTA link
+ * - Favorite button overlay
+ * 
+ * @param string title - Property title (required)
+ * @param string price - Price value (e.g., "20 000 €")
+ * @param string surface - Surface area (e.g., "611 m²")
+ * @param object image - Image data: { url: string, alt: string } (required)
+ * @param string location - Location text (e.g., "28010 MADRID")
+ * @param string locationIcon - Location icon name (default: 'pin-map')
+ * @param object cta - Call-to-action: { text: string, url: string }
+ * @param string url - Optional URL (makes entire card clickable)
+ * @param boolean isFavorite - Favorite state (default: false)
+ * @param string bundle - Drupal content type/bundle (e.g., 'property', 'offer')
+ * @param string view_mode - Drupal view mode (e.g., 'teaser', 'list')
+ * @param object attributes - Additional HTML attributes
+ * 
+ * Usage:
+ *   {% include '@components/card-offer-slide/card-offer-slide.twig' with {
+ *     title: 'Product title',
+ *     price: '20 000 €',
+ *     surface: '611 m²',
+ *     image: { url: '/images/property.jpg', alt: 'Office space' },
+ *     location: '28010 MADRID',
+ *     cta: { text: 'Consulter l\'annonce', url: '/property/123' }
+ *   } only %}
+ */
+#}
+
+{%- set title = title|default('Product title') -%}
+{%- set location = location|default(null) -%}
+{%- set locationIcon = locationIcon|default('pin-map') -%}
+{%- set cta = cta|default({ text: "Consulter l'annonce", url: '#' }) -%}
+{%- set isFavorite = isFavorite|default(false) -%}
+{%- set bundle = bundle|default('offer') -%}
+{%- set view_mode = view_mode|default('list') -%}
+
+{# Embed Card component for structure reuse #}
+{% embed '@components/card/card.twig' with {
+  attributes: attributes.addClass('ps-card-offer-slide'),
+  bundle: bundle,
+  view_mode: view_mode
+} %}
+
+  {# Media block - Image only #}
+  {% block media %}
+    {% if image and image.url %}
+      {% include '@elements/image/image.twig' with {
+        src: image.url,
+        alt: image.alt,
+        class: 'ps-card-offer-slide__image'
+      } only %}
+    {% endif %}
+  {% endblock %}
+  
+  {# Media overlay block - Favorite button overlay #}
+  {% block media_overlay %}
+    <div class="ps-card-offer-slide__overlay">
+      {% include '@elements/button/button.twig' with {
+        class: 'ps-card-offer-slide__favorite',
+        variant: 'ghost',
+        size: 'sm',
+        icon: isFavorite ? 'heart' : 'heart-outline',
+        toggle: true,
+        active: isFavorite,
+        attributes: create_attribute()
+          .setAttribute('aria-label', isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris')
+          .setAttribute('data-action', 'favorite')
+      } only %}
+    </div>
+  {% endblock %}
+  
+  {# Body block - Header, title, location #}
+  {% block body %}
+    
+    {# Price • m² header #}
+    {% if price or surface %}
+      <div class="ps-card-offer-slide__header">
+        {% if price %}
+          <span class="ps-card-offer-slide__price">{{ price }}</span>
+        {% endif %}
+        {% if price and surface %}
+          <span class="ps-card-offer-slide__separator" aria-hidden="true"> • </span>
+        {% endif %}
+        {% if surface %}
+          <span class="ps-card-offer-slide__surface">{{ surface }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    {# Product Title #}
+    <h3 class="ps-card-offer-slide__title">{{ title }}</h3>
+    
+    {# Location #}
+    {% if location %}
+      <div class="ps-card-offer-slide__location">
+        <span class="ps-card-offer-slide__location-icon" data-icon="{{ locationIcon }}" aria-hidden="true"></span>
+        <span class="ps-card-offer-slide__location-text">{{ location }}</span>
+      </div>
+    {% endif %}
+  {% endblock %}
+  
+  {# Footer block - CTA link #}
+  {% block footer %}
+    {% if cta and cta.url %}
+      <a href="{{ cta.url }}" class="ps-card-offer-slide__cta">
+        <span class="ps-card-offer-slide__cta-text">{{ cta.text }}</span>
+        <span class="ps-card-offer-slide__cta-icon" data-icon="arrow-right" aria-hidden="true"></span>
+      </a>
+    {% endif %}
+  {% endblock %}
+
+{% endembed %}

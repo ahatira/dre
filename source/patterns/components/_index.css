@@ -7,5 +7,6 @@
 @import './dropdown/dropdown.css';
 @import './form/form.css';
 @import './form-field/form-field.css';
-@import './offer-card/offer-card.css';
+@import './card-offer-slide/card-offer-slide.css';
+@import './offer-card-search/offer-card-search.css';
 @import './radios/radios.css';

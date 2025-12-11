@@ -34,10 +34,12 @@
   'ps-image',
   fit != 'none' ? 'ps-image--fit-' ~ fit : null,
   rounded != 'none' ? 'ps-image--rounded-' ~ rounded : null,
+  class ? class : null,
 ] %}
 
 <img
-  {{- attributes.addClass(classes) -}}
+  class="{{ classes|join(' ')|trim }}"
+  {{- attributes ? attributes|without('class') : '' -}}
   src="{{ src }}"
   alt="{{ alt }}"
   {% if width %}width="{{ width }}"{% endif %}

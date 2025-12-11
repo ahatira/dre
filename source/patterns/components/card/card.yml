@@ -33,10 +33,10 @@ props:
       description: 'none: 0 | sm: 4px | md: 8px | lg: 16px'
     imagePosition:
       type: string
-      enum: ['top','bottom','left','right']
-      default: 'top'
+      enum: ['start','end']
+      default: 'start'
       title: Image position
-      description: 'top/bottom for vertical layout, left/right for horizontal layout'
+      description: 'start: top (vertical) or left (horizontal) | end: bottom (vertical) or right (horizontal)'
     image:
       type: object
       title: Image object (simple usage)

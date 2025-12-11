@@ -20,6 +20,7 @@
 {% set withDot = withDot|default(false) %}
 {% set icon = icon|default('') %}
 {% set attributes = attributes|default(create_attribute()) %}
+{%- set class = class|default(null) -%}
 
 {% set classes = [
   'ps-eyebrow',
@@ -28,10 +29,12 @@
   uppercase ? 'ps-eyebrow--uppercase' : null,
   bold ? 'ps-eyebrow--bold' : null,
   withLine ? 'ps-eyebrow--with-line' : null,
-  withDot ? 'ps-eyebrow--with-dot' : null
+  withDot ? 'ps-eyebrow--with-dot' : null,
+  class ? class : null
 ] %}
 
-<span {{ attributes.addClass(classes) }}>
+<span class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   {% if icon %}
     <span class="ps-eyebrow__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}

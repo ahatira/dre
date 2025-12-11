@@ -11,6 +11,7 @@
  * @param boolean decorative - Marks as decorative only, adds aria-hidden (default: false)
  #}
 
+{%- set class = class|default(null) -%}
 {%- set size = size|default('md') -%}
 {%- set shape = shape|default('square') -%}
 {%- set disabled = disabled|default(false) -%}
@@ -21,7 +22,8 @@
   'ps-flag',
   size != 'md' ? 'ps-flag--' ~ size : null,
   shape != 'square' ? 'ps-flag--' ~ shape : null,
-  disabled ? 'ps-flag--disabled' : null
+  disabled ? 'ps-flag--disabled' : null,
+  class ? class : null
 ] -%}
 
 {# Normalize locale: replace underscore with dash (fr_FR -> fr-FR) #}
@@ -60,6 +62,8 @@
   {%- set img_width = shape == 'circle' ? '20' : '27' -%}
 {%- endif -%}
 
-<span {{ attributes.addClass(classes) }}{% if title_text %} title="{{ title_text }}"{% endif %}>
+<span class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if title_text %} title="{{ title_text }}"{% endif -%}>
   <img class="ps-flag__img" src="{{ img_src }}" alt="{{ alt_text }}" width="{{ img_width }}" height="{{ img_height }}"{% if decorative %} aria-hidden="true"{% endif %} />
 </span>

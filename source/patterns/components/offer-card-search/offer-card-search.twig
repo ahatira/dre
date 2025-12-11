@@ -1,7 +1,7 @@
 {#
 /**
- * Offer Card (Component/Molecule)
- * Specialized card for real estate property listings.
+ * Offer Card Search (Component/Molecule)
+ * Card for real estate search results with badges and actions.
  * 
  * Embeds the generic Card component and adds:
  * - Image with overlay badges and actions
@@ -21,7 +21,7 @@
  * @param object attributes - Additional HTML attributes
  * 
  * Usage:
- *   {% include '@components/offer-card/offer-card.twig' with {
+ *   {% include '@components/offer-card-search/offer-card-search.twig' with {
  *     title: 'Rent Offices MADRID',
  *     surface: '611.3 m²',
  *     price: '20 000 € HT/HC/m²/an',
@@ -30,8 +30,8 @@
  *     cta: { text: 'View property', url: '/property/123' }
  *   } only %}
  * 
- * @see offer-card.yml for full props documentation
- * @see README.md for detailed usage examples
+ * @see offer-card-search.yml for full props documentation
+ * @see offer-card-search.README.md for detailed usage examples
  */
 #}
 
@@ -45,19 +45,23 @@
   radius: 'md',
   size: 'medium',
   url: url,
-  attributes: attributes
-} only %}
+  attributes: attributes,
+  image: image,
+  title: title,
+  surface: surface,
+  price: price,
+  meta: meta,
+  status: status,
+  cta: cta
+} %}
 
   {# MEDIA BLOCK - Image with overlay (badges + actions) #}
   {% block media %}
     <div class="ps-offer-card__media">
       {# Property Image #}
-      {% include '@elements/image/image.twig' with {
-        src: image.url,
-        alt: image.alt,
-        ratio: '3x2',
-        loading: 'lazy'
-      } only %}
+      {% if image and image.url %}
+        <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" style="width: 100%; height: auto; display: block; aspect-ratio: 3/2; object-fit: cover;">
+      {% endif %}
       
       {# Overlay: Badges (left) + Actions (right) #}
       <div class="ps-offer-card__overlay">

@@ -9,6 +9,7 @@
  * @param string icon - Centered icon name without prefix (optional, default: '')
  * @param object attributes - Additional HTML attributes (optional)
  #}
+{%- set class = class|default(null) -%}
 {%- set orientation = orientation|default('horizontal') -%}
 {%- set style = style|default('solid') -%}
 {%- set thickness = thickness|default('medium') -%}
@@ -26,11 +27,13 @@
   thickness == 'thin' ? 'ps-divider--thin' : (thickness == 'thick' ? 'ps-divider--thick' : null),
   color != 'neutral' ? 'ps-divider--' ~ color : null,
   spacing == 'sm' ? 'ps-divider--spacing-sm' : (spacing == 'lg' ? 'ps-divider--spacing-lg' : null),
-  text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null)
+  text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null),
+  class ? class : null
 ] -%}
 
 {%- if has_content -%}
-  <div {{ attributes.addClass(root_classes) }}>
+  <div class="{{ root_classes|join(' ')|trim }}"
+    {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
     <span class="ps-divider__line" aria-hidden="true"></span>
     {%- if text -%}
       <span class="ps-divider__text">{{ text }}</span>
@@ -44,8 +47,10 @@
   </div>
 {%- else -%}
   {%- if orientation == 'horizontal' -%}
-    <hr {{ attributes.addClass(root_classes) }} />
+    <hr class="{{ root_classes|join(' ')|trim }}"
+      {%- if attributes %} {{ attributes|without('class') }}{% endif -%} />
   {%- else -%}
-    <span {{ attributes.addClass(root_classes) }} role="separator" aria-orientation="vertical"></span>
+    <span class="{{ root_classes|join(' ')|trim }}" role="separator" aria-orientation="vertical"
+      {%- if attributes %} {{ attributes|without('class') }}{% endif -%}></span>
   {%- endif -%}
 {%- endif -%}

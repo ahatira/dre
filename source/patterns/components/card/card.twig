@@ -24,10 +24,15 @@
  *   Options: small | medium | large
  * @param string radius - Border radius (default: 'none')
  *   Options: none | sm | md | lg
- * @param string imagePosition - Image position (default: 'top')
- *   Options: top | bottom (vertical) | left | right (horizontal)
+ * @param string imagePosition - Image position (default: 'start')
+ *   Options: start | end
  * @param string url - Optional URL (makes entire card clickable)
  * @param object image - Simple image object for Storybook (src, alt, ratio)
+ * @param string bundle - Drupal content type/bundle for contextual styling
+ * @param boolean isPromoted - Mark as promoted content (default: false)
+ * @param boolean isSticky - Mark as sticky/pinned content (default: false)
+ * @param boolean isPublished - Publication status (default: true)
+ * @param string view_mode - Drupal view mode (teaser, full, etc.)
  * @param object attributes - Additional HTML attributes
  * 
  * Usage Patterns:
@@ -62,7 +67,12 @@
 {%- set layout = layout|default('vertical') -%}
 {%- set size = size|default('medium') -%}
 {%- set radius = radius|default('none') -%}
-{%- set imagePosition = imagePosition|default('top') -%}
+{%- set imagePosition = imagePosition|default('start') -%}
+{%- set bundle = bundle|default(null) -%}
+{%- set isPromoted = isPromoted|default(false) -%}
+{%- set isSticky = isSticky|default(false) -%}
+{%- set isPublished = isPublished|default(true) -%}
+{%- set view_mode = view_mode|default(null) -%}
 
 {# Build BEM classes (Drupal-compatible: ternary without arrow functions) #}
 {%- set classes = [
@@ -71,7 +81,13 @@
   layout == 'horizontal' ? 'ps-card--horizontal' : null,
   size != 'medium' ? 'ps-card--' ~ size : null,
   radius != 'none' ? 'ps-card--radius-' ~ radius : null,
-  (imagePosition == 'bottom' or imagePosition == 'right') ? 'ps-card--image-' ~ imagePosition : null
+  imagePosition == 'end' ? 'ps-card--image-end' : null,
+  bundle ? 'ps-card--' ~ bundle|clean_class : null,
+  isPromoted ? 'ps-card--promoted' : null,
+  isSticky ? 'ps-card--sticky' : null,
+  not isPublished ? 'ps-card--unpublished' : null,
+  view_mode ? 'ps-card--view-mode-' ~ view_mode|clean_class : null,
+  bundle and view_mode ? 'ps-card--' ~ bundle|clean_class ~ '--' ~ view_mode|clean_class : null
 ] -%}
 
 {# Determine HTML element (article or a) #}
@@ -87,7 +103,12 @@
     <div class="ps-card__media">
       {%- block media -%}
         {%- if image -%}
-          {% include '@elements/image/image.twig' with image only %}
+          {# Support both object (Drupal) and raw HTML (Storybook) #}
+          {%- if image.src is defined -%}
+            {% include '@elements/image/image.twig' with image only %}
+          {%- else -%}
+            {{- image|raw -}}
+          {%- endif -%}
         {%- endif -%}
       {%- endblock -%}
       

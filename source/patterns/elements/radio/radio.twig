@@ -11,6 +11,7 @@
  * @param string label - Label text
  * @param object attributes - Drupal attributes for wrapper
  #}
+{%- set class = class|default(null) -%}
 {%- set name = name|default('option') -%}
 {%- set value = value|default('1') -%}
 {%- set id = id|default(name ~ '-' ~ value) -%}
@@ -23,9 +24,11 @@
   'ps-radio',
   checked ? 'ps-radio--checked' : null,
   disabled ? 'ps-radio--disabled' : null,
+  class ? class : null
 ] -%}
 
-<label {{ attributes.addClass(classes) }}>
+<label class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   <input
     type="radio"
     class="ps-radio__input"

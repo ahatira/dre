@@ -20,6 +20,7 @@
  * - Provide either external label or internal labels; never omit all
  #}
 {# Size mapping: support legacy values and new xs..xxl #}
+{% set class = class|default(null) %}
 {% set size = size|default('md') %}
 {% set size = size in ['xs','sm','md','lg','xl','xxl']
   ? size
@@ -35,9 +36,11 @@
   'ps-toggle',
   size != 'md' ? 'ps-toggle--' ~ size : null,
   color != 'default' ? 'ps-toggle--' ~ color : null,
-  disabled ? 'ps-toggle--disabled' : null
+  disabled ? 'ps-toggle--disabled' : null,
+  class ? class : null
 ] -%}
-<label {{ attributes.addClass(root_classes) }}>
+<label class="{{ root_classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   <div class="ps-toggle__label">
     <input
       class="ps-toggle__input"

@@ -17,14 +17,20 @@
 {%- set iconPosition = iconPosition|default('start') -%}
 {%- set tag = url ? 'a' : 'span' -%}
 {%- set has_text = text is defined and text is not empty -%}
+{%- set class = class|default(null) -%}
 
 {%- set badge_classes = [
   'ps-badge',
   color != 'primary' ? 'ps-badge--' ~ color : null,
-  pill ? 'ps-badge--pill' : null
+  pill ? 'ps-badge--pill' : null,
+  class ? class : null
 ] -%}
 
-<{{ tag }}{{ attributes ? attributes.addClass(badge_classes) : ' class="' ~ badge_classes|join(' ')|trim ~ '"' }}{% if url %} href="{{ url }}"{% endif %}{% if icon %} data-icon="{{ icon }}"{% endif %}{% if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif %}>
+<{{ tag }} class="{{ badge_classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if url %} href="{{ url }}"{% endif -%}
+  {%- if icon %} data-icon="{{ icon }}"{% endif -%}
+  {%- if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif -%}>
   {%- if has_text -%}
     <span class="ps-badge__text">{{- text -}}</span>
   {%- endif -%}

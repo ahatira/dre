@@ -13,6 +13,7 @@
  * @param string label - Accessibility label for screen readers
  * @param Attribute attributes - Additional HTML attributes
  #}
+{% set class = class|default(null) %}
 {% set variant = variant|default('linear') %}
 {% set color = color|default('default') %}
 {% set size = size|default('md') %}
@@ -32,10 +33,13 @@
   size != 'md' ? 'ps-progress--' ~ size : null,
   indeterminate ? 'ps-progress--indeterminate' : null,
   striped and variant == 'linear' ? 'ps-progress--striped' : null,
-  showLabel ? 'ps-progress--with-label' : null
+  showLabel ? 'ps-progress--with-label' : null,
+  class ? class : null
 ] %}
 {% if variant == 'linear' %}
-  <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
+  <div class="{{ root_classes|join(' ')|trim }}"
+    {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+    role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
     <div class="ps-progress__track">
       <div class="ps-progress__fill" {% if not indeterminate %}style="width: {{ percent }}%;"{% endif %}></div>
     </div>
@@ -46,7 +50,9 @@
 {% else %}
   {% set circumference = 2 * 3.14159 * 45 %}
   {% set offset = indeterminate ? 0 : (circumference * (1 - percent / 100)) %}
-  <div {{ attributes.addClass(root_classes) }} role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
+  <div class="{{ root_classes|join(' ')|trim }}"
+    {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+    role="progressbar" {% if not indeterminate %}aria-valuenow="{{ value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% endif %} {% if label %}aria-label="{{ label }}"{% endif %}>
     <svg class="ps-progress__svg" viewBox="0 0 100 100">
       <circle class="ps-progress__track-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8"></circle>
       <circle class="ps-progress__fill-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8" stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"></circle>

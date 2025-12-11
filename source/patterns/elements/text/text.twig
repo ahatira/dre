@@ -20,6 +20,7 @@
 {%- set muted = muted|default(false) -%}
 {%- set strong = strong|default(false) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
+{%- set class = class|default(null) -%}
 
 {%- set classes = [
   'ps-text',
@@ -27,9 +28,11 @@
   color != 'default' ? 'ps-text--' ~ color : null,
   align != 'left' ? 'ps-text--align-' ~ align : null,
   muted ? 'ps-text--muted' : null,
-  strong ? 'ps-text--strong' : null
+  strong ? 'ps-text--strong' : null,
+  class ? class : null
 ] -%}
 
-<{{ tag }}{{ attributes.addClass(classes) }}>
+<{{ tag }} class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
   {{ text }}
 </{{ tag }}>

@@ -1,0 +1,16 @@
+# Default data for Card Offer Slide component
+
+title: 'Office Space PARIS'
+price: 'Price'
+surface: 'm²'
+image:
+  url: '/images/building.jpg'
+  alt: 'Modern office building in Paris'
+location: 'Paris - La Défense'
+locationIcon: 'pin'
+cta:
+  text: "Consulter l'annonce"
+  url: '#'
+isFavorite: false
+bundle: 'offer'
+view_mode: 'slide'
