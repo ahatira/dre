@@ -4,6 +4,64 @@
 
 ## 2025
 
+- 2025-12-11: **Card Offer Search (MOLECULE)** – Card de résultats de recherche immobilière avec layout horizontal (desktop) ✅ NEW
+  - **Context**: Maquettes mobile + desktop analysées, besoin d'une card spécialisée pour résultats de recherche avec carousel, badges multiples, boutons d'action
+  - **Features Implémentées**:
+    * **Responsive Layout**: Horizontal desktop (40% image / 60% content) → Vertical mobile (<768px)
+    * **Image Carousel**: Multiple images avec navigation prev/next (absolue sur image)
+    * **Status Badges**: Already viewed (gray-100, eye icon), Exclusivity (gold-bg-subtle)
+    * **Action Buttons**: Comparator (compare icon) + Favorite (heart icon) toggles (top-right)
+    * **Complete Property Info**: Title (h3), Surface area, Location (pin icon)
+    * **Price Display**: Large value (font-size-7, bold) + small unit (font-size-00, regular) - split format
+    * **Primary CTA**: Button in footer with arrow-right icon
+  - **Architecture**:
+    * **Card Inheritance**: Embeds `@components/card/card.twig` with 4 blocks override:
+      - `media`: Carousel (first image + prev/next buttons if multiple)
+      - `header`: Badges (left section) + Action buttons (right section)
+      - `body`: Title (h3) + Surface + Location with icon
+      - `footer`: Price (value + unit) + CTA button
+    * **Atomic Dependencies**: Card (embed), Image atom, Button atom (4×), Heading atom, Icon atom (3×)
+  - **5-File Structure** (Production-Ready):
+    * `card-offer-search.twig` (217 lines): JSDoc header (40 lines), 12 parameters, Card embed with 4 blocks, 5 atoms used
+    * `card-offer-search.css` (268 lines): 72 tokens (:where() cascade), responsive @media 768px, badge variants, price split
+    * `card-offer-search.yml` (18 lines): Madrid office property, 2 images array, isViewed + isExclusive true, Real Estate context
+    * `card-offer-search.stories.jsx` (273 lines): argTypes (15 params, 5 categories), Default story + SearchResults (6 examples)
+    * `README.md` (269+ lines): Props table, BEM structure, 72 tokens documented, accessibility (WCAG 2.2 AA), responsive behavior, usage examples
+  - **72 Design Tokens** (Zero Hardcoded Values):
+    * Layout: breakpoint 768px, media-width-desktop 40%, content-width-desktop 60%, gap, padding
+    * Carousel: nav-inset, button-size, button-bg, opacity states
+    * Header: display flex, justify space-between, gaps
+    * Badges: padding, radius, font-size, gap, viewed-bg (gray-100), exclusive-bg (gold-bg-subtle)
+    * Actions: button-size, bg, border, color states (hover, active)
+    * Body: title/surface/location font-size, colors, gaps
+    * Footer: display flex, justify (desktop/mobile), direction (row/column), gap
+    * Price: value font-size-7 bold, unit font-size-00 regular, colors
+  - **BEM Structure** (15+ Elements/Modifiers):
+    * Base: `.ps-card-offer-search` (extends Card)
+    * Media: `__carousel`, `__image`, `__carousel-nav`, `__carousel-prev/next`
+    * Header: `__header`, `__badges`, `__badge` (--viewed, --exclusive), `__badge-icon/text`, `__actions`
+    * Body: `__title`, `__surface`, `__location`, `__location-icon/text`
+    * Footer: `__footer`, `__price`, `__price-value/unit`, `__cta`
+  - **Accessibility (WCAG 2.2 AA Compliant)**:
+    * Focus indicators: 2px solid outline with offset on all interactives
+    * Color contrast: All text meets 4.5:1 minimum (viewed badge 7.2:1 AAA, exclusive badge 4.8:1 AA)
+    * Touch targets: All buttons 44×44px minimum
+    * Keyboard navigation: Tab, Enter, Space, Arrow Left/Right (carousel)
+    * ARIA labels: Icon-only buttons have descriptive labels ("Add to comparator", "Previous image")
+    * Semantic HTML: Proper h3 for title, meaningful structure
+  - **Storybook Stories** (2):
+    * **Default**: Interactive playground with all 15 controls (Content, Appearance, Behavior, CTA, Drupal categories)
+    * **SearchResults**: Vertical stack grid with 6 varied properties (Madrid office, Paris office, Barcelona retail, Lyon warehouse, Lisbon office, Marseille commercial) - mixed states, multilingual CTAs, 1-2 images each
+  - **Real Estate Context**:
+    * Madrid office: "Rent Offices MADRID Barrio de Chamberí", 611.3 m², 20 000 € HT/HC/m²/an
+    * 2 images (3-2.jpg, building.jpg)
+    * isViewed + isExclusive badges
+    * Location: "28010 MADRID" with pin icon
+    * CTA: "View the property"
+  - **Commit**: 0b15b65 (feat(components): Add Card Offer Search with horizontal layout)
+  - **Files Modified**: 6 files, 1229 insertions (source/patterns/components/card-offer-search/ + _index.css import)
+  - **Reference**: Maquettes mobile + desktop (user analysis), card-inheritance.instructions.md Section 12
+
 - 2025-12-10: **Card (MOLECULE)** – Refonte complète avec architecture Twig blocks extensible ♻️ REFACTOR
   - **Context**: Analyse de 8 types de cards requis pour BNP Real Estate (maquettes fournies) + besoin d'extensibilité maximale via composition
   - **Types Identifiés**:
