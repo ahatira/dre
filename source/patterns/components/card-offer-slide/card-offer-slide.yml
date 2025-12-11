@@ -1,11 +1,11 @@
 # Default data for Card Offer Slide component
 
-title: 'Office Space PARIS'
-price: 'Price'
-surface: 'm²'
+title: 'Bureau PARIS La Défense'
+price: '650 €/m²/an'
+surface: '2 450 m²'
 image:
   url: '/images/building.jpg'
-  alt: 'Modern office building in Paris'
+  alt: 'Bureau moderne à La Défense avec vue panoramique'
 location: 'Paris - La Défense'
 locationIcon: 'pin'
 cta:

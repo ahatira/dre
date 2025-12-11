@@ -48,6 +48,15 @@ button:
     - core/once
     - ps_theme/vendors
 
+card-offer-slide:
+  js:
+    dist/js/card-offer-slide.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 carousel:
   js:
     dist/js/carousel.js: {}

@@ -98,12 +98,15 @@
   
   /* Header - Price • m² */
   &__header {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     margin-bottom: var(--ps-card-offer-slide-header-margin-bottom);
     font-size: var(--ps-card-offer-slide-header-font-size);
     font-weight: var(--ps-card-offer-slide-header-font-weight);
     color: var(--ps-card-offer-slide-header-color);
+    white-space: nowrap; /* Force single line */
+    max-width: 100%; /* Constraint for parent */
+    transition: font-size 0.2s ease; /* Smooth font-size adjustment */
   }
   
   &__price {

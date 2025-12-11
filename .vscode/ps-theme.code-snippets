@@ -10,7 +10,7 @@
       " #}"
     ]
   },
-  
+
   "PS Twig Classes Array": {
     "prefix": "psclasses",
     "scope": "twig",
@@ -24,7 +24,7 @@
       "] -%}"
     ]
   },
-  
+
   "PS Twig Include": {
     "prefix": "psinclude",
     "scope": "twig",
@@ -35,16 +35,14 @@
       "} only %}"
     ]
   },
-  
+
   "PS Twig Default Value": {
     "prefix": "psdefault",
     "scope": "twig",
     "description": "Set default value for prop",
-    "body": [
-      "{% set ${1:prop} = ${1:prop}|default('${2:value}') %}"
-    ]
+    "body": ["{% set ${1:prop} = ${1:prop}|default('${2:value}') %}"]
   },
-  
+
   "PS CSS Component Block": {
     "prefix": "pscomponent",
     "scope": "css",
@@ -110,18 +108,14 @@
       "}"
     ]
   },
-  
+
   "PS CSS Element": {
     "prefix": "pselement",
     "scope": "css",
     "description": "BEM element with nesting",
-    "body": [
-      "&__${1:element} {",
-      "  $0",
-      "}"
-    ]
+    "body": ["&__${1:element} {", "  $0", "}"]
   },
-  
+
   "PS CSS Modifier": {
     "prefix": "psmodifier",
     "scope": "css",
@@ -133,7 +127,7 @@
       "}"
     ]
   },
-  
+
   "PS Storybook Export Default": {
     "prefix": "psstory",
     "scope": "javascript,typescript",
@@ -177,7 +171,7 @@
       "};"
     ]
   },
-  
+
   "PS Storybook ArgType": {
     "prefix": "psargtype",
     "scope": "javascript,typescript",
@@ -195,7 +189,7 @@
       "},$0"
     ]
   },
-  
+
   "PS README Template": {
     "prefix": "psreadme",
     "scope": "markdown",

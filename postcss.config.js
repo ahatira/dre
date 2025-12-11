@@ -17,7 +17,11 @@ export default {
     postcssImportExtGlob(),
     postcssImport({
       // Allow imports from source/props and node_modules
-      path: [join(__dirname, 'source/props'), join(__dirname, 'source'), join(__dirname, 'node_modules')],
+      path: [
+        join(__dirname, 'source/props'),
+        join(__dirname, 'source'),
+        join(__dirname, 'node_modules'),
+      ],
     }),
     postcssNested(),
     postcssInlineSvg({

@@ -140,38 +140,22 @@ export default {
 };
 
 // ==============================================
-// STORY: Favorite States
+// STORY: Default
 // ==============================================
 
-export const FavoriteStates = {
-  render: () => {
-    return `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--size-6);">
-        <div>
-          <p style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-0); font-weight: var(--font-weight-600); color: var(--text-secondary);">Not Favorite</p>
-          ${cardOfferSlideTwig({
-            ...data,
-            isFavorite: false,
-          })}
-        </div>
-        
-        <div>
-          <p style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-0); font-weight: var(--font-weight-600); color: var(--text-secondary);">Favorite (Active)</p>
-          ${cardOfferSlideTwig({
-            ...data,
-            isFavorite: true,
-          })}
-        </div>
-      </div>
-    `;
-  },
+export const Default = {
+  args: data,
   parameters: {
     docs: {
       description: {
         story:
-          '**Favorite button toggle states**:\n\n' +
-          '- **Not Favorite**: Outline heart icon, white background\n' +
-          '- **Favorite (Active)**: Filled heart icon, red background, white icon',
+          '**Default card configuration** with all interactive controls.\n\n' +
+          'Use Storybook controls panel to modify:\n' +
+          '- Content: title, price, surface, location\n' +
+          '- Image: URL and alt text\n' +
+          '- Behavior: favorite state toggle\n' +
+          '- CTA: link text and URL\n' +
+          '- Drupal: bundle and view_mode classes',
       },
     },
   },
@@ -185,67 +169,64 @@ export const PropertyGrid = {
   render: () => {
     const properties = [
       {
-        title: 'Office Space PARIS',
-        price: '650 €',
+        title: 'Bureau PARIS La Défense',
+        price: '650 €/m²/an',
         surface: '2 450 m²',
         location: 'Paris - La Défense',
-        image: { url: '/images/building.jpg', alt: 'Office in Paris' },
+        image: { url: '/images/building.jpg', alt: 'Bureau moderne à La Défense' },
         isFavorite: true,
+        cta: { text: "Consulter l'annonce", url: '#property-paris' },
       },
       {
-        title: 'Retail Space LYON',
-        price: '4 500 €',
+        title: 'Local Commercial LYON Part-Dieu',
+        price: '4 500 €/mois',
         surface: '180 m²',
         location: 'Lyon - Part-Dieu',
-        image: { url: '/images/3-2.jpg', alt: 'Retail in Lyon' },
+        image: { url: '/images/3-2.jpg', alt: 'Local commercial à Lyon' },
         isFavorite: false,
+        cta: { text: "Consulter l'annonce", url: '#property-lyon' },
       },
       {
-        title: 'Warehouse MARSEILLE',
-        price: '55 €',
+        title: 'Entrepôt MARSEILLE Fos-sur-Mer',
+        price: '20 000 € HT/HC/m²/an',
         surface: '8 000 m²',
         location: 'Marseille - Fos-sur-Mer',
-        image: { url: '/images/16-9.jpg', alt: 'Warehouse in Marseille' },
+        image: { url: '/images/16-9.jpg', alt: 'Entrepôt logistique à Marseille' },
         isFavorite: false,
+        cta: { text: "Consulter l'annonce", url: '#property-marseille' },
       },
       {
-        title: 'Office BARCELONA',
+        title: 'Bureau BARCELONA Passeig de Gràcia',
         price: '380 €',
         surface: '890 m²',
         location: 'Barcelona - Passeig de Gràcia',
-        image: { url: '/images/building.jpg', alt: 'Office in Barcelona' },
+        image: { url: '/images/building.jpg', alt: 'Bureau prestige à Barcelone' },
         isFavorite: true,
+        cta: { text: "Consulter l'annonce", url: '#property-barcelona' },
       },
       {
-        title: 'Commercial Space MADRID',
-        price: '1 200 €',
+        title: 'Surface Commerciale MADRID Salamanca',
+        price: '1 200 €/mois',
         surface: '450 m²',
         location: 'Madrid - Salamanca',
-        image: { url: '/images/3-2.jpg', alt: 'Commercial space in Madrid' },
+        image: { url: '/images/3-2.jpg', alt: 'Surface commerciale à Madrid' },
         isFavorite: false,
+        cta: { text: "Consulter l'annonce", url: '#property-madrid' },
       },
       {
-        title: 'Office Building LISBON',
-        price: '320 €',
-        surface: '1 500 m²',
+        title: 'Immeuble de Bureaux LISBON Avenida',
+        price: '12 500 € HT/HC',
+        surface: '15 000 m²',
         location: 'Lisbon - Avenida da Liberdade',
-        image: { url: '/images/building.jpg', alt: 'Office in Lisbon' },
+        image: { url: '/images/building.jpg', alt: 'Immeuble de bureaux à Lisbonne' },
         isFavorite: false,
+        cta: { text: "Consulter l'annonce", url: '#property-lisbon' },
       },
     ];
 
     return `
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--size-6);">
-        ${properties
-          .map(
-            (property) => `
-          ${cardOfferSlideTwig({
-            ...property,
-            cta: { text: "Consulter l'annonce", url: '#' },
-          })}
-        `
-          )
-          .join('')}
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--size-6); padding: var(--size-4);">
+        ${properties.map((property) => cardOfferSlideTwig(property)).join('')}
       </div>
     `;
   },
@@ -253,64 +234,13 @@ export const PropertyGrid = {
     docs: {
       description: {
         story:
-          '**Property listing grid** with 6 cards in responsive layout.\n\n' +
-          'Grid automatically adjusts columns based on available width (minimum 280px per card). ' +
-          'Ideal for listing pages, search results, and homepage featured properties.',
-      },
-    },
-  },
-};
-
-// ==============================================
-// STORY: Minimal Configuration
-// ==============================================
-
-export const Minimal = {
-  render: () => {
-    return `
-      <div style="max-width: 320px;">
-        ${cardOfferSlideTwig({
-          title: 'Office Space AMSTERDAM',
-          image: {
-            url: '/images/building.jpg',
-            alt: 'Office in Amsterdam',
-          },
-        })}
-      </div>
-    `;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Minimal configuration** with only required props (`title`, `image`).\n\n' +
-          'All optional fields omitted: price, surface, location, favorite state. ' +
-          'Default CTA text: "Consulter l\'annonce".',
-      },
-    },
-  },
-};
-
-// ==============================================
-// STORY: Without CTA
-// ==============================================
-
-export const WithoutCTA = {
-  render: () => {
-    return `
-      <div style="max-width: 320px;">
-        ${cardOfferSlideTwig({
-          ...data,
-          cta: null,
-        })}
-      </div>
-    `;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Card without CTA link** for preview/display contexts where click action is handled externally.',
+          '**Responsive property listing grid** with 6 real estate cards.\n\n' +
+          '**Grid Features**:\n' +
+          '- Auto-fill layout with minimum 280px per card\n' +
+          '- Responsive columns (1-4 depending on viewport)\n' +
+          '- Mixed favorite states (2 active, 4 inactive)\n' +
+          '- Realistic Real Estate content (offices, retail, warehouses)\n\n' +
+          '**Use Cases**: Property search results, listing pages, homepage featured properties, slider/carousel content.',
       },
     },
   },

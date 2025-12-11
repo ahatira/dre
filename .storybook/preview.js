@@ -24,6 +24,7 @@ window.Swiper = Swiper;
 
 // Import component behaviors (with JS)
 import '../source/patterns/components/alert/alert.js';
+import '../source/patterns/components/card-offer-slide/card-offer-slide.js';
 import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
 import '../source/patterns/components/language-selector/language-selector.js';

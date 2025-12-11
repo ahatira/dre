@@ -9,7 +9,10 @@ const __dirname = path.dirname(__filename);
 const ICONS_SOURCE_DIR = path.join(__dirname, '../source/icons-source');
 const SPRITE_OUTPUT_PATH = path.join(__dirname, '../source/assets/icons/icons-sprite.svg');
 const CSS_OUTPUT_PATH = path.join(__dirname, '../source/props/icons.css');
-const REGISTRY_OUTPUT_PATH = path.join(__dirname, '../source/patterns/documentation/icons-registry.json');
+const REGISTRY_OUTPUT_PATH = path.join(
+  __dirname,
+  '../source/patterns/documentation/icons-registry.json'
+);
 
 const SVG_SYMBOL_RE = /<svg[^>]*>([\s\S]*?)<\/svg>/i;
 const VIEWBOX_RE = /viewBox="([^"]+)"/i;
@@ -27,16 +30,16 @@ function stripSVGFillStroke(svgContent) {
     .replace(/\s*stroke='[^']*'/g, '')
     .replace(/\s+/g, ' ')
     .trim();
-  
+
   // Add fill="currentColor" to all path elements
   cleaned = cleaned.replace(/<path\s/g, '<path fill="currentColor" ');
-  
+
   // Also handle other SVG shape elements (circle, rect, polygon, etc.)
   cleaned = cleaned.replace(/<circle\s/g, '<circle fill="currentColor" ');
   cleaned = cleaned.replace(/<rect\s/g, '<rect fill="currentColor" ');
   cleaned = cleaned.replace(/<polygon\s/g, '<polygon fill="currentColor" ');
   cleaned = cleaned.replace(/<ellipse\s/g, '<ellipse fill="currentColor" ');
-  
+
   return cleaned;
 }
 
@@ -136,7 +139,7 @@ function generateIconsCss(icons) {
       .replace(/"/g, "'")
       .replace(/\s+/g, ' ')
       .trim();
-    
+
     cssLines.push(
       `[data-icon="${name}"]::before,`,
       `[data-icon="${name}"]::after { mask-image: url("data:image/svg+xml,${encoded}"); -webkit-mask-image: url("data:image/svg+xml,${encoded}"); }`
@@ -155,7 +158,7 @@ function generateIconsCss(icons) {
 function generateIconsRegistry(icons) {
   // Group icons by their source folder
   const categories = {};
-  
+
   for (const { name, folder } of icons) {
     if (!categories[folder]) {
       categories[folder] = [];
@@ -168,17 +171,17 @@ function generateIconsRegistry(icons) {
     categories[folder].sort();
   }
 
-  const iconNames = icons.map(i => i.name).sort();
+  const iconNames = icons.map((i) => i.name).sort();
 
   // Build JSON manually with biome-compatible formatting:
   // - 2-space indentation
   // - Each array element on its own line (biome requirement)
-  
-  let lines = ['{'];
+
+  const lines = ['{'];
   lines.push('  "generated": "' + new Date().toISOString() + '",');
   lines.push('  "total": ' + iconNames.length + ',');
   lines.push('  "names": [');
-  
+
   // Each icon name on its own line
   for (let i = 0; i < iconNames.length; i++) {
     const isLast = i === iconNames.length - 1;
@@ -186,14 +189,14 @@ function generateIconsRegistry(icons) {
   }
   lines.push('  ],');
   lines.push('  "categories": {');
-  
+
   // Format categories: each array element on its own line
   const categoryKeys = Object.keys(categories).sort();
   for (let i = 0; i < categoryKeys.length; i++) {
     const key = categoryKeys[i];
     const items = categories[key];
     const isLastCategory = i === categoryKeys.length - 1;
-    
+
     lines.push(`    "${key}": [`);
     for (let j = 0; j < items.length; j++) {
       const isLastItem = j === items.length - 1;
@@ -201,10 +204,10 @@ function generateIconsRegistry(icons) {
     }
     lines.push(`    ]${isLastCategory ? '' : ','}`);
   }
-  
+
   lines.push('  }');
   lines.push('}');
-  
+
   return lines.join('\n') + '\n';
 }
 
