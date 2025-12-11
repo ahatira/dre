@@ -1,12 +1,31 @@
 ---
 title: Card Component Inheritance Pattern
-version: 2.1.0
-lastUpdated: 2025-12-10
+version: 3.0.0
+lastUpdated: 2025-12-11
 applyTo:
   - "source/patterns/components/card-*.twig"
   - "source/patterns/components/card-*.css"
+  - "source/patterns/components/card-*.js"
+  - "source/patterns/components/card-*.yml"
+  - "source/patterns/components/card-*.stories.jsx"
 priority: CRITICAL
 changelog:
+  - version: 3.0.0
+    date: 2025-12-11
+    changes:
+      - "MAJOR UPDATE: Complete rewrite based on Card Offer Slide reference implementation"
+      - "Added Section 8: Reference Implementation with complete Card Offer Slide analysis"
+      - "Added Section 9: JavaScript Behaviors Pattern with auto-fit algorithm"
+      - "Added Section 10: Storybook Stories Best Practices with PropertyGrid pattern"
+      - "Added Section 12: Complete Card Generation Workflow (step-by-step guide)"
+      - "Documented :where() pattern for overlay tokens (40-token architecture)"
+      - "Documented argTypes categorization (5 categories: Content, Appearance, Behavior, CTA, Drupal)"
+      - "Documented PropertyGrid story pattern with 6+ varied examples"
+      - "Documented Real Estate data patterns (Faker.js-style realistic content)"
+      - "Documented auto-fit text algorithm (ratio-based font-size calculation)"
+      - "Added complete generation template (copy/find-replace/customize workflow)"
+      - "Updated all examples to use card-{bundle}-{view_mode} naming"
+      - "Clarified variable passing requirement (ALL variables in embed with {} hash)"
   - version: 2.1.0
     date: 2025-12-10
     changes:
@@ -25,14 +44,19 @@ changelog:
 
 ## 📋 Table of Contents
 
-1. [Naming Convention](#naming-convention)
-2. [Architecture Overview](#architecture-overview)
-3. [Card Component Analysis](#card-component-analysis)
-4. [Twig Inheritance Pattern](#twig-inheritance-pattern)
-5. [CSS Integration Strategy](#css-integration-strategy)
-6. [Atomic Component Reuse](#atomic-component-reuse)
-7. [Implementation Checklist](#implementation-checklist)
-8. [Validation & Testing](#validation--testing)
+1. [Naming Convention](#1-naming-convention)
+2. [Architecture Overview](#2-architecture-overview)
+3. [Card Component Analysis](#3-card-component-analysis)
+4. [Twig Inheritance Pattern](#4-twig-inheritance-pattern)
+5. [CSS Integration Strategy](#5-css-integration-strategy)
+6. [Atomic Component Reuse](#6-atomic-component-reuse)
+7. [Implementation Checklist](#7-implementation-checklist)
+8. [Reference Implementation: Card Offer Slide](#8-reference-implementation-card-offer-slide) ⭐ **NEW**
+9. [JavaScript Behaviors Pattern](#9-javascript-behaviors-pattern) ⭐ **NEW**
+10. [Storybook Stories Best Practices](#10-storybook-stories-best-practices) ⭐ **NEW**
+11. [Common Issues & Solutions](#11-common-issues--solutions)
+12. [Complete Card Generation Workflow](#12-complete-card-generation-workflow) ⭐ **NEW**
+13. [Summary Checklist](#13-summary-checklist)
 
 ---
 
@@ -1049,29 +1073,567 @@ Add entry to `docs/ps-design/CHANGELOG.md`:
 
 ---
 
-## 8. Reference Example
+## 8. Reference Implementation: Card Offer Slide
 
-**See `offer-card-list` for complete reference implementation:**
+**PRODUCTION-READY REFERENCE:** `card-offer-slide` (Complete 100% implementation)
 
-- **Twig**: `source/patterns/components/offer-card-list/offer-card-list.twig`
-- **CSS**: `source/patterns/components/offer-card-list/offer-card-list.css`
-- **YAML**: `source/patterns/components/offer-card-list/offer-card-list.yml`
-- **Stories**: `source/patterns/components/offer-card-list/offer-card-list.stories.jsx`
-- **README**: `source/patterns/components/offer-card-list/README.md`
+**Location:** `source/patterns/components/card-offer-slide/`
 
-**Key patterns demonstrated:**
-- ✅ Card embed with `attributes.addClass('ps-offer-card-list')`
-- ✅ Image atom reuse with custom class
-- ✅ Button atom reuse with `create_attribute()`
-- ✅ All tokens in single CSS block
-- ✅ Overlay positioning in media block
-- ✅ Complete accessibility (ARIA, focus-visible)
-- ✅ Real Estate context data
-- ✅ Autodocs with categorized argTypes
+### 8.1 Files Overview
+
+| File | Purpose | Key Patterns |
+|------|---------|--------------|
+| **card-offer-slide.twig** | Template | ✅ Embed Card with all variables passed<br>✅ 4 blocks overridden (media, media_overlay, body, footer)<br>✅ Atoms reused (Image, Button, Heading, Icon)<br>✅ No `only` in embed |
+| **card-offer-slide.css** | Styling | ✅ `:where()` tokens for overlay (12 lines)<br>✅ Component tokens + styles in single block<br>✅ 196 lines total (tokens + BEM nesting)<br>✅ Zero hardcoded values |
+| **card-offer-slide.js** | Behavior | ✅ Auto-fit text algorithm (0.48 kB gzipped)<br>✅ Drupal behavior pattern<br>✅ `once()` for idempotency<br>✅ Ratio-based font-size calculation |
+| **card-offer-slide.yml** | Data | ✅ Real Estate context (office property)<br>✅ Faker.js-style realistic data<br>✅ Complete prop coverage |
+| **card-offer-slide.stories.jsx** | Stories | ✅ 2 stories (Default + PropertyGrid)<br>✅ argTypes categorized (5 categories)<br>✅ PropertyGrid with 6 varied aspect ratios<br>✅ Autodocs enabled |
+
+### 8.2 Key Architectural Decisions
+
+#### Naming Convention
+```
+card-{bundle}-{view_mode}
+card-offer-slide
+```
+- **Bundle**: `offer` (content type)
+- **View mode**: `slide` (display context)
+- **CSS Classes**: `.ps-card-offer-slide` (custom) + `.ps-card--offer--slide` (Drupal auto-generated)
+
+#### Block Structure
+```twig
+{% embed '@components/card/card.twig' with {
+  attributes: attributes.addClass('ps-card-offer-slide'),
+  bundle: 'offer',
+  view_mode: 'slide',
+  /* ALL variables passed explicitly for block access */
+  title: title,
+  price: price,
+  surface: surface,
+  image: image,
+  location: location,
+  locationIcon: locationIcon,
+  cta: cta,
+  isFavorite: isFavorite
+} %}
+  {% block media %}...{% endblock %}
+  {% block media_overlay %}...{% endblock %}
+  {% block body %}...{% endblock %}
+  {% block footer %}...{% endblock %}
+{% endembed %}
+```
+
+#### CSS Token Architecture
+```css
+/* Overlay tokens (accessible in .ps-card__media descendants) */
+:where(.ps-card.ps-card--offer--slide),
+:where(.ps-card.ps-card-offer-slide) {
+  --ps-card-offer-slide-overlay-inset: var(--size-3);
+}
+
+/* Component tokens + styles (single block) */
+.ps-card-offer-slide {
+  /* Tokens */
+  --ps-card-offer-slide-max-width: 320px;
+  --ps-card-offer-slide-image-aspect-ratio: 3/2;
+  --ps-card-offer-slide-header-font-size: var(--font-size-6);
+  /* ...38 more tokens */
+  
+  /* Styles with BEM nesting */
+  max-width: var(--ps-card-offer-slide-max-width);
+  
+  &__image { aspect-ratio: var(--ps-card-offer-slide-image-aspect-ratio); }
+  &__overlay { position: absolute; inset: var(--ps-card-offer-slide-overlay-inset); }
+  &__header { display: inline-flex; white-space: nowrap; }
+  /* ...15 more BEM elements */
+}
+```
+
+#### JavaScript Behavior Pattern
+```javascript
+((Drupal, once) => {
+  Drupal.behaviors.psCardOfferSlide = {
+    attach(context) {
+      const elements = once('psCardOfferSlideAutofit', '.ps-card-offer-slide__header', context);
+      
+      elements.forEach((element) => {
+        // Auto-fit logic here (ratio-based font-size calculation)
+      });
+    },
+  };
+})(Drupal, once);
+```
+
+#### Storybook argTypes Pattern
+```javascript
+argTypes: {
+  // Content category (primary data)
+  title: { control: 'text', description: '...', table: { category: 'Content' } },
+  price: { control: 'text', description: '...', table: { category: 'Content' } },
+  
+  // Appearance category (visual options)
+  locationIcon: { control: 'text', description: '...', table: { category: 'Appearance' } },
+  
+  // Behavior category (interactions)
+  isFavorite: { control: 'boolean', description: '...', table: { category: 'Behavior' } },
+  
+  // CTA category (actions)
+  'cta.text': { control: 'text', description: '...', table: { category: 'CTA' } },
+  
+  // Drupal category (integration)
+  bundle: { control: 'text', description: '...', table: { category: 'Drupal' } },
+}
+```
+
+### 8.3 Complete Pattern Checklist
+
+**✅ Study Card Offer Slide for these patterns:**
+
+1. **Twig Architecture**
+   - [ ] Variable defaults with `|default()`
+   - [ ] Embed Card with `attributes.addClass()`
+   - [ ] Pass ALL variables in `with {}` hash (no `only`)
+   - [ ] Override 4 blocks: media, media_overlay, body, footer
+   - [ ] Reuse 4 atoms: Image, Button, Heading, Icon
+   - [ ] Wrapper div in media_overlay block
+   - [ ] Custom BEM classes on all atoms
+
+2. **CSS Architecture**
+   - [ ] `:where(.ps-card.ps-card-{bundle}-{view_mode})` for overlay tokens
+   - [ ] Single `.ps-card-{bundle}-{view_mode} {}` block for everything else
+   - [ ] 40+ component tokens (all prefixed with component name)
+   - [ ] BEM nesting with `&__element` syntax
+   - [ ] Zero hardcoded values (all `var(--token)`)
+   - [ ] Semantic colors (`--primary`, `--danger`, NOT raw colors)
+   - [ ] Overlay wrapper positioning pattern
+   - [ ] Focus-visible on all interactives
+
+3. **JavaScript Pattern**
+   - [ ] Drupal behaviors wrapper
+   - [ ] `once()` for idempotency
+   - [ ] Selector: `.ps-card-{bundle}-{view_mode}__element`
+   - [ ] Lightweight algorithm (<50 lines)
+   - [ ] Optional enhancement (graceful degradation)
+
+4. **YAML Data**
+   - [ ] Real Estate context (property-related)
+   - [ ] Realistic Faker.js-style data
+   - [ ] Complete prop coverage
+   - [ ] NO Drupal schemas (`$schema`, `name`, `status`)
+
+5. **Storybook Stories**
+   - [ ] `tags: ['autodocs']` in export default
+   - [ ] 2 core stories: Default + PropertyGrid/Showcase
+   - [ ] argTypes categorized (Content, Appearance, Behavior, CTA, Drupal)
+   - [ ] PropertyGrid with 6+ examples
+   - [ ] Varied test data (different aspect ratios, states)
+   - [ ] Real Estate context throughout
+
+6. **README Documentation**
+   - [ ] 269 lines total (complete reference)
+   - [ ] Overview + Use Cases
+   - [ ] Props table with all parameters
+   - [ ] BEM structure diagram
+   - [ ] Design tokens section (all 40+ tokens documented)
+   - [ ] Accessibility section (WCAG 2.2 AA)
+   - [ ] 4 usage examples (basic, favorite, minimal, grid)
+   - [ ] Technical notes (Card inheritance, `:where()` pattern)
+   - [ ] Browser support matrix
+   - [ ] Changelog
+
+### 8.4 Generation Template (Use This for New Cards)
+
+```bash
+# 1. Create component folder
+cd source/patterns/components
+mkdir card-{bundle}-{view_mode}
+cd card-{bundle}-{view_mode}
+
+# 2. Copy Card Offer Slide as template
+cp ../card-offer-slide/card-offer-slide.twig card-{bundle}-{view_mode}.twig
+cp ../card-offer-slide/card-offer-slide.css card-{bundle}-{view_mode}.css
+cp ../card-offer-slide/card-offer-slide.yml card-{bundle}-{view_mode}.yml
+cp ../card-offer-slide/card-offer-slide.stories.jsx card-{bundle}-{view_mode}.stories.jsx
+cp ../card-offer-slide/README.md README.md
+
+# 3. Find/replace throughout all files
+# card-offer-slide → card-{bundle}-{view_mode}
+# offer → {bundle}
+# slide → {view_mode}
+# Card Offer Slide → Your Card Title
+
+# 4. Customize blocks, tokens, data based on your design spec
+# 5. Test: npm run build && npm run watch
+# 6. Commit with structured message
+```
+
+**Files to study line-by-line:**
+- **Twig**: `card-offer-slide.twig` (150 lines) - Complete embed pattern
+- **CSS**: `card-offer-slide.css` (196 lines) - Token + BEM architecture
+- **JS**: `card-offer-slide.js` (36 lines) - Drupal behavior pattern
+- **Stories**: `card-offer-slide.stories.jsx` (256 lines) - argTypes + PropertyGrid
+- **README**: `README.md` (269 lines) - Complete documentation template
 
 ---
 
-## 9. Common Issues & Solutions
+## 9. JavaScript Behaviors Pattern
+
+### 9.1 When to Add JavaScript
+
+**✅ Add JavaScript when:**
+- Component needs client-side interaction (toggle, accordion, auto-fit)
+- Behavior cannot be achieved with CSS alone
+- Enhancement improves UX but page works without it (progressive enhancement)
+
+**❌ Don't add JavaScript if:**
+- Pure CSS solution exists (`:hover`, `:focus`, `:checked`)
+- Behavior can be handled server-side (Drupal form API)
+- Adds unnecessary complexity (YAGNI principle)
+
+### 9.2 Drupal Behaviors Pattern
+
+**Required structure** (see `card-offer-slide.js`):
+
+```javascript
+/**
+ * Component Name - Behavior Description
+ *
+ * What it does, why it exists, algorithm summary.
+ */
+
+((Drupal, once) => {
+  Drupal.behaviors.psCardYourName = {
+    attach(context) {
+      // Use once() for idempotency (prevents re-initialization)
+      const elements = once(
+        'psCardYourNameUniqueId',  // Unique identifier
+        '.ps-card-your-name__target',  // Selector
+        context  // Drupal context (document or AJAX-loaded fragment)
+      );
+
+      elements.forEach((element) => {
+        // Your behavior logic here
+        // Keep it lightweight (<50 lines)
+        // Use vanilla JS (no jQuery)
+      });
+    },
+  };
+})(Drupal, once);
+```
+
+### 9.3 Best Practices
+
+1. **Idempotency**: Always use `once()` to prevent duplicate initialization
+2. **Context-aware**: Use `context` parameter for AJAX compatibility
+3. **Lightweight**: Keep under 1 KB gzipped (50-100 lines max)
+4. **Progressive enhancement**: Page works without JavaScript
+5. **No dependencies**: Vanilla JS only (no jQuery, Lodash, etc.)
+6. **Performance**: Use `requestAnimationFrame` for layout changes
+7. **Accessibility**: Maintain keyboard navigation, ARIA states
+
+### 9.4 Auto-Fit Text Algorithm (Card Offer Slide Reference)
+
+**Use case**: Prevent text overflow by dynamically reducing font-size.
+
+**Implementation** (36 lines, 0.48 kB gzipped):
+
+```javascript
+((Drupal, once) => {
+  Drupal.behaviors.psCardOfferSlide = {
+    attach(context) {
+      const headers = once('psCardOfferSlideAutofit', '.ps-card-offer-slide__header', context);
+
+      headers.forEach((header) => {
+        // 1. Get container width
+        const containerWidth = header.parentElement.clientWidth;
+        const originalFontSize = parseFloat(window.getComputedStyle(header).fontSize);
+        
+        // 2. Wrap content in span for measurement
+        const wrapper = document.createElement('span');
+        wrapper.style.cssText = 'display: inline-block; white-space: nowrap;';
+        while (header.firstChild) {
+          wrapper.appendChild(header.firstChild);
+        }
+        header.appendChild(wrapper);
+        
+        // 3. Measure natural width
+        const naturalWidth = wrapper.offsetWidth;
+
+        // 4. Calculate ratio and apply new font-size
+        if (naturalWidth > containerWidth) {
+          const ratio = containerWidth / naturalWidth;
+          const targetSize = Math.max(8, originalFontSize * ratio * 0.95); // Min 8px, 5% safety margin
+          header.style.fontSize = `${targetSize}px`;
+        }
+      });
+    },
+  };
+})(Drupal, once);
+```
+
+**Key techniques:**
+- **Wrapper span**: Measure content width without layout constraints
+- **Ratio-based**: `targetSize = originalSize × (containerWidth / naturalWidth) × 0.95`
+- **Safety margin**: 0.95 factor prevents edge-case overflows
+- **Minimum size**: `Math.max(8, ...)` ensures readability
+- **Single-pass**: O(1) calculation, no binary search needed
+
+**CSS companion** (enables transition):
+
+```css
+.ps-card-offer-slide__header {
+  display: inline-flex;
+  white-space: nowrap;
+  max-width: 100%;
+  transition: font-size 0.2s ease;  /* Smooth adjustment */
+}
+```
+
+### 9.5 Library Registration (ps.libraries.yml)
+
+**Manual entry required:**
+
+```yaml
+card-offer-slide:
+  version: VERSION
+  js:
+    dist/js/card-offer-slide.js: { minified: true, preprocess: false }
+  dependencies:
+    - core/drupal
+    - core/once
+```
+
+**Auto-sync script** (`scripts/sync-libraries.mjs`):
+- Scans `source/patterns/` for `.js` files
+- Generates library entries in `ps.libraries.yml`
+- Runs automatically on `npm run build`
+
+---
+
+## 10. Storybook Stories Best Practices
+
+### 10.1 Story Structure (Card Offer Slide Pattern)
+
+**Required stories** (minimum 2):
+
+1. **Default**: Interactive playground with all controls
+2. **Showcase/Grid**: Multiple examples demonstrating variants
+
+**Optional stories** (add if relevant):
+
+3. **States**: Error, loading, empty states
+4. **Responsive**: Mobile, tablet, desktop breakpoints
+5. **A11y**: Keyboard navigation, screen reader demo
+
+### 10.2 argTypes Categorization
+
+**Standard categories** (use consistently across all card components):
+
+```javascript
+argTypes: {
+  // ==========================================
+  // Content - Primary data
+  // ==========================================
+  title: {
+    control: 'text',
+    description: 'Component title or heading',
+    table: {
+      category: 'Content',
+      type: { summary: 'string' },
+      defaultValue: { summary: 'Default Title' },
+    },
+  },
+  
+  // ==========================================
+  // Appearance - Visual options
+  // ==========================================
+  variant: {
+    control: { type: 'select', options: ['default', 'primary', 'secondary'] },
+    description: 'Visual style variant',
+    table: {
+      category: 'Appearance',
+      type: { summary: 'string' },
+    },
+  },
+  
+  // ==========================================
+  // Behavior - Interactions
+  // ==========================================
+  isActive: {
+    control: 'boolean',
+    description: 'Active/selected state',
+    table: {
+      category: 'Behavior',
+      type: { summary: 'boolean' },
+      defaultValue: { summary: false },
+    },
+  },
+  
+  // ==========================================
+  // Link/CTA - Actions
+  // ==========================================
+  'cta.text': {
+    control: 'text',
+    description: 'Call-to-action button text',
+    table: {
+      category: 'CTA',
+      type: { summary: 'string' },
+    },
+  },
+  
+  // ==========================================
+  // Drupal - Integration parameters
+  // ==========================================
+  bundle: {
+    control: 'text',
+    description: 'Drupal entity bundle (generates CSS classes)',
+    table: {
+      category: 'Drupal',
+      type: { summary: 'string' },
+    },
+  },
+}
+```
+
+**Benefits:**
+- ✅ Consistent organization across components
+- ✅ Easy to find related controls
+- ✅ Clean Storybook UI (collapsible categories)
+- ✅ Self-documenting structure
+
+### 10.3 PropertyGrid Story Pattern
+
+**Purpose**: Demonstrate component in realistic grid layout with varied data.
+
+**Implementation** (Card Offer Slide reference):
+
+```javascript
+export const PropertyGrid = {
+  render: () => {
+    // Array of 6+ examples with VARIED data
+    const properties = [
+      {
+        title: 'Office PARIS',
+        price: '650 €/m²/an',
+        image: { url: '/images/1-1.jpg', alt: '...' },  // Different aspect ratio
+        isFavorite: true,  // Different state
+      },
+      {
+        title: 'Retail LYON',
+        price: '4 500 €/mois',
+        image: { url: '/images/3-2.jpg', alt: '...' },
+        isFavorite: false,
+      },
+      // ...4 more with varied data
+    ];
+
+    return `
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--size-6); padding: var(--size-4);">
+        ${properties.map((property) => componentTwig(property)).join('')}
+      </div>
+    `;
+  },
+  
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Responsive grid layout** demonstrating component with varied data.\n\n' +
+          '**Grid Features**:\n' +
+          '- Auto-fill responsive columns\n' +
+          '- Mixed states (active/inactive)\n' +
+          '- Varied content length\n' +
+          '- Different image aspect ratios\n\n' +
+          '**Use Cases**: Property listings, search results, product grids.',
+      },
+    },
+  },
+};
+```
+
+**Key principles:**
+- **6+ examples**: Show diversity (not just 2-3 copies)
+- **Varied data**: Different lengths, states, images
+- **Responsive grid**: `auto-fill` + `minmax()` for fluid columns
+- **Real context**: Use Real Estate data (offices, retail, warehouses)
+- **Documentation**: Explain grid features and use cases
+
+### 10.4 Image Asset Strategy
+
+**Card Offer Slide demonstrates varied aspect ratios:**
+
+```javascript
+const properties = [
+  { image: { url: '/images/1-1.jpg' } },    // 1:1 (square)
+  { image: { url: '/images/3-2.jpg' } },    // 3:2 (native)
+  { image: { url: '/images/16-9.jpg' } },   // 16:9 (wide)
+  { image: { url: '/images/4-3.jpg' } },    // 4:3 (traditional)
+  { image: { url: '/images/2-3.jpg' } },    // 2:3 (portrait)
+  { image: { url: '/images/3-4.jpg' } },    // 3:4 (tall portrait)
+];
+```
+
+**Available images:**
+- `source/assets/images/1-1.jpg` - Square (1:1)
+- `source/assets/images/3-2.jpg` - Standard (3:2)
+- `source/assets/images/16-9.jpg` - Wide (16:9)
+- `source/assets/images/4-3.jpg` - Traditional (4:3)
+- `source/assets/images/2-3.jpg` - Portrait (2:3)
+- `source/assets/images/3-4.jpg` - Tall portrait (3:4)
+- `source/assets/images/building.jpg` - Real Estate generic
+
+**Use case**: Test `aspect-ratio` CSS property normalization.
+
+### 10.5 Real Estate Data Patterns
+
+**Faker.js-style realistic content** (use throughout stories):
+
+```javascript
+// Property types
+const propertyTypes = [
+  'Bureau',           // Office
+  'Local Commercial', // Retail space
+  'Entrepôt',        // Warehouse
+  'Immeuble',        // Building
+  'Surface',         // Generic space
+];
+
+// Locations (European cities)
+const locations = [
+  'Paris - La Défense',
+  'Lyon - Part-Dieu',
+  'Marseille - Fos-sur-Mer',
+  'Barcelona - Passeig de Gràcia',
+  'Madrid - Salamanca',
+  'Lisbon - Avenida da Liberdade',
+];
+
+// Price formats
+const priceFormats = [
+  '650 €/m²/an',     // Per m² per year
+  '4 500 €/mois',    // Per month
+  '20 000 € HT/HC',  // Excluding taxes
+  '1 200 €',         // Simple amount
+];
+
+// Surface areas
+const surfaceAreas = [
+  '180 m²',
+  '2 450 m²',
+  '8 000 m²',
+  '15 000 m²',
+];
+```
+
+**Benefits:**
+- ✅ Realistic preview (matches production content)
+- ✅ Tests text overflow/wrapping with real lengths
+- ✅ Multilingual context (French Real Estate terms)
+- ✅ Consistent with project domain (BNP Paribas Real Estate)
+
+---
+
+## 11. Common Issues & Solutions
 
 ### Issue 1: "Token is not defined" in CSS (Component body elements)
 
@@ -1358,7 +1920,346 @@ If performance is critical or component is very simple:
 
 ---
 
-## 12. Summary Checklist
+## 12. Complete Card Generation Workflow
+
+### 12.1 Pre-Generation Phase (Planning)
+
+**Input**: Design specification (`docs/design/molecules/{component}.md`)
+
+**Steps:**
+
+1. **Analyze design spec**
+   - [ ] Identify content elements (title, price, image, etc.)
+   - [ ] Map to Card blocks (which go in media/header/body/footer?)
+   - [ ] List required atoms (Image, Button, Heading, Icon, Badge, etc.)
+   - [ ] Note unique features (auto-fit text, image carousel, etc.)
+
+2. **Choose naming**
+   - [ ] Determine bundle (content type): `offer`, `article`, `product`, `event`
+   - [ ] Determine view_mode (display context): `slide`, `teaser`, `full`, `search`
+   - [ ] Component name: `card-{bundle}-{view_mode}` (e.g., `card-offer-slide`)
+
+3. **Check dependencies**
+   - [ ] Verify all required atoms exist in `source/patterns/elements/`
+   - [ ] Check atom versions are production-ready (no WIP/deprecated)
+   - [ ] Identify missing atoms → create them first (separate workflow)
+
+### 12.2 Scaffolding Phase (File Creation)
+
+**Method 1 - Manual copy from Card Offer Slide:**
+
+```bash
+cd source/patterns/components
+mkdir card-{bundle}-{view_mode}
+cd card-{bundle}-{view_mode}
+
+# Copy all 5 files from reference implementation
+cp ../card-offer-slide/card-offer-slide.twig card-{bundle}-{view_mode}.twig
+cp ../card-offer-slide/card-offer-slide.css card-{bundle}-{view_mode}.css
+cp ../card-offer-slide/card-offer-slide.yml card-{bundle}-{view_mode}.yml
+cp ../card-offer-slide/card-offer-slide.stories.jsx card-{bundle}-{view_mode}.stories.jsx
+cp ../card-offer-slide/README.md README.md
+
+# Optional: Copy JavaScript if behavior needed
+cp ../card-offer-slide/card-offer-slide.js card-{bundle}-{view_mode}.js
+```
+
+**Method 2 - Generator script:**
+
+```bash
+npm run generate:pattern -- --type=component --name="card-{bundle}-{view_mode}"
+```
+
+**Method 3 - VS Code snippets:**
+
+Type `pscomponent` in `.twig` file → Tab → Fill prompts
+
+### 12.3 Find/Replace Phase (Bulk Renaming)
+
+**Use VS Code Find/Replace (Cmd+Shift+H / Ctrl+Shift+H):**
+
+| Find | Replace | Scope |
+|------|---------|-------|
+| `card-offer-slide` | `card-{bundle}-{view_mode}` | All 5 files |
+| `Card Offer Slide` | `Card {Bundle} {ViewMode}` | All 5 files |
+| `offer` | `{bundle}` | Twig (bundle param only) |
+| `slide` | `{view_mode}` | Twig (view_mode param only) |
+| `psCardOfferSlide` | `psCard{Bundle}{ViewMode}` | JS (behavior name) |
+
+**Examples:**
+
+```bash
+# For card-article-teaser:
+card-offer-slide → card-article-teaser
+Card Offer Slide → Card Article Teaser
+offer → article
+slide → teaser
+psCardOfferSlide → psCardArticleTeaser
+
+# For card-product-grid:
+card-offer-slide → card-product-grid
+Card Offer Slide → Card Product Grid
+offer → product
+slide → grid
+psCardOfferSlide → psCardProductGrid
+```
+
+### 12.4 Customization Phase (Content Adaptation)
+
+**File-by-file modifications:**
+
+#### A. Twig Template (`card-{bundle}-{view_mode}.twig`)
+
+1. **Header comment**
+   - [ ] Update description (what makes this variant unique)
+   - [ ] Update `@param` list (add/remove/modify parameters)
+   - [ ] Update usage example with your data
+
+2. **Variable defaults**
+   - [ ] Remove unused props (e.g., if no `price`, delete `price|default()`)
+   - [ ] Add new props (e.g., `author`, `date`, `category`)
+   - [ ] Update default values
+
+3. **Embed block**
+   - [ ] Update `with {}` hash with your variables
+   - [ ] Choose Card params (`variant`, `radius`, `size`)
+   - [ ] Keep `attributes.addClass()` with your component name
+
+4. **Block overrides**
+   - [ ] `media`: Customize image or replace with video/carousel
+   - [ ] `media_overlay`: Add/remove badges, buttons (favorite, share, etc.)
+   - [ ] `header`: Add metadata (date, category, tags)
+   - [ ] `body`: Customize content layout (title, description, stats)
+   - [ ] `footer`: Customize CTA (button, link, author info)
+
+5. **Atom includes**
+   - [ ] Update atom parameters (icon names, button variants, etc.)
+   - [ ] Update custom classes (`.ps-card-{bundle}-{view_mode}__element`)
+
+#### B. CSS Stylesheet (`card-{bundle}-{view_mode}.css`)
+
+1. **`:where()` tokens** (if using media_overlay)
+   - [ ] Update token names: `--{component-name}-overlay-*`
+   - [ ] Update values based on design spec
+
+2. **Component tokens**
+   - [ ] Update all token names: `--ps-card-{bundle}-{view_mode}-*`
+   - [ ] Add new tokens for your elements
+   - [ ] Remove unused tokens
+   - [ ] Update values from design spec (sizes, colors, spacing)
+
+3. **BEM selectors**
+   - [ ] Update class names: `.ps-card-{bundle}-{view_mode}__*`
+   - [ ] Add selectors for new elements
+   - [ ] Remove selectors for unused elements
+   - [ ] Update styles based on design spec
+
+4. **Validation**
+   - [ ] Zero hardcoded values (all `var(--token)`)
+   - [ ] Semantic colors only (`--primary`, NOT `--green-600`)
+   - [ ] Focus-visible on all interactives
+   - [ ] Transitions on state changes
+
+#### C. JavaScript (if needed)
+
+1. **Behavior name**
+   - [ ] Update: `Drupal.behaviors.psCard{Bundle}{ViewMode}`
+   - [ ] Update once ID: `psCard{Bundle}{ViewMode}UniqueId`
+
+2. **Selector**
+   - [ ] Update: `.ps-card-{bundle}-{view_mode}__target`
+
+3. **Algorithm**
+   - [ ] Customize logic based on your needs
+   - [ ] Keep lightweight (<50 lines)
+   - [ ] Test idempotency (run multiple times)
+
+4. **Library registration**
+   - [ ] Add entry in `ps.libraries.yml` (or run `npm run build` to auto-generate)
+
+#### D. YAML Data (`card-{bundle}-{view_mode}.yml`)
+
+1. **Update all data**
+   - [ ] Replace with your component's data structure
+   - [ ] Use Real Estate context (or project domain)
+   - [ ] Use Faker.js-style realistic values
+   - [ ] Ensure complete prop coverage
+
+2. **Examples**
+   ```yaml
+   # Article teaser
+   title: 'Nouveau rapport marché immobilier Q4 2025'
+   author: 'Marie Dupont'
+   date: '15 décembre 2025'
+   category: 'Analyse'
+   image: { url: '/images/article.jpg', alt: 'Chart' }
+   
+   # Product grid
+   title: 'Pack Services Premium'
+   price: '1 200 €/mois'
+   features: ['Support 24/7', 'API Access', 'Analytics']
+   badge: 'Popular'
+   ```
+
+#### E. Storybook Stories (`card-{bundle}-{view_mode}.stories.jsx`)
+
+1. **Export default**
+   - [ ] Update title: `'Components/Card {Bundle} {ViewMode}'`
+   - [ ] Keep `tags: ['autodocs']`
+
+2. **Component description**
+   - [ ] Update key features list
+   - [ ] Update use cases
+
+3. **argTypes**
+   - [ ] Remove unused controls
+   - [ ] Add new controls for your props
+   - [ ] Keep categorization (Content, Appearance, Behavior, CTA, Drupal)
+   - [ ] Update descriptions
+
+4. **Default story**
+   - [ ] Update story description
+   - [ ] Test all controls work
+
+5. **Grid/Showcase story**
+   - [ ] Update story name (PropertyGrid, ArticleList, ProductGrid, etc.)
+   - [ ] Create 6+ varied examples
+   - [ ] Use different images (varied aspect ratios)
+   - [ ] Mix states (active, favorite, disabled, etc.)
+   - [ ] Use realistic Real Estate data
+   - [ ] Update grid description
+
+#### F. README (`README.md`)
+
+1. **Overview**
+   - [ ] Update description
+   - [ ] Update use cases list
+
+2. **Props table**
+   - [ ] Add/remove/modify rows for your props
+   - [ ] Update types, defaults, descriptions
+
+3. **BEM structure**
+   - [ ] Update HTML structure diagram
+   - [ ] Update class names
+
+4. **Tokens section**
+   - [ ] Document all your CSS variables
+   - [ ] Update purposes and values
+
+5. **Examples**
+   - [ ] Update Twig code samples with your data
+   - [ ] Update use case scenarios
+
+### 12.5 Testing Phase
+
+**Build validation:**
+
+```bash
+npm run build
+```
+
+**Expected output:**
+```
+✓ Biome lint check (no errors)
+✓ Biome format check (all formatted)
+✓ Icons build (sprite generated)
+✓ Vite build (CSS compiled)
+✓ dist/css/styles.css (454.30 kB)
+✓ dist/js/card-{bundle}-{view_mode}.js (if JS file exists)
+```
+
+**Visual testing:**
+
+```bash
+npm run watch
+# Opens http://localhost:6006
+```
+
+**Test checklist:**
+- [ ] Find your component in sidebar: `Components/Card {Bundle} {ViewMode}`
+- [ ] Default story renders correctly
+- [ ] All controls in Storybook work (change values, see updates)
+- [ ] Grid/Showcase story shows 6+ varied examples
+- [ ] Images load (check aspect-ratio normalization)
+- [ ] Buttons/links are interactive (hover, focus)
+- [ ] Icons display correctly (no missing icons)
+- [ ] Typography matches design spec
+- [ ] Colors use semantic tokens (inspect with DevTools)
+- [ ] Spacing matches design spec
+- [ ] Responsive behavior (resize to mobile)
+- [ ] Keyboard navigation works (Tab, Enter)
+- [ ] Focus indicators visible
+
+**Conformity audit (100% required):**
+
+```bash
+# Use checklist from Section 7.4
+# Or create audit script (future enhancement)
+```
+
+### 12.6 Commit Phase
+
+**Structured commit message:**
+
+```bash
+git add source/patterns/components/card-{bundle}-{view_mode}/
+git commit -m "feat(components): Add Card {Bundle} {ViewMode} with Card inheritance
+
+- Implement 5-file structure (twig, css, yml, stories, README)
+- Embed Card component for visual structure reuse
+- Reuse {list atoms} atoms
+- Support {list key features}
+- {list unique features: auto-fit, carousel, etc.}
+- Full Autodocs with categorized argTypes
+- WCAG 2.2 AA compliant (keyboard, focus-visible, ARIA)
+- References spec: docs/design/molecules/card-{bundle}-{view_mode}.md
+- Pattern: card-{bundle}-{view_mode} naming convention"
+```
+
+**Update changelog:**
+
+```bash
+# Edit docs/ps-design/CHANGELOG.md
+## [YYYY-MM-DD] - Card {Bundle} {ViewMode}
+
+### Added
+- **Card {Bundle} {ViewMode}** (Component/Molecule)
+  - Card inheritance pattern for visual structure
+  - {Atom 1}, {Atom 2}, {Atom 3} integration
+  - {Feature 1}: {description}
+  - {Feature 2}: {description}
+  - Status: ✅ Complete ({X}/87 components)
+```
+
+### 12.7 Success Criteria
+
+**Component is COMPLETE when:**
+
+- ✅ Build passes without errors/warnings
+- ✅ All 5 files present (6 if JavaScript needed)
+- ✅ Storybook renders correctly (2+ stories)
+- ✅ Visual matches design spec (Typography, spacing, colors)
+- ✅ Accessibility validated (WCAG 2.2 AA minimum)
+- ✅ Conformity audit: 100% score
+- ✅ README complete (269+ lines with full documentation)
+- ✅ Git commit with structured message
+- ✅ Changelog updated
+
+**Ready for code review when:**
+
+- ✅ All success criteria met
+- ✅ No console errors in browser
+- ✅ No "token is not defined" in DevTools
+- ✅ Keyboard navigation works (Tab, Enter, Space)
+- ✅ Focus indicators visible
+- ✅ Tokens use semantic colors (no raw hex codes)
+- ✅ BEM naming consistent
+- ✅ Atoms reused (not reimplemented)
+
+---
+
+## 13. Summary Checklist
 
 **Before starting:**
 - [ ] Read this entire document
