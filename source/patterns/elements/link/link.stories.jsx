@@ -148,7 +148,12 @@ export const Colors = {
     const colors = [
       { name: 'Default', color: null, text: 'Voir tous les biens', desc: 'Inherited color' },
       { name: 'Primary', color: 'primary', text: 'Planifier une visite', desc: 'Brand actions' },
-      { name: 'Secondary', color: 'secondary', text: 'Contacter un conseiller', desc: 'Alternative actions' },
+      {
+        name: 'Secondary',
+        color: 'secondary',
+        text: 'Contacter un conseiller',
+        desc: 'Alternative actions',
+      },
       { name: 'Gold', color: 'gold', text: 'Biens premium', desc: 'Luxury properties' },
       { name: 'Info', color: 'info', text: 'En savoir plus', desc: 'Informational' },
       { name: 'Warning', color: 'warning', text: 'Offre limitée', desc: 'Time-sensitive' },
@@ -156,16 +161,20 @@ export const Colors = {
       { name: 'Danger', color: 'danger', text: 'Bien vendu', desc: 'Sold/unavailable' },
       { name: 'Dark', color: 'dark', text: 'Navigation', desc: 'Light backgrounds' },
     ];
-    
+
     return `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--size-4);">
-        ${colors.map(({ name, color, text, desc }) => `
+        ${colors
+          .map(
+            ({ name, color, text, desc }) => `
           <div>
             <strong style="display: block; margin-bottom: var(--size-2); font-size: var(--font-size-1);">${name}</strong>
             ${linkTwig({ text, url: '#', color })}
             <small style="display: block; margin-top: var(--size-1); color: var(--gray-500);">${desc}</small>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
         <div style="background: var(--gray-800); padding: var(--size-3); border-radius: var(--radius-2);">
           <strong style="display: block; margin-bottom: var(--size-2); font-size: var(--font-size-1); color: var(--white);">Light</strong>
           ${linkTwig({ text: 'Pied de page', url: '#', color: 'light' })}
@@ -189,15 +198,19 @@ export const Sizes = {
       { name: 'xl', px: '22px', context: 'Hero sections' },
       { name: 'xxl', px: '24px', context: 'Major CTAs' },
     ];
-    
+
     return `
       <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-        ${sizes.map(({ name, px, context }) => `
+        ${sizes
+          .map(
+            ({ name, px, context }) => `
           <div>
             ${linkTwig({ text: `Lien ${name.toUpperCase()} (${px})`, url: '#', size: name, color: 'primary' })}
             <small style="display: block; margin-top: var(--size-1); color: var(--gray-500);">${context}</small>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     `;
   },

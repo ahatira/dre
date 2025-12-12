@@ -213,12 +213,12 @@
         {% include '@elements/link/link.twig' with {
           text: cta.text,
           url: cta.url,
-          variant: 'primary',
+          color: 'primary',
           size: 'sm',
+          underline: false,
           icon: 'arrow-right',
           iconPosition: 'end',
-          class: 'ps-card-offer-search__cta',
-          attributes: create_attribute()
+          attributes: create_attribute().addClass('ps-card-offer-search__cta')
         } only %}
       {% endif %}
     </div>
