@@ -4,6 +4,61 @@
 
 ## 2025
 
+- 2025-12-12: **🚀 AI PROMPT LIBRARY CREATION** – Comprehensive library of 13 ready-to-use prompts for PS Theme project generation ✅ COMPLETE
+  - **Context**: Post-restructuring v4.0.0, needed practical tooling to accelerate development with AI agents
+  - **Problem Statement**: 
+    * AI agents (Copilot, Claude, ChatGPT) require detailed context for consistent results
+    * Repetitive prompt crafting for common tasks (component creation, audits, refactoring)
+    * Need structured workflows that reference v4.0.0 consolidated instructions
+    * Quality requirements: "utiles, logiques, pertinents, clair, concis et intelligents" (user specification)
+  - **Solution**: Create `.github/prompts/` library with 13 comprehensive prompts
+  - **Library Structure** (4 categories):
+    1. **Component Creation** (3 prompts):
+       - `create-atom.md`: 11-step workflow, CRITICAL RULES, reference components (3-4h)
+       - `create-molecule.md`: Token-First 4-step cascade (STEP 3 ⭐ preferred), composition rules (4-6h)
+       - `create-organism.md`: Complex composition, responsive layouts, multiple states (6-8h)
+    2. **Quality Assurance** (4 prompts):
+       - `audit-component.md`: 100-point checklist (8+1 categories), detailed report template (20-30min)
+       - `fix-component.md`: 6-step systematic workflow, P0/P1/P2 prioritization, troubleshooting guide (1-2h)
+       - `find-issues.md`: 10 issue categories, automated grep detection, comprehensive script (1-3h)
+       - `standardize-legacy.md`: Legacy Pattern 1/2/3 migration, metrics tracking (2-4h)
+    3. **Maintenance** (3 prompts):
+       - `create-token.md`: 10-step governance, 5 criteria, naming patterns, scale progressions (2-5 days)
+       - `refactor-css.md`: Flat → nested conversion, 8 steps, token mapping tables (30-60min)
+       - `update-storybook.md`: Autodocs fix, argTypes categorization, showcase stories (30-45min)
+    4. **Analysis** (3 prompts):
+       - `analyze-project.md`: 9-section comprehensive report, grep metrics, recommendations (15-30min)
+       - `check-accessibility.md`: WCAG 2.2 AA audit, 8 categories, report template (20-30min)
+       - `find-issues.md`: Systematic issue detection, prioritization framework, visual inspection (1-3h)
+  - **Prompt Quality Standards** (all met ✅):
+    * **Utiles** (useful): Solve specific real-world tasks (component creation, quality, analysis)
+    * **Logiques** (logical): Clear step-by-step workflows with proper sequencing
+    * **Pertinents** (relevant): Aligned with PS Theme v4.0.0 standards, reference instructions 01-05
+    * **Clair** (clear): Explicit instructions, no ambiguity, BEFORE/AFTER examples
+    * **Concis** (concise): Actionable content, direct commands (grep, npm), no fluff
+    * **Intelligents** (intelligent): Context-aware, includes validation, documents anti-patterns
+  - **Each Prompt Includes**:
+    * Context section (project stack, location, standards)
+    * Step-by-step workflow (numbered with clear progression)
+    * Code examples (BEFORE/AFTER showing transformations)
+    * Validation commands (npm run build, grep patterns)
+    * Success criteria (✅ checklist)
+    * Commit format template (with message structure)
+    * Time estimate + difficulty level
+    * Prerequisites + related prompts
+  - **Navigation Hub**: `README.md` with 4 organized tables (Component Creation, Quality Assurance, Maintenance, Analysis)
+  - **Usage Pattern**: Copy prompt → Replace placeholders ({COMPONENT_NAME}) → Paste to AI agent → Follow workflow
+  - **Benefits**:
+    * Accelerated component development (3-4h → automated workflow)
+    * Consistent quality (100-point audit → systematic)
+    * Reduced context gathering (prompts include all necessary references)
+    * Onboarding tool (new developers can learn standards through prompts)
+    * Maintenance efficiency (refactoring patterns documented)
+    * Knowledge preservation (anti-patterns + troubleshooting centralized)
+  - **Integration**: All prompts reference `.github/instructions/01-05` consolidated docs
+  - **Files Created**: 13 prompts (3,649 lines total, 100% comprehensive)
+  - **Commit**: eaf6a21
+
 - 2025-12-12: **📚 INSTRUCTIONS RESTRUCTURING v4.0.0 (BREAKING CHANGE)** – Complete reorganization of .github/instructions/ structure ✅ COMPLETE
   - **Context**: Original structure with 17+ instruction files became overwhelming and unclear ("très bocale" - user feedback)
   - **Problem Statement**: 
