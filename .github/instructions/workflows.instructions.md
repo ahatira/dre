@@ -18,6 +18,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Follow **step-by-step component creation** workflow (spec → implementation → validation)
+- ✅ Run **conformity audits** (100-point checklist)
+- ✅ **Refactor legacy components** to new standards
+- ✅ **Validate builds** before commit (lint, format, compile)
+- ✅ Update **changelog** documentation (CHANGELOG.md format)
+- ✅ Use **generator scripts** (npm run generate:pattern)
+
+**DO NOT use this file for:**
+- ❌ Learning **component structure** (see: components.instructions.md)
+- ❌ Understanding **CSS patterns** (see: css.instructions.md)
+- ❌ Writing **Twig syntax** (see: templates.instructions.md)
+- ❌ Deciding **atomic levels** (see: atomic-design.instructions.md)
+- ❌ Creating **Storybook stories** (see: storybook.instructions.md)
+
+**Audience**: Developers implementing components end-to-end, AI agents following complete workflows
+
+---
+
 ## 🎯 Overview
 
 This document consolidates all developer workflows for the PS Theme design system:

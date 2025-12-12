@@ -18,6 +18,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Write **Drupal behaviors** (Drupal.behaviors + once())
+- ✅ Implement **interactive components** (dropdowns, accordions, modals)
+- ✅ Handle **keyboard navigation** (Arrow keys, Escape, Enter)
+- ✅ Manage **event listeners** with AbortController cleanup
+- ✅ Integrate **JavaScript with Storybook** (global imports in preview.js)
+- ✅ Write **accessible interactions** (focus management, ARIA updates)
+
+**DO NOT use this file for:**
+- ❌ Writing **Twig templates** (see: templates.instructions.md)
+- ❌ Learning **CSS patterns** (see: css.instructions.md)
+- ❌ Understanding **component structure** (see: components.instructions.md)
+- ❌ Creating **Storybook stories** (see: storybook.instructions.md)
+- ❌ Following **complete workflows** (see: workflows.instructions.md)
+
+**Audience**: JavaScript developers adding behaviors, AI agents implementing interactions
+
+---
+
 ## 🎯 Core Principles
 
 1. **Progressive enhancement**: Components work without JS; JS adds interaction only

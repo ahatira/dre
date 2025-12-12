@@ -19,6 +19,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Verify **WCAG 2.2 Level AA compliance** (contrast, keyboard, ARIA)
+- ✅ Implement **keyboard navigation** (Tab, Arrow keys, Enter, Escape)
+- ✅ Add **ARIA attributes** (labels, roles, states)
+- ✅ Ensure **focus-visible** indicators (all interactive elements)
+- ✅ Test with **screen readers** (NVDA, VoiceOver, JAWS)
+- ✅ Check **contrast ratios** (4.5:1 text, 3:1 UI components)
+
+**DO NOT use this file for:**
+- ❌ Learning **CSS implementation** (see: css.instructions.md)
+- ❌ Writing **Twig templates** (see: templates.instructions.md)
+- ❌ Understanding **component structure** (see: components.instructions.md)
+- ❌ Creating **JavaScript behaviors** (see: javascript.instructions.md)
+- ❌ Following **complete workflows** (see: workflows.instructions.md)
+
+**Audience**: Developers implementing accessible components, QA testers, AI agents validating accessibility
+
+---
+
 ## 🎯 Core Requirements
 
 **All components MUST meet WCAG 2.2 Level AA**:

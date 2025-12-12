@@ -19,6 +19,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Use **design tokens** correctly (var(--primary), no hardcoded values)
+- ✅ Implement **CSS nesting** with `&` syntax (PostCSS)
+- ✅ Follow **cascade order** (base → elements → modifiers → states)
+- ✅ Create **component-scoped variables** (Layer 2 system)
+- ✅ Ensure **accessibility** (focus-visible, contrast ratios)
+- ✅ Write **performant CSS** (GPU-accelerated animations)
+
+**DO NOT use this file for:**
+- ❌ Understanding **composition philosophy** (see: atomic-design.instructions.md)
+- ❌ Learning **BEM naming** (see: components.instructions.md)
+- ❌ Writing **Twig templates** (see: templates.instructions.md)
+- ❌ Implementing **Token-First overrides** (see: composition-token-first.instructions.md)
+- ❌ Creating **Storybook examples** (see: storybook.instructions.md)
+
+**Audience**: Front-end developers writing CSS, AI agents implementing styles
+
+---
+
 ## 🎯 Token-First Composition
 
 > **For composing components** (Molecules+), follow the **4-step cascade**: params → utils → **override tokens** ⭐ → targeted CSS.

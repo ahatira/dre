@@ -18,6 +18,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Create **Storybook stories** (.stories.jsx format)
+- ✅ Enable **Autodocs** (tags: ['autodocs'])
+- ✅ Define **argTypes** with categories (Content, Appearance, Behavior, etc.)
+- ✅ Write **showcase stories** (AllColors, AllSizes, UseCases)
+- ✅ Follow **HTML/Vite edition** conventions (NOT React/JSX)
+- ✅ Import **centralized lists** (colors-list.json, icons-registry.json)
+
+**DO NOT use this file for:**
+- ❌ Writing **Twig templates** (see: templates.instructions.md)
+- ❌ Learning **CSS patterns** (see: css.instructions.md)
+- ❌ Understanding **component structure** (see: components.instructions.md)
+- ❌ Implementing **JavaScript behaviors** (see: javascript.instructions.md)
+- ❌ Following **workflow steps** (see: workflows.instructions.md)
+
+**Audience**: Developers creating Storybook documentation, AI agents generating stories
+
+---
+
 ## 🎯 Core Principles
 
 ### Storybook Edition: HTML/Vite (NOT React)

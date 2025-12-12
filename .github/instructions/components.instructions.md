@@ -25,6 +25,26 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Understand the **5-file structure** (twig, css, yml, stories, README)
+- ✅ Learn **BEM naming conventions** (Block, Element, Modifier)
+- ✅ Implement **component file organization** (directory structure)
+- ✅ Follow **markup principles** (minimal classes, attributes pattern)
+- ✅ Create a **new component from scratch** (technical implementation)
+
+**DO NOT use this file for:**
+- ❌ Deciding **which atomic level** to use (see: atomic-design.instructions.md)
+- ❌ Understanding **composition philosophy** (see: atomic-design.instructions.md)
+- ❌ Learning **CSS token patterns** (see: css.instructions.md)
+- ❌ Writing **Twig syntax** (see: templates.instructions.md)
+- ❌ Creating **Storybook stories** (see: storybook.instructions.md)
+
+**Audience**: Developers implementing components, AI agents scaffolding files
+
+---
+
 ## 🎯 Core Principle: Token-First Composition
 
 > **When a component composes other components** (include, embed, extends), follow the **4-step Token-First cascade**: params → utils → **tokens** ⭐ → CSS.

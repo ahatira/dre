@@ -20,6 +20,26 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Decide **which atomic level** to create (Atom vs Molecule vs Organism)
+- ✅ Understand **composition rules** (what can include what)
+- ✅ Learn **reusability principles** (when to compose vs create)
+- ✅ Follow **hierarchy constraints** (Molecules use Atoms, not vice versa)
+- ✅ Analyze **component dependencies** before implementation
+
+**DO NOT use this file for:**
+- ❌ Learning **file structure** (see: components.instructions.md)
+- ❌ Writing **BEM classes** (see: components.instructions.md)
+- ❌ Implementing **Token-First composition** (see: composition-token-first.instructions.md)
+- ❌ Creating **Twig includes** (see: templates.instructions.md)
+- ❌ Understanding **CSS patterns** (see: css.instructions.md)
+
+**Audience**: Designers planning components, developers making architectural decisions, AI agents analyzing composition
+
+---
+
 ## 🎯 Core Philosophy
 
 > **"Interfaces are a cohesive whole composed of parts that can be broken down into smaller parts."**  

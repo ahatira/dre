@@ -18,6 +18,27 @@ status: ACTIVE
 
 ---
 
+## 📖 When to Use This File
+
+**Use this file when you need to:**
+- ✅ Write **Drupal-compatible Twig** (NO arrow functions, NO .filter()/.map())
+- ✅ Create **component templates** (.twig files)
+- ✅ Construct **BEM classes** with ternary (condition ? 'class' : null)
+- ✅ Use **{% include %}** with `only` keyword
+- ✅ Write **YAML configuration** (.yml default data)
+- ✅ Add **Real Estate context** placeholders (property, agent, listing)
+
+**DO NOT use this file for:**
+- ❌ Learning **CSS patterns** (see: css.instructions.md)
+- ❌ Understanding **component structure** (see: components.instructions.md)
+- ❌ Creating **Storybook stories** (see: storybook.instructions.md)
+- ❌ Implementing **JavaScript** (see: javascript.instructions.md)
+- ❌ Following **complete workflows** (see: workflows.instructions.md)
+
+**Audience**: Developers writing Twig templates, AI agents generating markup
+
+---
+
 ## 🔧 Twig Templates
 
 ### Drupal 10/11 Compatibility (CRITICAL)
