@@ -46,11 +46,24 @@
 
 ## 🗣️ Language Directive
 
-**Chat responses**: French (default)  
-**Documentation**: English (README, Storybook, code comments)  
-**Exception**: User-facing content in templates (button labels, form text) can be French
+**Strict policy for maintainability and consistency:**
 
-All technical identifiers (tokens, classes, ARIA) remain unchanged (English).
+| Context | Language | Rule | Examples |
+|---------|----------|------|----------|
+| **AI Chat Responses** | 🇫🇷 French | ALWAYS respond in French to user | Explanations, status updates, questions |
+| **Documentation Files** | 🇬🇧 English | ALL `.md`, `.mdx`, README | `README.md`, instruction files, specs |
+| **Code Comments** | 🇬🇧 English | Inline `//` and `/* */` | CSS comments, JS annotations, Twig notes |
+| **Storybook Content** | 🇬🇧 English | Stories, descriptions, Autodocs | Component descriptions, argTypes labels |
+| **Commit Messages** | 🇫🇷 French | Git commit bodies (type/scope EN) | `feat(elements): Ajout du badge...` |
+| **Project Logs** | 🇫🇷 French | CHANGELOG, audit reports | `docs/ps-design/CHANGELOG.md` |
+| **User-Facing Content** | 🇫🇷 French | Template strings, YAML mocks | Button labels: "En savoir plus" |
+| **Technical Identifiers** | 🇬🇧 English | NEVER translate | Tokens, classes, ARIA, file names |
+
+**Rationale**:
+- **English docs** = Universal accessibility, design system standard
+- **French chat** = Natural collaboration with French-speaking team
+- **English code** = Industry standard, tooling compatibility
+- **Mixed commits** = Type/scope (English conventions) + body (French context)
 
 ---
 
