@@ -1,370 +1,378 @@
-# PS Theme Instructions - Navigation Hub
+# PS Theme Instructions - Guide de Navigation
 
-**Last Updated**: 2025-12-12  
-**Maintainers**: Design System Team
-
----
-
-## 🚀 Quick Start Guide
-
-### For Humans (First Time Contributors)
-
-**Step-by-step reading order**:
-
-1. **START HERE**: [core.instructions.md](core.instructions.md) - Understand the tech stack, design tokens, and build system
-2. **THEN READ**: [atomic-design.instructions.md](atomic-design.instructions.md) - Learn the composition philosophy (Atoms → Molecules → Organisms → Templates → Pages)
-3. **CRITICAL**: [composition-token-first.instructions.md](composition-token-first.instructions.md) - Master the 4-step workflow for composing components (REQUIRED for Molecules+)
-4. **NEXT**: [components.instructions.md](components.instructions.md) - Learn the 5-file structure, BEM methodology, and component standards
-5. **REFERENCE**: Other files as needed based on your current task (see Quick Task Map below)
-
-**Estimated reading time for basics**: ~1.5 hours
+**Version**: 4.0.0 (Restructuration majeure)  
+**Dernière mise à jour**: 2025-12-12  
+**Backup disponible**: `.github-backup-2025-12-12/` (commit 0a2cbf8)
 
 ---
 
-### For AI Agents (Context Priority)
+## 🎯 Vue d'ensemble
 
-**⚡ Always read in this order**:
+Documentation consolidée du système de design PS Theme en **6 fichiers numérotés** pour une navigation intuitive et progressive.
 
-1. **MANDATORY FIRST**: [composition-token-first.instructions.md](composition-token-first.instructions.md) - CRITICAL for any Molecules/Organisms/Templates/Pages work
-2. **THEN**: File(s) matching the current task (see path-scoped `applyTo:` in frontmatter)
-3. **REFERENCE**: Related files listed in `related:` frontmatter field
-
-**Navigation tip**: Use frontmatter `applyTo:` patterns to auto-filter relevant instructions.
+**Architecture** : 01 (Fondations) → 02 (Workflow) → 03 (Technique) → 04 (Validation) → 05 (Évolution)
 
 ---
 
-## 📊 Instruction Files Map
+## 🗺️ Navigation Rapide
+
+### 🆕 Je découvre le projet
+
+→ Commencez par **[01-core-principles.md](01-core-principles.md)**
+
+**Vous apprendrez** :
+- Philosophie du design system (Atomic Design, Token-First)
+- Méthodologie Atomic Design (5 niveaux : Atoms → Pages)
+- Convention BEM (Block, Element, Modifier)
+- Système de tokens (3 couches)
+- Principe du markup minimal
+- Terminologie standard
+- Politique d'accessibilité (WCAG 2.2 AA)
+
+**Temps de lecture** : 30-45 minutes
+
+---
+
+### 🏗️ Je crée un composant
+
+→ Suivez **[02-component-development.md](02-component-development.md)**
+
+**Workflow complet** (11 étapes) :
+1. Lire la spec design
+2. Vérifier les dépendances
+3. Vérifier les tokens
+4. Créer les 5 fichiers
+5. Implémenter le Twig
+6. Implémenter le CSS avec nesting
+7. Créer le YAML
+8. Créer les stories Storybook
+9. Créer le README
+10. Valider le build
+11. Commiter + changelog
+
+**Includes** :
+- Workflow Token-First (4 étapes : params → utils → tokens ⭐ → CSS)
+- Exemple réel complet (Card Offer Search)
+- Checklist pré-commit
+
+**Temps de lecture** : 45-60 minutes  
+**Temps d'implémentation** : 2-4 heures par composant
+
+---
+
+### 💻 J'ai besoin d'une référence technique
+
+→ Consultez **[03-technical-implementation.md](03-technical-implementation.md)**
+
+**5 sections techniques** :
+
+1. **CSS Standards** (Design tokens, nesting, variables)
+   - Système de tokens 3 couches
+   - Zéro valeur hardcodée (règle absolue)
+   - CSS nesting avec `&` (obligatoire)
+   - Variables component-scoped (Layer 2)
+   - Ordre de cascade
+   - Focus-visible (tous les interactifs)
+
+2. **Twig & YAML Standards** (Templates, données)
+   - Compatibilité Drupal (NO arrow functions, NO .map()/.filter())
+   - Pattern de classes avec ternaire + null
+   - Markup minimal (pas de classes par défaut)
+   - Composition avec `{% include %}` + `only`
+   - Contexte Real Estate
+
+3. **Storybook Standards** (Documentation)
+   - Édition HTML/Vite (PAS React)
+   - `tags: ['autodocs']` (OBLIGATOIRE)
+   - ArgTypes catégorisés (6 catégories)
+   - Stories structure (Default + Showcases)
+   - Langue : Anglais (docs) / Français (démo)
+
+4. **JavaScript Standards** (Comportements)
+   - Modules ES6
+   - Drupal behaviors avec `once()`
+   - Patterns d'accessibilité
+   - Intégration Storybook
+
+5. **Accessibility Standards** (WCAG 2.2 AA)
+   - Ratios de contraste (4.5:1 texte, 3:1 UI)
+   - Navigation clavier
+   - ARIA patterns
+   - Tests screen reader
+
+**Temps de lecture** : 60-90 minutes  
+**Usage** : Document de référence quotidien
+
+---
+
+### ✅ Je valide mon travail
+
+→ Utilisez **[04-quality-assurance.md](04-quality-assurance.md)**
+
+**Outils de validation** :
+
+1. **Audit de conformité** (Checklist 100 points)
+   - Minimum 90/100 pour production
+   - 8 catégories : Architecture, Files, Twig, CSS, Storybook, YAML, README, BEM
+
+2. **Validation de build**
+   ```bash
+   npm run build  # Doit passer (0 erreurs)
+   npm run watch  # Vérification visuelle
+   ```
+
+3. **Guide de dépannage** (9+ erreurs communes)
+   - Token introuvable
+   - Valeur hardcodée
+   - Syntaxe CSS nesting
+   - Arrow function dans Twig
+   - Autodocs manquant
+   - React/JSX (mauvaise édition)
+   - etc.
+
+4. **Flowcharts de décision**
+   - Niveau de composant (Atom vs Molecule vs Organism)
+   - Méthode de composition (include vs embed vs extend)
+   - Usage de tokens (existant vs nouveau)
+   - Stratégie CSS override (Token-First 4 étapes)
+
+5. **Checklist de tests**
+   - Visuel (responsive, états, icônes)
+   - Fonctionnel (interactions, clavier)
+   - Accessibilité (contraste, focus, ARIA, screen reader)
+   - Cross-browser (Chrome, Firefox, Safari, Edge)
+
+**Temps de lecture** : 30-45 minutes  
+**Usage** : Avant chaque commit
+
+---
+
+### 🔧 Je crée des tokens ou migre du code legacy
+
+→ Voir **[05-maintenance.md](05-maintenance.md)**
+
+**Processus de création de tokens** (4 étapes) :
+1. Documenter le besoin (README du composant)
+2. Créer une issue de proposition (template fourni)
+3. Revue par l'équipe design
+4. Implémentation après approbation
+
+**Catalogue de patterns legacy** (10 patterns à migrer) :
+- CSS flat (pas de nesting) → PostCSS nesting
+- Valeurs hardcodées → Tokens
+- Arrow functions Twig → Ternaire + null
+- Focus-visible manquant → Ajout obligatoire
+- Autodocs manquant → tags: ['autodocs']
+- Ordre de cascade incorrect → Base → Modifiers
+- Variables component-scoped manquantes → Layer 2
+- etc.
+
+**Workflows de migration** :
+- Refactoring de composants legacy
+- Conversion flat CSS → nested
+- Conversion hardcoded → tokens
+- Conversion arrow functions → ternaire
+
+**Cycle de dépréciation** (3 phases) :
+1. Annonce (Jour 0)
+2. Période de migration (3 mois standard)
+3. Suppression (Après 3 mois)
+
+**Gestion des breaking changes** :
+- Semantic versioning
+- Documentation CHANGELOG
+- Guide de migration
+- Plan de rollback
+
+**Temps de lecture** : 45-60 minutes  
+**Usage** : Périodique (évolution du système)
+
+---
+
+## 📂 Structure des Fichiers
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│ 🎯 CORE CONCEPTS (Read First)                                    │
-├──────────────────────────────────────────────────────────────────┤
-│ core.instructions.md                                             │
-│ → Tech stack (Drupal 10/11, Storybook, Vite, PostCSS, Twig)     │
-│ → Design tokens system (3-layer architecture)                   │
-│ → Build system (npm scripts, cache management)                  │
-│ Priority: CRITICAL | Read time: 15 min                          │
-│                                                                  │
-│ atomic-design.instructions.md                                    │
-│ → Brad Frost's Atomic Design methodology                        │
-│ → 5-level hierarchy (Atoms → Molecules → Organisms → Templates →│
-│    Pages)                                                        │
-│ → Composition rules (what composes what)                        │
-│ Priority: CRITICAL | Read time: 20 min                          │
-│                                                                  │
-│ composition-token-first.instructions.md ⭐ MOST CRITICAL         │
-│ → 4-step cascade workflow (params → utils → tokens → CSS)       │
-│ → Token override patterns for composing components              │
-│ → Applies to: Molecules, Organisms, Templates, Pages (NOT Atoms)│
-│ Priority: CRITICAL | Read time: 15 min                          │
-└──────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────┐
-│ 🛠️ IMPLEMENTATION STANDARDS (Reference During Work)              │
-├──────────────────────────────────────────────────────────────────┤
-│ components.instructions.md                                       │
-│ → 5-file mandatory structure (.twig, .css, .yml, .stories, .md) │
-│ → BEM methodology (strict rules)                                │
-│ → Component naming conventions                                  │
-│ Priority: HIGH | Read time: 20 min                              │
-│                                                                  │
-│ css.instructions.md                                              │
-│ → Design tokens (zero hardcoded values)                         │
-│ → 3-layer CSS variables architecture                            │
-│ → Nesting with & syntax (mandatory for new components)          │
-│ → Token-First integration for composing components              │
-│ Priority: HIGH | Read time: 15 min                              │
-│                                                                  │
-│ templates.instructions.md                                        │
-│ → Twig template standards (Drupal-compatible patterns)          │
-│ → YAML data structure (Faker.js for realistic Real Estate data) │
-│ → NO arrow functions, NO .filter(v => v) (Drupal incompatible)  │
-│ Priority: HIGH | Read time: 10 min                              │
-│                                                                  │
-│ javascript.instructions.md                                       │
-│ → Drupal behaviors pattern (Drupal.behaviors + once())           │
-│ → Event handling (scoped to context)                            │
-│ → Library registration (ps.libraries.yml)                       │
-│ Priority: MEDIUM | Read time: 10 min                            │
-│                                                                  │
-│ storybook.instructions.md                                        │
-│ → Autodocs configuration (tags: ['autodocs'])                   │
-│ → Story structure (Default + Showcases)                         │
-│ → ArgTypes categorization (Content, Appearance, Behavior, etc.) │
-│ Priority: HIGH | Read time: 10 min                              │
-│                                                                  │
-│ accessibility.instructions.md                                    │
-│ → WCAG 2.2 Level AA compliance (mandatory)                      │
-│ → Contrast ratios, keyboard navigation, focus-visible           │
-│ → ARIA attributes, semantic HTML                                │
-│ Priority: HIGH | Read time: 15 min                              │
-└──────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────┐
-│ ⚙️ SPECIALIZED WORKFLOWS (Task-Specific)                         │
-├──────────────────────────────────────────────────────────────────┤
-│ workflows.instructions.md                                        │
-│ → Component generation workflow (11 steps)                      │
-│ → Conformity audit checklist (100% score required)              │
-│ → Git commit message format                                     │
-│ Priority: HIGH | Read time: 15 min                              │
-│                                                                  │
-│ card-inheritance.instructions.md                                 │
-│ → Card component embedding pattern ({% embed %})                 │
-│ → card-{bundle}-{view_mode} naming convention                   │
-│ → Token-First integration for Cards                             │
-│ → Complete reference implementation (Card Offer Slide)          │
-│ Priority: MEDIUM | Read time: 45 min (very comprehensive)       │
-│                                                                  │
-│ base-stories.instructions.md                                     │
-│ → Token documentation stories (colors, fonts, shadows, etc.)    │
-│ → Different structure: 4 files (NO README.md)                   │
-│ → NO autodocs tag (exception to Storybook rules)                │
-│ Priority: LOW | Read time: 10 min                               │
-│                                                                  │
-│ icon-system.instructions.md                                      │
-│ → Icon sprite system (icons-sprite.svg)                         │
-│ → data-icon attribute usage (NO icon- prefix in code)           │
-│ → Build script (npm run build:icons)                            │
-│ Priority: LOW | Read time: 5 min                                │
-└──────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────┐
-│ 🧠 META PROCESSES (Advanced)                                     │
-├──────────────────────────────────────────────────────────────────┤
-│ multi-expert-mode.instructions.md                                │
-│ → 6-role expert analysis (Drupal, Atomic, CSS, Storybook, etc.) │
-│ → Risk detection, dependency checking, impact matrix            │
-│ → Automatic activation for CRITICAL/HIGH priority tasks         │
-│ Priority: LOW | Read time: 20 min                               │
-│                                                                  │
-│ card-inheritance-prompt.md                                       │
-│ → Complete analysis/implementation prompt template for Cards    │
-│ → Copy/paste template for AI agents                             │
-│ Priority: LOW | Read time: 5 min                                │
-└──────────────────────────────────────────────────────────────────┘
+.github/instructions/
+├── 01-core-principles.md          # Fondations (Lire une fois)
+├── 02-component-development.md    # Workflow (Utiliser quotidiennement)
+├── 03-technical-implementation.md # Référence (Consulter souvent)
+├── 04-quality-assurance.md        # Validation (Avant commit)
+├── 05-maintenance.md              # Évolution (Périodique)
+└── README.md                      # Ce fichier (Navigation)
 ```
 
 ---
 
-## 🔄 Dependency Graph
+## 🎯 Scénarios Courants
 
+| Je veux... | Fichier(s) à lire | Temps estimé |
+|-----------|-------------------|--------------|
+| **Créer un atom** | 01 (principes) → 02 (workflow) → 03 (technique) | 3-4h |
+| **Créer une molecule** (compose des atoms) | 02 (Token-First) → 03 (CSS) → 04 (valider) | 4-6h |
+| **Corriger une erreur de build** | 04 (troubleshooting) | 15-30min |
+| **Décider du niveau atomique** | 04 (decision flowcharts) | 5-10min |
+| **Ajouter un nouveau token** | 05 (token creation) | 2-5 jours |
+| **Migrer un composant legacy** | 05 (migration workflows) + 04 (audit) | 2-4h |
+| **Implémenter l'accessibilité** | 03 (accessibility) → 04 (testing) | 1-2h |
+| **Écrire des stories Storybook** | 03 (storybook standards) | 30-60min |
+| **Débugger un template Twig** | 03 (twig standards) → 04 (twig errors) | 15-45min |
+| **Comprendre la composition** | 01 (atomic design) + 02 (Token-First) | 30-45min |
+
+---
+
+## 📊 Progression d'Apprentissage
+
+### Débutant (Semaine 1)
+
+- [ ] Lire 01-core-principles.md (comprendre les fondations)
+- [ ] Lire 02-component-development.md (mémoriser le workflow)
+- [ ] Créer 1 atom simple (badge, divider, icon)
+- [ ] Audit 100 points du premier atom (score ≥ 90)
+
+### Intermédiaire (Semaine 2-3)
+
+- [ ] Lire 03-technical-implementation.md (référence technique)
+- [ ] Créer 1 molecule (card, alert, form-field)
+- [ ] Appliquer Token-First workflow
+- [ ] Passer tous les tests (build, visual, a11y)
+
+### Avancé (Mois 1+)
+
+- [ ] Lire 05-maintenance.md (évolution du système)
+- [ ] Créer 1 organism (header, footer, grid)
+- [ ] Proposer 1 nouveau token
+- [ ] Migrer 1 composant legacy
+
+---
+
+## 🔄 Changements de cette Version
+
+### v4.0.0 - Restructuration Majeure (2025-12-12)
+
+**BREAKING CHANGE** : Réorganisation complète de `.github/instructions/`
+
+**Avant** (v3.x) : 17+ fichiers fragmentés
 ```
-core.instructions.md
-    ↓
 atomic-design.instructions.md
-    ↓
-composition-token-first.instructions.md ⭐ CRITICAL
-    ↓
-    ├─→ components.instructions.md
-    │       ↓
-    │   css.instructions.md
-    │       ↓
-    │   templates.instructions.md
-    │       ↓
-    │   javascript.instructions.md
-    │       ↓
-    │   storybook.instructions.md
-    │       ↓
-    │   accessibility.instructions.md
-    │       ↓
-    │   workflows.instructions.md (aggregates all standards)
-    │
-    └─→ card-inheritance.instructions.md
-            ↓
-        card-inheritance-prompt.md
+components.instructions.md
+css.instructions.md
+templates.instructions.md
+storybook.instructions.md
+javascript.instructions.md
+accessibility.instructions.md
+workflows.instructions.md
+composition-token-first.instructions.md
+card-inheritance.instructions.md
+CODE_EXAMPLES_STYLE_GUIDE.md
+TERMINOLOGY.md
+TOKEN_CREATION_PROCESS.md
+TROUBLESHOOTING_GUIDE.md
+DECISION_FLOWCHARTS.md
+MIGRATION_GUIDES.md
+base-stories.instructions.md
+core.instructions.md
+icon-system.instructions.md
+multi-expert-mode.instructions.md
+card-inheritance-prompt.md
 ```
 
-**Reading rule**: Always read parent files before children in the dependency graph.
-
----
-
-## 🎯 Quick Task Map
-
-**🆕 Creating a new component?**
-
-| Component Level | Files to Read (in order) |
-|----------------|--------------------------|
-| **Atom** (element) | 1. atomic-design → 2. components → 3. css → 4. workflows |
-| **Molecule** (component) | 1. atomic-design → 2. **composition-token-first** ⭐ → 3. components → 4. css → 5. workflows |
-| **Organism** (collection) | 1. atomic-design → 2. **composition-token-first** ⭐ → 3. components → 4. css → 5. workflows |
-| **Template** (layout) | 1. atomic-design → 2. **composition-token-first** ⭐ → 3. components → 4. templates → 5. workflows |
-| **Page** | 1. atomic-design → 2. **composition-token-first** ⭐ → 3. components → 4. templates → 5. workflows |
-
-**🐛 Fixing a bug?**
-
-| Bug Type | Files to Read |
-|----------|---------------|
-| **CSS issue** (spacing, colors, layout) | css → composition-token-first (if composing) |
-| **Accessibility issue** | accessibility → components |
-| **JavaScript behavior** | javascript → components |
-| **Storybook story** | storybook → components |
-| **Twig template** | templates → components |
-
-**🔧 Working on Card variants?**
-
-| Task | Files to Read |
-|------|---------------|
-| **New Card variant** | 1. card-inheritance → 2. composition-token-first → 3. components |
-| **Fix Card issue** | 1. card-inheritance → 2. Check parent Card component |
-| **Understand Card pattern** | 1. card-inheritance (read Section 8: Reference Implementation) |
-
-**📚 Setting up Storybook?**
-
-| Task | Files to Read |
-|------|---------------|
-| **Component story** | storybook → components |
-| **Base story** (tokens) | base-stories → storybook |
-| **ArgTypes setup** | storybook (Section: ArgTypes Categorization) |
-
-**♿ Ensuring accessibility?**
-
-| Task | Files to Read |
-|------|---------------|
-| **WCAG compliance** | accessibility → components |
-| **Keyboard navigation** | accessibility (Section: Keyboard Navigation) |
-| **ARIA attributes** | accessibility (Section: ARIA) |
-| **Screen readers** | accessibility (Section: Screen Readers) |
-
----
-
-## 📏 File Statistics
-
-| File | Lines | Complexity | Est. Read Time | Last Updated |
-|------|-------|------------|----------------|--------------|
-| card-inheritance.instructions.md | 2,319 | ⭐⭐⭐⭐⭐ | 45 min | 2025-12-12 |
-| components.instructions.md | 747 | ⭐⭐⭐⭐ | 20 min | 2025-12-12 |
-| css.instructions.md | 678 | ⭐⭐⭐ | 15 min | 2025-12-12 |
-| atomic-design.instructions.md | 791 | ⭐⭐⭐⭐ | 20 min | 2025-12-05 |
-| accessibility.instructions.md | 584 | ⭐⭐⭐ | 15 min | 2025-12-05 |
-| composition-token-first.instructions.md | 546 | ⭐⭐⭐⭐ | 15 min | 2025-12-12 |
-| workflows.instructions.md | ~500 | ⭐⭐⭐ | 15 min | 2025-12-05 |
-| templates.instructions.md | ~400 | ⭐⭐ | 10 min | 2025-12-05 |
-| storybook.instructions.md | ~300 | ⭐⭐ | 10 min | 2025-12-05 |
-| javascript.instructions.md | ~300 | ⭐⭐ | 10 min | 2025-12-05 |
-| base-stories.instructions.md | ~200 | ⭐ | 10 min | 2025-12-05 |
-| core.instructions.md | ~500 | ⭐⭐⭐ | 15 min | 2025-12-05 |
-| icon-system.instructions.md | ~150 | ⭐ | 5 min | 2025-12-05 |
-| multi-expert-mode.instructions.md | ~600 | ⭐⭐⭐ | 20 min | 2025-12-08 |
-| card-inheritance-prompt.md | ~100 | ⭐ | 5 min | 2025-12-10 |
-
-**Total**: ~8,715 lines | **Total read time** (all files): ~4.5 hours
-
----
-
-## 🔗 Related Resources
-
-### Main Copilot Instructions
-- [copilot-instructions.md](../copilot-instructions.md) - AI behavior configuration, language policy, Zero Tolerance Rules
-
-### Project Documentation
-- [Project README](../../README.md) - Project setup, build commands, JavaScript bundling
-- [Design System Changelog](../../docs/ps-design/CHANGELOG.md) - Complete implementation history
-- [Component Manifest](../../docs/design/COMPONENT_MANIFEST.yml) - All 87 components inventory
-- [Design Specifications](../../docs/design/) - Complete specs for Atoms/Molecules/Organisms/Templates/Pages
-
-### Build & Tooling
-- [package.json](../../package.json) - npm scripts, dependencies
-- [vite.config.js](../../vite.config.js) - Vite build configuration
-- [biome.json](../../biome.json) - Biome linter/formatter config
-- [.storybook/](../../.storybook/) - Storybook configuration
-
----
-
-## ❓ FAQ
-
-### "Where do I start as a new contributor?"
-
-**Answer**: Follow the "For Humans" reading order at the top of this page. Start with `core.instructions.md`, then `atomic-design.instructions.md`, then `composition-token-first.instructions.md`. That's the foundation (~50 minutes reading).
-
-### "I'm creating a Molecule, which files do I need?"
-
-**Answer**: 
-1. Read: `composition-token-first.instructions.md` (MANDATORY ⭐)
-2. Read: `components.instructions.md` (file structure, BEM)
-3. Read: `css.instructions.md` (tokens, nesting)
-4. Reference: `workflows.instructions.md` (generation steps)
-
-### "What's the difference between atoms and molecules?"
-
-**Answer**: Read `atomic-design.instructions.md` Section 2 (Composition Rules). **TL;DR**: Atoms are autonomous (Button, Icon), Molecules compose Atoms (Card, Form Field). Molecules MUST follow Token-First workflow, Atoms don't.
-
-### "How do I customize a parent component without breaking it?"
-
-**Answer**: Read `composition-token-first.instructions.md` - This is THE core workflow. Use the 4-step cascade: params → utility classes → **override tokens (preferred)** → targeted CSS (last resort).
-
-### "Can I modify card.css for my Card variant?"
-
-**Answer**: ❌ **NO!** Never modify parent component CSS. Instead, override tokens in YOUR component's CSS:
-
-```css
-.ps-card-my-variant {
-  /* Override Card tokens in YOUR CSS */
-  --ps-card-padding-x: var(--size-6);
-  --ps-card-gap: var(--size-4);
-}
+**Après** (v4.0.0) : 6 fichiers consolidés numérotés
+```
+01-core-principles.md          (Fondations)
+02-component-development.md    (Workflow)
+03-technical-implementation.md (Technique)
+04-quality-assurance.md        (Validation)
+05-maintenance.md              (Évolution)
+README.md                      (Navigation)
 ```
 
-Read: `composition-token-first.instructions.md` + `card-inheritance.instructions.md`
+**Bénéfices** :
+- ✅ Réduction de 66% du nombre de fichiers (17 → 6)
+- ✅ Hiérarchie claire (01 fondations → 05 avancé)
+- ✅ Numérotation intuitive et progression logique
+- ✅ Élimination des redondances de contenu
+- ✅ Toute l'information technique préservée
+- ✅ Navigation et découvrabilité améliorées
 
-### "Why are some files in French and others in English?"
+**Migration** :
+- Anciens fichiers sauvegardés : `.github-backup-2025-12-12/` (commit 0a2cbf8)
+- Rollback si nécessaire : `cp -r .github-backup-2025-12-12/ .github/`
+- `copilot-instructions.md` mis à jour avec références v4.0.0
 
-**Answer**: **Language Policy** (defined in `copilot-instructions.md`):
-- 🇬🇧 **AI Instructions**: English ONLY (all `.instructions.md` files)
-- 🇫🇷 **User Communication**: French ONLY (chat responses, commit messages)
-- 🇬🇧 **Code Documentation**: English ONLY (README, JSDoc, comments)
-- 🇫🇷 **Project Logs**: French ONLY (CHANGELOG.md, meeting notes)
+**Contexte** : Feedback utilisateur - structure trop fragmentée, trop de fichiers, organisation peu claire
 
-### "How do I know which instruction file applies to my current file?"
-
-**Answer**: Check the `applyTo:` field in the file's frontmatter (YAML header). Example:
-
-```yaml
 ---
-applyTo:
-  - "source/patterns/components/**/*"
----
+
+## 🔧 Commandes Utiles
+
+```bash
+# Créer un nouveau composant (génération interactive)
+npm run generate:pattern
+
+# Vérifier l'existence d'un token
+npm run tokens:check -- --token-name
+
+# Valider le build (obligatoire avant commit)
+npm run build
+
+# Watch mode (Vite + Storybook)
+npm run watch
+# → http://localhost:6006
+
+# Build Storybook statique
+npm run storybook:build
 ```
 
-This means the instructions apply to all files in `source/patterns/components/`.
+---
 
-### "I found a contradiction between two instruction files. What do I do?"
+## 🆘 Support & Ressources
 
-**Answer**: 
-1. Check file versions (`version:` in frontmatter) - **newer wins**
-2. Check priority (`priority:` in frontmatter) - **CRITICAL > HIGH > MEDIUM > LOW**
-3. If still unclear, report the issue to Design System Team
+### Documentation Externe
 
-### "Can I skip reading all instructions and just code?"
+- **Storybook Live** : [Surface Storybook](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/)
+- **Design Specs** : `docs/design/` (spécifications complètes des 87 composants)
+- **Project Status** : `docs/ps-design/INDEX.md` (inventaire + phases)
+- **Changelog** : `docs/ps-design/CHANGELOG.md` (historique d'implémentation)
 
-**Answer**: ❌ **Not recommended!** Minimum required reading (~1 hour):
-1. `atomic-design.instructions.md` (20 min)
-2. `composition-token-first.instructions.md` (15 min) - **CRITICAL if working on Molecules+**
-3. `components.instructions.md` (20 min)
-4. `workflows.instructions.md` (10 min)
+### Contact
 
-Skipping these will result in conformity audit failures (100% score required).
+- **Canal Slack** : #design-system
+- **Issues GitHub** : Propositions de tokens, bugs, questions
+- **Maintainers** : Design System Team
 
 ---
 
-## 🆘 Support
+## 📏 Statistiques
 
-**Questions or issues with instructions?**
+**Composants** : 6/87 (7%)
+- 19 Atoms (éléments)
+- 20 Molecules (composants)
+- 12 Organisms (collections)
+- 8 Templates (layouts)
+- 8 Pages (pages)
 
-1. **First**: Check this README and search for keywords
-2. **Then**: Read the relevant instruction file(s) completely
-3. **If stuck**: Review related files (check `related:` in frontmatter)
-4. **Still stuck**: Contact Design System Team
-
-**Found a bug or improvement?**
-
-- Create an issue or PR targeting `.github/instructions/` files
-- Tag: `documentation`, `instructions`
-- Maintainers will review and update
+**Version actuelle** : 4.0.0  
+**Standards** : Atomic Design + Token-First + BEM + WCAG 2.2 AA  
+**Stack** : Storybook (HTML) + Vite + PostCSS + Drupal 10/11
 
 ---
 
-**Navigation Hub Version**: 1.0.0  
-**Last Updated**: 2025-12-12  
-**Maintainers**: Design System Team  
-**Status**: ✅ ACTIVE
+## 🎓 Apprentissage Continu
+
+**Ressources recommandées** :
+- Brad Frost - Atomic Design : https://atomicdesign.bradfrost.com/
+- BEM Methodology : https://en.bem.info/methodology/
+- WCAG 2.2 Guidelines : https://www.w3.org/WAI/WCAG22/quickref/
+- Drupal Twig : https://www.drupal.org/docs/theming-drupal/twig-in-drupal
+
+**Mise à jour de la documentation** :
+- Revue trimestrielle (ou sur changement majeur)
+- Feedback continu via issues GitHub
+- Propositions d'amélioration bienvenues
+
+---
+
+**Version** : 4.0.0  
+**Date** : 2025-12-12  
+**Maintainers** : Design System Team  
+**Licence** : Projet interne BNP Paribas Real Estate

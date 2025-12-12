@@ -1,29 +1,22 @@
 # Copilot Instructions for PS Theme (Surface)
 
-**Version**: 3.1.0  
+**Version**: 4.0.0 (Major restructuring - 17 files → 6 files)  
 **Last Updated**: 2025-12-12
 
 ---
 
 ## 📚 Documentation Structure
 
-**All detailed rules are now in modular instruction files under `.github/instructions/`:**
+**Documentation consolidée en 6 fichiers numérotés sous `.github/instructions/` :**
 
-- **Core** → `instructions/core.instructions.md` - Stack, tokens, build system
-- **Atomic Design** → `instructions/atomic-design.instructions.md` - Composition methodology
-- **Token-First Composition** → `instructions/composition-token-first.instructions.md` - **🔥 NEW** 4-step workflow for composing components (CRITICAL for Molecules+)
-- **Components** → `instructions/components.instructions.md` - 5-file structure, BEM
-- **CSS** → `instructions/css.instructions.md` - Tokens, nesting, cascade
-- **Storybook** → `instructions/storybook.instructions.md` - Autodocs, stories format
-- **Base Stories** → `instructions/base-stories.instructions.md` - Token documentation stories
-- **JavaScript** → `instructions/javascript.instructions.md` - Drupal behaviors, ES6
-- **Templates** → `instructions/templates.instructions.md` - Twig, YAML, Faker.js
-- **Accessibility** → `instructions/accessibility.instructions.md` - WCAG, ARIA, keyboard
-- **Workflows** → `instructions/workflows.instructions.md` - Generation, audit, standardization
-- **Card Inheritance** → `instructions/card-inheritance.instructions.md` - Card component embedding pattern (updated with Token-First)
-- **Card Prompt** → `instructions/card-inheritance-prompt.md` - Complete analysis/implementation prompt
+- **01 Core Principles** → `instructions/01-core-principles.md` - Foundations (Atomic Design, BEM, tokens, terminology, accessibility)
+- **02 Component Development** → `instructions/02-component-development.md` - Complete workflow (11 steps, Token-First cascade, real example)
+- **03 Technical Implementation** → `instructions/03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility)
+- **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (100-point audit, troubleshooting, flowcharts, testing)
+- **05 Maintenance** → `instructions/05-maintenance.md` - Evolution (token creation, legacy migration, deprecation, breaking changes)
+- **README** → `instructions/README.md` - Navigation hub (quick scenarios, learning path)
 
-**These files are path-scoped** (YAML frontmatter `applyTo:`) for contextual AI assistance.
+**Navigation rapide** : Consultez d'abord `instructions/README.md` pour identifier le fichier adapté à votre tâche.
 
 ---
 
@@ -71,34 +64,47 @@
 
 **New Component?**  
 → Read spec: `docs/design/{level}/{component}.md`  
-→ Follow workflow: `instructions/workflows.instructions.md`  
-→ Use standards: `instructions/components.instructions.md`  
-→ **Composing other components?** Follow Token-First: `instructions/composition-token-first.instructions.md`
+→ Follow workflow: `instructions/02-component-development.md`  
+→ Use standards: `instructions/03-technical-implementation.md`  
+→ **Composing other components?** Follow Token-First: `instructions/02-component-development.md` (section 2)
 
 **CSS Issue?**  
-→ Consult: `instructions/css.instructions.md`  
-→ Token missing? Document need, don't add (see `instructions/core.instructions.md`)  
+→ Consult: `instructions/03-technical-implementation.md` (section 1)  
+→ Token missing? Document need, don't add (see `instructions/05-maintenance.md` section 1)  
+→ **Overriding parent/child styles?** Follow Token-First workflow (STEP 3 preferred)
+
+
+**New Component?**  
+→ Read spec: `docs/design/{level}/{component}.md`  
+→ Follow workflow: `instructions/02-component-development.md`  
+→ Use standards: `instructions/03-technical-implementation.md`  
+→ **Composing other components?** Follow Token-First: `instructions/02-component-development.md` (section 2)
+
+**CSS Issue?**  
+→ Consult: `instructions/03-technical-implementation.md` (section 1)  
+→ Token missing? Document need, don't add (see `instructions/05-maintenance.md` section 1)  
 → **Overriding parent/child styles?** Follow Token-First workflow (STEP 3 preferred)
 
 **Storybook Config?**  
-→ Follow: `instructions/storybook.instructions.md`  
+→ Follow: `instructions/03-technical-implementation.md` (section 3)  
 → MANDATORY: `tags: ['autodocs']` in export default
 
 **Twig Template?**  
-→ Standards: `instructions/templates.instructions.md`  
+→ Standards: `instructions/03-technical-implementation.md` (section 2)  
 → CRITICAL: NO arrow functions, NO `.filter(v => v)` (Drupal incompatible)
 
 **JavaScript Behavior?**  
-→ Patterns: `instructions/javascript.instructions.md`  
+→ Patterns: `instructions/03-technical-implementation.md` (section 4)  
 → Use Drupal behaviors with `once()` for idempotency
 
 **Accessibility?**  
-→ Requirements: `instructions/accessibility.instructions.md`  
+→ Requirements: `instructions/03-technical-implementation.md` (section 5)  
 → WCAG 2.2 AA minimum (contrast, focus-visible, ARIA, keyboard)
 
 **Refactor Legacy?**  
-→ Audit: `instructions/workflows.instructions.md` (Conformity checklist)  
+→ Audit: `instructions/04-quality-assurance.md` (Conformity checklist)  
 → Standardize: Fix tokens, nesting, BEM, Autodocs
+
 
 ---
 
@@ -229,7 +235,7 @@ These will ALWAYS be rejected:
 **Validation**:
 - [ ] Build passes: `npm run build`
 - [ ] Visual check: `npm run watch` → http://localhost:6006
-- [ ] Conformity audit: 100% score (see `instructions/workflows.instructions.md`)
+- [ ] Conformity audit: 100% score (see `instructions/04-quality-assurance.md`)
 - [ ] Commit with structured message (see format below)
 - [ ] Update `docs/ps-design/CHANGELOG.md`
 
@@ -360,41 +366,21 @@ npm run tokens:check -- <token-name>  # Search token in props/ (definition + usa
 ## 🤖 For AI Agents
 
 **PRIMARY DIRECTIVE**:  
-Before ANY component work, consult the relevant instruction file(s) under `.github/instructions/`. These are the SINGLE SOURCE OF TRUTH (replacing old monolithic COMPLETE_RULES.md).
-
-**Advanced Mode - Multi-Expert Analysis**:
-
-For complex component work, refactoring, or when decisions require multi-disciplinary analysis, use the **Mode Multi-Experts + Sens Critique**:
-
-→ Read: [`instructions/multi-expert-mode.instructions.md`](instructions/multi-expert-mode.instructions.md)
-
-**What it provides**:
-- 6-role expert analysis (Drupal, Atomic Design, CSS, Storybook, PO, Real Estate métier)
-- Automatic risk detection & ambiguity clarification
-- Dependency checking (atomic hierarchy validation)
-- Impact matrix (role-by-role assessment)
-- Accessibility-first (WCAG 2.2 AA non-negotiable)
-- Real Estate context awareness (Faker.js examples)
-- Escalation protocol when contradictions detected
-- Executable validation commands
-
-**When to activate** (usually automatic for CRITICAL/HAUTE priority):
-- ✅ New component implementation
-- ✅ Refactoring or standardization (100% audit)
-- ✅ Token/design system changes
-- ✅ Complex dependencies or compositions
-- ✅ Ambiguous or potentially contradictory requirements
-
-**Status**: ACTIVE since 2025-12-08 (permanent default)
+Before ANY component work, consult the relevant instruction file(s) under `.github/instructions/`. These are the SINGLE SOURCE OF TRUTH.
 
 **Standard Workflow**:
-1. Read: `instructions/workflows.instructions.md` (Component generation steps 1-11)
-2. Apply: Domain-specific instructions (CSS, Storybook, Templates, etc.)
-3. Validate: Conformity audit (100% score required)
-4. Commit: Structured message + changelog update
+1. Read: `instructions/README.md` (Navigation - identify relevant file for task)
+2. Read: Relevant numbered file (01-05 based on task type)
+3. Apply: Domain-specific standards and workflows
+4. Validate: Conformity audit (100% score required)
+5. Commit: Structured message + changelog update
 
-**When in doubt**: Consult instruction files first, then ask for clarification (never guess).
+**When in doubt**: Consult instruction files first via README.md navigation, then ask for clarification (never guess).
 
+---
+
+**Maintainers**: Design System Team  
+**Contact**: See project README for support channels
 ---
 
 **Maintainers**: Design System Team  
