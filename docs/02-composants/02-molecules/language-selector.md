@@ -353,7 +353,7 @@ Notes :
     } %}
     <span class="ps-language-selector__label">{{ current.label }}</span>
   </span>
-  <svg class="ps-language-selector__icon"><use href="#icon-chevron-down"></use></svg>
+  <span class="ps-language-selector__icon" data-icon="chevron-down" aria-hidden="true"></span>
 </button>
 ```
 

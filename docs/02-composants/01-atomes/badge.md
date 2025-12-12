@@ -187,7 +187,7 @@ props:
 
 <{{ tag }} {{ attributes.addClass(root_classes) }}{% if href %} href="{{ href }}"{% endif %}>
   {% if default_icon and type != 'count' %}
-    <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-{{ default_icon }}"></use></svg>
+    <span class="ps-badge__icon" data-icon="{{ default_icon }}" aria-hidden="true"></span>
   {% endif %}
   {% if type == 'count' %}
     {{ text }}

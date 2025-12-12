@@ -43,7 +43,7 @@ Séparateur visuel pour délimiter des sections de contenu. Disponible en orient
 <!-- Divider with icon -->
 <div class="ps-divider ps-divider--horizontal ps-divider--with-icon">
   <span class="ps-divider__line"></span>
-  <svg class="ps-divider__icon" aria-hidden="true"><use href="#icon-star"></use></svg>
+  <span class="ps-divider__icon" data-icon="star" aria-hidden="true"></span>
   <span class="ps-divider__line"></span>
 </div>
 ```
@@ -138,7 +138,7 @@ Séparateur visuel pour délimiter des sections de contenu. Disponible en orient
 }
 ```
     {% elseif icon %}
-      <svg class="ps-divider__icon" aria-hidden="true"><use href="#icon-{{ icon }}"></use></svg>
+      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {% endif %}
     <span class="ps-divider__line"></span>
   </div>

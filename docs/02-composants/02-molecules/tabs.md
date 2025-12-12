@@ -177,7 +177,7 @@ props:
         aria-controls="{{ pid }}"
         {% if tab.disabled %}disabled aria-disabled="true"{% endif %}
         data-tab>
-        {% if tab.icon %}<svg class="ps-tabs__icon" aria-hidden="true"><use href="#icon-{{ tab.icon }}"></use></svg>{% endif %}
+        {% if tab.icon %}<span class="ps-tabs__icon" data-icon="{{ tab.icon }}" aria-hidden="true"></span>{% endif %}
         <span class="ps-tabs__label">{{ tab.label }}</span>
       </button>
     {% endfor %}

@@ -37,7 +37,7 @@ Fenêtre modale accessible affichant du contenu superposé à la page principale
     <div class="ps-modal__header">
       <h2 class="ps-modal__title" id="modal-1-title">Titre du modal</h2>
       <button class="ps-modal__close" type="button" aria-label="Fermer" data-modal-close>
-        <svg class="ps-modal__close-icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+        <span class="ps-modal__close-icon" data-icon="close" aria-hidden="true"></span>
       </button>
     </div>
     <div class="ps-modal__body" id="modal-1-desc">
@@ -179,7 +179,7 @@ Proposition si manquant: `--ps-color-overlay-backdrop`, `--ps-z-index-modal`.
       <{{ heading }} class="ps-modal__title" id="{{ title_id }}">{{ title }}</{{ heading }}>
       {% if showCloseButton|default(true) %}
         <button class="ps-modal__close" type="button" aria-label="{{ closeLabel|default('Fermer') }}" data-modal-close>
-          <svg class="ps-modal__close-icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+          <span class="ps-modal__close-icon" data-icon="close" aria-hidden="true"></span>
         </button>
       {% endif %}
     </div>

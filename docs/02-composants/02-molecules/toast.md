@@ -28,11 +28,11 @@ Notification temporaire non-intrusive affichée en overlay (généralement coin 
 ```html
 <div class="ps-toast ps-toast--success" role="status" aria-live="polite" aria-atomic="true" data-toast data-duration="5000">
   <div class="ps-toast__content">
-    <svg class="ps-toast__icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg>
+    <span class="ps-toast__icon" data-icon="check-circle" aria-hidden="true"></span>
     <div class="ps-toast__message">Enregistrement réussi</div>
   </div>
   <button class="ps-toast__close" type="button" aria-label="Fermer" data-toast-close>
-    <svg class="ps-toast__close-icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+    <span class="ps-toast__close-icon" data-icon="close" aria-hidden="true"></span>
   </button>
 </div>
 ```
@@ -161,13 +161,13 @@ Proposition si manquant: couleurs info/success/warning/error (50, 600, 700, 800)
 <div {{ attributes.addClass(root_classes) }} role="{{ role }}" aria-live="{{ aria_live }}" aria-atomic="true" data-toast data-duration="{{ duration }}" data-position="{{ position }}">
   <div class="ps-toast__content">
     {% if toast_icon %}
-      <svg class="ps-toast__icon" aria-hidden="true"><use href="#icon-{{ toast_icon }}"></use></svg>
+      <span class="ps-toast__icon" data-icon="{{ toast_icon }}" aria-hidden="true"></span>
     {% endif %}
     <div class="ps-toast__message">{{ message }}</div>
   </div>
   {% if dismissible %}
     <button class="ps-toast__close" type="button" aria-label="Fermer" data-toast-close>
-      <svg class="ps-toast__close-icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      <span class="ps-toast__close-icon" data-icon="close" aria-hidden="true"></span>
     </button>
   {% endif %}
 </div>
@@ -320,10 +320,10 @@ class ToastManager {
 
     toast.innerHTML = `
       <div class="ps-toast__content">
-        <svg class="ps-toast__icon" aria-hidden="true"><use href="#icon-${icon}"></use></svg>
+        <span class="ps-toast__icon" data-icon="${icon}" aria-hidden="true"></span>
         <div class="ps-toast__message">${message}</div>
       </div>
-      ${dismissible ? '<button class="ps-toast__close" type="button" aria-label="Fermer" data-toast-close><svg class="ps-toast__close-icon" aria-hidden="true"><use href="#icon-close"></use></svg></button>' : ''}
+      ${dismissible ? '<button class="ps-toast__close" type="button" aria-label="Fermer" data-toast-close><span class="ps-toast__close-icon" data-icon="close" aria-hidden="true"></span></button>' : ''}
     `;
 
     // Append to container

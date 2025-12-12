@@ -23,17 +23,17 @@ Section de mise en avant avec icônes, titres, textes, et CTA optionnel. Variant
   </header>
   <ul class="ps-feature-section__list">
     <li class="ps-feature-section__item">
-      <svg class="ps-icon" aria-hidden="true"><use href="#icon-shield"></use></svg>
+      <span class="ps-icon" data-icon="shield" aria-hidden="true"></span>
       <h3 class="ps-feature-section__item-title">Sécurisé</h3>
       <p class="ps-feature-section__item-text">Vos données protégées.</p>
     </li>
     <li class="ps-feature-section__item">
-      <svg class="ps-icon" aria-hidden="true"><use href="#icon-bolt"></use></svg>
+      <span class="ps-icon" data-icon="bolt" aria-hidden="true"></span>
       <h3 class="ps-feature-section__item-title">Rapide</h3>
       <p class="ps-feature-section__item-text">Résultats instantanés.</p>
     </li>
     <li class="ps-feature-section__item">
-      <svg class="ps-icon" aria-hidden="true"><use href="#icon-map"></use></svg>
+      <span class="ps-icon" data-icon="map" aria-hidden="true"></span>
       <h3 class="ps-feature-section__item-title">Local</h3>
       <p class="ps-feature-section__item-text">Experts de votre quartier.</p>
     </li>
@@ -126,7 +126,7 @@ props:
     <ul class="ps-feature-section__list">
       {% for it in items %}
         <li class="ps-feature-section__item">
-          {% if it.icon %}<svg class="ps-icon" aria-hidden="true"><use href="#icon-{{ it.icon }}"></use></svg>{% endif %}
+          {% if it.icon %}<span class="ps-icon" data-icon="{{ it.icon }}" aria-hidden="true"></span>{% endif %}
           <h3 class="ps-feature-section__item-title">{{ it.title }}</h3>
           <p class="ps-feature-section__item-text">{{ it.text }}</p>
         </li>

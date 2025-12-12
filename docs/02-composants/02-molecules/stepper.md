@@ -31,7 +31,7 @@ Infos  Adresse Photos Valider
     <li class="ps-stepper__item ps-stepper__item--complete">
       <a class="ps-stepper__link" href="#step-1" aria-current="false">
         <span class="ps-stepper__indicator">
-          <svg class="ps-stepper__icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+          <span class="ps-stepper__icon" data-icon="check" aria-hidden="true"></span>
           <span class="ps-stepper__number">1</span>
         </span>
         <span class="ps-stepper__content">
@@ -233,9 +233,9 @@ props:
         <{{ tag }} class="ps-stepper__link" {% if is_clickable %}href="{{ step.href }}"{% endif %} {% if is_current %}aria-current="step"{% else %}aria-current="false"{% endif %} {% if not is_clickable %}aria-disabled="true"{% endif %}>
           <span class="ps-stepper__indicator">
             {% if status == 'complete' and variant != 'icon' %}
-              <svg class="ps-stepper__icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+              <span class="ps-stepper__icon" data-icon="check" aria-hidden="true"></span>
             {% elseif step.icon and variant == 'icon' %}
-              <svg class="ps-stepper__icon" aria-hidden="true"><use href="#icon-{{ step.icon }}"></use></svg>
+              <span class="ps-stepper__icon" data-icon="{{ step.icon }}" aria-hidden="true"></span>
             {% elseif variant != 'minimal' %}
               <span class="ps-stepper__number">{{ loop.index }}</span>
             {% endif %}

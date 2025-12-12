@@ -26,7 +26,7 @@ Infobulle accessible apportant une aide contextuelle. Déclenchement au focus/ho
 ```html
 <span class="ps-tooltip ps-tooltip--top ps-tooltip--medium" data-tooltip>
   <button class="ps-tooltip__trigger" type="button" aria-describedby="tt-1" data-tooltip-trigger>
-    <svg class="ps-tooltip__icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+    <span class="ps-tooltip__icon" data-icon="info" aria-hidden="true"></span>
     <span class="visually-hidden">Plus d'informations</span>
   </button>
   <span class="ps-tooltip__content" id="tt-1" role="tooltip" data-tooltip-content hidden>
@@ -135,7 +135,7 @@ Propositions si manquants: `colors.neutral.800|900`, `--ps-transition-standard`.
 
 <span {{ attributes.addClass(classes) }} data-tooltip data-trigger="{{ trigger|default('hover') }}">
   <button class="ps-tooltip__trigger" type="button" aria-describedby="{{ id }}" data-tooltip-trigger {% if disabled %}disabled aria-disabled="true"{% endif %}>
-    <svg class="ps-tooltip__icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+    <span class="ps-tooltip__icon" data-icon="info" aria-hidden="true"></span>
     <span class="visually-hidden">{{ label|default("Plus d'informations") }}</span>
   </button>
   <span class="ps-tooltip__content" id="{{ id }}" role="tooltip" data-tooltip-content hidden>

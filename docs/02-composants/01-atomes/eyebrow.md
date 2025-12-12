@@ -27,7 +27,7 @@ Grand titre principal
 
 ```html
 <span class="ps-eyebrow ps-eyebrow--primary ps-eyebrow--uppercase">
-  <svg class="ps-eyebrow__icon" aria-hidden="true"><use href="#icon-star"></use></svg>
+  <span class="ps-eyebrow__icon" data-icon="star" aria-hidden="true"></span>
   <span class="ps-eyebrow__text">Nouveauté</span>
 </span>
 
@@ -161,7 +161,7 @@ props:
 
 <span {{ attributes.addClass(root_classes) }}>
   {% if icon %}
-    <svg class="ps-eyebrow__icon" aria-hidden="true"><use href="#icon-{{ icon }}"></use></svg>
+    <span class="ps-eyebrow__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
   <span class="ps-eyebrow__text">{{ text }}</span>
   {% if withLine %}

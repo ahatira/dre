@@ -37,7 +37,7 @@ Sous-menu (indication visuelle seulement – ouverture gérée par `Main Menu`):
 <li class="ps-menu-item ps-menu-item--has-children">
   <a class="ps-menu-item__link" href="/biens" aria-haspopup="true">
     <span class="ps-menu-item__label">Biens</span>
-    <svg class="ps-menu-item__caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+    <span class="ps-menu-item__caret" data-icon="chevron-down" aria-hidden="true"></span>
   </a>
 </li>
 ```
@@ -154,11 +154,11 @@ props:
 
   <{{ tag }} class="ps-menu-item__link" {% if is_link %}href="{{ url }}"{% endif %} {% if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif %} {% if active %}aria-current="page"{% endif %} {% if hasChildren %}aria-haspopup="true"{% endif %}>
     {% if icon %}
-      <svg class="ps-menu-item__icon" aria-hidden="true"><use href="#icon-{{ icon }}"></use></svg>
+      <span class="ps-menu-item__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {% endif %}
     <span class="ps-menu-item__label">{{ label }}</span>
     {% if hasChildren %}
-      <svg class="ps-menu-item__caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      <span class="ps-menu-item__caret" data-icon="chevron-down" aria-hidden="true"></span>
     {% endif %}
   </{{ tag }}>
 </li>

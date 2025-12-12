@@ -33,7 +33,7 @@ Sélecteur d’options sous forme de menu déroulant. Combine un champ (affichag
 <div class="ps-dropdown ps-dropdown--medium">
   <button class="ps-dropdown__button" type="button" aria-haspopup="listbox" aria-expanded="false">
     <span class="ps-dropdown__label">Catégorie</span>
-    <svg class="ps-dropdown__icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
   </button>
   <ul class="ps-dropdown__list" role="listbox">
     <li class="ps-dropdown__option" role="option" aria-selected="true">Appartement</li>
@@ -171,7 +171,7 @@ Si des tokens manquent (icon sizes), proposer `sizes.icon.16/20`.
 <div {{ attributes.addClass(classes) }} data-dropdown>
   <button class="ps-dropdown__button" type="button" aria-haspopup="listbox" aria-expanded="false" data-dropdown-button {% if disabled %}disabled aria-disabled="true"{% endif %}>
     <span class="ps-dropdown__label">{{ label ?? placeholder ?? 'Sélectionner' }}</span>
-    <svg class="ps-dropdown__icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
   </button>
 
   <ul class="ps-dropdown__list" role="listbox" tabindex="-1" hidden data-dropdown-list>

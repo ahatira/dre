@@ -36,7 +36,7 @@ Tableau de données structuré pour afficher des informations tabulaires. Suppor
         <th class="ps-table__header ps-table__header--sortable" scope="col" aria-sort="ascending" data-sort="name">
           <button class="ps-table__sort-button" type="button">
             Nom
-            <svg class="ps-table__sort-icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+            <span class="ps-table__sort-icon" data-icon="arrow-up" aria-hidden="true"></span>
           </button>
         </th>
         <th class="ps-table__header" scope="col">Statut</th>
@@ -253,7 +253,7 @@ props:
             {% if header.sortable %}
               <button class="ps-table__sort-button" type="button">
                 {{ header.label }}
-                <svg class="ps-table__sort-icon" aria-hidden="true"><use href="#icon-arrow-up-down"></use></svg>
+                <span class="ps-table__sort-icon" data-icon="arrow-up-down" aria-hidden="true"></span>
               </button>
             {% else %}
               {{ header.label }}

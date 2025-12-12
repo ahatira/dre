@@ -27,7 +27,7 @@ Champ de recherche avec bouton de soumission. Conçu pour l’en-tête et les pa
 <form class="ps-search-bar ps-search-bar--inline" role="search" action="/search" method="get">
   <div class="ps-search-bar__field">
     <input class="ps-search-bar__input" type="search" name="q" placeholder="Rechercher un bien…" aria-label="Rechercher" autocomplete="on" />
-    <svg class="ps-search-bar__icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+    <span class="ps-search-bar__icon" data-icon="search" aria-hidden="true"></span>
   </div>
   <button class="ps-search-bar__submit ps-button ps-button--primary ps-button--green" type="submit">
     <span class="ps-button__label">Rechercher</span>
@@ -169,7 +169,7 @@ Propositions si manquants: `--ps-icon-size-20` pour la loupe.
       autocomplete="{{ autocomplete|default('on') }}"
     />
     {% if showIcon %}
-      <svg class="ps-search-bar__icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+      <span class="ps-search-bar__icon" data-icon="search" aria-hidden="true"></span>
     {% endif %}
   </div>
 

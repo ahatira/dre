@@ -31,7 +31,7 @@ Liste de tags (badges) pour catégories, filtres, ou labels multiples. Compositi
       <span class="ps-badge ps-badge--primary ps-badge--sm ps-badge--pill">
         <span class="ps-badge__text">Design</span>
         <button class="ps-badge__remove" aria-label="Supprimer Design" data-tag="design">
-          <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+          <span class="ps-badge__icon" data-icon="x" aria-hidden="true"></span>
         </button>
       </span>
     </li>
@@ -39,7 +39,7 @@ Liste de tags (badges) pour catégories, filtres, ou labels multiples. Compositi
       <span class="ps-badge ps-badge--primary ps-badge--sm ps-badge--pill">
         <span class="ps-badge__text">UX</span>
         <button class="ps-badge__remove" aria-label="Supprimer UX" data-tag="ux">
-          <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+          <span class="ps-badge__icon" data-icon="x" aria-hidden="true"></span>
         </button>
       </span>
     </li>
@@ -201,19 +201,19 @@ props:
         {% if tag.href %}
           <a class="{{ badge_classes|join(' ') }}" href="{{ tag.href }}">
             {% if tag.icon %}
-              <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-{{ tag.icon }}"></use></svg>
+              <span class="ps-badge__icon" data-icon="{{ tag.icon }}" aria-hidden="true"></span>
             {% endif %}
             <span class="ps-badge__text">{{ tag.label }}</span>
           </a>
         {% else %}
           <span class="{{ badge_classes|join(' ') }}">
             {% if tag.icon %}
-              <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-{{ tag.icon }}"></use></svg>
+              <span class="ps-badge__icon" data-icon="{{ tag.icon }}" aria-hidden="true"></span>
             {% endif %}
             <span class="ps-badge__text">{{ tag.label }}</span>
             {% if tag_removable %}
               <button class="ps-badge__remove" type="button" aria-label="Supprimer {{ tag.label }}" data-tag-remove="{{ tag.id }}">
-                <svg class="ps-badge__icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+                <span class="ps-badge__icon" data-icon="x" aria-hidden="true"></span>
               </button>
             {% endif %}
           </span>

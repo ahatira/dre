@@ -42,7 +42,7 @@ Square     Circle     Fallback
 
 <!-- Icon fallback avatar -->
 <div class="ps-avatar ps-avatar--medium ps-avatar--circle ps-avatar--icon">
-  <svg class="ps-avatar__icon" aria-hidden="true"><use href="#icon-user"></use></svg>
+  <span class="ps-avatar__icon" data-icon="user" aria-hidden="true"></span>
 </div>
 
 <!-- With status badge -->
@@ -203,7 +203,7 @@ props:
   {% elseif has_initials %}
     <span class="ps-avatar__text">{{ initials }}</span>
   {% else %}
-    <svg class="ps-avatar__icon" aria-hidden="true"><use href="#icon-user"></use></svg>
+    <span class="ps-avatar__icon" data-icon="user" aria-hidden="true"></span>
   {% endif %}
   
   {% if status %}
