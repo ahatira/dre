@@ -29,8 +29,7 @@
     "sync:libraries": "node scripts/sync-libraries.mjs",
     "sync:libraries:watch": "node scripts/sync-libraries.mjs --watch",
     "stylelint:check": "stylelint \"source/patterns/**/*.css\"",
-    "stylelint:fix": "stylelint --fix \"source/patterns/**/*.css\"",
-    "prepare": "husky"
+    "stylelint:fix": "stylelint --fix \"source/patterns/**/*.css\""
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.4",
@@ -46,7 +45,6 @@
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.1",
     "glob": "^11.0.1",
-    "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
