@@ -1,12 +1,18 @@
 ---
+title: Atomic Design Methodology
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "source/patterns/**/*"
+priority: CRITICAL
+related:
+  - composition-token-first.instructions.md
+  - components.instructions.md
+status: ACTIVE
 ---
 
 # Atomic Design Methodology - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: Component composition & reusability rules
 
 ---

@@ -1,12 +1,18 @@
 ---
+title: Core Standards
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "**/*"
+priority: CRITICAL
+related:
+  - atomic-design.instructions.md
+  - css.instructions.md
+status: ACTIVE
 ---
 
 # Core Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: Foundation rules applicable to all project files
 
 ---

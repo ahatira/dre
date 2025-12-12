@@ -1,13 +1,19 @@
 ---
+title: Storybook Standards
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "**/*.stories.jsx"
   - "**/*.stories.js"
+priority: HIGH
+related:
+  - components.instructions.md
+  - base-stories.instructions.md
+status: ACTIVE
 ---
 
 # Storybook Documentation Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: Storybook format, Autodocs, argTypes, stories structure
 
 ---

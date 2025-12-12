@@ -1,20 +1,23 @@
 ---
+title: Component Structure Standards
+version: 3.1.0
+lastUpdated: 2025-12-12
 applyTo:
   - "source/patterns/**/*.twig"
   - "source/patterns/**/*.css"
   - "source/patterns/**/*.yml"
   - "source/patterns/**/*.stories.jsx"
   - "source/patterns/**/README.md"
+priority: CRITICAL
 related:
   - composition-token-first.instructions.md
   - atomic-design.instructions.md
   - css.instructions.md
+status: ACTIVE
 ---
 
 # Component Structure Standards - PS Theme
 
-**Version**: 3.1.0  
-**Date**: 2025-12-12  
 **Scope**: File structure, BEM, naming, markup principles
 
 ---

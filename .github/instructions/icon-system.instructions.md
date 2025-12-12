@@ -1,11 +1,15 @@
 ---
+title: Icon System
+version: 3.1.0
+lastUpdated: 2025-12-09
 applyTo: source/patterns/elements/icon/**, source/props/icons.css, scripts/build-icons.mjs
+priority: MEDIUM
+related:
+  - components.instructions.md
+status: ACTIVE
 ---
 
 # Icon System Architecture
-
-**Version**: 3.1.0  
-**Last Updated**: 2025-12-09
 
 ---
 

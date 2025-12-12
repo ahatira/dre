@@ -1,13 +1,19 @@
 ---
+title: Twig Template Standards
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "**/*.twig"
   - "**/*.yml"
+priority: HIGH
+related:
+  - components.instructions.md
+  - accessibility.instructions.md
+status: ACTIVE
 ---
 
 # Twig Templates & YAML Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: Twig templates (Drupal-compatible), YAML configuration
 
 ---

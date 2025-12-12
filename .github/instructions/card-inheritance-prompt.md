@@ -1,7 +1,19 @@
+---
+title: Card Component Analysis Prompt
+version: 2.1.0
+lastUpdated: 2025-12-10
+applyTo:
+  - "source/patterns/components/card-*.twig"
+  - "source/patterns/components/card-*.css"
+priority: LOW
+related:
+  - card-inheritance.instructions.md
+  - composition-token-first.instructions.md
+status: ACTIVE
+---
+
 # Card Component Inheritance - Analysis & Implementation Prompt
 
-**Version:** 2.1.0  
-**Last Updated:** 2025-12-10  
 **Purpose:** Complete prompt for AI agents to analyze, verify, or implement Card-based components
 
 **Changelog:**

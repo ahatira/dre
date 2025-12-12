@@ -1,14 +1,20 @@
 ---
+title: Accessibility Standards
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "**/*.twig"
   - "**/*.css"
   - "**/*.js"
+priority: HIGH
+related:
+  - components.instructions.md
+  - templates.instructions.md
+status: ACTIVE
 ---
 
 # Accessibility Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: WCAG 2.2 AA compliance, keyboard, ARIA, screen readers
 
 ---

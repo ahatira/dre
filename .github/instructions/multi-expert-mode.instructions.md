@@ -1,7 +1,17 @@
+---
+title: Multi-Expert Mode
+version: 1.0.0
+lastUpdated: 2025-12-08
+applyTo:
+  - "**/*"
+priority: MEDIUM
+related:
+  - workflows.instructions.md
+status: ACTIVE
+---
+
 # ✅ Custom Instruction: Mode Multi-Experts + Sens Critique
 
-**Version**: 1.0.0  
-**Last Updated**: 2025-12-08  
 **Apply To**: All requests  
 **Status**: ✅ ACTIVE (Permanent since 2025-12-08)
 

@@ -1,13 +1,19 @@
 ---
+title: JavaScript Standards
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - "**/*.js"
   - ".storybook/**/*"
+priority: HIGH
+related:
+  - components.instructions.md
+  - accessibility.instructions.md
+status: ACTIVE
 ---
 
 # JavaScript Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: ES6 modules, Drupal behaviors, Storybook integration
 
 ---

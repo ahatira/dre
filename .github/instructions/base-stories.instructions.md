@@ -1,14 +1,20 @@
 ---
+title: Base Stories Standards
+version: 1.0.0
+lastUpdated: 2025-12-07
 applyTo:
   - "source/patterns/base/**/*.twig"
   - "source/patterns/base/**/*.yml"
   - "source/patterns/base/**/*.stories.jsx"
+priority: MEDIUM
+related:
+  - storybook.instructions.md
+  - components.instructions.md
+status: ACTIVE
 ---
 
 # Base Stories Standards - PS Theme
 
-**Version**: 1.0.0  
-**Date**: 2025-12-07  
 **Scope**: Documentation stories for design tokens and utilities (`base/*`)
 
 ---

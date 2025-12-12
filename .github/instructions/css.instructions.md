@@ -1,17 +1,20 @@
 ---
+title: CSS Standards
+version: 3.1.0
+lastUpdated: 2025-12-12
 applyTo:
   - "**/*.css"
   - "source/props/**/*"
+priority: CRITICAL
 related:
   - composition-token-first.instructions.md
   - components.instructions.md
   - atomic-design.instructions.md
+status: ACTIVE
 ---
 
 # CSS Standards - PS Theme
 
-**Version**: 3.1.0  
-**Date**: 2025-12-12  
 **Scope**: CSS authoring, tokens, variables, nesting, performance
 
 ---

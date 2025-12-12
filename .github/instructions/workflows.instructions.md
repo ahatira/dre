@@ -1,12 +1,19 @@
 ---
+title: Component Workflows
+version: 3.0.0
+lastUpdated: 2025-12-05
 applyTo:
   - ".github/**/*"
+priority: HIGH
+related:
+  - components.instructions.md
+  - composition-token-first.instructions.md
+  - atomic-design.instructions.md
+status: ACTIVE
 ---
 
 # Developer Workflows - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
 **Scope**: Component generation, conformity audits, standardization, build validation
 
 ---
