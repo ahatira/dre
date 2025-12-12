@@ -7,6 +7,121 @@
 
 ---
 
+## 📅 2025-12-12 : Création specs formulaires (Phase A - Jour 1-2)
+
+**Type** : Documentation formulaires (P0 - CRITIQUE Drupal)  
+**Fichiers créés** : 7 specs complètes (3 atoms + 4 molecules)
+
+### 🎯 Objectif
+
+Documenter composants formulaires existants (input, select, textarea, form, form-field, checkboxes, radios) pour **débloquer intégration Drupal Form API** (critère bloquant production).
+
+### 📚 Specs créées
+
+**Atoms (3)** :
+
+1. **input.md** (~650 lignes)
+   - 7 types HTML5 (text, email, password, number, search, tel, url)
+   - 4 états validation (default, error, success, warning)
+   - 7 cas d'usage (email, search, number, tel, password, disabled, Drupal)
+   - Validation HTML5 (minlength, maxlength, pattern, required)
+   - Compatibilité Drupal Form API (templates, preprocess)
+   - Props : type, name, value, placeholder, id, autocomplete, disabled, required, state, attributes
+   - Tokens : 20 (sizing, colors, states, borders, focus)
+   - Accessibilité WCAG 2.2 AA (8 critères ✅)
+
+2. **select.md** (~650 lignes)
+   - Wrapper BEM (ps-select) + native `<select>` + icône chevron
+   - Support `<optgroup>` pour catégories
+   - 3 états validation (default, error, success)
+   - 7 cas d'usage (pays, groupes, pré-sélection, devise, erreur, disabled, Drupal)
+   - Navigation clavier (Tab, Espace/Flèches, Enter)
+   - Props : options, name, id, disabled, required, error, success, attributes, wrapper_attributes
+   - Tokens : 18 (sizing, colors, icon, states, focus)
+   - Accessibilité WCAG 2.2 AA (7 critères ✅)
+
+3. **textarea.md** (~650 lignes)
+   - Texte multiligne avec redimensionnement vertical
+   - Support compteur caractères (maxlength + JS)
+   - 4 états validation (default, error, success, warning)
+   - 7 cas d'usage (contact, description, compteur, notes, erreur, auto-expand, Drupal)
+   - Validation HTML5 (minlength, maxlength, required)
+   - Props : name, id, value, placeholder, disabled, required, rows, state, attributes
+   - Tokens : 18 (sizing, colors, states, borders, focus, resize)
+   - Accessibilité WCAG 2.2 AA (8 critères ✅)
+
+**Molecules (4)** :
+
+1. **form.md** (~500 lignes)
+   - Wrapper `<form>` Drupal minimaliste
+   - Support méthodes HTTP (GET/POST), action, enctype
+   - 3 variants layout (default, inline, filter)
+   - 7 cas d'usage (contact, recherche, Drupal Form API, filtres, newsletter, upload, validation)
+   - Props : attributes, children (slot)
+   - Tokens : 8 (layout, inline, colors optionnels)
+   - Accessibilité WCAG 2.2 AA (5 critères ✅, role="search")
+
+2. **form-field.md** (~750 lignes)
+   - Champ complet : Label + Input/Select/Textarea + Helper + Error
+   - Support 9 types (text, email, password, number, search, tel, url, select, textarea)
+   - États validation (error remplace helper)
+   - 7 cas d'usage (email, select, textarea, tel, prix, disabled, Drupal)
+   - Props : label, type, name, id, value, placeholder, required, disabled, helper, error, rows, options, attributes
+   - Tokens : 16 (layout, label, required, helper, error, control)
+   - Accessibilité WCAG 2.2 AA (7 critères ✅, aria-invalid, aria-describedby, role="alert")
+
+3. **checkboxes.md** (~650 lignes)
+   - Wrapper `<fieldset>` pour groupe de checkboxes
+   - Support légende (`<legend>`), layout vertical/inline
+   - Validation groupe (au moins une option cochée)
+   - 7 cas d'usage (préférences, équipements, requis, disabled, helper, Drupal, indeterminate)
+   - Props : attributes, children (slot)
+   - Tokens : 12 (layout vertical/inline, legend, error)
+   - Accessibilité WCAG 2.2 AA (4 critères ✅, fieldset + legend, aria-required)
+
+4. **radios.md** (~650 lignes)
+   - Wrapper `<fieldset>` pour groupe de radios (sélection exclusive)
+   - Support légende, layout vertical/inline
+   - Attribut `name` commun OBLIGATOIRE (sélection exclusive)
+   - 7 cas d'usage (transaction, statut, requis, disabled, helper, Drupal, binaire)
+   - Props : attributes, children (slot)
+   - Tokens : 12 (layout vertical/inline, legend, error)
+   - Accessibilité WCAG 2.2 AA (4 critères ✅, fieldset + legend, flèches ↑↓ sélectionnent)
+
+### 📊 Métriques
+
+- **Total lignes** : ~4,400 lignes (7 specs)
+- **Cas d'usage** : 49 exemples (7 × 7 par spec)
+- **Props documentés** : 58 (atoms + molecules)
+- **Tokens référencés** : 104 (tous existants, aucun nouveau)
+- **Critères WCAG** : 43 validés (tous ✅)
+- **Templates Drupal** : Mappings Form API expliqués (7 intégrations)
+
+### 🎯 Impact Drupal
+
+**Débloqué** :
+- ✅ Intégration Drupal Form API (`#type => 'textfield/select/textarea/radios/checkboxes'`)
+- ✅ Validation côté serveur (setErrorByName → aria-invalid + message)
+- ✅ Templates override (form-element.html.twig, select.html.twig, etc.)
+- ✅ Preprocess functions (mapper data Drupal → props composants)
+- ✅ Classes compatibles (form-item, form-control, form-label, form-error)
+
+**Prochaines étapes** :
+- Phase A Jour 3-4 : Créer docs/07-integration-drupal/ (5 guides)
+- Phase A Jour 5 : Créer templates Drupal essentiels (page.html.twig, form-element.html.twig)
+
+### ✅ Validation
+
+- [x] 7 specs complètes (structure identique à badge.md référence)
+- [x] Format markdown cohérent (sections, tableaux, code blocks)
+- [x] Cas d'usage Real Estate (contact, recherche, annonces)
+- [x] Accessibilité WCAG 2.2 AA documentée
+- [x] Intégration Drupal expliquée (Form API, templates, validation)
+- [x] Tokens existants uniquement (aucun nouveau token)
+- [x] README composants mis à jour (9/19 atoms, 4/21 molecules)
+
+---
+
 ## 📅 2025-12-12 : Restructuration documentation (Phase 2/3)
 
 **Type** : Documentation majeure  

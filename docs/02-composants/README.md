@@ -6,16 +6,20 @@
 
 ## 📊 Vue d'ensemble
 
-### Progression globale : 6/87 (7%)
+### Progression globale : 51/87 (59%)
 
-| Niveau | Total | Implémentés | Restants | Progression |
+| Niveau | Specs | Implémentés | Restants | Progression |
 |--------|-------|-------------|----------|-------------|
-| **Atomes** | 19 | 6 | 13 | ████░░░░░░ 32% |
-| **Molécules** | 20 | 0 | 20 | ░░░░░░░░░░ 0% |
-| **Organismes** | 12 | 0 | 12 | ░░░░░░░░░░ 0% |
-| **Templates** | 8 | 0 | 8 | ░░░░░░░░░░ 0% |
-| **Pages** | 8 | 0 | 8 | ░░░░░░░░░░ 0% |
-| **TOTAL** | **87** | **6** | **81** | █░░░░░░░░░ 7% |
+| **Atomes** | 19 | 21 | -2 ⚠️ | ███████████ 110% |
+| **Molécules** | 21 | 26 | -5 ⚠️ | ███████████+ 124% |
+| **Organismes** | 13 | 2 | 11 | ██░░░░░░░░ 15% |
+| **Templates** | 8 | 1 | 7 | █░░░░░░░░░ 13% |
+| **Pages** | 8 | 1 | 7 | █░░░░░░░░░ 13% |
+| **TOTAL** | **69** | **51** | **18** | ██████░░░░ 74% |
+
+⚠️ **Note** : Certains composants implémentés n'ont pas encore de spec (voir `../AUDIT_COHERENCE.md`).
+
+**Composants sans spec** : input, select, textarea (atoms) | form, card-offer-search, card-offer-slide (molecules)
 
 ---
 
@@ -23,7 +27,7 @@
 
 **Éléments de base autonomes, non décomposables**
 
-### ✅ Implémentés (6/19)
+### ✅ Specs complètes (9/19)
 
 | Composant | Fichier | Statut | Score audit | Storybook |
 |-----------|---------|--------|-------------|-----------|
@@ -33,17 +37,17 @@
 | **Avatar** | [avatar.md](./01-atomes/avatar.md) | ✅ Production | 100/100 | [View](http://localhost:6006/?path=/docs/elements-avatar--docs) |
 | **Divider** | [divider.md](./01-atomes/divider.md) | ✅ Production | 100/100 | [View](http://localhost:6006/?path=/docs/elements-divider--docs) |
 | **Link** | [link.md](./01-atomes/link.md) | ✅ Production | 100/100 | [View](http://localhost:6006/?path=/docs/elements-link--docs) |
+| **Input** | [input.md](./01-atomes/input.md) | ✅ Spec créée | - | [View](http://localhost:6006/?path=/docs/elements-input--docs) |
+| **Select** | [select.md](./01-atomes/select.md) | ✅ Spec créée | - | [View](http://localhost:6006/?path=/docs/elements-select--docs) |
+| **Textarea** | [textarea.md](./01-atomes/textarea.md) | ✅ Spec créée | - | [View](http://localhost:6006/?path=/docs/elements-textarea--docs) |
 
-### 📋 À implémenter (13/19)
+### 📋 À implémenter (10/19)
 
 | Composant | Fichier | Priorité | Dépendances |
 |-----------|---------|----------|-------------|
 | **Checkbox** | [checkbox.md](./01-atomes/checkbox.md) | Haute | Aucune |
-| **Input** | [input.md](./01-atomes/input.md) | Haute | Aucune |
 | **Label** | [label.md](./01-atomes/label.md) | Haute | Aucune |
 | **Radio** | [radio.md](./01-atomes/radio.md) | Haute | Aucune |
-| **Select** | [select.md](./01-atomes/select.md) | Haute | Aucune |
-| **Textarea** | [textarea.md](./01-atomes/textarea.md) | Haute | Aucune |
 | **Heading** | [heading.md](./01-atomes/heading.md) | Moyenne | Aucune |
 | **Text** | [text.md](./01-atomes/text.md) | Moyenne | Aucune |
 | **Image** | [image.md](./01-atomes/image.md) | Moyenne | Aucune |
@@ -54,17 +58,25 @@
 
 ---
 
-## 🔬 [02. Molécules](./02-molecules/) (20 composants)
+## 🔬 [02. Molécules](./02-molecules/) (21 composants)
 
 **Combinaisons simples d'atomes avec Token-First**
 
-### 📋 Tous à implémenter (20/20)
+### ✅ Specs complètes (4/21)
+
+| Composant | Fichier | Statut | Dépendances | Utilise Token-First |
+|-----------|---------|--------|-------------|---------------------|
+| **Form** | [form.md](./02-molecules/form.md) | ✅ Spec créée | Aucune | ❌ Non (wrapper) |
+| **Form-field** | [form-field.md](./02-molecules/form-field.md) | ✅ Spec créée | input, select, textarea, label | ✅ Oui |
+| **Checkboxes** | [checkboxes.md](./02-molecules/checkboxes.md) | ✅ Spec créée | checkbox | ❌ Non (wrapper) |
+| **Radios** | [radios.md](./02-molecules/radios.md) | ✅ Spec créée | radio | ❌ Non (wrapper) |
+
+### 📋 À implémenter (17/21)
 
 | Composant | Fichier | Priorité | Dépendances | Utilise Token-First |
 |-----------|---------|----------|-------------|---------------------|
 | **Card** | [card.md](./02-molecules/card.md) | Haute | button, badge, image | ✅ Oui |
 | **Alert** | [alert.md](./02-molecules/alert.md) | Haute | icon, button | ✅ Oui |
-| **Form Field** | [form-field.md](./02-molecules/form-field.md) | Haute | input, label | ✅ Oui |
 | **Breadcrumb** | [breadcrumb.md](./02-molecules/breadcrumb.md) | Haute | link, icon | ✅ Oui |
 | **Pagination** | [pagination.md](./02-molecules/pagination.md) | Haute | button, link | ✅ Oui |
 | **Tabs** | [tabs.md](./02-molecules/tabs.md) | Moyenne | button | ✅ Oui |
@@ -72,7 +84,7 @@
 | **Modal** | [modal.md](./02-molecules/modal.md) | Moyenne | button, icon | ✅ Oui |
 | **Dropdown** | [dropdown.md](./02-molecules/dropdown.md) | Moyenne | button, link | ✅ Oui |
 | **Tooltip** | [tooltip.md](./02-molecules/tooltip.md) | Moyenne | icon | ✅ Oui |
-| *(+10 autres)* | Voir dossier | Basse | Variées | ✅ Oui |
+| *(+8 autres)* | Voir dossier | Basse | Variées | ✅ Oui |
 
 ---
 
