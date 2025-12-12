@@ -4,7 +4,59 @@
 
 ## 2025
 
-- 2025-12-12: **📐 Token-First Composition Workflow (DOCUMENTATION MAJEURE)** – Principe architectural pour la composition de composants ✅ NEW
+- 2025-12-12: **📚 INSTRUCTIONS RESTRUCTURING v4.0.0 (BREAKING CHANGE)** – Complete reorganization of .github/instructions/ structure ✅ COMPLETE
+  - **Context**: Original structure with 17+ instruction files became overwhelming and unclear ("très bocale" - user feedback)
+  - **Problem Statement**: 
+    * Too many files (21 instruction files) causing navigation confusion
+    * Content redundancy and overlaps between files
+    * Unclear hierarchy and reading order
+    * Difficult discoverability for new contributors
+    * Path-scoped YAML frontmatter unused (complexity without benefit)
+  - **Solution**: Consolidate to 6 numbered files with clear progression
+  - **New Structure** (66% file reduction: 17 → 6):
+    1. `01-core-principles.md` - Foundations (Atomic Design, BEM, tokens, terminology, accessibility) - 412 lines
+    2. `02-component-development.md` - Complete workflow (11 steps, Token-First cascade, real example) - 795 lines
+    3. `03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility) - 1,282 lines
+    4. `04-quality-assurance.md` - Validation (100-point audit, troubleshooting, flowcharts, testing) - 828 lines
+    5. `05-maintenance.md` - Evolution (token creation, legacy migration, deprecation, breaking changes) - 840 lines
+    6. `README.md` - Navigation hub (quick scenarios, learning path, common scenarios table) - 378 lines
+  - **Files Deleted** (21 files consolidated):
+    * atomic-design.instructions.md
+    * components.instructions.md
+    * css.instructions.md
+    * templates.instructions.md
+    * storybook.instructions.md
+    * javascript.instructions.md
+    * accessibility.instructions.md
+    * workflows.instructions.md
+    * composition-token-first.instructions.md
+    * card-inheritance.instructions.md
+    * CODE_EXAMPLES_STYLE_GUIDE.md
+    * TERMINOLOGY.md
+    * TOKEN_CREATION_PROCESS.md
+    * TROUBLESHOOTING_GUIDE.md
+    * DECISION_FLOWCHARTS.md
+    * MIGRATION_GUIDES.md
+    * base-stories.instructions.md
+    * core.instructions.md
+    * icon-system.instructions.md
+    * multi-expert-mode.instructions.md
+    * card-inheritance-prompt.md
+  - **Benefits**:
+    * Clear hierarchy with numbered progression (01 foundations → 05 advanced)
+    * Scenario-based navigation (README.md with quick task mapping)
+    * Eliminated content redundancy
+    * Preserved 100% of technical information (4,535 total lines)
+    * Improved discoverability and onboarding
+    * Simplified maintenance (fewer files to update)
+  - **Migration**:
+    * Backup created: `.github-backup-2025-12-12/` (commit 0a2cbf8)
+    * Rollback command: `cp -r .github-backup-2025-12-12/ .github/`
+    * `copilot-instructions.md` updated to v4.0.0 with new file references
+  - **Impact**: All team members and AI agents should now start with `instructions/README.md` for navigation
+  - **Commit**: 1c52202 - refactor(instructions): Restructure to 6 consolidated files (v4.0.0)
+
+- 2025-12-12: **📐 Token-First Composition Workflow (DOCUMENTATION MAJEURE)** – Principe architectural pour la composition de composants ✅ COMPLETE (NOW IN 02-component-development.md)
   - **Context**: Confusion émergente lors du développement de Card Offer Search sur comment customiser les composants parents/enfants sans casser le code de base
   - **Problem Statement**: Avant ce workflow, chaque développeur utilisait des approches différentes pour customiser les composants composés:
     * Modification directe du CSS parent (❌ casse les autres usages)
@@ -20,14 +72,13 @@
   - **Applicability**:
     * ✅ **APPLIES**: Molecules, Organisms, Templates, Pages (tous composants composant d'autres composants)
     * ❌ **DOES NOT APPLY**: Atoms (composants autonomes qui exposent des tokens mais n'en overrident pas)
-  - **Documentation Created** (5,000+ words):
-    * **Primary**: `.github/instructions/composition-token-first.instructions.md` (2,500 words)
-      - Core principle definition
-      - Applicability by Atomic level
-      - Complete 4-step workflow with examples
-      - Decision tree diagram
-      - Anti-patterns to avoid
-      - Best practices (token discovery, naming, organization)
+  - **Documentation Consolidated** (now in `02-component-development.md` section 2):
+    * Core principle definition
+    * Applicability by Atomic level
+    * Complete 4-step workflow with examples
+    * Decision tree diagram
+    * Anti-patterns to avoid
+    * Best practices (token discovery, naming, organization)
       - Real-world example (Card Offer Search)
       - Pre-implementation checklist
     * **Summary**: `docs/ps-design/TOKEN_FIRST_WORKFLOW_UPDATE.md` (3,000 words)
