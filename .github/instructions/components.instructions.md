@@ -5,13 +5,34 @@ applyTo:
   - "source/patterns/**/*.yml"
   - "source/patterns/**/*.stories.jsx"
   - "source/patterns/**/README.md"
+related:
+  - composition-token-first.instructions.md
+  - atomic-design.instructions.md
+  - css.instructions.md
 ---
 
 # Component Structure Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
+**Version**: 3.1.0  
+**Date**: 2025-12-12  
 **Scope**: File structure, BEM, naming, markup principles
+
+---
+
+## 🎯 Core Principle: Token-First Composition
+
+> **When a component composes other components** (include, embed, extends), follow the **Token-First cascade workflow**.
+
+**📘 Full documentation**: See `composition-token-first.instructions.md` for complete 4-step workflow.
+
+**Quick reference**:
+1. Check native parameters first
+2. Check utility classes
+3. **Override parent/child tokens** ⭐ **PREFERRED**
+4. Targeted CSS overrides (last resort)
+
+**Applies to**: Molecules, Organisms, Templates, Pages  
+**Does NOT apply to**: Atoms (autonomous components)
 
 ---
 
@@ -260,10 +281,26 @@ button/
 
 ### Structure with Nesting (MANDATORY for new components)
 
+**For composing components** (Molecules+), follow Token-First workflow:
+
 ```css
 .ps-component {
   /* ==========================================
+   * STEP 3: Override Parent/Child Tokens (Token-First)
+   * ========================================== */
+  
+  /* Override parent component tokens (if using embed/extends) */
+  --ps-parent-padding-x: var(--size-6);
+  --ps-parent-gap: var(--size-4);
+  
+  /* Override child atom tokens (if using includes) */
+  --ps-button-size: var(--size-6);
+  --ps-badge-font-size: var(--font-size-0);
+  --ps-link-text-decoration: none;
+  
+  /* ==========================================
    * Component-Scoped Variables (Layer 2)
+   * Own component tokens
    * ========================================== */
   --ps-component-padding-y: var(--size-3);
   --ps-component-padding-x: var(--size-6);

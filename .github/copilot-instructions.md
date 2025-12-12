@@ -1,7 +1,7 @@
 # Copilot Instructions for PS Theme (Surface)
 
-**Version**: 3.0.0  
-**Last Updated**: 2025-12-05
+**Version**: 3.1.0  
+**Last Updated**: 2025-12-12
 
 ---
 
@@ -11,6 +11,7 @@
 
 - **Core** → `instructions/core.instructions.md` - Stack, tokens, build system
 - **Atomic Design** → `instructions/atomic-design.instructions.md` - Composition methodology
+- **Token-First Composition** → `instructions/composition-token-first.instructions.md` - **🔥 NEW** 4-step workflow for composing components (CRITICAL for Molecules+)
 - **Components** → `instructions/components.instructions.md` - 5-file structure, BEM
 - **CSS** → `instructions/css.instructions.md` - Tokens, nesting, cascade
 - **Storybook** → `instructions/storybook.instructions.md` - Autodocs, stories format
@@ -19,7 +20,7 @@
 - **Templates** → `instructions/templates.instructions.md` - Twig, YAML, Faker.js
 - **Accessibility** → `instructions/accessibility.instructions.md` - WCAG, ARIA, keyboard
 - **Workflows** → `instructions/workflows.instructions.md` - Generation, audit, standardization
-- **Card Inheritance** → `instructions/card-inheritance.instructions.md` - Card component embedding pattern
+- **Card Inheritance** → `instructions/card-inheritance.instructions.md` - Card component embedding pattern (updated with Token-First)
 - **Card Prompt** → `instructions/card-inheritance-prompt.md` - Complete analysis/implementation prompt
 
 **These files are path-scoped** (YAML frontmatter `applyTo:`) for contextual AI assistance.
@@ -30,14 +31,14 @@
 
 **PS Theme**: Custom Drupal 10/11 theme for BNP Paribas Real Estate  
 **Stack**: Storybook (HTML edition) + Vite + PostCSS + Twig  
-**Methodology**: Atomic Design (Brad Frost)
+**Methodology**: Atomic Design (Brad Frost) + **Token-First Composition Workflow**
 
 **87 Components to Implement**:
-- 19 Atoms (elements/)
-- 20 Molecules (components/)
-- 12 Organisms (collections/)
-- 8 Templates (layouts/)
-- 8 Pages (pages/)
+- 19 Atoms (elements/) - Autonomous, Token-First does NOT apply
+- 20 Molecules (components/) - Token-First APPLIES
+- 12 Organisms (collections/) - Token-First APPLIES
+- 8 Templates (layouts/) - Token-First APPLIES
+- 8 Pages (pages/) - Token-First APPLIES
 
 **Current Progress**: 6/87 (7%) - See `docs/ps-design/INDEX.md`
 
@@ -58,11 +59,13 @@ All technical identifiers (tokens, classes, ARIA) remain unchanged (English).
 **New Component?**  
 → Read spec: `docs/design/{level}/{component}.md`  
 → Follow workflow: `instructions/workflows.instructions.md`  
-→ Use standards: `instructions/components.instructions.md`
+→ Use standards: `instructions/components.instructions.md`  
+→ **Composing other components?** Follow Token-First: `instructions/composition-token-first.instructions.md`
 
 **CSS Issue?**  
 → Consult: `instructions/css.instructions.md`  
-→ Token missing? Document need, don't add (see `instructions/core.instructions.md`)
+→ Token missing? Document need, don't add (see `instructions/core.instructions.md`)  
+→ **Overriding parent/child styles?** Follow Token-First workflow (STEP 3 preferred)
 
 **Storybook Config?**  
 → Follow: `instructions/storybook.instructions.md`  
@@ -97,6 +100,7 @@ These will ALWAYS be rejected:
 - ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
 - ❌ Color names instead of semantic: `green` → `success`, `red` → `danger`
 - ❌ Icon names with prefix: `icon-check` → `check` (prefix auto-added by CSS)
+- ❌ **Modifying parent component CSS directly**: Use Token-First workflow (override tokens in consumer's CSS)
 - ❌ Modifier classes requiring combinations: `.ps-badge--a.ps-badge--b` → Each must work alone
 - ❌ Wrong cascade order: Modifiers before base → Base FIRST, then modifiers
 - ❌ Flat CSS without nesting: New components MUST use `&` syntax

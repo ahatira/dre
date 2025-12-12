@@ -2,13 +2,49 @@
 applyTo:
   - "**/*.css"
   - "source/props/**/*"
+related:
+  - composition-token-first.instructions.md
+  - components.instructions.md
+  - atomic-design.instructions.md
 ---
 
 # CSS Standards - PS Theme
 
-**Version**: 3.0.0  
-**Date**: 2025-12-05  
+**Version**: 3.1.0  
+**Date**: 2025-12-12  
 **Scope**: CSS authoring, tokens, variables, nesting, performance
+
+---
+
+## 🎯 Token-First Composition Workflow
+
+> **For components that compose other components** (Molecules, Organisms, Templates, Pages), follow the **4-step Token-First cascade**.
+
+**📘 Complete documentation**: `composition-token-first.instructions.md`
+
+**Quick summary**:
+1. Check native parameters → 2. Check utility classes → 3. **Override tokens** ⭐ **PREFERRED** → 4. Targeted CSS (last resort)
+
+**Example** (Card Offer Search overriding Card tokens):
+
+```css
+.ps-card-offer-search {
+  /* STEP 3: Override parent (Card) tokens */
+  --ps-card-padding-x: var(--size-6);
+  --ps-card-padding-y: var(--size-7);
+  --ps-card-gap: var(--size-6);
+  
+  /* STEP 3: Override child (Badge, Button, Link) tokens */
+  --ps-badge-font-size: var(--font-size-0);
+  --ps-button-size: var(--size-6);
+  --ps-link-text-decoration: none;
+  
+  /* Own specific tokens */
+  --ps-card-offer-search-title-size: var(--font-size-1);
+}
+```
+
+**Does NOT apply to Atoms** (they're autonomous).
 
 ---
 
@@ -97,7 +133,7 @@ grep -r "--token-name" source/props/
 **MANDATORY for ALL new components**. These are component-level defaults that enable overrides:
 
 ```css
-/* button.css */
+/* button.css - ATOM (autonomous) */
 .ps-button {
   /* Layer 2: Component-scoped variables (with defaults from Layer 1) */
   --ps-button-padding-y: var(--size-3);
@@ -117,10 +153,36 @@ grep -r "--token-name" source/props/
 }
 ```
 
+**For composing components** (Molecules+), also include token overrides:
+
+```css
+/* card.css - MOLECULE (composes atoms) */
+.ps-card {
+  /* ═══ Token-First STEP 3: Override child atoms tokens ═══ */
+  --ps-button-size: var(--size-6);
+  --ps-badge-font-size: var(--font-size-0);
+  --ps-heading-margin-bottom: var(--size-2);
+  
+  /* ═══ Layer 2: Own component-scoped variables ═══ */
+  --ps-card-padding: var(--size-6);
+  --ps-card-gap: var(--size-4);
+  --ps-card-border-radius: var(--radius-2);
+  
+  /* Use component variables */
+  padding: var(--ps-card-padding);
+  display: flex;
+  gap: var(--ps-card-gap);
+  border-radius: var(--ps-card-border-radius);
+}
+```
+
+**See**: `composition-token-first.instructions.md` for complete workflow.
+
 **Purpose**: 
 - Centralize component defaults in one place
 - Enable context-specific overrides (next section)
 - Support dark mode, theming, customization
+- **For composing components**: Override parent/child tokens
 
 ### Layer 3: Context Overrides
 

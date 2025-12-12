@@ -4,6 +4,78 @@
 
 ## 2025
 
+- 2025-12-12: **📐 Token-First Composition Workflow (DOCUMENTATION MAJEURE)** – Principe architectural pour la composition de composants ✅ NEW
+  - **Context**: Confusion émergente lors du développement de Card Offer Search sur comment customiser les composants parents/enfants sans casser le code de base
+  - **Problem Statement**: Avant ce workflow, chaque développeur utilisait des approches différentes pour customiser les composants composés:
+    * Modification directe du CSS parent (❌ casse les autres usages)
+    * Duplication de styles (❌ code dupliqué, tokens ignorés)
+    * Hardcoded values (❌ design system non-respecté)
+    * CSS overrides anarchiques (❌ spécificité wars)
+  - **Solution**: Workflow en 4 étapes avec hiérarchie claire (STEP 3 préféré: override tokens)
+  - **Workflow Token-First** (4 Steps):
+    1. **Check native params**: Utiliser les paramètres natifs du composant parent (variant, layout, size, etc.)
+    2. **Check utility classes**: Utiliser les classes helper (u-padding-large, u-gap-4, etc.)
+    3. **Override tokens** ⭐ **PREFERRED**: Override des tokens parent/enfant dans le CSS du consommateur
+    4. **Targeted CSS** (last resort): CSS overrides ciblés uniquement pour cas uniques
+  - **Applicability**:
+    * ✅ **APPLIES**: Molecules, Organisms, Templates, Pages (tous composants composant d'autres composants)
+    * ❌ **DOES NOT APPLY**: Atoms (composants autonomes qui exposent des tokens mais n'en overrident pas)
+  - **Documentation Created** (5,000+ words):
+    * **Primary**: `.github/instructions/composition-token-first.instructions.md` (2,500 words)
+      - Core principle definition
+      - Applicability by Atomic level
+      - Complete 4-step workflow with examples
+      - Decision tree diagram
+      - Anti-patterns to avoid
+      - Best practices (token discovery, naming, organization)
+      - Real-world example (Card Offer Search)
+      - Pre-implementation checklist
+    * **Summary**: `docs/ps-design/TOKEN_FIRST_WORKFLOW_UPDATE.md` (3,000 words)
+      - Executive summary
+      - Files created/updated
+      - Real-world before/after
+      - Learning resources
+      - Impact assessment
+  - **Documentation Updated** (6 files):
+    * `.github/copilot-instructions.md` (v3.0.0 → v3.1.0):
+      - Added Token-First to documentation structure (🔥 NEW badge)
+      - Updated Quick Decision Tree with Token-First references
+      - Added Zero Tolerance Rule: "Modifying parent component CSS directly"
+    * `.github/instructions/atomic-design.instructions.md`:
+      - Added prominent Token-First section at top of Composition Rules
+      - Updated Rules 1-3 with applicability notes (Atoms NO, Molecules+ YES)
+      - Added CSS examples showing token override patterns
+    * `.github/instructions/components.instructions.md` (v3.0.0 → v3.1.0):
+      - Added "Core Principle: Token-First Composition" section
+      - Updated CSS Structure with 4-tier organization (parent tokens → child tokens → own tokens → targeted CSS)
+    * `.github/instructions/css.instructions.md` (v3.0.0 → v3.1.0):
+      - Added "Token-First Composition Workflow" section at top
+      - Updated Layer 2 with composing components pattern
+      - Added real example (Card Offer Search overriding Card)
+    * `.github/instructions/card-inheritance.instructions.md` (v3.0.0 → v3.1.0):
+      - Added "Core Principle: Token-First Inheritance" section
+      - Completely rewrote Section 4 (CSS Integration Strategy)
+      - New 4.1: CSS Architecture with Token-First Pattern
+      - New 4.2: Token Discovery Before Writing CSS
+  - **Benefits**:
+    * **Consistency**: Tous les composants suivent le même pattern de customisation
+    * **Maintainability**: Overrides de tokens prévisibles et scopés
+    * **Performance**: Pas de spécificité wars ni de cascade issues
+    * **Developer Experience**: Decision tree claire réduit le guesswork
+    * **AI Assistance**: Règles explicites permettent génération de code précise
+  - **Real-World Example** (Card Offer Search):
+    * **Before**: `padding: 30px 24px;`, `border: 1.5px solid #EBEDEF;`, CSS overrides directs
+    * **After**: `--ps-card-padding-y: var(--size-7);`, `--ps-card-border-color: var(--gray-200);`, token overrides
+    * **Result**: 0 modifications de card.css, 100% tokens design system, maintainabilité maximale
+  - **Risks Mitigated**:
+    * ❌ Parent component breakage (éliminé)
+    * ❌ Specificity wars (réduit)
+    * ❌ Code duplication (prévenu)
+    * ❌ Hardcoded values (bloqué)
+    * ❌ Inconsistent patterns (standardisé)
+  - **Effective**: 2025-12-12 onward - Applies to all future component development (Molecules+)
+  - **Learning Resources**: Start with `.github/instructions/composition-token-first.instructions.md`, then check copilot-instructions.md decision tree, real example in card-offer-search.css
+
 - 2025-12-11: **Card Offer Search (MOLECULE)** – Card de résultats de recherche immobilière avec layout horizontal (desktop) ✅ NEW
   - **Context**: Maquettes mobile + desktop analysées, besoin d'une card spécialisée pour résultats de recherche avec carousel, badges multiples, boutons d'action
   - **Features Implémentées**:

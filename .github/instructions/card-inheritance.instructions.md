@@ -1,7 +1,7 @@
 ---
 title: Card Component Inheritance Pattern
-version: 3.0.0
-lastUpdated: 2025-12-11
+version: 3.1.0
+lastUpdated: 2025-12-12
 applyTo:
   - "source/patterns/components/card-*.twig"
   - "source/patterns/components/card-*.css"
@@ -9,7 +9,18 @@ applyTo:
   - "source/patterns/components/card-*.yml"
   - "source/patterns/components/card-*.stories.jsx"
 priority: CRITICAL
+related:
+  - composition-token-first.instructions.md
+  - components.instructions.md
+  - css.instructions.md
 changelog:
+  - version: 3.1.0
+    date: 2025-12-12
+    changes:
+      - "Added Token-First Composition Workflow integration"
+      - "Documented 4-step token override cascade for Card inheritance"
+      - "Updated CSS patterns to prioritize token overrides over direct CSS"
+      - "Added reference to composition-token-first.instructions.md"
   - version: 3.0.0
     date: 2025-12-11
     changes:
@@ -42,20 +53,37 @@ changelog:
 
 # Card Component Inheritance Pattern
 
+## 🎯 Core Principle: Token-First Inheritance
+
+> **All Card-based components MUST follow the Token-First composition workflow** for styling customization.
+
+**📘 Complete documentation**: See `composition-token-first.instructions.md`
+
+**Quick summary**:
+1. Check Card native parameters → 2. Check utility classes → 3. **Override Card tokens** ⭐ **PREFERRED** → 4. Targeted CSS (last resort)
+
+**This ensures**:
+- No modification of base Card CSS
+- Consistent customization patterns
+- Maintainable overrides
+- Proper cascade control
+
+---
+
 ## 📋 Table of Contents
 
 1. [Naming Convention](#1-naming-convention)
 2. [Architecture Overview](#2-architecture-overview)
 3. [Card Component Analysis](#3-card-component-analysis)
 4. [Twig Inheritance Pattern](#4-twig-inheritance-pattern)
-5. [CSS Integration Strategy](#5-css-integration-strategy)
+5. [CSS Integration Strategy](#5-css-integration-strategy) ⭐ **Updated with Token-First**
 6. [Atomic Component Reuse](#6-atomic-component-reuse)
 7. [Implementation Checklist](#7-implementation-checklist)
-8. [Reference Implementation: Card Offer Slide](#8-reference-implementation-card-offer-slide) ⭐ **NEW**
-9. [JavaScript Behaviors Pattern](#9-javascript-behaviors-pattern) ⭐ **NEW**
-10. [Storybook Stories Best Practices](#10-storybook-stories-best-practices) ⭐ **NEW**
+8. [Reference Implementation: Card Offer Slide](#8-reference-implementation-card-offer-slide)
+9. [JavaScript Behaviors Pattern](#9-javascript-behaviors-pattern)
+10. [Storybook Stories Best Practices](#10-storybook-stories-best-practices)
 11. [Common Issues & Solutions](#11-common-issues--solutions)
-12. [Complete Card Generation Workflow](#12-complete-card-generation-workflow) ⭐ **NEW**
+12. [Complete Card Generation Workflow](#12-complete-card-generation-workflow)
 13. [Summary Checklist](#13-summary-checklist)
 
 ---
@@ -407,31 +435,60 @@ Card exposes these CSS custom properties that **child components can override**:
 
 ## 4. CSS Integration Strategy
 
-### 4.1 CSS Architecture with Card Inheritance
+### 🎯 Token-First Workflow for Card Inheritance
+
+**MANDATORY**: All Card-based components MUST follow the **4-step Token-First cascade** for customization.
+
+**📘 Complete workflow**: See `composition-token-first.instructions.md`
+
+**Quick reference**:
+1. **Check Card native params** (variant, layout, size, radius)
+2. **Check utility classes** (u-padding-large, u-gap-4, etc.)
+3. **Override Card tokens** ⭐ **PREFERRED** (--ps-card-padding-x, --ps-card-gap, etc.)
+4. **Targeted CSS** (last resort for unique cases)
+
+---
+
+### 4.1 CSS Architecture with Token-First Pattern
 
 ```css
 /**
  * Your Card Component - Extends Card base
  * 
- * Structure:
- * 1. Override Card CSS variables (if needed)
- * 2. Define your component tokens
- * 3. Style your custom elements
+ * Structure (Token-First):
+ * 1. Override PARENT tokens (Card component) - STEP 3 PREFERRED
+ * 2. Override CHILD tokens (Atoms used inside) - STEP 3 PREFERRED
+ * 3. Define your OWN component tokens
+ * 4. Targeted CSS overrides (STEP 4 - last resort)
+ * 5. Style your custom elements
  */
 
 .ps-your-card {
-  /* ==========================================
-     Override Card Component Variables
-     ========================================== */
+  /* ═══════════════════════════════════════════
+     STEP 3: Override PARENT (Card) tokens
+     ⭐ PREFERRED METHOD
+     ═══════════════════════════════════════════ */
   
   --ps-card-padding-y: var(--size-5);   /* Override default padding */
   --ps-card-padding-x: var(--size-5);
   --ps-card-gap: var(--size-3);         /* Override default gap */
+  --ps-card-border-width: 1.5px;
+  --ps-card-border-color: var(--gray-200);
   
-  /* ==========================================
-     Your Component Tokens (Layer 2)
+  /* ═══════════════════════════════════════════
+     STEP 3: Override CHILD (Atoms) tokens
+     ⭐ PREFERRED METHOD
+     ═══════════════════════════════════════════ */
+  
+  --ps-badge-font-size: var(--font-size-0);
+  --ps-button-size: var(--size-6);
+  --ps-heading-font-size: var(--font-size-2);
+  --ps-link-text-decoration: none;
+  
+  /* ═══════════════════════════════════════════
+     Your OWN Component Tokens (Layer 2)
      MUST be defined INSIDE .ps-your-card {}
-     ========================================== */
+     ═══════════════════════════════════════════ */
   
   /* Image */
   --ps-your-card-image-aspect-ratio: 3/2;
@@ -447,9 +504,22 @@ Card exposes these CSS custom properties that **child components can override**:
   --ps-your-card-title-font-size: var(--font-size-2);
   --ps-your-card-title-font-weight: var(--font-weight-600);
   
-  /* ==========================================
+  /* ═══════════════════════════════════════════
+     STEP 4: Targeted overrides (LAST RESORT)
+     Only for specs not covered by tokens
+     ═══════════════════════════════════════════ */
+  
+  /* Example: Specific proportions not tokenizable */
+  @media (min-width: 768px) {
+    & .ps-card__media {
+      flex: 0 0 33.6%;  /* Specific Figma requirement */
+      max-width: 33.6%;
+    }
+  }
+  
+  /* ═══════════════════════════════════════════
      Your Component Styles (Layer 3)
-     ========================================== */
+     ═══════════════════════════════════════════ */
   
   max-width: 320px;  /* Component-specific constraint */
   
@@ -486,7 +556,40 @@ Card exposes these CSS custom properties that **child components can override**:
 }
 ```
 
-### 4.2 CSS Token Scope Rules
+---
+
+### 4.2 Token Discovery Before Writing CSS
+
+**⚡ MANDATORY STEP before customizing Card:**
+
+```bash
+# 1. Discover available Card tokens
+grep -r "--ps-card-" source/patterns/components/card/card.css
+
+# 2. Check atom tokens (if using Badge, Button, Heading, etc.)
+grep -r "--ps-badge-" source/patterns/elements/badge/badge.css
+grep -r "--ps-button-" source/patterns/elements/button/button.css
+grep -r "--ps-heading-" source/patterns/elements/heading/heading.css
+```
+
+**Output example** (Card tokens):
+
+```css
+--ps-card-padding-x: var(--size-6);
+--ps-card-padding-y: var(--size-6);
+--ps-card-gap: var(--size-4);
+--ps-card-border-width: 1px;
+--ps-card-border-color: var(--border-default);
+--ps-card-border-radius: var(--radius-2);
+--ps-card-bg: var(--white);
+--ps-card-shadow: var(--shadow-2);
+```
+
+**Decision tree**:
+- Token exists for what I need? → **Override it (STEP 3)**
+- Token doesn't exist? → **Define own token or use STEP 4**
+
+---
 
 **🚨 CRITICAL RULE #1**: All component tokens MUST be defined **inside** `.ps-your-card {}` selector.
 

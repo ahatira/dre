@@ -47,6 +47,22 @@ Basic   Combinations  Sections    Layout    Content
 
 ## 🔒 Composition Rules (MANDATORY)
 
+### ⚡ Token-First Workflow for Composition
+
+**📘 Comprehensive Documentation**: See **`composition-token-first.instructions.md`** for complete workflow.
+
+**When a component composes other components** (include, embed, extends), follow the **4-step Token-First cascade**:
+
+1. **Check native parameters** → Use parent component's built-in params
+2. **Check utility classes** → Use helper classes (u-padding-large, etc.)
+3. **Override parent/child tokens** ⭐ **PREFERRED** → Override tokens in consumer's CSS
+4. **Targeted CSS overrides** → Last resort for unique cases
+
+**Applies to**: Molecules, Organisms, Templates, Pages  
+**Does NOT apply to**: Atoms (autonomous components)
+
+---
+
 ### Rule 1: Atoms Are Indivisible
 
 **Atoms MUST**:
@@ -55,6 +71,7 @@ Basic   Combinations  Sections    Layout    Content
 - Stand alone (but may be useless without context)
 - NEVER include other pattern components
 - Demonstrate all base style variants
+- **❌ Token-First workflow does NOT apply** (atoms are autonomous)
 
 ```twig
 {# ✅ CORRECT - Button atom (standalone) #}
@@ -69,6 +86,22 @@ Basic   Combinations  Sections    Layout    Content
 </button>
 ```
 
+**CSS Pattern** (atoms expose tokens for others to override):
+
+```css
+/* button.css - ATOM */
+.ps-button {
+  /* Expose tokens for consuming components to override */
+  --ps-button-padding-x: var(--size-3);
+  --ps-button-padding-y: var(--size-2);
+  --ps-button-font-size: var(--font-size-1);
+  
+  /* No token overrides from other components */
+}
+```
+
+---
+
 ### Rule 2: Molecules Compose Atoms
 
 **Molecules MUST**:
@@ -76,6 +109,7 @@ Basic   Combinations  Sections    Layout    Content
 - Add context and meaning to atoms
 - Do ONE thing well (single responsibility)
 - Be portable (drop anywhere needed)
+- **✅ FOLLOW Token-First workflow** (see `composition-token-first.instructions.md`)
 
 ```twig
 {# ✅ CORRECT - FormField molecule composes atoms #}
@@ -110,12 +144,36 @@ Basic   Combinations  Sections    Layout    Content
 </div>
 ```
 
+**CSS Pattern** (molecules override parent/child tokens):
+
+```css
+/* card.css - MOLECULE composing atoms */
+.ps-card {
+  /* ═══ STEP 3: Override child atoms tokens (Token-First) ═══ */
+  --ps-badge-font-size: var(--font-size-0);
+  --ps-button-size: var(--size-6);
+  --ps-heading-margin-bottom: var(--size-2);
+  
+  /* ═══ Own component tokens ═══ */
+  --ps-card-padding: var(--size-6);
+  --ps-card-gap: var(--size-4);
+  
+  /* Own styles */
+  padding: var(--ps-card-padding);
+  display: flex;
+  gap: var(--ps-card-gap);
+}
+```
+
+---
+
 ### Rule 3: Organisms Compose Molecules + Atoms
 
 **Organisms MUST**:
 - Assemble molecules and/or atoms into sections
 - Add complex layout and logic
 - Represent distinct sections of interface
+- **✅ FOLLOW Token-First workflow** (see `composition-token-first.instructions.md`)
 
 ```twig
 {# ✅ CORRECT - Header organism composes molecules #}
@@ -137,6 +195,26 @@ Basic   Combinations  Sections    Layout    Content
     <!-- Duplicating search-form internals -->
   </form>
 </header>
+```
+
+**CSS Pattern** (organisms override multiple components):
+
+```css
+/* header.css - ORGANISM composing molecules */
+.ps-header {
+  /* ═══ STEP 3: Override search-form tokens ═══ */
+  --ps-search-form-width: 100%;
+  --ps-search-form-max-width: 500px;
+  
+  /* ═══ STEP 3: Override nav-primary tokens ═══ */
+  --ps-nav-primary-gap: var(--size-4);
+  --ps-nav-primary-font-size: var(--font-size-1);
+  
+  /* Own layout */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--size-6);
+}
 ```
 
 ---
@@ -182,6 +260,7 @@ grep -r "label" source/patterns/elements/
 3. What new functionality emerges from this combination?
 4. Does this have a single clear purpose?
 5. Can this combination be reused elsewhere?
+6. **How will I customize composed atoms?** → Use Token-First workflow (see `composition-token-first.instructions.md`)
 
 **Example Analysis (FormField)**:
 
