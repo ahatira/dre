@@ -24,18 +24,11 @@ status: ACTIVE
 
 ## 🎯 Core Principle: Token-First Composition
 
-> **When a component composes other components** (include, embed, extends), follow the **Token-First cascade workflow**.
+> **When a component composes other components** (include, embed, extends), follow the **4-step Token-First cascade**: params → utils → **tokens** ⭐ → CSS.
 
-**📘 Full documentation**: See `composition-token-first.instructions.md` for complete 4-step workflow.
+**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
 
-**Quick reference**:
-1. Check native parameters first
-2. Check utility classes
-3. **Override parent/child tokens** ⭐ **PREFERRED**
-4. Targeted CSS overrides (last resort)
-
-**Applies to**: Molecules, Organisms, Templates, Pages  
-**Does NOT apply to**: Atoms (autonomous components)
+**Applies to**: Molecules, Organisms, Templates, Pages | **NOT Atoms** (autonomous)
 
 ---
 

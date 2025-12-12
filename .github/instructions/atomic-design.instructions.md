@@ -55,17 +55,11 @@ Basic   Combinations  Sections    Layout    Content
 
 ### ⚡ Token-First Workflow for Composition
 
-**📘 Comprehensive Documentation**: See **`composition-token-first.instructions.md`** for complete workflow.
+**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
 
-**When a component composes other components** (include, embed, extends), follow the **4-step Token-First cascade**:
+**4-step cascade**: params → utils → **override tokens** ⭐ (preferred) → targeted CSS (last resort)
 
-1. **Check native parameters** → Use parent component's built-in params
-2. **Check utility classes** → Use helper classes (u-padding-large, etc.)
-3. **Override parent/child tokens** ⭐ **PREFERRED** → Override tokens in consumer's CSS
-4. **Targeted CSS overrides** → Last resort for unique cases
-
-**Applies to**: Molecules, Organisms, Templates, Pages  
-**Does NOT apply to**: Atoms (autonomous components)
+**Applies to**: Molecules, Organisms, Templates, Pages | **NOT Atoms**
 
 ---
 

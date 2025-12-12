@@ -55,18 +55,13 @@ changelog:
 
 ## 🎯 Core Principle: Token-First Inheritance
 
-> **All Card-based components MUST follow the Token-First composition workflow** for styling customization.
+> **All Card-based components MUST follow the Token-First workflow** for styling customization.
 
-**📘 Complete documentation**: See `composition-token-first.instructions.md`
+**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
 
-**Quick summary**:
-1. Check Card native parameters → 2. Check utility classes → 3. **Override Card tokens** ⭐ **PREFERRED** → 4. Targeted CSS (last resort)
+**4-step cascade**: Card params → utils → **override Card tokens** ⭐ (preferred) → targeted CSS (last resort)
 
-**This ensures**:
-- No modification of base Card CSS
-- Consistent customization patterns
-- Maintainable overrides
-- Proper cascade control
+**Ensures**: No Card CSS modification, consistent patterns, maintainable overrides
 
 ---
 

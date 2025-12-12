@@ -19,35 +19,11 @@ status: ACTIVE
 
 ---
 
-## 🎯 Token-First Composition Workflow
+## 🎯 Token-First Composition
 
-> **For components that compose other components** (Molecules, Organisms, Templates, Pages), follow the **4-step Token-First cascade**.
+> **For composing components** (Molecules+), follow the **4-step cascade**: params → utils → **override tokens** ⭐ → targeted CSS.
 
-**📘 Complete documentation**: `composition-token-first.instructions.md`
-
-**Quick summary**:
-1. Check native parameters → 2. Check utility classes → 3. **Override tokens** ⭐ **PREFERRED** → 4. Targeted CSS (last resort)
-
-**Example** (Card Offer Search overriding Card tokens):
-
-```css
-.ps-card-offer-search {
-  /* STEP 3: Override parent (Card) tokens */
-  --ps-card-padding-x: var(--size-6);
-  --ps-card-padding-y: var(--size-7);
-  --ps-card-gap: var(--size-6);
-  
-  /* STEP 3: Override child (Badge, Button, Link) tokens */
-  --ps-badge-font-size: var(--font-size-0);
-  --ps-button-size: var(--size-6);
-  --ps-link-text-decoration: none;
-  
-  /* Own specific tokens */
-  --ps-card-offer-search-title-size: var(--font-size-1);
-}
-```
-
-**Does NOT apply to Atoms** (they're autonomous).
+**📘 Complete workflow + examples**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
 
 ---
 
