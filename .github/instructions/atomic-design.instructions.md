@@ -53,7 +53,7 @@ Basic   Combinations  Sections    Layout    Content
 
 ## 🔒 Composition Rules (MANDATORY)
 
-### ⚡ Token-First Workflow for Composition
+### Token-First Workflow for Composition
 
 **📘 Complete workflow**: [composition-token-first.instructions.md](composition-token-first.instructions.md)
 

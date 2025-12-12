@@ -145,7 +145,7 @@ All `base/*` stories SHOULD use the minimal template: `_base-story.twig`
 
 ## 🎨 CSS Strategy: Use Existing Styles
 
-### ❌ FORBIDDEN: Custom CSS in Base Stories
+### FORBIDDEN: Custom CSS in Base Stories
 
 **NEVER create** custom `<style>` blocks in `base/*` stories:
 
@@ -163,11 +163,11 @@ All `base/*` stories SHOULD use the minimal template: `_base-story.twig`
 - Makes maintenance harder
 - Increases CSS bundle size unnecessarily
 
-### ✅ REQUIRED: Reuse Existing Classes
+### REQUIRED: Reuse Existing Classes
 
 **ALWAYS use** classes from these sources:
 
-#### 1. Design Token Utilities (`source/props/`)
+**1. Design Token Utilities** (`source/props/`)
 ```html
 <!-- Spacing, colors, typography from tokens -->
 <div class="p-4 bg-gray-50 rounded-2">
@@ -175,14 +175,14 @@ All `base/*` stories SHOULD use the minimal template: `_base-story.twig`
 </div>
 ```
 
-#### 2. Utility Classes (`source/patterns/base/utilities/`)
+**2. Utility Classes** (`source/patterns/base/utilities/`)
 ```html
 <!-- Background utilities -->
 <div class="bg-primary text-white">Primary background</div>
 <div class="bg-gradient-gold">Gold gradient</div>
 ```
 
-#### 3. Storybook Demo Styles (`source/patterns/storybook.css`)
+**3. Storybook Demo Styles** (`source/patterns/storybook.css`)
 
 **Available classes** (already defined):
 - `.demo-colors`, `.demo-brands` - Wrapper sections
@@ -210,7 +210,8 @@ All `base/*` stories SHOULD use the minimal template: `_base-story.twig`
 </div>
 ```
 
-#### 4. Bootstrap Utilities (Legacy - Minimize Use)
+
+**4. Bootstrap Utilities** (Legacy - Minimize Use)
 ```html
 <!-- Only when necessary, prefer tokens -->
 <div class="d-flex gap-3 p-3">...</div>
