@@ -372,6 +372,8 @@ button/
     transform: translateY(0);
   }
   
+  /* ♿ Accessibility: Focus-visible MANDATORY for interactives
+     See accessibility.instructions.md for complete keyboard/ARIA patterns */
   &:focus-visible {
     outline: var(--border-size-2) solid var(--secondary);
     outline-offset: var(--border-size-2);
@@ -510,11 +512,8 @@ Brief description (max 2 lines).
 
 ## Accessibility
 
-- **Contrast**: Meets WCAG AA (4.5:1 for text, 3:1 for UI)
-- **Focus**: Visible focus indicator on interactive elements
-- **ARIA**: `aria-label` when text insufficient
-- **Keyboard**: Standard button interactions (Space, Enter)
-- **Screen readers**: Semantic HTML + accessible labels
+> **♿ WCAG 2.2 AA Required**: All components MUST meet accessibility standards (contrast 4.5:1 text / 3:1 UI, focus-visible on interactives, keyboard navigation, ARIA when semantic HTML insufficient, screen reader support).  
+> → **Complete guide**: [accessibility.instructions.md](accessibility.instructions.md)
 
 ## Usage
 

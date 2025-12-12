@@ -638,6 +638,8 @@ Refs: docs/design/atoms/badge.md
 
 #### 8. Accessibility (5 points)
 
+> **Complete guide**: [accessibility.instructions.md](accessibility.instructions.md)
+
 - [ ] Contrast: Text 4.5:1, UI 3:1 (WCAG AA)
 - [ ] Focus-visible for interactives
 - [ ] ARIA attributes (when semantic HTML insufficient)

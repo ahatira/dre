@@ -402,6 +402,8 @@ PS Theme uses `postcss-nested` plugin supporting `&` syntax:
 
 ## ♿ Accessibility (WCAG 2.2 AA)
 
+> **Complete accessibility guide**: [accessibility.instructions.md](accessibility.instructions.md) (contrast ratios, keyboard patterns, ARIA, screen readers)
+
 ### Focus-Visible (MANDATORY for Interactives)
 
 **ALL interactive elements MUST have focus-visible**:
