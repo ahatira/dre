@@ -43,12 +43,31 @@ Pour les layouts et grandes sections :
 
 | Token | Valeur | Px | Usage |
 |-------|--------|-----|-------|
+| `--size-22` | 5.5rem | 88px | Sections |
 | `--size-24` | 6rem | 96px | Sections Hero |
 | `--size-32` | 8rem | 128px | Très larges sections |
 | `--size-40` | 10rem | 160px | Containers |
 | `--size-48` | 12rem | 192px | Headers |
 | `--size-64` | 16rem | 256px | Hero heights |
 | `--size-96` | 24rem | 384px | Full sections |
+
+---
+
+## 🎯 Tokens spéciaux (Figma/Breakpoints)
+
+Tokens spécifiques pour composants ou contraintes de design :
+
+| Token | Valeur | Px | Source |
+|-------|--------|-----|--------|
+| `--size-61` | 15.3rem | 245px | Composant spécifique |
+| `--size-75` | 18.75rem | 300px | Arrondi Figma |
+| `--size-113` | 28.125rem | 450px | Arrondi Figma |
+| `--size-mobile` | 640px | 640px | Breakpoint mobile |
+| `--size-mobile-large` | 720px | 720px | Breakpoint mobile large |
+| `--size-tablet` | 768px | 768px | Breakpoint tablet |
+| `--size-max-site-width` | 1900px | 1900px | Largeur max site |
+
+**Note** : Ces tokens sont utilisés pour des cas d'usage spécifiques. Préférer l'échelle standard quand possible.
 
 ---
 
