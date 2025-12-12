@@ -20,6 +20,9 @@ status: ACTIVE
 
 **Scope**: File structure, BEM, naming, markup principles
 
+> **📐 This file covers HOW to structure components** (technical implementation).  
+> For composition philosophy and WHEN to use each atomic level, see: [atomic-design.instructions.md](atomic-design.instructions.md)
+
 ---
 
 ## 🎯 Core Principle: Token-First Composition
@@ -532,6 +535,8 @@ Brief description (max 2 lines).
 - **Contact form**: Submit button
 
 ## Composition (if Molecule+)
+
+> **For composition methodology and atomic hierarchy rules**, see: [atomic-design.instructions.md](atomic-design.instructions.md)
 
 This component uses:
 - **Atom Name** (`@elements/atom/atom.twig`) - Purpose

@@ -15,6 +15,9 @@ status: ACTIVE
 
 **Scope**: Component composition & reusability rules
 
+> **🧩 This file covers WHY and WHEN to compose components** (design philosophy).  
+> For technical implementation details (BEM, file structure, markup), see: [components.instructions.md](components.instructions.md)
+
 ---
 
 ## 🎯 Core Philosophy
@@ -334,6 +337,8 @@ Before creating/validating a molecule, organism, or template:
 ---
 
 ## 🚫 Anti-Patterns to Avoid
+
+> **For BEM naming and markup standards**, see: [components.instructions.md](components.instructions.md)
 
 ### 1. Duplicating Atom Markup in Molecule
 
