@@ -1,17 +1,22 @@
-# 📋 Example: Audit Badge Component
+# 📋 Component Audit Template - Copy-Paste Prompt
 
-## 🎯 Copier-coller ce texte pour auditer Badge
+**Purpose**: Ready-to-use audit prompt for ANY component (atoms, molecules, organisms)  
+**Usage**: Replace `{COMPONENT_NAME}` with actual component name and paste to AI agent
+
+---
+
+## 🎯 Generic Audit Prompt
 
 ```
-Audit the atom component: badge located in source/patterns/elements/badge/
+Audit the component: {COMPONENT_NAME} located in source/patterns/{level}/{component}/
 
 Verify STRICT compliance with ALL rules below. Return FAIL immediately if ANY rule is violated.
 Score 100/100 points only if ALL checks pass (no partial credit).
 
 === FILE STRUCTURE (MANDATORY - 0 TOLERANCE) ===
-☐ 5 files exist: badge.twig, badge.css, badge.yml, badge.stories.jsx, README.md
-☐ All files named exactly: badge.{ext} (lowercase, kebab-case)
-☐ NO badge.js present (unless documented behavior required)
+☐ 5 files exist: {component}.twig, {component}.css, {component}.yml, {component}.stories.jsx, README.md
+☐ All files named exactly: {component}.{ext} (lowercase, kebab-case)
+☐ NO {component}.js present (unless documented behavior required)
 
 === TWIG TEMPLATE ===
 
