@@ -403,12 +403,7 @@ Créer templates Drupal (`.html.twig`) qui **incluent les composants Storybook**
 
           {# Séparateur (sauf dernier) #}
           {% if not loop.last %}
-            <span class="ps-breadcrumb__separator" aria-hidden="true">
-              {% include '@elements/icon/icon.twig' with {
-                icon: 'chevron-right',
-                size: 'sm'
-              } only %}
-            </span>
+            <span class="ps-breadcrumb__separator" data-icon="chevron-right" aria-hidden="true"></span>
           {% endif %}
         </li>
       {% endfor %}

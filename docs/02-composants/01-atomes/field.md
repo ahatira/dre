@@ -53,7 +53,7 @@ props:
 ] %}
 <div {{ attributes.addClass(classes) }}>
   {% if icon and (iconPosition ?? 'right') == 'left' %}
-    {% include '@ps_theme/ps-icon/ps-icon.twig' with { name: icon, size: 20 } %}
+    <span class="ps-field__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
 
   {% if type == 'textarea' %}
@@ -65,7 +65,7 @@ props:
   {% endif %}
 
   {% if icon and (iconPosition ?? 'right') == 'right' %}
-    {% include '@ps_theme/ps-icon/ps-icon.twig' with { name: icon, size: 20 } %}
+    <span class="ps-field__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
 
   {% if error %}<div class="ps-field__error" role="alert">{{ error }}</div>{% endif %}

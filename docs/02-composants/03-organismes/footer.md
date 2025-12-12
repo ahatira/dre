@@ -69,7 +69,7 @@ props:
       </div>
       <div class="ps-footer__social" aria-label="Réseaux sociaux">
         {% for s in socialLinks %}
-          {% include '@ps_theme/ps-icon/ps-icon.twig' with { name: s.icon, ariaLabel: s.platform } %}
+          <a href="{{ s.url }}" class="ps-footer__social-link" data-icon="{{ s.icon }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener noreferrer"></a>
         {% endfor %}
       </div>
       <div class="ps-footer__copyright">{{ copyright }}</div>

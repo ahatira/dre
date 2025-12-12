@@ -179,22 +179,32 @@ These will ALWAYS be rejected:
 3. CSS maps `[data-icon="name"]` → `url('/icons/icons-sprite.svg#icon-{name}')`
 4. Use icon name WITHOUT prefix in templates
 
-**Examples**:
+**Standard Pattern - data-icon attribute** (PREFERRED):
 ```twig
-{# ✅ CORRECT - No icon- prefix #}
-<span class="ps-button__icon" data-icon="check"></span>
-<span class="ps-button__icon" data-icon="arrow-right"></span>
-
-{# ✅ CORRECT - Via icon atom #}
-{% include '@elements/icon/icon.twig' with {
-  icon: 'search',
-  size: 'md'
-} only %}
+{# ✅ CORRECT - data-icon on element (matches button.twig pattern) #}
+<span class="ps-button__icon" data-icon="check" aria-hidden="true"></span>
+<span class="ps-breadcrumb__separator" data-icon="chevron-right" aria-hidden="true"></span>
+<a href="/link" class="ps-link" data-icon="arrow-right">Link text</a>
+<button data-icon="search" aria-label="Search"></button>
 
 {# ❌ WRONG - Including icon- prefix #}
 <span data-icon="icon-check"></span>
-{% include '@elements/icon/icon.twig' with { icon: 'icon-search' } %}
 ```
+
+**Alternative Pattern - Icon component** (ONLY for standalone icon atom documentation):
+```twig
+{# ⚠️ RARE - Only use when documenting Icon atom itself #}
+{% include '@elements/icon/icon.twig' with {
+  icon: 'search',
+  size: 'md',
+  ariaLabel: 'Search'
+} only %}
+
+{# ❌ WRONG - Don't use in other component docs #}
+{% include '@elements/icon/icon.twig' ... %} {# Use data-icon instead #}
+```
+
+**Rule**: All components MUST use `data-icon` attribute (like button.twig). The Icon component include is ONLY for documenting the Icon atom itself in `source/patterns/elements/icon/`.
 
 **CSS Implementation** (`source/props/icons.css`):
 ```css

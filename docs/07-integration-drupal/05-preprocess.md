@@ -293,16 +293,8 @@ function ps_theme_add_menu_icons(&$items) {
         <li class="ps-menu__item{{ item.in_active_trail ? ' is-active' : '' }}">
           
           {# Lien #}
-          <a href="{{ item.url }}" class="ps-menu__link">
+          <a href="{{ item.url }}" class="ps-menu__link"{% if item.icon %} data-icon="{{ item.icon }}" data-icon-position="end"{% endif %}>
             {{ item.title }}
-            
-            {# Icon chevron si sous-menu #}
-            {% if item.icon %}
-              {% include '@elements/icon/icon.twig' with {
-                icon: item.icon,
-                size: 'sm'
-              } only %}
-            {% endif %}
           </a>
 
           {# Sous-menu récursif #}

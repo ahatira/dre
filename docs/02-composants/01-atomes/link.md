@@ -61,7 +61,7 @@ props:
   {% if disabled %}aria-disabled="true"{% endif %}
 >
   {% if icon %}
-     {% include '@ps_theme/ps-icon/ps-icon.twig' with { name: icon, size: 20 } %}
+    <span class="ps-link__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
   <span class="ps-link__text">{{ text }}</span>
 </{{ tag }}>

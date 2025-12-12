@@ -58,7 +58,7 @@ props:
         {% if action.type == 'button' %}
           {% include '@ps_theme/ps-button/ps-button.twig' with { label: action.label, url: action.url, icon: action.icon } %}
         {% elseif action.type == 'icon' %}
-          {% include '@ps_theme/ps-icon/ps-icon.twig' with { name: action.icon, ariaLabel: action.label } %}
+          <button class="ps-header__action" data-icon="{{ action.icon }}" aria-label="{{ action.label }}"></button>
         {% endif %}
       {% endfor %}
     </div>
