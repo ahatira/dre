@@ -255,7 +255,7 @@ composition-token-first.instructions.md ⭐ CRITICAL
 ## 🔗 Related Resources
 
 ### Main Copilot Instructions
-- [../ copilot-instructions.md](../copilot-instructions.md) - AI behavior configuration, language policy, Zero Tolerance Rules
+- [copilot-instructions.md](../copilot-instructions.md) - AI behavior configuration, language policy, Zero Tolerance Rules
 
 ### Project Documentation
 - [Project README](../../README.md) - Project setup, build commands, JavaScript bundling

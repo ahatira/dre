@@ -26,7 +26,7 @@ status: ACTIVE
 
 > **When a component composes other components** (include, embed, extends), follow the **4-step Token-First cascade**: params → utils → **tokens** ⭐ → CSS.
 
-**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
+**📘 Complete workflow**: [composition-token-first.instructions.md](composition-token-first.instructions.md)
 
 **Applies to**: Molecules, Organisms, Templates, Pages | **NOT Atoms** (autonomous)
 

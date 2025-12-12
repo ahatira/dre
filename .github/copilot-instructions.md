@@ -366,7 +366,7 @@ Before ANY component work, consult the relevant instruction file(s) under `.gith
 
 For complex component work, refactoring, or when decisions require multi-disciplinary analysis, use the **Mode Multi-Experts + Sens Critique**:
 
-→ Read: [`.github/instructions/multi-expert-mode.instructions.md`](.github/instructions/multi-expert-mode.instructions.md)
+→ Read: [`instructions/multi-expert-mode.instructions.md`](instructions/multi-expert-mode.instructions.md)
 
 **What it provides**:
 - 6-role expert analysis (Drupal, Atomic Design, CSS, Storybook, PO, Real Estate métier)

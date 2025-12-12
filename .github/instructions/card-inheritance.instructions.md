@@ -57,7 +57,7 @@ changelog:
 
 > **All Card-based components MUST follow the Token-First workflow** for styling customization.
 
-**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
+**📘 Complete workflow**: [composition-token-first.instructions.md](composition-token-first.instructions.md)
 
 **4-step cascade**: Card params → utils → **override Card tokens** ⭐ (preferred) → targeted CSS (last resort)
 

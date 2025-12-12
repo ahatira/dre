@@ -102,14 +102,14 @@ Agis comme une **équipe d'experts multidisciplinaires** pour le projet **PS The
    - Intégration thème, Twig (langage critique)
    - Twig constraints: **NO arrow functions**, **NO `.filter()/.map()/.includes()`** (incompatibilities)
    - **Drupal behaviors pattern** : Tout JavaScript interactif DOIT passer par `Drupal.behaviors` + `once('id')` (cf. checklist section 3)
-   - Lien: [`instructions/javascript.instructions.md`](../instructions/javascript.instructions.md)
+   - Lien: [`instructions/javascript.instructions.md`](javascript.instructions.md)
 
 2. **Expert Atomic Design**
    - Méthodologie Brad Frost (atoms → molecules → organisms → templates → pages)
    - **87 composants à implémenter** (19 atoms, 20 molecules, 12 organisms, 8 templates, 8 pages)
    - Hiérarchie stricte, dépendances, composition, réutilisabilité
    - Modifiers BEM, states, variantes
-   - Lien: [`instructions/atomic-design.instructions.md`](../instructions/atomic-design.instructions.md)
+   - Lien: [`instructions/atomic-design.instructions.md`](atomic-design.instructions.md)
 
 3. **Intégrateur HTML/CSS / Design Tokens**
    - **Design tokens comme source de vérité** (colors, sizes, animations, shadows, borders, zindex)
@@ -118,7 +118,7 @@ Agis comme une **équipe d'experts multidisciplinaires** pour le projet **PS The
    - Sémantique des couleurs (primary, secondary, success, danger, warning, info, gold, light, dark)
    - Breakpoints: `ps.breakpoints.yml`
    - **Zero-tolerance**: JAMAIS de hardcoded values (`#00915A`, `16px`, `150ms ease`)
-   - Lien: [`instructions/css.instructions.md`](../instructions/css.instructions.md)
+   - Lien: [`instructions/css.instructions.md`](css.instructions.md)
 
 4. **Expert NodeJS / ViteJS / Storybook**
    - Build: Vite + PostCSS + Biome lint/format
@@ -127,7 +127,7 @@ Agis comme une **équipe d'experts multidisciplinaires** pour le projet **PS The
    - Storybook Autodocs: `tags: ['autodocs']` obligatoire (sauf base/* stories)
    - argTypes catégorisées, Default + Showcases stories
    - Faker.js pour exemples réalistes (contexte Real Estate BNP Paribas)
-   - Lien: [`instructions/storybook.instructions.md`](../instructions/storybook.instructions.md)
+   - Lien: [`instructions/storybook.instructions.md`](storybook.instructions.md)
 
 5. **Product Owner (PO) / Project Manager**
    - Progress tracking: **6/87 composants** actuellement (7%)
@@ -1157,16 +1157,16 @@ Ce sont les règles **NON-NÉGOCIABLES** du projet PS Theme. **Rejette tout ce q
 
 | Contexte | Fichier |
 |----------|---------|
-| **Nouvelles composants** | [`instructions/workflows.instructions.md`](../instructions/workflows.instructions.md) (étapes 1-11) |
-| **CSS & Tokens** | [`instructions/css.instructions.md`](../instructions/css.instructions.md) |
-| **Atomic Design** | [`instructions/atomic-design.instructions.md`](../instructions/atomic-design.instructions.md) |
-| **Components 5-file** | [`instructions/components.instructions.md`](../instructions/components.instructions.md) |
-| **Storybook** | [`instructions/storybook.instructions.md`](../instructions/storybook.instructions.md) |
-| **Base Stories** | [`instructions/base-stories.instructions.md`](../instructions/base-stories.instructions.md) |
-| **Twig & Drupal** | [`instructions/javascript.instructions.md`](../instructions/javascript.instructions.md) |
-| **Templates** | [`instructions/templates.instructions.md`](../instructions/templates.instructions.md) |
-| **Accessibility** | [`instructions/accessibility.instructions.md`](../instructions/accessibility.instructions.md) |
-| **Audit & Conformité** | [`instructions/workflows.instructions.md`](../instructions/workflows.instructions.md) (Checklist) |
+| **Nouvelles composants** | [`instructions/workflows.instructions.md`](workflows.instructions.md) (étapes 1-11) |
+| **CSS & Tokens** | [`instructions/css.instructions.md`](css.instructions.md) |
+| **Atomic Design** | [`instructions/atomic-design.instructions.md`](atomic-design.instructions.md) |
+| **Components 5-file** | [`instructions/components.instructions.md`](components.instructions.md) |
+| **Storybook** | [`instructions/storybook.instructions.md`](storybook.instructions.md) |
+| **Base Stories** | [`instructions/base-stories.instructions.md`](base-stories.instructions.md) |
+| **Twig & Drupal** | [`instructions/javascript.instructions.md`](javascript.instructions.md) |
+| **Templates** | [`instructions/templates.instructions.md`](templates.instructions.md) |
+| **Accessibility** | [`instructions/accessibility.instructions.md`](accessibility.instructions.md) |
+| **Audit & Conformité** | [`instructions/workflows.instructions.md`](workflows.instructions.md) (Checklist) |
 
 **Project Status** :
 - **Progress**: `docs/ps-design/INDEX.md` (6/87 composants = 7%)
@@ -1307,7 +1307,7 @@ Ce mode est **living documentation** :
 - Évolution basée sur retours d'expérience
 - Révision mensuelle ou à demande
 
-**Contact amélioration**: Documenter dans [`docs/ps-design/CHANGELOG.md`](../../docs/ps-design/CHANGELOG.md)
+**Contact amélioration**: Documenter dans CHANGELOG.md (docs/ps-design/)
 
 ---
 
@@ -1322,7 +1322,7 @@ Ce mode est **living documentation** :
 
 → This project uses **Mode Multi-Experts + Sens Critique** for advanced AI collaboration.
 
-**Read**: [`.github/instructions/multi-expert-mode.instructions.md`](.github/instructions/multi-expert-mode.instructions.md)
+**Read**: This file provides the complete Multi-Expert Mode protocol
 
 **What it provides**:
 - 6-role expert analysis (Drupal, Atomic Design, CSS, Storybook, PO, Métier)

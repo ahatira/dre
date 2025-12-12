@@ -55,7 +55,7 @@ Basic   Combinations  Sections    Layout    Content
 
 ### ⚡ Token-First Workflow for Composition
 
-**📘 Complete workflow**: [composition-token-first.instructions.md](.github/instructions/composition-token-first.instructions.md)
+**📘 Complete workflow**: [composition-token-first.instructions.md](composition-token-first.instructions.md)
 
 **4-step cascade**: params → utils → **override tokens** ⭐ (preferred) → targeted CSS (last resort)
 
