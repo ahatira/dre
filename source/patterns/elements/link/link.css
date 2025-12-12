@@ -1,6 +1,6 @@
 /** 
  * Link (Element/Atom)
- * Text link with interactive states (hover, active, visited) and optional icon
+ * Semantic text link with interactive states, optional icon, and color variants
  * 
  * BEM: ps-link, ps-link__text, ps-link__icon
  * Variants: default (no class) | primary | secondary | gold | info | warning | success | danger | dark | light
@@ -12,10 +12,10 @@
 .ps-link {
   /* ============================================
      Layer 2: Component-Scoped Variables
-     Bootstrap 5 inspired - Override these for customization
+     Default values for customization
      ============================================ */
   
-  /* Colors (Default = current text color) */
+  /* Colors (Default = inherited text color) */
   --ps-link-color: currentColor;
   --ps-link-hover-color: currentColor;
   --ps-link-active-color: currentColor;
@@ -36,7 +36,7 @@
   
   /* Focus */
   --ps-link-focus-outline-width: var(--border-size-2);
-  --ps-link-focus-outline-color: var(--secondary);
+  --ps-link-focus-outline-color: var(--primary);
   --ps-link-focus-outline-offset: var(--border-size-1);
   --ps-link-focus-border-radius: var(--radius-1);
   
@@ -45,7 +45,7 @@
   --ps-link-transition-timing: var(--ease-4);
   
   /* ============================================
-     Apply Component Variables
+     Apply Component-Scoped Variables
      ============================================ */
   
   /* Reset */
@@ -77,7 +77,10 @@
     color var(--ps-link-transition-duration) var(--ps-link-transition-timing),
     text-decoration var(--ps-link-transition-duration) var(--ps-link-transition-timing);
   
-  /* States */
+  /* ============================================
+     States
+     ============================================ */
+  
   &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
     color: var(--ps-link-hover-color);
     text-decoration: var(--ps-link-hover-text-decoration);
@@ -104,7 +107,10 @@
     pointer-events: none;
   }
   
-  /* Elements */
+  /* ============================================
+     Elements
+     ============================================ */
+  
   &__text {
     display: inline-block;
   }
@@ -114,13 +120,16 @@
     line-height: 1;
   }
 
+  /* ============================================
+     Layer 3: Context Overrides - Color Variants
+     Each color sets all state variables via modifier
+     ============================================ */
   
-  /* Variants - Color (Semantic) */
   &--primary {
     --ps-link-color: var(--primary);
     --ps-link-hover-color: var(--primary-hover);
     --ps-link-active-color: var(--primary-active);
-    --ps-link-visited-color: var(--secondary);
+    --ps-link-visited-color: var(--primary-active);
   }
   
   &--secondary {
@@ -179,7 +188,10 @@
     --ps-link-visited-color: var(--gray-400);
   }
   
-  /* Variants - Sizes */
+  /* ============================================
+     Layer 3: Context Overrides - Size Variants
+     ============================================ */
+  
   &--xs {
     --ps-link-font-size: var(--font-size-0);
   }
@@ -204,7 +216,10 @@
     --ps-link-font-size: var(--font-size-5);
   }
   
-  /* Modifiers */
+  /* ============================================
+     Layer 3: Context Overrides - Behavior Modifiers
+     ============================================ */
+  
   &--no-underline {
     --ps-link-text-decoration: none;
   }

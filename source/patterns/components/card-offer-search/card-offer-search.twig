@@ -139,8 +139,8 @@
       <div class="ps-card-offer-search__actions">
         {% include '@elements/button/button.twig' with {
           class: 'ps-card-offer-search__action',
-          variant: 'ghost',
-          size: 'sm',
+          variant: 'info',
+          size: 'lg',
           icon: 'compare',
           toggle: true,
           active: isComparator,
@@ -151,9 +151,9 @@
         
         {% include '@elements/button/button.twig' with {
           class: 'ps-card-offer-search__action',
-          variant: 'ghost',
-          size: 'sm',
-          icon: isFavorite ? 'heart' : 'heart-outline',
+          variant: 'secondary',
+          size: 'lg',
+          icon: 'heart-outline',
           toggle: true,
           active: isFavorite,
           attributes: create_attribute()
@@ -210,7 +210,7 @@
       
       {# CTA button #}
       {% if cta and cta.url %}
-        {% include '@elements/button/button.twig' with {
+        {% include '@elements/link/link.twig' with {
           text: cta.text,
           url: cta.url,
           variant: 'primary',

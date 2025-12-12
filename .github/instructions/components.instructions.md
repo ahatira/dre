@@ -644,7 +644,7 @@ xs | sm | md | lg | xl
 | `shape` | circle, square, rounded, pill | Geometric form |
 | `appearance` | filled, outlined, minimal | Visual treatment |
 | `alignment` | left, center, right, justify | Text alignment |
-| `position` | top, bottom, left, right | Spatial position |
+| `position` | start, end | Spatial position |
 
 ---
 
