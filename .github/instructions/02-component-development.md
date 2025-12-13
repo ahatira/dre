@@ -164,8 +164,20 @@ source/patterns/{level}/{component}/
 - ❌ NEVER arrow functions: `filter(v => v)` (Drupal incompatible)
 - ✅ Use `{% include %}` with `only` for composition
 - ✅ Real Estate context for placeholders
+- ✅ **MANDATORY**: `attributes` parameter with `|without('class')` for Drupal integration
 
-**See 03-technical-implementation.md → Twig Standards for complete reference.**
+**attributes pattern**:
+```twig
+{# In header comment #}
+ * @param {object} [attributes] - Additional HTML attributes
+
+{# In root element #}
+<span class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+>
+```
+
+**See 03-technical-implementation.md → Twig Standards (section 2.5) for complete `attributes` documentation.**
 
 ---
 

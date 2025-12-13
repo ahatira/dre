@@ -501,7 +501,80 @@ Standard container with responsive padding:
 {# ERROR: Arrow functions NOT supported in Drupal Twig #}
 ```
 
-### 2.5 Composition with Includes
+### 2.5 Attributes Parameter (MANDATORY for Drupal)
+
+**⚠️ CRITICAL**: ALL components MUST include `attributes` parameter for Drupal integration.
+
+**Why mandatory?**
+- Drupal adds CSS classes, IDs, data attributes via `{{ attributes }}`
+- Without this, components cannot be customized in Drupal templates
+- Required for accessibility (ARIA attributes), JavaScript hooks, styling overrides
+
+**Standard pattern**:
+
+```twig
+{#
+ * Component Name
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
+
+<div class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+>
+  <!-- Component content -->
+</div>
+```
+
+**✅ CORRECT - Full example**:
+
+```twig
+{#
+ * Badge component
+ * @param string text - Badge text (required)
+ * @param string color - primary|secondary|success|danger|warning|info (default: primary)
+ * @param object attributes - Additional HTML attributes (optional)
+ #}
+
+{%- set color = color|default('primary') -%}
+{%- set class = class|default(null) -%}
+
+{%- set badge_classes = [
+  'ps-badge',
+  color != 'primary' ? 'ps-badge--' ~ color : null,
+  class ? class : null
+] -%}
+
+<span class="{{ badge_classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+>
+  {{ text }}
+</span>
+```
+
+**Key rules**:
+1. **Always use `|without('class')`** - Prevents class duplication (classes handled separately)
+2. **Document in header** - `@param object attributes - Additional HTML attributes (optional)`
+3. **Conditional check** - `{%- if attributes %}` prevents errors when not passed
+4. **Apply to root element** - Main component container gets attributes
+
+**Drupal usage example**:
+```twig
+{# In Drupal template (e.g., node--article.html.twig) #}
+{% include '@elements/badge/badge.twig' with {
+  text: 'New',
+  color: 'success',
+  attributes: create_attribute()
+    .addClass('custom-badge')
+    .setAttribute('data-tracking', 'badge-click')
+    .setAttribute('id', 'badge-' ~ node.id)
+} only %}
+
+{# Renders: <span class="ps-badge ps-badge--success custom-badge" data-tracking="badge-click" id="badge-123">New</span> #}
+```
+
+**Exception**: Base/Documentation components (colors.stories.jsx, fonts.stories.jsx) may omit `attributes` as they're not used in Drupal.
+
+### 2.6 Composition with Includes
 
 **Use `{% include %}` with `only` keyword**:
 
@@ -524,7 +597,7 @@ Standard container with responsive padding:
 
 **Why `only`?** Prevents variable pollution—only specified props are passed.
 
-### 2.6 Conditional Rendering
+### 2.7 Conditional Rendering
 
 ```twig
 {# Simple conditional #}

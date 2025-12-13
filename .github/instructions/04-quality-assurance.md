@@ -76,14 +76,18 @@ ls -la source/patterns/{level}/{component}/
 
 #### Twig Template (15 points)
 
-- [ ] **3 pts** - Header comment with `@param` docs
+- [ ] **2 pts** - Header comment with `@param` docs
+- [ ] **2 pts** - `attributes` parameter present with `|without('class')`
 - [ ] **3 pts** - Default values: `prop|default('value')`
 - [ ] **3 pts** - Classes with ternary + `null` (NO arrow functions)
 - [ ] **3 pts** - Composition via `{% include %}` with `only`
-- [ ] **3 pts** - Real Estate context placeholders
+- [ ] **2 pts** - Real Estate context placeholders
 
 **Validation**:
 ```bash
+# Check for attributes parameter
+grep -n "attributes" source/patterns/{level}/{component}/{component}.twig
+
 # Check for arrow functions (should return NOTHING)
 grep -n "=>" source/patterns/{level}/{component}/{component}.twig
 

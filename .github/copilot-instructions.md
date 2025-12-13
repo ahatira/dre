@@ -114,6 +114,7 @@ These will ALWAYS be rejected:
 
 - ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
 - ❌ Missing any of 4 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`
+- ❌ Missing `attributes` parameter in Twig: MANDATORY for Drupal integration with `|without('class')`
 - ❌ Missing `tags: ['autodocs']` in Storybook export default (exception: `base/*` stories don't use autodocs)
 - ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`
 - ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
