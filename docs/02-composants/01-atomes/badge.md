@@ -32,24 +32,19 @@ Default     Primary+icon    Small   Link pill
 <span class="ps-badge">Default</span>
 
 <!-- Primary badge with icon -->
-<span class="ps-badge ps-badge--primary">
-  <span class="ps-badge__icon" data-icon="check"></span>
-  <span class="ps-badge__text">Verified</span>
-</span>
+<span class="ps-badge ps-badge--primary" data-icon="check">Verified</span>
 
 <!-- Small count -->
 <span class="ps-badge ps-badge--small">3</span>
 
-<!-- Pill link badge -->
-<a href="#" class="ps-badge ps-badge--info ps-badge--pill">Learn more</a>
+<!-- Pill link badge with icon at end -->
+<a href="#" class="ps-badge ps-badge--info ps-badge--pill" data-icon="arrow-right" data-icon-position="end">Learn more</a>
 ```
 
 ### Classes BEM
 
 ```
-ps-badge                                  // Block
-  ps-badge__icon                          // Icône optionnelle (via data-icon)
-  ps-badge__text                          // Texte du badge
+ps-badge                                  // Block (pas d'éléments enfants)
 
 Modifiers (couleurs sémantiques):
   (default - pas de classe)               // Gris neutre - ÉTAT PAR DÉFAUT
@@ -107,13 +102,15 @@ props:
       default: 'rounded'
     icon:
       type: string
-      description: 'Nom d'icône optionnel'
-    clickable:
-      type: boolean
-      default: false
+      description: 'Nom d'icône optionnel (sans préfixe icon-)'
+    iconPosition:
+      type: string
+      enum: ['start','end']
+      default: 'start'
+      description: 'Position de l'icône (start = avant texte, end = après texte)'
     href:
       type: string
-      description: 'URL si le badge est un lien'
+      description: 'URL si le badge est un lien (rend automatiquement cliquable)'
     attributes:
       type: Drupal\Core\Template\Attribute
   required:
@@ -129,7 +126,8 @@ props:
 - **Types** : `date`|`status`|`label`|`count` (affecte l'icône par défaut et le style).
 - **Tailles** : `small`|`medium`|`large`.
 - **Formes** : `rounded` (coins arrondis), `square`, `pill` (complètement arrondi).
-- **Cliquable** : `clickable` pour hover/focus.
+- **Icône** : Optionnelle via `data-icon`, position `start` (défaut) ou `end`.
+- **Lien** : Si `href` fourni, badge devient cliquable avec hover/focus automatiques.
 
 ---
 
@@ -137,7 +135,7 @@ props:
 
 - Typo : `--font-body`, `--font-size-0|1`, `--font-weight-600`, `--leading-tight`
 - Couleurs (bg/text/border) en sémantique existante :
-  - Default/neutral : `--gray-200`, `--gray-600`, `--border-default`
+  - (État par défaut - sans classe) : `--gray-200`, `--gray-600`, `--border-default`
   - Primary : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--primary-border`
   - Secondary : `--secondary`, `--secondary-hover`, `--secondary-active`, `--secondary-text`, `--secondary-border`
   - Info : `--info`, `--info-hover`, `--info-active`, `--info-text`, `--info-border`
@@ -161,11 +159,11 @@ props:
  * Variables: voir API YAML
  #}
 
-{% set variant = variant|default('neutral') %}
+{% set variant = variant|default(null) %}
 {% set type = type|default('label') %}
 {% set size = size|default('medium') %}
 {% set shape = shape|default('rounded') %}
-{% set clickable = clickable|default(false) %}
+{% set iconPosition = iconPosition|default('start') %}
 
 {% set icon_map = {
   'date': 'calendar',
@@ -176,25 +174,20 @@ props:
 
 {% set root_classes = [
   'ps-badge',
-  'ps-badge--' ~ variant,
+  variant ? 'ps-badge--' ~ variant : null,
   'ps-badge--' ~ type,
-  'ps-badge--' ~ size,
-  'ps-badge--' ~ shape,
-  clickable ? 'ps-badge--clickable'
+  size != 'medium' ? 'ps-badge--' ~ size : null,
+  shape != 'rounded' ? 'ps-badge--' ~ shape : null
 ] %}
 
 {% set tag = href ? 'a' : 'span' %}
 
-<{{ tag }} {{ attributes.addClass(root_classes) }}{% if href %} href="{{ href }}"{% endif %}>
-  {% if default_icon and type != 'count' %}
-    <span class="ps-badge__icon" data-icon="{{ default_icon }}" aria-hidden="true"></span>
-  {% endif %}
-  {% if type == 'count' %}
-    {{ text }}
-  {% else %}
-    <span class="ps-badge__text">{{ text }}</span>
-  {% endif %}
-</{{ tag }}>
+<{{ tag }} 
+  {{ attributes.addClass(root_classes) }}
+  {% if href %}href="{{ href }}"{% endif %}
+  {% if default_icon %}data-icon="{{ default_icon }}"{% endif %}
+  {% if default_icon and iconPosition != 'start' %}data-icon-position="{{ iconPosition }}"{% endif %}
+>{{ text }}</{{ tag }}>
 ```
 
 ---
@@ -211,7 +204,7 @@ props:
   --badge-font-size: var(--font-size--1); // 12px
   --badge-font-weight: var(--font-weight-500);
   --badge-radius: var(--radius-2);
-  --badge-icon-size: var(--font-size--1);
+  --badge-icon-size: 1em;
   --badge-gap: var(--size-1);
 
   display: inline-flex;
@@ -229,10 +222,10 @@ props:
   color: var(--badge-color);
   transition: background var(--duration-fast) var(--ease-4);
 
-  &__icon {
-    inline-size: var(--badge-icon-size);
-    block-size: var(--badge-icon-size);
-    flex-shrink: 0;
+  // Icône via data-icon (géré par icons.css avec ::before par défaut)
+  // Position end via data-icon-position="end" utilise ::after
+  &[data-icon] {
+    // Le CSS global icons.css gère le rendu avec ::before (start) ou ::after (end)
   }
 
   // Tailles
@@ -240,21 +233,18 @@ props:
     --badge-font-size: var(--font-size--2);
     --badge-padding-y: var(--size-05);
     --badge-padding-x: var(--size-1);
-    --badge-icon-size: var(--font-size--2);
   }
 
   &--large {
     --badge-font-size: var(--font-size-0);
     --badge-padding-y: var(--size-105);
     --badge-padding-x: var(--size-3);
-    --badge-icon-size: var(--font-size-0);
   }
 
   // Formes
   &--pill { --badge-radius: var(--radius-round); }
 
-  // Variantes sémantiques
-  &--default { --badge-bg: var(--light); --badge-color: var(--text-secondary); }
+  // Variantes sémantiques (état par défaut = sans classe, gris neutre défini dans variables de base)
   &--primary { --badge-bg: var(--primary-subtle); --badge-color: var(--primary-text-emphasis); }
   &--secondary { --badge-bg: var(--secondary-subtle); --badge-color: var(--secondary-text-emphasis); }
   &--info { --badge-bg: var(--info-subtle); --badge-color: var(--info-text-emphasis); }
@@ -300,15 +290,13 @@ props:
   text: 'Actif',
   variant: 'success',
   type: 'status',
-  size: 'medium',
-  icon: 'check-circle'
+  size: 'medium'
 } %}
 
 {# Date badge - default state (no variant) #}
 {% include '@ps_theme/ps-badge/ps-badge.twig' with {
   text: '15 Jan 2025',
-  type: 'date',
-  icon: 'calendar'
+  type: 'date'
 } %}
 
 {# Count badge #}
@@ -319,12 +307,13 @@ props:
   size: 'small'
 } %}
 
-{# Clickable label #}
+{# Clickable label with icon at end #}
 {% include '@ps_theme/ps-badge/ps-badge.twig' with {
   text: 'Immobilier',
   variant: 'info',
   type: 'label',
-  clickable: true,
+  icon: 'arrow-right',
+  iconPosition: 'end',
   href: '/category/immobilier'
 } %}
 ```
