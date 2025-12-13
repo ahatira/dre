@@ -1,14 +1,12 @@
 {#
- * Badge (Atom) - Compact status/label indicator
- * Composition-ready: Supports empty text for visual-only badges
- *
+ * Badge atom - Compact status/label indicator
  * @param string text - Badge text content (required)
- * @param string icon - Optional icon name (e.g., 'check', 'calendar')
- * @param string iconPosition - Icon position: start|end (default: start)
- * @param string color - Semantic color: primary|secondary|success|danger|warning|info|light|dark|gold (default: primary)
+ * @param string icon - Icon name (e.g., 'check', 'calendar')
+ * @param string iconPosition - start|end (default: start)
+ * @param string color - primary|secondary|success|danger|warning|info|light|dark|gold (default: primary)
  * @param boolean pill - Fully rounded pill shape (default: false)
- * @param string url - Optional link URL (renders <a> tag)
- * @param object attributes - Additional HTML attributes for composition (optional)
+ * @param string url - Link URL (optional, renders <a> tag)
+ * @param object attributes - Additional HTML attributes for Drupal integration (optional)
  #}
 
 {%- set color = color|default('primary') -%}
