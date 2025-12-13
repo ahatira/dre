@@ -40,9 +40,11 @@ status: ACTIVE
 - When refactoring legacy components
 - During code reviews
 
-**Minimum passing score**: 90/100 for production
+**Minimum passing score**: 80/90 for production
 
 ### 1.2 Audit Checklist
+
+**Total**: 90 points (README.md supprimés décembre 2025)
 
 #### Architecture & Dependencies (10 points)
 
@@ -58,19 +60,18 @@ grep -n "{% include" source/patterns/{level}/{component}/{component}.twig
 ls source/patterns/elements/{atom}/
 ```
 
-#### File Structure (10 points)
+#### File Structure (8 points)
 
 - [ ] **2 pts** - `.twig` file exists with header comment
 - [ ] **2 pts** - `.css` file exists with nesting
 - [ ] **2 pts** - `.yml` file exists with Real Estate data
 - [ ] **2 pts** - `.stories.jsx` file exists with Autodocs
-- [ ] **2 pts** - `README.md` file exists with all sections
 
 **Validation**:
 ```bash
-# Check 5-file structure
+# Check 4-file structure (README.md supprimés décembre 2025)
 ls -la source/patterns/{level}/{component}/
-# MUST have: .twig, .css, .yml, .stories.jsx, README.md
+# MUST have: .twig, .css, .yml, .stories.jsx
 ```
 
 #### Twig Template (15 points)
@@ -134,20 +135,6 @@ grep -n "import React" source/patterns/{level}/{component}/{component}.stories.j
 - [ ] **3 pts** - All required props defined
 - [ ] **2 pts** - Optional props with meaningful defaults
 
-#### README Documentation (10 points)
-
-- [ ] **2 pts** - Section: Usage (Twig example)
-- [ ] **2 pts** - Section: Props (table format)
-- [ ] **2 pts** - Section: BEM Structure (tree format)
-- [ ] **2 pts** - Section: Design Tokens (CSS variables)
-- [ ] **2 pts** - Section: Accessibility (checklist)
-
-**Validation**:
-```bash
-# Check README sections
-grep -n "## " source/patterns/{level}/{component}/README.md
-```
-
 #### BEM Naming (5 points)
 
 - [ ] **2 pts** - Prefix `ps-` mandatory
@@ -182,20 +169,20 @@ grep -n "^\\." source/patterns/{level}/{component}/{component}.css
 ## Badge Conformity Audit
 
 **Score**: 85/100 ⚠️ Minor fixes required
+### 1.3 Scoring Interpretation
 
-### Violations
+| Score | Status | Action |
+|-------|--------|--------|
+| **80-90** | ✅ Production ready | Ship it |
+| **65-79** | ⚠️ Minor fixes required | Fix violations, re-audit |
+| **Below 65** | ❌ Major refactoring needed | Follow refactoring workflow |
 
-1. **Twig Template** (-5 points)
-   - ❌ Uses `filter(v => v)` (Drupal incompatible)
-   - Fix: Use ternary with `null` in array
+### 1.4 Example Audit Report
 
-2. **CSS** (-5 points)
-   - ❌ Hardcoded color: `background: #00915A;`
-   - Fix: Use `var(--primary)`
+```markdown
+## Badge Conformity Audit
 
-3. **Storybook** (-5 points)
-   - ❌ Missing `tags: ['autodocs']`
-   - Fix: Add to export default
+**Score**: 75/90 ⚠️ Minor fixes required
 
 ### Required Actions
 
@@ -787,7 +774,7 @@ grep -r "--token-name" source/props/
 
 - [ ] Run `npm run build` (passes with 0 errors)
 - [ ] Visual check in Storybook (http://localhost:6006)
-- [ ] Conformity audit score ≥ 90/100
+- [ ] Conformity audit score ≥ 80/90
 - [ ] Git commit message structured
 - [ ] CHANGELOG.md updated
 

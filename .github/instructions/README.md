@@ -111,9 +111,9 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 
 **Outils de validation** :
 
-1. **Audit de conformité** (Checklist 100 points)
-   - Minimum 90/100 pour production
-   - 8 catégories : Architecture, Files, Twig, CSS, Storybook, YAML, README, BEM
+1. **Audit de conformité** (Checklist 90 points)
+   - Minimum 80/90 pour production
+   - 7 catégories : Architecture, Files, Twig, CSS, Storybook, YAML, BEM
 
 2. **Validation de build**
    ```bash
@@ -227,7 +227,7 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 - [ ] Lire 01-core-principles.md (comprendre les fondations)
 - [ ] Lire 02-component-development.md (mémoriser le workflow)
 - [ ] Créer 1 atom simple (badge, divider, icon)
-- [ ] Audit 100 points du premier atom (score ≥ 90)
+- [ ] Audit 90 points du premier atom (score ≥ 80)
 
 ### Intermédiaire (Semaine 2-3)
 

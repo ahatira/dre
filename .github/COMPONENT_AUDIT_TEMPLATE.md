@@ -1,5 +1,9 @@
 # 📋 Component Audit Template - Copy-Paste Prompt
 
+> **⚠️ OBSOLETE (December 2025)**: This file uses old 100-point scoring with 5-file structure.  
+> **CURRENT STANDARD**: **90-point system** with **4-file structure** (README.md removed).  
+> **Reference**: See `.github/instructions/04-quality-assurance.md` for current audit checklist.
+
 **Purpose**: Ready-to-use audit prompt for ANY component (atoms, molecules, organisms)  
 **Usage**: Replace `{COMPONENT_NAME}` with actual component name and paste to AI agent
 

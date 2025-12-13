@@ -1,4 +1,8 @@
-# Prompt: Audit Component (100-Point Checklist)
+# Prompt: Audit Component (90-Point Checklist)
+
+> **⚠️ NOTE (December 2025)**: This file contains the old 100-point scoring system with 5-file structure.  
+> **CURRENT STANDARD**: Use **90-point system** with **4-file structure** (README.md removed).  
+> **Reference**: See `.github/instructions/04-quality-assurance.md` for up-to-date audit checklist.
 
 **Purpose**: Run complete conformity audit on any component and generate detailed report.
 

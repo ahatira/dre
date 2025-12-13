@@ -130,7 +130,7 @@ grep -r "--primary" source/props/brand.css
 **When you discover missing token during component work**:
 
 ```markdown
-<!-- In component README.md -->
+<!-- In component CSS file comment or docs/design/{level}/{component}.md -->
 
 ## Missing Tokens
 
@@ -529,16 +529,16 @@ export default {
 ### 3.1 Refactoring Legacy Components
 
 **When to refactor**:
-- Component fails conformity audit (<90/100)
+- Component fails conformity audit (<80/90)
 - Component breaks current standards
 - Component blocks other work
 - Scheduled refactoring sprint
 
 **Workflow** (from [04-quality-assurance.md](04-quality-assurance.md)):
 
-1. **Run conformity audit** (100-point checklist)
+1. **Run conformity audit** (90-point checklist)
 2. **Prioritize fixes** (Critical → High → Medium)
-3. **Apply fixes systematically** (Twig → CSS → Storybook → YAML → README)
+3. **Apply fixes systematically** (Twig → CSS → Storybook → YAML)
 4. **Test and validate** (`npm run build` + visual check)
 5. **Document changes** (commit + changelog)
 
@@ -760,7 +760,7 @@ grep -n "=>" source/patterns/{component}/{component}.twig
 - ✅ Renaming a component class (.ps-old → .ps-new)
 - ✅ Changing prop interface (required prop added/removed)
 - ✅ Changing component behavior (default changes)
-- ✅ Removing a file from 5-file structure
+- ✅ Removing a file from 4-file structure
 
 **NOT breaking changes**:
 - ❌ Adding new token

@@ -105,8 +105,7 @@ source/patterns/{level}/{component}/
 ├── {component}.twig
 ├── {component}.css
 ├── {component}.yml
-├── {component}.stories.jsx
-└── README.md
+└── {component}.stories.jsx
 ```
 
 ---
@@ -639,7 +638,7 @@ Refs: docs/design/atoms/badge.md
 
 **Before committing**:
 
-- [ ] **5 files exist**: twig, css, yml, stories, README
+- [ ] **4 files exist**: twig, css, yml, stories
 - [ ] **Build passes**: `npm run build`
 - [ ] **Visual check**: Storybook renders correctly
 - [ ] **Zero hardcoded values**: All tokens used
@@ -647,7 +646,6 @@ Refs: docs/design/atoms/badge.md
 - [ ] **Twig Drupal-compatible**: No arrow functions
 - [ ] **Storybook Autodocs**: `tags: ['autodocs']` present
 - [ ] **Accessibility**: Focus-visible, contrast, ARIA
-- [ ] **Documentation**: README complete
 - [ ] **Changelog**: Updated
 
 ---

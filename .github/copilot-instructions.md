@@ -12,7 +12,7 @@
 - **01 Core Principles** → `instructions/01-core-principles.md` - Foundations (Atomic Design, BEM, tokens, terminology, accessibility)
 - **02 Component Development** → `instructions/02-component-development.md` - Complete workflow (11 steps, Token-First cascade, real example)
 - **03 Technical Implementation** → `instructions/03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility)
-- **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (100-point audit, troubleshooting, flowcharts, testing)
+- **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (90-point audit, troubleshooting, flowcharts, testing)
 - **05 Maintenance** → `instructions/05-maintenance.md` - Evolution (token creation, legacy migration, deprecation, breaking changes)
 - **README** → `instructions/README.md` - Navigation hub (quick scenarios, learning path)
 
@@ -113,7 +113,7 @@
 These will ALWAYS be rejected:
 
 - ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
-- ❌ Missing any of 5 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md` (exception: `base/*` stories use 4 files, no README)
+- ❌ Missing any of 4 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`
 - ❌ Missing `tags: ['autodocs']` in Storybook export default (exception: `base/*` stories don't use autodocs)
 - ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`
 - ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
@@ -235,12 +235,11 @@ These will ALWAYS be rejected:
 - [ ] Check required tokens exist (`grep -r "--token-name" source/props/`)
 
 **Implementation**:
-- [ ] Create 5 files: `.twig`, `.css`, `.yml`, `.stories.jsx`, `README.md`
+- [ ] Create 4 files: `.twig`, `.css`, `.yml`, `.stories.jsx`
 - [ ] Twig: Header comment, defaults, ternary + `null`, `{% include %}` with `only`
 - [ ] CSS: ALL tokens, nesting with `&`, cascade order, semantic colors, focus-visible
 - [ ] YAML: Real Estate context, Faker.js in stories
 - [ ] Storybook: `tags: ['autodocs']`, argTypes categorized, Default + Showcases
-- [ ] README: Usage, Props table, BEM structure, Tokens, Accessibility, Examples
 
 **Validation**:
 - [ ] Build passes: `npm run build`
@@ -288,7 +287,7 @@ type(scope): Subject line (max 72 chars)
 # New component
 feat(elements): Add badge component with semantic colors
 
-- Implement 5-file structure (twig, css, yml, stories, README)
+- Implement 4-file structure (twig, css, yml, stories)
 - Support 9 semantic colors with all state variants
 - Add pill modifier and icon integration
 - Full Autodocs with categorized argTypes
@@ -355,7 +354,7 @@ npm run tokens:check -- <token-name>  # Search token in props/ (definition + usa
 
 **Productivity tools**:
 - **Token checker** (`scripts/check-tokens.mjs`): Search design tokens with line numbers and statistics
-- **Enhanced generator** (`scripts/generate-pattern.mjs`): Interactive scaffolding with README.md generation
+- **Enhanced generator** (`scripts/generate-pattern.mjs`): Interactive scaffolding (note: still generates README.md, to be removed manually)
 - **VS Code snippets** (`.vscode/ps-theme.code-snippets`): 10 snippets (type `ps<TAB>` in files):
   - **Twig**: `psheader`, `psclasses`, `psinclude`, `psdefault`
   - **CSS**: `pscomponent`, `pselement`, `psmodifier`

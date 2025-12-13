@@ -84,7 +84,7 @@ Basic   Combinations  Sections    Layout    Content
 1. **Identify required atoms** (smallest functional pieces)
 2. **Check existing atoms** (`ls source/patterns/elements/`)
 3. **Analyze composition strategy** (which atoms to combine)
-4. **Document composition** (in README.md)
+4. **Document composition** (in component spec: `docs/02-composants/`)
 
 **Decision Matrix**:
 
@@ -188,25 +188,24 @@ Basic   Combinations  Sections    Layout    Content
 
 ## 🏗️ Component Architecture
 
-### 5-File Structure (MANDATORY)
+### 4-File Structure (MANDATORY)
 
-Every component MUST contain exactly **5 files**:
+Every component MUST contain exactly **4 files**:
 
 ```
 source/patterns/{level}/{component}/
 ├── {component}.twig          # Twig template
 ├── {component}.css           # CSS styles  
 ├── {component}.yml           # Default data
-├── {component}.stories.jsx   # Storybook stories
-└── README.md                 # Documentation (English)
+└── {component}.stories.jsx   # Storybook stories
 ```
 
-**Optional 6th file** (only if JavaScript behavior needed):
+**Optional 5th file** (only if JavaScript behavior needed):
 ```
 └── {component}.js            # JavaScript behaviors
 ```
 
-**Exception**: `base/*` stories (design token documentation) use 4 files only (no README).
+**Exception**: `base/*` stories (design token documentation) use 4 files only.
 
 ### Naming Convention
 

@@ -1,5 +1,9 @@
 # Prompt: Create Atom Component
 
+> **⚠️ NOTE (December 2025)**: This prompt may reference old 5-file structure.  
+> **CURRENT STANDARD**: **4-file structure** (.twig .css .yml .stories.jsx - README.md removed).  
+> **Reference**: See `.github/instructions/02-component-development.md` for current workflow.
+
 **Purpose**: Generate a complete atom component following PS Theme v4.0.0 standards.
 
 ---
