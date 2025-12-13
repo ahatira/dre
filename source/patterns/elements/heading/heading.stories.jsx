@@ -108,7 +108,7 @@ export const PropertyListings = {
     docs: {
       description: {
         story:
-          "Titres de liste de biens immobiliers. Le h2 avec couleur primaire attire l'attention sur la catégorie, les h3 en regular weight représentent les biens individuels.",
+          'Liste de biens immobiliers. H2 avec `.text-primary` pour catégorie, H3 avec `.font-light` (300) pour biens individuels - crée hiérarchie visuelle légère et aérée.',
       },
     },
   },
@@ -133,46 +133,43 @@ export const TransactionStatuses = {
   },
 };
 
-export const UtilityColors = {
+export const RealEstateHero = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
-      <h3>Default gray heading (no utility)</h3>
-      <h3 class="text-primary">Primary brand heading (.text-primary)</h3>
-      <h3 class="text-secondary">Secondary accent heading (.text-secondary)</h3>
-      <h3 class="text-success">Success status heading (.text-success)</h3>
-      <h3 class="text-warning">Warning status heading (.text-warning)</h3>
-      <h3 class="text-danger">Danger status heading (.text-danger)</h3>
-      <h3 class="text-info">Info status heading (.text-info)</h3>
-      <h3 class="text-gold">Gold premium heading (.text-gold)</h3>
-      <h3 class="text-light" style="background: var(--gray-900); padding: var(--size-3);">Light heading (.text-light - for dark bg)</h3>
-      <h3 class="text-dark">Dark heading (.text-dark)</h3>
-    </div>
+    <section style="padding: var(--size-10); background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: var(--white);">
+      <h6 class="text-light uppercase" style="margin-bottom: var(--size-3);">Nouvelle opportunité</h6>
+      <h1 class="text-light font-black" style="margin-bottom: var(--size-4); font-size: var(--font-size-11); line-height: var(--leading-tight);">Tour CB21 - La Défense</h1>
+      <h2 class="text-light font-light" style="margin-bottom: 0; font-size: var(--font-size-6);">8 500 m² de bureaux divisibles</h2>
+    </section>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          '**Utility-First Colors**: All semantic colors via `.text-*` utilities from `utilities/colors.css`. Use `.text-primary/.text-secondary` for branding, `.text-success/.text-danger/.text-warning/.text-info` for statuses, `.text-gold` for premium, `.text-light/.text-dark` for contrast.',
+          'Hero section avec **combinaisons avancées** : `.text-light` sur fond brand, `.font-black` pour impact, `.font-light` pour subtitle. Démontre override de font-size/line-height/margin-bottom via inline styles pour cas exceptionnels.',
       },
     },
   },
 };
 
-export const UtilityWeights = {
+export const ResponsiveHeadings = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
-      <h2 class="font-light">Light weight 300 (.font-light)</h2>
-      <h2 class="font-regular">Regular weight 400 (.font-regular)</h2>
-      <h2>Bold weight 700 (default - no utility)</h2>
-      <h2 class="font-extrabold">Extrabold weight 800 (.font-extrabold)</h2>
-      <h2 class="font-black">Black weight 900 (.font-black)</h2>
+    <style>
+      @media (max-width: 768px) {
+        .hero-title { font-size: var(--font-size-8) !important; }
+        .hero-subtitle { font-size: var(--font-size-4) !important; }
+      }
+    </style>
+    <div style="padding: var(--size-8); background: var(--gray-50);">
+      <h1 class="hero-title text-primary font-extrabold" style="font-size: var(--font-size-11); margin-bottom: var(--size-4);">Immobilier d'entreprise</h1>
+      <h2 class="hero-subtitle font-light" style="font-size: var(--font-size-6); margin-bottom: 0;">Paris • Lyon • Marseille • Bordeaux</h2>
+      <p style="margin-top: var(--size-6); color: var(--gray-600);">Resize browser to see responsive behavior (desktop: 60px/28px → mobile: 36px/24px)</p>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          '**Utility-First Weights**: Use `.font-*` utilities from `utilities/typography.css`. Available: `.font-thin` (100) to `.font-black` (900). Default heading weight is 700 (bold), no utility needed.',
+          '**Responsive Typography**: Combinaison utilities + inline styles + media queries. Font-size réduit sur mobile via classes custom. Pattern réaliste pour hero sections adaptatives.',
       },
     },
   },
@@ -216,48 +213,104 @@ export const MarketReports = {
   },
 };
 
-export const UtilityAlignment = {
+export const StatusBadges = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-6); padding: var(--size-6); background: var(--gray-50);">
-      <h2>Portfolio immobilier (left by default)</h2>
-      <h2 class="text-center text-primary">Découvrez nos services (.text-center)</h2>
-      <h2 class="text-right font-light">Contact expert (.text-right)</h2>
+    <style>
+      .status-heading { display: flex; align-items: center; gap: var(--size-2); }
+      .status-heading::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+      .status-heading.success::before { background: var(--success); }
+      .status-heading.info::before { background: var(--info); }
+      .status-heading.warning::before { background: var(--warning); }
+      .status-heading.danger::before { background: var(--danger); }
+    </style>
+    <div style="display: flex; flex-direction: column; gap: var(--size-5); padding: var(--size-6); background: var(--white); border-radius: var(--radius-3); box-shadow: var(--shadow-2);">
+      <h4 class="status-heading success text-success font-semibold" style="margin: 0;">Offre acceptée</h4>
+      <h4 class="status-heading info text-info font-semibold" style="margin: 0;">En cours d'instruction</h4>
+      <h4 class="status-heading warning text-warning font-semibold" style="margin: 0;">Documents manquants</h4>
+      <h4 class="status-heading danger text-danger font-semibold" style="margin: 0;">Offre refusée</h4>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          '**Utility-First Alignment**: Use `.text-left`, `.text-center`, `.text-right` from `utilities/typography.css`. Default is left-aligned (no utility needed).',
+          'Statuts avec indicateurs visuels. Combinaison **utilities + custom CSS** : `.text-{semantic}` pour couleur, `.font-semibold` pour poids, `::before` pseudo-element pour dot. Pattern réaliste pour dashboards.',
       },
     },
   },
 };
 
-export const AccessibilityExample = {
+export const SkipLinks = {
   render: () => `
+    <style>
+      .skip-link { position: absolute; top: -40px; left: 0; background: var(--primary); color: var(--white); padding: var(--size-2) var(--size-4); z-index: 100; transition: top 0.2s; }
+      .skip-link:focus { top: 0; outline: 3px solid var(--warning); outline-offset: 2px; }
+    </style>
     <div>
-      <h2 class="visually-hidden">Navigation principale</h2>
-      <nav>
-        <ul style="list-style: none; padding: 0; display: flex; gap: var(--size-5);">
+      <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+      <a href="#search" class="skip-link" style="left: 200px;">Aller à la recherche</a>
+      
+      <h1 class="visually-hidden">BNP Paribas Real Estate</h1>
+      
+      <nav style="padding: var(--size-4); background: var(--gray-100); margin-bottom: var(--size-6);">
+        <h2 class="visually-hidden">Navigation principale</h2>
+        <ul style="list-style: none; padding: 0; display: flex; gap: var(--size-5); margin: 0;">
           <li><a href="#">Acheter</a></li>
           <li><a href="#">Louer</a></li>
           <li><a href="#">Vendre</a></li>
-          <li><a href="#">Expertise</a></li>
         </ul>
       </nav>
       
-      <h2 class="visually-hidden">Recherche de biens</h2>
-      <form style="padding: var(--size-6); background: var(--gray-50); margin-top: var(--size-6);">
+      <main id="main-content" style="padding: var(--size-6); background: var(--gray-50);">
+        <h2>Nos dernières offres</h2>
+        <p>Contenu principal ici...</p>
+      </main>
+      
+      <aside id="search" style="padding: var(--size-6); background: var(--white); margin-top: var(--size-6);">
+        <h2 class="visually-hidden">Recherche de biens</h2>
         <p>Formulaire de recherche ici...</p>
-      </form>
+      </aside>
+      
+      <p style="margin-top: var(--size-6); padding: var(--size-4); background: var(--info-bg-subtle); color: var(--info); border-radius: var(--radius-2);">♿ Press TAB to reveal skip links. H1 and section headings use <code>.visually-hidden</code> for screen readers.</p>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "Titres structurants masqués visuellement via `.visually-hidden` utility (from `utilities/accessibility.css`) pour améliorer la navigation au clavier et l'accessibilité lecteur d'écran sans impact visuel.",
+          "**Pattern d'accessibilité complet** : Skip links (`:focus` reveals), `.visually-hidden` pour structure sémantique (H1, H2 sections). Conforme WCAG 2.2 AA - OPQTEAM bypass blocks (2.4.1).",
+      },
+    },
+  },
+};
+
+export const CombinedUtilities = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--size-6);">
+      <!-- Card 1: Primary bold centered -->
+      <div style="padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-3);">
+        <h3 class="text-center text-primary font-black" style="margin-bottom: var(--size-3);">Bureaux neufs</h3>
+        <p class="text-center" style="color: var(--gray-600); margin: 0;">La Défense</p>
+      </div>
+      
+      <!-- Card 2: Secondary light right-aligned -->
+      <div style="padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-3);">
+        <h3 class="text-right text-secondary font-light" style="margin-bottom: var(--size-3);">Locaux commerciaux</h3>
+        <p class="text-right" style="color: var(--gray-600); margin: 0;">Champs-Élysées</p>
+      </div>
+      
+      <!-- Card 3: Gold extrabold with custom spacing -->
+      <div style="padding: var(--size-6); background: linear-gradient(135deg, var(--gold-subtle) 0%, var(--gold-bg-subtle) 100%); border-radius: var(--radius-3);">
+        <h3 class="text-gold font-extrabold" style="margin-bottom: var(--size-2); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Prestige</h3>
+        <p style="color: var(--gray-700); margin: 0; font-size: var(--font-size-2);">Hôtels particuliers</p>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Combinaisons avancées** : Utilities (`.text-center`, `.text-primary`, `.font-black`) + inline styles (margin-bottom, letter-spacing, text-transform). Démontre flexibilité pour cas complexes sans créer modifiers CSS.',
       },
     },
   },
