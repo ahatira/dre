@@ -52,7 +52,7 @@ ps-badge                                  // Block
   ps-badge__text                          // Texte du badge
 
 Modifiers (couleurs sémantiques):
-  (default - pas de classe)               // Gris neutre (--gray-200 bg)
+  (default - pas de classe)               // Gris neutre - ÉTAT PAR DÉFAUT
   ps-badge--primary                       // Primaire (vert brand)
   ps-badge--secondary                     // Secondaire (violet brand)
   ps-badge--gold                          // Or/accent premium (--gold)
@@ -91,8 +91,8 @@ props:
       title: Texte
     variant:
       type: string
-      enum: ['primary','secondary','info','success','warning','danger','gold','neutral']
-      default: 'neutral'
+      enum: ['primary','secondary','info','success','warning','danger','gold']
+      description: 'Couleur sémantique. Omission = état par défaut (gris neutre)'
     type:
       type: string
       enum: ['date','status','label','count']
@@ -124,7 +124,8 @@ props:
 
 ## 🎭 Variants
 
-- **Couleurs** : `primary`|`secondary`|`info`|`success`|`warning`|`danger`|`gold`|`neutral`.
+- **Couleurs** : `primary`|`secondary`|`info`|`success`|`warning`|`danger`|`gold`. 
+  - **Note** : Omission du variant = état par défaut (gris neutre, pas de classe `--neutral` nécessaire)
 - **Types** : `date`|`status`|`label`|`count` (affecte l'icône par défaut et le style).
 - **Tailles** : `small`|`medium`|`large`.
 - **Formes** : `rounded` (coins arrondis), `square`, `pill` (complètement arrondi).
@@ -303,10 +304,9 @@ props:
   icon: 'check-circle'
 } %}
 
-{# Date badge #}
+{# Date badge - default state (no variant) #}
 {% include '@ps_theme/ps-badge/ps-badge.twig' with {
   text: '15 Jan 2025',
-  variant: 'neutral',
   type: 'date',
   icon: 'calendar'
 } %}

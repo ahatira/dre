@@ -75,7 +75,7 @@ Modificateurs :
   ps-spinner--primary                     // Couleur primaire (vert)
   ps-spinner--secondary                   // Couleur secondaire (gris)
   ps-spinner--white                       // Blanc (sur fond sombre)
-  ps-spinner--neutral                     // Neutre (gris moyen)
+  (default - pas de classe)               // État par défaut (gris moyen)
 ```
 
 ---
@@ -104,7 +104,8 @@ props:
       default: 'md'
     color:
       type: string
-      enum: ['primary','secondary','white','neutral']
+      enum: ['primary','secondary','white']
+      description: 'Couleur du spinner. Omission = état par défaut (gris moyen)'
       default: 'primary'
     text:
       type: string
@@ -124,7 +125,7 @@ props:
 
 - **Styles** : `circular`|`dots`|`bars`.
 - **Tailles** : `xs`|`sm`|`md`|`lg`|`xl`.
-- **Couleurs** : `primary`|`secondary`|`white`|`neutral`.
+- **Couleurs** : `primary`|`secondary`|`white`. Omission = état par défaut (gris moyen).
 - **Centré** : `centered` (centrage absolu ou flex).
 
 ---
@@ -135,7 +136,7 @@ props:
   - Primary : `--primary`
   - Secondary : `--secondary`
   - White : `--white`
-  - Neutral : `--gray-400`
+  - (Défaut/omission) : `--gray-500`
 - Tailles : xs `--size-4` (16px), sm `--size-6` (24px), md `--size-8` (32px), lg `--size-12` (48px), xl `--size-16` (64px)
 - Animations : durées `--duration-normal` ou `--duration-slow`; easing `--ease-3`; keyframes définies dans le composant
 
@@ -250,7 +251,8 @@ props:
   &--primary { color: var(--primary); }
   &--secondary { color: var(--secondary); }
   &--white { color: var(--white); }
-  &--neutral { color: var(--gray-500); } // Neutral = gris moyen
+  // NOTE: &--neutral deprecated - use default state (no class) instead
+  &--neutral { color: var(--gray-500); } // Rétrocompatibilité uniquement
 }
 
 // Animations

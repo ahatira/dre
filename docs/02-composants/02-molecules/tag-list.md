@@ -100,7 +100,8 @@ props:
             type: string
           variant:
             type: string
-            enum: ['primary','secondary','info','neutral','success','warning','danger']
+            enum: ['primary','secondary','info','success','warning','danger']
+            description: 'Couleur sémantique. Omission = état par défaut'
             default: 'primary'
           removable:
             type: boolean

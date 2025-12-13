@@ -31,7 +31,7 @@ Grand titre principal
   <span class="ps-eyebrow__text">Nouveauté</span>
 </span>
 
-<span class="ps-eyebrow ps-eyebrow--neutral ps-eyebrow--with-line">
+<span class="ps-eyebrow ps-eyebrow--with-line">
   <span class="ps-eyebrow__text">Étude de cas</span>
 </span>
 ```
@@ -48,7 +48,7 @@ Modificateurs :
   ps-eyebrow--primary                     // Couleur primaire (vert)
   ps-eyebrow--secondary                   // Couleur secondaire (gris)
   ps-eyebrow--info                        // Couleur info (bleu)
-  ps-eyebrow--neutral                     // Couleur neutre (gris clair)
+  (default - pas de classe)               // État par défaut (gris neutre)
   
   ps-eyebrow--uppercase                   // Texte en majuscules
   ps-eyebrow--bold                        // Gras
@@ -80,8 +80,8 @@ props:
       title: Texte
     variant:
       type: string
-      enum: ['primary','secondary','info','neutral']
-      default: 'neutral'
+      enum: ['primary','secondary','info']
+      description: 'Couleur sémantique. Omission = état par défaut (gris neutre)'
     size:
       type: string
       enum: ['small','medium']
@@ -113,7 +113,7 @@ props:
 
 ## 🎭 Variants
 
-- **Couleurs** : `primary`|`secondary`|`info`|`neutral`.
+- **Couleurs** : `primary`|`secondary`|`info`. Omission = état par défaut (gris neutre).
 - **Tailles** : `small`|`medium`.
 - **Styles** : `uppercase` (majuscules), `bold` (gras).
 - **Décorations** : `withLine` (ligne horizontale), `withDot` (point).
@@ -128,7 +128,7 @@ props:
   - Primary : `--primary`
   - Secondary : `--text-secondary`
   - Info : `--info`
-  - Neutral : `--gray-500` ou `--text-secondary`
+  - (Défaut/omission) : `--gray-500` ou `--text-secondary`
 - Ligne/points décoratifs : couleur `currentColor`, épaisseur `--border-size-1`, espacement `--size-2`
 - Espacements internes : `--size-1|2` pour le gap icône/texte/ornements
 
@@ -142,7 +142,7 @@ props:
  * Variables: voir API YAML
  #}
 
-{% set variant = variant|default('neutral') %}
+{% set variant = variant|default(null) %}
 {% set size = size|default('medium') %}
 {% set uppercase = uppercase ?? true %}
 {% set bold = bold|default(false) %}
@@ -273,7 +273,6 @@ props:
 {# With line #}
 {% include '@ps_theme/ps-eyebrow/ps-eyebrow.twig' with {
   text: 'Actualités',
-  variant: 'neutral',
   withLine: true,
   size: 'small'
 } %}

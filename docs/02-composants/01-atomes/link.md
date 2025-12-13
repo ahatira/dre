@@ -32,7 +32,7 @@ props:
   properties:
     text: { type: string, title: Texte }
     url: { type: string, format: uri }
-    variant: { type: string, enum: ['primary','secondary','neutral','inverse'], default: 'primary' }
+    variant: { type: string, enum: ['primary','secondary','default','inverse'], default: 'primary' }
     underline: { type: boolean, default: true }
     icon: { type: string }
     target: { type: string, enum: ['_self','_blank'], default: '_self' }
