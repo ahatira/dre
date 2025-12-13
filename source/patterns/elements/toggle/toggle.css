@@ -24,7 +24,7 @@
   --ps-toggle-transition-duration-fast: var(--animation-duration-1);
   --ps-toggle-transition-easing: var(--ease-standard);
 
-  &--disabled { cursor: not-allowed; opacity: .5; pointer-events: none; }
+  &--disabled { cursor: not-allowed; opacity: 0.5; pointer-events: none; }
 
   &__input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
@@ -92,20 +92,25 @@
     color: var(--white);
   }
   &__on-label { left: var(--size-2); opacity: 0; }
-  &__off-label { right: var(--size-2); opacity: .7; color: var(--gray-600); }
+  &__off-label { right: var(--size-2); opacity: 0.7; color: var(--gray-600); }
   &__input:checked + &__track &__on-label { opacity: 1; }
   &__input:checked + &__track &__off-label { opacity: 0; }
 
   &__input:focus-visible + &__track { outline: var(--border-size-2) solid var(--ps-toggle-focus-outline); outline-offset: var(--border-size-1); }
-  &:active:not(.ps-toggle--disabled) &__thumb { transform: scale(.95); }
+  &:active:not(.ps-toggle--disabled) &__thumb { transform: scale(0.95); }
 
+  /* ============================================
+     Reduced Motion Support
+     ============================================ */
   @media (prefers-reduced-motion: reduce) {
     &__thumb { transition: none; }
     &__track { transition: none; }
     &__on-label,&__off-label { transition: none; }
   }
 
-  /* Size modifiers (xs..xxl) override local variables */
+  /* ============================================
+     Size Modifiers
+     ============================================ */
   &--xs {
     --ps-toggle-track-width: var(--size-8);
     --ps-toggle-track-height: var(--size-4);
@@ -133,7 +138,9 @@
     --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
   }
 
-  /* Semantic color modifiers (override checked color) */
+  /* ============================================
+     Semantic Color Modifiers
+     ============================================ */
   &--primary { --ps-toggle-track-color-checked: var(--primary); }
   &--secondary { --ps-toggle-track-color-checked: var(--secondary); }
   &--success { --ps-toggle-track-color-checked: var(--success); }
