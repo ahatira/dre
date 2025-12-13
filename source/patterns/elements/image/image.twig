@@ -24,28 +24,30 @@
  */
 #}
 
-{% set fit = fit|default('none') %}
-{% set rounded = rounded|default('none') %}
-{% set loading = loading|default('lazy') %}
-{% set decoding = decoding|default('auto') %}
+{%- set fit = fit|default('none') -%}
+{%- set rounded = rounded|default('none') -%}
+{%- set loading = loading|default('lazy') -%}
+{%- set decoding = decoding|default('auto') -%}
 
 {# Build minimal class array - only add modifiers if different from default #}
-{% set classes = [
+{%- set classes = [
   'ps-image',
   fit != 'none' ? 'ps-image--fit-' ~ fit : null,
   rounded != 'none' ? 'ps-image--rounded-' ~ rounded : null,
-  class ? class : null,
-] %}
+] -%}
 
 <img
-  class="{{ classes|join(' ')|trim }}"
-  {{- attributes ? attributes|without('class') : '' -}}
+  {%- if attributes %}
+    {{- attributes.addClass(classes) -}}
+  {%- else %}
+    class="{{ classes|join(' ')|trim }}"
+  {%- endif %}
   src="{{ src }}"
   alt="{{ alt }}"
-  {% if width %}width="{{ width }}"{% endif %}
-  {% if height %}height="{{ height }}"{% endif %}
-  {% if srcset %}srcset="{{ srcset|join(', ') }}"{% endif %}
-  {% if sizes %}sizes="{{ sizes }}"{% endif %}
+  {%- if width %} width="{{ width }}"{% endif -%}
+  {%- if height %} height="{{ height }}"{% endif -%}
+  {%- if srcset %} srcset="{{ srcset|join(', ') }}"{% endif -%}
+  {%- if sizes %} sizes="{{ sizes }}"{% endif -%}
   loading="{{ loading }}"
   decoding="{{ decoding }}"
 />
