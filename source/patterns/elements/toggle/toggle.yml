@@ -1,6 +1,6 @@
-name: notifications
-label: Enable notifications
-description: Receive notifications by email
+name: property_alerts
+label: Recevoir les alertes de nouveaux biens
+description: Être notifié par email des nouvelles annonces correspondant à vos critères
 checked: false
 disabled: false
 size: md

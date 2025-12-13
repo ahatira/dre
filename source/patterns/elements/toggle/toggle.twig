@@ -48,21 +48,21 @@
       role="switch"
       aria-checked="{{ checked ? 'true' : 'false' }}"
       name="{{ name }}"
-      {% if checked %}checked{% endif %}
-      {% if disabled %}disabled{% endif %}
+      {%- if checked %} checked{% endif -%}
+      {%- if disabled %} disabled{% endif -%}
     />
     <span class="ps-toggle__track">
-      {% if showLabels %}
+      {%- if showLabels %}
         <span class="ps-toggle__on-label">{{ onLabel }}</span>
         <span class="ps-toggle__off-label">{{ offLabel }}</span>
-      {% endif %}
+      {%- endif %}
       <span class="ps-toggle__thumb"></span>
     </span>
-    {% if label %}
+    {%- if label %}
       <span>{{ label }}</span>
-    {% endif %}
+    {%- endif %}
   </div>
-  {% if description %}
+  {%- if description %}
     <span class="ps-toggle__description">{{ description }}</span>
-  {% endif %}
+  {%- endif %}
 </label>

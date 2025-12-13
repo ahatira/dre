@@ -211,15 +211,15 @@ export const UseCases = {
   render: () => `
     <div style="display:grid; gap:1.5rem; max-width:640px;">
       <div style="padding:1rem; border:1px solid var(--gray-200); border-radius:var(--radius-2); background:white;">
-        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Account Preferences</h4>
-        ${toggleTwig({ name: 'email_alerts', label: 'Email alerts', description: 'Receive summary notifications weekly', checked: true })}
-        ${toggleTwig({ name: 'sms_alerts', label: 'SMS alerts', description: 'Send important updates by SMS', checked: false })}
-        ${toggleTwig({ name: 'beta_features', label: 'Beta features', description: 'Access experimental interface changes', checked: true, showLabels: true })}
+        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Alertes immobilières</h4>
+        ${toggleTwig({ name: 'email_alerts', label: 'Alertes email', description: 'Recevoir les nouvelles annonces par email', checked: true })}
+        ${toggleTwig({ name: 'sms_alerts', label: 'Alertes SMS', description: 'Notifications instantanées des biens correspondants', checked: false })}
+        ${toggleTwig({ name: 'price_drop', label: 'Baisses de prix', description: 'Alertes de réductions sur les biens suivis', checked: true, showLabels: true })}
       </div>
       <div style="padding:1rem; border:1px solid var(--gray-200); border-radius:var(--radius-2); background:white;">
-        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Display Settings</h4>
-        ${toggleTwig({ name: 'dark_mode', label: 'Dark mode', description: 'Reduce eye strain in low-light', checked: false, size: 'large' })}
-        ${toggleTwig({ name: 'dense_layout', label: 'Compact layout', description: 'Show more data on screen', checked: true, size: 'small' })}
+        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Préférences de recherche</h4>
+        ${toggleTwig({ name: 'map_view', label: 'Vue cartographique', description: 'Afficher les biens sur une carte interactive', checked: false, size: 'large' })}
+        ${toggleTwig({ name: 'virtual_tours', label: 'Visites virtuelles', description: 'Inclure uniquement les biens avec visite 3D', checked: true, size: 'small' })}
       </div>
     </div>
   `,
@@ -227,7 +227,7 @@ export const UseCases = {
     docs: {
       description: {
         story:
-          'Real usage: grouped preference panels combining states, sizes, and internal labels.',
+          'Usage réel : panneaux de préférences groupées combinant états, tailles et labels internes dans un contexte immobilier.',
       },
     },
   },

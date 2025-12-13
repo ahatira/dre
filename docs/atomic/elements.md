@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 25 composants  
-**Implémentés** : 17/25
+**Implémentés** : 18/25
 
 ---
 
@@ -69,7 +69,7 @@ Implémenté : ✅
 
 **Toggle** - Interrupteur switch  
 Usage : Basculement achat/location dans hero  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
