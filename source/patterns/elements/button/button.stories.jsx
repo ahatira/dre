@@ -48,23 +48,11 @@ export default {
       description:
         'Semantic variant (neutral: gray default, primary: green, secondary: pink, success/info/warning/danger)',
       control: { type: 'select' },
-      options: [
-        'neutral',
-        'primary',
-        'secondary',
-        'success',
-        'info',
-        'warning',
-        'danger',
-        'gold',
-        'dark',
-        'light',
-      ],
+      options: ['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'gold'],
       table: {
         category: 'Appearance',
         type: {
-          summary:
-            'neutral | primary | secondary | gold | success | info | warning | danger | dark | light',
+          summary: 'neutral | primary | secondary | gold | success | info | warning | danger',
         },
         defaultValue: { summary: 'neutral' },
       },
@@ -180,18 +168,7 @@ export const Variants = {
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Solid</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${[
-            'neutral',
-            'primary',
-            'secondary',
-            'gold',
-            'success',
-            'info',
-            'warning',
-            'danger',
-            'dark',
-            'light',
-          ]
+          ${['neutral', 'primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
             .map((variant) =>
               buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })
             )
@@ -201,18 +178,7 @@ export const Variants = {
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Outline</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${[
-            'neutral',
-            'primary',
-            'secondary',
-            'gold',
-            'success',
-            'info',
-            'warning',
-            'danger',
-            'dark',
-            'light',
-          ]
+          ${['neutral', 'primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
             .map((variant) =>
               buttonTwig({
                 label: variant.charAt(0).toUpperCase() + variant.slice(1),
