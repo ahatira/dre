@@ -67,14 +67,13 @@ export default {
       },
     },
     size: {
-      description:
-        'Button size scale (xs: 28px, sm: 32px, md: 36px, lg: 40px, xl: 44px, xxl: 48px)',
+      description: 'Button size: small (32px), medium (36px, default/omit), large (40px)',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      options: [null, 'small', 'large'],
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl | xxl' },
-        defaultValue: { summary: 'md' },
+        type: { summary: 'small | large' },
+        defaultValue: { summary: 'null (medium)' },
       },
     },
     fullWidth: {
@@ -209,16 +208,16 @@ export const Sizes = {
   name: 'Sizes',
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: flex-end; flex-wrap: wrap;">
-      ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
-        .map((size) => buttonTwig({ label: size.toUpperCase(), variant: 'primary', size }))
-        .join('')}
+      ${buttonTwig({ label: 'Small', variant: 'primary', size: 'small' })}
+      ${buttonTwig({ label: 'Medium', variant: 'primary', size: null })}
+      ${buttonTwig({ label: 'Large', variant: 'primary', size: 'large' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Six size scales: xs (28px), sm (32px), md (36px, default), lg (40px), xl (44px), xxl (48px).',
+          'Three size scales: small (32px), medium (36px, default), large (40px). Medium achieved by omitting size prop (null).',
       },
     },
   },
