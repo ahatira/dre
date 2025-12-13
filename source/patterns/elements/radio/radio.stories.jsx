@@ -107,38 +107,3 @@ export const States = {
     `;
   },
 };
-
-/**
- * In Context
- * Real Estate: Budget selection in a form fieldset
- */
-export const InContext = {
-  render: () => {
-    const budgetRanges = [
-      { value: 'low', label: 'Moins de 200 000 €', checked: false },
-      { value: 'medium', label: '200 000 € - 400 000 €', checked: true },
-      { value: 'high', label: 'Plus de 400 000 €', checked: false },
-    ];
-
-    return `
-      <fieldset style="border: 1px solid var(--gray-300); padding: var(--size-4); border-radius: var(--radius-2);">
-        <legend style="padding: 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600); color: var(--gray-900);">
-          Votre budget
-        </legend>
-        <div style="display: flex; flex-direction: column; gap: var(--size-3); margin-top: var(--size-3);">
-          ${budgetRanges
-            .map((range) =>
-              radioTwig({
-                name: 'budget_range',
-                value: range.value,
-                id: `budget-${range.value}`,
-                label: range.label,
-                checked: range.checked,
-              })
-            )
-            .join('')}
-        </div>
-      </fieldset>
-    `;
-  },
-};
