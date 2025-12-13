@@ -10,18 +10,20 @@
 .ps-eyebrow {
   /* Base styles */
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: var(--size-2);
-  padding: var(--size-1) var(--size-3);
+  padding: var(--size-2) var(--size-3);
   font-family: var(--font-condensed);
-  font-size: var(--font-size-0);
-  font-weight: var(--font-weight-600);
-  line-height: 1.2;
-  letter-spacing: var(--tracking-wide);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-400);
+  line-height: 1.33;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--gray-600);
   background: var(--gray-100);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
 
   /* Pill modifier */
   &--pill {
@@ -33,7 +35,7 @@
   
   &--primary {
     color: var(--white);
-    background: var(--info);
+    background: #4986E7;
   }
 
   &--secondary {
