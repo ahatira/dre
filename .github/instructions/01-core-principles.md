@@ -298,6 +298,92 @@ transition: var(--duration-fast) var(--ease-3);
 }
 ```
 
+### HTML Structure Simplification
+
+**CRITICAL RULE**: Use the **simplest possible HTML structure** for all components.
+
+**Principle**: Single element with data attributes (PREFERRED) over nested child wrappers.
+
+#### ✅ CORRECT - Single Element Pattern
+
+```html
+<!-- Basic component - single element -->
+<span class="ps-badge ps-badge--primary">Verified</span>
+
+<!-- With icon at start (default position) -->
+<span class="ps-badge ps-badge--success" data-icon="check">Verified</span>
+
+<!-- With icon at end -->
+<a class="ps-badge ps-badge--info" data-icon="arrow-right" data-icon-position="end" href="#">Learn more</a>
+
+<!-- Interactive with href (no separate clickable prop needed) -->
+<a class="ps-badge" href="/category">Category</a>
+```
+
+#### ❌ INCORRECT - Unnecessary Child Wrappers
+
+```html
+<!-- ❌ WRONG - Nested child elements -->
+<span class="ps-badge ps-badge--primary">
+  <span class="ps-badge__icon" data-icon="check"></span>
+  <span class="ps-badge__text">Verified</span>
+</span>
+
+<!-- ❌ WRONG - Separate clickable prop when href exists -->
+{% include '@elements/badge/badge.twig' with {
+  text: 'Category',
+  clickable: true,  /* Redundant! href already makes it clickable */
+  href: '/category'
+} %}
+```
+
+#### Icon System Standardization
+
+**Use data attributes on main container** (handled by global `icons.css`):
+
+| Attribute | Values | Default | Purpose |
+|-----------|--------|---------|---------|
+| `data-icon` | Icon name (without `icon-` prefix) | - | Renders icon via CSS `::before` or `::after` |
+| `data-icon-position` | `'start'` \| `'end'` | `'start'` | Icon placement relative to text |
+
+**Implementation**:
+```twig
+{# Icon at start (default) - omit data-icon-position #}
+<{{ tag }} data-icon="{{ icon }}">{{ text }}</{{ tag }}>
+
+{# Icon at end - specify position #}
+<{{ tag }} data-icon="{{ icon }}" data-icon-position="end">{{ text }}</{{ tag }}>
+```
+
+**CSS Rendering** (automatic via `source/props/icons.css`):
+```css
+/* Icons at start (default) */
+[data-icon]::before {
+  content: '';
+  background-image: url('/icons/icons-sprite.svg#icon-' attr(data-icon));
+  /* ...sizing... */
+}
+
+/* Icons at end */
+[data-icon][data-icon-position="end"]::after {
+  content: '';
+  background-image: url('/icons/icons-sprite.svg#icon-' attr(data-icon));
+  /* ...sizing... */
+}
+```
+
+**Benefits**:
+- ✅ Minimal DOM (1 element vs 3+)
+- ✅ Centralized icon rendering system
+- ✅ Consistent pattern across all components
+- ✅ Flexible positioning (start/end)
+- ✅ No child wrappers needed for icons
+
+**Exceptions** (child elements ONLY when necessary):
+- Complex interactive patterns (e.g., form controls with multiple focusable elements)
+- Layout containers requiring specific DOM structure (e.g., grid/flex wrappers)
+- Components with multiple semantic sections (e.g., card with header/body/footer)
+
 ---
 
 ## 🎯 Semantic Naming
