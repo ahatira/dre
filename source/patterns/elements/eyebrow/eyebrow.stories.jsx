@@ -88,7 +88,7 @@ export const Default = {
  */
 export const WithColor = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
       ${eyebrowTwig({ label: 'Actualité marché', variant: 'primary' })}
       ${eyebrowTwig({ label: 'Article blog', variant: 'secondary' })}
       ${eyebrowTwig({ label: 'Bien disponible', variant: 'success' })}
@@ -107,11 +107,22 @@ export const WithColor = {
  */
 export const WithPill = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      ${eyebrowTwig({ label: 'Standard', variant: 'primary', pill: false })}
-      ${eyebrowTwig({ label: 'Pill shape', variant: 'primary', pill: true })}
-      ${eyebrowTwig({ label: 'Premium offer', variant: 'gold', pill: true })}
-      ${eyebrowTwig({ label: 'New listing', variant: 'success', pill: true })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Standard shape</small>
+        ${eyebrowTwig({ label: 'Standard', variant: 'primary', pill: false })}
+      </div>
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Pill shape (rounded)</small>
+        ${eyebrowTwig({ label: 'Pill shape', variant: 'primary', pill: true })}
+      </div>
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">More examples</small>
+        <div style="display: flex; gap: var(--size-2); flex-wrap: wrap;">
+          ${eyebrowTwig({ label: 'Premium offer', variant: 'gold', pill: true })}
+          ${eyebrowTwig({ label: 'New listing', variant: 'success', pill: true })}
+        </div>
+      </div>
     </div>
   `,
 };
@@ -121,11 +132,22 @@ export const WithPill = {
  */
 export const WithIcon = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      ${eyebrowTwig({ label: 'Confirmé', variant: 'success', icon: 'check' })}
-      ${eyebrowTwig({ label: 'Informations', variant: 'info', icon: 'info' })}
-      ${eyebrowTwig({ label: 'Avec icône fin', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
-      ${eyebrowTwig({ label: 'Premium', variant: 'gold', icon: 'award', pill: true })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon at start (default)</small>
+        <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+          ${eyebrowTwig({ label: 'Confirmé', variant: 'success', icon: 'check' })}
+          ${eyebrowTwig({ label: 'Informations', variant: 'info', icon: 'info' })}
+        </div>
+      </div>
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon at end</small>
+        ${eyebrowTwig({ label: 'Avec icône fin', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
+      </div>
+      <div>
+        <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon + Pill combination</small>
+        ${eyebrowTwig({ label: 'Premium', variant: 'gold', icon: 'award', pill: true })}
+      </div>
     </div>
   `,
 };
@@ -135,31 +157,44 @@ export const WithIcon = {
  */
 export const RealEstateContext = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-6); padding: var(--size-6);">
+    <div style="display: flex; flex-direction: column; gap: var(--size-8); padding: var(--size-4);">
       
-      <!-- Hero Section -->
-      <div style="background: var(--gray-50); padding: var(--size-8); border-radius: var(--radius-3);">
-        ${eyebrowTwig({ label: 'Investisseurs', variant: 'primary' })}
-        <h1 style="margin-top: var(--size-3); margin-bottom: 0; font-size: var(--font-size-8);">Portefeuille immobilier premium</h1>
-      </div>
-
-      <!-- Featured Property Card -->
-      <div style="border: 1px solid var(--gray-200); border-radius: var(--radius-3); padding: var(--size-6); max-width: 420px;">
-        ${eyebrowTwig({ label: 'Bien phare', variant: 'gold', icon: 'award', pill: true })}
-        <h3 style="margin: var(--size-3) 0 var(--size-2) 0; font-size: var(--font-size-5);">Tour Premium - La Défense</h3>
-        <p style="margin: 0; color: var(--text-secondary); font-size: var(--font-size-2);">3 500 m² - Bureau de prestige avec vue panoramique</p>
-      </div>
-
-      <!-- Market News -->
-      <div style="border: 1px solid var(--gray-200); border-radius: var(--radius-3); padding: var(--size-6); max-width: 420px;">
-        ${eyebrowTwig({ label: 'Actualité marché', variant: 'primary' })}
-        <h3 style="margin: var(--size-3) 0 var(--size-2) 0; font-size: var(--font-size-4);">Tendances Q4 2025</h3>
-        <p style="margin: 0; color: var(--text-secondary);">Analyse du secteur tertiaire en Île-de-France</p>
-      </div>
-
-      <!-- Category Tags -->
+      <!-- News Card Example -->
       <div>
-        <h4 style="margin-bottom: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary);">Catégories de biens</h4>
+        <h4 style="margin-bottom: var(--size-4); font-size: var(--font-size-2); color: var(--gray-700); font-weight: 600;">News Card Example</h4>
+        <div style="border: 1px solid var(--gray-200); border-radius: var(--radius-3); padding: var(--size-6); max-width: 420px; background: white;">
+          <div style="display: flex; gap: var(--size-2); margin-bottom: var(--size-4);">
+            ${eyebrowTwig({ label: 'Investisseurs', variant: 'primary' })}
+            ${eyebrowTwig({ label: 'Date', variant: '' })}
+          </div>
+          <h3 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-5); font-weight: 600;">Portefeuille immobilier premium</h3>
+          <p style="margin: 0; color: var(--gray-600); font-size: var(--font-size-2); line-height: 1.5;">Découvrez notre sélection de biens d'exception pour les investisseurs professionnels.</p>
+        </div>
+      </div>
+
+      <!-- Property Card Example -->
+      <div>
+        <h4 style="margin-bottom: var(--size-4); font-size: var(--font-size-2); color: var(--gray-700); font-weight: 600;">Property Card Example</h4>
+        <div style="border: 1px solid var(--gray-200); border-radius: var(--radius-3); padding: var(--size-6); max-width: 420px; background: white;">
+          ${eyebrowTwig({ label: 'Bien phare', variant: 'gold', pill: true })}
+          <h3 style="margin: var(--size-3) 0 var(--size-2) 0; font-size: var(--font-size-5); font-weight: 600;">Tour Premium - La Défense</h3>
+          <p style="margin: 0; color: var(--gray-600); font-size: var(--font-size-2);">3 500 m² - Bureau de prestige avec vue panoramique</p>
+        </div>
+      </div>
+
+      <!-- Market Analysis Example -->
+      <div>
+        <h4 style="margin-bottom: var(--size-4); font-size: var(--font-size-2); color: var(--gray-700); font-weight: 600;">Market Analysis Example</h4>
+        <div style="border: 1px solid var(--gray-200); border-radius: var(--radius-3); padding: var(--size-6); max-width: 420px; background: white;">
+          ${eyebrowTwig({ label: 'Actualité marché', variant: 'primary' })}
+          <h3 style="margin: var(--size-3) 0 var(--size-2) 0; font-size: var(--font-size-4); font-weight: 600;">Tendances Q4 2025</h3>
+          <p style="margin: 0; color: var(--gray-600); font-size: var(--font-size-2);">Analyse du secteur tertiaire en Île-de-France</p>
+        </div>
+      </div>
+
+      <!-- Category Tags Example -->
+      <div>
+        <h4 style="margin-bottom: var(--size-3); font-size: var(--font-size-2); color: var(--gray-700); font-weight: 600;">Catégories de biens</h4>
         <div style="display: flex; gap: var(--size-2); flex-wrap: wrap;">
           ${eyebrowTwig({ label: 'Bureau', variant: '' })}
           ${eyebrowTwig({ label: 'Retail', variant: '' })}
