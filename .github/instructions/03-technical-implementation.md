@@ -266,7 +266,146 @@ font-size: var(--font-size-3);
 }
 ```
 
-### 1.6 Performance Best Practices
+### 1.6 Responsive Design (MANDATORY)
+
+**Mobile-first approach** with PostCSS custom media queries.
+
+#### Breakpoints Reference
+
+Available breakpoints from `source/props/media.css`:
+
+| Breakpoint | Min Width | Usage |
+|------------|-----------|-------|
+| `--mobile-sm` | 400px | Small mobile adjustments |
+| `--mobile` | 640px | Large mobile / Small tablet |
+| `--tablet` | 768px | Tablet portrait |
+| `--laptop` | 1024px | Laptop / Small desktop |
+| `--desktop` | 1280px | Desktop |
+| `--desktop-large` | 1440px | Large desktop |
+
+#### Standard Pattern (REQUIRED)
+
+**ALL components MUST include ALL breakpoints**, even if empty (as comments):
+
+```css
+.ps-component {
+  /* Base styles = mobile-first (no media query) */
+  --ps-component-padding: var(--size-2);
+  --ps-component-gap: var(--size-2);
+  
+  padding: var(--ps-component-padding);
+  gap: var(--ps-component-gap);
+  
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* Component-specific adjustments if needed */
+  }
+  
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    --ps-component-padding: var(--size-3);
+  }
+  
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    --ps-component-padding: var(--size-4);
+    --ps-component-gap: var(--size-3);
+  }
+  
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* Desktop-specific adjustments if needed */
+  }
+  
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    --ps-component-padding: var(--size-6);
+  }
+  
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    --ps-component-padding: var(--size-8);
+  }
+}
+```
+
+#### Container Pattern (Reference Example)
+
+Standard container with responsive padding:
+
+```css
+.container {
+  margin-inline: auto;
+  max-inline-size: var(--size-max-content-width); /* 1376px */
+  padding-inline: var(--size-4);
+
+  @media (--desktop) {
+    padding-inline: var(--size-8);
+  }
+
+  @media (--desktop-large) { /* 1440px */
+    padding-inline: 0;
+  }
+}
+```
+
+#### Rules
+
+1. **Mobile-first** = Base styles without media query (smallest screens)
+2. **Override component variables** = Change CSS custom properties, not direct values
+3. **All breakpoints present** = Include empty blocks with comments for future adjustments
+4. **PostCSS syntax** = Use `@media (--breakpoint-name)`, not `@media (min-width: ...)`
+5. **Logical properties** = Use `inline`/`block` axis (`padding-inline`, `margin-block`)
+
+#### Examples
+
+**Simple responsive padding**:
+```css
+.ps-card {
+  --ps-card-padding: var(--size-4);
+  padding: var(--ps-card-padding);
+  
+  @media (--tablet) {
+    --ps-card-padding: var(--size-6);
+  }
+  
+  @media (--desktop) {
+    --ps-card-padding: var(--size-8);
+  }
+}
+```
+
+**Layout changes**:
+```css
+.ps-navigation {
+  flex-direction: column;
+  
+  @media (--tablet) {
+    flex-direction: row;
+  }
+}
+```
+
+**Visibility toggles**:
+```css
+.ps-mobile-menu {
+  display: flex;
+  
+  @media (--tablet) {
+    display: none; /* Hide on tablet+ */
+  }
+}
+
+.ps-desktop-menu {
+  display: none;
+  
+  @media (--tablet) {
+    display: flex; /* Show on tablet+ */
+  }
+}
+```
+
+### 1.7 Performance Best Practices
 
 **Animate transform/opacity only** (GPU-accelerated):
 
