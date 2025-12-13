@@ -269,3 +269,136 @@ export const InContext = {
     `;
   },
 };
+
+/**
+ * Real Estate context examples
+ */
+export const RealEstateContext = {
+  render: () => {
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-10);">
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Contact Form - Property Inquiry (4 rows)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'property_inquiry',
+              placeholder:
+                'Décrivez le bien recherché (type, localisation, surface, budget, critères...).',
+              rows: 4,
+              id: 'inquiry-property',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">
+              Usage: Formulaire de contact - description du besoin client
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Valuation Request - Property Description (6 rows)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'property_description',
+              placeholder:
+                'Décrivez votre bien (type, surface, nombre de pièces, état, travaux récents, équipements...).',
+              rows: 6,
+              id: 'valuation-description',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">
+              Usage: Demande d'estimation - description détaillée du bien
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Visit Report - Agent Notes (8 rows, with content)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'visit_notes',
+              value:
+                "Client très intéressé par l'appartement. Points positifs : luminosité, balcon, proximité transports. Réserves : bruit rue passante, cuisine à refaire. Budget confirmé 380K€. Souhaite revoir avec conjoint samedi. À rappeler jeudi.",
+              rows: 8,
+              id: 'visit-notes',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">
+              Usage: CRM agent - notes de visite client
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Offer Negotiation - Comments (success state)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'negotiation_comments',
+              value:
+                'Offre acceptée à 365K€ (négociation -15K€). Conditions suspensives : financement (45j) + diagnostics. Signature compromis prévue 15/01. Vendeur libère bien fin février.',
+              state: 'success',
+              rows: 5,
+              id: 'negotiation-comments',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--success);">
+              ✓ Négociation finalisée avec succès
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Property Listing - Description (error state)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'listing_description',
+              value: 'Bel appart.',
+              state: 'error',
+              rows: 4,
+              id: 'listing-description',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--danger);">
+              ✗ Description trop courte (minimum 50 caractères requis)
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Internal Note - Collaborative (warning state)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'internal_note',
+              value: 'Vérifier zonage PLU avant promesse - parcelle en limite zone constructible.',
+              state: 'warning',
+              rows: 3,
+              id: 'internal-note',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--warning);">
+              ⚠ Note importante nécessitant vérification juridique
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Archived Message (disabled)</h4>
+          <div style="max-width: 600px;">
+            ${textareaTwig({
+              name: 'archived_message',
+              value:
+                'Demande initiale client du 12/03/2024 : Recherche T3 Lille centre, budget 250K€, livraison Q4 2024.',
+              disabled: true,
+              rows: 3,
+              id: 'archived-message',
+            })}
+            <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">
+              Usage: Historique archivé - consultation seule
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Common textarea usage patterns in real estate: property inquiry (4 rows), valuation request (6 rows), visit report (8 rows with content), offer negotiation (success state), listing description (error state), internal notes (warning state), and archived messages (disabled).',
+      },
+    },
+  },
+};

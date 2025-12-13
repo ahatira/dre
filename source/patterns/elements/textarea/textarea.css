@@ -1,6 +1,7 @@
 /**
  * Textarea (Element/Atom)
- * Native textarea without label. Drupal-friendly attributes.
+ * Native textarea field without label, icon, or helper text.
+ * Drupal-friendly attributes support.
  *
  * BEM: ps-textarea
  * Modifiers: --disabled, --error, --success, --warning
@@ -10,6 +11,8 @@
  * - Layer 1: Global tokens (colors, sizes, fonts from source/props/)
  * - Layer 2: Component-scoped defaults (--ps-textarea-*)
  * - Layer 3: Context overrides (modifiers, pseudo-classes)
+ * 
+ * @see docs/design/atoms/textarea.md
  */
 
 .ps-textarea {

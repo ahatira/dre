@@ -1,17 +1,27 @@
 {#
- * Textarea (Atom)
- * Native <textarea> without label. Drupal-friendly attributes; external label handled upstream.
- *
- * @param string name - Name attribute (optional, default: 'message')
- * @param string id - ID attribute (optional, defaults to name-based)
- * @param string value - Initial content (optional, default: '')
- * @param string placeholder - Placeholder text (optional, default: '')
- * @param boolean disabled - Disabled state (default: false)
- * @param boolean required - Required state (default: false)
- * @param number rows - Rows attribute (default: 4)
- * @param string state - Validation state (optional: error|success|warning|null)
- * @param object attributes - Drupal attributes for the <textarea>
- #}
+/**
+ * @file
+ * Textarea component (Atom)
+ * 
+ * Native textarea field without label, icon, or helper text.
+ * This is an ATOM component - for complete form textareas with labels and validation,
+ * use the Form-field (Molecule) component instead.
+ * 
+ * Available variables:
+ * - name: (string) Name attribute (optional, default: message)
+ * - id: (string) ID attribute (optional, defaults to name-based)
+ * - value: (string) Initial content (optional, default: empty)
+ * - placeholder: (string) Placeholder text (optional)
+ * - disabled: (boolean) Disabled state (default: false)
+ * - required: (boolean) Required state (default: false)
+ * - rows: (number) Rows attribute (default: 4)
+ * - state: (string) Validation state: null | error | success | warning (optional)
+ * - attributes: (Drupal\Core\Template\Attribute) Additional HTML attributes
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+ * @see https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html
+ */
+#}
 
 {%- set name = name|default('message') -%}
 {%- set id = id|default(name ? name ~ '-textarea' : 'ps-textarea') -%}
@@ -21,7 +31,6 @@
 {%- set required = required|default(false) -%}
 {%- set rows = rows|default(4) -%}
 {%- set state = state|default(null) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-textarea',
@@ -30,13 +39,21 @@
 ] -%}
 
 <textarea
-  {{ attributes
-    .addClass(classes)
-    .setAttribute('id', id)
-    .setAttribute('name', name)
-    .setAttribute('placeholder', placeholder)
-    .setAttribute('rows', rows)
-  }}
+  {%- if attributes %}
+    {{- attributes
+      .addClass(classes)
+      .setAttribute('id', id)
+      .setAttribute('name', name)
+      .setAttribute('placeholder', placeholder)
+      .setAttribute('rows', rows)
+    -}}
+  {%- else %}
+    id="{{ id }}"
+    name="{{ name }}"
+    placeholder="{{ placeholder }}"
+    rows="{{ rows }}"
+    class="{{ classes|join(' ')|trim }}"
+  {%- endif -%}
   {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   {%- if required %} required aria-required="true"{% endif -%}
   {%- if state == 'error' %} aria-invalid="true"{% endif -%}
