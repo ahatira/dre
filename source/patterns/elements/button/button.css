@@ -212,26 +212,6 @@
   --ps-button-active-bg: color-mix(in srgb, var(--secondary) 16%, transparent);
 }
 
-/* NEUTRAL (Gray - Default) */
-/* Note: "neutral" uses component-level gray tokens, not global --neutral semantic token */
-.ps-button--neutral {
-  --ps-button-bg: var(--gray-500);
-  --ps-button-color: var(--white);
-  --ps-button-hover-bg: var(--gray-600);
-  --ps-button-active-bg: var(--gray-700);
-}
-
-.ps-button--neutral.ps-button--outline {
-  --ps-button-bg: transparent;
-  --ps-button-border-width: var(--border-size-2);
-  --ps-button-border-color: var(--gray-500);
-  --ps-button-color: var(--gray-500);
-  --ps-button-hover-bg: color-mix(in srgb, var(--gray-500) 8%, transparent);
-  --ps-button-hover-border-color: var(--gray-600);
-  --ps-button-hover-color: var(--gray-600);
-  --ps-button-active-bg: color-mix(in srgb, var(--gray-500) 16%, transparent);
-}
-
 /* SUCCESS (Green - Positive) */
 .ps-button--success {
   --ps-button-bg: var(--success);
@@ -328,7 +308,7 @@
 }
 
 /* Default outline (when no variant specified) */
-.ps-button--outline:not(.ps-button--primary, .ps-button--secondary, .ps-button--neutral, .ps-button--success, .ps-button--info, .ps-button--warning, .ps-button--danger, .ps-button--gold) {
+.ps-button--outline:not(.ps-button--primary, .ps-button--secondary, .ps-button--success, .ps-button--info, .ps-button--warning, .ps-button--danger, .ps-button--gold) {
   --ps-button-bg: transparent;
   --ps-button-border-width: var(--border-size-2);
   --ps-button-border-color: var(--gray-500);
@@ -560,10 +540,6 @@
   --ps-button-toggle-active-color: var(--secondary);
 }
 
-.ps-button--neutral[data-ps-toggle='button'] {
-  --ps-button-toggle-active-color: var(--gray-600);
-}
-
 .ps-button--success[data-ps-toggle='button'] {
   --ps-button-toggle-active-color: var(--success);
 }
@@ -634,20 +610,6 @@
     --ps-button-bg: var(--secondary);
     --ps-button-hover-bg: var(--secondary-hover);
     --ps-button-color: var(--secondary-text);
-  }
-}
-
-.ps-button--neutral:not(.ps-button--icon-only)[data-ps-toggle='button'] {
-  &:not(.active) {
-    --ps-button-bg: var(--gray-200);
-    --ps-button-hover-bg: var(--gray-300);
-    --ps-button-color: var(--gray-700);
-  }
-
-  &.active {
-    --ps-button-bg: var(--gray-600);
-    --ps-button-hover-bg: var(--gray-700);
-    --ps-button-color: var(--white);
   }
 }
 

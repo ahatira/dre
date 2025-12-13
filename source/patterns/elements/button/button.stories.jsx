@@ -46,15 +46,15 @@ export default {
     // Appearance
     variant: {
       description:
-        'Semantic variant (neutral: gray default, primary: green, secondary: pink, success/info/warning/danger)',
+        'Semantic variant: primary (green), secondary (pink), gold, success/info/warning/danger. Omit for neutral (gray default)',
       control: { type: 'select' },
-      options: ['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'gold'],
+      options: [null, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'gold'],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'neutral | primary | secondary | gold | success | info | warning | danger',
+          summary: 'primary | secondary | gold | success | info | warning | danger',
         },
-        defaultValue: { summary: 'neutral' },
+        defaultValue: { summary: 'null (neutral/gray)' },
       },
     },
     outline: {
@@ -167,7 +167,8 @@ export const Variants = {
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Solid</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${['neutral', 'primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
+          ${buttonTwig({ label: 'Neutral', variant: null })}
+          ${['primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
             .map((variant) =>
               buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })
             )
@@ -177,7 +178,8 @@ export const Variants = {
       <div>
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Outline</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${['neutral', 'primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
+          ${buttonTwig({ label: 'Neutral', variant: null, outline: true })}
+          ${['primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
             .map((variant) =>
               buttonTwig({
                 label: variant.charAt(0).toUpperCase() + variant.slice(1),
@@ -367,7 +369,7 @@ export const UseCases = {
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Property Search</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${buttonTwig({ label: 'Search Properties', variant: 'primary', icon: 'search', size: 'lg' })}
-          ${buttonTwig({ label: 'Advanced Filters', variant: 'neutral', icon: 'filter', outline: true })}
+          ${buttonTwig({ label: 'Advanced Filters', variant: null, icon: 'filter', outline: true })}
           ${buttonTwig({ icon: 'map-marker', variant: 'secondary', outline: true, label: 'Location' })}
         </div>
       </div>
@@ -378,8 +380,8 @@ export const UseCases = {
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${buttonTwig({ label: 'View Details', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
           ${buttonTwig({ label: 'Contact Agent', variant: 'secondary', icon: 'envelope' })}
-          ${buttonTwig({ icon: 'heart', variant: 'neutral', outline: true, toggle: true, label: 'Save to favorites' })}
-          ${buttonTwig({ icon: 'share', variant: 'neutral', outline: true, label: 'Share property' })}
+          ${buttonTwig({ icon: 'heart', variant: null, outline: true, toggle: true, label: 'Save to favorites' })}
+          ${buttonTwig({ icon: 'share', variant: null, outline: true, label: 'Share property' })}
         </div>
       </div>
 
@@ -388,7 +390,7 @@ export const UseCases = {
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Contact Form</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${buttonTwig({ label: 'Send Message', variant: 'primary', icon: 'send', iconPosition: 'end', size: 'lg' })}
-          ${buttonTwig({ label: 'Cancel', variant: 'neutral', outline: true })}
+          ${buttonTwig({ label: 'Cancel', variant: null, outline: true })}
         </div>
       </div>
 
