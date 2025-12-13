@@ -39,7 +39,48 @@
 .text-link      { color: var(--primary); }
 
 /* =================================================================
-   2. TEXT TRANSFORM & ALIGNMENT UTILITIES
+   2. FONT WEIGHTS
+   Using weight tokens from source/props/fonts.css
+   ================================================================= */
+
+.font-thin {
+  font-weight: var(--font-weight-100);
+}
+
+.font-extralight {
+  font-weight: var(--font-weight-200);
+}
+
+.font-light {
+  font-weight: var(--font-weight-300);
+}
+
+.font-regular {
+  font-weight: var(--font-weight-400);
+}
+
+.font-medium {
+  font-weight: var(--font-weight-500);
+}
+
+.font-semibold {
+  font-weight: var(--font-weight-600);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-700);
+}
+
+.font-extrabold {
+  font-weight: var(--font-weight-800);
+}
+
+.font-black {
+  font-weight: var(--font-weight-900);
+}
+
+/* =================================================================
+   3. TEXT TRANSFORM & ALIGNMENT UTILITIES
    ================================================================= */
 
 /* Text transform */
@@ -55,7 +96,7 @@
 .text-justify   { text-align: justify; }
 
 /* =================================================================
-   3. HEADING UTILITIES
+   4. HEADING UTILITIES
    ================================================================= */
 /* Native heading elements with responsive sizing (mobile first, scales up on desktop) */
 /* Font Family: BNPP Sans, Weight: Regular (400), responsive line heights */
@@ -126,7 +167,7 @@ h6,
 }
 
 /* =================================================================
-   4. DISPLAY CLASSES
+   5. DISPLAY CLASSES
    ================================================================= */
 /* Large, lighter weight typography for prominent text */
 
@@ -167,7 +208,7 @@ h6,
 }
 
 /* =================================================================
-   5. BODY / PARAGRAPH UTILITIES
+   6. BODY / PARAGRAPH UTILITIES
    ================================================================= */
 
 /* Lead paragraph - emphasis on introductory text */
@@ -205,7 +246,7 @@ h6,
 }
 
 /* =================================================================
-   6. SEMANTIC ELEMENT STYLING
+   7. SEMANTIC ELEMENT STYLING
    ================================================================= */
 
 /* Abbreviations */

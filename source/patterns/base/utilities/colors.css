@@ -1,0 +1,122 @@
+/**
+ * @file
+ * Text color utility classes.
+ *
+ * Semantic color utilities for text using design tokens from source/props/brand.css
+ * These utilities apply brand and semantic colors to text content.
+ *
+ * Organization:
+ * 1. Semantic brand colors (primary, secondary, etc.)
+ * 2. Grayscale colors
+ * 3. Contextual text colors
+ */
+
+/* =================================================================
+   1. SEMANTIC BRAND & STATUS COLORS
+   Use these for colored text (headings, labels, emphasis)
+   ================================================================= */
+
+/* Brand colors */
+.text-primary {
+  color: var(--primary); /* Green #00915A */
+}
+
+.text-secondary {
+  color: var(--secondary); /* Pink #A12B66 */
+}
+
+/* Status colors */
+.text-success {
+  color: var(--success); /* Teal #198754 */
+}
+
+.text-danger {
+  color: var(--danger); /* Red #EB3636 */
+}
+
+.text-warning {
+  color: var(--warning); /* Yellow #FBBF24 */
+}
+
+.text-info {
+  color: var(--info); /* Blue #2563EB */
+}
+
+/* Accent colors */
+.text-gold {
+  color: var(--gold); /* Gold #D1AE6E */
+}
+
+.text-light {
+  color: var(--light); /* Light gray for dark backgrounds */
+}
+
+.text-dark {
+  color: var(--dark); /* Dark gray */
+}
+
+/* =================================================================
+   2. GRAYSCALE COLORS
+   Use for text hierarchy and neutral content
+   ================================================================= */
+
+.text-gray-50 {
+  color: var(--gray-50);
+}
+
+.text-gray-100 {
+  color: var(--gray-100);
+}
+
+.text-gray-200 {
+  color: var(--gray-200);
+}
+
+.text-gray-300 {
+  color: var(--gray-300);
+}
+
+.text-gray-400 {
+  color: var(--gray-400);
+}
+
+.text-gray-500 {
+  color: var(--gray-500);
+}
+
+.text-gray-600 {
+  color: var(--gray-600);
+}
+
+.text-gray-700 {
+  color: var(--gray-700);
+}
+
+.text-gray-800 {
+  color: var(--gray-800);
+}
+
+.text-gray-900 {
+  color: var(--gray-900);
+}
+
+/* =================================================================
+   3. CONTEXTUAL TEXT COLORS
+   Semantic tokens for text hierarchy (from source/props/brand.css)
+   ================================================================= */
+
+.text-body-primary {
+  color: var(--text-primary); /* Gray 700 - main body text */
+}
+
+.text-body-secondary {
+  color: var(--text-secondary); /* Gray 500 - secondary text */
+}
+
+.text-body-disabled {
+  color: var(--text-disabled); /* Gray 400 - disabled text */
+}
+
+.text-body-inverse {
+  color: var(--text-inverse); /* White - for dark backgrounds */
+}

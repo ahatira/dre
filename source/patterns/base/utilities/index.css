@@ -5,6 +5,8 @@
 @import 'align';
 @import 'aspect';
 @import 'backgrounds';
+@import 'borders';
+@import 'colors';
 @import 'list';
 @import 'overflow';
 @import 'position';
