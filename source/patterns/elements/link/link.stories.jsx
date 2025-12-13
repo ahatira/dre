@@ -8,7 +8,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Semantic text link with optional icon and pill style. Use utilities for colors (.text-primary), sizes (.text-lg), and decoration (.no-underline).`,
+        component: `Semantic text link with color variants and proper interactive states (hover, active, visited). Supports optional icon and external target handling.`,
       },
     },
   },
@@ -29,6 +29,29 @@ export default {
         category: 'Content',
         type: { summary: 'string' },
         defaultValue: { summary: '#' },
+      },
+    },
+    variant: {
+      description: 'Color variant with hover/active/visited states',
+      control: { type: 'select' },
+      options: [
+        '',
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'gold',
+        'light',
+        'dark',
+      ],
+      table: {
+        category: 'Appearance',
+        type: {
+          summary: 'primary | secondary | success | danger | warning | info | gold | light | dark',
+        },
+        defaultValue: { summary: '' },
       },
     },
     icon: {
@@ -61,18 +84,22 @@ export const Default = {
 };
 
 /**
- * Apply semantic colors via utility classes (.text-primary, .text-success, .text-danger, etc.)
+ * 9 color variants with proper hover/active/visited states
  */
 export const WithColor = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      <a href="#" class="ps-link text-primary">Planifier une visite</a>
-      <a href="#" class="ps-link text-secondary">Contacter un conseiller</a>
-      <a href="#" class="ps-link text-success">Bien disponible</a>
-      <a href="#" class="ps-link text-danger">Bien vendu</a>
-      <a href="#" class="ps-link text-warning">Offre limitée</a>
-      <a href="#" class="ps-link text-info">En savoir plus</a>
-      <a href="#" class="ps-link text-gold">Biens premium</a>
+      ${linkTwig({ label: 'Planifier une visite', url: '#', variant: 'primary' })}
+      ${linkTwig({ label: 'Contacter un conseiller', url: '#', variant: 'secondary' })}
+      ${linkTwig({ label: 'Bien disponible', url: '#', variant: 'success' })}
+      ${linkTwig({ label: 'Bien vendu', url: '#', variant: 'danger' })}
+      ${linkTwig({ label: 'Offre limitée', url: '#', variant: 'warning' })}
+      ${linkTwig({ label: 'En savoir plus', url: '#', variant: 'info' })}
+      ${linkTwig({ label: 'Biens premium', url: '#', variant: 'gold' })}
+      ${linkTwig({ label: 'Navigation dark', url: '#', variant: 'dark' })}
+    </div>
+    <div style="margin-top: var(--size-4); background: var(--gray-800); padding: var(--size-4); border-radius: var(--radius-2);">
+      ${linkTwig({ label: 'Pied de page', url: '#', variant: 'light' })}
     </div>
   `,
 };
@@ -83,24 +110,24 @@ export const WithColor = {
 export const WithIcon = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      ${linkTwig({ label: 'Voir tous les biens', url: '#', icon: 'arrow-right' })}
-      ${linkTwig({ label: 'Télécharger la brochure', url: '#', icon: 'download' })}
-      ${linkTwig({ label: 'Consulter les infos', url: '#', icon: 'info' })}
-      ${linkTwig({ label: 'Bien vérifié', url: '#', icon: 'check' })}
+      ${linkTwig({ label: 'Voir tous les biens', url: '#', variant: 'primary', icon: 'arrow-right' })}
+      ${linkTwig({ label: 'Télécharger la brochure', url: '#', variant: 'secondary', icon: 'download' })}
+      ${linkTwig({ label: 'Consulter les infos', url: '#', variant: 'info', icon: 'info' })}
+      ${linkTwig({ label: 'Bien vérifié', url: '#', variant: 'success', icon: 'check' })}
     </div>
   `,
 };
 
 /**
- * Combine utilities for advanced styling (colors, typography, text-decoration)
+ * Combine with utilities for additional styling (decoration, weight, alignment)
  */
 export const WithUtilities = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      <a href="#" class="ps-link no-underline text-primary font-semibold">Sans soulignement</a>
-      <a href="#" class="ps-link no-underline font-bold text-success">Gras + couleur</a>
-      <a href="#" class="ps-link text-center text-secondary">Aligné au centre</a>
-      <a href="#" class="ps-link text-gray-600">Texte gris</a>
+      <a href="#" class="ps-link ps-link--primary no-underline font-semibold">Sans soulignement</a>
+      <a href="#" class="ps-link ps-link--secondary font-bold">Gras</a>
+      <a href="#" class="ps-link ps-link--success text-center">Aligné au centre</a>
+      <a href="#" class="ps-link ps-link--info">Lien info (hover pour voir effet)</a>
     </div>
   `,
 };
