@@ -216,15 +216,16 @@ npm run storybook
 - [ ] Component-scoped variables (Layer 2)
 
 **C. YAML Data**:
-- [ ] Real Estate context
+- [ ] Real Estate vocabulary in text (property, listing, agent - NOT lorem ipsum)
 - [ ] All props defined
 - [ ] Valid format
 
 **D. Storybook**:
 - [ ] tags: ['autodocs']
 - [ ] argTypes categorized
-- [ ] Default + Showcases
+- [ ] Default + Showcases (AllStates, AllColors, etc.)
 - [ ] NO individual variant stories
+- [ ] NO dedicated "RealEstateContext" or "InContext" stories
 
 **E. README**:
 - [ ] All 7 sections present (Usage, Props, BEM, Tokens, A11y, Examples, Notes)

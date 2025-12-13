@@ -163,7 +163,7 @@ source/patterns/{level}/{component}/
 - ✅ Ternary with `null`: `condition ? 'class' : null`
 - ❌ NEVER arrow functions: `filter(v => v)` (Drupal incompatible)
 - ✅ Use `{% include %}` with `only` for composition
-- ✅ Real Estate context for placeholders
+- ✅ Real Estate vocabulary in text content (property, listing, agent - NOT lorem ipsum)
 - ✅ **MANDATORY**: `attributes` parameter with `|without('class')` for Drupal integration
 
 **attributes pattern**:
@@ -258,7 +258,7 @@ source/patterns/{level}/{component}/
 
 ### Step 7: Create YAML with Realistic Data
 
-**Use Real Estate context**:
+**Use Real Estate vocabulary in content** (property, listing, agent - NOT generic placeholders):
 
 ```yaml
 text: "New Listing"

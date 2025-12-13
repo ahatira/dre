@@ -271,7 +271,7 @@ feat(collections): Add {component} organism
 - Responsive layouts: mobile|tablet|desktop
 - States: loading, empty, error
 - Support X layout variants
-- Real Estate context with Faker.js
+- Real Estate vocabulary with Faker.js data generation
 - References spec: docs/design/organisms/{component}.md
 - Conformity score: X/100
 

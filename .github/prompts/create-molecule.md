@@ -148,7 +148,7 @@ feat(components): Add {component} molecule
 - Compose: button, icon, badge (list atoms)
 - Token overrides: --ps-button-padding-y, --ps-button-bg (list all)
 - Support X variants with Y states
-- Real Estate context in examples
+- Real Estate vocabulary in content/examples
 - References spec: docs/design/molecules/{component}.md
 - Conformity score: X/100
 

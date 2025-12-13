@@ -54,10 +54,12 @@ Score 100/100 points only if ALL checks pass (no partial credit).
   - FORBIDDEN: baseClass parameter (REMOVED in v4.0.0)
   - REQUIRED: only keyword at end
 
-☐ Real Estate context:
-  - Property-related content (addresses, property types, prices, contact info)
+☐ Real Estate vocabulary in text content:
+  - Property-related terms (apartment, listing, agent, property, visit, etc.)
   - NOT generic placeholder text
   - Example: "Luxury apartment in Marais" (NOT "Some text here")
+  - Applies to YAML data and story content ONLY
+  - Do NOT create separate "RealEstateContext" stories
 
 === CSS STYLES ===
 
@@ -145,9 +147,10 @@ Score 100/100 points only if ALL checks pass (no partial credit).
 
 ☐ File format valid YAML
 
-☐ Real Estate context:
-  - Property-realistic values
+☐ Real Estate vocabulary:
+  - Property-realistic terms and values
   - Examples: "Luxury property", "New listing", "Featured", "Verified seller"
+  - NOT generic placeholders like "Lorem ipsum", "Click here"
 
 ☐ ALL required props defined with meaningful values
 

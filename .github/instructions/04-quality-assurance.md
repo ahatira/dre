@@ -81,7 +81,7 @@ ls -la source/patterns/{level}/{component}/
 - [ ] **3 pts** - Default values: `prop|default('value')`
 - [ ] **3 pts** - Classes with ternary + `null` (NO arrow functions)
 - [ ] **3 pts** - Composition via `{% include %}` with `only`
-- [ ] **2 pts** - Real Estate context placeholders
+- [ ] **2 pts** - Real Estate vocabulary in text content (NOT generic lorem ipsum)
 
 **Validation**:
 ```bash

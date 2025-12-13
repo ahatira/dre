@@ -50,7 +50,7 @@ WORKFLOW (11 steps from 02-component-development.md):
    - Classes with ternary + null: condition ? 'class' : null
    - ❌ NEVER: filter(v => v), .map(), .includes() (Drupal incompatible)
    - Minimal markup: Default values = NO modifier classes in output
-   - Real Estate context (addresses, property types, prices)
+   - Real Estate vocabulary in text (property, listing, agent - NOT lorem ipsum)
 
 5. IMPLEMENT CSS
    MANDATORY:
@@ -100,7 +100,7 @@ WORKFLOW (11 steps from 02-component-development.md):
     - Implement 5-file structure (twig, css, yml, stories, README)
     - Support X variants with Y states
     - Full Autodocs with categorized argTypes
-    - Real Estate context in examples
+    - Real Estate vocabulary in content/examples
     - References spec: docs/design/atoms/{component}.md
     - Conformity score: X/100
 
@@ -120,7 +120,7 @@ SUCCESS CRITERIA:
 ✅ Storybook renders without errors
 ✅ All tokens used (zero hardcoded values)
 ✅ WCAG 2.2 AA compliant
-✅ Real Estate context throughout
+✅ Real Estate vocabulary in text content (NOT generic lorem ipsum)
 ```
 
 ---

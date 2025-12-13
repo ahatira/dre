@@ -240,8 +240,8 @@ These will ALWAYS be rejected:
 - [ ] Create 4 files: `.twig`, `.css`, `.yml`, `.stories.jsx`
 - [ ] Twig: Header comment, defaults, ternary + `null`, `{% include %}` with `only`
 - [ ] CSS: ALL tokens, nesting with `&`, cascade order, semantic colors, focus-visible
-- [ ] YAML: Real Estate context, Faker.js in stories
-- [ ] Storybook: `tags: ['autodocs']`, argTypes categorized, Default + Showcases
+- [ ] YAML: Real Estate placeholders (property data, NOT generic lorem ipsum)
+- [ ] Storybook: `tags: ['autodocs']`, argTypes categorized, Default + Showcases (NO dedicated "RealEstateContext" stories)
 
 **Validation**:
 - [ ] Build passes: `npm run build`

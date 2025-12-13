@@ -30,7 +30,7 @@ SCORING BREAKDOWN (100 points total):
 ☐ Classes use ternary + null (NO filter(v => v), .map(), .includes()) (3 pts)
 ☐ Minimal markup (defaults = NO modifier classes) (2 pts)
 ☐ Composition with {% include %} + 'only' keyword (1 pt)
-☐ Real Estate context (NOT generic placeholders) (1 pt)
+☐ Real Estate vocabulary in text content (NOT generic lorem ipsum) (1 pt)
 
 === 3. CSS STYLES (20 points) ===
 ☐ ALL values from tokens (ZERO hardcoded #colors, 16px, 150ms) (5 pts)

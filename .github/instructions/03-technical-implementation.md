@@ -709,12 +709,12 @@ Standard container with responsive padding:
 </div>
 ```
 
-### 2.9 Real Estate Context Placeholders
+### 2.9 Real Estate Content Vocabulary
 
-**ALL placeholder content should evoke Real Estate**:
+**ALL text content should use Real Estate vocabulary** (for realism, NOT for creating dedicated "RealEstateContext" stories):
 
 ```twig
-{# ✅ GOOD - Real Estate context #}
+{# ✅ GOOD - Real Estate vocabulary in content #}
 text: 'View Property Details'
 title: 'Modern Downtown Loft'
 description: 'Spacious 3-bedroom apartment with stunning city views'
@@ -727,6 +727,8 @@ title: 'Lorem ipsum'
 ```
 
 **Real Estate vocabulary**: Property, listing, apartment, agent, broker, visit, viewing, location, price, rent, sale, lease, bedroom, bathroom, area, amenities.
+
+**IMPORTANT**: This applies to YAML data and story content ONLY. Do NOT create separate "RealEstateContext" or "InContext" stories - keep story structure simple (Default + AllStates + type variants).
 
 ---
 
