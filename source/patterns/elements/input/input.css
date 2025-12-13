@@ -1,10 +1,13 @@
 /**
  * Input (Element/Atom)
- * Base text-like input field without label. Drupal-friendly attributes.
+ * Base text-like input field without label, icon, or helper text.
+ * Drupal-friendly attributes support.
  *
  * BEM: ps-input
  * Modifiers: --disabled, --error, --success, --warning
  * States: :hover, :focus-visible, :disabled
+ * 
+ * @see docs/design/atoms/input.md
  */
 
 .ps-input {
