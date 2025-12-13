@@ -13,7 +13,7 @@
   --ps-skip-link-z-index: var(--layer-important);
   --ps-skip-link-padding-y: var(--size-3); /* 12px */
   --ps-skip-link-padding-x: var(--size-5); /* 20px - increased for better spacing */
-  --ps-skip-link-bg: var(--primary); /* #00915A - green BNP */
+  --ps-skip-link-bg: var(--primary); /* var(--primary) - green BNP */
   --ps-skip-link-hover-bg: var(--primary-hover); /* Darker green on hover */
   --ps-skip-link-active-bg: var(--primary); /* Reset on active */
   --ps-skip-link-color: var(--white);

@@ -25,6 +25,27 @@
   
   /* Accessibility: Icons are usually decorative */
   /* aria-hidden="true" should be set via Twig parameter */
+
+  /* Size variants (optional, default uses inherit) */
+  &--xs {
+    font-size: var(--size-3); /* 12px */
+  }
+
+  &--sm {
+    font-size: var(--size-4); /* 16px */
+  }
+
+  &--md {
+    font-size: var(--size-5); /* 20px - default */
+  }
+
+  &--lg {
+    font-size: var(--size-6); /* 24px */
+  }
+
+  &--xl {
+    font-size: var(--size-8); /* 32px */
+  }
 }
 
 /* Icon uses data-icon system for rendering */
