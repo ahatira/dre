@@ -14,14 +14,14 @@
   gap: var(--size-2);
   padding: var(--size-1) var(--size-3);
   font-family: var(--font-condensed);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-0);
   font-weight: var(--font-weight-600);
   line-height: 1.2;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--gray-600);
   background: var(--gray-100);
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-2);
 
   /* Pill modifier */
   &--pill {
@@ -32,8 +32,8 @@
   /* Color variants with hover/active states */
   
   &--primary {
-    color: var(--primary);
-    background: var(--primary-bg-subtle);
+    color: var(--white);
+    background: var(--info);
   }
 
   &--secondary {
