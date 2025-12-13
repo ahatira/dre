@@ -136,7 +136,7 @@ props:
 
 - Typo : `--font-body`, `--font-size-0|1`, `--font-weight-600`, `--leading-tight`
 - Couleurs (bg/text/border) en sémantique existante :
-  - Default/neutral : `--neutral`, `--neutral-hover`, `--neutral-text`, `--border-default`
+  - Default/neutral : `--gray-200`, `--gray-600`, `--border-default`
   - Primary : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--primary-border`
   - Secondary : `--secondary`, `--secondary-hover`, `--secondary-active`, `--secondary-text`, `--secondary-border`
   - Info : `--info`, `--info-hover`, `--info-active`, `--info-text`, `--info-border`
@@ -253,9 +253,9 @@ props:
   &--pill { --badge-radius: var(--radius-round); }
 
   // Variantes sémantiques
-  &--default { --badge-bg: var(--gray-200); --badge-color: var(--gray-600); }
-  &--primary { --badge-bg: var(--primary); --badge-color: var(--primary-text); }
-  &--secondary { --badge-bg: var(--secondary); --badge-color: var(--secondary-text); }
+  &--default { --badge-bg: var(--light); --badge-color: var(--text-secondary); }
+  &--primary { --badge-bg: var(--primary-subtle); --badge-color: var(--primary-text-emphasis); }
+  &--secondary { --badge-bg: var(--secondary-subtle); --badge-color: var(--secondary-text-emphasis); }
   &--info { --badge-bg: var(--info-subtle); --badge-color: var(--info-text-emphasis); }
   &--success { --badge-bg: var(--success-subtle); --badge-color: var(--success-text-emphasis); }
   &--warning { --badge-bg: var(--warning-subtle); --badge-color: var(--warning-text-emphasis); }

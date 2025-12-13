@@ -100,7 +100,7 @@ props:
             type: string
           variant:
             type: string
-            enum: ['primary','secondary','accent','neutral','success','warning','error']
+            enum: ['primary','secondary','info','neutral','success','warning','danger']
             default: 'primary'
           removable:
             type: boolean
@@ -353,7 +353,7 @@ props:
   tags: [
     { label: 'Design', variant: 'primary' },
     { label: 'UX', variant: 'secondary' },
-    { label: 'Figma', variant: 'accent' }
+    { label: 'Figma', variant: 'info' }
   ]
 } %}
 ```
@@ -368,7 +368,7 @@ props:
   tags: [
     { id: 'react', label: 'React', variant: 'primary' },
     { id: 'vue', label: 'Vue', variant: 'secondary' },
-    { id: 'angular', label: 'Angular', variant: 'accent' }
+    { id: 'angular', label: 'Angular', variant: 'info' }
   ]
 } %}
 ```

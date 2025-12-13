@@ -47,7 +47,7 @@ ps-eyebrow                                // Block
 Modificateurs :
   ps-eyebrow--primary                     // Couleur primaire (vert)
   ps-eyebrow--secondary                   // Couleur secondaire (gris)
-  ps-eyebrow--accent                      // Couleur accent (bleu)
+  ps-eyebrow--info                        // Couleur info (bleu)
   ps-eyebrow--neutral                     // Couleur neutre (gris clair)
   
   ps-eyebrow--uppercase                   // Texte en majuscules
@@ -80,7 +80,7 @@ props:
       title: Texte
     variant:
       type: string
-      enum: ['primary','secondary','accent','neutral']
+      enum: ['primary','secondary','info','neutral']
       default: 'neutral'
     size:
       type: string
@@ -113,7 +113,7 @@ props:
 
 ## 🎭 Variants
 
-- **Couleurs** : `primary`|`secondary`|`accent`|`neutral`.
+- **Couleurs** : `primary`|`secondary`|`info`|`neutral`.
 - **Tailles** : `small`|`medium`.
 - **Styles** : `uppercase` (majuscules), `bold` (gras).
 - **Décorations** : `withLine` (ligne horizontale), `withDot` (point).
@@ -127,7 +127,7 @@ props:
 - Couleurs par variante :
   - Primary : `--primary`
   - Secondary : `--text-secondary`
-  - Accent : `--info`
+  - Info : `--info`
   - Neutral : `--gray-500` ou `--text-secondary`
 - Ligne/points décoratifs : couleur `currentColor`, épaisseur `--border-size-1`, espacement `--size-2`
 - Espacements internes : `--size-1|2` pour le gap icône/texte/ornements
@@ -265,7 +265,7 @@ props:
 {# With icon #}
 {% include '@ps_theme/ps-eyebrow/ps-eyebrow.twig' with {
   text: 'Étude de cas',
-  variant: 'accent',
+  variant: 'info',
   icon: 'document',
   bold: true
 } %}
