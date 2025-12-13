@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 25 composants  
-**Implémentés** : 13/25
+**Implémentés** : 14/25
 
 ---
 
@@ -23,7 +23,7 @@ Implémenté : ✅
 
 **Eyebrow** - Petit label au-dessus d'un titre  
 Usage : Info bien (Prix, Surface, Référence)  
-Implémenté : ❌
+Implémenté : ✅
 
 ## Media
 
