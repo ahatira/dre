@@ -277,8 +277,22 @@ props:
 
 ## 📱 Comportement responsive
 
-- Inline-flex : s'adapte au contenu parent.
-- Taille fixe pour `count` (min-width) pour assurer un cercle régulier.
+**Mobile-first** : Badge utilise `inline-flex` qui s'adapte automatiquement au contenu parent.
+
+- **Base (mobile)** : Padding et font-size en unités relatives (em) s'adaptent au contexte
+- **400px+** : Aucun ajustement nécessaire
+- **640px+** : Aucun ajustement nécessaire  
+- **768px+** : Aucun ajustement nécessaire
+- **1024px+** : Aucun ajustement nécessaire
+- **1280px+** : Aucun ajustement nécessaire
+- **1440px+** : Aucun ajustement nécessaire
+
+**Flexibilité native** :
+- Tailles (small/medium/large) définies via modificateurs, pas via breakpoints
+- Badge count : `min-width` assure un cercle régulier sur tous devices
+- Icônes : Taille relative (1em) s'adapte à la taille du badge
+
+**Note** : Tous les breakpoints sont présents dans `badge.css` (même vides) pour cohérence avec la convention design system.
 
 ---
 

@@ -138,6 +138,41 @@
     --ps-badge-bg: var(--gold);
     --ps-badge-color: var(--white);
   }
+
+  /* ============================================
+     RESPONSIVE BREAKPOINTS (mobile-first)
+     Base styles above = mobile (no media query)
+     ============================================ */
+
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* Badge: no adjustments needed (inline-flex adapts automatically) */
+  }
+
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    /* Badge: no adjustments needed */
+  }
+
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    /* Badge: no adjustments needed */
+  }
+
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* Badge: no adjustments needed */
+  }
+
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    /* Badge: no adjustments needed */
+  }
+
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    /* Badge: no adjustments needed */
+  }
 }
 
 /* ============================================
