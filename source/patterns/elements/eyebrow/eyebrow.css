@@ -21,6 +21,7 @@
   line-height: 1.33;
   letter-spacing: normal;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--gray-600);
   background: var(--gray-100);
   border-radius: var(--radius-2);
