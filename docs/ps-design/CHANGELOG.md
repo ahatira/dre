@@ -4,6 +4,46 @@
 
 ## 2025
 
+- 2025-12-13: **📚 DOCUMENTATION ENHANCEMENT: Checkbox & Radio Specs** – Expansion de 65-68 lignes → ~350 lignes chacun (format complet badge.md) ✅ COMPLETE
+  - **Context**: Audit révèle variance qualité specs (checkbox 68 lignes, radio 65 lignes vs badge 341 lignes standard)
+  - **Problem**: Specs minimales (5 sections basiques) vs format complet requis (12+ sections)
+  - **Solution**: Enrichissement massif suivant template badge.md
+  - **Changes**:
+    * **checkbox.md**: 68 → ~350 lignes (+282 lignes, +414%)
+    * **radio.md**: 65 → ~350 lignes (+285 lignes, +438%)
+    * **Total documentation added**: 567 lignes
+  - **Sections Added** (7 nouvelles par spec):
+    * Description détaillée (usage, contexte Real Estate)
+    * Visual Overview (ASCII examples états checked/unchecked/disabled)
+    * Props Table complète (8 props documentées avec types/defaults/descriptions)
+    * Usage Examples Real Estate (3 cas chacun: filtres recherche, formulaires contact, civilité/paiement)
+    * Testing Checklists (Visual/Functional/Accessibility - 20+ checks)
+    * Accessibility WCAG 2.2 AA (Touch targets 44×44px, keyboard navigation, screen readers, contrast ratios)
+    * Règles Critiques (Radio: fieldset mandatory, name identical, minimum 2 options)
+  - **Sections Enhanced**:
+    * Design Tokens: 3-layer system (Global → Component → Context)
+    * BEM: HTML examples + states (checked/unchecked/disabled/error)
+    * Responsive: Breakpoints table (mobile/tablet/desktop)
+    * Changelog: Version history
+    * Références: Storybook links, implementation paths, related components
+  - **Format Standardization**:
+    * Emojis sections (📋 Description, 🎨 Aperçu, 🏗️ BEM, etc.)
+    * Tables (Props, Tokens layers, Responsive, Contrast ratios)
+    * YAML schema Drupal Component (SDC standard)
+    * Code blocks (HTML, CSS, Twig) avec syntaxe highlighting
+  - **Real Estate Context**:
+    * Checkbox: Filtres recherche biens, services souhaités, acceptation conditions
+    * Radio: Type transaction (acheter/louer/investir), paiement, civilité
+  - **Quality Improvement**:
+    * Checkbox: Basic → Comprehensive (5 sections → 12 sections)
+    * Radio: Basic → Comprehensive (5 sections → 12 sections)
+    * Consistency: Both specs match badge.md format standard
+  - **Commit**: `afe3390` – 2 files changed, 761 insertions(+), 90 deletions(-)
+  - **Next Steps**: 
+    * Audit remaining 75 specs for format consistency
+    * Prioritize implemented components (20 atoms, 26 molecules)
+    * Create missing specs (card-offer-search, card-offer-slide, etc.)
+
 - 2025-12-13: **🗂️ COMPONENT STRUCTURE SIMPLIFICATION (v2.1.0 - Breaking Changes)** – Suppression de tous les README.md de composants, structure à 4 fichiers ✅ COMPLETE
   - **Context**: 36 component README.md files duplicate content from `docs/design/{level}/{component}.md` causing maintenance burden
   - **Decision**: "Je penses qu'il vaut mieux les supprimer pour l'instant, ça fait moins de fichiers à maintenir" (user feedback)
