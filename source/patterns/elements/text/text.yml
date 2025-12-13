@@ -1,7 +1,5 @@
+# Text (Atom) - Semantic text element
+# UTILITY-FIRST: Use attributes.addClass() for color/weight/size/alignment variations
+# Example: attributes.addClass('text-primary font-semibold text-center')
 text: "Découvrez notre sélection de biens immobiliers prêts à visiter cette semaine."
-size: 'md'  # Options: xs | sm | md | lg | xl | xxl
-color: 'default'  # Options: default | primary | secondary | success | info | warning | danger | gold | dark | light
 tag: 'p'  # Options: p | span | div
-align: 'left'  # Options: left | center | right
-muted: false  # Options: true | false
-strong: false  # Options: true | false

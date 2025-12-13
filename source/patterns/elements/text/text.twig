@@ -1,38 +1,23 @@
 {#
  * Text (Element / Atom)
- * Typographic helper for paragraphs and inline content.
+ * Semantic text for paragraphs and inline content.
+ * UTILITY-FIRST: Use .text-*, .font-*, .text-center utilities for styling variations
  *
- * Props:
- *   string text - Text content (required)
- *   string size - xs|sm|md|lg|xl|xxl (optional, default: md)
- *   string color - default|primary|secondary|success|info|warning|danger|gold|dark|light (optional, default: default)
- *   string tag - p|span|div (optional, default: p)
- *   string align - left|center|right (optional, default: left)
- *   boolean muted - Muted tone using secondary text color (optional, default: false)
- *   boolean strong - Bold emphasis (optional, default: false)
- *   Attribute attributes - Additional HTML attributes for composition (optional)
+ * @param string text - Text content (required)
+ * @param string tag - p|span|div (default: p)
+ * @param Attribute attributes - Additional HTML attributes (optional)
+ *
+ * EXAMPLES:
+ * - Color: attributes.addClass('text-primary')
+ * - Size: Use native text classes or inline font-size
+ * - Weight: attributes.addClass('font-semibold')
+ * - Alignment: attributes.addClass('text-center')
+ * - Muted: attributes.addClass('text-gray-600')
  #}
 
-{%- set size = size|default('md') -%}
-{%- set color = color|default('default') -%}
 {%- set tag = tag|default('p') -%}
-{%- set align = align|default('left') -%}
-{%- set muted = muted|default(false) -%}
-{%- set strong = strong|default(false) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
-{%- set class = class|default(null) -%}
 
-{%- set classes = [
-  'ps-text',
-  size != 'md' ? 'ps-text--' ~ size : null,
-  color != 'default' ? 'ps-text--' ~ color : null,
-  align != 'left' ? 'ps-text--align-' ~ align : null,
-  muted ? 'ps-text--muted' : null,
-  strong ? 'ps-text--strong' : null,
-  class ? class : null
-] -%}
-
-<{{ tag }} class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-  {{ text }}
+<{{ tag }}
+  {{- attributes ? attributes : '' -}}>
+  {{- text -}}
 </{{ tag }}>

@@ -1,75 +1,29 @@
 /**
  * Text (Element / Atom)
- * Typography for paragraphs and inline content with semantic colors and sizes.
+ * Base typography for paragraphs and inline content.
  *
- * BEM: ps-text, modifiers --{size|color|align|muted|strong}
- * Sizes: xs | sm | md (default) | lg | xl | xxl
- * Colors: default | primary | secondary | success | info | warning | danger | gold | dark | light
+ * UTILITY-FIRST ARCHITECTURE:
+ * - Base defaults for <p>, <span>, <div> tags
+ * - Colors: Use .text-primary, .text-gray-600, etc. from utilities/colors.css
+ * - Sizes: Use inline font-size or create text size utilities if needed
+ * - Weight: Use .font-semibold, .font-bold from utilities/typography.css
+ * - Alignment: Use .text-center, .text-right from utilities/typography.css
+ *
+ * Component provides minimal semantic HTML styling only.
  */
 
-.ps-text {
-  /* ==============================================
-   * Component-scoped defaults (Layer 2)
-   * ============================================== */
-  --ps-text-font-size: var(--font-size-1);
-  --ps-text-line-height: var(--leading-normal);
-  --ps-text-font-weight: var(--font-weight-400);
-  --ps-text-color: var(--text-primary);
-  --ps-text-margin-bottom: var(--size-4);
-
-  /* Base styles */
-  margin: 0 0 var(--ps-text-margin-bottom);
+/* Base paragraph defaults */
+p {
+  margin: 0 0 var(--size-4);
   font-family: var(--font-sans);
-  font-size: var(--ps-text-font-size);
-  line-height: var(--ps-text-line-height);
-  font-weight: var(--ps-text-font-weight);
-  color: var(--ps-text-color);
-  text-align: left;
+  font-size: var(--font-size-1); /* 16px - base text */
+  line-height: var(--leading-normal);
+  font-weight: var(--font-weight-400);
+  color: var(--gray-900);
+}
 
-  /* Alignment modifiers */
-  &--align-center { text-align: center; }
-  &--align-right { text-align: right; }
-
-  /* Emphasis states */
-  &--muted { --ps-text-color: var(--text-secondary); }
-  &--strong { --ps-text-font-weight: var(--font-weight-700); }
-
-  /* Size modifiers (Layer 3 overrides) */
-  &--xs {
-    --ps-text-font-size: var(--font-size--1);
-    --ps-text-line-height: var(--leading-tight);
-  }
-
-  &--sm {
-    --ps-text-font-size: var(--font-size-0);
-    --ps-text-line-height: var(--leading-snug);
-  }
-
-  /* md is default */
-
-  &--lg {
-    --ps-text-font-size: var(--font-size-2);
-    --ps-text-line-height: var(--leading-relaxed);
-  }
-
-  &--xl {
-    --ps-text-font-size: var(--font-size-3);
-    --ps-text-line-height: var(--leading-relaxed);
-  }
-
-  &--xxl {
-    --ps-text-font-size: var(--font-size-4);
-    --ps-text-line-height: var(--leading-loose);
-  }
-
-  /* Color modifiers (Layer 3 overrides) */
-  &--primary { --ps-text-color: var(--primary-text-emphasis); }
-  &--secondary { --ps-text-color: var(--secondary-text-emphasis); }
-  &--success { --ps-text-color: var(--success-text-emphasis); }
-  &--info { --ps-text-color: var(--info-text-emphasis); }
-  &--warning { --ps-text-color: var(--warning-text-emphasis); }
-  &--danger { --ps-text-color: var(--danger-text-emphasis); }
-  &--gold { --ps-text-color: var(--gold-text-emphasis); }
-  &--dark { --ps-text-color: var(--dark-text-emphasis); }
-  &--light { --ps-text-color: var(--text-inverse); }
+/* Inline text elements */
+span,
+div {
+  font-family: var(--font-sans);
 }

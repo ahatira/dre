@@ -2,19 +2,6 @@ import component from './text.twig';
 import data from './text.yml';
 import './text.css';
 
-const semanticColors = [
-  'default',
-  'primary',
-  'secondary',
-  'gold',
-  'info',
-  'warning',
-  'success',
-  'danger',
-  'dark',
-  'light',
-];
-
 export default {
   title: 'Elements/Text',
   render: (args) => component(args),
@@ -24,7 +11,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic text atom for paragraphs and inline content with six sizes, semantic colors (including gold), alignment, and emphasis states. Uses component-scoped CSS variables (layered) for easy overrides.',
+          'Semantic text element for paragraphs and inline content with **utility-first approach**. Use `.text-*` for colors, `.font-*` for weights. Component provides base `<p>/<span>/<div>` styling only.',
       },
     },
   },
@@ -38,27 +25,6 @@ export default {
         defaultValue: { summary: data.text },
       },
     },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      description: 'Size variants from compact helper text (xs) to hero copy (xxl).',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl | xxl' },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    color: {
-      control: { type: 'select' },
-      options: semanticColors,
-      description:
-        'Semantic color: default text plus brand/status options (primary, secondary, gold, info, warning, success, danger, dark, light).',
-      table: {
-        category: 'Appearance',
-        type: { summary: semanticColors.join(' | ') },
-        defaultValue: { summary: 'default' },
-      },
-    },
     tag: {
       control: { type: 'select' },
       options: ['p', 'span', 'div'],
@@ -69,32 +35,13 @@ export default {
         defaultValue: { summary: 'p' },
       },
     },
-    align: {
-      control: { type: 'inline-radio' },
-      options: ['left', 'center', 'right'],
-      description: 'Horizontal text alignment.',
+    attributes: {
+      control: false,
+      description:
+        '**Utility-first styling**: Use `attributes.addClass()` for variations. Examples: `attributes.addClass("text-primary")` for color, `attributes.addClass("font-semibold")` for weight, `attributes.addClass("text-center")` for alignment. See utilities/colors.css and utilities/typography.css.',
       table: {
-        category: 'Layout',
-        type: { summary: 'left | center | right' },
-        defaultValue: { summary: 'left' },
-      },
-    },
-    muted: {
-      control: { type: 'boolean' },
-      description: 'Secondary tone using `--text-secondary` (can combine with strong).',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: false },
-      },
-    },
-    strong: {
-      control: { type: 'boolean' },
-      description: 'Bold emphasis via `--font-weight-700` (can combine with muted).',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        category: 'Attributes',
+        type: { summary: 'Attribute' },
       },
     },
   },
@@ -103,150 +50,87 @@ export default {
 export const Default = {
   render: (args) => component(args),
   args: { ...data },
-};
-
-export const Sizes = {
-  render: () => {
-    const sizes = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
-
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
-        ${sizes
-          .map((size) =>
-            component({
-              ...data,
-              size,
-              text:
-                size === 'xxl'
-                  ? 'XXL — Hero intro for premium property highlights'
-                  : size === 'xl'
-                    ? 'XL — Lead paragraph for brochure openings'
-                    : size === 'lg'
-                      ? 'LG — Lead paragraph for landing pages'
-                      : size === 'md'
-                        ? 'MD — Standard body text (default)'
-                        : size === 'sm'
-                          ? 'SM — Captions, helper text, legal mentions'
-                          : 'XS — Microcopy and footnotes',
-              strong: size === 'xxl',
-              muted: size === 'xs',
-            })
-          )
-          .join('\n')}
-      </div>
-    `;
-  },
   parameters: {
     docs: {
       description: {
         story:
-          'Six sizes mapped to the typography scale. Larger sizes support hero/lead copy; smaller sizes support helper text and microcopy.',
+          'Default paragraph with base typography. Use utility classes for styling variations.',
       },
     },
   },
 };
 
-export const Colors = {
-  render: () => {
-    const items = semanticColors.map((color) => {
-      if (color === 'light') {
-        return `
-          <div style="padding: var(--size-4); background: var(--gray-800); border-radius: var(--radius-2);">
-            ${component({ ...data, text: 'Light — Use on dark backgrounds', color })}
-          </div>
-        `;
-      }
-
-      return component({
-        ...data,
-        color,
-        text: `${color.charAt(0).toUpperCase()}${color.slice(1)} semantic color`,
-      });
-    });
-
-    return `
-      <div style="display: grid; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
-        ${items.join('\n')}
-      </div>
-    `;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Semantic colors aligned with design tokens, including the gold accent. The light variant is demonstrated on a dark tile to preserve contrast.',
-      },
-    },
-  },
-};
-
-export const Emphasis = {
+export const WithColor = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ ...data, text: 'Normal tone — default weight and color' })}
-      ${component({ ...data, text: 'Muted tone — secondary information', muted: true })}
-      ${component({ ...data, text: 'Strong emphasis — bold highlight', strong: true })}
-      ${component({ ...data, text: 'Muted + strong — secondary yet highlighted', muted: true, strong: true })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+      <p class="text-primary">Bureaux à louer (.text-primary)</p>
+      <p class="text-gray-600">Informations complémentaires (.text-gray-600)</p>
+      <p class="text-success">Visite disponible (.text-success)</p>
+      <p class="text-warning">Places limitées (.text-warning)</p>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Combine muted and strong to balance hierarchy for helper text, disclaimers, and emphasis.',
+          'Couleurs via utilities `.text-*`. Utilisez `.text-primary` pour brand, `.text-gray-600` pour texte secondaire, `.text-success/.text-warning` pour statuts.',
       },
     },
   },
 };
 
-export const Alignments = {
+export const WithWeight = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-2);">
-      ${component({ ...data, text: 'Left aligned — best readability for paragraphs', align: 'left' })}
-      ${component({ ...data, text: 'Center aligned — promotional callouts and short copy', align: 'center' })}
-      ${component({ ...data, text: 'Right aligned — metadata, numbers, or prices', align: 'right' })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+      <p>Text normal (default weight 400)</p>
+      <p class="font-semibold">Text important (.font-semibold)</p>
+      <p class="font-bold">Text emphase forte (.font-bold)</p>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Alignment options adapt the text to layouts such as cards, callouts, and metadata blocks.',
+          'Variations de poids via utilities `.font-*`. Default est regular (400), utilisez `.font-semibold` pour emphase modérée, `.font-bold` pour emphase forte.',
       },
     },
   },
 };
 
-export const RealEstateUseCase = {
+export const WithAlignment = {
   render: () => `
-    <div style="max-width: 720px; padding: var(--size-6); background: var(--white); border-radius: var(--radius-2); border: 1px solid var(--border-default); display: grid; gap: var(--size-3);">
-      ${component({
-        text: 'Programme neuf – bureaux modulables à La Défense, livrables au T3',
-        size: 'lg',
-        strong: true,
-      })}
-      ${component({
-        text: 'Plateaux lumineux de 450 à 900 m² avec terrasses végétalisées, à deux minutes du RER et de la future ligne 15. Certification HQE Excellent et espaces collaboratifs modulables.',
-        size: 'md',
-      })}
-      ${component({
-        text: 'Accompagnement complet : recherche de financement, space-planning, et pilotage des travaux d’aménagement.',
-        size: 'md',
-      })}
-      <div style="padding-top: var(--size-3); border-top: 1px solid var(--border-default);">
-        ${component({
-          text: '* Informations non contractuelles. Disponibilités et loyers indicatifs, sous réserve de signature du bail.',
-          size: 'sm',
-          muted: true,
-        })}
-      </div>
+    <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: var(--size-6); background: var(--gray-50);">
+      <p>Texte aligné à gauche (default)</p>
+      <p class="text-center">Texte centré (.text-center)</p>
+      <p class="text-right">Prix: 2 500 € / mois (.text-right)</p>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Alignement via utilities `.text-center`, `.text-right`. Default est left-aligned.',
+      },
+    },
+  },
+};
+
+export const InlineText = {
+  render: () => `
+    <div style="padding: var(--size-6); background: var(--gray-50);">
+      <p>
+        Bureaux de standing situés au cœur de 
+        <span class="text-primary font-semibold">La Défense</span>, 
+        disponibles à partir de 
+        <span class="text-gray-900 font-bold">450 m²</span>. 
+        <span class="text-gray-600">Certification HQE Excellent.</span>
+      </p>
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Real-estate narrative mixing lead paragraph, body copy, and a muted disclaimer to showcase sizing and emphasis in context.',
+          'Texte inline avec `<span>` et utilities pour emphase sélective. Combinaisons: `.text-primary .font-semibold`, `.font-bold` pour chiffres, `.text-gray-600` pour info secondaire.',
       },
     },
   },
