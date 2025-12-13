@@ -111,25 +111,15 @@
   /* ============================================
      Size Modifiers
      ============================================ */
-  &--xs {
-    --ps-toggle-track-width: var(--size-8);
-    --ps-toggle-track-height: var(--size-4);
-    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
-  }
-  &--sm {
+  &--small {
     --ps-toggle-track-width: var(--size-10);
     --ps-toggle-track-height: var(--size-5);
     --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
   }
-  /* md is default */
-  &--lg {
+  /* medium is default */
+  &--large {
     --ps-toggle-track-width: var(--size-14);
     --ps-toggle-track-height: var(--size-7);
-    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
-  }
-  &--xl {
-    --ps-toggle-track-width: var(--size-16);
-    --ps-toggle-track-height: var(--size-8);
     --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
   }
 

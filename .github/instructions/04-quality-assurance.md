@@ -437,7 +437,7 @@ grep -r "=>" source/patterns/ --include="*.twig"
 {# AFTER (ternary with null) #}
 {%- set classes = [
   'ps-badge',
-  size != 'md' ? 'ps-badge--' ~ size : null,
+  size != 'medium' ? 'ps-badge--' ~ size : null,
   variant != 'default' ? 'ps-badge--' ~ variant : null
 ] -%}  {# ✅ Twig's join() skips null automatically #}
 ```

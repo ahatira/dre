@@ -525,7 +525,7 @@ Standard container with responsive padding:
 
 ```twig
 {%- set color = color|default('primary') -%}
-{%- set size = size|default('md') -%}
+{%- set size = size|default('medium') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set orientation = orientation|default('horizontal') -%}
 ```
@@ -537,7 +537,7 @@ Standard container with responsive padding:
 ```twig
 {%- set classes = [
   'ps-component',
-  size != 'md' ? 'ps-component--' ~ size : null,
+  size != 'medium' ? 'ps-component--' ~ size : null,
   color != 'primary' ? 'ps-component--' ~ color : null,
   disabled ? 'ps-component--disabled' : null,
   pill ? 'ps-component--pill' : null
@@ -740,12 +740,12 @@ title: 'Lorem ipsum'
 # Default: Brief description of default state
 prop1: 'value'
 color: 'primary'
-size: 'md'
+size: 'medium'
 disabled: false
 
 # Commented enum options for clarity
 # color options: primary | secondary | success | warning | danger | info
-# size options: xs | sm | md | lg | xl
+# size options: small | medium | large
 ```
 
 ### 3.2 Realistic Data (Real Estate)
@@ -853,7 +853,7 @@ export default {
         component:
           'Brief description (≤ 2 lines).\n\n' +
           '- **Colors**: primary, secondary, success, warning, danger, info\n' +
-          '- **Sizes**: xs, sm, md (default), lg, xl\n' +
+          '- **Sizes**: small, medium (default), large\n' +
           '- **States**: hover, focus-visible, active, disabled\n' +
           '- **Accessibility**: WCAG AA, keyboard support',
       },
@@ -911,7 +911,7 @@ argTypes: {
     options: sizesList.compact.values,
     table: {
       category: 'Appearance',
-      defaultValue: { summary: 'md' },
+      defaultValue: { summary: 'medium' },
     },
   },
   

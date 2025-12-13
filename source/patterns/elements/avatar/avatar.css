@@ -3,7 +3,7 @@
  * User or agent visual representation with image, initials, or icon fallback.
  * 
  * BEM: ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__status
- * Sizes: xs (28px) | sm (48px) | md (68px) | lg (88px - default) | xl (112px)
+ * Sizes: small (48px) | medium (88px - default) | large (112px)
  * Shapes: circle (default) | square | rounded
  * Fallback: image → initials → gender icon (male/female SVG)
  * Status: online | offline | busy
@@ -104,32 +104,15 @@
    * Modifiers - Sizes
    * ======================================== */
   
-  &--xs {
-    --ps-avatar-size: var(--size-7); /* 28px */
-    --ps-avatar-text-size: var(--font-size-0); /* 12px */
-    --ps-avatar-status-size: var(--size-2); /* 8px */
-    --ps-avatar-status-border-width: var(--border-size-1);
-  }
-  
-  &--sm {
+  &--small {
     --ps-avatar-size: var(--size-12); /* 48px */
     --ps-avatar-text-size: var(--font-size-2); /* 16px */
     --ps-avatar-status-size: var(--size-3); /* 12px */
   }
   
-  &--md {
-    --ps-avatar-size: var(--size-17); /* 68px */
-    --ps-avatar-text-size: var(--font-size-6); /* 28px */
-    --ps-avatar-status-size: var(--size-5); /* 20px */
-  }
+  /* Medium: 88px (default) - no modifier needed, base .ps-avatar defines these */
   
-  &--lg {
-    --ps-avatar-size: var(--size-22); /* 88px - DEFAULT */
-    --ps-avatar-text-size: var(--font-size-8); /* 36px */
-    --ps-avatar-status-size: var(--size-6); /* 24px */
-  }
-  
-  &--xl {
+  &--large {
     --ps-avatar-size: var(--size-28); /* 112px */
     --ps-avatar-text-size: var(--font-size-10); /* 48px */
     --ps-avatar-status-size: var(--size-8); /* 32px */

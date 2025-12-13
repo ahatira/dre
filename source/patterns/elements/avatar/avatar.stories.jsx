@@ -28,12 +28,12 @@ export default {
     },
     size: {
       control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Avatar size: xs (28px) | sm (48px) | md (68px) | lg (88px) | xl (112px)',
+      options: ['small', 'medium', 'large'],
+      description: 'Avatar size: small (48px) | medium (88px - default) | large (112px)',
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
-        defaultValue: { summary: 'lg' },
+        defaultValue: { summary: 'medium' },
       },
     },
     shape: {
@@ -88,7 +88,7 @@ export const Default = {
 
 export const Initials = {
   render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    const sizes = ['small', 'medium', 'large'];
     return `<div style="display:flex; gap: 24px; align-items:center; flex-wrap:wrap;">
       ${sizes
         .map((size) =>
@@ -109,7 +109,7 @@ export const Initials = {
 
 export const FallbackIcon = {
   render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+    const sizes = ['small', 'medium', 'large'];
     const genders = ['male', 'female'];
     return `<div style="display:flex; flex-direction:column; gap: 32px;">
       ${genders
@@ -145,11 +145,9 @@ export const FallbackIcon = {
 export const AllSizes = {
   render: () => {
     const sizes = [
-      { value: 'xs', label: 'XS (28px)' },
-      { value: 'sm', label: 'SM (48px)' },
-      { value: 'md', label: 'MD (68px)' },
-      { value: 'lg', label: 'LG (88px)' },
-      { value: 'xl', label: 'XL (112px)' },
+      { value: 'small', label: 'Small (48px)' },
+      { value: 'medium', label: 'Medium (88px - default)' },
+      { value: 'large', label: 'Large (112px)' },
     ];
     return `<div style="display:flex; gap: 32px; align-items:center; flex-wrap:wrap;">
       ${sizes
@@ -244,7 +242,7 @@ export const StatusVariants = {
 
 export const Bordered = {
   render: () => {
-    const sizes = ['sm', 'md', 'lg', 'xl'];
+    const sizes = ['small', 'medium', 'large'];
     return `<div style="display:flex; gap: 24px; align-items:center; padding:24px; background:var(--gray-100); border-radius:var(--radius-3);">
       ${sizes
         .map((size) =>

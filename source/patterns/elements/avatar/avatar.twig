@@ -11,7 +11,7 @@
  * - alt: (string) Alt text for image (required when src provided)
  * - initials: (string) Initials text (2 letters max, fallback if no image)
  * - gender: (string) male | female (default: male, used for icon fallback)
- * - size: (string) xs | sm | md | lg | xl (default: lg)
+ * - size: (string) small | medium | large (default: medium)
  * - shape: (string) circle | square | rounded (default: circle)
  * - status: (string) online | offline | busy (optional status badge)
  * - bordered: (boolean) White border (default: false)
@@ -23,7 +23,7 @@
  */
 #}
 
-{%- set size = size|default('lg') -%}
+{%- set size = size|default('medium') -%}
 {%- set shape = shape|default('circle') -%}
 {%- set gender = gender|default('male') -%}
 {%- set bordered = bordered|default(false) -%}
@@ -35,7 +35,7 @@
 
 {%- set avatar_classes = [
   'ps-avatar',
-  size != 'lg' ? 'ps-avatar--' ~ size : null,
+  size != 'medium' ? 'ps-avatar--' ~ size : null,
   shape != 'circle' ? 'ps-avatar--' ~ shape : null,
   has_initials ? 'ps-avatar--initials' : null,
   has_fallback ? 'ps-avatar--' ~ gender : null,

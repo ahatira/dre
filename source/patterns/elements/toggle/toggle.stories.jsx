@@ -41,12 +41,12 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
     // Appearance
     size: {
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Visual size variant (md is default).',
+      options: ['small', 'medium', 'large'],
+      description: 'Visual size variant (medium is default).',
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl' },
-        defaultValue: { summary: 'md' },
+        type: { summary: 'small | medium | large' },
+        defaultValue: { summary: 'medium' },
       },
     },
     color: {
@@ -146,18 +146,16 @@ export const AllStates = {
 export const AllSizes = {
   render: () => `
     <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
-      ${toggleTwig({ ...data, size: 'xs', label: 'XS size' })}
-      ${toggleTwig({ ...data, size: 'sm', label: 'SM size' })}
-      ${toggleTwig({ ...data, size: 'md', label: 'MD size (default)' })}
-      ${toggleTwig({ ...data, size: 'lg', label: 'LG size' })}
-      ${toggleTwig({ ...data, size: 'xl', label: 'XL size' })}
+      ${toggleTwig({ ...data, size: 'small', label: 'Small size' })}
+      ${toggleTwig({ ...data, size: 'medium', label: 'Medium size (default)' })}
+      ${toggleTwig({ ...data, size: 'large', label: 'Large size' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Five standard sizes: XS, SM, MD (default), LG, XL. Use smaller sizes for dense settings and larger sizes for prominent toggles.',
+          'Three standard sizes: small, medium (default), large. Use smaller sizes for dense settings and larger sizes for prominent toggles.',
       },
     },
   },

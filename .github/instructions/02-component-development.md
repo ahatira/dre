@@ -124,7 +124,7 @@ source/patterns/{level}/{component}/
  * 
  * @param {string} text - Badge label content (required)
  * @param {string} [variant='default'] - Color variant
- * @param {string} [size='md'] - Size variant
+ * @param {string} [size='medium'] - Size variant
  * @param {boolean} [pill=false] - Pill shape
  * @param {string} [icon] - Optional icon name
  * @param {object} [attributes] - Additional HTML attributes
@@ -132,14 +132,14 @@ source/patterns/{level}/{component}/
 #}
 
 {% set variant = variant|default('default') %}
-{% set size = size|default('md') %}
+{% set size = size|default('medium') %}
 {% set pill = pill|default(false) %}
 {% set icon = icon|default(null) %}
 
 {% set classes = [
   'ps-badge',
   variant != 'default' ? 'ps-badge--' ~ variant : null,
-  size != 'md' ? 'ps-badge--' ~ size : null,
+  size != 'medium' ? 'ps-badge--' ~ size : null,
   pill ? 'ps-badge--pill' : null,
   modifier_class
 ] %}
@@ -329,7 +329,7 @@ export default {
       description: 'Size variant',
       table: { 
         category: 'Appearance',
-        defaultValue: { summary: 'md' }
+        defaultValue: { summary: 'medium' }
       },
     },
     
@@ -363,7 +363,7 @@ export const AllColors = {
 
 export const AllSizes = {
   render: () => {
-    const sizes = ['sm', 'md', 'lg'];
+    const sizes = ['small', 'medium', 'large'];
     return `
       <div style="display: flex; gap: var(--size-3); align-items: center;">
         ${sizes.map(s => componentTwig({ ...componentData, size: s, text: s })).join('')}
@@ -408,7 +408,7 @@ Small label for statuses, categories, counts, or metadata.
 |------|------|---------|-------------|
 | `text` | `string` | required | Badge label |
 | `variant` | `string` | `'default'` | Color variant |
-| `size` | `string` | `'md'` | Size variant |
+| `size` | `string` | `'medium'` | Size variant |
 | `pill` | `boolean` | `false` | Pill shape |
 
 ## BEM Structure

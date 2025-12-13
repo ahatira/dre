@@ -400,7 +400,7 @@ Closes #123
 {# ✅ NEW - Ternary with null (Drupal compatible) #}
 {% set classes = [
   'ps-component',
-  size != 'md' ? 'ps-component--' ~ size : null,
+  size != 'medium' ? 'ps-component--' ~ size : null,
   color != 'primary' ? 'ps-component--' ~ color : null
 ] %}
 ```
@@ -649,7 +649,7 @@ grep -n "=>" source/patterns/{component}/{component}.twig
 {# AFTER #}
 {% set classes = [
   'ps-component',
-  size != 'md' ? 'ps-component--' ~ size : null,
+  size != 'medium' ? 'ps-component--' ~ size : null,
   variant != 'default' ? 'ps-component--' ~ variant : null
 ] %}
 ```

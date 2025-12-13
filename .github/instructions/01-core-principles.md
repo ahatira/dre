@@ -402,7 +402,7 @@ green | blue | red | yellow | purple | gray
 ### Size Variants (STANDARD)
 
 ```
-xs | sm | md | lg | xl
+small | medium | large
 ```
 
 ### Other Common Variants

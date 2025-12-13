@@ -7,7 +7,7 @@
  * @param {string} [description] - Optional helper / context text below
  * @param {boolean} [checked=false] - Initial state
  * @param {boolean} [disabled=false] - Disable interaction
- * @param {string} [size='md'] - Size variant: xs | sm | md | lg | xl
+ * @param {string} [size='medium'] - Size variant: small | medium | large
  * @param {string} [color='default'] - Semantic color for checked state
  * @param {boolean} [showLabels=false] - Show internal ON/OFF labels inside track
  * @param {string} [onLabel='On'] - Internal ON text
@@ -21,10 +21,10 @@
  * - Provide either external label or internal labels; never omit all
  #}
 {%- set class = class|default(null) -%}
-{%- set size = size|default('md') -%}
-{%- set size = size in ['xs','sm','md','lg','xl']
+{%- set size = size|default('medium') -%}
+{%- set size = size in ['small','medium','large']
   ? size
-  : (size == 'small' ? 'sm' : (size == 'medium' ? 'md' : (size == 'large' ? 'lg' : 'md'))) -%}
+  : (size == 'sm' ? 'small' : (size == 'md' ? 'medium' : (size == 'lg' ? 'large' : 'medium'))) -%}
 {%- set checked = checked|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set color = color|default('default') -%}
@@ -34,7 +34,7 @@
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set root_classes = [
   'ps-toggle',
-  size != 'md' ? 'ps-toggle--' ~ size : null,
+  size != 'medium' ? 'ps-toggle--' ~ size : null,
   color != 'default' ? 'ps-toggle--' ~ color : null,
   disabled ? 'ps-toggle--disabled' : null,
   class ? class : null

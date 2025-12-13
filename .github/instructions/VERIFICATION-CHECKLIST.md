@@ -82,7 +82,7 @@ Pour chaque composant sous `docs/02-composants/01-atomes/{component}.md`, vérif
 ### 4.1 Propriétés complètes
 - [ ] Comparer props doc vs `source/patterns/elements/{component}/{component}.yml`
 - [ ] Vérifier que TOUTES les props de l'implémentation sont documentées
-- [ ] Vérifier enums (ex: size: `xs|sm|md|lg|xl`, PAS `small|medium|large`)
+- [ ] Vérifier enums (ex: size: `small|medium|large`, PAS `xs|sm|md|lg|xl`)
 
 ### 4.2 Valeurs par défaut
 - [ ] `default:` correspond à l'implémentation Twig

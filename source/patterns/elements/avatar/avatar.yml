@@ -5,7 +5,7 @@
 # - alt: string - Alternative text for image (required when src provided)
 # - initials: string - Initials (2 letters max, e.g. "JD") - fallback if no image
 # - gender: male | female (default: male) - Icon fallback image variant
-# - size: xs | sm | md | lg | xl (default: lg)
+# - size: small | medium | large (default: medium)
 #   * xs: 44px
 #   * sm: 60px
 #   * md: 73px
