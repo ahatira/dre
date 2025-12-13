@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 25 composants  
-**Implémentés** : 14/25
+**Implémentés** : 17/25
 
 ---
 
@@ -45,11 +45,11 @@ Implémenté : ✅
 
 **Input** - Champ texte  
 Usage : Recherche localisation, budget, surface  
-Implémenté : ❌
+Implémenté : ✅
 
 **Textarea** - Champ texte multi-lignes  
 Usage : Formulaires contact, messages  
-Implémenté : ❌
+Implémenté : ✅
 
 **Checkbox** - Case à cocher avec label  
 Usage : Caractéristiques bien, sélection équipements  
@@ -61,7 +61,7 @@ Implémenté : ✅
 
 **Select** - Menu déroulant natif  
 Usage : Régions, fourchettes prix, types biens, tri  
-Implémenté : ❌
+Implémenté : ✅
 
 **Label** - Label de champ formulaire  
 Usage : "Où ?", "Budget ?", "Surface ?" dans widget recherche  
