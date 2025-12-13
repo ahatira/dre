@@ -1,8 +1,6 @@
 # Heading (Atom) - Semantic typographic heading
-# Default configuration: H1, bold weight, default color, left aligned
+# UTILITY-FIRST: Use attributes.addClass() for color/weight/alignment variations
+# Example: attributes.addClass('text-primary font-bold text-center')
 text: "Heading text" # Heading text content (required)
 level: h1 # Semantic level: h1 (48px), h2 (36px), h3 (28px), h4 (24px), h5 (20px), h6 (16px)
-color: default # Color: default (gray), primary (green), secondary (purple), success, warning, danger, info, gold, light, dark
-weight: bold # Weight: light (300), regular (400), bold (700), extra (800)
-align: left # Alignment: left, center, right
 visuallyHidden: false # Hide visually but keep for screen readers (accessibility)

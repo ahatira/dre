@@ -1,31 +1,28 @@
 {#
  * Heading (Atom) - Semantic typographic heading (h1-h6)
+ * UTILITY-FIRST: Use .text-*, .font-*, .text-center utilities for styling variations
  *
  * @param string text - Heading text content (required)
  * @param string level - h1|h2|h3|h4|h5|h6 (default: h1)
- * @param string color - default|primary|secondary|success|warning|danger|info (default: default)
- * @param string weight - light|regular|bold|extra (default: bold)
- * @param string align - left|center|right (default: left)
  * @param boolean visuallyHidden - Hide visually but keep for screen readers (default: false)
  * @param Attribute attributes - Additional HTML attributes (optional)
+ *
+ * EXAMPLES:
+ * - Color variant: attributes.addClass('text-primary')
+ * - Font weight: attributes.addClass('font-bold')
+ * - Alignment: attributes.addClass('text-center')
+ * - Combined: attributes.addClass('text-primary font-extrabold text-center')
  #}
 
 {%- set level = level|default('h1') -%}
-{%- set align = align|default('left') -%}
 {%- set visuallyHidden = visuallyHidden|default(false) -%}
-{%- set color = color|default('default') -%}
-{%- set weight = weight|default('bold') -%}
 
 {%- set classes = [
-  'ps-heading',
-  level ? 'ps-heading--' ~ level : null,
-  align ? 'ps-heading--align-' ~ align : null,
-  visuallyHidden ? 'ps-heading--visually-hidden' : null,
-  color ? 'ps-heading--' ~ color : null,
-  weight ? 'ps-heading--' ~ weight : null
+  level,
+  visuallyHidden ? 'visually-hidden' : null
 ] -%}
 
-<{{ level }} class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-  <span class="ps-heading__text">{{- text -}}</span>
+<{{ level }}
+  {{- attributes ? attributes.addClass(classes) : 'class="' ~ classes|join(' ')|trim ~ '"' -}}>
+  {{- text -}}
 </{{ level }}>

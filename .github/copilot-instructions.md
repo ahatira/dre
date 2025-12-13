@@ -24,7 +24,7 @@
 
 **PS Theme**: Custom Drupal 10/11 theme for BNP Paribas Real Estate  
 **Stack**: Storybook (HTML edition) + Vite + PostCSS + Twig  
-**Methodology**: Atomic Design (Brad Frost) + **Token-First Composition Workflow**
+**Methodology**: Atomic Design (Brad Frost) + **Token-First Composition Workflow** + **Balanced Utility-First Approach**
 
 **87 Components to Implement**:
 - 19 Atoms (elements/) - Autonomous, Token-First does NOT apply
@@ -127,6 +127,7 @@ These will ALWAYS be rejected:
 - ❌ Missing focus-visible: All interactives MUST have visible focus indicator
 - ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
 - ❌ `baseClass` parameter for composition: FORBIDDEN → Use `attributes.addClass()` instead
+- ❌ **Utility class overuse**: Use utilities ONLY for variants/modifiers, NEVER for component structure → Maintain semantic component CSS for core styles
 
 ### 🎨 Semantic Colors Reference
 
@@ -282,6 +283,106 @@ type(scope): Subject line (max 72 chars)
 - `tokens` - Design tokens (colors.css, sizes.css, etc.)
 - `docs` - Documentation files
 - `build` - Build system, scripts, config
+## ⚖️ Balanced Utility-First Strategy
+
+**CRITICAL RULE**: Utilities must be used **intelligently and sparingly** to avoid "utility hell".
+
+### ✅ WHEN TO USE UTILITIES (Good)
+
+**1. Component Variants/Modifiers** (colors, sizes, weights):
+```twig
+{# ✅ GOOD - Heading with color/weight variants #}
+<h1 class="h1 text-primary font-bold text-center">Title</h1>
+```
+
+**2. One-off Adjustments** (spacing tweaks, alignment):
+```twig
+{# ✅ GOOD - Quick spacing adjustment #}
+<div class="ps-card mb-6">...</div>
+```
+
+**3. Prototyping/Rapid Development**:
+```twig
+{# ✅ GOOD - Quick prototype before extracting pattern #}
+<div class="flex items-center gap-4 p-6 bg-white rounded-lg shadow">...</div>
+```
+
+### ❌ WHEN NOT TO USE UTILITIES (Bad)
+
+**1. Complex Component Structure** (semantic meaning lost):
+```twig
+{# ❌ BAD - Too many utilities, no semantic meaning #}
+<div class="flex flex-col gap-6 p-8 bg-white rounded-lg shadow-md border border-gray-200">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-gray-900">Title</h2>
+    <span class="px-3 py-1 bg-primary text-white rounded-full text-sm">Badge</span>
+  </div>
+  <p class="text-gray-600 text-base leading-relaxed">Description...</p>
+</div>
+
+{# ✅ GOOD - Semantic component with minimal utilities #}
+<div class="ps-card ps-card--with-badge">
+  <h2 class="ps-card__title">Title</h2>
+  <span class="ps-badge ps-badge--primary">Badge</span>
+  <p class="ps-card__description">Description...</p>
+</div>
+```
+
+**2. Repeated Patterns** (extract to component):
+```twig
+{# ❌ BAD - Repeated utility soup #}
+<button class="px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-hover">CTA 1</button>
+<button class="px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-hover">CTA 2</button>
+
+{# ✅ GOOD - Component #}
+<button class="ps-button ps-button--primary">CTA 1</button>
+<button class="ps-button ps-button--primary">CTA 2</button>
+```
+
+**3. Component Core Structure** (base styles always in CSS):
+```css
+/* ✅ GOOD - Component has semantic CSS */
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-6);
+  padding: var(--size-8);
+  background: var(--white);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-2);
+}
+
+.ps-card__title {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-700);
+  color: var(--gray-900);
+}
+```
+
+### 📏 BALANCE GUIDELINE
+
+**Rule of Thumb**: If a component needs **more than 5-6 utility classes**, it should probably be a proper component with semantic CSS.
+
+**Good balance example**:
+```twig
+{# Component structure = CSS, variants = utilities #}
+<article class="ps-article">
+  <h2 class="ps-article__title text-primary">{{ title }}</h2>  {# variant via utility ✓ #}
+  <div class="ps-article__meta">{{ date }}</div>
+  <p class="ps-article__excerpt">{{ excerpt }}</p>
+  <a href="{{ url }}" class="ps-button ps-button--primary mt-4">Read more</a>  {# spacing via utility ✓ #}
+</article>
+```
+
+### 🎯 DECISION TREE
+
+```
+Will this pattern be reused 3+ times?
+├─ YES → Create semantic component with CSS
+└─ NO → Is it complex (6+ utilities)?
+   ├─ YES → Create semantic component anyway
+   └─ NO → Use utilities ✓
+```
 
 **Examples**:
 ```bash
@@ -292,6 +393,7 @@ feat(elements): Add badge component with semantic colors
 - Support 9 semantic colors with all state variants
 - Add pill modifier and icon integration
 - Full Autodocs with categorized argTypes
+- References spec: docs/design/atoms/badge.md
 - References spec: docs/design/atoms/badge.md
 
 # Bug fix

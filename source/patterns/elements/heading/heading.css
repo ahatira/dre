@@ -2,143 +2,67 @@
  * Heading (Element/Atom)
  * Semantic typographic headings (h1-h6)
  *
- * BEM: ps-heading, ps-heading__text
- * Levels: h1 (48px), h2 (36px), h3 (28px), h4 (24px), h5 (20px), h6 (16px)
- * Colors: default | primary | secondary | success | warning | danger | info
- * Weights: light (300) | regular (400) | bold (700) | extra (800)
+ * UTILITY-FIRST ARCHITECTURE:
+ * - Base typography (.h1 - .h6) defined here
+ * - Colors: Use .text-primary, .text-success, etc. from utilities/colors.css
+ * - Weights: Use .font-bold, .font-light, etc. from utilities/typography.css
+ * - Alignment: Use .text-center, .text-right from utilities/typography.css
+ * - Visually hidden: Use .visually-hidden from utilities/accessibility.css
  *
- * CSS Variables (3-layer system):
- * - Component-scoped: --ps-heading-* (defined here, customizable)
- * - Semantic tokens: --primary, --gray-900, etc. (from semantic.css)
- * - Base tokens: --font-size-*, --size-*, etc. (from fonts.css, sizes.css)
+ * These classes match utilities/typography.css .h1-.h6 but provide fallback
+ * for semantic HTML elements when utilities aren't explicitly applied.
  */
 
-.ps-heading {
-  /* Layer 2: Component-scoped variables with semantic defaults */
-  --ps-heading-margin-bottom: var(--size-6);
-  --ps-heading-color: var(--gray-900);
-  --ps-heading-font-family: var(--font-sans);
-  --ps-heading-font-weight: var(--font-weight-700);
-  --ps-heading-font-size: var(--font-size-10);
-  --ps-heading-line-height: var(--leading-tight);
-  --ps-heading-text-align: left;
+/* Base heading defaults - minimal structural CSS */
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin: 0 0 var(--size-6);
+  color: var(--gray-900);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-700);
+  line-height: var(--leading-tight);
+}
 
-  /* Apply component variables */
-  margin: 0 0 var(--ps-heading-margin-bottom);
-  color: var(--ps-heading-color);
-  font-family: var(--ps-heading-font-family);
-  font-weight: var(--ps-heading-font-weight);
-  font-size: var(--ps-heading-font-size);
-  line-height: var(--ps-heading-line-height);
-  text-align: var(--ps-heading-text-align);
+/* H1 - Hero/page title */
+h1, .h1 {
+  font-size: var(--font-size-10); /* 48px */
+  line-height: var(--leading-tight);
+}
 
-  /* Level modifiers (override font-size and line-height) */
-  &--h2 {
-    --ps-heading-font-size: var(--font-size-8);
-    --ps-heading-line-height: var(--leading-tight);
-  }
+/* H2 - Section title */
+h2, .h2 {
+  font-size: var(--font-size-8); /* 36px */
+  line-height: var(--leading-tight);
+}
 
-  &--h3 {
-    --ps-heading-font-size: var(--font-size-6);
-    --ps-heading-line-height: var(--leading-snug);
-  }
+/* H3 - Subsection title */
+h3, .h3 {
+  font-size: var(--font-size-6); /* 28px */
+  line-height: var(--leading-snug);
+}
 
-  &--h4 {
-    --ps-heading-font-size: var(--font-size-5);
-    --ps-heading-line-height: var(--leading-snug);
-  }
+/* H4 - Component title */
+h4, .h4 {
+  font-size: var(--font-size-5); /* 24px */
+  line-height: var(--leading-snug);
+}
 
-  &--h5 {
-    --ps-heading-font-size: var(--font-size-3);
-    --ps-heading-line-height: var(--leading-normal);
-    --ps-heading-font-weight: var(--font-weight-600);
-  }
+/* H5 - Small section title */
+h5, .h5 {
+  font-size: var(--font-size-3); /* 20px */
+  font-weight: var(--font-weight-600);
+  line-height: var(--leading-normal);
+}
 
-  &--h6 {
-    --ps-heading-font-size: var(--font-size-1);
-    --ps-heading-line-height: var(--leading-normal);
-    --ps-heading-font-weight: var(--font-weight-600);
-
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
-  }
-
-  /* Alignment modifiers */
-  &--align-center {
-    --ps-heading-text-align: center;
-  }
-
-  &--align-right {
-    --ps-heading-text-align: right;
-  }
-
-  /* Color modifiers (semantic colors from semantic.css) */
-  &--primary {
-    --ps-heading-color: var(--primary);
-  }
-
-  &--secondary {
-    --ps-heading-color: var(--secondary);
-  }
-
-  &--success {
-    --ps-heading-color: var(--success);
-  }
-
-  &--warning {
-    --ps-heading-color: var(--warning);
-  }
-
-  &--danger {
-    --ps-heading-color: var(--danger);
-  }
-
-  &--info {
-    --ps-heading-color: var(--info);
-  }
-
-  &--gold {
-    --ps-heading-color: var(--gold);
-  }
-
-  &--light {
-    --ps-heading-color: var(--light);
-  }
-
-  &--dark {
-    --ps-heading-color: var(--dark);
-  }
-
-  /* Weight modifiers */
-  &--light {
-    --ps-heading-font-weight: var(--font-weight-300);
-  }
-
-  &--regular {
-    --ps-heading-font-weight: var(--font-weight-400);
-  }
-
-  &--bold {
-    --ps-heading-font-weight: var(--font-weight-700);
-  }
-
-  &--extra {
-    --ps-heading-font-weight: var(--font-weight-800);
-  }
-
-  /* Visually hidden utility - WCAG standard pattern
-   * Exception: 1px values are acceptable (standard CSS pattern for screen reader only content)
-   * Reference: https://www.w3.org/WAI/WCAG21/Techniques/css/C7
-   */
-  &--visually-hidden {
-    position: absolute !important;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
+/* H6 - Label/caption */
+h6, .h6 {
+  font-size: var(--font-size-1); /* 16px */
+  font-weight: var(--font-weight-600);
+  line-height: var(--leading-normal);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
 }
