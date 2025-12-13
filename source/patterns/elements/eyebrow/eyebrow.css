@@ -24,12 +24,11 @@
   white-space: nowrap;
   color: var(--gray-600);
   background: var(--gray-100);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
 
   /* Pill modifier */
   &--pill {
     border-radius: var(--radius-pill);
-    padding-inline: var(--size-4);
   }
 
   /* Color variants with hover/active states */
