@@ -28,7 +28,7 @@ Prise en charge duale (Option C):
 ## 🏗️ Structure BEM
 
 ```html
-<span class="ps-flag ps-flag--md ps-flag--circle" title="France">
+<span class="ps-flag ps-flag--md ps-flag--pill" title="France">
   <img class="ps-flag__img" src="/assets/flags/fr.svg" alt="France" width="24" height="24" />
 </span>
 ```
@@ -43,7 +43,7 @@ Modificateurs de taille :
   ps-flag--sm|md|lg               // 16|20|24px (par défaut md)
 
 Modificateurs de forme :
-  ps-flag--square|rounded|circle  // Carré, coins, cercle
+  ps-flag--square|rounded|pill    // Carré, coins arrondis, pill (cercle)
 
 Modificateurs d’état :
   ps-flag--disabled               // Atténué
@@ -89,8 +89,9 @@ props:
     shape:
       type: string
       title: Forme
-      enum: ['square','rounded','circle']
+      enum: ['square','rounded','pill']
       default: 'square'
+      description: 'Forme du drapeau. pill = complètement arrondi (cercle si aspect 1:1)'
     disabled:
       type: boolean
       title: Désactivé
@@ -112,14 +113,14 @@ props:
 
 - Codes recommandés (extrait): `FR`, `GB`, `DE`, `ES`, `IT`, `NL`, `IE`, `PL`. Utiliser ISO 3166-1 alpha-2 majuscule.
 - Tailles: `sm` (16px), `md` (20px), `lg` (24px).
-- Formes: `square`, `rounded`, `circle`.
+- Formes: `square`, `rounded`, `pill` (complètement arrondi).
 
 ---
 
 ## 🎨 Design Tokens (réels)
 
 - Tailles : sm = `--size-4` (16px), md = `--size-5` (20px), lg = `--size-6` (24px)
-- Radius : `--radius-1` (square/rounded léger), `--radius-2` (rounded), `--radius-round` (circle)
+- Radius : `--radius-1` (square/rounded léger), `--radius-2` (rounded), `--radius-round` (pill)
 - Couleurs : héritées de l’image
 - Disabled : opacité à définir dans le composant (peut utiliser `0.5` ou `--text-disabled` comme teinte sur le wrapper)
 
@@ -136,7 +137,7 @@ props:
  * - label: string (ex: 'France')
  * - src: string (optional explicit path)
  * - size: 'sm'|'md'|'lg'
- * - shape: 'square'|'rounded'|'circle'
+ * - shape: 'square'|'rounded'|'pill'
  * - disabled: bool
  * - decorative: bool
  * - attributes: Attribute
@@ -210,7 +211,7 @@ props:
 
   // Formes
   &--rounded { --flag-border-radius: var(--radius-2); }
-  &--circle { --flag-aspect-ratio: 1; --flag-border-radius: var(--radius-round); }
+  &--pill { --flag-aspect-ratio: 1; --flag-border-radius: var(--radius-round); } // Cohérence terminologie Badge
 
   // États
   &:hover:not(&--disabled) { opacity: var(--flag-hover-opacity); }
@@ -242,7 +243,7 @@ props:
 ## 🧪 Exemples d'usage
 
 ```twig
-{% include '@ps_theme/ps-flag/ps-flag.twig' with { code: 'FR', label: 'France', size: 'md', shape: 'circle' } %}
+{% include '@ps_theme/ps-flag/ps-flag.twig' with { code: 'FR', label: 'France', size: 'md', shape: 'pill' } %}
 {% include '@ps_theme/ps-flag/ps-flag.twig' with { code: 'GB', label: 'United Kingdom', size: 'sm' } %}
 {% include '@ps_theme/ps-flag/ps-flag.twig' with { code: 'DE', label: 'Deutschland', decorative: false } %}
 ```
