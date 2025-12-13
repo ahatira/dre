@@ -71,7 +71,7 @@ export default {
       table: {
         category: 'Appearance',
         type: { summary: 'start | end' },
-        defaultValue: { summary: 'end' },
+        defaultValue: { summary: 'start' },
       },
     },
     target: {
@@ -120,10 +120,10 @@ export const WithColor = {
 export const WithIcon = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
-      ${linkTwig({ label: 'Voir tous les biens', url: '#', variant: 'primary', icon: 'arrow-right' })}
-      ${linkTwig({ label: 'Retour aux résultats', url: '#', variant: 'primary', icon: 'arrow-left', iconPosition: 'start' })}
-      ${linkTwig({ label: 'Télécharger la brochure', url: '#', variant: 'secondary', icon: 'download' })}
-      ${linkTwig({ label: 'Consulter les infos', url: '#', variant: 'info', icon: 'info', iconPosition: 'start' })}
+      ${linkTwig({ label: 'Retour aux résultats', url: '#', variant: 'primary', icon: 'arrow-left' })}
+      ${linkTwig({ label: 'Voir tous les biens', url: '#', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
+      ${linkTwig({ label: 'Consulter les infos', url: '#', variant: 'info', icon: 'info' })}
+      ${linkTwig({ label: 'Télécharger la brochure', url: '#', variant: 'secondary', icon: 'download', iconPosition: 'end' })}
       ${linkTwig({ label: 'Bien vérifié', url: '#', variant: 'success', icon: 'check' })}
     </div>
   `,
