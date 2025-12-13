@@ -56,7 +56,7 @@ Tableau de données structuré pour afficher des informations tabulaires. Suppor
       <tr class="ps-table__row ps-table__row--selected">
         <td class="ps-table__cell" data-label="Nom">Propriété 2</td>
         <td class="ps-table__cell" data-label="Statut">
-          <span class="ps-badge ps-badge--neutral">Inactif</span>
+          <span class="ps-badge">Inactif</span>
         </td>
         <td class="ps-table__cell ps-table__cell--actions" data-label="Actions">
           <button class="ps-button ps-button--small" type="button">Éditer</button>
@@ -480,7 +480,7 @@ props:
       id: '2',
       cells: [
         'Maison 4 pièces',
-        '<span class="ps-badge ps-badge--neutral">Inactif</span>',
+        '<span class="ps-badge">Inactif</span>',
         '450 000 €',
         '<button class="ps-button ps-button--small" type="button">Éditer</button>'
       ],
