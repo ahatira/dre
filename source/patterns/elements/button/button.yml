@@ -2,15 +2,12 @@
 #
 # Available Props:
 # - label: string (required) - Button text
-# - variant: neutral | primary | secondary | gold | success | info | warning | danger | dark | light (default: neutral)
+# - variant: primary | secondary | gold | success | info | warning | danger (neutral = omission)
 # - outline: boolean (default: false) - Border-only version
-# - size: xs | sm | md | lg | xl | xxl (default: md)
-#   * xs: 28px height (extra-small)
-#   * sm: 32px height (small)
-#   * md: 36px height (medium - default)
-#   * lg: 40px height (large)
-#   * xl: 44px height (extra-large)
-#   * xxl: 48px height (extra-extra-large)
+# - size: small | medium | large (default: medium = omission)
+#   * small: 32px height
+#   * medium: 36px height (default - no class output)
+#   * large: 40px height
 # - url: string - Destination URL (transforms to <a> link)
 # - target: _self | _blank (default: _self)
 # - icon: string - Icon name (e.g., 'check', 'arrow-right'). Leave empty for no icon.
@@ -26,9 +23,9 @@
 
 # Default: Neutral button (gray) at medium size
 label: 'Button'
-variant: 'neutral'
+variant: null  # null = neutral (gray) default state
 outline: false
-size: 'md'
+size: null     # null = medium (no class output)
 icon: null
 iconPosition: 'start'
 disabled: false
@@ -37,4 +34,5 @@ fullWidth: false
 toggle: false
 active: false
 
-# Available variants: neutral, primary, secondary, success, info, warning, danger, gold, dark, light
+# Available variants: primary, secondary, success, info, warning, danger, gold (omit for neutral/gray)
+# Available sizes: small, large (omit for medium/default)
