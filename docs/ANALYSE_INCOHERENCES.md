@@ -1,12 +1,113 @@
 # Analyse d'Incohérences - Documentation Composants
 
 **Date** : 13 décembre 2025  
+**Dernière mise à jour** : 13 décembre 2025 - Phase 1 complétée  
 **Scope** : Tous les fichiers `docs/02-composants/**/*.md`  
 **Objectif** : Identifier et corriger toutes incohérences logiques, erreurs de conception, et violations des standards
 
+**Statut** : Phase 1 complétée (7/13 issues résolues - 54%) - Commit 1001e77
+
 ---
 
-## 🚨 Problèmes Critiques (Correction Immédiate)
+## ✅ Problèmes Critiques RÉSOLUS (Phase 1)
+
+### 1. **Badge : enum manquant `gold` dans YAML** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/badge.md`  
+**Ligne** : 94-95  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Problème** :
+```yaml
+# AVANT
+enum: ['primary','secondary','info','success','warning','error','neutral']
+```
+
+**Solution appliquée** :
+```yaml
+# APRÈS
+enum: ['primary','secondary','info','success','warning','danger','gold','neutral']
+```
+
+---
+
+### 2. **Badge : `error` vs `danger` - incohérence terminologie** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/badge.md`  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution** : Standardisé sur `danger` partout (YAML enum, descriptions, cohérence avec brand.css tokens)
+
+---
+
+### 3. **Badge : token --neutral n'existe pas** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/badge.md`  
+**Lignes** : 139 (Design Tokens section), 256 (CSS)  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution appliquée** :
+- Design Tokens : Remplacé `--neutral`, `--neutral-hover`, `--neutral-text` par `--gray-200`, `--gray-600`, `--border-default`
+- CSS : Remplacé `--gray-200/600` par tokens sémantiques `--light` + `--text-secondary`
+
+---
+
+### 4. **Badge : tokens palette directs au lieu de sémantiques** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/badge.md`  
+**Lignes** : 256-263 (CSS variants)  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution appliquée** : Tous les variants utilisent maintenant tokens sémantiques :
+```scss
+// APRÈS
+&--default { --badge-bg: var(--light); --badge-color: var(--text-secondary); }
+&--primary { --badge-bg: var(--primary-subtle); --badge-color: var(--primary-text-emphasis); }
+// ... tous les autres utilisent -subtle + -text-emphasis
+```
+
+---
+
+### 5. **Link : utilise noms de couleurs au lieu de variants sémantiques** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/link.md`  
+**Ligne** : 35  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution appliquée** :
+```yaml
+# AVANT
+color: { type: string, enum: ['green','purple','white','default'], default: 'green' }
+
+# APRÈS
+variant: { type: string, enum: ['primary','secondary','neutral','inverse'], default: 'primary' }
+```
+
+---
+
+### 6. **Eyebrow : token 'accent' n'existe pas** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/01-atomes/eyebrow.md`  
+**Lignes** : 50, 83, 116, 130, 268  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution appliquée** : Remplacé 'accent' par 'info' partout (enum YAML, BEM, descriptions, tokens, exemples)
+
+---
+
+### 7. **TagList : token 'accent' + 'error' incohérents** ✅ RÉSOLU
+
+**Fichier** : `docs/02-composants/02-molecules/tag-list.md`  
+**Lignes** : 103, 356, 371  
+**Status** : ✅ Corrigé dans commit 1001e77
+
+**Solution appliquée** :
+- Enum YAML : 'accent' → 'info', 'error' → 'danger'
+- Exemples : variant 'accent' → 'info'
+
+---
+
+## 🚨 Problèmes Critiques RESTANTS (Phase 2)
 
 ### 1. **Badge : enum manquant `gold` dans YAML**
 
@@ -54,34 +155,88 @@ enum: ['primary','secondary','info','success','warning','danger','gold','neutral
 
 ---
 
-### 3. **Link : utilise noms de couleurs au lieu de variants sémantiques**
+## 🚨 Problèmes Critiques RESTANTS (Phase 2)
 
-**Fichier** : `docs/02-composants/01-atomes/link.md`  
-**Ligne** : 35
+### 8. **Token --neutral utilisé mais n'existe pas dans brand.css**
 
-**Problème** :
-```yaml
-color: { type: string, enum: ['green','purple','white','default'], default: 'green' }
+**Fichiers affectés** : 10+ composants  
+**Status** : ⚠️ Partiellement résolu (Badge ✅), autres à traiter
+
+**Exemples** :
+- Button ligne 19 : `--neutral`, `--neutral-hover`
+- Divider ligne 101, 209 : `--neutral`
+- Language Selector : états neutral
+
+**Vérification** :
+```bash
+grep -r "^  --neutral" source/props/brand.css
+# Résultat : 0 matches ❌
 ```
 
-**Impact** : Violation du principe Token-First (noms de couleurs au lieu de variants sémantiques)
+**Solution recommandée** : Utiliser tokens existants
+- Background neutral : `--light` ou `--gray-200`
+- Text neutral : `--text-secondary` ou `--gray-600`
+- Border neutral : `--border-default`
 
-**Correction attendue** :
-```yaml
-variant: { type: string, enum: ['primary','secondary','neutral','inverse'], default: 'primary' }
-# primary = green brand, secondary = purple brand, inverse = white
-```
-
-**Justification** :
-- Tous les autres composants utilisent `variant` avec valeurs sémantiques
-- `green`/`purple` = couplage à l'implémentation actuelle
-- Changement de couleur brand = breaking change avec système actuel
+**Action requise** : Audit complet et remplacement dans tous les fichiers
 
 ---
 
-### 4. **Token `neutral` non documenté mais utilisé partout**
+### 9. **Tokens palette directe au lieu de sémantiques** (Autres composants)
 
-**Fichiers affectés** : Badge, Button, Divider, Language Selector, etc.
+**Problème global** : Plusieurs composants utilisent `--gray-200`, `--blue-100`, etc. au lieu de tokens sémantiques  
+**Status** : ⚠️ Partiellement résolu (Badge ✅)
+
+**Pattern à corriger** :
+```scss
+# MAUVAIS
+--badge-bg: var(--gray-200);
+--badge-color: var(--blue-700);
+
+# CORRECT
+--badge-bg: var(--surface-subtle);
+--badge-color: var(--info-text-emphasis);
+```
+
+**Action requise** : Grep search `--gray-|--blue-|--green-|--red-|--yellow-` dans docs/02-composants/**/*.md
+
+---
+
+## ⚠️ Problèmes Prioritaires (Phase 2)
+
+### 10. **Préfixe --ps- avec fallbacks hardcodés**
+
+**Fichiers affectés** : 6+ composants  
+**Status** : ⚠️ À corriger en Phase 2
+
+**Exemples** :
+- Tabs ligne 208
+- Table ligne 355
+- Modal ligne 225
+- Dropdown ligne 208
+- Avatar ligne 295
+- Search Bar
+
+**Pattern problématique** :
+```css
+border: var(--ps-border-width-default, 1px) solid var(--ps-color-neutral-300, #D2D7DB);
+```
+
+**Problèmes** :
+1. Préfixe `--ps-` non standard (vrais tokens n'ont pas de préfixe)
+2. Fallbacks hardcodés `1px`, `#D2D7DB` violent Token-First
+3. Token `--ps-color-neutral-300` n'existe pas (confusion Tailwind?)
+
+**Correction attendue** :
+```css
+border: var(--border-size-1) solid var(--border-default);
+```
+
+**Action requise** : Multi-replace dans 6 fichiers pour supprimer préfixe + fallbacks
+
+---
+
+### 11. **Button : confusion variant vs color props**
 
 **Problème** :
 - Badge ligne 139 : `--neutral`, `--neutral-hover`, `--neutral-text` utilisés
@@ -192,7 +347,15 @@ border-bottom: var(--border-size-1) solid var(--border-default);
 | Spinner | `variant` | circular/dots/bars | ✅ Mais différent usage |
 | Eyebrow | `variant` | primary/accent/... | ✅ Standard |
 
-**Problème Button ligne 140-147** :
+---
+
+### 11. **Button : confusion variant vs color props**
+
+**Fichier** : `docs/02-composants/01-atomes/button.md`  
+**Lignes** : 140-147  
+**Status** : ⚠️ À clarifier en Phase 2
+
+**Problème** :
 ```yaml
 variant:
   enum: ['primary', 'secondary']
@@ -200,9 +363,19 @@ color:
   enum: ['green', 'purple', 'white']
 ```
 
-**Impact** : Deux props pour la même fonction ? `variant` devrait suffire.
+**Impact** : Deux props pour la même fonction ? `variant` devrait suffire ou clarifier relation.
 
-**Recommandation standard** :
+**Recommandation** : Choisir une approche unique
+- **Option A** : Supprimer `color`, étendre `variant` (primary/secondary/tertiary/ghost/link)
+- **Option B** : Documenter relation : variant = style (solid/outline), color = teinte (semantic)
+
+**Action requise** : Décision design system + clarification dans documentation
+
+---
+
+## 📊 Problèmes Modérés (Phase 3 - Améliorations)
+
+### 12. **Enums size incohérents entre composants**
 - **`variant`** : Pour couleurs sémantiques (primary/secondary/success/danger/...)
 - **`size`** : Pour tailles (small/medium/large)
 - **`shape`** : Pour formes (rounded/square/pill)
@@ -214,38 +387,64 @@ color:
 
 ### 9. **Valeurs enum inconsistantes entre composants**
 
-**Tailles** :
-- Badge : `['small','medium','large']` ✅
-- Spinner : `['xs','sm','md','lg','xl']` ⚠️ (5 tailles)
-- Toggle : `['small','medium','large']` ✅
-- Search Bar : `['small','medium','large']` ✅
-- Language Selector : `['xs','sm','md','lg','xl','xxl']` ❌ (6 tailles !)
+## 📊 Problèmes Modérés (Phase 3 - Améliorations)
 
-**Recommandation** : **Standardiser sur 3 tailles** (`small`, `medium`, `large`)
+### 12. **Enums size incohérents entre composants**
 
-**Formes** :
+**Status** : 💡 Amélioration recommandée
+
+**Analyse** :
+
+| Composant | Enum size | Nombre | Cohérence |
+|-----------|-----------|--------|-----------|
+| Badge | `['small','medium','large']` | 3 | ✅ Standard |
+| Toggle | `['small','medium','large']` | 3 | ✅ Standard |
+| Search Bar | `['small','medium','large']` | 3 | ✅ Standard |
+| Spinner | `['xs','sm','md','lg','xl']` | 5 | ⚠️ T-shirt sizes |
+| Language Selector | `['xs','sm','md','lg','xl','xxl']` | 6 | ❌ Incohérent |
+
+**Recommandation** : **Standardiser sur 3 tailles** (`small`, `medium`, `large`) pour tous les composants
+
+**Action** :
+- Spinner : Réduire de 5 à 3 tailles
+- Language Selector : Réduire de 6 à 3 tailles
+- Documenter mapping si besoin de granularité (xs=small, sm=small, md=medium, lg=large, xl=large)
+
+---
+
+### 13. **Enums shape/forme incohérents**
+
+**Status** : 💡 Amélioration recommandée
+
+**Analyse** :
 - Badge : `['rounded','square','pill']` ✅
-- Flag : `['square','rounded','circle']` ⚠️ (`circle` = `pill` ?)
+- Flag : `['square','rounded','circle']` ⚠️
 
-**Recommandation** : Unifier terminologie (`pill` = complètement arrondi)
+**Problème** : `circle` vs `pill` = même concept (complètement arrondi)
 
----
-
-### 10. **Tokens non documentés mais utilisés**
-
-**Tokens utilisés dans docs mais absents de `docs/03-tokens/` :**
-
-| Token utilisé | Fichiers | Existe dans brand.css ? | Action |
-|---------------|----------|-------------------------|--------|
-| `--neutral` | Badge, Button, Divider | ❌ Non | Remplacer par --gray ou créer |
-| `--accent` | Eyebrow, Tag List | ❌ Non | Remplacer par --info |
-| `--surface-*` | N/A (devrait être utilisé) | ❌ Non | Créer ou documenter alternatives |
-| `--text-primary` | Label, nombreux | ✅ Oui (couleurs.md) | ✅ OK |
-| `--border-default` | Badge, nombreux | ✅ Oui (couleurs.md) | ✅ OK |
+**Recommandation** : Unifier terminologie :
+- `pill` = forme capsule (border-radius complet)
+- `circle` = pour éléments carrés devenus ronds (ex: avatar, flag)
+- `rounded` = coins arrondis standards (border-radius partiel)
+- `square` = coins droits (border-radius: 0)
 
 ---
 
-### 11. **Descriptions composants manquent contexte Real Estate**
+### 14. **Tokens non documentés mais utilisés**
+
+**Status** : ✅ Partiellement résolu (--neutral, --accent), autres à documenter
+
+**Tokens restants à vérifier** :
+
+| Token pattern | Usage supposé | Existe ? | Action |
+|---------------|---------------|----------|--------|
+| `--surface-*` | Backgrounds (subtle, muted) | ❌ Non trouvé | Créer ou documenter alternatives |
+| `--text-primary` | Texte principal | ✅ Oui | ✅ OK (déjà documenté) |
+| `--text-secondary` | Texte secondaire | ✅ Oui | ✅ OK (déjà documenté) |
+
+---
+
+### 15. **Descriptions composants manquent contexte Real Estate**
 
 **Problème** : Descriptions génériques au lieu de contexte métier
 
@@ -297,25 +496,78 @@ color:
 
 ## 📋 Résumé et Priorités
 
-### Corrections Critiques (Bloquantes)
+### ✅ Phase 1 Complétée (7/13 issues - 54%) - Commit 1001e77
 
-1. ✅ **Badge : Ajouter `gold` dans enum YAML** ← FAIT commit 0291aaa
-2. ✅ **Badge : Remplacer `error` par `danger` partout** ← Reste YAML
-3. ⚠️ **Résoudre token `--neutral` manquant** (utilisé 10+ fois)
-4. ⚠️ **Link : Remplacer color names par variants sémantiques**
-5. ⚠️ **Supprimer tokens palette directe** (`--gray-200` → tokens sémantiques)
+**Corrections critiques appliquées** :
+1. ✅ Badge : Ajouté `gold` dans enum YAML
+2. ✅ Badge : Remplacé `error` par `danger` partout
+3. ✅ Badge : Résolu token `--neutral` manquant (remplacé par --gray-200/600 puis --light/--text-secondary)
+4. ✅ Badge : Supprimé tokens palette directe (--gray-200 → --light, --primary/etc. → -subtle/-text-emphasis)
+5. ✅ Link : Remplacé `color` names par `variant` sémantiques
+6. ✅ Eyebrow : Remplacé `accent` par `info` (enum, BEM, exemples)
+7. ✅ TagList : Remplacé `accent` + `error` par `info` + `danger`
 
-### Corrections Prioritaires
+**Temps Phase 1** : 45 min (estimation initiale 1h)
 
-6. ⚠️ **Supprimer préfixe `--ps-` + fallbacks hardcodés** (Tabs, Table, Modal, etc.)
-7. ⚠️ **Clarifier Button : variant vs color**
-8. ⚠️ **Remplacer `accent` par `info`** (Eyebrow, Tag List)
+---
 
-### Améliorations Recommandées
+### ⚠️ Phase 2 À Faire (3 issues prioritaires restantes)
 
-9. 📊 **Standardiser tailles enum** (3 tailles partout)
-10. 📊 **Documenter tokens manquants** (`--surface-*`, `--neutral` si créé)
-11. 📊 **Ajouter contexte Real Estate** dans composants génériques
+**Token --neutral dans autres composants** :
+- Button ligne 19 : `--neutral`, `--neutral-hover`
+- Divider ligne 101, 209 : `--neutral`
+- 8+ autres composants à identifier et corriger
+
+**Préfixe --ps- avec fallbacks** :
+- Tabs ligne 208
+- Table ligne 355
+- Modal ligne 225
+- Dropdown ligne 208
+- Avatar ligne 295
+- Search Bar
+→ Supprimer préfixe + fallbacks hardcodés (1px, #D2D7DB)
+
+**Button : clarifier variant vs color** :
+- Lignes 140-147 : Les deux props définies
+- Décider : Supprimer color ou documenter relation
+
+**Temps Phase 2 estimé** : 1h30
+
+---
+
+### 📊 Phase 3 À Faire (3 améliorations recommandées)
+
+**Standardiser enums size** :
+- Spinner : 5 tailles → 3 tailles (small/medium/large)
+- Language Selector : 6 tailles → 3 tailles
+
+**Unifier enums shape/forme** :
+- Flag : `circle` → `pill` (terminologie cohérente)
+
+**Documenter tokens manquants** :
+- Vérifier existence `--surface-*` patterns
+- Créer ou documenter alternatives
+
+**Temps Phase 3 estimé** : 1h
+
+---
+
+### 📈 Statistiques
+
+**Total issues identifiées** : 13  
+**Résolues Phase 1** : 7 (54%)  
+**Restantes** : 6 (46%)
+
+**Breakdown par sévérité** :
+- Critiques : 9 identifiées → 7 résolues (78%), 2 restantes
+- Prioritaires : 3 identifiées → 0 résolues (0%), 3 restantes  
+- Améliorations : 3 identifiées → 0 résolues (0%), 3 restantes
+
+**Temps total estimé** :
+- Phase 1 : ✅ 45min (fait)
+- Phase 2 : ⚠️ 1h30 (restant)
+- Phase 3 : 📊 1h (restant)
+- **Total restant** : 2h30
 
 ---
 
