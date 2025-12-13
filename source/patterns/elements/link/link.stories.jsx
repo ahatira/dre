@@ -92,15 +92,15 @@ export const WithIcon = {
 };
 
 /**
- * Combine utilities for advanced styling (no-underline, padding, background, border-radius)
+ * Combine utilities for advanced styling (colors, typography, text-decoration)
  */
 export const WithUtilities = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
       <a href="#" class="ps-link no-underline text-primary font-semibold">Sans soulignement</a>
       <a href="#" class="ps-link text-lg text-secondary">Grande taille</a>
-      <a href="#" class="ps-link no-underline px-4 py-2 bg-gray-100 rounded-full">Style pill (utilities)</a>
-      <a href="#" class="ps-link no-underline px-4 py-2 bg-primary text-white rounded">Style button</a>
+      <a href="#" class="ps-link no-underline font-bold text-success">Gras + couleur</a>
+      <a href="#" class="ps-link text-sm text-gray-600">Petit + gris</a>
     </div>
   `,
 };
