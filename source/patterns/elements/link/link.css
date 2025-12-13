@@ -31,12 +31,6 @@
     outline-offset: var(--border-size-1);
     border-radius: var(--radius-1);
   }
-  
-  /* Icon element */
-  &__icon {
-    flex-shrink: 0;
-    line-height: 1;
-  }
 
   /* Color variants with hover/active/visited states */
   

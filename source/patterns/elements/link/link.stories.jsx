@@ -64,6 +64,16 @@ export default {
         defaultValue: { summary: '' },
       },
     },
+    iconPosition: {
+      description: 'Icon position relative to label',
+      control: { type: 'select' },
+      options: ['start', 'end'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'start | end' },
+        defaultValue: { summary: 'end' },
+      },
+    },
     target: {
       description: 'Link target (_self or _blank)',
       control: { type: 'select' },
@@ -105,14 +115,15 @@ export const WithColor = {
 };
 
 /**
- * Icon integration with data-icon attribute
+ * Icon integration with data-icon attribute (start or end position)
  */
 export const WithIcon = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
       ${linkTwig({ label: 'Voir tous les biens', url: '#', variant: 'primary', icon: 'arrow-right' })}
+      ${linkTwig({ label: 'Retour aux résultats', url: '#', variant: 'primary', icon: 'arrow-left', iconPosition: 'start' })}
       ${linkTwig({ label: 'Télécharger la brochure', url: '#', variant: 'secondary', icon: 'download' })}
-      ${linkTwig({ label: 'Consulter les infos', url: '#', variant: 'info', icon: 'info' })}
+      ${linkTwig({ label: 'Consulter les infos', url: '#', variant: 'info', icon: 'info', iconPosition: 'start' })}
       ${linkTwig({ label: 'Bien vérifié', url: '#', variant: 'success', icon: 'check' })}
     </div>
   `,
