@@ -88,7 +88,7 @@ export const Default = {
  */
 export const WithColor = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
+    <div style="display: flex; flex-wrap: wrap; gap: var(--size-3); max-width: 800px;">
       ${eyebrowTwig({ label: 'Actualité marché', variant: 'primary' })}
       ${eyebrowTwig({ label: 'Article blog', variant: 'secondary' })}
       ${eyebrowTwig({ label: 'Bien disponible', variant: 'success' })}
@@ -132,21 +132,25 @@ export const WithPill = {
  */
 export const WithIcon = {
   render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 600px;">
+    <div style="display: flex; flex-direction: column; gap: var(--size-4); max-width: 800px;">
       <div>
         <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon at start (default)</small>
-        <div style="display: flex; flex-direction: column; gap: var(--size-2);">
+        <div style="display: flex; flex-wrap: wrap; gap: var(--size-2);">
           ${eyebrowTwig({ label: 'Confirmé', variant: 'success', icon: 'check' })}
           ${eyebrowTwig({ label: 'Informations', variant: 'info', icon: 'info' })}
         </div>
       </div>
       <div>
         <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon at end</small>
-        ${eyebrowTwig({ label: 'Avec icône fin', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
+        <div style="display: flex; flex-wrap: wrap; gap: var(--size-2);">
+          ${eyebrowTwig({ label: 'Avec icône fin', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
+        </div>
       </div>
       <div>
         <small style="display: block; margin-bottom: var(--size-2); color: var(--gray-600); font-weight: 600;">Icon + Pill combination</small>
-        ${eyebrowTwig({ label: 'Premium', variant: 'gold', icon: 'award', pill: true })}
+        <div style="display: flex; flex-wrap: wrap; gap: var(--size-2);">
+          ${eyebrowTwig({ label: 'Premium', variant: 'gold', icon: 'award', pill: true })}
+        </div>
       </div>
     </div>
   `,
