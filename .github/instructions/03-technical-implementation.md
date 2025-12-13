@@ -466,7 +466,62 @@ Standard container with responsive padding:
  #}
 ```
 
-### 2.3 Default Values
+### 2.3 Whitespace Control (MANDATORY)
+
+**Use Twig's whitespace control operators** to generate clean, single-line HTML output:
+
+**Operators**:
+- `{%-` - Trim whitespace **before** tag
+- `-%}` - Trim whitespace **after** tag
+- `{{-` - Trim whitespace **before** output
+- `-}}` - Trim whitespace **after** output
+
+**✅ CORRECT - Clean single-line output**:
+```twig
+<div class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes }}{% endif -%}
+>
+  {{- content -}}
+  {%- if icon -%}
+    <span class="icon" data-icon="{{ icon }}"></span>
+  {%- endif -%}
+</div>
+```
+
+**Output**:
+```html
+<div class="ps-component" data-id="123">Content<span class="icon" data-icon="check"></span></div>
+```
+
+**❌ WRONG - No whitespace control**:
+```twig
+<div class="{{ classes|join(' ')|trim }}"
+  {% if attributes %} {{ attributes }}{% endif %}
+>
+  {{ content }}
+  {% if icon %}
+    <span class="icon" data-icon="{{ icon }}"></span>
+  {% endif %}
+</div>
+```
+
+**Output** (with unwanted line breaks and spaces):
+```html
+<div class="ps-component" data-id="123">
+  Content
+  
+    <span class="icon" data-icon="check"></span>
+  
+</div>
+```
+
+**Best practices**:
+1. **Variables**: Always use `{%-` and `-%}` for `{% set %}` blocks
+2. **Conditionals**: Use `{%- if %}` and `{%- endif -%}` to remove surrounding whitespace
+3. **Content**: Use `{{-` and `-}}` around text/variables that should be inline
+4. **Readability**: Keep template readable with indentation, Twig removes whitespace at render time
+
+### 2.4 Default Values
 
 ```twig
 {%- set color = color|default('primary') -%}
@@ -475,7 +530,7 @@ Standard container with responsive padding:
 {%- set orientation = orientation|default('horizontal') -%}
 ```
 
-### 2.4 Classes Construction (Drupal-Compatible)
+### 2.5 Classes Construction (Drupal-Compatible)
 
 **✅ CORRECT - Ternary with `null`**:
 
@@ -501,7 +556,7 @@ Standard container with responsive padding:
 {# ERROR: Arrow functions NOT supported in Drupal Twig #}
 ```
 
-### 2.5 Attributes Parameter (MANDATORY for Drupal)
+### 2.6 Attributes Parameter (MANDATORY for Drupal)
 
 **⚠️ CRITICAL**: ALL components MUST include `attributes` parameter for Drupal integration.
 
@@ -574,7 +629,7 @@ Standard container with responsive padding:
 
 **Exception**: Base/Documentation components (colors.stories.jsx, fonts.stories.jsx) may omit `attributes` as they're not used in Drupal.
 
-### 2.6 Composition with Includes
+### 2.7 Composition with Includes
 
 **Use `{% include %}` with `only` keyword**:
 
@@ -597,7 +652,7 @@ Standard container with responsive padding:
 
 **Why `only`?** Prevents variable pollution—only specified props are passed.
 
-### 2.7 Conditional Rendering
+### 2.8 Conditional Rendering
 
 ```twig
 {# Simple conditional #}
