@@ -132,11 +132,6 @@
     --ps-toggle-track-height: var(--size-8);
     --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
   }
-  &--xxl {
-    --ps-toggle-track-width: var(--size-18);
-    --ps-toggle-track-height: var(--size-9);
-    --ps-toggle-description-offset: calc(var(--ps-toggle-track-width) + var(--size-3));
-  }
 
   /* ============================================
      Semantic Color Modifiers

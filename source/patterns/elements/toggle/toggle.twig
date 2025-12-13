@@ -7,7 +7,7 @@
  * @param {string} [description] - Optional helper / context text below
  * @param {boolean} [checked=false] - Initial state
  * @param {boolean} [disabled=false] - Disable interaction
- * @param {string} [size='md'] - Size variant: xs | sm | md | lg | xl | xxl
+ * @param {string} [size='md'] - Size variant: xs | sm | md | lg | xl
  * @param {string} [color='default'] - Semantic color for checked state
  * @param {boolean} [showLabels=false] - Show internal ON/OFF labels inside track
  * @param {string} [onLabel='On'] - Internal ON text
@@ -22,7 +22,7 @@
  #}
 {%- set class = class|default(null) -%}
 {%- set size = size|default('md') -%}
-{%- set size = size in ['xs','sm','md','lg','xl','xxl']
+{%- set size = size in ['xs','sm','md','lg','xl']
   ? size
   : (size == 'small' ? 'sm' : (size == 'medium' ? 'md' : (size == 'large' ? 'lg' : 'md'))) -%}
 {%- set checked = checked|default(false) -%}

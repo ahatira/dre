@@ -41,11 +41,11 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
     // Appearance
     size: {
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Visual size variant (md is default).',
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl | xxl' },
+        type: { summary: 'xs | sm | md | lg | xl' },
         defaultValue: { summary: 'md' },
       },
     },
@@ -151,14 +151,13 @@ export const AllSizes = {
       ${toggleTwig({ ...data, size: 'md', label: 'MD size (default)' })}
       ${toggleTwig({ ...data, size: 'lg', label: 'LG size' })}
       ${toggleTwig({ ...data, size: 'xl', label: 'XL size' })}
-      ${toggleTwig({ ...data, size: 'xxl', label: 'XXL size' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          'Six sizes: XS, SM, MD (default), LG, XL, XXL. Use smaller sizes for dense settings and larger sizes for prominent toggles.',
+          'Five standard sizes: XS, SM, MD (default), LG, XL. Use smaller sizes for dense settings and larger sizes for prominent toggles.',
       },
     },
   },
