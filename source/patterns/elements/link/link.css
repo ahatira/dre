@@ -1,232 +1,54 @@
 /** 
  * Link (Element/Atom)
- * Semantic text link with interactive states, optional icon, and color variants
+ * Utility-first: Base semantic link + pill modifier only
+ * Use utilities for colors (.text-primary), sizes (.text-lg), decoration (.no-underline)
  * 
- * BEM: ps-link, ps-link__text, ps-link__icon
- * Variants: default (no class) | primary | secondary | gold | info | warning | success | danger | dark | light
- * Modifiers: --no-underline, --icon-left, --disabled
- * Sizes: xs | sm | md (default) | lg | xl | xxl
- * Base: default text color with underline, icon on right by default
+ * BEM: ps-link, ps-link__icon
+ * Modifiers: --pill
+ * Base: Inline flex layout with icon support, underline by default
  */
 
 .ps-link {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     Default values for customization
-     ============================================ */
-  
-  /* Colors (Default = inherited text color) */
-  --ps-link-color: currentColor;
-  --ps-link-hover-color: currentColor;
-  --ps-link-active-color: currentColor;
-  --ps-link-visited-color: currentColor;
-  --ps-link-disabled-color: var(--gray-500);
-  
-  /* Typography & Spacing */
-  --ps-link-font-family: var(--font-sans);
-  --ps-link-font-size: var(--font-size-2);
-  --ps-link-font-weight: var(--font-weight-400);
-  --ps-link-line-height: var(--leading-normal);
-  --ps-link-gap: var(--size-2);
-  
-  /* Decoration */
-  --ps-link-text-decoration: underline;
-  --ps-link-text-underline-offset: var(--border-size-1);
-  --ps-link-hover-text-decoration: none;
-  
-  /* Focus */
-  --ps-link-focus-outline-width: var(--border-size-2);
-  --ps-link-focus-outline-color: var(--primary);
-  --ps-link-focus-outline-offset: var(--border-size-1);
-  --ps-link-focus-border-radius: var(--radius-1);
-  
-  /* Transitions */
-  --ps-link-transition-duration: var(--duration-fast);
-  --ps-link-transition-timing: var(--ease-4);
-  
-  /* ============================================
-     Apply Component-Scoped Variables
-     ============================================ */
-  
-  /* Reset */
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  text-decoration: none;
-  
-  /* Layout */
+  /* Base styles */
   display: inline-flex;
   align-items: center;
-  gap: var(--ps-link-gap);
-  
-  /* Typography */
-  font-family: var(--ps-link-font-family);
-  font-weight: var(--ps-link-font-weight);
-  font-size: var(--ps-link-font-size);
-  line-height: var(--ps-link-line-height);
-  
-  /* Visual */
-  color: var(--ps-link-color);
+  gap: var(--size-2);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-400);
+  line-height: var(--leading-normal);
+  text-decoration: underline;
+  text-underline-offset: var(--border-size-1);
   cursor: pointer;
-  text-decoration: var(--ps-link-text-decoration);
-  text-underline-offset: var(--ps-link-text-underline-offset);
-  
-  /* Transitions */
   transition: 
-    color var(--ps-link-transition-duration) var(--ps-link-transition-timing),
-    text-decoration var(--ps-link-transition-duration) var(--ps-link-transition-timing);
+    color var(--duration-fast) var(--ease-4),
+    background-color var(--duration-fast) var(--ease-4),
+    text-decoration var(--duration-fast) var(--ease-4);
   
-  /* ============================================
-     States
-     ============================================ */
-  
-  &:hover:not(.ps-link--disabled):not([aria-disabled="true"]) {
-    color: var(--ps-link-hover-color);
-    text-decoration: var(--ps-link-hover-text-decoration);
-  }
-  
-  &:active:not(.ps-link--disabled):not([aria-disabled="true"]) {
-    color: var(--ps-link-active-color);
-  }
-  
-  &:visited:not(.ps-link--disabled):not([aria-disabled="true"]) {
-    color: var(--ps-link-visited-color);
+  &:hover {
+    text-decoration: none;
   }
   
   &:focus-visible {
-    outline: var(--ps-link-focus-outline-width) solid var(--ps-link-focus-outline-color);
-    outline-offset: var(--ps-link-focus-outline-offset);
-    border-radius: var(--ps-link-focus-border-radius);
+    outline: var(--border-size-2) solid var(--primary);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
   }
   
-  &.ps-link--disabled,
-  &[aria-disabled="true"] {
-    color: var(--ps-link-disabled-color);
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  
-  /* ============================================
-     Elements
-     ============================================ */
-  
-  &__text {
-    display: inline-block;
-  }
-  
+  /* Icon element */
   &__icon {
     flex-shrink: 0;
     line-height: 1;
   }
 
-  /* ============================================
-     Layer 3: Context Overrides - Color Variants
-     Each color sets all state variables via modifier
-     ============================================ */
-  
-  &--primary {
-    --ps-link-color: var(--primary);
-    --ps-link-hover-color: var(--primary-hover);
-    --ps-link-active-color: var(--primary-active);
-    --ps-link-visited-color: var(--primary-active);
-  }
-  
-  &--secondary {
-    --ps-link-color: var(--secondary);
-    --ps-link-hover-color: var(--secondary-hover);
-    --ps-link-active-color: var(--secondary-active);
-    --ps-link-visited-color: var(--secondary-active);
-  }
-  
-  &--gold {
-    --ps-link-color: var(--gold);
-    --ps-link-hover-color: var(--gold-hover);
-    --ps-link-active-color: var(--gold-active);
-    --ps-link-visited-color: var(--gold-active);
-  }
-  
-  &--info {
-    --ps-link-color: var(--info);
-    --ps-link-hover-color: var(--info-hover);
-    --ps-link-active-color: var(--info-active);
-    --ps-link-visited-color: var(--info-active);
-  }
-  
-  &--warning {
-    --ps-link-color: var(--warning);
-    --ps-link-hover-color: var(--warning-hover);
-    --ps-link-active-color: var(--warning-active);
-    --ps-link-visited-color: var(--warning-active);
-  }
-  
-  &--success {
-    --ps-link-color: var(--success);
-    --ps-link-hover-color: var(--success-hover);
-    --ps-link-active-color: var(--success-active);
-    --ps-link-visited-color: var(--success-active);
-  }
-  
-  &--danger {
-    --ps-link-color: var(--danger);
-    --ps-link-hover-color: var(--danger-hover);
-    --ps-link-active-color: var(--danger-active);
-    --ps-link-visited-color: var(--danger-active);
-  }
-  
-  &--dark {
-    --ps-link-color: var(--gray-900);
-    --ps-link-hover-color: var(--gray-800);
-    --ps-link-active-color: var(--gray-700);
-    --ps-link-visited-color: var(--gray-600);
-  }
-  
-  &--light {
-    --ps-link-color: var(--gray-100);
-    --ps-link-hover-color: var(--gray-200);
-    --ps-link-active-color: var(--gray-300);
-    --ps-link-visited-color: var(--gray-400);
-  }
-  
-  /* ============================================
-     Layer 3: Context Overrides - Size Variants
-     ============================================ */
-  
-  &--xs {
-    --ps-link-font-size: var(--font-size-0);
-  }
-  
-  &--sm {
-    --ps-link-font-size: var(--font-size-1);
-  }
-  
-  &--md {
-    --ps-link-font-size: var(--font-size-2);
-  }
-  
-  &--lg {
-    --ps-link-font-size: var(--font-size-3);
-  }
-  
-  &--xl {
-    --ps-link-font-size: var(--font-size-4);
-  }
-  
-  &--xxl {
-    --ps-link-font-size: var(--font-size-5);
-  }
-  
-  /* ============================================
-     Layer 3: Context Overrides - Behavior Modifiers
-     ============================================ */
-  
-  &--no-underline {
-    --ps-link-text-decoration: none;
-  }
-  
-  &--icon-left {
-    .ps-link__icon {
-      order: -1;
+  /* Pill modifier */
+  &--pill {
+    padding: var(--size-2) var(--size-4);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    background-color: var(--gray-100);
+    
+    &:hover {
+      background-color: var(--gray-200);
     }
   }
 }

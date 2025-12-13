@@ -1,10 +1,7 @@
-# Default: Base link (default text color) with underline, no size/color modifiers
+# Default: Base link with underline, use utilities for color/size
 
-text: 'Property listing details'
+label: 'Voir les détails du bien'
 url: '/property/listing/modern-office-building'
-underline: true
 icon: ''
-iconPosition: 'right'
+pill: false
 target: '_self'
-rel: ''
-disabled: false

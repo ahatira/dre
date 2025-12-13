@@ -1,48 +1,32 @@
 {#
  * Link element (Atom)
- * @param string text - Link text (required)
+ * Utility-first: Apply color/size/decoration via utilities (.text-primary, .text-lg, .no-underline)
+ * @param string label - Link text (required)
  * @param string url - Link URL (required)
- * @param string color - Link color variant: default (no class), primary, secondary, gold, info, warning, success, danger, dark, light (optional, default: null)
- * @param string size - Link size variant: xs, sm, md, lg, xl, xxl (optional, default: null = md)
- * @param boolean underline - Show underline (optional, default: true)
- * @param string icon - Icon name without 'icon-' prefix (optional, default: '')
- * @param string iconPosition - Icon position left or right (optional, default: 'right')
+ * @param string icon - Icon name without 'icon-' prefix (optional)
+ * @param boolean pill - Pill style with padding/background (optional, default: false)
  * @param string target - Link target (_self or _blank) (optional, default: '_self')
- * @param string rel - Link rel attribute (optional, default: '')
- * @param boolean disabled - Disabled state (optional, default: false)
  * @param Drupal\Core\Template\Attribute attributes - Additional attributes (optional)
  #}
 
-{% set text = text|default('Link text') %}
+{% set label = label|default('Link text') %}
 {% set url = url|default('#') %}
-{% set underline = underline is not null ? underline : true %}
 {% set icon = icon|default('') %}
-{% set iconPosition = iconPosition|default('right') %}
+{% set pill = pill|default(false) %}
 {% set target = target|default('_self') %}
-{% set rel = rel|default('') %}
-{% set disabled = disabled|default(false) %}
-{%- set class = class|default(null) -%}
 
 {% set classes = [
   'ps-link',
-  color ? 'ps-link--' ~ color : null,
-  size ? 'ps-link--' ~ size : null,
-  underline == false ? 'ps-link--no-underline' : null,
-  iconPosition == 'left' ? 'ps-link--icon-left' : null,
-  disabled ? 'ps-link--disabled' : null,
-  class ? class : null
+  pill ? 'ps-link--pill' : null
 ] %}
 
-{% set tag = disabled ? 'span' : 'a' %}
-
-<{{ tag }} class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
-  {% if not disabled %}href="{{ url }}"{% endif %}
-  {% if target == '_blank' and not disabled %}target="_blank" rel="{{ rel ? rel : 'noopener noreferrer' }}"{% elseif rel %}rel="{{ rel }}"{% endif %}
-  {% if disabled %}aria-disabled="true"{% endif %}
+<a class="{{ classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes.addClass(classes)|without('class') }}{% endif -%}
+  href="{{ url }}"
+  {% if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif %}
 >
-  <span class="ps-link__text">{{ text }}</span>
+  {{ label }}
   {% if icon %}
     <span class="ps-link__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {% endif %}
-</{{ tag }}>
+</a>
