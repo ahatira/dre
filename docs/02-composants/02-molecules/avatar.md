@@ -62,11 +62,9 @@ ps-avatar                                 // Block
   ps-avatar__status                       // Badge de statut
 
 Modificateurs :
-  ps-avatar--xs                           // 24px
-  ps-avatar--sm                           // 32px
-  ps-avatar--md                           // 40px
-  ps-avatar--lg                           // 56px
-  ps-avatar--xl                           // 88px (défaut)
+  ps-avatar--small                        // 32px
+  ps-avatar--medium                       // 40px (défaut)
+  ps-avatar--large                        // 56px
   
   ps-avatar--circle                       // Forme ronde (défaut)
   ps-avatar--square                       // Forme carrée
@@ -111,8 +109,9 @@ props:
       description: 'Utilisé si pas d'image'
     size:
       type: string
-      enum: ['xs','sm','md','lg','xl']
-      default: 'md'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Taille de l'avatar. Système standardisé : small (32px), medium (40px), large (56px)'
     shape:
       type: string
       enum: ['circle','square','rounded']
@@ -138,7 +137,7 @@ props:
 
 ## 🎭 Variants
 
-- **Tailles** : `xs`|`sm`|`md`|`lg`|`xl`.
+- **Tailles** : `small` (32px)|`medium` (40px)|`large` (56px).
 - **Formes** : `circle`|`square`|`rounded`.
 - **Types** : image, initiales, icône (fallback automatique).
 - **Statut** : `online`|`offline`|`busy` (badge).
@@ -250,31 +249,21 @@ props:
   &__status--offline { background: var(--ps-color-neutral-400, #9AA6B2); }
   &__status--busy { background: var(--ps-color-error-600, #E53935); }
 
-  // Sizes
-  &--xs {
-    width: 24px; height: 24px;
-    .ps-avatar__text { font-size: 10px; }
-    .ps-avatar__icon { width: 12px; height: 12px; }
-  }
-  &--sm {
+  // Sizes (standardized)
+  &--small {
     width: 32px; height: 32px;
     .ps-avatar__text { font-size: 12px; }
     .ps-avatar__icon { width: 16px; height: 16px; }
   }
-  &--md {
+  &--medium {
     width: 40px; height: 40px;
     .ps-avatar__text { font-size: 14px; }
     .ps-avatar__icon { width: 20px; height: 20px; }
   }
-  &--lg {
+  &--large {
     width: 56px; height: 56px;
     .ps-avatar__text { font-size: 18px; }
     .ps-avatar__icon { width: 28px; height: 28px; }
-  }
-  &--xl {
-    width: 80px; height: 80px;
-    .ps-avatar__text { font-size: 24px; }
-    .ps-avatar__icon { width: 40px; height: 40px; }
   }
 
   // Shapes

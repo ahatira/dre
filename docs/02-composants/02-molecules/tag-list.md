@@ -67,9 +67,9 @@ Modificateurs :
   ps-tag-list--scroll                     // Fixed height + scroll
   
   ps-tag-list--removable                  // Tags avec boutons remove
-  ps-tag-list--sm                         // Petite taille (badges sm)
-  ps-tag-list--md                         // Taille moyenne (badges md, défaut)
-  ps-tag-list--lg                         // Grande taille (badges lg)
+  ps-tag-list--small                      // Petite taille (badges small)
+  ps-tag-list--medium                     // Taille moyenne (badges medium, défaut)
+  ps-tag-list--large                      // Grande taille (badges large)
 ```
 
 ---
@@ -119,8 +119,9 @@ props:
       default: 'wrap'
     size:
       type: string
-      enum: ['sm','md','lg']
-      default: 'md'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Taille appliquée aux badges. Système standardisé'
     maxVisible:
       type: number
       description: 'Nombre max visible avant overflow button'
@@ -142,7 +143,7 @@ props:
 ## 🎭 Variants
 
 - **Layouts** : `inline` (nowrap, horizontal scroll), `wrap` (multi-ligne), `scroll` (fixed height + vertical scroll).
-- **Tailles** : `sm`|`md`|`lg` (appliqué aux badges).
+- **Tailles** : `small`|`medium`|`large` (appliqué aux badges).
 - **Removable** : tags avec boutons `×` pour suppression.
 - **Overflow** : `maxVisible` → affiche "+X more" button pour révéler tags cachés.
 

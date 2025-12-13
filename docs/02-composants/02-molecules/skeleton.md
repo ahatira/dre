@@ -45,7 +45,8 @@ Modificateurs :
   ps-skeleton--card                       // Carte (image + lignes)
   ps-skeleton--table                      // Lignes de table
   ps-skeleton--shimmer                    // Animation shimmer
-  ps-skeleton--sm|--md|--lg               // Tailles
+  ps-skeleton--sm|--md|--lg               // Tailles (deprecated - use small/medium/large)
+  ps-skeleton--small|--medium|--large     // Tailles (standardized)
 ```
 
 ---
@@ -77,8 +78,9 @@ props:
       default: false
     size:
       type: string
-      enum: ['sm','md','lg']
-      default: 'md'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Taille des éléments skeleton. Système standardisé'
     attributes:
       type: Drupal\\Core\\Template\\Attribute
 ```
@@ -89,7 +91,7 @@ props:
 
 - **Types** : `text`, `avatar`, `card`, `table`.
 - **Animation** : `shimmer` (respect `prefers-reduced-motion`).
-- **Tailles** : `sm` | `md` | `lg`.
+- **Tailles** : `small`|`medium`|`large`.
 
 ---
 

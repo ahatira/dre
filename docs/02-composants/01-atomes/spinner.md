@@ -67,10 +67,9 @@ Modificateurs :
   ps-spinner--bars                        // Variante 3 barres
   
   ps-spinner--xs                          // 16px
-  ps-spinner--sm                          // 24px
-  ps-spinner--md                          // 32px (défaut)
-  ps-spinner--lg                          // 48px
-  ps-spinner--xl                          // 64px
+  ps-spinner--small                      // 24px
+  ps-spinner--medium                     // 32px (défaut)
+  ps-spinner--large                      // 48px
   
   ps-spinner--primary                     // Couleur primaire (vert)
   ps-spinner--secondary                   // Couleur secondaire (gris)
@@ -100,8 +99,9 @@ props:
       default: 'circular'
     size:
       type: string
-      enum: ['xs','sm','md','lg','xl']
-      default: 'md'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Taille du spinner. Système standardisé : small (24px), medium (32px), large (48px)'
     color:
       type: string
       enum: ['primary','secondary','white']
@@ -124,7 +124,7 @@ props:
 ## 🎭 Variants
 
 - **Styles** : `circular`|`dots`|`bars`.
-- **Tailles** : `xs`|`sm`|`md`|`lg`|`xl`.
+- **Tailles** : `small` (24px)|`medium` (32px)|`large` (48px).
 - **Couleurs** : `primary`|`secondary`|`white`. Omission = état par défaut (gris moyen).
 - **Centré** : `centered` (centrage absolu ou flex).
 
@@ -200,12 +200,10 @@ props:
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   }
 
-  // Sizes
-  &--xs { width: 16px; height: 16px; }
-  &--sm { width: 24px; height: 24px; }
-  &--md { width: 32px; height: 32px; }
-  &--lg { width: 48px; height: 48px; }
-  &--xl { width: 64px; height: 64px; }
+  // Sizes (standardized)
+  &--small { width: 24px; height: 24px; }
+  &--medium { width: 32px; height: 32px; }
+  &--large { width: 48px; height: 48px; }
 
   // Circular variant
   &--circular {

@@ -40,7 +40,7 @@ ps-flag                           // Block wrapper
   ps-flag__img                    // Image SVG/PNG du drapeau
 
 Modificateurs de taille :
-  ps-flag--sm|md|lg               // 16|20|24px (par défaut md)
+  ps-flag--small|medium|large     // 16|20|24px (par défaut medium)
 
 Modificateurs de forme :
   ps-flag--square|rounded|pill    // Carré, coins arrondis, pill (cercle)
@@ -84,8 +84,9 @@ props:
     size:
       type: string
       title: Taille
-      enum: ['sm','md','lg']
-      default: 'md'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Taille du drapeau. Système standardisé : small (16px), medium (20px), large (24px)'
     shape:
       type: string
       title: Forme
@@ -112,7 +113,7 @@ props:
 ## 🎭 Variants
 
 - Codes recommandés (extrait): `FR`, `GB`, `DE`, `ES`, `IT`, `NL`, `IE`, `PL`. Utiliser ISO 3166-1 alpha-2 majuscule.
-- Tailles: `sm` (16px), `md` (20px), `lg` (24px).
+- Tailles: `small` (16px), `medium` (20px), `large` (24px).
 - Formes: `square`, `rounded`, `pill` (complètement arrondi).
 
 ---
@@ -202,12 +203,10 @@ props:
     border-radius: var(--flag-border-radius);
   }
 
-  // Tailles
-  &--xs { --flag-size: var(--size-3); }
-  &--sm { --flag-size: var(--size-4); }
-  &--md { --flag-size: var(--size-5); }
-  &--lg { --flag-size: var(--size-6); }
-  &--xl { --flag-size: var(--size-12); }
+  // Tailles (standardized)
+  &--small { --flag-size: var(--size-4); }   // 16px
+  &--medium { --flag-size: var(--size-5); }  // 20px
+  &--large { --flag-size: var(--size-6); }   // 24px
 
   // Formes
   &--rounded { --flag-border-radius: var(--radius-2); }

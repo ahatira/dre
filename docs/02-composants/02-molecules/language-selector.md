@@ -166,9 +166,9 @@ props:
     size:
       type: string
       title: Taille
-      enum: ['xs','sm','md','lg','xl','xxl']
-      default: 'sm'
-      description: 'Système standardisé: xs (24px), sm (36px - défaut), md (40px), lg (48px), xl (56px), xxl (64px)'
+      enum: ['small','medium','large']
+      default: 'medium'
+      description: 'Système standardisé: small (36px), medium (40px - défaut), large (48px)'
     variant:
       type: string
       title: Variant couleur
@@ -234,20 +234,17 @@ props:
 
 ### Tailles (Size Modifiers)
 
-Système standardisé sur 6 tailles :
+Système standardisé sur 3 tailles :
 
 | Classe | Height | Padding Y × X | Font Size | Icon | Usage |
 |--------|--------|---------------|-----------|------|-------|
-| `--xs` | 24px | 2px × 8px | 12px | 16px | Interface compacte |
-| `--sm` | 36px | 4px × 12px | 14px | 20px | **Défaut** (Figma) |
-| `--md` | 40px | 8px × 16px | 16px | 20px | Confort standard |
-| `--lg` | 48px | 12px × 20px | 18px | 24px | Headers/navigation |
-| `--xl` | 56px | 16px × 24px | 20px | 28px | Interfaces touch |
-| `--xxl` | 64px | 20px × 32px | 24px | 32px | Héros/landing |
+| `--small` | 36px | 4px × 12px | 14px | 20px | Interfaces compactes |
+| `--medium` | 40px | 8px × 16px | 16px | 20px | **Défaut** (Figma) |
+| `--large` | 48px | 12px × 20px | 18px | 24px | Headers/navigation |
 
 ```twig
-{# Taille par défaut (sm = 36px Figma) #}
-{% include '@ps_theme/ps-language-selector/ps-language-selector.twig' with { size: 'sm' } %}
+{# Taille par défaut (medium = 40px) #}
+{% include '@ps_theme/ps-language-selector/ps-language-selector.twig' with { size: 'medium' } %}
 
 {# Taille large pour header #}
 {% include '@ps_theme/ps-language-selector/ps-language-selector.twig' with { size: 'lg' } %}
