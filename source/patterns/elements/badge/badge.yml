@@ -6,7 +6,8 @@
 # - iconPosition: start | end (default: start)
 #   * start: Icon displays before text (::before pseudo-element)
 #   * end: Icon displays after text (::after pseudo-element)
-# - color: primary | secondary | success | danger | warning | info | light | dark | gold (default: primary)
+# - color: neutral | primary | secondary | success | danger | warning | info | light | dark | gold (default: neutral)
+#   * neutral: gray (default) - generic label
 #   * primary: green (brand primary) - saturated background
 #   * secondary: purple (brand secondary) - saturated background
 #   * success: teal semantic - saturated background
@@ -20,9 +21,9 @@
 # - url: string (optional) - Destination URL (transforms into <a> link)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Primary badge (scales with parent font)
+# Default: Neutral badge (scales with parent font)
 text: "Badge"
-color: primary
+color: neutral
 pill: false
 icon: ''
 iconPosition: 'start'

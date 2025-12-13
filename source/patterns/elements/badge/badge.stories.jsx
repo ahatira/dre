@@ -29,6 +29,7 @@ export default {
     color: {
       control: { type: 'select' },
       options: [
+        'neutral',
         'primary',
         'secondary',
         'success',
@@ -43,7 +44,8 @@ export default {
       table: {
         category: 'Appearance',
         type: {
-          summary: 'primary | secondary | success | danger | warning | info | light | dark | gold',
+          summary:
+            'neutral | primary | secondary | success | danger | warning | info | light | dark | gold',
         },
         defaultValue: { summary: data.color },
       },
@@ -100,6 +102,7 @@ export const Couleurs = {
   name: 'Colors',
   render: () => `
     <div style="display: flex; gap: var(--size-3); flex-wrap: wrap; align-items: center;">
+      ${badgeTwig({ color: 'neutral', text: 'Neutral' })}
       ${badgeTwig({ color: 'primary', text: 'Primary' })}
       ${badgeTwig({ color: 'secondary', text: 'Secondary' })}
       ${badgeTwig({ color: 'success', text: 'Success' })}
@@ -118,6 +121,7 @@ export const FormePill = {
   name: 'Pill Shape',
   render: () => `
     <div style="display: flex; gap: var(--size-3); flex-wrap: wrap; align-items: center;">
+      ${badgeTwig({ color: 'neutral', text: 'Neutral', pill: true })}
       ${badgeTwig({ color: 'primary', text: 'Primary', pill: true })}
       ${badgeTwig({ color: 'secondary', text: 'Secondary', pill: true })}
       ${badgeTwig({ color: 'success', text: 'Success', pill: true })}

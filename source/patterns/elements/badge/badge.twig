@@ -3,25 +3,23 @@
  * @param string text - Badge text content (required)
  * @param string icon - Icon name (e.g., 'check', 'calendar')
  * @param string iconPosition - start|end (default: start)
- * @param string color - primary|secondary|success|danger|warning|info|light|dark|gold (default: primary)
+ * @param string color - neutral|primary|secondary|success|danger|warning|info|light|dark|gold (default: neutral)
  * @param boolean pill - Fully rounded pill shape (default: false)
  * @param string url - Link URL (optional, renders <a> tag)
  * @param object attributes - Additional HTML attributes for Drupal integration (optional)
  #}
 
-{%- set color = color|default('primary') -%}
+{%- set color = color|default('neutral') -%}
 {%- set pill = pill|default(false) -%}
 {%- set icon = icon|default(null) -%}
 {%- set iconPosition = iconPosition|default('start') -%}
 {%- set tag = url ? 'a' : 'span' -%}
 {%- set has_text = text is defined and text is not empty -%}
-{%- set class = class|default(null) -%}
 
 {%- set badge_classes = [
   'ps-badge',
-  color != 'primary' ? 'ps-badge--' ~ color : null,
-  pill ? 'ps-badge--pill' : null,
-  class ? class : null
+  color ? 'ps-badge--' ~ color : null,
+  pill ? 'ps-badge--pill' : null
 ] -%}
 
 <{{ tag }} class="{{ badge_classes|join(' ')|trim }}"

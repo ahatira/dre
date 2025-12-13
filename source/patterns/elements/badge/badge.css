@@ -26,8 +26,8 @@
   --ps-badge-font-weight: var(--font-weight-700);
   --ps-badge-line-height: 1;
   
-  /* Colors (Layer 1 tokens - semantic) */
-  --ps-badge-bg: var(--primary);
+  /* Colors (Layer 1 tokens - semantic - neutral by default) */
+  --ps-badge-bg: var(--gray-500);
   --ps-badge-color: var(--white);
   
   /* Shape */
@@ -93,6 +93,11 @@
      LAYER 3: COLOR VARIANTS (semantic)
      Override Layer 2 defaults for specific contexts
      ============================================ */
+
+  &--neutral {
+    --ps-badge-bg: var(--gray-500);
+    --ps-badge-color: var(--white);
+  }
 
   &--primary {
     --ps-badge-bg: var(--primary);
