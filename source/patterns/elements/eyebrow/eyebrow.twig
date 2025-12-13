@@ -1,48 +1,27 @@
 {#
- * Eyebrow (Atom) - Contextual label/kicker above heading
- *
- * @param string text - Displayed text (required)
- * @param string variant - Color: primary, secondary, accent, neutral, muted (optional, default: neutral)
- * @param string size - Size: small, medium (optional, default: medium)
- * @param boolean uppercase - Uppercase text (optional, default: true)
- * @param boolean bold - Bold text (optional, default: false)
- * @param boolean withLine - Decorative line (optional, default: false)
- * @param boolean withDot - Decorative dot (optional, default: false)
- * @param string icon - Optional icon name (without "icon-" prefix)
- * @param object attributes - Additional HTML attributes
+ * Eyebrow element (Atom)
+ * Contextual label above heading with semantic colors
+ * @param string label - Text content (required)
+ * @param string variant - Color variant: primary, secondary, success, danger, warning, info, gold, light, dark (optional)
+ * @param boolean pill - Rounded pill shape (optional, default: false)
+ * @param string icon - Icon name without 'icon-' prefix (optional)
+ * @param string iconPosition - start|end (default: start)
+ * @param Drupal\Core\Template\Attribute attributes - Additional attributes (optional)
  #}
 
-{% set variant = variant|default('neutral') %}
-{% set size = size|default('medium') %}
-{% set uppercase = uppercase|default(true) %}
-{% set bold = bold|default(false) %}
-{% set withLine = withLine|default(false) %}
-{% set withDot = withDot|default(false) %}
-{% set icon = icon|default('') %}
-{% set attributes = attributes|default(create_attribute()) %}
-{%- set class = class|default(null) -%}
+{%- set label = label|default('Label') -%}
+{%- set variant = variant|default('') -%}
+{%- set pill = pill|default(false) -%}
+{%- set icon = icon|default('') -%}
+{%- set iconPosition = iconPosition|default('start') -%}
 
-{% set classes = [
+{%- set classes = [
   'ps-eyebrow',
-  variant != 'neutral' ? 'ps-eyebrow--' ~ variant : null,
-  size != 'medium' ? 'ps-eyebrow--' ~ size : null,
-  uppercase ? 'ps-eyebrow--uppercase' : null,
-  bold ? 'ps-eyebrow--bold' : null,
-  withLine ? 'ps-eyebrow--with-line' : null,
-  withDot ? 'ps-eyebrow--with-dot' : null,
-  class ? class : null
-] %}
+  variant ? 'ps-eyebrow--' ~ variant : null,
+  pill ? 'ps-eyebrow--pill' : null
+] -%}
 
-<span class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-  {% if icon %}
-    <span class="ps-eyebrow__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-  {% endif %}
-  <span class="ps-eyebrow__text">{{ text }}</span>
-  {% if withLine %}
-    <span class="ps-eyebrow__line" aria-hidden="true"></span>
-  {% endif %}
-  {% if withDot %}
-    <span class="ps-eyebrow__dot" aria-hidden="true">•</span>
-  {% endif %}
-</span>
+<span {%- if attributes %}{{ attributes.addClass(classes) }}{% else %}class="{{ classes|join(' ')|trim }}"{%- endif -%}
+  {%- if icon %} data-icon="{{ icon }}"{%- endif -%}
+  {%- if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{%- endif -%}
+>{{- label -}}</span>

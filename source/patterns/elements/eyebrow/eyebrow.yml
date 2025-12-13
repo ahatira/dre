@@ -1,21 +1,8 @@
-# Eyebrow Component - Default Configuration
-# Contextual label/kicker placed above a heading
-#
-# Props:
-# - text: Text content displayed in the eyebrow (required)
-# - variant: 'primary' | 'secondary' | 'accent' | 'neutral' | 'muted' (default: neutral) - Semantic color variant
-# - size: 'small' (12px) | 'medium' (14px, default) - Text size
-# - uppercase: true (default) | false - Transform text to uppercase
-# - bold: true | false (default) - Apply bold font weight
-# - withLine: true | false (default) - Add decorative horizontal line before text
-# - withDot: true | false (default) - Add decorative dot before text
-# - icon: Optional icon name (without "icon-" prefix)
+# Default: Base eyebrow with neutral styling
 
-text: 'Actualité marché'
-variant: 'primary'
-size: 'medium'
-uppercase: true
-bold: false
-withLine: false
-withDot: false
+label: 'Actualité marché'
+variant: ''
+pill: false
+icon: ''
+iconPosition: 'start'
 icon: ''

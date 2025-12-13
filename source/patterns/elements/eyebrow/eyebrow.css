@@ -1,153 +1,78 @@
 /**
- * Eyebrow (Atom) - Contextual label above main heading
+ * Eyebrow (Atom) - Contextual label above heading
  *
- * BEM: ps-eyebrow, ps-eyebrow__icon, ps-eyebrow__text, ps-eyebrow__line, ps-eyebrow__dot
- * Variants: primary | secondary | accent | neutral | muted
- * Modifiers: --uppercase, --bold, --with-line, --with-dot
- * Sizes: small, medium (default)
- * 
- * Component-scoped variables pattern (Bootstrap 5 inspired)
- * Token mapping:
- *   - primary: --primary (green #00915A)
- *   - secondary: --secondary (magenta #A12B66)
- *   - accent: --gold (gold #D1AE6E - premium/featured)
- *   - neutral: --text-secondary (default, gray-500)
- *   - muted: --text-disabled (subtle gray)
+ * BEM: ps-eyebrow
+ * Variants: primary | secondary | success | danger | warning | info | gold | light | dark
+ * Modifiers: --pill
+ * Icon: data-icon attribute (managed by global icon system)
  */
 
 .ps-eyebrow {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     Override these for customization
-     ============================================ */
-  
-  /* Layout */
-  --ps-eyebrow-gap: var(--size-2);
-  --ps-eyebrow-display: inline-flex;
-  
-  /* Typography */
-  --ps-eyebrow-font-family: var(--font-condensed);
-  --ps-eyebrow-font-size: var(--font-size-1);
-  --ps-eyebrow-font-weight: var(--font-weight-500);
-  --ps-eyebrow-line-height: 1.2;
-  --ps-eyebrow-letter-spacing: var(--tracking-wide);
-  
-  /* Colors (neutral default) */
-  --ps-eyebrow-color: var(--text-secondary);
-  
-  /* Icon */
-  --ps-eyebrow-icon-size: var(--size-3);
-  
-  /* Line decoration */
-  --ps-eyebrow-line-width: var(--size-10);
-  --ps-eyebrow-line-height: var(--size-05);
-  --ps-eyebrow-line-opacity: 0.3;
-  
-  /* Dot decoration */
-  --ps-eyebrow-dot-size: 1.2em;
-  --ps-eyebrow-dot-opacity: 0.5;
-  
-  /* ============================================
-     Apply Component Variables
-     ============================================ */
-  
-  display: var(--ps-eyebrow-display);
+  /* Base styles */
+  display: inline-flex;
   align-items: center;
-  gap: var(--ps-eyebrow-gap);
-  font-family: var(--ps-eyebrow-font-family);
-  font-size: var(--ps-eyebrow-font-size);
-  font-weight: var(--ps-eyebrow-font-weight);
-  letter-spacing: var(--ps-eyebrow-letter-spacing);
-  line-height: var(--ps-eyebrow-line-height);
-  color: var(--ps-eyebrow-color);
+  gap: var(--size-2);
+  padding: var(--size-1) var(--size-3);
+  font-family: var(--font-condensed);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-600);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--gray-100);
+  border-radius: var(--radius-1);
 
-  /* ========================================
-   * Elements
-   * ======================================== */
-  
-  &__icon {
-    display: inline-block;
-    width: var(--ps-eyebrow-icon-size);
-    height: var(--ps-eyebrow-icon-size);
-    flex-shrink: 0;
+  /* Pill modifier */
+  &--pill {
+    border-radius: var(--radius-pill);
+    padding-inline: var(--size-4);
   }
 
-  &__text {
-    font: inherit;
-    color: inherit;
-  }
-
-  &__line {
-    display: inline-block;
-    width: var(--ps-eyebrow-line-width);
-    height: var(--ps-eyebrow-line-height);
-    background: currentColor;
-    opacity: var(--ps-eyebrow-line-opacity);
-  }
-
-  &__dot {
-    font-size: var(--ps-eyebrow-dot-size);
-    opacity: var(--ps-eyebrow-dot-opacity);
-  }
-
-  /* ========================================
-   * Modifiers - Sizes
-   * ======================================== */
-  
-  &--small {
-    --ps-eyebrow-font-size: var(--font-size-0);
-    --ps-eyebrow-icon-size: var(--size-2);
-    --ps-eyebrow-line-width: var(--size-8);
-    --ps-eyebrow-line-height: var(--border-size-1);
-  }
-
-  /* ========================================
-   * Modifiers - Text Styles
-   * ======================================== */
-  
-  &--uppercase {
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-  }
-
-  &--bold {
-    --ps-eyebrow-font-weight: var(--font-weight-600);
-  }
-
-  /* ========================================
-   * Modifiers - Color Variants (Semantic)
-   * ======================================== */
+  /* Color variants with hover/active states */
   
   &--primary {
-    --ps-eyebrow-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-bg-subtle);
   }
 
   &--secondary {
-    --ps-eyebrow-color: var(--secondary);
+    color: var(--secondary);
+    background: var(--secondary-bg-subtle);
   }
 
-  &--accent {
-    --ps-eyebrow-color: var(--gold);
+  &--success {
+    color: var(--success);
+    background: var(--success-bg-subtle);
   }
 
-  &--muted {
-    --ps-eyebrow-color: var(--text-disabled);
+  &--danger {
+    color: var(--danger);
+    background: var(--danger-bg-subtle);
   }
 
-  /* ========================================
-   * Modifiers - Decorations
-   * ======================================== */
-  
-  &--with-line {
-    & .ps-eyebrow__line {
-      flex: 1;
-      margin-left: var(--ps-eyebrow-gap);
-    }
+  &--warning {
+    color: var(--warning);
+    background: var(--warning-bg-subtle);
   }
 
-  &--with-dot {
-    & .ps-eyebrow__dot {
-      color: currentColor;
-    }
+  &--info {
+    color: var(--info);
+    background: var(--info-bg-subtle);
+  }
+
+  &--gold {
+    color: var(--gold);
+    background: var(--gold-bg-subtle);
+  }
+
+  &--light {
+    color: var(--gray-700);
+    background: var(--gray-50);
+  }
+
+  &--dark {
+    color: var(--white);
+    background: var(--gray-700);
   }
 }
