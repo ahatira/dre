@@ -97,6 +97,18 @@
     --ps-heading-color: var(--info);
   }
 
+  &--gold {
+    --ps-heading-color: var(--gold);
+  }
+
+  &--light {
+    --ps-heading-color: var(--light);
+  }
+
+  &--dark {
+    --ps-heading-color: var(--dark);
+  }
+
   /* Weight modifiers */
   &--light {
     --ps-heading-font-weight: var(--font-weight-300);

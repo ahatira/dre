@@ -41,11 +41,25 @@ export default {
     // Appearance
     color: {
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'warning',
+        'danger',
+        'info',
+        'gold',
+        'light',
+        'dark',
+      ],
       description: 'Semantic color variant',
       table: {
         category: 'Appearance',
-        type: { summary: 'default | primary | secondary | success | warning | danger | info' },
+        type: {
+          summary:
+            'default | primary | secondary | success | warning | danger | info | gold | light | dark',
+        },
         defaultValue: { summary: 'default' },
       },
     },
@@ -157,6 +171,50 @@ export const TransactionStatuses = {
       description: {
         story:
           "Statuts de transactions immobilières. Les couleurs sémantiques renforcent visuellement l'état du dossier (success/info/warning/danger).",
+      },
+    },
+  },
+};
+
+export const ColorVariants = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
+      ${component({ level: 'h3', text: 'Default gray heading', color: 'default' })}
+      ${component({ level: 'h3', text: 'Primary brand heading', color: 'primary' })}
+      ${component({ level: 'h3', text: 'Secondary accent heading', color: 'secondary' })}
+      ${component({ level: 'h3', text: 'Success status heading', color: 'success' })}
+      ${component({ level: 'h3', text: 'Warning status heading', color: 'warning' })}
+      ${component({ level: 'h3', text: 'Danger status heading', color: 'danger' })}
+      ${component({ level: 'h3', text: 'Info status heading', color: 'info' })}
+      ${component({ level: 'h3', text: 'Gold premium heading', color: 'gold' })}
+      ${component({ level: 'h3', text: 'Light heading (for dark bg)', color: 'light' })}
+      ${component({ level: 'h3', text: 'Dark heading (for light bg)', color: 'dark' })}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Toutes les couleurs sémantiques disponibles pour les titres. Utilisez default pour texte standard, primary/secondary pour branding, success/warning/danger/info pour statuts, gold pour contenu premium, light/dark pour contraste.',
+      },
+    },
+  },
+};
+
+export const WeightVariants = {
+  render: () => `
+    <div style="display: flex; flex-direction: column; gap: var(--size-5);">
+      ${component({ level: 'h2', text: 'Light weight (300)', weight: 'light' })}
+      ${component({ level: 'h2', text: 'Regular weight (400)', weight: 'regular' })}
+      ${component({ level: 'h2', text: 'Bold weight (700) - Default', weight: 'bold' })}
+      ${component({ level: 'h2', text: 'Extra bold weight (800)', weight: 'extra' })}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Variations de poids typographiques. Light pour titres aérés, Regular pour sous-titres, Bold (défaut) pour emphase standard, Extra pour impact maximum.',
       },
     },
   },

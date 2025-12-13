@@ -15,16 +15,14 @@
 {%- set visuallyHidden = visuallyHidden|default(false) -%}
 {%- set color = color|default('default') -%}
 {%- set weight = weight|default('bold') -%}
-{%- set class = class|default(null) -%}
 
 {%- set classes = [
   'ps-heading',
-  level != 'h1' ? 'ps-heading--' ~ level : null,
-  align != 'left' ? 'ps-heading--align-' ~ align : null,
+  level ? 'ps-heading--' ~ level : null,
+  align ? 'ps-heading--align-' ~ align : null,
   visuallyHidden ? 'ps-heading--visually-hidden' : null,
-  color != 'default' ? 'ps-heading--' ~ color : null,
-  weight != 'bold' ? 'ps-heading--' ~ weight : null,
-  class ? class : null
+  color ? 'ps-heading--' ~ color : null,
+  weight ? 'ps-heading--' ~ weight : null
 ] -%}
 
 <{{ level }} class="{{ classes|join(' ')|trim }}"
