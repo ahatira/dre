@@ -55,7 +55,7 @@ Modifiers (couleurs sémantiques):
   (default - pas de classe)               // Gris neutre (--gray-200 bg)
   ps-badge--primary                       // Primaire (vert brand)
   ps-badge--secondary                     // Secondaire (violet brand)
-  ps-badge--gold                          // Or/accent (--yellow-500)
+  ps-badge--gold                          // Or/accent premium (--gold)
   ps-badge--info                          // Info (bleu clair)
   ps-badge--success                       // Succès (vert clair)
   ps-badge--warning                       // Avertissement (jaune)
@@ -143,13 +143,12 @@ props:
   - Success : `--success`, `--success-hover`, `--success-active`, `--success-text`, `--success-border`
   - Warning : `--warning`, `--warning-hover`, `--warning-active`, `--warning-text`, `--warning-border`
   - Danger : `--danger`, `--danger-hover`, `--danger-active`, `--danger-text`, `--danger-border`
+  - Gold : `--gold`, `--gold-hover`, `--gold-active`, `--gold-text`, `--gold-border`
 - Rayon : `--radius-2` (4px), `--radius-3` (6px), `--radius-round` (pill)
 - Bordure : `--border-size-1` (1px) ou `--border-size-2` (2px)
 - Espacements : `--size-1|2|3` pour les paddings internes
 - Ombre optionnelle : `--shadow-1` ou `--shadow-2`
 - Transition : `--duration-fast` + `--ease-3`
-
-ℹ️ Le variant « gold » n’existe pas dans les tokens : à remplacer par `warning` ou définir un token approuvé avant usage.
 
 ---
 
@@ -255,12 +254,13 @@ props:
 
   // Variantes sémantiques
   &--default { --badge-bg: var(--gray-200); --badge-color: var(--gray-600); }
-  &--primary { --badge-bg: var(--primary); --badge-color: var(--white); }
-  &--secondary { --badge-bg: var(--secondary); --badge-color: var(--white); }
-  &--info { --badge-bg: var(--blue-100); --badge-color: var(--blue-700); }
-  &--success { --badge-bg: var(--green-100); --badge-color: var(--green-700); }
-  &--warning { --badge-bg: var(--yellow-100); --badge-color: var(--yellow-700); }
-  &--danger { --badge-bg: var(--red-100); --badge-color: var(--red-700); }
+  &--primary { --badge-bg: var(--primary); --badge-color: var(--primary-text); }
+  &--secondary { --badge-bg: var(--secondary); --badge-color: var(--secondary-text); }
+  &--info { --badge-bg: var(--info-subtle); --badge-color: var(--info-text-emphasis); }
+  &--success { --badge-bg: var(--success-subtle); --badge-color: var(--success-text-emphasis); }
+  &--warning { --badge-bg: var(--warning-subtle); --badge-color: var(--warning-text-emphasis); }
+  &--danger { --badge-bg: var(--danger-subtle); --badge-color: var(--danger-text-emphasis); }
+  &--gold { --badge-bg: var(--gold-subtle); --badge-color: var(--gold-text-emphasis); }
 
   // État cliquable (lien)
   &:is(a) {

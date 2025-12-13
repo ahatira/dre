@@ -227,7 +227,7 @@ props:
 
 ### Couleurs
 - **Badge viewed** : Gris neutre (--gray-400)
-- **Badge gold** : Or/accent (à définir token)
+- **Badge gold** : Or/accent premium (token `--gold`)
 - **Price** : Texte primaire (--gray-900)
 - **Actions** : Interactif (--primary hover)
 
@@ -443,7 +443,6 @@ Aligner toutes les valeurs hardcodées avec tokens PS :
 - Badge spacing/sizing
 - Actions icon sizes et gaps
 - Footer spacing
-- Gold badge color (définir token `--ps-color-gold` ou utiliser `--secondary`)
 
 ### Variantes supplémentaires
 - **Featured variant** : Highlight pour propriétés premium (border accent, shadow)
