@@ -18,41 +18,41 @@
 
 /* Brand colors */
 .text-primary {
-  color: var(--primary); /* Green #00915A */
+  color: var(--primary) !important; /* Green #00915A */
 }
 
 .text-secondary {
-  color: var(--secondary); /* Pink #A12B66 */
+  color: var(--secondary) !important; /* Pink #A12B66 */
 }
 
 /* Status colors */
 .text-success {
-  color: var(--success); /* Teal #198754 */
+  color: var(--success) !important; /* Teal #198754 */
 }
 
 .text-danger {
-  color: var(--danger); /* Red #EB3636 */
+  color: var(--danger) !important; /* Red #EB3636 */
 }
 
 .text-warning {
-  color: var(--warning); /* Yellow #FBBF24 */
+  color: var(--warning) !important; /* Yellow #FBBF24 */
 }
 
 .text-info {
-  color: var(--info); /* Blue #2563EB */
+  color: var(--info) !important; /* Blue #2563EB */
 }
 
 /* Accent colors */
 .text-gold {
-  color: var(--gold); /* Gold #D1AE6E */
+  color: var(--gold) !important; /* Gold #D1AE6E */
 }
 
 .text-light {
-  color: var(--light); /* Light gray for dark backgrounds */
+  color: var(--light) !important; /* Light gray for dark backgrounds */
 }
 
 .text-dark {
-  color: var(--dark); /* Dark gray */
+  color: var(--dark) !important; /* Dark gray */
 }
 
 /* =================================================================
@@ -61,43 +61,43 @@
    ================================================================= */
 
 .text-gray-50 {
-  color: var(--gray-50);
+  color: var(--gray-50) !important;
 }
 
 .text-gray-100 {
-  color: var(--gray-100);
+  color: var(--gray-100) !important;
 }
 
 .text-gray-200 {
-  color: var(--gray-200);
+  color: var(--gray-200) !important;
 }
 
 .text-gray-300 {
-  color: var(--gray-300);
+  color: var(--gray-300) !important;
 }
 
 .text-gray-400 {
-  color: var(--gray-400);
+  color: var(--gray-400) !important;
 }
 
 .text-gray-500 {
-  color: var(--gray-500);
+  color: var(--gray-500) !important;
 }
 
 .text-gray-600 {
-  color: var(--gray-600);
+  color: var(--gray-600) !important;
 }
 
 .text-gray-700 {
-  color: var(--gray-700);
+  color: var(--gray-700) !important;
 }
 
 .text-gray-800 {
-  color: var(--gray-800);
+  color: var(--gray-800) !important;
 }
 
 .text-gray-900 {
-  color: var(--gray-900);
+  color: var(--gray-900) !important;
 }
 
 /* =================================================================

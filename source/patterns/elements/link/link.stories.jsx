@@ -98,9 +98,9 @@ export const WithUtilities = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-3);">
       <a href="#" class="ps-link no-underline text-primary font-semibold">Sans soulignement</a>
-      <a href="#" class="ps-link text-lg text-secondary">Grande taille</a>
       <a href="#" class="ps-link no-underline font-bold text-success">Gras + couleur</a>
-      <a href="#" class="ps-link text-sm text-gray-600">Petit + gris</a>
+      <a href="#" class="ps-link text-center text-secondary">Aligné au centre</a>
+      <a href="#" class="ps-link text-gray-600">Texte gris</a>
     </div>
   `,
 };
