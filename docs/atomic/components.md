@@ -1,0 +1,179 @@
+# Components (Molecules)
+
+Composants fonctionnels composés de plusieurs atomes.
+
+**Total** : 24 composants  
+**Implémentés** : 5/24
+
+---
+
+## Content Cards
+
+**Card** - Conteneur avec image, titre, texte, CTA  
+Usage : Cartes de biens, actualités, études de marché  
+Specs : Réutilisé dans `design/pages/search-results/result-card.md`  
+Implémenté : ✅
+
+**Media Object** - Image/icône + titre + description  
+Usage : Grille services 4 colonnes, catégories recherche commerciale  
+Implémenté : ❌
+
+**Consultant Card** - Fiche conseiller avec avatar, contact, CTA  
+Usage : Sidebar page offre  
+Specs : `design/pages/property-detail/consultant-card.md`  
+Implémenté : ❌
+
+---
+
+## Forms
+
+**Form Field** - Input/textarea + label + message validation  
+Usage : Champs recherche bien, formulaires contact  
+Implémenté : ❌
+
+**Checkboxes** - Groupe de cases à cocher liées  
+Usage : Sélection type bien, checklist équipements  
+Implémenté : ❌
+
+**Radios** - Groupe de boutons radio liés  
+Usage : Options achat/location/investissement, filtres  
+Implémenté : ❌
+
+**Search Bar** - Input avec icône recherche + submit  
+Usage : Widget recherche hero, localisation bien  
+Implémenté : ❌
+
+**Contact Form** - Formulaire contact offre (modal)  
+Usage : Identité, email pro, société, téléphone, message  
+Implémenté : ❌
+
+---
+
+## Navigation
+
+**Breadcrumb** - Fil d'Ariane avec séparateurs  
+Usage : Page détail bien, article  
+Implémenté : ✅
+
+**Menu Item** - Lien nav avec icône, badge, sous-menu  
+Usage : Navigation principale (Résidentiel, Commercial, Services)  
+Implémenté : ❌
+
+**Pagination** - Navigation pages avec numéros + flèches  
+Usage : Résultats recherche, archive actualités  
+Implémenté : ❌
+
+**Language Selector** - Sélecteur langue/pays  
+Usage : Toggle FR/EN dans header  
+Implémenté : ❌
+
+**Tab** - Bouton onglet dans navigation tabs  
+Usage : Onglets détail bien (description, photos, énergie)  
+Implémenté : ❌
+
+---
+
+## Feedback
+
+**Alert** - Message notification avec icône + fermer  
+Usage : Validation formulaire, messages succès/erreur  
+Implémenté : ✅
+
+**Toast** - Notification temporaire auto-dismiss  
+Usage : Notification après actions, messages système  
+Implémenté : ❌
+
+**Tooltip** - Aide contextuelle hover/focus  
+Usage : Texte aide sur champs, icônes info  
+Implémenté : ❌
+
+**Modal** - Dialog overlay avec header, contenu, actions  
+Usage : Contact conseiller, filtres, rendez-vous  
+Implémenté : ❌
+
+**Gallery Modal** - Lightbox galerie avec prev/next + thumbnails  
+Usage : Photos de biens  
+Specs : `design/pages/property-detail/gallery-modal.md`  
+Implémenté : ❌
+
+---
+
+## Interactive
+
+**Accordion Item** - Section expansible unique  
+Usage : FAQ, caractéristiques bien  
+Implémenté : ✅
+
+**Dropdown** - Bouton trigger avec menu overlay  
+Usage : Tri, filtres  
+Specs : `design/pages/search-results/sort-dropdown.md`  
+Implémenté : ❌
+
+**Stepper** - Indicateur étapes avec statut  
+Usage : Wizard recherche multi-étapes  
+Implémenté : ❌
+
+---
+
+## Lists & Tables
+
+**List Item** - Item unique avec icône, texte, actions  
+Usage : Item vue liste biens, entrée résultat  
+Implémenté : ❌
+
+**Table Row** - Ligne données avec cellules + actions  
+Usage : Lignes tableau données marché, comparaison  
+Implémenté : ❌
+
+**Specs List** - Liste clé-valeur avec icônes  
+Usage : Équipements, services, état (listes structurées)  
+Specs : `design/pages/property-detail/specs-sections.md`  
+Implémenté : ❌
+
+**Surface Table Row** - Ligne lot : étage, nature, surface, dispo  
+Usage : Tableau des surfaces offre  
+Specs : `design/pages/property-detail/surface-table.md`  
+Implémenté : ❌
+
+---
+
+## Media
+
+**Video** - Lecteur vidéo avec contrôles  
+Usage : Visites virtuelles, rapports marché  
+Implémenté : ❌
+
+**Carousel Item** - Slide unique avec contenu  
+Usage : Carrousel photos bien, biens mis en avant  
+Implémenté : ❌
+
+**Map Widget** - Bloc carte embarquée avec markers + contrôles  
+Usage : Intégration Google/Leaflet (placeholder)  
+Specs : `design/pages/property-detail/location.md`  
+Implémenté : ❌
+
+**POI Filter Group** - Groupe filtres checkbox POI sur carte  
+Usage : Transports, restaurants, hôtels  
+Specs : `design/pages/property-detail/poi-filters.md`  
+Implémenté : ❌
+
+**Travel Time Calculator** - Input + widget calcul routes/ETA  
+Usage : Champ adresse + résultat temps trajet  
+Specs : `design/pages/property-detail/travel-time.md`  
+Implémenté : ❌
+
+---
+
+## Other
+
+**Tag List** - Collection de chips/tags  
+Usage : Tags de bien, filtres actifs  
+Implémenté : ❌
+
+---
+
+## 📚 Références
+
+- **Specs détaillées** : `docs/design/pages/` pour composants de pages
+- **Workflow** : `.github/instructions/02-component-development.md`
+- **Standards** : `.github/instructions/03-technical-implementation.md`

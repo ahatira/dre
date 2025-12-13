@@ -1,151 +1,133 @@
-# Documentation PS Theme
+# PS Theme Documentation
 
-**Version** : 4.0.0  
-**Dernière mise à jour** : 2025-12-12  
-**Projet** : Thème Drupal 10/11 pour BNP Paribas Real Estate
+Documentation complète du thème Drupal 10/11 pour BNP Paribas Real Estate.
 
 ---
 
-## 📚 Navigation
+## 🎯 Démarrage rapide
 
-### 🎯 [01. Présentation](./01-presentation/)
-Vue d'ensemble du projet, architecture technique, méthodologie Atomic Design + Token-First.
+**Nouveau ?** Suivez ce parcours :
 
-**Commencer ici** si vous découvrez le projet.
-
-### 🧩 [02. Composants](./02-composants/)
-Spécifications complètes des **87 composants** organisés par niveau Atomic Design.
-
-- **[01-atomes/](./02-composants/01-atomes/)** – 19 composants élémentaires
-- **[02-molecules/](./02-composants/02-molecules/)** – 20 composants composés
-- **[03-organismes/](./02-composants/03-organismes/)** – 12 composants complexes
-- **[04-templates/](./02-composants/04-templates/)** – 8 structures de page
-- **[05-pages/](./02-composants/05-pages/)** – 8 pages complètes
-
-**Progression** : 6/87 composants implémentés (7%)
-
-### 🎨 [03. Design Tokens](./03-tokens/)
-Système complet de design tokens : couleurs, espacements, typographie, ombres, animations.
-
-Référence obligatoire pour **tous les développements**.
-
-### 🛠️ [04. Guide de développement](./04-guide-developpement/)
-Guide pratique pour créer et maintenir des composants conformes aux standards v4.0.0.
-
-- Démarrage rapide
-- Workflow de création
-- Composition Token-First
-- Tests et qualité
-
-### 📝 [05. Changelog](./05-changelog/)
-Historique chronologique de toutes les implémentations et évolutions du système.
-
-### 📦 [06. Ressources](./06-ressources/)
-Maquettes Figma, références externes, assets du projet.
+1. **Comprendre la structure** → Lisez [`INDEX.md`](INDEX.md) (10 min)
+2. **Consulter les specs** → Explorez [`design/`](design/) pour les pages détaillées
+3. **Voir les composants** → Parcourez [`atomic/`](atomic/) pour les inventaires
+4. **Planifier le dev** → Consultez [`ROADMAP.md`](ROADMAP.md) pour les phases
 
 ---
 
-## 🚀 Démarrage rapide
+## 📂 Structure de la documentation
 
-### Pour développer un nouveau composant
-
-1. **Lire la spec** → `docs/02-composants/{niveau}/{composant}.md`
-2. **Consulter le guide** → `docs/04-guide-developpement/creer-composant.md`
-3. **Utiliser les prompts AI** → `.github/prompts/create-{atom|molecule|organism}.md`
-4. **Valider** → `.github/prompts/audit-component.md`
-
-### Pour comprendre le système
-
-1. **Architecture** → `docs/01-presentation/architecture.md`
-2. **Méthodologie** → `docs/01-presentation/methodologie.md`
-3. **Glossaire** → `docs/01-presentation/glossaire.md`
-
-### Pour consulter les tokens
-
-1. **Vue d'ensemble** → `docs/03-tokens/README.md`
-2. **Couleurs** → `docs/03-tokens/couleurs.md`
-3. **Espacements** → `docs/03-tokens/espacements.md`
-4. **Typographie** → `docs/03-tokens/typographie.md`
-
----
-
-## 📖 Documentation technique
-
-La documentation technique détaillée (instructions de développement, workflows, standards) se trouve dans :
-
-**`.github/instructions/`** (6 fichiers consolidés v4.0.0)
-
-1. `01-core-principles.md` – Fondations du système
-2. `02-component-development.md` – Workflow de création complet
-3. `03-technical-implementation.md` – Standards de code
-4. `04-quality-assurance.md` – Validation et tests
-5. `05-maintenance.md` – Évolution et maintenance
-6. `README.md` – Hub de navigation
+```
+docs/
+├── README.md              # Ce fichier - Point d'entrée
+├── INDEX.md               # Navigation complète de la doc
+├── ROADMAP.md             # Plan de développement par phases
+├── RESPONSIVE-GUIDE.md    # Guide méthodologique responsive
+│
+├── atomic/                # Inventaires Atomic Design
+│   ├── README.md          # Navigation inventaires
+│   ├── elements.md        # Atoms (25)
+│   ├── components.md      # Molecules (24)
+│   ├── collections.md     # Organisms (15)
+│   ├── layouts.md         # Templates (10)
+│   └── pages.md           # Pages (12)
+│
+├── design/                # Spécifications détaillées
+│   ├── README.md          # Navigation specs
+│   └── pages/             # Specs pages responsive
+│       ├── property-detail/       # Page Offre
+│       ├── search-results/        # Recherche desktop
+│       ├── search-results-mobile/ # Recherche mobile
+│       ├── account/               # Compte desktop
+│       └── account-mobile/        # Compte mobile
+│
+└── maquettes/             # Maquettes design (8 images)
+```
 
 ---
 
-## 🤖 Prompts AI
+## 📚 Documentation par usage
 
-Bibliothèque de 13 prompts prêts à l'emploi pour accélérer le développement :
+### **Je développe un composant**
+1. Vérifier l'inventaire : [`atomic/`](atomic/)
+2. Lire la spec détaillée : [`design/pages/`](design/pages/) (si composant de page)
+3. Suivre le workflow : `.github/instructions/02-component-development.md`
+4. Appliquer les standards : `.github/instructions/03-technical-implementation.md`
 
-**`.github/prompts/`**
+### **Je prépare un sprint**
+1. Consulter le plan : [`ROADMAP.md`](ROADMAP.md)
+2. Identifier les dépendances : Voir "Critical Dependencies" dans ROADMAP
+3. Prioriser : Phases 0 (fait) → Phase 1 (MVP) → Phase 2+
 
-- Création : `create-atom.md`, `create-molecule.md`, `create-organism.md`
-- Qualité : `audit-component.md`, `fix-component.md`, `find-issues.md`, `standardize-legacy.md`
-- Maintenance : `create-token.md`, `refactor-css.md`, `update-storybook.md`
-- Analyse : `analyze-project.md`, `check-accessibility.md`
+### **Je spécifie une page**
+1. Lire le guide : [`RESPONSIVE-GUIDE.md`](RESPONSIVE-GUIDE.md)
+2. Voir les exemples : [`design/pages/`](design/pages/)
+3. Créer overview + sous-specs desktop/mobile
 
----
-
-## 🎓 Parcours d'apprentissage
-
-### Niveau 1 : Découverte (1-2h)
-1. Lire `docs/01-presentation/README.md`
-2. Parcourir `docs/02-composants/README.md`
-3. Explorer Storybook : http://localhost:6006
-
-### Niveau 2 : Compréhension (2-4h)
-1. Étudier `docs/01-presentation/methodologie.md`
-2. Lire `.github/instructions/01-core-principles.md`
-3. Analyser un composant de référence : `button`, `badge`, `avatar`
-
-### Niveau 3 : Pratique (1 semaine)
-1. Créer un atome simple avec `create-atom.md`
-2. Auditer avec `audit-component.md`
-3. Créer une molécule avec Token-First
-4. Contribuer au système
+### **Je cherche une info**
+1. Consulter l'index : [`INDEX.md`](INDEX.md)
+2. Naviguer vers le fichier pertinent
+3. Utiliser la recherche dans fichiers si besoin
 
 ---
 
-## 📊 État du projet
+## 🎨 Pages documentées
 
-- **Composants implémentés** : 6/87 (7%)
-- **Design tokens** : 100+ tokens (couleurs, tailles, typographie, etc.)
-- **Storybook** : 6 composants documentés
-- **Tests** : Conformité audit 100 points
-- **Accessibilité** : WCAG 2.2 AA
+### ✅ Offre (Property Detail)
+**Status** : Spécifications complètes  
+**Desktop** : Header, actions, consultant, description, specs, énergie, surfaces, localisation, POI, trajets, galerie, similaires  
+**Fichier** : [`design/pages/property-detail.md`](design/pages/property-detail.md)
 
----
+### ✅ Recherche (Search Results)
+**Status** : Spécifications complètes desktop + mobile  
+**Desktop** : Filtres, tri, liste, carte, distance, comparateur  
+**Mobile** : Top bar, actions, liste pile, tiroir comparateur, carte plein écran  
+**Fichier** : [`design/pages/search-results/index.md`](design/pages/search-results/index.md)
 
-## 🔗 Liens utiles
+### ✅ Compte (Account)
+**Status** : Spécifications complètes desktop + mobile  
+**Desktop** : Sidebar nav, profil (vue/édition), mot de passe, favoris grille, alertes, support  
+**Mobile** : Hub nav, profil mobile, édition champ, favoris liste, support  
+**Fichier** : [`design/pages/account/index.md`](design/pages/account/index.md)
 
-- **Storybook (dev)** : http://localhost:6006
-- **Storybook (prod)** : https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/
-- **Repository** : (lien GitHub si applicable)
-- **Figma** : (lien vers les maquettes)
-
----
-
-## 📞 Support
-
-Pour toute question ou problème :
-
-1. Consulter `docs/04-guide-developpement/`
-2. Vérifier `.github/instructions/`
-3. Utiliser les prompts AI (`.github/prompts/`)
-4. Contacter l'équipe Design System
+### ⏳ Homepage
+**Status** : À spécifier  
+**Contenu** : Hero recherche, services, biens mis en avant, FAQ, actualités
 
 ---
 
-**Mainteneurs** : Équipe Design System BNP Paribas Real Estate  
-**Licence** : Propriétaire
+## 📊 Métriques projet
+
+**Composants** : 86 documentés
+- Elements (Atoms) : 25 → 13 implémentés (52%)
+- Components (Molecules) : 24 → 5 implémentés (21%)
+- Collections (Organisms) : 15 → 2 implémentés (13%)
+- Layouts (Templates) : 10 → 0 implémentés (0%)
+- Pages : 12 → 0 implémentées (0%)
+
+**Pages spécifiées** : 3/12 (Offre, Recherche, Compte)
+
+**Progression globale** : ~15% implémenté
+
+---
+
+## 🔗 Liens externes
+
+- **Storybook démo** : [Surface Storybook](https://dev-ucla-surface-training.pantheonsite.io/themes/custom/surface/storybook/)
+- **Instructions dev** : `.github/instructions/` (6 fichiers numérotés)
+- **Copilot instructions** : `.github/copilot-instructions.md`
+
+---
+
+## 🆘 Besoin d'aide ?
+
+**Question sur la structure ?** → Lisez [`INDEX.md`](INDEX.md)  
+**Question sur un composant ?** → Consultez [`atomic/`](atomic/)  
+**Question sur une page ?** → Explorez [`design/pages/`](design/pages/)  
+**Question sur le dev ?** → Voir `.github/instructions/02-component-development.md`  
+**Question sur le responsive ?** → Lisez [`RESPONSIVE-GUIDE.md`](RESPONSIVE-GUIDE.md)
+
+---
+
+**Dernière mise à jour** : 13 décembre 2025  
+**Mainteneurs** : Design System Team
