@@ -39,9 +39,9 @@
     id="{{ id }}"
     name="{{ name }}"
     value="{{ value }}"
-    {% if checked %}checked{% endif %}
-    {% if indeterminate %}data-indeterminate="true"{% endif %}
-    {% if disabled %}disabled aria-disabled="true"{% endif %}
+    {%- if checked %} checked{% endif -%}
+    {%- if indeterminate %} data-indeterminate="true"{% endif -%}
+    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   />
   <span class="ps-checkbox__checkmark" aria-hidden="true"></span>
   {%- if has_label -%}
