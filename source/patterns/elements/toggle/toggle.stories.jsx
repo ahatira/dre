@@ -206,29 +206,3 @@ export const WithInternalLabels = {
     },
   },
 };
-
-export const UseCases = {
-  render: () => `
-    <div style="display:grid; gap:1.5rem; max-width:640px;">
-      <div style="padding:1rem; border:1px solid var(--gray-200); border-radius:var(--radius-2); background:white;">
-        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Alertes immobilières</h4>
-        ${toggleTwig({ name: 'email_alerts', label: 'Alertes email', description: 'Recevoir les nouvelles annonces par email', checked: true })}
-        ${toggleTwig({ name: 'sms_alerts', label: 'Alertes SMS', description: 'Notifications instantanées des biens correspondants', checked: false })}
-        ${toggleTwig({ name: 'price_drop', label: 'Baisses de prix', description: 'Alertes de réductions sur les biens suivis', checked: true, showLabels: true })}
-      </div>
-      <div style="padding:1rem; border:1px solid var(--gray-200); border-radius:var(--radius-2); background:white;">
-        <h4 style="margin:0 0 .5rem; font-size:14px; font-weight:600;">Préférences de recherche</h4>
-        ${toggleTwig({ name: 'map_view', label: 'Vue cartographique', description: 'Afficher les biens sur une carte interactive', checked: false, size: 'large' })}
-        ${toggleTwig({ name: 'virtual_tours', label: 'Visites virtuelles', description: 'Inclure uniquement les biens avec visite 3D', checked: true, size: 'small' })}
-      </div>
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Usage réel : panneaux de préférences groupées combinant états, tailles et labels internes dans un contexte immobilier.',
-      },
-    },
-  },
-};
