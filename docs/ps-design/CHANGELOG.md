@@ -4,6 +4,37 @@
 
 ## 2025
 
+- 2025-12-13: **🗂️ COMPONENT STRUCTURE SIMPLIFICATION (v2.1.0 - Breaking Changes)** – Suppression de tous les README.md de composants, structure à 4 fichiers ✅ COMPLETE
+  - **Context**: 36 component README.md files duplicate content from `docs/design/{level}/{component}.md` causing maintenance burden
+  - **Decision**: "Je penses qu'il vaut mieux les supprimer pour l'instant, ça fait moins de fichiers à maintenir" (user feedback)
+  - **Rationale**:
+    * Single source of truth: Component specs in `docs/design/` only
+    * Less maintenance: -36 files to keep in sync
+    * Cleaner structure: 4 files per component instead of 5
+    * Storybook Autodocs: Sufficient for usage documentation
+  - **Changes**:
+    * **Mass deletion**: 36 README.md files removed (-10,676 lines)
+    * **Preserved**: `source/patterns/documentation/README.md` (system docs for icons-registry, colors-list JSON data)
+    * **Component structure**: 5 files → 4 files (.twig .css .yml .stories.jsx)
+    * **Audit system**: 100-point → 90-point scoring (README.md section removed)
+    * **Passing score**: 90/100 → 80/90 (80% threshold maintained)
+  - **Instructions Updated** (9 files):
+    * `01-core-principles.md`: 5-File Structure → 4-File Structure
+    * `02-component-development.md`: Pre-Commit checklist (5→4 files)
+    * `04-quality-assurance.md`: 90-point system, scoring table (80/90), Pre-Commit (line 777)
+    * `05-maintenance.md`: Refactor workflow (README step removed), breaking changes (4-file)
+    * `README.md`: Audit references (90 points), learning path (80/90)
+    * `copilot-instructions.md`: Zero Tolerance rules, Component Checklist, examples
+    * `prompts/audit-component.md`: Obsolescence notice (reference to 04-quality-assurance.md)
+    * `prompts/create-atom.md`: Obsolescence notice (reference to 02-component-development.md)
+    * `COMPONENT_AUDIT_TEMPLATE.md`: Obsolescence notice (current standard in instructions)
+  - **Commits**:
+    * `68f5137`: Badge README corrections (before deletion decision)
+    * `1c47e5a`: Mass deletion of 36 component README.md files
+    * `678cc97`: Instructions update (4-file structure, 90-point system)
+  - **Migration**: NO action required for existing components (files already absent)
+  - **Generator Note**: `scripts/generate-pattern.mjs` still generates README.md (to be removed manually)
+
 - 2025-12-13: **🔧 BUTTON STANDARDIZATION (v2.0.0 - Breaking Changes)** – Complete refactor: 3 sizes, semantic variants, responsive, simplified HTML ✅ COMPLETE
   - **Context**: Button audit revealed major inconsistencies (score 35/100) - size system, variants, missing responsive, HTML structure
   - **Problem Statement**:
