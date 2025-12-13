@@ -91,7 +91,7 @@ props:
       title: Texte
     variant:
       type: string
-      enum: ['primary','secondary','info','success','warning','error','neutral']
+      enum: ['primary','secondary','info','success','warning','danger','gold','neutral']
       default: 'neutral'
     type:
       type: string
@@ -124,7 +124,7 @@ props:
 
 ## 🎭 Variants
 
-- **Couleurs** : `primary`|`secondary`|`info`|`success`|`warning`|`error`|`neutral`.
+- **Couleurs** : `primary`|`secondary`|`info`|`success`|`warning`|`danger`|`gold`|`neutral`.
 - **Types** : `date`|`status`|`label`|`count` (affecte l'icône par défaut et le style).
 - **Tailles** : `small`|`medium`|`large`.
 - **Formes** : `rounded` (coins arrondis), `square`, `pill` (complètement arrondi).
