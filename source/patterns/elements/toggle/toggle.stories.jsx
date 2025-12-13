@@ -112,7 +112,7 @@ Supports sizes, checked/disabled states, optional ON/OFF labels, and accessibili
       },
     },
   },
-  args: { ...data },
+  args: data,
 };
 
 export const Default = {
