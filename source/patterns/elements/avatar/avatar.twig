@@ -1,19 +1,27 @@
 {#
- * Avatar (Component/Molecule)
- * Composition: Image atom + Text atom (initials) + Status Badge atom
+/**
+ * @file
+ * Avatar component (Atom)
  * 
- * @param string src - Image URL (optional)
- * @param string alt - Alt text for image (required when src provided)
- * @param string initials - Initials text (2 letters max, fallback if no image)
- * @param string gender - male | female (default: male, used for icon fallback)
- * @param string size - xs | sm | md | lg | xl (default: lg)
- * @param string shape - circle | square | rounded (default: circle)
- * @param string status - online | offline | busy (optional, status badge)
- * @param boolean bordered - White border (default: false)
- * @param boolean clickable - Interactive hover/focus (default: false)
- * @param string href - Link URL if clickable (optional)
- * @param Attribute attributes - Additional HTML attributes
- #}
+ * User or agent visual representation with image, initials, or icon fallback.
+ * Supports sizes, shapes, status badge, and interactive states.
+ * 
+ * Available variables:
+ * - src: (string) Image URL (optional, fallback to initials or icon)
+ * - alt: (string) Alt text for image (required when src provided)
+ * - initials: (string) Initials text (2 letters max, fallback if no image)
+ * - gender: (string) male | female (default: male, used for icon fallback)
+ * - size: (string) xs | sm | md | lg | xl (default: lg)
+ * - shape: (string) circle | square | rounded (default: circle)
+ * - status: (string) online | offline | busy (optional status badge)
+ * - bordered: (boolean) White border (default: false)
+ * - clickable: (boolean) Interactive hover/focus (default: false)
+ * - href: (string) Link URL if clickable (transforms to <a>)
+ * - attributes: (Drupal\Core\Template\Attribute) Additional HTML attributes
+ * 
+ * @see https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html
+ */
+#}
 
 {%- set size = size|default('lg') -%}
 {%- set shape = shape|default('circle') -%}
@@ -37,9 +45,13 @@
 
 {%- set tag = href ? 'a' : 'div' -%}
 
-<{{ tag }} class="{{ avatar_classes|join(' ')|trim }}"
+<{{ tag }}
+  {%- if attributes %}
+    {{- attributes.addClass(avatar_classes) -}}
+  {%- else %}
+    class="{{ avatar_classes|join(' ')|trim }}"
+  {%- endif -%}
   {%- if href %} href="{{ href }}"{% endif -%}
-  {%- if attributes %} {{ attributes }}{% endif -%}
 >
   {# Atom 1: Image #}
   {%- if has_image -%}

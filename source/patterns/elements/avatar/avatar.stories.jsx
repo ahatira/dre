@@ -1,7 +1,7 @@
 import avatarTwig from './avatar.twig';
 
 export default {
-  title: 'Components/Avatar',
+  title: 'Elements/Avatar',
   tags: ['autodocs'],
   render: (args) => avatarTwig(args),
   argTypes: {
@@ -296,6 +296,127 @@ export const Clickable = {
       description: {
         story:
           'Interactive avatars with hover scale effect and focus outline. Provide href to render as link.',
+      },
+    },
+  },
+};
+
+/**
+ * Real Estate context examples
+ */
+export const RealEstateContext = {
+  render: () => {
+    return `
+      <div style="display: flex; flex-direction: column; gap: var(--size-10);">
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Agent Profile Card (lg, online)</h4>
+          <div style="background: var(--white); padding: var(--size-6); border-radius: var(--radius-3); border: 1px solid var(--border-light); display: inline-flex; flex-direction: column; align-items: center; gap: var(--size-3); box-shadow: var(--shadow-sm);">
+            ${avatarTwig({
+              src: '/source/assets/images/1-1.jpg',
+              alt: 'Sophie Martin, Agent immobilier',
+              size: 'lg',
+              status: 'online',
+              clickable: true,
+              href: '/agents/sophie-martin',
+            })}
+            <div style="text-align: center;">
+              <div style="font-weight: 600; color: var(--text-primary); font-size: var(--font-size-2);">Sophie Martin</div>
+              <div style="font-size: var(--font-size-1); color: var(--text-secondary);">Agent commercial</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Property Listing Attribution (sm, no status)</h4>
+          <div style="background: var(--white); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: var(--size-3);">
+              ${avatarTwig({
+                src: '/source/assets/images/1-1.jpg',
+                alt: 'Jean Dupont',
+                size: 'sm',
+                shape: 'circle',
+              })}
+              <div style="flex: 1;">
+                <div style="font-weight: 500; color: var(--text-primary); font-size: var(--font-size-1);">Jean Dupont</div>
+                <div style="font-size: var(--font-size-0); color: var(--text-secondary);">+33 1 23 45 67 89</div>
+              </div>
+              <button style="padding: var(--size-2) var(--size-4); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); font-size: var(--font-size-0); cursor: pointer;">
+                Contacter
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Team Directory (md, status badges)</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--size-5);">
+            ${[
+              { initials: 'SM', status: 'online', name: 'Sophie Martin', role: 'Agent Commercial' },
+              { initials: 'JD', status: 'busy', name: 'Jean Dupont', role: 'Conseiller' },
+              { initials: 'MC', status: 'offline', name: 'Marie Curie', role: 'Responsable' },
+            ]
+              .map(
+                (agent) => `
+              <div style="background: var(--white); padding: var(--size-4); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
+                ${avatarTwig({
+                  initials: agent.initials,
+                  status: agent.status,
+                  size: 'md',
+                  clickable: true,
+                })}
+                <div style="margin-top: var(--size-3); font-weight: 600; color: var(--text-primary); font-size: var(--font-size-1);">${agent.name}</div>
+                <div style="font-size: var(--font-size-0); color: var(--text-secondary);">${agent.role}</div>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Fallback Icons (xs, male/female)</h4>
+          <div style="display: flex; gap: var(--size-4); align-items: center;">
+            <div style="text-align: center;">
+              ${avatarTwig({
+                gender: 'male',
+                size: 'xs',
+              })}
+              <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">Agent non renseigné</div>
+            </div>
+            <div style="text-align: center;">
+              ${avatarTwig({
+                gender: 'female',
+                size: 'xs',
+              })}
+              <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--text-secondary);">Conseillère non renseignée</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 var(--size-4); color: var(--text-primary); font-size: var(--font-size-3); font-weight: 600;">Featured Agent Spotlight (xl, bordered)</h4>
+          <div style="background: linear-gradient(135deg, var(--primary-bg-subtle) 0%, var(--secondary-bg-subtle) 100%); padding: var(--size-8); border-radius: var(--radius-4); text-align: center;">
+            ${avatarTwig({
+              src: '/source/assets/images/1-1.jpg',
+              alt: 'Agent du mois',
+              size: 'xl',
+              bordered: true,
+              status: 'online',
+            })}
+            <div style="margin-top: var(--size-5);">
+              <div style="font-weight: 700; color: var(--text-primary); font-size: var(--font-size-4); margin-bottom: var(--size-2);">Agent du mois</div>
+              <div style="font-size: var(--font-size-2); color: var(--text-secondary);">Plus de 25 transactions réussies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Common avatar usage patterns in real estate: agent profile cards (lg with status), property listing attribution (sm), team directory (md with status badges), fallback icons (xs), and featured agent spotlight (xl bordered).',
       },
     },
   },

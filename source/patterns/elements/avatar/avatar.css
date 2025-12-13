@@ -1,6 +1,6 @@
 /**
- * Avatar (Component/Molecule)
- * Composed of 3 atomic elements: Image + Text (initials) + Status Badge
+ * Avatar (Element/Atom)
+ * User or agent visual representation with image, initials, or icon fallback.
  * 
  * BEM: ps-avatar, ps-avatar__image, ps-avatar__text, ps-avatar__status
  * Sizes: xs (28px) | sm (48px) | md (68px) | lg (88px - default) | xl (112px)
@@ -8,6 +8,8 @@
  * Fallback: image → initials → gender icon (male/female SVG)
  * Status: online | offline | busy
  * Three-Layer CSS Variables System
+ * 
+ * @see docs/design/atoms/avatar.md
  */
 
 .ps-avatar {
