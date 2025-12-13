@@ -82,7 +82,7 @@ props:
 --link-color: var(--primary)
 --link-hover: var(--primary-hover)
 --link-active: var(--primary-active)
---link-visited: #8E2A68
+--link-visited: var(--secondary-active)
 --link-transition-duration: var(--duration-fast)
 ```
 

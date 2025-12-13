@@ -156,7 +156,7 @@ description: 'Carousel responsive pour images ou cartes.'
 - Toolbar bottom position: 20px from bottom
 
 **Toolbar**:
-- Background: --gray-50 (#F9F9FB)
+- Background: --gray-50 (var(--gray-50))
 - Items spacing: 8px gap
 - Divider: 1px width, 22px height, --gray-400
 - Icon size: 20×20px
@@ -204,10 +204,10 @@ description: 'Carousel responsive pour images ou cartes.'
 ## 🎨 Design Tokens (Pixel Perfect)
 
 ### Colors
-- `--primary` (#00915A) - Navigation icons, CTA links, active states, focus
-- `--secondary` (#A22B66) - Hover states, toolbar active
-- `--white` (#FFFFFF) - Button backgrounds, pagination bullets, favorite button
-- `--gray-50` (#F9F9FB) - Toolbar background
+- `--primary` (var(--primary)) - Navigation icons, CTA links, active states, focus
+- `--secondary` (var(--secondary)) - Hover states, toolbar active
+- `--white` (var(--white)) - Button backgrounds, pagination bullets, favorite button
+- `--gray-50` (var(--gray-50)) - Toolbar background
 - `--gray-400` (#9AA6B2) - Dividers, secondary text
 - `--gray-600` (#6A7078) - Card navigation icons, location text
 - `--gray-800` (#333333) - Card titles

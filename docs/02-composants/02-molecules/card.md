@@ -197,7 +197,7 @@ Card utilise **Twig blocks** pour composition de contenu :
 ## 🎨 Design Tokens
 
 ### Visual
-- **Border** : `1.5px solid #EBEDEF` (Figma exact - Grey #6) via `var(--border-size-15)` + `var(--ps-color-border-card)`
+- **Border** : `var(--border-size-15) solid var(--border-default)` (Figma exact - Grey #6) via `var(--border-size-15)` + `var(--border-default)`
 - **Border radius** : Customizable via `radius` prop
   - None: `0` (default)
   - Small: `var(--radius-2)` (4px)
@@ -245,7 +245,7 @@ Card utilise **Twig blocks** pour composition de contenu :
 - **Heading hierarchy** : Délégué aux composants enfants
 - **Keyboard navigation** : Si url fourni, card devient cliquable (focus outline)
 - **ARIA** : `role="article"` implicite, pas d'overrides nécessaires
-- **Color contrast** : WCAG AA respecté par défaut (bordure #EBEDEF suffisant)
+- **Color contrast** : WCAG AA respecté par défaut (bordure var(--border-default) suffisant)
 
 ---
 

@@ -258,7 +258,7 @@ props:
 </button>
 ```
 
-**Couleurs** : `--primary` (vert brand #00915A)
+**Couleurs** : `--primary`
 
 ### 3. Secondary
 
@@ -270,7 +270,7 @@ props:
 </button>
 ```
 
-**Couleurs** : `--secondary` (violet brand #A12B66)
+**Couleurs** : `--secondary`
 
 ### 4. Success, Info, Warning, Danger
 
@@ -700,7 +700,7 @@ $form['cancel'] = [
 **Migration** :
 ```html
 <!-- Avant (v1.x) -->
-<button class="ps-button ps-button--neutral">Neutral</button>
+<button class="ps-button">Neutral</button>
 <button class="ps-button ps-button--dark">Dark</button>
 <button class="ps-button ps-button--light">Light</button>
 

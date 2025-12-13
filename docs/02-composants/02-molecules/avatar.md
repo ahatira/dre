@@ -229,25 +229,25 @@ props:
   &__text {
     font-family: var(--ps-font-family-primary);
     font-weight: var(--ps-font-weight-semibold, 600);
-    color: var(--ps-color-neutral-0, #FFF);
+    color: var(--white);
     text-transform: uppercase;
     user-select: none;
   }
 
   &__icon {
-    color: var(--ps-color-neutral-600, #54636F);
+    color: var(--gray-600);
   }
 
   &__status {
     position: absolute;
     width: 25%; height: 25%;
     border-radius: var(--ps-border-radius-full, 50%);
-    border: 2px solid var(--ps-color-neutral-0, #FFF);
+    border: 2px solid var(--white);
     bottom: 0; right: 0;
   }
-  &__status--online { background: var(--ps-color-success-600, #0DB089); }
-  &__status--offline { background: var(--ps-color-neutral-400, #9AA6B2); }
-  &__status--busy { background: var(--ps-color-error-600, #E53935); }
+  &__status--online { background: var(--success); }
+  &__status--offline { background: var(--gray-400); }
+  &__status--busy { background: var(--danger); }
 
   // Sizes (standardized)
   &--small {
@@ -273,15 +273,15 @@ props:
 
   // Types
   &--initials {
-    background: var(--ps-color-primary-600, #0DB089);
+    background: var(--primary, #0DB089);
   }
   &--icon {
-    background: var(--ps-color-neutral-100, #F3F6F9);
+    background: var(--gray-100);
   }
 
   // Bordered
   &--bordered {
-    border: var(--ps-border-width-default, 2px) solid var(--ps-color-neutral-0, #FFF);
+    border: var(--border-size-2, 2px) solid var(--white);
   }
 
   // Clickable
@@ -290,7 +290,7 @@ props:
     transition: transform var(--ps-transition-duration-fast, 0.15s) var(--ps-transition-easing-default, ease);
     &:hover { transform: scale(1.05); }
     &:focus-visible {
-      outline: var(--ps-border-width-focus, 2px) solid var(--ps-color-interactive-focus-outline, #0B5FFF);
+      outline: var(--border-size-2, 2px) solid var(--primary);
       outline-offset: 2px;
     }
   }
