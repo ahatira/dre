@@ -1,15 +1,3 @@
 # Defaults for Skip Link preview
-# Real Estate context: Property search platform navigation
-
-# Target section ID (accessibility landmark)
-targetId: 'main-content'
-
-# Link label (visible on keyboard focus only)
-label: 'Skip to property listings'
-
-# Alternative labels for different page contexts
-labelSearch: 'Skip to search results'
-labelNavigation: 'Skip to main navigation'
-labelContent: 'Skip to main content'
-labelFilters: 'Skip to filters'
-labelContact: 'Skip to contact form'
+targetId: 'main-content' # ID of target anchor element (main-content, navigation, search, etc.)
+label: 'Skip to main content' # Link text displayed on focus

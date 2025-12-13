@@ -3,7 +3,6 @@
  * Semantic wrapper for SVG sprite icons rendered via pseudo-elements.
  *
  * @param string icon - Icon name from sprite (required, e.g., 'check', 'arrow-right')
- * @param string size - Icon size variant: xs|sm|md|lg|xl (optional, default: md)
  * @param string ariaLabel - ARIA label for accessibility (optional)
  * @param boolean ariaHidden - Hide from screen readers (optional, default: true)
  * @param object attributes - Additional HTML attributes (optional)
@@ -15,13 +14,11 @@
  * Example: <button data-icon="arrow-right" data-icon-position="end">Next</button>
  #}
 
-{% set size = size|default('md') %}
 {% set ariaHidden = ariaHidden|default(true) %}
 {%- set class = class|default(null) -%}
 
 {%- set classes = [
   'ps-icon',
-  size != 'md' ? 'ps-icon--' ~ size : null,
   class ? class : null
 ] -%}
 

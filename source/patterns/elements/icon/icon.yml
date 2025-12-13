@@ -1,29 +1,12 @@
-# Icon (Element/Atom) - Default data for Real Estate platform
+# Icon (Element/Atom) - Default data
 # Semantic wrapper for SVG sprite icons
 
-# Default icon for property success states
+# Default icon
 icon: 'check'
 
-# Icon size variant (xs, sm, md, lg, xl)
-size: 'md'
-
 # ARIA label (for icon-only with semantic meaning)
-# Use when icon conveys meaning without accompanying text
-ariaLabel: 'Property verified'
+# ariaLabel: 'Success'
 
 # Hide from screen readers (true for decorative icons)
-# Set to false when icon has semantic meaning
 ariaHidden: true
-
-# Real Estate icon examples by context
-iconFavorite: 'heart'           # Save property
-iconShare: 'share'              # Share listing
-iconLocation: 'map-marker'      # Property location
-iconBedroom: 'bed'              # Number of bedrooms
-iconBathroom: 'bath'            # Number of bathrooms
-iconArea: 'ruler'               # Surface area
-iconPrice: 'euro'               # Property price
-iconContact: 'envelope'         # Contact agent
-iconPhone: 'phone'              # Call agent
-iconCalendar: 'calendar'        # Schedule visit
 
