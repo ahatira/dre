@@ -22,8 +22,8 @@
   {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
   {%- if forId %} for="{{ forId }}"{% endif -%}>
   <span class="ps-label__text">{{ text }}</span>
-  {% if required %}
+  {%- if required %}
     <span class="ps-label__required" aria-hidden="true">*</span>
     <span class="visually-hidden">(required field)</span>
-  {% endif %}
+  {%- endif %}
 </label>
