@@ -1,10 +1,9 @@
 /** 
  * Link (Element/Atom)
- * Utility-first: Base semantic link + pill modifier only
- * Use utilities for colors (.text-primary), sizes (.text-lg), decoration (.no-underline)
+ * Utility-first: Base semantic link only
+ * Use utilities for all styling (.text-primary, .text-lg, .no-underline, .rounded-full, .bg-gray-100)
  * 
  * BEM: ps-link, ps-link__icon
- * Modifiers: --pill
  * Base: Inline flex layout with icon support, underline by default
  */
 
@@ -21,7 +20,6 @@
   cursor: pointer;
   transition: 
     color var(--duration-fast) var(--ease-4),
-    background-color var(--duration-fast) var(--ease-4),
     text-decoration var(--duration-fast) var(--ease-4);
   
   &:hover {
@@ -38,17 +36,5 @@
   &__icon {
     flex-shrink: 0;
     line-height: 1;
-  }
-
-  /* Pill modifier */
-  &--pill {
-    padding: var(--size-2) var(--size-4);
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    background-color: var(--gray-100);
-    
-    &:hover {
-      background-color: var(--gray-200);
-    }
   }
 }

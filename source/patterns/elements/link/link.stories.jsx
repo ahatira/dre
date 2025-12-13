@@ -41,15 +41,6 @@ export default {
         defaultValue: { summary: '' },
       },
     },
-    pill: {
-      description: 'Pill style with padding and background',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
     target: {
       description: 'Link target (_self or _blank)',
       control: { type: 'select' },
@@ -101,15 +92,15 @@ export const WithIcon = {
 };
 
 /**
- * Pill style with background and no underline
+ * Combine utilities for advanced styling (no-underline, padding, background, border-radius)
  */
-export const PillStyle = {
+export const WithUtilities = {
   render: () => `
-    <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-      ${linkTwig({ label: 'Bureaux', url: '#', pill: true })}
-      ${linkTwig({ label: 'Commerces', url: '#', pill: true })}
-      ${linkTwig({ label: 'Logements', url: '#', pill: true })}
-      ${linkTwig({ label: 'Entrepôts', url: '#', pill: true })}
+    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+      <a href="#" class="ps-link no-underline text-primary font-semibold">Sans soulignement</a>
+      <a href="#" class="ps-link text-lg text-secondary">Grande taille</a>
+      <a href="#" class="ps-link no-underline px-4 py-2 bg-gray-100 rounded-full">Style pill (utilities)</a>
+      <a href="#" class="ps-link no-underline px-4 py-2 bg-primary text-white rounded">Style button</a>
     </div>
   `,
 };
