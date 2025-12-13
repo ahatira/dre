@@ -6,26 +6,30 @@ Compact semantic label / status indicator with bold text and saturated backgroun
 - **Purpose**: Highlight statuses, categories, counts or meta labels inline.
 - **Variants (color)**: `primary` (default) `secondary` `success` `danger` `warning` `info` `light` `dark` `gold`.
 - **Shape**: Base rounded radius, optional `pill` modifier for fully circular ends.
-- **Icon**: Decorative glyph before/after text.
+- **Icon**: Decorative glyph via `data-icon` attribute (before/after text).
 - **Link**: Provide `url` to render `<a>` with focus outline.
 - **Accessibility**: Bold text + saturated backgrounds ensure high contrast; icon is decorative; focus visible only for interactive links.
 - **Responsive**: Scales proportionally with parent font-size using em units (e.g., larger in headings, smaller in body text).
 
 ## Markup
-```twig
-{# Primary badge (default) #}
-<span class="ps-badge">New</span>
+```html
+<!-- Primary badge (default) -->
+<span class="ps-badge">
+  <span class="ps-badge__text">New</span>
+</span>
 
-{# Secondary badge with icon #}
+<!-- Secondary badge with icon (data-icon attribute) -->
 <span class="ps-badge ps-badge--secondary" data-icon="check">
   <span class="ps-badge__text">Verified</span>
 </span>
 
-{# In heading (scales proportionally) #}
-<h2>Property Title <span class="ps-badge ps-badge--success">Available</span></h2>
+<!-- In heading (scales proportionally) -->
+<h2>Property Title <span class="ps-badge ps-badge--success"><span class="ps-badge__text">Available</span></span></h2>
 
-{# Pill link badge #}
-<a href="#" class="ps-badge ps-badge--info ps-badge--pill">Learn more</a>
+<!-- Pill link badge -->
+<a href="#" class="ps-badge ps-badge--info ps-badge--pill">
+  <span class="ps-badge__text">Learn more</span>
+</a>
 ```
 
 ## Props
@@ -95,20 +99,45 @@ Modifiers only change variables, enabling runtime customization and proportional
   - Success: Green 700 on Green 100 = **5.4:1** ✅
 ## Usage Examples
 ```twig
-{# Success status #}
-{{ include('@ps_theme/badge/badge.twig', { text: 'Available', color: 'success', icon: 'check' }) }}
+{# Success status with icon #}
+{{ include('@elements/badge/badge.twig', { 
+  text: 'Available', 
+  color: 'success', 
+  icon: 'check' 
+}) }}
 
-{# Warning #}
-{{ include('@ps_theme/badge/badge.twig', { text: 'Pending', color: 'warning' }) }}
+{# Warning badge #}
+{{ include('@elements/badge/badge.twig', { 
+  text: 'Pending', 
+  color: 'warning' 
+}) }}
 
-{# In heading (scales automatically) #}
-<h1>Property Title {{ include('@ps_theme/badge/badge.twig', { text: 'New', color: 'info' }) }}</h1>
+{# In heading (scales automatically with h1 font-size) #}
+<h1>
+  Property Title 
+  {{ include('@elements/badge/badge.twig', { 
+    text: 'New', 
+    color: 'info' 
+  }) }}
+</h1>
 
-{# Pill with icon #}
-{{ include('@ps_theme/badge/badge.twig', { text: 'Featured', color: 'primary', pill: true, icon: 'award' }) }}
+{# Pill badge with icon at end #}
+{{ include('@elements/badge/badge.twig', { 
+  text: 'Featured', 
+  color: 'primary', 
+  pill: true, 
+  icon: 'award',
+  iconPosition: 'end'
+}) }}
 
-{# Counter in button #}
-<button>Notifications {{ include('@ps_theme/badge/badge.twig', { text: '4', color: 'danger', size: 'small' }) }}</button>
+{# Counter badge in button text #}
+<button class="ps-button ps-button--primary">
+  Notifications 
+  {{ include('@elements/badge/badge.twig', { 
+    text: '4', 
+    color: 'danger' 
+  }) }}
+</button>
 ```Pill with icon #}
 ## Do & Don't
 | Do | Don't |
@@ -119,16 +148,15 @@ Modifiers only change variables, enabling runtime customization and proportional
 | Provide `url` for interactive link style | Add link styles to non-link elements |
 | Leverage relative sizing in headings/buttons | Force fixed pixel sizes |
 ## Migration Notes
-- **Icon System** (December 2025): Migrated from `data-icon` to Icon component (`@elements/icon`), enabling full SVG sprite support and consistent icon rendering across the theme.
-- **Icon Composition** (v4.0.0+): Uses Icon component with `attributes.addClass()` instead of deprecated `baseClass` parameter (removed in v4.0.0).
-- **Relative Sizing** (v4.1.0+): Badge now uses relative `em` units instead of fixed `rem` units, enabling proportional scaling with parent font-size (larger in headings, smaller in body text).
-- **Color System** (v4.1.0+): Standardized to 9 semantic colors with saturated backgrounds:
+- **Icon System** (v2.0.0 - December 2025): Uses `data-icon` attribute for icons (consistent with Button v2.0.0 pattern). Icon rendering handled globally by `source/props/icons.css`. No icon prefix needed in code (e.g., use `check` not `icon-check`).
+- **Relative Sizing** (v1.0.0+): Badge uses relative `em` units instead of fixed `rem` units, enabling proportional scaling with parent font-size (larger in headings, smaller in body text).
+- **Color System** (v1.0.0+): Standardized to 9 semantic colors with saturated backgrounds:
   - Removed: `default` (use `light` or `primary` instead)
   - Added: `light`, `dark` (standard semantic palette)
   - Kept: `gold` (premium/exclusive accent)
-  - Changed: All colors except `light` now use saturated backgrounds with white text for maximum visibility
-- **Typography** (v4.1.0+): Font-weight increased from 500 (medium) to 700 (bold) for better readability at small sizes.
-- **Default Color** (v4.1.0+): Default changed from `default` (gray) to `primary` (brand green) for consistency with modern badge patterns.
+  - Changed: All colors except `light` and `warning` now use saturated backgrounds with white text for maximum visibility
+- **Typography** (v1.0.0+): Font-weight increased from 500 (medium) to 700 (bold) for better readability at small sizes.
+- **Default Color** (v1.0.0+): Default changed from `default` (gray) to `primary` (brand green) for consistency with modern badge patterns.
 ## Audit Checklist
 - No hardcoded sizes/colors/durations (all use tokens or relative units).
 - Relative sizing: em units enable proportional scaling with parent font-size.
