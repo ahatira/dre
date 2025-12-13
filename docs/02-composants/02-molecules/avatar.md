@@ -155,15 +155,15 @@ props:
   - md: 40px
   - lg: 56px
   - xl: 80px
-- Couleurs initiales: `--ps-color-primary-600` (bg), `--ps-color-neutral-0` (text)
-- Couleurs icône: `--ps-color-neutral-400` (bg), `--ps-color-neutral-600` (icon)
-- Bordure: `--ps-color-neutral-0` (blanc), `--ps-border-width-default`
+- Couleurs initiales: `--primary` (bg), `--white` (text)
+- Couleurs icône: `--gray-200` (bg), `--gray-600` (icon)
+- Bordure: `--white`, `--border-size-1`
 - Statut:
-  - online: `--ps-color-success-600`
-  - offline: `--ps-color-neutral-400`
-  - busy: `--ps-color-error-600`
-- Bordures: `--ps-border-radius-full`, `--ps-border-radius-sm`, `--ps-border-radius-xs`
-- Transitions: `--ps-transition-duration-fast`
+  - online: `--success`
+  - offline: `--gray-400`
+  - busy: `--danger`
+- Bordures: `--radius-round`, `--radius-2`, `--radius-1`
+- Transitions: `--duration-fast`
 
 ---
 
@@ -220,7 +220,7 @@ props:
 .ps-avatar {
   position: relative; display: inline-flex; align-items: center; justify-content: center;
   overflow: hidden; flex-shrink: 0;
-  background: var(--ps-color-neutral-200, #E8EBEF);
+  background: var(--gray-200);
   text-decoration: none;
 
   &__image {

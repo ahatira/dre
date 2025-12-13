@@ -16,7 +16,7 @@
 - Rayon : `--radius-2` (4px), `--radius-3` (6px), `--radius-round` (icon-only/pill)
 - Bordures : `--border-size-1` (outline fin) ou `--border-size-2`
 - Couleurs sémantiques disponibles (fond/texte/bordure) :
-  - Neutral : `--neutral`, `--neutral-hover`, `--neutral-active`, `--neutral-text`, `--border-default`
+  - Neutral : `--gray-500`, `--gray-600`, `--gray-700`, `--text-secondary`, `--border-default`
   - Primary : `--primary`, `--primary-hover`, `--primary-active`, `--primary-text`, `--primary-border`
   - Secondary : `--secondary`, `--secondary-hover`, `--secondary-active`, `--secondary-text`, `--secondary-border`
   - Success : `--success`, `--success-hover`, `--success-active`, `--success-text`, `--success-border`
@@ -336,14 +336,16 @@ button_transition: background-color 150ms cubic-bezier(0.4, 0.0, 0.2, 1), color 
 button_border_radius: 0 (design carré)
 button_border_width: 2px (secondary uniquement)
 
-# CSS Variables (--ps prefix)
---ps-button-height-medium: 36px
---ps-primary: #00915A
---ps-secondary-purple: #BA3075
---ps-white: #FFFFFF
---ps-spacing-2: 8px
---ps-border-radius-none: 0
---ps-transition-button: all 150ms ease
+# CSS Variables (Tokens standards - sans préfixe)
+--size-9: 36px (button height medium)
+--primary: #00915A (vert BNP)
+--secondary: #A12B66 (violet BNP)
+--white: #FFFFFF
+--size-2: 8px (spacing)
+--radius-0: 0 (border square)
+--duration-fast + --ease-3: transition button
+
+Note : Anciens tokens --ps-* dépréciés, utiliser tokens standards.
 ```
 
 ---
@@ -447,16 +449,16 @@ button_border_width: 2px (secondary uniquement)
   --button-font-size: var(--size-4);
   --button-font-weight: var(--font-weight-400);
   --button-line-height: 1.5;
-  --button-bg: var(--neutral);
-  --button-color: var(--neutral-text);
+  --button-bg: var(--gray-500);
+  --button-color: var(--white);
   --button-border-width: 0;
   --button-border-color: transparent;
   --button-border-radius: 0;
-  --button-hover-bg: var(--neutral-hover);
+  --button-hover-bg: var(--gray-600);
   --button-hover-border-color: transparent;
-  --button-hover-color: var(--neutral-text);
+  --button-hover-color: var(--white);
   --button-hover-transform: translateY(-1px);
-  --button-active-bg: var(--neutral-active);
+  --button-active-bg: var(--gray-700);
   --button-active-transform: translateY(0);
   --button-disabled-opacity: 0.5;
   --button-focus-outline-width: var(--border-size-2);
@@ -519,18 +521,18 @@ button_border_width: 2px (secondary uniquement)
 .ps-button--info { --button-bg: var(--info); --button-color: var(--info-text); --button-hover-bg: var(--info-hover); --button-active-bg: var(--info-active); }
 .ps-button--warning { --button-bg: var(--warning); --button-color: var(--warning-text); --button-hover-bg: var(--warning-hover); --button-active-bg: var(--warning-active); }
 .ps-button--danger { --button-bg: var(--danger); --button-color: var(--danger-text); --button-hover-bg: var(--danger-hover); --button-active-bg: var(--danger-active); }
-.ps-button--neutral { --button-bg: var(--neutral); --button-color: var(--neutral-text); --button-hover-bg: var(--neutral-hover); --button-active-bg: var(--neutral-active); }
+.ps-button--neutral { --button-bg: var(--gray-500); --button-color: var(--white); --button-hover-bg: var(--gray-600); --button-active-bg: var(--gray-700); }
 
 // Variante outline (appliquée seule ou combinée)
 .ps-button--outline {
   --button-bg: transparent;
   --button-border-width: var(--border-size-2);
-  --button-border-color: var(--neutral);
-  --button-color: var(--neutral);
-  --button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent);
-  --button-hover-border-color: var(--neutral-hover);
-  --button-hover-color: var(--neutral-hover);
-  --button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent);
+  --button-border-color: var(--gray-500);
+  --button-color: var(--gray-600);
+  --button-hover-bg: color-mix(in srgb, var(--gray-500) 8%, transparent);
+  --button-hover-border-color: var(--gray-600);
+  --button-hover-color: var(--gray-700);
+  --button-active-bg: color-mix(in srgb, var(--gray-500) 16%, transparent);
 }
 
 // Outline par variante
@@ -540,7 +542,7 @@ button_border_width: 2px (secondary uniquement)
 .ps-button--outline.ps-button--info { --button-border-color: var(--info); --button-color: var(--info); --button-hover-bg: color-mix(in srgb, var(--info) 8%, transparent); --button-hover-border-color: var(--info-hover); --button-hover-color: var(--info-hover); --button-active-bg: color-mix(in srgb, var(--info) 16%, transparent); }
 .ps-button--outline.ps-button--warning { --button-border-color: var(--warning); --button-color: var(--warning); --button-hover-bg: color-mix(in srgb, var(--warning) 8%, transparent); --button-hover-border-color: var(--warning-hover); --button-hover-color: var(--warning-hover); --button-active-bg: color-mix(in srgb, var(--warning) 16%, transparent); }
 .ps-button--outline.ps-button--danger { --button-border-color: var(--danger); --button-color: var(--danger); --button-hover-bg: color-mix(in srgb, var(--danger) 8%, transparent); --button-hover-border-color: var(--danger-hover); --button-hover-color: var(--danger-hover); --button-active-bg: color-mix(in srgb, var(--danger) 16%, transparent); }
-.ps-button--outline.ps-button--neutral { --button-border-color: var(--neutral); --button-color: var(--neutral); --button-hover-bg: color-mix(in srgb, var(--neutral) 8%, transparent); --button-hover-border-color: var(--neutral-hover); --button-hover-color: var(--neutral-hover); --button-active-bg: color-mix(in srgb, var(--neutral) 16%, transparent); }
+.ps-button--outline.ps-button--neutral { --button-border-color: var(--gray-500); --button-color: var(--gray-600); --button-hover-bg: color-mix(in srgb, var(--gray-500) 8%, transparent); --button-hover-border-color: var(--gray-600); --button-hover-color: var(--gray-700); --button-active-bg: color-mix(in srgb, var(--gray-500) 16%, transparent); }
 
 // Tailles
 .ps-button--small {
@@ -641,7 +643,7 @@ button_border_width: 2px (secondary uniquement)
 .ps-button--outline.ps-button--info.ps-button--loading { --button-spinner-color: var(--info); }
 .ps-button--outline.ps-button--warning.ps-button--loading { --button-spinner-color: var(--warning); }
 .ps-button--outline.ps-button--danger.ps-button--loading { --button-spinner-color: var(--danger); }
-.ps-button--outline.ps-button--neutral.ps-button--loading { --button-spinner-color: var(--neutral); }
+.ps-button--outline.ps-button--neutral.ps-button--loading { --button-spinner-color: var(--gray-600); }
 ```
 
 ---

@@ -250,7 +250,7 @@ props:
   &--primary { color: var(--primary); }
   &--secondary { color: var(--secondary); }
   &--white { color: var(--white); }
-  &--neutral { color: var(--gray-400); }
+  &--neutral { color: var(--gray-500); } // Neutral = gris moyen
 }
 
 // Animations

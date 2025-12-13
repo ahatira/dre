@@ -353,23 +353,41 @@ border-bottom: var(--border-size-1) solid var(--border-default);
 
 **Fichier** : `docs/02-composants/01-atomes/button.md`  
 **Lignes** : 140-147  
-**Status** : ⚠️ À clarifier en Phase 2
+**Status** : ⚠️ Analyse complétée, solution proposée
 
 **Problème** :
 ```yaml
 variant:
-  enum: ['primary', 'secondary']
+  enum: ['primary', 'secondary']  # 2 valeurs seulement ?
 color:
-  enum: ['green', 'purple', 'white']
+  enum: ['green', 'purple', 'white']  # Noms de couleurs d'implémentation
 ```
 
-**Impact** : Deux props pour la même fonction ? `variant` devrait suffire ou clarifier relation.
+**Observations** :
+- **BEM (lignes 57-63)** : Documente 7 modifiers de couleur sémantique (neutral/primary/secondary/success/info/warning/danger)
+- **YAML variant** : Seulement 2 valeurs (primary/secondary) - Usage peu clair
+- **YAML color** : 3 couleurs d'implémentation (green/purple/white) - Viole Token-First
+- **Incohérence** : Link utilise maintenant `variant` unique avec valeurs sémantiques, Button utilise 2 props
 
-**Recommandation** : Choisir une approche unique
-- **Option A** : Supprimer `color`, étendre `variant` (primary/secondary/tertiary/ghost/link)
-- **Option B** : Documenter relation : variant = style (solid/outline), color = teinte (semantic)
+**Solution recommandée** :
 
-**Action requise** : Décision design system + clarification dans documentation
+**Option A - API Unifiée** (RECOMMANDÉ) :
+```yaml
+# Supprimer color, unifier dans variant
+variant:
+  enum: ['neutral','primary','secondary','success','info','warning','danger']
+  default: 'primary'
+style:
+  enum: ['solid','outline','ghost','link']  # Si besoin de distinction style
+  default: 'solid'
+```
+
+**Option B - Documenter relation actuelle** :
+- `variant` = Niveau d'importance (primary = principal, secondary = secondaire)
+- `color` = Teinte appliquée (green/purple/white) → À remplacer par semantic (primary/secondary/inverse)
+- Résultat : `ps-button--primary` + color=purple → `ps-button--primary-purple` ??
+
+**Action recommandée** : Adopter Option A pour cohérence avec Link et autres composants (une seule prop `variant` avec valeurs sémantiques)
 
 ---
 
