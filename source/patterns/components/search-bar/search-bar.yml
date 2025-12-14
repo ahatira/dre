@@ -1,7 +1,6 @@
 label: "Search"
 placeholder: "Search properties..."
 search_text: ""
-variant: "neutral"
 pill: false
 icon: "search"
 has_suggestions: true
