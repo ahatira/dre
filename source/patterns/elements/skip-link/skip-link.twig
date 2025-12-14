@@ -1,9 +1,10 @@
 {#
- * Skip Link (Element/Atom) - WCAG skip link for keyboard navigation
+ * Skip Link (Element/Atom)
+ * WCAG accessibility link for keyboard navigation (appears on focus)
  *
- * @param string targetId - ID of the target anchor element (required, e.g., 'main-content', 'navigation', 'search')
- * @param string label - Link text displayed on focus (required, e.g., 'Skip to main content')
- * @param Attribute attributes - Additional HTML attributes (optional)
+ * @param {string} [targetId='main-content'] - ID of target anchor element (main-content, navigation, search)
+ * @param {string} [label='Skip to main content'] - Link text displayed on keyboard focus
+ * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
  #}
 
 {%- set targetId = targetId|default('main-content') -%}
@@ -18,4 +19,4 @@
 ] -%}
 
 <a class="{{ classes|join(' ')|trim }}" href="{{ href }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>{{ label }}</a>
+  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}>{{- label -}}</a>

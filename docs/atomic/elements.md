@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 20/24
+**Implémentés** : 21/24
 
 ---
 
@@ -105,7 +105,7 @@ Implémenté : ✅
 
 **Skip Link** - Lien d'accessibilité "Aller au contenu"  
 Usage : Navigation clavier  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
