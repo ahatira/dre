@@ -65,6 +65,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  color: var(--gray-500);
 }
 
 .form-control-wrapper--icon-left {
@@ -90,7 +91,7 @@
   justify-content: center;
   width: var(--size-5);
   height: var(--size-5);
-  color: var(--gray-500);
+  color: currentColor;
   font-size: var(--font-size-1);
   pointer-events: none;
 
@@ -106,6 +107,11 @@
 /* Icon styling for data-icon */
 .form-control-icon[data-icon] {
   --ps-icon-size: var(--size-4);
+}
+
+/* Icon color follows component state */
+.form-item--error .form-control-wrapper {
+  color: var(--danger);
 }
 
   /* ================================================
