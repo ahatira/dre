@@ -1,0 +1,60 @@
+{#
+/**
+ * Consultant Card (Component/Molecule)
+ * Advisor profile with avatar, name, phone, CTA.
+ *
+ * Props:
+ * - string name (required)
+ * - string title (e.g., 'Your consultant :')
+ * - object avatar { url: string, alt: string }
+ * - string phone (formatted string)
+ * - object cta { text: string, url: string }
+ * - object attributes (HTML attributes)
+ *
+ * Rules: Token-First, BEM, data-icon for icons, accessibility.
+ */
+#}
+
+{%- set name = name|default('Consultant Name') -%}
+{%- set title = title|default('Your consultant :') -%}
+{%- set avatar = avatar|default(null) -%}
+{%- set phone = phone|default(null) -%}
+{%- set cta = cta|default({ text: 'Contact the consultancy', url: '#' }) -%}
+{%- set attributes = (attributes ? attributes : create_attribute()) -%}
+
+{%- set attr = attributes
+  .addClass('ps-consultant-card')
+-%}
+
+<div{{ attr }}>
+  <div class="ps-consultant-card__info">
+    {% if avatar and avatar.url %}
+      <img
+        class="ps-consultant-card__photo"
+        src="{{ avatar.url }}"
+        alt="{{ avatar.alt|default('') }}"
+      >
+    {% endif %}
+
+    <div class="ps-consultant-card__text">
+      <span class="ps-consultant-card__label">{{ title }}</span>
+      <strong class="ps-consultant-card__name">{{ name }}</strong>
+
+      {% if phone %}
+        <div class="ps-consultant-card__phone">
+          <span class="ps-consultant-card__phone-icon" data-icon="phone" aria-hidden="true"></span>
+          <a href="tel:{{ phone }}" class="ps-consultant-card__phone-link">{{ phone }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if cta and cta.url %}
+    {% include '@elements/button/button.twig' with {
+      class: 'ps-consultant-card__cta',
+      variant: 'primary',
+      label: cta.text,
+      url: cta.url
+    } only %}
+  {% endif %}
+</div>

@@ -1,0 +1,90 @@
+/* Consultant Card */
+
+/* Tokens on root */
+.ps-consultant-card {
+  --ps-consultant-gap: var(--size-4);
+  --ps-consultant-photo-size: var(--size-12);
+  --ps-consultant-label-color: var(--text-secondary);
+  --ps-consultant-name-color: var(--text-primary);
+  --ps-consultant-name-size: var(--font-size-7);
+  --ps-consultant-name-weight: var(--font-weight-800);
+  --ps-consultant-phone-color: var(--gray-700);
+  --ps-consultant-phone-icon-size: var(--font-size-6);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-consultant-gap);
+}
+
+.ps-consultant-card {
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ps-consultant-gap);
+  }
+
+  &__photo {
+    width: var(--ps-consultant-photo-size);
+    height: var(--ps-consultant-photo-size);
+    border-radius: var(--radius-round);
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    flex: 1;
+  }
+
+  &__label {
+    display: block;
+    color: var(--ps-consultant-label-color);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-500);
+  }
+
+  &__name {
+    display: block;
+    margin: 0;
+    color: var(--ps-consultant-name-color);
+    font-size: var(--ps-consultant-name-size);
+    font-weight: var(--ps-consultant-name-weight);
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    color: var(--ps-consultant-phone-color);
+  }
+
+  &__phone-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--ps-consultant-phone-icon-size);
+    flex-shrink: 0;
+  }
+
+  &__phone-link {
+    color: var(--ps-consultant-phone-color);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: var(--border-size-1);
+      border-radius: var(--radius-1);
+    }
+  }
+
+  &__cta {
+    width: 100%;
+  }
+}
