@@ -233,6 +233,128 @@ These will ALWAYS be rejected:
 
 ---
 
+## 🎯 Form Components Standards
+
+**Overview**: Form components follow Drupal's native form API structure to ensure seamless theme integration with Drupal 10/11. All form controls are implemented as self-sufficient Atoms that natively support Drupal's `.form-control` class.
+
+**Reference**: See [FORM_ATOMS_REFACTOR_PLAN.md](../../FORM_ATOMS_REFACTOR_PLAN.md) and [DAILY_WORK_SUMMARY.md](../../DAILY_WORK_SUMMARY.md) for comprehensive refactoring documentation.
+
+### 📦 Form Control Atoms (Self-Sufficient)
+
+All form control Atoms **MUST** natively include `.form-control` class in their templates:
+
+**Input Atom** (`source/patterns/elements/input/`)
+```twig
+{# input.twig #}
+<input 
+  class="ps-input form-control {{ modifier_class }}"
+  type="{{ type }}"
+  {{ attributes }}
+/>
+```
+- Supports: text, email, password, number, search, tel, url
+- CSS selectors: `.ps-input` AND `.form-control[type="..."]` (dual support)
+- Modifiers: `--error`, `--success`, `--warning` (apply to both classes)
+
+**Textarea Atom** (`source/patterns/elements/textarea/`)
+```twig
+{# textarea.twig #}
+<textarea
+  class="ps-textarea form-control {{ modifier_class }}"
+  {{ attributes }}
+></textarea>
+```
+- CSS selectors: `.ps-textarea` AND `.form-control:is(textarea)` (dual support)
+- Modifiers: `--error`, `--success`, `--warning` (apply to both classes)
+
+**Select Atom** (`source/patterns/elements/select/`)
+```twig
+{# In select.twig - apply to __input element #}
+<select class="ps-select__input form-control">
+  {# Options #}
+</select>
+```
+- CSS selectors: `.ps-select__input` AND `.form-control:is(select)` (dual support)
+- Modifiers: `--error`, `--success`, `--warning` (apply to both classes)
+- Note: Chevron icon is added via wrapper, not affecting select element
+
+### 🧩 Form Field Molecule (Composition Pattern)
+
+**Form Field** (`source/patterns/components/form-field/`) is a container molecule that **composes** (includes) form control Atoms:
+
+```twig
+{# form-field.twig - INCLUDES atoms, does NOT reimplement #}
+<div class="ps-form-field {{ form_field_class }}">
+  <div class="ps-form-label-wrapper">
+    <label class="ps-form-label">{{ label }}</label>
+    {% if optional %}<span class="ps-form-optional">Optional</span>{% endif %}
+  </div>
+  
+  {# Compose Input Atom (already has form-control) #}
+  {% include '@elements/input/input.twig' with {
+    id: input_id,
+    type: field_type,
+    attributes: attributes
+  } only %}
+  
+  {# Error/Helper text styling #}
+  {% if error %}<span class="ps-form-error">{{ error }}</span>{% endif %}
+</div>
+```
+
+**KEY RULE**: Form Field **does NOT** add `.addClass('form-control')` to included Atoms - they provide it natively.
+
+**Composition Benefits**:
+- ✅ Atoms remain self-sufficient (work alone or composed)
+- ✅ Form Field adds presentation (label wrapper, icon positioning, error styling)
+- ✅ No code duplication (Atom styles not reimplemented)
+- ✅ Drupal integration (form-control class propagates from Atom)
+
+### 🎨 Form States & Styling
+
+**8 Required States** (documented in form-field.css):
+1. **Default** - Border: `--border-default`, Background: transparent
+2. **Placeholder** - Text: `--text-secondary`, Border: `--border-default`
+3. **Hover** - Border: `--border-default`, Background: subtle change
+4. **Focus** - Border: `--border-focus`, Outline: 2px offset
+5. **Done/Success** - Border: `--success`, Color: `--success-text-emphasis`
+6. **Error** - Border: `--danger`, Text: `--danger`, Error message: red text only
+7. **Disabled (Normal)** - Background: `--gray-100`, Color: `--text-disabled`, Cursor: not-allowed
+8. **Disabled (Error)** - Border: `--danger`, Background: `--gray-100`
+
+**Icon Support** (3 variants):
+- None: Label + input only
+- Left (search): Icon positioned 12px from left edge
+- Right (chevron): Icon positioned 12px from right edge
+- Icon spacing: Input padding must accommodate icon width + offset (typically `var(--size-8)` = 32px)
+
+**Error Styling Convention**:
+- Error text: Simple red text, no background
+- Error message: Red color via `var(--danger)`
+- Border: Red line via `--danger` token
+- No additional graphics or icons in error message
+
+### ✅ Form Component Checklist
+
+**Before Creating Form Components**:
+- [ ] Atom naturally includes `.form-control` in template (Input/Textarea/Select)
+- [ ] CSS supports BOTH `.ps-*` AND `.form-control` selectors (combined selectors)
+- [ ] All colors use semantic tokens: `--danger`, `--success`, not hardcoded
+- [ ] All spacing uses size tokens: `--size-1` through `--size-12`
+- [ ] All transitions use duration/easing tokens: `--duration-*`, `--ease-*`
+- [ ] Focus states include `focus-visible` pseudo-class
+- [ ] Modifiers work independently (no combo requirements)
+- [ ] Form Field COMPOSES atoms via `{% include %}`, does NOT reimplement
+- [ ] Error text is RED ONLY (no background, no icons)
+- [ ] Icon spacing doesn't overlap text (verify with 32px padding rule)
+
+**Validation**:
+- [ ] Build passes: `npm run build` (0 errors)
+- [ ] Storybook: 30 stories render correctly (http://localhost:6006)
+- [ ] Conformity audit: 100% score (see `instructions/04-quality-assurance.md`)
+
+---
+
 ## 📋 Component Checklist (Quick)
 
 **Before starting**:
