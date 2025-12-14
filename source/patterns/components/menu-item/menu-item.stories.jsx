@@ -87,10 +87,6 @@ export const Disabled = {
   args: { ...data, disabled: true },
 };
 
-export const WithIcon = {
-  args: { ...data, icon: 'home' },
-};
-
 export const WithBadge = {
   args: { ...data, badge: '3', badge_variant: 'danger' },
 };
