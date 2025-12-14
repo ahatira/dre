@@ -21,6 +21,15 @@ accordion:
     - core/once
     - ps_theme/vendors
 
+alert:
+  js:
+    dist/js/alert.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 animations:
   js:
     dist/js/animations.js: {}

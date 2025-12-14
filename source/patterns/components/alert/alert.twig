@@ -32,7 +32,7 @@
   dismissible ? 'ps-alert--dismissible' : null
 ] -%}
 
-<div {{ attributes|without('class').addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}" data-icon="{{ icon }}">
+<div {{ attributes|without('class').addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}" {{ icon ? 'data-icon="' ~ icon ~ '"' : '' }}>
   {%- if content -%}
     <div class="ps-alert__content">{{ content|raw }}</div>
   {%- endif -%}

@@ -105,12 +105,12 @@
   /* ============================================
      Close Button Element
      ============================================ */
-  &__close {
+  & .ps-alert__close {
     position: absolute;
-    top: var(--ps-alert-close-padding);
-    right: var(--ps-alert-close-padding);
+    top: var(--size-2);
+    right: var(--size-2);
     z-index: 1;
-    padding: var(--ps-alert-close-padding);
+    padding: var(--size-2);
     background-color: transparent !important;
     border-color: transparent !important;
     color: var(--ps-alert-close-color);
