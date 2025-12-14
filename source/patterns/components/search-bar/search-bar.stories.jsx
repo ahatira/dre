@@ -87,34 +87,3 @@ export const WithSuggestions = {
 export const Pill = {
   args: { ...data, pill: true },
 };
-
-export const ColorVariants = {
-  render: () => {
-    const variants = [
-      'neutral',
-      'primary',
-      'secondary',
-      'success',
-      'danger',
-      'warning',
-      'info',
-      'gold',
-      'light',
-      'dark',
-    ];
-    return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-6);">
-        ${variants
-          .map(
-            (v) => `
-          <div>
-            <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: var(--font-weight-600); text-transform: uppercase; color: var(--text-secondary);">${v}</p>
-            ${markup({ ...data, variant: v, has_suggestions: false })}
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  },
-};
