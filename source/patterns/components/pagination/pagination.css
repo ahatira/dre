@@ -27,7 +27,6 @@
     min-width: var(--ps-pagination-link-min-width);
     padding: var(--ps-pagination-link-padding);
     border: var(--border-1) solid var(--gray-300);
-    border-radius: var(--radius-sm);
     background-color: var(--white);
     color: var(--text-primary);
     text-decoration: none;
@@ -67,10 +66,38 @@
   .ps-pagination__link--next {
     padding: var(--size-2);
 
-    .icon {
-      display: inline-flex;
-      color: currentColor;
+    &[data-icon] {
       --ps-icon-size: var(--size-5);
     }
+  }
+
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    /* Component-specific adjustments if needed */
   }
 }

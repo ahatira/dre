@@ -1,24 +1,16 @@
 {# Pagination - Page navigation #}
-<nav class="ps-pagination" aria-label="Pagination">
+<nav class="ps-pagination" aria-label="Pagination"{{ attributes |without('class') }}>
   <ul class="ps-pagination__list">
     {% if has_previous %}
       <li class="ps-pagination__item">
-        <a href="#" class="ps-pagination__link ps-pagination__link--prev" aria-label="Previous page">
+        <a href="#" class="ps-pagination__link ps-pagination__link--prev" aria-label="Previous page" data-icon="arrow-left" data-icon-position="start">
           <span class="visually-hidden">Previous</span>
-          {% include '@elements/icon/icon.twig' with {
-            name: 'arrow-left',
-            attributes: create_attribute().addClass(['icon', 'icon--prev'])
-          } only %}
         </a>
       </li>
     {% else %}
       <li class="ps-pagination__item">
-        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
+        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true" data-icon="arrow-left" data-icon-position="start">
           <span class="visually-hidden">Previous page unavailable</span>
-          {% include '@elements/icon/icon.twig' with {
-            name: 'arrow-left',
-            attributes: create_attribute().addClass(['icon', 'icon--prev'])
-          } only %}
         </span>
       </li>
     {% endif %}
@@ -35,22 +27,14 @@
 
     {% if has_next %}
       <li class="ps-pagination__item">
-        <a href="#" class="ps-pagination__link ps-pagination__link--next" aria-label="Next page">
+        <a href="#" class="ps-pagination__link ps-pagination__link--next" aria-label="Next page" data-icon="arrow-right" data-icon-position="start">
           <span class="visually-hidden">Next</span>
-          {% include '@elements/icon/icon.twig' with {
-            name: 'arrow-right',
-            attributes: create_attribute().addClass(['icon', 'icon--next'])
-          } only %}
         </a>
       </li>
     {% else %}
       <li class="ps-pagination__item">
-        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true">
+        <span class="ps-pagination__link ps-pagination__link--disabled" aria-disabled="true" data-icon="arrow-right" data-icon-position="start">
           <span class="visually-hidden">Next page unavailable</span>
-          {% include '@elements/icon/icon.twig' with {
-            name: 'arrow-right',
-            attributes: create_attribute().addClass(['icon', 'icon--next'])
-          } only %}
         </span>
       </li>
     {% endif %}
