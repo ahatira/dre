@@ -23,10 +23,6 @@ Implémenté : ✅
 Usage : Carrousel offres mises en avant  
 Implémenté : ✅
 
-**Media Object** - Image/icône + titre + description  
-Usage : Grille services 4 colonnes, catégories recherche commerciale  
-Implémenté : ❌
-
 **Consultant Card** - Fiche conseiller avec avatar, contact, CTA  
 Usage : Sidebar page offre  
 Specs : `design/pages/property-detail/consultant-card.md`  
