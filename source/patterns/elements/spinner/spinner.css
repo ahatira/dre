@@ -3,17 +3,17 @@
  * Indicateur de chargement animé avec variantes circular, dots, bars
  * 
  * BEM: ps-spinner, ps-spinner__svg, ps-spinner__circle, ps-spinner__dot, ps-spinner__bar, ps-spinner__text
- * Variants: circular (défaut) | dots | bars
- * Sizes: xs | sm | md (défaut) | lg | xl
- * Colors: default (défaut) | primary | secondary | success | info | warning | danger | white
+ * Variants: circular (default) | dots | bars
+ * Sizes: small | medium (default) | large
+ * Colors: neutral (default) | primary | secondary | gold | success | info | warning | danger | light | dark
  * Modifiers: --centered
  */
 
 /* ==================== BASE ==================== */
 .ps-spinner {
   /* Component-scoped variables (Layer 2) */
-  --ps-spinner-size: var(--size-8); /* 32px (md) */
-  --ps-spinner-color: var(--gray-500); /* default/neutral */
+  --ps-spinner-size: var(--size-8); /* 32px (medium) */
+  --ps-spinner-color: var(--gray-500); /* neutral */
   --ps-spinner-display: inline-flex;
   --ps-spinner-align-items: center;
   --ps-spinner-justify-content: center;
@@ -108,31 +108,19 @@
 
 /* ==================== SIZES ==================== */
 /* Modifiers override --ps-spinner-size */
-.ps-spinner--xs {
-  --ps-spinner-size: var(--size-4); /* 16px */
-}
-
-.ps-spinner--sm {
+.ps-spinner--small {
   --ps-spinner-size: var(--size-6); /* 24px */
 }
 
-/* md is default (32px) - no modifier needed */
+/* medium is default (32px) - no modifier needed */
 
-.ps-spinner--lg {
+.ps-spinner--large {
   --ps-spinner-size: var(--size-12); /* 48px */
-}
-
-.ps-spinner--xl {
-  --ps-spinner-size: var(--size-16); /* 64px */
-}
-
-.ps-spinner--xxl {
-  --ps-spinner-size: var(--size-20); /* 80px */
 }
 
 /* ==================== COLORS ==================== */
 /* Modifiers override --ps-spinner-color */
-/* default is base (gray-500) - no modifier needed */
+/* neutral is base (gray-500) - no modifier needed */
 
 .ps-spinner--primary {
   --ps-spinner-color: var(--primary);
@@ -140,6 +128,10 @@
 
 .ps-spinner--secondary {
   --ps-spinner-color: var(--secondary);
+}
+
+.ps-spinner--gold {
+  --ps-spinner-color: var(--gold);
 }
 
 .ps-spinner--success {
@@ -158,16 +150,12 @@
   --ps-spinner-color: var(--danger);
 }
 
-.ps-spinner--dark {
-  --ps-spinner-color: var(--gray-800);
-}
-
 .ps-spinner--light {
   --ps-spinner-color: var(--gray-200);
 }
 
-.ps-spinner--white {
-  --ps-spinner-color: var(--white);
+.ps-spinner--dark {
+  --ps-spinner-color: var(--gray-800);
 }
 
 /* ==================== MODIFIERS ==================== */

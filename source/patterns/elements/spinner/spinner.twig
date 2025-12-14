@@ -1,17 +1,22 @@
 {#
  * Spinner (Element/Atom)
  * Animated loading indicator for asynchronous states
- * @param string variant - Spinner type (optional, default: 'circular') - Options: circular | dots | bars
- * @param string size - Spinner size (optional, default: 'md') - Options: xs | sm | md | lg | xl | xxl
- * @param string color - Spinner color (optional, default: 'default') - Options: default | primary | secondary | success | info | warning | danger | dark | light | white
- * @param string text - Screen reader text (optional, default: 'Loading...')
- * @param boolean centered - Center in container (optional, default: false)
- * @param Drupal\Core\Template\Attribute attributes - Additional HTML attributes (optional)
+ *
+ * @param {string} [variant='circular'] - Spinner animation type: circular | dots | bars
+ * @param {string} [size='medium'] - Spinner size: small | medium | large
+ * @param {string} [color='neutral'] - Spinner color: neutral | primary | secondary | gold | success | info | warning | danger | light | dark
+ * @param {string} [text='Loading...'] - Screen reader text (announced to assistive technologies)
+ * @param {boolean} [centered=false] - Position spinner centered in parent container
+ * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
  #}
 
 {%- set variant = variant|default('circular') -%}
-{%- set size = size|default('md') -%}
-{%- set color = color|default('default') -%}
+{# Map legacy 6-size system (xs/sm/md/lg/xl/xxl) to 3-size system (small/medium/large) #}
+{%- set size = size|default('medium') -%}
+{%- set size = size == 'xs' or size == 'sm' ? 'small' : (size == 'md' ? 'medium' : (size == 'lg' or size == 'xl' or size == 'xxl' ? 'large' : size)) -%}
+{# Map 'default' color to 'neutral' for consistency #}
+{%- set color = color|default('neutral') -%}
+{%- set color = color == 'default' ? 'neutral' : color -%}
 {%- set text = text|default('Loading...') -%}
 {%- set centered = centered|default(false) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
@@ -20,14 +25,14 @@
 {%- set classes = [
   'ps-spinner',
   variant != 'circular' ? 'ps-spinner--' ~ variant : null,
-  size != 'md' ? 'ps-spinner--' ~ size : null,
-  color != 'default' ? 'ps-spinner--' ~ color : null,
+  size != 'medium' ? 'ps-spinner--' ~ size : null,
+  color != 'neutral' ? 'ps-spinner--' ~ color : null,
   centered ? 'ps-spinner--centered' : null,
   class ? class : null
 ] -%}
 
 <div class="{{ classes|join(' ')|trim }}" role="status" aria-live="polite"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
+  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}>
   {%- if variant == 'circular' -%}
     <svg class="ps-spinner__svg" viewBox="0 0 50 50">
       <circle class="ps-spinner__circle" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
@@ -41,5 +46,5 @@
     <span class="ps-spinner__bar"></span>
     <span class="ps-spinner__bar"></span>
   {%- endif -%}
-  <span class="ps-spinner__text">{{ text }}</span>
+  <span class="ps-spinner__text">{{- text -}}</span>
 </div>

@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 19/24
+**Implémentés** : 20/24
 
 ---
 
@@ -97,7 +97,7 @@ Implémenté : ✅
 
 **Spinner** - Animation de chargement  
 Usage : Chargement asynchrone  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
