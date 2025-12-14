@@ -75,7 +75,7 @@
           disabled: disabled,
           required: required,
           state: error ? 'error' : null,
-          attributes: attributes.addClass('form-control')
+          attributes: attributes
         } only %}
 
       {%- elseif type == 'select' -%}
@@ -86,7 +86,7 @@
           disabled: disabled,
           required: required,
           error: error ? true : false,
-          wrapper_attributes: create_attribute().addClass('form-control'),
+          wrapper_attributes: create_attribute(),
           attributes: attributes
         } only %}
 
@@ -100,7 +100,7 @@
           disabled: disabled,
           required: required,
           state: error ? 'error' : null,
-          attributes: attributes.addClass('form-control')
+          attributes: attributes
         } only %}
       {%- endif -%}
 
@@ -120,7 +120,7 @@
         disabled: disabled,
         required: required,
         state: error ? 'error' : null,
-        attributes: attributes.addClass('form-control')
+        attributes: attributes
       } only %}
 
     {%- elseif type == 'select' -%}
@@ -131,7 +131,7 @@
         disabled: disabled,
         required: required,
         error: error ? true : false,
-        wrapper_attributes: create_attribute().addClass('form-control'),
+        wrapper_attributes: create_attribute(),
         attributes: attributes
       } only %}
 
@@ -145,7 +145,7 @@
         disabled: disabled,
         required: required,
         state: error ? 'error' : null,
-        attributes: attributes.addClass('form-control')
+        attributes: attributes
       } only %}
     {%- endif -%}
   {%- endif -%}
