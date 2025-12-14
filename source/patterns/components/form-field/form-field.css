@@ -1,185 +1,287 @@
 /**
  * Form Field (Molecule)
- * 
- * Complete form field: Label (Atom) + Input/Textarea/Select (Atoms) + Helper/Error
- * 
+ *
+ * Complete form field composing Atoms: Label + Input/Textarea/Select + Helper/Error
+ *
  * Uses Drupal standard classes: form-item, form-group, form-control, form-label, form-required,
  *   form-helper, form-error, visually-hidden
  * Composes Atoms: form-label, ps-input, ps-textarea, ps-select
- * 
- * BEM: form-item, form-group, form-control, form-error, form-helper
- * Respects Drupal conventions while applying PS Theme design tokens
+ *
+ * BEM Structure:
+ * - Block: .form-item (Drupal standard wrapper)
+ * - Elements: .form-label-wrapper, .form-control-wrapper, .form-helper, .form-error
+ * - Modifiers: .form-item--error, .form-control-wrapper--icon-left, .form-control-wrapper--icon-right
+ *
+ * Token-First Architecture: Uses Layer 2 variables for composable atom overrides.
+ * All colors use semantic tokens (--danger, --success, --warning).
+ * All spacing uses size tokens (--size-1 through --size-12).
  */
 
-/* ================================================
-   form-item (Root wrapper - Drupal standard)
-   ================================================ */
+/* ============================================================================
+   Component Scope: form-item
+   Layer 2 Variables (enable Token-First composition)
+   ========================================================================== */
+
 .form-item {
+  /* Component-scoped variables for Token-First composition */
+  --ps-form-item-gap: var(--size-2);
+  --ps-form-item-margin-bottom: var(--size-4);
+
+  /* Layer 2: Override child Atom tokens (example) */
+  --ps-input-border-color: var(--gray-300);
+  --ps-textarea-border-color: var(--gray-300);
+
+  /* Base styles using component variables */
   display: flex;
   flex-direction: column;
-  gap: var(--size-2);
-  margin-bottom: var(--size-4);
+  gap: var(--ps-form-item-gap);
+  margin-bottom: var(--ps-form-item-margin-bottom);
 
+  /* Last item: remove bottom margin */
   &:last-child {
     margin-bottom: 0;
   }
-}
 
-/* Error state: Force text color to danger/red */
-.form-item--error {
-  /* Error visuals are handled by Atoms via state classes.
-     Form Field only adjusts auxiliary elements (icons, messages). */
-  
-  /* Force text color for error state */
-  & .ps-input,
-  & .ps-textarea,
-  & .form-control:is(input, textarea) {
-    color: var(--danger) !important;
+  /* ========================================================================
+     Modifier: error state
+     ======================================================================== */
+
+  &--error {
+    /* Error visuals handled via Atom state classes (ps-input--error, etc.)
+       Form Field molecule adjusts auxiliary elements (icons, messages). */
+
+    /* Icon color override for error state */
+    & .form-control-icon {
+      color: var(--danger);
+    }
+  }
+
+  /* ========================================================================
+     State: success color override from composed Atoms
+     ======================================================================== */
+
+  & .ps-input--success,
+  & .ps-textarea--success,
+  & .form-control.ps-input--success,
+  & .form-control.ps-textarea--success {
+    color: var(--success);
+  }
+
+  /* ========================================================================
+     State: warning color override from composed Atoms
+     ======================================================================== */
+
+  & .ps-input--warning,
+  & .ps-textarea--warning,
+  & .form-control.ps-input--warning,
+  & .form-control.ps-textarea--warning {
+    color: var(--warning);
   }
 }
 
-/* Success state: Force text color to success */
-.form-item .ps-input--success,
-.form-item .ps-textarea--success,
-.form-item .form-control.ps-input--success,
-.form-item .form-control.ps-textarea--success {
-  color: var(--success) !important;
-}
 
-/* Warning state: Force text color to warning */
-.form-item .ps-input--warning,
-.form-item .ps-textarea--warning,
-.form-item .form-control.ps-input--warning,
-.form-item .form-control.ps-textarea--warning {
-  color: var(--warning) !important;
-}
+/* ============================================================================
+   Component Scope: form-label-wrapper
+   Label container with optional badge
+   ========================================================================== */
 
-/* ================================================
-   form-label-wrapper (Label + Optional badge)
-   ================================================ */
 .form-label-wrapper {
+  /* Component variables */
+  --ps-form-label-wrapper-justify: space-between;
+  --ps-form-label-wrapper-align: baseline;
+
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  justify-content: var(--ps-form-label-wrapper-justify);
+  align-items: var(--ps-form-label-wrapper-align);
+
+  /* ========================================================================
+     Element: optional badge
+     ======================================================================== */
+
+  & .form-label-badge {
+    font-size: var(--font-size-0);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-400);
+    margin-left: auto;
+  }
 }
 
-.form-label-badge {
-  font-size: var(--font-size-0);
-  color: var(--text-secondary);
-  font-weight: var(--font-weight-400);
-  margin-left: auto;
-}
+/* ============================================================================
+   Drupal Standard: form-group (alias for form-item)
+   ========================================================================== */
 
-/* Alias for Drupal compatibility */
 .form-group {
-  /* Inherits from form-item via cascade */
+  /* Inherits all styles from .form-item via cascade.
+     This class exists for Drupal API compatibility only. */
 }
 
-/* ================================================
-   form-control-wrapper (Icon support)
-   Positions: left (search), right (select chevron)
-   ================================================ */
+/* ============================================================================
+   Component Scope: form-control-wrapper
+   Icon positioning wrapper for controls (left/right icon support)
+   ========================================================================== */
+
 .form-control-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+  /* Component variables */
+  --ps-wrapper-position: relative;
+  --ps-wrapper-display: flex;
+  --ps-wrapper-align: center;
+  --ps-icon-default-color: var(--gray-500);
+  --ps-icon-error-color: var(--danger);
+  --ps-icon-disabled-color: var(--gray-400);
+  --ps-icon-success-color: var(--success);
+  --ps-icon-warning-color: var(--warning);
 
-.form-control-wrapper--icon-left {
-  .ps-input,
-  .form-control:not(select) {
-    padding-left: var(--size-8);
+  position: var(--ps-wrapper-position);
+  display: var(--ps-wrapper-display);
+  align-items: var(--ps-wrapper-align);
+
+  /* ========================================================================
+     Element: control icon (positioned via pseudo-element)
+     ======================================================================== */
+
+  & .form-control-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-5);
+    height: var(--size-5);
+    color: var(--ps-icon-default-color);
+    font-size: var(--font-size-1);
+    pointer-events: none;
+
+    /* Icon size override for data-icon attribute */
+    &[data-icon] {
+      --ps-icon-size: var(--size-4);
+    }
+
+    /* Sub-modifier: left position */
+    &--left {
+      left: var(--size-3);
+    }
+
+    /* Sub-modifier: right position */
+    &--right {
+      right: var(--size-3);
+    }
+  }
+
+  /* ========================================================================
+     Modifier: icon on left (adds padding to control)
+     ======================================================================== */
+
+  &--icon-left {
+    & .ps-input,
+    & .form-control:not(select) {
+      padding-left: var(--size-8);
+    }
+  }
+
+  /* ========================================================================
+     Modifier: icon on right (adds padding to control)
+     ======================================================================== */
+
+  &--icon-right {
+    & .ps-input,
+    & .form-control:not(select) {
+      padding-right: var(--size-8);
+    }
+  }
+
+  /* ========================================================================
+     State: icon color reflects component error state
+     ======================================================================== */
+
+  &:has(.form-control:invalid) {
+    & .form-control-icon {
+      color: var(--ps-icon-error-color);
+    }
+  }
+
+  /* ========================================================================
+     State: icon color reflects component disabled state
+     ======================================================================== */
+
+  &:has(.form-control:disabled) {
+    & .form-control-icon {
+      color: var(--ps-icon-disabled-color);
+    }
+  }
+
+  /* ========================================================================
+     State: icon color reflects Atom success state
+     ======================================================================== */
+
+  &:has(.ps-input--success),
+  &:has(.ps-textarea--success) {
+    & .form-control-icon {
+      color: var(--ps-icon-success-color);
+    }
+  }
+
+  /* ========================================================================
+     State: icon color reflects Atom warning state
+     ======================================================================== */
+
+  &:has(.ps-input--warning),
+  &:has(.ps-textarea--warning) {
+    & .form-control-icon {
+      color: var(--ps-icon-warning-color);
+    }
   }
 }
 
-.form-control-wrapper--icon-right {
-  .ps-input,
-  .form-control:not(select) {
-    padding-right: var(--size-8);
-  }
+
+/* ============================================================================
+   Drupal Standard: form-control
+   Applied to: input, textarea, select elements
+   ========================================================================== */
+
+.form-control {
+  /* Relies on Atom styles (ps-input, ps-textarea, ps-select).
+     Atoms provide the `.form-control` class natively in their templates.
+     The molecule only applies wrapper styles, not element styles. */
 }
 
-.form-control-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--size-5);
-  height: var(--size-5);
-  color: var(--gray-500);
-  font-size: var(--font-size-1);
-  pointer-events: none;
+/* ============================================================================
+   Component Scope: form-helper
+   Helper/description text below control
+   ========================================================================== */
 
-  &--left {
-    left: var(--size-3);
-  }
-
-  &--right {
-    right: var(--size-3);
-  }
-}
-
-/* Icon styling for data-icon */
-.form-control-icon[data-icon] {
-  --ps-icon-size: var(--size-4);
-}
-
-/* Icon color follows component state */
-.form-item--error .form-control-icon {
-  color: var(--danger);
-}
-
-/* Disabled control → soften icon */
-.form-control-wrapper:has(.form-control:disabled) .form-control-icon {
-  color: var(--gray-400);
-}
-
-/* Success state from Atoms (input/textarea) */
-.form-control-wrapper:has(.ps-input--success) .form-control-icon,
-.form-control-wrapper:has(.ps-textarea--success) .form-control-icon {
-  color: var(--success);
-}
-
-/* Warning state from Atoms (input/textarea) */
-.form-control-wrapper:has(.ps-input--warning) .form-control-icon,
-.form-control-wrapper:has(.ps-textarea--warning) .form-control-icon {
-  color: var(--warning);
-}
-
-  /* ================================================
-    form-control (Drupal standard for inputs)
-    Applied to: input, textarea, select wrappers
-    ================================================ */
-  .form-control {
-    /* Relies on Atom styles (ps-input, ps-textarea, ps-select).
-       The Atoms provide the `.form-control` class natively in their templates.
-       No additional styles are required here. */
-  }
-
-/* ================================================
-   form-helper (Helper text)
-   ================================================ */
 .form-helper {
-  font-size: var(--font-size-0);
-  color: var(--text-secondary);
+  /* Component variables */
+  --ps-helper-font-size: var(--font-size-0);
+  --ps-helper-color: var(--text-secondary);
+  --ps-helper-margin-top: var(--size-1);
+
+  font-size: var(--ps-helper-font-size);
+  color: var(--ps-helper-color);
   line-height: var(--leading-5);
-  margin-top: var(--size-1);
+  margin-top: var(--ps-helper-margin-top);
 }
 
-/* ================================================
-   form-error (Error message)
-   ================================================ */
+/* ============================================================================
+   Component Scope: form-error
+   Error message below control
+   ========================================================================== */
+
 .form-error {
-  color: var(--danger);
-  font-size: var(--font-size-0);
-  margin-top: var(--size-1);
+  /* Component variables */
+  --ps-error-color: var(--danger);
+  --ps-error-font-size: var(--font-size-0);
+  --ps-error-margin-top: var(--size-1);
+
+  color: var(--ps-error-color);
+  font-size: var(--ps-error-font-size);
+  margin-top: var(--ps-error-margin-top);
 }
 
-/* ================================================
-   Responsive - All 6 breakpoints (MANDATORY)
-   ================================================ */
+/* ============================================================================
+   Responsive Design
+   Mobile-first approach with 6 breakpoints (MANDATORY)
+   ========================================================================== */
 
 /* Mobile-sm (400px+) */
 @media (--mobile-sm) {
