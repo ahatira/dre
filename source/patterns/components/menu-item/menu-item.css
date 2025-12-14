@@ -53,7 +53,7 @@
     font-size: var(--ps-menu-item-icon-size);
     color: currentColor;
     flex-shrink: 0;
-    transform: rotate(90deg);
+    transform: rotate(-90deg);
 
     @media (--tablet) {
       transform: rotate(0deg);
