@@ -12,15 +12,13 @@
  */
 
 /* ==========================================
-   Component Tokens
-   Defined on .ps-card for cascade access
+   Component Styles
    ========================================== */
-:where(.ps-card.ps-card--offer--search),
-:where(.ps-card.ps-card-offer-search) {
+.ps-card-offer-search {
   /* Layout - Responsive breakpoint */
   --ps-card-offer-search-breakpoint: 768px;
-  --ps-card-offer-search-media-width-desktop: 33.6%;
-  --ps-card-offer-search-content-width-desktop: 66.4%;
+  --ps-card-horizontal-image-width: 33.6%;
+  --ps-card-horizontal-content-width: 66.4%;
   
   /* Container */
   --ps-card-offer-search-max-width: 100%;
@@ -31,7 +29,7 @@
   
   /* Header */
   --ps-card-offer-search-header-gap: var(--size-3);  /* 12px */
-  --ps-card-offer-search-header-margin-bottom: var(--size-3);  /* 12px */
+  --ps-card-offer-search-header-margin-bottom: var(--size-2);  /* 8px */
   
   /* Actions */
   --ps-card-offer-search-actions-gap: var(--size-3);  /* 12px */
@@ -56,7 +54,7 @@
   --ps-card-offer-search-location-gap: var(--size-1);  /* 4px */
   --ps-card-offer-search-location-icon-color: var(--gray-600);
   --ps-card-offer-search-location-icon-size: var(--font-size-2);
-  --ps-card-offer-search-location-margin-bottom: var(--size-5);  /* 20px */
+  --ps-card-offer-search-location-margin-bottom: var(--size-2);  /* 8px */
   
   /* Footer */
   --ps-card-offer-search-footer-gap: var(--size-2);  /* 8px (Figma: 9px) */
@@ -71,32 +69,17 @@
   --ps-card-offer-search-price-unit-font-weight: var(--font-weight-400);
   --ps-card-offer-search-price-unit-color: var(--text-secondary);
   --ps-card-offer-search-price-gap: var(--size-1);  /* 4px */
-}
 
-/* ==========================================
-   Component Styles
-   ========================================== */
-.ps-card-offer-search {
   max-width: var(--ps-card-offer-search-max-width);
   
   /* Desktop: Horizontal layout */
   @media (min-width: 768px) {
-    & .ps-card__container {
-      display: flex;
-      flex-direction: row;
-      gap: var(--ps-card-offer-search-gap);
-    }
-    
-    & .ps-card__media {
-      flex: 0 0 var(--ps-card-offer-search-media-width-desktop);
-      max-width: var(--ps-card-offer-search-media-width-desktop);
-    }
-    
-    & .ps-card__content {
-      flex: 1 1 var(--ps-card-offer-search-content-width-desktop);
-      display: flex;
-      flex-direction: column;
-      padding: var(--size-7) var(--size-6);  /* 30px vertical, 24px horizontal (Figma) */
+    /* Layout handled by Card via tokens; no overrides needed here */
+  }
+
+  .ps-card__media {
+    .ps-carousel {
+      height: 100%;
     }
   }
   
@@ -131,6 +114,18 @@
     display: flex;
     gap: var(--ps-card-offer-search-actions-gap);
     flex-shrink: 0;
+  }
+  
+  /* Action buttons - remove internal padding from button component */
+  &__action {
+    &.ps-button {
+      --ps-button-min-width: 0;
+      --ps-button-padding-x: 0;
+      --ps-button-padding-y: 0;
+      --ps-button-height: auto;
+      --ps-button-font-size: var(--size-6);
+      width: auto;
+    }
   }
   
   /* Title */
@@ -213,5 +208,6 @@
   
   &__cta {
     flex-shrink: 0;
+    align-self: flex-end;
   }
 }

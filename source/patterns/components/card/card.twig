@@ -93,10 +93,12 @@
 {# Determine HTML element (article or a) #}
 {%- set element = url ? 'a' : 'article' -%}
 
+{# Merge computed classes into attributes so final tag uses only attributes #}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
 <{{ element }}
-  class="{{ classes|join(' ')|trim }}"
   {%- if url %} href="{{ url }}"{% endif -%}
-  {{- attributes ? attributes|without('class') : '' -}}
+  {{- attr -}}
 >
   {# MEDIA BLOCK - Image/visual content (optional) #}
   {%- if block('media') is defined or image -%}

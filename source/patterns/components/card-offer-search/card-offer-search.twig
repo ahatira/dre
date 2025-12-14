@@ -63,7 +63,7 @@
 
 {# Embed Card component for structure reuse #}
 {% embed '@components/card/card.twig' with {
-  attributes: attributes.addClass('ps-card-offer-search'),
+  attributes: attributes ? attributes.addClass('ps-card-offer-search') : create_attribute().addClass('ps-card-offer-search'),
   bundle: bundle,
   view_mode: view_mode,
   title: title,
@@ -139,8 +139,8 @@
       <div class="ps-card-offer-search__actions">
         {% include '@elements/button/button.twig' with {
           class: 'ps-card-offer-search__action',
-          variant: 'info',
-          size: 'lg',
+          variant: 'primary',
+          size: 'large',
           icon: 'compare',
           toggle: true,
           active: isComparator,
@@ -152,8 +152,8 @@
         {% include '@elements/button/button.twig' with {
           class: 'ps-card-offer-search__action',
           variant: 'secondary',
-          size: 'lg',
-          icon: 'heart-outline',
+          size: 'large',
+          icon: 'heart',
           toggle: true,
           active: isFavorite,
           attributes: create_attribute()
@@ -211,14 +211,12 @@
       {# CTA button #}
       {% if cta and cta.url %}
         {% include '@elements/link/link.twig' with {
-          text: cta.text,
+          label: cta.text,
           url: cta.url,
-          color: 'primary',
-          size: 'sm',
-          underline: false,
+          variant: 'primary',
           icon: 'arrow-right',
           iconPosition: 'end',
-          attributes: create_attribute().addClass('ps-card-offer-search__cta')
+          attributes: create_attribute().addClass('ps-card-offer-search__cta no-underline')
         } only %}
       {% endif %}
     </div>
