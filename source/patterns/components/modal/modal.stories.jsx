@@ -227,7 +227,7 @@ export const WithAjaxLoading = {
       },
     },
   },
-  render: (args) => `
+  render: (_args) => `
     <div>
       <a
         href="#"

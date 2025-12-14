@@ -1,409 +1,112 @@
-import formFieldTwig from './form-field.twig';
+import FormField from './form-field.twig';
 import data from './form-field.yml';
 
 export default {
   title: 'Components/Form Field',
+  component: FormField,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'Complete form field with label, input/select/textarea, helper, and error. Supports icons and optional/required indicators.',
+          'Form field molecule composing label, control (input/textarea/select), helper and error. Supports icons and optional badge.',
       },
     },
   },
   argTypes: {
-    label: {
-      description: 'Field label text',
-      control: 'text',
-      table: { category: 'Content' },
-    },
     type: {
-      description: 'Field type',
       control: 'select',
-      options: [
-        'text',
-        'email',
-        'password',
-        'number',
-        'search',
-        'tel',
-        'url',
-        'textarea',
-        'select',
-      ],
+      options: ['text', 'textarea', 'select'],
       table: { category: 'Appearance' },
     },
-    name: {
-      description: 'Field name attribute',
-      control: 'text',
-      table: { category: 'Content' },
-    },
-    id: {
-      description: 'Field ID attribute',
-      control: 'text',
-      table: { category: 'Content' },
-    },
-    value: {
-      description: 'Field initial value',
-      control: 'text',
-      table: { category: 'Content' },
-    },
-    placeholder: {
-      description: 'Placeholder text',
-      control: 'text',
-      table: { category: 'Content' },
-    },
-    required: {
-      description: 'Mark field as required with asterisk',
-      control: 'boolean',
-      table: { category: 'Behavior' },
-    },
-    optional: {
-      description: 'Show "Optional" badge',
-      control: 'boolean',
-      table: { category: 'Behavior' },
-    },
-    disabled: {
-      description: 'Disabled state',
-      control: 'boolean',
-      table: { category: 'Behavior' },
-    },
-    helper: {
-      description: 'Helper/explanation text below field',
-      control: 'text',
-      table: { category: 'Content' },
-    },
-    error: {
-      description: 'Error message',
-      control: 'text',
-      table: { category: 'Validation' },
-    },
-    icon_left: {
-      description: 'Icon name for left position (e.g., "search")',
-      control: 'text',
-      table: { category: 'Icons' },
-    },
-    icon_right: {
-      description: 'Icon name for right position (e.g., "chevron-down")',
-      control: 'text',
-      table: { category: 'Icons' },
-    },
+    label: { control: 'text', table: { category: 'Content' } },
+    placeholder: { control: 'text', table: { category: 'Content' } },
+    value: { control: 'text', table: { category: 'Content' } },
+    helper: { control: 'text', table: { category: 'Content' } },
+    error: { control: 'text', table: { category: 'Validation' } },
+    optional: { control: 'boolean', table: { category: 'Behavior' } },
+    disabled: { control: 'boolean', table: { category: 'Behavior' } },
+    icon_left: { control: 'text', table: { category: 'Icons' } },
   },
-  render: (args) => formFieldTwig(args),
+  render: (args) => FormField(args),
 };
 
-/* ============================================
-   VARIATIONS (From Maquette)
-   ============================================ */
+// -----------------------------------------------------------------------------
+// Core stories (concise, state-focused)
+// -----------------------------------------------------------------------------
 
-export const FieldWithLabel = {
-  name: 'Field with label',
+export const DefaultText = {
+  name: 'Default text',
   args: {
     ...data,
     label: 'Label',
     placeholder: 'Value',
     optional: true,
+  },
+};
+
+export const WithIconLeft = {
+  name: 'Text with icon left',
+  args: {
+    ...data,
+    label: 'Search',
+    placeholder: 'Rechercher un bien',
+    icon_left: 'search',
+  },
+};
+
+export const SuccessState = {
+  name: 'Success state',
+  args: {
+    ...data,
+    label: 'Email',
+    value: 'agent@immo.fr',
+    state: 'success',
   },
 };
 
 export const ErrorState = {
-  name: 'Error',
+  name: 'Error state',
   args: {
     ...data,
-    label: 'Label',
-    placeholder: 'Value',
-    error: 'Lorem ipsum dolor sit amet.',
-    optional: true,
+    label: 'Email',
+    value: 'invalid',
+    error: 'Adresse e-mail invalide',
   },
 };
 
-export const TextAreaField = {
-  name: 'Text area',
+export const DisabledState = {
+  name: 'Disabled placeholder',
+  args: {
+    ...data,
+    label: 'Ville',
+    placeholder: 'Paris ou Lyon',
+    disabled: true,
+  },
+};
+
+export const TextareaField = {
+  name: 'Textarea with helper',
   args: {
     ...data,
     type: 'textarea',
-    label: 'Label',
-    placeholder: 'Placeholder',
+    label: 'Description',
+    placeholder: 'Décrivez le bien...',
+    helper: '250 caractères maximum.',
     rows: 4,
-    optional: true,
   },
 };
 
-export const NumericField = {
-  name: 'Numérique',
+export const SelectField = {
+  name: 'Select (native chevron)',
   args: {
     ...data,
     type: 'select',
-    label: 'Label',
-    options: [{ label: 'Value', value: 'value' }],
-    optional: true,
-  },
-};
-
-export const FieldWithExplanation = {
-  name: 'Field with explanation',
-  args: {
-    ...data,
-    label: 'Label',
-    placeholder: 'Value',
-    helper: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    optional: true,
-  },
-};
-
-/* ============================================
-   FIELD STATES (No Icon)
-   ============================================ */
-
-export const StateDefault = {
-  name: '[States] Default - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Value',
-  },
-};
-
-export const StatePlaceholder = {
-  name: '[States] Placeholder - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Placeholder',
-  },
-};
-
-export const StateHover = {
-  name: '[States] Hover - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Label',
-  },
-};
-
-export const StateFocus = {
-  name: '[States] Focus - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-  },
-};
-
-export const StateDone = {
-  name: '[States] Done (Success) - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    state: 'success',
-  },
-};
-
-export const StateError = {
-  name: '[States] Error - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    error: 'Error message',
-  },
-};
-
-export const StateDisabledPlaceholder = {
-  name: '[States] Disabled (placeholder) - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Placeholder',
-    disabled: true,
-  },
-};
-
-export const StateDisabledValue = {
-  name: '[States] Disabled (value) - No Icon',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    disabled: true,
-  },
-};
-
-/* ============================================
-   FIELD STATES (Icon Left - Search)
-   ============================================ */
-
-export const StateDefaultIconLeft = {
-  name: '[States] Default - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Value',
-    icon_left: 'search',
-  },
-};
-
-export const StatePlaceholderIconLeft = {
-  name: '[States] Placeholder - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Placeholder',
-    icon_left: 'search',
-  },
-};
-
-export const StateHoverIconLeft = {
-  name: '[States] Hover - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Label',
-    icon_left: 'search',
-  },
-};
-
-export const StateFocusIconLeft = {
-  name: '[States] Focus - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    icon_left: 'search',
-  },
-};
-
-export const StateDoneIconLeft = {
-  name: '[States] Done (Success) - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    state: 'success',
-    icon_left: 'search',
-  },
-};
-
-export const StateErrorIconLeft = {
-  name: '[States] Error - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    error: 'Error message',
-    icon_left: 'search',
-  },
-};
-
-export const StateDisabledPlaceholderIconLeft = {
-  name: '[States] Disabled (placeholder) - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    placeholder: 'Placeholder',
-    disabled: true,
-    icon_left: 'search',
-  },
-};
-
-export const StateDisabledValueIconLeft = {
-  name: '[States] Disabled (value) - Icon Left',
-  args: {
-    ...data,
-    type: 'text',
-    value: 'Value',
-    disabled: true,
-    icon_left: 'search',
-  },
-};
-
-/* ============================================
-   SELECT STATES (Icon Right - Chevron)
-   ============================================ */
-
-export const StateDefaultIconRight = {
-  name: '[States] Default - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Value', value: 'value' }],
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StatePlaceholderIconRight = {
-  name: '[States] Placeholder - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Placeholder', value: 'placeholder' }],
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateHoverIconRight = {
-  name: '[States] Hover - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Label', value: 'label' }],
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateFocusIconRight = {
-  name: '[States] Focus - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Value', value: 'value', selected: true }],
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateDoneIconRight = {
-  name: '[States] Done (Success) - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Value', value: 'value', selected: true }],
-    state: 'success',
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateErrorIconRight = {
-  name: '[States] Error - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Value', value: 'value', selected: true }],
-    error: 'Error message',
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateDisabledPlaceholderIconRight = {
-  name: '[States] Disabled (placeholder) - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Placeholder', value: 'placeholder' }],
-    disabled: true,
-    icon_right: 'chevron-down',
-  },
-};
-
-export const StateDisabledValueIconRight = {
-  name: '[States] Disabled (value) - Icon Right (Select)',
-  args: {
-    ...data,
-    type: 'select',
-    options: [{ label: 'Value', value: 'value' }],
-    disabled: true,
-    icon_right: 'chevron-down',
+    label: 'Type de bien',
+    options: [
+      { label: 'Appartement', value: 'apt' },
+      { label: 'Maison', value: 'house' },
+      { label: 'Bureau', value: 'office' },
+    ],
   },
 };
