@@ -101,7 +101,7 @@ export default {
     },
     size: {
       description:
-        'Size variant (small: 6px/32px, medium: 8px/40px, large: 12px/56px - linear height / circular diameter)',
+        'Size variant (small: 8px/40px, medium: 12px/56px, large: 16px/72px - linear height / circular diameter)',
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
       table: {

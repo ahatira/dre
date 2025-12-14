@@ -21,7 +21,7 @@
 	
 	/* Track (background) */
 	--ps-progress-track-bg: var(--gray-200);
-	--ps-progress-track-height: var(--size-2); /* 8px - MD default */
+	--ps-progress-track-height: var(--size-3); /* 12px - MEDIUM default */
 	--ps-progress-track-radius: var(--radius-round, 999px);
 	
 	/* Fill (foreground) */
@@ -29,12 +29,12 @@
 	--ps-progress-fill-transition: width var(--duration-normal, 0.3s) var(--ease-3, ease);
 	
 	/* Circular */
-	--ps-progress-circular-size: var(--size-10); /* 40px - MD default */
-	--ps-progress-stroke-width: 8;
+	--ps-progress-circular-size: var(--size-14); /* 56px - MEDIUM default */
+	--ps-progress-stroke-width: 10;
 	--ps-progress-stroke-transition: stroke-dashoffset var(--duration-normal, 0.3s) var(--ease-3, ease);
 	
 	/* Label */
-	--ps-progress-label-size: var(--font-size-1, 1rem); /* 16px - MD default */
+	--ps-progress-label-size: var(--font-size-2); /* 18px - MEDIUM default */
 	--ps-progress-label-weight: var(--font-weight-500, 500);
 	--ps-progress-label-color: var(--gray-700);
 	
@@ -106,22 +106,22 @@
 
 	/* ==================== MODIFIERS: SIZES ==================== */
 
-	/* Size - SMALL (6px track, 32px circular) */
+	/* Size - SMALL (8px track, 40px circular) */
 	&--small {
-		--ps-progress-track-height: var(--size-1-5); /* 6px */
-		--ps-progress-circular-size: var(--size-8); /* 32px */
-		--ps-progress-label-size: var(--font-size-0); /* 14px */
-		--ps-progress-stroke-width: 6;
+		--ps-progress-track-height: var(--size-2); /* 8px */
+		--ps-progress-circular-size: var(--size-10); /* 40px */
+		--ps-progress-label-size: var(--font-size-1); /* 16px */
+		--ps-progress-stroke-width: 8;
 	}
 
-	/* MEDIUM is default (8px track, 40px circular) - no modifier needed */
+	/* MEDIUM is default (12px track, 56px circular) - no modifier needed */
 
-	/* Size - LARGE (12px track, 56px circular) */
+	/* Size - LARGE (16px track, 72px circular) */
 	&--large {
-		--ps-progress-track-height: var(--size-3); /* 12px */
-		--ps-progress-circular-size: var(--size-14); /* 56px */
-		--ps-progress-label-size: var(--font-size-2); /* 18px */
-		--ps-progress-stroke-width: 10;
+		--ps-progress-track-height: var(--size-4); /* 16px */
+		--ps-progress-circular-size: var(--size-18); /* 72px */
+		--ps-progress-label-size: var(--font-size-3); /* 20px */
+		--ps-progress-stroke-width: 12;
 	}
 
 	/* ==================== MODIFIERS: COLORS ==================== */
