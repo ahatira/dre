@@ -126,15 +126,15 @@ export const AllStates = {
     <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:flex-start;">
       <div style="display:flex; flex-direction:column; gap:0.5rem;">
         <strong style="font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--gray-600);">Unchecked</strong>
-        ${toggleTwig({ ...data, checked: false })}
+        ${toggleTwig(Object.assign({}, data, { checked: false }))}
       </div>
       <div style="display:flex; flex-direction:column; gap:0.5rem;">
         <strong style="font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--gray-600);">Checked</strong>
-        ${toggleTwig({ ...data, checked: true })}
+        ${toggleTwig(Object.assign({}, data, { checked: true }))}
       </div>
       <div style="display:flex; flex-direction:column; gap:0.5rem;">
         <strong style="font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--gray-600);">Disabled</strong>
-        ${toggleTwig({ ...data, disabled: true })}
+        ${toggleTwig(Object.assign({}, data, { disabled: true }))}
       </div>
     </div>
   `,
@@ -146,9 +146,9 @@ export const AllStates = {
 export const AllSizes = {
   render: () => `
     <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
-      ${toggleTwig({ ...data, size: 'small', label: 'Small size' })}
-      ${toggleTwig({ ...data, size: 'medium', label: 'Medium size (default)' })}
-      ${toggleTwig({ ...data, size: 'large', label: 'Large size' })}
+      ${toggleTwig(Object.assign({}, data, { size: 'small', label: 'Small size' }))}
+      ${toggleTwig(Object.assign({}, data, { size: 'medium', label: 'Medium size (default)' }))}
+      ${toggleTwig(Object.assign({}, data, { size: 'large', label: 'Large size' }))}
     </div>
   `,
   parameters: {
@@ -164,18 +164,18 @@ export const AllSizes = {
 export const AllColors = {
   render: () => `
     <div style="display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items:center;">
-      ${toggleTwig({ ...data, color: 'default', label: 'Default (primary)', checked: true })}
-      ${toggleTwig({ ...data, color: 'primary', label: 'Primary', checked: true })}
-      ${toggleTwig({ ...data, color: 'secondary', label: 'Secondary', checked: true })}
-      ${toggleTwig({ ...data, color: 'success', label: 'Success', checked: true })}
-      ${toggleTwig({ ...data, color: 'info', label: 'Info', checked: true })}
-      ${toggleTwig({ ...data, color: 'warning', label: 'Warning', checked: true })}
-      ${toggleTwig({ ...data, color: 'danger', label: 'Danger', checked: true })}
-      ${toggleTwig({ ...data, color: 'dark', label: 'Dark', checked: true })}
+      ${toggleTwig(Object.assign({}, data, { color: 'default', label: 'Default (primary)', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'primary', label: 'Primary', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'secondary', label: 'Secondary', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'success', label: 'Success', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'info', label: 'Info', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'warning', label: 'Warning', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'danger', label: 'Danger', checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { color: 'dark', label: 'Dark', checked: true }))}
       <div style="background: var(--gray-700); padding: var(--size-4); border-radius: var(--radius-2);
         --ps-toggle-label-color: var(--white);
         --ps-toggle-description-color: var(--gray-300);">
-        ${toggleTwig({ ...data, color: 'light', label: 'Light (on dark tile)', checked: true })}
+        ${toggleTwig(Object.assign({}, data, { color: 'light', label: 'Light (on dark tile)', checked: true }))}
       </div>
     </div>
   `,
@@ -192,9 +192,9 @@ export const AllColors = {
 export const WithInternalLabels = {
   render: () => `
     <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
-      ${toggleTwig({ ...data, showLabels: true })}
-      ${toggleTwig({ ...data, showLabels: true, checked: true })}
-      ${toggleTwig({ ...data, showLabels: true, size: 'large', onLabel: 'YES', offLabel: 'NO' })}
+      ${toggleTwig(Object.assign({}, data, { showLabels: true }))}
+      ${toggleTwig(Object.assign({}, data, { showLabels: true, checked: true }))}
+      ${toggleTwig(Object.assign({}, data, { showLabels: true, size: 'large', onLabel: 'YES', offLabel: 'NO' }))}
     </div>
   `,
   parameters: {
