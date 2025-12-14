@@ -61,10 +61,7 @@
     {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   >
     <span class="ps-dropdown__label">{{ displayLabel }}</span>
-    {% include '@elements/icon/icon.twig' with {
-      name: 'chevron-down',
-      attributes: create_attribute().addClass('ps-dropdown__icon')
-    } only %}
+    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
   </button>
 
   <ul
