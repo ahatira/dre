@@ -61,20 +61,20 @@
     --ps-form-item-error-icon-color: var(--danger);
     --ps-form-item-error-message-weight: var(--font-weight-600);
 
-    /* Icon color override for error state */
-    & .form-control-icon {
+    /* Icon color override for error state - apply directly to icon */
+    .form-control-icon {
       color: var(--ps-form-item-error-icon-color);
     }
 
     /* Error message styling - prominent and clear */
-    & .form-error {
+    .form-error {
       color: var(--ps-form-item-error-color);
       font-weight: var(--ps-form-item-error-message-weight);
       /* Message is already visible in DOM; CSS just ensures styling */
     }
 
     /* Hide helper text when error is present (handled in Twig) */
-    & .form-helper {
+    .form-helper {
       display: none;
     }
   }
