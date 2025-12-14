@@ -37,7 +37,7 @@ I analyzed the BNP Paribas Real Estate homepage mockups (8 images including desk
 4. **Approach Section** - Accordion with approach questions
 5. **Featured Properties** - Carousel of 4 property cards
 6. **Commercial Searches** - 4 commercial search category cards
-7. **Expert Support** - Media object with team photo and benefits list
+7. **Expert Support** - Team photo and benefits list (no dedicated media object)
 8. **News Articles** - 3 article cards with dates and descriptions
 9. **Market Studies** - 2 study cards with download CTAs
 10. **FAQ Accordion** - Multiple Q&A items (expandable)
@@ -72,7 +72,7 @@ I analyzed the BNP Paribas Real Estate homepage mockups (8 images including desk
 - **Status**: All specs complete, all dependencies met
 
 ### Phase 2: Advanced Interactions (2 weeks)
-- 15 components: Dropdown, Modal, Tabs, Media Object, etc.
+- 15 components: Dropdown, Modal, Tabs, etc.
 
 ### Phase 3: Utility Components (1-2 weeks)
 - 12 components: Data Table, List, Tooltip, Toast, etc.

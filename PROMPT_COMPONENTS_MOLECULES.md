@@ -159,7 +159,7 @@ type(components): Subject line (max 72 chars)
 28. **Stepper** - Indicateur étapes avec statut
 
 **Other (1)** :
-29. **Media Object** - Image/icône + titre + description
+<!-- Removed: Media Object - deprecated -->
 30. **Tag List** - Collection tags/chips
 
 **Note** : Contact Form peut être un organism (composition Form Fields)

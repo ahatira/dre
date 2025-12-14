@@ -93,9 +93,7 @@ Components that are already implemented and used throughout:
 - [ ] **Tabs** (molecule) - Tab navigation
   - Property detail tabs: Description, Photos, Energy, Similar
   
-- [ ] **Media Object** (molecule) - Image + text layout
-  - Service features (icon + title + desc)
-  - Expert profiles (photo + name/role/office)
+<!-- Removed: Media Object (molecule) - decided to deprecate / not implement -->
 
 **Result**: Full property detail page + search results
 
