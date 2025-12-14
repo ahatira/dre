@@ -16,7 +16,7 @@
   --ps-search-bar-input-padding-x: var(--size-3);
   --ps-search-bar-icon-size: var(--size-5);
   --ps-search-bar-icon-spacing: var(--size-2);
-  --ps-search-bar-border-radius: var(--radius-3);
+  --ps-search-bar-border-radius: 0;
   --ps-search-bar-border-width: var(--border-size-1);
   --ps-search-bar-focus-ring-width: var(--border-size-2);
   --ps-search-bar-transition-duration: var(--duration-fast);
