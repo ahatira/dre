@@ -35,12 +35,12 @@
 
 <li{{ attr }}>
   <a href="{{ href }}" class="ps-menu-item__link"{% if disabled %} aria-disabled="true"{% endif %}>
-    {% if icon %}
-      <span class="ps-menu-item__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-    {% endif %}
     <span class="ps-menu-item__label">{{ label }}</span>
     {% if badge %}
       <span class="ps-menu-item__badge ps-menu-item__badge--{{ badge_variant }}">{{ badge }}</span>
+    {% endif %}
+    {% if icon %}
+      <span class="ps-menu-item__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {% endif %}
   </a>
   {% if submenu|length > 0 %}
