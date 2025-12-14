@@ -1,10 +1,10 @@
 /**
  * Alert Component (Molecule/Feedback)
- * Semantic alert with 4 variants, optional title, dismissible close button
+ * Semantic alert with 9 variants, optional icon, dismissible close button
  *
- * BEM: ps-alert, ps-alert__icon, ps-alert__content, ps-alert__title, ps-alert__message, ps-alert__close
- * Variants: info | success | warning | error
- * Modifiers: --dismissible, --compact
+ * BEM: ps-alert, ps-alert__content, ps-alert__close
+ * Variants: neutral | primary | success | danger | warning | info | gold | light | dark
+ * Modifiers: --with-icon, --dismissible
  * Three-Layer CSS Variables System
  */
 
@@ -22,9 +22,6 @@
   --ps-alert-font-family: var(--font-sans);
   --ps-alert-font-size: var(--font-size-1);
   --ps-alert-line-height: var(--leading-normal);
-  --ps-alert-title-font-size: var(--font-size-2);
-  --ps-alert-title-font-weight: var(--font-weight-600);
-  --ps-alert-title-margin-bottom: var(--size-2);
   
   /* Colors - Transparent defaults (overridden by variants) */
   --ps-alert-bg: transparent;
@@ -52,9 +49,7 @@
      Using component-scoped variables
      ============================================ */
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--ps-alert-icon-margin-right);
+  display: block;
   padding: var(--ps-alert-padding-y) var(--ps-alert-padding-x);
   border-radius: var(--ps-alert-border-radius);
   border: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
@@ -65,13 +60,20 @@
   color: var(--ps-alert-color);
 
   /* ============================================
-     Icon Element
+     Icon via data-icon attribute
      ============================================ */
-  &__icon {
-    width: var(--ps-alert-icon-size);
-    height: var(--ps-alert-icon-size);
-    flex-shrink: 0;
-    color: var(--ps-alert-icon-color);
+  &--with-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    
+    &::before {
+      width: var(--ps-alert-icon-size);
+      height: var(--ps-alert-icon-size);
+      margin-right: var(--ps-alert-icon-margin-right);
+      flex-shrink: 0;
+      color: var(--ps-alert-icon-color);
+    }
   }
 
   /* ============================================
@@ -80,18 +82,6 @@
   &__content {
     flex: 1;
     min-width: 0;
-  }
-
-  &__title {
-    margin: 0 0 var(--ps-alert-title-margin-bottom) 0;
-    font-size: var(--ps-alert-title-font-size);
-    font-weight: var(--ps-alert-title-font-weight);
-    line-height: var(--leading-tight);
-    color: currentColor;
-  }
-
-  &__message {
-    margin: 0;
     
     & > *:first-child {
       margin-top: 0;
@@ -146,23 +136,22 @@
     padding-right: calc(var(--ps-alert-padding-x) * 2 + var(--size-8));
   }
 
-  &--compact {
-    --ps-alert-padding-y: var(--size-3);
-    --ps-alert-padding-x: var(--size-3);
-    --ps-alert-icon-size: var(--size-4);
-    --ps-alert-font-size: var(--font-size-0);
-    --ps-alert-title-font-size: var(--font-size-1);
-  }
-
   /* ============================================
      Semantic Variants
      Using semantic tokens from brand.css
      ============================================ */
-  &--info {
-    --ps-alert-bg: var(--info-bg-subtle);
-    --ps-alert-color: var(--info-text-emphasis);
-    --ps-alert-border-color: var(--info-border-subtle);
-    --ps-alert-icon-color: var(--info);
+  &--neutral {
+    --ps-alert-bg: var(--gray-100);
+    --ps-alert-color: var(--gray-700);
+    --ps-alert-border-color: var(--gray-300);
+    --ps-alert-icon-color: var(--gray-600);
+  }
+
+  &--primary {
+    --ps-alert-bg: var(--primary-bg-subtle);
+    --ps-alert-color: var(--primary-text-emphasis);
+    --ps-alert-border-color: var(--primary-border-subtle);
+    --ps-alert-icon-color: var(--primary);
   }
 
   &--success {
@@ -172,6 +161,13 @@
     --ps-alert-icon-color: var(--success);
   }
 
+  &--danger {
+    --ps-alert-bg: var(--danger-bg-subtle);
+    --ps-alert-color: var(--danger-text-emphasis);
+    --ps-alert-border-color: var(--danger-border-subtle);
+    --ps-alert-icon-color: var(--danger);
+  }
+
   &--warning {
     --ps-alert-bg: var(--warning-bg-subtle);
     --ps-alert-color: var(--warning-text-emphasis);
@@ -179,11 +175,32 @@
     --ps-alert-icon-color: var(--warning);
   }
 
-  &--error {
-    --ps-alert-bg: var(--danger-bg-subtle);
-    --ps-alert-color: var(--danger-text-emphasis);
-    --ps-alert-border-color: var(--danger-border-subtle);
-    --ps-alert-icon-color: var(--danger);
+  &--info {
+    --ps-alert-bg: var(--info-bg-subtle);
+    --ps-alert-color: var(--info-text-emphasis);
+    --ps-alert-border-color: var(--info-border-subtle);
+    --ps-alert-icon-color: var(--info);
+  }
+
+  &--gold {
+    --ps-alert-bg: var(--gold-bg-subtle);
+    --ps-alert-color: var(--gold-text-emphasis);
+    --ps-alert-border-color: var(--gold-border-subtle);
+    --ps-alert-icon-color: var(--gold);
+  }
+
+  &--light {
+    --ps-alert-bg: var(--light-bg-subtle);
+    --ps-alert-color: var(--light-text-emphasis);
+    --ps-alert-border-color: var(--light-border-subtle);
+    --ps-alert-icon-color: var(--gray-700);
+  }
+
+  &--dark {
+    --ps-alert-bg: var(--dark-bg-subtle);
+    --ps-alert-color: var(--dark-text-emphasis);
+    --ps-alert-border-color: var(--dark-border-subtle);
+    --ps-alert-icon-color: var(--white);
   }
 }
 

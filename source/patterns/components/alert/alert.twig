@@ -1,53 +1,41 @@
 {#
 /**
  * Alert Component (Molecule/Feedback)
- * Semantic alert with flexible content, optional icons, and 4 variants
+ * Semantic alert with flexible content, optional icons, and 9 variants
  *
- * @param {string} variant - Alert semantic variant: 'info'|'success'|'warning'|'error'
- * @param {string} title - Optional alert title (HTML allowed)
- * @param {string} message - Alert message content (HTML allowed)
+ * @param {string} content - Alert message content (HTML allowed)
+ * @param {string} variant - Alert semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
+ * @param {string} icon - Optional icon name (without icon- prefix)
  * @param {boolean} dismissible - Show close button with dismiss behavior
- * @param {boolean} compact - Reduce padding for dense layouts
  * @param {Attribute} attributes - Additional HTML attributes
  */
 #}
 
-{%- set variant = variant|default('info') -%}
-{%- set title = title|default('') -%}
-{%- set message = message|default('') -%}
+{%- set content = content|default('') -%}
+{%- set variant = variant|default('neutral') -%}
+{%- set icon = icon|default(null) -%}
 {%- set dismissible = dismissible|default(false) -%}
-{%- set compact = compact|default(false) -%}
 
 {# ARIA attributes based on severity #}
-{%- set role = variant == 'error' ? 'alert' : 'status' -%}
-{%- set ariaLive = variant == 'error' ? 'assertive' : 'polite' -%}
-
-{# Icon mapping #}
-{%- set iconMap = {
-  'info': 'info',
-  'success': 'check-circle',
-  'warning': 'alert-triangle',
-  'error': 'alert-circle'
-} -%}
+{%- if variant in ['danger', 'warning'] -%}
+  {%- set role = 'alert' -%}
+  {%- set ariaLive = 'assertive' -%}
+{%- else -%}
+  {%- set role = 'status' -%}
+  {%- set ariaLive = 'polite' -%}
+{%- endif -%}
 
 {%- set classes = [
   'ps-alert',
   'ps-alert--' ~ variant,
-  dismissible ? 'ps-alert--dismissible' : null,
-  compact ? 'ps-alert--compact' : null
+  icon ? 'ps-alert--with-icon' : null,
+  dismissible ? 'ps-alert--dismissible' : null
 ] -%}
 
-<div {{ attributes|without('class').addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}">
-  <span class="ps-alert__icon" data-icon="{{ iconMap[variant] }}" aria-hidden="true"></span>
-  
-  <div class="ps-alert__content">
-    {%- if title -%}
-      <h4 class="ps-alert__title">{{ title|raw }}</h4>
-    {%- endif -%}
-    {%- if message -%}
-      <div class="ps-alert__message">{{ message|raw }}</div>
-    {%- endif -%}
-  </div>
+<div {{ attributes|without('class').addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}" data-icon="{{ icon }}">
+  {%- if content -%}
+    <div class="ps-alert__content">{{ content|raw }}</div>
+  {%- endif -%}
 
   {%- if dismissible -%}
     {% include '@elements/button/button.twig' with {
