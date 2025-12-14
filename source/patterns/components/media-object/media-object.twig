@@ -1,0 +1,40 @@
+{#
+/**
+ * Media Object (Component/Molecule)
+ * Image/icon + label with semantic variants.
+ *
+ * Props:
+ * - string label (required)
+ * - string variant ('neutral' | 'primary' | 'success' | 'danger' | 'warning' | 'info' | 'gold' | 'light' | 'dark')
+ * - boolean pill (default: false)
+ * - string icon (optional; use data-icon, e.g., 'check', 'info')
+ * - object attributes (HTML attributes; merged with classes)
+ *
+ * States:
+ * - default
+ * - pill
+ * - with-icon
+ */
+#}
+
+{%- set label = label|default('Label') -%}
+{%- set variant = variant|default('neutral') -%}
+{%- set pill = pill|default(false) -%}
+{%- set icon = icon|default(null) -%}
+{%- set attributes = (attributes ? attributes : create_attribute()) -%}
+
+{%- set classes = [
+  'ps-media-object',
+  variant ? 'ps-media-object--' ~ variant : null,
+  pill ? 'ps-media-object--pill' : null,
+  icon ? 'ps-media-object--with-icon' : null
+]|filter(v => v) -%}
+
+{%- set attr = attributes.addClass(classes) -%}
+
+<span{{ attr }}>
+  {%- if icon -%}
+    <span class="ps-media-object__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+  {%- endif -%}
+  <span class="ps-media-object__label">{{ label }}</span>
+</span>

@@ -1,0 +1,124 @@
+/* Media Object - semantic label with optional icon */
+
+/* Tokens on component root for cascade */
+.ps-media-object {
+  /* Spacing & layout */
+  --ps-media-gap: var(--size-2);
+  --ps-media-padding-y: var(--size-1);
+  --ps-media-padding-x: var(--size-2);
+  --ps-media-radius: var(--radius-2);
+  --ps-media-font-size: var(--font-size-0);
+  --ps-media-font-weight: var(--font-weight-500);
+
+  /* Neutral (component-level default using grays) */
+  --ps-media-bg-neutral: var(--gray-100);
+  --ps-media-text-neutral: var(--gray-700);
+  --ps-media-border-neutral: var(--border-light);
+
+  /* Semantic variants */
+  --ps-media-bg-primary: var(--primary-bg-subtle);
+  --ps-media-text-primary: var(--primary);
+  --ps-media-border-primary: var(--primary-border-subtle);
+
+  --ps-media-bg-success: var(--success-bg-subtle);
+  --ps-media-text-success: var(--success);
+  --ps-media-border-success: var(--success-border-subtle);
+
+  --ps-media-bg-danger: var(--danger-bg-subtle);
+  --ps-media-text-danger: var(--danger);
+  --ps-media-border-danger: var(--danger-border-subtle);
+
+  --ps-media-bg-warning: var(--warning-bg-subtle);
+  --ps-media-text-warning: var(--warning);
+  --ps-media-border-warning: var(--warning-border-subtle);
+
+  --ps-media-bg-info: var(--info-bg-subtle);
+  --ps-media-text-info: var(--info);
+  --ps-media-border-info: var(--info-border-subtle);
+
+  --ps-media-bg-gold: var(--gold-bg-subtle);
+  --ps-media-text-gold: var(--gold);
+  --ps-media-border-gold: var(--gold-border-subtle);
+
+  --ps-media-bg-light: var(--light-bg-subtle);
+  --ps-media-text-light: var(--dark);
+  --ps-media-border-light: var(--light-border-subtle);
+
+  --ps-media-bg-dark: var(--dark-bg-subtle);
+  --ps-media-text-dark: var(--dark-text);
+  --ps-media-border-dark: var(--dark-border-subtle);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ps-media-gap);
+  padding: var(--ps-media-padding-y) var(--ps-media-padding-x);
+  border-radius: var(--ps-media-radius);
+  border: var(--border-size-1) solid var(--ps-media-border-neutral);
+  background: var(--ps-media-bg-neutral);
+  color: var(--ps-media-text-neutral);
+  font-size: var(--ps-media-font-size);
+  font-weight: var(--ps-media-font-weight);
+}
+
+.ps-media-object {
+  &__icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
+  &__label {
+    line-height: var(--leading-6);
+  }
+
+  /* Pill state */
+  &--pill {
+    border-radius: var(--radius-pill);
+    padding: var(--size-1) var(--size-3);
+    font-weight: var(--font-weight-600);
+  }
+
+  /* With-icon state: no extra styles needed beyond gap */
+  &--with-icon {}
+
+  /* Variants */
+  &--primary {
+    border-color: var(--ps-media-border-primary);
+    background: var(--ps-media-bg-primary);
+    color: var(--ps-media-text-primary);
+  }
+  &--success {
+    border-color: var(--ps-media-border-success);
+    background: var(--ps-media-bg-success);
+    color: var(--ps-media-text-success);
+  }
+  &--danger {
+    border-color: var(--ps-media-border-danger);
+    background: var(--ps-media-bg-danger);
+    color: var(--ps-media-text-danger);
+  }
+  &--warning {
+    border-color: var(--ps-media-border-warning);
+    background: var(--ps-media-bg-warning);
+    color: var(--ps-media-text-warning);
+  }
+  &--info {
+    border-color: var(--ps-media-border-info);
+    background: var(--ps-media-bg-info);
+    color: var(--ps-media-text-info);
+  }
+  &--gold {
+    border-color: var(--ps-media-border-gold);
+    background: var(--ps-media-bg-gold);
+    color: var(--ps-media-text-gold);
+  }
+  &--light {
+    border-color: var(--ps-media-border-light);
+    background: var(--ps-media-bg-light);
+    color: var(--ps-media-text-light);
+  }
+  &--dark {
+    border-color: var(--ps-media-border-dark);
+    background: var(--ps-media-bg-dark);
+    color: var(--ps-media-text-dark);
+  }
+}
