@@ -33,8 +33,8 @@
 {%- set disabled = disabled|default(false) -%}
 {%- set color = color|default('default') -%}
 {%- set options = options|default([]) -%}
-{# Attributes: Drupal create_attribute() or empty string for Storybook #}
-{%- set attributes = attributes|default('') -%}
+{# Attributes: Drupal create_attribute() object (mandatory for integration) #}
+{%- set attributes = attributes ? attributes : create_attribute() -%}
 
 {%- set selectedOption = null -%}
 {%- for option in options -%}
@@ -51,7 +51,7 @@
 {%- if shape and shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
 {%- if disabled -%}{%- set classes = classes|merge(['ps-dropdown--disabled']) -%}{%- endif -%}
 
-<div class="{{ classes|join(' ')|trim }}" {{- attributes ? attributes|without('class') : '' -}} data-dropdown>
+<div class="{{ classes|join(' ')|trim }}" {{- attributes|without('class') -}} data-dropdown>
   <button
     class="ps-dropdown__button"
     type="button"
@@ -61,10 +61,7 @@
     {%- if disabled %} disabled aria-disabled="true"{% endif -%}
   >
     <span class="ps-dropdown__label">{{ displayLabel }}</span>
-    {% include '@elements/icon/icon.twig' with {
-      name: 'chevron-down',
-      attributes: create_attribute().addClass('ps-dropdown__icon')
-    } only %}
+    <span class="ps-dropdown__icon" data-icon="chevron-down" aria-hidden="true"></span>
   </button>
 
   <ul
