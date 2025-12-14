@@ -11,10 +11,11 @@
       align-items: center;
       justify-content: center;
 
-      /* Mobile: full screen mode - remove centering */
+      /* Mobile: full screen mode with 20px margin all around */
       @media (max-width: 767px) {
-        align-items: flex-start;
-        justify-content: flex-start;
+        padding: 20px;
+        align-items: stretch;
+        justify-content: stretch;
       }
     }
 
@@ -38,10 +39,10 @@
     overflow-y: auto;
     width: min(90vw, 37.5rem); /* 600px default (medium) */
 
-    /* Mobile: full screen mode */
+    /* Mobile: full screen mode with 20px margin */
     @media (max-width: 767px) {
-      width: 100vw;
-      max-height: 100vh;
+      width: 100%;
+      max-height: 100%;
       max-width: none;
     }
 
@@ -49,7 +50,7 @@
       width: min(90vw, 25rem); /* 400px */
 
       @media (max-width: 767px) {
-        width: 100vw;
+        width: 100%;
       }
     }
 
@@ -57,7 +58,7 @@
       width: min(90vw, 37.5rem); /* 600px */
 
       @media (max-width: 767px) {
-        width: 100vw;
+        width: 100%;
       }
     }
 
@@ -65,7 +66,7 @@
       width: min(90vw, 50rem); /* 800px */
 
       @media (max-width: 767px) {
-        width: 100vw;
+        width: 100%;
       }
     }
   }
