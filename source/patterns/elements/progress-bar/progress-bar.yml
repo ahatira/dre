@@ -1,11 +1,11 @@
-# Defaults for Progress Bar preview
+# Progress Bar (Element/Atom) - Defaults
 value: 60 # Current progress value (0-100)
 min: 0 # Minimum value
 max: 100 # Maximum value
-variant: 'linear' # Options: linear | circular
-color: 'default' # Options: default | primary | secondary | info | warning | success | danger | dark | light
-size: 'md' # Options: xs | sm | md | lg | xl | xxl
+variant: 'linear' # Variant: linear | circular
+color: 'neutral' # Color: neutral | primary | secondary | gold | info | warning | success | danger | light | dark
+size: 'medium' # Size: small | medium | large
 indeterminate: false # true = infinite animation without value
 striped: false # true = animated stripes (linear only)
 showLabel: true # true = display percentage
-label: 'Property upload in progress' # Label for accessibility (screen readers)
+label: 'Property upload in progress' # Accessibility label for screen readers

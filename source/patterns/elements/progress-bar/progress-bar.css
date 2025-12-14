@@ -1,16 +1,16 @@
 /**
  * Progress Bar (Element/Atom)
  * Linear or circular progress indicator with semantic colors and size variants
- * 
+ *
  * BEM: ps-progress, ps-progress__track, ps-progress__fill, ps-progress__label
  * Variants: linear (default - no modifier class) | circular
- * Colors: default | primary | secondary | info | warning | success | danger | dark | light (9 semantic colors)
- * Sizes: xs | sm | md (default) | lg | xl | xxl (6 sizes)
+ * Colors: neutral | primary | secondary | gold | info | warning | success | danger | light | dark (9 semantic colors)
+ * Sizes: small | medium (default) | large (3 sizes)
  * States: indeterminate, striped (linear only)
- * 
- * CSS Variables System (3-layer Bootstrap 5 inspired):
- * - Layer 1: Root primitives (--ps-* tokens from props/)
- * - Layer 2: Component-scoped variables (--ps-progress-* defined below)
+ *
+ * Architecture: 3-layer CSS variables system
+ * - Layer 1: Root tokens (--primary, --size-*, --duration-*, etc.)
+ * - Layer 2: Component variables (--ps-progress-* defined below)
  * - Layer 3: Context overrides (modifier classes)
  */
 
@@ -151,44 +151,44 @@
 	}
 	
 	/* Color - SECONDARY (purple) */
-	&.ps-progress--secondary {
+	&--secondary {
 		--ps-progress-fill-bg: var(--secondary);
 	}
-	
-	/* Color - INFO (blue) */
-	&.ps-progress--info {
-		--ps-progress-fill-bg: var(--info);
-	}
-	
-	/* Color - WARNING (orange/yellow) */
-	&.ps-progress--warning {
-		--ps-progress-fill-bg: var(--warning);
-	}
-	
-	/* Color - SUCCESS (green) */
-	&.ps-progress--success {
-		--ps-progress-fill-bg: var(--success);
-	}
-	
-	/* Color - DANGER (red) */
-	&.ps-progress--danger {
-		--ps-progress-fill-bg: var(--danger);
-	}
-	
-	/* Color - DARK (near black) */
-	&.ps-progress--dark {
-		--ps-progress-fill-bg: var(--gray-900);
-	}
-	
+
 	/* Color - GOLD (accent gold) */
-	&.ps-progress--gold {
+	&--gold {
 		--ps-progress-fill-bg: var(--gold);
 	}
-	
+
+	/* Color - INFO (blue) */
+	&--info {
+		--ps-progress-fill-bg: var(--info);
+	}
+
+	/* Color - WARNING (orange/yellow) */
+	&--warning {
+		--ps-progress-fill-bg: var(--warning);
+	}
+
+	/* Color - SUCCESS (green) */
+	&--success {
+		--ps-progress-fill-bg: var(--success);
+	}
+
+	/* Color - DANGER (red) */
+	&--danger {
+		--ps-progress-fill-bg: var(--danger);
+	}
+
 	/* Color - LIGHT (near white) */
-	&.ps-progress--light {
+	&--light {
 		--ps-progress-fill-bg: var(--gray-300);
 		--ps-progress-label-color: var(--gray-600); /* Darker text for contrast */
+	}
+
+	/* Color - DARK (near black) */
+	&--dark {
+		--ps-progress-fill-bg: var(--gray-900);
 	}
 
 	/* ==================== STATES ==================== */

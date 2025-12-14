@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 23/24 (96%)
+**Implémentés** : 24/24 (100%)
 
 ---
 
@@ -121,7 +121,7 @@ Implémenté : ✅
 
 **Progress Bar** - Indicateur de progression linéaire  
 Usage : Wizard recherche multi-étapes  
-Implémenté : ❌
+Implémenté : ✅
 
 **Separator** - Ligne de division visuelle  
 Usage : Séparateur gris clair entre sections  

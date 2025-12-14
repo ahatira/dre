@@ -1,41 +1,46 @@
 {#
- * PS Progress Bar (Atom) - Linear or circular progress indicator
+ * Progress Bar (Element/Atom)
+ * Linear or circular progress indicator with semantic colors
  *
- * @param number value - Current progress value (0-100)
- * @param number min - Minimum value (default: 0)
- * @param number max - Maximum value (default: 100)
- * @param string variant - Type: linear | circular (default: linear)
- * @param string color - Semantic color: default | primary | secondary | gold | info | warning | success | danger | dark | light (default: default)
- * @param string size - Size: xs | sm | md | lg | xl | xxl (default: md)
- * @param boolean indeterminate - Infinite animation without value (default: false)
- * @param boolean striped - Animated stripes (linear only, default: false)
- * @param boolean showLabel - Display percentage label (default: false)
- * @param string label - Accessibility label for screen readers
- * @param Attribute attributes - Additional HTML attributes
+ * @param {number} [value=0] - Current progress value (0-100)
+ * @param {number} [min=0] - Minimum value
+ * @param {number} [max=100] - Maximum value
+ * @param {string} [variant='linear'] - Variant: linear | circular
+ * @param {string} [color='neutral'] - Color: neutral | primary | secondary | gold | info | warning | success | danger | light | dark
+ * @param {string} [size='medium'] - Size: small | medium | large
+ * @param {boolean} [indeterminate=false] - Infinite animation without value
+ * @param {boolean} [striped=false] - Animated stripes (linear only)
+ * @param {boolean} [showLabel=false] - Display percentage label
+ * @param {string} [label] - Accessibility label for screen readers
+ * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
  #}
-{% set class = class|default(null) %}
-{% set variant = variant|default('linear') %}
-{% set color = color|default('default') %}
-{% set size = size|default('md') %}
-{% set indeterminate = indeterminate|default(false) %}
-{% set striped = striped|default(false) %}
-{% set showLabel = showLabel|default(false) %}
-{% set value = indeterminate ? null : (value ?? 0) %}
-{% set min = min|default(0) %}
-{% set max = max|default(100) %}
-{% set percent = value is not null ? ((value - min) / (max - min) * 100)|round : 0 %}
-{% set attributes = attributes|default(create_attribute()) %}
-{# Minimal HTML: base class only by default; add modifiers only when different from defaults #}
-{% set root_classes = [
+{%- set class = class|default(null) -%}
+{%- set variant = variant|default('linear') -%}
+{%- set color = color|default('neutral') -%}
+{# Map legacy 6-size system to 3-size system #}
+{%- set size = size|default('medium') -%}
+{%- set size = size == 'xs' or size == 'sm' ? 'small' : (size == 'md' ? 'medium' : (size == 'lg' or size == 'xl' or size == 'xxl' ? 'large' : size)) -%}
+{# Map legacy 'default' color to 'neutral' #}
+{%- set color = color == 'default' ? 'neutral' : color -%}
+{%- set indeterminate = indeterminate|default(false) -%}
+{%- set striped = striped|default(false) -%}
+{%- set showLabel = showLabel|default(false) -%}
+{%- set value = indeterminate ? null : (value ?? 0) -%}
+{%- set min = min|default(0) -%}
+{%- set max = max|default(100) -%}
+{%- set percent = value is not null ? ((value - min) / (max - min) * 100)|round : 0 -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
+
+{%- set root_classes = [
   'ps-progress',
   variant != 'linear' ? 'ps-progress--' ~ variant : null,
-  color != 'default' ? 'ps-progress--' ~ color : null,
-  size != 'md' ? 'ps-progress--' ~ size : null,
+  color != 'neutral' ? 'ps-progress--' ~ color : null,
+  size != 'medium' ? 'ps-progress--' ~ size : null,
   indeterminate ? 'ps-progress--indeterminate' : null,
   striped and variant == 'linear' ? 'ps-progress--striped' : null,
   showLabel ? 'ps-progress--with-label' : null,
   class ? class : null
-] %}
+] -%}
 {% if variant == 'linear' %}
   <div class="{{ root_classes|join(' ')|trim }}"
     {%- if attributes %} {{ attributes|without('class') }}{% endif -%}

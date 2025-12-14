@@ -31,7 +31,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Progress indicator (linear or circular) with semantic colors, size variants, and states.\n\n**10 semantic colors**: default, primary, secondary, gold, info, warning, success, danger, dark, light\n**6 sizes**: xs, sm, md, lg, xl, xxl\n**States**: determinate, indeterminate, striped (linear only)`,
+        component: `Progress indicator (linear or circular) with semantic colors and size variants. Used for file uploads, loading states, and step-by-step processes.\n\n**9 semantic colors**: neutral, primary, secondary, gold, info, warning, success, danger, light, dark\n**3 sizes**: small, medium (default), large\n**States**: determinate, indeterminate, striped (linear only)`,
       },
     },
   },
@@ -79,7 +79,7 @@ export default {
       description: 'Semantic color variant using Layer 1 tokens (--primary, --success, etc.)',
       control: { type: 'select' },
       options: [
-        'default',
+        'neutral',
         'primary',
         'secondary',
         'gold',
@@ -87,27 +87,27 @@ export default {
         'warning',
         'success',
         'danger',
-        'dark',
         'light',
+        'dark',
       ],
       table: {
         category: 'Appearance',
         type: {
           summary:
-            'default | primary | secondary | gold | info | warning | success | danger | dark | light',
+            'neutral | primary | secondary | gold | info | warning | success | danger | light | dark',
         },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: 'neutral' },
       },
     },
     size: {
       description:
-        'Size variant (linear height / circular diameter): xs(2px/24px), sm(4px/32px), md(8px/40px), lg(12px/48px), xl(16px/64px), xxl(24px/80px)',
+        'Size variant (small: 6px/32px, medium: 8px/40px, large: 12px/56px - linear height / circular diameter)',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Appearance',
-        type: { summary: 'xs | sm | md | lg | xl | xxl' },
-        defaultValue: { summary: 'md' },
+        type: { summary: 'small | medium | large' },
+        defaultValue: { summary: 'medium' },
       },
     },
     showLabel: {
@@ -157,12 +157,11 @@ export const Default = {
   render: (args) => progressBarTwig(args),
 };
 
-export const Variants = {
-  name: 'All Colors',
+export const SemanticColors = {
   render: () => `
     <div style="display: grid; gap: var(--size-4);">
       ${[
-        'default',
+        'neutral',
         'primary',
         'secondary',
         'gold',
@@ -170,8 +169,8 @@ export const Variants = {
         'warning',
         'success',
         'danger',
-        'dark',
         'light',
+        'dark',
       ]
         .map(
           (color) => `
@@ -194,7 +193,7 @@ export const Sizes = {
       <div>
         <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Linear Sizes</h3>
         <div style="display: grid; gap: var(--size-3);">
-          ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
+          ${['small', 'medium', 'large']
             .map(
               (size) => `
             <div>
@@ -209,7 +208,7 @@ export const Sizes = {
       <div>
         <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Circular Sizes</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center; flex-wrap: wrap;">
-          ${['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
+          ${['small', 'medium', 'large']
             .map(
               (size) => `
             <div style="text-align: center;">
@@ -250,11 +249,11 @@ export const States = {
         <div style="display: flex; gap: var(--size-6); align-items: center;">
           <div style="text-align: center;">
             <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Determinate</p>
-            ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'lg', showLabel: true, label: 'Determinate circular' })}
+            ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'large', showLabel: true, label: 'Determinate circular' })}
           </div>
           <div style="text-align: center;">
             <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Indeterminate</p>
-            ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'primary', size: 'lg', label: 'Indeterminate circular' })}
+            ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'primary', size: 'large', label: 'Indeterminate circular' })}
           </div>
         </div>
       </div>
@@ -262,53 +261,104 @@ export const States = {
   `,
 };
 
-export const RealEstateCases = {
-  name: 'Real Estate Use Cases',
+export const FileUpload = {
   render: () => `
-    <div style="display: grid; gap: var(--size-8);">
+    <div style="display: grid; gap: var(--size-6); max-width: 600px;">
       <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Property Document Upload</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Tracking file upload progress (floor plans, contracts, photos)</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Uploading property photos...</p>
         ${progressBarTwig({ variant: 'linear', value: 45, color: 'info', showLabel: true, label: 'Uploading floor plans and contracts' })}
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">3 of 8 files uploaded</p>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Lease Application Processing</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Indeterminate state for server-side processing</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Processing documents...</p>
         ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'primary', label: 'Processing tenant application data' })}
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">Please wait while we verify your documents</p>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Agent Profile Completion</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Circular indicator for profile status</p>
-        <div style="display: flex; gap: var(--size-6); align-items: center;">
-          ${progressBarTwig({ variant: 'circular', value: 33, color: 'warning', size: 'lg', showLabel: true, label: 'Agent profile 33% complete' })}
-          <div>
-            <p style="margin: 0 0 var(--size-1); font-weight: var(--font-weight-600);">Complete your profile</p>
-            <p style="margin: 0; font-size: var(--font-size-0); color: var(--gray-600);">Add certifications and experience</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Virtual Tour Loading</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Striped animation for 3D model loading</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Loading 3D virtual tour...</p>
         ${progressBarTwig({ variant: 'linear', striped: true, value: 70, color: 'primary', showLabel: true, label: 'Loading 3D virtual tour' })}
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Multi-Step Lease Process</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Step-by-step progress tracking</p>
-        <div style="display: flex; gap: var(--size-4); align-items: center;">
-          ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'md', showLabel: true, label: 'Step 1: Identity verified' })}
-          <span style="font-size: var(--font-size-1); color: var(--gray-700);">Identity</span>
-          ${progressBarTwig({ variant: 'circular', value: 66, color: 'info', size: 'md', showLabel: true, label: 'Step 2: Documents in progress' })}
-          <span style="font-size: var(--font-size-1); color: var(--gray-700);">Documents</span>
-          ${progressBarTwig({ variant: 'circular', value: 0, color: 'default', size: 'md', showLabel: false, label: 'Step 3: Payment pending' })}
-          <span style="font-size: var(--font-size-1); color: var(--gray-500);">Payment</span>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Storage Quota Warning</h3>
-        <p style="margin: 0 0 var(--size-3); font-size: var(--font-size-1); color: var(--gray-600);">Critical state with danger color</p>
-        ${progressBarTwig({ variant: 'linear', value: 92, color: 'danger', size: 'lg', showLabel: true, label: 'Storage usage: 92% - upgrade needed' })}
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">High-resolution model loading</p>
       </div>
     </div>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'File upload progress indicators showing determinate (with percentage), indeterminate (unknown duration), and striped (animated) states.',
+      },
+    },
+  },
+};
+
+export const MultiStepProcess = {
+  render: () => `
+    <div style="display: flex; gap: var(--size-4); align-items: center; max-width: 600px;">
+      ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'medium', showLabel: true, label: 'Step 1: Identity verified' })}
+      <span style="font-size: var(--font-size-1); color: var(--gray-700);">Identity</span>
+      ${progressBarTwig({ variant: 'circular', value: 66, color: 'info', size: 'medium', showLabel: true, label: 'Step 2: Documents in progress' })}
+      <span style="font-size: var(--font-size-1); color: var(--gray-700);">Documents</span>
+      ${progressBarTwig({ variant: 'circular', value: 0, color: 'neutral', size: 'medium', showLabel: false, label: 'Step 3: Payment pending' })}
+      <span style="font-size: var(--font-size-1); color: var(--gray-500);">Payment</span>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Multi-step process tracker using circular progress indicators to show completed (100% green), in-progress (66% blue), and pending (0% gray) steps.',
+      },
+    },
+  },
+};
+
+export const ProfileCompletion = {
+  render: () => `
+    <div style="display: flex; gap: var(--size-6); align-items: center; padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-3);">
+      ${progressBarTwig({ variant: 'circular', value: 33, color: 'warning', size: 'large', showLabel: true, label: 'Agent profile 33% complete' })}
+      <div>
+        <p style="margin: 0 0 var(--size-1); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Complete your profile</p>
+        <p style="margin: 0; font-size: var(--font-size-1); color: var(--gray-600);">Add certifications and experience to improve visibility</p>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Profile completion indicator with circular progress showing 33% completion in warning color to encourage action.',
+      },
+    },
+  },
+};
+
+export const CriticalState = {
+  render: () => `
+    <div style="display: grid; gap: var(--size-4); max-width: 600px;">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--size-2);">
+          <p style="margin: 0; font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--danger);">Storage almost full</p>
+          <span style="font-size: var(--font-size-0); color: var(--danger);">92% used</span>
+        </div>
+        ${progressBarTwig({ variant: 'linear', value: 92, color: 'danger', size: 'large', showLabel: false, label: 'Storage usage: 92% - upgrade needed' })}
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">4.6 GB of 5 GB used. Upgrade to continue uploading.</p>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--size-2);">
+          <p style="margin: 0; font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--success);">Upload complete</p>
+          <span style="font-size: var(--font-size-0); color: var(--success);">100%</span>
+        </div>
+        ${progressBarTwig({ variant: 'linear', value: 100, color: 'success', size: 'large', showLabel: false, label: 'Upload complete' })}
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">All documents successfully uploaded</p>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Critical states using danger (92% storage full) and success (100% upload complete) colors with contextual messaging.',
+      },
+    },
+  },
 };
