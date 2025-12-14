@@ -1,7 +1,14 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": ["**/*"],
+    "experimentalScannerIgnores": [
+      "dist/**",
+      "storybook/**",
+      "**/*.min.js",
+      "**/vendor/**"
+    ]
   },
   "linter": {
     "enabled": true,

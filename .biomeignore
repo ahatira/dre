@@ -1,0 +1,5 @@
+dist/
+storybook/
+node_modules/
+**/*.min.js
+**/vendor/
