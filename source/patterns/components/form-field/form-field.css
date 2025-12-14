@@ -217,7 +217,10 @@
      State: icon color reflects component error state
      ======================================================================== */
 
-  &:has(.form-control:invalid) {
+  &:has(.ps-input--error),
+  &:has(.ps-textarea--error),
+  &:has(.form-control.ps-input--error),
+  &:has(.form-control.ps-textarea--error) {
     & .form-control-icon {
       color: var(--ps-icon-error-color);
     }
