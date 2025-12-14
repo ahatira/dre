@@ -1,21 +1,100 @@
-{# Modal - Dialog overlay component #}
-<div class="ps-modal{% if show %} ps-modal--visible{% endif %}" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+{#
+/**
+ * Modal Component
+ * Dialog overlay with backdrop, header, body, and optional footer actions.
+ * Integrates with Drupal behaviors for focus management, keyboard handling, and accessibility.
+ *
+ * @param {string} title - Modal title displayed in header (required)
+ * @param {string} content - Main content of the modal (HTML allowed, required)
+ * @param {string} [footer] - Optional footer content with action buttons (HTML allowed)
+ * @param {string} [size='medium'] - Modal width: 'small' (25rem/400px), 'medium' (37.5rem/600px), 'large' (50rem/800px)
+ * @param {boolean} [show=false] - Visibility state. Note: JavaScript controls visibility, not this parameter alone
+ * @param {boolean} [backdrop=true] - Show dark overlay backdrop. Clicking backdrop closes modal
+ * @param {string} [id] - Unique ID for dialog element and aria-labelledby reference (required for Drupal integration)
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration (use with |without('class'))
+ *
+ * DRUPAL INTEGRATION - 3 STEPS:
+ *
+ * 1. Include modal template with unique ID:
+ *    {% include '@components/modal/modal.twig' with {
+ *      id: 'contact-modal',
+ *      title: 'Contactez-nous',
+ *      content: '<p>Remplissez le formulaire ci-dessous</p>' ~ form_markup,
+ *      footer: '<button class="ps-button ps-button--secondary">Annuler</button><button class="ps-button ps-button--primary">Envoyer</button>'
+ *    } only %}
+ *
+ * 2. Add trigger button with data-modal-trigger matching the modal ID:
+ *    <button class="ps-button" data-modal-trigger="contact-modal">Open Contact Form</button>
+ *
+ * 3. Attach library in your page or block template:
+ *    {{ attach_library('ps/modal') }}
+ *
+ * JAVASCRIPT BEHAVIOR (Drupal.behaviors.psModal):
+ *
+ * AUTOMATIC FEATURES:
+ * - Opening: Click trigger button with data-modal-trigger="modal-id" → modal opens, close button gets focus
+ * - Closing: Click modal close button (X), backdrop, or press ESC → modal closes, focus returns to trigger
+ * - Focus trap: TAB/Shift+TAB cycles focus within modal, cannot escape to background
+ * - Accessibility: aria-hidden, aria-modal, focus-visible states properly managed
+ * - Body scroll: Disabled while modal open (prevents background scrolling)
+ *
+ * CUSTOM EVENTS (bubbling, can be listened with addEventListener):
+ * - 'modal:opened' - Dispatched when modal becomes visible
+ * - 'modal:closed' - Dispatched when modal is hidden
+ *
+ *   Example:
+ *   document.getElementById('my-modal').addEventListener('modal:opened', () => {
+ *     console.log('Modal opened!');
+ *   });
+ *
+ * MANUAL JAVASCRIPT API (if needed):
+ * - Open: Drupal.behaviors.psModal.openModal(document.getElementById('modal-id'))
+ * - Close: Drupal.behaviors.psModal.closeModal(document.getElementById('modal-id'))
+ *
+ * WCAG 2.2 AA COMPLIANCE:
+ * ✅ Focus management (focus trap, initial focus on close button)
+ * ✅ Keyboard support (ESC, TAB navigation)
+ * ✅ Semantic HTML (role="dialog", aria-modal, aria-labelledby, aria-hidden)
+ * ✅ Focus visibility (focus-visible on interactive elements)
+ * ✅ Accessible name via modal title (aria-labelledby)
+ * ✅ Backdrop prevents interaction with background content
+ */
+#}
+{% set size = size|default('medium') %}
+{% set show = show|default(false) %}
+{% set backdrop = backdrop|default(true) %}
+{% set modalId = id|default('modal') %}
+{% set headingId = modalId ~ '-title' %}
+
+<div
+  id="{{ modalId }}"
+  class="ps-modal{{ show ? ' ps-modal--visible' : null }}"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="{{ show ? 'false' : 'true' }}"
+  aria-labelledby="{{ headingId }}"
+  tabindex="-1"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+>
   {% if backdrop %}<div class="ps-modal__backdrop"></div>{% endif %}
   <div class="ps-modal__content ps-modal__content--{{ size }}">
     <div class="ps-modal__header">
-      <h2 class="ps-modal__title" id="modal-title">{{ title }}</h2>
-      <button class="ps-modal__close" aria-label="Close dialog">
-        <svg aria-hidden="true" width="24" height="24">
-          <use href="#icon-close"></use>
-        </svg>
-      </button>
+      <h2 class="ps-modal__title" id="{{ headingId }}">{{ title }}</h2>
+      <button
+        class="ps-modal__close"
+        type="button"
+        data-icon="close"
+        aria-label="Fermer la modale"
+        title="Fermer (Échap)"
+      ></button>
     </div>
     <div class="ps-modal__body">
       {{ content }}
     </div>
+    {% if footer %}
     <div class="ps-modal__footer">
-      <button class="ps-button ps-button--secondary">Cancel</button>
-      <button class="ps-button ps-button--primary">Confirm</button>
+      {{ footer }}
     </div>
+    {% endif %}
   </div>
 </div>

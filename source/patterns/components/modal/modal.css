@@ -4,18 +4,24 @@
     position: fixed;
     inset: 0;
     z-index: var(--layer-important);
-  }
+    outline: none; /* Allow programmatic focus */
 
-  .ps-modal--visible {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    &--visible {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: var(--size-1);
+    }
   }
 
   .ps-modal__backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--overlay-dark-medium);
   }
 
   .ps-modal__content {
@@ -25,18 +31,18 @@
     box-shadow: var(--shadow-6);
     max-height: 90vh;
     overflow-y: auto;
-  }
 
-  .ps-modal__content--sm {
-    width: min(90vw, 400px);
-  }
+    &--small {
+      width: min(90vw, 25rem); /* 400px */
+    }
 
-  .ps-modal__content--md {
-    width: min(90vw, 600px);
-  }
+    &--medium {
+      width: min(90vw, 37.5rem); /* 600px */
+    }
 
-  .ps-modal__content--lg {
-    width: min(90vw, 800px);
+    &--large {
+      width: min(90vw, 50rem); /* 800px */
+    }
   }
 
   .ps-modal__header {
@@ -51,7 +57,7 @@
     margin: 0;
     font-size: var(--font-size-5);
     font-weight: var(--font-weight-600);
-    color: var(--neutral);
+    color: var(--text-primary);
   }
 
   .ps-modal__close {
@@ -65,16 +71,18 @@
     border: none;
     cursor: pointer;
     border-radius: var(--radius-2);
+    color: var(--text-secondary);
     transition: all var(--duration-fast) var(--ease-4);
-  }
 
-  .ps-modal__close:hover {
-    background-color: var(--gray-100);
-  }
+    &:hover {
+      background-color: var(--gray-100);
+      color: var(--text-primary);
+    }
 
-  .ps-modal__close:focus-visible {
-    outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--size-1);
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: var(--size-1);
+    }
   }
 
   .ps-modal__body {

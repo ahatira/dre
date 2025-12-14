@@ -102,3 +102,12 @@ language-selector:
     - core/once
     - ps_theme/vendors
 
+modal:
+  js:
+    dist/js/modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
