@@ -1,9 +1,11 @@
+label: "Search"
 placeholder: "Search properties..."
 search_text: ""
+variant: "neutral"
+pill: false
+icon: "search"
 has_suggestions: true
 suggestions:
   - "Paris Office"
   - "London Residences"
   - "Berlin Complex"
-show_icon: true
-size: "md"

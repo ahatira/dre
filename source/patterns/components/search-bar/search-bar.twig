@@ -1,43 +1,48 @@
 {#
- * Search Bar (Molecule)
- * Search input with icon and optional suggestions dropdown
- * 
- * @param string placeholder - Input placeholder text (default: 'Search...')
- * @param string search_text - Current search value (optional)
- * @param boolean show_icon - Display search icon (default: true)
- * @param boolean has_suggestions - Show suggestions dropdown (default: false)
- * @param array suggestions - Array of suggestion strings (optional)
- * @param object attributes - Drupal attributes object (optional)
+/**
+ * Search Bar (Component/Molecule)
+ * Search input with icon, variants, and optional suggestions dropdown
+ *
+ * Props:
+ * - string label - Input label/aria-label (required)
+ * - string placeholder - Input placeholder text (default: 'Search...')
+ * - string search_text - Current search value (optional)
+ * - string variant - Color variant: neutral, primary, secondary, success, danger, warning, info, gold, light, dark (default: neutral)
+ * - boolean pill - Rounded pill style (default: false)
+ * - string icon - Icon name (default: 'search')
+ * - boolean has_suggestions - Show suggestions dropdown (default: false)
+ * - array suggestions - Array of suggestion strings (optional)
+ * - object attributes - Drupal attributes object (optional)
+ *
+ * Rules: Token-First, BEM, data-icon for icons, accessibility (WCAG 2.2 AA)
  #}
 
+{%- set label = label|default('Search') -%}
 {%- set placeholder = placeholder|default('Search...') -%}
 {%- set search_text = search_text|default('') -%}
-{%- set show_icon = show_icon|default(true) -%}
+{%- set variant = variant|default('neutral') -%}
+{%- set pill = pill|default(false) -%}
+{%- set icon = icon|default('search') -%}
 {%- set has_suggestions = has_suggestions|default(false) -%}
 {%- set suggestions = suggestions|default([]) -%}
-{%- set size = size|default('md') -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
+{%- set attributes = (attributes ? attributes : create_attribute()) -%}
 
-{%- set classes = [
-  'ps-search-bar',
-  size != 'md' ? 'ps-search-bar--' ~ size : null
-] -%}
+{%- set attr = attributes
+  .addClass('ps-search-bar')
+  .addClass('ps-search-bar--' ~ variant)
+  .addClass(pill ? 'ps-search-bar--pill' : null)
+-%}
 
-<div {{ attributes.addClass(classes) }}>
+<div{{ attr }}>
   <form class="ps-search-bar__form" role="search">
     <div class="ps-search-bar__input-wrapper">
-      {% if show_icon %}
-        {% include '@elements/icon/icon.twig' with {
-          name: 'search',
-          attributes: create_attribute().addClass('ps-search-bar__icon')
-        } only %}
-      {% endif %}
+      <span class="ps-search-bar__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
       <input
         type="search"
         class="ps-search-bar__input"
         placeholder="{{ placeholder }}"
         value="{{ search_text }}"
-        aria-label="Search"
+        aria-label="{{ label }}"
       />
     </div>
     {% if has_suggestions and search_text %}

@@ -1,63 +1,115 @@
 import markup from './search-bar.twig';
 import data from './search-bar.yml';
 
-const settings = {
+export default {
   title: 'Components/Search Bar',
   tags: ['autodocs'],
+  render: (args) => markup(args),
+  args: data,
   argTypes: {
+    label: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
+    },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text for input',
-      table: { category: 'Content' },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     search_text: {
       control: 'text',
-      description: 'Current search text',
-      table: { category: 'State' },
+      table: {
+        category: 'State',
+        type: { summary: 'string' },
+      },
+    },
+    variant: {
+      control: 'select',
+      options: [
+        'neutral',
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'gold',
+        'light',
+        'dark',
+      ],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+      },
+    },
+    pill: {
+      control: 'boolean',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+      },
+    },
+    icon: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     has_suggestions: {
       control: 'boolean',
-      description: 'Show suggestions dropdown',
-      table: { category: 'Configuration' },
+      table: {
+        category: 'Configuration',
+        type: { summary: 'boolean' },
+      },
     },
-    show_icon: {
-      control: 'boolean',
-      description: 'Display search icon',
-      table: { category: 'Configuration' },
-    },
-    size: {
-      control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      description: 'Size variant',
-      table: { category: 'Appearance' },
+    suggestions: {
+      control: 'object',
+      table: {
+        category: 'Content',
+        type: { summary: 'array' },
+      },
     },
   },
 };
 
-export const Default = {
-  name: 'Empty',
-  render: (args) => markup(args),
-  args: Object.assign({}, data, { search_text: '', has_suggestions: false }),
-};
+export const Default = { args: data };
 
 export const WithSuggestions = {
-  name: 'With Suggestions',
-  render: (args) => markup(args),
-  args: Object.assign({}, data, { search_text: 'Paris', has_suggestions: true }),
+  args: { ...data, search_text: 'Paris', has_suggestions: true },
 };
 
-// Size Variants
-export const Sizes = {
+export const Pill = {
+  args: { ...data, pill: true },
+};
+
+export const ColorVariants = {
   render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+    const variants = [
+      'neutral',
+      'primary',
+      'secondary',
+      'success',
+      'danger',
+      'warning',
+      'info',
+      'gold',
+      'light',
+      'dark',
+    ];
     return `
-      <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 600px;">
-        ${sizes
+      <div style="display: flex; flex-direction: column; gap: var(--size-6);">
+        ${variants
           .map(
-            (size) => `
+            (v) => `
           <div>
-            <label style="display: block; margin-bottom: var(--size-2); font-weight: var(--font-weight-600); text-transform: uppercase;">${size}</label>
-            ${markup({ ...data, size, placeholder: `Search (${size.toUpperCase()})...`, has_suggestions: false })}
+            <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: var(--font-weight-600); text-transform: uppercase; color: var(--text-secondary);">${v}</p>
+            ${markup({ ...data, variant: v, has_suggestions: false })}
           </div>
         `
           )
@@ -66,5 +118,3 @@ export const Sizes = {
     `;
   },
 };
-
-export default settings;

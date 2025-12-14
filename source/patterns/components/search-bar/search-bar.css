@@ -1,51 +1,42 @@
 /**
- * Search Bar (Molecule)
- * Search input with icon and optional suggestions
+ * Search Bar (Component/Molecule)
+ * Search input with semantic color variants, pill style, and suggestions
  *
  * BEM: ps-search-bar, ps-search-bar__form, ps-search-bar__input-wrapper,
  *      ps-search-bar__icon, ps-search-bar__input, ps-search-bar__suggestions,
  *      ps-search-bar__suggestion, ps-search-bar__suggestion-link
+ * Modifiers: --neutral, --primary, --secondary, --success, --danger, --warning, --info, --gold, --light, --dark, --pill
  * States: :hover, :focus-visible
  */
 
 .ps-search-bar {
-  /* ============================================
-     Layer 2: Component-Scoped Variables
-     ============================================ */
+  /* Token-First: Base tokens */
   --ps-search-bar-input-height: var(--size-10);
   --ps-search-bar-input-padding-y: var(--size-2);
   --ps-search-bar-input-padding-x: var(--size-3);
   --ps-search-bar-icon-size: var(--size-5);
   --ps-search-bar-icon-spacing: var(--size-2);
+  --ps-search-bar-border-radius: var(--radius-3);
+  --ps-search-bar-border-width: var(--border-size-1);
+  --ps-search-bar-focus-ring-width: var(--border-size-2);
+  --ps-search-bar-transition-duration: var(--duration-fast);
+  --ps-search-bar-transition-timing: var(--ease-3);
+  --ps-search-bar-font-size: var(--font-size-1);
+  --ps-search-bar-font-family: var(--font-sans);
 
-  /* Colors */
+  /* Semantic colors (overridden by variants) */
   --ps-search-bar-bg: var(--white);
   --ps-search-bar-border-color: var(--gray-300);
   --ps-search-bar-border-color-hover: var(--gray-400);
-  --ps-search-bar-border-color-focus: var(--primary);
+  --ps-search-bar-border-color-focus: var(--gray-600);
   --ps-search-bar-text-color: var(--text-primary);
   --ps-search-bar-placeholder-color: var(--gray-500);
   --ps-search-bar-icon-color: var(--gray-500);
-
-  /* Borders */
-  --ps-search-bar-border-width: var(--border-size-1);
-  --ps-search-bar-border-radius: var(--radius-3);
-  --ps-search-bar-focus-ring-width: var(--border-size-2);
-
-  /* Suggestions */
   --ps-search-bar-suggestions-bg: var(--white);
   --ps-search-bar-suggestions-border: var(--gray-300);
   --ps-search-bar-suggestions-shadow: var(--shadow-3);
   --ps-search-bar-suggestion-hover-bg: var(--gray-100);
   --ps-search-bar-suggestions-z-index: var(--layer-40);
-
-  /* Typography */
-  --ps-search-bar-font-family: var(--font-sans);
-  --ps-search-bar-font-size: var(--font-size-1);
-
-  /* Transitions */
-  --ps-search-bar-transition-duration: var(--duration-fast);
-  --ps-search-bar-transition-timing: var(--ease-3);
 
   /* ============================================
      Base Styles
@@ -71,9 +62,9 @@
   left: var(--ps-search-bar-icon-spacing);
   top: 50%;
   transform: translateY(-50%);
+  font-size: var(--ps-search-bar-icon-size);
   color: var(--ps-search-bar-icon-color);
   pointer-events: none;
-  --ps-icon-size: var(--ps-search-bar-icon-size);
 }
 
 .ps-search-bar__input {
@@ -102,10 +93,84 @@
   &:focus-visible {
     outline: none;
     border-color: var(--ps-search-bar-border-color-focus);
-    box-shadow: 0 0 0 var(--ps-search-bar-focus-ring-width) color-mix(in srgb, var(--primary) 20%, transparent);
+    box-shadow: 0 0 0 var(--ps-search-bar-focus-ring-width) color-mix(in srgb, var(--ps-search-bar-border-color-focus) 20%, transparent);
   }
 }
 
+/* Pill variant (rounded) */
+.ps-search-bar--pill {
+  --ps-search-bar-border-radius: var(--radius-round);
+}
+
+/* Color Variants - Token-First overrides */
+.ps-search-bar--primary {
+  --ps-search-bar-border-color: var(--primary-border-subtle);
+  --ps-search-bar-border-color-hover: var(--primary-border);
+  --ps-search-bar-border-color-focus: var(--primary);
+  --ps-search-bar-icon-color: var(--primary-text);
+}
+
+.ps-search-bar--secondary {
+  --ps-search-bar-border-color: var(--secondary-border-subtle);
+  --ps-search-bar-border-color-hover: var(--secondary-border);
+  --ps-search-bar-border-color-focus: var(--secondary);
+  --ps-search-bar-icon-color: var(--secondary-text);
+}
+
+.ps-search-bar--success {
+  --ps-search-bar-border-color: var(--success-border-subtle);
+  --ps-search-bar-border-color-hover: var(--success-border);
+  --ps-search-bar-border-color-focus: var(--success);
+  --ps-search-bar-icon-color: var(--success-text);
+}
+
+.ps-search-bar--danger {
+  --ps-search-bar-border-color: var(--danger-border-subtle);
+  --ps-search-bar-border-color-hover: var(--danger-border);
+  --ps-search-bar-border-color-focus: var(--danger);
+  --ps-search-bar-icon-color: var(--danger-text);
+}
+
+.ps-search-bar--warning {
+  --ps-search-bar-border-color: var(--warning-border-subtle);
+  --ps-search-bar-border-color-hover: var(--warning-border);
+  --ps-search-bar-border-color-focus: var(--warning);
+  --ps-search-bar-icon-color: var(--warning-text);
+}
+
+.ps-search-bar--info {
+  --ps-search-bar-border-color: var(--info-border-subtle);
+  --ps-search-bar-border-color-hover: var(--info-border);
+  --ps-search-bar-border-color-focus: var(--info);
+  --ps-search-bar-icon-color: var(--info-text);
+}
+
+.ps-search-bar--gold {
+  --ps-search-bar-border-color: var(--gold-border-subtle);
+  --ps-search-bar-border-color-hover: var(--gold-border);
+  --ps-search-bar-border-color-focus: var(--gold);
+  --ps-search-bar-icon-color: var(--gold-text);
+}
+
+.ps-search-bar--light {
+  --ps-search-bar-border-color: var(--light-border-subtle);
+  --ps-search-bar-border-color-hover: var(--light-border);
+  --ps-search-bar-border-color-focus: var(--light);
+  --ps-search-bar-icon-color: var(--light-text);
+}
+
+.ps-search-bar--dark {
+  --ps-search-bar-border-color: var(--dark-border-subtle);
+  --ps-search-bar-border-color-hover: var(--dark-border);
+  --ps-search-bar-border-color-focus: var(--dark);
+  --ps-search-bar-icon-color: var(--dark-text);
+}
+
+.ps-search-bar--neutral {
+  /* Default neutral colors (already set at root) */
+}
+
+/* Element: Suggestions */
 .ps-search-bar__suggestions {
   position: absolute;
   top: 100%;
@@ -150,50 +215,5 @@
     outline: var(--ps-search-bar-focus-ring-width) solid var(--ps-search-bar-border-color-focus);
     outline-offset: calc(var(--ps-search-bar-focus-ring-width) * -1);
   }
-}
-
-/* ============================================
-   Modifiers - Size
-   ============================================ */
-.ps-search-bar--xs {
-  --ps-search-bar-input-height: var(--size-7);
-  --ps-search-bar-input-padding-y: var(--size-1);
-  --ps-search-bar-input-padding-x: var(--size-2);
-  --ps-search-bar-icon-size: var(--size-3);
-  --ps-search-bar-font-size: var(--font-size--1);
-}
-
-.ps-search-bar--sm {
-  --ps-search-bar-input-height: var(--size-8);
-  --ps-search-bar-input-padding-y: var(--size-105);
-  --ps-search-bar-input-padding-x: var(--size-3);
-  --ps-search-bar-icon-size: var(--size-4);
-  --ps-search-bar-font-size: var(--font-size-0);
-}
-
-/* md is default */
-
-.ps-search-bar--lg {
-  --ps-search-bar-input-height: var(--size-12);
-  --ps-search-bar-input-padding-y: var(--size-3);
-  --ps-search-bar-input-padding-x: var(--size-5);
-  --ps-search-bar-icon-size: var(--size-6);
-  --ps-search-bar-font-size: var(--font-size-2);
-}
-
-.ps-search-bar--xl {
-  --ps-search-bar-input-height: var(--size-14);
-  --ps-search-bar-input-padding-y: var(--size-4);
-  --ps-search-bar-input-padding-x: var(--size-6);
-  --ps-search-bar-icon-size: var(--size-7);
-  --ps-search-bar-font-size: var(--font-size-3);
-}
-
-.ps-search-bar--xxl {
-  --ps-search-bar-input-height: var(--size-16);
-  --ps-search-bar-input-padding-y: var(--size-5);
-  --ps-search-bar-input-padding-x: var(--size-7);
-  --ps-search-bar-icon-size: var(--size-8);
-  --ps-search-bar-font-size: var(--font-size-4);
 }
 
