@@ -7,6 +7,8 @@
  * Modifiers: --disabled, --error, --success, --warning
  * States: :hover, :focus-visible, :disabled
  * 
+ * Drupal: Also uses .form-control class for consistency
+ * 
  * CSS Architecture:
  * - Layer 1: Global tokens (colors, sizes, fonts from source/props/)
  * - Layer 2: Component-scoped defaults (--ps-textarea-*)
@@ -15,7 +17,8 @@
  * @see docs/design/atoms/textarea.md
  */
 
-.ps-textarea {
+.ps-textarea,
+.form-control:is(textarea) {
   /* ============================================
      Layer 2: Component-Scoped Variables
      (Defaults from Layer 1 tokens)
@@ -94,25 +97,27 @@
     color: var(--ps-textarea-disabled-color);
     border-color: var(--ps-textarea-disabled-border-color);
     opacity: var(--ps-textarea-disabled-opacity);
-    cursor: not-allowed;
-  }
-
-  /* ============================================
-     Layer 3: Modifiers - Validation States
-     ============================================ */
-  &.ps-textarea--error {
-    --ps-textarea-border-color: var(--danger);
-    --ps-textarea-focus-border-color: var(--danger);
-  }
-
-  &.ps-textarea--success {
-    --ps-textarea-border-color: var(--success);
-    --ps-textarea-focus-border-color: var(--success);
-  }
-
-  &.ps-textarea--warning {
-    --ps-textarea-border-color: var(--warning);
-    --ps-textarea-focus-border-color: var(--warning);
   }
 }
 
+/* ============================================
+   Layer 3: Modifiers - Validation States
+   ============================================ */
+
+.ps-textarea--error,
+.form-control:is(textarea).ps-textarea--error {
+  --ps-textarea-border-color: var(--danger);
+  --ps-textarea-focus-border-color: var(--danger);
+}
+
+.ps-textarea--success,
+.form-control:is(textarea).ps-textarea--success {
+  --ps-textarea-border-color: var(--success);
+  --ps-textarea-focus-border-color: var(--success);
+}
+
+.ps-textarea--warning,
+.form-control:is(textarea).ps-textarea--warning {
+  --ps-textarea-border-color: var(--warning);
+  --ps-textarea-focus-border-color: var(--warning);
+}

@@ -160,6 +160,111 @@
 }
 
 /* ============================================
+   Drupal form-control support
+   Direct select styling when used as form-control
+   ============================================ */
+.form-control:is(select) {
+  /* Inherit the same component variables */
+  --ps-select-width: 100%;
+  --ps-select-min-height: var(--size-10);
+  --ps-select-padding-y: var(--size-2);
+  --ps-select-padding-x: var(--size-4);
+  --ps-select-padding-right: var(--size-7);
+
+  --ps-select-font-family: var(--font-sans);
+  --ps-select-font-size: var(--font-size-1);
+  --ps-select-font-weight: var(--font-weight-400);
+  --ps-select-line-height: var(--leading-normal);
+
+  --ps-select-bg: var(--white);
+  --ps-select-color: var(--gray-900);
+  --ps-select-border-color: var(--gray-300);
+
+  --ps-select-hover-border-color: var(--gray-400);
+  --ps-select-hover-bg: var(--white);
+
+  --ps-select-focus-border-color: var(--text-primary);
+  --ps-select-focus-bg: var(--white);
+
+  --ps-select-disabled-bg: var(--gray-100);
+  --ps-select-disabled-color: var(--gray-500);
+  --ps-select-disabled-border-color: var(--gray-300);
+  --ps-select-disabled-opacity: 1;
+
+  --ps-select-border-width: var(--border-size-2);
+  --ps-select-border-radius: 0;
+  --ps-select-transition-duration: var(--duration-fast);
+  --ps-select-transition-timing: var(--ease-3);
+
+  /* Apply base styles */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: var(--ps-select-width);
+  min-height: var(--ps-select-min-height);
+  padding: var(--ps-select-padding-y) var(--ps-select-padding-right) var(--ps-select-padding-y) var(--ps-select-padding-x);
+  border: var(--ps-select-border-width) solid var(--ps-select-border-color);
+  border-radius: var(--ps-select-border-radius);
+
+  background-color: var(--ps-select-bg);
+  color: var(--ps-select-color);
+
+  font-family: var(--ps-select-font-family);
+  font-size: var(--ps-select-font-size);
+  font-weight: var(--ps-select-font-weight);
+  line-height: var(--ps-select-line-height);
+
+  cursor: pointer;
+  transition:
+    border-color var(--ps-select-transition-duration) var(--ps-select-transition-timing),
+    background-color var(--ps-select-transition-duration) var(--ps-select-transition-timing),
+    box-shadow var(--ps-select-transition-duration) var(--ps-select-transition-timing);
+
+  &:hover:not(:disabled) {
+    border-color: var(--ps-select-hover-border-color);
+    background-color: var(--ps-select-hover-bg);
+  }
+
+  &:focus-visible {
+    border-color: var(--ps-select-focus-border-color);
+    background-color: var(--ps-select-focus-bg);
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-2);
+  }
+
+  &:disabled {
+    background-color: var(--ps-select-disabled-bg);
+    color: var(--ps-select-disabled-color);
+    border-color: var(--ps-select-disabled-border-color);
+    opacity: var(--ps-select-disabled-opacity);
+    cursor: not-allowed;
+  }
+}
+
+/* ============================================
+   Modifiers - form-control variants
+   ============================================ */
+
+.form-control:is(select).ps-select--error {
+  border-color: var(--danger);
+
+  &:focus-visible {
+    border-color: var(--danger);
+    outline-color: var(--danger);
+  }
+}
+
+.form-control:is(select).ps-select--success {
+  border-color: var(--success);
+
+  &:focus-visible {
+    border-color: var(--success);
+    outline-color: var(--success);
+  }
+}
+
+/* ============================================
    Modifiers - Validation States
    ============================================ */
 

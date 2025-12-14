@@ -7,10 +7,19 @@
  * Modifiers: --disabled, --error, --success, --warning
  * States: :hover, :focus-visible, :disabled
  * 
+ * Drupal: Also uses .form-control class for consistency
+ * 
  * @see docs/design/atoms/input.md
  */
 
-.ps-input {
+.ps-input,
+.form-control[type="text"],
+.form-control[type="email"],
+.form-control[type="password"],
+.form-control[type="number"],
+.form-control[type="search"],
+.form-control[type="tel"],
+.form-control[type="url"] {
   /* ============================================
      Layer 2: Component-Scoped Variables
      ============================================ */
@@ -87,19 +96,40 @@
 /* ============================================
    Modifiers - State (Validation)
    ============================================ */
-.ps-input--error {
+.ps-input--error,
+.form-control[type="text"].ps-input--error,
+.form-control[type="email"].ps-input--error,
+.form-control[type="password"].ps-input--error,
+.form-control[type="number"].ps-input--error,
+.form-control[type="search"].ps-input--error,
+.form-control[type="tel"].ps-input--error,
+.form-control[type="url"].ps-input--error {
   --ps-input-border-color: var(--danger);
   --ps-input-focus-border-color: var(--danger);
   --ps-input-focus-ring-color: var(--danger);
 }
 
-.ps-input--success {
+.ps-input--success,
+.form-control[type="text"].ps-input--success,
+.form-control[type="email"].ps-input--success,
+.form-control[type="password"].ps-input--success,
+.form-control[type="number"].ps-input--success,
+.form-control[type="search"].ps-input--success,
+.form-control[type="tel"].ps-input--success,
+.form-control[type="url"].ps-input--success {
   --ps-input-border-color: var(--success);
   --ps-input-focus-border-color: var(--success);
   --ps-input-focus-ring-color: var(--success);
 }
 
-.ps-input--warning {
+.ps-input--warning,
+.form-control[type="text"].ps-input--warning,
+.form-control[type="email"].ps-input--warning,
+.form-control[type="password"].ps-input--warning,
+.form-control[type="number"].ps-input--warning,
+.form-control[type="search"].ps-input--warning,
+.form-control[type="tel"].ps-input--warning,
+.form-control[type="url"].ps-input--warning {
   --ps-input-border-color: var(--warning);
   --ps-input-focus-border-color: var(--warning);
   --ps-input-focus-ring-color: var(--warning);
