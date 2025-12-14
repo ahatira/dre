@@ -1,0 +1,5 @@
+variant: 'info'
+title: '<strong>Nouvelle recherche sauvegardée</strong>'
+message: 'Vous recevrez des alertes e-mail pour les nouveaux biens immobiliers correspondant à vos critères de recherche.'
+dismissible: false
+compact: false

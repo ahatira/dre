@@ -1,0 +1,206 @@
+/**
+ * Alert Component (Molecule/Feedback)
+ * Semantic alert with 4 variants, optional title, dismissible close button
+ *
+ * BEM: ps-alert, ps-alert__icon, ps-alert__content, ps-alert__title, ps-alert__message, ps-alert__close
+ * Variants: info | success | warning | error
+ * Modifiers: --dismissible, --compact
+ * Three-Layer CSS Variables System
+ */
+
+.ps-alert {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     Default values using Layer 1 primitives
+     ============================================ */
+  --ps-alert-padding-y: var(--size-4);
+  --ps-alert-padding-x: var(--size-4);
+  --ps-alert-border-radius: var(--radius-2);
+  --ps-alert-border-width: var(--border-size-1);
+  
+  /* Typography */
+  --ps-alert-font-family: var(--font-sans);
+  --ps-alert-font-size: var(--font-size-1);
+  --ps-alert-line-height: var(--leading-normal);
+  --ps-alert-title-font-size: var(--font-size-2);
+  --ps-alert-title-font-weight: var(--font-weight-600);
+  --ps-alert-title-margin-bottom: var(--size-2);
+  
+  /* Colors - Transparent defaults (overridden by variants) */
+  --ps-alert-bg: transparent;
+  --ps-alert-color: inherit;
+  --ps-alert-border-color: transparent;
+  
+  /* Icon */
+  --ps-alert-icon-size: var(--size-5);
+  --ps-alert-icon-margin-right: var(--size-3);
+  --ps-alert-icon-color: inherit;
+  
+  /* Close button */
+  --ps-alert-close-padding: var(--size-2);
+  --ps-alert-close-color: inherit;
+  --ps-alert-close-opacity: 0.7;
+  --ps-alert-close-hover-opacity: 0.9;
+  --ps-alert-close-focus-opacity: 1;
+  
+  /* Transitions */
+  --ps-alert-transition: opacity var(--duration-fast) var(--ease-out-2);
+  --ps-alert-animation-duration: var(--duration-fast);
+
+  /* ============================================
+     Component Styles
+     Using component-scoped variables
+     ============================================ */
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ps-alert-icon-margin-right);
+  padding: var(--ps-alert-padding-y) var(--ps-alert-padding-x);
+  border-radius: var(--ps-alert-border-radius);
+  border: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
+  background-color: var(--ps-alert-bg);
+  font-family: var(--ps-alert-font-family);
+  font-size: var(--ps-alert-font-size);
+  line-height: var(--ps-alert-line-height);
+  color: var(--ps-alert-color);
+
+  /* ============================================
+     Icon Element
+     ============================================ */
+  &__icon {
+    width: var(--ps-alert-icon-size);
+    height: var(--ps-alert-icon-size);
+    flex-shrink: 0;
+    color: var(--ps-alert-icon-color);
+  }
+
+  /* ============================================
+     Content Container
+     ============================================ */
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0 0 var(--ps-alert-title-margin-bottom) 0;
+    font-size: var(--ps-alert-title-font-size);
+    font-weight: var(--ps-alert-title-font-weight);
+    line-height: var(--leading-tight);
+    color: currentColor;
+  }
+
+  &__message {
+    margin: 0;
+    
+    & > *:first-child {
+      margin-top: 0;
+    }
+    
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+    
+    & a {
+      color: currentColor;
+      text-decoration: underline;
+      font-weight: var(--font-weight-600);
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  /* ============================================
+     Close Button Element
+     ============================================ */
+  &__close {
+    position: absolute;
+    top: var(--ps-alert-close-padding);
+    right: var(--ps-alert-close-padding);
+    z-index: 1;
+    padding: var(--ps-alert-close-padding);
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--ps-alert-close-color);
+    opacity: var(--ps-alert-close-opacity);
+    transition: var(--ps-alert-transition);
+
+    &:hover {
+      opacity: var(--ps-alert-close-hover-opacity);
+      background-color: transparent !important;
+    }
+
+    &:focus-visible {
+      opacity: var(--ps-alert-close-focus-opacity);
+      outline: var(--border-size-2) solid currentColor;
+      outline-offset: var(--border-size-1);
+    }
+  }
+
+  /* ============================================
+     Modifiers
+     ============================================ */
+  &--dismissible {
+    padding-right: calc(var(--ps-alert-padding-x) * 2 + var(--size-8));
+  }
+
+  &--compact {
+    --ps-alert-padding-y: var(--size-3);
+    --ps-alert-padding-x: var(--size-3);
+    --ps-alert-icon-size: var(--size-4);
+    --ps-alert-font-size: var(--font-size-0);
+    --ps-alert-title-font-size: var(--font-size-1);
+  }
+
+  /* ============================================
+     Semantic Variants
+     Using semantic tokens from brand.css
+     ============================================ */
+  &--info {
+    --ps-alert-bg: var(--info-bg-subtle);
+    --ps-alert-color: var(--info-text-emphasis);
+    --ps-alert-border-color: var(--info-border-subtle);
+    --ps-alert-icon-color: var(--info);
+  }
+
+  &--success {
+    --ps-alert-bg: var(--success-bg-subtle);
+    --ps-alert-color: var(--success-text-emphasis);
+    --ps-alert-border-color: var(--success-border-subtle);
+    --ps-alert-icon-color: var(--success);
+  }
+
+  &--warning {
+    --ps-alert-bg: var(--warning-bg-subtle);
+    --ps-alert-color: var(--warning-text-emphasis);
+    --ps-alert-border-color: var(--warning-border-subtle);
+    --ps-alert-icon-color: var(--warning);
+  }
+
+  &--error {
+    --ps-alert-bg: var(--danger-bg-subtle);
+    --ps-alert-color: var(--danger-text-emphasis);
+    --ps-alert-border-color: var(--danger-border-subtle);
+    --ps-alert-icon-color: var(--danger);
+  }
+}
+
+/* ============================================
+   Dismissal Animation
+   ============================================ */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.ps-alert.is-closing {
+  animation: fadeOut var(--ps-alert-animation-duration) var(--ease-out-2) forwards;
+}
