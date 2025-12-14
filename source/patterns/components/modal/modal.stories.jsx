@@ -216,3 +216,85 @@ export const WithoutBackdrop = {
     backdrop: false,
   },
 };
+
+export const WithAjaxLoading = {
+  name: 'With AJAX Loading (Simulated)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates AJAX content loading with loading state. Click the button to trigger the modal, which shows a loading spinner while fetching content, then displays the loaded data.',
+      },
+    },
+  },
+  render: (args) => `
+    <div>
+      <button class="ps-button ps-button--primary" data-modal-trigger="ajax-modal">
+        <span class="ps-button__label">Charger un bien immobilier</span>
+      </button>
+      
+      ${modalTwig({
+        ...args,
+        id: 'ajax-modal',
+        show: false,
+        title: 'Détails du bien',
+        content:
+          '<div class="ps-modal__loading" style="text-align: center; padding: 40px; color: var(--text-secondary);"><p>Chargement en cours...</p></div>',
+      })}
+    </div>
+    
+    <script>
+      // Simulate Drupal behavior
+      if (typeof Drupal === 'undefined') {
+        window.Drupal = { behaviors: {} };
+      }
+      if (typeof once === 'undefined') {
+        window.once = (id, selector, context = document) => {
+          const elements = context.querySelectorAll(selector);
+          return Array.from(elements).filter(el => {
+            if (el.hasAttribute('data-once-' + id)) return false;
+            el.setAttribute('data-once-' + id, '');
+            return true;
+          });
+        };
+      }
+
+      if (window.Drupal.behaviors && window.Drupal.behaviors.psModal) {
+        window.Drupal.behaviors.psModal.attach(document);
+      }
+
+      // Simulate AJAX loading when modal opens
+      const ajaxModal = document.getElementById('ajax-modal');
+      if (ajaxModal) {
+        ajaxModal.addEventListener('modal:opened', async () => {
+          const contentBody = ajaxModal.querySelector('.ps-modal__body');
+          
+          // Simulate AJAX delay (2 seconds)
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          // Update content after "loading"
+          contentBody.innerHTML = \`
+            <h3 style="margin-top: 0;">Bureau à La Défense</h3>
+            <p><strong>Prix:</strong> 2 500 000 € HT</p>
+            <p><strong>Surface:</strong> 250 m²</p>
+            <p><strong>Étage:</strong> 12</p>
+            <p><strong>État:</strong> Neuf</p>
+            <p style="margin-bottom: 0;"><strong>Disponibilité:</strong> Immédiate</p>
+          \`;
+        });
+        
+        // Reset content on close
+        ajaxModal.addEventListener('modal:closed', () => {
+          const contentBody = ajaxModal.querySelector('.ps-modal__body');
+          contentBody.innerHTML = '<div class="ps-modal__loading" style="text-align: center; padding: 40px; color: var(--text-secondary);"><p>Chargement en cours...</p></div>';
+        });
+      }
+    </script>
+  `,
+  args: {
+    size: 'medium',
+    backdrop: true,
+    footer:
+      '<button class="ps-button ps-button--secondary">Fermer</button><button class="ps-button ps-button--primary">Contacter l\'expert</button>',
+  },
+};
