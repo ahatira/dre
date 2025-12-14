@@ -16,8 +16,11 @@
    - .ps-card--offer--slide (Drupal auto-generated: bundle + view_mode)
    - .ps-card-offer-slide (Component custom class)
    ========================================== */
-:where(.ps-card.ps-card--offer--slide),
-:where(.ps-card.ps-card-offer-slide) {
+
+.ps-card-offer-slide {
+  /* ==========================================
+     Component Styles
+     ========================================== */
   /* Container */
   --ps-card-offer-slide-max-width: 320px;
   
@@ -57,12 +60,7 @@
   --ps-card-offer-slide-cta-gap: var(--size-2);                      /* 8px */
   --ps-card-offer-slide-cta-icon-size: var(--size-4);                /* 16px */
   --ps-card-offer-slide-cta-margin-top: var(--size-4);               /* 16px */
-}
 
-.ps-card-offer-slide {
-  /* ==========================================
-     Component Styles
-     ========================================== */
   /* Container constraints */
   max-width: var(--ps-card-offer-slide-max-width);
   
@@ -105,7 +103,7 @@
     font-weight: var(--ps-card-offer-slide-header-font-weight);
     color: var(--ps-card-offer-slide-header-color);
     white-space: nowrap; /* Force single line */
-    max-width: 100%; /* Constraint for parent */
+    width: 100%; /* Constraint for parent */
     transition: font-size 0.2s ease; /* Smooth font-size adjustment */
   }
   

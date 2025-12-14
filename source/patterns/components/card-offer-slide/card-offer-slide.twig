@@ -49,7 +49,7 @@
 
 {# Embed Card component for structure reuse #}
 {% embed '@components/card/card.twig' with {
-  attributes: attributes.addClass('ps-card-offer-slide'),
+  attributes: (attributes ? attributes : create_attribute()).addClass('ps-card-offer-slide'),
   bundle: bundle,
   view_mode: view_mode,
   title: title,
@@ -119,11 +119,7 @@
     {# Location with pin icon #}
     {% if location %}
       <div class="ps-card-offer-slide__location">
-        {% include '@elements/icon/icon.twig' with {
-          icon: locationIcon,
-          class: 'ps-card-offer-slide__location-icon',
-          ariaHidden: true
-        } only %}
+        <span class="ps-card-offer-slide__location-icon" data-icon="{{ locationIcon }}" aria-hidden="true"></span>
         <span class="ps-card-offer-slide__location-text">{{ location }}</span>
       </div>
     {% endif %}
