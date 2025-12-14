@@ -169,8 +169,8 @@ export const SemanticColors = {
         'warning',
         'success',
         'danger',
-        'light',
         'dark',
+        'light',
       ]
         .map(
           (color) => `
@@ -259,6 +259,49 @@ export const States = {
       </div>
     </div>
   `,
+};
+
+export const OnDarkBackground = {
+  render: () => `
+    <div style="padding: var(--size-6); background: var(--gray-900); border-radius: var(--radius-3);">
+      <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-2); font-weight: var(--font-weight-600); color: white;">Dark Variant on Dark Background</h3>
+      <div style="display: grid; gap: var(--size-4);">
+        <div>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Light (visibility on dark)</p>
+          ${progressBarTwig({ variant: 'linear', value: 65, color: 'light', showLabel: true, label: 'Light progress on dark background' })}
+        </div>
+        <div>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Primary (brand color works well)</p>
+          ${progressBarTwig({ variant: 'linear', value: 65, color: 'primary', showLabel: true, label: 'Primary progress on dark background' })}
+        </div>
+        <div>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Success (high contrast)</p>
+          ${progressBarTwig({ variant: 'linear', value: 65, color: 'success', showLabel: true, label: 'Success progress on dark background' })}
+        </div>
+      </div>
+      <h3 style="margin: var(--size-6) 0 var(--size-4); font-size: var(--font-size-2); font-weight: var(--font-weight-600); color: white;">Dark Variant on Light Background</h3>
+      <div style="padding: var(--size-4); background: white; border-radius: var(--radius-2);">
+        <div style="display: grid; gap: var(--size-4);">
+          <div>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-700);">Dark (high contrast on light)</p>
+            ${progressBarTwig({ variant: 'linear', value: 65, color: 'dark', showLabel: true, label: 'Dark progress on light background' })}
+          </div>
+          <div>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-700);">Neutral (default gray)</p>
+            ${progressBarTwig({ variant: 'linear', value: 65, color: 'neutral', showLabel: true, label: 'Neutral progress on light background' })}
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Dark and light variants shown on appropriate backgrounds. Use light/primary/success on dark backgrounds, use dark/neutral on light backgrounds for proper contrast.',
+      },
+    },
+  },
 };
 
 export const FileUpload = {
