@@ -174,20 +174,3 @@ export const AvecIcone = {
     </div>
   `,
 };
-
-// Real-world context example
-export const EnContexte = {
-  name: 'In Context',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-4);">
-      <div>
-        <h3 style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-3);">Paris Apartment ${badgeTwig({ color: 'success', text: 'Available', pill: true })}</h3>
-        <p style="margin: 0; color: var(--gray-600);">125 m² • 2 bedrooms</p>
-      </div>
-      <div>
-        <h3 style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-3);">Neuilly House ${badgeTwig({ color: 'danger', text: 'Sold' })} ${badgeTwig({ color: 'gold', text: 'Premium' })}</h3>
-        <p style="margin: 0; color: var(--gray-600);">280 m² • 5 bedrooms</p>
-      </div>
-    </div>
-  `,
-};
