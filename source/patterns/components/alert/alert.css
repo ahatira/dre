@@ -105,27 +105,46 @@
   /* ============================================
      Close Button Element
      ============================================ */
-  & .ps-alert__close {
+  &__close {
     position: absolute;
     top: var(--size-2);
     right: var(--size-2);
     z-index: 1;
-    padding: var(--size-2);
-    background-color: transparent !important;
-    border-color: transparent !important;
+    width: var(--size-6);
+    height: var(--size-6);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
     color: var(--ps-alert-close-color);
     opacity: var(--ps-alert-close-opacity);
     transition: var(--ps-alert-transition);
+    cursor: pointer;
+    border-radius: var(--radius-1);
 
     &:hover {
       opacity: var(--ps-alert-close-hover-opacity);
-      background-color: transparent !important;
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     &:focus-visible {
       opacity: var(--ps-alert-close-focus-opacity);
       outline: var(--border-size-2) solid currentColor;
       outline-offset: var(--border-size-1);
+    }
+    
+    & .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
     }
   }
 

@@ -38,11 +38,9 @@
   {%- endif -%}
 
   {%- if dismissible -%}
-    {% include '@elements/button/button.twig' with {
-      icon: 'x',
-      attributes: create_attribute().addClass('ps-alert__close'),
-      ariaLabel: 'Fermer cette alerte'
-    } only %}
+    <button type="button" class="ps-alert__close" aria-label="Fermer cette alerte" data-icon="x">
+      <span class="sr-only">Fermer</span>
+    </button>
   {%- endif -%}
 </div>
 
