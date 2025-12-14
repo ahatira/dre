@@ -76,16 +76,16 @@
      Modifiers - Thickness
      ============================================ */
   
-  &--thin {
+  &--small {
     --ps-divider-thickness: var(--border-size-1);
   }
   
-  &--thick {
+  &--large {
     --ps-divider-thickness: var(--border-size-4);
   }
   
   /* ============================================
-     Modifiers - Semantic Colors
+     Modifiers - Semantic Colors (9 variants)
      ============================================ */
   
   &--primary {
@@ -100,28 +100,36 @@
     --ps-divider-color: var(--success);
   }
   
-  &--warning {
-    --ps-divider-color: var(--warning);
-  }
-  
   &--danger {
     --ps-divider-color: var(--danger);
+  }
+  
+  &--warning {
+    --ps-divider-color: var(--warning);
   }
   
   &--info {
     --ps-divider-color: var(--info);
   }
   
+  &--light {
+    --ps-divider-color: var(--light);
+  }
+  
+  &--dark {
+    --ps-divider-color: var(--dark);
+  }
+  
   /* ============================================
      Modifiers - Spacing
      ============================================ */
   
-  &--spacing-sm {
+  &--spacing-small {
     --ps-divider-spacing-y: var(--size-2);
     --ps-divider-spacing-x: var(--size-2);
   }
   
-  &--spacing-lg {
+  &--spacing-large {
     --ps-divider-spacing-y: var(--size-6);
     --ps-divider-spacing-x: var(--size-6);
   }

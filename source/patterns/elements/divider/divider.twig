@@ -1,13 +1,13 @@
 {#
- * Divider (Element/Atom)
- * @param string orientation - Orientation (optional, default: 'horizontal')
- * @param string style - Line style (optional, default: 'solid')
- * @param string thickness - Line thickness (optional, default: 'medium')
- * @param string color - Semantic color (optional, default: 'neutral')
- * @param string spacing - Spacing around divider (optional, default: 'md')
- * @param string text - Centered text content (optional, default: '')
- * @param string icon - Centered icon name without prefix (optional, default: '')
- * @param object attributes - Additional HTML attributes (optional)
+ * Divider atom - Visual separator for content sections
+ * @param {string} orientation - horizontal|vertical (default: horizontal)
+ * @param {string} style - solid|dashed|dotted (default: solid)
+ * @param {string} thickness - small|medium|large (default: medium)
+ * @param {string} color - neutral|primary|secondary|success|danger|warning|info|light|dark (default: neutral)
+ * @param {string} spacing - small|medium|large (default: medium)
+ * @param {string} text - Centered text content (optional)
+ * @param {string} icon - Centered icon name (e.g., 'star', 'heart')
+ * @param {object} attributes - Additional HTML attributes for Drupal integration (optional)
  #}
 {%- set class = class|default(null) -%}
 {%- set orientation = orientation|default('horizontal') -%}
@@ -17,31 +17,26 @@
 {%- set spacing = spacing|default('md') -%}
 {%- set text = text|default('') -%}
 {%- set icon = icon|default('') -%}
-{%- set has_content = text or icon -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 
 {%- set root_classes = [
   'ps-divider',
   orientation == 'vertical' ? 'ps-divider--vertical' : null,
   style == 'dashed' ? 'ps-divider--dashed' : (style == 'dotted' ? 'ps-divider--dotted' : null),
-  thickness == 'thin' ? 'ps-divider--thin' : (thickness == 'thick' ? 'ps-divider--thick' : null),
+  thickness == 'small' ? 'ps-divider--small' : (thickness == 'large' ? 'ps-divider--large' : null),
   color != 'neutral' ? 'ps-divider--' ~ color : null,
-  spacing == 'sm' ? 'ps-divider--spacing-sm' : (spacing == 'lg' ? 'ps-divider--spacing-lg' : null),
+  spacing == 'small' ? 'ps-divider--spacing-small' : (spacing == 'large' ? 'ps-divider--spacing-large' : null),
   text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null),
   class ? class : null
 ] -%}
 
-{%- if has_content -%}
+{%- if text or icon -%}
   <div class="{{ root_classes|join(' ')|trim }}"
     {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
     <span class="ps-divider__line" aria-hidden="true"></span>
     {%- if text -%}
       <span class="ps-divider__text">{{ text }}</span>
     {%- elseif icon -%}
-      {% include '@elements/icon/icon.twig' with {
-        icon: icon,
-        attributes: create_attribute().addClass('ps-divider__icon')
-      } only %}
+      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {%- endif -%}
     <span class="ps-divider__line" aria-hidden="true"></span>
   </div>

@@ -36,8 +36,8 @@ export default {
     },
     thickness: {
       control: 'select',
-      options: ['thin', 'medium', 'thick'],
-      description: 'Line thickness (thin: 1px, medium: 2px, thick: 4px).',
+      options: ['small', 'medium', 'large'],
+      description: 'Line thickness (small: 1px, medium: 2px, large: 4px).',
       table: {
         category: 'Appearance',
         defaultValue: { summary: 'medium' },
@@ -45,7 +45,17 @@ export default {
     },
     color: {
       control: 'select',
-      options: ['neutral', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+      options: [
+        'neutral',
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+      ],
       description: 'Semantic color of the divider.',
       table: {
         category: 'Appearance',
@@ -54,11 +64,11 @@ export default {
     },
     spacing: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Spacing around the divider (sm: 8px, md: 16px, lg: 24px).',
+      options: ['small', 'medium', 'large'],
+      description: 'Spacing around the divider (small: 8px, medium: 16px, large: 24px).',
       table: {
         category: 'Layout',
-        defaultValue: { summary: 'md' },
+        defaultValue: { summary: 'medium' },
       },
     },
     text: {
@@ -119,20 +129,21 @@ export const Styles = {
 export const Thickness = {
   render: () => `
     <div style="max-width: 600px;">
-      <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Thin (1px)</p>
-      ${dividerTwig({ thickness: 'thin', spacing: 'sm' })}
+      <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Small (1px)</p>
+      ${dividerTwig({ thickness: 'small', spacing: 'small' })}
       
       <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Medium (2px, default)</p>
-      ${dividerTwig({ thickness: 'medium', spacing: 'sm' })}
+      ${dividerTwig({ thickness: 'medium', spacing: 'small' })}
       
-      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Thick (4px)</p>
-      ${dividerTwig({ thickness: 'thick', spacing: 'sm' })}
+      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Large (4px)</p>
+      ${dividerTwig({ thickness: 'large', spacing: 'small' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story: 'Divider line thickness variations: thin (1px), medium (2px, default), thick (4px).',
+        story:
+          'Divider line thickness variations: small (1px), medium (2px, default), large (4px).',
       },
     },
   },
@@ -142,31 +153,37 @@ export const SemanticColors = {
   render: () => `
     <div style="max-width: 600px;">
       <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Neutral (default)</p>
-      ${dividerTwig({ color: 'neutral', spacing: 'sm' })}
+      ${dividerTwig({ color: 'neutral', spacing: 'small' })}
       
       <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Primary (brand green)</p>
-      ${dividerTwig({ color: 'primary', spacing: 'sm' })}
+      ${dividerTwig({ color: 'primary', spacing: 'small' })}
       
-      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Secondary (brand pink)</p>
-      ${dividerTwig({ color: 'secondary', spacing: 'sm' })}
+      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Secondary (brand purple)</p>
+      ${dividerTwig({ color: 'secondary', spacing: 'small' })}
       
       <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Success (teal)</p>
-      ${dividerTwig({ color: 'success', spacing: 'sm' })}
-      
-      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Warning (yellow)</p>
-      ${dividerTwig({ color: 'warning', spacing: 'sm' })}
+      ${dividerTwig({ color: 'success', spacing: 'small' })}
       
       <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Danger (red)</p>
-      ${dividerTwig({ color: 'danger', spacing: 'sm' })}
+      ${dividerTwig({ color: 'danger', spacing: 'small' })}
+      
+      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Warning (yellow)</p>
+      ${dividerTwig({ color: 'warning', spacing: 'small' })}
       
       <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Info (blue)</p>
-      ${dividerTwig({ color: 'info', spacing: 'sm' })}
+      ${dividerTwig({ color: 'info', spacing: 'small' })}
+      
+      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Light (light gray)</p>
+      ${dividerTwig({ color: 'light', spacing: 'small' })}
+      
+      <p style="margin: var(--size-4) 0 var(--size-2) 0; font-size: var(--font-size-0); color: var(--text-secondary);">Dark (dark gray)</p>
+      ${dividerTwig({ color: 'dark', spacing: 'small' })}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story: 'All semantic color variants using design tokens from brand.css.',
+        story: 'All 9 semantic color variants using design tokens from brand.css.',
       },
     },
   },
@@ -177,19 +194,19 @@ export const Spacing = {
     <div style="max-width: 600px;">
       <div style="background: var(--gray-50); padding: var(--size-2); border-radius: var(--radius-1);">
         <p style="margin: 0; font-size: var(--font-size-0);">Content before</p>
-        ${dividerTwig({ spacing: 'sm' })}
+        ${dividerTwig({ spacing: 'small' })}
         <p style="margin: 0; font-size: var(--font-size-0); color: var(--text-secondary);">Small spacing (8px)</p>
       </div>
       
       <div style="background: var(--gray-50); padding: var(--size-2); border-radius: var(--radius-1); margin-top: var(--size-6);">
         <p style="margin: 0; font-size: var(--font-size-0);">Content before</p>
-        ${dividerTwig({ spacing: 'md' })}
+        ${dividerTwig({ spacing: 'medium' })}
         <p style="margin: 0; font-size: var(--font-size-0); color: var(--text-secondary);">Medium spacing (16px, default)</p>
       </div>
       
       <div style="background: var(--gray-50); padding: var(--size-2); border-radius: var(--radius-1); margin-top: var(--size-6);">
         <p style="margin: 0; font-size: var(--font-size-0);">Content before</p>
-        ${dividerTwig({ spacing: 'lg' })}
+        ${dividerTwig({ spacing: 'large' })}
         <p style="margin: 0; font-size: var(--font-size-0); color: var(--text-secondary);">Large spacing (24px)</p>
       </div>
     </div>
@@ -197,7 +214,7 @@ export const Spacing = {
   parameters: {
     docs: {
       description: {
-        story: 'Spacing variants: sm (8px), md (16px, default), lg (24px).',
+        story: 'Spacing variants: small (8px), medium (16px, default), large (24px).',
       },
     },
   },
