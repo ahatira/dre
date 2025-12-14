@@ -164,7 +164,6 @@ export const AllSizes = {
 export const AllColors = {
   render: () => `
     <div style="display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items:center;">
-      ${toggleTwig(Object.assign({}, data, { color: 'default', label: 'Default (primary)', checked: true }))}
       ${toggleTwig(Object.assign({}, data, { color: 'primary', label: 'Primary', checked: true }))}
       ${toggleTwig(Object.assign({}, data, { color: 'secondary', label: 'Secondary', checked: true }))}
       ${toggleTwig(Object.assign({}, data, { color: 'success', label: 'Success', checked: true }))}
