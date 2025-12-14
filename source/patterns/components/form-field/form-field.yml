@@ -1,13 +1,13 @@
 # Default props for form-field
-label: "Field label"
+label: "Label"
 type: "text"
 name: "field"
 id: "field"
 value: ""
-placeholder: "Enter value..."
+placeholder: "Value"
 required: false
 disabled: false
-helper: "This is a helper text"
+helper: ""
 error: ""
 rows: 4
 options: []
