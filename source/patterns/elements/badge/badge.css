@@ -74,14 +74,6 @@
     color var(--ps-badge-transition-duration) var(--ps-badge-transition-timing);
 
   /* ============================================
-     ELEMENTS
-     ============================================ */
-
-  &__text {
-    white-space: nowrap;
-  }
-
-  /* ============================================
      LAYER 3: SHAPE VARIANTS (modifiers)
      ============================================ */
 
