@@ -107,6 +107,7 @@
   --ps-input-border-color: var(--danger);
   --ps-input-focus-border-color: var(--danger);
   --ps-input-focus-ring-color: var(--danger);
+  --ps-input-color: var(--danger);
 }
 
 .ps-input--success,
@@ -120,6 +121,7 @@
   --ps-input-border-color: var(--success);
   --ps-input-focus-border-color: var(--success);
   --ps-input-focus-ring-color: var(--success);
+  --ps-input-color: var(--success);
 }
 
 .ps-input--warning,
@@ -133,5 +135,6 @@
   --ps-input-border-color: var(--warning);
   --ps-input-focus-border-color: var(--warning);
   --ps-input-focus-ring-color: var(--warning);
+  --ps-input-color: var(--warning);
 }
 
