@@ -51,10 +51,9 @@ export const Default = {
 
 export const Compact = {
   render: (args) => markup(args),
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     compact: true,
-  },
+  }),
 };
 
 export const Inverted = {
@@ -65,10 +64,9 @@ export const Inverted = {
       </div>
     `;
   },
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     inverted: true,
-  },
+  }),
 };
 
 export const LongLabels = {

@@ -1,34 +1,38 @@
 {#
+/**
  * Breadcrumb (Component/Molecule)
- * @param array items - List of breadcrumb items with 'label' and optional 'url' (required)
- * @param boolean compact - Reduced size variant (optional, default: false)
- * @param boolean inverted - Dark theme for light backgrounds (optional, default: false)
- * @param boolean noUnderline - Remove underline from links (optional, default: false)
- * @param Attribute attributes - Additional HTML attributes (optional)
- #}
+ * Navigation breadcrumb trail showing current page location in site hierarchy.
+ *
+ * @param {array} items - List of breadcrumb items with 'label' and optional 'url' (required)
+ * @param {boolean} [compact=false] - Reduced size variant (12px font, compact spacing)
+ * @param {boolean} [inverted=false] - Dark theme with white text (for light backgrounds)
+ * @param {boolean} [noUnderline=false] - DEPRECATED: Remove underline from links
+ * @param {object} attributes - Additional HTML attributes
+ */
+#}
 
-{% set items = items ?? [] %}
-{% set compact = compact ?? false %}
-{% set inverted = inverted ?? false %}
-{% set noUnderline = noUnderline ?? false %}
+{%- set items = items|default([]) -%}
+{%- set compact = compact|default(false) -%}
+{%- set inverted = inverted|default(false) -%}
+{%- set noUnderline = noUnderline|default(false) -%}
 
-{% set classes = [
+{%- set classes = [
   'ps-breadcrumb',
   compact ? 'ps-breadcrumb--compact' : null,
   inverted ? 'ps-breadcrumb--inverted' : null,
   noUnderline ? 'ps-breadcrumb--no-underline' : null,
-] %}
+] -%}
 
-<nav {{ attributes.addClass(classes) }} aria-label="Breadcrumb">
+<nav{{- attributes.addClass(classes) -}} aria-label="Breadcrumb">
   <ol class="ps-breadcrumb__list">
-    {% for item in items %}
-      <li class="ps-breadcrumb__item"{{ loop.last ? ' aria-current="page"' : '' }}>
-        {% if item.url and not loop.last %}
-          <a class="ps-breadcrumb__link" href="{{ item.url }}">{{ item.label }}</a>
-        {% else %}
-          <span class="ps-breadcrumb__link">{{ item.label }}</span>
-        {% endif %}
+    {%- for item in items -%}
+      <li class="ps-breadcrumb__item"{{- loop.last ? ' aria-current="page"' : '' -}}>
+        {%- if item.url and not loop.last -%}
+          <a class="ps-breadcrumb__link" href="{{ item.url }}">{{- item.label -}}</a>
+        {%- else -%}
+          <span class="ps-breadcrumb__link">{{- item.label -}}</span>
+        {%- endif -%}
       </li>
-    {% endfor %}
+    {%- endfor -%}
   </ol>
 </nav>
