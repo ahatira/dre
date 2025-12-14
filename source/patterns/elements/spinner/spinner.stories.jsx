@@ -198,12 +198,12 @@ export const SemanticColors = {
       <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'light' })}</div>
         <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Light</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Neutral light</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Subtle gray</p>
       </div>
-      <div style="text-align: center; padding: 1rem; background: var(--gray-800); border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+      <div style="text-align: center; padding: 1rem; background: white; border-radius: var(--radius-2); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 0.75rem;">${spinnerTwig({ color: 'dark' })}</div>
-        <p style="margin: 0; font-weight: 600; font-size: 13px; color: white;">Dark</p>
-        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-400);">Neutral dark</p>
+        <p style="margin: 0; font-weight: 600; font-size: 13px; color: var(--gray-700);">Dark</p>
+        <p style="margin: 0.25rem 0 0; font-size: 11px; color: var(--gray-500);">Strong contrast</p>
       </div>
     </div>
   `,
@@ -211,7 +211,7 @@ export const SemanticColors = {
     docs: {
       description: {
         story:
-          '9 semantic color variants: Neutral (default gray), Primary (BNP green), Secondary (pink), Gold (premium), Success/Info/Warning/Danger for contextual states, Light/Dark for backgrounds.',
+          '9 semantic color variants: Neutral (default gray), Primary (BNP green), Secondary (pink), Gold (premium), Success/Info/Warning/Danger for contextual states, Light (subtle gray) and Dark (strong contrast) for emphasis.',
       },
     },
   },
@@ -276,6 +276,31 @@ export const PageLoading = {
       description: {
         story:
           'Page loading uses Large size with Primary color, centered in container. Ideal for full-page or card content loading.',
+      },
+    },
+  },
+};
+
+export const OnDarkBackground = {
+  render: () => `
+    <div style="display: flex; gap: 2rem; padding: 2rem; background: var(--gray-800); border-radius: var(--radius-2);">
+      <div style="text-align: center; flex: 1;">
+        <div style="margin-bottom: 1rem;">${spinnerTwig({ size: 'large', color: 'light' })}</div>
+        <p style="margin: 0; color: white; font-weight: 600; font-size: 14px;">Light</p>
+        <p style="margin: 0.25rem 0 0; color: var(--gray-400); font-size: 12px;">Use on dark backgrounds</p>
+      </div>
+      <div style="text-align: center; flex: 1;">
+        <div style="margin-bottom: 1rem;">${spinnerTwig({ size: 'large', color: 'primary' })}</div>
+        <p style="margin: 0; color: white; font-weight: 600; font-size: 14px;">Primary</p>
+        <p style="margin: 0.25rem 0 0; color: var(--gray-400); font-size: 12px;">Brand color on dark</p>
+      </div>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'For dark backgrounds, use Light color (gray-200) for neutral spinners, or Primary/Secondary for branded spinners. Avoid Dark color on dark backgrounds (low contrast).',
       },
     },
   },
