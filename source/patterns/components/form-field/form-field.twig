@@ -17,7 +17,7 @@
  * @param string error - Error message (optional)
  * @param string rows - Rows for textarea (default: 4)
  * @param array options - Options for select: [{ value, label, selected=false }]
- * @param string icon_left - Icon name for left position (optional, e.g., "search")
+ * @param string icon - Icon name for left position (optional, e.g., "search")
  * @param string icon_right - Icon name for right position (optional, e.g., "chevron-down")
  * @param object attributes - Drupal attributes for the control input
  * @param object wrapper_attributes - Drupal attributes for form-item wrapper
@@ -36,7 +36,7 @@
 {%- set error = error|default('') -%}
 {%- set rows = rows|default(4) -%}
 {%- set options = options|default([]) -%}
-{%- set icon_left = icon_left|default(null) -%}
+{%- set icon = icon|default(null) -%}
 {%- set icon_right = type == 'select' ? null : icon_right|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
@@ -59,10 +59,10 @@
   {%- endif -%}
 
   {# Input/Textarea/Select Control with icon support #}
-  {%- if icon_left or icon_right -%}
-    <div class="form-control-wrapper {% if icon_left %}form-control-wrapper--icon-left{% endif %} {% if icon_right %}form-control-wrapper--icon-right{% endif %}">
-      {%- if icon_left -%}
-        <span class="form-control-icon form-control-icon--left" data-icon="{{ icon_left }}" aria-hidden="true"></span>
+  {%- if icon or icon_right -%}
+    <div class="form-control-wrapper {% if icon %}form-control-wrapper--icon-left{% endif %} {% if icon_right %}form-control-wrapper--icon-right{% endif %}">
+      {%- if icon -%}
+        <span class="form-control-icon form-control-icon--left" data-icon="{{ icon }}" aria-hidden="true"></span>
       {%- endif -%}
 
       {%- if type == 'textarea' -%}

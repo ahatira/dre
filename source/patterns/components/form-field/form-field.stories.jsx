@@ -26,7 +26,7 @@ export default {
     error: { control: 'text', table: { category: 'Validation' } },
     optional: { control: 'boolean', table: { category: 'Behavior' } },
     disabled: { control: 'boolean', table: { category: 'Behavior' } },
-    icon_left: { control: 'text', table: { category: 'Icons' } },
+    icon: { control: 'text', table: { category: 'Icons' } },
   },
   render: (args) => FormField(args),
 };
@@ -45,13 +45,13 @@ export const DefaultText = {
   },
 };
 
-export const WithIconLeft = {
-  name: 'Text with icon left',
+export const WithIcon = {
+  name: 'Text with icon',
   args: {
     ...data,
     label: 'Search',
     placeholder: 'Rechercher un bien',
-    icon_left: 'search',
+    icon: 'search',
   },
 };
 
