@@ -2,8 +2,8 @@
 
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
-**Total** : 25 composants  
-**Implémentés** : 19/25
+**Total** : 24 composants  
+**Implémentés** : 18/24
 
 ---
 
@@ -81,10 +81,6 @@ Implémenté : ✅
 
 **Badge** - Indicateur de statut/compteur  
 Usage : Nouvelles annonces, biens mis en avant  
-Implémenté : ✅
-
-**Chip** - Tag/filtre supprimable  
-Usage : Filtres de recherche, équipements  
 Implémenté : ✅
 
 ---
