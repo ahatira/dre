@@ -19,9 +19,8 @@
   --ps-menu-item-icon-size: var(--font-size-5);
 
   /* Semantic colors */
-  --ps-menu-item-color: var(--text-secondary);
-  --ps-menu-item-color-hover: var(--text-primary);
-  --ps-menu-item-bg-hover: var(--gray-100);
+  --ps-menu-item-color: var(--text-primary);
+  --ps-menu-item-color-hover: var(--text-secondary);
   --ps-menu-item-border-color: transparent;
 
   list-style: none;
@@ -35,15 +34,13 @@
     padding: var(--ps-menu-item-padding-y) var(--ps-menu-item-padding-x);
     color: var(--ps-menu-item-color);
     text-decoration: none;
-    border-left: var(--ps-menu-item-border-width) solid var(--ps-menu-item-border-color);
+    border-bottom: var(--ps-menu-item-border-width) solid transparent;
     transition:
       color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
-      background-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
       border-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing);
 
     &:hover {
       color: var(--ps-menu-item-color-hover);
-      background-color: var(--ps-menu-item-bg-hover);
     }
 
     &:focus-visible {
@@ -56,6 +53,11 @@
     font-size: var(--ps-menu-item-icon-size);
     color: currentColor;
     flex-shrink: 0;
+    transform: rotate(90deg);
+
+    @media (--tablet) {
+      transform: rotate(0deg);
+    }
   }
 
   &__label {
@@ -126,9 +128,11 @@
 
   &--active .ps-menu-item__link {
     color: var(--primary);
-    border-left-color: var(--primary);
-    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
     font-weight: var(--font-weight-600);
+
+    @media (--tablet) {
+      border-bottom-color: var(--primary);
+    }
   }
 
   &--disabled .ps-menu-item__link {
