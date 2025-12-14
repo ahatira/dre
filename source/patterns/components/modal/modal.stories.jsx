@@ -218,75 +218,89 @@ export const WithoutBackdrop = {
 };
 
 export const WithAjaxLoading = {
-  name: 'With AJAX Loading (Simulated)',
+  name: 'With AJAX Loading (Drupal use-ajax)',
   parameters: {
     docs: {
       description: {
         story:
-          'Demonstrates AJAX content loading with loading state. Click the button to trigger the modal, which shows a loading spinner while fetching content, then displays the loaded data.',
+          'Demonstrates Drupal native AJAX integration using the "use-ajax" class. Click the link/button to load modal content via AJAX. This shows Drupal.ajax() handling with data-dialog-type="modal".',
       },
     },
   },
   render: (args) => `
     <div>
-      <button class="ps-button ps-button--primary" data-modal-trigger="ajax-modal">
+      <a
+        href="#"
+        class="ps-button ps-button--primary use-ajax"
+        data-dialog-type="modal"
+        data-dialog-options='{"width": 600, "dialogClass": "ps-modal"}'
+      >
         <span class="ps-button__label">Charger un bien immobilier</span>
-      </button>
-      
-      ${modalTwig({
-        ...args,
-        id: 'ajax-modal',
-        show: false,
-        title: 'Détails du bien',
-        content:
-          '<div class="ps-modal__loading" style="text-align: center; padding: 40px; color: var(--text-secondary);"><p>Chargement en cours...</p></div>',
-      })}
+      </a>
     </div>
-    
+
     <script>
-      // Simulate Drupal behavior
+      // Mock Drupal AJAX for Storybook
       if (typeof Drupal === 'undefined') {
-        window.Drupal = { behaviors: {} };
-      }
-      if (typeof once === 'undefined') {
-        window.once = (id, selector, context = document) => {
-          const elements = context.querySelectorAll(selector);
-          return Array.from(elements).filter(el => {
-            if (el.hasAttribute('data-once-' + id)) return false;
-            el.setAttribute('data-once-' + id, '');
-            return true;
-          });
+        window.Drupal = {
+          behaviors: {},
+          ajax: () => {},
+          t: (str) => str,
         };
       }
 
-      if (window.Drupal.behaviors && window.Drupal.behaviors.psModal) {
-        window.Drupal.behaviors.psModal.attach(document);
+      // Mock Drupal.ajax command handlers
+      if (!window.Drupal.AjaxCommands) {
+        window.Drupal.AjaxCommands = {
+          insert: function (ajax, response, status) {
+            console.log('AJAX insert:', response);
+          },
+          openDialog: function (ajax, response, status) {
+            console.log('AJAX openDialog:', response);
+            // Simulate opening modal
+            const modal = document.createElement('div');
+            modal.id = 'ajax-dialog-' + Math.random();
+            modal.className = 'ps-modal ps-modal--visible';
+            modal.innerHTML = \`
+              <div class="ps-modal__backdrop"></div>
+              <div class="ps-modal__content ps-modal__content--medium">
+                <div class="ps-modal__header">
+                  <h2 class="ps-modal__title">Détails du bien</h2>
+                  <button class="ps-modal__close" type="button" data-icon="close" aria-label="Fermer la modale"></button>
+                </div>
+                <div class="ps-modal__body">
+                  <h3 style="margin-top: 0;">Bureau à La Défense</h3>
+                  <p><strong>Prix:</strong> 2 500 000 € HT</p>
+                  <p><strong>Surface:</strong> 250 m²</p>
+                  <p><strong>Étage:</strong> 12</p>
+                  <p><strong>État:</strong> Neuf</p>
+                  <p style="margin-bottom: 0;"><strong>Disponibilité:</strong> Immédiate</p>
+                </div>
+                <div class="ps-modal__footer">
+                  <button class="ps-button ps-button--secondary" type="button">Fermer</button>
+                  <button class="ps-button ps-button--primary" type="button">Contacter l'expert</button>
+                </div>
+              </div>
+            \`;
+            document.body.appendChild(modal);
+
+            // Close button handler
+            modal.querySelector('.ps-modal__close').addEventListener('click', () => {
+              modal.remove();
+            });
+          },
+        };
       }
 
-      // Simulate AJAX loading when modal opens
-      const ajaxModal = document.getElementById('ajax-modal');
-      if (ajaxModal) {
-        ajaxModal.addEventListener('modal:opened', async () => {
-          const contentBody = ajaxModal.querySelector('.ps-modal__body');
-          
-          // Simulate AJAX delay (2 seconds)
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          
-          // Update content after "loading"
-          contentBody.innerHTML = \`
-            <h3 style="margin-top: 0;">Bureau à La Défense</h3>
-            <p><strong>Prix:</strong> 2 500 000 € HT</p>
-            <p><strong>Surface:</strong> 250 m²</p>
-            <p><strong>Étage:</strong> 12</p>
-            <p><strong>État:</strong> Neuf</p>
-            <p style="margin-bottom: 0;"><strong>Disponibilité:</strong> Immédiate</p>
-          \`;
-        });
-        
-        // Reset content on close
-        ajaxModal.addEventListener('modal:closed', () => {
-          const contentBody = ajaxModal.querySelector('.ps-modal__body');
-          contentBody.innerHTML = '<div class="ps-modal__loading" style="text-align: center; padding: 40px; color: var(--text-secondary);"><p>Chargement en cours...</p></div>';
+      // Attach Drupal.ajax handlers to use-ajax elements
+      const ajaxLink = document.querySelector('.use-ajax[data-dialog-type="modal"]');
+      if (ajaxLink && !ajaxLink.dataset.ajaxAttached) {
+        ajaxLink.dataset.ajaxAttached = 'true';
+        ajaxLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('AJAX triggered via use-ajax class');
+          // Simulate Drupal.ajax response with openDialog command
+          window.Drupal.AjaxCommands.openDialog(null, { html: '<p>Contenu chargé via AJAX</p>' }, 'success');
         });
       }
     </script>
@@ -294,7 +308,5 @@ export const WithAjaxLoading = {
   args: {
     size: 'medium',
     backdrop: true,
-    footer:
-      '<button class="ps-button ps-button--secondary">Fermer</button><button class="ps-button ps-button--primary">Contacter l\'expert</button>',
   },
 };
