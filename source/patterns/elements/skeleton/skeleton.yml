@@ -1,0 +1,28 @@
+# Skeleton Component - Default Configuration
+#
+# Available Props:
+# - variant: text | circle | rectangle | avatar | button | card (default: text)
+#   * text: Single line text placeholder (1em height)
+#   * circle: Circular placeholder (48px, for avatars/icons)
+#   * rectangle: Large rectangular placeholder (200px height)
+#   * avatar: Circular avatar placeholder (48px)
+#   * button: Button-shaped placeholder (120x40px)
+#   * card: Card-shaped placeholder (300px height)
+# - width: CSS width value (default: 100%)
+#   * Examples: '100%', '200px', '50vw'
+# - height: CSS height value (default: auto, depends on variant)
+#   * Override variant default height
+# - animation: pulse | wave | none (default: pulse)
+#   * pulse: Opacity pulsing animation (default)
+#   * wave: Shimmer wave animation
+#   * none: Static placeholder (no animation)
+# - borderRadius: CSS border-radius value (default: auto, depends on variant)
+#   * Override variant default radius
+# - attributes: Attribute - Additional HTML attributes
+
+# Default: Text line placeholder with pulse animation
+variant: 'text'
+width: '100%'
+height: ''
+animation: 'pulse'
+borderRadius: ''

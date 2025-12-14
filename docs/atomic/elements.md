@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 18/24
+**Implémentés** : 19/24
 
 ---
 
@@ -93,7 +93,7 @@ Implémenté : ✅
 
 **Skeleton** - Placeholder de chargement  
 Usage : États de chargement  
-Implémenté : ❌
+Implémenté : ✅
 
 **Spinner** - Animation de chargement  
 Usage : Chargement asynchrone  

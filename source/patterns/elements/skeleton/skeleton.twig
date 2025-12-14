@@ -1,0 +1,30 @@
+{#
+ * Skeleton atom - Loading placeholder with animation
+ * @param {string} variant - text|circle|rectangle|avatar|button|card (default: text)
+ * @param {string} width - CSS width value (default: 100%)
+ * @param {string} height - CSS height value (default: auto, depends on variant)
+ * @param {string} animation - pulse|wave|none (default: pulse)
+ * @param {string} borderRadius - CSS border-radius value (default: auto, depends on variant)
+ * @param {object} attributes - Additional HTML attributes for Drupal integration (optional)
+ #}
+
+{%- set variant = variant|default('text') -%}
+{%- set width = width|default('100%') -%}
+{%- set height = height|default(null) -%}
+{%- set animation = animation|default('pulse') -%}
+{%- set borderRadius = borderRadius|default(null) -%}
+
+{%- set skeleton_classes = [
+  'ps-skeleton',
+  variant ? 'ps-skeleton--' ~ variant : null,
+  animation == 'wave' ? 'ps-skeleton--wave' : (animation == 'none' ? 'ps-skeleton--no-animation' : null)
+] -%}
+
+<div class="{{ skeleton_classes|join(' ')|trim }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {%- if width %} style="--skeleton-width: {{ width }};{% if height %} --skeleton-height: {{ height }};{% endif %}{% if borderRadius %} --skeleton-radius: {{ borderRadius }};{% endif %}"{% endif -%}
+  aria-busy="true"
+  aria-live="polite"
+  role="status">
+  <span class="visually-hidden">Loading content...</span>
+</div>
