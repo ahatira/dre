@@ -46,7 +46,7 @@ export default {
 
 export const Default = {
   render: (args) => markup(args),
-  args: { ...data },
+  args: data,
 };
 
 export const Compact = {

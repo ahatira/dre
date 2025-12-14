@@ -110,7 +110,7 @@ const settings = {
 // Default story with interactive controls
 export const Default = {
   render: (args) => carouselTwig(args),
-  args: { ...carouselData },
+  args: carouselData,
 };
 
 // Carousel With Toolbar - Property detail page with toolbar (multi-media navigation)

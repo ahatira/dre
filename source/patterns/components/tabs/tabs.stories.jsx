@@ -15,7 +15,7 @@ const settings = {
 export const Default = {
   name: 'Default',
   render: (args) => markup(args),
-  args: { ...data },
+  args: data,
 };
 
 export const FourTabs = {

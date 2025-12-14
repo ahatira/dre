@@ -31,29 +31,27 @@ const settings = {
 export const Default = {
   name: 'Pagination',
   render: (args) => markup(args),
-  args: { ...data },
+  args: data,
 };
 
 export const FirstPage = {
   name: 'First Page (No Previous)',
   render: (args) => markup(args),
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     current_page: 1,
     has_previous: false,
     has_next: true,
-  },
+  }),
 };
 
 export const LastPage = {
   name: 'Last Page (No Next)',
   render: (args) => markup(args),
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     current_page: 5,
     has_previous: true,
     has_next: false,
-  },
+  }),
 };
 
 export default settings;

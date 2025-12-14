@@ -2,8 +2,8 @@
 
 Composants fonctionnels composés de plusieurs atomes.
 
-**Total** : 24 composants  
-**Implémentés** : 5/24
+**Total** : 30 composants  
+**Implémentés** : 24/30 (80%)
 
 ---
 
@@ -12,6 +12,15 @@ Composants fonctionnels composés de plusieurs atomes.
 **Card** - Conteneur avec image, titre, texte, CTA  
 Usage : Cartes de biens, actualités, études de marché  
 Specs : Réutilisé dans `design/pages/search-results/result-card.md`  
+Implémenté : ✅
+
+**Card Offer Search** - Carte offre pour résultats de recherche  
+Usage : Résultats recherche immobilière  
+Specs : `design/pages/search-results/result-card.md`  
+Implémenté : ✅
+
+**Card Offer Slide** - Carte offre pour carrousel  
+Usage : Carrousel offres mises en avant  
 Implémenté : ✅
 
 **Media Object** - Image/icône + titre + description  
@@ -27,25 +36,25 @@ Implémenté : ❌
 
 ## Forms
 
+**Form** - Élément formulaire avec gestion d'état  
+Usage : Formulaires contact, recherche  
+Implémenté : ✅
+
 **Form Field** - Input/textarea + label + message validation  
 Usage : Champs recherche bien, formulaires contact  
-Implémenté : ❌
+Implémenté : ✅
 
 **Checkboxes** - Groupe de cases à cocher liées  
 Usage : Sélection type bien, checklist équipements  
-Implémenté : ❌
+Implémenté : ✅
 
 **Radios** - Groupe de boutons radio liés  
 Usage : Options achat/location/investissement, filtres  
-Implémenté : ❌
+Implémenté : ✅
 
 **Search Bar** - Input avec icône recherche + submit  
 Usage : Widget recherche hero, localisation bien  
-Implémenté : ❌
-
-**Contact Form** - Formulaire contact offre (modal)  
-Usage : Identité, email pro, société, téléphone, message  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
@@ -57,19 +66,19 @@ Implémenté : ✅
 
 **Menu Item** - Lien nav avec icône, badge, sous-menu  
 Usage : Navigation principale (Résidentiel, Commercial, Services)  
-Implémenté : ❌
+Implémenté : ✅
 
 **Pagination** - Navigation pages avec numéros + flèches  
 Usage : Résultats recherche, archive actualités  
-Implémenté : ❌
+Implémenté : ✅
 
 **Language Selector** - Sélecteur langue/pays  
 Usage : Toggle FR/EN dans header  
-Implémenté : ❌
+Implémenté : ✅
 
 **Tab** - Bouton onglet dans navigation tabs  
 Usage : Onglets détail bien (description, photos, énergie)  
-Implémenté : ❌
+Implémenté : ✅ (via Tabs component)
 
 ---
 
@@ -81,15 +90,15 @@ Implémenté : ✅
 
 **Toast** - Notification temporaire auto-dismiss  
 Usage : Notification après actions, messages système  
-Implémenté : ❌
+Implémenté : ✅
 
 **Tooltip** - Aide contextuelle hover/focus  
 Usage : Texte aide sur champs, icônes info  
-Implémenté : ❌
+Implémenté : ✅
 
 **Modal** - Dialog overlay avec header, contenu, actions  
 Usage : Contact conseiller, filtres, rendez-vous  
-Implémenté : ❌
+Implémenté : ✅
 
 **Gallery Modal** - Lightbox galerie avec prev/next + thumbnails  
 Usage : Photos de biens  
@@ -100,18 +109,14 @@ Implémenté : ❌
 
 ## Interactive
 
-**Accordion Item** - Section expansible unique  
-Usage : FAQ, caractéristiques bien  
-Implémenté : ✅
-
 **Dropdown** - Bouton trigger avec menu overlay  
 Usage : Tri, filtres  
 Specs : `design/pages/search-results/sort-dropdown.md`  
-Implémenté : ❌
+Implémenté : ✅
 
 **Stepper** - Indicateur étapes avec statut  
 Usage : Wizard recherche multi-étapes  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
@@ -121,9 +126,9 @@ Implémenté : ❌
 Usage : Item vue liste biens, entrée résultat  
 Implémenté : ❌
 
-**Table Row** - Ligne données avec cellules + actions  
-Usage : Lignes tableau données marché, comparaison  
-Implémenté : ❌
+**Table** - Tableau de données avec headers et rangées  
+Usage : Données marché, comparaison  
+Implémenté : ✅
 
 **Specs List** - Liste clé-valeur avec icônes  
 Usage : Équipements, services, état (listes structurées)  
@@ -135,17 +140,21 @@ Usage : Tableau des surfaces offre
 Specs : `design/pages/property-detail/surface-table.md`  
 Implémenté : ❌
 
+**Tag List** - Collection de chips/tags  
+Usage : Tags de bien, filtres actifs  
+Implémenté : ✅
+
 ---
 
 ## Media
 
 **Video** - Lecteur vidéo avec contrôles  
 Usage : Visites virtuelles, rapports marché  
-Implémenté : ❌
+Implémenté : ✅
 
-**Carousel Item** - Slide unique avec contenu  
+**Carousel** - Carrousel avec slides et navigation  
 Usage : Carrousel photos bien, biens mis en avant  
-Implémenté : ❌
+Implémenté : ✅
 
 **Map Widget** - Bloc carte embarquée avec markers + contrôles  
 Usage : Intégration Google/Leaflet (placeholder)  
@@ -162,13 +171,9 @@ Usage : Champ adresse + résultat temps trajet
 Specs : `design/pages/property-detail/travel-time.md`  
 Implémenté : ❌
 
----
-
-## Other
-
-**Tag List** - Collection de chips/tags  
-Usage : Tags de bien, filtres actifs  
-Implémenté : ❌
+**Skeleton** - État de chargement placeholder  
+Usage : Chargement contenu asynchrone  
+Implémenté : ✅
 
 ---
 

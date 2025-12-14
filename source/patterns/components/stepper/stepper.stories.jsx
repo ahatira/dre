@@ -21,21 +21,20 @@ const settings = {
 export const Default = {
   name: 'Horizontal',
   render: (args) => markup(args),
-  args: { ...data, orientation: 'horizontal' },
+  args: Object.assign({}, data, { orientation: 'horizontal' }),
 };
 
 export const Vertical = {
   name: 'Vertical',
   render: (args) => markup(args),
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     orientation: 'vertical',
     steps: [
       { label: 'Review', completed: true, active: false },
       { label: 'Confirm', completed: false, active: true },
       { label: 'Submit', completed: false, active: false },
     ],
-  },
+  }),
 };
 
 export default settings;

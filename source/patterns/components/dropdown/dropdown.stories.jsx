@@ -97,7 +97,7 @@ export default {
 
 export const Default = {
   render: (args) => dropdownTwig(args),
-  args: { ...dropdownData },
+  args: dropdownData,
 };
 
 // All shapes showcase

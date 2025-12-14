@@ -33,13 +33,13 @@ const settings = {
 export const Default = {
   name: 'Text',
   render: (args) => markup(args),
-  args: { ...data, type: 'text', lines: 3, show_avatar: false },
+  args: Object.assign({}, data, { type: 'text', lines: 3, show_avatar: false }),
 };
 
 export const WithAvatar = {
   name: 'With Avatar',
   render: (args) => markup(args),
-  args: { ...data, type: 'text', lines: 3, show_avatar: true },
+  args: Object.assign({}, data, { type: 'text', lines: 3, show_avatar: true }),
 };
 
 export default settings;

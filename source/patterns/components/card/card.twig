@@ -96,7 +96,7 @@
 <{{ element }}
   class="{{ classes|join(' ')|trim }}"
   {%- if url %} href="{{ url }}"{% endif -%}
-  {%- if attributes %} {{ attributes }}{% endif -%}
+  {{- attributes ? attributes|without('class') : '' -}}
 >
   {# MEDIA BLOCK - Image/visual content (optional) #}
   {%- if block('media') is defined or image -%}

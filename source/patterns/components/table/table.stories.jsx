@@ -19,16 +19,15 @@ const settings = {
 export const Default = {
   name: 'Data Table',
   render: (args) => markup(args),
-  args: { ...data },
+  args: data,
 };
 
 export const Empty = {
   name: 'Empty State',
   render: (args) => markup(args),
-  args: {
-    ...data,
+  args: Object.assign({}, data, {
     rows: [],
-  },
+  }),
 };
 
 export default settings;

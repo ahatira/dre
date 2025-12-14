@@ -51,7 +51,7 @@
 {%- if shape and shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
 {%- if disabled -%}{%- set classes = classes|merge(['ps-dropdown--disabled']) -%}{%- endif -%}
 
-<div class="{{ classes|join(' ')|trim }}" {%- if attributes %} {{ attributes }}{% endif -%} data-dropdown>
+<div class="{{ classes|join(' ')|trim }}" {{- attributes ? attributes|without('class') : '' -}} data-dropdown>
   <button
     class="ps-dropdown__button"
     type="button"

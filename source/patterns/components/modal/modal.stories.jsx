@@ -8,20 +8,20 @@ const settings = {
 
 export const Default = {
   name: 'Modal',
-  render: (args) => markup({ ...args, show: true }),
-  args: { ...data },
+  render: (args) => markup(Object.assign({}, args, { show: true })),
+  args: data,
 };
 
 export const Small = {
   name: 'Small Size',
-  render: (args) => markup({ ...args, show: true, size: 'sm' }),
-  args: { ...data },
+  render: (args) => markup(Object.assign({}, args, { show: true, size: 'sm' })),
+  args: data,
 };
 
 export const Large = {
   name: 'Large Size',
-  render: (args) => markup({ ...args, show: true, size: 'lg' }),
-  args: { ...data },
+  render: (args) => markup(Object.assign({}, args, { show: true, size: 'lg' })),
+  args: data,
 };
 
 export default settings;

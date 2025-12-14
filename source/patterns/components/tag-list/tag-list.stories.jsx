@@ -15,7 +15,7 @@ const settings = {
 export const Default = {
   name: 'With Checkboxes',
   render: (args) => markup(args),
-  args: { ...data },
+  args: data,
 };
 
 export const ManyTags = {

@@ -37,13 +37,13 @@ const settings = {
 export const Default = {
   name: 'Empty',
   render: (args) => markup(args),
-  args: { ...data, search_text: '', has_suggestions: false },
+  args: Object.assign({}, data, { search_text: '', has_suggestions: false }),
 };
 
 export const WithSuggestions = {
   name: 'With Suggestions',
   render: (args) => markup(args),
-  args: { ...data, search_text: 'Paris', has_suggestions: true },
+  args: Object.assign({}, data, { search_text: 'Paris', has_suggestions: true }),
 };
 
 // Size Variants

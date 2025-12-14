@@ -9,19 +9,19 @@ const settings = {
 export const Default = {
   name: 'Menu Item',
   render: (args) => `<ul>${markup(args)}</ul>`,
-  args: { ...data },
+  args: data,
 };
 
 export const Active = {
   name: 'Active State',
-  render: (args) => `<ul>${markup({ ...args, active: true })}</ul>`,
-  args: { ...data },
+  render: (args) => `<ul>${markup(Object.assign({}, args, { active: true }))}</ul>`,
+  args: data,
 };
 
 export const WithIcon = {
   name: 'With Icon',
-  render: (args) => `<ul>${markup({ ...args, icon: 'home' })}</ul>`,
-  args: { ...data },
+  render: (args) => `<ul>${markup(Object.assign({}, args, { icon: 'home' }))}</ul>`,
+  args: data,
 };
 
 export default settings;

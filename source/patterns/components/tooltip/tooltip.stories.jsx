@@ -27,19 +27,19 @@ const settings = {
 export const TopPosition = {
   name: 'Top',
   render: (args) => markup(args),
-  args: { ...data, position: 'top', text: 'Contact the agent for more info' },
+  args: Object.assign({}, data, { position: 'top', text: 'Contact the agent for more info' }),
 };
 
 export const BottomPosition = {
   name: 'Bottom',
   render: (args) => markup(args),
-  args: { ...data, position: 'bottom', text: 'Swipe to see more photos' },
+  args: Object.assign({}, data, { position: 'bottom', text: 'Swipe to see more photos' }),
 };
 
 export const RightPosition = {
   name: 'Right',
   render: (args) => markup(args),
-  args: { ...data, position: 'right', text: 'Click to expand details' },
+  args: Object.assign({}, data, { position: 'right', text: 'Click to expand details' }),
 };
 
 export default settings;

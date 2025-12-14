@@ -5,6 +5,6 @@
  * @param object attributes - Drupal attributes for <form>
  * @param slot children - Form content (fields, actions, etc.)
  #}
-<form{{ attributes }}>
+<form {{- attributes ? attributes|without('class') : '' -}}>
   {{ children }}
 </form>

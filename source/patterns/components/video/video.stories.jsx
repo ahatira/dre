@@ -33,19 +33,19 @@ const settings = {
 export const Default = {
   name: '16:9 YouTube',
   render: (args) => markup(args),
-  args: { ...data, aspect_ratio: '16:9' },
+  args: Object.assign({}, data, { aspect_ratio: '16:9' }),
 };
 
 export const Square = {
   name: '1:1 Square',
   render: (args) => markup(args),
-  args: { ...data, aspect_ratio: '1:1' },
+  args: Object.assign({}, data, { aspect_ratio: '1:1' }),
 };
 
 export const Classic = {
   name: '4:3 Classic',
   render: (args) => markup(args),
-  args: { ...data, aspect_ratio: '4:3' },
+  args: Object.assign({}, data, { aspect_ratio: '4:3' }),
 };
 
 export default settings;
