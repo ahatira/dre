@@ -4,7 +4,8 @@
 .ps-consultant-card {
   --ps-consultant-gap: var(--size-4);
   --ps-consultant-photo-size: var(--size-12);
-  --ps-consultant-label-color: var(--text-secondary);
+  --ps-consultant-label-size: var(--font-size-2);
+  --ps-consultant-label-color: var(--text-primary);
   --ps-consultant-name-color: var(--text-primary);
   --ps-consultant-name-size: var(--font-size-7);
   --ps-consultant-name-weight: var(--font-weight-800);
@@ -25,27 +26,20 @@
 
   &__photo {
     /* Avatar include wrapper */
-    width: var(--ps-consultant-photo-size);
-    height: var(--ps-consultant-photo-size);
     flex-shrink: 0;
-
-    /* Override Avatar component size */
-    &.ps-avatar {
-      --ps-avatar-size-xl: var(--ps-consultant-photo-size);
-    }
   }
 
   &__text {
     display: flex;
     flex-direction: column;
-    gap: var(--size-2);
+    gap: var(--size-1);
     flex: 1;
   }
 
   &__label {
     /* Styled via text component utility classes */
     color: var(--ps-consultant-label-color);
-    font-size: var(--font-size-1);
+    font-size: var(--ps-consultant-label-size);
     font-weight: var(--font-weight-500);
     display: block;
   }
@@ -90,6 +84,7 @@
   }
 
   &__cta {
+    margin-top: var(--size-4);
     width: 100%;
   }
 }
