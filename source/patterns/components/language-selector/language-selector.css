@@ -7,8 +7,8 @@
  * BEM Structure:
  * - Block: .ps-language-selector
  * - Elements: __control, __button, __current, __flag, __label, __icon, __list, __option, __native
- * - Modifiers (size): --xs, --sm (default), --md, --lg, --xl, --xxl
- * - Modifiers (variant): --primary, --secondary, --success, --danger, --warning, --info
+ * - Modifiers (size): --sm (default), --md, --lg
+ * - Variants: none (neutral-only per rules)
  * - Modifiers (state): --disabled
  *
  * CSS Variables System (3-Layer Architecture):
@@ -40,7 +40,7 @@
   --ps-language-selector-font-weight: var(--font-weight-400);
   --ps-language-selector-line-height: 1.43; /* 20px / 14px */
 
-  /* Colors (neutral default) */
+  /* Colors (neutral-only) */
   --ps-language-selector-bg: var(--white);
   --ps-language-selector-color: var(--gray-900);
   --ps-language-selector-border-color: var(--gray-300);
@@ -64,7 +64,7 @@
   --ps-language-selector-transition-timing: var(--ease-4);
 
   /* Dropdown */
-  --ps-language-selector-dropdown-z-index: 1000; /* TODO: Add --z-dropdown token to zindex.css */
+  --ps-language-selector-dropdown-z-index: var(--layer-10);
   --ps-language-selector-dropdown-shadow: var(--shadow-3);
   --ps-language-selector-option-gap: var(--size-2); /* 8px between options */
 
@@ -199,7 +199,9 @@
     display: flex;
     align-items: center;
     gap: var(--ps-language-selector-gap);
-    padding: 0;
+    padding: var(--ps-language-selector-padding-y) var(--ps-language-selector-padding-x);
+    margin-left: calc(var(--ps-language-selector-padding-x) * -1);
+    margin-right: calc(var(--ps-language-selector-padding-x) * -1);
     cursor: pointer;
 
     /* Spacing between options */
@@ -215,6 +217,10 @@
     &[aria-selected="true"] {
       background: var(--ps-language-selector-selected-bg);
       font-weight: var(--font-weight-600); /* Semibold for selection */
+
+      .ps-language-selector__label {
+        font-weight: var(--font-weight-600);
+      }
     }
 
     &[aria-disabled="true"] {
@@ -244,16 +250,8 @@
 
   /* ============================================
      MODIFIERS - SIZES (Layer 3 Overrides)
-     Standardized system: xs, sm (default), md, lg, xl, xxl
+     Standardized: sm (default), md, lg
      ============================================ */
-
-  &--xs {
-    --ps-language-selector-padding-y: 2px;
-    --ps-language-selector-padding-x: var(--size-2); /* 8px */
-    --ps-language-selector-height: var(--size-6); /* 24px */
-    --ps-language-selector-font-size: var(--font-size-1); /* 12px */
-    --ps-language-selector-icon-size: var(--size-4); /* 16px */
-  }
 
   &--sm {
     /* Default - already defined in Layer 2 */
@@ -273,63 +271,6 @@
     --ps-language-selector-height: var(--size-12); /* 48px */
     --ps-language-selector-font-size: var(--font-size-5); /* 18px */
     --ps-language-selector-icon-size: var(--size-6); /* 24px */
-  }
-
-  &--xl {
-    --ps-language-selector-padding-y: var(--size-4); /* 16px */
-    --ps-language-selector-padding-x: var(--size-6); /* 24px */
-    --ps-language-selector-height: var(--size-14); /* 56px */
-    --ps-language-selector-font-size: var(--font-size-6); /* 20px */
-    --ps-language-selector-icon-size: var(--size-7); /* 28px */
-  }
-
-  &--xxl {
-    --ps-language-selector-padding-y: var(--size-5); /* 20px */
-    --ps-language-selector-padding-x: var(--size-8); /* 32px */
-    --ps-language-selector-height: var(--size-16); /* 64px */
-    --ps-language-selector-font-size: var(--font-size-7); /* 24px */
-    --ps-language-selector-icon-size: var(--size-8); /* 32px */
-  }
-
-  /* ============================================
-     MODIFIERS - VARIANTS (Layer 3 Overrides)
-     Semantic colors: primary, secondary, success, danger, warning, info
-     ============================================ */
-
-  &--primary {
-    --ps-language-selector-border-color: var(--primary);
-    --ps-language-selector-color: var(--primary);
-    --ps-language-selector-focus-outline-color: var(--primary);
-  }
-
-  &--secondary {
-    --ps-language-selector-border-color: var(--secondary);
-    --ps-language-selector-color: var(--secondary);
-    --ps-language-selector-focus-outline-color: var(--secondary);
-  }
-
-  &--success {
-    --ps-language-selector-border-color: var(--success);
-    --ps-language-selector-color: var(--success);
-    --ps-language-selector-focus-outline-color: var(--success);
-  }
-
-  &--danger {
-    --ps-language-selector-border-color: var(--danger);
-    --ps-language-selector-color: var(--danger);
-    --ps-language-selector-focus-outline-color: var(--danger);
-  }
-
-  &--warning {
-    --ps-language-selector-border-color: var(--warning);
-    --ps-language-selector-color: var(--warning);
-    --ps-language-selector-focus-outline-color: var(--warning);
-  }
-
-  &--info {
-    --ps-language-selector-border-color: var(--info);
-    --ps-language-selector-color: var(--info);
-    --ps-language-selector-focus-outline-color: var(--info);
   }
 
   /* ============================================

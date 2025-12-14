@@ -2,8 +2,7 @@
  * Language Selector (Molecule/Navigation)
  *
  * @param string name - Input name attribute (default: 'lang')
- * @param string size - xs|sm|md|lg|xl|xxl (default: sm, aligned with Figma spec)
- * @param string variant - default|primary|secondary|success|danger|warning|info (default: default)
+ * @param string size - sm|md|lg (default: sm)
  * @param boolean disabled - Disabled state (default: false)
  * @param object current - Current language
  *   @param string code - Country code ISO (ex: GB, ES, FR)
@@ -22,18 +21,19 @@
 
 {%- set name = name|default('lang') -%}
 {%- set size = size|default('sm') -%}
-{%- set variant = variant|default('default') -%}
+{# Variants not used: component is neutral-only per rules #}
+{%- set variant = 'default' -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-language-selector',
   size != 'sm' ? 'ps-language-selector--' ~ size : null,
-  variant != 'default' ? 'ps-language-selector--' ~ variant : null,
+  null,
   disabled ? 'ps-language-selector--disabled' : null
 ] -%}
 
-<nav {{ attributes.addClass(classes) }} aria-label="Language selector">
+<nav {{ attributes.addClass(classes)|without('class') }} aria-label="Sélecteur de langue">
   <div class="ps-language-selector__control">
     {# Enhanced button with accessible states #}
     <button
@@ -55,10 +55,8 @@
         } only %}
         <span class="ps-language-selector__label">{{ current.label }}</span>
       </span>
-      {# Icon using SVG sprite - chevron-down by default, rotates to up when expanded #}
-      <svg class="ps-language-selector__icon" aria-hidden="true" focusable="false">
-        <use href="#icon-chevron-down"></use>
-      </svg>
+      {# Icon using data-icon system (no prefix) #}
+      <span class="ps-language-selector__icon" data-icon="chevron-down" aria-hidden="true"></span>
     </button>
 
     {# Dropdown list - hidden by default #}

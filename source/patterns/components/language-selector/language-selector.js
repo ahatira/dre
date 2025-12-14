@@ -52,15 +52,23 @@ export class PsLanguageSelector {
     this.controllers.push(ac);
 
     // Toggle dropdown on button click
-    this.button.addEventListener('click', this.toggle.bind(this), {
-      signal: ac.signal,
-    });
+    this.button.addEventListener(
+      'click',
+      (e) => {
+        e.stopPropagation();
+        this.toggle();
+      },
+      {
+        signal: ac.signal,
+      }
+    );
 
     // Select option on click
     this.options_elements.forEach((option, index) => {
       option.addEventListener(
         'click',
-        () => {
+        (e) => {
+          e.stopPropagation();
           this.selectOption(index);
           if (this.options.closeOnSelect) {
             this.close();
@@ -277,7 +285,10 @@ export class PsLanguageSelector {
   }
 
   handleOutsideClick(e) {
-    if (!this.root.contains(e.target)) {
+    const isExpanded = this.button.getAttribute('aria-expanded') === 'true';
+
+    // Only close if dropdown is open and click is outside the root element
+    if (isExpanded && !this.root.contains(e.target)) {
       this.close();
     }
   }
