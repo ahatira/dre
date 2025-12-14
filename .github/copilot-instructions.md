@@ -128,6 +128,10 @@ These will ALWAYS be rejected:
 - ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
 - ❌ `baseClass` parameter for composition: FORBIDDEN → Use `attributes.addClass()` instead
 - ❌ **Utility class overuse**: Use utilities ONLY for variants/modifiers, NEVER for component structure → Maintain semantic component CSS for core styles
+- ❌ **Border-radius by default**: NO rounded corners unless explicitly specified in design spec → Use `border-radius: 0` or remove property entirely (prefer removal)
+  - Exception: Only add `border-radius` if design spec EXPLICITLY requires it
+  - When specified: Use tokens (`var(--radius-1)` to `var(--radius-4)`)
+  - Default state for all components: **SHARP CORNERS** (no border-radius)
 
 ### 🎨 Semantic Colors Reference
 

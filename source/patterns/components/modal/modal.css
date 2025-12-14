@@ -27,7 +27,6 @@
   .ps-modal__content {
     position: relative;
     background: var(--white);
-    border-radius: var(--radius-4);
     box-shadow: var(--shadow-6);
     max-height: 90vh;
     overflow-y: auto;
@@ -70,7 +69,6 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    border-radius: var(--radius-2);
     color: var(--text-secondary);
     transition: all var(--duration-fast) var(--ease-4);
 
