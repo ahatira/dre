@@ -10,6 +10,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      /* Mobile: full screen mode - remove centering */
+      @media (max-width: 767px) {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
     }
 
     &:focus-visible {
@@ -30,17 +36,37 @@
     box-shadow: var(--shadow-6);
     max-height: 90vh;
     overflow-y: auto;
+    width: min(90vw, 37.5rem); /* 600px default (medium) */
+
+    /* Mobile: full screen mode */
+    @media (max-width: 767px) {
+      width: 100vw;
+      max-height: 100vh;
+      max-width: none;
+    }
 
     &--small {
       width: min(90vw, 25rem); /* 400px */
+
+      @media (max-width: 767px) {
+        width: 100vw;
+      }
     }
 
     &--medium {
       width: min(90vw, 37.5rem); /* 600px */
+
+      @media (max-width: 767px) {
+        width: 100vw;
+      }
     }
 
     &--large {
       width: min(90vw, 50rem); /* 800px */
+
+      @media (max-width: 767px) {
+        width: 100vw;
+      }
     }
   }
 
@@ -50,6 +76,14 @@
     justify-content: space-between;
     padding: var(--size-6);
     border-bottom: var(--border-size-2) solid var(--border-default);
+
+    /* Mobile: sticky header for full screen modal */
+    @media (max-width: 767px) {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--white);
+    }
   }
 
   .ps-modal__title {
