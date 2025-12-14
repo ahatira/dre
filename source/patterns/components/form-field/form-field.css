@@ -27,8 +27,12 @@
 
   /* Error state: Force text color to danger/red */
   .form-item--error {
-    & .form-control {
-      color: var(--danger);
+    /* Override Atom input styling with !important for error state */
+    & input.form-control,
+    & textarea.form-control,
+    & select.form-control,
+    & .ps-input {
+      color: var(--danger) !important;
     }
   }
 
@@ -127,24 +131,9 @@
      form-error (Error message)
      ================================================ */
   .form-error {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--size-2);
-    padding: var(--size-2) var(--size-3);
-    background-color: var(--danger-subtle);
     color: var(--danger);
     font-size: var(--font-size-0);
-    line-height: var(--leading-5);
     margin-top: var(--size-1);
-  }
-
-  .form-error-text {
-    flex: 1;
-  }
-
-  /* Data-icon styling for error icon */
-  .form-error[data-icon] {
-    --ps-icon-size: var(--size-4);
   }
 
   /* ================================================

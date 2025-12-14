@@ -152,9 +152,7 @@
 
   {# Helper text or Error message #}
   {%- if error -%}
-    <div class="form-error" role="alert" data-icon="alert-circle" data-icon-position="start">
-      <span class="form-error-text">{{ error }}</span>
-    </div>
+    <div class="form-error" role="alert">{{ error }}</div>
   {%- elseif helper -%}
     <small class="form-helper" id="{{ id }}-help">
       {{ helper }}
