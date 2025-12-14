@@ -70,13 +70,13 @@
 
   .form-control-wrapper--icon-left {
     .form-control {
-      padding-left: var(--size-10);
+      padding-left: var(--size-8);
     }
   }
 
   .form-control-wrapper--icon-right {
     .form-control {
-      padding-right: var(--size-10);
+      padding-right: var(--size-8);
     }
   }
 
