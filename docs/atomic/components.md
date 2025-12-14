@@ -26,7 +26,7 @@ Implémenté : ✅
 **Consultant Card** - Fiche conseiller avec avatar, contact, CTA  
 Usage : Sidebar page offre  
 Specs : `design/pages/property-detail/consultant-card.md`  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 
