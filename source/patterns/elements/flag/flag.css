@@ -3,7 +3,7 @@
  * Visual indicator for country/language as a flag
  *
  * BEM: ps-flag, ps-flag__img
- * Sizes: xs (12px height), sm (16px height), md (20px height - default), lg (24px height), xl (48px height)
+ * Sizes: small (16px height), medium (20px height, default), large (24px height)
  * Aspect ratio: 4:3 (standard flag format), 1:1 (circle)
  * Shapes: square (default), rounded, circle
  * States: hover, focus-visible, disabled
@@ -21,7 +21,7 @@
      ============================================ */
 
   /* Layout */
-  --ps-flag-size: var(--size-5); /* 20px - default (md) */
+  --ps-flag-size: var(--size-5); /* 20px - default (medium) */
   --ps-flag-aspect-ratio: calc(4 / 3); /* 4:3 standard flag aspect ratio */
 
   /* Visual */
@@ -69,20 +69,14 @@
      MODIFIERS: Sizes
      ============================================ */
 
-  &--xs {
-    --ps-flag-size: var(--size-3); /* 12px */
-  }
-
-  &--sm {
+  &--small {
     --ps-flag-size: var(--size-4); /* 16px */
   }
 
-  &--lg {
-    --ps-flag-size: var(--size-6); /* 24px */
-  }
+  /* medium is default (20px) - no modifier needed */
 
-  &--xl {
-    --ps-flag-size: var(--size-12); /* 48px */
+  &--large {
+    --ps-flag-size: var(--size-6); /* 24px */
   }
 
   /* ============================================

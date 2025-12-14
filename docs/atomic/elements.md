@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 21/24
+**Implémentés** : 22/24
 
 ---
 
@@ -113,7 +113,7 @@ Implémenté : ✅
 
 **Flag** - Icône drapeau pays/langue  
 Usage : Sélecteur langue/locale dans header  
-Implémenté : ❌
+Implémenté : ✅
 
 **Logo** - Logo marque avec variantes  
 Usage : Logo BNP Paribas Real Estate (header/footer)  

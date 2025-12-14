@@ -1,18 +1,22 @@
 {#
- * Flag (Atom) - Country/language visual indicator
+ * Flag (Element/Atom)
+ * Country/language visual indicator using flag SVG images
  *
- * @param string code - Country code ISO 3166-1 alpha-2 (ex: FR, GB, DE) (optional)
- * @param string locale - BCP 47 locale tag (ex: fr-FR, en-GB) - auto-extracts country code (optional)
- * @param string label - Accessible label for screen readers (ex: 'France', 'United Kingdom') (optional)
- * @param string src - Explicit flag image path (default: /flags/{code}.svg) (optional)
- * @param string size - xs|sm|md|lg|xl (default: md)
- * @param string shape - square|rounded|circle (default: square)
- * @param boolean disabled - Disabled state with reduced opacity (default: false)
- * @param boolean decorative - Marks as decorative only, adds aria-hidden (default: false)
+ * @param {string} [code] - Country code ISO 3166-1 alpha-2 (FR, GB, DE, ES, IT)
+ * @param {string} [locale] - BCP 47 locale tag (fr-FR, en-GB) - auto-extracts country code if provided
+ * @param {string} [label] - Accessible label for screen readers (e.g., 'France', 'United Kingdom')
+ * @param {string} [src] - Explicit flag image path (overrides auto /flags/{code}.svg)
+ * @param {string} [size='medium'] - Flag size: small | medium | large
+ * @param {string} [shape='square'] - Flag shape: square | rounded | circle
+ * @param {boolean} [disabled=false] - Disabled state (reduced opacity + grayscale)
+ * @param {boolean} [decorative=false] - Decorative only (aria-hidden, not announced)
+ * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
  #}
 
 {%- set class = class|default(null) -%}
-{%- set size = size|default('md') -%}
+{# Map legacy 5-size system (xs/sm/md/lg/xl) to 3-size system (small/medium/large) #}
+{%- set size = size|default('medium') -%}
+{%- set size = size == 'xs' or size == 'sm' ? 'small' : (size == 'md' ? 'medium' : (size == 'lg' or size == 'xl' ? 'large' : size)) -%}
 {%- set shape = shape|default('square') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set decorative = decorative|default(false) -%}
@@ -20,7 +24,7 @@
 
 {%- set classes = [
   'ps-flag',
-  size != 'md' ? 'ps-flag--' ~ size : null,
+  size != 'medium' ? 'ps-flag--' ~ size : null,
   shape != 'square' ? 'ps-flag--' ~ shape : null,
   disabled ? 'ps-flag--disabled' : null,
   class ? class : null
@@ -45,25 +49,19 @@
 {%- set title_text = decorative ? '' : (label ?? country_code) -%}
 
 {# Determine image dimensions based on size (4:3 aspect ratio, 1:1 for circle) #}
-{%- if size == 'xs' -%}
-  {%- set img_height = '12' -%}
-  {%- set img_width = shape == 'circle' ? '12' : '16' -%}
-{%- elseif size == 'sm' -%}
+{%- if size == 'small' -%}
   {%- set img_height = '16' -%}
   {%- set img_width = shape == 'circle' ? '16' : '21' -%}
-{%- elseif size == 'lg' -%}
+{%- elseif size == 'large' -%}
   {%- set img_height = '24' -%}
   {%- set img_width = shape == 'circle' ? '24' : '32' -%}
-{%- elseif size == 'xl' -%}
-  {%- set img_height = '48' -%}
-  {%- set img_width = shape == 'circle' ? '48' : '64' -%}
 {%- else -%}
   {%- set img_height = '20' -%}
   {%- set img_width = shape == 'circle' ? '20' : '27' -%}
 {%- endif -%}
 
 <span class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
-  {%- if title_text %} title="{{ title_text }}"{% endif -%}>
-  <img class="ps-flag__img" src="{{ img_src }}" alt="{{ alt_text }}" width="{{ img_width }}" height="{{ img_height }}"{% if decorative %} aria-hidden="true"{% endif %} />
+  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}
+  {{- title_text ? ' title="' ~ title_text ~ '"' : '' -}}>
+  <img class="ps-flag__img" src="{{ img_src }}" alt="{{ alt_text }}" width="{{ img_width }}" height="{{ img_height }}"{{- decorative ? ' aria-hidden="true"' : '' -}} />
 </span>
