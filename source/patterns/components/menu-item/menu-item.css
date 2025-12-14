@@ -1,49 +1,68 @@
-@layer components {
-  .ps-menu-item {
-    list-style: none;
-  }
+/**
+ * Menu Item (Component/Molecule)
+ * Navigation menu entry with icon, badge, and submenu support
+ *
+ * BEM: ps-menu-item, ps-menu-item__link, ps-menu-item__icon, ps-menu-item__label,
+ *      ps-menu-item__badge, ps-menu-item__submenu, ps-menu-item__submenu-item, ps-menu-item__submenu-link
+ * Modifiers: --active, --disabled, --primary, --secondary, --success, --danger, --warning, --info, --gold, --light, --dark (for badge)
+ * States: :hover, :focus-visible, active, disabled
+ */
 
-  .ps-menu-item__link {
+.ps-menu-item {
+  /* Token-First: Base tokens */
+  --ps-menu-item-padding-y: var(--size-3);
+  --ps-menu-item-padding-x: var(--size-4);
+  --ps-menu-item-gap: var(--size-3);
+  --ps-menu-item-border-width: var(--border-size-2);
+  --ps-menu-item-transition-duration: var(--duration-fast);
+  --ps-menu-item-transition-timing: var(--ease-4);
+  --ps-menu-item-icon-size: var(--font-size-5);
+
+  /* Semantic colors */
+  --ps-menu-item-color: var(--text-secondary);
+  --ps-menu-item-color-hover: var(--text-primary);
+  --ps-menu-item-bg-hover: var(--gray-100);
+  --ps-menu-item-border-color: transparent;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__link {
     display: flex;
     align-items: center;
-    gap: var(--size-3);
-    padding: var(--size-3) var(--size-4);
-    color: var(--text-secondary);
+    gap: var(--ps-menu-item-gap);
+    padding: var(--ps-menu-item-padding-y) var(--ps-menu-item-padding-x);
+    color: var(--ps-menu-item-color);
     text-decoration: none;
-    border-left: var(--border-size-2) solid transparent;
-    transition: all var(--duration-fast) var(--ease-4);
+    border-left: var(--ps-menu-item-border-width) solid var(--ps-menu-item-border-color);
+    transition:
+      color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
+      background-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
+      border-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing);
+
+    &:hover {
+      color: var(--ps-menu-item-color-hover);
+      background-color: var(--ps-menu-item-bg-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: calc(var(--border-size-2) * -1);
+    }
   }
 
-  .ps-menu-item__link:hover {
-    color: var(--neutral);
-    background-color: var(--gray-100);
-  }
-
-  .ps-menu-item--active .ps-menu-item__link {
-    color: var(--primary);
-    border-left-color: var(--primary);
-    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
-    font-weight: var(--font-weight-600);
-  }
-
-  .ps-menu-item--disabled .ps-menu-item__link {
-    color: var(--text-disabled);
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.6;
-  }
-
-  .ps-menu-item__icon {
-    width: 1.25rem;
-    height: 1.25rem;
+  &__icon {
+    font-size: var(--ps-menu-item-icon-size);
+    color: currentColor;
     flex-shrink: 0;
   }
 
-  .ps-menu-item__label {
+  &__label {
     flex: 1;
   }
 
-  .ps-menu-item__badge {
+  &__badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -51,13 +70,103 @@
     padding: 0 var(--size-2);
     font-size: var(--font-size--1);
     font-weight: var(--font-weight-600);
+    border-radius: var(--radius-round);
+    white-space: nowrap;
+
+    /* Default: danger variant */
     background-color: var(--danger);
     color: var(--white);
-    border-radius: var(--radius-round);
+
+    /* Color variants */
+    &--primary {
+      background-color: var(--primary-bg-subtle);
+      color: var(--primary-text);
+    }
+
+    &--secondary {
+      background-color: var(--secondary-bg-subtle);
+      color: var(--secondary-text);
+    }
+
+    &--success {
+      background-color: var(--success-bg-subtle);
+      color: var(--success-text);
+    }
+
+    &--danger {
+      background-color: var(--danger-bg-subtle);
+      color: var(--danger-text);
+    }
+
+    &--warning {
+      background-color: var(--warning-bg-subtle);
+      color: var(--warning-text);
+    }
+
+    &--info {
+      background-color: var(--info-bg-subtle);
+      color: var(--info-text);
+    }
+
+    &--gold {
+      background-color: var(--gold-bg-subtle);
+      color: var(--gold-text);
+    }
+
+    &--light {
+      background-color: var(--light-bg-subtle);
+      color: var(--light-text);
+    }
+
+    &--dark {
+      background-color: var(--dark-bg-subtle);
+      color: var(--dark-text);
+    }
   }
 
-  .ps-menu-item__submenu {
+  &--active .ps-menu-item__link {
+    color: var(--primary);
+    border-left-color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
+    font-weight: var(--font-weight-600);
+  }
+
+  &--disabled .ps-menu-item__link {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  &__submenu {
     list-style: none;
+    margin: 0;
     padding-left: var(--size-8);
+  }
+
+  &__submenu-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__submenu-link {
+    display: block;
+    padding: var(--size-2) var(--ps-menu-item-padding-x);
+    color: var(--ps-menu-item-color);
+    text-decoration: none;
+    transition:
+      color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
+      background-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing);
+
+    &:hover {
+      color: var(--ps-menu-item-color-hover);
+      background-color: var(--ps-menu-item-bg-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: calc(var(--border-size-2) * -1);
+    }
   }
 }

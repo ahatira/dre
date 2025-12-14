@@ -1,20 +1,54 @@
-{# Menu Item - Navigation menu entry #}
-<li class="ps-menu-item{% if active %} ps-menu-item--active{% endif %}{% if disabled %} ps-menu-item--disabled{% endif %}">
-  <a href="{{ href }}" class="ps-menu-item__link" {% if disabled %}aria-disabled="true"{% endif %}>
+{#
+/**
+ * Menu Item (Component/Molecule)
+ * Navigation menu entry with optional icon, badge, and submenu.
+ *
+ * Props:
+ * - string label - Menu item text (required)
+ * - string href - Link URL (default: '#')
+ * - boolean active - Active state (default: false)
+ * - boolean disabled - Disabled state (default: false)
+ * - string icon - Icon name without 'icon-' prefix (optional)
+ * - string badge - Badge text (optional)
+ * - string badge_variant - Badge color: primary, secondary, success, danger, warning, info, gold, light, dark (default: danger)
+ * - array submenu - Array of { href, label } submenu items (optional)
+ * - object attributes - Drupal attributes object (optional)
+ *
+ * Rules: Token-First, BEM, data-icon for icons, accessibility (WCAG 2.2 AA)
+ #}
+
+{%- set label = label|default('Menu Item') -%}
+{%- set href = href|default('#') -%}
+{%- set active = active|default(false) -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set icon = icon|default('') -%}
+{%- set badge = badge|default('') -%}
+{%- set badge_variant = badge_variant|default('danger') -%}
+{%- set submenu = submenu|default([]) -%}
+{%- set attributes = (attributes ? attributes : create_attribute()) -%}
+
+{%- set attr = attributes
+  .addClass('ps-menu-item')
+  .addClass(active ? 'ps-menu-item--active' : null)
+  .addClass(disabled ? 'ps-menu-item--disabled' : null)
+-%}
+
+<li{{ attr }}>
+  <a href="{{ href }}" class="ps-menu-item__link"{% if disabled %} aria-disabled="true"{% endif %}>
     {% if icon %}
-      <svg class="ps-menu-item__icon" aria-hidden="true" width="20" height="20">
-        <use href="#icon-{{ icon }}"></use>
-      </svg>
+      <span class="ps-menu-item__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
     {% endif %}
     <span class="ps-menu-item__label">{{ label }}</span>
     {% if badge %}
-      <span class="ps-menu-item__badge">{{ badge }}</span>
+      <span class="ps-menu-item__badge ps-menu-item__badge--{{ badge_variant }}">{{ badge }}</span>
     {% endif %}
   </a>
-  {% if submenu and submenu|length > 0 %}
+  {% if submenu|length > 0 %}
     <ul class="ps-menu-item__submenu">
       {% for item in submenu %}
-        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+        <li class="ps-menu-item__submenu-item">
+          <a href="{{ item.href }}" class="ps-menu-item__submenu-link">{{ item.label }}</a>
+        </li>
       {% endfor %}
     </ul>
   {% endif %}
