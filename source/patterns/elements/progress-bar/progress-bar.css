@@ -104,45 +104,27 @@
 		}
 	}
 
-	/* ==================== SIZES (6 variants) ==================== */
-	/* Size - XS (Extra Small) */
-	&.ps-progress--xs {
-		--ps-progress-track-height: calc(var(--size-1) / 2); /* 2px */
-		--ps-progress-circular-size: var(--size-6); /* 24px */
-		--ps-progress-label-size: var(--font-size-0, 0.75rem); /* 12px */
-	}
-	
-	/* Size - SM (Small) */
-	&.ps-progress--sm {
-		--ps-progress-track-height: var(--size-1); /* 4px */
+	/* ==================== MODIFIERS: SIZES ==================== */
+
+	/* Size - SMALL (6px track, 32px circular) */
+	&--small {
+		--ps-progress-track-height: var(--size-1-5); /* 6px */
 		--ps-progress-circular-size: var(--size-8); /* 32px */
-		--ps-progress-label-size: var(--font-size-0, 0.75rem); /* 12px */
-	}
-	
-	/* Size - MD (Medium - default, uses base component variables) */
-	
-	/* Size - LG (Large) */
-	&.ps-progress--lg {
-		--ps-progress-track-height: var(--size-3); /* 12px */
-		--ps-progress-circular-size: var(--size-12); /* 48px */
-		--ps-progress-label-size: var(--font-size-2, 1.125rem); /* 18px */
-	}
-	
-	/* Size - XL (Extra Large) */
-	&.ps-progress--xl {
-		--ps-progress-track-height: var(--size-4); /* 16px */
-		--ps-progress-circular-size: var(--size-16); /* 64px */
-		--ps-progress-label-size: var(--font-size-3, 1.25rem); /* 20px */
-	}
-	
-	/* Size - XXL (Extra Extra Large) */
-	&.ps-progress--xxl {
-		--ps-progress-track-height: var(--size-6); /* 24px */
-		--ps-progress-circular-size: var(--size-20); /* 80px */
-		--ps-progress-label-size: var(--font-size-4, 1.5rem); /* 24px */
+		--ps-progress-label-size: var(--font-size-0); /* 14px */
+		--ps-progress-stroke-width: 6;
 	}
 
-	/* ==================== COLORS (9 semantic variants) ==================== */
+	/* MEDIUM is default (8px track, 40px circular) - no modifier needed */
+
+	/* Size - LARGE (12px track, 56px circular) */
+	&--large {
+		--ps-progress-track-height: var(--size-3); /* 12px */
+		--ps-progress-circular-size: var(--size-14); /* 56px */
+		--ps-progress-label-size: var(--font-size-2); /* 18px */
+		--ps-progress-stroke-width: 10;
+	}
+
+	/* ==================== MODIFIERS: COLORS ==================== */
 	/* Default color uses base component variable (neutral gray) - no modifier needed */
 	
 	/* Color - PRIMARY (green) */
@@ -193,28 +175,28 @@
 
 	/* ==================== STATES ==================== */
 	/* State - INDETERMINATE (Linear) */
-	&.ps-progress--indeterminate:not(.ps-progress--circular) {
+	&--indeterminate:not(&--circular) {
 		.ps-progress__fill {
 			width: 40%;
 			position: relative;
 			animation: ps-progress-indeterminate var(--duration-slower, 1.5s) var(--ease-in-out-3, ease-in-out) infinite;
 		}
 	}
-	
+
 	/* State - INDETERMINATE (Circular) */
-	&.ps-progress--indeterminate.ps-progress--circular {
+	&--indeterminate&--circular {
 		.ps-progress__svg {
 			animation: ps-progress-circular-rotate 1.4s linear infinite;
 		}
-		
+
 		.ps-progress__fill-circle {
 			stroke-dasharray: 80 200;
 			stroke-dashoffset: 0;
 		}
 	}
-	
+
 	/* State - STRIPED (Linear only) */
-	&.ps-progress--striped:not(.ps-progress--circular) .ps-progress__fill {
+	&--striped:not(&--circular) .ps-progress__fill {
 		background-image: linear-gradient(
 			45deg,
 			rgba(255, 255, 255, 0.15) 25%,
