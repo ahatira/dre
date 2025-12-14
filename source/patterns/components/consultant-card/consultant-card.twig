@@ -33,7 +33,7 @@
         src: avatar.url,
         alt: avatar.alt|default(''),
         size: 'large',
-        class: 'ps-consultant-card__photo'
+        attributes: create_attribute().addClass('ps-consultant-card__photo')
       } only %}
     {% endif %}
 
@@ -41,13 +41,13 @@
       {% include '@elements/text/text.twig' with {
         tag: 'span',
         text: title,
-        class: 'ps-consultant-card__label'
+        attributes: create_attribute().addClass('ps-consultant-card__label')
       } only %}
 
       {% include '@elements/heading/heading.twig' with {
         level: 'h3',
         text: name,
-        class: 'ps-consultant-card__name'
+        attributes: create_attribute().addClass('ps-consultant-card__name')
       } only %}
 
       {% if phone %}
@@ -56,7 +56,7 @@
           {% include '@elements/link/link.twig' with {
             label: phone,
             url: 'tel:' ~ phone,
-            class: 'ps-consultant-card__phone-link'
+            attributes: create_attribute().addClass('ps-consultant-card__phone-link')
           } only %}
         </div>
       {% endif %}
