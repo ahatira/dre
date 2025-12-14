@@ -15,6 +15,7 @@
  * @param boolean disabled - Disabled state (default: false)
  * @param string helper - Helper/description text (optional)
  * @param string error - Error message (optional)
+ * @param string state - Validation state: null | success | warning (optional)
  * @param string rows - Rows for textarea (default: 4)
  * @param array options - Options for select: [{ value, label, selected=false }]
  * @param string icon - Icon name for left position (optional, e.g., "search")
@@ -34,12 +35,16 @@
 {%- set disabled = disabled|default(false) -%}
 {%- set helper = helper|default('') -%}
 {%- set error = error|default('') -%}
+{%- set state = state|default(null) -%}
 {%- set rows = rows|default(4) -%}
 {%- set options = options|default([]) -%}
-{%- set icon = icon|default(null) -%}
+{%- set icon = type == 'select' ? null : icon|default(null) -%}
 {%- set icon_right = type == 'select' ? null : icon_right|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
+
+{# Effective state: error > success|warning > null #}
+{%- set _state = error ? 'error' : (state in ['success','warning'] ? state : null) -%}
 
 {# Drupal form-item wrapper (standard for form elements) #}
 <div class="form-item form-group {% if error %}form-item--error{% endif %}"{{ wrapper_attributes |without('class') }}>
@@ -52,7 +57,7 @@
         required: required,
         disabled: disabled
       } only %}
-      {%- if optional -%}
+      {%- if not required -%}
         <span class="form-label-badge">Optional</span>
       {%- endif -%}
     </div>
@@ -74,7 +79,7 @@
           rows: rows,
           disabled: disabled,
           required: required,
-          state: error ? 'error' : null,
+          state: _state,
           attributes: attributes
         } only %}
 
@@ -85,7 +90,9 @@
           options: options,
           disabled: disabled,
           required: required,
-          error: error ? true : false,
+          error: _state == 'error',
+          success: _state == 'success',
+          warning: _state == 'warning',
           wrapper_attributes: create_attribute(),
           attributes: attributes
         } only %}
@@ -99,7 +106,7 @@
           placeholder: placeholder,
           disabled: disabled,
           required: required,
-          state: error ? 'error' : null,
+          state: _state,
           attributes: attributes
         } only %}
       {%- endif -%}
@@ -119,7 +126,7 @@
         rows: rows,
         disabled: disabled,
         required: required,
-        state: error ? 'error' : null,
+        state: _state,
         attributes: attributes
       } only %}
 
@@ -130,7 +137,9 @@
         options: options,
         disabled: disabled,
         required: required,
-        error: error ? true : false,
+        error: _state == 'error',
+        success: _state == 'success',
+        warning: _state == 'warning',
         wrapper_attributes: create_attribute(),
         attributes: attributes
       } only %}
@@ -144,7 +153,7 @@
         placeholder: placeholder,
         disabled: disabled,
         required: required,
-        state: error ? 'error' : null,
+        state: _state,
         attributes: attributes
       } only %}
     {%- endif -%}

@@ -5,8 +5,4 @@ status: stable
 group: atoms
 description: 'Form field label with required indicator and accessibility support.'
 props:
-  text: 'Surface habitable' # Label text (Real Estate context)
-  forId: 'field-surface' # ID of associated form field
-  required: false # Adds asterisk + screen reader text
-  disabled: false # Disabled state (70% opacity)
-  attributes: {} # Additional HTML attributes
+  text: 'Surface habitable (m²)' # Real Estate context: property field label

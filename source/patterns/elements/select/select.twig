@@ -15,6 +15,7 @@
  * @param boolean required - Required state (default: false)
  * @param string error - Error state (default: null)
  * @param string success - Success state (default: null)
+ * @param string warning - Warning state (default: null)
  * @param object attributes - Drupal attributes for the <select>
  * @param object wrapper_attributes - Drupal attributes for the wrapper
  #}
@@ -27,6 +28,7 @@
 {%- set required = required|default(false) -%}
 {%- set error = error|default(null) -%}
 {%- set success = success|default(null) -%}
+{%- set warning = warning|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 
@@ -35,6 +37,7 @@
   disabled ? 'ps-select--disabled' : null,
   error ? 'ps-select--error' : null,
   success ? 'ps-select--success' : null,
+  warning ? 'ps-select--warning' : null,
   class ? class : null
 ] -%}
 

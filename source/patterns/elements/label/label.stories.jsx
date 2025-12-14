@@ -53,17 +53,6 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
-
-    // Structure
-    attributes: {
-      description: 'Additional HTML attributes object for custom styling or data attributes',
-      control: { type: 'object' },
-      table: {
-        category: 'Structure',
-        type: { summary: 'object' },
-        defaultValue: { summary: '{}' },
-      },
-    },
   },
 };
 

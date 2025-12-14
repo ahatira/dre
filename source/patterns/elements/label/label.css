@@ -2,69 +2,71 @@
  * Label (Element/Atom)
  * Form field label with required indicator and accessibility support
  *
- * BEM: ps-label, ps-label__text, ps-label__required
- * Modifiers: --required, --disabled
- * States: default, required, disabled
+ * Integrates with Drupal form API (form-label, form-required, visually-hidden classes).
+ * Uses Token-First architecture with component-scoped CSS variables.
  *
- * CSS Variables System (3 Layers):
- * Layer 1: Root primitives (props/*.css)
- * Layer 2: Component-scoped variables (this file)
- * Layer 3: Context overrides (parent selectors)
+ * CSS Classes:
+ * - ps-label: Base label styling (atom wrapper)
+ * - form-label: Drupal standard class
+ * - form-required: Drupal standard class for required fields
+ * - form-label--disabled / ps-label--disabled: Disabled state
+ * - visually-hidden: Drupal standard for screen-reader-only text
  */
 
-.ps-label {
-  /* ======================================== */
-  /* Layer 2: Component-scoped variables */
-  /* ======================================== */
-  --ps-label-gap: var(--size-1);
-  --ps-label-margin-bottom: var(--size-2);
+/* ============================================================================
+   Component Scope: ps-label
+   Layer 2 Variables (enable overrides in consuming components)
+   ========================================================================== */
+
+.ps-label,
+.form-label {
+  /* Component-scoped variables for Token-First composition */
   --ps-label-color: var(--text-primary);
-  --ps-label-font-family: var(--font-sans);
   --ps-label-font-size: var(--font-size-0);
   --ps-label-font-weight: var(--font-weight-600);
   --ps-label-line-height: var(--leading-5);
+  --ps-label-gap: var(--size-1);
   --ps-label-cursor: pointer;
-  --ps-label-required-color: var(--danger);
-  --ps-label-required-weight: var(--font-weight-700);
-  --ps-label-disabled-color: var(--text-disabled);
-  --ps-label-disabled-opacity: 0.7;
-  --ps-label-disabled-cursor: not-allowed;
 
-  /* ======================================== */
-  /* Base styles using component variables */
-  /* ======================================== */
+  /* Required indicator styling */
+  --ps-label-required-color: var(--danger);
+  --ps-label-required-font-weight: var(--font-weight-700);
+
+  /* Disabled state styling */
+  --ps-label-disabled-color: var(--text-disabled);
+  --ps-label-disabled-cursor: not-allowed;
+  --ps-label-disabled-opacity: 0.7;
+
+  /* ========================================================================
+     Base styles
+     ======================================================================== */
+
   display: inline-flex;
   align-items: baseline;
   gap: var(--ps-label-gap);
-  margin-bottom: var(--ps-label-margin-bottom);
   color: var(--ps-label-color);
-  font-family: var(--ps-label-font-family);
   font-size: var(--ps-label-font-size);
   font-weight: var(--ps-label-font-weight);
   line-height: var(--ps-label-line-height);
   cursor: var(--ps-label-cursor);
 
-  /* ======================================== */
-  /* Elements (nested) */
-  /* ======================================== */
+  /* ========================================================================
+     Element: asterisk for required indicator
+     ======================================================================== */
 
-  &__text {
-    font: inherit;
-  }
-
-  &__required {
+  &.form-required [aria-hidden="true"] {
     color: var(--ps-label-required-color);
-    font-weight: var(--ps-label-required-weight);
-    line-height: 1;
+    font-weight: var(--ps-label-required-font-weight);
   }
 
-  /* ======================================== */
-  /* Modifiers (nested) */
-  /* ======================================== */
+  /* ========================================================================
+     Modifier: disabled state
+     ======================================================================== */
 
-  &--disabled {
-    --ps-label-color: var(--ps-label-disabled-color);
-    --ps-label-cursor: var(--ps-label-disabled-cursor);
+  &.ps-label--disabled,
+  &.form-label--disabled {
+    color: var(--ps-label-disabled-color);
+    cursor: var(--ps-label-disabled-cursor);
     opacity: var(--ps-label-disabled-opacity);
   }
 }

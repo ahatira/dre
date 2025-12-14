@@ -1,29 +1,34 @@
 {#
+/**
+ * @file
  * PS Label (Atom) - Form field label with required indicator
  *
- * @param string text - Label text content (required)
- * @param string forId - ID of the associated form field for label-input binding
- * @param boolean required - Adds visual asterisk and accessible required text (default: false)
- * @param boolean disabled - Disabled state with reduced opacity (default: false)
- * @param Attribute attributes - Additional HTML attributes
- #}
+ * Semantic form label with required asterisk indicator and accessibility support.
+ * Integrates with Drupal form API via form-label/form-required classes.
+ *
+ * @param {string} text - Label text content (required)
+ * @param {string} [forId] - ID of the associated form field for label-input binding
+ * @param {boolean} [required=false] - Adds visual asterisk (*) and accessible required text
+ * @param {boolean} [disabled=false] - Disabled state with reduced opacity and muted color
+ * @param {object} [attributes] - Additional HTML attributes (e.g., class, data-*)
+ */
+#}
 
 {%- set required = required|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set class = class|default(null) -%}
+
 {%- set classes = [
   'ps-label',
-  required ? 'ps-label--required' : null,
+  'form-label',
+  required ? 'form-required' : null,
   disabled ? 'ps-label--disabled' : null,
-  class ? class : null
+  modifier_class
 ] -%}
 
-<label class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
-  {%- if forId %} for="{{ forId }}"{% endif -%}>
-  <span class="ps-label__text">{{ text }}</span>
+<label class="{{ classes|join(' ')|trim }}" {{ attributes }}{%- if forId %} for="{{ forId }}"{% endif -%}>
+  {{- text -}}
   {%- if required %}
-    <span class="ps-label__required" aria-hidden="true">*</span>
+    <span aria-hidden="true">*</span>
     <span class="visually-hidden">(required field)</span>
   {%- endif %}
 </label>

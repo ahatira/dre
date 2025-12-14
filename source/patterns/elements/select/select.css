@@ -264,6 +264,15 @@
   }
 }
 
+.form-control:is(select).ps-select--warning {
+  border-color: var(--warning);
+
+  &:focus-visible {
+    border-color: var(--warning);
+    outline-color: var(--warning);
+  }
+}
+
 /* ============================================
    Modifiers - Validation States
    ============================================ */
@@ -295,6 +304,21 @@
 
   &::after {
     background-color: var(--success);
+  }
+}
+
+.ps-select--warning {
+  & .ps-select__input {
+    border-color: var(--warning);
+
+    &:focus-visible {
+      border-color: var(--warning);
+      outline-color: var(--warning);
+    }
+  }
+
+  &::after {
+    background-color: var(--warning);
   }
 }
 

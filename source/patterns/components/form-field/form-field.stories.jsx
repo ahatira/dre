@@ -9,14 +9,24 @@ export default {
     docs: {
       description: {
         component:
-          'Form field molecule composing label, control (input/textarea/select), helper and error. Supports icons and optional badge.',
+          'Form field molecule composing label, control (input/textarea/select), helper and error. Below are composite stories per type showing all states, with and without icon when applicable.',
       },
     },
   },
   argTypes: {
     type: {
       control: 'select',
-      options: ['text', 'textarea', 'select'],
+      options: [
+        'text',
+        'email',
+        'password',
+        'number',
+        'search',
+        'tel',
+        'url',
+        'textarea',
+        'select',
+      ],
       table: { category: 'Appearance' },
     },
     label: { control: 'text', table: { category: 'Content' } },
@@ -24,89 +34,128 @@ export default {
     value: { control: 'text', table: { category: 'Content' } },
     helper: { control: 'text', table: { category: 'Content' } },
     error: { control: 'text', table: { category: 'Validation' } },
+    state: {
+      control: { type: 'select' },
+      options: [undefined, 'success', 'warning'],
+      table: { category: 'Validation' },
+      description: 'Validation state (error takes priority if set).',
+    },
     optional: { control: 'boolean', table: { category: 'Behavior' } },
+    required: { control: 'boolean', table: { category: 'Behavior' } },
     disabled: { control: 'boolean', table: { category: 'Behavior' } },
-    icon: { control: 'text', table: { category: 'Icons' } },
+    icon: {
+      control: 'text',
+      table: { category: 'Icons' },
+      description: 'Left icon name (e.g., "search").',
+    },
+    rows: {
+      control: 'number',
+      table: { category: 'Appearance' },
+      description: 'Rows for textarea type.',
+    },
   },
-  render: (args) => FormField(args),
 };
 
 // -----------------------------------------------------------------------------
-// Core stories (concise, state-focused)
+// Default single example
 // -----------------------------------------------------------------------------
-
-export const DefaultText = {
-  name: 'Default text',
+export const Default = {
+  name: 'Default',
   args: {
     ...data,
-    label: 'Label',
-    placeholder: 'Value',
+    label: 'Champ de formulaire',
+    placeholder: 'Votre saisie',
     optional: true,
   },
 };
 
-export const WithIcon = {
-  name: 'Text with icon',
-  args: {
-    ...data,
-    label: 'Search',
-    placeholder: 'Rechercher un bien',
-    icon: 'search',
+// -----------------------------------------------------------------------------
+// Composite stories by type: all states, with/without icon when applicable
+// -----------------------------------------------------------------------------
+
+export const TextVariants = {
+  name: 'Text: all states + icons',
+  render: () => {
+    const base = { ...data, type: 'text', label: 'Texte', placeholder: 'Votre saisie' };
+    const make = (overrides) => FormField({ ...base, ...overrides });
+    const items = [
+      { title: 'Default', args: {} },
+      { title: 'Default + icon', args: { icon: 'search' } },
+      { title: 'Success', args: { state: 'success', value: 'valide' } },
+      { title: 'Success + icon', args: { state: 'success', value: 'valide', icon: 'search' } },
+      { title: 'Warning', args: { state: 'warning', value: '100000' } },
+      { title: 'Warning + icon', args: { state: 'warning', value: '100000', icon: 'search' } },
+      { title: 'Error', args: { error: 'Message d’erreur' } },
+      { title: 'Error + icon', args: { error: 'Message d’erreur', icon: 'search' } },
+      { title: 'Disabled', args: { disabled: true, placeholder: 'Indisponible' } },
+      {
+        title: 'Disabled + icon',
+        args: { disabled: true, placeholder: 'Indisponible', icon: 'search' },
+      },
+    ];
+    return `<div class="just-for-gap">${items
+      .map((it) => `<div><div class="heading">${it.title}</div>${make(it.args)}</div>`)
+      .join('')}</div>`;
   },
 };
 
-export const SuccessState = {
-  name: 'Success state',
-  args: {
-    ...data,
-    label: 'Email',
-    value: 'agent@immo.fr',
-    state: 'success',
+export const TextareaVariants = {
+  name: 'Textarea: all states + icons',
+  render: () => {
+    const base = {
+      ...data,
+      type: 'textarea',
+      label: 'Description',
+      placeholder: 'Décrivez le bien...',
+      rows: 4,
+    };
+    const make = (overrides) => FormField({ ...base, ...overrides });
+    const items = [
+      { title: 'Default', args: {} },
+      { title: 'Default + icon', args: { icon: 'search' } },
+      { title: 'Success', args: { state: 'success', value: 'Texte valide' } },
+      {
+        title: 'Success + icon',
+        args: { state: 'success', value: 'Texte valide', icon: 'search' },
+      },
+      { title: 'Warning', args: { state: 'warning', value: 'Longueur limite proche' } },
+      {
+        title: 'Warning + icon',
+        args: { state: 'warning', value: 'Longueur limite proche', icon: 'search' },
+      },
+      { title: 'Error', args: { error: 'Champ requis' } },
+      { title: 'Error + icon', args: { error: 'Champ requis', icon: 'search' } },
+      { title: 'Disabled', args: { disabled: true, placeholder: 'Indisponible' } },
+      {
+        title: 'Disabled + icon',
+        args: { disabled: true, placeholder: 'Indisponible', icon: 'search' },
+      },
+    ];
+    return `<div class="just-for-gap">${items
+      .map((it) => `<div><div class="heading">${it.title}</div>${make(it.args)}</div>`)
+      .join('')}</div>`;
   },
 };
 
-export const ErrorState = {
-  name: 'Error state',
-  args: {
-    ...data,
-    label: 'Email',
-    value: 'invalid',
-    error: 'Adresse e-mail invalide',
-  },
-};
-
-export const DisabledState = {
-  name: 'Disabled placeholder',
-  args: {
-    ...data,
-    label: 'Ville',
-    placeholder: 'Paris ou Lyon',
-    disabled: true,
-  },
-};
-
-export const TextareaField = {
-  name: 'Textarea with helper',
-  args: {
-    ...data,
-    type: 'textarea',
-    label: 'Description',
-    placeholder: 'Décrivez le bien...',
-    helper: '250 caractères maximum.',
-    rows: 4,
-  },
-};
-
-export const SelectField = {
-  name: 'Select (native chevron)',
-  args: {
-    ...data,
-    type: 'select',
-    label: 'Type de bien',
-    options: [
+export const SelectVariants = {
+  name: 'Select: all states',
+  render: () => {
+    const options = [
       { label: 'Appartement', value: 'apt' },
       { label: 'Maison', value: 'house' },
       { label: 'Bureau', value: 'office' },
-    ],
+    ];
+    const base = { ...data, type: 'select', label: 'Type de bien', options };
+    const make = (overrides) => FormField({ ...base, ...overrides });
+    const items = [
+      { title: 'Default', args: {} },
+      { title: 'Success', args: { state: 'success' } },
+      { title: 'Warning', args: { state: 'warning' } },
+      { title: 'Error', args: { error: 'Sélection invalide' } },
+      { title: 'Disabled', args: { disabled: true } },
+    ];
+    return `<div class="just-for-gap">${items
+      .map((it) => `<div><div class="heading">${it.title}</div>${make(it.args)}</div>`)
+      .join('')}</div>`;
   },
 };
