@@ -10,163 +10,163 @@
  * Respects Drupal conventions while applying PS Theme design tokens
  */
 
-@layer components {
+/* ================================================
+   form-item (Root wrapper - Drupal standard)
+   ================================================ */
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+  margin-bottom: var(--size-4);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Error state: Force text color to danger/red */
+.form-item--error {
+  /* Override Atom input styling with !important for error state */
+  & input.form-control,
+  & textarea.form-control,
+  & select.form-control,
+  & .ps-input {
+    color: var(--danger) !important;
+  }
+}
+
+/* ================================================
+   form-label-wrapper (Label + Optional badge)
+   ================================================ */
+.form-label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--size-2);
+}
+
+.form-label-badge {
+  font-size: var(--font-size-0);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-400);
+  margin-left: auto;
+}
+
+/* Alias for Drupal compatibility */
+.form-group {
+  /* Inherits from form-item via cascade */
+}
+
+/* ================================================
+   form-control-wrapper (Icon support)
+   Positions: left (search), right (select chevron)
+   ================================================ */
+.form-control-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-control-wrapper--icon-left {
+  .ps-input,
+  .form-control:not(select) {
+    padding-left: var(--size-8);
+  }
+}
+
+.form-control-wrapper--icon-right {
+  .ps-input,
+  .form-control:not(select) {
+    padding-right: var(--size-8);
+  }
+}
+
+.form-control-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-5);
+  height: var(--size-5);
+  color: var(--gray-500);
+  font-size: var(--font-size-1);
+  pointer-events: none;
+
+  &--left {
+    left: var(--size-3);
+  }
+
+  &--right {
+    right: var(--size-3);
+  }
+}
+
+/* Icon styling for data-icon */
+.form-control-icon[data-icon] {
+  --ps-icon-size: var(--size-4);
+}
+
   /* ================================================
-     form-item (Root wrapper - Drupal standard)
-     ================================================ */
-  .form-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    margin-bottom: var(--size-4);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  /* Error state: Force text color to danger/red */
-  .form-item--error {
-    /* Override Atom input styling with !important for error state */
-    & input.form-control,
-    & textarea.form-control,
-    & select.form-control,
-    & .ps-input {
-      color: var(--danger) !important;
-    }
-  }
-
-  /* ================================================
-     form-label-wrapper (Label + Optional badge)
-     ================================================ */
-  .form-label-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: var(--size-2);
-  }
-
-  .form-label-badge {
-    font-size: var(--font-size-0);
-    color: var(--text-secondary);
-    font-weight: var(--font-weight-400);
-    margin-left: auto;
-  }
-
-  /* Alias for Drupal compatibility */
-  .form-group {
-    /* Inherits from form-item via cascade */
-  }
-
-  /* ================================================
-     form-control-wrapper (Icon support)
-     Positions: left (search), right (select chevron)
-     ================================================ */
-  .form-control-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .form-control-wrapper--icon-left {
-    .form-control:not(select) {
-      padding-left: var(--size-8);
-    }
-  }
-
-  .form-control-wrapper--icon-right {
-    .form-control:not(select) {
-      padding-right: var(--size-8);
-    }
-  }
-
-  .form-control-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-5);
-    height: var(--size-5);
-    color: var(--gray-500);
-    font-size: var(--font-size-1);
-    pointer-events: none;
-
-    &--left {
-      left: var(--size-3);
-    }
-
-    &--right {
-      right: var(--size-3);
-    }
-  }
-
-  /* Icon styling for data-icon */
-  .form-control-icon[data-icon] {
-    --ps-icon-size: var(--size-4);
-  }
-
-  /* ================================================
-     form-control (Drupal standard for inputs)
-     Applied to: input, textarea, select wrappers
-     ================================================ */
+    form-control (Drupal standard for inputs)
+    Applied to: input, textarea, select wrappers
+    ================================================ */
   .form-control {
     /* Relies on Atom styles (ps-input, ps-textarea, ps-select)
-       This class is added via attributes.addClass() in includes
-       No additional styles needed - Atoms handle everything */
+      This class is added via attributes.addClass() in includes
+      No additional styles needed - Atoms handle everything */
   }
 
-  /* ================================================
-     form-helper (Helper text)
-     ================================================ */
-  .form-helper {
-    font-size: var(--font-size-0);
-    color: var(--text-secondary);
-    line-height: var(--leading-5);
-    margin-top: var(--size-1);
-  }
+/* ================================================
+   form-helper (Helper text)
+   ================================================ */
+.form-helper {
+  font-size: var(--font-size-0);
+  color: var(--text-secondary);
+  line-height: var(--leading-5);
+  margin-top: var(--size-1);
+}
 
-  /* ================================================
-     form-error (Error message)
-     ================================================ */
-  .form-error {
-    color: var(--danger);
-    font-size: var(--font-size-0);
-    margin-top: var(--size-1);
-  }
+/* ================================================
+   form-error (Error message)
+   ================================================ */
+.form-error {
+  color: var(--danger);
+  font-size: var(--font-size-0);
+  margin-top: var(--size-1);
+}
 
-  /* ================================================
-     Responsive - All 6 breakpoints (MANDATORY)
-     ================================================ */
-  
-  /* Mobile-sm (400px+) */
-  @media (--mobile-sm) {
-    /* Component-specific adjustments if needed */
-  }
+/* ================================================
+   Responsive - All 6 breakpoints (MANDATORY)
+   ================================================ */
 
-  /* Mobile (640px+) */
-  @media (--mobile) {
-    /* Component-specific adjustments if needed */
-  }
+/* Mobile-sm (400px+) */
+@media (--mobile-sm) {
+  /* Component-specific adjustments if needed */
+}
 
-  /* Tablet (768px+) */
-  @media (--tablet) {
-    /* Component-specific adjustments if needed */
-  }
+/* Mobile (640px+) */
+@media (--mobile) {
+  /* Component-specific adjustments if needed */
+}
 
-  /* Laptop (1024px+) */
-  @media (--laptop) {
-    /* Component-specific adjustments if needed */
-  }
+/* Tablet (768px+) */
+@media (--tablet) {
+  /* Component-specific adjustments if needed */
+}
 
-  /* Desktop (1280px+) */
-  @media (--desktop) {
-    /* Component-specific adjustments if needed */
-  }
+/* Laptop (1024px+) */
+@media (--laptop) {
+  /* Component-specific adjustments if needed */
+}
 
-  /* Desktop-large (1440px+) */
-  @media (--desktop-large) {
-    /* Component-specific adjustments if needed */
-  }
+/* Desktop (1280px+) */
+@media (--desktop) {
+  /* Component-specific adjustments if needed */
+}
+
+/* Desktop-large (1440px+) */
+@media (--desktop-large) {
+  /* Component-specific adjustments if needed */
 }
