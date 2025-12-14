@@ -1,0 +1,5 @@
+# Logo (Element/Atom) - Brand logo for BNP Paribas Real Estate
+variant: 'default' # Variant: default (horizontal wordmark) | square (3D icon)
+size: 'medium' # Size: small (24-32px), medium (32-48px, default), large (48-64px)
+href: '/' # Link URL (wraps logo in <a>, empty for no link)
+alt: 'BNP Paribas Real Estate' # Accessible alt text

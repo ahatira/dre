@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 24 composants  
-**Implémentés** : 22/24
+**Implémentés** : 23/24 (96%)
 
 ---
 
