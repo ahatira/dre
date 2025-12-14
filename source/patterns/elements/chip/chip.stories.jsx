@@ -3,7 +3,7 @@ import iconsRegistry from '../../documentation/icons-registry.json';
 import chipTwig from './chip.twig';
 import chipData from './chip.yml';
 
-const iconOptions = ['', ...iconsRegistry.map((icon) => icon.name)];
+const iconOptions = ['', ...iconsRegistry.names];
 
 export default {
   title: 'Elements/Chip',

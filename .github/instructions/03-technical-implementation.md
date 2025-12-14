@@ -838,6 +838,17 @@ import iconsRegistry from '../../documentation/icons-registry.json';
 
 **⚠️ CRITICAL**: Use **relative paths**, NOT aliases (`@patterns`).
 
+**⚠️ CRITICAL - Icon Registry Structure**:
+```js
+// ❌ WRONG - iconsRegistry is NOT an array
+const iconOptions = ['', ...iconsRegistry.map(icon => icon.name)];
+
+// ✅ CORRECT - iconsRegistry has { names: [] } structure
+const iconOptions = ['', ...iconsRegistry.names];
+
+// Structure: { generated: "ISO date", total: 141, names: ["icon1", "icon2", ...] }
+```
+
 ### 4.3 Export Default
 
 ```jsx
