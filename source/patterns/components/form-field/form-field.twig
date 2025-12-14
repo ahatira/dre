@@ -37,7 +37,7 @@
 {%- set rows = rows|default(4) -%}
 {%- set options = options|default([]) -%}
 {%- set icon_left = icon_left|default(null) -%}
-{%- set icon_right = icon_right|default(null) -%}
+{%- set icon_right = type == 'select' ? null : icon_right|default(null) -%}
 {%- set attributes = attributes|default(create_attribute()) -%}
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 

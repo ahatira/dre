@@ -160,7 +160,7 @@ export const WithTriggerButton = {
       },
     },
   },
-  render: (args) => `
+  render: (_args) => `
     <div>
       <button class="ps-button ps-button--primary" data-modal-trigger="demo-modal">
         <span class="ps-button__label">Ouvrir le modal</span>

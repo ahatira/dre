@@ -69,13 +69,13 @@
   }
 
   .form-control-wrapper--icon-left {
-    .form-control {
+    .form-control:not(select) {
       padding-left: var(--size-8);
     }
   }
 
   .form-control-wrapper--icon-right {
-    .form-control {
+    .form-control:not(select) {
       padding-right: var(--size-8);
     }
   }
