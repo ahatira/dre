@@ -12,6 +12,27 @@
 
 @layer components {
   /* ================================================
+     form-item (Root wrapper - Drupal standard)
+     ================================================ */
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    margin-bottom: var(--size-4);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Error state: Force text color to danger/red */
+  .form-item--error {
+    & .form-control {
+      color: var(--danger);
+    }
+  }
+
+  /* ================================================
      form-label-wrapper (Label + Optional badge)
      ================================================ */
   .form-label-wrapper {
@@ -26,21 +47,6 @@
     color: var(--text-secondary);
     font-weight: var(--font-weight-400);
     margin-left: auto;
-  }
-
-  /* ================================================
-     form-item (Drupal standard wrapper)
-     Wrapper for the entire form field
-     ================================================ */
-  .form-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    margin-bottom: var(--size-4);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 
   /* Alias for Drupal compatibility */

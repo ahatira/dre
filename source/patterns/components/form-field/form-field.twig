@@ -42,7 +42,7 @@
 {%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
 
 {# Drupal form-item wrapper (standard for form elements) #}
-<div class="form-item form-group"{{ wrapper_attributes |without('class') }}>
+<div class="form-item form-group {% if error %}form-item--error{% endif %}"{{ wrapper_attributes |without('class') }}>
   {# Label - Atom with Optional badge #}
   {%- if label -%}
     <div class="form-label-wrapper">
