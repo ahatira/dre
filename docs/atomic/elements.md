@@ -3,7 +3,7 @@
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
 **Total** : 25 composants  
-**Implémentés** : 18/25
+**Implémentés** : 19/25
 
 ---
 
@@ -85,7 +85,7 @@ Implémenté : ✅
 
 **Chip** - Tag/filtre supprimable  
 Usage : Filtres de recherche, équipements  
-Implémenté : ❌
+Implémenté : ✅
 
 ---
 

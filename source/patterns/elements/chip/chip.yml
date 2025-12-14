@@ -1,0 +1,25 @@
+# Chip Component - Default Configuration
+#
+# Available Props:
+# - label: string (required) - Text displayed in the chip
+# - icon: string (optional) - Icon name (e.g., 'check', 'info', 'tag')
+# - variant: neutral | primary | success | danger | warning | info | light | dark | gold (default: neutral)
+#   * neutral: gray (default) - generic filter/tag
+#   * primary: green (brand primary) - active filter
+#   * success: teal semantic - positive selection
+#   * danger: red semantic - error/remove state
+#   * warning: yellow semantic - cautionary filter
+#   * info: blue semantic - informational tag
+#   * light: light gray - subtle tag
+#   * dark: dark gray - high contrast tag
+#   * gold: gold accent - premium/featured filter
+# - pill: boolean (default: false) - Fully rounded pill shape
+# - removable: boolean (default: false) - Show remove button with close icon
+# - attributes: Attribute - Additional HTML attributes
+
+# Default: Neutral removable chip (filter context)
+label: "Office space"
+variant: neutral
+pill: false
+icon: ''
+removable: false
