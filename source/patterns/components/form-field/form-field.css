@@ -31,6 +31,11 @@
   --ps-input-border-color: var(--gray-300);
   --ps-textarea-border-color: var(--gray-300);
 
+  /* Error state variables */
+  --ps-form-item-error-color: var(--danger);
+  --ps-form-item-error-icon-color: var(--danger);
+  --ps-form-item-error-message-weight: var(--font-weight-600);
+
   /* Base styles using component variables */
   display: flex;
   flex-direction: column;
@@ -44,15 +49,33 @@
 
   /* ========================================================================
      Modifier: error state
+     Affects: control icon, error message visibility and styling
      ======================================================================== */
 
   &--error {
     /* Error visuals handled via Atom state classes (ps-input--error, etc.)
        Form Field molecule adjusts auxiliary elements (icons, messages). */
 
+    /* Override error color if needed via parent component */
+    --ps-form-item-error-color: var(--danger);
+    --ps-form-item-error-icon-color: var(--danger);
+    --ps-form-item-error-message-weight: var(--font-weight-600);
+
     /* Icon color override for error state */
     & .form-control-icon {
-      color: var(--danger);
+      color: var(--ps-form-item-error-icon-color);
+    }
+
+    /* Error message styling - prominent and clear */
+    & .form-error {
+      color: var(--ps-form-item-error-color);
+      font-weight: var(--ps-form-item-error-message-weight);
+      /* Message is already visible in DOM; CSS just ensures styling */
+    }
+
+    /* Hide helper text when error is present (handled in Twig) */
+    & .form-helper {
+      display: none;
     }
   }
 
@@ -271,11 +294,26 @@
   /* Component variables */
   --ps-error-color: var(--danger);
   --ps-error-font-size: var(--font-size-0);
-  --ps-error-margin-top: var(--size-1);
+  --ps-error-font-weight: var(--font-weight-600);
+  --ps-error-margin-top: var(--size-2);
+  --ps-error-line-height: var(--leading-5);
+  --ps-error-transition: color var(--duration-fast) var(--ease-3);
 
   color: var(--ps-error-color);
   font-size: var(--ps-error-font-size);
+  font-weight: var(--ps-error-font-weight);
+  line-height: var(--ps-error-line-height);
   margin-top: var(--ps-error-margin-top);
+  transition: var(--ps-error-transition);
+
+  /* Display as block element for proper spacing */
+  display: block;
+
+  /* Error message: semantic styling */
+  &[role="alert"] {
+    /* Screen reader announces this as alert */
+    /* No additional visual change needed */
+  }
 }
 
 /* ============================================================================
