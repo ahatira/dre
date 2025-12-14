@@ -1,19 +1,19 @@
 {#
  * Button atom
- * @param string label - Button text (required)
- * @param string variant - primary|secondary|gold|success|info|warning|danger (omit for neutral/gray)
- * @param boolean outline - Outline style (default: false)
- * @param string size - small|large (omit for medium/default)
- * @param string url - Link URL (optional, renders <a> tag)
- * @param string target - _self|_blank (default: _self)
- * @param string icon - Icon name (e.g., 'check', 'arrow-right')
- * @param string iconPosition - start|end (default: start)
- * @param boolean disabled - Disabled state (default: false)
- * @param boolean loading - Loading state (default: false)
- * @param boolean fullWidth - Full width (default: false)
- * @param boolean toggle - Enable toggle state behavior (default: false)
- * @param boolean active - Pre-toggle button (requires toggle=true, default: false)
- * @param object attributes - Additional HTML attributes for Drupal integration (optional)
+ * @param {string} label - Button text (required)
+ * @param {string} [variant] - Semantic variant: primary|secondary|gold|success|info|warning|danger|light|dark (omit for neutral/gray)
+ * @param {boolean} [outline=false] - Outline style
+ * @param {string} [size] - Size: small|large (omit for medium/default)
+ * @param {string} [url] - Link URL (renders <a> tag)
+ * @param {string} [target='_self'] - Link target: _self|_blank
+ * @param {string} [icon] - Icon name (e.g., 'check', 'arrow-right')
+ * @param {string} [iconPosition='start'] - Icon position: start|end
+ * @param {boolean} [disabled=false] - Disabled state
+ * @param {boolean} [loading=false] - Loading state
+ * @param {boolean} [fullWidth=false] - Full width
+ * @param {boolean} [toggle=false] - Enable toggle state behavior
+ * @param {boolean} [active=false] - Pre-toggle button (requires toggle=true)
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration
  #}
 
 {%- set variant = variant|default(null) -%}

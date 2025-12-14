@@ -8,7 +8,7 @@
  * BEM Structure:
  * - Block: .ps-button
  * - Elements: .ps-button__spinner (loading state only)
- * - Modifiers (variant): --primary, --secondary, --gold, --success, --info, --warning, --danger (neutral = omission)
+ * - Modifiers (variant): --primary, --secondary, --gold, --success, --info, --warning, --danger, --light, --dark (neutral = omission)
  * - Modifiers (style): --outline
  * - Modifiers (size): --small, --large (medium is default, not output as class)
  * - Modifiers (state): --disabled, --loading, --full-width, --icon-only
@@ -306,8 +306,46 @@
     }
   }
 
+  /* LIGHT (Light backgrounds) */
+  &--light {
+    --ps-button-bg: var(--light);
+    --ps-button-color: var(--light-text);
+    --ps-button-hover-bg: var(--light-hover);
+    --ps-button-active-bg: var(--light-active);
+
+    &.ps-button--outline {
+      --ps-button-bg: transparent;
+      --ps-button-border-width: var(--border-size-2);
+      --ps-button-border-color: var(--light);
+      --ps-button-color: var(--light);
+      --ps-button-hover-bg: color-mix(in srgb, var(--light) 8%, transparent);
+      --ps-button-hover-border-color: var(--light-hover);
+      --ps-button-hover-color: var(--light-hover);
+      --ps-button-active-bg: color-mix(in srgb, var(--light) 16%, transparent);
+    }
+  }
+
+  /* DARK (Dark backgrounds) */
+  &--dark {
+    --ps-button-bg: var(--dark);
+    --ps-button-color: var(--dark-text);
+    --ps-button-hover-bg: var(--dark-hover);
+    --ps-button-active-bg: var(--dark-active);
+
+    &.ps-button--outline {
+      --ps-button-bg: transparent;
+      --ps-button-border-width: var(--border-size-2);
+      --ps-button-border-color: var(--dark);
+      --ps-button-color: var(--dark);
+      --ps-button-hover-bg: color-mix(in srgb, var(--dark) 8%, transparent);
+      --ps-button-hover-border-color: var(--dark-hover);
+      --ps-button-hover-color: var(--dark-hover);
+      --ps-button-active-bg: color-mix(in srgb, var(--dark) 16%, transparent);
+    }
+  }
+
   /* Default outline (when no variant specified) */
-  &--outline:not(&--primary, &--secondary, &--success, &--info, &--warning, &--danger, &--gold) {
+  &--outline:not(&--primary, &--secondary, &--success, &--info, &--warning, &--danger, &--gold, &--light, &--dark) {
     --ps-button-bg: transparent;
     --ps-button-border-width: var(--border-size-2);
     --ps-button-border-color: var(--gray-500);

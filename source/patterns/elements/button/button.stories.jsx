@@ -46,13 +46,24 @@ export default {
     // Appearance
     variant: {
       description:
-        'Semantic variant: primary (green), secondary (pink), gold, success/info/warning/danger. Omit for neutral (gray default)',
+        'Semantic variant: primary (green), secondary (pink), gold, success/info/warning/danger, light/dark. Omit for neutral (gray default)',
       control: { type: 'select' },
-      options: [null, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'gold'],
+      options: [
+        null,
+        'primary',
+        'secondary',
+        'gold',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'light',
+        'dark',
+      ],
       table: {
         category: 'Appearance',
         type: {
-          summary: 'primary | secondary | gold | success | info | warning | danger',
+          summary: 'primary | secondary | gold | success | info | warning | danger | light | dark',
         },
         defaultValue: { summary: 'null (neutral/gray)' },
       },
@@ -168,7 +179,17 @@ export const Variants = {
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Solid</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${buttonTwig({ label: 'Neutral', variant: null })}
-          ${['primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
+          ${[
+            'primary',
+            'secondary',
+            'gold',
+            'success',
+            'info',
+            'warning',
+            'danger',
+            'light',
+            'dark',
+          ]
             .map((variant) =>
               buttonTwig({ label: variant.charAt(0).toUpperCase() + variant.slice(1), variant })
             )
@@ -179,7 +200,17 @@ export const Variants = {
         <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Outline</h3>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${buttonTwig({ label: 'Neutral', variant: null, outline: true })}
-          ${['primary', 'secondary', 'gold', 'success', 'info', 'warning', 'danger']
+          ${[
+            'primary',
+            'secondary',
+            'gold',
+            'success',
+            'info',
+            'warning',
+            'danger',
+            'light',
+            'dark',
+          ]
             .map((variant) =>
               buttonTwig({
                 label: variant.charAt(0).toUpperCase() + variant.slice(1),
@@ -196,7 +227,7 @@ export const Variants = {
     docs: {
       description: {
         story:
-          '10 semantic color variants in solid and outline styles. Each variant uses design tokens for consistent theming.',
+          'All semantic color variants (neutral + 9 colors) in solid and outline styles. Each variant uses design tokens for consistent theming.',
       },
     },
   },
@@ -357,77 +388,5 @@ export const Toggles = {
 };
 
 // ============================================
-// 7. REAL ESTATE USE CASES (Context Examples)
+// End of Stories
 // ============================================
-
-export const UseCases = {
-  name: 'Use Cases',
-  render: () => `
-    <div style="display: flex; flex-direction: column; gap: var(--size-8);">
-      <!-- Property Search -->
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Property Search</h3>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${buttonTwig({ label: 'Search Properties', variant: 'primary', icon: 'search', size: 'lg' })}
-          ${buttonTwig({ label: 'Advanced Filters', variant: null, icon: 'filter', outline: true })}
-          ${buttonTwig({ icon: 'map-marker', variant: 'secondary', outline: true, label: 'Location' })}
-        </div>
-      </div>
-
-      <!-- Property Actions -->
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Property Card Actions</h3>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${buttonTwig({ label: 'View Details', variant: 'primary', icon: 'arrow-right', iconPosition: 'end' })}
-          ${buttonTwig({ label: 'Contact Agent', variant: 'secondary', icon: 'envelope' })}
-          ${buttonTwig({ icon: 'heart', variant: null, outline: true, toggle: true, label: 'Save to favorites' })}
-          ${buttonTwig({ icon: 'share', variant: null, outline: true, label: 'Share property' })}
-        </div>
-      </div>
-
-      <!-- Form Actions -->
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Contact Form</h3>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${buttonTwig({ label: 'Send Message', variant: 'primary', icon: 'send', iconPosition: 'end', size: 'lg' })}
-          ${buttonTwig({ label: 'Cancel', variant: null, outline: true })}
-        </div>
-      </div>
-
-      <!-- Investment Actions -->
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Investment Opportunities</h3>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${buttonTwig({ label: 'Download Prospectus', variant: 'gold', icon: 'download' })}
-          ${buttonTwig({ label: 'Schedule Visit', variant: 'primary', icon: 'calendar' })}
-          ${buttonTwig({ label: 'Request Info', variant: 'secondary', outline: true })}
-        </div>
-      </div>
-
-      <!-- Alert Actions -->
-      <div>
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Alerts & Confirmations</h3>
-        <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
-          ${buttonTwig({ label: 'Confirm Booking', variant: 'success', icon: 'check' })}
-          ${buttonTwig({ label: 'Delete Property', variant: 'danger', icon: 'trash' })}
-          ${buttonTwig({ label: 'Save Draft', variant: 'info', icon: 'save' })}
-          ${buttonTwig({ label: 'Review Required', variant: 'warning' })}
-        </div>
-      </div>
-
-      <!-- Full Width -->
-      <div style="max-width: 400px;">
-        <h3 style="margin: 0 0 var(--size-4) 0; font-size: var(--size-4); font-weight: var(--font-weight-bold); color: var(--gray-900);">Full Width (Mobile)</h3>
-        ${buttonTwig({ label: 'Submit Application', variant: 'primary', icon: 'arrow-right', iconPosition: 'end', fullWidth: true, size: 'lg' })}
-      </div>
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Real-world button combinations for BNP Paribas Real Estate: property search, contact forms, investment actions, alerts, and mobile layouts.',
-      },
-    },
-  },
-};
