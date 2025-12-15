@@ -196,3 +196,51 @@ export const DarkVariant = {
     ],
   },
 };
+
+export const ManualActivation = {
+  name: 'Manual Activation',
+  args: {
+    ...data,
+    label: 'Manual activation example',
+    variant: 'primary',
+    pill: false,
+    // Manual activation: requires Enter/Space or click to activate after focus roving
+    attributes: {
+      'data-activation': 'manual',
+    },
+    tabs: data.tabs.map((tab, index) => ({
+      ...tab,
+      active: index === 0,
+    })),
+  },
+};
+
+export const VerticalOrientation = {
+  name: 'Vertical Orientation',
+  args: {
+    label: 'Vertical tabs',
+    variant: 'neutral',
+    pill: false,
+    attributes: {
+      'data-orientation': 'vertical',
+    },
+    tabs: [
+      {
+        id: 'tab-vertical-1',
+        label: 'Overview',
+        content: '<p>Summary and KPIs.</p>',
+        active: true,
+      },
+      {
+        id: 'tab-vertical-2',
+        label: 'Details',
+        content: '<p>Specifications and terms.</p>',
+      },
+      {
+        id: 'tab-vertical-3',
+        label: 'Contacts',
+        content: '<p>Team and stakeholders.</p>',
+      },
+    ],
+  },
+};
