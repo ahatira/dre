@@ -1,45 +1,30 @@
 /**
  * Tabs behavior - Accessible tablist with keyboard navigation
  *
- * Features:
- * - Roving tabindex with arrow key navigation (Left/Right, Home/End)
- * - Click/keyboard activation updates aria-selected, tabindex, and panel visibility
- * - Activation mode via data-activation: 'auto' (activate on focus) | 'manual'
- *   Default: 'auto' when not specified
- * - Supports vertical orientation via data-orientation="vertical" (ArrowUp/ArrowDown)
+ * Implements WAI-ARIA Tabs pattern with:
+ * - Roving tabindex navigation (Arrow keys, Home/End)
+ * - Auto activation (default) or manual activation mode
+ * - Horizontal (default) or vertical orientation
+ * - Proper ARIA attributes management
+ * - Full keyboard support with disabled tab handling
  */
 
 class PsTabsWrapper {
-  constructor(root) {
-    this.root = root;
-    this.tablist = root.querySelector('[role="tablist"]');
-    this.tabs = Array.from(root.querySelectorAll('[data-tab][role="tab"]'));
-    this.panels = Array.from(root.querySelectorAll('[data-tabpanel][role="tabpanel"]'));
-    // Default activation is 'auto' unless explicitly set to 'manual'
-    this.activation = root.dataset.activation === 'manual' ? 'manual' : 'auto';
-    // Orientation can be 'horizontal' (default) or 'vertical'
-    this.orientation = root.dataset.orientation === 'vertical' ? 'vertical' : 'horizontal';
+  constructor(element) {
+    this.element = element;
+    this.tablist = element.querySelector('[role="tablist"]');
+    this.tabs = Array.from(element.querySelectorAll('[role="tab"]'));
+    this.panels = Array.from(element.querySelectorAll('[role="tabpanel"]'));
 
-    // Build mapping by controlled ids
-    this.idToIndex = new Map();
-    this.tabs.forEach((tab, index) => {
-      const controls = tab.getAttribute('aria-controls');
-      if (controls) {
-        this.idToIndex.set(controls, index);
-      }
-    });
+    // Configuration
+    this.activation = element.dataset.activation === 'manual' ? 'manual' : 'auto';
+    this.orientation = element.dataset.orientation === 'vertical' ? 'vertical' : 'horizontal';
 
-    // Infer initial active index from aria-selected="true"
-    let activeIndex = this.tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-    if (activeIndex < 0) {
-      activeIndex = 0;
+    // Find initial active tab
+    this.currentIndex = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+    if (this.currentIndex === -1) {
+      this.currentIndex = this.findFirstEnabled();
     }
-    this.activeIndex = activeIndex;
-
-    // Store bound handlers for cleanup
-    this.handleKeydown = this.onKeydown.bind(this);
-    this.handleTabClick = [];
-    this.handleTabFocus = [];
   }
 
   init() {
@@ -47,73 +32,89 @@ class PsTabsWrapper {
       return;
     }
 
-    // Reflect orientation in ARIA
+    // Set ARIA orientation for vertical tabs
     if (this.orientation === 'vertical') {
       this.tablist.setAttribute('aria-orientation', 'vertical');
-    } else {
-      this.tablist.removeAttribute('aria-orientation');
     }
 
-    // Ensure proper tabindex setup
+    // Initialize tabindex and aria-selected
     this.tabs.forEach((tab, index) => {
-      const disabled = tab.hasAttribute('disabled') || tab.classList.contains('is-disabled');
-      if (disabled) {
+      if (this.isDisabled(tab)) {
         tab.setAttribute('tabindex', '-1');
-        return;
+      } else {
+        tab.setAttribute('tabindex', index === this.currentIndex ? '0' : '-1');
       }
-      tab.setAttribute('tabindex', index === this.activeIndex ? '0' : '-1');
     });
 
-    // Bind events with stored handlers for cleanup
-    this.tablist.addEventListener('keydown', this.handleKeydown);
+    // Bind keyboard navigation
+    this.tablist.addEventListener('keydown', (e) => this.handleKeydown(e));
 
+    // Bind click events
     this.tabs.forEach((tab, index) => {
-      const clickHandler = (e) => {
-        e.preventDefault();
-        if (this.isDisabled(index)) {
-          return;
+      tab.addEventListener('click', () => {
+        if (!this.isDisabled(tab)) {
+          this.selectTab(index);
         }
-        this.activate(index, true);
-      };
-
-      const focusHandler = () => {
-        if (this.activation === 'auto' && !this.isDisabled(index)) {
-          this.activate(index, false);
-        }
-      };
-
-      tab.addEventListener('click', clickHandler);
-      tab.addEventListener('focus', focusHandler);
-
-      // Store handlers for cleanup
-      this.handleTabClick[index] = clickHandler;
-      this.handleTabFocus[index] = focusHandler;
+      });
     });
 
-    // Initial render to sync classes/hidden
-    this.activate(this.activeIndex, false);
+    // Bind focus events for auto-activation
+    if (this.activation === 'auto') {
+      this.tabs.forEach((tab, index) => {
+        tab.addEventListener('focus', () => {
+          if (!this.isDisabled(tab)) {
+            this.selectTab(index);
+          }
+        });
+      });
+    }
+
+    // Show initial panel
+    this.selectTab(this.currentIndex);
   }
 
-  isDisabled(index) {
-    const tab = this.tabs[index];
+  isDisabled(tab) {
     return tab.hasAttribute('disabled') || tab.classList.contains('is-disabled');
   }
 
-  activate(index, focus) {
-    if (index < 0 || index >= this.tabs.length) {
+  findFirstEnabled() {
+    const index = this.tabs.findIndex((tab) => !this.isDisabled(tab));
+    return index !== -1 ? index : 0;
+  }
+
+  findNextEnabled(startIndex, direction) {
+    const length = this.tabs.length;
+    let index = startIndex;
+
+    // Search in direction
+    for (let i = 0; i < length; i++) {
+      index = (index + direction + length) % length;
+      if (!this.isDisabled(this.tabs[index])) {
+        return index;
+      }
+    }
+
+    // If no enabled tab found, return current
+    return this.currentIndex;
+  }
+
+  selectTab(index) {
+    if (index < 0 || index >= this.tabs.length || this.isDisabled(this.tabs[index])) {
       return;
     }
 
+    // Update all tabs
     this.tabs.forEach((tab, i) => {
-      const selected = i === index;
-      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
-      tab.setAttribute('tabindex', selected ? '0' : '-1');
-      tab.classList.toggle('is-selected', selected);
+      const isSelected = i === index;
+      tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+      tab.classList.toggle('is-selected', isSelected);
     });
 
+    // Update all panels
     this.panels.forEach((panel, i) => {
-      const selected = i === index;
-      if (selected) {
+      const isSelected = i === index;
+      if (isSelected) {
         panel.removeAttribute('hidden');
         panel.classList.add('is-selected');
       } else {
@@ -122,133 +123,100 @@ class PsTabsWrapper {
       }
     });
 
-    this.activeIndex = index;
-    if (focus) {
+    this.currentIndex = index;
+  }
+
+  focusTab(index) {
+    if (index >= 0 && index < this.tabs.length) {
       this.tabs[index].focus();
     }
   }
 
-  onKeydown(e) {
-    const key = e.key;
-    const max = this.tabs.length - 1;
-    let nextIndex = this.activeIndex;
+  getTargetIndexForKey(key) {
+    const isHorizontal = this.orientation === 'horizontal';
+    const isVertical = this.orientation === 'vertical';
 
-    switch (key) {
-      case 'ArrowDown':
-      case 'Down':
-        if (this.orientation === 'vertical') {
-          e.preventDefault();
-          nextIndex = this.findNextEnabled(this.activeIndex + 1, +1);
-          break;
-        }
-        return;
-      case 'ArrowUp':
-      case 'Up':
-        if (this.orientation === 'vertical') {
-          e.preventDefault();
-          nextIndex = this.findNextEnabled(this.activeIndex - 1, -1);
-          break;
-        }
-        return;
-      case 'ArrowRight':
-      case 'Right':
-        e.preventDefault();
-        nextIndex = this.findNextEnabled(this.activeIndex + 1, +1);
-        break;
-      case 'ArrowLeft':
-      case 'Left':
-        e.preventDefault();
-        nextIndex = this.findNextEnabled(this.activeIndex - 1, -1);
-        break;
-      case 'Home':
-        e.preventDefault();
-        nextIndex = this.findNextEnabled(0, +1);
-        break;
-      case 'End':
-        e.preventDefault();
-        nextIndex = this.findNextEnabled(max, -1);
-        break;
-      case 'Enter':
-      case ' ':
-        e.preventDefault();
-        this.activate(this.activeIndex, true);
-        return;
-      default:
-        return;
+    if ((key === 'ArrowLeft' || key === 'Left') && isHorizontal) {
+      return this.findNextEnabled(this.currentIndex, -1);
+    }
+    if ((key === 'ArrowRight' || key === 'Right') && isHorizontal) {
+      return this.findNextEnabled(this.currentIndex, 1);
+    }
+    if ((key === 'ArrowUp' || key === 'Up') && isVertical) {
+      return this.findNextEnabled(this.currentIndex, -1);
+    }
+    if ((key === 'ArrowDown' || key === 'Down') && isVertical) {
+      return this.findNextEnabled(this.currentIndex, 1);
+    }
+    if (key === 'Home') {
+      return this.findNextEnabled(-1, 1);
+    }
+    if (key === 'End') {
+      return this.findNextEnabled(this.tabs.length, -1);
+    }
+    return null;
+  }
+
+  handleKeydown(e) {
+    // Handle Enter/Space for manual activation
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (this.activation === 'manual') {
+        this.selectTab(this.currentIndex);
+      }
+      return;
     }
 
-    if (nextIndex !== this.activeIndex && nextIndex >= 0) {
-      // Move focus to the new tab; activate depending on mode
-      this.tabs[this.activeIndex].setAttribute('tabindex', '-1');
-      this.tabs[nextIndex].setAttribute('tabindex', '0');
-      this.tabs[nextIndex].focus();
-      if (this.activation === 'auto') {
-        this.activate(nextIndex, false);
-      } else {
-        this.activeIndex = nextIndex; // focus roving; wait for Enter/Space or click
-      }
+    // Get target index for navigation keys
+    const targetIndex = this.getTargetIndexForKey(e.key);
+    if (targetIndex !== null) {
+      e.preventDefault();
+      this.handleTabNavigation(targetIndex);
     }
   }
 
-  findNextEnabled(start, step) {
-    const len = this.tabs.length;
-    let i = start;
-    while (i >= 0 && i < len) {
-      if (!this.isDisabled(i)) {
-        return i;
+  handleTabNavigation(targetIndex) {
+    if (targetIndex !== null && targetIndex !== this.currentIndex) {
+      // Update tabindex for roving focus
+      this.tabs[this.currentIndex].setAttribute('tabindex', '-1');
+      this.tabs[targetIndex].setAttribute('tabindex', '0');
+      this.focusTab(targetIndex);
+
+      if (this.activation === 'auto') {
+        this.selectTab(targetIndex);
+      } else {
+        // Manual mode: just move focus, don't activate
+        this.currentIndex = targetIndex;
       }
-      i += step;
     }
-    // If nothing found in direction, wrap
-    i = step > 0 ? 0 : len - 1;
-    while (i >= 0 && i < len) {
-      if (!this.isDisabled(i)) {
-        return i;
-      }
-      i += step;
-    }
-    return this.activeIndex;
   }
 
   destroy() {
-    // Remove event listeners to prevent memory leaks
-    if (this.tablist && this.handleKeydown) {
-      this.tablist.removeEventListener('keydown', this.handleKeydown);
-    }
-
-    this.tabs.forEach((tab, index) => {
-      if (this.handleTabClick[index]) {
-        tab.removeEventListener('click', this.handleTabClick[index]);
-      }
-      if (this.handleTabFocus[index]) {
-        tab.removeEventListener('focus', this.handleTabFocus[index]);
-      }
-    });
-
-    // Clear stored handlers
-    this.handleTabClick = [];
-    this.handleTabFocus = [];
+    // Cleanup would go here if needed
   }
 }
 
-// Drupal behavior wrapper
+/**
+ * Drupal behavior for tabs
+ */
 if (typeof Drupal !== 'undefined') {
   Drupal.behaviors.psTabs = {
     attach(context) {
-      const roots = context.querySelectorAll('[data-tabs]');
-      roots.forEach((root) => {
+      const tabsElements = context.querySelectorAll('[data-tabs]');
+
+      tabsElements.forEach((element) => {
         if (typeof once !== 'undefined') {
-          once('ps-tabs', root).forEach((el) => {
+          once('ps-tabs', element).forEach((el) => {
             const wrapper = new PsTabsWrapper(el);
             wrapper.init();
             el.psTabsWrapper = wrapper;
           });
         } else {
-          if (!root.dataset.psTabsInitialized) {
-            const wrapper = new PsTabsWrapper(root);
+          if (!element.dataset.tabsInitialized) {
+            const wrapper = new PsTabsWrapper(element);
             wrapper.init();
-            root.dataset.psTabsInitialized = 'true';
-            root.psTabsWrapper = wrapper;
+            element.dataset.tabsInitialized = 'true';
+            element.psTabsWrapper = wrapper;
           }
         }
       });
@@ -256,11 +224,11 @@ if (typeof Drupal !== 'undefined') {
 
     detach(context, _settings, trigger) {
       if (trigger === 'unload') {
-        const roots = context.querySelectorAll('[data-tabs]');
-        roots.forEach((root) => {
-          if (root.psTabsWrapper) {
-            root.psTabsWrapper.destroy();
-            delete root.psTabsWrapper;
+        const tabsElements = context.querySelectorAll('[data-tabs]');
+        tabsElements.forEach((element) => {
+          if (element.psTabsWrapper) {
+            element.psTabsWrapper.destroy();
+            delete element.psTabsWrapper;
           }
         });
       }
