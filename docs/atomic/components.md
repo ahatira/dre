@@ -2,8 +2,8 @@
 
 Composants fonctionnels composés de plusieurs atomes.
 
-**Total** : 30 composants  
-**Implémentés** : 24/30 (80%)
+**Total** : 29 composants  
+**Implémentés** : 24/29 (83%)
 
 ---
 
@@ -95,13 +95,9 @@ Usage : Texte aide sur champs, icônes info
 Implémenté : ✅
 
 **Modal** - Dialog overlay avec header, contenu, actions  
-Usage : Contact conseiller, filtres, rendez-vous  
+Usage : Contact conseiller, filtres, rendez-vous, galeries (composé avec Carousel)  
+Note : Pour galerie photos → composer Modal + Carousel avec `lightbox: true`  
 Implémenté : ✅
-
-**Gallery Modal** - Lightbox galerie avec prev/next + thumbnails  
-Usage : Photos de biens  
-Specs : `design/pages/property-detail/gallery-modal.md`  
-Implémenté : ❌
 
 ---
 
