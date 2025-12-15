@@ -4,7 +4,9 @@
  * Features:
  * - Roving tabindex with arrow key navigation (Left/Right, Home/End)
  * - Click/keyboard activation updates aria-selected, tabindex, and panel visibility
- * - Optional activation mode via data-activation: 'auto' (activate on focus) | 'manual' (default)
+ * - Activation mode via data-activation: 'auto' (activate on focus) | 'manual'
+ *   Default: 'auto' when not specified
+ * - Supports vertical orientation via data-orientation="vertical" (ArrowUp/ArrowDown)
  */
 
 class PsTabsWrapper {
@@ -13,7 +15,10 @@ class PsTabsWrapper {
     this.tablist = root.querySelector('[role="tablist"]');
     this.tabs = Array.from(root.querySelectorAll('[data-tab][role="tab"]'));
     this.panels = Array.from(root.querySelectorAll('[data-tabpanel][role="tabpanel"]'));
-    this.activation = root.dataset.activation === 'auto' ? 'auto' : 'manual';
+    // Default activation is 'auto' unless explicitly set to 'manual'
+    this.activation = root.dataset.activation === 'manual' ? 'manual' : 'auto';
+    // Orientation can be 'horizontal' (default) or 'vertical'
+    this.orientation = root.dataset.orientation === 'vertical' ? 'vertical' : 'horizontal';
 
     // Build mapping by controlled ids
     this.idToIndex = new Map();
@@ -108,6 +113,22 @@ class PsTabsWrapper {
     let nextIndex = this.activeIndex;
 
     switch (key) {
+      case 'ArrowDown':
+      case 'Down':
+        if (this.orientation === 'vertical') {
+          e.preventDefault();
+          nextIndex = this.findNextEnabled(this.activeIndex + 1, +1);
+          break;
+        }
+        return;
+      case 'ArrowUp':
+      case 'Up':
+        if (this.orientation === 'vertical') {
+          e.preventDefault();
+          nextIndex = this.findNextEnabled(this.activeIndex - 1, -1);
+          break;
+        }
+        return;
       case 'ArrowRight':
       case 'Right':
         e.preventDefault();
