@@ -15,7 +15,6 @@
      ============================================ */
   --ps-alert-padding-y: var(--size-4);
   --ps-alert-padding-x: var(--size-4);
-  --ps-alert-border-radius: var(--radius-2);
   --ps-alert-border-width: var(--border-size-1);
   
   /* Typography */
@@ -34,11 +33,15 @@
   --ps-alert-icon-color: inherit;
   
   /* Close button */
-  --ps-alert-close-padding: var(--size-2);
+  --ps-alert-close-size: var(--size-6);
+  --ps-alert-close-top: var(--size-4);
+  --ps-alert-close-right: var(--size-4);
+  --ps-alert-close-z-index: 1;
   --ps-alert-close-color: inherit;
   --ps-alert-close-opacity: 0.7;
   --ps-alert-close-hover-opacity: 0.9;
   --ps-alert-close-focus-opacity: 1;
+  --ps-alert-close-hover-bg: var(--overlay-dark-light);
   
   /* Transitions */
   --ps-alert-transition: opacity var(--duration-fast) var(--ease-out-2);
@@ -51,7 +54,6 @@
   position: relative;
   display: block;
   padding: var(--ps-alert-padding-y) var(--ps-alert-padding-x);
-  border-radius: var(--ps-alert-border-radius);
   border: var(--ps-alert-border-width) solid var(--ps-alert-border-color);
   background-color: var(--ps-alert-bg);
   font-family: var(--ps-alert-font-family);
@@ -107,11 +109,11 @@
      ============================================ */
   &__close {
     position: absolute;
-    top: var(--size-2);
-    right: var(--size-2);
-    z-index: 1;
-    width: var(--size-6);
-    height: var(--size-6);
+    top: var(--ps-alert-close-top);
+    right: var(--ps-alert-close-right);
+    z-index: var(--ps-alert-close-z-index);
+    width: var(--ps-alert-close-size);
+    height: var(--ps-alert-close-size);
     padding: 0;
     display: inline-flex;
     align-items: center;
@@ -122,11 +124,10 @@
     opacity: var(--ps-alert-close-opacity);
     transition: var(--ps-alert-transition);
     cursor: pointer;
-    border-radius: var(--radius-1);
 
     &:hover {
       opacity: var(--ps-alert-close-hover-opacity);
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: var(--ps-alert-close-hover-bg);
     }
 
     &:focus-visible {
@@ -221,12 +222,19 @@
     --ps-alert-border-color: var(--dark-border-subtle);
     --ps-alert-icon-color: var(--white);
   }
+
+  /* ============================================
+     Dismissal State
+     ============================================ */
+  &.is-closing {
+    animation: ps-alert-fadeOut var(--ps-alert-animation-duration) var(--ease-out-2) forwards;
+  }
 }
 
 /* ============================================
    Dismissal Animation
    ============================================ */
-@keyframes fadeOut {
+@keyframes ps-alert-fadeOut {
   from {
     opacity: 1;
     transform: scale(1);
@@ -235,8 +243,4 @@
     opacity: 0;
     transform: scale(0.95);
   }
-}
-
-.ps-alert.is-closing {
-  animation: fadeOut var(--ps-alert-animation-duration) var(--ease-out-2) forwards;
 }
