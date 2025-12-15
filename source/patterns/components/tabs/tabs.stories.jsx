@@ -37,6 +37,7 @@ export default {
       options: [
         'neutral',
         'primary',
+        'secondary',
         'success',
         'danger',
         'warning',
@@ -268,6 +269,7 @@ export const AllVariants = {
     const variants = [
       'neutral',
       'primary',
+      'secondary',
       'success',
       'danger',
       'warning',
@@ -303,7 +305,7 @@ export const AllVariants = {
     docs: {
       description: {
         story:
-          'All 9 semantic color variants with animated indicator. Click tabs to see animation.',
+          'All 10 semantic color variants with animated indicator. Click tabs to see animation.',
       },
     },
   },
@@ -315,7 +317,7 @@ export const AllVariants = {
 export const PillStyle = {
   name: 'Pill Style',
   render: () => {
-    const variants = ['neutral', 'primary', 'success', 'warning'];
+    const variants = ['neutral', 'primary', 'secondary', 'success', 'warning'];
     const simpleTabs = [
       { id: 'tab1', label: 'Explorer', content: '<p>Découvrez les biens</p>', active: true },
       { id: 'tab2', label: 'Comparer', content: '<p>Comparez les offres</p>' },

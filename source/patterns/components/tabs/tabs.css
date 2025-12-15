@@ -2,10 +2,44 @@
 
 .ps-tabs {
   /* Component-scoped variables */
+  /* Typography */
   --ps-tabs-font-family: var(--font-body);
   --ps-tabs-font-size: var(--font-size-2);
   --ps-tabs-font-weight: var(--font-weight-500);
   --ps-tabs-selected-font-weight: var(--font-weight-600);
+
+  /* Colors */
+  --ps-tabs-tab-color: var(--text-secondary);
+  --ps-tabs-tab-color-hover: var(--text-primary);
+  --ps-tabs-tab-color-selected: var(--text-primary);
+  --ps-tabs-tab-background: transparent;
+  --ps-tabs-tab-background-hover: transparent;
+  --ps-tabs-indicator-background: var(--border-default);
+
+  /* Spacing */
+  --ps-tabs-gap: var(--size-2);
+  --ps-tabs-gap-vertical: var(--size-6);
+  --ps-tabs-tab-padding-block: var(--size-3);
+  --ps-tabs-tab-padding-inline: var(--size-4);
+  --ps-tabs-tab-min-height: var(--size-10);
+  --ps-tabs-vertical-min-width: var(--size-50);
+  --ps-tabs-panel-padding-y: var(--size-6);
+  --ps-tabs-panel-padding-x: 0;
+  --ps-tabs-icon-size: var(--size-4);
+
+  /* Borders */
+  --ps-tabs-border-size: var(--border-size-3);
+  --ps-tabs-border-style: solid;
+  --ps-tabs-border-color: var(--border-default);
+  --ps-tabs-indicator-thickness: var(--border-size-3);
+
+  /* Transitions */
+  --ps-tabs-transition-duration: var(--duration-fast);
+  --ps-tabs-transition-easing: var(--ease-in-out-2);
+  --ps-tabs-indicator-transition-duration: var(--duration-normal);
+  --ps-tabs-indicator-transition-easing: var(--ease-out-2);
+
+  /* States */
   --ps-tabs-disabled-opacity: 0.5;
 
   width: 100%;
@@ -15,10 +49,10 @@
   &__list {
     position: relative;
     display: flex;
-    gap: var(--size-2);
+    gap: var(--ps-tabs-gap);
     padding: 0;
     margin: 0;
-    border-bottom: var(--border-size-1) solid var(--border-default);
+    border-bottom: var(--ps-tabs-border-size) var(--ps-tabs-border-style) var(--ps-tabs-border-color);
     list-style: none;
   }
 
@@ -26,32 +60,33 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: var(--size-2);
-    padding: var(--size-3) var(--size-4);
-    min-height: var(--size-10);
+    gap: var(--ps-tabs-gap);
+    padding: var(--ps-tabs-tab-padding-block) var(--ps-tabs-tab-padding-inline);
+    min-height: var(--ps-tabs-tab-min-height);
     font-size: var(--ps-tabs-font-size);
     font-weight: var(--ps-tabs-font-weight);
-    color: var(--text-secondary);
-    background: transparent;
+    color: var(--ps-tabs-tab-color);
+    background: var(--ps-tabs-tab-background);
     border: none;
-    border-bottom: var(--border-size-2) solid transparent;
+    border-bottom: var(--ps-tabs-indicator-thickness) solid transparent;
     cursor: pointer;
     transition:
-      color var(--duration-fast) var(--ease-in-out-2),
-      border-color var(--duration-fast) var(--ease-in-out-2),
-      background-color var(--duration-fast) var(--ease-in-out-2);
+      color var(--ps-tabs-transition-duration) var(--ps-tabs-transition-easing),
+      border-color var(--ps-tabs-transition-duration) var(--ps-tabs-transition-easing),
+      background-color var(--ps-tabs-transition-duration) var(--ps-tabs-transition-easing);
 
     &:hover {
-      color: var(--text-primary);
+      color: var(--ps-tabs-tab-color-hover);
+      background: var(--ps-tabs-tab-background-hover);
     }
 
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--border-focus);
+      outline: var(--ps-tabs-indicator-thickness) solid var(--border-focus);
       outline-offset: var(--size-1);
     }
 
     &.is-selected {
-      color: var(--text-primary);
+      color: var(--ps-tabs-tab-color-selected);
       font-weight: var(--ps-tabs-selected-font-weight);
     }
 
@@ -64,8 +99,8 @@
   }
 
   &__icon {
-    width: var(--size-4);
-    height: var(--size-4);
+    width: var(--ps-tabs-icon-size);
+    height: var(--ps-tabs-icon-size);
     flex-shrink: 0;
   }
 
@@ -75,14 +110,14 @@
 
   &__indicator {
     position: absolute;
-    bottom: 0;
+    bottom: calc((-1 * var(--ps-tabs-border-size)) + 1px);
     left: 0;
     width: 0;
-    height: var(--border-size-2);
-    background: var(--border-default);
+    height: var(--ps-tabs-indicator-thickness);
+    background: var(--ps-tabs-indicator-background);
     transition:
-      transform var(--duration-normal) var(--ease-out-2),
-      width var(--duration-normal) var(--ease-out-2);
+      transform var(--ps-tabs-indicator-transition-duration) var(--ps-tabs-indicator-transition-easing),
+      width var(--ps-tabs-indicator-transition-duration) var(--ps-tabs-indicator-transition-easing);
     pointer-events: none;
     will-change: transform, width, height;
   }
@@ -92,10 +127,10 @@
   }
 
   &__panel {
-    padding: var(--size-6) 0;
+    padding: var(--ps-tabs-panel-padding-y) var(--ps-tabs-panel-padding-x);
 
     &.is-selected {
-      animation: ps-tabs-fade-in var(--duration-fast) var(--ease-in-out-2);
+      animation: ps-tabs-fade-in var(--ps-tabs-transition-duration) var(--ps-tabs-transition-easing);
     }
 
     &[hidden] {
@@ -106,32 +141,32 @@
   /* Vertical orientation */
   &[data-orientation='vertical'] {
     display: flex;
-    gap: var(--size-6);
+    gap: var(--ps-tabs-gap-vertical);
 
     & .ps-tabs__list {
       flex-direction: column;
       border-bottom: none;
-      border-right: var(--border-size-1) solid var(--border-default);
-      min-width: 200px;
+      border-right: var(--ps-tabs-border-size) var(--ps-tabs-border-style) var(--ps-tabs-border-color);
+      min-width: var(--ps-tabs-vertical-min-width);
     }
 
     & .ps-tabs__indicator {
       top: 0;
-      right: 0;
+      right: calc((-1 * var(--ps-tabs-border-size)) + 1px);
       bottom: auto;
       left: auto;
-      width: var(--border-size-2);
+      width: var(--ps-tabs-indicator-thickness);
       height: 0;
       transition:
-        transform var(--duration-normal) var(--ease-out-2),
-        height var(--duration-normal) var(--ease-out-2);
+        transform var(--ps-tabs-indicator-transition-duration) var(--ps-tabs-indicator-transition-easing),
+        height var(--ps-tabs-indicator-transition-duration) var(--ps-tabs-indicator-transition-easing);
     }
 
     & .ps-tabs__tab {
       width: 100%;
       justify-content: flex-start;
       border-bottom: none;
-      border-right: var(--border-size-2) solid transparent;
+      border-right: var(--ps-tabs-indicator-thickness) solid transparent;
     }
 
     & .ps-tabs__content {
@@ -168,6 +203,22 @@
 
     & .ps-tabs__indicator {
       background: var(--primary);
+    }
+  }
+
+  &--secondary {
+    & .ps-tabs__tab {
+      &:hover:not(.is-disabled) {
+        color: var(--secondary-hover);
+      }
+
+      &.is-selected {
+        color: var(--secondary);
+      }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--secondary);
     }
   }
 
@@ -300,7 +351,7 @@
       padding: var(--size-2);
       background: var(--gray-100);
       border-radius: var(--radius-3);
-      gap: var(--size-2);
+      gap: var(--ps-tabs-gap);
     }
 
     & .ps-tabs__indicator {
@@ -325,6 +376,10 @@
 
     &.ps-tabs--primary .ps-tabs__tab.is-selected {
       background: var(--primary);
+    }
+
+    &.ps-tabs--secondary .ps-tabs__tab.is-selected {
+      background: var(--secondary);
     }
 
     &.ps-tabs--success .ps-tabs__tab.is-selected {
