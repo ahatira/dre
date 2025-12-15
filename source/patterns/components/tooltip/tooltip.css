@@ -1,86 +1,115 @@
+/**
+ * Tooltip Component (JS-powered)
+ *
+ * Bootstrap-like tooltip system with dynamic DOM generation.
+ * Trigger uses data-attributes, JavaScript generates .ps-tooltip-bubble on hover/focus.
+ *
+ * BEM Structure:
+ * - Block: .ps-tooltip-trigger (user-defined element)
+ * - Block: .ps-tooltip-bubble (JS-generated container)
+ * - Elements: .ps-tooltip-bubble__arrow, .ps-tooltip-bubble__content
+ * - Modifiers: .ps-tooltip-bubble--top, --bottom, --left, --right
+ *
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, etc.)
+ * - Layer 2: Component-Scoped Variables (customizable defaults below)
+ * - Layer 3: Context Overrides (modifier selectors)
+ */
+
 @layer components {
-  .ps-tooltip {
-    display: inline-flex;
-    position: relative;
+  /* Injected icon (added by JS when data-ps-tooltip-icon is present) */
+  .ps-tooltip-icon {
+    /* ============================================
+       Layer 2: Icon Variables
+       ============================================ */
+    --ps-tooltip-icon-size: var(--size-4);
+    --ps-tooltip-icon-color: var(--gray-600);
+    --ps-tooltip-icon-hover-color: var(--primary);
+
+    display: inline-block;
+    width: var(--ps-tooltip-icon-size);
+    height: var(--ps-tooltip-icon-size);
+    margin-left: var(--size-1);
+    color: var(--ps-tooltip-icon-color);
+    vertical-align: middle;
+    transition: color var(--duration-fast) var(--ease-3);
+    cursor: help;
   }
 
-  .ps-tooltip__trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--size-1);
-    padding: var(--size-2) var(--size-3);
-    background-color: var(--white);
-    border: var(--border-1) solid var(--gray-300);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: var(--size-3);
-    transition: all var(--duration-short) var(--ease-out-quad);
-
-    &:hover {
-      border-color: var(--primary);
-      background-color: var(--primary-50);
-    }
-
-    &:focus-visible {
-      outline: var(--border-2) solid var(--primary);
-      outline-offset: var(--size-1);
-    }
+  /* Element with tooltip icon */
+  [data-ps-tooltip].has-tooltip-icon:hover .ps-tooltip-icon {
+    color: var(--ps-tooltip-icon-hover-color);
   }
 
-  .ps-tooltip__icon {
-    --ps-icon-size: var(--size-4);
-    color: currentColor;
-    opacity: 0.7;
-  }
+  /* JS-generated tooltip bubble (appended to body) */
+  .ps-tooltip-bubble {
+    /* ============================================
+       Layer 2: Bubble Variables
+       ============================================ */
 
-  .ps-tooltip__content {
+    /* Bubble */
+    --ps-tooltip-bubble-bg: var(--gray-900);
+    --ps-tooltip-bubble-color: var(--white);
+    --ps-tooltip-bubble-padding-y: var(--size-2);
+    --ps-tooltip-bubble-padding-x: var(--size-3);
+    --ps-tooltip-bubble-font-size: var(--font-size-1);
+    --ps-tooltip-bubble-max-width: 250px;
+    --ps-tooltip-bubble-offset: var(--size-2);
+    --ps-tooltip-bubble-z-index: var(--z-tooltip);
+
+    /* Positioning */
     position: absolute;
-    padding: var(--size-2) var(--size-3);
-    background-color: var(--gray-900);
-    color: var(--white);
-    border-radius: var(--radius-sm);
-    font-size: var(--size-2);
-    max-width: 200px;
-    white-space: nowrap;
+    z-index: var(--ps-tooltip-bubble-z-index);
+
+    /* Layout */
+    padding: var(--ps-tooltip-bubble-padding-y) var(--ps-tooltip-bubble-padding-x);
+    max-width: var(--ps-tooltip-bubble-max-width);
+
+    /* Colors */
+    background-color: var(--ps-tooltip-bubble-bg);
+    color: var(--ps-tooltip-bubble-color);
+
+    /* Typography */
+    font-size: var(--ps-tooltip-bubble-font-size);
+    line-height: var(--leading-normal);
+    white-space: normal;
+    word-wrap: break-word;
+
+    /* Interaction */
     pointer-events: none;
+
+    /* Initial hidden state */
     opacity: 0;
     visibility: hidden;
-    transition: all 200ms var(--ease-out-quad);
-    z-index: var(--layer-tooltip);
-  }
 
-  .ps-tooltip__trigger:hover ~ .ps-tooltip__content,
-  .ps-tooltip__content:hover {
-    opacity: 1;
-    visibility: visible;
-  }
+    /* Transition */
+    transition: opacity var(--duration-fast) var(--ease-3),
+      visibility var(--duration-fast) var(--ease-3);
 
-  .ps-tooltip__content--top {
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-var(--size-2));
-
-    .ps-tooltip__trigger:hover ~ & {
-      transform: translateX(-50%) translateY(calc(-1 * var(--size-2)));
+    /* Show state (added by JS) */
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
     }
-  }
 
-  .ps-tooltip__content--bottom {
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(var(--size-2));
-  }
+    /* ============================================
+       Position Modifiers (JS-controlled)
+       ============================================ */
 
-  .ps-tooltip__content--left {
-    right: 100%;
-    top: 50%;
-    transform: translateY(-50%) translateX(-var(--size-2));
-  }
+    &--top {
+      /* JS sets transform: translate(-50%, calc(-100% - offset)) */
+    }
 
-  .ps-tooltip__content--right {
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%) translateX(var(--size-2));
+    &--bottom {
+      /* JS sets transform: translate(-50%, offset) */
+    }
+
+    &--left {
+      /* JS sets transform: translate(calc(-100% - offset), -50%) */
+    }
+
+    &--right {
+      /* JS sets transform: translate(offset, -50%) */
+    }
   }
 }

@@ -1,3 +1,6 @@
-text: "Additional information"
+text: "Contact agent for property details and viewing schedule"
 position: "top"
-trigger_text: "Hover me"
+content: "Property Info"
+show_icon: true
+icon: "info"
+element: "span"

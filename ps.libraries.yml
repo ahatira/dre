@@ -129,3 +129,12 @@ toast:
     - core/once
     - ps_theme/vendors
 
+tooltip:
+  js:
+    dist/js/tooltip.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
