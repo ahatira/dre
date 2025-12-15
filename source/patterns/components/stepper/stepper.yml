@@ -1,5 +1,6 @@
 steps:
-  - { label: "Step 1", completed: true, active: false }
-  - { label: "Step 2", completed: false, active: true }
-  - { label: "Step 3", completed: false, active: false }
+  - { label: "Type de bien", completed: true, active: false }
+  - { label: "Localisation", completed: true, active: false }
+  - { label: "Budget", completed: false, active: true }
+  - { label: "Caractéristiques", completed: false, active: false }
 orientation: "horizontal"

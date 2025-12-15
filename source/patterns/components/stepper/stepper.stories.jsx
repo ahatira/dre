@@ -6,35 +6,73 @@ const settings = {
   tags: ['autodocs'],
   argTypes: {
     steps: {
-      description: 'Array of step objects with label, completed, active',
+      control: { type: 'object' },
+      description: 'Array of step objects with label, completed, active properties',
       table: { category: 'Content' },
     },
     orientation: {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
-      description: 'Step indicator orientation',
-      table: { category: 'Display' },
+      description: 'Orientation of step indicator',
+      table: {
+        category: 'Display',
+        defaultValue: { summary: 'horizontal' },
+      },
+    },
+    attributes: {
+      control: false,
+      description: 'Additional HTML attributes (Drupal attributes object)',
+      table: { category: 'Attributes' },
     },
   },
 };
 
 export const Default = {
-  name: 'Horizontal',
+  name: '↔ Default (Horizontal)',
   render: (args) => markup(args),
-  args: Object.assign({}, data, { orientation: 'horizontal' }),
+  args: data,
+};
+
+export const PropertySearchWizard = {
+  name: '🏢 Property Search Wizard',
+  render: (args) => markup(args),
+  args: {
+    orientation: 'horizontal',
+    steps: [
+      { label: 'Type de bien', completed: true, active: false },
+      { label: 'Localisation', completed: true, active: false },
+      { label: 'Budget', completed: true, active: false },
+      { label: 'Caractéristiques', completed: false, active: true },
+      { label: 'Confirmation', completed: false, active: false },
+    ],
+  },
 };
 
 export const Vertical = {
-  name: 'Vertical',
+  name: '↕ Vertical Orientation',
   render: (args) => markup(args),
-  args: Object.assign({}, data, {
+  args: {
     orientation: 'vertical',
     steps: [
-      { label: 'Review', completed: true, active: false },
-      { label: 'Confirm', completed: false, active: true },
-      { label: 'Submit', completed: false, active: false },
+      { label: 'Informations personnelles', completed: true, active: false },
+      { label: 'Coordonnées', completed: false, active: true },
+      { label: 'Préférences', completed: false, active: false },
     ],
-  }),
+  },
+};
+
+export const AllStates = {
+  name: '🎨 All States',
+  render: (args) => markup(args),
+  args: {
+    orientation: 'horizontal',
+    steps: [
+      { label: 'Completed', completed: true, active: false },
+      { label: 'Active', completed: false, active: true },
+      { label: 'Pending', completed: false, active: false },
+      { label: 'Pending', completed: false, active: false },
+    ],
+  },
 };
 
 export default settings;

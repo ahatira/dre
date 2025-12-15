@@ -1,13 +1,28 @@
-{# Stepper - Step progress indicator #}
-<ol class="ps-stepper ps-stepper--{{ orientation }}" aria-label="Progress">
+{#
+/**
+ * Stepper - Step progress indicator for multi-step workflows
+ *
+ * @param {array} steps - Array of step objects (label, completed, active)
+ * @param {string} orientation - 'horizontal' or 'vertical' (default: 'horizontal')
+ * @param {object} attributes - Additional HTML attributes for <ol> element
+ */
+#}
+
+{% set orientation = orientation|default('horizontal') %}
+{% set steps = steps|default([]) %}
+{% set attributes = attributes|default(create_attribute()) %}
+
+<ol {{ attributes.addClass('ps-stepper', 'ps-stepper--' ~ orientation) }} aria-label="Progress">
   {% for step in steps %}
-    <li class="ps-stepper__item {% if step.active %}ps-stepper__item--active{% endif %} {% if step.completed %}ps-stepper__item--completed{% endif %}">
+    {% set item_classes = [
+      'ps-stepper__item',
+      step.active ? 'ps-stepper__item--active',
+      step.completed ? 'ps-stepper__item--completed'
+    ]|join(' ')|trim %}
+    <li class="{{ item_classes }}">
       <div class="ps-stepper__step-marker">
         {% if step.completed %}
-          {% include '@elements/icon/icon.twig' with {
-            name: 'check',
-            attributes: create_attribute().addClass('ps-stepper__icon')
-          } only %}
+          <span class="ps-stepper__icon" data-icon="check" aria-hidden="true"></span>
         {% else %}
           <span class="ps-stepper__number">{{ loop.index }}</span>
         {% endif %}
