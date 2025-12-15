@@ -35,6 +35,11 @@ class PsTabsWrapper {
       activeIndex = 0;
     }
     this.activeIndex = activeIndex;
+
+    // Store bound handlers for cleanup
+    this.handleKeydown = this.onKeydown.bind(this);
+    this.handleTabClick = [];
+    this.handleTabFocus = [];
   }
 
   init() {
@@ -59,21 +64,30 @@ class PsTabsWrapper {
       tab.setAttribute('tabindex', index === this.activeIndex ? '0' : '-1');
     });
 
-    // Bind events
-    this.tablist.addEventListener('keydown', (e) => this.onKeydown(e));
+    // Bind events with stored handlers for cleanup
+    this.tablist.addEventListener('keydown', this.handleKeydown);
+
     this.tabs.forEach((tab, index) => {
-      tab.addEventListener('click', (e) => {
+      const clickHandler = (e) => {
         e.preventDefault();
         if (this.isDisabled(index)) {
           return;
         }
         this.activate(index, true);
-      });
-      tab.addEventListener('focus', () => {
+      };
+
+      const focusHandler = () => {
         if (this.activation === 'auto' && !this.isDisabled(index)) {
           this.activate(index, false);
         }
-      });
+      };
+
+      tab.addEventListener('click', clickHandler);
+      tab.addEventListener('focus', focusHandler);
+
+      // Store handlers for cleanup
+      this.handleTabClick[index] = clickHandler;
+      this.handleTabFocus[index] = focusHandler;
     });
 
     // Initial render to sync classes/hidden
@@ -197,7 +211,23 @@ class PsTabsWrapper {
   }
 
   destroy() {
-    // No teardown required currently; events are on elements' lifetime.
+    // Remove event listeners to prevent memory leaks
+    if (this.tablist && this.handleKeydown) {
+      this.tablist.removeEventListener('keydown', this.handleKeydown);
+    }
+
+    this.tabs.forEach((tab, index) => {
+      if (this.handleTabClick[index]) {
+        tab.removeEventListener('click', this.handleTabClick[index]);
+      }
+      if (this.handleTabFocus[index]) {
+        tab.removeEventListener('focus', this.handleTabFocus[index]);
+      }
+    });
+
+    // Clear stored handlers
+    this.handleTabClick = [];
+    this.handleTabFocus = [];
   }
 }
 
