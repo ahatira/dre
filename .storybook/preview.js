@@ -63,8 +63,11 @@ export const decorators = [
     defaultTheme: 'PS',
     attributeName: 'data-theme',
   }),
-  (storyFn) => {
-    useEffect(() => Drupal.attachBehaviors(), []); // eslint-disable-line
+  (storyFn, context) => {
+    useEffect(() => {
+      // Re-attach Drupal behaviors after each render (including args changes)
+      Drupal.attachBehaviors(document, context);
+    });
     return storyFn();
   },
 ];

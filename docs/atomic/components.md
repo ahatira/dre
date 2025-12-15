@@ -72,9 +72,11 @@ Implémenté : ✅
 Usage : Toggle FR/EN dans header  
 Implémenté : ✅
 
-**Tab** - Bouton onglet dans navigation tabs  
+**Tabs** - Container d'onglets avec variantes sémantiques  
 Usage : Onglets détail bien (description, photos, énergie)  
-Implémenté : ✅ (via Tabs component)
+Variants : neutral, primary, success, danger, warning, info, gold, light, dark  
+États : default, pill, with-icon  
+Implémenté : ✅
 
 ---
 

@@ -7,6 +7,8 @@
  * @param {string} [variant='neutral'] - Semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
  * @param {boolean} [pill=false] - Enables pill presentation style
  * @param {string} [icon] - Default icon name applied to tabs missing an icon (check, info, etc.)
+ * @param {boolean} [vertical=false] - Vertical orientation (default: horizontal)
+ * @param {boolean} [auto=false] - Auto activation mode (default: manual, requires Enter/Space)
  * @param {array} tabs - Collection of tab objects (required)
  *   - {string} [id] - Unique identifier (auto-generated if missing)
  *   - {string} label - Tab label text (required)
@@ -22,6 +24,8 @@
 {%- set pill = pill|default(false) -%}
 {%- set icon = icon|default(null) -%}
 {%- set label = label|default('Tabs navigation') -%}
+{%- set vertical = vertical|default(false) -%}
+{%- set auto = auto|default(false) -%}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 
 {# Determine if any tab uses an icon #}
@@ -60,7 +64,7 @@
   {%- set root_classes = root_classes|merge(['ps-tabs--with-icon']) -%}
 {%- endif -%}
 
-<div{{ attributes.addClass(root_classes)|without('class') }} data-tabs data-variant="{{ variant }}"{% if pill %} data-pill="true"{% endif %}>
+<div{{ attributes.addClass(root_classes)|without('class') }} data-tabs data-variant="{{ variant }}"{% if pill %} data-pill="true"{% endif %}{% if vertical %} data-orientation="vertical"{% endif %}{% if not auto %} data-activation="manual"{% endif %}>
   <div class="ps-tabs__list" role="tablist" aria-label="{{ label }}">
     {%- for tab in tabs -%}
       {%- set tab_id = tab.id is defined and tab.id ? tab.id : 'tab-' ~ loop.index -%}
@@ -85,6 +89,7 @@
         <span class="ps-tabs__label">{{ tab.label }}</span>
       </button>
     {%- endfor -%}
+    <span class="ps-tabs__indicator" aria-hidden="true"></span>
   </div>
 
   <div class="ps-tabs__content">

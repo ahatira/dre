@@ -2,34 +2,37 @@
  * Tabs (Molecule)
  *
  * Navigation component to organize related content within tab panels.
- * Supports semantic variants, pill modifier, and optional icons.
+ * Supports semantic variants, pill modifier, icons, and vertical/horizontal orientations.
  */
 
 import tabsTemplate from './tabs.twig';
 import data from './tabs.yml';
 import './tabs.js';
 
-const Meta = {
+export default {
   title: 'Components/Tabs',
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component:
+          'Tab navigation for property details, dashboards, and content organization. Includes animated indicator, keyboard navigation (Arrow keys, Home, End), and auto/manual activation modes.',
+      },
+    },
+  },
   render: (args) => tabsTemplate(args),
   argTypes: {
     label: {
-      name: 'Label',
-      description: 'Accessible label applied to the tablist.',
       control: 'text',
+      description: 'Accessible label for tablist (aria-label).',
       table: {
         category: 'Accessibility',
         type: { summary: 'string' },
-        defaultValue: { summary: 'Property tabs' },
+        defaultValue: { summary: 'Tabs navigation' },
       },
     },
     variant: {
-      name: 'Variant',
-      description: 'Semantic color variant.',
       control: 'select',
       options: [
         'neutral',
@@ -42,26 +45,194 @@ const Meta = {
         'light',
         'dark',
       ],
+      description: 'Semantic color variant.',
       table: {
-        category: 'Styling',
+        category: 'Appearance',
         type: { summary: 'string' },
         defaultValue: { summary: 'neutral' },
       },
     },
     pill: {
-      name: 'Pill',
-      description: 'Toggle the pill presentation.',
       control: 'boolean',
+      description: 'Toggle pill presentation style.',
       table: {
-        category: 'Styling',
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    vertical: {
+      control: 'boolean',
+      description:
+        'Vertical orientation (default: horizontal). Keyboard nav uses Up/Down instead of Left/Right.',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    auto: {
+      control: 'boolean',
+      description:
+        'Auto activation mode (default: manual). When true, focus activates tab. When false, requires Enter/Space.',
+      table: {
+        category: 'Behavior',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     icon: {
-      name: 'Default Icon',
-      description: 'Fallback icon applied to tabs missing explicit icon.',
-      control: 'text',
+      control: 'select',
+      options: [
+        null,
+        'accessibility',
+        'account',
+        'air-conditioning',
+        'alert',
+        'alert-add',
+        'alert-circle',
+        'alert-triangle',
+        'area',
+        'area-select',
+        'around-me',
+        'arrow-corner',
+        'arrow-down',
+        'arrow-left',
+        'arrow-right',
+        'arrow-up',
+        'award',
+        'bike',
+        'bin',
+        'boat',
+        'burger-menu',
+        'bus',
+        'buy-rent',
+        'calendar',
+        'camera',
+        'car',
+        'cards',
+        'changing-room',
+        'chart',
+        'check',
+        'check-circle',
+        'checkbox-checked',
+        'checkbox-indeterminate',
+        'checkbox-unchecked',
+        'chevron-down',
+        'chevron-left',
+        'chevron-right',
+        'chevron-up',
+        'close',
+        'cloud',
+        'commercial-space',
+        'comparateur-empty',
+        'compare',
+        'coworking',
+        'cube-focus',
+        'details',
+        'district',
+        'download',
+        'drag',
+        'edit',
+        'elevator',
+        'email',
+        'email-outline',
+        'energy',
+        'equipment',
+        'euro',
+        'events',
+        'exclamation-circle',
+        'exit',
+        'external-link',
+        'eye',
+        'eye-closed',
+        'facebook',
+        'filter',
+        'finance',
+        'floors',
+        'fullscreen',
+        'guide',
+        'gym',
+        'heart',
+        'heart-outline',
+        'help',
+        'hidden',
+        'host',
+        'hotel',
+        'info',
+        'kitchen',
+        'land',
+        'linkedin',
+        'list',
+        'logout',
+        'lounge',
+        'mandate',
+        'map',
+        'marker',
+        'market',
+        'meeting-room',
+        'menu',
+        'metro',
+        'minus',
+        'minus-small',
+        'nearby',
+        'next',
+        'notifications',
+        'office',
+        'office-partitions',
+        'open-space',
+        'parking',
+        'pause',
+        'people',
+        'phone',
+        'picture',
+        'pin',
+        'plane',
+        'play',
+        'plus',
+        'plus-small',
+        'previous',
+        'price',
+        'pwd-hide',
+        'pwd-show',
+        'radio',
+        'radio-off',
+        'radio-on',
+        'recent-posts',
+        'reception',
+        'rer',
+        'restaurant',
+        'sanitary',
+        'search',
+        'send',
+        'settings',
+        'share',
+        'shared-areas',
+        'shop',
+        'show',
+        'square',
+        'star',
+        'start-outline',
+        'structure',
+        'testimonial',
+        'tooltip',
+        'touch',
+        'train',
+        'tram',
+        'transport',
+        'trash',
+        'trends',
+        'twitter',
+        'unavailable',
+        'unfold',
+        'video',
+        'virtual-tour',
+        'waiting-room',
+        'walking',
+        'warehouse',
+        'youtube',
+      ],
+      description: 'Default icon for all tabs (overridden by tab-specific icon).',
       table: {
         category: 'Content',
         type: { summary: 'string|null' },
@@ -69,9 +240,8 @@ const Meta = {
       },
     },
     tabs: {
-      name: 'Tabs',
-      description: 'Array of tab objects with id, label, content, active, disabled, and icon.',
       control: 'object',
+      description: 'Array of tab objects (id, label, content, active, disabled, icon).',
       table: {
         category: 'Content',
         type: { summary: 'array' },
@@ -81,166 +251,223 @@ const Meta = {
   },
 };
 
-export default Meta;
-
+// -----------------------------------------------------------------------------
+// Default: Property details with icons
+// -----------------------------------------------------------------------------
 export const Default = {
-  name: 'Default (Primary)',
+  name: 'Default',
   args: data,
 };
 
-export const Neutral = {
-  args: {
-    ...data,
-    variant: 'neutral',
-    tabs: data.tabs.map((tab, index) => ({
-      ...tab,
-      active: index === 0,
-    })),
+// -----------------------------------------------------------------------------
+// All semantic variants in one story
+// -----------------------------------------------------------------------------
+export const AllVariants = {
+  name: 'All Variants',
+  render: () => {
+    const variants = [
+      'neutral',
+      'primary',
+      'success',
+      'danger',
+      'warning',
+      'info',
+      'gold',
+      'light',
+      'dark',
+    ];
+    const simpleTabs = [
+      { id: 'tab1', label: 'Détails', content: '<p>Informations générales</p>', active: true },
+      { id: 'tab2', label: 'Photos', content: '<p>Galerie images</p>' },
+      { id: 'tab3', label: 'Plans', content: '<p>Plans étage</p>' },
+    ];
+
+    return `<div class="just-for-gap">
+      ${variants
+        .map(
+          (variant) => `
+        <div>
+          <div class="heading">${variant.charAt(0).toUpperCase() + variant.slice(1)}</div>
+          ${tabsTemplate({
+            label: `${variant} tabs`,
+            variant,
+            tabs: simpleTabs,
+          })}
+        </div>
+      `
+        )
+        .join('')}
+    </div>`;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'All 9 semantic color variants with animated indicator. Click tabs to see animation.',
+      },
+    },
   },
 };
 
-export const SuccessWithIcons = {
+// -----------------------------------------------------------------------------
+// Pill style
+// -----------------------------------------------------------------------------
+export const PillStyle = {
+  name: 'Pill Style',
+  render: () => {
+    const variants = ['neutral', 'primary', 'success', 'warning'];
+    const simpleTabs = [
+      { id: 'tab1', label: 'Explorer', content: '<p>Découvrez les biens</p>', active: true },
+      { id: 'tab2', label: 'Comparer', content: '<p>Comparez les offres</p>' },
+      { id: 'tab3', label: 'Décider', content: '<p>Prenez votre décision</p>' },
+    ];
+
+    return `<div class="just-for-gap">
+      ${variants
+        .map(
+          (variant) => `
+        <div>
+          <div class="heading">${variant.charAt(0).toUpperCase() + variant.slice(1)} Pill</div>
+          ${tabsTemplate({
+            label: `${variant} pill tabs`,
+            variant,
+            pill: true,
+            tabs: simpleTabs,
+          })}
+        </div>
+      `
+        )
+        .join('')}
+    </div>`;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pill presentation with filled background. No animated indicator in pill mode.',
+      },
+    },
+  },
+};
+
+// -----------------------------------------------------------------------------
+// Tabs with icons
+// -----------------------------------------------------------------------------
+export const WithIcons = {
+  name: 'With Icons',
   args: {
-    label: 'Validation steps',
+    label: 'Validation process',
     variant: 'success',
     icon: 'check',
     tabs: [
       {
-        id: 'tab-validation-docs',
+        id: 'tab-docs',
         label: 'Documents',
-        content: '<p>All legal documentation validated.</p>',
+        icon: 'document',
+        content: '<p>Documentation légale validée</p>',
         active: true,
       },
       {
-        id: 'tab-validation-finance',
-        label: 'Finance',
-        content: '<p>Financing plan approved.</p>',
+        id: 'tab-finance',
+        label: 'Financement',
+        icon: 'euro',
+        content: '<p>Plan de financement approuvé</p>',
       },
       {
-        id: 'tab-validation-compliance',
-        label: 'Compliance',
-        content: '<p>Compliance review completed.</p>',
+        id: 'tab-signature',
+        label: 'Signature',
+        icon: 'signature',
+        content: '<p>Contrat prêt à être signé</p>',
       },
     ],
   },
-};
-
-export const PillTabs = {
-  args: {
-    label: 'Acquisition journey',
-    variant: 'primary',
-    pill: true,
-    tabs: [
-      {
-        id: 'tab-pillar-1',
-        label: 'Explore',
-        content: '<p>Discover curated property selections.</p>',
-        active: true,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tabs with specific icons per tab. Global icon prop applies to tabs without explicit icon.',
       },
-      {
-        id: 'tab-pillar-2',
-        label: 'Compare',
-        content: '<p>Review performance indicators and services.</p>',
-      },
-      {
-        id: 'tab-pillar-3',
-        label: 'Decide',
-        content: '<p>Plan visits and finalize negotiations.</p>',
-      },
-    ],
-  },
-};
-
-export const WarningState = {
-  args: {
-    label: 'Due diligence',
-    variant: 'warning',
-    tabs: [
-      {
-        id: 'tab-risk',
-        label: 'Risks',
-        icon: 'info',
-        content: '<p>Identify critical risks requiring mitigation.</p>',
-        active: true,
-      },
-      {
-        id: 'tab-dependencies',
-        label: 'Dependencies',
-        content: '<p>Outline project dependencies and blockers.</p>',
-      },
-      {
-        id: 'tab-contingency',
-        label: 'Contingency',
-        content: '<p>Mitigation actions prepared for each scenario.</p>',
-      },
-    ],
-  },
-};
-
-export const DarkVariant = {
-  args: {
-    label: 'Night mode tabs',
-    variant: 'dark',
-    tabs: [
-      {
-        id: 'tab-highlights',
-        label: 'Highlights',
-        content: '<p>Key differentiators for premium offices.</p>',
-        active: true,
-      },
-      {
-        id: 'tab-services',
-        label: 'Services',
-        content: '<p>Concierge, catering, and mobility services.</p>',
-      },
-    ],
-  },
-};
-
-export const ManualActivation = {
-  name: 'Manual Activation',
-  args: {
-    ...data,
-    label: 'Manual activation example',
-    variant: 'primary',
-    pill: false,
-    // Manual activation: requires Enter/Space or click to activate after focus roving
-    attributes: {
-      'data-activation': 'manual',
     },
-    tabs: data.tabs.map((tab, index) => ({
-      ...tab,
-      active: index === 0,
-    })),
   },
 };
 
+// -----------------------------------------------------------------------------
+// Vertical orientation
+// -----------------------------------------------------------------------------
 export const VerticalOrientation = {
   name: 'Vertical Orientation',
   args: {
-    label: 'Vertical tabs',
+    label: 'Property sections',
     variant: 'neutral',
-    pill: false,
-    attributes: {
-      'data-orientation': 'vertical',
-    },
+    vertical: true,
     tabs: [
       {
-        id: 'tab-vertical-1',
-        label: 'Overview',
-        content: '<p>Summary and KPIs.</p>',
+        id: 'tab-v1',
+        label: 'Vue ensemble',
+        content: '<h3>Synthèse</h3><p>1 250 m² de bureaux flexibles près de La Défense</p>',
         active: true,
       },
       {
-        id: 'tab-vertical-2',
-        label: 'Details',
-        content: '<p>Specifications and terms.</p>',
+        id: 'tab-v2',
+        label: 'Caractéristiques',
+        content:
+          '<h3>Détails</h3><p>Surface: 1 250 m² • Livraison: Q2 2026 • Prix: 540 €/m²/an</p>',
       },
       {
-        id: 'tab-vertical-3',
-        label: 'Contacts',
-        content: '<p>Team and stakeholders.</p>',
+        id: 'tab-v3',
+        label: 'Équipements',
+        content: '<h3>Services</h3><p>Accueil, salles de réunion, terrasse, parking</p>',
+      },
+      {
+        id: 'tab-v4',
+        label: 'Contact',
+        content: '<h3>Équipe</h3><p>Contactez nos conseillers experts</p>',
       },
     ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vertical tab layout with animated indicator on right border. Keyboard navigation uses Up/Down arrows instead of Left/Right.',
+      },
+    },
+  },
+};
+
+// -----------------------------------------------------------------------------
+// Auto activation mode
+// -----------------------------------------------------------------------------
+export const AutoActivation = {
+  name: 'Auto Activation',
+  args: {
+    label: 'Auto activation demo',
+    variant: 'primary',
+    auto: true,
+    tabs: [
+      {
+        id: 'tab-m1',
+        label: 'Étape 1',
+        content: '<p>Utilisez les flèches pour naviguer, le focus active automatiquement</p>',
+        active: true,
+      },
+      {
+        id: 'tab-m2',
+        label: 'Étape 2',
+        content: '<p>Le panel change automatiquement au focus</p>',
+      },
+      {
+        id: 'tab-m3',
+        label: 'Étape 3',
+        content: '<p>Activation automatique au focus</p>',
+      },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Auto activation mode: Focus automatically activates tabs. Default is manual mode (requires Enter/Space). Useful for quick content preview.',
+      },
+    },
   },
 };

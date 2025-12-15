@@ -9,7 +9,7 @@
  * - Full keyboard support with disabled tab handling
  */
 
-((Drupal, once) => {
+((Drupal, _once) => {
   /**
    * Tabs wrapper class
    */
@@ -18,6 +18,7 @@
     this.tablist = element.querySelector('[role="tablist"]');
     this.tabs = Array.from(element.querySelectorAll('[role="tab"]'));
     this.panels = Array.from(element.querySelectorAll('[role="tabpanel"]'));
+    this.indicator = element.querySelector('.ps-tabs__indicator');
 
     // Configuration
     this.activation = element.dataset.activation === 'manual' ? 'manual' : 'auto';
@@ -28,6 +29,13 @@
     if (this.currentIndex === -1) {
       this.currentIndex = this.findFirstEnabled();
     }
+
+    // Store bound handlers for cleanup
+    this.boundHandlers = {
+      keydown: null,
+      clicks: [],
+      focuses: [],
+    };
   }
 
   PsTabsWrapper.prototype.init = function () {
@@ -48,32 +56,75 @@
     });
 
     // Bind keyboard navigation
-    this.tablist.addEventListener('keydown', (e) => {
+    this.boundHandlers.keydown = (e) => {
       this.handleKeydown(e);
-    });
+    };
+    this.tablist.addEventListener('keydown', this.boundHandlers.keydown);
 
     // Bind click events
     this.tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
+      var clickHandler = () => {
         if (!this.isDisabled(tab)) {
           this.selectTab(index);
         }
-      });
+      };
+      tab.addEventListener('click', clickHandler);
+      this.boundHandlers.clicks.push({ tab: tab, handler: clickHandler });
     });
 
     // Bind focus events for auto-activation
     if (this.activation === 'auto') {
       this.tabs.forEach((tab, index) => {
-        tab.addEventListener('focus', () => {
+        var focusHandler = () => {
           if (!this.isDisabled(tab)) {
             this.selectTab(index);
           }
-        });
+        };
+        tab.addEventListener('focus', focusHandler);
+        this.boundHandlers.focuses.push({ tab: tab, handler: focusHandler });
       });
     }
 
     // Show initial panel
     this.selectTab(this.currentIndex);
+
+    // Position indicator with a slight delay to ensure DOM is ready
+    setTimeout(() => {
+      this.updateIndicator(this.currentIndex);
+    }, 50);
+  };
+
+  /**
+   * Update animated indicator position
+   * @param {number} index - Target tab index
+   */
+  PsTabsWrapper.prototype.updateIndicator = function (index) {
+    if (!this.indicator) {
+      return;
+    }
+
+    var activeTab = this.tabs[index];
+    if (!activeTab) {
+      return;
+    }
+
+    var tablistRect = this.tablist.getBoundingClientRect();
+    var tabRect = activeTab.getBoundingClientRect();
+    var top, height, left, width;
+
+    if (this.orientation === 'vertical') {
+      // Vertical mode: animate height and translateY
+      top = tabRect.top - tablistRect.top;
+      height = tabRect.height;
+      this.indicator.style.height = `${height}px`;
+      this.indicator.style.transform = `translateY(${top}px)`;
+    } else {
+      // Horizontal mode: animate width and translateX
+      left = tabRect.left - tablistRect.left;
+      width = tabRect.width;
+      this.indicator.style.width = `${width}px`;
+      this.indicator.style.transform = `translateX(${left}px)`;
+    }
   };
 
   PsTabsWrapper.prototype.isDisabled = (tab) =>
@@ -127,6 +178,9 @@
     });
 
     this.currentIndex = index;
+
+    // Update indicator position
+    this.updateIndicator(index);
   };
 
   PsTabsWrapper.prototype.focusTab = function (index) {
@@ -135,28 +189,49 @@
     }
   };
 
-  PsTabsWrapper.prototype.getTargetIndexForKey = function (key) {
+  /**
+   * Get navigation direction from key press.
+   * @param {string} key - Key pressed.
+   * @returns {number} - Direction (1: forward, -1: backward, 0: no move).
+   */
+  PsTabsWrapper.prototype.getDirection = function (key) {
     var isHorizontal = this.orientation === 'horizontal';
     var isVertical = this.orientation === 'vertical';
 
-    if ((key === 'ArrowLeft' || key === 'Left') && isHorizontal) {
-      return this.findNextEnabled(this.currentIndex, -1);
+    if (
+      (key === 'ArrowRight' && isHorizontal) ||
+      (key === 'Right' && isHorizontal) ||
+      (key === 'ArrowDown' && isVertical) ||
+      (key === 'Down' && isVertical)
+    ) {
+      return 1;
     }
-    if ((key === 'ArrowRight' || key === 'Right') && isHorizontal) {
-      return this.findNextEnabled(this.currentIndex, 1);
+    if (
+      (key === 'ArrowLeft' && isHorizontal) ||
+      (key === 'Left' && isHorizontal) ||
+      (key === 'ArrowUp' && isVertical) ||
+      (key === 'Up' && isVertical)
+    ) {
+      return -1;
     }
-    if ((key === 'ArrowUp' || key === 'Up') && isVertical) {
-      return this.findNextEnabled(this.currentIndex, -1);
-    }
-    if ((key === 'ArrowDown' || key === 'Down') && isVertical) {
-      return this.findNextEnabled(this.currentIndex, 1);
-    }
+    return 0;
+  };
+
+  PsTabsWrapper.prototype.getTargetIndexForKey = function (key) {
+    // Home/End keys
     if (key === 'Home') {
       return this.findNextEnabled(-1, 1);
     }
     if (key === 'End') {
       return this.findNextEnabled(this.tabs.length, -1);
     }
+
+    // Arrow navigation
+    var direction = this.getDirection(key);
+    if (direction !== 0) {
+      return this.findNextEnabled(this.currentIndex, direction);
+    }
+
     return null;
   };
 
@@ -194,8 +269,26 @@
     }
   };
 
-  PsTabsWrapper.prototype.destroy = () => {
-    // Cleanup would go here if needed
+  PsTabsWrapper.prototype.destroy = function () {
+    // Remove keydown listener from tablist
+    if (this.boundHandlers.keydown) {
+      this.tablist.removeEventListener('keydown', this.boundHandlers.keydown);
+    }
+
+    // Remove click listeners
+    this.boundHandlers.clicks.forEach((item) => {
+      item.tab.removeEventListener('click', item.handler);
+    });
+
+    // Remove focus listeners
+    this.boundHandlers.focuses.forEach((item) => {
+      item.tab.removeEventListener('focus', item.handler);
+    });
+
+    // Clear stored handlers
+    this.boundHandlers.keydown = null;
+    this.boundHandlers.clicks = [];
+    this.boundHandlers.focuses = [];
   };
 
   /**
@@ -203,24 +296,36 @@
    */
   Drupal.behaviors.psTabs = {
     attach: (context, _settings) => {
-      once('ps-tabs', '[data-tabs]', context).forEach((element) => {
+      var tabsElements = context.querySelectorAll('[data-tabs]');
+
+      tabsElements.forEach((element) => {
+        // Clean up existing instance if any
+        if (element.psTabsWrapper) {
+          element.psTabsWrapper.destroy();
+          delete element.psTabsWrapper;
+        }
+
+        // Remove once marker to allow re-initialization (Storybook support)
+        element.removeAttribute('data-once-ps-tabs');
+
+        // Initialize new instance
         var wrapper = new PsTabsWrapper(element);
         wrapper.init();
         element.psTabsWrapper = wrapper;
+
+        // Mark as initialized by once
+        element.setAttribute('data-once-ps-tabs', '');
       });
     },
 
-    detach: (context, _settings, trigger) => {
-      var tabsElements;
-      if (trigger === 'unload') {
-        tabsElements = context.querySelectorAll('[data-tabs]');
-        tabsElements.forEach((element) => {
-          if (element.psTabsWrapper) {
-            element.psTabsWrapper.destroy();
-            delete element.psTabsWrapper;
-          }
-        });
-      }
+    detach: (context, _settings, _trigger) => {
+      var tabsElements = context.querySelectorAll('[data-tabs]');
+      tabsElements.forEach((element) => {
+        if (element.psTabsWrapper) {
+          element.psTabsWrapper.destroy();
+          delete element.psTabsWrapper;
+        }
+      });
     },
   };
-})(Drupal, once);
+})(Drupal, once); // eslint-disable-line no-undef

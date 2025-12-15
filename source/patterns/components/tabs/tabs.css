@@ -13,6 +13,7 @@
   font-family: var(--ps-tabs-font-family);
 
   &__list {
+    position: relative;
     display: flex;
     gap: var(--size-2);
     padding: 0;
@@ -36,9 +37,9 @@
     border-bottom: var(--border-size-2) solid transparent;
     cursor: pointer;
     transition:
-      color var(--duration-200) var(--ease-in-out),
-      border-color var(--duration-200) var(--ease-in-out),
-      background-color var(--duration-200) var(--ease-in-out);
+      color var(--duration-fast) var(--ease-in-out-2),
+      border-color var(--duration-fast) var(--ease-in-out-2),
+      background-color var(--duration-fast) var(--ease-in-out-2);
 
     &:hover {
       color: var(--text-primary);
@@ -51,7 +52,6 @@
 
     &.is-selected {
       color: var(--text-primary);
-      border-bottom-color: var(--border-default);
       font-weight: var(--ps-tabs-selected-font-weight);
     }
 
@@ -73,6 +73,20 @@
     white-space: nowrap;
   }
 
+  &__indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: var(--border-size-2);
+    background: var(--border-default);
+    transition:
+      transform var(--duration-normal) var(--ease-out-2),
+      width var(--duration-normal) var(--ease-out-2);
+    pointer-events: none;
+    will-change: transform, width, height;
+  }
+
   &__content {
     width: 100%;
   }
@@ -81,11 +95,47 @@
     padding: var(--size-6) 0;
 
     &.is-selected {
-      animation: ps-tabs-fade-in var(--duration-200) var(--ease-in-out);
+      animation: ps-tabs-fade-in var(--duration-fast) var(--ease-in-out-2);
     }
 
     &[hidden] {
       display: none;
+    }
+  }
+
+  /* Vertical orientation */
+  &[data-orientation='vertical'] {
+    display: flex;
+    gap: var(--size-6);
+
+    & .ps-tabs__list {
+      flex-direction: column;
+      border-bottom: none;
+      border-right: var(--border-size-1) solid var(--border-default);
+      min-width: 200px;
+    }
+
+    & .ps-tabs__indicator {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: auto;
+      width: var(--border-size-2);
+      height: 0;
+      transition:
+        transform var(--duration-normal) var(--ease-out-2),
+        height var(--duration-normal) var(--ease-out-2);
+    }
+
+    & .ps-tabs__tab {
+      width: 100%;
+      justify-content: flex-start;
+      border-bottom: none;
+      border-right: var(--border-size-2) solid transparent;
+    }
+
+    & .ps-tabs__content {
+      flex: 1;
     }
   }
 
@@ -97,8 +147,11 @@
 
       &.is-selected {
         color: var(--gray-700);
-        border-bottom-color: var(--gray-600);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--gray-600);
     }
   }
 
@@ -110,8 +163,11 @@
 
       &.is-selected {
         color: var(--primary);
-        border-bottom-color: var(--primary);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--primary);
     }
   }
 
@@ -123,8 +179,11 @@
 
       &.is-selected {
         color: var(--success);
-        border-bottom-color: var(--success);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--success);
     }
   }
 
@@ -136,8 +195,11 @@
 
       &.is-selected {
         color: var(--danger);
-        border-bottom-color: var(--danger);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--danger);
     }
   }
 
@@ -149,8 +211,11 @@
 
       &.is-selected {
         color: var(--warning);
-        border-bottom-color: var(--warning);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--warning);
     }
   }
 
@@ -162,8 +227,11 @@
 
       &.is-selected {
         color: var(--info);
-        border-bottom-color: var(--info);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--info);
     }
   }
 
@@ -175,8 +243,11 @@
 
       &.is-selected {
         color: var(--gold);
-        border-bottom-color: var(--gold);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--gold);
     }
   }
 
@@ -189,9 +260,12 @@
 
       &.is-selected {
         color: var(--gray-700);
-        border-bottom-color: var(--gray-500);
         background: var(--gray-100);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--gray-500);
     }
   }
 
@@ -211,9 +285,12 @@
 
       &.is-selected {
         color: var(--white);
-        border-bottom-color: var(--dark);
         background: var(--dark);
       }
+    }
+
+    & .ps-tabs__indicator {
+      background: var(--dark);
     }
   }
 
@@ -224,6 +301,10 @@
       background: var(--gray-100);
       border-radius: var(--radius-3);
       gap: var(--size-2);
+    }
+
+    & .ps-tabs__indicator {
+      display: none;
     }
 
     & .ps-tabs__tab {

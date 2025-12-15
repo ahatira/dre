@@ -6,6 +6,8 @@
 #   Options: neutral, primary, success, danger, warning, info, gold, light, dark
 # - pill: boolean (default: false) - Enable pill presentation style
 # - icon: string (default: null) - Default icon applied to tabs missing specific icon
+# - vertical: boolean (default: false) - Vertical orientation (default: horizontal)
+# - auto: boolean (default: false) - Auto activation mode (default: manual, requires Enter/Space)
 # - tabs: array (required) - Collection of tab objects
 #   Each tab:
 #   * id: string - Unique identifier (auto-generated as tab-{index} if missing)
@@ -21,6 +23,8 @@ label: 'Tabs navigation'
 variant: 'primary'
 pill: false
 icon: null
+vertical: false
+auto: false
 tabs:
   - id: 'tab-description'
     label: 'Description'
