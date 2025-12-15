@@ -9,8 +9,11 @@
  * - Full keyboard support with disabled tab handling
  */
 
-class PsTabsWrapper {
-  constructor(element) {
+((Drupal, once) => {
+  /**
+   * Tabs wrapper class
+   */
+  function PsTabsWrapper(element) {
     this.element = element;
     this.tablist = element.querySelector('[role="tablist"]');
     this.tabs = Array.from(element.querySelectorAll('[role="tab"]'));
@@ -27,7 +30,7 @@ class PsTabsWrapper {
     }
   }
 
-  init() {
+  PsTabsWrapper.prototype.init = function () {
     if (!this.tablist || this.tabs.length === 0 || this.panels.length === 0) {
       return;
     }
@@ -36,8 +39,6 @@ class PsTabsWrapper {
     if (this.orientation === 'vertical') {
       this.tablist.setAttribute('aria-orientation', 'vertical');
     }
-
-    // Initialize tabindex and aria-selected
     this.tabs.forEach((tab, index) => {
       if (this.isDisabled(tab)) {
         tab.setAttribute('tabindex', '-1');
@@ -47,7 +48,9 @@ class PsTabsWrapper {
     });
 
     // Bind keyboard navigation
-    this.tablist.addEventListener('keydown', (e) => this.handleKeydown(e));
+    this.tablist.addEventListener('keydown', (e) => {
+      this.handleKeydown(e);
+    });
 
     // Bind click events
     this.tabs.forEach((tab, index) => {
@@ -71,23 +74,23 @@ class PsTabsWrapper {
 
     // Show initial panel
     this.selectTab(this.currentIndex);
-  }
+  };
 
-  isDisabled(tab) {
-    return tab.hasAttribute('disabled') || tab.classList.contains('is-disabled');
-  }
+  PsTabsWrapper.prototype.isDisabled = (tab) =>
+    tab.hasAttribute('disabled') || tab.classList.contains('is-disabled');
 
-  findFirstEnabled() {
-    const index = this.tabs.findIndex((tab) => !this.isDisabled(tab));
+  PsTabsWrapper.prototype.findFirstEnabled = function () {
+    var index = this.tabs.findIndex((tab) => !this.isDisabled(tab));
     return index !== -1 ? index : 0;
-  }
+  };
 
-  findNextEnabled(startIndex, direction) {
-    const length = this.tabs.length;
-    let index = startIndex;
+  PsTabsWrapper.prototype.findNextEnabled = function (startIndex, direction) {
+    var length = this.tabs.length;
+    var index = startIndex;
+    var i;
 
     // Search in direction
-    for (let i = 0; i < length; i++) {
+    for (i = 0; i < length; i++) {
       index = (index + direction + length) % length;
       if (!this.isDisabled(this.tabs[index])) {
         return index;
@@ -96,16 +99,16 @@ class PsTabsWrapper {
 
     // If no enabled tab found, return current
     return this.currentIndex;
-  }
+  };
 
-  selectTab(index) {
+  PsTabsWrapper.prototype.selectTab = function (index) {
     if (index < 0 || index >= this.tabs.length || this.isDisabled(this.tabs[index])) {
       return;
     }
 
     // Update all tabs
     this.tabs.forEach((tab, i) => {
-      const isSelected = i === index;
+      var isSelected = i === index;
       tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
       tab.setAttribute('tabindex', isSelected ? '0' : '-1');
       tab.classList.toggle('is-selected', isSelected);
@@ -113,7 +116,7 @@ class PsTabsWrapper {
 
     // Update all panels
     this.panels.forEach((panel, i) => {
-      const isSelected = i === index;
+      var isSelected = i === index;
       if (isSelected) {
         panel.removeAttribute('hidden');
         panel.classList.add('is-selected');
@@ -124,17 +127,17 @@ class PsTabsWrapper {
     });
 
     this.currentIndex = index;
-  }
+  };
 
-  focusTab(index) {
+  PsTabsWrapper.prototype.focusTab = function (index) {
     if (index >= 0 && index < this.tabs.length) {
       this.tabs[index].focus();
     }
-  }
+  };
 
-  getTargetIndexForKey(key) {
-    const isHorizontal = this.orientation === 'horizontal';
-    const isVertical = this.orientation === 'vertical';
+  PsTabsWrapper.prototype.getTargetIndexForKey = function (key) {
+    var isHorizontal = this.orientation === 'horizontal';
+    var isVertical = this.orientation === 'vertical';
 
     if ((key === 'ArrowLeft' || key === 'Left') && isHorizontal) {
       return this.findNextEnabled(this.currentIndex, -1);
@@ -155,9 +158,9 @@ class PsTabsWrapper {
       return this.findNextEnabled(this.tabs.length, -1);
     }
     return null;
-  }
+  };
 
-  handleKeydown(e) {
+  PsTabsWrapper.prototype.handleKeydown = function (e) {
     // Handle Enter/Space for manual activation
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -168,14 +171,14 @@ class PsTabsWrapper {
     }
 
     // Get target index for navigation keys
-    const targetIndex = this.getTargetIndexForKey(e.key);
+    var targetIndex = this.getTargetIndexForKey(e.key);
     if (targetIndex !== null) {
       e.preventDefault();
       this.handleTabNavigation(targetIndex);
     }
-  }
+  };
 
-  handleTabNavigation(targetIndex) {
+  PsTabsWrapper.prototype.handleTabNavigation = function (targetIndex) {
     if (targetIndex !== null && targetIndex !== this.currentIndex) {
       // Update tabindex for roving focus
       this.tabs[this.currentIndex].setAttribute('tabindex', '-1');
@@ -189,42 +192,28 @@ class PsTabsWrapper {
         this.currentIndex = targetIndex;
       }
     }
-  }
+  };
 
-  destroy() {
+  PsTabsWrapper.prototype.destroy = () => {
     // Cleanup would go here if needed
-  }
-}
+  };
 
-/**
- * Drupal behavior for tabs
- */
-if (typeof Drupal !== 'undefined') {
+  /**
+   * Drupal behavior for tabs
+   */
   Drupal.behaviors.psTabs = {
-    attach(context) {
-      const tabsElements = context.querySelectorAll('[data-tabs]');
-
-      tabsElements.forEach((element) => {
-        if (typeof once !== 'undefined') {
-          once('ps-tabs', element).forEach((el) => {
-            const wrapper = new PsTabsWrapper(el);
-            wrapper.init();
-            el.psTabsWrapper = wrapper;
-          });
-        } else {
-          if (!element.dataset.tabsInitialized) {
-            const wrapper = new PsTabsWrapper(element);
-            wrapper.init();
-            element.dataset.tabsInitialized = 'true';
-            element.psTabsWrapper = wrapper;
-          }
-        }
+    attach: (context, _settings) => {
+      once('ps-tabs', '[data-tabs]', context).forEach((element) => {
+        var wrapper = new PsTabsWrapper(element);
+        wrapper.init();
+        element.psTabsWrapper = wrapper;
       });
     },
 
-    detach(context, _settings, trigger) {
+    detach: (context, _settings, trigger) => {
+      var tabsElements;
       if (trigger === 'unload') {
-        const tabsElements = context.querySelectorAll('[data-tabs]');
+        tabsElements = context.querySelectorAll('[data-tabs]');
         tabsElements.forEach((element) => {
           if (element.psTabsWrapper) {
             element.psTabsWrapper.destroy();
@@ -234,9 +223,4 @@ if (typeof Drupal !== 'undefined') {
       }
     },
   };
-}
-
-// Export for non-Drupal environments
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { PsTabsWrapper };
-}
+})(Drupal, once);
