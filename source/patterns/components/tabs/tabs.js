@@ -42,6 +42,13 @@ class PsTabsWrapper {
       return;
     }
 
+    // Reflect orientation in ARIA
+    if (this.orientation === 'vertical') {
+      this.tablist.setAttribute('aria-orientation', 'vertical');
+    } else {
+      this.tablist.removeAttribute('aria-orientation');
+    }
+
     // Ensure proper tabindex setup
     this.tabs.forEach((tab, index) => {
       const disabled = tab.hasAttribute('disabled') || tab.classList.contains('is-disabled');
