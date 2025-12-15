@@ -1,15 +1,109 @@
-{# Tabs - Tab navigation component #}
-<div class="ps-tabs">
-  <div class="ps-tabs__list" role="tablist">
-    {% for tab in tabs %}
-      <button class="ps-tabs__tab {% if tab.active %}ps-tabs__tab--active{% endif %}" role="tab" id="{{ tab.id }}" aria-selected="{% if tab.active %}true{% else %}false{% endif %}" aria-controls="{{ tab.id }}-panel">
-        {{ tab.label }}
+{#
+ * Tabs - Accessible tab navigation component
+ *
+ * Tabs with semantic color variants, optional pill layout, and optional icons.
+ *
+ * @param {string} [label] - Accessible label for the tablist (aria-label)
+ * @param {string} [variant='neutral'] - Semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
+ * @param {boolean} [pill=false] - Enables pill presentation style
+ * @param {string} [icon] - Default icon name applied to tabs missing an icon (check, info, etc.)
+ * @param {array} tabs - Collection of tab objects (required)
+ *   - {string} [id] - Unique identifier (auto-generated if missing)
+ *   - {string} label - Tab label text (required)
+ *   - {string} content - Tab panel content (HTML allowed)
+ *   - {boolean} [active=false] - Marks tab as active
+ *   - {boolean} [disabled=false] - Disables the tab
+ *   - {string} [icon] - Icon name specific to the tab (overrides global icon)
+ * @param {object} [attributes] - Drupal attribute bag (required for integration)
+ #}
+
+{%- set tabs = tabs|default([]) -%}
+{%- set variant = variant|default('neutral') -%}
+{%- set pill = pill|default(false) -%}
+{%- set icon = icon|default(null) -%}
+{%- set label = label|default('Tabs navigation') -%}
+{%- set attributes = attributes ? attributes : create_attribute() -%}
+
+{# Determine if any tab uses an icon #}
+{%- set has_icons = false -%}
+{%- for tab in tabs -%}
+  {%- if not has_icons and (tab.icon is defined and tab.icon) -%}
+    {%- set has_icons = true -%}
+  {%- elseif not has_icons and icon -%}
+    {%- set has_icons = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{# Determine default active index (first active, otherwise first enabled) #}
+{%- set active_index = null -%}
+{%- set fallback_index = null -%}
+{%- for tab in tabs -%}
+  {%- if fallback_index is null and (tab.disabled is not defined or not tab.disabled) -%}
+    {%- set fallback_index = loop.index0 -%}
+  {%- endif -%}
+  {%- if active_index is null and (tab.active is defined and tab.active) and (tab.disabled is not defined or not tab.disabled) -%}
+    {%- set active_index = loop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if active_index is null -%}
+  {%- set active_index = fallback_index is not null ? fallback_index : 0 -%}
+{%- endif -%}
+
+{%- set root_classes = ['ps-tabs'] -%}
+{%- if variant -%}
+  {%- set root_classes = root_classes|merge(['ps-tabs--' ~ variant]) -%}
+{%- endif -%}
+{%- if pill -%}
+  {%- set root_classes = root_classes|merge(['ps-tabs--pill']) -%}
+{%- endif -%}
+{%- if has_icons -%}
+  {%- set root_classes = root_classes|merge(['ps-tabs--with-icon']) -%}
+{%- endif -%}
+
+<div{{ attributes.addClass(root_classes)|without('class') }} data-tabs data-variant="{{ variant }}"{% if pill %} data-pill="true"{% endif %}>
+  <div class="ps-tabs__list" role="tablist" aria-label="{{ label }}">
+    {%- for tab in tabs -%}
+      {%- set tab_id = tab.id is defined and tab.id ? tab.id : 'tab-' ~ loop.index -%}
+      {%- set panel_id = 'panel-' ~ (tab.id is defined and tab.id ? tab.id : loop.index) -%}
+      {%- set tab_icon = tab.icon is defined and tab.icon ? tab.icon : icon -%}
+      {%- set is_disabled = tab.disabled is defined and tab.disabled -%}
+      {%- set is_active = loop.index0 == active_index and not is_disabled -%}
+
+      <button
+        class="ps-tabs__tab{% if is_active %} is-selected{% endif %}{% if is_disabled %} is-disabled{% endif %}"
+        id="{{ tab_id }}"
+        role="tab"
+        aria-selected="{{ is_active ? 'true' : 'false' }}"
+        tabindex="{{ is_active ? '0' : '-1' }}"
+        aria-controls="{{ panel_id }}"
+        {% if is_disabled %}disabled aria-disabled="true"{% endif %}
+        data-tab
+      >
+        {%- if tab_icon -%}
+          <span class="ps-tabs__icon" data-icon="{{ tab_icon }}" aria-hidden="true"></span>
+        {%- endif -%}
+        <span class="ps-tabs__label">{{ tab.label }}</span>
       </button>
-    {% endfor %}
+    {%- endfor -%}
   </div>
-  {% for tab in tabs %}
-    <div class="ps-tabs__panel {% if tab.active %}ps-tabs__panel--active{% endif %}" role="tabpanel" id="{{ tab.id }}-panel" aria-labelledby="{{ tab.id }}">
-      {{ tab.content }}
-    </div>
-  {% endfor %}
+
+  <div class="ps-tabs__content">
+    {%- for tab in tabs -%}
+      {%- set tab_id = tab.id is defined and tab.id ? tab.id : 'tab-' ~ loop.index -%}
+      {%- set panel_id = 'panel-' ~ (tab.id is defined and tab.id ? tab.id : loop.index) -%}
+      {%- set is_disabled = tab.disabled is defined and tab.disabled -%}
+      {%- set is_active = loop.index0 == active_index and not is_disabled -%}
+
+      <div
+        class="ps-tabs__panel{% if is_active %} is-selected{% endif %}"
+        id="{{ panel_id }}"
+        role="tabpanel"
+        aria-labelledby="{{ tab_id }}"
+        {% if not is_active %}hidden{% endif %}
+        data-tabpanel
+      >
+        {{ tab.content|raw }}
+      </div>
+    {%- endfor -%}
+  </div>
 </div>

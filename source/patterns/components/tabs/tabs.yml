@@ -1,4 +1,66 @@
+# Tabs Component - Default Configuration
+#
+# Available Props:
+# - label: string (default: 'Tabs navigation') - Accessible label for tablist (aria-label)
+# - variant: string (default: 'neutral') - Semantic color variant
+#   Options: neutral, primary, success, danger, warning, info, gold, light, dark
+# - pill: boolean (default: false) - Enable pill presentation style
+# - icon: string (default: null) - Default icon applied to tabs missing specific icon
+# - tabs: array (required) - Collection of tab objects
+#   Each tab:
+#   * id: string - Unique identifier (auto-generated as tab-{index} if missing)
+#   * label: string (required) - Tab label text
+#   * content: string (required) - Tab panel content (HTML permitted)
+#   * active: boolean (default: false) - Mark tab as active (first enabled tab auto-active)
+#   * disabled: boolean (default: false) - Disable tab selection
+#   * icon: string - Icon name displayed before label (overrides global icon)
+# - attributes: Attribute - Additional HTML attributes
+
+# Default: Property detail page tabs
+label: 'Tabs navigation'
+variant: 'primary'
+pill: false
+icon: null
 tabs:
-  - { id: "tab1", label: "Overview", content: "Overview content", active: true }
-  - { id: "tab2", label: "Details", content: "Details content", active: false }
-  - { id: "tab3", label: "Reviews", content: "Reviews content", active: false }
+  - id: 'tab-description'
+    label: 'Description'
+    content: |
+      <h3>Property Overview</h3>
+      <p>Discover this exclusive office space located near La Défense, offering 1,250 m² of flexible workstations, collaborative areas, and premium services.</p>
+      <ul>
+        <li>Total surface: 1,250 m²</li>
+        <li>Available: Q2 2026</li>
+        <li>Rental price: 540 €/m²/year</li>
+      </ul>
+    active: true
+    disabled: false
+    icon: null
+  - id: 'tab-photos'
+    label: 'Photos'
+    content: |
+      <p>High-definition visuals showcasing lobby, open-space, meeting rooms, and rooftop terrace.</p>
+    active: false
+    disabled: false
+    icon: null
+  - id: 'tab-energy'
+    label: 'Energy'
+    content: |
+      <h3>Energy Performance</h3>
+      <p><strong>Class:</strong> A</p>
+      <p><strong>Consumption:</strong> 62 kWh/m²/year</p>
+      <p><strong>Emissions:</strong> 12 kg CO₂/m²/year</p>
+    active: false
+    disabled: false
+    icon: 'info'
+  - id: 'tab-certifications'
+    label: 'Certifications'
+    content: |
+      <ul>
+        <li data-icon="check">HQE Excellent</li>
+        <li data-icon="check">BREEAM Outstanding</li>
+        <li data-icon="check">WELL Gold</li>
+      </ul>
+    active: false
+    disabled: false
+    icon: 'check'
+
