@@ -1,15 +1,49 @@
-{# Toast - Notification popup #}
-{% if show %}
-  <div class="ps-toast ps-toast--{{ type }}" role="status" aria-live="polite" aria-atomic="true">
-    <div class="ps-toast__content">
-      {{ message }}
-    </div>
-    {% if dismissible %}
-      <button type="button" class="ps-toast__close" aria-label="Dismiss notification">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="currentColor"/>
-        </svg>
-      </button>
-    {% endif %}
+{#
+/**
+ * @file
+ * Toast - Temporary notification message
+ * 
+ * Auto-dismissing notification that appears at screen edge to provide feedback.
+ * Managed via JavaScript for show/hide/duration logic.
+ * 
+ * @param {string} message - Notification message content (required)
+ * @param {string} [type='info'] - Semantic type: success, error, warning, info
+ * @param {boolean} [dismissible=true] - Show close button
+ * @param {string} [position='bottom-right'] - Screen position
+ * @param {number} [duration=4000] - Auto-dismiss duration (ms)
+ * @param {object} [attributes] - Additional HTML attributes
+ */
+#}
+
+{% set type = type|default('info') %}
+{% set dismissible = dismissible|default(true) %}
+{% set position = position|default('bottom-right') %}
+{% set duration = duration|default(4000) %}
+
+{% set classes = [
+  'ps-toast',
+  type != 'info' ? 'ps-toast--' ~ type : null,
+  position != 'bottom-right' ? 'ps-toast--' ~ position : null,
+  modifier_class
+] %}
+
+<div 
+  class="{{ classes|join(' ')|trim }}"
+  role="status" 
+  aria-live="polite" 
+  aria-atomic="true"
+  data-toast-duration="{{ duration }}"
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+>
+  <div class="ps-toast__content">
+    {{ message }}
   </div>
-{% endif %}
+  {% if dismissible %}
+    <button 
+      type="button" 
+      class="ps-toast__close" 
+      aria-label="Dismiss notification"
+      data-icon="close"
+    ></button>
+  {% endif %}
+</div>

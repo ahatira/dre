@@ -1,5 +1,5 @@
-message: "Operation completed successfully!"
+message: "Property added to favorites successfully!"
 type: "success"
 duration: 4000
 dismissible: true
-show: true
+position: "bottom-right"

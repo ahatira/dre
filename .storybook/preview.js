@@ -28,6 +28,7 @@ import '../source/patterns/components/card-offer-slide/card-offer-slide.js';
 import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
 import '../source/patterns/components/language-selector/language-selector.js';
+import '../source/patterns/components/toast/toast.js';
 
 // Import element behaviors
 import '../source/patterns/elements/button/button.js';
