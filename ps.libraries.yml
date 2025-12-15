@@ -120,3 +120,12 @@ tabs:
     - core/once
     - ps_theme/vendors
 
+toast:
+  js:
+    dist/js/toast.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
