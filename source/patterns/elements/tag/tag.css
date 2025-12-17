@@ -152,7 +152,7 @@
     --ps-tag-padding-y: var(--size-05); /* 2px */
     --ps-tag-padding-x: var(--size-2); /* 8px */
     --ps-tag-font-size: var(--font-size-1); /* 12px */
-    --ps-tag-icon-size: var(--size-25); /* 10px */
+    --ps-tag-icon-size: var(--size-205); /* 10px - correct token */
   }
 
   &--md {
