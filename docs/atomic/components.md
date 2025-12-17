@@ -134,12 +134,6 @@ Usage : Tableau des surfaces offre
 Specs : `design/pages/property-detail/surface-table.md`  
 Implémenté : ❌
 
-**Tag List** - Collection de chips/tags (compose Tag atom)  
-Usage : Tags de bien, filtres actifs, listes de catégories  
-Pattern : Composition via `{% include '@elements/tag/tag.twig' %}`  
-Note : Tag atom peut être utilisé seul (search input, filter dropdown)  
-Implémenté : ✅ (refactoré 2025-01-15 - Atomic Design)
-
 ---
 
 ## Media

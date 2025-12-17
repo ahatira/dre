@@ -2,8 +2,8 @@
 
 Composants complexes formant des sections complètes.
 
-**Total** : 15 composants  
-**Implémentés** : 2/15
+**Total** : 16 composants  
+**Implémentés** : 3/16
 
 ---
 
@@ -83,6 +83,12 @@ Implémenté : ❌
 ---
 
 ## Interactive
+
+**Tag List** - Collection de chips/tags (compose Tag atom)  
+Usage : Tags de bien, filtres actifs, listes de catégories  
+Pattern : Composition via `{% include '@elements/tag/tag.twig' %}`  
+Note : Tag atom peut être utilisé seul (search input, filter dropdown)  
+Implémenté : ✅ (déplacé de Components 2025-12-17 - Correct Atomic Design)
 
 **Accordion** - Plusieurs sections collapsibles  
 Usage : Section FAQ : 6+ items Q&A, expansible/collapsible  

@@ -2,7 +2,7 @@ import markup from './tag-list.twig';
 import data from './tag-list.yml';
 
 const settings = {
-  title: 'Components/Tag List',
+  title: 'Collections/Tag List',
   tags: ['autodocs'],
   argTypes: {
     tags: {
