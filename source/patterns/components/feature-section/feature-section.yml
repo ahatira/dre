@@ -1,0 +1,20 @@
+# Feature Section Component - Default Configuration
+#
+# Available Props:
+# - title: string (required) - Section title
+# - icon: string (required) - Icon name for data-icon attribute
+# - items: array (required) - Array of list items (strings or HTML)
+# - variant: string (optional) - Layout variant
+#   Options: 'default', 'two-columns'
+# - attributes: Attribute - Additional HTML attributes
+
+# Default: Equipments section
+title: 'Equipments'
+icon: 'equipment'
+variant: 'default'
+items:
+  - 'Elevators'
+  - 'Air conditioning : Reversible'
+  - 'Computer cabling: Optical fiber'
+  - 'False floor: High height'
+  - 'Heating system : Individual'

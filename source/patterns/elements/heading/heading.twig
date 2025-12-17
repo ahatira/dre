@@ -4,6 +4,7 @@
  *
  * @param string text - Heading text content (required)
  * @param string level - h1|h2|h3|h4|h5|h6 (default: h1)
+ * @param string icon - Icon name for data-icon attribute (optional)
  * @param boolean visuallyHidden - Hide visually but keep for screen readers (default: false)
  * @param Attribute attributes - Additional HTML attributes (optional)
  *
@@ -12,9 +13,11 @@
  * - Font weight: attributes.addClass('font-bold')
  * - Alignment: attributes.addClass('text-center')
  * - Combined: attributes.addClass('text-primary font-extrabold text-center')
+ * - With icon: icon='check'
  #}
 
 {%- set level = level|default('h1') -%}
+{%- set icon = icon|default('') -%}
 {%- set visuallyHidden = visuallyHidden|default(false) -%}
 
 {%- set classes = [
@@ -22,7 +25,6 @@
   visuallyHidden ? 'visually-hidden' : null
 ] -%}
 
-<{{ level }}
-  {{- attributes ? attributes.addClass(classes) : 'class="' ~ classes|join(' ')|trim ~ '"' -}}>
+<{{ level }} {{ attributes ? attributes.addClass(classes) : 'class="' ~ classes|join(' ')|trim ~ '"' }}{% if icon %} data-icon="{{ icon }}"{% endif %}>
   {{- text -}}
 </{{ level }}>

@@ -14,7 +14,7 @@
   --ps-list-margin-block: var(--size-4); /* 16px top/bottom margin */
 
   /* Markers */
-  --ps-list-marker-color: var(--primary);
+  --ps-list-marker-color: currentColor;
 
   /* Base list styles */
   margin: var(--ps-list-margin-block) 0;

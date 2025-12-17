@@ -1,9 +1,9 @@
 {#
  * Definition List - Key-value pairs list (dl/dt/dd)
  *
- * Styled definition list for specifications, features, or key-value data.
+ * Simple definition list for specifications, features, or key-value data.
  *
- * @param {array} items - Array of definition objects (required): [{term:string, definition:string, icon:string}]
+ * @param {array} items - Array of definition objects (required): [{term:string, definition:string}]
  * @param {string} [variant='default'] - Layout variant: default|inline|grid
  * @param {object} [attributes] - Drupal attribute bag (required for integration)
  #}
@@ -20,12 +20,7 @@
 <dl{{ attributes.addClass(dl_classes)|without('class') }}>
   {% for item in items -%}
     <div class="ps-definition-list__item">
-      <dt class="ps-definition-list__term">
-        {%- if item.icon -%}
-          <span class="ps-definition-list__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-        {%- endif -%}
-        {{ item.term }}
-      </dt>
+      <dt class="ps-definition-list__term">{{ item.term }}</dt>
       <dd class="ps-definition-list__definition">{{ item.definition|raw }}</dd>
     </div>
   {%- endfor %}

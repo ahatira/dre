@@ -20,13 +20,13 @@
 {%- endif -%}
 
 {% if type == 'ol' %}
-<ol{{ attributes.addClass(list_classes)|without('class') }}>
+<ol class="{{ list_classes|join(' ') }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
   {% for item in items -%}
     <li class="ps-list__item">{{ item|raw }}</li>
   {%- endfor %}
 </ol>
 {% else %}
-<ul{{ attributes.addClass(list_classes)|without('class') }}>
+<ul class="{{ list_classes|join(' ') }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
   {% for item in items -%}
     <li class="ps-list__item">{{ item|raw }}</li>
   {%- endfor %}

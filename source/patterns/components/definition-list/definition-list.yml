@@ -2,7 +2,7 @@
 #
 # Available Props:
 # - items: array (required) - Array of definition objects
-#   Each item: {term: string, definition: string, icon: string (optional)}
+#   Each item: {term: string, definition: string}
 # - variant: string (default: 'default') - Layout variant
 #   Options: default (stacked), inline (horizontal), grid (2-column)
 # - attributes: Attribute - Additional HTML attributes
@@ -12,16 +12,11 @@ variant: 'default'
 items:
   - term: 'Total Surface'
     definition: '1,250 m² divisible'
-    icon: 'area'
   - term: 'Floor'
     definition: '3rd floor with elevator access'
-    icon: 'building'
   - term: 'Availability'
     definition: 'Q2 2026 (April-June)'
-    icon: 'calendar'
   - term: 'Rental Price'
     definition: '540 €/m²/year (excl. taxes and charges)'
-    icon: 'euro'
   - term: 'Energy Performance'
     definition: 'Class B (DPE: 85 kWh/m²/year)'
-    icon: 'energy'

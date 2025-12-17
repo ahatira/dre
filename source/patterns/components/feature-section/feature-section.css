@@ -1,0 +1,47 @@
+/* Feature Section (Component/Molecule) - Thematic section with icon, title, and list */
+
+.ps-feature-section {
+  /* Component-scoped variables */
+  /* Typography */
+  --ps-feature-section-title-font-size: var(--font-size-4); /* ~18px */
+  --ps-feature-section-title-font-weight: var(--font-weight-700);
+  --ps-feature-section-title-color: var(--text-primary);
+
+  /* Spacing */
+  --ps-feature-section-gap: var(--size-4); /* 16px between title and list */
+  --ps-feature-section-title-icon-gap: var(--size-3); /* 12px between icon and title */
+
+  /* Icon */
+  --ps-feature-section-icon-size: var(--size-6); /* 24px */
+  --ps-feature-section-icon-color: var(--text-secondary);
+
+  /* Columns */
+  --ps-feature-section-columns-gap: var(--size-8); /* 32px between columns */
+
+  /* Base section container */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-feature-section-gap);
+
+  /* Title styling */
+  &__title {
+    margin: 0;
+    font-size: var(--ps-feature-section-title-font-size);
+    font-weight: var(--ps-feature-section-title-font-weight);
+    color: var(--ps-feature-section-title-color);
+  }
+
+  & .ps-list {
+    --ps-list-margin-block: var(--size-2);
+  }
+
+  /* Two columns variant (for Services section) */
+  &--two-columns {
+    & .ps-list {
+      @media (min-width: 640px) {
+        columns: 2;
+        column-gap: var(--ps-feature-section-columns-gap);
+      }
+    }
+  }
+}
