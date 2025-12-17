@@ -24,7 +24,7 @@
   --ps-tag-padding-y: var(--size-1); /* 4px */
   --ps-tag-padding-x: var(--size-3); /* 12px */
   --ps-tag-gap: var(--size-1); /* 4px between icon and label */
-  --ps-tag-border-radius: var(--radius-full); /* Pills (per maquette) */
+  --ps-tag-border-radius: var(--radius-round); /* Pills (per maquette) - fully rounded */
   
   /* Typography */
   --ps-tag-font-size: var(--font-size-2); /* 14px */
