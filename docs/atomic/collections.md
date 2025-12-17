@@ -84,7 +84,7 @@ Implémenté : ❌
 
 ## Interactive
 
-**Tag List** - Collection de chips/tags (compose Tag atom)  
+**Tags** - Collection de chips/tags (compose Tag atom)  
 Usage : Tags de bien, filtres actifs, listes de catégories  
 Pattern : Composition via `{% include '@elements/tag/tag.twig' %}`  
 Note : Tag atom peut être utilisé seul (search input, filter dropdown)  

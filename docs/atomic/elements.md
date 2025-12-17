@@ -90,7 +90,7 @@ Features : Removable (X icon), Selected state, Icon positioning (start/end), Pil
 Colors : 8 sémantiques (neutral, primary, secondary, success, danger, warning, info, gold)  
 Sizes : sm, md, lg  
 Render : `<button>` (default) ou `<a>` si url fourni  
-Note : Autonome, peut être utilisé seul ou composé dans Tag List organism  
+Note : Autonome, peut être utilisé seul ou composé dans Tags organism  
 Implémenté : ✅ (2025-01-15)
 
 ---

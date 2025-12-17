@@ -1,5 +1,5 @@
 /**
- * Tag List (Collection/Organism)
+ * Tags (Collection/Organism)
  *
  * Collection container for Tag atoms. Handles only layout and spacing.
  * Individual tag styling is managed by the Tag atom component.
@@ -10,12 +10,12 @@
  * - Manages only: layout (flex), gap, wrapping
  *
  * BEM Structure:
- * - Block: .ps-tag-list (container only)
+ * - Block: .ps-tags (container only)
  * - No elements (tags are autonomous atoms)
  * - No modifiers (variants handled by individual Tag atoms)
  */
 
-.ps-tag-list {
+.ps-tags {
   /* Layout - flexible wrapping container */
   display: flex;
   flex-wrap: wrap;

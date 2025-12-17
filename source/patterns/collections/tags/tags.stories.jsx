@@ -1,8 +1,8 @@
-import markup from './tag-list.twig';
-import data from './tag-list.yml';
+import markup from './tags.twig';
+import data from './tags.yml';
 
 const settings = {
-  title: 'Collections/Tag List',
+  title: 'Collections/Tags',
   tags: ['autodocs'],
   argTypes: {
     tags: {
@@ -16,7 +16,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Tag List molecule - Collection container for Tag atoms. Composes multiple Tag atoms with consistent spacing and wrapping. Individual tag styling is managed by the Tag atom component itself (Atomic Design composition pattern).',
+          'Tags organism - Collection container for Tag atoms. Composes multiple Tag atoms with consistent spacing and wrapping. Individual tag styling is managed by the Tag atom component itself (Atomic Design composition pattern).',
       },
     },
   },

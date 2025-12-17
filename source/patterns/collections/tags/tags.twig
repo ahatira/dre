@@ -1,12 +1,12 @@
 {#
- * Tag List collection (organism) - Collection of Tag atoms
+ * Tags collection (organism) - Collection of Tag atoms
  * @param {array} tags - Array of tag objects (required): [{label:string, variant:string, color:string, size:string, selected:boolean, removable:boolean, iconStart:boolean, url:string}]
  * @param {object} [attributes] - Additional HTML attributes for Drupal integration
  #}
 
 {%- set tags = tags|default([]) -%}
 
-<div class="ps-tag-list"{% if attributes %} {{ attributes|without('class') }}{% endif %} role="group" aria-label="Tags">
+<div class="ps-tags"{% if attributes %} {{ attributes|without('class') }}{% endif %} role="group" aria-label="Tags">
   {% for tag in tags -%}
     {% include '@elements/tag/tag.twig' with tag only %}
   {%- endfor %}
