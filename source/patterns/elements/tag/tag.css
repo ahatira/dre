@@ -30,6 +30,7 @@
   --ps-tag-font-size: var(--font-size-2); /* 14px */
   --ps-tag-font-weight: var(--font-weight-500);
   --ps-tag-line-height: 1.5;
+  --ps-tag-font-family: var(--font-condensed); /* Condensed for filled (default) */
   
   /* Colors (filled blue per maquette by default) */
   --ps-tag-bg: #5A8FE3; /* Exact blue from maquette */
@@ -81,7 +82,7 @@
   border-radius: var(--ps-tag-border-radius);
   
   /* Typography */
-  font-family: var(--font-sans);
+  font-family: var(--ps-tag-font-family);
   font-size: var(--ps-tag-font-size);
   font-weight: var(--ps-tag-font-weight);
   line-height: var(--ps-tag-line-height);
@@ -129,12 +130,12 @@
      LAYER 3: STYLE VARIANTS
      ============================================ */
   
-  /* Filled variant (default - per maquette left box) - exact blue */
+  /* Filled variant (default - per maquette left box) - exact blue + condensed font */
   &--filled {
-    /* Uses default blue variables */
+    /* Uses default blue + condensed font */
   }
 
-  /* Outline variant (per maquette right box) - white with light gray border */
+  /* Outline variant (per maquette right box) - white with light gray border + sans font */
   &--outline {
     --ps-tag-bg: var(--white);
     --ps-tag-color: var(--gray-900);
@@ -142,6 +143,7 @@
     --ps-tag-hover-bg: #F8F9FA; /* Very light gray on hover */
     --ps-tag-hover-border-color: #EBEDEF;
     --ps-tag-hover-color: var(--gray-900);
+    --ps-tag-font-family: var(--font-sans); /* Sans font for outline per maquette */
   }
 
   /* ============================================
