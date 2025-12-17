@@ -1,0 +1,305 @@
+/**
+ * Tag (Element/Atom)
+ *
+ * Interactive chip/badge for filtering, categorization, and selection.
+ * Autonomous component that can be used standalone or composed into Tag List.
+ *
+ * BEM Structure:
+ * - Block: .ps-tag
+ * - Elements: __label, __icon, __icon--start, __icon--end
+ * - Modifiers: --filled, --outline, --sm, --md, --lg, --neutral, --primary, --secondary, --success, --danger, --warning, --info, --gold, --selected, --removable
+ *
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, fonts.css, colors.css)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ * - Layer 3: Context Overrides (variant + modifier selectors)
+ */
+
+.ps-tag {
+  /* ============================================
+     LAYER 2: COMPONENT-SCOPED VARIABLES
+     ============================================ */
+  
+  /* Spacing (pills always have full radius per maquette) */
+  --ps-tag-padding-y: var(--size-1); /* 4px */
+  --ps-tag-padding-x: var(--size-3); /* 12px */
+  --ps-tag-gap: var(--size-1); /* 4px between icon and label */
+  --ps-tag-border-radius: var(--radius-full); /* Pills (per maquette) */
+  
+  /* Typography */
+  --ps-tag-font-size: var(--font-size-2); /* 14px */
+  --ps-tag-font-weight: var(--font-weight-500);
+  --ps-tag-line-height: 1.5;
+  
+  /* Colors (neutral filled by default) */
+  --ps-tag-bg: var(--gray-200);
+  --ps-tag-color: var(--gray-800);
+  --ps-tag-border-color: transparent;
+  --ps-tag-border-width: var(--border-size-1);
+  
+  /* States */
+  --ps-tag-hover-bg: var(--gray-300);
+  --ps-tag-hover-color: var(--gray-900);
+  --ps-tag-hover-border-color: transparent;
+  --ps-tag-selected-bg: var(--primary);
+  --ps-tag-selected-color: var(--white);
+  --ps-tag-selected-border-color: var(--primary);
+  
+  /* Icon */
+  --ps-tag-icon-size: var(--size-3); /* 12px */
+  
+  /* Focus */
+  --ps-tag-focus-outline-width: var(--border-size-2);
+  --ps-tag-focus-outline-color: var(--primary);
+  --ps-tag-focus-outline-offset: var(--border-size-1);
+  
+  /* Transitions */
+  --ps-tag-transition-duration: var(--duration-fast);
+  --ps-tag-transition-timing: var(--ease-2);
+
+  /* ============================================
+     BASE STYLES
+     ============================================ */
+  
+  /* Reset button/link defaults */
+  appearance: none;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0;
+  border: none;
+  
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ps-tag-gap);
+  padding: var(--ps-tag-padding-y) var(--ps-tag-padding-x);
+  
+  /* Colors */
+  background-color: var(--ps-tag-bg);
+  color: var(--ps-tag-color);
+  border: var(--ps-tag-border-width) solid var(--ps-tag-border-color);
+  border-radius: var(--ps-tag-border-radius);
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--ps-tag-font-size);
+  font-weight: var(--ps-tag-font-weight);
+  line-height: var(--ps-tag-line-height);
+  
+  /* Transitions */
+  transition: background-color var(--ps-tag-transition-duration) var(--ps-tag-transition-timing),
+              color var(--ps-tag-transition-duration) var(--ps-tag-transition-timing),
+              border-color var(--ps-tag-transition-duration) var(--ps-tag-transition-timing);
+
+  &:hover {
+    background-color: var(--ps-tag-hover-bg);
+    color: var(--ps-tag-hover-color);
+    border-color: var(--ps-tag-hover-border-color);
+  }
+
+  &:focus-visible {
+    outline: var(--ps-tag-focus-outline-width) solid var(--ps-tag-focus-outline-color);
+    outline-offset: var(--ps-tag-focus-outline-offset);
+  }
+
+  /* ============================================
+     ELEMENTS
+     ============================================ */
+  
+  &__label {
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: var(--ps-tag-icon-size);
+    height: var(--ps-tag-icon-size);
+    
+    &--start {
+      order: -1; /* Icon at start (for search input tags) */
+    }
+    
+    &--end {
+      /* Icon at end (default for removable tags) */
+    }
+  }
+
+  /* ============================================
+     LAYER 3: STYLE VARIANTS
+     ============================================ */
+  
+  /* Filled variant (default - per maquette left box) */
+  &--filled {
+    /* Uses default variables */
+  }
+
+  /* Outline variant (per maquette right box) */
+  &--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--gray-900);
+    --ps-tag-border-color: var(--gray-900);
+    --ps-tag-hover-bg: var(--gray-50);
+    --ps-tag-hover-border-color: var(--gray-900);
+  }
+
+  /* ============================================
+     LAYER 3: SIZE VARIANTS
+     ============================================ */
+  
+  &--sm {
+    --ps-tag-padding-y: var(--size-05); /* 2px */
+    --ps-tag-padding-x: var(--size-2); /* 8px */
+    --ps-tag-font-size: var(--font-size-1); /* 12px */
+    --ps-tag-icon-size: var(--size-25); /* 10px */
+  }
+
+  &--md {
+    /* Uses default variables */
+  }
+
+  &--lg {
+    --ps-tag-padding-y: var(--size-2); /* 8px */
+    --ps-tag-padding-x: var(--size-4); /* 16px */
+    --ps-tag-font-size: var(--font-size-3); /* 16px */
+    --ps-tag-icon-size: var(--size-4); /* 16px */
+  }
+
+  /* ============================================
+     LAYER 3: COLOR VARIANTS (filled)
+     ============================================ */
+  
+  &--neutral {
+    /* Uses default neutral colors */
+  }
+
+  &--primary.ps-tag--filled {
+    --ps-tag-bg: var(--primary);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--primary);
+    --ps-tag-hover-bg: var(--primary-hover);
+    --ps-tag-selected-bg: var(--primary-active);
+  }
+
+  &--primary.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--primary);
+    --ps-tag-border-color: var(--primary);
+    --ps-tag-hover-bg: var(--primary-subtle);
+    --ps-tag-selected-bg: var(--primary);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  &--secondary.ps-tag--filled {
+    --ps-tag-bg: var(--secondary);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--secondary);
+    --ps-tag-hover-bg: var(--secondary-hover);
+    --ps-tag-selected-bg: var(--secondary-active);
+  }
+
+  &--secondary.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--secondary);
+    --ps-tag-border-color: var(--secondary);
+    --ps-tag-hover-bg: var(--secondary-subtle);
+    --ps-tag-selected-bg: var(--secondary);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  &--success.ps-tag--filled {
+    --ps-tag-bg: var(--success);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--success);
+    --ps-tag-hover-bg: var(--success-hover);
+    --ps-tag-selected-bg: var(--success-active);
+  }
+
+  &--success.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--success);
+    --ps-tag-border-color: var(--success);
+    --ps-tag-hover-bg: var(--success-subtle);
+    --ps-tag-selected-bg: var(--success);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  &--danger.ps-tag--filled {
+    --ps-tag-bg: var(--danger);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--danger);
+    --ps-tag-hover-bg: var(--danger-hover);
+    --ps-tag-selected-bg: var(--danger-active);
+  }
+
+  &--danger.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--danger);
+    --ps-tag-border-color: var(--danger);
+    --ps-tag-hover-bg: var(--danger-subtle);
+    --ps-tag-selected-bg: var(--danger);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  &--warning.ps-tag--filled {
+    --ps-tag-bg: var(--warning);
+    --ps-tag-color: var(--gray-900);
+    --ps-tag-border-color: var(--warning);
+    --ps-tag-hover-bg: var(--warning-hover);
+    --ps-tag-selected-bg: var(--warning);
+  }
+
+  &--warning.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--warning-text-emphasis);
+    --ps-tag-border-color: var(--warning);
+    --ps-tag-hover-bg: var(--warning-subtle);
+    --ps-tag-selected-bg: var(--warning);
+    --ps-tag-selected-color: var(--gray-900);
+  }
+
+  &--info.ps-tag--filled {
+    --ps-tag-bg: var(--info);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--info);
+    --ps-tag-hover-bg: var(--info-hover);
+    --ps-tag-selected-bg: var(--info-active);
+  }
+
+  &--info.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--info);
+    --ps-tag-border-color: var(--info);
+    --ps-tag-hover-bg: var(--info-subtle);
+    --ps-tag-selected-bg: var(--info);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  &--gold.ps-tag--filled {
+    --ps-tag-bg: var(--gold);
+    --ps-tag-color: var(--white);
+    --ps-tag-border-color: var(--gold);
+    --ps-tag-hover-bg: var(--gold-hover);
+    --ps-tag-selected-bg: var(--gold-active);
+  }
+
+  &--gold.ps-tag--outline {
+    --ps-tag-bg: var(--white);
+    --ps-tag-color: var(--gold);
+    --ps-tag-border-color: var(--gold);
+    --ps-tag-hover-bg: var(--gold-subtle);
+    --ps-tag-selected-bg: var(--gold);
+    --ps-tag-selected-color: var(--white);
+  }
+
+  /* ============================================
+     LAYER 3: SELECTED STATE
+     ============================================ */
+  
+  &--selected {
+    background-color: var(--ps-tag-selected-bg);
+    color: var(--ps-tag-selected-color);
+    border-color: var(--ps-tag-selected-border-color);
+    font-weight: var(--font-weight-600);
+  }
+}

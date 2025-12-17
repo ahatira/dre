@@ -1,0 +1,9 @@
+# Tag - Active search filter
+label: "Paris 8e"
+variant: filled
+color: primary
+size: md
+removable: true
+iconStart: false
+selected: false
+url: null

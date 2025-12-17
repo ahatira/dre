@@ -1,4 +1,34 @@
+# Tag List - Active property search filters (composes Tag atoms)
 tags:
-  - { label: "Paris", removable: true, selected: true }
-  - { label: "London", removable: true, selected: false }
-  - { label: "Berlin", removable: true, selected: true }
+  - label: "Paris 8e"
+    variant: filled
+    color: primary
+    size: md
+    selected: true
+    removable: true
+    iconStart: false
+    url: null
+  - label: "Bureaux"
+    variant: filled
+    color: primary
+    size: md
+    selected: true
+    removable: true
+    iconStart: false
+    url: null
+  - label: "200-500 m²"
+    variant: filled
+    color: primary
+    size: md
+    selected: true
+    removable: true
+    iconStart: false
+    url: null
+  - label: "Disponible"
+    variant: filled
+    color: primary
+    size: md
+    selected: false
+    removable: true
+    iconStart: false
+    url: null
