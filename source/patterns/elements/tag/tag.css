@@ -31,19 +31,19 @@
   --ps-tag-font-weight: var(--font-weight-500);
   --ps-tag-line-height: 1.5;
   
-  /* Colors (neutral filled by default) */
-  --ps-tag-bg: var(--gray-200);
-  --ps-tag-color: var(--gray-800);
+  /* Colors (filled blue per maquette by default) */
+  --ps-tag-bg: #5A8FE3; /* Exact blue from maquette */
+  --ps-tag-color: var(--white);
   --ps-tag-border-color: transparent;
   --ps-tag-border-width: var(--border-size-1);
   
   /* States */
-  --ps-tag-hover-bg: var(--gray-300);
-  --ps-tag-hover-color: var(--gray-900);
+  --ps-tag-hover-bg: #4A7FD3; /* Darker blue on hover */
+  --ps-tag-hover-color: var(--white);
   --ps-tag-hover-border-color: transparent;
-  --ps-tag-selected-bg: var(--primary);
+  --ps-tag-selected-bg: #3A6FC3; /* Even darker for selected */
   --ps-tag-selected-color: var(--white);
-  --ps-tag-selected-border-color: var(--primary);
+  --ps-tag-selected-border-color: transparent;
   
   /* Icon */
   --ps-tag-icon-size: var(--size-3); /* 12px */
@@ -129,19 +129,19 @@
      LAYER 3: STYLE VARIANTS
      ============================================ */
   
-  /* Filled variant (default - per maquette left box) */
+  /* Filled variant (default - per maquette left box) - exact blue */
   &--filled {
-    /* Uses default variables */
+    /* Uses default blue variables */
   }
 
-  /* Outline variant (per maquette right box) - always black border and text */
+  /* Outline variant (per maquette right box) - white with light gray border */
   &--outline {
     --ps-tag-bg: var(--white);
     --ps-tag-color: var(--gray-900);
-    --ps-tag-border-color: var(--gray-900);
-    --ps-tag-hover-bg: var(--gray-50);
-    --ps-tag-hover-border-color: var(--gray-900);
-    --ps-tag-hover-color: var(--gray-900); /* Keep black text on hover */
+    --ps-tag-border-color: #EBEDEF; /* Exact border color from maquette */
+    --ps-tag-hover-bg: #F8F9FA; /* Very light gray on hover */
+    --ps-tag-hover-border-color: #EBEDEF;
+    --ps-tag-hover-color: var(--gray-900);
   }
 
   /* ============================================
@@ -167,68 +167,9 @@
   }
 
   /* ============================================
-     LAYER 3: COLOR VARIANTS (filled)
+     NOTE: Only 2 colors per maquette (filled blue + outline white)
+     Color parameter kept for API consistency but has no visual effect
      ============================================ */
-  
-  &--neutral {
-    /* Uses default neutral colors */
-  }
-
-  &--primary.ps-tag--filled {
-    --ps-tag-bg: var(--primary);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--primary);
-    --ps-tag-hover-bg: var(--primary-hover);
-    --ps-tag-selected-bg: var(--primary-active);
-  }
-
-  &--secondary.ps-tag--filled {
-    --ps-tag-bg: var(--secondary);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--secondary);
-    --ps-tag-hover-bg: var(--secondary-hover);
-    --ps-tag-selected-bg: var(--secondary-active);
-  }
-
-  &--success.ps-tag--filled {
-    --ps-tag-bg: var(--success);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--success);
-    --ps-tag-hover-bg: var(--success-hover);
-    --ps-tag-selected-bg: var(--success-active);
-  }
-
-  &--danger.ps-tag--filled {
-    --ps-tag-bg: var(--danger);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--danger);
-    --ps-tag-hover-bg: var(--danger-hover);
-    --ps-tag-selected-bg: var(--danger-active);
-  }
-
-  &--warning.ps-tag--filled {
-    --ps-tag-bg: var(--warning);
-    --ps-tag-color: var(--gray-900);
-    --ps-tag-border-color: var(--warning);
-    --ps-tag-hover-bg: var(--warning-hover);
-    --ps-tag-selected-bg: var(--warning);
-  }
-
-  &--info.ps-tag--filled {
-    --ps-tag-bg: var(--info);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--info);
-    --ps-tag-hover-bg: var(--info-hover);
-    --ps-tag-selected-bg: var(--info-active);
-  }
-
-  &--gold.ps-tag--filled {
-    --ps-tag-bg: var(--gold);
-    --ps-tag-color: var(--white);
-    --ps-tag-border-color: var(--gold);
-    --ps-tag-hover-bg: var(--gold-hover);
-    --ps-tag-selected-bg: var(--gold-active);
-  }
 
   /* ============================================
      LAYER 3: SELECTED STATE

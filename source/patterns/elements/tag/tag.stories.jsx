@@ -18,7 +18,7 @@ const settings = {
     },
     color: {
       description:
-        'Color theme (semantic) - Only affects filled variant. Outline is always black per maquette.',
+        'Color theme - NOTE: Maquette uses only 2 colors (blue filled + white outline). This parameter is kept for API consistency but has no visual effect.',
       control: 'select',
       options: ['neutral', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'gold'],
       table: { category: 'Variants', defaultValue: { summary: 'neutral' } },
@@ -54,7 +54,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Can be used standalone or composed into Tag List. Per maquette: Filled variant uses semantic colors with white text/icon, Outline variant always uses black border and text regardless of color parameter.',
+          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Per maquette: Only 2 colors used - Filled (blue #5A8FE3) and Outline (white + border #EBEDEF). Color parameter has no visual effect.',
       },
     },
   },
@@ -77,14 +77,14 @@ export const StyleVariants = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <div>
-        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Filled (Solid background - per maquette left box)</h3>
+        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Filled (Blue #5A8FE3 - per maquette left box)</h3>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          ${markup({ label: 'TAG LABEL', variant: 'filled', color: 'primary', removable: false })}
-          ${markup({ label: 'TAG LABEL', variant: 'filled', color: 'primary', removable: true })}
+          ${markup({ label: 'TAG LABEL', variant: 'filled', removable: false })}
+          ${markup({ label: 'TAG LABEL', variant: 'filled', removable: true })}
         </div>
       </div>
       <div>
-        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Outline (Black border only - per maquette right box)</h3>
+        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Outline (White + border #EBEDEF - per maquette right box)</h3>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           ${markup({ label: 'Coworking to let', variant: 'outline', removable: true, iconStart: true })}
           ${markup({ label: 'Coworking to let', variant: 'outline', removable: true, iconStart: false })}
@@ -96,34 +96,35 @@ export const StyleVariants = {
     docs: {
       description: {
         story:
-          'Two style variants per maquette: Filled (colored background + white text) and Outline (white background + black border + black text). Color parameter only affects filled variant.',
+          'Two style variants per maquette: Filled (blue #5A8FE3 + white text) and Outline (white background + border #EBEDEF + black text). These are the only 2 colors used.',
       },
     },
   },
 };
 
 // ============================================
-// COLOR VARIANTS (filled)
+// FILLED VARIANT (blue only per maquette)
 // ============================================
 export const ColorsFilled = {
   render: () => `
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      ${['neutral', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'gold']
-        .map((color) => markup({ label: color, variant: 'filled', color, removable: true }))
+      ${['Paris 8e', 'Bureaux', '200-500 m²', 'Disponible', 'Climatisation']
+        .map((label) => markup({ label, variant: 'filled', removable: true }))
         .join('')}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story: 'All semantic color variants with filled style (solid background).',
+        story:
+          'Filled variant always uses blue #5A8FE3 per maquette. Multiple examples with real estate labels.',
       },
     },
   },
 };
 
 // ============================================
-// OUTLINE VARIANT (always black per maquette)
+// OUTLINE VARIANT (white + border #EBEDEF per maquette)
 // ============================================
 export const ColorsOutline = {
   render: () => `
@@ -136,8 +137,7 @@ export const ColorsOutline = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Outline variant always uses black border and text per maquette (right box). Color parameter has no effect on outline style.',
+        story: 'Outline variant always uses white background with border #EBEDEF per maquette.',
       },
     },
   },
@@ -149,9 +149,9 @@ export const ColorsOutline = {
 export const Sizes = {
   render: () => `
     <div style="display: flex; align-items: center; gap: 1rem;">
-      ${markup({ label: 'Small', size: 'sm', variant: 'filled', color: 'primary', removable: true })}
-      ${markup({ label: 'Medium', size: 'md', variant: 'filled', color: 'primary', removable: true })}
-      ${markup({ label: 'Large', size: 'lg', variant: 'filled', color: 'primary', removable: true })}
+      ${markup({ label: 'Small', size: 'sm', variant: 'filled', removable: true })}
+      ${markup({ label: 'Medium', size: 'md', variant: 'filled', removable: true })}
+      ${markup({ label: 'Large', size: 'lg', variant: 'filled', removable: true })}
     </div>
   `,
   parameters: {
@@ -172,22 +172,22 @@ export const RemovableVariants = {
       <div>
         <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Icon at end (default - per maquette)</h3>
         <div style="display: flex; gap: 0.5rem;">
-          ${markup({ label: 'Paris 8e', variant: 'filled', color: 'primary', removable: true, iconStart: false })}
-          ${markup({ label: 'Bureaux', variant: 'outline', color: 'neutral', removable: true, iconStart: false })}
+          ${markup({ label: 'Paris 8e', variant: 'filled', removable: true, iconStart: false })}
+          ${markup({ label: 'Bureaux', variant: 'outline', removable: true, iconStart: false })}
         </div>
       </div>
       <div>
         <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Icon at start (search input variant - per maquette top)</h3>
         <div style="display: flex; gap: 0.5rem;">
-          ${markup({ label: 'Madrid', variant: 'outline', color: 'neutral', removable: true, iconStart: true })}
-          ${markup({ label: 'Coworking to let', variant: 'outline', color: 'neutral', removable: true, iconStart: true })}
+          ${markup({ label: 'Madrid', variant: 'outline', removable: true, iconStart: true })}
+          ${markup({ label: 'Coworking to let', variant: 'outline', removable: true, iconStart: true })}
         </div>
       </div>
       <div>
         <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Not removable</h3>
         <div style="display: flex; gap: 0.5rem;">
-          ${markup({ label: 'Static Tag', variant: 'filled', color: 'neutral', removable: false })}
-          ${markup({ label: 'Category', variant: 'outline', color: 'primary', removable: false })}
+          ${markup({ label: 'Static Tag', variant: 'filled', removable: false })}
+          ${markup({ label: 'Category', variant: 'outline', removable: false })}
         </div>
       </div>
     </div>
@@ -208,10 +208,10 @@ export const RemovableVariants = {
 export const SelectedState = {
   render: () => `
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      ${markup({ label: 'Not selected', variant: 'filled', color: 'primary', selected: false, removable: true })}
-      ${markup({ label: 'Selected', variant: 'filled', color: 'primary', selected: true, removable: true })}
-      ${markup({ label: 'Not selected', variant: 'outline', color: 'primary', selected: false, removable: true })}
-      ${markup({ label: 'Selected', variant: 'outline', color: 'primary', selected: true, removable: true })}
+      ${markup({ label: 'Not selected', variant: 'filled', selected: false, removable: true })}
+      ${markup({ label: 'Selected', variant: 'filled', selected: true, removable: true })}
+      ${markup({ label: 'Not selected', variant: 'outline', selected: false, removable: true })}
+      ${markup({ label: 'Selected', variant: 'outline', selected: true, removable: true })}
     </div>
   `,
   parameters: {
