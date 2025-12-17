@@ -83,6 +83,16 @@ Implémenté : ✅
 Usage : Nouvelles annonces, biens mis en avant  
 Implémenté : ✅
 
+**Tag** - Chip interactif pour filtrage/catégorisation  
+Usage : Tags de bien (search input, filters), catégories, sélections  
+Variants : filled (background plein), outline (border seul)  
+Features : Removable (X icon), Selected state, Icon positioning (start/end), Pills (radius-full)  
+Colors : 8 sémantiques (neutral, primary, secondary, success, danger, warning, info, gold)  
+Sizes : sm, md, lg  
+Render : `<button>` (default) ou `<a>` si url fourni  
+Note : Autonome, peut être utilisé seul ou composé dans Tag List molecule  
+Implémenté : ✅ (2025-01-15)
+
 ---
 
 ## Structural
