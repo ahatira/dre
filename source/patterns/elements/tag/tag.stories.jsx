@@ -17,7 +17,8 @@ const settings = {
       table: { category: 'Variants', defaultValue: { summary: 'filled' } },
     },
     color: {
-      description: 'Color theme (semantic)',
+      description:
+        'Color theme (semantic) - Only affects filled variant. Outline is always black per maquette.',
       control: 'select',
       options: ['neutral', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'gold'],
       table: { category: 'Variants', defaultValue: { summary: 'neutral' } },
@@ -53,7 +54,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Can be used standalone or composed into Tag List. Supports filled and outline variants (per maquette), removable state with close icon, and optional link functionality.',
+          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Can be used standalone or composed into Tag List. Per maquette: Filled variant uses semantic colors with white text/icon, Outline variant always uses black border and text regardless of color parameter.',
       },
     },
   },
@@ -83,10 +84,10 @@ export const StyleVariants = {
         </div>
       </div>
       <div>
-        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Outline (Border only - per maquette right box)</h3>
+        <h3 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Outline (Black border only - per maquette right box)</h3>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          ${markup({ label: 'Coworking to let', variant: 'outline', color: 'neutral', removable: true, iconStart: true })}
-          ${markup({ label: 'Coworking to let', variant: 'outline', color: 'neutral', removable: true, iconStart: false })}
+          ${markup({ label: 'Coworking to let', variant: 'outline', removable: true, iconStart: true })}
+          ${markup({ label: 'Coworking to let', variant: 'outline', removable: true, iconStart: false })}
         </div>
       </div>
     </div>
@@ -95,7 +96,7 @@ export const StyleVariants = {
     docs: {
       description: {
         story:
-          'Two style variants per maquette: Filled (solid background) and Outline (white background with border).',
+          'Two style variants per maquette: Filled (colored background + white text) and Outline (white background + black border + black text). Color parameter only affects filled variant.',
       },
     },
   },
@@ -122,20 +123,21 @@ export const ColorsFilled = {
 };
 
 // ============================================
-// COLOR VARIANTS (outline)
+// OUTLINE VARIANT (always black per maquette)
 // ============================================
 export const ColorsOutline = {
   render: () => `
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      ${['neutral', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'gold']
-        .map((color) => markup({ label: color, variant: 'outline', color, removable: true }))
+      ${['Paris 8e', 'Bureaux', 'Coworking to let', 'Disponible', 'Climatisation']
+        .map((label) => markup({ label, variant: 'outline', removable: true }))
         .join('')}
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story: 'All semantic color variants with outline style (border only).',
+        story:
+          'Outline variant always uses black border and text per maquette (right box). Color parameter has no effect on outline style.',
       },
     },
   },
