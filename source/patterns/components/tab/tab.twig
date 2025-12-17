@@ -1,0 +1,59 @@
+{#
+ * Tab - Individual tab button (molecule)
+ *
+ * Autonomous tab button component for use within Tabs organism.
+ * Visual presentation only - interactive logic managed by Tabs parent.
+ *
+ * @param {string} label - Tab label text (required)
+ * @param {string} [id] - Unique tab identifier
+ * @param {string} [panel_id] - Associated panel ID (aria-controls)
+ * @param {string} [variant='neutral'] - Semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
+ * @param {boolean} [pill=false] - Enables pill presentation style
+ * @param {boolean} [active=false] - Marks tab as selected/active
+ * @param {boolean} [disabled=false] - Disables the tab
+ * @param {string} [icon] - Icon name displayed before label
+ * @param {object} [attributes] - Drupal attribute bag (required for integration)
+ #}
+
+{%- set label = label|default('') -%}
+{%- set id = id|default(null) -%}
+{%- set panel_id = panel_id|default(null) -%}
+{%- set variant = variant|default('neutral') -%}
+{%- set pill = pill|default(false) -%}
+{%- set active = active|default(false) -%}
+{%- set disabled = disabled|default(false) -%}
+{%- set icon = icon|default(null) -%}
+{%- set attributes = attributes ? attributes : create_attribute() -%}
+
+{%- set tab_classes = ['ps-tab'] -%}
+{%- if variant -%}
+  {%- set tab_classes = tab_classes|merge(['ps-tab--' ~ variant]) -%}
+{%- endif -%}
+{%- if pill -%}
+  {%- set tab_classes = tab_classes|merge(['ps-tab--pill']) -%}
+{%- endif -%}
+{%- if icon -%}
+  {%- set tab_classes = tab_classes|merge(['ps-tab--with-icon']) -%}
+{%- endif -%}
+{%- if active -%}
+  {%- set tab_classes = tab_classes|merge(['is-selected']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set tab_classes = tab_classes|merge(['is-disabled']) -%}
+{%- endif -%}
+
+<button
+  {{ attributes.addClass(tab_classes)|without('class') }}
+  {% if id %}id="{{ id }}"{% endif %}
+  role="tab"
+  aria-selected="{{ active ? 'true' : 'false' }}"
+  tabindex="{{ active ? '0' : '-1' }}"
+  {% if panel_id %}aria-controls="{{ panel_id }}"{% endif %}
+  {% if disabled %}disabled aria-disabled="true"{% endif %}
+  data-tab
+>
+  {%- if icon -%}
+    <span class="ps-tab__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+  {%- endif -%}
+  <span class="ps-tab__label">{{ label }}</span>
+</button>

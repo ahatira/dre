@@ -1,11 +1,12 @@
 {#
- * Tabs - Accessible tab navigation component
+ * Tabs collection (organism) - Accessible tab navigation
  *
- * Tabs with semantic color variants, optional pill layout, and optional icons.
+ * Composes Tab components with keyboard navigation and animated indicator.
+ * Implements WAI-ARIA Tabs pattern with roving tabindex.
  *
  * @param {string} [label] - Accessible label for the tablist (aria-label)
  * @param {string} [variant='neutral'] - Semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
- * @param {boolean} [pill=false] - Enables pill presentation style
+ * @param {boolean} [pill=false] - Enables pill presentation style (passed to Tab components)
  * @param {string} [icon] - Default icon name applied to tabs missing an icon (check, info, etc.)
  * @param {boolean} [vertical=false] - Vertical orientation (default: horizontal)
  * @param {boolean} [auto=false] - Auto activation mode (default: manual, requires Enter/Space)
@@ -73,21 +74,18 @@
       {%- set is_disabled = tab.disabled is defined and tab.disabled -%}
       {%- set is_active = loop.index0 == active_index and not is_disabled -%}
 
-      <button
-        class="ps-tabs__tab{% if is_active %} is-selected{% endif %}{% if is_disabled %} is-disabled{% endif %}"
-        id="{{ tab_id }}"
-        role="tab"
-        aria-selected="{{ is_active ? 'true' : 'false' }}"
-        tabindex="{{ is_active ? '0' : '-1' }}"
-        aria-controls="{{ panel_id }}"
-        {% if is_disabled %}disabled aria-disabled="true"{% endif %}
-        data-tab
-      >
-        {%- if tab_icon -%}
-          <span class="ps-tabs__icon" data-icon="{{ tab_icon }}" aria-hidden="true"></span>
-        {%- endif -%}
-        <span class="ps-tabs__label">{{ tab.label }}</span>
-      </button>
+      {# Compose Tab component (molecule) #}
+      {% include '@components/tab/tab.twig' with {
+        label: tab.label,
+        id: tab_id,
+        panel_id: panel_id,
+        variant: variant,
+        pill: pill,
+        active: is_active,
+        disabled: is_disabled,
+        icon: tab_icon,
+        attributes: create_attribute().addClass('ps-tabs__tab')
+      } only %}
     {%- endfor -%}
     <span class="ps-tabs__indicator" aria-hidden="true"></span>
   </div>

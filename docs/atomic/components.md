@@ -3,7 +3,7 @@
 Composants fonctionnels composés de plusieurs atomes.
 
 **Total** : 29 composants  
-**Implémentés** : 24/29 (83%)
+**Implémentés** : 25/29 (86%)
 
 ---
 
@@ -72,10 +72,10 @@ Implémenté : ✅
 Usage : Toggle FR/EN dans header  
 Implémenté : ✅
 
-**Tabs** - Container d'onglets avec variantes sémantiques  
-Usage : Onglets détail bien (description, photos, énergie)  
+**Tab** - Onglet individuel avec variantes sémantiques  
+Usage : Composé au sein de Tabs organism pour navigation par onglets  
 Variants : neutral, primary, success, danger, warning, info, gold, light, dark  
-États : default, pill, with-icon  
+États : default, pill, with-icon, active, disabled  
 Implémenté : ✅
 
 ---

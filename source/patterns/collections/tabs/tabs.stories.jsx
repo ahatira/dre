@@ -1,8 +1,8 @@
 /**
- * Tabs (Molecule)
+ * Tabs (Organism/Collection)
  *
- * Navigation component to organize related content within tab panels.
- * Supports semantic variants, pill modifier, icons, and vertical/horizontal orientations.
+ * Tab navigation container composing individual Tab components.
+ * Includes keyboard navigation, animated indicator, and WAI-ARIA compliance.
  */
 
 import tabsTemplate from './tabs.twig';
@@ -10,7 +10,7 @@ import data from './tabs.yml';
 import './tabs.js';
 
 export default {
-  title: 'Components/Tabs',
+  title: 'Collections/Tabs',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

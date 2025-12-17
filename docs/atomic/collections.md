@@ -3,7 +3,7 @@
 Composants complexes formant des sections complètes.
 
 **Total** : 16 composants  
-**Implémentés** : 3/16
+**Implémentés** : 4/16 (25%)
 
 ---
 
@@ -94,9 +94,12 @@ Implémenté : ✅ (déplacé de Components 2025-12-17 - Correct Atomic Design)
 Usage : Section FAQ : 6+ items Q&A, expansible/collapsible  
 Implémenté : ✅
 
-**Tabs** - Navigation onglets avec panneaux contenu  
-Usage : Détail bien : Description/Photos/Énergie/Biens similaires  
-Implémenté : ❌
+**Tabs** - Container d'onglets avec navigation clavier  
+Usage : Onglets détail bien (description, photos, énergie), dashboards  
+Compose : Tab (molecule) avec logique JavaScript roving tabindex  
+Variants : neutral, primary, success, danger, warning, info, gold, light, dark  
+États : horizontal, vertical, auto, manual, pill  
+Implémenté : ✅ (déplacé de Components 2025-12-17 - Correct Atomic Design)
 
 **Carousel** - Slider image/contenu avec contrôles  
 Usage : Carrousel photos bien avec boutons prev/next + compteur  
