@@ -20,14 +20,14 @@
      LAYER 2: COMPONENT-SCOPED VARIABLES
      ============================================ */
   
-  /* Spacing (pills always have full radius per maquette) */
-  --ps-tag-padding-y: var(--size-1); /* 4px */
-  --ps-tag-padding-x: var(--size-3); /* 12px */
+  /* Spacing (per maquette) */
+  --ps-tag-padding-y: var(--size-1); /* 4px (medium default) */
+  --ps-tag-padding-x: var(--size-2); /* 8px (all sizes same) */
   --ps-tag-gap: var(--size-1); /* 4px between icon and label */
-  --ps-tag-border-radius: var(--radius-round); /* Pills (per maquette) - fully rounded */
+  --ps-tag-border-radius: var(--radius-2); /* 4px for filled by default */
   
   /* Typography */
-  --ps-tag-font-size: var(--font-size-2); /* 14px */
+  --ps-tag-font-size: var(--font-size--1); /* 12px (medium default) */
   --ps-tag-font-weight: var(--font-weight-500);
   --ps-tag-line-height: 1.5;
   --ps-tag-font-family: var(--font-condensed); /* Condensed for filled (default) */
@@ -135,7 +135,7 @@
     /* Uses default blue + condensed font */
   }
 
-  /* Outline variant (per maquette right box) - white with light gray border + sans font */
+  /* Outline variant (per maquette right box) - white with light gray border + sans font + 16px radius */
   &--outline {
     --ps-tag-bg: var(--white);
     --ps-tag-color: var(--gray-900);
@@ -144,6 +144,7 @@
     --ps-tag-hover-border-color: #EBEDEF;
     --ps-tag-hover-color: var(--gray-900);
     --ps-tag-font-family: var(--font-sans); /* Sans font for outline per maquette */
+    --ps-tag-border-radius: var(--radius-6); /* 16px for outline per maquette */
   }
 
   /* ============================================
@@ -151,10 +152,10 @@
      ============================================ */
   
   &--sm {
-    --ps-tag-padding-y: var(--size-05); /* 2px */
+    --ps-tag-padding-y: 0; /* 0px per maquette */
     --ps-tag-padding-x: var(--size-2); /* 8px */
-    --ps-tag-font-size: var(--font-size-1); /* 12px */
-    --ps-tag-icon-size: var(--size-205); /* 10px - correct token */
+    --ps-tag-font-size: var(--font-size--2); /* 10px per maquette */
+    --ps-tag-icon-size: var(--size-2); /* 8px proportional to 10px text */
   }
 
   &--md {
@@ -163,9 +164,9 @@
 
   &--lg {
     --ps-tag-padding-y: var(--size-2); /* 8px */
-    --ps-tag-padding-x: var(--size-4); /* 16px */
-    --ps-tag-font-size: var(--font-size-3); /* 16px */
-    --ps-tag-icon-size: var(--size-4); /* 16px */
+    --ps-tag-padding-x: var(--size-2); /* 8px per maquette (not 16px) */
+    --ps-tag-font-size: var(--font-size-0); /* 14px per maquette */
+    --ps-tag-icon-size: var(--size-3); /* 12px proportional to 14px text */
   }
 
   /* ============================================
