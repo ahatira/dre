@@ -4,14 +4,14 @@
 # - title: string (required) - Section title
 # - icon: string (required) - Icon name for data-icon attribute
 # - items: array (required) - Array of list items (strings or HTML)
-# - variant: string (optional) - Layout variant
-#   Options: 'default', 'two-columns'
+# - columns_min_items: number (optional, default: 0) - Minimum items to enable two-columns
+#   Set to 0 to disable, or set threshold (e.g., 5) to enable when items >= threshold
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Equipments section
+# Default: Equipments section (single column)
 title: 'Equipments'
 icon: 'equipment'
-variant: 'default'
+columns_min_items: 0
 items:
   - 'Elevators'
   - 'Air conditioning : Reversible'

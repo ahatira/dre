@@ -6,22 +6,19 @@
  * @param {string} title - Section title (required)
  * @param {string} icon - Icon name for data-icon attribute (required)
  * @param {array} items - Array of list items (strings or HTML) (required)
- * @param {string} [variant] - Layout variant: default|two-columns
+ * @param {number} [columns_min_items=0] - Minimum items to enable two-columns layout (0 = disabled)
  * @param {object} [attributes] - Drupal attribute bag (required for integration)
  #}
 
 {%- set title = title|default('') -%}
 {%- set icon = icon|default('') -%}
 {%- set items = items|default([]) -%}
-{%- set variant = variant|default('default') -%}
+{%- set columns_min_items = columns_min_items|default(0) -%}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 
 {%- set section_classes = ['ps-feature-section'] -%}
-{%- if variant and variant != 'default' -%}
-  {%- set section_classes = section_classes|merge(['ps-feature-section--' ~ variant]) -%}
-{%- endif -%}
 
-<div{{ attributes.addClass(section_classes)|without('class') }}>
+<div{{ attributes.addClass(section_classes)|without('class') }}{% if columns_min_items > 0 and items|length >= columns_min_items %} data-columns-min-items="{{ columns_min_items }}"{% endif %}>
   {% include '@elements/heading/heading.twig' with {
     level: 'h3',
     text: title,

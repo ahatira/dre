@@ -35,8 +35,8 @@
     --ps-list-margin-block: var(--size-2);
   }
 
-  /* Two columns variant (for Services section) */
-  &--two-columns {
+  /* Two columns layout (triggered by data-columns-min-items attribute) */
+  &[data-columns-min-items] {
     & .ps-list {
       @media (min-width: 640px) {
         columns: 2;

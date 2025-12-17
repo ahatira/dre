@@ -48,15 +48,14 @@ export default {
         type: { summary: 'array' },
       },
     },
-    variant: {
-      control: 'select',
-      options: ['default', 'two-columns'],
+    columns_min_items: {
+      control: 'number',
       description:
-        'Layout variant: default (single column) or two-columns (responsive 2-col on desktop).',
+        'Minimum number of items to enable two-columns layout. Set to 0 to disable (default). Set to threshold (e.g., 5) to enable when items >= threshold.',
       table: {
         category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
       },
     },
   },
@@ -76,7 +75,7 @@ export const Services = {
   args: {
     title: 'Services',
     icon: 'office',
-    variant: 'two-columns',
+    columns_min_items: 5,
     items: [
       'Home : Hostesses',
       'Office layout: 3 open-plan offices',
@@ -96,7 +95,7 @@ export const BuildingCondition = {
   args: {
     title: 'Building condition',
     icon: 'commercial-space',
-    variant: 'default',
+    columns_min_items: 0,
     items: [
       'Condition of building: Restructured with common area',
       'Condition of premises : state of use',
@@ -111,7 +110,7 @@ export const MoreInformation = {
   args: {
     title: 'More information',
     icon: 'info',
-    variant: 'default',
+    columns_min_items: 0,
     items: ['Several courtyards', 'Garden level in perfect condition', 'Highly flexible'],
   },
 };
