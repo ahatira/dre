@@ -1,0 +1,101 @@
+/* Definition List (Component/Molecule) - Key-value pairs styling */
+
+.ps-definition-list {
+  /* Component-scoped variables */
+  /* Typography */
+  --ps-definition-list-font-family: var(--font-body);
+  --ps-definition-list-term-font-size: var(--font-size-2);
+  --ps-definition-list-term-font-weight: var(--font-weight-600);
+  --ps-definition-list-term-color: var(--text-primary);
+  --ps-definition-list-definition-font-size: var(--font-size-2);
+  --ps-definition-list-definition-font-weight: var(--font-weight-400);
+  --ps-definition-list-definition-color: var(--text-secondary);
+
+  /* Spacing */
+  --ps-definition-list-item-gap: var(--size-4); /* 16px between items */
+  --ps-definition-list-term-definition-gap: var(--size-1); /* 4px between term/definition */
+  --ps-definition-list-icon-size: var(--size-5); /* 20px */
+  --ps-definition-list-icon-gap: var(--size-2); /* 8px */
+
+  /* Borders */
+  --ps-definition-list-border-color: var(--border-default);
+  --ps-definition-list-border-width: var(--border-size-1);
+
+  /* Base definition list */
+  margin: 0;
+  padding: 0;
+  font-family: var(--ps-definition-list-font-family);
+
+  /* Item container (wraps dt + dd) */
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-definition-list-term-definition-gap);
+    margin-bottom: var(--ps-definition-list-item-gap);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Term (dt) */
+  &__term {
+    display: flex;
+    align-items: center;
+    gap: var(--ps-definition-list-icon-gap);
+    font-size: var(--ps-definition-list-term-font-size);
+    font-weight: var(--ps-definition-list-term-font-weight);
+    color: var(--ps-definition-list-term-color);
+  }
+
+  /* Definition (dd) */
+  &__definition {
+    margin: 0;
+    font-size: var(--ps-definition-list-definition-font-size);
+    font-weight: var(--ps-definition-list-definition-font-weight);
+    color: var(--ps-definition-list-definition-color);
+  }
+
+  /* Icon */
+  &__icon {
+    width: var(--ps-definition-list-icon-size);
+    height: var(--ps-definition-list-icon-size);
+    flex-shrink: 0;
+    color: var(--primary);
+  }
+
+  /* Inline variant - term and definition on same line */
+  &--inline {
+    & .ps-definition-list__item {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--size-3);
+    }
+
+    & .ps-definition-list__term {
+      flex-shrink: 0;
+      min-width: 120px;
+    }
+
+    & .ps-definition-list__definition {
+      flex: 1;
+    }
+  }
+
+  /* Grid variant - 2-column layout for larger screens */
+  &--grid {
+    display: grid;
+    gap: var(--ps-definition-list-item-gap);
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--size-6);
+    }
+
+    & .ps-definition-list__item {
+      margin-bottom: 0;
+      padding-bottom: var(--ps-definition-list-item-gap);
+      border-bottom: var(--ps-definition-list-border-width) solid var(--ps-definition-list-border-color);
+    }
+  }
+}

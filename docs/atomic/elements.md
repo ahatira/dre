@@ -2,8 +2,8 @@
 
 Éléments HTML de base autonomes qui ne composent pas d'autres composants.
 
-**Total** : 23 composants  
-**Implémentés** : 23/23 (100%)
+**Total** : 24 composants  
+**Implémentés** : 24/24 (100%)
 
 ---
 
@@ -15,6 +15,13 @@ Implémenté : ✅
 
 **Text** - Paragraphe et texte inline avec variantes  
 Usage : Descriptions, métadonnées de biens  
+Implémenté : ✅
+
+**List** - Liste HTML de base (ul/ol)  
+Usage : Listes de caractéristiques, énumérations, contenu éditorial  
+Variants : bulleted (puces), numbered (numéros), unstyled (sans marqueurs)  
+Support : Listes imbriquées avec cascade automatique de styles  
+Note : Pour listes clé-valeur structurées, voir Definition List (molecule)  
 Implémenté : ✅
 
 **Link** - Lien hypertexte avec icône optionnelle  

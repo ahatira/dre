@@ -3,7 +3,7 @@
 Composants fonctionnels composés de plusieurs atomes.
 
 **Total** : 29 composants  
-**Implémentés** : 25/29 (86%)
+**Implémentés** : 26/29 (90%)
 
 ---
 
@@ -116,8 +116,16 @@ Implémenté : ✅
 
 ## Lists & Tables
 
+**Definition List** - Liste clé-valeur (dl/dt/dd) avec icônes  
+Usage : Spécifications techniques, caractéristiques, données structurées  
+Variants : default (vertical), inline (horizontal), grid (2 colonnes)  
+Features : Support icônes optionnels, layouts responsive  
+Note : Remplace "Specs List" - utilise HTML sémantique `<dl>`  
+Implémenté : ✅
+
 **List Item** - Item unique avec icône, texte, actions  
 Usage : Item vue liste biens, entrée résultat  
+Note : À clarifier - probablement "Result List Item" (Card horizontale)  
 Implémenté : ❌
 
 **Table** - Tableau de données avec headers et rangées  

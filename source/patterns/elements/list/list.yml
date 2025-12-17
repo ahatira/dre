@@ -1,0 +1,19 @@
+# List Component - Default Configuration
+#
+# Available Props:
+# - items: array (required) - Array of list items (strings or HTML)
+# - variant: string (default: 'bulleted') - List style
+#   Options: bulleted, numbered, unstyled
+# - type: string (default: auto based on variant) - HTML element type
+#   Options: ul, ol
+# - attributes: Attribute - Additional HTML attributes
+
+# Default: Bulleted list (ul)
+variant: 'bulleted'
+type: 'ul'
+items:
+  - 'Prime location near La Défense business district'
+  - 'Modern workspace with flexible layouts'
+  - 'High-speed fiber optic connectivity'
+  - 'Sustainable building certification (BREEAM Excellent)'
+  - 'On-site amenities: cafeteria, fitness center, bike storage'

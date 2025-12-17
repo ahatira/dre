@@ -1,0 +1,94 @@
+/* List (Element/Atom) - HTML list styling */
+
+.ps-list {
+  /* Component-scoped variables */
+  /* Typography */
+  --ps-list-font-family: var(--font-body);
+  --ps-list-font-size: var(--font-size-2);
+  --ps-list-line-height: var(--line-height-normal);
+  --ps-list-color: var(--text-primary);
+
+  /* Spacing */
+  --ps-list-padding-left: var(--size-6); /* 24px indent for bullets/numbers */
+  --ps-list-item-spacing: var(--size-2); /* 8px between items */
+  --ps-list-margin-block: var(--size-4); /* 16px top/bottom margin */
+
+  /* Markers */
+  --ps-list-marker-color: var(--primary);
+
+  /* Base list styles */
+  margin: var(--ps-list-margin-block) 0;
+  padding-left: var(--ps-list-padding-left);
+  font-family: var(--ps-list-font-family);
+  font-size: var(--ps-list-font-size);
+  line-height: var(--ps-list-line-height);
+  color: var(--ps-list-color);
+
+  /* List item spacing */
+  &__item {
+    margin-bottom: var(--ps-list-item-spacing);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Nested lists */
+    & .ps-list {
+      margin-top: var(--ps-list-item-spacing);
+      margin-bottom: 0;
+    }
+  }
+
+  /* Bulleted list (default ul) */
+  &--bulleted {
+    list-style-type: disc;
+
+    & .ps-list__item {
+      &::marker {
+        color: var(--ps-list-marker-color);
+      }
+    }
+
+    /* Nested bullet styles */
+    & .ps-list--bulleted {
+      list-style-type: circle;
+
+      & .ps-list--bulleted {
+        list-style-type: square;
+      }
+    }
+  }
+
+  /* Numbered list (ol) */
+  &--numbered {
+    list-style-type: decimal;
+
+    & .ps-list__item {
+      &::marker {
+        color: var(--ps-list-marker-color);
+        font-weight: var(--font-weight-600);
+      }
+    }
+
+    /* Nested numbering styles */
+    & .ps-list--numbered {
+      list-style-type: lower-alpha;
+
+      & .ps-list--numbered {
+        list-style-type: lower-roman;
+      }
+    }
+  }
+
+  /* Unstyled list (no markers) */
+  &--unstyled {
+    padding-left: 0;
+    list-style: none;
+
+    & .ps-list__item {
+      &::marker {
+        content: none;
+      }
+    }
+  }
+}

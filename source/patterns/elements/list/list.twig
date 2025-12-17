@@ -1,0 +1,34 @@
+{#
+ * List - HTML list element (ul/ol)
+ *
+ * Basic styled list component for content.
+ *
+ * @param {array} items - Array of list items (strings or HTML)
+ * @param {string} [variant='bulleted'] - List style: bulleted|numbered|unstyled
+ * @param {string} [type='ul'] - HTML element type: ul|ol
+ * @param {object} [attributes] - Drupal attribute bag (required for integration)
+ #}
+
+{%- set items = items|default([]) -%}
+{%- set variant = variant|default('bulleted') -%}
+{%- set type = type|default(variant == 'numbered' ? 'ol' : 'ul') -%}
+{%- set attributes = attributes ? attributes : create_attribute() -%}
+
+{%- set list_classes = ['ps-list'] -%}
+{%- if variant -%}
+  {%- set list_classes = list_classes|merge(['ps-list--' ~ variant]) -%}
+{%- endif -%}
+
+{% if type == 'ol' %}
+<ol{{ attributes.addClass(list_classes)|without('class') }}>
+  {% for item in items -%}
+    <li class="ps-list__item">{{ item|raw }}</li>
+  {%- endfor %}
+</ol>
+{% else %}
+<ul{{ attributes.addClass(list_classes)|without('class') }}>
+  {% for item in items -%}
+    <li class="ps-list__item">{{ item|raw }}</li>
+  {%- endfor %}
+</ul>
+{% endif %}
