@@ -111,6 +111,15 @@ modal:
     - core/once
     - ps_theme/vendors
 
+table:
+  js:
+    dist/js/table.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 tabs:
   js:
     dist/js/tabs.js: {}
