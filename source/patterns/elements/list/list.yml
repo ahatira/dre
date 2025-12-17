@@ -2,14 +2,13 @@
 #
 # Available Props:
 # - items: array (required) - Array of list items (strings or HTML)
-# - variant: string (default: 'bulleted') - List style
-#   Options: bulleted, numbered, unstyled
-# - type: string (default: auto based on variant) - HTML element type
-#   Options: ul, ol
+# - variant: string (optional) - Modifier to override default style
+#   Options: null (native), 'bulleted', 'disc', 'circle', 'square', 'numbered', 'unstyled'
+# - type: string (default: 'ul') - HTML element type
+#   Options: ul (disc by default), ol (decimal by default)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Bulleted list (ul)
-variant: 'bulleted'
+# Default: ul with native disc markers (no variant needed)
 type: 'ul'
 items:
   - 'Prime location near La Défense business district'

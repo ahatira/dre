@@ -2,16 +2,16 @@
  * List - HTML list element (ul/ol)
  *
  * Basic styled list component for content.
+ * ul = bulleted by default, ol = numbered by default.
  *
  * @param {array} items - Array of list items (strings or HTML)
- * @param {string} [variant='bulleted'] - List style: bulleted|numbered|unstyled
+ * @param {string} [variant] - Optional modifier: 'unstyled' to remove markers
  * @param {string} [type='ul'] - HTML element type: ul|ol
  * @param {object} [attributes] - Drupal attribute bag (required for integration)
  #}
 
 {%- set items = items|default([]) -%}
-{%- set variant = variant|default('bulleted') -%}
-{%- set type = type|default(variant == 'numbered' ? 'ol' : 'ul') -%}
+{%- set type = type|default('ul') -%}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 
 {%- set list_classes = ['ps-list'] -%}

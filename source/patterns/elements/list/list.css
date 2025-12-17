@@ -37,58 +37,127 @@
       margin-top: var(--ps-list-item-spacing);
       margin-bottom: 0;
     }
+
+    /* Marker color for all lists (except unstyled) */
+    &::marker {
+      color: var(--ps-list-marker-color);
+    }
   }
 
-  /* Bulleted list (default ul) */
-  &--bulleted {
+  /* Default ul styles (native cascade) */
+  &:is(ul) {
     list-style-type: disc;
 
-    & .ps-list__item {
-      &::marker {
-        color: var(--ps-list-marker-color);
-      }
-    }
-
     /* Nested bullet styles */
-    & .ps-list--bulleted {
+    & ul.ps-list {
       list-style-type: circle;
 
-      & .ps-list--bulleted {
+      & ul.ps-list {
         list-style-type: square;
       }
     }
   }
 
-  /* Numbered list (ol) */
-  &--numbered {
+  /* Default ol styles (native cascade) */
+  &:is(ol) {
     list-style-type: decimal;
 
-    & .ps-list__item {
-      &::marker {
-        color: var(--ps-list-marker-color);
-        font-weight: var(--font-weight-600);
-      }
+    & .ps-list__item::marker {
+      font-weight: var(--font-weight-600);
     }
 
     /* Nested numbering styles */
-    & .ps-list--numbered {
+    & ol.ps-list {
       list-style-type: lower-alpha;
 
-      & .ps-list--numbered {
+      & ol.ps-list {
         list-style-type: lower-roman;
       }
     }
   }
 
-  /* Unstyled list (no markers) */
-  &--unstyled {
+  /* Explicit style modifiers (override defaults, higher specificity via double class) */
+
+  /* Force bulleted style (disc markers with cascade) */
+  &.ps-list--bulleted {
+    list-style-type: disc;
+
+    /* Nested without explicit modifier = cascade */
+    & .ps-list:not([class*="--"]) {
+      list-style-type: circle;
+
+      & .ps-list:not([class*="--"]) {
+        list-style-type: square;
+      }
+    }
+
+    /* Nested WITH bulleted modifier = restart cascade */
+    & .ps-list--bulleted {
+      list-style-type: disc;
+
+      & .ps-list--bulleted {
+        list-style-type: circle;
+
+        & .ps-list--bulleted {
+          list-style-type: square;
+        }
+      }
+    }
+  }
+
+  /* Force disc markers (no cascade on children) */
+  &.ps-list--disc {
+    list-style-type: disc;
+  }
+
+  /* Force circle markers */
+  &.ps-list--circle {
+    list-style-type: circle;
+  }
+
+  /* Force square markers */
+  &.ps-list--square {
+    list-style-type: square;
+  }
+
+  /* Force numbered style (decimal markers with cascade) */
+  &.ps-list--numbered {
+    list-style-type: decimal;
+
+    & .ps-list__item::marker {
+      font-weight: var(--font-weight-600);
+    }
+
+    /* Nested without explicit modifier = cascade */
+    & .ps-list:not([class*="--"]) {
+      list-style-type: lower-alpha;
+
+      & .ps-list:not([class*="--"]) {
+        list-style-type: lower-roman;
+      }
+    }
+
+    /* Nested WITH numbered modifier = restart cascade */
+    & .ps-list--numbered {
+      list-style-type: decimal;
+
+      & .ps-list--numbered {
+        list-style-type: lower-alpha;
+
+        & .ps-list--numbered {
+          list-style-type: lower-roman;
+        }
+      }
+    }
+  }
+
+  /* Unstyled modifier (remove all markers) */
+  &.ps-list--unstyled {
     padding-left: 0;
     list-style: none;
 
-    & .ps-list__item {
-      &::marker {
-        content: none;
-      }
+    & .ps-list__item::marker {
+      content: none;
     }
   }
 }

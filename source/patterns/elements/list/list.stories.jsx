@@ -2,7 +2,7 @@
  * List (Atom)
  *
  * Basic HTML list component for content (ul/ol).
- * Provides styled bullets, numbers, or unstyled variants.
+ * ul = bulleted by default, ol = numbered by default.
  */
 
 import listTemplate from './list.twig';
@@ -16,7 +16,7 @@ export default {
     docs: {
       description: {
         component:
-          'HTML list element with three variants: bulleted (disc markers), numbered (decimal), or unstyled (no markers). Supports nested lists with automatic style cascade.',
+          'HTML list element with native styles by default: ul displays disc markers, ol displays decimal numbers. Use "unstyled" variant to remove markers. Supports nested lists with automatic style cascade.',
       },
     },
   },
@@ -32,18 +32,19 @@ export default {
     },
     variant: {
       control: 'select',
-      options: ['bulleted', 'numbered', 'unstyled'],
-      description: 'List style variant.',
+      options: [null, 'bulleted', 'disc', 'circle', 'square', 'numbered', 'unstyled'],
+      description:
+        'Optional modifier to override default styles. null=native (ul=disc, ol=decimal), bulleted=force disc cascade, disc/circle/square=specific marker, numbered=force decimal cascade, unstyled=no markers.',
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
-        defaultValue: { summary: 'bulleted' },
+        defaultValue: { summary: 'null' },
       },
     },
     type: {
       control: 'select',
       options: ['ul', 'ol'],
-      description: 'HTML element type (auto-determined by variant if not specified).',
+      description: 'HTML element type: ul (bulleted by default) or ol (numbered by default).',
       table: {
         category: 'Structure',
         type: { summary: 'string' },
@@ -54,18 +55,17 @@ export default {
 };
 
 /**
- * Default bulleted list (ul with disc markers)
+ * Default bulleted list (ul with native disc markers)
  */
 export const Default = {
   args: data,
 };
 
 /**
- * Numbered list (ol with decimal markers)
+ * Numbered list (ol with native decimal markers)
  */
 export const Numbered = {
   args: {
-    variant: 'numbered',
     type: 'ol',
     items: [
       'Schedule property viewing with our consultant',
@@ -93,29 +93,28 @@ export const Unstyled = {
 export const Nested = {
   render: () => {
     return `
-      ${listTemplate({
-        variant: 'bulleted',
-        items: [
-          'Commercial Real Estate Services',
-          listTemplate({
-            variant: 'bulleted',
-            items: [
-              'Office space leasing',
-              'Retail property management',
-              'Industrial facilities',
-              listTemplate({
-                variant: 'bulleted',
-                items: ['Logistics hubs', 'Manufacturing sites', 'Warehouses'],
-              }),
-            ],
-          }),
-          'Residential Real Estate',
-          listTemplate({
-            variant: 'bulleted',
-            items: ['Luxury apartments', 'Family homes', 'Student housing'],
-          }),
-        ],
-      })}
+      <ul class="ps-list">
+        <li class="ps-list__item">Commercial Real Estate Services
+          <ul class="ps-list">
+            <li class="ps-list__item">Office space leasing</li>
+            <li class="ps-list__item">Retail property management</li>
+            <li class="ps-list__item">Industrial facilities
+              <ul class="ps-list">
+                <li class="ps-list__item">Logistics hubs</li>
+                <li class="ps-list__item">Manufacturing sites</li>
+                <li class="ps-list__item">Warehouses</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="ps-list__item">Residential Real Estate
+          <ul class="ps-list">
+            <li class="ps-list__item">Luxury apartments</li>
+            <li class="ps-list__item">Family homes</li>
+            <li class="ps-list__item">Student housing</li>
+          </ul>
+        </li>
+      </ul>
     `;
   },
 };
@@ -125,7 +124,6 @@ export const Nested = {
  */
 export const PropertyFeatures = {
   args: {
-    variant: 'bulleted',
     items: [
       'Total surface area: 1,250 m² divisible',
       'Floor-to-ceiling windows with natural light',
@@ -140,11 +138,10 @@ export const PropertyFeatures = {
 };
 
 /**
- * Steps process (numbered variant)
+ * Steps process (numbered variant using ol)
  */
 export const StepsProcess = {
   args: {
-    variant: 'numbered',
     type: 'ol',
     items: [
       '<strong>Discovery</strong> - Define your space requirements and budget',
@@ -153,5 +150,38 @@ export const StepsProcess = {
       '<strong>Negotiate</strong> - Secure best terms with our support',
       '<strong>Move In</strong> - Coordinate logistics and settle in',
     ],
+  },
+};
+
+/**
+ * Explicit marker variants (override defaults)
+ */
+export const MarkerVariants = {
+  render: () => {
+    return `
+      <div style="display: grid; gap: 24px;">
+        <div>
+          <h4 style="margin-bottom: 8px; font-weight: 600;">Disc (explicit)</h4>
+          ${listTemplate({
+            variant: 'disc',
+            items: ['Item with disc marker', 'Another disc item', 'Third disc item'],
+          })}
+        </div>
+        <div>
+          <h4 style="margin-bottom: 8px; font-weight: 600;">Circle</h4>
+          ${listTemplate({
+            variant: 'circle',
+            items: ['Item with circle marker', 'Another circle item', 'Third circle item'],
+          })}
+        </div>
+        <div>
+          <h4 style="margin-bottom: 8px; font-weight: 600;">Square</h4>
+          ${listTemplate({
+            variant: 'square',
+            items: ['Item with square marker', 'Another square item', 'Third square item'],
+          })}
+        </div>
+      </div>
+    `;
   },
 };
