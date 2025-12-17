@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-01-17] - Refactor: List Atom Simplification
+
+### Changed
+- **List (Elements)**: Simplified default behavior and added explicit variant options
+  - **Default behavior**: Native HTML styles without modifier (ul=disc, ol=decimal)
+  - **7 variant options**: `null` (native), `bulleted` (force disc cascade), `disc`, `circle`, `square`, `numbered` (force decimal cascade), `unstyled`
+  - **Nested cascade fixed**: Proper disc → circle → square for ul, decimal → alpha → roman for ol
+  - **CSS specificity**: Double class selector for modifiers (`.ps-list.ps-list--bulleted`) ensures override
+  - **Story structure**: Fixed Nested story with proper HTML nesting instead of template composition
+  - **New story**: MarkerVariants showcasing disc/circle/square explicit markers
+
+### Technical Details
+- Build impact: CSS 496.23 kB → 497.35 kB (+1.12 kB for new variants)
+- Twig: `variant` parameter now optional (no default value)
+- CSS: Defaults first (ul/ol selectors), modifiers second with higher specificity
+- Commit: `3bc83fe`
+
+### Rationale
+- **Simplified API**: No variant needed for standard lists (ul/ol native behavior)
+- **Explicit control**: Variants available when specific marker style needed regardless of element type
+- **Better cascade**: Fixed nested list styling with proper CSS specificity and HTML structure
+
+---
+
 ## [2025-01-17] - Architecture: HTML List Components
 
 ### Added
