@@ -1,0 +1,91 @@
+/**
+ * Video Component - PS Theme Skin
+ *
+ * Minimal color customization for Video.js player.
+ * Applied via .vjs-theme-ps class on player element.
+ *
+ * Follows Video.js skin architecture: https://videojs.org/guides/skins/
+ * Only overrides colors - structure remains in video.css
+ */
+
+/* ===============================================
+   Control Bar Background
+   =============================================== */
+
+.vjs-theme-ps .vjs-control-bar {
+  background: var(--primary);
+}
+
+/* ===============================================
+   Big Play Button
+   =============================================== */
+
+.vjs-theme-ps .vjs-big-play-button {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.vjs-theme-ps .vjs-big-play-button .vjs-icon-placeholder::before {
+  color: var(--white);
+}
+
+.vjs-theme-ps .vjs-big-play-button:hover,
+.vjs-theme-ps .vjs-big-play-button:focus {
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+/* ===============================================
+   Progress Bar
+   =============================================== */
+
+.vjs-theme-ps .vjs-play-progress {
+  background: var(--secondary) !important;
+}
+
+.vjs-theme-ps .vjs-play-progress::after {
+  background: var(--white);
+  border-color: var(--secondary);
+}
+
+/* ===============================================
+   Volume Bar
+   =============================================== */
+
+.vjs-theme-ps .vjs-volume-level {
+  background: var(--secondary) !important;
+}
+
+.vjs-theme-ps .vjs-volume-level::after {
+  background: var(--white);
+  border-color: var(--secondary);
+}
+
+/* ===============================================
+   Control Buttons Hover
+   =============================================== */
+
+.vjs-theme-ps .vjs-play-control:hover,
+.vjs-theme-ps .vjs-mute-control:hover,
+.vjs-theme-ps .vjs-fullscreen-control:hover,
+.vjs-theme-ps .vjs-subs-caps-button:hover,
+.vjs-theme-ps .vjs-subtitles-button:hover,
+.vjs-theme-ps .vjs-captions-button:hover,
+.vjs-theme-ps .vjs-chapters-button:hover,
+.vjs-theme-ps .vjs-settings-button:hover,
+.vjs-theme-ps .vjs-picture-in-picture-control:hover {
+  color: var(--green-900);
+}
+
+/* ===============================================
+   Menu Items
+   =============================================== */
+
+.vjs-theme-ps .vjs-menu .vjs-menu-item:hover {
+  background: rgba(0, 145, 90, 0.2);
+  color: var(--green-900);
+}
+
+.vjs-theme-ps .vjs-menu .vjs-menu-item.vjs-selected {
+  color: var(--green-900);
+}

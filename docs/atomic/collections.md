@@ -3,7 +3,7 @@
 Composants complexes formant des sections complètes.
 
 **Total** : 16 composants  
-**Implémentés** : 4/16 (25%)
+**Implémentés** : 5/16 (31%)
 
 ---
 
@@ -38,9 +38,10 @@ Implémenté : ✅
 Usage : Grille 4 col biens mis en avant, recherches commerciales 4 col, articles actualités 3 col  
 Implémenté : ❌
 
-**Feature Section** - Features avec icônes, titres, descriptions  
-Usage : 4 cartes services (Expertise, Réseau, Solutions, Innovation)  
-Implémenté : ❌
+**Feature Section** - Section thématique avec icône, titre, liste  
+Usage : Sections équipements, services, état du bâtiment (pages offres)  
+Specs : Compose Icon + Heading + List atoms, layout deux colonnes responsive  
+Implémenté : ✅
 
 **Testimonials** - Citations clients avec avatars  
 Usage : Profils experts avec nom, rôle, bureau + section image  

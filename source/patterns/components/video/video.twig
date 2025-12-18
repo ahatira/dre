@@ -1,14 +1,109 @@
-{# Video - Responsive video embed #}
-<div class="ps-video ps-video--{{ aspect_ratio | replace(':', '-') }}">
-  {% if provider == "youtube" %}
-    <iframe
-      class="ps-video__player"
-      src="https://www.youtube.com/embed/{{ video_id }}"
-      title="{{ title }}"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      aria-label="{{ title }}"
-    ></iframe>
-  {% endif %}
+{#
+ * Video - Responsive video player powered by Video.js
+ *
+ * Unified video player supporting YouTube, Vimeo, and HTML5 videos with
+ * consistent UI/UX via Video.js library.
+ *
+ * @param {string} [url] - Video source (YouTube URL, Vimeo URL, or direct MP4/WebM)
+ * @param {array} [sources] - For HTML5: Array of {src, type} objects for multiple formats
+ * @param {string} [poster] - Thumbnail image URL
+ * @param {string} [aspect_ratio='16:9'] - Container aspect ratio: 16:9|4:3|1:1|21:9
+ * @param {string} [title='Video'] - Video title (accessibility)
+ * @param {boolean} [controls=true] - Show player controls
+ * @param {boolean} [autoplay=false] - Autoplay video (muted required)
+ * @param {boolean} [loop=false] - Loop video
+ * @param {boolean} [muted=false] - Mute audio
+ * @param {string} [preload='metadata'] - Preload strategy: none|metadata|auto
+ * @param {boolean} [fluid=true] - Responsive fluid sizing
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration
+ *
+ * @see https://videojs.com/
+ #}
+
+{# Default values #}
+{%- set url = url|default('') -%}
+{%- set sources = sources|default([]) -%}
+{%- set poster = poster|default('') -%}
+{%- set aspect_ratio = aspect_ratio|default('16:9') -%}
+{%- set title = title|default('Video') -%}
+{%- set controls = controls is defined ? controls : true -%}
+{%- set autoplay = autoplay|default(false) -%}
+{%- set loop = loop|default(false) -%}
+{%- set muted = muted|default(false) -%}
+{%- set preload = preload|default('metadata') -%}
+{%- set fluid = fluid is defined ? fluid : true -%}
+
+{# Generate unique ID for Video.js player #}
+{%- set video_id = 'ps-video-' ~ random() -%}
+
+{# Auto-detect video type #}
+{%- set video_type = 'video/mp4' -%}
+{%- if url -%}
+  {%- if 'youtube.com' in url or 'youtu.be' in url -%}
+    {%- set video_type = 'video/youtube' -%}
+  {%- elseif 'vimeo.com' in url -%}
+    {%- set video_type = 'video/vimeo' -%}
+  {%- elseif '.webm' in url -%}
+    {%- set video_type = 'video/webm' -%}
+  {%- elseif '.ogv' in url -%}
+    {%- set video_type = 'video/ogg' -%}
+  {%- endif -%}
+{%- endif -%}
+
+{# Convert aspect ratio to CSS class (16:9 → 16-9) #}
+{%- set aspect_ratio_class = aspect_ratio|split(':')|join('-') -%}
+
+{# Build container classes #}
+{%- set container_classes = [
+  'ps-video',
+  'ps-video--' ~ aspect_ratio_class
+] -%}
+
+{# Build Video.js classes #}
+{%- set videojs_classes = [
+  'video-js',
+  'vjs-big-play-centered',
+  'vjs-theme-ps'
+] -%}
+
+<div class="{{ container_classes|join(' ')|trim }}"
+  {%- if fixed_height %} data-height-fixed style="--video-fixed-height: {{ fixed_height }};"{% endif -%}
+  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
+  
+  <video
+    id="{{ video_id }}"
+    class="{{ videojs_classes|join(' ')|trim }}"
+    {% if controls %}controls{% endif %}
+    {% if autoplay %}autoplay{% endif %}
+    {% if loop %}loop{% endif %}
+    {% if muted %}muted{% endif %}
+    {% if poster %}
+    poster="{{ poster }}"
+    data-poster="{{ poster }}"
+    {% endif %}
+    preload="{{ preload }}"
+    aria-label="{{ title }}"
+    data-ps-video
+    data-video-id="{{ video_id }}"
+  >
+    
+    {# Direct URL source (Video.js handles YouTube/Vimeo via plugins) #}
+    {% if url %}
+      <source src="{{ url }}" type="{{ video_type }}">
+    {% endif %}
+    
+    {# Multiple HTML5 sources #}
+    {% if sources %}
+      {% for source in sources %}
+        <source src="{{ source.src }}" type="{{ source.type }}">
+      {% endfor %}
+    {% endif %}
+    
+    {# Fallback for browsers without HTML5 video support #}
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank" rel="noopener">supports HTML5 video</a>
+    </p>
+  </video>
+  
 </div>

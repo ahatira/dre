@@ -22,6 +22,13 @@ Swiper.use([Navigation, Pagination, Keyboard, A11y]);
 // Make Swiper available globally for carousel behavior
 window.Swiper = Swiper;
 
+// Import Video.js for video component
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+import 'videojs-youtube';
+
+window.videojs = videojs;
+
 // Import component behaviors (with JS)
 import '../source/patterns/components/alert/alert.js';
 import '../source/patterns/components/card-offer-slide/card-offer-slide.js';
@@ -30,6 +37,7 @@ import '../source/patterns/components/dropdown/dropdown.js';
 import '../source/patterns/components/language-selector/language-selector.js';
 import '../source/patterns/components/table/table.js';
 import '../source/patterns/components/toast/toast.js';
+import '../source/patterns/components/video/video.js';
 
 // Import element behaviors
 import '../source/patterns/elements/button/button.js';

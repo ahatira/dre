@@ -147,3 +147,12 @@ tooltip:
     - core/once
     - ps_theme/vendors
 
+video:
+  js:
+    dist/js/video.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+

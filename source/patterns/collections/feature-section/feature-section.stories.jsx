@@ -1,5 +1,5 @@
 /**
- * Feature Section (Molecule)
+ * Feature Section (Organism)
  *
  * Thematic section composing Icon + Heading + List atoms.
  * Used for property features, services, building info, etc.
@@ -10,14 +10,14 @@ import featureSectionTemplate from './feature-section.twig';
 import data from './feature-section.yml';
 
 export default {
-  title: 'Components/Feature Section',
+  title: 'Collections/Feature Section',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Molecule combining icon, title, and bulleted list. Composes existing Icon, Heading, and List atoms. Two-columns variant available for responsive layout on larger screens.',
+          'Organism combining icon, title, and bulleted list. Composes existing Icon, Heading, and List atoms. Two-columns variant available for responsive layout on larger screens.',
       },
     },
   },
