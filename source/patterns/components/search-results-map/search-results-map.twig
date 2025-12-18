@@ -1,0 +1,45 @@
+{#
+  Search Results Map (Drupal-native with drupalSettings)
+  - Price/NC markers, optional clustering, optional distance circle
+  - Priority: drupalSettings.psSearchResultsMap[mapId] > data-attributes
+
+  Parameters (all optional):
+  - attributes: Drupal attributes (required for integration)
+  - map: { lat, lng, zoom } - Fallback if drupalSettings not used
+  - provider: 'google' or 'leaflet' (default 'leaflet' for Storybook compatibility)
+  - results: array of { id, lat, lng, price, currency, selected }
+  - showRadius: boolean (default false)
+  - radiusMeters: number (default 1200)
+  - cluster: boolean (default true)
+  - selectedId: string|null
+  - mapId: string - Identifier for drupalSettings key (default 'default')
+#}
+
+{% set attributes = attributes|default(create_attribute()) %}
+{% set mapId = mapId|default('default') %}
+{% set map = map|default({ lat: 48.8723, lng: 2.3035, zoom: 13 }) %}
+{% set provider = provider|default('leaflet') %}
+{% set results = results|default([]) %}
+{% set showRadius = showRadius|default(false) %}
+{% set radiusMeters = radiusMeters|default(1200) %}
+{% set cluster = cluster|default(true) %}
+{% set selectedId = selectedId|default(null) %}
+
+<div class="ps-map">
+  <div
+    class="ps-map__canvas"
+    role="region"
+    aria-label="Search results map"
+    data-map-id="{{ mapId }}"
+    data-lat="{{ map.lat }}"
+    data-lng="{{ map.lng }}"
+    data-zoom="{{ map.zoom }}"
+    data-provider="{{ provider }}"
+    data-results='{{ results|json_encode() }}'
+    data-show-radius='{{ showRadius ? "true" : "false" }}'
+    data-radius-meters='{{ radiusMeters }}'
+    data-cluster='{{ cluster ? "true" : "false" }}'
+    data-selected-id='{{ selectedId }}'
+    {{ attributes|without('class') }}
+  ></div>
+</div>

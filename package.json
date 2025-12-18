@@ -76,6 +76,9 @@
   },
   "dependencies": {
     "@videojs/http-streaming": "^3.17.2",
+    "leaflet": "^1.9.4",
+    "leaflet.fullscreen": "^5.1.1",
+    "leaflet.markercluster": "^1.5.3",
     "sharp": "^0.34.5",
     "swiper": "^12.0.3",
     "video.js": "^8.23.4",

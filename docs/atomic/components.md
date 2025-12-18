@@ -157,7 +157,7 @@ Implémenté : ✅
 **Map Widget** - Bloc carte embarquée avec markers + contrôles  
 Usage : Intégration Google/Leaflet (placeholder)  
 Specs : `design/pages/property-detail/location.md`  
-Implémenté : ❌
+Implémenté : ✅
 
 **POI Filter Group** - Groupe filtres checkbox POI sur carte  
 Usage : Transports, restaurants, hôtels  

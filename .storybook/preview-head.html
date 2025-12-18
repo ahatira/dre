@@ -3,3 +3,9 @@ to Storybook so these libraries are available to the components that need it. --
 
 <!-- Importing font awesome icons. -->
 <script src="https://use.fontawesome.com/releases/v6.4.0/js/all.js" crossorigin="anonymous"></script>
+
+<!-- Google Maps API for map components (loaded globally to avoid multiple includes) -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=marker&loading=async" async defer></script>
+
+<!-- MarkerClusterer for search-results-map clustering -->
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.umd.js" async defer></script>

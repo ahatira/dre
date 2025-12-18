@@ -93,6 +93,15 @@ dropdown:
     - core/once
     - ps_theme/vendors
 
+js-map-utils:
+  js:
+    dist/js/js-map-utils.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 language-selector:
   js:
     dist/js/language-selector.js: {}
@@ -102,9 +111,36 @@ language-selector:
     - core/once
     - ps_theme/vendors
 
+map-widget:
+  js:
+    dist/js/map-widget.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 modal:
   js:
     dist/js/modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
+search-results-map:
+  js:
+    dist/js/search-results-map.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
+search-results-map-map-marker:
+  js:
+    dist/js/search-results-map-map-marker.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

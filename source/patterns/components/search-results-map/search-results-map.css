@@ -1,0 +1,211 @@
+/* Map container */
+.ps-map {
+  position: relative;
+  min-height: 50vh;
+  background: var(--gray-50);
+
+  /* Canvas */
+  &__canvas {
+    width: 100%;
+    height: 100%;
+    min-height: 28rem;
+  }
+
+  /* Marker wrapper */
+  &__marker {
+    /* Component variables (Layer 1) */
+    --ps-map-marker-gap: var(--size-1);
+    --ps-map-marker-width: 4.5rem; /* 72px - ratio 3:1 */
+    --ps-map-marker-height: 1.5rem; /* 24px */
+    --ps-map-marker-padding-inline: var(--size-2);
+    --ps-map-marker-font-size: var(--font-size-1);
+    --ps-map-marker-font-weight: var(--font-weight-700);
+    --ps-map-marker-bg: var(--white);
+    --ps-map-marker-color: var(--primary);
+    --ps-map-marker-hover-color: var(--primary);
+    --ps-map-marker-border-width: var(--border-size-1); /* 2px */
+    --ps-map-marker-badge-border-color: var(--primary);
+    --ps-map-marker-badge-border-color-hover: var(--primary);
+    --ps-map-marker-border-radius: 0;
+    --ps-map-marker-shadow: var(--shadow-2);
+    --ps-map-marker-shadow-hover: var(--shadow-3);
+    --ps-map-marker-transition-duration: var(--duration-150);
+    --ps-map-marker-transition-easing: var(--ease-out);
+    --ps-map-marker-notch-fill-color: var(--white);
+    --ps-map-marker-notch-fill-color-hover: var(--primary);
+    --ps-map-marker-circle-size: var(--size-205);
+    --ps-map-marker-circle-bg: var(--primary);
+    --ps-map-marker-circle-border-width: var(--size-half); /* 2px */
+    --ps-map-marker-circle-border-color: var(--white);
+    --ps-map-marker-circle-shadow: var(--shadow-1);
+
+    /* Layout (Layer 2) */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ps-map-marker-gap);
+    width: auto;
+    height: auto;
+
+    /* Badge element */
+    &__badge {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--ps-map-marker-width);
+      height: var(--ps-map-marker-height);
+      padding-inline: var(--ps-map-marker-padding-inline);
+      font-weight: var(--ps-map-marker-font-weight);
+      font-size: var(--ps-map-marker-font-size);
+      line-height: 1;
+      white-space: nowrap;
+      background: var(--ps-map-marker-bg);
+      color: var(--ps-map-marker-color);
+      border: var(--ps-map-marker-border-width) solid var(--ps-map-marker-badge-border-color);
+      border-radius: var(--ps-map-marker-border-radius);
+      box-shadow: var(--ps-map-marker-shadow);
+      cursor: pointer;
+      transition: all var(--ps-map-marker-transition-duration) var(--ps-map-marker-transition-easing);
+
+      /* Triangular notch - border (outer) */
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: calc(var(--size-105) * -1);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: var(--size-105) calc(var(--size-105) * 1.167) 0 calc(var(--size-105) * 1.167);
+        border-color: var(--ps-map-marker-badge-border-color) transparent transparent transparent;
+        transition: border-color var(--ps-map-marker-transition-duration) var(--ps-map-marker-transition-easing);
+      }
+
+      /* Triangular notch - fill (inner) */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: calc(var(--size-1) * -1.25);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: var(--size-105) calc(var(--size-105) * 1.167) 0 calc(var(--size-105) * 1.167);
+        border-color: var(--ps-map-marker-notch-fill-color) transparent transparent transparent;
+        transition: border-color var(--ps-map-marker-transition-duration) var(--ps-map-marker-transition-easing);
+        z-index: 1;
+      }
+
+      /* Hover state */
+      &:hover {
+        background: var(--ps-map-marker-hover-color);
+        color: var(--ps-map-marker-bg);
+        border-color: var(--ps-map-marker-badge-border-color-hover);
+        box-shadow: var(--ps-map-marker-shadow-hover);
+        transform: translateY(-1px);
+      }
+      
+      /* Hover pseudo-elements */
+      &:hover::before {
+        border-color: var(--ps-map-marker-badge-border-color-hover) transparent transparent transparent;
+      }
+
+      &:hover::after {
+        border-color: var(--ps-map-marker-notch-fill-color-hover) transparent transparent transparent;
+      }
+    }
+
+    /* Circle pin */
+    &__circle {
+      position: absolute;
+      bottom: calc(var(--size-5) * -1);
+      left: 50%;
+      transform: translateX(-50%);
+      width: var(--ps-map-marker-circle-size);
+      height: var(--ps-map-marker-circle-size);
+      border-radius: 50%;
+      background: var(--ps-map-marker-circle-bg);
+      border: var(--ps-map-marker-circle-border-width) solid var(--ps-map-marker-circle-border-color);
+      box-shadow: var(--ps-map-marker-circle-shadow);
+      transition: background var(--ps-map-marker-transition-duration) var(--ps-map-marker-transition-easing);
+    }
+
+    /* NC variant (gray) - Layer 3 */
+    &--nc {
+      --ps-map-marker-color: var(--gray-700);
+      --ps-map-marker-badge-border-color: var(--gray-500);
+      --ps-map-marker-badge-border-color-hover: var(--primary);
+      --ps-map-marker-notch-fill-color-hover: var(--primary);
+      --ps-map-marker-circle-bg: var(--primary);
+      --ps-map-marker-hover-color: var(--primary);
+    }
+
+    /* Selected variant (inverted - green background) - Layer 3 */
+    &--selected {
+      --ps-map-marker-bg: var(--primary);
+      --ps-map-marker-color: var(--white);
+      --ps-map-marker-badge-border-color: var(--primary);
+      --ps-map-marker-badge-border-color-hover: var(--white);
+      --ps-map-marker-notch-fill-color: var(--primary);
+      --ps-map-marker-notch-fill-color-hover: var(--primary);
+      --ps-map-marker-circle-bg: var(--primary);
+      --ps-map-marker-circle-border-color: var(--gray-100);
+    }
+  }
+
+  /* Cluster element */
+  &__cluster {
+    /* Component variables (Layer 1) */
+    --ps-map-cluster-bg: var(--primary);
+    --ps-map-cluster-color: var(--white);
+    --ps-map-cluster-size: var(--size-5);
+    --ps-map-cluster-font-size: var(--font-size-105);
+    --ps-map-cluster-font-weight: var(--font-weight-400);
+    --ps-map-cluster-border-width: 0px;
+    --ps-map-cluster-border-color: var(--white);
+    --ps-map-cluster-border-radius: var(--radius-round);
+
+    /* Layout (Layer 2) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ps-map-cluster-size);
+    height: var(--ps-map-cluster-size);
+    background: var(--ps-map-cluster-bg);
+    color: var(--ps-map-cluster-color);
+    border: var(--ps-map-cluster-border-width) solid var(--ps-map-cluster-border-color);
+    border-radius: var(--ps-map-cluster-border-radius);
+    box-shadow: var(--shadow-2);
+    font-weight: var(--ps-map-cluster-font-weight);
+    font-size: var(--ps-map-cluster-font-size);
+    line-height: 1;
+    cursor: pointer;
+    transition: all var(--duration-150) var(--ease-out);
+    user-select: none;
+  }
+
+  /* Cluster icon wrapper (Leaflet container) */
+  &__cluster-icon {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Cluster hover state */
+  .leaflet-marker-pane {
+    .ps-map__cluster:hover {
+      background: var(--primary-hover);
+      transform: scale(1.1);
+      box-shadow: var(--shadow-3);
+    }
+  }
+
+  /* Leaflet custom icon styling */
+  &__leaflet-icon {
+    background: transparent !important;
+    border: none !important;
+  }}

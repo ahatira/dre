@@ -1,0 +1,41 @@
+{#
+ * Map Widget - Generic embedded map container
+ *
+ * Minimal structural container for interactive map integrations (Leaflet/Google Maps).
+ * Provides data attributes for JavaScript hydration and an accessible fallback.
+ * Compose with POI Filter Group and Travel Time Calculator for full location UI.
+ *
+ * @param {object} [map] - Map coordinates {lat, lng, zoom}
+ * @param {array}  [markers] - Points to display: [{label, lat, lng, category}]
+ * @param {string} [provider='leaflet'] - Map provider: leaflet|google
+ * @param {string} [fallback] - Text fallback when map unavailable
+ * @param {string} [ariaLabel='Carte interactive'] - Accessible label
+ * @param {Attribute} [attributes] - Additional HTML attributes (Drupal integration)
+ #}
+
+{%- set map = map|default({ lat: 48.8566, lng: 2.3522, zoom: 14 }) -%}
+{%- set markers = markers|default([]) -%}
+{%- set provider = provider|default('leaflet') -%}
+{%- set fallback = fallback|default('Carte interactive indisponible. Veuillez activer JavaScript.') -%}
+{%- set ariaLabel = ariaLabel|default('Carte interactive') -%}
+
+{%- set classes = [
+  'ps-map-widget',
+  'ps-map-widget--' ~ provider
+] -%}
+
+{%- set map_attributes = {
+  'data-lat': map.lat,
+  'data-lng': map.lng,
+  'data-zoom': map.zoom is defined ? map.zoom : null,
+  'data-provider': provider,
+  'data-markers': markers ? markers|json_encode|e('html_attr') : null
+} -%}
+
+<div {{ attributes|without('class').addClass(classes) }} role="region" aria-label="{{ ariaLabel }}">
+  <div class="ps-map-widget__canvas"{% for name, value in map_attributes if value is not null %} {{ name }}="{{ value }}"{% endfor %}>
+    <noscript class="ps-map-widget__fallback">
+      <p>{{ fallback }}</p>
+    </noscript>
+  </div>
+</div>

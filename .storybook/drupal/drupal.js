@@ -2,7 +2,7 @@ import './drupalSettings';
 
 // Simple Drupal.behaviors usage for Storybook
 
-window.Drupal = { behaviors: {} };
+window.Drupal = { behaviors: {}, theme: {} };
 
 ((Drupal, drupalSettings) => {
   Drupal.throwError = (error) => {
@@ -25,5 +25,17 @@ window.Drupal = { behaviors: {} };
         }
       }
     });
+  };
+
+  Drupal.theme = (func, ...args) => {
+    const funcName = func.replace(/[^a-zA-Z0-9_]/g, '_');
+    
+    // Check if a theme override exists
+    if (Drupal.theme[funcName] !== undefined) {
+      return Drupal.theme[funcName](...args);
+    }
+    
+    // Return empty string if function not found
+    return '';
   };
 })(Drupal, window.drupalSettings);

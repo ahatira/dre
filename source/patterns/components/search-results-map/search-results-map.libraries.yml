@@ -1,0 +1,18 @@
+# Search Results Map Library Definition
+# Copy this to ps_theme.libraries.yml
+
+search-results-map:
+  version: VERSION
+  css:
+    theme:
+      dist/css/search-results-map.css: {}
+  js:
+    dist/js/search-results-map.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    # Note: Google Maps API and Marker Clusterer must be loaded separately
+    # Add these to your page or layout:
+    # - external Google Maps API: https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=marker
+    # - external Marker Clusterer: https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js
