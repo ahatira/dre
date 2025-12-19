@@ -1,10 +1,10 @@
 {#
 /**
  * Header Actions (Component/Molecule)
- * Action buttons, icons, and language selector for header secondary menu.
+ * Action buttons, icons, search input, and user menu for header secondary menu.
  *
  * Props:
- * - array actions - Action items: [{ type: 'button'|'icon'|'user', label?, icon?, variant?, href?, badge?, name? }]
+ * - array actions - Action items: [{ type: 'button'|'icon'|'search'|'user', label?, icon?, variant?, href?, badge?, name?, placeholder? }]
  *
  * Rules: Token-First, BEM, Composes Button and Icon atoms
  #}
@@ -13,7 +13,17 @@
 
 <div class="ps-header-actions">
   {% for action in actions %}
-    {% if action.type == 'button' %}
+    {% if action.type == 'search' %}
+      <div class="ps-header-actions__search">
+        <input 
+          type="search" 
+          class="ps-header-actions__search-input" 
+          placeholder="{{ action.placeholder|default('Search') }}"
+          aria-label="{{ action.label|default('Search') }}"
+        />
+        <span class="ps-header-actions__search-icon" data-icon="search" aria-hidden="true"></span>
+      </div>
+    {% elseif action.type == 'button' %}
       {% include '@elements/button/button.twig' with {
         label: action.label,
         href: action.href|default('#'),

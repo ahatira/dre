@@ -36,7 +36,8 @@ export default {
 
     // Zone Bottom-Right: Actions
     actions: {
-      description: 'Header action buttons, icons, and user menu array (button | user | icon types)',
+      description:
+        'Header action buttons, icons, search input, and user menu array (search | button | user | icon types)',
       control: 'object',
       table: { category: 'Zone Bottom-Right' },
     },
@@ -82,24 +83,28 @@ export const LoggedOut = {
     ...data,
     actions: [
       {
+        type: 'search',
+        placeholder: 'What are you looking for?',
+        label: 'Search',
+      },
+      {
         type: 'button',
-        variant: 'outline-primary',
-        label: 'What are you looking for ?',
-        icon_left: 'search',
-        href: '/search',
+        variant: 'neutral',
+        label: 'Find a property',
+        icon: 'building',
+        href: '/properties',
       },
       {
         type: 'button',
         variant: 'success',
         label: 'Log in / Sign up',
-        icon_left: 'user',
+        icon: 'user',
         href: '/login',
       },
       {
         type: 'button',
         variant: 'secondary',
         label: 'Contact us',
-        icon_left: 'envelope',
         href: '/contact',
       },
       {
@@ -107,12 +112,6 @@ export const LoggedOut = {
         icon: 'heart',
         ariaLabel: 'Favorites',
         href: '/favorites',
-      },
-      {
-        type: 'icon',
-        icon: 'search',
-        ariaLabel: 'Search',
-        href: '/search',
       },
     ],
   },
@@ -192,22 +191,28 @@ export const French = {
     ],
     actions: [
       {
-        type: 'button',
-        variant: 'outline-primary',
-        label: 'Que recherchez-vous ?',
-        icon_left: 'search',
-        href: '/search',
+        type: 'search',
+        placeholder: 'Que recherchez-vous ?',
+        label: 'Rechercher',
       },
       {
-        type: 'user',
-        name: 'Enzo',
-        avatar: '/images/avatar-enzo.jpg',
+        type: 'button',
+        variant: 'neutral',
+        label: 'Trouver un bien',
+        icon: 'building',
+        href: '/properties',
+      },
+      {
+        type: 'button',
+        variant: 'primary',
+        label: 'Appeler ou Planifier',
+        icon: 'phone',
+        href: '/contact',
       },
       {
         type: 'button',
         variant: 'secondary',
         label: 'Nous contacter',
-        icon_left: 'envelope',
         href: '/contact',
       },
       {
@@ -215,13 +220,6 @@ export const French = {
         icon: 'heart',
         ariaLabel: 'Favoris',
         href: '/favorites',
-        badge: '2',
-      },
-      {
-        type: 'icon',
-        icon: 'search',
-        ariaLabel: 'Rechercher',
-        href: '/search',
       },
     ],
   },

@@ -12,9 +12,9 @@
  * Drupal: Uses Drupal.behaviors with once() for idempotency
  */
 
-(function () {
+(() => {
   Drupal.behaviors.psSearchForm = {
-    attach: function (context) {
+    attach: (context) => {
       // Find search form container
       const searchForm = context.querySelector('[data-search-form]');
       if (!searchForm) {
