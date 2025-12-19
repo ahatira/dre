@@ -1,0 +1,224 @@
+/**
+ * Menu Secondary (Collection/Organism)
+ * Main action bar with search, link, user, contact, favorites
+ * Separators rendered via li::after pseudo-element (CSS decoration)
+ *
+ * 3-layer CSS: global tokens → component vars → modifiers
+ */
+
+.ps-menu-secondary {
+  /* Layer 2: Component variables */
+  --ps-menu-secondary-gap: var(--size-3);
+  --ps-menu-secondary-item-padding: var(--size-2) var(--size-1);
+  --ps-menu-secondary-separator-width: var(--border-size-1);
+  --ps-menu-secondary-separator-height: var(--size-8);
+  --ps-menu-secondary-separator-color: var(--border-default);
+  --ps-menu-secondary-separator-margin: 0 var(--size-2);
+  --ps-menu-secondary-link-color: var(--text-primary);
+  --ps-menu-secondary-link-color-hover: var(--primary);
+  --ps-menu-secondary-icon-size: var(--size-6);
+  --ps-menu-secondary-icon-color: var(--text-primary);
+  --ps-menu-secondary-icon-color-hover: var(--primary);
+  --ps-menu-secondary-badge-size: var(--size-5);
+  --ps-menu-secondary-badge-bg: var(--danger);
+  --ps-menu-secondary-badge-color: var(--white);
+  --ps-menu-secondary-transition: all var(--duration-200) var(--ease-out);
+
+  /* User dropdown */
+  --ps-menu-secondary-dropdown-min-width: 280px;
+  --ps-menu-secondary-dropdown-gap: var(--size-2);
+  --ps-menu-secondary-dropdown-item-padding: var(--size-3) var(--size-5);
+  --ps-menu-secondary-dropdown-list-padding: var(--size-2);
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ps-menu-secondary-gap);
+}
+
+/* Menu item wrapper */
+.ps-menu-secondary__item {
+  display: flex;
+  align-items: center;
+  padding: var(--ps-menu-secondary-item-padding);
+  position: relative;
+}
+
+/* Separator decorator (li::after) */
+.ps-menu-secondary__item--with-separator::after {
+  content: '';
+  display: block;
+  width: var(--ps-menu-secondary-separator-width);
+  height: var(--ps-menu-secondary-separator-height);
+  background: var(--ps-menu-secondary-separator-color);
+  margin: var(--ps-menu-secondary-separator-margin);
+  margin-left: auto;
+  margin-right: var(--size-2);
+}
+
+/* Text link in menu */
+.ps-menu-secondary__link {
+  color: var(--ps-menu-secondary-link-color);
+  text-decoration: none;
+  transition: color var(--duration-200) var(--ease-out);
+  font-size: var(--font-size-2);
+
+  &:hover {
+    color: var(--ps-menu-secondary-link-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
+  }
+}
+
+/* Icon link (favorites, etc.) */
+.ps-menu-secondary__icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  color: var(--ps-menu-secondary-icon-color);
+  text-decoration: none;
+  transition: var(--ps-menu-secondary-transition);
+
+  &:hover {
+    color: var(--ps-menu-secondary-icon-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
+  }
+}
+
+.ps-menu-secondary__icon {
+  font-size: var(--ps-menu-secondary-icon-size);
+  color: currentColor;
+}
+
+.ps-menu-secondary__badge {
+  position: absolute;
+  top: calc(var(--ps-menu-secondary-badge-size) * -0.5);
+  right: calc(var(--ps-menu-secondary-badge-size) * -0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ps-menu-secondary-badge-size);
+  height: var(--ps-menu-secondary-badge-size);
+  padding: 0 var(--size-1);
+  font-size: var(--font-size--2);
+  font-weight: var(--font-weight-600);
+  color: var(--ps-menu-secondary-badge-color);
+  background: var(--ps-menu-secondary-badge-bg);
+  border-radius: var(--radius-round);
+  line-height: 1;
+}
+
+/* User trigger button */
+.ps-menu-secondary__user-wrapper {
+  position: relative;
+}
+
+.ps-menu-secondary__user-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+  padding: var(--size-2) var(--size-3);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: var(--ps-menu-secondary-transition);
+
+  &:hover {
+    background: var(--gray-050);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+  }
+}
+
+.ps-menu-secondary__user-name {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-500);
+}
+
+.ps-menu-secondary__user-chevron {
+  font-size: var(--font-size-1);
+  opacity: 0.6;
+}
+
+/* Dropdown menu */
+.ps-menu-secondary__dropdown {
+  position: absolute;
+  top: calc(100% + var(--size-2));
+  right: 0;
+  min-width: var(--ps-menu-secondary-dropdown-min-width);
+  background: var(--white);
+  border: var(--border-size-1) solid var(--border-default);
+  box-shadow: var(--shadow-2);
+  border-radius: var(--radius-2);
+  z-index: var(--zindex-dropdown, 1000);
+  padding: var(--ps-menu-secondary-dropdown-list-padding) 0;
+}
+
+.ps-menu-secondary__dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-menu-secondary__dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-menu-secondary-dropdown-gap);
+  padding: var(--ps-menu-secondary-dropdown-item-padding);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background-color var(--duration-200) var(--ease-out);
+
+  &:hover {
+    background: var(--gray-050);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+  }
+}
+
+.ps-menu-secondary__dropdown-icon {
+  font-size: var(--font-size-4);
+  color: currentColor;
+}
+
+.ps-menu-secondary__dropdown-separator {
+  height: var(--border-size-1);
+  background: var(--border-default);
+}
+
+/* Mobile responsive */
+@media (width < 640px) {
+  .ps-menu-secondary {
+    gap: var(--size-2);
+  }
+
+  .ps-menu-secondary__user-name {
+    display: none;
+  }
+
+  .ps-menu-secondary__item--with-separator::after {
+    display: none;
+  }
+}

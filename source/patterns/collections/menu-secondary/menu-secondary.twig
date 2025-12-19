@@ -1,0 +1,83 @@
+{#
+/**
+ * Secondary Menu (Collection/Organism)
+ * Action bar with 4 main items: search button, link, user, contact + icon.
+ * Separators rendered via CSS li::after pseudo-element.
+ *
+ * Structure: Semantic <ul><li> with flexible item types
+ * - type: 'button'  : Button atom (search trigger, contact, etc.)
+ * - type: 'link'    : Text link (Find a property)
+ * - type: 'icon'    : Icon-only link (Favorites with badge)
+ * - type: 'user'    : User dropdown trigger (logged-in name or "Log in / Sign up")
+ *
+ * Props:
+ * - array items - Menu items [{ type, label?, url?, variant?, outline?, size?, icon?, ariaLabel?, badge?, name?, hasSeparator? }]
+ *
+ * Separators:
+ * - Controlled by hasSeparator: true on item - renders li::after as vertical divider
+ * - No explicit markup, pure CSS decoration
+ *
+ * Rules: Token-First, BEM, semantic <ul><li>, WCAG 2.2 AA, composition-friendly
+ */
+ #}
+
+{%- set items = items|default([]) -%}
+{{ attach_library('ps_theme/menu-secondary') }}
+
+<ul class="ps-menu-secondary">
+  {% for item in items %}
+    <li class="ps-menu-secondary__item{% if item.hasSeparator %} ps-menu-secondary__item--with-separator{% endif %}">
+      {% if item.type == 'button' %}
+        {% set button_class = item.searchTrigger ? 'ps-search-trigger' : null %}
+        {% include '@elements/button/button.twig' with {
+          label: item.label,
+          url: item.url|default('#'),
+          variant: item.variant|default(null),
+          outline: item.outline|default(false),
+          icon: item.icon|default(null),
+          size: item.size|default(null),
+          class: button_class
+        } only %}
+      {% elseif item.type == 'link' %}
+        <a href="{{ item.url|default('#') }}" class="ps-menu-secondary__link">
+          {{ item.label }}
+        </a>
+      {% elseif item.type == 'icon' %}
+        <a href="{{ item.href|default('#') }}" class="ps-menu-secondary__icon-link{% if item.badge %} ps-menu-secondary__icon-link--with-badge{% endif %}" aria-label="{{ item.ariaLabel|default(item.label) }}">
+          <span class="ps-menu-secondary__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+          {% if item.badge %}
+            <span class="ps-menu-secondary__badge">{{ item.badge }}</span>
+          {% endif %}
+        </a>
+      {% elseif item.type == 'user' %}
+        {# User dropdown trigger button with optional menu #}
+        <div class="ps-menu-secondary__user-wrapper">
+          {% set isOpen = item.open|default(false) %}
+          <button class="ps-menu-secondary__user-trigger" aria-label="User menu" aria-expanded="{{ isOpen ? 'true' : 'false' }}">
+            <span class="ps-menu-secondary__user-name">{{ item.name }}</span>
+            <span class="ps-menu-secondary__user-chevron" data-icon="chevron-down" aria-hidden="true"></span>
+          </button>
+          {% set menu_items = item.menu|default([]) %}
+          {% if menu_items and menu_items|length > 0 %}
+            <div class="ps-menu-secondary__dropdown"{% if not isOpen %} hidden{% endif %} role="menu" aria-label="User menu">
+              <ul class="ps-menu-secondary__dropdown-list">
+                {% for menu_item in menu_items %}
+                  {% if menu_item.type == 'separator' %}
+                    <li class="ps-menu-secondary__dropdown-separator" aria-hidden="true"></li>
+                  {% else %}
+                    <li role="none">
+                      <a role="menuitem" href="{{ menu_item.url|default('#') }}" class="ps-menu-secondary__dropdown-item">
+                        {% if menu_item.icon %}<span class="ps-menu-secondary__dropdown-icon" data-icon="{{ menu_item.icon }}" aria-hidden="true"></span>{% endif %}
+                        <span>{{ menu_item.label }}</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

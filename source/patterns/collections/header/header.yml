@@ -64,13 +64,14 @@ actions:
     url: '#'
     size: 'small'
     searchTrigger: true
-  - type: 'separator'
+    hasSeparator: true
   - type: 'link'
     label: 'Find a property'
     url: '/properties'
-  - type: 'separator'
+    hasSeparator: true
   - type: 'user'
     name: 'Enzo'
+    hasSeparator: true
     menu:
       - type: 'link'
         label: 'Mon compte'
@@ -85,30 +86,22 @@ actions:
         url: '/alerts'
         icon: 'notifications'
       - type: 'separator'
-      - type: 'button'
+      - type: 'link'
         label: 'Se déconnecter'
         url: '/logout'
-        variant: 'primary'
-        outline: true
-        size: 'small'
         icon: 'logout'
-  - type: 'separator'
-  - type: 'button'
-    variant: 'primary'
-    label: 'Log in / Sign up'
-    icon: 'user'
-    url: '/login'
-    size: 'small'
   - type: 'button'
     variant: 'secondary'
     label: 'Contact us'
     url: '/contact'
     size: 'small'
+    hasSeparator: false
   - type: 'icon'
     icon: 'heart'
     ariaLabel: 'Favorites'
     href: '/favorites'
     badge: null
+    hasSeparator: false
 
 # Modifier: Sticky positioning
 sticky: false

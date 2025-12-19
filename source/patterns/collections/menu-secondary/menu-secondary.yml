@@ -1,0 +1,56 @@
+items:
+  # Search trigger button
+  - type: 'button'
+    label: 'What are you looking for?'
+    variant: 'primary'
+    outline: true
+    icon: 'search'
+    url: '#'
+    size: 'small'
+    searchTrigger: true
+    hasSeparator: true
+
+  # Find a property link
+  - type: 'link'
+    label: 'Find a property'
+    url: '/properties'
+    hasSeparator: true
+
+  # User dropdown (logged-in state)
+  - type: 'user'
+    name: 'Enzo'
+    hasSeparator: true
+    menu:
+      - type: 'link'
+        label: 'Mon compte'
+        url: '/account'
+        icon: 'user'
+      - type: 'link'
+        label: 'Mes favoris'
+        url: '/favorites'
+        icon: 'heart'
+      - type: 'link'
+        label: 'Mes alertes'
+        url: '/alerts'
+        icon: 'notifications'
+      - type: 'separator'
+      - type: 'link'
+        label: 'Se déconnecter'
+        url: '/logout'
+        icon: 'logout'
+
+  # Contact button
+  - type: 'button'
+    label: 'Contact us'
+    variant: 'secondary'
+    url: '/contact'
+    size: 'small'
+    hasSeparator: false
+
+  # Favorites icon with badge
+  - type: 'icon'
+    icon: 'heart'
+    ariaLabel: 'Favorites'
+    href: '/favorites'
+    badge: '1'
+    hasSeparator: false
