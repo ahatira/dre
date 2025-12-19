@@ -22,8 +22,12 @@
   --ps-header-actions-transition: all var(--duration-200) var(--ease-out);
   --ps-header-actions-separator-color: var(--border-default);
   --ps-header-actions-separator-width: var(--border-size-1);
-  --ps-header-actions-separator-height: var(--size-7);
+  --ps-header-actions-separator-height: var(--size-8);
   --ps-header-actions-separator-margin: 0;
+  --ps-header-actions-menu-item-padding: var(--size-3) var(--size-5);
+  --ps-header-actions-menu-list-padding: var(--size-2);
+  --ps-header-actions-menu-min-width: 280px;
+  --ps-header-actions-menu-gap: var(--size-2);
 
   display: flex;
   align-items: center;
@@ -143,6 +147,63 @@
 .ps-header-actions__user-chevron {
   font-size: var(--font-size-1);
   opacity: 0.6;
+}
+
+/* User dropdown menu */
+.ps-header-actions__user-wrapper {
+  position: relative;
+}
+
+.ps-header-actions__user-menu {
+  position: absolute;
+  top: calc(100% + var(--size-2));
+  right: 0;
+  min-width: var(--ps-header-actions-menu-min-width);
+  background: var(--white);
+  border: var(--border-size-1) solid var(--border-default);
+  box-shadow: var(--shadow-2);
+  border-radius: var(--radius-2);
+  z-index: var(--zindex-dropdown, 1000);
+  padding: var(--ps-header-actions-menu-list-padding) 0;
+}
+
+.ps-header-actions__user-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-header-actions__user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-header-actions-menu-gap);
+  padding: var(--ps-header-actions-menu-item-padding);
+  color: var(--text-primary);
+  text-decoration: none;
+
+  &:hover {
+    background: var(--gray-050);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+  }
+}
+
+.ps-header-actions__user-menu-item-icon {
+  font-size: var(--font-size-4);
+  color: currentColor;
+}
+
+.ps-header-actions__user-menu-separator {
+  height: var(--border-size-1);
+  background: var(--border-default);
+}
+
+.ps-header-actions__user-menu-button {
+  width: 100%;
+  justify-content: space-between;
 }
 
 /* Mobile responsive */

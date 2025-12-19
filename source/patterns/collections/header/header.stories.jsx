@@ -249,3 +249,91 @@ export const French = {
     ],
   },
 };
+
+/**
+ * User menu opened (showing dropdown items for visual validation)
+ * Demonstrates: My Account, My Favorites, My Alerts, Logout button
+ */
+export const UserMenuOpen = {
+  render: (args) => header(args),
+  args: {
+    ...data,
+    actions: [
+      {
+        type: 'button',
+        variant: 'primary',
+        outline: true,
+        label: 'What are you looking for?',
+        icon: 'search',
+        url: '#',
+        size: 'small',
+        searchTrigger: true,
+      },
+      {
+        type: 'separator',
+      },
+      {
+        type: 'link',
+        label: 'Find a property',
+        url: '/properties',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        type: 'user',
+        name: 'Enzo',
+        open: true,
+        menu: [
+          {
+            type: 'link',
+            label: 'Mon compte',
+            url: '/account',
+            icon: 'user',
+          },
+          {
+            type: 'link',
+            label: 'Mes favoris',
+            url: '/favorites',
+            icon: 'heart',
+          },
+          {
+            type: 'link',
+            label: 'Mes alertes',
+            url: '/alerts',
+            icon: 'notifications',
+          },
+          {
+            type: 'separator',
+          },
+          {
+            type: 'button',
+            label: 'Se déconnecter',
+            url: '/logout',
+            variant: 'primary',
+            outline: true,
+            size: 'small',
+            icon: 'logout',
+          },
+        ],
+      },
+      {
+        type: 'separator',
+      },
+      {
+        type: 'button',
+        variant: 'secondary',
+        label: 'Contact us',
+        url: '/contact',
+        size: 'small',
+      },
+      {
+        type: 'icon',
+        icon: 'heart',
+        ariaLabel: 'Favorites',
+        href: '/favorites',
+        badge: '2',
+      },
+    ],
+  },
+};

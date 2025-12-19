@@ -97,3 +97,47 @@ export const MinimalMobile = {
     },
   },
 };
+
+export const UserMenuOpen = {
+  render: (args) => headerActions(args),
+  args: {
+    actions: [
+      {
+        type: 'button',
+        label: 'What are you looking for?',
+        variant: 'primary',
+        outline: true,
+        icon: 'search',
+        url: '#',
+        size: 'small',
+        searchTrigger: true,
+      },
+      { type: 'separator' },
+      { type: 'link', label: 'Find a property', url: '/properties' },
+      { type: 'separator' },
+      {
+        type: 'user',
+        name: 'Enzo',
+        open: true,
+        menu: [
+          { type: 'link', label: 'Mon compte', url: '/account', icon: 'user' },
+          { type: 'link', label: 'Mes favoris', url: '/favorites', icon: 'heart' },
+          { type: 'link', label: 'Mes alertes', url: '/alerts', icon: 'notifications' },
+          { type: 'separator' },
+          {
+            type: 'button',
+            label: 'Se déconnecter',
+            url: '/logout',
+            variant: 'primary',
+            outline: true,
+            size: 'small',
+            icon: 'logout',
+          },
+        ],
+      },
+      { type: 'separator' },
+      { type: 'button', label: 'Contact us', variant: 'secondary', url: '/contact', size: 'small' },
+      { type: 'icon', icon: 'heart', label: 'Favorites', href: '/favorites', badge: '2' },
+    ],
+  },
+};
