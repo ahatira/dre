@@ -1,19 +1,30 @@
 {#
 /**
  * Header Actions (Component/Molecule)
- * Action buttons, icons, and user menu for header secondary menu.
+ * Action bar supporting multiple item types with optional separators.
+ *
+ * Supported item types:
+ * - 'button'   : Uses Button atom (semantic variants, outline, sizes)
+ * - 'link'     : Text link item (for lightweight actions like "Find a property")
+ * - 'icon'     : Icon-only action with optional badge
+ * - 'user'     : User dropdown trigger (avatar/name/chevron)
+ * - 'separator': Vertical separator between actions
  *
  * Props:
- * - array actions - Action items: [{ type: 'button'|'icon'|'user', label?, icon?, variant?, href?, badge?, name?, size? }]
+ * - array actions - e.g. [{ type, label?, url?, variant?, outline?, size?, icon?, ariaLabel?, badge?, name? }]
  *
- * Rules: Token-First, BEM, Composes Button and Icon atoms
+ * Rules: Token-First, BEM, Composes Button and Icon atoms, WCAG 2.2 AA
+ */
  #}
 
 {%- set actions = actions|default([]) -%}
 
 <div class="ps-header-actions">
   {% for action in actions %}
-    {% if action.type == 'button' %}
+    {# Separator item (renders vertical divider) #}
+    {% if action.type == 'separator' %}
+      <span class="ps-header-actions__separator" aria-hidden="true"></span>
+    {% elseif action.type == 'button' %}
       {% set button_class = action.searchTrigger ? 'ps-search-trigger' : null %}
       {% include '@elements/button/button.twig' with {
         label: action.label,
@@ -24,6 +35,11 @@
         size: action.size|default(null),
         class: button_class
       } only %}
+    {% elseif action.type == 'link' %}
+      <a href="{{ action.url|default('#') }}" class="ps-header-actions__link">
+        {% if action.icon %}<span class="ps-header-actions__link-icon" data-icon="{{ action.icon }}" aria-hidden="true"></span>{% endif %}
+        {{ action.label }}
+      </a>
     {% elseif action.type == 'icon' %}
       <a href="{{ action.href|default('#') }}" class="ps-header-actions__icon-link{% if action.badge %} ps-header-actions__icon-link--with-badge{% endif %}" aria-label="{{ action.label }}">
         <span class="ps-header-actions__icon" data-icon="{{ action.icon }}" aria-hidden="true"></span>
