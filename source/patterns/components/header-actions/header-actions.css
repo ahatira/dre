@@ -23,7 +23,7 @@
   --ps-header-actions-separator-color: var(--border-default);
   --ps-header-actions-separator-width: var(--border-size-1);
   --ps-header-actions-separator-height: var(--size-7);
-  --ps-header-actions-separator-margin: var(--size-4);
+  --ps-header-actions-separator-margin: 0;
 
   display: flex;
   align-items: center;
