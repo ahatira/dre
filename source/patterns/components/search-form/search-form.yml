@@ -1,0 +1,8 @@
+# Search Form (Component/Molecule)
+# Expandable search form displayed below header on full width
+
+placeholder: 'What are you looking for ?'
+action: '/search'
+method: 'GET'
+input_name: 'q'
+show: false

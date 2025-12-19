@@ -1,0 +1,124 @@
+/**
+ * Header Actions (Component/Molecule)
+ * Secondary menu with buttons, icon links, and user menu
+ * 
+ * 3-layer CSS: global tokens → component vars → modifiers
+ */
+
+.ps-header-actions {
+  /* Layer 2: Component variables */
+  --ps-header-actions-gap: var(--size-3);
+  --ps-header-actions-icon-size: var(--size-6);
+  --ps-header-actions-icon-color: var(--text-primary);
+  --ps-header-actions-icon-color-hover: var(--primary);
+  --ps-header-actions-badge-size: var(--size-5);
+  --ps-header-actions-badge-bg: var(--danger);
+  --ps-header-actions-badge-color: var(--white);
+  --ps-header-actions-badge-offset: calc(var(--size-1) * -1);
+  --ps-header-actions-user-padding: var(--size-2) var(--size-3);
+  --ps-header-actions-user-gap: var(--size-2);
+  --ps-header-actions-user-color: var(--text-primary);
+  --ps-header-actions-user-bg-hover: var(--gray-050);
+  --ps-header-actions-transition: all var(--duration-200) var(--ease-out);
+
+  display: flex;
+  align-items: center;
+  gap: var(--ps-header-actions-gap);
+}
+
+.ps-header-actions__icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  color: var(--ps-header-actions-icon-color);
+  text-decoration: none;
+  transition: var(--ps-header-actions-transition);
+
+  &:hover {
+    color: var(--ps-header-actions-icon-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
+  }
+}
+
+.ps-header-actions__icon {
+  font-size: var(--ps-header-actions-icon-size);
+  color: currentColor;
+}
+
+.ps-header-actions__badge {
+  position: absolute;
+  top: var(--ps-header-actions-badge-offset);
+  right: var(--ps-header-actions-badge-offset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ps-header-actions-badge-size);
+  height: var(--ps-header-actions-badge-size);
+  padding: 0 var(--size-1);
+  font-size: var(--font-size--2);
+  font-weight: var(--font-weight-600);
+  color: var(--ps-header-actions-badge-color);
+  background: var(--ps-header-actions-badge-bg);
+  border-radius: var(--radius-round);
+  line-height: 1;
+}
+
+.ps-header-actions__user {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-header-actions-user-gap);
+  padding: var(--ps-header-actions-user-padding);
+  color: var(--ps-header-actions-user-color);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: var(--ps-header-actions-transition);
+
+  &:hover {
+    background: var(--ps-header-actions-user-bg-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+  }
+}
+
+.ps-header-actions__user-icon {
+  font-size: var(--font-size-4);
+}
+
+.ps-header-actions__user-name {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-500);
+}
+
+.ps-header-actions__user-chevron {
+  font-size: var(--font-size-1);
+  opacity: 0.6;
+}
+
+/* Mobile responsive */
+@media (width < 640px) {
+  .ps-header-actions {
+    gap: var(--size-2);
+  }
+
+  .ps-header-actions__icon-link {
+    width: var(--size-9);
+    height: var(--size-9);
+  }
+
+  .ps-header-actions__user-name {
+    display: none;
+  }
+}

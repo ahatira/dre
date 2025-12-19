@@ -1,0 +1,104 @@
+{#
+/**
+ * Header (Collection/Organism) - 4-Zone Layout
+ * Main site header with logo, tagline, language selector, navigation, and actions.
+ *
+ * Structure (4 zones):
+ * - Top-Left: Logo component + Tagline text
+ * - Top-Right: Language Selector component with dropdown
+ * - Bottom-Left: Navigation component (main menu)
+ * - Bottom-Right: HeaderActions component (buttons, icons, user menu)
+ *
+ * Props:
+ * - object logo_config - Logo component config
+ *   @param string variant - Logo variant (default | square)
+ *   @param string size - Logo size (small | medium | large)
+ *   @param string href - Logo link URL (default: '/')
+ *   @param string alt - Logo alt text
+ * - string tagline - Tagline text displayed in top-left (optional)
+ * - array nav_items - Navigation menu items array
+ * - array actions - Header action buttons and icons array
+ * - object language_config - Language Selector component config
+ *   @param object current - Current language (code, label, locale)
+ *   @param array options - Available language options
+ * - boolean sticky - Enable sticky positioning (default: false)
+ *
+ * Composes: Logo (atom), Language Selector (molecule), Navigation (organism), HeaderActions (molecule)
+ * Rules: Token-First, BEM, 4-zone layout, Responsive, WCAG 2.2 AA
+ #}
+
+{%- set logo_config = logo_config|default({}) -%}
+{%- set tagline = tagline|default(null) -%}
+{%- set nav_items = nav_items|default([]) -%}
+{%- set actions = actions|default([]) -%}
+{%- set language_config = language_config|default({}) -%}
+{%- set sticky = sticky|default(false) -%}
+
+{# Logo defaults #}
+{%- set logo_variant = logo_config.variant|default('default') -%}
+{%- set logo_size = logo_config.size|default('medium') -%}
+{%- set logo_href = logo_config.href|default('/') -%}
+{%- set logo_alt = logo_config.alt|default('BNP Paribas Real Estate') -%}
+
+{# Language Selector defaults #}
+{%- set lang_current = language_config.current|default({
+  code: 'GB',
+  label: 'En',
+  locale: 'en-GB'
+}) -%}
+{%- set lang_options = language_config.options|default([
+  { code: 'GB', label: 'En', value: 'en', locale: 'en-GB', selected: true },
+  { code: 'FR', label: 'Fr', value: 'fr', locale: 'fr-FR', selected: false }
+]) -%}
+
+<header class="ps-header{% if sticky %} ps-header--sticky{% endif %}">
+  <!-- Top row: Logo + Tagline (left) | Language Selector (right) -->
+  <div class="ps-header__top">
+    <div class="ps-header__top-inner">
+      <!-- Zone Top-Left: Logo + Tagline -->
+      <div class="ps-header__zone-top-left">
+        {# Include Logo component #}
+        {% include '@elements/logo/logo.twig' with {
+          variant: logo_variant,
+          size: logo_size,
+          href: logo_href,
+          alt: logo_alt
+        } only %}
+        {% if tagline %}
+          <div class="ps-header__tagline">{{ tagline }}</div>
+        {% endif %}
+      </div>
+
+      <!-- Zone Top-Right: Language Selector -->
+      <div class="ps-header__zone-top-right">
+        {# Include Language Selector component #}
+        {% include '@components/language-selector/language-selector.twig' with {
+          name: 'lang',
+          size: 'sm',
+          current: lang_current,
+          options: lang_options
+        } only %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom row: Navigation (left) | Actions (right) -->
+  <div class="ps-header__bottom">
+    <div class="ps-header__bottom-inner">
+      <!-- Zone Bottom-Left: Navigation -->
+      <div class="ps-header__zone-bottom-left">
+        {% include '@collections/navigation/navigation.twig' with {
+          items: nav_items,
+          variant: 'horizontal'
+        } only %}
+      </div>
+
+      <!-- Zone Bottom-Right: Actions -->
+      <div class="ps-header__zone-bottom-right">
+        {% include '@components/header-actions/header-actions.twig' with {
+          actions: actions
+        } only %}
+      </div>
+    </div>
+  </div>
+</header>

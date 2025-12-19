@@ -1,0 +1,83 @@
+# Header (Collection/Organism) - 4-Zone Layout
+# Default data with logged-in state (user "Enzo" with notification badge)
+
+# Zone Top-Left: Logo configuration
+logo_config:
+  variant: 'default'     # Logo variant: default (horizontal) | square (icon)
+  size: 'medium'         # Logo size: small | medium | large
+  href: '/'              # Logo link destination
+  alt: 'BNP Paribas Real Estate'
+
+# Zone Top-Left: Tagline text (displayed next to logo)
+tagline: 'Real Estate for a Changing World'
+
+# Zone Top-Right: Language Selector configuration
+language_config:
+  current:
+    code: 'GB'
+    label: 'En'
+    locale: 'en-GB'
+  options:
+    - code: 'GB'
+      label: 'En'
+      value: 'en'
+      locale: 'en-GB'
+      selected: true
+    - code: 'FR'
+      label: 'Fr'
+      value: 'fr'
+      locale: 'fr-FR'
+      selected: false
+
+# Zone Bottom-Left: Navigation items
+nav_items:
+  - label: 'Find a property'
+    href: '/properties'
+    submenu:
+      - label: 'Buy'
+        href: '/properties/buy'
+      - label: 'Rent'
+        href: '/properties/rent'
+      - label: 'Commercial'
+        href: '/properties/commercial'
+  - label: 'About us'
+    href: '/about'
+    submenu:
+      - label: 'Our Company'
+        href: '/about/company'
+      - label: 'Our Team'
+        href: '/about/team'
+      - label: 'Careers'
+        href: '/about/careers'
+  - label: 'Solutions'
+    href: '/solutions'
+  - label: 'Latest News'
+    href: '/news'
+
+# Zone Bottom-Right: Header actions (logged-in state with user "Enzo")
+actions:
+  - type: 'button'
+    variant: 'outline-primary'
+    label: 'What are you looking for ?'
+    icon_left: 'search'
+    href: '/search'
+  - type: 'user'
+    name: 'Enzo'
+    avatar: '/images/avatar-enzo.jpg'
+  - type: 'button'
+    variant: 'secondary'
+    label: 'Contact us'
+    icon_left: 'envelope'
+    href: '/contact'
+  - type: 'icon'
+    icon: 'heart'
+    ariaLabel: 'Favorites'
+    href: '/favorites'
+    badge: '1'
+  - type: 'icon'
+    icon: 'search'
+    ariaLabel: 'Search'
+    href: '/search'
+
+# Modifier: Sticky positioning
+sticky: false

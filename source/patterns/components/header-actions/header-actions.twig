@@ -1,0 +1,38 @@
+{#
+/**
+ * Header Actions (Component/Molecule)
+ * Action buttons, icons, and language selector for header secondary menu.
+ *
+ * Props:
+ * - array actions - Action items: [{ type: 'button'|'icon'|'user', label?, icon?, variant?, href?, badge?, name? }]
+ *
+ * Rules: Token-First, BEM, Composes Button and Icon atoms
+ #}
+
+{%- set actions = actions|default([]) -%}
+
+<div class="ps-header-actions">
+  {% for action in actions %}
+    {% if action.type == 'button' %}
+      {% include '@elements/button/button.twig' with {
+        label: action.label,
+        href: action.href|default('#'),
+        variant: action.variant|default('primary'),
+        icon: action.icon|default(null)
+      } only %}
+    {% elseif action.type == 'icon' %}
+      <a href="{{ action.href|default('#') }}" class="ps-header-actions__icon-link{% if action.badge %} ps-header-actions__icon-link--with-badge{% endif %}" aria-label="{{ action.label }}">
+        <span class="ps-header-actions__icon" data-icon="{{ action.icon }}" aria-hidden="true"></span>
+        {% if action.badge %}
+          <span class="ps-header-actions__badge">{{ action.badge }}</span>
+        {% endif %}
+      </a>
+    {% elseif action.type == 'user' %}
+      <button class="ps-header-actions__user" aria-label="User menu" aria-expanded="false">
+        <span class="ps-header-actions__user-icon" data-icon="user" aria-hidden="true"></span>
+        <span class="ps-header-actions__user-name">{{ action.name|default('User') }}</span>
+        <span class="ps-header-actions__user-chevron" data-icon="chevron-down" aria-hidden="true"></span>
+      </button>
+    {% endif %}
+  {% endfor %}
+</div>
