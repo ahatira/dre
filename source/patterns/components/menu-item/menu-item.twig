@@ -34,7 +34,12 @@
 -%}
 
 <li{{ attr }}>
-  <a href="{{ href }}" class="ps-menu-item__link"{% if disabled %} aria-disabled="true"{% endif %}>
+  <a
+    href="{{ href }}"
+    class="ps-menu-item__link"
+    {% if submenu|length > 0 %}aria-haspopup="true" aria-expanded="false"{% endif %}
+    {% if disabled %}aria-disabled="true"{% endif %}
+  >
     <span class="ps-menu-item__label">{{ label }}</span>
     {% if badge %}
       <span class="ps-menu-item__badge ps-menu-item__badge--{{ badge_variant }}">{{ badge }}</span>

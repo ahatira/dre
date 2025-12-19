@@ -1,0 +1,26 @@
+{#
+/**
+ * Navigation (Collection/Organism)
+ * Main site navigation with mega-menu support.
+ *
+ * Props:
+ * - array items - Navigation menu items (required)
+ *   Drupal: { title, url, below, in_active_trail, is_expanded, attributes }
+ *   Storybook: { label, href, submenu, active }
+ * - string variant - Layout: horizontal (default), vertical
+ * - object attributes - Drupal attributes object (optional)
+ *
+ * Rules: Token-First, BEM, Simple recursive include (no macros), WCAG 2.2 AA
+ #}
+
+{%- set items = items|default([]) -%}
+{%- set variant = variant|default('horizontal') -%}
+
+<nav class="ps-navigation ps-navigation--{{ variant }}" role="navigation" aria-label="Main navigation">
+  {% if items %}
+    {% include '@collections/navigation/navigation-list.twig' with {
+      items: items,
+      level: 0
+    } only %}
+  {% endif %}
+</nav>

@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-18] - Collections: Navigation Organism
+
+### Added
+- **Navigation (Collections)**: Main site navigation with responsive behavior
+  - **Structure**: Horizontal menu with dropdown support (composes Menu Item molecule)
+  - **Responsive**: Desktop horizontal, tablet reduced gaps, mobile hamburger toggle
+  - **Mobile menu**: Toggle button with overlay menu, click outside to close, ESC key support
+  - **Accessibility**: ARIA menu pattern, focus management, keyboard navigation
+  - **Variants**: `horizontal` (desktop), `vertical` (sidebar), `mobile` (hamburger toggle)
+  - **Data**: 4 menu items (Find a property, About us, Solutions, Latest News) with realistic Real Estate submenus
+  - **Stories**: 4 stories (Default, VerticalLayout, MobileMenu, WithActiveItem)
+  - **JavaScript**: Drupal behavior with mobile toggle, ESC close, click outside close
+  - **Files**: 5 files (navigation.twig, navigation.css, navigation.yml, navigation.stories.jsx, navigation.js)
+
+### Technical Details
+- Build impact: dist/js/navigation.js 0.86 kB (gzip: 0.36 kB)
+- CSS tokens: All spacing (--size-*), colors (--gray-*, --white), shadows (--shadow-3), transitions (--duration-200, --ease-out)
+- Composition: Includes Menu Item molecule via `{% include '@components/menu-item/menu-item.twig' %}`
+- Responsive breakpoints: @media (--tablet), @media (--mobile)
+- Z-index: `--z-dropdown` for mobile menu overlay
+
+### Documentation
+- `collections.md`: 5/16 → 6/16 (38%) - Navigation marked as implemented
+
+### Rationale
+- **Token-First**: All values from design tokens, no hardcoded measurements
+- **Mobile-first**: Responsive behavior with hamburger menu for small screens
+- **Accessible**: ARIA attributes, keyboard support, focus management
+- **Composition**: Reuses Menu Item molecule, follows Atomic Design principles
+
+---
+
 ## [2025-01-17] - Refactor: List Atom Simplification
 
 ### Changed

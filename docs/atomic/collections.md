@@ -3,7 +3,7 @@
 Composants complexes formant des sections complètes.
 
 **Total** : 16 composants  
-**Implémentés** : 5/16 (31%)
+**Implémentés** : 6/16 (38%)
 
 ---
 
@@ -19,7 +19,8 @@ Implémenté : ❌
 
 **Navigation** - Navigation principale avec dropdowns  
 Usage : Achat/Location Résidentiel, Commercial, Services, Études marché, À propos, Contact  
-Implémenté : ❌
+Specs : Compose Menu Item (molecule), responsive avec hamburger mobile, JavaScript toggle + ESC + click outside  
+Implémenté : ✅
 
 **Sidebar** - Panneau latéral navigation + contenu  
 Usage : Filtres type bien, prix, surface, dropdown tri  

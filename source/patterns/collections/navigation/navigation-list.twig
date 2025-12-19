@@ -1,0 +1,29 @@
+{%- set items = items|default([]) -%}
+{%- set level = level|default(0) -%}
+
+{% if items %}
+<ul class="{% if level == 0 %}ps-navigation__list{% else %}ps-navigation__submenu{% endif %}">
+  {% for item in items %}
+    {%- set item_label = item.label|default(item.title) -%}
+    {%- set item_href = item.href|default('#') -%}
+    {%- set item_submenu = item.submenu|default(item.below)|default([]) -%}
+    {%- set item_active = item.active|default(false) -%}
+    
+    <li class="ps-navigation__item{% if item_active %} ps-navigation__item--active{% endif %}{% if item_submenu|length > 0 %} ps-navigation__item--has-submenu{% endif %}">
+      <a href="{{ item_href }}" class="ps-navigation__link"{% if item_submenu|length > 0 %} aria-haspopup="true" aria-expanded="false"{% endif %}>
+        {{ item_label }}
+        {% if item_submenu|length > 0 %}
+        <span class="ps-navigation__icon" data-icon="chevron-down" aria-hidden="true"></span>
+        {% endif %}
+      </a>
+      
+      {% if item_submenu|length > 0 %}
+        {% include '@collections/navigation/navigation-list.twig' with {
+          items: item_submenu,
+          level: level + 1
+        } only %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}

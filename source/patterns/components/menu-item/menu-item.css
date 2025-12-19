@@ -12,7 +12,7 @@
   /* Token-First: Base tokens */
   --ps-menu-item-padding-y: var(--size-3);
   --ps-menu-item-padding-x: var(--size-4);
-  --ps-menu-item-gap: var(--size-3);
+  --ps-menu-item-gap: var(--size-2);
   --ps-menu-item-border-width: var(--border-size-2);
   --ps-menu-item-transition-duration: var(--duration-fast);
   --ps-menu-item-transition-timing: var(--ease-4);
@@ -22,10 +22,16 @@
   --ps-menu-item-color: var(--text-primary);
   --ps-menu-item-color-hover: var(--text-secondary);
   --ps-menu-item-border-color: transparent;
+  --ps-menu-item-submenu-gap: var(--size-1);
+  --ps-menu-item-submenu-padding: var(--size-4);
+  --ps-menu-item-submenu-radius: var(--radius-2);
+  --ps-menu-item-submenu-shadow: var(--shadow-3);
+  --ps-menu-item-submenu-border: var(--border-size-1) solid var(--border-default);
 
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
 
   &__link {
     display: flex;
@@ -145,7 +151,19 @@
   &__submenu {
     list-style: none;
     margin: 0;
-    padding-left: var(--size-8);
+    padding: var(--ps-menu-item-submenu-padding);
+    position: absolute;
+    top: calc(100% + var(--size-1));
+    left: 0;
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    gap: var(--ps-menu-item-submenu-gap);
+    background: var(--white);
+    border: var(--ps-menu-item-submenu-border);
+    border-radius: var(--ps-menu-item-submenu-radius);
+    box-shadow: var(--ps-menu-item-submenu-shadow);
+    z-index: var(--z-dropdown);
   }
 
   &__submenu-item {
@@ -159,18 +177,29 @@
     padding: var(--size-2) var(--ps-menu-item-padding-x);
     color: var(--ps-menu-item-color);
     text-decoration: none;
+    border-radius: var(--radius-1);
     transition:
       color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
       background-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing);
 
     &:hover {
       color: var(--ps-menu-item-color-hover);
-      background-color: var(--ps-menu-item-bg-hover);
+      background-color: var(--gray-050);
     }
 
     &:focus-visible {
       outline: var(--border-size-2) solid var(--border-focus);
       outline-offset: calc(var(--border-size-2) * -1);
     }
+  }
+
+  /* Hover & focus open dropdown (desktop) */
+  &:hover > .ps-menu-item__submenu,
+  &:focus-within > .ps-menu-item__submenu {
+    display: flex;
+  }
+
+  &--open > .ps-menu-item__submenu {
+    display: flex;
   }
 }
