@@ -45,7 +45,7 @@
     <li{{ item_attributes.addClass('ps-menu-secondary__item')|without('class') }} class="ps-menu-secondary__item{% if has_dropdown %} ps-menu-secondary__item--has-dropdown{% endif %}">
       {% if is_icon %}
         {# Icon link with optional badge #}
-        <a href="{{ item.url }}" class="ps-menu-secondary__icon-link" aria-label="{{ item.title }}">
+        <a{{ item_attributes.addClass('ps-menu-secondary__icon-link')|without('class') }} href="{{ item.url }}" class="ps-menu-secondary__icon-link" aria-label="{{ item.title }}">
           <span class="ps-menu-secondary__icon" data-icon="{{ item.icon|default('heart') }}" aria-hidden="true"></span>
           {% if item.badge %}
             <span class="ps-menu-secondary__badge">{{ item.badge }}</span>
@@ -54,15 +54,19 @@
       {% elseif is_button %}
         {# Button-styled link #}
         {%- set button_variant = item_classes|join(' ')|replace('menu-item--button-', '')|replace('menu-item--button', '')|trim -%}
+        {%- set outline = 'outline' in button_variant -%}
+        {%- set clean_variant = button_variant|replace('-outline', '')|trim -%}
         {% include '@elements/button/button.twig' with {
           label: item.title,
           url: item.url,
-          variant: button_variant ? button_variant : 'primary',
-          size: 'small'
+          variant: clean_variant ? clean_variant : 'primary',
+          outline: outline,
+          size: 'small',
+          attributes: item_attributes
         } only %}
       {% elseif has_dropdown %}
         {# User dropdown #}
-        <button class="ps-menu-secondary__link ps-menu-secondary__link--dropdown" aria-expanded="false" aria-haspopup="true">
+        <button{{ item_attributes.addClass('ps-menu-secondary__link', 'ps-menu-secondary__link--dropdown')|without('class') }} class="ps-menu-secondary__link ps-menu-secondary__link--dropdown" aria-expanded="false" aria-haspopup="true">
           {{ item.title }}
           <span class="ps-menu-secondary__chevron" data-icon="chevron-down" aria-hidden="true"></span>
         </button>
@@ -80,7 +84,7 @@
         </div>
       {% else %}
         {# Simple link #}
-        <a href="{{ item.url }}" class="ps-menu-secondary__link">
+        <a{{ item_attributes.addClass('ps-menu-secondary__link')|without('class') }} href="{{ item.url }}" class="ps-menu-secondary__link">
           {{ item.title }}
         </a>
       {% endif %}
