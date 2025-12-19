@@ -1,7 +1,7 @@
 /**
  * Menu Secondary (Collection/Organism)
- * Generic Drupal-compatible menu with dropdown support
- * Automatic separators via CSS (no markup needed)
+ * Generic Drupal-compatible menu with visual variations via classes
+ * Supports: buttons, links, icons with badges, user dropdown
  *
  * 3-layer CSS: global tokens → component vars → modifiers
  */
@@ -19,6 +19,14 @@
   --ps-menu-secondary-separator-margin: 0 var(--size-2);
   --ps-menu-secondary-chevron-size: var(--font-size-1);
   --ps-menu-secondary-transition: all var(--duration-200) var(--ease-out);
+
+  /* Icon link */
+  --ps-menu-secondary-icon-size: var(--size-6);
+  --ps-menu-secondary-icon-color: var(--text-primary);
+  --ps-menu-secondary-icon-color-hover: var(--primary);
+  --ps-menu-secondary-badge-size: var(--size-5);
+  --ps-menu-secondary-badge-bg: var(--danger);
+  --ps-menu-secondary-badge-color: var(--white);
 
   /* Dropdown */
   --ps-menu-secondary-dropdown-min-width: 280px;
@@ -76,6 +84,52 @@
     outline: var(--border-size-2) solid var(--border-focus);
     outline-offset: var(--border-size-1);
   }
+}
+
+/* Icon link (favorites, search, etc.) */
+.ps-menu-secondary__icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  color: var(--ps-menu-secondary-icon-color);
+  text-decoration: none;
+  transition: var(--ps-menu-secondary-transition);
+
+  &:hover {
+    color: var(--ps-menu-secondary-icon-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-1);
+    border-radius: var(--radius-1);
+  }
+}
+
+.ps-menu-secondary__icon {
+  font-size: var(--ps-menu-secondary-icon-size);
+  color: currentColor;
+}
+
+.ps-menu-secondary__badge {
+  position: absolute;
+  top: calc(var(--ps-menu-secondary-badge-size) * -0.5);
+  right: calc(var(--ps-menu-secondary-badge-size) * -0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ps-menu-secondary-badge-size);
+  height: var(--ps-menu-secondary-badge-size);
+  padding: 0 var(--size-1);
+  font-size: var(--font-size--2);
+  font-weight: var(--font-weight-600);
+  color: var(--ps-menu-secondary-badge-color);
+  background: var(--ps-menu-secondary-badge-bg);
+  border-radius: var(--radius-round);
+  line-height: 1;
 }
 
 /* Chevron icon for dropdown trigger */

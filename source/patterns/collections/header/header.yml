@@ -54,10 +54,12 @@ nav_items:
   - label: 'Latest News'
     href: '/news'
 
-# Zone Bottom-Right: Header actions (Simple Drupal-compatible menu)
+# Zone Bottom-Right: Header actions (Visual variations via classes)
 actions:
   - title: 'What are you looking for?'
     url: '#'
+    attributes:
+      class: ['menu-item--button', 'menu-item--button-primary-outline']
   - title: 'Find a property'
     url: '/properties'
   - title: 'Enzo'
@@ -73,6 +75,14 @@ actions:
         url: '/logout'
   - title: 'Contact us'
     url: '/contact'
+    attributes:
+      class: ['menu-item--button', 'menu-item--button-secondary']
+  - title: 'Favorites'
+    url: '/favorites'
+    icon: 'heart'
+    badge: null
+    attributes:
+      class: ['menu-item--icon']
 
 # Modifier: Sticky positioning
 sticky: false

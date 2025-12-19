@@ -1,25 +1,29 @@
 {#
 /**
  * Secondary Menu (Collection/Organism)
- * Generic Drupal-compatible menu with dropdown support.
+ * Generic Drupal-compatible menu with visual variations via classes.
  *
- * Structure: Semantic <ul><li> recursive for Drupal integration
- * - Standard Drupal menu properties: title, url, below, attributes
- * - Automatic separators via CSS li:not(:last-child)::after
- * - Dropdown support via 'below' property (submenu items)
+ * Structure: Semantic <ul><li> with class-based styling
+ * - Standard Drupal: title, url, below, attributes
+ * - Visual types via attributes.class:
+ *   - 'menu-item--button-{variant}' : Styled button (primary, secondary, etc.)
+ *   - 'menu-item--icon' : Icon-only with optional badge
+ *   - 'menu-item--user' : User dropdown trigger
+ *   - Default (no class) : Simple text link
  *
  * Props:
  * - array items - Menu items with Drupal structure
  *   @param string title - Link text
  *   @param string url - Link URL
  *   @param array below - Submenu items (optional, recursive)
- *   @param object attributes - Drupal attributes object
- * - object attributes - Container attributes (optional)
+ *   @param object attributes - Drupal attributes with optional classes
+ *   @param string icon - Icon name (for icon type)
+ *   @param string badge - Badge value (for icon type)
  *
  * Drupal integration:
  * - Compatible with menu_tree Twig function
- * - Uses attributes|without('class') pattern
- * - Recursive rendering for submenus (below)
+ * - Classes added via Menu UI or hook_preprocess_menu()
+ * - Example: $item['attributes']['class'][] = 'menu-item--button-primary';
  *
  * Rules: Token-First, BEM, semantic <ul><li>, WCAG 2.2 AA, Drupal-compatible
  */
@@ -33,16 +37,36 @@
   {% for item in items %}
     {%- set item_attributes = item.attributes|default(create_attribute()) -%}
     {%- set has_dropdown = item.below and item.below|length > 0 -%}
+    {%- set item_classes = item_attributes.class|default([]) -%}
+    {%- set is_button = 'menu-item--button' in item_classes|join(' ') -%}
+    {%- set is_icon = 'menu-item--icon' in item_classes|join(' ') -%}
+    {%- set is_user = has_dropdown -%}
     
     <li{{ item_attributes.addClass('ps-menu-secondary__item')|without('class') }} class="ps-menu-secondary__item{% if has_dropdown %} ps-menu-secondary__item--has-dropdown{% endif %}">
-      {% if has_dropdown %}
-        {# Item with dropdown (user menu, etc.) #}
+      {% if is_icon %}
+        {# Icon link with optional badge #}
+        <a href="{{ item.url }}" class="ps-menu-secondary__icon-link" aria-label="{{ item.title }}">
+          <span class="ps-menu-secondary__icon" data-icon="{{ item.icon|default('heart') }}" aria-hidden="true"></span>
+          {% if item.badge %}
+            <span class="ps-menu-secondary__badge">{{ item.badge }}</span>
+          {% endif %}
+        </a>
+      {% elseif is_button %}
+        {# Button-styled link #}
+        {%- set button_variant = item_classes|join(' ')|replace('menu-item--button-', '')|replace('menu-item--button', '')|trim -%}
+        {% include '@elements/button/button.twig' with {
+          label: item.title,
+          url: item.url,
+          variant: button_variant ? button_variant : 'primary',
+          size: 'small'
+        } only %}
+      {% elseif has_dropdown %}
+        {# User dropdown #}
         <button class="ps-menu-secondary__link ps-menu-secondary__link--dropdown" aria-expanded="false" aria-haspopup="true">
           {{ item.title }}
           <span class="ps-menu-secondary__chevron" data-icon="chevron-down" aria-hidden="true"></span>
         </button>
         
-        {# Dropdown submenu #}
         <div class="ps-menu-secondary__dropdown" hidden role="menu">
           <ul class="ps-menu-secondary__dropdown-list">
             {% for subitem in item.below %}
@@ -55,7 +79,7 @@
           </ul>
         </div>
       {% else %}
-        {# Simple link item #}
+        {# Simple link #}
         <a href="{{ item.url }}" class="ps-menu-secondary__link">
           {{ item.title }}
         </a>
