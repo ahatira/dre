@@ -54,54 +54,25 @@ nav_items:
   - label: 'Latest News'
     href: '/news'
 
-# Zone Bottom-Right: Header actions (logged-in state with user "Enzo")
+# Zone Bottom-Right: Header actions (Simple Drupal-compatible menu)
 actions:
-  - type: 'button'
-    variant: 'primary'
-    outline: true
-    label: 'What are you looking for?'
-    icon: 'search'
+  - title: 'What are you looking for?'
     url: '#'
-    size: 'small'
-    searchTrigger: true
-    hasSeparator: true
-  - type: 'link'
-    label: 'Find a property'
+  - title: 'Find a property'
     url: '/properties'
-    hasSeparator: true
-  - type: 'user'
-    name: 'Enzo'
-    hasSeparator: true
-    menu:
-      - type: 'link'
-        label: 'Mon compte'
+  - title: 'Enzo'
+    url: '#'
+    below:
+      - title: 'Mon compte'
         url: '/account'
-        icon: 'user'
-      - type: 'link'
-        label: 'Mes favoris'
+      - title: 'Mes favoris'
         url: '/favorites'
-        icon: 'heart'
-      - type: 'link'
-        label: 'Mes alertes'
+      - title: 'Mes alertes'
         url: '/alerts'
-        icon: 'notifications'
-      - type: 'separator'
-      - type: 'link'
-        label: 'Se déconnecter'
+      - title: 'Se déconnecter'
         url: '/logout'
-        icon: 'logout'
-  - type: 'button'
-    variant: 'secondary'
-    label: 'Contact us'
+  - title: 'Contact us'
     url: '/contact'
-    size: 'small'
-    hasSeparator: false
-  - type: 'icon'
-    icon: 'heart'
-    ariaLabel: 'Favorites'
-    href: '/favorites'
-    badge: null
-    hasSeparator: false
 
 # Modifier: Sticky positioning
 sticky: false

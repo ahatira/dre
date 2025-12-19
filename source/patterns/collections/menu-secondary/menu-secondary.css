@@ -1,7 +1,7 @@
 /**
  * Menu Secondary (Collection/Organism)
- * Main action bar with search, link, user, contact, favorites
- * Separators rendered via li::after pseudo-element (CSS decoration)
+ * Generic Drupal-compatible menu with dropdown support
+ * Automatic separators via CSS (no markup needed)
  *
  * 3-layer CSS: global tokens → component vars → modifiers
  */
@@ -9,22 +9,18 @@
 .ps-menu-secondary {
   /* Layer 2: Component variables */
   --ps-menu-secondary-gap: var(--size-3);
-  --ps-menu-secondary-item-padding: var(--size-2) var(--size-1);
+  --ps-menu-secondary-link-padding: var(--size-2) var(--size-3);
+  --ps-menu-secondary-link-color: var(--text-primary);
+  --ps-menu-secondary-link-color-hover: var(--primary);
+  --ps-menu-secondary-link-bg-hover: var(--gray-050);
   --ps-menu-secondary-separator-width: var(--border-size-1);
   --ps-menu-secondary-separator-height: var(--size-8);
   --ps-menu-secondary-separator-color: var(--border-default);
   --ps-menu-secondary-separator-margin: 0 var(--size-2);
-  --ps-menu-secondary-link-color: var(--text-primary);
-  --ps-menu-secondary-link-color-hover: var(--primary);
-  --ps-menu-secondary-icon-size: var(--size-6);
-  --ps-menu-secondary-icon-color: var(--text-primary);
-  --ps-menu-secondary-icon-color-hover: var(--primary);
-  --ps-menu-secondary-badge-size: var(--size-5);
-  --ps-menu-secondary-badge-bg: var(--danger);
-  --ps-menu-secondary-badge-color: var(--white);
+  --ps-menu-secondary-chevron-size: var(--font-size-1);
   --ps-menu-secondary-transition: all var(--duration-200) var(--ease-out);
 
-  /* User dropdown */
+  /* Dropdown */
   --ps-menu-secondary-dropdown-min-width: 280px;
   --ps-menu-secondary-dropdown-gap: var(--size-2);
   --ps-menu-secondary-dropdown-item-padding: var(--size-3) var(--size-5);
@@ -38,101 +34,33 @@
   gap: var(--ps-menu-secondary-gap);
 }
 
-/* Menu item wrapper */
+/* Menu item */
 .ps-menu-secondary__item {
   display: flex;
   align-items: center;
-  padding: var(--ps-menu-secondary-item-padding);
   position: relative;
 }
 
-/* Separator decorator (li::after) */
-.ps-menu-secondary__item--with-separator::after {
+/* Automatic separators between items (except last) */
+.ps-menu-secondary__item:not(:last-child)::after {
   content: '';
   display: block;
   width: var(--ps-menu-secondary-separator-width);
   height: var(--ps-menu-secondary-separator-height);
   background: var(--ps-menu-secondary-separator-color);
   margin: var(--ps-menu-secondary-separator-margin);
-  margin-left: auto;
-  margin-right: var(--size-2);
 }
 
-/* Text link in menu */
+/* Link or button in menu */
 .ps-menu-secondary__link {
-  color: var(--ps-menu-secondary-link-color);
-  text-decoration: none;
-  transition: color var(--duration-200) var(--ease-out);
-  font-size: var(--font-size-2);
-
-  &:hover {
-    color: var(--ps-menu-secondary-link-color-hover);
-  }
-
-  &:focus-visible {
-    outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--border-size-1);
-    border-radius: var(--radius-1);
-  }
-}
-
-/* Icon link (favorites, etc.) */
-.ps-menu-secondary__icon-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--size-10);
-  height: var(--size-10);
-  color: var(--ps-menu-secondary-icon-color);
-  text-decoration: none;
-  transition: var(--ps-menu-secondary-transition);
-
-  &:hover {
-    color: var(--ps-menu-secondary-icon-color-hover);
-  }
-
-  &:focus-visible {
-    outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--border-size-1);
-    border-radius: var(--radius-1);
-  }
-}
-
-.ps-menu-secondary__icon {
-  font-size: var(--ps-menu-secondary-icon-size);
-  color: currentColor;
-}
-
-.ps-menu-secondary__badge {
-  position: absolute;
-  top: calc(var(--ps-menu-secondary-badge-size) * -0.5);
-  right: calc(var(--ps-menu-secondary-badge-size) * -0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--ps-menu-secondary-badge-size);
-  height: var(--ps-menu-secondary-badge-size);
-  padding: 0 var(--size-1);
-  font-size: var(--font-size--2);
-  font-weight: var(--font-weight-600);
-  color: var(--ps-menu-secondary-badge-color);
-  background: var(--ps-menu-secondary-badge-bg);
-  border-radius: var(--radius-round);
-  line-height: 1;
-}
-
-/* User trigger button */
-.ps-menu-secondary__user-wrapper {
-  position: relative;
-}
-
-.ps-menu-secondary__user-trigger {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--size-2);
-  padding: var(--size-2) var(--size-3);
-  color: var(--text-primary);
+  padding: var(--ps-menu-secondary-link-padding);
+  color: var(--ps-menu-secondary-link-color);
+  text-decoration: none;
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-500);
   background: transparent;
   border: none;
   border-radius: var(--radius-1);
@@ -140,7 +68,8 @@
   transition: var(--ps-menu-secondary-transition);
 
   &:hover {
-    background: var(--gray-050);
+    color: var(--ps-menu-secondary-link-color-hover);
+    background: var(--ps-menu-secondary-link-bg-hover);
   }
 
   &:focus-visible {
@@ -149,13 +78,9 @@
   }
 }
 
-.ps-menu-secondary__user-name {
-  font-size: var(--font-size-2);
-  font-weight: var(--font-weight-500);
-}
-
-.ps-menu-secondary__user-chevron {
-  font-size: var(--font-size-1);
+/* Chevron icon for dropdown trigger */
+.ps-menu-secondary__chevron {
+  font-size: var(--ps-menu-secondary-chevron-size);
   opacity: 0.6;
 }
 
@@ -186,6 +111,7 @@
   padding: var(--ps-menu-secondary-dropdown-item-padding);
   color: var(--text-primary);
   text-decoration: none;
+  font-size: var(--font-size-2);
   transition: background-color var(--duration-200) var(--ease-out);
 
   &:hover {
@@ -194,18 +120,8 @@
 
   &:focus-visible {
     outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--border-size-1);
+    outline-offset: calc(var(--border-size-1) * -1);
   }
-}
-
-.ps-menu-secondary__dropdown-icon {
-  font-size: var(--font-size-4);
-  color: currentColor;
-}
-
-.ps-menu-secondary__dropdown-separator {
-  height: var(--border-size-1);
-  background: var(--border-default);
 }
 
 /* Mobile responsive */
@@ -214,11 +130,13 @@
     gap: var(--size-2);
   }
 
-  .ps-menu-secondary__user-name {
+  /* Hide separators on mobile */
+  .ps-menu-secondary__item:not(:last-child)::after {
     display: none;
   }
 
-  .ps-menu-secondary__item--with-separator::after {
-    display: none;
+  /* Hide link text on mobile, keep icon */
+  .ps-menu-secondary__link {
+    padding: var(--size-2);
   }
 }

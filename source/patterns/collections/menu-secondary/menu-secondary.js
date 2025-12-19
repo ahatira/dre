@@ -1,15 +1,15 @@
 /**
  * Menu Secondary behavior
- * Handles user menu dropdown accessibility: toggle, click-outside, escape, focus.
+ * Handles dropdown accessibility: toggle, click-outside, escape, keyboard.
  */
 
 (() => {
   Drupal.behaviors.psMenuSecondary = {
     attach: (context) => {
-      const wrappers = context.querySelectorAll('.ps-menu-secondary__user-wrapper');
-      wrappers.forEach((wrapper) => {
-        const trigger = wrapper.querySelector('.ps-menu-secondary__user-trigger');
-        const dropdown = wrapper.querySelector('.ps-menu-secondary__dropdown');
+      const items = context.querySelectorAll('.ps-menu-secondary__item--has-dropdown');
+      items.forEach((item) => {
+        const trigger = item.querySelector('.ps-menu-secondary__link--dropdown');
+        const dropdown = item.querySelector('.ps-menu-secondary__dropdown');
         if (!trigger || !dropdown) {
           return;
         }
@@ -23,7 +23,7 @@
           trigger.setAttribute('aria-expanded', 'false');
         };
 
-        once('ps-menu-secondary-user', trigger, () => {
+        once('ps-menu-secondary-dropdown', trigger, () => {
           trigger.addEventListener('click', (e) => {
             e.preventDefault();
             const expanded = trigger.getAttribute('aria-expanded') === 'true';
@@ -37,7 +37,7 @@
 
         // Click outside to close
         document.addEventListener('click', (e) => {
-          if (!wrapper.contains(e.target)) {
+          if (!item.contains(e.target)) {
             closeMenu();
           }
         });

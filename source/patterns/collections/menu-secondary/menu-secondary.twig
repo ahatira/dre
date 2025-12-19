@@ -1,82 +1,64 @@
 {#
 /**
  * Secondary Menu (Collection/Organism)
- * Action bar with 4 main items: search button, link, user, contact + icon.
- * Separators rendered via CSS li::after pseudo-element.
+ * Generic Drupal-compatible menu with dropdown support.
  *
- * Structure: Semantic <ul><li> with flexible item types
- * - type: 'button'  : Button atom (search trigger, contact, etc.)
- * - type: 'link'    : Text link (Find a property)
- * - type: 'icon'    : Icon-only link (Favorites with badge)
- * - type: 'user'    : User dropdown trigger (logged-in name or "Log in / Sign up")
+ * Structure: Semantic <ul><li> recursive for Drupal integration
+ * - Standard Drupal menu properties: title, url, below, attributes
+ * - Automatic separators via CSS li:not(:last-child)::after
+ * - Dropdown support via 'below' property (submenu items)
  *
  * Props:
- * - array items - Menu items [{ type, label?, url?, variant?, outline?, size?, icon?, ariaLabel?, badge?, name?, hasSeparator? }]
+ * - array items - Menu items with Drupal structure
+ *   @param string title - Link text
+ *   @param string url - Link URL
+ *   @param array below - Submenu items (optional, recursive)
+ *   @param object attributes - Drupal attributes object
+ * - object attributes - Container attributes (optional)
  *
- * Separators:
- * - Controlled by hasSeparator: true on item - renders li::after as vertical divider
- * - No explicit markup, pure CSS decoration
+ * Drupal integration:
+ * - Compatible with menu_tree Twig function
+ * - Uses attributes|without('class') pattern
+ * - Recursive rendering for submenus (below)
  *
- * Rules: Token-First, BEM, semantic <ul><li>, WCAG 2.2 AA, composition-friendly
+ * Rules: Token-First, BEM, semantic <ul><li>, WCAG 2.2 AA, Drupal-compatible
  */
  #}
 
 {%- set items = items|default([]) -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 {{ attach_library('ps_theme/menu-secondary') }}
 
-<ul class="ps-menu-secondary">
+<ul{{ attributes.addClass('ps-menu-secondary')|without('class') }} class="ps-menu-secondary">
   {% for item in items %}
-    <li class="ps-menu-secondary__item{% if item.hasSeparator %} ps-menu-secondary__item--with-separator{% endif %}">
-      {% if item.type == 'button' %}
-        {% set button_class = item.searchTrigger ? 'ps-search-trigger' : null %}
-        {% include '@elements/button/button.twig' with {
-          label: item.label,
-          url: item.url|default('#'),
-          variant: item.variant|default(null),
-          outline: item.outline|default(false),
-          icon: item.icon|default(null),
-          size: item.size|default(null),
-          class: button_class
-        } only %}
-      {% elseif item.type == 'link' %}
-        <a href="{{ item.url|default('#') }}" class="ps-menu-secondary__link">
-          {{ item.label }}
-        </a>
-      {% elseif item.type == 'icon' %}
-        <a href="{{ item.href|default('#') }}" class="ps-menu-secondary__icon-link{% if item.badge %} ps-menu-secondary__icon-link--with-badge{% endif %}" aria-label="{{ item.ariaLabel|default(item.label) }}">
-          <span class="ps-menu-secondary__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-          {% if item.badge %}
-            <span class="ps-menu-secondary__badge">{{ item.badge }}</span>
-          {% endif %}
-        </a>
-      {% elseif item.type == 'user' %}
-        {# User dropdown trigger button with optional menu #}
-        <div class="ps-menu-secondary__user-wrapper">
-          {% set isOpen = item.open|default(false) %}
-          <button class="ps-menu-secondary__user-trigger" aria-label="User menu" aria-expanded="{{ isOpen ? 'true' : 'false' }}">
-            <span class="ps-menu-secondary__user-name">{{ item.name }}</span>
-            <span class="ps-menu-secondary__user-chevron" data-icon="chevron-down" aria-hidden="true"></span>
-          </button>
-          {% set menu_items = item.menu|default([]) %}
-          {% if menu_items and menu_items|length > 0 %}
-            <div class="ps-menu-secondary__dropdown"{% if not isOpen %} hidden{% endif %} role="menu" aria-label="User menu">
-              <ul class="ps-menu-secondary__dropdown-list">
-                {% for menu_item in menu_items %}
-                  {% if menu_item.type == 'separator' %}
-                    <li class="ps-menu-secondary__dropdown-separator" aria-hidden="true"></li>
-                  {% else %}
-                    <li role="none">
-                      <a role="menuitem" href="{{ menu_item.url|default('#') }}" class="ps-menu-secondary__dropdown-item">
-                        {% if menu_item.icon %}<span class="ps-menu-secondary__dropdown-icon" data-icon="{{ menu_item.icon }}" aria-hidden="true"></span>{% endif %}
-                        <span>{{ menu_item.label }}</span>
-                      </a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
+    {%- set item_attributes = item.attributes|default(create_attribute()) -%}
+    {%- set has_dropdown = item.below and item.below|length > 0 -%}
+    
+    <li{{ item_attributes.addClass('ps-menu-secondary__item')|without('class') }} class="ps-menu-secondary__item{% if has_dropdown %} ps-menu-secondary__item--has-dropdown{% endif %}">
+      {% if has_dropdown %}
+        {# Item with dropdown (user menu, etc.) #}
+        <button class="ps-menu-secondary__link ps-menu-secondary__link--dropdown" aria-expanded="false" aria-haspopup="true">
+          {{ item.title }}
+          <span class="ps-menu-secondary__chevron" data-icon="chevron-down" aria-hidden="true"></span>
+        </button>
+        
+        {# Dropdown submenu #}
+        <div class="ps-menu-secondary__dropdown" hidden role="menu">
+          <ul class="ps-menu-secondary__dropdown-list">
+            {% for subitem in item.below %}
+              <li role="none">
+                <a role="menuitem" href="{{ subitem.url }}" class="ps-menu-secondary__dropdown-item">
+                  {{ subitem.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
+      {% else %}
+        {# Simple link item #}
+        <a href="{{ item.url }}" class="ps-menu-secondary__link">
+          {{ item.title }}
+        </a>
       {% endif %}
     </li>
   {% endfor %}
