@@ -25,10 +25,8 @@
       const searchInput = searchForm.querySelector('[data-search-input]');
       const closeButton = searchForm.querySelector('[data-search-close]');
 
-      // Find all search trigger buttons in header (could be multiple icon buttons)
-      const searchTriggers = context.querySelectorAll(
-        '[data-icon="search"].ps-header-actions__icon-link'
-      );
+      // Find search trigger button in header (button with ps-search-trigger class)
+      const searchTriggers = context.querySelectorAll('.ps-search-trigger');
 
       // Process each search trigger button
       searchTriggers.forEach((trigger) => {

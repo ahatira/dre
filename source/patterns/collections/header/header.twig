@@ -101,4 +101,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Search Form (hidden by default, shows below header on trigger click) -->
+  {% include '@components/search-form/search-form.twig' with {
+    show: false,
+    placeholder: 'What are you looking for?',
+    action: '/search',
+    method: 'get'
+  } only %}
 </header>

@@ -36,8 +36,7 @@ export default {
 
     // Zone Bottom-Right: Actions
     actions: {
-      description:
-        'Header action buttons, icons, search input, and user menu array (search | button | user | icon types)',
+      description: 'Header action buttons, icons, and user menu array (button | icon | user types)',
       control: 'object',
       table: { category: 'Zone Bottom-Right' },
     },
@@ -83,16 +82,20 @@ export const LoggedOut = {
     ...data,
     actions: [
       {
-        type: 'search',
-        placeholder: 'What are you looking for?',
-        label: 'Search',
+        type: 'button',
+        variant: 'outline-primary',
+        label: 'What are you looking for?',
+        icon: 'search',
+        href: '#',
+        size: 'sm',
+        searchTrigger: true,
       },
       {
         type: 'button',
-        variant: 'neutral',
+        variant: 'primary',
         label: 'Find a property',
-        icon: 'building',
         href: '/properties',
+        size: 'sm',
       },
       {
         type: 'button',
@@ -100,18 +103,26 @@ export const LoggedOut = {
         label: 'Log in / Sign up',
         icon: 'user',
         href: '/login',
+        size: 'sm',
       },
       {
         type: 'button',
         variant: 'secondary',
         label: 'Contact us',
         href: '/contact',
+        size: 'sm',
       },
       {
         type: 'icon',
         icon: 'heart',
         ariaLabel: 'Favorites',
         href: '/favorites',
+      },
+      {
+        type: 'icon',
+        icon: 'search',
+        ariaLabel: 'Search',
+        href: '/search',
       },
     ],
   },
@@ -146,6 +157,12 @@ export const Mobile = {
         icon: 'user',
         ariaLabel: 'Account',
         href: '/account',
+      },
+      {
+        type: 'icon',
+        icon: 'heart',
+        ariaLabel: 'Favorites',
+        href: '/favorites',
       },
     ],
   },
@@ -191,29 +208,35 @@ export const French = {
     ],
     actions: [
       {
-        type: 'search',
-        placeholder: 'Que recherchez-vous ?',
-        label: 'Rechercher',
-      },
-      {
         type: 'button',
-        variant: 'neutral',
-        label: 'Trouver un bien',
-        icon: 'building',
-        href: '/properties',
+        variant: 'outline-primary',
+        label: 'Que recherchez-vous ?',
+        icon: 'search',
+        href: '#',
+        size: 'sm',
+        searchTrigger: true,
       },
       {
         type: 'button',
         variant: 'primary',
-        label: 'Appeler ou Planifier',
-        icon: 'phone',
-        href: '/contact',
+        label: 'Trouver un bien',
+        href: '/properties',
+        size: 'sm',
+      },
+      {
+        type: 'button',
+        variant: 'primary',
+        label: 'Se connecter',
+        icon: 'user',
+        href: '/login',
+        size: 'sm',
       },
       {
         type: 'button',
         variant: 'secondary',
         label: 'Nous contacter',
         href: '/contact',
+        size: 'sm',
       },
       {
         type: 'icon',
