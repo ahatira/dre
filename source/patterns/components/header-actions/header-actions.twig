@@ -17,10 +17,11 @@
       {% set button_class = action.searchTrigger ? 'ps-search-trigger' : null %}
       {% include '@elements/button/button.twig' with {
         label: action.label,
-        href: action.href|default('#'),
-        variant: action.variant|default('primary'),
+        url: action.url|default('#'),
+        variant: action.variant|default(null),
+        outline: action.outline|default(false),
         icon: action.icon|default(null),
-        size: action.size|default('md'),
+        size: action.size|default(null),
         class: button_class
       } only %}
     {% elseif action.type == 'icon' %}
