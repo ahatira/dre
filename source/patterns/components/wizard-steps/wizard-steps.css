@@ -18,18 +18,18 @@
   /* Sizing */
   --ps-wizard-marker-size: var(--size-12);
   --ps-wizard-connector-size: 2px;
-  --ps-wizard-gap: var(--size-4);
+  --ps-wizard-gap: var(--size-2);
   
   /* Colors - Connector */
-  --ps-wizard-connector-color: var(--gray-200);
+  --ps-wizard-connector-color: var(--gray-300);
   --ps-wizard-connector-color-completed: var(--success);
   
   /* Colors - Marker (pending state) */
   --ps-wizard-marker-border-color: var(--gray-300);
   --ps-wizard-marker-border-width: var(--border-2);
-  --ps-wizard-marker-bg: var(--white);
-  --ps-wizard-marker-text: var(--gray-500);
-  --ps-wizard-marker-shadow: none;
+  --ps-wizard-marker-bg: var(--gray-100);
+  --ps-wizard-marker-text: var(--gray-600);
+  --ps-wizard-marker-shadow: var(--shadow-1);
   --ps-wizard-marker-scale: 1;
   
   /* Label (pending state) */
@@ -45,7 +45,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: var(--ps-wizard-gap);
+  gap: 0;
+  align-items: center;
   
   /* ============================================
      VARIANTS - Orientation
@@ -53,17 +54,22 @@
   
   &--horizontal {
     flex-direction: row;
-    align-items: center;
     
     .ps-wizard-steps__item {
-      &:not(:last-child)::after {
-        content: '';
-        flex: 1;
-        min-width: var(--size-8);
-        height: var(--ps-wizard-connector-size);
-        background: var(--ps-wizard-connector-color);
-        margin: 0 var(--size-4);
-        transition: background var(--duration-normal) var(--ease-out-quad);
+      position: relative;
+      
+      &:not(:last-child) {
+        &::after {
+          content: '';
+          position: absolute;
+          left: calc(var(--ps-wizard-marker-size) / 2 + var(--size-4));
+          right: calc(-50% + var(--ps-wizard-marker-size) / 2 - var(--size-4));
+          top: calc(var(--ps-wizard-marker-size) / 2 - var(--ps-wizard-connector-size) / 2);
+          height: var(--ps-wizard-connector-size);
+          background: var(--ps-wizard-connector-color);
+          transition: background var(--duration-normal) var(--ease-out-quad);
+          z-index: 0;
+        }
       }
       
       &--completed:not(:last-child)::after {
@@ -122,6 +128,8 @@
   position: relative;
   cursor: default;
   flex: 1;
+  padding: 0 var(--size-4);
+  min-width: 0;
   
   /* ============================================
      STATES
@@ -130,13 +138,13 @@
   /* Active state */
   &--active {
     --ps-wizard-marker-border-color: var(--primary);
-    --ps-wizard-marker-border-width: 3px;
-    --ps-wizard-marker-bg: var(--primary-subtle);
+    --ps-wizard-marker-border-width: 2px;
+    --ps-wizard-marker-bg: var(--white);
     --ps-wizard-marker-text: var(--primary);
     --ps-wizard-marker-shadow:
       0 0 0 4px var(--primary-bg-subtle),
-      var(--shadow-1);
-    --ps-wizard-marker-scale: 1.1;
+      var(--shadow-2);
+    --ps-wizard-marker-scale: 1.15;
     --ps-wizard-label-color: var(--text-primary);
     --ps-wizard-label-weight: var(--font-weight-semibold);
     --ps-wizard-label-size: var(--font-size-2);
@@ -179,6 +187,8 @@
   font-size: var(--font-size-3);
   box-shadow: var(--ps-wizard-marker-shadow);
   transform: scale(var(--ps-wizard-marker-scale));
+  position: relative;
+  z-index: 1;
   transition:
     border-color var(--duration-normal) var(--ease-out-cubic),
     border-width var(--duration-normal) var(--ease-out-cubic),
@@ -206,9 +216,10 @@
   color: var(--ps-wizard-label-color);
   font-weight: var(--ps-wizard-label-weight);
   text-align: center;
-  max-width: var(--size-24);
+  width: 100%;
   line-height: var(--line-height-normal);
   word-wrap: break-word;
+  overflow-wrap: break-word;
   hyphens: auto;
   transition:
     color var(--duration-normal) var(--ease-out-quad),
