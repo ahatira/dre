@@ -6,20 +6,14 @@
 ---
 
 ## 📚 Documentation Structure
-
-**Documentation consolidée en 6 fichiers numérotés sous `.github/instructions/` :**
-
-- **01 Core Principles** → `instructions/01-core-principles.md` - Foundations (Atomic Design, BEM, tokens, terminology, accessibility)
 - **02 Component Development** → `instructions/02-component-development.md` - Complete workflow (11 steps, Token-First cascade, real example)
 - **03 Technical Implementation** → `instructions/03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility)
 - **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (90-point audit, troubleshooting, flowcharts, testing)
-- **05 Maintenance** → `instructions/05-maintenance.md` - Evolution (token creation, legacy migration, deprecation, breaking changes)
 - **06 Drupal Integration** → `instructions/06-drupal-integration.md` - Drupal-specific patterns (preprocess, render arrays, Form API, cache, respecting Atomic Design)
 - **README** → `instructions/README.md` - Navigation hub (quick scenarios, learning path)
 
 **Navigation rapide** : Consultez d'abord `instructions/README.md` pour identifier le fichier adapté à votre tâche.
 
----
 
 ## 🎯 Project At-a-Glance
 
@@ -28,10 +22,6 @@
 **Methodology**: Atomic Design (Brad Frost) + **Token-First Composition Workflow** + **Balanced Utility-First Approach**
 
 **87 Components to Implement**:
-- 19 Atoms (elements/) - Autonomous, Token-First does NOT apply
-- 20 Molecules (components/) - Token-First APPLIES
-- 12 Organisms (collections/) - Token-First APPLIES
-- 8 Templates (layouts/) - Token-First APPLIES
 - 8 Pages (pages/) - Token-First APPLIES
 
 **Current Progress**: 6/87 (7%) - See `docs/ps-design/INDEX.md`
@@ -77,18 +67,11 @@
 **Storybook Config?**  
 → Follow: `instructions/03-technical-implementation.md` (section 3)  
 → MANDATORY: `tags: ['autodocs']` in export default
-
-**Twig Template?**  
-→ Standards: `instructions/03-technical-implementation.md` (section 2)  
 → CRITICAL: NO arrow functions, NO `.filter(v => v)` (Drupal incompatible)
 
-**JavaScript Behavior?**  
-→ Patterns: `instructions/03-technical-implementation.md` (section 4)  
-→ Use Drupal behaviors with `once()` for idempotency
 
 **Accessibility?**  
 → Requirements: `instructions/03-technical-implementation.md` (section 5)  
-→ WCAG 2.2 AA minimum (contrast, focus-visible, ARIA, keyboard)
 
 **Refactor Legacy?**  
 → Audit: `instructions/04-quality-assurance.md` (Conformity checklist)  
