@@ -62,8 +62,8 @@
         &::after {
           content: '';
           position: absolute;
-          left: calc(var(--ps-wizard-marker-size) / 2 + var(--size-4));
-          right: calc(-50% + var(--ps-wizard-marker-size) / 2 - var(--size-4));
+          left: calc(50% + var(--ps-wizard-marker-size) / 2);
+          right: calc(-50% + var(--ps-wizard-marker-size) / 2);
           top: calc(var(--ps-wizard-marker-size) / 2 - var(--ps-wizard-connector-size) / 2);
           height: var(--ps-wizard-connector-size);
           background: var(--ps-wizard-connector-color);

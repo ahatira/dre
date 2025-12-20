@@ -1,0 +1,24 @@
+# Stepper Component - Default Configuration
+#
+# Available Props:
+# - steps: array - List of step objects with properties:
+#   * label: string - Step label text
+#   * completed: boolean - Is this step completed?
+#   * active: boolean - Is this the current active step?
+# - orientation: horizontal | vertical (default: horizontal)
+#   * horizontal: Steps displayed in a row (default)
+#   * vertical: Steps displayed in a column
+# - attributes: Attribute - Additional HTML attributes for <ol> element
+#
+# Real Estate Context Examples:
+# - Property search wizard (type → location → budget → features)
+# - Listing submission process (info → photos → pricing → publish)
+# - Account setup workflow (personal → contact → preferences)
+
+# Default: Property search wizard with 4 steps
+steps:
+  - { label: "Type de bien", completed: true, active: false }
+  - { label: "Localisation", completed: true, active: false }
+  - { label: "Budget", completed: false, active: true }
+  - { label: "Caractéristiques", completed: false, active: false }
+orientation: "horizontal"

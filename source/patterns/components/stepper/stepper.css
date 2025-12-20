@@ -1,0 +1,204 @@
+@layer components {
+  .ps-stepper {
+    /* Local variables - Step marker sizing and connector */
+    --_step-size: var(--size-10);
+    --_connector-size: 3px;
+    --_connector-color: var(--gray-200);
+    --_connector-color-completed: var(--success);
+
+    /* Marker default state - Pending */
+    --_marker-border-color: var(--gray-300);
+    --_marker-border-width: var(--border-2);
+    --_marker-bg: var(--white);
+    --_marker-text: var(--gray-500);
+    --_marker-shadow: none;
+    --_marker-scale: 1;
+
+    /* Label default state */
+    --_label-color: var(--text-secondary);
+    --_label-weight: var(--font-weight-normal);
+    --_label-size: var(--font-size-2);
+
+    /* Base styles */
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: var(--size-6);
+
+    /* Horizontal variant (default) */
+    &--horizontal {
+      flex-direction: row;
+      align-items: center;
+
+      .ps-stepper__item {
+        &:not(:last-child)::after {
+          content: '';
+          flex: 1;
+          height: var(--_connector-size);
+          background: linear-gradient(
+            to right,
+            var(--_connector-color) 0%,
+            var(--_connector-color) 100%
+          );
+          margin: 0 var(--size-3);
+          transition: background var(--duration-normal) var(--ease-out-quad);
+        }
+
+        &--completed:not(:last-child)::after {
+          background: linear-gradient(
+            to right,
+            var(--_connector-color-completed) 0%,
+            var(--_connector-color-completed) 100%
+          );
+        }
+      }
+    }
+
+    /* Vertical variant */
+    &--vertical {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .ps-stepper__item {
+        flex-direction: row;
+        gap: var(--size-4);
+
+        &:not(:last-child) {
+          padding-bottom: var(--size-8);
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: calc(var(--_step-size) / 2 - var(--_connector-size) / 2);
+            top: calc(var(--_step-size) + var(--size-3));
+            width: var(--_connector-size);
+            height: calc(100% - var(--_step-size) - var(--size-3));
+            background: linear-gradient(
+              to bottom,
+              var(--_connector-color) 0%,
+              var(--_connector-color) 100%
+            );
+            transition: background var(--duration-normal) var(--ease-out-quad);
+          }
+        }
+
+        &--completed:not(:last-child)::before {
+          background: linear-gradient(
+            to bottom,
+            var(--_connector-color-completed) 0%,
+            var(--_connector-color-completed) 100%
+          );
+        }
+      }
+
+      .ps-stepper__label {
+        text-align: left;
+        max-width: var(--size-32);
+      }
+    }
+  }
+
+  .ps-stepper__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--size-3);
+    position: relative;
+    cursor: default;
+
+    /* Active state - Override local variables */
+    &--active {
+      --_marker-border-color: var(--primary);
+      --_marker-border-width: 3px;
+      --_marker-bg: var(--primary-subtle);
+      --_marker-text: var(--primary);
+      --_marker-shadow:
+        0 0 0 4px var(--primary-bg-subtle),
+        var(--shadow-1);
+      --_marker-scale: 1.1;
+      --_label-color: var(--text-primary);
+      --_label-weight: var(--font-weight-semibold);
+      --_label-size: var(--font-size-2);
+    }
+
+    /* Completed state - Override local variables */
+    &--completed {
+      --_marker-border-color: var(--success);
+      --_marker-border-width: 0;
+      --_marker-bg: var(--success);
+      --_marker-text: var(--white);
+      --_marker-shadow: var(--shadow-1);
+      --_marker-scale: 1;
+      --_label-color: var(--text-primary);
+      --_label-weight: var(--font-weight-medium);
+    }
+
+    /* Hover effect on completed items */
+    &--completed:hover {
+      --_marker-shadow: var(--shadow-2);
+      --_marker-scale: 1.05;
+    }
+  }
+
+  .ps-stepper__step-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--_step-size);
+    height: var(--_step-size);
+    border: var(--_marker-border-width) solid var(--_marker-border-color);
+    border-radius: 50%;
+    background-color: var(--_marker-bg);
+    color: var(--_marker-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-3);
+    box-shadow: var(--_marker-shadow);
+    transform: scale(var(--_marker-scale));
+    transition:
+      border-color var(--duration-normal) var(--ease-out-cubic),
+      border-width var(--duration-normal) var(--ease-out-cubic),
+      background-color var(--duration-normal) var(--ease-out-cubic),
+      color var(--duration-normal) var(--ease-out-cubic),
+      box-shadow var(--duration-normal) var(--ease-out-cubic),
+      transform var(--duration-normal) var(--ease-out-back);
+    will-change: transform;
+  }
+
+  .ps-stepper__icon {
+    width: var(--size-5);
+    height: var(--size-5);
+    color: currentColor;
+    animation: fadeInScale var(--duration-normal) var(--ease-out-back);
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .ps-stepper__number {
+    display: block;
+    line-height: 1;
+  }
+
+  .ps-stepper__label {
+    font-size: var(--_label-size);
+    color: var(--_label-color);
+    font-weight: var(--_label-weight);
+    text-align: center;
+    max-width: var(--size-20);
+    line-height: var(--line-height-tight);
+    transition:
+      color var(--duration-normal) var(--ease-out-quad),
+      font-weight var(--duration-normal) var(--ease-out-quad),
+      font-size var(--duration-normal) var(--ease-out-quad);
+  }
+}
