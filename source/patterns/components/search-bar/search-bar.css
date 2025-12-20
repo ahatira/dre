@@ -16,7 +16,6 @@
   --ps-search-bar-input-padding-x: var(--size-3);
   --ps-search-bar-icon-size: var(--size-5);
   --ps-search-bar-icon-spacing: var(--size-2);
-  --ps-search-bar-border-radius: 0;
   --ps-search-bar-border-width: var(--border-size-1);
   --ps-search-bar-focus-ring-width: var(--border-size-2);
   --ps-search-bar-transition-duration: var(--duration-fast);
@@ -73,7 +72,6 @@
   padding: var(--ps-search-bar-input-padding-y) var(--ps-search-bar-input-padding-x);
   padding-left: calc(var(--ps-search-bar-icon-spacing) + var(--ps-search-bar-icon-size) + var(--ps-search-bar-icon-spacing));
   border: var(--ps-search-bar-border-width) solid var(--ps-search-bar-border-color);
-  border-radius: var(--ps-search-bar-border-radius);
   background-color: var(--ps-search-bar-bg);
   color: var(--ps-search-bar-text-color);
   font-size: var(--ps-search-bar-font-size);
@@ -100,6 +98,14 @@
 /* Pill variant (rounded) */
 .ps-search-bar--pill {
   --ps-search-bar-border-radius: var(--radius-round);
+
+  & .ps-search-bar__input {
+    border-radius: var(--ps-search-bar-border-radius);
+  }
+
+  & .ps-search-bar__suggestions {
+    border-radius: var(--ps-search-bar-border-radius);
+  }
 }
 
 /* Color Variants - Token-First overrides */
@@ -179,7 +185,6 @@
   margin-top: var(--size-2);
   background-color: var(--ps-search-bar-suggestions-bg);
   border: var(--ps-search-bar-border-width) solid var(--ps-search-bar-suggestions-border);
-  border-radius: var(--ps-search-bar-border-radius);
   box-shadow: var(--ps-search-bar-suggestions-shadow);
   list-style: none;
   padding: 0;
@@ -190,7 +195,9 @@
 .ps-search-bar__suggestion {
   margin: 0;
   padding: 0;
+}
 
+.ps-search-bar--pill .ps-search-bar__suggestion {
   &:first-child .ps-search-bar__suggestion-link {
     border-radius: var(--ps-search-bar-border-radius) var(--ps-search-bar-border-radius) 0 0;
   }

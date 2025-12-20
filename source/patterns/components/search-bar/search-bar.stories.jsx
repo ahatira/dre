@@ -87,3 +87,47 @@ export const WithSuggestions = {
 export const Pill = {
   args: { ...data, pill: true },
 };
+
+export const Primary = {
+  args: { ...data, variant: 'primary' },
+};
+
+export const Secondary = {
+  args: { ...data, variant: 'secondary' },
+};
+
+export const Success = {
+  args: { ...data, variant: 'success' },
+};
+
+export const Danger = {
+  args: { ...data, variant: 'danger' },
+};
+
+export const Warning = {
+  args: { ...data, variant: 'warning' },
+};
+
+export const Info = {
+  args: { ...data, variant: 'info' },
+};
+
+export const Gold = {
+  args: { ...data, variant: 'gold' },
+};
+
+export const Light = {
+  args: { ...data, variant: 'light' },
+};
+
+export const Dark = {
+  args: { ...data, variant: 'dark' },
+};
+
+export const PrimaryPill = {
+  args: { ...data, variant: 'primary', pill: true },
+};
+
+export const WithSuggestionsAndVariant = {
+  args: { ...data, search_text: 'Berlin', variant: 'success', has_suggestions: true },
+};
