@@ -1,0 +1,146 @@
+/* stylelint-disable selector-class-pattern */
+.ps-pager {
+  --ps-pager-link-size: var(--size-10);
+  --ps-pager-link-min-width: var(--size-9);
+  --ps-pager-link-padding: 0;
+  --ps-pager-gap: var(--size-2);
+  --ps-pager-control-padding: var(--size-2) var(--size-3);
+  --ps-pager-control-min-width: var(--size-10);
+  --ps-pager-border-color: var(--border-default);
+  --ps-pager-background: var(--white);
+  --ps-pager-text: var(--text-primary);
+  --ps-pager-hover-border-color: var(--primary);
+  --ps-pager-hover-background: var(--primary-bg-subtle);
+  --ps-pager-hover-text: var(--primary);
+  --ps-pager-active-border-color: var(--primary);
+  --ps-pager-active-background: var(--primary);
+  --ps-pager-active-text: var(--white);
+  --ps-pager-disabled-border-color: var(--border-disabled);
+  --ps-pager-disabled-background: var(--gray-100);
+  --ps-pager-disabled-text: var(--text-disabled);
+  --ps-pager-focus-outline: var(--border-focus);
+  --ps-pager-icon-size: var(--size-5);
+
+  display: flex;
+  justify-content: center;
+}
+
+  .ps-pager__list {
+    display: flex;
+    gap: var(--ps-pager-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ps-pager__item {
+    display: flex;
+  }
+
+  .ps-pager__item--ellipsis {
+    align-items: center;
+    color: var(--text-secondary);
+    padding-inline: var(--size-2);
+  }
+
+  .ps-pager__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-2);
+    inline-size: var(--ps-pager-link-size);
+    block-size: var(--ps-pager-link-size);
+    min-inline-size: var(--ps-pager-link-min-width);
+    padding: var(--ps-pager-link-padding);
+    line-height: 1;
+    white-space: nowrap;
+    border: var(--border-1) solid var(--ps-pager-border-color);
+    background-color: var(--ps-pager-background);
+    color: var(--ps-pager-text);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-2);
+    transition: all var(--duration-short) var(--ease-out-quad);
+    cursor: pointer;
+
+    &:hover:not(.ps-pager__link--disabled, .ps-pager__link--active) {
+      border-color: var(--ps-pager-hover-border-color);
+      background-color: var(--ps-pager-hover-background);
+      color: var(--ps-pager-hover-text);
+    }
+
+    &:focus-visible:not(.ps-pager__link--disabled) {
+      outline: var(--border-2) solid var(--ps-pager-focus-outline);
+      outline-offset: var(--size-1);
+    }
+
+    &--active {
+      background-color: var(--ps-pager-active-background);
+      border-color: var(--ps-pager-active-border-color);
+      color: var(--ps-pager-active-text);
+      cursor: default;
+    }
+
+    &--disabled {
+      border-color: var(--ps-pager-disabled-border-color);
+      background-color: var(--ps-pager-disabled-background);
+      color: var(--ps-pager-disabled-text);
+      cursor: not-allowed;
+    }
+
+    &--prev,
+    &--next {
+      inline-size: auto;
+      block-size: var(--ps-pager-link-size);
+      min-inline-size: var(--ps-pager-control-min-width);
+      padding: var(--ps-pager-control-padding);
+
+      &[data-icon] {
+        --ps-icon-size: var(--ps-pager-icon-size);
+      }
+    }
+
+    &--first,
+    &--last {
+      inline-size: auto;
+      block-size: var(--ps-pager-link-size);
+      min-inline-size: var(--ps-pager-control-min-width);
+      padding: var(--ps-pager-control-padding);
+
+      &[data-icon] {
+        --ps-icon-size: var(--ps-pager-icon-size);
+      }
+    }
+  }
+
+
+
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    /* Component-specific adjustments if needed */
+  }
+
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    /* Component-specific adjustments if needed */
+  }

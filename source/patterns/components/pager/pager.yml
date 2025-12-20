@@ -1,0 +1,37 @@
+heading_id: pager-heading
+pager_heading_level: h2
+aria_label: Pager
+current: 2
+show_first_last: false
+use_icons: false
+ellipses:
+  previous: false
+  next: false
+items:
+  first:
+    href: '#'
+    text: « Première
+    icon: arrow-left
+  previous:
+    href: '#'
+    text: ‹ Précédente
+    icon: arrow-left
+  pages:
+    1:
+      href: '#'
+    2:
+      href: '#'
+    3:
+      href: '#'
+    4:
+      href: '#'
+    5:
+      href: '#'
+  next:
+    href: '#'
+    text: Suivante ›
+    icon: arrow-right
+  last:
+    href: '#'
+    text: Dernière »
+    icon: arrow-right
