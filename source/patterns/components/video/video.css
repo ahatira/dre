@@ -68,9 +68,26 @@
 
   /* Video.js player - Fill container while respecting aspect ratio */
   .video-js {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     font-family: var(--font-family-body);
+  }
+
+  /* Ensure video element itself respects aspect ratio */
+  .video-js video {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Poster image should also respect aspect ratio */
+  .video-js .vjs-poster {
+    object-fit: contain;
+    background-size: contain;
+    background-position: center;
   }
 }
 
