@@ -1,17 +1,19 @@
 /**
  * Form (Molecule)
  * Drupal form wrapper
- * Base styling for form elements
+ * Wrapper minimal - compose form-field et autres composants
+ *
+ * Note: form-item spacing est géré par form-field.css
+ * Ce fichier ne redéfinit pas form-item pour éviter conflits
  */
 
 .form {
+  /* Component-scoped variables */
+  --ps-form-gap: var(--size-4);
+  --ps-form-margin: 0;
+  --ps-form-padding: 0;
+
   /* Base form styling */
-}
-
-.form-item {
-  margin-bottom: var(--size-4);
-}
-
-.form-item:last-child {
-  margin-bottom: 0;
+  margin: var(--ps-form-margin);
+  padding: var(--ps-form-padding);
 }

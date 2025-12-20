@@ -1,10 +1,15 @@
 {#
  * Form (Molecule)
- * Drupal form wrapper
+ * Drupal form wrapper for composing form fields and actions
  *
- * @param object attributes - Drupal attributes for <form>
- * @param slot children - Form content (fields, actions, etc.)
+ * @param object attributes - Drupal attributes for <form> element (method, action, id, etc.)
+ * @param string children - Form content (form fields, buttons, etc.)
  #}
-<form {{- attributes ? attributes|without('class') : '' -}}>
-  {{ children }}
+
+{%- set attributes = attributes ? attributes : create_attribute() -%}
+
+<form{{ attributes }}>
+  {%- if children -%}
+    {{ children }}
+  {%- endif -%}
 </form>
