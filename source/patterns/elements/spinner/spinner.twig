@@ -1,7 +1,33 @@
 {#
- * Spinner (Element/Atom)
- * Animated loading indicator for asynchronous states
+/**
+ * @file
+ * Spinner component template.
  *
+ * @component Spinner
+ * @description
+ * Animated loading indicator for asynchronous states.
+ * 3 animation variants (circular, dots, bars), 3 sizes, 9 semantic colors.
+ *
+ * @atoms
+ * @category Feedback
+ *
+ * @features
+ * - 3 animation variants (circular: rotating SVG, dots: bouncing, bars: stretching)
+ * - 3 sizes (small: 24px, medium: 32px, large: 48px)
+ * - 9 semantic colors (neutral, primary, secondary, gold, success, info, warning, danger, light, dark)
+ * - Centering modifier for parent containers
+ * - Screen reader accessible text
+ * - WCAG 2.2 AA compliant
+ *
+ * @accessibility
+ * - role="status" for loading announcement
+ * - aria-live="polite" for non-intrusive updates
+ * - Visually hidden text for screen readers
+ * - Color alone not used to convey information (animation provides visual cue)
+ */
+#}
+
+{#
  * @param {string} [variant='circular'] - Spinner animation type: circular | dots | bars
  * @param {string} [size='medium'] - Spinner size: small | medium | large
  * @param {string} [color='neutral'] - Spinner color: neutral | primary | secondary | gold | success | info | warning | danger | light | dark
@@ -19,32 +45,43 @@
 {%- set color = color == 'default' ? 'neutral' : color -%}
 {%- set text = text|default('Loading...') -%}
 {%- set centered = centered|default(false) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
-{%- set class = class|default(null) -%}
+{%- set attributes = attributes|default(null) -%}
+{%- set modifier_class = modifier_class|default(null) -%}
 
-{%- set classes = [
-  'ps-spinner',
-  variant != 'circular' ? 'ps-spinner--' ~ variant : null,
-  size != 'medium' ? 'ps-spinner--' ~ size : null,
-  color != 'neutral' ? 'ps-spinner--' ~ color : null,
-  centered ? 'ps-spinner--centered' : null,
-  class ? class : null
-] -%}
+{%- set classes = ['ps-spinner'] -%}
+{%- if variant != 'circular' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ variant]) -%}
+{%- endif -%}
+{%- if size != 'medium' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ size]) -%}
+{%- endif -%}
+{%- if color != 'neutral' -%}
+  {%- set classes = classes|merge(['ps-spinner--' ~ color]) -%}
+{%- endif -%}
+{%- if centered -%}
+  {%- set classes = classes|merge(['ps-spinner--centered']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<div class="{{ classes|join(' ')|trim }}" role="status" aria-live="polite"
-  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}>
-  {%- if variant == 'circular' -%}
-    <svg class="ps-spinner__svg" viewBox="0 0 50 50">
-      <circle class="ps-spinner__circle" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
-    </svg>
-  {%- elseif variant == 'dots' -%}
-    <span class="ps-spinner__dot"></span>
-    <span class="ps-spinner__dot"></span>
-    <span class="ps-spinner__dot"></span>
-  {%- elseif variant == 'bars' -%}
-    <span class="ps-spinner__bar"></span>
-    <span class="ps-spinner__bar"></span>
-    <span class="ps-spinner__bar"></span>
-  {%- endif -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('role', 'status') -%}
+{%- set attr = attr.setAttribute('aria-live', 'polite') -%}
+
+<div{{ attr }}>
+  {% if variant == 'circular' -%}
+  <svg class="ps-spinner__svg" viewBox="0 0 50 50">
+    <circle class="ps-spinner__circle" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+  </svg>
+  {% elseif variant == 'dots' -%}
+  <span class="ps-spinner__dot"></span>
+  <span class="ps-spinner__dot"></span>
+  <span class="ps-spinner__dot"></span>
+  {% elseif variant == 'bars' -%}
+  <span class="ps-spinner__bar"></span>
+  <span class="ps-spinner__bar"></span>
+  <span class="ps-spinner__bar"></span>
+  {% endif -%}
   <span class="ps-spinner__text">{{- text -}}</span>
 </div>

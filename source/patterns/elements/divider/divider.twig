@@ -1,5 +1,8 @@
 {#
- * Divider atom - Visual separator for content sections
+/**
+ * @file
+ * PS Divider (Atom) - Visual separator for content sections
+ *
  * @param {string} orientation - horizontal|vertical (default: horizontal)
  * @param {string} style - solid|dashed|dotted (default: solid)
  * @param {string} thickness - small|medium|large (default: medium)
@@ -8,8 +11,8 @@
  * @param {string} text - Centered text content (optional)
  * @param {string} icon - Centered icon name (e.g., 'star', 'heart')
  * @param {object} attributes - Additional HTML attributes for Drupal integration (optional)
- #}
-{%- set class = class|default(null) -%}
+ */
+#}
 {%- set orientation = orientation|default('horizontal') -%}
 {%- set style = style|default('solid') -%}
 {%- set thickness = thickness|default('medium') -%}
@@ -18,34 +21,55 @@
 {%- set text = text|default('') -%}
 {%- set icon = icon|default('') -%}
 
-{%- set root_classes = [
-  'ps-divider',
-  orientation == 'vertical' ? 'ps-divider--vertical' : null,
-  style == 'dashed' ? 'ps-divider--dashed' : (style == 'dotted' ? 'ps-divider--dotted' : null),
-  thickness == 'small' ? 'ps-divider--small' : (thickness == 'large' ? 'ps-divider--large' : null),
-  color != 'neutral' ? 'ps-divider--' ~ color : null,
-  spacing == 'small' ? 'ps-divider--spacing-small' : (spacing == 'large' ? 'ps-divider--spacing-large' : null),
-  text ? 'ps-divider--with-text' : (icon ? 'ps-divider--with-icon' : null),
-  class ? class : null
-] -%}
+{%- set root_classes = [] -%}
+{%- set root_classes = root_classes|merge(['ps-divider']) -%}
+{%- if orientation == 'vertical' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--vertical']) -%}
+{%- endif -%}
+{%- if style == 'dashed' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--dashed']) -%}
+{%- elseif style == 'dotted' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--dotted']) -%}
+{%- endif -%}
+{%- if thickness == 'small' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--small']) -%}
+{%- elseif thickness == 'large' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--large']) -%}
+{%- endif -%}
+{%- if color and color != 'neutral' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--' ~ color]) -%}
+{%- endif -%}
+{%- if spacing == 'small' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--spacing-small']) -%}
+{%- elseif spacing == 'large' -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--spacing-large']) -%}
+{%- endif -%}
+{%- if text -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--with-text']) -%}
+{%- elseif icon -%}
+  {%- set root_classes = root_classes|merge(['ps-divider--with-icon']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set root_classes = root_classes|merge([modifier_class]) -%}
+{%- endif -%}
 
 {%- if text or icon -%}
-  <div class="{{ root_classes|join(' ')|trim }}"
-    {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-    <span class="ps-divider__line" aria-hidden="true"></span>
-    {%- if text -%}
-      <span class="ps-divider__text">{{ text }}</span>
-    {%- elseif icon -%}
-      <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-    {%- endif -%}
-    <span class="ps-divider__line" aria-hidden="true"></span>
-  </div>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+<div{{ attr }}>
+  <span class="ps-divider__line" aria-hidden="true"></span>
+  {%- if text %}
+  <span class="ps-divider__text">{{ text }}</span>
+  {%- elseif icon %}
+  <span class="ps-divider__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+  {%- endif %}
+  <span class="ps-divider__line" aria-hidden="true"></span>
+</div>
 {%- else -%}
   {%- if orientation == 'horizontal' -%}
-    <hr class="{{ root_classes|join(' ')|trim }}"
-      {%- if attributes %} {{ attributes|without('class') }}{% endif -%} />
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+<hr{{ attr }} />
   {%- else -%}
-    <span class="{{ root_classes|join(' ')|trim }}" role="separator" aria-orientation="vertical"
-      {%- if attributes %} {{ attributes|without('class') }}{% endif -%}></span>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+<span{{ attr }} role="separator" aria-orientation="vertical"></span>
   {%- endif -%}
 {%- endif -%}

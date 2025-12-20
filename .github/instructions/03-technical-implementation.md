@@ -443,6 +443,19 @@ Standard container with responsive padding:
 - ❌ NO spread operator (`...`)
 - ✅ ONLY Twig native functions and filters
 
+**Upstream baseline (REQUIRED before coding)**:
+- Always open the Drupal starterkit Twig for the closest template and use it as the baseline (copy then adapt): https://github.com/drupal/drupal/tree/11.x/core/themes/starterkit_theme/templates/
+- If our component is equivalent to a core template (e.g., menus, links, buttons, form items), start from that file, keep its attribute handling, and only add PS Theme classes/tokens.
+- Keep Drupal attribute objects intact (`create_attribute()`, `attributes.addClass()`); never replace with plain strings.
+- Preserve semantic wrappers, roles, and ARIA from the core template; only extend, never remove.
+
+**Integration workflow (every Twig change)**:
+1) Identify the matching core template in starterkit_theme/templates.
+2) Copy the structure and attribute pattern into our Twig (no arrow functions, no JS helpers).
+3) Add PS BEM classes via `addClass()` and component variables (tokens), without altering Drupal’s attribute/conditional logic.
+4) Validate with Drupal render arrays (attributes/class added via preprocess or Menu UI must render unchanged).
+5) If divergence is needed, document the reason in the component README or in the template header comment.
+
 ### 2.2 Header Comment (MANDATORY)
 
 ```twig
@@ -556,14 +569,21 @@ Standard container with responsive padding:
 {# ERROR: Arrow functions NOT supported in Drupal Twig #}
 ```
 
-### 2.6 Attributes Parameter (MANDATORY for Drupal)
+### 2.6 Attribute Handling (MANDATORY Pattern)
 
-**⚠️ CRITICAL**: ALL components MUST include `attributes` parameter for Drupal integration.
+**⚠️ CRITICAL**: ALL components MUST use `create_attribute()` for Drupal integration.
 
 **Why mandatory?**
-- Drupal adds CSS classes, IDs, data attributes via `{{ attributes }}`
-- Without this, components cannot be customized in Drupal templates
+- Drupal's `render()` expects Attribute objects (not string concatenation)
+- Provides `.addClass()`, `.setAttribute()`, `.removeClass()` methods
+- Automatic class deduplication (prevents `class="foo foo"`)
+- No HTML spacing issues (`<div class="..."` vs `<div{{ attr }}`)
 - Required for accessibility (ARIA attributes), JavaScript hooks, styling overrides
+
+**Packages providing create_attribute()**:
+- `vite-plugin-twig-drupal` (Storybook environment)
+- `drupal-twig-extensions` (provides the function)
+- `drupal-attribute` (Attribute class implementation)
 
 **Standard pattern**:
 
@@ -573,9 +593,14 @@ Standard container with responsive padding:
  * @param object attributes - Additional HTML attributes (optional)
  #}
 
-<div class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
->
+{%- set classes = [
+  'ps-component',
+  variant != 'default' ? 'ps-component--' ~ variant : null
+] -%}
+
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<div{{ attr }}>
   <!-- Component content -->
 </div>
 ```
@@ -591,19 +616,39 @@ Standard container with responsive padding:
  #}
 
 {%- set color = color|default('primary') -%}
-{%- set class = class|default(null) -%}
 
-{%- set badge_classes = [
+{%- set classes = [
   'ps-badge',
-  color != 'primary' ? 'ps-badge--' ~ color : null,
-  class ? class : null
+  color != 'primary' ? 'ps-badge--' ~ color : null
 ] -%}
 
-<span class="{{ badge_classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
->
-  {{ text }}
-</span>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<span{{ attr }}>{{ text }}</span>
+```
+
+**Advanced: setAttribute() for data attributes**:
+
+```twig
+{%- set attr = (attributes ? attributes : create_attribute())
+    .addClass(classes)
+    .setAttribute('data-controller', 'carousel')
+    .setAttribute('aria-label', 'Image carousel') -%}
+
+<div{{ attr }}>...</div>
+```
+
+**❌ FORBIDDEN - Manual pattern**:
+
+```twig
+{# ❌ WRONG - String concatenation (error-prone) #}
+<div class="{{ classes|join(' ')|trim }}" {{ attributes|without('class') }}>
+
+{# Problems: #}
+{# 1. No class deduplication #}
+{# 2. Spacing issues: <div > or <divclass= #}
+{# 3. Can't use .removeClass() or .hasClass() #}
+{# 4. Verbose and hard to maintain #}
 ```
 
 **Key rules**:
@@ -1011,6 +1056,12 @@ export const UseCases = {
 ```
 
 **Why?** Showcases group related variants—individual stories create noise.
+
+**4. Drupal integration documentation (NO story)**
+- Do **not** add a dedicated Storybook story for Drupal integration.
+- Check if the component has a `README.md`; if so, ensure it includes a short "Drupal integration" section (starterkit reference, include snippet, expected render array keys/attributes).
+- If no README exists yet, document Drupal integration in the component documentation before merging.
+- Purpose: keep integration guidance in docs, not in Storybook UI.
 
 ### 4.6 Language Rule
 

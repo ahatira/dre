@@ -33,16 +33,16 @@
   --ps-tag-font-family: var(--font-condensed); /* Condensed for filled (default) */
   
   /* Colors (filled blue per maquette by default) */
-  --ps-tag-bg: #5A8FE3; /* Exact blue from maquette */
+  --ps-tag-bg: var(--info); /* Info blue from brand tokens */
   --ps-tag-color: var(--white);
   --ps-tag-border-color: transparent;
   --ps-tag-border-width: var(--border-size-1);
   
   /* States */
-  --ps-tag-hover-bg: #4A7FD3; /* Darker blue on hover */
+  --ps-tag-hover-bg: var(--info-hover); /* Darker blue on hover */
   --ps-tag-hover-color: var(--white);
   --ps-tag-hover-border-color: transparent;
-  --ps-tag-selected-bg: #3A6FC3; /* Even darker for selected */
+  --ps-tag-selected-bg: var(--info-active); /* Even darker for selected */
   --ps-tag-selected-color: var(--white);
   --ps-tag-selected-border-color: transparent;
   
@@ -139,9 +139,9 @@
   &--outline {
     --ps-tag-bg: var(--white);
     --ps-tag-color: var(--gray-900);
-    --ps-tag-border-color: #EBEDEF; /* Exact border color from maquette */
-    --ps-tag-hover-bg: #F8F9FA; /* Very light gray on hover */
-    --ps-tag-hover-border-color: #EBEDEF;
+    --ps-tag-border-color: var(--gray-100); /* Light gray border from maquette */
+    --ps-tag-hover-bg: var(--gray-50); /* Very light gray on hover */
+    --ps-tag-hover-border-color: var(--gray-100);
     --ps-tag-hover-color: var(--gray-900);
     --ps-tag-font-family: var(--font-sans); /* Sans font for outline per maquette */
     --ps-tag-border-radius: var(--radius-6); /* 16px for outline per maquette */

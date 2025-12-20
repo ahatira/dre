@@ -16,7 +16,15 @@
 {%- set items = items|default([]) -%}
 {%- set variant = variant|default('horizontal') -%}
 
-<nav class="ps-navigation ps-navigation--{{ variant }}" role="navigation" aria-label="Main navigation">
+{%- set classes = [
+  'ps-navigation',
+  'ps-navigation--' ~ variant
+] -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('role', 'navigation') -%}
+{%- set attr = attr.setAttribute('aria-label', 'Main navigation') -%}
+
+<nav{{ attr }}>
   {% if items %}
     {% include '@collections/navigation/navigation-list.twig' with {
       items: items,

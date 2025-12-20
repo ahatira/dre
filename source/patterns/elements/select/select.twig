@@ -8,7 +8,7 @@
  * - Element: .ps-select__icon (chevron-down icon)
  * - Modifiers: --disabled, --error, --success
  *
- * @param array options - List of options: [{ value, label, disabled=false, selected=false }]
+ * @param array options - List of options: [{ value, label, disabled=false, selected=false }] OR optgroups: [{ label, options: [...] }]
  * @param string name - Name attribute
  * @param string id - ID attribute (defaults to name-based)
  * @param boolean disabled - Disabled state (default: false)
@@ -20,7 +20,7 @@
  * @param object wrapper_attributes - Drupal attributes for the wrapper
  #}
 
-{%- set class = class|default(null) -%}
+{%- set modifier_class = modifier_class|default(null) -%}
 {%- set options = options|default([]) -%}
 {%- set name = name|default('') -%}
 {%- set id = id|default(name ? name ~ '-select' : 'ps-select') -%}
@@ -29,35 +29,39 @@
 {%- set error = error|default(null) -%}
 {%- set success = success|default(null) -%}
 {%- set warning = warning|default(null) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
-{%- set wrapper_attributes = wrapper_attributes|default(create_attribute()) -%}
+{%- set attributes = attributes|default(null) -%}
+{%- set wrapper_attributes = wrapper_attributes|default(null) -%}
 
-{%- set wrapper_classes = [
-  'ps-select',
-  disabled ? 'ps-select--disabled' : null,
-  error ? 'ps-select--error' : null,
-  success ? 'ps-select--success' : null,
-  warning ? 'ps-select--warning' : null,
-  class ? class : null
-] -%}
+{%- set wrapper_classes = ['ps-select'] -%}
+{%- if disabled -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-select--disabled']) -%}
+{%- endif -%}
+{%- if error -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-select--error']) -%}
+{%- endif -%}
+{%- if success -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-select--success']) -%}
+{%- endif -%}
+{%- if warning -%}
+  {%- set wrapper_classes = wrapper_classes|merge(['ps-select--warning']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set wrapper_classes = wrapper_classes|merge([modifier_class]) -%}
+{%- endif -%}
+{%- set wrapper_attr = (wrapper_attributes ? wrapper_attributes : create_attribute()).addClass(wrapper_classes) -%}
 
-<div class="{{ wrapper_classes|join(' ')|trim }}"
-  {%- if wrapper_attributes %} {{ wrapper_attributes|without('class') }}{% endif -%}>
-  <select
-    class="ps-select__input form-control"
-    {{ attributes
-      .setAttribute('id', id)
-      .setAttribute('name', name)
-    }}
-    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-    {%- if required %} required aria-required="true"{% endif -%}
-  >
-    {%- for option in options -%}
-      <option
-        value="{{ option.value|default('') }}"
-        {%- if option.disabled|default(false) %} disabled{% endif -%}
-        {%- if option.selected|default(false) %} selected{% endif -%}
-      >{{ option.label|default('') }}</option>
-    {%- endfor -%}
+<div{{ wrapper_attr }}>
+  <select class="ps-select__input form-control"{{- id ? ' id="' ~ id ~ '"' : '' -}}{{- name ? ' name="' ~ name ~ '"' : '' -}}{{- attributes ? ' ' ~ attributes|without('class') : '' -}}{{- disabled ? ' disabled aria-disabled="true"' : '' -}}{{- required ? ' required aria-required="true"' : '' -}}>
+    {% for item in options -%}
+      {%- if item.options -%}
+    <optgroup label="{{ item.label|default('') }}">
+      {%- for option in item.options -%}
+      <option value="{{ option.value|default('') }}"{{- option.disabled|default(false) ? ' disabled' : '' -}}{{- option.selected|default(false) ? ' selected' : '' -}}>{{ option.label|default('') }}</option>
+      {%- endfor -%}
+    </optgroup>
+      {%- else -%}
+    <option value="{{ item.value|default('') }}"{{- item.disabled|default(false) ? ' disabled' : '' -}}{{- item.selected|default(false) ? ' selected' : '' -}}>{{ item.label|default('') }}</option>
+      {%- endif -%}
+    {% endfor -%}
   </select>
 </div>

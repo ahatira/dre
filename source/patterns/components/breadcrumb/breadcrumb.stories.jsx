@@ -59,7 +59,7 @@ export const Compact = {
 export const Inverted = {
   render: (args) => {
     return `
-      <div style="background-color: var(--gray-900); padding: var(--size-8); border-radius: var(--radius-2);">
+      <div style="background-color: var(--gray-900); padding: var(--size-8);">
         ${markup(args)}
       </div>
     `;

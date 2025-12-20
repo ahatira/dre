@@ -25,7 +25,7 @@
   modifier_class
 ] -%}
 
-<label class="{{ classes|join(' ')|trim }}" {{ attributes }}{%- if forId %} for="{{ forId }}"{% endif -%}>
+<label class="{{ classes|join(' ')|trim }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}{%- if forId %} for="{{ forId }}"{% endif -%}>
   {{- text -}}
   {%- if required %}
     <span aria-hidden="true">*</span>

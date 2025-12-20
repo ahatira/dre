@@ -29,7 +29,6 @@
   &:focus-visible {
     outline: var(--border-size-2) solid var(--primary);
     outline-offset: var(--border-size-1);
-    border-radius: var(--radius-1);
   }
 
   /* Color variants with hover/active/visited states */

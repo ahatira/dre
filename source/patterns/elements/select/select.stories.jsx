@@ -80,6 +80,45 @@ export const Default = {
 };
 
 /**
+ * With Option Groups
+ * Select with optgroups for categorizing related options (Real Estate property types by category)
+ */
+export const WithOptionGroups = {
+  args: {
+    name: 'property_category',
+    id: 'property-category-select',
+    options: [
+      { value: '', label: 'Sélectionner un bien...', disabled: true, selected: true },
+      {
+        label: 'Résidentiel',
+        options: [
+          { value: 'apartment', label: 'Appartement' },
+          { value: 'house', label: 'Maison' },
+          { value: 'penthouse', label: 'Penthouse' },
+          { value: 'villa', label: 'Villa' },
+        ],
+      },
+      {
+        label: 'Commercial',
+        options: [
+          { value: 'office', label: 'Bureau' },
+          { value: 'retail', label: 'Local commercial' },
+          { value: 'warehouse', label: 'Entrepôt' },
+          { value: 'coworking', label: 'Espace de coworking' },
+        ],
+      },
+      {
+        label: 'Terrain',
+        options: [
+          { value: 'building_land', label: 'Terrain constructible' },
+          { value: 'agricultural_land', label: 'Terrain agricole' },
+        ],
+      },
+    ],
+  },
+};
+
+/**
  * States
  * All possible select states: default, hover, focus, success, error, disabled, disabled+placeholder
  */

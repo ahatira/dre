@@ -147,6 +147,15 @@ modal:
     - core/once
     - ps_theme/vendors
 
+read-more:
+  js:
+    dist/js/read-more.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 search-form:
   js:
     dist/js/search-form.js: {}

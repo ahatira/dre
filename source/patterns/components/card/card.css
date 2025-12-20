@@ -32,8 +32,8 @@
   
   /* States (hover/active/focus) */
   --ps-card-hover-shadow: var(--shadow-3);
-  --ps-card-hover-transform: translateY(-2px);
-  --ps-card-active-transform: translateY(-1px);
+  --ps-card-hover-transform: translateY(calc(-1 * var(--size-0)));
+  --ps-card-active-transform: translateY(calc(-0.5 * var(--size-0)));
   --ps-card-focus-outline-width: var(--border-size-2);
   --ps-card-focus-outline-color: var(--secondary);
   --ps-card-focus-outline-offset: var(--border-size-2);
@@ -208,7 +208,6 @@
 /* Layer 3: Modifiers - Border Radius */
 /* ======================================== */
 
-/* Small radius (4px) */
 /* Small radius (4px) */
 .ps-card--radius-sm {
   --ps-card-border-radius: var(--radius-2);

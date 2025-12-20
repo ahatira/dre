@@ -1,5 +1,33 @@
 {#
- * Tag atom - Interactive chip/badge for filtering and categorization
+/**
+ * @file
+ * Tag component template.
+ *
+ * @component Tag
+ * @description
+ * Interactive chip/badge for filtering, categorization, and selection.
+ * Can render as button or link. Per maquette: 2 variants (filled blue, outline white).
+ *
+ * @atoms
+ * @category Interactive
+ *
+ * @features
+ * - 2 style variants (filled: blue solid, outline: white border)
+ * - 3 sizes (sm: 12px, md: 14px, lg: 14px)
+ * - Removable with close icon (start or end position)
+ * - Selected state (darker background, bolder text)
+ * - Can render as <button> or <a> (with url parameter)
+ * - WCAG 2.2 AA compliant (aria-pressed, aria-label)
+ *
+ * @accessibility
+ * - aria-pressed for toggle state
+ * - aria-label for screen readers on removable tags
+ * - Focus-visible indicator
+ * - Keyboard accessible
+ */
+#}
+
+{#
  * @param {string} label - Tag text content (required)
  * @param {string} [variant='filled'] - Style variant: filled, outline
  * @param {string} [color='neutral'] - Color: neutral, primary, secondary, success, danger, warning, info, gold
@@ -20,39 +48,46 @@
 {%- set selected = selected|default(false) -%}
 {%- set url = url|default(null) -%}
 
-{%- set tag_classes = [
-  'ps-tag',
-  'ps-tag--' ~ variant,
-  color != 'neutral' ? 'ps-tag--' ~ color : null,
-  size != 'md' ? 'ps-tag--' ~ size : null,
-  selected ? 'ps-tag--selected' : null,
-  removable ? 'ps-tag--removable' : null
-] -%}
+{%- set tag_classes = ['ps-tag', 'ps-tag--' ~ variant] -%}
+{%- if color != 'neutral' -%}
+  {%- set tag_classes = tag_classes|merge(['ps-tag--' ~ color]) -%}
+{%- endif -%}
+{%- if size != 'md' -%}
+  {%- set tag_classes = tag_classes|merge(['ps-tag--' ~ size]) -%}
+{%- endif -%}
+{%- if selected -%}
+  {%- set tag_classes = tag_classes|merge(['ps-tag--selected']) -%}
+{%- endif -%}
+{%- if removable -%}
+  {%- set tag_classes = tag_classes|merge(['ps-tag--removable']) -%}
+{%- endif -%}
 
 {% if url -%}
-  <a href="{{ url }}" class="{{ tag_classes|join(' ')|trim }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
-    {% if iconStart and removable -%}
-      <span class="ps-tag__icon ps-tag__icon--start" data-icon="close" aria-hidden="true"></span>
-    {%- endif %}
-    <span class="ps-tag__label">{{ label }}</span>
-    {% if removable and not iconStart -%}
-      <span class="ps-tag__icon ps-tag__icon--end" data-icon="close" aria-hidden="true"></span>
-    {%- endif %}
-  </a>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(tag_classes) -%}
+<a{{ attr }} href="{{ url }}">
+  {% if iconStart and removable -%}
+  <span class="ps-tag__icon ps-tag__icon--start" data-icon="close" aria-hidden="true"></span>
+  {%- endif -%}
+  <span class="ps-tag__label">{{ label }}</span>
+  {%- if removable and not iconStart -%}
+  <span class="ps-tag__icon ps-tag__icon--end" data-icon="close" aria-hidden="true"></span>
+  {%- endif -%}
+</a>
 {%- else -%}
-  <button 
-    type="button" 
-    class="{{ tag_classes|join(' ')|trim }}"
-    {% if selected %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}
-    {% if removable %}aria-label="Retirer {{ label }}"{% endif %}
-    {% if attributes %}{{ attributes|without('class') }}{% endif %}
-  >
-    {% if iconStart and removable -%}
-      <span class="ps-tag__icon ps-tag__icon--start" data-icon="close" aria-hidden="true"></span>
-    {%- endif %}
-    <span class="ps-tag__label">{{ label }}</span>
-    {% if removable and not iconStart -%}
-      <span class="ps-tag__icon ps-tag__icon--end" data-icon="close" aria-hidden="true"></span>
-    {%- endif %}
-  </button>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(tag_classes) -%}
+{%- set attr = attr.setAttribute('type', 'button') -%}
+{%- set attr = attr.setAttribute('aria-pressed', selected ? 'true' : 'false') -%}
+{%- if removable -%}
+  {%- set attr = attr.setAttribute('aria-label', 'Retirer ' ~ label) -%}
+{%- endif -%}
+
+<button{{ attr }}>
+  {%- if iconStart and removable %}
+  <span class="ps-tag__icon ps-tag__icon--start" data-icon="close" aria-hidden="true"></span>
+  {%- endif %}
+  <span class="ps-tag__label">{{ label }}</span>
+  {%- if removable and not iconStart %}
+  <span class="ps-tag__icon ps-tag__icon--end" data-icon="close" aria-hidden="true"></span>
+  {%- endif -%}
+</button>
 {%- endif %}

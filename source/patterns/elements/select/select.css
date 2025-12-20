@@ -157,6 +157,18 @@
   &:has(.ps-select__input:disabled)::after {
     background-color: var(--gray-500);
   }
+
+  /* Optgroup styling (native browser styling with custom font-weight) */
+  & optgroup {
+    font-weight: var(--font-weight-600);
+    color: var(--gray-900);
+  }
+
+  /* Options within optgroups (indented by browser) */
+  & optgroup option {
+    font-weight: var(--font-weight-400);
+    color: var(--gray-900);
+  }
 }
 
 /* ============================================
@@ -239,6 +251,17 @@
     border-color: var(--ps-select-disabled-border-color);
     opacity: var(--ps-select-disabled-opacity);
     cursor: not-allowed;
+  }
+
+  /* Optgroup styling */
+  & optgroup {
+    font-weight: var(--font-weight-600);
+    color: var(--gray-900);
+  }
+
+  & optgroup option {
+    font-weight: var(--font-weight-400);
+    color: var(--gray-900);
   }
 }
 

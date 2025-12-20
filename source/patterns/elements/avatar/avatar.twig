@@ -17,7 +17,7 @@
  * - bordered: (boolean) White border (default: false)
  * - clickable: (boolean) Interactive hover/focus (default: false)
  * - href: (string) Link URL if clickable (transforms to <a>)
- * - attributes: (Drupal\Core\Template\Attribute) Additional HTML attributes
+ * - attributes: (Drupal\Core\Template\Attribute) Additional HTML attributes (optional, default: create_attribute())
  * 
  * @see https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html
  */
@@ -28,6 +28,7 @@
 {%- set gender = gender|default('male') -%}
 {%- set bordered = bordered|default(false) -%}
 {%- set clickable = clickable|default(false) -%}
+{%- set clickable = href ? true : clickable -%}
 
 {%- set has_image = src and src is not empty -%}
 {%- set has_initials = initials and initials is not empty and not has_image -%}
@@ -45,40 +46,38 @@
 
 {%- set tag = href ? 'a' : 'div' -%}
 
-<{{ tag }}
-  {%- if attributes %}
-    {{- attributes.addClass(avatar_classes) -}}
-  {%- else %}
-    class="{{ avatar_classes|join(' ')|trim }}"
-  {%- endif -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(avatar_classes) -%}
+
+<{{ tag }}{{ attr }}
   {%- if href %} href="{{ href }}"{% endif -%}
 >
   {# Atom 1: Image #}
   {%- if has_image -%}
-    {% include '@elements/image/image.twig' with {
+    {%- include '@elements/image/image.twig' with {
       src: src,
       alt: alt|default(''),
       fit: 'cover',
       rounded: shape == 'circle' ? 'full' : (shape == 'rounded' ? 'md' : 'none'),
       loading: 'lazy',
       attributes: create_attribute().addClass('ps-avatar__image')
-    } only %}
+    } only -%}
   {%- endif -%}
 
   {# Atom 2: Initials Text #}
   {%- if has_initials -%}
-    {% include '@elements/text/text.twig' with {
+    {%- include '@elements/text/text.twig' with {
       text: initials,
       tag: 'span',
       strong: true,
       attributes: create_attribute().addClass('ps-avatar__text')
-    } only %}
+    } only -%}
   {%- endif -%}
 
   {# Atom 3: Status Dot #}
   {%- if status -%}
     {%- set status_label = status == 'online' ? 'Online' : (status == 'busy' ? 'Busy' : 'Offline') -%}
     {%- set status_class = status in ['online','offline','busy'] ? 'ps-avatar__status--' ~ status : null -%}
-    <span class="ps-avatar__status {{ status_class }}" aria-label="{{ status_label }}"></span>
+    {%- set status_classes = ['ps-avatar__status', status_class] -%}
+    <span class="{{ status_classes|join(' ')|trim }}" aria-label="{{ status_label }}" role="status"></span>
   {%- endif -%}
 </{{ tag }}>

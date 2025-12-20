@@ -1,9 +1,11 @@
 import avatarTwig from './avatar.twig';
+import data from './avatar.yml';
 
 export default {
   title: 'Elements/Avatar',
   tags: ['autodocs'],
   render: (args) => avatarTwig(args),
+  args: { ...data },
   argTypes: {
     src: {
       control: 'text',
@@ -12,8 +14,12 @@ export default {
     },
     alt: {
       control: 'text',
-      description: 'Alternative text for the image. Required when src is provided.',
-      table: { category: 'Content', type: { summary: 'string' } },
+      description: 'Alternative text for the image (required when src is provided).',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: data.alt },
+      },
     },
     initials: {
       control: 'text',
@@ -23,8 +29,12 @@ export default {
     gender: {
       control: 'select',
       options: ['male', 'female'],
-      description: 'Gender for icon fallback image (agent silhouette).',
-      table: { category: 'Content', type: { summary: 'string' } },
+      description: 'Silhouette variant used as fallback when no image or initials are provided.',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'male | female' },
+        defaultValue: { summary: data.gender },
+      },
     },
     size: {
       control: 'select',
@@ -32,40 +42,58 @@ export default {
       description: 'Avatar size: small (48px) | medium (88px - default) | large (112px)',
       table: {
         category: 'Appearance',
-        type: { summary: 'string' },
+        type: { summary: 'small | medium | large' },
         defaultValue: { summary: 'medium' },
       },
     },
     shape: {
       control: 'select',
       options: ['circle', 'square', 'rounded'],
-      description: 'Avatar shape',
+      description: 'Avatar shape variant.',
       table: {
         category: 'Appearance',
-        type: { summary: 'string' },
+        type: { summary: 'circle | square | rounded' },
         defaultValue: { summary: 'circle' },
       },
     },
     status: {
       control: 'select',
       options: ['', 'online', 'offline', 'busy'],
-      description: 'Status badge indicator',
-      table: { category: 'Appearance', type: { summary: 'string' } },
+      description: 'Optional status badge indicator.',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'online | offline | busy' },
+        defaultValue: { summary: data.status || 'none' },
+      },
     },
     bordered: {
       control: 'boolean',
-      description: 'Add white border around avatar',
-      table: { category: 'Appearance', type: { summary: 'boolean' } },
+      description: 'Add white border around avatar for contrast on colored backgrounds.',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: data.bordered },
+      },
     },
     clickable: {
       control: 'boolean',
-      description: 'Enable hover/focus interactive effect',
-      table: { category: 'Behavior', type: { summary: 'boolean' } },
+      description: 'Enable hover/focus interactive effect (auto-enabled when href is provided).',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: data.clickable },
+      },
     },
     href: {
       control: 'text',
-      description: 'URL if avatar should be clickable link. Transforms element to <a>.',
+      description: 'URL for turning the avatar into a link.',
       table: { category: 'Link', type: { summary: 'string' } },
+    },
+    attributes: {
+      control: 'object',
+      description:
+        'Additional HTML attributes for Drupal integration (data attributes, ARIA, custom classes).',
+      table: { category: 'Accessibility', type: { summary: 'object' } },
     },
   },
   parameters: {
@@ -79,17 +107,13 @@ export default {
 };
 
 export const Default = {
-  args: {
-    src: '/source/assets/images/1-1.jpg',
-    alt: 'Real estate agent',
-    initials: '',
-  },
+  args: { ...data },
 };
 
 export const Initials = {
   render: () => {
     const sizes = ['small', 'medium', 'large'];
-    return `<div style="display:flex; gap: 24px; align-items:center; flex-wrap:wrap;">
+    return `<div style="display:flex; gap: var(--size-6); align-items:center; flex-wrap:wrap;">
       ${sizes
         .map((size) =>
           avatarTwig({
@@ -111,11 +135,11 @@ export const FallbackIcon = {
   render: () => {
     const sizes = ['small', 'medium', 'large'];
     const genders = ['male', 'female'];
-    return `<div style="display:flex; flex-direction:column; gap: 32px;">
+    return `<div style="display:flex; flex-direction:column; gap: var(--size-8);">
       ${genders
         .map(
           (gender) => `
-        <div style="display:flex; gap: 24px; align-items:center; flex-wrap:wrap;">
+        <div style="display:flex; gap: var(--size-6); align-items:center; flex-wrap:wrap;">
           ${sizes
             .map((size) =>
               avatarTwig({
@@ -149,17 +173,17 @@ export const AllSizes = {
       { value: 'medium', label: 'Medium (88px - default)' },
       { value: 'large', label: 'Large (112px)' },
     ];
-    return `<div style="display:flex; gap: 32px; align-items:center; flex-wrap:wrap;">
+    return `<div style="display:flex; gap: var(--size-8); align-items:center; flex-wrap:wrap;">
       ${sizes
         .map(
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
             src: '/source/assets/images/1-1.jpg',
-            alt: 'Agent',
+            alt: data.alt,
             size: value,
           })}
-          <div style="margin-top:8px; font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -180,17 +204,17 @@ export const AllShapes = {
       { value: 'square', label: 'Square' },
       { value: 'rounded', label: 'Rounded' },
     ];
-    return `<div style="display:flex; gap: 32px; align-items:center;">
+    return `<div style="display:flex; gap: var(--size-8); align-items:center;">
       ${shapes
         .map(
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
             src: '/source/assets/images/1-1.jpg',
-            alt: 'Agent',
+            alt: data.alt,
             shape: value,
           })}
-          <div style="margin-top:8px; font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -211,17 +235,17 @@ export const StatusVariants = {
       { value: 'offline', label: 'Offline' },
       { value: 'busy', label: 'Busy' },
     ];
-    return `<div style="display:flex; gap: 32px; align-items:center;">
+    return `<div style="display:flex; gap: var(--size-8); align-items:center;">
       ${statuses
         .map(
           ({ value, label }) => `
         <div style="text-align:center;">
           ${avatarTwig({
             src: '/source/assets/images/1-1.jpg',
-            alt: 'Agent',
+            alt: data.alt,
             status: value,
           })}
-          <div style="margin-top:8px; font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -243,12 +267,12 @@ export const StatusVariants = {
 export const Bordered = {
   render: () => {
     const sizes = ['small', 'medium', 'large'];
-    return `<div style="display:flex; gap: 24px; align-items:center; padding:24px; background:var(--gray-100); border-radius:var(--radius-3);">
+    return `<div style="display:flex; gap: var(--size-6); align-items:center; padding:var(--size-6); background:var(--gray-100); border-radius:var(--radius-3);">
       ${sizes
         .map((size) =>
           avatarTwig({
             src: '/source/assets/images/1-1.jpg',
-            alt: 'Agent',
+            alt: data.alt,
             size,
             bordered: true,
           })
@@ -267,15 +291,15 @@ export const Bordered = {
 
 export const Clickable = {
   render: () => {
-    return `<div style="display:flex; gap: 24px; align-items:center;">
+    return `<div style="display:flex; gap: var(--size-6); align-items:center;">
       ${avatarTwig({
         src: '/source/assets/images/1-1.jpg',
-        alt: 'Agent',
+        alt: data.alt,
         clickable: true,
       })}
       ${avatarTwig({
         src: '/source/assets/images/1-1.jpg',
-        alt: 'Agent',
+        alt: data.alt,
         clickable: true,
         href: '/agents/profile',
       })}
@@ -285,7 +309,7 @@ export const Clickable = {
         href: '/agents/john-doe',
       })}
     </div>
-    <p style="margin-top:16px; font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+    <p style="margin-top:var(--size-4); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
       First avatar: clickable (div), Second & Third: links (a) with hover scale effect
     </p>`;
   },

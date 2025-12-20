@@ -44,6 +44,15 @@ export default {
         defaultValue: { summary: true },
       },
     },
+    attributes: {
+      control: false,
+      description:
+        'Additional HTML attributes and utility classes. Use `attributes.addClass("text-primary")` to color the icon via currentColor, or add custom data attributes if needed.',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'Attribute' },
+      },
+    },
   },
 };
 

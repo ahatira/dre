@@ -1,7 +1,32 @@
 {#
- * Skip Link (Element/Atom)
- * WCAG accessibility link for keyboard navigation (appears on focus)
+/**
+ * @file
+ * Skip Link component template.
  *
+ * @component Skip Link
+ * @description
+ * WCAG accessibility link for keyboard navigation.
+ * Hidden off-screen until Tab focus, allowing keyboard users to skip repetitive navigation.
+ *
+ * @atoms
+ * @category Navigation
+ *
+ * @features
+ * - Hidden by default (off-screen)
+ * - Appears on Tab focus (focus-visible)
+ * - Targets in-page anchor by ID
+ * - WCAG 2.2 AA compliant
+ * - Enhanced visual presence (green BNP brand)
+ *
+ * @accessibility
+ * - Essential for keyboard users
+ * - First focusable element in page
+ * - Target element requires id and tabindex="-1"
+ * - focus-visible for keyboard-only appearance
+ */
+#}
+
+{#
  * @param {string} [targetId='main-content'] - ID of target anchor element (main-content, navigation, search)
  * @param {string} [label='Skip to main content'] - Link text displayed on keyboard focus
  * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
@@ -10,13 +35,14 @@
 {%- set targetId = targetId|default('main-content') -%}
 {%- set label = label|default('Skip to main content') -%}
 {%- set href = '#' ~ targetId -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
-{%- set class = class|default(null) -%}
+{%- set attributes = attributes|default(null) -%}
+{%- set modifier_class = modifier_class|default(null) -%}
 
-{%- set classes = [
-  'ps-skip-link',
-  class ? class : null
-] -%}
+{%- set classes = ['ps-skip-link'] -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<a class="{{ classes|join(' ')|trim }}" href="{{ href }}"
-  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}>{{- label -}}</a>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<a{{ attr }} href="{{ href }}">{{- label -}}</a>

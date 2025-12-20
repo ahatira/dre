@@ -62,7 +62,7 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 
 ### 💻 J'ai besoin d'une référence technique
 
-→ Consultez **[03-technical-implementation.md](03-technical-implementation.md)**
+→ Consultez **[03-technical-implementation.md](03-technical-implementation.md)** (inclut le rappel d'utiliser les templates Drupal starterkit comme base pour tout Twig)
 
 **5 sections techniques** :
 
@@ -151,6 +151,47 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 
 → Voir **[05-maintenance.md](05-maintenance.md)**
 
+---
+
+### 🔌 J'intègre les composants dans Drupal
+
+→ Suivez **[06-drupal-integration.md](06-drupal-integration.md)**
+
+**Patterns Drupal** (respectant Atomic Design) :
+
+1. **Atoms** - Pas d'intégration Drupal
+   - Include direct via parent : `{% include '@elements/button/button.twig' %}`
+   - Props passés par preprocess du parent (molecule/organism)
+   - Exception : Atoms avec JS (library attachment uniquement)
+
+2. **Molecules** - Intégration complète
+   - Enregistrer `#theme` hook dans `ps.theme`
+   - Créer preprocess pour composer atoms
+   - Attacher library si JS nécessaire
+   - Définir cache tags
+
+3. **Organisms** - Logique métier
+   - Preprocess avec logique métier complexe
+   - Agréger cache tags des molecules
+   - Theme suggestions par contexte
+
+4. **Templates** - Layouts Drupal
+   - Utiliser regions Drupal standards
+   - Page preprocess pour variables layout
+   - Cache contexts appropriés
+
+**Outils d'intégration** :
+
+- **Render Arrays** - Structure par niveau atomique
+- **Preprocess Hooks** - Composition et transformation data
+- **Libraries.yml** - Attachment JS/CSS granulaire
+- **Theme Suggestions** - Variantes par contexte (sans casser atoms)
+- **Cache Tags** - Stratégie par niveau atomique
+- **Form API** - Mapping vers atoms PS existants
+
+**Temps de lecture** : 60-90 minutes  
+**Usage** : Lors de l'intégration Drupal (molecules+)
+
 **Processus de création de tokens** (4 étapes) :
 1. Documenter le besoin (README du composant)
 2. Créer une issue de proposition (template fourni)
@@ -198,6 +239,7 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 ├── 03-technical-implementation.md # Référence (Consulter souvent)
 ├── 04-quality-assurance.md        # Validation (Avant commit)
 ├── 05-maintenance.md              # Évolution (Périodique)
+├── 06-drupal-integration.md       # Drupal (Preprocess, render arrays, Form API)
 └── README.md                      # Ce fichier (Navigation)
 ```
 
@@ -217,6 +259,9 @@ Documentation consolidée du système de design PS Theme en **6 fichiers numéro
 | **Écrire des stories Storybook** | 03 (storybook standards) | 30-60min |
 | **Débugger un template Twig** | 03 (twig standards) → 04 (twig errors) | 15-45min |
 | **Comprendre la composition** | 01 (atomic design) + 02 (Token-First) | 30-45min |
+| **Intégrer composant dans Drupal** | 06 (preprocess, render arrays) | 1-2h |
+| **Créer render array pour molecule** | 06 (section 2.2) | 30-45min |
+| **Mapper Form API vers atoms** | 06 (section 7) | 45-60min |
 
 ---
 

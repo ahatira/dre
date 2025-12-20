@@ -50,11 +50,9 @@ export default {
   },
 };
 
-/**
- * Default header with 4 zones (logged-in state)
- * Top: Logo + Tagline | Language Selector
- * Bottom: Navigation | Actions (with user "Enzo" + badge)
- */
+// Default header with 4 zones (logged-in state)
+// Top: Logo + Tagline | Language Selector
+// Bottom: Navigation | Actions (with user "Enzo" + badge)
 export const Default = {
   render: (args) => header(args),
   args: {
@@ -62,9 +60,7 @@ export const Default = {
   },
 };
 
-/**
- * Sticky header that follows scroll
- */
+// Sticky header that follows scroll
 export const Sticky = {
   render: (args) => header(args),
   args: {
@@ -73,9 +69,7 @@ export const Sticky = {
   },
 };
 
-/**
- * Logged-out state with "Log in / Sign up" button
- */
+// Logged-out state with "Log in / Sign up" button
 export const LoggedOut = {
   render: (args) => header(args),
   args: {
@@ -129,9 +123,7 @@ export const LoggedOut = {
   },
 };
 
-/**
- * Logged-in state with user dropdown and notification badge
- */
+// Logged-in state with user dropdown and notification badge
 export const LoggedIn = {
   render: (args) => header(args),
   args: {
@@ -139,9 +131,7 @@ export const LoggedIn = {
   },
 };
 
-/**
- * Mobile view simulation (simplified actions)
- */
+// Mobile view simulation (simplified actions)
 export const Mobile = {
   render: (args) => header(args),
   args: {
@@ -174,9 +164,7 @@ export const Mobile = {
   },
 };
 
-/**
- * French version with French language selector
- */
+// French version with French language selector
 export const French = {
   render: (args) => header(args),
   args: {
@@ -250,10 +238,8 @@ export const French = {
   },
 };
 
-/**
- * User menu opened (showing dropdown items for visual validation)
- * Demonstrates: My Account, My Favorites, My Alerts, Logout button
- */
+// User menu opened (showing dropdown items for visual validation)
+// Demonstrates: My Account, My Favorites, My Alerts, Logout button
 export const UserMenuOpen = {
   render: (args) => header(args),
   args: {

@@ -1,29 +1,24 @@
 # Avatar Component - Default Configuration
 #
-# Available Props:
+# Available Props (real estate context)
 # - src: string - Avatar image URL (optional)
 # - alt: string - Alternative text for image (required when src provided)
 # - initials: string - Initials (2 letters max, e.g. "JD") - fallback if no image
 # - gender: male | female (default: male) - Icon fallback image variant
-# - size: small | medium | large (default: medium)
-#   * xs: 44px
-#   * sm: 60px
-#   * md: 73px
-#   * lg: 88px
-#   * xl: 148px
+# - size options: small | medium | large (default: medium)
 # - shape: circle | square | rounded (default: circle)
-# - status: online | offline | busy (optional) - Status badge
+# - status options: online | offline | busy (optional) - Status badge
 # - bordered: boolean (default: false) - White border
 # - clickable: boolean (default: false) - Hover/focus effect
 # - href: string - URL if clickable (transforms to <a> link)
 # - attributes: Attribute - Additional HTML attributes
 
 # Default (real estate context)
-src: ''
-alt: ''
-initials: ''
+src: '/source/assets/images/1-1.jpg'
+alt: 'Conseiller immobilier en rendez-vous'
+initials: 'CB'
 gender: 'male'
-size: 'lg'
+size: 'medium'
 shape: 'circle'
 status: ''
 bordered: false

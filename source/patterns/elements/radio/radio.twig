@@ -1,45 +1,43 @@
 {#
- * Radio (Atom)
- * Individual radio button with custom visual indicator
- * Follows BEM methodology with ps- prefix
+/**
+ * @file
+ * PS Radio (Atom) - Individual radio button with custom visual indicator
  *
- * @param string name - Input name (group identifier)
- * @param string value - Input value
- * @param string id - Input ID
- * @param boolean checked - Checked state
- * @param boolean disabled - Disabled state
- * @param string label - Label text
- * @param object attributes - Drupal attributes for wrapper
- #}
-{%- set class = class|default(null) -%}
+ * @param {string} name - Input name (group identifier)
+ * @param {string} value - Input value
+ * @param {string} id - Input ID
+ * @param {boolean} checked - Checked state
+ * @param {boolean} disabled - Disabled state
+ * @param {string} label - Label text
+ * @param {object} attributes - Drupal attributes for wrapper
+ */
+#}
+
 {%- set name = name|default('option') -%}
 {%- set value = value|default('1') -%}
 {%- set id = id|default(name ~ '-' ~ value) -%}
 {%- set checked = checked|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set label = label|default('') -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 
-{%- set classes = [
-  'ps-radio',
-  checked ? 'ps-radio--checked' : null,
-  disabled ? 'ps-radio--disabled' : null,
-  class ? class : null
-] -%}
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-radio']) -%}
+{%- if checked -%}
+  {%- set classes = classes|merge(['ps-radio--checked']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-radio--disabled']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<label class="{{ classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-  <input
-    type="radio"
-    class="ps-radio__input"
-    {%- if id %} id="{{ id }}"{% endif -%}
-    {%- if name %} name="{{ name }}"{% endif -%}
-    {%- if value %} value="{{ value }}"{% endif -%}
-    {%- if checked %} checked{% endif -%}
-    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-  />
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<label{{ attr }}>
+  <input type="radio" class="ps-radio__input"{% if id %} id="{{ id }}"{% endif %}{% if name %} name="{{ name }}"{% endif %}{% if value %} value="{{ value }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled aria-disabled="true"{% endif %} />
   <span class="ps-radio__circle" aria-hidden="true"></span>
   {%- if label %}
-    <span class="ps-radio__label">{{ label }}</span>
-  {% endif -%}
+  <span class="ps-radio__label">{{ label }}</span>
+  {%- endif %}
 </label>

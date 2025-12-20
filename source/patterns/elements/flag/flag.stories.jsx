@@ -86,6 +86,15 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
+    attributes: {
+      description:
+        'Additional HTML attributes for Drupal integration (ARIA, data-*, extra classes).',
+      control: { type: 'object' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'object' },
+      },
+    },
   },
   args: data,
 };

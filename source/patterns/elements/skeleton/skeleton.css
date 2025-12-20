@@ -54,30 +54,30 @@
   }
 
   &--circle {
-    --skeleton-width: 48px;
-    --skeleton-height: 48px;
+    --skeleton-width: var(--size-12);
+    --skeleton-height: var(--size-12);
     --skeleton-radius: var(--radius-round);
   }
 
   &--rectangle {
-    --skeleton-height: 200px;
+    --skeleton-height: var(--size-50);
     --skeleton-radius: var(--radius-2);
   }
 
   &--avatar {
-    --skeleton-width: 48px;
-    --skeleton-height: 48px;
+    --skeleton-width: var(--size-12);
+    --skeleton-height: var(--size-12);
     --skeleton-radius: var(--radius-round);
   }
 
   &--button {
-    --skeleton-width: 120px;
-    --skeleton-height: 40px;
+    --skeleton-width: var(--size-30);
+    --skeleton-height: var(--size-10);
     --skeleton-radius: var(--radius-2);
   }
 
   &--card {
-    --skeleton-height: 300px;
+    --skeleton-height: var(--size-75);
     --skeleton-radius: var(--radius-3);
   }
 

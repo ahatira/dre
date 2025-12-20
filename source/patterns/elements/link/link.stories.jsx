@@ -23,6 +23,15 @@ export default {
       },
     },
     url: {
+      attributes: {
+        control: false,
+        description:
+          'Additional HTML attributes and utility classes. Use `attributes.addClass("no-underline font-semibold")` etc. to tweak presentation.',
+        table: {
+          category: 'Attributes',
+          type: { summary: 'Attribute' },
+        },
+      },
       description: 'Link destination URL',
       control: { type: 'text' },
       table: {

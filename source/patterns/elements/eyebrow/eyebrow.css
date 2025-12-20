@@ -35,7 +35,7 @@
   
   &--primary {
     color: var(--white);
-    background: #4986E7;
+    background: var(--info);
   }
 
   &--secondary {

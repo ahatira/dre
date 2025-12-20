@@ -1,13 +1,16 @@
 {#
- * Eyebrow element (Atom)
- * Contextual label above heading with semantic colors
- * @param string label - Text content (required)
- * @param string variant - Color variant: primary, secondary, success, danger, warning, info, gold, light, dark (optional)
- * @param boolean pill - Rounded pill shape (optional, default: false)
- * @param string icon - Icon name without 'icon-' prefix (optional)
- * @param string iconPosition - start|end (default: start)
- * @param Drupal\Core\Template\Attribute attributes - Additional attributes (optional)
- #}
+/**
+ * @file
+ * PS Eyebrow (Atom) - Contextual label above heading with semantic colors
+ *
+ * @param {string} label - Text content (required)
+ * @param {string} variant - Color variant: primary, secondary, success, danger, warning, info, gold, light, dark (optional)
+ * @param {boolean} pill - Rounded pill shape (optional, default: false)
+ * @param {string} icon - Icon name without 'icon-' prefix (optional)
+ * @param {string} iconPosition - start|end (default: start)
+ * @param {object} attributes - Additional attributes (optional)
+ */
+#}
 
 {%- set label = label|default('Label') -%}
 {%- set variant = variant|default('') -%}
@@ -15,13 +18,18 @@
 {%- set icon = icon|default('') -%}
 {%- set iconPosition = iconPosition|default('start') -%}
 
-{%- set classes = [
-  'ps-eyebrow',
-  variant ? 'ps-eyebrow--' ~ variant : null,
-  pill ? 'ps-eyebrow--pill' : null
-] -%}
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-eyebrow']) -%}
+{%- if variant -%}
+  {%- set classes = classes|merge(['ps-eyebrow--' ~ variant]) -%}
+{%- endif -%}
+{%- if pill -%}
+  {%- set classes = classes|merge(['ps-eyebrow--pill']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<span {%- if attributes %}{{ attributes.addClass(classes) }}{% else %}class="{{ classes|join(' ')|trim }}"{%- endif -%}
-  {%- if icon %} data-icon="{{ icon }}"{%- endif -%}
-  {%- if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{%- endif -%}
->{{- label -}}</span>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<span{{ attr }}{% if icon %} data-icon="{{ icon }}"{% endif %}{% if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif %}>{{ label }}</span>

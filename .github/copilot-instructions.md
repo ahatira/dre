@@ -14,6 +14,7 @@
 - **03 Technical Implementation** → `instructions/03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility)
 - **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (90-point audit, troubleshooting, flowcharts, testing)
 - **05 Maintenance** → `instructions/05-maintenance.md` - Evolution (token creation, legacy migration, deprecation, breaking changes)
+- **06 Drupal Integration** → `instructions/06-drupal-integration.md` - Drupal-specific patterns (preprocess, render arrays, Form API, cache, respecting Atomic Design)
 - **README** → `instructions/README.md` - Navigation hub (quick scenarios, learning path)
 
 **Navigation rapide** : Consultez d'abord `instructions/README.md` pour identifier le fichier adapté à votre tâche.
@@ -73,18 +74,6 @@
 → Token missing? Document need, don't add (see `instructions/05-maintenance.md` section 1)  
 → **Overriding parent/child styles?** Follow Token-First workflow (STEP 3 preferred)
 
-
-**New Component?**  
-→ Read spec: `docs/design/{level}/{component}.md`  
-→ Follow workflow: `instructions/02-component-development.md`  
-→ Use standards: `instructions/03-technical-implementation.md`  
-→ **Composing other components?** Follow Token-First: `instructions/02-component-development.md` (section 2)
-
-**CSS Issue?**  
-→ Consult: `instructions/03-technical-implementation.md` (section 1)  
-→ Token missing? Document need, don't add (see `instructions/05-maintenance.md` section 1)  
-→ **Overriding parent/child styles?** Follow Token-First workflow (STEP 3 preferred)
-
 **Storybook Config?**  
 → Follow: `instructions/03-technical-implementation.md` (section 3)  
 → MANDATORY: `tags: ['autodocs']` in export default
@@ -105,6 +94,11 @@
 → Audit: `instructions/04-quality-assurance.md` (Conformity checklist)  
 → Standardize: Fix tokens, nesting, BEM, Autodocs
 
+**Drupal Integration?**  
+→ Consult: `instructions/06-drupal-integration.md` (Preprocess, render arrays, Form API)  
+→ CRITICAL: Respect Atomic Design (atoms = no preprocess, molecules+ = #theme hooks)  
+→ Test: Create render array, clear cache (`drush cr`), verify in Drupal page
+
 
 ---
 
@@ -114,7 +108,8 @@ These will ALWAYS be rejected:
 
 - ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
 - ❌ Missing any of 4 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`
-- ❌ Missing `attributes` parameter in Twig: MANDATORY for Drupal integration with `|without('class')`
+- ❌ Missing `create_attribute()` fallback pattern: `(attributes ? attributes : create_attribute()).addClass(classes)` → MANDATORY for Drupal
+- ❌ Manual attribute handling: `class="{{ classes|join(' ') }}" {{ attributes|without('class') }}` → Use create_attribute() instead
 - ❌ Missing `tags: ['autodocs']` in Storybook export default (exception: `base/*` stories don't use autodocs)
 - ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`
 - ❌ JavaScript methods in Twig: `.map()`, `.filter()`, `.includes()` → Drupal incompatible
@@ -126,12 +121,182 @@ These will ALWAYS be rejected:
 - ❌ Flat CSS without nesting: New components MUST use `&` syntax
 - ❌ Missing focus-visible: All interactives MUST have visible focus indicator
 - ❌ Editing `source/props/*.css` directly: Propose tokens via separate process
-- ❌ `baseClass` parameter for composition: FORBIDDEN → Use `attributes.addClass()` instead
 - ❌ **Utility class overuse**: Use utilities ONLY for variants/modifiers, NEVER for component structure → Maintain semantic component CSS for core styles
 - ❌ **Border-radius by default**: NO rounded corners unless explicitly specified in design spec → Use `border-radius: 0` or remove property entirely (prefer removal)
   - Exception: Only add `border-radius` if design spec EXPLICITLY requires it
   - When specified: Use tokens (`var(--radius-1)` to `var(--radius-4)`)
   - Default state for all components: **SHARP CORNERS** (no border-radius)
+
+---
+
+## ⚠️ AI Common Mistakes (Traps to Avoid)
+
+**These errors frequently occur when AI agents implement components. Double-check these BEFORE committing:**
+
+### 1. 🚫 Not Using create_attribute() Fallback
+**Error**: Manual attribute handling instead of Drupal Attribute object
+```twig
+{# ❌ WRONG - Manual pattern (error-prone) #}
+{% set classes = ['ps-component', ...] %}
+<div class="{{ classes|join(' ')|trim }}" {{ attributes|without('class') }}>{{ content }}</div>
+
+{# ✅ CORRECT - Drupal Attribute object #}
+{% set classes = ['ps-component', ...] %}
+{% set attr = (attributes ? attributes : create_attribute()).addClass(classes) %}
+<div{{ attr }}>{{ content }}</div>
+```
+**Impact**: No class deduplication, spacing issues, can't use .removeClass()/.setAttribute() methods
+
+### 2. 🚫 Using Utilities for Component Structure
+**Error**: Building component with utilities instead of semantic CSS
+```twig
+{# ❌ WRONG - Utility hell #}
+<div class="flex flex-col gap-4 p-6 bg-white rounded-lg shadow">
+
+{# ✅ CORRECT - Semantic component #}
+<div class="ps-card">
+```
+**Impact**: Violates "Balanced Utility Strategy" (see section below)
+
+### 3. 🚫 Skipping Token-First STEP 3
+**Error**: Writing custom CSS overrides instead of using token overrides
+```css
+/* ❌ WRONG - Direct CSS override */
+.ps-molecule {
+  & .ps-button {
+    padding: var(--size-6);
+  }
+}
+
+/* ✅ CORRECT - Token override (STEP 3) */
+.ps-molecule {
+  --ps-button-padding-y: var(--size-6);
+}
+```
+**Impact**: Breaks component encapsulation, harder to maintain
+
+### 4. 🚫 Adding Border-Radius by Default
+**Error**: Applying rounded corners without design spec requirement
+```css
+/* ❌ WRONG - Rounded by default */
+.ps-card {
+  border-radius: var(--radius-3);
+}
+
+/* ✅ CORRECT - Sharp corners (default) */
+.ps-card {
+  /* No border-radius unless spec requires it */
+}
+```
+**Impact**: Violates design system default (sharp corners)
+
+### 5. 🚫 Creating Tokens During Component Work
+**Error**: Editing `source/props/*.css` when token missing
+```bash
+# ❌ WRONG
+vim source/props/sizes.css  # Adding --size-7 directly
+
+# ✅ CORRECT
+# 1. Document need in component CSS comment
+# 2. Use hardcoded value temporarily: 30px /* TODO: Token proposal */
+# 3. Follow 05-maintenance.md token creation process
+```
+**Impact**: Bypasses design system governance
+
+### 6. 🚫 Not Reading Drupal Baseline Templates
+**Error**: Writing Twig from scratch without consulting Drupal core templates
+```twig
+{# ❌ WRONG - Custom structure #}
+<button class="ps-button">{{ text }}</button>
+
+{# ✅ CORRECT - Based on Drupal core/themes/starterkit_theme/templates #}
+<button{{ attributes.addClass('ps-button') }}>{{ text }}</button>
+```
+**Impact**: Incompatible with Drupal render arrays
+**See**: 03-technical-implementation.md Section 2.1
+
+### 7. 🚫 Missing Component-Scoped Variables (Layer 2)
+**Error**: Using global tokens directly without component variables
+```css
+/* ❌ WRONG - No override capability */
+.ps-button {
+  padding: var(--size-4);
+  background: var(--primary);
+}
+
+/* ✅ CORRECT - Layer 2 variables */
+.ps-button {
+  --ps-button-padding-y: var(--size-4);
+  --ps-button-bg: var(--primary);
+  
+  padding: var(--ps-button-padding-y);
+  background: var(--ps-button-bg);
+}
+```
+**Impact**: Consumers cannot customize via token overrides
+
+### 8. 🚫 Arrow Functions in Twig
+**Error**: Using JavaScript syntax in Drupal Twig
+```twig
+{# ❌ WRONG - Arrow function #}
+{% set classes = items|filter(v => v) %}
+
+{# ✅ CORRECT - Ternary with null #}
+{% set classes = [
+  'ps-component',
+  variant != 'default' ? 'ps-component--' ~ variant : null
+] %}
+```
+**Impact**: Breaks in Drupal (Twig limitation)
+
+### 9. 🚫 Missing `tags: ['autodocs']` in Stories
+**Error**: Storybook export without autodocs tag
+```jsx
+// ❌ WRONG
+export default {
+  title: 'Elements/Badge',
+};
+
+// ✅ CORRECT
+export default {
+  title: 'Elements/Badge',
+  tags: ['autodocs'],
+};
+```
+**Impact**: Component docs page empty in Storybook
+
+### 10. 🚫 Using Semantic Color Names as Values
+**Error**: Hardcoding semantic token names instead of using them
+```css
+/* ❌ WRONG - Color name as value */
+.ps-badge--success {
+  background: green;
+}
+
+/* ✅ CORRECT - Semantic token */
+.ps-badge--success {
+  background: var(--success);
+}
+```
+**Impact**: Violates token system
+
+### ✅ Prevention Checklist (Before Commit)
+
+- [ ] `create_attribute()` fallback pattern used: `(attributes ? attributes : create_attribute()).addClass(classes)`?
+- [ ] Root element uses `{{ attr }}` (NOT manual class + attributes)?
+- [ ] Component CSS uses semantic classes (not utility soup)?
+- [ ] Token-First STEP 3 applied for composition overrides?
+- [ ] Border-radius ONLY if design spec explicitly requires it?
+- [ ] NO tokens created (only documented if missing)?
+- [ ] Drupal baseline template consulted (03-technical-implementation.md 2.1)?
+- [ ] Component-scoped variables (Layer 2) defined?
+- [ ] NO arrow functions in Twig (ternary + null instead)?
+- [ ] `tags: ['autodocs']` in Storybook export?
+- [ ] Semantic color tokens used (var(--primary), NOT green)?
+
+**When in doubt**: Read the relevant instruction file section BEFORE implementing.
+
+---
 
 ### 🎨 Semantic Colors Reference
 
@@ -353,6 +518,14 @@ All form control Atoms **MUST** natively include `.form-control` class in their 
 - [ ] Storybook: 30 stories render correctly (http://localhost:6006)
 - [ ] Conformity audit: 100% score (see `instructions/04-quality-assurance.md`)
 
+**Drupal Integration** (Molecules+ only):
+- [ ] `#theme` hook registered in `ps.theme` (see `instructions/06-drupal-integration.md`)
+- [ ] Preprocess function created (compose atoms, prepare data)
+- [ ] Render array tested in Drupal controller/module
+- [ ] Libraries attached (`ps.libraries.yml`)
+- [ ] Cache tags/contexts defined
+- [ ] Atoms remain autonomous (NO preprocess for atoms)
+
 ---
 
 ## 📋 Component Checklist (Quick)
@@ -520,7 +693,6 @@ feat(elements): Add badge component with semantic colors
 - Add pill modifier and icon integration
 - Full Autodocs with categorized argTypes
 - References spec: docs/design/atoms/badge.md
-- References spec: docs/design/atoms/badge.md
 
 # Bug fix
 fix(components): Correct card CTA alignment on mobile
@@ -583,7 +755,7 @@ npm run tokens:check -- <token-name>  # Search token in props/ (definition + usa
 
 **Productivity tools**:
 - **Token checker** (`scripts/check-tokens.mjs`): Search design tokens with line numbers and statistics
-- **Enhanced generator** (`scripts/generate-pattern.mjs`): Interactive scaffolding (note: still generates README.md, to be removed manually)
+- **Enhanced generator** (`scripts/generate-pattern.mjs`): Interactive scaffolding with 4-file structure
 - **VS Code snippets** (`.vscode/ps-theme.code-snippets`): 10 snippets (type `ps<TAB>` in files):
   - **Twig**: `psheader`, `psclasses`, `psinclude`, `psdefault`
   - **CSS**: `pscomponent`, `pselement`, `psmodifier`
@@ -615,10 +787,6 @@ Before ANY component work, consult the relevant instruction file(s) under `.gith
 
 **When in doubt**: Consult instruction files first via README.md navigation, then ask for clarification (never guess).
 
----
-
-**Maintainers**: Design System Team  
-**Contact**: See project README for support channels
 ---
 
 **Maintainers**: Design System Team  

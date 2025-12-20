@@ -5,6 +5,8 @@
  * @param object attributes - Drupal attributes for wrapper <div>
  * @param slot children - Rendered radio items
  #}
-<div{{ attributes.addClass('form-radios') }}>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass('form-radios') -%}
+
+<div{{ attr }}>
   {{ children }}
 </div>

@@ -316,9 +316,9 @@ export const CarouselWithToolbar = {
       toolbar: {
         items: [
           { type: 'photos', label: '13 photos', icon: 'picture', slideIndex: 0 },
-          { type: '3d-visit', label: '3 visites 3D', icon: 'select-area-map', slideIndex: 13 },
-          { type: 'plan', label: '6 plans', icon: 'last-articles', slideIndex: 16 },
-          { type: 'brochure', label: '1 brochure', icon: 'map', slideIndex: 22 },
+          { type: '3d-visit', label: '3 visites 3D', icon: 'cube-focus', slideIndex: 13 },
+          { type: 'plan', label: '6 plans', icon: 'area-select', slideIndex: 16 },
+          { type: 'brochure', label: '1 brochure', icon: 'download', slideIndex: 22 },
         ],
       },
       ariaLabel: 'Property media gallery with photos, 3D visits, plans and brochure',
@@ -522,7 +522,7 @@ export const CardsCarousel = {
           id: 'card2',
           card: `
             <div style="position: relative;">
-              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 2') + "" alt="Property 2" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 2')}" alt="Property 2" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -544,7 +544,7 @@ export const CardsCarousel = {
           id: 'card3',
           card: `
             <div style="position: relative;">
-              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 3') + "" alt="Property 3" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 3')}" alt="Property 3" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>
@@ -566,7 +566,7 @@ export const CardsCarousel = {
           id: 'card4',
           card: `
             <div style="position: relative;">
-              <img src="" + createPlaceholderSVG(400, 300, '#cccccc', 'Property 1') + "" alt="Property 4" style="width: 100%; height: 200px; object-fit: cover;" />
+              <img src="${createPlaceholderSVG(400, 300, '#cccccc', 'Property 4')}" alt="Property 4" style="width: 100%; height: 200px; object-fit: cover;" />
               <button style="position: absolute; top: 8px; right: 8px; width: 48px; height: 48px; background: white; border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 24px; color: #A22B66;">♥</span>
               </button>

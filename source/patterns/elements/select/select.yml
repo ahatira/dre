@@ -11,3 +11,17 @@ disabled: false
 required: false
 error: null
 success: null
+
+# Example with optgroups (commented - use in stories)
+# options:
+#   - { value: "", label: "Sélectionner un bien...", disabled: true, selected: true }
+#   - label: "Résidentiel"
+#     options:
+#       - { value: "apartment", label: "Appartement" }
+#       - { value: "house", label: "Maison" }
+#       - { value: "penthouse", label: "Penthouse" }
+#   - label: "Commercial"
+#     options:
+#       - { value: "office", label: "Bureau" }
+#       - { value: "retail", label: "Local commercial" }
+#       - { value: "warehouse", label: "Entrepôt" }

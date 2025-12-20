@@ -1,6 +1,8 @@
 {#
 /**
+ * @file
  * Breadcrumb (Component/Molecule)
+ *
  * Navigation breadcrumb trail showing current page location in site hierarchy.
  *
  * @param {array} items - List of breadcrumb items with 'label' and optional 'url' (required)
@@ -16,17 +18,24 @@
 {%- set inverted = inverted|default(false) -%}
 {%- set noUnderline = noUnderline|default(false) -%}
 
-{%- set classes = [
-  'ps-breadcrumb',
-  compact ? 'ps-breadcrumb--compact' : null,
-  inverted ? 'ps-breadcrumb--inverted' : null,
-  noUnderline ? 'ps-breadcrumb--no-underline' : null,
-] -%}
+{# Build classes array using |merge() pattern #}
+{%- set classes = ['ps-breadcrumb'] -%}
+{%- if compact -%}
+  {%- set classes = classes|merge(['ps-breadcrumb--compact']) -%}
+{%- endif -%}
+{%- if inverted -%}
+  {%- set classes = classes|merge(['ps-breadcrumb--inverted']) -%}
+{%- endif -%}
+{%- if noUnderline -%}
+  {%- set classes = classes|merge(['ps-breadcrumb--no-underline']) -%}
+{%- endif -%}
 
-<nav{{- attributes.addClass(classes) -}} aria-label="Breadcrumb">
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<nav{{ attr }} aria-label="Breadcrumb">
   <ol class="ps-breadcrumb__list">
     {%- for item in items -%}
-      <li class="ps-breadcrumb__item"{{- loop.last ? ' aria-current="page"' : '' -}}>
+      <li class="ps-breadcrumb__item"{{- loop.last ? ' aria-current="page"' : '' }}>
         {%- if item.url and not loop.last -%}
           <a class="ps-breadcrumb__link" href="{{ item.url }}">{{- item.label -}}</a>
         {%- else -%}

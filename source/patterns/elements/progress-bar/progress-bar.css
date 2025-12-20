@@ -197,13 +197,14 @@
 
 	/* State - STRIPED (Linear only) */
 	&--striped:not(&--circular) .ps-progress__fill {
+		--stripe-opacity: 0.15;
 		background-image: linear-gradient(
 			45deg,
-			rgba(255, 255, 255, 0.15) 25%,
+			hsl(0 0% 100% / var(--stripe-opacity)) 25%,
 			transparent 25%,
 			transparent 50%,
-			rgba(255, 255, 255, 0.15) 50%,
-			rgba(255, 255, 255, 0.15) 75%,
+			hsl(0 0% 100% / var(--stripe-opacity)) 50%,
+			hsl(0 0% 100% / var(--stripe-opacity)) 75%,
 			transparent 75%,
 			transparent
 		);

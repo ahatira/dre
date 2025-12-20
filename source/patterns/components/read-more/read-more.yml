@@ -1,0 +1,16 @@
+# Read More (Molecule) - Default props with Real Estate WYSIWYG content
+content: |
+  <p>Appartement exceptionnel au cœur du <strong>8e arrondissement de Paris</strong>. Situé au 3e étage d'un immeuble haussmannien avec ascenseur, ce bien de 120 m² offre des prestations haut de gamme :</p>
+  <ul>
+    <li>Parquet point de Hongrie</li>
+    <li>Moulures d'origine et cheminées en marbre</li>
+    <li>Exposition sud avec vue dégagée sur jardin arboré</li>
+    <li>Cuisine équipée Bulthaup</li>
+    <li>Salle de bains en marbre de Carrare</li>
+  </ul>
+  <p>Cave et parking inclus. Proximité immédiate des commerces de la rue du Faubourg Saint-Honoré et du parc Monceau.</p>
+maxHeight: 150
+expandLabel: "Voir plus"
+collapseLabel: "Voir moins"
+expanded: false
+showIcon: true

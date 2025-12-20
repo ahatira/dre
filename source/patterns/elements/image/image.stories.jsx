@@ -75,6 +75,15 @@ export default {
         defaultValue: { summary: 'lazy' },
       },
     },
+    attributes: {
+      control: false,
+      description:
+        'Additional HTML attributes and utility classes. Use `attributes.addClass("block")` or other utilities if needed.',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'Attribute' },
+      },
+    },
     decoding: {
       control: 'select',
       options: ['auto', 'async', 'sync'],
@@ -110,11 +119,13 @@ export const ObjectFits = {
       return `
         <div style="text-align: center;">
           <div style="width: 150px; height: 150px; border: 1px solid var(--gray-300); margin-bottom: var(--size-2); overflow: hidden;">
-            <img 
-              class="ps-image${fit !== 'none' ? ` ps-image--fit-${fit}` : ''}" 
-              src="/source/assets/images/16-9.jpg"
-              alt="Image with object-fit: ${fit}"
-            />
+            ${imageTwig({
+              src: '/source/assets/images/16-9.jpg',
+              alt: `Image with object-fit: ${fit}`,
+              fit: fit,
+              width: 800,
+              height: 450,
+            })}
           </div>
           <code style="font-size: var(--font-size-1); color: var(--gray-600);">${fit}</code>
         </div>
@@ -137,15 +148,16 @@ export const BorderRadius = {
   render: () => {
     const rounded = ['none', 'sm', 'md', 'lg', 'full'];
     const items = rounded.map((radius) => {
-      const classes = radius !== 'none' ? `ps-image ps-image--rounded-${radius}` : 'ps-image';
       return `
         <div style="text-align: center;">
           <div style="width: 150px; height: 150px; margin-bottom: var(--size-2);">
-            <img 
-              class="${classes}" 
-              src="/source/assets/images/1-1.jpg"
-              alt="Image with border-radius: ${radius}"
-            />
+            ${imageTwig({
+              src: '/source/assets/images/1-1.jpg',
+              alt: `Image with border-radius: ${radius}`,
+              rounded: radius,
+              width: 400,
+              height: 400,
+            })}
           </div>
           <code style="font-size: var(--font-size-1); color: var(--gray-600);">${radius}</code>
         </div>

@@ -1,0 +1,156 @@
+/**
+ * Read More (Component / Molecule)
+ * JavaScript-powered content expander for WYSIWYG content.
+ *
+ * BEM: ps-read-more
+ * Modifiers: --expanded
+ * States: :hover, :focus-visible (on button)
+ * 
+ * CSS Architecture:
+ * - Layer 1: Global tokens (colors, sizes, fonts from source/props/)
+ * - Layer 2: Component-scoped defaults (--ps-read-more-*)
+ * - Layer 3: Context overrides (modifiers, pseudo-classes)
+ * 
+ * Technical:
+ * - JavaScript sets max-height dynamically
+ * - Smooth height transitions (max-height technique)
+ * - Overflow gradient fade-out effect when collapsed
+ * - Chevron icon rotation via transform
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/max-height
+ */
+
+.ps-read-more {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     (Defaults from Layer 1 tokens)
+     ============================================ */
+  --ps-read-more-content-max-height: 150px;
+  --ps-read-more-content-transition: max-height var(--duration-normal) var(--ease-3);
+  
+  --ps-read-more-toggle-color: var(--success);
+  --ps-read-more-toggle-color-hover: var(--success-hover);
+  --ps-read-more-toggle-font-size: var(--font-size-1);
+  --ps-read-more-toggle-font-weight: var(--font-weight-600);
+  --ps-read-more-toggle-gap: var(--size-2);
+  --ps-read-more-toggle-margin-top: var(--size-3);
+  
+  --ps-read-more-icon-size: var(--size-4);
+  --ps-read-more-icon-transition: var(--duration-normal) var(--ease-3);
+  
+  --ps-read-more-gradient-height: var(--size-10);
+  --ps-read-more-gradient-start: transparent;
+  --ps-read-more-gradient-end: var(--white);
+  
+  /* ============================================
+     Base Styles
+     ============================================ */
+  display: flex;
+  flex-direction: column;
+  
+  &__content {
+    position: relative;
+    max-height: var(--ps-read-more-content-max-height);
+    overflow: hidden;
+    transition: var(--ps-read-more-content-transition);
+    
+    /* Fade-out gradient when collapsed */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--ps-read-more-gradient-height);
+      background: linear-gradient(
+        to bottom,
+        var(--ps-read-more-gradient-start),
+        var(--ps-read-more-gradient-end)
+      );
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity var(--duration-fast) var(--ease-3);
+    }
+    
+    /* Preserve WYSIWYG content spacing */
+    & > *:first-child {
+      margin-top: 0;
+    }
+    
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ps-read-more-toggle-gap);
+    margin-top: var(--ps-read-more-toggle-margin-top);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ps-read-more-toggle-color);
+    font-size: var(--ps-read-more-toggle-font-size);
+    font-weight: var(--ps-read-more-toggle-font-weight);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-3);
+    
+    &:hover {
+      color: var(--ps-read-more-toggle-color-hover);
+    }
+    
+    &:focus-visible {
+      outline: var(--border-size-2) solid var(--border-focus);
+      outline-offset: var(--border-size-1);
+      border-radius: var(--radius-1);
+    }
+  }
+  
+  &__label {
+    line-height: 1;
+  }
+  
+  &__icon {
+    display: inline-block;
+    width: var(--ps-read-more-icon-size);
+    height: var(--ps-read-more-icon-size);
+    transition: transform var(--ps-read-more-icon-transition);
+  }
+  
+  /* ============================================
+     Layer 3: Modifier - Expanded State
+     ============================================ */
+  &--expanded {
+    .ps-read-more__content {
+      max-height: none;
+      
+      /* Hide gradient when expanded */
+      &::after {
+        opacity: 0;
+      }
+    }
+    
+    .ps-read-more__icon {
+      transform: rotate(180deg);
+    }
+  }
+  
+  /* ============================================
+     Reduced Motion Support
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .ps-read-more__content {
+      transition: none;
+      
+      &::after {
+        transition: none;
+      }
+    }
+    
+    .ps-read-more__icon {
+      transition: none;
+    }
+  }
+}

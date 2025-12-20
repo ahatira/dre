@@ -1,50 +1,46 @@
 {#
- * Checkbox (Atom)
+/**
+ * @file
+ * PS Checkbox (Atom) - Native checkbox input with custom SVG icon styling
  *
- * Native checkbox input with custom visual styling. Supports checked, unchecked,
- * indeterminate, and disabled states. Fully accessible with keyboard navigation
- * and screen reader support.
- *
- * @param string name - Input name attribute (required)
- * @param string value - Input value attribute (required)
- * @param string label - Checkbox label text (optional)
- * @param boolean checked - Checked state (default: false)
- * @param boolean indeterminate - Indeterminate state (default: false)
- * @param boolean disabled - Disabled state (default: false)
- * @param string id - Unique ID for input (optional, auto-generated if not provided)
- * @param object attributes - Additional HTML attributes (optional)
- #}
+ * @param {string} name - Input name attribute (required)
+ * @param {string} value - Input value attribute (required)
+ * @param {string} label - Checkbox label text (optional)
+ * @param {boolean} checked - Checked state (default: false)
+ * @param {boolean} indeterminate - Indeterminate state (default: false)
+ * @param {boolean} disabled - Disabled state (default: false)
+ * @param {string} id - Unique ID for input (optional, auto-generated if not provided)
+ * @param {object} attributes - Additional HTML attributes (optional)
+ */
+#}
 
-{%- set class = class|default(null) -%}
 {%- set checked = checked|default(false) -%}
 {%- set indeterminate = indeterminate|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set id = id|default('checkbox-' ~ random()) -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 {%- set has_label = label is defined and label is not empty -%}
 
-{%- set checkbox_classes = [
-  'ps-checkbox',
-  checked ? 'ps-checkbox--checked' : null,
-  indeterminate ? 'ps-checkbox--indeterminate' : null,
-  disabled ? 'ps-checkbox--disabled' : null,
-  class ? class : null
-] -%}
+{%- set checkbox_classes = [] -%}
+{%- set checkbox_classes = checkbox_classes|merge(['ps-checkbox']) -%}
+{%- if checked -%}
+  {%- set checkbox_classes = checkbox_classes|merge(['ps-checkbox--checked']) -%}
+{%- endif -%}
+{%- if indeterminate -%}
+  {%- set checkbox_classes = checkbox_classes|merge(['ps-checkbox--indeterminate']) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set checkbox_classes = checkbox_classes|merge(['ps-checkbox--disabled']) -%}
+{%- endif -%}
+{%- if modifier_class -%}
+  {%- set checkbox_classes = checkbox_classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<label class="{{ checkbox_classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
-  <input
-    class="ps-checkbox__input"
-    type="checkbox"
-    id="{{ id }}"
-    name="{{ name }}"
-    value="{{ value }}"
-    {%- if checked %} checked{% endif -%}
-    {%- if indeterminate %} data-indeterminate="true"{% endif -%}
-    {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-  />
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(checkbox_classes) -%}
+
+<label{{ attr }}>
+  <input class="ps-checkbox__input" type="checkbox" id="{{ id }}" name="{{ name }}" value="{{ value }}"{% if checked %} checked{% endif %}{% if indeterminate %} data-indeterminate="true"{% endif %}{% if disabled %} disabled aria-disabled="true"{% endif %} />
   <span class="ps-checkbox__checkmark" aria-hidden="true"></span>
-  {%- if has_label -%}
-    <span class="ps-checkbox__label">{{- label -}}</span>
-  {%- endif -%}
+  {%- if has_label %}
+  <span class="ps-checkbox__label">{{ label }}</span>
+  {%- endif %}
 </label>

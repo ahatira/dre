@@ -5,6 +5,8 @@
  * @param object attributes - Drupal attributes for wrapper <div>
  * @param slot children - Rendered checkbox items
  #}
-<div{{ attributes.addClass('form-checkboxes') }}>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass('form-checkboxes') -%}
+
+<div{{ attr }}>
   {{ children }}
 </div>

@@ -51,7 +51,13 @@
   { code: 'FR', label: 'Fr', value: 'fr', locale: 'fr-FR', selected: false }
 ]) -%}
 
-<header class="ps-header{% if sticky %} ps-header--sticky{% endif %}">
+{%- set classes = [
+  'ps-header',
+  sticky ? 'ps-header--sticky' : null
+] -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<header{{ attr }}>
   <!-- Top row: Logo + Tagline (left) | Language Selector (right) -->
   <div class="ps-header__top">
     <div class="ps-header__top-inner">

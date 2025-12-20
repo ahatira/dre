@@ -41,27 +41,16 @@
   state ? 'ps-input--' ~ state : null
 ] -%}
 
-<input
-  {%- if attributes %}
-    {{- attributes
-      .addClass(classes)
-      .setAttribute('type', type)
-      .setAttribute('id', id)
-      .setAttribute('name', name)
-      .setAttribute('value', value)
-      .setAttribute('placeholder', placeholder)
-    -}}
-    {%- if autocomplete %}{{- attributes.setAttribute('autocomplete', autocomplete) -}}{% endif -%}
-  {%- else %}
-    type="{{ type }}"
-    id="{{ id }}"
-    name="{{ name }}"
-    value="{{ value }}"
-    placeholder="{{ placeholder }}"
-    {%- if autocomplete %} autocomplete="{{ autocomplete }}"{% endif -%}
-    class="{{ classes|join(' ')|trim }}"
-  {%- endif -%}
-  {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-  {%- if required %} required aria-required="true"{% endif -%}
-  {%- if state == 'error' %} aria-invalid="true"{% endif -%}
-/>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+{%- set attr = attr.setAttribute('type', type) -%}
+{%- if id %}{% set attr = attr.setAttribute('id', id) %}{% endif -%}
+{%- if name %}{% set attr = attr.setAttribute('name', name) %}{% endif -%}
+{%- if value is not null and value is not same as(false) %}{% set attr = attr.setAttribute('value', value) %}{% endif -%}
+{%- if placeholder %}{% set attr = attr.setAttribute('placeholder', placeholder) %}{% endif -%}
+{%- if autocomplete %}{% set attr = attr.setAttribute('autocomplete', autocomplete) %}{% endif -%}
+{%- if disabled %}{% set attr = attr.setAttribute('disabled', true) %}{% set attr = attr.setAttribute('aria-disabled', 'true') %}{% endif -%}
+{%- if required %}{% set attr = attr.setAttribute('required', true) %}{% set attr = attr.setAttribute('aria-required', 'true') %}{% endif -%}
+{%- if state == 'error' %}{% set attr = attr.setAttribute('aria-invalid', 'true') %}{% endif -%}
+
+<input{{ attr }} />

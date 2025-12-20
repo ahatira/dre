@@ -30,7 +30,11 @@
     "sync:libraries": "node scripts/sync-libraries.mjs",
     "sync:libraries:watch": "node scripts/sync-libraries.mjs --watch",
     "stylelint:check": "stylelint \"source/patterns/**/*.css\"",
-    "stylelint:fix": "stylelint --fix \"source/patterns/**/*.css\""
+    "stylelint:fix": "stylelint --fix \"source/patterns/**/*.css\"",
+    "component:new": "node scripts/generate-pattern.mjs && npm run component:verify",
+    "component:verify": "node scripts/detect-hardcoded.mjs && node scripts/validate-conformity.mjs && node scripts/validate-drupal.mjs",
+    "component:ship": "npm run component:verify && npm run build",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.4",
@@ -72,6 +76,13 @@
     ],
     "source/**/*.css": [
       "stylelint"
+    ],
+    "source/**/*.twig": [
+      "node scripts/validate-drupal.mjs"
+    ],
+    "source/patterns/**": [
+      "node scripts/detect-hardcoded.mjs",
+      "node scripts/validate-conformity.mjs"
     ]
   },
   "dependencies": {

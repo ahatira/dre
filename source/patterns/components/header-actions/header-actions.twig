@@ -20,7 +20,10 @@
 {%- set actions = actions|default([]) -%}
 {{ attach_library('ps_theme/header-actions') }}
 
-<div class="ps-header-actions">
+{%- set classes = ['ps-header-actions'] -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<div{{ attr }}>
   {% for action in actions %}
     {# Separator item (renders vertical divider) #}
     {% if action.type == 'separator' %}

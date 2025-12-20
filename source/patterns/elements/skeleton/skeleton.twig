@@ -1,5 +1,32 @@
 {#
- * Skeleton atom - Loading placeholder with animation
+/**
+ * @file
+ * Skeleton component template.
+ *
+ * @component Skeleton
+ * @description
+ * Loading placeholder with pulse or wave animation.
+ * Used to indicate content loading state in a visually appealing way.
+ *
+ * @atoms
+ * @category Feedback
+ *
+ * @features
+ * - Multiple variants (text, circle, rectangle, avatar, button, card)
+ * - 3 animation types (pulse, wave, none)
+ * - Fully customizable dimensions via CSS custom properties
+ * - Accessible with ARIA attributes
+ * - Real Estate context (property cards, agent profiles)
+ *
+ * @accessibility
+ * - aria-busy="true" indicates loading state
+ * - aria-live="polite" announces completion
+ * - role="status" for screen reader context
+ * - visually-hidden text for screen readers
+ */
+#}
+
+{#
  * @param {string} variant - text|circle|rectangle|avatar|button|card (default: text)
  * @param {string} width - CSS width value (default: 100%)
  * @param {string} height - CSS height value (default: auto, depends on variant)
@@ -14,17 +41,27 @@
 {%- set animation = animation|default('pulse') -%}
 {%- set borderRadius = borderRadius|default(null) -%}
 
-{%- set skeleton_classes = [
-  'ps-skeleton',
-  variant ? 'ps-skeleton--' ~ variant : null,
-  animation == 'wave' ? 'ps-skeleton--wave' : (animation == 'none' ? 'ps-skeleton--no-animation' : null)
-] -%}
+{%- set skeleton_classes = ['ps-skeleton'] -%}
+{%- if variant -%}
+  {%- set skeleton_classes = skeleton_classes|merge(['ps-skeleton--' ~ variant]) -%}
+{%- endif -%}
+{%- if animation == 'wave' -%}
+  {%- set skeleton_classes = skeleton_classes|merge(['ps-skeleton--wave']) -%}
+{%- elseif animation == 'none' -%}
+  {%- set skeleton_classes = skeleton_classes|merge(['ps-skeleton--no-animation']) -%}
+{%- endif -%}
 
-<div class="{{ skeleton_classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
-  {%- if width %} style="--skeleton-width: {{ width }};{% if height %} --skeleton-height: {{ height }};{% endif %}{% if borderRadius %} --skeleton-radius: {{ borderRadius }};{% endif %}"{% endif -%}
-  aria-busy="true"
-  aria-live="polite"
-  role="status">
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(skeleton_classes) -%}
+{%- set style_value = width ? '--skeleton-width: ' ~ width ~ ';' : '' -%}
+{%- set style_value = style_value ~ (height ? ' --skeleton-height: ' ~ height ~ ';' : '') -%}
+{%- set style_value = style_value ~ (borderRadius ? ' --skeleton-radius: ' ~ borderRadius ~ ';' : '') -%}
+{%- if style_value -%}
+  {%- set attr = attr.setAttribute('style', style_value) -%}
+{%- endif -%}
+{%- set attr = attr.setAttribute('aria-busy', 'true') -%}
+{%- set attr = attr.setAttribute('aria-live', 'polite') -%}
+{%- set attr = attr.setAttribute('role', 'status') -%}
+
+<div{{ attr }}>
   <span class="visually-hidden">Loading content...</span>
 </div>

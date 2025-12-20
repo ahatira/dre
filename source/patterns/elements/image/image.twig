@@ -35,19 +35,6 @@
   fit != 'none' ? 'ps-image--fit-' ~ fit : null,
   rounded != 'none' ? 'ps-image--rounded-' ~ rounded : null,
 ] -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
-<img
-  {%- if attributes %}
-    {{- attributes.addClass(classes) -}}
-  {%- else %}
-    class="{{ classes|join(' ')|trim }}"
-  {%- endif %}
-  src="{{ src }}"
-  alt="{{ alt }}"
-  {%- if width %} width="{{ width }}"{% endif -%}
-  {%- if height %} height="{{ height }}"{% endif -%}
-  {%- if srcset %} srcset="{{ srcset|join(', ') }}"{% endif -%}
-  {%- if sizes %} sizes="{{ sizes }}"{% endif -%}
-  loading="{{ loading }}"
-  decoding="{{ decoding }}"
-/>
+<img{{ attr }} src="{{ src }}" alt="{{ alt }}"{%- if width %} width="{{ width }}"{% endif %}{%- if height %} height="{{ height }}"{% endif %}{%- if srcset %} srcset="{{ srcset|join(', ') }}"{% endif %}{%- if sizes %} sizes="{{ sizes }}"{% endif %} loading="{{ loading }}" decoding="{{ decoding }}" />

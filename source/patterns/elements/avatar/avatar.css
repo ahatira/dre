@@ -56,12 +56,12 @@
   height: var(--ps-avatar-size);
   flex-shrink: 0;
   overflow: visible;
-  text-decoration: none;
   
   /* Visual styling */
   background: var(--ps-avatar-bg);
   border: var(--ps-avatar-border-width) solid var(--ps-avatar-border-color);
   border-radius: var(--ps-avatar-radius);
+  text-decoration: none;
   
   /* ============================================
      Elements (Atomic Components)
@@ -123,6 +123,10 @@
    * Modifiers - Shapes
    * ======================================== */
   
+  &--circle {
+    --ps-avatar-radius: 50%;
+  }
+  
   &--square {
     --ps-avatar-radius: 0;
   }
@@ -176,9 +180,44 @@
     }
     
     &:focus-visible {
-      outline: var(--border-size-2) solid var(--secondary);
+      outline: var(--border-size-2) solid var(--border-focus);
       outline-offset: var(--border-size-2);
     }
+  }
+
+  &:is(a):focus-visible {
+    outline: var(--border-size-2) solid var(--border-focus);
+    outline-offset: var(--border-size-2);
+  }
+
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* No adjustments for this breakpoint */
+  }
+
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    /* No adjustments for this breakpoint */
+  }
+
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    /* No adjustments for this breakpoint */
+  }
+
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* No adjustments for this breakpoint */
+  }
+
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    /* No adjustments for this breakpoint */
+  }
+
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    /* No adjustments for this breakpoint */
   }
 }
 

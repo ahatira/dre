@@ -18,8 +18,8 @@
   --ps-skip-link-active-bg: var(--primary); /* Reset on active */
   --ps-skip-link-color: var(--white);
   --ps-skip-link-border-radius: var(--radius-3); /* 6px - more polished */
-  --ps-skip-link-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Elevation shadow */
-  --ps-skip-link-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  --ps-skip-link-shadow: var(--shadow-2); /* Elevation shadow */
+  --ps-skip-link-shadow-hover: var(--shadow-3); /* Enhanced shadow on hover */
   --ps-skip-link-font-family: var(--font-sans);
   --ps-skip-link-font-size: var(--font-size-1); /* 16px */
   --ps-skip-link-font-weight: var(--font-weight-600); /* 600 - semi-bold for presence */

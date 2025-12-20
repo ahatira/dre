@@ -77,12 +77,12 @@ export const Default = {
 export const SemanticHierarchy = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-6);">
-      <h1>Bureaux Haussmanniens Paris 8ème</h1>
-      <h2>Caractéristiques du bien</h2>
-      <h3>Surface et aménagement</h3>
-      <h4>Espaces de travail</h4>
-      <h5>Open space principal</h5>
-      <h6>Bureau individuel</h6>
+      ${component({ text: 'Bureaux Haussmanniens Paris 8ème', level: 'h1' })}
+      ${component({ text: 'Caractéristiques du bien', level: 'h2' })}
+      ${component({ text: 'Surface et aménagement', level: 'h3' })}
+      ${component({ text: 'Espaces de travail', level: 'h4' })}
+      ${component({ text: 'Open space principal', level: 'h5' })}
+      ${component({ text: 'Bureau individuel', level: 'h6' })}
     </div>
   `,
   parameters: {

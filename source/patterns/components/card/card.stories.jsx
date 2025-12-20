@@ -1,5 +1,5 @@
+import skeletonTwig from '../../elements/skeleton/skeleton.twig';
 import cardTwig from './card.twig';
-import data from './card.yml';
 
 const settings = {
   title: 'Components/Card',
@@ -125,7 +125,11 @@ const baseImage =
 export const Default = {
   render: (args) => cardTwig(args),
   args: {
-    ...data,
+    variant: 'default',
+    layout: 'vertical',
+    size: 'medium',
+    radius: 'none',
+    imagePosition: 'start',
     image: baseImage,
     header: '<h3 style="margin: 0; font-size: 1.125rem; font-weight: 600;">Card Title</h3>',
     body: '<p style="margin: 0; font-size: 0.875rem; color: var(--gray-600);">This is the card description text. Customize all props using the controls below.</p>',
@@ -193,7 +197,7 @@ export const Layouts = {
         <!-- Vertical Layout -->
         <div>
           <h3 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600;">Vertical Layout</h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr)); gap: 1.5rem;">
             ${cardTwig({
               layout: 'vertical',
               imagePosition: 'start',
@@ -303,6 +307,97 @@ export const ContentSections = {
           '- **Full card**: All sections (media, header, body, footer)\n' +
           '- **Content only**: No image, useful for announcements or CTAs\n' +
           '- **Minimal**: Single section, simple layout',
+      },
+    },
+  },
+};
+
+// ==============================================
+// STORY 5: Loading State (Skeleton)
+// ==============================================
+
+export const LoadingState = {
+  render: () => {
+    return `
+      <div style="display: grid; gap: 2rem; max-width: 800px;">
+        <div>
+          <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 600;">Loading States with Skeleton</h3>
+          <p style="margin: 0 0 1.5rem 0; font-size: 0.875rem; color: var(--gray-600);">Skeleton placeholders indicate content loading in a visually appealing way.</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr)); gap: 1.5rem;">
+            <!-- Vertical Card Loading -->
+            ${cardTwig({
+              variant: 'outlined',
+              radius: 'md',
+              image: skeletonTwig({ variant: 'rectangle', height: '200px', animation: 'wave' }),
+              body: `
+                ${skeletonTwig({ variant: 'text', width: '60%', animation: 'wave' })}
+                <div style="margin-top: 0.75rem;">
+                  ${skeletonTwig({ variant: 'text', width: '100%', animation: 'wave' })}
+                </div>
+                <div style="margin-top: 0.5rem;">
+                  ${skeletonTwig({ variant: 'text', width: '90%', animation: 'wave' })}
+                </div>
+              `,
+              footer: `
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  ${skeletonTwig({ variant: 'button', width: '120px', animation: 'wave' })}
+                </div>
+              `,
+            })}
+            
+            <!-- Horizontal Card Loading -->
+            ${cardTwig({
+              variant: 'elevated',
+              layout: 'horizontal',
+              radius: 'md',
+              image: skeletonTwig({ variant: 'rectangle', height: '100%', animation: 'pulse' }),
+              body: `
+                ${skeletonTwig({ variant: 'text', width: '70%', animation: 'pulse' })}
+                <div style="margin-top: 1rem;">
+                  ${skeletonTwig({ variant: 'text', width: '100%', animation: 'pulse' })}
+                </div>
+                <div style="margin-top: 0.5rem;">
+                  ${skeletonTwig({ variant: 'text', width: '85%', animation: 'pulse' })}
+                </div>
+              `,
+              footer: `
+                ${skeletonTwig({ variant: 'text', width: '40%', animation: 'pulse' })}
+              `,
+            })}
+            
+            <!-- Content Only Loading -->
+            ${cardTwig({
+              variant: 'flat',
+              radius: 'sm',
+              size: 'large',
+              header: `${skeletonTwig({ variant: 'text', width: '30%', animation: 'wave' })}`,
+              body: `
+                <div style="margin-top: 0.75rem;">
+                  ${skeletonTwig({ variant: 'text', width: '100%', animation: 'wave' })}
+                </div>
+                <div style="margin-top: 0.5rem;">
+                  ${skeletonTwig({ variant: 'text', width: '95%', animation: 'wave' })}
+                </div>
+                <div style="margin-top: 0.5rem;">
+                  ${skeletonTwig({ variant: 'text', width: '80%', animation: 'wave' })}
+                </div>
+              `,
+            })}
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Loading state examples** using Skeleton component:\n\n' +
+          '- **Vertical card**: Rectangle skeleton for image + text lines + button\n' +
+          '- **Horizontal card**: Image placeholder with content skeletons\n' +
+          '- **Content only**: Header and body text skeletons\n\n' +
+          '**Animation types**: `pulse` (opacity) or `wave` (shimmer)',
       },
     },
   },

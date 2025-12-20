@@ -100,11 +100,10 @@
       &:focus-visible {
         outline: var(--ps-breadcrumb-focus-outline-width) solid var(--ps-breadcrumb-focus-outline-color);
         outline-offset: var(--ps-breadcrumb-focus-outline-offset);
-        border-radius: var(--radius-1);
       }
     }
     
-    /* Current page (span) - Pas de underline */
+    /* Current page (span) - No underline */
     &:is(span) {
       text-decoration: none;
     }

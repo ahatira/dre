@@ -34,6 +34,15 @@ Typically placed in header and footer with link to homepage.`,
         type: { summary: 'small | medium | large' },
         defaultValue: { summary: 'medium' },
       },
+      attributes: {
+        control: false,
+        description:
+          'Additional HTML attributes and utility classes on the wrapper (<a> or <div>). Example: `attributes.addClass("block")`.',
+        table: {
+          category: 'Attributes',
+          type: { summary: 'Attribute' },
+        },
+      },
     },
     // Link
     href: {

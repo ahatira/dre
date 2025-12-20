@@ -1,31 +1,39 @@
 {#
- * Icon (Element/Atom)
- * Semantic wrapper for SVG sprite icons rendered via pseudo-elements.
+/**
+ * @file
+ * PS Icon (Atom) - Semantic wrapper for SVG sprite icons
  *
- * @param string icon - Icon name from sprite (required, e.g., 'check', 'arrow-right')
- * @param string ariaLabel - ARIA label for accessibility (optional)
- * @param boolean ariaHidden - Hide from screen readers (optional, default: true)
- * @param object attributes - Additional HTML attributes (optional)
+ * @param {string} icon - Icon name from sprite (required, e.g., 'check', 'arrow-right')
+ * @param {string} ariaLabel - ARIA label for accessibility (optional)
+ * @param {boolean} ariaHidden - Hide from screen readers (optional, default: true)
+ * @param {object} attributes - Additional HTML attributes (optional)
  *
  * Example:
  * {% include '@elements/icon/icon.twig' with { icon: 'check' } %}
  *
  * NOTE: Icon.twig renders <i> element ONLY. For icon + text, use data-icon directly on HTML element.
  * Example: <button data-icon="arrow-right" data-icon-position="end">Next</button>
- #}
+ */
+#}
 
-{% set ariaHidden = ariaHidden|default(true) %}
-{%- set class = class|default(null) -%}
+{%- set ariaHidden = ariaHidden|default(true) -%}
 
-{%- set classes = [
-  'ps-icon',
-  class ? class : null
-] -%}
+{%- set classes = [] -%}
+{%- set classes = classes|merge(['ps-icon']) -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 
-<i class="{{ classes|join(' ')|trim }}"
-  {%- if attributes is defined and attributes %} {{ attributes|without('class') }}{% endif -%}
-  data-icon="{{ icon }}"
-  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
-  {% if ariaHidden %}aria-hidden="true"{% endif %}
-></i>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- if icon %}
+  {%- set attr = attr.setAttribute('data-icon', icon) -%}
+{%- endif %}
+{%- if ariaLabel %}
+  {%- set attr = attr.setAttribute('aria-label', ariaLabel) -%}
+{%- endif %}
+{%- if ariaHidden %}
+  {%- set attr = attr.setAttribute('aria-hidden', 'true') -%}
+{%- endif %}
+
+<i{{ attr }}></i>
 

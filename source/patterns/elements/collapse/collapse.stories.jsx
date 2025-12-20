@@ -58,6 +58,13 @@ export default {
       options: ['button', 'h3', 'h4'],
       table: { category: 'Accessibility' },
     },
+    attributes: {
+      name: 'Attributes',
+      description:
+        'Additional HTML attributes (ARIA, data-*, extra classes) for Drupal integration.',
+      control: 'object',
+      table: { category: 'Accessibility' },
+    },
   },
 };
 

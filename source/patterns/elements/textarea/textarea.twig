@@ -32,30 +32,31 @@
 {%- set rows = rows|default(4) -%}
 {%- set state = state|default(null) -%}
 
-{%- set classes = [
-  'ps-textarea',
-  'form-control',
-  disabled ? 'ps-textarea--disabled' : null,
-  state ? 'ps-textarea--' ~ state : null
-] -%}
+{%- set classes = ['ps-textarea', 'form-control'] -%}
+{%- if disabled -%}
+  {%- set classes = classes|merge(['ps-textarea--disabled']) -%}
+{%- endif -%}
+{%- if state -%}
+  {%- set classes = classes|merge(['ps-textarea--' ~ state]) -%}
+{%- endif -%}
 
-<textarea
-  {%- if attributes %}
-    {{- attributes
-      .addClass(classes)
-      .setAttribute('id', id)
-      .setAttribute('name', name)
-      .setAttribute('placeholder', placeholder)
-      .setAttribute('rows', rows)
-    -}}
-  {%- else %}
-    id="{{ id }}"
-    name="{{ name }}"
-    placeholder="{{ placeholder }}"
-    rows="{{ rows }}"
-    class="{{ classes|join(' ')|trim }}"
-  {%- endif -%}
-  {%- if disabled %} disabled aria-disabled="true"{% endif -%}
-  {%- if required %} required aria-required="true"{% endif -%}
-  {%- if state == 'error' %} aria-invalid="true"{% endif -%}
->{{ value }}</textarea>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('id', id) -%}
+{%- set attr = attr.setAttribute('name', name) -%}
+{%- if placeholder -%}
+  {%- set attr = attr.setAttribute('placeholder', placeholder) -%}
+{%- endif -%}
+{%- set attr = attr.setAttribute('rows', rows) -%}
+{%- if disabled -%}
+  {%- set attr = attr.setAttribute('disabled', 'disabled') -%}
+  {%- set attr = attr.setAttribute('aria-disabled', 'true') -%}
+{%- endif -%}
+{%- if required -%}
+  {%- set attr = attr.setAttribute('required', 'required') -%}
+  {%- set attr = attr.setAttribute('aria-required', 'true') -%}
+{%- endif -%}
+{%- if state == 'error' -%}
+  {%- set attr = attr.setAttribute('aria-invalid', 'true') -%}
+{%- endif -%}
+
+<textarea{{ attr }}>{{- value -}}</textarea>

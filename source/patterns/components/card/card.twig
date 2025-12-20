@@ -96,9 +96,8 @@
 {# Merge computed classes into attributes so final tag uses only attributes #}
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
-<{{ element }}
+<{{ element }}{{ attr }}
   {%- if url %} href="{{ url }}"{% endif -%}
-  {{- attr -}}
 >
   {# MEDIA BLOCK - Image/visual content (optional) #}
   {%- if block('media') is defined or image -%}

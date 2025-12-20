@@ -24,7 +24,9 @@
   level,
   visuallyHidden ? 'visually-hidden' : null
 ] -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- if icon %}
+  {%- set attr = attr.setAttribute('data-icon', icon) -%}
+{%- endif %}
 
-<{{ level }} {{ attributes ? attributes.addClass(classes) : 'class="' ~ classes|join(' ')|trim ~ '"' }}{% if icon %} data-icon="{{ icon }}"{% endif %}>
-  {{- text -}}
-</{{ level }}>
+<{{ level }}{{ attr }}>{{- text -}}</{{ level }}>

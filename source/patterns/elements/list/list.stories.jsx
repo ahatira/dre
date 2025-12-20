@@ -32,6 +32,15 @@ export default {
     },
     variant: {
       control: 'select',
+      attributes: {
+        control: false,
+        description:
+          'Additional HTML attributes and utility classes for the list root. Example: `attributes.addClass("mb-4")`.',
+        table: {
+          category: 'Attributes',
+          type: { summary: 'Attribute' },
+        },
+      },
       options: [null, 'bulleted', 'disc', 'circle', 'square', 'numbered', 'unstyled'],
       description:
         'Optional modifier to override default styles. null=native (ul=disc, ol=decimal), bulleted=force disc cascade, disc/circle/square=specific marker, numbered=force decimal cascade, unstyled=no markers.',

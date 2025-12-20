@@ -1,5 +1,7 @@
 {#
- * List - HTML list element (ul/ol)
+/**
+ * @file
+ * PS List (Atom) - HTML list element (ul/ol)
  *
  * Basic styled list component for content.
  * ul = bulleted by default, ol = numbered by default.
@@ -8,27 +10,29 @@
  * @param {string} [variant] - Optional modifier: 'unstyled' to remove markers
  * @param {string} [type='ul'] - HTML element type: ul|ol
  * @param {object} [attributes] - Drupal attribute bag (required for integration)
- #}
+ */
+#}
 
 {%- set items = items|default([]) -%}
 {%- set type = type|default('ul') -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
 
-{%- set list_classes = ['ps-list'] -%}
-{%- if variant -%}
-  {%- set list_classes = list_classes|merge(['ps-list--' ~ variant]) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-list',
+  variant ? 'ps-list--' ~ variant : null
+] -%}
 
-{% if type == 'ol' %}
-<ol class="{{ list_classes|join(' ') }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
-  {% for item in items -%}
-    <li class="ps-list__item">{{ item|raw }}</li>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+{% if type == 'ol' -%}
+<ol{{ attr }}>
+  {%- for item in items %}
+  <li class="ps-list__item">{{ item|raw }}</li>
   {%- endfor %}
 </ol>
-{% else %}
-<ul class="{{ list_classes|join(' ') }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
-  {% for item in items -%}
-    <li class="ps-list__item">{{ item|raw }}</li>
+{%- else -%}
+<ul{{ attr }}>
+  {%- for item in items %}
+  <li class="ps-list__item">{{ item|raw }}</li>
   {%- endfor %}
 </ul>
-{% endif %}
+{%- endif %}

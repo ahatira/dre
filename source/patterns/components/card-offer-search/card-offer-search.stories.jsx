@@ -289,7 +289,7 @@ export const SearchResults = {
 
     return `
       <div style="display: flex; flex-direction: column; gap: var(--size-4); padding: var(--size-4); max-width: 1200px; margin: 0 auto;">
-        ${properties.map((property) => cardOfferSearchTwig(property)).join('')}
+        ${properties.reduce((html, property) => html + cardOfferSearchTwig(property), '')}
       </div>
     `;
   },

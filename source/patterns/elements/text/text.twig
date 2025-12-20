@@ -1,23 +1,35 @@
 {#
+/**
+ * @file
  * Text (Element / Atom)
- * Semantic text for paragraphs and inline content.
- * UTILITY-FIRST: Use .text-*, .font-*, .text-center utilities for styling variations
  *
- * @param string text - Text content (required)
- * @param string tag - p|span|div (default: p)
- * @param Attribute attributes - Additional HTML attributes (optional)
+ * Semantic text element for paragraphs and inline content.
+ * UTILITY-FIRST ARCHITECTURE: Use utility classes (.text-*, .font-*) for styling variations.
+ * Component provides minimal semantic HTML only.
  *
- * EXAMPLES:
- * - Color: attributes.addClass('text-primary')
- * - Size: Use native text classes or inline font-size
- * - Weight: attributes.addClass('font-semibold')
- * - Alignment: attributes.addClass('text-center')
- * - Muted: attributes.addClass('text-gray-600')
- #}
+ * @param {string} text
+ *   Text content rendered directly (required).
+ * @param {string} [tag='p']
+ *   HTML tag used for rendering: p | span | div (default: p).
+ * @param {Attribute} [attributes]
+ *   Additional HTML attributes. Use attributes.addClass() for utility variations:
+ *   - Color: .text-primary, .text-gray-600
+ *   - Weight: .font-semibold, .font-bold
+ *   - Alignment: .text-center, .text-right
+ *
+ * Features:
+ * - Dynamic tag rendering (p/span/div based on context)
+ * - Utility-first styling (no component-specific classes)
+ * - Base typography defaults (16px, line-height 1.5, gray-900)
+ *
+ * Accessibility:
+ * - Semantic HTML tags (<p> for paragraphs, <span> for inline)
+ * - No ARIA required (native text semantics)
+ * - Color utilities maintain WCAG 2.2 AA contrast
+ */
+#}
 
 {%- set tag = tag|default('p') -%}
+{%- set attr = (attributes ? attributes : create_attribute()) -%}
 
-<{{ tag }}
-  {{- attributes ? attributes : '' -}}>
-  {{- text -}}
-</{{ tag }}>
+<{{ tag }}{{ attr }}>{{- text -}}</{{ tag }}>

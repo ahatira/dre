@@ -1,6 +1,8 @@
 {#
 /**
+ * @file
  * Alert Component (Molecule/Feedback)
+ *
  * Semantic alert with flexible content, optional icons, and 9 variants
  *
  * @param {string} content - Alert message content (HTML allowed)
@@ -25,14 +27,16 @@
   {%- set ariaLive = 'polite' -%}
 {%- endif -%}
 
-{%- set classes = [
-  'ps-alert',
-  'ps-alert--' ~ variant,
-  icon ? 'ps-alert--with-icon' : null,
-  dismissible ? 'ps-alert--dismissible' : null
-] -%}
+{# Build classes array using |merge() pattern #}
+{%- set classes = ['ps-alert', 'ps-alert--' ~ variant] -%}
+{%- if icon -%}
+  {%- set classes = classes|merge(['ps-alert--with-icon']) -%}
+{%- endif -%}
+{%- if dismissible -%}
+  {%- set classes = classes|merge(['ps-alert--dismissible']) -%}
+{%- endif -%}
 
-<div {{ attributes|without('class').addClass(classes) }} role="{{ role }}" aria-live="{{ ariaLive }}"{% if icon %} data-icon="{{ icon }}"{% endif %}>
+<div class="{{ classes|join(' ') }}" role="{{ role }}" aria-live="{{ ariaLive }}"{% if icon %} data-icon="{{ icon }}"{% endif %}{{- attributes ? ' ' ~ attributes|without('class') : '' }}>
   {%- if content -%}
     <div class="ps-alert__content">{{ content|raw }}</div>
   {%- endif -%}

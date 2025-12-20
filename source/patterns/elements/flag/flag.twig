@@ -60,8 +60,9 @@
   {%- set img_width = shape == 'circle' ? '20' : '27' -%}
 {%- endif -%}
 
-<span class="{{ classes|join(' ')|trim }}"
-  {{- attributes ? ' ' ~ attributes|without('class') : '' -}}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<span{{ attr }}
   {{- title_text ? ' title="' ~ title_text ~ '"' : '' -}}>
   <img class="ps-flag__img" src="{{ img_src }}" alt="{{ alt_text }}" width="{{ img_width }}" height="{{ img_height }}"{{- decorative ? ' aria-hidden="true"' : '' -}} />
 </span>

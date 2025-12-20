@@ -52,11 +52,11 @@
   --ps-carousel-toolbar-bg: var(--gray-50);
   --ps-carousel-toolbar-padding: var(--size-2) var(--size-5); /* 8px 20px */
   --ps-carousel-toolbar-gap: var(--size-2); /* 8px */
-  --ps-carousel-toolbar-border-radius: var(--size-6); /* 24px */
+  --ps-carousel-toolbar-border-radius: var(--size-6); /* 24px - Pill shape per design spec */
   --ps-carousel-toolbar-bottom: var(--size-5); /* 20px */
   --ps-carousel-toolbar-z-index: 11;
   --ps-carousel-toolbar-item-padding: var(--size-05) var(--size-2); /* 4px 8px */
-  --ps-carousel-toolbar-item-border-radius: var(--radius-3); /* 6px */
+  --ps-carousel-toolbar-item-border-radius: var(--radius-3); /* 6px - Inner item rounding */
   --ps-carousel-toolbar-item-color: var(--primary);
   --ps-carousel-toolbar-item-color-hover: var(--primary-hover);
   --ps-carousel-toolbar-item-color-active: var(--secondary);
@@ -342,7 +342,7 @@
       background-color: var(--ps-carousel-cards-button-bg);
       color: var(--ps-carousel-cards-button-color);
       box-shadow: none;
-      border-radius: var(--radius-2);
+      border-radius: 0;
       padding: 0;
       transition: color var(--ps-carousel-transition);
 

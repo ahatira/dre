@@ -99,37 +99,47 @@ export default {
   },
 };
 
-const Template = (args) => inputTwig(args);
-
 // ============ MOCKUP STATES ============
 
-export const Default = Template.bind({});
-Default.args = { ...inputData };
+export const Default = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData },
+};
 
-export const Placeholder = Template.bind({});
-Placeholder.args = { ...inputData, value: '', placeholder: 'Placeholder' };
+export const Placeholder = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData, value: '', placeholder: 'Placeholder' },
+};
 
-export const Focus = Template.bind({});
-Focus.args = { ...inputData, value: 'Value' };
-Focus.parameters = {
-  docs: {
-    description: {
-      story: 'Visible focus: 2px black border (WCAG 2.2 AA)',
+export const Focus = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData, value: 'Value' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Visible focus: 2px black border (WCAG 2.2 AA)',
+      },
     },
   },
 };
 
-export const Success = Template.bind({});
-Success.args = { ...inputData, value: 'Value', state: 'success' };
+export const Success = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData, value: 'Value', state: 'success' },
+};
 
-export const ErrorState = Template.bind({});
-ErrorState.args = { ...inputData, value: 'Value', state: 'error' };
+export const ErrorState = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData, value: 'Value', state: 'error' },
+};
 
-export const Warning = Template.bind({});
-Warning.args = { ...inputData, value: 'Value', state: 'warning' };
+export const Warning = {
+  render: (args) => inputTwig(args),
+  args: { ...inputData, value: 'Value', state: 'warning' },
+};
 
 export const DisabledPlaceholder = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: {
     ...inputData,
     value: '',
@@ -140,7 +150,7 @@ export const DisabledPlaceholder = {
 };
 
 export const DisabledValue = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: { ...inputData, value: 'Value', disabled: true },
   name: 'Disabled (value)',
 };
@@ -148,7 +158,7 @@ export const DisabledValue = {
 // ============ TYPES ============
 
 export const TypeEmail = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: {
     ...inputData,
     type: 'email',
@@ -160,7 +170,7 @@ export const TypeEmail = {
 };
 
 export const TypePassword = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: {
     ...inputData,
     type: 'password',
@@ -172,13 +182,13 @@ export const TypePassword = {
 };
 
 export const TypeNumber = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: { ...inputData, type: 'number', placeholder: 'Ex: 250000', value: '' },
   name: 'Type: Number',
 };
 
 export const TypeSearch = {
-  render: Template,
+  render: (args) => inputTwig(args),
   args: { ...inputData, type: 'search', placeholder: 'Search...', value: '' },
   name: 'Type: Search',
 };

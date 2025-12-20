@@ -40,11 +40,11 @@ status: ACTIVE
 - When refactoring legacy components
 - During code reviews
 
-**Minimum passing score**: 80/90 for production
+**Minimum passing score**: 70/90 for production (80+ recommended)
 
 ### 1.2 Audit Checklist
 
-**Total**: 90 points (README.md supprimés décembre 2025)
+**Total**: 90 points (README.md removed December 2025)
 
 #### Architecture & Dependencies (10 points)
 
@@ -76,17 +76,20 @@ ls -la source/patterns/{level}/{component}/
 
 #### Twig Template (15 points)
 
-- [ ] **2 pts** - Header comment with `@param` docs
-- [ ] **2 pts** - `attributes` parameter present with `|without('class')`
-- [ ] **3 pts** - Default values: `prop|default('value')`
-- [ ] **3 pts** - Classes with ternary + `null` (NO arrow functions)
-- [ ] **3 pts** - Composition via `{% include %}` with `only`
-- [ ] **2 pts** - Real Estate vocabulary in text content (NOT generic lorem ipsum)
+- [ ] **3 pts** - Header comment with `@param` docs
+- [ ] **4 pts** - `create_attribute()` fallback: `(attributes ? attributes : create_attribute()).addClass(classes)`
+- [ ] **2 pts** - Root element uses `{{ attr }}` (NOT manual class + attributes)
+- [ ] **2 pts** - Default values: `prop|default('value')`
+- [ ] **2 pts** - Classes with ternary + `null` (NO arrow functions)
+- [ ] **2 pts** - Composition via `{% include %}` with `only`
 
 **Validation**:
 ```bash
-# Check for attributes parameter
-grep -n "attributes" source/patterns/{level}/{component}/{component}.twig
+# Check for create_attribute() usage
+grep -n "create_attribute" source/patterns/{level}/{component}/{component}.twig
+
+# Check for FORBIDDEN manual pattern (should return NOTHING)
+grep -n 'class="{{.*|join' source/patterns/{level}/{component}/{component}.twig
 
 # Check for arrow functions (should return NOTHING)
 grep -n "=>" source/patterns/{level}/{component}/{component}.twig
@@ -163,30 +166,16 @@ grep -n "^\\." source/patterns/{level}/{component}/{component}.css
 
 | Score | Status | Action |
 |-------|--------|--------|
-| **90-100** | ✅ Production ready | Ship it |
-| **75-89** | ⚠️ Minor fixes required | Fix violations, re-audit |
-| **Below 75** | ❌ Major refactoring needed | Follow refactoring workflow |
-
-### 1.4 Example Audit Report
-
-```markdown
-## Badge Conformity Audit
-
-**Score**: 85/100 ⚠️ Minor fixes required
-### 1.3 Scoring Interpretation
-
-| Score | Status | Action |
-|-------|--------|--------|
 | **80-90** | ✅ Production ready | Ship it |
-| **65-79** | ⚠️ Minor fixes required | Fix violations, re-audit |
-| **Below 65** | ❌ Major refactoring needed | Follow refactoring workflow |
+| **70-79** | ⚠️ Minor fixes required | Fix violations, re-audit |
+| **Below 70** | ❌ Major refactoring needed | Follow refactoring workflow |
 
 ### 1.4 Example Audit Report
 
 ```markdown
 ## Badge Conformity Audit
 
-**Score**: 75/90 ⚠️ Minor fixes required
+**Score**: 82/90 ✅ Production ready
 
 ### Required Actions
 

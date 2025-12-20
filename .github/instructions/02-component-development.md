@@ -112,6 +112,8 @@ source/patterns/{level}/{component}/
 
 ### Step 5: Implement Twig Template
 
+**⚠️ CRITICAL - Drupal Baseline**: Before writing ANY Twig, consult **03-technical-implementation.md** (Section 2.1) for mandatory Drupal starterkit template integration. Always start from Drupal core templates as baseline.
+
 **Header comment with params**:
 
 ```twig

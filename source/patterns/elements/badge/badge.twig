@@ -21,8 +21,9 @@
   pill ? 'ps-badge--pill' : null
 ] -%}
 
-<{{ tag }} class="{{ badge_classes|join(' ')|trim }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(badge_classes) -%}
+
+<{{ tag }}{{ attr }}
   {%- if url %} href="{{ url }}"{% endif -%}
   {%- if icon %} data-icon="{{ icon }}"{% endif -%}
   {%- if icon and iconPosition != 'start' %} data-icon-position="{{ iconPosition }}"{% endif -%}>
