@@ -6,6 +6,30 @@ import languageSelectorTemplate from './language-selector.twig';
  * MANDATORY: tags: ['autodocs'] for automated documentation generation
  */
 
+// Styles for size showcase
+const showCaseStyles = `
+  <style>
+    .ps-all-sizes-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 24px;
+      background: #f5f5f5;
+    }
+    .ps-all-sizes-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ps-all-sizes-label {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+`;
+
 export default {
   title: 'Components/Language Selector',
   tags: ['autodocs'],
@@ -47,7 +71,6 @@ export default {
         defaultValue: { summary: 'sm' },
       },
     },
-    // variant removed: neutral-only
 
     // === STATE ===
     disabled: {
@@ -113,13 +136,12 @@ export const Default = {
 };
 
 /**
- * Sizes Showcase - All 6 standardized sizes
+ * All Sizes Showcase
  */
 export const AllSizes = {
   render: () => {
     const baseArgs = {
       name: 'lang',
-      // neutral-only
       disabled: false,
       current: {
         code: 'GB',
@@ -133,27 +155,20 @@ export const AllSizes = {
       ],
     };
 
-    const sizes = ['sm', 'md', 'lg'];
-    const sizeLabels = {
-      sm: 'Small (36px - Default)',
-      md: 'Medium (40px)',
-      lg: 'Large (48px)',
-    };
-
     return `
-      <div style="display: flex; flex-direction: column; gap: 24px; padding: 24px; background: #f5f5f5;">
-        ${sizes
-          .map(
-            (size) => `
-          <div>
-            <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #333;">
-              ${sizeLabels[size]}
-            </p>
-            ${languageSelectorTemplate({ ...baseArgs, size })}
-          </div>
-        `
-          )
-          .join('')}
+      <div class="ps-all-sizes-showcase">
+        <div class="ps-all-sizes-item">
+          <p class="ps-all-sizes-label">Small (36px - Default)</p>
+          ${languageSelectorTemplate({ ...baseArgs, size: 'sm' })}
+        </div>
+        <div class="ps-all-sizes-item">
+          <p class="ps-all-sizes-label">Medium (40px)</p>
+          ${languageSelectorTemplate({ ...baseArgs, size: 'md' })}
+        </div>
+        <div class="ps-all-sizes-item">
+          <p class="ps-all-sizes-label">Large (48px)</p>
+          ${languageSelectorTemplate({ ...baseArgs, size: 'lg' })}
+        </div>
       </div>
     `;
   },

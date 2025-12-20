@@ -51,9 +51,6 @@
   --ps-language-selector-selected-bg: var(--gray-100);
   --ps-language-selector-disabled-opacity: 0.5;
 
-  /* Visual */
-  --ps-language-selector-border-radius: 0; /* Square corners per Figma */
-
   /* Focus (WCAG 2.2 AA required) */
   --ps-language-selector-focus-outline-width: var(--border-size-2); /* 2px */
   --ps-language-selector-focus-outline-color: var(--secondary);
@@ -117,7 +114,6 @@
     background: var(--ps-language-selector-bg);
     color: var(--ps-language-selector-color);
     border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
-    border-radius: var(--ps-language-selector-border-radius);
 
     /* Transition */
     transition-property: background-color, border-color, transform;
@@ -182,7 +178,6 @@
     /* Visual */
     background: var(--ps-language-selector-bg);
     border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
-    border-radius: var(--ps-language-selector-border-radius);
     box-shadow: var(--ps-language-selector-dropdown-shadow);
 
     /* Reset list */

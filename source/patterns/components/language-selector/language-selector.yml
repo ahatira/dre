@@ -28,15 +28,6 @@ props:
         - 'md'
         - 'lg'
 
-    variant:
-      type: string
-      title: Variant
-      enum: ['default']
-      default: 'default'
-      description: 'Neutral-only; color variants are not used in this component.'
-      examples:
-        - 'default'
-
     disabled:
       type: boolean
       title: Disabled
