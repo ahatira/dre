@@ -24,23 +24,17 @@
   padding: 0;
   font-family: var(--ps-definition-list-font-family);
 
-  /* Item container (wraps dt + dd) */
-  &__item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ps-definition-list-term-definition-gap);
-    margin-bottom: var(--ps-definition-list-item-gap);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
   /* Term (dt) */
   &__term {
     font-size: var(--ps-definition-list-term-font-size);
     font-weight: var(--ps-definition-list-term-font-weight);
     color: var(--ps-definition-list-term-color);
+    margin-bottom: var(--ps-definition-list-term-definition-gap);
+
+    /* Spacing between term/definition pairs */
+    &:not(:first-of-type) {
+      margin-top: var(--ps-definition-list-item-gap);
+    }
   }
 
   /* Definition (dd) */
@@ -53,25 +47,38 @@
 
   /* Inline variant - term and definition on same line */
   &--inline {
-    & .ps-definition-list__item {
-      flex-direction: row;
-      align-items: baseline;
-      gap: var(--size-3);
-    }
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--size-3);
 
     & .ps-definition-list__term {
       flex-shrink: 0;
       min-width: 120px;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      &::after {
+        content: ':';
+        margin-left: 0.25em;
+      }
     }
 
     & .ps-definition-list__definition {
       flex: 1;
+      min-width: 200px;
+      margin-bottom: var(--ps-definition-list-item-gap);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
 
   /* Grid variant - 2-column layout for larger screens */
   &--grid {
     display: grid;
+    grid-template-columns: 1fr;
     gap: var(--ps-definition-list-item-gap);
 
     @media (min-width: 640px) {
@@ -79,8 +86,13 @@
       gap: var(--size-6);
     }
 
-    & .ps-definition-list__item {
-      margin-bottom: 0;
+    & .ps-definition-list__term {
+      margin-top: 0;
+      padding-bottom: var(--ps-definition-list-item-gap);
+      border-bottom: var(--ps-definition-list-border-width) solid var(--ps-definition-list-border-color);
+    }
+
+    & .ps-definition-list__definition {
       padding-bottom: var(--ps-definition-list-item-gap);
       border-bottom: var(--ps-definition-list-border-width) solid var(--ps-definition-list-border-color);
     }

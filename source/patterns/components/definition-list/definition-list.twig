@@ -13,15 +13,13 @@
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 
 {%- set dl_classes = ['ps-definition-list'] -%}
-{%- if variant -%}
+{%- if variant != 'default' -%}
   {%- set dl_classes = dl_classes|merge(['ps-definition-list--' ~ variant]) -%}
 {%- endif -%}
 
-<dl{{ attributes.addClass(dl_classes)|without('class') }}>
+<dl{{ attributes.addClass(dl_classes) }}>
   {% for item in items -%}
-    <div class="ps-definition-list__item">
-      <dt class="ps-definition-list__term">{{ item.term }}</dt>
-      <dd class="ps-definition-list__definition">{{ item.definition|raw }}</dd>
-    </div>
+    <dt class="ps-definition-list__term">{{ item.term }}</dt>
+    <dd class="ps-definition-list__definition">{{ item.definition|raw }}</dd>
   {%- endfor %}
 </dl>
