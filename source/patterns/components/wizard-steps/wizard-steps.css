@@ -25,17 +25,17 @@
   --ps-wizard-connector-color-completed: var(--success);
   
   /* Colors - Marker (pending state) */
-  --ps-wizard-marker-border-color: var(--gray-300);
+  --ps-wizard-marker-border-color: var(--gray-400);
   --ps-wizard-marker-border-width: var(--border-2);
-  --ps-wizard-marker-bg: var(--gray-100);
-  --ps-wizard-marker-text: var(--gray-600);
-  --ps-wizard-marker-shadow: var(--shadow-1);
+  --ps-wizard-marker-bg: var(--gray-50);
+  --ps-wizard-marker-text: var(--gray-500);
+  --ps-wizard-marker-shadow: none;
   --ps-wizard-marker-scale: 1;
   
   /* Label (pending state) */
   --ps-wizard-label-color: var(--text-secondary);
   --ps-wizard-label-weight: var(--font-weight-normal);
-  --ps-wizard-label-size: var(--font-size-2);
+  --ps-wizard-label-size: var(--font-size-1);
   
   /* ============================================
      BASE STYLES
@@ -111,6 +111,7 @@
     .ps-wizard-steps__label {
       text-align: left;
       max-width: none;
+      padding: 0;
       padding-top: var(--size-1);
     }
   }
@@ -124,11 +125,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--size-4);
+  gap: var(--size-3);
   position: relative;
   cursor: default;
   flex: 1;
-  padding: 0 var(--size-4);
+  padding: 0 var(--size-2);
   min-width: 0;
   
   /* ============================================
@@ -147,7 +148,7 @@
     --ps-wizard-marker-scale: 1.15;
     --ps-wizard-label-color: var(--text-primary);
     --ps-wizard-label-weight: var(--font-weight-semibold);
-    --ps-wizard-label-size: var(--font-size-2);
+    --ps-wizard-label-size: var(--font-size-1);
   }
   
   /* Completed state */
@@ -217,10 +218,11 @@
   font-weight: var(--ps-wizard-label-weight);
   text-align: center;
   width: 100%;
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-tight);
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  padding: 0 var(--size-1);
   transition:
     color var(--duration-normal) var(--ease-out-quad),
     font-weight var(--duration-normal) var(--ease-out-quad),
