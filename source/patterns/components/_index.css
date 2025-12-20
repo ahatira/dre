@@ -2,6 +2,8 @@
 @import './alert/alert.css';
 @import './breadcrumb/breadcrumb.css';
 @import './card/card.css';
+@import './card-agent/card-agent.css';
+@import './card-agent-visit/card-agent-visit.css';
 @import './carousel/carousel.css';
 @import './checkboxes/checkboxes.css';
 @import './dropdown/dropdown.css';

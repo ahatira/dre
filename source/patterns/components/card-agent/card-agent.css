@@ -2,6 +2,7 @@
 
 /* Tokens on root */
 .ps-card-agent {
+  --ps-card-agent-background: var(--gray-50);
   --ps-card-agent-gap: var(--size-4);
   --ps-card-agent-photo-size: var(--size-12);
   --ps-card-agent-label-size: var(--font-size-2);
@@ -15,6 +16,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--ps-card-agent-gap);
+  background-color: var(--ps-card-agent-background);
 }
 
 .ps-card-agent {
