@@ -42,16 +42,24 @@
   {%- set tab_classes = tab_classes|merge(['is-disabled']) -%}
 {%- endif -%}
 
-<button
-  {{ attributes.addClass(tab_classes)|without('class') }}
-  {% if id %}id="{{ id }}"{% endif %}
-  role="tab"
-  aria-selected="{{ active ? 'true' : 'false' }}"
-  tabindex="{{ active ? '0' : '-1' }}"
-  {% if panel_id %}aria-controls="{{ panel_id }}"{% endif %}
-  {% if disabled %}disabled aria-disabled="true"{% endif %}
-  data-tab
->
+{# Build complete attribute object #}
+{%- set attr = attributes.addClass(tab_classes) -%}
+{%- if id -%}
+  {%- set attr = attr.setAttribute('id', id) -%}
+{%- endif -%}
+{%- set attr = attr.setAttribute('role', 'tab') -%}
+{%- set attr = attr.setAttribute('aria-selected', active ? 'true' : 'false') -%}
+{%- set attr = attr.setAttribute('tabindex', active ? '0' : '-1') -%}
+{%- if panel_id -%}
+  {%- set attr = attr.setAttribute('aria-controls', panel_id) -%}
+{%- endif -%}
+{%- if disabled -%}
+  {%- set attr = attr.setAttribute('disabled', 'disabled') -%}
+  {%- set attr = attr.setAttribute('aria-disabled', 'true') -%}
+{%- endif -%}
+{%- set attr = attr.setAttribute('data-tab', '') -%}
+
+<button{{ attr }}>
   {%- if icon -%}
     <span class="ps-tab__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
   {%- endif -%}

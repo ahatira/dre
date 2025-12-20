@@ -65,7 +65,21 @@
   {%- set root_classes = root_classes|merge(['ps-tabs--with-icon']) -%}
 {%- endif -%}
 
-<div{{ attributes.addClass(root_classes)|without('class') }} data-tabs data-variant="{{ variant }}"{% if pill %} data-pill="true"{% endif %}{% if vertical %} data-orientation="vertical"{% endif %}{% if not auto %} data-activation="manual"{% endif %}>
+{# Build complete attribute object #}
+{%- set attr = attributes.addClass(root_classes) -%}
+{%- set attr = attr.setAttribute('data-tabs', '') -%}
+{%- set attr = attr.setAttribute('data-variant', variant) -%}
+{%- if pill -%}
+  {%- set attr = attr.setAttribute('data-pill', 'true') -%}
+{%- endif -%}
+{%- if vertical -%}
+  {%- set attr = attr.setAttribute('data-orientation', 'vertical') -%}
+{%- endif -%}
+{%- if not auto -%}
+  {%- set attr = attr.setAttribute('data-activation', 'manual') -%}
+{%- endif -%}
+
+<div{{ attr }}>
   <div class="ps-tabs__list" role="tablist" aria-label="{{ label }}">
     {%- for tab in tabs -%}
       {%- set tab_id = tab.id is defined and tab.id ? tab.id : 'tab-' ~ loop.index -%}
