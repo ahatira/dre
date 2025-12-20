@@ -1,2 +1,15 @@
-# Default props for radios
+# Default props for radios (Real Estate context)
+# Default layout: vertical column (best for long lists)
+
 class: "form-radios"
+
+# Available modifiers (combine with class):
+# - form-radios--inline (horizontal row, wraps on small screens)
+# - form-radios--compact (reduced spacing for dense forms)
+# - form-radios--grid-2 (2 columns, responsive)
+# - form-radios--grid-3 (3 columns, responsive)
+# - form-radios--grid-4 (4 columns, responsive)
+#
+# Combined examples:
+# - "form-radios--grid-2--compact" (2-column grid with tight spacing)
+# - "form-radios--inline--compact" (horizontal with tight spacing)

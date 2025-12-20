@@ -1,10 +1,197 @@
 /**
  * Radios (Molecule)
  * Drupal radios group wrapper
+ *
+ * This component wraps multiple radio inputs in a flex column layout.
+ * Individual radio styling is handled by the Radio atom.
+ *
+ * BEM Structure:
+ * - Block: .form-radios (Drupal native class)
+ * - Modifiers: --inline, --compact, --grid-2, --grid-3, --grid-4
+ *
+ * Use Cases (Real Estate context):
+ * - Default (column): Long lists (property features, amenities)
+ * - Inline: Binary choices (Furnished: Yes/No, Parking included)
+ * - Grid-2/3: Medium lists (property types, neighborhoods)
+ * - Compact: Dense forms (search filters sidebar)
+ *
+ * Conformity:
+ * - Uses modern CSS nesting syntax
+ * - All spacing uses design tokens
+ * - Responsive with mobile-first approach
  */
 
 .form-radios {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     ============================================ */
+  --form-radios-gap: var(--size-3); /* 12px - default spacing */
+  --form-radios-gap-compact: var(--size-2); /* 8px - compact variant */
+  --form-radios-gap-inline: var(--size-4); /* 16px - inline variant */
+
+  /* ============================================
+     Base Layout (Column - Default)
+     ============================================ */
   display: flex;
   flex-direction: column;
-  gap: var(--size-3);
+  gap: var(--form-radios-gap);
+
+  /* Reset unwanted margins */
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ============================================
+     Modifier: Inline Layout
+     For binary choices or short option lists
+     Example: "Furnished: Yes / No"
+     ============================================ */
+  &--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--form-radios-gap-inline);
+
+    /* Stack on small screens for better touch targets */
+    @media not all and (--mobile) {
+      flex-direction: column;
+      gap: var(--form-radios-gap);
+    }
+  }
+
+  /* ============================================
+     Modifier: Compact Spacing
+     For dense forms (search filters sidebar)
+     ============================================ */
+  &--compact {
+    gap: var(--form-radios-gap-compact);
+  }
+
+  /* ============================================
+     Modifier: Grid 2 Columns
+     For medium-length lists (6-12 options)
+     Example: Property types (Apartment, House, Loft, etc.)
+     ============================================ */
+  &--grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--form-radios-gap);
+
+    /* Single column on small screens */
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================
+     Modifier: Grid 3 Columns
+     For longer lists (12-20 options)
+     Example: Neighborhoods, Amenities
+     ============================================ */
+  &--grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--form-radios-gap);
+
+    /* 2 columns on medium screens */
+    @media not all and (--laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Single column on small screens */
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================
+     Modifier: Grid 4 Columns
+     For very long lists (20+ options)
+     Example: All cities, All property features
+     ============================================ */
+  &--grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--form-radios-gap);
+
+    /* 3 columns on large screens */
+    @media not all and (--desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* 2 columns on medium screens */
+    @media not all and (--laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Single column on small screens */
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================
+     Combined Modifiers Support
+     Classes like "form-radios--grid-2--compact" need explicit rules
+     ============================================ */
+  
+  /* Grid 2 + Compact */
+  &--grid-2--compact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--form-radios-gap-compact);
+
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Grid 3 + Compact */
+  &--grid-3--compact {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--form-radios-gap-compact);
+
+    @media not all and (--laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Grid 4 + Compact */
+  &--grid-4--compact {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--form-radios-gap-compact);
+
+    @media not all and (--desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media not all and (--laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media not all and (--mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Inline + Compact */
+  &--inline--compact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--form-radios-gap-compact);
+
+    @media not all and (--mobile) {
+      flex-direction: column;
+      gap: var(--form-radios-gap-compact);
+    }
+  }
 }
