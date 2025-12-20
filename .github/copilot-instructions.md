@@ -6,11 +6,22 @@
 ---
 
 ## 📚 Documentation Structure
+- **01 Core Principles** → `instructions/01-core-principles.md` - Foundations (Atomic Design, BEM, tokens, terminology, accessibility)
 - **02 Component Development** → `instructions/02-component-development.md` - Complete workflow (11 steps, Token-First cascade, real example)
 - **03 Technical Implementation** → `instructions/03-technical-implementation.md` - Code standards (CSS, Twig/YAML, Storybook, JavaScript, Accessibility)
 - **04 Quality Assurance** → `instructions/04-quality-assurance.md` - Validation (90-point audit, troubleshooting, flowcharts, testing)
+- **05 Maintenance** → `instructions/05-maintenance.md` - Governance (token proposals, deprecations, migrations, standard evolution)
 - **06 Drupal Integration** → `instructions/06-drupal-integration.md` - Drupal-specific patterns (preprocess, render arrays, Form API, cache, respecting Atomic Design)
 - **README** → `instructions/README.md` - Navigation hub (quick scenarios, learning path)
+
+### Quick Links
+- [instructions/01-core-principles.md](.github/instructions/01-core-principles.md)
+- [instructions/02-component-development.md](.github/instructions/02-component-development.md)
+- [instructions/03-technical-implementation.md](.github/instructions/03-technical-implementation.md)
+- [instructions/04-quality-assurance.md](.github/instructions/04-quality-assurance.md)
+- [instructions/05-maintenance.md](.github/instructions/05-maintenance.md)
+- [instructions/06-drupal-integration.md](.github/instructions/06-drupal-integration.md)
+- [instructions/README.md](.github/instructions/README.md)
 
 **Navigation rapide** : Consultez d'abord `instructions/README.md` pour identifier le fichier adapté à votre tâche.
 
