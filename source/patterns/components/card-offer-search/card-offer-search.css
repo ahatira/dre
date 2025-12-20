@@ -17,7 +17,9 @@
 .ps-card-offer-search {
   /* Border overrides (Token-First): lighter 1px outline */
   --ps-card-border-width: var(--border-size-1);
-  --ps-card-border-color: var(--border-light);
+    /* Note: #EBEDEF = var(--gray-100) = --border-light.
+      Pour un ton légèrement plus foncé, on utilise --border-default (var(--gray-200)). */
+    --ps-card-border-color: var(--border-default);
   /* Layout - Responsive breakpoint */
   --ps-card-offer-search-breakpoint: 48rem; /* 768px using rem */
   --ps-card-horizontal-image-width: 33.6%;
