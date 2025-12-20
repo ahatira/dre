@@ -10,15 +10,17 @@
  * <button data-ps-tooltip data-ps-tooltip-content="Click me" data-ps-tooltip-icon="true">CTA</button>
  */
 
-((Drupal, once) => {
+(function (Drupal, once) {
+  'use strict';
+
   /**
    * Tooltip Behavior
    */
   Drupal.behaviors.psTooltip = {
-    attach: (context) => {
+    attach: function (context) {
       const triggers = once('ps-tooltip', '[data-ps-tooltip]', context);
 
-      triggers.forEach((trigger) => {
+      triggers.forEach(function (trigger) {
         const content = trigger.dataset.psTooltipContent;
         const position = trigger.dataset.psTooltipPosition || 'top';
         const iconAttr = trigger.dataset.psTooltipIcon;
@@ -48,7 +50,7 @@
          */
         function createBubble() {
           bubble = document.createElement('div');
-          bubble.className = `ps-tooltip-bubble ps-tooltip-bubble--${position}`;
+          bubble.className = 'ps-tooltip-bubble ps-tooltip-bubble--' + position;
           bubble.textContent = content;
           bubble.setAttribute('role', 'tooltip');
           document.body.appendChild(bubble);
@@ -56,6 +58,8 @@
 
         /**
          * Position tooltip relative to trigger
+         * 
+         * @param {void}
          */
         function positionBubble() {
           if (!bubble) {
@@ -94,17 +98,17 @@
               break;
           }
 
-          bubble.style.top = `${top}px`;
-          bubble.style.left = `${left}px`;
+          bubble.style.top = top + 'px';
+          bubble.style.left = left + 'px';
         }
 
         /**
-         * Show tooltip
+         * Show tooltip with delay
          */
         function show() {
           clearTimeout(hideTimeout);
 
-          showTimeout = setTimeout(() => {
+          showTimeout = setTimeout(function () {
             if (!bubble) {
               createBubble();
               positionBubble();
@@ -121,18 +125,18 @@
         }
 
         /**
-         * Hide tooltip
+         * Hide tooltip with cleanup
          */
         function hide() {
           clearTimeout(showTimeout);
 
-          hideTimeout = setTimeout(() => {
+          hideTimeout = setTimeout(function () {
             if (bubble) {
               bubble.classList.remove('is-visible');
 
               // Remove from DOM after transition
-              setTimeout(() => {
-                if (bubble?.parentNode) {
+              setTimeout(function () {
+                if (bubble && bubble.parentNode) {
                   bubble.parentNode.removeChild(bubble);
                   bubble = null;
                 }
@@ -151,11 +155,11 @@
         trigger.addEventListener('blur', hide);
 
         // Cleanup on detach
-        trigger.addEventListener('DOMNodeRemoved', () => {
-          if (bubble?.parentNode) {
+        trigger.addEventListener('DOMNodeRemoved', function () {
+          if (bubble && bubble.parentNode) {
             bubble.parentNode.removeChild(bubble);
           }
-          if (injectedIcon?.parentNode) {
+          if (injectedIcon && injectedIcon.parentNode) {
             injectedIcon.parentNode.removeChild(injectedIcon);
           }
         });

@@ -1,24 +1,28 @@
 {#
 /**
- * @file
- * Tooltip System (Utility-based)
- *
+ * Tooltip (Component/Molecule)
+ * 
  * Pure JavaScript tooltip system - apply data-attributes to ANY existing element.
  * No wrapper needed - JavaScript auto-injects icon and generates bubble.
- *
+ * 
+ * @package Surface
+ * @category Components
+ * @version 1.0.0
+ * @since 2024-12-20
+ * 
  * USAGE IN REAL CODE:
  * <span data-ps-tooltip data-ps-tooltip-content="Help text">Label</span>
  * <h3 data-ps-tooltip data-ps-tooltip-content="Info" data-ps-tooltip-icon="true">Title</h3>
- *
+ * 
  * This template is ONLY for Storybook documentation demos.
- *
+ * 
  * @param {string} text - Tooltip content
  * @param {string} [position='top'] - Position: top|bottom|left|right
  * @param {string} [content] - Element text content
  * @param {string} [element='span'] - HTML element type
  * @param {boolean} [show_icon=false] - Auto-inject icon
  * @param {string} [icon='info'] - Icon name if show_icon=true
- * @param {object} [attributes] - Additional HTML attributes
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration
  */
 #}
 
@@ -28,12 +32,14 @@
 {% set icon = icon|default('info') %}
 {% set content = content|default('Hover me') %}
 
+{%- set attr = (attributes ? attributes : create_attribute()) -%}
+
 <{{ element }}
   data-ps-tooltip
   data-ps-tooltip-content="{{ text }}"
   data-ps-tooltip-position="{{ position }}"
   {%- if show_icon %} data-ps-tooltip-icon="{{ icon }}"{% endif -%}
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
+  {{ attr }}
 >
   {{ content }}
 </{{ element }}>
