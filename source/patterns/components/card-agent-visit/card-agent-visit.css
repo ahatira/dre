@@ -5,7 +5,7 @@
   --ps-card-agent-visit-padding: var(--size-7);
   --ps-card-agent-visit-gap: var(--size-5);
   --ps-card-agent-visit-title-color: var(--text-primary);
-  --ps-card-agent-visit-title-size: var(--font-size-8);
+  --ps-card-agent-visit-title-size: var(--font-size-5);
   --ps-card-agent-visit-title-weight: var(--font-weight-800);
   --ps-card-agent-visit-title-line-height: var(--leading-tight);
   --ps-card-agent-visit-cta-gap: var(--size-3);
@@ -16,29 +16,32 @@
   gap: var(--ps-card-agent-visit-gap);
   padding: var(--ps-card-agent-visit-padding);
   background-color: var(--ps-card-agent-visit-background);
-}
 
-.ps-card-agent-visit {
+  /* ============================================
+     BEM Elements & Modifiers
+     ============================================ */
+
   &__title {
+    /* Direct styling - Heading atom doesn't expose Layer 2 tokens */
     color: var(--ps-card-agent-visit-title-color);
     font-size: var(--ps-card-agent-visit-title-size);
     font-weight: var(--ps-card-agent-visit-title-weight);
     line-height: var(--ps-card-agent-visit-title-line-height);
     margin: 0;
-    text-align: center;
+    text-align: left;
+    align-self: flex-start;
   }
 
   &__cta {
-    /* Override Button atom via Layer 2 tokens */
+    /* Override Button atom via Layer 2 tokens (Token-First STEP 3) */
     --ps-button-bg: transparent;
     --ps-button-color: var(--primary);
     --ps-button-border-color: var(--primary);
     --ps-button-border-width: var(--border-size-2);
-    --ps-button-border-style: solid;
     --ps-button-hover-bg: var(--primary-bg-subtle, var(--primary-subtle, var(--primary)));
     --ps-button-hover-color: var(--primary);
     --ps-button-hover-border-color: var(--primary);
-    --ps-button-icon-gap: var(--ps-card-agent-visit-cta-gap);
+    --ps-button-gap: var(--ps-card-agent-visit-cta-gap); /* Correct token name */
     width: 100%;
   }
 

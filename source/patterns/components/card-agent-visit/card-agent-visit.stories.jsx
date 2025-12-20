@@ -18,7 +18,10 @@ export default {
     title: { control: 'text', table: { category: 'Content', type: { summary: 'string' } } },
     'cta.text': { control: 'text', table: { category: 'CTA', type: { summary: 'string' } } },
     'cta.url': { control: 'text', table: { category: 'CTA', type: { summary: 'string' } } },
-    'cta.ariaLabel': { control: 'text', table: { category: 'Accessibility', type: { summary: 'string' } } },
+    'cta.ariaLabel': {
+      control: 'text',
+      table: { category: 'Accessibility', type: { summary: 'string' } },
+    },
   },
 };
 
