@@ -22,8 +22,8 @@
   --ps-badge-gap: 0.25em;
   
   /* Typography (relative em units) */
-  --ps-badge-font-size: 0.75em;
-  --ps-badge-font-weight: var(--font-weight-700);
+  --ps-badge-font-size: inherits;
+  --ps-badge-font-weight: var(--font-weight-400);
   --ps-badge-line-height: 1;
   
   /* Colors (Layer 1 tokens - semantic - neutral by default) */
