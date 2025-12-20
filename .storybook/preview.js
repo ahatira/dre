@@ -36,6 +36,7 @@ import '../source/patterns/components/carousel/carousel.js';
 import '../source/patterns/components/dropdown/dropdown.js';
 import '../source/patterns/components/language-selector/language-selector.js';
 import '../source/patterns/components/read-more/read-more.js';
+import '../source/patterns/components/search-form/search-form.js';
 import '../source/patterns/components/table/table.js';
 import '../source/patterns/components/toast/toast.js';
 import '../source/patterns/components/video/video.js';

@@ -40,7 +40,15 @@ export default {
  * Hidden state (default - toggled by search button in header)
  */
 export const Hidden = {
-  render: (args) => searchForm(args),
+  render: (args) => `
+    <div style="padding: var(--size-6); background: var(--gray-100);">
+      <button class="ps-search-trigger" style="padding: var(--size-3) var(--size-6); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-weight: var(--font-weight-600);">
+        <span style="margin-right: var(--size-2);">🔍</span>
+        Open Search Form
+      </button>
+    </div>
+    ${searchForm(args)}
+  `,
   args: {
     ...data,
     show: false,
