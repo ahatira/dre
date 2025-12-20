@@ -54,7 +54,7 @@ nav_items:
   - label: 'Latest News'
     href: '/news'
 
-# Zone Bottom-Right: Header actions (Visual variations via classes)
+# Zone Bottom-Right: Navigation actions (Visual variations via classes)
 actions:
   - title: 'What are you looking for?'
     url: '#'
