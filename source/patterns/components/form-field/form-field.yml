@@ -6,6 +6,7 @@ id: "field"
 value: ""
 placeholder: "Value"
 required: false
+optional: false
 disabled: false
 helper: ""
 error: ""

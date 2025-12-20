@@ -47,7 +47,7 @@
 {%- set _state = error ? 'error' : (state in ['success','warning'] ? state : null) -%}
 
 {# Drupal form-item wrapper (standard for form elements) #}
-<div class="form-item form-group {% if error %}form-item--error{% endif %}"{{ wrapper_attributes |without('class') }}>
+<div{{ wrapper_attributes.addClass(['form-item', 'form-group', error ? 'form-item--error' : null]) }}>
   {# Label - Atom with Optional badge #}
   {%- if label -%}
     <div class="form-label-wrapper">
@@ -57,7 +57,7 @@
         required: required,
         disabled: disabled
       } only %}
-      {%- if not required -%}
+      {%- if optional -%}
         <span class="form-label-badge">Optional</span>
       {%- endif -%}
     </div>
@@ -93,7 +93,6 @@
           error: _state == 'error',
           success: _state == 'success',
           warning: _state == 'warning',
-          wrapper_attributes: create_attribute(),
           attributes: attributes
         } only %}
 
@@ -140,7 +139,6 @@
         error: _state == 'error',
         success: _state == 'success',
         warning: _state == 'warning',
-        wrapper_attributes: create_attribute(),
         attributes: attributes
       } only %}
 

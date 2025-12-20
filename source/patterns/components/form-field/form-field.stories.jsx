@@ -51,7 +51,7 @@ export default {
     rows: {
       control: 'number',
       table: { category: 'Appearance' },
-      description: 'Rows for textarea type.',
+      description: 'Rows for textarea type only.',
     },
   },
 };
