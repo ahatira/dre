@@ -1,11 +1,11 @@
 {#
 /**
- * Consultant Card (Component/Molecule)
- * Advisor profile with avatar, name, phone, CTA.
+ * Card Agent (Component/Molecule)
+ * Agent profile with avatar, name, phone, CTA.
  *
  * Props:
  * - string name (required)
- * - string title (e.g., 'Your consultant :')
+ * - string title (e.g., 'Votre agent :')
  * - object avatar { url: string, alt: string }
  * - string phone (formatted string)
  * - object cta { text: string, url: string }
@@ -15,48 +15,48 @@
  */
 #}
 
-{%- set name = name|default('Nom du consultant') -%}
-{%- set title = title|default('Votre consultant :') -%}
+{%- set name = name|default('Nom de l’agent') -%}
+{%- set title = title|default('Votre agent :') -%}
 {%- set avatar = avatar|default(null) -%}
 {%- set phone = phone|default(null) -%}
-{%- set cta = cta|default({ text: 'Contacter le consultant', url: '#' }) -%}
+{%- set cta = cta|default({ text: 'Contacter l’agent', url: '#' }) -%}
 {%- set attributes = (attributes ? attributes : create_attribute()) -%}
 
 {%- set attr = attributes
-  .addClass('ps-consultant-card')
+  .addClass('ps-card-agent')
 -%}
 
 <div{{ attr }}>
-  <div class="ps-consultant-card__info">
+  <div class="ps-card-agent__info">
     {% if avatar and avatar.url %}
       {% include '@elements/avatar/avatar.twig' with {
         src: avatar.url,
         alt: avatar.alt|default(''),
         size: 'large',
-        attributes: create_attribute().addClass('ps-consultant-card__photo')
+        attributes: create_attribute().addClass('ps-card-agent__photo')
       } only %}
     {% endif %}
 
-    <div class="ps-consultant-card__text">
+    <div class="ps-card-agent__text">
       {% include '@elements/text/text.twig' with {
         tag: 'span',
         text: title,
-        attributes: create_attribute().addClass('ps-consultant-card__label')
+        attributes: create_attribute().addClass('ps-card-agent__label')
       } only %}
 
       {% include '@elements/heading/heading.twig' with {
         level: 'h3',
         text: name,
-        attributes: create_attribute().addClass('ps-consultant-card__name')
+        attributes: create_attribute().addClass('ps-card-agent__name')
       } only %}
 
       {% if phone %}
-        <div class="ps-consultant-card__phone">
-          <span class="ps-consultant-card__phone-icon" data-icon="phone" aria-hidden="true"></span>
+        <div class="ps-card-agent__phone">
+          <span class="ps-card-agent__phone-icon" data-icon="phone" aria-hidden="true"></span>
           {% include '@elements/link/link.twig' with {
             label: phone,
             url: 'tel:' ~ phone,
-            attributes: create_attribute().addClass('ps-consultant-card__phone-link')
+            attributes: create_attribute().addClass('ps-card-agent__phone-link')
           } only %}
         </div>
       {% endif %}
@@ -68,7 +68,7 @@
       variant: 'primary',
       label: cta.text,
       url: cta.url,
-      attributes: create_attribute().addClass('ps-consultant-card__cta')
+      attributes: create_attribute().addClass('ps-card-agent__cta')
     } only %}
   {% endif %}
 </div>

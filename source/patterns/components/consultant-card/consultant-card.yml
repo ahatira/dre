@@ -1,9 +1,0 @@
-name: "Sophia Dacosta"
-title: "Votre consultant :"
-avatar:
-  url: "/source/assets/images/1-1.svg"
-  alt: "Portrait du consultant"
-phone: "+32 2 646 49 49"
-cta:
-  text: "Contacter le consultant"
-  url: "#contact-consultancy"

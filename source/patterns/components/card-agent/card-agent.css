@@ -1,27 +1,27 @@
-/* Consultant Card */
+/* Card Agent */
 
 /* Tokens on root */
-.ps-consultant-card {
-  --ps-consultant-gap: var(--size-4);
-  --ps-consultant-photo-size: var(--size-12);
-  --ps-consultant-label-size: var(--font-size-2);
-  --ps-consultant-label-color: var(--text-primary);
-  --ps-consultant-name-color: var(--text-primary);
-  --ps-consultant-name-size: var(--font-size-7);
-  --ps-consultant-name-weight: var(--font-weight-800);
-  --ps-consultant-phone-color: var(--text-secondary);
-  --ps-consultant-phone-icon-size: var(--font-size-6);
+.ps-card-agent {
+  --ps-card-agent-gap: var(--size-4);
+  --ps-card-agent-photo-size: var(--size-12);
+  --ps-card-agent-label-size: var(--font-size-2);
+  --ps-card-agent-label-color: var(--text-primary);
+  --ps-card-agent-name-color: var(--text-primary);
+  --ps-card-agent-name-size: var(--font-size-7);
+  --ps-card-agent-name-weight: var(--font-weight-800);
+  --ps-card-agent-phone-color: var(--text-secondary);
+  --ps-card-agent-phone-icon-size: var(--font-size-6);
 
   display: flex;
   flex-direction: column;
-  gap: var(--ps-consultant-gap);
+  gap: var(--ps-card-agent-gap);
 }
 
-.ps-consultant-card {
+.ps-card-agent {
   &__info {
     display: flex;
     align-items: flex-start;
-    gap: var(--ps-consultant-gap);
+    gap: var(--ps-card-agent-gap);
   }
 
   &__photo {
@@ -38,8 +38,8 @@
 
   &__label {
     /* Styled via text component utility classes */
-    color: var(--ps-consultant-label-color);
-    font-size: var(--ps-consultant-label-size);
+    color: var(--ps-card-agent-label-color);
+    font-size: var(--ps-card-agent-label-size);
     font-weight: var(--font-weight-500);
     display: block;
   }
@@ -47,29 +47,29 @@
   &__name {
     /* Heading h3 */
     margin: 0;
-    color: var(--ps-consultant-name-color);
-    font-size: var(--ps-consultant-name-size);
-    font-weight: var(--ps-consultant-name-weight);
+    color: var(--ps-card-agent-name-color);
+    font-size: var(--ps-card-agent-name-size);
+    font-weight: var(--ps-card-agent-name-weight);
   }
 
   &__phone {
     display: flex;
     align-items: center;
     gap: var(--size-2);
-    color: var(--ps-consultant-phone-color);
+    color: var(--ps-card-agent-phone-color);
   }
 
   &__phone-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--ps-consultant-phone-icon-size);
+    font-size: var(--ps-card-agent-phone-icon-size);
     flex-shrink: 0;
   }
 
   &__phone-link {
     /* Link component - override defaults */
-    color: var(--ps-consultant-phone-color);
+    color: var(--ps-card-agent-phone-color);
     text-decoration: none;
 
     &:hover {

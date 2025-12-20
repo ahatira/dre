@@ -1,0 +1,9 @@
+name: "Sophia Dacosta"
+title: "Votre agent :"
+avatar:
+  url: "/source/assets/images/1-1.svg"
+  alt: "Portrait de l’agent"
+phone: "+32 2 646 49 49"
+cta:
+  text: "Contacter l’agent"
+  url: "#contact-agent"

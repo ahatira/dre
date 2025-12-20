@@ -1,8 +1,8 @@
-import twig from './consultant-card.twig';
-import data from './consultant-card.yml';
+import twig from './card-agent.twig';
+import data from './card-agent.yml';
 
 export default {
-  title: 'Components/Consultant Card',
+  title: 'Components/Card Agent',
   tags: ['autodocs'],
   render: (args) => twig(args),
   args: data,
@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component:
-          'Advisor profile card with avatar, name, phone, and CTA. Token-First, BEM, icons via data-icon.',
+          'Agent profile card with avatar, name, phone, and CTA. Token-First, BEM, icons via data-icon.',
       },
     },
   },
