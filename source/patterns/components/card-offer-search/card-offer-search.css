@@ -16,7 +16,7 @@
    ========================================== */
 .ps-card-offer-search {
   /* Layout - Responsive breakpoint */
-  --ps-card-offer-search-breakpoint: 768px;
+  --ps-card-offer-search-breakpoint: 48rem; /* 768px using rem */
   --ps-card-horizontal-image-width: 33.6%;
   --ps-card-horizontal-content-width: 66.4%;
   
@@ -52,7 +52,7 @@
   --ps-card-offer-search-location-font-weight: var(--font-weight-400);
   --ps-card-offer-search-location-color: var(--text-secondary);
   --ps-card-offer-search-location-gap: var(--size-1);  /* 4px */
-  --ps-card-offer-search-location-icon-color: var(--gray-600);
+  --ps-card-offer-search-location-icon-color: var(--text-secondary);
   --ps-card-offer-search-location-icon-size: var(--font-size-2);
   --ps-card-offer-search-location-margin-bottom: var(--size-2);  /* 8px */
   
@@ -73,7 +73,7 @@
   max-width: var(--ps-card-offer-search-max-width);
   
   /* Desktop: Horizontal layout */
-  @media (min-width: 768px) {
+  @media (--tablet) {
     /* Layout handled by Card via tokens; no overrides needed here */
   }
 
@@ -175,11 +175,11 @@
     flex-wrap: wrap;
     margin-top: auto;
     
-    @media (min-width: 768px) {
+    @media (--tablet) {
       justify-content: var(--ps-card-offer-search-footer-align-desktop);
     }
     
-    @media (max-width: 767px) {
+    @media not all and (--tablet) {
       justify-content: var(--ps-card-offer-search-footer-align-mobile);
       flex-direction: column;
       align-items: flex-start;

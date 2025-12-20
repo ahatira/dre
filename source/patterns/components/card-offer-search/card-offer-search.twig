@@ -1,6 +1,8 @@
 {#
 /**
+ * @file
  * Card Offer Search (Component/Molecule)
+ *
  * Search result card for property listings with horizontal layout (desktop).
  * 
  * Extends Card component with:
@@ -53,7 +55,7 @@
 {%- set images = images|default([]) -%}
 {%- set location = location|default(null) -%}
 {%- set locationIcon = locationIcon|default('pin') -%}
-{%- set cta = cta|default({ text: 'View the property', url: '#' }) -%}
+{%- set cta = cta|default({ text: 'Voir le bien', url: '#' }) -%}
 {%- set isViewed = isViewed|default(false) -%}
 {%- set isExclusive = isExclusive|default(false) -%}
 {%- set isComparator = isComparator|default(false) -%}
@@ -61,24 +63,17 @@
 {%- set bundle = bundle|default('offer') -%}
 {%- set view_mode = view_mode|default('search') -%}
 
+{# Build attributes for Card component #}
+{%- set cardClasses = 'ps-card-offer-search' -%}
+{%- set cardAttributes = (attributes ? attributes : create_attribute()).addClass(cardClasses) -%}
+
 {# Embed Card component for structure reuse #}
 {% embed '@components/card/card.twig' with {
-  attributes: attributes ? attributes.addClass('ps-card-offer-search') : create_attribute().addClass('ps-card-offer-search'),
+  attributes: cardAttributes,
   bundle: bundle,
   view_mode: view_mode,
-  title: title,
-  price: price,
-  priceUnit: priceUnit,
-  surface: surface,
-  images: images,
-  location: location,
-  locationIcon: locationIcon,
-  cta: cta,
-  isViewed: isViewed,
-  isExclusive: isExclusive,
-  isComparator: isComparator,
-  isFavorite: isFavorite,
   layout: 'horizontal',
+  variant: 'outlined',
 } %}
 
   {# Media block - Image carousel using Carousel component #}
@@ -104,7 +99,7 @@
         loop: carouselSlides|length > 1,
         autoHeight: false,
         withPagination: false,
-        ariaLabel: 'Property images',
+        ariaLabel: 'Images du bien',
         attributes: create_attribute().addClass('ps-card-offer-search__carousel')
       } only %}
     {% endif %}
@@ -117,20 +112,20 @@
       <div class="ps-card-offer-search__badges">
         {% if isViewed %}
           {% include '@elements/badge/badge.twig' with {
-            text: 'Already viewed',
+            text: 'Déjà consulté',
             icon: 'eye',
             color: 'light',
             pill: true,
-            class: 'ps-card-offer-search__badge ps-card-offer-search__badge--viewed'
+            attributes: create_attribute().addClass('ps-card-offer-search__badge ps-card-offer-search__badge--viewed')
           } only %}
         {% endif %}
         
         {% if isExclusive %}
           {% include '@elements/badge/badge.twig' with {
-            text: 'Exclusivity',
+            text: 'Exclusivité',
             color: 'gold',
             pill: true,
-            class: 'ps-card-offer-search__badge ps-card-offer-search__badge--exclusive'
+            attributes: create_attribute().addClass('ps-card-offer-search__badge ps-card-offer-search__badge--exclusive')
           } only %}
         {% endif %}
       </div>
@@ -138,27 +133,25 @@
       {# Right section - Action buttons #}
       <div class="ps-card-offer-search__actions">
         {% include '@elements/button/button.twig' with {
-          class: 'ps-card-offer-search__action',
+          attributes: create_attribute().addClass('ps-card-offer-search__action'),
           variant: 'primary',
           size: 'large',
           icon: 'compare',
           toggle: true,
           active: isComparator,
-          attributes: create_attribute()
-            .setAttribute('aria-label', isComparator ? 'Remove from comparator' : 'Add to comparator')
-            .setAttribute('data-action', 'comparator')
+          ariaLabel: isComparator ? 'Retirer du comparateur' : 'Ajouter au comparateur',
+          dataAction: 'comparator'
         } only %}
         
         {% include '@elements/button/button.twig' with {
-          class: 'ps-card-offer-search__action',
+          attributes: create_attribute().addClass('ps-card-offer-search__action'),
           variant: 'secondary',
           size: 'large',
           icon: 'heart',
           toggle: true,
           active: isFavorite,
-          attributes: create_attribute()
-            .setAttribute('aria-label', isFavorite ? 'Remove from favorites' : 'Add to favorites')
-            .setAttribute('data-action', 'favorite')
+          ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris',
+          dataAction: 'favorite'
         } only %}
       </div>
     </div>
@@ -171,7 +164,7 @@
     {% include '@elements/heading/heading.twig' with {
       level: 'h3',
       text: title,
-      class: 'ps-card-offer-search__title'
+      attributes: create_attribute().addClass('ps-card-offer-search__title')
     } only %}
     
     {# Surface area #}
@@ -184,11 +177,7 @@
     {# Location with icon #}
     {% if location %}
       <div class="ps-card-offer-search__location">
-        {% include '@elements/icon/icon.twig' with {
-          icon: locationIcon,
-          class: 'ps-card-offer-search__location-icon',
-          ariaHidden: true
-        } only %}
+        <span class="ps-card-offer-search__location-icon" data-icon="{{ locationIcon }}" aria-hidden="true"></span>
         <span class="ps-card-offer-search__location-text">{{ location }}</span>
       </div>
     {% endif %}

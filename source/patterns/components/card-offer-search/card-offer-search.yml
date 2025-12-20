@@ -10,7 +10,7 @@ images:
 location: '28010 MADRID'
 locationIcon: 'pin'
 cta:
-  text: 'View the property'
+  text: 'Voir le bien'
   url: '/property/madrid-chamberi-123'
 isViewed: true
 isExclusive: true

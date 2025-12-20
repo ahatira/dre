@@ -56,33 +56,34 @@
   {%- set classes = classes|merge(['ps-carousel--lightbox']) -%}
 {%- endif -%}
 
-<section
-  class="swiper {{ classes|join(' ')|trim }}"
-  aria-label="{{ ariaLabel }}"
-  data-carousel
-  {%- if attributes %} {{ attributes|raw }}{% endif -%}
->
+{%- set classes = classes|merge(['swiper']) -%}
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('aria-label', ariaLabel) -%}
+{%- set attr = attr.setAttribute('data-carousel', true) -%}
+
+<section{{ attr }}>
   <div class="swiper-wrapper ps-carousel__track">
     {%- for slide in slides -%}
-      <div
-        class="swiper-slide ps-carousel__slide"
-        role="group"
-        aria-roledescription="slide"
-        aria-label="Slide {{ loop.index }} of {{ slides|length }}"
-      >
-        {%- if slide.image -%}
-          <img
-            class="ps-carousel__image"
-            src="{{ slide.image.src }}"
-            alt="{{ slide.image.alt }}"
-            loading="lazy"
-          />
-        {%- elseif slide.card -%}
-          <div class="ps-carousel__card">
-            {{ slide.card|raw }}
-          </div>
-        {%- endif -%}
+    <div
+      id="{{ slide.id }}"
+      class="swiper-slide ps-carousel__slide"
+      role="group"
+      aria-roledescription="slide"
+      aria-label="Slide {{ loop.index }} of {{ slides|length }}"
+    >
+      {%- if slide.image -%}
+      <img
+        class="ps-carousel__image"
+        src="{{ slide.image.src }}"
+        alt="{{ slide.image.alt }}"
+        loading="lazy"
+      />
+      {%- elseif slide.card -%}
+      <div class="ps-carousel__card">
+        {{ slide.card|raw }}
       </div>
+      {%- endif -%}
+    </div>
     {%- endfor -%}
   </div>
 
@@ -112,23 +113,23 @@
   {%- if toolbar.items|default([])|length > 0 -%}
   <div class="ps-carousel__toolbar" role="tablist" aria-label="Media groups">
     {%- for item in toolbar.items -%}
-      <button
-        class="ps-carousel__toolbar-item"
-        type="button"
-        data-toolbar-item
-        data-slide-index="{{ item.slideIndex }}"
-        data-media-type="{{ item.type }}"
-        role="tab"
-        aria-selected="{{ loop.first ? 'true' : 'false' }}"
-        tabindex="{{ loop.first ? '0' : '-1' }}"
-        aria-label="Go to {{ item.label }}"
-      >
-        <span class="ps-carousel__toolbar-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
-        <span class="ps-carousel__toolbar-label">{{ item.label }}</span>
-      </button>
-      {%- if not loop.last -%}
-        <span class="ps-carousel__toolbar-divider" aria-hidden="true"></span>
-      {%- endif -%}
+    <button
+      class="ps-carousel__toolbar-item"
+      type="button"
+      data-toolbar-item
+      data-slide-index="{{ item.slideIndex }}"
+      data-media-type="{{ item.type }}"
+      role="tab"
+      aria-selected="{{ loop.first ? 'true' : 'false' }}"
+      tabindex="{{ loop.first ? '0' : '-1' }}"
+      aria-label="Go to {{ item.label }}"
+    >
+      <span class="ps-carousel__toolbar-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+      <span class="ps-carousel__toolbar-label">{{ item.label }}</span>
+    </button>
+    {%- if not loop.last -%}
+    <span class="ps-carousel__toolbar-divider" aria-hidden="true"></span>
+    {%- endif -%}
     {%- endfor -%}
   </div>
   {%- endif -%}
