@@ -7,8 +7,6 @@
  * BEM Structure:
  * - Block: .ps-language-selector
  * - Elements: __control, __button, __current, __flag, __label, __icon, __list, __option, __native
- * - Modifiers (size): --sm (default), --md, --lg
- * - Variants: none (neutral-only per rules)
  * - Modifiers (state): --disabled
  *
  * CSS Variables System (3-Layer Architecture):
@@ -258,31 +256,6 @@
       border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
       font: inherit;
     }
-  }
-
-  /* ============================================
-     MODIFIERS - SIZES (Layer 3 Overrides)
-     Standardized: sm (default), md, lg
-     ============================================ */
-
-  &--sm {
-    /* Default - already defined in Layer 2 */
-    /* 4px × 12px, height 36px, font 14px */
-  }
-
-  &--md {
-    --ps-language-selector-padding-y: var(--size-2); /* 8px */
-    --ps-language-selector-padding-x: var(--size-4); /* 16px */
-    --ps-language-selector-height: var(--size-10); /* 40px */
-    --ps-language-selector-font-size: var(--font-size-4); /* 16px */
-  }
-
-  &--lg {
-    --ps-language-selector-padding-y: var(--size-3); /* 12px */
-    --ps-language-selector-padding-x: var(--size-5); /* 20px */
-    --ps-language-selector-height: var(--size-12); /* 48px */
-    --ps-language-selector-font-size: var(--font-size-5); /* 18px */
-    --ps-language-selector-icon-size: var(--size-6); /* 24px */
   }
 
   /* ============================================
