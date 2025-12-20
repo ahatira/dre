@@ -39,6 +39,7 @@ import '../source/patterns/components/read-more/read-more.js';
 import '../source/patterns/components/table/table.js';
 import '../source/patterns/components/toast/toast.js';
 import '../source/patterns/components/video/video.js';
+import '../source/patterns/components/map-widget/map-widget.js';
 
 // Import element behaviors
 import '../source/patterns/elements/button/button.js';
@@ -65,6 +66,90 @@ function setupTwig(twig) {
 
 setupTwig(Twig);
 
+/**
+ * Storybook-only helper to inject external map providers (Leaflet CDN + Google Maps API) to mimic Drupal environment.
+ * - Leaflet: CSS + JS from unpkg (matches versions used in component)
+ * - Google Maps: development load without API key (watermark expected); production should rely on Drupal/library.
+ */
+const memoizedLoad = () => {
+  let leafletPromise;
+  let googlePromise;
+
+  const loadStyle = (id, href) => {
+    if (document.getElementById(id)) {
+      return Promise.resolve();
+    }
+    return new Promise((resolve, reject) => {
+      const link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.onload = resolve;
+      link.onerror = reject;
+      document.head.appendChild(link);
+    });
+  };
+
+  const loadScript = (id, src) => {
+    if (document.getElementById(id)) {
+      return Promise.resolve();
+    }
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.id = id;
+      script.src = src;
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+
+  const loadLeafletCdn = () => {
+    if (leafletPromise) {
+      return leafletPromise;
+    }
+    const css = loadStyle('leaflet-css-cdn', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+    const cssFs = loadStyle(
+      'leaflet-fullscreen-css-cdn',
+      'https://unpkg.com/leaflet.fullscreen@2.4.0/Control.FullScreen.css'
+    );
+    const js = loadScript('leaflet-js-cdn', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+    const jsFs = loadScript(
+      'leaflet-fullscreen-js-cdn',
+      'https://unpkg.com/leaflet.fullscreen@2.4.0/Control.FullScreen.min.js'
+    );
+    leafletPromise = Promise.all([css, cssFs, js, jsFs]).catch((error) => {
+      console.warn('[storybook] Leaflet CDN load failed', error);
+    });
+    return leafletPromise;
+  };
+
+  const loadGoogleMapsDev = () => {
+    if (typeof window !== 'undefined' && window.google && window.google.maps) {
+      return Promise.resolve();
+    }
+    if (googlePromise) {
+      return googlePromise;
+    }
+
+    googlePromise = loadScript(
+      'google-maps-api-dev',
+      'https://maps.googleapis.com/maps/api/js?v=3'
+    ).catch((error) => {
+      console.warn('[storybook] Google Maps API load failed (dev mode)', error);
+    });
+
+    return googlePromise;
+  };
+
+  return {
+    loadProviders: () => Promise.all([loadLeafletCdn(), loadGoogleMapsDev()]),
+  };
+};
+
+const mapProviderLoader = memoizedLoad();
+
 export const decorators = [
   withThemeByDataAttribute({
     themes: {
@@ -76,6 +161,9 @@ export const decorators = [
   }),
   (storyFn, context) => {
     useEffect(() => {
+      // Ensure map providers are available in Storybook (Leaflet + Google Maps dev)
+      mapProviderLoader.loadProviders();
+
       // Re-attach Drupal behaviors after each render (including args changes)
       Drupal.attachBehaviors(document, context);
     });

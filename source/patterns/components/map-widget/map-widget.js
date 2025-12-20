@@ -1,30 +1,24 @@
 /**
- * Map Widget - Leaflet Integration
+ * Map Widget - Provider-agnostic integration (Leaflet | Google Maps)
  *
- * Responsive interactive map with markers, layers (Map/Satellite), zoom controls,
- * and fullscreen capability using Leaflet.js.
- *
- * Features:
- * - Reads data-lat, data-lng, data-zoom from canvas
- * - Parses data-markers JSON for points display
- * - Layer switcher: OpenStreetMap / Satellite
- * - Fullscreen control
- * - Keyboard accessible
- * - Accessible marker popups
+ * - Works in Drupal: uses global providers loaded via libraries.
+ * - Works in Storybook: lazy-imports Leaflet; Google is provided by preview decorator; CSS injected via preview CDN.
+ * - No top-level dependency on global L/Google.
  */
-
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.fullscreen';
-import 'leaflet.fullscreen/dist/Control.FullScreen.css';
 import {
   getGoogleIconOptions,
   getLeafletIconOptions,
   readMapDataset,
 } from '../../base/js/map-utils.js';
 
-((Drupal, once) => {
-  // Fix Leaflet default icon path issue (webpack/vite bundling)
+let leafletLoader;
+let leafletIconFixApplied = false;
+
+const applyLeafletIconFix = (L) => {
+  if (leafletIconFixApplied || !L || !L.Icon || !L.Icon.Default) {
+    return;
+  }
+
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -32,6 +26,36 @@ import {
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
 
+  leafletIconFixApplied = true;
+};
+
+const loadLeaflet = () => {
+  if (leafletLoader) {
+    return leafletLoader;
+  }
+
+  leafletLoader = new Promise((resolve, reject) => {
+    const hasGlobalLeaflet = typeof window !== 'undefined' && window.L;
+
+    if (hasGlobalLeaflet) {
+      applyLeafletIconFix(window.L);
+      resolve(window.L);
+      return;
+    }
+
+    Promise.all([import('leaflet'), import('leaflet.fullscreen')])
+      .then(([leafletModule]) => {
+        const L = leafletModule.default || leafletModule;
+        applyLeafletIconFix(L);
+        resolve(L);
+      })
+      .catch(reject);
+  });
+
+  return leafletLoader;
+};
+
+((Drupal, once) => {
   Drupal.behaviors.psMapWidget = {
     /**
      * Attach map behavior
@@ -55,7 +79,16 @@ import {
       if (provider === 'google') {
         this.initializeGoogleMap(canvas, lat, lng, zoom, markers);
       } else {
-        this.initializeLeafletMap(canvas, lat, lng, zoom, markers);
+        loadLeaflet()
+          .then((L) => this.initializeLeafletMap(L, canvas, lat, lng, zoom, markers))
+          .catch(() => {
+            canvas.innerHTML = `
+              <div class="ps-map-widget__fallback">
+                <p><strong>Carte non disponible</strong></p>
+                <p>Le chargement du module Leaflet a échoué.</p>
+              </div>
+            `;
+          });
       }
     },
 
@@ -63,7 +96,7 @@ import {
      * Initialize Leaflet map
      * @private
      */
-    initializeLeafletMap(canvas, lat, lng, zoom, markers) {
+    initializeLeafletMap(L, canvas, lat, lng, zoom, markers) {
       // Create map instance
       const map = L.map(canvas, {
         center: [lat, lng],
@@ -76,11 +109,11 @@ import {
       });
 
       // Setup base layers
-      this.setupBaseLayers(map);
+      this.setupBaseLayers(L, map);
 
       // Add markers
       if (markers.length > 0) {
-        this.addMarkers(map, markers);
+        this.addMarkers(L, map, markers);
       }
 
       // Store map instance on element for external access
@@ -103,7 +136,7 @@ import {
       // Check if Google Maps API is loaded
       if (typeof google === 'undefined' || !google.maps) {
         canvas.innerHTML = `
-          <div style="padding: var(--size-6); text-align: center; background: var(--gray-100); color: var(--text-secondary);">
+          <div class="ps-map-widget__fallback">
             <p><strong>Google Maps non disponible</strong></p>
             <p>Incluez l'API Google Maps dans votre page :</p>
             <code>&lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"&gt;&lt;/script&gt;</code>
@@ -124,6 +157,8 @@ import {
         zoomControl: true,
       });
 
+      const googleMarkers = [];
+
       // Add markers
       const bounds = new google.maps.LatLngBounds();
       const icon = getGoogleIconOptions(google);
@@ -141,13 +176,15 @@ import {
             icon,
           });
 
+          googleMarkers.push(gMarker);
+
           // Info window
           const infoWindow = new google.maps.InfoWindow({
             content: `
-              <div style="padding: 8px;">
+              <div class="ps-map-widget__popup" role="dialog" aria-label="${label}">
                 <strong>${label}</strong>
-                ${marker.description ? `<p style="margin: 4px 0 0 0;">${marker.description}</p>` : ''}
-                ${marker.distance ? `<p style="margin: 4px 0 0 0; font-size: 12px; color: #666;">${marker.distance}</p>` : ''}
+                ${marker.description ? `<p>${marker.description}</p>` : ''}
+                ${marker.distance ? `<p class="ps-map-widget__popup-distance">${marker.distance}</p>` : ''}
               </div>
             `,
           });
@@ -167,6 +204,7 @@ import {
 
       // Store map instance
       canvas.googleMap = map;
+      canvas.googleMarkers = googleMarkers;
 
       // Dispatch event
       canvas.dispatchEvent(
@@ -181,7 +219,7 @@ import {
      * Setup base layers (OSM + Satellite) with control
      * @private
      */
-    setupBaseLayers(map) {
+    setupBaseLayers(L, map) {
       const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -217,7 +255,7 @@ import {
      * Add markers to map and fit bounds
      * @private
      */
-    addMarkers(map, markers) {
+    addMarkers(L, map, markers) {
       markers.forEach((marker) => {
         const markerLat = parseFloat(marker.lat);
         const markerLng = parseFloat(marker.lng);
@@ -252,6 +290,42 @@ import {
           map.fitBounds(bounds, { padding: [50, 50] });
         }
       }
+    },
+
+    detach(context, _settings, trigger) {
+      if (trigger !== 'unload') {
+        return;
+      }
+
+      once.remove('psMapWidget', '.ps-map-widget__canvas', context).forEach((canvas) => {
+        if (canvas.leafletMap && typeof canvas.leafletMap.remove === 'function') {
+          canvas.leafletMap.remove();
+        }
+
+        if (canvas.googleMarkers && Array.isArray(canvas.googleMarkers)) {
+          canvas.googleMarkers.forEach((marker) => {
+            if (marker && typeof marker.setMap === 'function') {
+              marker.setMap(null);
+            }
+          });
+        }
+
+        if (
+          canvas.googleMap &&
+          typeof google !== 'undefined' &&
+          google.maps &&
+          google.maps.event &&
+          typeof google.maps.event.clearInstanceListeners === 'function'
+        ) {
+          google.maps.event.clearInstanceListeners(canvas.googleMap);
+        }
+
+        delete canvas.leafletMap;
+        delete canvas.googleMap;
+        delete canvas.googleMarkers;
+
+        canvas.innerHTML = '';
+      });
     },
 
     // Icon options now provided by shared utils

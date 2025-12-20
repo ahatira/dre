@@ -24,6 +24,8 @@
   'ps-map-widget--' ~ provider
 ] -%}
 
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
 {%- set map_attributes = {
   'data-lat': map.lat,
   'data-lng': map.lng,
@@ -32,7 +34,7 @@
   'data-markers': markers ? markers|json_encode|e('html_attr') : null
 } -%}
 
-<div {{ attributes|without('class').addClass(classes) }} role="region" aria-label="{{ ariaLabel }}">
+<div{{ attr }} role="region" aria-label="{{ ariaLabel }}">
   <div class="ps-map-widget__canvas"{% for name, value in map_attributes if value is not null %} {{ name }}="{{ value }}"{% endfor %}>
     <noscript class="ps-map-widget__fallback">
       <p>{{ fallback }}</p>

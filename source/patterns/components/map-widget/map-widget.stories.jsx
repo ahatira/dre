@@ -19,7 +19,7 @@ export default {
     docs: {
       description: {
         component:
-          'Minimal structural container for map providers (Leaflet, Google Maps). JavaScript reads data-lat, data-lng, data-zoom, data-markers to render interactive map. Provides noscript fallback for accessibility. Spec: docs/design/pages/property-detail/location.md.',
+          'Minimal structural container for map providers (Leaflet, Google Maps). JavaScript reads data-lat, data-lng, data-zoom, data-markers to render interactive map. CSS for Leaflet/fullscreen comes from Drupal libraries in production and from the Storybook preview decorator (CDN) in docs. Provides noscript fallback for accessibility. Spec: docs/design/pages/property-detail/location.md.',
       },
     },
   },

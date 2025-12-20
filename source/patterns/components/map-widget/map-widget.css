@@ -7,7 +7,7 @@
 
 .ps-map-widget {
   --ps-map-widget-bg: var(--gray-100);
-  --ps-map-widget-min-height: 31.25rem; /* 500px */
+  --ps-map-widget-min-height: var(--ps-dimension-map-widget-height, var(--size-113)); /* Dedicated map height token (proposal) */
 
   position: relative;
   display: block;
@@ -25,7 +25,7 @@
 
   /* Leaflet requires explicit height */
   &:not([style*="height"]) {
-    height: 31.25rem; /* 500px */
+    height: var(--ps-map-widget-min-height);
   }
 }
 
