@@ -1,0 +1,15 @@
+# Figure Component - Default Configuration
+
+# Image properties
+src: '/source/assets/images/16-9.jpg'
+alt: 'Modern glass and steel commercial property with professional architecture'
+width: 1200
+height: 675
+loading: 'lazy'
+decoding: 'auto'
+fit: 'none'
+rounded: 'none'
+
+# Caption
+caption: 'High-end commercial real estate development in premium business district'
+caption_position: 'bottom'

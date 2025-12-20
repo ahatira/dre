@@ -1,0 +1,88 @@
+/**
+ * Figure Component - Structure & Layout
+ *
+ * Semantic figure element for images with captions.
+ * Composes Image atom for responsive, accessible image handling.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
+ */
+
+.ps-figure {
+  /* Base figure container */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+  margin: 0;
+  padding: 0;
+
+  /* Image wrapper for responsive sizing */
+  &__image-wrapper {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Image element - composed Image atom */
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Caption styling */
+  &__caption {
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-3);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+
+    /* Link styling within caption */
+    & a {
+      color: var(--primary);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--primary-hover);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  /* Caption position modifiers */
+  &--caption-top {
+    flex-direction: column;
+
+    .ps-figure__caption--top {
+      order: -1;
+    }
+  }
+
+  &--caption-bottom {
+    flex-direction: column;
+
+    .ps-figure__caption--bottom {
+      order: 1;
+    }
+  }
+}
+
+/* ===============================================
+   Responsive adjustments
+   =============================================== */
+
+@media (max-width: 768px) {
+  .ps-figure {
+    gap: var(--size-2);
+
+    &__caption {
+      font-size: var(--font-size-2);
+    }
+  }
+}

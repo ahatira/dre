@@ -1,0 +1,68 @@
+{#
+ * Figure - Image with optional caption
+ *
+ * Semantic figure element for displaying images with descriptive captions.
+ * Composes the Image atom for responsive image handling with accessibility support.
+ *
+ * @param {string} [src] - Image source URL (required) - passed to Image atom
+ * @param {string} [alt] - Image alternative text (required) - passed to Image atom
+ * @param {int} [width] - Image intrinsic width in pixels - passed to Image atom
+ * @param {int} [height] - Image intrinsic height in pixels - passed to Image atom
+ * @param {array} [srcset] - Responsive image sources - passed to Image atom
+ * @param {string} [sizes] - Sizes attribute for responsive images - passed to Image atom
+ * @param {string} [loading='lazy'] - Image loading strategy (lazy|eager) - passed to Image atom
+ * @param {string} [decoding='auto'] - Image decoding hint (auto|async|sync) - passed to Image atom
+ * @param {string} [fit='none'] - Object-fit behavior (none|cover|contain|fill|scale-down) - passed to Image atom
+ * @param {string} [rounded='none'] - Image border-radius (none|sm|md|lg|full) - passed to Image atom
+ * @param {string} [caption] - Figure caption text (optional)
+ * @param {string} [caption_position='bottom'] - Caption position: bottom|top
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
+ #}
+
+{# Default values #}
+{%- set caption = caption|default('') -%}
+{%- set caption_position = caption_position|default('bottom') -%}
+
+{# Build figure classes #}
+{%- set figure_classes = [
+  'ps-figure',
+  caption_position != 'bottom' ? 'ps-figure--caption-' ~ caption_position : null
+] -%}
+
+{# Create figure attributes with create_attribute fallback #}
+{%- set figure_attr = (attributes ? attributes : create_attribute()).addClass(figure_classes) -%}
+
+<figure{{ figure_attr }}>
+  {# Top caption if specified #}
+  {%- if caption and caption_position == 'top' -%}
+    <figcaption class="ps-figure__caption ps-figure__caption--top">
+      {{ caption }}
+    </figcaption>
+  {%- endif -%}
+
+  {# Image atom with responsive/accessibility support #}
+  <div class="ps-figure__image-wrapper">
+    {% include '@elements/image/image.twig' with {
+      src: src,
+      alt: alt,
+      width: width,
+      height: height,
+      srcset: srcset,
+      sizes: sizes,
+      loading: loading,
+      decoding: decoding,
+      fit: fit,
+      rounded: rounded,
+      attributes: create_attribute().addClass(['ps-figure__image'])
+    } only %}
+  </div>
+
+  {# Bottom caption if specified (default) #}
+  {%- if caption and caption_position == 'bottom' -%}
+    <figcaption class="ps-figure__caption ps-figure__caption--bottom">
+      {{ caption }}
+    </figcaption>
+  {%- endif -%}
+</figure>
