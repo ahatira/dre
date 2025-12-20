@@ -44,6 +44,8 @@
 
   /* Mobile: show only CTA */
   @media not all and (--tablet) {
+    padding: 0;
+
     &__title {
       display: none;
     }
