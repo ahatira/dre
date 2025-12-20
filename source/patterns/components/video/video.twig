@@ -32,6 +32,7 @@
 {%- set muted = muted|default(false) -%}
 {%- set preload = preload|default('metadata') -%}
 {%- set fluid = fluid is defined ? fluid : true -%}
+{%- set fixed_height = fixed_height|default('') -%}
 
 {# Generate unique ID for Video.js player #}
 {%- set video_id = 'ps-video-' ~ random() -%}
@@ -59,6 +60,12 @@
   'ps-video--' ~ aspect_ratio_class
 ] -%}
 
+{# Create container attributes with create_attribute fallback #}
+{%- set container_attr = (attributes ? attributes : create_attribute()).addClass(container_classes) -%}
+{%- if fixed_height -%}
+  {%- set container_attr = container_attr.setAttribute('data-height-fixed', '').setAttribute('style', '--video-fixed-height: ' ~ fixed_height ~ ';') -%}
+{%- endif -%}
+
 {# Build Video.js classes #}
 {%- set videojs_classes = [
   'video-js',
@@ -66,9 +73,7 @@
   'vjs-theme-ps'
 ] -%}
 
-<div class="{{ container_classes|join(' ')|trim }}"
-  {%- if fixed_height %} data-height-fixed style="--video-fixed-height: {{ fixed_height }};"{% endif -%}
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}>
+<div{{ container_attr }}>
   
   <video
     id="{{ video_id }}"

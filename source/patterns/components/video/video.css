@@ -124,7 +124,6 @@
   text-align: center;
   background: var(--gray-100);
   color: var(--text-primary);
-  border-radius: var(--radius-2);
 }
 
 .vjs-no-js a {

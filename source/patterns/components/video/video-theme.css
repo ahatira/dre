@@ -21,18 +21,19 @@
    =============================================== */
 
 .vjs-theme-ps .vjs-big-play-button {
-  background: var(--primary) !important;
-  border-color: var(--primary) !important;
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .vjs-theme-ps .vjs-big-play-button .vjs-icon-placeholder::before {
   color: var(--white);
 }
 
+.vjs-theme-ps:hover .vjs-big-play-button, 
 .vjs-theme-ps .vjs-big-play-button:hover,
 .vjs-theme-ps .vjs-big-play-button:focus {
-  background: var(--primary-hover) !important;
-  border-color: var(--primary-hover) !important;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 /* ===============================================
@@ -40,7 +41,7 @@
    =============================================== */
 
 .vjs-theme-ps .vjs-play-progress {
-  background: var(--secondary) !important;
+  background: var(--secondary);
 }
 
 .vjs-theme-ps .vjs-play-progress::after {
@@ -53,7 +54,7 @@
    =============================================== */
 
 .vjs-theme-ps .vjs-volume-level {
-  background: var(--secondary) !important;
+  background: var(--secondary);
 }
 
 .vjs-theme-ps .vjs-volume-level::after {
