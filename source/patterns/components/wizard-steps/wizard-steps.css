@@ -86,20 +86,22 @@
       flex-direction: row;
       gap: var(--size-5);
       align-items: flex-start;
+      width: 100%;
       
       &:not(:last-child) {
-        padding-bottom: var(--size-10);
+        padding-bottom: var(--size-8);
         position: relative;
         
         &::before {
           content: '';
           position: absolute;
           left: calc(var(--ps-wizard-marker-size) / 2 - var(--ps-wizard-connector-size) / 2);
-          top: calc(var(--ps-wizard-marker-size) + var(--size-2));
+          top: var(--ps-wizard-marker-size);
           width: var(--ps-wizard-connector-size);
-          height: calc(100% - var(--ps-wizard-marker-size) - var(--size-2));
+          height: calc(100% - var(--ps-wizard-marker-size));
           background: var(--ps-wizard-connector-color);
           transition: background var(--duration-normal) var(--ease-out-quad);
+          z-index: 0;
         }
       }
       
@@ -112,7 +114,8 @@
       text-align: left;
       max-width: none;
       padding: 0;
-      padding-top: var(--size-1);
+      padding-top: calc(var(--size-1) + 2px);
+      flex: 1;
     }
   }
 }
