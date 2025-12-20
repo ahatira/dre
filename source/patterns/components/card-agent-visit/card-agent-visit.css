@@ -41,4 +41,11 @@
     --ps-button-icon-gap: var(--ps-card-agent-visit-cta-gap);
     width: 100%;
   }
+
+  /* Mobile: show only CTA */
+  @media not all and (--tablet) {
+    &__title {
+      display: none;
+    }
+  }
 }
