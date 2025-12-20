@@ -60,22 +60,26 @@
  * ✅ Backdrop prevents interaction with background content
  */
 #}
-{% set size = size|default('medium') %}
-{% set show = show|default(false) %}
-{% set backdrop = backdrop|default(true) %}
-{% set modalId = id|default('modal') %}
-{% set headingId = modalId ~ '-title' %}
+{%- set size = size|default('medium') -%}
+{%- set show = show|default(false) -%}
+{%- set backdrop = backdrop|default(true) -%}
+{%- set modalId = id|default('modal') -%}
+{%- set headingId = modalId ~ '-title' -%}
 
-<div
-  id="{{ modalId }}"
-  class="ps-modal{{ show ? ' ps-modal--visible' : null }}"
-  role="dialog"
-  aria-modal="true"
-  aria-hidden="{{ show ? 'false' : 'true' }}"
-  aria-labelledby="{{ headingId }}"
-  tabindex="-1"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
->
+{%- set classes = [
+  'ps-modal',
+  show ? 'ps-modal--visible' : null
+] -%}
+
+{%- set attr = (attributes ? attributes : create_attribute())
+  .addClass(classes)
+  .setAttribute('role', 'dialog')
+  .setAttribute('aria-modal', 'true')
+  .setAttribute('aria-labelledby', headingId)
+  .setAttribute('tabindex', '-1')
+-%}
+
+<div id="{{ modalId }}"{{ attr }}>
   {% if backdrop %}<div class="ps-modal__backdrop"></div>{% endif %}
   <div class="ps-modal__content ps-modal__content--{{ size }}">
     <div class="ps-modal__header">
@@ -91,9 +95,9 @@
     <div class="ps-modal__body">
       {{ content }}
     </div>
-    {% if footer %}
+    {%- if footer %}
     <div class="ps-modal__footer">
-      {{ footer }}
+      {{- footer -}}
     </div>
     {% endif %}
   </div>

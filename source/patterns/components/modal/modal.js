@@ -24,6 +24,7 @@
       });
 
       // Attach trigger buttons
+      // IMPORTANT: use once() with '[data-modal-trigger]' selector for idempotent binding
       once('psModalTrigger', '[data-modal-trigger]', context).forEach((trigger) => {
         trigger.addEventListener('click', (e) => {
           e.preventDefault();

@@ -39,15 +39,6 @@ export default {
         type: { summary: 'string' },
       },
     },
-    id: {
-      description: 'Unique ID for aria-labelledby',
-      control: { type: 'text' },
-      table: {
-        category: 'Accessibility',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'modal' },
-      },
-    },
     // Appearance
     size: {
       description: 'Modal width: small (25rem/400px), medium (37.5rem/600px), large (50rem/800px)',
@@ -78,7 +69,16 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
-    // Drupal
+    // Accessibility
+    id: {
+      description: 'Unique ID for aria-labelledby',
+      control: { type: 'text' },
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'modal' },
+      },
+    },
     attributes: {
       description: 'Additional HTML attributes for Drupal integration',
       control: { type: 'object' },
