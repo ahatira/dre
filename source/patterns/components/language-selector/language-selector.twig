@@ -2,7 +2,6 @@
  * Language Selector (Molecule/Navigation)
  *
  * @param string name - Input name attribute (default: 'lang')
- * @param string size - sm|md|lg (default: 'sm')
  * @param boolean disabled - Disabled state (default: false)
  * @param string aria_label - Accessible label for nav element (default: 'Language selector')
  * @param object current - Current language
@@ -21,14 +20,12 @@
  #}
 
 {%- set name = name|default('lang') -%}
-{%- set size = size|default('sm') -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 {%- set aria_label = aria_label|default('Language selector') -%}
 
 {%- set classes = [
   'ps-language-selector',
-  size != 'sm' ? 'ps-language-selector--' ~ size : null,
   disabled ? 'ps-language-selector--disabled' : null
 ] -%}
 

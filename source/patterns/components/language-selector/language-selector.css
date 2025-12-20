@@ -27,12 +27,12 @@
      Override these in Layer 3 for sizes/variants
      ============================================ */
 
-  /* Spacing & Layout */
-  --ps-language-selector-gap: var(--size-2); /* 8px */
-  --ps-language-selector-padding-y: var(--size-1); /* 4px */
-  --ps-language-selector-padding-x: var(--size-3); /* 12px */
-  --ps-language-selector-min-width: 120px;
-  --ps-language-selector-height: var(--size-9); /* 36px */
+  /* Spacing & Layout (ajusté selon maquette Figma) */
+  --ps-language-selector-gap: 6px; /* Gap flag/label - compact selon maquette */
+  --ps-language-selector-padding-y: 6px; /* Padding vertical - très compact */
+  --ps-language-selector-padding-x: 10px; /* Padding horizontal - réduit */
+  --ps-language-selector-min-width: 90px; /* Largeur minimale réduite */
+  --ps-language-selector-height: 32px; /* Hauteur fixe selon maquette (pas de token) */
 
   /* Typography */
   --ps-language-selector-font-family: var(--font-sans);
@@ -63,10 +63,10 @@
   /* Dropdown */
   --ps-language-selector-dropdown-z-index: var(--layer-10);
   --ps-language-selector-dropdown-shadow: var(--shadow-3);
-  --ps-language-selector-option-gap: var(--size-2); /* 8px between options */
+  --ps-language-selector-option-gap: 4px; /* Gap réduit entre options selon maquette */
 
   /* Icon */
-  --ps-language-selector-icon-size: var(--size-5); /* 20px */
+  --ps-language-selector-icon-size: 16px; /* Icon chevron compact selon maquette */
 
   /* ============================================
      Apply Component Variables to Properties
@@ -241,31 +241,6 @@
       border: var(--ps-language-selector-border-width) solid var(--ps-language-selector-border-color);
       font: inherit;
     }
-  }
-
-  /* ============================================
-     MODIFIERS - SIZES (Layer 3 Overrides)
-     Standardized: sm (default), md, lg
-     ============================================ */
-
-  &--sm {
-    /* Default - already defined in Layer 2 */
-    /* 4px × 12px, height 36px, font 14px */
-  }
-
-  &--md {
-    --ps-language-selector-padding-y: var(--size-2); /* 8px */
-    --ps-language-selector-padding-x: var(--size-4); /* 16px */
-    --ps-language-selector-height: var(--size-10); /* 40px */
-    --ps-language-selector-font-size: var(--font-size-4); /* 16px */
-  }
-
-  &--lg {
-    --ps-language-selector-padding-y: var(--size-3); /* 12px */
-    --ps-language-selector-padding-x: var(--size-5); /* 20px */
-    --ps-language-selector-height: var(--size-12); /* 48px */
-    --ps-language-selector-font-size: var(--font-size-5); /* 18px */
-    --ps-language-selector-icon-size: var(--size-6); /* 24px */
   }
 
   /* ============================================

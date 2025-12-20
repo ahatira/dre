@@ -17,17 +17,6 @@ props:
         - 'language'
         - 'locale'
 
-    size:
-      type: string
-      title: Size
-      enum: ['sm', 'md', 'lg']
-      default: 'sm'
-      description: 'Standard sizes: sm (36px default), md (40px), lg (48px).'
-      examples:
-        - 'sm'
-        - 'md'
-        - 'lg'
-
     disabled:
       type: boolean
       title: Disabled
