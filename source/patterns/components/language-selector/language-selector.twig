@@ -2,8 +2,8 @@
  * Language Selector (Molecule/Navigation)
  *
  * @param string name - Input name attribute (default: 'lang')
+ * @param string size - sm|md|lg (default: sm)
  * @param boolean disabled - Disabled state (default: false)
- * @param string aria_label - Accessible label for nav element (default: 'Language selector')
  * @param object current - Current language
  *   @param string code - Country code ISO (ex: GB, ES, FR)
  *   @param string label - Short label displayed (ex: En, Es, Fr)
@@ -20,16 +20,20 @@
  #}
 
 {%- set name = name|default('lang') -%}
+{%- set size = size|default('sm') -%}
+{# Variants not used: component is neutral-only per rules #}
+{%- set variant = 'default' -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
-{%- set aria_label = aria_label|default('Language selector') -%}
+{%- set attributes = attributes|default(create_attribute()) -%}
 
 {%- set classes = [
   'ps-language-selector',
+  size != 'sm' ? 'ps-language-selector--' ~ size : null,
+  null,
   disabled ? 'ps-language-selector--disabled' : null
 ] -%}
 
-<nav {{ attributes.addClass(classes) }} aria-label="{{ aria_label }}">
+<nav {{ attributes.addClass(classes)|without('class') }} aria-label="Sélecteur de langue">
   <div class="ps-language-selector__control">
     {# Enhanced button with accessible states #}
     <button

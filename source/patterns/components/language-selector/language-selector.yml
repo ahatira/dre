@@ -17,6 +17,26 @@ props:
         - 'language'
         - 'locale'
 
+    size:
+      type: string
+      title: Size
+      enum: ['sm', 'md', 'lg']
+      default: 'sm'
+      description: 'Standard sizes: sm (36px default), md (40px), lg (48px).'
+      examples:
+        - 'sm'
+        - 'md'
+        - 'lg'
+
+    variant:
+      type: string
+      title: Variant
+      enum: ['default']
+      default: 'default'
+      description: 'Neutral-only; color variants are not used in this component.'
+      examples:
+        - 'default'
+
     disabled:
       type: boolean
       title: Disabled
