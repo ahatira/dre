@@ -3,16 +3,21 @@
  * Toast component behavior
  *
  * Manages toast notifications with auto-dismiss, manual close, and stacking.
- * Inspired by Bootstrap Toast component with improvements for Drupal integration.
+ * Compatible with Drupal behaviors pattern and standalone usage.
+ * 
+ * @package Surface
+ * @category Components
+ * @version 1.0.0
+ * @since 2024-12-20
  */
 
-(() => {
-  const DATA_KEY = 'ps.toast';
-  const EVENT_KEY = `.${DATA_KEY}`;
-  const EVENT_SHOWN = `shown${EVENT_KEY}`;
-  const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+(function (Drupal, once) {
+  'use strict';
 
-  const CLASS_SHOWING = 'ps-toast--showing';
+  const DATA_KEY = 'ps-toast';
+  const EVENT_SHOWN = 'toast:shown';
+  const EVENT_HIDDEN = 'toast:hidden';
+
   const CLASS_SHOW = 'ps-toast--show';
   const CLASS_HIDE = 'ps-toast--hide';
 
@@ -20,158 +25,205 @@
   const SELECTOR_CLOSE = '.ps-toast__close';
 
   /**
-   * Toast Class - manages individual toast lifecycle
+   * Create a toast instance
+   * 
+   * @param {HTMLElement} element - Toast DOM element
+   * @param {Object} config - Configuration options
+   * @param {number} config.duration - Auto-dismiss duration in ms
+   * @param {boolean} config.dismissible - Whether toast is dismissible
+   * @returns {Object} Toast instance with public methods
    */
-  class Toast {
-    constructor(element, config = {}) {
-      this._element = element;
-      this._config = {
+  function createToastInstance(element, config) {
+    const instance = {
+      element: element,
+      config: {
         duration: parseInt(element.dataset.toastDuration, 10) || config.duration || 4000,
         dismissible: config.dismissible !== false,
-      };
-      this._timeout = null;
-      this._isShown = false;
+      },
+      timeout: null,
+      isShown: false,
 
-      // Store instance on element
-      element[DATA_KEY] = this;
-    }
-
-    // Public methods
-    show() {
-      if (this._isShown) {
-        return;
-      }
-
-      this._isShown = true;
-
-      // Add showing class for animation
-      this._element.classList.add(CLASS_SHOWING);
-
-      // Trigger show animation
-      requestAnimationFrame(() => {
-        this._element.classList.add(CLASS_SHOW);
-        this._element.classList.remove(CLASS_SHOWING);
-
-        // Dispatch shown event
-        this._element.dispatchEvent(new CustomEvent(EVENT_SHOWN, { bubbles: true }));
-
-        // Auto-dismiss after duration
-        if (this._config.duration > 0) {
-          this._timeout = setTimeout(() => {
-            this.hide();
-          }, this._config.duration);
+      /**
+       * Show the toast with animation
+       */
+      show: function () {
+        if (this.isShown) {
+          return;
         }
-      });
-    }
 
-    hide() {
-      if (!this._isShown) {
-        return;
-      }
+        this.isShown = true;
 
-      this._isShown = false;
+        // Trigger show animation
+        requestAnimationFrame(() => {
+          this.element.classList.add(CLASS_SHOW);
 
-      // Clear auto-dismiss timeout
-      if (this._timeout) {
-        clearTimeout(this._timeout);
-        this._timeout = null;
-      }
+          // Dispatch shown event
+          const event = new CustomEvent(EVENT_SHOWN, {
+            bubbles: true,
+            detail: { toast: this }
+          });
+          this.element.dispatchEvent(event);
 
-      // Trigger hide animation
-      this._element.classList.add(CLASS_HIDE);
-      this._element.classList.remove(CLASS_SHOW);
+          // Auto-dismiss after duration
+          if (this.config.duration > 0) {
+            this.timeout = setTimeout(() => {
+              this.hide();
+            }, this.config.duration);
+          }
+        });
+      },
 
-      // Wait for animation, then remove
-      const handleAnimationEnd = () => {
-        this._element.removeEventListener('animationend', handleAnimationEnd);
-        this._element.dispatchEvent(new CustomEvent(EVENT_HIDDEN, { bubbles: true }));
-        this.dispose();
-      };
-
-      this._element.addEventListener('animationend', handleAnimationEnd);
-    }
-
-    dispose() {
-      if (this._timeout) {
-        clearTimeout(this._timeout);
-      }
-
-      if (this._element) {
-        delete this._element[DATA_KEY];
-        if (this._element.parentNode) {
-          this._element.remove();
+      /**
+       * Hide the toast with animation
+       */
+      hide: function () {
+        if (!this.isShown) {
+          return;
         }
-        this._element = null;
+
+        this.isShown = false;
+
+        // Clear auto-dismiss timeout
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+          this.timeout = null;
+        }
+
+        // Trigger hide animation
+        this.element.classList.add(CLASS_HIDE);
+        this.element.classList.remove(CLASS_SHOW);
+
+        // Wait for transition, then remove
+        const transitionDuration = parseFloat(getComputedStyle(this.element).transitionDuration) * 1000 || 300;
+        
+        setTimeout(() => {
+          const event = new CustomEvent(EVENT_HIDDEN, {
+            bubbles: true,
+            detail: { toast: this }
+          });
+          this.element.dispatchEvent(event);
+          this.dispose();
+        }, transitionDuration);
+      },
+
+      /**
+       * Clean up and remove toast
+       */
+      dispose: function () {
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
+
+        if (this.element) {
+          delete this.element[DATA_KEY];
+          if (this.element.parentNode) {
+            this.element.remove();
+          }
+          this.element = null;
+        }
       }
-    }
+    };
 
-    // Static methods
-    static getInstance(element) {
-      return element[DATA_KEY] || null;
-    }
-
-    static getOrCreateInstance(element, config) {
-      return Toast.getInstance(element) || new Toast(element, config);
-    }
+    // Store instance on element
+    element[DATA_KEY] = instance;
+    
+    return instance;
   }
 
   /**
-   * Toast Container - manages multiple toasts with stacking
+   * Get toast instance from element
+   * 
+   * @param {HTMLElement} element - Toast DOM element
+   * @returns {Object|null} Toast instance or null
    */
-  class ToastContainer {
-    constructor() {
-      this._containers = new Map();
-    }
-
-    getContainer(position = 'bottom-right') {
-      if (!this._containers.has(position)) {
-        const container = document.createElement('div');
-        container.className = `ps-toast-container ps-toast-container--${position}`;
-        container.setAttribute('aria-live', 'polite');
-        container.setAttribute('aria-atomic', 'false');
-        document.body.appendChild(container);
-        this._containers.set(position, container);
-      }
-      return this._containers.get(position);
-    }
+  function getInstance(element) {
+    return element[DATA_KEY] || null;
   }
 
-  // Global container instance
-  const toastContainer = new ToastContainer();
+  /**
+   * Get or create toast instance
+   * 
+   * @param {HTMLElement} element - Toast DOM element
+   * @param {Object} config - Configuration options
+   * @returns {Object} Toast instance
+   */
+  function getOrCreateInstance(element, config) {
+    return getInstance(element) || createToastInstance(element, config || {});
+  }
 
   /**
-   * Initialize existing toast elements (skip static toasts)
+   * Toast container manager
    */
-  function initExistingToasts(context = document) {
+  const toastContainers = {};
+
+  /**
+   * Get or create container for position
+   * 
+   * @param {string} position - Container position (bottom-right, etc.)
+   * @returns {HTMLElement} Container element
+   */
+  function getContainer(position) {
+    position = position || 'bottom-right';
+    
+    if (!toastContainers[position]) {
+      const container = document.createElement('div');
+      container.className = 'ps-toast-container ps-toast-container--' + position;
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'false');
+      document.body.appendChild(container);
+      toastContainers[position] = container;
+    }
+    
+    return toastContainers[position];
+  }
+
+  /**
+   * Initialize existing toast elements
+   * 
+   * @param {HTMLElement} context - Context to search within
+   */
+  function initExistingToasts(context) {
+    context = context || document;
+    
     const toasts = context.querySelectorAll(SELECTOR_TOAST);
-    toasts.forEach((element) => {
+    
+    toasts.forEach(function (element) {
       // Skip toasts marked as static (for Storybook design showcases)
       if (element.dataset.static === 'true') {
         return;
       }
-      const toast = Toast.getOrCreateInstance(element);
+      
+      const toast = getOrCreateInstance(element, {});
       toast.show();
     });
   }
 
   /**
    * Create and show a toast programmatically
+   * 
+   * @param {Object} options - Toast options
+   * @param {string} options.message - Toast message text
+   * @param {string} options.type - Toast type (success, error, warning, info)
+   * @param {string} options.position - Screen position
+   * @param {number} options.duration - Auto-dismiss duration
+   * @param {boolean} options.dismissible - Whether dismissible
+   * @returns {HTMLElement} Created toast element
    */
   function createToast(options) {
-    const {
-      message,
-      type = 'info',
-      position = 'bottom-right',
-      duration = 4000,
-      dismissible = true,
-    } = options;
+    const message = options.message || '';
+    const type = options.type || 'info';
+    const position = options.position || 'bottom-right';
+    const duration = options.duration || 4000;
+    const dismissible = options.dismissible !== false;
 
     // Create toast element
     const toast = document.createElement('div');
     toast.className = 'ps-toast';
+    
     if (type !== 'info') {
-      toast.classList.add(`ps-toast--${type}`);
+      toast.classList.add('ps-toast--' + type);
     }
+    
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', 'assertive');
     toast.setAttribute('aria-atomic', 'true');
@@ -188,17 +240,17 @@
       const closeBtn = document.createElement('button');
       closeBtn.type = 'button';
       closeBtn.className = 'ps-toast__close';
-      closeBtn.setAttribute('aria-label', 'Dismiss notification');
+      closeBtn.setAttribute('aria-label', 'Fermer la notification');
       closeBtn.setAttribute('data-icon', 'close');
       toast.appendChild(closeBtn);
     }
 
     // Add to appropriate container
-    const container = toastContainer.getContainer(position);
+    const container = getContainer(position);
     container.appendChild(toast);
 
     // Initialize and show
-    const toastInstance = new Toast(toast, { duration, dismissible });
+    const toastInstance = createToastInstance(toast, { duration: duration, dismissible: dismissible });
     toastInstance.show();
 
     return toast;
@@ -207,15 +259,17 @@
   /**
    * Event delegation for close buttons
    */
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', function (event) {
     const closeButton = event.target.closest(SELECTOR_CLOSE);
+    
     if (!closeButton) {
       return;
     }
 
     const toastElement = closeButton.closest(SELECTOR_TOAST);
+    
     if (toastElement) {
-      const toast = Toast.getInstance(toastElement);
+      const toast = getInstance(toastElement);
       if (toast) {
         toast.hide();
       }
@@ -225,34 +279,36 @@
   /**
    * Keyboard support - Escape to close focused toast
    */
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', function (event) {
     if (event.key !== 'Escape') {
       return;
     }
 
     const activeToast = document.querySelector(
-      `${SELECTOR_TOAST}:focus-within, ${SELECTOR_TOAST}:hover`
+      SELECTOR_TOAST + ':focus-within, ' + SELECTOR_TOAST + ':hover'
     );
+    
     if (activeToast) {
-      const toast = Toast.getInstance(activeToast);
+      const toast = getInstance(activeToast);
       if (toast) {
         toast.hide();
       }
     }
   });
 
-  // Export for Drupal
+  // Drupal behavior integration
   if (typeof Drupal !== 'undefined') {
     Drupal.behaviors.toast = {
-      attach(context) {
+      attach: function (context) {
         initExistingToasts(context);
-      },
+      }
     };
 
+    // Export for Drupal
     Drupal.toast = createToast;
   }
 
-  // Export for standalone/Storybook
+  // Standalone/Storybook export
   if (typeof window !== 'undefined') {
     window.Toast = {
       create: createToast,
@@ -261,12 +317,24 @@
 
     // Auto-initialize on load
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('DOMContentLoaded', function () {
         initExistingToasts();
       });
     } else {
-      // If already loaded, init immediately
       initExistingToasts();
     }
   }
-})();
+
+})(typeof Drupal !== 'undefined' ? Drupal : {}, typeof once !== 'undefined' ? once : function (id, selector, context) {
+  // Fallback once implementation for standalone usage
+  context = context || document;
+  const elements = typeof selector === 'string' ? context.querySelectorAll(selector) : [selector];
+  return Array.from(elements).filter(function (el) {
+    const key = 'data-once-' + id;
+    if (el.hasAttribute(key)) {
+      return false;
+    }
+    el.setAttribute(key, 'true');
+    return true;
+  });
+});

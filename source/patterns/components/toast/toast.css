@@ -1,14 +1,24 @@
 /**
- * Toast Component
+ * Toast (Component/Molecule)
  * 
  * Temporary notification messages with auto-dismiss functionality.
- * Uses Token-First 3-layer CSS architecture:
- * - Layer 1: Global design tokens (props/)
- * - Layer 2: Component-scoped variables (--ps-toast-*)
- * - Layer 3: Modifier overrides (type variants)
+ * 
+ * BEM Structure:
+ * - Container: .ps-toast-container (fixed positioning wrapper)
+ * - Block: .ps-toast
+ * - Elements: __content, __close
+ * - Modifiers (toast): --success, --error, --warning, --info, --show, --hide
+ * - Modifiers (container): --bottom-right, --bottom-left, --top-right, --top-left
+ * 
+ * CSS Variables System (3-Layer Architecture):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, fonts.css, colors.css)
+ * - Layer 2: Component-Scoped Variables (--ps-toast-*)
+ * - Layer 3: Context Overrides (type modifiers)
  */
 
-/* ═══ Toast Container ═══ */
+/* ============================================
+   TOAST CONTAINER (FIXED POSITIONING)
+   ============================================ */
 .ps-toast-container {
   position: fixed;
   z-index: var(--z-toast);
@@ -41,9 +51,14 @@
   }
 }
 
-/* ═══ Individual Toast ═══ */
+/* ============================================
+   TOAST COMPONENT
+   ============================================ */
+
 .ps-toast {
-  /* ═══ Layer 2: Component-scoped variables ═══ */
+  /* ============================================
+     LAYER 2: COMPONENT-SCOPED VARIABLES
+     ============================================ */
   
   /* Spacing & Layout */
   --ps-toast-padding-x: var(--size-4);
@@ -52,7 +67,7 @@
   --ps-toast-max-width: 400px;
   
   /* Visual Style */
-  --ps-toast-radius: var(--radius-0);
+  --ps-toast-radius: var(--radius-0); /* Sharp corners (project default) */
   --ps-toast-shadow: var(--shadow-lg);
   --ps-toast-bg: var(--white);
   --ps-toast-color: var(--text-primary);
@@ -66,7 +81,10 @@
   --ps-toast-opacity-hidden: 0;
   --ps-toast-opacity-visible: 1;
   
-  /* ═══ Base styles ═══ */
+  /* ============================================
+     BASE STYLES
+     ============================================ */
+  
   position: relative;
   max-width: var(--ps-toast-max-width);
   padding: var(--ps-toast-padding-y) var(--ps-toast-padding-x);
@@ -113,7 +131,10 @@
   }
 }
 
-/* ═══ Elements ═══ */
+/* ============================================
+   ELEMENTS
+   ============================================ */
+
 .ps-toast {
   &__content {
     flex: 1;
@@ -160,7 +181,10 @@
   }
 }
 
-/* ═══ Layer 3: Type modifiers (semantic colors) ═══ */
+/* ============================================
+   LAYER 3: TYPE MODIFIERS (SEMANTIC COLORS)
+   ============================================ */
+
 .ps-toast {
   &--success {
     --ps-toast-border-color: var(--success-border);

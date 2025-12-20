@@ -153,7 +153,7 @@ export const ColorVariantsWithDismiss = {
             <button 
               type="button" 
               class="ps-toast__close" 
-              aria-label="Dismiss notification" 
+              aria-label="Fermer la notification" 
               data-icon="close"
             ></button>
           </div>
@@ -195,7 +195,7 @@ export const AllPositions = {
               <button 
                 type="button" 
                 class="ps-toast__close" 
-                aria-label="Dismiss notification" 
+                aria-label="Fermer la notification" 
                 data-icon="close"
               ></button>
             </div>

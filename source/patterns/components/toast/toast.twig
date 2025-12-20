@@ -1,17 +1,21 @@
 {#
 /**
- * @file
- * Toast - Temporary notification message
+ * Toast (Component/Molecule)
  * 
- * Auto-dismissing notification that appears at screen edge to provide feedback.
- * Managed via JavaScript for show/hide/duration logic.
+ * Temporary notification message that appears at screen edge to provide feedback.
+ * Auto-dismissing notification managed via JavaScript for show/hide/duration logic.
+ * 
+ * @package Surface
+ * @category Components
+ * @version 1.0.0
+ * @since 2024-12-20
  * 
  * @param {string} message - Notification message content (required)
  * @param {string} [type='info'] - Semantic type: success, error, warning, info
  * @param {boolean} [dismissible=true] - Show close button
  * @param {string} [position='bottom-right'] - Screen position
  * @param {number} [duration=4000] - Auto-dismiss duration (ms)
- * @param {object} [attributes] - Additional HTML attributes
+ * @param {object} [attributes] - Additional HTML attributes for Drupal integration
  */
 #}
 
@@ -27,13 +31,13 @@
   modifier_class
 ] %}
 
-<div 
-  class="{{ classes|join(' ')|trim }}"
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<div{{ attr }}
   role="status" 
   aria-live="polite" 
   aria-atomic="true"
   data-toast-duration="{{ duration }}"
-  {%- if attributes %} {{ attributes|without('class') }}{% endif -%}
 >
   <div class="ps-toast__content">
     {{ message }}
@@ -42,7 +46,7 @@
     <button 
       type="button" 
       class="ps-toast__close" 
-      aria-label="Dismiss notification"
+      aria-label="Fermer la notification"
       data-icon="close"
     ></button>
   {% endif %}
