@@ -254,6 +254,9 @@
 
 @media (width < 640px) {
   .ps-wizard-steps {
+    /* Adjust marker size for mobile FIRST */
+    --ps-wizard-marker-size: var(--size-11);
+    
     /* Force vertical layout on mobile for better readability */
     &--horizontal {
       flex-direction: column;
@@ -317,11 +320,6 @@
     -webkit-box-orient: unset;
   }
   
-  .ps-wizard-steps__marker {
-    /* Slightly smaller marker for mobile */
-    --ps-wizard-marker-size: var(--size-11);
-  }
-  
   .ps-wizard-steps__icon {
     width: var(--size-5);
     height: var(--size-5);
@@ -335,6 +333,9 @@
 /* Very small screens - minimal adjustments */
 @media (width < 400px) {
   .ps-wizard-steps {
+    /* Adjust marker size for very small screens */
+    --ps-wizard-marker-size: var(--size-10);
+    
     &--horizontal {
       .ps-wizard-steps__item {
         gap: var(--size-3);
@@ -348,9 +349,5 @@
   
   .ps-wizard-steps__label {
     font-size: var(--font-size-0);
-  }
-  
-  .ps-wizard-steps__marker {
-    --ps-wizard-marker-size: var(--size-10);
   }
 }
