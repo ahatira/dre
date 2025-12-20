@@ -83,7 +83,7 @@ export default {
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
-        defaultValue: { summary: 'pin-map' },
+        defaultValue: { summary: 'pin' },
       },
     },
 

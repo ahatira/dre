@@ -48,7 +48,7 @@
   --ps-card-offer-slide-location-font-weight: var(--font-weight-400);/* Regular */
   --ps-card-offer-slide-location-color: var(--text-secondary);       /* Gray */
   --ps-card-offer-slide-location-gap: var(--size-1);                 /* 4px */
-  --ps-card-offer-slide-location-icon-color: var(--gray-800);        /* Icon color */
+  --ps-card-offer-slide-location-icon-color: var(--text-secondary);  /* Icon color (semantic) */
   --ps-card-offer-slide-location-icon-size: var(--font-size-3);      /* Icon size */
   --ps-card-offer-slide-location-icon-offset: calc(var(--size-1) * -1); /* -4px top alignment */
   
