@@ -6,7 +6,10 @@
   {% set current = current|default(null) %}
   {% set show_first_last = show_first_last is defined ? show_first_last : false %}
   {% set use_icons = use_icons is defined ? use_icons : false %}
-  {% set component_classes = ['ps-pager'] %}
+  {% set component_classes = [
+    'ps-pager',
+    scroll_horizontal is defined and scroll_horizontal ? 'ps-pager--scrollable' : null
+  ] %}
   {% set attr = (attributes ? attributes : create_attribute()).addClass(component_classes) %}
 
   <nav{{ attr.setAttribute('role', 'navigation').setAttribute('aria-labelledby', heading_id) }}>
@@ -15,10 +18,10 @@
       {# First page #}
       {% if items.first and show_first_last %}
         {% set first_classes = ['ps-pager__link', 'ps-pager__link--first'] %}
-        {% set first_attr = use_icons and items.first.icon
-          ? create_attribute().addClass(first_classes).setAttribute('data-icon', items.first.icon).setAttribute('aria-label', items.first.aria_label|default('Première page'))
-          : create_attribute().addClass(first_classes).setAttribute('aria-label', items.first.aria_label|default('Première page'))
-        %}
+        {% set first_attr = create_attribute().addClass(first_classes).setAttribute('aria-label', items.first.aria_label|default('Première page')) %}
+        {% if items.first.icon %}
+          {% set first_attr = first_attr.setAttribute('data-icon', items.first.icon) %}
+        {% endif %}
         <li class="ps-pager__item ps-pager__item--first">
           <a href="{{ items.first.href }}" title="{{ items.first.title|default('Aller à la première page') }}" rel="first"{{ first_attr }}>
             {% if use_icons %}
@@ -33,10 +36,10 @@
       {# Previous page #}
       {% if items.previous %}
         {% set previous_classes = ['ps-pager__link', 'ps-pager__link--prev'] %}
-        {% set previous_attr = use_icons and items.previous.icon
-          ? create_attribute().addClass(previous_classes).setAttribute('data-icon', items.previous.icon).setAttribute('aria-label', items.previous.aria_label|default('Page précédente'))
-          : create_attribute().addClass(previous_classes).setAttribute('aria-label', items.previous.aria_label|default('Page précédente'))
-        %}
+        {% set previous_attr = create_attribute().addClass(previous_classes).setAttribute('aria-label', items.previous.aria_label|default('Page précédente')) %}
+        {% if items.previous.icon %}
+          {% set previous_attr = previous_attr.setAttribute('data-icon', items.previous.icon) %}
+        {% endif %}
         <li class="ps-pager__item ps-pager__item--previous">
           <a href="{{ items.previous.href }}" title="{{ items.previous.title|default('Aller à la page précédente') }}" rel="prev"{{ previous_attr }}>
             {% if use_icons %}
@@ -77,10 +80,10 @@
       {# Next page #}
       {% if items.next %}
         {% set next_classes = ['ps-pager__link', 'ps-pager__link--next'] %}
-        {% set next_attr = use_icons and items.next.icon
-          ? create_attribute().addClass(next_classes).setAttribute('data-icon', items.next.icon).setAttribute('aria-label', items.next.aria_label|default('Page suivante'))
-          : create_attribute().addClass(next_classes).setAttribute('aria-label', items.next.aria_label|default('Page suivante'))
-        %}
+        {% set next_attr = create_attribute().addClass(next_classes).setAttribute('aria-label', items.next.aria_label|default('Page suivante')) %}
+        {% if items.next.icon %}
+          {% set next_attr = next_attr.setAttribute('data-icon', items.next.icon) %}
+        {% endif %}
         <li class="ps-pager__item ps-pager__item--next">
           <a href="{{ items.next.href }}" title="{{ items.next.title|default('Aller à la page suivante') }}" rel="next"{{ next_attr }}>
             {% if use_icons %}
@@ -95,10 +98,10 @@
       {# Last page #}
       {% if items.last and show_first_last %}
         {% set last_classes = ['ps-pager__link', 'ps-pager__link--last'] %}
-        {% set last_attr = use_icons and items.last.icon
-          ? create_attribute().addClass(last_classes).setAttribute('data-icon', items.last.icon).setAttribute('aria-label', items.last.aria_label|default('Dernière page'))
-          : create_attribute().addClass(last_classes).setAttribute('aria-label', items.last.aria_label|default('Dernière page'))
-        %}
+        {% set last_attr = create_attribute().addClass(last_classes).setAttribute('aria-label', items.last.aria_label|default('Dernière page')) %}
+        {% if items.last.icon %}
+          {% set last_attr = last_attr.setAttribute('data-icon', items.last.icon) %}
+        {% endif %}
         <li class="ps-pager__item ps-pager__item--last">
           <a href="{{ items.last.href }}" title="{{ items.last.title|default('Aller à la dernière page') }}" rel="last"{{ last_attr }}>
             {% if use_icons %}

@@ -37,6 +37,11 @@ const settings = {
       description: 'Use icons instead of text for navigation controls',
       table: { category: 'Configuration' },
     },
+    scroll_horizontal: {
+      control: 'boolean',
+      description: 'Enable horizontal scroll on small screens',
+      table: { category: 'Configuration' },
+    },
     ellipses: {
       control: 'object',
       description: 'Presence of ellipses before/after pages',
@@ -125,6 +130,16 @@ export const CompletAvecIcones = {
     const args = clone(data);
     args.show_first_last = true;
     args.use_icons = true;
+    return args;
+  })(),
+};
+
+export const ScrollableMobile = {
+  name: 'Scrollable (Mobile)',
+  render: (args) => markup(args),
+  args: (() => {
+    const args = clone(data);
+    args.scroll_horizontal = true;
     return args;
   })(),
 };
