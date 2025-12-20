@@ -15,11 +15,11 @@
  */
 #}
 
-{%- set name = name|default('Consultant Name') -%}
-{%- set title = title|default('Your consultant :') -%}
+{%- set name = name|default('Nom du consultant') -%}
+{%- set title = title|default('Votre consultant :') -%}
 {%- set avatar = avatar|default(null) -%}
 {%- set phone = phone|default(null) -%}
-{%- set cta = cta|default({ text: 'Contact the consultancy', url: '#' }) -%}
+{%- set cta = cta|default({ text: 'Contacter le consultant', url: '#' }) -%}
 {%- set attributes = (attributes ? attributes : create_attribute()) -%}
 
 {%- set attr = attributes
@@ -65,10 +65,10 @@
 
   {% if cta and cta.url %}
     {% include '@elements/button/button.twig' with {
-      class: 'ps-consultant-card__cta',
       variant: 'primary',
       label: cta.text,
-      url: cta.url
+      url: cta.url,
+      attributes: create_attribute().addClass('ps-consultant-card__cta')
     } only %}
   {% endif %}
 </div>

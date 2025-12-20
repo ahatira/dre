@@ -9,7 +9,7 @@
   --ps-consultant-name-color: var(--text-primary);
   --ps-consultant-name-size: var(--font-size-7);
   --ps-consultant-name-weight: var(--font-weight-800);
-  --ps-consultant-phone-color: var(--gray-700);
+  --ps-consultant-phone-color: var(--text-secondary);
   --ps-consultant-phone-icon-size: var(--font-size-6);
 
   display: flex;
@@ -79,7 +79,6 @@
     &:focus-visible {
       outline: var(--border-size-2) solid var(--border-focus);
       outline-offset: var(--border-size-1);
-      border-radius: var(--radius-1);
     }
   }
 
