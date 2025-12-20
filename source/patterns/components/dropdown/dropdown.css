@@ -217,17 +217,7 @@
    Modifiers - Size
    ============================================ */
 
-.ps-dropdown--xs {
-  --ps-dropdown-button-padding-y: var(--size-1);
-  --ps-dropdown-button-padding-x: var(--size-2);
-  --ps-dropdown-option-padding-y: var(--size-1);
-  --ps-dropdown-option-padding-x: var(--size-2);
-  --ps-dropdown-font-size: var(--font-size--1);
-  --ps-dropdown-icon-size: var(--size-3);
-  --ps-dropdown-min-width: 140px;
-}
-
-.ps-dropdown--sm {
+.ps-dropdown--small {
   --ps-dropdown-button-padding-y: var(--size-105);
   --ps-dropdown-button-padding-x: var(--size-2);
   --ps-dropdown-option-padding-y: var(--size-2);
@@ -237,29 +227,13 @@
   --ps-dropdown-min-width: 160px;
 }
 
-/* md is default (200px min-width) */
+/* medium is default (200px min-width) */
 
-.ps-dropdown--lg {
+.ps-dropdown--large {
   --ps-dropdown-button-padding-y: var(--size-3);
   --ps-dropdown-button-padding-x: var(--size-4);
   --ps-dropdown-font-size: var(--font-size-2);
   --ps-dropdown-icon-size: var(--size-6);
   --ps-dropdown-min-width: 240px;
-}
-
-.ps-dropdown--xl {
-  --ps-dropdown-button-padding-y: var(--size-4);
-  --ps-dropdown-button-padding-x: var(--size-5);
-  --ps-dropdown-font-size: var(--font-size-3);
-  --ps-dropdown-icon-size: var(--size-7);
-  --ps-dropdown-min-width: 280px;
-}
-
-.ps-dropdown--xxl {
-  --ps-dropdown-button-padding-y: var(--size-5);
-  --ps-dropdown-button-padding-x: var(--size-6);
-  --ps-dropdown-font-size: var(--font-size-4);
-  --ps-dropdown-icon-size: var(--size-8);
-  --ps-dropdown-min-width: 320px;
 }
 

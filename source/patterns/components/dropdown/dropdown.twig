@@ -28,10 +28,9 @@
  * }) }}
  #}
 
-{%- set size = size|default('md') -%}
+{%- set size = size|default('medium') -%}
 {%- set shape = shape|default('rounded') -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set color = color|default('default') -%}
 {%- set options = options|default([]) -%}
 {# Attributes: Drupal create_attribute() object (mandatory for integration) #}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
@@ -47,11 +46,11 @@
 
 {%- set classes = [] -%}
 {%- set classes = classes|merge(['ps-dropdown']) -%}
-{%- if size and size != 'md' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ size]) -%}{%- endif -%}
-{%- if shape and shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
+{%- if size != 'medium' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ size]) -%}{%- endif -%}
+{%- if shape != 'rounded' -%}{%- set classes = classes|merge(['ps-dropdown--' ~ shape]) -%}{%- endif -%}
 {%- if disabled -%}{%- set classes = classes|merge(['ps-dropdown--disabled']) -%}{%- endif -%}
 
-<div class="{{ classes|join(' ')|trim }}" {{- attributes|without('class') -}} data-dropdown>
+<div{{ attributes.addClass(classes) }} data-dropdown>
   <button
     class="ps-dropdown__button"
     type="button"

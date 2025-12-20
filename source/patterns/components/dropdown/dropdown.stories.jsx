@@ -52,13 +52,13 @@ export default {
     // Appearance
     size: {
       description:
-        'Size variant: xs (extra small), sm (small), md (default), lg (large), xl (extra large), xxl (extra extra large)',
+        'Size variant: small, medium (default), or large',
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
-        defaultValue: { summary: 'md' },
+        defaultValue: { summary: 'medium' },
       },
     },
     shape: {
@@ -85,11 +85,11 @@ export default {
 
     // Accessibility
     attributes: {
-      description: 'Additional HTML attributes object',
+      description: 'Drupal Attribute object for additional HTML attributes (id, data-*, aria-*, etc.)',
       control: { type: 'object' },
       table: {
         category: 'Accessibility',
-        type: { summary: 'object' },
+        type: { summary: 'Attribute' },
       },
     },
   },
@@ -153,7 +153,7 @@ export const AllShapes = {
 // All sizes showcase
 export const AllSizes = {
   render: () => {
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+    const sizes = ['small', 'medium', 'large'];
     const baseData = {
       options: [
         { label: 'Apartment', value: 'apartment', selected: true },

@@ -5,9 +5,9 @@
 # - label: string - Visible button label (uses selected option if not provided)
 # - placeholder: string (default: 'Select an option') - Placeholder text when no selection
 # - size: small | medium | large (default: medium)
-#   * small: 180px min-width
-#   * medium: 220px min-width
-#   * large: 260px min-width
+#   * small: 160px min-width
+#   * medium: 200px min-width (default)
+#   * large: 240px min-width
 # - shape: none | rounded | pill (default: rounded)
 #   * none: no border-radius (sharp corners)
 #   * rounded: default rounded corners (4px)
@@ -27,7 +27,6 @@ label: 'Property type'
 size: 'md'
 shape: 'rounded'
 disabled: false
-color: 'default'
 options:
   - label: 'Apartment'
     value: 'apartment'
