@@ -21,17 +21,17 @@
      ============================================ */
 
   /* Layout */
-  --ps-pager-gap: var(--size-2);
+  --ps-pager-gap: var(--size-1);
   
   /* Link Sizing */
-  --ps-pager-link-size: var(--size-10);
-  --ps-pager-link-padding-y: var(--size-3);
-  --ps-pager-link-padding-x: var(--size-3);
-  --ps-pager-control-padding-x: var(--size-4);
+  --ps-pager-link-size: var(--size-9);
+  --ps-pager-link-padding-y: var(--size-2);
+  --ps-pager-link-padding-x: var(--size-2);
+  --ps-pager-control-padding-x: var(--size-2); /* Reduced for mobile */
   
   /* Typography */
   --ps-pager-font-family: var(--font-sans);
-  --ps-pager-font-size: var(--font-size-2);
+  --ps-pager-font-size: var(--font-size-1);
   --ps-pager-font-weight: var(--font-weight-medium);
   --ps-pager-line-height: 1;
   
@@ -75,6 +75,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center;
   }
 
   &__item {
@@ -136,46 +138,73 @@
     padding-left: var(--ps-pager-control-padding-x);
     padding-right: var(--ps-pager-control-padding-x);
   }
-}
 
-/* ============================================
-   Responsive Adaptations
-   ============================================ */
+  /* Previous/Next text - show symbols only on small mobile */
+  &__item--previous &__link-text,
+  &__item--next &__link-text {
+    /* Base mobile: show only symbols */
+    font-size: 0; /* Hide text visually */
+    
+    &::before {
+      font-size: var(--ps-pager-font-size); /* Restore font size for symbol */
+    }
+  }
 
-/* Tablet and below (< 768px) */
-@media (width < 768px) {
-  .pager {
-    --ps-pager-link-size: var(--size-9);
-    --ps-pager-link-padding-y: var(--size-2);
-    --ps-pager-link-padding-x: var(--size-2);
+  &__item--previous &__link-text::before {
+    content: '‹'; /* Previous arrow only */
+  }
+
+  &__item--next &__link-text::before {
+    content: '›'; /* Next arrow only */
+  }
+
+  /* ============================================
+     Responsive Breakpoints (Mobile-First)
+     ============================================ */
+
+  /* Mobile-sm (400px+) */
+  @media (--mobile-sm) {
+    /* Show full text on 400px+ */
     --ps-pager-control-padding-x: var(--size-3);
-    --ps-pager-font-size: var(--font-size-1);
-    --ps-pager-gap: var(--size-1);
+    
+    &__item--previous &__link-text,
+    &__item--next &__link-text {
+      font-size: var(--ps-pager-font-size); /* Show full text */
+      
+      &::before {
+        content: none; /* Remove symbol-only mode */
+      }
+    }
   }
-}
 
-/* Mobile (< 480px) */
-@media (width < 480px) {
-  .pager {
-    --ps-pager-link-size: var(--size-8);
-    --ps-pager-link-padding-y: var(--size-1);
-    --ps-pager-link-padding-x: var(--size-1);
-    --ps-pager-control-padding-x: var(--size-2);
-    --ps-pager-font-size: var(--font-size-0);
-    --ps-pager-gap: var(--size-half);
-    --ps-pager-ellipsis-padding: var(--size-1);
+  /* Mobile (640px+) */
+  @media (--mobile) {
+    /* Intermediate sizing for large mobile */
   }
-  
-  .pager__items {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
 
-/* Very small mobile (< 360px) */
-@media (width < 360px) {
-  .pager {
-    --ps-pager-link-size: var(--size-7);
-    --ps-pager-font-size: var(--font-size--1);
+  /* Tablet (768px+) */
+  @media (--tablet) {
+    /* Full desktop sizing starts here */
+    --ps-pager-link-size: var(--size-10);
+    --ps-pager-link-padding-y: var(--size-3);
+    --ps-pager-link-padding-x: var(--size-3);
+    --ps-pager-control-padding-x: var(--size-4);
+    --ps-pager-font-size: var(--font-size-2);
+    --ps-pager-gap: var(--size-2);
+  }
+
+  /* Laptop (1024px+) */
+  @media (--laptop) {
+    /* Desktop-specific adjustments if needed */
+  }
+
+  /* Desktop (1280px+) */
+  @media (--desktop) {
+    /* Desktop-specific adjustments if needed */
+  }
+
+  /* Desktop-large (1440px+) */
+  @media (--desktop-large) {
+    /* Large desktop adjustments if needed */
   }
 }

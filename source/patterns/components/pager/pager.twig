@@ -19,7 +19,7 @@
         <li class="pager__item pager__item--previous">
           <a href="{{ items.previous.href }}" class="pager__link" rel="prev" title="{{ 'Go to previous page'|default('Go to previous page') }}">
             <span class="visually-hidden">{{ 'Previous page'|default('Previous page') }}</span>
-            <span aria-hidden="true">{{ items.previous.text|default('‹ Previous') }}</span>
+            <span class="pager__link-text" aria-hidden="true">{{ items.previous.text|default('‹ Previous') }}</span>
           </a>
         </li>
       {% endif %}
@@ -56,7 +56,7 @@
         <li class="pager__item pager__item--next">
           <a href="{{ items.next.href }}" class="pager__link" rel="next" title="{{ 'Go to next page'|default('Go to next page') }}">
             <span class="visually-hidden">{{ 'Next page'|default('Next page') }}</span>
-            <span aria-hidden="true">{{ items.next.text|default('Next ›') }}</span>
+            <span class="pager__link-text" aria-hidden="true">{{ items.next.text|default('Next ›') }}</span>
           </a>
         </li>
       {% endif %}
