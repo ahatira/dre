@@ -16,9 +16,9 @@
 
 .ps-wizard-steps {
   /* Sizing */
-  --ps-wizard-marker-size: var(--size-10);
-  --ps-wizard-connector-size: 3px;
-  --ps-wizard-gap: var(--size-6);
+  --ps-wizard-marker-size: var(--size-12);
+  --ps-wizard-connector-size: 2px;
+  --ps-wizard-gap: var(--size-4);
   
   /* Colors - Connector */
   --ps-wizard-connector-color: var(--gray-200);
@@ -59,9 +59,10 @@
       &:not(:last-child)::after {
         content: '';
         flex: 1;
+        min-width: var(--size-8);
         height: var(--ps-wizard-connector-size);
         background: var(--ps-wizard-connector-color);
-        margin: 0 var(--size-3);
+        margin: 0 var(--size-4);
         transition: background var(--duration-normal) var(--ease-out-quad);
       }
       
@@ -77,19 +78,20 @@
     
     .ps-wizard-steps__item {
       flex-direction: row;
-      gap: var(--size-4);
+      gap: var(--size-5);
+      align-items: flex-start;
       
       &:not(:last-child) {
-        padding-bottom: var(--size-8);
+        padding-bottom: var(--size-10);
         position: relative;
         
         &::before {
           content: '';
           position: absolute;
           left: calc(var(--ps-wizard-marker-size) / 2 - var(--ps-wizard-connector-size) / 2);
-          top: calc(var(--ps-wizard-marker-size) + var(--size-3));
+          top: calc(var(--ps-wizard-marker-size) + var(--size-2));
           width: var(--ps-wizard-connector-size);
-          height: calc(100% - var(--ps-wizard-marker-size) - var(--size-3));
+          height: calc(100% - var(--ps-wizard-marker-size) - var(--size-2));
           background: var(--ps-wizard-connector-color);
           transition: background var(--duration-normal) var(--ease-out-quad);
         }
@@ -102,7 +104,8 @@
     
     .ps-wizard-steps__label {
       text-align: left;
-      max-width: var(--size-32);
+      max-width: none;
+      padding-top: var(--size-1);
     }
   }
 }
@@ -115,9 +118,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--size-3);
+  gap: var(--size-4);
   position: relative;
   cursor: default;
+  flex: 1;
   
   /* ============================================
      STATES
@@ -186,8 +190,8 @@
 }
 
 .ps-wizard-steps__icon {
-  width: var(--size-5);
-  height: var(--size-5);
+  width: var(--size-6);
+  height: var(--size-6);
   color: currentColor;
   animation: fadeInScale var(--duration-normal) var(--ease-out-back);
 }
@@ -202,8 +206,10 @@
   color: var(--ps-wizard-label-color);
   font-weight: var(--ps-wizard-label-weight);
   text-align: center;
-  max-width: var(--size-20);
-  line-height: var(--line-height-tight);
+  max-width: var(--size-24);
+  line-height: var(--line-height-normal);
+  word-wrap: break-word;
+  hyphens: auto;
   transition:
     color var(--duration-normal) var(--ease-out-quad),
     font-weight var(--duration-normal) var(--ease-out-quad),
