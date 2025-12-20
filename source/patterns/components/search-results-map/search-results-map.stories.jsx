@@ -33,7 +33,7 @@ export default {
     map: {
       description: 'Map center coordinates and initial zoom level',
       table: {
-        category: 'Map',
+        category: 'Content',
         defaultValue: { summary: '{ lat: 48.8723, lng: 2.3035, zoom: 13 }' },
       },
     },
@@ -41,33 +41,33 @@ export default {
       control: { type: 'select' },
       options: ['leaflet', 'google'],
       description: 'Map provider (Leaflet = OpenStreetMap, Google = Google Maps)',
-      table: { category: 'Map', defaultValue: { summary: 'leaflet' } },
+      table: { category: 'Behavior', defaultValue: { summary: 'leaflet' } },
     },
     results: {
       description:
         'Array of search results with coordinates and prices. Each result: { id, lat, lng, price (number or null for NC), currency }',
-      table: { category: 'Data' },
+      table: { category: 'Content' },
     },
     showRadius: {
       control: 'boolean',
       description: 'Display a distance circle around the map center',
-      table: { category: 'Map', defaultValue: { summary: false } },
+      table: { category: 'Appearance', defaultValue: { summary: false } },
     },
     radiusMeters: {
       control: 'number',
       description: 'Radius of the distance circle in meters',
-      table: { category: 'Map', defaultValue: { summary: 1200 } },
+      table: { category: 'Appearance', defaultValue: { summary: 1200 } },
     },
     cluster: {
       control: 'boolean',
       description:
         'Enable marker clustering for dense result sets (requires @googlemaps/markerclusterer)',
-      table: { category: 'Map', defaultValue: { summary: true } },
+      table: { category: 'Behavior', defaultValue: { summary: true } },
     },
     selectedId: {
       control: 'text',
       description: 'ID of the selected result (applies visual highlight to marker)',
-      table: { category: 'Selection', defaultValue: { summary: 'null' } },
+      table: { category: 'State', defaultValue: { summary: 'null' } },
     },
   },
 };

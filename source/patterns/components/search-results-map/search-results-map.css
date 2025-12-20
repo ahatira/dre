@@ -26,7 +26,7 @@
     --ps-map-marker-border-width: var(--border-size-1); /* 2px */
     --ps-map-marker-badge-border-color: var(--primary);
     --ps-map-marker-badge-border-color-hover: var(--primary);
-    --ps-map-marker-border-radius: 0;
+    /* No border-radius (sharp corners by default) */
     --ps-map-marker-shadow: var(--shadow-2);
     --ps-map-marker-shadow-hover: var(--shadow-3);
     --ps-map-marker-transition-duration: var(--duration-150);
@@ -64,7 +64,7 @@
       background: var(--ps-map-marker-bg);
       color: var(--ps-map-marker-color);
       border: var(--ps-map-marker-border-width) solid var(--ps-map-marker-badge-border-color);
-      border-radius: var(--ps-map-marker-border-radius);
+      /* No border-radius - sharp corners */
       box-shadow: var(--ps-map-marker-shadow);
       cursor: pointer;
       transition: all var(--ps-map-marker-transition-duration) var(--ps-map-marker-transition-easing);
@@ -167,6 +167,7 @@
     --ps-map-cluster-font-weight: var(--font-weight-400);
     --ps-map-cluster-border-width: 0px;
     --ps-map-cluster-border-color: var(--white);
+    /* Exception: Cluster requires circular shape (functional requirement) */
     --ps-map-cluster-border-radius: var(--radius-round);
 
     /* Layout (Layer 2) */
