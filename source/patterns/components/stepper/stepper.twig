@@ -1,10 +1,34 @@
 {#
 /**
- * Stepper - Step progress indicator for multi-step workflows
+ * @file
+ * Stepper component template.
+ *
+ * @component Stepper
+ * @description
+ * Step progress indicator for multi-step workflows (property search wizard, account setup).
+ * Shows current progress through sequential steps with completed/active/pending states.
+ *
+ * @molecules
+ * @category Navigation
+ *
+ * @features
+ * - Horizontal and vertical orientations
+ * - 3 states per step (pending, active, completed)
+ * - Animated transitions between states
+ * - Check icon for completed steps
+ * - Connector lines showing progress
+ * - Real Estate context (search wizard, listing process)
+ *
+ * @accessibility
+ * - Semantic <ol> list structure
+ * - aria-label="Progress" for screen reader context
+ * - Visual and text indicators for all states
+ * - Color-blind friendly (icons + text)
  *
  * @param {array} steps - Array of step objects (label, completed, active)
+ *   Each step: { label: string, completed: boolean, active: boolean }
  * @param {string} orientation - 'horizontal' or 'vertical' (default: 'horizontal')
- * @param {object} attributes - Additional HTML attributes for <ol> element
+ * @param {object} attributes - Additional HTML attributes for <ol> element (optional)
  */
 #}
 
@@ -16,10 +40,11 @@
   {% for step in steps %}
     {% set item_classes = [
       'ps-stepper__item',
-      step.active ? 'ps-stepper__item--active',
-      step.completed ? 'ps-stepper__item--completed'
-    ]|join(' ')|trim %}
-    <li class="{{ item_classes }}">
+      step.active ? 'ps-stepper__item--active' : null,
+      step.completed ? 'ps-stepper__item--completed' : null
+    ] %}
+    {% set item_attr = create_attribute().addClass(item_classes) %}
+    <li{{ item_attr }}>
       <div class="ps-stepper__step-marker">
         {% if step.completed %}
           <span class="ps-stepper__icon" data-icon="check" aria-hidden="true"></span>

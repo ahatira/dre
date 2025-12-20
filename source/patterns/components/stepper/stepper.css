@@ -116,7 +116,7 @@
       --_marker-text: var(--primary);
       --_marker-shadow:
         0 0 0 4px var(--primary-bg-subtle),
-        0 2px 8px rgba(0, 145, 90, 0.2);
+        var(--shadow-1);
       --_marker-scale: 1.1;
       --_label-color: var(--text-primary);
       --_label-weight: var(--font-weight-semibold);
@@ -129,7 +129,7 @@
       --_marker-border-width: 0;
       --_marker-bg: var(--success);
       --_marker-text: var(--white);
-      --_marker-shadow: 0 2px 4px rgba(25, 135, 84, 0.3);
+      --_marker-shadow: var(--shadow-1);
       --_marker-scale: 1;
       --_label-color: var(--text-primary);
       --_label-weight: var(--font-weight-medium);
@@ -137,7 +137,7 @@
 
     /* Hover effect on completed items */
     &--completed:hover {
-      --_marker-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+      --_marker-shadow: var(--shadow-2);
       --_marker-scale: 1.05;
     }
   }
