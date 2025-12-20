@@ -86,4 +86,15 @@
     margin-top: var(--size-4);
     width: 100%;
   }
+
+  /* Mobile: show only CTA */
+  @media not all and (--tablet) {
+    &__info {
+      display: none;
+    }
+
+    &__cta {
+      margin-top: 0;
+    }
+  }
 }
