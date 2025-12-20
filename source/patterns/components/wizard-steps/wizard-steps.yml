@@ -1,4 +1,4 @@
-# Stepper Component - Default Configuration
+# Wizard Steps Component - Default Configuration
 #
 # Available Props:
 # - steps: array - List of step objects with properties:
