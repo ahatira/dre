@@ -5,10 +5,6 @@
  * Manages toast notifications with auto-dismiss, manual close, and stacking.
  * Compatible with Drupal behaviors pattern and standalone usage.
  * 
- * @package Surface
- * @category Components
- * @version 1.0.0
- * @since 2024-12-20
  */
 
 (function (Drupal, once) {
