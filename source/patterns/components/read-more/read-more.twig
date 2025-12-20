@@ -54,12 +54,18 @@
 {%- set expanded = expanded|default(false) -%}
 {%- set showIcon = showIcon|default(true) -%}
 
-{%- set root_classes = ['ps-read-more'] -%}
-{%- if expanded -%}
-  {%- set root_classes = root_classes|merge(['ps-read-more--expanded']) -%}
-{%- endif -%}
+{%- set classes = [
+  'ps-read-more',
+  expanded ? 'ps-read-more--expanded' : null
+] -%}
 
-<div class="{{ root_classes|join(' ') }}" data-read-more data-max-height="{{ maxHeight }}" data-expand-label="{{ expandLabel }}" data-collapse-label="{{ collapseLabel }}"{{- attributes ? ' ' ~ attributes|without('class') : '' }}>
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('data-read-more', '') -%}
+{%- set attr = attr.setAttribute('data-max-height', maxHeight) -%}
+{%- set attr = attr.setAttribute('data-expand-label', expandLabel) -%}
+{%- set attr = attr.setAttribute('data-collapse-label', collapseLabel) -%}
+
+<div{{ attr }}>
   <div class="ps-read-more__content" data-read-more-content>
     {{ content|raw }}
   </div>
