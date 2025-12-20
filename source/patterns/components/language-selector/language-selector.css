@@ -2,19 +2,20 @@
  * Language Selector (Molecule/Navigation)
  *
  * Locale switcher with flags, labels and accessible dropdown.
- * Aligned with Figma spec: rectangular flags (20x14px), compact spacing, border 1px.
+ * Dimensions exactes issues de Figma (button 36px, flag 18x9, border 2px).
+ *
+ * NOTE: Utilise des valeurs hardcoded (px) au lieu de tokens pour respecter
+ * strictement les specs Figma et éviter les approximations des tokens.
  *
  * BEM Structure:
  * - Block: .ps-language-selector
- * - Elements: __control, __button, __current, __flag, __label, __icon, __list, __option, __native
- * - Modifiers (size): --sm (default), --md, --lg
- * - Variants: none (neutral-only per rules)
+ * - Elements: __control, __button, __current, __label, __icon, __list, __option, __native
  * - Modifiers (state): --disabled
  *
  * CSS Variables System (3-Layer Architecture):
  * - Layer 1: Global Tokens (brand.css, sizes.css, colors.css, etc.)
  * - Layer 2: Component-Scoped Variables (customizable defaults)
- * - Layer 3: Context Overrides (size + variant + state modifiers)
+ * - Layer 3: Context Overrides (state modifiers)
  */
 
 /* ============================================
@@ -27,24 +28,24 @@
      Override these in Layer 3 for sizes/variants
      ============================================ */
 
-  /* Spacing & Layout (ajusté selon maquette Figma) */
-  --ps-language-selector-gap: 6px; /* Gap flag/label - compact selon maquette */
-  --ps-language-selector-padding-y: 6px; /* Padding vertical - très compact */
-  --ps-language-selector-padding-x: 10px; /* Padding horizontal - réduit */
-  --ps-language-selector-min-width: 90px; /* Largeur minimale réduite */
-  --ps-language-selector-height: 32px; /* Hauteur fixe selon maquette (pas de token) */
+  /* Spacing & Layout (valeurs exactes Figma) */
+  --ps-language-selector-gap: 8px; /* Gap flag/label - Figma spec */
+  --ps-language-selector-padding-y: 8px; /* Padding vertical - Figma spec */
+  --ps-language-selector-padding-x: 16px; /* Padding horizontal - Figma spec */
+  --ps-language-selector-min-width: 104px; /* Width Figma */
+  --ps-language-selector-height: 36px; /* Hauteur exacte Figma */
 
-  /* Typography */
+  /* Typography (valeurs exactes Figma) */
   --ps-language-selector-font-family: var(--font-sans);
-  --ps-language-selector-font-size: var(--font-size-3); /* 14px */
-  --ps-language-selector-font-weight: var(--font-weight-400);
-  --ps-language-selector-line-height: 1.43; /* 20px / 14px */
+  --ps-language-selector-font-size: 14px; /* Figma spec */
+  --ps-language-selector-font-weight: 400; /* Figma spec */
+  --ps-language-selector-line-height: 24px; /* Figma spec (pas ratio) */
 
-  /* Colors (neutral-only) */
-  --ps-language-selector-bg: var(--white);
-  --ps-language-selector-color: var(--gray-900);
-  --ps-language-selector-border-color: var(--gray-300);
-  --ps-language-selector-border-width: var(--border-size-1); /* 1px */
+  /* Colors (valeurs exactes Figma) */
+  --ps-language-selector-bg: #FFFFFF; /* Figma spec */
+  --ps-language-selector-color: #333333; /* Figma spec */
+  --ps-language-selector-border-color: #D6DBDE; /* Figma spec */
+  --ps-language-selector-border-width: 2px; /* Figma spec (pas 1px) */
 
   /* States */
   --ps-language-selector-hover-bg: var(--gray-50);
@@ -63,10 +64,14 @@
   /* Dropdown */
   --ps-language-selector-dropdown-z-index: var(--layer-10);
   --ps-language-selector-dropdown-shadow: var(--shadow-3);
-  --ps-language-selector-option-gap: 4px; /* Gap réduit entre options selon maquette */
+  --ps-language-selector-option-gap: 8px; /* Gap options - Figma spec */
 
-  /* Icon */
-  --ps-language-selector-icon-size: 16px; /* Icon chevron compact selon maquette */
+  /* Icon (valeurs exactes Figma) */
+  --ps-language-selector-icon-size: 20px; /* Chevron 20x20 - Figma spec */
+
+  /* Flag override (dimensions Figma 18x9) */
+  --ps-language-selector-flag-width: 18px; /* Figma spec */
+  --ps-language-selector-flag-height: 9px; /* Figma spec */
 
   /* ============================================
      Apply Component Variables to Properties
@@ -142,6 +147,13 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ps-language-selector-gap);
+  }
+
+  /* Flag dimensions override (Figma 18x9) */
+  .ps-flag {
+    width: var(--ps-language-selector-flag-width);
+    height: var(--ps-language-selector-flag-height);
+    flex-shrink: 0;
   }
 
   &__icon {
