@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-20] - Enhancement: Checkboxes Molecule with 5 Layout Variants
+
+### Added
+- **Checkboxes (Components)**: 5 layout modifiers for flexible checkbox group presentation
+  - **Modifier `--inline`**: Horizontal row layout for short lists (Services: WiFi, Parking, AC)
+  - **Modifier `--compact`**: Reduced spacing (8px gap) for dense forms and sidebar filters
+  - **Modifier `--grid-2`**: Two-column grid for medium lists (6-12 options: property features, equipment)
+  - **Modifier `--grid-3`**: Three-column grid for longer lists (12-20 options: amenities, all features)
+  - **Modifier `--grid-4`**: Four-column grid for extensive lists (20+ options: all amenities, all features)
+  - **Responsive behavior**: All grid variants collapse to 1-2 columns on mobile/tablet
+  - **Combined modifiers**: Support for `--grid-2--compact`, `--grid-3--compact`, `--grid-4--compact`, `--inline--compact`
+  - **Real Estate examples**: 6 Storybook stories with authentic property data (équipements, orientation, services)
+
+### Technical Details
+- **Component-scoped variables**: 3 CSS custom properties for spacing control
+  - `--ps-checkboxes-gap` (default: 12px)
+  - `--ps-checkboxes-gap-compact` (compact: 8px)
+  - `--ps-checkboxes-gap-inline` (inline: 16px)
+- **Responsive breakpoints**: Uses design tokens (@media --mobile, --laptop, --desktop)
+- **Nesting patterns**: 9 modifier blocks with `&--` syntax, 4 combined modifiers with explicit rules
+- **Stories added**: 6 stories (Default, Inline, Grid2Columns, Grid3Columns, Compact, Grid2Compact)
+- **Pattern consistency**: Mirrors Radios molecule implementation for uniform experience
+- **Score target**: 90/90 ✅ (conformity audit expected)
+
+---
+
 ## [2025-12-20] - Enhancement: Radios Molecule with 5 Layout Variants
 
 ### Added

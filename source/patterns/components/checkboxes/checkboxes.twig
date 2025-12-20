@@ -3,14 +3,13 @@
  * Drupal checkboxes group wrapper
  *
  * @param object attributes - Drupal attributes for wrapper <div>
+ * @param string modifier_class - Optional modifier classes (--inline, --compact, --grid-2, etc.)
  * @param slot children - Rendered checkbox items
  #}
-{%-
-  set classes = [
-    'ps-checkboxes',
-    'form-checkboxes'
-  ]
--%}
+{%- set classes = ['ps-checkboxes', 'form-checkboxes'] -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <div{{ attr }}>
