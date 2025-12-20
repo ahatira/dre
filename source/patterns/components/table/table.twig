@@ -1,27 +1,38 @@
 {#
- * Table molecule - Data display with sorting, selection, and responsive variants
+/**
+ * Table (Component/Molecule)
+ * 
+ * Data display table with sorting, selection, responsive variants (horizontal scroll, stacked mobile),
+ * zebra striping, hover effects, borders, and compact spacing.
+ * 
+ * @package Surface
+ * @category Components
+ * @version 1.0.0
+ * @since 2024-12-20
+ * 
  * @param {array} headers - Column headers (required): [{key:string, label:string, sortable:boolean, numeric:boolean, sticky:boolean}]
  * @param {array} rows - Table rows (required): [{id:string, cells:array, selected:boolean, disabled:boolean}]
  * @param {string} [caption] - Table caption for accessibility
  * @param {string} [variant='default'] - Color variant: neutral, primary, secondary, success, danger, warning, info, light, dark, gold
- * @param {boolean} [striped=true] - Zebra-striped rows
+ * @param {boolean} [striped=false] - Zebra-striped rows
  * @param {boolean} [hover=true] - Hover effect on rows
  * @param {boolean} [bordered=false] - Full borders on cells
  * @param {boolean} [compact=false] - Reduced padding
  * @param {boolean} [responsive=true] - Horizontal scroll on mobile (incompatible with stacked)
  * @param {boolean} [stacked=false] - Card-like stacked layout on mobile (incompatible with responsive)
  * @param {object} [attributes] - Additional HTML attributes for Drupal integration
- #}
+ */
+#}
 
 {%- set headers = headers|default([]) -%}
 {%- set rows = rows|default([]) -%}
 {%- set caption = caption|default(null) -%}
 {%- set variant = variant|default('default') -%}
-{%- set striped = striped is defined ? striped : false -%}
-{%- set hover = hover is defined ? hover : true -%}
+{%- set striped = striped|default(false) -%}
+{%- set hover = hover|default(true) -%}
 {%- set bordered = bordered|default(false) -%}
 {%- set compact = compact|default(false) -%}
-{%- set responsive = responsive is defined ? responsive : true -%}
+{%- set responsive = responsive|default(true) -%}
 {%- set stacked = stacked|default(false) -%}
 
 {%- set table_classes = [
@@ -39,8 +50,10 @@
   (responsive and not stacked) ? 'ps-table-wrapper--responsive' : null
 ] -%}
 
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(table_classes) -%}
+
 <div class="{{ wrapper_classes|join(' ')|trim }}">
-  <table class="{{ table_classes|join(' ')|trim }}"{% if attributes %} {{ attributes|without('class') }}{% endif %}>
+  <table{{ attr }}>
     {% if caption -%}
       <caption class="ps-table__caption">{{ caption }}</caption>
     {%- endif %}
@@ -57,7 +70,7 @@
             ] -%}
             <th class="{{ header_classes|join(' ')|trim }}" scope="col"{% if header.sortable %} data-sort="{{ header.key }}"{% endif %}>
               {% if header.sortable -%}
-                <button class="ps-table__sort-button" type="button" aria-label="Sort by {{ header.label }}">
+                <button class="ps-table__sort-button" type="button" aria-label="Trier par {{ header.label }}">
                   {{ header.label }}
                   <span class="ps-table__sort-icon" data-icon="chevron-up" aria-hidden="true"></span>
                 </button>
@@ -85,7 +98,7 @@
                 headers[loop.index0].numeric ? 'ps-table__cell--numeric' : null
               ] -%}
               <td class="{{ cell_classes|join(' ')|trim }}" data-label="{{ headers[loop.index0].label }}">
-                {{ cell|raw }}
+                {{ cell }}
               </td>
             {%- endfor %}
           </tr>

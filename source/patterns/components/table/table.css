@@ -44,6 +44,7 @@
   --ps-table-font-size: var(--size-305); /* 14px */
   --ps-table-font-weight: var(--font-weight-400);
   --ps-table-line-height: 1.5;
+  --ps-table-gap: var(--size-2); /* 8px - gap between sort button text and icon */
     
     /* Spacing (maquette design - generous padding) */
     --ps-table-padding-y: var(--size-4); /* 16px - more vertical space */
@@ -254,7 +255,7 @@
       border-right: var(--ps-table-border-width) solid var(--ps-table-border-color);
       border-bottom: var(--ps-table-border-width) solid var(--ps-table-border-color);
 
-      /* Désactiver les séparateurs ::after en mode bordered */
+      /* Disable ::after separators in bordered mode */
       &::after {
         display: none;
       }
