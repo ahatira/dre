@@ -24,7 +24,7 @@
   --ps-menu-item-border-color: transparent;
   --ps-menu-item-submenu-gap: var(--size-1);
   --ps-menu-item-submenu-padding: var(--size-4);
-  --ps-menu-item-submenu-radius: var(--radius-2);
+  --ps-menu-item-submenu-min-width: var(--size-56);
   --ps-menu-item-submenu-shadow: var(--shadow-3);
   --ps-menu-item-submenu-border: var(--border-size-1) solid var(--border-default);
 
@@ -59,11 +59,6 @@
     font-size: var(--ps-menu-item-icon-size);
     color: currentColor;
     flex-shrink: 0;
-    transform: rotate(-90deg);
-
-    @media (--tablet) {
-      transform: rotate(0deg);
-    }
   }
 
   &__label {
@@ -78,7 +73,6 @@
     padding: 0 var(--size-2);
     font-size: var(--font-size--1);
     font-weight: var(--font-weight-600);
-    border-radius: var(--radius-round);
     white-space: nowrap;
 
     /* Default: danger variant */
@@ -135,10 +129,8 @@
   &--active .ps-menu-item__link {
     color: var(--primary);
     font-weight: var(--font-weight-600);
+    border-bottom-color: var(--primary);
 
-    @media (--tablet) {
-      border-bottom-color: var(--primary);
-    }
   }
 
   &--disabled .ps-menu-item__link {
@@ -155,13 +147,12 @@
     position: absolute;
     top: calc(100% + var(--size-1));
     left: 0;
-    min-width: 220px;
+    min-width: var(--ps-menu-item-submenu-min-width);
     display: none;
     flex-direction: column;
     gap: var(--ps-menu-item-submenu-gap);
     background: var(--white);
     border: var(--ps-menu-item-submenu-border);
-    border-radius: var(--ps-menu-item-submenu-radius);
     box-shadow: var(--ps-menu-item-submenu-shadow);
     z-index: var(--z-dropdown);
   }
@@ -177,14 +168,13 @@
     padding: var(--size-2) var(--ps-menu-item-padding-x);
     color: var(--ps-menu-item-color);
     text-decoration: none;
-    border-radius: var(--radius-1);
     transition:
       color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing),
       background-color var(--ps-menu-item-transition-duration) var(--ps-menu-item-transition-timing);
 
     &:hover {
       color: var(--ps-menu-item-color-hover);
-      background-color: var(--gray-050);
+      background-color: var(--gray-50);
     }
 
     &:focus-visible {

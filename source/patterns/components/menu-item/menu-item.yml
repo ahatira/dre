@@ -1,8 +1,0 @@
-label: "Menu Item"
-href: "#"
-active: false
-disabled: false
-icon: ""
-badge: ""
-badge_variant: "danger"
-submenu: []

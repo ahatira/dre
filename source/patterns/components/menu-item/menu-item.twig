@@ -21,7 +21,7 @@
 {%- set href = href|default('#') -%}
 {%- set active = active|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
-{%- set icon = icon|default('chevron-down') -%}
+{%- set icon = icon|default('') -%}
 {%- set badge = badge|default('') -%}
 {%- set badge_variant = badge_variant|default('danger') -%}
 {%- set submenu = submenu|default([]) -%}
@@ -31,14 +31,16 @@
   .addClass('ps-menu-item')
   .addClass(active ? 'ps-menu-item--active' : null)
   .addClass(disabled ? 'ps-menu-item--disabled' : null)
+  .setAttribute('data-has-submenu', submenu|length > 0 ? 'true' : null)
 -%}
 
 <li{{ attr }}>
   <a
-    href="{{ href }}"
+    {% if not disabled %}href="{{ href }}"{% endif %}
     class="ps-menu-item__link"
     {% if submenu|length > 0 %}aria-haspopup="true" aria-expanded="false"{% endif %}
-    {% if disabled %}aria-disabled="true"{% endif %}
+    {% if active %}aria-current="page"{% endif %}
+    {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
   >
     <span class="ps-menu-item__label">{{ label }}</span>
     {% if badge %}
