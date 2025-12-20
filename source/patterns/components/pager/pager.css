@@ -1,192 +1,181 @@
-/* stylelint-disable selector-class-pattern */
-.ps-pager {
-  --ps-pager-link-size: var(--size-10);
-  --ps-pager-link-min-width: var(--size-9);
-  --ps-pager-link-padding: 0;
-  --ps-pager-gap: var(--size-2);
-  --ps-pager-control-padding: var(--size-2) var(--size-3);
-  --ps-pager-control-min-width: var(--size-10);
-  --ps-pager-border-color: var(--border-default);
-  --ps-pager-background: var(--white);
-  --ps-pager-text: var(--text-primary);
-  --ps-pager-hover-border-color: var(--primary);
-  --ps-pager-hover-background: var(--primary-bg-subtle);
-  --ps-pager-hover-text: var(--primary);
-  --ps-pager-active-border-color: var(--primary);
-  --ps-pager-active-background: var(--primary);
-  --ps-pager-active-text: var(--white);
-  --ps-pager-disabled-border-color: var(--border-disabled);
-  --ps-pager-disabled-background: var(--gray-100);
-  --ps-pager-disabled-text: var(--text-disabled);
-  --ps-pager-focus-outline: var(--border-focus);
-  --ps-pager-icon-size: var(--size-5);
+/**
+ * Pager (Component/Molecule)
+ *
+ * Simple Drupal-compatible pagination navigation component.
+ * Displays page numbers with previous/next controls and optional ellipses.
+ *
+ * BEM Structure:
+ * - Block: .pager
+ * - Elements: .pager__items, .pager__item, .pager__link
+ * - Modifiers (item): --previous, --next, --ellipsis, --active
+ * - Modifiers (link): --active
+ *
+ * CSS Variables System (2-Layer):
+ * - Layer 1: Global Tokens (brand.css, sizes.css, etc.)
+ * - Layer 2: Component-Scoped Variables (customizable defaults)
+ */
 
+.pager {
+  /* ============================================
+     Layer 2: Component-Scoped Variables
+     ============================================ */
+
+  /* Layout */
+  --ps-pager-gap: var(--size-2);
+  
+  /* Link Sizing */
+  --ps-pager-link-size: var(--size-10);
+  --ps-pager-link-padding-y: var(--size-3);
+  --ps-pager-link-padding-x: var(--size-3);
+  --ps-pager-control-padding-x: var(--size-4);
+  
+  /* Typography */
+  --ps-pager-font-family: var(--font-sans);
+  --ps-pager-font-size: var(--font-size-2);
+  --ps-pager-font-weight: var(--font-weight-medium);
+  --ps-pager-line-height: 1;
+  
+  /* Colors - Default State */
+  --ps-pager-bg: var(--white);
+  --ps-pager-color: var(--text-primary);
+  --ps-pager-border-color: var(--border-default);
+  --ps-pager-border-width: var(--border-size-1);
+  
+  /* Colors - Hover State */
+  --ps-pager-hover-bg: var(--primary-bg-subtle);
+  --ps-pager-hover-color: var(--primary);
+  --ps-pager-hover-border-color: var(--primary);
+  
+  /* Colors - Active State */
+  --ps-pager-active-bg: var(--primary);
+  --ps-pager-active-color: var(--white);
+  --ps-pager-active-border-color: var(--primary);
+  
+  /* Colors - Ellipsis */
+  --ps-pager-ellipsis-color: var(--text-secondary);
+  --ps-pager-ellipsis-padding: var(--size-2);
+  
+  /* Focus */
+  --ps-pager-focus-outline-width: var(--border-size-2);
+  --ps-pager-focus-outline-color: var(--border-focus);
+  --ps-pager-focus-outline-offset: var(--size-1);
+  
+  /* Transitions */
+  --ps-pager-transition-duration: var(--duration-fast);
+  --ps-pager-transition-timing: var(--ease-out);
+
+  /* Base styles */
   display: flex;
   justify-content: center;
-}
 
-  .ps-pager__list {
+  &__items {
     display: flex;
     gap: var(--ps-pager-gap);
+    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .ps-pager__item {
+  &__item {
     display: flex;
+
+    &--ellipsis {
+      align-items: center;
+      padding: 0 var(--ps-pager-ellipsis-padding);
+      color: var(--ps-pager-ellipsis-color);
+      font-family: var(--ps-pager-font-family);
+      font-size: var(--ps-pager-font-size);
+      line-height: var(--ps-pager-line-height);
+    }
   }
 
-  .ps-pager__item--ellipsis {
-    align-items: center;
-    color: var(--text-secondary);
-    padding-inline: var(--size-2);
-  }
-
-  .ps-pager__link {
+  &__link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--size-2);
-    inline-size: var(--ps-pager-link-size);
-    block-size: var(--ps-pager-link-size);
-    min-inline-size: var(--ps-pager-link-min-width);
-    padding: var(--ps-pager-link-padding);
-    line-height: 1;
-    white-space: nowrap;
-    border: var(--border-1) solid var(--ps-pager-border-color);
-    background-color: var(--ps-pager-background);
-    color: var(--ps-pager-text);
+    min-width: var(--ps-pager-link-size);
+    min-height: var(--ps-pager-link-size);
+    padding: var(--ps-pager-link-padding-y) var(--ps-pager-link-padding-x);
+    border: var(--ps-pager-border-width) solid var(--ps-pager-border-color);
+    background: var(--ps-pager-bg);
+    color: var(--ps-pager-color);
+    font-family: var(--ps-pager-font-family);
+    font-size: var(--ps-pager-font-size);
+    font-weight: var(--ps-pager-font-weight);
+    line-height: var(--ps-pager-line-height);
     text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-2);
-    transition: all var(--duration-short) var(--ease-out-quad);
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--ps-pager-transition-duration);
+    transition-timing-function: var(--ps-pager-transition-timing);
     cursor: pointer;
 
-    &:hover:not(.ps-pager__link--disabled, .ps-pager__link--active) {
+    &:hover {
+      background: var(--ps-pager-hover-bg);
       border-color: var(--ps-pager-hover-border-color);
-      background-color: var(--ps-pager-hover-background);
-      color: var(--ps-pager-hover-text);
+      color: var(--ps-pager-hover-color);
     }
 
-    &:focus-visible:not(.ps-pager__link--disabled) {
-      outline: var(--border-2) solid var(--ps-pager-focus-outline);
-      outline-offset: var(--size-1);
+    &:focus-visible {
+      outline: var(--ps-pager-focus-outline-width) solid var(--ps-pager-focus-outline-color);
+      outline-offset: var(--ps-pager-focus-outline-offset);
     }
 
     &--active {
-      background-color: var(--ps-pager-active-background);
+      background: var(--ps-pager-active-bg);
       border-color: var(--ps-pager-active-border-color);
-      color: var(--ps-pager-active-text);
+      color: var(--ps-pager-active-color);
       cursor: default;
-    }
-
-    &--disabled {
-      border-color: var(--ps-pager-disabled-border-color);
-      background-color: var(--ps-pager-disabled-background);
-      color: var(--ps-pager-disabled-text);
-      cursor: not-allowed;
-    }
-
-    &--prev,
-    &--next {
-      inline-size: auto;
-      block-size: var(--ps-pager-link-size);
-      min-inline-size: var(--ps-pager-control-min-width);
-      padding: var(--ps-pager-control-padding);
-
-      &[data-icon] {
-        --ps-icon-size: var(--ps-pager-icon-size);
-      }
-    }
-
-    &--first,
-    &--last {
-      inline-size: auto;
-      block-size: var(--ps-pager-link-size);
-      min-inline-size: var(--ps-pager-control-min-width);
-      padding: var(--ps-pager-control-padding);
-
-      &[data-icon] {
-        --ps-icon-size: var(--ps-pager-icon-size);
-      }
+      pointer-events: none;
     }
   }
 
-
-
-  /* Mobile-sm (400px+) */
-  @media (--mobile-sm) {
-    .ps-pager {
-      --ps-pager-link-size: var(--size-9);
-      --ps-pager-link-min-width: var(--size-8);
-      --ps-pager-gap: var(--size-1);
-    }
-
-    .ps-pager__list {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .ps-pager__item--first,
-    .ps-pager__item--last {
-      display: none;
-    }
-
-    .ps-pager__link--prev,
-    .ps-pager__link--next {
-      min-inline-size: var(--size-9);
-      padding-inline: var(--size-2);
-    }
-
-    /* Icon-only controls on small screens: hide visible text, keep SR text */
-    .ps-pager__link--prev span:not(.visually-hidden),
-    .ps-pager__link--next span:not(.visually-hidden) {
-      display: none;
-    }
-
-    /* Horizontal scroll variant */
-    
-    .ps-pager.ps-pager--scrollable {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .ps-pager.ps-pager--scrollable .ps-pager__list {
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-    }
-    
-    .ps-pager.ps-pager--scrollable .ps-pager__item {
-      flex: 0 0 auto;
-    }
+  /* Controls (previous/next) have wider padding */
+  &__item--previous &__link,
+  &__item--next &__link {
+    padding-left: var(--ps-pager-control-padding-x);
+    padding-right: var(--ps-pager-control-padding-x);
   }
+}
 
-  /* Mobile (640px+) */
-  @media (--mobile) {
-    .ps-pager {
-      --ps-pager-link-size: var(--size-10);
-      --ps-pager-link-min-width: var(--size-9);
-      --ps-pager-gap: var(--size-2);
-    }
-  }
+/* ============================================
+   Responsive Adaptations
+   ============================================ */
 
-  /* Tablet (768px+) */
-  @media (--tablet) {
-    /* Component-specific adjustments if needed */
+/* Tablet and below (< 768px) */
+@media (width < 768px) {
+  .pager {
+    --ps-pager-link-size: var(--size-9);
+    --ps-pager-link-padding-y: var(--size-2);
+    --ps-pager-link-padding-x: var(--size-2);
+    --ps-pager-control-padding-x: var(--size-3);
+    --ps-pager-font-size: var(--font-size-1);
+    --ps-pager-gap: var(--size-1);
   }
+}
 
-  /* Laptop (1024px+) */
-  @media (--laptop) {
-    /* Component-specific adjustments if needed */
+/* Mobile (< 480px) */
+@media (width < 480px) {
+  .pager {
+    --ps-pager-link-size: var(--size-8);
+    --ps-pager-link-padding-y: var(--size-1);
+    --ps-pager-link-padding-x: var(--size-1);
+    --ps-pager-control-padding-x: var(--size-2);
+    --ps-pager-font-size: var(--font-size-0);
+    --ps-pager-gap: var(--size-half);
+    --ps-pager-ellipsis-padding: var(--size-1);
   }
+  
+  .pager__items {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 
-  /* Desktop (1280px+) */
-  @media (--desktop) {
-    /* Component-specific adjustments if needed */
+/* Very small mobile (< 360px) */
+@media (width < 360px) {
+  .pager {
+    --ps-pager-link-size: var(--size-7);
+    --ps-pager-font-size: var(--font-size--1);
   }
-
-  /* Desktop-large (1440px+) */
-  @media (--desktop-large) {
-    /* Component-specific adjustments if needed */
-  }
+}
