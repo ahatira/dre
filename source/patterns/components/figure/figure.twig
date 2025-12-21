@@ -15,9 +15,10 @@
  * @param {string} [fit='none'] - Object-fit behavior (none|cover|contain|fill|scale-down) - passed to Image atom
  * @param {string} [rounded='none'] - Image border-radius (none|sm|md|lg|full) - passed to Image atom
  * @param {string} [caption] - Figure caption text (optional)
- * @param {string} [caption_position='bottom-left'] - Caption overlay position: bottom-left|bottom-right|top-left|top-right
- * @param {boolean} [is_copyright=false] - Display copyright icon before caption
- * @param {string} [caption_animation='fade'] - Caption animation: none|fade|slide-up|slide-down|slide-left|slide-right
+* @param {string} [caption_position='bottom-left'] - Caption overlay position: bottom-left|bottom-right|top-left|top-right
+* @param {boolean} [show_icon=true] - Show an icon before caption text (default: true)
+* @param {string} [icon='copyright'] - Icon name (without prefix), e.g., 'copyright', 'camera', 'info'
+* @param {string} [caption_animation='fade'] - Caption animation: none|fade|slide-up|slide-down|slide-left|slide-right
  * @param {object} [attributes] - Additional HTML attributes for Drupal integration
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
@@ -26,7 +27,8 @@
 {# Default values #}
 {%- set caption = caption|default('') -%}
 {%- set caption_position = caption_position|default('bottom-left') -%}
-{%- set is_copyright = is_copyright|default(false) -%}
+{%- set show_icon = show_icon is defined ? show_icon : true -%}
+{%- set icon = icon|default('copyright') -%}
 {%- set caption_animation = caption_animation|default('fade') -%}
 
 {# Build figure classes #}
@@ -40,7 +42,7 @@
   'ps-figure__caption',
   'ps-figure__caption--' ~ caption_position,
   caption_animation != 'none' ? 'ps-figure__caption--anim-' ~ caption_animation : null,
-  is_copyright ? 'ps-figure__caption--copyright' : null
+  show_icon ? 'ps-figure__caption--has-icon' : null
 ] -%}
 
 {# Create figure attributes with create_attribute fallback #}
@@ -66,8 +68,8 @@
     {# Overlay caption (positioned in corners with dark background) #}
     {%- if caption -%}
       <figcaption class="{{ caption_classes|join(' ')|trim }}">
-        {%- if is_copyright -%}
-          <span class="ps-figure__copyright-icon" aria-hidden="true">&copy;</span>
+        {%- if show_icon -%}
+          <span class="ps-figure__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
         {%- endif -%}
         <span class="ps-figure__caption-text">{{ caption }}</span>
       </figcaption>

@@ -13,5 +13,6 @@ rounded: 'none'
 # Caption overlay
 caption: 'Premium commercial real estate development'
 caption_position: 'bottom-left'
-is_copyright: true
+show_icon: true
+icon: 'copyright'
 caption_animation: 'fade'

@@ -134,13 +134,22 @@ export default {
         defaultValue: { summary: 'bottom-left' },
       },
     },
-    is_copyright: {
+    show_icon: {
       control: 'boolean',
-      description: 'Display copyright icon (©) before caption text.',
+      description: 'Show an icon before caption text (default: true).',
       table: {
         category: 'Caption',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    icon: {
+      control: 'text',
+      description: 'Icon name (without prefix), e.g., "copyright", "camera", "info".',
+      table: {
+        category: 'Caption',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'copyright' },
       },
     },
     caption_animation: {
@@ -226,7 +235,7 @@ export const AllPositions = {
 /**
  * Copyright Icon: Display copyright symbol before caption
  */
-export const WithCopyright = {
+export const WithIcon = {
   args: {
     src: '/source/assets/images/16-9.jpg',
     alt: 'Commercial property with copyright',
@@ -234,7 +243,8 @@ export const WithCopyright = {
     height: 675,
     caption: 'BNP Paribas Real Estate 2025',
     caption_position: 'bottom-right',
-    is_copyright: true,
+    show_icon: true,
+    icon: 'copyright',
     caption_animation: 'fade',
     loading: 'lazy',
   },

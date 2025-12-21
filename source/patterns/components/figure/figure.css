@@ -114,17 +114,11 @@
     }
   }
 
-  /* Copyright icon */
-  &__copyright-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  /* Generic icon before caption text (uses data-icon mapping) */
+  &__icon {
+    display: inline-block;
     width: var(--size-5);
     height: var(--size-5);
-    font-size: var(--font-size-2);
-    font-weight: var(--font-weight-700);
-    color: var(--white);
-    background: var(--primary);
     border-radius: var(--radius-full);
     flex-shrink: 0;
   }
@@ -160,10 +154,9 @@
       gap: var(--size-1);
     }
 
-    &__copyright-icon {
+    &__icon {
       width: var(--size-4);
       height: var(--size-4);
-      font-size: var(--font-size-1);
     }
   }
 }
