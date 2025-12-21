@@ -1,6 +1,6 @@
 {
-  "generated": "2025-12-20T21:59:23.997Z",
-  "total": 146,
+  "generated": "2025-12-21T00:40:17.316Z",
+  "total": 147,
   "names": [
     "accessibility",
     "account",
@@ -44,6 +44,7 @@
     "commercial-space",
     "comparateur-empty",
     "compare",
+    "copyright",
     "coworking",
     "cube-focus",
     "details",
@@ -225,6 +226,7 @@
       "chevron-up",
       "close",
       "cloud",
+      "copyright",
       "download",
       "edit",
       "exclamation-circle",
