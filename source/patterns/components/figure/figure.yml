@@ -1,18 +1,4 @@
-# Figure Component - Default Configuration
-
-# Image properties
 src: '/source/assets/images/16-9.jpg'
-alt: 'Modern glass and steel commercial property with professional architecture'
-width: 1200
-height: 675
-loading: 'lazy'
-decoding: 'auto'
-fit: 'none'
-rounded: 'none'
-
-# Caption overlay
-caption: 'Premium commercial real estate development'
-caption_position: 'bottom-left'
-show_icon: true
-icon: 'copyright'
-caption_animation: 'fade'
+alt: 'Propriété moderne avec architecture contemporaine'
+caption: 'Villa d''exception - 4 chambres, 250m²'
+icon: 'heart'

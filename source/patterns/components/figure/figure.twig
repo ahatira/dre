@@ -1,80 +1,40 @@
 {#
- * Figure - Image with optional caption
+ * Figure - Simple image with hover caption
  *
- * Semantic figure element for displaying images with descriptive captions.
- * Composes the Image atom for responsive image handling with accessibility support.
- *
- * @param {string} [src] - Image source URL (required) - passed to Image atom
- * @param {string} [alt] - Image alternative text (required) - passed to Image atom
- * @param {int} [width] - Image intrinsic width in pixels - passed to Image atom
- * @param {int} [height] - Image intrinsic height in pixels - passed to Image atom
- * @param {array} [srcset] - Responsive image sources - passed to Image atom
- * @param {string} [sizes] - Sizes attribute for responsive images - passed to Image atom
- * @param {string} [loading='lazy'] - Image loading strategy (lazy|eager) - passed to Image atom
- * @param {string} [decoding='auto'] - Image decoding hint (auto|async|sync) - passed to Image atom
- * @param {string} [fit='none'] - Object-fit behavior (none|cover|contain|fill|scale-down) - passed to Image atom
- * @param {string} [rounded='none'] - Image border-radius (none|sm|md|lg|full) - passed to Image atom
- * @param {string} [caption] - Figure caption text (optional)
-* @param {string} [caption_position='bottom-left'] - Caption overlay position: bottom-left|bottom-right|top-left|top-right
-* @param {boolean} [show_icon=true] - Show an icon before caption text (default: true)
-* @param {string} [icon='copyright'] - Icon name (without prefix), e.g., 'copyright', 'camera', 'info'
-* @param {string} [caption_animation='fade'] - Caption animation: none|fade|slide-up|slide-down|slide-left|slide-right
- * @param {object} [attributes] - Additional HTML attributes for Drupal integration
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
+ * @param {string} [src] - Image source URL (required)
+ * @param {string} [alt] - Image alternative text (required)
+ * @param {string} [caption] - Caption text (shows on hover with overlay)
+ * @param {string} [icon] - Optional icon name (without prefix)
+ * @param {object} [attributes] - Additional HTML attributes for Drupal
  #}
 
 {# Default values #}
 {%- set caption = caption|default('') -%}
-{%- set caption_position = caption_position|default('bottom-left') -%}
-{%- set show_icon = show_icon is defined ? show_icon : true -%}
-{%- set icon = icon|default('copyright') -%}
-{%- set caption_animation = caption_animation|default('fade') -%}
+{%- set icon = icon|default('') -%}
 
-{# Build figure classes #}
+{# Build classes #}
 {%- set figure_classes = [
   'ps-figure',
-  (caption or show_icon) ? 'ps-figure--has-caption' : null
+  caption ? 'ps-figure--with-caption' : null
 ] -%}
 
-{# Build caption classes #}
-{%- set caption_classes = [
-  'ps-figure__caption',
-  'ps-figure__caption--' ~ caption_position,
-  caption_animation != 'none' ? 'ps-figure__caption--anim-' ~ caption_animation : null,
-  show_icon ? 'ps-figure__caption--has-icon' : null
-] -%}
+{# Drupal attribute object #}
+{%- set attrs = (attributes ? attributes : create_attribute()).addClass(figure_classes) -%}
 
-{# Create figure attributes with create_attribute fallback #}
-{%- set figure_attr = (attributes ? attributes : create_attribute()).addClass(figure_classes) -%}
-
-<figure{{ figure_attr }}>
-  {# Image atom with responsive/accessibility support #}
-  <div class="ps-figure__image-wrapper">
-    {% include '@elements/image/image.twig' with {
-      src: src,
-      alt: alt,
-      width: width,
-      height: height,
-      srcset: srcset,
-      sizes: sizes,
-      loading: loading,
-      decoding: decoding,
-      fit: fit,
-      rounded: rounded,
-      attributes: create_attribute().addClass(['ps-figure__image'])
-    } only %}
-    
-    {# Overlay caption (positioned in corners with dark background) #}
-    {%- if caption or show_icon -%}
-      <figcaption class="{{ caption_classes|join(' ')|trim }}">
-        {%- if show_icon -%}
-          <span class="ps-figure__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
-        {%- endif -%}
-        {%- if caption -%}
-          <span class="ps-figure__caption-text">{{ caption }}</span>
-        {%- endif -%}
-      </figcaption>
-    {%- endif -%}
-  </div>
+<figure{{ attrs }}>
+  <img
+    src="{{ src }}"
+    alt="{{ alt }}"
+    class="ps-figure__image"
+    loading="lazy"
+  />
+  
+  {%- if caption -%}
+    <figcaption class="ps-figure__caption">
+      {%- if icon -%}
+        <span class="ps-figure__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
+      {%- endif -%}
+      <span class="ps-figure__text">{{ caption }}</span>
+    </figcaption>
+  {%- endif -%}
 </figure>
