@@ -17,7 +17,7 @@ export default {
     docs: {
       description: {
         component:
-          'Semantic HTML figure element for displaying images with optional captions. Composes the Image atom for responsive, lazy-loaded images with accessibility. Ideal for real estate property showcases, before/after images, and contextual imagery.',
+          'Semantic HTML figure element with overlay captions positioned in 4 corners. Features dark semi-transparent background, copyright icon support, and smooth animations (fade, slide). Perfect for real estate property showcases with attribution.',
       },
     },
   },
@@ -118,7 +118,7 @@ export default {
     // Caption properties
     caption: {
       control: 'text',
-      description: 'Figure caption text (optional). Supports Markdown links.',
+      description: 'Overlay caption text with dark background (optional).',
       table: {
         category: 'Caption',
         type: { summary: 'string' },
@@ -126,26 +126,45 @@ export default {
     },
     caption_position: {
       control: { type: 'select' },
-      options: ['bottom', 'top'],
-      description: 'Caption display position relative to image.',
+      options: ['bottom-left', 'bottom-right', 'top-left', 'top-right'],
+      description: 'Caption overlay position in corner (4 positions).',
       table: {
         category: 'Caption',
         type: { summary: 'string' },
-        defaultValue: { summary: 'bottom' },
+        defaultValue: { summary: 'bottom-left' },
+      },
+    },
+    is_copyright: {
+      control: 'boolean',
+      description: 'Display copyright icon (©) before caption text.',
+      table: {
+        category: 'Caption',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    caption_animation: {
+      control: { type: 'select' },
+      options: ['none', 'fade', 'slide-up', 'slide-down', 'slide-left', 'slide-right'],
+      description: 'Caption reveal animation on hover/focus.',
+      table: {
+        category: 'Caption',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'fade' },
       },
     },
   },
 };
 
 /**
- * Default: Image with bottom caption
+ * Default: Overlay caption bottom-left with fade animation + copyright
  */
 export const Default = {
   args: data,
 };
 
 /**
- * Without Caption: Image only (caption empty)
+ * Without Caption: Image only (no overlay)
  */
 export const WithoutCaption = {
   args: {
@@ -159,66 +178,112 @@ export const WithoutCaption = {
 };
 
 /**
- * Top Caption: Caption positioned above image
+ * All Positions: Showcase 4 corner positions
  */
-export const TopCaption = {
+export const AllPositions = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--size-6);">
+      ${figureTemplate({
+        src: '/source/assets/images/16-9.jpg',
+        alt: 'Property - Top Left',
+        width: 600,
+        height: 338,
+        caption: 'Top Left Caption',
+        caption_position: 'top-left',
+        caption_animation: 'fade',
+      })}
+      ${figureTemplate({
+        src: '/source/assets/images/16-9.jpg',
+        alt: 'Property - Top Right',
+        width: 600,
+        height: 338,
+        caption: 'Top Right Caption',
+        caption_position: 'top-right',
+        caption_animation: 'fade',
+      })}
+      ${figureTemplate({
+        src: '/source/assets/images/16-9.jpg',
+        alt: 'Property - Bottom Left',
+        width: 600,
+        height: 338,
+        caption: 'Bottom Left Caption',
+        caption_position: 'bottom-left',
+        caption_animation: 'fade',
+      })}
+      ${figureTemplate({
+        src: '/source/assets/images/16-9.jpg',
+        alt: 'Property - Bottom Right',
+        width: 600,
+        height: 338,
+        caption: 'Bottom Right Caption',
+        caption_position: 'bottom-right',
+        caption_animation: 'fade',
+      })}
+    </div>
+  `,
+};
+
+/**
+ * Copyright Icon: Display copyright symbol before caption
+ */
+export const WithCopyright = {
   args: {
     src: '/source/assets/images/16-9.jpg',
-    alt: 'Modern office building with sustainable design',
+    alt: 'Commercial property with copyright',
     width: 1200,
     height: 675,
-    caption: 'Eco-certified commercial complex in urban center',
-    caption_position: 'top',
+    caption: 'BNP Paribas Real Estate 2025',
+    caption_position: 'bottom-right',
+    is_copyright: true,
+    caption_animation: 'fade',
     loading: 'lazy',
   },
 };
 
 /**
- * Rounded Corners: Image with border-radius modifier
+ * Slide Up Animation: Caption slides from bottom
  */
-export const RoundedImage = {
+export const AnimationSlideUp = {
   args: {
     src: '/source/assets/images/16-9.jpg',
-    alt: 'Commercial property with architectural details',
+    alt: 'Property with slide animation',
     width: 1200,
     height: 675,
-    caption: 'Professional property showcase with refined styling',
-    rounded: 'md',
+    caption: 'Premium commercial development',
+    caption_position: 'bottom-left',
+    caption_animation: 'slide-up',
     loading: 'lazy',
   },
 };
 
 /**
- * Object-Fit Cover: Image scales and crops to fill container
+ * Slide Right Animation: Caption slides from left
  */
-export const ObjectFitCover = {
+export const AnimationSlideRight = {
   args: {
     src: '/source/assets/images/16-9.jpg',
-    alt: 'Office space with modern amenities',
+    alt: 'Property with slide right animation',
     width: 1200,
     height: 675,
-    caption: 'Prime location commercial real estate',
-    fit: 'cover',
+    caption: 'Modern office space',
+    caption_position: 'top-left',
+    caption_animation: 'slide-right',
     loading: 'lazy',
   },
 };
 
 /**
- * Responsive with Srcset: Multiple image sizes for different viewports
+ * No Animation: Caption always visible
  */
-export const ResponsiveImage = {
+export const NoAnimation = {
   args: {
     src: '/source/assets/images/16-9.jpg',
-    alt: 'Responsive commercial property showcase',
+    alt: 'Property with static caption',
     width: 1200,
     height: 675,
-    srcset: [
-      '/source/assets/images/16-9-sm.jpg 640w',
-      '/source/assets/images/16-9-md.jpg 1024w',
-      '/source/assets/images/16-9.jpg 1200w',
-    ],
-    sizes: '(min-width: 768px) 80vw, 100vw',
-    caption: 'Optimized for all device sizes',
+    caption: 'Always visible caption',
+    caption_position: 'bottom-left',
+    caption_animation: 'none',
     loading: 'lazy',
   },
 };

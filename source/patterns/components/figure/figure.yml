@@ -10,6 +10,8 @@ decoding: 'auto'
 fit: 'none'
 rounded: 'none'
 
-# Caption
-caption: 'High-end commercial real estate development in premium business district'
-caption_position: 'bottom'
+# Caption overlay
+caption: 'Premium commercial real estate development'
+caption_position: 'bottom-left'
+is_copyright: true
+caption_animation: 'fade'

@@ -1,8 +1,9 @@
 /**
  * Figure Component - Structure & Layout
  *
- * Semantic figure element for images with captions.
+ * Semantic figure element for images with overlay captions.
  * Composes Image atom for responsive, accessible image handling.
+ * Captions positioned in 4 corners with dark overlay and animations.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
  */
@@ -10,14 +11,13 @@
 .ps-figure {
   /* Base figure container */
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-3);
+  display: block;
   margin: 0;
   padding: 0;
 
-  /* Image wrapper for responsive sizing */
+  /* Image wrapper for relative positioning */
   &__image-wrapper {
+    position: relative;
     display: block;
     width: 100%;
     overflow: hidden;
@@ -30,45 +30,120 @@
     height: auto;
   }
 
-  /* Caption styling */
+  /* Overlay caption with dark background */
   &__caption {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    padding: var(--size-3) var(--size-4);
+    margin: 0;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--white);
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
-    color: var(--text-secondary);
-    font-style: italic;
-    margin: 0;
-    padding: 0;
+    font-style: normal;
+    backdrop-filter: blur(4px);
+    z-index: 1;
 
     /* Link styling within caption */
     & a {
-      color: var(--primary);
+      color: var(--white);
       text-decoration: underline;
 
       &:hover {
-        color: var(--primary-hover);
+        color: var(--primary);
       }
 
       &:focus-visible {
-        outline: 2px solid var(--primary);
+        outline: 2px solid var(--white);
         outline-offset: 2px;
       }
     }
-  }
 
-  /* Caption position modifiers */
-  &--caption-top {
-    flex-direction: column;
+    /* Caption text */
+    &-text {
+      flex: 1;
+    }
 
-    .ps-figure__caption--top {
-      order: -1;
+    /* Position modifiers - 4 corners */
+    &--bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+
+    &--bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+
+    &--top-left {
+      top: 0;
+      left: 0;
+    }
+
+    &--top-right {
+      top: 0;
+      right: 0;
+    }
+
+    /* Animation modifiers */
+    &--anim-fade {
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-2);
+    }
+
+    &--anim-slide-up {
+      transform: translateY(100%);
+      transition: transform var(--duration-normal) var(--ease-2);
+    }
+
+    &--anim-slide-down {
+      transform: translateY(-100%);
+      transition: transform var(--duration-normal) var(--ease-2);
+    }
+
+    &--anim-slide-left {
+      transform: translateX(100%);
+      transition: transform var(--duration-normal) var(--ease-2);
+    }
+
+    &--anim-slide-right {
+      transform: translateX(-100%);
+      transition: transform var(--duration-normal) var(--ease-2);
     }
   }
 
-  &--caption-bottom {
-    flex-direction: column;
+  /* Copyright icon */
+  &__copyright-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-5);
+    height: var(--size-5);
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-700);
+    color: var(--white);
+    background: var(--primary);
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
 
-    .ps-figure__caption--bottom {
-      order: 1;
+  /* Hover/Focus animations trigger */
+  &:hover,
+  &:focus-within {
+    .ps-figure__caption--anim-fade {
+      opacity: 1;
+    }
+
+    .ps-figure__caption--anim-slide-up,
+    .ps-figure__caption--anim-slide-down {
+      transform: translateY(0);
+    }
+
+    .ps-figure__caption--anim-slide-left,
+    .ps-figure__caption--anim-slide-right {
+      transform: translateX(0);
     }
   }
 }
@@ -79,10 +154,17 @@
 
 @media (max-width: 768px) {
   .ps-figure {
-    gap: var(--size-2);
-
     &__caption {
+      padding: var(--size-2) var(--size-3);
       font-size: var(--font-size-2);
+      gap: var(--size-1);
+    }
+
+    &__copyright-icon {
+      width: var(--size-4);
+      height: var(--size-4);
+      font-size: var(--font-size-1);
     }
   }
 }
+
