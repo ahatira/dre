@@ -39,18 +39,14 @@ export default {
 
 export const Default = {
   name: 'Default',
-  render: function (args) {
-    return markup(args);
-  },
+  render: (args) => markup(args),
   args: data,
 };
 
 export const FirstPage = {
   name: 'First Page',
-  render: function (args) {
-    return markup(args);
-  },
-  args: (function () {
+  render: (args) => markup(args),
+  args: (() => {
     const args = clone(data);
     args.current = 1;
     delete args.items.previous;
@@ -60,10 +56,8 @@ export const FirstPage = {
 
 export const LastPage = {
   name: 'Last Page',
-  render: function (args) {
-    return markup(args);
-  },
-  args: (function () {
+  render: (args) => markup(args),
+  args: (() => {
     const args = clone(data);
     args.current = 5;
     delete args.items.next;
@@ -73,10 +67,8 @@ export const LastPage = {
 
 export const WithEllipses = {
   name: 'With Ellipses',
-  render: function (args) {
-    return markup(args);
-  },
-  args: (function () {
+  render: (args) => markup(args),
+  args: (() => {
     const args = clone(data);
     args.current = 10;
     args.items.pages = {
@@ -93,10 +85,8 @@ export const WithEllipses = {
 
 export const ManyPages = {
   name: 'Many Pages',
-  render: function (args) {
-    return markup(args);
-  },
-  args: (function () {
+  render: (args) => markup(args),
+  args: (() => {
     const args = clone(data);
     args.current = 5;
     const pages = {};

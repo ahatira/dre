@@ -51,8 +51,7 @@ export default {
 
     // Appearance
     size: {
-      description:
-        'Size variant: small, medium (default), or large',
+      description: 'Size variant: small, medium (default), or large',
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
       table: {
@@ -85,7 +84,8 @@ export default {
 
     // Accessibility
     attributes: {
-      description: 'Drupal Attribute object for additional HTML attributes (id, data-*, aria-*, etc.)',
+      description:
+        'Drupal Attribute object for additional HTML attributes (id, data-*, aria-*, etc.)',
       control: { type: 'object' },
       table: {
         category: 'Accessibility',

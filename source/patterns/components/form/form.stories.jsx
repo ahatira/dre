@@ -7,7 +7,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Drupal form wrapper for composing form fields, actions, and other form elements. Simple wrapper that applies form semantics and base styling.',
+        component:
+          'Drupal form wrapper for composing form fields, actions, and other form elements. Simple wrapper that applies form semantics and base styling.',
       },
     },
   },

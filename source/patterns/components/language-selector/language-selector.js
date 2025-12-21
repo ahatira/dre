@@ -8,9 +8,7 @@
  * @see https://www.drupal.org/docs/drupal-apis/javascript-api/javascript-api-overview
  */
 
-(function (Drupal, once) {
-  'use strict';
-
+((Drupal, once) => {
   /**
    * Language Selector behavior.
    *
@@ -22,10 +20,10 @@
    *   Detaches language selector behavior on unload.
    */
   Drupal.behaviors.psLanguageSelector = {
-    attach: function (context, settings) {
+    attach: (context, _settings) => {
       const elements = once('ps-language-selector', '.ps-language-selector', context);
 
-      elements.forEach(function (element) {
+      elements.forEach((element) => {
         // DOM references
         const button = element.querySelector('.ps-language-selector__button');
         const list = element.querySelector('.ps-language-selector__list');
@@ -41,9 +39,7 @@
         );
 
         // Current selected index
-        let currentIndex = options.findIndex(function (opt) {
-          return opt.getAttribute('aria-selected') === 'true';
-        });
+        let currentIndex = options.findIndex((opt) => opt.getAttribute('aria-selected') === 'true');
 
         if (currentIndex === -1) {
           currentIndex = 0;
@@ -52,73 +48,47 @@
         // Store cleanup functions
         const cleanupFunctions = [];
 
-        // Toggle dropdown
-        function toggle() {
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
-          if (isExpanded) {
-            close();
-          } else {
-            open();
-          }
-        }
-
-        function open() {
-          list.hidden = false;
-          button.setAttribute('aria-expanded', 'true');
-          if (options[currentIndex]) {
-            options[currentIndex].focus();
-          }
-        }
-
-        function close() {
-          list.hidden = true;
-          button.setAttribute('aria-expanded', 'false');
-        }
-
-        function selectOption(index) {
-          // Update ARIA selected state
-          options.forEach(function (opt, i) {
+        // Helpers
+        const updateSelectedState = (index) => {
+          options.forEach((opt, i) => {
             opt.setAttribute('aria-selected', i === index ? 'true' : 'false');
           });
-
           currentIndex = index;
+        };
 
-          // Update button label
-          const selectedOption = options[index];
+        const updateButtonDisplay = (selectedOption) => {
           const labelElement = button.querySelector('.ps-language-selector__label');
           const flagElement = button.querySelector('.ps-flag');
+          const optionLabel = selectedOption.querySelector('.ps-language-selector__label');
+          const optionFlag = selectedOption.querySelector('.ps-flag');
 
-          if (labelElement) {
-            const optionLabel = selectedOption.querySelector('.ps-language-selector__label');
-            if (optionLabel) {
-              labelElement.textContent = optionLabel.textContent.trim();
-            }
+          const optionLabelText = optionLabel ? optionLabel.textContent.trim() : '';
+
+          if (labelElement && optionLabelText) {
+            labelElement.textContent = optionLabelText;
           }
 
-          // Update button flag
-          if (flagElement) {
-            const optionFlag = selectedOption.querySelector('.ps-flag');
-            if (optionFlag) {
-              flagElement.replaceWith(optionFlag.cloneNode(true));
-            }
+          if (flagElement && optionFlag) {
+            flagElement.replaceWith(optionFlag.cloneNode(true));
           }
+        };
 
-          // Update native select
+        const updateNativeSelectValue = (selectedOption) => {
           const value = selectedOption.dataset.value;
           if (nativeSelect && value) {
             nativeSelect.value = value;
-
-            // Trigger change event
             const changeEvent = new Event('change', { bubbles: true });
             nativeSelect.dispatchEvent(changeEvent);
           }
+          return value;
+        };
 
-          // Handle URL navigation
+        const navigateToUrl = (selectedOption, value) => {
           const url = selectedOption.dataset.url;
           if (url) {
             const navigationEvent = new CustomEvent('ps-language-selector:navigate', {
               detail: { url: url, value: value, option: selectedOption },
-              cancelable: true
+              cancelable: true,
             });
             element.dispatchEvent(navigationEvent);
 
@@ -126,15 +96,46 @@
               window.location.href = url;
             }
           }
-        }
+        };
 
-        function focusOption(index) {
+        const selectOption = (index) => {
+          updateSelectedState(index);
+          const selectedOption = options[index];
+          updateButtonDisplay(selectedOption);
+          const value = updateNativeSelectValue(selectedOption);
+          navigateToUrl(selectedOption, value);
+        };
+
+        // Toggle dropdown
+        const toggle = () => {
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            close();
+          } else {
+            open();
+          }
+        };
+
+        const open = () => {
+          list.hidden = false;
+          button.setAttribute('aria-expanded', 'true');
+          if (options[currentIndex]) {
+            options[currentIndex].focus();
+          }
+        };
+
+        const close = () => {
+          list.hidden = true;
+          button.setAttribute('aria-expanded', 'false');
+        };
+
+        const focusOption = (index) => {
           if (options[index]) {
             options[index].focus();
           }
-        }
+        };
 
-        function navigateOptions(direction) {
+        const navigateOptions = (direction) => {
           let newIndex = currentIndex + direction;
 
           // Wrap around
@@ -146,57 +147,41 @@
 
           currentIndex = newIndex;
           focusOption(newIndex);
-        }
+        };
 
-        function navigateByLetter(letter) {
+        const navigateByLetter = (letter) => {
           const lowerLetter = letter.toLowerCase();
-          let foundIndex = -1;
-
-          // Search from current index + 1
-          for (let i = currentIndex + 1; i < options.length; i++) {
-            const text = options[i].textContent.trim().toLowerCase();
+          const total = options.length;
+          for (let step = 1; step <= total; step++) {
+            const idx = (currentIndex + step) % total;
+            const text = options[idx].textContent.trim().toLowerCase();
             if (text.startsWith(lowerLetter)) {
-              foundIndex = i;
+              currentIndex = idx;
+              focusOption(idx);
               break;
             }
           }
-
-          // If not found, search from beginning
-          if (foundIndex === -1) {
-            for (let i = 0; i <= currentIndex; i++) {
-              const text = options[i].textContent.trim().toLowerCase();
-              if (text.startsWith(lowerLetter)) {
-                foundIndex = i;
-                break;
-              }
-            }
-          }
-
-          if (foundIndex !== -1) {
-            currentIndex = foundIndex;
-            focusOption(foundIndex);
-          }
-        }
+        };
 
         // Event: Button click
-        function handleButtonClick(e) {
+        const handleButtonClick = (e) => {
           e.preventDefault();
           e.stopPropagation();
           toggle();
-        }
+        };
 
         // Event: Button keydown
-        function handleButtonKeydown(e) {
+        const handleButtonKeydown = (e) => {
           const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
           if (!isExpanded && ['Enter', ' ', 'ArrowDown', 'ArrowUp'].indexOf(e.key) !== -1) {
             e.preventDefault();
             open();
           }
-        }
+        };
 
         // Event: List keydown
-        function handleListKeydown(e) {
+        const handleListKeydown = (e) => {
           switch (e.key) {
             case 'ArrowDown':
               e.preventDefault();
@@ -214,12 +199,13 @@
               currentIndex = 0;
               break;
 
-            case 'End':
+            case 'End': {
               e.preventDefault();
               const lastIndex = options.length - 1;
               focusOption(lastIndex);
               currentIndex = lastIndex;
               break;
+            }
 
             case 'Enter':
             case ' ':
@@ -236,10 +222,10 @@
               }
               break;
           }
-        }
+        };
 
         // Event: Escape key
-        function handleEscape(e) {
+        const handleEscape = (e) => {
           if (e.key === 'Escape') {
             const isExpanded = button.getAttribute('aria-expanded') === 'true';
             if (isExpanded) {
@@ -249,15 +235,15 @@
               button.focus();
             }
           }
-        }
+        };
 
         // Event: Outside click
-        function handleOutsideClick(e) {
+        const handleOutsideClick = (e) => {
           const isExpanded = button.getAttribute('aria-expanded') === 'true';
           if (isExpanded && !element.contains(e.target)) {
             close();
           }
-        }
+        };
 
         // Attach event listeners
         button.addEventListener('click', handleButtonClick);
@@ -267,7 +253,7 @@
         document.addEventListener('click', handleOutsideClick, { capture: true });
 
         // Store cleanup function
-        cleanupFunctions.push(function () {
+        cleanupFunctions.push(() => {
           button.removeEventListener('click', handleButtonClick);
           button.removeEventListener('keydown', handleButtonKeydown);
           list.removeEventListener('keydown', handleListKeydown);
@@ -276,16 +262,16 @@
         });
 
         // Attach option click handlers
-        options.forEach(function (option, index) {
-          function handleOptionClick(e) {
+        options.forEach((option, index) => {
+          const handleOptionClick = (e) => {
             e.stopPropagation();
             selectOption(index);
             close();
-          }
+          };
 
           option.addEventListener('click', handleOptionClick);
 
-          cleanupFunctions.push(function () {
+          cleanupFunctions.push(() => {
             option.removeEventListener('click', handleOptionClick);
           });
         });
@@ -295,20 +281,19 @@
       });
     },
 
-    detach: function (context, settings, trigger) {
+    detach: (context, _settings, trigger) => {
       if (trigger === 'unload') {
         const elements = once.remove('ps-language-selector', '.ps-language-selector', context);
 
-        elements.forEach(function (element) {
+        elements.forEach((element) => {
           if (element.psLanguageSelectorCleanup) {
-            element.psLanguageSelectorCleanup.forEach(function (cleanup) {
+            element.psLanguageSelectorCleanup.forEach((cleanup) => {
               cleanup();
             });
             delete element.psLanguageSelectorCleanup;
           }
         });
       }
-    }
+    },
   };
-
 })(Drupal, once);

@@ -59,34 +59,60 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
       const mapId = canvas.getAttribute('data-map-id') || 'default';
       const drupalConfig = settings?.psSearchResultsMap?.[mapId] || {};
 
-      // Fallback to data-attributes if drupalSettings not available
       const dataConfig = readMapDataset(canvas);
-      const resultsData = canvas.getAttribute('data-results');
-      let results = [];
-      if (resultsData) {
+
+      const parseResults = () => {
+        if (drupalConfig.results) {
+          return drupalConfig.results;
+        }
+        const resultsData = canvas.getAttribute('data-results');
+        if (!resultsData) {
+          return [];
+        }
         try {
-          results = JSON.parse(resultsData);
+          return JSON.parse(resultsData);
         } catch (e) {
           console.warn('psSearchResultsMap: Invalid results JSON', e);
+          return [];
         }
-      }
+      };
 
-      const radiusValue = canvas.getAttribute('data-radius-meters');
+      const resolveRadius = () => {
+        if (drupalConfig.radiusMeters) {
+          return drupalConfig.radiusMeters;
+        }
+        const radiusValue = canvas.getAttribute('data-radius-meters');
+        if (radiusValue) {
+          return Number.parseInt(radiusValue, 10);
+        }
+        return 1200;
+      };
+
+      const resolveBoolean = (primary, fallback) => {
+        if (primary !== undefined) {
+          return primary;
+        }
+        return fallback;
+      };
 
       return {
         lat: drupalConfig.lat || dataConfig.lat,
         lng: drupalConfig.lng || dataConfig.lng,
         zoom: drupalConfig.zoom || dataConfig.zoom,
         provider: drupalConfig.provider || dataConfig.provider || 'google',
-        results: drupalConfig.results || results || [],
-        showRadius: drupalConfig.showRadius ?? canvas.getAttribute('data-show-radius') === 'true',
-        radiusMeters:
-          drupalConfig.radiusMeters || (radiusValue ? Number.parseInt(radiusValue, 10) : 1200),
-        cluster: drupalConfig.cluster ?? canvas.getAttribute('data-cluster') !== 'false',
+        results: parseResults(),
+        showRadius: resolveBoolean(
+          drupalConfig.showRadius,
+          canvas.getAttribute('data-show-radius') === 'true'
+        ),
+        radiusMeters: resolveRadius(),
+        cluster: resolveBoolean(
+          drupalConfig.cluster,
+          canvas.getAttribute('data-cluster') !== 'false'
+        ),
         selectedId: drupalConfig.selectedId || canvas.getAttribute('data-selected-id') || null,
         mapId: drupalConfig.mapId || 'DEMO_MAP_ID',
-        autoFit: drupalConfig.autoFit ?? true, // Auto-fit bounds to markers
-        // Views integration hooks
+        autoFit: drupalConfig.autoFit ?? true,
         viewId: drupalConfig.viewId || null,
         displayId: drupalConfig.displayId || null,
         contextualFilters: drupalConfig.contextualFilters || [],

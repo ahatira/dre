@@ -16,9 +16,18 @@ export default {
   },
   argTypes: {
     modifier_class: {
-      description: 'Modifier classes (--inline, --compact, --grid-2, --grid-3, --grid-4). Can combine: --grid-2--compact',
+      description:
+        'Modifier classes (--inline, --compact, --grid-2, --grid-3, --grid-4). Can combine: --grid-2--compact',
       control: 'select',
-      options: ['', 'form-radios--inline', 'form-radios--compact', 'form-radios--grid-2', 'form-radios--grid-3', 'form-radios--grid-4', 'form-radios--grid-2--compact'],
+      options: [
+        '',
+        'form-radios--inline',
+        'form-radios--compact',
+        'form-radios--grid-2',
+        'form-radios--grid-3',
+        'form-radios--grid-4',
+        'form-radios--grid-2--compact',
+      ],
       table: { category: 'Layout' },
     },
     children: {
@@ -29,7 +38,14 @@ export default {
   },
   render: (args) => {
     const radioItems = [
-      { ...radioData, name: 'property_type', id: 'option-1', value: '1', label: 'Appartement', checked: true },
+      {
+        ...radioData,
+        name: 'property_type',
+        id: 'option-1',
+        value: '1',
+        label: 'Appartement',
+        checked: true,
+      },
       { ...radioData, name: 'property_type', id: 'option-2', value: '2', label: 'Maison' },
       { ...radioData, name: 'property_type', id: 'option-3', value: '3', label: 'Loft' },
     ];
@@ -57,7 +73,14 @@ export const Default = {
 export const Inline = {
   render: () => {
     const radioItems = [
-      { ...radioData, name: 'furnished', id: 'furnished-yes', value: 'yes', label: 'Oui', checked: true },
+      {
+        ...radioData,
+        name: 'furnished',
+        id: 'furnished-yes',
+        value: 'yes',
+        label: 'Oui',
+        checked: true,
+      },
       { ...radioData, name: 'furnished', id: 'furnished-no', value: 'no', label: 'Non' },
     ];
 
@@ -76,7 +99,14 @@ export const Inline = {
 export const Grid2Columns = {
   render: () => {
     const radioItems = [
-      { ...radioData, name: 'type', id: 'type-1', value: 'apartment', label: 'Appartement', checked: true },
+      {
+        ...radioData,
+        name: 'type',
+        id: 'type-1',
+        value: 'apartment',
+        label: 'Appartement',
+        checked: true,
+      },
       { ...radioData, name: 'type', id: 'type-2', value: 'house', label: 'Maison' },
       { ...radioData, name: 'type', id: 'type-3', value: 'loft', label: 'Loft' },
       { ...radioData, name: 'type', id: 'type-4', value: 'duplex', label: 'Duplex' },
@@ -101,7 +131,14 @@ export const Grid3Columns = {
     const radioItems = [
       { ...radioData, name: 'district', id: 'dist-1', value: '1', label: '1er arrondissement' },
       { ...radioData, name: 'district', id: 'dist-2', value: '2', label: '2e arrondissement' },
-      { ...radioData, name: 'district', id: 'dist-3', value: '3', label: '3e arrondissement', checked: true },
+      {
+        ...radioData,
+        name: 'district',
+        id: 'dist-3',
+        value: '3',
+        label: '3e arrondissement',
+        checked: true,
+      },
       { ...radioData, name: 'district', id: 'dist-4', value: '4', label: '4e arrondissement' },
       { ...radioData, name: 'district', id: 'dist-5', value: '5', label: '5e arrondissement' },
       { ...radioData, name: 'district', id: 'dist-6', value: '6', label: '6e arrondissement' },
@@ -145,7 +182,14 @@ export const Compact = {
 export const Grid2Compact = {
   render: () => {
     const radioItems = [
-      { ...radioData, name: 'energy', id: 'energy-a', value: 'A', label: 'Classe A', checked: true },
+      {
+        ...radioData,
+        name: 'energy',
+        id: 'energy-a',
+        value: 'A',
+        label: 'Classe A',
+        checked: true,
+      },
       { ...radioData, name: 'energy', id: 'energy-b', value: 'B', label: 'Classe B' },
       { ...radioData, name: 'energy', id: 'energy-c', value: 'C', label: 'Classe C' },
       { ...radioData, name: 'energy', id: 'energy-d', value: 'D', label: 'Classe D' },

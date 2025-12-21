@@ -16,9 +16,18 @@ export default {
   },
   argTypes: {
     modifier_class: {
-      description: 'Modifier classes (--inline, --compact, --grid-2, --grid-3, --grid-4). Can combine: --grid-2--compact',
+      description:
+        'Modifier classes (--inline, --compact, --grid-2, --grid-3, --grid-4). Can combine: --grid-2--compact',
       control: 'select',
-      options: ['', 'form-checkboxes--inline', 'form-checkboxes--compact', 'form-checkboxes--grid-2', 'form-checkboxes--grid-3', 'form-checkboxes--grid-4', 'form-checkboxes--grid-2--compact'],
+      options: [
+        '',
+        'form-checkboxes--inline',
+        'form-checkboxes--compact',
+        'form-checkboxes--grid-2',
+        'form-checkboxes--grid-3',
+        'form-checkboxes--grid-4',
+        'form-checkboxes--grid-2--compact',
+      ],
       table: { category: 'Layout' },
     },
     children: {
@@ -29,7 +38,14 @@ export default {
   },
   render: (args) => {
     const checkboxItems = [
-      { ...checkboxData, name: 'features', id: 'feature-1', value: 'balcony', label: 'Balcon', checked: true },
+      {
+        ...checkboxData,
+        name: 'features',
+        id: 'feature-1',
+        value: 'balcony',
+        label: 'Balcon',
+        checked: true,
+      },
       { ...checkboxData, name: 'features', id: 'feature-2', value: 'terrace', label: 'Terrasse' },
       { ...checkboxData, name: 'features', id: 'feature-3', value: 'garden', label: 'Jardin' },
     ];
@@ -57,8 +73,21 @@ export const Default = {
 export const Inline = {
   render: () => {
     const checkboxItems = [
-      { ...checkboxData, name: 'services', id: 'service-wifi', value: 'wifi', label: 'WiFi', checked: true },
-      { ...checkboxData, name: 'services', id: 'service-parking', value: 'parking', label: 'Parking' },
+      {
+        ...checkboxData,
+        name: 'services',
+        id: 'service-wifi',
+        value: 'wifi',
+        label: 'WiFi',
+        checked: true,
+      },
+      {
+        ...checkboxData,
+        name: 'services',
+        id: 'service-parking',
+        value: 'parking',
+        label: 'Parking',
+      },
       { ...checkboxData, name: 'services', id: 'service-ac', value: 'ac', label: 'Climatisation' },
     ];
 
@@ -77,7 +106,14 @@ export const Inline = {
 export const Grid2Columns = {
   render: () => {
     const checkboxItems = [
-      { ...checkboxData, name: 'features', id: 'feat-1', value: 'balcony', label: 'Balcon', checked: true },
+      {
+        ...checkboxData,
+        name: 'features',
+        id: 'feat-1',
+        value: 'balcony',
+        label: 'Balcon',
+        checked: true,
+      },
       { ...checkboxData, name: 'features', id: 'feat-2', value: 'terrace', label: 'Terrasse' },
       { ...checkboxData, name: 'features', id: 'feat-3', value: 'garden', label: 'Jardin' },
       { ...checkboxData, name: 'features', id: 'feat-4', value: 'parking', label: 'Parking' },
@@ -101,13 +137,32 @@ export const Grid3Columns = {
   render: () => {
     const checkboxItems = [
       { ...checkboxData, name: 'amenities', id: 'amen-1', value: 'wifi', label: 'WiFi' },
-      { ...checkboxData, name: 'amenities', id: 'amen-2', value: 'ac', label: 'Climatisation', checked: true },
+      {
+        ...checkboxData,
+        name: 'amenities',
+        id: 'amen-2',
+        value: 'ac',
+        label: 'Climatisation',
+        checked: true,
+      },
       { ...checkboxData, name: 'amenities', id: 'amen-3', value: 'heating', label: 'Chauffage' },
-      { ...checkboxData, name: 'amenities', id: 'amen-4', value: 'dishwasher', label: 'Lave-vaisselle' },
+      {
+        ...checkboxData,
+        name: 'amenities',
+        id: 'amen-4',
+        value: 'dishwasher',
+        label: 'Lave-vaisselle',
+      },
       { ...checkboxData, name: 'amenities', id: 'amen-5', value: 'washing', label: 'Lave-linge' },
       { ...checkboxData, name: 'amenities', id: 'amen-6', value: 'dryer', label: 'Sèche-linge' },
       { ...checkboxData, name: 'amenities', id: 'amen-7', value: 'oven', label: 'Four' },
-      { ...checkboxData, name: 'amenities', id: 'amen-8', value: 'microwave', label: 'Micro-ondes' },
+      {
+        ...checkboxData,
+        name: 'amenities',
+        id: 'amen-8',
+        value: 'microwave',
+        label: 'Micro-ondes',
+      },
       { ...checkboxData, name: 'amenities', id: 'amen-9', value: 'fridge', label: 'Réfrigérateur' },
     ];
 
@@ -126,10 +181,23 @@ export const Compact = {
   render: () => {
     const checkboxItems = [
       { ...checkboxData, name: 'filters', id: 'filter-1', value: 'new', label: 'Neuf' },
-      { ...checkboxData, name: 'filters', id: 'filter-2', value: 'recent', label: 'Récent', checked: true },
+      {
+        ...checkboxData,
+        name: 'filters',
+        id: 'filter-2',
+        value: 'recent',
+        label: 'Récent',
+        checked: true,
+      },
       { ...checkboxData, name: 'filters', id: 'filter-3', value: 'renovated', label: 'Rénové' },
       { ...checkboxData, name: 'filters', id: 'filter-4', value: 'old', label: 'Ancien' },
-      { ...checkboxData, name: 'filters', id: 'filter-5', value: 'to_renovate', label: 'À rénover' },
+      {
+        ...checkboxData,
+        name: 'filters',
+        id: 'filter-5',
+        value: 'to_renovate',
+        label: 'À rénover',
+      },
     ];
 
     return checkboxesTwig({
@@ -146,12 +214,31 @@ export const Compact = {
 export const Grid2Compact = {
   render: () => {
     const checkboxItems = [
-      { ...checkboxData, name: 'orientation', id: 'orient-n', value: 'north', label: 'Nord', checked: true },
+      {
+        ...checkboxData,
+        name: 'orientation',
+        id: 'orient-n',
+        value: 'north',
+        label: 'Nord',
+        checked: true,
+      },
       { ...checkboxData, name: 'orientation', id: 'orient-s', value: 'south', label: 'Sud' },
       { ...checkboxData, name: 'orientation', id: 'orient-e', value: 'east', label: 'Est' },
       { ...checkboxData, name: 'orientation', id: 'orient-w', value: 'west', label: 'Ouest' },
-      { ...checkboxData, name: 'orientation', id: 'orient-ne', value: 'northeast', label: 'Nord-Est' },
-      { ...checkboxData, name: 'orientation', id: 'orient-se', value: 'southeast', label: 'Sud-Est' },
+      {
+        ...checkboxData,
+        name: 'orientation',
+        id: 'orient-ne',
+        value: 'northeast',
+        label: 'Nord-Est',
+      },
+      {
+        ...checkboxData,
+        name: 'orientation',
+        id: 'orient-se',
+        value: 'southeast',
+        label: 'Sud-Est',
+      },
     ];
 
     return checkboxesTwig({
