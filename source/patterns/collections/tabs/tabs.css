@@ -1,4 +1,24 @@
-/* Tabs (Collection/Organism) - Layout and behavior only */
+/* ========================================================================
+   #TABS (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Tabs - Tab navigation container composing individual Tab components.
+ * Includes keyboard navigation, animated indicator, and WAI-ARIA compliance.
+ *
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child Tab override capability
+ * - Token-First STEP 3: Variables override child tab tokens
+ * - ALL values from tokens: NO hardcoded colors, sizes, spacing
+ * - Semantic colors only: primary, secondary, success, etc.
+ * - CSS nesting with & syntax (PostCSS nested)
+ * - Keyboard navigation: Arrow keys, Home/End, Enter/Space
+ * - WAI-ARIA: tablist, tab, tabpanel roles with proper attributes
+ * - NO border-radius by default: Sharp corners (design system default)
+ */
+
+/* Container
+   ========================================================================= */
 
 .ps-tabs {
   /* Collection-scoped variables */
@@ -98,7 +118,10 @@
     }
   }
 
-  /* Semantic color variants - apply to indicator only */
+  /* Semantic color variants - apply to indicator only
+     All colors use semantic tokens (primary, secondary, success, etc.)
+     No hardcoded values - all from design token system
+  */
   &--neutral {
     & .ps-tabs__indicator {
       background: var(--gray-600);
