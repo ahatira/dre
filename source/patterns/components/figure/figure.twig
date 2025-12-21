@@ -34,7 +34,7 @@
 {# Build figure classes #}
 {%- set figure_classes = [
   'ps-figure',
-  caption ? 'ps-figure--has-caption' : null
+  (caption or show_icon) ? 'ps-figure--has-caption' : null
 ] -%}
 
 {# Build caption classes #}
@@ -66,12 +66,14 @@
     } only %}
     
     {# Overlay caption (positioned in corners with dark background) #}
-    {%- if caption -%}
+    {%- if caption or show_icon -%}
       <figcaption class="{{ caption_classes|join(' ')|trim }}">
         {%- if show_icon -%}
           <span class="ps-figure__icon" data-icon="{{ icon }}" aria-hidden="true"></span>
         {%- endif -%}
-        <span class="ps-figure__caption-text">{{ caption }}</span>
+        {%- if caption -%}
+          <span class="ps-figure__caption-text">{{ caption }}</span>
+        {%- endif -%}
       </figcaption>
     {%- endif -%}
   </div>
