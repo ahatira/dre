@@ -1,32 +1,42 @@
 {#
- * Feature Section - Thematic section with icon, title, and list
+/**
+ * Feature Section - Collection/Organism
  *
- * Organism composing Icon + Heading + List atoms for property features.
+ * Thematic section composing Icon + Heading + List atoms.
+ * Used for property features, services, building amenities, and information.
  *
  * @param {string} title - Section title (required)
  * @param {string} icon - Icon name for data-icon attribute (required)
- * @param {array} items - Array of list items (strings or HTML) (required)
- * @param {number} [columns_min_items=0] - Minimum items to enable two-columns layout (0 = disabled)
- * @param {object} [attributes] - Drupal attribute bag (required for integration)
- #}
+ * @param {array} items - Array of list items: strings or HTML (required)
+ * @param {number} columns_min_items - Minimum items to enable two-column layout (default: 0 = disabled)
+ * @param {object} attributes - Drupal attributes object for root element
+ */
+#}
 
 {%- set title = title|default('') -%}
 {%- set icon = icon|default('') -%}
 {%- set items = items|default([]) -%}
 {%- set columns_min_items = columns_min_items|default(0) -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
 
-{%- set section_classes = ['ps-feature-section'] -%}
+{{ attach_library('ps_theme/feature-section') }}
 
-<div{{ attributes.addClass(section_classes)|without('class') }}{% if columns_min_items > 0 and items|length >= columns_min_items %} data-columns-min-items="{{ columns_min_items }}"{% endif %}>
+{%- set feature_section_classes = [
+  'ps-feature-section',
+  columns_min_items > 0 and items|length >= columns_min_items ? 'ps-feature-section--two-columns' : null
+] -%}
+
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(feature_section_classes) -%}
+
+<div{{ attr }}{% if columns_min_items > 0 and items|length >= columns_min_items %} data-columns-min-items="{{ columns_min_items }}"{% endif %}>
   {% include '@elements/heading/heading.twig' with {
     level: 'h3',
     text: title,
     icon: icon,
     attributes: create_attribute().addClass('ps-feature-section__title')
   } only %}
-  
+
   {% include '@elements/list/list.twig' with {
-    items: items
+    items: items,
+    attributes: create_attribute().addClass('ps-feature-section__list')
   } only %}
 </div>

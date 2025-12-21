@@ -1,32 +1,27 @@
 {#
 /**
- * @file
- * PS Collapse (Element/Atom) - Collapsible disclosure element
+ * Collapse (Element/Atom)
+ *
+ * Collapsible disclosure element that manages expanded/collapsed states
+ * and emits events for parent coordination (e.g., Accordion).
  *
  * @param {string} id - Unique identifier for panel/trigger linkage (required)
  * @param {string} title - Trigger text (required)
- * @param {string} content - Panel content (raw HTML, use with content|raw)
+ * @param {string} content - Panel content (raw HTML, optional)
  * @param {boolean} expanded - Initial expanded state (default: false)
- * @param {string} variant - Visual variant (default)
- * @param {array} classes - Additional CSS classes
- * @param {object} attributes - Additional HTML attributes
+ * @param {string} variant - Visual variant (default: 'default')
+ * @param {array} classes - Additional CSS classes for root element
+ * @param {object} attributes - Drupal attributes object for root element
  */
 #}
 
-{%- set collapse_classes = [] -%}
-{%- set collapse_classes = collapse_classes|merge(['ps-collapse']) -%}
-{%- if variant and variant != 'default' -%}
-  {%- set collapse_classes = collapse_classes|merge(['ps-collapse--' ~ variant]) -%}
-{%- endif -%}
-{%- if expanded -%}
-  {%- set collapse_classes = collapse_classes|merge(['is-expanded']) -%}
-{%- endif -%}
-{%- if classes -%}
-  {%- set collapse_classes = collapse_classes|merge(classes) -%}
-{%- endif -%}
-{%- if modifier_class -%}
-  {%- set collapse_classes = collapse_classes|merge([modifier_class]) -%}
-{%- endif -%}
+{%- set collapse_classes = [
+  'ps-collapse',
+  variant != 'default' ? 'ps-collapse--' ~ variant : null,
+  expanded ? 'is-expanded' : null,
+  classes ? classes|join(' ') : null,
+  modifier_class ?? null
+] -%}
 
 {%- set trigger_classes = ['ps-collapse__trigger'] -%}
 {%- set panel_classes = ['ps-collapse__panel'] -%}
@@ -36,13 +31,28 @@
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(collapse_classes) -%}
 
 <div{{ attr }}>
-  <{{ trigger_tag|default('button') }} id="{{ trigger_id }}" class="{{ trigger_classes|join(' ') }}" aria-expanded="{{ expanded ? 'true' : 'false' }}" aria-controls="{{ panel_id }}"{% if trigger_tag|default('button') != 'button' %} role="button" tabindex="0"{% endif %}{% if trigger_tag|default('button') == 'button' %} type="button"{% endif %}>
+  <button
+    id="{{ trigger_id }}"
+    class="{{ trigger_classes|join(' ') }}"
+    type="button"
+    aria-expanded="{{ expanded ? 'true' : 'false' }}"
+    aria-controls="{{ panel_id }}"
+  >
     <span class="ps-collapse__title">{{ title }}</span>
-    <span class="ps-collapse__icon" aria-hidden="true"></span>
-  </{{ trigger_tag|default('button') }}>
-  <div id="{{ panel_id }}" role="region" aria-labelledby="{{ trigger_id }}" class="{{ panel_classes|join(' ') }}"{% if not expanded %} hidden{% endif %}>
+    <span class="ps-collapse__icon" aria-hidden="true" data-icon="chevron-down"></span>
+  </button>
+  <div
+    id="{{ panel_id }}"
+    class="{{ panel_classes|join(' ') }}"
+    role="region"
+    aria-labelledby="{{ trigger_id }}"
+    {% if not expanded %}hidden{% endif %}
+  >
     <div class="ps-collapse__content">
       {{ content|default('')|raw }}
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>

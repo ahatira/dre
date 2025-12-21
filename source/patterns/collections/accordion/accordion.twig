@@ -7,15 +7,14 @@
  *
  * @param {array} items - Array of collapse items: [{ id?, title, content?, expanded? }]
  * @param {boolean} single_open - One item open at a time (default: true)
- * @param {string} variant - Visual variant (default, flush)
+ * @param {string} variant - Visual variant (default, flush, semantic colors)
  * @param {array} classes - Additional CSS classes
- * @param {object} attributes - Additional HTML attributes
+ * @param {object} attributes - Drupal attributes object for root element
  */
 #}
 
 {%- set single_open = single_open is defined ? single_open : true -%}
 {%- set variant = variant|default('default') -%}
-{%- set attributes = attributes|default(create_attribute()) -%}
 
 {{ attach_library('ps_theme/accordion') }}
 
@@ -25,16 +24,18 @@
   classes ? classes|join(' ') : null
 ] -%}
 
-<div {{ attributes.addClass(accordion_classes) }} data-accordion data-single-open="{{ single_open ? 'true' : 'false' }}">
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(accordion_classes) -%}
+
+<div{{ attr }} data-accordion data-single-open="{{ single_open ? 'true' : 'false' }}">
   {%- for item in items -%}
     {%- set collapse_id = item.id ?? ('accordion-' ~ loop.index) -%}
     {% include '@elements/collapse/collapse.twig' with {
       id: collapse_id,
       title: item.title,
       content: item.content ?? null,
-      expanded: item.expanded ?? false,
+      expanded: item.expanded ? true : false,
       classes: ['ps-accordion__item'],
-      attributes: create_attribute().setAttribute('data-accordion-item', '')
+      attributes: create_attribute().setAttribute('data-accordion-item', 'true')
     } only %}
   {%- endfor -%}
 </div>

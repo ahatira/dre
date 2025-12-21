@@ -1,15 +1,16 @@
 /**
- * Feature Section (Organism)
+ * Feature Section (Collection/Organism)
  *
- * Thematic section composing Icon + Heading + List atoms.
- * Used for property features, services, building info, etc.
+ * Thematic section composing Icon, Heading, and List atoms.
+ * Used for property features, services, building amenities, and information.
+ * Supports responsive two-column layout when item count reaches threshold.
  */
 
 import iconsRegistry from '../../documentation/icons-registry.json';
 import featureSectionTemplate from './feature-section.twig';
 import data from './feature-section.yml';
 
-export default {
+const settings = {
   title: 'Collections/Feature Section',
   tags: ['autodocs'],
   parameters: {
@@ -17,15 +18,15 @@ export default {
     docs: {
       description: {
         component:
-          'Organism combining icon, title, and bulleted list. Composes existing Icon, Heading, and List atoms. Two-columns variant available for responsive layout on larger screens.',
+          'Organism combining icon, title, and bulleted list. Composes existing Icon, Heading, and List atoms. Two-column layout available on desktop when items reach threshold.',
       },
     },
   },
   render: (args) => featureSectionTemplate(args),
+  args: data.args || data,
   argTypes: {
     title: {
-      control: 'text',
-      description: 'Section title.',
+      description: 'Section title',
       table: {
         category: 'Content',
         type: { summary: 'string' },
@@ -34,15 +35,14 @@ export default {
     icon: {
       control: 'select',
       options: iconsRegistry.names,
-      description: 'Icon name for data-icon attribute (without "icon-" prefix).',
+      description: 'Icon name for data-icon attribute (without icon- prefix)',
       table: {
         category: 'Content',
         type: { summary: 'string' },
       },
     },
     items: {
-      control: 'object',
-      description: 'Array of list items (strings or HTML).',
+      description: 'Array of list items (strings or HTML)',
       table: {
         category: 'Content',
         type: { summary: 'array' },
@@ -51,66 +51,64 @@ export default {
     columns_min_items: {
       control: 'number',
       description:
-        'Minimum number of items to enable two-columns layout. Set to 0 to disable (default). Set to threshold (e.g., 5) to enable when items >= threshold.',
+        'Minimum number of items to enable two-column layout. Set to 0 (default) to disable.',
       table: {
         category: 'Appearance',
         type: { summary: 'number' },
         defaultValue: { summary: '0' },
       },
     },
+    attributes: {
+      description: 'Drupal attributes object for root element',
+      table: {
+        category: 'Layout',
+        type: { summary: 'Drupal.Attribute' },
+      },
+    },
   },
 };
 
-/**
- * Default: Equipments section (single column)
- */
 export const Default = {
-  args: data,
+  args: data.args || data,
 };
 
-/**
- * Services section (two columns on desktop)
- */
 export const Services = {
+  name: 'Services (Two-Column)',
   args: {
-    title: 'Services',
-    icon: 'office',
+    title: 'Services disponibles',
+    icon: 'reception',
     columns_min_items: 5,
     items: [
-      'Home : Hostesses',
-      'Office layout: 3 open-plan offices',
-      'Partitioned offices: Yes',
-      'Meeting room: Yes',
-      'Cafeteria: Yes',
-      'Security: Intercom access control',
-      'Terraces - gardens : Balcony overlooking the park',
+      "Accueil : Hôtesses d'accueil",
+      'Aménagement : 3 salles open-space',
+      'Bureaux fermés : Oui',
+      'Salle de réunion : Oui',
+      'Cafétéria : Oui',
+      "Sécurité : Contrôle d'accès",
+      'Terrasse : Balcon vue parc',
     ],
   },
 };
 
-/**
- * Building condition section
- */
 export const BuildingCondition = {
   args: {
-    title: 'Building condition',
-    icon: 'commercial-space',
+    title: 'État du bâtiment',
+    icon: 'office',
     columns_min_items: 0,
     items: [
-      'Condition of building: Restructured with common area',
-      'Condition of premises : state of use',
+      'État général : Restructuré avec parties communes',
+      "État des locaux : Bon état d'usage",
     ],
   },
 };
 
-/**
- * More information section
- */
 export const MoreInformation = {
   args: {
-    title: 'More information',
+    title: 'Informations supplémentaires',
     icon: 'info',
     columns_min_items: 0,
-    items: ['Several courtyards', 'Garden level in perfect condition', 'Highly flexible'],
+    items: ['Plusieurs cours intérieures', 'Rez-de-chaussée jardin en bon état', 'Très flexible'],
   },
 };
+
+export default settings;

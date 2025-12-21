@@ -4,17 +4,17 @@
 # - title: string (required) - Section title
 # - icon: string (required) - Icon name for data-icon attribute
 # - items: array (required) - Array of list items (strings or HTML)
-# - columns_min_items: number (optional, default: 0) - Minimum items to enable two-columns
+# - columns_min_items: number (optional, default: 0) - Minimum items to enable two-column layout
 #   Set to 0 to disable, or set threshold (e.g., 5) to enable when items >= threshold
 # - attributes: Attribute - Additional HTML attributes
 
 # Default: Equipments section (single column)
-title: 'Equipments'
+title: 'Équipements'
 icon: 'equipment'
 columns_min_items: 0
 items:
-  - 'Elevators'
-  - 'Air conditioning : Reversible'
-  - 'Computer cabling: Optical fiber'
-  - 'False floor: High height'
-  - 'Heating system : Individual'
+  - 'Ascenseurs performants'
+  - 'Climatisation réversible'
+  - 'Câblage réseau : Fibre optique'
+  - 'Faux plancher : Hauteur importante'
+  - 'Chauffage : Système individuel'

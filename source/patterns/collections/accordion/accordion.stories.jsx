@@ -70,79 +70,50 @@ export const Default = {
   args: data.args || data,
 };
 
-export const BehaviorShowcase = {
-  name: 'Behaviors',
-  render: () => {
-    const baseData = data.args || data;
-    return `
-    <div style="display:flex; flex-direction:column; gap: var(--size-8);">
-      <div>
-        <h3 style="margin-bottom: var(--size-4);">Single Open Mode (Default)</h3>
-        ${accordionTwig({ ...baseData, single_open: true })}
-      </div>
-      <div>
-        <h3 style="margin-bottom: var(--size-4);">Multiple Open Mode</h3>
-        ${accordionTwig({
-          ...baseData,
-          single_open: false,
-          items: baseData.items?.map((it, i) => ({ ...it, expanded: i < 2 })) || [],
-        })}
-      </div>
-    </div>
-  `;
-  },
+export const SingleOpenMode = {
+  name: 'Single Open Mode (Default)',
+  render: (args) => accordionTwig({ ...args, single_open: true }),
+  args: data.args || data,
 };
 
-export const LayoutShowcase = {
-  name: 'Layout Variants',
-  render: () => {
+export const MultipleOpenMode = {
+  name: 'Multiple Open Mode',
+  render: (args) => {
     const baseData = data.args || data;
-    return `
-    <div style="display:flex; flex-direction:column; gap: var(--size-8);">
-      <div>
-        <h3 style="margin-bottom: var(--size-4);">Default Padding</h3>
-        ${accordionTwig({ ...baseData })}
-      </div>
-      <div>
-        <h3 style="margin-bottom: var(--size-4);">Flush (Compact)</h3>
-        ${accordionTwig({ ...baseData, variant: 'flush' })}
-      </div>
-      <div>
-        <h3 style="margin-bottom: var(--size-4);">Semantic Primary</h3>
-        ${accordionTwig({ ...baseData, variant: 'primary' })}
-      </div>
-    </div>
-  `;
+    const multipleOpenItems = (baseData.items || []).map((item, idx) => ({
+      ...item,
+      expanded: idx < 2,
+    }));
+    return accordionTwig({ ...args, single_open: false, items: multipleOpenItems });
   },
+  args: data.args || data,
 };
 
 export const ComposedWithAtoms = {
-  name: 'Composed with Atoms (New Pattern)',
-  render: () => `
-    <div style="display:flex; flex-direction:column; gap: var(--size-4);">
-      <h3 style="margin-bottom: var(--size-2);">Using raw HTML content</h3>
-        ${accordionTwig({
-          items: [
-            {
-              title: 'Property Details',
-              content:
-                '<p>This 2,500 sqft commercial space features modern amenities, ample parking, and is located in a prime downtown area with excellent accessibility.</p>',
-              expanded: true,
-            },
-            {
-              title: 'Pricing & Terms',
-              content:
-                '<p>Monthly lease rate of €3,200 includes property management and maintenance. Flexible lease terms available from 12 to 60 months.</p>',
-            },
-            {
-              title: 'Contact Information',
-              content:
-                '<p>For viewings and inquiries, please contact our commercial real estate team at +33 1 23 45 67 89 or email commercial@bnpparibas-realestate.com.</p>',
-            },
-          ],
-        })}
-    </div>
-  `,
+  name: 'Property Listing Example',
+  render: (args) =>
+    accordionTwig({
+      items: [
+        {
+          title: 'Détails du bien immobilier',
+          content:
+            '<p><strong>Surface:</strong> 2 500 m² | <strong>Type:</strong> Bureaux modernes | <strong>Étages:</strong> 3-5 | <strong>État:</strong> Rénové HQE.</p>',
+          expanded: true,
+        },
+        {
+          title: 'Tarifs et conditions',
+          content:
+            '<p><strong>Loyer:</strong> 15 000 € HT/mois | <strong>Charges:</strong> 250 € HT/m²/an | <strong>Durée:</strong> 3-9 ans | <strong>Disponibilité:</strong> Janvier 2026.</p>',
+        },
+        {
+          title: 'Informations de contact',
+          content:
+            '<p>Pour une visite, contactez notre équipe immobilière au <strong>+33 1 23 45 67 89</strong> ou <strong>commercial@bnpparibas-realestate.com</strong>. Visite sur rendez-vous uniquement.</p>',
+        },
+      ],
+      ...args,
+    }),
+  args: data.args || data,
 };
 
 export default settings;

@@ -1,42 +1,61 @@
-/* Feature Section (Collection/Organism) - Thematic section with icon, title, and list */
+/* ========================================================================
+   #FEATURE SECTION (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Feature Section - Composes Icon, Heading, and List atoms into a thematic section.
+ * Used for property features, services, building amenities, and information.
+ *
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child atom override capability
+ * - Token-First STEP 3: Variables override child ps-heading and ps-list tokens
+ * - ALL values from tokens: NO hardcoded colors, sizes, spacing
+ * - Semantic colors only: primary, secondary, success, etc.
+ * - CSS nesting with & syntax (PostCSS nested)
+ * - Focus and interaction states for accessibility
+ * - NO border-radius by default: Sharp corners (design system default)
+ */
+
+/* Container
+   ========================================================================= */
 
 .ps-feature-section {
-  /* Component-scoped variables */
-  /* Typography */
-  --ps-feature-section-title-font-size: var(--font-size-4); /* ~18px */
+  /* Layer 2: Component-scoped variables (override capability for consumers) */
+  --ps-feature-section-title-font-size: var(--font-size-4);
   --ps-feature-section-title-font-weight: var(--font-weight-700);
   --ps-feature-section-title-color: var(--text-primary);
+  --ps-feature-section-title-icon-gap: var(--size-3);
+  --ps-feature-section-icon-size: var(--size-6);
+  --ps-feature-section-gap: var(--size-4);
+  --ps-feature-section-columns-gap: var(--size-8);
 
-  /* Spacing */
-  --ps-feature-section-gap: var(--size-4); /* 16px between title and list */
-  --ps-feature-section-title-icon-gap: var(--size-3); /* 12px between icon and title */
-
-  /* Icon */
-  --ps-feature-section-icon-size: var(--size-6); /* 24px */
-  --ps-feature-section-icon-color: var(--text-secondary);
-
-  /* Columns */
-  --ps-feature-section-columns-gap: var(--size-8); /* 32px between columns */
-
-  /* Base section container */
+  /* Base container structure */
   display: flex;
   flex-direction: column;
   gap: var(--ps-feature-section-gap);
 
-  /* Title styling */
+  /* Title styling via composition override */
   &__title {
     margin: 0;
     font-size: var(--ps-feature-section-title-font-size);
     font-weight: var(--ps-feature-section-title-font-weight);
     color: var(--ps-feature-section-title-color);
+
+    /* Icon styling within title */
+    &[data-icon] {
+      display: flex;
+      align-items: center;
+      gap: var(--ps-feature-section-title-icon-gap);
+    }
   }
 
-  & .ps-list {
+  /* List styling via composition override */
+  &__list {
     --ps-list-margin-block: var(--size-2);
   }
 
-  /* Two columns layout (triggered by data-columns-min-items attribute) */
-  &[data-columns-min-items] {
+  /* Two-columns variant - activated by columns_min_items threshold */
+  &--two-columns {
     & .ps-list {
       @media (min-width: 640px) {
         columns: 2;

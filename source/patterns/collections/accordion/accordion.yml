@@ -38,20 +38,20 @@ args:
   single_open: true
   variant: default
   items:
-    - id: property-faq-1
-      title: How to buy commercial real estate?
+    - id: property-details-1
+      title: Caractéristiques du bien
       content: >-
-        <p>Commercial property acquisition involves several key steps: market research, financial pre-approval, property inspection, due diligence, negotiation, and closing. Our expert team guides you through each phase, ensuring compliance with local regulations and optimal investment decisions.</p>
+        <p><strong>Surface utile:</strong> 2 500 m² | <strong>Type:</strong> Bureau | <strong>Étage:</strong> 3-5 | <strong>Parking:</strong> 40 places | <strong>Accès:</strong> Direct métro (ligne 6) | <strong>État:</strong> Récemment rénové avec certification HQE.</p>
       expanded: true
-    - id: property-faq-2
-      title: What financing options are available?
+    - id: property-details-2
+      title: Modalités de location
       content: >-
-        <p>Multiple financing solutions exist for real estate investments: traditional bank mortgages, commercial loans, SBA loans, bridge financing, and private equity partnerships. Each option has specific requirements, terms, and benefits tailored to different investor profiles and property types.</p>
-    - id: property-faq-3
-      title: How long does the acquisition process take?
+        <p><strong>Loyer mensuel:</strong> 15 000 € HT | <strong>Charges:</strong> 250 € HT/m²/an | <strong>Durée:</strong> 3 à 9 ans renouvelable | <strong>Disponibilité:</strong> Janvier 2026 | <strong>Indexation:</strong> IRL annuel.</p>
+    - id: property-details-3
+      title: Conditions d'accès
       content: >-
-        <p>Typical commercial real estate transactions range from 60 to 120 days, depending on property complexity, financing type, and due diligence requirements. Residential properties generally close faster (30-60 days), while large commercial portfolios may require extended timelines for comprehensive evaluation.</p>
-    - id: property-faq-4
-      title: What are the tax implications?
+        <p><strong>Visite:</strong> Sur rendez-vous uniquement | <strong>Dossier requis:</strong> KBIS + 3 derniers bilans + références bancaires | <strong>Garantie:</strong> 3 mois de loyers | <strong>Délai d'instruction:</strong> 5 jours ouvrables.</p>
+    - id: property-details-4
+      title: Avantages de localisation
       content: >-
-        <p>Real estate investments offer various tax advantages: mortgage interest deductions, depreciation benefits, 1031 exchanges for capital gains deferral, and opportunity zone incentives. Consult with our tax advisors to optimize your investment structure and maximize returns.</p>
+        <p><strong>Zone:</strong> La Défense | <strong>Flux piétons:</strong> 50 000/jour | <strong>Environnement:</strong> Commerces, restaurants, services | <strong>Transport:</strong> SNCF (gare Nanterre) à 800m | <strong>Voirie:</strong> Accès direct avenue Jean-Jaurès.</p>

@@ -5,7 +5,13 @@
 /**
  * Accordion orchestration layer - manages multiple Collapse elements.
  * Individual item styles handled by ps-collapse component.
- * This layer only controls group coordination and variant overrides.
+ * 
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child override capability
+ * - Token-First STEP 3: Variables override child ps-collapse tokens
+ * - Semantic variants: Use brand semantic colors (primary, secondary, etc.)
+ * - NO hardcoded values: All colors, sizes, spacing via tokens
+ * - NO border-radius by default: Sharp corners (no rounding unless spec requires)
  */
 
 /* Container
@@ -47,14 +53,73 @@
   --ps-accordion-content-padding-bottom: var(--size-2);
 }
 
-/* Semantic variants: set component variables to affect child Collapse */
-.ps-accordion--primary { & .ps-collapse { --ps-collapse-title-color: var(--primary); --ps-collapse-border-color: var(--primary); --ps-collapse-bg: color-mix(in srgb, var(--primary) 5%, transparent); } }
-.ps-accordion--secondary { & .ps-collapse { --ps-collapse-title-color: var(--secondary); --ps-collapse-border-color: var(--secondary); --ps-collapse-bg: color-mix(in srgb, var(--secondary) 5%, transparent); } }
-.ps-accordion--success { & .ps-collapse { --ps-collapse-title-color: var(--success); --ps-collapse-border-color: var(--success); --ps-collapse-bg: color-mix(in srgb, var(--success) 5%, transparent); } }
-.ps-accordion--warning { & .ps-collapse { --ps-collapse-title-color: var(--warning); --ps-collapse-border-color: var(--warning); --ps-collapse-bg: color-mix(in srgb, var(--warning) 5%, transparent); } }
-.ps-accordion--danger { & .ps-collapse { --ps-collapse-title-color: var(--danger); --ps-collapse-border-color: var(--danger); --ps-collapse-bg: color-mix(in srgb, var(--danger) 5%, transparent); } }
-.ps-accordion--info { & .ps-collapse { --ps-collapse-title-color: var(--info); --ps-collapse-border-color: var(--info); --ps-collapse-bg: color-mix(in srgb, var(--info) 5%, transparent); } }
-.ps-accordion--dark { & .ps-collapse { --ps-collapse-title-color: var(--gray-50); --ps-collapse-content-color: var(--gray-100); --ps-collapse-border-color: var(--gray-800); --ps-collapse-trigger-bg: color-mix(in srgb, var(--gray-900) 18%, transparent); --ps-collapse-trigger-bg-hover: color-mix(in srgb, var(--gray-900) 36%, transparent); --ps-collapse-bg: color-mix(in srgb, var(--gray-900) 24%, transparent); } }
-.ps-accordion--light { & .ps-collapse { --ps-collapse-title-color: var(--gray-600); --ps-collapse-border-color: var(--gray-400); --ps-collapse-bg: color-mix(in srgb, var(--gray-200) 30%, transparent); } }
+/* Semantic variants: set component variables to affect child Collapse tokens
+   All colors use semantic tokens (primary, secondary, success, etc.)
+   No hardcoded values - all from design token system
+*/
+.ps-accordion--primary {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--primary);
+    --ps-collapse-border-color: var(--primary);
+    --ps-collapse-bg: color-mix(in srgb, var(--primary) 5%, transparent);
+  }
+}
 
-  
+.ps-accordion--secondary {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--secondary);
+    --ps-collapse-border-color: var(--secondary);
+    --ps-collapse-bg: color-mix(in srgb, var(--secondary) 5%, transparent);
+  }
+}
+
+.ps-accordion--success {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--success);
+    --ps-collapse-border-color: var(--success);
+    --ps-collapse-bg: color-mix(in srgb, var(--success) 5%, transparent);
+  }
+}
+
+.ps-accordion--warning {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--warning);
+    --ps-collapse-border-color: var(--warning);
+    --ps-collapse-bg: color-mix(in srgb, var(--warning) 5%, transparent);
+  }
+}
+
+.ps-accordion--danger {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--danger);
+    --ps-collapse-border-color: var(--danger);
+    --ps-collapse-bg: color-mix(in srgb, var(--danger) 5%, transparent);
+  }
+}
+
+.ps-accordion--info {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--info);
+    --ps-collapse-border-color: var(--info);
+    --ps-collapse-bg: color-mix(in srgb, var(--info) 5%, transparent);
+  }
+}
+
+.ps-accordion--dark {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--gray-50);
+    --ps-collapse-content-color: var(--gray-100);
+    --ps-collapse-border-color: var(--gray-800);
+    --ps-collapse-trigger-bg: color-mix(in srgb, var(--gray-900) 18%, transparent);
+    --ps-collapse-trigger-bg-hover: color-mix(in srgb, var(--gray-900) 36%, transparent);
+    --ps-collapse-bg: color-mix(in srgb, var(--gray-900) 24%, transparent);
+  }
+}
+
+.ps-accordion--light {
+  & .ps-collapse {
+    --ps-collapse-title-color: var(--gray-600);
+    --ps-collapse-border-color: var(--gray-400);
+    --ps-collapse-bg: color-mix(in srgb, var(--gray-200) 30%, transparent);
+  }
+}
