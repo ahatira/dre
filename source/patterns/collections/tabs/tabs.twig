@@ -1,21 +1,24 @@
 {#
-/**
- * Tabs - Collection/Organism
+ * Tabs collection (organism) - Accessible tab navigation
  *
- * Tab navigation container composing individual Tab components.
- * Includes keyboard navigation, animated indicator, and WAI-ARIA compliance.
+ * Composes Tab components with keyboard navigation and animated indicator.
+ * Implements WAI-ARIA Tabs pattern with roving tabindex.
  *
- * @param {string} label - Accessible label for tablist (aria-label, default: 'Tabs navigation')
- * @param {string} variant - Semantic variant: neutral|primary|secondary|success|danger|warning|info|gold|light|dark (default: 'neutral')
- * @param {boolean} pill - Enable pill presentation style (default: false)
- * @param {string} icon - Default icon applied to tabs missing specific icon (optional)
- * @param {boolean} vertical - Vertical orientation (default: false = horizontal)
- * @param {boolean} auto - Auto activation mode (default: false = manual, requires Enter/Space)
+ * @param {string} [label] - Accessible label for the tablist (aria-label)
+ * @param {string} [variant='neutral'] - Semantic variant: neutral|primary|success|danger|warning|info|gold|light|dark
+ * @param {boolean} [pill=false] - Enables pill presentation style (passed to Tab components)
+ * @param {string} [icon] - Default icon name applied to tabs missing an icon (check, info, etc.)
+ * @param {boolean} [vertical=false] - Vertical orientation (default: horizontal)
+ * @param {boolean} [auto=false] - Auto activation mode (default: manual, requires Enter/Space)
  * @param {array} tabs - Collection of tab objects (required)
- *   Each tab: { id?, label, content, active?, disabled?, icon? }
- * @param {object} attributes - Drupal attributes object for root element
- */
-#}
+ *   - {string} [id] - Unique identifier (auto-generated if missing)
+ *   - {string} label - Tab label text (required)
+ *   - {string} content - Tab panel content (HTML allowed)
+ *   - {boolean} [active=false] - Marks tab as active
+ *   - {boolean} [disabled=false] - Disables the tab
+ *   - {string} [icon] - Icon name specific to the tab (overrides global icon)
+ * @param {object} [attributes] - Drupal attribute bag (required for integration)
+ #}
 
 {%- set tabs = tabs|default([]) -%}
 {%- set variant = variant|default('neutral') -%}
@@ -51,20 +54,15 @@
   {%- set active_index = fallback_index is not null ? fallback_index : 0 -%}
 {%- endif -%}
 
-{%- set root_classes = ['ps-tabs'] -%}
-{%- if variant -%}
-  {%- set root_classes = root_classes|merge(['ps-tabs--' ~ variant]) -%}
-{%- endif -%}
-{%- if pill -%}
-  {%- set root_classes = root_classes|merge(['ps-tabs--pill']) -%}
-{%- endif -%}
-{%- if has_icons -%}
-  {%- set root_classes = root_classes|merge(['ps-tabs--with-icon']) -%}
-{%- endif -%}
+{%- set root_classes = [
+  'ps-tabs',
+  'ps-tabs--' ~ variant,
+  pill ? 'ps-tabs--pill' : null,
+  has_icons ? 'ps-tabs--with-icon' : null
+] -%}
 
-{{ attach_library('ps_theme/tabs') }}
-
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+{# Build complete attribute object #}
+{%- set attr = attributes.addClass(root_classes) -%}
 {%- set attr = attr.setAttribute('data-tabs', '') -%}
 {%- set attr = attr.setAttribute('data-variant', variant) -%}
 {%- if pill -%}

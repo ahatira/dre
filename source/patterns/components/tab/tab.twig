@@ -25,22 +25,14 @@
 {%- set icon = icon|default(null) -%}
 {%- set attributes = attributes ? attributes : create_attribute() -%}
 
-{%- set tab_classes = ['ps-tab'] -%}
-{%- if variant -%}
-  {%- set tab_classes = tab_classes|merge(['ps-tab--' ~ variant]) -%}
-{%- endif -%}
-{%- if pill -%}
-  {%- set tab_classes = tab_classes|merge(['ps-tab--pill']) -%}
-{%- endif -%}
-{%- if icon -%}
-  {%- set tab_classes = tab_classes|merge(['ps-tab--with-icon']) -%}
-{%- endif -%}
-{%- if active -%}
-  {%- set tab_classes = tab_classes|merge(['is-selected']) -%}
-{%- endif -%}
-{%- if disabled -%}
-  {%- set tab_classes = tab_classes|merge(['is-disabled']) -%}
-{%- endif -%}
+{%- set tab_classes = [
+  'ps-tab',
+  variant != 'neutral' ? 'ps-tab--' ~ variant : null,
+  pill ? 'ps-tab--pill' : null,
+  icon ? 'ps-tab--with-icon' : null,
+  active ? 'is-selected' : null,
+  disabled ? 'is-disabled' : null
+] -%}
 
 {# Build complete attribute object #}
 {%- set attr = attributes.addClass(tab_classes) -%}
