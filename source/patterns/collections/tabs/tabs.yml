@@ -18,8 +18,8 @@
 #   * icon: string - Icon name displayed before label (overrides global icon)
 # - attributes: Attribute - Additional HTML attributes
 
-# Default: Office space property details - tabbed content
-label: 'Détails du bien immobilier'
+# Default: Property detail page tabs
+label: 'Tabs navigation'
 variant: 'primary'
 pill: false
 icon: null
@@ -29,46 +29,42 @@ tabs:
   - id: 'tab-description'
     label: 'Description'
     content: |
-      <h3>Informations générales</h3>
-      <p>Découvrez ce plateau de bureau entièrement rénové situé à proximité de La Défense, offrant 1 250 m² d'espaces modulables avec postes de travail collaboratifs et services premium.</p>
+      <h3>Property Overview</h3>
+      <p>Discover this exclusive office space located near La Défense, offering 1,250 m² of flexible workstations, collaborative areas, and premium services.</p>
       <ul>
-        <li><strong>Surface totale :</strong> 1 250 m²</li>
-        <li><strong>Disponibilité :</strong> 2e trimestre 2026</li>
-        <li><strong>Loyer :</strong> 540 €/m²/an (HT)</li>
-        <li><strong>Étage :</strong> 15e étage</li>
+        <li>Total surface: 1,250 m²</li>
+        <li>Available: Q2 2026</li>
+        <li>Rental price: 540 €/m²/year</li>
       </ul>
     active: true
     disabled: false
     icon: null
-  - id: 'tab-visites'
-    label: 'Visite immersive'
+  - id: 'tab-photos'
+    label: 'Photos'
     content: |
-      <p>Visite 360° des espaces de réception, plateau ouvert, salles de réunion et terrasse panoramique avec vue sur la Capitale.</p>
-      <ul>
-        <li>Lobby spacieux et modernes</li>
-        <li>5 salles de réunion équipées</li>
-        <li>Espace lounge déjeuner</li>
-        <li>Terrasse 400 m² accessible</li>
-      </ul>
+      <p>High-definition visuals showcasing lobby, open-space, meeting rooms, and rooftop terrace.</p>
     active: false
     disabled: false
     icon: null
-  - id: 'tab-performance'
-    label: 'Performance énergétique'
+  - id: 'tab-energy'
+    label: 'Energy'
     content: |
-      <h3>Performances environnementales</h3>
-      <p><strong>Classe énergétique :</strong> A</p>
-      <p><strong>Consommation :</strong> 62 kWh/m²/an</p>
-      <p><strong>Émissions CO₂ :</strong> 12 kg CO₂/m²/an</p>
-      <p>Chauffage par pompe à chaleur réversible, climatisation haute efficacité.</p>
+      <h3>Energy Performance</h3>
+      <p><strong>Class:</strong> A</p>
+      <p><strong>Consumption:</strong> 62 kWh/m²/year</p>
+      <p><strong>Emissions:</strong> 12 kg CO₂/m²/year</p>
     active: false
     disabled: false
     icon: 'info'
   - id: 'tab-certifications'
-    label: 'Labels'
+    label: 'Certifications'
     content: |
       <ul>
         <li data-icon="check">HQE Excellent</li>
         <li data-icon="check">BREEAM Outstanding</li>
-        <li data-icon="check">WELL Gold Certification</li>
-        <li data-icon="check">RT 2020 compliant</li>
+        <li data-icon="check">WELL Gold</li>
+      </ul>
+    active: false
+    disabled: false
+    icon: 'check'
+
