@@ -1,7 +1,6 @@
-# Tag - Active search filter
+# Tag - Active search filter (per maquette: filled blue variant)
 label: "Paris 8e"
 variant: filled
-color: primary
 size: md
 removable: true
 iconStart: false

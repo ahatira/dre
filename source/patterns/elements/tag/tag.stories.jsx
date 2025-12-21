@@ -11,17 +11,10 @@ const settings = {
       table: { category: 'Content' },
     },
     variant: {
-      description: 'Style variant: filled (solid background) or outline (border only)',
+      description: 'Style variant: filled (blue #5A8FE3) or outline (white + border #EBEDEF)',
       control: 'select',
       options: ['filled', 'outline'],
       table: { category: 'Variants', defaultValue: { summary: 'filled' } },
-    },
-    color: {
-      description:
-        'Color theme - NOTE: Maquette uses only 2 colors (blue filled + white outline). This parameter is kept for API consistency but has no visual effect.',
-      control: 'select',
-      options: ['neutral', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'gold'],
-      table: { category: 'Variants', defaultValue: { summary: 'neutral' } },
     },
     size: {
       description: 'Tag size',
@@ -54,7 +47,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Per maquette: Only 2 colors used - Filled (blue #5A8FE3) and Outline (white + border #EBEDEF). Color parameter has no visual effect.',
+          'Tag atom - Interactive chip/badge for filtering, categorization, and selection. Per maquette: Only 2 variants exist - Filled (blue #5A8FE3 + condensed font) and Outline (white background + border #EBEDEF + sans font).',
       },
     },
   },

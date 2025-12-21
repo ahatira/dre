@@ -21,4 +21,20 @@
   flex-wrap: wrap;
   gap: var(--size-2); /* 8px spacing between tags */
   align-items: center;
+
+  /* ============================================
+     Potential Modifiers (for future extensibility)
+     Note: Individual tags are autonomous atoms with their own styling
+     Container modifiers would only affect layout, not tag appearance
+     ============================================ */
+  
+  /* Example future modifier for compact spacing */
+  &--compact {
+    gap: var(--size-1);
+  }
+  
+  /* Example future modifier for centered alignment */
+  &--centered {
+    justify-content: center;
+  }
 }

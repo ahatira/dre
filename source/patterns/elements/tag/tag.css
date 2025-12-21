@@ -7,7 +7,12 @@
  * BEM Structure:
  * - Block: .ps-tag
  * - Elements: __label, __icon, __icon--start, __icon--end
- * - Modifiers: --filled, --outline, --sm, --md, --lg, --neutral, --primary, --secondary, --success, --danger, --warning, --info, --gold, --selected, --removable
+ * - Modifiers: --filled, --outline, --sm, --md, --lg, --selected, --removable
+ *
+ * NOTE: Per maquette, only 2 style variants exist:
+ * - Filled: Blue (#5A8FE3) background + white text + condensed font + 4px radius
+ * - Outline: White background + gray border + sans font + 16px radius
+ * Color parameter is NOT implemented (no --primary, --success, etc. modifiers)
  *
  * CSS Variables System (3-Layer Architecture):
  * - Layer 1: Global Tokens (brand.css, sizes.css, fonts.css, colors.css)
@@ -33,16 +38,16 @@
   --ps-tag-font-family: var(--font-condensed); /* Condensed for filled (default) */
   
   /* Colors (filled blue per maquette by default) */
-  --ps-tag-bg: var(--info); /* Info blue from brand tokens */
+  --ps-tag-bg: #5A8FE3; /* Exact blue from maquette (not var(--info) which is #2563EB) */
   --ps-tag-color: var(--white);
   --ps-tag-border-color: transparent;
   --ps-tag-border-width: var(--border-size-1);
   
-  /* States */
-  --ps-tag-hover-bg: var(--info-hover); /* Darker blue on hover */
+  /* States (manually calculated from maquette base #5A8FE3) */
+  --ps-tag-hover-bg: #4A7FD3; /* Darker blue on hover (-10% lightness) */
   --ps-tag-hover-color: var(--white);
   --ps-tag-hover-border-color: transparent;
-  --ps-tag-selected-bg: var(--info-active); /* Even darker for selected */
+  --ps-tag-selected-bg: #3A6FC3; /* Even darker for selected (-20% lightness) */
   --ps-tag-selected-color: var(--white);
   --ps-tag-selected-border-color: transparent;
   

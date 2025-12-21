@@ -7,7 +7,7 @@ const settings = {
   argTypes: {
     tags: {
       description:
-        'Array of Tag atom properties. Each tag can have: label, variant (filled/outline), color, size, selected, removable, iconStart, url',
+        'Array of Tag atom properties. Each tag can have: label, variant (filled/outline), size, selected, removable, iconStart, url. NOTE: color parameter removed - only 2 variants exist per maquette.',
       control: 'object',
       table: { category: 'Content' },
     },
@@ -42,7 +42,6 @@ export const ActiveFilters = {
       {
         label: 'Paris 8e',
         variant: 'filled',
-        color: 'primary',
         size: 'md',
         selected: true,
         removable: true,
@@ -50,7 +49,6 @@ export const ActiveFilters = {
       {
         label: 'Bureaux',
         variant: 'filled',
-        color: 'primary',
         size: 'md',
         selected: true,
         removable: true,
@@ -58,7 +56,6 @@ export const ActiveFilters = {
       {
         label: '200-500 m²',
         variant: 'filled',
-        color: 'primary',
         size: 'md',
         selected: true,
         removable: true,
@@ -66,7 +63,6 @@ export const ActiveFilters = {
       {
         label: 'Disponible',
         variant: 'filled',
-        color: 'primary',
         size: 'md',
         selected: true,
         removable: true,
@@ -74,7 +70,6 @@ export const ActiveFilters = {
       {
         label: 'Climatisation',
         variant: 'filled',
-        color: 'primary',
         size: 'md',
         selected: true,
         removable: true,
@@ -85,7 +80,7 @@ export const ActiveFilters = {
     docs: {
       description: {
         story:
-          'Active search filters with filled primary tags. Typical use case for property search results page.',
+          'Active search filters with filled blue tags. Typical use case for property search results page.',
       },
     },
   },
@@ -98,18 +93,18 @@ export const MixedVariants = {
   render: (args) => markup(args),
   args: {
     tags: [
-      { label: 'Filled Primary', variant: 'filled', color: 'primary', removable: true },
-      { label: 'Outline Neutral', variant: 'outline', color: 'neutral', removable: true },
-      { label: 'Filled Success', variant: 'filled', color: 'success', removable: true },
-      { label: 'Outline Danger', variant: 'outline', color: 'danger', removable: true },
-      { label: 'Filled Info', variant: 'filled', color: 'info', removable: false },
+      { label: 'Filled Blue', variant: 'filled', removable: true },
+      { label: 'Outline White', variant: 'outline', removable: true },
+      { label: 'Filled Selected', variant: 'filled', selected: true, removable: true },
+      { label: 'Outline Not Removable', variant: 'outline', removable: false },
+      { label: 'Filled Large', variant: 'filled', size: 'lg', removable: true },
     ],
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Mix of filled and outline variants with different colors. Each tag is an autonomous atom.',
+          'Mix of filled (blue) and outline (white) variants. Only 2 color styles exist per maquette. Each tag is an autonomous atom.',
       },
     },
   },
@@ -122,11 +117,10 @@ export const SearchInputTags = {
   render: (args) => markup(args),
   args: {
     tags: [
-      { label: 'Madrid', variant: 'outline', color: 'neutral', removable: true, iconStart: true },
+      { label: 'Madrid', variant: 'outline', removable: true, iconStart: true },
       {
         label: 'Coworking to let',
         variant: 'outline',
-        color: 'neutral',
         removable: true,
         iconStart: true,
       },
@@ -149,29 +143,26 @@ export const CategoryLinks = {
   render: (args) => markup(args),
   args: {
     tags: [
-      { label: 'Bureaux', variant: 'filled', color: 'neutral', removable: false, url: '/bureaux' },
+      { label: 'Bureaux', variant: 'filled', removable: false, url: '/bureaux' },
       {
         label: 'Commerces',
         variant: 'filled',
-        color: 'neutral',
         removable: false,
         url: '/commerces',
       },
       {
         label: 'Entrepôts',
         variant: 'filled',
-        color: 'neutral',
         removable: false,
         url: '/entrepots',
       },
       {
         label: 'Coworking',
         variant: 'filled',
-        color: 'neutral',
         removable: false,
         url: '/coworking',
       },
-      { label: 'Terrain', variant: 'filled', color: 'neutral', removable: false, url: '/terrain' },
+      { label: 'Terrain', variant: 'filled', removable: false, url: '/terrain' },
     ],
   },
   parameters: {
@@ -193,7 +184,6 @@ export const ManyTags = {
       {
         label: 'Paris 8e',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: true,
         removable: true,
@@ -201,7 +191,6 @@ export const ManyTags = {
       {
         label: 'Paris 9e',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: false,
         removable: true,
@@ -209,7 +198,6 @@ export const ManyTags = {
       {
         label: 'Paris 16e',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: true,
         removable: true,
@@ -217,7 +205,6 @@ export const ManyTags = {
       {
         label: 'Neuilly-sur-Seine',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: false,
         removable: true,
@@ -225,7 +212,6 @@ export const ManyTags = {
       {
         label: 'Levallois-Perret',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: true,
         removable: true,
@@ -233,7 +219,6 @@ export const ManyTags = {
       {
         label: 'Boulogne-Billancourt',
         variant: 'filled',
-        color: 'primary',
         size: 'sm',
         selected: false,
         removable: true,
@@ -241,7 +226,6 @@ export const ManyTags = {
       {
         label: 'Bureaux',
         variant: 'filled',
-        color: 'success',
         size: 'sm',
         selected: true,
         removable: true,
@@ -249,7 +233,6 @@ export const ManyTags = {
       {
         label: 'Commerces',
         variant: 'filled',
-        color: 'success',
         size: 'sm',
         selected: false,
         removable: true,
@@ -257,7 +240,6 @@ export const ManyTags = {
       {
         label: '100-200 m²',
         variant: 'filled',
-        color: 'info',
         size: 'sm',
         selected: true,
         removable: true,
@@ -265,7 +247,6 @@ export const ManyTags = {
       {
         label: '200-500 m²',
         variant: 'filled',
-        color: 'info',
         size: 'sm',
         selected: false,
         removable: true,
@@ -273,7 +254,6 @@ export const ManyTags = {
       {
         label: 'Disponible immédiatement',
         variant: 'filled',
-        color: 'warning',
         size: 'sm',
         selected: true,
         removable: true,
@@ -281,7 +261,6 @@ export const ManyTags = {
       {
         label: 'Climatisation',
         variant: 'filled',
-        color: 'secondary',
         size: 'sm',
         selected: true,
         removable: true,
@@ -292,7 +271,7 @@ export const ManyTags = {
     docs: {
       description: {
         story:
-          'Many tags automatically wrap with flex-wrap. Small size variant used for compact display. Mix of colors demonstrates individual tag autonomy.',
+          'Many tags automatically wrap with flex-wrap. Small size variant used for compact display. All tags use filled blue variant per maquette.',
       },
     },
   },

@@ -29,19 +29,19 @@
 
 {#
  * @param {string} label - Tag text content (required)
- * @param {string} [variant='filled'] - Style variant: filled, outline
- * @param {string} [color='neutral'] - Color: neutral, primary, secondary, success, danger, warning, info, gold
+ * @param {string} [variant='filled'] - Style variant: filled (blue #5A8FE3), outline (white + border)
  * @param {string} [size='md'] - Size: sm, md, lg
  * @param {boolean} [removable=false] - Show remove button
  * @param {boolean} [iconStart=false] - Show icon at start (for search input tags)
  * @param {boolean} [selected=false] - Selected state (for filter tags)
  * @param {string} [url] - Optional link URL (renders as <a> instead of <button>)
  * @param {object} [attributes] - Additional HTML attributes for Drupal integration
+ *
+ * NOTE: Color parameter removed - per maquette only 2 variants exist (filled blue, outline white)
  #}
 
 {%- set label = label|default('Tag') -%}
 {%- set variant = variant|default('filled') -%}
-{%- set color = color|default('neutral') -%}
 {%- set size = size|default('md') -%}
 {%- set removable = removable|default(false) -%}
 {%- set iconStart = iconStart|default(false) -%}
@@ -49,9 +49,6 @@
 {%- set url = url|default(null) -%}
 
 {%- set tag_classes = ['ps-tag', 'ps-tag--' ~ variant] -%}
-{%- if color != 'neutral' -%}
-  {%- set tag_classes = tag_classes|merge(['ps-tag--' ~ color]) -%}
-{%- endif -%}
 {%- if size != 'md' -%}
   {%- set tag_classes = tag_classes|merge(['ps-tag--' ~ size]) -%}
 {%- endif -%}

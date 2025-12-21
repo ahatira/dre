@@ -1,8 +1,8 @@
 # Tag List - Active property search filters (composes Tag atoms)
+# Per maquette: All active filters use filled blue variant
 tags:
   - label: "Paris 8e"
     variant: filled
-    color: primary
     size: md
     selected: true
     removable: true
@@ -10,7 +10,6 @@ tags:
     url: null
   - label: "Bureaux"
     variant: filled
-    color: primary
     size: md
     selected: true
     removable: true
@@ -18,7 +17,6 @@ tags:
     url: null
   - label: "200-500 m²"
     variant: filled
-    color: primary
     size: md
     selected: true
     removable: true
@@ -26,7 +24,6 @@ tags:
     url: null
   - label: "Disponible"
     variant: filled
-    color: primary
     size: md
     selected: false
     removable: true
