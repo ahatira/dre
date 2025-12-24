@@ -409,6 +409,13 @@
       font-weight: var(--font-weight-400);
     }
 
+    /* Active state on mobile: green text + underline */
+    & .menu-bar > li.is-active-trail > a,
+    & .menu-bar > li > a[aria-current="page"] {
+      color: var(--ps-menu-primary-color-active);
+      border-bottom: 2px solid var(--ps-menu-primary-color-active);
+    }
+
     /* Mobile links with chevron: adjust padding and chevron position */
     & .menu-bar > li > a[aria-haspopup="true"] {
       padding-right: calc(
