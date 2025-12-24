@@ -1,0 +1,50 @@
+feat(collections): Ajout du composant Menu Primary (navigation multi-niveaux)
+
+- Implémentation complète du menu de navigation principal responsive
+- Structure Twig récursive basée sur Drupal core menu.html.twig
+- Support multi-niveaux illimité avec dropdowns et flyouts
+- Approche CSS-first avec animations (fade + slide 200ms)
+- Accessibilité complète (ARIA, keyboard navigation, focus indicators)
+- 2 modifiers: compact (espacement réduit), dark (couleurs inversées)
+
+Détails techniques:
+- 4 fichiers requis: .twig (108L), .css (441L), .yml (156L), .stories.jsx (235L)
+- JavaScript optionnel (menu-primary.js 218L) pour enhancement mobile
+- Template Drupal override: templates/navigation/menu--primary.html.twig
+- 15 variables CSS component-scoped (Layer 2 tokens)
+- 7 stories Storybook avec Autodocs
+- Build: ✅ 0 erreurs lint/format, JS compilé (2.76 kB)
+
+Fonctionnalités:
+- Desktop (≥768px): Menu horizontal avec dropdowns hover/focus-within
+- Mobile (<768px): Menu vertical accordéon avec chevron indicators
+- États: Default (gris), Hover (gris foncé + bg), Focus (outline 2px), Active (vert + underline 3px)
+- Icons: Chevron down (top-level desktop), chevron right (mobile + nested)
+- Real Estate data: 4 sections (Find property, About us, Solutions, Latest News) + 24 subitems
+
+Conformité:
+- ✅ 100% design tokens (couleurs, espacements, animations)
+- ✅ Semantic tokens (--primary, --gray-600, --white)
+- ✅ Responsive avec media queries tokens (@media --md-up)
+- ✅ BEM nesting avec & syntax
+- ✅ create_attribute() fallback pattern
+- ✅ Animations GPU-accelerated (transform)
+- ✅ Documentation complète (README.md, IMPLEMENTATION.md)
+
+Références:
+- Maquette: Desktop horizontal + Mobile vertical (fournie)
+- Spec Drupal: core/themes/starterkit_theme/templates/navigation/menu.html.twig
+- Instructions: .github/instructions/02-component-development.md
+- ARIA pattern: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
+
+Fichiers créés/modifiés:
+- source/patterns/collections/menu-primary/menu-primary.twig (nouveau)
+- source/patterns/collections/menu-primary/menu-primary.css (nouveau)
+- source/patterns/collections/menu-primary/menu-primary.yml (nouveau)
+- source/patterns/collections/menu-primary/menu-primary.stories.jsx (nouveau)
+- source/patterns/collections/menu-primary/menu-primary.js (nouveau - optionnel)
+- source/patterns/collections/menu-primary/README.md (nouveau)
+- source/patterns/collections/menu-primary/IMPLEMENTATION.md (nouveau)
+- templates/navigation/menu--primary.html.twig (nouveau)
+- source/patterns/collections/_index.css (import ajouté)
+- docs/ps-design/CHANGELOG.md (entrée 80 lignes)

@@ -11,6 +11,7 @@ import customViewports from './viewports';
 // Imports custom JS to allow Storybook to understand Drupal behaviors.
 import './drupal/drupal';
 import './drupal/once';
+import './drupal/twigExtensions'; // Drupal Twig functions (link, t, create_attribute, etc.)
 
 // Import Swiper.js for carousel component
 import Swiper from 'swiper';

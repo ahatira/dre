@@ -120,6 +120,15 @@ map-widget:
     - core/once
     - ps_theme/vendors
 
+menu-primary:
+  js:
+    dist/js/menu-primary.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 modal:
   js:
     dist/js/modal.js: {}

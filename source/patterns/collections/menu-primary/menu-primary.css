@@ -1,0 +1,618 @@
+/**
+ * Primary Navigation Menu
+ * 
+ * Structure based on menu.html with PS Theme tokens.
+ * Scoped under .ps-menu-primary to match component structure.
+ *
+ * Key classes from menu.html:
+ * - .menu-bar: Top-level menu list
+ * - .menu-link: All clickable links
+ * - .menu-bar-link: Top-level links
+ * - .mega-menu: Dropdown container
+ * - .mega-menu--multiLevel: 3-column layout with flyouts
+ * - .mega-menu--flat: Simple column layout
+ * - .mega-menu-link: Links inside mega menu
+ * - .mega-menu-header: Column headers (bold uppercase)
+ * - .menu-list: Nested sub-lists
+ * - .menu-list-link: Links in sub-lists
+ *
+ * Breakpoints:
+ * - Mobile: < 768px (vertical, accordion)
+ * - Desktop: >= 768px (horizontal, hover dropdowns)
+ */
+
+/* ============================================
+   Component Variables (Layer 2)
+   ============================================ */
+
+.ps-menu-primary {
+  /* Layout */
+  --ps-menu-primary-padding-y: var(--size-5); /* 20px */
+  --ps-menu-primary-padding-x: var(--size-6); /* 24px */
+  
+  /* Typography */
+  --ps-menu-primary-font-size: var(--font-size-1);
+  --ps-menu-primary-font-weight: var(--font-weight-400);
+  
+  /* Colors */
+  --ps-menu-primary-color: var(--gray-700); /* #333333 */
+  --ps-menu-primary-color-hover: var(--gray-500);
+  --ps-menu-primary-color-active: var(--primary);
+  --ps-menu-primary-bg: var(--white);
+  --ps-menu-primary-bg-hover: var(--primary); /* #177E89 equivalent */
+  --ps-menu-primary-bg-submenu-hover: var(--gray-100); /* #dceced light */
+  --ps-menu-primary-border: var(--border-size-2) solid var(--gray-200); /* #f0f0f0 */
+  
+  /* Submenu */
+  --ps-menu-primary-submenu-bg: var(--white);
+  --ps-menu-primary-submenu-shadow: var(--shadow-3);
+  
+  /* Separators (mobile) */
+  --ps-menu-primary-separator: 2px solid var(--gray-100);
+  --ps-menu-primary-transition-duration: var(--duration-normal);
+  --ps-menu-primary-transition-easing: var(--ease-out-3);
+  
+  /* Icons (chevron) */
+  --ps-menu-primary-icon-container-size: var(--size-4); /* 16px container */
+  --ps-menu-primary-icon-gap: var(--size-2); /* spacing from text */
+  --ps-menu-primary-chevron-width: 100%;
+  --ps-menu-primary-chevron-height: 100%;
+  --ps-menu-primary-icon-mask-down: svg-load('generic/chevron-down.svg');
+  --ps-menu-primary-icon-mask-right: svg-load('generic/chevron-right.svg');
+  --ps-menu-primary-icon-mask-back: svg-load('generic/arrow-left.svg');
+}
+
+/* ============================================
+   Base Container
+   ============================================ */
+
+.ps-menu-primary {
+  position: relative;
+  width: 100%;
+  font-size: var(--ps-menu-primary-font-size);
+  font-weight: var(--ps-menu-primary-font-weight);
+  
+  /* Reset nested lists */
+  & ul,
+  & li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Reset links */
+  & a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    
+    &:hover,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+}
+
+/* ============================================
+   Menu Bar (Top Level)
+   ============================================ */
+
+.ps-menu-primary {
+  & .menu-bar {
+    background: var(--ps-menu-primary-bg);
+    display: flex;
+    flex-direction: column;
+    
+    @media (min-width: 768px) {
+      flex-direction: row;
+      position: relative;
+    }
+  }
+}
+
+/* ============================================
+   Menu Links (All Levels)
+   ============================================ */
+
+.ps-menu-primary {
+  & .menu-link {
+    padding: var(--ps-menu-primary-padding-y) var(--ps-menu-primary-padding-x);
+    background: var(--ps-menu-primary-bg);
+    color: var(--ps-menu-primary-color);
+    transition: background var(--ps-menu-primary-transition-duration),
+                color var(--ps-menu-primary-transition-duration);
+    position: relative;
+    z-index: 1;
+    
+    /* Links with submenus have chevron/arrow */
+    &[aria-haspopup="true"] {
+      padding-right: calc(
+        var(--ps-menu-primary-padding-x) + var(--ps-menu-primary-icon-container-size) + var(--ps-menu-primary-icon-gap) * 2
+      );
+      
+      &::after {
+        content: "";
+        width: var(--ps-menu-primary-icon-container-size);
+        height: var(--ps-menu-primary-icon-container-size);
+        position: absolute;
+        right: var(--ps-menu-primary-icon-gap);
+        top: 50%;
+        transform: translateY(-50%);
+        transform-origin: center;
+        transition: transform var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+        background-color: currentColor;
+        mask-image: var(--ps-menu-primary-icon-mask-right);
+        mask-size: var(--ps-menu-primary-chevron-width) var(--ps-menu-primary-chevron-height);
+        mask-repeat: no-repeat;
+        mask-position: center;
+      }
+    }
+  }
+}
+
+/* ============================================
+   Mega Menu Headers
+   ============================================ */
+
+.ps-menu-primary {
+  & .mega-menu-header {
+    font-size: var(--ps-menu-primary-font-size);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-700);
+    color: var(--ps-menu-primary-color-active);
+  }
+}
+
+/* ============================================
+   Mega Menu Container
+   ============================================ */
+
+.ps-menu-primary {
+  & .mega-menu {
+    background: var(--ps-menu-primary-submenu-bg);
+    z-index: 10;
+  }
+  
+  /* Multilevel: column layout */
+  & .mega-menu--multiLevel {
+    flex-direction: column;
+  }
+}
+
+/* ============================================
+   Desktop Styles (>= 768px)
+   ============================================ */
+
+@media (min-width: 768px) {
+  .ps-menu-primary {
+    /* Hide all submenus by default */
+    & .menu [aria-haspopup="true"] ~ ul {
+      display: none;
+    }
+    
+    /* Top-level bar positioning */
+    & .menu-bar {
+      position: relative;
+      
+      /* Top-level links: chevron down */
+      & > li > [aria-haspopup="true"]::after {
+        mask-image: var(--ps-menu-primary-icon-mask-down);
+      }
+      
+      /* Top-level links: hover chevron color */
+      & > li > [aria-haspopup="true"]:hover::after {
+        background-color: var(--ps-menu-primary-color-hover);
+      }
+      
+      /* Show submenu on focus */
+      & > li > [aria-haspopup="true"]:focus ~ ul {
+        display: flex;
+        transform-origin: top;
+        animation: dropdown var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+      }
+      
+      /* Keep submenu visible when hovering over it */
+      & > li > [aria-haspopup="true"] ~ ul:hover {
+        display: flex;
+      }
+      
+      /* Show submenu when parent has focus-within */
+      & > li:focus-within > [aria-haspopup="true"] ~ ul {
+        display: flex;
+      }
+      
+      /* Show submenu on hover */
+      & > li:hover > [aria-haspopup="true"] ~ ul {
+        display: flex;
+        transform-origin: top;
+        animation: dropdown var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+      }
+      
+      /* Top-level link hover/focus styles */
+      & > li > [aria-haspopup="true"]:focus,
+      & > li:focus-within > [aria-haspopup="true"],
+      & > li:hover > a {
+        background: transparent;
+        color: var(--ps-menu-primary-color-hover);
+      }
+      
+      /* Chevron up when submenu open */
+      & > li > [aria-haspopup="true"]:focus::after,
+      & > li:focus-within > [aria-haspopup="true"]::after,
+      & > li:hover > a::after {
+        background-color: var(--ps-menu-primary-color);
+        transform: translateY(-50%);
+      }
+
+      /* Selected state: green text with bottom underline */
+      & > li.is-active-trail > a,
+      & > li > a[aria-current="page"] {
+        background: transparent;
+        color: var(--ps-menu-primary-color-active);
+        border-bottom: 2px solid var(--ps-menu-primary-color-active);
+      }
+
+      & > li.is-active-trail > a::after,
+      & > li > a[aria-current="page"]::after {
+        background-color: var(--ps-menu-primary-color-active);
+      }
+    }
+    
+    /* Mega menu positioning */
+    & .mega-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      box-shadow: var(--ps-menu-primary-submenu-shadow);
+      
+      &:hover {
+        display: flex;
+      }
+      
+      /* Hover states for links inside mega menu */
+      & a:hover {
+        background: var(--ps-menu-primary-bg-submenu-hover);
+        color: var(--ps-menu-primary-color-active);
+      }
+    }
+    
+    /* Multilevel mega menu: 3-column layout */
+    & .mega-menu--multiLevel {
+      & > li {
+        width: 33.33333333%;
+      }
+      
+      /* First-level flyouts */
+      & > li > [aria-haspopup="true"] ~ ul {
+        left: 33.33333333%;
+        width: 33.33333333%;
+      }
+      
+      /* Second-level flyouts */
+      & > li > [aria-haspopup="true"] ~ ul ul {
+        width: 100%;
+        left: 100%;
+      }
+      
+      /* Show flyout on hover */
+      & li:hover > [aria-haspopup="true"] ~ ul {
+        display: block;
+        transform-origin: left;
+        animation: flyout var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+      }
+      
+      /* Show flyout on focus-within */
+      & li:focus-within > [aria-haspopup="true"] ~ ul {
+        display: block;
+      }
+      
+      /* Hover styles for multilevel items */
+      & li:hover > [aria-haspopup="true"],
+      & li:focus-within > [aria-haspopup="true"],
+      & li:hover > a,
+      & li:focus-within > a {
+        background: var(--ps-menu-primary-bg-submenu-hover);
+        color: var(--ps-menu-primary-color-active);
+      }
+      
+      /* Border separators */
+      & [aria-haspopup="true"] ~ ul,
+      & [aria-haspopup="true"] {
+        border-left: var(--ps-menu-primary-border);
+      }
+      
+      /* Keep flyouts visible on hover */
+      & [aria-haspopup="true"] ~ ul:hover,
+      & [aria-haspopup="true"]:hover {
+        display: block;
+      }
+      
+      /* Flyout positioning */
+      & [aria-haspopup="true"] ~ ul {
+        position: absolute;
+        top: 0;
+        height: 100%;
+      }
+    }
+    
+    /* Flat mega menu: equal-width columns */
+    & .mega-menu--flat > * {
+      flex: 1;
+    }
+    
+    /* Hide mobile-only elements */
+    & .mobile-menu-trigger,
+    & .mobile-menu-header,
+    & .mobile-menu-back-item {
+      display: none;
+    }
+  }
+}
+
+/* ============================================
+   Mobile Styles (< 768px)
+   ============================================ */
+
+@media (max-width: 767px) {
+  .ps-menu-primary {
+    /* Show mobile elements (except trigger and header) */
+    & .mobile-menu-trigger,
+    & .mobile-menu-header {
+      display: none;
+    }
+
+    & .mobile-menu-back-item {
+      display: block;
+    }
+    
+    /* Mobile menu trigger button */
+    & .mobile-menu-trigger {
+      background: var(--ps-menu-primary-bg-hover);
+      color: var(--ps-menu-primary-color-hover);
+      border: 0;
+      padding: var(--size-2) var(--size-4);
+      font-size: var(--ps-menu-primary-font-size);
+      border-radius: var(--radius-1);
+      cursor: pointer;
+      
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    
+    /* Mobile menu header */
+    & .mobile-menu-header {
+      order: -1;
+      background: var(--gray-500);
+      
+      & a {
+        padding: var(--ps-menu-primary-padding-y) var(--ps-menu-primary-padding-x);
+        color: var(--ps-menu-primary-color-hover);
+        visibility: visible;
+      }
+    }
+    
+    /* Vertical stacked menu */
+    & .menu-bar {
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top-level items separators and padding */
+    & .menu-bar > li > a {
+      padding: var(--ps-menu-primary-padding-y) var(--ps-menu-primary-padding-x);
+      border-bottom: var(--ps-menu-primary-separator);
+      background: var(--ps-menu-primary-bg);
+      color: var(--ps-menu-primary-color);
+      font-size: var(--ps-menu-primary-font-size);
+      font-weight: var(--font-weight-400);
+    }
+
+    /* Mobile links with chevron: adjust padding and chevron position */
+    & .menu-bar > li > a[aria-haspopup="true"] {
+      padding-right: calc(
+        var(--ps-menu-primary-padding-x) + var(--ps-menu-primary-icon-container-size) + var(--ps-menu-primary-icon-gap)
+      );
+
+      &::after {
+        right: var(--ps-menu-primary-padding-x);
+      }
+    }
+
+    /* No separator on last item */
+    & .menu-bar > li:last-child > a {
+      border-bottom: 0;
+    }
+    
+    /* Level 1 submenus: flyover panel (slide from right) */
+    & .menu-bar > li > [aria-haspopup="true"] ~ ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--ps-menu-primary-submenu-bg);
+      z-index: 1000;
+      overflow-y: auto;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      
+      /* Remove mega-menu specific styles on mobile */
+      display: flex !important;
+      flex-direction: column;
+      padding: 0;
+    }
+    
+    /* Show flyover when expanded */
+    & .menu-bar > li.is-expanded > [aria-haspopup="true"] ~ ul {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Nested submenus (level 2+): normal accordion inside flyover */
+    & .menu-bar > li > ul [aria-haspopup="true"] {
+      &::after {
+        mask-image: var(--ps-menu-primary-icon-mask-down);
+        transform: translateY(-50%) rotate(0deg);
+      }
+    }
+
+    & .menu-bar > li > ul [aria-haspopup="true"][aria-expanded="true"]::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    & .menu-bar > li > ul [aria-haspopup="true"] ~ ul {
+      position: static;
+      width: 100%;
+      height: auto;
+      background: transparent;
+      max-height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: max-height var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing),
+                  visibility 0s var(--ps-menu-primary-transition-duration),
+                  transform var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+    }
+    
+    /* Expanded nested accordion */
+    & .menu-bar > li > ul li.is-expanded > [aria-haspopup="true"] ~ ul {
+      max-height: 500px;
+      visibility: visible;
+      transform: scaleY(1);
+      transition: max-height var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing),
+                  visibility 0s,
+                  transform var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+    }
+    
+    /* Mobile back button */
+    & .mobile-menu-back-item {
+      background: var(--secondary);
+      border-bottom: 1px solid var(--ps-menu-primary-border);
+      
+      & a {
+        font-weight: var(--font-weight-400);
+        color: var(--white);
+        background: transparent;
+        padding: var(--ps-menu-primary-padding-y) var(--ps-menu-primary-padding-x);
+        display: flex;
+        align-items: center;
+        gap: var(--size-3);
+        transition: background var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing),
+                    color var(--ps-menu-primary-transition-duration) var(--ps-menu-primary-transition-easing);
+        
+        &::before {
+          content: "";
+          width: var(--size-4);
+          height: var(--size-4);
+          background-color: currentColor;
+          mask-image: var(--ps-menu-primary-icon-mask-back);
+          mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          flex-shrink: 0;
+        }
+        
+        &:hover {
+          background: var(--secondary-hover);
+          color: var(--white);
+        }
+        
+        &:active {
+          background: var(--secondary-active);
+          color: var(--white);
+        }
+        
+        &:focus {
+          outline: none;
+          background: var(--secondary-hover);
+          color: var(--white);
+        }
+        
+        &:focus-visible {
+          outline: 2px solid var(--white);
+          outline-offset: -2px;
+          background: var(--secondary-hover);
+          color: var(--white);
+        }
+      }
+    }
+    
+    /* Dynamic back button should appear first */
+    & .mobile-menu-back-item-dynamic {
+      order: -999;
+    }
+    
+    /* Remove mega-menu columns on mobile */
+    & .mega-menu,
+    & .mega-menu--multiLevel,
+    & .mega-menu--flat {
+      display: flex !important;
+      flex-direction: column;
+      width: 100%;
+      padding: 0;
+      
+      & > li {
+        width: 100% !important;
+        flex: none !important;
+      }
+    }
+    
+    /* Indent nested levels */
+    & .menu-list {
+      padding-left: var(--size-4);
+    }
+  }
+}
+
+/* ============================================
+   Modifiers
+   ============================================ */
+
+/* Compact variant */
+.ps-menu-primary--compact {
+  --ps-menu-primary-padding-y: var(--size-3); /* 12px */
+  --ps-menu-primary-padding-x: var(--size-4); /* 16px */
+}
+
+/* Dark variant */
+.ps-menu-primary--dark {
+  --ps-menu-primary-bg: var(--gray-800);
+  --ps-menu-primary-color: var(--gray-100);
+  --ps-menu-primary-bg-hover: var(--gray-700);
+  --ps-menu-primary-bg-submenu-hover: var(--gray-700);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes flyout {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}

@@ -6,6 +6,84 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-22] - New Component: Primary Navigation Menu (Organism)
+
+### Added
+- **Menu Primary (Collections)**: Multi-level responsive navigation component for main site navigation
+  - **Structure**: Recursive Twig template based on Drupal core `menu.html.twig` pattern
+  - **Responsive layouts**: Horizontal desktop (≥768px), vertical mobile (<768px)
+  - **Multi-level support**: Unlimited nesting with dropdowns (level 1) and flyouts (level 2+)
+  - **CSS-first approach**: Core functionality without JavaScript dependency
+  - **Accessibility**: Full keyboard navigation, focus indicators, ARIA attributes
+  - **States**: Default, Hover, Focus, Active (3px green underline on desktop)
+  - **Animations**: Smooth dropdown/flyout transitions (200ms fade + slide)
+  - **Icons**: Chevron indicators via CSS (chevron-down desktop, chevron-right mobile/nested)
+  - **Modifiers**: 
+    - `--compact`: Reduced spacing for dense layouts
+    - `--dark`: Inverted colors for dark backgrounds
+  - **Data structure**: Full Drupal menu compatibility (items, below, in_active_trail, is_expanded)
+
+### Technical Details
+- **4-file structure**: `.twig`, `.css`, `.yml`, `.stories.jsx`
+- **Component-scoped variables**: 15 CSS custom properties (Layer 2 tokens)
+  - Layout: `--ps-menu-primary-gap`, `--ps-menu-primary-padding-x/y`
+  - Typography: `--ps-menu-primary-font-size`, `--ps-menu-primary-font-weight`
+  - Colors: Semantic tokens (--gray-600, --primary, --white)
+  - Submenu: `--ps-menu-primary-submenu-bg/shadow/min-width`
+  - Animations: `--duration-200`, `--ease-out`
+- **CSS features**:
+  - BEM nesting with `&` syntax
+  - Media queries via design tokens (`@media --md-up`)
+  - `:hover` + `:focus-within` for dropdown activation
+  - `transform: translateY()` for smooth animations
+  - `z-index: var(--z-dropdown)` for stacking context
+- **Storybook stories**: 7 stories
+  - Default (4 main items + multi-level submenus)
+  - Compact, Dark (modifiers)
+  - SingleLevel (no dropdowns)
+  - DeepNesting (3 levels demo)
+  - MobileView, DesktopView (viewport-specific)
+- **Real Estate context**: Authentic menu structure
+  - Find a property (Residential, Commercial, Investment, New developments)
+  - About us (Company, Team, Values, Careers, Contact)
+  - Solutions (Property/Asset management, Valuation, Consulting, Corporate)
+  - Latest News (Market insights, Press releases, Events, Newsletter)
+- **Optional JavaScript**: Enhancement file provided (`menu-primary.js`)
+  - Mobile touch interactions
+  - ARIA state management (`aria-expanded`, `aria-haspopup`)
+  - Analytics tracking hooks
+  - Drupal.behaviors integration
+
+### Drupal Integration
+- **Template override**: `templates/navigation/menu--primary.html.twig` created
+- **Component include**: Uses `@collections/menu-primary/menu-primary.twig`
+- **No preprocess required**: Organisms can use preprocess, but menu works without
+- **Libraries**: Optional JS can be attached via `ps.libraries.yml`
+- **Cache tags**: Inherits from Drupal menu system
+
+### Files Created
+- `source/patterns/collections/menu-primary/menu-primary.twig` (108 lines)
+- `source/patterns/collections/menu-primary/menu-primary.css` (441 lines)
+- `source/patterns/collections/menu-primary/menu-primary.yml` (156 lines)
+- `source/patterns/collections/menu-primary/menu-primary.stories.jsx` (235 lines)
+- `source/patterns/collections/menu-primary/menu-primary.js` (238 lines - optional)
+- `source/patterns/collections/menu-primary/README.md` (Documentation)
+- `templates/navigation/menu--primary.html.twig` (Drupal override)
+- Updated: `source/patterns/collections/_index.css` (added import)
+
+### Browser Support
+- Chrome/Edge 90+, Firefox 88+, Safari 14+
+- iOS Safari 14+, Chrome Android 90+
+- GPU-accelerated transforms for smooth animations
+
+### References
+- Design spec: Based on provided maquette (Desktop horizontal, Mobile vertical)
+- Drupal template: `core/themes/starterkit_theme/templates/navigation/menu.html.twig`
+- ARIA pattern: [W3C Menu Navigation Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu/)
+- Instruction files: `instructions/02-component-development.md`, `instructions/03-technical-implementation.md`
+
+---
+
 ## [2025-12-20] - Enhancement: Checkboxes Molecule with 5 Layout Variants
 
 ### Added
