@@ -7,7 +7,7 @@
  * @package PS Theme
  */
 
-((Drupal) => {
+((Drupal, once) => {
   'use strict';
 
   /**
@@ -96,7 +96,7 @@
     const backLink = document.createElement('a');
     backLink.href = '#';
     backLink.className = 'menu-link mobile-menu-back-link';
-    backLink.textContent = Drupal.t ? Drupal.t('Back') : 'Back';
+    backLink.textContent = Drupal.t('Back');
 
     backLink.addEventListener('click', (e) => {
       e.preventDefault();
@@ -205,8 +205,4 @@
       }
     },
   };
-})(Drupal || {
-  // Storybook fallback: simulate Drupal API
-  behaviors: {},
-  t: (str) => str,
-});
+})(Drupal, once);
