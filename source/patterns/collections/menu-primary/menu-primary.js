@@ -41,8 +41,11 @@
 
     // Add back button to level 1 flyovers
     const submenu = link.nextElementSibling;
-    if (submenu && parentItem.parentElement.classList.contains('menu-bar')) {
+    if (submenu) {
+      const rootMenu = parentItem.closest('.ps-menu-primary')?.querySelector('.menu');
+      if (rootMenu && parentItem.parentElement === rootMenu) {
       addBackButton(submenu, parentItem, link);
+      }
     }
   }
 

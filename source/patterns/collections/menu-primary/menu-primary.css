@@ -5,9 +5,8 @@
  * Scoped under .ps-menu-primary to match component structure.
  *
  * Key classes from menu.html:
- * - .menu-bar: Top-level menu list
+ * - .menu: Top-level menu list
  * - .menu-link: All clickable links
- * - .menu-bar-link: Top-level links
  * - .mega-menu: Dropdown container
  * - .mega-menu--multiLevel: 3-column layout with flyouts
  * - .mega-menu--flat: Simple column layout
@@ -98,7 +97,7 @@
    ============================================ */
 
 .ps-menu-primary {
-  & .menu-bar {
+  & > .menu {
     background: var(--ps-menu-primary-bg);
     display: flex;
     flex-direction: column;
@@ -127,7 +126,7 @@
     /* Links with submenus have chevron/arrow */
     &[aria-haspopup="true"] {
       padding-right: calc(
-        var(--ps-menu-primary-padding-x) + var(--ps-menu-primary-icon-container-size) + var(--ps-menu-primary-icon-gap) * 2
+        var(--ps-menu-primary-padding-x) + var(--ps-menu-primary-icon-container-size) + var(--ps-menu-primary-icon-gap)
       );
       
       &::after {
@@ -191,7 +190,7 @@
     }
     
     /* Top-level bar positioning */
-    & .menu-bar {
+    & > .menu {
       position: relative;
       
       /* Top-level links: chevron down */
@@ -319,7 +318,7 @@
       /* Border separators */
       & [aria-haspopup="true"] ~ ul,
       & [aria-haspopup="true"] {
-        border-left: var(--ps-menu-primary-border);
+        border-left: none;
       }
       
       /* Keep flyouts visible on hover */
@@ -342,7 +341,6 @@
     }
     
     /* Hide mobile-only elements */
-    & .mobile-menu-trigger,
     & .mobile-menu-header,
     & .mobile-menu-back-item {
       display: none;
@@ -356,29 +354,13 @@
 
 @media (max-width: 767px) {
   .ps-menu-primary {
-    /* Show mobile elements (except trigger and header) */
-    & .mobile-menu-trigger,
+    /* Show mobile elements (except header) */
     & .mobile-menu-header {
       display: none;
     }
 
     & .mobile-menu-back-item {
       display: block;
-    }
-    
-    /* Mobile menu trigger button */
-    & .mobile-menu-trigger {
-      background: var(--ps-menu-primary-bg-hover);
-      color: var(--ps-menu-primary-color-hover);
-      border: 0;
-      padding: var(--size-2) var(--size-4);
-      font-size: var(--ps-menu-primary-font-size);
-      border-radius: var(--radius-1);
-      cursor: pointer;
-      
-      &:hover {
-        opacity: 0.9;
-      }
     }
     
     /* Mobile menu header */
@@ -394,13 +376,13 @@
     }
     
     /* Vertical stacked menu */
-    & .menu-bar {
+    & > .menu {
       flex-direction: column;
       position: relative;
     }
 
     /* Top-level items separators and padding */
-    & .menu-bar > li > a {
+    & > .menu > li > a {
       padding: var(--ps-menu-primary-padding-y) var(--ps-menu-primary-padding-x);
       border-bottom: var(--ps-menu-primary-separator);
       background: var(--ps-menu-primary-bg);
@@ -410,14 +392,14 @@
     }
 
     /* Active state on mobile: green text + underline */
-    & .menu-bar > li.is-active-trail > a,
-    & .menu-bar > li > a[aria-current="page"] {
+    & > .menu > li.is-active-trail > a,
+    & > .menu > li > a[aria-current="page"] {
       color: var(--ps-menu-primary-color-active);
       border-bottom: 2px solid var(--ps-menu-primary-color-active);
     }
 
     /* Mobile links with chevron: adjust padding and chevron position */
-    & .menu-bar > li > a[aria-haspopup="true"] {
+    & > .menu > li > a[aria-haspopup="true"] {
       padding-right: calc(
         var(--ps-menu-primary-padding-x) + var(--ps-menu-primary-icon-container-size) + var(--ps-menu-primary-icon-gap)
       );
@@ -428,12 +410,12 @@
     }
 
     /* No separator on last item */
-    & .menu-bar > li:last-child > a {
+    & > .menu > li:last-child > a {
       border-bottom: 0;
     }
     
     /* Level 1 submenus: flyover panel (slide from right) */
-    & .menu-bar > li > [aria-haspopup="true"] ~ ul {
+    & > .menu > li > [aria-haspopup="true"] ~ ul {
       position: fixed;
       top: 0;
       left: 0;
@@ -457,25 +439,25 @@
     }
     
     /* Show flyover when expanded */
-    & .menu-bar > li.is-expanded > [aria-haspopup="true"] ~ ul {
+    & > .menu > li.is-expanded > [aria-haspopup="true"] ~ ul {
       transform: translateX(0);
       opacity: 1;
       pointer-events: auto;
     }
     
     /* Nested submenus (level 2+): normal accordion inside flyover */
-    & .menu-bar > li > ul [aria-haspopup="true"] {
+    & > .menu > li > ul [aria-haspopup="true"] {
       &::after {
         mask-image: var(--ps-menu-primary-icon-mask-down);
         transform: translateY(-50%) rotate(0deg);
       }
     }
 
-    & .menu-bar > li > ul [aria-haspopup="true"][aria-expanded="true"]::after {
+    & > .menu > li > ul [aria-haspopup="true"][aria-expanded="true"]::after {
       transform: translateY(-50%) rotate(180deg);
     }
 
-    & .menu-bar > li > ul [aria-haspopup="true"] ~ ul {
+    & > .menu > li > ul [aria-haspopup="true"] ~ ul {
       position: static;
       width: 100%;
       height: auto;
@@ -491,7 +473,7 @@
     }
     
     /* Expanded nested accordion */
-    & .menu-bar > li > ul li.is-expanded > [aria-haspopup="true"] ~ ul {
+    & > .menu > li > ul li.is-expanded > [aria-haspopup="true"] ~ ul {
       max-height: 500px;
       visibility: visible;
       transform: scaleY(1);

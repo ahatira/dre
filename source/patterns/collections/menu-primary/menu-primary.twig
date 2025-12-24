@@ -77,7 +77,7 @@
           {#- Mobile back button (only on level 2 mega-menus) -#}
           {%- if level == 1 and item.below -%}
             <li class="mobile-menu-back-item">
-              <a href="#" class="menu-link mobile-menu-back-link">Back</a>
+              <a href="#" class="menu-link mobile-menu-back-link">{{ 'Back'|t }}</a>
             </li>
           {%- endif -%}
         </ul>
@@ -90,9 +90,8 @@
 {%- import _self as menus -%}
 {%- set root_attr = create_attribute().addClass(menu_classes) -%}
 
-<nav{{- root_attr -}}>
-  <a href="#" class="mobile-menu-trigger">Menu</a>
-  <ul class="menu menu-bar">
+<div{{- root_attr -}}>
+  <ul class="menu">
     {{- menus.menu_links(items, 1) -}}
   </ul>
-</nav>
+</div>

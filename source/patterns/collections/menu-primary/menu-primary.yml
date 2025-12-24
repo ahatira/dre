@@ -8,7 +8,7 @@ items:
   # 1. Multilevel mega menu (3 columns with nested flyouts)
   - title: 'Find a property'
     url: '#'
-    link_class: ['menu-link', 'menu-bar-link']
+    link_class: ['menu-link']
     aria_haspopup: true
     submenu_class: ['mega-menu', 'mega-menu--multiLevel']
     below:
@@ -68,7 +68,7 @@ items:
   # 2. Flat mega menu (3 columns with headers)
   - title: 'About us'
     url: '#'
-    link_class: ['menu-link', 'menu-bar-link']
+    link_class: ['menu-link']
     aria_haspopup: true
     submenu_class: ['mega-menu', 'mega-menu--flat']
     below:
@@ -120,7 +120,7 @@ items:
   # 3. Flat mega menu (2 columns - services)
   - title: 'Solutions'
     url: '#'
-    link_class: ['menu-link', 'menu-bar-link']
+    link_class: ['menu-link']
     aria_haspopup: true
     in_active_trail: true
     submenu_class: ['mega-menu', 'mega-menu--flat']
@@ -162,7 +162,7 @@ items:
   # 4. Flat mega menu (insights)
   - title: 'Latest News'
     url: '#'
-    link_class: ['menu-link', 'menu-bar-link']
+    link_class: ['menu-link']
     aria_haspopup: true
     submenu_class: ['mega-menu', 'mega-menu--flat']
     below:
