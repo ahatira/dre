@@ -1,0 +1,498 @@
+/**
+ * Header Layout (Template) - Main site header with navigation
+ *
+ * Component-scoped custom properties (Layer 2):
+ * - Layout & Structure
+ * - Responsive Breakpoints
+ * - Sticky States
+ * - Mobile Menu (Offcanvas)
+ * - Z-index Management
+ * - Transitions & Animations
+ *
+ * @see header.twig
+ * @see header.js
+ */
+
+/* ========================================================================
+   BASE STYLES - Desktop First
+   ======================================================================== */
+
+.ps-header {
+  /* Component-scoped variables (Layer 2 - Override capability) */
+  --ps-header-bg: var(--white);
+  --ps-header-border-color: var(--border-light);
+  --ps-header-shadow: var(--shadow-2);
+  --ps-header-shadow-sticky: var(--shadow-3);
+  
+  /* Header Top */
+  --ps-header-top-height: 80px;
+  --ps-header-top-padding-x: var(--size-8);
+  --ps-header-top-padding-y: var(--size-5);
+  --ps-header-tagline-size: var(--font-size-2);
+  --ps-header-tagline-color: var(--gray-600);
+  
+  /* Header Nav */
+  --ps-header-nav-height: 64px;
+  --ps-header-nav-padding-x: var(--size-8);
+  --ps-header-nav-padding-y: 0;
+  --ps-header-nav-gap: var(--size-6);
+  
+  /* Mobile Menu */
+  --ps-header-mobile-width: 320px;
+  --ps-header-mobile-bg: var(--white);
+  --ps-header-mobile-overlay: var(--overlay-dark-medium);
+  --ps-header-mobile-z: var(--z-modal);
+  
+  /* Transitions */
+  --ps-header-transition-fast: var(--duration-fast) var(--ease-out);
+  --ps-header-transition-normal: var(--duration-normal) var(--ease-out);
+  
+  /* Z-index layering */
+  --ps-header-z: var(--z-sticky);
+  --ps-header-z-sticky: calc(var(--z-sticky) + 10);
+  
+  /* Component structure */
+  position: relative; /* Positioning context for mega-menus */
+  width: 100%;
+  background: var(--ps-header-bg);
+  border-bottom: 1px solid var(--ps-header-border-color);
+  z-index: var(--ps-header-z);
+}
+
+/* Sticky positioning (always) */
+.ps-header--sticky {
+  position: sticky;
+  top: 0;
+}
+
+/* Sticky state styles (only when actually sticky - triggered by JS) */
+.ps-header--sticky.is-sticky {
+  z-index: var(--ps-header-z-sticky);
+  box-shadow: var(--ps-header-shadow-sticky);
+  
+  /* Animation when becoming sticky */
+  animation: slideDownHeader var(--ps-header-transition-fast);
+}
+
+@keyframes slideDownHeader {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================================================
+   HEADER TOP (Brand + Language)
+   ======================================================================== */
+
+.ps-header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--ps-header-top-height);
+  padding: var(--ps-header-top-padding-y) var(--ps-header-top-padding-x);
+  background: var(--ps-header-bg);
+}
+
+/* Brand zone (Logo + Tagline) */
+.ps-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+.ps-header__tagline {
+  font-size: var(--ps-header-tagline-size);
+  color: var(--ps-header-tagline-color);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-tight);
+}
+
+/* Language zone */
+.ps-header__language {
+  display: flex;
+  align-items: center;
+}
+
+/* ========================================================================
+   HEADER NAV (Primary + Secondary Menus)
+   ======================================================================== */
+
+.ps-header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--ps-header-nav-height);
+  padding: var(--ps-header-nav-padding-y) var(--ps-header-nav-padding-x);
+  background: var(--ps-header-bg);
+  column-gap: var(--size-8);
+  
+  /* Don't create positioning context - let .ps-header handle it */
+  position: static;
+}
+
+/* Primary navigation zone */
+.ps-header__primary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  
+  /* Allow menu-primary to maintain its structure while mega-menu escapes */
+  & .ps-menu-primary {
+    position: static; /* Remove positioning context to let mega-menu reference .ps-header */
+    flex: 1; /* Take available space */
+  }
+  
+  /* Remove positioning from top-level menu to allow mega-menu escape */
+  & .ps-menu-primary > .menu {
+    position: static;
+  }
+  
+  /* Full-width mega-menu - positioned relative to .ps-header */
+  & .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100% !important; /* Full header width */
+    padding-left: var(--ps-header-nav-padding-x); /* Same padding as nav */
+    padding-right: var(--ps-header-nav-padding-x); /* Same padding as nav */
+    margin: 0; /* Reset any margins */
+    box-sizing: border-box;
+  }
+}
+
+
+/* Secondary navigation zone */
+.ps-header__secondary {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-header-nav-gap);
+  flex: 0 0 auto;
+}
+
+.ps-header__secondary-menu {
+  display: flex;
+  align-items: center;
+}
+
+/* Align secondary menu inline (desktop) and trim extra padding */
+.ps-header__secondary-menu .ps-menu-secondary .menu {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--size-4);
+  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ps-header__secondary-menu .ps-menu-secondary > .menu > li + li::before {
+  height: var(--size-7);
+}
+
+.ps-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4);
+}
+
+/* ========================================================================
+   MOBILE MENU TOGGLE (Hamburger Button)
+   ======================================================================== */
+
+.ps-header__mobile-toggle {
+  --ps-mobile-toggle-size: 48px;
+  --ps-mobile-toggle-icon-width: 24px;
+  --ps-mobile-toggle-icon-height: 2px;
+  --ps-mobile-toggle-gap: 6px;
+  --ps-mobile-toggle-color: var(--gray-700);
+  
+  display: none; /* Hidden on desktop */
+  position: absolute;
+  top: var(--size-5);
+  left: var(--size-4);
+  z-index: calc(var(--ps-header-mobile-z) + 20);
+  
+  width: var(--ps-mobile-toggle-size);
+  height: var(--ps-mobile-toggle-size);
+  padding: 0;
+  
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-2);
+  cursor: pointer;
+  
+  transition: background-color var(--ps-header-transition-fast);
+  
+  &:hover {
+    background: var(--gray-100);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+  
+  &[aria-expanded="true"] {
+    background: var(--gray-200);
+  }
+}
+
+/* Hamburger icon structure */
+.ps-header__mobile-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ps-mobile-toggle-gap);
+  width: 100%;
+  height: 100%;
+}
+
+.ps-header__mobile-line {
+  display: block;
+  width: var(--ps-mobile-toggle-icon-width);
+  height: var(--ps-mobile-toggle-icon-height);
+  background: var(--ps-mobile-toggle-color);
+  border-radius: var(--radius-1);
+  transition: transform var(--ps-header-transition-fast), 
+              opacity var(--ps-header-transition-fast);
+}
+
+/* Animated hamburger to X when open */
+.ps-header__mobile-toggle[aria-expanded="true"] {
+  & .ps-header__mobile-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  & .ps-header__mobile-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  & .ps-header__mobile-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+.ps-header__mobile-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========================================================================
+   MOBILE OFFCANVAS MENU
+   ======================================================================== */
+
+.ps-header__mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  
+  width: var(--ps-header-mobile-width);
+  max-width: 100%;
+  
+  background: var(--ps-header-mobile-bg);
+  box-shadow: var(--shadow-4);
+  
+  z-index: calc(var(--ps-header-mobile-z) + 10);
+  
+  /* Hidden by default */
+  transform: translateX(100%);
+  transition: transform var(--ps-header-transition-normal);
+  
+  /* Scrollable content */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  &[aria-hidden="false"] {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile menu header */
+.ps-header__mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--size-5) var(--size-6);
+  border-bottom: 1px solid var(--border-light);
+  background: var(--gray-50);
+}
+
+.ps-header__mobile-title {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-600);
+  color: var(--gray-900);
+}
+
+.ps-header__mobile-close {
+  --ps-mobile-close-size: 40px;
+  
+  width: var(--ps-mobile-close-size);
+  height: var(--ps-mobile-close-size);
+  padding: 0;
+  
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-2);
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: background-color var(--ps-header-transition-fast);
+  
+  &:hover {
+    background: var(--gray-200);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}
+
+.ps-header__mobile-close-icon {
+  font-size: var(--font-size-5);
+  color: var(--gray-700);
+}
+
+/* Mobile menu content */
+.ps-header__mobile-content {
+  padding: var(--size-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-8);
+}
+
+.ps-header__mobile-language,
+.ps-header__mobile-primary,
+.ps-header__mobile-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+}
+
+/* Mobile overlay (backdrop) */
+.ps-header__mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ps-header-mobile-overlay);
+  z-index: var(--ps-header-mobile-z);
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ps-header-transition-normal);
+  
+  &[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE BREAKPOINTS
+   ======================================================================== */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .ps-header__mobile-toggle {
+    display: flex;
+  }
+  
+  /* Hide desktop navigation */
+  .ps-header__nav {
+    display: none;
+  }
+  
+  /* Adjust header top for mobile toggle */
+  .ps-header__top {
+    padding-left: calc(var(--ps-mobile-toggle-size) + var(--size-6));
+  }
+  
+  /* Reduce header top height */
+  .ps-header__top {
+    min-height: 60px;
+    padding-top: var(--size-4);
+    padding-bottom: var(--size-4);
+  }
+  
+  /* Mobile menu full width on small screens */
+  .ps-header__mobile-menu {
+    width: 100%;
+  }
+}
+
+/* Mobile (640px and below) */
+@media (max-width: 640px) {
+  .ps-header__top {
+    padding-left: calc(var(--ps-mobile-toggle-size) + var(--size-4));
+    padding-right: var(--size-4);
+  }
+  
+  .ps-header__brand {
+    gap: var(--size-1);
+  }
+  
+  .ps-header__tagline {
+    font-size: var(--font-size-1);
+  }
+  
+  /* Reduce mobile toggle position */
+  .ps-header__mobile-toggle {
+    top: var(--size-3);
+    left: var(--size-2);
+  }
+}
+
+/* ========================================================================
+   VARIANTS
+   ======================================================================== */
+
+/* Header with tagline */
+.ps-header--with-tagline {
+  & .ps-header__top {
+    min-height: calc(var(--ps-header-top-height) + 24px);
+  }
+}
+
+/* Print styles */
+@media print {
+  .ps-header__mobile-toggle,
+  .ps-header__mobile-menu,
+  .ps-header__mobile-overlay {
+    display: none;
+  }
+  
+  .ps-header--sticky {
+    position: relative;
+    box-shadow: none;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .ps-header,
+  .ps-header__mobile-toggle,
+  .ps-header__mobile-menu,
+  .ps-header__mobile-overlay {
+    animation: none;
+    transition: none;
+  }
+}

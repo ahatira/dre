@@ -1,0 +1,283 @@
+# Header Layout - Mock Data (Real Estate Context)
+#
+# Provides realistic data for all header variants:
+# - Default: Simple header (logged out state)
+# - WithTagline: Header with company slogan
+# - LoggedIn: Header with user menu and notifications
+#
+# @see header.twig
+# @see header.stories.jsx
+
+# =============================================================================
+# DEFAULT VARIANT - Logged Out State
+# =============================================================================
+
+show_tagline: false
+tagline: 'Real Estate for a Changing World'
+sticky: true
+
+logo_config:
+  variant: 'default'
+  size: 'medium'
+  href: '/'
+  alt: 'BNP Paribas Real Estate'
+
+language_selector_config:
+  name: 'lang'
+  size: 'sm'
+  current:
+    code: 'GB'
+    label: 'En'
+    locale: 'en-GB'
+  options:
+    - code: 'GB'
+      label: 'English'
+      value: 'en'
+      url: '/en'
+      locale: 'en-GB'
+      selected: true
+      disabled: false
+    - code: 'FR'
+      label: 'Français'
+      value: 'fr'
+      url: '/fr'
+      locale: 'fr-FR'
+      selected: false
+      disabled: false
+    - code: 'ES'
+      label: 'Español'
+      value: 'es'
+      url: '/es'
+      locale: 'es-ES'
+      selected: false
+      disabled: false
+    - code: 'DE'
+      label: 'Deutsch'
+      value: 'de'
+      url: '/de'
+      locale: 'de-DE'
+      selected: false
+      disabled: false
+
+primary_menu_items:
+  # 1. Multilevel mega menu (3 columns with nested flyouts)
+  - title: 'Find a property'
+    url: '#'
+    link_class: ['menu-link']
+    aria_haspopup: true
+    submenu_class: ['mega-menu', 'mega-menu--multiLevel']
+    below:
+      # Column 1: Residential with flyout
+      - title: 'Residential'
+        url: '#'
+        link_class: ['menu-link', 'mega-menu-link']
+        aria_haspopup: true
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Apartments'
+            url: '/search/residential/apartments'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Houses'
+            url: '/search/residential/houses'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Villas'
+            url: '/search/residential/villas'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 2: Commercial with flyout
+      - title: 'Commercial'
+        url: '#'
+        link_class: ['menu-link', 'mega-menu-link']
+        aria_haspopup: true
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Office spaces'
+            url: '/search/commercial/office'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Retail'
+            url: '/search/commercial/retail'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Industrial'
+            url: '/search/commercial/industrial'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 3: Land with flyout
+      - title: 'Land & Plots'
+        url: '#'
+        link_class: ['menu-link', 'mega-menu-link']
+        aria_haspopup: true
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Building plots'
+            url: '/search/land/building-plots'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Agricultural land'
+            url: '/search/land/agricultural'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 4: Simple link (no flyout)
+      - title: 'All properties'
+        url: '/search/all'
+        link_class: ['menu-link', 'mega-menu-link']
+
+  # 2. Flat mega menu (3 columns with headers)
+  - title: 'About us'
+    url: '#'
+    link_class: ['menu-link']
+    aria_haspopup: true
+    submenu_class: ['mega-menu', 'mega-menu--flat']
+    below:
+      # Column 1
+      - title: 'Our company'
+        url: '/about/company'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Who we are'
+            url: '/about/company/who-we-are'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Our history'
+            url: '/about/company/history'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Leadership team'
+            url: '/about/company/leadership'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 2
+      - title: 'Our expertise'
+        url: '/about/expertise'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Property valuation'
+            url: '/about/expertise/valuation'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Market analysis'
+            url: '/about/expertise/market-analysis'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Investment advisory'
+            url: '/about/expertise/advisory'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 3
+      - title: 'Contact us'
+        url: '/contact'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Find an office'
+            url: '/contact/offices'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Meet our agents'
+            url: '/contact/agents'
+            link_class: ['menu-link', 'menu-list-link']
+
+  # 3. Flat mega menu (2 columns - services)
+  - title: 'Solutions'
+    url: '#'
+    link_class: ['menu-link']
+    aria_haspopup: true
+    in_active_trail: true
+    submenu_class: ['mega-menu', 'mega-menu--flat']
+    below:
+      # Column 1: Property management
+      - title: 'Property management'
+        url: '/solutions/property-management'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Residential management'
+            url: '/solutions/property-management/residential'
+            link_class: ['menu-link', 'menu-list-link']
+            description: 'Full-service management for apartments and houses'
+          - title: 'Commercial management'
+            url: '/solutions/property-management/commercial'
+            link_class: ['menu-link', 'menu-list-link']
+            description: 'Expert management for office and retail spaces'
+          - title: 'HOA management'
+            url: '/solutions/property-management/hoa'
+            link_class: ['menu-link', 'menu-list-link']
+            description: 'Homeowners association services'
+      
+      # Column 2: Consulting services  
+      - title: 'Consulting services'
+        url: '/solutions/consulting'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Investment strategy'
+            url: '/solutions/consulting/investment'
+            link_class: ['menu-link', 'menu-list-link']
+            description: 'Strategic planning for real estate investments'
+          - title: 'Portfolio optimization'
+            url: '/solutions/consulting/portfolio'
+            link_class: ['menu-link', 'menu-list-link']
+            description: 'Maximize returns on your property portfolio'
+
+  # 4. Flat mega menu (insights)
+  - title: 'Latest News'
+    url: '#'
+    link_class: ['menu-link']
+    aria_haspopup: true
+    submenu_class: ['mega-menu', 'mega-menu--flat']
+    below:
+      # Column 1: Market insights
+      - title: 'Market insights'
+        url: '/news/market-insights'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Monthly market report'
+            url: '/news/market-insights/monthly-report'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Pricing trends'
+            url: '/news/market-insights/pricing-trends'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Investment forecasts'
+            url: '/news/market-insights/forecasts'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 2: Company news
+      - title: 'Company news'
+        url: '/news/company'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Press releases'
+            url: '/news/company/press-releases'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Awards & recognition'
+            url: '/news/company/awards'
+            link_class: ['menu-link', 'menu-list-link']
+      
+      # Column 3: Resources
+      - title: 'Resources'
+        url: '/news/resources'
+        link_class: ['menu-link', 'mega-menu-link', 'mega-menu-header']
+        submenu_class: ['menu', 'menu-list']
+        below:
+          - title: 'Guides & eBooks'
+            url: '/news/resources/guides'
+            link_class: ['menu-link', 'menu-list-link']
+          - title: 'Webinars'
+            url: '/news/resources/webinars'
+            link_class: ['menu-link', 'menu-list-link']
+
+secondary_menu_items:
+  - title: 'What are you looking for ?'
+    url: '/search'
+    link_class: ['ps-button', 'ps-button--primary', 'ps-button--outline']
+  
+  - title: 'Find a property'
+    url: '/search'
+    link_class: ['menu-link']
+  
+  - title: 'Log in / Sign up'
+    url: '/user/login'
+    link_class: ['ps-button', 'ps-button--primary']
+    icon: 'account'
+  
+  - title: 'Contact us'
+    url: '/contact'
+    link_class: ['ps-button', 'ps-button--secondary']
+    icon: 'email-outline'
