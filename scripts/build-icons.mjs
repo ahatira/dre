@@ -191,26 +191,16 @@ function generateIconsRegistry(icons) {
   lines.push('  ],');
   lines.push('  "categories": {');
 
-  // Format categories: compact small arrays (≤3 items), expand larger ones
+  // Format categories: compact format for ALL arrays (Biome-compatible)
   const categoryKeys = Object.keys(categories).sort();
   for (let i = 0; i < categoryKeys.length; i++) {
     const key = categoryKeys[i];
     const items = categories[key];
     const isLastCategory = i === categoryKeys.length - 1;
 
-    // Compact format for small arrays
-    if (items.length <= 3) {
-      const itemsStr = items.map((item) => `"${item}"`).join(', ');
-      lines.push(`    "${key}": [${itemsStr}]${isLastCategory ? '' : ','}`);
-    } else {
-      // Expanded format for larger arrays
-      lines.push(`    "${key}": [`);
-      for (let j = 0; j < items.length; j++) {
-        const isLastItem = j === items.length - 1;
-        lines.push(`      "${items[j]}"${isLastItem ? '' : ','}`);
-      }
-      lines.push(`    ]${isLastCategory ? '' : ','}`);
-    }
+    // Compact format for all arrays (single line)
+    const itemsStr = items.map((item) => `"${item}"`).join(', ');
+    lines.push(`    "${key}": [${itemsStr}]${isLastCategory ? '' : ','}`);
   }
 
   lines.push('  }');
