@@ -8,8 +8,6 @@
  */
 
 ((Drupal, once) => {
-  'use strict';
-
   /**
    * Global resize handler (one instance for all menus)
    */
@@ -19,7 +17,7 @@
   function handleGlobalResize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         // Remove mobile states on all menus when switching to desktop
         document.querySelectorAll('.ps-menu-primary .is-expanded').forEach((item) => {
           item.classList.remove('is-expanded');
@@ -41,7 +39,7 @@
     const link = e.currentTarget;
 
     // Mobile behavior: first click opens, second click navigates
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       const parentItem = link.closest('li');
       const isExpanded = parentItem.classList.contains('is-expanded');
 
@@ -150,7 +148,7 @@
    * Drupal behavior for primary menu
    */
   Drupal.behaviors.menuPrimary = {
-    attach(context, settings) {
+    attach(context, _settings) {
       // Use once() to prevent double initialization
       const menus = once('ps-menu-primary', '.ps-menu-primary', context);
 
@@ -175,7 +173,7 @@
       }
     },
 
-    detach(context, settings, trigger) {
+    detach(context, _settings, trigger) {
       // Clean up on detach (AJAX, BigPipe, etc.)
       if (trigger === 'unload') {
         const menus = once.remove('ps-menu-primary', '.ps-menu-primary', context);

@@ -1,14 +1,14 @@
 // Defining custom viewports to use within Storybook's preview.
 const customViewports = {
   mobileSmall: {
-    name: 'Mobile small',
+    name: 'Small mobile',
     styles: {
       width: '400px',
       height: '963px',
     },
   },
   mobile: {
-    name: 'Mobile',
+    name: 'Large mobile',
     styles: {
       width: '640px',
       height: '801px',

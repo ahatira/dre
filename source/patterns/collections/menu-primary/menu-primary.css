@@ -16,8 +16,8 @@
  * - .menu-list-link: Links in sub-lists
  *
  * Breakpoints:
- * - Mobile: < 768px (vertical, accordion)
- * - Desktop: >= 768px (horizontal, hover dropdowns)
+ * - Mobile: <= 1024px (vertical, accordion)
+ * - Desktop: >= 1025px (horizontal, hover dropdowns)
  */
 
 /* ============================================
@@ -27,7 +27,7 @@
 .ps-menu-primary {
   /* Layout */
   --ps-menu-primary-padding-y: var(--size-5); /* 20px */
-  --ps-menu-primary-padding-x: var(--size-6); /* 24px */
+  --ps-menu-primary-padding-x: var(--size-2); /* 24px */
   
   /* Typography */
   --ps-menu-primary-font-size: var(--font-size-1);
@@ -102,9 +102,13 @@
     display: flex;
     flex-direction: column;
     
-    @media (min-width: 768px) {
+    @media (--laptop) {
       flex-direction: row;
       position: relative;
+      
+      & > li:first-child > .menu-link {
+        padding-left: 0 !important;
+      }
     }
   }
 }
@@ -122,7 +126,7 @@
                 color var(--ps-menu-primary-transition-duration);
     position: relative;
     z-index: 1;
-    
+
     /* Links with submenus have chevron/arrow */
     &[aria-haspopup="true"] {
       padding-right: calc(
@@ -179,10 +183,10 @@
 }
 
 /* ============================================
-   Desktop Styles (>= 768px)
+   Desktop Styles (>= 1025px)
    ============================================ */
 
-@media (min-width: 768px) {
+@media (--laptop) {
   .ps-menu-primary {
     /* Hide all submenus by default */
     & .menu [aria-haspopup="true"] ~ ul {
@@ -284,7 +288,7 @@
       
       /* First-level flyouts */
       & > li > [aria-haspopup="true"] ~ ul {
-        left: 33.33333333%;
+        left: 34%;
         width: 33.33333333%;
       }
       
@@ -349,10 +353,10 @@
 }
 
 /* ============================================
-   Mobile Styles (< 768px)
+   Mobile Styles (< --laptop)
    ============================================ */
 
-@media (max-width: 767px) {
+@media not all and (--laptop) {
   .ps-menu-primary {
     /* Show mobile elements (except header) */
     & .mobile-menu-header {

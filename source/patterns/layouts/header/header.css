@@ -207,32 +207,30 @@
    MOBILE MENU TOGGLE (Hamburger Button)
    ======================================================================== */
 
-.ps-header__mobile-toggle {
-  --ps-mobile-toggle-size: 48px;
-  --ps-mobile-toggle-icon-width: 24px;
-  --ps-mobile-toggle-icon-height: 2px;
-  --ps-mobile-toggle-gap: 6px;
-  --ps-mobile-toggle-color: var(--gray-700);
+.ps-header__toggle {
+  --ps-toggle-size: 28px;
+  --ps-toggle-icon-size: 20px;
+  --ps-toggle-icon-burger: svg-load('mobile-only/burger-menu.svg');
+  --ps-toggle-icon-close: svg-load('generic/close.svg');
+  --ps-toggle-color: var(--gray-700);
   
   display: none; /* Hidden on desktop */
-  position: absolute;
-  top: var(--size-5);
-  left: var(--size-4);
-  z-index: calc(var(--ps-header-mobile-z) + 20);
   
-  width: var(--ps-mobile-toggle-size);
-  height: var(--ps-mobile-toggle-size);
+  width: var(--ps-toggle-size);
+  height: var(--ps-toggle-size);
   padding: 0;
+  
+  align-items: center;
+  justify-content: center;
   
   background: transparent;
   border: none;
-  border-radius: var(--radius-2);
   cursor: pointer;
   
   transition: background-color var(--ps-header-transition-fast);
   
   &:hover {
-    background: var(--gray-100);
+    background: transparent;
   }
   
   &:focus-visible {
@@ -240,210 +238,167 @@
     outline-offset: 2px;
   }
   
-  &[aria-expanded="true"] {
-    background: var(--gray-200);
-  }
-}
-
-/* Hamburger icon structure */
-.ps-header__mobile-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ps-mobile-toggle-gap);
-  width: 100%;
-  height: 100%;
-}
-
-.ps-header__mobile-line {
-  display: block;
-  width: var(--ps-mobile-toggle-icon-width);
-  height: var(--ps-mobile-toggle-icon-height);
-  background: var(--ps-mobile-toggle-color);
-  border-radius: var(--radius-1);
-  transition: transform var(--ps-header-transition-fast), 
-              opacity var(--ps-header-transition-fast);
-}
-
-/* Animated hamburger to X when open */
-.ps-header__mobile-toggle[aria-expanded="true"] {
-  & .ps-header__mobile-line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+  &::before {
+    content: '';
+    display: block;
+    width: var(--ps-toggle-icon-size);
+    height: var(--ps-toggle-icon-size);
+    background: var(--ps-toggle-icon-burger) center / contain no-repeat;
   }
   
-  & .ps-header__mobile-line:nth-child(2) {
-    opacity: 0;
-  }
-  
-  & .ps-header__mobile-line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-}
-
-.ps-header__mobile-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ========================================================================
-   MOBILE OFFCANVAS MENU
-   ======================================================================== */
-
-.ps-header__mobile-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  
-  width: var(--ps-header-mobile-width);
-  max-width: 100%;
-  
-  background: var(--ps-header-mobile-bg);
-  box-shadow: var(--shadow-4);
-  
-  z-index: calc(var(--ps-header-mobile-z) + 10);
-  
-  /* Hidden by default */
-  transform: translateX(100%);
-  transition: transform var(--ps-header-transition-normal);
-  
-  /* Scrollable content */
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  
-  &[aria-hidden="false"] {
-    transform: translateX(0);
-  }
-}
-
-/* Mobile menu header */
-.ps-header__mobile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--size-5) var(--size-6);
-  border-bottom: 1px solid var(--border-light);
-  background: var(--gray-50);
-}
-
-.ps-header__mobile-title {
-  font-size: var(--font-size-4);
-  font-weight: var(--font-weight-600);
-  color: var(--gray-900);
-}
-
-.ps-header__mobile-close {
-  --ps-mobile-close-size: 40px;
-  
-  width: var(--ps-mobile-close-size);
-  height: var(--ps-mobile-close-size);
-  padding: 0;
-  
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-2);
-  cursor: pointer;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  transition: background-color var(--ps-header-transition-fast);
-  
-  &:hover {
-    background: var(--gray-200);
-  }
-  
-  &:focus-visible {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-  }
-}
-
-.ps-header__mobile-close-icon {
-  font-size: var(--font-size-5);
-  color: var(--gray-700);
-}
-
-/* Mobile menu content */
-.ps-header__mobile-content {
-  padding: var(--size-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-8);
-}
-
-.ps-header__mobile-language,
-.ps-header__mobile-primary,
-.ps-header__mobile-secondary {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-4);
-}
-
-/* Mobile overlay (backdrop) */
-.ps-header__mobile-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--ps-header-mobile-overlay);
-  z-index: var(--ps-header-mobile-z);
-  
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--ps-header-transition-normal);
-  
-  &[aria-hidden="false"] {
-    opacity: 1;
-    pointer-events: auto;
+  /* When menu is open, show close icon */
+  .ps-header.is-open &::before {
+    background: var(--ps-toggle-icon-close) center / contain no-repeat;
   }
 }
 
 /* ========================================================================
    RESPONSIVE BREAKPOINTS
+   Desktop-first approach: nav horizontal by default
+   Mobile (<= 1024px): nav becomes vertical stack with toggle control
    ======================================================================== */
 
-/* Tablet (1024px and below) */
+/* Tablet and mobile (1024px and below) */
 @media (max-width: 1024px) {
-  .ps-header__mobile-toggle {
+  /* Show toggle button */
+  .ps-header__toggle {
     display: flex;
   }
   
-  /* Hide desktop navigation */
-  .ps-header__nav {
+  /* Header top adjustments */
+  .ps-header__top {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--size-4);
+    min-height: 56px;
+    padding: var(--size-3) var(--size-4);
+  }
+  
+  /* Brand aligned left */
+  .ps-header__brand {
+    justify-self: left;
+    text-align: left;
+  }
+  
+  /* Hide desktop language selector */
+  .ps-header__language {
     display: none;
   }
   
-  /* Adjust header top for mobile toggle */
-  .ps-header__top {
-    padding-left: calc(var(--ps-mobile-toggle-size) + var(--size-6));
-  }
-  
-  /* Reduce header top height */
-  .ps-header__top {
-    min-height: 60px;
-    padding-top: var(--size-4);
-    padding-bottom: var(--size-4);
-  }
-  
-  /* Mobile menu full width on small screens */
-  .ps-header__mobile-menu {
+  /* Nav becomes vertical and hidden by default */
+  .ps-header__nav {
+    position: absolute;
+    top: 100%; /* Just below ps-header__top */
+    left: 0;
+    right: 0;
     width: 100%;
+    
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+    
+    background: var(--white);
+    border-top: 1px solid var(--border-light);
+    box-shadow: var(--shadow-4);
+    z-index: var(--ps-header-mobile-z);
+    
+    /* Accordion effect - collapsed by default */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: 
+      max-height 0.4s ease-in-out,
+      opacity 0.3s ease-out;
+  }
+  
+  /* Expand nav when header is open (accordion) */
+  .ps-header.is-open .ps-header__nav {
+    max-height: 100vh;
+    opacity: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Primary menu adjustments */
+  .ps-header__primary {
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  /* Secondary menu becomes vertical stack */
+  .ps-header__secondary {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--size-4);
+    padding: var(--size-6);
+  }
+  
+  /* Show search and language in mobile */
+  .ps-header__search,
+  .ps-header__language-mobile {
+    display: block;
+  }
+  
+  /* Secondary menu items stack vertically */
+  .ps-header__secondary-menu {
+    order: 3; /* After search and language */
+    width: 100%;
+  }
+  
+  .ps-header__secondary-menu .ps-menu-secondary {
+    width: 100%;
+  }
+  
+  .ps-header__secondary-menu .ps-menu-secondary .menu {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--size-3);
+    align-items: stretch;
+  }
+  
+  .ps-header__secondary-menu .ps-menu-secondary .menu a,
+  .ps-header__secondary-menu .ps-menu-secondary .menu button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .ps-header__secondary-menu .ps-menu-secondary > .menu > li + li::before {
+    display: none;
   }
 }
 
-/* Mobile (640px and below) */
+/* Mobile overlay (backdrop when menu is open) */
+.ps-header::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-dark-medium);
+  z-index: -1;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ps-header-transition-normal);
+}
+
+.ps-header.is-open::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 1025px) {
+  /* Hide search and mobile language on desktop */
+  .ps-header__search,
+  .ps-header__language-mobile {
+    display: none;
+  }
+}
+
+/* Mobile (640px and below) - Further refinements */
 @media (max-width: 640px) {
   .ps-header__top {
-    padding-left: calc(var(--ps-mobile-toggle-size) + var(--size-4));
-    padding-right: var(--size-4);
+    padding: var(--size-3);
   }
   
   .ps-header__brand {
@@ -452,12 +407,6 @@
   
   .ps-header__tagline {
     font-size: var(--font-size-1);
-  }
-  
-  /* Reduce mobile toggle position */
-  .ps-header__mobile-toggle {
-    top: var(--size-3);
-    left: var(--size-2);
   }
 }
 

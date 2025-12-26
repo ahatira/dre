@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-25] - New Layout: Header (Template)
+
+### Added
+- **Header (Layout/Template)**: Main site header with navigation, multi-region architecture, and mobile menu
+  - **3 Drupal Regions**: Flexible region-based architecture for content management
+    - `header_top`: Language selector and utility blocks (flexible)
+    - `header_navigation`: Primary navigation menu (main menu block)
+    - `header_actions`: User menu, search, and custom action blocks (flexible)
+  - **Fixed Elements**: Logo and tagline template-controlled (not regions)
+  - **Responsive Layout**: Desktop navigation (≥1024px), mobile offcanvas (<1024px)
+  - **Mobile Menu**: Full offcanvas panel with hamburger toggle
+    - Slide-in animation (320px panel, 100% width on mobile)
+    - Focus trap with keyboard navigation
+    - ESC key and click-outside to close
+    - Body scroll lock when open
+    - ARIA states management (aria-expanded, aria-hidden)
+  - **Sticky Header**: JavaScript-powered sticky behavior
+    - Activates after 100px scroll threshold
+    - Smooth slideDown animation (200ms)
+    - Enhanced shadow state (var(--shadow-3))
+  - **Accessibility**: Full ARIA support, semantic landmarks, keyboard navigation
+  - **Variants**: 
+    - Default: Simple header (logged out)
+    - WithTagline: Logo with company slogan
+    - LoggedIn: User menu with dropdown
+    - MobilePreview: Mobile viewport showcase
+    - WithoutSticky: Static header without sticky behavior
+  - **States**: Default, Sticky (on scroll), Mobile Menu Open/Closed
+
+### Technical Details
+- **4-file structure**: `.twig`, `.css`, `.js`, `.yml`, `.stories.jsx`
+- **Component-scoped variables**: 20+ CSS custom properties (Layer 2 tokens)
+  - Layout: `--ps-header-top-height`, `--ps-header-nav-height`, `--ps-header-nav-gap`
+  - Mobile: `--ps-header-mobile-width`, `--ps-header-mobile-overlay`, `--ps-header-mobile-z`
+  - Colors: `--ps-header-bg`, `--ps-header-border-color`, `--ps-header-shadow`
+  - Transitions: `--ps-header-transition-fast`, `--ps-header-transition-normal`
+- **JavaScript Features**: 
+  - ES6 class-based architecture (HeaderComponent)
+  - Drupal behaviors integration (core/once)
+  - Focus trap, scroll listener, event delegation
+  - RequestAnimationFrame optimization for sticky
+- **Drupal Integration**: 
+  - 3 regions declared in `ps.info.yml`
+  - Library with CSS + JS dependencies (core/drupal, core/once)
+  - Compatible with Drupal menu blocks
+  - Template fallbacks for hardcoded components
+- **Responsive Breakpoints**: 
+  - Desktop: ≥1024px (full navigation)
+  - Tablet: <1024px (mobile menu toggle visible)
+  - Mobile: ≤640px (compact spacing, full-width offcanvas)
+- **Storybook**: 5 stories (Default, WithTagline, LoggedIn, MobilePreview, WithoutSticky)
+- **Real Estate Context**: Navigation data based on property search scenarios
+
+### Modified
+- `ps.info.yml`: Added 3 new regions (header_top, header_navigation, header_actions), deprecated old "header" region
+- `ps.libraries.yml`: Added `header.css` to existing header library
+- `source/patterns/layouts/_index.css`: Added header.css import
+
+### Notes
+- **Region Strategy**: Balanced approach (flexible regions + template-controlled elements)
+- **Performance**: Lazy initialization, RAF-based scroll handling, passive event listeners
+- **Maintenance**: Modular structure, clear separation of concerns (template/styles/behavior)
+- **Future Enhancement**: Consider adding search integration, notification badges, mega-menu support
+
+---
+
 ## [2025-12-22] - New Component: Primary Navigation Menu (Organism)
 
 ### Added

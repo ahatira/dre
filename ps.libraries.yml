@@ -93,6 +93,15 @@ dropdown:
     - core/once
     - ps_theme/vendors
 
+header:
+  js:
+    dist/js/header.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 js-map-utils:
   js:
     dist/js/js-map-utils.js: {}

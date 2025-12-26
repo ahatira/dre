@@ -41,12 +41,12 @@
 {%- endif -%}
 
 {%- if href -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 <a{{ attr }} href="{{ href }}">
   <img class="ps-logo__img" src="{{ logo_src }}" alt="{{ alt }}" width="{{ img_width }}" height="{{ img_height }}" />
 </a>
 {%- else -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 <div{{ attr }}>
   <img class="ps-logo__img" src="{{ logo_src }}" alt="{{ alt }}" width="{{ img_width }}" height="{{ img_height }}" />
 </div>

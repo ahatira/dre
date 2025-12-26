@@ -10,7 +10,10 @@ libraries:
   - ps/global
 
 regions:
-  header: Header
+  header: 'Header (deprecated - use header_top, header_navigation, header_actions)'
+  header_top: 'Header - Top (Language selector)'
+  header_navigation: 'Header - Navigation (Primary menu)'
+  header_actions: 'Header - Actions (User menu, search, etc.)'
   highlighted: Highlighted
   breadcrumb: Breadcrumb
   content_above: Content Above

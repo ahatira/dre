@@ -38,7 +38,7 @@
 
   /* Typography (all from Layer 1 tokens) */
   --ps-button-font-family: var(--font-sans);
-  --ps-button-font-size: var(--size-4);
+  --ps-button-font-size: var(--font-size-1);
   --ps-button-font-weight: var(--font-weight-400);
   --ps-button-line-height: 1.5;
 

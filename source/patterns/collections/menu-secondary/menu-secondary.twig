@@ -66,7 +66,7 @@
 
 {#- Render the menu -#}
 {%- import _self as menus -%}
-{%- set root_attr = attributes.addClass(menu_classes) -%}
+{%- set root_attr = (attributes is defined ? attributes : create_attribute()).addClass(menu_classes) -%}
 
 <div{{- root_attr }}>
   <ul class="menu">

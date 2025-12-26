@@ -79,4 +79,11 @@ export default defineConfig({
   css: {
     devSourcemap: true,
   },
+  server: {
+    watch: {
+      // Ignore icons-source directory during development watch
+      // Icons are rebuilt separately via npm run icons:build
+      ignored: ['**/node_modules/**', '**/icons-source/**', '**/.git/**'],
+    },
+  },
 });

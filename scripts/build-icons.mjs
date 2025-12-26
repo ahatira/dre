@@ -173,9 +173,10 @@ function generateIconsRegistry(icons) {
 
   const iconNames = icons.map((i) => i.name).sort();
 
-  // Build JSON manually with biome-compatible formatting:
+  // Build JSON with biome-compatible formatting:
   // - 2-space indentation
-  // - Each array element on its own line (biome requirement)
+  // - Small arrays (≤3 items) on single line for cleaner formatting
+  // - Larger arrays with each element on own line
 
   const lines = ['{'];
   lines.push('  "generated": "' + new Date().toISOString() + '",');
@@ -190,19 +191,26 @@ function generateIconsRegistry(icons) {
   lines.push('  ],');
   lines.push('  "categories": {');
 
-  // Format categories: each array element on its own line
+  // Format categories: compact small arrays (≤3 items), expand larger ones
   const categoryKeys = Object.keys(categories).sort();
   for (let i = 0; i < categoryKeys.length; i++) {
     const key = categoryKeys[i];
     const items = categories[key];
     const isLastCategory = i === categoryKeys.length - 1;
 
-    lines.push(`    "${key}": [`);
-    for (let j = 0; j < items.length; j++) {
-      const isLastItem = j === items.length - 1;
-      lines.push(`      "${items[j]}"${isLastItem ? '' : ','}`);
+    // Compact format for small arrays
+    if (items.length <= 3) {
+      const itemsStr = items.map((item) => `"${item}"`).join(', ');
+      lines.push(`    "${key}": [${itemsStr}]${isLastCategory ? '' : ','}`);
+    } else {
+      // Expanded format for larger arrays
+      lines.push(`    "${key}": [`);
+      for (let j = 0; j < items.length; j++) {
+        const isLastItem = j === items.length - 1;
+        lines.push(`      "${items[j]}"${isLastItem ? '' : ','}`);
+      }
+      lines.push(`    ]${isLastCategory ? '' : ','}`);
     }
-    lines.push(`    ]${isLastCategory ? '' : ','}`);
   }
 
   lines.push('  }');

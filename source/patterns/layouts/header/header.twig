@@ -1,0 +1,151 @@
+{#
+/**
+ * @file
+ * Header Layout (Template) - Main site header with navigation
+ *
+ * Available variables:
+ * - show_tagline: Boolean to display tagline below logo
+ * - tagline: Tagline text (default: site_slogan or "Real Estate for a Changing World")
+ * - logo_config: Configuration object for logo component
+ *   - variant: string (default|square)
+ *   - size: string (small|medium|large)
+ *   - href: string (default: '/')
+ * - language_selector_config: Configuration object for language selector
+ *   - current: object (code, label, locale)
+ *   - options: array of language options
+ *   - size: string (sm|md|lg)
+ * - primary_menu_items: Array of menu items for primary navigation
+ * - secondary_menu_items: Array of menu items for secondary navigation
+ * - page.header_top: Drupal region for header top (language selector block)
+ * - page.header_navigation: Drupal region for primary navigation
+ * - page.header_actions: Drupal region for actions (user menu, search, etc.)
+ * - sticky: Boolean to enable sticky header behavior
+ * - mobile_breakpoint: Breakpoint for mobile menu (default: 1024px / lg)
+ * - attributes: Drupal Attribute object for root element
+ * - modifier_class: Optional modifier class
+ *
+ * Drupal integration:
+ * - Uses 3 regions: header_top, header_navigation, header_actions
+ * - Logo and tagline are template-controlled (not blocks)
+ * - Language selector can be hardcoded OR region block (flexible)
+ * - Includes mobile menu toggle with offcanvas behavior
+ * - Sticky header controlled via JavaScript
+ *
+ * @see header.css
+ * @see header.js
+ */
+#}
+
+{%- set show_tagline = show_tagline|default(false) -%}
+{%- set tagline = tagline|default(site_slogan|default('Real Estate for a Changing World')) -%}
+{%- set sticky = sticky|default(true) -%}
+{%- set mobile_breakpoint = mobile_breakpoint|default('lg') -%}
+
+{%- set logo_config = logo_config|default({
+  variant: 'default',
+  size: 'medium',
+  href: '/'
+}) -%}
+
+{%- set language_selector_config = language_selector_config|default({}) -%}
+
+{%- set classes = [
+  'ps-header',
+  sticky ? 'ps-header--sticky' : null,
+  show_tagline ? 'ps-header--with-tagline' : null,
+  modifier_class
+] -%}
+
+{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+
+<header{{ attr }} data-component="header">
+  {# ========================================================================
+     HEADER TOP (Brand + Toggle + Language)
+     ======================================================================== #}
+  <div class="ps-header__top">
+    {# Mobile menu toggle (visible only on mobile) #}
+    <button 
+      class="ps-header__toggle" 
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="ps-header-nav"
+      data-header-toggle
+    >
+    </button>
+
+    <div class="ps-header__brand">
+      {# Logo - Always present (template controlled) #}
+      {% include '@elements/logo/logo.twig' with logo_config only %}
+      
+      {# Tagline - Optional (controlled via variable) #}
+      {% if show_tagline %}
+        <span class="ps-header__tagline">{{ tagline }}</span>
+      {% endif %}
+    </div>
+    
+    {# Language Zone - Can use hardcoded component OR Drupal region (desktop only) #}
+    <div class="ps-header__language">
+      {% if page.header_top %}
+        {# Drupal region for Language Selector block #}
+        {{ page.header_top }}
+      {% elseif language_selector_config.current %}
+        {# Fallback: Hardcoded language selector #}
+        {% include '@components/language-selector/language-selector.twig' with language_selector_config only %}
+      {% endif %}
+    </div>
+  </div>
+
+  {# ========================================================================
+     HEADER NAV (Primary + Secondary Menus)
+     Desktop: horizontal row
+     Mobile: vertical stack (hidden by default, shown with .is-open)
+     ======================================================================== #}
+  <nav class="ps-header__nav" id="ps-header-nav" aria-label="Main navigation">
+    {# Primary Navigation - Drupal region (Menu block) #}
+    <div class="ps-header__primary">
+      {% if page.header_navigation %}
+        {{ page.header_navigation }}
+      {% elseif primary_menu_items %}
+        {# Fallback: Hardcoded primary menu #}
+        {% include '@collections/menu-primary/menu-primary.twig' with {
+          items: primary_menu_items
+        } only %}
+      {% endif %}
+    </div>
+    
+    {# Secondary Navigation + Actions #}
+    <div class="ps-header__secondary">
+      {# Search link (mobile: appears in secondary stack) #}
+      <div class="ps-header__search">
+        <a href="/search" class="menu-link">
+          <span data-icon="search" aria-hidden="true"></span>
+          Search
+        </a>
+      </div>
+
+      {# Language selector (mobile: appears in secondary stack) #}
+      {% if language_selector_config.current %}
+        <div class="ps-header__language-mobile">
+          {% include '@components/language-selector/language-selector.twig' with language_selector_config only %}
+        </div>
+      {% endif %}
+
+      {# Secondary Menu - Template controlled (always present) #}
+      {% if secondary_menu_items %}
+        <div class="ps-header__secondary-menu">
+          {% include '@collections/menu-secondary/menu-secondary.twig' with {
+            items: secondary_menu_items
+          } only %}
+        </div>
+      {% endif %}
+      
+      {# Actions Region - Drupal blocks (User menu, Search, etc.) #}
+      {% if page.header_actions %}
+        <div class="ps-header__actions">
+          {{ page.header_actions }}
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+</header>

@@ -27,6 +27,17 @@ window.Drupal = { behaviors: {}, theme: {} };
     });
   };
 
+  Drupal.t = (str, args, options) => {
+    // Simple translation mock for Storybook
+    // In real Drupal, this would handle translations and placeholders
+    if (args) {
+      return Object.keys(args).reduce((result, key) => {
+        return result.replace(key, args[key]);
+      }, str);
+    }
+    return str;
+  };
+
   Drupal.theme = (func, ...args) => {
     const funcName = func.replace(/[^a-zA-Z0-9_]/g, '_');
     

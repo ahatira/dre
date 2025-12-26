@@ -1,5 +1,6 @@
 /* Collections (Organisms) */
 @import './accordion/accordion.css';
 @import './menu-primary/menu-primary.css';
+@import './menu-secondary/menu-secondary.css';
 @import './tags/tags.css';
 @import './tabs/tabs.css';
