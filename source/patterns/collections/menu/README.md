@@ -1,234 +1,321 @@
 # Menu Component
 
-Responsive multi-level navigation menu component for PS Theme. Based on Drupal core menu template with Token-First styling and full accessibility support.
+**Component Type**: Collection (Organism)  
+**Location**: `source/patterns/collections/menu/`  
+**Status**: ✅ Complete
+
+---
 
 ## Overview
 
-- **Type**: Collection/Organism
-- **Location**: `source/patterns/collections/menu/`
-- **Dependencies**: 
-  - Uses icon system for toggle buttons (`chevron-right` icon)
-  - Drupal `link()` function for rendering links
-  - Drupal `create_attribute()` for attribute handling
-- **Accessibility**: Full WCAG 2.1 AAA compliance (keyboard navigation, ARIA attributes, focus-visible states)
+Multi-level navigation menu for primary site navigation. Supports up to 3 levels of nesting with responsive behavior: horizontal layout with dropdown on desktop, vertical accordion on mobile.
+
+---
 
 ## Features
 
-- **Multi-level navigation** - Supports unlimited nesting depth
-- **Responsive design** - Mobile-first approach with desktop hover effects
-- **Mobile menu** - Toggle buttons for small screens
-- **Active state tracking** - Highlights active trail and current page
-- **Keyboard accessible** - Full keyboard navigation support
-- **Semantic HTML** - Proper nav, ul, li structure
-- **Icon integration** - Chevron icons for submenu toggles
-- **CSS-driven** - Minimal JavaScript requirements (optional for enhanced UX)
-- **Drupal compatible** - Works with Drupal render arrays and menu system
+### Desktop (≥768px)
+- Horizontal layout with 64px item height
+- Dropdown submenus on hover/click
+- Green underline (2px) for active/selected items
+- Hover state with color change
+- Nested dropdowns for multi-level menus
+- Box shadow and border radius on dropdown panels
 
-## Props
+### Mobile (<768px)
+- Vertical accordion layout
+- One submenu open at a time (accordion behavior)
+- Chevron icon rotates 180deg when expanded
+- Indented submenu levels (24px, 36px, 48px)
+- Active item shows green color
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `menu_name` | string | `'main'` | Machine name of the menu (Drupal) |
-| `items` | array | `[]` | Nested array of menu items with below/attributes/states |
-| `variant` | string | `'default'` | Visual variant: `default`, `mobile`, `compact`, `dark`, `high-contrast` |
-| `expanded` | boolean | `false` | Expand menu by default (mobile variant) |
-| `attributes` | object | `null` | Drupal attributes object for nav root element |
+### Accessibility
+- Full ARIA support (`aria-expanded`, `aria-haspopup`, `role="menubar"`)
+- Keyboard navigation (Arrow keys, Enter, Space, Escape)
+- Focus-visible indicators
+- Screen reader compatible
 
-## Menu Item Structure
+---
 
-Each menu item object contains:
-- `title` (string): Menu link text
-- `url` (string): Link URL (or null for disabled items)
-- `below` (array, optional): Array of child menu items
-- `attributes` (object, optional): Drupal attributes for the list item
-- `is_expanded` (boolean, optional): Item has visible children
-- `is_collapsed` (boolean, optional): Item has hidden children
-- `in_active_trail` (boolean, optional): Item is in active navigation path
+## Files
 
-## CSS Variables (Layer 2 - Component-Scoped)
+- **menu.twig** - Template with recursive macro for multi-level rendering
+- **menu.css** - Token-based styles with mobile-first approach
+- **menu.js** - Interactive behavior (accordion, keyboard navigation, ARIA)
+- **menu.yml** - Sample data with real estate menu items
+- **menu.stories.jsx** - Storybook documentation with 5 stories
+- **README.md** - This file
 
-```css
---ps-menu-text-color: var(--text-primary)
---ps-menu-text-size: var(--font-size-3)
---ps-menu-text-weight: var(--font-weight-400)
---ps-menu-link-color: var(--text-primary)
---ps-menu-link-color-hover: var(--primary)
---ps-menu-link-color-active: var(--primary)
---ps-menu-bg-hover: color-mix(in srgb, var(--primary) 8%, transparent)
---ps-menu-bg-active: color-mix(in srgb, var(--primary) 12%, transparent)
---ps-menu-padding-y: var(--size-3)
---ps-menu-padding-x: var(--size-4)
---ps-menu-item-gap: 0
---ps-menu-border-color: var(--gray-200)
---ps-menu-submenu-bg: var(--gray-50)
---ps-menu-submenu-indent: var(--size-6)
---ps-menu-toggle-size: var(--size-8)
---ps-menu-transition-duration: var(--duration-200)
---ps-menu-transition-easing: var(--ease-2)
+---
+
+## Usage
+
+### Drupal Template Override
+
+Use the primary navigation override in `templates/navigation/menu--primary.html.twig`:
+
+```twig
+{% if items %}
+  {% include '@collections/menu/menu.twig' with {
+    'menu_name': menu_name,
+    'items': items,
+    'attributes': attributes,
+    'modifier': 'primary'
+  } only %}
+{% endif %}
 ```
 
-## Variants
-
-### Default
-Standard horizontal menu with hover effects for submenus (desktop) and toggle buttons (mobile).
-
-### Mobile
-Vertical layout optimized for mobile devices. Toggle buttons visible for items with children.
-
-### Compact
-Reduced spacing and font size for dense menus or secondary navigation.
-
-### Dark
-Inverted colors for use on dark backgrounds. Light text, darker background variations.
-
-### High Contrast
-Enhanced accessibility variant with underlines instead of background colors for better contrast.
-
-## Responsive Behavior
-
-### Mobile (max-width: 767px)
-- Vertical layout (single column)
-- Toggle buttons shown for items with children
-- Collapsed by default (requires click to expand)
-- Full-width menu items
-
-### Desktop (min-width: 768px)
-- Horizontal layout for top-level items
-- Submenus appear on hover (absolute positioning)
-- Toggle buttons hidden
-- Compact dropdown menus
-
-## Accessibility
-
-- **Keyboard navigation**: Tab through links, arrow keys for navigation (with JS enhancement)
-- **ARIA attributes**: `aria-expanded` on toggle buttons, semantic HTML structure
-- **Focus-visible**: Clear focus indicators on all interactive elements
-- **Screen reader friendly**: Semantic nav/ul/li structure, skip link compatible
-- **Sufficient color contrast**: All states meet WCAG AA standards
-- **Icon accessibility**: Toggle button icons hidden from screen readers (`aria-hidden="true"`)
-
-## Usage Examples
-
-### Basic Drupal Integration
-
-```php
-// In your module/theme file
-function my_module_theme($existing, $type, $theme, $path) {
-  return [
-    'ps_menu' => [
-      'variables' => [
-        'menu_name' => 'main',
-        'items' => [],
-        'variant' => 'default',
-        'expanded' => false,
-        'attributes' => [],
-      ],
-      'template' => 'menu',
-      'path' => $path . '/source/patterns/collections/menu',
-    ],
-  ];
-}
-```
-
-### Render Array Usage
-
-```php
-// In your controller/hook
-$build['menu'] = [
-  '#theme' => 'ps_menu',
-  '#menu_name' => 'main',
-  '#items' => $menu_tree,
-  '#variant' => 'default',
-  '#cache' => [
-    'tags' => ['config:system.menu.main'],
-  ],
-];
-```
-
-### Twig Template Usage
+### Standalone (Storybook/Pattern Lab)
 
 ```twig
 {% include '@collections/menu/menu.twig' with {
-  menu_name: 'main',
-  items: menu_items,
-  variant: 'default'
+  menu_name: 'primary',
+  modifier: 'primary',
+  items: [
+    {
+      title: 'Find a property',
+      url: '/find-property',
+      is_expanded: true,
+      below: [
+        { title: 'Buy', url: '/find-property/buy' },
+        { title: 'Rent', url: '/find-property/rent' },
+      ]
+    },
+    {
+      title: 'About us',
+      url: '/about-us',
+      in_active_trail: true
+    }
+  ]
 } only %}
 ```
 
-## JavaScript Enhancement (Optional)
+---
 
-For enhanced UX, JavaScript can be added to:
-- Handle toggle button clicks
-- Manage `aria-expanded` state
-- Support arrow key navigation in submenus
-- Add animations for submenu open/close
-- Persist open state in mobile menus
+## Props
 
-Basic event listener pattern:
-```javascript
-document.querySelectorAll('[data-submenu-toggle]').forEach(button => {
-  button.addEventListener('click', (e) => {
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', !isExpanded);
-  });
-});
+### menu_name
+- **Type**: String
+- **Required**: Yes
+- **Description**: Machine name of the menu (e.g., 'primary', 'footer')
+- **Example**: `'primary'`
+
+### modifier
+- **Type**: String
+- **Required**: No
+- **Description**: Optional modifier class for styling variations
+- **Example**: `'primary'` → `.menu--primary`
+
+### items
+- **Type**: Array
+- **Required**: Yes
+- **Description**: Nested array of menu items
+
+**Item structure**:
+```yaml
+- title: 'Menu Item'          # Link text (required)
+  url: '/path'                # URL string or Drupal\Core\Url object (required)
+  attributes: {}              # Drupal Attribute object (optional)
+  is_expanded: true           # Show submenu (optional)
+  is_collapsed: false         # Hide submenu (optional)
+  in_active_trail: true       # Mark as active/selected (optional)
+  below:                      # Child items array (optional)
+    - title: 'Submenu Item'
+      url: '/path/subitem'
 ```
 
-## Browser Support
+### attributes
+- **Type**: Drupal Attribute object
+- **Required**: No
+- **Description**: Additional HTML attributes for the root `<ul>` element
+- **Default**: `create_attribute()` (empty)
 
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
-- Mobile browsers (iOS Safari 14+, Chrome Android)
+---
 
 ## Design Tokens
 
-Uses the following design token categories:
-- **Colors**: Primary, secondary, semantic, gray scale
-- **Typography**: Font sizes, weights, line heights
-- **Spacing**: Size tokens (--size-1 through --size-12)
-- **Borders**: Border colors and widths
-- **Shadows**: Drop shadows (optional in some variants)
-- **Animations**: Transition durations, easing functions
-- **Z-Index**: Dropdown/overlay layering
+All styling uses design tokens from `source/props/`:
+
+### Colors
+- `--gray-700` - Default link color (#333333)
+- `--gray-500` - Hover link color (#777E83)
+- `--primary` - Active/selected color (#00915A)
+- `--white` - Submenu background
+- `--border-focus` - Focus outline color
+
+### Spacing
+- `--size-1` (4px) - Icon spacing
+- `--size-2` (8px) - Item gap, submenu padding vertical
+- `--size-3` (12px) - Submenu padding horizontal (desktop)
+- `--size-4` (16px) - Icon size, link padding
+- `--size-6` (24px) - Submenu indent (mobile)
+
+### Typography
+- `--font-size-3` (16px) - Link text size
+- `--font-weight-400` - Normal weight
+- `--line-height-2` - Line height
+
+### Effects
+- `--shadow-2` - Dropdown box shadow (desktop)
+- `--radius-2` - Dropdown border radius (desktop)
+- `--duration-200` - Transition duration (200ms)
+- `--ease-2` - Easing function
+
+### Layout
+- `--z-dropdown` - Z-index for dropdown positioning
+
+---
+
+## States
+
+### Default
+- Gray text (`--gray-700`)
+- No underline
+- Transparent border-bottom
+
+### Hover
+- Gray text (`--gray-500`)
+- No underline
+- Maintains transparency
+
+### Active/Selected
+- Green text (`--primary`)
+- Green underline 2px (desktop only)
+- Chevron matches green color
+
+### Focus
+- 2px solid outline (`--border-focus`)
+- 2px offset
+- Color changes to hover state
+
+### Expanded (has submenu open)
+- Chevron rotates 180deg (mobile)
+- Submenu visible
+- `aria-expanded="true"`
+
+---
+
+## JavaScript Behavior
+
+### Accordion (Mobile)
+- Click/tap to toggle submenu
+- Only one submenu open at a time per level
+- Chevron rotates on expand/collapse
+
+### Dropdown (Desktop)
+- Hover to show submenu
+- Click outside to close
+- Nested dropdowns positioned to the right
+
+### Keyboard Navigation
+- **Enter/Space** - Toggle submenu
+- **Escape** - Close submenu and return focus
+- **Arrow Down** - Next item or enter submenu
+- **Arrow Up** - Previous item
+- **Arrow Right** - Expand submenu
+- **Arrow Left** - Collapse submenu
+
+### Window Resize
+- Closes all submenus on viewport change (prevents state issues)
+- Debounced 250ms
+
+---
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- IE11 not supported (uses CSS custom properties)
+- Mobile Safari iOS 12+
+- Chrome Android 80+
+
+---
+
+## Accessibility Checklist
+
+✅ ARIA attributes (`aria-expanded`, `aria-haspopup`, `role`)  
+✅ Keyboard navigation (all arrow keys, Enter, Escape)  
+✅ Focus indicators (outline with offset)  
+✅ Screen reader announcements (via ARIA)  
+✅ Color contrast WCAG AA (4.5:1 minimum)  
+✅ Touch targets 44x44px minimum  
+✅ No keyboard traps  
+✅ Skip to content link (handled by header)
+
+---
+
+## Examples
+
+### Three-level Menu
+
+```yaml
+items:
+  - title: 'Find a property'
+    url: '/find-property'
+    is_expanded: true
+    below:
+      - title: 'Invest'
+        url: '/find-property/invest'
+        is_expanded: true
+        below:
+          - title: 'Residential'
+            url: '/find-property/invest/residential'
+          - title: 'Commercial'
+            url: '/find-property/invest/commercial'
+```
+
+### Flat Menu (no submenus)
+
+```yaml
+items:
+  - title: 'Home'
+    url: '/'
+  - title: 'About'
+    url: '/about'
+    in_active_trail: true
+  - title: 'Contact'
+    url: '/contact'
+```
+
+---
+
+## Customization
+
+### Override Colors
+
+```css
+.menu--custom {
+  --ps-menu-link-color: var(--gray-900);
+  --ps-menu-link-color-active: var(--secondary);
+  --ps-menu-border-active-color: var(--secondary);
+}
+```
+
+### Override Spacing
+
+```css
+.menu--compact {
+  --ps-menu-item-height: 48px;
+  --ps-menu-item-gap: var(--size-1);
+}
+```
+
+---
 
 ## Related Components
 
-- **Icon** (`elements/icon`) - For toggle button icons
-- **Link** (inherits from Drupal core) - For menu links
+- **Header** (`collections/header/`) - Contains the primary menu
+- **Breadcrumb** (`elements/breadcrumb/`) - Secondary navigation
+- **Icon** (`elements/icon/`) - Chevron icons
 
-## Conformity Checklist
+---
 
-- ✅ Token-First architecture (Layer 2 component variables)
-- ✅ Semantic HTML structure (nav/ul/li)
-- ✅ Full WCAG 2.1 accessibility compliance
-- ✅ Responsive design (mobile-first)
-- ✅ No hardcoded values (all via tokens)
-- ✅ BEM naming convention
-- ✅ Drupal Attribute object usage
-- ✅ Multi-level support (unlimited nesting)
-- ✅ Active state tracking
-- ✅ Icon system integration
+## References
 
-## Testing
+- [Figma Design](https://www.figma.com/file/...) - Desktop/Mobile menu states
+- [Drupal Menu System](https://www.drupal.org/docs/theming-drupal/twig-in-drupal/twig-template-naming-conventions#menu) - Menu template naming
+- [ARIA Authoring Practices Guide - Navigation Menu](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - Accessibility patterns
 
-1. **Visual Testing**:
-   - Run `npm run watch` → http://localhost:6006
-   - Test all variants and responsive breakpoints
-   - Verify hover/focus/active states
+---
 
-2. **Accessibility Testing**:
-   - Keyboard navigation (Tab, Enter, Escape)
-   - Screen reader testing (NVDA, JAWS, VoiceOver)
-   - Focus visible indicators
-   - Color contrast validation
-
-3. **Drupal Integration**:
-   - Test with actual Drupal menu system
-   - Verify active trail highlighting
-   - Test cache invalidation
-   - Confirm attribute propagation
-
-## Changelog
-
-See `docs/ps-design/CHANGELOG.md` for version history and updates.
+**Last Updated**: 2025-12-29  
+**Maintainer**: Design System Team

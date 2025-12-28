@@ -1,10 +1,11 @@
 {#
 /**
  * @file
- * Theme override to display a menu.
+ * Multi-level navigation menu (organism).
  *
  * Available variables:
  * - menu_name: The machine name of the menu.
+ * - modifier: Optional modifier class (e.g., 'primary' for main navigation).
  * - items: A nested list of menu items. Each menu item contains:
  *   - attributes: HTML attributes for the menu item (Drupal Attribute object).
  *   - below: The menu item child items.
@@ -15,41 +16,78 @@
  *   - is_collapsed: TRUE if the link has children within the current menu tree that are not visible.
  *   - in_active_trail: TRUE if the link is in the active trail.
  *
+ * Accessibility:
+ * - Uses aria-expanded, aria-haspopup for dropdown states
+ * - Keyboard navigation supported via JavaScript
+ * - Focus-visible indicators for all interactive elements
+ *
  * Notes:
  * - Uses create_attribute() fallback to prevent invalid markup when attributes are missing or not an Attribute object.
+ * - Desktop: horizontal layout with hover/click dropdown
+ * - Mobile: vertical accordion (one item open at a time)
  */
 #}
+{%- set modifier = modifier|default(null) -%}
 {%- import _self as menus -%}
 
-{%- macro menu_links(items, attributes, menu_level) -%}
-        {%- import _self as menus -%}
-        {%- set attributes = attributes is defined ? attributes : create_attribute() -%}
-        {%- if items -%}
-                {%- if menu_level == 0 -%}
-        <ul{{- attributes.addClass(['menu','menu__list']) -}}>
-                {%- else -%}
-        <ul class="menu__list menu__list--submenu">
-                {%- endif -%}
+{%- macro menu_links(items, attributes, menu_level, modifier) -%}
+  {%- import _self as menus -%}
+  {%- set attributes = attributes is defined ? attributes : create_attribute() -%}
+  {%- if items -%}
+    {%- if menu_level == 0 -%}
+      {%- set menu_classes = [
+        'menu',
+        'menu__list',
+        modifier ? 'menu--' ~ modifier : null,
+      ] -%}
+      <ul{{- attributes.addClass(menu_classes) }} role="menubar">
+    {%- else -%}
+      <ul class="menu__list menu__list--submenu menu__list--level-{{ menu_level }}" role="menu">
+    {%- endif -%}
     {%- for item in items -%}
+      {%- set has_children = item.below and item.below|length > 0 -%}
+      {%- set is_active = item.in_active_trail -%}
       {%- set classes = [
-                                        'menu__item',
-                                        item.is_expanded ? 'menu__item--expanded',
-                                        item.is_collapsed ? 'menu__item--collapsed',
-                                        item.in_active_trail ? 'menu__item--active-trail',
-        ] -%}
-<li{{- (item.attributes is defined ? item.attributes : create_attribute()).addClass(classes) -}}>
+        'menu__item',
+        has_children ? 'menu__item--has-children' : null,
+        item.is_expanded ? 'menu__item--expanded' : null,
+        item.is_collapsed ? 'menu__item--collapsed' : null,
+        is_active ? 'menu__item--active-trail' : null,
+      ] -%}
+      {%- set item_attr = (item.attributes is defined ? item.attributes : create_attribute()).addClass(classes) -%}
+      {%- if has_children -%}
+        {%- set item_attr = item_attr.setAttribute('data-menu-item-expandable', 'true') -%}
+      {%- endif -%}
+      <li{{- item_attr }} role="{{ menu_level == 0 ? 'menuitem' : 'none' }}">
         {%- if item.url -%}
-{%- set link_attr = create_attribute().addClass(['menu__link']) -%}
-{{- link(item.title, item.url, link_attr) -}}
+          {%- set link_classes = [
+            'menu__link',
+            has_children ? 'menu__link--has-children' : null,
+          ] -%}
+          {%- set link_attr = create_attribute().addClass(link_classes) -%}
+          {%- if has_children -%}
+            {%- set link_attr = link_attr
+              .setAttribute('aria-haspopup', 'true')
+              .setAttribute('aria-expanded', item.is_expanded ? 'true' : 'false')
+              .setAttribute('data-menu-toggle', 'true')
+            -%}
+          {%- endif -%}
+          {{- link(item.title, item.url, link_attr) -}}
+          {%- if has_children -%}
+            <span class="menu__icon" data-icon="chevron-down" aria-hidden="true"></span>
+          {%- endif -%}
         {%- else -%}
-<span class="menu__link">{{- item.title -}}</span>
+          <span class="menu__link{{ has_children ? ' menu__link--has-children' : '' }}"{{ has_children ? ' aria-haspopup="true" aria-expanded="' ~ (item.is_expanded ? 'true' : 'false') ~ '" data-menu-toggle="true"' : '' }}>{{- item.title -}}</span>
+          {%- if has_children -%}
+            <span class="menu__icon" data-icon="chevron-down" aria-hidden="true"></span>
+          {%- endif -%}
         {%- endif -%}
         {%- if item.below -%}
-{{- menus.menu_links(item.below, attributes, menu_level + 1) -}}
+          {{- menus.menu_links(item.below, attributes, menu_level + 1, modifier) -}}
         {%- endif -%}
-</li>
+      </li>
     {%- endfor -%}
-</ul>
+    </ul>
   {%- endif -%}
 {%- endmacro -%}
 
@@ -57,4 +95,4 @@
   We call a macro which calls itself to render the full tree.
   @see https://twig.symfony.com/doc/3.x/tags/macro.html
 #}
-{{- menus.menu_links(items, attributes, 0) -}}
+{{- menus.menu_links(items, attributes, 0, modifier) -}}

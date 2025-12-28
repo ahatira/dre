@@ -1,26 +1,33 @@
 /* ========================================================================
    #MENU (Collection/Organism)
+   Multi-level navigation menu for primary navigation
    Based on Figma design specs with token-first approach
+   Desktop: Horizontal with dropdown on hover/click
+   Mobile: Vertical accordion (one item open at a time)
    ======================================================================== */
 
 .menu {
-  /* Layer 2 defaults — override in consumers if needed */
+  /* Layer 2 component variables - override in consumers if needed */
   --ps-menu-text-size: var(--font-size-3); /* 16px */
   --ps-menu-text-weight: var(--font-weight-400);
-  --ps-menu-link-color: var(--gray-700); /* #333333 default state */
-  --ps-menu-link-color-hover: var(--gray-500); /* #777E83 hovered state */
-  --ps-menu-link-color-active: var(--primary); /* #00915A selected state */
-  --ps-menu-item-height: 64px; /* From Figma spec */
+  --ps-menu-link-color: var(--gray-700); /* Default state #333333 */
+  --ps-menu-link-color-hover: var(--gray-500); /* Hovered state #777E83 */
+  --ps-menu-link-color-active: var(--primary); /* Selected state #00915A */
+  --ps-menu-item-height: 64px; /* Height from Figma spec */
   --ps-menu-item-gap: var(--size-2); /* 8px gap between label and icon */
   --ps-menu-gap: 0;
   --ps-menu-border-active-width: 2px;
   --ps-menu-border-active-color: var(--primary);
-  --ps-menu-submenu-indent: var(--size-6);
+  --ps-menu-submenu-indent: var(--size-6); /* 24px indent for mobile */
   --ps-menu-submenu-bg: var(--white);
+  --ps-menu-submenu-shadow: var(--shadow-2);
+  --ps-menu-submenu-border-radius: var(--radius-2);
+  --ps-menu-submenu-padding-y: var(--size-2); /* 8px */
+  --ps-menu-submenu-padding-x: var(--size-4); /* 16px */
   --ps-menu-transition-duration: var(--duration-200);
   --ps-menu-transition-easing: var(--ease-2);
-  --ps-menu-icon-size: var(--size-4); /* 16px token */
-  --ps-menu-icon-chevron-mask: svg-load('generic/chevron-down.svg');
+  --ps-menu-icon-size: var(--size-4); /* 16px */
+  --ps-menu-icon-rotate-open: 180deg; /* Chevron rotation when open */
 
   list-style: none;
   margin: 0;
@@ -34,7 +41,17 @@
     background: var(--ps-menu-submenu-bg);
     flex-direction: column;
     margin-left: var(--ps-menu-submenu-indent);
-    padding: var(--size-2) 0;
+    padding: var(--ps-menu-submenu-padding-y) 0;
+    display: none; /* Hidden by default on mobile */
+    
+    /* Level 2+ styling */
+    &.menu__list--level-2 {
+      margin-left: calc(var(--ps-menu-submenu-indent) * 1.5);
+    }
+
+    &.menu__list--level-3 {
+      margin-left: calc(var(--ps-menu-submenu-indent) * 2);
+    }
   }
 
   /* Desktop: horizontal root with dropdown submenus */
@@ -43,50 +60,77 @@
     gap: 0; /* Items are adjacent in horizontal layout */
 
     & .menu__list--submenu {
-      display: none;
       position: absolute;
       top: 100%;
       left: 0;
       flex-direction: column;
       z-index: var(--z-dropdown);
       margin-left: 0;
-      padding: var(--size-2) 0;
-      background: transparent; /* No dropdown background on desktop */
+      padding: var(--ps-menu-submenu-padding-y) var(--ps-menu-submenu-padding-x);
+      background: var(--ps-menu-submenu-bg);
+      box-shadow: var(--ps-menu-submenu-shadow);
+      border-radius: var(--ps-menu-submenu-border-radius);
+      min-width: 200px;
+      display: none; /* Hidden by default */
+
+      /* Reset levels on desktop */
+      &.menu__list--level-2,
+      &.menu__list--level-3 {
+        margin-left: 0;
+      }
+
+      /* Nested submenus positioning */
+      & .menu__list--submenu {
+        top: 0;
+        left: 100%;
+        margin-left: var(--size-1);
+      }
     }
   }
 
-  /* Elements: menu-item scoped under .menu */
+  /* Menu Item */
   & .menu__item {
     position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     min-height: var(--ps-menu-item-height);
 
-    /* Link and span styling */
-    & > .menu__link {
+    /* Desktop: horizontal item container */
+    @media (--tablet) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    /* Link styling */
+    & .menu__link {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      gap: var(--ps-menu-item-gap); /* 8px between label and icon */
-      padding: 0;
+      gap: var(--ps-menu-item-gap);
+      padding: var(--size-4) 0;
       color: var(--ps-menu-link-color);
       font-size: var(--ps-menu-text-size);
       font-weight: var(--ps-menu-text-weight);
-      line-height: var(--line-height-2); /* Token-based line-height */
+      line-height: var(--line-height-2);
       text-decoration: none;
-      transition: color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing),
-                  border-color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
+      transition: color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
       border-bottom: var(--ps-menu-border-active-width) solid transparent;
-    }
-
-    & > .menu__link {
       cursor: pointer;
 
-      &:hover {
-        color: var(--ps-menu-link-color-hover); /* #777E83 */
+      /* Desktop: center alignment */
+      @media (--tablet) {
+        justify-content: center;
+        padding: 0 var(--size-4);
+        height: var(--ps-menu-item-height);
       }
 
+      /* Hover state */
+      &:hover {
+        color: var(--ps-menu-link-color-hover);
+      }
+
+      /* Focus state */
       &:focus-visible {
         outline: 2px solid var(--border-focus);
         outline-offset: 2px;
@@ -94,33 +138,38 @@
       }
     }
 
-    /* Modifiers */
-    &--expanded {
-      & > .menu__link::after {
-        content: '';
-        display: inline-block;
-        width: var(--ps-menu-icon-size);
-        height: var(--ps-menu-icon-size);
-        background-color: var(--ps-menu-link-color);
-        mask-image: var(--ps-menu-icon-chevron-mask);
-        -webkit-mask-image: var(--ps-menu-icon-chevron-mask);
-        mask-repeat: no-repeat;
-        mask-position: center;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        -webkit-mask-size: contain;
-        transition: background-color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
+    /* Icon (chevron) */
+    & .menu__icon {
+      display: inline-block;
+      width: var(--ps-menu-icon-size);
+      height: var(--ps-menu-icon-size);
+      transition: transform var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
+      flex-shrink: 0;
+
+      /* Desktop: hide by default, show on has-children */
+      @media (--tablet) {
+        margin-left: var(--size-1);
+      }
+    }
+
+    /* Item with children */
+    &--has-children {
+      /* Icon rotation when expanded */
+      &.menu__item--expanded > .menu__icon {
+        transform: rotate(var(--ps-menu-icon-rotate-open));
+
+        /* Desktop: no rotation (dropdown opens below) */
+        @media (--tablet) {
+          transform: rotate(0deg);
+        }
       }
 
-      & > .menu__link:hover::after {
-        background-color: var(--ps-menu-link-color-hover);
-      }
-
-        & > .menu__list--submenu {
+      /* Show submenu when expanded (mobile accordion) */
+      &.menu__item--expanded > .menu__list--submenu {
         display: flex;
       }
 
+      /* Desktop: show on hover */
       @media (--tablet) {
         &:hover > .menu__list--submenu {
           display: flex;
@@ -128,24 +177,43 @@
       }
     }
 
-    &--collapsed {
-      & > .menu__list--submenu {
-        display: none;
+    /* Active trail (selected item) */
+    &--active-trail {
+      & > .menu__link {
+        color: var(--ps-menu-link-color-active);
+
+        /* Desktop: underline indicator */
+        @media (--tablet) {
+          border-bottom-color: var(--ps-menu-border-active-color);
+        }
+      }
+
+      & > .menu__icon {
+        /* Icon color matches active link */
+        filter: invert(42%) sepia(89%) saturate(1234%) hue-rotate(130deg) brightness(91%) contrast(101%);
       }
     }
 
-    &--active-trail {
-      & > .menu__link {
-        color: var(--ps-menu-link-color-active); /* #00915A */
-        border-bottom-color: var(--ps-menu-border-active-color); /* 2px solid primary */
+    /* Submenu items (level 1+) */
+    & .menu__list--submenu & {
+      min-height: auto;
 
-        &::after {
-          background-color: var(--ps-menu-link-color-active);
+      & .menu__link {
+        padding: var(--size-2) 0;
+
+        @media (--tablet) {
+          height: auto;
+          padding: var(--size-2) var(--size-3);
+          justify-content: flex-start;
         }
       }
     }
-
-    /* Desktop hover handled within &--expanded for consistency */
   }
+}
+
+/* Primary modifier (main navigation) */
+.menu--primary {
+  /* Primary-specific overrides if needed */
+  /* Currently inherits all base styles */
 }
 
