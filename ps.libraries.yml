@@ -138,15 +138,6 @@ modal:
     - core/once
     - ps_theme/vendors
 
-navigation-menu:
-  js:
-    dist/js/navigation-menu.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/once
-    - ps_theme/vendors
-
 read-more:
   js:
     dist/js/read-more.js: {}
