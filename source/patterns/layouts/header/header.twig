@@ -108,8 +108,9 @@
         {{ page.header_navigation }}
       {% elseif primary_menu_items %}
         {# Fallback: Hardcoded primary menu #}
-        {% include '@collections/menu-primary/menu-primary.twig' with {
-          items: primary_menu_items
+        {% include '@collections/menu/menu.twig' with {
+          items: primary_menu_items,
+          modifier: 'primary'
         } only %}
       {% endif %}
     </div>
@@ -134,8 +135,9 @@
       {# Secondary Menu - Template controlled (always present) #}
       {% if secondary_menu_items %}
         <div class="ps-header__secondary-menu">
-          {% include '@collections/menu-secondary/menu-secondary.twig' with {
-            items: secondary_menu_items
+          {% include '@collections/menu/menu.twig' with {
+            items: secondary_menu_items,
+            modifier: 'secondary'
           } only %}
         </div>
       {% endif %}

@@ -4,7 +4,7 @@
  * Theme override for Primary Navigation Menu.
  *
  * This template overrides Drupal's default menu template
- * to use our custom menu-primary component.
+ * to use our custom unified Menu component with primary modifier.
  *
  * Available variables:
  * - menu_name: The machine name of the menu.
@@ -21,14 +21,15 @@
  *   - in_active_trail: TRUE if the link is in the active trail.
  *
  * @see templates/navigation/menu.html.twig (Drupal core)
- * @see source/patterns/collections/menu-primary/menu-primary.twig
+ * @see source/patterns/collections/menu/menu.twig
  */
 #}
 
 {% if items %}
-  {% include '@collections/menu-primary/menu-primary.twig' with {
+  {% include '@collections/menu/menu.twig' with {
     'menu_name': menu_name,
     'items': items,
-    'attributes': attributes
+    'attributes': attributes,
+    'modifier': 'primary'
   } only %}
 {% endif %}

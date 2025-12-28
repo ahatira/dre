@@ -1,0 +1,151 @@
+/* ========================================================================
+   #MENU (Collection/Organism)
+   Based on Figma design specs with token-first approach
+   ======================================================================== */
+
+.menu {
+  /* Layer 2 defaults — override in consumers if needed */
+  --ps-menu-text-size: var(--font-size-3); /* 16px */
+  --ps-menu-text-weight: var(--font-weight-400);
+  --ps-menu-link-color: var(--gray-700); /* #333333 default state */
+  --ps-menu-link-color-hover: var(--gray-500); /* #777E83 hovered state */
+  --ps-menu-link-color-active: var(--primary); /* #00915A selected state */
+  --ps-menu-item-height: 64px; /* From Figma spec */
+  --ps-menu-item-gap: var(--size-2); /* 8px gap between label and icon */
+  --ps-menu-gap: 0;
+  --ps-menu-border-active-width: 2px;
+  --ps-menu-border-active-color: var(--primary);
+  --ps-menu-submenu-indent: var(--size-6);
+  --ps-menu-submenu-bg: var(--white);
+  --ps-menu-transition-duration: var(--duration-200);
+  --ps-menu-transition-easing: var(--ease-2);
+  --ps-menu-icon-size: var(--size-4); /* 16px token */
+  --ps-menu-icon-chevron-mask: svg-load('generic/chevron-down.svg');
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-menu-gap);
+
+  /* Nested submenu */
+  & .menu__list--submenu {
+    background: var(--ps-menu-submenu-bg);
+    flex-direction: column;
+    margin-left: var(--ps-menu-submenu-indent);
+    padding: var(--size-2) 0;
+  }
+
+  /* Desktop: horizontal root with dropdown submenus */
+  @media (--tablet) {
+    flex-direction: row;
+    gap: 0; /* Items are adjacent in horizontal layout */
+
+    & .menu__list--submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      flex-direction: column;
+      z-index: var(--z-dropdown);
+      margin-left: 0;
+      padding: var(--size-2) 0;
+      background: transparent; /* No dropdown background on desktop */
+    }
+  }
+
+  /* Elements: menu-item scoped under .menu */
+  & .menu__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: var(--ps-menu-item-height);
+
+    /* Link and span styling */
+    & > .menu__link {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: var(--ps-menu-item-gap); /* 8px between label and icon */
+      padding: 0;
+      color: var(--ps-menu-link-color);
+      font-size: var(--ps-menu-text-size);
+      font-weight: var(--ps-menu-text-weight);
+      line-height: var(--line-height-2); /* Token-based line-height */
+      text-decoration: none;
+      transition: color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing),
+                  border-color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
+      border-bottom: var(--ps-menu-border-active-width) solid transparent;
+    }
+
+    & > .menu__link {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--ps-menu-link-color-hover); /* #777E83 */
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--border-focus);
+        outline-offset: 2px;
+        color: var(--ps-menu-link-color-hover);
+      }
+    }
+
+    /* Modifiers */
+    &--expanded {
+      & > .menu__link::after {
+        content: '';
+        display: inline-block;
+        width: var(--ps-menu-icon-size);
+        height: var(--ps-menu-icon-size);
+        background-color: var(--ps-menu-link-color);
+        mask-image: var(--ps-menu-icon-chevron-mask);
+        -webkit-mask-image: var(--ps-menu-icon-chevron-mask);
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: contain;
+        transition: background-color var(--ps-menu-transition-duration) var(--ps-menu-transition-easing);
+      }
+
+      & > .menu__link:hover::after {
+        background-color: var(--ps-menu-link-color-hover);
+      }
+
+        & > .menu__list--submenu {
+        display: flex;
+      }
+
+      @media (--tablet) {
+        &:hover > .menu__list--submenu {
+          display: flex;
+        }
+      }
+    }
+
+    &--collapsed {
+      & > .menu__list--submenu {
+        display: none;
+      }
+    }
+
+    &--active-trail {
+      & > .menu__link {
+        color: var(--ps-menu-link-color-active); /* #00915A */
+        border-bottom-color: var(--ps-menu-border-active-color); /* 2px solid primary */
+
+        &::after {
+          background-color: var(--ps-menu-link-color-active);
+        }
+      }
+    }
+
+    /* Desktop hover handled within &--expanded for consistency */
+  }
+}
+

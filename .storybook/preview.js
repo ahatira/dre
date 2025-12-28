@@ -50,7 +50,6 @@ import '../source/patterns/elements/collapse/collapse.js';
 
 // Import collection behaviors
 import '../source/patterns/collections/accordion/accordion.js';
-import '../source/patterns/collections/menu-primary/menu-primary.js';
 
 // Import layout behaviors
 import '../source/patterns/layouts/header/header.js';

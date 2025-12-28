@@ -1,0 +1,48 @@
+menu_name: main
+variant: default
+behavior: hover
+accordion: false
+items:
+  - title: Find a property
+    url: '/search'
+    in_active_trail: true
+    below:
+      - title: For rent
+        url: '/search/rent'
+      - title: For sale
+        url: '/search/sale'
+      - title: New properties
+        url: '/search/new'
+      - title: Investment properties
+        url: '/search/investment'
+  - title: Solutions
+    url: '/solutions'
+    below:
+      - title: Property valuation
+        url: '/solutions/valuation'
+      - title: Property management
+        url: '/solutions/management'
+      - title: Commercial real estate
+        url: '/solutions/commercial'
+      - title: Consulting services
+        url: '/solutions/consulting'
+  - title: Latest News
+    url: '/news'
+    below:
+      - title: Market insights
+        url: '/news/market-insights'
+      - title: Press releases
+        url: '/news/press'
+      - title: Blog articles
+        url: '/news/blog'
+  - title: About us
+    url: '/about'
+    below:
+      - title: Our company
+        url: '/about/company'
+      - title: Our team
+        url: '/about/team'
+      - title: Careers
+        url: '/about/careers'
+      - title: Contact us
+        url: '/about/contact'
