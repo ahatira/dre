@@ -59,29 +59,27 @@
         {%- set item_attr = item_attr.setAttribute('data-menu-item-expandable', 'true') -%}
       {%- endif -%}
       <li{{- item_attr }} role="{{ menu_level == 0 ? 'menuitem' : 'none' }}">
-        {%- if item.url -%}
-          {%- set link_classes = [
-            'menu__link',
-            has_children ? 'menu__link--has-children' : null,
-          ] -%}
-          {%- set link_attr = create_attribute().addClass(link_classes) -%}
-          {%- if has_children -%}
-            {%- set link_attr = link_attr
-              .setAttribute('aria-haspopup', 'true')
-              .setAttribute('aria-expanded', item.is_expanded ? 'true' : 'false')
-              .setAttribute('data-menu-toggle', 'true')
-            -%}
+        <div class="menu__item-wrapper">
+          {%- if item.url -%}
+            {%- set link_classes = [
+              'menu__link',
+            ] -%}
+            {%- set link_attr = create_attribute().addClass(link_classes) -%}
+            {%- if has_children -%}
+              {%- set link_attr = link_attr
+                .setAttribute('aria-haspopup', 'true')
+                .setAttribute('aria-expanded', item.is_expanded ? 'true' : 'false')
+                .setAttribute('data-menu-toggle', 'true')
+              -%}
+            {%- endif -%}
+            {{- link(item.title, item.url, link_attr) -}}
+          {%- else -%}
+            <span class="menu__link"{{ has_children ? ' aria-haspopup="true" aria-expanded="' ~ (item.is_expanded ? 'true' : 'false') ~ '" data-menu-toggle="true"' : '' }}>{{- item.title -}}</span>
           {%- endif -%}
-          {{- link(item.title, item.url, link_attr) -}}
-          {%- if has_children -%}
-            <span class="menu__icon" data-icon="chevron-down" aria-hidden="true"></span>
-          {%- endif -%}
-        {%- else -%}
-          <span class="menu__link{{ has_children ? ' menu__link--has-children' : '' }}"{{ has_children ? ' aria-haspopup="true" aria-expanded="' ~ (item.is_expanded ? 'true' : 'false') ~ '" data-menu-toggle="true"' : '' }}>{{- item.title -}}</span>
           {%- if has_children -%}
             <span class="menu__icon" data-icon="chevron-down" aria-hidden="true"></span>
           {%- endif -%}
-        {%- endif -%}
+        </div>
         {%- if item.below -%}
           {{- menus.menu_links(item.below, attributes, menu_level + 1, modifier) -}}
         {%- endif -%}

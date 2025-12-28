@@ -129,6 +129,15 @@ map-widget:
     - core/once
     - ps_theme/vendors
 
+menu:
+  js:
+    dist/js/menu.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 modal:
   js:
     dist/js/modal.js: {}
