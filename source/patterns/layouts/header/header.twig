@@ -107,10 +107,9 @@
       {% if page.header_navigation %}
         {{ page.header_navigation }}
       {% elseif primary_menu_items %}
-        {# Fallback: Hardcoded primary menu #}
-        {% include '@collections/menu/menu.twig' with {
-          items: primary_menu_items,
-          modifier: 'primary'
+        {# Fallback: Hardcoded primary menu using menu-primary component #}
+        {% include '@collections/menu-primary/menu-primary.twig' with {
+          items: primary_menu_items
         } only %}
       {% endif %}
     </div>
