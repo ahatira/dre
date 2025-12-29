@@ -1,60 +1,34 @@
 # Menu Component - Real Estate Context Data
 # Used in Storybook stories with real-estate themed menu items
-# Based on Figma design with Find a property, About us, Solutions, Latest News
 
 args:
-  menu_name: 'primary'
-  modifier: 'primary'
+  menu_name: 'main'
 
   items:
-    - title: 'Find a property'
-      url: '/find-property'
-      is_expanded: true
-      below:
-        - title: 'Buy'
-          url: '/find-property/buy'
-        - title: 'Rent'
-          url: '/find-property/rent'
-        - title: 'Invest'
-          url: '/find-property/invest'
-          is_expanded: true
-          below:
-            - title: 'Residential'
-              url: '/find-property/invest/residential'
-            - title: 'Commercial'
-              url: '/find-property/invest/commercial'
-
-    - title: 'About us'
-      url: '/about-us'
+    - title: 'Recherche de bien'
+      url: '/recherche'
       in_active_trail: true
       is_expanded: true
       below:
-        - title: 'Our company'
-          url: '/about-us/company'
-          in_active_trail: true
-        - title: 'Our team'
-          url: '/about-us/team'
-        - title: 'Careers'
-          url: '/about-us/careers'
+        - title: 'Achat'
+          url: '/recherche/achat'
+        - title: 'Location'
+          url: '/recherche/location'
 
-    - title: 'Solutions'
-      url: '/solutions'
+    - title: 'Services'
+      url: '/services'
       is_expanded: true
       below:
-        - title: 'Property Management'
-          url: '/solutions/property-management'
-        - title: 'Consultancy'
-          url: '/solutions/consultancy'
-        - title: 'Valuation'
-          url: '/solutions/valuation'
+        - title: 'Transaction'
+          url: '/services/transaction'
+          in_active_trail: false
+          is_expanded: true
+          below:
+            - title: 'Vendre'
+              url: '/services/transaction/vendre'
+              in_active_trail: true
+            - title: 'Acheter'
+              url: '/services/transaction/acheter'
 
-    - title: 'Latest News'
-      url: '/news'
-      is_expanded: true
-      below:
-        - title: 'Press releases'
-          url: '/news/press-releases'
-        - title: 'Market insights'
-          url: '/news/market-insights'
-        - title: 'Events'
-          url: '/news/events'
+    - title: 'Contact'
+      url: '/contact'

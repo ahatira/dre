@@ -1,5 +1,6 @@
 import menuPrimaryTwig from './menu-primary.twig';
 import data from './menu-primary.yml';
+import './menu-primary.js';
 
 function renderMenuPrimary(args) {
   return menuPrimaryTwig(args);
