@@ -1,0 +1,52 @@
+# Menu Primary Component - Real Estate Navigation
+# Based on Figma design: Find a property, About us, Solutions, Latest News
+
+args:
+  menu_name: 'primary'
+  items:
+    - title: 'Find a property'
+      url: '/find-property'
+      below:
+        - title: 'Buy'
+          url: '/find-property/buy'
+        - title: 'Rent'
+          url: '/find-property/rent'
+        - title: 'Invest'
+          url: '/find-property/invest'
+          below:
+            - title: 'Residential'
+              url: '/find-property/invest/residential'
+            - title: 'Commercial'
+              url: '/find-property/invest/commercial'
+
+    - title: 'About us'
+      url: '/about-us'
+      in_active_trail: true
+      below:
+        - title: 'Our company'
+          url: '/about-us/company'
+          in_active_trail: true
+        - title: 'Our team'
+          url: '/about-us/team'
+        - title: 'Careers'
+          url: '/about-us/careers'
+
+    - title: 'Solutions'
+      url: '/solutions'
+      below:
+        - title: 'Property Management'
+          url: '/solutions/property-management'
+        - title: 'Consultancy'
+          url: '/solutions/consultancy'
+        - title: 'Valuation'
+          url: '/solutions/valuation'
+
+    - title: 'Latest News'
+      url: '/news'
+      below:
+        - title: 'Press releases'
+          url: '/news/press-releases'
+        - title: 'Market insights'
+          url: '/news/market-insights'
+        - title: 'Events'
+          url: '/news/events'

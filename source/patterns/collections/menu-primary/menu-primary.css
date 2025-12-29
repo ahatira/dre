@@ -1,0 +1,197 @@
+/* ========================================================================
+   #MENU-PRIMARY (Collection/Organism)
+   Primary navigation menu
+   Desktop: Horizontal with dropdown on hover
+   Mobile: Vertical accordion
+   Chevrons: CSS pseudo-elements (::after)
+   ======================================================================== */
+
+.menu-primary {
+  /* Layer 2 component variables */
+  --menu-primary-height: 64px;
+  --menu-primary-padding-x: var(--size-4); /* 16px */
+  --menu-primary-gap: var(--size-2); /* 8px between label and chevron */
+  --menu-primary-color: var(--gray-700); /* Default #333333 */
+  --menu-primary-color-hover: var(--gray-500); /* Hover #777E83 */
+  --menu-primary-color-active: var(--primary); /* Active #00915A */
+  --menu-primary-border-active: 2px solid var(--primary);
+  --menu-primary-font-size: var(--font-size-3); /* 16px */
+  --menu-primary-font-weight: var(--font-weight-400);
+  --menu-primary-transition: var(--duration-200) var(--ease-2);
+  --menu-primary-submenu-bg: var(--white);
+  --menu-primary-submenu-shadow: var(--shadow-2);
+  --menu-primary-submenu-radius: var(--radius-2);
+  --menu-primary-submenu-padding: var(--size-2); /* 8px */
+  --menu-primary-submenu-min-width: 200px;
+  --menu-primary-chevron-size: var(--size-4); /* 16px */
+
+  /* Reset list */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  /* Mobile: vertical layout */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  /* Desktop: horizontal layout */
+  @media (--tablet) {
+    flex-direction: row;
+  }
+
+  /* Menu Item */
+  &__item {
+    position: relative;
+
+    /* Desktop: show submenu on hover */
+    @media (--tablet) {
+      &:hover > .menu-primary__submenu {
+        display: block;
+      }
+    }
+
+    /* Active state */
+    &--active > .menu-primary__link {
+      color: var(--menu-primary-color-active);
+
+      /* Desktop: underline only on root level */
+      @media (--tablet) {
+        border-bottom: var(--menu-primary-border-active);
+      }
+    }
+  }
+
+  /* Link */
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--size-4) 0;
+    color: var(--menu-primary-color);
+    font-size: var(--menu-primary-font-size);
+    font-weight: var(--menu-primary-font-weight);
+    line-height: var(--line-height-2);
+    text-decoration: none;
+    transition: color var(--menu-primary-transition),
+                border-color var(--menu-primary-transition);
+    border-bottom: 2px solid transparent;
+
+    /* Desktop: horizontal centering */
+    @media (--tablet) {
+      justify-content: center;
+      height: var(--menu-primary-height);
+      padding: 0 var(--menu-primary-padding-x);
+    }
+
+    /* Hover state */
+    &:hover {
+      color: var(--menu-primary-color-hover);
+    }
+
+    /* Focus state */
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Chevron icon (CSS pseudo-element) */
+  &__item--has-children > &__link::after {
+    content: '';
+    display: inline-block;
+    width: var(--menu-primary-chevron-size);
+    height: var(--menu-primary-chevron-size);
+    margin-left: var(--menu-primary-gap);
+    background-color: currentColor;
+    mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
+    -webkit-mask-image: url('/icons/icons-sprite.svg#icon-chevron-down');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    transition: transform var(--menu-primary-transition);
+    flex-shrink: 0;
+  }
+
+  /* Mobile: rotate chevron when submenu visible */
+  &__item--has-children.is-open > &__link::after {
+    transform: rotate(180deg);
+
+    /* Desktop: no rotation */
+    @media (--tablet) {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Submenu */
+  &__submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none; /* Hidden by default */
+
+    /* Mobile: indented */
+    margin-left: var(--size-6); /* 24px */
+    padding: var(--menu-primary-submenu-padding) 0;
+
+    /* Desktop: dropdown */
+    @media (--tablet) {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-left: 0;
+      padding: var(--menu-primary-submenu-padding);
+      background: var(--menu-primary-submenu-bg);
+      box-shadow: var(--menu-primary-submenu-shadow);
+      border-radius: var(--menu-primary-submenu-radius);
+      min-width: var(--menu-primary-submenu-min-width);
+      z-index: var(--z-dropdown);
+    }
+
+    /* Nested submenus (level 2+) */
+    &--level-2 {
+      margin-left: calc(var(--size-6) * 1.5); /* 36px */
+
+      @media (--tablet) {
+        top: 0;
+        left: 100%;
+        margin-left: var(--size-1);
+      }
+    }
+
+    &--level-3 {
+      margin-left: calc(var(--size-6) * 2); /* 48px */
+
+      @media (--tablet) {
+        margin-left: var(--size-1);
+      }
+    }
+
+    /* Mobile: show when parent has is-open class */
+    .menu-primary__item.is-open > & {
+      display: block;
+    }
+
+    /* Submenu items */
+    & .menu-primary__link {
+      padding: var(--size-2) 0;
+
+      @media (--tablet) {
+        height: auto;
+        padding: var(--size-2) var(--size-3);
+        justify-content: flex-start;
+      }
+
+      /* No border on submenu links */
+      border-bottom: none;
+    }
+
+    /* Remove active underline from submenu items */
+    & .menu-primary__item--active > .menu-primary__link {
+      border-bottom: none;
+    }
+  }
+}

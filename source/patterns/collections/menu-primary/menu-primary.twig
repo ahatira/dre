@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Primary navigation menu (organism).
+ *
+ * Available variables:
+ * - menu_name: Machine name of the menu.
+ * - items: Nested array of menu items.
+ *   Each item contains:
+ *   - title: Link text (required)
+ *   - url: Link URL (required)
+ *   - below: Child items array (optional)
+ *   - in_active_trail: Boolean, item is in active path (optional)
+ *
+ * Notes:
+ * - Chevrons handled via CSS ::after pseudo-elements
+ * - Desktop: horizontal with hover dropdowns
+ * - Mobile: vertical accordion
+ */
+#}
+{%- import _self as menus -%}
+
+{%- macro menu_links(items, level) -%}
+  {%- if items -%}
+    {%- if level == 0 -%}
+      <ul class="menu-primary" role="menubar">
+    {%- else -%}
+      <ul class="menu-primary__submenu menu-primary__submenu--level-{{ level }}">
+    {%- endif -%}
+    {%- for item in items -%}
+      {%- set has_children = item.below and item.below|length > 0 -%}
+      {%- set item_classes = [
+        'menu-primary__item',
+        has_children ? 'menu-primary__item--has-children' : null,
+        item.in_active_trail ? 'menu-primary__item--active' : null,
+      ] -%}
+      <li class="{{ item_classes|join(' ')|trim }}">
+        <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
+        {%- if has_children -%}
+          {{- menus.menu_links(item.below, level + 1) -}}
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+    </ul>
+  {%- endif -%}
+{%- endmacro -%}
+
+{{- menus.menu_links(items, 0) -}}
