@@ -11,14 +11,14 @@
   --menu-primary-height: 64px;
   --menu-primary-padding-x: var(--size-4); /* 16px */
   --menu-primary-gap: var(--size-2); /* 8px between label and chevron */
-  --menu-primary-gap-desktop: var(--size-8); /* 32px between menu items */
+  --menu-primary-gap-desktop: var(--size-5); /* 24px between menu items */
   --menu-primary-color: var(--gray-700); /* Default #333333 */
   --menu-primary-color-hover: var(--gray-500); /* Hover #777E83 */
   --menu-primary-color-active: var(--primary); /* Active #00915A */
   --menu-primary-border-active: 2px solid var(--primary);
   --menu-primary-border-separator: 1px solid var(--border-default);
   --menu-primary-border-default: 2px solid transparent;
-  --menu-primary-font-size: var(--font-size-1); /* 16px */
+  --menu-primary-font-size: var(--font-size-1); /* 14px */
   --menu-primary-font-weight: var(--font-weight-400);
   --menu-primary-transition: var(--duration-200) var(--ease-2);
   --menu-primary-submenu-bg: var(--white);
