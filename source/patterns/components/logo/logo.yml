@@ -1,10 +1,5 @@
-# Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
-# Drupal-compatible: Uses site_logo, site_name, site_slogan convention
-
-site_logo: '/logo/logo.svg' # Logo image path or URI
-site_slogan: '' # Company/site slogan (optional)
-url: '/' # Link URL (optional, typically path('<front>'))
-rel: 'home' # Link relationship (optional)
-attributes: '' # HTML attributes (added by preprocess)
-
-
+# Default data for Logo component
+site_logo: "/logo/logo.svg"
+site_slogan: "Real Estate for a Changing World"
+url: null
+rel: null

@@ -1,100 +1,70 @@
-/**
- * Logo (Component/Molecule)
- * Brand logo for BNP Paribas Real Estate
- *
- * BEM: ps-logo, ps-logo__image, ps-logo__slogan
- * Layout: Column (image top, slogan bottom - centered horizontally)
- * Data-driven: Logo image + optional slogan
- * States: hover (opacity), focus-visible
- * Responsive: Desktop (48px), Mobile (40px)
- *
- * Architecture: 3-layer CSS variables system
- * - Layer 1: Root tokens (--size-*, --duration-*, --ease-*, --gray-*)
- * - Layer 2: Component variables (--ps-logo-*)
- * - Layer 3: Context overrides
- */
+/* Logo Component */
 
 .ps-logo {
-  /* ============================================
-     LAYER 2: COMPONENT-SCOPED VARIABLES
-     ============================================ */
-
-  /* Layout */
-  --ps-logo-gap: var(--size-3); /* 12px - gap between image and slogan */
-
-  /* Image styling */
-  --ps-logo-image-width: 48px; /* Logo square size desktop */
-  --ps-logo-image-object-fit: contain;
-
-  /* Slogan styling */
+  /* Layer 2: Component-scoped variables */
+  --ps-logo-gap: var(--size-3);
+  --ps-logo-slogan-font-size: var(--font-size-1);
   --ps-logo-slogan-color: var(--gray-600);
-  --ps-logo-slogan-font-size: var(--font-size-1); /* 13px */
-  --ps-logo-slogan-font-weight: var(--font-weight-400);
-  --ps-logo-slogan-line-height: var(--font-lineheight-3);
+  --ps-logo-height-mobile: var(--size-6);
+  --ps-logo-height-desktop: var(--size-8);
 
-  /* States */
-  --ps-logo-hover-opacity: 0.85;
-
-  /* Transitions */
-  --ps-logo-transition-duration: var(--duration-fast); /* 150ms */
-  --ps-logo-transition-timing: var(--ease-3);
-
-  /* ============================================
-     BASE STYLES
-     ============================================ */
-
+  /* Base styles */
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
   gap: var(--ps-logo-gap);
   text-decoration: none;
-  transition: opacity var(--ps-logo-transition-duration)
-    var(--ps-logo-transition-timing);
+  color: inherit;
 
-  /* ============================================
-     ELEMENTS
-     ============================================ */
+  /* Remove link underline */
+  &:hover {
+    text-decoration: none;
+  }
 
+  /* Logo image - mobile first (24px height) */
   &__image {
     display: block;
-    width: var(--ps-logo-image-width);
-    height: var(--ps-logo-image-width);
-    object-fit: var(--ps-logo-image-object-fit);
-    flex-shrink: 0;
+    height: var(--ps-logo-height-mobile);
+    width: auto;
+    object-fit: contain;
   }
 
+  /* Slogan text */
   &__slogan {
-    display: block;
-    color: var(--ps-logo-slogan-color);
     font-size: var(--ps-logo-slogan-font-size);
-    font-weight: var(--ps-logo-slogan-font-weight);
-    line-height: var(--ps-logo-slogan-line-height);
-    white-space: normal;
-    word-break: break-word;
-    text-align: center;
+    color: var(--ps-logo-slogan-color);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-1);
+    white-space: nowrap;
+    display: none; /* Hidden by default on mobile (<640px) */
   }
 
-  /* ============================================
-     RESPONSIVE: Mobile
-     ============================================ */
-
-  @media (max-width: 767px) {
-    --ps-logo-image-width: 40px;
+  /* Focus state for links */
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--primary);
+    outline-offset: var(--border-size-2);
+    border-radius: var(--radius-1);
   }
 
-  /* ============================================
-     STATES: Interactive (links only)
-     ============================================ */
+  /* Responsive: Mobile (640px+) */
+  @media (--mobile) {
+    /* Desktop logo size (32px height) */
+    &__image {
+      height: var(--ps-logo-height-desktop);
+    }
 
-  a&:hover {
-    opacity: var(--ps-logo-hover-opacity);
+    /* Show slogan on desktop */
+    &__slogan {
+      display: block;
+    }
   }
 
-  a&:focus-visible {
-    outline: var(--border-size-2) solid var(--border-focus);
-    outline-offset: var(--size-1);
-    border-radius: var(--radius-2);
+  /* Responsive: Tablet */
+  @media (--tablet) {
+    /* No changes needed */
+  }
+
+  /* Responsive: Laptop */
+  @media (--laptop) {
+    /* No changes needed */
   }
 }
-
-

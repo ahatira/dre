@@ -1,4 +1,4 @@
-import logoTwig from './logo.twig';
+import componentTwig from './logo.twig';
 import data from './logo.yml';
 
 export default {
@@ -7,13 +7,17 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Logo de marque BNP Paribas Real Estate. Composant flexible basé sur les données Drupal (site_logo, site_name, site_slogan).`,
+        component:
+          'BNP Paribas Real Estate responsive logo with optional slogan. Same logo image for all devices - automatically scales down on mobile with hidden slogan. Drupal-compatible with site branding conventions.',
       },
     },
   },
+  render: (args) => componentTwig(args),
   argTypes: {
     site_logo: {
-      description: "Chemin/URI de l'image du logo",
+      name: 'site_logo',
+      type: { name: 'string' },
+      description: 'Path to logo image (same image for all devices, scales responsively)',
       control: { type: 'text' },
       table: {
         category: 'Content',
@@ -22,99 +26,96 @@ export default {
       },
     },
     site_slogan: {
-      description: 'Slogan du site/entreprise (optionnel)',
+      name: 'site_slogan',
+      type: { name: 'string' },
+      description: 'Optional slogan text displayed next to logo',
       control: { type: 'text' },
       table: {
         category: 'Content',
         type: { summary: 'string' },
+        defaultValue: { summary: 'Real Estate for a Changing World' },
       },
     },
     url: {
-      description: "URL du lien (par ex. path('<front>') en Drupal)",
+      name: 'url',
+      type: { name: 'string' },
+      description: 'Link URL (wraps logo in <a> tag if provided)',
       control: { type: 'text' },
       table: {
         category: 'Link',
         type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
       },
     },
     rel: {
-      description: 'Attribut rel du lien (par ex. "home")',
+      name: 'rel',
+      type: { name: 'string' },
+      description: 'Link rel attribute (e.g., "home")',
       control: { type: 'text' },
       table: {
         category: 'Link',
         type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
+      },
+    },
+    modifier_class: {
+      name: 'modifier_class',
+      type: { name: 'string' },
+      description: 'Additional CSS classes',
+      control: { type: 'text' },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'null' },
       },
     },
   },
-  args: data,
 };
 
+// Default story for Autodocs
+export const Default = {
+  args: { ...data },
+};
+
+// Desktop - Logo only
 export const Desktop = {
-  render: (args) => logoTwig(args),
-  args: data,
-  parameters: {
-    docs: {
-      description: {
-        story: 'ISO maquette Desktop - Logo seul',
-      },
-    },
+  name: 'Desktop',
+  args: {
+    site_logo: '/logo/logo.svg',
+    site_slogan: null,
   },
 };
 
+// Desktop with slogan
 export const DesktopWithSlogan = {
-  render: (args) => logoTwig(args),
+  name: 'Desktop (With Slogan)',
   args: {
-    ...data,
+    site_logo: '/logo/logo.svg',
     site_slogan: 'Real Estate for a Changing World',
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'ISO maquette Desktop avec Slogan - Logo + Slogan centré',
-      },
-    },
-  },
 };
 
+// Mobile - Same logo, smaller size, slogan hidden
 export const Mobile = {
-  render: (args) => logoTwig(args),
-  args: data,
+  name: 'Mobile',
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
     },
-    docs: {
-      description: {
-        story: 'ISO maquette Mobile - Logo compact',
-      },
-    },
+  },
+  args: {
+    site_logo: '/logo/logo.svg',
+    site_slogan: 'Real Estate for a Changing World',
   },
 };
 
-export const LogoOnly = {
-  render: (args) => logoTwig(args),
-  args: data,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Logo avec image seule (sans texte ni slogan)',
-      },
-    },
-  },
-};
-
-export const LinkedLogo = {
-  render: (args) =>
-    logoTwig({
-      ...args,
-      url: '/',
-      rel: 'home',
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story: "Logo cliquable vers la page d'accueil",
-      },
-    },
+// Linked logo (homepage)
+export const Linked = {
+  name: 'Linked (Homepage)',
+  args: {
+    site_logo: '/logo/logo.svg',
+    site_slogan: 'Real Estate for a Changing World',
+    url: '#',
+    rel: 'home',
   },
 };

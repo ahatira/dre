@@ -6,6 +6,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component (Implementation Complete)
+
+### Added
+- **Logo Component (Components/Molecule)**: Responsive logo with optional slogan
+  - **4-file structure**: `logo.twig`, `logo.css`, `logo.yml`, `logo.stories.jsx`
+  - **Props**:
+    - `site_logo` - Path/URI to logo image
+    - `site_slogan` - Optional slogan ("Real Estate for a Changing World")
+    - `url` - Link URL (wraps in `<a>` tag if provided)
+    - `rel` - Link rel attribute (e.g., "home")
+  - **BEM structure**:
+    - `.ps-logo` - Main container (flex column)
+    - `.ps-logo__image` - Logo image
+    - `.ps-logo__slogan` - Slogan text
+  - **Stories** (5 variants):
+    - `Logo Only` - Image without slogan
+    - `Logo + Slogan` - Default with tagline
+    - `Linked Logo` - Clickable logo (homepage link)
+    - `Linked Logo + Slogan` - Full branding
+    - `Mobile (375px)` - Responsive preview
+
+### Technical Details
+- **CSS Custom Properties (Layer 2)**:
+  - `--ps-logo-image-width` - Logo width (48px desktop, 40px mobile)
+  - `--ps-logo-image-height` - Logo height (32px desktop, 32px mobile)
+  - `--ps-logo-gap` - Gap between logo and slogan (12px)
+  - `--ps-logo-slogan-font-size` - Slogan font size (13px desktop, 12px mobile)
+  - `--ps-logo-slogan-color` - Slogan color (gray-600)
+- **Responsive design**: Flex column layout, centered alignment, word-wrap support
+- **Drupal compatible**: `create_attribute()` fallback, dynamic `<a>` wrapper
+- **Build**: ✅ Biome format, ✅ Vite compilation, ✅ 100% token-based
+- **Conformity**: 100% (tokens, nesting, BEM, Autodocs, accessibility)
+- **Documentation**: Complete README.md with Drupal integration examples
+
+### Drupal Integration
+- Follows Drupal branding system conventions (site_logo, site_name, site_slogan)
+- Example preprocess function provided for `block--system-branding-block.html.twig`
+- Attribute object compatible with `.form-control` class system
+- No JavaScript dependencies
+
+---
+
 ## [2025-12-30] - Logo Component (Layout Correction - Column Centered)
 
 ### Changed

@@ -1,45 +1,46 @@
 {#
 /**
  * @file
- * PS Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
- *
- * Flexible, data-driven logo component with optional slogan.
- * Inspired by Drupal's block--system-branding-block template.
- *
- * Available variables:
- * - site_logo: Logo image path or URI
- * - site_slogan: Site/company slogan (optional, displayed below/centered)
- * - url: Link URL (optional, typically <front>)
- * - rel: Link relationship (optional, e.g., "home")
- * - attributes: HTML attributes
- *
- * Layout (flexbox column):
- * - Logo image top (48px desktop, 40px mobile)
- * - Slogan bottom, centered horizontally
+ * Logo component
+ * 
+ * Responsive BNP Paribas Real Estate logo with optional slogan.
+ * 
+ * @param {string} [site_logo] - Path to logo image (desktop horizontal or mobile square)
+ * @param {string} [site_slogan] - Optional slogan text
+ * @param {string} [url] - Link URL (wraps in <a> if provided)
+ * @param {string} [rel] - Link rel attribute (e.g., "home")
+ * @param {object} [attributes] - Additional HTML attributes
  */
 #}
 
-{%- set has_content = site_logo or site_slogan -%}
+{% set site_logo = site_logo|default(null) %}
+{% set site_slogan = site_slogan|default(null) %}
+{% set url = url|default(null) %}
+{% set rel = rel|default(null) %}
 
-{%- if has_content -%}
-  {%- if url -%}
-    <a href="{{ url }}" {{ attributes }}>
-  {%- else -%}
-    <div{{ attributes }}>
-  {%- endif -%}
+{% set classes = [
+  'ps-logo',
+  modifier_class
+] %}
 
-    {%- if site_logo -%}
-      <img class="ps-logo__image" src="{{ site_logo }}" alt="Logo" />
-    {%- endif -%}
+{% set attr = (attributes ? attributes : create_attribute()).addClass(classes) %}
 
-    {%- if site_slogan -%}
-      <div class="ps-logo__slogan">{{ site_slogan }}</div>
-    {%- endif -%}
-
-  {%- if url -%}
-    </a>
-  {%- else -%}
-    </div>
-  {%- endif -%}
-{%- endif -%}
-
+{% if url %}
+  <a href="{{ url }}"{{ attr }}{% if rel %} rel="{{ rel }}"{% endif %}>
+    {% if site_logo %}
+      <img src="{{ site_logo }}" alt="BNP Paribas Real Estate" class="ps-logo__image" />
+    {% endif %}
+    {% if site_slogan %}
+      <span class="ps-logo__slogan">{{ site_slogan }}</span>
+    {% endif %}
+  </a>
+{% else %}
+  <div{{ attr }}>
+    {% if site_logo %}
+      <img src="{{ site_logo }}" alt="BNP Paribas Real Estate" class="ps-logo__image" />
+    {% endif %}
+    {% if site_slogan %}
+      <span class="ps-logo__slogan">{{ site_slogan }}</span>
+    {% endif %}
+  </div>
+{% endif %}
