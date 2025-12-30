@@ -3,20 +3,19 @@
  * @file
  * PS Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
  *
- * Flexible, data-driven logo component with automatic layout.
+ * Flexible, data-driven logo component with optional slogan.
  * Inspired by Drupal's block--system-branding-block template.
  *
  * Available variables:
  * - site_logo: Logo image path or URI
- * - site_slogan: Site/company slogan (optional)
+ * - site_slogan: Site/company slogan (optional, displayed right of logo)
  * - url: Link URL (optional, typically <front>)
  * - rel: Link relationship (optional, e.g., "home")
  * - attributes: HTML attributes
  *
- * Auto-layout based on provided variables:
- * - If url → wrap in <a> tag
- * - If site_logo → display image
- * - If site_slogan → display slogan (centered)
+ * Layout (flexbox row):
+ * - Image left (48px desktop, 40px mobile)
+ * - Slogan right, vertically centered
  */
 #}
 
@@ -30,9 +29,7 @@
   {%- endif -%}
 
     {%- if site_logo -%}
-      <div class="ps-logo__wrapper">
-        <img class="ps-logo__image" src="{{ site_logo }}" alt="Logo" />
-      </div>
+      <img class="ps-logo__image" src="{{ site_logo }}" alt="Logo" />
     {%- endif -%}
 
     {%- if site_slogan -%}

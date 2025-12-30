@@ -1,14 +1,29 @@
+/**
+ * Logo (Component/Molecule)
+ * Brand logo for BNP Paribas Real Estate
+ *
+ * BEM: ps-logo, ps-logo__image, ps-logo__slogan
+ * Layout: Row (image left, slogan right & centered vertically)
+ * Data-driven: Logo image + optional slogan
+ * States: hover (opacity), focus-visible
+ * Responsive: Desktop (48px), Mobile (40px)
+ *
+ * Architecture: 3-layer CSS variables system
+ * - Layer 1: Root tokens (--size-*, --duration-*, --ease-*, --gray-*)
+ * - Layer 2: Component variables (--ps-logo-*)
+ * - Layer 3: Context overrides
+ */
+
 .ps-logo {
   /* ============================================
      LAYER 2: COMPONENT-SCOPED VARIABLES
      ============================================ */
 
   /* Layout */
-  --ps-logo-gap: var(--size-3); /* 12px - gap between elements */
+  --ps-logo-gap: var(--size-3); /* 12px - gap between image and slogan */
 
   /* Image styling */
   --ps-logo-image-width: 48px; /* Logo square size desktop */
-  --ps-logo-image-height: auto;
   --ps-logo-image-object-fit: contain;
 
   /* Slogan styling */
@@ -29,7 +44,8 @@
      ============================================ */
 
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: var(--ps-logo-gap);
   text-decoration: none;
   transition: opacity var(--ps-logo-transition-duration)
@@ -39,16 +55,9 @@
      ELEMENTS
      ============================================ */
 
-  &__wrapper {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--ps-logo-gap);
-  }
-
   &__image {
     display: block;
     width: var(--ps-logo-image-width);
-    min-width: var(--ps-logo-image-width);
     height: var(--ps-logo-image-width);
     object-fit: var(--ps-logo-image-object-fit);
     flex-shrink: 0;

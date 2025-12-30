@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component (Layout Row - Slogan Vertically Centered)
+
+### Changed
+- **Logo Component**: Layout restructuré en flexbox row (image + slogan côte-à-côte)
+  - **Flexbox direction** : `flex-direction: row` au lieu de `column`
+  - **Alignement** : `align-items: center` pour centrer slogan verticalement avec image
+  - **Structure** : Image gauche (48px/40px) + Slogan droite (centré verticalement)
+  - **BEM** : Suppression de `__wrapper` (plus simple avec row direct)
+  - **Twig** : Image et slogan au même niveau (pas de wrapper container)
+  - **CSS** : Image et slogan comme siblings directs
+
+### Technical Details
+- **ISO maquette exacte** : Slogan centré verticalement par rapport à l'image
+- **Responsive** : 48px → 40px image, gap reste constant (12px)
+- **Structure minimale** : Image (block) + Slogan (block) en row
+- **Build** : ✅ Vite compilation, 547KB CSS
+
+---
+
 ## [2025-12-30] - Logo Component (Mockup Final - Sans site_name)
 
 ### Changed
