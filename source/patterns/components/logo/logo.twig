@@ -4,47 +4,53 @@
  * PS Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
  *
  * Flexible, data-driven logo component with automatic layout.
- * Displays what is provided: image, text/label, and/or slogan.
+ * Inspired by Drupal's block--system-branding-block template.
  *
- * @param {string} [image] - Logo image path (e.g. '/logo/logo.svg')
- * @param {string} [text] - Company name/text (e.g. 'BNP Paribas Real Estate')
- * @param {string} [label] - Alias for text (Drupal convention)
- * @param {string} [slogan] - Tagline text (displayed if provided)
- * @param {string} [alt='BNP Paribas Real Estate'] - Alt text for image
- * @param {string} [href] - Link URL (wraps logo in <a> if provided)
- * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
+ * Available variables:
+ * - site_logo: Logo image path or URI
+ * - site_name: Site/company name
+ * - site_slogan: Site/company slogan (optional)
+ * - url: Link URL (optional, typically <front>)
+ * - rel: Link relationship (optional, e.g., "home")
+ * - attributes: HTML attributes
  *
- * Auto-layout:
- * - If image + slogan → flex row with gap (Desktop with slogan look)
- * - If image only → simple logo
- * - If image + text → flex column centered
- * - If text only → text-only fallback
+ * Auto-layout based on provided variables:
+ * - If url → wrap in <a> tag
+ * - If site_logo → display image
+ * - If site_name → display name
+ * - If site_slogan → display slogan
  */
 #}
 
-{%- set image = image -%}
-{%- set text = text or label -%}
-{%- set slogan = slogan -%}
-{%- set alt = alt|default('BNP Paribas Real Estate') -%}
-{%- set href = href -%}
+{%- set has_content = site_logo or site_name or site_slogan -%}
 
-{%- set classes = ['ps-logo', modifier_class] -%}
-{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
+{%- if has_content -%}
+  {%- if url -%}
+    <a href="{{ url }}" {{ attributes }}>
+  {%- else -%}
+    <div{{ attributes }}>
+  {%- endif -%}
 
-{%- set wrapper_tag = href ? 'a' : 'div' -%}
+    {%- if site_logo or site_name -%}
+      <div class="ps-logo__wrapper">
+        {%- if site_logo -%}
+          <img class="ps-logo__image" src="{{ site_logo }}" alt="{{ site_name or 'Logo' }}" />
+        {%- endif -%}
 
-{%- if wrapper_tag == 'a' -%}
-<{{ wrapper_tag }}{{ attr }} href="{{ href }}">
-{%- else -%}
-<{{ wrapper_tag }}{{ attr }}>
+        {%- if site_name -%}
+          <span class="ps-logo__name">{{ site_name }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if site_slogan -%}
+      <div class="ps-logo__slogan">{{ site_slogan }}</div>
+    {%- endif -%}
+
+  {%- if url -%}
+    </a>
+  {%- else -%}
+    </div>
+  {%- endif -%}
 {%- endif -%}
-  {%- if image -%}
-  <img class="ps-logo__image" src="{{ image }}" alt="{{ alt }}" />
-  {%- endif -%}
-  {%- if text -%}
-  <span class="ps-logo__text">{{ text }}</span>
-  {%- endif -%}
-  {%- if slogan -%}
-  <span class="ps-logo__slogan">{{ slogan }}</span>
-  {%- endif -%}
-</{{ wrapper_tag }}>
+

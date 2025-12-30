@@ -2,14 +2,15 @@
  * Logo (Component/Molecule)
  * Brand logo for BNP Paribas Real Estate
  *
- * BEM: ps-logo, ps-logo__image, ps-logo__text, ps-logo__slogan
- * Data-driven: Displays image, text, slogan based on provided data
+ * BEM: ps-logo, ps-logo__wrapper, ps-logo__image, ps-logo__name, ps-logo__slogan
+ * Data-driven: Displays image, name, slogan based on provided variables
+ * Drupal compatible: Uses site_logo, site_name, site_slogan convention
  * States: hover (opacity), focus-visible
  *
  * Architecture: 3-layer CSS variables system
  * - Layer 1: Root tokens (--size-*, --duration-*, --ease-*, --gray-*)
  * - Layer 2: Component variables (--ps-logo-*)
- * - Layer 3: Context overrides (.header .ps-logo { --ps-logo-gap: ... })
+ * - Layer 3: Context overrides
  */
 
 .ps-logo {
@@ -18,14 +19,19 @@
      ============================================ */
 
   /* Layout */
-  --ps-logo-gap: var(--size-3); /* 12px - gap between image and slogan */
-  --ps-logo-image-height: auto; /* Responsive, adapt to content */
+  --ps-logo-gap: var(--size-3); /* 12px - gap between elements */
 
-  /* Text/Slogan styling */
-  --ps-logo-text-color: var(--gray-900);
-  --ps-logo-text-font-size: var(--font-size-3); /* 16px */
-  --ps-logo-text-font-weight: var(--font-weight-700);
+  /* Image styling */
+  --ps-logo-image-height: auto;
+  --ps-logo-image-object-fit: contain;
 
+  /* Name styling */
+  --ps-logo-name-color: var(--gray-900);
+  --ps-logo-name-font-size: var(--font-size-3); /* 16px */
+  --ps-logo-name-font-weight: var(--font-weight-700);
+  --ps-logo-name-line-height: var(--font-lineheight-2);
+
+  /* Slogan styling */
   --ps-logo-slogan-color: var(--gray-600);
   --ps-logo-slogan-font-size: var(--font-size-2); /* 14px */
   --ps-logo-slogan-font-weight: var(--font-weight-400);
@@ -43,7 +49,7 @@
      ============================================ */
 
   display: inline-flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--ps-logo-gap);
   text-decoration: none;
   transition: opacity var(--ps-logo-transition-duration)
@@ -53,18 +59,26 @@
      ELEMENTS
      ============================================ */
 
+  &__wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ps-logo-gap);
+  }
+
   &__image {
     display: block;
     height: var(--ps-logo-image-height);
     width: auto;
-    object-fit: contain;
+    object-fit: var(--ps-logo-image-object-fit);
   }
 
-  &__text {
+  &__name {
     display: block;
-    color: var(--ps-logo-text-color);
-    font-size: var(--ps-logo-text-font-size);
-    font-weight: var(--ps-logo-text-font-weight);
+    color: var(--ps-logo-name-color);
+    font-size: var(--ps-logo-name-font-size);
+    font-weight: var(--ps-logo-name-font-weight);
+    line-height: var(--ps-logo-name-line-height);
+    white-space: nowrap;
   }
 
   &__slogan {
@@ -90,4 +104,5 @@
     border-radius: var(--radius-2);
   }
 }
+
 

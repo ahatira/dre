@@ -76,7 +76,8 @@
 
     <div class="ps-header__brand">
       {# Logo - Always present (template controlled) #}
-      {% include '@components/logo/logo.twig' with logo_config only %}
+      {%- set logo_attrs = create_attribute().addClass('ps-logo') -%}
+      {% include '@components/logo/logo.twig' with logo_config|merge({attributes: logo_attrs}) only %}
     </div>
     
     {# Language Zone - Can use hardcoded component OR Drupal region (desktop only) #}
