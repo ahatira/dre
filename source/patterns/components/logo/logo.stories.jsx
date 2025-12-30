@@ -57,19 +57,7 @@ export default {
   args: data,
 };
 
-export const Default = {
-  render: (args) => logoTwig(args),
-  args: data,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Logo par défaut avec image seule',
-      },
-    },
-  },
-};
-
-export const WithName = {
+export const Desktop = {
   render: (args) => logoTwig(args),
   args: {
     ...data,
@@ -78,22 +66,53 @@ export const WithName = {
   parameters: {
     docs: {
       description: {
-        story: "Logo avec nom d'entreprise affiché",
+        story: 'ISO maquette Desktop - Logo + Nom (sans slogan)',
       },
     },
   },
 };
 
-export const WithSlogan = {
-  render: (args) =>
-    logoTwig({
-      ...args,
-      site_slogan: 'Real Estate for a Changing World',
-    }),
+export const DesktopWithSlogan = {
+  render: (args) => logoTwig(args),
+  args: {
+    ...data,
+    site_name: 'BNP Paribas Real Estate',
+    site_slogan: 'Real Estate for a Changing World',
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Logo avec slogan (ISO maquette Desktop avec slogan)',
+        story: 'ISO maquette Desktop avec Slogan - Logo + Nom + Slogan',
+      },
+    },
+  },
+};
+
+export const Mobile = {
+  render: (args) => logoTwig(args),
+  args: {
+    ...data,
+    site_name: 'BNP Paribas Real Estate',
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+    docs: {
+      description: {
+        story: 'ISO maquette Mobile - Logo + Nom (compact)',
+      },
+    },
+  },
+};
+
+export const LogoOnly = {
+  render: (args) => logoTwig(args),
+  args: data,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Logo avec image seule (sans texte ni slogan)',
       },
     },
   },
@@ -110,23 +129,6 @@ export const LinkedLogo = {
     docs: {
       description: {
         story: "Logo cliquable vers la page d'accueil",
-      },
-    },
-  },
-};
-
-export const LinkedWithSlogan = {
-  render: (args) =>
-    logoTwig({
-      ...args,
-      url: '/',
-      rel: 'home',
-      site_slogan: 'Real Estate for a Changing World',
-    }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Logo cliquable avec slogan (configuration en-tête Drupal)',
       },
     },
   },

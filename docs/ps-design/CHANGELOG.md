@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component (Mockup Alignment & Responsive)
+
+### Changed
+- **Logo Component**: Aligné à la maquette avec variantes claires
+  - **Stories restructurées** :
+    - `Desktop` - Logo + Nom (ISO maquette Desktop)
+    - `DesktopWithSlogan` - Logo + Nom + Slogan (ISO maquette Desktop avec Slogan)
+    - `Mobile` - Logo compact (ISO maquette Mobile avec viewport adapté)
+    - `LogoOnly` - Image seule (cas minimaliste)
+    - `LinkedLogo` - Logo cliquable (lien accueil)
+  - **CSS amélioré** :
+    - Image : largeur fixe `48px` (desktop), `40px` (mobile)
+    - Alignement : `flex-start` pour image + text propre
+    - Slogan : taille réduite `--font-size-1` (13px)
+    - `white-space: normal` + `word-break: break-word` pour responsive
+    - Media query mobile : font-size réduite
+  - **Flexbox optimization** :
+    - `flex-shrink: 0` sur image pour maintenir aspect ratio
+    - `align-items: flex-start` pour meilleur alignement visuel
+
+### Technical Details
+- **Mockup compliance** : 3 variantes claires du design
+- **Responsive design** : 48px → 40px image, 16px → 14px font
+- **Flexible text wrapping** : Nom/slogan adaptatif à l'espace disponible
+- **Build** : ✅ Biome format, ✅ Vite compilation
+
+---
+
 ## [2025-12-30] - Logo Component (Drupal Convention Compliance)
 
 ### Changed

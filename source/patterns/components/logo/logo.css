@@ -6,6 +6,7 @@
  * Data-driven: Displays image, name, slogan based on provided variables
  * Drupal compatible: Uses site_logo, site_name, site_slogan convention
  * States: hover (opacity), focus-visible
+ * Responsive: Desktop with 2-line layout, Mobile with compact layout
  *
  * Architecture: 3-layer CSS variables system
  * - Layer 1: Root tokens (--size-*, --duration-*, --ease-*, --gray-*)
@@ -22,6 +23,7 @@
   --ps-logo-gap: var(--size-3); /* 12px - gap between elements */
 
   /* Image styling */
+  --ps-logo-image-width: 48px; /* Logo square size desktop */
   --ps-logo-image-height: auto;
   --ps-logo-image-object-fit: contain;
 
@@ -33,7 +35,7 @@
 
   /* Slogan styling */
   --ps-logo-slogan-color: var(--gray-600);
-  --ps-logo-slogan-font-size: var(--font-size-2); /* 14px */
+  --ps-logo-slogan-font-size: var(--font-size-1); /* 13px */
   --ps-logo-slogan-font-weight: var(--font-weight-400);
   --ps-logo-slogan-line-height: var(--font-lineheight-3);
 
@@ -61,15 +63,17 @@
 
   &__wrapper {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--ps-logo-gap);
   }
 
   &__image {
     display: block;
-    height: var(--ps-logo-image-height);
-    width: auto;
+    width: var(--ps-logo-image-width);
+    min-width: var(--ps-logo-image-width);
+    height: var(--ps-logo-image-width);
     object-fit: var(--ps-logo-image-object-fit);
+    flex-shrink: 0;
   }
 
   &__name {
@@ -78,7 +82,8 @@
     font-size: var(--ps-logo-name-font-size);
     font-weight: var(--ps-logo-name-font-weight);
     line-height: var(--ps-logo-name-line-height);
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
   }
 
   &__slogan {
@@ -87,7 +92,17 @@
     font-size: var(--ps-logo-slogan-font-size);
     font-weight: var(--ps-logo-slogan-font-weight);
     line-height: var(--ps-logo-slogan-line-height);
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* ============================================
+     RESPONSIVE: Mobile
+     ============================================ */
+
+  @media (max-width: 767px) {
+    --ps-logo-image-width: 40px;
+    --ps-logo-name-font-size: var(--font-size-2); /* 14px */
   }
 
   /* ============================================
