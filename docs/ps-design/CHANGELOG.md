@@ -6,6 +6,53 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component Simplification (Data-Driven Approach)
+
+### Changed
+- **Logo Component Refactoring**: Simplification drastique avec approche data-driven
+  - **Suppression des variantes figées**: `desktop`, `desktop-slogan`, `mobile`
+  - **Architecture automatique basée sur les données** :
+    - `image` : affichée si fournie
+    - `text`/`label` : affichée si fournie
+    - `slogan` : affichée si fournie (optionnel)
+    - `href` : lien optionnel si fourni
+  - **Logique Twig épurée**: Conditionnels simples, pas de variante switch
+  - **BEM renommé** : `ps-logo__img` → `ps-logo__image`, nouveau `ps-logo__text`
+  - **CSS ultra-minimal** : Flexbox auto, 9 variables composant seulement
+  - **Stories réduites** : 4 exemples clairs (Default, WithSlogan, Linked, LinkedWithSlogan)
+
+### Technical Details
+- **Approche très Drupal Friendly** : Les données seules contrôlent le rendu
+- **Zero complexity** : Pas de configuration par variante, juste des propriétés atomiques
+- **Flexible** : S'adapte automatiquement à toute combinaison de contenu
+- **ISO maquettes** : 
+  - Desktop = image + text
+  - Desktop avec slogan = image + text + slogan
+  - Mobile = image seule (dimensions adaptées via CSS en contexte)
+- **Compatibilité** : Pattern `create_attribute()` + flexbox row/column auto
+
+### Example Usage
+```twig
+{# Simple logo #}
+{% include '@components/logo/logo.twig' with {
+  image: '/logo/logo.svg',
+  href: '/'
+} %}
+
+{# Logo avec slogan #}
+{% include '@components/logo/logo.twig' with {
+  image: '/logo/logo.svg',
+  text: 'BNP Paribas Real Estate',
+  slogan: 'Real Estate for a Changing World',
+  href: '/'
+} %}
+
+{# Drupal context #}
+{{ content.logo }}  {# Render array control data display #}
+```
+
+---
+
 ## [2025-12-30] - Logo Component Migration (Elements → Components)
 
 ### Changed
