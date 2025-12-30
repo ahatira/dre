@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component (Layout Correction - Column Centered)
+
+### Changed
+- **Logo Component**: Layout corrigé en flexbox column (image + slogan empilés)
+  - **Flexbox direction** : `flex-direction: column` pour stack vertical
+  - **Alignement** : `align-items: center` pour centrer image et slogan horizontalement
+  - **Structure** : Image (48px/40px) + Slogan centré en dessous
+  - **Twig** : Image et slogan like direct siblings (pas de wrapper)
+  - **CSS** : Centrage horizontal via align-items center sur container column
+  - **Slogan** : Centered text avec word-break pour multi-ligne
+
+### Technical Details
+- **ISO maquette exacte** : Logo en haut, slogan centré en dessous
+- **Responsive** : Image 48px → 40px mobile, slogan responsive text
+- **Centered layout** : Tout le contenu aligné au centre
+- **Build** : ✅ Vite compilation
+
+---
+
 ## [2025-12-30] - Logo Component (Layout Row - Slogan Vertically Centered)
 
 ### Changed

@@ -3,7 +3,7 @@
  * Brand logo for BNP Paribas Real Estate
  *
  * BEM: ps-logo, ps-logo__image, ps-logo__slogan
- * Layout: Row (image left, slogan right & centered vertically)
+ * Layout: Column (image top, slogan bottom - centered horizontally)
  * Data-driven: Logo image + optional slogan
  * States: hover (opacity), focus-visible
  * Responsive: Desktop (48px), Mobile (40px)
@@ -44,7 +44,7 @@
      ============================================ */
 
   display: inline-flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: var(--ps-logo-gap);
   text-decoration: none;
