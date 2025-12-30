@@ -17,8 +17,7 @@ tagline: 'Real Estate for a Changing World'
 sticky: true
 
 logo_config:
-  variant: 'default'
-  size: 'medium'
+  variant: 'desktop'
   href: '/'
   alt: 'BNP Paribas Real Estate'
 

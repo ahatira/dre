@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * PS Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
+ *
+ * @param {string} [variant='desktop'] - Logo variant: desktop | desktop-slogan | mobile
+ * @param {string} [href='/'] - Link URL (wraps logo in <a> if provided)
+ * @param {string} [alt='BNP Paribas Real Estate'] - Accessible alt text for logo
+ * @param {string} [slogan='Real Estate for a Changing World'] - Slogan text (desktop-slogan variant only)
+ * @param {Drupal\Core\Template\Attribute} [attributes] - Additional HTML attributes
+ *
+ * Variants:
+ * - desktop: Full logo without slogan (default)
+ * - desktop-slogan: Full logo with slogan "Real Estate for a Changing World"
+ * - mobile: Compact square logo for mobile devices
+ */
+#}
+
+{%- set variant = variant|default('desktop') -%}
+{%- set href = href|default('/') -%}
+{%- set alt = alt|default('BNP Paribas Real Estate') -%}
+{%- set slogan = slogan|default('Real Estate for a Changing World') -%}
+
+{%- set classes = [
+  'ps-logo',
+  variant != 'desktop' ? 'ps-logo--' ~ variant : null,
+  modifier_class
+] -%}
+
+{# Determine logo source based on variant #}
+{%- if variant == 'mobile' -%}
+  {%- set logo_src = '/logo/logo-square-3d.svg' -%}
+  {%- set img_width = '48' -%}
+  {%- set img_height = '48' -%}
+{%- else -%}
+  {%- set logo_src = '/logo/logo.svg' -%}
+  {%- set img_width = '180' -%}
+  {%- set img_height = '32' -%}
+{%- endif -%}
+
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
+
+{%- if href -%}
+<a{{ attr }} href="{{ href }}">
+  <img class="ps-logo__img" src="{{ logo_src }}" alt="{{ alt }}" width="{{ img_width }}" height="{{ img_height }}" />
+  {%- if variant == 'desktop-slogan' -%}
+  <span class="ps-logo__slogan">{{ slogan }}</span>
+  {%- endif -%}
+</a>
+{%- else -%}
+<div{{ attr }}>
+  <img class="ps-logo__img" src="{{ logo_src }}" alt="{{ alt }}" width="{{ img_width }}" height="{{ img_height }}" />
+  {%- if variant == 'desktop-slogan' -%}
+  <span class="ps-logo__slogan">{{ slogan }}</span>
+  {%- endif -%}
+</div>
+{%- endif -%}

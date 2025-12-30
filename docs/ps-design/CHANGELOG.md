@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component Migration (Elements → Components)
+
+### Changed
+- **Logo Component Migration**: Déplacé de Elements (Atom) vers Components (Molecule)
+  - **Justification**: Le logo avec slogan est une composition (logo + texte), donc une molécule selon Atomic Design
+  - **Anciennes variantes supprimées**: `default`, `square` avec tailles `small`, `medium`, `large`
+  - **Nouvelles variantes ISO maquettes**:
+    - `desktop` (défaut): Logo horizontal seul (180x32px)
+    - `desktop-slogan`: Logo + slogan "Real Estate for a Changing World"
+    - `mobile`: Version compacte carrée (48x48px)
+  - **Simplification**: Suppression du système de tailles (small/medium/large), dimensions fixes par variante
+  - **Nouvel élément BEM**: `ps-logo__slogan` pour le texte du slogan
+  - **CSS amélioré**: 
+    - Layout flexbox pour alignement logo + slogan
+    - Gap de 12px entre logo et slogan (--size-3)
+    - Styling du slogan : `var(--gray-600)`, 14px, normal weight
+  - **Storybook enrichi**: 4 stories (Default, Variants, WithLink, Standalone, Responsive)
+
+### Technical Details
+- **Migration path**: `source/patterns/elements/logo/` → `source/patterns/components/logo/`
+- **Fichiers supprimés**: Ancien répertoire `elements/logo/` (twig, css, yml, stories)
+- **Fichiers créés**: Nouveau répertoire `components/logo/` (4 fichiers conformes)
+- **Mises à jour**:
+  - `header.twig`: Include changé de `@elements/logo` à `@components/logo`
+  - `header.yml`: Configuration logo mise à jour (variante `desktop` au lieu de `default`)
+  - `components/_index.css`: Import ajouté pour `./logo/logo.css`
+- **Conformité**: 100% ISO maquettes (Desktop, Desktop avec slogan, Mobile)
+- **Compatibilité Drupal**: Pattern `create_attribute()` maintenu
+
+---
+
 ## [2025-12-28] - New Collection: Navigation Menu (Header Menu)
 
 ### Added

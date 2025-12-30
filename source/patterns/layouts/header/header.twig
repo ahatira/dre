@@ -76,12 +76,7 @@
 
     <div class="ps-header__brand">
       {# Logo - Always present (template controlled) #}
-      {% include '@elements/logo/logo.twig' with logo_config only %}
-      
-      {# Tagline - Optional (controlled via variable) #}
-      {% if show_tagline %}
-        <span class="ps-header__tagline">{{ tagline }}</span>
-      {% endif %}
+      {% include '@components/logo/logo.twig' with logo_config only %}
     </div>
     
     {# Language Zone - Can use hardcoded component OR Drupal region (desktop only) #}
