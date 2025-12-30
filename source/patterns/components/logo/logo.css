@@ -1,15 +1,15 @@
 /**
  * Logo (Component/Molecule)
- * Brand logo for BNP Paribas Real Estate with slogan support
+ * Brand logo for BNP Paribas Real Estate
  *
- * BEM: ps-logo, ps-logo__img, ps-logo__slogan
- * Variants: desktop (default), desktop-slogan (with tagline), mobile (compact square)
+ * BEM: ps-logo, ps-logo__image, ps-logo__text, ps-logo__slogan
+ * Data-driven: Displays image, text, slogan based on provided data
  * States: hover (opacity), focus-visible
  *
  * Architecture: 3-layer CSS variables system
  * - Layer 1: Root tokens (--size-*, --duration-*, --ease-*, --gray-*)
  * - Layer 2: Component variables (--ps-logo-*)
- * - Layer 3: Context overrides (.header .ps-logo { --ps-logo-height: ... })
+ * - Layer 3: Context overrides (.header .ps-logo { --ps-logo-gap: ... })
  */
 
 .ps-logo {
@@ -18,11 +18,14 @@
      ============================================ */
 
   /* Layout */
-  --ps-logo-height: var(--size-8); /* 32px - desktop default */
-  --ps-logo-width: auto; /* Maintain aspect ratio */
-  --ps-logo-gap: var(--size-3); /* 12px - gap between logo and slogan */
+  --ps-logo-gap: var(--size-3); /* 12px - gap between image and slogan */
+  --ps-logo-image-height: auto; /* Responsive, adapt to content */
 
-  /* Slogan */
+  /* Text/Slogan styling */
+  --ps-logo-text-color: var(--gray-900);
+  --ps-logo-text-font-size: var(--font-size-3); /* 16px */
+  --ps-logo-text-font-weight: var(--font-weight-700);
+
   --ps-logo-slogan-color: var(--gray-600);
   --ps-logo-slogan-font-size: var(--font-size-2); /* 14px */
   --ps-logo-slogan-font-weight: var(--font-weight-400);
@@ -47,19 +50,22 @@
     var(--ps-logo-transition-timing);
 
   /* ============================================
-     ELEMENT: Image
+     ELEMENTS
      ============================================ */
 
-  &__img {
+  &__image {
     display: block;
-    height: var(--ps-logo-height);
-    width: var(--ps-logo-width);
+    height: var(--ps-logo-image-height);
+    width: auto;
     object-fit: contain;
   }
 
-  /* ============================================
-     ELEMENT: Slogan
-     ============================================ */
+  &__text {
+    display: block;
+    color: var(--ps-logo-text-color);
+    font-size: var(--ps-logo-text-font-size);
+    font-weight: var(--ps-logo-text-font-weight);
+  }
 
   &__slogan {
     display: block;
@@ -71,22 +77,7 @@
   }
 
   /* ============================================
-     MODIFIERS: Variants
-     ============================================ */
-
-  /* Mobile variant: square logo with fixed dimensions */
-  &--mobile {
-    --ps-logo-height: var(--size-12); /* 48px */
-    --ps-logo-width: var(--ps-logo-height); /* 1:1 ratio */
-  }
-
-  /* Desktop with slogan: ensure proper spacing */
-  &--desktop-slogan {
-    /* Inherits default height and uses gap for spacing */
-  }
-
-  /* ============================================
-     STATES: Interactive (only for links)
+     STATES: Interactive (links only)
      ============================================ */
 
   a&:hover {
@@ -99,3 +90,4 @@
     border-radius: var(--radius-2);
   }
 }
+

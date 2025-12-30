@@ -1,5 +1,9 @@
 # Logo (Component/Molecule) - Brand logo for BNP Paribas Real Estate
-variant: 'desktop' # Variant: desktop (logo seul) | desktop-slogan (avec slogan) | mobile (compact)
-href: '/' # Link URL (wraps logo in <a>, empty for no link)
-alt: 'BNP Paribas Real Estate' # Accessible alt text
-slogan: 'Real Estate for a Changing World' # Slogan text (desktop-slogan variant only)
+# Data-driven: Display image, text, slogan based on provided data
+
+image: '/logo/logo.svg' # Logo image path
+text: 'BNP Paribas Real Estate' # Company name/label (optional)
+slogan: '' # Tagline (optional, displayed if provided)
+alt: 'BNP Paribas Real Estate' # Alt text for image
+href: '/' # Link URL (optional, wraps logo in <a> if provided)
+
