@@ -6,48 +6,63 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2025-12-30] - Logo Component Simplification (Data-Driven Approach)
+## [2025-12-30] - Logo Component (Drupal Convention Compliance)
 
 ### Changed
-- **Logo Component Refactoring**: Simplification drastique avec approche data-driven
-  - **Suppression des variantes figées**: `desktop`, `desktop-slogan`, `mobile`
-  - **Architecture automatique basée sur les données** :
-    - `image` : affichée si fournie
-    - `text`/`label` : affichée si fournie
-    - `slogan` : affichée si fournie (optionnel)
-    - `href` : lien optionnel si fourni
-  - **Logique Twig épurée**: Conditionnels simples, pas de variante switch
-  - **BEM renommé** : `ps-logo__img` → `ps-logo__image`, nouveau `ps-logo__text`
-  - **CSS ultra-minimal** : Flexbox auto, 9 variables composant seulement
-  - **Stories réduites** : 4 exemples clairs (Default, WithSlogan, Linked, LinkedWithSlogan)
+- **Logo Component**: Adapté à la convention Drupal standard (site_logo, site_name, site_slogan)
+  - **Propriétés converties** :
+    - `image` → `site_logo` (chemin/URI de l'image)
+    - `text` → `site_name` (nom du site/entreprise)
+    - `slogan` → `site_slogan` (slogan du site)
+    - `href` → `url` (lien, ex: path('<front>'))
+    - Ajout : `rel` (attribut rel du lien, ex: "home")
+  - **BEM restructuré** : 
+    - `__text` → `__name`
+    - Nouveau `__wrapper` pour contenir image + name (flex row)
+    - `__slogan` reste identique
+  - **Layout flexbox** :
+    - Composant principal : `flex-direction: column` (logo/name wrapper + slogan stacked)
+    - Wrapper interne : `flex` row pour image + name côte-à-côte
+  - **Structure** : Inspirée du template Drupal Olivero `block--system-branding-block.html.twig`
 
 ### Technical Details
-- **Approche très Drupal Friendly** : Les données seules contrôlent le rendu
-- **Zero complexity** : Pas de configuration par variante, juste des propriétés atomiques
-- **Flexible** : S'adapte automatiquement à toute combinaison de contenu
-- **ISO maquettes** : 
-  - Desktop = image + text
-  - Desktop avec slogan = image + text + slogan
-  - Mobile = image seule (dimensions adaptées via CSS en contexte)
-- **Compatibilité** : Pattern `create_attribute()` + flexbox row/column auto
+- **100% Drupal compatible** : Utilise les conventions standard du système de branding Drupal
+- **Wrapper dynamique** : `<a>` si `url`, sinon `<div>`
+- **Variables optionnelles** : Affiche uniquement ce qui est fourni
+- **Stories** : 5 exemples (Default, WithName, WithSlogan, LinkedLogo, LinkedWithSlogan)
+- **Header integration** : Attributs passés via merge pour ajouter classe `ps-logo`
 
-### Example Usage
+### Example Usage (Drupal)
 ```twig
 {# Simple logo #}
 {% include '@components/logo/logo.twig' with {
-  image: '/logo/logo.svg',
-  href: '/'
+  site_logo: '/logo/logo.svg',
+  url: path('<front>'),
+  rel: 'home'
 } %}
 
-{# Logo avec slogan #}
+{# Logo avec nom et slogan #}
 {% include '@components/logo/logo.twig' with {
-  image: '/logo/logo.svg',
-  text: 'BNP Paribas Real Estate',
-  slogan: 'Real Estate for a Changing World',
-  href: '/'
+  site_logo: '/logo/logo.svg',
+  site_name: 'BNP Paribas Real Estate',
+  site_slogan: 'Real Estate for a Changing World',
+  url: path('<front>'),
+  rel: 'home'
 } %}
 
-{# Drupal context #}
+{# Dans un block preprocess #}
+function mymodule_preprocess_block__system_branding_block(&$variables) {
+  $variables['site_logo'] = file_create_url(theme_get_setting('logo.url'));
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+  $variables['url'] = \Drupal::url('<front>');
+  $variables['rel'] = 'home';
+}
+```
+
+---
+
+## [2025-12-30] - Logo Component Simplification (Data-Driven Approach)
 {{ content.logo }}  {# Render array control data display #}
 ```
 
