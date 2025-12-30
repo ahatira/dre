@@ -8,7 +8,6 @@
  *
  * Available variables:
  * - site_logo: Logo image path or URI
- * - site_name: Site/company name
  * - site_slogan: Site/company slogan (optional)
  * - url: Link URL (optional, typically <front>)
  * - rel: Link relationship (optional, e.g., "home")
@@ -17,12 +16,11 @@
  * Auto-layout based on provided variables:
  * - If url → wrap in <a> tag
  * - If site_logo → display image
- * - If site_name → display name
- * - If site_slogan → display slogan
+ * - If site_slogan → display slogan (centered)
  */
 #}
 
-{%- set has_content = site_logo or site_name or site_slogan -%}
+{%- set has_content = site_logo or site_slogan -%}
 
 {%- if has_content -%}
   {%- if url -%}
@@ -31,15 +29,9 @@
     <div{{ attributes }}>
   {%- endif -%}
 
-    {%- if site_logo or site_name -%}
+    {%- if site_logo -%}
       <div class="ps-logo__wrapper">
-        {%- if site_logo -%}
-          <img class="ps-logo__image" src="{{ site_logo }}" alt="{{ site_name or 'Logo' }}" />
-        {%- endif -%}
-
-        {%- if site_name -%}
-          <span class="ps-logo__name">{{ site_name }}</span>
-        {%- endif -%}
+        <img class="ps-logo__image" src="{{ site_logo }}" alt="Logo" />
       </div>
     {%- endif -%}
 

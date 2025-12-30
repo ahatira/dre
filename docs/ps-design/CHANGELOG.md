@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Logo Component (Mockup Final - Sans site_name)
+
+### Changed
+- **Logo Component**: Simplifié selon la maquette - logo seul + slogan optionnel centré
+  - **Propriétés** : Réduit à `site_logo` et `site_slogan` (plus de `site_name`)
+  - **Affichage** : Logo image uniquement, pas de texte à côté
+  - **Slogan** : Centré (text-align: center) et gris (--gray-600)
+  - **BEM** : Suppression de `__name` et `__wrapper` (trop complexe pour structure simple)
+  - **Template Twig** : Allégé, 3 éléments seulement (condition, wrapper image, slogan)
+  - **CSS** : Variables simplifiées (image 48px/40px mobile, slogan 13px)
+  - **Stories** :
+    - `Desktop` - Logo seul (sans slogan)
+    - `DesktopWithSlogan` - Logo + slogan centré (ISO maquette)
+    - `Mobile` - Logo compact (viewport mobile)
+    - `LogoOnly` - Cas minimaliste
+    - `LinkedLogo` - Logo cliquable
+
+### Technical Details
+- **100% ISO maquette** : Logo seul + slogan centré/gris
+- **Responsive** : 48px → 40px image scaling
+- **Structure minimale** : 3 fichiers clés (logo, image, slogan)
+- **Drupal compatible** : Utilise Attribute object, create_attribute() fallback
+
+---
+
 ## [2025-12-30] - Logo Component (Mockup Alignment & Responsive)
 
 ### Changed

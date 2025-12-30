@@ -21,14 +21,6 @@ export default {
         defaultValue: { summary: '/logo/logo.svg' },
       },
     },
-    site_name: {
-      description: 'Nom du site/entreprise (optionnel)',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-        type: { summary: 'string' },
-      },
-    },
     site_slogan: {
       description: 'Slogan du site/entreprise (optionnel)',
       control: { type: 'text' },
@@ -59,14 +51,11 @@ export default {
 
 export const Desktop = {
   render: (args) => logoTwig(args),
-  args: {
-    ...data,
-    site_name: 'BNP Paribas Real Estate',
-  },
+  args: data,
   parameters: {
     docs: {
       description: {
-        story: 'ISO maquette Desktop - Logo + Nom (sans slogan)',
+        story: 'ISO maquette Desktop - Logo seul',
       },
     },
   },
@@ -76,13 +65,12 @@ export const DesktopWithSlogan = {
   render: (args) => logoTwig(args),
   args: {
     ...data,
-    site_name: 'BNP Paribas Real Estate',
     site_slogan: 'Real Estate for a Changing World',
   },
   parameters: {
     docs: {
       description: {
-        story: 'ISO maquette Desktop avec Slogan - Logo + Nom + Slogan',
+        story: 'ISO maquette Desktop avec Slogan - Logo + Slogan centré',
       },
     },
   },
@@ -90,17 +78,14 @@ export const DesktopWithSlogan = {
 
 export const Mobile = {
   render: (args) => logoTwig(args),
-  args: {
-    ...data,
-    site_name: 'BNP Paribas Real Estate',
-  },
+  args: data,
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
     },
     docs: {
       description: {
-        story: 'ISO maquette Mobile - Logo + Nom (compact)',
+        story: 'ISO maquette Mobile - Logo compact',
       },
     },
   },

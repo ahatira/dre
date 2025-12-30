@@ -2,7 +2,6 @@
 # Drupal-compatible: Uses site_logo, site_name, site_slogan convention
 
 site_logo: '/logo/logo.svg' # Logo image path or URI
-site_name: 'BNP Paribas Real Estate' # Company/site name (optional)
 site_slogan: '' # Company/site slogan (optional)
 url: '/' # Link URL (optional, typically path('<front>'))
 rel: 'home' # Link relationship (optional)
