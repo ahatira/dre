@@ -1,0 +1,52 @@
+{#
+  @file
+  Contact Block
+
+  Block component extending Block layout with a contact button that opens
+  a modal dialog containing the Contact Form.
+
+  Available variables:
+  - button: Contact button object (label, variant, icon, etc.)
+  - contact_form_url: URL to fetch the contact form via AJAX
+  - modal_id: Modal element ID
+  - attributes: Drupal Attribute object
+#}
+
+{%- set plugin_id = plugin_id|default('block_contact') -%}
+{%- set configuration = configuration|default({ provider: 'custom' }) -%}
+{%- set button = button|default({}) -%}
+{%- set contact_form_url = contact_form_url|default('#contact-form') -%}
+{%- set modal_id = modal_id|default('contact-form-modal') -%}
+
+{% extends '@layouts/block/block.twig' %}
+
+{% block content -%}
+  <div data-contact-block>
+    {%- if button -%}
+      {%- include '@elements/button/button.twig' with button|merge({
+        attributes: create_attribute()
+          .setAttribute('data-modal-trigger', modal_id)
+          .setAttribute('data-modal-url', contact_form_url)
+      }) only -%}
+    {%- endif -%}
+
+    {# Modal container for contact form #}
+    <div id="{{ modal_id }}" class="ps-modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title-contact">
+      <div class="ps-modal__overlay" data-modal-close></div>
+      <div class="ps-modal__content">
+        <div class="ps-modal__header">
+          <h2 id="modal-title-contact" class="ps-modal__title">Contact</h2>
+          <button class="ps-modal__close" data-modal-close aria-label="Close modal">
+            <span data-icon="close" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="ps-modal__body">
+          <div class="ps-modal__loader" hidden>
+            <span class="ps-loader" aria-label="Loading..."></span>
+          </div>
+          <div class="ps-modal__form-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endblock %}

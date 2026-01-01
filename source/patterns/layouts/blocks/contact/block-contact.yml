@@ -1,0 +1,16 @@
+# Contact Block - Mock Data
+
+plugin_id: 'block_contact'
+configuration:
+  provider: 'custom'
+
+button:
+  label: 'Contact us'
+  variant: 'secondary'
+  outline: false
+  fullWidth: true
+  icon: 'email-outline'
+  type: 'button'
+
+contact_form_url: '/contact-form'
+modal_id: 'contact-form-modal'
