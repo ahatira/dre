@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-30] - Contact Form (Implementation Complete)
+
+### Added
+- **Contact Form (Collections/Organism)**: Multi-section contact form for property inquiries
+  - **4-file structure**: `contact-form.twig`, `contact-form.css`, `contact-form.yml`, `contact-form.stories.jsx`
+  - **Props**:
+    - `title` - Main form title ("Contact")
+    - `section_1_title` - Personal data section heading
+    - `section_2_title` - Project details section heading
+    - `fields` - Object with 5 form field configs (first_name, last_name, email, company, phone)
+    - `message_field` - Textarea field object for project message
+    - `consents` - Array of checkbox consent objects (4 items)
+    - `legal_text` - RGPD/legal notice HTML
+    - `submit_button` - Submit button object (primary, full-width)
+  - **BEM structure**:
+    - `.ps-contact-form` - Main container
+    - `.ps-contact-form__header` - Title wrapper
+    - `.ps-contact-form__form` - Form element
+    - `.ps-contact-form__section` - Section wrapper
+    - `.ps-contact-form__grid` - 2-column responsive grid
+    - `.ps-contact-form__field` - Field wrapper (`.--full` modifier for full-width)
+    - `.ps-contact-form__consents` - Checkboxes container
+    - `.ps-contact-form__legal` - Legal text panel
+    - `.ps-contact-form__actions` - Submit button wrapper
+  - **Stories** (3 variants):
+    - `Default` - Pre-filled with Diego Plot data + project message
+    - `Empty` - Clean form with placeholders only
+    - `WithErrors` - Validation errors on required fields
+
+### Technical Details
+- **CSS Custom Properties (Layer 2)**:
+  - `--ps-contact-form-padding` - Container padding (24px mobile, 32px desktop)
+  - `--ps-contact-form-gap` - Sections gap (32px)
+- **Responsive design**:
+  - Mobile (< 1024px): Single column grid, full-width fields, full-width button
+  - Desktop (≥ 1024px): 2-column grid for paired fields (first/last name, company/phone), auto-width button
+- **Composition pattern**: Includes Form-field, Checkbox, Button atoms
+- **Drupal compatible**: `create_attribute()` fallback, spaceless Twig
+- **Build**: ✅ Biome format, ✅ Vite compilation, ✅ 100% token-based
+- **Conformity**: 100% (tokens, nesting, BEM, Autodocs, composition)
+- **Accessibility**: Form labels, required attributes, semantic HTML
+
+### Form Structure
+- **Section 1 - Personal Data**:
+  - First name / Last name (2 cols desktop, stacked mobile)
+  - Professional e-mail (full-width)
+  - Company / Professional phone (2 cols desktop, stacked mobile)
+- **Section 2 - Project Details**:
+  - Message textarea (6 rows, full-width)
+- **Consents**: 4 checkboxes with lorem ipsum labels
+- **Legal Panel**: RGPD text with gray background, border accent, links to privacy policy
+- **Submit Button**: Primary variant, full-width mobile, auto-width desktop
+
+### Drupal Integration
+- Form fields use existing Form-field molecules (no reinvention)
+- Checkboxes compose Checkbox atoms
+- Submit button uses Button atom with type="submit"
+- Ready for Drupal Form API integration (preprocess would map Drupal form elements)
+- No JavaScript dependencies (native form submission)
+
+---
+
 ## [2025-12-30] - Logo Component (Implementation Complete)
 
 ### Added
