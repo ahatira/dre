@@ -8,45 +8,51 @@ action: '#contact-form'
 fields:
   first_name:
     label: 'First name'
-    input_id: 'contact-first-name'
-    field_type: 'text'
+    id: 'contact-first-name'
+    name: 'first_name'
+    type: 'text'
     value: 'Diego'
     required: true
   
   last_name:
     label: 'Last name'
-    input_id: 'contact-last-name'
-    field_type: 'text'
+    id: 'contact-last-name'
+    name: 'last_name'
+    type: 'text'
     value: 'Plot'
     required: true
   
   email:
     label: 'Professional e-mail'
-    input_id: 'contact-email'
-    field_type: 'email'
+    id: 'contact-email'
+    name: 'email'
+    type: 'email'
     value: 'diego.plot@google.com'
     required: true
   
   company:
     label: 'Company'
-    input_id: 'contact-company'
-    field_type: 'text'
+    id: 'contact-company'
+    name: 'company'
+    type: 'text'
     placeholder: 'Enter your company'
     required: false
     optional: true
   
   phone:
     label: 'Professional phone'
-    input_id: 'contact-phone'
-    field_type: 'tel'
+    id: 'contact-phone'
+    name: 'phone'
+    type: 'tel'
     placeholder: 'Enter your professional phone'
     required: false
     optional: true
 
 message_field:
   label: 'Message'
-  input_id: 'contact-message'
-  field_type: 'textarea'
+  id: 'contact-message'
+  name: 'message'
+  type: 'textarea'
   value: |
     Hello,
     I would like more information about the offer of 607m² with reference "OLACT2419875" in the EQHO office complex in Rueil-Malmaison.

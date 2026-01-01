@@ -9,7 +9,7 @@
 
 .ps-contact-form {
   /* Container */
-  --ps-contact-form-padding: var(--size-6);
+  --ps-contact-form-padding: 0;
   --ps-contact-form-gap: var(--size-8);
   
   display: flex;
@@ -19,14 +19,14 @@
   
   /* Header */
   &__header {
-    margin-bottom: var(--size-4);
+    margin-bottom: 0;
   }
   
   &__title {
     font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
-    margin: 0;
+    margin-bottom: 0 !important;
   }
   
   /* Form */
@@ -47,7 +47,7 @@
     font-size: var(--font-size-5);
     font-weight: var(--font-weight-600);
     color: var(--text-primary);
-    margin: 0;
+    margin-bottom: 0 !important;
   }
   
   /* Grid layout for fields */
@@ -82,9 +82,6 @@
   /* Legal text */
   &__legal {
     margin-top: var(--size-4);
-    padding: var(--size-4);
-    background: var(--gray-50);
-    border-left: 3px solid var(--border-default);
     
     & p {
       margin: 0;
@@ -110,11 +107,12 @@
   /* Actions (submit button) */
   &__actions {
     margin-top: var(--size-6);
+    text-align: center;
   }
   
   /* Desktop: 2-column grid for paired fields */
   @media (--laptop) {
-    --ps-contact-form-padding: var(--size-8);
+    --ps-contact-form-padding: 0;
     
     &__grid {
       grid-template-columns: repeat(2, 1fr);
