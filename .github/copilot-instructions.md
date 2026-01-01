@@ -103,6 +103,7 @@ These will ALWAYS be rejected:
 - ❌ Hardcoded values: `#00915A`, `16px`, `150ms ease` → Use tokens: `var(--primary)`, `var(--size-4)`
 - ❌ Missing any of 4 required files: `.twig`, `.css`, `.yml`, `.stories.jsx`
 - ❌ Missing `create_attribute()` fallback pattern: `(attributes ? attributes : create_attribute()).addClass(classes)` → MANDATORY for Drupal
+- ❌ Attribute fallback must use `is defined`: `(attributes is defined ? attributes : create_attribute()).addClass(classes)` (same rule for `content_attributes`, `title_attributes`, etc.)
 - ❌ Manual attribute handling: `class="{{ classes|join(' ') }}" {{ attributes|without('class') }}` → Use create_attribute() instead
 - ❌ Missing `tags: ['autodocs']` in Storybook export default (exception: `base/*` stories don't use autodocs)
 - ❌ Arrow functions in Twig: `filter(v => v)` → Use ternary: `condition ? 'class' : null`

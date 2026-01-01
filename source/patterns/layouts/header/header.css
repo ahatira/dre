@@ -1,14 +1,5 @@
 /**
  * Header Layout (Template) - Main site header with navigation
- *
- * Component-scoped custom properties (Layer 2):
- * - Layout & Structure
- * - Responsive Breakpoints
- * - Sticky States
- * - Mobile Menu (Offcanvas)
- * - Z-index Management
- * - Transitions & Animations
- *
  * @see header.twig
  * @see header.js
  */
@@ -18,59 +9,37 @@
    ======================================================================== */
 
 .ps-header {
-  /* Component-scoped variables (Layer 2 - Override capability) */
   --ps-header-bg: var(--white);
   --ps-header-border-color: var(--border-light);
   --ps-header-shadow: var(--shadow-2);
   --ps-header-shadow-sticky: var(--shadow-3);
-  
-  /* Header Top */
-  --ps-header-top-height: 80px;
-  --ps-header-top-padding-x: var(--size-8);
-  --ps-header-top-padding-y: var(--size-5);
+  --ps-header-padding-x: var(--size-8);
+  --ps-header-padding-y: var(--size-5);
+  --ps-header-grid-gap-x: var(--size-8);
+  --ps-header-grid-gap-y: var(--size-4);
   --ps-header-tagline-size: var(--font-size-2);
   --ps-header-tagline-color: var(--gray-600);
-  
-  /* Header Nav */
-  --ps-header-nav-height: 64px;
-  --ps-header-nav-padding-x: var(--size-8);
-  --ps-header-nav-padding-y: 0;
-  --ps-header-nav-gap: var(--size-6);
-  
-  /* Mobile Menu */
-  --ps-header-mobile-width: 320px;
-  --ps-header-mobile-bg: var(--white);
-  --ps-header-mobile-overlay: var(--overlay-dark-medium);
-  --ps-header-mobile-z: var(--z-modal);
-  
-  /* Transitions */
   --ps-header-transition-fast: var(--duration-fast) var(--ease-out);
   --ps-header-transition-normal: var(--duration-normal) var(--ease-out);
-  
-  /* Z-index layering */
+  --ps-header-mobile-z: var(--z-modal);
   --ps-header-z: var(--z-sticky);
   --ps-header-z-sticky: calc(var(--z-sticky) + 10);
-  
-  /* Component structure */
-  position: relative; /* Positioning context for mega-menus */
+
+  position: relative;
   width: 100%;
   background: var(--ps-header-bg);
   border-bottom: 1px solid var(--ps-header-border-color);
   z-index: var(--ps-header-z);
 }
 
-/* Sticky positioning (always) */
 .ps-header--sticky {
   position: sticky;
   top: 0;
 }
 
-/* Sticky state styles (only when actually sticky - triggered by JS) */
 .ps-header--sticky.is-sticky {
   z-index: var(--ps-header-z-sticky);
   box-shadow: var(--ps-header-shadow-sticky);
-  
-  /* Animation when becoming sticky */
   animation: slideDownHeader var(--ps-header-transition-fast);
 }
 
@@ -86,19 +55,27 @@
 }
 
 /* ========================================================================
-   HEADER TOP (Brand + Language)
+   LAYOUT DESKTOP (2 cols / 2 rows)
    ======================================================================== */
 
-.ps-header__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: var(--ps-header-top-height);
-  padding: var(--ps-header-top-padding-y) var(--ps-header-top-padding-x);
+.ps-header__panel {
   background: var(--ps-header-bg);
 }
 
-/* Brand zone (Logo + Tagline) */
+.ps-header__layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  column-gap: var(--ps-header-grid-gap-x);
+  row-gap: var(--ps-header-grid-gap-y);
+  padding: var(--ps-header-padding-y) var(--ps-header-padding-x);
+  align-items: center;
+}
+
+.ps-header__cell {
+  width: 100%;
+}
+
 .ps-header__brand {
   display: flex;
   flex-direction: column;
@@ -112,259 +89,281 @@
   line-height: var(--line-height-tight);
 }
 
-/* Language zone */
-.ps-header__language {
+
+.ps-header__cell--top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ps-header__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-4);
+}
+
+.ps-header__cell--navigation nav,
+.ps-header__cell--navigation {
   display: flex;
   align-items: center;
 }
 
-/* ========================================================================
-   HEADER NAV (Primary + Secondary Menus)
-   ======================================================================== */
+.ps-header__cell--navigation .ps-menu--primary {
+  position: static;
+  flex: 1;
+}
 
-.ps-header__nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: var(--ps-header-nav-height);
-  padding: var(--ps-header-nav-padding-y) var(--ps-header-nav-padding-x);
-  background: var(--ps-header-bg);
-  column-gap: var(--size-8);
-  
-  /* Don't create positioning context - let .ps-header handle it */
+.ps-header__cell--navigation .ps-menu--primary > .ps-menu__list {
   position: static;
 }
 
-/* Primary navigation zone */
-.ps-header__primary {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  
-  /* Allow menu--primary to maintain its structure while mega-menu escapes */
-  & .ps-menu--primary {
-    position: static; /* Remove positioning context to let mega-menu reference .ps-header */
-    flex: 1; /* Take available space */
-  }
-  
-  /* Remove positioning from top-level menu to allow mega-menu escape */
-  & .ps-menu--primary > .ps-menu__list {
-    position: static;
-  }
-  
-  /* Full-width mega-menu - positioned relative to .ps-header */
-  & .mega-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    width: 100% !important; /* Full header width */
-    padding-left: var(--ps-header-nav-padding-x); /* Same padding as nav */
-    padding-right: var(--ps-header-nav-padding-x); /* Same padding as nav */
-    margin: 0; /* Reset any margins */
-    box-sizing: border-box;
-  }
+.ps-header__cell--navigation .mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100% !important;
+  padding-left: var(--ps-header-padding-x);
+  padding-right: var(--ps-header-padding-x);
+  margin: 0;
+  box-sizing: border-box;
 }
 
-
-/* Secondary navigation zone */
-.ps-header__secondary {
+.ps-header__cell--bottom {
   display: flex;
-  align-items: center;
-  gap: var(--ps-header-nav-gap);
-  flex: 0 0 auto;
+  justify-content: flex-end;
 }
 
-.ps-header__secondary-menu {
-  display: flex;
+.ps-header-bottom {
+  display: inline-flex;
   align-items: center;
+  gap: var(--size-4);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-/* Align secondary menu inline (desktop) and trim extra padding */
-.ps-header__secondary-menu .ps-menu--secondary .ps-menu__list {
-  display: flex;
-  flex-direction: row;
-  list-style: none;
+.ps-header-bottom__block {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-3);
+}
+
+.ps-header-bottom .ps-button.ps-button--full-width {
+  width: auto;
+}
+
+.ps-header-bottom .ps-menu--secondary .ps-menu__list {
+  display: inline-flex;
+  gap: var(--size-4);
+  align-items: center;
   margin: 0;
   padding: 0;
-  gap: var(--size-4);
-  flex-wrap: nowrap;
-  align-items: center;
+  list-style: none;
+}
+
+.ps-header-bottom .ps-menu--secondary .ps-menu__link {
   white-space: nowrap;
 }
 
-.ps-header__secondary-menu .ps-menu--secondary > .ps-menu__list > .ps-menu__item + .ps-menu__item::before {
-  height: var(--size-7);
+.ps-header-bottom .ps-search-form {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-3);
 }
 
-.ps-header__actions {
-  display: flex;
+.ps-header-bottom .ps-search-form__controls {
+  display: inline-flex;
   align-items: center;
-  gap: var(--size-4);
+  gap: var(--size-3);
+}
+
+.ps-header-bottom .ps-search-form__input {
+  min-width: 200px;
+  padding: var(--size-2) var(--size-3);
+  border: 1px solid var(--border-light);
+  background: var(--white);
 }
 
 /* ========================================================================
-   MOBILE MENU TOGGLE (Hamburger Button)
+   MOBILE BAR (visible only ≤ 1024px)
    ======================================================================== */
+
+.ps-header__bar {
+  display: none;
+  align-items: center;
+  gap: var(--size-4);
+  padding: var(--size-3) var(--size-4);
+  background: var(--ps-header-bg);
+}
+
+.ps-header__brand--inline,
+.ps-header__top--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--size-3);
+}
 
 .ps-header__toggle {
   --ps-toggle-size: 28px;
   --ps-toggle-icon-size: 20px;
   --ps-toggle-icon-burger: svg-load('mobile-only/burger-menu.svg');
   --ps-toggle-icon-close: svg-load('generic/close.svg');
-  --ps-toggle-color: var(--gray-700);
-  
-  display: none; /* Hidden on desktop */
-  
+
+  display: none;
   width: var(--ps-toggle-size);
   height: var(--ps-toggle-size);
   padding: 0;
-  
   align-items: center;
   justify-content: center;
-  
   background: transparent;
   border: none;
   cursor: pointer;
-  
   transition: background-color var(--ps-header-transition-fast);
-  
-  &:hover {
-    background: transparent;
-  }
-  
-  &:focus-visible {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-  }
-  
-  &::before {
-    content: '';
-    display: block;
-    width: var(--ps-toggle-icon-size);
-    height: var(--ps-toggle-icon-size);
-    background: var(--ps-toggle-icon-burger) center / contain no-repeat;
-  }
-  
-  /* When menu is open, show close icon */
-  .ps-header.is-open &::before {
-    background: var(--ps-toggle-icon-close) center / contain no-repeat;
-  }
+}
+
+.ps-header__toggle:hover {
+  background: transparent;
+}
+
+.ps-header__toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.ps-header__toggle::before {
+  content: '';
+  display: block;
+  width: var(--ps-toggle-icon-size);
+  height: var(--ps-toggle-icon-size);
+  background: var(--ps-toggle-icon-burger) center / contain no-repeat;
+}
+
+.ps-header.is-open .ps-header__toggle::before {
+  background: var(--ps-toggle-icon-close) center / contain no-repeat;
 }
 
 /* ========================================================================
-   RESPONSIVE BREAKPOINTS
-   Desktop-first approach: nav horizontal by default
-   Mobile (<= 1024px): nav becomes vertical stack with toggle control
+   RESPONSIVE
    ======================================================================== */
 
-/* Tablet and mobile (1024px and below) */
 @media (max-width: 1024px) {
-  /* Show toggle button */
-  .ps-header__toggle {
-    display: flex;
-  }
-  
-  /* Header top adjustments */
-  .ps-header__top {
+  .ps-header__bar {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: var(--size-4);
-    min-height: 56px;
-    padding: var(--size-3) var(--size-4);
   }
-  
-  /* Brand aligned left */
-  .ps-header__brand {
-    justify-self: left;
-    text-align: left;
+
+  .ps-header__toggle {
+    display: flex;
   }
-  
-  /* Hide desktop language selector */
-  .ps-header__language {
-    display: none;
-  }
-  
-  /* Nav becomes vertical and hidden by default */
-  .ps-header__nav {
+
+  .ps-header__panel {
     position: absolute;
-    top: 100%; /* Just below ps-header__top */
+    top: 100%;
     left: 0;
     right: 0;
     width: 100%;
-    
-    flex-direction: column;
-    padding: 0;
-    gap: 0;
-    
-    background: var(--white);
-    border-top: 1px solid var(--border-light);
+    background: var(--ps-header-bg);
+    border-top: 1px solid var(--ps-header-border-color);
     box-shadow: var(--shadow-4);
     z-index: var(--ps-header-mobile-z);
-    
-    /* Accordion effect - collapsed by default */
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: 
-      max-height 0.4s ease-in-out,
-      opacity 0.3s ease-out;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-out;
   }
-  
-  /* Expand nav when header is open (accordion) */
-  .ps-header.is-open .ps-header__nav {
+
+  .ps-header.is-open .ps-header__panel {
     max-height: 100vh;
     opacity: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
-  /* Primary menu adjustments */
-  .ps-header__primary {
-    width: 100%;
+
+  .ps-header__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     padding: 0;
-    border-bottom: 1px solid var(--border-light);
   }
-  
-  /* Secondary menu becomes vertical stack */
-  .ps-header__secondary {
-    width: 100%;
-    flex-direction: column;
-    gap: var(--size-4);
-    padding: var(--size-6);
+
+  .ps-header__cell {
+    padding: var(--size-5) var(--size-6);
+    border-bottom: 1px solid var(--ps-header-border-color);
   }
-  
-  /* Show search and language in mobile */
-  .ps-header__search,
-  .ps-header__language-mobile {
-    display: block;
+
+  .ps-header__cell:last-child {
+    border-bottom: 0;
   }
-  
-  /* Secondary menu items stack vertically */
-  .ps-header__secondary-menu {
-    order: 3; /* After search and language */
-    width: 100%;
-  }
-  
-  .ps-header__secondary-menu .ps-menu--secondary {
-    width: 100%;
-  }
-  
-  .ps-header__secondary-menu .ps-menu--secondary .ps-menu__list {
-    width: 100%;
-    flex-direction: column;
-    gap: var(--size-3);
-    align-items: stretch;
-  }
-  
-  .ps-header__secondary-menu .ps-menu--secondary .ps-menu__link {
-    width: 100%;
+
+  .ps-header__cell--top,
+  .ps-header__cell--bottom {
     justify-content: flex-start;
   }
-  
-  .ps-header__secondary-menu .ps-menu--secondary > .ps-menu__list > .ps-menu__item + .ps-menu__item::before {
-    display: none;
+
+  .ps-header__top,
+  .ps-header__brand,
+  .ps-header__brand--inline,
+  .ps-header__top--inline {
+    align-items: center;
+    gap: var(--size-3);
+  }
+
+  .ps-header__cell--navigation .ps-menu--primary > .ps-menu__list {
+    flex-direction: column;
+    gap: var(--size-4);
+    width: 100%;
+  }
+
+  .ps-header-bottom {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--size-4);
+  }
+
+  .ps-header-bottom__block {
+    width: 100%;
+  }
+
+  .ps-header-bottom .ps-button.ps-button--full-width {
+    width: 100%;
+  }
+
+  .ps-header-bottom .ps-menu--secondary .ps-menu__list {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--size-3);
+  }
+
+  .ps-header-bottom .ps-search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ps-header-bottom .ps-search-form__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ps-header-bottom .ps-search-form__input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .ps-header__bar {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--size-3);
+    padding: var(--size-3);
+  }
+
+  .ps-header__cell {
+    padding: var(--size-4) var(--size-5);
+  }
+
+  .ps-header__tagline {
+    font-size: var(--font-size-1);
   }
 }
 
@@ -375,7 +374,6 @@
   inset: 0;
   background: var(--overlay-dark-medium);
   z-index: -1;
-  
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--ps-header-transition-normal);
@@ -386,60 +384,12 @@
   pointer-events: auto;
 }
 
-@media (min-width: 1025px) {
-  /* Hide search and mobile language on desktop */
-  .ps-header__search,
-  .ps-header__language-mobile {
-    display: none;
-  }
-}
-
-/* Mobile (640px and below) - Further refinements */
-@media (max-width: 640px) {
-  .ps-header__top {
-    padding: var(--size-3);
-  }
-  
-  .ps-header__brand {
-    gap: var(--size-1);
-  }
-  
-  .ps-header__tagline {
-    font-size: var(--font-size-1);
-  }
-}
-
-/* ========================================================================
-   VARIANTS
-   ======================================================================== */
-
-/* Header with tagline */
-.ps-header--with-tagline {
-  & .ps-header__top {
-    min-height: calc(var(--ps-header-top-height) + 24px);
-  }
-}
-
-/* Print styles */
-@media print {
-  .ps-header__mobile-toggle,
-  .ps-header__mobile-menu,
-  .ps-header__mobile-overlay {
-    display: none;
-  }
-  
-  .ps-header--sticky {
-    position: relative;
-    box-shadow: none;
-  }
-}
-
-/* Reduced motion preferences */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .ps-header,
-  .ps-header__mobile-toggle,
-  .ps-header__mobile-menu,
-  .ps-header__mobile-overlay {
+  .ps-header__panel,
+  .ps-header__toggle,
+  .ps-header::before {
     animation: none;
     transition: none;
   }

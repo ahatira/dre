@@ -1,129 +1,105 @@
 # Header Layout - Mock Data (Real Estate Context)
 #
-# Provides realistic data for all header variants:
-# - Default: Simple header (logged out state)
-# - WithTagline: Header with company slogan
-# - LoggedIn: Header with user menu and notifications
+# Simule des régions Drupal déjà rendues (HTML) :
+# - header_branding : logo
+# - header_navigation : menu primaire
+# - header_top : sélecteur de langue
+# - header_bottom : pile d'actions (CTA, compte, contact, favoris, recherche)
 #
 # @see header.twig
 # @see header.stories.jsx
 
-# =============================================================================
-# DEFAULT VARIANT - Logged Out State
-# =============================================================================
-
-show_tagline: false
-tagline: 'Real Estate for a Changing World'
 sticky: true
 
-logo_config:
-  site_logo: '/logo/logo.svg'
-  site_name: 'BNP Paribas Real Estate'
-  site_slogan: ''
-  url: '/'
-  rel: 'home'
+page:
+  header_branding: |
+    <div class="ps-logo">
+      <img src="/logo/logo.svg" alt="BNP Paribas Real Estate" />
+    </div>
 
+  header_navigation: |
+    <ul class="menu-primary" role="menubar">
+      <li class="menu-primary__item menu-primary__item--has-children">
+        <a href="/find-property" class="menu-primary__link">Find a property</a>
+        <ul class="menu-primary__submenu menu-primary__submenu--level-1">
+          <li class="menu-primary__item"><a href="/find-property/buy" class="menu-primary__link">Buy</a></li>
+          <li class="menu-primary__item"><a href="/find-property/rent" class="menu-primary__link">Rent</a></li>
+          <li class="menu-primary__item menu-primary__item--has-children">
+            <a href="/find-property/invest" class="menu-primary__link">Invest</a>
+            <ul class="menu-primary__submenu menu-primary__submenu--level-2">
+              <li class="menu-primary__item"><a href="/find-property/invest/residential" class="menu-primary__link">Residential</a></li>
+              <li class="menu-primary__item"><a href="/find-property/invest/commercial" class="menu-primary__link">Commercial</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-primary__item menu-primary__item--active menu-primary__item--has-children">
+        <a href="/about-us" class="menu-primary__link">About us</a>
+        <ul class="menu-primary__submenu menu-primary__submenu--level-1">
+          <li class="menu-primary__item menu-primary__item--active"><a href="/about-us/company" class="menu-primary__link">Our company</a></li>
+          <li class="menu-primary__item"><a href="/about-us/team" class="menu-primary__link">Our team</a></li>
+          <li class="menu-primary__item"><a href="/about-us/careers" class="menu-primary__link">Careers</a></li>
+        </ul>
+      </li>
+      <li class="menu-primary__item menu-primary__item--has-children">
+        <a href="/solutions" class="menu-primary__link">Solutions</a>
+        <ul class="menu-primary__submenu menu-primary__submenu--level-1">
+          <li class="menu-primary__item"><a href="/solutions/property-management" class="menu-primary__link">Property Management</a></li>
+          <li class="menu-primary__item"><a href="/solutions/consultancy" class="menu-primary__link">Consultancy</a></li>
+          <li class="menu-primary__item"><a href="/solutions/valuation" class="menu-primary__link">Valuation</a></li>
+        </ul>
+      </li>
+      <li class="menu-primary__item menu-primary__item--has-children">
+        <a href="/news" class="menu-primary__link">Latest News</a>
+        <ul class="menu-primary__submenu menu-primary__submenu--level-1">
+          <li class="menu-primary__item"><a href="/news/press-releases" class="menu-primary__link">Press releases</a></li>
+          <li class="menu-primary__item"><a href="/news/market-insights" class="menu-primary__link">Market insights</a></li>
+          <li class="menu-primary__item"><a href="/news/events" class="menu-primary__link">Events</a></li>
+        </ul>
+      </li>
+    </ul>
 
-language_selector_config:
-  name: 'lang'
-  size: 'sm'
-  current:
-    code: 'GB'
-    label: 'En'
-    locale: 'en-GB'
-  options:
-    - code: 'GB'
-      label: 'English'
-      value: 'en'
-      url: '/en'
-      locale: 'en-GB'
-      selected: true
-      disabled: false
-    - code: 'FR'
-      label: 'Français'
-      value: 'fr'
-      url: '/fr'
-      locale: 'fr-FR'
-      selected: false
-      disabled: false
-    - code: 'ES'
-      label: 'Español'
-      value: 'es'
-      url: '/es'
-      locale: 'es-ES'
-      selected: false
-      disabled: false
-    - code: 'DE'
-      label: 'Deutsch'
-      value: 'de'
-      url: '/de'
-      locale: 'de-DE'
-      selected: false
-      disabled: false
+  header_top: |
+    <nav class="ps-language-selector" aria-label="Sélecteur de langue">
+      <div class="ps-language-selector__control">
+        <button class="ps-language-selector__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="ps-language-selector__current">
+            <span class="ps-language-selector__label">En</span>
+          </span>
+          <span class="ps-language-selector__icon" data-icon="chevron-down" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
 
-primary_menu_items:
-  - title: 'Find a property'
-    url: '/find-property'
-    below:
-      - title: 'Buy'
-        url: '/find-property/buy'
-      - title: 'Rent'
-        url: '/find-property/rent'
-      - title: 'Invest'
-        url: '/find-property/invest'
-        below:
-          - title: 'Residential'
-            url: '/find-property/invest/residential'
-          - title: 'Commercial'
-            url: '/find-property/invest/commercial'
-
-  - title: 'About us'
-    url: '/about-us'
-    in_active_trail: true
-    below:
-      - title: 'Our company'
-        url: '/about-us/company'
-        in_active_trail: true
-      - title: 'Our team'
-        url: '/about-us/team'
-      - title: 'Careers'
-        url: '/about-us/careers'
-
-  - title: 'Solutions'
-    url: '/solutions'
-    below:
-      - title: 'Property Management'
-        url: '/solutions/property-management'
-      - title: 'Consultancy'
-        url: '/solutions/consultancy'
-      - title: 'Valuation'
-        url: '/solutions/valuation'
-
-  - title: 'Latest News'
-    url: '/news'
-    below:
-      - title: 'Press releases'
-        url: '/news/press-releases'
-      - title: 'Market insights'
-        url: '/news/market-insights'
-      - title: 'Events'
-        url: '/news/events'
-
-secondary_menu_items:
-  - title: 'What are you looking for ?'
-    url: '/search'
-    link_class: ['ps-button', 'ps-button--primary', 'ps-button--outline']
-  
-  - title: 'Find a property'
-    url: '/search'
-    link_class: ['menu-link']
-  
-  - title: 'Log in / Sign up'
-    url: '/user/login'
-    link_class: ['ps-button', 'ps-button--primary']
-    icon: 'account'
-  
-  - title: 'Contact us'
-    url: '/contact'
-    link_class: ['ps-button', 'ps-button--secondary']
-    icon: 'email-outline'
+  header_bottom: |
+    <div class="ps-header-bottom">
+      <div class="ps-header-bottom__block">
+        <button class="ps-button ps-button--primary ps-button--outline ps-button--full-width">What are you looking for ?</button>
+      </div>
+      <div class="ps-header-bottom__block">
+        <button class="ps-button ps-button--primary ps-button--full-width" data-icon="account">Log in / Sign up</button>
+      </div>
+      <div class="ps-header-bottom__block">
+        <ul class="ps-menu ps-menu--secondary ps-menu__list">
+          <li class="ps-menu__item"><a class="ps-menu__link" href="/user/profile">My profile</a></li>
+          <li class="ps-menu__item"><a class="ps-menu__link" href="/user/properties">My properties</a></li>
+          <li class="ps-menu__item"><a class="ps-menu__link" href="/user/messages">Messages</a></li>
+        </ul>
+      </div>
+      <div class="ps-header-bottom__block">
+        <button class="ps-button ps-button--secondary ps-button--full-width" data-action="open-contact-modal">Contact us</button>
+      </div>
+      <div class="ps-header-bottom__block">
+        <button class="ps-button ps-button--secondary" data-icon="heart" aria-label="Favorites"></button>
+      </div>
+      <div class="ps-header-bottom__block">
+        <button class="ps-button ps-button--secondary" data-icon="search" aria-label="Open search"></button>
+        <form class="ps-search-form" action="/search" method="get">
+          <label class="ps-search-form__label" for="header-search">What are you looking for ?</label>
+          <div class="ps-search-form__controls">
+            <input class="ps-search-form__input" id="header-search" name="q" type="search" placeholder="Search" />
+            <button class="ps-button ps-button--primary" type="submit" data-icon="search">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>

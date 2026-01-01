@@ -1,0 +1,30 @@
+{#
+  @file
+  Block CTA (Button block wrapper)
+
+  Extends the Block layout structure with a Button component.
+
+  Available variables:
+  - plugin_id: Drupal block plugin ID (default: block_cta)
+  - layout: Optional layout modifier
+  - label: Block title (optional)
+  - button: Button component render array
+    - label: Button text
+    - variant: Button color variant
+    - outline: Apply outline style (boolean)
+    - fullWidth: Full width button (boolean)
+    - icon: Icon name (optional)
+    - url: Link URL (optional)
+    - disabled: Disabled state (boolean)
+  - attributes: Drupal Attribute object
+#}
+
+{% extends '@layouts/block/block.twig' %}
+
+{%- set plugin_id = plugin_id|default('block_cta') -%}
+{%- set configuration = configuration|default({ provider: 'cta' }) -%}
+{%- set button = button|default({}) -%}
+
+{%- block content -%}
+  {%- include '@elements/button/button.twig' with button only -%}
+{%- endblock -%}

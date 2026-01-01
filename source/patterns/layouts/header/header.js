@@ -33,7 +33,7 @@
     constructor(element) {
       this.header = element;
       this.toggle = element.querySelector('[data-header-toggle]');
-      this.nav = element.querySelector('.ps-header__nav');
+      this.nav = element.querySelector('.ps-header__panel');
 
       this.isOpen = false;
       this.isSticky = false;
