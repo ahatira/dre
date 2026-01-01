@@ -26,6 +26,10 @@
 {% extends '@layouts/block/block.twig' %}
 
 {% block content -%}
+  {# Attach required libraries #}
+  {{ attach_library('ps/modal') }}
+  {{ attach_library('ps/contact-contact-block-modal') }}
+
   {%- if button -%}
     {%- include '@elements/button/button.twig' with button|merge({
       attributes: create_attribute()
