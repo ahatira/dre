@@ -219,6 +219,15 @@ tooltip:
     - core/once
     - ps_theme/vendors
 
+user-account-block-user-account:
+  js:
+    dist/js/user-account-block-user-account.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 video:
   js:
     dist/js/video.js: {}

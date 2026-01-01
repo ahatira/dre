@@ -1,0 +1,32 @@
+plugin_id: 'block_user_account'
+configuration:
+  provider: 'custom'
+label: ''
+
+logged_in: false
+user_name: 'Enzo'
+
+menu_items:
+  - label: 'My account'
+    url: '/user/account'
+    icon: 'account'
+    type: 'link'
+  - label: 'My favorites'
+    url: '/user/favorites'
+    icon: 'heart'
+    type: 'link'
+  - label: 'My alerts'
+    url: '/user/alerts'
+    icon: 'alert'
+    type: 'link'
+  - label: 'Logout'
+    url: '/user/logout'
+    icon: 'exit'
+    type: 'logout'
+
+login_button:
+  label: 'Log in / Sign up'
+  url: '/user/login'
+  variant: 'primary'
+  icon: 'account'
+  fullWidth: false
