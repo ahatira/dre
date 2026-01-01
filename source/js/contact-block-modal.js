@@ -1,133 +1,94 @@
 /**
- * Contact Block Modal Handler
+ * Contact Block Modal - AJAX Form Loader
  *
- * Manages modal dialog for contact form submission.
- * - Triggers modal on button click
- * - Loads contact form via AJAX
- * - Handles modal close actions (ESC, overlay click, close button)
+ * Loads contact form via AJAX when modal opens.
+ * Works with Modal component (ps/modal) for dialog handling.
+ *
+ * Features:
+ * - Listens for 'modal:opened' event
+ * - Fetches contact form from URL
+ * - Replaces loader with form content
+ * - Error handling with user feedback
  */
 
-class ContactBlockModal {
-  constructor(blockElement) {
-    this.blockElement = blockElement;
-    this.triggerButton = blockElement.querySelector('[data-modal-trigger]');
-    this.modal = null;
-    this.modalId = null;
-    this.formUrl = null;
+((Drupal, once) => {
+  Drupal.behaviors.psContactBlockModal = {
+    attach(context) {
+      // Find all modals with AJAX form loading
+      once('contactAjaxModal', '[data-ajax-modal]', context).forEach((modal) => {
+        const formUrl = modal.getAttribute('data-form-url');
+        if (!formUrl) {
+          return;
+        }
 
-    if (!this.triggerButton) {
-      return;
-    }
+        // Listen for modal:opened event
+        modal.addEventListener('modal:opened', () => {
+          this.loadContactForm(modal, formUrl);
+        });
+      });
+    },
 
-    this.modalId = this.triggerButton.getAttribute('data-modal-trigger');
-    this.formUrl = this.triggerButton.getAttribute('data-modal-url');
-    this.modal = blockElement.querySelector(`#${this.modalId}`);
-
-    if (!this.modal) {
-      return;
-    }
-
-    this.init();
-  }
-
-  init() {
-    this.attachEventListeners();
-  }
-
-  attachEventListeners() {
-    // Open modal on button click
-    this.triggerButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.openModal();
-    });
-
-    // Close on overlay click
-    const overlay = this.modal.querySelector('[data-modal-close]');
-    if (overlay) {
-      overlay.addEventListener('click', () => this.closeModal());
-    }
-
-    // Close on close button click
-    const closeBtn = this.modal.querySelector('.ps-modal__close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => this.closeModal());
-    }
-
-    // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !this.modal.hasAttribute('hidden')) {
-        this.closeModal();
+    /**
+     * Load contact form via AJAX
+     * @private
+     */
+    loadContactForm(modal, formUrl) {
+      const body = modal.querySelector('.ps-modal__body');
+      if (!body) {
+        return;
       }
-    });
-  }
 
-  async openModal() {
-    // Remove hidden attribute
-    this.modal.removeAttribute('hidden');
+      // Check if form already loaded
+      if (body.querySelector('form')) {
+        return;
+      }
 
-    // Load form if not already loaded
-    const formContainer = this.modal.querySelector('.ps-modal__form-container');
-    const loader = this.modal.querySelector('.ps-modal__loader');
-
-    if (!formContainer.innerHTML.trim()) {
-      // Show loader
+      // Show loader, hide any existing content
+      const loader = body.querySelector('.ps-loader');
       if (loader) {
-        loader.removeAttribute('hidden');
+        loader.parentElement.style.display = 'flex';
       }
 
-      try {
-        const response = await fetch(this.formUrl);
-        if (!response.ok) {
-          throw new Error(`Failed to load form: ${response.statusText}`);
-        }
+      fetch(formUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to load form: ${response.statusText}`);
+          }
+          return response.text();
+        })
+        .then((html) => {
+          // Clear loader
+          if (loader) {
+            loader.parentElement.style.display = 'none';
+          }
 
-        const html = await response.text();
-        formContainer.innerHTML = html;
+          // Inject form
+          body.innerHTML = html;
 
-        // Hide loader
-        if (loader) {
-          loader.setAttribute('hidden', '');
-        }
+          // Trigger behaviors for newly added content
+          if (Drupal.attachBehaviors) {
+            Drupal.attachBehaviors(body, Drupal.settings);
+          }
 
-        // Trigger any form initialization scripts
-        this.initializeForm();
-      } catch (error) {
-        console.error('Error loading contact form:', error);
-        formContainer.innerHTML =
-          '<p class="ps-text--error">Error loading contact form. Please try again.</p>';
-        if (loader) {
-          loader.setAttribute('hidden', '');
-        }
-      }
-    }
+          // Dispatch custom event
+          modal.dispatchEvent(
+            new CustomEvent('contact-form-loaded', {
+              detail: { form: body.querySelector('form') },
+            })
+          );
+        })
+        .catch((error) => {
+          console.error('Error loading contact form:', error);
 
-    // Focus modal for accessibility
-    this.modal.focus();
-  }
+          // Hide loader
+          if (loader) {
+            loader.parentElement.style.display = 'none';
+          }
 
-  closeModal() {
-    this.modal.setAttribute('hidden', '');
-  }
-
-  initializeForm() {
-    // Re-initialize any form-related behaviors (validation, etc.)
-    // This hook allows for custom form initialization
-    const event = new CustomEvent('contact-form-loaded', {
-      detail: { form: this.modal.querySelector('form') },
-    });
-    this.modal.dispatchEvent(event);
-  }
-}
-
-// Auto-initialize on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-  const blocks = document.querySelectorAll('[data-contact-block]');
-  blocks.forEach((block) => {
-    new ContactBlockModal(block);
-  });
-});
-
-// Export for manual initialization if needed
-if (typeof window !== 'undefined') {
-  window.ContactBlockModal = ContactBlockModal;
-}
+          // Show error message
+          body.innerHTML =
+            '<div class="ps-alert ps-alert--error" role="alert"><p>Erreur lors du chargement du formulaire. Veuillez réessayer.</p></div>';
+        });
+    },
+  };
+})(Drupal, once);

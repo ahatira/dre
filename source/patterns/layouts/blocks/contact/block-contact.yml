@@ -13,4 +13,5 @@ button:
   type: 'button'
 
 contact_form_url: '/contact-form'
-modal_id: 'contact-form-modal'
+modal_id: 'contact-modal'
+modal_title: 'Contact'

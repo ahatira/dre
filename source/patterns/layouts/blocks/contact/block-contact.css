@@ -1,8 +1,9 @@
 /**
  * Contact Block
- * 
+ *
  * Block containing contact button that triggers modal with contact form.
- * Extends Block layout with modal dialog styles.
+ * Uses Modal component (@components/modal/modal.twig) for dialog handling.
+ * AJAX loading managed by contact-block-modal.js Drupal behavior.
  */
 
 .ps-block-contact {
@@ -11,151 +12,16 @@
     width: 100%;
   }
 
-  /* Modal overlay and backdrop */
-  & .ps-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: var(--z-modal, 1000);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:not([hidden]) {
-      opacity: 1;
-      visibility: visible;
-
-      & .ps-modal__overlay {
-        opacity: 1;
-      }
-
-      & .ps-modal__content {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    &[hidden] {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-
-      & .ps-modal__overlay {
-        opacity: 0;
-      }
-
-      & .ps-modal__content {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-    }
-  }
-
-  & .ps-modal__overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--overlay-dark-heavy, rgba(0, 0, 0, 0.7));
-    transition: opacity var(--duration-2, 200ms) var(--ease-in-out, ease-in-out);
-    cursor: pointer;
-  }
-
-  & .ps-modal__content {
-    position: relative;
-    background: var(--white);
-    border-radius: var(--radius-2, 4px);
-    box-shadow: var(--shadow-4, 0 20px 40px rgba(0, 0, 0, 0.2));
-    max-width: 800px;
-    width: 90vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    transition: opacity var(--duration-2, 200ms) var(--ease-in-out, ease-in-out),
-                transform var(--duration-2, 200ms) var(--ease-in-out, ease-in-out);
-    z-index: var(--z-modal-content, 1001);
-  }
-
-  & .ps-modal__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--size-6);
-    border-bottom: 1px solid var(--border-default);
-    gap: var(--size-4);
-  }
-
-  & .ps-modal__title {
-    font-size: var(--font-size-6);
-    font-weight: var(--font-weight-700);
-    color: var(--text-primary);
-    margin: 0;
-  }
-
-  & .ps-modal__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-10);
-    height: var(--size-10);
-    padding: 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    transition: color var(--duration-1, 150ms) ease-in-out;
-
-    &:hover {
-      color: var(--text-primary);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 2px;
-    }
-
-    & [data-icon] {
-      width: var(--size-6);
-      height: var(--size-6);
-    }
-  }
-
-  & .ps-modal__body {
-    padding: var(--size-6);
-    min-height: 200px;
-  }
-
+  /* Loader styling inside modal */
   & .ps-modal__loader {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 200px;
 
-    &:not([hidden]) {
-      display: flex;
-    }
-
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  & .ps-modal__form-container {
-    /* Form will be injected here via AJAX */
-  }
-
-  /* Responsive */
-  @media (--mobile) {
-    & .ps-modal__content {
-      width: 95vw;
-      max-height: 85vh;
-    }
-
-    & .ps-modal__header {
-      padding: var(--size-4);
-    }
-
-    & .ps-modal__body {
-      padding: var(--size-4);
+    & .ps-loader {
+      /* Loader styles from base component */
     }
   }
 }
+

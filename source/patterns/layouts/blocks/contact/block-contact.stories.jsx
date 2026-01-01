@@ -14,7 +14,6 @@ export default {
 export const Default = {
   args: {
     ...blockContactData,
-    label: 'Contact',
     plugin_id: 'block_contact',
   },
   argTypes: {
@@ -53,42 +52,6 @@ export const Default = {
         category: 'Behavior',
         defaultValue: { summary: 'contact-form-modal' },
       },
-    },
-  },
-};
-
-/**
- * Contact block with primary variant button.
- */
-export const Primary = {
-  args: {
-    ...blockContactData,
-    label: 'Contact',
-    button: {
-      label: 'Contact us',
-      variant: 'primary',
-      outline: false,
-      fullWidth: true,
-      icon: 'email-outline',
-      type: 'button',
-    },
-  },
-};
-
-/**
- * Contact block with outline button style.
- */
-export const Outline = {
-  args: {
-    ...blockContactData,
-    label: 'Contact',
-    button: {
-      label: 'Contact us',
-      variant: 'secondary',
-      outline: true,
-      fullWidth: true,
-      icon: 'email-outline',
-      type: 'button',
     },
   },
 };
