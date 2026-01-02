@@ -69,6 +69,7 @@
   column-gap: var(--ps-header-grid-gap-x);
   row-gap: var(--ps-header-grid-gap-y);
   padding: var(--ps-header-padding-y) var(--ps-header-padding-x);
+  padding-bottom: 0;
   align-items: center;
 }
 
