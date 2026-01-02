@@ -113,10 +113,10 @@ export const Default = {
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
-          .replace('<!-- Search Block component -->', searchBlockHtml)
           .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
           .replace('<!-- User Account Block component -->', userAccountHtml)
-          .replace('<!-- Contact CTA Block component -->', contactCtaHtml),
+          .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
+          .replace('<!-- Search Block component -->', searchBlockHtml),
       },
     };
 
@@ -178,10 +178,10 @@ export const MobilePreview = {
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
-          .replace('<!-- Search Block component -->', searchBlockHtml)
           .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
           .replace('<!-- User Account Block component -->', userAccountHtml)
-          .replace('<!-- Contact CTA Block component -->', contactCtaHtml),
+          .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
+          .replace('<!-- Search Block component -->', searchBlockHtml),
       },
     };
 

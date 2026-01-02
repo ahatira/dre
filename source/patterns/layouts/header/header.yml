@@ -73,8 +73,8 @@ page:
 
   header_bottom: |
     <div class="ps-header-bottom">
-      <div class="ps-header-bottom__block ps-header-bottom__block--search">
-        <!-- Search Block component -->
+      <div class="ps-header-bottom__block ps-header-bottom__block--search-input">
+        <input type="search" class="ps-header-bottom__search-input" placeholder="What are you looking for ?" aria-label="Search" />
       </div>
       <div class="ps-header-bottom__block ps-header-bottom__block--find-property">
         <!-- Find Property CTA Block component -->
@@ -84,5 +84,8 @@ page:
       </div>
       <div class="ps-header-bottom__block ps-header-bottom__block--contact">
         <!-- Contact CTA Block component -->
+      </div>
+      <div class="ps-header-bottom__block ps-header-bottom__block--search-trigger">
+        <!-- Search Block component -->
       </div>
     </div>
