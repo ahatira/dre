@@ -38,14 +38,53 @@ export default {
 
 export const Default = {
   render(args) {
-    return blockSearch(args);
+    const html = blockSearch(args);
+
+    // In Storybook, add JavaScript simulation for toggle (Drupal behavior not available)
+    return `
+      ${html}
+      <script>
+        (function() {
+          const trigger = document.querySelector('.ps-search-trigger');
+          const searchForm = document.querySelector('[data-search-form]');
+          
+          if (trigger && searchForm) {
+            trigger.addEventListener('click', (e) => {
+              e.preventDefault();
+              searchForm.classList.toggle('ps-search-form--open');
+              const input = searchForm.querySelector('[data-search-input]');
+              if (input && searchForm.classList.contains('ps-search-form--open')) {
+                setTimeout(() => input.focus(), 100);
+              }
+            });
+            
+            // Close button
+            const closeBtn = searchForm.querySelector('[data-search-close]');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchForm.classList.remove('ps-search-form--open');
+              });
+            }
+            
+            // ESC key
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && searchForm.classList.contains('ps-search-form--open')) {
+                e.preventDefault();
+                searchForm.classList.remove('ps-search-form--open');
+              }
+            });
+          }
+        })();
+      </script>
+    `;
   },
   args: blockSearchData,
   parameters: {
     docs: {
       description: {
         story:
-          'Search trigger button with integrated search form. Form is hidden by default and toggles when button is clicked.',
+          'Search trigger button with integrated search form. Form is hidden by default and toggles when button is clicked. In production Drupal, toggle is handled by search-form.js behavior.',
       },
     },
   },
@@ -53,7 +92,46 @@ export const Default = {
 
 export const WithCustomLabel = {
   render(args) {
-    return blockSearch(args);
+    const html = blockSearch(args);
+
+    // In Storybook, add JavaScript simulation for toggle (Drupal behavior not available)
+    return `
+      ${html}
+      <script>
+        (function() {
+          const trigger = document.querySelector('.ps-search-trigger');
+          const searchForm = document.querySelector('[data-search-form]');
+          
+          if (trigger && searchForm) {
+            trigger.addEventListener('click', (e) => {
+              e.preventDefault();
+              searchForm.classList.toggle('ps-search-form--open');
+              const input = searchForm.querySelector('[data-search-input]');
+              if (input && searchForm.classList.contains('ps-search-form--open')) {
+                setTimeout(() => input.focus(), 100);
+              }
+            });
+            
+            // Close button
+            const closeBtn = searchForm.querySelector('[data-search-close]');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchForm.classList.remove('ps-search-form--open');
+              });
+            }
+            
+            // ESC key
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && searchForm.classList.contains('ps-search-form--open')) {
+                e.preventDefault();
+                searchForm.classList.remove('ps-search-form--open');
+              }
+            });
+          }
+        })();
+      </script>
+    `;
   },
   args: {
     ...blockSearchData,
