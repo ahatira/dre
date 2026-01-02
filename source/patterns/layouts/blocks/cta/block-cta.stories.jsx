@@ -1,6 +1,5 @@
 import blockCta from './block-cta.twig';
 import blockCtaData from './block-cta.yml';
-import './block-cta.css';
 
 export default {
   title: 'Layouts/Blocks/CTA',
@@ -44,17 +43,32 @@ export const CTASearch = {
   },
 };
 
-export const CTALogin = {
+export const CTAContact = {
   render: (args) => blockCta(args),
   args: {
     ...blockCtaData,
     button: {
-      label: 'Log in / Sign up',
-      variant: 'primary',
+      label: 'Contact us',
+      variant: 'secondary',
       outline: false,
       fullWidth: true,
-      icon: 'account',
+      icon: 'email-outline',
       url: '#',
+    },
+  },
+};
+
+export const CTAFindProperty = {
+  render: (args) => blockCta(args),
+  args: {
+    ...blockCtaData,
+    button: {
+      label: 'Find a property',
+      variant: '',
+      icon: null,
+      url: '#',
+      class: 'no-underline',
+      component: 'link',
     },
   },
 };
