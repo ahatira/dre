@@ -51,8 +51,6 @@ blocks:
   
   find_property:
     label: 'Find a property'
-    variant: 'primary'
-    outline: true
     url: '/find-property'
   
   contact:

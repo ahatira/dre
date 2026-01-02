@@ -20,15 +20,7 @@ function renderHeaderBlocks(userState, blocks) {
     },
   });
 
-  const findPropertyCtaHtml = ctaBlock({
-    button: {
-      label: blocks.find_property.label,
-      variant: blocks.find_property.variant,
-      outline: blocks.find_property.outline,
-      fullWidth: false,
-      url: blocks.find_property.url,
-    },
-  });
+  const findPropertyLinkHtml = `<a href="${blocks.find_property.url}" class="ps-header-bottom__link">${blocks.find_property.label}</a>`;
 
   const userAccountHtml = userState.logged_in
     ? userAccountBlock({
@@ -61,7 +53,7 @@ function renderHeaderBlocks(userState, blocks) {
 
   return {
     searchCta: searchCtaHtml,
-    findProperty: findPropertyCtaHtml,
+    findProperty: findPropertyLinkHtml,
     userAccount: userAccountHtml,
     contact: contactCtaHtml,
     favorites: favoritesBlockHtml,

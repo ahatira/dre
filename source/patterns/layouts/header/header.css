@@ -147,6 +147,23 @@
   gap: var(--size-3);
 }
 
+/* Lien simple dans header_bottom */
+.ps-header-bottom__link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-500);
+  transition: color var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    color: var(--primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
 .ps-header-bottom .ps-button.ps-button--full-width {
   width: auto;
 }
