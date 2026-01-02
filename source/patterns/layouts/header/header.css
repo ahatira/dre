@@ -164,25 +164,6 @@
   white-space: nowrap;
 }
 
-.ps-header-bottom .ps-search-form {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--size-3);
-}
-
-.ps-header-bottom .ps-search-form__controls {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--size-3);
-}
-
-.ps-header-bottom .ps-search-form__input {
-  min-width: 200px;
-  padding: var(--size-2) var(--size-3);
-  border: 1px solid var(--border-light);
-  background: var(--white);
-}
-
 /* ========================================================================
    MOBILE BAR (visible only ≤ 1024px)
    ======================================================================== */
@@ -334,20 +315,6 @@
     align-items: stretch;
     width: 100%;
     gap: var(--size-3);
-  }
-
-  .ps-header-bottom .ps-search-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .ps-header-bottom .ps-search-form__controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .ps-header-bottom .ps-search-form__input {
-    width: 100%;
   }
 }
 

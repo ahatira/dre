@@ -70,9 +70,9 @@ export const Default = {
   render: (args) => {
     // Rendre les blocs individuellement
     const searchBlockHtml = searchBlock({
-      form_config: {
+      show_form: false,
+      search_form_props: {
         placeholder: 'What are you looking for ?',
-        search_label: 'What are you looking for ?',
       },
     });
 
@@ -109,9 +109,9 @@ export const MobilePreview = {
   render: (args) => {
     // Rendre les blocs individuellement
     const searchBlockHtml = searchBlock({
-      form_config: {
+      show_form: false,
+      search_form_props: {
         placeholder: 'What are you looking for ?',
-        search_label: 'What are you looking for ?',
       },
     });
 
