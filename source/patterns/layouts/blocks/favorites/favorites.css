@@ -1,0 +1,88 @@
+/**
+ * Favorites Block Component
+ * 
+ * Quick access to user favorites with visual count badge
+ * 
+ * States:
+ * - Empty (count = 0): Outlined heart icon, no badge
+ * - With items (count > 0): Filled heart icon, badge with count
+ * 
+ * Structure:
+ * .ps-favorites (link with data-icon)
+ *   .ps-favorites__badge (count badge - conditional)
+ */
+
+.ps-favorites {
+  /* Component-scoped variables (Layer 2) */
+  --ps-favorites-size: var(--size-9); /* 36px - button size */
+  --ps-favorites-icon-size: var(--size-6); /* 24px - icon size */
+  --ps-favorites-icon-color: var(--gray-700);
+  --ps-favorites-icon-color-hover: var(--gray-900);
+  --ps-favorites-icon-color-filled: var(--gray-700);
+  --ps-favorites-badge-size: var(--size-5); /* 20px */
+  --ps-favorites-badge-bg: var(--secondary);
+  --ps-favorites-badge-color: var(--white);
+  --ps-favorites-badge-font-size: var(--font-size-0); /* 12px */
+
+  /* Base styles */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ps-favorites-size);
+  height: var(--ps-favorites-size);
+  color: var(--ps-favorites-icon-color);
+  text-decoration: none;
+  transition: transform var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+
+  /* Icon size override */
+  &::before,
+  &::after {
+    width: var(--ps-favorites-icon-size);
+    height: var(--ps-favorites-icon-size);
+  }
+
+  /* Hover state */
+  &:hover {
+    transform: scale(1.05);
+    color: var(--ps-favorites-icon-color-hover);
+  }
+
+  /* Focus state */
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: var(--size-1);
+    border-radius: var(--radius-1);
+  }
+
+  /* Active state */
+  &:active {
+    transform: scale(0.95);
+  }
+
+  /* Filled state (when has items) */
+  &.ps-favorites--has-items {
+    color: var(--ps-favorites-icon-color-filled);
+  }
+
+  /* Badge */
+  & .ps-favorites__badge {
+    position: absolute;
+    top: calc(var(--size-1) * -1); /* -4px */
+    right: calc(var(--size-1) * -1); /* -4px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--ps-favorites-badge-size);
+    height: var(--ps-favorites-badge-size);
+    padding: 0 var(--size-1);
+    background: var(--ps-favorites-badge-bg);
+    color: var(--ps-favorites-badge-color);
+    font-size: var(--ps-favorites-badge-font-size);
+    font-weight: var(--font-weight-700);
+    line-height: 1;
+    border-radius: var(--radius-5); /* Full circle */
+    pointer-events: none;
+  }
+}

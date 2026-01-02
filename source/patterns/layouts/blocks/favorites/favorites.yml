@@ -1,0 +1,4 @@
+# Default example - No favorites (empty heart)
+url: '/favorites'
+count: 0
+label: 'Mes favoris'

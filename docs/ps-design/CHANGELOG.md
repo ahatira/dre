@@ -6,6 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-01-02] - Favorites Block Component
+
+### Added
+- **Favorites Block (Components/Favorites Block)**: Quick access to user favorites with count badge
+  - **Template** (favorites-block.twig): Heart icon with conditional badge display
+    - Empty heart icon when count = 0 (no favorites)
+    - Filled heart icon when count > 0 (has favorites)
+    - Circular badge in top-right corner with count (max display: 99+)
+    - Accessible label includes count for screen readers
+    - Full support for Drupal Attribute object with create_attribute() fallback
+  - **Styles** (favorites-block.css): Token-based design with interactive states
+    - Component-scoped variables for all customizable properties
+    - Icon size: 32px (--size-8), Badge size: 20px (--size-5)
+    - Color states: Gray (empty), Primary (filled), Danger (badge)
+    - Hover/focus/active states with scale transforms
+    - Focus-visible outline with 4px offset
+    - Badge positioned absolutely with negative top/right offsets
+  - **Data** (favorites-block.yml): Default example with no favorites
+  - **Stories** (favorites-block.stories.jsx): 5 comprehensive examples
+    - Default: Empty state (0 favorites)
+    - Empty: Explicit empty state with custom label
+    - WithFewFavorites: 3 items with context label
+    - WithManyFavorites: 47 items with context label
+    - MaxCount: 150 items showing 99+ display limit
+    - Full Autodocs support with categorized argTypes
+  - **Icons**: Created heart.svg (outline) and heart-filled.svg (filled)
+    - Location: source/icons-source/generic/
+    - SVG format with currentColor support
+    - Added to sprite: 149 total icons
+
+### Technical Details
+- **Structure**: Link element with relative positioning
+- **Badge**: Absolute position, top: -4px, right: -4px
+- **Transitions**: Fast duration (150ms) with ease-out
+- **Typography**: Badge uses --font-size-0 (12px), weight 700
+- **Border-radius**: Full circle for badge (--radius-5)
+- **Accessibility**: ARIA label with count, badge aria-hidden
+
+### Build Status
+- ✓ Passes (4.86s)
+- ✓ Biome lint/format validated
+- ✓ Icons built: 149 symbols in sprite
+- ✓ CSS compiled: 559.93 kB
+
+### Files Created
+- source/patterns/components/favorites-block/favorites-block.twig
+- source/patterns/components/favorites-block/favorites-block.css
+- source/patterns/components/favorites-block/favorites-block.yml
+- source/patterns/components/favorites-block/favorites-block.stories.jsx
+- source/icons-source/generic/heart.svg
+- source/icons-source/generic/heart-filled.svg
+
+---
+
 ## [2025-01-02] - Search Block Toggle Fix (Storybook Context)
 
 ### Fixed
