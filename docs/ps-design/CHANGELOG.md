@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-01-02] - Search Block Architecture Integration
+
+### Modified
+- **Search Block (Layouts/Blocks/Search)**: Full Drupal integration
+  - **Template**: Added `{{ attach_library('ps_theme/search-form') }}` for JavaScript behavior
+  - **Template**: Added `{% include '@components/search-form/search-form.twig' %}` for form integration
+  - **Configuration**: Added `form_config` property with defaults:
+    - `placeholder: 'What are you looking for ?'`
+    - `action: '/search'`
+    - `method: 'GET'`
+    - `input_name: 'q'`
+    - `show: false` (toggled by Drupal behavior)
+  - **Stories**: Updated descriptions to reflect integrated form
+
+### Architecture Pattern
+- Block now includes search-form component (follows pattern of block-cta, block-user-account)
+- Library attachment ensures Drupal JavaScript behavior loads for toggle/focus
+- Block is self-contained and production-ready for Drupal integration
+- Documentation: See `SEARCH_BLOCK_ARCHITECTURE.md`
+
+### Impact
+- Search block provides complete toggle + form functionality
+- No breaking changes (new properties are optional with defaults)
+- Build: ✓ Passes (4.55s)
+- Storybook: ✓ All stories render correctly
+
+---
+
 ## [2025-12-30] - Contact Form (Implementation Complete)
 
 ### Added
