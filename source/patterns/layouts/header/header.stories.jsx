@@ -1,5 +1,6 @@
-import favoritesBlock from '../blocks/favorites/favorites.twig';
+import ctaBlock from '../blocks/cta/block-cta.twig';
 import searchBlock from '../blocks/search/block-search.twig';
+import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
@@ -76,10 +77,34 @@ export const Default = {
       },
     });
 
-    const favoritesBlockHtml = favoritesBlock({
-      count: 0,
-      url: '/user/favorites',
-      label: 'Mes favoris',
+    const findPropertyCtaHtml = ctaBlock({
+      button: {
+        label: 'Find a property',
+        variant: 'primary',
+        outline: true,
+        fullWidth: false,
+        url: '/find-property',
+      },
+    });
+
+    const userAccountHtml = userAccountBlock({
+      logged_in: false,
+      login_button: {
+        label: 'Log in / Sign up',
+        url: '/user/login',
+        variant: 'primary',
+        icon: 'account',
+        fullWidth: false,
+      },
+    });
+
+    const contactCtaHtml = ctaBlock({
+      button: {
+        label: 'Contact us',
+        variant: 'secondary',
+        fullWidth: false,
+        url: '/contact',
+      },
     });
 
     // Remplacer les placeholders par le contenu rendu
@@ -89,7 +114,9 @@ export const Default = {
         ...args.page,
         header_bottom: args.page.header_bottom
           .replace('<!-- Search Block component -->', searchBlockHtml)
-          .replace('<!-- Favorites Block component -->', favoritesBlockHtml),
+          .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
+          .replace('<!-- User Account Block component -->', userAccountHtml)
+          .replace('<!-- Contact CTA Block component -->', contactCtaHtml),
       },
     };
 
@@ -115,10 +142,34 @@ export const MobilePreview = {
       },
     });
 
-    const favoritesBlockHtml = favoritesBlock({
-      count: 5,
-      url: '/user/favorites',
-      label: 'Mes 5 favoris',
+    const findPropertyCtaHtml = ctaBlock({
+      button: {
+        label: 'Find a property',
+        variant: 'primary',
+        outline: true,
+        fullWidth: false,
+        url: '/find-property',
+      },
+    });
+
+    const userAccountHtml = userAccountBlock({
+      logged_in: true,
+      user_name: 'Enzo',
+      menu_items: [
+        { label: 'My account', url: '/user/account', icon: 'account' },
+        { label: 'My favorites', url: '/user/favorites', icon: 'heart' },
+        { label: 'My alerts', url: '/user/alerts', icon: 'alert' },
+        { label: 'Logout', url: '/user/logout', icon: 'exit', type: 'logout' },
+      ],
+    });
+
+    const contactCtaHtml = ctaBlock({
+      button: {
+        label: 'Contact us',
+        variant: 'secondary',
+        fullWidth: false,
+        url: '/contact',
+      },
     });
 
     // Remplacer les placeholders par le contenu rendu
@@ -128,7 +179,9 @@ export const MobilePreview = {
         ...args.page,
         header_bottom: args.page.header_bottom
           .replace('<!-- Search Block component -->', searchBlockHtml)
-          .replace('<!-- Favorites Block component -->', favoritesBlockHtml),
+          .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
+          .replace('<!-- User Account Block component -->', userAccountHtml)
+          .replace('<!-- Contact CTA Block component -->', contactCtaHtml),
       },
     };
 
