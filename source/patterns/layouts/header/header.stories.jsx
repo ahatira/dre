@@ -1,3 +1,5 @@
+import favoritesBlock from '../blocks/favorites/favorites.twig';
+import searchBlock from '../blocks/search/block-search.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
@@ -62,10 +64,37 @@ export default {
 };
 
 /**
- * Default: Rend les 4 régions Drupal simulées
+ * Default: Rend les 4 régions Drupal simulées avec les blocs intégrés
  */
 export const Default = {
-  render: (args) => header(args),
+  render: (args) => {
+    // Rendre les blocs individuellement
+    const searchBlockHtml = searchBlock({
+      form_config: {
+        placeholder: 'What are you looking for ?',
+        search_label: 'What are you looking for ?',
+      },
+    });
+
+    const favoritesBlockHtml = favoritesBlock({
+      count: 0,
+      url: '/user/favorites',
+      label: 'Mes favoris',
+    });
+
+    // Remplacer les placeholders par le contenu rendu
+    const updatedArgs = {
+      ...args,
+      page: {
+        ...args.page,
+        header_bottom: args.page.header_bottom
+          .replace('<!-- Search Block component -->', searchBlockHtml)
+          .replace('<!-- Favorites Block component -->', favoritesBlockHtml),
+      },
+    };
+
+    return header(updatedArgs);
+  },
   args: {
     ...headerData,
   },
@@ -77,7 +106,34 @@ export const Default = {
  * - Offcanvas navigation
  */
 export const MobilePreview = {
-  render: (args) => header(args),
+  render: (args) => {
+    // Rendre les blocs individuellement
+    const searchBlockHtml = searchBlock({
+      form_config: {
+        placeholder: 'What are you looking for ?',
+        search_label: 'What are you looking for ?',
+      },
+    });
+
+    const favoritesBlockHtml = favoritesBlock({
+      count: 5,
+      url: '/user/favorites',
+      label: 'Mes 5 favoris',
+    });
+
+    // Remplacer les placeholders par le contenu rendu
+    const updatedArgs = {
+      ...args,
+      page: {
+        ...args.page,
+        header_bottom: args.page.header_bottom
+          .replace('<!-- Search Block component -->', searchBlockHtml)
+          .replace('<!-- Favorites Block component -->', favoritesBlockHtml),
+      },
+    };
+
+    return header(updatedArgs);
+  },
   args: {
     ...headerData,
   },

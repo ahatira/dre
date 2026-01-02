@@ -74,12 +74,7 @@ page:
   header_bottom: |
     <div class="ps-header-bottom">
       <div class="ps-header-bottom__block ps-header-bottom__block--search">
-        {% include '@blocks/search/block-search.twig' with {
-          form_config: {
-            placeholder: 'What are you looking for ?',
-            search_label: 'What are you looking for ?'
-          }
-        } only %}
+        <!-- Search Block component -->
       </div>
       <div class="ps-header-bottom__block">
         <button class="ps-button ps-button--primary ps-button--full-width" data-icon="account">Log in / Sign up</button>
@@ -95,10 +90,6 @@ page:
         <button class="ps-button ps-button--secondary ps-button--full-width" data-action="open-contact-modal">Contact us</button>
       </div>
       <div class="ps-header-bottom__block ps-header-bottom__block--favorites">
-        {% include '@blocks/favorites/favorites.twig' with {
-          count: 0,
-          url: '/user/favorites',
-          label: 'Mes favoris'
-        } only %}
+        <!-- Favorites Block component -->
       </div>
     </div>
