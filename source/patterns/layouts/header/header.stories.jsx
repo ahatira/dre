@@ -5,32 +5,77 @@ import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
+/**
+ * Fonction helper pour rendu des blocs du header_bottom
+ * Compile les blocs individuels et retourne les HTML strings
+ */
+function renderHeaderBlocks(userState, blocks) {
+  const searchBlockHtml = searchBlock({
+    show_form: blocks.search.show_form,
+    search_form_props: {
+      placeholder: blocks.search.placeholder,
+    },
+  });
+
+  const findPropertyCtaHtml = ctaBlock({
+    button: {
+      label: blocks.find_property.label,
+      variant: blocks.find_property.variant,
+      outline: blocks.find_property.outline,
+      fullWidth: false,
+      url: blocks.find_property.url,
+    },
+  });
+
+  const userAccountHtml = userState.logged_in
+    ? userAccountBlock({
+        logged_in: true,
+        user_name: userState.user_name,
+        menu_items: userState.menu_items,
+      })
+    : userAccountBlock({
+        logged_in: false,
+        login_button: userState.login_button,
+      });
+
+  const contactCtaHtml = ctaBlock({
+    button: {
+      label: blocks.contact.label,
+      variant: blocks.contact.variant,
+      fullWidth: false,
+      url: blocks.contact.url,
+    },
+  });
+
+  const favoritesBlockHtml = favoritesBlock({
+    count: userState.favorites_count,
+    url: '/favorites',
+  });
+
+  return {
+    search: searchBlockHtml,
+    findProperty: findPropertyCtaHtml,
+    userAccount: userAccountHtml,
+    contact: contactCtaHtml,
+    favorites: favoritesBlockHtml,
+  };
+}
+
 export default {
   title: 'Layouts/Header',
   tags: ['autodocs'],
   argTypes: {
-    // Configuration
     sticky: {
       control: 'boolean',
-      description: 'Enable sticky header behavior on scroll (header stays at top)',
+      description: 'Enable sticky header behavior on scroll',
       table: {
         category: 'Configuration',
         defaultValue: { summary: 'true' },
       },
     },
-
-    // Drupal Regions
     'page.header_branding': {
       control: 'text',
-      description: 'Drupal region: Header branding (logo zone gauche haut)',
-      table: {
-        category: 'Drupal Regions',
-        type: { summary: 'string (HTML)' },
-      },
-    },
-    'page.header_top': {
-      control: 'text',
-      description: 'Drupal region: Header top (language selector block)',
+      description: 'Drupal region: Header branding (logo)',
       table: {
         category: 'Drupal Regions',
         type: { summary: 'string (HTML)' },
@@ -38,7 +83,15 @@ export default {
     },
     'page.header_navigation': {
       control: 'text',
-      description: 'Drupal region: Primary navigation (menu block)',
+      description: 'Drupal region: Primary navigation (menu)',
+      table: {
+        category: 'Drupal Regions',
+        type: { summary: 'string (HTML)' },
+      },
+    },
+    'page.header_top': {
+      control: 'text',
+      description: 'Drupal region: Header top (language selector)',
       table: {
         category: 'Drupal Regions',
         type: { summary: 'string (HTML)' },
@@ -46,17 +99,15 @@ export default {
     },
     'page.header_bottom': {
       control: 'text',
-      description: 'Drupal region: Header bottom (actions secondaires / CTA)',
+      description: 'Drupal region: Header bottom (actions & CTA blocks)',
       table: {
         category: 'Drupal Regions',
         type: { summary: 'string (HTML)' },
       },
     },
-
-    // Advanced
     modifier_class: {
       control: 'text',
-      description: 'Optional modifier class for custom variants or theming',
+      description: 'Optional modifier class for custom variants',
       table: {
         category: 'Advanced',
         type: { summary: 'string' },
@@ -66,64 +117,25 @@ export default {
 };
 
 /**
- * Default: Rend les 4 régions Drupal simulées avec les blocs intégrés
+ * NonConnected: Utilisateur non authentifié
+ * - Affiche bouton "Log in / Sign up"
+ * - Badge favoris vide (count: 0)
+ * - Ordre: Search input → Find property → Login → Contact → Favorites → Search trigger
  */
-export const Default = {
+export const NonConnected = {
   render: (args) => {
-    // Rendre les blocs individuellement
-    const searchBlockHtml = searchBlock({
-      show_form: false,
-      search_form_props: {
-        placeholder: 'What are you looking for ?',
-      },
-    });
+    const blocks = renderHeaderBlocks(args.user_states.not_connected, args.blocks);
 
-    const findPropertyCtaHtml = ctaBlock({
-      button: {
-        label: 'Find a property',
-        variant: 'primary',
-        outline: true,
-        fullWidth: false,
-        url: '/find-property',
-      },
-    });
-
-    const userAccountHtml = userAccountBlock({
-      logged_in: false,
-      login_button: {
-        label: 'Log in / Sign up',
-        url: '/user/login',
-        variant: 'primary',
-        icon: 'account',
-        fullWidth: false,
-      },
-    });
-
-    const contactCtaHtml = ctaBlock({
-      button: {
-        label: 'Contact us',
-        variant: 'secondary',
-        fullWidth: false,
-        url: '/contact',
-      },
-    });
-
-    const favoritesBlockHtml = favoritesBlock({
-      count: 0,
-      url: '/favorites',
-    });
-
-    // Remplacer les placeholders par le contenu rendu
     const updatedArgs = {
       ...args,
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
-          .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
-          .replace('<!-- User Account Block component -->', userAccountHtml)
-          .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
-          .replace('<!-- Favorites Block component -->', favoritesBlockHtml)
-          .replace('<!-- Search Block component -->', searchBlockHtml),
+          .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
+          .replace('<!-- User Account Block component -->', blocks.userAccount)
+          .replace('<!-- Contact CTA Block component -->', blocks.contact)
+          .replace('<!-- Favorites Block component -->', blocks.favorites)
+          .replace('<!-- Search Block component -->', blocks.search),
       },
     };
 
@@ -135,66 +147,25 @@ export const Default = {
 };
 
 /**
- * Mobile Preview: View header in mobile size
- * - Hamburger menu toggle visible
- * - Offcanvas navigation
+ * Connected: Utilisateur authentifié
+ * - Affiche dropdown menu avec profil utilisateur "Enzo"
+ * - Badge favoris avec compteur (count: 5)
+ * - Menu items: My account, My favorites, My alerts, Logout
  */
-export const MobilePreview = {
+export const Connected = {
   render: (args) => {
-    // Rendre les blocs individuellement
-    const searchBlockHtml = searchBlock({
-      show_form: false,
-      search_form_props: {
-        placeholder: 'What are you looking for ?',
-      },
-    });
+    const blocks = renderHeaderBlocks(args.user_states.connected, args.blocks);
 
-    const findPropertyCtaHtml = ctaBlock({
-      button: {
-        label: 'Find a property',
-        variant: 'primary',
-        outline: true,
-        fullWidth: false,
-        url: '/find-property',
-      },
-    });
-
-    const userAccountHtml = userAccountBlock({
-      logged_in: true,
-      user_name: 'Enzo',
-      menu_items: [
-        { label: 'My account', url: '/user/account', icon: 'account' },
-        { label: 'My favorites', url: '/user/favorites', icon: 'heart' },
-        { label: 'My alerts', url: '/user/alerts', icon: 'alert' },
-        { label: 'Logout', url: '/user/logout', icon: 'exit', type: 'logout' },
-      ],
-    });
-
-    const contactCtaHtml = ctaBlock({
-      button: {
-        label: 'Contact us',
-        variant: 'secondary',
-        fullWidth: false,
-        url: '/contact',
-      },
-    });
-
-    const favoritesBlockHtml = favoritesBlock({
-      count: 5,
-      url: '/favorites',
-    });
-
-    // Remplacer les placeholders par le contenu rendu
     const updatedArgs = {
       ...args,
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
-          .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
-          .replace('<!-- User Account Block component -->', userAccountHtml)
-          .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
-          .replace('<!-- Favorites Block component -->', favoritesBlockHtml)
-          .replace('<!-- Search Block component -->', searchBlockHtml),
+          .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
+          .replace('<!-- User Account Block component -->', blocks.userAccount)
+          .replace('<!-- Contact CTA Block component -->', blocks.contact)
+          .replace('<!-- Favorites Block component -->', blocks.favorites)
+          .replace('<!-- Search Block component -->', blocks.search),
       },
     };
 
@@ -202,41 +173,5 @@ export const MobilePreview = {
   },
   args: {
     ...headerData,
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
-  },
-};
-
-/**
- * Without Sticky: Header without sticky behavior
- * - Header scrolls normally
- */
-export const WithoutSticky = {
-  render: (args) => header(args),
-  args: {
-    ...headerData,
-    sticky: false,
-  },
-};
-
-/**
- * RegionsInjected: Exemple alternatif de contenu région
- */
-export const RegionsInjected = {
-  render: (args) => header(args),
-  args: {
-    ...headerData,
-    page: {
-      header_branding: '<div class="ps-logo"><img src="/logo/logo.svg" alt="Alt brand" /></div>',
-      header_navigation:
-        '<ul class="menu-primary" role="menubar"><li class="menu-primary__item"><a href="#" class="menu-primary__link">Item</a></li></ul>',
-      header_top:
-        '<nav class="ps-language-selector" aria-label="Sélecteur de langue"><div class="ps-language-selector__control"><button class="ps-language-selector__button" type="button">Fr</button></div></nav>',
-      header_bottom:
-        '<div class="ps-header-bottom"><button class="ps-button ps-button--primary">CTA</button></div>',
-    },
   },
 };

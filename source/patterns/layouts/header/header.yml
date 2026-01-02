@@ -11,6 +11,53 @@
 
 sticky: true
 
+# Variantes d'état utilisateur
+user_states:
+  not_connected:
+    logged_in: false
+    login_button:
+      label: 'Log in / Sign up'
+      url: '/user/login'
+      variant: 'primary'
+      icon: 'account'
+    favorites_count: 0
+  
+  connected:
+    logged_in: true
+    user_name: 'Enzo'
+    menu_items:
+      - label: 'My account'
+        url: '/user/account'
+        icon: 'account'
+      - label: 'My favorites'
+        url: '/user/favorites'
+        icon: 'heart'
+      - label: 'My alerts'
+        url: '/user/alerts'
+        icon: 'alert'
+      - label: 'Logout'
+        url: '/user/logout'
+        icon: 'exit'
+        type: 'logout'
+    favorites_count: 5
+
+# Blocs d'action
+blocks:
+  find_property:
+    label: 'Find a property'
+    variant: 'primary'
+    outline: true
+    url: '/find-property'
+  
+  contact:
+    label: 'Contact us'
+    variant: 'secondary'
+    url: '/contact'
+  
+  search:
+    show_form: false
+    placeholder: 'What are you looking for ?'
+
 page:
   header_branding: |
     <div class="ps-logo">
