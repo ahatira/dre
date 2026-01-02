@@ -10,10 +10,13 @@ import headerData from './header.yml';
  * Compile les blocs individuels et retourne les HTML strings
  */
 function renderHeaderBlocks(userState, blocks) {
-  const searchBlockHtml = searchBlock({
-    show_form: blocks.search.show_form,
-    search_form_props: {
-      placeholder: blocks.search.placeholder,
+  const searchCtaHtml = ctaBlock({
+    button: {
+      label: blocks.search_cta.label,
+      variant: blocks.search_cta.variant,
+      outline: blocks.search_cta.outline,
+      fullWidth: false,
+      url: blocks.search_cta.url,
     },
   });
 
@@ -52,12 +55,17 @@ function renderHeaderBlocks(userState, blocks) {
     url: '/favorites',
   });
 
+  const searchBlockHtml = searchBlock({
+    show_form: false,
+  });
+
   return {
-    search: searchBlockHtml,
+    searchCta: searchCtaHtml,
     findProperty: findPropertyCtaHtml,
     userAccount: userAccountHtml,
     contact: contactCtaHtml,
     favorites: favoritesBlockHtml,
+    search: searchBlockHtml,
   };
 }
 
@@ -131,6 +139,7 @@ export const NonConnected = {
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
+          .replace('<!-- Search CTA Block component -->', blocks.searchCta)
           .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
           .replace('<!-- User Account Block component -->', blocks.userAccount)
           .replace('<!-- Contact CTA Block component -->', blocks.contact)
@@ -161,6 +170,7 @@ export const Connected = {
       page: {
         ...args.page,
         header_bottom: args.page.header_bottom
+          .replace('<!-- Search CTA Block component -->', blocks.searchCta)
           .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
           .replace('<!-- User Account Block component -->', blocks.userAccount)
           .replace('<!-- Contact CTA Block component -->', blocks.contact)

@@ -43,6 +43,12 @@ user_states:
 
 # Blocs d'action
 blocks:
+  search_cta:
+    label: 'What are you looking for ?'
+    variant: 'primary'
+    outline: true
+    url: '/search'
+  
   find_property:
     label: 'Find a property'
     variant: 'primary'
@@ -53,10 +59,6 @@ blocks:
     label: 'Contact us'
     variant: 'secondary'
     url: '/contact'
-  
-  search:
-    show_form: false
-    placeholder: 'What are you looking for ?'
 
 page:
   header_branding: |
@@ -120,8 +122,8 @@ page:
 
   header_bottom: |
     <div class="ps-header-bottom">
-      <div class="ps-header-bottom__block ps-header-bottom__block--search-input">
-        <input type="search" class="ps-header-bottom__search-input" placeholder="What are you looking for ?" aria-label="Search" />
+      <div class="ps-header-bottom__block ps-header-bottom__block--search-cta">
+        <!-- Search CTA Block component -->
       </div>
       <div class="ps-header-bottom__block ps-header-bottom__block--find-property">
         <!-- Find Property CTA Block component -->
