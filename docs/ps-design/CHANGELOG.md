@@ -6,57 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-01-02] - Favorites Block Component
+## [2026-01-02] - Favorites Block Component (Final)
 
 ### Added
-- **Favorites Block (Components/Favorites Block)**: Quick access to user favorites with count badge
-  - **Template** (favorites-block.twig): Heart icon with conditional badge display
-    - Empty heart icon when count = 0 (no favorites)
-    - Filled heart icon when count > 0 (has favorites)
+- **Favorites Block (Layouts/Blocks/Favorites)**: Quick access to user favorites with count badge
+  - **Template** (favorites.twig): Heart icon with conditional badge display
+    - Empty heart icon (heart-outline) when count = 0 (no favorites)
+    - Filled heart icon (heart) when count > 0 (has favorites)
     - Circular badge in top-right corner with count (max display: 99+)
+    - Icon applied directly on link via data-icon attribute
     - Accessible label includes count for screen readers
     - Full support for Drupal Attribute object with create_attribute() fallback
-  - **Styles** (favorites-block.css): Token-based design with interactive states
+  - **Styles** (favorites.css): Token-based design with interactive states
     - Component-scoped variables for all customizable properties
-    - Icon size: 32px (--size-8), Badge size: 20px (--size-5)
-    - Color states: Gray (empty), Primary (filled), Danger (badge)
-    - Hover/focus/active states with scale transforms
+    - Button size: 36px (--size-9), Icon size: 24px (--size-6)
+    - Badge size: 20px (--size-5), Font: 12px (--font-size-0)
+    - Color states: Gray-700 (both empty & filled), Secondary (badge)
+    - Hover: scale 1.05, Active: scale 0.95
     - Focus-visible outline with 4px offset
-    - Badge positioned absolutely with negative top/right offsets
-  - **Data** (favorites-block.yml): Default example with no favorites
-  - **Stories** (favorites-block.stories.jsx): 5 comprehensive examples
+    - Badge positioned absolutely with -4px top/right offsets
+    - Icon size override via ::before/::after pseudo-elements
+  - **Data** (favorites.yml): Default example with no favorites
+  - **Stories** (favorites.stories.jsx): 5 comprehensive examples
     - Default: Empty state (0 favorites)
     - Empty: Explicit empty state with custom label
     - WithFewFavorites: 3 items with context label
     - WithManyFavorites: 47 items with context label
     - MaxCount: 150 items showing 99+ display limit
     - Full Autodocs support with categorized argTypes
-  - **Icons**: Created heart.svg (outline) and heart-filled.svg (filled)
+  - **Icons**: Created heart-outline.svg and heart.svg
     - Location: source/icons-source/generic/
     - SVG format with currentColor support
     - Added to sprite: 149 total icons
 
+### Modified
+- **Search Block (Layouts/Blocks/Search)**: Harmonized button/icon dimensions
+  - Button size: 48px → 36px (--size-12 → --size-9)
+  - Icon size: unchanged at 24px (--size-6)
+  - Consistent dimensions across header blocks
+
 ### Technical Details
-- **Structure**: Link element with relative positioning
-- **Badge**: Absolute position, top: -4px, right: -4px
+- **Location**: source/patterns/layouts/blocks/favorites/
+- **Structure**: Link element with data-icon, relative positioning
+- **Classes**: .ps-favorites, .ps-favorites--has-items, .ps-favorites__badge
+- **Badge**: Absolute position, circular, pointer-events: none
 - **Transitions**: Fast duration (150ms) with ease-out
 - **Typography**: Badge uses --font-size-0 (12px), weight 700
 - **Border-radius**: Full circle for badge (--radius-5)
 - **Accessibility**: ARIA label with count, badge aria-hidden
 
 ### Build Status
-- ✓ Passes (4.86s)
+- ✓ Passes (4.82s)
 - ✓ Biome lint/format validated
 - ✓ Icons built: 149 symbols in sprite
-- ✓ CSS compiled: 559.93 kB
+- ✓ CSS compiled: 560.83 kB
 
 ### Files Created
-- source/patterns/components/favorites-block/favorites-block.twig
-- source/patterns/components/favorites-block/favorites-block.css
-- source/patterns/components/favorites-block/favorites-block.yml
-- source/patterns/components/favorites-block/favorites-block.stories.jsx
+- source/patterns/layouts/blocks/favorites/favorites.twig
+- source/patterns/layouts/blocks/favorites/favorites.css
+- source/patterns/layouts/blocks/favorites/favorites.yml
+- source/patterns/layouts/blocks/favorites/favorites.stories.jsx
+- source/icons-source/generic/heart-outline.svg
 - source/icons-source/generic/heart.svg
-- source/icons-source/generic/heart-filled.svg
 
 ---
 
