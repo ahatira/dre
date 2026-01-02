@@ -134,17 +134,28 @@
 }
 
 .ps-header-bottom {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: var(--size-4);
-  flex-wrap: wrap;
+  gap: var(--size-2);
   justify-content: flex-end;
 }
 
 .ps-header-bottom__block {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--size-3);
+  padding: 0 var(--size-3);
+  border-right: 1px solid var(--border-default);
+}
+
+/* Retirer le séparateur après le bloc favoris */
+.ps-header-bottom__block--favorites {
+  border-right: none;
+}
+
+/* Retirer le séparateur du dernier élément (search trigger) */
+.ps-header-bottom__block:last-child {
+  border-right: none;
 }
 
 /* Lien simple dans header_bottom */
