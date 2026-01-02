@@ -1,0 +1,35 @@
+{#
+  @file
+  Block Search (Search trigger button)
+
+  Extends the Block layout structure with a search trigger button.
+  Shows icon-only on desktop, icon + text on mobile.
+  Triggers the search-form component on click.
+
+  Available variables:
+  - plugin_id: Drupal block plugin ID (default: block_search)
+  - configuration: Block configuration (provider: 'search')
+  - label: Block title (optional)
+  - button_label: Trigger button label (default: 'Search')
+  - icon: Icon name (default: 'search')
+  - attributes: Drupal Attribute object
+#}
+
+{% extends '@layouts/block/block.twig' %}
+
+{%- set plugin_id = plugin_id|default('block_search') -%}
+{%- set configuration = configuration|default({ provider: 'search' }) -%}
+{%- set button_label = button_label|default('Search') -%}
+{%- set icon = icon|default('search') -%}
+
+{%- block content -%}
+  <button
+    class="ps-search-trigger"
+    type="button"
+    aria-label="{{ button_label }}"
+    data-icon="{{ icon }}"
+    title="{{ button_label }}"
+  >
+    <span class="ps-search-trigger__label">{{ button_label }}</span>
+  </button>
+{%- endblock -%}

@@ -1,0 +1,7 @@
+plugin_id: 'block_search'
+configuration:
+  provider: 'search'
+label: ''
+
+button_label: 'Search'
+icon: 'search'
