@@ -73,8 +73,13 @@ page:
 
   header_bottom: |
     <div class="ps-header-bottom">
-      <div class="ps-header-bottom__block">
-        <button class="ps-button ps-button--primary ps-button--outline ps-button--full-width">What are you looking for ?</button>
+      <div class="ps-header-bottom__block ps-header-bottom__block--search">
+        {% include '@blocks/search/block-search.twig' with {
+          form_config: {
+            placeholder: 'What are you looking for ?',
+            search_label: 'What are you looking for ?'
+          }
+        } only %}
       </div>
       <div class="ps-header-bottom__block">
         <button class="ps-button ps-button--primary ps-button--full-width" data-icon="account">Log in / Sign up</button>
@@ -89,17 +94,11 @@ page:
       <div class="ps-header-bottom__block">
         <button class="ps-button ps-button--secondary ps-button--full-width" data-action="open-contact-modal">Contact us</button>
       </div>
-      <div class="ps-header-bottom__block">
-        <button class="ps-button ps-button--secondary" data-icon="heart" aria-label="Favorites"></button>
-      </div>
-      <div class="ps-header-bottom__block">
-        <button class="ps-button ps-button--secondary" data-icon="search" aria-label="Open search"></button>
-        <form class="ps-search-form" action="/search" method="get">
-          <label class="ps-search-form__label" for="header-search">What are you looking for ?</label>
-          <div class="ps-search-form__controls">
-            <input class="ps-search-form__input" id="header-search" name="q" type="search" placeholder="Search" />
-            <button class="ps-button ps-button--primary" type="submit" data-icon="search">Search</button>
-          </div>
-        </form>
+      <div class="ps-header-bottom__block ps-header-bottom__block--favorites">
+        {% include '@blocks/favorites/favorites.twig' with {
+          count: 0,
+          url: '/user/favorites',
+          label: 'Mes favoris'
+        } only %}
       </div>
     </div>
