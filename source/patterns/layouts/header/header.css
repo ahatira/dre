@@ -158,6 +158,13 @@
   border-right: none;
 }
 
+/* Surcharger le padding des blocs dans header_bottom */
+.ps-header-bottom .block,
+.ps-header-bottom .ps-block {
+  --ps-block-padding-y: 0;
+  --ps-block-padding-x: 0;
+}
+
 /* Lien simple dans header_bottom */
 .ps-header-bottom__link {
   color: var(--text-primary);
