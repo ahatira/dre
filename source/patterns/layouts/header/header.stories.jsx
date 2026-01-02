@@ -1,4 +1,5 @@
 import ctaBlock from '../blocks/cta/block-cta.twig';
+import favoritesBlock from '../blocks/favorites/favorites.twig';
 import searchBlock from '../blocks/search/block-search.twig';
 import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
@@ -107,6 +108,11 @@ export const Default = {
       },
     });
 
+    const favoritesBlockHtml = favoritesBlock({
+      count: 0,
+      url: '/favorites',
+    });
+
     // Remplacer les placeholders par le contenu rendu
     const updatedArgs = {
       ...args,
@@ -116,6 +122,7 @@ export const Default = {
           .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
           .replace('<!-- User Account Block component -->', userAccountHtml)
           .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
+          .replace('<!-- Favorites Block component -->', favoritesBlockHtml)
           .replace('<!-- Search Block component -->', searchBlockHtml),
       },
     };
@@ -172,6 +179,11 @@ export const MobilePreview = {
       },
     });
 
+    const favoritesBlockHtml = favoritesBlock({
+      count: 5,
+      url: '/favorites',
+    });
+
     // Remplacer les placeholders par le contenu rendu
     const updatedArgs = {
       ...args,
@@ -181,6 +193,7 @@ export const MobilePreview = {
           .replace('<!-- Find Property CTA Block component -->', findPropertyCtaHtml)
           .replace('<!-- User Account Block component -->', userAccountHtml)
           .replace('<!-- Contact CTA Block component -->', contactCtaHtml)
+          .replace('<!-- Favorites Block component -->', favoritesBlockHtml)
           .replace('<!-- Search Block component -->', searchBlockHtml),
       },
     };

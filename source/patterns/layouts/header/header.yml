@@ -85,6 +85,9 @@ page:
       <div class="ps-header-bottom__block ps-header-bottom__block--contact">
         <!-- Contact CTA Block component -->
       </div>
+      <div class="ps-header-bottom__block ps-header-bottom__block--favorites">
+        <!-- Favorites Block component -->
+      </div>
       <div class="ps-header-bottom__block ps-header-bottom__block--search-trigger">
         <!-- Search Block component -->
       </div>
