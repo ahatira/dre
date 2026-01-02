@@ -23,6 +23,10 @@
   --ps-favorites-badge-bg: var(--secondary);
   --ps-favorites-badge-color: var(--white);
   --ps-favorites-badge-font-size: var(--font-size-0); /* 12px */
+  --ps-favorites-badge-offset-top: calc(var(--size-1) / -2); /* ~-2px */
+  --ps-favorites-badge-offset-left: calc(
+    var(--ps-favorites-size) - (var(--ps-favorites-badge-size) * 0.75)
+  ); /* Auto-align near top-right */
 
   /* Base styles */
   position: relative;
@@ -69,8 +73,8 @@
   /* Badge */
   & .ps-favorites__badge {
     position: absolute;
-    top: calc(var(--size-1) * -1); /* -4px */
-    right: calc(var(--size-1) * -1); /* -4px */
+    top: var(--ps-favorites-badge-offset-top);
+    left: var(--ps-favorites-badge-offset-left);
     display: flex;
     align-items: center;
     justify-content: center;

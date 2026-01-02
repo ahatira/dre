@@ -3,6 +3,8 @@
  * @file
  * Favorites Block component - Quick access to user favorites with count badge
  *
+ * Extends the Block layout structure for header context.
+ *
  * Available variables:
  * - url: Link to favorites page (default: '/favorites')
  * - count: Number of favorites (0 = empty heart, >0 = filled heart with badge)
@@ -17,24 +19,32 @@
  */
 #}
 
+{% extends '@layouts/block/block.twig' %}
+
+{%- set plugin_id = plugin_id|default('block_favorites') -%}
+{%- set configuration = configuration|default({ provider: 'favorites' }) -%}
+
 {% set count = count ?? 0 %}
 {% set url = url ?? '/favorites' %}
-{% set label = label ?? 'Mes favoris' %}
+{% set label = label ?? null %}
 
 {% set classes = [
   'ps-favorites',
   count > 0 ? 'ps-favorites--has-items' : null
 ] %}
 
-{% set attr = (attributes is defined ? attributes : create_attribute())
+{% set attributes = attributes is defined ? attributes : create_attribute() %}
+{% set link_attributes = create_attribute()
   .addClass(classes)
   .setAttribute('data-icon', count > 0 ? 'heart' : 'heart-outline')
 %}
 
-<a href="{{ url }}" {{ attr }} aria-label="{{ label }}{{ count > 0 ? ' (' ~ count ~ ')' : '' }}">
-  {% if count > 0 %}
-    <span class="ps-favorites__badge" aria-hidden="true">
-      {{ count > 99 ? '99+' : count }}
-    </span>
-  {% endif %}
-</a>
+{%- block content -%}
+  <a href="{{ url }}" {{ link_attributes }} aria-label="{{ label }}{{ count > 0 ? ' (' ~ count ~ ')' : '' }}">
+    {% if count > 0 %}
+      <span class="ps-favorites__badge" aria-hidden="true">
+        {{ count > 99 ? '99+' : count }}
+      </span>
+    {% endif %}
+  </a>
+{%- endblock -%}
