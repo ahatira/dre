@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-01-02] - Search Block Toggle Fix (Storybook Context)
+
+### Fixed
+- **Search Block (Layouts/Blocks/Search)**: Storybook toggle functionality
+  - Problem: Form displayed by default instead of toggling on button click
+  - Root cause: Drupal JavaScript behaviors unavailable in Storybook context
+  - Solution: Added client-side JavaScript simulation in story render functions
+  - Impact: Default and WithCustomLabel stories now properly hide/show form
+  - Production Drupal: Unchanged (search-form.js behavior still active)
+
+### Modified
+- **block-search.stories.jsx**: Added inline script simulation for Storybook toggle
+  - Default story: Form hidden, toggle on button click
+  - WithCustomLabel story: Same behavior with custom label
+  - WithSearchForm story: No change (simulation already complete)
+
+### Technical Details
+- Toggle logic: `classList.add/remove('ps-search-form--open')`
+- Auto-focus: 100ms delay after form opens
+- Close handlers: Close button + ESC key
+- IIFE: Script isolated, no global pollution
+- CSS unchanged: `display: none` / `display: block` still applies
+
+### Build Status
+- ✓ Passes (5.53s)
+- ✓ Biome lint/format validated
+- ✓ Auto-formatted: icons-registry.json
+
+### Documentation
+- Created: SEARCH_FORM_TOGGLE_FIX.md (comprehensive explanation)
+- Explains: Development vs production behavior difference
+
+---
+
 ## [2025-01-02] - Search Block Architecture Integration
 
 ### Modified
