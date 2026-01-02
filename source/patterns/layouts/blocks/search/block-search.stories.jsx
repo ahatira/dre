@@ -36,121 +36,11 @@ export default {
   },
 };
 
-export const Default = {
-  render(args) {
-    const html = blockSearch(args);
-
-    // In Storybook, add JavaScript simulation for toggle (Drupal behavior not available)
-    return `
-      ${html}
-      <script>
-        (function() {
-          const trigger = document.querySelector('.ps-search-trigger');
-          const searchForm = document.querySelector('[data-search-form]');
-          
-          if (trigger && searchForm) {
-            trigger.addEventListener('click', (e) => {
-              e.preventDefault();
-              searchForm.classList.toggle('ps-search-form--open');
-              const input = searchForm.querySelector('[data-search-input]');
-              if (input && searchForm.classList.contains('ps-search-form--open')) {
-                setTimeout(() => input.focus(), 100);
-              }
-            });
-            
-            // Close button
-            const closeBtn = searchForm.querySelector('[data-search-close]');
-            if (closeBtn) {
-              closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                searchForm.classList.remove('ps-search-form--open');
-              });
-            }
-            
-            // ESC key
-            document.addEventListener('keydown', (e) => {
-              if (e.key === 'Escape' && searchForm.classList.contains('ps-search-form--open')) {
-                e.preventDefault();
-                searchForm.classList.remove('ps-search-form--open');
-              }
-            });
-          }
-        })();
-      </script>
-    `;
-  },
-  args: blockSearchData,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Search trigger button with integrated search form. Form is hidden by default and toggles when button is clicked. In production Drupal, toggle is handled by search-form.js behavior.',
-      },
-    },
-  },
-};
-
-export const WithCustomLabel = {
-  render(args) {
-    const html = blockSearch(args);
-
-    // In Storybook, add JavaScript simulation for toggle (Drupal behavior not available)
-    return `
-      ${html}
-      <script>
-        (function() {
-          const trigger = document.querySelector('.ps-search-trigger');
-          const searchForm = document.querySelector('[data-search-form]');
-          
-          if (trigger && searchForm) {
-            trigger.addEventListener('click', (e) => {
-              e.preventDefault();
-              searchForm.classList.toggle('ps-search-form--open');
-              const input = searchForm.querySelector('[data-search-input]');
-              if (input && searchForm.classList.contains('ps-search-form--open')) {
-                setTimeout(() => input.focus(), 100);
-              }
-            });
-            
-            // Close button
-            const closeBtn = searchForm.querySelector('[data-search-close]');
-            if (closeBtn) {
-              closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                searchForm.classList.remove('ps-search-form--open');
-              });
-            }
-            
-            // ESC key
-            document.addEventListener('keydown', (e) => {
-              if (e.key === 'Escape' && searchForm.classList.contains('ps-search-form--open')) {
-                e.preventDefault();
-                searchForm.classList.remove('ps-search-form--open');
-              }
-            });
-          }
-        })();
-      </script>
-    `;
-  },
-  args: {
-    ...blockSearchData,
-    button_label: 'Find properties',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Search button with custom label. Form remains integrated and toggle-enabled.',
-      },
-    },
-  },
-};
-
 /**
- * Complete integration with search form
- * Demonstrates how the block works with search-form component in a real header
+ * Default: Complete integration with search form in header context
+ * Demonstrates the search block in a realistic header layout with navigation
  */
-export const WithSearchForm = {
+export const Default = {
   render(args) {
     const buttonHtml = blockSearch(args);
     const formHtml = searchFormTwig(args.form || {});
@@ -263,7 +153,7 @@ export const WithSearchForm = {
     docs: {
       description: {
         story:
-          'Complete integration showing the search button in a header-like layout with the search form below. Click the search button to toggle the form. Press ESC or click the close button to hide it.',
+          'Search block integrated in a header with navigation menu. Click the search button to toggle the form. Type in the input to search. Press ESC or click the close button to hide the form.',
       },
     },
   },
