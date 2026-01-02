@@ -1,35 +1,28 @@
 {#
-  @file
-  Block Search (Search trigger button + Search form)
-
-  Extends the Block layout structure with:
-  - Search trigger button (icon-only on desktop, icon + text on mobile)
-  - Search form component that expands below the button
-
-  Available variables:
-  - plugin_id: Drupal block plugin ID (default: block_search)
-  - configuration: Block configuration (provider: 'search')
-  - label: Block title (optional)
-  - button_label: Trigger button label (default: 'Search')
-  - icon: Icon name (default: 'search')
-  - form_config: Search form configuration object
-    - placeholder: Input placeholder text
-    - action: Form action URL
-    - method: Form submission method (GET | POST)
-    - input_name: Input field name
-    - show: Initial display state (default: false, toggled by JavaScript)
-  - attributes: Drupal Attribute object
+/**
+ * Search Block
+ * Simple search trigger button that opens the search form component.
+ *
+ * Props:
+ * - string plugin_id - Drupal block plugin ID (default: 'block_search')
+ * - object configuration - Block configuration (default: { provider: 'search' })
+ * - string label - Block title (optional, empty by default)
+ * - string button_label - Button text label (default: 'Search')
+ * - string icon - Icon name without prefix (default: 'search')
+ * - object attributes - Drupal Attribute object
+ *
+ * Extends: @layouts/block/block.twig
+ * JavaScript: Drupal behavior via search-form component
+ * Architecture: Block → triggers → Search Form component
+ */
 #}
 
 {% extends '@layouts/block/block.twig' %}
-
-{{ attach_library('ps_theme/search-form') }}
 
 {%- set plugin_id = plugin_id|default('block_search') -%}
 {%- set configuration = configuration|default({ provider: 'search' }) -%}
 {%- set button_label = button_label|default('Search') -%}
 {%- set icon = icon|default('search') -%}
-{%- set form_config = form_config|default({}) -%}
 
 {%- block content -%}
   <button
@@ -41,7 +34,4 @@
   >
     <span class="ps-search-trigger__label">{{ button_label }}</span>
   </button>
-
-  {# Include search form component below button #}
-  {%- include '@components/search-form/search-form.twig' with form_config only -%}
 {%- endblock -%}

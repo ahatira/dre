@@ -5,11 +5,3 @@ label: ''
 
 button_label: 'Search'
 icon: 'search'
-
-# Search form configuration (passed to search-form.twig)
-form_config:
-  placeholder: 'What are you looking for ?'
-  action: '/search'
-  method: 'GET'
-  input_name: 'q'
-  show: false

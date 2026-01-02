@@ -1,60 +1,57 @@
 /**
- * Block Search (Search trigger button)
- * Icon-only on desktop, icon + label on mobile
- * Triggers the search-form component below header
+ * Search Block - Trigger Button
+ * Icon-only button on desktop, icon + label on mobile
+ * Triggers the search form component via JavaScript
+ *
+ * States: Default, Hover, Focus
+ * Responsive: Icon-only (1024px+), Icon + Label (< 640px)
+ * Architecture: Token-First, BEM, WCAG 2.2 AA
  */
 
 .ps-search-trigger {
-  --ps-search-trigger-padding: var(--size-4);
-  --ps-search-trigger-bg: transparent;
+  /* Layer 2: Component variables */
+  --ps-search-trigger-padding: var(--size-3);
   --ps-search-trigger-color: var(--text-primary);
-  --ps-search-trigger-border: none;
-  --ps-search-trigger-border-radius: 0;
-  --ps-search-trigger-font-size: var(--font-size-3);
+  --ps-search-trigger-color-hover: var(--primary);
   --ps-search-trigger-icon-size: 1.5rem;
+  --ps-search-trigger-gap: var(--size-2);
 
-  position: relative;
+  /* Base structure */
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--size-2);
+  gap: var(--ps-search-trigger-gap);
   padding: var(--ps-search-trigger-padding);
-  background: var(--ps-search-trigger-bg);
-  color: var(--ps-search-trigger-color);
-  border: var(--ps-search-trigger-border);
-  border-radius: var(--ps-search-trigger-border-radius);
-  font-size: var(--ps-search-trigger-font-size);
-  font-weight: var(--font-weight-600);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: color var(--duration-2) var(--ease-out), background var(--duration-2) var(--ease-out);
-  white-space: nowrap;
+  color: var(--ps-search-trigger-color);
+  font-size: var(--font-size-1);
+  font-family: var(--font-family-sans);
+  transition: color var(--duration-fast) var(--ease-out);
 
+  /* Icon sizing */
+  &::before {
+    width: var(--ps-search-trigger-icon-size);
+    height: var(--ps-search-trigger-icon-size);
+  }
+
+  /* States */
   &:hover {
-    --ps-search-trigger-color: var(--primary);
+    color: var(--ps-search-trigger-color-hover);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-focus);
     outline-offset: 2px;
+    border-radius: var(--radius-1);
   }
 
-  &:active {
-    --ps-search-trigger-color: var(--primary-active);
-  }
+  /* Label - hidden on desktop, visible on mobile */
+  &__label {
+    display: none;
 
-  /* Icon styling */
-  &[data-icon]::before,
-  &[data-icon]::after {
-    width: var(--ps-search-trigger-icon-size);
-    height: var(--ps-search-trigger-icon-size);
-  }
-}
-
-/* Hide label on desktop, show on mobile */
-.ps-search-trigger__label {
-  display: none;
-
-  @media (max-width: 640px) {
-    display: inline;
+    @media (max-width: 640px) {
+      display: inline-block;
+    }
   }
 }
