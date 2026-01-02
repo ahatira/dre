@@ -45,7 +45,7 @@ export const Default = {
     docs: {
       description: {
         story:
-          'Search trigger button only. In production, combine with search-form component in header area.',
+          'Search trigger button with integrated search form. Form is hidden by default and toggles when button is clicked.',
       },
     },
   },
@@ -58,6 +58,13 @@ export const WithCustomLabel = {
   args: {
     ...blockSearchData,
     button_label: 'Find properties',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button with custom label. Form remains integrated and toggle-enabled.',
+      },
+    },
   },
 };
 
