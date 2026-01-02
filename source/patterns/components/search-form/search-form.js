@@ -63,7 +63,7 @@
     },
 
     /**
-     * Open search form: show, manage focus
+     * Open search form: show, manage focus, update trigger aria-expanded
      * @public
      * @param {HTMLElement} searchForm - Search form element
      */
@@ -76,6 +76,12 @@
       // Show search form
       searchForm.classList.add('ps-search-form--open');
 
+      // Update trigger button aria-expanded
+      const trigger = document.querySelector('[data-search-trigger]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+
       // Focus search input
       if (searchForm.__searchInput) {
         // Small delay ensures focus after render/animation
@@ -86,7 +92,7 @@
     },
 
     /**
-     * Close search form: hide, clear input (optional)
+     * Close search form: hide, clear input (optional), update trigger aria-expanded
      * @public
      * @param {HTMLElement} searchForm - Search form element
      */
@@ -98,6 +104,12 @@
 
       // Hide search form
       searchForm.classList.remove('ps-search-form--open');
+
+      // Update trigger button aria-expanded
+      const trigger = document.querySelector('[data-search-trigger]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
     },
 
     /**

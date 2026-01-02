@@ -1,37 +1,60 @@
 {#
 /**
- * Search Block
- * Simple search trigger button that opens the search form component.
+ * @file
+ * Block Search (Search trigger button and expandable form)
  *
- * Props:
- * - string plugin_id - Drupal block plugin ID (default: 'block_search')
- * - object configuration - Block configuration (default: { provider: 'search' })
- * - string label - Block title (optional, empty by default)
- * - string button_label - Button text label (default: 'Search')
- * - string icon - Icon name without prefix (default: 'search')
- * - object attributes - Drupal Attribute object
+ * Extends the Block layout structure with search trigger button
+ * and expandable search form component.
  *
- * Extends: @layouts/block/block.twig
- * JavaScript: Drupal behavior via search-form component
- * Architecture: Block → triggers → Search Form component
- */
-#}
+ * Available variables:
+ * - plugin_id: Drupal block plugin ID (default: block_search)
+ * - configuration: Block configuration with provider
+ * - label: Block title (optional, usually hidden for search)
+ * - button_label: Button text (default: 'Search')
+ * - show_form: Display form initially (default: false)
+ * - search_form_props: Props to pass to search-form component
+ * - attributes: Drupal Attribute object
+ *
+ * Behavior:
+ * - Button toggles search form visibility (via JavaScript)
+ * - Button text hidden on desktop, visible on mobile
+ * - Search form displays below header on full width
+ *
+ * JavaScript: Drupal behavior triggers .ps-search-trigger
+ * Accessibility: WCAG 2.2 AA - keyboard support, ARIA labels
+ *
+ * Rules: Token-First, BEM, Responsive, WCAG 2.2 AA
+ #}
 
 {% extends '@layouts/block/block.twig' %}
 
-{%- set plugin_id = plugin_id|default('block_search') -%}
+{%- set plugin_id = plugin_id|default('header_search') -%}
 {%- set configuration = configuration|default({ provider: 'search' }) -%}
 {%- set button_label = button_label|default('Search') -%}
-{%- set icon = icon|default('search') -%}
+{%- set show_form = show_form|default(false) -%}
+{%- set search_form_props = search_form_props|default({}) -%}
+
+{%- set button_attr = create_attribute()
+  .addClass(['ps-block-search__trigger', 'ps-search-trigger'])
+  .setAttribute('type', 'button')
+  .setAttribute('aria-label', button_label)
+  .setAttribute('aria-expanded', 'false')
+  .setAttribute('aria-controls', 'search-form')
+  .setAttribute('data-icon', 'search')
+  .setAttribute('data-search-trigger', true)
+-%}
 
 {%- block content -%}
-  <button
-    class="ps-search-trigger"
-    type="button"
-    aria-label="{{ button_label }}"
-    data-icon="{{ icon }}"
-    title="{{ button_label }}"
-  >
-    <span class="ps-search-trigger__label">{{ button_label }}</span>
+<div class="ps-block-search">
+  {# Search trigger button #}
+  <button{{ button_attr }}>
+    <span class="ps-block-search__trigger-label">{{ button_label }}</span>
   </button>
+</div>
+  
+  {# Search Form (rendered separately outside block wrapper, controlled by JavaScript) #}
+  {%- include '@components/search-form/search-form.twig' with search_form_props|merge({
+    show: show_form,
+    attributes: create_attribute().setAttribute('id', 'search-form')
+  }) only -%}
 {%- endblock -%}

@@ -2,10 +2,21 @@
  * Search Form (Component/Molecule)
  * Expandable search form displayed below header on full width.
  *
- * Layout:
+ * Layout Desktop:
  * ┌──────────────────────────────────────────┐
  * │ INPUT            │ SUBMIT BUTTON │ CLOSE │
  * └──────────────────────────────────────────┘
+ *
+ * Layout Mobile: Fullscreen modal
+ * ┌─────────────────────┐
+ * │     [CLOSE X]       │
+ * │  ┌─────────────┐    │
+ * │  │   INPUT     │    │
+ * │  └─────────────┘    │
+ * │  ┌─────────────┐    │
+ * │  │   SUBMIT    │    │
+ * │  └─────────────┘    │
+ * └─────────────────────┘
  *
  * States: hidden (default) | open (--open modifier)
  * Transitions: smooth slide-down/fade effects
@@ -16,7 +27,7 @@
 
 .ps-search-form {
   /* Layer 2: Component variables from global tokens */
-  --ps-search-form-bg: var(--white);
+  --ps-search-form-bg: var(--gray-100);
   --ps-search-form-border-color: var(--border-light);
   --ps-search-form-padding-block: var(--size-4);
   --ps-search-form-padding-inline: var(--size-6);
@@ -26,49 +37,96 @@
   --ps-search-form-input-border: var(--border-default);
   --ps-search-form-close-width: var(--size-6);
   --ps-search-form-close-height: var(--size-12);
+  --ps-search-form-z-index: var(--z-dropdown);
+  --ps-search-form-modal-z-index: var(--z-modal);
 
   /* Base structure - hidden by default */
+  /* Mobile: fullscreen modal behavior */
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
+  height: 100vh;
   background-color: var(--ps-search-form-bg);
-  border-bottom: var(--border-size-1) solid var(--ps-search-form-border-color);
-  box-shadow: var(--ps-search-form-shadow);
+  border-bottom: none;
+  box-shadow: none;
+  z-index: var(--ps-search-form-modal-z-index);
+  overflow-y: auto;
+  
+  /* Tablet+: below header, not modal */
+  @media (--tablet) {
+    position: fixed;
+    top: var(--size-header-height, var(--size-32));
+    bottom: auto;
+    height: auto;
+    border-bottom: var(--border-size-1) solid var(--ps-search-form-border-color);
+    box-shadow: var(--ps-search-form-shadow);
+    z-index: var(--ps-search-form-z-index);
+    overflow-y: visible;
+  }
 
   /* Modifier: Open state */
   &--open {
     display: block;
-    animation: slideDown var(--duration-normal) var(--ease-out);
+    animation: searchFormOpen var(--duration-normal) var(--ease-out);
   }
 
-  /* Container */
+  /* Container - fullscreen modal on mobile */
   &__container {
-    max-width: var(--size-container-xl);
-    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
     padding-block: var(--ps-search-form-padding-block);
     padding-inline: var(--ps-search-form-padding-inline);
+    padding-top: var(--size-16);
+    
+    /* Tablet+: normal container behavior */
+    @media (--tablet) {
+      max-width: var(--size-container-xl);
+      margin-inline: auto;
+      height: auto;
+      padding-top: var(--ps-search-form-padding-block);
+    }
   }
 
-  /* Form layout */
+  /* Form layout - mobile: column with full width inputs */
   &__form {
     display: flex;
-    align-items: center;
-    gap: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--ps-search-form-gap);
     position: relative;
+    
+    /* Tablet+: row layout */
+    @media (--tablet) {
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+    }
   }
 
-  /* Input wrapper (grows to fill space) */
+  /* Input wrapper - full width on mobile */
   &__input-wrapper {
-    flex: 1;
-    min-width: 0;
+    width: 100%;
+    
+    /* Tablet+: flexible width */
+    @media (--tablet) {
+      flex: 1;
+      width: auto;
+      min-width: 0;
+    }
   }
 
-  /* Search input */
+  /* Search input - full width on mobile */
   &__input {
     width: 100%;
-    height: 48px;
+    height: 54px;
     padding-inline: var(--size-4);
     border: var(--border-size-1) solid var(--ps-search-form-input-border);
-    border-right: none;
     border-radius: 0;
     background-color: var(--ps-search-form-input-bg);
     font-size: var(--font-size-1);
@@ -77,6 +135,12 @@
     transition:
       border-color var(--duration-fast) var(--ease-out),
       background-color var(--duration-fast) var(--ease-out);
+
+    /* Tablet+: adjust height and border */
+    @media (--tablet) {
+      height: 48px;
+      border-right: none;
+    }
 
     &::placeholder {
       color: var(--text-secondary);
@@ -100,14 +164,14 @@
     }
   }
 
-  /* Submit button */
+  /* Submit button - full width on mobile */
   &__submit {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 54px;
     padding: 0;
     border: none;
     border-radius: 0;
@@ -119,6 +183,12 @@
     transition:
       background-color var(--duration-fast) var(--ease-out),
       transform var(--duration-fast) var(--ease-out);
+
+    /* Tablet+: square button */
+    @media (--tablet) {
+      width: 48px;
+      height: 48px;
+    }
 
     &:hover {
       background-color: var(--primary-hover);
@@ -134,15 +204,18 @@
     }
   }
 
-  /* Close button */
+  /* Close button - positioned top right on mobile modal */
   &__close {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--ps-search-form-close-width);
-    height: var(--ps-search-form-close-height);
-    margin-left: var(--size-2);
+    position: fixed;
+    top: var(--size-4);
+    right: var(--size-4);
+    z-index: calc(var(--ps-search-form-modal-z-index) + 1);
+    width: 48px;
+    height: 48px;
     border: none;
     border-radius: 0;
     background-color: transparent;
@@ -151,6 +224,17 @@
     transition:
       background-color var(--duration-fast) var(--ease-out),
       color var(--duration-fast) var(--ease-out);
+    
+    /* Tablet+: inline button */
+    @media (--tablet) {
+      position: relative;
+      top: auto;
+      right: auto;
+      z-index: auto;
+      width: var(--ps-search-form-close-width);
+      height: var(--ps-search-form-close-height);
+      margin-left: var(--size-2);
+    }
 
     &:hover {
       background-color: var(--gray-100);
@@ -180,7 +264,7 @@
 
   /* Tablet (768px+) */
   @media (--tablet) {
-    /* Same as base mobile styles */
+    /* Same as base styles */
   }
 
   /* Laptop (1024px+) */
@@ -219,5 +303,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Search form open animation - mobile: fade + scale, desktop: slide down */
+@keyframes searchFormOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

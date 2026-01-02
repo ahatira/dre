@@ -1,7 +1,10 @@
-plugin_id: 'block_search'
-configuration:
-  provider: 'search'
-label: ''
+# Search Block (Layout/Block)
+# Container for search trigger button and expandable search form
 
 button_label: 'Search'
-icon: 'search'
+show_form: false
+search_form_props:
+  placeholder: 'What are you looking for ?'
+  action: '/search'
+  method: 'GET'
+  input_name: 'q'

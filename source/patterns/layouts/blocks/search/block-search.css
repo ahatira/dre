@@ -1,56 +1,105 @@
 /**
- * Search Block - Trigger Button
- * Icon-only button on desktop, icon + label on mobile
- * Triggers the search form component via JavaScript
+ * Search Block (Layout/Block)
+ * Container for search trigger button and expandable search form.
  *
- * States: Default, Hover, Focus
- * Responsive: Icon-only (1024px+), Icon + Label (< 640px)
- * Architecture: Token-First, BEM, WCAG 2.2 AA
+ * Layout:
+ * Desktop: [Icon] (text hidden)
+ * Mobile:  [Icon] Search (text visible)
+ *
+ * States: default | hover | focus | active (form expanded)
+ * Responsive: Text visibility changes at tablet breakpoint
+ *
+ * Architecture: 3-layer variables (tokens → component vars → modifiers)
+ * Rules: Token-First, BEM, Responsive, WCAG 2.2 AA
  */
 
-.ps-search-trigger {
-  /* Layer 2: Component variables */
-  --ps-search-trigger-padding: var(--size-3);
-  --ps-search-trigger-color: var(--text-primary);
-  --ps-search-trigger-color-hover: var(--primary);
-  --ps-search-trigger-icon-size: 1.5rem;
-  --ps-search-trigger-gap: var(--size-2);
+.ps-block-search {
+  /* Layer 2: Component variables from global tokens */
+  --ps-block-search-trigger-size: var(--size-12);
+  --ps-block-search-trigger-padding: var(--size-3);
+  --ps-block-search-trigger-gap: var(--size-2);
+  --ps-block-search-trigger-bg: transparent;
+  --ps-block-search-trigger-bg-hover: transparent;
+  --ps-block-search-trigger-color: var(--text-primary);
+  --ps-block-search-trigger-border: var(--border-size-1) solid transparent;
+  --ps-block-search-trigger-border-focus: var(--border-size-2) solid var(--primary);
+  --ps-block-search-icon-size: var(--size-6);
 
   /* Base structure */
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--ps-search-trigger-gap);
-  padding: var(--ps-search-trigger-padding);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--ps-search-trigger-color);
-  font-size: var(--font-size-1);
-  font-family: var(--font-family-sans);
-  transition: color var(--duration-fast) var(--ease-out);
 
-  /* Icon sizing */
-  &::before {
-    width: var(--ps-search-trigger-icon-size);
-    height: var(--ps-search-trigger-icon-size);
+  /* Trigger button (BEM element + JS hook class) */
+  &__trigger {
+    /* Reset button styles */
+    all: unset;
+    box-sizing: border-box;
+
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ps-block-search-trigger-gap);
+    height: var(--ps-block-search-trigger-size);
+    padding-inline: var(--ps-block-search-trigger-padding);
+    cursor: pointer;
+
+    /* Visual */
+    background-color: var(--ps-block-search-trigger-bg);
+    border: var(--ps-block-search-trigger-border);
+    border-radius: 0;
+    color: var(--ps-block-search-trigger-color);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-weight-500);
+    line-height: 1;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+
+    /* Icon size (applied to button with data-icon) */
+    &[data-icon]::before {
+      width: var(--ps-block-search-icon-size);
+      height: var(--ps-block-search-icon-size);
+      flex-shrink: 0;
+    }
+
+    /* Hover state */
+    &:hover {
+      background-color: var(--ps-block-search-trigger-bg-hover);
+    }
+
+    /* Focus state (keyboard navigation) */
+    &:focus-visible {
+      outline: var(--ps-block-search-trigger-border-focus);
+      outline-offset: 2px;
+      background-color: var(--ps-block-search-trigger-bg-hover);
+    }
+
+    /* Active state (form expanded) */
+    &[aria-expanded="true"] {
+      background-color: var(--ps-block-search-trigger-bg-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Disabled state */
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 
-  /* States */
-  &:hover {
-    color: var(--ps-search-trigger-color-hover);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-    border-radius: var(--radius-1);
-  }
-
-  /* Label - hidden on desktop, visible on mobile */
-  &__label {
+  /* Trigger label (BEM sub-element) */
+  &__trigger-label {
+    /* Desktop: Hidden */
     display: none;
+    white-space: nowrap;
 
-    @media (max-width: 640px) {
+    /* Mobile: Visible */
+    @media (max-width: 767px) {
       display: inline-block;
     }
   }
