@@ -9,7 +9,7 @@
   --ps-logo-height-desktop: var(--size-8);
 
   /* Base styles */
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--ps-logo-gap);
   text-decoration: none;

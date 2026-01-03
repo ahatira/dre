@@ -8,6 +8,10 @@ import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
+// Import JavaScript behaviors
+import './header.js';
+import '../blocks/user-account/block-user-account.js';
+
 /**
  * Rend un bloc individuel du header_bottom
  */
