@@ -2,7 +2,7 @@ import blockCta from './block-cta.twig';
 import blockCtaData from './block-cta.yml';
 
 export default {
-  title: 'Layouts/Blocks/CTA',
+  title: 'Collections/Blocks/Header/CTA',
   tags: ['autodocs'],
   argTypes: {
     plugin_id: {

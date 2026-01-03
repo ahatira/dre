@@ -4,7 +4,7 @@ import './block-user-account.css';
 import './block-user-account.js';
 
 export default {
-  title: 'Layouts/Blocks/User Account',
+  title: 'Collections/Blocks/Header/User Account',
   tags: ['autodocs'],
   argTypes: {
     plugin_id: {

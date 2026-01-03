@@ -10,21 +10,3 @@
   background: var(--ps-block-bg);
   border: var(--ps-block-border);
 }
-
-.block h1,
-.block h2,
-.block h3,
-.block h4,
-.block h5,
-.block h6,
-.ps-block h1,
-.ps-block h2,
-.ps-block h3,
-.ps-block h4,
-.ps-block h5,
-.ps-block h6 {
-  margin: 0 0 var(--size-3);
-  font-size: var(--font-size-4);
-  font-weight: var(--font-weight-600);
-  color: var(--text-primary);
-}

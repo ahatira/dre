@@ -2,7 +2,7 @@ import languageSwitcherTwig from './language-switcher.twig';
 import languageSwitcherData from './language-switcher.yml';
 
 export default {
-  title: 'Layouts/Blocks/Language Switcher',
+  title: 'Collections/Blocks/Header/Language Switcher',
   tags: ['autodocs'],
   argTypes: {
     name: {

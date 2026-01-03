@@ -7,11 +7,11 @@ import searchBlockTemplate from './block-search.twig';
 import searchBlockData from './block-search.yml';
 
 // Import dependencies
-import '../../../components/search-form/search-form.css';
+import '../../../../components/search-form/search-form.css';
 import './block-search.css';
 
 export default {
-  title: 'Layouts/Blocks/Search Block',
+  title: 'Collections/Blocks/Header/Search Block',
   tags: ['autodocs'],
   argTypes: {
     button_label: {

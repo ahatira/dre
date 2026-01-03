@@ -1,16 +1,16 @@
+import ctaBlock from '../../collections/blocks/header/cta/block-cta.twig';
+import favoritesBlock from '../../collections/blocks/header/favorites/favorites.twig';
+import languageSwitcher from '../../collections/blocks/header/language-switcher/language-switcher.twig';
+import searchBlock from '../../collections/blocks/header/search/block-search.twig';
+import userAccountBlock from '../../collections/blocks/header/user-account/block-user-account.twig';
 import menuPrimary from '../../collections/menu-primary/menu-primary.twig';
 import logo from '../../components/logo/logo.twig';
-import ctaBlock from '../blocks/cta/block-cta.twig';
-import favoritesBlock from '../blocks/favorites/favorites.twig';
-import languageSwitcher from '../blocks/language-switcher/language-switcher.twig';
-import searchBlock from '../blocks/search/block-search.twig';
-import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
 // Import JavaScript behaviors
 import './header.js';
-import '../blocks/user-account/block-user-account.js';
+import '../../collections/blocks/header/user-account/block-user-account.js';
 import '../../collections/menu-primary/menu-primary.js';
 
 /**

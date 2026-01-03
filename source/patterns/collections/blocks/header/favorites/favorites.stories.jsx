@@ -9,7 +9,7 @@ import favoritesData from './favorites.yml';
  * - Filled heart with count badge when favorites exist (count > 0)
  */
 export default {
-  title: 'Layouts/Blocks/Favorites',
+  title: 'Collections/Blocks/Header/Favorites',
   tags: ['autodocs'],
   argTypes: {
     // Content

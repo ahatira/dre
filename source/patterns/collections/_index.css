@@ -2,3 +2,12 @@
 @import './accordion/accordion.css';
 @import './tags/tags.css';
 @import './tabs/tabs.css';
+
+/* Header Blocks */
+@import './blocks/header/favorites/favorites.css';
+@import './blocks/header/language-switcher/language-switcher.css';
+@import './blocks/header/search/block-search.css';
+@import './blocks/header/user-account/block-user-account.css';
+
+/* Footer Blocks */
+@import './blocks/footer/contact-us/contact-us.css';

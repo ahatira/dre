@@ -1,0 +1,71 @@
+contact:
+  title: "Contactez-nous"
+  phones:
+    - label: "City 1"
+      number: "+32 2 646 49 49"
+      href: "tel:+3226464949"
+    - label: "City 2"
+      number: "+32 2 646 49 49"
+      href: "tel:+3226464949"
+  email:
+    label: "contact.web@realestate.bnpparibas"
+    href: "mailto:contact.web@realestate.bnpparibas"
+
+columns:
+  - title: "Sites métiers"
+    expanded: false
+    links:
+      - label: "Bureaux à louer"
+        url: "/sites/bureaux"
+      - label: "Commerces à louer"
+        url: "/sites/commerces"
+      - label: "Entrepôts & logistique"
+        url: "/sites/logistique"
+      - label: "Investisseurs institutionnels"
+        url: "/sites/investisseurs"
+      - label: "Property Management"
+        url: "/sites/property-management"
+  - title: "À propos de BNP Paribas Real Estate"
+    expanded: true
+    links:
+      - label: "Notre entreprise"
+        url: "/a-propos/entreprise"
+      - label: "Actualités et études"
+        url: "/a-propos/actualites"
+      - label: "Carrières"
+        url: "/a-propos/carrieres"
+      - label: "Engagements RSE"
+        url: "/a-propos/rse"
+      - label: "Investisseurs"
+        url: "/a-propos/investisseurs"
+
+social_links:
+  - icon: "linkedin"
+    label: "LinkedIn"
+    url: "https://www.linkedin.com/company/bnp-paribas-real-estate"
+  - icon: "twitter"
+    label: "X (Twitter)"
+    url: "https://twitter.com/BNPPRE"
+
+legal_links:
+  - label: "Protection des données"
+    url: "/legal/protection-des-donnees"
+  - label: "Politique cookies"
+    url: "/legal/cookies"
+  - label: "Mentions légales"
+    url: "/legal/mentions-legales"
+  - label: "Fournisseurs : BNP Paribas s'engage auprès de ses partenaires"
+    url: "/legal/fournisseurs"
+  - label: "Plan du site"
+    url: "/plan-du-site"
+  - label: "Réclamations Service Client"
+    url: "/reclamations"
+  - label: "Canal de denuncias éticas"
+    url: "/canal-denuncias-eticas"
+
+branding:
+  site_logo: "/logo/logo.svg"
+  url: "/"
+  rel: "home"
+
+copyright: "© BNP Paribas Real Estate"

@@ -33,6 +33,7 @@
     'block-' ~ plugin_id|clean_class,
   ]
 -%}
+{%- set label_level = label_level is defined ? label_level : 'h3' -%}
 {%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 <div{{- attributes.addClass(classes) -}}>
@@ -40,7 +41,7 @@
   {%- if label -%}
     {%- include '@elements/heading/heading.twig' with {
       text: label,
-      level: 'h2',
+      level: label_level,
       attributes: (title_attributes is defined ? title_attributes : create_attribute())
     } only -%}
   {%- endif -%}
