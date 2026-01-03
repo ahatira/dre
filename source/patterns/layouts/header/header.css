@@ -257,10 +257,10 @@
 }
 
 /* ========================================================================
-   RESPONSIVE MOBILE (max-width: 1024px)
+   RESPONSIVE (Below Tablet: < 768px)
    ======================================================================== */
 
-@media (max-width: 1024px) {
+@media (width < 768px) {
   .ps-header {
     &__bar {
       display: grid;
@@ -347,10 +347,10 @@
 }
 
 /* ========================================================================
-   RESPONSIVE SMALL MOBILE (max-width: 640px)
+   RESPONSIVE (Mobile: < 640px)
    ======================================================================== */
 
-@media (max-width: 640px) {
+@media (width < 640px) {
   .ps-header {
     &__bar {
       grid-template-columns: auto 1fr auto;
