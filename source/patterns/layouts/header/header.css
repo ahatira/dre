@@ -5,7 +5,7 @@
  *
  * Architecture: BEM (Block Element Modifier) with Nested CSS
  * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
- * Responsive: Mobile-First with @custom-media tokens from source/props/media.css
+ * Responsive: Mobile-First with min-width media query tokens
  */
 
 .ps-header {
@@ -40,6 +40,7 @@
     position: sticky;
     top: 0;
 
+    &.is-open,
     &.is-sticky {
       z-index: var(--ps-header-z-sticky);
       box-shadow: var(--ps-header-shadow-sticky);
@@ -53,7 +54,7 @@
   }
 
   /* ========================================================================
-     ELEMENTS: Mobile First (base < 640px)
+     BASE ELEMENTS (Mobile-First: < 640px - small phones)
      ======================================================================== */
 
   &__bar {
@@ -113,7 +114,7 @@
 
   &__cell {
     width: 100%;
-    padding: var(--size-5) var(--size-6);
+    padding: var(--size-5) var(--size-4);
     border-bottom: 1px solid var(--ps-header-border-color);
 
     &:last-child {
@@ -124,11 +125,6 @@
   &__cell--branding,
   &__cell--top {
     display: none;
-  }
-
-  &__cell--top {
-    display: flex;
-    justify-content: flex-end;
   }
 
   &__cell--navigation {
@@ -169,17 +165,20 @@
     --ps-header-bottom-border-color: var(--border-default);
     --ps-header-bottom-gap: var(--size-4);
 
-    justify-content: flex-start;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: var(--size-4);
-    padding: var(--size-5) var(--size-6);
+    justify-content: flex-start;
+    padding: var(--size-5) var(--size-4);
 
     & > .block {
       --ps-block-padding-y: 0;
       --ps-block-padding-x: 0;
       width: 100%;
       padding: 0 !important;
+      display: flex;
+      align-items: center;
     }
 
     & > .block::before {
@@ -198,6 +197,7 @@
     --ps-toggle-icon-close: svg-load('generic/close.svg');
 
     display: flex;
+    order: -1;
     width: var(--ps-toggle-size);
     height: var(--ps-toggle-size);
     padding: 0;
@@ -207,7 +207,6 @@
     border: none;
     cursor: pointer;
     transition: background-color var(--ps-header-transition-fast);
-    order: -1;
 
     &:hover {
       background: transparent;
@@ -258,7 +257,21 @@
 }
 
 /* ========================================================================
-   RESPONSIVE MOBILE (--mobile: width >= 640px)
+   RESPONSIVE: Small Mobile (--mobile-sm: width >= 400px)
+   Adjustments: Minor tweaks for 400px+ devices
+   ======================================================================== */
+
+@media (--mobile-sm) {
+  .ps-header {
+    &__bar {
+      padding: var(--size-3) var(--size-4);
+    }
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Mobile (--mobile: width >= 640px)
+   Adjustments: 3-column bar, smaller padding, search first
    ======================================================================== */
 
 @media (--mobile) {
@@ -288,21 +301,18 @@
 }
 
 /* ========================================================================
-   RESPONSIVE TABLET (--tablet: width >= 768px)
+   RESPONSIVE: Tablet (--tablet: width >= 768px)
+   Adjustments: Keep mobile layout, but with better padding
    ======================================================================== */
 
 @media (--tablet) {
   .ps-header {
     &__bar {
-      display: grid;
       grid-template-columns: auto 1fr;
+      gap: var(--size-4);
+      padding: var(--size-3) var(--size-4);
       align-items: center;
       justify-items: start;
-    }
-
-    &__toggle {
-      display: flex;
-      order: -1;
     }
 
     &__brand--inline {
@@ -314,43 +324,15 @@
       padding: var(--size-5) var(--size-6);
     }
 
-    &__cell--branding,
-    &__cell--top {
-      display: none;
-    }
-
     &__cell--bottom {
-      justify-content: flex-start;
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--size-4);
-
-      & > .block {
-        width: 100%;
-        padding: 0 !important;
-      }
-
-      & > .block::before {
-        display: none;
-      }
-    }
-
-    &__brand,
-    &__brand--inline {
-      align-items: center;
-      gap: var(--size-3);
-    }
-
-    &__cell--navigation .ps-menu--primary > .ps-menu__list {
-      flex-direction: column;
-      gap: var(--size-4);
-      width: 100%;
+      padding: var(--size-5) var(--size-6);
     }
   }
 }
 
 /* ========================================================================
-   RESPONSIVE LAPTOP/DESKTOP (--laptop: width >= 1024px)
+   RESPONSIVE: Laptop/Desktop (--laptop: width >= 1024px)
+   Adjustments: Full desktop layout (grid 2x2, bar hidden, no popup)
    ======================================================================== */
 
 @media (--laptop) {
@@ -379,7 +361,6 @@
       border-top: 0;
       box-shadow: none;
       z-index: auto;
-      flex-direction: row;
     }
 
     &.is-open &__panel {
@@ -397,8 +378,7 @@
       }
     }
 
-    &__cell--branding,
-    &__cell--top {
+    &__cell--branding {
       display: block;
     }
 
@@ -413,7 +393,6 @@
 
       display: flex;
       flex-wrap: nowrap;
-      flex-direction: row;
       align-items: center;
       gap: 0;
       justify-content: flex-end;
@@ -427,6 +406,7 @@
         align-items: center;
         white-space: nowrap;
         padding: 0 var(--ps-header-bottom-gap);
+        width: auto;
 
         &::before {
           content: '';
@@ -436,6 +416,7 @@
           bottom: 0;
           width: 1px;
           background: var(--ps-header-bottom-border-color);
+          display: block;
         }
 
         &:first-child {
@@ -451,8 +432,8 @@
         }
       }
 
-      & > .block-favorites,
-      & > .block-search {
+      & > .block-favorites {
+        display: flex;
         padding-right: 0;
         padding-left: 0;
 
@@ -461,8 +442,13 @@
         }
       }
 
-      & > .block.block-favorites {
-        display: flex;
+      & > .block-search {
+        padding-right: 0;
+        padding-left: 0;
+
+        &::before {
+          display: none;
+        }
       }
     }
 
@@ -480,7 +466,6 @@
           position: static;
           flex-direction: row;
           gap: 0;
-          width: auto;
         }
       }
 
