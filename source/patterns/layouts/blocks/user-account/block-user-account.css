@@ -202,6 +202,6 @@
   /* Logged out state - just wraps button */
   &--logged-out {
     position: static;
-    width: auto;
+    width: 100%;
   }
 }

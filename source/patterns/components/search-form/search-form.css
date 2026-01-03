@@ -27,7 +27,7 @@
 
 .ps-search-form {
   /* Layer 2: Component variables from global tokens */
-  --ps-search-form-bg: rgba(0, 0, 0, 0.05);
+  --ps-search-form-bg: var(--gray-100);
   --ps-search-form-border-color: var(--border-light);
   --ps-search-form-padding-block: var(--size-4);
   --ps-search-form-padding-inline: var(--size-6);

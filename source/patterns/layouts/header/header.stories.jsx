@@ -11,6 +11,7 @@ import headerData from './header.yml';
 // Import JavaScript behaviors
 import './header.js';
 import '../blocks/user-account/block-user-account.js';
+import '../../collections/menu-primary/menu-primary.js';
 
 /**
  * Rend un bloc individuel du header_bottom

@@ -119,12 +119,13 @@ header_bottom:
         label: 'What are you looking for?'
         variant: 'primary'
         outline: true
-        fullWidth: false
+        fullWidth: true
         url: '/search'
   
   - block_link_find_property:
       button:
         component: 'link'
+        fullWidth: true
         label: 'Find a property'
         url: '/find-property'
   
@@ -135,7 +136,7 @@ header_bottom:
           label: 'Log in / Sign up'
           url: '/user/login'
           variant: 'primary'
-          fullWidth: false
+          fullWidth: true
           icon: 'account'
       
       connected:
@@ -162,7 +163,7 @@ header_bottom:
         label: 'Contact us'
         variant: 'secondary'
         outline: false
-        fullWidth: false
+        fullWidth: true
         url: '/contact'
   
   - block_favorites:

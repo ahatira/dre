@@ -29,6 +29,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  width: 100%;
 
   /* Trigger button (BEM element + JS hook class) */
   &__trigger {
@@ -39,11 +40,13 @@
     /* Layout */
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--ps-block-search-trigger-gap);
     height: var(--ps-block-search-trigger-size);
     padding-inline: var(--ps-block-search-trigger-padding);
     cursor: pointer;
+    width: 100%;
+    text-align: left;
 
     /* Visual */
     background-color: var(--ps-block-search-trigger-bg);
