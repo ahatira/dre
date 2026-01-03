@@ -33,6 +33,7 @@
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <header{{ attr }} data-component="header">
+  {# Mobile bar (visible ≤ 1024px) #}
   <div class="ps-header__bar">
     <button
       class="ps-header__toggle"
@@ -45,32 +46,24 @@
     <div class="ps-header__brand ps-header__brand--inline">
       {{ page.header_branding|default('') }}
     </div>
-    <div class="ps-header__top ps-header__top--inline">
-      {{ page.header_top|default('') }}
-    </div>
   </div>
 
+  {# Desktop panel (2x2 grid) / Mobile menu (navigation + actions only) #}
   <div class="ps-header__panel" id="ps-header-panel">
-    <div class="ps-header__layout">
-      <div class="ps-header__cell ps-header__cell--branding">
-        <div class="ps-header__brand">
-          {{ page.header_branding|default('') }}
-        </div>
-      </div>
+    {# Row 1: Branding + Utilities (desktop only - hidden on mobile via CSS) #}
+    <div class="ps-header__cell ps-header__cell--branding">
+      {{ page.header_branding|default('') }}
+    </div>
+    <div class="ps-header__cell ps-header__cell--top">
+      {{ page.header_top|default('') }}
+    </div>
 
-      <div class="ps-header__cell ps-header__cell--top">
-        <div class="ps-header__top">
-          {{ page.header_top|default('') }}
-        </div>
-      </div>
-
-      <nav class="ps-header__cell ps-header__cell--navigation" aria-label="Main navigation">
-        {{ page.header_navigation|default('') }}
-      </nav>
-
-      <div class="ps-header__cell ps-header__cell--bottom">
-        {{ page.header_bottom|default('') }}
-      </div>
+    {# Row 2: Navigation + Actions (visible on both desktop and mobile) #}
+    <nav class="ps-header__cell ps-header__cell--navigation" aria-label="Main navigation">
+      {{ page.header_navigation|default('') }}
+    </nav>
+    <div class="ps-header__cell ps-header__cell--bottom">
+      {{ page.header_bottom|default('') }}
     </div>
   </div>
 </header>

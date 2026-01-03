@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Language Switcher Block - Wrapper for language-selector component
+ *
+ * Available variables:
+ * - name: Input name attribute (default: 'lang')
+ * - size: sm|md|lg (default: 'sm')
+ * - disabled: Disabled state (default: false)
+ * - current: Current language object
+ *   - code: Country code ISO (ex: GB, ES, FR)
+ *   - label: Short label (ex: En, Es, Fr)
+ *   - locale: Optional BCP 47 tag (ex: en-GB)
+ * - options: Array of language options
+ * - attributes: Drupal Attribute object for root element
+ *
+ * @see language-switcher.css
+ */
+#}
+
+{%- set attributes = attributes|default(create_attribute()) -%}
+
+{%- set classes = [
+  'ps-language-switcher-block',
+] -%}
+
+<div{{ attributes.addClass(classes) }}>
+  {% include '@components/language-selector/language-selector.twig' with {
+    name: name,
+    size: size,
+    disabled: disabled,
+    current: current,
+    options: options
+  } only %}
+</div>

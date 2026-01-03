@@ -1,63 +1,96 @@
+import menuPrimary from '../../collections/menu-primary/menu-primary.twig';
+import logo from '../../components/logo/logo.twig';
 import ctaBlock from '../blocks/cta/block-cta.twig';
 import favoritesBlock from '../blocks/favorites/favorites.twig';
+import languageSwitcher from '../blocks/language-switcher/language-switcher.twig';
 import searchBlock from '../blocks/search/block-search.twig';
 import userAccountBlock from '../blocks/user-account/block-user-account.twig';
 import header from './header.twig';
 import headerData from './header.yml';
 
 /**
- * Fonction helper pour rendu des blocs du header_bottom
- * Compile les blocs individuels et retourne les HTML strings
+ * Rend un bloc individuel du header_bottom
  */
-function renderHeaderBlocks(userState, blocks) {
-  const searchCtaHtml = ctaBlock({
-    button: {
-      label: blocks.search_cta.label,
-      variant: blocks.search_cta.variant,
-      outline: blocks.search_cta.outline,
-      fullWidth: false,
-      url: blocks.search_cta.url,
-    },
-  });
+function renderBottomBlock(blockObj, userState) {
+  let blockHtml = '';
 
-  const findPropertyLinkHtml = `<a href="${blocks.find_property.url}" class="ps-header-bottom__link">${blocks.find_property.label}</a>`;
+  // Block: Search CTA
+  if (blockObj.block_cta_search) {
+    const searchCtaHtml = ctaBlock(blockObj.block_cta_search);
+    blockHtml += searchCtaHtml;
+  }
 
-  const userAccountHtml = userState.logged_in
-    ? userAccountBlock({
-        logged_in: true,
-        user_name: userState.user_name,
-        menu_items: userState.menu_items,
-      })
-    : userAccountBlock({
-        logged_in: false,
-        login_button: userState.login_button,
-      });
+  // Block: Find Property Link
+  if (blockObj.block_link_find_property) {
+    const findPropertyHtml = ctaBlock(blockObj.block_link_find_property);
+    blockHtml += findPropertyHtml;
+  }
 
-  const contactCtaHtml = ctaBlock({
-    button: {
-      label: blocks.contact.label,
-      variant: blocks.contact.variant,
-      fullWidth: false,
-      url: blocks.contact.url,
-    },
-  });
+  // Block: User Account
+  if (blockObj.block_user_account) {
+    const userAccountState = blockObj.block_user_account[userState];
+    const userAccountHtml = userAccountBlock(userAccountState);
+    blockHtml += userAccountHtml;
+  }
 
-  const favoritesBlockHtml = favoritesBlock({
-    count: userState.favorites_count,
-    url: '/favorites',
-  });
+  // Block: Contact CTA
+  if (blockObj.block_cta_contact) {
+    const contactHtml = ctaBlock(blockObj.block_cta_contact);
+    blockHtml += contactHtml;
+  }
 
-  const searchBlockHtml = searchBlock({
-    show_form: false,
-  });
+  // Block: Favorites
+  if (blockObj.block_favorites) {
+    const favoritesState = blockObj.block_favorites[userState];
+    const favoritesHtml = favoritesBlock(favoritesState);
+    blockHtml += favoritesHtml;
+  }
+
+  // Block: Search
+  if (blockObj.block_search) {
+    const searchHtml = searchBlock(blockObj.block_search);
+    blockHtml += searchHtml;
+  }
+
+  return blockHtml;
+}
+
+/**
+ * Génère les régions Drupal avec les composants Twig
+ * @param {object} data - Les données du header.yml
+ * @param {string} userState - 'not_connected' ou 'connected'
+ * @returns {object} Les régions HTML pré-rendues
+ */
+function renderHeaderRegions(data, userState = 'not_connected') {
+  // REGION: header_branding
+  const brandingHtml = logo(data.header_branding.logo);
+
+  // REGION: header_top (Utilitaires - peut avoir plusieurs blocs)
+  let topHtml = '';
+  if (data.header_top && Array.isArray(data.header_top)) {
+    data.header_top.forEach((blockObj) => {
+      if (blockObj.language_switcher) {
+        topHtml += languageSwitcher(blockObj.language_switcher);
+      }
+    });
+  }
+
+  // REGION: header_navigation (Primary Menu)
+  const navigationHtml = menuPrimary({ items: data.header_navigation.items });
+
+  // REGION: header_bottom (Blocs d'action - flexbox dans le CSS)
+  let bottomHtml = '';
+  if (data.header_bottom && Array.isArray(data.header_bottom)) {
+    data.header_bottom.forEach((blockObj) => {
+      bottomHtml += renderBottomBlock(blockObj, userState);
+    });
+  }
 
   return {
-    searchCta: searchCtaHtml,
-    findProperty: findPropertyLinkHtml,
-    userAccount: userAccountHtml,
-    contact: contactCtaHtml,
-    favorites: favoritesBlockHtml,
-    search: searchBlockHtml,
+    header_branding: brandingHtml,
+    header_top: topHtml,
+    header_navigation: navigationHtml,
+    header_bottom: bottomHtml,
   };
 }
 
@@ -73,36 +106,33 @@ export default {
         defaultValue: { summary: 'true' },
       },
     },
-    'page.header_branding': {
-      control: 'text',
-      description: 'Drupal region: Header branding (logo)',
+    branding: {
+      control: 'object',
+      description: 'Logo data (logo_src, logo_alt)',
       table: {
-        category: 'Drupal Regions',
-        type: { summary: 'string (HTML)' },
+        category: 'Regions / Branding',
       },
     },
-    'page.header_navigation': {
-      control: 'text',
-      description: 'Drupal region: Primary navigation (menu)',
+    language_switcher: {
+      control: 'object',
+      description: 'Language switcher data (current, options)',
       table: {
-        category: 'Drupal Regions',
-        type: { summary: 'string (HTML)' },
+        category: 'Regions / Top',
       },
     },
-    'page.header_top': {
-      control: 'text',
-      description: 'Drupal region: Header top (language selector)',
+    menu_primary: {
+      control: 'object',
+      description: 'Primary menu items',
       table: {
-        category: 'Drupal Regions',
-        type: { summary: 'string (HTML)' },
+        category: 'Regions / Navigation',
       },
     },
-    'page.header_bottom': {
-      control: 'text',
-      description: 'Drupal region: Header bottom (actions & CTA blocks)',
+    blocks: {
+      control: 'object',
+      description:
+        'Action blocks (search_cta, find_property, user_account, contact, favorites, search)',
       table: {
-        category: 'Drupal Regions',
-        type: { summary: 'string (HTML)' },
+        category: 'Regions / Bottom',
       },
     },
     modifier_class: {
@@ -124,23 +154,13 @@ export default {
  */
 export const NonConnected = {
   render: (args) => {
-    const blocks = renderHeaderBlocks(args.user_states.not_connected, args.blocks);
+    const regions = renderHeaderRegions(args, 'not_connected');
 
-    const updatedArgs = {
-      ...args,
-      page: {
-        ...args.page,
-        header_bottom: args.page.header_bottom
-          .replace('<!-- Search CTA Block component -->', blocks.searchCta)
-          .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
-          .replace('<!-- User Account Block component -->', blocks.userAccount)
-          .replace('<!-- Contact CTA Block component -->', blocks.contact)
-          .replace('<!-- Favorites Block component -->', blocks.favorites)
-          .replace('<!-- Search Block component -->', blocks.search),
-      },
-    };
-
-    return header(updatedArgs);
+    return header({
+      sticky: args.sticky,
+      page: regions,
+      modifier_class: args.modifier_class,
+    });
   },
   args: {
     ...headerData,
@@ -155,23 +175,13 @@ export const NonConnected = {
  */
 export const Connected = {
   render: (args) => {
-    const blocks = renderHeaderBlocks(args.user_states.connected, args.blocks);
+    const regions = renderHeaderRegions(args, 'connected');
 
-    const updatedArgs = {
-      ...args,
-      page: {
-        ...args.page,
-        header_bottom: args.page.header_bottom
-          .replace('<!-- Search CTA Block component -->', blocks.searchCta)
-          .replace('<!-- Find Property CTA Block component -->', blocks.findProperty)
-          .replace('<!-- User Account Block component -->', blocks.userAccount)
-          .replace('<!-- Contact CTA Block component -->', blocks.contact)
-          .replace('<!-- Favorites Block component -->', blocks.favorites)
-          .replace('<!-- Search Block component -->', blocks.search),
-      },
-    };
-
-    return header(updatedArgs);
+    return header({
+      sticky: args.sticky,
+      page: regions,
+      modifier_class: args.modifier_class,
+    });
   },
   args: {
     ...headerData,

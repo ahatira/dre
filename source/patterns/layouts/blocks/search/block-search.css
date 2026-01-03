@@ -16,7 +16,7 @@
 .ps-block-search {
   /* Layer 2: Component variables from global tokens */
   --ps-block-search-trigger-size: var(--size-9); /* 36px - button size */
-  --ps-block-search-trigger-padding: var(--size-3);
+  --ps-block-search-trigger-padding: var(--size-2);
   --ps-block-search-trigger-gap: var(--size-2);
   --ps-block-search-trigger-bg: transparent;
   --ps-block-search-trigger-bg-hover: transparent;

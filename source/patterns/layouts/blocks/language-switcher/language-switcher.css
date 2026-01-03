@@ -1,0 +1,8 @@
+/**
+ * Language Switcher Block - Wrapper for language-selector component
+ * @see language-switcher.twig
+ */
+
+.ps-language-switcher-block {
+  display: inline-flex;
+}
