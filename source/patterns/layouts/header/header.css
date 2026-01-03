@@ -5,6 +5,7 @@
  *
  * Architecture: BEM (Block Element Modifier) with Nested CSS
  * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
+ * Responsive: Mobile-First with @custom-media tokens from source/props/media.css
  */
 
 .ps-header {
@@ -39,7 +40,6 @@
     position: sticky;
     top: 0;
 
-    &.is-open,
     &.is-sticky {
       z-index: var(--ps-header-z-sticky);
       box-shadow: var(--ps-header-shadow-sticky);
@@ -185,6 +185,10 @@
     & > .block::before {
       display: none;
     }
+
+    & > .block.block-favorites {
+      display: none;
+    }
   }
 
   &__toggle {
@@ -271,10 +275,6 @@
 
     &__cell--bottom {
       padding: var(--size-5) var(--size-4);
-
-      & > .block.block-favorites {
-        display: none;
-      }
     }
 
     &__tagline {
@@ -310,41 +310,13 @@
       justify-content: center;
     }
 
-    &__panel {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      width: 100%;
-      background: var(--ps-header-bg);
-      border-top: 1px solid var(--ps-header-border-color);
-      box-shadow: var(--shadow-4);
-      z-index: var(--ps-header-mobile-z);
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height var(--duration-normal) var(--ease-in-out), opacity var(--duration-fast) var(--ease-out);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 0;
-    }
-
-    &.is-open &__panel {
-      max-height: 100vh;
-      opacity: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+    &__cell {
+      padding: var(--size-5) var(--size-6);
     }
 
     &__cell--branding,
     &__cell--top {
       display: none;
-    }
-
-    &__cell {
-      padding: var(--size-5) var(--size-6);
-      border-bottom: 1px solid var(--ps-header-border-color);
     }
 
     &__cell--bottom {
@@ -353,7 +325,7 @@
       align-items: stretch;
       gap: var(--size-4);
 
-      & .block {
+      & > .block {
         width: 100%;
         padding: 0 !important;
       }
@@ -373,10 +345,6 @@
       flex-direction: column;
       gap: var(--size-4);
       width: 100%;
-    }
-
-    &__tagline {
-      font-size: var(--ps-header-tagline-size);
     }
   }
 }
@@ -411,6 +379,7 @@
       border-top: 0;
       box-shadow: none;
       z-index: auto;
+      flex-direction: row;
     }
 
     &.is-open &__panel {
@@ -419,8 +388,13 @@
     }
 
     &__cell {
+      width: 100%;
       padding: 0;
       border-bottom: 0;
+
+      &:last-child {
+        border-bottom: 0;
+      }
     }
 
     &__cell--branding,
@@ -434,6 +408,9 @@
     }
 
     &__cell--bottom {
+      --ps-header-bottom-border-color: var(--border-default);
+      --ps-header-bottom-gap: var(--size-4);
+
       display: flex;
       flex-wrap: nowrap;
       flex-direction: row;
@@ -443,6 +420,8 @@
       padding: 0;
 
       & > .block {
+        --ps-block-padding-y: 0;
+        --ps-block-padding-x: 0;
         position: relative;
         display: flex;
         align-items: center;
@@ -487,10 +466,35 @@
       }
     }
 
-    &__cell--navigation .ps-menu--primary > .ps-menu__list {
-      flex-direction: row;
-      gap: 0;
-      width: auto;
+    &__cell--navigation {
+      & nav {
+        display: flex;
+        align-items: center;
+      }
+
+      & .ps-menu--primary {
+        position: static;
+        flex: 1;
+
+        & > .ps-menu__list {
+          position: static;
+          flex-direction: row;
+          gap: 0;
+          width: auto;
+        }
+      }
+
+      & .mega-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100% !important;
+        padding-left: var(--ps-header-padding-x);
+        padding-right: var(--ps-header-padding-x);
+        margin: 0;
+        box-sizing: border-box;
+      }
     }
 
     &__tagline {
