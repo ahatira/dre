@@ -188,7 +188,7 @@
   }
 
   &__building-name {
-    font-size: var(--font-size-7);
+    font-size: var(--font-size-5);
     font-weight: var(--font-weight-700);
     color: var(--gray-900);
     line-height: var(--line-height-1);
@@ -215,7 +215,7 @@
   }
 
   &__price {
-    font-size: var(--font-size-7);
+    font-size: var(--font-size-5);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
     line-height: 1;
@@ -447,7 +447,7 @@
 
   .offer-meta {
     &__building-name {
-      font-size: var(--font-size-8);
+      font-size: var(--font-size-6);
     }
 
     &__title {
@@ -455,7 +455,7 @@
     }
 
     &__price {
-      font-size: var(--font-size-8);
+      font-size: var(--font-size-6);
     }
   }
 
