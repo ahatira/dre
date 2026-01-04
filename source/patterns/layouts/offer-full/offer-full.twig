@@ -99,7 +99,12 @@
             <div class="offer-meta__price-block">
               <div class="offer-meta__price">{{ header.price }}</div>
               {% if header.priceUnit %}
-                <div class="offer-meta__price-unit">{{ header.priceUnit }}</div>
+                <div class="offer-meta__price-unit">
+                  {{ header.priceUnit }}
+                  {% if header.priceUnitInfo %}
+                    <span data-icon="info" aria-label="Rental conditions information"></span>
+                  {% endif %}
+                </div>
               {% endif %}
             </div>
           {% endif %}

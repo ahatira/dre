@@ -154,6 +154,7 @@ header:
   city: '28010 MADRID'
   price: '20 000 €'
   priceUnit: 'HT/HC/m²/an'
+  priceUnitInfo: true
   availability: 'Immediately'
   mandateType: 'Exclusive'
   badges:
