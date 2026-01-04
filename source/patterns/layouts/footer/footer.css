@@ -5,7 +5,12 @@
  * Architecture: BEM (Block Element Modifier) with Nested CSS
  * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
  * Responsive: Mobile-First with min-width media query tokens
- * Regions: footer_contact, footer_social, footer_menu, footer_legal, footer_branding, footer_copyright
+ * 
+ * Structure:
+ * - __top: 3 colonnes (Contact+Social | Menu1 | Menu2)
+ * - __bottom: Logo | Legal | Copyright
+ * 
+ * Regions: footer_contact, footer_social, footer_menu_col1, footer_menu_col2, footer_legal, footer_branding, footer_copyright
  */
 
 .ps-footer {
@@ -18,7 +23,7 @@
 
   background: var(--ps-footer-bg);
 
-  &__main {
+  &__top {
     display: flex;
     flex-direction: column;
     gap: var(--ps-footer-gap);
@@ -26,10 +31,19 @@
     border-top: 1px solid var(--ps-footer-border);
   }
 
-  &__sections {
+  &__column {
     display: flex;
     flex-direction: column;
     gap: var(--ps-footer-gap);
+
+    &--1 {
+      /* Contact + Social stacked vertically on mobile */
+    }
+
+    &--2,
+    &--3 {
+      /* Menu sections */
+    }
   }
 
   &__contact {
@@ -39,9 +53,6 @@
   }
 
   &__menu {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ps-footer-gap);
   }
 
   &__bottom {
@@ -83,18 +94,21 @@
   .ps-footer {
     --ps-footer-padding-x: var(--size-8);
 
-    &__sections {
+    &__top {
       display: grid;
-      grid-template-columns: auto auto 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--ps-footer-gap);
-      align-items: flex-start;
     }
 
-    &__menu {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: var(--ps-footer-gap);
+    &__column {
+      &--1 {
+        /* Contact + Social in first column */
+      }
+
+      &--2,
+      &--3 {
+        /* Menu sections in columns 2 and 3 */
+      }
     }
 
     &__bottom {
@@ -112,17 +126,6 @@
 @media (--laptop) {
   .ps-footer {
     --ps-footer-padding-x: var(--size-10);
-
-    &__sections {
-      grid-template-columns: auto auto 1fr;
-    }
-
-    &__menu {
-      grid-column: auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--ps-footer-gap);
-    }
   }
 }
 

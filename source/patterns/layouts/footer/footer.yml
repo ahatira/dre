@@ -3,8 +3,9 @@
 # Structure organisée par régions Drupal (comme dans le theme)
 # - footer_contact : Contact Us block
 # - footer_social : Follow Us block
-# - footer_menu : Menu Links sections (collapsible on mobile)
-# - footer_legal : Legal Links menu
+# - footer_menu_col1 : Menu Links section 1 (collapsible on mobile)
+# - footer_menu_col2 : Menu Links section 2 (collapsible on mobile)
+# - footer_legal : Legal Links menu (bottom)
 # - footer_branding : Site logo, branding
 # - footer_copyright : Copyright notice
 #
@@ -15,7 +16,7 @@
 # REGION: CONTACT
 # ========================================================================
 footer_contact:
-  label: "Contactez-nous"
+  label: "Contact us"
   label_level: "h4"
   phones:
     - label: "City 1"
@@ -53,36 +54,40 @@ footer_social:
       external: true
 
 # ========================================================================
-# REGION: MENU (Navigation sections)
+# REGION: MENU COLUMN 1 (Business websites / First section)
 # ========================================================================
-footer_menu:
-  - label: "Sites métiers"
+footer_menu_col1:
+  - label: "Business websites"
     label_level: "h4"
     items:
-      - title: "Bureaux à louer"
-        url: "/sites/bureaux"
-      - title: "Commerces à louer"
-        url: "/sites/commerces"
-      - title: "Entrepôts & logistique"
-        url: "/sites/logistique"
-      - title: "Investisseurs institutionnels"
-        url: "/sites/investisseurs"
-      - title: "Property Management"
-        url: "/sites/property-management"
+      - title: "Link"
+        url: "/sites/link1"
+      - title: "Link"
+        url: "/sites/link2"
+      - title: "Link"
+        url: "/sites/link3"
+      - title: "Link"
+        url: "/sites/link4"
+      - title: "Link"
+        url: "/sites/link5"
 
-  - label: "À propos de BNP Paribas Real Estate"
+# ========================================================================
+# REGION: MENU COLUMN 2 (About / Second section)
+# ========================================================================
+footer_menu_col2:
+  - label: "About BNP Paribas Real Estate"
     label_level: "h4"
     items:
-      - title: "Notre entreprise"
-        url: "/a-propos/entreprise"
-      - title: "Actualités et études"
-        url: "/a-propos/actualites"
-      - title: "Carrières"
-        url: "/a-propos/carrieres"
-      - title: "Engagements RSE"
-        url: "/a-propos/rse"
-      - title: "Investisseurs"
-        url: "/a-propos/investisseurs"
+      - title: "Link"
+        url: "/a-propos/link1"
+      - title: "Link"
+        url: "/a-propos/link2"
+      - title: "Link"
+        url: "/a-propos/link3"
+      - title: "Link"
+        url: "/a-propos/link4"
+      - title: "Link"
+        url: "/a-propos/link5"
 
 # ========================================================================
 # REGION: LEGAL (Bottom legal links)

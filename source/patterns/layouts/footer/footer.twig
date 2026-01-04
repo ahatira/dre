@@ -26,49 +26,59 @@
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <footer{{ attr }} role="contentinfo">
-  {# ========== MAIN: Contact + Social + Menu Sections ========== #}
-  <div class="ps-footer__main">
-    <div class="ps-footer__sections">
-      {# Contact Region #}
+  {# ========== TOP: 3 Colonnes (Contact+Social | Menu1 | Menu2) ========== #}
+  <div class="ps-footer__top">
+    {# Colonne 1: Contact + Social #}
+    <div class="ps-footer__column ps-footer__column--1">
       {% if page.footer_contact %}
         <div class="ps-footer__contact">
           {{ page.footer_contact }}
         </div>
       {% endif %}
 
-      {# Social / Follow Us Region #}
       {% if page.footer_social %}
         <div class="ps-footer__social">
           {{ page.footer_social }}
         </div>
       {% endif %}
+    </div>
 
-      {# Menu Sections Region #}
-      {% if page.footer_menu %}
+    {# Colonne 2: Menu Links (Section 1) #}
+    <div class="ps-footer__column ps-footer__column--2">
+      {% if page.footer_menu_col1 %}
         <div class="ps-footer__menu">
-          {{ page.footer_menu }}
+          {{ page.footer_menu_col1 }}
+        </div>
+      {% endif %}
+    </div>
+
+    {# Colonne 3: Menu Links (Section 2) #}
+    <div class="ps-footer__column ps-footer__column--3">
+      {% if page.footer_menu_col2 %}
+        <div class="ps-footer__menu">
+          {{ page.footer_menu_col2 }}
         </div>
       {% endif %}
     </div>
   </div>
 
-  {# ========== BOTTOM: Branding + Legal + Copyright ========== #}
+  {# ========== BOTTOM: Logo | Legal Menu | Copyright ========== #}
   <div class="ps-footer__bottom">
-    {# Branding Region #}
+    {# Logo / Branding #}
     {% if page.footer_branding %}
       <div class="ps-footer__branding">
         {{ page.footer_branding }}
       </div>
     {% endif %}
 
-    {# Legal Links Region #}
+    {# Legal Links #}
     {% if page.footer_legal %}
       <div class="ps-footer__legal">
         {{ page.footer_legal }}
       </div>
     {% endif %}
 
-    {# Copyright Region #}
+    {# Copyright #}
     {% if page.footer_copyright %}
       <div class="ps-footer__copyright">
         {{ page.footer_copyright }}

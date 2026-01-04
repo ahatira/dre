@@ -36,7 +36,7 @@ const buildSocial = (socialData) => {
   return followUsTwig(socialData);
 };
 
-const buildMenuSections = (menuData) => {
+const buildMenuCol = (menuData) => {
   if (!Array.isArray(menuData)) {
     return '';
   }
@@ -57,7 +57,7 @@ export default {
     docs: {
       description: {
         component:
-          'Responsive footer using Drupal regions: footer_contact, footer_social, footer_menu, footer_legal, footer_branding, footer_copyright. Mobile-first, token-first, BEM-nested CSS.',
+          'Responsive footer with 3-column grid (Desktop): Contact+Social | Menu Col1 | Menu Col2. Bottom section: Branding | Legal | Copyright. Drupal regions: footer_contact, footer_social, footer_menu_col1, footer_menu_col2, footer_legal, footer_branding, footer_copyright. Mobile-first, token-first, BEM-nested CSS.',
       },
     },
   },
@@ -80,7 +80,8 @@ export const Default = {
     const brandingMarkup = buildBranding(args.page?.footer_branding || data.footer_branding);
     const contactMarkup = buildContact(args.page?.footer_contact || data.footer_contact);
     const socialMarkup = buildSocial(args.page?.footer_social || data.footer_social);
-    const menuMarkup = buildMenuSections(args.page?.footer_menu || data.footer_menu);
+    const menuCol1Markup = buildMenuCol(args.page?.footer_menu_col1 || data.footer_menu_col1);
+    const menuCol2Markup = buildMenuCol(args.page?.footer_menu_col2 || data.footer_menu_col2);
     const legalMarkup = buildLegal(args.page?.footer_legal || data.footer_legal);
 
     return footerTemplate({
@@ -88,7 +89,8 @@ export const Default = {
         footer_branding: brandingMarkup,
         footer_contact: contactMarkup,
         footer_social: socialMarkup,
-        footer_menu: menuMarkup,
+        footer_menu_col1: menuCol1Markup,
+        footer_menu_col2: menuCol2Markup,
         footer_legal: legalMarkup,
         footer_copyright: args.page?.footer_copyright || data.footer_copyright,
       },
@@ -101,7 +103,8 @@ export const Default = {
       footer_branding: data.footer_branding,
       footer_contact: data.footer_contact,
       footer_social: data.footer_social,
-      footer_menu: data.footer_menu,
+      footer_menu_col1: data.footer_menu_col1,
+      footer_menu_col2: data.footer_menu_col2,
       footer_legal: data.footer_legal,
       footer_copyright: data.footer_copyright,
     },
