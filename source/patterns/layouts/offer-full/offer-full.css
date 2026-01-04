@@ -1,0 +1,288 @@
+/**
+ * Offer Full Layout (Page Template)
+ * @see offer-full.twig
+ *
+ * Architecture: BEM (Block Element Modifier) with Nested CSS
+ * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
+ * Responsive: Mobile-First with min-width media query tokens
+ * 
+ * Structure:
+ * - Mobile: Single column layout with full-width sections
+ * - Desktop: 2-column grid (main content 2/3 + sidebar 1/3)
+ * - All spacing, colors, typography use design tokens
+ * 
+ * Sections: Breadcrumb, Gallery, Header, Actions, Description, 
+ *           Equipments, Services, Building, Information, Energy, 
+ *           Surface Table, Location, POI, Travel Time, Consultant Card
+ */
+
+.ps-offer-full {
+  --ps-offer-full-gap: var(--size-8);
+  --ps-offer-full-section-gap: var(--size-6);
+  --ps-offer-full-padding-x: var(--size-5);
+  --ps-offer-full-padding-y: var(--size-6);
+  --ps-offer-full-sidebar-width: 100%;
+  --ps-offer-full-main-width: 100%;
+
+  padding: var(--ps-offer-full-padding-y) var(--ps-offer-full-padding-x);
+
+  &__breadcrumb {
+    margin-bottom: var(--size-4);
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-full-gap);
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-full-section-gap);
+    width: 100%;
+  }
+
+  &__sidebar {
+    width: 100%;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
+  /* ========================================================================
+     GALLERY
+     ======================================================================== */
+  &__gallery {
+    margin-bottom: var(--size-2);
+  }
+
+  /* ========================================================================
+     HEADER
+     ======================================================================== */
+  &__header {
+    gap: var(--size-3);
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  &__title {
+    font-size: var(--font-size-7);
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+    line-height: var(--line-height-1);
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+    font-size: var(--font-size-1);
+    color: var(--gray-600);
+  }
+
+  &__reference,
+  &__surface {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-1);
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &__price {
+    font-size: var(--font-size-5);
+    font-weight: var(--font-weight-700);
+    color: var(--primary);
+    margin-top: var(--size-2);
+  }
+
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+    font-size: var(--font-size-1);
+    color: var(--gray-700);
+    margin-top: var(--size-1);
+  }
+
+  /* ========================================================================
+     ACTIONS BAR
+     ======================================================================== */
+  &__actions {
+    background: var(--gray-50);
+    padding: var(--size-5);
+    border-radius: var(--radius-2);
+  }
+
+  &__actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+  }
+
+  /* ========================================================================
+     DESCRIPTION
+     ======================================================================== */
+  &__description {
+    & .ps-read-more {
+      color: var(--gray-800);
+      line-height: var(--line-height-3);
+    }
+  }
+
+  /* ========================================================================
+     SECTION TITLES
+     ======================================================================== */
+  &__section-title {
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+    margin-bottom: var(--size-2);
+  }
+
+  /* ========================================================================
+     ENERGY PLACEHOLDER
+     ======================================================================== */
+  &__energy-placeholder,
+  &__map-placeholder,
+  &__poi-placeholder,
+  &__travel-time-placeholder {
+    padding: var(--size-6);
+    background: var(--gray-50);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-2);
+    color: var(--gray-600);
+    text-align: center;
+
+    & p {
+      margin: var(--size-2) 0;
+    }
+  }
+
+  /* ========================================================================
+     ADDRESS
+     ======================================================================== */
+  &__address {
+    margin-bottom: var(--size-4);
+    padding: var(--size-4);
+    background: var(--gray-50);
+    border-radius: var(--radius-2);
+
+    & p {
+      margin: var(--size-1) 0;
+      color: var(--gray-800);
+    }
+
+    & strong {
+      font-weight: var(--font-weight-600);
+      color: var(--gray-900);
+    }
+  }
+
+  /* ========================================================================
+     CONSULTANT CARD
+     ======================================================================== */
+  &__consultant {
+    position: sticky;
+    top: var(--size-6);
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Mobile (--mobile: width >= 640px)
+   ======================================================================== */
+@media (--mobile) {
+  .ps-offer-full {
+    --ps-offer-full-padding-x: var(--size-6);
+
+    &__actions-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Tablet (--tablet: width >= 768px)
+   ======================================================================== */
+@media (--tablet) {
+  .ps-offer-full {
+    --ps-offer-full-padding-x: var(--size-8);
+    --ps-offer-full-padding-y: var(--size-8);
+
+    &__container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--size-10);
+    }
+
+    &__main {
+      width: 100%;
+    }
+
+    &__sidebar {
+      width: 100%;
+    }
+
+    &__title {
+      font-size: var(--font-size-8);
+    }
+
+    &__actions-list {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Laptop (--laptop: width >= 1024px)
+   ======================================================================== */
+@media (--laptop) {
+  .ps-offer-full {
+    --ps-offer-full-padding-x: var(--size-10);
+    --ps-offer-full-gap: var(--size-12);
+    --ps-offer-full-section-gap: var(--size-8);
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Desktop (--desktop: width >= 1280px)
+   ======================================================================== */
+@media (--desktop) {
+  .ps-offer-full {
+    --ps-offer-full-padding-x: var(--size-12);
+
+    &__container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Desktop Large (--desktop-large: width >= 1440px)
+   ======================================================================== */
+@media (--desktop-large) {
+  .ps-offer-full {
+    --ps-offer-full-padding-x: var(--size-14);
+  }
+}

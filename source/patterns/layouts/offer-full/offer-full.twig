@@ -1,0 +1,405 @@
+{#
+/**
+ * Offer Full Layout (Page Template)
+ * Complete property detail page with gallery, specifications, consultant, and location.
+ *
+ * @param boolean skeleton - Loading state with skeleton placeholders (default: false)
+ * @param object breadcrumb - Breadcrumb navigation items
+ * @param object gallery - Carousel slides with images
+ * @param object header - Property header (title, reference, surface, location, price, badges)
+ * @param object actions - Action buttons (surface table, brochure, visit)
+ * @param object consultant - Agent card data (name, phone, avatar, cta)
+ * @param object description - Property description with read-more
+ * @param object equipments - Feature section for equipments
+ * @param object services - Feature section for services
+ * @param object building - Feature section for building condition
+ * @param object information - Feature section for additional info
+ * @param object energy - Energy performance data (DPE/GES) - PLACEHOLDER
+ * @param object surfaceTable - Surface table data (lots, floors, areas)
+ * @param object location - Address and map data - PLACEHOLDER
+ * @param object poi - Points of interest filters - PLACEHOLDER
+ * @param object travelTime - Travel time calculator - PLACEHOLDER
+ * @param object attributes - Additional HTML attributes
+ */
+#}
+
+{%- set skeleton = skeleton|default(false) -%}
+{%- set breadcrumb = breadcrumb|default({}) -%}
+{%- set gallery = gallery|default({}) -%}
+{%- set header = header|default({}) -%}
+{%- set actions = actions|default({}) -%}
+{%- set consultant = consultant|default({}) -%}
+{%- set description = description|default({}) -%}
+{%- set equipments = equipments|default({}) -%}
+{%- set services = services|default({}) -%}
+{%- set building = building|default({}) -%}
+{%- set information = information|default({}) -%}
+{%- set energy = energy|default({}) -%}
+{%- set surfaceTable = surfaceTable|default({}) -%}
+{%- set location = location|default({}) -%}
+{%- set poi = poi|default({}) -%}
+{%- set travelTime = travelTime|default({}) -%}
+
+{%- set attr = (attributes ? attributes : create_attribute()).addClass('ps-offer-full') -%}
+
+<div{{ attr }}>
+  {# ========================================================================
+     BREADCRUMB
+     ======================================================================== #}
+  {% if breadcrumb.items|default([])|length > 0 %}
+    <div class="ps-offer-full__breadcrumb">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '300px',
+          height: '20px'
+        } only %}
+      {% else %}
+        {% include '@components/breadcrumb/breadcrumb.twig' with breadcrumb only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# ========================================================================
+     MAIN LAYOUT: 2 columns (content + sidebar) on desktop
+     ======================================================================== #}
+  <div class="ps-offer-full__container">
+    
+    {# MAIN CONTENT COLUMN #}
+    <div class="ps-offer-full__main">
+      
+      {# GALLERY CAROUSEL #}
+      {% if gallery.slides|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__gallery" aria-label="Property gallery">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'rectangle',
+              width: '100%',
+              height: '500px'
+            } only %}
+          {% else %}
+            {% include '@components/carousel/carousel.twig' with gallery only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# OFFER HEADER #}
+      <section class="ps-offer-full__section ps-offer-full__header">
+        {% if skeleton %}
+          {% include '@elements/skeleton/skeleton.twig' with {
+            variant: 'text',
+            width: '80%',
+            height: '40px'
+          } only %}
+          <div style="margin-top: 16px;">
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '60%',
+              height: '24px'
+            } only %}
+          </div>
+          <div style="margin-top: 12px;">
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '40%',
+              height: '24px'
+            } only %}
+          </div>
+        {% else %}
+          {# Badges #}
+          {% if header.badges|default([])|length > 0 %}
+            <div class="ps-offer-full__badges">
+              {% for badge in header.badges %}
+                {% include '@elements/badge/badge.twig' with badge only %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {# Title #}
+          {% if header.title %}
+            {% include '@elements/heading/heading.twig' with {
+              level: 'h1',
+              text: header.title,
+              attributes: create_attribute().addClass('ps-offer-full__title')
+            } only %}
+          {% endif %}
+
+          {# Meta info (reference, surface, location) #}
+          <div class="ps-offer-full__meta">
+            {% if header.reference %}
+              <span class="ps-offer-full__reference">Référence : {{ header.reference }}</span>
+            {% endif %}
+            {% if header.surface %}
+              <span class="ps-offer-full__surface">{{ header.surface }}</span>
+            {% endif %}
+            {% if header.location %}
+              <span class="ps-offer-full__location" data-icon="pin">{{ header.location }}</span>
+            {% endif %}
+          </div>
+
+          {# Price #}
+          {% if header.price %}
+            <div class="ps-offer-full__price">{{ header.price }}</div>
+          {% endif %}
+
+          {# Availability & Mandate #}
+          {% if header.availability or header.mandate %}
+            <div class="ps-offer-full__details">
+              {% if header.availability %}
+                <span class="ps-offer-full__availability">Disponible : {{ header.availability }}</span>
+              {% endif %}
+              {% if header.mandate %}
+                <span class="ps-offer-full__mandate">Mandat : {{ header.mandate }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </section>
+
+      {# ACTIONS BAR #}
+      {% if actions.buttons|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__actions" aria-label="Property actions">
+          {% if skeleton %}
+            <div style="display: flex; gap: 12px;">
+              {% include '@elements/skeleton/skeleton.twig' with {
+                variant: 'button',
+                width: '180px',
+                height: '44px'
+              } only %}
+              {% include '@elements/skeleton/skeleton.twig' with {
+                variant: 'button',
+                width: '180px',
+                height: '44px'
+              } only %}
+              {% include '@elements/skeleton/skeleton.twig' with {
+                variant: 'button',
+                width: '180px',
+                height: '44px'
+              } only %}
+            </div>
+          {% else %}
+            <div class="ps-offer-full__actions-list">
+              {% for action in actions.buttons %}
+                {% include '@elements/button/button.twig' with action only %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# DESCRIPTION #}
+      {% if description.content %}
+        <section class="ps-offer-full__section ps-offer-full__description">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '150px'
+            } only %}
+          {% else %}
+            {% include '@elements/heading/heading.twig' with {
+              level: 'h2',
+              text: 'Description',
+              attributes: create_attribute().addClass('ps-offer-full__section-title')
+            } only %}
+            {% include '@components/read-more/read-more.twig' with description only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# EQUIPMENTS #}
+      {% if equipments.items|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__equipments">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '120px'
+            } only %}
+          {% else %}
+            {% include '@collections/feature-section/feature-section.twig' with equipments only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# SERVICES #}
+      {% if services.items|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__services">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '150px'
+            } only %}
+          {% else %}
+            {% include '@collections/feature-section/feature-section.twig' with services only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# BUILDING CONDITION #}
+      {% if building.items|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__building">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '100px'
+            } only %}
+          {% else %}
+            {% include '@collections/feature-section/feature-section.twig' with building only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# MORE INFORMATION #}
+      {% if information.items|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__information">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '100px'
+            } only %}
+          {% else %}
+            {% include '@collections/feature-section/feature-section.twig' with information only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# ENERGY SECTION - PLACEHOLDER #}
+      {% if energy.dpe or energy.ges %}
+        <section class="ps-offer-full__section ps-offer-full__energy" aria-label="Energy performance">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'rectangle',
+              width: '100%',
+              height: '200px'
+            } only %}
+          {% else %}
+            {% include '@elements/heading/heading.twig' with {
+              level: 'h2',
+              text: 'Énergie',
+              icon: 'energy',
+              attributes: create_attribute().addClass('ps-offer-full__section-title')
+            } only %}
+            <div class="ps-offer-full__energy-placeholder">
+              <p>🔌 DPE & GES widgets - Component to be implemented</p>
+              <p>Data: DPE {{ energy.dpe|default('N/A') }} | GES {{ energy.ges|default('N/A') }}</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# SURFACE TABLE #}
+      {% if surfaceTable.rows|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__surface-table" aria-label="Surface details">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'rectangle',
+              width: '100%',
+              height: '300px'
+            } only %}
+          {% else %}
+            {% include '@elements/heading/heading.twig' with {
+              level: 'h2',
+              text: 'Tableau des surfaces',
+              icon: 'table',
+              attributes: create_attribute().addClass('ps-offer-full__section-title')
+            } only %}
+            {% include '@components/table/table.twig' with surfaceTable only %}
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# LOCATION & MAP - PLACEHOLDER #}
+      {% if location.address or location.map %}
+        <section class="ps-offer-full__section ps-offer-full__location" aria-label="Location">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'rectangle',
+              width: '100%',
+              height: '400px'
+            } only %}
+          {% else %}
+            {% include '@elements/heading/heading.twig' with {
+              level: 'h2',
+              text: 'Localisation',
+              icon: 'pin',
+              attributes: create_attribute().addClass('ps-offer-full__section-title')
+            } only %}
+            
+            {# Address #}
+            {% if location.address %}
+              <div class="ps-offer-full__address">
+                <p><strong>{{ location.address.street }}</strong></p>
+                <p>{{ location.address.city }}, {{ location.address.postal }}</p>
+              </div>
+            {% endif %}
+
+            {# Map Placeholder #}
+            <div class="ps-offer-full__map-placeholder">
+              <p>🗺️ Interactive map widget - Component to be implemented</p>
+              <p>Coordinates: {{ location.map.lat|default('N/A') }}, {{ location.map.lng|default('N/A') }}</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# POI FILTERS - PLACEHOLDER #}
+      {% if poi.categories|default([])|length > 0 %}
+        <section class="ps-offer-full__section ps-offer-full__poi" aria-label="Points of interest">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '100%',
+              height: '80px'
+            } only %}
+          {% else %}
+            <div class="ps-offer-full__poi-placeholder">
+              <p>📍 POI Filters: {{ poi.categories|join(', ') }}</p>
+              <p>Checkboxes for: Transports, Parking, Restaurants, Hotels</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {# TRAVEL TIME - PLACEHOLDER #}
+      {% if travelTime.enabled %}
+        <section class="ps-offer-full__section ps-offer-full__travel-time" aria-label="Travel time calculator">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'rectangle',
+              width: '100%',
+              height: '120px'
+            } only %}
+          {% else %}
+            <div class="ps-offer-full__travel-time-placeholder">
+              <p>🚗 Calculate travel time - Component to be implemented</p>
+              <p>Origin: {{ travelTime.origin|default('N/A') }}</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+
+    </div>
+
+    {# SIDEBAR: Consultant Card #}
+    <aside class="ps-offer-full__sidebar">
+      {% if consultant.name %}
+        <div class="ps-offer-full__consultant">
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'card',
+              width: '100%',
+              height: '250px'
+            } only %}
+          {% else %}
+            {% include '@components/card-agent/card-agent.twig' with consultant only %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </aside>
+
+  </div>
+</div>

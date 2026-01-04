@@ -1,0 +1,258 @@
+# Default data for Offer Full layout (Real Estate context: Madrid office property)
+
+# Breadcrumb navigation
+breadcrumb:
+  items:
+    - label: 'Home'
+      url: '/'
+    - label: 'Search results'
+      url: '/search'
+    - label: 'Rent Offices MADRID Barrio de Chamberí'
+
+# Gallery carousel
+gallery:
+  slides:
+    - id: 'slide-1'
+      image:
+        src: '/images/building.jpg'
+        alt: 'Modern office building exterior - Barrio de Chamberí Madrid'
+    - id: 'slide-2'
+      image:
+        src: '/images/16-9.jpg'
+        alt: 'Open space office interior with natural light'
+    - id: 'slide-3'
+      image:
+        src: '/images/4-3.jpg'
+        alt: 'Meeting room with conference table'
+    - id: 'slide-4'
+      image:
+        src: '/images/2-3.jpg'
+        alt: 'Reception area with modern design'
+    - id: 'slide-5'
+      image:
+        src: '/images/3-4.jpg'
+        alt: 'Building lobby with high ceilings'
+  variant: 'images'
+  fit: 'cover'
+  loop: true
+  withPagination: true
+  ariaLabel: 'Property photo gallery'
+
+# Property header
+header:
+  badges:
+    - text: 'New'
+      variant: 'info'
+      size: 'medium'
+    - text: 'Exclusive'
+      variant: 'gold'
+      size: 'medium'
+  title: 'Rent Offices MADRID Barrio de Chamberí'
+  reference: 'OLBUR2108057'
+  surface: '611.3 m²'
+  location: '28010 MADRID'
+  price: '20 000 € HT/HC/m²/an'
+  availability: 'Immediately'
+  mandate: 'Exclusive'
+
+# Actions bar
+actions:
+  buttons:
+    - text: 'Access to the surface area table'
+      variant: 'secondary'
+      icon: 'table'
+      iconPosition: 'left'
+      url: '#surface-table'
+    - text: 'Download the brochure'
+      variant: 'secondary'
+      icon: 'download'
+      iconPosition: 'left'
+      url: '/download/brochure-OLBUR2108057.pdf'
+    - text: 'Schedule a visit'
+      variant: 'primary'
+      icon: 'calendar'
+      iconPosition: 'left'
+      url: '#schedule-visit'
+
+# Consultant card (sidebar)
+consultant:
+  title: 'Your consultant:'
+  name: 'Sophia Dacosta'
+  phone: '+32 2 686 49 49'
+  avatar:
+    url: '/images/agent/sophia-dacosta.jpg'
+    alt: 'Sophia Dacosta - Real Estate Consultant'
+  cta:
+    text: 'Contact the consultancy'
+    url: '#contact-modal'
+
+# Description
+description:
+  content: |
+    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié.</p>
+    
+    <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard.</p>
+    
+    <p>Contrairement à une opinion répandue, le Lorem Ipsum n'est pas simplement du texte aléatoire. Il trouve ses racines dans une oeuvre de la littérature latine classique datant de 45 av. J.-C., le rendant vieux de 2000 ans. Un professeur du Hampden-Sydney College, en Virginie, s'est intéressé à un des mots latins les plus obscurs, consectetur.</p>
+  maxHeight: 150
+  expandLabel: 'See more'
+  collapseLabel: 'See less'
+  expanded: false
+  showIcon: true
+
+# Equipments section
+equipments:
+  title: 'Équipements'
+  icon: 'office'
+  columns_min_items: 0
+  items:
+    - 'Elevators'
+    - 'Air conditioning: Reversible'
+    - 'Computer cabling: Optical Fiber'
+    - 'False floor: High height'
+    - 'Heating system: Individual'
+
+# Services section
+services:
+  title: 'Services'
+  icon: 'reception'
+  columns_min_items: 5
+  items:
+    - 'Home: Hostesses'
+    - 'Layout: 3 open-space rooms'
+    - 'Partitioned offices: Yes'
+    - 'Meeting room: Yes'
+    - 'Cafeteria: Yes'
+    - 'Security: Intercom access control'
+    - 'Terraces, gardens: Balcony overlooking the park'
+
+# Building condition section
+building:
+  title: 'Building condition'
+  icon: 'building'
+  columns_min_items: 0
+  items:
+    - 'Condition of building: Restructured with common areas'
+    - 'Condition of premises: state of use'
+
+# More information section
+information:
+  title: 'More information'
+  icon: 'info'
+  columns_min_items: 0
+  items:
+    - 'Several copyholds'
+    - 'Garden level in perfect condition'
+    - 'Highly flexible'
+
+# Energy performance (placeholder data)
+energy:
+  dpe: 'C (150 kWh/m²/year)'
+  ges: 'B (35 kg CO2/m²/year)'
+
+# Surface table
+surfaceTable:
+  caption: 'Available office spaces by floor'
+  headers:
+    - key: 'lot'
+      label: 'Lot'
+      sortable: false
+      numeric: false
+    - key: 'floor'
+      label: 'Floor'
+      sortable: true
+      numeric: false
+    - key: 'nature'
+      label: 'Nature'
+      sortable: false
+      numeric: false
+    - key: 'surface'
+      label: 'Surface'
+      sortable: true
+      numeric: true
+    - key: 'availability'
+      label: 'Availability'
+      sortable: false
+      numeric: false
+  rows:
+    - id: 'row-1'
+      cells:
+        - content: 'OLBUR2108057_6'
+          header: false
+        - content: 'Ground floor'
+          header: false
+        - content: 'Offices'
+          header: false
+        - content: '465 m²'
+          header: false
+        - content: 'Now available'
+          header: false
+    - id: 'row-2'
+      cells:
+        - content: 'OLBUR2108057_7'
+          header: false
+        - content: 'Ground floor'
+          header: false
+        - content: 'Offices'
+          header: false
+        - content: '465 m²'
+          header: false
+        - content: 'Now available'
+          header: false
+    - id: 'row-3'
+      cells:
+        - content: 'OLBUR2108057_20'
+          header: false
+        - content: 'Ground floor'
+          header: false
+        - content: 'Offices'
+          header: false
+        - content: '465 m²'
+          header: false
+        - content: 'Now available'
+          header: false
+    - id: 'row-4'
+      cells:
+        - content: 'OLBUR2108057_23'
+          header: false
+        - content: 'Ground floor'
+          header: false
+        - content: 'Offices'
+          header: false
+        - content: '420 m²'
+          header: false
+        - content: 'Now available'
+          header: false
+  variant: 'default'
+  striped: true
+  hover: true
+  bordered: false
+  compact: false
+  responsive: true
+
+# Location data
+location:
+  address:
+    street: '37 Cl. Hermanos García Noblejas'
+    city: 'Madrid'
+    postal: '28037'
+  map:
+    lat: 40.4168
+    lng: -3.7038
+  transport:
+    - 'Bus: N° XX-XX-XX'
+    - 'Métro: M3 Madrid'
+    - 'Road access'
+
+# POI filters (placeholder)
+poi:
+  categories:
+    - 'Transports'
+    - 'Parkings'
+    - 'Restaurants'
+    - 'Hotels'
+
+# Travel time calculator (placeholder)
+travelTime:
+  enabled: true
+  origin: 'Your location'

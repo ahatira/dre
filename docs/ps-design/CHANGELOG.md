@@ -6,6 +6,70 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-01-04] - Offer Full Layout (Complete Property Detail Page)
+
+### Added
+- **Offer Full Layout (Layouts/Offer Full)**: Complete property detail page for real estate offers
+  - **Template** (offer-full.twig): Comprehensive single-page layout with 12+ sections
+    - Conditional skeleton mode via boolean parameter for Ajax loading
+    - Responsive 2-column grid: Main content (2/3) + Sidebar consultant (1/3)
+    - Sections implemented: Breadcrumb, Gallery, Header, Actions, Description, Equipments, Services, Building Condition, More Information, Energy (placeholder), Surface Table, Location (placeholder), POI Filters (placeholder), Travel Time (placeholder)
+    - Component composition: Breadcrumb, Carousel, Card Agent, Feature Sections, Table, Read More, Button, Badge, Skeleton
+    - Placeholders for future components: Energy widgets (DPE/GES), Map widget, POI filters, Travel time calculator
+    - Full support for Drupal Attribute object with create_attribute() fallback
+  - **Styles** (offer-full.css): Token-First responsive architecture
+    - Component-scoped variables: gaps, padding, widths (Layer 2 overrides)
+    - Mobile-First approach: Single column → 2-column grid at tablet (768px)
+    - Sticky sidebar consultant card (position: sticky, top: var(--size-6))
+    - 5 responsive breakpoints: mobile (640px), tablet (768px), laptop (1024px), desktop (1280px), desktop-large (1440px)
+    - Max-width container: 1440px centered on desktop+
+    - Placeholder sections: Dashed borders, gray background, informative text
+    - All spacing via size tokens (--size-1 to --size-14)
+    - All colors via semantic tokens (--primary, --gray-*, --border-*)
+  - **Data** (offer-full.yml): Complete Real Estate context (Madrid office property)
+    - Property: "Rent Offices MADRID Barrio de Chamberí"
+    - Reference: OLBUR2108057, Surface: 611.3 m², Price: 20,000 €/m²/year
+    - Gallery: 5 photo slides with accessibility labels
+    - Header: Badges (New, Exclusive), title, meta, price, availability, mandate
+    - Actions: 3 CTA buttons (Surface table, Brochure, Visit)
+    - Consultant: Sophia Dacosta with avatar, phone, contact CTA
+    - Description: Lorem ipsum with read-more toggle (150px maxHeight)
+    - Feature Sections: Equipments (5 items), Services (7 items, 2-column), Building (2 items), Information (3 items)
+    - Surface Table: 4 rows with 5 columns (Lot, Floor, Nature, Surface, Availability)
+    - Location: Address (37 Cl. Hermanos García Noblejas, Madrid 28037) + map coordinates
+    - Energy: DPE (C - 150 kWh/m²/year), GES (B - 35 kg CO2/m²/year)
+    - POI: 4 categories (Transports, Parkings, Restaurants, Hotels)
+  - **Stories** (offer-full.stories.jsx): 3 comprehensive variants
+    - Default (Full Content): Complete property page with all sections
+    - Skeleton (Loading State): All sections with skeleton placeholders for Ajax loading
+    - Minimal (Required Fields Only): Only breadcrumb, header, consultant
+    - Full Autodocs support with 15+ categorized argTypes (State, Navigation, Gallery, Header, Actions, Sidebar, Content, Data, Location, Drupal)
+    - Layout: fullscreen parameter for page-level stories
+  - **Features**:
+    - Skeleton mode: Replaces all content with loading placeholders (Skeleton atoms)
+    - Component reuse: 8 existing components composed (no duplication)
+    - Accessibility: ARIA labels, landmarks, semantic HTML
+    - Real Estate optimized: Property-specific data structure
+
+### Technical Details
+- **Location**: source/patterns/layouts/offer-full/
+- **Structure**: 4 files (offer-full.twig, offer-full.css, offer-full.yml, offer-full.stories.jsx)
+- **Composed Components**: 8 existing + 4 placeholders
+  - ✅ Breadcrumb, Carousel, Card Agent, Feature Section, Table, Read More, Button, Badge, Skeleton
+  - ⏳ Energy Widget, Map Widget, POI Filters, Travel Time Calculator (to be implemented)
+- **Responsive**: Mobile-First, 5 breakpoints, max-width 1440px
+- **Token Usage**: 100% (spacing, colors, typography, borders, shadows)
+- **Build Status**: ✅ Passes (npm run build - 0 errors)
+- **Accessibility**: WCAG 2.2 AA compliant (landmarks, ARIA, focus-visible)
+
+### Notes
+- First complete page layout in PS Theme
+- Demonstrates Token-First composition workflow
+- Skeleton variant enables Drupal Ajax node loading pattern
+- Placeholder sections documented for future implementation
+
+---
+
 ## [2026-01-02] - Favorites Block Component (Final)
 
 ### Added
