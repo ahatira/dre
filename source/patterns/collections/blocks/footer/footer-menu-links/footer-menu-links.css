@@ -1,0 +1,146 @@
+/* Footer Menu Links Block */
+
+.ps-footer-menu-links {
+  /* Component-scoped variables (Layer 2) */
+  --ps-footer-menu-links-heading-color: var(--text-primary);
+  --ps-footer-menu-links-heading-font-weight: var(--font-weight-400);
+  
+  --ps-footer-menu-links-trigger-bg: transparent;
+  --ps-footer-menu-links-trigger-border: var(--border-default);
+  --ps-footer-menu-links-trigger-padding: var(--size-4);
+  
+  --ps-footer-menu-links-icon-size: var(--size-8);
+  --ps-footer-menu-links-icon-chevron-mask: svg-load('generic/chevron-down.svg');
+  --ps-footer-menu-links-icon-color: var(--text-primary);
+  --ps-footer-menu-links-icon-transition: var(--duration-base) var(--ease-out);
+  
+  --ps-footer-menu-links-panel-bg: transparent;
+  --ps-footer-menu-links-panel-padding: 0;
+  --ps-footer-menu-links-panel-spacing: var(--size-6);
+  --ps-footer-menu-links-gap: var(--size-4);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-footer-menu-links-gap);
+  color: var(--ps-footer-menu-links-label-color);
+  background: transparent;
+  line-height: 1.4;
+
+  /* Transform heading into clickable trigger on mobile */
+  & .ps-heading {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    font-weight: var(--ps-footer-menu-links-heading-font-weight);
+    color: var(--ps-footer-menu-links-heading-color);
+    margin: 0;
+    transition: background var(--ps-footer-menu-links-icon-transition);
+
+    &:hover {
+      background: var(--gray-50);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: -2px;
+    }
+
+    /* Add chevron icon after heading text using mask-image */
+    &::after {
+      content: '';
+      display: inline-block;
+      width: var(--ps-footer-menu-links-icon-size);
+      height: var(--ps-footer-menu-links-icon-size);
+      background-color: var(--ps-footer-menu-links-icon-color);
+      mask-image: var(--ps-footer-menu-links-icon-chevron-mask);
+      -webkit-mask-image: var(--ps-footer-menu-links-icon-chevron-mask);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+      transition: transform var(--ps-footer-menu-links-icon-transition);
+      flex-shrink: 0;
+    }
+
+    /* Rotate chevron when expanded */
+    &[aria-expanded="true"]::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  /* Mobile: Panel hidden by default, shown when expanded */
+  & .ps-footer-menu-links__panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--ps-footer-menu-links-icon-transition);
+
+    &[aria-expanded="true"] {
+      max-height: 1000px;
+    }
+  }
+
+  /* Style the included menu component */
+  & .menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  & .menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .menu__item {
+    margin: 0;
+  }
+
+  & .menu__link {
+    display: block;
+    padding: var(--size-2) var(--size-4);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: var(--font-size-3);
+    transition: color var(--duration-base) var(--ease-out);
+
+    &:hover {
+      color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: -2px;
+    }
+  }
+
+  /* Desktop breakpoint (lg+) */
+  @media (min-width: 1024px) {
+    /* Heading becomes static, no cursor/hover */
+    & .ps-heading {
+      cursor: default;
+
+      &:hover {
+        background: transparent;
+      }
+
+      /* Remove chevron icon on desktop */
+      &::after {
+        display: none;
+      }
+    }
+
+    /* Panel always visible on desktop */
+    & .ps-footer-menu-links__panel {
+      max-height: none;
+      padding: var(--ps-footer-menu-links-panel-padding);
+    }
+  }
+}
