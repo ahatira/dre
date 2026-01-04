@@ -210,14 +210,14 @@
 
   &__price-block {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--size-2);
   }
 
   &__price {
     font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
-    color: var(--primary);
+    color: var(--text-primary);
     line-height: 1;
   }
 
@@ -229,12 +229,8 @@
     align-items: center;
     gap: var(--size-2);
 
-    &[data-icon] {
-      width: 16px;
-      height: 16px;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+    [data-ps-tooltip] {
+      cursor: help;
     }
   }
 

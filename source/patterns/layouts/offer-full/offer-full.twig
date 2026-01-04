@@ -23,6 +23,8 @@
  */
 #}
 
+{{ attach_library('ps_theme/tooltip') }}
+
 {%- set skeleton = skeleton|default(false) -%}
 {%- set gallery = gallery|default({}) -%}
 {%- set header = header|default({}) -%}
@@ -102,7 +104,13 @@
                 <div class="offer-meta__price-unit">
                   {{ header.priceUnit }}
                   {% if header.priceUnitInfo %}
-                    <span data-icon="info" aria-label="Rental conditions information"></span>
+                    <span 
+                      data-ps-tooltip
+                      data-ps-tooltip-content="Rental conditions and pricing basis"
+                      data-ps-tooltip-position="top"
+                      data-ps-tooltip-icon="info"
+                      aria-describedby="price-unit-info"
+                    ></span>
                   {% endif %}
                 </div>
               {% endif %}
