@@ -28,6 +28,7 @@
 {%- set header = header|default({}) -%}
 {%- set actions = actions|default({}) -%}
 {%- set consultant = consultant|default({}) -%}
+{%- set visitCard = visitCard|default({}) -%}
 {%- set description = description|default({}) -%}
 {%- set equipments = equipments|default({}) -%}
 {%- set services = services|default({}) -%}
@@ -65,7 +66,7 @@
 
       {# META: Header + Actions #}
       <section class="offer-meta">
-        {# HEADER #}
+        {# HEADER - Structure exacte de la maquette #}
         <div class="offer-meta__header">
         {% if skeleton %}
           {% include '@elements/skeleton/skeleton.twig' with {
@@ -73,86 +74,66 @@
             width: '80%',
             height: '40px'
           } only %}
-          <div style="margin-top: 16px;">
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '60%',
-              height: '24px'
-            } only %}
-          </div>
-          <div style="margin-top: 12px;">
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '40%',
-              height: '24px'
-            } only %}
-          </div>
         {% else %}
-          {# Badges #}
-          {% if header.badges|default([])|length > 0 %}
-            <div class="offer-meta__badges" style="grid-column: 1 / -1;">
-              {% for badge in header.badges %}
-                {% include '@elements/badge/badge.twig' with badge only %}
-              {% endfor %}
-            </div>
-          {% endif %}
-
-          {# Reference (full width) #}
+          {# Ligne 1: Reference #}
           {% if header.reference %}
-            <div class="offer-meta__reference-block" style="grid-column: 1 / -1; font-weight: 600; color: var(--gray-700); font-size: var(--font-size-1);">
-              Référence : {{ header.reference }}
+            <div class="offer-meta__reference">
+              Reference : {{ header.reference }}
             </div>
           {% endif %}
 
-          {# Title & Price (2 colonnes) #}
-          <div class="offer-meta__title-col">
+          {# Ligne 2-3: Building Name + Title (colonne gauche) | Price (colonne droite) #}
+          <div class="offer-meta__title-block">
+            {% if header.buildingName %}
+              <h1 class="offer-meta__building-name">{{ header.buildingName }}</h1>
+            {% endif %}
             {% if header.title %}
-              {% include '@elements/heading/heading.twig' with {
-                level: 'h1',
-                text: header.title,
-                attributes: create_attribute().addClass('offer-meta__title')
-              } only %}
+              <div class="offer-meta__title">{{ header.title }}</div>
             {% endif %}
           </div>
-          <div class="offer-meta__price-col">
-            {% if header.price %}
+
+          {% if header.price %}
+            <div class="offer-meta__price-block">
               <div class="offer-meta__price">{{ header.price }}</div>
-            {% endif %}
-          </div>
+              {% if header.priceUnit %}
+                <div class="offer-meta__price-unit">{{ header.priceUnit }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
 
-          {# Surface & Location (2 colonnes) #}
-          <div class="offer-meta__meta-item">
-            {% if header.surface %}
-              <span class="offer-meta__meta-label">Surface</span>
-              <span class="offer-meta__meta-value">{{ header.surface }}</span>
-            {% endif %}
-          </div>
-          <div class="offer-meta__meta-item">
-            {% if header.location %}
-              <span class="offer-meta__meta-label">Localisation</span>
-              <span class="offer-meta__meta-value" data-icon="pin">{{ header.location }}</span>
-            {% endif %}
-          </div>
+          {# Ligne 4: Surface + City #}
+          {% if header.surface or header.city %}
+            <div class="offer-meta__location-line">
+              {% if header.surface %}
+                <span class="offer-meta__surface">{{ header.surface }}</span>
+              {% endif %}
+              {% if header.city %}
+                <span class="offer-meta__city">{{ header.city }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
 
-          {# Availability & Mandate (2 colonnes) #}
-          <div class="offer-meta__meta-item">
+          {# Ligne 5: Availability + Mandate Type #}
+          <div class="offer-meta__status-line">
             {% if header.availability %}
-              <span class="offer-meta__meta-label">Disponibilité</span>
-              <span class="offer-meta__meta-value">{{ header.availability }}</span>
+              <div class="offer-meta__status-item">
+                <span class="offer-meta__status-label">Available :</span>
+                <strong class="offer-meta__status-value offer-meta__status-value--success">{{ header.availability }}</strong>
+              </div>
             {% endif %}
-          </div>
-          <div class="offer-meta__meta-item">
-            {% if header.mandate %}
-              <span class="offer-meta__meta-label">Mandat</span>
-              <span class="offer-meta__meta-value">{{ header.mandate }}</span>
+            {% if header.mandateType %}
+              <div class="offer-meta__status-item">
+                <span class="offer-meta__status-label">Type of mandate :</span>
+                <strong class="offer-meta__status-value">{{ header.mandateType }}</strong>
+              </div>
             {% endif %}
           </div>
         {% endif %}
         </div>
 
-        {# ACTIONS #}
+        {# ACTIONS - 2 boutons côte à côte #}
         {% if actions.buttons|default([])|length > 0 %}
-          <div class="offer-meta__actions" aria-label="Property actions">
+          <div class="offer-meta__actions">
           {% if skeleton %}
             <div style="display: flex; gap: 12px;">
               {% include '@elements/skeleton/skeleton.twig' with {
@@ -165,18 +146,11 @@
                 width: '180px',
                 height: '44px'
               } only %}
-              {% include '@elements/skeleton/skeleton.twig' with {
-                variant: 'button',
-                width: '180px',
-                height: '44px'
-              } only %}
             </div>
           {% else %}
-            <div class="offer-meta__actions-list">
-              {% for action in actions.buttons %}
-                {% include '@elements/button/button.twig' with action only %}
-              {% endfor %}
-            </div>
+            {% for action in actions.buttons %}
+              {% include '@elements/button/button.twig' with action only %}
+            {% endfor %}
           {% endif %}
           </div>
         {% endif %}
@@ -315,7 +289,7 @@
 
       </div> {# /offer-layout__main #}
 
-      {# SIDEBAR: Consultant Card #}
+      {# SIDEBAR: Consultant Card + Visit Card #}
       <aside class="offer-layout__sidebar">
         {% if consultant.name %}
           {% if skeleton %}
@@ -326,6 +300,23 @@
             } only %}
           {% else %}
             {% include '@components/card-agent/card-agent.twig' with consultant only %}
+          {% endif %}
+        {% endif %}
+
+        {% if visitCard.title %}
+          {% if skeleton %}
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'card',
+              width: '100%',
+              height: '120px'
+            } only %}
+          {% else %}
+            <div class="offer-visit-card">
+              <h3 class="offer-visit-card__title">{{ visitCard.title }}</h3>
+              {% if visitCard.cta %}
+                {% include '@elements/button/button.twig' with visitCard.cta only %}
+              {% endif %}
+            </div>
           {% endif %}
         {% endif %}
       </aside>

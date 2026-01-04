@@ -66,74 +66,118 @@
 .offer-meta {
   display: flex;
   flex-direction: column;
-  gap: var(--size-4);
+  gap: var(--size-6);
 
   &__header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--size-4);
-  }
-
-  &__badges {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
+    flex-direction: column;
+    gap: var(--size-3);
   }
 
-  &__reference-block {
-    grid-column: 1 / -1;
-    font-weight: 600;
-    color: var(--gray-700);
-    font-size: var(--font-size-1);
+  /* Reference - Ligne 1 */
+  &__reference {
+    font-size: var(--font-size-0);
+    color: var(--gray-600);
+    font-weight: 400;
   }
 
-  &__title {
+  /* Building Name + Title - Lignes 2-3 */
+  &__building-name {
     font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
     color: var(--gray-900);
     line-height: var(--line-height-1);
-    margin: 0;
+    margin: 0 0 var(--size-1);
   }
 
-  &__price {
+  &__title {
     font-size: var(--font-size-5);
-    font-weight: var(--font-weight-700);
-    color: var(--primary);
+    font-weight: var(--font-weight-600);
+    color: var(--gray-900);
+    line-height: var(--line-height-2);
   }
 
-  &__meta-item {
+  &__title-block {
     display: flex;
     flex-direction: column;
     gap: var(--size-1);
   }
 
-  &__meta-label {
-    font-weight: 600;
-    color: var(--gray-700);
-    font-size: var(--font-size-0);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  /* Price - Colonne droite */
+  &__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
   }
 
-  &__meta-value {
-    color: var(--gray-900);
-    font-size: var(--font-size-1);
+  &__price {
+    font-size: var(--font-size-7);
+    font-weight: var(--font-weight-700);
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  &__price-unit {
+    font-size: var(--font-size-0);
+    color: var(--gray-600);
     display: inline-flex;
     align-items: center;
     gap: var(--size-1);
   }
 
-  &__actions {
-    background: var(--gray-100);
-    padding: var(--size-4);
-    border-radius: var(--radius-1);
-    margin-top: var(--size-2);
+  /* Location Line - Ligne 4 */
+  &__location-line {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    font-size: var(--font-size-2);
+    color: var(--gray-700);
   }
 
-  &__actions-list {
+  &__surface {
+    font-weight: 600;
+  }
+
+  &__city {
+    &::before {
+      content: '•';
+      margin-right: var(--size-2);
+      color: var(--gray-400);
+    }
+  }
+
+  /* Status Line - Ligne 5 */
+  &__status-line {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: var(--size-6);
+    font-size: var(--font-size-1);
+  }
+
+  &__status-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--size-2);
+  }
+
+  &__status-label {
+    color: var(--gray-600);
+  }
+
+  &__status-value {
+    color: var(--gray-900);
+    font-weight: 600;
+
+    &--success {
+      color: var(--success);
+    }
+  }
+
+  /* Actions - 2 boutons */
+  &__actions {
+    display: flex;
     gap: var(--size-3);
+    flex-wrap: wrap;
   }
 }
 
@@ -155,8 +199,8 @@
    OFFER FEATURES (Equipments, Services, Building, Information)
    ======================================================================== */
 .offer-features {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--size-6);
 
   &__section {
@@ -277,9 +321,39 @@
    CONSULTANT CARD (Sidebar)
    ======================================================================== */
 .offer-layout__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-6);
+
   & .ps-card-agent {
     position: sticky;
     top: var(--size-6);
+  }
+}
+
+/* ========================================================================
+   VISIT CARD (Sidebar)
+   ======================================================================== */
+.offer-visit-card {
+  padding: var(--size-6);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+  align-items: center;
+  text-align: center;
+
+  &__title {
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-600);
+    color: var(--gray-900);
+    margin: 0;
+  }
+
+  & .ps-button {
+    width: 100%;
   }
 }
 
@@ -321,29 +395,58 @@
 
   .offer-meta {
     &__header {
+      display: grid;
       grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "reference reference"
+        "title price"
+        "location ."
+        "status status";
+      gap: var(--size-3) var(--size-6);
     }
 
-    &__title {
+    &__reference {
+      grid-area: reference;
+    }
+
+    &__title-block {
+      grid-area: title;
+    }
+
+    &__price-block {
+      grid-area: price;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    &__location-line {
+      grid-area: location;
+    }
+
+    &__status-line {
+      grid-area: status;
+    }
+
+    &__building-name {
       font-size: var(--font-size-8);
     }
 
-    &__title-col {
-      grid-column: 1;
+    &__title {
+      font-size: var(--font-size-6);
     }
 
-    &__price-col {
-      grid-column: 2;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
+    &__price {
+      font-size: var(--font-size-8);
     }
 
-    &__actions-list {
-      flex-direction: row;
+    &__actions {
       justify-content: flex-start;
-      flex-wrap: wrap;
     }
+  }
+
+  .offer-features {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-8) var(--size-10);
   }
 
   .offer-map {

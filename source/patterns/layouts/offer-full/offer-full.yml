@@ -27,10 +27,27 @@ gallery:
   fit: 'cover'
   loop: true
   withPagination: true
+  withToolbar: true
+  toolbarStats:
+    - icon: 'picture'
+      text: '13 photos'
+    - icon: 'camera'
+      text: '30 visit'
+    - icon: 'plan'
+      text: 'Plan'
   ariaLabel: 'Property photo gallery'
 
 # Property header
 header:
+  reference: 'OLBUR21040001'
+  buildingName: 'Edificio ARA'
+  title: 'Rent Offices MADRID Barrio de Chamberí'
+  surface: '611.3 m²'
+  city: '28010 MADRID'
+  price: '20 000 €'
+  priceUnit: 'HT/HC/m²/an'
+  availability: 'Immediately'
+  mandateType: 'Exclusive'
   badges:
     - text: 'New'
       variant: 'info'
@@ -38,29 +55,18 @@ header:
     - text: 'Exclusive'
       variant: 'gold'
       size: 'small'
-  title: 'Rent Offices MADRID Barrio de Chamberí'
-  reference: 'OLBUR2108057'
-  surface: '611.3 m²'
-  location: '28010 MADRID'
-  price: '20 000 € HT/HC/m²/an'
-  availability: 'Immediately'
-  mandate: 'Exclusive'
 
 # Actions bar
 actions:
   buttons:
-    - text: 'Access surface table'
-      variant: 'secondary'
-      icon: 'table'
-      url: '#surface-table'
-    - text: 'Download brochure'
-      variant: 'secondary'
+    - text: 'Access to the surface area table'
+      variant: 'outlined'
       icon: 'download'
-      url: '/download/brochure-OLBUR2108057.pdf'
-    - text: 'Schedule a visit'
+      url: '#surface-table'
+    - text: 'Download the brochure'
       variant: 'primary'
-      icon: 'calendar'
-      url: '#schedule-visit'
+      icon: 'download'
+      url: '/download/brochure-OLBUR21040001.pdf'
 
 # Consultant card (sidebar)
 consultant:
@@ -72,7 +78,17 @@ consultant:
     alt: 'Sophia Dacosta - Real Estate Consultant'
   cta:
     text: 'Contact the consultancy'
+    variant: 'primary'
     url: '#contact-modal'
+
+# Visit card (sidebar)
+visitCard:
+  title: 'Would you like to visit?'
+  cta:
+    text: 'Schedule a visit'
+    variant: 'outlined'
+    icon: 'calendar'
+    url: '#schedule-visit'
 
 # Description
 description:
