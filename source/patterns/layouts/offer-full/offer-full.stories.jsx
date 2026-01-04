@@ -15,24 +15,24 @@ export default {
           '**Complete property detail page layout** for real estate offers.\n\n' +
           '### Key Features\n' +
           '- **Responsive layout**: Single column mobile → 2-column desktop (content 2/3 + sidebar 1/3)\n' +
+          '- **Drupal-compatible**: `<article>` root element for page content node\n' +
           '- **Rich content**: Gallery, header, actions, consultant card, specifications, table, location\n' +
           '- **Skeleton mode**: Loading state with skeleton placeholders for Ajax loading\n' +
-          '- **Composed components**: Breadcrumb, Carousel, Card Agent, Feature Sections, Table, Read More\n' +
+          '- **Composed components**: Carousel, Card Agent, Feature Sections, Table, Read More\n' +
           '- **Placeholders**: Energy widgets, Map, POI filters (components to be implemented)\n' +
           '- **Token-First**: All spacing, colors, typography use design system tokens\n\n' +
           '### Sections\n' +
-          '1. **Breadcrumb** - Navigation trail\n' +
-          '2. **Gallery** - Photo carousel with pagination\n' +
-          '3. **Header** - Title, badges, reference, surface, location, price, availability\n' +
-          '4. **Actions Bar** - CTA buttons (surface table, brochure, visit)\n' +
-          '5. **Consultant Card** - Agent profile (sidebar, sticky on desktop)\n' +
-          '6. **Description** - Long text with "See more" toggle\n' +
-          '7. **Feature Sections** - Equipments, Services, Building Condition, More Info\n' +
-          '8. **Energy** - DPE/GES widgets (placeholder)\n' +
-          '9. **Surface Table** - Lots/floors data table\n' +
-          '10. **Location** - Address + Map (placeholder)\n' +
-          '11. **POI Filters** - Points of interest checkboxes (placeholder)\n' +
-          '12. **Travel Time** - Calculator form (placeholder)\n\n' +
+          '1. **Gallery** - Photo carousel with pagination\n' +
+          '2. **Header** - Title, badges, reference, surface, location, price, availability\n' +
+          '3. **Actions Bar** - CTA buttons (surface table, brochure, visit)\n' +
+          '4. **Consultant Card** - Agent profile (sidebar, sticky on desktop)\n' +
+          '5. **Description** - Long text with "See more" toggle\n' +
+          '6. **Feature Sections** - Equipments, Services, Building Condition, More Info\n' +
+          '7. **Energy** - DPE/GES widgets (placeholder)\n' +
+          '8. **Surface Table** - Lots/floors data table\n' +
+          '9. **Location** - Address + Map (placeholder)\n' +
+          '10. **POI Filters** - Points of interest checkboxes (placeholder)\n' +
+          '11. **Travel Time** - Calculator form (placeholder)\n\n' +
           '### Use Cases\n' +
           '- **Property detail page**: Full Drupal node display\n' +
           '- **Ajax loading**: Use skeleton mode during data fetch\n' +
@@ -56,16 +56,6 @@ export default {
         category: 'State',
         type: { summary: 'boolean' },
         defaultValue: { summary: false },
-      },
-    },
-
-    // Navigation
-    breadcrumb: {
-      control: 'object',
-      description: 'Breadcrumb navigation with items array',
-      table: {
-        category: 'Navigation',
-        type: { summary: 'object' },
       },
     },
 
@@ -245,13 +235,6 @@ export const Skeleton = {
 export const Minimal = {
   name: 'Minimal (Required Fields Only)',
   args: {
-    breadcrumb: {
-      items: [
-        { label: 'Home', url: '/' },
-        { label: 'Search', url: '/search' },
-        { label: 'Property Detail' },
-      ],
-    },
     header: {
       title: 'Office Space PARIS La Défense',
       surface: '1 250 m²',

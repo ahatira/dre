@@ -1,14 +1,5 @@
 # Default data for Offer Full layout (Real Estate context: Madrid office property)
 
-# Breadcrumb navigation
-breadcrumb:
-  items:
-    - label: 'Home'
-      url: '/'
-    - label: 'Search results'
-      url: '/search'
-    - label: 'Rent Offices MADRID Barrio de Chamberí'
-
 # Gallery carousel
 gallery:
   slides:

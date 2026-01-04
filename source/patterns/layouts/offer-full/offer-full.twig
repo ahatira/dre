@@ -2,9 +2,9 @@
 /**
  * Offer Full Layout (Page Template)
  * Complete property detail page with gallery, specifications, consultant, and location.
+ * Drupal-compatible page template for property detail node display.
  *
  * @param boolean skeleton - Loading state with skeleton placeholders (default: false)
- * @param object breadcrumb - Breadcrumb navigation items
  * @param object gallery - Carousel slides with images
  * @param object header - Property header (title, reference, surface, location, price, badges)
  * @param object actions - Action buttons (surface table, brochure, visit)
@@ -19,12 +19,11 @@
  * @param object location - Address and map data - PLACEHOLDER
  * @param object poi - Points of interest filters - PLACEHOLDER
  * @param object travelTime - Travel time calculator - PLACEHOLDER
- * @param object attributes - Additional HTML attributes
+ * @param object attributes - Additional HTML attributes (Drupal)
  */
 #}
 
 {%- set skeleton = skeleton|default(false) -%}
-{%- set breadcrumb = breadcrumb|default({}) -%}
 {%- set gallery = gallery|default({}) -%}
 {%- set header = header|default({}) -%}
 {%- set actions = actions|default({}) -%}
@@ -42,24 +41,7 @@
 
 {%- set attr = (attributes ? attributes : create_attribute()).addClass('ps-offer-full') -%}
 
-<div{{ attr }}>
-  {# ========================================================================
-     BREADCRUMB
-     ======================================================================== #}
-  {% if breadcrumb.items|default([])|length > 0 %}
-    <div class="ps-offer-full__breadcrumb">
-      {% if skeleton %}
-        {% include '@elements/skeleton/skeleton.twig' with {
-          variant: 'text',
-          width: '300px',
-          height: '20px'
-        } only %}
-      {% else %}
-        {% include '@components/breadcrumb/breadcrumb.twig' with breadcrumb only %}
-      {% endif %}
-    </div>
-  {% endif %}
-
+<article{{ attr }}>
   {# ========================================================================
      MAIN LAYOUT: 2 columns (content + sidebar) on desktop
      ======================================================================== #}
@@ -402,4 +384,4 @@
     </aside>
 
   </div>
-</div>
+</article>
