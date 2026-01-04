@@ -34,10 +34,10 @@ header:
   badges:
     - text: 'New'
       variant: 'info'
-      size: 'medium'
+      size: 'small'
     - text: 'Exclusive'
       variant: 'gold'
-      size: 'medium'
+      size: 'small'
   title: 'Rent Offices MADRID Barrio de Chamberí'
   reference: 'OLBUR2108057'
   surface: '611.3 m²'
@@ -49,20 +49,17 @@ header:
 # Actions bar
 actions:
   buttons:
-    - text: 'Access to the surface area table'
+    - text: 'Access surface table'
       variant: 'secondary'
       icon: 'table'
-      iconPosition: 'left'
       url: '#surface-table'
-    - text: 'Download the brochure'
+    - text: 'Download brochure'
       variant: 'secondary'
       icon: 'download'
-      iconPosition: 'left'
       url: '/download/brochure-OLBUR2108057.pdf'
     - text: 'Schedule a visit'
       variant: 'primary'
       icon: 'calendar'
-      iconPosition: 'left'
       url: '#schedule-visit'
 
 # Consultant card (sidebar)
@@ -168,52 +165,32 @@ surfaceTable:
   rows:
     - id: 'row-1'
       cells:
-        - content: 'OLBUR2108057_6'
-          header: false
-        - content: 'Ground floor'
-          header: false
-        - content: 'Offices'
-          header: false
-        - content: '465 m²'
-          header: false
-        - content: 'Now available'
-          header: false
+        - 'OLBUR2108057_6'
+        - 'Ground floor'
+        - 'Offices'
+        - '465 m²'
+        - 'Now available'
     - id: 'row-2'
       cells:
-        - content: 'OLBUR2108057_7'
-          header: false
-        - content: 'Ground floor'
-          header: false
-        - content: 'Offices'
-          header: false
-        - content: '465 m²'
-          header: false
-        - content: 'Now available'
-          header: false
+        - 'OLBUR2108057_7'
+        - 'Ground floor'
+        - 'Offices'
+        - '465 m²'
+        - 'Now available'
     - id: 'row-3'
       cells:
-        - content: 'OLBUR2108057_20'
-          header: false
-        - content: 'Ground floor'
-          header: false
-        - content: 'Offices'
-          header: false
-        - content: '465 m²'
-          header: false
-        - content: 'Now available'
-          header: false
+        - 'OLBUR2108057_20'
+        - 'Ground floor'
+        - 'Offices'
+        - '465 m²'
+        - 'Now available'
     - id: 'row-4'
       cells:
-        - content: 'OLBUR2108057_23'
-          header: false
-        - content: 'Ground floor'
-          header: false
-        - content: 'Offices'
-          header: false
-        - content: '420 m²'
-          header: false
-        - content: 'Now available'
-          header: false
+        - 'OLBUR2108057_23'
+        - 'Ground floor'
+        - 'Offices'
+        - '420 m²'
+        - 'Now available'
   variant: 'default'
   striped: true
   hover: true
