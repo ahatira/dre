@@ -4,10 +4,10 @@
   /* Component-scoped variables (Layer 2) */
   --ps-footer-menu-link-color: var(--text-primary);
   --ps-footer-menu-link-color-hover: var(--primary);
-  --ps-footer-menu-link-font-size: var(--font-size-2);
+  --ps-footer-menu-link-font-size: var(--font-size-1);
   --ps-footer-menu-link-font-weight: var(--font-weight-400);
   --ps-footer-menu-gap: var(--size-4);
-  --ps-footer-menu-item-padding: var(--size-2) 0;
+  --ps-footer-menu-item-padding: 0;
 
   /* Override menu component for footer context */
   & .menu {
@@ -26,6 +26,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
+
+    & > li {
+      flex-grow: 1;
+      max-width: 310px;
+    }
   }
 
   & .menu__item {
@@ -53,22 +58,25 @@
   }
 
   /* Desktop breakpoint (lg+) */
-  @media (min-width: 1024px) {
+  @media (--laptop) {
     & .menu {
       flex-direction: row;
-      flex-wrap: wrap;
       gap: var(--ps-footer-menu-gap);
-      align-items: center;
+      align-items: flex-start;
     }
 
     & .menu__list {
       flex-direction: row;
-      flex-wrap: wrap;
       gap: var(--ps-footer-menu-gap);
+      align-items: flex-start;
+    }
+
+    & .menu__item {
+      flex-shrink: 0;
     }
 
     & .menu__link {
-      padding: var(--size-1) var(--size-2);
+      white-space: normal;
     }
   }
 }
