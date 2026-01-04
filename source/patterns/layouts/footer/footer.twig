@@ -6,7 +6,8 @@
  * Available variables:
  * - page.footer_contact: Drupal region (Contact Us block)
  * - page.footer_social: Drupal region (Follow Us block)
- * - page.footer_menu: Drupal region (Menu Links sections)
+ * - page.footer_menu_col1: Drupal region (Menu Links sections Column 1)
+ * - page.footer_menu_col2: Drupal region (Menu Links sections Column 2)
  * - page.footer_legal: Drupal region (Legal Links menu)
  * - page.footer_branding: Drupal region (Logo / Branding)
  * - page.footer_copyright: Drupal region (Copyright notice)
@@ -22,7 +23,10 @@
  */
 #}
 
-{%- set classes = ['ps-footer', modifier_class] -%}
+{%- set classes = ['ps-footer'] -%}
+{%- if modifier_class -%}
+  {%- set classes = classes|merge([modifier_class]) -%}
+{%- endif -%}
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <footer{{ attr }} role="contentinfo">
