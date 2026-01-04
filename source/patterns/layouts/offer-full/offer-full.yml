@@ -4,42 +4,48 @@
 gallery:
   slides:
     - id: 'slide-1'
+      type: 'photos'
       image:
         src: '/images/building.jpg'
         alt: 'Modern office building exterior - Barrio de Chamberí Madrid'
     - id: 'slide-2'
+      type: 'photos'
       image:
         src: '/images/16-9.jpg'
         alt: 'Open space office interior with natural light'
     - id: 'slide-3'
+      type: 'photos'
       image:
         src: '/images/4-3.jpg'
         alt: 'Meeting room with conference table'
     - id: 'slide-4'
+      type: 'photos'
       image:
         src: '/images/2-3.jpg'
         alt: 'Reception area with modern design'
     - id: 'slide-5'
+      type: 'photos'
       image:
         src: '/images/3-4.jpg'
         alt: 'Building lobby with high ceilings'
   variant: 'images'
   fit: 'cover'
   loop: true
+  autoHeight: true
   withPagination: false
   toolbar:
     items:
-      - type: 'photo'
+      - type: 'photos'
         label: '13 photos'
         icon: 'picture'
         slideIndex: 0
-      - type: '3d'
+      - type: '3d-visit'
         label: '3D visit'
-        icon: 'cube'
+        icon: 'cube-focus'
         slideIndex: 1
       - type: 'plan'
         label: 'Plan'
-        icon: 'plan'
+        icon: 'area-select'
         slideIndex: 2
   ariaLabel: 'Property photo gallery'
 
