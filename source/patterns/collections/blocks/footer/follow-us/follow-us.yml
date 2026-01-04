@@ -1,0 +1,23 @@
+label_level: 'h4'
+label: 'Suivez-nous'
+
+items:
+  - label: 'Facebook'
+    icon: 'facebook'
+    url: 'https://www.facebook.com/BNPParibasRealEstate'
+    external: true
+
+  - label: 'LinkedIn'
+    icon: 'linkedin'
+    url: 'https://www.linkedin.com/company/bnp-paribas-real-estate'
+    external: true
+
+  - label: 'Twitter'
+    icon: 'twitter'
+    url: 'https://twitter.com/BNPPRealEstate'
+    external: true
+
+  - label: 'YouTube'
+    icon: 'youtube'
+    url: 'https://www.youtube.com/channel/UCXXXXXXXXXX'
+    external: true

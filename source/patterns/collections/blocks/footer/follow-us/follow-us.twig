@@ -1,0 +1,26 @@
+{#
+  Follow Us Block
+  - Simple social media links in footer
+  - Extends block.twig, renders list of icon links
+#}
+
+{% extends "@components/block/block.twig" %}
+
+{% block content %}
+  <ul class="ps-follow-us">
+    {% for item in items %}
+      <li class="ps-follow-us__item">
+        <a
+          href="{{ item.url }}"
+          class="ps-follow-us__link"
+          title="{{ item.label }}"
+          {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+          {{ attributes }}
+        >
+          <span class="ps-follow-us__icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>
+          <span class="ps-follow-us__text">{{ item.label }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
