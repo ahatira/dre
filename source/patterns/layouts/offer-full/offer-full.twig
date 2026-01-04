@@ -39,20 +39,19 @@
 {%- set poi = poi|default({}) -%}
 {%- set travelTime = travelTime|default({}) -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass('ps-offer-full') -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()) -%}
 
 <article{{ attr }}>
-  {# ========================================================================
-     MAIN LAYOUT: 2 columns (content + sidebar) on desktop
-     ======================================================================== #}
-  <div class="ps-offer-full__container">
-    
-    {# MAIN CONTENT COLUMN #}
-    <div class="ps-offer-full__main">
+  <div class="container">
+    <div class="offer-layout">
+    <div class="offer-layout">
       
-      {# GALLERY CAROUSEL #}
-      {% if gallery.slides|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__gallery" aria-label="Property gallery">
+      {# MAIN CONTENT COLUMN #}
+      <div class="offer-layout__main">
+        
+        {# HERO: Gallery Carousel #}
+        {% if gallery.slides|default([])|length > 0 %}
+          <section class="offer-hero" aria-label="Property gallery">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'rectangle',
@@ -65,8 +64,11 @@
         </section>
       {% endif %}
 
-      {# OFFER HEADER #}
-      <section class="ps-offer-full__section ps-offer-full__header">
+      {# META: Header + Actions #}
+      <section class="offer-meta">
+        {# HEADER #}
+        <div class="offer-meta__header">
+        <div class="offer-meta__header">
         {% if skeleton %}
           {% include '@elements/skeleton/skeleton.twig' with {
             variant: 'text',
@@ -90,7 +92,7 @@
         {% else %}
           {# Badges #}
           {% if header.badges|default([])|length > 0 %}
-            <div class="ps-offer-full__badges">
+            <div class="offer-meta__badges">
               {% for badge in header.badges %}
                 {% include '@elements/badge/badge.twig' with badge only %}
               {% endfor %}
@@ -102,45 +104,45 @@
             {% include '@elements/heading/heading.twig' with {
               level: 'h1',
               text: header.title,
-              attributes: create_attribute().addClass('ps-offer-full__title')
+              attributes: create_attribute().addClass('offer-meta__title')
             } only %}
           {% endif %}
 
           {# Meta info (reference, surface, location) #}
-          <div class="ps-offer-full__meta">
+          <div class="offer-meta__info">
             {% if header.reference %}
-              <span class="ps-offer-full__reference">Référence : {{ header.reference }}</span>
+              <span class="offer-meta__reference">Référence : {{ header.reference }}</span>
             {% endif %}
             {% if header.surface %}
-              <span class="ps-offer-full__surface">{{ header.surface }}</span>
+              <span class="offer-meta__surface">{{ header.surface }}</span>
             {% endif %}
             {% if header.location %}
-              <span class="ps-offer-full__location" data-icon="pin">{{ header.location }}</span>
+              <span class="offer-meta__location" data-icon="pin">{{ header.location }}</span>
             {% endif %}
           </div>
 
           {# Price #}
           {% if header.price %}
-            <div class="ps-offer-full__price">{{ header.price }}</div>
+            <div class="offer-meta__price">{{ header.price }}</div>
           {% endif %}
 
           {# Availability & Mandate #}
           {% if header.availability or header.mandate %}
-            <div class="ps-offer-full__details">
+            <div class="offer-meta__details">
               {% if header.availability %}
-                <span class="ps-offer-full__availability">Disponible : {{ header.availability }}</span>
+                <span class="offer-meta__availability">Disponible : {{ header.availability }}</span>
               {% endif %}
               {% if header.mandate %}
-                <span class="ps-offer-full__mandate">Mandat : {{ header.mandate }}</span>
+                <span class="offer-meta__mandate">Mandat : {{ header.mandate }}</span>
               {% endif %}
             </div>
           {% endif %}
         {% endif %}
-      </section>
+        </div>
 
-      {# ACTIONS BAR #}
-      {% if actions.buttons|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__actions" aria-label="Property actions">
+        {# ACTIONS #}
+        {% if actions.buttons|default([])|length > 0 %}
+          <div class="offer-meta__actions" aria-label="Property actions">
           {% if skeleton %}
             <div style="display: flex; gap: 12px;">
               {% include '@elements/skeleton/skeleton.twig' with {
@@ -160,18 +162,20 @@
               } only %}
             </div>
           {% else %}
-            <div class="ps-offer-full__actions-list">
+            <div class="offer-meta__actions-list">
               {% for action in actions.buttons %}
                 {% include '@elements/button/button.twig' with action only %}
               {% endfor %}
             </div>
           {% endif %}
-        </section>
-      {% endif %}
+          </div>
+        {% endif %}
+      </section>
 
       {# DESCRIPTION #}
       {% if description.content %}
-        <section class="ps-offer-full__section ps-offer-full__description">
+        <section class="offer-description">
+        <section class="offer-description">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -182,16 +186,19 @@
             {% include '@elements/heading/heading.twig' with {
               level: 'h2',
               text: 'Description',
-              attributes: create_attribute().addClass('ps-offer-full__section-title')
+              attributes: create_attribute().addClass('offer-description__title')
             } only %}
             {% include '@components/read-more/read-more.twig' with description only %}
           {% endif %}
         </section>
       {% endif %}
 
-      {# EQUIPMENTS #}
-      {% if equipments.items|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__equipments">
+      {# FEATURES: Equipments, Services, Building, Information #}
+      <section class="offer-features">
+        {# EQUIPMENTS #}
+        {% if equipments.items|default([])|length > 0 %}
+          <div class="offer-features__section">
+          <div class="offer-features__section">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -201,12 +208,12 @@
           {% else %}
             {% include '@collections/feature-section/feature-section.twig' with equipments only %}
           {% endif %}
-        </section>
-      {% endif %}
+          </div>
+        {% endif %}
 
-      {# SERVICES #}
-      {% if services.items|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__services">
+        {# SERVICES #}
+        {% if services.items|default([])|length > 0 %}
+          <div class="offer-features__section">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -216,12 +223,12 @@
           {% else %}
             {% include '@collections/feature-section/feature-section.twig' with services only %}
           {% endif %}
-        </section>
-      {% endif %}
+          </div>
+        {% endif %}
 
-      {# BUILDING CONDITION #}
-      {% if building.items|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__building">
+        {# BUILDING CONDITION #}
+        {% if building.items|default([])|length > 0 %}
+          <div class="offer-features__section">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -231,12 +238,12 @@
           {% else %}
             {% include '@collections/feature-section/feature-section.twig' with building only %}
           {% endif %}
-        </section>
-      {% endif %}
+          </div>
+        {% endif %}
 
-      {# MORE INFORMATION #}
-      {% if information.items|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__information">
+        {# MORE INFORMATION #}
+        {% if information.items|default([])|length > 0 %}
+          <div class="offer-features__section">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -246,12 +253,14 @@
           {% else %}
             {% include '@collections/feature-section/feature-section.twig' with information only %}
           {% endif %}
-        </section>
-      {% endif %}
+          </div>
+        {% endif %}
+      </section>
 
-      {# ENERGY SECTION - PLACEHOLDER #}
+      {# ENERGY #}
       {% if energy.dpe or energy.ges %}
-        <section class="ps-offer-full__section ps-offer-full__energy" aria-label="Energy performance">
+        <section class="offer-energy" aria-label="Energy performance">
+        <section class="offer-energy" aria-label="Energy performance">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'rectangle',
@@ -263,9 +272,9 @@
               level: 'h2',
               text: 'Énergie',
               icon: 'energy',
-              attributes: create_attribute().addClass('ps-offer-full__section-title')
+              attributes: create_attribute().addClass('offer-energy__title')
             } only %}
-            <div class="ps-offer-full__energy-placeholder">
+            <div class="offer-energy__placeholder">
               <p>🔌 DPE & GES widgets - Component to be implemented</p>
               <p>Data: DPE {{ energy.dpe|default('N/A') }} | GES {{ energy.ges|default('N/A') }}</p>
             </div>
@@ -275,7 +284,7 @@
 
       {# SURFACE TABLE #}
       {% if surfaceTable.rows|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__surface-table" aria-label="Surface details">
+        <section class="offer-surface-table" aria-label="Surface details">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'rectangle',
@@ -287,89 +296,18 @@
               level: 'h2',
               text: 'Tableau des surfaces',
               icon: 'table',
-              attributes: create_attribute().addClass('ps-offer-full__section-title')
+              attributes: create_attribute().addClass('offer-surface-table__title')
             } only %}
             {% include '@components/table/table.twig' with surfaceTable only %}
           {% endif %}
         </section>
       {% endif %}
 
-      {# LOCATION & MAP - PLACEHOLDER #}
-      {% if location.address or location.map %}
-        <section class="ps-offer-full__section ps-offer-full__location" aria-label="Location">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'rectangle',
-              width: '100%',
-              height: '400px'
-            } only %}
-          {% else %}
-            {% include '@elements/heading/heading.twig' with {
-              level: 'h2',
-              text: 'Localisation',
-              icon: 'pin',
-              attributes: create_attribute().addClass('ps-offer-full__section-title')
-            } only %}
-            
-            {# Address #}
-            {% if location.address %}
-              <div class="ps-offer-full__address">
-                <p><strong>{{ location.address.street }}</strong></p>
-                <p>{{ location.address.city }}, {{ location.address.postal }}</p>
-              </div>
-            {% endif %}
+      </div> {# /offer-layout__main #}
 
-            {# Map Placeholder #}
-            <div class="ps-offer-full__map-placeholder">
-              <p>🗺️ Interactive map widget - Component to be implemented</p>
-              <p>Coordinates: {{ location.map.lat|default('N/A') }}, {{ location.map.lng|default('N/A') }}</p>
-            </div>
-          {% endif %}
-        </section>
-      {% endif %}
-
-      {# POI FILTERS - PLACEHOLDER #}
-      {% if poi.categories|default([])|length > 0 %}
-        <section class="ps-offer-full__section ps-offer-full__poi" aria-label="Points of interest">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '80px'
-            } only %}
-          {% else %}
-            <div class="ps-offer-full__poi-placeholder">
-              <p>📍 POI Filters: {{ poi.categories|join(', ') }}</p>
-              <p>Checkboxes for: Transports, Parking, Restaurants, Hotels</p>
-            </div>
-          {% endif %}
-        </section>
-      {% endif %}
-
-      {# TRAVEL TIME - PLACEHOLDER #}
-      {% if travelTime.enabled %}
-        <section class="ps-offer-full__section ps-offer-full__travel-time" aria-label="Travel time calculator">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'rectangle',
-              width: '100%',
-              height: '120px'
-            } only %}
-          {% else %}
-            <div class="ps-offer-full__travel-time-placeholder">
-              <p>🚗 Calculate travel time - Component to be implemented</p>
-              <p>Origin: {{ travelTime.origin|default('N/A') }}</p>
-            </div>
-          {% endif %}
-        </section>
-      {% endif %}
-
-    </div>
-
-    {# SIDEBAR: Consultant Card #}
-    <aside class="ps-offer-full__sidebar">
-      {% if consultant.name %}
-        <div class="ps-offer-full__consultant">
+      {# SIDEBAR: Consultant Card #}
+      <aside class="offer-layout__sidebar">
+        {% if consultant.name %}
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'card',
@@ -379,9 +317,54 @@
           {% else %}
             {% include '@components/card-agent/card-agent.twig' with consultant only %}
           {% endif %}
+        {% endif %}
+      </aside>
+
+    </div> {# /offer-layout #}
+  </div> {# /container #}
+
+  {# FULL-WIDTH MAP SECTION #}
+  {% if location.address or location.map or poi.categories|default([])|length > 0 or travelTime.enabled %}
+    <section class="offer-map" aria-label="Location and map">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'rectangle',
+          width: '100%',
+          height: '500px'
+        } only %}
+      {% else %}
+        <div class="offer-map__container">
+          {# Address #}
+          {% if location.address %}
+            <div class="offer-map__address">
+              <p><strong>{{ location.address.street }}</strong></p>
+              <p>{{ location.address.city }}, {{ location.address.postal }}</p>
+            </div>
+          {% endif %}
+
+          {# Map Placeholder #}
+          <div class="offer-map__placeholder">
+            <p>🗺️ Interactive map widget - Component to be implemented</p>
+            <p>Coordinates: {{ location.map.lat|default('N/A') }}, {{ location.map.lng|default('N/A') }}</p>
+          </div>
+
+          {# POI Filters #}
+          {% if poi.categories|default([])|length > 0 %}
+            <div class="offer-map__poi">
+              <p>📍 POI Filters: {{ poi.categories|join(', ') }}</p>
+              <p>Checkboxes for: Transports, Parking, Restaurants, Hotels</p>
+            </div>
+          {% endif %}
+
+          {# Travel Time Calculator #}
+          {% if travelTime.enabled %}
+            <div class="offer-map__travel-time">
+              <p>🚗 Calculate travel time - Component to be implemented</p>
+              <p>Origin: {{ travelTime.origin|default('N/A') }}</p>
+            </div>
+          {% endif %}
         </div>
       {% endif %}
-    </aside>
-
-  </div>
+    </section>
+  {% endif %}
 </article>

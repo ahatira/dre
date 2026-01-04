@@ -13,30 +13,24 @@ export default {
       description: {
         component:
           '**Complete property detail page layout** for real estate offers.\n\n' +
-          '### Key Features\n' +
-          '- **Responsive layout**: Single column mobile → 2-column desktop (content 2/3 + sidebar 1/3)\n' +
-          '- **Drupal-compatible**: `<article>` root element for page content node\n' +
-          '- **Rich content**: Gallery, header, actions, consultant card, specifications, table, location\n' +
-          '- **Skeleton mode**: Loading state with skeleton placeholders for Ajax loading\n' +
-          '- **Composed components**: Carousel, Card Agent, Feature Sections, Table, Read More\n' +
-          '- **Placeholders**: Energy widgets, Map, POI filters (components to be implemented)\n' +
+          '### Architecture\n' +
+          '- **Modular structure**: Semantic sections (hero, meta, description, features, etc.)\n' +
+          '- **Drupal-compatible**: `<article>` root element with `.container` and `.offer-layout` grid\n' +
+          '- **Responsive layout**: Single column mobile → 2-column desktop (main 2fr + sidebar 1fr)\n' +
           '- **Token-First**: All spacing, colors, typography use design system tokens\n\n' +
           '### Sections\n' +
-          '1. **Gallery** - Photo carousel with pagination\n' +
-          '2. **Header** - Title, badges, reference, surface, location, price, availability\n' +
-          '3. **Actions Bar** - CTA buttons (surface table, brochure, visit)\n' +
-          '4. **Consultant Card** - Agent profile (sidebar, sticky on desktop)\n' +
-          '5. **Description** - Long text with "See more" toggle\n' +
-          '6. **Feature Sections** - Equipments, Services, Building Condition, More Info\n' +
-          '7. **Energy** - DPE/GES widgets (placeholder)\n' +
-          '8. **Surface Table** - Lots/floors data table\n' +
-          '9. **Location** - Address + Map (placeholder)\n' +
-          '10. **POI Filters** - Points of interest checkboxes (placeholder)\n' +
-          '11. **Travel Time** - Calculator form (placeholder)\n\n' +
-          '### Use Cases\n' +
-          '- **Property detail page**: Full Drupal node display\n' +
-          '- **Ajax loading**: Use skeleton mode during data fetch\n' +
-          '- **Responsive viewing**: Desktop (2 cols) / Tablet (stacked) / Mobile (compact)\n\n' +
+          '- **Hero** - Photo carousel (gallery)\n' +
+          '- **Meta** - Header (title, badges, price, details) + Action buttons\n' +
+          '- **Description** - Property description with read-more toggle\n' +
+          '- **Features** - Equipments, Services, Building Condition, More Info\n' +
+          '- **Energy** - DPE/GES widgets (placeholder)\n' +
+          '- **Surface Table** - Lots/floors data table\n' +
+          '- **Map** - Full-width section with address, map, POI, travel time (placeholders)\n' +
+          '- **Sidebar** - Consultant card (sticky on desktop)\n\n' +
+          '### Features\n' +
+          '- **Skeleton mode**: Loading state with placeholders for Ajax loading\n' +
+          '- **Composed components**: Carousel, Card Agent, Feature Sections, Table, Read More\n' +
+          '- **Full-width map**: Section outside container for better visual impact\n\n' +
           '### Real Estate Context\n' +
           '- Property: Office space in Madrid Barrio de Chamberí\n' +
           '- Surface: 611.3 m²\n' +

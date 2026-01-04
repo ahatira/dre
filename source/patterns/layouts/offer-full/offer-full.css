@@ -2,68 +2,73 @@
  * Offer Full Layout (Page Template)
  * @see offer-full.twig
  *
- * Architecture: BEM (Block Element Modifier) with Nested CSS
+ * Architecture: Modular sections with semantic class names
  * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
  * Responsive: Mobile-First with min-width media query tokens
  * 
  * Structure:
- * - Mobile: Single column layout with full-width sections
- * - Desktop: 2-column grid (main content 2/3 + sidebar 1/3)
- * - All spacing, colors, typography use design tokens
+ * - article root element (Drupal compatible)
+ * - .container: constrained width with padding
+ * - .offer-layout: 2-column grid (main + sidebar) on desktop
+ * - .offer-map: full-width section outside container
  * 
- * Sections: Breadcrumb, Gallery, Header, Actions, Description, 
- *           Equipments, Services, Building, Information, Energy, 
- *           Surface Table, Location, POI, Travel Time, Consultant Card
+ * Sections: Hero (gallery), Meta (header+actions), Description,
+ *           Features, Energy, Surface Table, Map, Sidebar (consultant)
  */
 
-.ps-offer-full {
-  --ps-offer-full-gap: var(--size-8);
-  --ps-offer-full-section-gap: var(--size-6);
-  --ps-offer-full-padding-x: var(--size-5);
-  --ps-offer-full-padding-y: var(--size-6);
-  --ps-offer-full-sidebar-width: 100%;
-  --ps-offer-full-main-width: 100%;
+/* ========================================================================
+   CONTAINER (Reusable Drupal pattern)
+   ======================================================================== */
+.container {
+  --container-padding-x: var(--size-5);
+  --container-max-width: 1440px;
 
-  padding: var(--ps-offer-full-padding-y) var(--ps-offer-full-padding-x);
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding-x);
+}
 
-  &__breadcrumb {
-    margin-bottom: var(--size-4);
-  }
-
-  &__container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ps-offer-full-gap);
-  }
+/* ========================================================================
+   OFFER LAYOUT (Grid wrapper)
+   ======================================================================== */
+.offer-layout {
+  --offer-layout-gap: var(--size-8);
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--offer-layout-gap);
 
   &__main {
     display: flex;
     flex-direction: column;
-    gap: var(--ps-offer-full-section-gap);
-    width: 100%;
+    gap: var(--size-6);
   }
 
   &__sidebar {
-    width: 100%;
-  }
-
-  &__section {
     display: flex;
     flex-direction: column;
-    gap: var(--size-4);
   }
+}
 
-  /* ========================================================================
-     GALLERY
-     ======================================================================== */
-  &__gallery {
-    margin-bottom: var(--size-2);
-  }
+/* ========================================================================
+   OFFER HERO (Gallery section)
+   ======================================================================== */
+.offer-hero {
+  margin-bottom: var(--size-2);
+}
 
-  /* ========================================================================
-     HEADER
-     ======================================================================== */
+/* ========================================================================
+   OFFER META (Header + Actions)
+   ======================================================================== */
+.offer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-5);
+
   &__header {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-3);
   }
 
@@ -78,9 +83,10 @@
     font-weight: var(--font-weight-700);
     color: var(--gray-900);
     line-height: var(--line-height-1);
+    margin: 0;
   }
 
-  &__meta {
+  &__info {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-4);
@@ -89,29 +95,18 @@
   }
 
   &__reference,
-  &__surface {
-    display: inline-flex;
-    align-items: center;
-  }
-
+  &__surface,
   &__location {
     display: inline-flex;
     align-items: center;
     gap: var(--size-1);
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-    }
   }
 
   &__price {
     font-size: var(--font-size-5);
     font-weight: var(--font-weight-700);
     color: var(--primary);
-    margin-top: var(--size-2);
+    margin: var(--size-2) 0 0;
   }
 
   &__details {
@@ -120,12 +115,13 @@
     gap: var(--size-4);
     font-size: var(--font-size-1);
     color: var(--gray-700);
-    margin-top: var(--size-1);
+    margin: var(--size-1) 0 0;
   }
 
-  /* ========================================================================
-     ACTIONS BAR
-     ======================================================================== */
+  &__mandate {
+    color: var(--gray-500);
+  }
+
   &__actions {
     background: var(--gray-50);
     padding: var(--size-5);
@@ -137,34 +133,60 @@
     flex-direction: column;
     gap: var(--size-3);
   }
+}
 
-  /* ========================================================================
-     DESCRIPTION
-     ======================================================================== */
-  &__description {
-    & .ps-read-more {
-      color: var(--gray-800);
-      line-height: var(--line-height-3);
-    }
+/* ========================================================================
+   OFFER DESCRIPTION
+   ======================================================================== */
+.offer-description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+
+  & .ps-read-more {
+    color: var(--gray-800);
+    line-height: var(--line-height-3);
+  }
+}
+
+/* ========================================================================
+   OFFER FEATURES (Equipments, Services, Building, Information)
+   ======================================================================== */
+.offer-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-6);
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
   }
 
-  /* ========================================================================
-     SECTION TITLES
-     ======================================================================== */
-  &__section-title {
+  &__title {
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+    margin: 0;
+  }
+}
+
+/* ========================================================================
+   OFFER ENERGY (DPE/GES placeholder)
+   ======================================================================== */
+.offer-energy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+
+  &__title {
     font-size: var(--font-size-4);
     font-weight: var(--font-weight-700);
     color: var(--gray-900);
-    margin-bottom: var(--size-2);
+    margin: 0;
   }
 
-  /* ========================================================================
-     ENERGY PLACEHOLDER
-     ======================================================================== */
-  &__energy-placeholder,
-  &__map-placeholder,
-  &__poi-placeholder,
-  &__travel-time-placeholder {
+  &__placeholder {
     padding: var(--size-6);
     background: var(--gray-50);
     border: 2px dashed var(--gray-300);
@@ -176,15 +198,51 @@
       margin: var(--size-2) 0;
     }
   }
+}
 
-  /* ========================================================================
-     ADDRESS
-     ======================================================================== */
+/* ========================================================================
+   OFFER SURFACE TABLE
+   ======================================================================== */
+.offer-surface-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+
+  &__title {
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-700);
+    color: var(--gray-900);
+    margin: 0;
+  }
+
+  &__table {
+    width: 100%;
+  }
+}
+
+/* ========================================================================
+   OFFER MAP (Full-width section)
+   ======================================================================== */
+.offer-map {
+  --offer-map-padding-y: var(--size-10);
+  --offer-map-padding-x: var(--size-5);
+
+  padding: var(--offer-map-padding-y) var(--offer-map-padding-x);
+  background: var(--gray-50);
+
+  &__container {
+    max-width: var(--container-max-width, 1440px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-6);
+  }
+
   &__address {
-    margin-bottom: var(--size-4);
     padding: var(--size-4);
-    background: var(--gray-50);
+    background: var(--white);
     border-radius: var(--radius-2);
+    border: 1px solid var(--gray-200);
 
     & p {
       margin: var(--size-1) 0;
@@ -197,10 +255,27 @@
     }
   }
 
-  /* ========================================================================
-     CONSULTANT CARD
-     ======================================================================== */
-  &__consultant {
+  &__placeholder,
+  &__poi,
+  &__travel-time {
+    padding: var(--size-6);
+    background: var(--white);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-2);
+    color: var(--gray-600);
+    text-align: center;
+
+    & p {
+      margin: var(--size-2) 0;
+    }
+  }
+}
+
+/* ========================================================================
+   CONSULTANT CARD (Sidebar)
+   ======================================================================== */
+.offer-layout__sidebar {
+  & .ps-card-agent {
     position: sticky;
     top: var(--size-6);
   }
@@ -210,13 +285,19 @@
    RESPONSIVE: Mobile (--mobile: width >= 640px)
    ======================================================================== */
 @media (--mobile) {
-  .ps-offer-full {
-    --ps-offer-full-padding-x: var(--size-6);
+  .container {
+    --container-padding-x: var(--size-6);
+  }
 
+  .offer-meta {
     &__actions-list {
       flex-direction: row;
       flex-wrap: wrap;
     }
+  }
+
+  .offer-map {
+    --offer-map-padding-x: var(--size-6);
   }
 }
 
@@ -224,24 +305,17 @@
    RESPONSIVE: Tablet (--tablet: width >= 768px)
    ======================================================================== */
 @media (--tablet) {
-  .ps-offer-full {
-    --ps-offer-full-padding-x: var(--size-8);
-    --ps-offer-full-padding-y: var(--size-8);
+  .container {
+    --container-padding-x: var(--size-8);
+  }
 
-    &__container {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: var(--size-10);
-    }
+  .offer-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--size-10);
+  }
 
-    &__main {
-      width: 100%;
-    }
-
-    &__sidebar {
-      width: 100%;
-    }
-
+  .offer-meta {
     &__title {
       font-size: var(--font-size-8);
     }
@@ -251,16 +325,31 @@
       justify-content: flex-start;
     }
   }
+
+  .offer-map {
+    --offer-map-padding-x: var(--size-8);
+  }
 }
 
 /* ========================================================================
    RESPONSIVE: Laptop (--laptop: width >= 1024px)
    ======================================================================== */
 @media (--laptop) {
-  .ps-offer-full {
-    --ps-offer-full-padding-x: var(--size-10);
-    --ps-offer-full-gap: var(--size-12);
-    --ps-offer-full-section-gap: var(--size-8);
+  .container {
+    --container-padding-x: var(--size-10);
+  }
+
+  .offer-layout {
+    --offer-layout-gap: var(--size-12);
+
+    &__main {
+      gap: var(--size-8);
+    }
+  }
+
+  .offer-map {
+    --offer-map-padding-x: var(--size-10);
+    --offer-map-padding-y: var(--size-12);
   }
 }
 
@@ -268,13 +357,12 @@
    RESPONSIVE: Desktop (--desktop: width >= 1280px)
    ======================================================================== */
 @media (--desktop) {
-  .ps-offer-full {
-    --ps-offer-full-padding-x: var(--size-12);
+  .container {
+    --container-padding-x: var(--size-12);
+  }
 
-    &__container {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
+  .offer-map {
+    --offer-map-padding-x: var(--size-12);
   }
 }
 
@@ -282,7 +370,11 @@
    RESPONSIVE: Desktop Large (--desktop-large: width >= 1440px)
    ======================================================================== */
 @media (--desktop-large) {
-  .ps-offer-full {
-    --ps-offer-full-padding-x: var(--size-14);
+  .container {
+    --container-padding-x: var(--size-14);
+  }
+
+  .offer-map {
+    --offer-map-padding-x: var(--size-14);
   }
 }
