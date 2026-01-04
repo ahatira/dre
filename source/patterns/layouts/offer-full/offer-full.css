@@ -421,6 +421,11 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: var(--offer-layout-gap);
+
+    &__sidebar {
+      padding-top: var(--offer-layout-gap);
+      padding-bottom: var(--offer-layout-gap);
+    }
   }
 
   .offer-meta {
