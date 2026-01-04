@@ -423,12 +423,6 @@
     &__sidebar {
       padding-top: var(--offer-layout-gap);
       padding-bottom: var(--offer-layout-gap);
-
-      /* Make first card sticky */
-      & .ps-card-agent {
-        position: sticky;
-        top: var(--size-6);
-      }
     }
   }
 
