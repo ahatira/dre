@@ -35,29 +35,29 @@ export default {
     docs: {
       description: {
         component:
-          'Responsive footer with contact block, navigation columns, social icons, and legal links compliant with Drupal and token-first CSS.',
+          'Responsive footer with footer blocks: Contact Us, Follow Us, Menu Links, and legal links. Mobile-first, token-first, BEM-nested CSS.',
       },
     },
   },
   argTypes: {
     contact: {
       control: 'object',
-      description: 'Contact block with phone numbers and email',
+      description: 'Contact block data with phone numbers and email',
       table: { category: 'Content' },
     },
-    columns: {
+    follow_us: {
       control: 'object',
-      description: 'Navigation columns (title + links)',
+      description: 'Follow Us block with social media links',
       table: { category: 'Content' },
     },
-    social_links: {
+    menu_sections: {
       control: 'object',
-      description: 'Social network links with icons',
+      description: 'Array of menu sections (navigation columns)',
       table: { category: 'Content' },
     },
-    legal_links: {
+    menu_legal: {
       control: 'object',
-      description: 'Legal links displayed in the bottom bar',
+      description: 'Legal menu links',
       table: { category: 'Legal' },
     },
     branding: {

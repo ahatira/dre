@@ -1,159 +1,55 @@
 {#
 /**
  * @file
- * Footer Layout (Template) - Contact, navigation links, legal bar
+ * Footer Layout (Template)
  *
- * @param {object} [contact] - Contact block: { title, phones: [{ label, number, href }], email: { label, href } }
- * @param {array} [columns] - Navigation columns: [{ title, links: [{ label, url, icon? }], expanded? }]
- * @param {array} [social_links] - Social icons: [{ icon, label, url }]
- * @param {array} [legal_links] - Legal links list: [{ label, url }]
- * @param {string|object} [branding] - Rendered logo markup or logo data injected via preprocess
+ * Includes footer blocks: Contact, Follow Us, Menu Links, Menu (legal)
+ *
+ * @param {object} [contact] - Contact block data
+ * @param {array} [follow_us] - Social links data
+ * @param {array} [menu_sections] - Menu sections data
+ * @param {array} [menu_legal] - Legal links data
+ * @param {string|object} [branding] - Rendered logo markup
  * @param {string} [copyright] - Copyright notice text
- * @param {object} [page] - Drupal regions override (footer_contact, footer_business, footer_about, footer_social, footer_legal, footer_branding, footer_copyright)
  * @param {string} [modifier_class] - Optional modifier class
  * @param {object} [attributes] - Drupal Attribute object for the root element
  */
 #}
 
-{%- set page = page|default({}) -%}
-{%- set contact = contact is defined ? contact : page.footer_contact|default({}) -%}
-{%- set columns = columns is defined ? columns : page.footer_columns|default([]) -%}
-{%- set social_links = social_links is defined ? social_links : page.footer_social|default([]) -%}
-{%- set legal_links = legal_links is defined ? legal_links : page.footer_legal|default([]) -%}
-{%- set branding = branding is defined ? branding : page.footer_branding|default('') -%}
-{%- set copyright = copyright is defined ? copyright : page.footer_copyright|default('') -%}
+{%- set contact = contact|default({}) -%}
+{%- set follow_us = follow_us|default({}) -%}
+{%- set menu_sections = menu_sections|default([]) -%}
+{%- set menu_legal = menu_legal|default({}) -%}
+{%- set branding = branding|default('') -%}
+{%- set copyright = copyright|default('') -%}
 
-{%- if columns|length > 0 -%}
-  {{ attach_library('ps_theme/collapse') }}
-{%- endif -%}
+{{ attach_library('ps_theme/collapse') }}
 
-{%- set classes = [
-  'ps-footer',
-  modifier_class
-] -%}
-
+{%- set classes = ['ps-footer', modifier_class] -%}
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <footer{{ attr }} role="contentinfo">
   <div class="ps-footer__main">
+    <div class="ps-footer__blocks">
+      {# Contact Block #}
+      {% if contact %}
+        {% include '@collections/blocks/footer/contact-us/contact-us.twig' with contact only %}
+      {% endif %}
 
-    {# Desktop: Grille 3 colonnes (Contact + Réseaux + 2 colonnes navigation) #}
-    {% if columns|length %}
-      <div class="ps-footer__columns" aria-label="Navigation pied de page">
-        {# Colonne 1: Contact + Réseaux sociaux (2 blocs) #}
-        <div class="ps-footer__column-wrapper">
-          {# Bloc 1: Contact #}
-          <section class="ps-footer__contact" aria-label="Contacts">
-            {% if contact.title %}
-              <h3 class="ps-footer__title">{{ contact.title }}</h3>
-            {% endif %}
+      {# Follow Us Block #}
+      {% if follow_us %}
+        {% include '@collections/blocks/footer/follow-us/follow-us.twig' with follow_us only %}
+      {% endif %}
 
-            {% if contact.phones is defined and contact.phones|length %}
-              <ul class="ps-footer__contact-list">
-                {% for phone in contact.phones %}
-                  <li class="ps-footer__contact-item">
-                    {% if phone.label %}
-                      <span class="ps-footer__contact-label">{{ phone.label }}</span>
-                    {% endif %}
-                    {% include '@elements/link/link.twig' with {
-                      label: phone.number|default(phone.label|default('')),
-                      url: phone.href|default(phone.number|default('#')),
-                      variant: 'primary',
-                      icon: 'phone',
-                      iconPosition: 'start',
-                      attributes: create_attribute().addClass('ps-footer__contact-link')
-                    } only %}
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-
-            {% if contact.email is defined and contact.email %}
-              <div class="ps-footer__contact-email">
-                {% include '@elements/link/link.twig' with {
-                  label: contact.email.label|default(contact.email),
-                  url: contact.email.href|default('mailto:' ~ contact.email),
-                  variant: 'primary',
-                  icon: 'email',
-                  iconPosition: 'start',
-                  attributes: create_attribute().addClass('ps-footer__contact-link')
-                } only %}
-              </div>
-            {% endif %}
-          </section>
-
-          {# Bloc 2: Réseaux sociaux #}
-          {% if social_links|length %}
-            <div class="ps-footer__follow" aria-label="Suivez-nous">
-              <h3 class="ps-footer__title">Suivez-nous</h3>
-              <div class="ps-footer__social">
-                {% for item in social_links %}
-                  <a
-                    class="ps-footer__social-link"
-                    href="{{ item.url|default('#') }}"
-                    data-icon="{{ item.icon|default('linkedin') }}"
-                    aria-label="{{ item.label|default(item.icon|default('')) }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  ></a>
-                {% endfor %}
-              </div>
-            </div>
-          {% endif %}
+      {# Menu Sections (About, Services, etc.) #}
+      {% if menu_sections|length > 0 %}
+        <div class="ps-footer__menu-sections">
+          {% for section in menu_sections %}
+            {% include '@collections/blocks/footer/footer-menu-links/footer-menu-links.twig' with section only %}
+          {% endfor %}
         </div>
-
-        {# Colonnes 2 et 3: Navigation #}
-        {% for column in columns %}
-          {%- set column_links -%}
-            <ul class="ps-footer__list">
-              {% for link in column.links|default([]) %}
-                <li class="ps-footer__item">
-                  {% include '@elements/link/link.twig' with {
-                    label: link.label|default(''),
-                    url: link.url|default('#'),
-                    variant: 'dark',
-                    attributes: create_attribute().addClass('ps-footer__link')
-                  } only %}
-                </li>
-              {% endfor %}
-            </ul>
-          {%- endset -%}
-
-          <section class="ps-footer__column">
-            <h3 class="ps-footer__title">{{ column.title }}</h3>
-            {{ column_links|raw }}
-          </section>
-        {% endfor %}
-      </div>
-
-      <div class="ps-footer__columns-stack" aria-label="Navigation pied de page (mobile)">
-        {% for column in columns %}
-          {%- set column_links -%}
-            <ul class="ps-footer__list">
-              {% for link in column.links|default([]) %}
-                <li class="ps-footer__item">
-                  {% include '@elements/link/link.twig' with {
-                    label: link.label|default(''),
-                    url: link.url|default('#'),
-                    variant: 'dark',
-                    attributes: create_attribute().addClass('ps-footer__link')
-                  } only %}
-                </li>
-              {% endfor %}
-            </ul>
-          {%- endset -%}
-
-          {% include '@elements/collapse/collapse.twig' with {
-            id: 'footer-column-' ~ loop.index,
-            title: column.title,
-            content: column_links,
-            expanded: column.expanded is defined ? column.expanded : (loop.first ? false : true),
-            classes: ['ps-footer__collapse'],
-            attributes: create_attribute()
-          } only %}
-        {% endfor %}
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 
   <div class="ps-footer__bottom">
@@ -161,18 +57,10 @@
       {% if branding %}{{ branding }}{% endif %}
     </div>
 
-    <nav class="ps-footer__legal" aria-label="Liens légaux">
-      {% if legal_links|length %}
-        {% for link in legal_links %}
-          {% include '@elements/link/link.twig' with {
-            label: link.label|default(''),
-            url: link.url|default('#'),
-            variant: 'dark',
-            attributes: create_attribute().addClass('ps-footer__legal-link')
-          } only %}
-        {% endfor %}
-      {% endif %}
-    </nav>
+    {# Legal Menu Block #}
+    {% if menu_legal %}
+      {% include '@collections/blocks/footer/footer-menu/footer-menu.twig' with menu_legal only %}
+    {% endif %}
 
     <div class="ps-footer__copyright">
       {% if copyright %}{{ copyright }}{% endif %}

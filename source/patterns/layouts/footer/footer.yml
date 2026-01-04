@@ -1,5 +1,6 @@
 contact:
-  title: "Contactez-nous"
+  label: "Contactez-nous"
+  label_level: "h4"
   phones:
     - label: "City 1"
       number: "+32 2 646 49 49"
@@ -11,61 +12,74 @@ contact:
     label: "contact.web@realestate.bnpparibas"
     href: "mailto:contact.web@realestate.bnpparibas"
 
-columns:
-  - title: "Sites métiers"
-    expanded: false
-    links:
-      - label: "Bureaux à louer"
+follow_us:
+  label: "Suivez-nous"
+  label_level: "h4"
+  items:
+    - label: "Facebook"
+      icon: "facebook"
+      url: "https://www.facebook.com/BNPParibasRealEstate"
+      external: true
+    - label: "LinkedIn"
+      icon: "linkedin"
+      url: "https://www.linkedin.com/company/bnp-paribas-real-estate"
+      external: true
+    - label: "Twitter"
+      icon: "twitter"
+      url: "https://twitter.com/BNPPRealEstate"
+      external: true
+    - label: "YouTube"
+      icon: "youtube"
+      url: "https://www.youtube.com/channel/UCXXXXXXXXXX"
+      external: true
+
+menu_sections:
+  - label: "Sites métiers"
+    label_level: "h4"
+    items:
+      - title: "Bureaux à louer"
         url: "/sites/bureaux"
-      - label: "Commerces à louer"
+      - title: "Commerces à louer"
         url: "/sites/commerces"
-      - label: "Entrepôts & logistique"
+      - title: "Entrepôts & logistique"
         url: "/sites/logistique"
-      - label: "Investisseurs institutionnels"
+      - title: "Investisseurs institutionnels"
         url: "/sites/investisseurs"
-      - label: "Property Management"
+      - title: "Property Management"
         url: "/sites/property-management"
-  - title: "À propos de BNP Paribas Real Estate"
-    expanded: true
-    links:
-      - label: "Notre entreprise"
+
+  - label: "À propos de BNP Paribas Real Estate"
+    label_level: "h4"
+    items:
+      - title: "Notre entreprise"
         url: "/a-propos/entreprise"
-      - label: "Actualités et études"
+      - title: "Actualités et études"
         url: "/a-propos/actualites"
-      - label: "Carrières"
+      - title: "Carrières"
         url: "/a-propos/carrieres"
-      - label: "Engagements RSE"
+      - title: "Engagements RSE"
         url: "/a-propos/rse"
-      - label: "Investisseurs"
+      - title: "Investisseurs"
         url: "/a-propos/investisseurs"
 
-social_links:
-  - icon: "linkedin"
-    label: "LinkedIn"
-    url: "https://www.linkedin.com/company/bnp-paribas-real-estate"
-  - icon: "twitter"
-    label: "X (Twitter)"
-    url: "https://twitter.com/BNPPRE"
+menu_legal:
+  label: "Liens légaux"
+  label_level: "h4"
+  items:
+    - label: "Protection des données"
+      url: "/legal/protection-des-donnees"
+    - label: "Politique cookies"
+      url: "/legal/cookies"
+    - label: "Mentions légales"
+      url: "/legal/mentions-legales"
+    - label: "Fournisseurs : BNP Paribas s'engage auprès de ses partenaires"
+      url: "/legal/fournisseurs"
+    - label: "Plan du site"
+      url: "/plan-du-site"
+    - label: "Réclamations Service Client"
+      url: "/reclamations"
+    - label: "Canal de denuncias éticas"
+      url: "/canal-denuncias-eticas"
 
-legal_links:
-  - label: "Protection des données"
-    url: "/legal/protection-des-donnees"
-  - label: "Politique cookies"
-    url: "/legal/cookies"
-  - label: "Mentions légales"
-    url: "/legal/mentions-legales"
-  - label: "Fournisseurs : BNP Paribas s'engage auprès de ses partenaires"
-    url: "/legal/fournisseurs"
-  - label: "Plan du site"
-    url: "/plan-du-site"
-  - label: "Réclamations Service Client"
-    url: "/reclamations"
-  - label: "Canal de denuncias éticas"
-    url: "/canal-denuncias-eticas"
-
-branding:
-  site_logo: "/logo/logo.svg"
-  url: "/"
-  rel: "home"
-
+branding: ""
 copyright: "© BNP Paribas Real Estate"
