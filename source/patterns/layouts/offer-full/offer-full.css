@@ -441,13 +441,49 @@
     --container-padding-x: var(--size-8);
   }
 
+  .offer-meta {
+    &__building-name {
+      font-size: var(--font-size-8);
+    }
+
+    &__title {
+      font-size: var(--font-size-6);
+    }
+
+    &__price {
+      font-size: var(--font-size-8);
+    }
+  }
+
+  .offer-features {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-8) var(--size-10);
+  }
+
+  .offer-map {
+    --offer-map-padding-x: var(--size-8);
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE: Laptop (--laptop: width >= 1024px)
+   ======================================================================== */
+@media (--laptop) {
+  .container {
+    --container-padding-x: var(--size-10);
+  }
+
   .offer-layout {
-    --offer-layout-gap: var(--size-10);
+    --offer-layout-gap: var(--size-12);
     
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: var(--offer-layout-gap);
     padding-bottom: 0;  /* Reset padding when sidebar becomes sticky */
+
+    &__main {
+      gap: var(--size-8);
+    }
 
     &__sidebar {
       position: sticky;
@@ -498,47 +534,8 @@
       grid-area: status;
     }
 
-    &__building-name {
-      font-size: var(--font-size-8);
-    }
-
-    &__title {
-      font-size: var(--font-size-6);
-    }
-
-    &__price {
-      font-size: var(--font-size-8);
-    }
-
     &__actions {
       justify-content: flex-start;
-    }
-  }
-
-  .offer-features {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--size-8) var(--size-10);
-  }
-
-  .offer-map {
-    --offer-map-padding-x: var(--size-8);
-  }
-}
-
-/* ========================================================================
-   RESPONSIVE: Laptop (--laptop: width >= 1024px)
-   ======================================================================== */
-@media (--laptop) {
-  .container {
-    --container-padding-x: var(--size-10);
-  }
-
-  .offer-layout {
-    --offer-layout-gap: var(--size-12);
-    gap: var(--offer-layout-gap);
-
-    &__main {
-      gap: var(--size-8);
     }
   }
 
