@@ -3,12 +3,13 @@
  * @file
  * Footer Layout (Template)
  *
- * Includes footer blocks: Contact, Follow Us, Menu Links, Menu (legal)
+ * Includes footer blocks: Contact, Follow Us, Menu Links (sections), Menu (legal)
+ * Responsive layout: Mobile (vertical) → Desktop (grid)
  *
- * @param {object} [contact] - Contact block data
- * @param {array} [follow_us] - Social links data
- * @param {array} [menu_sections] - Menu sections data
- * @param {array} [menu_legal] - Legal links data
+ * @param {object} [contact] - Contact US block data
+ * @param {object} [follow_us] - Follow Us block data
+ * @param {array} [menu_sections] - Array of Menu Links blocks (each with label, items)
+ * @param {object} [menu_legal] - Footer Menu block data (legal links)
  * @param {string|object} [branding] - Rendered logo markup
  * @param {string} [copyright] - Copyright notice text
  * @param {string} [modifier_class] - Optional modifier class
@@ -16,12 +17,12 @@
  */
 #}
 
-{%- set contact = contact|default({}) -%}
-{%- set follow_us = follow_us|default({}) -%}
-{%- set menu_sections = menu_sections|default([]) -%}
-{%- set menu_legal = menu_legal|default({}) -%}
-{%- set branding = branding|default('') -%}
-{%- set copyright = copyright|default('') -%}
+{%- set contact = contact is defined ? contact : {} -%}
+{%- set follow_us = follow_us is defined ? follow_us : {} -%}
+{%- set menu_sections = menu_sections is defined ? menu_sections : [] -%}
+{%- set menu_legal = menu_legal is defined ? menu_legal : {} -%}
+{%- set branding = branding is defined ? branding : '' -%}
+{%- set copyright = copyright is defined ? copyright : '' -%}
 
 {{ attach_library('ps_theme/collapse') }}
 
@@ -29,21 +30,22 @@
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <footer{{ attr }} role="contentinfo">
+  {# ========== MAIN: Contact + Follow Us + Menu Sections ========== #}
   <div class="ps-footer__main">
-    <div class="ps-footer__blocks">
+    <div class="ps-footer__sections">
       {# Contact Block #}
-      {% if contact %}
+      {% if contact.label or contact.phones or contact.email %}
         {% include '@collections/blocks/footer/contact-us/contact-us.twig' with contact only %}
       {% endif %}
 
       {# Follow Us Block #}
-      {% if follow_us %}
+      {% if follow_us.label or follow_us.items %}
         {% include '@collections/blocks/footer/follow-us/follow-us.twig' with follow_us only %}
       {% endif %}
 
       {# Menu Sections (About, Services, etc.) #}
       {% if menu_sections|length > 0 %}
-        <div class="ps-footer__menu-sections">
+        <div class="ps-footer__menu-wrapper">
           {% for section in menu_sections %}
             {% include '@collections/blocks/footer/footer-menu-links/footer-menu-links.twig' with section only %}
           {% endfor %}
@@ -52,18 +54,25 @@
     </div>
   </div>
 
+  {# ========== BOTTOM: Logo + Legal Links + Copyright ========== #}
   <div class="ps-footer__bottom">
-    <div class="ps-footer__branding">
-      {% if branding %}{{ branding }}{% endif %}
-    </div>
+    {# Branding (Logo) #}
+    {% if branding %}
+      <div class="ps-footer__branding">
+        {{ branding }}
+      </div>
+    {% endif %}
 
-    {# Legal Menu Block #}
-    {% if menu_legal %}
+    {# Legal Links Menu Block #}
+    {% if menu_legal.label or menu_legal.items %}
       {% include '@collections/blocks/footer/footer-menu/footer-menu.twig' with menu_legal only %}
     {% endif %}
 
-    <div class="ps-footer__copyright">
-      {% if copyright %}{{ copyright }}{% endif %}
-    </div>
+    {# Copyright #}
+    {% if copyright %}
+      <div class="ps-footer__copyright">
+        {{ copyright }}
+      </div>
+    {% endif %}
   </div>
 </footer>
