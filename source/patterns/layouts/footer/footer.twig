@@ -3,75 +3,75 @@
  * @file
  * Footer Layout (Template)
  *
- * Includes footer blocks: Contact, Follow Us, Menu Links (sections), Menu (legal)
- * Responsive layout: Mobile (vertical) → Desktop (grid)
+ * Available variables:
+ * - page.footer_contact: Drupal region (Contact Us block)
+ * - page.footer_social: Drupal region (Follow Us block)
+ * - page.footer_menu: Drupal region (Menu Links sections)
+ * - page.footer_legal: Drupal region (Legal Links menu)
+ * - page.footer_branding: Drupal region (Logo / Branding)
+ * - page.footer_copyright: Drupal region (Copyright notice)
+ * - attributes: Drupal Attribute object for root element
+ * - modifier_class: Optional modifier class
  *
- * @param {object} [contact] - Contact US block data
- * @param {object} [follow_us] - Follow Us block data
- * @param {array} [menu_sections] - Array of Menu Links blocks (each with label, items)
- * @param {object} [menu_legal] - Footer Menu block data (legal links)
- * @param {string|object} [branding] - Rendered logo markup
- * @param {string} [copyright] - Copyright notice text
- * @param {string} [modifier_class] - Optional modifier class
- * @param {object} [attributes] - Drupal Attribute object for the root element
+ * Drupal integration:
+ * - Utilise exclusivement les régions Drupal (aucun fallback interne)
+ * - Aucun include de blocs (Drupal injecte le contenu des blocs via régions)
+ * - Laisser Drupal gérer l'organisation des contenus
+ *
+ * @see footer.css
  */
 #}
-
-{%- set contact = contact is defined ? contact : {} -%}
-{%- set follow_us = follow_us is defined ? follow_us : {} -%}
-{%- set menu_sections = menu_sections is defined ? menu_sections : [] -%}
-{%- set menu_legal = menu_legal is defined ? menu_legal : {} -%}
-{%- set branding = branding is defined ? branding : '' -%}
-{%- set copyright = copyright is defined ? copyright : '' -%}
-
-{{ attach_library('ps_theme/collapse') }}
 
 {%- set classes = ['ps-footer', modifier_class] -%}
 {%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
 
 <footer{{ attr }} role="contentinfo">
-  {# ========== MAIN: Contact + Follow Us + Menu Sections ========== #}
+  {# ========== MAIN: Contact + Social + Menu Sections ========== #}
   <div class="ps-footer__main">
     <div class="ps-footer__sections">
-      {# Contact Block #}
-      {% if contact.label or contact.phones or contact.email %}
-        {% include '@collections/blocks/footer/contact-us/contact-us.twig' with contact only %}
+      {# Contact Region #}
+      {% if page.footer_contact %}
+        <div class="ps-footer__contact">
+          {{ page.footer_contact }}
+        </div>
       {% endif %}
 
-      {# Follow Us Block #}
-      {% if follow_us.label or follow_us.items %}
-        {% include '@collections/blocks/footer/follow-us/follow-us.twig' with follow_us only %}
+      {# Social / Follow Us Region #}
+      {% if page.footer_social %}
+        <div class="ps-footer__social">
+          {{ page.footer_social }}
+        </div>
       {% endif %}
 
-      {# Menu Sections (About, Services, etc.) #}
-      {% if menu_sections|length > 0 %}
-        <div class="ps-footer__menu-wrapper">
-          {% for section in menu_sections %}
-            {% include '@collections/blocks/footer/footer-menu-links/footer-menu-links.twig' with section only %}
-          {% endfor %}
+      {# Menu Sections Region #}
+      {% if page.footer_menu %}
+        <div class="ps-footer__menu">
+          {{ page.footer_menu }}
         </div>
       {% endif %}
     </div>
   </div>
 
-  {# ========== BOTTOM: Logo + Legal Links + Copyright ========== #}
+  {# ========== BOTTOM: Branding + Legal + Copyright ========== #}
   <div class="ps-footer__bottom">
-    {# Branding (Logo) #}
-    {% if branding %}
+    {# Branding Region #}
+    {% if page.footer_branding %}
       <div class="ps-footer__branding">
-        {{ branding }}
+        {{ page.footer_branding }}
       </div>
     {% endif %}
 
-    {# Legal Links Menu Block #}
-    {% if menu_legal.label or menu_legal.items %}
-      {% include '@collections/blocks/footer/footer-menu/footer-menu.twig' with menu_legal only %}
+    {# Legal Links Region #}
+    {% if page.footer_legal %}
+      <div class="ps-footer__legal">
+        {{ page.footer_legal }}
+      </div>
     {% endif %}
 
-    {# Copyright #}
-    {% if copyright %}
+    {# Copyright Region #}
+    {% if page.footer_copyright %}
       <div class="ps-footer__copyright">
-        {{ copyright }}
+        {{ page.footer_copyright }}
       </div>
     {% endif %}
   </div>

@@ -1,4 +1,20 @@
-contact:
+# Footer Layout - Mock Data (Real Estate Context)
+#
+# Structure organisée par régions Drupal (comme dans le theme)
+# - footer_contact : Contact Us block
+# - footer_social : Follow Us block
+# - footer_menu : Menu Links sections (collapsible on mobile)
+# - footer_legal : Legal Links menu
+# - footer_branding : Site logo, branding
+# - footer_copyright : Copyright notice
+#
+# @see footer.twig
+# @see footer.stories.jsx
+
+# ========================================================================
+# REGION: CONTACT
+# ========================================================================
+footer_contact:
   label: "Contactez-nous"
   label_level: "h4"
   phones:
@@ -12,7 +28,10 @@ contact:
     label: "contact.web@realestate.bnpparibas"
     href: "mailto:contact.web@realestate.bnpparibas"
 
-follow_us:
+# ========================================================================
+# REGION: SOCIAL / FOLLOW US
+# ========================================================================
+footer_social:
   label: "Suivez-nous"
   label_level: "h4"
   items:
@@ -33,7 +52,10 @@ follow_us:
       url: "https://www.youtube.com/channel/UCXXXXXXXXXX"
       external: true
 
-menu_sections:
+# ========================================================================
+# REGION: MENU (Navigation sections)
+# ========================================================================
+footer_menu:
   - label: "Sites métiers"
     label_level: "h4"
     items:
@@ -62,7 +84,10 @@ menu_sections:
       - title: "Investisseurs"
         url: "/a-propos/investisseurs"
 
-menu_legal:
+# ========================================================================
+# REGION: LEGAL (Bottom legal links)
+# ========================================================================
+footer_legal:
   label_display: "hidden"
   items:
     - title: "Protection des données"
@@ -80,5 +105,17 @@ menu_legal:
     - title: "Canal de denuncias éticas"
       url: "/canal-denuncias-eticas"
 
-branding: ""
-copyright: "© BNP Paribas Real Estate"
+# ========================================================================
+# REGION: BRANDING
+# ========================================================================
+footer_branding:
+  logo:
+    site_logo: '/logo/logo.svg'
+    site_slogan: null
+    url: '/'
+    rel: null
+
+# ========================================================================
+# REGION: COPYRIGHT
+# ========================================================================
+footer_copyright: "© BNP Paribas Real Estate"

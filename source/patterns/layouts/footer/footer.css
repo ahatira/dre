@@ -2,14 +2,16 @@
  * Footer Layout (Template)
  * @see footer.twig
  *
- * BEM + Nested CSS, Token-First, Mobile-First.
- * Includes footer blocks: Contact Us, Follow Us, Menu Links, Menu (legal)
+ * Architecture: BEM (Block Element Modifier) with Nested CSS
+ * Variables: Layer 1 (global tokens) → Layer 2 (component vars)
+ * Responsive: Mobile-First with min-width media query tokens
+ * Regions: footer_contact, footer_social, footer_menu, footer_legal, footer_branding, footer_copyright
  */
 
 .ps-footer {
   --ps-footer-bg: var(--gray-50);
   --ps-footer-bottom-bg: var(--white);
-  --ps-footer-border: var(--gray-200);
+  --ps-footer-border: var(--border-light);
   --ps-footer-padding-x: var(--size-5);
   --ps-footer-padding-y: var(--size-8);
   --ps-footer-gap: var(--size-8);
@@ -30,7 +32,13 @@
     gap: var(--ps-footer-gap);
   }
 
-  &__menu-wrapper {
+  &__contact {
+  }
+
+  &__social {
+  }
+
+  &__menu {
     display: flex;
     flex-direction: column;
     gap: var(--ps-footer-gap);
@@ -48,6 +56,9 @@
   &__branding {
     display: inline-flex;
     align-items: center;
+  }
+
+  &__legal {
   }
 
   &__copyright {
@@ -79,7 +90,7 @@
       align-items: flex-start;
     }
 
-    &__menu-wrapper {
+    &__menu {
       grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -106,7 +117,7 @@
       grid-template-columns: auto auto 1fr;
     }
 
-    &__menu-wrapper {
+    &__menu {
       grid-column: auto;
       display: flex;
       flex-wrap: wrap;
