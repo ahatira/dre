@@ -93,6 +93,15 @@ dropdown:
     - core/once
     - ps_theme/vendors
 
+footer-menu-links:
+  js:
+    dist/js/footer-menu-links.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_theme/vendors
+
 header:
   js:
     dist/js/header.js: {}
