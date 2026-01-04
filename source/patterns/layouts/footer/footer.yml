@@ -1,10 +1,9 @@
 # Footer Layout - Mock Data (Real Estate Context)
 #
 # Structure organisée par régions Drupal (comme dans le theme)
-# - footer_contact : Contact Us block
-# - footer_social : Follow Us block
-# - footer_menu_col1 : Menu Links section 1 (collapsible on mobile)
-# - footer_menu_col2 : Menu Links section 2 (collapsible on mobile)
+# - footer_top_col1 : Contact Us + Follow Us blocks
+# - footer_top_col2 : Menu Links section 1 (collapsible on mobile)
+# - footer_top_col3 : Menu Links section 2 (collapsible on mobile)
 # - footer_legal : Legal Links menu (bottom)
 # - footer_branding : Site logo, branding
 # - footer_copyright : Copyright notice
@@ -13,50 +12,47 @@
 # @see footer.stories.jsx
 
 # ========================================================================
-# REGION: CONTACT
+# REGION: TOP COLUMN 1 (Contact + Social)
 # ========================================================================
-footer_contact:
-  label: "Contact us"
-  label_level: "h4"
-  phones:
-    - label: "City 1"
-      number: "+32 2 646 49 49"
-      href: "tel:+3226464949"
-    - label: "City 2"
-      number: "+32 2 646 49 49"
-      href: "tel:+3226464949"
-  email:
-    label: "contact.web@realestate.bnpparibas"
-    href: "mailto:contact.web@realestate.bnpparibas"
+footer_top_col1:
+  contact:
+    label: "Contact us"
+    label_level: "h4"
+    phones:
+      - label: "City 1"
+        number: "+32 2 646 49 49"
+        href: "tel:+3226464949"
+      - label: "City 2"
+        number: "+32 2 646 49 49"
+        href: "tel:+3226464949"
+    email:
+      label: "contact.web@realestate.bnpparibas"
+      href: "mailto:contact.web@realestate.bnpparibas"
+  social:
+    label: "Suivez-nous"
+    label_level: "h4"
+    items:
+      - label: "Facebook"
+        icon: "facebook"
+        url: "https://www.facebook.com/BNPParibasRealEstate"
+        external: true
+      - label: "LinkedIn"
+        icon: "linkedin"
+        url: "https://www.linkedin.com/company/bnp-paribas-real-estate"
+        external: true
+      - label: "Twitter"
+        icon: "twitter"
+        url: "https://twitter.com/BNPPRealEstate"
+        external: true
+      - label: "YouTube"
+        icon: "youtube"
+        url: "https://www.youtube.com/channel/UCXXXXXXXXXX"
+        external: true
 
 # ========================================================================
-# REGION: SOCIAL / FOLLOW US
+# REGION: TOP COLUMN 2 (Business websites)
 # ========================================================================
-footer_social:
-  label: "Suivez-nous"
-  label_level: "h4"
-  items:
-    - label: "Facebook"
-      icon: "facebook"
-      url: "https://www.facebook.com/BNPParibasRealEstate"
-      external: true
-    - label: "LinkedIn"
-      icon: "linkedin"
-      url: "https://www.linkedin.com/company/bnp-paribas-real-estate"
-      external: true
-    - label: "Twitter"
-      icon: "twitter"
-      url: "https://twitter.com/BNPPRealEstate"
-      external: true
-    - label: "YouTube"
-      icon: "youtube"
-      url: "https://www.youtube.com/channel/UCXXXXXXXXXX"
-      external: true
-
-# ========================================================================
-# REGION: MENU COLUMN 1 (Business websites / First section)
-# ========================================================================
-footer_menu_col1:
+footer_top_col2:
   - label: "Business websites"
     label_level: "h4"
     items:
@@ -72,9 +68,9 @@ footer_menu_col1:
         url: "/sites/link5"
 
 # ========================================================================
-# REGION: MENU COLUMN 2 (About / Second section)
+# REGION: TOP COLUMN 3 (About)
 # ========================================================================
-footer_menu_col2:
+footer_top_col3:
   - label: "About BNP Paribas Real Estate"
     label_level: "h4"
     items:

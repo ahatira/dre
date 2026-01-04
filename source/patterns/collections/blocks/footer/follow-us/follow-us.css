@@ -82,6 +82,7 @@
   }
 
   &__text {
+    display: none;
     color: var(--ps-follow-us-text-color);
     font-size: var(--ps-follow-us-text-font-size);
     font-weight: var(--ps-follow-us-text-font-weight);

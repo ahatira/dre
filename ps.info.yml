@@ -19,10 +19,9 @@ regions:
   content_above: Content Above
   content: Content
   content_below: Content Below
-  footer_contact: 'Footer - Contact (Contact Us block)'
-  footer_social: 'Footer - Social (Follow Us block)'
-  footer_menu_col1: 'Footer - Menu Column 1 (Menu sections)'
-  footer_menu_col2: 'Footer - Menu Column 2 (Menu sections)'
+  footer_top_col1: 'Footer - Top Column 1 (Contact Us + Follow Us blocks)'
+  footer_top_col2: 'Footer - Top Column 2 (Menu sections)'
+  footer_top_col3: 'Footer - Top Column 3 (Menu sections)'
   footer_legal: 'Footer - Legal (Legal Links menu)'
   footer_branding: 'Footer - Branding (Logo / Site branding)'
   footer_copyright: 'Footer - Copyright (Copyright notice)'

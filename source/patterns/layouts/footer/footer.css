@@ -18,8 +18,8 @@
   --ps-footer-bottom-bg: var(--white);
   --ps-footer-border: var(--border-light);
   --ps-footer-padding-x: var(--size-5);
-  --ps-footer-padding-y: var(--size-8);
-  --ps-footer-gap: var(--size-8);
+  --ps-footer-padding-y: var(--size-5);
+  --ps-footer-gap: var(--size-5);
 
   background: var(--ps-footer-bg);
 
