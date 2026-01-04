@@ -38,6 +38,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--offer-layout-gap);
+  padding-bottom: 140px;  /* Space for fixed sidebar in mobile */
 
   &__main {
     display: flex;
@@ -48,7 +49,17 @@
 
   &__sidebar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: var(--size-3);
+    padding: var(--size-3);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    z-index: 100;
+    max-height: 120px;
     min-width: 0;
   }
 }
@@ -436,12 +447,18 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: var(--offer-layout-gap);
+    padding-bottom: 0;  /* Reset padding when sidebar becomes sticky */
 
     &__sidebar {
-      padding-top: var(--offer-layout-gap);
-      padding-bottom: var(--offer-layout-gap);
       position: sticky;
       top: 0;
+      flex-direction: column;
+      gap: var(--offer-layout-gap);
+      padding: var(--offer-layout-gap);
+      background: transparent;
+      border: none;
+      z-index: auto;
+      max-height: none;
       align-self: start;
       height: fit-content;
     }
