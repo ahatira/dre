@@ -67,7 +67,6 @@
       <section class="offer-meta">
         {# HEADER #}
         <div class="offer-meta__header">
-        <div class="offer-meta__header">
         {% if skeleton %}
           {% include '@elements/skeleton/skeleton.twig' with {
             variant: 'text',
@@ -91,51 +90,63 @@
         {% else %}
           {# Badges #}
           {% if header.badges|default([])|length > 0 %}
-            <div class="offer-meta__badges">
+            <div class="offer-meta__badges" style="grid-column: 1 / -1;">
               {% for badge in header.badges %}
                 {% include '@elements/badge/badge.twig' with badge only %}
               {% endfor %}
             </div>
           {% endif %}
 
-          {# Title #}
-          {% if header.title %}
-            {% include '@elements/heading/heading.twig' with {
-              level: 'h1',
-              text: header.title,
-              attributes: create_attribute().addClass('offer-meta__title')
-            } only %}
+          {# Reference (full width) #}
+          {% if header.reference %}
+            <div class="offer-meta__reference-block" style="grid-column: 1 / -1; font-weight: 600; color: var(--gray-700); font-size: var(--font-size-1);">
+              Référence : {{ header.reference }}
+            </div>
           {% endif %}
 
-          {# Meta info (reference, surface, location) #}
-          <div class="offer-meta__info">
-            {% if header.reference %}
-              <span class="offer-meta__reference">Référence : {{ header.reference }}</span>
+          {# Title & Price (2 colonnes) #}
+          <div class="offer-meta__title-col">
+            {% if header.title %}
+              {% include '@elements/heading/heading.twig' with {
+                level: 'h1',
+                text: header.title,
+                attributes: create_attribute().addClass('offer-meta__title')
+              } only %}
             {% endif %}
-            {% if header.surface %}
-              <span class="offer-meta__surface">{{ header.surface }}</span>
-            {% endif %}
-            {% if header.location %}
-              <span class="offer-meta__location" data-icon="pin">{{ header.location }}</span>
+          </div>
+          <div class="offer-meta__price-col">
+            {% if header.price %}
+              <div class="offer-meta__price">{{ header.price }}</div>
             {% endif %}
           </div>
 
-          {# Price #}
-          {% if header.price %}
-            <div class="offer-meta__price">{{ header.price }}</div>
-          {% endif %}
+          {# Surface & Location (2 colonnes) #}
+          <div class="offer-meta__meta-item">
+            {% if header.surface %}
+              <span class="offer-meta__meta-label">Surface</span>
+              <span class="offer-meta__meta-value">{{ header.surface }}</span>
+            {% endif %}
+          </div>
+          <div class="offer-meta__meta-item">
+            {% if header.location %}
+              <span class="offer-meta__meta-label">Localisation</span>
+              <span class="offer-meta__meta-value" data-icon="pin">{{ header.location }}</span>
+            {% endif %}
+          </div>
 
-          {# Availability & Mandate #}
-          {% if header.availability or header.mandate %}
-            <div class="offer-meta__details">
-              {% if header.availability %}
-                <span class="offer-meta__availability">Disponible : {{ header.availability }}</span>
-              {% endif %}
-              {% if header.mandate %}
-                <span class="offer-meta__mandate">Mandat : {{ header.mandate }}</span>
-              {% endif %}
-            </div>
-          {% endif %}
+          {# Availability & Mandate (2 colonnes) #}
+          <div class="offer-meta__meta-item">
+            {% if header.availability %}
+              <span class="offer-meta__meta-label">Disponibilité</span>
+              <span class="offer-meta__meta-value">{{ header.availability }}</span>
+            {% endif %}
+          </div>
+          <div class="offer-meta__meta-item">
+            {% if header.mandate %}
+              <span class="offer-meta__meta-label">Mandat</span>
+              <span class="offer-meta__meta-value">{{ header.mandate }}</span>
+            {% endif %}
+          </div>
         {% endif %}
         </div>
 
