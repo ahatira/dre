@@ -1,0 +1,79 @@
+{#
+/**
+ * Offer Features Section (Equipments, Services, Building, Information)
+ * 
+ * @param object equipments - Feature section for equipments
+ * @param object services - Feature section for services
+ * @param object building - Feature section for building condition
+ * @param object information - Feature section for additional info
+ * @param boolean skeleton - Loading state
+ */
+#}
+
+{% set equipments = equipments|default({}) %}
+{% set services = services|default({}) %}
+{% set building = building|default({}) %}
+{% set information = information|default({}) %}
+{% set skeleton = skeleton|default(false) %}
+
+<section class="offer-features">
+  {# EQUIPMENTS #}
+  {% if equipments.items|default([])|length > 0 %}
+    <div class="offer-features__section">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '100%',
+          height: '120px'
+        } only %}
+      {% else %}
+        {% include '@collections/feature-section/feature-section.twig' with equipments only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# SERVICES #}
+  {% if services.items|default([])|length > 0 %}
+    <div class="offer-features__section">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '100%',
+          height: '150px'
+        } only %}
+      {% else %}
+        {% include '@collections/feature-section/feature-section.twig' with services only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# BUILDING CONDITION #}
+  {% if building.items|default([])|length > 0 %}
+    <div class="offer-features__section">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '100%',
+          height: '100px'
+        } only %}
+      {% else %}
+        {% include '@collections/feature-section/feature-section.twig' with building only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# MORE INFORMATION #}
+  {% if information.items|default([])|length > 0 %}
+    <div class="offer-features__section">
+      {% if skeleton %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '100%',
+          height: '100px'
+        } only %}
+      {% else %}
+        {% include '@collections/feature-section/feature-section.twig' with information only %}
+      {% endif %}
+    </div>
+  {% endif %}
+</section>

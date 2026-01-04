@@ -1,0 +1,90 @@
+{#
+/**
+ * Offer Meta Section (Header)
+ * Reference, Building Name, Title, Surface, City, Price, Availability, Mandate
+ * 
+ * @param object header - Header data (reference, buildingName, title, surface, city, price, etc.)
+ * @param boolean skeleton - Loading state
+ */
+#}
+
+{% set header = header|default({}) %}
+{% set skeleton = skeleton|default(false) %}
+
+<section class="offer-meta">
+  <div class="offer-meta__header">
+    {% if skeleton %}
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'text',
+        width: '80%',
+        height: '40px'
+      } only %}
+    {% else %}
+      {# Ligne 1: Reference #}
+      {% if header.reference %}
+        <div class="offer-meta__reference">
+          Reference : {{ header.reference }}
+        </div>
+      {% endif %}
+
+      {# Ligne 2-3: Building Name + Title #}
+      <div class="offer-meta__title-block">
+        {% if header.buildingName %}
+          <h1 class="offer-meta__building-name">{{ header.buildingName }}</h1>
+        {% endif %}
+        {% if header.title %}
+          <div class="offer-meta__title">{{ header.title }}</div>
+        {% endif %}
+      </div>
+
+      {# Price Block with Tooltip #}
+      {% if header.price %}
+        <div class="offer-meta__price-block">
+          <div class="offer-meta__price">{{ header.price }}</div>
+          {% if header.priceUnit %}
+            <div class="offer-meta__price-unit">
+              {{ header.priceUnit }}
+              {% if header.priceUnitInfo %}
+                <span 
+                  data-ps-tooltip
+                  data-ps-tooltip-content="Rental conditions and pricing basis"
+                  data-ps-tooltip-position="top"
+                  data-ps-tooltip-icon="info"
+                  aria-describedby="price-unit-info"
+                ></span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Ligne 4: Surface + City #}
+      {% if header.surface or header.city %}
+        <div class="offer-meta__location-line">
+          {% if header.surface %}
+            <span class="offer-meta__surface">{{ header.surface }}</span>
+          {% endif %}
+          {% if header.city %}
+            <span class="offer-meta__city">{{ header.city }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Ligne 5: Availability + Mandate Type #}
+      <div class="offer-meta__status-line">
+        {% if header.availability %}
+          <div class="offer-meta__status-item">
+            <span class="offer-meta__status-label">Available :</span>
+            <strong class="offer-meta__status-value offer-meta__status-value--success">{{ header.availability }}</strong>
+          </div>
+        {% endif %}
+        {% if header.mandateType %}
+          <div class="offer-meta__status-item">
+            <span class="offer-meta__status-label">Type of mandate :</span>
+            <strong class="offer-meta__status-value">{{ header.mandateType }}</strong>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,31 @@
+{#
+/**
+ * Offer Surface Table Section
+ * 
+ * @param object surfaceTable - Table configuration and data
+ * @param boolean skeleton - Loading state
+ */
+#}
+
+{% set surfaceTable = surfaceTable|default({}) %}
+{% set skeleton = skeleton|default(false) %}
+
+{% if surfaceTable.rows|default([])|length > 0 %}
+  <section class="offer-surface-table" aria-label="Surface details">
+    {% if skeleton %}
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'rectangle',
+        width: '100%',
+        height: '300px'
+      } only %}
+    {% else %}
+      {% include '@elements/heading/heading.twig' with {
+        level: 'h2',
+        text: 'Tableau des surfaces',
+        icon: 'table',
+        attributes: create_attribute().addClass('offer-surface-table__title')
+      } only %}
+      {% include '@components/table/table.twig' with surfaceTable only %}
+    {% endif %}
+  </section>
+{% endif %}

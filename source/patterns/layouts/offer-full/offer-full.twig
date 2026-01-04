@@ -14,11 +14,12 @@
  * @param object services - Feature section for services
  * @param object building - Feature section for building condition
  * @param object information - Feature section for additional info
- * @param object energy - Energy performance data (DPE/GES) - PLACEHOLDER
+ * @param object energy - Energy performance data (DPE/GES)
  * @param object surfaceTable - Surface table data (lots, floors, areas)
- * @param object location - Address and map data - PLACEHOLDER
- * @param object poi - Points of interest filters - PLACEHOLDER
- * @param object travelTime - Travel time calculator - PLACEHOLDER
+ * @param object location - Address and map data
+ * @param object poi - Points of interest filters
+ * @param object travelTime - Travel time calculator
+ * @param object visitCard - Visit card configuration
  * @param object attributes - Additional HTML attributes (Drupal)
  */
 #}
@@ -28,7 +29,6 @@
 {%- set skeleton = skeleton|default(false) -%}
 {%- set gallery = gallery|default({}) -%}
 {%- set header = header|default({}) -%}
-{%- set actions = actions|default({}) -%}
 {%- set consultant = consultant|default({}) -%}
 {%- set visitCard = visitCard|default({}) -%}
 {%- set description = description|default({}) -%}
@@ -42,317 +42,30 @@
 {%- set poi = poi|default({}) -%}
 {%- set travelTime = travelTime|default({}) -%}
 
-{%- set attr = (attributes is defined ? attributes : create_attribute()) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass('node--offer') -%}
 
 <article{{ attr }}>
+
   <div class="container">
     <div class="offer-layout">
-      
-      {# MAIN CONTENT COLUMN #}
+
       <div class="offer-layout__main">
-        
-        {# HERO: Gallery Carousel #}
-        {% if gallery.slides|default([])|length > 0 %}
-          <section class="offer-hero" aria-label="Property gallery">
-            {# Favoris button #}
-            <button class="offer-hero__favorite" type="button" aria-label="Add to favorites" data-icon="heart" aria-pressed="false"></button>
-            
-            {% if skeleton %}
-              {% include '@elements/skeleton/skeleton.twig' with {
-                variant: 'rectangle',
-                width: '100%',
-                height: '500px'
-              } only %}
-            {% else %}
-              {% include '@components/carousel/carousel.twig' with gallery only %}
-            {% endif %}
-          </section>
-        {% endif %}
+        {% include '@theme/offer/offer-hero.html.twig' %}
+        {% include '@theme/offer/offer-meta.html.twig' %}
+        {% include '@theme/offer/offer-description.html.twig' %}
+        {% include '@theme/offer/offer-features.html.twig' %}
+        {% include '@theme/offer/offer-energy.html.twig' %}
+        {% include '@theme/offer/offer-surface-table.html.twig' %}
+      </div>
 
-      {# META: Header + Actions #}
-      <section class="offer-meta">
-        {# HEADER - Structure exacte de la maquette #}
-        <div class="offer-meta__header">
-        {% if skeleton %}
-          {% include '@elements/skeleton/skeleton.twig' with {
-            variant: 'text',
-            width: '80%',
-            height: '40px'
-          } only %}
-        {% else %}
-          {# Ligne 1: Reference #}
-          {% if header.reference %}
-            <div class="offer-meta__reference">
-              Reference : {{ header.reference }}
-            </div>
-          {% endif %}
-
-          {# Ligne 2-3: Building Name + Title (colonne gauche) | Price (colonne droite) #}
-          <div class="offer-meta__title-block">
-            {% if header.buildingName %}
-              <h1 class="offer-meta__building-name">{{ header.buildingName }}</h1>
-            {% endif %}
-            {% if header.title %}
-              <div class="offer-meta__title">{{ header.title }}</div>
-            {% endif %}
-          </div>
-
-          {% if header.price %}
-            <div class="offer-meta__price-block">
-              <div class="offer-meta__price">{{ header.price }}</div>
-              {% if header.priceUnit %}
-                <div class="offer-meta__price-unit">
-                  {{ header.priceUnit }}
-                  {% if header.priceUnitInfo %}
-                    <span 
-                      data-ps-tooltip
-                      data-ps-tooltip-content="Rental conditions and pricing basis"
-                      data-ps-tooltip-position="top"
-                      data-ps-tooltip-icon="info"
-                      aria-describedby="price-unit-info"
-                    ></span>
-                  {% endif %}
-                </div>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          {# Ligne 4: Surface + City #}
-          {% if header.surface or header.city %}
-            <div class="offer-meta__location-line">
-              {% if header.surface %}
-                <span class="offer-meta__surface">{{ header.surface }}</span>
-              {% endif %}
-              {% if header.city %}
-                <span class="offer-meta__city">{{ header.city }}</span>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          {# Ligne 5: Availability + Mandate Type #}
-          <div class="offer-meta__status-line">
-            {% if header.availability %}
-              <div class="offer-meta__status-item">
-                <span class="offer-meta__status-label">Available :</span>
-                <strong class="offer-meta__status-value offer-meta__status-value--success">{{ header.availability }}</strong>
-              </div>
-            {% endif %}
-            {% if header.mandateType %}
-              <div class="offer-meta__status-item">
-                <span class="offer-meta__status-label">Type of mandate :</span>
-                <strong class="offer-meta__status-value">{{ header.mandateType }}</strong>
-              </div>
-            {% endif %}
-          </div>
-        {% endif %}
-        </div>
-      </section>
-
-      {# DESCRIPTION #}
-      {% if description.content %}
-        <section class="offer-description">
-        <section class="offer-description">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '150px'
-            } only %}
-          {% else %}
-            {% include '@elements/heading/heading.twig' with {
-              level: 'h2',
-              text: 'Description',
-              attributes: create_attribute().addClass('offer-description__title')
-            } only %}
-            {% include '@components/read-more/read-more.twig' with description only %}
-          {% endif %}
-        </section>
-      {% endif %}
-
-      {# FEATURES: Equipments, Services, Building, Information #}
-      <section class="offer-features">
-        {# EQUIPMENTS #}
-        {% if equipments.items|default([])|length > 0 %}
-          <div class="offer-features__section">
-          <div class="offer-features__section">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '120px'
-            } only %}
-          {% else %}
-            {% include '@collections/feature-section/feature-section.twig' with equipments only %}
-          {% endif %}
-          </div>
-        {% endif %}
-
-        {# SERVICES #}
-        {% if services.items|default([])|length > 0 %}
-          <div class="offer-features__section">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '150px'
-            } only %}
-          {% else %}
-            {% include '@collections/feature-section/feature-section.twig' with services only %}
-          {% endif %}
-          </div>
-        {% endif %}
-
-        {# BUILDING CONDITION #}
-        {% if building.items|default([])|length > 0 %}
-          <div class="offer-features__section">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '100px'
-            } only %}
-          {% else %}
-            {% include '@collections/feature-section/feature-section.twig' with building only %}
-          {% endif %}
-          </div>
-        {% endif %}
-
-        {# MORE INFORMATION #}
-        {% if information.items|default([])|length > 0 %}
-          <div class="offer-features__section">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'text',
-              width: '100%',
-              height: '100px'
-            } only %}
-          {% else %}
-            {% include '@collections/feature-section/feature-section.twig' with information only %}
-          {% endif %}
-          </div>
-        {% endif %}
-      </section>
-
-      {# ENERGY #}
-      {% if energy.dpe or energy.ges %}
-        <section class="offer-energy" aria-label="Energy performance">
-        <section class="offer-energy" aria-label="Energy performance">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'rectangle',
-              width: '100%',
-              height: '200px'
-            } only %}
-          {% else %}
-            {% include '@elements/heading/heading.twig' with {
-              level: 'h2',
-              text: 'Énergie',
-              icon: 'energy',
-              attributes: create_attribute().addClass('offer-energy__title')
-            } only %}
-            <div class="offer-energy__placeholder">
-              <p>🔌 DPE & GES widgets - Component to be implemented</p>
-              <p>Data: DPE {{ energy.dpe|default('N/A') }} | GES {{ energy.ges|default('N/A') }}</p>
-            </div>
-          {% endif %}
-        </section>
-      {% endif %}
-
-      {# SURFACE TABLE #}
-      {% if surfaceTable.rows|default([])|length > 0 %}
-        <section class="offer-surface-table" aria-label="Surface details">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'rectangle',
-              width: '100%',
-              height: '300px'
-            } only %}
-          {% else %}
-            {% include '@elements/heading/heading.twig' with {
-              level: 'h2',
-              text: 'Tableau des surfaces',
-              icon: 'table',
-              attributes: create_attribute().addClass('offer-surface-table__title')
-            } only %}
-            {% include '@components/table/table.twig' with surfaceTable only %}
-          {% endif %}
-        </section>
-      {% endif %}
-
-      </div> {# /offer-layout__main #}
-
-      {# SIDEBAR: Consultant Card + Visit Card #}
       <aside class="offer-layout__sidebar">
-        {% if consultant.name %}
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'card',
-              width: '100%',
-              height: '250px'
-            } only %}
-          {% else %}
-            {% include '@components/card-agent/card-agent.twig' with consultant only %}
-          {% endif %}
-        {% endif %}
-
-        {% if visitCard.title %}
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'card',
-              width: '100%',
-              height: '120px'
-            } only %}
-          {% else %}
-            {% include '@components/card-agent-visit/card-agent-visit.twig' with visitCard only %}
-          {% endif %}
-        {% endif %}
+        {% include '@theme/offer/offer-sidebar.html.twig' %}
       </aside>
 
-    </div> {# /offer-layout #}
-  </div> {# /container #}
+    </div>
+  </div>
 
-  {# FULL-WIDTH MAP SECTION #}
-  {% if location.address or location.map or poi.categories|default([])|length > 0 or travelTime.enabled %}
-    <section class="offer-map" aria-label="Location and map">
-      {% if skeleton %}
-        {% include '@elements/skeleton/skeleton.twig' with {
-          variant: 'rectangle',
-          width: '100%',
-          height: '500px'
-        } only %}
-      {% else %}
-        <div class="offer-map__container">
-          {# Address #}
-          {% if location.address %}
-            <div class="offer-map__address">
-              <p><strong>{{ location.address.street }}</strong></p>
-              <p>{{ location.address.city }}, {{ location.address.postal }}</p>
-            </div>
-          {% endif %}
+  {% include '@theme/offer/offer-map.html.twig' %}
 
-          {# Map Placeholder #}
-          <div class="offer-map__placeholder">
-            <p>🗺️ Interactive map widget - Component to be implemented</p>
-            <p>Coordinates: {{ location.map.lat|default('N/A') }}, {{ location.map.lng|default('N/A') }}</p>
-          </div>
-
-          {# POI Filters #}
-          {% if poi.categories|default([])|length > 0 %}
-            <div class="offer-map__poi">
-              <p>📍 POI Filters: {{ poi.categories|join(', ') }}</p>
-              <p>Checkboxes for: Transports, Parking, Restaurants, Hotels</p>
-            </div>
-          {% endif %}
-
-          {# Travel Time Calculator #}
-          {% if travelTime.enabled %}
-            <div class="offer-map__travel-time">
-              <p>🚗 Calculate travel time - Component to be implemented</p>
-              <p>Origin: {{ travelTime.origin|default('N/A') }}</p>
-            </div>
-          {% endif %}
-        </div>
-      {% endif %}
-    </section>
-  {% endif %}
 </article>
+
