@@ -5,7 +5,7 @@ import menuLinksTwig from '../../collections/blocks/footer/footer-menu-links/foo
 import logo from '../../components/logo/logo.twig';
 import footerTemplate from './footer.twig';
 import data from './footer.yml';
-import '../../elements/collapse/collapse.css';
+import '../../collections/blocks/footer/footer-menu-links/footer-menu-links.js';
 import '../../elements/collapse/collapse.js';
 import './footer.css';
 

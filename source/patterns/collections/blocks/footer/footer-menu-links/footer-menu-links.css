@@ -74,12 +74,14 @@
   }
 
   /* Mobile: Panel hidden by default, shown when expanded */
-  & .ps-footer-menu-links__panel {
+  &__panel {
+    display: none;
     max-height: 0;
     overflow: hidden;
     transition: max-height var(--ps-footer-menu-links-icon-transition);
 
     &[aria-expanded="true"] {
+      display: flex;
       max-height: 1000px;
     }
   }
@@ -138,7 +140,8 @@
     }
 
     /* Panel always visible on desktop */
-    & .ps-footer-menu-links__panel {
+    &__panel {
+      display: flex;
       max-height: none;
       padding: var(--ps-footer-menu-links-panel-padding);
     }

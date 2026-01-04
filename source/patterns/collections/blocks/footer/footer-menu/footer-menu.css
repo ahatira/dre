@@ -10,19 +10,10 @@
   --ps-footer-menu-item-padding: 0;
 
   /* Override menu component for footer context */
-  & .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
   & .menu__list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--ps-footer-menu-gap);
     list-style: none;
     margin: 0;
     padding: 0;
