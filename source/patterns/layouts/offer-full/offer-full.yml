@@ -30,8 +30,6 @@ gallery:
         alt: 'Building lobby with high ceilings'
   variant: 'images'
   fit: 'cover'
-  loop: true
-  autoHeight: true
   withPagination: false
   toolbar:
     items:
@@ -42,11 +40,11 @@ gallery:
       - type: '3d-visit'
         label: '3D visit'
         icon: 'cube-focus'
-        slideIndex: 1
+        slideIndex: 0
       - type: 'plan'
         label: 'Plan'
         icon: 'area-select'
-        slideIndex: 2
+        slideIndex: 0
   ariaLabel: 'Property photo gallery'
 
 # Property header
