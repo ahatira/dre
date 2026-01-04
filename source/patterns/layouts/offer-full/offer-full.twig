@@ -290,12 +290,7 @@
               height: '120px'
             } only %}
           {% else %}
-            <div class="offer-visit-card">
-              <h3 class="offer-visit-card__title">{{ visitCard.title }}</h3>
-              {% if visitCard.cta %}
-                {% include '@elements/button/button.twig' with visitCard.cta only %}
-              {% endif %}
-            </div>
+            {% include '@components/card-agent-visit/card-agent-visit.twig' with visitCard only %}
           {% endif %}
         {% endif %}
       </aside>

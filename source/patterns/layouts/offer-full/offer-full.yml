@@ -182,7 +182,7 @@ consultant:
   name: 'Sophia Dacosta'
   phone: '+32 2 686 49 49'
   avatar:
-    url: '/images/agent/sophia-dacosta.jpg'
+    url: '/source/assets/images/1-1.svg'
     alt: 'Sophia Dacosta - Real Estate Consultant'
   cta:
     text: 'Contact the consultancy'
