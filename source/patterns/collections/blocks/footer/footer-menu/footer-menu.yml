@@ -1,0 +1,19 @@
+# Footer Menu Block Configuration
+
+label: 'Footer Menu'
+label_display: 'hidden'
+items:
+  - title: 'Data protection'
+    url: '#'
+  - title: 'Cookie policy'
+    url: '#'
+  - title: 'Disclaimer'
+    url: '#'
+  - title: 'Suppliers: BNP Paribas is committed to its partners and suppliers'
+    url: '#'
+  - title: 'Sitemap'
+    url: '#'
+  - title: 'Complaints Customer Service'
+    url: '#'
+  - title: 'Canal de denuncias éticas'
+    url: '#'
