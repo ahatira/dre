@@ -52,17 +52,20 @@
         {# HERO: Gallery Carousel #}
         {% if gallery.slides|default([])|length > 0 %}
           <section class="offer-hero" aria-label="Property gallery">
-          {% if skeleton %}
-            {% include '@elements/skeleton/skeleton.twig' with {
-              variant: 'rectangle',
-              width: '100%',
-              height: '500px'
-            } only %}
-          {% else %}
-            {% include '@components/carousel/carousel.twig' with gallery only %}
-          {% endif %}
-        </section>
-      {% endif %}
+            {# Favoris button #}
+            <button class="offer-hero__favorite" type="button" aria-label="Add to favorites" data-icon="heart" aria-pressed="false"></button>
+            
+            {% if skeleton %}
+              {% include '@elements/skeleton/skeleton.twig' with {
+                variant: 'rectangle',
+                width: '100%',
+                height: '500px'
+              } only %}
+            {% else %}
+              {% include '@components/carousel/carousel.twig' with gallery only %}
+            {% endif %}
+          </section>
+        {% endif %}
 
       {# META: Header + Actions #}
       <section class="offer-meta">
@@ -130,30 +133,6 @@
           </div>
         {% endif %}
         </div>
-
-        {# ACTIONS - 2 boutons côte à côte #}
-        {% if actions.buttons|default([])|length > 0 %}
-          <div class="offer-meta__actions">
-          {% if skeleton %}
-            <div style="display: flex; gap: 12px;">
-              {% include '@elements/skeleton/skeleton.twig' with {
-                variant: 'button',
-                width: '180px',
-                height: '44px'
-              } only %}
-              {% include '@elements/skeleton/skeleton.twig' with {
-                variant: 'button',
-                width: '180px',
-                height: '44px'
-              } only %}
-            </div>
-          {% else %}
-            {% for action in actions.buttons %}
-              {% include '@elements/button/button.twig' with action only %}
-            {% endfor %}
-          {% endif %}
-          </div>
-        {% endif %}
       </section>
 
       {# DESCRIPTION #}

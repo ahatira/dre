@@ -57,7 +57,50 @@
    OFFER HERO (Gallery section)
    ======================================================================== */
 .offer-hero {
+  position: relative;
   margin-bottom: var(--size-2);
+
+  &__favorite {
+    position: absolute;
+    top: var(--size-4);
+    right: var(--size-4);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    background: var(--white);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--duration-200) var(--ease-out);
+    box-shadow: var(--shadow-2);
+
+    /* Icon styling */
+    &[data-icon] {
+      width: 24px;
+      height: 24px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      background: var(--gray-50);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    &[aria-pressed="true"] {
+      background: var(--danger-subtle);
+      color: var(--danger);
+    }
+  }
 }
 
 /* ========================================================================
@@ -171,13 +214,6 @@
     &--success {
       color: var(--success);
     }
-  }
-
-  /* Actions - 2 boutons */
-  &__actions {
-    display: flex;
-    gap: var(--size-3);
-    flex-wrap: wrap;
   }
 }
 

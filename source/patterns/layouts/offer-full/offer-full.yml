@@ -26,15 +26,21 @@ gallery:
   variant: 'images'
   fit: 'cover'
   loop: true
-  withPagination: true
-  withToolbar: true
-  toolbarStats:
-    - icon: 'picture'
-      text: '13 photos'
-    - icon: 'camera'
-      text: '30 visit'
-    - icon: 'plan'
-      text: 'Plan'
+  withPagination: false
+  toolbar:
+    items:
+      - type: 'photo'
+        label: '13 photos'
+        icon: 'picture'
+        slideIndex: 0
+      - type: '3d'
+        label: '3D visit'
+        icon: 'cube'
+        slideIndex: 1
+      - type: 'plan'
+        label: 'Plan'
+        icon: 'plan'
+        slideIndex: 2
   ariaLabel: 'Property photo gallery'
 
 # Property header
