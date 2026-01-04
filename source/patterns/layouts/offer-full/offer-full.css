@@ -9,12 +9,36 @@
  * Structure:
  * - article root element (Drupal compatible)
  * - .container: constrained width with padding
- * - .offer-layout: 2-column grid (main + sidebar) on desktop
+ * - .offer-layout: 2-column grid (main + sidebar) on laptop+
  * - .offer-map: full-width section outside container
  * 
  * Sections: Hero (gallery), Meta (header+actions), Description,
  *           Features, Energy, Surface Table, Map, Sidebar (consultant)
+ *
+ * Responsive Breakpoints:
+ * - Mobile (default): Fixed bottom sidebar, single column layout
+ * - Tablet (640px+): Increased fonts & features grid 2col, sidebar still fixed
+ * - Laptop (1024px+): Grid layout 2fr/1fr, sidebar sticky, full desktop layout
+ * - Desktop (1280px+): Increased container padding
+ * - Desktop Large (1440px+): Max container width padding
  */
+
+/* ========================================================================
+   LAYER 2 VARIABLES
+   ======================================================================== */
+:root {
+  --offer-layout-gap-mobile: var(--size-6);
+  --offer-layout-gap-tablet: var(--size-10);
+  --offer-layout-gap-laptop: var(--size-12);
+  
+  --offer-sidebar-fixed-height: 120px;
+  --offer-sidebar-fixed-padding: var(--size-3);
+  --offer-sidebar-fixed-gap: var(--size-3);
+  
+  --offer-hero-height: 500px;
+  --offer-favorite-size: 48px;
+  --offer-favorite-icon-size: 24px;
+}
 
 /* ========================================================================
    CONTAINER (Reusable Drupal pattern)
@@ -33,25 +57,23 @@
    OFFER LAYOUT (Grid wrapper)
    ======================================================================== */
 .offer-layout {
-  --offer-layout-gap: var(--size-6);
-  
   display: flex;
   flex-direction: column;
-  gap: var(--offer-layout-gap);
-  padding-bottom: 140px;  /* Space for fixed sidebar in mobile */
+  gap: var(--offer-layout-gap-mobile);
+  padding-bottom: calc(var(--offer-sidebar-fixed-height) + (var(--offer-sidebar-fixed-padding) * 2) + 12px);
 
   &__main {
     display: flex;
     flex-direction: column;
-    gap: var(--size-6);
+    gap: var(--offer-layout-gap-mobile);
     min-width: 0;
   }
 
   &__sidebar {
     display: flex;
     flex-direction: row;
-    gap: var(--size-3);
-    padding: var(--size-3);
+    gap: var(--offer-sidebar-fixed-gap);
+    padding: var(--offer-sidebar-fixed-padding);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -59,7 +81,7 @@
     background: var(--white);
     border-top: 1px solid var(--gray-200);
     z-index: 100;
-    max-height: 120px;
+    max-height: var(--offer-sidebar-fixed-height);
     min-width: 0;
   }
 }
@@ -68,12 +90,14 @@
    OFFER HERO (Gallery section)
    ======================================================================== */
 .offer-hero {
+  --offer-hero-favorite-top: var(--size-4);
+  --offer-hero-favorite-right: var(--size-4);
+
   position: relative;
   margin-bottom: var(--size-2);
-  height: 500px;
+  height: var(--offer-hero-height);
   width: 100%;
   
-  /* Ensure carousel fills the full height */
   .ps-carousel {
     height: 100%;
     
@@ -96,11 +120,11 @@
 
   &__favorite {
     position: absolute;
-    top: var(--size-4);
-    right: var(--size-4);
+    top: var(--offer-hero-favorite-top);
+    right: var(--offer-hero-favorite-right);
     z-index: 10;
-    width: 48px;
-    height: 48px;
+    width: var(--offer-favorite-size);
+    height: var(--offer-favorite-size);
     background: var(--white);
     border: none;
     border-radius: 50%;
@@ -111,10 +135,9 @@
     transition: all var(--duration-200) var(--ease-out);
     box-shadow: var(--shadow-2);
 
-    /* Icon styling */
     &[data-icon] {
-      width: 24px;
-      height: 24px;
+      width: var(--offer-favorite-icon-size);
+      height: var(--offer-favorite-icon-size);
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -141,24 +164,25 @@
    OFFER META (Header + Actions)
    ======================================================================== */
 .offer-meta {
+  --offer-meta-gap: var(--size-6);
+  --offer-meta-header-gap: var(--size-3);
+
   display: flex;
   flex-direction: column;
-  gap: var(--size-6);
+  gap: var(--offer-meta-gap);
 
   &__header {
     display: flex;
     flex-direction: column;
-    gap: var(--size-3);
+    gap: var(--offer-meta-header-gap);
   }
 
-  /* Reference - Ligne 1 */
   &__reference {
     font-size: var(--font-size-0);
-    color: var(--gray-600);
     font-weight: 400;
+    color: var(--gray-600);
   }
 
-  /* Building Name + Title - Lignes 2-3 */
   &__building-name {
     font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
@@ -180,7 +204,6 @@
     gap: var(--size-1);
   }
 
-  /* Price - Colonne droite */
   &__price-block {
     display: flex;
     flex-direction: column;
@@ -202,7 +225,6 @@
     gap: var(--size-1);
   }
 
-  /* Location Line - Ligne 4 */
   &__location-line {
     display: flex;
     align-items: center;
@@ -223,7 +245,6 @@
     }
   }
 
-  /* Status Line - Ligne 5 */
   &__status-line {
     display: flex;
     flex-wrap: wrap;
@@ -242,8 +263,8 @@
   }
 
   &__status-value {
-    color: var(--gray-900);
     font-weight: 600;
+    color: var(--gray-900);
 
     &--success {
       color: var(--success);
@@ -259,7 +280,7 @@
   flex-direction: column;
   gap: var(--size-4);
 
-  & .ps-read-more {
+  .ps-read-more {
     color: var(--gray-800);
     line-height: var(--line-height-3);
   }
@@ -310,7 +331,7 @@
     color: var(--gray-600);
     text-align: center;
 
-    & p {
+    p {
       margin: var(--size-2) 0;
     }
   }
@@ -357,15 +378,15 @@
   &__address {
     padding: var(--size-4);
     background: var(--white);
-    border-radius: var(--radius-2);
     border: 1px solid var(--gray-200);
+    border-radius: var(--radius-2);
 
-    & p {
+    p {
       margin: var(--size-1) 0;
       color: var(--gray-800);
     }
 
-    & strong {
+    strong {
       font-weight: var(--font-weight-600);
       color: var(--gray-900);
     }
@@ -381,19 +402,10 @@
     color: var(--gray-600);
     text-align: center;
 
-    & p {
+    p {
       margin: var(--size-2) 0;
     }
   }
-}
-
-/* ========================================================================
-   CONSULTANT CARD (Sidebar)
-   ======================================================================== */
-.offer-layout__sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-6);
 }
 
 /* ========================================================================
@@ -402,23 +414,6 @@
 @media (--mobile) {
   .container {
     --container-padding-x: var(--size-6);
-  }
-
-  .offer-layout {
-    &__sidebar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      flex-direction: row;
-      gap: var(--size-3);
-      padding: var(--size-3);
-      background: var(--white);
-      border-top: 1px solid var(--gray-200);
-      z-index: 100;
-      max-height: 120px;
-    }
   }
 
   .offer-meta {
@@ -474,12 +469,10 @@
   }
 
   .offer-layout {
-    --offer-layout-gap: var(--size-12);
-    
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: var(--offer-layout-gap);
-    padding-bottom: 0;  /* Reset padding when sidebar becomes sticky */
+    gap: var(--offer-layout-gap-laptop);
+    padding-bottom: 0;
 
     &__main {
       gap: var(--size-8);
@@ -489,8 +482,8 @@
       position: sticky;
       top: 0;
       flex-direction: column;
-      gap: var(--offer-layout-gap);
-      padding: var(--offer-layout-gap);
+      gap: var(--offer-layout-gap-laptop);
+      padding: var(--offer-layout-gap-laptop);
       background: transparent;
       border: none;
       z-index: auto;
