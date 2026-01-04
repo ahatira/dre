@@ -423,6 +423,10 @@
     &__sidebar {
       padding-top: var(--offer-layout-gap);
       padding-bottom: var(--offer-layout-gap);
+      position: sticky;
+      top: var(--size-6);
+      align-self: start;
+      height: fit-content;
     }
   }
 
