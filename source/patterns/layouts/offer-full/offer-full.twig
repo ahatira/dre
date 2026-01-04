@@ -67,6 +67,7 @@
       <section class="offer-meta">
         {# HEADER #}
         <div class="offer-meta__header">
+        <div class="offer-meta__header">
         {% if skeleton %}
           {% include '@elements/skeleton/skeleton.twig' with {
             variant: 'text',
@@ -173,6 +174,7 @@
       {# DESCRIPTION #}
       {% if description.content %}
         <section class="offer-description">
+        <section class="offer-description">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
               variant: 'text',
@@ -194,6 +196,7 @@
       <section class="offer-features">
         {# EQUIPMENTS #}
         {% if equipments.items|default([])|length > 0 %}
+          <div class="offer-features__section">
           <div class="offer-features__section">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
@@ -255,6 +258,7 @@
 
       {# ENERGY #}
       {% if energy.dpe or energy.ges %}
+        <section class="offer-energy" aria-label="Energy performance">
         <section class="offer-energy" aria-label="Energy performance">
           {% if skeleton %}
             {% include '@elements/skeleton/skeleton.twig' with {
