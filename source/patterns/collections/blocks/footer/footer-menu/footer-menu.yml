@@ -1,6 +1,6 @@
 # Footer Menu Block Configuration
 
-label: 'Footer Menu'
+label: ''
 label_display: 'hidden'
 items:
   - title: 'Data protection'

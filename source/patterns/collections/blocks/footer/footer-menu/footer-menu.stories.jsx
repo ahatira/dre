@@ -44,25 +44,11 @@ export const Default = {
 
 export const ShortMenu = {
   args: {
-    label: 'Footer Menu',
-    label_display: 'hidden',
     items: [
       { title: 'Data protection', url: '#' },
       { title: 'Cookie policy', url: '#' },
       { title: 'Disclaimer', url: '#' },
       { title: 'Sitemap', url: '#' },
-    ],
-  },
-};
-
-export const WithVisibleLabel = {
-  args: {
-    label: 'Legal & Policies',
-    label_display: 'visible',
-    items: [
-      { title: 'Data protection', url: '#' },
-      { title: 'Cookie policy', url: '#' },
-      { title: 'Disclaimer', url: '#' },
     ],
   },
 };
