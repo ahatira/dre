@@ -80,15 +80,15 @@ diagnostics:
         color: '#A10D0D'
         range_max: null
 labels:
-  - src: '/assets/images/1-1.svg'
+  - src: '/images/1-1.svg'
     alt: 'Label 1'
     url: null
-  - src: '/assets/images/1-1.svg'
+  - src: '/images/1-1.svg'
     alt: 'Label 2'
     url: null
-  - src: '/assets/images/1-1.svg'
+  - src: '/images/1-1.svg'
     alt: 'Label 3'
     url: null
-  - src: '/assets/images/1-1.svg'
+  - src: '/images/1-1.svg'
     alt: 'Label 4'
     url: null
