@@ -1,9 +1,9 @@
 title: 'Energy'
-icon: 'bolt'
+icon: 'energy'
 diagnostics:
   - id: 'energy-consumption'
     label: 'Consommations énergétique'
-    icon: 'bolt'
+    icon: 'energy'
     unit: 'kWh/m²/an'
     value: 229
     empty_message: 'Étiquette énergétique non fournie par le propriétaire'
@@ -80,6 +80,15 @@ diagnostics:
         color: '#A10D0D'
         range_max: null
 labels:
-  - src: '/assets/images/leed-platinum.svg'
-    alt: 'LEED Platinum Certification'
+  - src: '/assets/images/1-1.svg'
+    alt: 'Label 1'
+    url: null
+  - src: '/assets/images/1-1.svg'
+    alt: 'Label 2'
+    url: null
+  - src: '/assets/images/1-1.svg'
+    alt: 'Label 3'
+    url: null
+  - src: '/assets/images/1-1.svg'
+    alt: 'Label 4'
     url: null
