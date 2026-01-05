@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Offer features section - Equipments and Services.
+ *
+ * @section Features
+ * @description Property equipment and services lists
+ */
+#}
+
+{%- set equipments = equipments|default([]) -%}
+{%- set services = services|default([]) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <section class="offer-features">
+    <div class="offer-features__section">
+      <h2 class="offer-features__title">Equipments</h2>
+      <ul class="offer-features__list">
+        {% for i in 1..6 %}
+          <li class="offer-features__item">
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '180px',
+              height: '16px'
+            } only %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="offer-features__section">
+      <h2 class="offer-features__title">Services</h2>
+      <ul class="offer-features__list">
+        {% for i in 1..6 %}
+          <li class="offer-features__item">
+            {% include '@elements/skeleton/skeleton.twig' with {
+              variant: 'text',
+              width: '200px',
+              height: '16px'
+            } only %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{%- elseif equipments or services -%}
+  <section class="offer-features">
+    {%- if equipments -%}
+      <div class="offer-features__section">
+        <h2 class="offer-features__title" data-icon="wrench">Equipments</h2>
+        <ul class="offer-features__list">
+          {%- for equipment in equipments -%}
+            <li class="offer-features__item">{{ equipment }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if services -%}
+      <div class="offer-features__section">
+        <h2 class="offer-features__title" data-icon="concierge">Services</h2>
+        <ul class="offer-features__list">
+          {%- for service in services -%}
+            <li class="offer-features__item">{{ service }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}

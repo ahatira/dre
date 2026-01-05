@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Offer description section.
+ *
+ * @section Description
+ * @description Main property description with expandable content
+ */
+#}
+
+{%- set description = description|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <section class="offer-description">
+    <h2 class="offer-description__title">Description</h2>
+    <div class="offer-description__content">
+      {% for i in 1..5 %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'text',
+          width: '100%',
+          height: '16px'
+        } only %}
+      {% endfor %}
+    </div>
+  </section>
+{%- elseif description.value -%}
+  <section class="offer-description">
+    <h2 class="offer-description__title">{{ description.label|default('Description') }}</h2>
+    <div class="offer-description__content">
+      {{ description.value|raw }}
+    </div>
+    {%- if description.expandable -%}
+      <button type="button" class="offer-description__more">
+        <span class="offer-description__more-label">See more</span>
+        <span class="offer-description__more-icon" data-icon="chevron-down" aria-hidden="true"></span>
+      </button>
+    {%- endif -%}
+  </section>
+{%- endif -%}

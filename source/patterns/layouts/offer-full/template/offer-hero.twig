@@ -1,0 +1,86 @@
+{#
+/**
+ * @file
+ * Offer hero section - Gallery with favorite button.
+ *
+ * @section Hero
+ * @description Media gallery carousel with navigation and favorite action
+ */
+#}
+
+{%- set hero = hero|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  {# Placeholder skeleton #}
+  <div class="offer-hero">
+    <div class="offer-hero__gallery">
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'rectangle',
+        width: '100%',
+        height: '400px'
+      } only %}
+    </div>
+  </div>
+{%- else -%}
+  <div class="offer-hero">
+    {# Favorite button - positioned absolute top-right #}
+    <div class="offer-hero__favorite">
+      <button 
+        type="button" 
+        class="ps-button ps-button--icon ps-button--light" 
+        data-icon="heart"
+        aria-label="Add to favorites"
+        aria-pressed="false"
+      >
+      </button>
+    </div>
+
+    {# Main gallery carousel #}
+    <div class="offer-hero__gallery">
+      {%- if hero.images -%}
+        <div class="offer-hero__carousel" data-carousel="offer-hero">
+          <div class="offer-hero__slides">
+            {%- for image in hero.images -%}
+              <div class="offer-hero__slide">
+                <img 
+                  src="{{ image.url }}" 
+                  alt="{{ image.alt|default('Property image ' ~ loop.index) }}"
+                  loading="{{ loop.first ? 'eager' : 'lazy' }}"
+                />
+              </div>
+            {%- endfor -%}
+          </div>
+
+          {# Navigation arrows #}
+          <button type="button" class="offer-hero__nav offer-hero__nav--prev" data-icon="chevron-left" aria-label="Previous image"></button>
+          <button type="button" class="offer-hero__nav offer-hero__nav--next" data-icon="chevron-right" aria-label="Next image"></button>
+
+          {# Slide counter #}
+          <div class="offer-hero__counter">
+            <span class="offer-hero__counter-current">1</span>/<span class="offer-hero__counter-total">{{ hero.images|length }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {# Media toolbar (13 photos, 3D visit, Plan) #}
+      <div class="offer-hero__toolbar">
+        {%- if hero.photos_count -%}
+          <button type="button" class="offer-hero__toolbar-item" data-icon="camera">
+            <span class="offer-hero__toolbar-label">{{ hero.photos_count }} photos</span>
+          </button>
+        {%- endif -%}
+        {%- if hero.visit_3d -%}
+          <a href="{{ hero.visit_3d.url }}" class="offer-hero__toolbar-item" data-icon="360" target="_blank">
+            <span class="offer-hero__toolbar-label">3D visit</span>
+          </a>
+        {%- endif -%}
+        {%- if hero.plan -%}
+          <a href="{{ hero.plan.url }}" class="offer-hero__toolbar-item" data-icon="plan" target="_blank">
+            <span class="offer-hero__toolbar-label">Plan</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

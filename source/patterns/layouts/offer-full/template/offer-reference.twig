@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Offer reference number section.
+ *
+ * @section Reference
+ * @description Display property reference identifier
+ */
+#}
+
+{%- set reference = reference|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <div class="offer-reference">
+    {% include '@elements/skeleton/skeleton.twig' with {
+      variant: 'text',
+      width: '200px',
+      height: '16px'
+    } only %}
+  </div>
+{%- elseif reference.value -%}
+  <div class="offer-reference">
+    <span class="offer-reference__label">{{ reference.label|default('Reference') }} :</span>
+    <span class="offer-reference__value">{{ reference.value }}</span>
+  </div>
+{%- endif -%}

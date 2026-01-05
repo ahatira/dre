@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Offer surface table section.
+ *
+ * @section Surface
+ * @description Detailed surface breakdown table
+ */
+#}
+
+{%- set surface_table = surface_table|default([]) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <section class="offer-surface">
+    <h2 class="offer-surface__title">Surface table</h2>
+    <div class="offer-surface__table-wrapper">
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'rectangle',
+        width: '100%',
+        height: '200px'
+      } only %}
+    </div>
+  </section>
+{%- elseif surface_table -%}
+  <section class="offer-surface">
+    <h2 class="offer-surface__title" data-icon="ruler">Surface table</h2>
+    <div class="offer-surface__table-wrapper">
+      <table class="offer-surface__table">
+        <thead>
+          <tr>
+            <th>Lot</th>
+            <th>Étage</th>
+            <th>Nature</th>
+            <th>Surface</th>
+            <th>Disponibilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for row in surface_table -%}
+            <tr>
+              <td>{{ row.lot }}</td>
+              <td>{{ row.floor }}</td>
+              <td>{{ row.nature }}</td>
+              <td>{{ row.surface }} {{ row.unit|default('m²') }}</td>
+              <td>{{ row.availability }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{%- endif -%}

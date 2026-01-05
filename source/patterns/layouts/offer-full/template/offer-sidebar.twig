@@ -1,0 +1,98 @@
+{#
+/**
+ * @file
+ * Offer sidebar - Consultant profile and CTA.
+ *
+ * @section Sidebar
+ * @description Consultant information with contact actions
+ * Desktop: sticky sidebar
+ * Mobile: bottom bar fixed
+ */
+#}
+
+{%- set consultant = consultant|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <div class="offer-sidebar">
+    <div class="offer-sidebar__content">
+      <div class="offer-sidebar__consultant">
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'circle',
+          width: '60px',
+          height: '60px'
+        } only %}
+        <div class="offer-sidebar__consultant-info">
+          {% include '@elements/skeleton/skeleton.twig' with {
+            variant: 'text',
+            width: '150px',
+            height: '16px'
+          } only %}
+          {% include '@elements/skeleton/skeleton.twig' with {
+            variant: 'text',
+            width: '120px',
+            height: '14px'
+          } only %}
+        </div>
+      </div>
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'button',
+        width: '100%',
+        height: '48px'
+      } only %}
+    </div>
+  </div>
+{%- elseif consultant -%}
+  <div class="offer-sidebar">
+    <div class="offer-sidebar__content">
+      {# Consultant profile #}
+      <div class="offer-sidebar__consultant">
+        <p class="offer-sidebar__consultant-label">Your consultant:</p>
+        
+        <div class="offer-sidebar__consultant-profile">
+          {%- if consultant.photo -%}
+            <img 
+              src="{{ consultant.photo.url }}" 
+              alt="{{ consultant.name }}"
+              class="offer-sidebar__consultant-avatar"
+              loading="lazy"
+            />
+          {%- else -%}
+            <div class="offer-sidebar__consultant-avatar offer-sidebar__consultant-avatar--placeholder" data-icon="user"></div>
+          {%- endif -%}
+
+          <div class="offer-sidebar__consultant-info">
+            <p class="offer-sidebar__consultant-name">{{ consultant.name }}</p>
+            {%- if consultant.phone -%}
+              <a href="tel:{{ consultant.phone|replace({' ': '', '+': '00'}) }}" class="offer-sidebar__consultant-phone">
+                <span data-icon="phone" aria-hidden="true"></span>
+                {{ consultant.phone }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      {# CTA buttons #}
+      <div class="offer-sidebar__actions">
+        <button type="button" class="ps-button ps-button--primary ps-button--block" data-action="contact-consultant">
+          Contact the consultancy
+        </button>
+
+        <p class="offer-sidebar__visit-prompt">Would you like to visit?</p>
+        <button type="button" class="ps-button ps-button--secondary ps-button--block" data-icon="calendar" data-action="schedule-visit">
+          Schedule a visit
+        </button>
+      </div>
+
+      {# Download brochure (desktop only) #}
+      {%- if consultant.brochure_url -%}
+        <div class="offer-sidebar__brochure">
+          <a href="{{ consultant.brochure_url }}" class="offer-sidebar__brochure-link" download data-icon="download">
+            Download the brochure
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

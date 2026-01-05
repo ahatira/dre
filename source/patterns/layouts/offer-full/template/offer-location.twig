@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Offer location section - Address and transport.
+ *
+ * @section Location
+ * @description Property address and nearby transport information
+ */
+#}
+
+{%- set location = location|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <section class="offer-location">
+    <h2 class="offer-location__title">Location</h2>
+    <div class="offer-location__content">
+      {% include '@elements/skeleton/skeleton.twig' with {
+        variant: 'text',
+        width: '300px',
+        height: '20px'
+      } only %}
+      <div class="offer-location__transport">
+        {% for i in 1..3 %}
+          {% include '@elements/skeleton/skeleton.twig' with {
+            variant: 'text',
+            width: '200px',
+            height: '18px'
+          } only %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{%- elseif location.address -%}
+  <section class="offer-location">
+    <h2 class="offer-location__title" data-icon="map-pin">Location</h2>
+    <div class="offer-location__content">
+      <address class="offer-location__address">
+        {{ location.address.street }}<br>
+        {{ location.address.postal_code }} {{ location.address.city }}
+      </address>
+
+      {%- if location.transport -%}
+        <div class="offer-location__transport">
+          <h3 class="offer-location__transport-title">Transport :</h3>
+          <ul class="offer-location__transport-list">
+            {%- for transport in location.transport -%}
+              <li class="offer-location__transport-item">
+                <span class="offer-location__transport-icon" data-icon="{{ transport.type }}"></span>
+                <span class="offer-location__transport-label">{{ transport.label }} : {{ transport.name }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if location.road_access -%}
+        <div class="offer-location__access">
+          <span class="offer-location__access-icon" data-icon="car"></span>
+          <span class="offer-location__access-label">Road access</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}

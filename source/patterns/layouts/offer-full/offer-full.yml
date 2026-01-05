@@ -1,0 +1,197 @@
+# Offer Full Layout - Mock Data
+# Real Estate context: Rent Offices MADRID Barrio de Chamberí
+
+bundle: 'offer'
+view_mode: 'full'
+placeholder: false
+
+# Building and property identification
+building_name:
+  label: 'Building'
+  value: 'Edificio ARA'
+
+reference:
+  label: 'Reference'
+  value: 'OLBUR2200801'
+
+title: 'Rent Offices MADRID Barrio de Chamberí'
+
+# Hero gallery
+hero:
+  images:
+    - url: '/images/property/madrid-chambeري-01.jpg'
+      alt: 'Building facade - Edificio ARA'
+    - url: '/images/property/madrid-chambeり-02.jpg'
+      alt: 'Office interior space'
+    - url: '/images/property/madrid-chamberί-03.jpg'
+      alt: 'Meeting room'
+    - url: '/images/property/madrid-chamberí-04.jpg'
+      alt: 'Open space office'
+    - url: '/images/property/madrid-chamberí-05.jpg'
+      alt: 'Building entrance'
+    - url: '/images/property/madrid-chamberí-06.jpg'
+      alt: 'Office floor layout'
+    - url: '/images/property/madrid-chamberí-07.jpg'
+      alt: 'Conference room'
+    - url: '/images/property/madrid-chamberί-08.jpg'
+      alt: 'Terrace view'
+    - url: '/images/property/madrid-chamberí-09.jpg'
+      alt: 'Reception area'
+    - url: '/images/property/madrid-chamberí-10.jpg'
+      alt: 'Executive office'
+    - url: '/images/property/madrid-chamberί-11.jpg'
+      alt: 'Kitchen and break area'
+    - url: '/images/property/madrid-chamberί-12.jpg'
+      alt: 'Building courtyard'
+    - url: '/images/property/madrid-chamberí-13.jpg'
+      alt: 'Street view'
+  photos_count: 13
+  visit_3d:
+    url: 'https://virtual-tour.example.com/olbur2200801'
+    label: '3D visit'
+  plan:
+    url: '/documents/plans/olbur2200801-floor-plan.pdf'
+    label: 'Plan'
+
+# Key metadata
+surface_total:
+  label: 'Total surface'
+  value: 611.3
+  unit: 'm²'
+
+price:
+  label: 'Rent'
+  value: 20000
+  currency: '€'
+  unit: 'HT/HC/m²/an'
+  info: 'Pricing details available on request'
+
+availability:
+  label: 'Available'
+  value: 'Immediately'
+
+mandate_type:
+  label: 'Type of mandate'
+  value: 'Exclusive'
+
+# Description
+description:
+  label: 'Description'
+  value: |
+    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié.</p>
+    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.</p>
+  expandable: true
+
+# Equipments and services
+equipments:
+  - 'Elevators'
+  - 'Air conditioning - Reversible'
+  - 'Computer cabling: Optical fiber'
+  - 'False floor: High height'
+  - 'Heating system: Individual'
+
+services:
+  - 'Home: Hostesses'
+  - 'Office layout: 3-open-plan offices'
+  - 'Partitioned offices: Yes'
+  - 'Meeting room: Yes'
+  - 'Cafeteria: Yes'
+  - 'Security: Intercom access control'
+  - 'Terraces - gardens: Balcony overlooking the park'
+
+# Building condition
+building_condition:
+  label: 'Building condition'
+  items:
+    - 'Condition of building: Restructured with common area'
+    - 'Condition of premises: State of use'
+
+# More information
+more_information:
+  items:
+    - 'Several courtyards'
+    - 'Garden level in perfect condition'
+    - 'Highly flexible'
+
+# Energy performance
+energy:
+  dpe:
+    label: 'Consommations énergétiques'
+    grade: 'C'
+    value: 150
+    unit: 'kWhEP/m²/an'
+  ges:
+    label: 'Émissions de gaz à effet de serre'
+    grade: 'B'
+    value: 25
+    unit: 'kgCO2/m²/an'
+  label:
+    name: 'LEED Gold'
+    logo: '/images/labels/leed-gold.png'
+
+# Surface breakdown table
+surface_table:
+  - lot: 'OLBUR2106575 - 6'
+    floor: 'RDC'
+    nature: 'Bureaux'
+    surface: 207
+    unit: 'm²'
+    availability: 'Nous consulter'
+  - lot: 'OLBUR2106575 - 7'
+    floor: 'R+3'
+    nature: 'Bureaux'
+    surface: 405
+    unit: 'm²'
+    availability: 'Nous consulter'
+  - lot: 'OLBUR2106575 - 20'
+    floor: 'R+4'
+    nature: 'Bureaux'
+    surface: 736
+    unit: 'm²'
+    availability: 'Nous consulter'
+  - lot: 'OLBUR2106575 - 23'
+    floor: 'R+6'
+    nature: 'Bureaux'
+    surface: 420
+    unit: 'm²'
+    availability: 'Nous consulter'
+
+# Location
+location:
+  address:
+    street: '37 CL Hermanos García Noblejas'
+    postal_code: '28037'
+    city: 'Madrid'
+  coordinates:
+    lat: 40.4283
+    lng: -3.6944
+  transport:
+    - type: 'bus'
+      label: 'Bus'
+      name: 'N° XX,XX,XX'
+    - type: 'metro'
+      label: 'Métro'
+      name: 'M3 Madrid'
+    - type: 'train'
+      label: 'Train'
+      name: 'Renfe - Atocha'
+  road_access: true
+
+# Map configuration
+map:
+  enabled: true
+  zoom: 15
+  poi_filters:
+    - transports
+    - parkings
+    - restaurants
+    - hotels
+
+# Consultant information
+consultant:
+  name: 'Sophia Dacosta'
+  phone: '+33 2 666 69 69'
+  photo:
+    url: '/images/agent/sophia-dacosta.jpg'
+    alt: 'Sophia Dacosta - Real Estate Consultant'
+  brochure_url: '/documents/brochures/olbur2200801-brochure.pdf'

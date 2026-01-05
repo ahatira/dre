@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Offer energy section - DPE, GES, labels.
+ *
+ * @section Energy
+ * @description Energy performance and environmental certifications
+ */
+#}
+
+{%- set energy = energy|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <section class="offer-energy">
+    <h2 class="offer-energy__title">Energy</h2>
+    <div class="offer-energy__badges">
+      {% for i in 1..3 %}
+        {% include '@elements/skeleton/skeleton.twig' with {
+          variant: 'rectangle',
+          width: '150px',
+          height: '80px'
+        } only %}
+      {% endfor %}
+    </div>
+  </section>
+{%- elseif energy.dpe or energy.ges or energy.label -%}
+  <section class="offer-energy">
+    <h2 class="offer-energy__title" data-icon="leaf">Energy</h2>
+    <div class="offer-energy__content">
+      {%- if energy.dpe -%}
+        <div class="offer-energy__item">
+          <h3 class="offer-energy__item-title">{{ energy.dpe.label|default('Consommations énergétiques') }}</h3>
+          <div class="offer-energy__badge offer-energy__badge--dpe">
+            <div class="offer-energy__badge-grade offer-energy__badge-grade--{{ energy.dpe.grade|lower }}">
+              {{ energy.dpe.grade|upper }}
+            </div>
+            <div class="offer-energy__badge-value">
+              {{ energy.dpe.value }} {{ energy.dpe.unit|default('kWhEP/m²/an') }}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if energy.ges -%}
+        <div class="offer-energy__item">
+          <h3 class="offer-energy__item-title">{{ energy.ges.label|default('Émissions de gaz à effet de serre') }}</h3>
+          <div class="offer-energy__badge offer-energy__badge--ges">
+            <div class="offer-energy__badge-grade offer-energy__badge-grade--{{ energy.ges.grade|lower }}">
+              {{ energy.ges.grade|upper }}
+            </div>
+            <div class="offer-energy__badge-value">
+              {{ energy.ges.value }} {{ energy.ges.unit|default('kgCO2/m²/an') }}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if energy.label -%}
+        <div class="offer-energy__item">
+          <h3 class="offer-energy__item-title">{{ energy.label.name|default('Label') }}</h3>
+          <div class="offer-energy__badge offer-energy__badge--label">
+            <img 
+              src="{{ energy.label.logo }}" 
+              alt="{{ energy.label.name }}"
+              class="offer-energy__badge-logo"
+            />
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}

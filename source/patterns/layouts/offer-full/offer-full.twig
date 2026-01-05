@@ -1,0 +1,135 @@
+{#
+/**
+ * @file
+ * Offer Full layout template.
+ *
+ * @layout Offer Full
+ * @description
+ * Complete page layout for displaying real estate property details.
+ * Includes hero gallery, metadata, consultant sidebar, features, and interactive map.
+ *
+ * @category Pages
+ * @domain Real Estate
+ *
+ * @features
+ * - Two-column layout (main content + sticky sidebar on desktop)
+ * - Mobile-optimized with bottom bar consultant CTA
+ * - Full-width map section
+ * - Modular composition via sub-templates
+ * - Supports placeholder mode for Storybook
+ *
+ * @accessibility
+ * - Semantic HTML5 landmarks (article, section, aside)
+ * - Proper heading hierarchy
+ * - Skip links support via main content wrapper
+ */
+#}
+
+{#
+ * @param {string} bundle - Node bundle (always 'offer')
+ * @param {string} view_mode - View mode (always 'full')
+ * @param {object} hero - Hero gallery data (images, 3D, plans)
+ * @param {object} reference - Reference number
+ * @param {object} building_name - Building name
+ * @param {string} title - Property title (H1)
+ * @param {object} price - Rental/sale price
+ * @param {object} surface_total - Total surface area
+ * @param {object} availability - Availability status
+ * @param {object} mandate_type - Type of mandate
+ * @param {object} description - Main description
+ * @param {array} equipments - Equipment list
+ * @param {array} services - Services list
+ * @param {object} energy - Energy performance data
+ * @param {array} surface_table - Surface breakdown table
+ * @param {object} location - Address and transport
+ * @param {object} map - Map configuration
+ * @param {object} consultant - Consultant profile
+ * @param {boolean} placeholder - Show placeholder mode
+ * @param {object} attributes - Additional HTML attributes
+ #}
+
+{%- set bundle = bundle|default('offer') -%}
+{%- set view_mode = view_mode|default('full') -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- set article_classes = [
+  'node',
+  'node--' ~ bundle,
+  'node--view-mode-' ~ view_mode|clean_class
+] -%}
+
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(article_classes) -%}
+
+<article{{ attr }}>
+  <div class="container">
+    <div class="offer-layout">
+
+      {# Main content column #}
+      <div class="offer-layout__main">
+        {% include '@layouts/offer-full/template/offer-hero.twig' with {
+          hero: hero,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-reference.twig' with {
+          reference: reference,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-meta.twig' with {
+          building_name: building_name,
+          title: title,
+          price: price,
+          surface_total: surface_total,
+          availability: availability,
+          mandate_type: mandate_type,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-description.twig' with {
+          description: description,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-features.twig' with {
+          equipments: equipments,
+          services: services,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-energy.twig' with {
+          energy: energy,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-surface.twig' with {
+          surface_table: surface_table,
+          placeholder: placeholder
+        } only %}
+
+        {% include '@layouts/offer-full/template/offer-location.twig' with {
+          location: location,
+          placeholder: placeholder
+        } only %}
+      </div>
+
+      {# Sidebar (sticky on desktop, bottom bar on mobile) #}
+      <aside class="offer-layout__sidebar" role="complementary" aria-label="Consultant information">
+        {% include '@layouts/offer-full/template/offer-sidebar.twig' with {
+          consultant: consultant,
+          placeholder: placeholder
+        } only %}
+      </aside>
+
+    </div>
+  </div>
+
+  {# Full-width map section #}
+  <section class="offer-map">
+    {% include '@layouts/offer-full/template/offer-map.twig' with {
+      map: map,
+      location: location,
+      placeholder: placeholder
+    } only %}
+  </section>
+</article>

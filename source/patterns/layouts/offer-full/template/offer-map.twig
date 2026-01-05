@@ -1,0 +1,82 @@
+{#
+/**
+ * @file
+ * Offer map section - Interactive map full-width.
+ *
+ * @section Map
+ * @description Full-width interactive map with points of interest filters
+ */
+#}
+
+{%- set map = map|default({}) -%}
+{%- set location = location|default({}) -%}
+{%- set placeholder = placeholder|default(false) -%}
+
+{%- if placeholder -%}
+  <div class="offer-map__wrapper">
+    {% include '@elements/skeleton/skeleton.twig' with {
+      variant: 'rectangle',
+      width: '100%',
+      height: '500px'
+    } only %}
+  </div>
+{%- elseif map.enabled or location.coordinates -%}
+  <div class="offer-map__wrapper">
+    {# POI filters #}
+    <div class="offer-map__filters">
+      <h3 class="offer-map__filters-title">Show points of interest :</h3>
+      <div class="offer-map__filters-list">
+        <label class="offer-map__filter">
+          <input type="checkbox" class="offer-map__filter-input" data-poi="transports" checked>
+          <span class="offer-map__filter-label">Transports</span>
+        </label>
+        <label class="offer-map__filter">
+          <input type="checkbox" class="offer-map__filter-input" data-poi="parkings">
+          <span class="offer-map__filter-label">Parkings</span>
+        </label>
+        <label class="offer-map__filter">
+          <input type="checkbox" class="offer-map__filter-input" data-poi="restaurants">
+          <span class="offer-map__filter-label">Restaurants</span>
+        </label>
+        <label class="offer-map__filter">
+          <input type="checkbox" class="offer-map__filter-input" data-poi="hotels">
+          <span class="offer-map__filter-label">Hotels</span>
+        </label>
+      </div>
+    </div>
+
+    {# Travel time calculator #}
+    <div class="offer-map__travel-time">
+      <h3 class="offer-map__travel-time-title">Calculate your travel time :</h3>
+      <div class="offer-map__travel-time-input">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Enter an address..."
+          aria-label="Calculate travel time from address"
+        />
+      </div>
+    </div>
+
+    {# Map container - JavaScript will initialize Leaflet/Google Maps here #}
+    <div 
+      class="offer-map__container" 
+      id="offer-map"
+      data-lat="{{ location.coordinates.lat|default('40.4283') }}"
+      data-lng="{{ location.coordinates.lng|default('-3.6944') }}"
+      data-zoom="{{ map.zoom|default(15) }}"
+      role="application"
+      aria-label="Interactive map showing property location"
+    ></div>
+
+    {# Map controls (Map/Satellite toggle) #}
+    <div class="offer-map__controls">
+      <button type="button" class="offer-map__control offer-map__control--active" data-layer="map">
+        Map
+      </button>
+      <button type="button" class="offer-map__control" data-layer="satellite">
+        Satellite
+      </button>
+    </div>
+  </div>
+{%- endif -%}
