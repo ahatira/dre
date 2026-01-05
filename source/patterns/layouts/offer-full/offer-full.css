@@ -233,7 +233,7 @@
 .offer-reference {
   display: flex;
   gap: var(--size-2);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-3);
   color: var(--offer-muted);
 }
 
@@ -254,10 +254,12 @@
 
 .offer-meta__building {
   display: block;
+  font-weight: var(--font-weight-700);
   margin: 0;
 }
 
 .offer-meta__title {
+  font-weight: var(--font-weight-700);
   margin: 0;
 }
 
