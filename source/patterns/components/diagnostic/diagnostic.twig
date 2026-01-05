@@ -1,0 +1,140 @@
+{#
+/**
+ * @file
+ * Template for diagnostic energy class display (SVG horizontal bar).
+ *
+ * Available variables:
+ * - value: Numeric value
+ * - unit: Unit string (e.g., kWh/m²/an)
+ * - label: Title displayed above the bar
+ * - icon: Optional icon name (without icon- prefix) for the title
+ * - valid_from: Start date
+ * - valid_to: End date
+ * - classes: Map of ranges (a-g) with label, color, range_max
+ * - (diagnostic_type removed)
+#}
+{# Compute opacity value from formatter settings #}
+{%- set value = value is defined ? value : null -%}
+{%- set unit = unit|default(null) -%}
+{%- set label = label|default('Diagnostic') -%}
+{%- set icon = icon|default('energy') -%}
+{%- set valid_from = valid_from|default(null) -%}
+{%- set valid_to = valid_to|default(null) -%}
+{%- set classes = classes|default({}) -%}
+{%- set ordered_codes = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] -%}
+{%- set is_dimmed = (value is null) ? true : is_dimmed|default(false) -%}
+{%- set dim_opacity = dim_opacity|default(30) -%}
+{%- set bar_opacity = is_dimmed ? (dim_opacity / 100) : 1 -%}
+{%- set empty_message = empty_message|default('Étiquette énergétique non fournie par le propriétaire') -%}
+
+{# Derive class from value and class ranges #}
+{%- set derived_class = null -%}
+{%- if value is not null -%}
+  {%- for code in ordered_codes -%}
+    {%- if classes[code] is defined -%}
+      {%- set max_value = classes[code].range_max is defined ? classes[code].range_max : null -%}
+      {%- if max_value is not null and value <= max_value and derived_class is null -%}
+        {%- set derived_class = code -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if derived_class is null -%}
+    {%- for code in ordered_codes|reverse -%}
+      {%- if classes[code] is defined and derived_class is null -%}
+        {%- set derived_class = code -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+
+{# Placeholder mode: no value OR dimmed → center cursor and show "?" #}
+{%- set has_value = value is not null -%}
+{%- set show_placeholder = (not has_value) or is_dimmed -%}
+{%- set display_class = show_placeholder ? null : derived_class -%}
+{%- set figure_classes = [
+  'ps-diagnostic',
+  'ps-diagnostic--horizontal'
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(figure_classes) -%}
+{%- set attr = attr.setAttribute('data-class', display_class|default('')) -%}
+{%- set attr = attr.setAttribute('data-once', 'diagnostic-init') -%}
+
+{# Cursor position (40px per class, default center) #}
+{%- set cursor_x = 120 -%}
+{%- if display_class -%}
+  {%- set cursor_x = (display_class|lower|split('')|first|slice(0,1) matches '/[a-g]/' ?
+    ((display_class|lower == 'a' ? 0 :
+      (display_class|lower == 'b' ? 40 :
+      (display_class|lower == 'c' ? 80 :
+      (display_class|lower == 'd' ? 120 :
+      (display_class|lower == 'e' ? 160 :
+      (display_class|lower == 'f' ? 200 : 240))))))) : 120) -%}
+{%- endif -%}
+
+<figure{{ attr }}>
+  <figcaption>
+    {% include '@elements/heading/heading.twig' with {
+      text: label,
+      level: 'h3',
+      icon: icon,
+      attributes: create_attribute()
+    } only %}
+  </figcaption>
+  
+  <svg class="ps-diagnostic__svg class-{{ display_class|default('unknown') }}" width="280" height="40" version="1.1" viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g id="bar" stroke-width="0" opacity="{{ bar_opacity }}">
+      {%- for class_code in ordered_codes -%}
+        {%- if classes[class_code] is defined -%}
+          {%- set class_data = classes[class_code] -%}
+          {%- set x_pos = loop.index0 * 40 -%}
+          <rect 
+            id="r{{ class_data.label|upper }}" 
+            x="{{ x_pos }}" 
+            y="10" 
+            width="40" 
+            height="20" 
+            fill="{{ class_data.color }}">
+          </rect>
+        {%- endif -%}
+      {%- endfor -%}
+      
+      {# Cursor rectangle (black background for current class or centered gray "?" if no class) #}
+      <rect id="rCursor" x="{{ cursor_x }}" width="40" height="40" fill="var(--ps-diagnostic-cursor-fill)"></rect>
+    </g>
+    
+    {# Letter label or "?" #}
+    <text 
+      id="letter" 
+      x="{{ cursor_x + 20 }}" 
+      y="28.35" 
+      fill="var(--ps-diagnostic-cursor-text)" 
+      font-family="'BNPP Sans', Arial, sans-serif" 
+      font-size="24px" 
+      stroke-width="1.2977" 
+      style="line-height:1.25" 
+      text-anchor="middle">
+      {{ display_class|default('?')|upper }}
+    </text>
+  </svg>
+  
+  {% if has_value and unit and not show_placeholder %}
+    <div class="ps-diagnostic__legend" style="left: {{ cursor_x + 20 }}px;">
+      {{ value }} {{ unit }}
+    </div>
+  {% endif %}
+  
+  {% if valid_from or valid_to %}
+    <div class="ps-diagnostic__dates">
+      {% if valid_from %}
+        <span class="ps-diagnostic__date-from">{{ 'From:'|t }} {{ valid_from }}</span>
+      {% endif %}
+      {% if valid_to %}
+        <span class="ps-diagnostic__date-to">{{ 'Until:'|t }} {{ valid_to }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if show_placeholder %}
+    <p class="ps-diagnostic__message">{{ empty_message }}</p>
+  {% endif %}
+</figure>
