@@ -21,7 +21,7 @@
     <div class="offer-surface__skeleton" aria-hidden="true"></div>
   {% else %}
     <div class="offer-surface__header">
-      <h2 class="offer-surface__title" id="offer-surface-heading">{{ surface.title|default('Surface table') }}</h2>
+      <span class="offer-section__title" id="offer-surface-heading">{{ surface.title|default('Surface table') }}</span>
       {% if surface.caption %}<p class="offer-surface__caption">{{ surface.caption }}</p>{% endif %}
     </div>
     <div class="offer-surface__table-wrapper">

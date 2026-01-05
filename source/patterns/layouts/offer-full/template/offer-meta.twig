@@ -36,26 +36,43 @@
         <div class="offer-meta__price">
           <div class="offer-meta__price-value">{{ meta.price.value }}</div>
           {% if meta.price.unit %}<div class="offer-meta__price-unit">{{ meta.price.unit }}</div>{% endif %}
+          {% if meta.price.tooltip %}
+            <span
+              class="offer-meta__price-tooltip"
+              data-icon="tooltip"
+              data-ps-tooltip
+              data-ps-tooltip-content="{{ meta.price.tooltip }}"
+              data-ps-tooltip-position="top"
+              data-ps-tooltip-icon="info"
+              aria-label="Price information"
+            ></span>
+          {% endif %}
         </div>
       {% endif %}
     </div>
 
+    {% if meta.surface_total.value or meta.location %}
+      <div class="offer-meta__location-info">
+        {% if meta.surface_total.value %}
+          <span class="offer-meta__surface">{{ meta.surface_total.value }}{% if meta.surface_total.unit %} {{ meta.surface_total.unit }}{% endif %}</span>
+        {% endif %}
+        {% if meta.surface_total.value and meta.location %}<span class="offer-meta__separator">•</span>{% endif %}
+        {% if meta.location %}
+          <span class="offer-meta__location">{{ meta.location }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
     <dl class="offer-meta__facts">
-      {% if meta.surface_total.value %}
-        <div class="offer-meta__fact">
-          <dt>{{ meta.surface_total.label|default('Surface total') }}</dt>
-          <dd>{{ meta.surface_total.value }}{% if meta.surface_total.unit %} {{ meta.surface_total.unit }}{% endif %}</dd>
-        </div>
-      {% endif %}
       {% if meta.availability.value %}
         <div class="offer-meta__fact">
-          <dt>{{ meta.availability.label|default('Available') }}</dt>
+          <dt>{{ meta.availability.label|default('Available') }} :</dt>
           <dd>{{ meta.availability.value }}</dd>
         </div>
       {% endif %}
       {% if meta.mandate_type.value %}
         <div class="offer-meta__fact">
-          <dt>{{ meta.mandate_type.label|default('Mandate') }}</dt>
+          <dt>{{ meta.mandate_type.label|default('Type of mandate') }} :</dt>
           <dd>{{ meta.mandate_type.value }}</dd>
         </div>
       {% endif %}

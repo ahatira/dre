@@ -19,7 +19,7 @@
   {% if placeholder %}
     <div class="offer-energy__skeleton" aria-hidden="true"></div>
   {% else %}
-    <h2 class="offer-energy__title" id="offer-energy-heading">{{ energy.title|default('Energy') }}</h2>
+    <span class="offer-section__title" id="offer-energy-heading">{{ energy.title|default('Energy') }}</span>
     <div class="offer-energy__metrics">
       {% for metric in energy.metrics|default([]) %}
         <div class="offer-energy__metric" role="group" aria-label="{{ metric.label }}">

@@ -1,0 +1,17 @@
+{#
+/**
+ * Offer actions section (CTA buttons).
+ * Variables:
+ * - actions.items: Array of button objects { label, url, variant, icon, icon_position }
+ */
+#}
+
+{% if actions.items %}
+  <section class="offer-actions">
+    {% for item in actions.items %}
+      <div class="offer-actions__item">
+        {% include '@elements/button/button.twig' with item|merge({ fullWidth: true }) only %}
+      </div>
+    {% endfor %}
+  </section>
+{% endif %}

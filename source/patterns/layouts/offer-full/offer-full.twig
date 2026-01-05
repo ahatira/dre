@@ -12,6 +12,8 @@
  */
 #}
 
+{{ attach_library('ps_theme/read-more') }}
+
 {%- set classes = [
   'node',
   'node--offer',
@@ -31,6 +33,8 @@
         {% include '@layouts/offer-full/template/offer-reference.twig' with { reference: reference } only %}
 
         {% include '@layouts/offer-full/template/offer-meta.twig' with { meta: meta } only %}
+
+        {% include '@layouts/offer-full/template/offer-actions.twig' with { actions: actions } only %}
 
         {% include '@layouts/offer-full/template/offer-description.twig' with { description: description } only %}
         {% include '@layouts/offer-full/template/offer-features.twig' with { features: features } only %}

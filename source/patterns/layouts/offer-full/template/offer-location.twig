@@ -20,7 +20,7 @@
   {% if placeholder %}
     <div class="offer-location__skeleton" aria-hidden="true"></div>
   {% else %}
-    <h2 class="offer-location__title" id="offer-location-heading">{{ location.title|default('Location') }}</h2>
+    <span class="offer-section__title" id="offer-location-heading">{{ location.title|default('Location') }}</span>
     {% if location.address.lines %}
       <address class="offer-location__address">
         {% for line in location.address.lines %}

@@ -20,10 +20,19 @@
     <div class="offer-description__skeleton" aria-hidden="true"></div>
   {% else %}
     {% if description.title %}
-      <h2 class="offer-description__title" id="offer-description-heading">{{ description.title }}</h2>
+      <span class="offer-section__title" id="offer-description-heading">{{ description.title }}</span>
     {% endif %}
     {% if description.body %}
-      <div class="offer-description__body">{{ description.body }}</div>
+      <div class="offer-description__body">
+        {% include '@components/read-more/read-more.twig' with {
+          content: description.body,
+          maxHeight: description.maxHeight|default(150),
+          expandLabel: description.expandLabel|default('Voir plus'),
+          collapseLabel: description.collapseLabel|default('Voir moins'),
+          expanded: description.expanded|default(false),
+          showIcon: description.showIcon|default(true)
+        } only %}
+      </div>
     {% endif %}
   {% endif %}
 </section>

@@ -64,55 +64,87 @@ meta:
     label: 'Rent'
     value: '20 000 €'
     unit: 'HT/HC/m²/an'
+    tooltip: 'Price excluding charges and tax'
   surface_total:
     label: 'Surface total'
     value: 611.3
     unit: 'm²'
+  location: '28010 MADRID'
   availability:
     label: 'Available'
     value: 'Immediately'
   mandate_type:
-    label: 'Mandate'
+    label: 'Type of mandate'
     value: 'Exclusive'
+
+actions:
+  items:
+    - label: 'Access to the surface area table'
+      url: '#surface-table'
+      variant: 'primary'
+      outline: true
+      icon: 'arrow-down'
+      icon_position: 'right'
+    - label: 'Download the brochure'
+      url: '#download'
+      variant: 'primary'
 
 description:
   title: 'Description'
-  body: >-
-    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
-    Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.
+  body: |
+    <p>Idéalement situé au cœur du <strong>quartier de Chamberí à Madrid</strong>, cet espace de bureaux premium offre une opportunité exceptionnelle pour les entreprises recherchant un environnement de travail moderne et flexible.</p>
+    
+    <p>L'immeuble <strong>Edificio ARA</strong> a été entièrement restructuré avec des espaces communs haut de gamme. Les 611 m² disponibles se composent de 3 plateaux open-space modulables, de bureaux cloisonnés, d'une salle de réunion équipée et d'un espace cafétéria.</p>
+    
+    <ul>
+      <li>Localisation stratégique avec accès direct aux transports en commun (Metro Alonso Martínez à 3 min)</li>
+      <li>Prestations techniques de qualité : climatisation réversible, faux plancher technique, câblage fibre optique</li>
+      <li>Balcon privatif donnant sur le parc arboré avec vue dégagée</li>
+      <li>Accueil avec hôtesses et système de contrôle d'accès sécurisé par interphone</li>
+      <li>Certification environnementale LEED Platinum</li>
+    </ul>
+    
+    <p>Le bien bénéficie d'une grande flexibilité d'aménagement avec plusieurs cours intérieures et un rez-de-jardin en parfait état. Disponibilité immédiate. Mandat exclusif.</p>
+  maxHeight: 200
+  expandLabel: 'Voir plus'
+  collapseLabel: 'Voir moins'
 
 features:
-  title: 'Equipments & Services'
+  title: 'Équipements & Services'
   groups:
-    - title: 'Equipments'
-      icon: 'settings'
+    - title: 'Équipements'
+      icon: 'equipment'
+      columns_min_items: 0
       items:
-        - 'Elevators'
-        - 'Air conditioning : Reversible'
-        - 'Computer cabling: Optical fiber'
-        - 'False floor: High height'
-        - 'Heating system: Individual'
-    - title: 'Services'
-      icon: 'service'
+        - 'Ascenseurs performants'
+        - 'Climatisation réversible'
+        - 'Câblage réseau : Fibre optique'
+        - 'Faux plancher : Hauteur importante'
+        - 'Chauffage : Système individuel'
+    - title: 'Services disponibles'
+      icon: 'reception'
+      columns_min_items: 5
       items:
-        - 'Home: Hostesses'
-        - 'Office layout: 3 open-plan offices'
-        - 'Partitioned offices: Yes'
-        - 'Meeting room: Yes'
-        - 'Cafeteria: Yes'
-        - 'Security: Intercom access control'
-        - 'Terraces / gardens: Balcony overlooking the park'
-    - title: 'Building condition'
-      icon: 'building'
+        - "Accueil : Hôtesses d'accueil"
+        - 'Aménagement : 3 salles open-space'
+        - 'Bureaux fermés : Oui'
+        - 'Salle de réunion : Oui'
+        - 'Cafétéria : Oui'
+        - "Sécurité : Contrôle d'accès"
+        - 'Terrasse : Balcon vue parc'
+    - title: 'État du bâtiment'
+      icon: 'office'
+      columns_min_items: 0
       items:
-        - 'Condition of building: Restructured with common area'
-        - 'Condition of premises: State of use'
-    - title: 'More information'
+        - 'État général : Restructuré avec parties communes'
+        - "État des locaux : Bon état d'usage"
+    - title: 'Informations supplémentaires'
       icon: 'info'
+      columns_min_items: 0
       items:
-        - 'Several courtyards'
-        - 'Garden level in perfect condition'
-        - 'Highly flexible'
+        - 'Plusieurs cours intérieures'
+        - 'Rez-de-chaussée jardin en bon état'
+        - 'Très flexible'
 
 energy:
   title: 'Energy'

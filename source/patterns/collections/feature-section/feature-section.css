@@ -57,7 +57,7 @@
   /* Two-columns variant - activated by columns_min_items threshold */
   &--two-columns {
     & .ps-list {
-      @media (min-width: 640px) {
+      @media (--laptop) {
         columns: 2;
         column-gap: var(--ps-feature-section-columns-gap);
       }
