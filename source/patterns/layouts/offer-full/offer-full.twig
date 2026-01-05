@@ -66,17 +66,17 @@
 
       {# Main content column #}
       <div class="offer-layout__main">
-        {% include '@layouts/offer-full/template/offer-hero.twig' with {
+        {% include './template/offer-hero.twig' with {
           hero: hero,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-reference.twig' with {
+        {% include './template/offer-reference.twig' with {
           reference: reference,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-meta.twig' with {
+        {% include './template/offer-meta.twig' with {
           building_name: building_name,
           title: title,
           price: price,
@@ -86,28 +86,28 @@
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-description.twig' with {
+        {% include './template/offer-description.twig' with {
           description: description,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-features.twig' with {
+        {% include './template/offer-features.twig' with {
           equipments: equipments,
           services: services,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-energy.twig' with {
+        {% include './template/offer-energy.twig' with {
           energy: energy,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-surface.twig' with {
+        {% include './template/offer-surface.twig' with {
           surface_table: surface_table,
           placeholder: placeholder
         } only %}
 
-        {% include '@layouts/offer-full/template/offer-location.twig' with {
+        {% include './template/offer-location.twig' with {
           location: location,
           placeholder: placeholder
         } only %}
@@ -115,7 +115,7 @@
 
       {# Sidebar (sticky on desktop, bottom bar on mobile) #}
       <aside class="offer-layout__sidebar" role="complementary" aria-label="Consultant information">
-        {% include '@layouts/offer-full/template/offer-sidebar.twig' with {
+        {% include './template/offer-sidebar.twig' with {
           consultant: consultant,
           placeholder: placeholder
         } only %}
@@ -126,7 +126,7 @@
 
   {# Full-width map section #}
   <section class="offer-map">
-    {% include '@layouts/offer-full/template/offer-map.twig' with {
+    {% include './template/offer-map.twig' with {
       map: map,
       location: location,
       placeholder: placeholder
