@@ -55,7 +55,7 @@
 {%- set article_classes = [
   'node',
   'node--' ~ bundle,
-  'node--view-mode-' ~ view_mode|clean_class
+  'node--view-mode-' ~ view_mode
 ] -%}
 
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(article_classes) -%}
