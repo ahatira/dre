@@ -13,11 +13,9 @@
 
 {%- if placeholder -%}
   <div class="offer-reference">
-    {% include '@elements/skeleton/skeleton.twig' with {
-      variant: 'text',
-      width: '200px',
-      height: '16px'
-    } only %}
+    <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;" aria-busy="true" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
 {%- elseif reference.value -%}
   <div class="offer-reference">

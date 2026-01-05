@@ -14,11 +14,7 @@
 
 {%- if placeholder -%}
   <div class="offer-map__wrapper">
-    {% include '@elements/skeleton/skeleton.twig' with {
-      variant: 'rectangle',
-      width: '100%',
-      height: '500px'
-    } only %}
+    <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 100%; --skeleton-height: 500px;"></div>
   </div>
 {%- elseif map.enabled or location.coordinates -%}
   <div class="offer-map__wrapper">

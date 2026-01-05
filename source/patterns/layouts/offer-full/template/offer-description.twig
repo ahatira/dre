@@ -15,13 +15,11 @@
   <section class="offer-description">
     <h2 class="offer-description__title">Description</h2>
     <div class="offer-description__content">
-      {% for i in 1..5 %}
-        {% include '@elements/skeleton/skeleton.twig' with {
-          variant: 'text',
-          width: '100%',
-          height: '16px'
-        } only %}
-      {% endfor %}
+      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 16px;"></div>
+      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 16px;"></div>
+      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 16px;"></div>
+      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 16px;"></div>
+      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 16px;"></div>
     </div>
   </section>
 {%- elseif description.value -%}

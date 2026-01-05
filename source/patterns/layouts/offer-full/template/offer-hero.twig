@@ -15,11 +15,9 @@
   {# Placeholder skeleton #}
   <div class="offer-hero">
     <div class="offer-hero__gallery">
-      {% include '@elements/skeleton/skeleton.twig' with {
-        variant: 'rectangle',
-        width: '100%',
-        height: '400px'
-      } only %}
+      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 100%; --skeleton-height: 400px;" aria-busy="true" aria-live="polite" role="status">
+        <span class="visually-hidden">Loading content...</span>
+      </div>
     </div>
   </div>
 {%- else -%}
