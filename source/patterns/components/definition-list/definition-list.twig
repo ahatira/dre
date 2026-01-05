@@ -10,7 +10,7 @@
 
 {%- set items = items|default([]) -%}
 {%- set variant = variant|default('default') -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
+{%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 {%- set dl_classes = ['ps-definition-list'] -%}
 {%- if variant != 'default' -%}

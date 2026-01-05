@@ -49,7 +49,7 @@
 
 {# Embed Card component for structure reuse #}
 {% embed '@components/card/card.twig' with {
-  attributes: (attributes ? attributes : create_attribute()).addClass('ps-card-offer-slide'),
+  attributes: (attributes is defined ? attributes : create_attribute()).addClass('ps-card-offer-slide'),
   bundle: bundle,
   view_mode: view_mode,
   title: title,

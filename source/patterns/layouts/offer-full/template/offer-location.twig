@@ -1,57 +1,49 @@
 {#
 /**
- * @file
- * Offer location section - Address and transport.
- *
- * @section Location
- * @description Property address and nearby transport information
+ * Offer location section (address + transports).
+ * Variables:
+ * - location.title
+ * - location.address.lines: Array of strings.
+ * - location.transport: Array of { label, items }.
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set location = location|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-location',
+  placeholder ? 'offer-location--placeholder' : null,
+  location.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <section class="offer-location">
-    <h2 class="offer-location__title">Location</h2>
-    <div class="offer-location__content">
-      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 300px; --skeleton-height: 20px;"></div>
-      <div class="offer-location__transport">
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 18px;"></div>
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 18px;"></div>
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 18px;"></div>
-      </div>
-    </div>
-  </section>
-{%- elseif location.address -%}
-  <section class="offer-location">
-    <h2 class="offer-location__title" data-icon="map-pin">Location</h2>
-    <div class="offer-location__content">
+<section{{ attr }} aria-labelledby="offer-location-heading">
+  {% if placeholder %}
+    <div class="offer-location__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <h2 class="offer-location__title" id="offer-location-heading">{{ location.title|default('Location') }}</h2>
+    {% if location.address.lines %}
       <address class="offer-location__address">
-        {{ location.address.street }}<br>
-        {{ location.address.postal_code }} {{ location.address.city }}
+        {% for line in location.address.lines %}
+          <span class="offer-location__address-line">{{ line }}</span>
+        {% endfor %}
       </address>
+    {% endif %}
 
-      {%- if location.transport -%}
-        <div class="offer-location__transport">
-          <h3 class="offer-location__transport-title">Transport :</h3>
-          <ul class="offer-location__transport-list">
-            {%- for transport in location.transport -%}
-              <li class="offer-location__transport-item">
-                <span class="offer-location__transport-icon" data-icon="{{ transport.type }}"></span>
-                <span class="offer-location__transport-label">{{ transport.label }} : {{ transport.name }}</span>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
-      {%- endif -%}
-
-      {%- if location.road_access -%}
-        <div class="offer-location__access">
-          <span class="offer-location__access-icon" data-icon="car"></span>
-          <span class="offer-location__access-label">Road access</span>
-        </div>
-      {%- endif -%}
-    </div>
-  </section>
-{%- endif -%}
+    {% if location.transport %}
+      <div class="offer-location__transport">
+        {% for group in location.transport %}
+          <div class="offer-location__transport-group">
+            <p class="offer-location__transport-label">{{ group.label }}</p>
+            {% if group.items %}
+              <ul class="offer-location__transport-list">
+                {% for item in group.items %}
+                  <li class="offer-location__transport-item">{{ item }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endif %}
+</section>

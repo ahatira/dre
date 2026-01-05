@@ -21,7 +21,7 @@
   pill ? 'ps-badge--pill' : null
 ] -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(badge_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(badge_classes) -%}
 
 <{{ tag }}{{ attr }}
   {%- if url %} href="{{ url }}"{% endif -%}

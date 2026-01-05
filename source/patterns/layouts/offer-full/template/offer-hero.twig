@@ -1,84 +1,35 @@
 {#
 /**
- * @file
- * Offer hero section - Gallery with favorite button.
- *
- * @section Hero
- * @description Media gallery carousel with navigation and favorite action
+ * Offer hero section (media carousel placeholder-friendly).
+ * Variables:
+ * - hero.media: Carousel configuration { variant, fit, slides, toolbar }.
+ * - hero.favorite: Button configuration for favorite toggle.
+ * - placeholder: Boolean to render skeleton state.
  */
 #}
 
-{%- set hero = hero|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-hero',
+  placeholder ? 'offer-hero--placeholder' : null,
+  hero.modifier_class|default(null)
+] -%}
 
-{%- if placeholder -%}
-  {# Placeholder skeleton #}
-  <div class="offer-hero">
-    <div class="offer-hero__gallery">
-      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 100%; --skeleton-height: 400px;" aria-busy="true" aria-live="polite" role="status">
-        <span class="visually-hidden">Loading content...</span>
-      </div>
-    </div>
-  </div>
-{%- else -%}
-  <div class="offer-hero">
-    {# Favorite button - positioned absolute top-right #}
-    <div class="offer-hero__favorite">
-      <button 
-        type="button" 
-        class="ps-button ps-button--icon ps-button--light" 
-        data-icon="heart"
-        aria-label="Add to favorites"
-        aria-pressed="false"
-      >
-      </button>
-    </div>
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-    {# Main gallery carousel #}
-    <div class="offer-hero__gallery">
-      {%- if hero.images -%}
-        <div class="offer-hero__carousel" data-carousel="offer-hero">
-          <div class="offer-hero__slides">
-            {%- for image in hero.images -%}
-              <div class="offer-hero__slide">
-                <img 
-                  src="{{ image.url }}" 
-                  alt="{{ image.alt|default('Property image ' ~ loop.index) }}"
-                  loading="{{ loop.first ? 'eager' : 'lazy' }}"
-                />
-              </div>
-            {%- endfor -%}
-          </div>
+<section{{ attr }} aria-label="Offer media">
+  {% if placeholder %}
+    <div class="offer-hero__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <div class="offer-hero__media">
+      {% if hero.media|default(null) %}
+        {%- include '@components/carousel/carousel.twig' with hero.media only -%}
+      {% endif %}
 
-          {# Navigation arrows #}
-          <button type="button" class="offer-hero__nav offer-hero__nav--prev" data-icon="chevron-left" aria-label="Previous image"></button>
-          <button type="button" class="offer-hero__nav offer-hero__nav--next" data-icon="chevron-right" aria-label="Next image"></button>
-
-          {# Slide counter #}
-          <div class="offer-hero__counter">
-            <span class="offer-hero__counter-current">1</span>/<span class="offer-hero__counter-total">{{ hero.images|length }}</span>
-          </div>
+      {% if hero.favorite|default(null) %}
+        <div class="offer-hero__favorite-wrapper">
+          {%- include '@elements/button/button.twig' with hero.favorite only -%}
         </div>
-      {%- endif -%}
-
-      {# Media toolbar (13 photos, 3D visit, Plan) #}
-      <div class="offer-hero__toolbar">
-        {%- if hero.photos_count -%}
-          <button type="button" class="offer-hero__toolbar-item" data-icon="camera">
-            <span class="offer-hero__toolbar-label">{{ hero.photos_count }} photos</span>
-          </button>
-        {%- endif -%}
-        {%- if hero.visit_3d -%}
-          <a href="{{ hero.visit_3d.url }}" class="offer-hero__toolbar-item" data-icon="360" target="_blank">
-            <span class="offer-hero__toolbar-label">3D visit</span>
-          </a>
-        {%- endif -%}
-        {%- if hero.plan -%}
-          <a href="{{ hero.plan.url }}" class="offer-hero__toolbar-item" data-icon="plan" target="_blank">
-            <span class="offer-hero__toolbar-label">Plan</span>
-          </a>
-        {%- endif -%}
-      </div>
+      {% endif %}
     </div>
-  </div>
-{%- endif -%}
+  {% endif %}
+</section>

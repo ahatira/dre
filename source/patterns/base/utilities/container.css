@@ -1,22 +1,108 @@
 /**
  * @file
- * Container utility class for containing max widths of components.
+ * Container utility class - Bootstrap 5 logic adapted to PS Theme tokens
+ * 
+ * Responsive container with progressive max-widths:
+ * - Mobile (<640px): 100% width, 16px padding
+ * - Mobile (≥640px): max-width 640px, 16px padding
+ * - Tablet (≥768px): max-width 768px, 20px padding
+ * - Laptop (≥1024px): max-width 1024px, 24px padding
+ * - Desktop (≥1280px): max-width 1280px, 32px padding
+ * - Desktop Large (≥1440px): max-width 1280px (capped), 32px padding
  */
 
-/* The `.container` utility class allows for selectors which use this class
-to expand full width holding a left/right padding of 16px until they reach 1376px in width.
-After this point, the padding is removed and the selectors will not expand
-any wider and they will be center-aligned to the page. */
 .container {
+  width: 100%;
   margin-inline: auto;
-  max-inline-size: var(--size-max-content-width); /* 1376px */
-  padding-inline: var(--size-4);
+  padding-inline: var(--size-4); /* 16px */
 
-  @media (--desktop) {
-    padding-inline: var(--size-8);
+  /* Mobile: 640px - container max-width 640px */
+  @media (--mobile) {
+    max-width: var(--size-mobile); /* 640px */
   }
 
-  @media (--desktop-large) { /* 1440px */
-    padding-inline: 0;
+  /* Tablet: 768px - container max-width 768px */
+  @media (--tablet) {
+    max-width: var(--size-tablet); /* 768px */
+    padding-inline: var(--size-5); /* 20px */
+  }
+
+  /* Laptop: 1024px - container max-width 1024px */
+  @media (--laptop) {
+    max-width: var(--size-laptop); /* 1024px */
+    padding-inline: var(--size-6); /* 24px */
+  }
+
+  /* Desktop: 1280px - container max-width 1280px */
+  @media (--desktop) {
+    max-width: var(--size-desktop); /* 1280px */
+    padding-inline: var(--size-8); /* 32px */
+  }
+
+  /* Desktop Large: 1440px+ - container stays at 1280px max */
+  @media (--desktop-large) {
+    max-width: var(--size-desktop); /* 1280px (capped) */
+  }
+}
+
+/**
+ * Fluid container - 100% width at all breakpoints with responsive padding
+ */
+.container-fluid {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--size-4); /* 16px */
+
+  @media (--tablet) {
+    padding-inline: var(--size-5); /* 20px */
+  }
+
+  @media (--laptop) {
+    padding-inline: var(--size-6); /* 24px */
+  }
+
+  @media (--desktop) {
+    padding-inline: var(--size-8); /* 32px */
+  }
+}
+
+/**
+ * Row - Bootstrap 5 grid system
+ * Negative margin to offset container padding, creating gutters for columns
+ */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: calc(var(--size-4) * -1); /* -16px to offset container padding */
+
+  @media (--tablet) {
+    margin-inline: calc(var(--size-5) * -1); /* -20px */
+  }
+
+  @media (--laptop) {
+    margin-inline: calc(var(--size-6) * -1); /* -24px */
+  }
+
+  @media (--desktop) {
+    margin-inline: calc(var(--size-8) * -1); /* -32px */
+  }
+}
+
+/**
+ * Column gutters - padding inside columns
+ */
+.row > * {
+  padding-inline: var(--size-4); /* 16px */
+
+  @media (--tablet) {
+    padding-inline: var(--size-5); /* 20px */
+  }
+
+  @media (--laptop) {
+    padding-inline: var(--size-6); /* 24px */
+  }
+
+  @media (--desktop) {
+    padding-inline: var(--size-8); /* 32px */
   }
 }

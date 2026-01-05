@@ -51,7 +51,7 @@
   {%- set skeleton_classes = skeleton_classes|merge(['ps-skeleton--no-animation']) -%}
 {%- endif -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(skeleton_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(skeleton_classes) -%}
 {%- set style_value = width ? '--skeleton-width: ' ~ width ~ ';' : '' -%}
 {%- set style_value = style_value ~ (height ? ' --skeleton-height: ' ~ height ~ ';' : '') -%}
 {%- set style_value = style_value ~ (borderRadius ? ' --skeleton-radius: ' ~ borderRadius ~ ';' : '') -%}

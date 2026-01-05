@@ -28,11 +28,11 @@
 
 {% set position = position|default('top') %}
 {% set element = element|default('span') %}
-{% set show_icon = show_icon|default(false) %}
+{% set show_icon = show_icon|default(true) %}
 {% set icon = icon|default('info') %}
 {% set content = content|default('Hover me') %}
 
-{%- set attr = (attributes ? attributes : create_attribute()) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()) -%}
 
 <{{ element }}
   data-ps-tooltip

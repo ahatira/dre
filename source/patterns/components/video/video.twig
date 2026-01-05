@@ -61,7 +61,7 @@
 ] -%}
 
 {# Create container attributes with create_attribute fallback #}
-{%- set container_attr = (attributes ? attributes : create_attribute()).addClass(container_classes) -%}
+{%- set container_attr = (attributes is defined ? attributes : create_attribute()).addClass(container_classes) -%}
 {%- if fixed_height -%}
   {%- set container_attr = container_attr.setAttribute('data-height-fixed', '').setAttribute('style', '--video-fixed-height: ' ~ fixed_height ~ ';') -%}
 {%- endif -%}

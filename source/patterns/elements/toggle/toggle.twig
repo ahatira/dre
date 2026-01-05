@@ -69,7 +69,7 @@
 {%- if class -%}
   {%- set root_classes = root_classes|merge([class]) -%}
 {%- endif -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(root_classes) -%}
 <label{{ attr }}>
   <div class="ps-toggle__label">
     <input class="ps-toggle__input" type="checkbox" role="switch" aria-checked="{{ checked ? 'true' : 'false' }}" name="{{ name }}"

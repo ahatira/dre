@@ -1,25 +1,25 @@
 {#
 /**
- * @file
- * Offer reference number section.
- *
- * @section Reference
- * @description Display property reference identifier
+ * Offer reference section.
+ * Variables:
+ * - reference.label: Label text.
+ * - reference.value: Reference identifier.
+ * - placeholder: Boolean skeleton flag.
  */
 #}
 
-{%- set reference = reference|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-reference',
+  placeholder ? 'offer-reference--placeholder' : null,
+  reference.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <div class="offer-reference">
-    <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;" aria-busy="true" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-{%- elseif reference.value -%}
-  <div class="offer-reference">
-    <span class="offer-reference__label">{{ reference.label|default('Reference') }} :</span>
-    <span class="offer-reference__value">{{ reference.value }}</span>
-  </div>
-{%- endif -%}
+<section{{ attr }}>
+  {% if placeholder %}
+    <div class="offer-reference__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <span class="offer-reference__label">{{ reference.label|default('Reference') }}:</span>
+    <span class="offer-reference__value">{{ reference.value|default('—') }}</span>
+  {% endif %}
+</section>

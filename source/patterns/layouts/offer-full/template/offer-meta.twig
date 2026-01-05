@@ -1,82 +1,64 @@
 {#
 /**
- * @file
- * Offer metadata section - Title, price, key information.
- *
- * @section Metadata
- * @description Property key information (building, title, price, surface, availability)
+ * Offer meta section (title, building, pricing, key facts).
+ * Variables:
+ * - meta.building: { label, value }
+ * - meta.title: Main heading string.
+ * - meta.price: { label, value, unit }
+ * - meta.surface_total: { label, value, unit }
+ * - meta.availability: { label, value }
+ * - meta.mandate_type: { label, value }
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-meta',
+  placeholder ? 'offer-meta--placeholder' : null,
+  meta.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <div class="offer-meta">
+<section{{ attr }} aria-labelledby="offer-meta-heading">
+  {% if placeholder %}
+    <div class="offer-meta__skeleton" aria-hidden="true"></div>
+  {% else %}
     <div class="offer-meta__header">
-      <div class="offer-meta__title-col">
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 150px; --skeleton-height: 16px;"></div>
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 100%; --skeleton-height: 36px;"></div>
+      <div class="offer-meta__titles">
+        {% if meta.building.value %}
+          <p class="offer-meta__building">{{ meta.building.value }}</p>
+        {% endif %}
+        {% if meta.title %}
+          <h1 class="offer-meta__title" id="offer-meta-heading">{{ meta.title }}</h1>
+        {% endif %}
       </div>
-      <div class="offer-meta__price-col">
-        <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 32px;"></div>
-      </div>
-    </div>
-    <div class="offer-meta__details">
-      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 120px; --skeleton-height: 20px;"></div>
-      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 120px; --skeleton-height: 20px;"></div>
-      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 120px; --skeleton-height: 20px;"></div>
-      <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 120px; --skeleton-height: 20px;"></div>
-    </div>
-  </div>
-{%- else -%}
-  <div class="offer-meta">
-    <div class="offer-meta__header">
-      {# Left column: Building name + Title #}
-      <div class="offer-meta__title-col">
-        {%- if building_name.value -%}
-          <p class="offer-meta__building">{{ building_name.value }}</p>
-        {%- endif -%}
-        <h1 class="offer-meta__title">{{ title|default('Property title') }}</h1>
-      </div>
-
-      {# Right column: Price #}
-      <div class="offer-meta__price-col">
-        {%- if price.value -%}
-          <div class="offer-meta__price">
-            <span class="offer-meta__price-value">{{ price.value|number_format(0, ',', ' ') }} {{ price.currency|default('€') }}</span>
-            {%- if price.unit -%}
-              <span class="offer-meta__price-unit">{{ price.unit }}</span>
-            {%- endif -%}
-            {%- if price.info -%}
-              <button type="button" class="offer-meta__price-info" data-icon="info-circle" aria-label="Price information"></button>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-
-    {# Key details row #}
-    <div class="offer-meta__details">
-      {%- if surface_total.value -%}
-        <div class="offer-meta__detail">
-          <span class="offer-meta__detail-value">{{ surface_total.value }} {{ surface_total.unit|default('m²') }}</span>
-          <span class="visually-hidden">{{ surface_total.label|default('Total surface') }}</span>
+      {% if meta.price.value %}
+        <div class="offer-meta__price">
+          <div class="offer-meta__price-value">{{ meta.price.value }}</div>
+          {% if meta.price.unit %}<div class="offer-meta__price-unit">{{ meta.price.unit }}</div>{% endif %}
         </div>
-      {%- endif -%}
-
-      {%- if availability.value -%}
-        <div class="offer-meta__detail">
-          <span class="offer-meta__detail-label">{{ availability.label|default('Available') }} :</span>
-          <span class="offer-meta__detail-value offer-meta__detail-value--highlight">{{ availability.value }}</span>
-        </div>
-      {%- endif -%}
-
-      {%- if mandate_type.value -%}
-        <div class="offer-meta__detail">
-          <span class="offer-meta__detail-label">{{ mandate_type.label|default('Type of mandate') }} :</span>
-          <span class="offer-meta__detail-value">{{ mandate_type.value }}</span>
-        </div>
-      {%- endif -%}
+      {% endif %}
     </div>
-  </div>
-{%- endif -%}
+
+    <dl class="offer-meta__facts">
+      {% if meta.surface_total.value %}
+        <div class="offer-meta__fact">
+          <dt>{{ meta.surface_total.label|default('Surface total') }}</dt>
+          <dd>{{ meta.surface_total.value }}{% if meta.surface_total.unit %} {{ meta.surface_total.unit }}{% endif %}</dd>
+        </div>
+      {% endif %}
+      {% if meta.availability.value %}
+        <div class="offer-meta__fact">
+          <dt>{{ meta.availability.label|default('Available') }}</dt>
+          <dd>{{ meta.availability.value }}</dd>
+        </div>
+      {% endif %}
+      {% if meta.mandate_type.value %}
+        <div class="offer-meta__fact">
+          <dt>{{ meta.mandate_type.label|default('Mandate') }}</dt>
+          <dd>{{ meta.mandate_type.value }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  {% endif %}
+</section>

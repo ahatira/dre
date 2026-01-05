@@ -1,69 +1,49 @@
 {#
 /**
- * @file
- * Offer energy section - DPE, GES, labels.
- *
- * @section Energy
- * @description Energy performance and environmental certifications
+ * Offer energy section (DPE, GES, labels).
+ * Variables:
+ * - energy.metrics: Array of { label, value, unit, scale }.
+ * - energy.label: Optional certification label (text or image src).
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set energy = energy|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-energy',
+  placeholder ? 'offer-energy--placeholder' : null,
+  energy.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <section class="offer-energy">
-    <h2 class="offer-energy__title">Energy</h2>
-    <div class="offer-energy__badges">
-      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 150px; --skeleton-height: 80px;"></div>
-      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 150px; --skeleton-height: 80px;"></div>
-      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 150px; --skeleton-height: 80px;"></div>
+<section{{ attr }} aria-labelledby="offer-energy-heading">
+  {% if placeholder %}
+    <div class="offer-energy__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <h2 class="offer-energy__title" id="offer-energy-heading">{{ energy.title|default('Energy') }}</h2>
+    <div class="offer-energy__metrics">
+      {% for metric in energy.metrics|default([]) %}
+        <div class="offer-energy__metric" role="group" aria-label="{{ metric.label }}">
+          <div class="offer-energy__metric-head">
+            {% if metric.icon %}<span class="offer-energy__metric-icon" data-icon="{{ metric.icon }}" aria-hidden="true"></span>{% endif %}
+            <p class="offer-energy__metric-label">{{ metric.label }}</p>
+          </div>
+          <div class="offer-energy__scale">
+            <div class="offer-energy__scale-bar" style="--offer-energy-value: {{ metric.value|default(0) }}"></div>
+            <span class="offer-energy__metric-value">{{ metric.value|default('—') }}{% if metric.unit %} {{ metric.unit }}{% endif %}</span>
+          </div>
+          {% if metric.hint %}<p class="offer-energy__metric-hint">{{ metric.hint }}</p>{% endif %}
+        </div>
+      {% endfor %}
     </div>
-  </section>
-{%- elseif energy.dpe or energy.ges or energy.label -%}
-  <section class="offer-energy">
-    <h2 class="offer-energy__title" data-icon="leaf">Energy</h2>
-    <div class="offer-energy__content">
-      {%- if energy.dpe -%}
-        <div class="offer-energy__item">
-          <h3 class="offer-energy__item-title">{{ energy.dpe.label|default('Consommations énergétiques') }}</h3>
-          <div class="offer-energy__badge offer-energy__badge--dpe">
-            <div class="offer-energy__badge-grade offer-energy__badge-grade--{{ energy.dpe.grade|lower }}">
-              {{ energy.dpe.grade|upper }}
-            </div>
-            <div class="offer-energy__badge-value">
-              {{ energy.dpe.value }} {{ energy.dpe.unit|default('kWhEP/m²/an') }}
-            </div>
-          </div>
-        </div>
-      {%- endif -%}
 
-      {%- if energy.ges -%}
-        <div class="offer-energy__item">
-          <h3 class="offer-energy__item-title">{{ energy.ges.label|default('Émissions de gaz à effet de serre') }}</h3>
-          <div class="offer-energy__badge offer-energy__badge--ges">
-            <div class="offer-energy__badge-grade offer-energy__badge-grade--{{ energy.ges.grade|lower }}">
-              {{ energy.ges.grade|upper }}
-            </div>
-            <div class="offer-energy__badge-value">
-              {{ energy.ges.value }} {{ energy.ges.unit|default('kgCO2/m²/an') }}
-            </div>
-          </div>
-        </div>
-      {%- endif -%}
-
-      {%- if energy.label -%}
-        <div class="offer-energy__item">
-          <h3 class="offer-energy__item-title">{{ energy.label.name|default('Label') }}</h3>
-          <div class="offer-energy__badge offer-energy__badge--label">
-            <img 
-              src="{{ energy.label.logo }}" 
-              alt="{{ energy.label.name }}"
-              class="offer-energy__badge-logo"
-            />
-          </div>
-        </div>
-      {%- endif -%}
-    </div>
-  </section>
-{%- endif -%}
+    {% if energy.label %}
+      <div class="offer-energy__label">
+        {% if energy.label.image %}
+          <img src="{{ energy.label.image }}" alt="{{ energy.label.text|default('Certification label') }}" loading="lazy" />
+        {% else %}
+          <span class="offer-energy__label-text">{{ energy.label.text }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+</section>

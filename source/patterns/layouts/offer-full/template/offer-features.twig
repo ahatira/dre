@@ -1,64 +1,40 @@
 {#
 /**
- * @file
- * Offer features section - Equipments and Services.
- *
- * @section Features
- * @description Property equipment and services lists
+ * Offer features section (equipments, services, conditions, misc).
+ * Variables:
+ * - features.groups: Array of { title, icon, items: [] }.
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set equipments = equipments|default([]) -%}
-{%- set services = services|default([]) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-features',
+  placeholder ? 'offer-features--placeholder' : null,
+  features.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <section class="offer-features">
-    <div class="offer-features__section">
-      <h2 class="offer-features__title">Equipments</h2>
-      <ul class="offer-features__list">
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 180px; --skeleton-height: 16px;"></div></li>
-      </ul>
+<section{{ attr }} aria-labelledby="offer-features-heading">
+  {% if placeholder %}
+    <div class="offer-features__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <h2 class="offer-features__title" id="offer-features-heading">{{ features.title|default('Features') }}</h2>
+    <div class="offer-features__grid">
+      {% for group in features.groups|default([]) %}
+        <section class="offer-features__group">
+          <div class="offer-features__group-head">
+            {% if group.icon %}<span class="offer-features__icon" data-icon="{{ group.icon }}" aria-hidden="true"></span>{% endif %}
+            <h3 class="offer-features__group-title">{{ group.title }}</h3>
+          </div>
+          {% if group.items %}
+            <ul class="offer-features__list">
+              {% for item in group.items %}
+                <li class="offer-features__item">{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </section>
+      {% endfor %}
     </div>
-    <div class="offer-features__section">
-      <h2 class="offer-features__title">Services</h2>
-      <ul class="offer-features__list">
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-        <li class="offer-features__item"><div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 200px; --skeleton-height: 16px;"></div></li>
-      </ul>
-    </div>
-  </section>
-{%- elseif equipments or services -%}
-  <section class="offer-features">
-    {%- if equipments -%}
-      <div class="offer-features__section">
-        <h2 class="offer-features__title" data-icon="wrench">Equipments</h2>
-        <ul class="offer-features__list">
-          {%- for equipment in equipments -%}
-            <li class="offer-features__item">{{ equipment }}</li>
-          {%- endfor -%}
-        </ul>
-      </div>
-    {%- endif -%}
-
-    {%- if services -%}
-      <div class="offer-features__section">
-        <h2 class="offer-features__title" data-icon="concierge">Services</h2>
-        <ul class="offer-features__list">
-          {%- for service in services -%}
-            <li class="offer-features__item">{{ service }}</li>
-          {%- endfor -%}
-        </ul>
-      </div>
-    {%- endif -%}
-  </section>
-{%- endif -%}
+  {% endif %}
+</section>

@@ -14,7 +14,7 @@
 
 {%- set title = title|default('Souhaitez-vous visiter ?') -%}
 {%- set cta = cta|default({ text: 'Planifier une visite', url: '#planifier-visite', ariaLabel: 'Planifier une visite' }) -%}
-{%- set attributes = (attributes ? attributes : create_attribute()) -%}
+{%- set attributes = (attributes is defined ? attributes : create_attribute()) -%}
 
 {%- set attr = attributes
   .addClass('ps-card-agent-visit')

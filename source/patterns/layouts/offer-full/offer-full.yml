@@ -1,197 +1,174 @@
-# Offer Full Layout - Mock Data
-# Real Estate context: Rent Offices MADRID Barrio de Chamberí
-
 bundle: 'offer'
 view_mode: 'full'
-placeholder: false
 
-# Building and property identification
-building_name:
-  label: 'Building'
-  value: 'Edificio ARA'
+hero:
+  media:
+    variant: 'images'
+    fit: 'cover'
+    slides:
+      - id: 'photo-1'
+        type: 'image'
+        image:
+          src: '/storybook/images/building.jpg'
+          alt: 'Historic office building facade'
+      - id: 'photo-2'
+        type: 'image'
+        image:
+          src: '/storybook/images/4-3.jpg'
+          alt: 'Lobby view'
+      - id: 'photo-3'
+        type: 'image'
+        image:
+          src: '/storybook/images/3-2.jpg'
+          alt: 'Office interior'
+      - id: '3d-1'
+        type: '3d-visit'
+        image:
+          src: '/storybook/images/4-3.jpg'
+          alt: '3D virtual tour'
+      - id: 'plan-1'
+        type: 'plan'
+        image:
+          src: '/storybook/images/16-9.jpg'
+          alt: 'Floor plan'
+    toolbar:
+      items:
+        - type: 'photos'
+          label: '3 photos'
+          icon: 'picture'
+          slideIndex: 0
+        - type: '3d-visit'
+          label: '1 visite 3D'
+          icon: 'cube-focus'
+          slideIndex: 3
+        - type: 'plan'
+          label: '1 plan'
+          icon: 'cards'
+          slideIndex: 4
+  favorite:
+    icon: 'heart'
+    toggle: true
+    active: false
+    ariaLabel: 'Add to favorites'
 
 reference:
   label: 'Reference'
   value: 'OLBUR2200801'
 
-title: 'Rent Offices MADRID Barrio de Chamberí'
+meta:
+  building:
+    label: 'Building'
+    value: 'Edificio ARA'
+  title: 'Rent Offices MADRID Barrio de Chamberí'
+  price:
+    label: 'Rent'
+    value: '20 000 €'
+    unit: 'HT/HC/m²/an'
+  surface_total:
+    label: 'Surface total'
+    value: 611.3
+    unit: 'm²'
+  availability:
+    label: 'Available'
+    value: 'Immediately'
+  mandate_type:
+    label: 'Mandate'
+    value: 'Exclusive'
 
-# Hero gallery
-hero:
-  images:
-    - url: '/images/property/madrid-chambeري-01.jpg'
-      alt: 'Building facade - Edificio ARA'
-    - url: '/images/property/madrid-chambeり-02.jpg'
-      alt: 'Office interior space'
-    - url: '/images/property/madrid-chamberί-03.jpg'
-      alt: 'Meeting room'
-    - url: '/images/property/madrid-chamberí-04.jpg'
-      alt: 'Open space office'
-    - url: '/images/property/madrid-chamberí-05.jpg'
-      alt: 'Building entrance'
-    - url: '/images/property/madrid-chamberí-06.jpg'
-      alt: 'Office floor layout'
-    - url: '/images/property/madrid-chamberí-07.jpg'
-      alt: 'Conference room'
-    - url: '/images/property/madrid-chamberί-08.jpg'
-      alt: 'Terrace view'
-    - url: '/images/property/madrid-chamberí-09.jpg'
-      alt: 'Reception area'
-    - url: '/images/property/madrid-chamberí-10.jpg'
-      alt: 'Executive office'
-    - url: '/images/property/madrid-chamberί-11.jpg'
-      alt: 'Kitchen and break area'
-    - url: '/images/property/madrid-chamberί-12.jpg'
-      alt: 'Building courtyard'
-    - url: '/images/property/madrid-chamberí-13.jpg'
-      alt: 'Street view'
-  photos_count: 13
-  visit_3d:
-    url: 'https://virtual-tour.example.com/olbur2200801'
-    label: '3D visit'
-  plan:
-    url: '/documents/plans/olbur2200801-floor-plan.pdf'
-    label: 'Plan'
-
-# Key metadata
-surface_total:
-  label: 'Total surface'
-  value: 611.3
-  unit: 'm²'
-
-price:
-  label: 'Rent'
-  value: 20000
-  currency: '€'
-  unit: 'HT/HC/m²/an'
-  info: 'Pricing details available on request'
-
-availability:
-  label: 'Available'
-  value: 'Immediately'
-
-mandate_type:
-  label: 'Type of mandate'
-  value: 'Exclusive'
-
-# Description
 description:
-  label: 'Description'
-  value: |
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié.</p>
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.</p>
-  expandable: true
+  title: 'Description'
+  body: >-
+    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+    Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.
 
-# Equipments and services
-equipments:
-  - 'Elevators'
-  - 'Air conditioning - Reversible'
-  - 'Computer cabling: Optical fiber'
-  - 'False floor: High height'
-  - 'Heating system: Individual'
+features:
+  title: 'Equipments & Services'
+  groups:
+    - title: 'Equipments'
+      icon: 'settings'
+      items:
+        - 'Elevators'
+        - 'Air conditioning : Reversible'
+        - 'Computer cabling: Optical fiber'
+        - 'False floor: High height'
+        - 'Heating system: Individual'
+    - title: 'Services'
+      icon: 'service'
+      items:
+        - 'Home: Hostesses'
+        - 'Office layout: 3 open-plan offices'
+        - 'Partitioned offices: Yes'
+        - 'Meeting room: Yes'
+        - 'Cafeteria: Yes'
+        - 'Security: Intercom access control'
+        - 'Terraces / gardens: Balcony overlooking the park'
+    - title: 'Building condition'
+      icon: 'building'
+      items:
+        - 'Condition of building: Restructured with common area'
+        - 'Condition of premises: State of use'
+    - title: 'More information'
+      icon: 'info'
+      items:
+        - 'Several courtyards'
+        - 'Garden level in perfect condition'
+        - 'Highly flexible'
 
-services:
-  - 'Home: Hostesses'
-  - 'Office layout: 3-open-plan offices'
-  - 'Partitioned offices: Yes'
-  - 'Meeting room: Yes'
-  - 'Cafeteria: Yes'
-  - 'Security: Intercom access control'
-  - 'Terraces - gardens: Balcony overlooking the park'
-
-# Building condition
-building_condition:
-  label: 'Building condition'
-  items:
-    - 'Condition of building: Restructured with common area'
-    - 'Condition of premises: State of use'
-
-# More information
-more_information:
-  items:
-    - 'Several courtyards'
-    - 'Garden level in perfect condition'
-    - 'Highly flexible'
-
-# Energy performance
 energy:
-  dpe:
-    label: 'Consommations énergétiques'
-    grade: 'C'
-    value: 150
-    unit: 'kWhEP/m²/an'
-  ges:
-    label: 'Émissions de gaz à effet de serre'
-    grade: 'B'
-    value: 25
-    unit: 'kgCO2/m²/an'
+  title: 'Energy'
+  metrics:
+    - label: 'Consommations énergétique'
+      value: '?'
+      unit: 'kWhEP/m²/an'
+      hint: "Etiquette énergétique non fournie par le propriétaire"
+    - label: 'Emissions de gaz à effet de serre'
+      value: '?'
+      unit: 'kg CO2/m²/an'
+      hint: "Etiquette énergétique non fournie par le propriétaire"
   label:
-    name: 'LEED Gold'
-    logo: '/images/labels/leed-gold.png'
+    text: 'LEED Platinum'
 
-# Surface breakdown table
-surface_table:
-  - lot: 'OLBUR2106575 - 6'
-    floor: 'RDC'
-    nature: 'Bureaux'
-    surface: 207
-    unit: 'm²'
-    availability: 'Nous consulter'
-  - lot: 'OLBUR2106575 - 7'
-    floor: 'R+3'
-    nature: 'Bureaux'
-    surface: 405
-    unit: 'm²'
-    availability: 'Nous consulter'
-  - lot: 'OLBUR2106575 - 20'
-    floor: 'R+4'
-    nature: 'Bureaux'
-    surface: 736
-    unit: 'm²'
-    availability: 'Nous consulter'
-  - lot: 'OLBUR2106575 - 23'
-    floor: 'R+6'
-    nature: 'Bureaux'
-    surface: 420
-    unit: 'm²'
-    availability: 'Nous consulter'
+surface:
+  title: 'Surface table'
+  headers: ['Lot', 'Etage', 'Nature', 'Surface', 'Disponibilité']
+  rows:
+    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '405 m²', 'Nous consulter']
+    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '420 m²', 'Nous consulter']
+    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '420 m²', 'Nous consulter']
 
-# Location
 location:
+  title: 'Location'
   address:
-    street: '37 CL Hermanos García Noblejas'
-    postal_code: '28037'
-    city: 'Madrid'
-  coordinates:
-    lat: 40.4283
-    lng: -3.6944
+    lines:
+      - '37 Cl Hermanos Garcia Noblejas'
+      - '28037 Madrid'
   transport:
-    - type: 'bus'
-      label: 'Bus'
-      name: 'N° XX,XX,XX'
-    - type: 'metro'
-      label: 'Métro'
-      name: 'M3 Madrid'
-    - type: 'train'
-      label: 'Train'
-      name: 'Renfe - Atocha'
-  road_access: true
+    - label: 'Transport'
+      items:
+        - 'Bus: N° XX-XX-XX'
+        - 'Metro: M2 Madrid'
+        - 'Road access'
 
-# Map configuration
+sidebar:
+  agent:
+    name: 'Sophia Dacosta'
+    title: 'Your consultant:'
+    avatar:
+      url: '/storybook/images/agent/female.png'
+      alt: 'Sophia Dacosta profile picture'
+    phone: '+32 2 646 49 49'
+    cta:
+      text: 'Contact the consultancy'
+      url: '#'
+  visit:
+    title: 'Would you like to visit?'
+    cta:
+      text: 'Schedule a visit'
+      url: '#'
+      ariaLabel: 'Schedule a visit for this property'
+
 map:
-  enabled: true
-  zoom: 15
-  poi_filters:
-    - transports
-    - parkings
-    - restaurants
-    - hotels
-
-# Consultant information
-consultant:
-  name: 'Sophia Dacosta'
-  phone: '+33 2 666 69 69'
-  photo:
-    url: '/images/agent/sophia-dacosta.jpg'
-    alt: 'Sophia Dacosta - Real Estate Consultant'
-  brochure_url: '/documents/brochures/olbur2200801-brochure.pdf'
+  title: 'Location map'
+  image:
+    src: '/storybook/images/16-9.jpg'
+    alt: 'Map placeholder'

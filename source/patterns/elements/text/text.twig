@@ -30,6 +30,6 @@
 #}
 
 {%- set tag = tag|default('p') -%}
-{%- set attr = (attributes ? attributes : create_attribute()) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()) -%}
 
 <{{ tag }}{{ attr }}>{{- text -}}</{{ tag }}>

@@ -46,7 +46,7 @@
 
 {%- set tag = href ? 'a' : 'div' -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(avatar_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(avatar_classes) -%}
 
 <{{ tag }}{{ attr }}
   {%- if href %} href="{{ href }}"{% endif -%}

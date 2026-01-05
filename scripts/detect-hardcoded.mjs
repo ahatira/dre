@@ -12,7 +12,11 @@ const patterns = [
   { label: 'Hex color', regex: /#[0-9A-Fa-f]{3,6}\b/, files: ['**/*.css', '**/*.twig'] },
   { label: 'px size', regex: /\b\d+px\b/, files: ['**/*.css'] },
   { label: 'ms duration', regex: /\b\d+ms\b/, files: ['**/*.css'] },
-  { label: 'named color', regex: /\b(red|green|blue|yellow|purple|gray|black|white)\b/, files: ['**/*.css'] },
+  {
+    label: 'named color',
+    regex: /\b(red|green|blue|yellow|purple|gray|black|white)\b/,
+    files: ['**/*.css'],
+  },
 ];
 
 async function scanFile(file) {
@@ -40,7 +44,12 @@ async function main() {
   }
 
   const seen = new Set();
-  const uniqueFiles = files.filter((f) => { const k = f; if (seen.has(k)) return false; seen.add(k); return true; });
+  const uniqueFiles = files.filter((f) => {
+    const k = f;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
   let total = 0;
   for (const f of uniqueFiles) {
     const issues = await scanFile(f);

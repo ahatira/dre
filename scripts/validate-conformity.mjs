@@ -10,8 +10,12 @@ import { globSync } from 'glob';
 const root = path.resolve(process.cwd());
 const patternsDir = path.join(root, 'source', 'patterns');
 
-function log(msg) { console.log(msg); }
-function fail(msg) { console.error(msg); }
+function log(msg) {
+  console.log(msg);
+}
+function fail(msg) {
+  console.error(msg);
+}
 
 function readFileSafe(p) {
   return fs.readFile(p, 'utf8').catch(() => '');
@@ -46,8 +50,12 @@ async function auditComponent(dir) {
 
   // 1) 4-file structure
   for (const [key, file] of Object.entries(files)) {
-    try { await fs.access(file); }
-    catch { score -= 5; report.push(`Missing required file: ${path.relative(root, file)} (-5)`); }
+    try {
+      await fs.access(file);
+    } catch {
+      score -= 5;
+      report.push(`Missing required file: ${path.relative(root, file)} (-5)`);
+    }
   }
 
   // Load contents
@@ -59,38 +67,53 @@ async function auditComponent(dir) {
   if (twig) {
     const usesCreateAttribute = /create_attribute\(\)/.test(twig);
     const usesAddClass = /\.addClass\(/.test(twig);
-    const usesAttrOutput = /<[^>]+\{\{\s*attr\s*\}\}/.test(twig) || /<[^>]+\{\{\s*wrapper_attr\s*\}\}/.test(twig);
+    const usesAttrOutput =
+      /<[^>]+\{\{\s*attr\s*\}\}/.test(twig) || /<[^>]+\{\{\s*wrapper_attr\s*\}\}/.test(twig);
     const usesWithoutClass = /attributes\s*\|\s*without\('class'\)/.test(twig);
 
     const handlesAttributes = usesCreateAttribute || usesWithoutClass;
-    if (!handlesAttributes) { score -= 5; report.push(`Twig missing attribute handling (create_attribute() or attributes|without('class')) (-5)`); }
+    if (!handlesAttributes) {
+      score -= 5;
+      report.push(
+        `Twig missing attribute handling (create_attribute() or attributes|without('class')) (-5)`
+      );
+    }
 
     const usesCanonicalPattern = (usesCreateAttribute && usesAddClass) || usesAttrOutput;
     if (!usesCanonicalPattern && !usesWithoutClass) {
       score -= 5;
-      report.push(`Twig root should use create_attribute().addClass(...) and render via {{ attr }} (or legacy attributes|without('class')) (-5)`);
+      report.push(
+        `Twig root should use create_attribute().addClass(...) and render via {{ attr }} (or legacy attributes|without('class')) (-5)`
+      );
     }
 
     // 3) Twig: no arrow functions / JS methods
     if (/=>/.test(twig) || /\.map\(|\.filter\(|\.includes\(/.test(twig)) {
-      score -= 5; report.push(`Twig uses JS syntax (arrow/functions) (-5)`);
+      score -= 5;
+      report.push(`Twig uses JS syntax (arrow/functions) (-5)`);
     }
   }
 
   // 4) CSS: nesting and focus-visible
   if (css) {
     const hasNesting = /&__|&--|&:\w|\n\s*&\s*\{/.test(css);
-    if (!hasNesting) { score -= 5; report.push(`CSS missing nesting with & syntax (-5)`); }
+    if (!hasNesting) {
+      score -= 5;
+      report.push(`CSS missing nesting with & syntax (-5)`);
+    }
     const hasFocusVisible = /focus-visible/.test(css);
     // Not all components are interactive; warn but no score deduction.
-    if (!hasFocusVisible) { report.push(`CSS: focus-visible not found (warn)`); }
+    if (!hasFocusVisible) {
+      report.push(`CSS: focus-visible not found (warn)`);
+    }
   }
 
   // 5) Stories: autodocs tag
   if (stories) {
     const hasAutodocs = /tags\s*:\s*\[\s*'autodocs'\s*\]/.test(stories);
     if (!hasAutodocs && !dir.includes(path.join('source', 'patterns', 'base'))) {
-      score -= 5; report.push(`Stories missing tags: ['autodocs'] (-5)`);
+      score -= 5;
+      report.push(`Stories missing tags: ['autodocs'] (-5)`);
     }
   }
 

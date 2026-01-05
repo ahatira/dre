@@ -1,82 +1,34 @@
 {#
 /**
- * @file
- * Offer sidebar - Consultant profile and CTA.
- *
- * @section Sidebar
- * @description Consultant information with contact actions
- * Desktop: sticky sidebar
- * Mobile: bottom bar fixed
+ * Offer sidebar (agent card + visit card).
+ * Variables:
+ * - sidebar.agent: Card Agent configuration { name, title, avatar, phone, cta }.
+ * - sidebar.visit: Card Agent Visit configuration { title, cta }.
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set consultant = consultant|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-sidebar',
+  placeholder ? 'offer-sidebar--placeholder' : null,
+  sidebar.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <div class="offer-sidebar">
-    <div class="offer-sidebar__content">
-      <div class="offer-sidebar__consultant">
-        <div class="ps-skeleton ps-skeleton--circle" style="--skeleton-width: 60px; --skeleton-height: 60px;"></div>
-        <div class="offer-sidebar__consultant-info">
-          <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 150px; --skeleton-height: 16px;"></div>
-          <div class="ps-skeleton ps-skeleton--text" style="--skeleton-width: 120px; --skeleton-height: 14px;"></div>
-        </div>
+<div{{ attr }}>
+  {% if placeholder %}
+    <div class="offer-sidebar__skeleton" aria-hidden="true"></div>
+  {% else %}
+    {% if sidebar.agent|default(null) %}
+      <div class="offer-sidebar__agent">
+        {%- include '@components/card-agent/card-agent.twig' with sidebar.agent only -%}
       </div>
-      <div class="ps-skeleton ps-skeleton--button" style="--skeleton-width: 100%; --skeleton-height: 48px;"></div>
-    </div>
-  </div>
-{%- elseif consultant -%}
-  <div class="offer-sidebar">
-    <div class="offer-sidebar__content">
-      {# Consultant profile #}
-      <div class="offer-sidebar__consultant">
-        <p class="offer-sidebar__consultant-label">Your consultant:</p>
-        
-        <div class="offer-sidebar__consultant-profile">
-          {%- if consultant.photo -%}
-            <img 
-              src="{{ consultant.photo.url }}" 
-              alt="{{ consultant.name }}"
-              class="offer-sidebar__consultant-avatar"
-              loading="lazy"
-            />
-          {%- else -%}
-            <div class="offer-sidebar__consultant-avatar offer-sidebar__consultant-avatar--placeholder" data-icon="user"></div>
-          {%- endif -%}
+    {% endif %}
 
-          <div class="offer-sidebar__consultant-info">
-            <p class="offer-sidebar__consultant-name">{{ consultant.name }}</p>
-            {%- if consultant.phone -%}
-              <a href="tel:{{ consultant.phone|replace({' ': '', '+': '00'}) }}" class="offer-sidebar__consultant-phone">
-                <span data-icon="phone" aria-hidden="true"></span>
-                {{ consultant.phone }}
-              </a>
-            {%- endif -%}
-          </div>
-        </div>
+    {% if sidebar.visit|default(null) %}
+      <div class="offer-sidebar__visit">
+        {%- include '@components/card-agent-visit/card-agent-visit.twig' with sidebar.visit only -%}
       </div>
-
-      {# CTA buttons #}
-      <div class="offer-sidebar__actions">
-        <button type="button" class="ps-button ps-button--primary ps-button--block" data-action="contact-consultant">
-          Contact the consultancy
-        </button>
-
-        <p class="offer-sidebar__visit-prompt">Would you like to visit?</p>
-        <button type="button" class="ps-button ps-button--secondary ps-button--block" data-icon="calendar" data-action="schedule-visit">
-          Schedule a visit
-        </button>
-      </div>
-
-      {# Download brochure (desktop only) #}
-      {%- if consultant.brochure_url -%}
-        <div class="offer-sidebar__brochure">
-          <a href="{{ consultant.brochure_url }}" class="offer-sidebar__brochure-link" download data-icon="download">
-            Download the brochure
-          </a>
-        </div>
-      {%- endif -%}
-    </div>
-  </div>
-{%- endif -%}
+    {% endif %}
+  {% endif %}
+</div>

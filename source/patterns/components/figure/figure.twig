@@ -19,7 +19,7 @@
 ] -%}
 
 {# Drupal attribute object #}
-{%- set attrs = (attributes ? attributes : create_attribute()).addClass(figure_classes) -%}
+{%- set attrs = (attributes is defined ? attributes : create_attribute()).addClass(figure_classes) -%}
 
 <figure{{ attrs }}>
   <img

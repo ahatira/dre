@@ -20,7 +20,7 @@
 {%- set avatar = avatar|default(null) -%}
 {%- set phone = phone|default(null) -%}
 {%- set cta = cta|default({ text: 'Contacter l’agent', url: '#' }) -%}
-{%- set attributes = (attributes ? attributes : create_attribute()) -%}
+{%- set attributes = (attributes is defined ? attributes : create_attribute()) -%}
 
 {%- set attr = attributes
   .addClass('ps-card-agent')

@@ -33,7 +33,7 @@
 {%- set disabled = disabled|default(false) -%}
 {%- set options = options|default([]) -%}
 {# Attributes: Drupal create_attribute() object (mandatory for integration) #}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
+{%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 {%- set selectedOption = null -%}
 {%- for option in options -%}

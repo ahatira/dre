@@ -1,49 +1,50 @@
 {#
 /**
- * @file
- * Offer surface table section.
- *
- * @section Surface
- * @description Detailed surface breakdown table
+ * Offer surface table.
+ * Variables:
+ * - surface.title: Section heading.
+ * - surface.headers: Array of column labels.
+ * - surface.rows: Array of rows (each row is array of cells).
+ * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set surface_table = surface_table|default([]) -%}
-{%- set placeholder = placeholder|default(false) -%}
+{%- set classes = [
+  'offer-surface',
+  placeholder ? 'offer-surface--placeholder' : null,
+  surface.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
-{%- if placeholder -%}
-  <section class="offer-surface">
-    <h2 class="offer-surface__title">Surface table</h2>
-    <div class="offer-surface__table-wrapper">
-      <div class="ps-skeleton ps-skeleton--rectangle" style="--skeleton-width: 100%; --skeleton-height: 200px;"></div>
+<section{{ attr }} aria-labelledby="offer-surface-heading">
+  {% if placeholder %}
+    <div class="offer-surface__skeleton" aria-hidden="true"></div>
+  {% else %}
+    <div class="offer-surface__header">
+      <h2 class="offer-surface__title" id="offer-surface-heading">{{ surface.title|default('Surface table') }}</h2>
+      {% if surface.caption %}<p class="offer-surface__caption">{{ surface.caption }}</p>{% endif %}
     </div>
-  </section>
-{%- elseif surface_table -%}
-  <section class="offer-surface">
-    <h2 class="offer-surface__title" data-icon="ruler">Surface table</h2>
     <div class="offer-surface__table-wrapper">
       <table class="offer-surface__table">
-        <thead>
-          <tr>
-            <th>Lot</th>
-            <th>Étage</th>
-            <th>Nature</th>
-            <th>Surface</th>
-            <th>Disponibilité</th>
-          </tr>
-        </thead>
-        <tbody>
-          {%- for row in surface_table -%}
+        {% if surface.headers %}
+          <thead>
             <tr>
-              <td>{{ row.lot }}</td>
-              <td>{{ row.floor }}</td>
-              <td>{{ row.nature }}</td>
-              <td>{{ row.surface }} {{ row.unit|default('m²') }}</td>
-              <td>{{ row.availability }}</td>
+              {% for header in surface.headers %}
+                <th scope="col">{{ header }}</th>
+              {% endfor %}
             </tr>
-          {%- endfor -%}
+          </thead>
+        {% endif %}
+        <tbody>
+          {% for row in surface.rows|default([]) %}
+            <tr>
+              {% for cell in row %}
+                <td>{{ cell }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
-  </section>
-{%- endif -%}
+  {% endif %}
+</section>

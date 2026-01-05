@@ -25,7 +25,7 @@
   columns_min_items > 0 and items|length >= columns_min_items ? 'ps-feature-section--two-columns' : null
 ] -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(feature_section_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(feature_section_classes) -%}
 
 <div{{ attr }}{% if columns_min_items > 0 and items|length >= columns_min_items %} data-columns-min-items="{{ columns_min_items }}"{% endif %}>
   {% include '@elements/heading/heading.twig' with {

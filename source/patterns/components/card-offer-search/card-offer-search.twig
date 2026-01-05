@@ -65,7 +65,7 @@
 
 {# Build attributes for Card component #}
 {%- set cardClasses = 'ps-card-offer-search' -%}
-{%- set cardAttributes = (attributes ? attributes : create_attribute()).addClass(cardClasses) -%}
+{%- set cardAttributes = (attributes is defined ? attributes : create_attribute()).addClass(cardClasses) -%}
 
 {# Embed Card component for structure reuse #}
 {% embed '@components/card/card.twig' with {

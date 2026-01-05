@@ -87,7 +87,9 @@
   --size-mobile: 640px;
   --size-mobile-large: 720px;
   --size-tablet: 768px;
-  --size-max-site-width: 1900px;
+  --size-laptop: 1024px;
+  --size-desktop: 1280px;
+  --size-desktop-max: 1900px;       /* Full site wrapper max-width */
 
   /* ============================================
      Component-Specific Spacing & Dimensions

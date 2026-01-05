@@ -23,7 +23,7 @@
 {%- set active = active|default(false) -%}
 {%- set disabled = disabled|default(false) -%}
 {%- set icon = icon|default(null) -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
+{%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 {%- set tab_classes = [
   'ps-tab',

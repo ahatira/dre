@@ -38,7 +38,7 @@
 {%- set steps = steps|default([]) -%}
 
 {%- set wizard_classes = ['ps-wizard-steps', 'ps-wizard-steps--' ~ orientation] -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(wizard_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(wizard_classes) -%}
 {%- set attr = attr.setAttribute('aria-label', 'Progression') -%}
 
 <ol{{ attr }}>

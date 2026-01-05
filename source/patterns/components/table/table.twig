@@ -50,7 +50,7 @@
   (responsive and not stacked) ? 'ps-table-wrapper--responsive' : null
 ] -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(table_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(table_classes) -%}
 
 <div class="{{ wrapper_classes|join(' ')|trim }}">
   <table{{ attr }}>

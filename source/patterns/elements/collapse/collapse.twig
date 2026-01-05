@@ -28,7 +28,7 @@
 {%- set panel_id = id ~ '-panel' -%}
 {%- set trigger_id = id ~ '-trigger' -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(collapse_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(collapse_classes) -%}
 
 <div{{ attr }}>
   <button

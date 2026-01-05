@@ -27,7 +27,7 @@
 {%- set label = label|default('Tabs navigation') -%}
 {%- set vertical = vertical|default(false) -%}
 {%- set auto = auto|default(false) -%}
-{%- set attributes = attributes ? attributes : create_attribute() -%}
+{%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 {# Determine if any tab uses an icon #}
 {%- set has_icons = false -%}

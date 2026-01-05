@@ -40,12 +40,12 @@ window.Drupal = { behaviors: {}, theme: {} };
 
   Drupal.theme = (func, ...args) => {
     const funcName = func.replace(/[^a-zA-Z0-9_]/g, '_');
-    
+
     // Check if a theme override exists
     if (Drupal.theme[funcName] !== undefined) {
       return Drupal.theme[funcName](...args);
     }
-    
+
     // Return empty string if function not found
     return '';
   };

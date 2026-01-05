@@ -60,7 +60,7 @@
 {%- endif -%}
 
 {% if url -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(tag_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(tag_classes) -%}
 <a{{ attr }} href="{{ url }}">
   {% if iconStart and removable -%}
   <span class="ps-tag__icon ps-tag__icon--start" data-icon="close" aria-hidden="true"></span>
@@ -71,7 +71,7 @@
   {%- endif -%}
 </a>
 {%- else -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(tag_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(tag_classes) -%}
 {%- set attr = attr.setAttribute('type', 'button') -%}
 {%- set attr = attr.setAttribute('aria-pressed', selected ? 'true' : 'false') -%}
 {%- if removable -%}

@@ -54,7 +54,7 @@
 {%- endif -%}
 
 {%- if text or icon -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(root_classes) -%}
 <div{{ attr }}>
   <span class="ps-divider__line" aria-hidden="true"></span>
   {%- if text %}
@@ -66,10 +66,10 @@
 </div>
 {%- else -%}
   {%- if orientation == 'horizontal' -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(root_classes) -%}
 <hr{{ attr }} />
   {%- else -%}
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(root_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(root_classes) -%}
 <span{{ attr }} role="separator" aria-orientation="vertical"></span>
   {%- endif -%}
 {%- endif -%}

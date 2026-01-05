@@ -24,7 +24,7 @@
   classes ? classes|join(' ') : null
 ] -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(accordion_classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(accordion_classes) -%}
 
 <div{{ attr }} data-accordion data-single-open="{{ single_open ? 'true' : 'false' }}">
   {%- for item in items -%}

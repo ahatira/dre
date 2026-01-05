@@ -3,12 +3,7 @@
   "files": {
     "ignoreUnknown": true,
     "includes": ["**/*"],
-    "experimentalScannerIgnores": [
-      "dist/**",
-      "storybook/**",
-      "**/*.min.js",
-      "**/vendor/**"
-    ]
+    "experimentalScannerIgnores": ["dist/**", "storybook/**", "**/*.min.js", "**/vendor/**"]
   },
   "linter": {
     "enabled": true,

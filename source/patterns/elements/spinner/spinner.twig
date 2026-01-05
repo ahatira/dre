@@ -65,7 +65,7 @@
   {%- set classes = classes|merge([modifier_class]) -%}
 {%- endif -%}
 
-{%- set attr = (attributes ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 {%- set attr = attr.setAttribute('role', 'status') -%}
 {%- set attr = attr.setAttribute('aria-live', 'polite') -%}
 

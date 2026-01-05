@@ -24,9 +24,12 @@ async function validateTwig(file) {
   }
   // Root should use create_attribute().addClass(...) and render via {{ attr }} (or legacy without('class'))
   const usesAddClass = /\.addClass\(/.test(content);
-  const usesAttrOutput = /<[^>]+\{\{\s*attr\s*\}\}/.test(content) || /<[^>]+\{\{\s*wrapper_attr\s*\}\}/.test(content);
+  const usesAttrOutput =
+    /<[^>]+\{\{\s*attr\s*\}\}/.test(content) || /<[^>]+\{\{\s*wrapper_attr\s*\}\}/.test(content);
   if (!(usesAddClass || usesAttrOutput || usesWithoutClass)) {
-    issues.push("Root element should use create_attribute().addClass(...) and render via {{ attr }} (or legacy attributes|without('class'))");
+    issues.push(
+      "Root element should use create_attribute().addClass(...) and render via {{ attr }} (or legacy attributes|without('class'))"
+    );
   }
   // Includes should have 'only'
   if (/{%\s*include\s+[^%]+%}/.test(content) && !/{%\s*include[^%]+only\s*%}/.test(content)) {

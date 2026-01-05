@@ -71,7 +71,7 @@
   show ? 'ps-modal--visible' : null
 ] -%}
 
-{%- set attr = (attributes ? attributes : create_attribute())
+{%- set attr = (attributes is defined ? attributes : create_attribute())
   .addClass(classes)
   .setAttribute('role', 'dialog')
   .setAttribute('aria-modal', 'true')

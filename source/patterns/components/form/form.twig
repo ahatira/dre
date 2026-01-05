@@ -6,7 +6,7 @@
  * @param string children - Form content (form fields, buttons, etc.)
  #}
 
-{%- set attributes = attributes ? attributes : create_attribute() -%}
+{%- set attributes = attributes is defined ? attributes : create_attribute() -%}
 
 <form{{ attributes }}>
   {%- if children -%}
