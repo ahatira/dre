@@ -1,0 +1,122 @@
+/* ========================================================================
+   #DIAGNOSTICS (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Diagnostics - Composes multiple Diagnostic components in a grid.
+ * Used for displaying energy, emissions, and other diagnostic indicators.
+ * Supports optional labels/images (certifications, badges) at the bottom.
+ *
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child atom override capability
+ * - Token-First STEP 3: Variables override child diagnostic tokens
+ * - ALL values from tokens: NO hardcoded colors, sizes, spacing
+ * - Semantic colors only: primary, secondary, success, etc.
+ * - CSS nesting with & syntax (PostCSS nested)
+ * - Focus and interaction states for accessibility
+ * - NO border-radius by default: Sharp corners (design system default)
+ */
+
+/* Container
+   ========================================================================= */
+
+.ps-diagnostics {
+  /* Layer 2: Component-scoped variables */
+  --ps-diagnostics-title-font-size: var(--font-size-6);
+  --ps-diagnostics-title-font-weight: var(--font-weight-700);
+  --ps-diagnostics-title-color: var(--text-primary);
+  --ps-diagnostics-title-icon-gap: var(--size-3);
+  --ps-diagnostics-header-gap: var(--size-4);
+  --ps-diagnostics-grid-gap: var(--size-6);
+  --ps-diagnostics-labels-gap: var(--size-4);
+  --ps-diagnostics-labels-margin-top: var(--size-8);
+  --ps-diagnostics-label-size: 120px;
+
+  /* Base container */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-diagnostics-header-gap);
+
+  /* Header with title and icon */
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Title styling */
+  &__title {
+    margin: 0;
+    font-size: var(--ps-diagnostics-title-font-size);
+    font-weight: var(--ps-diagnostics-title-font-weight);
+    color: var(--ps-diagnostics-title-color);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ps-diagnostics-title-icon-gap);
+  }
+
+  /* Grid of diagnostics */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ps-diagnostics-grid-gap);
+
+    @media (--tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (--laptop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Individual diagnostic item */
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Labels section (certifications, badges) */
+  &__labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ps-diagnostics-labels-gap);
+    margin-top: var(--ps-diagnostics-labels-margin-top);
+    padding-top: var(--ps-diagnostics-labels-margin-top);
+    border-top: 1px solid var(--border-default);
+  }
+
+  /* Individual label item */
+  &__label-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Label link */
+  &__label-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: opacity var(--duration-short) var(--ease-in-out);
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.8;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Label image */
+  &__label-image {
+    max-width: var(--ps-diagnostics-label-size);
+    max-height: var(--ps-diagnostics-label-size);
+    width: auto;
+    height: auto;
+    display: block;
+  }
+}

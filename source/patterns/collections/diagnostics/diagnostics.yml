@@ -1,0 +1,85 @@
+title: 'Energy'
+icon: 'bolt'
+diagnostics:
+  - id: 'energy-consumption'
+    label: 'Consommations énergétique'
+    icon: 'bolt'
+    unit: 'kWh/m²/an'
+    value: 229
+    empty_message: 'Étiquette énergétique non fournie par le propriétaire'
+    valid_from: null
+    valid_to: null
+    is_dimmed: false
+    dim_opacity: 30
+    classes:
+      a:
+        label: A
+        color: '#00A651'
+        range_max: 70
+      b:
+        label: B
+        color: '#8DC63F'
+        range_max: 110
+      c:
+        label: C
+        color: '#FFF200'
+        range_max: 180
+      d:
+        label: D
+        color: '#F7941D'
+        range_max: 250
+      e:
+        label: E
+        color: '#ED1C24'
+        range_max: 330
+      f:
+        label: F
+        color: '#C1272D'
+        range_max: 420
+      g:
+        label: G
+        color: '#A10D0D'
+        range_max: null
+  - id: 'emissions'
+    label: 'Émissions de gaz à effet de serre'
+    icon: 'cloud'
+    unit: 'kg CO₂/m²/an'
+    value: null
+    empty_message: 'Étiquette énergétique non fournie par le propriétaire'
+    valid_from: null
+    valid_to: null
+    is_dimmed: true
+    dim_opacity: 30
+    classes:
+      a:
+        label: A
+        color: '#00A651'
+        range_max: 6
+      b:
+        label: B
+        color: '#8DC63F'
+        range_max: 10
+      c:
+        label: C
+        color: '#FFF200'
+        range_max: 16
+      d:
+        label: D
+        color: '#F7941D'
+        range_max: 23
+      e:
+        label: E
+        color: '#ED1C24'
+        range_max: 30
+      f:
+        label: F
+        color: '#C1272D'
+        range_max: 39
+      g:
+        label: G
+        color: '#A10D0D'
+        range_max: null
+labels:
+  - src: '/assets/images/leed-platinum.svg'
+    alt: 'LEED Platinum Certification'
+    url: null

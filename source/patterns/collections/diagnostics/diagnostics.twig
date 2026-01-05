@@ -1,0 +1,66 @@
+{#
+/**
+ * Diagnostics Collection (Organism)
+ *
+ * Section displaying multiple diagnostic indicators (energy, emissions, etc.)
+ * with optional labels/images (LEED badges, etc.) at the bottom.
+ * Composes Diagnostic components in a grid layout.
+ *
+ * Variables:
+ * - title: Section title (e.g., "Energy")
+ * - icon: Icon name for data-icon attribute
+ * - diagnostics: Array of diagnostic data objects
+ * - labels: Array of image objects (with optional link)
+ * - attributes: Drupal attributes object for root element
+ */
+#}
+
+{%- set title = title|default('') -%}
+{%- set icon = icon|default('') -%}
+{%- set diagnostics = diagnostics|default([]) -%}
+{%- set labels = labels|default([]) -%}
+
+{{ attach_library('ps_theme/diagnostics') }}
+
+{%- set diagnostics_classes = [
+  'ps-diagnostics'
+] -%}
+
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(diagnostics_classes) -%}
+
+<div{{ attr }}>
+  <div class="ps-diagnostics__header">
+    {% include '@elements/heading/heading.twig' with {
+      level: 'h3',
+      text: title,
+      icon: icon,
+      attributes: create_attribute().addClass('ps-diagnostics__title')
+    } only %}
+  </div>
+
+  {% if diagnostics|length > 0 %}
+    <div class="ps-diagnostics__grid">
+      {%- for diagnostic in diagnostics -%}
+        <div class="ps-diagnostics__item">
+          {% include '@components/diagnostic/diagnostic.twig' with diagnostic only %}
+        </div>
+      {%- endfor -%}
+    </div>
+  {% endif %}
+
+  {% if labels|length > 0 %}
+    <div class="ps-diagnostics__labels">
+      {%- for label in labels -%}
+        <div class="ps-diagnostics__label-item">
+          {%- if label.url -%}
+            <a href="{{ label.url }}" class="ps-diagnostics__label-link">
+              <img src="{{ label.src }}" alt="{{ label.alt|default('Label') }}" class="ps-diagnostics__label-image" />
+            </a>
+          {%- else -%}
+            <img src="{{ label.src }}" alt="{{ label.alt|default('Label') }}" class="ps-diagnostics__label-image" />
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {% endif %}
+</div>
