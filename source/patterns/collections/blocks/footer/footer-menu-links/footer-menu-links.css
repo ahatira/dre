@@ -110,7 +110,7 @@
     padding: var(--size-2) var(--size-4);
     color: var(--text-primary);
     text-decoration: none;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
     transition: color var(--duration-base) var(--ease-out);
 
     &:hover {

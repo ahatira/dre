@@ -4,7 +4,7 @@
   /* Component-scoped variables */
   /* Typography */
   --ps-list-font-family: var(--font-body);
-  --ps-list-font-size: var(--font-size-2);
+  --ps-list-font-size: var(--font-size-4);
   --ps-list-line-height: var(--line-height-normal);
   --ps-list-color: var(--text-primary);
 

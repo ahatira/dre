@@ -6,7 +6,7 @@
  * ### Layer 1: Root primitives (source/props/*.css)
  * - Semantic colors: --primary, --secondary, --success, --danger, --info, --warning, --gold (brand.css)
  * - Sizes: --size-1 to --size-20, --radius-round (sizes.css, borders.css)
- * - Typography: --font-size-0 to --font-size-4, --font-weight-500 (fonts.css)
+ * - Typography: --font-size-2 to --font-size-6, --font-weight-500 (fonts.css)
  * - Animations: --duration-normal, --duration-slower, --ease-3 (animations.css, easing.css)
  * ### Layer 2: Component variables (--ps-progress-*)
  * - --ps-progress-track-bg, --ps-progress-fill-bg, --ps-progress-track-height
@@ -175,7 +175,7 @@ export const SemanticColors = {
         .map(
           (color) => `
         <div>
-          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600); text-transform: capitalize;">${color}</p>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600); text-transform: capitalize;">${color}</p>
           ${color === 'light' ? '<div style="background: var(--gray-800); padding: var(--size-3); border-radius: var(--radius-2);">' : ''}
           ${progressBarTwig({ variant: 'linear', color, value: 65, showLabel: true, label: `${color} progress` })}
           ${color === 'light' ? '</div>' : ''}
@@ -191,13 +191,13 @@ export const Sizes = {
   render: () => `
     <div style="display: grid; gap: var(--size-6);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Linear Sizes</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); font-weight: var(--font-weight-600);">Linear Sizes</h3>
         <div style="display: grid; gap: var(--size-3);">
           ${['small', 'medium', 'large']
             .map(
               (size) => `
             <div>
-              <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600); text-transform: uppercase;">${size}</p>
+              <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600); text-transform: uppercase;">${size}</p>
               ${progressBarTwig({ variant: 'linear', size, value: 60, showLabel: true, color: 'primary', label: `${size} linear` })}
             </div>
           `
@@ -206,14 +206,14 @@ export const Sizes = {
         </div>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Circular Sizes</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); font-weight: var(--font-weight-600);">Circular Sizes</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center; flex-wrap: wrap;">
           ${['small', 'medium', 'large']
             .map(
               (size) => `
             <div style="text-align: center;">
               ${progressBarTwig({ variant: 'circular', size, value: 60, showLabel: true, color: 'primary', label: `${size} circular` })}
-              <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-0); color: var(--gray-600); text-transform: uppercase;">${size}</span>
+              <span style="display: block; margin-top: var(--size-1); font-size: var(--font-size-2); color: var(--gray-600); text-transform: uppercase;">${size}</span>
             </div>
           `
             )
@@ -228,31 +228,31 @@ export const States = {
   render: () => `
     <div style="display: grid; gap: var(--size-6);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Linear States</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); font-weight: var(--font-weight-600);">Linear States</h3>
         <div style="display: grid; gap: var(--size-3);">
           <div>
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Determinate (60%)</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600);">Determinate (60%)</p>
             ${progressBarTwig({ variant: 'linear', value: 60, color: 'primary', showLabel: true, label: 'Determinate linear' })}
           </div>
           <div>
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Striped</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600);">Striped</p>
             ${progressBarTwig({ variant: 'linear', striped: true, color: 'info', value: 60, showLabel: true, label: 'Striped linear' })}
           </div>
           <div>
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Indeterminate (infinite animation)</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600);">Indeterminate (infinite animation)</p>
             ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'primary', label: 'Indeterminate linear' })}
           </div>
         </div>
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Circular States</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); font-weight: var(--font-weight-600);">Circular States</h3>
         <div style="display: flex; gap: var(--size-6); align-items: center;">
           <div style="text-align: center;">
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Determinate</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600);">Determinate</p>
             ${progressBarTwig({ variant: 'circular', value: 75, color: 'success', size: 'large', showLabel: true, label: 'Determinate circular' })}
           </div>
           <div style="text-align: center;">
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-0); color: var(--gray-600);">Indeterminate</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-2); color: var(--gray-600);">Indeterminate</p>
             ${progressBarTwig({ variant: 'circular', indeterminate: true, color: 'primary', size: 'large', label: 'Indeterminate circular' })}
           </div>
         </div>
@@ -264,30 +264,30 @@ export const States = {
 export const OnDarkBackground = {
   render: () => `
     <div style="padding: var(--size-6); background: var(--gray-900); border-radius: var(--radius-3);">
-      <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-2); font-weight: var(--font-weight-600); color: white;">Dark Variant on Dark Background</h3>
+      <h3 style="margin: 0 0 var(--size-4); font-size: var(--font-size-4); font-weight: var(--font-weight-600); color: white;">Dark Variant on Dark Background</h3>
       <div style="display: grid; gap: var(--size-4);">
         <div>
-          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Light (visibility on dark)</p>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); color: var(--gray-300);">Light (visibility on dark)</p>
           ${progressBarTwig({ variant: 'linear', value: 65, color: 'light', showLabel: true, label: 'Light progress on dark background' })}
         </div>
         <div>
-          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Primary (brand color works well)</p>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); color: var(--gray-300);">Primary (brand color works well)</p>
           ${progressBarTwig({ variant: 'linear', value: 65, color: 'primary', showLabel: true, label: 'Primary progress on dark background' })}
         </div>
         <div>
-          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-300);">Success (high contrast)</p>
+          <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); color: var(--gray-300);">Success (high contrast)</p>
           ${progressBarTwig({ variant: 'linear', value: 65, color: 'success', showLabel: true, label: 'Success progress on dark background' })}
         </div>
       </div>
-      <h3 style="margin: var(--size-6) 0 var(--size-4); font-size: var(--font-size-2); font-weight: var(--font-weight-600); color: white;">Dark Variant on Light Background</h3>
+      <h3 style="margin: var(--size-6) 0 var(--size-4); font-size: var(--font-size-4); font-weight: var(--font-weight-600); color: white;">Dark Variant on Light Background</h3>
       <div style="padding: var(--size-4); background: white; border-radius: var(--radius-2);">
         <div style="display: grid; gap: var(--size-4);">
           <div>
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-700);">Dark (high contrast on light)</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); color: var(--gray-700);">Dark (high contrast on light)</p>
             ${progressBarTwig({ variant: 'linear', value: 65, color: 'dark', showLabel: true, label: 'Dark progress on light background' })}
           </div>
           <div>
-            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); color: var(--gray-700);">Neutral (default gray)</p>
+            <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); color: var(--gray-700);">Neutral (default gray)</p>
             ${progressBarTwig({ variant: 'linear', value: 65, color: 'neutral', showLabel: true, label: 'Neutral progress on light background' })}
           </div>
         </div>
@@ -308,19 +308,19 @@ export const FileUpload = {
   render: () => `
     <div style="display: grid; gap: var(--size-6); max-width: 600px;">
       <div>
-        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Uploading property photos...</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-800);">Uploading property photos...</p>
         ${progressBarTwig({ variant: 'linear', value: 45, color: 'info', showLabel: true, label: 'Uploading floor plans and contracts' })}
-        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">3 of 8 files uploaded</p>
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-2); color: var(--gray-600);">3 of 8 files uploaded</p>
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Processing documents...</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-800);">Processing documents...</p>
         ${progressBarTwig({ variant: 'linear', indeterminate: true, color: 'primary', label: 'Processing tenant application data' })}
-        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">Please wait while we verify your documents</p>
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-2); color: var(--gray-600);">Please wait while we verify your documents</p>
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--gray-800);">Loading 3D virtual tour...</p>
+        <p style="margin: 0 0 var(--size-2); font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--gray-800);">Loading 3D virtual tour...</p>
         ${progressBarTwig({ variant: 'linear', striped: true, value: 70, color: 'primary', showLabel: true, label: 'Loading 3D virtual tour' })}
-        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">High-resolution model loading</p>
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-2); color: var(--gray-600);">High-resolution model loading</p>
       </div>
     </div>
   `,
@@ -338,11 +338,11 @@ export const MultiStepProcess = {
   render: () => `
     <div style="display: flex; gap: var(--size-4); align-items: center; max-width: 600px;">
       ${progressBarTwig({ variant: 'circular', value: 100, color: 'success', size: 'medium', showLabel: true, label: 'Step 1: Identity verified' })}
-      <span style="font-size: var(--font-size-1); color: var(--gray-700);">Identity</span>
+      <span style="font-size: var(--font-size-3); color: var(--gray-700);">Identity</span>
       ${progressBarTwig({ variant: 'circular', value: 66, color: 'info', size: 'medium', showLabel: true, label: 'Step 2: Documents in progress' })}
-      <span style="font-size: var(--font-size-1); color: var(--gray-700);">Documents</span>
+      <span style="font-size: var(--font-size-3); color: var(--gray-700);">Documents</span>
       ${progressBarTwig({ variant: 'circular', value: 0, color: 'neutral', size: 'medium', showLabel: false, label: 'Step 3: Payment pending' })}
-      <span style="font-size: var(--font-size-1); color: var(--gray-500);">Payment</span>
+      <span style="font-size: var(--font-size-3); color: var(--gray-500);">Payment</span>
     </div>
   `,
   parameters: {
@@ -360,8 +360,8 @@ export const ProfileCompletion = {
     <div style="display: flex; gap: var(--size-6); align-items: center; padding: var(--size-6); background: var(--gray-50); border-radius: var(--radius-3);">
       ${progressBarTwig({ variant: 'circular', value: 33, color: 'warning', size: 'large', showLabel: true, label: 'Agent profile 33% complete' })}
       <div>
-        <p style="margin: 0 0 var(--size-1); font-size: var(--font-size-2); font-weight: var(--font-weight-600);">Complete your profile</p>
-        <p style="margin: 0; font-size: var(--font-size-1); color: var(--gray-600);">Add certifications and experience to improve visibility</p>
+        <p style="margin: 0 0 var(--size-1); font-size: var(--font-size-4); font-weight: var(--font-weight-600);">Complete your profile</p>
+        <p style="margin: 0; font-size: var(--font-size-3); color: var(--gray-600);">Add certifications and experience to improve visibility</p>
       </div>
     </div>
   `,
@@ -380,19 +380,19 @@ export const CriticalState = {
     <div style="display: grid; gap: var(--size-4); max-width: 600px;">
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--size-2);">
-          <p style="margin: 0; font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--danger);">Storage almost full</p>
-          <span style="font-size: var(--font-size-0); color: var(--danger);">92% used</span>
+          <p style="margin: 0; font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--danger);">Storage almost full</p>
+          <span style="font-size: var(--font-size-2); color: var(--danger);">92% used</span>
         </div>
         ${progressBarTwig({ variant: 'linear', value: 92, color: 'danger', size: 'large', showLabel: false, label: 'Storage usage: 92% - upgrade needed' })}
-        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">4.6 GB of 5 GB used. Upgrade to continue uploading.</p>
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-2); color: var(--gray-600);">4.6 GB of 5 GB used. Upgrade to continue uploading.</p>
       </div>
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--size-2);">
-          <p style="margin: 0; font-size: var(--font-size-1); font-weight: var(--font-weight-600); color: var(--success);">Upload complete</p>
-          <span style="font-size: var(--font-size-0); color: var(--success);">100%</span>
+          <p style="margin: 0; font-size: var(--font-size-3); font-weight: var(--font-weight-600); color: var(--success);">Upload complete</p>
+          <span style="font-size: var(--font-size-2); color: var(--success);">100%</span>
         </div>
         ${progressBarTwig({ variant: 'linear', value: 100, color: 'success', size: 'large', showLabel: false, label: 'Upload complete' })}
-        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-0); color: var(--gray-600);">All documents successfully uploaded</p>
+        <p style="margin: var(--size-1) 0 0; font-size: var(--font-size-2); color: var(--gray-600);">All documents successfully uploaded</p>
       </div>
     </div>
   `,

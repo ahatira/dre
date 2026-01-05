@@ -16,7 +16,7 @@
   gap: var(--size-2);
   padding: var(--size-2) var(--size-3);
   font-family: var(--font-condensed);
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-5);
   font-weight: var(--font-weight-400);
   line-height: 1.33;
   letter-spacing: normal;

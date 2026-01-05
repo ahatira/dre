@@ -21,7 +21,7 @@
 
 .ps-feature-section {
   /* Layer 2: Component-scoped variables (override capability for consumers) */
-  --ps-feature-section-title-font-size: var(--font-size-4);
+  --ps-feature-section-title-font-size: var(--font-size-6);
   --ps-feature-section-title-font-weight: var(--font-weight-700);
   --ps-feature-section-title-color: var(--text-primary);
   --ps-feature-section-title-icon-gap: var(--size-3);

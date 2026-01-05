@@ -101,9 +101,9 @@ alerts:
 - Padding : `--size-6` desktop, `--size-4` mobile
 
 **Typo** :
-- Titre : bold, `--font-size-5`, couleur `--text-primary`
-- Critères : normale, `--font-size-3`, couleur `--text-secondary`
-- Fréquence : italique optionnel, `--font-size-2`, couleur `--text-secondary`
+- Titre : bold, `--font-size-7`, couleur `--text-primary`
+- Critères : normale, `--font-size-5`, couleur `--text-secondary`
+- Fréquence : italique optionnel, `--font-size-4`, couleur `--text-secondary`
 
 **Badge nouveaux biens** :
 - Fond : `--warning-bg-subtle` (orange clair)

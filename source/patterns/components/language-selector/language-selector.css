@@ -34,7 +34,7 @@
 
   /* Typography */
   --ps-language-selector-font-family: var(--font-sans);
-  --ps-language-selector-font-size: var(--font-size-2); /* 14px */
+  --ps-language-selector-font-size: var(--font-size-4); /* 14px */
   --ps-language-selector-font-weight: var(--font-weight-400);
   --ps-language-selector-line-height: var(--size-6); /* 24px */
 

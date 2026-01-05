@@ -200,7 +200,7 @@ export const WithDisabledOptions = {
           Property type (some options disabled)
         </label>
         ${dropdown}
-        <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--ps-color-text-muted);">
+        <p style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--ps-color-text-muted);">
           Try opening the dropdown - Loft and Villa options are disabled
         </p>
       </div>
@@ -262,7 +262,7 @@ export const LongList = {
           Country (scrollable list)
         </label>
         ${dropdown}
-        <p style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--ps-color-text-muted);">
+        <p style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--ps-color-text-muted);">
           List has max-height and scroll for many options
         </p>
       </div>
@@ -284,7 +284,7 @@ export const GroupedWithCheckboxes = {
             aria-haspopup="listbox"
             aria-expanded="false"
             data-grouped-dropdown-button
-            style="display: inline-flex; align-items: center; justify-content: space-between; gap: var(--size-2); width: 100%; min-width: var(--ps-dropdown-min-width-medium); padding: var(--size-2) var(--size-3); border: var(--border-size-1) solid var(--gray-300); border-radius: var(--radius-2); background: var(--white); color: var(--ps-color-text); font-family: var(--ps-font-family-primary); font-size: var(--font-size-1); line-height: var(--leading-normal); cursor: pointer;"
+            style="display: inline-flex; align-items: center; justify-content: space-between; gap: var(--size-2); width: 100%; min-width: var(--ps-dropdown-min-width-medium); padding: var(--size-2) var(--size-3); border: var(--border-size-1) solid var(--gray-300); border-radius: var(--radius-2); background: var(--white); color: var(--ps-color-text); font-family: var(--ps-font-family-primary); font-size: var(--font-size-3); line-height: var(--leading-normal); cursor: pointer;"
           >
             <span style="flex: 1; text-align: left;">Placeholder</span>
             <span data-icon="chevron-down" aria-hidden="true" style="flex-shrink: 0; width: var(--ps-icon-size-20); height: var(--ps-icon-size-20); font-size: var(--ps-icon-size-20); line-height: 1;"></span>
@@ -294,22 +294,22 @@ export const GroupedWithCheckboxes = {
             style="display: none; position: absolute; z-index: var(--layer-40); top: calc(100% + var(--size-1)); left: 0; min-width: 100%; max-height: var(--size-80); overflow-y: auto; background: var(--white); border: var(--border-size-1) solid var(--gray-300); border-radius: var(--radius-2); box-shadow: var(--shadow-4); padding: var(--size-2) 0; margin: 0; list-style: none;"
           >
             <!-- Section 1 -->
-            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--ps-color-text-muted); text-transform: uppercase;">
+            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-2); color: var(--ps-color-text-muted); text-transform: uppercase;">
               Section 1
             </div>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 1</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 2</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 3</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 4</span>
             </label>
@@ -318,18 +318,18 @@ export const GroupedWithCheckboxes = {
             <div style="height: var(--border-size-1); background: var(--color-border-default); margin: var(--size-2) 0;"></div>
 
             <!-- Section 2 -->
-            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--ps-color-text-muted); text-transform: uppercase;">
+            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-2); color: var(--ps-color-text-muted); text-transform: uppercase;">
               Section 2
             </div>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 1</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 2</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 3</span>
             </label>
@@ -338,18 +338,18 @@ export const GroupedWithCheckboxes = {
             <div style="height: var(--border-size-1); background: var(--color-border-default); margin: var(--size-2) 0;"></div>
 
             <!-- Section 3 -->
-            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--ps-color-text-muted); text-transform: uppercase;">
+            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-2); color: var(--ps-color-text-muted); text-transform: uppercase;">
               Section 3
             </div>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 1</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 2</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 3</span>
             </label>
@@ -358,32 +358,32 @@ export const GroupedWithCheckboxes = {
             <div style="height: var(--border-size-1); background: var(--color-border-default); margin: var(--size-2) 0;"></div>
 
             <!-- Section 4 -->
-            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-0); color: var(--ps-color-text-muted); text-transform: uppercase;">
+            <div style="padding: var(--size-2) var(--size-3); font-weight: var(--font-weight-600); font-size: var(--font-size-2); color: var(--ps-color-text-muted); text-transform: uppercase;">
               Section 4
             </div>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 1</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 2</span>
             </label>
-            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-1); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
+            <label style="display: flex; align-items: center; gap: var(--size-2); padding: var(--size-2) var(--size-3) var(--size-2) var(--size-6); cursor: pointer; color: var(--ps-color-text); font-size: var(--font-size-3); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--color-bg-subtle)'" onmouseout="this.style.backgroundColor='transparent'">
               <input type="checkbox" style="width: var(--size-4); height: var(--size-4); cursor: pointer; flex-shrink: 0;">
               <span>Item 3</span>
             </label>
 
             <!-- Footer Button -->
             <div style="padding: var(--size-3) var(--size-3) var(--size-2); border-top: var(--border-size-1) solid var(--color-border-default); margin-top: var(--size-2);">
-              <button type="button" style="width: 100%; padding: var(--size-3) var(--size-4); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-1); font-weight: var(--font-weight-600); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--primary-hover)'" onmouseout="this.style.backgroundColor='var(--primary)'">
+              <button type="button" style="width: 100%; padding: var(--size-3) var(--size-4); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-3); font-weight: var(--font-weight-600); transition: background-color var(--duration-200) var(--ease-in-out);" onmouseover="this.style.backgroundColor='var(--primary-hover)'" onmouseout="this.style.backgroundColor='var(--primary)'">
                 Apply Selection
               </button>
             </div>
           </div>
         </div>
 
-        <p style="margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--ps-color-text-muted);">
+        <p style="margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--ps-color-text-muted);">
           <strong>Design mockup preview</strong>: Grouped sections with checkboxes and footer button.<br>
           This is a visual prototype of the "Search" variant shown in mockups.<br>
           <em>Future implementation will require: multiselect prop, grouped options data structure, and footer slot.</em>

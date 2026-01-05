@@ -123,7 +123,7 @@ source/patterns/elements/{component}/
   --ps-input-width: 100%;
   --ps-input-height: var(--size-10);
   --ps-input-padding: 0 var(--size-4);
-  --ps-input-font-size: var(--font-size-4);
+  --ps-input-font-size: var(--font-size-6);
   --ps-input-border-color: var(--border-default);
   --ps-input-border-radius: 0;
   --ps-input-bg-color: var(--white);
@@ -470,21 +470,21 @@ export const Disabled = {
 }
 
 .ps-form-optional {
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   color: var(--text-secondary);
 }
 
 .ps-form-error {
   display: block;
   color: var(--danger);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   margin-top: var(--size-2);
 }
 
 .ps-form-helper {
   display: block;
   color: var(--text-secondary);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   margin-top: var(--size-2);
 }
 ```
@@ -507,7 +507,7 @@ export const Disabled = {
 - [ ] Icon spacing: `var(--size-8)` (32px padding when icon present)
 
 ### Typography
-- [ ] Font size: `var(--font-size-4)` (16px)
+- [ ] Font size: `var(--font-size-6)` (16px)
 - [ ] Font weight: `var(--font-weight-400)` (normal), `var(--font-weight-600)` (labels)
 - [ ] Line height: `var(--line-height-4)` (1.5)
 
@@ -612,7 +612,7 @@ export const Disabled = {
 .ps-input {
   border: 1px solid var(--border-default);
   padding: var(--size-4);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-6);
 }
 ```
 

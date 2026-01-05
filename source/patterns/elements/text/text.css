@@ -16,7 +16,7 @@
 p {
   margin: 0 0 var(--size-4);
   font-family: var(--font-sans);
-  font-size: var(--font-size-1); /* 16px - base text */
+  font-size: var(--font-size-3); /* 16px - base text */
   line-height: var(--leading-normal);
   font-weight: var(--font-weight-400);
   color: var(--gray-900);

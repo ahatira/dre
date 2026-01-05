@@ -42,7 +42,7 @@
       border-style: solid;
       border-width: var(--border-size-1);
       display: grid;
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       inline-size: var(--size-40);
       place-content: center;
     }
@@ -82,23 +82,23 @@
       display: flex;
       flex-direction: column;
       gap: var(--size-2);
-      font-size: var(--font-size-0);
+      font-size: var(--font-size-2);
 
       .name {
         font-weight: var(--font-weight-600);
         color: var(--text-primary);
-        font-size: var(--font-size-2);
+        font-size: var(--font-size-4);
       }
 
       .var {
         font-family: monospace;
-        font-size: var(--font-size--1);
+        font-size: var(--font-size-1);
         color: var(--primary);
         word-break: break-all;
       }
 
       .usage {
-        font-size: var(--font-size--1);
+        font-size: var(--font-size-1);
         color: var(--text-secondary);
         font-style: italic;
       }
@@ -119,7 +119,7 @@
   }
 
   .section-title {
-    font-size: var(--font-size-6);
+    font-size: var(--font-size-9);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
     margin: 0 0 var(--size-3) 0;
@@ -127,7 +127,7 @@
   }
 
   .section-intro {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     color: var(--text-secondary);
     margin: 0 0 var(--size-8) 0;
     line-height: var(--line-height-3);
@@ -160,7 +160,7 @@
   }
 
   .theme-color-name {
-    font-size: var(--font-size-4);
+    font-size: var(--font-size-6);
     font-weight: var(--font-weight-600);
     color: #f0f0f0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -249,7 +249,7 @@
   .brand-group__title,
   .color-group__title,
   .color-section__title {
-    font-size: var(--font-size-5);
+    font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
     padding-bottom: var(--size-4);
@@ -258,7 +258,7 @@
   }
 
   .color-category__title {
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
     font-weight: var(--font-weight-600);
     color: var(--text-primary);
     margin-block: var(--size-6) var(--size-3);
@@ -295,7 +295,7 @@
     line-height: var(--line-height-3);
 
     strong {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       margin-bottom: var(--size-1);
     }
   }
@@ -303,7 +303,7 @@
   .color-shade {
     background-color: var(--bg-section);
     border-bottom: 1px solid var(--border-light);
-    font-size: var(--font-size-00);
+    font-size: var(--font-size-20);
     color: var(--text-primary);
     transition: background-color 0.2s ease;
     padding: var(--size-3) var(--size-4);
@@ -364,7 +364,7 @@
         padding: var(--size-6) var(--size-5);
         text-align: left;
         font-weight: var(--font-weight-700);
-        font-size: var(--font-size-0);
+        font-size: var(--font-size-2);
         color: var(--text-primary);
         border-bottom: 2px solid var(--border-default);
 
@@ -401,7 +401,7 @@
 
         p {
           margin: 0;
-          font-size: var(--font-size-1);
+          font-size: var(--font-size-3);
           line-height: var(--line-height-3);
           color: var(--text-primary);
 
@@ -411,7 +411,7 @@
 
           code {
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: var(--font-size-00);
+            font-size: var(--font-size-20);
             padding: var(--size-1) var(--size-2);
             background: var(--bg-section);
             border: 1px solid var(--border-light);
@@ -436,7 +436,7 @@
 
         .fw-bold {
           font-weight: var(--font-weight-700);
-          font-size: var(--font-size-3);
+          font-size: var(--font-size-5);
         }
       }
 
@@ -512,7 +512,7 @@
 
     .font-preview {
       flex-shrink: 0;
-      font-size: var(--font-size-13);
+      font-size: var(--font-size-20);
       font-weight: var(--font-weight-400);
       inline-size: 100%;
       line-height: var(--line-height-1);
@@ -550,7 +550,7 @@
       }
 
       > div {
-        font-size: var(--font-size-0);
+        font-size: var(--font-size-2);
         line-height: var(--line-height-4);
       }
     }
@@ -612,7 +612,7 @@
 
   .heading {
     font-family: var(--font-system);
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
     font-weight: var(--font-weight-500);
   }
 }
@@ -626,7 +626,7 @@
   }
 
   .demo-label {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     margin-block-end: var(--size-1);
   }
 
@@ -722,7 +722,7 @@ em {
   color: white;
   padding: var(--size-2) var(--size-4);
   border-radius: var(--radius-2);
-  font-size: var(--font-size--1);
+  font-size: var(--font-size-1);
   font-weight: var(--font-weight-700);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
@@ -730,7 +730,7 @@ em {
 }
 
 .typography-section__title {
-  font-size: var(--font-size-7);
+  font-size: var(--font-size-11);
   font-weight: var(--font-weight-700);
   color: var(--text-primary);
   margin: 0 0 var(--size-6) 0;
@@ -739,7 +739,7 @@ em {
 }
 
 .typography-section__description {
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   color: var(--text-secondary);
   margin: 0 0 var(--size-6) 0;
   line-height: var(--leading-relaxed);
@@ -750,7 +750,7 @@ em {
     padding: 0 var(--size-2);
     border-radius: var(--radius-1);
     font-family: var(--font-mono);
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
     color: var(--primary);
   }
 }
@@ -764,7 +764,7 @@ em {
 }
 
 .meta-item {
-  font-size: var(--font-size-0);
+  font-size: var(--font-size-2);
   color: var(--text-secondary);
 
   strong {
@@ -804,7 +804,7 @@ em {
     padding: var(--size-2) var(--size-4);
     border-radius: var(--radius-2);
     font-family: var(--font-mono);
-    font-size: var(--font-size--1);
+    font-size: var(--font-size-1);
     margin-bottom: var(--size-6);
     font-weight: var(--font-weight-700);
     letter-spacing: var(--tracking-wide);
@@ -839,7 +839,7 @@ em {
 
   .demo-notes {
     display: block;
-    font-size: var(--font-size--1);
+    font-size: var(--font-size-1);
     color: var(--text-tertiary);
     margin-top: var(--size-6);
     font-family: var(--font-mono);
@@ -858,7 +858,7 @@ em {
   border-radius: var(--radius-3);
 
   h3 {
-    font-size: var(--font-size-5);
+    font-size: var(--font-size-7);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
     margin: var(--size-10) 0 var(--size-6) 0;
@@ -871,7 +871,7 @@ em {
   }
 
   p {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     color: var(--text-primary);
     line-height: var(--leading-relaxed);
     margin: var(--size-6) 0;
@@ -896,7 +896,7 @@ em {
       font-weight: var(--font-weight-700);
       color: var(--text-primary);
       margin-top: var(--size-6);
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
 
       &:first-child {
         margin-top: 0;
@@ -915,7 +915,7 @@ em {
     padding: var(--size-1) var(--size-3);
     border-radius: var(--radius-1);
     font-family: var(--font-mono);
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
     color: var(--primary);
   }
 
@@ -931,7 +931,7 @@ em {
     footer {
       font-style: normal;
       color: var(--text-secondary);
-      font-size: var(--font-size-0);
+      font-size: var(--font-size-2);
       margin-top: var(--size-4);
     }
 
@@ -948,7 +948,7 @@ em {
 }
 
 .typography-subsection__title {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-6);
   font-weight: var(--font-weight-700);
   color: var(--text-primary);
   margin: 0 0 var(--size-6) 0;
@@ -958,7 +958,7 @@ em {
   width: 100%;
   border-collapse: collapse;
   margin: var(--size-8) 0;
-  font-size: var(--font-size-0);
+  font-size: var(--font-size-2);
   overflow: hidden;
   border-radius: var(--radius-2);
   border: 1px solid var(--border-light);
@@ -995,7 +995,7 @@ em {
   padding: var(--size-2) var(--size-3);
   border-radius: var(--radius-1);
   font-family: var(--font-mono);
-  font-size: var(--font-size--1);
+  font-size: var(--font-size-1);
   color: var(--primary);
   white-space: nowrap;
 }
@@ -1027,27 +1027,27 @@ em {
   }
 
   .display-1 {
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-20);
   }
 
   .display-2 {
-    font-size: var(--font-size-13);
+    font-size: var(--font-size-20);
   }
 
   .display-3 {
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-20);
   }
 
   .display-4 {
-    font-size: var(--font-size-11);
+    font-size: var(--font-size-19);
   }
 
   .display-5 {
-    font-size: var(--font-size-10);
+    font-size: var(--font-size-17);
   }
 
   .display-6 {
-    font-size: var(--font-size-9);
+    font-size: var(--font-size-15);
   }
 }
 
@@ -1064,7 +1064,7 @@ em {
     padding-block: var(--size-8);
     padding-inline: var(--size-4);
     text-align: left;
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
   }
 
   p,
@@ -1073,16 +1073,16 @@ em {
   }
 
   .lead {
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
     line-height: var(--leading-relaxed);
   }
 
   .micro {
-    font-size: var(--font-size--1);
+    font-size: var(--font-size-1);
   }
 
   .text-xs {
-    font-size: var(--font-size--2);
+    font-size: var(--font-size-0);
   }
 }
 
@@ -1118,7 +1118,7 @@ em {
 
   thead tr:last-child th {
     font-weight: var(--font-weight-600);
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
     padding: var(--size-4) var(--size-6);
   }
 
@@ -1173,7 +1173,7 @@ em {
   }
 
   code {
-    font-size: var(--font-size--1);
+    font-size: var(--font-size-1);
   }
 
   th[colspan="2"] {
@@ -1551,7 +1551,7 @@ em {
 
 .anim-card__title {
   margin: 0;
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-5);
   font-weight: var(--font-weight-700);
   color: white;
   font-family: var(--font-mono);
@@ -1581,7 +1581,7 @@ em {
   padding: var(--size-4) var(--size-5);
   background: white;
   border-top: 1px solid var(--border-light);
-  font-size: var(--font-size-0);
+  font-size: var(--font-size-2);
 }
 
 .anim-card__detail {
@@ -1602,7 +1602,7 @@ em {
 
 .anim-card__code {
   display: inline-block;
-  font-size: var(--font-size--1);
+  font-size: var(--font-size-1);
   color: var(--primary);
   background: var(--gray-100);
   padding: var(--size-1) var(--size-2);

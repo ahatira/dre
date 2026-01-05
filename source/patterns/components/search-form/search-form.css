@@ -129,7 +129,7 @@
     border: var(--border-size-1) solid var(--ps-search-form-input-border);
     border-radius: 0;
     background-color: var(--ps-search-form-input-bg);
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     font-family: var(--font-family-sans);
     color: var(--text-primary);
     transition:
@@ -177,7 +177,7 @@
     border-radius: 0;
     background-color: var(--primary);
     color: var(--white);
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
     font-weight: var(--font-weight-600);
     cursor: pointer;
     transition:
@@ -249,7 +249,7 @@
 
   /* Close button icon */
   &__close-icon {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
   }
 
   /* Mobile-sm (400px+) */
@@ -275,7 +275,7 @@
     &__input {
       height: 54px;
       padding-inline: var(--size-5);
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
     }
 
     &__submit {

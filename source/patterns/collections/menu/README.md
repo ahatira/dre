@@ -49,7 +49,7 @@ Each menu item object contains:
 
 ```css
 --ps-menu-text-color: var(--text-primary)
---ps-menu-text-size: var(--font-size-3)
+--ps-menu-text-size: var(--font-size-5)
 --ps-menu-text-weight: var(--font-weight-400)
 --ps-menu-link-color: var(--text-primary)
 --ps-menu-link-color-hover: var(--primary)

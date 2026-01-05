@@ -84,7 +84,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Styles** (favorites.css): Token-based design with interactive states
     - Component-scoped variables for all customizable properties
     - Button size: 36px (--size-9), Icon size: 24px (--size-6)
-    - Badge size: 20px (--size-5), Font: 12px (--font-size-0)
+    - Badge size: 20px (--size-5), Font: 12px (--font-size-2)
     - Color states: Gray-700 (both empty & filled), Secondary (badge)
     - Hover: scale 1.05, Active: scale 0.95
     - Focus-visible outline with 4px offset
@@ -115,7 +115,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Classes**: .ps-favorites, .ps-favorites--has-items, .ps-favorites__badge
 - **Badge**: Absolute position, circular, pointer-events: none
 - **Transitions**: Fast duration (150ms) with ease-out
-- **Typography**: Badge uses --font-size-0 (12px), weight 700
+- **Typography**: Badge uses --font-size-2 (12px), weight 700
 - **Border-radius**: Full circle for badge (--radius-5)
 - **Accessibility**: ARIA label with count, badge aria-hidden
 
@@ -377,7 +377,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **CSS amélioré** :
     - Image : largeur fixe `48px` (desktop), `40px` (mobile)
     - Alignement : `flex-start` pour image + text propre
-    - Slogan : taille réduite `--font-size-1` (13px)
+    - Slogan : taille réduite `--font-size-3` (13px)
     - `white-space: normal` + `word-break: break-word` pour responsive
     - Media query mobile : font-size réduite
   - **Flexbox optimization** :

@@ -22,7 +22,7 @@
   --ps-favorites-badge-size: var(--size-5); /* 20px */
   --ps-favorites-badge-bg: var(--secondary);
   --ps-favorites-badge-color: var(--white);
-  --ps-favorites-badge-font-size: var(--font-size-0); /* 12px */
+  --ps-favorites-badge-font-size: var(--font-size-2); /* 12px */
   --ps-favorites-badge-offset-top: calc(var(--size-1) / -2); /* ~-2px */
   --ps-favorites-badge-offset-left: calc(
     var(--ps-favorites-size) - (var(--ps-favorites-badge-size) * 0.75)

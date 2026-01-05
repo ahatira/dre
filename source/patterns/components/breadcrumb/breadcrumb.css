@@ -3,7 +3,7 @@
   
   /* Typography */
   --ps-breadcrumb-font-family: var(--font-sans);
-  --ps-breadcrumb-font-size: var(--font-size-1); /* 16px - Figma spec */
+  --ps-breadcrumb-font-size: var(--font-size-3); /* 16px - Figma spec */
   --ps-breadcrumb-font-weight: var(--font-weight-400);
   --ps-breadcrumb-line-height: var(--leading-6); /* 24px - Figma spec */
   
@@ -111,7 +111,7 @@
   
   /* Modifiers */
   &--compact {
-    --ps-breadcrumb-font-size: var(--font-size--1); /* 12px */
+    --ps-breadcrumb-font-size: var(--font-size-1); /* 12px */
     --ps-breadcrumb-separator-margin: var(--size-05); /* 2px */
     --ps-breadcrumb-separator-size: calc(var(--size-3) + var(--size-05)); /* 14px = 12px + 2px */
   }

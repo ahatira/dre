@@ -6,13 +6,13 @@
   --ps-card-agent-padding: var(--size-7);
   --ps-card-agent-gap: var(--size-4);
   --ps-card-agent-photo-size: var(--size-12);
-  --ps-card-agent-label-size: var(--font-size-2);
+  --ps-card-agent-label-size: var(--font-size-4);
   --ps-card-agent-label-color: var(--text-primary);
   --ps-card-agent-name-color: var(--text-primary);
-  --ps-card-agent-name-size: var(--font-size-7);
+  --ps-card-agent-name-size: var(--font-size-11);
   --ps-card-agent-name-weight: var(--font-weight-800);
   --ps-card-agent-phone-color: var(--text-secondary);
-  --ps-card-agent-phone-icon-size: var(--font-size-6);
+  --ps-card-agent-phone-icon-size: var(--font-size-9);
 
   display: flex;
   flex-direction: column;

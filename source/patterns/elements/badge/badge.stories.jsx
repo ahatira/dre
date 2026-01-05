@@ -141,7 +141,7 @@ export const AvecIcone = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-4);">
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Icon start (default)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Icon start (default)</p>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${badgeTwig({ color: 'success', text: 'Available', icon: 'check' })}
           ${badgeTwig({ color: 'danger', text: 'Sold', icon: 'check' })}
@@ -150,7 +150,7 @@ export const AvecIcone = {
         </div>
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Icon start + Pill</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Icon start + Pill</p>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${badgeTwig({ color: 'primary', text: 'New', icon: 'plus', pill: true })}
           ${badgeTwig({ color: 'secondary', text: 'Special', icon: 'star', pill: true })}
@@ -158,14 +158,14 @@ export const AvecIcone = {
         </div>
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Icon end</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Icon end</p>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${badgeTwig({ color: 'info', text: 'Learn more', icon: 'arrow-right', iconPosition: 'end' })}
           ${badgeTwig({ color: 'primary', text: 'Link', icon: 'external-link', iconPosition: 'end' })}
         </div>
       </div>
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Icon end + Pill</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Icon end + Pill</p>
         <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
           ${badgeTwig({ color: 'secondary', text: 'Visit', icon: 'arrow-right', iconPosition: 'end', pill: true })}
           ${badgeTwig({ color: 'info', text: 'Discover', icon: 'external-link', iconPosition: 'end', pill: true })}

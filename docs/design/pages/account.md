@@ -141,10 +141,10 @@ Page de gestion du compte utilisateur avec navigation entre sections (My account
 - Badges : `--warning` (nouveaux biens)
 
 **Typo** :
-- Titres : bold, `--font-size-5` ou `--font-size-6`
-- Labels : bold, `--font-size-3`
-- Corps : `--font-size-3`
-- Helper text : `--font-size-2`, couleur `--text-secondary`
+- Titres : bold, `--font-size-7` ou `--font-size-9`
+- Labels : bold, `--font-size-5`
+- Corps : `--font-size-5`
+- Helper text : `--font-size-4`, couleur `--text-secondary`
 
 **Bordures & Ombres** :
 - Cartes : `--border-light`, `--shadow-sm`

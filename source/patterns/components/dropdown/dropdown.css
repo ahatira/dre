@@ -55,7 +55,7 @@
   
   /* Typography */
   --ps-dropdown-font-family: var(--font-sans);
-  --ps-dropdown-font-size: var(--font-size-1);
+  --ps-dropdown-font-size: var(--font-size-3);
   --ps-dropdown-font-weight: var(--font-weight-400);
   --ps-dropdown-font-weight-selected: var(--font-weight-600);
   --ps-dropdown-line-height: var(--leading-normal);
@@ -222,7 +222,7 @@
   --ps-dropdown-button-padding-x: var(--size-2);
   --ps-dropdown-option-padding-y: var(--size-2);
   --ps-dropdown-option-padding-x: var(--size-2);
-  --ps-dropdown-font-size: var(--font-size-0);
+  --ps-dropdown-font-size: var(--font-size-2);
   --ps-dropdown-icon-size: var(--size-4);
   --ps-dropdown-min-width: 160px;
 }
@@ -232,7 +232,7 @@
 .ps-dropdown--large {
   --ps-dropdown-button-padding-y: var(--size-3);
   --ps-dropdown-button-padding-x: var(--size-4);
-  --ps-dropdown-font-size: var(--font-size-2);
+  --ps-dropdown-font-size: var(--font-size-4);
   --ps-dropdown-icon-size: var(--size-6);
   --ps-dropdown-min-width: 240px;
 }

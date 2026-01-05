@@ -35,7 +35,7 @@
   /* Label (pending state) */
   --ps-wizard-label-color: var(--text-secondary);
   --ps-wizard-label-weight: var(--font-weight-normal);
-  --ps-wizard-label-size: var(--font-size-1);
+  --ps-wizard-label-size: var(--font-size-3);
   
   /* ============================================
      BASE STYLES
@@ -152,7 +152,7 @@
     --ps-wizard-marker-scale: 1.15;
     --ps-wizard-label-color: var(--text-primary);
     --ps-wizard-label-weight: var(--font-weight-semibold);
-    --ps-wizard-label-size: var(--font-size-1);
+    --ps-wizard-label-size: var(--font-size-3);
   }
   
   /* Completed state */
@@ -189,7 +189,7 @@
   background-color: var(--ps-wizard-marker-bg);
   color: var(--ps-wizard-marker-text);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-5);
   box-shadow: var(--ps-wizard-marker-shadow);
   transform: scale(var(--ps-wizard-marker-scale));
   position: relative;
@@ -309,7 +309,7 @@
   
   .ps-wizard-steps__label {
     /* Readable font size on mobile */
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     line-height: var(--line-height-normal);
     
     /* Allow full text display in vertical mode */
@@ -326,7 +326,7 @@
   }
   
   .ps-wizard-steps__number {
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
   }
 }
 
@@ -348,6 +348,6 @@
   }
   
   .ps-wizard-steps__label {
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
   }
 }

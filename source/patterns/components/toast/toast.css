@@ -138,7 +138,7 @@
 .ps-toast {
   &__content {
     flex: 1;
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     line-height: var(--leading-normal);
   }
 

@@ -233,7 +233,7 @@
 .offer-reference {
   display: flex;
   gap: var(--size-2);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   color: var(--offer-muted);
 }
 
@@ -253,30 +253,33 @@
 }
 
 .offer-meta__building {
+  display: block;
   margin: 0;
-  color: var(--offer-muted);
-  font-weight: var(--font-weight-600);
 }
 
 .offer-meta__title {
   margin: 0;
-  font-size: var(--font-size-7);
-  line-height: var(--line-height-tight);
 }
 
 .offer-meta__price {
   display: flex;
-  flex-direction: column;
-  gap: var(--size-1);
+  flex-direction: row;
+  gap: var(--size-2);
   color: var(--offer-heading);
   font-weight: var(--font-weight-700);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  align-items: baseline;
 }
 
 .offer-meta__price-value {
-  font-size: var(--font-size-6);
+  display: inline-flex;
+  font-size: var(--font-size-9);
 }
 
 .offer-meta__price-unit {
+  display: inline-flex;
+  font-size: var(--font-size-4);
   color: var(--offer-muted);
 }
 
@@ -294,7 +297,7 @@
 
 .offer-meta__fact dt {
   color: var(--offer-muted);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
 }
 
 .offer-meta__fact dd {
@@ -319,7 +322,7 @@
 
 .offer-description__title {
   margin: 0;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
 }
 
 .offer-description__body {
@@ -335,7 +338,7 @@
 
 .offer-features__title {
   margin: 0;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
 }
 
 .offer-features__grid {
@@ -364,7 +367,7 @@
 
 .offer-features__group-title {
   margin: 0;
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-5);
 }
 
 .offer-features__list {
@@ -383,7 +386,7 @@
 
 .offer-energy__title {
   margin: 0;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
 }
 
 .offer-energy__metrics {
@@ -447,7 +450,7 @@
 
 .offer-surface__title {
   margin: 0;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
 }
 
 .offer-surface__table-wrapper {
@@ -481,7 +484,7 @@
 
 .offer-location__title {
   margin: 0;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
 }
 
 .offer-location__address {

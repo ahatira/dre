@@ -64,7 +64,7 @@ Score 100/100 points only if ALL checks pass (no partial credit).
 === CSS STYLES ===
 
 ☐ ALL values from tokens (ZERO hardcoded values):
-  ✅ background: var(--primary); font-size: var(--font-size-1);
+  ✅ background: var(--primary); font-size: var(--font-size-3);
   ❌ background: #00915A; font-size: 16px; color: green;
   - Check EVERY value: colors, sizes, durations, shadows, borders, spacing
 
@@ -198,7 +198,7 @@ Score 100/100 points only if ALL checks pass (no partial credit).
 
 ☐ Section: **## Design Tokens**
   - var(--primary), var(--secondary), var(--success), var(--warning), var(--danger), var(--info), var(--gold)
-  - var(--size-2), var(--size-3), var(--font-size-0)
+  - var(--size-2), var(--size-3), var(--font-size-2)
   - var(--text-primary), var(--border-default)
 
 ☐ Section: **## Accessibility**

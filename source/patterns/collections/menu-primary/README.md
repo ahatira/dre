@@ -100,7 +100,7 @@ All styling uses tokens from `source/props/`:
 - `--size-6` (24px) - Submenu indent (mobile)
 
 ### Typography
-- `--font-size-3` (16px) - Link text size
+- `--font-size-5` (16px) - Link text size
 - `--font-weight-400` - Normal weight
 - `--line-height-2` - Line height
 

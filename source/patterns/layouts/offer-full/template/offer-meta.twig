@@ -26,10 +26,10 @@
     <div class="offer-meta__header">
       <div class="offer-meta__titles">
         {% if meta.building.value %}
-          <p class="offer-meta__building">{{ meta.building.value }}</p>
+          <span class="offer-meta__building h3">{{ meta.building.value }}</span>
         {% endif %}
         {% if meta.title %}
-          <h1 class="offer-meta__title" id="offer-meta-heading">{{ meta.title }}</h1>
+          <h3 class="offer-meta__title" id="offer-meta-heading">{{ meta.title }}</h3>
         {% endif %}
       </div>
       {% if meta.price.value %}

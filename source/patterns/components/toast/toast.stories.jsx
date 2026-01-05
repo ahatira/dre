@@ -78,7 +78,7 @@ export const Default = {
       <div style="padding: var(--size-4);">
         <button 
           onclick="window.Toast && window.Toast.create({ message: '${args.message}', type: '${args.type}', duration: ${args.duration} })"
-          style="padding: var(--size-3) var(--size-5); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-1); font-weight: var(--font-weight-600);"
+          style="padding: var(--size-3) var(--size-5); background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-2); cursor: pointer; font-size: var(--font-size-3); font-weight: var(--font-weight-600);"
           onmouseover="this.style.opacity='0.9'"
           onmouseout="this.style.opacity='1'"
         >
@@ -217,7 +217,7 @@ export const InteractiveDemo = {
       border: none;
       border-radius: var(--radius-2);
       cursor: pointer;
-      font-size: var(--font-size-1);
+      font-size: var(--font-size-3);
       font-weight: var(--font-weight-600);
       color: var(--white);
       transition: opacity var(--duration-fast) var(--ease-out-quad);
@@ -240,7 +240,7 @@ export const InteractiveDemo = {
     return `
       <div style="padding: var(--size-4);">
         <div style="margin-bottom: var(--size-6);">
-          <h3 style="margin-bottom: var(--size-3); font-size: var(--font-size-3); font-weight: var(--font-weight-700);">
+          <h3 style="margin-bottom: var(--size-3); font-size: var(--font-size-5); font-weight: var(--font-weight-700);">
             Toast Types
           </h3>
           <div style="display: flex; gap: var(--size-3); flex-wrap: wrap;">
@@ -262,7 +262,7 @@ export const InteractiveDemo = {
         </div>
 
         <div>
-          <h3 style="margin-bottom: var(--size-3); font-size: var(--font-size-3); font-weight: var(--font-weight-700);">
+          <h3 style="margin-bottom: var(--size-3); font-size: var(--font-size-5); font-weight: var(--font-weight-700);">
             Toast Positions
           </h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--size-3); max-width: 400px;">
@@ -283,7 +283,7 @@ export const InteractiveDemo = {
           </div>
         </div>
 
-        <p style="margin-top: var(--size-5); color: var(--text-secondary); font-size: var(--font-size-0);">
+        <p style="margin-top: var(--size-5); color: var(--text-secondary); font-size: var(--font-size-2);">
           Toasts auto-dismiss after 4-5 seconds or click the close button.
         </p>
       </div>

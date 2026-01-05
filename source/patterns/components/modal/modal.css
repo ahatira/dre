@@ -17,7 +17,7 @@
   --modal-shadow: var(--shadow-6);
   --modal-z-index: var(--layer-important);
   --modal-close-size: var(--size-8);
-  --modal-close-font-size: var(--font-size-6);
+  --modal-close-font-size: var(--font-size-9);
   --modal-focus-outline: var(--border-size-2) solid var(--border-focus);
   --modal-focus-offset: var(--size-1);
   --modal-transition: all var(--duration-fast) var(--ease-4);

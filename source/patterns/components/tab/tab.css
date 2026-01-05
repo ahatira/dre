@@ -4,7 +4,7 @@
   /* Component-scoped variables */
   /* Typography */
   --ps-tab-font-family: var(--font-body);
-  --ps-tab-font-size: var(--font-size-2);
+  --ps-tab-font-size: var(--font-size-4);
   --ps-tab-font-weight: var(--font-weight-500);
   --ps-tab-selected-font-weight: var(--font-weight-600);
 

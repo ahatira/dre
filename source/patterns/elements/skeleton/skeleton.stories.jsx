@@ -49,32 +49,32 @@ export const Variants = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-6);">
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Text (single line)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Text (single line)</p>
         ${skeletonTwig({ variant: 'text', width: '80%' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Circle (avatar/icon)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Circle (avatar/icon)</p>
         ${skeletonTwig({ variant: 'circle' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Rectangle (image)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Rectangle (image)</p>
         ${skeletonTwig({ variant: 'rectangle', width: '300px' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Avatar</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Avatar</p>
         ${skeletonTwig({ variant: 'avatar' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Button</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Button</p>
         ${skeletonTwig({ variant: 'button' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Card</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Card</p>
         ${skeletonTwig({ variant: 'card', width: '300px' })}
       </div>
     </div>
@@ -87,17 +87,17 @@ export const Animations = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 400px;">
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Pulse (default)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Pulse (default)</p>
         ${skeletonTwig({ variant: 'text', animation: 'pulse' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">Wave (shimmer)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">Wave (shimmer)</p>
         ${skeletonTwig({ variant: 'text', animation: 'wave' })}
       </div>
       
       <div>
-        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-0); font-weight: 600; color: var(--gray-700);">None (static)</p>
+        <p style="margin: 0 0 var(--size-2) 0; font-size: var(--font-size-2); font-weight: 600; color: var(--gray-700);">None (static)</p>
         ${skeletonTwig({ variant: 'text', animation: 'none' })}
       </div>
     </div>

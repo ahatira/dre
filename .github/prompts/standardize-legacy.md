@@ -92,7 +92,7 @@ AFTER (nested, 45 lines):
   }
   
   &__title {
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
   }
   
   &__body {
@@ -139,9 +139,9 @@ SIZES:
 24px → var(--size-6)
 
 TYPOGRAPHY:
-13px → var(--font-size-1)
-16px → var(--font-size-2)
-19px → var(--font-size-3)
+13px → var(--font-size-3)
+16px → var(--font-size-4)
+19px → var(--font-size-5)
 400 → var(--font-weight-normal)
 600 → var(--font-weight-semibold)
 

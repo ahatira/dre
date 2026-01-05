@@ -93,10 +93,10 @@ SIZES:
 32px → var(--size-8)
 
 TYPOGRAPHY:
-11px → var(--font-size-0)
-13px → var(--font-size-1)
-16px → var(--font-size-2)
-19px → var(--font-size-3)
+11px → var(--font-size-2)
+13px → var(--font-size-3)
+16px → var(--font-size-4)
+19px → var(--font-size-5)
 400 → var(--font-weight-normal)
 600 → var(--font-weight-semibold)
 700 → var(--font-weight-bold)
@@ -164,7 +164,7 @@ AFTER (nested + tokens, 35 lines):
   color: var(--white);
   border: none;
   border-radius: var(--radius-2);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   font-weight: var(--font-weight-semibold);
   transition: background var(--duration-fast) var(--ease-3);
   cursor: pointer;
@@ -178,7 +178,7 @@ AFTER (nested + tokens, 35 lines):
   /* Modifiers */
   &--small {
     padding: var(--size-2) var(--size-4);
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
   }
   
   /* States */
@@ -279,7 +279,7 @@ Document token usage:
 - Gap: `--size-2`
 
 ### Typography
-- Font size: `--font-size-2`
+- Font size: `--font-size-4`
 - Font weight: `--font-weight-semibold`
 
 ### Other

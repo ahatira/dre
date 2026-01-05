@@ -32,7 +32,7 @@
   --ps-tag-border-radius: var(--radius-2); /* 4px for filled by default */
   
   /* Typography */
-  --ps-tag-font-size: var(--font-size-0); /* 14px (medium default) */
+  --ps-tag-font-size: var(--font-size-2); /* 14px (medium default) */
   --ps-tag-font-weight: var(--font-weight-500);
   --ps-tag-line-height: 1.5;
   --ps-tag-font-family: var(--font-condensed); /* Condensed for filled (default) */
@@ -159,7 +159,7 @@
   &--sm {
     --ps-tag-padding-y: var(--size-1); /* 4px per maquette */
     --ps-tag-padding-x: var(--size-2); /* 8px */
-    --ps-tag-font-size: var(--font-size--1); /* 12px per maquette */
+    --ps-tag-font-size: var(--font-size-1); /* 12px per maquette */
     --ps-tag-icon-size: var(--size-205); /* 10px proportional to 12px text */
   }
 
@@ -170,7 +170,7 @@
   &--lg {
     --ps-tag-padding-y: var(--size-3); /* 12px per maquette */
     --ps-tag-padding-x: var(--size-3); /* 12px per maquette */
-    --ps-tag-font-size: var(--font-size-0); /* 14px per maquette */
+    --ps-tag-font-size: var(--font-size-2); /* 14px per maquette */
     --ps-tag-icon-size: var(--size-3); /* 12px proportional to 14px text */
   }
 

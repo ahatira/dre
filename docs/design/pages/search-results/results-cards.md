@@ -92,7 +92,7 @@ results:
 ### Contenu
 - **Titre** : H3, bold, 2 lignes max, ellipsis
 - **Localisation** : icône pin + texte gris, 1 ligne ellipsis
-- **Prix** : gros (--font-size-5), bold, couleur `--text-primary`
+- **Prix** : gros (--font-size-7), bold, couleur `--text-primary`
 - **Surface** : même ligne que prix, séparateur "•", taille normale
 
 ### Actions

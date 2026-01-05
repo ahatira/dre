@@ -30,7 +30,7 @@
   
   --ps-read-more-toggle-color: var(--success);
   --ps-read-more-toggle-color-hover: var(--success-hover);
-  --ps-read-more-toggle-font-size: var(--font-size-1);
+  --ps-read-more-toggle-font-size: var(--font-size-3);
   --ps-read-more-toggle-font-weight: var(--font-weight-600);
   --ps-read-more-toggle-gap: var(--size-2);
   --ps-read-more-toggle-margin-top: var(--size-3);

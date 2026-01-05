@@ -114,7 +114,7 @@ export const États = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-6); max-width: 600px;">
       <div>
-        <h4 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-1); font-weight: 600; text-transform: uppercase; color: var(--gray-700); letter-spacing: 0.05em;">Interactive States</h4>
+        <h4 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-3); font-weight: 600; text-transform: uppercase; color: var(--gray-700); letter-spacing: 0.05em;">Interactive States</h4>
         <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-4); background-color: var(--gray-50); border-radius: var(--radius-2);">
           ${checkboxTwig({ name: 'state-1', value: 'unchecked', label: 'Unchecked (default)', checked: false })}
           ${checkboxTwig({ name: 'state-2', value: 'checked', label: 'Checked (selected)', checked: true })}
@@ -123,7 +123,7 @@ export const États = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-1); font-weight: 600; text-transform: uppercase; color: var(--gray-700); letter-spacing: 0.05em;">Disabled States</h4>
+        <h4 style="margin: 0 0 var(--size-3) 0; font-size: var(--font-size-3); font-weight: 600; text-transform: uppercase; color: var(--gray-700); letter-spacing: 0.05em;">Disabled States</h4>
         <div style="display: flex; flex-direction: column; gap: var(--size-3); padding: var(--size-4); background-color: var(--gray-50); border-radius: var(--radius-2);">
           ${checkboxTwig({ name: 'state-4', value: 'disabled-unchecked', label: 'Disabled (unchecked)', checked: false, disabled: true })}
           ${checkboxTwig({ name: 'state-5', value: 'disabled-checked', label: 'Disabled (checked)', checked: true, disabled: true })}
@@ -150,7 +150,7 @@ export const Indeterminé = {
   render: () => `
     <div style="max-width: 600px;">
       <div style="margin-bottom: var(--size-5); padding: var(--size-4); background-color: var(--gray-100); border-left: 4px solid var(--primary); border-radius: var(--radius-2);">
-        <p style="font-size: var(--font-size-1); color: var(--gray-700); margin: 0;">
+        <p style="font-size: var(--font-size-3); color: var(--gray-700); margin: 0;">
           <strong>Indeterminate state</strong> indicates a parent checkbox where <strong>some (but not all) children are selected</strong>. Common in hierarchical filters and permission systems.
         </p>
       </div>

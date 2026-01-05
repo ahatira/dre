@@ -65,14 +65,14 @@
     display: flex;
     align-items: center;
     gap: var(--size-2);
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
     font-weight: var(--font-weight-500);
     color: var(--ps-toggle-label-color, var(--gray-900));
   }
 
   &__description {
     margin-left: var(--ps-toggle-description-offset);
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     line-height: var(--leading-snug);
     color: var(--ps-toggle-description-color, var(--gray-600));
   }
@@ -82,7 +82,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: var(--font-size--2);
+    font-size: var(--font-size-0);
     font-weight: var(--font-weight-700);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);

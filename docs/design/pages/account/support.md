@@ -77,8 +77,8 @@ logout:
 - Padding : `--size-8` vertical, `--size-6` horizontal
 
 **Typo** :
-- Message : bold optionnel, `--font-size-4`, couleur `--text-primary`
-- Horaires : `--font-size-2`, couleur `--text-secondary`
+- Message : bold optionnel, `--font-size-6`, couleur `--text-primary`
+- Horaires : `--font-size-4`, couleur `--text-secondary`
 
 **CTA support** :
 - Bordure : `--primary-border`

@@ -39,7 +39,7 @@
 
   & p {
     margin: 0;
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
     line-height: var(--leading-normal);
   }
 }
@@ -49,21 +49,21 @@
   & strong {
     display: block;
     margin-bottom: var(--size-1);
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     font-weight: var(--font-weight-600);
     color: var(--text-primary);
   }
 
   & p {
     margin: var(--size-1) 0 0 0;
-    font-size: var(--font-size-0);
+    font-size: var(--font-size-2);
     line-height: var(--leading-normal);
     color: var(--text-secondary);
   }
 }
 
 .ps-map-widget__popup-distance {
-  font-size: var(--font-size--1);
+  font-size: var(--font-size-1);
   color: var(--text-secondary);
 }
 

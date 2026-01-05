@@ -22,7 +22,7 @@
 .form-label {
   /* Component-scoped variables for Token-First composition */
   --ps-label-color: var(--text-primary);
-  --ps-label-font-size: var(--font-size-0);
+  --ps-label-font-size: var(--font-size-2);
   --ps-label-font-weight: var(--font-weight-600);
   --ps-label-line-height: var(--leading-5);
   --ps-label-gap: var(--size-1);

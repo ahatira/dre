@@ -114,19 +114,19 @@ export const DifferentMaxHeights = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-8);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">100px (compact)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">100px (compact)</h3>
         ${readMoreTwig({ ...data, maxHeight: 100 })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">150px (default)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">150px (default)</h3>
         ${readMoreTwig({ ...data, maxHeight: 150 })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">200px (generous)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">200px (generous)</h3>
         ${readMoreTwig({ ...data, maxHeight: 200 })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">300px (very generous)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">300px (very generous)</h3>
         ${readMoreTwig({ ...data, maxHeight: 300 })}
       </div>
     </div>
@@ -230,7 +230,7 @@ export const RealEstateContexts = {
   render: () => `
     <div style="display: flex; flex-direction: column; gap: var(--size-8);">
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">Bureaux (Office)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">Bureaux (Office)</h3>
         ${readMoreTwig({
           content: `
             <p><strong>Bureaux de standing</strong> dans immeuble récent certifié HQE Excellent.</p>
@@ -247,7 +247,7 @@ export const RealEstateContexts = {
         })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">Maison (House)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">Maison (House)</h3>
         ${readMoreTwig({
           content: `
             <p>Maison de maître du XIXe siècle entièrement rénovée avec matériaux nobles.</p>
@@ -264,7 +264,7 @@ export const RealEstateContexts = {
         })}
       </div>
       <div>
-        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-2); color: var(--gray-700);">Terrain (Land)</h3>
+        <h3 style="margin: 0 0 var(--size-3); font-size: var(--font-size-4); color: var(--gray-700);">Terrain (Land)</h3>
         ${readMoreTwig({
           content: `
             <p><strong>Terrain constructible viabilisé</strong> 1200 m² en zone résidentielle.</p>

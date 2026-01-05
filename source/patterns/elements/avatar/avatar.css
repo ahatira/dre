@@ -26,7 +26,7 @@
 
   /* Layer 3: Contextual component variables */
   --ps-avatar-size: var(--size-22); /* lg 88px default */
-  --ps-avatar-text-size: var(--font-size-8); /* 36px */
+  --ps-avatar-text-size: var(--font-size-13); /* 36px */
   --ps-avatar-bg: var(--ps-avatar-color-surface-default);
   --ps-avatar-text-color: var(--ps-avatar-color-text-on-brand);
   --ps-avatar-radius: 50%; /* circle default */
@@ -106,7 +106,7 @@
   
   &--small {
     --ps-avatar-size: var(--size-12); /* 48px */
-    --ps-avatar-text-size: var(--font-size-2); /* 16px */
+    --ps-avatar-text-size: var(--font-size-4); /* 16px */
     --ps-avatar-status-size: var(--size-3); /* 12px */
   }
   
@@ -114,7 +114,7 @@
   
   &--large {
     --ps-avatar-size: var(--size-28); /* 112px */
-    --ps-avatar-text-size: var(--font-size-10); /* 48px */
+    --ps-avatar-text-size: var(--font-size-17); /* 48px */
     --ps-avatar-status-size: var(--size-8); /* 32px */
     --ps-avatar-status-border-width: var(--border-size-3);
   }

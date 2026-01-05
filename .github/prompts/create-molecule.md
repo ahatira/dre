@@ -118,7 +118,7 @@ WORKFLOW (11 steps + Token-First):
      --ps-button-bg-hover: var(--secondary-hover);
      
      &__content {
-       font-size: var(--font-size-4);
+       font-size: var(--font-size-6);
        color: var(--text-primary);
      }
      

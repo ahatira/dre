@@ -61,7 +61,7 @@ Follow these patterns (from 05-maintenance.md):
 | Primitive colors | --{color}-{shade} | --blue-600 |
 | Semantic colors | --{meaning} | --primary, --success |
 | Sizes | --size-{number} | --size-4, --size-12 |
-| Font sizes | --font-size-{number} | --font-size-3 |
+| Font sizes | --font-size-{number} | --font-size-5 |
 | Font weights | --font-weight-{number} | --font-weight-600 |
 | Border radius | --radius-{number} | --radius-2 |
 | Shadows | --shadow-{number} | --shadow-3 |
@@ -89,11 +89,11 @@ SIZES (0.25rem increments):
 [...continues...]
 
 FONT-SIZES (1.2 ratio):
---font-size-0: 0.694rem (~11px)
---font-size-1: 0.833rem (~13px)
---font-size-2: 1rem (16px base)
---font-size-3: 1.2rem (~19px)
---font-size-4: 1.44rem (~23px)
+--font-size-2: 0.694rem (~11px)
+--font-size-3: 0.833rem (~13px)
+--font-size-4: 1rem (16px base)
+--font-size-5: 1.2rem (~19px)
+--font-size-6: 1.44rem (~23px)
 [...continues...]
 
 SHADOWS (visual depth progression):

@@ -233,7 +233,7 @@ transition: 150ms ease;
 color: var(--primary);
 padding: var(--size-4) var(--size-6);
 box-shadow: var(--shadow-2);
-font-size: var(--font-size-3);
+font-size: var(--font-size-5);
 transition: var(--duration-fast) var(--ease-3);
 ```
 
@@ -243,7 +243,7 @@ transition: var(--duration-fast) var(--ease-3);
 |----------|------|----------|-------------|
 | **Colors** | `colors.css` | `--gray-600`, `--green-600` | Raw color values |
 | **Brand** | `brand.css` | `--primary`, `--secondary`, `--success` | Semantic colors |
-| **Fonts** | `fonts.css` | `--font-size-2`, `--font-weight-600` | Typography |
+| **Fonts** | `fonts.css` | `--font-size-4`, `--font-weight-600` | Typography |
 | **Sizes** | `sizes.css` | `--size-4`, `--size-6` | Spacing, sizing |
 | **Borders** | `borders.css` | `--radius-2`, `--border-size-1` | Radii, widths |
 | **Shadows** | `shadows.css` | `--shadow-2`, `--shadow-4` | Box shadows |

@@ -18,7 +18,7 @@
   --menu-primary-border-active: 2px solid var(--primary);
   --menu-primary-border-separator: 1px solid var(--border-default);
   --menu-primary-border-default: 2px solid transparent;
-  --menu-primary-font-size: var(--font-size-1); /* 14px */
+  --menu-primary-font-size: var(--font-size-3); /* 14px */
   --menu-primary-font-weight: var(--font-weight-400);
   --menu-primary-transition: var(--duration-fast) var(--ease-2);
   --menu-primary-submenu-duration: var(--duration-fast);

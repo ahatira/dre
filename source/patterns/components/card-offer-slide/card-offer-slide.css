@@ -31,29 +31,29 @@
   --ps-card-offer-slide-overlay-inset: var(--size-3); /* 12px from edges */
   
   /* Header (Price • Surface) */
-  --ps-card-offer-slide-header-font-size: var(--font-size-6);        /* 14px */
+  --ps-card-offer-slide-header-font-size: var(--font-size-9);        /* 14px */
   --ps-card-offer-slide-header-font-weight: var(--font-weight-400);  /* Regular */
   --ps-card-offer-slide-header-color: var(--text-primary);           /* Gray */
   --ps-card-offer-slide-header-margin-bottom: var(--size-2);         /* 8px */
   
   /* Title */
-  --ps-card-offer-slide-title-font-size: var(--font-size-2);         /* 18px */
+  --ps-card-offer-slide-title-font-size: var(--font-size-4);         /* 18px */
   --ps-card-offer-slide-title-font-weight: var(--font-weight-600);   /* Semi-bold */
   --ps-card-offer-slide-title-line-height: var(--leading-6);         /* 1.5 */
   --ps-card-offer-slide-title-color: var(--text-primary);            /* Dark */
   --ps-card-offer-slide-title-margin-bottom: var(--size-2);          /* 8px */
   
   /* Location */
-  --ps-card-offer-slide-location-font-size: var(--font-size-0);      /* 14px */
+  --ps-card-offer-slide-location-font-size: var(--font-size-2);      /* 14px */
   --ps-card-offer-slide-location-font-weight: var(--font-weight-400);/* Regular */
   --ps-card-offer-slide-location-color: var(--text-secondary);       /* Gray */
   --ps-card-offer-slide-location-gap: var(--size-1);                 /* 4px */
   --ps-card-offer-slide-location-icon-color: var(--text-secondary);  /* Icon color (semantic) */
-  --ps-card-offer-slide-location-icon-size: var(--font-size-3);      /* Icon size */
+  --ps-card-offer-slide-location-icon-size: var(--font-size-5);      /* Icon size */
   --ps-card-offer-slide-location-icon-offset: calc(var(--size-1) * -1); /* -4px top alignment */
   
   /* CTA */
-  --ps-card-offer-slide-cta-font-size: var(--font-size-1);           /* 16px */
+  --ps-card-offer-slide-cta-font-size: var(--font-size-3);           /* 16px */
   --ps-card-offer-slide-cta-font-weight: var(--font-weight-400);     /* Regular */
   --ps-card-offer-slide-cta-color: var(--primary);                   /* Green */
   --ps-card-offer-slide-cta-hover-color: var(--primary-hover);       /* Dark green */

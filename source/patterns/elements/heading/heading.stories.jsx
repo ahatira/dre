@@ -160,7 +160,7 @@ export const VisuallyHidden = {
           <li><a href="#">Vendre</a></li>
         </ul>
       </nav>
-      <p style="margin-top: var(--size-4); color: var(--gray-600); font-size: var(--font-size-2);">
+      <p style="margin-top: var(--size-4); color: var(--gray-600); font-size: var(--font-size-4);">
         ♿ Heading "Navigation" masqué visuellement mais accessible aux lecteurs d'écran
       </p>
     </div>

@@ -17,7 +17,7 @@
   --ps-header-padding-y: var(--size-5);
   --ps-header-grid-gap-x: var(--size-8);
   --ps-header-grid-gap-y: var(--size-4);
-  --ps-header-tagline-size: var(--font-size-2);
+  --ps-header-tagline-size: var(--font-size-4);
   --ps-header-tagline-color: var(--gray-600);
   --ps-header-transition-fast: var(--duration-fast) var(--ease-out);
   --ps-header-transition-normal: var(--duration-normal) var(--ease-out);
@@ -79,7 +79,7 @@
   }
 
   &__tagline {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     color: var(--ps-header-tagline-color);
     font-weight: var(--font-weight-400);
     line-height: var(--line-height-tight);

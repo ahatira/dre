@@ -128,7 +128,7 @@ export const States = {
       <div style="display: flex; flex-direction: column; gap: var(--size-6);">
         <!-- Default / Placeholder -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Default (Placeholder)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--gray-700);">Default (Placeholder)</div>
           ${selectTwig({
             name: 'states_default',
             id: 'states-default',
@@ -142,7 +142,7 @@ export const States = {
 
         <!-- Hover -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Hover</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--gray-700);">Hover</div>
           ${selectTwig({
             name: 'states_hover',
             id: 'states-hover',
@@ -155,7 +155,7 @@ export const States = {
 
         <!-- Focus -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Focus (outline visible on interaction)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--gray-700);">Focus (outline visible on interaction)</div>
           ${selectTwig({
             name: 'states_focus',
             id: 'states-focus',
@@ -168,7 +168,7 @@ export const States = {
 
         <!-- Success -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--success);">Success (validated)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--success);">Success (validated)</div>
           ${selectTwig({
             name: 'states_success',
             id: 'states-success',
@@ -182,7 +182,7 @@ export const States = {
 
         <!-- Error -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--danger);">Error (validation failed)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--danger);">Error (validation failed)</div>
           ${selectTwig({
             name: 'states_error',
             id: 'states-error',
@@ -196,7 +196,7 @@ export const States = {
 
         <!-- Disabled (with placeholder) -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Disabled (placeholder)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--gray-700);">Disabled (placeholder)</div>
           ${selectTwig({
             name: 'states_disabled_placeholder',
             id: 'states-disabled-placeholder',
@@ -210,7 +210,7 @@ export const States = {
 
         <!-- Disabled (with value) -->
         <div>
-          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-0); color: var(--gray-700);">Disabled (value selected)</div>
+          <div style="font-weight: var(--font-weight-600); margin-bottom: var(--size-2); font-size: var(--font-size-2); color: var(--gray-700);">Disabled (value selected)</div>
           ${selectTwig({
             name: 'states_disabled_value',
             id: 'states-disabled-value',

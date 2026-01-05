@@ -30,7 +30,7 @@
   /* Title */
   --ps-collapse-title-font-family: var(--font-sans);
   --ps-collapse-title-font-weight: var(--font-weight-400);
-  --ps-collapse-title-font-size: var(--font-size-3);
+  --ps-collapse-title-font-size: var(--font-size-5);
   --ps-collapse-title-line-height: var(--leading-6);
   --ps-collapse-title-color: var(--gray-900);
 
@@ -41,7 +41,7 @@
   /* Content */
   --ps-collapse-content-padding-top: var(--size-4);
   --ps-collapse-content-padding-bottom: var(--size-6);
-  --ps-collapse-content-font-size: var(--font-size-2);
+  --ps-collapse-content-font-size: var(--font-size-4);
   --ps-collapse-content-line-height: var(--leading-6);
   --ps-collapse-content-color: var(--gray-600);
 

@@ -153,15 +153,15 @@ Standard responsive container with max-width and padding:
 
 ```css
 .ps-heading {
-  --ps-heading-size: var(--font-size-5); /* 24px mobile */
+  --ps-heading-size: var(--font-size-7); /* 24px mobile */
   font-size: var(--ps-heading-size);
   
   @media (--tablet) {
-    --ps-heading-size: var(--font-size-7); /* 32px tablet */
+    --ps-heading-size: var(--font-size-11); /* 32px tablet */
   }
   
   @media (--desktop) {
-    --ps-heading-size: var(--font-size-9); /* 48px desktop */
+    --ps-heading-size: var(--font-size-15); /* 48px desktop */
   }
 }
 ```

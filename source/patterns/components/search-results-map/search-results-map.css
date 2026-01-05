@@ -18,7 +18,7 @@
     --ps-map-marker-width: 4.5rem; /* 72px - ratio 3:1 */
     --ps-map-marker-height: 1.5rem; /* 24px */
     --ps-map-marker-padding-inline: var(--size-2);
-    --ps-map-marker-font-size: var(--font-size-1);
+    --ps-map-marker-font-size: var(--font-size-3);
     --ps-map-marker-font-weight: var(--font-weight-700);
     --ps-map-marker-bg: var(--white);
     --ps-map-marker-color: var(--primary);
@@ -163,7 +163,7 @@
     --ps-map-cluster-bg: var(--primary);
     --ps-map-cluster-color: var(--white);
     --ps-map-cluster-size: var(--size-5);
-    --ps-map-cluster-font-size: var(--font-size-105);
+    --ps-map-cluster-font-size: var(--font-size-175);
     --ps-map-cluster-font-weight: var(--font-weight-400);
     --ps-map-cluster-border-width: 0px;
     --ps-map-cluster-border-color: var(--white);

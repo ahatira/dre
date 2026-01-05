@@ -102,11 +102,11 @@ export const InHeader = {
     return `
       <div style="background: var(--white); border-bottom: 1px solid var(--border-light); padding: var(--size-4) var(--size-6);">
         <div style="display: flex; justify-content: space-between; align-items: center; max-width: var(--size-max-site-width); margin-inline: auto;">
-          <div style="font-size: var(--font-size-3); font-weight: var(--font-weight-700); color: var(--primary);">
+          <div style="font-size: var(--font-size-5); font-weight: var(--font-weight-700); color: var(--primary);">
             BNP Paribas Real Estate
           </div>
           <div style="display: flex; gap: var(--size-4); align-items: center;">
-            <span style="color: var(--text-secondary); font-size: var(--font-size-1);">Find a property</span>
+            <span style="color: var(--text-secondary); font-size: var(--font-size-3);">Find a property</span>
             ${searchBlockTemplate(args)}
           </div>
         </div>

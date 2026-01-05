@@ -3,7 +3,7 @@
 .ps-logo {
   /* Layer 2: Component-scoped variables */
   --ps-logo-gap: var(--size-3);
-  --ps-logo-slogan-font-size: var(--font-size-1);
+  --ps-logo-slogan-font-size: var(--font-size-3);
   --ps-logo-slogan-color: var(--gray-600);
   --ps-logo-height-mobile: var(--size-6);
   --ps-logo-height-desktop: var(--size-8);

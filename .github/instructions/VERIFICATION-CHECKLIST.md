@@ -50,7 +50,7 @@ Pour chaque composant sous `docs/02-composants/01-atomes/{component}.md`, vérif
 ### 2.2 Cohérence avec implémentation
 - [ ] Lire `source/patterns/elements/{component}/{component}.css` (lignes 1-50 minimum)
 - [ ] Vérifier que TOUS les tokens doc correspondent au CSS réel
-- [ ] Vérifier valeurs par défaut (ex: h1 = `--font-size-10`, pas `--font-size-8`)
+- [ ] Vérifier valeurs par défaut (ex: h1 = `--font-size-17`, pas `--font-size-13`)
 
 ### 2.3 Tokens globaux (Layer 1)
 - [ ] Vérifier que tokens `--size-*`, `--font-*`, `--primary`, etc. existent dans `source/props/`

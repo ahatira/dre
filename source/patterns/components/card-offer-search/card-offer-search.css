@@ -34,31 +34,31 @@
   /* Header */
   --ps-card-offer-search-header-gap: var(--size-3);  /* 12px */
   --ps-card-offer-search-header-margin-bottom: var(--size-2);  /* 8px */
-  --ps-card-offer-search-header-font-size: var(--font-size-1);  /* 16px */
+  --ps-card-offer-search-header-font-size: var(--font-size-3);  /* 16px */
   
   /* Actions */
   --ps-card-offer-search-actions-gap: var(--size-3);  /* 12px */
   
   /* Title */
-  --ps-card-offer-search-title-font-size: var(--font-size-1);  /* 16px */
+  --ps-card-offer-search-title-font-size: var(--font-size-3);  /* 16px */
   --ps-card-offer-search-title-font-weight: var(--font-weight-400);  /* Regular */
   --ps-card-offer-search-title-line-height: var(--leading-6);  /* 1.5 */
   --ps-card-offer-search-title-color: var(--text-primary);
   --ps-card-offer-search-title-margin-bottom: var(--size-1);  /* 12px */
   
   /* Surface */
-  --ps-card-offer-search-surface-font-size: var(--font-size-1);  /* 16px */
+  --ps-card-offer-search-surface-font-size: var(--font-size-3);  /* 16px */
   --ps-card-offer-search-surface-font-weight: var(--font-weight-700);  /* Bold */
   --ps-card-offer-search-surface-color: var(--text-primary);
   --ps-card-offer-search-surface-margin-bottom: var(--size-2);  /* 12px */
   
   /* Location */
-  --ps-card-offer-search-location-font-size: var(--font-size-0);  /* 14px */
+  --ps-card-offer-search-location-font-size: var(--font-size-2);  /* 14px */
   --ps-card-offer-search-location-font-weight: var(--font-weight-400);
   --ps-card-offer-search-location-color: var(--text-secondary);
   --ps-card-offer-search-location-gap: var(--size-1);  /* 4px */
   --ps-card-offer-search-location-icon-color: var(--text-secondary);
-  --ps-card-offer-search-location-icon-size: var(--font-size-2);
+  --ps-card-offer-search-location-icon-size: var(--font-size-4);
   --ps-card-offer-search-location-margin-bottom: var(--size-2);  /* 8px */
   
   /* Footer */
@@ -67,10 +67,10 @@
   --ps-card-offer-search-footer-align-mobile: flex-start;
   
   /* Price */
-  --ps-card-offer-search-price-value-font-size: var(--font-size-4);  /* 20px */
+  --ps-card-offer-search-price-value-font-size: var(--font-size-6);  /* 20px */
   --ps-card-offer-search-price-value-font-weight: var(--font-weight-700);  /* Bold */
   --ps-card-offer-search-price-value-color: var(--text-primary);
-  --ps-card-offer-search-price-unit-font-size: var(--font-size-000);  /* 12px */
+  --ps-card-offer-search-price-unit-font-size: var(--font-size-200);  /* 12px */
   --ps-card-offer-search-price-unit-font-weight: var(--font-weight-400);
   --ps-card-offer-search-price-unit-color: var(--text-secondary);
   --ps-card-offer-search-price-gap: var(--size-1);  /* 4px */

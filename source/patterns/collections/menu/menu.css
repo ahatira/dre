@@ -5,7 +5,7 @@
 
 .menu {
   /* Layer 2 defaults — override in consumers if needed */
-  --ps-menu-text-size: var(--font-size-3); /* 16px */
+  --ps-menu-text-size: var(--font-size-5); /* 16px */
   --ps-menu-text-weight: var(--font-weight-400);
   --ps-menu-link-color: var(--gray-700); /* #333333 default state */
   --ps-menu-link-color-hover: var(--gray-500); /* #777E83 hovered state */

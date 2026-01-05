@@ -183,7 +183,7 @@ export const AllSizes = {
             alt: data.alt,
             size: value,
           })}
-          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-2); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -214,7 +214,7 @@ export const AllShapes = {
             alt: data.alt,
             shape: value,
           })}
-          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-2); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -245,7 +245,7 @@ export const StatusVariants = {
             alt: data.alt,
             status: value,
           })}
-          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+          <div style="margin-top:var(--size-2); font-family:var(--font-sans); font-size:var(--font-size-2); color:var(--gray-700);">
             ${label}
           </div>
         </div>
@@ -309,7 +309,7 @@ export const Clickable = {
         href: '/agents/john-doe',
       })}
     </div>
-    <p style="margin-top:var(--size-4); font-family:var(--font-sans); font-size:var(--font-size-0); color:var(--gray-700);">
+    <p style="margin-top:var(--size-4); font-family:var(--font-sans); font-size:var(--font-size-2); color:var(--gray-700);">
       First avatar: clickable (div), Second & Third: links (a) with hover scale effect
     </p>`;
   },

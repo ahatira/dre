@@ -108,11 +108,11 @@ helperTexts:
 - Rayon : `--radius-md` (formulaires globaux)
 - CTA primaire : fond `--primary`, hover `--primary-hover`, active `--primary-active`
 - Lien Cancel : couleur `--primary`, hover souligné
-- Helper text : couleur `--text-secondary`, taille `--font-size-2`
+- Helper text : couleur `--text-secondary`, taille `--font-size-4`
 
 **Mot de passe** :
 - Icône œil : couleur `--text-secondary`, position absolute droite
-- Messages erreur : couleur `--danger`, taille `--font-size-2`
+- Messages erreur : couleur `--danger`, taille `--font-size-4`
 
 ---
 

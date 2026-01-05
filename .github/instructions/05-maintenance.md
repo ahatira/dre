@@ -84,7 +84,7 @@ grep -r "--primary" source/props/brand.css
 | **Primitive Colors** | `--{color}-{shade}` | `--green-600`, `--gray-400` |
 | **Semantic Colors** | `--{meaning}` | `--primary`, `--success`, `--danger` |
 | **Sizes** | `--size-{number}` | `--size-4` (16px), `--size-6` (24px) |
-| **Font Sizes** | `--font-size-{number}` | `--font-size-2` (16px) |
+| **Font Sizes** | `--font-size-{number}` | `--font-size-4` (16px) |
 | **Font Weights** | `--font-weight-{number}` | `--font-weight-600` |
 | **Borders** | `--radius-{number}` | `--radius-2` (8px) |
 | **Shadows** | `--shadow-{number}` | `--shadow-3` |
@@ -119,7 +119,7 @@ grep -r "--primary" source/props/brand.css
 | Scale | Progression | Range |
 |-------|-------------|-------|
 | **Sizes** | 0.25rem increments | --size-1 (4px) to --size-20 (80px) |
-| **Font Sizes** | Type scale (1.2 ratio) | --font-size-0 (14px) to --font-size-9 (60px) |
+| **Font Sizes** | Type scale (1.2 ratio) | --font-size-2 (14px) to --font-size-15 (60px) |
 | **Shadows** | Visual depth | --shadow-1 (subtle) to --shadow-5 (heavy) |
 | **Durations** | 2x multiplier | --duration-fast (150ms), --duration-base (300ms) |
 

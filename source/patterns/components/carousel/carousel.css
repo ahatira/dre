@@ -64,7 +64,7 @@
   --ps-carousel-toolbar-icon-width: var(--size-5); /* 20px */
   --ps-carousel-toolbar-icon-height: var(--size-5); /* 20px */
   --ps-carousel-toolbar-label-font-family: 'BNPP Sans', sans-serif;
-  --ps-carousel-toolbar-label-font-size: var(--font-size-0); /* 14px */
+  --ps-carousel-toolbar-label-font-size: var(--font-size-2); /* 14px */
   --ps-carousel-toolbar-label-line-height: var(--size-6); /* 24px */
   --ps-carousel-toolbar-divider-width: var(--border-size-1); /* 1px */
   --ps-carousel-toolbar-divider-height: 22px;

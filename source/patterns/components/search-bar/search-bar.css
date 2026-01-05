@@ -20,7 +20,7 @@
   --ps-search-bar-focus-ring-width: var(--border-size-2);
   --ps-search-bar-transition-duration: var(--duration-fast);
   --ps-search-bar-transition-timing: var(--ease-3);
-  --ps-search-bar-font-size: var(--font-size-1);
+  --ps-search-bar-font-size: var(--font-size-3);
   --ps-search-bar-font-family: var(--font-sans);
 
   /* Semantic colors (overridden by variants) */

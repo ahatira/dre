@@ -26,9 +26,9 @@
   
   /* Typography (for centered content) */
   --ps-divider-text-font-family: var(--font-sans);
-  --ps-divider-text-font-size: var(--font-size-0);
+  --ps-divider-text-font-size: var(--font-size-2);
   --ps-divider-text-font-weight: var(--font-weight-500);
-  --ps-divider-icon-size: var(--font-size-1);
+  --ps-divider-icon-size: var(--font-size-3);
   
   /* Line styles */
   --ps-divider-style: solid;

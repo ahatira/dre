@@ -19,7 +19,7 @@
   
   /* Typography */
   --ps-alert-font-family: var(--font-sans);
-  --ps-alert-font-size: var(--font-size-1);
+  --ps-alert-font-size: var(--font-size-3);
   --ps-alert-line-height: var(--leading-normal);
   
   /* Colors - Transparent defaults (overridden by variants) */

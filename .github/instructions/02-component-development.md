@@ -192,7 +192,7 @@ source/patterns/{level}/{component}/
   /* ═══ Component-scoped variables (Layer 2) ═══ */
   --ps-badge-padding-x: var(--size-2);
   --ps-badge-padding-y: var(--size-1);
-  --ps-badge-font-size: var(--font-size-0);
+  --ps-badge-font-size: var(--font-size-2);
   --ps-badge-bg: var(--gray-100);
   --ps-badge-color: var(--gray-900);
   
@@ -216,13 +216,13 @@ source/patterns/{level}/{component}/
   &--sm {
     --ps-badge-padding-x: var(--size-1);
     --ps-badge-padding-y: var(--size-0);
-    --ps-badge-font-size: var(--font-size--1);
+    --ps-badge-font-size: var(--font-size-1);
   }
   
   &--lg {
     --ps-badge-padding-x: var(--size-3);
     --ps-badge-padding-y: var(--size-2);
-    --ps-badge-font-size: var(--font-size-1);
+    --ps-badge-font-size: var(--font-size-3);
   }
   
   /* ═══ Color modifiers (semantic) ═══ */
@@ -514,12 +514,12 @@ Can we adjust via CSS tokens?
   --ps-card-gap: var(--size-6);
   
   /* Override CHILD tokens (Atoms) */
-  --ps-badge-font-size: var(--font-size-0);
+  --ps-badge-font-size: var(--font-size-2);
   --ps-button-size: var(--size-6);
   --ps-link-text-decoration: none;
   
   /* Own tokens */
-  --ps-card-offer-search-title-size: var(--font-size-1);
+  --ps-card-offer-search-title-size: var(--font-size-3);
 }
 ```
 
@@ -566,10 +566,10 @@ grep -r "--ps-button-" source/patterns/elements/button/button.css
   --ps-card-padding-x: var(--size-6);
   
   /* ═══ SECTION 2: Child token overrides ═══ */
-  --ps-badge-font-size: var(--font-size-0);
+  --ps-badge-font-size: var(--font-size-2);
   
   /* ═══ SECTION 3: Own tokens ═══ */
-  --ps-card-offer-search-title-size: var(--font-size-1);
+  --ps-card-offer-search-title-size: var(--font-size-3);
   
   /* ═══ SECTION 4: Targeted overrides (last resort) ═══ */
   & .ps-card__media {
@@ -735,12 +735,12 @@ Implementing property search card (Molecule composing Card + Atoms).
   --ps-card-gap: var(--size-6);
   
   /* ═══ Override CHILD (Atoms) tokens ═══ */
-  --ps-badge-font-size: var(--font-size-0);  /* 14px */
+  --ps-badge-font-size: var(--font-size-2);  /* 14px */
   --ps-link-text-decoration: none;  /* No underline */
   
   /* ═══ Own tokens ═══ */
-  --ps-card-offer-search-title-size: var(--font-size-1);  /* 16px */
-  --ps-card-offer-search-price-size: var(--font-size-4);  /* 20px */
+  --ps-card-offer-search-title-size: var(--font-size-3);  /* 16px */
+  --ps-card-offer-search-price-size: var(--font-size-6);  /* 20px */
   --ps-card-offer-search-header-gap: var(--size-2);  /* 8px */
   
   /* ═══ Targeted overrides (Figma proportions) ═══ */

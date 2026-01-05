@@ -4,7 +4,7 @@
 */
 
 .prose {
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   line-height: var(--leading-relaxed);
 
   /* Adds character count for better readability */
@@ -24,7 +24,7 @@
 
   :where([class~='lead']):not(:where([class~='not-prose'] *)) {
     color: var(--text-color);
-    font-size: var(--font-size-5);
+    font-size: var(--font-size-7);
 
     &:first-child {
       margin-block-start: 0;
@@ -45,7 +45,7 @@
     quotes: '\201C' '\201D' '\2018' '\2019';
 
     :where(em) {
-      font-size: var(--font-size-1);
+      font-size: var(--font-size-3);
       font-style: normal;
       font-weight: var(--font-weight-400);
     }
@@ -53,7 +53,7 @@
 
   :where(h1):not(:where([class~='not-prose'] *)) {
     color: var(--gray-900);
-    font-size: var(--font-size-9);
+    font-size: var(--font-size-15);
     font-weight: var(--font-weight-400);
     line-height: var(--leading-none);
     margin-block-end: var(--size-8);
@@ -61,13 +61,13 @@
     text-wrap: balance;
 
     @media (--tablet) {
-      font-size: var(--font-size-10);
+      font-size: var(--font-size-17);
     }
   }
 
   :where(h2):not(:where([class~='not-prose'] *)) {
     color: var(--gray-900);
-    font-size: var(--font-size-7);
+    font-size: var(--font-size-11);
     font-weight: var(--font-weight-400);
     line-height: var(--leading-snug);
     margin-block-end: var(--size-6);
@@ -75,7 +75,7 @@
     text-wrap: balance;
 
     @media (--tablet) {
-      font-size: var(--font-size-8);
+      font-size: var(--font-size-13);
     }
 
     :where(strong):not(:where([class~='not-prose'] *)) {
@@ -85,7 +85,7 @@
 
   :where(h3):not(:where([class~='not-prose'] *)) {
     color: var(--gray-900);
-    font-size: var(--font-size-5);
+    font-size: var(--font-size-7);
     font-weight: var(--font-weight-400);
     line-height: var(--leading-relaxed);
     margin-block-end: var(--size-4);
@@ -93,7 +93,7 @@
     text-wrap: balance;
 
     @media (--tablet) {
-      font-size: var(--font-size-6);
+      font-size: var(--font-size-9);
     }
 
     :where(strong):not(:where([class~='not-prose'] *)) {
@@ -103,7 +103,7 @@
 
   :where(h4):not(:where([class~='not-prose'] *)) {
     color: var(--gray-900);
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
     font-weight: var(--font-weight-600);
     margin-block-end: var(--size-2);
     margin-block-start: var(--size-6);
@@ -184,11 +184,11 @@
   }
 
   :where(h2 code):not(:where([class~='not-prose'] *)) {
-    font-size: var(--font-size-8);
+    font-size: var(--font-size-13);
   }
 
   :where(h3 code):not(:where([class~='not-prose'] *)) {
-    font-size: var(--font-size-6);
+    font-size: var(--font-size-9);
   }
 
   :where(pre):not(:where([class~='not-prose'] *)) {
@@ -319,7 +319,7 @@
     cursor: pointer;
     display: inline-flex;
     font-family: var(--font-system);
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     font-weight: var(--font-weight-700);
     inline-size: fit-content;
     justify-content: center;

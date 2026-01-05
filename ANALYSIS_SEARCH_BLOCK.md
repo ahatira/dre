@@ -55,7 +55,7 @@ J'ai créé un bloc de recherche qui intègre les composants existants de maniè
 --ps-search-trigger-color: var(--text-primary)
 --ps-search-trigger-border: none
 --ps-search-trigger-border-radius: 0
---ps-search-trigger-font-size: var(--font-size-3)
+--ps-search-trigger-font-size: var(--font-size-5)
 --ps-search-trigger-icon-size: 1.5rem
 ```
 
@@ -80,7 +80,7 @@ J'ai créé un bloc de recherche qui intègre les composants existants de maniè
 --ps-search-bar-border-width: var(--border-size-1)
 --ps-search-bar-focus-ring-width: var(--border-size-2)
 --ps-search-bar-transition-duration: var(--duration-fast)
---ps-search-bar-font-size: var(--font-size-1)
+--ps-search-bar-font-size: var(--font-size-3)
 ```
 
 ## 📱 Responsive Design

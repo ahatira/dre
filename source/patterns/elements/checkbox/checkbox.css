@@ -59,7 +59,7 @@
   --ps-checkbox-disabled-cursor: not-allowed;
 
   /* Label Typography */
-  --ps-checkbox-label-font-size: var(--font-size-2);
+  --ps-checkbox-label-font-size: var(--font-size-4);
   --ps-checkbox-label-font-weight: var(--font-weight-400);
   --ps-checkbox-label-line-height: var(--leading-normal);
   --ps-checkbox-label-color: var(--gray-700); /* #333333 - spec requirement */

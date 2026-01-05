@@ -4,10 +4,10 @@
   /* Component-scoped variables */
   /* Typography */
   --ps-definition-list-font-family: var(--font-body);
-  --ps-definition-list-term-font-size: var(--font-size-2);
+  --ps-definition-list-term-font-size: var(--font-size-4);
   --ps-definition-list-term-font-weight: var(--font-weight-600);
   --ps-definition-list-term-color: var(--text-primary);
-  --ps-definition-list-definition-font-size: var(--font-size-2);
+  --ps-definition-list-definition-font-size: var(--font-size-4);
   --ps-definition-list-definition-font-weight: var(--font-weight-400);
   --ps-definition-list-definition-color: var(--text-secondary);
 

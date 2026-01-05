@@ -41,19 +41,19 @@
 }
 
 .ps-color-title {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-6);
   font-weight: var(--font-weight-700);
 }
 
 .ps-color-token {
   font-family: var(--font-mono);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   opacity: 0.9;
 }
 
 .ps-color-value {
   font-family: var(--font-mono);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   opacity: 0.8;
   margin-block-start: auto;
 }
@@ -67,7 +67,7 @@
 .ps-color-shade {
   padding: var(--size-2) var(--size-3);
   font-family: var(--font-mono);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   border-radius: var(--radius-1);
   
   &.is-light {
@@ -99,7 +99,7 @@
     th {
       padding: var(--size-3) var(--size-4);
       text-align: left;
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       font-weight: var(--font-weight-600);
       color: var(--text-primary);
       border-bottom: 2px solid var(--border-default);
@@ -121,21 +121,21 @@
     
     td {
       padding: var(--size-3) var(--size-4);
-      font-size: var(--font-size-3);
+      font-size: var(--font-size-5);
     }
   }
 }
 
 .ps-token-name {
   font-family: var(--font-mono);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   color: var(--primary);
   font-weight: var(--font-weight-600);
 }
 
 .ps-token-value {
   font-family: var(--font-mono);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-4);
   color: var(--text-secondary);
 }
 
@@ -191,13 +191,13 @@
 .ps-color-card--gold { background: var(--gold); color: var(--gray-900); }
 
 .ps-card-name {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
   font-weight: var(--font-weight-700);
 }
 
 .ps-card-token {
   font-family: var(--font-mono);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   opacity: 0.8;
 }
 
@@ -216,7 +216,7 @@
 
 .ps-type-label {
   code {
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-3);
     color: var(--text-secondary);
     font-weight: var(--font-weight-600);
   }
@@ -229,7 +229,7 @@
 }
 
 .ps-type-specs {
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   color: var(--text-tertiary);
   font-family: var(--font-mono);
 }
@@ -278,20 +278,20 @@
 }
 
 .ps-swatch-name {
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-5);
   font-weight: var(--font-weight-600);
   color: var(--text-primary);
 }
 
 .ps-swatch-token {
   font-family: var(--font-mono);
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-3);
   color: var(--primary);
 }
 
 .ps-swatch-value {
   font-family: var(--font-mono);
-  font-size: var(--font-size-0);
+  font-size: var(--font-size-2);
   color: var(--text-tertiary);
 }
 

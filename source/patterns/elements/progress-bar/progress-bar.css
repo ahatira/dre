@@ -34,7 +34,7 @@
 	--ps-progress-stroke-transition: stroke-dashoffset var(--duration-normal, 0.3s) var(--ease-3, ease);
 	
 	/* Label */
-	--ps-progress-label-size: var(--font-size-2); /* 18px - MEDIUM default */
+	--ps-progress-label-size: var(--font-size-4); /* 18px - MEDIUM default */
 	--ps-progress-label-weight: var(--font-weight-500, 500);
 	--ps-progress-label-color: var(--gray-700);
 	
@@ -110,7 +110,7 @@
 	&--small {
 		--ps-progress-track-height: var(--size-2); /* 8px */
 		--ps-progress-circular-size: var(--size-10); /* 40px */
-		--ps-progress-label-size: var(--font-size-1); /* 16px */
+		--ps-progress-label-size: var(--font-size-3); /* 16px */
 		--ps-progress-stroke-width: 8;
 	}
 
@@ -120,7 +120,7 @@
 	&--large {
 		--ps-progress-track-height: var(--size-4); /* 16px */
 		--ps-progress-circular-size: var(--size-18); /* 72px */
-		--ps-progress-label-size: var(--font-size-3); /* 20px */
+		--ps-progress-label-size: var(--font-size-5); /* 20px */
 		--ps-progress-stroke-width: 12;
 	}
 

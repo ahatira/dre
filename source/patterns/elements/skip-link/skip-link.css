@@ -21,7 +21,7 @@
   --ps-skip-link-shadow: var(--shadow-2); /* Elevation shadow */
   --ps-skip-link-shadow-hover: var(--shadow-3); /* Enhanced shadow on hover */
   --ps-skip-link-font-family: var(--font-sans);
-  --ps-skip-link-font-size: var(--font-size-1); /* 16px */
+  --ps-skip-link-font-size: var(--font-size-3); /* 16px */
   --ps-skip-link-font-weight: var(--font-weight-600); /* 600 - semi-bold for presence */
   --ps-skip-link-line-height: var(--leading-normal);
   --ps-skip-link-transition-duration: var(--duration-fast); /* 150ms */

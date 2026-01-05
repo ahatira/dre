@@ -126,7 +126,7 @@ sections:
 - `--size-1` to `--size-12` - Margins, paddings, gaps
 
 ### Typography
-- `--font-size-0` to `--font-size-10` - Text sizes
+- `--font-size-2` to `--font-size-17` - Text sizes
 - `--font-weight-600`, `--font-weight-700` - Weights
 - `--leading-tight`, `--leading-relaxed` - Line heights
 

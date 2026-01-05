@@ -29,38 +29,38 @@ h6, .h6 {
 
 /* H1 - Hero/page title */
 h1, .h1 {
-  font-size: var(--font-size-10); /* 48px */
+  font-size: var(--font-size-17); /* 48px */
   line-height: var(--leading-tight);
 }
 
 /* H2 - Section title */
 h2, .h2 {
-  font-size: var(--font-size-8); /* 36px */
+  font-size: var(--font-size-13); /* 36px */
   line-height: var(--leading-tight);
 }
 
 /* H3 - Subsection title */
 h3, .h3 {
-  font-size: var(--font-size-6); /* 28px */
+  font-size: var(--font-size-9); /* 28px */
   line-height: var(--leading-snug);
 }
 
 /* H4 - Component title */
 h4, .h4 {
-  font-size: var(--font-size-5); /* 24px */
+  font-size: var(--font-size-7); /* 24px */
   line-height: var(--leading-snug);
 }
 
 /* H5 - Small section title */
 h5, .h5 {
-  font-size: var(--font-size-3); /* 20px */
+  font-size: var(--font-size-5); /* 20px */
   font-weight: var(--font-weight-600);
   line-height: var(--leading-normal);
 }
 
 /* H6 - Label/caption */
 h6, .h6 {
-  font-size: var(--font-size-1); /* 16px */
+  font-size: var(--font-size-3); /* 16px */
   font-weight: var(--font-weight-600);
   line-height: var(--leading-normal);
   text-transform: uppercase;

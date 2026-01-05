@@ -365,7 +365,7 @@
     margin-block-end: var(--size-10);
 
     h1 {
-      font-size: var(--font-size-10);
+      font-size: var(--font-size-17);
       line-height: var(--leading-11);
       font-weight: var(--font-weight-700);
       color: var(--text-primary);
@@ -373,7 +373,7 @@
     }
 
     .lead {
-      font-size: var(--font-size-5);
+      font-size: var(--font-size-7);
       line-height: var(--leading-7);
       color: var(--text-secondary);
       max-width: 80ch;
@@ -381,7 +381,7 @@
   }
 
   .section-title {
-    font-size: var(--font-size-7);
+    font-size: var(--font-size-11);
     line-height: var(--leading-9);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
@@ -389,7 +389,7 @@
   }
 
   .section-intro {
-    font-size: var(--font-size-4);
+    font-size: var(--font-size-6);
     line-height: var(--leading-6);
     color: var(--text-secondary);
     margin-block-end: var(--size-6);
@@ -416,14 +416,14 @@
     padding: var(--size-5);
 
     .demo-title {
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       font-weight: var(--font-weight-700);
       color: var(--text-primary);
       margin-block-end: var(--size-2);
     }
 
     .demo-description {
-      font-size: var(--font-size-3);
+      font-size: var(--font-size-5);
       color: var(--text-secondary);
       margin-block-end: var(--size-4);
     }
@@ -447,14 +447,14 @@
     text-align: center;
 
     .swatch-label {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       font-weight: var(--font-weight-700);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     code {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       font-family: var(--font-mono);
     }
   }
@@ -479,12 +479,12 @@
     text-align: center;
 
     .swatch-label-small {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       font-weight: var(--font-weight-600);
     }
 
     code {
-      font-size: var(--font-size-1);
+      font-size: var(--font-size-3);
       font-family: var(--font-mono);
     }
   }
@@ -506,19 +506,19 @@
 
       strong {
         display: block;
-        font-size: var(--font-size-3);
+        font-size: var(--font-size-5);
         font-weight: var(--font-weight-700);
         margin-block-end: var(--size-1);
       }
 
       code {
-        font-size: var(--font-size-2);
+        font-size: var(--font-size-4);
         font-family: var(--font-mono);
       }
     }
 
     .contextual-description {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       opacity: 0.8;
     }
   }
@@ -542,17 +542,17 @@
     text-align: center;
 
     .gradient-label {
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       font-weight: var(--font-weight-700);
     }
 
     code {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       font-family: var(--font-mono);
     }
 
     .gradient-description {
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       opacity: 0.9;
     }
   }
@@ -566,7 +566,7 @@
 
   .example-block {
     h3 {
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       font-weight: var(--font-weight-700);
       color: var(--text-primary);
       margin-block-end: var(--size-4);
@@ -592,12 +592,12 @@
 
     strong {
       display: block;
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       margin-block-end: var(--size-2);
     }
 
     p {
-      font-size: var(--font-size-3);
+      font-size: var(--font-size-5);
       color: var(--text-secondary);
     }
   }
@@ -609,12 +609,12 @@
 
     strong {
       display: block;
-      font-size: var(--font-size-5);
+      font-size: var(--font-size-7);
       margin-block-end: var(--size-2);
     }
 
     p {
-      font-size: var(--font-size-3);
+      font-size: var(--font-size-5);
     }
   }
 
@@ -627,7 +627,7 @@
 
   .reference-section {
     h4 {
-      font-size: var(--font-size-4);
+      font-size: var(--font-size-6);
       font-weight: var(--font-weight-700);
       color: var(--text-primary);
       margin-block-end: var(--size-3);
@@ -647,7 +647,7 @@
         }
 
         code {
-          font-size: var(--font-size-2);
+          font-size: var(--font-size-4);
           font-family: var(--font-mono);
           color: var(--primary);
         }

@@ -50,7 +50,7 @@ font-size: 18px;
 color: var(--primary);
 padding: var(--size-4) var(--size-6);
 transition: var(--duration-fast) var(--ease-3);
-font-size: var(--font-size-3);
+font-size: var(--font-size-5);
 ```
 
 **Token Categories**:
@@ -59,7 +59,7 @@ font-size: var(--font-size-3);
 |----------|------|----------|
 | Colors | `colors.css` | `--gray-600`, `--green-600` |
 | Brand | `brand.css` | `--primary`, `--secondary`, `--success` |
-| Fonts | `fonts.css` | `--font-size-2`, `--font-weight-600` |
+| Fonts | `fonts.css` | `--font-size-4`, `--font-weight-600` |
 | Sizes | `sizes.css` | `--size-4`, `--size-6` |
 | Borders | `borders.css` | `--radius-2`, `--border-size-1` |
 | Shadows | `shadows.css` | `--shadow-2`, `--shadow-4` |
@@ -102,7 +102,7 @@ font-size: var(--font-size-3);
 .ps-card {
   /* Token-First STEP 3: Override child tokens */
   --ps-button-size: var(--size-6);
-  --ps-badge-font-size: var(--font-size-0);
+  --ps-badge-font-size: var(--font-size-2);
   
   /* Own component variables */
   --ps-card-padding: var(--size-6);
@@ -142,7 +142,7 @@ font-size: var(--font-size-3);
   
   /* 3. Elements */
   &__icon {
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-5);
   }
   
   &__text {
@@ -210,27 +210,27 @@ font-size: var(--font-size-3);
 /* ✅ CORRECT - Base first, modifiers after */
 .ps-avatar {
   &__text {
-    font-size: var(--font-size-2); /* Base md = 16px */
+    font-size: var(--font-size-4); /* Base md = 16px */
   }
   
   /* Modifiers AFTER base */
   &--xs &__text {
-    font-size: var(--font-size-0); /* 12px - overrides base */
+    font-size: var(--font-size-2); /* 12px - overrides base */
   }
   
   &--lg &__text {
-    font-size: var(--font-size-4); /* 22px - overrides base */
+    font-size: var(--font-size-6); /* 22px - overrides base */
   }
 }
 
 /* ❌ WRONG - Modifiers before base */
 .ps-avatar {
   &--xs &__text {
-    font-size: var(--font-size-0); /* Will be overridden! */
+    font-size: var(--font-size-2); /* Will be overridden! */
   }
   
   &__text {
-    font-size: var(--font-size-2); /* Wins (written after) */
+    font-size: var(--font-size-4); /* Wins (written after) */
   }
 }
 ```

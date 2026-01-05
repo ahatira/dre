@@ -647,7 +647,7 @@ type(scope): Subject line (max 72 chars)
 }
 
 .ps-card__title {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
   font-weight: var(--font-weight-700);
   color: var(--gray-900);
 }

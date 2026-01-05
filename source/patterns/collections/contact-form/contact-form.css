@@ -23,7 +23,7 @@
   }
   
   &__title {
-    font-size: var(--font-size-7);
+    font-size: var(--font-size-11);
     font-weight: var(--font-weight-700);
     color: var(--text-primary);
     margin-bottom: 0 !important;
@@ -44,7 +44,7 @@
   }
   
   &__section-title {
-    font-size: var(--font-size-5);
+    font-size: var(--font-size-7);
     font-weight: var(--font-weight-600);
     color: var(--text-primary);
     margin-bottom: 0 !important;
@@ -85,7 +85,7 @@
     
     & p {
       margin: 0;
-      font-size: var(--font-size-2);
+      font-size: var(--font-size-4);
       color: var(--text-secondary);
       line-height: var(--leading-6);
       

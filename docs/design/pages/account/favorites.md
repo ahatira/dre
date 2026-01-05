@@ -111,9 +111,9 @@ pagination:
 - Icône cœur : couleur `--secondary` (rose), taille `--size-6`
 
 **Contenu** :
-- Prix : bold, couleur `--text-primary`, taille `--font-size-4`
-- Titre : bold, couleur `--text-primary`, taille `--font-size-5`
-- Localisation : couleur `--text-secondary`, taille `--font-size-3`
+- Prix : bold, couleur `--text-primary`, taille `--font-size-6`
+- Titre : bold, couleur `--text-primary`, taille `--font-size-7`
+- Localisation : couleur `--text-secondary`, taille `--font-size-5`
 - Icône pin : couleur `--text-secondary`
 
 **CTA** :

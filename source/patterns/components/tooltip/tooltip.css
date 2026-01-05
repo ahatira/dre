@@ -52,7 +52,7 @@
   --ps-tooltip-bubble-color: var(--white);
   --ps-tooltip-bubble-padding-y: var(--size-2);
   --ps-tooltip-bubble-padding-x: var(--size-3);
-  --ps-tooltip-bubble-font-size: var(--font-size-1);
+  --ps-tooltip-bubble-font-size: var(--font-size-3);
   --ps-tooltip-bubble-max-width: 250px;
   --ps-tooltip-bubble-offset: var(--size-2);
   --ps-tooltip-bubble-z-index: var(--z-tooltip);

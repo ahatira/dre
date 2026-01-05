@@ -4,7 +4,7 @@
   /* Component-scoped variables (Layer 2) */
   --ps-footer-menu-link-color: var(--text-primary);
   --ps-footer-menu-link-color-hover: var(--primary);
-  --ps-footer-menu-link-font-size: var(--font-size-1);
+  --ps-footer-menu-link-font-size: var(--font-size-3);
   --ps-footer-menu-link-font-weight: var(--font-weight-400);
   --ps-footer-menu-gap: var(--size-4);
   --ps-footer-menu-item-padding: 0;

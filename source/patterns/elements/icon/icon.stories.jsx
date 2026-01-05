@@ -66,7 +66,7 @@ export const Positioning = {
   render: () => `
     <div style="display: flex; gap: var(--size-8); flex-direction: column;">
       <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
-        <p style="margin: 0; color: var(--info); font-size: var(--font-size-1);">
+        <p style="margin: 0; color: var(--info); font-size: var(--font-size-3);">
           💡 Icon positioning (start/end) is controlled by <code>data-icon-position</code> attribute on the element with text content.
           Icon.twig (standalone <code>&lt;i&gt;</code>) doesn't support positioning — use data-icon directly on your element for that.
         </p>
@@ -74,18 +74,18 @@ export const Positioning = {
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--size-6);">
         <div>
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon.twig (component)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Icon.twig (component)</h4>
           <div style="display: flex; flex-direction: column; gap: var(--size-2); margin-bottom: var(--size-4);">
             <div style="display: flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);">
               ${iconTwig({ icon: 'check' })}
               <span>Icon-only (no positioning)</span>
             </div>
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">{% include '@elements/icon/icon.twig' with { icon: 'check' } %}</code>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">{% include '@elements/icon/icon.twig' with { icon: 'check' } %}</code>
         </div>
 
         <div>
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">data-icon (with text + positioning)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">data-icon (with text + positioning)</h4>
           <div style="display: flex; flex-direction: column; gap: var(--size-2); margin-bottom: var(--size-4);">
             <span style="display: inline-flex; align-items: center; gap: var(--size-3); padding: var(--size-3); background: white; border-radius: var(--radius-2);" data-icon="check" data-icon-position="start">
               Icon at start
@@ -94,7 +94,7 @@ export const Positioning = {
               Icon at end
             </span>
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">&lt;span data-icon="check" data-icon-position="start"&gt;...</code>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">&lt;span data-icon="check" data-icon-position="start"&gt;...</code>
         </div>
       </div>
     </div>
@@ -114,58 +114,58 @@ export const Sizing = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); flex-direction: column;">
       <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
-        <p style="margin: 0; color: var(--text-secondary); font-size: var(--font-size-1);">
+        <p style="margin: 0; color: var(--text-secondary); font-size: var(--font-size-3);">
           💡 Icons inherit <code>font-size</code> from their parent element. Set the parent's font-size to control icon dimensions.
         </p>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--size-5);">
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
-          <div style="font-size: var(--font-size-0); margin-bottom: var(--size-3);">
-            ${iconTwig({ icon: 'check' })}
-          </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">font-size-0</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">12px</div>
-        </div>
-
-        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
-          <div style="font-size: var(--font-size-1); margin-bottom: var(--size-3);">
-            ${iconTwig({ icon: 'check' })}
-          </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">font-size-1</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">14px</div>
-        </div>
-
-        <div style="background: var(--primary-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 2px solid var(--primary); text-align: center;">
           <div style="font-size: var(--font-size-2); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--primary);">font-size-2 (default)</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">16px</div>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">font-size-0</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">12px</div>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
           <div style="font-size: var(--font-size-3); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">font-size-3</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">18px</div>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">font-size-1</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">14px</div>
         </div>
 
-        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
+        <div style="background: var(--primary-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 2px solid var(--primary); text-align: center;">
           <div style="font-size: var(--font-size-4); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">font-size-4</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">20px</div>
+          <code style="font-size: var(--font-size-2); color: var(--primary);">font-size-2 (default)</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">16px</div>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
+          <div style="font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+            ${iconTwig({ icon: 'check' })}
+          </div>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">font-size-3</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">18px</div>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
           <div style="font-size: var(--font-size-6); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
-          <code style="font-size: var(--font-size-0); color: var(--text-secondary);">font-size-6</code>
-          <div style="margin-top: var(--size-2); font-size: var(--font-size-0); color: var(--gray-500);">28px</div>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">font-size-4</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">20px</div>
+        </div>
+
+        <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light); text-align: center;">
+          <div style="font-size: var(--font-size-9); margin-bottom: var(--size-3);">
+            ${iconTwig({ icon: 'check' })}
+          </div>
+          <code style="font-size: var(--font-size-2); color: var(--text-secondary);">font-size-6</code>
+          <div style="margin-top: var(--size-2); font-size: var(--font-size-2); color: var(--gray-500);">28px</div>
         </div>
       </div>
     </div>
@@ -185,58 +185,58 @@ export const ColorInheritance = {
   render: () => `
     <div style="display: flex; gap: var(--size-6); flex-direction: column;">
       <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
-        <p style="margin: 0; color: var(--text-secondary); font-size: var(--font-size-1);">
+        <p style="margin: 0; color: var(--text-secondary); font-size: var(--font-size-3);">
           🎨 Icons inherit <code>color</code> from their parent using <code>currentColor</code>. No need to set icon colors explicitly.
         </p>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--size-5);">
         <div style="background: var(--primary-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--primary);">
-          <div style="color: var(--primary); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--primary); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--primary);">Primary</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Brand actions, main CTAs</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Brand actions, main CTAs</p>
         </div>
 
         <div style="background: var(--success-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--success);">
-          <div style="color: var(--success); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--success); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'check' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--success);">Success</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Confirmations, positive states</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Confirmations, positive states</p>
         </div>
 
         <div style="background: var(--warning-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--warning);">
-          <div style="color: var(--warning); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--warning); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'alert' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--warning);">Warning</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Cautions, important notices</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Cautions, important notices</p>
         </div>
 
         <div style="background: var(--danger-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--danger);">
-          <div style="color: var(--danger); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--danger); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'close' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--danger);">Danger</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Errors, destructive actions</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Errors, destructive actions</p>
         </div>
 
         <div style="background: var(--info-bg-subtle); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--info);">
-          <div style="color: var(--info); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--info); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'info' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--info);">Info</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Informational content, tips</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Informational content, tips</p>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <div style="color: var(--gray-500); font-size: var(--font-size-5); margin-bottom: var(--size-3);">
+          <div style="color: var(--gray-500); font-size: var(--font-size-7); margin-bottom: var(--size-3);">
             ${iconTwig({ icon: 'help' })}
           </div>
           <strong style="display: block; margin-bottom: var(--size-2); color: var(--gray-700);">Neutral</strong>
-          <p style="margin: 0; font-size: var(--font-size-1); color: var(--text-secondary);">Secondary content, disabled states</p>
+          <p style="margin: 0; font-size: var(--font-size-3); color: var(--text-secondary);">Secondary content, disabled states</p>
         </div>
       </div>
     </div>
@@ -256,7 +256,7 @@ export const DataIconSystem = {
   render: () => `
     <div style="display: flex; gap: var(--size-8); flex-direction: column;">
       <div style="background: var(--primary-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--primary);">
-        <p style="margin: 0; color: var(--primary); font-size: var(--font-size-1);">
+        <p style="margin: 0; color: var(--primary); font-size: var(--font-size-3);">
           🚀 The <code>data-icon</code> CSS system can be applied directly to ANY HTML element (button, span, link, heading, etc.) 
           without using Icon.twig. Use <code>data-icon-position="end"</code> for ::after positioning.
         </p>
@@ -264,7 +264,7 @@ export const DataIconSystem = {
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--size-5);">
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Button with Icon (end position)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Button with Icon (end position)</h4>
           <button style="
             background: var(--primary);
             color: white;
@@ -277,11 +277,11 @@ export const DataIconSystem = {
           " data-icon="arrow-right" data-icon-position="end" onmouseenter="this.style.background='var(--primary-hover)'" onmouseleave="this.style.background='var(--primary)'">
             Proceed to next
           </button>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="arrow-right" data-icon-position="end"&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="arrow-right" data-icon-position="end"&gt;</code>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Badge with Icon (start position)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Badge with Icon (start position)</h4>
           <span style="
             background: var(--success-bg-subtle);
             color: var(--success);
@@ -292,11 +292,11 @@ export const DataIconSystem = {
           " data-icon="check" data-icon-position="start">
             Approved
           </span>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span data-icon="check"&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span data-icon="check"&gt;</code>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Link with Icon (end position)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Link with Icon (end position)</h4>
           <a href="#" style="
             color: var(--primary);
             text-decoration: none;
@@ -307,19 +307,19 @@ export const DataIconSystem = {
           " data-icon="external-link" data-icon-position="end">
             View full listing
           </a>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;a data-icon="external-link" data-icon-position="end"&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;a data-icon="external-link" data-icon-position="end"&gt;</code>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Heading with Icon (start position)</h4>
-          <h2 style="margin: 0; color: var(--text-primary); font-size: var(--font-size-4);" data-icon="star" data-icon-position="start">
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Heading with Icon (start position)</h4>
+          <h2 style="margin: 0; color: var(--text-primary); font-size: var(--font-size-6);" data-icon="star" data-icon-position="start">
             Featured Properties
           </h2>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;h2 data-icon="star"&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;h2 data-icon="star"&gt;</code>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon-only (icon on button)</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Icon-only (icon on button)</h4>
           <button style="
             width: 40px;
             height: 40px;
@@ -329,29 +329,29 @@ export const DataIconSystem = {
             border-radius: var(--radius-2);
             cursor: pointer;
             color: var(--text-primary);
-            font-size: var(--font-size-3);
+            font-size: var(--font-size-5);
             display: flex;
             align-items: center;
             justify-content: center;
           " data-icon="search" aria-label="Search">
           </button>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="search"&gt;&lt;/button&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;button data-icon="search"&gt;&lt;/button&gt;</code>
         </div>
 
         <div style="background: var(--gray-50); padding: var(--size-5); border-radius: var(--radius-3); border: 1px solid var(--border-light);">
-          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-2); font-weight: 600;">Icon inherits color</h4>
+          <h4 style="margin: 0 0 var(--size-3); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600;">Icon inherits color</h4>
           <div style="display: flex; gap: var(--size-4); align-items: center;">
             <span style="color: var(--success);" data-icon="check">Verified</span>
             <span style="color: var(--warning);" data-icon="alert">Caution</span>
             <span style="color: var(--danger);" data-icon="close">Error</span>
           </div>
-          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-0); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span style="color: var(--success);" data-icon="check"&gt;</code>
+          <code style="display: block; margin-top: var(--size-3); font-size: var(--font-size-2); color: var(--text-secondary); padding: var(--size-2); background: white; border-radius: var(--radius-2); border: 1px solid var(--border-light);">&lt;span style="color: var(--success);" data-icon="check"&gt;</code>
         </div>
       </div>
 
       <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
         <strong style="color: var(--info); display: block; margin-bottom: var(--size-2);">Key Differences from Icon.twig:</strong>
-        <ul style="margin: 0; padding-left: var(--size-5); color: var(--text-secondary); font-size: var(--font-size-1);">
+        <ul style="margin: 0; padding-left: var(--size-5); color: var(--text-secondary); font-size: var(--font-size-3);">
           <li><strong>No wrapper needed</strong> — Use <code>data-icon</code> directly on your HTML element</li>
           <li><strong>Text content supported</strong> — Icon + text automatically spaced via flexbox + gap</li>
           <li><strong>Color inheritance</strong> — Icon inherits <code>currentColor</code> from parent</li>
@@ -401,8 +401,8 @@ export const Gallery = {
     return `
       <div style="display: flex; flex-direction: column; gap: var(--size-10);">
         <div style="background: var(--info-bg-subtle); padding: var(--size-4); border-radius: var(--radius-2); border-left: 4px solid var(--info);">
-          <strong style="color: var(--info); font-size: var(--font-size-3);">📦 ${iconsRegistry.total} icons available</strong>
-          <p style="margin: var(--size-2) 0 0; color: var(--text-secondary); font-size: var(--font-size-1);">
+          <strong style="color: var(--info); font-size: var(--font-size-5);">📦 ${iconsRegistry.total} icons available</strong>
+          <p style="margin: var(--size-2) 0 0; color: var(--text-secondary); font-size: var(--font-size-3);">
             Click any icon to copy its name to clipboard. Icons are organized by their source folder for easy discovery.
           </p>
         </div>
@@ -412,8 +412,8 @@ export const Gallery = {
           .map(
             ([categoryName, icons]) => `
             <div>
-              <h3 style="margin: 0 0 var(--size-5); color: var(--text-primary); font-size: var(--font-size-4); font-weight: 600; border-bottom: 2px solid var(--border-light); padding-bottom: var(--size-2);">
-                ${categoryName} <span style="color: var(--text-secondary); font-weight: 400; font-size: var(--font-size-2);">(${icons.length})</span>
+              <h3 style="margin: 0 0 var(--size-5); color: var(--text-primary); font-size: var(--font-size-6); font-weight: 600; border-bottom: 2px solid var(--border-light); padding-bottom: var(--size-2);">
+                ${categoryName} <span style="color: var(--text-secondary); font-weight: 400; font-size: var(--font-size-4);">(${icons.length})</span>
               </h3>
               <div style="
                 display: grid;
@@ -458,7 +458,7 @@ export const Gallery = {
                       ${iconTwig({ icon: iconName, ariaHidden: true })}
                     </div>
                     <code style="
-                      font-size: var(--font-size-0);
+                      font-size: var(--font-size-2);
                       color: var(--text-secondary);
                       text-align: center;
                       word-break: break-word;

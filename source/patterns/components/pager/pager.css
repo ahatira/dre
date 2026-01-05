@@ -31,7 +31,7 @@
   
   /* Typography */
   --ps-pager-font-family: var(--font-sans);
-  --ps-pager-font-size: var(--font-size-1);
+  --ps-pager-font-size: var(--font-size-3);
   --ps-pager-font-weight: var(--font-weight-medium);
   --ps-pager-line-height: 1;
   
@@ -189,7 +189,7 @@
     --ps-pager-link-padding-y: var(--size-3);
     --ps-pager-link-padding-x: var(--size-3);
     --ps-pager-control-padding-x: var(--size-4);
-    --ps-pager-font-size: var(--font-size-2);
+    --ps-pager-font-size: var(--font-size-4);
     --ps-pager-gap: var(--size-2);
   }
 

@@ -25,7 +25,7 @@
 
   /* Typography */
   --ps-select-font-family: var(--font-sans);
-  --ps-select-font-size: var(--font-size-1); /* 16px */
+  --ps-select-font-size: var(--font-size-3); /* 16px */
   --ps-select-font-weight: var(--font-weight-400);
   --ps-select-line-height: var(--leading-normal); /* 1.5 */
 
@@ -184,7 +184,7 @@
   --ps-select-padding-right: var(--size-7);
 
   --ps-select-font-family: var(--font-sans);
-  --ps-select-font-size: var(--font-size-1);
+  --ps-select-font-size: var(--font-size-3);
   --ps-select-font-weight: var(--font-weight-400);
   --ps-select-line-height: var(--leading-normal);
 

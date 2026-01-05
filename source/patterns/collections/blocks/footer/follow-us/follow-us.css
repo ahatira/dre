@@ -7,7 +7,7 @@
   --ps-follow-us-icon-color: var(--text-primary);
   --ps-follow-us-icon-color-hover: var(--primary);
   --ps-follow-us-text-color: var(--text-secondary);
-  --ps-follow-us-text-font-size: var(--font-size-0);
+  --ps-follow-us-text-font-size: var(--font-size-2);
   --ps-follow-us-text-font-weight: var(--font-weight-500);
 
   /* Reset list styles */

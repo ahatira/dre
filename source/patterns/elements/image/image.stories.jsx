@@ -127,7 +127,7 @@ export const ObjectFits = {
               height: 450,
             })}
           </div>
-          <code style="font-size: var(--font-size-1); color: var(--gray-600);">${fit}</code>
+          <code style="font-size: var(--font-size-3); color: var(--gray-600);">${fit}</code>
         </div>
       `;
     });
@@ -159,7 +159,7 @@ export const BorderRadius = {
               height: 400,
             })}
           </div>
-          <code style="font-size: var(--font-size-1); color: var(--gray-600);">${radius}</code>
+          <code style="font-size: var(--font-size-3); color: var(--gray-600);">${radius}</code>
         </div>
       `;
     });

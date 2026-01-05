@@ -104,66 +104,80 @@
 
 h1,
 .h1 {
-  font-size:   var(--font-size-9);   /* Mobile: 40px */
-  line-height: var(--leading-13);    /* Mobile: 52px */
-  font-weight: var(--font-weight-700);
+  font-size:   var(--font-size-15);  /* Mobile: 40px */
+  line-height: var(--leading-17);    /* Mobile: 52px */
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
 }
 
 @media (min-width: 1024px) {
   h1,
   .h1 {
-    font-size:   var(--font-size-10);  /* Desktop: 48px */
-    line-height: var(--leading-14);    /* Desktop: 60px */
+    font-size:   var(--font-size-17);  /* Desktop: 48px */
+    line-height: var(--leading-19);    /* Desktop: 60px */
   }
 }
 
 h2,
 .h2 {
-  font-size:   var(--font-size-8);   /* Mobile: 36px */
-  line-height: var(--leading-11);    /* Mobile & Desktop: 44px */
-  font-weight: var(--font-weight-700);
+  font-size:   var(--font-size-13);  /* Mobile: 36px */
+  line-height: var(--leading-15);    /* Mobile & Desktop: 44px */
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
 }
 
 @media (min-width: 1024px) {
   h2,
   .h2 {
-    font-size: var(--font-size-9);   /* Desktop: 44px (was incorrectly --font-size-13) */
+    font-size: var(--font-size-16);    /* Desktop: 44px */
   }
 }
 
 h3,
 .h3 {
-  font-size:   var(--font-size-6);   /* Mobile: 28px */
-  line-height: var(--leading-10);    /* Mobile & Desktop: 40px */
-  font-weight: var(--font-weight-700);
+  font-size:   var(--font-size-9);    /* Mobile: 28px */
+  line-height: var(--leading-14);    /* Mobile & Desktop: 40px */
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
 }
 
 @media (min-width: 1024px) {
   h3,
   .h3 {
-    font-size: var(--font-size-7);   /* Desktop: 32px */
+    font-size: var(--font-size-11);  /* Desktop: 32px */
   }
 }
 
 h4,
 .h4 {
-  font-size:   var(--font-size-5);   /* Mobile & Desktop: 24px */
-  line-height: var(--leading-h4);    /* Mobile & Desktop: 30px */
-  font-weight: var(--font-weight-700);
+  font-size:   var(--font-size-7);    /* Mobile & Desktop: 24px */
+  line-height: var(--leading-9);     /* Mobile & Desktop: 30px */
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
 }
 
 h5,
 .h5 {
-  font-size:   var(--font-size-3);   /* Mobile & Desktop: 20px */
+  font-size:   var(--font-size-5);   /* Mobile & Desktop: 20px */
   line-height: var(--leading-6);     /* Mobile & Desktop: 24px */
-  font-weight: var(--font-weight-700);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
 }
 
 h6,
 .h6 {
-  font-size:   var(--font-size--1);  /* Mobile & Desktop: 14px */
-  line-height: var(--leading-5);     /* Mobile & Desktop: 20px */
-  font-weight: var(--font-weight-700);
+  font-size:   var(--font-size-2);   /* Mobile: 14px */
+  line-height: var(--leading-3);     /* Mobile: 18px */
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-400);
+}
+
+@media (min-width: 1024px) {
+  h6,
+  .h6 {
+    font-size:   var(--font-size-3);  /* Desktop: 16px */
+    line-height: var(--leading-4);    /* Desktop: 20px */
+  }
 }
 
 /* =================================================================
@@ -172,39 +186,39 @@ h6,
 /* Large, lighter weight typography for prominent text */
 
 .display-1 {
-  font-size:   var(--font-size-14);
+  font-size:   var(--font-size-40);  /* 64px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-20);    /* 64px */
 }
 
 .display-2 {
-  font-size:   var(--font-size-13);
+  font-size:   var(--font-size-39);  /* 56px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-19);    /* 60px */
 }
 
 .display-3 {
-  font-size:   var(--font-size-12);
+  font-size:   var(--font-size-38);  /* 52px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-18);    /* 56px */
 }
 
 .display-4 {
-  font-size:   var(--font-size-11);
+  font-size:   var(--font-size-37);  /* 48px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-18);    /* 56px */
 }
 
 .display-5 {
-  font-size:   var(--font-size-10);
+  font-size:   var(--font-size-36);  /* 44px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-17);    /* 52px */
 }
 
 .display-6 {
-  font-size:   var(--font-size-9);
+  font-size:   var(--font-size-16);  /* 40px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-16);    /* 48px */
 }
 
 /* =================================================================
@@ -213,35 +227,35 @@ h6,
 
 /* Lead paragraph - emphasis on introductory text */
 .lead {
-  font-size:   var(--font-size-2);
+  font-size:   var(--font-size-6);   /* 18px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-7);
+  line-height: var(--leading-8);     /* 28px */
 }
 
 /* Small text */
 .small {
-  font-size:   var(--font-size-0);
+  font-size:   var(--font-size-4);   /* 14px */
   font-weight: var(--font-weight-400);
-  line-height: var(--leading-5);
+  line-height: var(--leading-4);     /* 20px */
 }
 
 /* Micro utilities (overline, caption, code) */
 .overline {
-  font-size:      var(--font-size--1);
+  font-size:      var(--font-size-3);   /* 12px */
   font-weight:    var(--font-weight-600);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
 
 .caption {
-  font-size:   var(--font-size--1);
+  font-size:   var(--font-size-3);    /* 12px */
   font-weight: var(--font-weight-400);
   color:       var(--text-secondary);
 }
 
 .code {
   font-family: var(--font-mono);
-  font-size:   var(--font-size--1);
+  font-size:   var(--font-size-3);    /* 12px */
   font-weight: var(--font-weight-400);
 }
 
@@ -257,7 +271,7 @@ abbr {
 }
 
 abbr.initialism {
-  font-size:      var(--font-size-0);
+  font-size:      var(--font-size-4);  /* 14px */
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
@@ -272,9 +286,9 @@ blockquote {
 }
 
 blockquote.blockquote {
-  font-size:      var(--font-size-2);
+  font-size:      var(--font-size-6);   /* 18px */
   font-weight:    var(--font-weight-300);
-  line-height:    var(--leading-7);
+  line-height:    var(--leading-8);     /* 28px */
   margin-bottom:  var(--size-8);
 }
 
@@ -285,7 +299,7 @@ blockquote.blockquote p {
 
 figcaption.blockquote-footer {
   display:      block;
-  font-size:    var(--font-size-0);
+  font-size:    var(--font-size-2);
   color:        var(--text-secondary);
   margin-top:   var(--size-4);
 }
