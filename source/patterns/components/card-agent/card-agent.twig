@@ -15,11 +15,11 @@
  */
 #}
 
-{%- set name = name|default('Nom de l’agent') -%}
-{%- set title = title|default('Votre agent :') -%}
+{%- set name = name|default('Real Estate') -%}
+{%- set title = title|default('Your agent :') -%}
 {%- set avatar = avatar|default(null) -%}
 {%- set phone = phone|default(null) -%}
-{%- set cta = cta|default({ text: 'Contacter l’agent', url: '#' }) -%}
+{%- set cta = cta|default({ text: 'Contact the consultancy', url: '#' }) -%}
 {%- set attributes = (attributes is defined ? attributes : create_attribute()) -%}
 
 {%- set attr = attributes
@@ -32,7 +32,7 @@
       {% include '@elements/avatar/avatar.twig' with {
         src: avatar.url,
         alt: avatar.alt|default(''),
-        size: 'large',
+        size: 'medium',
         attributes: create_attribute().addClass('ps-card-agent__photo')
       } only %}
     {% endif %}
@@ -52,10 +52,10 @@
 
       {% if phone %}
         <div class="ps-card-agent__phone">
-          <span class="ps-card-agent__phone-icon" data-icon="phone" aria-hidden="true"></span>
           {% include '@elements/link/link.twig' with {
             label: phone,
             url: 'tel:' ~ phone,
+            icon: 'phone',
             attributes: create_attribute().addClass('ps-card-agent__phone-link')
           } only %}
         </div>

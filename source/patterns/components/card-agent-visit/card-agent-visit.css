@@ -46,7 +46,7 @@
   }
 
   /* Mobile: show only CTA */
-  @media not all and (--tablet) {
+  @media not all and (--laptop) {
     padding: 0;
 
     &__title {
