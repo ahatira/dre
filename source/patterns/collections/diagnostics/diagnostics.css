@@ -47,8 +47,10 @@
     margin: 0;
     font-size: var(--ps-diagnostics-title-font-size);
     font-weight: var(--ps-diagnostics-title-font-weight);
-    color: var(--ps-diagnostics-title-color);
-    display: inline-flex;
+    color: var(--gray-900);
+    background: #FFC107;
+    padding: var(--size-3) var(--size-4);
+    display: flex;
     align-items: center;
     gap: var(--ps-diagnostics-title-icon-gap);
   }

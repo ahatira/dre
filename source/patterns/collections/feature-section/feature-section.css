@@ -39,7 +39,9 @@
     margin: 0;
     font-size: var(--ps-feature-section-title-font-size);
     font-weight: var(--ps-feature-section-title-font-weight);
-    color: var(--ps-feature-section-title-color);
+    color: var(--gray-900);
+    background: #FFC107;
+    padding: var(--size-3) var(--size-4);
 
     /* Icon styling within title */
     &[data-icon] {

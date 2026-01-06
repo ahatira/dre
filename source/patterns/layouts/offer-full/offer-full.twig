@@ -28,21 +28,16 @@
   <div class="container offer-full__container">
     <div class="offer-layout">
       <div class="offer-layout__main">
-        {% include '@layouts/offer-full/template/offer-hero.twig' with { hero: hero } only %}
-
-        {% include '@layouts/offer-full/template/offer-reference.twig' with { reference: reference } only %}
-
-        {% include '@layouts/offer-full/template/offer-meta.twig' with { meta: meta } only %}
-
-        {% include '@layouts/offer-full/template/offer-actions.twig' with { actions: actions } only %}
-
+        <div class="offer-layout__main--top">
+          {% include '@layouts/offer-full/template/offer-hero.twig' with { hero: hero } only %}
+          {% include '@layouts/offer-full/template/offer-reference.twig' with { reference: reference } only %}
+          {% include '@layouts/offer-full/template/offer-meta.twig' with { meta: meta } only %}
+          {% include '@layouts/offer-full/template/offer-actions.twig' with { actions: actions } only %}
+        </div>
         {% include '@layouts/offer-full/template/offer-description.twig' with { description: description } only %}
         {% include '@layouts/offer-full/template/offer-features.twig' with { features: features } only %}
-
         {% include '@layouts/offer-full/template/offer-energy.twig' with { energy: energy } only %}
-
         {% include '@layouts/offer-full/template/offer-surface.twig' with { surface: surface } only %}
-
         {% include '@layouts/offer-full/template/offer-location.twig' with { location: location } only %}
       </div>
 
