@@ -23,10 +23,13 @@
   /* Layer 2: Component-scoped variables */
   --ps-hero-position: relative;
   --ps-hero-overflow: hidden;
+  --ps-hero-aspect-ratio: 3 / 4;
 
-  /* Base container structure */
+  /* Base container structure with 3/4 aspect ratio */
   position: var(--ps-hero-position);
   overflow: var(--ps-hero-overflow);
+  width: 100%;
+  aspect-ratio: var(--ps-hero-aspect-ratio);
 
   /* Carousel styling via composition */
   &__carousel {
@@ -37,12 +40,12 @@
   /* Favorite button - positioned absolutely in top-right corner */
   &__favorite.ps-button {
     position: absolute;
-    top: var(--size-4);
-    right: var(--size-4);
+    top: var(--size-6);
+    right: var(--size-6);
     z-index: 10;
-    padding: var(--size-3);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
+    width: var(--size-12);
+    height: var(--size-12);
+    font-size: var(--font-size-10);
     transition: all var(--duration-short) var(--ease-in-out);
 
     &:hover,
