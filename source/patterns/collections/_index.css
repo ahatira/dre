@@ -1,9 +1,11 @@
 /* Collections (Organisms) */
 @import './accordion/accordion.css';
-@import './diagnostics/diagnostics.css';
-@import './features/features.css';
 @import './tags/tags.css';
 @import './tabs/tabs.css';
+
+/* Offer-related collections */
+@import './offer/diagnostics/diagnostics.css';
+@import './offer/features/features.css';
 
 /* Header Blocks */
 @import './blocks/header/favorites/favorites.css';

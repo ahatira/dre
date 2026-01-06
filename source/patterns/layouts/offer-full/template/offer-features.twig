@@ -21,7 +21,7 @@
     <div class="offer-features__skeleton" aria-hidden="true"></div>
   {% else %}
     {% for group in features.groups|default([]) %}
-      {% include '@collections/features/features.twig' with {
+      {% include '@collections/offer/features/features.twig' with {
         title: group.title,
         icon: group.icon,
         items: group.items,

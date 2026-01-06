@@ -11,7 +11,7 @@ import diagnosticsTemplate from './diagnostics.twig';
 import data from './diagnostics.yml';
 
 const settings = {
-  title: 'Collections/Diagnostics',
+  title: 'Collections/Offer/Diagnostics',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

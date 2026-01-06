@@ -11,7 +11,7 @@ import featuresTemplate from './features.twig';
 import data from './features.yml';
 
 const settings = {
-  title: 'Collections/Features',
+  title: 'Collections/Offer/Features',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
