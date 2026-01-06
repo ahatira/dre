@@ -1,0 +1,48 @@
+media:
+  variant: 'images'
+  fit: 'cover'
+  slides:
+    - id: 'photo-1'
+      type: 'image'
+      image:
+        src: '/storybook/images/building.jpg'
+        alt: 'Historic office building facade'
+    - id: 'photo-2'
+      type: 'image'
+      image:
+        src: '/storybook/images/4-3.jpg'
+        alt: 'Lobby view'
+    - id: 'photo-3'
+      type: 'image'
+      image:
+        src: '/storybook/images/3-2.jpg'
+        alt: 'Office interior'
+    - id: '3d-1'
+      type: '3d-visit'
+      image:
+        src: '/storybook/images/4-3.jpg'
+        alt: '3D virtual tour'
+    - id: 'plan-1'
+      type: 'plan'
+      image:
+        src: '/storybook/images/16-9.jpg'
+        alt: 'Floor plan'
+  toolbar:
+    items:
+      - type: 'photos'
+        label: '13 photos'
+        icon: 'picture'
+        slideIndex: 0
+      - type: '3d-visit'
+        label: '1 visite 3D'
+        icon: 'cube-focus'
+        slideIndex: 3
+      - type: 'plan'
+        label: '1 plan'
+        icon: 'cards'
+        slideIndex: 4
+favorite:
+  icon: 'heart'
+  toggle: true
+  active: false
+  ariaLabel: 'Add to favorites'

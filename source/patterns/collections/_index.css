@@ -7,6 +7,7 @@
 @import './offer/description/description.css';
 @import './offer/diagnostics/diagnostics.css';
 @import './offer/features/features.css';
+@import './offer/hero/hero.css';
 
 /* Header Blocks */
 @import './blocks/header/favorites/favorites.css';
