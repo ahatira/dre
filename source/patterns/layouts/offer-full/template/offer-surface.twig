@@ -3,30 +3,20 @@
  * Offer surface table.
  * Variables:
  * - surface.title: Section heading.
- * - surface.headers: Array of column labels.
- * - surface.rows: Array of rows (each row is array of cells).
+ * - surface.icon: Icon for title.
+ * - surface.table: Table data (caption, headers, rows).
  */
 #}
 
 <section class="offer-surface">
   <div class="offer-surface__header">
     <h3 class="offer-section__title" data-icon="{{ surface.icon|default('area') }}">{{ surface.title|default('Surface table') }}</h3>
-    {% if surface.caption %}<p class="offer-surface__caption">{{ surface.caption }}</p>{% endif %}
   </div>
   
-  {%- set table_headers = [] -%}
-  {%- for header in surface.headers|default([]) -%}
-    {%- set table_headers = table_headers|merge([{ key: loop.index0|string, label: header }]) -%}
-  {%- endfor -%}
-  
-  {%- set table_rows = [] -%}
-  {%- for row in surface.rows|default([]) -%}
-    {%- set table_rows = table_rows|merge([{ id: loop.index0|string, cells: row }]) -%}
-  {%- endfor -%}
-  
   {% include '@components/table/table.twig' with {
-    headers: table_headers,
-    rows: table_rows,
+    caption: surface.table.caption|default(null),
+    headers: surface.table.headers|default([]),
+    rows: surface.table.rows|default([]),
     variant: 'default',
     hover: true,
     striped: false,

@@ -245,12 +245,66 @@ energy:
 surface:
   title: 'Surface table'
   icon: 'area'
-  caption: null
-  headers: ['Lot', 'Etage', 'Nature', 'Surface', 'Disponibilité']
-  rows:
-    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '405 m²', 'Nous consulter']
-    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '420 m²', 'Nous consulter']
-    - ['OLBUR2104652/1', 'R+5', 'Bureaux', '420 m²', 'Nous consulter']
+  table:
+    caption: null
+    headers:
+      - key: 'lot'
+        label: 'Lot'
+        sortable: true
+        numeric: false
+      - key: 'etage'
+        label: 'Étage'
+        sortable: true
+        numeric: false
+      - key: 'nature'
+        label: 'Nature'
+        sortable: true
+        numeric: false
+      - key: 'surface'
+        label: 'Surface'
+        sortable: true
+        numeric: false
+      - key: 'disponibilite'
+        label: 'Disponibilité'
+        sortable: true
+        numeric: false
+    rows:
+      - id: '1'
+        cells:
+          - 'R+5'
+          - 'RDC'
+          - 'Bureaux'
+          - '207 m²'
+          - 'Nous consulter'
+        selected: false
+        disabled: false
+      - id: '2'
+        cells:
+          - 'R+5'
+          - 'R+5'
+          - 'Bureaux'
+          - '530 m²'
+          - 'Nous consulter'
+        selected: false
+        disabled: false
+      - id: '3'
+        cells:
+          - 'R+4'
+          - 'R+4'
+          - 'Bureaux'
+          - '412 m²'
+          - 'Nous consulter'
+        selected: false
+        disabled: false
+      - id: '4'
+        cells:
+          - 'R+3'
+          - 'R+3'
+          - 'Bureaux'
+          - '385 m²'
+          - 'Disponible'
+        selected: false
+        disabled: false
 
 location:
   title: 'Location'
