@@ -20,16 +20,6 @@
   {% if placeholder %}
     <div class="offer-hero__skeleton" aria-hidden="true"></div>
   {% else %}
-    <div class="offer-hero__media">
-      {% if hero.media|default(null) %}
-        {%- include '@components/carousel/carousel.twig' with hero.media only -%}
-      {% endif %}
-
-      {% if hero.favorite|default(null) %}
-        <div class="offer-hero__favorite-wrapper">
-          {%- include '@elements/button/button.twig' with hero.favorite only -%}
-        </div>
-      {% endif %}
-    </div>
+    {%- include '@collections/offer/hero/hero.twig' with hero only -%}
   {% endif %}
 </section>

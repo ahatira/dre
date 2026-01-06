@@ -19,20 +19,6 @@
   {% if placeholder %}
     <div class="offer-description__skeleton" aria-hidden="true"></div>
   {% else %}
-    {% if description.title %}
-      <span class="offer-section__title" id="offer-description-heading">{{ description.title }}</span>
-    {% endif %}
-    {% if description.body %}
-      <div class="offer-description__body">
-        {% include '@components/read-more/read-more.twig' with {
-          content: description.body,
-          maxHeight: description.maxHeight|default(150),
-          expandLabel: description.expandLabel|default('Voir plus'),
-          collapseLabel: description.collapseLabel|default('Voir moins'),
-          expanded: description.expanded|default(false),
-          showIcon: description.showIcon|default(true)
-        } only %}
-      </div>
-    {% endif %}
+    {% include '@collections/offer/description/description.twig' with description only %}
   {% endif %}
 </section>
