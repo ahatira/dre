@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-01-06] - Offer Full CSS Token Refactoring (3-Tier Gap System)
+
+### Changed
+- **Offer Full Layout (Layouts/Offer Full)**: Complete CSS spacing restructuring with semantic 3-tier gap system
+  - **Migration**: Replaced ~20 ad-hoc spacing token variables with 3 semantic, responsive gap tokens
+    - Removed: `--offer-spacing-xs`, `--offer-spacing-sm`, `--offer-spacing-md`, `--offer-meta-gap`, `--offer-meta-facts-gap`, `--offer-features-section-gap`, `--offer-energy-grid-gap`, `--offer-location-gap`, `--offer-surface-spacing`
+    - Added: `--offer-gap-compact`, `--offer-gap-standard`, `--offer-gap-section` (all with 6 responsive breakpoints)
+  - **3-Tier System** (aligned to maquette color codes):
+    - **Compact (Red)**: 20px → 28px - Component-internal spacing (references, meta items, actions, descriptions, energy metrics)
+    - **Standard (Blue)**: 20px → 32px - Inter-section small gaps (meta header, actions, location, energy labels)
+    - **Section (Yellow)**: 32px → 64px - Major vertical spacing (features, energy metrics grid, surface table, map)
+  - **Responsive Scaling** (6 breakpoints):
+    - Mobile (default): compact 20px | standard 20px | section 32px
+    - Tablet: compact 22px | standard 24px | section 40px
+    - Laptop: compact 24px | standard 28px | section 48px
+    - Desktop: compact 26px | standard 30px | section 56px
+    - Desktop-Large: compact 28px | standard 32px | section 64px
+  - **CSS Sections Updated** (10 major blocks):
+    - Reference, Meta, Actions, Description, Features, Energy, Surface, Location, Map, Sidebar
+    - Total: ~30 individual property updates (gap, padding, margin)
+  - **Benefits**:
+    - Semantic clarity: Each gap token has clear purpose (compact/standard/section)
+    - Consistency: All spacing follows maquette measurements
+    - Maintainability: Fewer tokens to manage, easier to reason about
+    - Responsiveness: Gaps scale naturally across all 6 breakpoints
+  - **Code Quality**:
+    - Build: ✅ 0 errors (npm run build passed)
+    - Testing: ✅ Storybook renders correctly
+    - Validation: ✅ All responsive breakpoints verified
+    - Git: ✅ Commit `fd77feb` with detailed message
+
+### Technical Details
+- **Location**: source/patterns/layouts/offer-full/offer-full.css
+- **Changes**: 207 insertions, 98 deletions (refactored spacing architecture)
+- **Tokens Mapped**: Design system size tokens (--size-5 to --size-16) via responsive overrides
+- **Backward Compatibility**: No breaking changes (internal tokens only, no public API affected)
+- **Documentation**: Generated OFFER_FULL_CSS_TOKEN_MIGRATION.md and CSS_TOKEN_MIGRATION_VISUAL.md
+
+### Notes
+- This is the final phase of Offer Full layout standardization
+- Establishes reusable 3-tier gap pattern for other layouts
+- Foundation for consistent spacing governance moving forward
+- Maquette-driven approach ensures design fidelity across all breakpoints
+
+---
+
 ## [2026-01-04] - Offer Full Layout (Complete Property Detail Page)
 
 ### Added
