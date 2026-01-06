@@ -15,6 +15,8 @@
  */
 #}
 
+{%- set html_tag = html_tag|default('div') -%}
+{%- set title_level = title_level|default('h4') -%}
 {%- set title = title|default('') -%}
 {%- set icon = icon|default('') -%}
 {%- set diagnostics = diagnostics|default([]) -%}
@@ -28,15 +30,13 @@
 
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(diagnostics_classes) -%}
 
-<div{{ attr }}>
-  <div class="ps-diagnostics__header">
-    {% include '@elements/heading/heading.twig' with {
-      level: 'h3',
-      text: title,
-      icon: icon,
-      attributes: create_attribute().addClass('ps-diagnostics__title')
-    } only %}
-  </div>
+<{{ html_tag }}{{ attr }}>
+  {% include '@elements/heading/heading.twig' with {
+    level: title_level,
+    text: title,
+    icon: icon,
+    attributes: create_attribute().addClass('ps-diagnostics__title')
+  } only %}
 
   {% if diagnostics|length > 0 %}
     <div class="ps-diagnostics__grid">
@@ -63,4 +63,4 @@
       {%- endfor -%}
     </div>
   {% endif %}
-</div>
+</{{ html_tag }}>

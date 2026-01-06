@@ -1,3 +1,5 @@
+html_tag: 'div'
+title_level: 'h3'
 title: 'Energy'
 icon: 'energy'
 diagnostics:
