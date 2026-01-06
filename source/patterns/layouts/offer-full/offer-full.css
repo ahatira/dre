@@ -27,6 +27,8 @@
   --offer-energy-grid-gap: var(--offer-spacing-lg);
   --offer-surface-spacing: var(--offer-spacing-lg);
   --offer-location-gap: var(--offer-spacing-md);
+  --offer-sidebar-gap: var(--offer-spacing-md);
+  --offer-sidebar-padding: var(--offer-spacing-lg);
   
   /* Design tokens */
   --offer-border: 1px solid var(--border-light);
@@ -61,10 +63,12 @@
     --offer-spacing-lg: var(--size-8);
     --offer-spacing-xl: var(--size-10);
     --offer-gap-section: var(--size-8);
-    --offer-gap-columns: var(--size-8);
+    --offer-gap-columns: var(--size-6);
     --offer-features-section-gap: var(--size-8);
     --offer-energy-grid-gap: var(--size-8);
     --offer-surface-spacing: var(--size-8);
+    --offer-sidebar-gap: var(--offer-spacing-md);
+    --offer-sidebar-padding: 0;
   }
 }
 
@@ -72,7 +76,7 @@
   .offer-full {
     --offer-spacing-xl: var(--size-12);
     --offer-gap-section: var(--size-10);
-    --offer-gap-columns: var(--size-10);
+    --offer-gap-columns: var(--size-7);
     --offer-hero-favorite-icon-size: var(--size-8);
   }
 }
@@ -80,15 +84,14 @@
 @media (--desktop-large) {
   .offer-full {
     --offer-gap-section: var(--size-12);
-    --offer-gap-columns: var(--size-12);
+    --offer-gap-columns: var(--size-8);
     --offer-features-section-gap: var(--size-10);
     --offer-energy-grid-gap: var(--size-10);
   }
 }
 
 .offer-full__container {
-  padding-top: var(--offer-spacing-2xl);
-  padding-bottom: var(--offer-spacing-2xl);
+  padding: 0
 }
 
 .offer-layout {
@@ -571,8 +574,8 @@
   box-shadow: var(--shadow-3);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--offer-spacing-md);
-  padding: var(--offer-spacing-lg);
+  gap: var(--offer-sidebar-gap);
+  padding: var(--offer-sidebar-padding);
 }
 
 .offer-sidebar--placeholder {
