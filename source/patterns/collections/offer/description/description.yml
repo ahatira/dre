@@ -1,0 +1,11 @@
+html_tag: 'div'
+title_level: 'h3'
+title: 'Description'
+content: |
+  <p>Ce bien offre une belle luminosité naturelle avec des baies vitrées donnant sur les toits de Paris. L'espace a été rénové récemment avec des finitions de qualité et une attention particulière portée aux détails.</p>
+  <p>La localisation privilégiée en cœur de ville permet un accès facile aux transports en commun et aux commodités. Le quartier est très dynamique avec restaurants, cafés et commerces à proximité.</p>
+maxHeight: 150
+expandLabel: 'Voir plus'
+collapseLabel: 'Voir moins'
+expanded: false
+showIcon: true

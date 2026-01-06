@@ -1,0 +1,58 @@
+{#
+/**
+ * Description - Collection/Organism
+ *
+ * Composes Read-more component for displaying truncated content with expand/collapse.
+ * Used for offer descriptions, property details, and rich text content.
+ *
+ * @param {string} title - Section title (optional)
+ * @param {string} content - Rich text content (required)
+ * @param {number} maxHeight - Maximum height before truncation in px (default: 150)
+ * @param {string} expandLabel - Text for expand button (default: 'Voir plus')
+ * @param {string} collapseLabel - Text for collapse button (default: 'Voir moins')
+ * @param {boolean} expanded - Initial expanded state (default: false)
+ * @param {boolean} showIcon - Show toggle icon (default: true)
+ * @param {object} attributes - Drupal attributes object for root element
+ */
+#}
+
+{%- set html_tag = html_tag|default('div') -%}
+{%- set title_level = title_level|default('h4') -%}
+{%- set title = title|default('') -%}
+{%- set content = content|default('') -%}
+{%- set maxHeight = maxHeight|default(150) -%}
+{%- set expandLabel = expandLabel|default('Voir plus') -%}
+{%- set collapseLabel = collapseLabel|default('Voir moins') -%}
+{%- set expanded = expanded|default(false) -%}
+{%- set showIcon = showIcon|default(true) -%}
+
+{{ attach_library('ps_theme/read-more') }}
+
+{%- set description_classes = [
+  'ps-description'
+] -%}
+
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(description_classes) -%}
+
+<{{ html_tag }}{{ attr }}>
+  {% if title %}
+    {% include '@elements/heading/heading.twig' with {
+      level: title_level,
+      text: title,
+      attributes: create_attribute().addClass('ps-description__title')
+    } only %}
+  {% endif %}
+
+  {% if content %}
+    <div class="ps-description__content">
+      {% include '@components/read-more/read-more.twig' with {
+        content: content,
+        maxHeight: maxHeight,
+        expandLabel: expandLabel,
+        collapseLabel: collapseLabel,
+        expanded: expanded,
+        showIcon: showIcon
+      } only %}
+    </div>
+  {% endif %}
+</{{ html_tag }}>

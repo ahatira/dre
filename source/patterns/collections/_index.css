@@ -4,6 +4,7 @@
 @import './tabs/tabs.css';
 
 /* Offer-related collections */
+@import './offer/description/description.css';
 @import './offer/diagnostics/diagnostics.css';
 @import './offer/features/features.css';
 

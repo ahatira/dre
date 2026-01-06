@@ -1,0 +1,43 @@
+/* ========================================================================
+   #DESCRIPTION (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Description - Composes Read-more component for expandable content.
+ * Used for offer descriptions, property details, and rich text content.
+ *
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child atom override capability
+ * - Token-First STEP 3: Variables override child read-more tokens
+ * - ALL values from tokens: NO hardcoded colors, sizes, spacing
+ * - Semantic colors only: primary, secondary, success, etc.
+ * - CSS nesting with & syntax (PostCSS nested)
+ * - Focus and interaction states for accessibility
+ * - NO border-radius by default: Sharp corners (design system default)
+ */
+
+/* Container
+   ========================================================================= */
+
+.ps-description {
+  /* Layer 2: Component-scoped variables */
+  --ps-description-title-font-size: var(--font-size-6);
+  --ps-description-title-font-weight: var(--font-weight-700);
+  --ps-description-gap: var(--size-4);
+
+  /* Base container structure */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-description-gap);
+
+  /* Title styling via composition override */
+  &__title {
+    margin: 0;
+    font-weight: var(--ps-description-title-font-weight);
+  }
+
+  /* Content wrapper for read-more component */
+  &__content {
+    /* Inherits read-more styles without additional wrapping */
+  }
+}
