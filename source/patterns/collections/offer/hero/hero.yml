@@ -43,6 +43,5 @@ media:
         slideIndex: 4
 favorite:
   icon: 'heart'
-  toggle: true
   active: false
   ariaLabel: 'Add to favorites'

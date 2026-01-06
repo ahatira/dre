@@ -2,11 +2,11 @@
 /**
  * Hero - Collection/Organism
  *
- * Composes Carousel component with overlay favorite button.
+ * Composes Carousel component with overlay favorite icon-only toggle button.
  * Used for property showcase with media gallery and quick-access favorite toggle.
  *
  * @param {object} media - Carousel configuration (variant, fit, slides, toolbar)
- * @param {object} favorite - Favorite button configuration (icon, toggle, active, ariaLabel)
+ * @param {object} favorite - Favorite button configuration (icon, active, ariaLabel)
  * @param {object} attributes - Drupal attributes object for root element
  */
 #}
@@ -34,20 +34,15 @@
     attributes: create_attribute().addClass('ps-hero__carousel')
   } only %}
 
-  {# Favorite button overlay #}
+  {# Favorite button overlay (icon-only toggle button) #}
   {% if favorite %}
-    <button
-      class="ps-hero__favorite ps-button ps-button--ghost"
-      type="button"
-      aria-label="{{ favorite.ariaLabel|default('Add to favorites') }}"
-      {% if favorite.toggle %}data-toggle-favorite{% endif %}
-      {% if favorite.active %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}
-    >
-      <span
-        class="ps-hero__favorite-icon"
-        data-icon="{{ favorite.icon|default('heart') }}"
-        {% if favorite.active %}aria-hidden="false"{% else %}aria-hidden="true"{% endif %}
-      ></span>
-    </button>
+    {% include '@elements/button/button.twig' with {
+      icon: favorite.icon|default('heart'),
+      toggle: true,
+      active: favorite.active|default(false),
+      ariaLabel: favorite.ariaLabel|default('Add to favorites'),
+      class: 'ps-hero__favorite',
+      attributes: create_attribute()
+    } only %}
   {% endif %}
 </div>

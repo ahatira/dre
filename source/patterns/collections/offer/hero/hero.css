@@ -35,7 +35,7 @@
   }
 
   /* Favorite button - positioned absolutely in top-right corner */
-  &__favorite {
+  &__favorite.ps-button {
     position: absolute;
     top: var(--size-4);
     right: var(--size-4);
@@ -51,34 +51,10 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
-    &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 2px;
-    }
-
-    /* Active state (favorited) */
+    /* Active state (favorited) - override button default color */
     &[aria-pressed='true'] {
-      & .ps-hero__favorite-icon {
-        color: var(--primary);
-      }
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.95);
     }
-
-    /* Default state (not favorited) */
-    &[aria-pressed='false'] {
-      & .ps-hero__favorite-icon {
-        color: var(--gray-700);
-      }
-    }
-  }
-
-  /* Favorite button icon */
-  &__favorite-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-6);
-    height: var(--size-6);
-    font-size: var(--size-6);
-    transition: color var(--duration-short) var(--ease-in-out);
   }
 }

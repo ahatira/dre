@@ -1,7 +1,7 @@
 /**
  * Hero (Collection/Organism)
  *
- * Organism composes Carousel component with overlay favorite button.
+ * Organism composes Carousel component with overlay icon-only toggle button (favorite).
  * Used for property showcase with media gallery and quick-access favorite toggle.
  */
 
@@ -16,7 +16,7 @@ const settings = {
     docs: {
       description: {
         component:
-          'Organism composing Carousel with overlay favorite button. Used for property showcase with image gallery, 3D visit, floor plans, and quick-access favorite toggle.',
+          'Organism composing Carousel with overlay icon-only toggle button (favorite). Uses Button atom in icon-only mode. Used for property showcase with image gallery, 3D visit, floor plans, and quick-access favorite toggle.',
       },
     },
   },
@@ -31,7 +31,8 @@ const settings = {
       },
     },
     favorite: {
-      description: 'Favorite button configuration (icon, toggle, active, ariaLabel)',
+      description:
+        'Favorite button configuration (icon, active, ariaLabel). Toggle is enabled by default.',
       table: {
         category: 'Content',
         type: { summary: 'object' },
@@ -56,7 +57,6 @@ export const WithFavoritedState = {
     media: data.media,
     favorite: {
       icon: 'heart',
-      toggle: true,
       active: true,
       ariaLabel: 'Remove from favorites',
     },
