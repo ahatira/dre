@@ -24,12 +24,20 @@
   --ps-hero-position: relative;
   --ps-hero-overflow: hidden;
   --ps-hero-aspect-ratio: 3 / 4;
+  --ps-hero-max-height-mobile: 280px;
+  --ps-hero-max-height-desktop: 460px;
 
   /* Base container structure with 3/4 aspect ratio */
   position: var(--ps-hero-position);
   overflow: var(--ps-hero-overflow);
   width: 100%;
   aspect-ratio: var(--ps-hero-aspect-ratio);
+  max-height: var(--ps-hero-max-height-mobile);
+
+  /* Desktop & tablet: larger max-height */
+  @media (--tablet) {
+    max-height: var(--ps-hero-max-height-desktop);
+  }
 
   /* Carousel styling via composition */
   &__carousel {
