@@ -45,7 +45,8 @@ const settings = {
       },
     },
     diagnostics: {
-      description: 'Array of diagnostic data objects (each with label, icon, unit, value, classes, etc.)',
+      description:
+        'Array of diagnostic data objects (each with label, icon, unit, value, classes, etc.)',
       table: {
         category: 'Content',
         type: { summary: 'array' },
@@ -90,7 +91,7 @@ export const BothDimmed = {
   name: 'Both Dimmed (No Data)',
   args: {
     ...data,
-    diagnostics: data.diagnostics.map(diag => ({
+    diagnostics: data.diagnostics.map((diag) => ({
       ...diag,
       value: null,
       is_dimmed: true,
