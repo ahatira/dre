@@ -22,27 +22,39 @@
 .ps-hero {
   /* Layer 2: Component-scoped variables */
   --ps-hero-position: relative;
-  --ps-hero-overflow: hidden;
+  --ps-hero-overflow: visible;
   --ps-hero-aspect-ratio: 3 / 4;
-  --ps-hero-max-height-mobile: 280px;
-  --ps-hero-max-height-desktop: 460px;
+  --ps-hero-media-max-height: 280px;
 
   /* Base container structure with 3/4 aspect ratio */
   position: var(--ps-hero-position);
   overflow: var(--ps-hero-overflow);
   width: 100%;
-  aspect-ratio: var(--ps-hero-aspect-ratio);
-  max-height: var(--ps-hero-max-height-mobile);
+  /* Let the media block manage its own height/overflow */
 
-  /* Desktop & tablet: larger max-height */
+  /* Responsive max-height adjustments */
+  @media (--mobile) {
+    --ps-hero-media-max-height: 320px;
+  }
+
   @media (--tablet) {
-    max-height: var(--ps-hero-max-height-desktop);
+    --ps-hero-media-max-height: 420px;
+  }
+
+  @media (--desktop) {
+    --ps-hero-media-max-height: 460px;
+  }
+
+  @media (--desktop-large) {
+    --ps-hero-media-max-height: 500px;
   }
 
   /* Carousel styling via composition */
   &__carousel {
     width: 100%;
-    height: 100%;
+    aspect-ratio: var(--ps-hero-aspect-ratio);
+    max-height: var(--ps-hero-media-max-height);
+    overflow: hidden;
 
     /* Carousel slides fill hero container */
     & .ps-carousel__slide {
@@ -70,12 +82,6 @@
     &:focus-visible {
       background: var(--white);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Active state (favorited) - override button default color */
-    &[aria-pressed='true'] {
-      color: var(--primary);
-      background: rgba(255, 255, 255, 0.95);
     }
   }
 }
