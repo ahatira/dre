@@ -114,19 +114,6 @@ export const Default = {
   args: data.args || data,
 };
 
-export const WithTitle = {
-  args: {
-    html_tag: 'section',
-    title_level: 'h3',
-    title: 'Présentation du bien',
-    content:
-      '<p>Spacieux appartement dans le 15ème arrondissement offrant 120 m² de surface habitable.</p>',
-    maxHeight: 100,
-    expandLabel: 'Lire la suite',
-    collapseLabel: 'Masquer',
-  },
-};
-
 export const PreExpanded = {
   args: {
     title: 'Description complète',
@@ -134,16 +121,6 @@ export const PreExpanded = {
       '<p>Appartement haussmannien totalement rénové avec hauteur de plafond exceptionnelle.</p><p>Dispose de 3 chambres, 2 salles de bain et une cuisine équipée.</p>',
     expanded: true,
     maxHeight: 200,
-  },
-};
-
-export const NoIcon = {
-  args: {
-    title: 'Notes',
-    content: "<p>Point fort : Luminosité naturelle</p><p>Point faible : Pas d'ascenseur</p>",
-    showIcon: false,
-    expandLabel: 'Afficher plus',
-    collapseLabel: 'Afficher moins',
   },
 };
 

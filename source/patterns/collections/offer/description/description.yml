@@ -2,8 +2,10 @@ html_tag: 'div'
 title_level: 'h3'
 title: 'Description'
 content: |
-  <p>Ce bien offre une belle luminosité naturelle avec des baies vitrées donnant sur les toits de Paris. L'espace a été rénové récemment avec des finitions de qualité et une attention particulière portée aux détails.</p>
-  <p>La localisation privilégiée en cœur de ville permet un accès facile aux transports en commun et aux commodités. Le quartier est très dynamique avec restaurants, cafés et commerces à proximité.</p>
+  <p>Ce spacieux appartement parisien situé au cœur du 8ème arrondissement offre une surface habitable de 185 m² entièrement rénovée. Bénéficiant d'une exposition sud-est, le bien jouit d'une lumière naturelle exceptionnelle toute la journée. Les baies vitrées généreuses offrent une vue panoramique sur les toits haussmanniens et la cathédrale Notre-Dame.</p>
+  <p>L'espace a été aménagé avec des finitions haut de gamme et une attention particulière portée aux détails. Les hauteurs sous plafond de 3,5 mètres confèrent une noblesse rare aux pièces de vie. Le parquet massif d'époque, restauré avec soin, contribue au charme authentique du lieu.</p>
+  <p>La localisation privilégiée en cœur de ville permet un accès aisé aux principales commodités : restaurants gastronomiques, boutiques prestigieuses, galeries d'art et espaces de détente. Les transports en commun sont accessibles en quelques minutes à pied, avec proximité directe des lignes de métro 1, 6 et 8. Les aéroports internationaux sont accessibles en moins de 45 minutes.</p>
+  <p>L'immeuble de standing propose un gardien 24h/24, un ascenseur récent, un interphone vidéo et un digicode sécurisé. La copropriété bien entretenue dispose d'une cour intérieure arborée offrant un havre de paix en plein Paris. Le bien bénéficie également d'une cave et d'une place de parking privée en sous-sol.</p>
 maxHeight: 150
 expandLabel: 'Voir plus'
 collapseLabel: 'Voir moins'
