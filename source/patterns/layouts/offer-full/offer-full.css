@@ -419,13 +419,13 @@
 }
 
 /* Features */
-/* Features - Composes Feature Section organisms */
+/* Features - Composes Features organisms */
 .offer-features {
   display: grid;
   gap: var(--offer-gap-section);
 }
 
-.offer-features .ps-feature-section {
+.offer-features .ps-features {
   /* Adjust spacing inside feature lists for dense layout */
   & .ps-list {
     --ps-list-gap: var(--offer-gap-compact);

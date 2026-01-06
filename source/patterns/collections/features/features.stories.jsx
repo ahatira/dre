@@ -1,5 +1,5 @@
 /**
- * Feature Section (Collection/Organism)
+ * Features (Collection/Organism)
  *
  * Thematic section composing Icon, Heading, and List atoms.
  * Used for property features, services, building amenities, and information.
@@ -7,11 +7,11 @@
  */
 
 import iconsRegistry from '../../documentation/icons-registry.json';
-import featureSectionTemplate from './feature-section.twig';
-import data from './feature-section.yml';
+import featuresTemplate from './features.twig';
+import data from './features.yml';
 
 const settings = {
-  title: 'Collections/Feature Section',
+  title: 'Collections/Features',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -22,7 +22,7 @@ const settings = {
       },
     },
   },
-  render: (args) => featureSectionTemplate(args),
+  render: (args) => featuresTemplate(args),
   args: data.args || data,
   argTypes: {
     title: {

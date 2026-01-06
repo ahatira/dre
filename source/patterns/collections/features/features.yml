@@ -1,4 +1,4 @@
-# Feature Section Organism - Default Configuration
+# Features Organism - Default Configuration
 #
 # Available Props:
 # - title: string (required) - Section title
@@ -9,6 +9,8 @@
 # - attributes: Attribute - Additional HTML attributes
 
 # Default: Equipments section (single column)
+html_tag: 'div'
+title_level: 'h3'
 title: 'Équipements'
 icon: 'equipment'
 columns_min_items: 0
