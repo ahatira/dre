@@ -6,7 +6,7 @@
  * Supports responsive two-column layout when item count reaches threshold.
  */
 
-import iconsRegistry from '../../documentation/icons-registry.json';
+import iconsRegistry from '../../../documentation/icons-registry.json';
 import featuresTemplate from './features.twig';
 import data from './features.yml';
 

@@ -6,7 +6,7 @@
  * Composes Diagnostic components in a grid layout.
  */
 
-import iconsRegistry from '../../documentation/icons-registry.json';
+import iconsRegistry from '../../../documentation/icons-registry.json';
 import diagnosticsTemplate from './diagnostics.twig';
 import data from './diagnostics.yml';
 
