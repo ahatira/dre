@@ -245,6 +245,7 @@ energy:
 surface:
   title: 'Surface table'
   icon: 'area'
+  caption: null
   headers: ['Lot', 'Etage', 'Nature', 'Surface', 'Disponibilité']
   rows:
     - ['OLBUR2104652/1', 'R+5', 'Bureaux', '405 m²', 'Nous consulter']
