@@ -35,6 +35,16 @@
   &__carousel {
     width: 100%;
     height: 100%;
+
+    /* Carousel slides fill hero container */
+    & .ps-carousel__slide {
+      height: 100%;
+    }
+
+    /* Carousel images fill slide completely without distortion */
+    & .ps-carousel__image {
+      height: 100%;
+    }
   }
 
   /* Favorite button - positioned absolutely in top-right corner */

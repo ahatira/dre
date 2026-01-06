@@ -24,15 +24,9 @@
 
 <div{{ attr }}>
   {# Carousel component #}
-  {% include '@components/carousel/carousel.twig' with {
-    variant: media.variant|default('images'),
-    fit: media.fit|default('cover'),
-    slides: media.slides|default([]),
-    toolbar: media.toolbar|default(null),
-    autoplay: media.autoplay|default(false),
-    loop: media.loop|default(true),
+  {% include '@components/carousel/carousel.twig' with media|merge({
     attributes: create_attribute().addClass('ps-hero__carousel')
-  } only %}
+  }) only %}
 
   {# Favorite button overlay (icon-only toggle button) #}
   {% if favorite %}
