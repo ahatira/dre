@@ -61,7 +61,7 @@
 {%- set attr = attr.setAttribute('aria-label', ariaLabel) -%}
 {%- set attr = attr.setAttribute('data-carousel', true) -%}
 
-<section{{ attr }}>
+<div{{ attr }}>
   <div class="swiper-wrapper ps-carousel__track">
     {%- for slide in slides -%}
     <div
@@ -133,4 +133,4 @@
     {%- endfor -%}
   </div>
   {%- endif -%}
-</section>
+</div>

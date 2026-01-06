@@ -25,8 +25,8 @@
    =================================== */
 .ps-carousel {
   /* Navigation button styles */
-  --ps-carousel-button-width: var(--size-12); /* 48px */
-  --ps-carousel-button-height: var(--size-12); /* 48px */
+  --ps-carousel-button-width: var(--size-8); /* 32px */
+  --ps-carousel-button-height: var(--size-8); /* 32px */
   --ps-carousel-button-padding: var(--size-1); /* 4px */
   --ps-carousel-button-bg: var(--white);
   --ps-carousel-button-color: var(--primary);
@@ -52,7 +52,7 @@
   --ps-carousel-toolbar-bg: var(--gray-50);
   --ps-carousel-toolbar-padding: var(--size-2) var(--size-5); /* 8px 20px */
   --ps-carousel-toolbar-gap: var(--size-2); /* 8px */
-  --ps-carousel-toolbar-border-radius: var(--size-6); /* 24px - Pill shape per design spec */
+  --ps-carousel-toolbar-border-radius: 0; /* 24px - Pill shape per design spec */
   --ps-carousel-toolbar-bottom: var(--size-5); /* 20px */
   --ps-carousel-toolbar-z-index: 11;
   --ps-carousel-toolbar-item-padding: var(--size-05) var(--size-2); /* 4px 8px */
@@ -97,9 +97,42 @@
   
   /* Transitions */
   --ps-carousel-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-.ps-carousel {
+  @media (--mobile) {
+    /* Navigation button styles */
+    --ps-carousel-button-width: var(--size-9); /* 36px */
+    --ps-carousel-button-height: var(--size-9); /* 36px */
+    --ps-carousel-button-icon-size: var(--size-5); /* 20px */
+  }
+  
+  @media (--tablet) {
+    /* Navigation button styles */
+    --ps-carousel-button-width: var(--size-10); /* 40px */
+    --ps-carousel-button-height: var(--size-10); /* 40px */
+    --ps-carousel-button-icon-size: var(--size-6); /* 24px */
+  }
+  
+  @media (--laptop) {
+    /* Navigation button styles */
+    --ps-carousel-button-width: var(--size-11); /* 44px */
+    --ps-carousel-button-height: var(--size-11); /* 44px */
+    --ps-carousel-button-icon-size: var(--size-7); /* 28px */
+  }
+  
+  @media (--desktop) {
+    /* Navigation button styles */
+    --ps-carousel-button-width: var(--size-12); /* 48px */
+    --ps-carousel-button-height: var(--size-12); /* 48px */
+    --ps-carousel-button-icon-size: var(--size-8); /* 32px */
+  }
+  
+  @media (--desktop-large) {
+    /* Navigation button styles */
+    --ps-carousel-button-width: var(--size-14); /* 56px */
+    --ps-carousel-button-height: var(--size-14); /* 56px */
+    --ps-carousel-button-icon-size: var(--size-10); /* 40px */
+  }
+  
   position: relative;
   width: 100%;
 
@@ -107,6 +140,14 @@
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
+  }
+
+  &--with-toolbar {
+    padding-bottom: var(--size-12);
+
+    @media (--laptop) {
+      padding-bottom: 0;
+    }
   }
 
   /* Track (swiper-wrapper) */
@@ -220,7 +261,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: var(--size-4);
     padding: var(--ps-carousel-toolbar-padding);
     gap: var(--ps-carousel-toolbar-gap);
     background-color: var(--ps-carousel-toolbar-bg);
@@ -228,6 +268,8 @@
     z-index: var(--ps-carousel-toolbar-z-index);
 
     @media (--laptop) {
+      --ps-carousel-toolbar-border-radius: var(--size-6);
+
       position: absolute;
       bottom: var(--ps-carousel-toolbar-bottom);
       left: 50%;

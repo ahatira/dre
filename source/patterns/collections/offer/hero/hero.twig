@@ -32,6 +32,7 @@
   {% if favorite %}
     {% include '@elements/button/button.twig' with {
       icon: favorite.icon|default('heart'),
+      variant: 'secondary',
       toggle: true,
       active: favorite.active|default(false),
       ariaLabel: favorite.ariaLabel|default('Add to favorites'),

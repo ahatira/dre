@@ -71,10 +71,13 @@
   &__favorite.ps-button {
     --ps-hero-favorite-size: var(--size-8); /* 32px base */
     --ps-hero-favorite-icon-size: var(--size-5); /* 20px base */
-
+    --ps-button-min-width: 0;
+    
     position: absolute;
     top: var(--size-6);
     right: var(--size-6);
+    padding: 0;
+    gap: 0;
     z-index: 10;
     width: var(--ps-hero-favorite-size);
     height: var(--ps-hero-favorite-size);
