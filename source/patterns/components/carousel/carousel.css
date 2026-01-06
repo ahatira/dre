@@ -214,18 +214,27 @@
 
   /* Toolbar */
   &__toolbar {
-    position: absolute;
-    bottom: var(--ps-carousel-toolbar-bottom);
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
+    position: static;
+    display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--size-4);
     padding: var(--ps-carousel-toolbar-padding);
     gap: var(--ps-carousel-toolbar-gap);
     background-color: var(--ps-carousel-toolbar-bg);
     border-radius: var(--ps-carousel-toolbar-border-radius);
     z-index: var(--ps-carousel-toolbar-z-index);
+
+    @media (--laptop) {
+      position: absolute;
+      bottom: var(--ps-carousel-toolbar-bottom);
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      margin-top: 0;
+    }
   }
 
   &__toolbar-item {
@@ -367,9 +376,13 @@
       display: flex;
     }
 
-    /* Adjust pagination position when toolbar is present */
+    /* Adjust pagination position when toolbar is present (overlay on laptop+) */
     & .ps-carousel__pagination {
-      bottom: var(--size-16);
+      bottom: var(--ps-carousel-pagination-bottom);
+
+      @media (--laptop) {
+        bottom: var(--size-16);
+      }
     }
   }
 
