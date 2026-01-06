@@ -69,14 +69,43 @@
 
   /* Favorite button - positioned absolutely in top-right corner */
   &__favorite.ps-button {
+    --ps-hero-favorite-size: var(--size-8); /* 32px base */
+    --ps-hero-favorite-icon-size: var(--size-5); /* 20px base */
+
     position: absolute;
     top: var(--size-6);
     right: var(--size-6);
     z-index: 10;
-    width: var(--size-12);
-    height: var(--size-12);
-    font-size: var(--font-size-10);
+    width: var(--ps-hero-favorite-size);
+    height: var(--ps-hero-favorite-size);
+    font-size: var(--ps-hero-favorite-icon-size);
     transition: all var(--duration-short) var(--ease-in-out);
+
+    /* Responsive sizing matching carousel buttons */
+    @media (--mobile) {
+      --ps-hero-favorite-size: var(--size-9); /* 36px */
+      --ps-hero-favorite-icon-size: var(--size-5); /* 20px */
+    }
+
+    @media (--tablet) {
+      --ps-hero-favorite-size: var(--size-10); /* 40px */
+      --ps-hero-favorite-icon-size: var(--size-6); /* 24px */
+    }
+
+    @media (--laptop) {
+      --ps-hero-favorite-size: var(--size-11); /* 44px */
+      --ps-hero-favorite-icon-size: var(--size-7); /* 28px */
+    }
+
+    @media (--desktop) {
+      --ps-hero-favorite-size: var(--size-12); /* 48px */
+      --ps-hero-favorite-icon-size: var(--size-8); /* 32px */
+    }
+
+    @media (--desktop-large) {
+      --ps-hero-favorite-size: var(--size-14); /* 56px */
+      --ps-hero-favorite-icon-size: var(--size-10); /* 40px */
+    }
 
     &:hover,
     &:focus-visible {
