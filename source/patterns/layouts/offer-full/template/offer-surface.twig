@@ -5,46 +5,32 @@
  * - surface.title: Section heading.
  * - surface.headers: Array of column labels.
  * - surface.rows: Array of rows (each row is array of cells).
- * - placeholder: Skeleton toggle.
  */
 #}
 
-{%- set classes = [
-  'offer-surface',
-  placeholder ? 'offer-surface--placeholder' : null,
-  surface.modifier_class|default(null)
-] -%}
-{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
-
-<section{{ attr }} aria-labelledby="offer-surface-heading">
-  {% if placeholder %}
-    <div class="offer-surface__skeleton" aria-hidden="true"></div>
-  {% else %}
-    <div class="offer-surface__header">
-      <h3 class="offer-section__title" id="offer-surface-heading" data-icon="{{ surface.icon|default('area') }}">{{ surface.title|default('Surface table') }}</h3>
-      {% if surface.caption %}<p class="offer-surface__caption">{{ surface.caption }}</p>{% endif %}
-    </div>
-    <div class="offer-surface__table-wrapper">
-      <table class="offer-surface__table">
-        {% if surface.headers %}
-          <thead>
-            <tr>
-              {% for header in surface.headers %}
-                <th scope="col">{{ header }}</th>
-              {% endfor %}
-            </tr>
-          </thead>
-        {% endif %}
-        <tbody>
-          {% for row in surface.rows|default([]) %}
-            <tr>
-              {% for cell in row %}
-                <td>{{ cell }}</td>
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% endif %}
+<section class="offer-surface">
+  <div class="offer-surface__header">
+    <h3 class="offer-section__title" data-icon="{{ surface.icon|default('area') }}">{{ surface.title|default('Surface table') }}</h3>
+    {% if surface.caption %}<p class="offer-surface__caption">{{ surface.caption }}</p>{% endif %}
+  </div>
+  
+  {%- set table_headers = [] -%}
+  {%- for header in surface.headers|default([]) -%}
+    {%- set table_headers = table_headers|merge([{ key: loop.index0|string, label: header }]) -%}
+  {%- endfor -%}
+  
+  {%- set table_rows = [] -%}
+  {%- for row in surface.rows|default([]) -%}
+    {%- set table_rows = table_rows|merge([{ id: loop.index0|string, cells: row }]) -%}
+  {%- endfor -%}
+  
+  {% include '@components/table/table.twig' with {
+    headers: table_headers,
+    rows: table_rows,
+    variant: 'default',
+    hover: true,
+    striped: false,
+    responsive: true,
+    attributes: create_attribute().addClass('offer-surface__table')
+  } only %}
 </section>
