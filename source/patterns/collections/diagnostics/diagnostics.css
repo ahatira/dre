@@ -29,7 +29,6 @@
   --ps-diagnostics-header-gap: var(--size-4);
   --ps-diagnostics-grid-gap: var(--size-6);
   --ps-diagnostics-labels-gap: var(--size-4);
-  --ps-diagnostics-labels-margin-top: var(--size-8);
   --ps-diagnostics-label-size: 120px;
 
   /* Base container */
@@ -73,6 +72,8 @@
   &__item {
     display: flex;
     flex-direction: column;
+    padding: var(--size-4);
+    background-color: var(--gray-50);
   }
 
   /* Labels section (certifications, badges) */
@@ -80,9 +81,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--ps-diagnostics-labels-gap);
-    margin-top: var(--ps-diagnostics-labels-margin-top);
-    padding-top: var(--ps-diagnostics-labels-margin-top);
-    border-top: 1px solid var(--border-default);
   }
 
   /* Individual label item */

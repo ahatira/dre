@@ -1,7 +1,7 @@
 title: 'Energy'
 icon: 'energy'
 diagnostics:
-  - id: 'energy-consumption'
+  - id: 'dpe'
     label: 'Consommations énergétique'
     icon: 'energy'
     unit: 'kWh/m²/an'
@@ -40,7 +40,7 @@ diagnostics:
         label: G
         color: '#A10D0D'
         range_max: null
-  - id: 'emissions'
+  - id: 'ges'
     label: 'Émissions de gaz à effet de serre'
     icon: 'cloud'
     unit: 'kg CO₂/m²/an'
@@ -53,31 +53,31 @@ diagnostics:
     classes:
       a:
         label: A
-        color: '#00A651'
+        color: '#fcf0f4'
         range_max: 6
       b:
         label: B
-        color: '#8DC63F'
+        color: '#d9c1db'
         range_max: 10
       c:
         label: C
-        color: '#FFF200'
+        color: '#c6a8cc'
         range_max: 16
       d:
         label: D
-        color: '#F7941D'
+        color: '#b793bf'
         range_max: 23
       e:
         label: E
-        color: '#ED1C24'
+        color: '#9f75ad'
         range_max: 30
       f:
         label: F
-        color: '#C1272D'
+        color: '#82599b'
         range_max: 39
       g:
         label: G
-        color: '#A10D0D'
+        color: '#6b418f'
         range_max: null
 labels:
   - src: '/images/1-1.svg'

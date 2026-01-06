@@ -81,6 +81,12 @@
     } only %}
   </figcaption>
   
+  {% if has_value and unit and not show_placeholder %}
+    <div class="ps-diagnostic__legend" style="left: {{ cursor_x + 20 }}px;">
+      {{ value }} {{ unit }}
+    </div>
+  {% endif %}
+  
   <svg class="ps-diagnostic__svg class-{{ display_class|default('unknown') }}" width="280" height="40" version="1.1" viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g id="bar" stroke-width="0" opacity="{{ bar_opacity }}">
       {%- for class_code in ordered_codes -%}
@@ -116,12 +122,6 @@
       {{ display_class|default('?')|upper }}
     </text>
   </svg>
-  
-  {% if has_value and unit and not show_placeholder %}
-    <div class="ps-diagnostic__legend" style="left: {{ cursor_x + 20 }}px;">
-      {{ value }} {{ unit }}
-    </div>
-  {% endif %}
   
   {% if valid_from or valid_to %}
     <div class="ps-diagnostic__dates">

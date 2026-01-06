@@ -5,5 +5,18 @@
  * - energy: Diagnostics collection data (title, icon, diagnostics[], labels[]).
  */
 #}
+{%- set classes = [
+  'offer-diagnostics',
+  placeholder ? 'offer-diagnostics--placeholder' : null,
+  energy.modifier_class|default(null)
+] -%}
+{%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
+{%- set attr = attr.setAttribute('aria-label', energy.title|default('Energy')) -%}
 
-{% include '@collections/diagnostics/diagnostics.twig' with energy only %}
+<section{{ attr }}>
+  {% if placeholder %}
+    <div class="offer-diagnostics__skeleton" aria-hidden="true"></div>
+  {% else %}
+    {% include '@collections/diagnostics/diagnostics.twig' with energy only %}
+  {% endif %}
+</section>
