@@ -38,13 +38,6 @@
   --ps-offer-meta-reference-font-size: var(--font-size-2);
   --ps-offer-meta-reference-line-height: var(--leading-2);
   --ps-offer-meta-reference-weight: var(--font-weight-400);
-  /* Typography tokens */
-  --ps-offer-meta-heading-font-size: var(--font-size-7);
-  --ps-offer-meta-heading-line-height: var(--leading-10);
-  --ps-offer-meta-heading-weight: var(--font-weight-700);
-  --ps-offer-meta-price-font-size: var(--font-size-7);
-  --ps-offer-meta-price-line-height: var(--leading-10);
-  --ps-offer-meta-price-weight: var(--font-weight-700);
 
   display: flex;
   flex-direction: column;
