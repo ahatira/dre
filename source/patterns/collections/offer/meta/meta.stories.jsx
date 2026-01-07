@@ -1,4 +1,5 @@
-import offerMetaData from './offer-meta.yml';
+import metaTemplate from './meta.twig';
+import metaData from './meta.yml';
 
 export default {
   title: 'Collections/Offer/Meta',
@@ -6,6 +7,7 @@ export default {
   parameters: {
     layout: 'padded',
   },
+  render: (args) => metaTemplate(args),
   argTypes: {
     // Content
     title: {
@@ -124,7 +126,7 @@ export default {
 
 // Default story with Madrid office
 export const Default = {
-  args: offerMetaData,
+  args: metaData,
 };
 
 // Paris luxury office

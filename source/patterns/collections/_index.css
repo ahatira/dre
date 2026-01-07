@@ -8,7 +8,7 @@
 @import './offer/diagnostics/diagnostics.css';
 @import './offer/features/features.css';
 @import './offer/hero/hero.css';
-@import './offer/meta/offer-meta.css';
+@import './offer/meta/meta.css';
 
 /* Header Blocks */
 @import './blocks/header/favorites/favorites.css';
