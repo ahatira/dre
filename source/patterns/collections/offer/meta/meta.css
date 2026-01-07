@@ -25,6 +25,13 @@
   --ps-offer-meta-value-color: var(--text-primary);
   --ps-offer-meta-location-color: var(--text-primary);
   --ps-offer-meta-font-size: var(--font-size-4);
+  /* Typography tokens */
+  --ps-offer-meta-heading-font-size: var(--font-size-7);
+  --ps-offer-meta-heading-line-height: var(--leading-10);
+  --ps-offer-meta-heading-weight: var(--font-weight-700);
+  --ps-offer-meta-price-font-size: var(--font-size-7);
+  --ps-offer-meta-price-line-height: var(--leading-10);
+  --ps-offer-meta-price-weight: var(--font-weight-700);
 
   display: flex;
   flex-direction: column;
@@ -60,18 +67,18 @@
   }
 
   &__building {
-    font-size: var(--font-size-7);
-    font-weight: var(--font-weight-700);
+    font-size: var(--ps-offer-meta-heading-font-size);
+    font-weight: var(--ps-offer-meta-heading-weight);
     color: var(--ps-offer-meta-building-color);
-    line-height: var(--leading-10);
+    line-height: var(--ps-offer-meta-heading-line-height);
     margin: 0;
   }
 
   &__title {
-    font-size: var(--font-size-7);
-    font-weight: var(--font-weight-700);
+    font-size: var(--ps-offer-meta-heading-font-size);
+    font-weight: var(--ps-offer-meta-heading-weight);
     color: var(--ps-offer-meta-title-color);
-    line-height: var(--leading-10);
+    line-height: var(--ps-offer-meta-heading-line-height);
     margin: 0;
     margin-bottom: var(--size-2);
   }
@@ -96,10 +103,10 @@
     flex-wrap: wrap;
 
     &-value {
-      font-size: var(--font-size-8);
-      font-weight: var(--font-weight-700);
+      font-size: var(--ps-offer-meta-price-font-size);
+      font-weight: var(--ps-offer-meta-price-weight);
       color: var(--ps-offer-meta-price-color);
-      line-height: var(--leading-8);
+      line-height: var(--ps-offer-meta-price-line-height);
     }
 
     &-unit {
@@ -182,6 +189,8 @@
   /* Desktop layout (≥768px) */
   @media (--laptop) {
     --ps-offer-meta-font-size: var(--font-size-5);
+    --ps-offer-meta-heading-font-size: var(--font-size-8);
+    --ps-offer-meta-price-font-size: var(--font-size-8);
 
     gap: var(--ps-offer-meta-gap-section);
 
@@ -200,6 +209,7 @@
       grid-column: 2;
       grid-row: 1;
       justify-content: flex-end;
+      padding-block-start: 25px;
     }
 
     &__metadata {
@@ -227,35 +237,14 @@
       }
     }
 
-    /* Size improvements */
-    &__building {
-      font-size: var(--font-size-8);
-    }
-
-    &__title {
-      font-size: var(--font-size-8);
-    }
-
-    &__price-value {
-      font-size: var(--font-size-8);
-    }
+    /* Size improvements via tokens above */
   }
 
   /* Large desktop (≥1024px) */
   @media (--desktop-large) {
     --ps-offer-meta-font-size: var(--font-size-6);
-
-    &__building {
-      font-size: var(--font-size-9);
-    }
-
-    &__title {
-      font-size: var(--font-size-9);
-    }
-
-    &__price-value {
-      font-size: var(--font-size-10);
-    }
+    --ps-offer-meta-heading-font-size: var(--font-size-9);
+    --ps-offer-meta-price-font-size: var(--font-size-9);
   }
 }
 
