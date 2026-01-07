@@ -1,0 +1,53 @@
+title: 'Rent Offices MADRID Barrio de Chamberí'
+reference:
+  label: 'Reference'
+  value: 'OLBUR2200801'
+
+building:
+  label: 'Building'
+  value: 'Edificio ARA'
+
+price:
+  label: 'Rent'
+  value: '20 000 €'
+  unit: 'HT/HC/m²/an'
+  tooltip: 'Price excluding charges and tax'
+
+surface_total:
+  label: 'Surface total'
+  value: 611.3
+  unit: 'm²'
+
+location:
+  title: 'Location'
+  address:
+    address_line1: '37 Cl Hermanos Garcia Noblejas'
+    address_line2: ''
+    postal_code: '28010'
+    locality: 'MADRID'
+    region:
+      code: ''
+      name: 'Madrid'
+    country:
+      code: 'ES'
+      name: 'Spain'
+
+availability:
+  label: 'Available'
+  value: 'Immediately'
+
+mandate_type:
+  label: 'Type of mandate'
+  value: 'Exclusive'
+
+actions:
+  items:
+    - label: 'Access to the surface area table'
+      url: '#surface-table'
+      variant: 'primary'
+      outline: true
+      icon: 'arrow-down'
+      icon_position: 'right'
+    - label: 'Download the brochure'
+      url: '#download'
+      variant: 'primary'

@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-01-07] - Offer Meta Component Implementation
+
+### Added
+- **Offer Meta (Collections/Offer/Meta)**: New organism for displaying real estate offer metadata
+  - **Structure**: 4-file implementation (twig, css, yml, stories.jsx)
+  - **Layout Behavior**:
+    - Mobile (< 768px): Stacked vertical layout, full-width buttons, price below title
+    - Desktop (≥ 768px): Grid layout with price aligned right, horizontal metadata rows, inline buttons
+    - Large Desktop (≥ 1024px): Enhanced typography sizes (--font-size-8/9)
+  - **Sections**:
+    - **Header**: Reference badge + Building name (H1) + Title (H2) + Price with tooltip
+    - **Metadata**: Surface + Location | Availability + Mandate type
+    - **Actions**: Composed Button atoms with configurable variants/icons
+  - **Data Structure** (10 field groups):
+    - `title` (required): Main offer title
+    - `reference`: {label, value} - Reference number
+    - `building`: {label, value} - Building name
+    - `price`: {label, value, unit, tooltip} - Pricing with info icon
+    - `surface_total`: {label, value, unit} - Total surface area
+    - `location.address`: {postal_code, locality} - Location data
+    - `availability`: {label, value} - Availability status
+    - `mandate_type`: {label, value} - Mandate type
+    - `actions.items`: Array of button configurations
+  - **Design Tokens**:
+    - Spacing: --size-2 through --size-8 (responsive gaps)
+    - Typography: --font-size-2 to --font-size-9, --font-weight-400/600/700, --line-height-1/2/3
+    - Colors: Semantic tokens (--gray-900, --text-secondary, --border-default)
+    - Transitions: --duration-150, --ease-out
+  - **Accessibility**:
+    - Semantic HTML (header, h1, h2 tags)
+    - ARIA labels on tooltip button
+    - Focus-visible states
+    - Proper contrast ratios
+  - **Storybook Stories**: 5 showcases
+    - Default: Madrid office (matches maquette)
+    - ParisLuxury: Tour First with large surface
+    - BarcelonaWarehouse: Industrial property with different price unit
+    - LondonSoon: Future availability example
+    - Minimal: Only required fields
+  - **Component Composition**: Uses Button atom via {% include %} pattern
+  - **Code Quality**:
+    - Build: ✅ 0 errors (npm run build passed)
+    - Format: ✅ Biome compliance
+    - Storybook: ✅ Autodocs enabled with categorized argTypes
+    - Documentation: ✅ Comprehensive README.md
+
+### Technical Details
+- **Location**: source/patterns/collections/offer/meta/
+- **Files Created**: offer-meta.twig, offer-meta.css, offer-meta.yml, offer-meta.stories.jsx, README.md
+- **CSS Import**: Added to source/patterns/collections/_index.css
+- **Dependencies**: Button atom (elements/button/)
+- **Icons Used**: info (price tooltip), arrow-down (actions)
+- **Grid Implementation**: CSS Grid for desktop title/price alignment
+- **Responsive Breakpoints**: 768px (tablet), 1024px (large desktop)
+
+### References
+- Design mockups: Madrid office example (Edificio ARA)
+- Maquette color blocks: Layout structure guidance
+- YAML structure: Provided in user request
+
+---
+
 ## [2026-01-06] - Offer Full CSS Token Refactoring (3-Tier Gap System)
 
 ### Changed
