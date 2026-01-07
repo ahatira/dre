@@ -16,284 +16,250 @@
   --ps-offer-meta-gap-section: var(--size-8);
 
   --ps-offer-meta-reference-color: var(--text-secondary);
-  --ps-offer-meta-building-color: var(--gray-900);
-  --ps-offer-meta-title-color: var(--gray-900);
-  --ps-offer-meta-price-color: var(--gray-900);
-  --ps-offer-meta-price-unit-color: var(--text-secondary);
-  --ps-offer-meta-label-color: var(--text-secondary);
-  --ps-offer-meta-value-color: var(--gray-900);
-  --ps-offer-meta-location-color: var(--text-secondary);
+  --ps-offer-meta-building-color: var(--text-primary);
+  --ps-offer-meta-title-color: var(--text-primary);
+  --ps-offer-meta-price-color: var(--text-primary);
+  --ps-offer-meta-price-color-hover: var(--secondary);
+  --ps-offer-meta-price-unit-color: var(--text-primary);
+  --ps-offer-meta-label-color: var(--text-primary);
+  --ps-offer-meta-value-color: var(--text-primary);
+  --ps-offer-meta-location-color: var(--text-primary);
+  --ps-offer-meta-font-size: var(--font-size-4);
 
   display: flex;
   flex-direction: column;
   gap: var(--ps-offer-meta-gap-standard);
-}
 
-/* Header section */
-.ps-offer-meta__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ps-offer-meta-gap-compact);
-}
+  /* Header section */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-meta-gap-compact);
+  }
 
-/* Reference */
-.ps-offer-meta__reference {
-  font-size: var(--font-size-2);
-  color: var(--ps-offer-meta-reference-color);
-  line-height: var(--line-height-3);
-  font-weight: var(--font-weight-400);
-}
+  /* Reference */
+  &__reference {
+    font-size: var(--font-size-2);
+    color: var(--ps-offer-meta-reference-color);
+    line-height: var(--leading-2);
+    font-weight: var(--font-weight-400);
+  }
 
-/* Title container - mobile first (stacked) */
-.ps-offer-meta__title-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ps-offer-meta-gap-compact);
-}
+  /* Title container - mobile first (stacked) */
+  &__title-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-meta-gap-compact);
+  }
 
-/* Title group - contains building, title, and primary-info */
-.ps-offer-meta__title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+  /* Title group - contains building, title, and primary-info */
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 
-.ps-offer-meta__building {
-  font-size: var(--font-size-7);
-  font-weight: var(--font-weight-700);
-  color: var(--ps-offer-meta-building-color);
-  line-height: var(--line-height-2);
-  margin: 0;
-}
+  &__building {
+    font-size: var(--font-size-7);
+    font-weight: var(--font-weight-700);
+    color: var(--ps-offer-meta-building-color);
+    line-height: var(--leading-10);
+    margin: 0;
+  }
 
-.ps-offer-meta__title {
-  font-size: var(--font-size-7);
-  font-weight: var(--font-weight-700);
-  color: var(--ps-offer-meta-title-color);
-  line-height: var(--line-height-2);
-  margin: 0;
-  margin-bottom: var(--size-2);
-}
+  &__title {
+    font-size: var(--font-size-7);
+    font-weight: var(--font-weight-700);
+    color: var(--ps-offer-meta-title-color);
+    line-height: var(--leading-10);
+    margin: 0;
+    margin-bottom: var(--size-2);
+  }
 
-/* Primary info: surface + location (now inside title-group) */
-.ps-offer-meta__primary-info {
-  display: flex;
-  align-items: center;
-  gap: var(--size-2);
-  font-size: var(--font-size-4);
-  line-height: var(--line-height-3);
-  flex-wrap: wrap;
-}
+  /* Primary info: surface + location (now inside title-group) */
+  &__primary-info {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    color: var(--ps-offer-meta-value-color);
+    font-size: var(--ps-offer-meta-font-size);
+    line-height: var(--leading-2);
+    font-weight: var(--font-weight-400);
+    flex-wrap: wrap;
+  }
 
-.ps-offer-meta__surface {
-  font-weight: var(--font-weight-600);
-  color: var(--ps-offer-meta-value-color);
-}
+  /* Price section - appears after primary-info on mobile, aligned right on desktop */
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2);
+    flex-wrap: wrap;
 
-.ps-offer-meta__location {
-  font-weight: var(--font-weight-400);
-  color: var(--ps-offer-meta-location-color);
+    &-value {
+      font-size: var(--font-size-8);
+      font-weight: var(--font-weight-700);
+      color: var(--ps-offer-meta-price-color);
+      line-height: var(--leading-8);
+    }
+
+    &-unit {
+      font-size: var(--font-size-3);
+      font-weight: var(--font-weight-400);
+      color: var(--ps-offer-meta-price-unit-color);
+      line-height: var(--leading-8);
+      margin-bottom: -6px;
+    }
+
+    &-tooltip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      font-size: var(--font-size-8);
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--ps-offer-meta-price-unit-color);
+      cursor: pointer;
+      transition: background-color var(--duration-150) var(--ease-out),
+                  border-color var(--duration-150) var(--ease-out);
+
+      &:hover {
+        color: var(--ps-offer-meta-price-color-hover);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--border-focus);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  /* Metadata section - now only contains secondary-info */
+  &__metadata {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-meta-gap-standard);
+  }
+
+  /* Secondary info: availability + mandate type (one per line) */
+  &__secondary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: var(--ps-offer-meta-font-size);
+    line-height: var(--leading-3);
+  }
+
+  &__availability,
+  &__mandate {
+    display: flex;
+    gap: var(--size-2);
+  }
+
+  &__label {
+    font-weight: var(--font-weight-400);
+    color: var(--ps-offer-meta-label-color);
+  }
+
+  &__value {
+    font-weight: var(--font-weight-700);
+    color: var(--ps-offer-meta-value-color);
+  }
+
+  /* Actions section */
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ps-offer-meta-gap-compact);
+
+    & .ps-button {
+      width: 100%;
+    }
+  }
+
+  /* Desktop layout (≥768px) */
+  @media (--laptop) {
+    --ps-offer-meta-font-size: var(--font-size-5);
+
+    gap: var(--ps-offer-meta-gap-section);
+
+    &__header {
+      gap: var(--ps-offer-meta-gap-compact);
+    }
+
+    &__title-container {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--ps-offer-meta-gap-standard);
+      align-items: flex-start;
+    }
+
+    &__price {
+      grid-column: 2;
+      grid-row: 1;
+      justify-content: flex-end;
+    }
+
+    &__metadata {
+      flex-direction: column;
+      gap: var(--ps-offer-meta-gap-compact);
+    }
+
+    &__secondary-info {
+      flex-direction: column;
+      gap: var(--size-2);
+    }
+
+    &__availability,
+    &__mandate {
+      gap: var(--size-2);
+    }
+
+    &__actions {
+      flex-direction: row;
+      gap: var(--ps-offer-meta-gap-compact);
+
+      & .ps-button {
+        flex: 1;
+        width: auto;
+      }
+    }
+
+    /* Size improvements */
+    &__building {
+      font-size: var(--font-size-8);
+    }
+
+    &__title {
+      font-size: var(--font-size-8);
+    }
+
+    &__price-value {
+      font-size: var(--font-size-8);
+    }
+  }
+
+  /* Large desktop (≥1024px) */
+  @media (--desktop-large) {
+    --ps-offer-meta-font-size: var(--font-size-6);
+
+    &__building {
+      font-size: var(--font-size-9);
+    }
+
+    &__title {
+      font-size: var(--font-size-9);
+    }
+
+    &__price-value {
+      font-size: var(--font-size-10);
+    }
+  }
 }
 
 /* Explicit separator element between surface and location */
 .offer-meta__separator {
-  margin-left: var(--size-3);
-  margin-right: var(--size-3);
-  color: var(--text-secondary);
-}
-
-/* Price section - appears after primary-info on mobile, aligned right on desktop */
-.ps-offer-meta__price {
-  display: flex;
-  align-items: center;
-  gap: var(--size-3);
-  flex-wrap: wrap;
-
-  &-value {
-    font-size: var(--font-size-8);
-    font-weight: var(--font-weight-700);
-    color: var(--ps-offer-meta-price-color);
-    line-height: var(--line-height-1);
-  }
-
-  &-unit {
-    font-size: var(--font-size-3);
-    font-weight: var(--font-weight-400);
-    color: var(--ps-offer-meta-price-unit-color);
-    line-height: var(--line-height-3);
-  }
-
-  &-tooltip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-6);
-    height: var(--size-6);
-    padding: 0;
-    border: 1px solid var(--border-default);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: background-color var(--duration-150) var(--ease-out),
-                border-color var(--duration-150) var(--ease-out);
-
-    &:hover {
-      background: var(--gray-100);
-      border-color: var(--gray-400);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 2px;
-    }
-
-    &::before {
-      font-size: var(--font-size-3);
-    }
-  }
-}
-
-/* Metadata section - now only contains secondary-info */
-.ps-offer-meta__metadata {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ps-offer-meta-gap-standard);
-}
-
-/* Secondary info: availability + mandate type (one per line) */
-.ps-offer-meta__secondary-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  font-size: var(--font-size-3);
-  line-height: var(--line-height-3);
-}
-
-.ps-offer-meta__availability,
-.ps-offer-meta__mandate {
-  display: flex;
-  gap: var(--size-2);
-}
-
-.ps-offer-meta__label {
-  font-weight: var(--font-weight-400);
-  color: var(--ps-offer-meta-label-color);
-}
-
-.ps-offer-meta__value {
-  font-weight: var(--font-weight-700);
-  color: var(--ps-offer-meta-value-color);
-}
-
-/* Actions section */
-.ps-offer-meta__actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ps-offer-meta-gap-compact);
-  margin-top: var(--ps-offer-meta-gap-compact);
-
-  & .ps-button {
-    width: 100%;
-  }
-}
-
-/* Desktop layout (≥768px) */
-@media (min-width: 768px) {
-  .ps-offer-meta {
-    gap: var(--ps-offer-meta-gap-section);
-  }
-
-  /* Header: align price to right on desktop */
-  .ps-offer-meta__header {
-    gap: var(--ps-offer-meta-gap-compact);
-  }
-
-  .ps-offer-meta__title-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--ps-offer-meta-gap-standard);
-    align-items: flex-start;
-  }
-
-  .ps-offer-meta__price {
-    grid-column: 2;
-    grid-row: 1;
-    justify-content: flex-end;
-  }
-
-  /* Metadata: only secondary-info (available/mandate) */
-  .ps-offer-meta__metadata {
-    flex-direction: column;
-    gap: var(--ps-offer-meta-gap-compact);
-  }
-
-  .ps-offer-meta__secondary-info {
-    flex-direction: column;
-    gap: var(--ps-offer-meta-gap-compact);
-  }
-
-  .ps-offer-meta__availability,
-  .ps-offer-meta__mandate {
-    flex-direction: column;
-    gap: var(--size-1);
-  }
-
-  /* Actions: equal width distribution */
-  .ps-offer-meta__actions {
-    flex-direction: row;
-    gap: var(--ps-offer-meta-gap-compact);
-    margin-top: var(--ps-offer-meta-gap-standard);
-
-    & .ps-button {
-      flex: 1;
-      width: auto;
-    }
-  }
-}
-
-/* Desktop (≥768px) size improvements */
-@media (min-width: 768px) {
-  .ps-offer-meta__building {
-    font-size: var(--font-size-8);
-  }
-
-  .ps-offer-meta__title {
-    font-size: var(--font-size-8);
-  }
-
-  .ps-offer-meta__price-value {
-    font-size: var(--font-size-8);
-  }
-
-  .ps-offer-meta__primary-info {
-    font-size: var(--font-size-5);
-  }
-
-  .ps-offer-meta__secondary-info {
-    font-size: var(--font-size-4);
-  }
-}
-
-/* Large desktop (≥1024px) */
-@media (min-width: 1024px) {
-  .ps-offer-meta__building {
-    font-size: var(--font-size-9);
-  }
-
-  .ps-offer-meta__title {
-    font-size: var(--font-size-9);
-  }
-
-  .ps-offer-meta__price-value {
-    font-size: var(--font-size-10);
-  }
-
-  .ps-offer-meta__primary-info {
-    font-size: var(--font-size-6);
-  }
-
-  .ps-offer-meta__secondary-info {
-    font-size: var(--font-size-5);
-  }
+  font-size: var(--font-size-6);
 }

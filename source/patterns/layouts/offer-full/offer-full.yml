@@ -56,6 +56,9 @@ reference:
   value: 'OLBUR2200801'
 
 meta:
+  reference:
+    label: 'Reference'
+    value: 'OLBUR2200801'
   building:
     label: 'Building'
     value: 'Edificio ARA'
@@ -67,27 +70,29 @@ meta:
     tooltip: 'Price excluding charges and tax'
   surface_total:
     label: 'Surface total'
-    value: 611.3
+    value: '611.3'
     unit: 'm²'
-  location: '28010 MADRID'
+  location:
+    address:
+      postal_code: '28010'
+      locality: 'MADRID'
   availability:
     label: 'Available'
     value: 'Immediately'
   mandate_type:
     label: 'Type of mandate'
     value: 'Exclusive'
-
-actions:
-  items:
-    - label: 'Access to the surface area table'
-      url: '#surface-table'
-      variant: 'primary'
-      outline: true
-      icon: 'arrow-down'
-      icon_position: 'right'
-    - label: 'Download the brochure'
-      url: '#download'
-      variant: 'primary'
+  actions:
+    items:
+      - label: 'Access to the surface area table'
+        url: '#surface-table'
+        variant: 'primary'
+        outline: true
+        icon: 'arrow-down'
+        icon_position: 'end'
+      - label: 'Download the brochure'
+        url: '#download'
+        variant: 'primary'
 
 description:
   title: 'Description'

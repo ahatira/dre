@@ -330,10 +330,6 @@
   margin-top: calc(var(--offer-spacing-sm) * -1);
 }
 
-.offer-meta__separator {
-  color: var(--text-secondary);
-}
-
 .offer-meta__facts {
   display: flex;
   flex-direction: column;

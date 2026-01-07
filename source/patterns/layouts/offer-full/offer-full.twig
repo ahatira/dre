@@ -31,8 +31,17 @@
         <div class="offer-layout__main--top">
           {% include '@layouts/offer-full/template/offer-hero.twig' with { hero: hero } only %}
           {% include '@layouts/offer-full/template/offer-reference.twig' with { reference: reference } only %}
-          {% include '@layouts/offer-full/template/offer-meta.twig' with { meta: meta } only %}
-          {% include '@layouts/offer-full/template/offer-actions.twig' with { actions: actions } only %}
+          {% include '@collections/offer/meta/meta.twig' with { 
+            title: meta.title,
+            reference: meta.reference,
+            building: meta.building,
+            price: meta.price,
+            surface_total: meta.surface_total,
+            location: meta.location,
+            availability: meta.availability,
+            mandate_type: meta.mandate_type,
+            actions: meta.actions
+          } only %}
         </div>
         {% include '@layouts/offer-full/template/offer-description.twig' with { description: description } only %}
         {% include '@layouts/offer-full/template/offer-features.twig' with { features: features } only %}
