@@ -40,7 +40,7 @@
 
     {# Title and price container #}
     <div class="ps-offer-meta__title-container">
-      {# Building name and title #}
+      {# Building name, title, and primary info (surface + location) #}
       <div class="ps-offer-meta__title-group">
         {% if building and building.value %}
           <h1 class="ps-offer-meta__building">{{ building.value }}</h1>
@@ -48,9 +48,24 @@
         {% if title %}
           <h2 class="ps-offer-meta__title">{{ title }}</h2>
         {% endif %}
+        
+        {# Primary info: surface + location (directly under title) #}
+        <div class="ps-offer-meta__primary-info">
+          {% if surface_total and surface_total.value %}
+            <span class="ps-offer-meta__surface">
+              {{ surface_total.value }}{{ surface_total.unit ? ' ' ~ surface_total.unit : '' }}
+            </span>
+          {% endif %}
+          {% if location and location.address %}
+            <span class="ps-offer-meta__location">
+              {% if location.address.postal_code %}{{ location.address.postal_code }}{% endif %}
+              {% if location.address.locality %} {{ location.address.locality }}{% endif %}
+            </span>
+          {% endif %}
+        </div>
       </div>
 
-      {# Price (in header for desktop, moved to after metadata for mobile via CSS order) #}
+      {# Price (in header for desktop, after primary-info for mobile) #}
       {% if price and price.value %}
         <div class="ps-offer-meta__price">
           <span class="ps-offer-meta__price-value">{{ price.value }}</span>
@@ -71,23 +86,8 @@
     </div>
   </header>
 
-  {# Metadata section: surface + location + availability + mandate type #}
+  {# Metadata section: availability + mandate type #}
   <div class="ps-offer-meta__metadata">
-    {# Surface and location #}
-    <div class="ps-offer-meta__primary-info">
-      {% if surface_total and surface_total.value %}
-        <span class="ps-offer-meta__surface">
-          {{ surface_total.value }}{{ surface_total.unit ? ' ' ~ surface_total.unit : '' }}
-        </span>
-      {% endif %}
-      {% if location and location.address %}
-        <span class="ps-offer-meta__location">
-          {% if location.address.postal_code %}{{ location.address.postal_code }}{% endif %}
-          {% if location.address.locality %} {{ location.address.locality }}{% endif %}
-        </span>
-      {% endif %}
-    </div>
-
     {# Availability and mandate type (one per line) #}
     <div class="ps-offer-meta__secondary-info">
       {% if availability and availability.value %}
