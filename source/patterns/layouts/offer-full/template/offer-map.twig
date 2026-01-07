@@ -14,24 +14,18 @@
 #}
 
 {%- set map = map|default({}) -%}
-{%- set placeholder = placeholder|default(false) -%}
 
 {%- set classes = [
   'offer-map__inner',
-  placeholder ? 'offer-map__inner--placeholder' : null
 ] -%}
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
 <div{{ attr }} role="region">
-  {% if placeholder %}
-    <div class="offer-map__skeleton" aria-hidden="true"></div>
-  {% else %}
-    {% include '@components/map-widget/map-widget.twig' with {
+  {% include '@components/map-widget/map-widget.twig' with {
       map: map,
       markers: map.markers|default([]),
       provider: map.provider|default('leaflet'),
       ariaLabel: 'Location map',
       attributes: create_attribute().addClass('offer-map__widget')
     } only %}
-  {% endif %}
 </div>

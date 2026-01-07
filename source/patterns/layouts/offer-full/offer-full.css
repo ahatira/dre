@@ -21,7 +21,6 @@
   --offer-muted: var(--text-secondary);
   --offer-heading: var(--text-primary);
   --offer-accent: var(--primary);
-  --offer-placeholder: var(--gray-200);
   --offer-sidebar-gap: var(--size-4);
   --offer-sidebar-padding: var(--size-4);
   color: var(--text-primary);
@@ -239,30 +238,6 @@
   object-fit: cover;
 }
 
-.offer-hero__skeleton,
-.offer-reference__skeleton,
-.offer-meta__skeleton,
-.offer-description__skeleton,
-.offer-features__skeleton,
-.offer-energy__skeleton,
-.offer-surface__skeleton,
-.offer-location__skeleton,
-.offer-sidebar__skeleton,
-.offer-map__skeleton {
-  height: 160px;
-  background: linear-gradient(90deg, var(--offer-placeholder) 25%, var(--gray-100) 50%, var(--offer-placeholder) 75%);
-  background-size: 200% 100%;
-  animation: offer-skeleton 1.5s ease-in-out infinite;
-}
-
-@keyframes offer-skeleton {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-
-
-
 /* Features - Token override for dense layout */
 .offer-features {
   display: grid;
@@ -329,15 +304,6 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--offer-sidebar-gap);
   padding: var(--offer-sidebar-padding);
-}
-
-.offer-sidebar--placeholder {
-  & .offer-sidebar__skeleton {
-    height: 200px;
-    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
-    background-size: 200% 100%;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
 }
 
 /* Mobile: hide icons in sidebar buttons */

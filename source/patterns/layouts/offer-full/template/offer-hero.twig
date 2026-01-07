@@ -10,16 +10,11 @@
 
 {%- set classes = [
   'offer-hero',
-  placeholder ? 'offer-hero--placeholder' : null,
   hero.modifier_class|default(null)
 ] -%}
 
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
 <section{{ attr }} aria-label="Offer media">
-  {% if placeholder %}
-    <div class="offer-hero__skeleton" aria-hidden="true"></div>
-  {% else %}
-    {%- include '@collections/offer/hero/hero.twig' with hero only -%}
-  {% endif %}
+  {%- include '@collections/offer/hero/hero.twig' with hero only -%}
 </section>

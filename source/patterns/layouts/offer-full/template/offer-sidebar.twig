@@ -10,25 +10,20 @@
 
 {%- set classes = [
   'offer-sidebar',
-  placeholder ? 'offer-sidebar--placeholder' : null,
   sidebar.modifier_class|default(null)
 ] -%}
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
 <div{{ attr }}>
-  {% if placeholder %}
-    <div class="offer-sidebar__skeleton" aria-hidden="true"></div>
-  {% else %}
-    {% if sidebar.agent|default(null) %}
-      <div class="offer-sidebar__agent">
-        {%- include '@components/card-agent/card-agent.twig' with sidebar.agent only -%}
-      </div>
-    {% endif %}
+  {% if sidebar.agent|default(null) %}
+    <div class="offer-sidebar__agent">
+      {%- include '@components/card-agent/card-agent.twig' with sidebar.agent only -%}
+    </div>
+  {% endif %}
 
-    {% if sidebar.visit|default(null) %}
-      <div class="offer-sidebar__visit">
-        {%- include '@components/card-agent-visit/card-agent-visit.twig' with sidebar.visit only -%}
-      </div>
-    {% endif %}
+  {% if sidebar.visit|default(null) %}
+    <div class="offer-sidebar__visit">
+      {%- include '@components/card-agent-visit/card-agent-visit.twig' with sidebar.visit only -%}
+    </div>
   {% endif %}
 </div>

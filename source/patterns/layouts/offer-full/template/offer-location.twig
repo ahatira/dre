@@ -11,23 +11,10 @@
 
 {%- set classes = [
   'offer-location',
-  placeholder ? 'offer-location--placeholder' : null,
   location.modifier_class|default(null)
 ] -%}
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
 <section{{ attr }} aria-labelledby="offer-location-heading">
-  {% if placeholder %}
-    <div class="offer-location__skeleton" aria-hidden="true"></div>
-  {% else %}
-    {% include '@collections/offer/location/location.twig' with {
-      html_tag: 'div',
-      title_level: location.title_level|default('h3'),
-      title: location.title|default('Location'),
-      icon: location.icon|default('marker'),
-      address: location.address|default({}),
-      transport: location.transport|default({}),
-      attributes: create_attribute().setAttribute('id', 'offer-location-heading')
-    } only %}
-  {% endif %}
+  {% include '@collections/offer/location/location.twig' with location only %}
 </section>

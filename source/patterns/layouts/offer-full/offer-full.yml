@@ -51,11 +51,13 @@ hero:
     active: false
     ariaLabel: 'Add to favorites'
 
-reference:
-  label: 'Reference'
-  value: 'OLBUR2200801'
-
 meta:
+  building:
+    label: 'Building'
+    value: 'Edificio ARA'
+  reference:
+    label: 'Reference'
+    value: 'OLBUR2200801'
   map:
     lat: 40.41678
     lng: -3.70379
