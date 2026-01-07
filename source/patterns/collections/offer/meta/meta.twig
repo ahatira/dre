@@ -56,6 +56,9 @@
               {{ surface_total.value }}{{ surface_total.unit ? ' ' ~ surface_total.unit : '' }}
             </span>
           {% endif %}
+          {% if surface_total and surface_total.value and location and location.address %}
+            <span class="offer-meta__separator" aria-hidden="true">•</span>
+          {% endif %}
           {% if location and location.address %}
             <span class="ps-offer-meta__location">
               {% if location.address.postal_code %}{{ location.address.postal_code }}{% endif %}

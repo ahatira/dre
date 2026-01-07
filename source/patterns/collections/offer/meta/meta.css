@@ -55,7 +55,7 @@
 .ps-offer-meta__title-group {
   display: flex;
   flex-direction: column;
-  gap: var(--size-2);
+  gap: 0;
 }
 
 .ps-offer-meta__building {
@@ -79,18 +79,10 @@
 .ps-offer-meta__primary-info {
   display: flex;
   align-items: center;
-  gap: var(--size-3);
+  gap: var(--size-2);
   font-size: var(--font-size-4);
   line-height: var(--line-height-3);
   flex-wrap: wrap;
-
-  & > * {
-    &:not(:last-child)::after {
-      content: '•';
-      margin-left: var(--size-3);
-      color: var(--text-secondary);
-    }
-  }
 }
 
 .ps-offer-meta__surface {
@@ -101,6 +93,13 @@
 .ps-offer-meta__location {
   font-weight: var(--font-weight-400);
   color: var(--ps-offer-meta-location-color);
+}
+
+/* Explicit separator element between surface and location */
+.offer-meta__separator {
+  margin-left: var(--size-3);
+  margin-right: var(--size-3);
+  color: var(--text-secondary);
 }
 
 /* Price section - appears after primary-info on mobile, aligned right on desktop */
@@ -166,7 +165,7 @@
 .ps-offer-meta__secondary-info {
   display: flex;
   flex-direction: column;
-  gap: var(--ps-offer-meta-gap-compact);
+  gap: 0;
   font-size: var(--font-size-3);
   line-height: var(--line-height-3);
 }
