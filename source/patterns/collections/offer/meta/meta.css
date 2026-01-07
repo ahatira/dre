@@ -1,12 +1,20 @@
 /**
  * Offer Meta organism
  * Main metadata display for real estate offers
- * Desktop: Grid layout with price aligned right
- * Mobile: Stacked layout with price below title
+ * Desktop: Grid layout with price at header right
+ * Mobile: Stacked layout with price after metadata
+ *
+ * Spacing strategy:
+ * - Compact (section internal): --size-3 to --size-4
+ * - Standard (between sections): --size-6
+ * - Section (major gap): --size-8
  */
 
 .ps-offer-meta {
-  --ps-offer-meta-gap: var(--size-6);
+  --ps-offer-meta-gap-compact: var(--size-4);
+  --ps-offer-meta-gap-standard: var(--size-6);
+  --ps-offer-meta-gap-section: var(--size-8);
+
   --ps-offer-meta-reference-color: var(--text-secondary);
   --ps-offer-meta-building-color: var(--gray-900);
   --ps-offer-meta-title-color: var(--gray-900);
@@ -18,14 +26,14 @@
 
   display: flex;
   flex-direction: column;
-  gap: var(--ps-offer-meta-gap);
+  gap: var(--ps-offer-meta-gap-standard);
 }
 
 /* Header section */
 .ps-offer-meta__header {
   display: flex;
   flex-direction: column;
-  gap: var(--size-4);
+  gap: var(--ps-offer-meta-gap-compact);
 }
 
 /* Reference */
@@ -33,21 +41,14 @@
   font-size: var(--font-size-2);
   color: var(--ps-offer-meta-reference-color);
   line-height: var(--line-height-3);
-
-  &-label {
-    font-weight: var(--font-weight-400);
-  }
-
-  &-value {
-    font-weight: var(--font-weight-600);
-  }
+  font-weight: var(--font-weight-400);
 }
 
 /* Title container - mobile first (stacked) */
 .ps-offer-meta__title-container {
   display: flex;
   flex-direction: column;
-  gap: var(--size-4);
+  gap: var(--ps-offer-meta-gap-compact);
 }
 
 /* Title group */
@@ -67,13 +68,13 @@
 
 .ps-offer-meta__title {
   font-size: var(--font-size-7);
-  font-weight: var(--font-weight-400);
+  font-weight: var(--font-weight-700);
   color: var(--ps-offer-meta-title-color);
   line-height: var(--line-height-2);
   margin: 0;
 }
 
-/* Price */
+/* Price section - appears after metadata on mobile */
 .ps-offer-meta__price {
   display: flex;
   align-items: center;
@@ -129,7 +130,7 @@
 .ps-offer-meta__metadata {
   display: flex;
   flex-direction: column;
-  gap: var(--size-4);
+  gap: var(--ps-offer-meta-gap-standard);
 }
 
 /* Primary info: surface + location */
@@ -160,11 +161,11 @@
   color: var(--ps-offer-meta-location-color);
 }
 
-/* Secondary info: availability + mandate type */
+/* Secondary info: availability + mandate type (one per line) */
 .ps-offer-meta__secondary-info {
   display: flex;
   flex-direction: column;
-  gap: var(--size-3);
+  gap: var(--ps-offer-meta-gap-compact);
   font-size: var(--font-size-3);
   line-height: var(--line-height-3);
 }
@@ -189,8 +190,8 @@
 .ps-offer-meta__actions {
   display: flex;
   flex-direction: column;
-  gap: var(--size-4);
-  margin-top: var(--size-2);
+  gap: var(--ps-offer-meta-gap-compact);
+  margin-top: var(--ps-offer-meta-gap-compact);
 
   & .ps-button {
     width: 100%;
@@ -200,15 +201,19 @@
 /* Desktop layout (≥768px) */
 @media (min-width: 768px) {
   .ps-offer-meta {
-    --ps-offer-meta-gap: var(--size-8);
+    gap: var(--ps-offer-meta-gap-section);
   }
 
   /* Header: align price to right on desktop */
+  .ps-offer-meta__header {
+    gap: var(--ps-offer-meta-gap-compact);
+  }
+
   .ps-offer-meta__title-container {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: var(--size-6);
-    align-items: start;
+    gap: var(--ps-offer-meta-gap-standard);
+    align-items: flex-start;
   }
 
   .ps-offer-meta__price {
@@ -217,25 +222,30 @@
     justify-content: flex-end;
   }
 
-  /* Metadata: horizontal layout */
+  /* Metadata: primary on left, secondary as column on right */
   .ps-offer-meta__metadata {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--size-6);
+    gap: var(--ps-offer-meta-gap-section);
+  }
+
+  .ps-offer-meta__primary-info {
+    flex: 1;
   }
 
   .ps-offer-meta__secondary-info {
-    flex-direction: row;
-    gap: var(--size-6);
+    flex: 1;
+    flex-direction: column;
   }
 
-  /* Actions: horizontal layout */
+  /* Actions: equal width distribution */
   .ps-offer-meta__actions {
     flex-direction: row;
-    gap: var(--size-4);
+    gap: var(--ps-offer-meta-gap-compact);
+    margin-top: var(--ps-offer-meta-gap-standard);
 
     & .ps-button {
+      flex: 1;
       width: auto;
     }
   }

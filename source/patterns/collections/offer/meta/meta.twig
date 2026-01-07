@@ -29,13 +29,12 @@
 {%- set attr = (attributes is defined ? attributes : create_attribute()).addClass(classes) -%}
 
 <div{{ attr }}>
-  {# Header section: reference + title + price #}
+  {# Header section: reference + title + building #}
   <header class="ps-offer-meta__header">
-    {# Reference badge #}
+    {# Reference #}
     {% if reference and reference.value %}
       <div class="ps-offer-meta__reference">
-        <span class="ps-offer-meta__reference-label">{{ reference.label }}{{ reference.label ? ' : ' : '' }}</span>
-        <span class="ps-offer-meta__reference-value">{{ reference.value }}</span>
+        {{ reference.label }}{{ reference.label ? ': ' : '' }}<span>{{ reference.value }}</span>
       </div>
     {% endif %}
 
@@ -51,7 +50,7 @@
         {% endif %}
       </div>
 
-      {# Price #}
+      {# Price (in header for desktop, moved to after metadata for mobile via CSS order) #}
       {% if price and price.value %}
         <div class="ps-offer-meta__price">
           <span class="ps-offer-meta__price-value">{{ price.value }}</span>
@@ -89,17 +88,17 @@
       {% endif %}
     </div>
 
-    {# Availability and mandate type #}
+    {# Availability and mandate type (one per line) #}
     <div class="ps-offer-meta__secondary-info">
       {% if availability and availability.value %}
         <div class="ps-offer-meta__availability">
-          <span class="ps-offer-meta__label">{{ availability.label }}{{ availability.label ? ' : ' : '' }}</span>
+          <span class="ps-offer-meta__label">{{ availability.label }}{{ availability.label ? ': ' : '' }}</span>
           <strong class="ps-offer-meta__value">{{ availability.value }}</strong>
         </div>
       {% endif %}
       {% if mandate_type and mandate_type.value %}
         <div class="ps-offer-meta__mandate">
-          <span class="ps-offer-meta__label">{{ mandate_type.label }}{{ mandate_type.label ? ' : ' : '' }}</span>
+          <span class="ps-offer-meta__label">{{ mandate_type.label }}{{ mandate_type.label ? ': ' : '' }}</span>
           <strong class="ps-offer-meta__value">{{ mandate_type.value }}</strong>
         </div>
       {% endif %}
