@@ -32,6 +32,19 @@
   --ps-offer-meta-price-font-size: var(--font-size-7);
   --ps-offer-meta-price-line-height: var(--leading-10);
   --ps-offer-meta-price-weight: var(--font-weight-700);
+  --ps-offer-meta-price-unit-font-size: var(--font-size-3);
+  --ps-offer-meta-price-unit-line-height: var(--leading-8);
+  --ps-offer-meta-price-unit-weight: var(--font-weight-400);
+  --ps-offer-meta-reference-font-size: var(--font-size-2);
+  --ps-offer-meta-reference-line-height: var(--leading-2);
+  --ps-offer-meta-reference-weight: var(--font-weight-400);
+  /* Typography tokens */
+  --ps-offer-meta-heading-font-size: var(--font-size-7);
+  --ps-offer-meta-heading-line-height: var(--leading-10);
+  --ps-offer-meta-heading-weight: var(--font-weight-700);
+  --ps-offer-meta-price-font-size: var(--font-size-7);
+  --ps-offer-meta-price-line-height: var(--leading-10);
+  --ps-offer-meta-price-weight: var(--font-weight-700);
 
   display: flex;
   flex-direction: column;
@@ -46,10 +59,10 @@
 
   /* Reference */
   &__reference {
-    font-size: var(--font-size-2);
+    font-size: var(--ps-offer-meta-reference-font-size);
     color: var(--ps-offer-meta-reference-color);
-    line-height: var(--leading-2);
-    font-weight: var(--font-weight-400);
+    line-height: var(--ps-offer-meta-reference-line-height);
+    font-weight: var(--ps-offer-meta-reference-weight);
   }
 
   /* Title container - mobile first (stacked) */
@@ -110,10 +123,10 @@
     }
 
     &-unit {
-      font-size: var(--font-size-3);
-      font-weight: var(--font-weight-400);
+      font-size: var(--ps-offer-meta-price-unit-font-size);
+      font-weight: var(--ps-offer-meta-price-unit-weight);
       color: var(--ps-offer-meta-price-unit-color);
-      line-height: var(--leading-8);
+      line-height: var(--ps-offer-meta-price-unit-line-height);
       margin-bottom: -6px;
     }
 
