@@ -22,6 +22,7 @@
 {%- set address = address|default({}) -%}
 {%- set transport = transport|default({}) -%}
 
+{%- set address_plain = address.address_plain|default('') -%}
 {%- set address_line1 = address.address_line1|default('') -%}
 {%- set address_line2 = address.address_line2|default('') -%}
 {%- set postal_code = address.postal_code|default('') -%}
@@ -32,17 +33,21 @@
 {%- set postal_locality = postal_code or locality_name ? [postal_code, locality_name]|join(' ') : '' -%}
 
 {%- set address_lines = [] -%}
-{%- if address_line1 -%}
-  {%- set address_lines = address_lines|merge([address_line1]) -%}
-{%- endif -%}
-{%- if address_line2 -%}
-  {%- set address_lines = address_lines|merge([address_line2]) -%}
-{%- endif -%}
-{%- if postal_locality -%}
-  {%- set address_lines = address_lines|merge([postal_locality]) -%}
-{%- endif -%}
-{%- if country_name -%}
-  {%- set address_lines = address_lines|merge([country_name]) -%}
+{%- if address_plain -%}
+  {%- set address_lines = [address_plain] -%}
+{%- else -%}
+  {%- if address_line1 -%}
+    {%- set address_lines = address_lines|merge([address_line1]) -%}
+  {%- endif -%}
+  {%- if address_line2 -%}
+    {%- set address_lines = address_lines|merge([address_line2]) -%}
+  {%- endif -%}
+  {%- if postal_locality -%}
+    {%- set address_lines = address_lines|merge([postal_locality]) -%}
+  {%- endif -%}
+  {%- if country_name -%}
+    {%- set address_lines = address_lines|merge([country_name]) -%}
+  {%- endif -%}
 {%- endif -%}
 
 {%- set classes = [
@@ -77,8 +82,7 @@
         {% for item in transport.items %}
           <li class="ps-location__transport-item">
             {% if item.icon %}<span class="ps-location__transport-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>{% endif %}
-            <span class="ps-location__transport-label">{{ item.name|default(item) }}</span>
-            {% if item.value %}<span class="ps-location__transport-value">{{ item.value }}</span>{% endif %}
+            <span class="ps-location__transport-text">{% if item.name %}{{ item.name }}{% endif %}{% if item.value %}: {{ item.value }}{% endif %}</span>
           </li>
         {% endfor %}
       </ul>

@@ -316,6 +316,7 @@ location:
   title_level: 'h3'
   icon: 'marker'
   address:
+    address_plain: '37 CL Hermanos Garcia Noblejas - 28037 Madrid'
     address_line1: '37 CL Hermanos Garcia Noblejas'
     address_line2: ''
     postal_code: '28037'
