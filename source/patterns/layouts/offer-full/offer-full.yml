@@ -56,12 +56,12 @@ reference:
   value: 'OLBUR2200801'
 
 meta:
-  reference:
-    label: 'Reference'
-    value: 'OLBUR2200801'
-  building:
-    label: 'Building'
-    value: 'Edificio ARA'
+  map:
+    lat: 40.41678
+    lng: -3.70379
+    zoom: 15
+    provider: 'leaflet'
+    markers: []
   title: 'Rent Offices MADRID Barrio de Chamberí'
   price:
     label: 'Rent'
@@ -357,7 +357,8 @@ sidebar:
       ariaLabel: 'Schedule a visit for this property'
 
 map:
-  title: 'Location map'
-  image:
-    src: '/storybook/images/16-9.jpg'
-    alt: 'Map placeholder'
+  lat: 40.41678
+  lng: -3.70379
+  zoom: 15
+  provider: 'leaflet'
+  markers: []
