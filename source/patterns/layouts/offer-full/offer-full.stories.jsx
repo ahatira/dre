@@ -21,19 +21,3 @@ export const Default = {
   },
 };
 
-export const Placeholder = {
-  render: () =>
-    offerFull({
-      ...offerData,
-      hero: { placeholder: true },
-      reference: { placeholder: true },
-      meta: { placeholder: true },
-      description: { placeholder: true },
-      features: { placeholder: true },
-      energy: { placeholder: true },
-      surface: { placeholder: true },
-      location: { placeholder: true },
-      sidebar: { placeholder: true },
-      map: { placeholder: true },
-    }),
-};
