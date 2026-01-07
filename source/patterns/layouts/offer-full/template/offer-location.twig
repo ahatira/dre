@@ -20,30 +20,14 @@
   {% if placeholder %}
     <div class="offer-location__skeleton" aria-hidden="true"></div>
   {% else %}
-    <span class="offer-section__title" id="offer-location-heading">{{ location.title|default('Location') }}</span>
-    {% if location.address.lines %}
-      <address class="offer-location__address">
-        {% for line in location.address.lines %}
-          <span class="offer-location__address-line">{{ line }}</span>
-        {% endfor %}
-      </address>
-    {% endif %}
-
-    {% if location.transport %}
-      <div class="offer-location__transport">
-        {% for group in location.transport %}
-          <div class="offer-location__transport-group">
-            <p class="offer-location__transport-label">{{ group.label }}</p>
-            {% if group.items %}
-              <ul class="offer-location__transport-list">
-                {% for item in group.items %}
-                  <li class="offer-location__transport-item">{{ item }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
+    {% include '@collections/offer/location/location.twig' with {
+      html_tag: 'div',
+      title_level: location.title_level|default('h3'),
+      title: location.title|default('Location'),
+      icon: location.icon|default('marker'),
+      address: location.address|default({}),
+      transport: location.transport|default({}),
+      attributes: create_attribute().setAttribute('id', 'offer-location-heading')
+    } only %}
   {% endif %}
 </section>

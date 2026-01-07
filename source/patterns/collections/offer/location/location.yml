@@ -1,0 +1,24 @@
+# Location - Collection/Organism
+# Displays address and transport information with icon title.
+
+html_tag: 'section'
+title_level: 'h3'
+title: 'Location'
+icon: 'marker'
+
+address:
+  address_line1: '37 CL Hermanos Garcia Noblejas'
+  address_line2: ''
+  postal_code: '28037'
+  locality: 'Madrid'
+  locality_name: 'Madrid'
+  country:
+    code: 'ES'
+    name: 'Spain'
+
+transport:
+  title: 'Transport'
+  items:
+    - 'Bus: N° XX-XX-XX'
+    - 'Metro: M2 Madrid'
+    - 'Road access'
