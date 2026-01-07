@@ -2,21 +2,21 @@
 /**
  * Location - Collection/Organism
  *
- * Displays offer location with icon title, address, and transport lines.
+ * Displays offer location with icon title, address, and transport lines with icons.
  * Composes Heading atom for the title and semantic blocks for address/transport.
  *
  * @param {string} title - Section title (default: 'Location')
  * @param {string} icon - Icon name for data-icon attribute (default: 'marker')
  * @param {object} address - Address fields (line1, line2, postal_code, locality, locality_name, country_code, country_name)
- * @param {object} transport - Transport info ({ title, items: array })
+ * @param {object} transport - Transport info ({ title, items: [{name, value, icon}] })
  * @param {string} html_tag - Root wrapper tag (default: 'section')
  * @param {string} title_level - Heading level for title (default: 'h3')
  * @param {object} attributes - Drupal attributes object
  */
 #}
 
-{%- set html_tag = html_tag|default('section') -%}
-{%- set title_level = title_level|default('h3') -%}
+{%- set html_tag = html_tag|default('div') -%}
+{%- set title_level = title_level|default('h4') -%}
 {%- set title = title|default('Location') -%}
 {%- set icon = icon|default('marker') -%}
 {%- set address = address|default({}) -%}
@@ -75,7 +75,11 @@
       {% endif %}
       <ul class="ps-location__transport-list">
         {% for item in transport.items %}
-          <li class="ps-location__transport-item">{{ item }}</li>
+          <li class="ps-location__transport-item">
+            {% if item.icon %}<span class="ps-location__transport-icon" data-icon="{{ item.icon }}" aria-hidden="true"></span>{% endif %}
+            <span class="ps-location__transport-label">{{ item.name|default(item) }}</span>
+            {% if item.value %}<span class="ps-location__transport-value">{{ item.value }}</span>{% endif %}
+          </li>
         {% endfor %}
       </ul>
     </div>

@@ -19,6 +19,12 @@ address:
 transport:
   title: 'Transport'
   items:
-    - 'Bus: N° XX-XX-XX'
-    - 'Metro: M2 Madrid'
-    - 'Road access'
+    - name: 'Bus'
+      value: 'N° XX-XX-XX'
+      icon: 'bus'
+    - name: 'Metro'
+      value: 'M2 Madrid'
+      icon: 'metro'
+    - name: 'Road access'
+      value: ''
+      icon: 'car'
