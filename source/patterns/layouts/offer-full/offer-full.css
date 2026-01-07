@@ -22,6 +22,8 @@
   --offer-heading: var(--text-primary);
   --offer-accent: var(--primary);
   --offer-placeholder: var(--gray-200);
+  --offer-sidebar-gap: var(--size-4);
+  --offer-sidebar-padding: var(--size-4);
   color: var(--text-primary);
 }
 
@@ -71,13 +73,13 @@
 }
 
 .offer-full__container {
-  padding: var(--offer-gap-section);
+  padding: 0;
 }
 
 .offer-layout {
   display: flex;
   flex-direction: column;
-  gap: var(--offer-gap-section);
+  gap: 0;
 }
 
 .offer-layout__main {

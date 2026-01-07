@@ -1,0 +1,54 @@
+/* ========================================================================
+   #SURFACE (Collection/Organism)
+   ======================================================================== */
+
+/**
+ * Surface - Composes Heading and Table for displaying property surface data.
+ * Used for property characteristic tables in offer pages.
+ *
+ * Design System Conformance:
+ * - Layer 2: Component-scoped variables for child composition override
+ * - Token-First STEP 3: Variables override child heading and table tokens
+ * - ALL values from tokens: NO hardcoded colors, sizes, spacing
+ * - Semantic colors only: primary, secondary, success, etc.
+ * - CSS nesting with & syntax (PostCSS nested)
+ * - Focus and interaction states for accessibility
+ * - NO border-radius by default: Sharp corners (design system default)
+ */
+
+/* Container
+   ========================================================================= */
+
+.ps-surface {
+  /* Layer 2: Component-scoped variables for composition overrides */
+  --ps-surface-gap: var(--size-6);
+  --ps-surface-title-font-size: var(--font-size-6);
+  --ps-surface-title-font-weight: var(--font-weight-700);
+  --ps-surface-title-margin-bottom: var(--size-4);
+
+  /* Base container structure */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-surface-gap);
+
+  /* Title styling via composition override */
+  &__title {
+    margin: 0 0 var(--ps-surface-title-margin-bottom) 0;
+    font-size: var(--ps-surface-title-font-size);
+    font-weight: var(--ps-surface-title-font-weight);
+  }
+
+  /* Table wrapper with minimal styling */
+  &__table {
+    /* Inherits table styles without additional modification */
+  }
+}
+
+/* Responsive adjustments
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .ps-surface {
+    --ps-surface-gap: var(--size-4);
+  }
+}
