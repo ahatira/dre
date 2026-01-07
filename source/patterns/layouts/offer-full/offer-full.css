@@ -362,13 +362,12 @@
 /* Map */
 .offer-map {
   margin-top: var(--offer-gap-section);
-  background: var(--gray-50);
+  background: var(--gray-200);
 }
 
 .offer-map__inner {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: var(--offer-gap-section) var(--offer-gap-standard);
+  padding: 0;
 }
 
 .offer-map__frame {
