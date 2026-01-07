@@ -236,6 +236,13 @@
   .ps-offer-meta__secondary-info {
     flex: 1;
     flex-direction: column;
+    gap: var(--ps-offer-meta-gap-compact);
+  }
+
+  .ps-offer-meta__availability,
+  .ps-offer-meta__mandate {
+    flex-direction: column;
+    gap: var(--size-1);
   }
 
   /* Actions: equal width distribution */
@@ -251,8 +258,8 @@
   }
 }
 
-/* Large desktop (≥1024px) */
-@media (min-width: 1024px) {
+/* Desktop (≥768px) size improvements */
+@media (min-width: 768px) {
   .ps-offer-meta__building {
     font-size: var(--font-size-8);
   }
@@ -262,6 +269,37 @@
   }
 
   .ps-offer-meta__price-value {
+    font-size: var(--font-size-8);
+  }
+
+  .ps-offer-meta__primary-info {
+    font-size: var(--font-size-5);
+  }
+
+  .ps-offer-meta__secondary-info {
+    font-size: var(--font-size-4);
+  }
+}
+
+/* Large desktop (≥1024px) */
+@media (min-width: 1024px) {
+  .ps-offer-meta__building {
     font-size: var(--font-size-9);
+  }
+
+  .ps-offer-meta__title {
+    font-size: var(--font-size-9);
+  }
+
+  .ps-offer-meta__price-value {
+    font-size: var(--font-size-10);
+  }
+
+  .ps-offer-meta__primary-info {
+    font-size: var(--font-size-6);
+  }
+
+  .ps-offer-meta__secondary-info {
+    font-size: var(--font-size-5);
   }
 }
