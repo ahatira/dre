@@ -1,0 +1,133 @@
+name: 'UI Suite BNP PRE'
+type: theme
+description: 'Standalone Bootstrap 5 base theme for BNP Paribas Real Estate built for UI Suite and starterkit generation.'
+core_version_requirement: ^11
+base theme: false
+dependencies:
+  - ui_patterns:ui_patterns
+  - ui_styles:ui_styles
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - ui_suite_bnppre/bootstrap
+  - ui_suite_bnppre/accessibility
+  - ui_suite_bnppre/component_placeholder
+  - ui_suite_bnppre/form
+
+ckeditor5-stylesheets:
+  - assets/css/ckeditor5.css
+
+generator: 'ui_suite_bnppre:1.0.0'
+
+libraries-override:
+  core/drupal.active-link:
+    js:
+      misc/active-link.js: assets/js/misc/active-link.js
+  core/drupal.autocomplete:
+    css:
+      component:
+        misc/components/autocomplete-loading.module.css: false
+  core/drupal.dialog.off_canvas:
+    css:
+      base:
+        misc/dialog/off-canvas/css/reset.css: false
+        misc/dialog/off-canvas/css/base.css: false
+        misc/dialog/off-canvas/css/utility.css: false
+      component:
+        misc/dialog/off-canvas/css/button.css: false
+        misc/dialog/off-canvas/css/drupal.css: false
+        misc/dialog/off-canvas/css/form.css: false
+        misc/dialog/off-canvas/css/table.css: false
+        misc/dialog/off-canvas/css/details.css: false
+        misc/dialog/off-canvas/css/messages.css: false
+        misc/dialog/off-canvas/css/tabledrag.css: false
+        misc/dialog/off-canvas/css/throbber.css: false
+        misc/dialog/off-canvas/css/dropbutton.css: false
+        misc/dialog/off-canvas/css/titlebar.css: false
+        misc/dialog/off-canvas/css/wrapper.css: false
+  core/drupal.dropbutton: false
+  core/drupal.tableheader: false
+  core/drupal.tablesort: false
+  content_moderation/content_moderation: false
+  layout_builder/drupal.layout_builder:
+    css:
+      theme:
+        css/layout-builder.css: false
+        css/off-canvas.css: false
+  node/drupal.node.preview:
+    css:
+      theme:
+        css/node.preview.css: false
+  system/base:
+    css:
+      component:
+        css/components/clearfix.module.css: false
+        css/components/container-inline.module.css: false
+  text/drupal.text: ui_suite_bnppre/drupal.text
+  clientside_validation_jquery/cv.jquery.ife: false
+  commerce_cart/cart_block: false
+  commerce_checkout/form: false
+  commerce_checkout/login_pane: false
+  layout_builder_browser/browser: false
+  layout_builder_browser/modal:
+    js:
+      js/layout_builder_browser.modal.js: assets/js/layout-builder-browser/layout-builder-browser.modal.js
+  media_library_edit/admin:
+    css:
+      component:
+        css/media_library_edit.admin.css: false
+  paragraphs/drupal.paragraphs.unpublished: false
+  section_library/section_library:
+    css:
+      theme:
+        css/section-library.css: false
+
+libraries-extend:
+  core/drupal.active-link:
+    - ui_suite_bnppre/drupal.active-link
+  core/drupal.ajax:
+    - ui_suite_bnppre/drupal.ajax
+  core/drupal.autocomplete:
+    - ui_suite_bnppre/drupal.autocomplete
+  core/drupal.checkbox:
+    - ui_suite_bnppre/drupal.checkbox
+  core/drupal.dialog:
+    - ui_suite_bnppre/drupal.dialog
+  core/drupal.dialog.ajax:
+    - ui_suite_bnppre/drupal.dialog.ajax
+  core/drupal.dialog.off_canvas:
+    - ui_suite_bnppre/drupal.dialog.off_canvas
+  core/drupal.message:
+    - ui_suite_bnppre/drupal.message
+  core/drupal.progress:
+    - ui_suite_bnppre/drupal.progress
+  core/drupal.tabledrag:
+    - ui_suite_bnppre/drupal.tabledrag
+  contextual/drupal.contextual-links:
+    - ui_suite_bnppre/drupal.contextual-links
+  layout_builder/drupal.layout_builder:
+    - ui_suite_bnppre/drupal.layout_builder
+    - ui_suite_bnppre/drupal.layout_builder_block_filter
+  media_library/view:
+    - ui_suite_bnppre/media_library.theme
+  media_library/widget:
+    - ui_suite_bnppre/media_library.theme
+    - ui_suite_bnppre/media_library.widget
+  user/drupal.user:
+    - ui_suite_bnppre/drupal.user
+  clientside_validation_jquery/cv.jquery.validate:
+    - ui_suite_bnppre/jquery.validate
+  ui_icons/ui_icons.autocomplete:
+    - ui_suite_bnppre/ui_icons.autocomplete
