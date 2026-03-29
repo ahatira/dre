@@ -2,6 +2,7 @@ name: 'UI Suite BNP PRE'
 type: theme
 description: 'Standalone Bootstrap 5 base theme for BNP Paribas Real Estate built for UI Suite and starterkit generation.'
 core_version_requirement: ^11
+starterkit: true
 base theme: false
 dependencies:
   - ui_patterns:ui_patterns

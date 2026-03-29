@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_bnppre_starterkit
+third_party_settings:
+  ui_styles:
+    block:
+      selected:
+        colors_background_color: bg-light
+        spacing_padding_end: pe-2
+        spacing_padding_start: ps-2
+      extra: ''
+    title:
+      selected: {  }
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+id: ui_suite_bnppre_starterkit_breadcrumbs
+theme: ui_suite_bnppre_starterkit
+region: header
+weight: -100
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

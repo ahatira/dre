@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - ui_suite_bnppre_starterkit
+third_party_settings:
+  ui_styles:
+    block:
+      selected: {  }
+      extra: ''
+    title:
+      selected:
+        visually_hidden: visually-hidden
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+id: ui_suite_bnppre_starterkit_search
+theme: ui_suite_bnppre_starterkit
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  label_display: visible
+  provider: search
+  page_id: ''
+visibility: {  }
