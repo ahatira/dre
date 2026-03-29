@@ -1,9 +1,0 @@
-# Default props for form
-children: |
-  <div class="form-item">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" class="form-control" />
-  </div>
-  <div class="form-item">
-    <button type="submit" class="ps-button">Submit</button>
-  </div>

@@ -1,8 +1,0 @@
-src: '/source/assets/images/16-9.jpg'
-alt: 'Modern commercial building with glass facade'
-width: 800
-height: 450
-loading: 'lazy'
-decoding: 'auto'
-fit: 'none'
-rounded: 'none'

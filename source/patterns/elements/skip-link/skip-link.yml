@@ -1,3 +1,0 @@
-# Defaults for Skip Link preview
-targetId: 'main-content' # ID of target anchor element (main-content, navigation, search, etc.)
-label: 'Skip to main content' # Link text displayed on focus

@@ -1,8 +1,0 @@
-# Flag (Element/Atom) - Country/language visual indicator
-# Default configuration: France flag, medium size, square shape
-code: 'FR' # Country code ISO 3166-1 alpha-2
-label: 'France' # Accessible label for screen readers
-size: 'medium' # Size: small (16px), medium (20px, default), large (24px)
-shape: 'square' # Shape: square (4:3), rounded (4:3 + 4px radius), circle (1:1)
-disabled: false # Disabled state (reduced opacity + grayscale)
-decorative: false # Decorative only (aria-hidden, not announced by screen readers)

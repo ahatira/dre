@@ -1,5 +1,0 @@
-# Text (Atom) - Semantic text element
-# UTILITY-FIRST: Use attributes.addClass() for color/weight/size/alignment variations
-# Example: attributes.addClass('text-primary font-semibold text-center')
-text: "Découvrez notre sélection de biens immobiliers prêts à visiter cette semaine."
-tag: 'p'  # Options: p | span | div

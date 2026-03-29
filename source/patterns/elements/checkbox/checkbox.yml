@@ -1,6 +1,0 @@
-name: 'Checkbox Option'
-value: 'property-option'
-label: 'Property available for sale'
-checked: false
-indeterminate: false
-disabled: false

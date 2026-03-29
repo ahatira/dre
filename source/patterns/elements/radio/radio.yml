@@ -1,7 +1,0 @@
-# Default props for Radio (Real Estate context)
-name: "property_type"
-value: "apartment"
-id: "property-apartment"
-label: "Appartement"
-checked: false
-disabled: false

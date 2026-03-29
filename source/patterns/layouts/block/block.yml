@@ -1,9 +1,0 @@
-plugin_id: 'custom_placeholder'
-configuration:
-  provider: 'custom'
-label: 'Block title placeholder'
-
-content: |
-  <div class="ps-placeholder">
-    <p>Replace this placeholder with the target component render array.</p>
-  </div>

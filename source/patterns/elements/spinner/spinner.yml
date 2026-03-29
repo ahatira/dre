@@ -1,6 +1,0 @@
-# Defaults for Spinner preview
-variant: 'circular'  # Options: circular | dots | bars
-size: 'medium'  # Options: small (24px) | medium (32px, default) | large (48px)
-color: 'neutral'  # Options: neutral (gray, default) | primary (BNP green) | secondary (pink) | gold | success | info | warning | danger | light | dark
-text: 'Loading...'  # Screen reader text (announced to assistive technologies)
-centered: false  # Center in parent container (parent must have position: relative)

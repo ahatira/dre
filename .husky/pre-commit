@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-# Husky hook disabled on request.
-exit 0
