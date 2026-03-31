@@ -1,0 +1,16 @@
+{
+    "name": "custom/ui_suite_bnppre",
+    "description": "Standalone Bootstrap 5 base theme for BNP Paribas Real Estate, built for UI Suite with starterkit support.",
+    "license": "GPL-2.0-or-later",
+    "type": "drupal-theme",
+    "require": {
+        "drupal/ui_patterns": "^2.0",
+        "drupal/ui_styles": "^1.7"
+    },
+    "suggest": {
+        "drupal/entity_vdts": "Remove entity template wrappers.",
+        "drupal/fences": "Control field wrapping markup.",
+        "drupal/ui_icons": "Icon handling.",
+        "drupal/ui_skins": "CSS variable theme switching."
+    }
+}

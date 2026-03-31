@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Theme suggestion for "button" input form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ * - label: button label.
+ * - prefix: Markup to display before the input element.
+ * - suffix: Markup to display after the input element.
+ * - type: The type of input.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% extends "input.html.twig" %}
+{% block input %}
+  {%
+    set classes = [
+      'btn',
+      type == 'submit' ? 'js-form-submit',
+      icon ? 'icon-link',
+    ]
+  %}
+  {% apply spaceless %}
+    {% if icon and icon_position == 'before' %}
+      <button{{ attributes.addClass(classes) }}>{{ icon }}{{ label }}</button>
+    {% elseif icon and icon_position == 'after' %}
+      <button{{ attributes.addClass(classes) }}>{{ label }}{{ icon }}</button>
+    {% elseif icon and icon_position == 'icon_only' %}
+      <button{{ attributes.addClass(classes) }}>
+        <span class="visually-hidden">{{ label }}</span>
+        {{ icon }}
+      </button>
+    {% else %}
+      <button{{ attributes.addClass(classes) }}>{{ label }}</button>
+    {% endif %}
+    {{ children }}
+  {% endapply %}
+{% endblock %}

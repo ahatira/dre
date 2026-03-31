@@ -1,0 +1,32 @@
+name: Accordion
+description: "Render content in a box that expands and collapses vertically."
+group: Accordion
+links:
+  - "https://getbootstrap.com/docs/5.3/components/accordion/"
+variants:
+  default:
+    title: Default
+  flush:
+    title: Flush
+    description: "Remove the default background color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container."
+slots:
+  content:
+    title: Content
+    description: "Accordion items."
+props:
+  type: object
+  properties:
+    keep_open:
+      title: "Keep open?"
+      description: "Make accordion items stay open when another item is opened."
+      type: boolean
+    accordion_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+libraryOverrides:
+  js:
+    js/accordion.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

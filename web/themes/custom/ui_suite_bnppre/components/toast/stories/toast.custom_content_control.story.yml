@@ -1,0 +1,30 @@
+name: "Custom content with controls"
+slots:
+  content:
+    - markup: "Hello, world! This is a toast message."
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - mt-2
+          - pt-2
+          - border-top
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Take action"
+      props:
+        variant: primary__sm
+    - type: component
+      attributes:
+        data-bs-dismiss: toast
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Close
+      props:
+        variant: secondary__sm
+props:
+  attributes:
+    class:
+      - show
+  hide_close_button: true

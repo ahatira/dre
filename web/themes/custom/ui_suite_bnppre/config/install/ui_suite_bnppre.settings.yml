@@ -1,0 +1,26 @@
+favicon:
+  use_default: true
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true
+logo:
+  use_default: true
+ui_styles_entity_status_unpublished:
+  selected:
+    colors_background_color: bg-danger-subtle
+ui_styles_regions:
+  sidebar_first:
+    selected:
+      colors_background_color: bg-light
+      spacing_padding: p-3
+  sidebar_second:
+    selected:
+      colors_background_color: bg-light
+      spacing_padding: p-3
+container: 'container'
+library:
+  js_loading: 'ui_suite_bnppre/framework_js'
+  css_loading: 'ui_suite_bnppre/framework_css_bnppre'
+header_language_label_mode: 'code_capitalized'

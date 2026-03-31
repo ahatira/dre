@@ -1,0 +1,6 @@
+{% set attributes = active ? attributes.addClass('table-active') : attributes %}
+{% set attributes = color ? attributes.addClass('table-' ~ color) : attributes %}
+
+<tr{{ attributes }}>
+  {{- cells -}}
+</tr>

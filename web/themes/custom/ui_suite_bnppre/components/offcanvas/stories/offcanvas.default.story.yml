@@ -1,0 +1,41 @@
+name: Default
+slots:
+  title: Offcanvas
+  body:
+    - type: html_tag
+      tag: div
+      value: "Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc."
+    - type: component
+      component: "ui_suite_bnppre:dropdown"
+      slots:
+        title: "Dropdown button "
+      props:
+        attributes:
+          class:
+            - mt-3
+        content:
+          - title: "Action"
+            url: "#"
+          - title: "Another action"
+            url: "#"
+          - title: "Something else here"
+            url: "#"
+        button_variant: secondary
+props:
+  variant: start
+  scroll: false
+  heading_level: 5
+library_wrapper: >
+  {% set offcanvas_id = offcanvas_id|default("offcanvas-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'offcanvas_id': offcanvas_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Button with data-bs-target'|t,
+    'variant': 'primary',
+    'attributes': {
+      'data-bs-target': '#' ~ offcanvas_id,
+      'data-bs-toggle': 'offcanvas',
+      'aria-controls': offcanvas_id,
+      'aria-expanded': 'false',
+    },
+  }, with_context = false) }}
+  {{ _story|merge(props) }}

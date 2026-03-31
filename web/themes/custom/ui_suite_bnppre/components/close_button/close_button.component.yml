@@ -1,0 +1,24 @@
+name: "Close button"
+description: "A generic close button for dismissing content like modals and alerts."
+group: Button
+links:
+  - "https://getbootstrap.com/docs/5.3/components/close-button"
+variants:
+  default:
+    title: Default
+  white:
+    title: "White (deprecated)"
+props:
+  type: object
+  properties:
+    disabled:
+      title: "Disabled?"
+      description: "Is the button disabled?"
+      type: boolean
+    aria_label:
+      title: "Aria label"
+      description: "Name of the close button for assistive technology."
+      type: string
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

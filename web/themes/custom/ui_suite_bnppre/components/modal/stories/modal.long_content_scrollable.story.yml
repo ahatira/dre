@@ -1,0 +1,44 @@
+name: "Scrolling long content: scrollable"
+slots:
+  title: "Modal title"
+  body: |
+    <p>This is some placeholder content to show the scrolling behavior for modals. We use repeated line breaks to demonstrate how content can exceed minimum inner height, thereby showing inner scrolling. When content becomes longer than the predefined max-height of modal, content will be cropped and scrollable within the modal.</p>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>This content should appear at the bottom after you scroll.</p>
+  footer:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Close"
+      props:
+        variant: secondary__sm
+      attributes:
+        data-bs-dismiss: modal
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Save changes"
+      props:
+        variant: primary__sm
+props:
+  variant: default
+  animation: true
+  static: false
+  centered: false
+  scrollable: true
+  heading_level: 1
+  heading_attributes:
+    class:
+      - fs-5
+library_wrapper: >
+  {% set modal_id = modal_id|default("modal-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'modal_id': modal_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Launch demo modal'|t,
+    'variant': 'primary',
+    'attributes': {
+      'data-bs-target': '#' ~ modal_id,
+      'data-bs-toggle': 'modal',
+    },
+  }, with_context = false) }}
+  {{ _story|merge(props) }}

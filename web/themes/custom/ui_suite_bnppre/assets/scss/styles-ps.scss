@@ -1,0 +1,26 @@
+// =============================================================================
+// Property Search variant — CSS overrides on top of the base Realestate theme
+// =============================================================================
+// This file is compiled to assets/css/styles-ps.css.
+// Add Property Search-specific variable overrides BEFORE the imports below,
+// then extend or override component styles below the imports.
+
+// Font-face declarations (must precede everything — correct relative path from assets/css/).
+@import 'fonts';
+
+// Default variables + Bootstrap + custom palette.
+@import 'configuration-import';
+
+// Bootstrap Framework.
+@import 'bootstrap';
+
+// Components (shared with Realestate).
+@import 'components/brand-foundations';
+@import 'components/buttons';
+@import 'components/breadcrumb';
+@import 'components/accordion';
+@import 'components/typography';
+@import 'components/header';
+
+// -- Property Search specific overrides ---------------------------------------
+// Add PS-only styles below.

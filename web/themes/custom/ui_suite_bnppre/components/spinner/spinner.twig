@@ -1,0 +1,16 @@
+{% if variant %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'spinner-' ~ v})|replace({'_': '-'})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+
+{% if aria_hidden %}
+  {% set attributes = attributes.setAttribute('aria-hidden', aria_hidden) %}
+{% endif %}
+
+<div{{ attributes.setAttribute('role', 'status')}}>
+  {% if visually_hidden_label %}
+    <span class="visually-hidden">
+      {{- visually_hidden_label -}}
+    </span>
+  {% endif %}
+</div>

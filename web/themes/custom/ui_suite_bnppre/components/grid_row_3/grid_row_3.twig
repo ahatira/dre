@@ -1,0 +1,46 @@
+{% set col_attributes = [
+  create_attribute(col_1_attributes|default({})),
+  create_attribute(col_2_attributes|default({})),
+  create_attribute(col_3_attributes|default({})),
+] %}
+
+{% set attributes = attributes.addClass([
+  'row',
+  gutters,
+  gutters_horizontal,
+  gutters_vertical,
+]) %}
+
+{% if container %}
+  {% set container_wrapper_attributes = create_attribute(container_wrapper_attributes|default({})) %}
+  {% if container_wrapper_attributes.storage() %}
+  <div{{ container_wrapper_attributes }}>
+  {% endif %}
+  {% set container_attributes = create_attribute(container_attributes|default({})) %}
+  <div{{ container_attributes.addClass(container) }}>
+{% endif %}
+
+<div{{ attributes }}>
+  {% for region in [col_1_content, col_2_content, col_3_content] %}
+    {% set region = region and region is not sequence ? [region] : region %}
+    <div{{ col_attributes[loop.index0].addClass([
+      'col',
+      col_xs[loop.index0] ? 'col-' ~ col_xs[loop.index0],
+      col_sm[loop.index0] ? 'col-sm-' ~ col_sm[loop.index0],
+      col_md[loop.index0] ? 'col-md-' ~ col_md[loop.index0],
+      col_lg[loop.index0] ? 'col-lg-' ~ col_lg[loop.index0],
+      col_xl[loop.index0] ? 'col-xl-' ~ col_xl[loop.index0],
+      col_xxl[loop.index0] ? 'col-xxl-' ~ col_xxl[loop.index0],
+      col_offset[loop.index0] ? 'offset-' ~ col_offset[loop.index0],
+    ]) }}>
+      {{ region }}
+    </div>
+  {% endfor %}
+</div>
+
+{% if container %}
+  </div>
+  {% if container_wrapper_attributes.storage() %}
+  </div>
+  {% endif %}
+{% endif %}

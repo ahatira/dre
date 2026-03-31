@@ -1,0 +1,82 @@
+{% if variant and variant != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'nav-' ~ v})) %}
+  {% set attributes = attributes.addClass(variants) %}
+  {% set attributes = card_header and 'tabs' in variant ? attributes.addClass('card-header-tabs') : attributes %}
+  {% set attributes = card_header and 'pills' in variant ? attributes.addClass('card-header-pills') : attributes %}
+{% endif %}
+
+{% set tab_content = tab_content and tab_content is not sequence ? [tab_content] : tab_content %}
+{% set nav_id = nav_id|default('nav-' ~ random()) %}
+{% set nav_type = nav_type|default('ul') %}
+{% set link_type = tab_content ? 'button' : 'a' %}
+
+<{{ nav_type }}{{ attributes.addClass('nav') }}>
+  {% for item in items %}
+    {% set item_attributes = create_attribute(item.attributes|default({})) %}
+    {% set item_attributes = item_attributes.addClass('nav-item') %}
+
+    {% if nav_type in ['ul', 'ol'] and not item.below %}
+      <li{{ item_attributes }}>
+    {% endif %}
+
+    {% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+    {% set link_attributes = item.url ? link_attributes.setAttribute('href', item.url) : link_attributes %}
+    {% set link_attributes = link_attributes.addClass('nav-link') %}
+    {% set link_attributes = link_attributes.hasClass('disabled') ? link_attributes.setAttribute('aria-disabled', 'true') : link_attributes %}
+
+    {# Tab content management. #}
+    {% if tab_content %}
+      {% set link_attributes = link_attributes.hasClass('active') ? link_attributes.setAttribute('aria-selected', 'true') : link_attributes.setAttribute('aria-selected', 'false') %}
+      {% set link_attributes = link_attributes.setAttribute('type', 'button') %}
+      {% set link_attributes = link_attributes.setAttribute('role', 'tab') %}
+      {% set link_attributes = link_attributes.setAttribute('data-bs-toggle', 'tab') %}
+      {% set link_attributes = link_attributes.setAttribute('id', nav_id ~ "-tab-" ~ loop.index0) %}
+      {% set link_attributes = link_attributes.setAttribute('data-bs-target', '#' ~ nav_id ~ "-" ~ loop.index0) %}
+      {% set link_attributes = link_attributes.setAttribute('aria-controls', nav_id ~ "-" ~ loop.index0) %}
+    {% endif %}
+
+    {% if item.below %}
+      {{ include('ui_suite_bnppre:dropdown', {
+        'title': item.title,
+        'attributes': item_attributes,
+        'variant': 'dropdown',
+        'auto_close': 'true',
+        'button_attributes': link_attributes,
+        'button_variant': 'default',
+        'content': item.below,
+        'dropdown_id': dropdown_id|default("dropdown-" ~ random())  ~ "-" ~ loop.index0,
+        'dropdown_navbar': nav_type in ['ul', 'ol'],
+      }, with_context = false) }}
+    {% else %}
+      <{{ link_type }}{{ link_attributes }}>
+        {{ item.title }}
+      </{{ link_type }}>
+    {% endif %}
+
+    {% if nav_type in ['ul', 'ol'] and not item.below %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</{{ nav_type }}>
+
+{% if tab_content %}
+  <div class="tab-content">
+    {% for pane in tab_content %}
+      {% set tab_attributes = create_attribute(items[loop.index0].link_attributes|default({})) %}
+      {% set pane_attributes = create_attribute({
+        'class': [
+          'tab-pane',
+          'fade',
+          tab_attributes.hasClass('active') ? 'show active',
+        ],
+        'role': 'tabpanel',
+        'tabindex': 0,
+        'id': nav_id ~ "-" ~ loop.index0,
+        'aria-labelledby': nav_id ~ "-tab-" ~ loop.index0,
+      }) %}
+      <div{{ pane_attributes }}>
+        {{ pane }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

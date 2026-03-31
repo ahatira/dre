@@ -1,0 +1,24 @@
+name: "Columns: column wrapping"
+description: "If more than 12 columns are placed within a single row, each group of extra columns will, as one unit, wrap onto a new line."
+slots:
+  col_1_content: ".col-9"
+  col_2_content: ".col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit."
+  col_3_content: ".col-6<br>Subsequent columns continue along the new line."
+props:
+  container: container
+  col_xs: [9, 4, 6]
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

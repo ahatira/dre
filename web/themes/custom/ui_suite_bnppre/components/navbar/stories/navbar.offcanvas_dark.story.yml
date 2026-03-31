@@ -1,0 +1,50 @@
+name: "Offcanvas dark"
+slots:
+  brand:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+      value: "Offcanvas dark navbar"
+  navigation_collapsible:
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        attributes:
+          class:
+            - justify-content-end
+            - flex-grow-1
+            - pe-3
+        items:
+          - title: Home
+            url: "#"
+            link_attributes:
+              class:
+                - active
+          - title: Link
+            url: "#"
+          - title: Dropdown
+            url: "#"
+            below:
+              - title: "Action"
+                url: "#"
+              - title: "Another action"
+                url: "#"
+              - {}
+              - title: "Something else here"
+                url: "#"
+          - title: Disabled
+            url: "#"
+            link_attributes:
+              class:
+                - disabled
+  offcanvas_label: "Dark offcanvas"
+props:
+  attributes:
+    class:
+      - bg-dark
+  variant: dark
+  toggler_position: end
+  toggle_action: offcanvas
+  offcanvas_position: end

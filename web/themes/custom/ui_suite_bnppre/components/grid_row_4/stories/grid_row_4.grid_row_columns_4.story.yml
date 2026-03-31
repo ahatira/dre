@@ -1,0 +1,34 @@
+name: "Grid system: Responsive classes: Row columns 4"
+slots:
+  col_1_content: "Column"
+  col_2_content: "Column"
+  col_3_content: "Column"
+  col_4_content: "Column"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  attributes:
+    class:
+      - row-cols-4
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_4_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

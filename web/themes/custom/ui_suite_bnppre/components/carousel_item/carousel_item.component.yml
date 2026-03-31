@@ -1,0 +1,26 @@
+name: "(Carousel Item)"
+description: "Internal: to be used in the 'Carousel' component."
+group: Carousel
+links:
+  - "https://getbootstrap.com/docs/5.3/components/carousel/"
+slots:
+  image:
+    title: Image
+    description: "The image of the item."
+  caption:
+    title: Caption
+    description: "The caption of the item."
+props:
+  type: object
+  properties:
+    interval:
+      title: Interval
+      description: "The amount of time to delay between automatically cycling to the next item. In ms."
+      type: number
+    caption_attributes:
+      title: "Caption attributes"
+      description: "The attributes to customize the tag with the caption if present."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

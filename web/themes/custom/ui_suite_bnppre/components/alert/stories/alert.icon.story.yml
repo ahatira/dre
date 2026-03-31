@@ -1,0 +1,21 @@
+name: Icon
+slots:
+  message:
+    - type: icon
+      pack_id: 'bootstrap'
+      icon_id: 'exclamation-triangle-fill'
+      settings:
+        size: '1em'
+    - type: html_tag
+      tag: div
+      value: "An example alert with an icon"
+      attributes:
+        class:
+          - 'ms-2'
+props:
+  variant: primary
+  attributes:
+    class:
+      - d-flex
+      - align-items-center
+  dismissible: false

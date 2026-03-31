@@ -1,0 +1,99 @@
+name: Navbar
+description: "Powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more, including support for our collapse plugin."
+group: Navbar
+links:
+  - "https://getbootstrap.com/docs/5.3/components/navbar/"
+variants:
+  default:
+    title: Default
+  expand_sm:
+    title: "Expand small"
+  expand_md:
+    title: "Expand medium"
+  expand_lg:
+    title: "Expand large"
+  expand_xl:
+    title: "Expand extra large"
+  expand_xxl:
+    title: "Expand extra extra large"
+  dark:
+    title: "Dark (deprecated)"
+  dark__expand_sm:
+    title: "Dark expand small (deprecated)"
+  dark__expand_md:
+    title: "Dark expand medium (deprecated)"
+  dark__expand_lg:
+    title: "Dark expand large (deprecated)"
+  dark__expand_xl:
+    title: "Dark expand extra large (deprecated)"
+  dark__expand_xxl:
+    title: "Dark expand extra extra large (deprecated)"
+slots:
+  brand:
+    title: Brand
+  navigation:
+    title: Navigation
+    description: "Navigation elements (brand, text, etc.) displayed even on small screens."
+  navigation_collapsible:
+    title: "Navigation collapsible"
+    description: "Navigation elements (menu links, etc.) displayed on collapsible dropdown on small screens."
+  offcanvas_label:
+    title: "Offcanvas label"
+    description: "When using the offcanvas feature, used for labelling."
+props:
+  type: object
+  properties:
+    navbar_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    placement:
+      title: "Placement (deprecated)"
+      description: "Deprecated, use class in attributes instead."
+      type: string
+      enum:
+        - default
+        - fixed-top
+        - fixed-bottom
+        - sticky-top
+        - sticky-bottom
+      "meta:enum":
+        default: Default
+        fixed-top: "Fixed top"
+        fixed-bottom: "Fixed bottom"
+        sticky-top: "Sticky top"
+        sticky-bottom: "Sticky bottom"
+    toggler_position:
+      title: "Toggler position"
+      description: "Navbar togglers are left-aligned by default, but should they follow a sibling element like a .navbar-brand, they’ll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler"
+      type: string
+      enum:
+        - start
+        - end
+        - none
+      "meta:enum":
+        start: Start
+        end: End
+        none: None
+    toggle_action:
+      title: "Toggle action"
+      description: "Transform your expanding and collapsing navbar into an offcanvas drawer with the offcanvas plugin."
+      type: string
+      enum:
+        - collapse
+        - offcanvas
+      "meta:enum":
+        collapse: "Collapse (default)"
+        offcanvas: Offcanvas
+    offcanvas_position:
+      title: "Offcanvas position"
+      type: string
+      enum:
+        - start
+        - end
+      "meta:enum":
+        start: Start
+        end: "End (default)"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

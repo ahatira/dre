@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Theme override to display a single Drupal page while offline.
+ *
+ * All available variables are mirrored in page.html.twig.
+ * Some may be blank but they are provided for consistency.
+ *
+ * @see template_preprocess_maintenance_page()
+ */
+#}
+{{ attach_library('core/components.ui_suite_bnppre--navbar') }}
+{% if container == 'container' %}
+  {% set header_gutter = 'gx-sm-4' %}
+{% elseif container == 'container-sm' %}
+  {% set header_gutter = 'gx-sm-4' %}
+{% elseif container == 'container-md' %}
+  {% set header_gutter = 'gx-md-4' %}
+{% elseif container == 'container-lg' %}
+  {% set header_gutter = 'gx-lg-4' %}
+{% elseif container == 'container-xl' %}
+  {% set header_gutter = 'gx-xl-4' %}
+{% elseif container == 'container-xxl' %}
+  {% set header_gutter = 'gx-xxl-4' %}
+{% endif %}
+<div class="{{ container }} gx-0 {{ header_gutter }} mb-3">
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <div>
+        {% if logo %}
+          <a class="navbar-brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+            <img src="{{ logo }}" alt="{{ 'Home'|t }}" />
+          </a>
+        {% endif %}
+
+        {% if site_name %}
+         <a class="navbar-brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">{{ site_name }}</a>
+        {% endif %}
+        {% if site_slogan %}
+          <span class="navbar-text">{{ site_slogan }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</div>
+
+{# Main #}
+<div role="main" class="{{ container }}">
+  <div class="row">
+    <div class="col col-12">
+      {% if title %}
+        <h1>{{ title }}</h1>
+      {% endif %}
+
+      <a id="main-content"></a>
+      {{ page.content }}
+    </div>
+  </div>
+</div>

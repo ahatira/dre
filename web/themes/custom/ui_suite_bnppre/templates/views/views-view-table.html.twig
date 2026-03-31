@@ -1,0 +1,163 @@
+{#
+/**
+ * @file
+ * Default theme implementation for displaying a view as a table.
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ *   - class: HTML classes that can be used to style contextually through CSS.
+ * - title : The title of this group of rows.
+ * - header: The table header columns.
+ *   - attributes: Remaining HTML attributes for the element.
+ *   - content: HTML classes to apply to each header cell, indexed by
+ *   the header's key.
+ *   - default_classes: A flag indicating whether default classes should be
+ *     used.
+ * - caption_needed: Is the caption tag needed.
+ * - caption: The caption for this table.
+ * - accessibility_description: Extended description for the table details.
+ * - accessibility_summary: Summary for the table details.
+ * - rows: Table row items. Rows are keyed by row number.
+ *   - attributes: HTML classes to apply to each row.
+ *   - columns: Row column items. Columns are keyed by column number.
+ *     - attributes: HTML classes to apply to each column.
+ *     - content: The column content.
+ *   - default_classes: A flag indicating whether default classes should be
+ *     used.
+ * - responsive: A flag indicating whether table is responsive.
+ * - sticky: A flag indicating whether table header is sticky.
+ * - summary_element: A render array with table summary information (if any).
+ *
+ * @see template_preprocess_views_view_table()
+ *
+ * @ingroup themeable
+ */
+#}
+{# Init variables specific to the Bootstrap table. #}
+{# @todo create theme settings to control default behavior. #}
+{% set responsive = responsive ? 'responsive' %}
+{% set stripes = stripes ? stripes : [] %}
+{% set borders = borders ? borders : [] %}
+{% set hover = hover ? hover : 'false' %}
+{% set divider = divider ? divider : ['tbody'] %}
+{% set caption_top = caption_top ? caption_top : 'false' %}
+{% set header_color = header_color ? header_color %}
+
+{%
+  set classes = [
+  'cols-' ~ header|length,
+  responsive ? 'responsive-enabled',
+  sticky ? 'sticky-header',
+]
+%}
+
+{# Handle caption fallback logic from Views. #}
+{% if not caption %}
+  {% set caption = title %}
+{% endif %}
+
+{% if (summary_element is not empty) %}
+  {% set caption = [
+    caption ? caption : [],
+    summary_element
+  ] %}
+{% endif %}
+
+{% if not caption_needed %}
+  {% set caption = '' %}
+{% endif %}
+
+{# Prepare header in the expected format. #}
+{% set prepared_header = [] %}
+{% if header %}
+  {% for key, column in header %}
+    {% set active = column.active_table_sort ?: false %}
+    {% set active = active ?: column.attributes.hasClass('is-active') %}
+
+    {% set column_classes = [] %}
+    {% if column.default_classes %}
+      {%
+        set column_classes = [
+          'views-field',
+          'views-field-' ~ fields[key],
+        ]
+      %}
+      {% set active = active ?: 'is-active' in fields[key] %}
+    {% endif %}
+
+    {% set prepared_header = prepared_header|merge([{
+      '#type': 'component',
+      '#component': 'ui_suite_bnppre:table_cell',
+      '#slots': {
+        'content': column.preparedContent,
+      },
+      '#props': {
+        'attributes': column.attributes.addClass(column_classes).setAttribute('scope', 'col'),
+        'active': active,
+        'tag': 'th',
+      },
+    }]) %}
+  {% endfor %}
+{% endif %}
+
+{# Prepare rows in the expected format. #}
+{% set prepared_rows = [] %}
+{% for row in rows %}
+  {% set prepared_columns = [] %}
+  {% for column in row.columns %}
+    {% set active = column.active_table_sort ?: false %}
+    {% set active = active ?: column.attributes.hasClass('is-active') %}
+
+    {% set column_classes = [] %}
+    {% if column.default_classes %}
+      {%
+        set column_classes = [
+        'views-field'
+      ]
+      %}
+      {% for field in column.fields %}
+        {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
+        {% set active = active ?: 'is-active' in field %}
+      {% endfor %}
+    {% endif %}
+
+    {% set prepared_columns = prepared_columns|merge([{
+      '#type': 'component',
+      '#component': 'ui_suite_bnppre:table_cell',
+      '#slots': {
+        'content': column.preparedContent,
+      },
+      '#props': {
+        'attributes': column.attributes.addClass(column_classes),
+        'active': active,
+      },
+    }]) %}
+  {% endfor %}
+
+  {% set prepared_rows = prepared_rows|merge([{
+    '#type': 'component',
+    '#component': 'ui_suite_bnppre:table_row',
+    '#slots': {
+      'cells': prepared_columns,
+    },
+    '#props': {
+      'attributes': row.attributes,
+    },
+  }]) %}
+{% endfor %}
+
+{{ include('ui_suite_bnppre:table', {
+  caption: caption,
+  header: prepared_header,
+  rows: prepared_rows,
+  attributes: attributes.addClass(classes),
+  variant: 'default',
+  header_color: header_color,
+  stripes: stripes,
+  borders: borders,
+  hover: hover,
+  responsive: responsive,
+  divider: divider,
+  caption_top: caption_top,
+  header_columns: header|length,
+}, with_context = false) }}

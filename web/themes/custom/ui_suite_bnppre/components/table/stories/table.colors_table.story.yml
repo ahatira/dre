@@ -1,0 +1,71 @@
+name: "Variants: color on table"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Heading"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+props:
+  variant: default
+library_wrapper: >
+  {% set examples = [
+    'default',
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark',
+  ] %}
+
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'variant': example,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props) }}
+  {% endfor %}

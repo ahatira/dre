@@ -1,0 +1,25 @@
+<nav
+	aria-label="{{ 'You are here:'|t }}">
+	{# Mobile: back link to previous page #}
+	{% if items|length > 1 %}
+		{% set previous_item = items[items|length - 2] %}
+		<a href="{{ previous_item.url }}" class="breadcrumb-back">
+			{{ previous_item.title }}
+		</a>
+	{% endif %}
+
+	{# Desktop: full breadcrumb trail #}
+	<ol{{attributes.addClass('breadcrumb')}}>
+		{% for item in items %}
+			{% if item.url %}
+				<li class="breadcrumb-item">
+					<a href="{{ item.url }}">{{ item.title }}</a>
+				</li>
+			{% else %}
+				<li class="breadcrumb-item active" aria-current="page">
+					{{ item.title }}
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ol>
+</nav>

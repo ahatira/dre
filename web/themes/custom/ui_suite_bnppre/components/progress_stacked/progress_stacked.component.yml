@@ -1,0 +1,12 @@
+name: "Progress stacked"
+description: "You can include multiple progress components inside a container with .progress-stacked to create a single stacked progress bar. Note that in this case, the styling to set the visual width of the progress bar must be applied to the .progress elements, rather than the .progress-bars."
+group: Progress
+links:
+  - "https://getbootstrap.com/docs/5.3/components/progress/#multiple-bars"
+slots:
+  items:
+    title: "Progress bars"
+    description: "The progress bars to stack."
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

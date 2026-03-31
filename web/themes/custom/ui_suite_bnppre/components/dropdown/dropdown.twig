@@ -1,0 +1,99 @@
+{% set variant = variant|default('dropdown')|replace({'_': '-'}) %}
+{% set dropdown_id = dropdown_id|default('dropdown-' ~ random()) %}
+{% set auto_close = auto_close|default('true') %}
+{% set button_variant = button_variant|default('primary') %}
+{% set button_url = button_url|default('') %}
+{% set heading_level = heading_level|default(6) %}
+{# Some changes when used in navbar. #}
+{% set dropdown_tag = dropdown_navbar ? 'li' : 'div' %}
+{% set button_variant = dropdown_navbar ? 'default' : button_variant %}
+{# Some changes when split. #}
+{% set attributes = button_split ? attributes.addClass('btn-group') : attributes %}
+{% set dropdown_menu_start = dropdown_menu_start ? 'dropdown-menu-' ~ dropdown_menu_start %}
+{% set dropdown_menu_end = dropdown_menu_end ? 'dropdown-menu-' ~ dropdown_menu_end %}
+
+{% set button_attributes = create_attribute(button_attributes|default({})) %}
+{% set button_attributes = dropdown_navbar ? button_attributes.addClass('nav-link') : button_attributes %}
+{% if content %}
+  {% set button_attributes = button_attributes.addClass('dropdown-toggle') %}
+  {% set button_attributes = button_attributes.setAttribute('data-bs-toggle', 'dropdown') %}
+  {% set button_attributes = button_attributes.setAttribute('data-bs-auto-close', auto_close) %}
+  {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'false') %}
+  {% set button_attributes = (dropdown_menu_start or dropdown_menu_end) ? button_attributes.setAttribute('data-bs-display', 'static') : button_attributes %}
+{% endif %}
+
+{% set dropdown_menu_attributes = create_attribute() %}
+{% set dropdown_menu_attributes = dropdown_menu_attributes.addClass('dropdown-menu') %}
+{% set dropdown_menu_attributes = dark ? dropdown_menu_attributes.setAttribute('data-bs-theme', 'dark') : dropdown_menu_attributes %}
+{% set dropdown_menu_attributes = dropdown_menu_attributes.addClass([dropdown_menu_start, dropdown_menu_end]) %}
+{% set dropdown_menu_attributes = dropdown_menu_attributes.setAttribute('aria-labelledby', dropdown_id) %}
+
+<{{ dropdown_tag }}{{ attributes.addClass(variant) }}>
+
+{% if button_split and variant == 'dropstart' %}
+  {{ include('ui_suite_bnppre:button', {
+    label: 'Toggle dropdown'|t,
+    attributes: button_attributes.addClass('dropdown-toggle-split'),
+    variant: button_variant,
+    label_visually_hidden: true,
+  }, with_context = false) }}
+{% elseif button_split %}
+  {{ include('ui_suite_bnppre:button', {
+    label: title,
+    attributes: {
+      id: dropdown_id,
+    },
+    variant: button_variant,
+    url: button_url,
+  }, with_context = false) }}
+  {{ include('ui_suite_bnppre:button', {
+    label: 'Toggle dropdown'|t,
+    attributes: button_attributes.addClass('dropdown-toggle-split'),
+    variant: button_variant,
+    label_visually_hidden: true,
+  }, with_context = false) }}
+{% else %}
+  {{ include('ui_suite_bnppre:button', {
+    label: title,
+    attributes: button_attributes.setAttribute('id', dropdown_id),
+    variant: button_variant,
+    url: button_url,
+  }, with_context = false) }}
+{% endif %}
+
+  {% if content %}
+    <ul{{ dropdown_menu_attributes }}>
+      {% for item in content %}
+        {% set item_attributes = create_attribute(item.attributes|default({})) %}
+        <li{{ item_attributes }}>
+          {% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+          {% if item.title and item.url %}
+            <a{{ link_attributes.setAttribute('href', item.url).addClass('dropdown-item') }}>{{ item.title }}</a>
+          {% elseif (not item.title and not item.url) or link_attributes.hasClass('dropdown-divider') %}
+            <hr{{ link_attributes.addClass('dropdown-divider') }}>
+          {% elseif item.title and not item.url %}
+            {% if link_attributes.hasClass('dropdown-header') %}
+              <h{{ heading_level }}{{ link_attributes }}>{{ item.title }}</h{{ heading_level }}>
+            {% elseif link_attributes.hasClass('dropdown-item') %}
+              <button{{ link_attributes.setAttribute('type', 'button') }}>{{ item.title }}</button>
+            {% else %}
+              <span{{ link_attributes.addClass('dropdown-item-text') }}>{{ item.title }}</span>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% if button_split and variant == 'dropstart' %}
+  {{ include('ui_suite_bnppre:button', {
+    label: title,
+    attributes: {
+      id: dropdown_id,
+    },
+    variant: button_variant,
+    url: button_url,
+  }, with_context = false) }}
+{% endif %}
+
+</{{ dropdown_tag }}>

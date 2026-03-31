@@ -1,0 +1,49 @@
+name: "(Table Cell)"
+description: "Internal: to be used in the 'Table' and 'Table Row' components."
+group: Table
+links:
+  - "https://getbootstrap.com/docs/5.3/content/tables/"
+slots:
+  content:
+    title: "Cell content"
+    description: "The cell content."
+props:
+  type: object
+  properties:
+    tag:
+      title: "HTML tag"
+      type: string
+      enum:
+        - th
+        - td
+      "meta:enum":
+        th: Head
+        td: "Data (default)"
+    color:
+      title: "Cell color"
+      type: string
+      enum:
+        - primary
+        - secondary
+        - success
+        - danger
+        - warning
+        - info
+        - light
+        - dark
+      "meta:enum":
+        primary: Primary
+        secondary: Secondary
+        success: Success
+        danger: Danger
+        warning: Warning
+        info: Info
+        light: Light
+        dark: Dark
+    active:
+      title: Active
+      description: "Active state"
+      type: boolean
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

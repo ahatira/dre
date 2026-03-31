@@ -1,0 +1,15 @@
+name: "Columns: reordering: offset classes 3"
+slots:
+  col_1_content: ".col-md-6 .offset-md-3"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_md: 6
+  col_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - offset-md-3

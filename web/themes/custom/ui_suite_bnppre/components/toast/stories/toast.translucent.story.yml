@@ -1,0 +1,36 @@
+name: Translucent
+description: "Toasts are slightly translucent to blend in with what’s below them."
+slots:
+  header:
+    - theme: image
+      uri: "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iYmQtcGxhY2Vob2xkZXItaW1nIHJvdW5kZWQgbWUtMiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtaGlkZGVuPSJ0cnVlIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwN2FmZiI+PC9yZWN0Pjwvc3ZnPg=="
+      attributes:
+        class:
+          - rounded
+          - me-2
+    - type: html_tag
+      tag: strong
+      value: Bootstrap
+      attributes:
+        class:
+          - me-auto
+    - type: html_tag
+      tag: small
+      value: "11 mins ago"
+      attributes:
+        class:
+          - text-body-secondary
+  content: "Hello, world! This is a toast message."
+props:
+  attributes:
+    class:
+      - show
+  delay: 5000
+  role: alert
+  flex_wrapper: false
+  hide_close_button: false
+  close_button_variant: default
+library_wrapper: >
+  <div class="p-3 bg-dark">
+    {{ _story }}
+  </div>

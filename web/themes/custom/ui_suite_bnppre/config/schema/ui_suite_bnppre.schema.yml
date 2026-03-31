@@ -1,0 +1,26 @@
+ui_suite_bnppre.settings:
+  type: theme_settings
+  label: 'UI Suite BNP PRE settings'
+  mapping:
+    container:
+      type: string
+      label: 'Page container'
+    library:
+      type: mapping
+      label: 'Library'
+      mapping:
+        js_loading:
+          type: string
+          label: 'JS loading library'
+        css_loading:
+          type: string
+          label: 'CSS loading library'
+    ui_styles_entity_status_unpublished:
+      type: ui_styles.selected_mapping
+      label: 'Unpublished entity styles'
+    ui_styles_regions:
+      type: ui_styles_regions
+      label: 'Selected regions styles'
+    header_language_label_mode:
+      type: string
+      label: 'Header language switcher label display mode'

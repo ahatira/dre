@@ -1,0 +1,27 @@
+name: "Columns: reordering: order classes first/last"
+slots:
+  col_1_content: "First in DOM, ordered last"
+  col_2_content: "Second in DOM, unordered"
+  col_3_content: "Third in DOM, ordered first"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - order-last
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - order-first

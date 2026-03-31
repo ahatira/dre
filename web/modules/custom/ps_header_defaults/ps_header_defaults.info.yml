@@ -1,0 +1,8 @@
+name: 'PS Header Defaults'
+type: module
+description: 'Provides default header blocks for ps_theme.'
+package: Custom
+core_version_requirement: ^11
+dependencies:
+  - drupal:search
+  - drupal:system

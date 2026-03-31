@@ -1,0 +1,19 @@
+// Adapt path to libraries depending on your installation.
+
+// Import Bootstrap minimum requirements to import Bootstrap variables.
+@import '../../node_modules/bootstrap/scss/functions';
+
+// Import BNP Paribas Real Estate variables (tokens + Bootstrap overrides + CSS custom props).
+@import 'variables';
+
+// Import Bootstrap remaining configuration.
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/variables-dark';
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/utilities';
+
+// Import Fontawesome.
+//@import '../../../../../libraries/fontawesome/scss/functions';
+//@import '../../../../../libraries/fontawesome/scss/variables';
+//@import '../../../../../libraries/fontawesome/scss/mixins';

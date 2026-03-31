@@ -1,0 +1,48 @@
+// =============================================================================
+// BNP Paribas Real Estate — Font-face declarations
+// =============================================================================
+
+// BNPP Sans Regular (400)
+@font-face {
+  font-family: 'BNPP Sans';
+  src: url('../fonts/BNPPSans/BNPPSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// BNPP Sans Bold (700)
+@font-face {
+  font-family: 'BNPP Sans';
+  src: url('../fonts/BNPPSans/BNPPSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// BNPP Sans Condensed (using Light-Condensed for Paragraph Big)
+@font-face {
+  font-family: 'BNPP Sans Condensed';
+  src: url('../fonts/BNPPSans/BNPPSans-Light-Condensed.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Open Sans Regular (400)
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans/OpenSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Open Sans Bold (700)
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans/OpenSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

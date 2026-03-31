@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a field.
+ *
+ * To override output, copy the "field.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--node--field-foo--article.html.twig
+ * - field--node--field-foo.html.twig
+ * - field--node--article.html.twig
+ * - field--field-foo.html.twig
+ * - field--text-with-summary.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ * @see template_preprocess_field()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('ui_suite_bnppre/field') }}
+
+{%- if display_field_tag ~%}
+  <{{ field_tag|default('div') }}{{ attributes.addClass(classes) }}>
+{%- endif -%}
+  {% if not label_hidden %}
+    {% if display_label_tag -%}
+      {% set title_classes = [
+        'field--label',
+        'field--label--' ~ label_display|clean_class,
+        label_display == 'visually_hidden' ? 'visually-hidden',
+      ] %}
+      <{{ label_tag|default('div') }}{{ title_attributes.addClass(title_classes) }}>
+    {%- endif -%}
+    {{ label }}
+    {%- if display_label_tag -%}
+      </{{ label_tag|default('div') }}>
+    {%- endif -%}
+  {% endif %}
+{% if display_items_wrapper_tag ~%}
+  {% set field_items_wrapper_attributes = create_attribute(field_items_wrapper_attributes|default({})) %}
+  {% set field_items_wrapper_classes = [
+    'field--items',
+  ] %}
+  <{{ field_items_wrapper_tag|default('div') }}{{ field_items_wrapper_attributes.addClass(field_items_wrapper_classes) }}>
+{%- endif -%}
+{% for item in items %}
+  {%- if display_item_tag ~%}
+    <{{ field_item_tag|default('div') }}{{ item.attributes.addClass('field--item') }}>
+  {%- endif -%}
+  {{ item.content }}
+  {%- if display_item_tag -%}
+    </{{ field_item_tag|default('div') }}>
+  {%- endif -%}
+{% endfor %}
+{%- if display_items_wrapper_tag ~%}
+  </{{ field_items_wrapper_tag|default('div') }}>
+{%- endif -%}
+{% if display_field_tag ~%}
+  </{{ field_tag|default('div') }}>
+{%- endif -%}

@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Two column template for the checkout form.
+ *
+ * Available variables:
+ * - form: The form.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="layout-checkout-form">
+  <div class="row mt-3">
+    <div class="col col-12 col-md-8">
+      {{ form|without('sidebar', 'actions') }}
+      <div class="d-none d-md-block">
+        {{ form.actions }}
+      </div>
+    </div>
+    <div class="col col-12 col-md-4">
+      {{ include('ui_suite_bnppre:card', {
+        'content': [
+          include('ui_suite_bnppre:card_body', {
+            'title': 'Order summary'|t,
+            'content': form.sidebar,
+            'heading_level': 3,
+          }, with_context = false),
+        ],
+        'variant': 'default',
+      }, with_context = false) }}
+    </div>
+  </div>
+
+  <div class="row mt-3 d-md-none">
+    <div class="col col-12">
+      {{ form.actions }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+name: "Button Toolbar"
+description: "Combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more."
+group: Button
+links:
+  - "https://getbootstrap.com/docs/5.3/components/button-group/#button-toolbar"
+slots:
+  groups:
+    title: Groups
+    description: "An array of 'button_group' patterns. Or other 'groupable' elements."
+props:
+  type: object
+  properties:
+    label:
+      title: Role
+      description: "The toolbar label. Visually hidden. Used with assistive technologies."
+      type: string
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

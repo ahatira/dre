@@ -1,0 +1,9 @@
+name: "Content types: body"
+slots:
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        content: "This is some text within a card body."
+props:
+  variant: default

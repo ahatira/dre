@@ -1,0 +1,66 @@
+{% set role = role|default('alert') %}
+{% set attributes = attributes.setAttribute('role', role) %}
+{%
+  set aria_live_mapping = {
+    'alert': 'assertive',
+    'status': 'polite',
+    'log': 'polite',
+  }
+%}
+{% set attributes = attributes.setAttribute('aria-live', aria_live_mapping[role]) %}
+
+{% set delay = delay|default(5000) %}
+{% if delay == 0 %}
+  {% set attributes = attributes.setAttribute('data-bs-autohide', 'false') %}
+{% else %}
+  {% set attributes = attributes.setAttribute('data-bs-delay', delay) %}
+{% endif %}
+
+{% set attributes = attributes.hasAttribute('aria-atomic') ? attributes : attributes.setAttribute('aria-atomic', 'true') %}
+{% set close_button_variant = close_button_variant|default('default') %}
+
+<div{{ attributes.addClass('toast') }}>
+  {% if flex_wrapper %}
+    <div class="d-flex">
+  {% endif %}
+
+  {% if header %}
+    {% set header_attributes = create_attribute(header_attributes|default({})) %}
+    <div{{ header_attributes.addClass('toast-header') }}>
+      {{ header }}
+
+      {% if not hide_close_button %}
+        {{ include('ui_suite_bnppre:close_button', {
+          attributes: {
+            'data-bs-dismiss': 'toast',
+          },
+          variant: close_button_variant,
+        }, with_context = false) }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if content %}
+    {% set body_attributes = create_attribute(body_attributes|default({})) %}
+    <div{{ body_attributes.addClass('toast-body') }}>
+      {{ content }}
+    </div>
+  {% endif %}
+
+  {% if not hide_close_button and not header %}
+    {{ include('ui_suite_bnppre:close_button', {
+      attributes: {
+        'data-bs-dismiss': 'toast',
+        'class': [
+          'me-2',
+          'm-auto',
+        ],
+      },
+      variant: close_button_variant,
+    }, with_context = false) }}
+  {% endif %}
+
+  {% if flex_wrapper %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,101 @@
+name: "Custom content 1"
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            0:
+              type: html_tag
+              tag: div
+              value: "Subheading"
+              attributes:
+                class:
+                  - fw-bold
+            1:
+              markup: "Content for list item"
+            attributes:
+              class:
+                - ms-2
+                - me-auto
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "14"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            0:
+              type: html_tag
+              tag: div
+              value: "Subheading"
+              attributes:
+                class:
+                  - fw-bold
+            1:
+              markup: "Content for list item"
+            attributes:
+              class:
+                - ms-2
+                - me-auto
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "14"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            0:
+              type: html_tag
+              tag: div
+              value: "Subheading"
+              attributes:
+                class:
+                  - fw-bold
+            1:
+              markup: "Content for list item"
+            attributes:
+              class:
+                - ms-2
+                - me-auto
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "14"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+props:
+  variant: numbered

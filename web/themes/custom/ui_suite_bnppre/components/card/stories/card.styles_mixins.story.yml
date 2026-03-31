@@ -1,0 +1,27 @@
+name: "Card styles: mixins utilities"
+slots:
+  header: "Header"
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        title: "Card title"
+        text: "Some quick example text to build on the card title and make up the bulk of the card's content."
+      attributes:
+        class:
+          - text-success
+  footer: "Footer"
+props:
+  variant: default
+  attributes:
+    style: "width: 18rem;"
+    class:
+      - border-success
+  header_attributes:
+    class:
+      - bg-transparent
+      - border-success
+  footer_attributes:
+    class:
+      - bg-transparent
+      - border-success

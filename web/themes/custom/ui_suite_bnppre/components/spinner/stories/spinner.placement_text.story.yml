@@ -1,0 +1,9 @@
+name: "Placement: text align"
+props:
+  variant: border
+  aria_hidden: false
+  visually_hidden_label: Loading...
+library_wrapper: >
+  <div class="text-center">
+    {{ _story }}
+  </div>

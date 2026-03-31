@@ -1,0 +1,18 @@
+name: "Alignment: center"
+description: "Use text utilities as needed to change the alignment of your blockquote."
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "A well-known quote, contained in a blockquote element."
+  footer:
+    - markup: "Someone famous in "
+    - type: html_tag
+      tag: cite
+      value: "Source Title"
+      attributes:
+        title: "Source Title"
+props:
+  attributes:
+    class:
+      - text-center

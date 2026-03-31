@@ -1,0 +1,58 @@
+name: "List Group"
+description: "List groups are a flexible and powerful component for displaying a series of content. Modify and extend them to support just about any content within."
+group: "List group"
+links:
+  - "https://getbootstrap.com/docs/5.3/components/list-group/"
+variants:
+  default:
+    title: Default
+    description: "The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed."
+  flush:
+    title: Flush
+    description: "Add .list-group-flush to remove some borders and rounded corners to render list group items edge-to-edge in a parent container (e.g., cards)."
+  numbered:
+    title: Numbered
+    description: "Add the .list-group-numbered modifier class (and optionally use an <ol> element) to opt into numbered list group items."
+  horizontal:
+    title: Horizontal
+    description: "Add .list-group-horizontal to change the layout of list group items from vertical to horizontal across all breakpoints. Currently horizontal list groups cannot be combined with flush list groups."
+  horizontal_sm:
+    title: "Horizontal Small"
+    description: "Horizontal starts at breakpoint small."
+  horizontal_md:
+    title: "Horizontal Medium"
+    description: "Horizontal starts at breakpoint medium."
+  horizontal_lg:
+    title: "Horizontal Large"
+    description: "Horizontal starts at breakpoint large."
+  horizontal_xl:
+    title: "Horizontal Extra large"
+    description: "Horizontal starts at breakpoint extra large."
+  horizontal_xxl:
+    title: "Horizontal Extra extra large"
+    description: "Horizontal starts at breakpoint extra extra large."
+  numbered__horizontal:
+    title: "Numbered Horizontal"
+    description: "Add the .list-group-numbered modifier class (and optionally use an <ol> element) to opt into numbered list group items. Add .list-group-horizontal to change the layout of list group items from vertical to horizontal across all breakpoints. Currently horizontal list groups cannot be combined with flush list groups."
+  numbered__horizontal_sm:
+    title: "Numbered Horizontal Small"
+    description: "Horizontal starts at breakpoint small."
+  numbered__horizontal_md:
+    title: "Numbered Horizontal Medium"
+    description: "Horizontal starts at breakpoint medium."
+  numbered__horizontal_lg:
+    title: "Numbered Horizontal Large"
+    description: "Horizontal starts at breakpoint large."
+  numbered__horizontal_xl:
+    title: "Numbered Horizontal Extra large"
+    description: "Horizontal starts at breakpoint extra large."
+  numbered__horizontal_xxl:
+    title: "Numbered Horizontal Extra extra large"
+    description: "Horizontal starts at breakpoint extra extra large."
+slots:
+  items:
+    title: Items
+    description: "A list of List Group Items patterns."
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

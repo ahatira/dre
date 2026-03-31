@@ -1,0 +1,28 @@
+name: "Autoplaying carousels: after first interaction"
+slots:
+  slides:
+    - type: component
+      component: "ui_suite_bnppre:carousel_item"
+      slots:
+        image:
+          theme: image
+          uri: "data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iZm9udC1zaXplOiAzLjVyZW07IHRleHQtYW5jaG9yOiBtaWRkbGU7IHVzZXItc2VsZWN0OiBub25lIiB3aWR0aD0iMTkyMCIgaGVpZ2h0PSI2NDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiIGZvY3VzYWJsZT0iZmFsc2UiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iUGxhY2Vob2xkZXI6IEZpcnN0IHNsaWRlIj48dGl0bGU+UGxhY2Vob2xkZXI8L3RpdGxlPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM3NzciPjwvcmVjdD48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iIzU1NSIgZHk9Ii4zZW0iPkZpcnN0IHNsaWRlPC90ZXh0Pjwvc3ZnPgo="
+    - type: component
+      component: "ui_suite_bnppre:carousel_item"
+      slots:
+        image:
+          theme: image
+          uri: "data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iZm9udC1zaXplOiAzLjVyZW07IHRleHQtYW5jaG9yOiBtaWRkbGU7IHVzZXItc2VsZWN0OiBub25lIiB3aWR0aD0iMTkyMCIgaGVpZ2h0PSI2NDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiIGZvY3VzYWJsZT0iZmFsc2UiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iUGxhY2Vob2xkZXI6IFNlY29uZCBzbGlkZSI+PHRpdGxlPlBsYWNlaG9sZGVyPC90aXRsZT48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNjY2Ij48L3JlY3Q+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM0NDQiIGR5PSIuM2VtIj5TZWNvbmQgc2xpZGU8L3RleHQ+PC9zdmc+Cg=="
+    - type: component
+      component: "ui_suite_bnppre:carousel_item"
+      slots:
+        image:
+          theme: image
+          uri: "data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iZm9udC1zaXplOiAzLjVyZW07IHRleHQtYW5jaG9yOiBtaWRkbGU7IHVzZXItc2VsZWN0OiBub25lIiB3aWR0aD0iMTkyMCIgaGVpZ2h0PSI2NDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiIGZvY3VzYWJsZT0iZmFsc2UiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iUGxhY2Vob2xkZXI6IFRoaXJkIHNsaWRlIj48dGl0bGU+UGxhY2Vob2xkZXI8L3RpdGxlPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM1NTUiPjwvcmVjdD48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iIzMzMyIgZHk9Ii4zZW0iPlRoaXJkIHNsaWRlPC90ZXh0Pjwvc3ZnPgo="
+props:
+  variant: default
+  with_controls: true
+  with_indicators: false
+  with_touch: true
+  interval: 5000
+  autoplay_mode: "true"

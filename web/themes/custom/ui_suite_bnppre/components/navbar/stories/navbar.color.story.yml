@@ -1,0 +1,64 @@
+name: "Color schemes"
+slots:
+  brand:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+      value: "Navbar"
+  navigation_collapsible:
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        attributes:
+          class:
+            - me-auto
+            - mb-2
+            - mb-lg-0
+        items:
+          - title: Home
+            url: "#"
+            link_attributes:
+              class:
+                - active
+          - title: Features
+            url: "#"
+          - title: Pricing
+            url: "#"
+          - title: About
+            url: "#"
+props:
+  variant: expand_lg
+  toggler_position: end
+library_wrapper: >
+  {% set colors = [
+    {
+      class: [
+        'bg-dark',
+        'border-bottom',
+        'border-body',
+        'mb-3',
+      ],
+      'data-bs-theme': 'dark',
+    },
+    {
+      class: [
+        'bg-primary',
+        'mb-3',
+      ],
+      'data-bs-theme': 'dark',
+    },
+    {
+      class: [
+        'mb-3',
+      ],
+      'style': 'background-color: #e3f2fd;',
+      'data-bs-theme': 'light',
+    },
+  ] %}
+  {% for color in colors %}
+    {% set color_props = {'#props': _story['#props']|merge({'attributes': create_attribute(color)})} %}
+    {% set color_story = _story %}
+    {{ color_story|merge(color_props) }}
+  {% endfor %}

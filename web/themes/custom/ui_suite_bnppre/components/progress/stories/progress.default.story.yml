@@ -1,0 +1,22 @@
+name: Default
+props:
+  variant: default
+  min: 0
+  max: 100
+  stacked: false
+  aria_label: "Basic example"
+library_wrapper: >
+  {% set widths = [
+    0,
+    25,
+    50,
+    75,
+    100,
+  ] %}
+  {% for width in widths %}
+    {% set width_props = {'#props': _story['#props']|merge({'percent': width})} %}
+    {% set width_story = _story %}
+    <div class="mt-3">
+      {{ width_story|merge(width_props) }}
+    </div>
+  {% endfor %}

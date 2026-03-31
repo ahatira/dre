@@ -1,0 +1,22 @@
+name: Unstyled
+slots:
+  items:
+    - markup: "This is a list."
+    - markup: "It appears completely unstyled."
+    - markup: "Structurally, it's still a list."
+    - markup: "However, this style only applies to immediate child elements."
+    - - markup: "Nested lists:"
+      - type: component
+        component: "ui_suite_bnppre:list"
+        slots:
+          items:
+            - markup: "are unaffected by this style"
+            - markup: "will still show a bullet"
+            - markup: "and have appropriate left margin"
+        props:
+          variant: default
+          list_type: ul
+    - markup: "This may still come in handy in some situations."
+props:
+  variant: unstyled
+  list_type: ul

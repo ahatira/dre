@@ -1,0 +1,193 @@
+name: Nesting
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "#"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "First"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Last"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Handle"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "1"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Mark"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Otto"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@mdo"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            props:
+              attributes:
+                colspan: 4
+            slots:
+              content:
+                - type: component
+                  component: "ui_suite_bnppre:table"
+                  props:
+                    attributes:
+                      class:
+                        - mb-0
+                  slots:
+                    header:
+                      - type: component
+                        component: "ui_suite_bnppre:table_cell"
+                        slots:
+                          content: "Header"
+                        props:
+                          tag: th
+                          attributes:
+                            scope: col
+                      - type: component
+                        component: "ui_suite_bnppre:table_cell"
+                        slots:
+                          content: "Header"
+                        props:
+                          tag: th
+                          attributes:
+                            scope: col
+                      - type: component
+                        component: "ui_suite_bnppre:table_cell"
+                        slots:
+                          content: "Header"
+                        props:
+                          tag: th
+                          attributes:
+                            scope: col
+                    rows:
+                      - type: component
+                        component: "ui_suite_bnppre:table_row"
+                        slots:
+                          cells:
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "A"
+                              props:
+                                tag: th
+                                attributes:
+                                  scope: row
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "First"
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "Last"
+                      - type: component
+                        component: "ui_suite_bnppre:table_row"
+                        slots:
+                          cells:
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "B"
+                              props:
+                                tag: th
+                                attributes:
+                                  scope: row
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "First"
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "Last"
+                      - type: component
+                        component: "ui_suite_bnppre:table_row"
+                        slots:
+                          cells:
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "C"
+                              props:
+                                tag: th
+                                attributes:
+                                  scope: row
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "First"
+                            - type: component
+                              component: "ui_suite_bnppre:table_cell"
+                              slots:
+                                content: "Last"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "3"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "John"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Doe"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@social"
+props:
+  variant: default
+  stripes:
+    - striped
+  borders: bordered

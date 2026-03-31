@@ -1,0 +1,17 @@
+{
+  "name": "ui_suite_bnppre_starterkit",
+  "license": "GPL-2.0-or-later",
+  "dependencies": {
+    "gulp": "4.*",
+    "gulp-autoprefixer": "8.*",
+    "gulp-mode": "1.*",
+    "gulp-sass": "5.*",
+    "gulp-sass-glob": "1.*",
+    "gulp-sourcemaps": "3.*",
+    "sass": "1.*"
+  },
+  "scripts": {
+    "gulp-dev": "gulp",
+    "gulp-prod": "gulp --production"
+  }
+}

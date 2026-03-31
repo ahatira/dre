@@ -1,0 +1,9 @@
+name: "Default: unordered"
+slots:
+  items:
+    - markup: "Lorem ipsum"
+    - markup: "Phasellus iaculis"
+    - markup: "Nulla volutpat"
+props:
+  variant: default
+  list_type: ul

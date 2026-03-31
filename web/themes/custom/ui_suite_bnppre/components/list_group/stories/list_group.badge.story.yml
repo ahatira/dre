@@ -1,0 +1,60 @@
+name: "With badges"
+description: "Add badges to any list group item to show unread counts, activity, and more."
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - markup: "A list item"
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "14"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - markup: "A second list item"
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "2"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content:
+          - markup: "A third list item"
+          - type: component
+            component: "ui_suite_bnppre:badge"
+            slots:
+              label: "1"
+            attributes:
+              class:
+                - text-bg-primary
+                - rounded-pill
+      attributes:
+        class:
+          - d-flex
+          - justify-content-between
+          - align-items-start
+props:
+  variant: default

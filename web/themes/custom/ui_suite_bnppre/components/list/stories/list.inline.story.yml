@@ -1,0 +1,9 @@
+name: Inline
+slots:
+  items:
+    - markup: "This is a list item."
+    - markup: "And another one."
+    - markup: "But they're displayed inline."
+props:
+  variant: inline
+  list_type: ul

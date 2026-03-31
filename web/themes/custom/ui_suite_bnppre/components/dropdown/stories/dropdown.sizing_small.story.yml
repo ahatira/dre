@@ -1,0 +1,35 @@
+name: "Sizing: small"
+slots:
+  title: "Small button"
+props:
+  variant: dropdown
+  attributes:
+    class:
+      - m-1
+  button_variant: secondary__sm
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+    - {}
+    - title: "Separated link"
+      url: "#"
+library_wrapper: >
+  {% set splits = [
+    false,
+    true,
+  ] %}
+
+  <div class="d-inline-flex">
+  {% for split in splits %}
+    {% set size_props = {'#props': _story['#props']|merge({
+      'button_split': split,
+    })} %}
+
+    {% set size_story = _story %}
+    {{ size_story|merge(size_props) }}
+  {% endfor %}
+  </div>

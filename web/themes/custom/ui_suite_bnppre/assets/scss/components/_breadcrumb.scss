@@ -1,0 +1,95 @@
+// =============================================================================
+// BNP Paribas Real Estate — Breadcrumb component
+// =============================================================================
+// Mobile: display back link only
+// Desktop (≥768px): display full breadcrumb trail
+
+// Mobile back link (visible on mobile only)
+.breadcrumb-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  padding: 0.75rem 0;
+  transition: color 0.2s ease;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.04 13.3333L8.128 12.1352L3.208 7.48158L16 7.48158V5.85159L3.216 5.85159L8.128 1.19796L7.04 -8.05855e-05L-4.76837e-07 6.66659L7.04 13.3333V13.3333Z' fill='currentColor'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &:hover {
+    color: var(--bs-primary);
+    text-decoration: underline;
+  }
+
+  &:active,
+  &:focus {
+    color: var(--bs-primary);
+    outline: 2px solid rgba(0, 145, 90, 0.3);
+    outline-offset: 2px;
+  }
+
+  // Hide on desktop
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+// Full breadcrumb trail (hidden on mobile, visible on desktop)
+.breadcrumb {
+  // Hide on mobile - use !important to override Bootstrap defaults
+  display: none !important;
+
+  // Override Bootstrap tokens
+  --bs-breadcrumb-font-size: 16px;
+  --bs-breadcrumb-padding-y: 0.75rem;
+  --bs-breadcrumb-padding-x: 0;
+  --bs-breadcrumb-margin-bottom: 0;
+  --bs-breadcrumb-bg: transparent;
+  --bs-breadcrumb-item-active-color: var(--bs-body-color);
+  --bs-breadcrumb-divider-color: #777E83;
+  --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.128 0L0 1.128L3.664 4.8L0 8.472L1.128 9.6L5.928 4.8L1.128 0Z' fill='currentColor'/%3E%3C/svg%3E");
+
+  // Custom properties not covered by Bootstrap tokens
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+
+  // Show on desktop
+  @media (min-width: 768px) {
+    display: flex !important;
+  }
+}
+
+.breadcrumb-item {
+  // Link styles
+  a {
+    color: var(--bs-body-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--bs-primary);
+      text-decoration: underline;
+    }
+
+    &:active,
+    &:focus {
+      color: var(--bs-primary);
+      outline: 2px solid rgba(0, 145, 90, 0.3);
+      outline-offset: 2px;
+    }
+  }
+}

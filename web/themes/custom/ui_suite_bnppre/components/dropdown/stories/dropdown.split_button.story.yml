@@ -1,0 +1,42 @@
+name: "Split button"
+props:
+  variant: dropdown
+  attributes:
+    class:
+      - m-1
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+    - {}
+    - title: "Separated link"
+      url: "#"
+  button_split: true
+library_wrapper: >
+  {% set examples = [
+      'primary',
+      'secondary',
+      'success',
+      'danger',
+      'warning',
+      'info',
+      'light',
+      'dark',
+    ] %}
+
+  <div class="d-inline-flex">
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'button_variant': example,
+    })} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'title': example|capitalize,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props)|merge(example_slots) }}
+  {% endfor %}
+  </div>

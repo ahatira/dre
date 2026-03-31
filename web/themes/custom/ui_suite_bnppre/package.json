@@ -1,0 +1,29 @@
+{
+  "name": "ui_suite_bnppre",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "npm run build:css && npm run build:bootstrap && npm run build:icons && npm run build:bnppre-icons:svgo && npm run build:bnppre-icons",
+    "build:css": "gulp --production",
+    "build:bootstrap": "node scripts/copy-bootstrap.js",
+    "build:icons": "node scripts/copy-bootstrap-icons.js",
+    "build:bnppre-icons:svgo": "svgo --config=svgo.config.js -r -f assets/icons",
+    "build:bnppre-icons": "node scripts/bnppre-icon.js",
+    "build:bnppre-icons:check": "node scripts/bnppre-icon.js --check",
+    "build:theme-yaml:check": "node scripts/check-theme-yaml-sync.js",
+    "dev": "gulp",
+    "watch": "gulp"
+  },
+  "devDependencies": {
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "^1.13.1",
+    "gulp": "4.*",
+    "gulp-autoprefixer": "8.*",
+    "gulp-mode": "1.*",
+    "gulp-sass": "5.*",
+    "gulp-sass-glob": "1.*",
+    "gulp-sourcemaps": "3.*",
+    "js-yaml": "^4.1.0",
+    "sass": "1.*",
+    "svgo": "^4.0.1"
+  }
+}

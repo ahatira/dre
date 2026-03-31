@@ -1,0 +1,161 @@
+{#
+/**
+* @file
+* Default theme implementation to display a table.
+*
+* Available variables:
+* - attributes: HTML attributes to apply to the <table> tag.
+* - caption: A localized string for the <caption> tag.
+* - colgroups: Column groups. Each group contains the following properties:
+*   - attributes: HTML attributes to apply to the <col> tag.
+*     Note: Drupal currently supports only one table header row, see
+*     https://www.drupal.org/node/893530 and
+*     http://api.drupal.org/api/drupal/includes!theme.inc/function/theme_table/7#comment-5109.
+* - header: Table header cells. Each cell contains the following properties:
+*   - tag: The HTML tag name to use; either 'th' or 'td'.
+*   - attributes: HTML attributes to apply to the tag.
+*   - content: A localized string for the title of the column.
+*   - field: Field name (required for column sorting).
+*   - sort: Default sort order for this column ("asc" or "desc").
+* - sticky: A flag indicating whether to use a "sticky" table header.
+* - rows: Table rows. Each row contains the following properties:
+*   - attributes: HTML attributes to apply to the <tr> tag.
+*   - data: Table cells.
+*   - no_striping: A flag indicating that the row should receive no
+*     'even / odd' styling. Defaults to FALSE.
+*   - cells: Table cells of the row. Each cell contains the following keys:
+*     - tag: The HTML tag name to use; either 'th' or 'td'.
+*     - attributes: Any HTML attributes, such as "colspan", to apply to the
+*       table cell.
+*     - content: The string to display in the table cell.
+*     - active_table_sort: A boolean indicating whether the cell is the active
+      table sort.
+* - footer: Table footer rows, in the same format as the rows variable.
+* - empty: The message to display in an extra row if table does not have
+*   any rows.
+* - no_striping: A boolean indicating that the row should receive no striping.
+* - header_columns: The number of columns in the header.
+*
+* @see template_preprocess_table()
+*
+* @ingroup themeable
+*/
+#}
+
+{# Init variables specific to the Bootstrap table. #}
+{# @todo create theme settings to control default behavior. #}
+{% set responsive = responsive ? responsive %}
+{% set stripes = stripes ? stripes : [] %}
+{% set stripes = no_stripping ? [] : stripes %}
+{% set borders = borders ? borders : [] %}
+{% set hover = hover ? hover : 'false' %}
+{% set divider = divider ? divider : ['thead'] %}
+{% set caption_top = caption_top ? caption_top : 'false' %}
+{% set header_color = header_color ? header_color %}
+{% set footer_color = footer_color ? footer_color %}
+{% set attributes = sticky ? attributes.addClass('sticky-header') : attributes %}
+
+{# Prepare header in the expected format. #}
+{% set prepared_header = [] %}
+{% for cell in header %}
+  {% set active = cell.active_table_sort ?: false %}
+  {% set active = active ?: cell.attributes.hasClass('is-active') %}
+  {% set prepared_header = prepared_header|merge([{
+    '#type': 'component',
+    '#component': 'ui_suite_bnppre:table_cell',
+    '#slots': {
+      'content': cell.content,
+    },
+    '#props': {
+      'attributes': cell.attributes,
+      'active': active,
+      'tag': cell.tag,
+    },
+  }]) %}
+{% endfor %}
+
+{# Prepare rows in the expected format. #}
+{% set prepared_rows = [] %}
+{% for row in rows %}
+  {% set prepared_cells = [] %}
+  {% for cell in row.cells %}
+    {% set active = cell.active_table_sort ?: false %}
+    {% set active = active ?: cell.attributes.hasClass('is-active') %}
+    {% set prepared_cells = prepared_cells|merge([{
+      '#type': 'component',
+      '#component': 'ui_suite_bnppre:table_cell',
+      '#slots': {
+        'content': cell.content,
+      },
+      '#props': {
+        'attributes': cell.attributes,
+        'active': active,
+        'tag': cell.tag,
+      },
+    }]) %}
+  {% endfor %}
+
+  {% set prepared_rows = prepared_rows|merge([{
+    '#type': 'component',
+    '#component': 'ui_suite_bnppre:table_row',
+    '#slots': {
+      'cells': prepared_cells,
+    },
+    '#props': {
+      'attributes': row.attributes,
+    },
+  }]) %}
+{% endfor %}
+
+{# Prepare footer in the expected format. #}
+{% set prepared_footer = [] %}
+{% for row in footer %}
+  {% set prepared_cells = [] %}
+  {% for cell in row.cells %}
+    {% set active = cell.active_table_sort ?: false %}
+    {% set active = active ?: cell.attributes.hasClass('is-active') %}
+    {% set prepared_cells = prepared_cells|merge([{
+      '#type': 'component',
+      '#component': 'ui_suite_bnppre:table_cell',
+      '#slots': {
+        'content': cell.content,
+      },
+      '#props': {
+        'attributes': cell.attributes,
+        'active': active,
+        'tag': cell.tag,
+      },
+    }]) %}
+  {% endfor %}
+
+  {% set prepared_footer = prepared_footer|merge([{
+    '#type': 'component',
+    '#component': 'ui_suite_bnppre:table_row',
+    '#slots': {
+      'cells': prepared_cells,
+    },
+    '#props': {
+      'attributes': row.attributes,
+    },
+  }]) %}
+{% endfor %}
+
+{{ include('ui_suite_bnppre:table', {
+  caption: caption,
+  header: prepared_header,
+  colgroups: colgroups,
+  rows: prepared_rows,
+  footer: prepared_footer,
+  empty: empty,
+  attributes: attributes,
+  variant: 'default',
+  header_color: header_color,
+  footer_color: footer_color,
+  stripes: stripes,
+  borders: borders,
+  hover: hover,
+  responsive: responsive,
+  divider: divider,
+  caption_top: caption_top,
+  header_columns: header_columns,
+}, with_context = false) }}

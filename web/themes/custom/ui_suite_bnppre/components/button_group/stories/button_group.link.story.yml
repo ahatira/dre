@@ -1,0 +1,29 @@
+name: Link
+slots:
+  buttons:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Active link"
+      props:
+        variant: primary
+        attributes:
+          class:
+            - active
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Link
+      props:
+        variant: primary
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Link
+      props:
+        variant: primary
+        url: "#"
+props:
+  variant: default

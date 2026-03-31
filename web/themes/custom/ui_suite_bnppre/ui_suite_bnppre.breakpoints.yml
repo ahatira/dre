@@ -1,0 +1,91 @@
+# New canonical IDs for this theme namespace.
+ui_suite_bnppre.screen-xs-max:
+  label: 'Extra small'
+  mediaQuery: 'all and (max-width: 575px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-sm-min:
+  label: 'Small and larger'
+  mediaQuery: 'all and (min-width: 576px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-sm-max:
+  label: 'Small and smaller'
+  mediaQuery: 'all and (max-width: 767px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-md-min:
+  label: 'Medium and larger'
+  mediaQuery: 'all and (min-width: 768px)'
+  weight: 4
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-md-max:
+  label: 'Medium and smaller'
+  mediaQuery: 'all and (max-width: 991px)'
+  weight: 5
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-lg-min:
+  label: 'Large and larger'
+  mediaQuery: 'all and (min-width: 992px)'
+  weight: 6
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-lg-max:
+  label: 'Large and smaller'
+  mediaQuery: 'all and (max-width: 1199px)'
+  weight: 7
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-xl-min:
+  label: 'Extra large and larger'
+  mediaQuery: 'all and (min-width: 1200px)'
+  weight: 8
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-xl-max:
+  label: 'Extra large and smaller'
+  mediaQuery: 'all and (max-width: 1399px)'
+  weight: 9
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+ui_suite_bnppre.screen-xxl-min:
+  label: 'Extra extra large'
+  mediaQuery: 'all and (min-width: 1400px)'
+  weight: 10
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x

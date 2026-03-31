@@ -1,0 +1,35 @@
+{# Use accordion if the content of the cart is displayed. #}
+{% set count_text = icon('bootstrap', 'cart4', {'size': '1em'})|render ~ count_text %}
+{% if content %}
+  {{ include('ui_suite_bnppre:accordion', {
+    'content': [
+      include('ui_suite_bnppre:accordion_item', {
+        'title': count_text,
+        'content': [
+          content,
+          links,
+        ],
+        'button_attributes': {
+          'class': [
+            'icon-link',
+          ],
+        },
+      }, with_context = false),
+    ],
+    'attributes': attributes,
+    'variant': 'default',
+  }, with_context = false) }}
+{% else %}
+  <div{{ attributes }}>
+    {{ include('ui_suite_bnppre:button', {
+      'label': count_text,
+      'variant': 'link',
+      'attributes': {
+        'class': [
+          'icon-link',
+        ],
+      },
+      'url': url,
+    }, with_context = false) }}
+  </div>
+{% endif %}

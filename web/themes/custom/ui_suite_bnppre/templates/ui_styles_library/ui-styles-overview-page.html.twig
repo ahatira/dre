@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Styles page template, override this in your theme.
+ */
+#}
+
+{% if styles is not empty %}
+  {{ include('ui_suite_bnppre:button', {
+    label: 'Navigation'|t,
+    variant: 'primary',
+    attributes: {
+      'data-bs-toggle': 'offcanvas',
+      'data-bs-target': '#menu-styles',
+      'aria-controls': 'menu-styles',
+      'class': [
+        'position-fixed',
+        'bottom-0',
+        'end-0',
+        'mb-2',
+        'me-2',
+      ],
+    },
+  }, with_context = false) }}
+
+  {{ include('ui_suite_bnppre:offcanvas', {
+    title: 'Available styles'|t,
+    body: include('@ui_suite_bnppre/ui_styles_library/ui-styles-overview-quicklinks.html.twig', {styles: styles}, with_context=false),
+    variant: 'start',
+    backdrop: 'false',
+    heading_level: 2,
+    offcanvas_id: 'menu-styles',
+    scroll: true,
+  }, with_context = false) }}
+
+  <div class="row">
+    <div data-bs-spy="scroll" data-bs-target="#styles-library" data-bs-smooth-scroll="true" tabindex="0" class="col col-12">
+      {% for group_styles in styles %}
+        {% for style in group_styles %}
+          <h3 id="{{ style.id }}" class="display-6">{{ style.label }}</h3>
+          {% if style.description %}
+            <p>{{ style.description }}</p>
+          {% endif %}
+          {# External documentation links. #}
+          {% if style.render_links %}
+            <p>
+              {% for renderLink in style.render_links %}
+                {{ renderLink|add_class('btn btn-sm btn-primary') }}
+              {% endfor %}
+            </p>
+          {% endif %}
+          {% for id, option in style.preview_options %}
+            {% set option_attributes = create_attribute()
+              .addClass(id)
+              .addClass(option.previewed_with) %}
+            {% set previewed_as = option.previewed_as %}
+            {% set label = option.label %}
+
+            {% if previewed_as == 'aside' %}
+              <p>{{ label }} (<code>{{ id }}</code>)</p>
+              <div{{ option_attributes }}>{{ 'Example'|t }}</div>
+            {% elseif previewed_as == 'hidden' %}
+              <p>{{ label }} (<code>{{ id }}</code>)</p>
+            {% else %}
+              <p{{ option_attributes }}>{{ label }} (<code>{{ id }}</code>)</p>
+            {% endif %}
+
+            {% if option.description is not empty %}
+              <p>{{ option.description }}</p>
+            {% endif %}
+          {% endfor %}
+          <hr>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,11 @@
+name: "Toast container"
+description: "You can stack toasts by wrapping them in a toast container, which will vertically add some spacing."
+group: Toast
+links:
+  - "https://getbootstrap.com/docs/5.3/components/toasts/#stacking"
+slots:
+  items:
+    title: "Toast items"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

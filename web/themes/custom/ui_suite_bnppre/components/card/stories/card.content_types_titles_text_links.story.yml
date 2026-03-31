@@ -1,0 +1,29 @@
+name: "Content types: titles, text, and links"
+slots:
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        title: "Card title"
+        subtitle: "Card subtitle"
+        text: "Some quick example text to build on the card title and make up the bulk of the card's content."
+        links:
+          - type: html_tag
+            tag: a
+            value: "Card link"
+            attributes:
+              href: "#"
+          - type: html_tag
+            tag: a
+            value: "Another link"
+            attributes:
+              href: "#"
+      props:
+        subtitle_attributes:
+          class:
+            - mb-2
+            - text-body-secondary
+props:
+  attributes:
+    style: "width: 18rem;"
+  variant: default

@@ -1,0 +1,20 @@
+name: "Dark dropdown"
+slots:
+  title: "Dropdown button"
+props:
+  variant: dropdown
+  button_variant: secondary
+  dark: true
+  content:
+    - title: "Action"
+      url: "#"
+      link_attributes:
+        class:
+          - active
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+    - {}
+    - title: "Separated link"
+      url: "#"

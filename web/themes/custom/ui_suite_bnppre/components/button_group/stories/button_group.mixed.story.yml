@@ -1,0 +1,24 @@
+name: "Mixed styles"
+slots:
+  buttons:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Left
+      props:
+        variant: danger
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Middle
+      props:
+        variant: warning
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Right
+      props:
+        variant: success
+props:
+  variant: default
+  label: "Basic mixed styles example"

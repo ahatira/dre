@@ -1,0 +1,14 @@
+name: Breadcrumb
+description: "Indicate the current page’s location within a navigational hierarchy that automatically adds separators via CSS."
+group: Navigation
+links:
+  - "https://getbootstrap.com/docs/5.3/components/breadcrumb/"
+props:
+  type: object
+  properties:
+    items:
+      title: Items
+      $ref: "ui-patterns://links"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

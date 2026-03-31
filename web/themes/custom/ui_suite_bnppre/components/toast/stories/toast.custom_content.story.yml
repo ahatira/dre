@@ -1,0 +1,9 @@
+name: "Custom content"
+slots:
+  content: "Hello, world! This is a toast message."
+props:
+  attributes:
+    class:
+      - show
+      - align-items-center
+  flex_wrapper: true

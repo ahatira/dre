@@ -1,0 +1,60 @@
+// =============================================================================
+// BNP Paribas Real Estate — Cross-component brand foundations
+// Aligns Bootstrap components with the semantic palette.
+// =============================================================================
+
+:root {
+  --bs-primary: #{$bnppre-primary};
+  --bs-primary-rgb: #{red($bnppre-primary)}, #{green($bnppre-primary)}, #{blue($bnppre-primary)};
+
+  --bs-secondary: #{$bnppre-secondary};
+  --bs-secondary-rgb: #{red($bnppre-secondary)}, #{green($bnppre-secondary)}, #{blue($bnppre-secondary)};
+
+  --bs-link-color: #{$bnppre-primary};
+  --bs-link-hover-color: #{$bnppre-primary-hover};
+
+  --bs-focus-ring-color: rgba(#{red($bnppre-primary)}, #{green($bnppre-primary)}, #{blue($bnppre-primary)}, .25);
+}
+
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #{$bnppre-primary};
+}
+
+.page-link {
+  color: $bnppre-primary;
+
+  &:hover {
+    color: $bnppre-primary-hover;
+  }
+}
+
+.pagination {
+  --bs-pagination-color: #{$bnppre-primary};
+  --bs-pagination-hover-color: #{$bnppre-primary-hover};
+  --bs-pagination-active-bg: #{$bnppre-primary};
+  --bs-pagination-active-border-color: #{$bnppre-primary};
+}
+
+.badge.text-bg-primary {
+  background-color: $bnppre-primary !important;
+}
+
+.text-bg-primary {
+  color: $bnppre-white !important;
+}
+
+.badge.text-bg-secondary {
+  background-color: $bnppre-secondary !important;
+}
+
+.alert-primary {
+  --bs-alert-bg: #{tint-color($bnppre-primary, 88%)};
+  --bs-alert-border-color: #{tint-color($bnppre-primary, 75%)};
+  --bs-alert-color: #{$bnppre-primary-active};
+}
+
+.alert-secondary {
+  --bs-alert-bg: #{tint-color($bnppre-secondary, 88%)};
+  --bs-alert-border-color: #{tint-color($bnppre-secondary, 75%)};
+  --bs-alert-color: #{$bnppre-secondary-active};
+}

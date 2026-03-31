@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ui_suite_bnppre_default
+label: 'UI Suite Bootstrap: Default'
+description: 'The default fences values with UI Suite Bootstrap.'
+field_tag: div
+field_classes: ''
+field_items_wrapper_tag: div
+field_items_wrapper_classes: ''
+field_item_tag: div
+field_item_classes: ''
+label_tag: div
+label_classes: fw-bold

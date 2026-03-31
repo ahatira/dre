@@ -1,0 +1,21 @@
+name: "Alignment: center"
+description: "Change the alignment of pagination components with flexbox utilities. For example, with .justify-content-center:"
+props:
+  items:
+    - url: "#"
+      title: "Previous"
+      attributes:
+        class:
+          - disabled
+    - url: "#"
+      title: "1"
+    - url: "#"
+      title: "2"
+    - url: "#"
+      title: "2"
+    - url: "#"
+      title: "Next"
+  variant: default
+  attributes:
+    class:
+      - justify-content-center

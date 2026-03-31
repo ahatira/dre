@@ -1,0 +1,19 @@
+name: Complete
+description: "Alerts can also contain additional HTML elements like headings, paragraphs and dividers."
+slots:
+  heading: "Well done!"
+  message:
+    - type: html_tag
+      tag: p
+      value: "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content."
+    - type: html_tag
+      tag: hr
+    - type: html_tag
+      tag: p
+      value: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy."
+      attributes:
+        class:
+          - mb-0
+props:
+  variant: success
+  dismissible: false

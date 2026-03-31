@@ -1,0 +1,21 @@
+name: "Columns: vertical alignment: start"
+slots:
+  content:
+    - "One of three columns"
+    - "One of three columns"
+    - "One of three columns"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  attributes:
+    style: "min-height: 10rem;"
+    class:
+      - align-items-start
+      - bg-secondary-subtle
+  col_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

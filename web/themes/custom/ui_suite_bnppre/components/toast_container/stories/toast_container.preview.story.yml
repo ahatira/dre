@@ -1,0 +1,59 @@
+name: Preview
+slots:
+  items:
+    - type: component
+      attributes:
+        class:
+          - show
+      component: "ui_suite_bnppre:toast"
+      slots:
+        header:
+          - theme: image
+            uri: "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iYmQtcGxhY2Vob2xkZXItaW1nIHJvdW5kZWQgbWUtMiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtaGlkZGVuPSJ0cnVlIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwN2FmZiI+PC9yZWN0Pjwvc3ZnPg=="
+            attributes:
+              class:
+                - rounded
+                - me-2
+          - type: html_tag
+            tag: strong
+            value: Bootstrap
+            attributes:
+              class:
+                - me-auto
+          - type: html_tag
+            tag: small
+            value: "just now"
+            attributes:
+              class:
+                - text-body-secondary
+        content: "See? Just like this."
+    - type: component
+      attributes:
+        class:
+          - show
+      component: "ui_suite_bnppre:toast"
+      slots:
+        header:
+          - theme: image
+            uri: "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iYmQtcGxhY2Vob2xkZXItaW1nIHJvdW5kZWQgbWUtMiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtaGlkZGVuPSJ0cnVlIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgZm9jdXNhYmxlPSJmYWxzZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwN2FmZiI+PC9yZWN0Pjwvc3ZnPg=="
+            attributes:
+              class:
+                - rounded
+                - me-2
+          - type: html_tag
+            tag: strong
+            value: Bootstrap
+            attributes:
+              class:
+                - me-auto
+          - type: html_tag
+            tag: small
+            value: "2 seconds ago"
+            attributes:
+              class:
+                - text-body-secondary
+        content: "Heads up, toasts will stack automatically"
+props:
+  attributes:
+    class:
+      - position-static

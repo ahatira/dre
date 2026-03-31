@@ -1,0 +1,14 @@
+name: "Label: long"
+slots:
+  label: "Long label text for the progress bar, set to a dark color"
+props:
+  variant: default
+  attributes:
+    class:
+      - overflow-visible
+      - text-dark
+  percent: 10
+  min: 0
+  max: 100
+  stacked: false
+  aria_label: "Example with label"

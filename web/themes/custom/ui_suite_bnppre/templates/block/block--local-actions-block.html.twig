@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Theme override for local actions (primary admin actions.)
+ */
+#}
+{% extends "block.html.twig" %}
+{% block content %}
+  {% if content %}
+    <ul class="list-inline my-2">{{ content }}</ul>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,6 @@
+name: Disabled
+slots:
+  label: Submit
+props:
+  disabled: true
+  label_visually_hidden: false

@@ -1,0 +1,10 @@
+# Node.js dependencies (build tools only)
+node_modules/
+
+# Generated CSS files (compiled from SCSS sources)
+assets/css/
+components/**/styles/*.css
+components/**/styles/*.css.map
+
+# npm lock file (optional: some teams commit this)
+# package-lock.json

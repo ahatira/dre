@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a list of summary lines.
+ *
+ * Available variables:
+ * - rows: The rows contained in this view.
+ *   Each row contains:
+ *   - url: The summary link URL.
+ *   - link: The summary link text.
+ *   - count: The number of items under this grouping.
+ *   - attributes: HTML attributes to apply to each row.
+ *   - active: A flag indicating whether the row is active.
+ * - options: Flags indicating how the summary should be displayed.
+ *   This contains:
+ *   - count: A flag indicating whether the count should be displayed.
+ *
+ * @see template_preprocess_views_view_summary()
+ *
+ * @ingroup themeable
+ */
+#}
+{%- if rows -%}
+  {# Prepare list group items. #}
+  {% set prepared_items = [] %}
+  {% for row in rows %}
+    {% set content = include(
+      '@ui_suite_bnppre/views/views-view-summary-include.html.twig', {
+        row: row,
+        options: options,
+      },
+      with_context=false
+    ) %}
+
+    {% set prepared_items = prepared_items|merge([{
+      '#type': 'component',
+      '#component': 'ui_suite_bnppre:list_group_item',
+      '#slots': {
+        'content': content,
+      },
+      '#props': {
+        'attributes': row.attributes.addClass([
+          'd-flex',
+          'justify-content-between',
+          'align-items-center',
+        ]),
+        'active': row.active,
+        'url': row.url,
+      },
+    }]) %}
+  {% endfor %}
+
+  {{ include('ui_suite_bnppre:list_group', {
+    'items': prepared_items,
+  }, with_context = false) }}
+{%- endif -%}

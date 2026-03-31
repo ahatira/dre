@@ -1,0 +1,61 @@
+name: Carousel
+description: "A slideshow component for cycling through elements, like a carousel."
+group: Carousel
+links:
+  - "https://getbootstrap.com/docs/5.3/components/carousel/"
+variants:
+  default:
+    title: Default
+  fade:
+    title: Crossfade
+    description: "Animate slides with a fade transition instead of a slide."
+  dark:
+    title: "Dark (deprecated)"
+    description: "For darker controls, indicators, and captions."
+  fade__dark:
+    title: "Crossfade dark (deprecated)"
+slots:
+  slides:
+    title: Slides
+    description: "Each slide is a collection of carousel items."
+props:
+  type: object
+  properties:
+    with_controls:
+      title: "With controls?"
+      description: "Adding in the previous and next controls."
+      type: boolean
+    with_indicators:
+      title: "With indicators?"
+      description: "You can also add the indicators to the carousel, alongside the controls, too."
+      type: boolean
+    with_touch:
+      title: "With touch swiping?"
+      description: "Carousels support swiping left/right on touchscreen devices to move between slides."
+      type: boolean
+      default: true
+    interval:
+      title: Interval
+      description: "The amount of time to delay between automatically cycling to the next item. In ms. 0 to disable autoplay."
+      type: number
+      default: 5000
+    autoplay_mode:
+      title: "Autoplaying mode"
+      description: "This option applies only if the interval is more than 0."
+      type: string
+      enum:
+        - "true"
+        - carousel
+      "meta:enum":
+        "true": "After the first interaction"
+        carousel: "On page load"
+    carousel_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+libraryOverrides:
+  js:
+    js/carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

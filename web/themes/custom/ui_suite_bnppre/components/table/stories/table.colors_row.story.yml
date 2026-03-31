@@ -1,0 +1,226 @@
+name: "Variants: color on row"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Class"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Default"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: primary
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Primary"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: secondary
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Secondary"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: success
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Success"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: danger
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Danger"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: warning
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Warning"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: info
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Info"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: light
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Light"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        color: dark
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Dark"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+props:
+  variant: default

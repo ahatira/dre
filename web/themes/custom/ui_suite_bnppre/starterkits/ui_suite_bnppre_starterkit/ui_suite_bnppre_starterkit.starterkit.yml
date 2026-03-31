@@ -1,0 +1,3 @@
+ignore:
+  - '/README.md'
+  - '/ui_suite_bnppre_starterkit.starterkit.yml'

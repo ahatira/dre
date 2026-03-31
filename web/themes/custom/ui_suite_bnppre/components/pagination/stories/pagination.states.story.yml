@@ -1,0 +1,16 @@
+name: "Disabled and active states"
+props:
+  items:
+    - url: "#"
+      title: "Previous"
+      attributes:
+        class:
+          - disabled
+    - url: "#"
+      title: "1"
+    - title: "2"
+    - url: "#"
+      title: "2"
+    - url: "#"
+      title: "Next"
+  variant: default

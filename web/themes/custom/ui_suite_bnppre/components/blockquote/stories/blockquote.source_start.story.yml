@@ -1,0 +1,14 @@
+name: "Naming a source"
+description: "When there is something in the 'footer' slot."
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "A well-known quote, contained in a blockquote element."
+  footer:
+    - markup: "Someone famous in "
+    - type: html_tag
+      tag: cite
+      value: "Source Title"
+      attributes:
+        title: "Source Title"

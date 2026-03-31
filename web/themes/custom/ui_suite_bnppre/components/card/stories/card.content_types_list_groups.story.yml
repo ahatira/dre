@@ -1,0 +1,25 @@
+name: "Content types: list groups"
+slots:
+  content:
+    - type: component
+      component: "ui_suite_bnppre:list_group"
+      props:
+        variant: flush
+      slots:
+        items:
+          - type: component
+            component: "ui_suite_bnppre:list_group_item"
+            slots:
+              content: "An item"
+          - type: component
+            component: "ui_suite_bnppre:list_group_item"
+            slots:
+              content: "A second item"
+          - type: component
+            component: "ui_suite_bnppre:list_group_item"
+            slots:
+              content: "A third item"
+props:
+  attributes:
+    style: "width: 18rem;"
+  variant: default

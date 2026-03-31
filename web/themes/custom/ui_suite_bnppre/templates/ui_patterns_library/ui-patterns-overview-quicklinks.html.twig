@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * UI Patterns components menu.
+ */
+#}
+{% if groups %}
+  {{ attach_library('core/components.ui_suite_bnppre--nav') }}
+  <div id="components-library" class="ui_patterns_quicklinks" class="overflow-auto">
+    {% if groups|length > 1 %}
+      {% for group_name, components in groups %}
+        <h3 class="ui_patterns_quicklinks__group">{{ group_name }}</h3>
+        <ul class="nav nav-pills flex-column">
+          {% for component in components %}
+            <li class="nav-item">
+              <a class="nav-link p-1" href="#{{ component.id|clean_id }}">{{ component.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% else %}
+        <ul class="nav nav-pills flex-column">
+        {% for component in components %}
+          <li class="nav-item">
+            <a class="nav-link p-1" href="#{{ component.id }}">{{ component.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}

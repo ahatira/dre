@@ -1,0 +1,14 @@
+name: "Menu items: text"
+slots:
+  title: "Dropdown with text"
+props:
+  variant: dropdown
+  content:
+    - title: "Dropdown item text"
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+  button_variant: secondary

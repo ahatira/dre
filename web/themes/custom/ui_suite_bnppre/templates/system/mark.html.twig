@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a marker for new or updated content.
+ *
+ * Available variables:
+ * - status: Number representing the marker status to display. Use the constants
+ *   below for comparison:
+ *   - MARK_NEW
+ *   - MARK_UPDATED
+ *   - MARK_READ
+ *
+ * @ingroup themeable
+ */
+#}
+{% if logged_in %}
+  {% if status is constant('MARK_NEW') %}
+    {{ include('ui_suite_bnppre:badge', {
+      'label': 'New'|t,
+      'attributes': {
+        'class': [
+          'text-bg-success',
+        ],
+      },
+    }, with_context = false) }}
+  {% elseif status is constant('MARK_UPDATED') %}
+    {{ include('ui_suite_bnppre:badge', {
+      'label': 'Updated'|t,
+      'attributes': {
+        'class': [
+          'text-bg-info',
+        ],
+      },
+    }, with_context = false) }}
+  {% endif %}
+{% endif %}

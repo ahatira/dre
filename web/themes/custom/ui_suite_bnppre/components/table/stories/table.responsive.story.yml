@@ -1,0 +1,472 @@
+name: "Responsive tables"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "#"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "1"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "2"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "3"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Cell"
+props:
+  variant: default
+  caption_top: true
+library_wrapper: >
+  {% set examples = [
+    'responsive',
+    'responsive-sm',
+    'responsive-md',
+    'responsive-lg',
+    'responsive-xl',
+    'responsive-xxl',
+  ] %}
+
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'responsive': example,
+    })} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'caption': example,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props)|merge(example_slots) }}
+  {% endfor %}

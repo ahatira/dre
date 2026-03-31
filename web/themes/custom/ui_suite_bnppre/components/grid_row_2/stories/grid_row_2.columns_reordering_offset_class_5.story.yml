@@ -1,0 +1,24 @@
+name: "Columns: reordering: offset classes 5"
+slots:
+  col_1_content: ".col-sm-6 .col-md-5 .col-lg-6"
+  col_2_content: ".col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_sm: [6, 6]
+  col_md: [5, 5]
+  col_lg: [6, 6]
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - offset-md-2
+      - offset-lg-0

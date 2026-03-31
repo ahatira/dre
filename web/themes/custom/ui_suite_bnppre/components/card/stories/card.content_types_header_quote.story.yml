@@ -1,0 +1,28 @@
+# @todo Update when upstream issue will be fixed: https://github.com/twbs/bootstrap/issues/41292
+name: "Content types: header quote"
+slots:
+  header: "Quote"
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        content:
+          type: component
+          component: "ui_suite_bnppre:blockquote"
+          attributes:
+            class:
+              - mb-0
+          slots:
+            content:
+              - type: html_tag
+                tag: p
+                value: "A well-known quote, contained in a blockquote element."
+            footer:
+              - markup: "Someone famous in "
+              - type: html_tag
+                tag: cite
+                value: "Source Title"
+                attributes:
+                  title: "Source Title"
+props:
+  variant: default

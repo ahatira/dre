@@ -1,0 +1,9 @@
+name: "Placement: flex"
+props:
+  variant: border
+  aria_hidden: false
+  visually_hidden_label: Loading...
+library_wrapper: >
+  <div class="d-flex justify-content-center">
+    {{ _story }}
+  </div>

@@ -1,0 +1,23 @@
+{% if items %}
+	<ul{{attributes.addClass('ps-header-account-menu')}}>
+		{% for item in items %}
+			{% set item_attributes = create_attribute(item.attributes|default({})) %}
+			{% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+			{% set item_title = item.title|render|striptags|trim %}
+			{% set is_cta = item_title in ['Log in', 'Log in / Sign up', 'Sign up', 'Register'] %}
+			{% set is_logout = item_title in ['Log out'] %}
+			{% set link_classes = [
+        'ps-header-account-menu__link',
+        is_cta ? 'ps-header-account-menu__link--cta',
+        is_logout ? 'ps-header-account-menu__link--secondary',
+      ] %}
+			<li{{item_attributes.addClass('ps-header-account-menu__item')}}>
+				{% if item.url %}
+					{{ link(item.title, item.url, { attributes: link_attributes.addClass(link_classes) }) }}
+				{% else %}
+					<span{{link_attributes.addClass(link_classes)}}>{{ item.title }}</span>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endif %}

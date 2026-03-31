@@ -1,0 +1,53 @@
+name: Background
+props:
+  min: 0
+  max: 100
+  stacked: false
+library_wrapper: >
+  {% set examples = [
+    {
+      width: 10,
+      aria: 'Default example'|t,
+      classes: [],
+    },
+    {
+      width: 25,
+      aria: 'Success example'|t,
+      classes: [
+        'bg-success',
+      ],
+    },
+    {
+      width: 50,
+      aria: 'Info example'|t,
+      classes: [
+        'bg-info',
+      ],
+    },
+    {
+      width: 75,
+      aria: 'Warning example'|t,
+      classes: [
+        'bg-warning',
+      ],
+    },
+    {
+      width: 100,
+      aria: 'Danger example'|t,
+      classes: [
+        'bg-danger',
+      ],
+    },
+  ] %}
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'percent': example.width,
+      'aria_label': example.aria,
+      'attributes': create_attribute({class: example.classes})
+    })} %}
+
+    {% set example_story = _story %}
+    <div class="mt-3">
+      {{ example_story|merge(example_props) }}
+    </div>
+  {% endfor %}

@@ -1,0 +1,26 @@
+name: "Dark offcanvas"
+slots:
+  title: Offcanvas
+  body:
+    - type: html_tag
+      tag: p
+      value: "Place offcanvas content here."
+props:
+  variant: start
+  heading_level: 5
+library_wrapper: >
+  {% set offcanvas_id = offcanvas_id|default("offcanvas-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'offcanvas_id': offcanvas_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Launch dark offcanvas'|t,
+    'variant': 'dark',
+    'attributes': {
+      'data-bs-target': '#' ~ offcanvas_id,
+      'data-bs-toggle': 'offcanvas',
+      'aria-controls': offcanvas_id,
+      'aria-expanded': 'false',
+    },
+  }, with_context = false) }}
+  <div data-bs-theme="dark">
+    {{ _story|merge(props) }}
+  </div>

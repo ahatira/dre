@@ -1,0 +1,29 @@
+name: "Content types: header and footer centered"
+slots:
+  header: "Featured"
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        title: "Special title treatment"
+        text: "With supporting text below as a natural lead-in to additional content."
+        content:
+          type: component
+          component: "ui_suite_bnppre:button"
+          slots:
+            label: "Go somewhere"
+          props:
+            variant: primary
+            url: "#"
+  footer:
+    type: html_tag
+    tag: span
+    value: "2 days ago"
+props:
+  variant: default
+  attributes:
+    class:
+      - text-center
+  footer_attributes:
+    class:
+      - text-body-secondary

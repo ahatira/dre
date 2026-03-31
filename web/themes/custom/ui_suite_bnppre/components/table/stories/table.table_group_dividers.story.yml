@@ -1,0 +1,135 @@
+name: "Table group dividers"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "#"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "First"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Last"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Handle"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "1"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Mark"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Otto"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@mdo"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "2"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Jacob"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Thornton"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@fat"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "3"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "John"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Doe"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@social"
+  footer:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Footer"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Footer"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Footer"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Footer"
+props:
+  variant: default
+  divider:
+    - thead
+    - tbody
+    - tfoot

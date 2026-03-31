@@ -1,0 +1,120 @@
+// =============================================================================
+// BNP Paribas Real Estate — Typography scale (headings + paragraphs)
+// Responsive: Mobile-first, Desktop @media min-width 768px
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Headings — Mobile first, then Desktop overrides
+// -----------------------------------------------------------------------------
+h1, .h1 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+
+  @media (min-width: 768px) {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+h2, .h2 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 44px;
+
+  @media (min-width: 768px) {
+    font-size: 44px;
+    line-height: 44px;
+  }
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+h3, .h3 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 40px;
+
+  @media (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+h4, .h4 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+h5, .h5 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+h6, .h6 {
+  font-family: 'BNPP Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+
+  &.fw-bold, strong, b {
+    font-weight: 700;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Paragraph styles
+// -----------------------------------------------------------------------------
+
+// Paragraph Big
+.paragraph-big,
+p.lead {
+  font-family: 'BNPP Sans Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+// Paragraph Regular (default body text)
+body,
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+// Paragraph Small
+.paragraph-small,
+small,
+.small {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}

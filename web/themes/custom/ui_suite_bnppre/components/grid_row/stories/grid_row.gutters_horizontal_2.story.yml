@@ -1,0 +1,28 @@
+name: "Gutters: horizontal gutters alternative"
+slots:
+  content:
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+props:
+  container: container
+  container_attributes:
+    class:
+      - overflow-hidden
+      - text-center
+  gutters_horizontal: gx-5

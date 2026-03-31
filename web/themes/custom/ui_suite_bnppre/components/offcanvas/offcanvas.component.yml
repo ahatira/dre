@@ -1,0 +1,91 @@
+name: Offcanvas
+description: "Build hidden sidebars into your project for navigation, shopping carts, and more with a few classes and our JavaScript plugin."
+group: Dialog
+links:
+  - "https://getbootstrap.com/docs/5.3/components/offcanvas/"
+variants:
+  start:
+    title: Start
+  end:
+    title: End
+  top:
+    title: Top
+  bottom:
+    title: Bottom
+slots:
+  title:
+    title: Title
+    description: "Offcanvas title."
+  body:
+    title: Body
+    description: "The content of the offcanvas."
+props:
+  type: object
+  properties:
+    responsive:
+      title: Responsive
+      description: "Hide content in offcanvas below the selected breakpoint. Above that breakpoint, the contents within will behave as usual."
+      type: string
+      enum:
+        - offcanvas-sm
+        - offcanvas-md
+        - offcanvas-lg
+        - offcanvas-xl
+        - offcanvas-xxl
+      "meta:enum":
+        offcanvas-sm: "Hide below small"
+        offcanvas-md: "Hide below medium"
+        offcanvas-lg: "Hide below large"
+        offcanvas-xl: "Hide below extra large"
+        offcanvas-xxl: "Hide below extra extra large"
+    backdrop:
+      title: Backdrop
+      description: "When backdrop is set to static, the offcanvas will not close when clicking outside of it."
+      type: string
+      enum:
+        - "false"
+        - static
+      "meta:enum":
+        "false": "No backdrop"
+        static: Static
+    scroll:
+      title: "Body scrolling"
+      description: "By default, body scrolling is disabled."
+      type: boolean
+    header_attributes:
+      title: "Header attributes"
+      description: "The attributes to customize the offcanvas header if present."
+      $ref: "ui-patterns://attributes"
+    heading_level:
+      title: "Heading level"
+      description: "Heading level of the offcanvas."
+      type: integer
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        1: h1
+        2: h2
+        3: h3
+        4: h4
+        5: "h5 (Default)"
+        6: h6
+    heading_attributes:
+      title: "Heading attributes"
+      description: "The attributes to customize the offcanvas title if present."
+      $ref: "ui-patterns://attributes"
+    body_attributes:
+      title: "Body attributes"
+      description: "The attributes to customize the offcanvas body if present."
+      $ref: "ui-patterns://attributes"
+    offcanvas_id:
+      title: ID
+      description: "ID used by external buttons to toggle the visibility. Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

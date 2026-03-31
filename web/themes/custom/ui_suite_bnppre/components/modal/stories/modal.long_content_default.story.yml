@@ -1,0 +1,43 @@
+name: "Scrolling long content: default"
+slots:
+  title: "Modal title"
+  body: "This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed."
+  footer:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Close"
+      props:
+        variant: secondary__sm
+      attributes:
+        data-bs-dismiss: modal
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Save changes"
+      props:
+        variant: primary__sm
+props:
+  variant: default
+  animation: true
+  static: false
+  centered: false
+  scrollable: false
+  heading_level: 1
+  heading_attributes:
+    class:
+      - fs-5
+  body_attributes:
+    style: "min-height: 100vh"
+library_wrapper: >
+  {% set modal_id = modal_id|default("modal-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'modal_id': modal_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Launch demo modal'|t,
+    'variant': 'primary',
+    'attributes': {
+      'data-bs-target': '#' ~ modal_id,
+      'data-bs-toggle': 'modal',
+    },
+  }, with_context = false) }}
+  {{ _story|merge(props) }}

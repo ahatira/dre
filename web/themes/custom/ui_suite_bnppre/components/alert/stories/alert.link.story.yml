@@ -1,0 +1,5 @@
+name: "Link color"
+slots:
+  message: 'A simple alert with <a href="#">an example link</a>. Give it a click if you like.'
+props:
+  dismissible: false

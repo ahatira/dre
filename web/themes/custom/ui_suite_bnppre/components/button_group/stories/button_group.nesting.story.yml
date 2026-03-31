@@ -1,0 +1,33 @@
+name: "Nesting"
+slots:
+  buttons:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: 1
+      props:
+        variant: primary
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: 2
+      props:
+        variant: primary
+    - type: component
+      component: "ui_suite_bnppre:dropdown"
+      slots:
+        title: Dropdown
+      props:
+        variant: dropdown
+        attributes:
+          class:
+            - btn-group
+        button_variant: primary
+        content:
+          - url: "#"
+            title: "Dropdown link"
+          - url: "#"
+            title: "Dropdown link"
+props:
+  variant: default
+  label: "Button group with nested dropdown"

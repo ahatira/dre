@@ -1,0 +1,37 @@
+name: Links
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "The current link item"
+      props:
+        active: true
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A second link item"
+      props:
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A third link item"
+      props:
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A fourth link item"
+      props:
+        url: "#"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A disabled link item"
+      props:
+        disabled: true
+        url: "#"
+props:
+  variant: default

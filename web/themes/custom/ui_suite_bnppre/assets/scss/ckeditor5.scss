@@ -1,0 +1,19 @@
+// Adapt path to libraries depending on your installation.
+
+// Font-face declarations (must precede everything — correct relative path from assets/css/).
+@import 'fonts';
+
+// Default variables.
+@import 'configuration-import';
+@import '../../node_modules/bootstrap/scss/root';
+
+.ck-content {
+  @import '../../node_modules/bootstrap/scss/reboot';
+  @import '../../node_modules/bootstrap/scss/type';
+  @import '../../node_modules/bootstrap/scss/images';
+  @import '../../node_modules/bootstrap/scss/containers';
+  @import '../../node_modules/bootstrap/scss/grid';
+  @import '../../node_modules/bootstrap/scss/tables';
+  @import '../../node_modules/bootstrap/scss/helpers';
+  @import '../../node_modules/bootstrap/scss/utilities/api';
+}

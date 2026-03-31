@@ -1,0 +1,18 @@
+{% if variant and variant != 'default' %}
+  {% set attributes = attributes.addClass('list-' ~ variant) %}
+{% endif %}
+
+{% set list_type = list_type|default('ul') %}
+{% set items = items and items is not sequence ? [items] : items %}
+
+{% if items %}
+  <{{ list_type }}{{ attributes }}>
+    {% for item in items %}
+      {% if variant == 'inline' %}
+      <li class="list-inline-item">{{ item }}</li>
+      {% else %}
+      <li>{{ item }}</li>
+      {% endif %}
+    {% endfor %}
+  </{{ list_type }}>
+{% endif %}

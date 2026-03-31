@@ -1,0 +1,54 @@
+{% if variant and variant != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'navbar-' ~ v})|replace({'_': '-'})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+
+{% set attributes = attributes.addClass('navbar') %}
+{% set attributes = 'dark' in variant ? attributes.setAttribute('data-bs-theme', 'dark') : attributes %}
+
+{% set navbar_id = navbar_id|default("navbar-" ~ random()) %}
+{% set placement = placement|default('default') %}
+{% set toggler_position = toggler_position|default('start') %}
+{% set toggle_action = toggle_action|default('collapse') %}
+{% set offcanvas_position = offcanvas_position|default('end') %}
+{% set attributes = (placement != 'default') ? attributes.addClass(placement) : attributes %}
+
+{% set toggler %}
+  <button class="navbar-toggler"
+          type="button"
+          data-bs-toggle="{{ toggle_action }}"
+          data-bs-target="#{{ navbar_id }}"
+          aria-controls="{{ navbar_id }}"
+          aria-expanded="false"
+          aria-label="{{ 'Toggle navigation'|t }}">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+{% endset %}
+
+<nav{{ attributes }}>
+  <div class="container-fluid">
+    {% if toggler_position == 'start' %}
+      {{ toggler }}
+    {% endif %}
+    {{ brand|add_class('navbar-brand') }}
+    {{ navigation }}
+    {% if toggler_position == 'end' %}
+      {{ toggler }}
+    {% endif %}
+
+    {% if navigation_collapsible %}
+      {% if toggle_action == 'offcanvas' %}
+        {{ include('ui_suite_bnppre:offcanvas', {
+          'title': offcanvas_label|default('Navigation'|t),
+          'body': navigation_collapsible,
+          'variant': offcanvas_position,
+          'offcanvas_id': navbar_id,
+        }, with_context = false) }}
+      {% else %}
+        <div class="collapse navbar-collapse" id="{{ navbar_id }}">
+          {{ navigation_collapsible }}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</nav>

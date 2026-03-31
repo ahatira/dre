@@ -1,0 +1,11 @@
+{% set attributes = interval ? attributes.setAttribute('data-bs-interval', interval) : attributes %}
+
+<div{{ attributes.addClass('carousel-item') }}>
+  {{ image }}
+  {% if caption %}
+    {% set caption_attributes = create_attribute(caption_attributes|default({})) %}
+    <div{{ caption_attributes.addClass('carousel-caption') }}>
+      {{ caption }}
+    </div>
+  {% endif %}
+</div>

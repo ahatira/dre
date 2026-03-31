@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Theme override of a media item in the media library.
+ *
+ * This is used for media that the user can select from the grid of media
+ * items. It is not used for items that have already been selected in the
+ * corresponding field widget, or for items that have been previously selected
+ * before adding new media to the library.
+ *
+ * Available variables:
+ * - media: The entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - entity.getEntityTypeId() will return the entity type ID.
+ *   - entity.hasField('field_example') returns TRUE if the entity includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   Calling other methods, such as entity.delete(), will result in an exception.
+ *   See \Drupal\Core\Entity\EntityInterface for a full list of methods.
+ * - name: Name of the media.
+ * - content: Media content.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - url: Direct URL of the media.
+ * - preview_attributes: HTML attributes for the preview wrapper.
+ * - metadata_attributes: HTML attributes for the expandable metadata area.
+ * - status: Whether or not the Media is published.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ include('ui_suite_bnppre:card', {
+  'image': content ? {
+    '#type': 'html_tag',
+    '#tag': 'div',
+    '#attributes': preview_attributes.addClass([
+      'js-media-library-item-preview',
+      'text-center',
+      'text-bg-light',
+    ]),
+    '#value': content|without('name')|render,
+  },
+  'content': [
+    include('ui_suite_bnppre:card_body', {
+      'content': [
+        name,
+        not status ? include('ui_suite_bnppre:badge', {
+          'attributes': {
+            'class': [
+              'text-bg-danger',
+            ],
+          },
+          'label': 'unpublished'|t,
+        }, with_context = false),
+      ],
+      'attributes': metadata_attributes,
+    }, with_context = false),
+  ],
+  'variant': 'default',
+  'image_position': 'top',
+  'attributes': attributes,
+}, with_context = false) }}

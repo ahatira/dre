@@ -1,0 +1,21 @@
+name: Figure
+description: "Used to display a piece of self-contained content (illustrations, diagrams, photos, code, etc) along with an optional caption. This content can be removed from the document without affecting the meaning of the document."
+links:
+  - "https://getbootstrap.com/docs/5.3/content/figures/"
+slots:
+  image:
+    title: Image
+    description: "The content of the figure."
+  caption:
+    title: Caption
+    description: "The caption that appears under the content."
+props:
+  type: object
+  properties:
+    figcaption_attributes:
+      title: "Figcaption attributes"
+      description: "The attributes to customize the figcaption tag."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

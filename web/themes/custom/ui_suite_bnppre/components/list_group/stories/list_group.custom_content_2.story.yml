@@ -1,0 +1,117 @@
+name: "Custom content 2"
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        active: true
+        url: "#"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            attributes:
+              class:
+                - d-flex
+                - justify-content-between
+                - w-100
+            0:
+              type: html_tag
+              tag: h5
+              value: "List group item heading"
+              attributes:
+                class:
+                  - mb-1
+            1:
+              type: html_tag
+              tag: small
+              value: "3 days ago"
+          - type: html_tag
+            tag: p
+            value: "Some placeholder content in a paragraph."
+            attributes:
+              class:
+                - mb-1
+          - type: html_tag
+            tag: small
+            value: "And some small print."
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        url: "#"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            attributes:
+              class:
+                - d-flex
+                - justify-content-between
+                - w-100
+            0:
+              type: html_tag
+              tag: h5
+              value: "List group item heading"
+              attributes:
+                class:
+                  - mb-1
+            1:
+              type: html_tag
+              tag: small
+              value: "3 days ago"
+              attributes:
+                class:
+                  - text-body-secondary
+          - type: html_tag
+            tag: p
+            value: "Some placeholder content in a paragraph."
+            attributes:
+              class:
+                - mb-1
+          - type: html_tag
+            tag: small
+            value: "And some small print."
+            attributes:
+              class:
+                - text-body-secondary
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        url: "#"
+      slots:
+        content:
+          - type: html_tag
+            tag: div
+            attributes:
+              class:
+                - d-flex
+                - justify-content-between
+                - w-100
+            0:
+              type: html_tag
+              tag: h5
+              value: "List group item heading"
+              attributes:
+                class:
+                  - mb-1
+            1:
+              type: html_tag
+              tag: small
+              value: "3 days ago"
+              attributes:
+                class:
+                  - text-body-secondary
+          - type: html_tag
+            tag: p
+            value: "Some placeholder content in a paragraph."
+            attributes:
+              class:
+                - mb-1
+          - type: html_tag
+            tag: small
+            value: "And some small print."
+            attributes:
+              class:
+                - text-body-secondary
+props:
+  variant: default

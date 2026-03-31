@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Header navigation region block wrapper.
+ */
+#}
+{% set content_markup = content|render %}
+{% if content_markup|trim is not empty %}
+	<div{{attributes.addClass('ps-header__navigation-block')}}>
+		{{ title_prefix }}
+		{{ title_suffix }}
+		{{ content_markup }}
+	</div>
+{% endif %}

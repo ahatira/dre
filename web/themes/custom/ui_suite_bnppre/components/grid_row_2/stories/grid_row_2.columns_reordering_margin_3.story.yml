@@ -1,0 +1,21 @@
+name: "Columns: reordering: margin utilities 3"
+slots:
+  col_1_content: ".col-auto .me-auto"
+  col_2_content: ".col-auto"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_xs: ['auto', 'auto']
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - me-auto
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

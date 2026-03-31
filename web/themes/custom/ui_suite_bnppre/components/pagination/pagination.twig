@@ -1,0 +1,31 @@
+{% if variant and variant != 'default' %}
+  {% set attributes = attributes.addClass('pagination-' ~ variant) %}
+{% endif %}
+
+{% if items %}
+<nav aria-label="{{ 'Pagination'|t }}">
+  <ul{{ attributes.addClass('pagination') }}>
+  {% for item in items %}
+    {% if item.url %}
+    <li class="page-item">
+      {% set item_attributes = create_attribute(item.attributes|default({})) %}
+      <a{{ item_attributes.addClass('page-link').setAttribute('href', item.url) }}>
+        {% if item_attributes.hasAttribute('aria-label') %}
+          <span aria-hidden="true">{{ item.title }}</span>
+        {% else %}
+          {{ item.title }}
+        {% endif %}
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">
+        <span class="visually-hidden">{{ 'Current page'|t }}</span>
+        {{- item.title|default('Current page'|t) -}}
+      </span>
+    </li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+</nav>
+{% endif %}

@@ -1,0 +1,47 @@
+name: Default
+slots:
+  brand:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+      value: Navbar
+  navigation_collapsible:
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        attributes:
+          class:
+            - me-auto
+            - mb-2
+            - mb-lg-0
+        items:
+          - title: Home
+            url: "#"
+            link_attributes:
+              class:
+                - active
+          - title: Link
+            url: "#"
+          - title: Dropdown
+            url: "#"
+            below:
+              - title: "Action"
+                url: "#"
+              - title: "Another action"
+                url: "#"
+              - {}
+              - title: "Something else here"
+                url: "#"
+          - title: Disabled
+            url: "#"
+            link_attributes:
+              class:
+                - disabled
+props:
+  attributes:
+    class:
+      - bg-body-tertiary
+  variant: expand_lg
+  toggler_position: end

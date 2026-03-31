@@ -1,0 +1,23 @@
+<div class="row p-3 bg-white border border-1 align-items-end">
+  {% if form.current %}
+    <div class="col-auto">
+      {{ form.current }}
+    </div>
+  {% endif %}
+  {% if form.new_state %}
+    <div class="col-auto">
+      {{ form.new_state }}
+    </div>
+  {% endif %}
+  {% if form.revision_log %}
+    <div class="col-auto">
+      {{ form.revision_log }}
+    </div>
+  {% endif %}
+  {% if form.submit %}
+    <div class="col-auto mb-3">
+      {{ form.submit }}
+    </div>
+  {% endif %}
+</div>
+{{ form|without('current', 'new_state', 'revision_log', 'submit') }}

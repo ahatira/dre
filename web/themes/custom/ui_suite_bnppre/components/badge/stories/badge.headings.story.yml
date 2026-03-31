@@ -1,0 +1,19 @@
+name: Headings
+slots:
+  label: New
+props:
+  attributes:
+    class:
+      - text-bg-secondary
+library_wrapper: >
+  {% set headings = [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+  ] %}
+  {% for heading in headings %}
+    <{{ heading }}>{{ 'Example heading'|t }} {{ _story }}</{{ heading }}>
+  {% endfor %}

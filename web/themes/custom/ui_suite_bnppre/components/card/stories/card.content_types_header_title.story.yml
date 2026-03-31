@@ -1,0 +1,25 @@
+name: "Content types: header title"
+description: "Card headers can be styled by adding .card-header to <h*> elements."
+slots:
+  content:
+    - type: html_tag
+      tag: h5
+      value: "Featured"
+      attributes:
+        class:
+          - card-header
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        title: "Special title treatment"
+        text: "With supporting text below as a natural lead-in to additional content."
+        content:
+          type: component
+          component: "ui_suite_bnppre:button"
+          slots:
+            label: "Go somewhere"
+          props:
+            variant: primary
+            url: "#"
+props:
+  variant: default

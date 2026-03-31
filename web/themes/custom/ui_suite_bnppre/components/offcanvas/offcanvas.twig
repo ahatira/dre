@@ -1,0 +1,39 @@
+{% set attributes = attributes.addClass('offcanvas-' ~ variant|default('start')) %}
+
+{% set offcanvas_id = offcanvas_id|default("offcanvas-" ~ random()) %}
+{% set heading_level = heading_level|default(5) %}
+
+{% set attributes = attributes
+  .addClass('offcanvas')
+  .setAttribute('tabindex', '-1')
+  .setAttribute('id', offcanvas_id)
+%}
+
+{% set attributes = responsive ? attributes.addClass(responsive).removeClass('offcanvas') : attributes %}
+{% set attributes = backdrop ? attributes.setAttribute('data-bs-backdrop', backdrop) : attributes %}
+{% set attributes = scroll ? attributes.setAttribute('data-bs-scroll', 'true') : attributes %}
+{% set attributes = title ? attributes.setAttribute('aria-labelledby', 'label_' ~ offcanvas_id) : attributes %}
+
+{% set header_attributes = create_attribute(header_attributes|default({})) %}
+
+<div{{ attributes }}>
+  <div{{ header_attributes.addClass('offcanvas-header') }}>
+    {% if title %}
+      {% set heading_attributes = create_attribute(heading_attributes|default({})) %}
+      <h{{ heading_level }}{{ heading_attributes.addClass('offcanvas-title').setAttribute('id', 'label_' ~ offcanvas_id) }}>{{ title }}</h{{ heading_level }}>
+    {% endif %}
+    {{ include('ui_suite_bnppre:close_button', {
+      attributes: {
+        'data-bs-dismiss': 'offcanvas',
+        'data-bs-target': '#' ~ offcanvas_id,
+      },
+    }, with_context = false) }}
+  </div>
+
+  {% if body %}
+    {% set body_attributes = create_attribute(body_attributes|default({})) %}
+    <div{{ body_attributes.addClass('offcanvas-body') }}>
+      {{ body }}
+    </div>
+  {% endif %}
+</div>

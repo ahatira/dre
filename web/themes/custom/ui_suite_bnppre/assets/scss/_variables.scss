@@ -1,0 +1,127 @@
+// =============================================================================
+// BNP Paribas Real Estate — Single source of truth for design tokens
+// =============================================================================
+
+// Brand semantic colors
+$bnppre-primary:           #00915A !default;
+$bnppre-primary-hover:     #04AF6E !default;
+$bnppre-primary-active:    #017F4F !default;
+$bnppre-primary-disabled:  #99D3BD !default;
+
+$bnppre-secondary:         #BA3075 !default;
+$bnppre-secondary-hover:   #E0388C !default;
+$bnppre-secondary-active:  #A12B66 !default;
+$bnppre-secondary-disabled:#D998B8 !default;
+
+$bnppre-danger:            #E83636 !default;
+
+// Neutral scale
+$bnppre-gray-1:            #333333 !default;
+$bnppre-gray-2:            #434F57 !default;
+$bnppre-gray-3:            #777E83 !default;
+$bnppre-gray-4:            #B4BABE !default;
+$bnppre-gray-5:            #D6DBDE !default;
+$bnppre-gray-6:            #EBEDEF !default;
+$bnppre-gray-7:            #F9F9FB !default;
+$bnppre-white:             #FFFFFF !default;
+
+// Overlay colors
+$bnppre-overlay-dark:      rgba(#000000, 0.60) !default;
+$bnppre-overlay-mid:       rgba(#1C2D37, 0.30) !default;
+$bnppre-overlay-light:     rgba(#1C2D37, 0.12) !default;
+
+// =============================================================================
+// Typography — Font stacks
+// =============================================================================
+$font-family-headings:     'BNPP Sans', sans-serif !default;
+$font-family-condensed:    'BNPP Sans Condensed', sans-serif !default;
+$font-family-body:         'Open Sans', sans-serif !default;
+
+// =============================================================================
+// Bootstrap variable overrides — mapping semantic tokens to Bootstrap core
+// =============================================================================
+
+// Map semantic tokens to Bootstrap core tokens.
+$primary:   $bnppre-primary !default;
+$secondary: $bnppre-secondary !default;
+$danger:    $bnppre-danger !default;
+$dark:      $bnppre-gray-1 !default;
+
+// Grey scale.
+$gray-100:  $bnppre-gray-7 !default;
+$gray-200:  $bnppre-gray-6 !default;
+$gray-300:  $bnppre-gray-5 !default;
+$gray-400:  $bnppre-gray-4 !default;
+$gray-500:  $bnppre-gray-3 !default;
+$gray-600:  $bnppre-gray-2 !default;
+$gray-700:  $bnppre-gray-2 !default;
+$gray-800:  $bnppre-gray-1 !default;
+$gray-900:  #2a2a2a !default;
+
+// Typography
+$font-family-sans-serif:  $font-family-body !default;
+$font-family-base:        $font-family-body !default;
+$headings-font-family:    $font-family-headings !default;
+
+// Button overrides
+$btn-box-shadow:          none !default;
+$btn-active-box-shadow:   none !default;
+$btn-font-weight:         600  !default;
+
+// Bootstrap config flags
+$enable-gradients:        false  !default;
+$enable-negative-margins: true   !default;
+$enable-shadows:          true   !default;
+
+// Border radius — set all to 0 for sharp corners
+$border-radius:           0rem   !default;
+$border-radius-sm:        0rem   !default;
+$border-radius-lg:        0rem   !default;
+$border-radius-xl:        0rem   !default;
+$border-radius-xxl:       0rem   !default;
+$border-radius-2xl:       0rem   !default;
+$border-radius-pill:      50rem  !default;  // Keep Bootstrap default for pill shape
+
+// Exceptions: keep rounded corners for badges and pill elements
+$badge-border-radius:     0.375rem !default;
+
+// =============================================================================
+// CSS custom properties (available globally in compiled CSS)
+// =============================================================================
+:root {
+  // Primary
+  --bnppre-primary:           #{$bnppre-primary};
+  --bnppre-primary-hover:     #{$bnppre-primary-hover};
+  --bnppre-primary-active:    #{$bnppre-primary-active};
+  --bnppre-primary-disabled:  #{$bnppre-primary-disabled};
+
+  // Secondary
+  --bnppre-secondary:         #{$bnppre-secondary};
+  --bnppre-secondary-hover:   #{$bnppre-secondary-hover};
+  --bnppre-secondary-active:  #{$bnppre-secondary-active};
+  --bnppre-secondary-disabled:#{$bnppre-secondary-disabled};
+
+  // Status
+  --bnppre-danger:      #{$bnppre-danger};
+
+  // Greys
+  --bnppre-gray-1:      #{$bnppre-gray-1};
+  --bnppre-gray-2:      #{$bnppre-gray-2};
+  --bnppre-gray-3:      #{$bnppre-gray-3};
+  --bnppre-gray-4:      #{$bnppre-gray-4};
+  --bnppre-gray-5:      #{$bnppre-gray-5};
+  --bnppre-gray-6:      #{$bnppre-gray-6};
+  --bnppre-gray-7:      #{$bnppre-gray-7};
+  --bnppre-white:       #{$bnppre-white};
+
+  // Overlays
+  --bnppre-overlay-dark:  #{$bnppre-overlay-dark};
+  --bnppre-overlay-mid:   #{$bnppre-overlay-mid};
+  --bnppre-overlay-light: #{$bnppre-overlay-light};
+}
+
+// =============================================================================
+// Form — required field marker (keep below $danger definition)
+// =============================================================================
+$required-mark-bg-image: url("data:image/svg+xml,<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'><path d='m0 7.562 1.114-3.438c2.565.906 4.43 1.688 5.59 2.35-.306-2.921-.467-4.93-.484-6.027h3.511c-.05 1.597-.234 3.6-.558 6.003 1.664-.838 3.566-1.613 5.714-2.325l1.113 3.437c-2.05.678-4.06 1.131-6.028 1.356.984.856 2.372 2.381 4.166 4.575l-2.906 2.059c-.935-1.274-2.041-3.009-3.316-5.206-1.194 2.275-2.244 4.013-3.147 5.206l-2.856-2.059c1.872-2.307 3.211-3.832 4.017-4.575-2.081-.402-4.058-.856-5.93-1.356' fill='#{$danger}'/></svg>") !default;
+$required-mark-bg-image-contrast: url("data:image/svg+xml,<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'><path d='m0 7.562 1.114-3.438c2.565.906 4.43 1.688 5.59 2.35-.306-2.921-.467-4.93-.484-6.027h3.511c-.05 1.597-.234 3.6-.558 6.003 1.664-.838 3.566-1.613 5.714-2.325l1.113 3.437c-2.05.678-4.06 1.131-6.028 1.356.984.856 2.372 2.381 4.166 4.575l-2.906 2.059c-.935-1.274-2.041-3.009-3.316-5.206-1.194 2.275-2.244 4.013-3.147 5.206l-2.856-2.059c1.872-2.307 3.211-3.832 4.017-4.575-2.081-.402-4.058-.856-5.93-1.356' fill='%23fff'/></svg>") !default;

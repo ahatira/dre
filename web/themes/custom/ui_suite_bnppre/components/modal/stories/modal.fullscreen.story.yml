@@ -1,0 +1,73 @@
+name: Fullscreen
+slots:
+  body: "..."
+  footer:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: "Close"
+      props:
+        variant: secondary__sm
+      attributes:
+        data-bs-dismiss: modal
+props:
+  variant: default
+  animation: true
+  static: false
+  centered: false
+  scrollable: false
+  heading_level: 1
+  heading_attributes:
+    class:
+      - fs-4
+library_wrapper: >
+  {% set examples = [
+    {
+      label: 'Full screen'|t,
+      fullscreen: 'modal-fullscreen',
+    },
+    {
+      label: 'Full screen below sm'|t,
+      fullscreen: 'modal-fullscreen-sm-down',
+    },
+    {
+      label: 'Full screen below md'|t,
+      fullscreen: 'modal-fullscreen-md-down',
+    },
+    {
+      label: 'Full screen below lg'|t,
+      fullscreen: 'modal-fullscreen-lg-down',
+    },
+    {
+      label: 'Full screen below xl'|t,
+      fullscreen: 'modal-fullscreen-xl-down',
+    },
+    {
+      label: 'Full screen below xxl'|t,
+      fullscreen: 'modal-fullscreen-xxl-down',
+    },
+  ] %}
+  {% for example in examples %}
+    {% set modal_id = "modal-" ~ random() %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'modal_id': modal_id,
+      'fullscreen': example.fullscreen,
+    })} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'title': example.label,
+    })} %}
+    {% set example_story = _story %}
+
+    {{ include('ui_suite_bnppre:button', {
+      'label': example.label,
+      'variant': 'primary',
+      'attributes': {
+        'data-bs-target': '#' ~ modal_id,
+        'data-bs-toggle': 'modal',
+        'class': [
+          'm-1',
+        ],
+      },
+    }, with_context = false) }}
+    {{ example_story|merge(example_props)|merge(example_slots) }}
+  {% endfor %}

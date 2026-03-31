@@ -1,0 +1,40 @@
+name: "Text: collapsible"
+slots:
+  brand:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+      value: "Navbar w/ text"
+  navigation_collapsible:
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        attributes:
+          class:
+            - me-auto
+            - mb-2
+            - mb-lg-0
+        items:
+          - title: Home
+            url: "#"
+            link_attributes:
+              class:
+                - active
+          - title: Features
+            url: "#"
+          - title: Pricing
+            url: "#"
+    - type: html_tag
+      tag: span
+      attributes:
+        class:
+          - navbar-text
+      value: "Navbar text with an inline element"
+props:
+  attributes:
+    class:
+      - bg-body-tertiary
+  variant: expand_lg
+  toggler_position: end

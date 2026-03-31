@@ -1,0 +1,56 @@
+{% set dialog_attributes = create_attribute({'class': 'modal-dialog'}) %}
+{% if variant and variant != 'default' %}
+  {% set dialog_attributes = dialog_attributes.addClass('modal-' ~ variant) %}
+{% endif %}
+
+{% set modal_id = modal_id|default("modal-" ~ random()) %}
+{% set heading_level = heading_level|default(1) %}
+
+{% set attributes = attributes
+  .addClass('modal')
+  .setAttribute('tabindex', '-1')
+  .setAttribute('id', modal_id)
+  .setAttribute('aria-hidden', 'true')
+%}
+
+{% set attributes = animation ? attributes.addClass('fade') : attributes %}
+{% set attributes = static ? attributes.setAttribute('data-bs-backdrop', 'static').setAttribute('data-bs-keyboard', 'false') : attributes %}
+{% set attributes = title ? attributes.setAttribute('aria-labelledby', 'label_' ~ modal_id) : attributes %}
+
+{% set dialog_attributes = centered ? dialog_attributes.addClass('modal-dialog-centered') : dialog_attributes %}
+{% set dialog_attributes = scrollable ? dialog_attributes.addClass('modal-dialog-scrollable') : dialog_attributes %}
+{% set dialog_attributes = fullscreen ? dialog_attributes.addClass(fullscreen) : dialog_attributes %}
+
+{% set header_attributes = create_attribute(header_attributes|default({})) %}
+
+<div{{ attributes }}>
+  <div{{ dialog_attributes }}>
+    <div class="modal-content">
+      <div{{ header_attributes.addClass('modal-header') }}>
+        {% if title %}
+          {% set heading_attributes = create_attribute(heading_attributes|default({})) %}
+          <h{{ heading_level }}{{ heading_attributes.addClass('modal-title').setAttribute('id', 'label_' ~ modal_id) }}>{{ title }}</h{{ heading_level }}>
+        {% endif %}
+        {{ include('ui_suite_bnppre:close_button', {
+          attributes: {
+            'data-bs-dismiss': 'modal',
+          },
+        }, with_context = false) }}
+      </div>
+
+    {% if body %}
+      {% set body_attributes = create_attribute(body_attributes|default({})) %}
+      <div{{ body_attributes.addClass('modal-body') }}>
+        {{ body }}
+      </div>
+    {% endif %}
+
+    {% if footer %}
+      {% set footer_attributes = create_attribute(footer_attributes|default({})) %}
+      <div{{ footer_attributes.addClass('modal-footer') }}>
+        {{ footer }}
+      </div>
+    {% endif %}
+    </div>
+  </div>
+</div>

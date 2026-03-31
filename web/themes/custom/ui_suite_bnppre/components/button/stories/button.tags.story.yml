@@ -1,0 +1,14 @@
+name: "Button tags"
+slots:
+  label: Link
+props:
+  variant: primary
+  disabled: false
+  label_visually_hidden: false
+  url: "#"
+library_wrapper: >
+  {{ _story }}
+  <button class="btn btn-primary" type="submit">{{ 'Button'|t }}</button>
+  <input class="btn btn-primary" type="button" value="{{ 'Input'|t }}">
+  <input class="btn btn-primary" type="submit" value="{{ 'Submit'|t }}">
+  <input class="btn btn-primary" type="reset" value="{{ 'Reset'|t }}">

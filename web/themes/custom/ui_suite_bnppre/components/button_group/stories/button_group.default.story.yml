@@ -1,0 +1,23 @@
+name: Default
+slots:
+  buttons:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Left
+      props:
+        variant: primary
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Middle
+      props:
+        variant: primary
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Right
+      props:
+        variant: primary
+props:
+  label: "Basic example"

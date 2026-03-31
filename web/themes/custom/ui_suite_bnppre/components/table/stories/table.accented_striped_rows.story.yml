@@ -1,0 +1,127 @@
+name: "Accented tables: striped rows"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "#"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "First"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Last"
+      props:
+        tag: th
+        attributes:
+          scope: col
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Handle"
+      props:
+        tag: th
+        attributes:
+          scope: col
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "1"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Mark"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Otto"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@mdo"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "2"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Jacob"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Thornton"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@fat"
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "3"
+            props:
+              tag: th
+              attributes:
+                scope: row
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "John"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "Doe"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "@social"
+props:
+  variant: default
+  stripes:
+    - striped
+library_wrapper: >
+  {% set examples = [
+    'default',
+    'dark',
+    'success',
+  ] %}
+
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'variant': example,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props) }}
+  {% endfor %}

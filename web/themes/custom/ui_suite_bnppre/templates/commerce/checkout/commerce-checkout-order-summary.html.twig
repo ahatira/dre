@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the checkout order summary.
+ *
+ * The rendered order totals come from commerce-order-total-summary.html.twig.
+ * See commerce-order-receipt.html.twig for examples of manual total theming.
+ *
+ * Available variables:
+ * - order_entity: The order entity.
+ * - checkout_step: The current checkout step.
+ * - totals: An array of order total values with the following keys:
+ *   - subtotal: The order subtotal price.
+ *   - adjustments: An array of adjustment totals:
+ *     - type: The adjustment type.
+ *     - label: The adjustment label.
+ *     - total: The adjustment total price.
+ *     - weight: The adjustment weight, taken from the adjustment type.
+ *   - total: The order total price.
+ * - rendered_totals: The rendered order totals.
+ */
+#}
+<div{{ attributes.addClass('checkout-order-summary', 'table-responsive') }}>
+  {% block order_items %}
+    {# Prepare rows in the expected format. #}
+    {% set prepared_rows = [] %}
+    {% for order_item in order_entity.getItems %}
+      {% set prepared_rows = prepared_rows|merge([{
+        '#type': 'component',
+        '#component': 'ui_suite_bnppre:table_row',
+        '#slots': {
+          'cells': [
+            {
+              '#type': 'component',
+              '#component': 'ui_suite_bnppre:table_cell',
+              '#slots': {
+                'content': order_item.getQuantity|number_format|render ~ '&nbsp;x',
+              },
+            },
+            {
+              '#type': 'component',
+              '#component': 'ui_suite_bnppre:table_cell',
+              '#slots': {
+                'content': order_item.hasPurchasedEntity ? order_item.getPurchasedEntity|commerce_entity_render('summary') : order_item.label,
+              },
+            },
+            {
+              '#type': 'component',
+              '#component': 'ui_suite_bnppre:table_cell',
+              '#slots': {
+                'content': order_item.getTotalPrice|commerce_price_format,
+              },
+            },
+          ],
+        },
+      }]) %}
+    {% endfor %}
+
+    {{ include('ui_suite_bnppre:table', {
+      rows: prepared_rows,
+      variant: 'sm',
+      hover: true,
+    }, with_context = false) }}
+  {% endblock %}
+  {% block totals %}
+    {{ rendered_totals }}
+  {% endblock %}
+</div>

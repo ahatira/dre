@@ -1,0 +1,110 @@
+// =============================================================================
+// BNP Paribas Real Estate — Button component overrides
+// Matches the design system mockup: Primary (green/pink filled),
+// Secondary (outline → filled on hover), dark-bg variants.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// .btn-primary  (green filled)
+// Default #00915A → Hover $primary-4 #017F4F → Pressed darker
+// -----------------------------------------------------------------------------
+.btn-primary {
+  --bs-btn-color:                 #fff;
+  --bs-btn-bg:                    #{$bnppre-primary};
+  --bs-btn-border-color:          #{$bnppre-primary};
+  --bs-btn-hover-color:           #fff;
+  --bs-btn-hover-bg:              #{$bnppre-primary-hover};
+  --bs-btn-hover-border-color:    #{$bnppre-primary-hover};
+  --bs-btn-focus-shadow-rgb:      #{red($bnppre-primary)}, #{green($bnppre-primary)}, #{blue($bnppre-primary)};
+  --bs-btn-active-color:          #fff;
+  --bs-btn-active-bg:             #{$bnppre-primary-active};
+  --bs-btn-active-border-color:   #{$bnppre-primary-active};
+  --bs-btn-active-shadow:         none;
+  --bs-btn-disabled-color:        #fff;
+  --bs-btn-disabled-bg:           #{$bnppre-primary-disabled};
+  --bs-btn-disabled-border-color: #{$bnppre-primary-disabled};
+}
+
+// -----------------------------------------------------------------------------
+// .btn-secondary  (pink/magenta filled)
+// Default #BA3075 → Hover $secondary-4 #A12B66 → Pressed darker
+// -----------------------------------------------------------------------------
+.btn-secondary {
+  --bs-btn-color:                 #fff;
+  --bs-btn-bg:                    #{$bnppre-secondary};
+  --bs-btn-border-color:          #{$bnppre-secondary};
+  --bs-btn-hover-color:           #fff;
+  --bs-btn-hover-bg:              #{$bnppre-secondary-hover};
+  --bs-btn-hover-border-color:    #{$bnppre-secondary-hover};
+  --bs-btn-focus-shadow-rgb:      #{red($bnppre-secondary)}, #{green($bnppre-secondary)}, #{blue($bnppre-secondary)};
+  --bs-btn-active-color:          #fff;
+  --bs-btn-active-bg:             #{$bnppre-secondary-active};
+  --bs-btn-active-border-color:   #{$bnppre-secondary-active};
+  --bs-btn-active-shadow:         none;
+  --bs-btn-disabled-color:        #fff;
+  --bs-btn-disabled-bg:           #{$bnppre-secondary-disabled};
+  --bs-btn-disabled-border-color: #{$bnppre-secondary-disabled};
+}
+
+// -----------------------------------------------------------------------------
+// .btn-outline-primary  (green outline → solid fill on hover)
+// -----------------------------------------------------------------------------
+.btn-outline-primary {
+  --bs-btn-color:                 #{$bnppre-primary};
+  --bs-btn-border-color:          #{$bnppre-primary};
+  --bs-btn-hover-color:           #fff;
+  --bs-btn-hover-bg:              #{$bnppre-primary-hover};
+  --bs-btn-hover-border-color:    #{$bnppre-primary-hover};
+  --bs-btn-focus-shadow-rgb:      #{red($bnppre-primary)}, #{green($bnppre-primary)}, #{blue($bnppre-primary)};
+  --bs-btn-active-color:          #fff;
+  --bs-btn-active-bg:             #{$bnppre-primary-active};
+  --bs-btn-active-border-color:   #{$bnppre-primary-active};
+  --bs-btn-active-shadow:         none;
+  --bs-btn-disabled-color:        #{$bnppre-primary-disabled};
+  --bs-btn-disabled-bg:           transparent;
+  --bs-btn-disabled-border-color: #{$bnppre-primary-disabled};
+}
+
+// -----------------------------------------------------------------------------
+// .btn-outline-secondary  (pink outline → solid fill on hover)
+// -----------------------------------------------------------------------------
+.btn-outline-secondary {
+  --bs-btn-color:                 #{$bnppre-secondary};
+  --bs-btn-border-color:          #{$bnppre-secondary};
+  --bs-btn-hover-color:           #fff;
+  --bs-btn-hover-bg:              #{$bnppre-secondary-hover};
+  --bs-btn-hover-border-color:    #{$bnppre-secondary-hover};
+  --bs-btn-focus-shadow-rgb:      #{red($bnppre-secondary)}, #{green($bnppre-secondary)}, #{blue($bnppre-secondary)};
+  --bs-btn-active-color:          #fff;
+  --bs-btn-active-bg:             #{$bnppre-secondary-active};
+  --bs-btn-active-border-color:   #{$bnppre-secondary-active};
+  --bs-btn-active-shadow:         none;
+  --bs-btn-disabled-color:        #{$bnppre-secondary-disabled};
+  --bs-btn-disabled-bg:           transparent;
+  --bs-btn-disabled-border-color: #{$bnppre-secondary-disabled};
+}
+
+// -----------------------------------------------------------------------------
+// Dark background variant (outline buttons → white contour on dark surfaces)
+// Use on containers with .bg-dark, .bg-black or [data-bs-theme="dark"]
+// Default: white border + white text | Hover: white fill + dark text
+// -----------------------------------------------------------------------------
+%btn-outline-on-dark {
+  --bs-btn-color:                 #fff;
+  --bs-btn-border-color:          rgba(255, 255, 255, .5);
+  --bs-btn-hover-color:           #{$bnppre-gray-1};
+  --bs-btn-hover-bg:              #fff;
+  --bs-btn-hover-border-color:    #fff;
+  --bs-btn-active-color:          #{$bnppre-gray-1};
+  --bs-btn-active-bg:             #{$bnppre-gray-6};
+  --bs-btn-active-border-color:   #{$bnppre-gray-6};
+  --bs-btn-disabled-color:        rgba(255, 255, 255, .4);
+  --bs-btn-disabled-border-color: rgba(255, 255, 255, .2);
+}
+
+.bg-dark,
+.bg-black,
+[data-bs-theme="dark"] {
+  .btn-outline-primary  { @extend %btn-outline-on-dark; }
+  .btn-outline-secondary { @extend %btn-outline-on-dark; }
+}

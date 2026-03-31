@@ -1,0 +1,118 @@
+name: "Vertical alignment"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading 1"
+      props:
+        tag: th
+        attributes:
+          scope: col
+          class:
+            - w-25
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading 2"
+      props:
+        tag: th
+        attributes:
+          scope: col
+          class:
+            - w-25
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading 3"
+      props:
+        tag: th
+        attributes:
+          scope: col
+          class:
+            - w-25
+    - type: component
+      component: "ui_suite_bnppre:table_cell"
+      slots:
+        content: "Heading 4"
+      props:
+        tag: th
+        attributes:
+          scope: col
+          class:
+            - w-25
+  rows:
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: middle;</code> from the table"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: middle;</code> from the table"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: middle;</code> from the table"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells."
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      props:
+        attributes:
+          class:
+            - align-bottom
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: bottom;</code> from the table row"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: bottom;</code> from the table row"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: bottom;</code> from the table row"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells."
+    - type: component
+      component: "ui_suite_bnppre:table_row"
+      slots:
+        cells:
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: middle;</code> from the table"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This cell inherits <code>vertical-align: middle;</code> from the table"
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            props:
+              attributes:
+                class:
+                  - align-top
+            slots:
+              content: "This cell is aligned to the top."
+          - type: component
+            component: "ui_suite_bnppre:table_cell"
+            slots:
+              content: "This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells."
+props:
+  variant: default
+  attributes:
+    class:
+      - align-middle
+  responsive: responsive

@@ -1,0 +1,67 @@
+{#
+/**
+ * @file
+ * Template for the coupon redemption form.
+ *
+ * Available variables:
+ * - form: The form. Contains the currently applied coupons in form.coupons,
+ *         each containing a code, display_name, remove_button.
+ *         For example: form.coupons.0.code.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if form.coupons|length %}
+  {% if form['#cardinality'] == 1 %}
+    <div class="coupon-redemption-form__coupons coupon-redemption-form__coupons--single">
+      <p>
+        <br>{{ 'You applied the coupon %code to the order.'|t({'%code': form.coupons.0.code|render}) }}
+      </p>
+      {{ form.coupons.0.remove_button }}
+    </div>
+  {% else %}
+    {{ attach_library('core/components.ui_suite_bnppre--card') }}
+    <div class="coupon-redemption-form__coupons coupon-redemption-form__coupons--multiple">
+      <h3 class="card-title"> {{ 'Applied coupons'|t }} </h3>
+      {# Prepare rows in the expected format. #}
+      {% set prepared_rows = [] %}
+      {% for key, coupon in form.coupons|filter((coupon, key) => key|first != '#') %}
+        {% set prepared_rows = prepared_rows|merge([{
+          '#type': 'component',
+          '#component': 'ui_suite_bnppre:table_row',
+          '#slots': {
+            'cells': [
+              {
+                '#type': 'component',
+                '#component': 'ui_suite_bnppre:table_cell',
+                '#slots': {
+                  'content': coupon.code,
+                },
+              },
+              {
+                '#type': 'component',
+                '#component': 'ui_suite_bnppre:table_cell',
+                '#slots': {
+                  'content': coupon.remove_button,
+                },
+              },
+            ],
+          },
+        }]) %}
+      {% endfor %}
+
+      {{ include('ui_suite_bnppre:table', {
+        rows: prepared_rows,
+        attributes: {
+          'class': [
+            'align-middle',
+          ],
+        },
+        variant: 'sm',
+        hover: true,
+      }, with_context = false) }}
+    </div>
+  {% endif %}
+{% endif %}
+
+{{ form|without('coupons') }}

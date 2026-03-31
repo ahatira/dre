@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme for an 'icon_autocomplete' #type form element.
+ *
+ * Variables:
+ * - pack_id: The icon set id.
+ * - icon_id: The icon id.
+ * - icon_form: The icon input form.
+ * - has_settings: Boolean flag if settings is enabled.
+ * - settings_form: The icon settings form.
+#}
+{{ attach_library('ui_icons/ui_icons.autocomplete') }}
+
+<div class="ui-icons-wrapper">
+  <div class="ui-icons-input-wrapper">
+    <div class="ui-icons-select">
+      {{ icon_form }}
+    </div>
+  </div>
+
+  {% if has_settings %}
+    <div class="ui-icons-settings-wrapper">
+      {{ settings_form }}
+    </div>
+  {% endif %}
+</div>

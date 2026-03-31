@@ -1,0 +1,7 @@
+{% set tag = tag|default('td') %}
+{% set attributes = active ? attributes.addClass('table-active') : attributes %}
+{% set attributes = color ? attributes.addClass('table-' ~ color) : attributes %}
+
+<{{ tag }}{{ attributes }}>
+  {{- content -}}
+</{{ tag }}>

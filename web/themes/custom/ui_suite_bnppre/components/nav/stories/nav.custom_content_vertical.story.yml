@@ -1,0 +1,42 @@
+name: "Custom content: vertical"
+props:
+  nav_type: ul
+  variant: pills
+  attributes:
+    class:
+      - me-3
+      - flex-column
+    aria-orientation: vertical
+  items:
+    - title: Home
+      link_attributes:
+        class:
+          - active
+    - title: Profile
+    - title: Disabled
+      link_attributes:
+        class:
+          - disabled
+    - title: Messages
+    - title: Settings
+slots:
+  tab_content:
+    - type: html_tag
+      tag: p
+      value: "This is some placeholder content the <strong>Home tab's</strong> associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation."
+    - type: html_tag
+      tag: p
+      value: "This is some placeholder content the <strong>Profile tab's</strong> associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation."
+    - type: html_tag
+      tag: p
+      value: "This is some placeholder content the <strong>Disabled tab's</strong> associated content."
+    - type: html_tag
+      tag: p
+      value: "This is some placeholder content the <strong>Messages tab's</strong> associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation."
+    - type: html_tag
+      tag: p
+      value: "This is some placeholder content the <strong>Settings tab's</strong> associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation."
+library_wrapper: >
+  <div class="d-flex align-items-start">
+    {{ _story }}
+  </div>

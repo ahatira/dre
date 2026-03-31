@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * UI Styles styles menu.
+ */
+#}
+{% if styles %}
+  {{ attach_library('core/components.ui_suite_bnppre--nav') }}
+  <div id="styles-library" class="overflow-auto">
+    {# List of available styles with anchor links. #}
+    {% for group_name, group_styles in styles %}
+      {% if styles|length > 1 %}
+        <h3>{{ group_name }}</h3>
+      {% endif %}
+      <ul class="nav nav-pills flex-column">
+        {% for style in group_styles %}
+          <li class="nav-item">
+            <a class="nav-link p-1" href="#{{ style.id }}">{{ style.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+{% endif %}

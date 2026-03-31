@@ -1,0 +1,26 @@
+name: "Body scrolling"
+slots:
+  title: "Offcanvas with body scrolling"
+  body:
+    - type: html_tag
+      tag: p
+      value: "Try scrolling the rest of the page to see this option in action."
+props:
+  variant: start
+  scroll: true
+  backdrop: false
+  heading_level: 5
+library_wrapper: >
+  {% set offcanvas_id = offcanvas_id|default("offcanvas-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'offcanvas_id': offcanvas_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Enable body scrolling'|t,
+    'variant': 'primary',
+    'attributes': {
+      'data-bs-target': '#' ~ offcanvas_id,
+      'data-bs-toggle': 'offcanvas',
+      'aria-controls': offcanvas_id,
+      'aria-expanded': 'false',
+    },
+  }, with_context = false) }}
+  {{ _story|merge(props) }}

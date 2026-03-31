@@ -1,0 +1,12 @@
+name: "Color schemes"
+slots:
+  content: "Hello, world! This is a toast message."
+props:
+  attributes:
+    class:
+      - show
+      - align-items-center
+      - text-bg-primary
+      - border-0
+  flex_wrapper: true
+  close_button_variant: white

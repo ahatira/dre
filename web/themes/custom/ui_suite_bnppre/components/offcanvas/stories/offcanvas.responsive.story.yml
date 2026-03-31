@@ -1,0 +1,34 @@
+name: Responsive
+slots:
+  title: "Responsive offcanvas"
+  body:
+    - type: html_tag
+      tag: p
+      value: "This is content within an <code>.offcanvas-lg</code>."
+      attributes:
+        class:
+          - mb-0
+props:
+  variant: end
+  scroll: false
+  heading_level: 5
+  responsive: "offcanvas-lg"
+library_wrapper: >
+  {% set offcanvas_id = offcanvas_id|default("offcanvas-" ~ random()) %}
+  {% set props = {'#props': _story['#props']|merge({'offcanvas_id': offcanvas_id})} %}
+  {{ include('ui_suite_bnppre:button', {
+    'label': 'Toggle offcanvas'|t,
+    'variant': 'primary',
+    'attributes': {
+      'class': [
+        'd-lg-none',
+      ],
+      'data-bs-target': '#' ~ offcanvas_id,
+      'data-bs-toggle': 'offcanvas',
+      'aria-controls': offcanvas_id,
+      'aria-expanded': 'false',
+    },
+  }, with_context = false) }}
+
+  <div class="alert alert-info d-none d-lg-block">{{ 'Resize your browser to show the responsive offcanvas toggle.'|t }}</div>
+  {{ _story|merge(props) }}

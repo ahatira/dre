@@ -1,0 +1,24 @@
+{% if variant and variant != 'default' %}
+  {% set attributes = attributes.addClass('alert-' ~ variant) %}
+{% endif %}
+
+{% if dismissible %}
+  {% set attributes = attributes.addClass(['alert-dismissible', 'fade', 'show']) %}
+{% endif %}
+
+<div{{ attributes.addClass('alert').setAttribute('role', 'alert') }}>
+  {% if heading %}
+    {% set heading_level = heading_level|default(4) %}
+    {% set heading_attributes = create_attribute(heading_attributes|default({})) %}
+    <h{{ heading_level }}{{ heading_attributes.addClass('alert-heading') }}>{{ heading }}</h{{ heading_level }}>
+  {% endif %}
+  {{ message }}
+  {% if dismissible %}
+    {{ include('ui_suite_bnppre:close_button', {
+      attributes: {
+        'data-bs-dismiss': 'alert',
+      },
+      aria_label: 'Close'|t,
+    }, with_context = false) }}
+  {% endif %}
+</div>

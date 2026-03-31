@@ -1,0 +1,24 @@
+name: "Outlined styles"
+slots:
+  buttons:
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Left
+      props:
+        variant: outline_primary
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Middle
+      props:
+        variant: outline_primary
+    - type: component
+      component: "ui_suite_bnppre:button"
+      slots:
+        label: Right
+      props:
+        variant: outline_primary
+props:
+  variant: default
+  label: "Basic outlined example"

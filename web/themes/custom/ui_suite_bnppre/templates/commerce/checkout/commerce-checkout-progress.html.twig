@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the checkout progress.
+ *
+ * Available variables:
+ * - steps: An array of steps, where each step has the following keys:
+ *   - id: The step ID.
+ *   - label: The step label.
+ *   - position: 'previous', 'current' or 'next'.
+ *
+ * @ingroup themeable
+ */
+#}
+{# Prepare list group items. #}
+{% set items = [] %}
+{% for step in steps %}
+  {% set items = items|merge([{
+    '#type': 'component',
+    '#component': 'ui_suite_bnppre:list_group_item',
+    '#slots': {
+      'content': step.label,
+    },
+    '#props': {
+      'attributes': {
+        'class': [
+          'checkout-progress--step',
+          'checkout-progress--step__' ~ step.position,
+          'flex-fill',
+        ],
+      },
+      'variant': 'primary',
+    },
+  }]) %}
+{% endfor %}
+
+{{ include('ui_suite_bnppre:list_group', {
+  'items': items,
+  'attributes': {
+    'class': [
+      'checkout-progress',
+      'clearfix',
+    ],
+  },
+  'variant': 'numbered__horizontal',
+}, with_context = false) }}

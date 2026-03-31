@@ -1,0 +1,7 @@
+name: Default
+slots:
+  label: Submit
+props:
+  disabled: false
+  label_visually_hidden: false
+  url: "https://example.com"

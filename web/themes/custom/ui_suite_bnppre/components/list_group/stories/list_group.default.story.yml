@@ -1,0 +1,23 @@
+name: Default
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "An item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A second item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A third item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "A fourth item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      slots:
+        content: "And a fifth one"

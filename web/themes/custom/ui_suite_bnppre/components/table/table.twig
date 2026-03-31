@@ -1,0 +1,98 @@
+{% set attributes = attributes.addClass('table') %}
+{% if variant and variant != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'table-' ~ v})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+
+{% if stripes %}
+  {% for stripe in stripes %}
+    {% set attributes = attributes.addClass('table-' ~ stripe) %}
+  {% endfor %}
+{% endif %}
+
+{% set attributes = borders ? attributes.addClass('table-' ~ borders) : attributes %}
+{% set attributes = hover ? attributes.addClass('table-hover') : attributes %}
+{% set attributes = caption_top ? attributes.addClass('caption-top') : attributes %}
+{% set colgroups = colgroups and colgroups is not sequence ? [colgroups] : colgroups %}
+
+{% if responsive %}
+<div class="{{ 'table-' ~ responsive }}">
+{% endif %}
+
+<table{{ attributes }}>
+  {% if caption %}
+    <caption>{{ caption }}</caption>
+  {% endif %}
+
+  {% for colgroup in colgroups %}
+    {% if colgroup.cols %}
+      {% set colgroup_cols = colgroup.cols is sequence ? colgroup.cols : [colgroup.cols] %}
+      <colgroup{{ colgroup.attributes }}>
+        {% for col in colgroup_cols %}
+          <col{{ col.attributes }} />
+        {% endfor %}
+      </colgroup>
+    {% else %}
+      <colgroup{{ colgroup.attributes }} />
+    {% endif %}
+  {% endfor %}
+
+  {% if header %}
+    {% set thead_attributes = create_attribute({
+      'class': [
+        header_color ? 'table-' ~ header_color,
+        divider and 'thead' in divider ? 'table-group-divider',
+      ],
+    }) %}
+    <thead{{ thead_attributes }}>
+      {{ include('ui_suite_bnppre:table_row', {
+        'cells': header,
+      }, with_context = false) }}
+    </thead>
+  {% endif %}
+
+  {% if rows %}
+    {% set tbody_attributes = create_attribute({
+      'class': [
+        divider and 'tbody' in divider ? 'table-group-divider',
+      ],
+    }) %}
+    <tbody{{ tbody_attributes }}>
+      {{ rows }}
+    </tbody>
+  {% elseif empty %}
+    {% set tbody_attributes = create_attribute({
+      'class': [
+        divider and 'tbody' in divider ? 'table-group-divider',
+      ],
+    }) %}
+    <tbody{{ tbody_attributes }}>
+      {% set header_length = header ? header|length : 0 %}
+      {% set header_columns = header_columns|default(header_length) %}
+      {{ include('ui_suite_bnppre:table_row', {
+        'cells': include('ui_suite_bnppre:table_cell', {
+          'content': empty,
+          'attributes': {
+            'colspan': header_columns,
+          },
+        }, with_context = false),
+      }, with_context = false) }}
+    </tbody>
+  {% endif %}
+
+  {% if footer %}
+    {% set tfoot_attributes = create_attribute({
+      'class': [
+        footer_color ? 'table-' ~ footer_color,
+        divider and 'tfoot' in divider ? 'table-group-divider',
+      ],
+    }) %}
+    <tfoot{{ tfoot_attributes }}>
+      {{ footer }}
+    </tfoot>
+  {% endif %}
+</table>
+
+{% if responsive %}
+</div>
+{% endif %}

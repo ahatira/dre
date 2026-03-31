@@ -1,0 +1,39 @@
+name: "Tablet closed"
+description: "Tablet compact top bar, panel closed."
+slots:
+  brand:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+        class:
+          - navbar-brand
+      value: "BNP PARIBAS REAL ESTATE"
+  switcher:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+        class:
+          - ps-header-utility-link
+      value: "language_switcher"
+  navigation:
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        items:
+          - title: "primary_menu"
+            url: "#"
+  actions:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+        class:
+          - ps-header-utility-link
+      value: "search_block"
+props:
+  container_class: container-xxl
+  preview_mode: tablet
+  preview_open: false

@@ -1,0 +1,45 @@
+name: Default
+slots:
+  content:
+    - type: component
+      component: "ui_suite_bnppre:accordion_item"
+      slots:
+        title: "Accordion Item #1"
+        content:
+          type: html_tag
+          tag: p
+          value: "Mollis pretium lorem primis senectus habitasse lectus scelerisque donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat pellentesque, consectetur mi risus molestie curae malesuada cum. Dignissim lacus convallis massa mauris enim ad mattis magnis senectus montes, mollis taciti phasellus accumsan bibendum semper blandit suspendisse faucibus nibh est, metus lobortis morbi cras magna vivamus per risus fermentum."
+      props:
+        opened: true
+    - type: component
+      component: "ui_suite_bnppre:accordion_item"
+      slots:
+        title: "Accordion Item #2"
+        content:
+          type: html_tag
+          tag: p
+          value: "Mollis pretium lorem primis senectus habitasse lectus scelerisque donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat pellentesque, consectetur mi risus molestie curae malesuada cum. Dignissim lacus convallis massa mauris enim ad mattis magnis senectus montes, mollis taciti phasellus accumsan bibendum semper blandit suspendisse faucibus nibh est, metus lobortis morbi cras magna vivamus per risus fermentum."
+      props:
+        opened: false
+    - type: component
+      component: "ui_suite_bnppre:accordion_item"
+      slots:
+        title: "Accordion Item #3"
+        content:
+          type: html_tag
+          tag: p
+          value: "Mollis pretium lorem primis senectus habitasse lectus scelerisque donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat pellentesque, consectetur mi risus molestie curae malesuada cum. Dignissim lacus convallis massa mauris enim ad mattis magnis senectus montes, mollis taciti phasellus accumsan bibendum semper blandit suspendisse faucibus nibh est, metus lobortis morbi cras magna vivamus per risus fermentum."
+      props:
+        opened: false
+    - type: component
+      component: "ui_suite_bnppre:accordion_item"
+      slots:
+        title: "Accordion Item #4"
+        content:
+          type: html_tag
+          tag: p
+          value: "Mollis pretium lorem primis senectus habitasse lectus scelerisque donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat pellentesque, consectetur mi risus molestie curae malesuada cum. Dignissim lacus convallis massa mauris enim ad mattis magnis senectus montes, mollis taciti phasellus accumsan bibendum semper blandit suspendisse faucibus nibh est, metus lobortis morbi cras magna vivamus per risus fermentum."
+      props:
+        opened: false
+props:
+  keep_open: false

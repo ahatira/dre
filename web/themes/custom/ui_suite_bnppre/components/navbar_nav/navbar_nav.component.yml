@@ -1,0 +1,24 @@
+name: "(Navbar nav)"
+description: "Internal: to be used in the 'Navbar' component."
+group: Navbar
+links:
+  - "https://getbootstrap.com/docs/5.3/components/navbar/"
+variants:
+  default:
+    title: Default
+  scroll:
+    title: Scroll
+props:
+  type: object
+  properties:
+    dropdown_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    items:
+      title: "Menu items"
+      description: "Full-height and lightweight navigation (including support for dropdowns)."
+      $ref: "ui-patterns://links"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

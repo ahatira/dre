@@ -1,0 +1,22 @@
+name: "Background colors"
+library_wrapper: >
+  {% set colors = [
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark',
+  ] %}
+  {% for color in colors %}
+    {% set color_props = {'#props': _story['#props']|merge({'attributes': create_attribute({
+      class: ['text-bg-' ~ color]
+    })})} %}
+    {% set color_slots = {'#slots': _story['#slots']|merge({
+      'label': color|capitalize,
+    })} %}
+    {% set color_story = _story %}
+    {{ color_story|merge(color_props)|merge(color_slots) }}
+  {% endfor %}

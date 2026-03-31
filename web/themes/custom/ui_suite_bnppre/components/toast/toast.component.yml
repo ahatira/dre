@@ -1,0 +1,60 @@
+name: Toast
+description: "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message."
+group: Toast
+links:
+  - "https://getbootstrap.com/docs/5.3/components/toast/"
+slots:
+  header:
+    title: Header
+    description: "Toast header."
+  content:
+    title: "Content toast"
+    description: "The toast item content."
+props:
+  type: object
+  properties:
+    delay:
+      title: "Hide delay"
+      description: "The duration before automatically hide the toast. In ms. 0 to disable the automatic hide."
+      type: number
+      default: 5000
+    role:
+      title: Role
+      description: "Adapt the role level depending on the content. If it’s an important message like an error, use alert, otherwise use status."
+      type: string
+      enum:
+        - alert
+        - status
+        - log
+      "meta:enum":
+        alert: "Alert (Default)"
+        status: Status
+        log: Log
+    flex_wrapper:
+      title: "Add inside flex wrapper"
+      description: "Add a flex wrapper inside the toast, see https://getbootstrap.com/docs/5.3/components/toasts/#custom-content. Default: false"
+      type: boolean
+    hide_close_button:
+      title: "Hide close button"
+      description: "If checked, you will have to provide a close button in another way. Default: false"
+      type: boolean
+    close_button_variant:
+      title: "Close button variant"
+      type: string
+      enum:
+        - default
+        - white
+      "meta:enum":
+        default: "Default (Default)"
+        white: White
+    header_attributes:
+      title: "Header attributes"
+      description: "The attributes to customize the toast header if present."
+      $ref: "ui-patterns://attributes"
+    body_attributes:
+      title: "Body attributes"
+      description: "The attributes to customize the toast body if present."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

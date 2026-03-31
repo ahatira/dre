@@ -1,0 +1,81 @@
+bootstrap:
+  label: "Bootstrap"
+  description: "Bootstrap icons from SVG files."
+  links:
+    - https://icons.getbootstrap.com/#usage
+  license:
+    name: MIT
+    url: https://github.com/twbs/icons/blob/main/LICENSE
+    gpl-compatible: true
+  extractor: svg
+  config:
+    sources:
+      - /libraries/bootstrap-icons/icons/{icon_id}.svg
+  settings:
+    size:
+      title: "Size"
+      description: "You need to specify the size unit (px, em or other). Default value is 32px."
+      type: "string"
+      default: "32px"
+    color:
+      title: "Color"
+      type: "string"
+    alt:
+      title: "Alt text"
+      description: "Accessibility alternative text, leave empty for decorative icon."
+      type: "string"
+  template: >-
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="bi bi-{{ icon_id }}"
+      style="width:{{ size|default('32px') }};height:{{ size|default('32px') }};"
+      fill="{{ color|default('currentColor') }}"
+      viewBox="0 0 16 16"
+      {% if alt is empty %}
+        aria-hidden="true"
+      {% else %}
+        aria-label="{{ alt }}"
+      {% endif %}
+    >
+      {{ content }}
+    </svg>
+
+bnppre:
+  label: "BNPPRE Icons"
+  description: "Custom BNPPRE icons (132 icons, 12 categories)."
+  license:
+    name: Proprietary
+    url: https://www.bnpparibas-realestate.com
+    gpl-compatible: false
+  extractor: svg
+  config:
+    sources:
+      - assets/icons/{group}/*.svg
+  settings:
+    size:
+      title: "Size"
+      description: "You need to specify the size unit (px, em or other). Default value is 24px."
+      type: "string"
+      default: "24px"
+    color:
+      title: "Color"
+      type: "string"
+    alt:
+      title: "Alt text"
+      description: "Accessibility alternative text, leave empty for decorative icon."
+      type: "string"
+  template: >-
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="rei rei-{{ icon_id|clean_class }}"
+      style="width:{{ size|default('24px') }};height:{{ size|default('24px') }};"
+      fill="{{ color|default('currentColor') }}"
+      viewBox="0 0 24 24"
+      {% if alt is empty %}
+        aria-hidden="true"
+      {% else %}
+        aria-label="{{ alt }}"
+      {% endif %}
+    >
+      {{ content }}
+    </svg>

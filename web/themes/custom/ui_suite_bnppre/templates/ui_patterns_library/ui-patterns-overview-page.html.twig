@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * UI Pattern library page template, override this in your theme.
+ */
+#}
+
+{% if groups is not empty %}
+  {{ include('ui_suite_bnppre:button', {
+    label: 'Navigation'|t,
+    variant: 'primary',
+    attributes: {
+      'data-bs-toggle': 'offcanvas',
+      'data-bs-target': '#menu-patterns',
+      'aria-controls': 'menu-patterns',
+      'class': [
+        'position-fixed',
+        'bottom-0',
+        'end-0',
+        'mb-2',
+        'me-2',
+      ],
+    },
+  }, with_context = false) }}
+
+  {{ include('ui_suite_bnppre:offcanvas', {
+    title: 'Available components'|t,
+    body: include('ui-patterns-overview-quicklinks.html.twig', {groups: groups}, with_context=false),
+    variant: 'start',
+    offcanvas_id: 'menu-patterns',
+    backdrop: 'false',
+    scroll: true,
+    heading_level: 2,
+  }, with_context = false) }}
+
+  <div class="row">
+    <div data-bs-spy="scroll" data-bs-target="#components-library" data-bs-smooth-scroll="true" tabindex="0" class="col col-12">
+      {% for components in groups %}
+        {% for component in components %}
+          <div class="ui_patterns_component" id="{{ component.id|clean_id }}">
+            <h2 class="ui_patterns_component__title my-3">
+              <a href="{{ url('ui_patterns_library.single', {provider: component.provider, machineName: component.machineName}) }}"
+                 class="component__link display-3">{{ component.name }}</a>
+            </h2>
+            {{ include('ui-patterns-component-metadata.html.twig', {component: component}, with_context=false) }}
+            {% if component.stories %}
+              {{ include('ui-patterns-stories-compact.html.twig', {component: component}, with_context: false) }}
+            {% endif %}
+          </div>
+          <hr class="my-4">
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,57 @@
+{% if variant and variant != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'carousel-' ~ v})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+{% set attributes = 'dark' in variant ? attributes.setAttribute('data-bs-theme', 'dark') : attributes %}
+
+{% if not with_touch %}
+  {% set attributes = attributes.setAttribute('data-bs-touch', 'false') %}
+{% endif %}
+
+{% set interval = interval|default(5000) %}
+{% set autoplay_mode = autoplay_mode|default('carousel') %}
+{% if interval == 0 %}
+  {% set interval = 'false' %}
+  {% set autoplay_mode = false %}
+{% endif %}
+{% set attributes = attributes.setAttribute('data-bs-interval', interval) %}
+{% set attributes = attributes.setAttribute('data-bs-ride', autoplay_mode) %}
+{% set carousel_id = carousel_id|default("carousel-" ~ random()) %}
+{% set slides = slides and slides is not sequence ? [slides] : slides %}
+
+{% if slides %}
+  <div{{ attributes.addClass('carousel').addClass('slide').setAttribute('id', carousel_id) }}>
+
+    {% if with_indicators %}
+    <div class="carousel-indicators">
+      {% for i in range(1, slides|length) %}
+      <button type="button"
+              data-bs-target="#{{ carousel_id }}"
+              data-bs-slide-to="{{ loop.index0 }}"
+              aria-label="{{ 'Slide @slide_number'|t({'@slide_number': i}) }}"
+        {% if loop.first %}
+        class="active"
+        aria-current="true"
+        {% endif %}>
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="carousel-inner">
+      {{ slides }}
+    </div>
+
+    {% if with_controls %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">{{ 'Previous'|t }}</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">{{ 'Next'|t }}</span>
+    </button>
+    {% endif %}
+
+  </div>
+{% endif %}

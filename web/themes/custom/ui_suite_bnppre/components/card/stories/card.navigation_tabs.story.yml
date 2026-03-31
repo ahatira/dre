@@ -1,0 +1,41 @@
+name: "Navigation: tabs"
+slots:
+  header:
+    - type: component
+      component: "ui_suite_bnppre:nav"
+      props:
+        variant: tabs
+        nav_type: ul
+        card_header: true
+        items:
+          - url: "#"
+            title: Active
+            link_attributes:
+              class:
+                - active
+          - url: "#"
+            title: Link
+          - url: "#"
+            title: Disabled
+            link_attributes:
+              class:
+                - disabled
+  content:
+    - type: component
+      component: "ui_suite_bnppre:card_body"
+      slots:
+        title: "Special title treatment"
+        text: "With supporting text below as a natural lead-in to additional content."
+        content:
+          type: component
+          component: "ui_suite_bnppre:button"
+          slots:
+            label: "Go somewhere"
+          props:
+            variant: primary
+            url: "#"
+props:
+  variant: default
+  attributes:
+    class:
+      - text-center

@@ -1,0 +1,34 @@
+name: Directions
+slots:
+  title: "Long button label"
+props:
+  attributes:
+    class:
+      - m-1
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+    - {}
+    - title: "Separated link"
+      url: "#"
+  button_variant: secondary
+library_wrapper: >
+  {% set splits = [
+      false,
+      true,
+    ] %}
+
+  <div class="d-inline-flex">
+  {% for split in splits %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'button_split': split,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props) }}
+  {% endfor %}
+  </div>

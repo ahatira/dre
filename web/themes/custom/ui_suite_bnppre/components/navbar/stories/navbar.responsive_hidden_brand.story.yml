@@ -1,0 +1,38 @@
+name: "Responsive behaviors: hidden brand"
+slots:
+  navigation_collapsible:
+    - type: html_tag
+      tag: a
+      attributes:
+        href: "#"
+        class:
+          - navbar-brand
+      value: "Hidden brand"
+    - type: component
+      component: "ui_suite_bnppre:navbar_nav"
+      props:
+        variant: default
+        attributes:
+          class:
+            - me-auto
+            - mb-2
+            - mb-lg-0
+        items:
+          - title: Home
+            url: "#"
+            link_attributes:
+              class:
+                - active
+          - title: Link
+            url: "#"
+          - title: Disabled
+            url: "#"
+            link_attributes:
+              class:
+                - disabled
+props:
+  variant: expand_lg
+  attributes:
+    class:
+      - bg-body-tertiary
+  toggler_position: end

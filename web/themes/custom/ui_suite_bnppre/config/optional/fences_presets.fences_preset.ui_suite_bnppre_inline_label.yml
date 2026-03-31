@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ui_suite_bnppre_inline_label
+label: 'UI Suite Bootstrap: Inline label'
+description: 'Arranges the field name next to the field value with UI Suite Bootstrap.'
+field_tag: div
+field_classes: clearfix
+field_items_wrapper_tag: div
+field_items_wrapper_classes: float-start
+field_item_tag: div
+field_item_classes: ''
+label_tag: div
+label_classes: 'fw-bold pe-2 float-start'

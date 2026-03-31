@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation for displaying a tablesort indicator.
+ *
+ * Available variables:
+ * - style: Either 'asc' or 'desc', indicating the sorting direction.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if style == 'asc' -%}
+  {{ icon('bootstrap', 'sort-down', {
+    'size': '1em',
+    'alt': 'Sort ascending'|t,
+  }) }}
+{% else -%}
+  {{ icon('bootstrap', 'sort-down-alt', {
+    'size': '1em',
+    'alt': 'Sort descending'|t,
+  }) }}
+{% endif %}

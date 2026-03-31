@@ -1,0 +1,54 @@
+{% if variant and variant != 'default' %}
+  {% set attributes = attributes.addClass('navbar-nav-' ~ variant) %}
+{% endif %}
+
+{% set attributes = attributes.addClass('navbar-nav') %}
+{% set list_opened = false %}
+
+{% if items %}
+  {% for item in items %}
+    {#
+    When finding a text item. it should be outside the list. So handle text
+    items by opening/closing lists around if needed.
+    #}
+    {% set item_is_link = false %}
+    {% if item.below or item.url %}
+      {% set item_is_link = true %}
+    {% endif %}
+
+    {% if item_is_link and not list_opened %}
+      {% set list_opened = true %}
+      <ul{{ attributes }}>
+    {% elseif not item_is_link and list_opened %}
+      {% set list_opened = false %}
+      </ul>
+    {% endif %}
+
+    {% set item_attributes = create_attribute(item.attributes|default({})) %}
+    {% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+    {% if item.below %}
+      {{ include('ui_suite_bnppre:dropdown', {
+        'title': item.title,
+        'attributes': {
+          'class': ['nav-item'],
+        },
+        'variant': 'dropdown',
+        'auto_close': 'true',
+        'button_attributes': link_attributes,
+        'content': item.below,
+        'dropdown_id': dropdown_id|default("dropdown-" ~ random())  ~ "-" ~ loop.index,
+        'dropdown_navbar': true,
+      }, with_context = false) }}
+    {% elseif item.url %}
+      <li{{ item_attributes.addClass('nav-item') }}>
+        <a{{ link_attributes.setAttribute('href', item.url).addClass('nav-link') }}>{{ item.title }}</a>
+      </li>
+    {% else %}
+      <span{{ link_attributes.addClass('navbar-text') }}>{{ item.title }}</span>
+    {% endif %}
+
+    {% if loop.last and list_opened %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+{% endif %}

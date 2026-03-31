@@ -1,0 +1,33 @@
+name: Default
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:progress"
+      props:
+        aria_label: "Segment one"
+        percent: 15
+        min: 0
+        max: 100
+        stacked: true
+    - type: component
+      attributes:
+        class:
+          - bg-success
+      component: "ui_suite_bnppre:progress"
+      props:
+        aria_label: "Segment two"
+        percent: 30
+        min: 0
+        max: 100
+        stacked: true
+    - type: component
+      attributes:
+        class:
+          - bg-info
+      component: "ui_suite_bnppre:progress"
+      props:
+        aria_label: "Segment three"
+        percent: 20
+        min: 0
+        max: 100
+        stacked: true

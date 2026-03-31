@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if breadcrumb %}
+  {{ include('ui_suite_bnppre:breadcrumb', {
+    'items': breadcrumb,
+  }, with_context = false) }}
+{% endif %}

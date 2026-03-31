@@ -1,0 +1,68 @@
+name: "Color variants with links"
+slots:
+  items:
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: default
+        url: "#"
+      slots:
+        content: "A simple default list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: primary
+        url: "#"
+      slots:
+        content: "A simple primary list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: secondary
+        url: "#"
+      slots:
+        content: "A simple secondary list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: success
+        url: "#"
+      slots:
+        content: "A simple success list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: danger
+        url: "#"
+      slots:
+        content: "A simple danger list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: warning
+        url: "#"
+      slots:
+        content: "A simple warning list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: info
+        url: "#"
+      slots:
+        content: "A simple info list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: light
+        url: "#"
+      slots:
+        content: "A simple light list group item"
+    - type: component
+      component: "ui_suite_bnppre:list_group_item"
+      props:
+        variant: dark
+        url: "#"
+      slots:
+        content: "A simple dark list group item"
+props:
+  variant: default

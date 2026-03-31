@@ -1,0 +1,41 @@
+{% set item_id = item_id|default("accordion-item-" ~ random()) %}
+
+{% set heading_level = heading_level|default(2) %}
+{% set button_attributes = create_attribute(button_attributes|default({})) %}
+{% set button_attributes = button_attributes.addClass(['accordion-button', 'collapsed']) %}
+{% set button_attributes = button_attributes.setAttribute('type', 'button') %}
+{% set button_attributes = button_attributes.setAttribute('data-bs-toggle', 'collapse') %}
+{% set button_attributes = button_attributes.setAttribute('data-bs-target', '#' ~ item_id) %}
+{% set button_attributes = button_attributes.setAttribute('aria-controls', item_id) %}
+{% set button_attributes = button_attributes.setAttribute('aria-expanded', 'false') %}
+
+{%
+set content_attributes = create_attribute({
+  'id': item_id,
+  'class': [
+    'accordion-collapse',
+    'collapse',
+    'js-accordion-keep-open',
+  ],
+  'aria-labelledby': 'heading--' ~ item_id,
+})
+%}
+
+{% if opened %}
+  {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'true') %}
+  {% set button_attributes = button_attributes.removeClass('collapsed') %}
+  {% set content_attributes = content_attributes.addClass('show') %}
+{% endif %}
+
+<div{{ attributes.addClass('accordion-item') }}>
+  <h{{ heading_level }} class="accordion-header" id="heading--{{ item_id }}">
+    <button{{ button_attributes }}>
+      {{ title }}
+    </button>
+  </h{{ heading_level }}>
+  <div{{ content_attributes }}>
+    <div class="accordion-body">
+      {{ content }}
+    </div>
+  </div>
+</div>

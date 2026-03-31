@@ -1,0 +1,6 @@
+name: "Default"
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "A well-known quote, contained in a blockquote element."
