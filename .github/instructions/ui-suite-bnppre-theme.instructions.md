@@ -27,9 +27,12 @@ applyTo: "web/themes/custom/ui_suite_bnppre/**"
 
 ## Reference Docs
 
-- Build strategy: `web/themes/custom/ui_suite_bnppre/docs/build-assets-strategy.md`
-- Icons contract: `web/themes/custom/ui_suite_bnppre/docs/bnppre-icons-contract.md`
-- Libraries overrides quick reference: `web/themes/custom/ui_suite_bnppre/docs/libraries-override-quick-reference.md`
-- Libraries overrides audit: `web/themes/custom/ui_suite_bnppre/docs/audit-libraries-override.md`
-- CSS variants governance: `web/themes/custom/ui_suite_bnppre/docs/css-variants-governance.md`
+- Developer docs index: `web/themes/custom/ui_suite_bnppre/docs/README.md`
+- Architecture (regions, dependencies, CSS variants): `web/themes/custom/ui_suite_bnppre/docs/architecture.md`
+- Build workflow and SCSS layers: `web/themes/custom/ui_suite_bnppre/docs/development-workflow.md`
+- PHP Hook classes and DI patterns: `web/themes/custom/ui_suite_bnppre/docs/php-hooks.md`
+- Twig templates inventory: `web/themes/custom/ui_suite_bnppre/docs/templates.md`
+- UI Patterns component system: `web/themes/custom/ui_suite_bnppre/docs/components.md`
+- Library system and override audit: `web/themes/custom/ui_suite_bnppre/docs/libraries.md`
+- BNPPRE icon pack contract: `web/themes/custom/ui_suite_bnppre/docs/icons.md`
 - Theme roadmap: `web/themes/custom/ui_suite_bnppre/REFACTO.md`

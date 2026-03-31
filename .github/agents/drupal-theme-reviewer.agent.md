@@ -27,9 +27,9 @@ Your job is to review changes under `web/themes/custom/ui_suite_bnppre/` with pr
    - `templates/**` and `components/**`
    - `assets/scss/**`, `assets/css/**`, and component style outputs
 3. Cross-check against repository docs when relevant:
-   - `web/themes/custom/ui_suite_bnppre/docs/libraries-override-quick-reference.md`
-   - `web/themes/custom/ui_suite_bnppre/docs/audit-libraries-override.md`
-   - `web/themes/custom/ui_suite_bnppre/docs/build-assets-strategy.md`
+   - `web/themes/custom/ui_suite_bnppre/docs/libraries.md`
+   - `web/themes/custom/ui_suite_bnppre/docs/development-workflow.md`
+   - `web/themes/custom/ui_suite_bnppre/docs/README.md`
    - `web/themes/custom/ui_suite_bnppre/REFACTO.md`
 4. Classify issues by severity and explain impact and likely fix.
 
