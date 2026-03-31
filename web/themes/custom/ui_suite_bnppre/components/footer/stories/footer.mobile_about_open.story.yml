@@ -1,77 +1,7 @@
 name: "Mobile about open"
 description: "Mobile footer with About column opened."
 slots:
-  top:
-    - type: html_tag
-      tag: div
-      attributes:
-        class:
-          - block
-      value:
-        - type: html_tag
-          tag: h2
-          value: "Contact us"
-        - type: html_tag
-          tag: p
-          value: "City 1 : +32 2 646 49 49"
-        - type: html_tag
-          tag: p
-          value: "City 2 : +32 2 646 49 49"
-        - type: html_tag
-          tag: p
-          value: "bnppre.belgium@bnpparibas.com"
-    - type: html_tag
-      tag: div
-      attributes:
-        class:
-          - block
-      value:
-        - type: html_tag
-          tag: h2
-          value: "Business websites"
-        - type: html_tag
-          tag: ul
-          attributes:
-            class:
-              - menu
-          value:
-            - type: html_tag
-              tag: li
-              value: "<a href='#'>Link</a>"
-            - type: html_tag
-              tag: li
-              value: "<a href='#'>Link</a>"
-    - type: html_tag
-      tag: div
-      attributes:
-        class:
-          - block
-          - is-open
-      value:
-        - type: html_tag
-          tag: h2
-          value: "About BNP Paribas Real Estate"
-        - type: html_tag
-          tag: ul
-          attributes:
-            class:
-              - menu
-          value:
-            - type: html_tag
-              tag: li
-              value: "<a href='#'>Link</a>"
-            - type: html_tag
-              tag: li
-              value: "<a href='#'>Link</a>"
-            - type: html_tag
-              tag: li
-              value: "<a href='#'>Link</a>"
-  bottom:
-    - type: html_tag
-      tag: div
-      attributes:
-        class:
-          - block
-      value: "<strong>BNP PARIBAS REAL ESTATE</strong>"
+  top: "<div class='block'><h2>Contact us</h2><p>City 1 : +32 2 646 49 49</p><p>City 2 : +32 2 646 49 49</p><p>bnppre.belgium@bnpparibas.com</p></div><div class='block'><h2>Business websites</h2><ul class='menu'><li><a href='#'>Link</a></li><li><a href='#'>Link</a></li></ul></div><div class='block is-open'><h2>About BNP Paribas Real Estate</h2><ul class='menu'><li><a href='#'>Link</a></li><li><a href='#'>Link</a></li><li><a href='#'>Link</a></li></ul></div>"
+  bottom: "<div class='block'><strong>BNP PARIBAS REAL ESTATE</strong></div>"
 props:
   container_class: container
