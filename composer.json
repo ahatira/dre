@@ -32,6 +32,7 @@
         "drupal/gin_login": "^2.1",
         "drupal/gin_toolbar": "^3.0",
         "drupal/honeypot": "^2.2",
+        "drupal/languageicons": "@dev",
         "drupal/link_attributes": "^2.1",
         "drupal/metatag": "^2.2",
         "drupal/paragraphs": "^1.20",

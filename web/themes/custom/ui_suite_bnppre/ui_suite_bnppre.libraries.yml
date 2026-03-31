@@ -217,3 +217,11 @@ framework_css_bnppre_ps:
     theme:
       assets/css/styles-ps.css: {}
 
+header:
+  js:
+    components/header/js/header.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+
