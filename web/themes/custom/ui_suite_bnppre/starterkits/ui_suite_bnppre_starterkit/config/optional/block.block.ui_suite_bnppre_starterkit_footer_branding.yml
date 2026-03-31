@@ -1,24 +1,22 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.footer
   module:
     - system
   theme:
     - ui_suite_bnppre_starterkit
-id: ui_suite_bnppre_starterkit_footer
+id: ui_suite_bnppre_starterkit_footer_branding
 theme: ui_suite_bnppre_starterkit
 region: footer_bottom
-weight: 0
+weight: -20
 provider: null
-plugin: 'system_menu_block:footer'
+plugin: system_branding_block
 settings:
-  id: 'system_menu_block:footer'
-  label: 'Footer menu'
+  id: system_branding_block
+  label: 'Footer branding'
   label_display: '0'
   provider: system
-  level: 1
-  depth: 0
-  expand_all_items: false
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
 visibility: {  }

@@ -23,7 +23,9 @@ regions:
   content: 'Content'
   sidebar_first: 'Primary'
   sidebar_second: 'Secondary'
-  footer: 'Footer'
+  footer_top: 'Footer Top'
+  footer_bottom: 'Footer Bottom'
+  footer: 'Footer (Legacy)'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
 

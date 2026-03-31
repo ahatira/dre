@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.footer
+    - system.menu.main
   module:
     - system
   theme:
     - ui_suite_bnppre
-id: ui_suite_bnppre_footer
+id: ui_suite_bnppre_footer_top_business
 theme: ui_suite_bnppre
-region: footer_bottom
-weight: 0
+region: footer_top
+weight: 10
 provider: null
-plugin: 'system_menu_block:footer'
+plugin: 'system_menu_block:main'
 settings:
-  id: 'system_menu_block:footer'
-  label: 'Footer menu'
-  label_display: '0'
+  id: 'system_menu_block:main'
+  label: 'Business websites'
+  label_display: visible
   provider: system
   level: 1
-  depth: 0
+  depth: 1
   expand_all_items: false
 visibility: {  }

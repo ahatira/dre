@@ -1,0 +1,73 @@
+name: "Mobile collapsed"
+description: "Mobile footer where secondary columns are collapsed by default."
+slots:
+  top:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "Contact us"
+        - type: html_tag
+          tag: p
+          value: "City 1 : +32 2 646 49 49"
+        - type: html_tag
+          tag: p
+          value: "City 2 : +32 2 646 49 49"
+        - type: html_tag
+          tag: p
+          value: "bnppre.belgium@bnpparibas.com"
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "Business websites"
+        - type: html_tag
+          tag: ul
+          attributes:
+            class:
+              - menu
+          value:
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "About BNP Paribas Real Estate"
+        - type: html_tag
+          tag: ul
+          attributes:
+            class:
+              - menu
+          value:
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+  bottom:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value: "<strong>BNP PARIBAS REAL ESTATE</strong>"
+props:
+  container_class: container

@@ -1,0 +1,25 @@
+name: 'Footer'
+description: 'BNP Paribas Real Estate footer with dynamic top columns and a consolidated bottom strip.'
+group: 'PS Theme'
+slots:
+  top:
+    title: Top
+    description: 'Footer top area. Place multiple blocks; each block becomes a column on desktop.'
+  bottom:
+    title: Bottom
+    description: 'Footer bottom area. Intended for logo + legal/navigation blocks.'
+props:
+  type: object
+  properties:
+    container_class:
+      title: Container class
+      description: 'Footer container wrapper class.'
+      type: string
+      enum:
+        - container
+        - container-fluid
+        - container-xxl
+      "meta:enum":
+        container: Container
+        container-fluid: Container fluid
+        container-xxl: Container XXL

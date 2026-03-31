@@ -225,3 +225,10 @@ header:
     - core/once
     - core/drupalSettings
 
+footer:
+  js:
+    components/footer/js/footer.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+

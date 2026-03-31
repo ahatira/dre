@@ -145,8 +145,13 @@
   }, with_context: false) }}
 {% endif %}
 
-{% if page.footer %}
-	<footer class="border-top mt-3 pt-3 {{ container }}" role="contentinfo">
-		{{ page.footer }}
-	</footer>
+{% set footer_top = page.footer_top|default(page.footer) %}
+{% set footer_bottom = page.footer_bottom|default('') %}
+
+{% if footer_top or footer_bottom %}
+	{{ include('ui_suite_bnppre:footer', {
+    top: footer_top,
+    bottom: footer_bottom,
+    container_class: container,
+  }, with_context = false) }}
 {% endif %}

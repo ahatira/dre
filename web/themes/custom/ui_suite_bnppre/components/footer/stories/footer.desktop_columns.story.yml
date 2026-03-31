@@ -1,0 +1,100 @@
+name: "Desktop columns"
+description: "Footer desktop with 3 top columns and a legal bottom strip."
+slots:
+  top:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "Contact us"
+        - type: html_tag
+          tag: p
+          value: "City 1 : +32 2 646 49 49"
+        - type: html_tag
+          tag: p
+          value: "City 2 : +32 2 646 49 49"
+        - type: html_tag
+          tag: p
+          value: "bnppre.belgium@bnpparibas.com"
+        - type: html_tag
+          tag: h3
+          attributes:
+            class:
+              - ps-footer-contact__social-title
+          value: "Suivez-nous"
+        - type: html_tag
+          tag: p
+          value: "LinkedIn · X"
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "Business websites"
+        - type: html_tag
+          tag: ul
+          attributes:
+            class:
+              - menu
+          value:
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value:
+        - type: html_tag
+          tag: h2
+          value: "About BNP Paribas Real Estate"
+        - type: html_tag
+          tag: ul
+          attributes:
+            class:
+              - menu
+          value:
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+            - type: html_tag
+              tag: li
+              value: "<a href='#'>Link</a>"
+  bottom:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value: "<strong>BNP PARIBAS REAL ESTATE</strong>"
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - block
+      value: "<ul class='menu'><li><a href='#'>Data protection</a></li><li><a href='#'>Cookie policy</a></li><li><a href='#'>Disclaimer</a></li><li><a href='#'>Sitemap</a></li></ul>"
+props:
+  container_class: container-xxl

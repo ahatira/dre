@@ -1,0 +1,237 @@
+// =============================================================================
+// PS Footer component
+// =============================================================================
+
+.ps-footer {
+  margin-top: 2.5rem;
+
+  &__top {
+    background-color: $bnppre-gray-7;
+    border-top: 1px solid $bnppre-gray-5;
+    border-bottom: 1px solid $bnppre-gray-5;
+    padding: 2.75rem 0 2.25rem;
+  }
+
+  &__top-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+
+    > .block {
+      min-width: 0;
+      margin: 0;
+    }
+
+    .block > h2,
+    .block > .block-title {
+      margin: 0 0 1rem;
+      color: $bnppre-gray-1;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 2vw, 2.2rem);
+      line-height: 1.15;
+    }
+
+    p,
+    li,
+    a,
+    .field,
+    .menu-item {
+      color: $bnppre-gray-1;
+      font-size: 1.05rem;
+      line-height: 1.45;
+    }
+
+    .menu {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu li + li {
+      margin-top: .6rem;
+    }
+
+    .ps-footer-contact {
+      display: grid;
+      gap: .55rem;
+    }
+
+    .ps-footer-contact__line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      align-items: baseline;
+    }
+
+    .ps-footer-contact__line--email {
+      margin-top: .4rem;
+    }
+
+    .ps-footer-contact__social-title {
+      margin: 1.5rem 0 .4rem;
+      font-size: clamp(1.4rem, 1.7vw, 1.9rem);
+      line-height: 1.2;
+    }
+
+    .ps-footer-contact__social {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .ps-footer-contact__social-link {
+      font-weight: 600;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      color: $bnppre-primary;
+      text-decoration: underline;
+    }
+
+    .ps-footer__accordion-trigger {
+      display: none;
+    }
+  }
+
+  &__bottom {
+    background-color: $bnppre-white;
+    border-top: 1px solid $bnppre-gray-5;
+    padding: 1.5rem 0;
+  }
+
+  &__bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2rem;
+
+    > .block {
+      margin: 0;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5rem 1.6rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu a {
+      color: $bnppre-gray-1;
+      text-decoration: none;
+    }
+
+    .menu a:hover,
+    .menu a:focus {
+      color: $bnppre-primary;
+      text-decoration: underline;
+    }
+
+    .site-logo img {
+      display: block;
+      max-height: 2.25rem;
+      width: auto;
+    }
+
+    .site-name {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .ps-footer {
+    margin-top: 1.5rem;
+
+    &__top {
+      padding: 1.5rem 0;
+    }
+
+    &__top-inner {
+      display: block;
+
+      > .block {
+        padding: 0;
+      }
+
+      > .block + .block {
+        margin-top: 1.25rem;
+      }
+
+      .block > h2,
+      .block > .block-title {
+        margin-bottom: .75rem;
+        font-size: clamp(2rem, 8vw, 2.4rem);
+      }
+
+      .ps-footer__accordion-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+        margin: 0;
+        padding: .5rem 0;
+        border: 0;
+        background: transparent;
+        color: $bnppre-gray-1;
+        text-align: left;
+      }
+
+      .ps-footer__accordion-label {
+        font-size: clamp(2rem, 8vw, 2.4rem);
+        font-weight: 700;
+        line-height: 1.15;
+      }
+
+      .ps-footer__accordion-icon {
+        width: .9rem;
+        height: .9rem;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg);
+        transition: transform .2s ease;
+      }
+
+      .block.is-open .ps-footer__accordion-icon {
+        transform: rotate(-135deg);
+      }
+
+      .ps-footer__accordion-body {
+        padding-top: .5rem;
+      }
+
+      .ps-footer-contact__social-title {
+        margin-top: 1.1rem;
+      }
+    }
+
+    &__bottom {
+      padding: 1rem 0 1.5rem;
+    }
+
+    &__bottom-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .menu {
+        display: block;
+      }
+
+      .menu li + li {
+        margin-top: .8rem;
+      }
+    }
+  }
+}

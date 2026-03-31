@@ -1,0 +1,23 @@
+{{ attach_library('ui_suite_bnppre/footer') }}
+
+{% set top_content = top|default('')|render %}
+{% set bottom_content = bottom|default('')|render %}
+{% set container_class = container_class|default('container') %}
+
+<footer class="ps-footer" role="contentinfo">
+  {% if top_content|trim is not empty %}
+    <div class="ps-footer__top">
+      <div class="{{ container_class }} ps-footer__top-inner" data-ps-footer-top>
+        {{ top_content }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if bottom_content|trim is not empty %}
+    <div class="ps-footer__bottom">
+      <div class="{{ container_class }} ps-footer__bottom-inner">
+        {{ bottom_content }}
+      </div>
+    </div>
+  {% endif %}
+</footer>
