@@ -1,7 +1,0 @@
-name: "Mobile collapsed"
-description: "Mobile footer where secondary columns are collapsed by default."
-slots:
-  top: "<div class='block'><h2>Contact us</h2><p>City 1 : +32 2 646 49 49</p><p>City 2 : +32 2 646 49 49</p><p>bnppre.belgium@bnpparibas.com</p></div><div class='block'><h2>Business websites</h2><ul class='menu'><li><a href='#'>Link</a></li><li><a href='#'>Link</a></li></ul></div><div class='block'><h2>About BNP Paribas Real Estate</h2><ul class='menu'><li><a href='#'>Link</a></li><li><a href='#'>Link</a></li></ul></div>"
-  bottom: "<div class='block'><strong>BNP PARIBAS REAL ESTATE</strong></div>"
-props:
-  container_class: container

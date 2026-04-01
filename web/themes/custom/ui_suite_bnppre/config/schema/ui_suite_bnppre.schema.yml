@@ -5,6 +5,12 @@ ui_suite_bnppre.settings:
     container:
       type: string
       label: 'Page container'
+    header_container:
+      type: string
+      label: 'Header container'
+    footer_container:
+      type: string
+      label: 'Footer container'
     library:
       type: mapping
       label: 'Library'

@@ -10,7 +10,7 @@ dependencies:
 id: ui_suite_bnppre_starterkit_footer_top_business
 theme: ui_suite_bnppre_starterkit
 region: footer_top
-weight: 10
+weight: 100
 provider: null
 plugin: 'system_menu_block:main'
 settings:

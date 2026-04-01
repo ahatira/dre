@@ -123,7 +123,7 @@ Icons are styled at runtime via CSS `color` property (maps to `currentColor` in 
 
 ### Step 1 — SVGO Optimization
 
-**Command**: `npm run build:bnppre-icons:svgo`  
+**Command**: `npm run build:bnppre-icons:svgo`
 **Config**: `svgo.config.js`
 
 Reduces file size by removing:
@@ -135,7 +135,7 @@ Does **not** rename files or touch fill attributes.
 
 ### Step 2 — BNPPRE Normalization
 
-**Command**: `npm run build:bnppre-icons`  
+**Command**: `npm run build:bnppre-icons`
 **Script**: `scripts/bnppre-icon.js`
 
 1. **Renames files** to comply with naming convention:

@@ -62,6 +62,38 @@ class ThemeSettings
         '#config_target' => $config_key . ':container',
         ];
 
+        $form['ui_suite_bnppre']['header_container'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Header container'),
+        '#description' => $this->t('Select the container class used by the header component.'),
+        '#options' => [
+        'container' => $this->t('Container'),
+        'container-sm' => $this->t('Container small'),
+        'container-md' => $this->t('Container medium'),
+        'container-lg' => $this->t('Container large'),
+        'container-xl' => $this->t('Container x-large'),
+        'container-xxl' => $this->t('Container xx-large'),
+        'container-fluid' => $this->t('Container fluid'),
+        ],
+        '#config_target' => $config_key . ':header_container',
+        ];
+
+        $form['ui_suite_bnppre']['footer_container'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Footer container'),
+        '#description' => $this->t('Select the container class used by the footer component.'),
+        '#options' => [
+        'container' => $this->t('Container'),
+        'container-sm' => $this->t('Container small'),
+        'container-md' => $this->t('Container medium'),
+        'container-lg' => $this->t('Container large'),
+        'container-xl' => $this->t('Container x-large'),
+        'container-xxl' => $this->t('Container xx-large'),
+        'container-fluid' => $this->t('Container fluid'),
+        ],
+        '#config_target' => $config_key . ':footer_container',
+        ];
+
         $form['ui_suite_bnppre']['library'] = [
         '#type' => 'details',
         '#title' => $this->t('Library'),

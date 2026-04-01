@@ -3,30 +3,42 @@
 
   const hasClass = (element, className) => element.classList.contains(className);
 
-  const makeCollapsible = (block, index) => {
+  const makeCollapsible = (column, index) => {
     if (index === 0) {
       return null;
     }
 
-    const title = block.querySelector(':scope > h2, :scope > .block-title');
+    const firstBlock = column.querySelector(':scope > .block');
+    if (!firstBlock) {
+      return null;
+    }
+
+    const title = firstBlock.querySelector(':scope > h2, :scope > .block-title');
     if (!title) {
       return null;
     }
 
     const bodyClass = 'ps-footer__accordion-body';
-    let body = block.querySelector(`:scope > .${bodyClass}`);
+    let body = column.querySelector(`:scope > .${bodyClass}`);
 
     if (!body) {
       body = document.createElement('div');
       body.className = bodyClass;
 
-      const children = Array.from(block.children);
-      children.forEach((child) => {
+      const firstBlockChildren = Array.from(firstBlock.children);
+      firstBlockChildren.forEach((child) => {
         if (child !== title) {
           body.appendChild(child);
         }
       });
-      block.appendChild(body);
+
+      const otherBlocks = Array.from(column.children)
+        .filter((child) => child !== firstBlock);
+      otherBlocks.forEach((child) => {
+        body.appendChild(child);
+      });
+
+      column.appendChild(body);
     }
 
     const trigger = document.createElement('button');
@@ -38,15 +50,17 @@
     trigger.setAttribute('aria-controls', bodyId);
     body.id = bodyId;
 
-    title.replaceWith(trigger);
+    firstBlock.insertBefore(trigger, title);
+    title.classList.add('ps-footer__accordion-title');
+    column.classList.add('is-accordion-ready');
 
     const setExpanded = (expanded) => {
       trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       body.hidden = !expanded;
-      block.classList.toggle('is-open', expanded);
+      column.classList.toggle('is-open', expanded);
     };
 
-    const defaultOpen = hasClass(block, 'is-open');
+    const defaultOpen = hasClass(column, 'is-open');
     setExpanded(defaultOpen);
 
     trigger.addEventListener('click', () => {
@@ -54,16 +68,18 @@
       setExpanded(!expanded);
     });
 
-    return { trigger, body, block, setExpanded };
+    return { trigger, body, column, setExpanded };
   };
 
   Drupal.behaviors.psThemeFooter = {
     attach(context) {
       once('ps-theme-footer', '[data-ps-footer-top]', context).forEach((topRegion) => {
         const media = window.matchMedia(MOBILE_QUERY);
-        const blocks = Array.from(topRegion.querySelectorAll(':scope > .block'));
-        const accordions = blocks
-          .map((block, index) => makeCollapsible(block, index))
+        const columns = Array.from(topRegion.querySelectorAll(':scope > .ps-footer__column'));
+        const targets = columns.length ? columns : Array.from(topRegion.querySelectorAll(':scope > .block'));
+
+        const accordions = targets
+          .map((column, index) => makeCollapsible(column, index))
           .filter(Boolean);
 
         if (!accordions.length) {
@@ -73,16 +89,16 @@
         const syncMode = () => {
           const isMobile = media.matches;
 
-          accordions.forEach(({ trigger, body, block, setExpanded }) => {
+          accordions.forEach(({ trigger, body, column, setExpanded }) => {
             trigger.disabled = !isMobile;
             trigger.classList.toggle('is-disabled', !isMobile);
 
             if (!isMobile) {
               setExpanded(true);
               body.hidden = false;
-              block.classList.remove('is-open');
+              column.classList.remove('is-open');
             }
-            else if (!hasClass(block, 'is-open')) {
+            else if (!hasClass(column, 'is-open')) {
               setExpanded(false);
             }
           });

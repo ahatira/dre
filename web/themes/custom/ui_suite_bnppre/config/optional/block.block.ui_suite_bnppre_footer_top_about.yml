@@ -10,7 +10,7 @@ dependencies:
 id: ui_suite_bnppre_footer_top_about
 theme: ui_suite_bnppre
 region: footer_top
-weight: 20
+weight: 200
 provider: null
 plugin: 'system_menu_block:tools'
 settings:

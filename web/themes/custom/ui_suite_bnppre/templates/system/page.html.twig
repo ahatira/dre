@@ -147,11 +147,14 @@
 
 {% set footer_top = page.footer_top|default(page.footer) %}
 {% set footer_bottom = page.footer_bottom|default('') %}
+{% set footer_top_columns = footer_top_columns|default([]) %}
+{% set footer_container_class = footer_container_class|default('container-fluid') %}
 
 {% if footer_top or footer_bottom %}
 	{{ include('ui_suite_bnppre:footer', {
     top: footer_top,
+    top_columns: footer_top_columns,
     bottom: footer_bottom,
-    container_class: container,
+    container_class: footer_container_class,
   }, with_context = false) }}
 {% endif %}

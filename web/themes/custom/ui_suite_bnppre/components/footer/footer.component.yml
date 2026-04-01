@@ -4,7 +4,7 @@ group: 'PS Theme'
 slots:
   top:
     title: Top
-    description: 'Footer top area. Place multiple blocks; each block becomes a column on desktop.'
+    description: 'Fallback top content for stories/preview. In real pages, columns are built from footer_top blocks grouped by weight bucket (0-99, 100-199, ...).'
   bottom:
     title: Bottom
     description: 'Footer bottom area. Intended for logo + legal/navigation blocks.'

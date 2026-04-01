@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_header_defaults
+  theme:
+    - ui_suite_bnppre_starterkit
+id: ui_suite_bnppre_starterkit_footer_copyright
+theme: ui_suite_bnppre_starterkit
+region: footer_bottom
+weight: 20
+provider: null
+plugin: ps_header_defaults_footer_copyright
+settings:
+  id: ps_header_defaults_footer_copyright
+  label: Copyright
+  label_display: '0'
+  provider: ps_header_defaults
+visibility: {  }

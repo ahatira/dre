@@ -61,7 +61,14 @@ final class FooterContactBlock extends BlockBase
                     '#attributes' => [
                         'class' => ['ps-footer-contact__line'],
                     ],
-                    'label' => ['#markup' => $this->t('City 1 :') . ' '],
+                    'label' => [
+                        '#type' => 'html_tag',
+                        '#tag' => 'span',
+                        '#value' => $this->t('City 1 :'),
+                        '#attributes' => [
+                            'class' => ['ps-footer-contact__line-label'],
+                        ],
+                    ],
                     'value' => $phoneOne,
                 ],
                 'city_two' => [
@@ -69,7 +76,14 @@ final class FooterContactBlock extends BlockBase
                     '#attributes' => [
                         'class' => ['ps-footer-contact__line'],
                     ],
-                    'label' => ['#markup' => $this->t('City 2 :') . ' '],
+                    'label' => [
+                        '#type' => 'html_tag',
+                        '#tag' => 'span',
+                        '#value' => $this->t('City 2 :'),
+                        '#attributes' => [
+                            'class' => ['ps-footer-contact__line-label'],
+                        ],
+                    ],
                     'value' => $phoneTwo,
                 ],
                 'email' => [
@@ -78,44 +92,6 @@ final class FooterContactBlock extends BlockBase
                         'class' => ['ps-footer-contact__line', 'ps-footer-contact__line--email'],
                     ],
                     'value' => $email,
-                ],
-                'social_title' => [
-                    '#type' => 'html_tag',
-                    '#tag' => 'h3',
-                    '#value' => $this->t('Suivez-nous'),
-                    '#attributes' => [
-                        'class' => ['ps-footer-contact__social-title'],
-                    ],
-                ],
-                'social' => [
-                    '#type' => 'container',
-                    '#attributes' => [
-                        'class' => ['ps-footer-contact__social'],
-                    ],
-                    'linkedin' => [
-                        '#type' => 'link',
-                        '#title' => $this->t('LinkedIn'),
-                        '#url' => Url::fromUri('https://www.linkedin.com'),
-                        '#options' => [
-                            'attributes' => [
-                                'class' => ['ps-footer-contact__social-link'],
-                                'target' => '_blank',
-                                'rel' => 'noopener noreferrer',
-                            ],
-                        ],
-                    ],
-                    'twitter' => [
-                        '#type' => 'link',
-                        '#title' => $this->t('X'),
-                        '#url' => Url::fromUri('https://x.com'),
-                        '#options' => [
-                            'attributes' => [
-                                'class' => ['ps-footer-contact__social-link'],
-                                'target' => '_blank',
-                                'rel' => 'noopener noreferrer',
-                            ],
-                        ],
-                    ],
                 ],
             ],
         ];

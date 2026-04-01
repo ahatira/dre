@@ -20,6 +20,8 @@ ui_styles_regions:
       colors_background_color: bg-light
       spacing_padding: p-3
 container: 'container'
+header_container: 'container-fluid'
+footer_container: 'container-fluid'
 library:
   js_loading: 'ui_suite_bnppre/framework_js'
   css_loading: 'ui_suite_bnppre_starterkit/framework'
