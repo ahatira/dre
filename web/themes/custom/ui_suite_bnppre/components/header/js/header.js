@@ -197,56 +197,36 @@
         const stickyExitOffset = 64;
         const scrollContainer = header.closest('[data-off-canvas-main-canvas]');
         const rootScroller = document.scrollingElement || document.documentElement;
-        const nextSibling = header.nextElementSibling;
-        const spacer = nextSibling && nextSibling.matches('[data-header-spacer]')
-          ? nextSibling
-          : null;
-        let spacerHeight = 0;
-        let isCompensatingScroll = false;
+        let desktopOffsetHeight = 0;
 
-        const applyScrollDelta = (delta) => {
-          if (!delta) {
-            return;
-          }
-
-          if (scrollContainer) {
-            scrollContainer.scrollTop += delta;
-            return;
-          }
-
-          const current = window.scrollY || window.pageYOffset || 0;
-          window.scrollTo(0, Math.max(0, current + delta));
+        const setHeaderOffset = (height) => {
+          document.body.style.setProperty('--ps-header-offset', `${Math.max(0, height)}px`);
         };
 
-        const syncSpacer = (compensateScroll = false) => {
-          if (!spacer) {
-            return;
-          }
-
+        const refreshDesktopOffset = () => {
           if (!media.matches || previewMode || isStoriesContext) {
-            spacerHeight = 0;
-            spacer.style.height = '0px';
+            desktopOffsetHeight = 0;
+            setHeaderOffset(0);
             return;
           }
 
           const nextHeight = Math.ceil(header.getBoundingClientRect().height);
-          const delta = nextHeight - spacerHeight;
+          desktopOffsetHeight = Math.max(desktopOffsetHeight, nextHeight);
+          setHeaderOffset(desktopOffsetHeight);
+        };
 
-          if (!delta) {
+        const applyDesktopOffset = () => {
+          if (!media.matches || previewMode || isStoriesContext) {
+            setHeaderOffset(0);
             return;
           }
 
-          spacerHeight = nextHeight;
-          spacer.style.height = `${nextHeight}px`;
+          setHeaderOffset(desktopOffsetHeight);
+        };
 
-          if (!compensateScroll) {
-            return;
-          }
-
-          isCompensatingScroll = true;
-          applyScrollDelta(delta);
+        const syncHeaderOffsetDeferred = () => {
           window.requestAnimationFrame(() => {
-            isCompensatingScroll = false;
+            refreshDesktopOffset();
           });
         };
 
@@ -266,6 +246,16 @@
           return;
         }
 
+        if (typeof ResizeObserver === 'function') {
+          const observer = new ResizeObserver(() => {
+            refreshDesktopOffset();
+          });
+          observer.observe(header);
+        }
+
+        // Keep body offset in sync after animated sticky/non-sticky transitions.
+        header.addEventListener('transitionend', syncHeaderOffsetDeferred);
+
         // Stories and forced preview modes must stay stable and not react to page scroll.
         if (previewMode || isStoriesContext) {
           const isPreviewMobile = previewMode
@@ -283,7 +273,7 @@
           close.hidden = false;
           close.tabIndex = isPanelOpen ? 0 : -1;
           close.setAttribute('aria-hidden', isPanelOpen ? 'false' : 'true');
-          syncSpacer(false);
+          refreshDesktopOffset();
 
           enhanceLanguageSwitcher(header);
           return;
@@ -303,7 +293,7 @@
           });
         };
 
-        const syncDom = (compensateScroll = false) => {
+        const syncDom = () => {
           header.classList.toggle('is-mobile', !media.matches);
           header.classList.toggle('is-sticky', isSticky);
           header.classList.toggle('is-open', isOpen);
@@ -316,17 +306,17 @@
           close.hidden = false;
           close.tabIndex = isOpen ? 0 : -1;
           close.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-          syncSpacer(compensateScroll);
+          applyDesktopOffset();
         };
 
         const closePanel = () => {
           isOpen = false;
-          syncDom(media.matches);
+          syncDom();
         };
 
         const openPanel = () => {
           isOpen = true;
-          syncDom(media.matches);
+          syncDom();
         };
 
         const togglePanel = () => {
@@ -347,7 +337,7 @@
             if (isSticky) {
               markStickySwitch();
               isSticky = false;
-              syncDom(true);
+              syncDom();
             }
             return;
           }
@@ -368,14 +358,10 @@
             isOpen = false;
           }
 
-          syncDom(true);
+          syncDom();
         };
 
         const onScroll = () => {
-          if (isCompensatingScroll) {
-            return;
-          }
-
           if (ticking) {
             return;
           }
@@ -397,8 +383,13 @@
             isSticky = false;
           }
 
+          if (media.matches) {
+            desktopOffsetHeight = 0;
+          }
+
           syncDom();
           refreshSticky();
+          refreshDesktopOffset();
         };
 
         const onDocumentClick = (event) => {
@@ -440,8 +431,10 @@
 
         enhanceLanguageSwitcher(header);
 
+        refreshDesktopOffset();
         syncDom();
         refreshSticky();
+        syncHeaderOffsetDeferred();
       });
     },
   };
