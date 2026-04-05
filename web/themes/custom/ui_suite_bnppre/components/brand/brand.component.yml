@@ -1,0 +1,26 @@
+name: 'Brand'
+description: 'Site brand block: logo image and optional slogan linked to the homepage. Used in the system branding block.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    logo_url:
+      title: Logo URL
+      description: 'Absolute or root-relative URL to the logo image (site_logo from Drupal).'
+      type: string
+    logo_alt:
+      title: Logo alt text
+      description: 'Alt text for the logo image.'
+      type: string
+    site_name:
+      title: Site name
+      description: 'Displayed as text brand when no logo image is configured.'
+      type: string
+    slogan:
+      title: Slogan
+      description: 'Site slogan shown below the logo (site_slogan from Drupal).'
+      type: string
+    home_url:
+      title: Home URL
+      description: 'URL for the brand link. Defaults to the front page.'
+      type: string

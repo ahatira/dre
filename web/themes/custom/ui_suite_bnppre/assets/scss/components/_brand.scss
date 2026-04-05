@@ -1,0 +1,62 @@
+// =============================================================================
+// PS Brand component — logo | separator | slogan (horizontal row, ISO maquette)
+// =============================================================================
+
+.ps-brand {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: $bnppre-gray-1;
+
+  &:hover,
+  &:focus {
+    color: $bnppre-gray-1;
+    text-decoration: none;
+    outline-offset: 4px;
+  }
+
+  &__media {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    display: block;
+    width: auto;
+    height: 2.5rem;
+    max-height: 2.5rem;
+    object-fit: contain;
+  }
+
+  &__name {
+    display: block;
+    font-family: $font-family-headings;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: inherit;
+  }
+
+  &__separator {
+    display: block;
+    width: 1px;
+    height: 1.5rem;
+    background-color: $bnppre-gray-4;
+    flex-shrink: 0;
+  }
+
+  &__slogan {
+    display: block;
+    font-family: $font-family-body;
+    font-size: .8125rem; // 13px
+    font-weight: 400;
+    line-height: 1.4;
+    color: $bnppre-gray-2;
+    white-space: nowrap;
+    letter-spacing: .01em;
+  }
+}

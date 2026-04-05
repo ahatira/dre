@@ -1,8 +1,6 @@
-name: 'PS Header Defaults'
+name: 'PS Header Defaults (compat shim)'
 type: module
-description: 'Provides default header blocks for ps_theme.'
-package: Custom
+description: 'Temporary compatibility shim to satisfy stale runtime references after module removal.'
 core_version_requirement: ^11
-dependencies:
-  - drupal:search
-  - drupal:system
+hidden: true
+package: 'Custom'

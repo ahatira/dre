@@ -45,17 +45,18 @@
  * @ingroup themeable
  */
 #}
-{% set header_brand = page.header_brand|default(page.navigation) %}
-{% set header_switcher = page.header_switcher|default('') %}
-{% set header_navigation = page.header_navigation|default(page.navigation_collapsible) %}
-{% set header_actions = page.header_actions|default('') %}
+{% set brand_content = page.brand|default('') %}
+{% set switcher_content = page.switcher|default('') %}
+{% set navigation_content = page.navigation|default('') %}
+{% set actions_content = page.actions|default('') %}
+{% set header_container_class = header_container_class|default('container-fluid') %}
 
-{% if header_brand or header_switcher or header_navigation or header_actions %}
+{% if brand_content or switcher_content or navigation_content or actions_content %}
 	{{ include('ui_suite_bnppre:header', {
-    brand: header_brand,
-    switcher: header_switcher,
-    navigation: header_navigation,
-    actions: header_actions,
+    brand: brand_content,
+    switcher: switcher_content,
+    navigation: navigation_content,
+    actions: actions_content,
     container_class: header_container_class,
   }, with_context = false) }}
 {% endif %}

@@ -9,7 +9,7 @@ dependencies:
     - ui_suite_bnppre
 id: ui_suite_bnppre_main_menu
 theme: ui_suite_bnppre
-region: header_navigation
+region: navigation
 weight: 10
 provider: null
 plugin: 'system_menu_block:main'

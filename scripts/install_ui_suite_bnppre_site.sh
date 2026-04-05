@@ -19,7 +19,6 @@ ADMIN_MAIL="${ADMIN_MAIL:-admin@example.com}"
 DB_URL="${DB_URL:-}"
 
 REQUIRED_MODULES=(
-  ps_header_defaults
   languageicons
   ui_patterns
   ui_styles
@@ -47,9 +46,6 @@ import_footer_optional_config() {
 
   cp "$optional_dir/block.block.${THEME}_footer.yml" "$tmp_dir/"
   cp "$optional_dir/block.block.${THEME}_footer_branding.yml" "$tmp_dir/"
-  cp "$optional_dir/block.block.${THEME}_footer_copyright.yml" "$tmp_dir/"
-  cp "$optional_dir/block.block.${THEME}_footer_top_contact.yml" "$tmp_dir/"
-  cp "$optional_dir/block.block.${THEME}_footer_top_follow.yml" "$tmp_dir/"
   cp "$optional_dir/block.block.${THEME}_footer_top_business.yml" "$tmp_dir/"
   cp "$optional_dir/block.block.${THEME}_footer_top_about.yml" "$tmp_dir/"
 
@@ -59,9 +55,7 @@ import_footer_optional_config() {
 
 configure_theme_settings() {
   "$DRUSH" config:set --uri="$SITE_URI" "$THEME.settings" container container -y
-  "$DRUSH" config:set --uri="$SITE_URI" "$THEME.settings" header_container container-fluid -y
   "$DRUSH" config:set --uri="$SITE_URI" "$THEME.settings" footer_container container-fluid -y
-  "$DRUSH" config:set --uri="$SITE_URI" "$THEME.settings" header_language_label_mode code_capitalized -y
 }
 
 disable_legacy_powered_block() {
@@ -108,13 +102,10 @@ print_footer_state() {
 
 assert_footer_config() {
   local required=(
-    "block.block.${THEME}_footer_top_contact"
-    "block.block.${THEME}_footer_top_follow"
     "block.block.${THEME}_footer_top_business"
     "block.block.${THEME}_footer_top_about"
     "block.block.${THEME}_footer_branding"
     "block.block.${THEME}_footer"
-    "block.block.${THEME}_footer_copyright"
   )
 
   local missing=0

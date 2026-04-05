@@ -62,22 +62,6 @@ class ThemeSettings
         '#config_target' => $config_key . ':container',
         ];
 
-        $form['ui_suite_bnppre']['header_container'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Header container'),
-        '#description' => $this->t('Select the container class used by the header component.'),
-        '#options' => [
-        'container' => $this->t('Container'),
-        'container-sm' => $this->t('Container small'),
-        'container-md' => $this->t('Container medium'),
-        'container-lg' => $this->t('Container large'),
-        'container-xl' => $this->t('Container x-large'),
-        'container-xxl' => $this->t('Container xx-large'),
-        'container-fluid' => $this->t('Container fluid'),
-        ],
-        '#config_target' => $config_key . ':header_container',
-        ];
-
         $form['ui_suite_bnppre']['footer_container'] = [
         '#type' => 'select',
         '#title' => $this->t('Footer container'),
@@ -92,6 +76,36 @@ class ThemeSettings
         'container-fluid' => $this->t('Container fluid'),
         ],
         '#config_target' => $config_key . ':footer_container',
+        ];
+
+        $form['ui_suite_bnppre']['language_switcher'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Language switcher'),
+        '#open' => false,
+        '#tree' => true,
+        ];
+
+        $form['ui_suite_bnppre']['language_switcher']['display_mode'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Language label format'),
+        '#description' => $this->t('Choose how each language label is displayed in the header switcher.'),
+        '#options' => [
+        'code_lower' => $this->t('Code (lowercase)'),
+        'code_upper' => $this->t('Code (uppercase)'),
+        'code_capitalize' => $this->t('Code (Capitalize)'),
+        'name_native' => $this->t('Native name'),
+        'name_translated' => $this->t('Translated name'),
+        ],
+        '#config_target' => $config_key . ':language_switcher.display_mode',
+        ];
+
+        $form['ui_suite_bnppre']['language_switcher']['show_icons'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Display language icons when available'),
+        '#description' => $this->t(
+            'Icons are shown only when the Language Icons module is enabled and provides icon markup.',
+        ),
+        '#config_target' => $config_key . ':language_switcher.show_icons',
         ];
 
         $form['ui_suite_bnppre']['library'] = [
@@ -127,19 +141,6 @@ class ThemeSettings
         '#after_build' => [
         [$this, 'filterLibraries'],
         ],
-        ];
-
-        $form['ui_suite_bnppre']['header_language_label_mode'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Language switcher label display'),
-        '#description' => $this->t('Controls the visible label used in the header language dropdown.'),
-        '#options' => [
-        'code_capitalized' => $this->t('Capitalized language code (En, Fr)'),
-        'code' => $this->t('Uppercase language code (FR, EN)'),
-        'name' => $this->t('Language name'),
-        'code_name' => $this->t('Uppercase code + language name (FR - French)'),
-        ],
-        '#config_target' => $config_key . ':header_language_label_mode',
         ];
 
         $form['#submit'][] = static::class . ':submitForm';

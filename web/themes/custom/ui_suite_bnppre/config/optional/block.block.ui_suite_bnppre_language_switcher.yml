@@ -20,7 +20,7 @@ third_party_settings:
       extra: ''
 id: ui_suite_bnppre_language_switcher
 theme: ui_suite_bnppre
-region: header_switcher
+region: switcher
 weight: 10
 provider: null
 plugin: 'language_block:language_interface'

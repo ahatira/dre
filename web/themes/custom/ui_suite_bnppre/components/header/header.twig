@@ -1,15 +1,4 @@
 {{ attach_library('ui_suite_bnppre/header') }}
-{#
-  Dégradation gracieuse : si JS est désactivé, le switcher de langue brut doit
-  rester visible car enhanceLanguageSwitcher() ne tournera jamais.
-#}
-<noscript>
-	<style>
-		.ps-header__switcher .language-switcher-language-url {
-			visibility: visible !important
-		}
-	</style>
-</noscript>
 
 {% set header_id = 'header-panel-' ~ random() %}
 {% set brand_content = brand|render %}

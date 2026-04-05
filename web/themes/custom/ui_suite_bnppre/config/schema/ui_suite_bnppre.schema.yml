@@ -5,12 +5,19 @@ ui_suite_bnppre.settings:
     container:
       type: string
       label: 'Page container'
-    header_container:
-      type: string
-      label: 'Header container'
     footer_container:
       type: string
       label: 'Footer container'
+    language_switcher:
+      type: mapping
+      label: 'Language switcher settings'
+      mapping:
+        display_mode:
+          type: string
+          label: 'Language label format'
+        show_icons:
+          type: boolean
+          label: 'Display language icons'
     library:
       type: mapping
       label: 'Library'
@@ -27,6 +34,3 @@ ui_suite_bnppre.settings:
     ui_styles_regions:
       type: ui_styles_regions
       label: 'Selected regions styles'
-    header_language_label_mode:
-      type: string
-      label: 'Header language switcher label display mode'

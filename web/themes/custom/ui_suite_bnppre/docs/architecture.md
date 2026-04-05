@@ -41,7 +41,6 @@ Declared in `ui_suite_bnppre.info.yml`:
 
 ```yaml
 dependencies:
-  - ps_header_defaults        # Custom module: header blocks (search, CTA, icon links)
   - languageicons:languageicons
   - ui_patterns:ui_patterns
   - ui_styles:ui_styles
@@ -49,7 +48,6 @@ dependencies:
 
 | Dependency | Type | Purpose |
 |-----------|------|---------|
-| `ps_header_defaults` | Custom module | Provides `HeaderSearchBlock`, `HeaderContactCtaBlock`, `HeaderIconLinksBlock`, `HeaderUtilityLinkBlock` |
 | `languageicons` | Contrib module | Language switcher with flag icons |
 | `ui_patterns` | Contrib module | Enables `components/*.component.yml` + SDC rendering |
 | `ui_styles` | Contrib module | Style plugin for Layout Builder, Paragraphs, etc. |
@@ -74,13 +72,11 @@ The theme defines **14 regions**, organized in four zones:
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│  header_brand     │  header_switcher                  │  ← Branding + language
+│  brand            │  switcher                         │  ← Branding + language
 ├──────────────────────────────────────────────────────┤
-│  header_navigation                                    │  ← Desktop nav
+│  navigation                                         │  ← Desktop nav
 ├──────────────────────────────────────────────────────┤
-│  navigation  │  navigation_collapsible                │  ← Mobile collapsible nav
-├──────────────────────────────────────────────────────┤
-│  header_actions   │  header (Top Bar)                 │  ← Search, CTA, utility links
+│  actions          │  header (Top Bar)                │  ← Header actions + top bar
 └──────────────────────────────────────────────────────┘
 ```
 

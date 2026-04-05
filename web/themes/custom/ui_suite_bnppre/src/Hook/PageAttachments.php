@@ -7,7 +7,7 @@ namespace Drupal\ui_suite_bnppre\Hook;
 use Drupal\Core\Hook\Attribute\Hook;
 
 /**
- * Attaches page-level assets and settings.
+ * Page attachments hook implementations.
  */
 class PageAttachments
 {
@@ -15,9 +15,8 @@ class PageAttachments
      * Implements hook_page_attachments().
      */
     #[Hook('page_attachments')]
-    public function attach(array &$attachments): void
+    public function pageAttachments(array &$attachments): void
     {
-        $labelMode = theme_get_setting('header_language_label_mode') ?: 'code_capitalized';
-        $attachments['#attached']['drupalSettings']['uiSuiteBnppre']['header']['languageLabelMode'] = $labelMode;
+        // Header library is attached directly by the header component Twig.
     }
 }

@@ -4,16 +4,14 @@
 
 .ps-header {
   --ps-header-motion-time: .56s;
-  --ps-header-fade-time: .48s;
+  --ps-header-fade-time: .56s;
   --ps-header-motion-ease: cubic-bezier(.22, 1, .36, 1);
 
   position: relative;
   z-index: 2;
-  // Respect Gin toolbar vertical offset (mobile: 39px horizontal toolbar top)
-  padding-top: var(--gin-toolbar-y-offset, 0);
   background-color: $bnppre-white;
   border-bottom: 1px solid $bnppre-gray-5;
-  transition: box-shadow var(--ps-header-motion-time) var(--ps-header-motion-ease), border-color var(--ps-header-fade-time) ease, padding-top .2s ease;
+  transition: box-shadow var(--ps-header-motion-time) var(--ps-header-motion-ease), border-color var(--ps-header-fade-time) ease, top .2s ease;
 
   &.is-sticky,
   &.is-open {
@@ -67,22 +65,26 @@
   &__brand {
     min-width: 0;
 
-    .navbar-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: .75rem;
+    // Context-specific sizing overrides for .ps-brand inside the header.
+    .ps-brand {
       margin: 0;
       padding: 0;
-      color: $bnppre-gray-1;
-      text-decoration: none;
     }
 
-    img {
-      display: block;
-      width: auto;
-      height: 32px;
-      max-height: 32px;
+    .ps-brand__logo {
+      height: 2rem;
+      max-height: 2rem;
       transition: max-height var(--ps-header-motion-time) var(--ps-header-motion-ease), transform var(--ps-header-motion-time) var(--ps-header-motion-ease);
+    }
+  }
+
+  &.is-sticky,
+  &.is-mobile {
+    .ps-header__brand {
+      .ps-brand__separator,
+      .ps-brand__slogan {
+        display: none;
+      }
     }
   }
 
@@ -142,6 +144,7 @@
   }
 
   &__close {
+    display: none;
     flex: 0 0 auto;
     padding: .5rem;
     margin: 0;
@@ -156,160 +159,94 @@
   }
 
   &__switcher {
-    .language-switcher-language-url,
-    .links {
+    .ps-language-switcher {
+      position: relative;
+      display: inline-block;
+    }
+
+    // Bootstrap Dropdown trigger button.
+    .ps-language-switcher__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem;
+      width: 100%;
+      padding: .375rem .75rem;
+      border: 1px solid $bnppre-gray-5;
+      border-radius: 0;
+      background: transparent;
+      color: $bnppre-gray-1;
+      font-size: .875rem;
+      white-space: nowrap;
+      box-shadow: none;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.show {
+        color: $bnppre-primary;
+        border-color: $bnppre-primary;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      // Align Bootstrap default caret.
+      &::after {
+        vertical-align: .1em;
+      }
+    }
+
+    // Bootstrap Dropdown menu.
+    .ps-language-switcher__menu {
+      min-width: 100%;
+      width: max-content;
+      padding: .25rem 0;
+      background: $bnppre-white;
+      border: 1px solid $bnppre-gray-5;
+      border-radius: 0;
+      z-index: 210;
+      box-shadow: 0 8px 20px rgba($bnppre-gray-1, .1);
+
+      li {
+        width: 100%;
+      }
+    }
+
+    // Items: Drupal renders <a> links (with languageicons flag) inside each <li>.
+    .ps-language-switcher__menu a {
       display: flex;
       align-items: center;
       gap: .5rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    a,
-    .links .is-active {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      min-height: 2.75rem;
-      padding: .625rem 1rem;
-      border: 1px solid $bnppre-gray-5;
+      width: 100%;
+      box-sizing: border-box;
+      padding: .5rem 1rem;
       color: $bnppre-gray-1;
+      font-size: .875rem;
       text-decoration: none;
       white-space: nowrap;
 
       &:hover,
       &:focus {
-        color: $bnppre-primary;
-        border-color: $bnppre-primary;
-      }
-    }
-
-    .ps-language-dropdown {
-      position: relative;
-      min-width: 6.5rem;
-    }
-
-    .ps-language-dropdown__trigger {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .5rem;
-      min-height: 2.25rem;
-      width: 100%;
-      padding: .5rem 1rem;
-      border: 2px solid $bnppre-gray-5;
-      border-radius: 0;
-      background: $bnppre-white;
-      color: $bnppre-gray-1;
-      cursor: pointer;
-      box-shadow: none;
-
-      &:hover,
-      &:focus {
-        color: $bnppre-gray-1;
-        border-color: $bnppre-gray-5;
-        box-shadow: none;
-      }
-    }
-
-    .ps-language-dropdown__current {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-    }
-
-    .ps-language-dropdown__chevron {
-      width: .45rem;
-      height: .45rem;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(45deg) translateY(-2px);
-      transition: transform .2s ease;
-    }
-
-    .ps-language-dropdown.is-open .ps-language-dropdown__chevron {
-      transform: rotate(-135deg) translateY(-1px);
-    }
-
-    .links.ps-language-dropdown__menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 2px);
-      right: 0;
-      z-index: 20;
-      min-width: 100%;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      margin: 0;
-      padding: 0;
-      background: $bnppre-white;
-      border: 2px solid $bnppre-gray-5;
-      box-shadow: 0 10px 22px rgba($bnppre-gray-1, .12);
-    }
-
-    .ps-language-dropdown.is-open .links.ps-language-dropdown__menu {
-      display: flex;
-    }
-
-    .links.ps-language-dropdown__menu li {
-      width: 100%;
-    }
-
-    a.ps-language-link {
-      width: 100%;
-      justify-content: flex-start;
-      border: 0;
-      min-height: 2.25rem;
-      padding: .5rem 1rem;
-      color: $bnppre-gray-1;
-
-      &:hover,
-      &:focus {
         color: $bnppre-gray-1;
         background: $bnppre-gray-7;
-        border-color: transparent;
       }
     }
 
-    .links.ps-language-dropdown__menu .is-active {
+    // Active language item highlight.
+    .ps-language-switcher__menu .active a,
+    .ps-language-switcher__menu .is-active a {
       background: $bnppre-gray-6;
     }
 
-    .ps-language-flag {
-      display: inline-block;
-      width: 1.2rem;
-      line-height: 1;
-      text-align: center;
-    }
-
-    .ps-language-label,
-    .ps-language-code {
-      font-size: .875rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: inherit;
-    }
-
-    .ps-language-flag-img,
+    // Flag images provided by languageicons module.
     img.language-icon {
       display: inline-block;
       width: 18px;
       height: 12px;
       border: 1px solid $bnppre-gray-5;
-      -o-object-fit: cover;
       object-fit: cover;
       vertical-align: middle;
       flex-shrink: 0;
-    }
-
-    // Anti-FOUC : masque le switcher brut dès le rendu CSS, sans attendre JS.
-    // Révélé uniquement après que enhanceLanguageSwitcher() pose data-enhanced="true".
-    // visibility:hidden (pas display:none) conserve l'espace et évite le layout shift.
-    // Une balise <noscript> dans header.twig annule cette règle si JS est désactivé.
-    .language-switcher-language-url:not([data-enhanced="true"]) {
-      visibility: hidden;
     }
   }
 
@@ -323,7 +260,7 @@
     visibility: visible;
     transform: translateY(0);
     max-width: 24rem;
-    overflow: hidden;
+    overflow: visible;
   }
 
   &__switcher--panel {
@@ -348,13 +285,12 @@
     justify-content: space-between;
     gap: 2rem;
     padding: 0 0 1.125rem;
-    border-top: 1px solid $bnppre-gray-6;
     transition: padding var(--ps-header-motion-time) var(--ps-header-motion-ease);
   }
 
   &__navigation,
   &__actions {
-    padding-top: 1rem;
+    padding-top: 0;
   }
 
   &__navigation {
@@ -949,6 +885,10 @@ body {
   }
 
   .ps-header {
+    &.is-sticky {
+      top: var(--gin-toolbar-y-offset, 0);
+    }
+
     .ps-header__switcher--top {
       display: block;
       opacity: 1;
@@ -1056,11 +996,10 @@ body {
       }
 
       .ps-header__close {
+        display: block;
         opacity: 1;
         pointer-events: auto;
         transform: translateX(0);
-        width: 2.25rem;
-        max-width: 2.25rem;
         padding: .5rem;
         margin-left: .25rem;
       }
@@ -1071,10 +1010,17 @@ body {
 @media (max-width: 991.98px) {
   .ps-header {
     position: sticky;
-    top: 0;
+    top: var(--gin-toolbar-y-offset, 0);
   }
 
   .ps-header {
+    &__brand {
+      .ps-brand__separator,
+      .ps-brand__slogan {
+        display: none;
+      }
+    }
+
     &__top {
       min-height: 4.75rem;
       padding: .75rem 0;
@@ -1096,6 +1042,13 @@ body {
     }
 
     &__close {
+      opacity: 0;
+      width: 0;
+      max-width: 0;
+      padding: 0;
+      margin-left: 0;
+      overflow: hidden;
+      transform: translateX(.75rem);
       pointer-events: none;
     }
 
@@ -1235,15 +1188,29 @@ body {
     }
 
     &.is-open {
+      .ps-header__toggle {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-50%) translateX(-1rem);
+      }
+
+      .ps-header__close {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(-50%);
+        padding: .5rem;
+        margin-left: 0;
+      }
+
       .ps-header__panel {
         max-height: 80vh;
         opacity: 1;
         visibility: visible;
         transform: none;
-        pointer-events: auto;
-      }
-
-      .ps-header__close {
         pointer-events: auto;
       }
 

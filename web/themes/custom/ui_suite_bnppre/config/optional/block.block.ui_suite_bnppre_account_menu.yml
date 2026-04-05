@@ -21,7 +21,7 @@ third_party_settings:
       extra: ''
 id: ui_suite_bnppre_account_menu
 theme: ui_suite_bnppre
-region: header_actions
+region: actions
 weight: 20
 provider: null
 plugin: 'system_menu_block:account'

@@ -20,9 +20,10 @@ ui_styles_regions:
       colors_background_color: bg-light
       spacing_padding: p-3
 container: 'container'
-header_container: 'container-fluid'
 footer_container: 'container-fluid'
+language_switcher:
+  display_mode: 'code_capitalize'
+  show_icons: true
 library:
   js_loading: 'ui_suite_bnppre/framework_js'
   css_loading: 'ui_suite_bnppre/framework_css_bnppre'
-header_language_label_mode: 'code_capitalized'

@@ -21,7 +21,7 @@ third_party_settings:
       extra: ''
 id: ui_suite_bnppre_starterkit_account_menu
 theme: ui_suite_bnppre_starterkit
-region: navigation_collapsible
+region: actions
 weight: 11
 provider: null
 plugin: 'system_menu_block:account'

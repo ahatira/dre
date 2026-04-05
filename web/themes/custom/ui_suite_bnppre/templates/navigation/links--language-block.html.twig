@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Language switcher rendered as a Bootstrap 5 Dropdown.
+ *
+ * Theme suggestion: links--language-block.html.twig
+ * Overrides links.html.twig for the language_block plugin only.
+ * Bootstrap Dropdown JS (already loaded) handles open/close/keyboard behavior.
+ * Flag icons are injected by the languageicons module via item.text.
+ *
+ * Available variables:
+ * - links: Array of language items, each with:
+ *   - link: Full rendered <a> element (url + languageicons content).
+ *   - text: Link content without the <a> wrapper (flag img + language name).
+ *   - attributes: <li> Attribute object — includes hreflang, lang, and
+ *     'is-active' class for the current language.
+ * - attributes: Outer wrapper Attribute object (class="language-switcher-…").
+ */
+#}
+{% if links %}
+	{%- set active_link = null -%}
+	{%- for item in links -%}
+		{%- if active_link is null and 'is-active' in item.attributes.class -%}
+			{%- set active_link = item -%}
+		{%- endif -%}
+	{%- endfor -%}
+	{%- set active_link = active_link ?? links|first -%}
+
+	<div class="dropdown ps-language-switcher">
+		<button class="btn ps-language-switcher__trigger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ 'Switch language'|t }}">
+			{{- active_link.text -}}
+		</button>
+		<ul class="dropdown-menu dropdown-menu-end ps-language-switcher__menu">
+			{%- for item in links -%}
+				<li{{item.attributes}}>
+					{%- if item.link -%}
+						{{ item.link }}
+					{%- endif -%}
+				</li>
+			{%- endfor -%}
+		</ul>
+	</div>
+{% endif %}

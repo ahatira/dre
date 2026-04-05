@@ -1,0 +1,26 @@
+{% set logo_url = logo_url|default('') %}
+{% set logo_alt = logo_alt|default('Home'|t) %}
+{% set site_name = site_name|default('') %}
+{% set slogan = slogan|default('') %}
+{% set home_url = home_url|default(path('<front>')) %}
+
+{% set has_logo = logo_url is not empty %}
+{% set has_name = site_name is not empty %}
+{% set has_slogan = slogan is not empty %}
+
+{% if has_logo or has_name %}
+	<a class="ps-brand" href="{{ home_url }}" rel="home" title="{{ 'Home'|t }}">
+		<span class="ps-brand__media">
+			{% if has_logo %}
+				<img class="ps-brand__logo" src="{{ logo_url }}" alt="{{ logo_alt }}" fetchpriority="high"/>
+			{% else %}
+				<span class="ps-brand__name">{{ site_name }}</span>
+			{% endif %}
+		</span>
+
+		{% if has_slogan %}
+			<span class="ps-brand__separator" aria-hidden="true"></span>
+			<span class="ps-brand__slogan">{{ slogan }}</span>
+		{% endif %}
+	</a>
+{% endif %}

@@ -7,7 +7,7 @@ dependencies:
     - ui_suite_bnppre_starterkit
 id: ui_suite_bnppre_starterkit_branding
 theme: ui_suite_bnppre_starterkit
-region: navigation
+region: brand
 weight: 0
 provider: null
 plugin: system_branding_block

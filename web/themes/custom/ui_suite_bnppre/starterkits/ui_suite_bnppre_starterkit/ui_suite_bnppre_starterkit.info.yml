@@ -6,8 +6,10 @@ base theme: ui_suite_bnppre
 hidden: true
 
 regions:
+  brand: 'Brand'
+  switcher: 'Switcher'
   navigation: 'Navigation'
-  navigation_collapsible: 'Navigation (Collapsible)'
+  actions: 'Actions'
   header: 'Top Bar'
   highlighted: 'Highlighted'
   help: 'Help'
