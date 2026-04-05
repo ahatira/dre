@@ -51,12 +51,12 @@
 
   &__slogan {
     display: block;
-    font-family: $font-family-body;
-    font-size: .8125rem; // 13px
+    font-family: $font-family-headings;
+    font-style: normal;
+    font-size: 1rem; // 16px
     font-weight: 400;
-    line-height: 1.4;
-    color: $bnppre-gray-2;
+    line-height: 1.5; // 24px / 16px
+    color: $bnppre-gray-3; // #777E83
     white-space: nowrap;
-    letter-spacing: .01em;
   }
 }

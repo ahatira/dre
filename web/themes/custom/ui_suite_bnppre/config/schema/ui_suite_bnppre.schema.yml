@@ -8,6 +8,9 @@ ui_suite_bnppre.settings:
     footer_container:
       type: string
       label: 'Footer container'
+    header_container:
+      type: string
+      label: 'Header container'
     language_switcher:
       type: mapping
       label: 'Language switcher settings'

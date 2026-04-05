@@ -25,6 +25,8 @@ class PreprocessPage
     public function preprocess(array &$variables): void
     {
         $variables['container'] = $this->themeSettings->getSetting('container') ?? 'container';
+        $variables['header_container_class'] =
+            $this->themeSettings->getSetting('header_container') ?? 'container-fluid';
         $variables['footer_container_class'] =
             $this->themeSettings->getSetting('footer_container') ?? 'container-fluid';
 

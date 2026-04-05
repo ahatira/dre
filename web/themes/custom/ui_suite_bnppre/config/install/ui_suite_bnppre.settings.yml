@@ -21,6 +21,7 @@ ui_styles_regions:
       spacing_padding: p-3
 container: 'container'
 footer_container: 'container-fluid'
+header_container: 'container-fluid'
 language_switcher:
   display_mode: 'code_capitalize'
   show_icons: true
