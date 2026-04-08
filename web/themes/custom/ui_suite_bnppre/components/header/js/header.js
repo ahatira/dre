@@ -1,98 +1,26 @@
 (function (Drupal, once) {
+  const STICKY_ENTER_THRESHOLD = 90;
+  const STICKY_EXIT_THRESHOLD = 70;
   const DESKTOP_QUERY = '(min-width: 992px)';
+
+  const FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(',');
 
   Drupal.behaviors.psThemeHeader = {
     attach(context) {
       once('ps-theme-header', '[data-header]', context).forEach((header) => {
-        const toggle = header.querySelector('[data-header-toggle]');
-        const close = header.querySelector('[data-header-close]');
+        const openButton = header.querySelector('[data-header-open]');
+        const closeButton = header.querySelector('[data-header-close]');
         const panel = header.querySelector('[data-header-panel]');
         const media = window.matchMedia(DESKTOP_QUERY);
-        const previewMode = header.dataset.headerPreviewMode || '';
-        const previewOpen = header.dataset.headerPreviewOpen === 'true';
-        const isStoriesContext = Boolean(header.closest('.ui_patterns_component__stories, .ui_patterns_story'));
-        const stickyEnterOffset = 88;
-        const stickyExitOffset = 64;
-        const scrollContainer = header.closest('[data-off-canvas-main-canvas]');
-        const rootScroller = document.scrollingElement || document.documentElement;
-        let desktopOffsetHeight = 0;
 
-        const setHeaderOffset = (height) => {
-          document.body.style.setProperty('--ps-header-offset', `${Math.max(0, height)}px`);
-        };
-
-        const refreshDesktopOffset = () => {
-          if (!media.matches || previewMode || isStoriesContext) {
-            desktopOffsetHeight = 0;
-            setHeaderOffset(0);
-            return;
-          }
-
-          const nextHeight = Math.ceil(header.getBoundingClientRect().height);
-          desktopOffsetHeight = Math.max(desktopOffsetHeight, nextHeight);
-          setHeaderOffset(desktopOffsetHeight);
-        };
-
-        const applyDesktopOffset = () => {
-          if (!media.matches || previewMode || isStoriesContext) {
-            setHeaderOffset(0);
-            return;
-          }
-
-          setHeaderOffset(desktopOffsetHeight);
-        };
-
-        const syncHeaderOffsetDeferred = () => {
-          window.requestAnimationFrame(() => {
-            refreshDesktopOffset();
-          });
-        };
-
-        const getScrollTop = () => {
-          const windowScrollTop = window.scrollY || window.pageYOffset || 0;
-          const rootScrollTop = rootScroller ? (rootScroller.scrollTop || 0) : 0;
-          const bodyScrollTop = document.body ? (document.body.scrollTop || 0) : 0;
-
-          if (!scrollContainer) {
-            return Math.max(windowScrollTop, rootScrollTop, bodyScrollTop);
-          }
-
-          return Math.max(windowScrollTop, rootScrollTop, bodyScrollTop, scrollContainer.scrollTop || 0);
-        };
-
-        if (!toggle || !close || !panel) {
-          return;
-        }
-
-        if (typeof ResizeObserver === 'function') {
-          const observer = new ResizeObserver(() => {
-            refreshDesktopOffset();
-          });
-          observer.observe(header);
-        }
-
-        // Keep body offset in sync after animated sticky/non-sticky transitions.
-        header.addEventListener('transitionend', syncHeaderOffsetDeferred);
-
-        // Stories and forced preview modes must stay stable and not react to page scroll.
-        if (previewMode || isStoriesContext) {
-          const isPreviewMobile = previewMode
-            ? previewMode !== 'desktop'
-            : !media.matches;
-          const isPanelOpen = previewMode ? previewOpen : false;
-
-          header.classList.toggle('is-mobile', isPreviewMobile);
-          header.classList.remove('is-sticky');
-          header.classList.toggle('is-open', isPanelOpen);
-
-          const panelVisible = isPreviewMobile ? isPanelOpen : true;
-          toggle.setAttribute('aria-expanded', panelVisible ? 'true' : 'false');
-          panel.setAttribute('aria-hidden', panelVisible ? 'false' : 'true');
-          close.hidden = false;
-          close.tabIndex = isPanelOpen ? 0 : -1;
-          close.setAttribute('aria-hidden', isPanelOpen ? 'false' : 'true');
-          refreshDesktopOffset();
-
+        if (!openButton || !closeButton || !panel) {
           return;
         }
 
@@ -100,82 +28,89 @@
         let isOpen = false;
         let ticking = false;
 
-        const markStickySwitch = () => {
-          header.classList.add('is-sticky-switching');
+        const isDesktop = () => media.matches;
 
-          window.requestAnimationFrame(() => {
-            window.requestAnimationFrame(() => {
-              header.classList.remove('is-sticky-switching');
-            });
-          });
+        const setButtonVisibility = (button, visible) => {
+          button.classList.toggle('is-visible', visible);
+          button.setAttribute('aria-hidden', visible ? 'false' : 'true');
+          button.tabIndex = visible ? 0 : -1;
         };
 
-        const syncDom = () => {
-          header.classList.toggle('is-mobile', !media.matches);
-          header.classList.toggle('is-sticky', isSticky);
-          header.classList.toggle('is-open', isOpen);
-
-          const panelVisible = (!media.matches && isOpen) || (media.matches && (!isSticky || isOpen));
-
-          toggle.setAttribute('aria-expanded', panelVisible ? 'true' : 'false');
-          panel.setAttribute('aria-hidden', panelVisible ? 'false' : 'true');
-
-          close.hidden = false;
-          close.tabIndex = isOpen ? 0 : -1;
-          close.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-          applyDesktopOffset();
-        };
-
-        const closePanel = () => {
-          isOpen = false;
-          syncDom();
-        };
-
-        const openPanel = () => {
-          isOpen = true;
-          syncDom();
-        };
-
-        const togglePanel = () => {
-          if (media.matches && !isSticky) {
+        const setFocusTrap = (event) => {
+          if (!isOpen || event.key !== 'Tab') {
             return;
           }
 
-          if (isOpen) {
-            closePanel();
+          const focusable = Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR));
+          if (focusable.length === 0) {
+            event.preventDefault();
+            closeButton.focus();
+            return;
           }
-          else {
-            openPanel();
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          const active = document.activeElement;
+
+          if (event.shiftKey && (active === first || active === closeButton)) {
+            event.preventDefault();
+            last.focus();
+          }
+          else if (!event.shiftKey && active === last) {
+            event.preventDefault();
+            closeButton.focus();
           }
         };
 
+        const syncA11yState = () => {
+          const panelCollapsed = isDesktop()
+            ? (isSticky && !isOpen)
+            : !isOpen;
+          const expanded = !panelCollapsed;
+          const showOpenButton = isDesktop()
+            ? (isSticky && !isOpen)
+            : !isOpen;
+          const showCloseButton = isOpen;
+
+          openButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          panel.setAttribute('aria-hidden', panelCollapsed ? 'true' : 'false');
+
+          setButtonVisibility(openButton, showOpenButton);
+          setButtonVisibility(closeButton, showCloseButton);
+        };
+
+        const syncState = () => {
+          const stickyActive = isDesktop() && isSticky;
+          const openActive = isDesktop() ? (isSticky && isOpen) : isOpen;
+
+          header.classList.toggle('is-mobile', !isDesktop());
+          header.classList.toggle('is-sticky', stickyActive);
+          header.classList.toggle('is-open', openActive);
+          syncA11yState();
+        };
+
         const refreshSticky = () => {
-          if (!media.matches) {
+          if (!isDesktop()) {
             if (isSticky) {
-              markStickySwitch();
               isSticky = false;
-              syncDom();
+              syncState();
             }
             return;
           }
 
-          const scrollTop = getScrollTop();
+          const scrollTop = window.scrollY || window.pageYOffset || 0;
           const nextSticky = isSticky
-            ? scrollTop > stickyExitOffset
-            : scrollTop > stickyEnterOffset;
-
+            ? scrollTop > STICKY_EXIT_THRESHOLD
+            : scrollTop > STICKY_ENTER_THRESHOLD;
           if (nextSticky === isSticky) {
             return;
           }
 
-          markStickySwitch();
           isSticky = nextSticky;
-
           if (!isSticky) {
             isOpen = false;
           }
-
-          syncDom();
+          syncState();
         };
 
         const onScroll = () => {
@@ -190,66 +125,53 @@
           });
         };
 
-        const onResize = () => {
-          if (media.matches) {
-            if (!isSticky) {
-              isOpen = false;
-            }
-          }
-          else {
-            isSticky = false;
-          }
-
-          if (media.matches) {
-            desktopOffsetHeight = 0;
-          }
-
-          syncDom();
-          refreshSticky();
-          refreshDesktopOffset();
-        };
-
-        const onDocumentClick = (event) => {
-          if (!isOpen) {
+        const openMenu = () => {
+          if (isDesktop() && !isSticky) {
             return;
           }
 
-          if (!header.contains(event.target)) {
-            closePanel();
+          isOpen = true;
+          syncState();
+
+          const firstFocusable = panel.querySelector(FOCUSABLE_SELECTOR);
+          if (firstFocusable) {
+            firstFocusable.focus();
           }
+          else {
+            closeButton.focus();
+          }
+        };
+
+        const closeMenu = () => {
+          isOpen = false;
+          syncState();
+          openButton.focus();
         };
 
         const onKeydown = (event) => {
-          if (event.key === 'Escape' && isOpen) {
-            closePanel();
-            toggle.focus();
+          if (event.key === 'Escape' && isSticky && isOpen) {
+            event.preventDefault();
+            closeMenu();
+            return;
           }
+
+          setFocusTrap(event);
         };
 
-        toggle.addEventListener('click', togglePanel);
-        close.addEventListener('click', closePanel);
-        document.addEventListener('click', onDocumentClick);
+        openButton.addEventListener('click', openMenu);
+        closeButton.addEventListener('click', closeMenu);
         document.addEventListener('keydown', onKeydown);
         window.addEventListener('scroll', onScroll, { passive: true });
-        if (rootScroller && rootScroller !== window && rootScroller !== scrollContainer) {
-          rootScroller.addEventListener('scroll', onScroll, { passive: true });
-        }
-
-        if (scrollContainer) {
-          scrollContainer.addEventListener('scroll', onScroll, { passive: true });
-        }
-
+        window.addEventListener('resize', refreshSticky);
         if (typeof media.addEventListener === 'function') {
-          media.addEventListener('change', onResize);
+          media.addEventListener('change', refreshSticky);
         }
         else if (typeof media.addListener === 'function') {
-          media.addListener(onResize);
+          media.addListener(refreshSticky);
         }
 
-        refreshDesktopOffset();
-        syncDom();
+        syncState();
         refreshSticky();
-        syncHeaderOffsetDeferred();
       });
     },
   };

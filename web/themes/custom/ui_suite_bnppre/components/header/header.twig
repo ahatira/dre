@@ -1,72 +1,55 @@
 {{ attach_library('ui_suite_bnppre/header') }}
 
 {% set header_id = 'header-panel-' ~ random() %}
-{% set brand_content = brand|render %}
+{% set container_class = container_class|default('container-xxl') %}
+{% set brand_content = brand|default('')|render %}
 {% set switcher_content = switcher|default('')|render %}
 {% set navigation_content = navigation|default('')|render %}
 {% set actions_content = actions|default('')|render %}
 {% set has_switcher = switcher_content|trim is not empty %}
 {% set has_navigation = navigation_content|trim is not empty %}
 {% set has_actions = actions_content|trim is not empty %}
-{% set container_class = container_class|default('container-xxl') %}
-{% set preview_mode = preview_mode|default('') %}
-{% set preview_open = preview_open|default(false) %}
-{% set header_classes = ['ps-header', 'js-header'] %}
 
-{% if preview_mode in ['desktop', 'tablet', 'mobile'] %}
-	{% set header_classes = header_classes|merge(['ps-header--preview', 'ps-header--preview-' ~ preview_mode]) %}
-{% endif %}
+<div class="ps-header-shell" data-header-shell>
+	<header class="ps-header" role="banner" data-header>
+		<div class="{{ container_class }} ps-header__container">
+			<div class="ps-header__inner">
+				<div class="ps-header__row--top-wrap">
+					<button class="btn ps-header__menu-button" type="button" aria-controls="{{ header_id }}" aria-expanded="false" aria-label="{{ 'Open menu'|t }}" data-header-open>
+						<span class="ps-header__menu-icon" aria-hidden="true"></span>
+					</button>
 
-{% if preview_open %}
-	{% set header_classes = header_classes|merge(['is-open']) %}
-{% endif %}
+					<div class="ps-header__row ps-header__row--top">
+						<div class="ps-header__brand">
+							{{ brand_content }}
+						</div>
 
-<header class="{{ header_classes|join(' ') }}" role="banner" data-header {% if preview_mode %} data-header-preview-mode="{{ preview_mode }}" {% endif %} {% if preview_open %} data-header-preview-open="true" {% endif %}>
-	<div class="{{ container_class }} ps-header__container">
-		<div class="ps-header__top" data-header-top>
-			<button class="navbar-toggler ps-header__toggle" type="button" aria-controls="{{ header_id }}" aria-expanded="false" aria-label="{{ 'Open header panel'|t }}" data-header-toggle>
-				<span class="ps-header__toggle-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">{{ 'Menu'|t }}</span>
-			</button>
-
-			<div class="ps-header__top-start">
-				<div class="ps-header__brand" data-header-brand>
-					{{ brand_content }}
-				</div>
-			</div>
-
-			<div class="ps-header__top-end">
-				{% if has_switcher %}
-					<div class="ps-header__switcher ps-header__switcher--top" data-header-switcher-top>
-						{{ switcher_content }}
-					</div>
-				{% endif %}
-
-				<button class="btn-close ps-header__close" type="button" aria-label="{{ 'Close header panel'|t }}" hidden data-header-close></button>
-			</div>
-		</div>
-
-		<div class="ps-header__panel" id="{{ header_id }}" data-header-panel>
-			<div class="ps-header__panel-inner">
-				{% if has_navigation %}
-					<div class="ps-header__navigation" aria-label="{{ 'Primary navigation'|t }}">
-						{{ navigation_content }}
-					</div>
-				{% endif %}
-
-				{% if has_switcher or has_actions %}
-					<div class="ps-header__actions" aria-label="{{ 'Header actions'|t }}">
 						{% if has_switcher %}
-							<div class="ps-header__switcher ps-header__switcher--panel" data-header-switcher-panel>
+							<div class="ps-header__topbar">
 								{{ switcher_content }}
 							</div>
 						{% endif %}
+					</div>
+
+					<button class="btn btn-close ps-header__close-button" type="button" aria-controls="{{ header_id }}" aria-label="{{ 'Close menu'|t }}" data-header-close></button>
+				</div>
+
+				<div class="ps-header__row2-wrap" data-header-panel-wrap>
+					<div class="ps-header__row ps-header__row--bottom" id="{{ header_id }}" data-header-panel>
+						{% if has_navigation %}
+							<div class="ps-header__navigation" aria-label="{{ 'Primary navigation'|t }}">
+								{{ navigation_content }}
+							</div>
+						{% endif %}
+
 						{% if has_actions %}
-							{{ actions_content }}
+							<div class="ps-header__actions" aria-label="{{ 'Header actions'|t }}">
+								{{ actions_content }}
+							</div>
 						{% endif %}
 					</div>
-				{% endif %}
+				</div>
 			</div>
 		</div>
-	</div>
-</header>
+	</header>
+</div>
