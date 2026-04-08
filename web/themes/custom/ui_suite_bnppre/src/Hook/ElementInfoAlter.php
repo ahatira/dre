@@ -33,7 +33,7 @@ class ElementInfoAlter
    *
    * @var array<string, bool>
    */
-    public const array CHECKBOX_PROPERTIES = [
+    public const CHECKBOX_PROPERTIES = [
     'is_inline' => false,
     'is_reverse' => false,
     'is_switch' => false,
@@ -44,7 +44,7 @@ class ElementInfoAlter
    *
    * @var array<string, bool>
    */
-    public const array RADIOS_PROPERTIES = [
+    public const RADIOS_PROPERTIES = [
     'is_inline' => false,
     'is_reverse' => false,
     ];
@@ -54,7 +54,7 @@ class ElementInfoAlter
    *
    * @var array<string, bool|array>
    */
-    public const array INPUT_GROUP_PROPERTIES = [
+    public const INPUT_GROUP_PROPERTIES = [
     'input_group_attributes' => [],
     'input_group_after' => [],
     'input_group_before' => [],
@@ -66,7 +66,7 @@ class ElementInfoAlter
    *
    * @var string[]
    */
-    public const array INPUT_GROUP_ELEMENTS = [
+    public const INPUT_GROUP_ELEMENTS = [
     'color',
     'date',
     'email',
@@ -93,7 +93,7 @@ class ElementInfoAlter
    *
    * @var string[]
    */
-    public const array AJAX_INPUT_GROUP_ELEMENTS = [
+    public const AJAX_INPUT_GROUP_ELEMENTS = [
     'date',
     'email',
     'entity_autocomplete',
@@ -118,7 +118,7 @@ class ElementInfoAlter
    *
    * @var array<string, bool>
    */
-    public const array FLOATING_LABEL_PROPERTIES = [
+    public const FLOATING_LABEL_PROPERTIES = [
     'floating_label' => false,
     ];
 
@@ -127,7 +127,7 @@ class ElementInfoAlter
    *
    * @var string[]
    */
-    public const array FLOATING_LABEL_ELEMENTS = [
+    public const FLOATING_LABEL_ELEMENTS = [
     'date',
     'email',
     'entity_autocomplete',
@@ -151,7 +151,7 @@ class ElementInfoAlter
    *
    * @var array<string, mixed>
    */
-    public const array ICON_PROPERTIES = [
+    public const ICON_PROPERTIES = [
     'icon' => [],
     'icon_position' => 'before',
     ];
@@ -161,7 +161,7 @@ class ElementInfoAlter
    *
    * @var string[]
    */
-    public const array ICON_ELEMENTS = [
+    public const ICON_ELEMENTS = [
     'button',
     'link',
     'submit',

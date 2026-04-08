@@ -1,0 +1,9 @@
+entity.agent.settings:
+  path: '/admin/structure/agent'
+  defaults:
+    _controller: '\Drupal\ps_agent\Controller\AgentSettingsController::overview'
+    _title: 'Agent settings'
+  requirements:
+    _permission: 'administer agent entities'
+  options:
+    _admin_route: true

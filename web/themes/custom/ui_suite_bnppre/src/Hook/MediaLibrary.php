@@ -14,70 +14,74 @@ use Drupal\views\ViewExecutable;
 /**
  * Hooks for Media Library support.
  */
-class MediaLibrary {
-
+class MediaLibrary
+{
   /**
    * Ensure the remove button is the first element.
    */
-  public const int REMOVE_BUTTON_WEIGHT = -10;
+    public const REMOVE_BUTTON_WEIGHT = -10;
 
   /**
    * Ensure the edit link is after the remove button.
    */
-  public const int EDIT_LINK_WEIGHT = -5;
+    public const EDIT_LINK_WEIGHT = -5;
 
   /**
    * Implements hook_form_BASE_FORM_ID_alter().
    */
-  #[Hook('form_media_library_add_form_alter')]
-  public function mediaLibraryAddForm(array &$form, FormStateInterface $formState, string $formId): void {
-    $this->styleWrapper($form);
-    $this->styleCreatedMediaList($form);
-  }
+    #[Hook('form_media_library_add_form_alter')]
+    public function mediaLibraryAddForm(array &$form, FormStateInterface $formState, string $formId): void
+    {
+        $this->styleWrapper($form);
+        $this->styleCreatedMediaList($form);
+    }
 
   /**
    * Implements hook_preprocess_HOOK().
    */
-  #[Hook('preprocess_media_library_item')]
-  public function preprocessMediaLibraryItem(array &$variables): void {
-    $this->preprocessRemoveButton($variables);
-    $this->preprocessEditLink($variables);
-  }
+    #[Hook('preprocess_media_library_item')]
+    public function preprocessMediaLibraryItem(array &$variables): void
+    {
+        $this->preprocessRemoveButton($variables);
+        $this->preprocessEditLink($variables);
+    }
 
   /**
    * Implements hook_preprocess_HOOK().
    *
    * Add icons in the media library view.
    */
-  #[Hook('preprocess_views_view')]
-  public function preprocessViewsView(array &$variables): void {
-    /** @var \Drupal\views\ViewExecutable $view */
-    $view = $variables['view'];
-    if ($view->id() != 'media_library') {
-      return;
-    }
+    #[Hook('preprocess_views_view')]
+    public function preprocessViewsView(array &$variables): void
+    {
+      /** @var \Drupal\views\ViewExecutable $view */
+        $view = $variables['view'];
+        if ($view->id() != 'media_library') {
+            return;
+        }
 
-    if (empty($variables['header']) || !\is_array($variables['header'])) {
-      return;
-    }
+        if (empty($variables['header']) || !\is_array($variables['header'])) {
+            return;
+        }
 
-    $icons = [
-      'widget' => 'grid-fill',
-      'widget_table' => 'list-ul',
-    ];
+        $icons = [
+        'widget' => 'grid-fill',
+        'widget_table' => 'list-ul',
+        ];
 
-    foreach ($variables['header'] as $headerId => $header) {
-      if (isset($header['#type'])
-        && $header['#type'] == 'link'
-        // @phpstan-ignore-next-line
-        && isset($header['#options']['view'], $header['#options']['target_display_id'], $icons[$header['#options']['target_display_id']])
-      ) {
-        // @phpstan-ignore-next-line
-        $element = UsbElement::create($variables['header'][$headerId]);
-        $element->setIcon(Bootstrap::icon($icons[$header['#options']['target_display_id']]));
-      }
+        foreach ($variables['header'] as $headerId => $header) {
+            if (
+                isset($header['#type'])
+                && $header['#type'] == 'link'
+                // @phpstan-ignore-next-line
+                && isset($header['#options']['view'], $header['#options']['target_display_id'], $icons[$header['#options']['target_display_id']])
+            ) {
+              // @phpstan-ignore-next-line
+                $element = UsbElement::create($variables['header'][$headerId]);
+                $element->setIcon(Bootstrap::icon($icons[$header['#options']['target_display_id']]));
+            }
+        }
     }
-  }
 
   /**
    * Implements hook_views_pre_render().
@@ -86,25 +90,26 @@ class MediaLibrary {
    *
    * @see \claro_views_pre_render()
    */
-  #[Hook('views_pre_render')]
-  public function preRender(ViewExecutable $view): void {
-    if ($view->id() != 'media_library') {
-      return;
-    }
-    if ($view->current_display != 'widget') {
-      return;
-    }
-    if (!\array_key_exists('media_library_select_form', $view->field)) {
-      return;
-    }
+    #[Hook('views_pre_render')]
+    public function preRender(ViewExecutable $view): void
+    {
+        if ($view->id() != 'media_library') {
+            return;
+        }
+        if ($view->current_display != 'widget') {
+            return;
+        }
+        if (!\array_key_exists('media_library_select_form', $view->field)) {
+            return;
+        }
 
-    // @phpstan-ignore-next-line
-    $this->addClasses($view->field['media_library_select_form']->options['element_wrapper_class'], [
-      'position-absolute',
-      'ms-1',
-      'z-1',
-    ]);
-  }
+      // @phpstan-ignore-next-line
+        $this->addClasses($view->field['media_library_select_form']->options['element_wrapper_class'], [
+        'position-absolute',
+        'ms-1',
+        'z-1',
+        ]);
+    }
 
   /**
    * Add classes.
@@ -114,16 +119,17 @@ class MediaLibrary {
    * @param string[] $classesToAdd
    *   The classes to add.
    */
-  protected function addClasses(string &$option, array $classesToAdd): void {
-    $classes = \preg_split('/\s+/', $option);
-    if (!\is_array($classes)) {
-      return;
-    }
+    protected function addClasses(string &$option, array $classesToAdd): void
+    {
+        $classes = \preg_split('/\s+/', $option);
+        if (!\is_array($classes)) {
+            return;
+        }
 
-    $classes = \array_filter($classes);
-    $classes = \array_merge($classes, $classesToAdd);
-    $option = \implode(' ', \array_unique($classes));
-  }
+        $classes = \array_filter($classes);
+        $classes = \array_merge($classes, $classesToAdd);
+        $option = \implode(' ', \array_unique($classes));
+    }
 
   /**
    * Style the form wrapper, all steps.
@@ -131,13 +137,14 @@ class MediaLibrary {
    * @param array $form
    *   The form structure.
    */
-  protected function styleWrapper(array &$form): void {
-    $form['#attributes']['class'][] = 'row';
-    $form['#attributes']['class'][] = 'm-1';
-    $form['#attributes']['class'][] = 'mb-3';
-    $form['#attributes']['class'][] = 'p-2';
-    $form['#attributes']['class'][] = 'border';
-  }
+    protected function styleWrapper(array &$form): void
+    {
+        $form['#attributes']['class'][] = 'row';
+        $form['#attributes']['class'][] = 'm-1';
+        $form['#attributes']['class'][] = 'mb-3';
+        $form['#attributes']['class'][] = 'p-2';
+        $form['#attributes']['class'][] = 'border';
+    }
 
   /**
    * Style the created media, second step.
@@ -145,36 +152,37 @@ class MediaLibrary {
    * @param array $form
    *   The form structure.
    */
-  protected function styleCreatedMediaList(array &$form): void {
-    if (!isset($form['media']) || !\is_array($form['media'])) {
-      return;
+    protected function styleCreatedMediaList(array &$form): void
+    {
+        if (!isset($form['media']) || !\is_array($form['media'])) {
+            return;
+        }
+
+        $form['media']['#attributes']['class'][] = 'list-unstyled';
+
+      /** @var string|int $key */
+        foreach (Element::children($form['media']) as $key) {
+            $media = &$form['media'][$key];
+
+            $media['#wrapper_attributes']['class'][] = 'row';
+
+            $media['preview']['#attributes']['class'][] = 'col-2';
+            $media['preview']['#attributes']['class'][] = 'bg-light';
+            $media['preview']['#attributes']['class'][] = 'd-flex';
+            $media['preview']['#attributes']['class'][] = 'align-items-center';
+            $media['preview']['#attributes']['class'][] = 'justify-content-center';
+
+            $media['fields']['#attributes']['class'][] = 'col-10';
+            $media['fields']['#attributes']['class'][] = 'mt-3';
+
+          // Need CSS for the special 'right', so handle all properties with CSS.
+            $media['remove_button']['#attributes']['class'][] = 'media-added-remove-button';
+
+          // @phpstan-ignore-next-line
+            $element = UsbElement::create($media['remove_button']);
+            $element->setIcon(Bootstrap::icon('x-lg'));
+        }
     }
-
-    $form['media']['#attributes']['class'][] = 'list-unstyled';
-
-    /** @var string|int $key */
-    foreach (Element::children($form['media']) as $key) {
-      $media = &$form['media'][$key];
-
-      $media['#wrapper_attributes']['class'][] = 'row';
-
-      $media['preview']['#attributes']['class'][] = 'col-2';
-      $media['preview']['#attributes']['class'][] = 'bg-light';
-      $media['preview']['#attributes']['class'][] = 'd-flex';
-      $media['preview']['#attributes']['class'][] = 'align-items-center';
-      $media['preview']['#attributes']['class'][] = 'justify-content-center';
-
-      $media['fields']['#attributes']['class'][] = 'col-10';
-      $media['fields']['#attributes']['class'][] = 'mt-3';
-
-      // Need CSS for the special 'right', so handle all properties with CSS.
-      $media['remove_button']['#attributes']['class'][] = 'media-added-remove-button';
-
-      // @phpstan-ignore-next-line
-      $element = UsbElement::create($media['remove_button']);
-      $element->setIcon(Bootstrap::icon('x-lg'));
-    }
-  }
 
   /**
    * Add icon on remove button.
@@ -182,24 +190,25 @@ class MediaLibrary {
    * @param array $variables
    *   The preprocessed variables.
    */
-  protected function preprocessRemoveButton(array &$variables): void {
-    if (!isset($variables['content']['remove_button'])) {
-      return;
-    }
+    protected function preprocessRemoveButton(array &$variables): void
+    {
+        if (!isset($variables['content']['remove_button'])) {
+            return;
+        }
 
-    // @phpstan-ignore-next-line
-    $element = UsbElement::create($variables['content']['remove_button']);
-    $element->setIcon(Bootstrap::icon('trash', 'bootstrap', [
-      'size' => '16px',
-      'alt' => $element->getProperty('value'),
-    ]));
-    $element->setProperty('icon_position', 'icon_only');
-    $element->addClass([
-      'btn-sm',
-      'media-library-remove-button',
-    ]);
-    $element->setProperty('weight', static::REMOVE_BUTTON_WEIGHT);
-  }
+      // @phpstan-ignore-next-line
+        $element = UsbElement::create($variables['content']['remove_button']);
+        $element->setIcon(Bootstrap::icon('trash', 'bootstrap', [
+        'size' => '16px',
+        'alt' => $element->getProperty('value'),
+        ]));
+        $element->setProperty('icon_position', 'icon_only');
+        $element->addClass([
+        'btn-sm',
+        'media-library-remove-button',
+        ]);
+        $element->setProperty('weight', static::REMOVE_BUTTON_WEIGHT);
+    }
 
   /**
    * Add icon and button style on edit link.
@@ -207,23 +216,23 @@ class MediaLibrary {
    * @param array $variables
    *   The preprocessed variables.
    */
-  protected function preprocessEditLink(array &$variables): void {
-    if (!isset($variables['content']['media_edit'])) {
-      return;
+    protected function preprocessEditLink(array &$variables): void
+    {
+        if (!isset($variables['content']['media_edit'])) {
+            return;
+        }
+
+      // @phpstan-ignore-next-line
+        $element = UsbElement::create($variables['content']['media_edit']);
+        $element->setIcon(Bootstrap::icon('pencil-fill', 'bootstrap', [
+        'size' => '16px',
+        ]));
+        $element->setProperty('icon_position', 'icon_only');
+        $element->addClass([
+        'btn',
+        'btn-sm',
+        'btn-success',
+        ]);
+        $element->setProperty('weight', static::EDIT_LINK_WEIGHT);
     }
-
-    // @phpstan-ignore-next-line
-    $element = UsbElement::create($variables['content']['media_edit']);
-    $element->setIcon(Bootstrap::icon('pencil-fill', 'bootstrap', [
-      'size' => '16px',
-    ]));
-    $element->setProperty('icon_position', 'icon_only');
-    $element->addClass([
-      'btn',
-      'btn-sm',
-      'btn-success',
-    ]);
-    $element->setProperty('weight', static::EDIT_LINK_WEIGHT);
-  }
-
 }

@@ -1,0 +1,4 @@
+administer agent entities:
+  title: 'Administer agent entities'
+  description: 'Create, edit and delete Agent entities.'
+  restrict access: true

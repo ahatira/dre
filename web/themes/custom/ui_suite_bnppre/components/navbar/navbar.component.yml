@@ -46,6 +46,8 @@ props:
     navbar_id:
       title: ID
       description: "Must start with a letter. Randomly generated if empty."
+      type: string
+
       $ref: "ui-patterns://identifier"
     placement:
       title: "Placement (deprecated)"

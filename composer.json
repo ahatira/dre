@@ -44,6 +44,7 @@
         "drupal/ui_patterns": "^2.0",
         "drupal/ui_styles": "^1.19",
         "drupal/ui_suite_bootstrap": "^5.2",
+        "drupal/webform": "^6.3@beta",
         "drush/drush": "^13.7"
     },
     "conflict": {

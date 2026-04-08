@@ -16,7 +16,7 @@ class UiSkins {
   /**
    * The page top key for CSS variables.
    */
-  public const string PAGE_TOP_CSS_VARIABLES_KEY = 'ui_suite_bnppre_form_required';
+  public const PAGE_TOP_CSS_VARIABLES_KEY = 'ui_suite_bnppre_form_required';
 
   public function __construct(
     protected ThemeSettingsProvider $themeSettings,

@@ -96,6 +96,8 @@ props:
     modal_id:
       title: ID
       description: "ID used by external buttons to toggle the visibility. Must start with a letter. Randomly generated if empty."
+      type: string
+
       $ref: "ui-patterns://identifier"
 # Fake library for extension/override in sub-themes.
 libraryOverrides:

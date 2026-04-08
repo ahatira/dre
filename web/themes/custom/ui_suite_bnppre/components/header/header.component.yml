@@ -1,5 +1,5 @@
 name: 'Header'
-description: 'BNP Paribas Real Estate header with top bar, sticky compact mode, and expandable navigation/actions panel.'
+description: 'Simple Bootstrap-based site header component.'
 group: 'PS Theme'
 slots:
   brand:
@@ -14,9 +14,16 @@ slots:
   actions:
     title: Actions
     description: 'Utility area: search, CTA buttons, account, custom links, icons, flags.'
+  content:
+    title: Content
+    description: 'Optional additional renderable content rendered in the mobile panel.'
 props:
   type: object
   properties:
+    attributes:
+      title: Attributes
+      description: 'Additional attributes for the header element.'
+      $ref: 'ui-patterns://attributes'
     container_class:
       title: Container class
       description: 'Header container wrapper class.'
@@ -29,21 +36,3 @@ props:
         container: Container
         container-fluid: Container fluid
         container-xxl: Container XXL
-    preview_mode:
-      title: Preview mode
-      description: 'For stories only: force desktop/tablet/mobile rendering without relying on viewport width.'
-      type: string
-      enum:
-        - ''
-        - desktop
-        - tablet
-        - mobile
-      "meta:enum":
-        '': Auto
-        desktop: Desktop
-        tablet: Tablet
-        mobile: Mobile
-    preview_open:
-      title: Preview open
-      description: 'For stories only: force panel open state.'
-      type: boolean

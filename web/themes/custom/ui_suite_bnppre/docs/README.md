@@ -49,6 +49,7 @@ vendor/bin/drush cr
 | [php-hooks.md](php-hooks.md) | OOP hook classes inventory, DI patterns, extension guide |
 | [templates.md](templates.md) | All 84 templates, suggestion hierarchy, override patterns |
 | [components.md](components.md) | UI Patterns component system, slots/props, component list, how to create |
+| [offer-components-variants.md](offer-components-variants.md) | Offer-detail SDC contract: variants, strict props, optional slots, integration notes |
 | [libraries.md](libraries.md) | Library system, dynamic loading, full override audit + risk table |
 | [icons.md](icons.md) | BNPPRE icon pack: categories, naming contract, SVG rules, build pipeline |
 

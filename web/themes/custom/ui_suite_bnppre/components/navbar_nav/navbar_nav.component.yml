@@ -14,6 +14,8 @@ props:
     dropdown_id:
       title: ID
       description: "Must start with a letter. Randomly generated if empty."
+      type: string
+
       $ref: "ui-patterns://identifier"
     items:
       title: "Menu items"

@@ -24,6 +24,14 @@
 - Keep Bootstrap and library overrides deliberate and documented, because this theme overrides multiple core/contrib libraries.
 - For icon work, follow the documented normalization and naming contract before committing SVG updates.
 
+## SDC Component Development
+- **Authoritative ruleset**: `UI-SDC.md` (repo root) — read this before creating or modifying any SDC component, Twig template, or preprocess hook.
+- Theme MUST remain entity-agnostic: only Drupal default entities (`node`, `user`, `media`, `taxonomy_term`, `comment`, `block`, `views`) are allowed references, in generic rendering context only.
+- MUST NOT: `if bundle == '...'` in Twig/PHP, project-specific field access (`content.field_*` métier), hardcoded business routes, business logic in `src/Hook/*`.
+- Components MUST accept any renderable in slots — never impose a specific entity field to feed a slot.
+- Components MUST be compatible with `#type: component` render arrays (UI Patterns) and Layout Builder context (no entity coupling in components).
+- Field → slot pipeline: normalize in PHP preprocess → build `#type: component` → inject `#props` for structure, `#slots` for content.
+
 ## Reference Docs
 - Developer docs index: `web/themes/custom/ui_suite_bnppre/docs/README.md`
 - Architecture (regions, dependencies, CSS variants, starterkit): `web/themes/custom/ui_suite_bnppre/docs/architecture.md`

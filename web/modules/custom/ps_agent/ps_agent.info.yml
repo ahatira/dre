@@ -1,0 +1,12 @@
+name: 'PS Agent'
+type: module
+description: 'Provides a custom Agent content entity for offer contacts.'
+package: 'Custom'
+core_version_requirement: ^11
+dependencies:
+  - drupal:block
+  - drupal:node
+  - drupal:image
+  - drupal:link
+  - drupal:webform
+  - drupal:layout_builder

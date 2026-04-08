@@ -1,0 +1,5 @@
+entity.agent.add_form:
+  route_name: entity.agent.add_form
+  title: 'Add agent'
+  appears_on:
+    - entity.agent.collection

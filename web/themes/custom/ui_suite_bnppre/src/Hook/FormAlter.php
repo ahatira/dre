@@ -18,7 +18,7 @@ class FormAlter {
    *
    * @var string[]
    */
-  public const array LAYOUT_BUILDER_FORM_IDS = [
+  public const LAYOUT_BUILDER_FORM_IDS = [
     'layout_builder_add_block',
     'layout_builder_block_move',
     'layout_builder_configure_section',
@@ -35,7 +35,7 @@ class FormAlter {
    *
    * @var string[]
    */
-  public const array LAYOUT_BUILDER_FORM_IDS_CONTAINS = [
+  public const LAYOUT_BUILDER_FORM_IDS_CONTAINS = [
     'layout_builder_translate_form',
   ];
 

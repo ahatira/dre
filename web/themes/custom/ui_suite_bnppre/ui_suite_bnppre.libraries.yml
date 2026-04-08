@@ -221,6 +221,7 @@ header:
   js:
     components/header/js/header.js: {}
   dependencies:
+    - ui_suite_bnppre/framework_js
     - core/drupal
     - core/once
     - core/drupalSettings
@@ -231,4 +232,5 @@ footer:
   dependencies:
     - core/drupal
     - core/once
+
 

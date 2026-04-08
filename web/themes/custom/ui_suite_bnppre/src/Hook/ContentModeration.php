@@ -15,7 +15,7 @@ class ContentModeration {
   /**
    * Moderation state size so that it is not too wide.
    */
-  public const int SIZE = 15;
+  public const SIZE = 15;
 
   /**
    * Implements hook_form_FORM_ID_alter().

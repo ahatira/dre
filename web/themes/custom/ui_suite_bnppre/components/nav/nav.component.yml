@@ -30,6 +30,8 @@ props:
     nav_id:
       title: "Nav ID"
       description: "Must start with a letter. Randomly generated if empty."
+      type: string
+
       $ref: "ui-patterns://identifier"
     nav_type:
       title: "List type"
@@ -45,6 +47,8 @@ props:
     dropdown_id:
       title: "Dropdown ID"
       description: "Must start with a letter. Randomly generated if empty."
+      type: string
+
       $ref: "ui-patterns://identifier"
     card_header:
       title: "Card header"

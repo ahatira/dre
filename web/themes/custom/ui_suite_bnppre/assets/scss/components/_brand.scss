@@ -27,8 +27,8 @@
   &__logo {
     display: block;
     width: auto;
-    height: 2.5rem;
-    max-height: 2.5rem;
+    height: 2rem;
+    max-height: 2rem;
     object-fit: contain;
   }
 
@@ -58,5 +58,21 @@
     line-height: 1.5; // 24px / 16px
     color: $bnppre-gray-3; // #777E83
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .ps-brand {
+    gap: .625rem;
+
+    &__logo {
+      height: 1.75rem;
+      max-height: 1.75rem;
+    }
+
+    &__separator,
+    &__slogan {
+      display: none;
+    }
   }
 }

@@ -1,0 +1,13 @@
+entity.agent.collection:
+  title: 'Agents'
+  description: 'Manage Agent entities.'
+  route_name: entity.agent.collection
+  parent: system.admin_content
+  weight: 25
+
+entity.agent.settings:
+  title: 'Agent settings'
+  description: 'Manage Agent fields and display.'
+  route_name: entity.agent.settings
+  parent: system.admin_structure
+  weight: 35
