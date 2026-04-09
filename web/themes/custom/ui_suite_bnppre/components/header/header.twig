@@ -14,101 +14,80 @@
 {% set has_actions = actions_content|trim is not empty %}
 {% set has_content = content|trim is not empty %}
 
-<div class="ps-header-shell" data-header-shell>
-	<header{{attributes.addClass('ps-header','header').setAttribute('role','banner').setAttribute('data-header','true')}}>
-		{{ title_prefix|default([]) }}
-		<div class="{{ container_class }} ps-header__container">
-			<nav class="navbar navbar-expand-lg ps-header__navbar ps-header__row ps-header__row--top" aria-label="{{ 'Header primary bar'|t }}">
-				<div class="container-fluid px-0">
-					<button class="btn ps-header__desktop-toggle" type="button" aria-label="{{ 'Open header panel'|t }}" aria-hidden="true" tabindex="-1" data-header-open-desktop>
+<div class="ps-header-scoller"></div>
+<header{{attributes.addClass('ps-header','header').setAttribute('role','banner').setAttribute('data-header','true')}}>
+	{{ title_prefix|default([]) }}
+	<div class="{{ container_class }} ps-header__container">
+		<div class="container-fluid">
+			<div class="d-flex align-items-center ps-header__row ps-header__row--top">
+				<div class="ps-header__controls">
+					<button class="ps-header__menu-toggle" type="button" aria-expanded="false" aria-label="{{ 'Open menu'|t }}" data-header-button-toggle>
 						<span class="navbar-toggler-icon" aria-hidden="true"></span>
 					</button>
-
-					{{ include('ui_suite_bnppre:close_button', {
-						attributes: create_attribute({
-							class: ['btn', 'ps-header__desktop-close'],
-							'aria-hidden': 'true',
-							tabindex: '-1',
-							'data-header-close-desktop': 'true',
-						}),
-						aria_label: 'Close header panel'|t,
-					}, with_context = false) }}
-
-					<div class="ps-header__mobile-toggle-wrap d-lg-none" aria-hidden="false">
-						<button class="navbar-toggler ps-header__menu-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{ header_id }}" aria-controls="{{ header_id }}" aria-expanded="false" aria-label="{{ 'Toggle navigation'|t }}" data-header-trigger>
-							<span class="navbar-toggler-icon"></span>
-						</button>
-
-						{{ include('ui_suite_bnppre:close_button', {
-							attributes: create_attribute({
-								class: ['btn', 'ps-header__mobile-close'],
-								'data-bs-toggle': 'collapse',
-								'data-bs-target': '#' ~ header_id,
-								'aria-controls': header_id,
-								'aria-hidden': 'true',
-								tabindex: '-1',
-								'data-header-close-mobile': 'true',
-							}),
-							aria_label: 'Close menu'|t,
-						}, with_context = false) }}
-					</div>
-
-					<div class="ps-header__brand navbar-brand m-0">
-						{{ brand_content }}
-					</div>
-
-					{% if has_switcher %}
-						<div class="ps-header__topbar ms-auto d-none d-lg-flex" aria-label="{{ 'Top bar'|t }}">
-							{{ switcher_content }}
-						</div>
-					{% endif %}
+					<button class="ps-header__close-toggle" type="button" aria-expanded="false" aria-label="{{ 'Close menu'|t }}" data-header-button-close>
+						<span class="ps-header__close-icon" aria-hidden="true"></span>
+					</button>
 				</div>
-			</nav>
 
-			<div class="row align-items-center ps-header__row ps-header__row--bottom" data-header-desktop-row>
+				<div class="ps-header__brand">
+					{{ brand_content }}
+				</div>
+
+				{% if has_switcher %}
+					<div class="ps-header__top d-flex gap-2 ms-auto" aria-label="{{ 'Top bar'|t }}">
+						{{ switcher_content }}
+					</div>
+				{% endif %}
+			</div>
+
+			<div class="d-flex align-items-center justify-content-between ps-header__row ps-header__row--bottom" data-header-desktop-row>
 				{% if has_navigation %}
-					<nav class="col ps-header__navigation" aria-label="{{ 'Primary navigation'|t }}">
+					<nav class="d-flex gap-3 ps-header__navigation" aria-label="{{ 'Primary navigation'|t }}">
 						{{ navigation_content }}
 					</nav>
 				{% endif %}
 
 				{% if has_actions %}
-					<div class="col-auto ps-header__actions" aria-label="{{ 'Header actions'|t }}">
+					<div class="d-flex gap-2 ps-header__actions" aria-label="{{ 'Header actions'|t }}">
 						{{ actions_content }}
 					</div>
 				{% endif %}
 			</div>
+		</div>
 
-			<div id="{{ header_id }}" class="collapse d-lg-none ps-header__mobile-panel" aria-labelledby="{{ header_label_id }}" aria-hidden="true" data-header-panel>
-				<div class="ps-header__mobile-inner py-2 pb-4">
-					<h2 class="visually-hidden" id="{{ header_label_id }}">{{ 'Mobile navigation'|t }}</h2>
+		<div class="offcanvas offcanvas-end ps-header__offcanvas" tabindex="-1" id="{{ header_id }}" aria-labelledby="{{ header_label_id }}" data-header-panel>
+			<div class="offcanvas-header">
+				<div class="ps-header__offcanvas-brand">{{ brand_content }}</div>
+				<button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="{{ 'Close menu'|t }}"></button>
+			</div>
+			<div class="offcanvas-body d-flex flex-column">
+				<h2 class="visually-hidden" id="{{ header_label_id }}">{{ 'Mobile navigation'|t }}</h2>
 
-					{% if has_navigation %}
-						<nav class="ps-header__navigation ps-header__navigation--mobile" aria-label="{{ 'Primary navigation mobile'|t }}">
-							{{ navigation_content }}
-						</nav>
-					{% endif %}
+				{% if has_navigation %}
+					<nav class="mb-4 ps-header__navigation ps-header__navigation--mobile" aria-label="{{ 'Primary navigation mobile'|t }}">
+						{{ navigation_content }}
+					</nav>
+				{% endif %}
 
-					{% if has_switcher %}
-						<div class="ps-header__topbar ps-header__topbar--mobile pt-3" aria-label="{{ 'Language switcher'|t }}">
-							{{ switcher_content }}
-						</div>
-					{% endif %}
+				{% if has_actions %}
+					<div class="d-grid gap-2 ps-header__actions ps-header__actions--mobile" aria-label="{{ 'Header actions mobile'|t }}">
+						{{ actions_content }}
+					</div>
+				{% endif %}
 
-					{% if has_actions %}
-						<div class="ps-header__actions ps-header__actions--mobile pt-3" aria-label="{{ 'Header actions mobile'|t }}">
-							{{ actions_content }}
-						</div>
-					{% endif %}
+				{% if has_content %}
+					<div class="pt-3 ps-header__content">
+						{{ content }}
+					</div>
+				{% endif %}
 
-					{% if has_content %}
-						<div class="ps-header__content pt-3">
-							{{ content }}
-						</div>
-					{% endif %}
-				</div>
+				{% if has_switcher %}
+					<div class="mt-auto pt-4 ps-header__top ps-header__top--mobile" aria-label="{{ 'Language switcher'|t }}">
+						{{ switcher_content }}
+					</div>
+				{% endif %}
 			</div>
 		</div>
-		{{ title_suffix|default([]) }}
-	</header>
-</div>
+	</div>
+	{{ title_suffix|default([]) }}
+</header>
