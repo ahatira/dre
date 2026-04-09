@@ -19,9 +19,12 @@
 #}
 {% if links %}
 	{%- set active_link = null -%}
+	{%- set active_index = 0 -%}
 	{%- for item in links -%}
-		{%- if active_link is null and 'is-active' in item.attributes.class -%}
+		{%- set item_classes = item.attributes.class|default([]) -%}
+		{%- if active_link is null and 'is-active' in item_classes -%}
 			{%- set active_link = item -%}
+			{%- set active_index = loop.index0 -%}
 		{%- endif -%}
 	{%- endfor -%}
 	{%- set active_link = active_link ?? links|first -%}
@@ -32,7 +35,11 @@
 		</button>
 		<ul class="dropdown-menu dropdown-menu-end ps-language-switcher__menu">
 			{%- for item in links -%}
-				<li{{item.attributes}}>
+				{%- set item_attributes = item.attributes.addClass('ps-language-switcher__item') -%}
+				{%- if loop.index0 == active_index -%}
+					{%- set item_attributes = item_attributes.addClass('is-active') -%}
+				{%- endif -%}
+				<li{{item_attributes}}>
 					{%- if item.link -%}
 						{{ item.link }}
 					{%- endif -%}

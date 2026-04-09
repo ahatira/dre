@@ -1,0 +1,116 @@
+.ps-language-switcher {
+  --ps-language-switcher-width: 5.25rem;
+  --ps-language-switcher-height: 2.5rem;
+
+  display: inline-block;
+  width: var(--ps-language-switcher-width);
+  font-family: $font-family-body;
+  font-size: .9375rem;
+  line-height: 1.2;
+
+  &__trigger,
+  &__menu {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    height: var(--ps-language-switcher-height);
+    padding: .5rem .75rem;
+    border: 1px solid $bnppre-gray-5;
+    border-radius: 0;
+    background: $bnppre-white;
+    color: $bnppre-gray-1;
+    box-shadow: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active,
+    &.show {
+      border-color: $bnppre-gray-5;
+      background: $bnppre-white;
+      color: $bnppre-gray-1;
+      box-shadow: none;
+    }
+
+    &.show {
+      border-bottom-color: transparent;
+    }
+
+    &::after {
+      margin-left: auto;
+      border-top-width: .36em;
+      border-right-width: .36em;
+      border-left-width: .36em;
+      transition: transform .2s ease;
+    }
+
+    &.show::after {
+      transform: rotate(180deg);
+    }
+
+    .language-icon {
+      flex: 0 0 auto;
+      width: 1rem;
+      height: .75rem;
+      object-fit: cover;
+    }
+  }
+
+  &__menu {
+    --bs-dropdown-spacer: 0;
+
+    margin: 0;
+    padding: 0;
+    border: 1px solid $bnppre-gray-5;
+    border-radius: 0;
+    background: $bnppre-white;
+    box-shadow: none;
+  }
+
+  &__item {
+    list-style: none;
+
+    + .ps-language-switcher__item {
+      border-top: 1px solid $bnppre-gray-6;
+    }
+
+    &.is-active {
+      background: $bnppre-gray-6;
+    }
+
+    > a {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      min-height: var(--ps-language-switcher-height);
+      padding: .5rem .75rem;
+      color: $bnppre-gray-1;
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover,
+      &:focus,
+      &:focus-visible {
+        background: $bnppre-gray-7;
+        color: $bnppre-gray-1;
+      }
+
+      .language-icon {
+        flex: 0 0 auto;
+        width: 1rem;
+        height: .75rem;
+        object-fit: cover;
+      }
+    }
+
+    &.is-active > a {
+      background: $bnppre-gray-6;
+    }
+  }
+}

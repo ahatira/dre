@@ -63,6 +63,9 @@ class PreprocessLinks
                     $label,
                     $iconsAvailable,
                 );
+
+                $item['link']['#options']['attributes']['class'][] = 'dropdown-item';
+                $item['link']['#attributes']['class'][] = 'dropdown-item';
             }
         }
         unset($item);
