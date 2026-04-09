@@ -1,0 +1,98 @@
+name: Demo Boxes
+slots:
+  brand:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+          - demo-box--brand
+      value: LOGO
+  switcher:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: FR
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: EN
+  navigation:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Accueil
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Produits
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Services
+  actions:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Search
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Login
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Contact
+  content:
+    - type: html_tag
+      tag: div
+      attributes:
+        class:
+          - demo-box
+      value: Contenu additionnel
+props:
+  container_class: container-fluid
+library_wrapper: >
+  <style>
+    .demo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2rem;
+      padding: 0 .75rem;
+      border: 1px solid #d6dbde;
+      background: #ffffff;
+      color: #333333;
+      font-size: .75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .demo-box--brand {
+      min-width: 7rem;
+      color: #0b7451;
+      border-color: #cfe4db;
+    }
+    .storybook-header-demo {
+      min-height: 2000px;
+      padding: 1rem;
+      background: #f3e5ab;
+    }
+  </style>
+  <div class="storybook-header-demo">{{ _story }}</div>
