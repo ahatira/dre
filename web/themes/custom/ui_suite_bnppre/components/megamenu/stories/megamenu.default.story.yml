@@ -1,0 +1,30 @@
+name: "Default"
+props:
+  menu_name: main
+  items:
+    - title: "Find a property"
+      ps_has_megamenu: true
+      ps_megamenu_columns:
+        - title: "Bureau, Logistique, Local d'activite et Commerce"
+          links:
+            - title: "Notre offre de service"
+              url: "#"
+            - title: "Bureau"
+              url: "#"
+            - title: "Logistique"
+              url: "#"
+        - title: "Residentiel"
+          links:
+            - title: "Vente en bloc"
+              url: "#"
+            - title: "Vente lot par lot"
+              url: "#"
+      ps_megamenu_aside:
+        title: "Decouvrez nos etudes et recherches"
+        lead: "Nos analyses vous aident a prendre des decisions strategiques."
+        cta_label: "Toutes nos etudes de marche"
+        url: "#"
+        image_src: "/themes/custom/ui_suite_bnppre/screenshot.png"
+        image_alt: "Illustration etudes"
+    - title: "About us"
+      url: "#"

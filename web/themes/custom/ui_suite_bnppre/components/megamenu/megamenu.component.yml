@@ -1,0 +1,23 @@
+name: Megamenu
+description: "Main navigation megamenu with optional editorial aside and Bootstrap dropdown semantics."
+group: Navigation
+links:
+  - "https://getbootstrap.com/docs/5.3/components/dropdowns/"
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: "Additional attributes for the top-level list."
+      $ref: "ui-patterns://attributes"
+    items:
+      title: Items
+      description: "Pre-normalized level-1 items for megamenu rendering."
+      type: array
+    menu_name:
+      title: Menu name
+      description: "Menu machine name used for CSS utility classes."
+      type: string
+      default: main
+libraryOverrides:
+  css: {}

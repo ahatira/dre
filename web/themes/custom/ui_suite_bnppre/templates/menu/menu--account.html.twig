@@ -47,12 +47,12 @@
 
 	{% else %}
 
-		{# ── Anonymous: CTA pill button (first item = "Log in / Sign up") ──── #}
+		{# ── Anonymous: CTA button (first item = "Log in / Sign up") ──── #}
 		{% set first_item = items|first %}
 		{% if first_item and first_item.url %}
 			{% set first_link_attributes = create_attribute(first_item.link_attributes|default({})) %}
 			<div class="ps-account-menu ps-account-menu--anonymous">
-				<a href="{{ first_item.url }}" {{ first_link_attributes.addClass(['btn', 'btn-primary', 'rounded-pill', 'ps-account-menu__cta']) }}>
+				<a href="{{ first_item.url }}" {{ first_link_attributes.addClass(['btn', 'btn-primary', 'ps-account-menu__cta']) }}>
 					<span class="ps-account-menu__icon" aria-hidden="true">{{ icon_account }}</span>
 					<span>{{ first_item.title }}</span>
 				</a>

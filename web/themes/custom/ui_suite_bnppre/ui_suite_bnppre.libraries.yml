@@ -226,6 +226,14 @@ header:
     - core/once
     - core/drupalSettings
 
+megamenu:
+  js:
+    components/megamenu/js/megamenu.js: {}
+  dependencies:
+    - ui_suite_bnppre/framework_js
+    - core/drupal
+    - core/once
+
 footer:
   js:
     components/footer/js/footer.js: {}

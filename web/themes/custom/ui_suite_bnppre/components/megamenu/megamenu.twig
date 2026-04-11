@@ -1,0 +1,119 @@
+{{ attach_library('ui_suite_bnppre/megamenu') }}
+
+{% macro render_link(link_item) %}
+  {% set column_link_attributes = create_attribute(link_item.attributes|default({})) %}
+  {% if link_item.url %}
+    {{ link(link_item.title, link_item.url, column_link_attributes.addClass([
+      'ps-megamenu__link',
+      link_item.in_active_trail ? 'is-active',
+    ])) }}
+  {% else %}
+    <span{{ column_link_attributes.addClass('ps-megamenu__link', 'is-text') }}>{{ link_item.title }}</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_column(column) %}
+  <section class="col-12 col-md-6 col-xl-4 ps-megamenu__column" aria-label="{{ column.title ?: ('Navigation section'|t) }}">
+    {% if column.title %}
+      <h2 class="ps-megamenu__column-title">{{ column.title }}</h2>
+    {% endif %}
+
+    {% if column.description %}
+      <p class="ps-megamenu__column-description">{{ column.description }}</p>
+    {% endif %}
+
+    {% if column.links %}
+      <ul class="list-unstyled mb-0 ps-megamenu__links">
+        {% for link_item in column.links %}
+          <li class="ps-megamenu__links-item">{{ _self.render_link(link_item) }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+{% endmacro %}
+
+{% set menu_name = menu_name|default('main') %}
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set menu_attributes = attributes.addClass(['menu', 'menu--' ~ menu_name|clean_class, 'navbar-nav', 'ps-megamenu']) %}
+
+{% if items %}
+  <ul{{ menu_attributes }}>
+    {% for item in items %}
+      {% set item_attributes = create_attribute(item.attributes|default({})) %}
+      {% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+      {% set dropdown_id = 'main-megamenu-' ~ loop.index ~ '-' ~ random() %}
+      {% set has_megamenu = item.ps_has_megamenu|default(false) %}
+
+      {% if has_megamenu %}
+        <li{{ item_attributes.addClass('nav-item', 'dropdown', 'ps-megamenu__item', 'position-static') }}>
+          <button
+            {{ link_attributes
+              .addClass('nav-link', 'dropdown-toggle', 'ps-megamenu__toggle')
+              .setAttribute('id', dropdown_id)
+              .setAttribute('type', 'button')
+              .setAttribute('data-bs-toggle', 'dropdown')
+              .setAttribute('data-bs-auto-close', 'outside')
+              .setAttribute('data-bs-display', 'static')
+              .setAttribute('aria-expanded', 'false') }}
+          >
+            {{ item.title }}
+          </button>
+
+          <div class="dropdown-menu ps-megamenu__menu" aria-labelledby="{{ dropdown_id }}">
+            <div class="container-xxl ps-megamenu__container">
+              <div class="row g-0 align-items-stretch">
+                <div class="col-12 {{ item.ps_megamenu_aside ? 'col-lg-8' : 'col-lg-12' }} ps-megamenu__columns-wrap">
+                  <div class="row g-4 g-xl-5 ps-megamenu__columns">
+                    {% for column in item.ps_megamenu_columns|default([]) %}
+                      {{ _self.render_column(column) }}
+                    {% endfor %}
+                  </div>
+                </div>
+
+                {% if item.ps_megamenu_aside %}
+                  {% set aside = item.ps_megamenu_aside %}
+                  <aside class="col-12 col-lg-4 ps-megamenu__aside-col">
+                    <div class="ps-megamenu__aside">
+                      {% if aside.title %}
+                        <h2 class="ps-megamenu__aside-title">{{ aside.title }}</h2>
+                      {% endif %}
+
+                      {% if aside.lead %}
+                        <p class="ps-megamenu__aside-lead">{{ aside.lead }}</p>
+                      {% endif %}
+
+                      {% if aside.cta_label and aside.url %}
+                        <p class="mb-0 ps-megamenu__aside-link-wrap">
+                          {{ link(aside.cta_label, aside.url, create_attribute().addClass('ps-megamenu__aside-link')) }}
+                        </p>
+                      {% endif %}
+
+                      {% if aside.image_src %}
+                        <figure class="mb-0 ps-megamenu__aside-figure">
+                          <img
+                            class="img-fluid ps-megamenu__aside-image"
+                            src="{{ aside.image_src }}"
+                            alt="{{ aside.image_alt }}"
+                            loading="lazy"
+                          >
+                        </figure>
+                      {% endif %}
+                    </div>
+                  </aside>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </li>
+      {% elseif item.url %}
+        <li{{ item_attributes.addClass('nav-item', 'ps-megamenu__item') }}>
+          {{ link(item.title, item.url, link_attributes.addClass('nav-link', 'ps-megamenu__link-top')) }}
+        </li>
+      {% else %}
+        <li{{ item_attributes.addClass('nav-item', 'ps-megamenu__item') }}>
+          <span{{ link_attributes.addClass('nav-link', 'ps-megamenu__link-top', 'disabled') }}>{{ item.title }}</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

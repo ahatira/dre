@@ -1,0 +1,226 @@
+// =============================================================================
+// Megamenu
+// =============================================================================
+
+.ps-megamenu {
+  gap: 1.375rem;
+
+  &__item {
+    list-style: none;
+  }
+
+  &__toggle,
+  &__link-top {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: $bnppre-gray-1;
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible,
+    &.show {
+      color: $bnppre-primary;
+    }
+  }
+
+  &__toggle {
+    --bs-btn-padding-x: 0;
+    --bs-btn-padding-y: 0;
+    --bs-btn-font-size: .875rem;
+    --bs-btn-font-weight: 500;
+    --bs-btn-color: #{$bnppre-gray-1};
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: #{$bnppre-primary};
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-color: #{$bnppre-primary};
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-box-shadow: none;
+    --bs-btn-focus-box-shadow: none;
+
+    gap: .25rem;
+  }
+
+  &__menu {
+    width: min(100vw - 2rem, 84rem);
+    min-width: 0;
+    margin-top: .75rem;
+    padding: 0;
+    border: 1px solid $bnppre-gray-6;
+    border-radius: 0;
+    background: $bnppre-white;
+    box-shadow: 0 20px 44px rgba($bnppre-gray-1, .12);
+  }
+
+  &__container {
+    padding: 0;
+  }
+
+  &__columns-wrap {
+    padding: 2rem 2rem 2.25rem;
+  }
+
+  &__column-title,
+  &__aside-title {
+    margin: 0 0 1.25rem;
+    color: $bnppre-gray-1;
+    font-family: $font-family-headings;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  &__links {
+    display: grid;
+    gap: .875rem;
+  }
+
+  &__link {
+    color: $bnppre-gray-2;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible,
+    &.is-active {
+      color: $bnppre-primary;
+    }
+  }
+
+  &__aside-col {
+    background: $bnppre-gray-7;
+  }
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-height: 100%;
+    padding: 2rem;
+  }
+
+  &__aside-lead {
+    margin: 0;
+    color: $bnppre-gray-1;
+    font-size: .875rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  &__aside-link {
+    color: $bnppre-gray-2;
+    font-size: .875rem;
+    line-height: 1.45;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $bnppre-primary;
+    }
+  }
+
+  &__aside-figure {
+    margin-top: auto;
+  }
+
+  &__aside-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.ps-header__row--bottom {
+  position: relative;
+}
+
+@media (max-width: 991.98px) {
+  .ps-megamenu {
+    width: 100%;
+
+    &__item {
+      width: 100%;
+    }
+
+    &__toggle,
+    &__link-top {
+      width: 100%;
+      justify-content: space-between;
+      min-height: 3.625rem;
+      padding-block: .75rem;
+      padding-inline: 0;
+      border-bottom: 1px solid $bnppre-gray-6;
+    }
+
+    &__menu {
+      width: 100%;
+      margin-top: 0;
+      border: 0;
+      box-shadow: none;
+      position: static !important;
+      inset: auto !important;
+      transform: none !important;
+    }
+
+    &__columns-wrap,
+    &__aside {
+      padding: 1rem 0 0;
+    }
+
+    &__columns {
+      row-gap: 1.5rem;
+    }
+
+    &__column {
+      padding-bottom: .75rem;
+      border-bottom: 1px solid $bnppre-gray-6;
+    }
+
+    &__aside-col {
+      background: transparent;
+    }
+
+    &__aside {
+      gap: .875rem;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .ps-megamenu {
+    .ps-megamenu__item.dropdown {
+      position: static;
+    }
+
+    .ps-megamenu__menu {
+      position: absolute;
+      top: 100%;
+      left: calc(50% - 50vw);
+      right: auto;
+      transform: none;
+      width: 100vw;
+      max-width: none;
+      margin-top: 0;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+    }
+
+    &__menu.show {
+      display: block;
+    }
+  }
+}
