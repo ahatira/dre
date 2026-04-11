@@ -4,7 +4,6 @@ $ps-header-motion-ease: ease;
 .ps-header-scoller {
   position: relative;
   display: block;
-  height: 134px;
   width: 100%;
 }
 
@@ -42,6 +41,7 @@ $ps-header-motion-ease: ease;
   }
 
   &__row--bottom {
+    position: relative;
     min-height: 3.375rem;
     padding-top: .625rem;
     margin-top: 0;
@@ -57,6 +57,13 @@ $ps-header-motion-ease: ease;
       transform $ps-header-motion-duration $ps-header-motion-ease,
       padding-top $ps-header-motion-duration $ps-header-motion-ease,
       margin-top $ps-header-motion-duration $ps-header-motion-ease,
+  }
+
+  &__brand {
+    > div {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &__brand,
@@ -341,6 +348,9 @@ $ps-header-motion-ease: ease;
 }
 
 @media (min-width: 992px) {
+  .ps-header-scoller {
+    height: 134px;
+  }
   .ps-header {
     &__top {
       display: flex !important;
@@ -359,13 +369,16 @@ $ps-header-motion-ease: ease;
 }
 
 @media (max-width: 991.98px) {
+  .ps-header-scoller {
+    height: 68px;
+  }
   .ps-header {
     > .container-fluid {
       padding: 1rem;
     }
 
     &__row--top {
-      min-height: 2.625rem;
+      min-height: 2.25rem;
       gap: .75rem;
       padding-left: 2.625rem;
     }

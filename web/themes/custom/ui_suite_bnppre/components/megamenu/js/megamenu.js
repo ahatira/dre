@@ -12,6 +12,36 @@
 
         const isDesktop = () => window.innerWidth >= DESKTOP_BREAKPOINT;
 
+        const getMenu = (item) => item.querySelector('.ps-megamenu__menu');
+
+        const closeMobileItem = (item) => {
+          const toggle = item.querySelector('.ps-megamenu__toggle[data-bs-toggle="dropdown"]');
+          const menu = getMenu(item);
+
+          item.classList.remove('is-open');
+          if (menu) {
+            menu.classList.remove('show');
+          }
+          if (toggle) {
+            toggle.classList.remove('show');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        };
+
+        const openMobileItem = (item) => {
+          const toggle = item.querySelector('.ps-megamenu__toggle[data-bs-toggle="dropdown"]');
+          const menu = getMenu(item);
+
+          item.classList.add('is-open');
+          if (menu) {
+            menu.classList.add('show');
+          }
+          if (toggle) {
+            toggle.classList.add('show');
+            toggle.setAttribute('aria-expanded', 'true');
+          }
+        };
+
         const getInstance = (item) => {
           const toggle = item.querySelector('.ps-megamenu__toggle[data-bs-toggle="dropdown"]');
           return toggle ? window.bootstrap.Dropdown.getOrCreateInstance(toggle) : null;
@@ -29,8 +59,15 @@
           });
         };
 
+        if (!isDesktop()) {
+          dropdownItems.forEach((item) => {
+            closeMobileItem(item);
+          });
+        }
+
         dropdownItems.forEach((item) => {
           let hideTimer = null;
+          const toggle = item.querySelector('.ps-megamenu__toggle[data-bs-toggle="dropdown"]');
 
           const clearHideTimer = () => {
             if (hideTimer) {
@@ -68,6 +105,31 @@
           item.addEventListener('mouseleave', hideItem);
           item.addEventListener('focusin', showItem);
           item.addEventListener('focusout', hideItem);
+
+          if (toggle) {
+            toggle.addEventListener('click', (event) => {
+              if (isDesktop()) {
+                return;
+              }
+
+              event.preventDefault();
+              event.stopImmediatePropagation();
+
+              const isOpen = item.classList.contains('is-open');
+              dropdownItems.forEach((otherItem) => {
+                if (otherItem !== item) {
+                  closeMobileItem(otherItem);
+                }
+              });
+
+              if (isOpen) {
+                closeMobileItem(item);
+              }
+              else {
+                openMobileItem(item);
+              }
+            }, true);
+          }
         });
 
         menu.addEventListener('keydown', (event) => {
@@ -79,6 +141,11 @@
         window.addEventListener('resize', () => {
           if (!isDesktop()) {
             closeAll();
+          }
+          else {
+            dropdownItems.forEach((item) => {
+              closeMobileItem(item);
+            });
           }
         });
       });
