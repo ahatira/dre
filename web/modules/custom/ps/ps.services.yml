@@ -1,0 +1,8 @@
+services:
+  ps.settings:
+    class: Drupal\ps\Service\SettingsManager
+    arguments: ["@config.factory"]
+
+  ps.notification:
+    class: Drupal\ps\Service\NotificationManager
+    arguments: ["@email.validator", "@logger.factory", "@config.factory"]

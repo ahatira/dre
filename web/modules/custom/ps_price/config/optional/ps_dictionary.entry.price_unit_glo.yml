@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_unit_glo
+dictionary_type: price_unit
+code: GLO
+label: "Global Total"
+description: "Global total price"
+weight: 1
+status: true
+deprecated: false
+metadata:
+  icon: "boxes"
+  symbol: "global"

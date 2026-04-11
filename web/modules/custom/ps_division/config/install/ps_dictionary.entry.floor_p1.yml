@@ -1,0 +1,14 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_division
+id: floor_p1
+dictionary_type: floor
+code: P1
+label: "Floor 1"
+description: "First floor above ground"
+weight: 1
+deprecated: false

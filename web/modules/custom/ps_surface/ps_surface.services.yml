@@ -1,0 +1,19 @@
+services:
+  ps_surface.validator:
+    class: Drupal\ps_surface\Service\SurfaceValidator
+    arguments: ["@ps_dictionary.manager"]
+
+  ps_surface.aggregator:
+    class: Drupal\ps_surface\Service\SurfaceAggregator
+    arguments: ["@ps_surface.validator"]
+
+  ps_surface.surface_dictionary_validator:
+    class: Drupal\ps_surface\Plugin\Validation\Constraint\SurfaceDictionaryConstraintValidator
+    arguments: ["@ps_dictionary.manager", "@config.factory"]
+    tags:
+      - { name: validator.constraint_validator }
+
+  ps_surface.surface_completeness_validator:
+    class: Drupal\ps_surface\Plugin\Validation\Constraint\SurfaceCompletenessConstraintValidator
+    tags:
+      - { name: validator.constraint_validator }

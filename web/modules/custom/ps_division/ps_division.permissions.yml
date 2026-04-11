@@ -1,0 +1,8 @@
+administer ps_division entities:
+  title: "Administer Division entities"
+  description: "Create, edit, delete Division entities."
+  restrict access: true
+
+view division entities:
+  title: "View Division entities"
+  description: "View Division entity content."

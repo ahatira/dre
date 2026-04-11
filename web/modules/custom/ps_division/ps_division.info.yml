@@ -1,0 +1,13 @@
+name: "PropertySearch Division"
+type: module
+description: "Division entity for managing real estate subdivisions (lots, floors, apartments) with surface field type and dictionary integration."
+package: PropertySearch
+core_version_requirement: ^11
+dependencies:
+  - drupal:system
+  - drupal:field
+  - drupal:text
+  - drupal:user
+  - ps:ps
+  - ps_dictionary:ps_dictionary
+  - ps_surface:ps_surface

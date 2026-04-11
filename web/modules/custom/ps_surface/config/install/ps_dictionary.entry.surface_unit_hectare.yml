@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+status: true
+id: surface_unit_hectare
+dictionary_type: surface_unit
+code: HECTARE
+label: 'ha (Hectares)'
+description: 'Hectares (large areas)'
+weight: 20
+deprecated: false
+metadata:
+  symbol: 'ha'
+  conversion_factor: 10000.0

@@ -1,0 +1,97 @@
+ps_division.settings:
+  type: config_object
+  label: "Division Settings"
+  mapping:
+    id:
+      type: string
+      label: "Config ID"
+    status:
+      type: boolean
+      label: "Status"
+    dependencies:
+      type: config_dependencies
+      label: "Dependencies"
+    type_default:
+      type: string
+      label: "Default division type"
+    dictionaries:
+      type: mapping
+      label: "Dictionary Configuration"
+      mapping:
+        division_type:
+          type: string
+          label: "Dictionary type for division type field"
+        division_nature:
+          type: string
+          label: "Dictionary type for division nature field"
+    bo_editable_fields:
+      type: sequence
+      label: "Back-office editable fields"
+      sequence:
+        type: string
+        label: "Field machine name"
+    import_settings:
+      type: mapping
+      label: "Import Settings"
+      mapping:
+        default_type:
+          type: string
+          label: "Default division type"
+        auto_aggregate:
+          type: boolean
+          label: "Auto-aggregate surfaces on save"
+        cache_aggregates:
+          type: boolean
+          label: "Cache aggregate calculations"
+    business_rules:
+      type: mapping
+      label: "Business Rules"
+      mapping:
+        require_parent:
+          type: boolean
+          label: "Require parent entity ID"
+        validate_codes:
+          type: boolean
+          label: "Validate dictionary codes"
+        aggregate_on_save:
+          type: boolean
+          label: "Aggregate surfaces on entity save"
+
+ps_division.division_type.*:
+  type: config_entity
+  label: "Division Type"
+  mapping:
+    id:
+      type: string
+      label: "Machine name"
+    label:
+      type: label
+      label: "Label"
+    description:
+      type: text
+      label: "Description"
+    status:
+      type: boolean
+      label: "Status"
+    dependencies:
+      type: config_dependencies
+      label: "Dependencies"
+core.entity_form_display.ps_division.*.*:
+  type: entity_form_display
+  label: "Division form display"
+  mapping:
+    third_party_settings:
+      type: mapping
+      label: "Third party settings"
+      mapping:
+        gin:
+          type: mapping
+          label: "Gin theme settings"
+          mapping:
+            use_gin_sidebar:
+              type: boolean
+              label: "Use Gin sidebar"
+
+core.entity_view_display.ps_division.*.*:
+  type: entity_view_display
+  label: "Division view display"

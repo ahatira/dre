@@ -1,0 +1,8 @@
+id: security_system_type_digicode
+dictionary_type: security_system_type
+code: DIGICODE
+label: "Digicode / keypad"
+description: "Door access with code/keypad."
+weight: 10
+deprecated: false
+metadata: []

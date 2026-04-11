@@ -1,0 +1,8 @@
+id: cabling_type_cat6
+dictionary_type: cabling_type
+code: CAT6
+label: "Category 6"
+description: "Cat6 Ethernet cabling"
+weight: 1
+deprecated: false
+metadata: []

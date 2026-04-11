@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Property Search Core module file.
+ *
+ * This file contains only hook implementations required by Drupal.
+ * Business logic is delegated to services in src/Service/.
+ */
+
+declare(strict_types=1);

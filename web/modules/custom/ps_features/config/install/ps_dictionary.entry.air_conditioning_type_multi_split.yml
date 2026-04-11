@@ -1,0 +1,8 @@
+id: air_conditioning_type_multi_split
+dictionary_type: air_conditioning_type
+code: MULTI_SPLIT
+label: "Multi-split"
+description: "Multiple indoor units on one outdoor condenser"
+weight: 2
+deprecated: false
+metadata: []

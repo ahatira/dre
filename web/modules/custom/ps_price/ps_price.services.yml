@@ -1,0 +1,15 @@
+services:
+  ps_price.formatter:
+    class: Drupal\ps_price\Service\PriceFormatter
+    arguments:
+      - "@language_manager"
+      - "@config.factory"
+      - "@ps_dictionary.manager"
+    public: true
+
+  ps_price.normalizer:
+    class: Drupal\ps_price\Service\PriceNormalizer
+    arguments:
+      - "@ps_dictionary.manager"
+      - "@config.factory"
+    public: true

@@ -1,0 +1,46 @@
+entity.ps_dictionary_type.edit_form:
+  base_route: entity.ps_dictionary_type.edit_form
+  route_name: entity.ps_dictionary_type.edit_form
+  title: Edit
+
+entity.ps_dictionary_type.entries:
+  base_route: entity.ps_dictionary_type.edit_form
+  route_name: entity.ps_dictionary_type.entries
+  title: "List Entries"
+  weight: 5
+
+entity.ps_dictionary_type.delete_form:
+  base_route: entity.ps_dictionary_type.edit_form
+  route_name: entity.ps_dictionary_type.delete_form
+  title: Delete
+  weight: 10
+
+entity.ps_dictionary_entry.edit_form:
+  base_route: entity.ps_dictionary_entry.edit_form
+  route_name: entity.ps_dictionary_entry.edit_form
+  title: Edit
+
+entity.ps_dictionary_entry.delete_form:
+  base_route: entity.ps_dictionary_entry.edit_form
+  route_name: entity.ps_dictionary_entry.delete_form
+  title: Delete
+  weight: 10
+
+# Two tabs, shared across both pages via appears_on to avoid duplicates.
+ps_dictionary.tab_settings:
+  base_route: ps_dictionary.settings
+  route_name: ps_dictionary.settings
+  title: "Settings"
+  weight: 0
+  appears_on:
+    - ps_dictionary.settings
+    - entity.ps_dictionary_type.collection
+
+ps_dictionary.tab_types:
+  base_route: ps_dictionary.settings
+  route_name: entity.ps_dictionary_type.collection
+  title: "Dictionaries"
+  weight: 5
+  appears_on:
+    - ps_dictionary.settings
+    - entity.ps_dictionary_type.collection

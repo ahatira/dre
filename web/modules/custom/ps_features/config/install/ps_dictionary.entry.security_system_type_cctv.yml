@@ -1,0 +1,8 @@
+id: security_system_type_cctv
+dictionary_type: security_system_type
+code: CCTV
+label: "Video surveillance (CCTV)"
+description: "Closed-circuit television monitoring."
+weight: 40
+deprecated: false
+metadata: []

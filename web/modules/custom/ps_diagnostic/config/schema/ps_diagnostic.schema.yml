@@ -1,0 +1,81 @@
+ps_diagnostic.diagnostic.*:
+  type: config_entity
+  label: "Diagnostic"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    label:
+      type: label
+      label: "Label"
+    unit:
+      type: label
+      label: "Unit"
+    icon:
+      type: string
+      label: "Icon"
+    classes:
+      type: sequence
+      label: "Energy classes"
+      sequence:
+        type: mapping
+        mapping:
+          label:
+            type: string
+            label: "Label"
+          color:
+            type: string
+            label: "Color"
+          range_max:
+            type: integer
+            label: "Range max"
+
+# Field storage schema for ps_diagnostic field type.
+field.storage.*.ps_diagnostic:
+  type: field.storage
+  label: "Diagnostic field storage"
+
+# Field instance schema for ps_diagnostic field type.
+field.field.*.*.ps_diagnostic:
+  type: field.field
+  label: "Diagnostic field instance"
+
+# Widget settings schema for ps_diagnostic field type.
+field.widget.settings.ps_diagnostic_default:
+  type: mapping
+  label: "Diagnostic default widget settings"
+  mapping: {}
+
+# Formatter settings schema for ps_diagnostic field type.
+field.formatter.settings.ps_diagnostic_default:
+  type: mapping
+  label: "Diagnostic default formatter settings"
+  mapping:
+    show_numeric_value:
+      type: boolean
+      label: "Show numeric value"
+    show_type_label:
+      type: boolean
+      label: "Show type label"
+    show_validity_dates:
+      type: boolean
+      label: "Show validity dates"
+    default_layout:
+      type: string
+      label: "Default layout"
+      constraints:
+        Choice:
+          choices:
+            - horizontal
+            - vertical
+            - compact
+    dim_empty:
+      type: boolean
+      label: "Dim empty diagnostics"
+    dim_opacity:
+      type: integer
+      label: "Dim opacity"
+      constraints:
+        Range:
+          min: 10
+          max: 90

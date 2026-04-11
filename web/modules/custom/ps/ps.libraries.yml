@@ -1,0 +1,21 @@
+admin:
+  version: 1.x
+  css:
+    theme:
+      assets/css/ps-admin.css: {}
+  js:
+    assets/js/ps-admin.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+dashboard:
+  version: 1.x
+  css:
+    theme:
+      assets/css/ps-dashboard.css: {}
+  js:
+    assets/js/ps-dashboard.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax

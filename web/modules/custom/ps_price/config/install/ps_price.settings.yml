@@ -1,0 +1,7 @@
+default_currency: "EUR"
+# Normalization settings
+normalize_on_zero_surface: "null" # 'null' | 'zero' | 'original'
+reference_period: "ANN" # Default reference period for normalization
+
+# Display settings
+display_codes_as_labels: false

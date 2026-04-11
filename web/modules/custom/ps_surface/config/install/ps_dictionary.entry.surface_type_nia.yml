@@ -1,0 +1,12 @@
+uuid: null
+langcode: en
+status: true
+id: surface_type_nia
+dictionary_type: surface_type
+code: NIA
+label: 'NIA (Net Internal Area)'
+description: 'Net internal area'
+weight: 20
+deprecated: false
+metadata:
+  full_name: 'Net Internal Area'

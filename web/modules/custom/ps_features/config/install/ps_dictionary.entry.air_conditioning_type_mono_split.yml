@@ -1,0 +1,8 @@
+id: air_conditioning_type_mono_split
+dictionary_type: air_conditioning_type
+code: MONO_SPLIT
+label: "Mono-split"
+description: "Single indoor unit with outdoor condenser"
+weight: 1
+deprecated: false
+metadata: []

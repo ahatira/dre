@@ -1,0 +1,108 @@
+ps_division.collection:
+  path: "/admin/ps/content/divisions"
+  defaults:
+    _entity_list: "ps_division"
+    _title: "Divisions"
+  requirements:
+    _permission: "administer ps_division entities"
+  options:
+    _admin_route: TRUE
+
+entity.ps_division.add_page:
+  path: "/admin/ps/content/divisions/add"
+  defaults:
+    _controller: '\Drupal\Core\Entity\Controller\EntityController::addPage'
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::addTitle'
+    entity_type_id: ps_division
+  requirements:
+    _permission: "administer ps_division entities"
+
+entity.ps_division.add_form:
+  path: "/admin/ps/content/divisions/add/{division_type}"
+  defaults:
+    _entity_form: "ps_division.add"
+    _title: "Add Division"
+  requirements:
+    _permission: "administer ps_division entities"
+  options:
+    parameters:
+      division_type:
+        type: "entity:division_type"
+
+entity.ps_division.canonical:
+  path: "/division/{ps_division}"
+  defaults:
+    _entity_view: "ps_division.full"
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _permission: "view division entities"
+  options:
+    parameters:
+      ps_division:
+        type: "entity:ps_division"
+
+entity.ps_division.edit_form:
+  path: "/admin/ps/content/divisions/{ps_division}/edit"
+  defaults:
+    _entity_form: "ps_division.edit"
+    _title: "Edit Division"
+  requirements:
+    _permission: "administer ps_division entities"
+  options:
+    parameters:
+      ps_division:
+        type: "entity:ps_division"
+
+entity.ps_division.delete_form:
+  path: "/admin/ps/content/divisions/{ps_division}/delete"
+  defaults:
+    _entity_form: "ps_division.delete"
+    _title: "Delete Division"
+  requirements:
+    _permission: "administer ps_division entities"
+  options:
+    parameters:
+      ps_division:
+        type: "entity:ps_division"
+
+# Division Settings
+ps_division.settings:
+  path: "/admin/ps/config/divisions"
+  defaults:
+    _form: '\Drupal\ps_division\Form\DivisionSettingsForm'
+    _title: "Division Settings"
+  requirements:
+    _permission: "administer ps_division entities"
+
+# Division Type management
+entity.division_type.collection:
+  path: "/admin/ps/structure/division-types"
+  defaults:
+    _entity_list: "division_type"
+    _title: "Division Types"
+  requirements:
+    _permission: "administer ps_division entities"
+
+entity.division_type.add_form:
+  path: "/admin/ps/structure/division-types/add"
+  defaults:
+    _entity_form: "division_type.add"
+    _title: "Add Division Type"
+  requirements:
+    _permission: "administer ps_division entities"
+
+entity.division_type.edit_form:
+  path: "/admin/ps/structure/division-types/manage/{division_type}"
+  defaults:
+    _entity_form: "division_type.edit"
+    _title: "Edit Division Type"
+  requirements:
+    _permission: "administer ps_division entities"
+
+entity.division_type.delete_form:
+  path: "/admin/ps/structure/division-types/manage/{division_type}/delete"
+  defaults:
+    _entity_form: "division_type.delete"
+    _title: "Delete Division Type"
+  requirements:
+    _permission: "administer ps_division entities"

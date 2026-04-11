@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: 0LP1BtvxyxjBk8AW73wVW-IZmE8zzbBldLfna7rajfo
+langcode: en
+status: true
+dependencies: {  }
+id: ps_offer.settings
+label: 'Offer Settings'
+third_party_settings: {  }
+divisible_default: false
+auto_publish: false
+results_per_page: 20

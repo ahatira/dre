@@ -1,0 +1,6 @@
+propertysearch:
+  label: "Property Search"
+  description: "Field types for property search platform."
+  weight: 10
+  libraries:
+    - ps/admin

@@ -1,0 +1,13 @@
+uuid: 9e6fff40-3d05-4c1c-8018-e54b7616aad4
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: hVrglt28pCp8prieVp_kKmirV8iRZbk3UH_IkRA-_Vs
+name: Offer
+type: offer
+description: 'A property offer from CRM with pricing, location, and features.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

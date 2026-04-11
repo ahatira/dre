@@ -1,0 +1,7 @@
+bo_protected_fields:
+  - email
+  - phone
+  - mobile
+  - internal_notes
+crm_import_enabled: true
+crm_update_on_external_id: true

@@ -1,0 +1,4 @@
+administer ps_surface settings:
+  title: "Administer surface module settings"
+  description: "Configure surface field type settings, dictionaries, defaults, and validation rules."
+  restrict access: true

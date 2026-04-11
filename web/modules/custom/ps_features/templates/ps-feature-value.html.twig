@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Theme template for ps_feature_value field formatter.
+ *
+ * Available variables:
+ * - feature_id: The feature machine name.
+ * - feature_label: The human-readable feature label (if show_label is true).
+ * - value: The formatted value string.
+ * - value_type: The value type (boolean, string, numeric, range, dictionary).
+ * - description: The feature description (if show_description is true).
+ */
+#}
+<div class="ps-feature-value ps-feature-value--{{ value_type }}" data-feature="{{ feature_id }}">
+  {% if feature_label %}
+    <span class="ps-feature-value__label">{{ feature_label }}{{ value is not empty ? ':' : '' }}</span>
+  {% endif %}
+  <span class="ps-feature-value__value">{{ value }}</span>
+  {% if description %}
+    <div class="ps-feature-value__description">{{ description }}</div>
+  {% endif %}
+</div>

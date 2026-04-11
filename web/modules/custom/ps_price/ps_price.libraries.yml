@@ -1,0 +1,5 @@
+widget:
+  version: 1.0
+  css:
+    component:
+      assets/css/ps-price-widget.css: {}

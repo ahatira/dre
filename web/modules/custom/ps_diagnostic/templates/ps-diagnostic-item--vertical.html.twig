@@ -1,0 +1,103 @@
+{#
+/**
+ * Diagnostic item template - Vertical layout (Energy label scale).
+ *
+ * Displays diagnostic information as a vertical colored scale with all classes stacked.
+ * Similar to official energy label layout with current class highlighted.
+ *
+ * Variables:
+ * - class_label: string|null - Class label (A-G, ?, N/A)
+ * - type_label: string|null - Diagnostic label (DPE, GES, etc.)
+ * - numeric_value: string|null - Formatted numeric value
+ * - valid_from: string|null - Start date (ISO 8601)
+ * - valid_to: string|null - End date (ISO 8601)
+ * - show_type_label: bool - Display type label
+ * - show_numeric_value: bool - Display numeric value
+ * - show_validity_dates: bool - Display validity dates
+ * - dim_diagnostic: bool - Should this diagnostic be dimmed (empty)
+ * - dim_opacity: int - Opacity percentage (10-90) when dimmed
+ * - no_classification: bool - Special state flag (shows ?)
+ * - non_applicable: bool - Special state flag (shows N/A)
+ * - diagnostic_type: \Drupal\ps_diagnostic\Entity\PsDiagnostic|null - Diagnostic config entity
+ */
+#}
+{% set opacity_style = dim_diagnostic ? 'opacity: ' ~ (dim_opacity / 100) ~ ';' : '' %}
+{% set current_class = class_label|lower %}
+{% set has_value = numeric_value is not null and numeric_value is not empty %}
+
+<div class="ps-diagnostic-item ps-diagnostic-item--vertical" {% if opacity_style %} style="{{ opacity_style }}" {% endif %}>
+	<div
+		class="ps-diagnostic-vertical-container">
+		{# Vertical energy scale #}
+		<div class="ps-diagnostic-vertical-scale">
+			{% if diagnostic_type and diagnostic_type.classes %}
+				{# Display all classes as a vertical scale #}
+				{% for code, class_data in diagnostic_type.classes %}
+					{% set is_current = (code == current_class) %}
+					{% set segment_class = is_current ? 'ps-diagnostic-vertical-segment--current' : '' %}
+
+					<div class="ps-diagnostic-vertical-segment {{ segment_class }}" style="background-color: {{ class_data.color }};" data-class="{{ code|upper }}">
+						<span class="ps-diagnostic-vertical-label">{{ class_data.label }}</span>
+						{% if is_current and has_value %}
+							<span class="ps-diagnostic-vertical-value">{{ numeric_value }}</span>
+						{% endif %}
+					</div>
+				{% endfor %}
+
+				{# Special segment for no classification (?) #}
+				{% if no_classification %}
+					<div class="ps-diagnostic-vertical-segment ps-diagnostic-vertical-segment--current ps-diagnostic-vertical-segment--unknown" style="background-color: #999999;">
+						<span class="ps-diagnostic-vertical-label">?</span>
+					</div>
+				{% endif %}
+			{% else %}
+				{# Fallback: single segment with current class #}
+				<div class="ps-diagnostic-vertical-segment ps-diagnostic-vertical-segment--current" style="background-color: #CCCCCC;">
+					<span class="ps-diagnostic-vertical-label">{{ class_label|default('—') }}</span>
+					{% if has_value %}
+						<span class="ps-diagnostic-vertical-value">{{ numeric_value }}</span>
+					{% endif %}
+				</div>
+			{% endif %}
+		</div>
+
+		{# Right panel with info #}
+		<div class="ps-diagnostic-vertical-info">
+			{% if not no_classification and not non_applicable %}
+				{% if show_numeric_value and has_value %}
+					<div class="ps-diagnostic-vertical-value-display">
+						<div class="ps-diagnostic-vertical-value-large">{{ numeric_value }}</div>
+						{% if diagnostic_type.unit %}
+							<div class="ps-diagnostic-vertical-unit">{{ diagnostic_type.unit }}</div>
+						{% endif %}
+					</div>
+				{% endif %}
+
+				{% if show_type_label and type_label %}
+					<div class="ps-diagnostic-vertical-type">{{ type_label }}</div>
+				{% endif %}
+
+				{% if show_validity_dates and (valid_from or valid_to) %}
+					<div class="ps-diagnostic-vertical-validity">
+						<strong>{{ 'Valid'|t }}:</strong>
+						{% if valid_from %}
+							{{ valid_from|date('d/m/Y') }}
+						{% endif %}
+						{% if valid_from and valid_to %}
+							→
+						{% endif %}
+						{% if valid_to %}
+							{{ valid_to|date('d/m/Y') }}
+						{% endif %}
+					</div>
+				{% endif %}
+			{% else %}
+				{% if no_classification %}
+					<p class="ps-diagnostic-message">{{ 'Energy label not provided by the owner'|t }}</p>
+				{% elseif non_applicable %}
+					<p class="ps-diagnostic-message">{{ 'Energy label not applicable'|t }}</p>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+</div>

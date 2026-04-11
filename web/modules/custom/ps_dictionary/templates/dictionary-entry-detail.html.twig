@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a dictionary entry detail.
+ *
+ * Available variables:
+ * - entry: The dictionary entry entity.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="dictionary-entry-detail">
+	<dl>
+		<dt>{{ 'Code'|t }}</dt>
+		<dd>{{ entry.getCode() }}</dd>
+
+		<dt>{{ 'Label'|t }}</dt>
+		<dd>{{ entry.label() }}</dd>
+
+		{% if entry.getDescription() %}
+			<dt>{{ 'Description'|t }}</dt>
+			<dd>{{ entry.getDescription() }}</dd>
+		{% endif %}
+
+		<dt>{{ 'Dictionary Type'|t }}</dt>
+		<dd>{{ entry.getDictionaryType() }}</dd>
+
+		<dt>{{ 'Weight'|t }}</dt>
+		<dd>{{ entry.getWeight() }}</dd>
+
+		<dt>{{ 'Status'|t }}</dt>
+		<dd>{{ entry.isActive() ? 'Active'|t : 'Inactive'|t }}</dd>
+
+		<dt>{{ 'Deprecated'|t }}</dt>
+		<dd>{{ entry.isDeprecated() ? 'Yes'|t : 'No'|t }}</dd>
+
+		{% if entry.getMetadata() %}
+			<dt>{{ 'Metadata'|t }}</dt>
+			<dd>
+				<pre>{{ entry.getMetadata()|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+			</dd>
+		{% endif %}
+	</dl>
+</div>

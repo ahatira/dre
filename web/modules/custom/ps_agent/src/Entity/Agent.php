@@ -4,278 +4,295 @@ declare(strict_types=1);
 
 namespace Drupal\ps_agent\Entity;
 
-use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\EntityAccessControlHandler;
+use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityPublishedTrait;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\EntityViewsData;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\link\LinkItemInterface;
 use Drupal\ps_agent\AgentListBuilder;
 use Drupal\ps_agent\Form\AgentDeleteForm;
 use Drupal\ps_agent\Form\AgentForm;
 
 /**
  * Defines the Agent entity.
+ *
+ * A content entity for managing real estate agents with CRM synchronization
+ * and BO-protected fields. Provides complete agent data management with
+ * external ID tracking for CRM imports.
+ *
+ * @ingroup ps_agent
+ *
+ * @see \Drupal\ps_agent\Entity\AgentInterface
  */
 #[ContentEntityType(
-    id: 'agent',
-    label: new TranslatableMarkup('Agent'),
-    label_collection: new TranslatableMarkup('Agents'),
-    label_singular: new TranslatableMarkup('agent'),
-    label_plural: new TranslatableMarkup('agents'),
-    handlers: [
+  id: 'agent',
+  label: new TranslatableMarkup('Agent'),
+  label_collection: new TranslatableMarkup('Agents'),
+  label_singular: new TranslatableMarkup('agent'),
+  label_plural: new TranslatableMarkup('agents'),
+  label_count: [
+    'singular' => '@count agent',
+    'plural' => '@count agents',
+  ],
+  bundle_entity_type: 'agent_type',
+  handlers: [
     'list_builder' => AgentListBuilder::class,
-    'access' => EntityAccessControlHandler::class,
-    'views_data' => EntityViewsData::class,
+    'views_data' => 'Drupal\ps_agent\ViewsData\AgentViewsData',
     'form' => [
-      'add' => AgentForm::class,
       'default' => AgentForm::class,
+      'add' => AgentForm::class,
       'edit' => AgentForm::class,
       'delete' => AgentDeleteForm::class,
     ],
-    'route_provider' => [
-      'html' => AdminHtmlRouteProvider::class,
-    ],
-    ],
-    base_table: 'agent',
-    admin_permission: 'administer agent entities',
-    entity_keys: [
+    'access' => 'Drupal\Core\Entity\EntityAccessControlHandler',
+  ],
+  base_table: 'agent',
+  data_table: 'agent_field_data',
+  translatable: TRUE,
+  admin_permission: 'administer agent entities',
+  entity_keys: [
     'id' => 'id',
     'uuid' => 'uuid',
-    'label' => 'name',
-    'status' => 'status',
-    ],
-    links: [
-    'canonical' => '/admin/content/agents/{agent}',
-    'add-form' => '/admin/content/agents/add',
-    'edit-form' => '/admin/content/agents/{agent}/edit',
-    'delete-form' => '/admin/content/agents/{agent}/delete',
-    'collection' => '/admin/content/agents',
-    'settings' => '/admin/structure/agent',
-    ],
-    field_ui_base_route: 'entity.agent.settings',
-    collection_permission: 'administer agent entities',
+    'label' => 'last_name',
+    'langcode' => 'langcode',
+    'bundle' => 'type',
+  ],
+  links: [
+    'add-form' => '/admin/ps/content/agents/add/{agent_type}',
+    'add-page' => '/admin/ps/content/agents/add',
+    'edit-form' => '/admin/ps/content/agents/{agent}/edit',
+    'delete-form' => '/admin/ps/content/agents/{agent}/delete',
+    'canonical' => '/agent/{agent}',
+    'collection' => '/admin/ps/content/agents',
+  ],
+  field_ui_base_route: 'entity.agent_type.edit_form',
 )]
-final class Agent extends ContentEntityBase implements AgentInterface
-{
-    use EntityChangedTrait;
-    use EntityPublishedTrait;
+final class Agent extends ContentEntityBase implements AgentInterface {
+
+  use EntityChangedTrait;
 
   /**
    * {@inheritdoc}
    */
-    public static function preCreate(EntityStorageInterface $storage_controller, array &$values): void
-    {
-        parent::preCreate($storage_controller, $values);
-        $values += [
-        'status' => true,
-        'webform_id' => 'contact',
-        ];
-    }
+  public function getExternalId(): ?string {
+    return $this->get('external_id')->value;
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function getName(): ?string
-    {
-        $value = $this->get('name')->value;
-        return $value !== null ? (string) $value : null;
-    }
+  public function setExternalId(string $externalId): static {
+    $this->set('external_id', $externalId);
+    return $this;
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function setName(string $name): self
-    {
-        $this->set('name', $name);
-        return $this;
-    }
+  public function getFirstName(): ?string {
+    return $this->get('first_name')->value;
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function getPhone(): ?string
-    {
-        $value = $this->get('phone')->value;
-        return $value !== null ? (string) $value : null;
-    }
+  public function setFirstName(string $firstName): static {
+    $this->set('first_name', $firstName);
+    return $this;
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function setPhone(?string $phone): self
-    {
-        $this->set('phone', $phone);
-        return $this;
-    }
+  public function getLastName(): ?string {
+    return $this->get('last_name')->value;
+  }
 
   /**
    * {@inheritdoc}
    */
-    public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array
-    {
-        $fields = parent::baseFieldDefinitions($entity_type);
+  public function setLastName(string $lastName): static {
+    $this->set('last_name', $lastName);
+    return $this;
+  }
 
-        $fields['id'] = BaseFieldDefinition::create('integer')
-        ->setLabel(new TranslatableMarkup('ID'))
-        ->setReadOnly(true)
-        ->setSetting('unsigned', true);
+  /**
+   * {@inheritdoc}
+   */
+  public function getEmail(): ?string {
+    return $this->get('email')->value;
+  }
 
-        $fields['uuid'] = BaseFieldDefinition::create('uuid')
-        ->setLabel(new TranslatableMarkup('UUID'))
-        ->setReadOnly(true);
+  /**
+   * {@inheritdoc}
+   */
+  public function setEmail(string $email): static {
+    $this->set('email', $email);
+    return $this;
+  }
 
-        $fields['name'] = BaseFieldDefinition::create('string')
-        ->setLabel(new TranslatableMarkup('Name'))
-        ->setRequired(true)
-        ->setSettings([
-        'max_length' => 255,
-        'text_processing' => 0,
-        ])
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'string',
+  /**
+   * {@inheritdoc}
+   */
+  public function getPhone(): ?string {
+    return $this->get('phone')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPhone(string $phone): static {
+    $this->set('phone', $phone);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isActive(): bool {
+    return (bool) $this->get('status')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setActive(bool $active): static {
+    $this->set('status', $active ? 1 : 0);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entityType): array {
+    $fields = parent::baseFieldDefinitions($entityType);
+
+    $fields['type'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(new TranslatableMarkup('Type'))
+      ->setDescription(new TranslatableMarkup('Agent type'))
+      ->setSetting('target_type', 'agent_type')
+      ->setReadOnly(FALSE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
         'weight' => -10,
-        ])
-        ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -10,
-        'settings' => ['size' => 60],
-        ]);
+      ]);
 
-        $fields['job_title'] = BaseFieldDefinition::create('string')
-        ->setLabel(new TranslatableMarkup('Job title'))
-        ->setSettings([
-        'max_length' => 128,
-        'text_processing' => 0,
-        ])
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
+    $fields['external_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('External ID'))
+      ->setDescription(new TranslatableMarkup('CRM system identifier'))
+      ->setSetting('max_length', 255)
+      ->setReadOnly(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'weight' => -5,
+      ]);
+
+    $fields['first_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('First Name'))
+      ->setSetting('max_length', 255)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
         'type' => 'string',
-        'weight' => -9,
-        ])
-        ->setDisplayOptions('form', [
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -9,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
+        'weight' => 0,
+      ]);
 
-        $fields['photo'] = BaseFieldDefinition::create('image')
-        ->setLabel(new TranslatableMarkup('Photo'))
-        ->setSetting('alt_field', true)
-        ->setSetting('alt_field_required', true)
-        ->setSetting('file_extensions', 'png jpg jpeg webp')
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'image',
-        'weight' => -8,
-        'settings' => [
-          'image_style' => '',
-          'image_link' => '',
-        ],
-        ])
-        ->setDisplayOptions('form', [
-        'type' => 'image_image',
-        'weight' => -8,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
-
-        $fields['phone'] = BaseFieldDefinition::create('string')
-        ->setLabel(new TranslatableMarkup('Phone'))
-        ->setSettings([
-        'max_length' => 40,
-        'text_processing' => 0,
-        ])
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
+    $fields['last_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Last Name'))
+      ->setSetting('max_length', 255)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
         'type' => 'string',
-        'weight' => -7,
-        ])
-        ->setDisplayOptions('form', [
+        'weight' => 1,
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -7,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
+        'weight' => 1,
+      ]);
 
-        $fields['email'] = BaseFieldDefinition::create('string')
-        ->setLabel(new TranslatableMarkup('Email'))
-        ->setSettings([
-        'max_length' => 254,
-        'text_processing' => 0,
-        ])
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'string',
-        'weight' => -6,
-        ])
-        ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -6,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
+    $fields['email'] = BaseFieldDefinition::create('email')
+      ->setLabel(new TranslatableMarkup('Email'))
+      ->setDescription(new TranslatableMarkup('BO-protected field'))
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'weight' => 2,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => 2,
+      ]);
 
-        $fields['webform_id'] = BaseFieldDefinition::create('string')
-        ->setLabel(new TranslatableMarkup('Webform ID'))
-        ->setDescription(new TranslatableMarkup('Machine name of the webform to open in modal (example: contact).'))
-        ->setSettings([
-        'max_length' => 128,
-        'text_processing' => 0,
-        ])
-        ->setDisplayOptions('view', [
+    $fields['phone'] = BaseFieldDefinition::create('telephone')
+      ->setLabel(new TranslatableMarkup('Phone'))
+      ->setDescription(new TranslatableMarkup('BO-protected field'))
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'telephone_link',
+        'weight' => 3,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'telephone_default',
+        'weight' => 3,
+      ]);
+
+    $fields['avatar'] = BaseFieldDefinition::create('image')
+      ->setLabel(new TranslatableMarkup('Avatar'))
+      ->setDescription(new TranslatableMarkup('Agent avatar image'))
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
         'label' => 'above',
-        'type' => 'string',
-        'weight' => -5,
-        ])
-        ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -5,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
+        'type' => 'image',
+        'weight' => 4,
+        'settings' => [
+          'image_style' => 'thumbnail',
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'image_image',
+        'weight' => 4,
+        'settings' => [
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ],
+      ]);
 
-        $fields['contact_cta'] = BaseFieldDefinition::create('link')
-        ->setLabel(new TranslatableMarkup('Contact CTA URL'))
-        ->setDescription(new TranslatableMarkup('Optional override URL for AJAX modal open. Use internal:/webform/contact for internal paths.'))
-        ->setSettings([
-        'link_type' => LinkItemInterface::LINK_GENERIC,
-        'title' => 2,
-        ])
-        ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'link',
-        'weight' => -4,
-        ])
-        ->setDisplayOptions('form', [
-        'type' => 'link_default',
-        'weight' => -4,
-        ])
-        ->setDisplayConfigurable('form', true)
-        ->setDisplayConfigurable('view', true);
+    $fields['status'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(new TranslatableMarkup('Active'))
+      ->setDefaultValue(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'weight' => 10,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => 10,
+      ]);
 
-        $fields['status'] = BaseFieldDefinition::create('boolean')
-        ->setLabel(new TranslatableMarkup('Published'))
-        ->setDefaultValue(true)
-        ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'weight' => 90,
-        ]);
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(new TranslatableMarkup('Created'))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'weight' => 20,
+      ]);
 
-        $fields['created'] = BaseFieldDefinition::create('created')
-        ->setLabel(new TranslatableMarkup('Created'));
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+      ->setLabel(new TranslatableMarkup('Last Updated'))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'weight' => 21,
+      ]);
 
-        $fields['changed'] = BaseFieldDefinition::create('changed')
-        ->setLabel(new TranslatableMarkup('Changed'));
+    return $fields;
+  }
 
-        return $fields;
-    }
 }

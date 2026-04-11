@@ -1,0 +1,8 @@
+services:
+  ps_division.manager:
+    class: Drupal\ps_division\Service\DivisionManager
+    arguments:
+      - "@entity_type.manager"
+      - "@ps_dictionary.manager"
+      - "@cache.default"
+      - "@logger.factory"

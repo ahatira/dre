@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for ps_division module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_uninstall().
+ */
+function ps_division_uninstall(): void {
+  \Drupal::configFactory()->getEditable('ps_division.settings')->delete();
+}

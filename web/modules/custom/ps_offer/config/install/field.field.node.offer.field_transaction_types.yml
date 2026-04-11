@@ -1,0 +1,21 @@
+langcode: en
+uuid: 290c15c3-c54e-4105-bc76-aad8b98fdccf
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_transaction_types
+    - node.type.offer
+  module:
+    - ps_dictionary
+id: node.offer.field_transaction_types
+field_name: field_transaction_types
+entity_type: node
+bundle: offer
+label: 'Transaction Types'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ps_dictionary

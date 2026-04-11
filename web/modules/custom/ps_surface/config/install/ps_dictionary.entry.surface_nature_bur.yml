@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_nature_bur
+dictionary_type: surface_nature
+code: BUR
+label: 'Office Area'
+description: 'Office/bureau surface area'
+weight: 1
+deprecated: false
+metadata: []

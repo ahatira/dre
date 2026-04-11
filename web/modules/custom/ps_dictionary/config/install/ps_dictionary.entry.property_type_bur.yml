@@ -1,0 +1,10 @@
+id: property_type_bur
+dictionary_type: property_type
+code: BUR
+label: "Office"
+description: "Office or business property type"
+weight: 1
+status: true
+deprecated: false
+metadata:
+  icon: ""

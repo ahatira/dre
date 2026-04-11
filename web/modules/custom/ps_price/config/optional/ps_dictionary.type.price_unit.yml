@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: price_unit
+label: "Price Unit"
+description: "Units for price display (/m², /unit, global)"
+is_translatable: false
+locked: true
+weight: 11

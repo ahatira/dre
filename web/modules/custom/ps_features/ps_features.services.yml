@@ -1,0 +1,39 @@
+services:
+  ps_features.manager:
+    class: Drupal\ps_features\Service\FeatureManager
+    arguments:
+      - '@entity_type.manager'
+      - '@cache.default'
+      - '@logger.channel.ps_features'
+      - '@?ps_dictionary.manager'
+
+  ps_features.value_normalizer:
+    class: Drupal\ps_features\Service\ValueNormalizer
+    arguments:
+      - '@?ps_dictionary.manager'
+    tags:
+      - { name: 'property_search.service' }
+
+  ps_features.search_facets_builder:
+    class: Drupal\ps_features\Service\SearchFacetsBuilder
+    arguments:
+      - '@ps_features.manager'
+    tags:
+      - { name: 'property_search.service' }
+
+  ps_features.compare_builder:
+    class: Drupal\ps_features\Service\CompareBuilder
+    arguments:
+      - '@config.factory'
+      - '@ps_features.manager'
+    tags:
+      - { name: 'property_search.service' }
+
+  ps_features.validator:
+    class: Drupal\ps_features\Service\FeatureValidator
+    arguments:
+      - '@ps_dictionary.manager'
+
+  logger.channel.ps_features:
+    parent: logger.channel_base
+    arguments: ['ps_features']

@@ -1,0 +1,38 @@
+{#
+/**
+ * Diagnostic item template - FALLBACK (should not be used if layout templates exist).
+ *
+ * This template is a fallback. The actual rendering should use:
+ * - ps-diagnostic-item--horizontal.html.twig
+ * - ps-diagnostic-item--vertical.html.twig
+ * - ps-diagnostic-item--compact.html.twig
+ *
+ * Variables:
+ * - item: \Drupal\ps_diagnostic\Plugin\Field\FieldType\DiagnosticItem - Field item object
+ * - diagnostic_type: \Drupal\ps_diagnostic\Entity\PsDiagnostic|null - Diagnostic config entity
+ * - class_label: string|null - Class label (A-G, ?, N/A)
+ * - type_label: string|null - Diagnostic label (DPE, GES, etc.)
+ * - numeric_value: string|null - Formatted numeric value
+ * - valid_from: string|null - Start date (ISO 8601)
+ * - valid_to: string|null - End date (ISO 8601)
+ * - no_classification: bool - Special state flag
+ * - non_applicable: bool - Special state flag
+ * - show_type_label: bool - Formatter setting: display type label
+ * - show_numeric_value: bool - Formatter setting: display numeric value
+ * - show_validity_dates: bool - Formatter setting: display validity dates
+ * - default_layout: string - Layout variant (horizontal|vertical|compact)
+ * - dim_diagnostic: bool - Should this diagnostic be dimmed (empty)
+ * - dim_opacity: int - Opacity percentage (10-90) when dimmed
+ */
+#}
+<div class="ps-diagnostic-item ps-diagnostic-item--fallback" style="border: 2px solid red; padding: 1rem;">
+	<strong style="color: red;">⚠️ FALLBACK TEMPLATE USED - Layout:
+		{{ default_layout }}</strong>
+	<p>Expected template: ps-diagnostic-item--{{ default_layout }}.html.twig</p>
+	<p>Class:
+		{{ class_label|default('N/A') }}</p>
+	<p>Type:
+		{{ type_label|default('N/A') }}</p>
+	<p>Value:
+		{{ numeric_value|default('N/A') }}</p>
+</div>

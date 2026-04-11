@@ -1,6 +1,0 @@
-name: 'PS Header Defaults (compat shim)'
-type: module
-description: 'Temporary compatibility shim to satisfy stale runtime references after module removal.'
-core_version_requirement: ^11
-hidden: true
-package: 'Custom'

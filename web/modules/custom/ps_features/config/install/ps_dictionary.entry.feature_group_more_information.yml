@@ -1,0 +1,9 @@
+id: feature_group_more_information
+dictionary_type: feature_group
+code: MORE_INFORMATION
+label: "More information"
+description: "Additional features and details."
+weight: 30
+deprecated: false
+metadata:
+  icon: "info"

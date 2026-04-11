@@ -1,0 +1,141 @@
+ps_offer.settings:
+  type: config_object
+  label: "Offer settings"
+  mapping:
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    label:
+      type: label
+    third_party_settings:
+      type: ignore
+    divisible_default:
+      type: boolean
+      label: "Offers are divisible by default"
+    auto_publish:
+      type: boolean
+      label: "Auto-publish offers on import"
+    results_per_page:
+      type: integer
+      label: "Default results per page"
+
+node.type.offer:
+  type: config_entity
+  label: "Node type offer"
+  mapping:
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    third_party_settings:
+      type: ignore
+    type:
+      type: string
+    name:
+      type: label
+    description:
+      type: text
+    help:
+      type: text
+    new_revision:
+      type: boolean
+    preview_mode:
+      type: integer
+    display_submitted:
+      type: boolean
+
+# Generic schema for offer field storages on nodes.
+field.storage.node.*:
+  type: config_object
+  label: "Field storage"
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+# Generic schema for offer field instances on bundle "offer".
+field.field.node.offer.*:
+  type: config_object
+  label: "Offer field"
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    bundle:
+      type: string
+    label:
+      type: label
+    description:
+      type: text
+    required:
+      type: boolean
+    translatable:
+      type: boolean
+    default_value:
+      type: ignore
+    default_value_callback:
+      type: string
+    settings:
+      type: mapping
+      mapping:
+        handler:
+          type: string
+        handler_settings:
+          type: ignore
+        default_currency:
+          type: string
+        default_period:
+          type: string
+        allowed_formats:
+          type: sequence
+          sequence:
+            type: string
+    field_type:
+      type: string

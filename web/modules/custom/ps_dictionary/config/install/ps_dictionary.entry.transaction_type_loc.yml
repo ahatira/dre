@@ -1,0 +1,10 @@
+id: transaction_type_loc
+dictionary_type: transaction_type
+code: LOC
+label: "Lease"
+description: "Property for lease/rental"
+weight: 0
+status: true
+deprecated: false
+metadata:
+  icon: ""

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: surface_qualification
+label: "Surface Qualification"
+description: "Qualification or categorization of a surface area (total, available, reference)"
+is_translatable: false
+locked: true
+weight: 0

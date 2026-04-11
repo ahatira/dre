@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+status: true
+id: surface_unit_sqft
+dictionary_type: surface_unit
+code: SQFT
+label: 'sq ft (Square feet)'
+description: 'Square feet (imperial)'
+weight: 10
+deprecated: false
+metadata:
+  symbol: 'sq ft'
+  conversion_factor: 0.092903

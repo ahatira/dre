@@ -1,0 +1,8 @@
+administer ps_features:
+  title: 'Administer PropertySearch Features'
+  description: 'Manage feature definitions and settings.'
+  restrict access: true
+
+view ps_features:
+  title: 'View PropertySearch Features'
+  description: 'View feature definitions and configurations.'

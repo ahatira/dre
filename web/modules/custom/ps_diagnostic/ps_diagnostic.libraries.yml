@@ -1,0 +1,24 @@
+widget:
+  css:
+    component:
+      assets/css/ps_diagnostic.widget.css: {}
+  dependencies:
+    - core/drupal
+
+formatter:
+  css:
+    component:
+      assets/css/ps_diagnostic.formatter.css: {}
+  dependencies:
+    - core/drupal
+
+diagnostic:
+  version: 1.x
+  css:
+    theme:
+      assets/css/diagnostic.css: {}
+  js:
+    assets/js/diagnostic.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

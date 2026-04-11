@@ -7,7 +7,11 @@ namespace Drupal\ps_agent\Form;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
 
 /**
- * Provides a form for deleting Agent entities.
+ * Agent delete form.
+ *
+ * Confirmation form for deleting agent entities.
+ *
+ * @ingroup ps_agent
  */
 final class AgentDeleteForm extends ContentEntityDeleteForm {
 

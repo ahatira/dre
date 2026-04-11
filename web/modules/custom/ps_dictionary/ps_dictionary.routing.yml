@@ -1,0 +1,102 @@
+# Dictionary Type Routes
+entity.ps_dictionary_type.collection:
+  path: "/admin/ps/content/dictionaries"
+  defaults:
+    _entity_list: "ps_dictionary_type"
+    _title: "Dictionary Types"
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_type.add_form:
+  path: "/admin/ps/content/dictionaries/add"
+  defaults:
+    _entity_form: "ps_dictionary_type.add"
+    _title: "Add Dictionary Type"
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_type.edit_form:
+  path: "/admin/ps/content/dictionaries/{ps_dictionary_type}/edit"
+  defaults:
+    _entity_form: "ps_dictionary_type.edit"
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::editTitle'
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_type.delete_form:
+  path: "/admin/ps/content/dictionaries/{ps_dictionary_type}/delete"
+  defaults:
+    _entity_form: "ps_dictionary_type.delete"
+    _title: "Delete Dictionary Type"
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true
+
+# Dictionary Entry Routes
+entity.ps_dictionary_type.entries:
+  path: "/admin/ps/content/dictionaries/{ps_dictionary_type}/entries"
+  defaults:
+    _controller: '\Drupal\ps_dictionary\Controller\DictionaryEntryController::listEntries'
+    _title_callback: '\Drupal\ps_dictionary\Controller\DictionaryEntryController::getTitle'
+  requirements:
+    _permission: "view dictionaries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_entry.canonical:
+  path: "/admin/ps/content/entries/{ps_dictionary_entry}"
+  defaults:
+    _controller: '\Drupal\ps_dictionary\Controller\DictionaryEntryController::view'
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _permission: "view dictionaries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_entry.add_form:
+  path: "/admin/ps/content/dictionaries/{ps_dictionary_type}/entries/add"
+  defaults:
+    _entity_form: "ps_dictionary_entry.add"
+    _title: "Add Dictionary Entry"
+  requirements:
+    _permission: "administer dictionaries+edit dictionary entries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_entry.edit_form:
+  path: "/admin/ps/content/entries/{ps_dictionary_entry}/edit"
+  defaults:
+    _entity_form: "ps_dictionary_entry.edit"
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::editTitle'
+  requirements:
+    _permission: "administer dictionaries+edit dictionary entries"
+  options:
+    _admin_route: true
+
+entity.ps_dictionary_entry.delete_form:
+  path: "/admin/ps/content/entries/{ps_dictionary_entry}/delete"
+  defaults:
+    _entity_form: "ps_dictionary_entry.delete"
+    _title: "Delete Dictionary Entry"
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true
+
+# Settings Route
+ps_dictionary.settings:
+  path: "/admin/ps/config/dictionary"
+  defaults:
+    _form: '\Drupal\ps_dictionary\Form\SettingsForm'
+    _title: "Dictionary Settings"
+  requirements:
+    _permission: "administer dictionaries"
+  options:
+    _admin_route: true

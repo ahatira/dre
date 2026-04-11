@@ -1,0 +1,8 @@
+validation:
+  strictMode: true
+  enableLogging: true
+
+notifications:
+  enabled: true
+  channels:
+    - email

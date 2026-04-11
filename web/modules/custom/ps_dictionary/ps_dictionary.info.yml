@@ -1,0 +1,14 @@
+name: "PropertySearch Dictionary"
+type: module
+description: "Business dictionary management with centralized code validation and resolution"
+package: PropertySearch
+core_version_requirement: ^11
+php: 8.3
+
+dependencies:
+  - drupal:system
+  - drupal:user
+  - drupal:options
+  - ps:ps
+
+configure: ps_dictionary.settings

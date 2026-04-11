@@ -1,0 +1,14 @@
+name: "PropertySearch Price"
+type: module
+description: "Provides structured price field type with currency, unit, period, and business flags support."
+package: PropertySearch
+core_version_requirement: ^11
+php: 8.3
+
+dependencies:
+  - drupal:field
+  - drupal:system
+  - ps:ps
+  - ps_dictionary:ps_dictionary
+
+configure: ps_price.settings

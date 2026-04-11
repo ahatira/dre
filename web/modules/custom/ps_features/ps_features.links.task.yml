@@ -1,0 +1,17 @@
+ps_features.ps_feature_edit_tab:
+  route_name: entity.ps_feature.edit_form
+  base_route: entity.ps_feature.edit_form
+  title: 'Edit'
+  weight: 0
+
+ps_features.features_list:
+  title: 'Features'
+  route_name: entity.ps_feature.collection
+  base_route: entity.ps_feature.collection
+  weight: 0
+
+ps_features.settings:
+  title: 'Settings'
+  route_name: ps_features.settings_form
+  base_route: entity.ps_feature.collection
+  weight: 100

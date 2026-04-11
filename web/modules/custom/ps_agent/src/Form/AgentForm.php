@@ -8,24 +8,69 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for Agent edit forms.
+ * Agent entity form.
+ *
+ * Standard entity form for creating and editing agent entities with proper
+ * field handling and validation.
+ *
+ * @ingroup ps_agent
  */
 final class AgentForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state): int {
-    $status = parent::save($form, $form_state);
+  public function form(array $form, FormStateInterface $formState): array {
+    $form = parent::form($form, $formState);
 
-    $message = $status === SAVED_UPDATED
-      ? $this->t('The agent %label has been updated.', ['%label' => $this->entity->label()])
-      : $this->t('The agent %label has been created.', ['%label' => $this->entity->label()]);
+    $agent = $this->entity;
+
+    // Improve type field display if not creating
+    if (!$agent->isNew() && isset($form['type'])) {
+      $form['type']['#disabled'] = TRUE;
+    }
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validate(array $form, FormStateInterface $formState): void {
+    parent::validate($form, $formState);
+
+    /** @var \Drupal\ps_agent\Entity\AgentInterface $agent */
+    $agent = $this->entity;
+
+    // Validate required fields
+    if (!$agent->getFirstName()) {
+      $formState->setErrorByName('first_name', $this->t('First Name is required.'));
+    }
+
+    if (!$agent->getLastName()) {
+      $formState->setErrorByName('last_name', $this->t('Last Name is required.'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function save(array $form, FormStateInterface $formState): int {
+    /** @var \Drupal\ps_agent\Entity\AgentInterface $agent */
+    $agent = $this->entity;
+    $isNew = $agent->isNew();
+
+    $result = $agent->save();
+
+    $message = $isNew
+      ? $this->t('Agent %label has been created.', ['%label' => $agent->label()])
+      : $this->t('Agent %label has been updated.', ['%label' => $agent->label()]);
+
     $this->messenger()->addStatus($message);
 
-    $form_state->setRedirect('entity.agent.collection');
+    $formState->setRedirectUrl($agent->toUrl('collection'));
 
-    return $status;
+    return $result;
   }
 
 }

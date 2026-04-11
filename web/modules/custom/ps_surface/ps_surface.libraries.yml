@@ -1,0 +1,4 @@
+widget:
+  css:
+    theme:
+      assets/css/ps-surface-widget.css: {}

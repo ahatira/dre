@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: currency_eur
+dictionary_type: currency
+code: EUR
+label: "Euro"
+description: "Euro currency"
+weight: 0
+status: true
+deprecated: false
+metadata:
+  icon: "euro-sign"
+  symbol: "€"

@@ -1,0 +1,93 @@
+# Field storage settings
+# This field type has no storage settings.
+field.storage_settings.ps_feature_value:
+  type: mapping
+  label: 'Feature value field storage settings'
+
+# Field instance settings
+# This field type has no instance settings.
+field.field_settings.ps_feature_value:
+  type: mapping
+  label: 'Feature value field settings'
+
+field.value.ps_feature_value:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    feature_id:
+      type: string
+      label: 'Feature ID'
+    value_type:
+      type: string
+      label: 'Value type'
+    dictionary_type:
+      type: string
+      label: 'Dictionary type'
+    value_boolean:
+      type: boolean
+      label: 'Boolean value'
+    value_string:
+      type: string
+      label: 'String value'
+    value_numeric:
+      type: float
+      label: 'Numeric value'
+    value_range_min:
+      type: float
+      label: 'Range minimum'
+    value_range_max:
+      type: float
+      label: 'Range maximum'
+    unit:
+      type: string
+      label: 'Unit'
+
+field.widget.settings.ps_feature_value_default:
+  type: mapping
+  label: 'Feature value widget settings'
+  mapping:
+    placeholder_text:
+      type: string
+      label: 'Placeholder text'
+    show_description:
+      type: boolean
+      label: 'Show description'
+
+field.widget.settings.ps_feature_value_inline:
+  type: mapping
+  label: 'Inline feature value widget settings'
+  mapping:
+    compact:
+      type: boolean
+      label: 'Compact mode'
+    show_description:
+      type: boolean
+      label: 'Show description'
+
+field.formatter.settings.ps_feature_value_default:
+  type: mapping
+  label: 'Feature value formatter settings'
+  mapping:
+    show_label:
+      type: boolean
+      label: 'Show feature label'
+    show_unit:
+      type: boolean
+      label: 'Show unit'
+    show_description:
+      type: boolean
+      label: 'Show description'
+    empty_text:
+      type: string
+      label: 'Empty text'
+
+field.formatter.settings.ps_feature_value_table:
+  type: mapping
+  label: 'Table feature value formatter settings'
+  mapping:
+    group_by:
+      type: string
+      label: 'Group by'
+    show_description:
+      type: boolean
+      label: 'Show description'

@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: terrace_garden
+label: 'Terraces and gardens'
+description: 'Description of terraces and gardens'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 6
+metadata:
+  icon: tree

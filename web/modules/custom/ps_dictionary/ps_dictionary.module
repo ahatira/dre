@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for ps_dictionary module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+
+/**
+ * Implements hook_permission().
+ */
+function ps_dictionary_permission(): array {
+  return [
+    'administer ps dictionaries' => [
+      'title' => t('Administer dictionaries'),
+      'description' => t('Create, edit and delete dictionary types and entries'),
+      'restrict access' => TRUE,
+    ],
+  ];
+}
+
+/**
+ * Allowed values callback for ps_dictionary fields.
+ *
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
+ *   The field storage definition.
+ * @param object|null $entity
+ *   The field entity (unused).
+ * @param bool|null $cacheable
+ *   Whether the values are cacheable.
+ *
+ * @param-out bool $cacheable
+ *   Set to TRUE when the returned options are cacheable, FALSE otherwise.
+ *
+ * @return array<string, string>
+ *   Allowed values keyed by dictionary code.
+ */
+function ps_dictionary_allowed_values(FieldStorageDefinitionInterface $definition, ?object $entity = NULL, ?bool &$cacheable = TRUE): array {
+  // @phpstan-ignore-next-line -- Parameter required by callback signature.
+  unset($entity);
+  $dictionary_type = (string) $definition->getSetting('dictionary_type');
+  if ($dictionary_type === '') {
+    $cacheable = FALSE;
+    return [];
+  }
+
+  /** @var \Drupal\ps_dictionary\Service\DictionaryManagerInterface $manager */
+  $manager = Drupal::service('ps_dictionary.manager');
+  $options = $manager->getOptions($dictionary_type);
+
+  $cacheable = TRUE;
+  return $options;
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ *
+ * Declares that ps_dictionary fields can use the standard Drupal list widgets.
+ *
+ * @param array<string, array<string, mixed>> $info
+ *   Widget definitions keyed by plugin ID (altered in-place).
+ */
+function ps_dictionary_field_widget_info_alter(array &$info): void {
+  // Add ps_dictionary to the list of supported field types for list widgets.
+  $list_widgets = ['options_select', 'options_buttons'];
+
+  foreach ($list_widgets as $widget_id) {
+    if (isset($info[$widget_id])) {
+      $info[$widget_id]['field_types'][] = 'ps_dictionary';
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ *
+ * Declares that ps_dictionary fields can use the standard Drupal list formatters.
+ *
+ * @param array<string, array<string, mixed>> $info
+ *   Formatter definitions keyed by plugin ID (altered in-place).
+ */
+function ps_dictionary_field_formatter_info_alter(array &$info): void {
+  // Add ps_dictionary to the list of supported field types for list formatters.
+  $list_formatters = ['list_default', 'list_key'];
+
+  foreach ($list_formatters as $formatter_id) {
+    if (isset($info[$formatter_id])) {
+      $info[$formatter_id]['field_types'][] = 'ps_dictionary';
+    }
+  }
+}

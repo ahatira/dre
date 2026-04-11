@@ -1,0 +1,8 @@
+id: heating_system_type_collective
+dictionary_type: heating_system_type
+code: COLLECTIVE
+label: "Collective"
+description: "Collective/central heating system"
+weight: 1
+deprecated: false
+metadata: []

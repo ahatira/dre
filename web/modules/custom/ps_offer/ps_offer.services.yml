@@ -1,0 +1,22 @@
+services:
+  ps_offer.manager:
+    class: 'Drupal\ps_offer\Service\OfferManager'
+    arguments:
+      - "@entity_type.manager"
+      - "@logger.factory"
+    public: true
+  ps_offer.event_subscriber:
+    class: Drupal\ps_offer\EventSubscriber\OfferEventSubscriber
+    arguments:
+      - "@logger.factory"
+    tags:
+      - { name: "event_subscriber" }
+
+  ps_offer.commands:
+    class: Drupal\ps_offer\Commands\OfferCommands
+    arguments:
+      - "@entity_type.manager"
+      - "@logger.factory"
+      - "@date.formatter"
+    tags:
+      - { name: "drush.command_handler" }

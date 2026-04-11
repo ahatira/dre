@@ -1,0 +1,30 @@
+uuid: 1314fa5b-fb6c-439b-85a9-7b6115a264b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.media_plans
+    - node.type.offer
+_core:
+  default_config_hash: jC_PKUseD8-F2VwxhfVVsmteSLjuXfj2kkSEyADxg9E
+id: node.offer.media_plans
+field_name: media_plans
+entity_type: node
+bundle: offer
+label: Plans
+description: 'Property plans/layouts (PDFs, images)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

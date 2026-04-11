@@ -1,0 +1,8 @@
+id: security_system_type_alarm
+dictionary_type: security_system_type
+code: ALARM
+label: "Alarm system"
+description: "Intrusion alarm system."
+weight: 0
+deprecated: false
+metadata: []

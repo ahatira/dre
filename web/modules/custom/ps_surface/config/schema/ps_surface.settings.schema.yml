@@ -1,0 +1,23 @@
+ps_surface.settings:
+  type: config_object
+  label: "Surface field type settings"
+  mapping:
+    validation:
+      type: mapping
+      label: "Validation settings"
+      mapping:
+        allow_negative:
+          type: boolean
+          label: "Allow negative values"
+        require_unit:
+          type: boolean
+          label: "Require unit field"
+        require_type:
+          type: boolean
+          label: "Require type field"
+        require_nature:
+          type: boolean
+          label: "Require nature field"
+        require_qualification:
+          type: boolean
+          label: "Require qualification field"

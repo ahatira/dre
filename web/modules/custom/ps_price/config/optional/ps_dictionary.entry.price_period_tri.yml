@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_period_tri
+dictionary_type: price_period
+code: TRI
+label: "Per Quarter"
+description: "Quarterly (3 months) price"
+weight: 2
+status: true
+deprecated: false
+metadata:
+  icon: "calendar"
+  multiplier: 4

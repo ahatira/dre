@@ -1,0 +1,6 @@
+uuid: "agent-type-agent"
+langcode: en
+status: true
+id: agent
+label: "Agent"
+description: "Default agent type"

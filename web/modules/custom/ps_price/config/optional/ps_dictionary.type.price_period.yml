@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: price_period
+label: "Price Period"
+description: "Time periods for price normalization (year, month, quarter, week)"
+is_translatable: false
+locked: true
+weight: 12

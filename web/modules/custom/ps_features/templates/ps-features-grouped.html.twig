@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Template for grouped features display.
+ *
+ * Available variables:
+ * - group: Object with group data:
+ *   - id: Group machine name
+ *   - label: Group display label
+ *   - description: Group description
+ *   - icon: Group icon identifier
+ * - features: Array of feature objects:
+ *   - id: Feature machine name
+ *   - label: Feature display label
+ *   - value: Formatted value string
+ *   - type: Display type (label-only, boolean-custom, dictionary, label-value)
+ * - collapsible: Boolean indicating if group is collapsible
+ * - collapsed: Boolean indicating if group is collapsed by default
+ *
+ * @see \Drupal\ps_features\Plugin\Field\FieldFormatter\FeatureValueGroupedFormatter
+ */
+#}
+<div class="ps-feature-group" data-group-id="{{ group.id }}">
+  {% if collapsible %}
+    <details class="ps-feature-group-details"{{ collapsed ? '' : ' open' }}>
+      <summary class="ps-feature-group-title">
+        {% if group.icon %}
+          <span class="group-icon" data-icon="{{ group.icon }}"></span>
+        {% endif %}
+        <span class="group-label">{{ group.label }}</span>
+        {% if features|length > 0 %}
+          <span class="feature-count">({{ features|length }})</span>
+        {% endif %}
+      </summary>
+      <div class="ps-feature-group-content">
+        {% if group.description %}
+          <div class="group-description">{{ group.description }}</div>
+        {% endif %}
+        {{ _self.render_features(features) }}
+      </div>
+    </details>
+  {% else %}
+    <div class="ps-feature-group-static">
+      <div class="ps-feature-group-title">
+        {% if group.icon %}
+          <span class="group-icon" data-icon="{{ group.icon }}"></span>
+        {% endif %}
+        <span class="group-label">{{ group.label }}</span>
+        {% if features|length > 0 %}
+          <span class="feature-count">({{ features|length }})</span>
+        {% endif %}
+      </div>
+      {% if group.description %}
+        <div class="group-description">{{ group.description }}</div>
+      {% endif %}
+      {{ _self.render_features(features) }}
+    </div>
+  {% endif %}
+</div>
+
+{% macro render_features(features) %}
+  {% if features is not empty %}
+    <ul class="ps-features-list">
+      {% for feature in features %}
+        <li class="ps-feature-item ps-feature-{{ feature.type }}" data-feature-id="{{ feature.id }}">
+          <span class="feature-label">{{ feature.label }}</span>
+          {% if feature.value %}
+            <span class="feature-separator">:</span>
+            <span class="feature-value">{{ feature.value }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="ps-features-empty">{{ 'No features to display.'|t }}</div>
+  {% endif %}
+{% endmacro %}

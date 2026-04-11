@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_period_men
+dictionary_type: price_period
+code: MEN
+label: "Per Month"
+description: "Monthly price"
+weight: 1
+status: true
+deprecated: false
+metadata:
+  icon: "calendar"
+  multiplier: 12

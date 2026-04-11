@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for ps_surface.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Install hooks for ps_surface.
+ */
+function ps_surface_install(): void {
+  _ps_surface_ensure_dictionaries();
+}
+
+/**
+ * Ensures that surface-related dictionaries are created.
+ *
+ * @internal
+ */
+function _ps_surface_ensure_dictionaries(): void {
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  $types = [
+    'surface_nature' => 'Surface Nature',
+    'surface_qualification' => 'Surface Qualification',
+  ];
+
+  $type_storage = $entity_type_manager->getStorage('ps_dictionary_type');
+  foreach ($types as $type_id => $label) {
+    if (!$type_storage->load($type_id)) {
+      $type_storage->create([
+        'id' => $type_id,
+        'label' => $label,
+        'description' => $label,
+        'is_translatable' => FALSE,
+        'locked' => TRUE,
+      ])->save();
+    }
+  }
+
+  $entries = [
+    'surface_nature_act' => [
+      'dictionary_type' => 'surface_nature',
+      'code' => 'ACT',
+      'label' => 'Activity Area',
+      'weight' => 0,
+    ],
+    'surface_nature_bur' => [
+      'dictionary_type' => 'surface_nature',
+      'code' => 'BUR',
+      'label' => 'Office Area',
+      'weight' => 1,
+    ],
+    'surface_qualification_total' => [
+      'dictionary_type' => 'surface_qualification',
+      'code' => 'TOTAL',
+      'label' => 'Total',
+      'weight' => 0,
+    ],
+    'surface_qualification_available' => [
+      'dictionary_type' => 'surface_qualification',
+      'code' => 'DISPO',
+      'label' => 'Available',
+      'weight' => 1,
+    ],
+    'surface_qualification_reference' => [
+      'dictionary_type' => 'surface_qualification',
+      'code' => 'ETREF',
+      'label' => 'Reference',
+      'weight' => 2,
+    ],
+  ];
+
+  $entry_storage = $entity_type_manager->getStorage('ps_dictionary_entry');
+  foreach ($entries as $entry_id => $data) {
+    if (!$entry_storage->load($entry_id)) {
+      $entry_storage->create(['id' => $entry_id] + $data)->save();
+    }
+  }
+}

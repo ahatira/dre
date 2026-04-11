@@ -1,0 +1,21 @@
+langcode: en
+uuid: 732fccd8-c1b3-4bc0-be8c-91fb43ca2aec
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_is_divisible
+    - node.type.offer
+id: node.offer.field_is_divisible
+field_name: field_is_divisible
+entity_type: node
+bundle: offer
+label: 'Is Divisible'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

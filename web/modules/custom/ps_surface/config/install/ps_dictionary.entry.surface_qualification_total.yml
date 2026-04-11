@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_qualification_total
+dictionary_type: surface_qualification
+code: TOTAL
+label: "Total"
+description: "Total qualification"
+weight: 0
+deprecated: false
+metadata: []

@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: office_layout
+label: 'Office layout'
+description: 'Description of office layout'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 1
+metadata:
+  icon: building

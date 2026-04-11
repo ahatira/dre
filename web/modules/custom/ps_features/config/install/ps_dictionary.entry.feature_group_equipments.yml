@@ -1,0 +1,9 @@
+id: feature_group_equipments
+dictionary_type: feature_group
+code: EQUIPMENTS
+label: "Equipments"
+description: "Equipment and appliances available in the property."
+weight: 0
+deprecated: false
+metadata:
+  icon: "tools"

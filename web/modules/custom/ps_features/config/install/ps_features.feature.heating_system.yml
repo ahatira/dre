@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: heating_system
+label: 'Heating system'
+description: 'Type of heating system'
+value_type: dictionary
+dictionary_type: heating_system_type
+unit: null
+is_required: false
+validation_rules: {  }
+group: equipments
+weight: 4
+metadata:
+  icon: fire

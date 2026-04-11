@@ -1,13 +1,12 @@
-entity.agent.collection:
-  title: 'Agents'
-  description: 'Manage Agent entities.'
-  route_name: entity.agent.collection
-  parent: system.admin_content
-  weight: 25
+entity.agent_type.collection:
+  title: "Agent Types"
+  description: "Manage agent type bundles"
+  route_name: "entity.agent_type.collection"
+  parent: "ps.admin_structure"
+  weight: 20
 
-entity.agent.settings:
-  title: 'Agent settings'
-  description: 'Manage Agent fields and display.'
-  route_name: entity.agent.settings
-  parent: system.admin_structure
-  weight: 35
+ps_agent.add:
+  title: "Add Agent"
+  route_name: "entity.agent.add_page"
+  parent: "ps_agent.collection"
+  weight: 0

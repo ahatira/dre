@@ -1,0 +1,54 @@
+# Offer module routing
+
+# Offer content routes (handled by Node module)
+entity.node.canonical:
+  path: "/offer/{node}"
+  defaults:
+    _entity_view: "node.full"
+    _title_callback: '\Drupal\node\Controller\NodeController::title'
+  requirements:
+    node: '\d+'
+    _permission: "view published content"
+
+entity.node.edit_form:
+  path: "/offer/{node}/edit"
+  defaults:
+    _entity_form: "node.edit"
+    _title: "Edit Offer"
+  requirements:
+    node: '\d+'
+    _permission: "edit any offer content"
+
+entity.node.delete_form:
+  path: "/offer/{node}/delete"
+  defaults:
+    _entity_form: "node.delete"
+    _title: "Delete Offer"
+  requirements:
+    node: '\d+'
+    _permission: "delete any offer content"
+
+entity.node.version_history:
+  path: "/offer/{node}/revisions"
+  defaults:
+    _controller: '\Drupal\node\Controller\NodeController::revisionOverview'
+  requirements:
+    node: '\d+'
+    _permission: "view offer revisions"
+
+# Admin routes
+ps_offer.admin_offers:
+  path: "/admin/content/offers"
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: "Offers"
+  requirements:
+    _permission: "administer offer content"
+
+ps_offer.settings:
+  path: "/admin/ps/config/offers"
+  defaults:
+    _title: "Offer Settings"
+    _form: 'Drupal\ps_offer\Form\OfferSettingsForm'
+  requirements:
+    _permission: "administer offer content"

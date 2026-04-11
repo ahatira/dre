@@ -1,0 +1,11 @@
+entity.ps_dictionary_type.add_form:
+  title: "Add dictionary type"
+  route_name: entity.ps_dictionary_type.add_form
+  appears_on:
+    - entity.ps_dictionary_type.collection
+
+entity.ps_dictionary_entry.add_form:
+  title: "Add entry"
+  route_name: entity.ps_dictionary_entry.add_form
+  appears_on:
+    - entity.ps_dictionary_type.entries

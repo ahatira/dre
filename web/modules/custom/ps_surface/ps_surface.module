@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Surface module hooks.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_permission().
+ */
+function ps_surface_permission(): array {
+  return [
+    'administer ps surface' => [
+      'title' => t('Administer Surface settings'),
+      'description' => t('Configure surface field type validation and display options'),
+      'restrict access' => TRUE,
+    ],
+  ];
+}

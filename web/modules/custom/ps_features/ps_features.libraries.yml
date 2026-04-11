@@ -1,0 +1,63 @@
+admin:
+  css:
+    theme:
+      assets/css/admin.css: {}
+  dependencies:
+    - core/drupal.tabledrag
+
+widget.default:
+  js:
+    assets/js/widget-default.js: {}
+  css:
+    theme:
+      assets/css/widget-default.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+widget.inline:
+  js:
+    assets/js/widget-inline.js: {}
+  css:
+    theme:
+      assets/css/widget-inline.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+formatter.table:
+  css:
+    theme:
+      assets/css/formatter-table.css: {}
+
+
+formatter.grouped:
+  css:
+    theme:
+      assets/css/formatter-grouped.css: {}
+  dependencies:
+    - core/drupal
+
+widget.browser:
+  js:
+    assets/js/widget-browser.js: {}
+  css:
+    theme:
+      assets/css/widget-browser.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupal.dialog
+    - core/jquery.ui.dialog
+    - core/once
+
+widget.builder:
+  js:
+    assets/js/widget-builder.js: {}
+  css:
+    theme:
+      assets/css/widget-builder.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.dialog
+    - core/once

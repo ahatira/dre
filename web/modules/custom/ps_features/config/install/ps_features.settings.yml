@@ -1,0 +1,7 @@
+allow_unknown_features: false
+default_required: false
+packs_fallback_strategy: none
+compare_sections:
+  - general
+  - comfort
+  - technical

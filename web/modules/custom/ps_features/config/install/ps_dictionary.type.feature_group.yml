@@ -1,0 +1,8 @@
+id: feature_group
+label: "Feature Group"
+description: "Groups organizing features for display (equipments, services, building condition, more information)."
+locked: true
+metadata_schema: |
+  icon:
+    type: string
+    label: "Icon name (e.g., factory, office)"

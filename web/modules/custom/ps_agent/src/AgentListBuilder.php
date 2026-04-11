@@ -4,71 +4,46 @@ declare(strict_types=1);
 
 namespace Drupal\ps_agent;
 
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Lists Agent entities.
+ * Defines a list builder for Agent entities.
  */
-final class AgentListBuilder extends EntityListBuilder
-{
-  /**
-   * Date formatter service.
-   */
-    protected DateFormatterInterface $dateFormatter;
+class AgentListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
    */
-    public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type): static
-    {
-        return new static(
-            $entity_type,
-            $container->get('entity_type.manager')->getStorage($entity_type->id()),
-            $container->get('date.formatter'),
-        );
-    }
-
-  /**
-   * Constructs an AgentListBuilder instance.
-   */
-    public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, DateFormatterInterface $date_formatter)
-    {
-        parent::__construct($entity_type, $storage);
-        $this->dateFormatter = $date_formatter;
-    }
+  public function buildHeader(): array {
+    $header = [];
+    $header['id'] = $this->t('ID');
+    $header['last_name'] = $this->t('Last Name');
+    $header['first_name'] = $this->t('First Name');
+    $header['email'] = $this->t('Email');
+    $header['status'] = $this->t('Status');
+    return $header + parent::buildHeader();
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function buildHeader(): array
-    {
-        $header['name'] = $this->t('Name');
-        $header['job_title'] = $this->t('Job title');
-        $header['phone'] = $this->t('Phone');
-        $header['webform_id'] = $this->t('Webform ID');
-        $header['status'] = $this->t('Status');
-        $header['changed'] = $this->t('Updated');
-
-        return $header + parent::buildHeader();
-    }
+  public function buildRow(EntityInterface $entity): array {
+    $row = [];
+    $row['id'] = $entity->id();
+    $row['last_name'] = $entity->get('last_name')->value ?? '';
+    $row['first_name'] = $entity->get('first_name')->value ?? '';
+    $row['email'] = $entity->get('email')->value ?? '';
+    $row['status'] = $entity->get('status')->value ? $this->t('Active') : $this->t('Inactive');
+    return $row + parent::buildRow($entity);
+  }
 
   /**
    * {@inheritdoc}
    */
-    public function buildRow(EntityInterface $entity): array
-    {
-        $row['name'] = $entity->label();
-        $row['job_title'] = (string) ($entity->get('job_title')->value ?? '');
-        $row['phone'] = (string) ($entity->get('phone')->value ?? '');
-        $row['webform_id'] = (string) ($entity->get('webform_id')->value ?? '');
-        $row['status'] = $entity->isPublished() ? $this->t('Published') : $this->t('Unpublished');
-        $row['changed'] = $this->dateFormatter->format((int) $entity->getChangedTime(), 'short');
+  protected function getDefaultOperations(EntityInterface $entity): array {
+    $operations = parent::getDefaultOperations($entity);
+    return $operations;
+  }
 
-        return $row + parent::buildRow($entity);
-    }
 }

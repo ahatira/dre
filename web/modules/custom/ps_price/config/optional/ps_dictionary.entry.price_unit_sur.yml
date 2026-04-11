@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_unit_sur
+dictionary_type: price_unit
+code: SUR
+label: "Per Surface (m²)"
+description: "Price per surface unit (m²)"
+weight: 0
+status: true
+deprecated: false
+metadata:
+  icon: "ruler"
+  symbol: "/m²"

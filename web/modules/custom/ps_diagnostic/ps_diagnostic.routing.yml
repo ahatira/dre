@@ -1,0 +1,31 @@
+entity.diagnostic.collection:
+  path: "/admin/ps/structure/diagnostic"
+  defaults:
+    _entity_list: "diagnostic"
+    _title: "Diagnostics"
+  requirements:
+    _permission: "administer ps_diagnostic"
+
+entity.diagnostic.add_form:
+  path: "/admin/ps/structure/diagnostic/add"
+  defaults:
+    _entity_form: "diagnostic.add"
+    _title: "Add Diagnostic"
+  requirements:
+    _permission: "administer ps_diagnostic"
+
+entity.diagnostic.edit_form:
+  path: "/admin/ps/structure/diagnostic/{diagnostic}/edit"
+  defaults:
+    _entity_form: "diagnostic.edit"
+    _title: "Edit Diagnostic"
+  requirements:
+    _permission: "administer ps_diagnostic"
+
+entity.diagnostic.delete_form:
+  path: "/admin/ps/structure/diagnostic/{diagnostic}/delete"
+  defaults:
+    _entity_form: "diagnostic.delete"
+    _title: "Delete Diagnostic"
+  requirements:
+    _permission: "administer ps_diagnostic"

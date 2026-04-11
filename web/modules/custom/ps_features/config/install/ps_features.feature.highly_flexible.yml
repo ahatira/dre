@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: highly_flexible
+label: 'Highly flexible'
+description: 'Highly flexible space'
+value_type: flag
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: more_information
+weight: 2
+metadata: {  }

@@ -1,0 +1,101 @@
+/**
+ * @file
+ * Admin interface styling for ps_features management.
+ * Styled to match Drupal Block Layout page.
+ */
+
+/* Group title rows (like region titles in Block Layout) */
+.group-title {
+  background-color: #f5f5f2;
+  font-weight: bold;
+}
+
+.group-title td {
+  padding: 0.5rem 1rem;
+}
+
+.group-title__action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-title .button {
+  margin-left: auto;
+}
+
+/* Group message rows (empty state) */
+.group-message {
+  display: none;
+}
+
+.group-message.group-empty {
+  display: table-row;
+}
+
+.group-message td {
+  padding: 1rem;
+  text-align: center;
+  color: #666;
+}
+
+.group-populated {
+  display: none !important;
+}
+
+/* Feature rows */
+#features tr.draggable {
+  background-color: #fff;
+}
+
+#features tr.draggable:hover {
+  background-color: #f9f9f9;
+}
+
+/* Disabled features */
+#features tr.feature-disabled {
+  opacity: 0.6;
+}
+
+#features tr.feature-disabled td {
+  color: #666;
+}
+
+/* Hide drag handle initially, show on hover */
+.tabledrag-handle {
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+
+tr:hover .tabledrag-handle {
+  opacity: 1;
+}
+
+/* Operations column */
+.dropbutton-wrapper {
+  display: inline-block;
+}
+
+/* Group select styling */
+.feature-group-select {
+  max-width: 200px;
+}
+
+/* Weight field styling */
+input.feature-weight {
+  width: 4rem;
+  text-align: center;
+}
+
+/* Tabledrag styling */
+.ps-features-table .tabledrag-handle {
+  cursor: move;
+}
+
+.ps-features-table tr.drag {
+  background: #ffffcc;
+}
+
+.ps-features-table tr.drag-previous {
+  background: #ffd;
+}

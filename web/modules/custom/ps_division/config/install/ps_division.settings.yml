@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_division
+id: ps_division_settings
+type_default: division
+dictionaries:
+  division_type: "surface_type"
+  division_nature: "surface_nature"
+bo_editable_fields:
+  - building_name
+  - floor
+  - lot
+  - availability
+import_settings:
+  default_type: "division"
+  auto_aggregate: true
+  cache_aggregates: true
+business_rules:
+  require_parent: false
+  validate_codes: true
+  aggregate_on_save: true

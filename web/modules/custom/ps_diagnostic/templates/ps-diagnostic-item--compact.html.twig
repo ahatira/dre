@@ -1,0 +1,46 @@
+{#
+/**
+ * Diagnostic item template - Compact layout.
+ *
+ * Displays diagnostic information as a compact inline badge.
+ *
+ * Variables:
+ * - class_label: string|null - Class label (A-G, ?, N/A)
+ * - type_label: string|null - Diagnostic label (DPE, GES, etc.)
+ * - numeric_value: string|null - Formatted numeric value
+ * - valid_from: string|null - Start date (ISO 8601)
+ * - valid_to: string|null - End date (ISO 8601)
+ * - show_type_label: bool - Display type label
+ * - show_numeric_value: bool - Display numeric value
+ * - show_validity_dates: bool - Display validity dates
+ * - dim_diagnostic: bool - Should this diagnostic be dimmed (empty)
+ * - dim_opacity: int - Opacity percentage (10-90) when dimmed
+ * - diagnostic_type: \Drupal\ps_diagnostic\Entity\PsDiagnostic|null - Diagnostic config entity
+ */
+#}
+{% set opacity_style = dim_diagnostic ? 'opacity: ' ~ (dim_opacity / 100) ~ ';' : '' %}
+{% set class_code = class_label|lower %}
+
+{# Retrieve class color from diagnostic type config #}
+{% set class_color = '#CCCCCC' %}
+{% if diagnostic_type and diagnostic_type.classes %}
+	{% for code, class_data in diagnostic_type.classes %}
+		{% if code == class_code %}
+			{% set class_color = class_data.color %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+<span class="ps-diagnostic-item ps-diagnostic-item--compact" {% if opacity_style %} style="{{ opacity_style }}" {% endif %}>
+	<span class="ps-diagnostic-class ps-diagnostic-class--{{ class_code }}" style="background-color: {{ class_color }};">
+		{{ class_label|default('—') }}
+	</span>
+
+	{% if show_type_label and type_label %}
+		<span class="ps-diagnostic-type">{{ type_label }}</span>
+	{% endif %}
+
+	{% if show_numeric_value and numeric_value %}
+		<span class="ps-diagnostic-value">{{ numeric_value }}</span>
+	{% endif %}
+</span>

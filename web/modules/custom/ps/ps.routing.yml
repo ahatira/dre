@@ -1,0 +1,49 @@
+ps.admin:
+  path: /admin/ps
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: Property Search
+  requirements:
+    _permission: access ps admin
+  options:
+    _admin_route: true
+
+ps.admin_config:
+  path: /admin/ps/config
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: Configuration
+  requirements:
+    _permission: access ps admin
+  options:
+    _admin_route: true
+
+ps.admin_settings:
+  path: /admin/ps/config/settings
+  defaults:
+    _form: Drupal\ps\Form\SettingsForm
+    _title: PropertySearch Settings
+  requirements:
+    _permission: configure ps settings
+  options:
+    _admin_route: true
+
+ps.admin_structure:
+  path: /admin/ps/structure
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: Structure
+  requirements:
+    _permission: access ps admin
+  options:
+    _admin_route: true
+
+ps.admin_content:
+  path: /admin/ps/content
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: Content
+  requirements:
+    _permission: access ps admin
+  options:
+    _admin_route: true

@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {}
+id: lot
+label: Lot
+description: "Default division type for lots, floors, and apartments."

@@ -1,0 +1,6 @@
+ps_surface.settings:
+  title: "Surface Settings"
+  description: "Configure surface field type settings and dictionary mappings"
+  parent: ps.admin_config
+  route_name: ps_surface.settings
+  weight: 5

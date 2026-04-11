@@ -1,0 +1,34 @@
+ps.admin:
+  title: PropertySearch
+  description: "PropertySearch administration overview"
+  route_name: ps.admin
+  parent: system.admin
+  weight: -10
+
+ps.admin_content:
+  title: Content
+  description: "Manage PropertySearch offers and content"
+  route_name: ps.admin_content
+  parent: ps.admin
+  weight: 0
+
+ps.admin_structure:
+  title: Structure
+  description: "Manage PropertySearch structures and dictionaries"
+  route_name: ps.admin_structure
+  parent: ps.admin
+  weight: 20
+
+ps.admin_config:
+  title: Configuration
+  description: "Configure core PropertySearch services"
+  route_name: ps.admin_config
+  parent: ps.admin
+  weight: 50
+
+ps.admin_settings:
+  title: Settings
+  description: "Global PropertySearch settings"
+  route_name: ps.admin_settings
+  parent: ps.admin_config
+  weight: 0

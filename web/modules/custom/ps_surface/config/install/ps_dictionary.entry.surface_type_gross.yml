@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_type_gross
+dictionary_type: surface_type
+code: GROSS
+label: 'Gross Area'
+description: 'Gross total area'
+weight: 30
+deprecated: false
+metadata: []

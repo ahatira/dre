@@ -1,0 +1,374 @@
+uuid: 33c1747f-3052-4c4b-9de0-c324e4b80915
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.offer.address
+    - field.field.node.offer.agents
+    - field.field.node.offer.description
+    - field.field.node.offer.diagnostics
+    - field.field.node.offer.divisions
+    - field.field.node.offer.external_id
+    - field.field.node.offer.features
+    - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_property_type
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_transaction_types
+    - field.field.node.offer.geofield
+    - field.field.node.offer.media_photos
+    - field.field.node.offer.media_plans
+    - field.field.node.offer.media_videos
+    - field.field.node.offer.prices
+    - field.field.node.offer.reference
+    - node.type.offer
+  module:
+    - address
+    - field_group
+    - geofield
+    - inline_entity_form
+    - path
+    - ps_diagnostic
+    - ps_features
+    - ps_price
+    - ps_surface
+    - text
+third_party_settings:
+  field_group:
+    group_form:
+      children:
+        - group_general
+        - group_medias
+        - group_address
+        - group_surfaces
+        - group_attributes
+        - group_diagnostics_labels
+        - group_agents
+      label: Form
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        direction: horizontal
+        width_breakpoint: 640
+    group_medias:
+      children:
+        - media_photos
+        - media_videos
+        - media_plans
+      label: Medias
+      region: content
+      parent_name: group_form
+      weight: 6
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_general:
+      children:
+        - langcode
+        - field_property_type
+        - field_transaction_types
+        - prices
+        - description
+      label: General
+      region: content
+      parent_name: group_form
+      weight: 5
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_address:
+      children:
+        - address
+        - geofield
+      label: Address
+      region: content
+      parent_name: group_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_surfaces:
+      children:
+        - field_is_divisible
+        - field_surfaces
+        - divisions
+      label: Surfaces
+      region: content
+      parent_name: group_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_attributes:
+      children:
+        - features
+      label: Attributes
+      region: content
+      parent_name: group_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_diagnostics_labels:
+      children:
+        - diagnostics
+      label: 'Diagnostics & Labels'
+      region: content
+      parent_name: group_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_agents:
+      children:
+        - agents
+      label: Agents
+      region: content
+      parent_name: group_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+id: node.offer.default
+targetEntityType: node
+bundle: offer
+mode: default
+content:
+  address:
+    type: address_default
+    weight: 4
+    region: content
+    settings:
+      wrapper_type: fieldset
+    third_party_settings: {  }
+  agents:
+    type: inline_entity_form_complex
+    weight: 9
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  description:
+    type: text_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  diagnostics:
+    type: ps_diagnostic_default
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  divisions:
+    type: entity_reference_autocomplete
+    weight: 13
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  features:
+    type: ps_feature_value_grouped
+    weight: 13
+    region: content
+    settings:
+      show_descriptions: true
+      allow_reorder: true
+      collapsed_groups: false
+    third_party_settings: {  }
+  field_is_divisible:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_property_type:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_surfaces:
+    type: ps_surface_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_transaction_types:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  geofield:
+    type: geofield_latlon
+    weight: 14
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 4
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  media_photos:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  media_plans:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  media_videos:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  prices:
+    type: ps_price_default
+    weight: 7
+    region: content
+    settings:
+      show_unit: true
+      show_period: true
+      show_value_type: true
+      show_flags: true
+    third_party_settings: {  }
+  reference:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  external_id: true
+  promote: true
+  sticky: true

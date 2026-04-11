@@ -1,0 +1,87 @@
+uuid: 14d544c2-1111-4200-a211-567ef487f60a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.offer.address
+    - field.field.node.offer.agents
+    - field.field.node.offer.description
+    - field.field.node.offer.diagnostics
+    - field.field.node.offer.divisions
+    - field.field.node.offer.external_id
+    - field.field.node.offer.features
+    - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_property_type
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_transaction_types
+    - field.field.node.offer.geofield
+    - field.field.node.offer.media_photos
+    - field.field.node.offer.media_plans
+    - field.field.node.offer.media_videos
+    - field.field.node.offer.prices
+    - field.field.node.offer.reference
+    - node.type.offer
+  module:
+    - options
+    - ps_surface
+    - user
+id: node.offer.default
+targetEntityType: node
+bundle: offer
+mode: default
+content:
+  field_is_divisible:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_property_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_surfaces:
+    type: ps_surface_default
+    label: above
+    settings:
+      show_unit: true
+      show_qualification: false
+      decimals: 0
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_transaction_types:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  address: true
+  agents: true
+  description: true
+  diagnostics: true
+  divisions: true
+  external_id: true
+  features: true
+  geofield: true
+  langcode: true
+  media_photos: true
+  media_plans: true
+  media_videos: true
+  prices: true
+  reference: true
+  search_api_excerpt: true

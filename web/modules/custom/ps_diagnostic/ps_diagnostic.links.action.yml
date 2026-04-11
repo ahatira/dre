@@ -1,0 +1,5 @@
+entity.diagnostic.add_form:
+  route_name: entity.diagnostic.add_form
+  title: "Add Diagnostic"
+  appears_on:
+    - entity.diagnostic.collection

@@ -1,0 +1,9 @@
+ps_price.settings:
+  path: "/admin/ps/config/price"
+  defaults:
+    _form: 'Drupal\ps_price\Form\PriceSettingsForm'
+    _title: "Price Settings"
+  requirements:
+    _permission: "administer ps price"
+  options:
+    _admin_route: true

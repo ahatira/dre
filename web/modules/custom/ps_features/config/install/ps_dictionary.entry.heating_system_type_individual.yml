@@ -1,0 +1,8 @@
+id: heating_system_type_individual
+dictionary_type: heating_system_type
+code: INDIVIDUAL
+label: "Individual"
+description: "Individual heating system"
+weight: 0
+deprecated: false
+metadata: []

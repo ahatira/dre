@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_division
+id: floor
+label: Floor
+description: "Floor codes for building levels (basement, ground, upper floors)"
+is_translatable: false
+locked: true
+weight: 0

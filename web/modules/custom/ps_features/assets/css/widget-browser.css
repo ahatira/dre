@@ -1,0 +1,305 @@
+/**
+ * @file
+ * Styles for the Feature Browser modal widget.
+ */
+
+/* Modal container */
+.ps-feature-browser {
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Filter controls */
+.browser-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  align-items: flex-end;
+}
+
+.browser-filters .form-item {
+  margin: 0;
+  flex: 1;
+}
+
+.browser-filters .browser-search {
+  flex: 2;
+}
+
+.browser-search {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.browser-search:focus {
+  outline: none;
+  border-color: #0074bd;
+  box-shadow: 0 0 0 1px #0074bd;
+}
+
+.browser-group-filter {
+  min-width: 200px;
+}
+
+/* Features grid */
+.browser-features {
+  display: block;
+}
+
+.feature-group {
+  margin-bottom: 30px;
+}
+
+.feature-group[data-hidden="true"] {
+  display: none;
+}
+
+.feature-group .group-title {
+  margin: 0 0 10px 0;
+  padding: 10px 15px;
+  background: #0074bd;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.feature-group .group-description {
+  margin: 0 0 15px 0;
+  padding: 0 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Feature items grid */
+.feature-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  padding: 0 15px;
+}
+
+/* Feature card */
+.feature-card {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.feature-card:hover {
+  border-color: #0074bd;
+  box-shadow: 0 2px 8px rgba(0, 116, 189, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-card.selected {
+  border-color: #0074bd;
+  background: #f0f8ff;
+  box-shadow: 0 0 0 2px rgba(0, 116, 189, 0.2);
+}
+
+.feature-card[data-hidden="true"] {
+  display: none;
+}
+
+/* Feature checkbox */
+.feature-card .feature-select {
+  margin: 0 0 10px 0;
+  cursor: pointer;
+}
+
+.feature-card .form-type-checkbox {
+  margin: 0;
+}
+
+.feature-card .form-type-checkbox label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-card .form-type-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Feature description */
+.feature-description {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border-left: 3px solid #0074bd;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Badges */
+.feature-type-badge,
+.feature-unit-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  margin: 5px 5px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.feature-type-badge {
+  background: #e0e0e0;
+  color: #555;
+}
+
+.feature-type-badge.type-boolean {
+  background: #4caf50;
+  color: #fff;
+}
+
+.feature-type-badge.type-dictionary {
+  background: #2196f3;
+  color: #fff;
+}
+
+.feature-type-badge.type-string {
+  background: #ff9800;
+  color: #fff;
+}
+
+.feature-type-badge.type-numeric {
+  background: #9c27b0;
+  color: #fff;
+}
+
+.feature-type-badge.type-range {
+  background: #f44336;
+  color: #fff;
+}
+
+.feature-unit-badge {
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+/* Actions */
+.browser-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  position: sticky;
+  bottom: 0;
+}
+
+.browser-submit {
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.browser-cancel {
+  padding: 10px 20px;
+}
+
+/* Selection counter */
+.selection-counter {
+  margin-left: auto;
+  padding: 10px 15px;
+  background: #0074bd;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  display: none;
+}
+
+.selection-counter.has-selection {
+  display: block;
+}
+
+/* Empty state */
+.browser-features:empty::after {
+  content: "No features available.";
+  display: block;
+  padding: 40px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+/* Loading state */
+.browser-loading {
+  padding: 40px;
+  text-align: center;
+}
+
+.browser-loading::after {
+  content: "Loading features...";
+  display: block;
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .browser-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .browser-filters .form-item {
+    width: 100%;
+  }
+
+  .feature-items {
+    grid-template-columns: 1fr;
+  }
+
+  .browser-actions {
+    flex-direction: column;
+  }
+}
+
+/* Modal dialog overrides */
+.ui-dialog.ps-feature-browser-modal {
+  max-width: 1200px;
+}
+
+.ui-dialog.ps-feature-browser-modal .ui-dialog-content {
+  padding: 0;
+}
+
+.ui-dialog.ps-feature-browser-modal .ui-dialog-titlebar {
+  background: #0074bd;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+}
+
+.ui-dialog.ps-feature-browser-modal .ui-dialog-titlebar-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+}
+
+.ui-dialog.ps-feature-browser-modal .ui-dialog-titlebar-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

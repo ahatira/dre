@@ -1,0 +1,7 @@
+views.filter.ps_dictionary_filter:
+  type: views_filter
+  label: "Dictionary filter"
+  mapping:
+    dictionary_type:
+      type: string
+      label: "Dictionary type"

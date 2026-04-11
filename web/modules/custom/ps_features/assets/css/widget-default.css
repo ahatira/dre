@@ -1,0 +1,185 @@
+/**
+ * @file
+ * Default widget styling for ps_feature_value field type.
+ *
+ * Provides a clean, professional layout for the default feature value widget
+ * with proper spacing, visual hierarchy, and responsive design.
+ */
+
+/* Main widget container */
+.ps-feature-value-default {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Feature selection section */
+.ps-feature-value-default .feature-select-wrapper {
+  margin-bottom: 1rem;
+}
+
+.ps-feature-value-default .feature-select {
+  width: 100%;
+  max-width: 400px;
+  font-weight: 600;
+}
+
+/* Value fields container */
+.ps-feature-value-default .value-fields-container {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+  min-height: 60px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ps-feature-value-default .value-fields-container:empty {
+  display: none;
+}
+
+.ps-feature-value-default .value-fields-container:not(.has-feature-selected) {
+  opacity: 0.5;
+}
+
+/* Feature description */
+.ps-feature-value-default .feature-description {
+  background: #e8f4f8;
+  border-left: 3px solid #0074bd;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+  border-radius: 2px;
+}
+
+.ps-feature-value-default .feature-description:before {
+  content: "ℹ️ ";
+  margin-right: 0.5rem;
+}
+
+/* Value fields layout */
+.ps-feature-value-default .field-wrapper {
+  margin-bottom: 0.75rem;
+}
+
+.ps-feature-value-default .field-wrapper label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.ps-feature-value-default input[type="number"],
+.ps-feature-value-default input[type="text"],
+.ps-feature-value-default select {
+  max-width: 300px;
+}
+
+/* Unit suffix inline */
+.ps-feature-value-default .unit-suffix {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: #e0e0e0;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  vertical-align: middle;
+}
+
+/* Range fields: side-by-side layout */
+.ps-feature-value-default .range-fields-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: end;
+  max-width: 500px;
+}
+
+.ps-feature-value-default .range-separator {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #666;
+  padding-bottom: 0.5rem;
+}
+
+/* Boolean checkbox styling */
+.ps-feature-value-default input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.ps-feature-value-default .form-type-checkbox label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+/* Field suffix (units) */
+.ps-feature-value-default .field-suffix {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: #e0e0e0;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Error state for range validation */
+.ps-feature-value-default input.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+/* AJAX throbber positioning */
+.ps-feature-value-default .ajax-progress {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Responsive: mobile */
+@media (max-width: 768px) {
+  .ps-feature-value-default {
+    padding: 0.75rem;
+  }
+
+  .ps-feature-value-default .range-fields-wrapper {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .ps-feature-value-default .range-separator {
+    text-align: center;
+    padding: 0;
+  }
+
+  .ps-feature-value-default input[type="number"],
+  .ps-feature-value-default input[type="text"],
+  .ps-feature-value-default select {
+    max-width: 100%;
+  }
+}
+
+/* Multi-value field: draggable handle */
+.ps-feature-value-default .tabledrag-handle {
+  margin-right: 0.5rem;
+}
+
+/* Required field indicator */
+.ps-feature-value-default .form-required:after {
+  content: "*";
+  color: #e74c3c;
+  margin-left: 0.25rem;
+  font-weight: bold;
+}

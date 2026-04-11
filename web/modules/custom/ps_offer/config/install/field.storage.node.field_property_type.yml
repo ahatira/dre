@@ -1,0 +1,22 @@
+langcode: en
+uuid: 4791ad6e-62a7-475c-b41d-fe51e6907df3
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+id: node.field_property_type
+field_name: field_property_type
+entity_type: node
+type: ps_dictionary
+settings:
+  dictionary_type: property_type
+  allowed_values_function: ps_dictionary_allowed_values
+  allowed_values: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

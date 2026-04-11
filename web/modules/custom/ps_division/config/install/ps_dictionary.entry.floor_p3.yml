@@ -1,0 +1,14 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_division
+id: floor_p3
+dictionary_type: floor
+code: P3
+label: "Floor 3"
+description: "Third floor above ground"
+weight: 3
+deprecated: false

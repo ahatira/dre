@@ -1,0 +1,9 @@
+access ps admin:
+  title: Access PropertySearch administration
+  description: Access PropertySearch admin dashboard and configuration pages
+  restrict access: true
+
+configure ps settings:
+  title: Configure PropertySearch settings
+  description: Configure PropertySearch settings and options
+  restrict access: true

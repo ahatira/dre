@@ -1,0 +1,21 @@
+id: currency
+label: "Currency"
+description: "Currencies used for prices"
+locked: true
+metadata_schema: |
+  symbol:
+    type: string
+    label: "Currency symbol (e.g., €, $)"
+    translate: true
+  iso_code:
+    type: string
+    label: "ISO 4217 code (e.g., EUR, USD)"
+  decimal_places:
+    type: integer
+    label: "Number of decimal places for amounts (typically 2)"
+  symbol_position:
+    type: list_string
+    label: "Position of symbol relative to amount"
+    options:
+      before: "Before amount (€100)"
+      after: "After amount (100€)"

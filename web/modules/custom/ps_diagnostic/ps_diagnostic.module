@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Procedural hooks for ps_diagnostic module.
+ *
+ * Note: Theme hooks are in src/Hook/ThemeHooks.php (OOP with #[Hook] attribute).
+ * Template suggestions MUST be here (not compatible with OOP hooks yet).
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme_suggestions_ps_diagnostic_item_alter().
+ *
+ * Provides template suggestions based on layout.
+ *
+ * @param array $suggestions
+ *   An array of theme suggestions.
+ * @param array $variables
+ *   An array of variables passed to the theme hook.
+ */
+function ps_diagnostic_theme_suggestions_ps_diagnostic_item_alter(array &$suggestions, array $variables): void {
+  // Add layout-based suggestion.
+  if (!empty($variables['default_layout'])) {
+    $suggestions[] = 'ps_diagnostic_item__' . $variables['default_layout'];
+  }
+}

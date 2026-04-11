@@ -1,0 +1,4 @@
+administer ps price:
+  title: "Administer PS Price configuration"
+  description: "Manage price settings"
+  restrict access: true

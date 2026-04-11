@@ -1,0 +1,28 @@
+uuid: 915294c7-eee3-4a23-983f-22b68a3fe79c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.agents
+    - node.type.offer
+_core:
+  default_config_hash: wFL7kRo-Ct8_2qFSPl4OgmlxSc2dGn1ySdRxowE4OLc
+id: node.offer.agents
+field_name: agents
+entity_type: node
+bundle: offer
+label: Agents
+description: 'Associated agents (main contacts)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:agent'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

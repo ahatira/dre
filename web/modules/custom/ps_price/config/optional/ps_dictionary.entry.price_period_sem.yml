@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_period_sem
+dictionary_type: price_period
+code: SEM
+label: "Per Week"
+description: "Weekly (7 days) price"
+weight: 3
+status: true
+deprecated: false
+metadata:
+  icon: "calendar"
+  multiplier: 52

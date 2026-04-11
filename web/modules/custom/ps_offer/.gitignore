@@ -1,0 +1,18 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+phpunit.xml
+.phpunit.result.cache
+coverage/
+
+# Logs
+*.log
+
+# Dependencies (if any local)
+node_modules/

@@ -1,0 +1,21 @@
+uuid: 9cea0695-d4ba-471f-8a95-5a87dbe48450
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_features
+_core:
+  default_config_hash: mq1eMx_bI10GzMpO2rzNhjeCAEF5pNMJwpGSRkouG0A
+id: node.features
+field_name: features
+entity_type: node
+type: ps_feature_value
+settings: {  }
+module: ps_features
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

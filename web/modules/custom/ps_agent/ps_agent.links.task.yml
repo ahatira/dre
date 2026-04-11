@@ -1,4 +1,0 @@
-entity.agent.settings_tab:
-  route_name: entity.agent.settings
-  title: Settings
-  base_route: entity.agent.settings

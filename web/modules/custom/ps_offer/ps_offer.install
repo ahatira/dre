@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for ps_offer.
+ */
+
+declare(strict_types=1);
+
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ */
+function ps_offer_install(): void {
+  if (!NodeType::load('offer')) {
+    $offer_type = NodeType::create([
+      'type' => 'offer',
+      'name' => 'Offer',
+      'description' => 'Real estate offer with prices, features, diagnostics, and location',
+      'display_submitted' => FALSE,
+    ]);
+    $offer_type->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Clean up node type and all associated content when module is uninstalled.
+ */
+function ps_offer_uninstall(): void {
+  // Delete all offer nodes using direct SQL to avoid field loading issues.
+  try {
+    $database = \Drupal::database();
+    $node_ids = $database->select('node', 'n')
+      ->fields('n', ['nid'])
+      ->condition('type', 'offer')
+      ->execute()
+      ->fetchAllAssoc('nid');
+
+    if (!empty($node_ids)) {
+      $storage = \Drupal::entityTypeManager()->getStorage('node');
+      $nodes = $storage->loadMultiple(array_keys($node_ids));
+      if (!empty($nodes)) {
+        $storage->delete($nodes);
+      }
+    }
+  }
+  catch (\Exception $e) {
+    // If nodes can't be deleted, continue with type deletion.
+    \Drupal::logger('ps_offer')->warning('Error deleting offer nodes: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  // Delete the node type (this will cascade delete all fields).
+  try {
+    $offer_type = NodeType::load('offer');
+    if ($offer_type) {
+      $offer_type->delete();
+    }
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('ps_offer')->error('Error deleting offer node type: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+}

@@ -1,0 +1,196 @@
+/**
+ * @file
+ * Styles for ps_surface widget - Improved inline display with visual hierarchy.
+ *
+ * Layout structure:
+ * [Main Label]
+ * [Value | Unit | Type]  (primary fields)
+ * [Nature | Qualification]  (optional fields)
+ */
+
+/**
+ * Main widget container.
+ */
+.ps-surface-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: var(--gin-border-m, 5px);
+  border: 1px solid var(--gin-border-color-table, #ccc);
+  margin-bottom: 1rem;
+}
+
+.form-item--multiple .ps-surface-widget {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+/**
+ * Main widget label (appears before the container).
+ */
+.ps-surface-widget > label.form-item__label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.5rem;
+  order: -1;
+}
+
+/**
+ * Primary fields row (Value, Unit, Type).
+ */
+.ps-surface-widget .ps-surface-primary-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/**
+ * Optional fields row (Nature, Qualification).
+ */
+.ps-surface-widget .ps-surface-optional-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/**
+ * Each form-item within widget.
+ */
+.ps-surface-widget .ps-surface-primary-fields > .form-item,
+.ps-surface-widget .ps-surface-optional-fields > .form-item {
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+  flex: 0 0 auto;
+}
+
+/**
+ * Field sizing - specific widths for each field type.
+ */
+
+/* Value field (number input) - ESSENTIAL */
+.ps-surface-widget .form-item:has(input[name*='value']) {
+  min-width: 130px;
+  max-width: 160px;
+  order: 1;
+}
+
+.ps-surface-widget .form-item:has(input[name*='value']) label {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Unit select - ESSENTIAL */
+.ps-surface-widget .form-item:has(select[name*='unit']) {
+  min-width: 140px;
+  max-width: 170px;
+  order: 2;
+}
+
+.ps-surface-widget .form-item:has(select[name*='unit']) label {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Type select - PRIMARY */
+.ps-surface-widget .form-item:has(select[name*='type']) {
+  min-width: 130px;
+  max-width: 160px;
+  order: 3;
+}
+
+/* Nature and Qualification selects - OPTIONAL */
+.ps-surface-widget .form-item:has(select[name*='nature']),
+.ps-surface-widget .form-item:has(select[name*='qualification']) {
+  min-width: 130px;
+  max-width: 160px;
+}
+
+.ps-surface-widget .ps-surface-optional-fields .form-item__label {
+  color: #777;
+  font-weight: 500;
+}
+
+/**
+ * Ensure labels are visible and properly styled.
+ */
+.ps-surface-widget .form-item__label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/**
+ * Input and select styling.
+ */
+.ps-surface-widget input[type='number'],
+.ps-surface-widget select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+.ps-surface-widget input[type='number']:focus,
+.ps-surface-widget select:focus {
+  border-color: #999;
+  outline: none;
+  box-shadow: none;
+}
+
+/**
+ * Responsive: stack on tablet and mobile.
+ */
+@media (max-width: 1024px) {
+  .ps-surface-widget .ps-surface-primary-fields,
+  .ps-surface-widget .ps-surface-optional-fields {
+    gap: 0.75rem;
+  }
+
+  .ps-surface-widget .form-item:has(input[name*='value']),
+  .ps-surface-widget .form-item:has(select[name*='unit']),
+  .ps-surface-widget .form-item:has(select[name*='type']) {
+    min-width: 100px;
+    max-width: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ps-surface-widget {
+    padding: 0.75rem;
+  }
+
+  .ps-surface-widget .ps-surface-primary-fields,
+  .ps-surface-widget .ps-surface-optional-fields {
+    flex-direction: column;
+    gap: 1rem;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .ps-surface-widget .ps-surface-primary-fields > .form-item,
+  .ps-surface-widget .ps-surface-optional-fields > .form-item {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+/**
+ * Remove default form-item margins.
+ */
+.ps-surface-widget .form-item {
+  margin-bottom: 0 !important;
+}

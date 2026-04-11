@@ -1,0 +1,11 @@
+name: "PropertySearch Diagnostic"
+description: "Provides diagnostic field type for regulatory diagnostics (DPE, GES) and technical indicators."
+type: module
+package: PropertySearch
+core_version_requirement: ^11
+dependencies:
+  - drupal:system
+  - drupal:field
+  - drupal:options
+  - ps:ps
+  - ps_dictionary:ps_dictionary

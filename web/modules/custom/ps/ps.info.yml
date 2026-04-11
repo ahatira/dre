@@ -1,0 +1,12 @@
+name: Property Search Core
+description: Foundation infrastructure for PropertySearch Drupal 11 platform
+package: Property Search
+type: module
+core_version_requirement: ^11.0
+php: 8.3
+
+dependencies:
+  - drupal:system
+  - drupal:user
+
+configure: ps.admin_settings

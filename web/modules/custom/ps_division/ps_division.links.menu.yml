@@ -1,0 +1,25 @@
+# Division menu links (PropertySearch architecture)
+
+# Content menu
+entity.ps_division.collection:
+  title: "Divisions"
+  description: "Manage property divisions (lots, floors, subdivisions)"
+  route_name: ps_division.collection
+  parent: ps.admin_content
+  weight: 30
+
+# Structure menu
+entity.division_type.collection:
+  title: "Division Types"
+  description: "Manage division type bundles"
+  route_name: entity.division_type.collection
+  parent: ps.admin_structure
+  weight: 30
+
+# Config menu
+ps_division.settings:
+  title: "Division Settings"
+  description: "Configure division import and business rules"
+  route_name: ps_division.settings
+  parent: ps.admin_config
+  weight: 30

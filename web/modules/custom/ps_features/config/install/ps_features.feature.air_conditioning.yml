@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: air_conditioning
+label: 'Air conditioning'
+description: 'Type of air conditioning system'
+value_type: dictionary
+dictionary_type: air_conditioning_type
+unit: null
+is_required: false
+validation_rules: {  }
+group: equipments
+weight: 1
+metadata:
+  icon: snowflake

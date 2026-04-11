@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for ps_features module.
+ *
+ * This file is kept for backward compatibility but all hooks have been
+ * migrated to Hook OO classes in src/Hook/.
+ *
+ * @see \Drupal\ps_features\Hook\PsFeaturesHooks
+ * @see docs/specs/04-ps-features.md
+ */
+
+declare(strict_types=1);
+
+// All hooks migrated to src/Hook/PsFeaturesHooks.php (Drupal 11+ Hook OO).

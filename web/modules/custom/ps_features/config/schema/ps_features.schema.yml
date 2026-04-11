@@ -1,0 +1,278 @@
+ps_features.settings:
+  type: config_object
+  label: "Feature settings"
+  mapping:
+    allow_unknown_features:
+      type: boolean
+      label: "Allow unknown features"
+    default_required:
+      type: boolean
+      label: "Make features required by default"
+    packs_fallback_strategy:
+      type: string
+      label: "Packs fallback strategy"
+    compare_sections:
+      type: sequence
+      label: "Comparison sections"
+      sequence:
+        type: string
+
+ps_features.feature.*:
+  type: config_entity
+  label: "Feature config"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    label:
+      type: label
+      translatable: true
+      label: "Label"
+    description:
+      type: text
+      translatable: true
+      label: "Description"
+    value_type:
+      type: string
+      label: "Value type"
+    dictionary_type:
+      type: string
+      label: "Dictionary type"
+    unit:
+      type: string
+      label: "Unit"
+    is_required:
+      type: boolean
+      label: "Required"
+    group:
+      type: string
+      label: "Group"
+    weight:
+      type: integer
+      label: "Weight"
+    is_facetable:
+      type: boolean
+      label: "Is facetable"
+    validation_rules:
+      type: mapping
+      label: "Validation rules"
+      # Allow future rule keys without triggering missing schema warnings.
+      allow_unknown_keys: true
+      mapping:
+        min:
+          type: float
+          label: "Minimum value"
+        max:
+          type: float
+          label: "Maximum value"
+        allowed_values:
+          type: sequence
+          label: "Allowed values"
+          sequence:
+            type: string
+    metadata:
+      type: mapping
+      label: "Metadata"
+      # Allow additional metadata keys (e.g., help_text, icon_set, color) safely.
+      allow_unknown_keys: true
+      mapping:
+        icon:
+          type: string
+          label: "Icon"
+
+ps_features.feature_group.*:
+  type: config_entity
+  label: "Feature group"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    label:
+      type: label
+      translatable: true
+      label: "Label"
+    description:
+      type: text
+      translatable: true
+      label: "Description"
+    icon:
+      type: string
+      label: "Icon"
+    weight:
+      type: integer
+      label: "Weight"
+
+ps_features.field_type_categories:
+  type: config_object
+  label: "Feature field type categories"
+  mapping:
+    PropertySearch:
+      type: mapping
+      label: "PropertySearch field types category"
+      mapping:
+        label:
+          type: label
+          translatable: true
+          label: "Label"
+        description:
+          type: text
+          translatable: true
+          label: "Description"
+        weight:
+          type: integer
+          label: "Weight"
+
+# Field storage and field instance schemas.
+field.storage_settings.ps_feature_value:
+  type: field.storage_settings.base
+
+field.field_settings.ps_feature_value:
+  type: field.field_settings.base
+
+field.value.ps_feature_value:
+  type: mapping
+  label: "Feature value field item"
+  mapping:
+    feature_id:
+      type: string
+      label: "Feature ID"
+    value_type:
+      type: string
+      label: "Value type"
+    dictionary_type:
+      type: string
+      label: "Dictionary type"
+    value_boolean:
+      type: boolean
+      label: "Boolean value"
+    value_string:
+      type: string
+      label: "String value"
+    value_numeric:
+      type: float
+      label: "Numeric value"
+    value_range_min:
+      type: float
+      label: "Range minimum"
+    value_range_max:
+      type: float
+      label: "Range maximum"
+    unit:
+      type: string
+      label: "Unit"
+    complement:
+      type: text
+      label: "Complement text"
+
+# Field widget settings.
+field.widget.settings.ps_feature_value_grouped:
+  type: mapping
+  label: "Feature value grouped widget settings"
+  mapping:
+    show_descriptions:
+      type: boolean
+      label: "Show feature descriptions"
+    allow_reorder:
+      type: boolean
+      label: "Allow drag-and-drop reordering"
+    collapsed_groups:
+      type: boolean
+      label: "Collapse groups by default"
+
+field.widget.settings.ps_feature_value_default:
+  type: mapping
+  label: "Feature value default widget settings"
+  mapping:
+    show_description:
+      type: boolean
+      label: "Show feature descriptions"
+    placeholder_text:
+      type: text
+      label: "Placeholder text"
+
+field.widget.settings.ps_feature_value_inline:
+  type: mapping
+  label: "Feature value inline widget settings"
+  mapping:
+    compact:
+      type: boolean
+      label: "Compact mode"
+
+# Field formatter settings.
+field.formatter.settings.ps_feature_value_grouped:
+  type: mapping
+  label: "Feature value grouped formatter settings"
+  mapping:
+    show_empty_groups:
+      type: boolean
+      label: "Show empty groups"
+    collapsible_groups:
+      type: boolean
+      label: "Collapsible groups"
+    collapsed_by_default:
+      type: boolean
+      label: "Collapsed by default"
+    show_icons:
+      type: boolean
+      label: "Show icons"
+    show_units:
+      type: boolean
+      label: "Show units"
+    sort_by_weight:
+      type: boolean
+      label: "Sort features by weight"
+    merge_duplicates:
+      type: boolean
+      label: "Merge duplicate feature entries"
+    duplicate_separator:
+      type: string
+      label: "Duplicate values separator"
+
+field.formatter.settings.ps_feature_value_table:
+  type: mapping
+  label: "Feature value table formatter settings"
+  mapping:
+    show_description:
+      type: boolean
+      label: "Show description"
+    group_by:
+      type: string
+      label: "Group by"
+    show_empty:
+      type: boolean
+      label: "Show empty"
+    striped:
+      type: boolean
+      label: "Striped"
+
+field.formatter.settings.ps_feature_value_default:
+  type: mapping
+  label: "Feature value default formatter settings"
+  mapping:
+    hide_empty:
+      type: boolean
+      label: "Hide empty values"
+    show_label:
+      type: boolean
+      label: "Show label"
+    show_unit:
+      type: boolean
+      label: "Show unit"
+    show_description:
+      type: boolean
+      label: "Show description"
+    show_complement:
+      type: boolean
+      label: "Show complement text"
+    empty_text:
+      type: text
+      label: "Empty text"
+    sort_by_weight:
+      type: boolean
+      label: "Sort features by weight"
+    merge_duplicates:
+      type: boolean
+      label: "Merge duplicate feature entries"
+    duplicate_separator:
+      type: string
+      label: "Duplicate values separator"

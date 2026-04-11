@@ -1,0 +1,14 @@
+name: "PropertySearch Features"
+type: module
+description: "Manages configurable technical features for property offers with multiple value types (flag, yesno, dictionary, numeric, range, string)."
+package: PropertySearch
+core_version_requirement: ^11
+php: 8.3
+
+dependencies:
+  - drupal:system
+  - drupal:user
+  - ps:ps
+  - ps_dictionary:ps_dictionary
+
+configure: ps_features.settings_form

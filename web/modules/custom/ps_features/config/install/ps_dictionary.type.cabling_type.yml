@@ -1,0 +1,8 @@
+id: cabling_type
+label: "Computer Cabling Type"
+description: "Types of computer network cabling systems."
+locked: true
+metadata_schema: |
+  icon:
+    type: string
+    label: "Icon name (e.g., factory, office)"

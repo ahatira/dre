@@ -1,0 +1,21 @@
+uuid: 3d7c5aae-e38d-403b-afdf-d716e94326da
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_price
+_core:
+  default_config_hash: Eiq-vHEdyA4e9bN2GnYJJD6yUikXK3boYJaIUFb72ak
+id: node.prices
+field_name: prices
+entity_type: node
+type: ps_price
+settings: {  }
+module: ps_price
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

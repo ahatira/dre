@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_type_usable
+dictionary_type: surface_type
+code: USABLE
+label: 'Usable Area'
+description: 'Usable floor area'
+weight: 0
+deprecated: false
+metadata: []

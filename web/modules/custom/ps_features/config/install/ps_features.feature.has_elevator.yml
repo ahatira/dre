@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: has_elevator
+label: 'Elevators'
+description: 'Presence of one or more elevators'
+value_type: flag
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: equipments
+weight: 0
+metadata:
+  icon: elevator

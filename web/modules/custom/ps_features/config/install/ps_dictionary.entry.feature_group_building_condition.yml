@@ -1,0 +1,9 @@
+id: feature_group_building_condition
+dictionary_type: feature_group
+code: BUILDING_CONDITION
+label: "Building condition"
+description: "Information about the building state and construction."
+weight: 20
+deprecated: false
+metadata:
+  icon: "building"

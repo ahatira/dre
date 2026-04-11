@@ -1,0 +1,6 @@
+ps_price.settings:
+  title: "Price Settings"
+  description: "Configure price field defaults and normalization behavior"
+  parent: ps.admin_config
+  route_name: ps_price.settings
+  weight: 30

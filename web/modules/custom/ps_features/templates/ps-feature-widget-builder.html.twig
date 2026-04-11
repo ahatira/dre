@@ -1,0 +1,361 @@
+{#
+/**
+ * @file
+ * Template for the Feature Widget Builder with drag-and-drop support.
+ *
+ * Provides a visual form builder interface where users can:
+ * - Browse available features organized by groups in a sidebar
+ * - Filter features by text search
+ * - Drag feature types from sidebar into the content area
+ * - Configure each dropped field with specific settings
+ * - View real-time preview of the field configuration
+ * - Reorder fields via drag-and-drop
+ * - Remove fields with confirmation
+ *
+ * Available variables:
+ * - features_by_group: Array of Feature entities grouped by FeatureGroup
+ *   Structure: [group_id => [feature_id => Feature entity]]
+ * - existing_values: Array of existing feature values
+ * - field_name: The field machine name
+ * - delta: Field delta value
+ * - element: Form element array
+ *
+ * @see \Drupal\ps_features\Plugin\Field\FieldWidget\FeatureValueGroupedWidget
+ */
+#}
+
+<div class="ps-feature-builder" data-field-name="{{ field_name }}">
+  
+  {# Stats bar with animated counter #}
+  <div class="ps-feature-builder__stats">
+    <div class="ps-feature-builder__stats-left">
+      <div class="ps-feature-builder__stat-item">
+      <svg class="ps-feature-builder__stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11l3 3L22 4"/>
+        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+      <span class="ps-feature-builder__stat-label">{{ 'Features added'|t }}:</span>
+      <span class="ps-feature-builder__stat-value" data-stat="added">0</span>
+      <span class="ps-feature-builder__stat-total">/ <span data-stat="total">0</span></span>
+      </div>
+      <div class="ps-feature-builder__stat-item">
+      <svg class="ps-feature-builder__stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+      <span class="ps-feature-builder__stat-label">{{ 'Last modified'|t }}:</span>
+      <span class="ps-feature-builder__stat-value" data-stat="modified">{{ 'Never'|t }}</span>
+      </div>
+    </div>
+    <button type="button" class="ps-feature-builder__stats-toggle" title="{{ 'Collapse/Expand'|t }}" aria-expanded="true" aria-label="{{ 'Toggle features panel'|t }}">
+      <svg class="ps-feature-builder__toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+  
+  {# Main content wrapper with drop zone and sidebar #}
+  <div class="ps-feature-builder__content-wrapper">
+    {# Main content area - Drop zone for features #}
+    <div class="ps-feature-builder__content">
+      <div class="ps-feature-builder__header">
+        <h3>{{ 'Features'|t }}</h3>
+        <div class="ps-feature-builder__header-actions">
+          <input type="text" class="ps-feature-builder__added-search-input" placeholder="{{ 'Filter added…'|t }}" aria-label="{{ 'Filter added features'|t }}">
+          <button type="button" class="ps-feature-builder__collapse-all" title="{{ 'Collapse all'|t }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <button type="button" class="ps-feature-builder__expand-all" title="{{ 'Expand all'|t }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <button type="button" class="ps-feature-builder__undo" title="{{ 'Undo last action'|t }}" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7v6h6"/>
+              <path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/>
+            </svg>
+          </button>
+          <button type="button" class="ps-feature-builder__clear-all" title="{{ 'Remove all features'|t }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+            {{ 'Clear All'|t }}
+          </button>
+        </div>
+      </div>
+
+    {# Drop zone where features will be added #}
+    <div class="ps-feature-builder__drop-zone" data-empty-message="{{ 'Click a feature on the right to add it'|t }}">
+      <div class="ps-feature-builder__drop-zone-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14"/><path d="M5 12h14"/>
+        </svg>
+        <p>{{ 'Add features by clicking in the sidebar'|t }}</p>
+      </div>
+      
+      {# Container for dropped features - populated dynamically #}
+      <div class="ps-feature-builder__items" id="ps-feature-items-{{ field_name }}">
+        {# Items will be inserted here via JavaScript #}
+      </div>
+    </div>
+  </div>
+
+  {# Sidebar - Feature types browser #}
+  <aside class="ps-feature-builder__sidebar">
+    <div class="ps-feature-builder__sidebar-header">
+      <h3>{{ 'Available Features'|t }}</h3>
+      
+      {# Search filter #}
+      <div class="ps-feature-builder__search">
+        <input 
+          type="text" 
+          class="ps-feature-builder__search-input" 
+          placeholder="{{ 'Search features...'|t }}"
+          aria-label="{{ 'Search features'|t }}"
+        >
+        <button type="button" class="ps-feature-builder__search-clear" title="{{ 'Clear search'|t }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    {# Feature groups with expandable sections and icons #}
+    <div class="ps-feature-builder__groups">
+      {% set group_icons = {
+        'equipments': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>',
+        'services': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
+        'building_condition': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+        'more_information': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+        'default': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>'
+      } %}
+      
+      {% for group_id, group_data in features_by_group %}
+        {% set group_label = group_data.label %}
+        {% set features = group_data.features %}
+        {% set group_icon = group_icons[group_id] ?? group_icons.default %}
+        
+        <div class="ps-feature-builder__group" data-group-id="{{ group_id }}" data-expanded="true">
+          <button 
+            type="button" 
+            class="ps-feature-builder__group-toggle"
+            aria-expanded="true"
+            aria-controls="ps-feature-group-{{ group_id }}"
+          >
+            <svg class="ps-feature-builder__group-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+            <span class="ps-feature-builder__group-icon-wrapper">
+              {{ group_icon|raw }}
+            </span>
+            <span class="ps-feature-builder__group-label">{{ group_label }}</span>
+            <span class="ps-feature-builder__group-count">({{ features|length }})</span>
+          </button>
+
+          <div class="ps-feature-builder__group-items" id="ps-feature-group-{{ group_id }}">
+            {% for feature_id, feature in features %}
+              <div 
+                class="ps-feature-builder__feature-type"
+                draggable="true"
+                data-feature-id="{{ feature.id }}"
+                data-feature-label="{{ feature.label }}"
+                data-feature-type="{{ feature.get('value_type') }}"
+                {# Fallback: use method then raw property #}
+                data-feature-dictionary-type="{{ feature.getDictionaryType()|default(feature.get('dictionary_type')|default('')) }}"
+                {% if feature.get('value_type') == 'dictionary' %}
+                  data-dictionary-options='{{ dictionary_options[feature.getDictionaryType()]|json_encode|e('html_attr') }}'
+                {% endif %}
+                data-feature-required="{{ feature.get('is_required') ? '1' : '0' }}"
+                data-feature-unit="{{ feature.get('unit')|default('') }}"
+                data-feature-description="{{ feature.get('description')|default('')|striptags }}"
+                role="button"
+                tabindex="0"
+                title="{{ 'Drag to add or click'|t }}"
+              >
+                <div class="ps-feature-builder__feature-icon">
+                  {% if feature.get('value_type') == 'boolean' %}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  {% elseif feature.get('value_type') == 'numeric' %}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+                      <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                    </svg>
+                  {% elseif feature.get('value_type') == 'range' %}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+                      <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+                      <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+                    </svg>
+                  {% elseif feature.get('value_type') == 'dictionary' %}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                  {% else %}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                  {% endif %}
+                </div>
+                <div class="ps-feature-builder__feature-info">
+                  <div class="ps-feature-builder__feature-label">{{ feature.label }}</div>
+                  <div class="ps-feature-builder__feature-meta">
+                    <span class="ps-feature-builder__feature-type-badge">{{ feature.get('value_type') }}</span>
+                    {% if feature.get('is_required') %}
+                      <span class="ps-feature-builder__feature-required">{{ 'Required'|t }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </aside>
+  
+  </div> {# End ps-feature-builder__content-wrapper #}
+
+  {# Hidden container for form data - will store JSON representation #}
+  <input 
+    type="hidden" 
+    name="{{ field_name }}[0][data]" 
+    id="ps-features-data-{{ field_name }}"
+    value="{{ existing_values|json_encode }}"
+    class="ps-feature-builder__data"
+  >
+
+</div> {# End ps-feature-builder #}
+
+{# Template for dropped feature item - cloned via JavaScript #}
+<template id="ps-feature-item-template">
+  <div class="ps-feature-item" data-item-id="">
+    <div class="ps-feature-item__header">
+      <button type="button" class="ps-feature-item__drag-handle" title="{{ 'Drag to reorder'|t }}" aria-label="{{ 'Drag to reorder'|t }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="3" y1="15" x2="21" y2="15"/>
+        </svg>
+      </button>
+      <span class="ps-feature-item__label"></span>
+      <div class="ps-feature-item__actions">
+        <button type="button" class="ps-feature-item__configure" title="{{ 'Configure'|t }}" aria-label="{{ 'Configure feature'|t }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 5.6 15a1.65 1.65 0 0 0-1.51-1H4a2 2 0 0 1 0-4h.09c.43 0 .84-.17 1.14-.46.11-.23.17-.47.17-.73a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06c.3.3.71.46 1.14.46.26 0 .5-.06.73-.17A1.65 1.65 0 0 0 11 4.09V4a2 2 0 0 1 4 0v.09c0 .43.17.84.46 1.14.23.11.47.17.73.17.6 0 1.17-.24 1.59-.66l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.46 1.14c0 .26.06.5.17.73.11.23.26.44.46.59.3.3.71.46 1.14.46H20a2 2 0 0 1 0 4h-.09c-.43 0-.84.17-1.14.46-.23.11-.47.26-.73.46Z"/>
+          </svg>
+        </button>
+        <button type="button" class="ps-feature-item__remove" title="{{ 'Remove'|t }}" aria-label="{{ 'Remove feature'|t }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="ps-feature-item__config" hidden>
+      <div class="ps-feature-item__config-content">
+        {# Configuration fields will be inserted here dynamically based on value_type #}
+      </div>
+      <div class="ps-feature-item__config-actions">
+        <button type="button" class="ps-feature-item__config-save button button--primary">{{ 'Save'|t }}</button>
+        <button type="button" class="ps-feature-item__config-cancel button">{{ 'Cancel'|t }}</button>
+      </div>
+    </div>
+
+    <div class="ps-feature-item__preview">
+      <div class="ps-feature-item__preview-content">
+        {# Preview will be rendered here #}
+      </div>
+    </div>
+  </div>
+</template>
+
+{# Template for configuration fields by value type #}
+<template id="ps-feature-config-flag-template">
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>
+
+<template id="ps-feature-config-boolean-template">
+  <div class="ps-feature-config-field">
+    <label>
+      <input type="checkbox" name="default_value" class="ps-feature-config-input">
+      {{ 'Default value'|t }}
+    </label>
+  </div>
+</template>
+
+<template id="ps-feature-config-yesno-template">
+  <div class="ps-feature-config-field">
+    <label>
+      <input type="checkbox" name="default_value" class="ps-feature-config-input">
+      {{ 'Value (checked = Yes, unchecked = No)'|t }}
+    </label>
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>
+
+<template id="ps-feature-config-numeric-template">
+  <div class="ps-feature-config-field">
+    <label>{{ 'Value'|t }}</label>
+    <input type="number" name="value_numeric" class="ps-feature-config-input" step="0.01">
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Unit'|t }}</label>
+    <input type="text" name="unit" class="ps-feature-config-input" readonly>
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>
+
+<template id="ps-feature-config-range-template">
+  <div class="ps-feature-config-field">
+    <label>{{ 'Minimum value'|t }}</label>
+    <input type="number" name="value_min" class="ps-feature-config-input" step="0.01">
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Maximum value'|t }}</label>
+    <input type="number" name="value_max" class="ps-feature-config-input" step="0.01">
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Unit'|t }}</label>
+    <input type="text" name="unit" class="ps-feature-config-input" readonly>
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>
+
+<template id="ps-feature-config-string-template">
+  <div class="ps-feature-config-field">
+    <label>{{ 'Value'|t }}</label>
+    <input type="text" name="value_string" class="ps-feature-config-input">
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>
+
+<template id="ps-feature-config-dictionary-template">
+  <div class="ps-feature-config-field">
+    <label>{{ 'Select value'|t }}</label>
+    <select name="value_dictionary" class="ps-feature-config-input">
+      {# Options will be populated dynamically #}
+    </select>
+  </div>
+  <div class="ps-feature-config-field">
+    <label>{{ 'Complement (optional)'|t }}</label>
+    <input type="text" name="complement" class="ps-feature-config-input" placeholder="{{ 'Additional information'|t }}">
+  </div>
+</template>

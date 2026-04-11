@@ -1,0 +1,13 @@
+ps_features.admin:
+  title: "Features"
+  description: "Manage property features definitions."
+  route_name: entity.ps_feature.collection
+  parent: ps.admin_content
+  weight: 25
+
+ps_features.settings:
+  title: "Feature Settings"
+  description: "Configure feature module settings."
+  route_name: ps_features.settings_form
+  parent: ps.admin_config
+  weight: 15

@@ -1,0 +1,6 @@
+entity.diagnostic.collection:
+  title: "Diagnostics"
+  description: "Manage diagnostics (DPE, GES) with classes and ranges."
+  route_name: entity.diagnostic.collection
+  parent: ps.admin_structure
+  weight: 15

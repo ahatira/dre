@@ -1,0 +1,8 @@
+id: security_system_type_guard
+dictionary_type: security_system_type
+code: GUARD
+label: "On-site security guard"
+description: "Security guard or concierge on site."
+weight: 50
+deprecated: false
+metadata: []

@@ -1,0 +1,126 @@
+<?php
+
+/**
+ * @file
+ */
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides Division entity functionality for PropertySearch.
+ *
+ * Division entities represent subdivisions (lots, floors, apartments)
+ * within real estate properties. This file contains only procedural hooks
+ * required by Drupal core. Business logic is in services and OOP hooks.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_gin_content_form_routes().
+ *
+ * Tells Gin theme to treat Division forms as content forms,
+ * enabling sidebar, sticky actions, and advanced layout.
+ */
+function ps_division_gin_content_form_routes(): array {
+  return [
+    'entity.ps_division.add_form',
+    'entity.ps_division.edit_form',
+    'entity.ps_division.canonical',
+  ];
+}
+
+/**
+ * Implements hook_token_info().
+ *
+ * Register tokens for Division entity to support in URL alias patterns.
+ */
+function ps_division_token_info(): array {
+  $info = [];
+
+  $info['types']['ps_division'] = [
+    'name' => t('Division'),
+    'description' => t('Tokens for Division entities'),
+  ];
+
+  $info['tokens']['ps_division']['id'] = [
+    'name' => t('Division ID'),
+    'description' => t('The division entity ID'),
+  ];
+
+  $info['tokens']['ps_division']['name'] = [
+    'name' => t('Building Name'),
+    'description' => t('The building name of the division'),
+  ];
+
+  $info['tokens']['ps_division']['lot'] = [
+    'name' => t('Lot'),
+    'description' => t('The lot identifier of the division'),
+  ];
+
+  $info['tokens']['ps_division']['type'] = [
+    'name' => t('Division Type'),
+    'description' => t('The division type machine name'),
+  ];
+
+  $info['tokens']['ps_division']['type-label'] = [
+    'name' => t('Division Type Label'),
+    'description' => t('The division type human-readable label'),
+  ];
+
+  $info['tokens']['ps_division']['floor'] = [
+    'name' => t('Floor'),
+    'description' => t('The floor code of the division'),
+  ];
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function ps_division_tokens(string $type, array $tokens, array $data = []): array {
+  $replacements = [];
+
+  if ($type === 'ps_division' && isset($data['ps_division'])) {
+    /** @var \Drupal\ps_division\Entity\DivisionInterface $division */
+    $division = $data['ps_division'];
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'id':
+          $replacements[$original] = (string) $division->id();
+          break;
+
+        case 'name':
+          $replacements[$original] = $division->getBuildingName();
+          break;
+
+        case 'lot':
+          $replacements[$original] = (string) ($division->getLot() ?? '');
+          break;
+
+        case 'type':
+          $replacements[$original] = $division->bundle();
+          break;
+
+        case 'type-label':
+          $type_entity = Drupal::entityTypeManager()
+            ->getStorage('division_type')
+            ->load($division->bundle());
+          $replacements[$original] = $type_entity !== NULL ? $type_entity->label() : '';
+          break;
+
+        case 'floor':
+          $floor_field = $division->get('floor');
+          /** @var \Drupal\Core\Entity\EntityInterface|null $floor_ref */
+          $floor_ref = $floor_field->entity;
+          $replacements[$original] = $floor_ref instanceof EntityInterface ? $floor_ref->label() : '';
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}

@@ -1,12 +1,15 @@
-name: 'PS Agent'
+name: "PropertySearch Agent"
+description: "Gestion des agents commerciaux avec synchronisation CRM et champs BO protégés."
 type: module
-description: 'Provides a custom Agent content entity for offer contacts.'
-package: 'Custom'
-core_version_requirement: ^11
+package: PropertySearch
+core_version_requirement: ^11.0
 dependencies:
-  - drupal:block
-  - drupal:node
+  - drupal:system
+  - drupal:user
+  - drupal:field
+  - drupal:text
+  - drupal:telephone
   - drupal:image
-  - drupal:link
-  - drupal:webform
-  - drupal:layout_builder
+  - drupal:views
+  - ps:ps
+  - ps_dictionary:ps_dictionary

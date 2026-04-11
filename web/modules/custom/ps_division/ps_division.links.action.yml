@@ -1,0 +1,15 @@
+# Division action links
+
+# Add division action
+ps_division.add:
+  route_name: entity.ps_division.add_page
+  title: "Add Division"
+  appears_on:
+    - ps_division.collection
+
+# Add division type action
+division_type.add:
+  route_name: entity.division_type.add_form
+  title: "Add Division Type"
+  appears_on:
+    - entity.division_type.collection

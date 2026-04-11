@@ -1,0 +1,18 @@
+services:
+  ps_diagnostic.class_suggester:
+    class: Drupal\ps_diagnostic\Service\DiagnosticClassSuggester
+
+  Drupal\ps_diagnostic\Service\DiagnosticClassSuggesterInterface:
+    alias: ps_diagnostic.class_suggester
+
+  ps_diagnostic.class_calculator:
+    class: Drupal\ps_diagnostic\Service\DiagnosticClassCalculator
+    arguments:
+      - "@entity_type.manager"
+      - "@logger.factory"
+
+  ps_diagnostic.normalizer:
+    class: Drupal\ps_diagnostic\Service\DiagnosticNormalizer
+    arguments:
+      - "@ps_diagnostic.class_calculator"
+      - "@logger.factory"

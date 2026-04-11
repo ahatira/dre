@@ -1,0 +1,8 @@
+id: air_conditioning_type_reversible
+dictionary_type: air_conditioning_type
+code: REVERSIBLE
+label: "Reversible system"
+description: "Cooling and heating reversible AC system"
+weight: 0
+deprecated: false
+metadata: []

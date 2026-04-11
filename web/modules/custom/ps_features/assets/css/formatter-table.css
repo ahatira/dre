@@ -1,0 +1,30 @@
+/**
+ * @file
+ * Table formatter styling for ps_feature_value field type.
+ */
+
+.ps-features-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ps-features-table th {
+  text-align: left;
+  font-weight: bold;
+  padding: 0.5rem;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ccc;
+}
+
+.ps-features-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.ps-features-table.striped tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ps-features-table tbody tr:hover {
+  background-color: #f5f5f5;
+}

@@ -1,0 +1,4 @@
+allow_unknown_codes: false
+auto_create_on_unknown: false
+default_status_new_items: "active"
+deprecated_policy: "warn"

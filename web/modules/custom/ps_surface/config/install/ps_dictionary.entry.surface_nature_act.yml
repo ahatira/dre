@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_nature_act
+dictionary_type: surface_nature
+code: ACT
+label: 'Activity Area'
+description: 'Activity/commercial surface area'
+weight: 0
+deprecated: false
+metadata: []

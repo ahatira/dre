@@ -1,0 +1,12 @@
+uuid: null
+langcode: en
+status: true
+id: surface_type_gla
+dictionary_type: surface_type
+code: GLA
+label: 'GLA (Gross Leasable Area)'
+description: 'Gross leasable area'
+weight: 10
+deprecated: false
+metadata:
+  full_name: 'Gross Leasable Area'

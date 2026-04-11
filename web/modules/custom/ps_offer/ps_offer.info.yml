@@ -1,0 +1,26 @@
+name: "Offer"
+description: "Real estate offer management with node type, pricing, features, and diagnostics"
+type: module
+core_version_requirement: "^11"
+package: "PropertySearch"
+
+dependencies:
+  - drupal:node
+  - drupal:text
+  - drupal:options
+  - drupal:field
+  - drupal:user
+  - drupal:media
+  - drupal:geofield
+  - drupal:address
+  - drupal:inline_entity_form
+  - drupal:field_group
+  - ps:ps
+  - ps_dictionary:ps_dictionary
+  - ps_agent:ps_agent
+  - ps_price:ps_price
+  - ps_features:ps_features
+  - ps_diagnostic:ps_diagnostic
+  - ps_division:ps_division
+  - ps_surface:ps_surface
+  - search_api:search_api

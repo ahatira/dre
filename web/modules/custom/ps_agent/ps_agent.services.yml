@@ -1,0 +1,18 @@
+services:
+  ps_agent.manager:
+    class: Drupal\ps_agent\Service\AgentManager
+    arguments:
+      - "@entity_type.manager"
+      - "@ps_dictionary.manager"
+      - "@logger.factory"
+
+  ps_agent.field_protector:
+    class: Drupal\ps_agent\Service\AgentFieldProtector
+    arguments:
+      - "@entity_type.manager"
+      - "@ps.settings"
+
+  ps_agent.access_handler:
+    class: Drupal\ps_agent\Service\AgentAccessHandler
+    arguments:
+      - "@current_user"

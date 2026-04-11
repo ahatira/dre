@@ -1,0 +1,270 @@
+/**
+ * @file
+ * Styles for ps_price widget - Organized form layout with visual hierarchy.
+ *
+ * Layout structure:
+ * [Main Label]
+ * [Amount | Currency | Unit]  (primary fields)
+ * [Period | Value type]  (optional fields)
+ * [Flags: On request | From | VAT | Charges]  (business flags)
+ */
+
+/**
+ * Main widget container.
+ */
+.ps-price-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: var(--gin-border-m, 5px);
+  border: 1px solid var(--gin-border-color-table, #ccc);
+  margin-bottom: 1rem;
+}
+
+.form-item--multiple .ps-price-widget {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+/**
+ * Main widget label (appears before the container).
+ */
+.ps-price-widget > label.form-item__label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.5rem;
+  order: -1;
+}
+
+/**
+ * Primary fields row (Amount, Currency, Unit).
+ * Essential fields for price entry with visual prominence.
+ */
+.ps-price-widget .ps-price-primary-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/**
+ * Optional fields row (Period, Value type).
+ * Supplementary qualification fields separated by divider.
+ */
+.ps-price-widget .ps-price-optional-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/**
+ * Flags container (Business qualification flags).
+ * Checkboxes for on_request, from, VAT excluded, charges included.
+ */
+.ps-price-widget .ps-price-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/**
+ * Each form-item within widget.
+ */
+.ps-price-widget .ps-price-primary-fields > .form-item,
+.ps-price-widget .ps-price-optional-fields > .form-item {
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+  flex: 0 0 auto;
+}
+
+.ps-price-widget .ps-price-flags > .form-item {
+  display: block;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/**
+ * Field sizing - specific widths for each field type.
+ */
+
+/* Amount field (number input) - ESSENTIAL */
+.ps-price-widget .form-item:has(input[name*='amount']) {
+  min-width: 130px;
+  max-width: 160px;
+  order: 1;
+}
+
+.ps-price-widget .form-item:has(input[name*='amount']) label {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Currency select - ESSENTIAL */
+.ps-price-widget .form-item:has(select[name*='currency_code']) {
+  min-width: 140px;
+  max-width: 170px;
+  order: 2;
+}
+
+.ps-price-widget .form-item:has(select[name*='currency_code']) label {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Unit select - ESSENTIAL */
+.ps-price-widget .form-item:has(select[name*='unit_code']) {
+  min-width: 140px;
+  max-width: 170px;
+  order: 3;
+}
+
+/* Period select - OPTIONAL */
+.ps-price-widget .form-item:has(select[name*='period_code']) {
+  min-width: 130px;
+  max-width: 160px;
+  order: 1;
+}
+
+/* Value type select - OPTIONAL */
+.ps-price-widget .form-item:has(select[name*='value_type_code']) {
+  min-width: 130px;
+  max-width: 160px;
+  order: 2;
+}
+
+/**
+ * Checkboxes styling (flags container).
+ */
+.ps-price-widget .ps-price-flags .form-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ps-price-widget .ps-price-flags input[type='checkbox'] {
+  margin: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.ps-price-widget .ps-price-flags label {
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+/**
+ * Select field styling enhancements.
+ */
+.ps-price-widget select {
+  width: 100%;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'12'%20height%3D'12'%20viewBox%3D'0%200%2012%2012'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M6%209L1%204h10z'%20fill%3D'%23333'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 12px;
+  padding-right: 2rem;
+}
+
+.ps-price-widget select:focus {
+  border-color: #0066cc;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/**
+ * Description text for fields.
+ */
+.ps-price-widget .form-item__description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+/**
+ * Required field indicator.
+ */
+.ps-price-widget .form-required {
+  color: #d62828;
+}
+
+/**
+ * Responsive design - stack fields on smaller screens.
+ */
+@media (max-width: 768px) {
+  .ps-price-widget .ps-price-primary-fields,
+  .ps-price-widget .ps-price-optional-fields,
+  .ps-price-widget .ps-price-flags {
+    flex-direction: column;
+  }
+
+  .ps-price-widget .ps-price-primary-fields > .form-item,
+  .ps-price-widget .ps-price-optional-fields > .form-item {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .ps-price-widget .form-item:has(input[name*='amount']),
+  .ps-price-widget .form-item:has(select[name*='currency_code']),
+  .ps-price-widget .form-item:has(select[name*='unit_code']),
+  .ps-price-widget .form-item:has(select[name*='period_code']),
+  .ps-price-widget .form-item:has(select[name*='value_type_code']) {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/**
+ * Dark mode support.
+ */
+@media (prefers-color-scheme: dark) {
+  .ps-price-widget {
+    background-color: #2a2a2a;
+    border-color: #444;
+  }
+
+  .ps-price-widget > label.form-item__label {
+    color: #f5f5f5;
+  }
+
+  .ps-price-widget .form-item:has(input[name*='amount']) label,
+  .ps-price-widget .form-item:has(select[name*='currency_code']) label {
+    color: #f0f0f0;
+  }
+
+  .ps-price-widget .ps-price-optional-fields,
+  .ps-price-widget .ps-price-flags {
+    border-top-color: #444;
+  }
+
+  .ps-price-widget select {
+    background-color: #1a1a1a;
+    border-color: #555;
+    color: #f5f5f5;
+  }
+
+  .ps-price-widget .form-item__description {
+    color: #aaa;
+  }
+}

@@ -1,0 +1,26 @@
+ps.settings:
+  type: config_object
+  label: PropertySearch Settings
+  mapping:
+    validation:
+      type: mapping
+      label: Validation Settings
+      mapping:
+        strictMode:
+          type: boolean
+          label: Strict Mode
+        enableLogging:
+          type: boolean
+          label: Enable Logging
+    notifications:
+      type: mapping
+      label: Notification Settings
+      mapping:
+        enabled:
+          type: boolean
+          label: Notifications Enabled
+        channels:
+          type: sequence
+          label: Notification Channels
+          sequence:
+            type: string

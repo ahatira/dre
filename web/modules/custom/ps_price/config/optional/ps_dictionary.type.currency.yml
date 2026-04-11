@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: currency
+label: "Currency"
+description: "Currencies for price fields"
+is_translatable: false
+locked: true
+weight: 10

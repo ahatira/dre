@@ -1,0 +1,14 @@
+uuid: 4d4e6f59-df3d-4e03-ae28-a3b1477afe09
+langcode: en
+status: true
+dependencies:
+  config:
+    - language.entity.en
+  enforced:
+    module:
+      - content_translation
+id: ps_division.lot
+target_entity_type_id: ps_division
+target_bundle: lot
+default_language_code: en
+language_alterable: true

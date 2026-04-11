@@ -1,0 +1,33 @@
+# Division task links (tabs)
+
+# Division entity tasks
+entity.ps_division.canonical:
+  route_name: entity.ps_division.canonical
+  base_route: entity.ps_division.canonical
+  title: "View"
+  weight: 0
+
+entity.ps_division.edit_form:
+  route_name: entity.ps_division.edit_form
+  base_route: entity.ps_division.canonical
+  title: "Edit"
+  weight: 10
+
+entity.ps_division.delete_form:
+  route_name: entity.ps_division.delete_form
+  base_route: entity.ps_division.canonical
+  title: "Delete"
+  weight: 20
+
+# Division Type entity tasks
+entity.division_type.edit_form:
+  route_name: entity.division_type.edit_form
+  base_route: entity.division_type.edit_form
+  title: "Edit"
+  weight: 0
+
+entity.division_type.delete_form:
+  route_name: entity.division_type.delete_form
+  base_route: entity.division_type.edit_form
+  title: "Delete"
+  weight: 10

@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_value_type_max
+dictionary_type: price_value_type
+code: MAX
+label: "Maximum"
+description: "Maximum price"
+weight: 1
+status: true
+deprecated: false
+metadata:
+  icon: "arrow-up"
+  color: "success"

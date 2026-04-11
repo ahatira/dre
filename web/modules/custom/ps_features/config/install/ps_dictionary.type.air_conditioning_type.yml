@@ -1,0 +1,8 @@
+id: air_conditioning_type
+label: "Air Conditioning Type"
+description: "Types of air conditioning systems available in the property."
+locked: true
+metadata_schema: |
+  icon:
+    type: string
+    label: "Icon name (e.g., factory, office)"

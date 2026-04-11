@@ -1,0 +1,75 @@
+field.storage_settings.ps_surface:
+  type: mapping
+  label: "Surface storage settings"
+  mapping: {}
+
+field.field_settings.ps_surface:
+  type: mapping
+  label: "Surface field settings"
+  mapping:
+    default_unit:
+      type: string
+      label: "Default unit code"
+
+field.widget.settings.ps_surface_default:
+  type: mapping
+  label: "Surface widget settings"
+  mapping: {}
+
+field.formatter.settings.ps_surface_default:
+  type: mapping
+  label: "Surface formatter settings"
+  mapping:
+    show_unit:
+      type: boolean
+      label: "Display unit label"
+    show_qualification:
+      type: boolean
+      label: "Display qualification label"
+    decimals:
+      type: integer
+      label: "Decimals"
+
+field.value.ps_surface:
+  type: mapping
+  label: "Surface value"
+  mapping:
+    value:
+      type: float
+      label: "Value"
+    unit:
+      type: string
+      label: "Unit code"
+    type:
+      type: string
+      label: "Type code"
+    nature:
+      type: string
+      label: "Nature code"
+    qualification:
+      type: string
+      label: "Qualification code"
+
+ps_surface.settings:
+  type: config_object
+  label: "Surface settings"
+  mapping:
+    validation:
+      type: mapping
+      label: "Validation rules"
+      mapping:
+        allow_negative:
+          type: boolean
+          label: "Allow negative values"
+        require_unit:
+          type: boolean
+          label: "Require unit"
+        require_type:
+          type: boolean
+          label: "Require type"
+        require_nature:
+          type: boolean
+          label: "Require nature"
+        require_qualification:
+          type: boolean
+          label: "Require qualification"

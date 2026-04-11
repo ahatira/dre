@@ -1,0 +1,93 @@
+ps_price.settings:
+  type: config_object
+  label: "PS Price settings"
+  mapping:
+    default_currency:
+      type: string
+      label: "Default currency code"
+    normalize_on_zero_surface:
+      type: string
+      label: "Behavior when surface is zero"
+    reference_period:
+      type: string
+      label: "Reference period for normalization"
+    display_codes_as_labels:
+      type: boolean
+      label: "Display codes as labels"
+
+# Field storage settings (none currently).
+field.storage_settings.ps_price:
+  type: field.storage_settings.base
+  label: "PS Price storage settings"
+
+# Field instance settings (default values).
+field.field_settings.ps_price:
+  type: mapping
+  label: "PS Price field settings"
+  mapping:
+    default_currency:
+      type: string
+      label: "Default currency code"
+    default_period:
+      type: string
+      label: "Default period code"
+
+# Field widget settings schema.
+field.widget.settings.ps_price_default:
+  type: mapping
+  label: "PS Price widget settings"
+  mapping:
+    show_unit:
+      type: boolean
+      label: "Show unit field"
+    show_period:
+      type: boolean
+      label: "Show period field"
+    show_value_type:
+      type: boolean
+      label: "Show value type field"
+    show_flags:
+      type: boolean
+      label: "Show business flags"
+
+# Field formatter settings schema.
+field.formatter.settings.ps_price_default:
+  type: mapping
+  label: "PS Price formatter settings"
+  mapping:
+    show_currency:
+      type: boolean
+      label: "Display currency symbol"
+    show_unit:
+      type: boolean
+      label: "Display unit label"
+    show_period:
+      type: boolean
+      label: "Display period label"
+    decimals:
+      type: integer
+      label: "Decimals"
+
+# Field value schema for ps_price.
+field.value.ps_price:
+  type: mapping
+  label: "Price value"
+  mapping:
+    value:
+      type: float
+      label: "Value"
+    currency_code:
+      type: string
+      label: "Currency code"
+    unit_code:
+      type: string
+      label: "Unit code"
+    period_code:
+      type: string
+      label: "Period code"
+    ht:
+      type: boolean
+      label: "HT flag"
+    cc:
+      type: boolean
+      label: "CC flag"

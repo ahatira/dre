@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: security_system
+label: 'Security system'
+description: 'Type of security system'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 5
+metadata:
+  icon: shield-alt

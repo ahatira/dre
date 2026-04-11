@@ -1,0 +1,120 @@
+/**
+ * PropertySearch Diagnostic Widget Styles
+ *
+ * Organized form layout for diagnostic field with three main containers:
+ * - Primary fields (type, numeric value, class label)
+ * - Validity fields (from/to dates)
+ * - Flags (no classification, non applicable)
+ */
+
+/* Main widget container */
+.ps-diagnostic-widget {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.ps-diagnostic-widget .form-item {
+  margin-bottom: 1rem;
+}
+
+/* Primary fields container (Type, Value, Label) */
+.ps-diagnostic-primary-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ps-diagnostic-primary-fields .form-item {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .ps-diagnostic-primary-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Validity fields container (From/To dates) */
+.ps-diagnostic-validity-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ps-diagnostic-validity-fields .form-item {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .ps-diagnostic-validity-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flags container (Checkboxes) */
+.ps-diagnostic-flags {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.ps-diagnostic-flags .form-item {
+  margin-bottom: 0;
+}
+
+.ps-diagnostic-flags label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Field formatting in display */
+.ps-diagnostic-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  font-size: 0.95rem;
+}
+
+.ps-diagnostic-class {
+  font-weight: 600;
+  color: #1a1a1a;
+  min-width: 2.5rem;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  background-color: #e8f5e9;
+  border-radius: 3px;
+}
+
+.ps-diagnostic-type {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ps-diagnostic-value {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.ps-diagnostic-validity {
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* Required field indicator */
+.ps-diagnostic-widget .form-required {
+  color: #c5192d;
+}

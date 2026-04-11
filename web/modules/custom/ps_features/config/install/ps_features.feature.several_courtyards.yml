@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: several_courtyards
+label: 'Several courtyards'
+description: 'Multiple courtyards present'
+value_type: flag
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: more_information
+weight: 0
+metadata: {  }

@@ -1,0 +1,25 @@
+uuid: 89fe8bfb-cc31-42d2-959e-1fc3a45bcb2f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.prices
+    - node.type.offer
+  module:
+    - ps_price
+_core:
+  default_config_hash: nLfz9Az_N0rnHF5sfKvd-CSQ9_T7OBrpZmd7fbouPmU
+id: node.offer.prices
+field_name: prices
+entity_type: node
+bundle: offer
+label: Prices
+description: 'Rental or sale prices'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  default_currency: EUR
+  default_period: ANN
+field_type: ps_price

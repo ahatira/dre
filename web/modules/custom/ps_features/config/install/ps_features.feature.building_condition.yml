@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: building_condition
+label: 'Condition of building'
+description: 'Overall condition of the building'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: building_condition
+weight: 0
+metadata:
+  icon: building

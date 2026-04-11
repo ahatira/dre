@@ -1,0 +1,5 @@
+ps_feature.add:
+  route_name: entity.ps_feature.add_form
+  title: 'Add Feature'
+  appears_on:
+    - entity.ps_feature.collection

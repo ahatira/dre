@@ -1,0 +1,33 @@
+# Offer module permissions
+
+"create offer content":
+  title: "Create Offer content"
+  description: "Create new offer nodes"
+
+"edit own offer content":
+  title: "Edit own Offer content"
+  description: "Edit offer nodes owned by the user"
+
+"edit any offer content":
+  title: "Edit any Offer content"
+  description: "Edit any offer node"
+
+"delete own offer content":
+  title: "Delete own Offer content"
+  description: "Delete offer nodes owned by the user"
+
+"delete any offer content":
+  title: "Delete any Offer content"
+  description: "Delete any offer node"
+
+"view offer revisions":
+  title: "View Offer revisions"
+  description: "View offer node revisions"
+
+"revert offer revisions":
+  title: "Revert Offer revisions"
+  description: "Revert offer node revisions"
+
+"administer offer content":
+  title: "Administer Offer content"
+  description: "Administer offer nodes and settings"

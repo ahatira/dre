@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: surface_nature
+label: "Surface Nature"
+description: "Nature or category of surface area (activity, office, etc.)"
+is_translatable: false
+locked: true
+weight: 0

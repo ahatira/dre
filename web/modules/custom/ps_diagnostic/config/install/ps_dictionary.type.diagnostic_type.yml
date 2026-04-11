@@ -1,0 +1,15 @@
+id: diagnostic_type
+label: "Diagnostic"
+description: "Building diagnostics (DPE, GES, asbestos, lead, termites, electrical)"
+locked: false
+metadata_schema: |
+  unit:
+    type: string
+    label: "Unit of measurement"
+    translate: true
+  duration:
+    type: integer
+    label: "Validity duration in years"
+  color:
+    type: string
+    label: "Associated color code"

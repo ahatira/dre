@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: home_service
+label: 'Home service'
+description: 'Type of home service available'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 0
+metadata:
+  icon: concierge-bell

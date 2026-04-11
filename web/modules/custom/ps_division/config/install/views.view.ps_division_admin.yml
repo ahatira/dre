@@ -1,0 +1,109 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_division
+    - user
+id: ps_division_admin
+label: "Divisions"
+module: ps_division
+description: "Administrative listing of Division entities."
+tag: "PropertySearch"
+base_table: ps_division_field_data
+base_field: id
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: Divisions
+      fields:
+        id:
+          id: id
+          table: ps_division_field_data
+          field: id
+          plugin_id: field
+          label: ID
+        building_name:
+          id: building_name
+          table: ps_division_field_data
+          field: building_name
+          plugin_id: field
+          label: "Building Name"
+        lot:
+          id: lot
+          table: ps_division_field_data
+          field: lot
+          plugin_id: field
+          label: Lot
+        operations:
+          id: operations
+          table: ps_division
+          field: operations
+          plugin_id: entity_operations
+          label: Operations
+      pager:
+        type: full
+        options:
+          items_per_page: 50
+      access:
+        type: perm
+        options:
+          perm: "administer ps_division entities"
+      cache:
+        type: tag
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: "No divisions available."
+      sorts:
+        id:
+          id: id
+          table: ps_division_field_data
+          field: id
+          plugin_id: standard
+          order: DESC
+      filters:
+        status:
+          id: status
+          table: ps_division_field_data
+          field: status
+          plugin_id: boolean
+          value: "1"
+          expose:
+            label: "Published"
+      style:
+        type: table
+      row:
+        type: fields
+      relationships: {}
+      header: {}
+      footer: {}
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - user.permissions
+      tags: {}
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      path: admin/ps/content/divisions
+      menu:
+        type: normal
+        title: Divisions
+        description: "Manage division entities."
+        menu_name: admin
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - user.permissions
+      tags: {}

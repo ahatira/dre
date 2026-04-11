@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: premises_condition
+label: 'Condition of premises'
+description: 'Condition of the premises'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: building_condition
+weight: 1
+metadata:
+  icon: home

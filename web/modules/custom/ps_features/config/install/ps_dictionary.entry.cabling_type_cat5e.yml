@@ -1,0 +1,8 @@
+id: cabling_type_cat5e
+dictionary_type: cabling_type
+code: CAT5E
+label: "Category 5e"
+description: "Cat5e Ethernet cabling"
+weight: 2
+deprecated: false
+metadata: []

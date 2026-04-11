@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: computer_cabling
+label: 'Computer cabling'
+description: 'Type of computer cabling'
+value_type: dictionary
+dictionary_type: cabling_type
+unit: null
+is_required: false
+validation_rules: {  }
+group: equipments
+weight: 2
+metadata:
+  icon: wifi

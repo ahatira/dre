@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_period_ann
+dictionary_type: price_period
+code: ANN
+label: "Per Year"
+description: "Annual price"
+weight: 0
+status: true
+deprecated: false
+metadata:
+  icon: "calendar"
+  multiplier: 1

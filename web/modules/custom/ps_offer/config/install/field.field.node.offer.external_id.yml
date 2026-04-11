@@ -1,0 +1,21 @@
+uuid: e58d006a-5713-4b84-92b3-1e45c56c60bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.external_id
+    - node.type.offer
+_core:
+  default_config_hash: KIMFYxiM9Zz4KXJjrwu-5IPtYQ3luKPREeH88BXHb3U
+id: node.offer.external_id
+field_name: external_id
+entity_type: node
+bundle: offer
+label: 'External ID'
+description: 'CRM system identifier (readonly)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

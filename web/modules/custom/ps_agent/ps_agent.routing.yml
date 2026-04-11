@@ -1,9 +1,116 @@
-entity.agent.settings:
-  path: '/admin/structure/agent'
+ps_agent.settings:
+  path: "/admin/ps/config/agents"
   defaults:
-    _controller: '\Drupal\ps_agent\Controller\AgentSettingsController::overview'
-    _title: 'Agent settings'
+    _form: '\Drupal\ps_agent\Form\AgentSettingsForm'
+    _title: "Agent Settings"
   requirements:
-    _permission: 'administer agent entities'
+    _permission: "administer agent entities"
+
+ps_agent.collection:
+  path: "/admin/ps/content/agents"
+  defaults:
+    _entity_list: "agent"
+    _title: "Agents"
+  requirements:
+    _permission: "administer agent entities"
   options:
-    _admin_route: true
+    _admin_route: TRUE
+
+entity.agent.collection:
+  path: "/admin/ps/content/agents/alternative"
+  defaults:
+    _entity_list: "agent"
+    _title: "Agents"
+  requirements:
+    _permission: "administer agent entities"
+  options:
+    _admin_route: TRUE
+
+entity.agent.add_page:
+  path: "/admin/ps/content/agents/add"
+  defaults:
+    _controller: '\Drupal\Core\Entity\Controller\EntityController::addPage'
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::addTitle'
+    entity_type_id: agent
+  requirements:
+    _permission: "administer agent entities"
+
+entity.agent.add_form:
+  path: "/admin/ps/content/agents/add/{agent_type}"
+  defaults:
+    _entity_form: "agent.add"
+    _title: "Add Agent"
+  requirements:
+    _permission: "administer agent entities"
+  options:
+    parameters:
+      agent_type:
+        type: "entity:agent_type"
+
+entity.agent.canonical:
+  path: "/agent/{agent}"
+  defaults:
+    _entity_view: "agent.full"
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _permission: "view agent entities"
+  options:
+    parameters:
+      agent:
+        type: "entity:agent"
+
+entity.agent.edit_form:
+  path: "/admin/ps/content/agents/{agent}/edit"
+  defaults:
+    _entity_form: "agent.edit"
+    _title: "Edit Agent"
+  requirements:
+    _permission: "administer agent entities"
+  options:
+    parameters:
+      agent:
+        type: "entity:agent"
+
+entity.agent.delete_form:
+  path: "/admin/ps/content/agents/{agent}/delete"
+  defaults:
+    _entity_form: "agent.delete"
+    _title: "Delete Agent"
+  requirements:
+    _permission: "administer agent entities"
+  options:
+    parameters:
+      agent:
+        type: "entity:agent"
+# Agent Type management
+entity.agent_type.collection:
+  path: "/admin/ps/structure/agent-types"
+  defaults:
+    _entity_list: "agent_type"
+    _title: "Agent Types"
+  requirements:
+    _permission: "administer agent entities"
+
+entity.agent_type.add_form:
+  path: "/admin/ps/structure/agent-types/add"
+  defaults:
+    _entity_form: "agent_type.add"
+    _title: "Add Agent Type"
+  requirements:
+    _permission: "administer agent entities"
+
+entity.agent_type.edit_form:
+  path: "/admin/ps/structure/agent-types/manage/{agent_type}"
+  defaults:
+    _entity_form: "agent_type.edit"
+    _title: "Edit Agent Type"
+  requirements:
+    _permission: "administer agent entities"
+
+entity.agent_type.delete_form:
+  path: "/admin/ps/structure/agent-types/manage/{agent_type}/delete"
+  defaults:
+    _entity_form: "agent_type.delete"
+    _title: "Delete Agent Type"
+  requirements:
+    _permission: "administer agent entities"

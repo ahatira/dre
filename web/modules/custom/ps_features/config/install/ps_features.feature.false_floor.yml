@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: false_floor
+label: 'False floor'
+description: 'Raised or false floor information'
+value_type: string
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: equipments
+weight: 3
+metadata:
+  icon: layers

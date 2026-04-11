@@ -1,0 +1,9 @@
+id: property_type
+label: "Property Type"
+description: "Real estate property type (activity, office, etc.)"
+locked: true
+metadata_schema: |
+  icon:
+    type: string
+    label: "Icon name (e.g., factory, office)"
+    translate: true

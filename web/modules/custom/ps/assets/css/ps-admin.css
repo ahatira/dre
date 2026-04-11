@@ -1,0 +1,48 @@
+/**
+ * @file
+ * Admin styles for PropertySearch.
+ */
+
+.ps-admin-overview {
+  margin: 1em 0;
+}
+
+/**
+ * Icon for PropertySearch category in field type selection.
+ * This icon appears in the "Add field" interface.
+ */
+.field-option .field-icon-propertysearch {
+  background-image: url("../images/field-category-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 36px;
+}
+
+/**
+ * PropertySearch icon in admin toolbar.
+ * Supports both Gin theme (mask-image) and Claro/default theme (background-image).
+ */
+
+/* Gin theme: Uses mask-image with --icon variable */
+.toolbar-icon-ps-admin::before,
+.toolbar-link--ps-admin::before,
+.toolbar-button--icon--ps-admin::before {
+  --icon: url("/modules/custom/ps/assets/images/admin-toolbar-icon.svg");
+}
+
+/* Claro theme and fallback: Uses background-image */
+.toolbar-bar .toolbar-icon-ps-admin::before {
+  background-image: url("/modules/custom/ps/assets/images/admin-toolbar-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+}
+
+/* Active state for Claro */
+.toolbar-bar .toolbar-icon-ps-admin:active::before,
+.toolbar-bar .toolbar-icon-ps-admin.is-active::before {
+  background-image: url("/modules/custom/ps/assets/images/admin-toolbar-icon.svg");
+  filter: brightness(0) invert(1);
+}
+
+

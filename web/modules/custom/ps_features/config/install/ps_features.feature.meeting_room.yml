@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: meeting_room
+label: 'Meeting room'
+description: 'Meeting room available'
+value_type: yesno
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 3
+metadata:
+  icon: users

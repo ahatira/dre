@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="../../../../../vendor/autoload.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true">
+  <testsuites>
+    <testsuite name="unit">
+      <directory>tests/src/Unit</directory>
+    </testsuite>
+    <testsuite name="kernel">
+      <directory>tests/src/Kernel</directory>
+    </testsuite>
+    <testsuite name="functional">
+      <directory>tests/src/Functional</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <env name="SIMPLETEST_BASE_URL" value="http://localhost"/>
+    <env name="SIMPLETEST_DB" value="mysql://root:@127.0.0.1/property_search"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="../../../sites/simpletest"/>
+  </php>
+</phpunit>

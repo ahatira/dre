@@ -1,0 +1,49 @@
+entity.ps_feature.collection:
+  path: "/admin/ps/content/features"
+  defaults:
+    _entity_list: "ps_feature"
+    _title: "Features"
+  requirements:
+    _permission: "administer ps_features"
+  options:
+    _admin_route: true
+
+entity.ps_feature.add_form:
+  path: "/admin/ps/content/features/add"
+  defaults:
+    _entity_form: "ps_feature.add"
+    _title: "Add Feature"
+  requirements:
+    _permission: "administer ps_features"
+  options:
+    _admin_route: true
+
+entity.ps_feature.edit_form:
+  path: "/admin/ps/content/features/{ps_feature}/edit"
+  defaults:
+    _entity_form: "ps_feature.edit"
+    _title: "Edit Feature"
+  requirements:
+    _permission: "administer ps_features"
+  options:
+    _admin_route: true
+
+entity.ps_feature.delete_form:
+  path: "/admin/ps/content/features/{ps_feature}/delete"
+  defaults:
+    _entity_form: "ps_feature.delete"
+    _title: "Delete Feature"
+  requirements:
+    _permission: "administer ps_features"
+  options:
+    _admin_route: true
+
+ps_features.settings_form:
+  path: "/admin/ps/config/feature"
+  defaults:
+    _form: 'Drupal\ps_features\Form\FeatureSettingsForm'
+    _title: "Feature Settings"
+  requirements:
+    _permission: "administer ps_features"
+  options:
+    _admin_route: true

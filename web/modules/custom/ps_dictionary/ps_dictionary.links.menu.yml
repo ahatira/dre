@@ -1,0 +1,13 @@
+ps_dictionary.admin:
+  title: "Dictionaries"
+  description: "Manage business dictionaries"
+  parent: ps.admin_content
+  route_name: entity.ps_dictionary_type.collection
+  weight: 10
+
+ps_dictionary.settings:
+  title: "Dictionary Settings"
+  description: "Configure dictionary import behavior and deprecation policy"
+  parent: ps.admin_config
+  route_name: ps_dictionary.settings
+  weight: 10

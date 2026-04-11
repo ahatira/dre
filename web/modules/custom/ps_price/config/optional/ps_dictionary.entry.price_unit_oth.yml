@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_unit_oth
+dictionary_type: price_unit
+code: OTH
+label: "Other Unit"
+description: "Other price unit"
+weight: 2
+status: true
+deprecated: false
+metadata:
+  icon: "ellipsis-h"
+  symbol: "other"

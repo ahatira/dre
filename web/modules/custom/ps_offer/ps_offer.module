@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Ps_offer procedural hooks.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ps_offer_help(string $route_name, RouteMatchInterface $route_match): array|string|null {
+  unset($route_match);
+  return match ($route_name) {
+    'help.page.ps_offer' => [
+      '#type' => 'markup',
+      '#markup' => t('Manage property offers, pricing, diagnostics, media, and agents.'),
+    ],
+    'ps_offer.settings' => t('Configure offer behavior and display settings.'),
+    'ps_offer.admin_offers' => t('View and manage all property offers.'),
+    default => NULL,
+  };
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function ps_offer_node_access(NodeInterface $node, string $op, AccountInterface $account): ?AccessResult {
+  if ($node->getType() !== 'offer') {
+    return AccessResult::neutral();
+  }
+
+  // Basic permission mapping for offer nodes.
+  return match ($op) {
+    'update' => AccessResult::allowedIfHasPermission($account, 'edit any offer content'),
+    'delete' => AccessResult::allowedIfHasPermission($account, 'delete any offer content'),
+    'view' => AccessResult::neutral()->addCacheableDependency($node),
+    default => AccessResult::neutral(),
+  };
+}

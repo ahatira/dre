@@ -1,0 +1,8 @@
+id: security_system_type_intercom
+dictionary_type: security_system_type
+code: INTERCOM
+label: "Intercom"
+description: "Audio/video intercom system."
+weight: 20
+deprecated: false
+metadata: []

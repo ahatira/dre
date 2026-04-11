@@ -1,0 +1,21 @@
+uuid: dc10244c-dbdb-46bd-bec5-19739bb095a2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_diagnostic
+_core:
+  default_config_hash: x62YboMkqGOKDLHCszutNix14Td_OYoWrsYFyp_MSC8
+id: node.diagnostics
+field_name: diagnostics
+entity_type: node
+type: ps_diagnostic
+settings: {  }
+module: ps_diagnostic
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

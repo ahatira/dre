@@ -1,0 +1,11 @@
+uuid: null
+langcode: en
+status: true
+id: surface_qualification_available
+dictionary_type: surface_qualification
+code: DISPO
+label: "Available"
+description: "Available area qualification"
+weight: 1
+deprecated: false
+metadata: []

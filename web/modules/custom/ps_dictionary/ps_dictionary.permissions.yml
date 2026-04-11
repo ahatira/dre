@@ -1,0 +1,12 @@
+administer dictionaries:
+  title: "Administer dictionaries"
+  description: "Full access to dictionary types and entries management"
+  restrict access: true
+
+view dictionaries:
+  title: "View dictionaries"
+  description: "View dictionary types and entries (read-only)"
+
+edit dictionary entries:
+  title: "Edit dictionary entries"
+  description: "Edit dictionary entries (not types)"

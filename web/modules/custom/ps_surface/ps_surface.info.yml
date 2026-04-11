@@ -1,0 +1,14 @@
+name: "PropertySearch Surface"
+type: module
+description: "Surface field type with dictionary validation and aggregation utilities."
+package: PropertySearch
+core_version_requirement: ^11
+php: 8.3
+
+dependencies:
+  - drupal:field
+  - drupal:text
+  - ps:ps
+  - ps_dictionary:ps_dictionary
+
+configure: ps_surface.settings

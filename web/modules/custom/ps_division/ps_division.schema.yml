@@ -1,0 +1,27 @@
+# Entity display configuration - extend core schema to add Gin settings.
+core.entity_form_display.ps_division.lot.default:
+  type: core.entity_form_display.ps_division.*.*
+
+core.entity_view_display.ps_division.lot.default:
+  type: core.entity_view_display.ps_division.*.*
+
+# Add Gin third party settings support to all ps_division displays.
+core.entity_form_display.ps_division.*.*:
+  type: config_entity
+  label: "Division entity form display"
+  mapping:
+    third_party_settings:
+      type: sequence
+      label: "Third party settings"
+      sequence:
+        type: core.entity_form_display.third_party.[%key]
+
+core.entity_view_display.ps_division.*.*:
+  type: config_entity
+  label: "Division entity view display"
+  mapping:
+    third_party_settings:
+      type: sequence
+      label: "Third party settings"
+      sequence:
+        type: core.entity_view_display.third_party.[%key]

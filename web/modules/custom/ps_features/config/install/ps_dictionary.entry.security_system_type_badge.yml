@@ -1,0 +1,8 @@
+id: security_system_type_badge
+dictionary_type: security_system_type
+code: BADGE
+label: "Badge / access control"
+description: "Badge or access control system."
+weight: 30
+deprecated: false
+metadata: []

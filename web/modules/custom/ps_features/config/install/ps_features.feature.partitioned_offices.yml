@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: partitioned_offices
+label: 'Partitioned offices'
+description: 'Are offices partitioned'
+value_type: yesno
+dictionary_type: null
+unit: null
+is_required: false
+validation_rules: {  }
+group: services
+weight: 2
+metadata:
+  icon: door-closed

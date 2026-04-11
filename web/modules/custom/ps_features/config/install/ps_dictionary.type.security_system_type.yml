@@ -1,0 +1,8 @@
+id: security_system_type
+label: "Security System Type"
+description: "Types of security systems and access control."
+locked: true
+metadata_schema: |
+  icon:
+    type: string
+    label: "Icon name (e.g., factory, office)"

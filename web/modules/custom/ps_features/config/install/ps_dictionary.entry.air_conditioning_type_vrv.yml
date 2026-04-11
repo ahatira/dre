@@ -1,0 +1,8 @@
+id: air_conditioning_type_vrv
+dictionary_type: air_conditioning_type
+code: VRV
+label: "VRV / VRF"
+description: "Variable Refrigerant Volume/Flow system"
+weight: 3
+deprecated: false
+metadata: []

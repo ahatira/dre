@@ -1,0 +1,15 @@
+# Offer module menu
+
+ps_offer.admin_offers:
+  title: "Offers"
+  route_name: ps_offer.admin_offers
+  parent: ps.admin_content
+  description: "Manage property offers"
+  weight: 0
+
+ps_offer.settings:
+  title: "Settings"
+  route_name: ps_offer.settings
+  parent: ps.admin_config
+  description: "Configure offer settings"
+  weight: 100

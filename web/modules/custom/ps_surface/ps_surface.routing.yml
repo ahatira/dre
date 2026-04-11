@@ -1,0 +1,9 @@
+ps_surface.settings:
+  path: "/admin/ps/config/surface"
+  defaults:
+    _form: 'Drupal\ps_surface\Form\SettingsForm'
+    _title: "Surface Settings"
+  requirements:
+    _permission: "administer ps_surface settings"
+  options:
+    _admin_route: TRUE

@@ -1,0 +1,19 @@
+langcode: en
+uuid: 858d592c-75d5-417f-92c4-19b6852afb32
+status: true
+dependencies:
+  module:
+    - node
+    - ps_surface
+id: node.field_surfaces
+field_name: field_surfaces
+entity_type: node
+type: ps_surface
+settings: {  }
+module: ps_surface
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
