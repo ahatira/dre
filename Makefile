@@ -13,7 +13,7 @@ THEME_DIR := $(PROJECT_ROOT)/web/themes/custom/ui_suite_bnppre
 help:
 	@echo "Available targets:"
 	@echo "  install                 - Install dependencies + npm + build theme"
-	@echo "  install-site            - Run scripts/install.sh (fresh minimal install)"
+	@echo "  install-site            - Run scripts/install.sh (fresh Drupal install + modules + themes)"
 	@echo "  build-theme             - Build all theme assets"
 	@echo "  build-css               - Build only theme CSS"
 	@echo "  theme-check             - Run theme metadata/icons checks"

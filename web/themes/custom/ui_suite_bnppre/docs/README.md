@@ -8,18 +8,31 @@ Custom standalone theme for BNP Paribas Real Estate. No base theme — all Boots
 
 ## Quick Start
 
+For a fresh local site install from the project root, you can use the helper below before the theme build steps:
+
+```bash
+make install-site
+```
+
+This helper performs a fresh Drupal install, enables the project's modules and themes, adds the configured site languages, and rebuilds caches. It does not seed demo content or menus.
+
 ```bash
 # 1. From project root — install PHP dependencies
 composer install
 
-# 2. From theme directory — install Node dependencies + build all assets
+# 2. Optional: install a fresh local Drupal site with project modules/themes
+make install-site
+
+# 3. From theme directory — install Node dependencies + build all assets
 cd web/themes/custom/ui_suite_bnppre
 npm install
 npm run build
 
-# 3. From project root — enable theme and clear caches
+# 4. If you did not use make install-site, enable the theme manually
 vendor/bin/drush theme:enable ui_suite_bnppre
 vendor/bin/drush config:set system.theme default ui_suite_bnppre
+
+# 5. From project root — clear caches
 vendor/bin/drush cr
 ```
 

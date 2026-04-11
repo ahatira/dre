@@ -16,19 +16,26 @@
 
 ## First Install
 
+If you want a fresh local Drupal site from the project root, you can run `make install-site` first. This helper installs Drupal, enables the project's modules and themes, adds the configured site languages, and rebuilds caches. It does not import demo content or create menus.
+
 ```bash
 # 1. Project root — PHP dependencies
 composer install
 
-# 2. Theme directory — Node dependencies
+# 2. Optional: fresh local Drupal install with project modules/themes
+make install-site
+
+# 3. Theme directory — Node dependencies
 cd web/themes/custom/ui_suite_bnppre
 npm install
 
-# 3. Full asset build
+# 4. Full asset build
 npm run build
 
-# 4. Project root — enable theme
+# 5. If you did not use make install-site, enable theme manually
 vendor/bin/drush theme:enable ui_suite_bnppre
+
+# 6. Project root — clear caches
 vendor/bin/drush cr
 ```
 
