@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4857f782cf50f9239ffc5faa85ea29b9",
+    "content-hash": "473c4941e1de550acd60063d46dd7472",
     "packages": [
         {
             "name": "altcha-org/altcha",
@@ -1937,6 +1937,83 @@
             }
         },
         {
+            "name": "drupal/default_content",
+            "version": "2.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/default_content.git",
+                "reference": "2.0.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/default_content-2.0.0-beta1.zip",
+                "reference": "2.0.0-beta1",
+                "shasum": "c39aa30fa961854edbe318c0d43e2f3898658047"
+            },
+            "require": {
+                "drupal/core": "^9.1 || ^10 || ^11"
+            },
+            "require-dev": {
+                "drupal/hal": "^1 || ^2",
+                "drupal/paragraphs": "^1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-beta1",
+                    "datestamp": "1768258043",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11 || ^12"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "andypost",
+                    "homepage": "https://www.drupal.org/user/118908"
+                },
+                {
+                    "name": "benjy",
+                    "homepage": "https://www.drupal.org/user/1852732"
+                },
+                {
+                    "name": "berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "dawehner",
+                    "homepage": "https://www.drupal.org/user/99340"
+                },
+                {
+                    "name": "jibran",
+                    "homepage": "https://www.drupal.org/user/1198144"
+                },
+                {
+                    "name": "larowlan",
+                    "homepage": "https://www.drupal.org/user/395439"
+                },
+                {
+                    "name": "sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
+                }
+            ],
+            "description": "Imports default content when a module is enabled",
+            "homepage": "https://www.drupal.org/project/default_content",
+            "support": {
+                "source": "https://git.drupalcode.org/project/default_content"
+            }
+        },
+        {
             "name": "drupal/entity_reference_revisions",
             "version": "1.14.0",
             "source": {
@@ -3050,68 +3127,6 @@
             "homepage": "https://www.drupal.org/project/ui_styles",
             "support": {
                 "source": "https://git.drupalcode.org/project/ui_styles"
-            }
-        },
-        {
-            "name": "drupal/ui_suite_bootstrap",
-            "version": "5.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/ui_suite_bootstrap.git",
-                "reference": "5.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ui_suite_bootstrap-5.2.0.zip",
-                "reference": "5.2.0",
-                "shasum": "ed6aa7602138434f6d8ad6d9047688742c3d6998"
-            },
-            "require": {
-                "drupal/core": "^11.3",
-                "drupal/ui_patterns": "^2.0",
-                "drupal/ui_styles": "^1.7"
-            },
-            "require-dev": {
-                "drupal/sdc_devel": "^1.0.2",
-                "drupal/ui_icons": "^1.1",
-                "drupal/ui_skins": "^1.0"
-            },
-            "suggest": {
-                "drupal/entity_vdts": "Allows to remove entity template wrappers.",
-                "drupal/fences": "Allows to control wrapping markup and classes of fields.",
-                "drupal/ui_examples": "Allows to have examples pages.",
-                "drupal/ui_icons": "Allows to handle icons.",
-                "drupal/ui_skins": "Allows to switch between themes and to override CSS variables."
-            },
-            "type": "drupal-theme",
-            "extra": {
-                "drupal": {
-                    "version": "5.2.0",
-                    "datestamp": "1770042640",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "grimreaper",
-                    "homepage": "https://www.drupal.org/user/2388214"
-                },
-                {
-                    "name": "pdureau",
-                    "homepage": "https://www.drupal.org/user/1903334"
-                }
-            ],
-            "description": "A site-builder friendly Bootstrap theme, using the UI Suite modules.",
-            "homepage": "https://www.drupal.org/project/ui_suite_bootstrap",
-            "support": {
-                "source": "https://git.drupalcode.org/project/ui_suite_bootstrap"
             }
         },
         {
@@ -10073,6 +10088,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "drupal/default_content": 10,
         "drupal/languageicons": 20,
         "drupal/webform": 10
     },
