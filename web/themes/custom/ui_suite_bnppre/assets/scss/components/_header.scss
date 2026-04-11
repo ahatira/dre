@@ -10,9 +10,9 @@ $ps-header-motion-ease: ease;
 
 .ps-header {
   position: fixed;
-  // top: 0;
-  width: 100%;
   z-index: 400;
+  right: 0;
+  left: var(--gin-toolbar-x-offset, 0);
   padding: 0;
   transition: box-shadow $ps-header-motion-duration $ps-header-motion-ease;
 

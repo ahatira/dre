@@ -113,17 +113,6 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Items: <li> wrappers
-  // ---------------------------------------------------------------------------
-  &__item {
-    // Custom divider between items (Bootstrap .dropdown-divider is a separate
-    // <hr> element; we use a top-border on adjacent siblings instead)
-    + .ps-language-switcher__item {
-      border-top: var(--bs-dropdown-border-width) solid var(--bs-dropdown-divider-bg);
-    }
-  }
-
-  // ---------------------------------------------------------------------------
   // Links: .dropdown-item
   // Bootstrap already handles via --bs-dropdown-* tokens: padding, color, hover
   // bg/color, active bg/color. We only add flex layout and map Drupal's
