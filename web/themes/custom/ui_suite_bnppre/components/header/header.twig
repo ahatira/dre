@@ -14,7 +14,6 @@
 {% set has_actions = actions_content|trim is not empty %}
 {% set has_content = content|trim is not empty %}
 
-<div class="ps-header-scoller"></div>
 <header{{attributes.addClass('ps-header','header').setAttribute('role','banner').setAttribute('data-header','true')}}>
 	{{ title_prefix|default([]) }}
 	<div class="{{ container_class }} ps-header__container">
@@ -91,3 +90,4 @@
 	</div>
 	{{ title_suffix|default([]) }}
 </header>
+<div class="ps-header-scoller"></div>

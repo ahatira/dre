@@ -8,7 +8,7 @@
 <footer class="ps-footer" role="contentinfo">
 	{% if top_columns is not empty or top_content|trim is not empty %}
 		<div class="ps-footer__top">
-			<div class="{{ container_class }} ps-footer__top-inner" data-ps-footer-top>
+			<div class="container ps-footer__top-inner" data-ps-footer-top>
 				{% if top_columns is not empty %}
 					{% for column in top_columns %}
 						{{ column }}
