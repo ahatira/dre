@@ -42,6 +42,11 @@ TRANSLATION_MODULES=(
   config_translation
 )
 
+SITE_LANGUAGES=(
+  fr
+  es
+)
+
 CONFIGURATION_MODULES=(
   config_split
   config_ignore
@@ -95,6 +100,20 @@ enable_modules() {
   fi
 }
 
+add_languages() {
+  local language
+
+  for language in "$@"; do
+    if "$DRUSH" language:info "$language" >/dev/null 2>&1; then
+      echo "[install] skip language: already exists -> $language"
+      continue
+    fi
+
+    log "Add language: $language"
+    "$DRUSH" language:add "$language"
+  done
+}
+
 log "Drop database"
 "$DRUSH" sql:drop -y || true
 
@@ -105,6 +124,7 @@ enable_modules "Drupal classic" "${DRUPAL_CLASSIC_MODULES[@]}"
 enable_modules "Toolbar classic" "${TOOLBAR_CLASSIC_MODULES[@]}"
 enable_modules "UI Suite" "${UI_SUITE_MODULES[@]}"
 enable_modules "Translations" "${TRANSLATION_MODULES[@]}"
+add_languages "${SITE_LANGUAGES[@]}"
 enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
