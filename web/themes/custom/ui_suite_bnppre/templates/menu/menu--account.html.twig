@@ -1,23 +1,63 @@
+{#
+ Account menu — two states driven by PreprocessMenu.php:
+   anonymous     → green CTA pill-button  (account icon + "Log in / Sign up")
+   authenticated → Bootstrap dropdown     (account icon + display name + chevron)
+
+ Variables injected by PreprocessMenu::preprocessAccount():
+   is_logged_in  (bool)    — true when a user session is active
+   account_name  (string)  — display name of the current user
+#}
 {% if items %}
-	<ul{{attributes.addClass('ps-header-account-menu')}}>
-		{% for item in items %}
-			{% set item_attributes = create_attribute(item.attributes|default({})) %}
-			{% set link_attributes = create_attribute(item.link_attributes|default({})) %}
-			{% set item_title = item.title|render|striptags|trim %}
-			{% set is_cta = item_title in ['Log in', 'Log in / Sign up', 'Sign up', 'Register'] %}
-			{% set is_logout = item_title in ['Log out'] %}
-			{% set link_classes = [
-        'ps-header-account-menu__link',
-        is_cta ? 'ps-header-account-menu__link--cta',
-        is_logout ? 'ps-header-account-menu__link--secondary',
-      ] %}
-			<li{{item_attributes.addClass('ps-header-account-menu__item')}}>
-				{% if item.url %}
-					{{ link(item.title, item.url, { attributes: link_attributes.addClass(link_classes) }) }}
-				{% else %}
-					<span{{link_attributes.addClass(link_classes)}}>{{ item.title }}</span>
-				{% endif %}
-			</li>
-		{% endfor %}
-	</ul>
+	{% set menu_id = 'account-dropdown-' ~ random() %}
+	{% set icon_account = icon('bnppre', 'account', {'size': '1.25rem'})|render %}
+
+	{% if is_logged_in %}
+
+		{# ── Authenticated: Bootstrap dropdown ─────────────────────────────── #}
+		<div class="dropdown ps-account-menu">
+			<button class="btn ps-account-menu__trigger dropdown-toggle" type="button" id="{{ menu_id }}" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="{{ 'My account'|t }}">
+				<span class="ps-account-menu__icon" aria-hidden="true">{{ icon_account }}</span>
+				<span class="ps-account-menu__name">{{ account_name|e }}</span>
+			</button>
+
+			<ul class="dropdown-menu dropdown-menu-end ps-account-menu__dropdown" aria-labelledby="{{ menu_id }}">
+				{% for item in items %}
+					{% set item_attributes = create_attribute(item.attributes|default({})) %}
+					{% set link_attributes = create_attribute(item.link_attributes|default({})) %}
+					{% set item_title = item.title|render|striptags|trim %}
+					{% set is_logout = item_title in ['Log out', 'Log Out', 'Se déconnecter', 'Cerrar sesión'] %}
+					{% set link_classes = [
+						'dropdown-item',
+						'ps-account-menu__link',
+						is_logout ? 'ps-account-menu__link--logout',
+					]|filter(v => v) %}
+					{% if is_logout %}
+						<li role="separator"><hr class="dropdown-divider"></li>
+					{% endif %}
+					<li{{item_attributes.addClass('ps-account-menu__item')}}>
+						{% if item.url %}
+							{{ link(item.title, item.url, link_attributes.addClass(link_classes)) }}
+						{% else %}
+							<span class="dropdown-item ps-account-menu__link">{{ item.title }}</span>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	{% else %}
+
+		{# ── Anonymous: CTA pill button (first item = "Log in / Sign up") ──── #}
+		{% set first_item = items|first %}
+		{% if first_item and first_item.url %}
+			{% set first_link_attributes = create_attribute(first_item.link_attributes|default({})) %}
+			<div class="ps-account-menu ps-account-menu--anonymous">
+				<a href="{{ first_item.url }}" {{ first_link_attributes.addClass(['btn', 'btn-primary', 'rounded-pill', 'ps-account-menu__cta']) }}>
+					<span class="ps-account-menu__icon" aria-hidden="true">{{ icon_account }}</span>
+					<span>{{ first_item.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+
+	{% endif %}
 {% endif %}

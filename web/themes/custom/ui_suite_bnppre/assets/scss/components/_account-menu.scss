@@ -1,0 +1,137 @@
+// =============================================================================
+// Account Menu
+//
+// HTML (anonymous):
+//   .ps-account-menu.ps-account-menu--anonymous
+//     a.btn.btn-primary.rounded-pill.ps-account-menu__cta
+//       span.ps-account-menu__icon (aria-hidden)
+//       span (text)
+//
+// HTML (authenticated):
+//   .dropdown.ps-account-menu
+//     button.btn.ps-account-menu__trigger.dropdown-toggle
+//       span.ps-account-menu__icon (aria-hidden)
+//       span.ps-account-menu__name
+//     ul.dropdown-menu.dropdown-menu-end.ps-account-menu__dropdown
+//       li > hr.dropdown-divider
+//       li > a.dropdown-item.ps-account-menu__link[--logout]
+//
+// Strategy: override Bootstrap --bs-btn-* / --bs-dropdown-* CSS tokens at the
+//   element level — same pattern as .ps-language-switcher.
+// =============================================================================
+
+.ps-account-menu {
+  display: inline-flex;
+  align-items: center;
+
+  // ── CTA button (anonymous) ────────────────────────────────────────────────
+  // .btn.btn-primary already declares all --bs-btn-* on the element;
+  // we only adjust padding, font-size and layout here.
+  &__cta {
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-padding-y: .5rem;
+    --bs-btn-font-size: .875rem;
+    --bs-btn-font-weight: 600;
+
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  // ── Dropdown trigger (authenticated) ─────────────────────────────────────
+  // Transparent/minimal style; custom SVG chevron replaces Bootstrap's
+  // border-based caret (see Bootstrap's @include caret()).
+  &__trigger {
+    --bs-btn-padding-x: .625rem;
+    --bs-btn-padding-y: .375rem;
+    --bs-btn-font-size: .875rem;
+    --bs-btn-font-weight: 500;
+    --bs-btn-color: #{$bnppre-gray-1};
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: #{$bnppre-primary};
+    --bs-btn-hover-bg: #{$bnppre-gray-7};
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-color: #{$bnppre-primary};
+    --bs-btn-active-bg: #{$bnppre-gray-6};
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-box-shadow: none;
+    --bs-btn-focus-box-shadow: 0 0 0 .2rem rgba(#{$bnppre-primary}, .25);
+    --bs-btn-active-shadow: none;
+
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    white-space: nowrap;
+
+    // Use global dropdown arrow icon; keep local spacing only.
+    &::after {
+      margin-left: .125rem;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $bnppre-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  // ── Icon container ────────────────────────────────────────────────────────
+  // Sizing is applied inline via the icon() function's `size` parameter.
+  // This wrapper only handles flex alignment.
+  &__icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+
+  // ── Dropdown menu ─────────────────────────────────────────────────────────
+  // Override Bootstrap --bs-dropdown-* tokens directly on the element.
+  &__dropdown {
+    --bs-dropdown-min-width: 10rem;
+    --bs-dropdown-padding-y: .375rem;
+    --bs-dropdown-border-color: #{$bnppre-gray-5};
+    --bs-dropdown-border-radius: 0;
+    --bs-dropdown-border-width: 1px;
+    --bs-dropdown-bg: #{$bnppre-white};
+    --bs-dropdown-link-color: #{$bnppre-gray-1};
+    --bs-dropdown-link-hover-color: #{$bnppre-primary};
+    --bs-dropdown-link-hover-bg: #{$bnppre-gray-7};
+    --bs-dropdown-link-active-color: #{$bnppre-white};
+    --bs-dropdown-link-active-bg: #{$bnppre-primary};
+    --bs-dropdown-font-size: .875rem;
+
+    box-shadow: 0 8px 24px rgba($bnppre-gray-1, .12);
+    margin-top: .125rem;
+  }
+
+  // ── Log out / secondary action ────────────────────────────────────────────
+  &__link--logout {
+    font-size: .8125rem;
+    color: $bnppre-gray-3;
+
+    &:hover,
+    &:focus {
+      color: $bnppre-danger;
+      background-color: rgba($bnppre-danger, .06);
+    }
+  }
+
+  // ── Mobile: offcanvas actions context ────────────────────────────────────
+  // Inside d-grid (ps-header__actions--mobile), let the CTA fill the column
+  // naturally; keep the dropdown trigger at intrinsic width.
+  .ps-header__actions--mobile & {
+    width: 100%;
+
+    &__cta {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__trigger {
+      width: auto;
+    }
+  }
+}
