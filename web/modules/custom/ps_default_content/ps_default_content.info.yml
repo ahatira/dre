@@ -1,0 +1,46 @@
+name: PS Default Content
+description: Default content package for Property Search project (menus and starter entities)
+package: Property Search
+type: module
+core_version_requirement: ^11.0
+php: 8.3
+
+dependencies:
+  - drupal:menu_link_content
+  - drupal:default_content
+
+default_content:
+  menu_link_content:
+    - 7ea169e1-6b13-4c5a-a620-746522248158
+    - 959fcf80-a674-4fd6-89bd-1253027a7033
+    - 41dc667a-5e37-40cd-b9a9-81bce0bfa909
+    - 6db72db1-310e-4a42-a043-f5363a521f1a
+    - 2b0ef7f2-d7a0-4fe8-82e7-1bade66a55ff
+    - 06d56bfa-9317-4ead-b4cb-fd1c1820b246
+    - 541cb480-7b86-4755-99d8-fa5203ddf33e
+    - b2686213-a616-45b6-8806-128f4b6b19ad
+    - cf43e45c-1eec-4d45-801c-95b8bee6346c
+    - 79919ec0-cd48-4e53-8e17-15da58d69952
+    - 2e767889-2274-43a4-893f-076cfcd6c415
+    - 827df9df-d4ac-469c-a0a3-82f85239959e
+    - 140ebc88-3f73-42a4-af81-8cfd03ec1931
+    - f97615a7-7407-47b0-ae7e-ddae739c69dd
+    - 6a5fd662-dbef-4def-b7e5-656093508a19
+    - 5f8e4046-406d-4bee-bbab-be059382e9eb
+    - a0982980-208b-49cc-ae37-1e97e6765bd0
+    - c9e8e82b-e649-4b13-bee4-f7d161e23090
+    - e6db0b38-e5e4-426d-9779-cf45ac70a378
+    - 18f46da4-fe62-4771-92a2-07f1fbe4e954
+    - c910b491-8791-4b14-a723-0f71bf86c92b
+    - 85287024-2b91-4073-9ea0-7d1841f6f21e
+    - 00d6ac42-bc24-457d-a8a0-c8e8d0a46571
+    - 109a2009-3448-41d1-b656-f590b7245c54
+    - 6ceb7eeb-2922-4d58-8ecf-5521bcb7165e
+    - 0eb2c516-235d-44ce-a89d-348727629573
+    - 330ae7ab-ff5e-4782-8f11-84368e30c1ef
+    - 5c8e882b-2452-4644-9465-88e652396cc8
+    - 3cc0931f-6066-4777-b6cb-34ddf05dd181
+    - 816567ef-c662-4581-9b24-c351fcc86a56
+    - 6bf1def5-6adb-4e3b-99da-3441d8c10bef
+    - 0d0beb8a-8793-49e9-8656-6ed14d611e12
+    - 246acdb0-c134-455d-91be-7fa11378b44f

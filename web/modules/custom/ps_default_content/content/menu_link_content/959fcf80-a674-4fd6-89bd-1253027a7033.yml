@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 959fcf80-a674-4fd6-89bd-1253027a7033
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7ea169e1-6b13-4c5a-a620-746522248158: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Property Search'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/property-search'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:7ea169e1-6b13-4c5a-a620-746522248158'

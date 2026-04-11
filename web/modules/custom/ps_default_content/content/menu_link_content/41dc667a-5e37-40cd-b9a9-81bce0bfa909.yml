@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 41dc667a-5e37-40cd-b9a9-81bce0bfa909
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7ea169e1-6b13-4c5a-a620-746522248158: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Offices
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/property-search?asset=offices'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:7ea169e1-6b13-4c5a-a620-746522248158'

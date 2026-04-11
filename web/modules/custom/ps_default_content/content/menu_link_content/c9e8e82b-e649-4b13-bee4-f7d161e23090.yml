@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: c9e8e82b-e649-4b13-bee4-f7d161e23090
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    a0982980-208b-49cc-ae37-1e97e6765bd0: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Land Advisory & Transactions'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/owners/land'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:a0982980-208b-49cc-ae37-1e97e6765bd0'

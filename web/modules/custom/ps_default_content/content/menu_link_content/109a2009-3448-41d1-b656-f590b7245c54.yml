@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 109a2009-3448-41d1-b656-f590b7245c54
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    00d6ac42-bc24-457d-a8a0-c8e8d0a46571: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Transactions & Advisory'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/corporate-occupiers/transactions'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:00d6ac42-bc24-457d-a8a0-c8e8d0a46571'

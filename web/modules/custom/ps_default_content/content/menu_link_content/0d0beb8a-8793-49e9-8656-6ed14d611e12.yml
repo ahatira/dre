@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 0d0beb8a-8793-49e9-8656-6ed14d611e12
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    816567ef-c662-4581-9b24-c351fcc86a56: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Press Releases'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/latest-news/press-releases'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:816567ef-c662-4581-9b24-c351fcc86a56'

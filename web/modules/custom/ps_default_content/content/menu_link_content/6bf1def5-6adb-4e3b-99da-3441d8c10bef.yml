@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 6bf1def5-6adb-4e3b-99da-3441d8c10bef
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    816567ef-c662-4581-9b24-c351fcc86a56: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Research Reports'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/latest-news/research-reports'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:816567ef-c662-4581-9b24-c351fcc86a56'

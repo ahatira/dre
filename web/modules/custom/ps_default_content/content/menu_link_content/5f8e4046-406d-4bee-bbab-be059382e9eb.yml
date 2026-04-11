@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 5f8e4046-406d-4bee-bbab-be059382e9eb
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    140ebc88-3f73-42a4-af81-8cfd03ec1931: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Valuation
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/investors/valuation'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 2
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:140ebc88-3f73-42a4-af81-8cfd03ec1931'

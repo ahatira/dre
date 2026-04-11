@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 6db72db1-310e-4a42-a043-f5363a521f1a
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    41dc667a-5e37-40cd-b9a9-81bce0bfa909: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Madrid Offices'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/offices/madrid'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:41dc667a-5e37-40cd-b9a9-81bce0bfa909'

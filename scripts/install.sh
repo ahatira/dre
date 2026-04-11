@@ -66,6 +66,11 @@ MENU_MODULES=(
   link_attributes_menu_link_content
 )
 
+DEFAULT_CONTENT_MODULES=(
+  default_content
+  ps_default_content
+)
+
 UI_SUITE_BNPPRE_MODULES=(
   languageicons
 )
@@ -203,6 +208,7 @@ enable_modules "Translations" "${TRANSLATION_MODULES[@]}"
 enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
 enable_modules "Menu" "${MENU_MODULES[@]}"
+enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
 # Gin-related modules require Gin to be enabled/configured first.
@@ -210,7 +216,7 @@ enable_themes "$ADMIN_THEME"
 set_theme_config admin "$ADMIN_THEME"
 
 enable_modules "Gin admin" "${GIN_ADMIN_MODULES[@]}"
-add_languages "${SITE_LANGUAGES[@]}"
+# add_languages "${SITE_LANGUAGES[@]}"
 
 enable_themes "$DEFAULT_THEME"
 set_theme_config default "$DEFAULT_THEME"

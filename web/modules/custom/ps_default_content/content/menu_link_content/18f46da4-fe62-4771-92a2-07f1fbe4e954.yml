@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 18f46da4-fe62-4771-92a2-07f1fbe4e954
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    a0982980-208b-49cc-ae37-1e97e6765bd0: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Residential Advisory'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/owners/residential'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 2
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:a0982980-208b-49cc-ae37-1e97e6765bd0'

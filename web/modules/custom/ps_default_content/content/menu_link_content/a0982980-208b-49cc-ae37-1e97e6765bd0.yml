@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a0982980-208b-49cc-ae37-1e97e6765bd0
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    827df9df-d4ac-469c-a0a3-82f85239959e: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Owners
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/owners'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:827df9df-d4ac-469c-a0a3-82f85239959e'

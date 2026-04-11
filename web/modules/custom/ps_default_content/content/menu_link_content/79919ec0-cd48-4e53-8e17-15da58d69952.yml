@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 79919ec0-cd48-4e53-8e17-15da58d69952
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    541cb480-7b86-4755-99d8-fa5203ddf33e: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Valencia Industrial & Logistics'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/industrial/valencia'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 2
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:541cb480-7b86-4755-99d8-fa5203ddf33e'

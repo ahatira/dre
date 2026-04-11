@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 5c8e882b-2452-4644-9465-88e652396cc8
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    0eb2c516-235d-44ce-a89d-348727629573: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Our Values'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/about-us/our-values'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:0eb2c516-235d-44ce-a89d-348727629573'

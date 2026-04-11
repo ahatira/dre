@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 6a5fd662-dbef-4def-b7e5-656093508a19
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    140ebc88-3f73-42a4-af81-8cfd03ec1931: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Property & Project Management'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/solutions/investors/property-management'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:140ebc88-3f73-42a4-af81-8cfd03ec1931'

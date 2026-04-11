@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 541cb480-7b86-4755-99d8-fa5203ddf33e
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7ea169e1-6b13-4c5a-a620-746522248158: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Industrial & Logistics'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/property-search?asset=industrial'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 2
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:7ea169e1-6b13-4c5a-a620-746522248158'

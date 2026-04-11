@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: b2686213-a616-45b6-8806-128f4b6b19ad
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    541cb480-7b86-4755-99d8-fa5203ddf33e: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Madrid Industrial & Logistics'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/en/industrial/madrid'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:541cb480-7b86-4755-99d8-fa5203ddf33e'
