@@ -1,52 +1,69 @@
+// =============================================================================
+// Language Switcher
+// HTML: .dropdown.ps-language-switcher
+//        ├── .btn.dropdown-toggle.ps-language-switcher__trigger
+//        └── .dropdown-menu.ps-language-switcher__menu
+//             └── li.ps-language-switcher__item
+//                  └── a.dropdown-item
+// Strategy: override Bootstrap tokens at the element that declares them.
+//   - .btn            declares --bs-btn-*       → override on &__trigger
+//   - .dropdown-menu  declares --bs-dropdown-*  → override on &__menu
+// =============================================================================
+
 .ps-language-switcher {
-  --ps-language-switcher-width: 5.25rem;
-  --ps-language-switcher-height: 2.5rem;
+  // Component-level sizing tokens (no Bootstrap equivalent)
+  --ps-language-switcher-width: 6.5rem;
+  --ps-language-switcher-height: 2.25rem;
 
   display: inline-block;
   width: var(--ps-language-switcher-width);
   font-family: $font-family-body;
-  font-size: .9375rem;
   line-height: 1.2;
 
-  &__trigger,
-  &__menu {
-    width: 100%;
-    min-width: 100%;
-  }
-
+  // ---------------------------------------------------------------------------
+  // Trigger: .btn.dropdown-toggle
+  // Bootstrap reads --bs-btn-* from the .btn element itself.
+  // ---------------------------------------------------------------------------
   &__trigger {
+    // --- Bootstrap --bs-btn-* token overrides ---
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-padding-y: .5rem;
+    --bs-btn-font-family: #{$font-family-body};
+    --bs-btn-font-size: .875rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1.2;
+    --bs-btn-color: #{$bnppre-gray-1};
+    --bs-btn-bg: #{$bnppre-white};
+    --bs-btn-border-width: 2px;
+    --bs-btn-border-color: #{$bnppre-gray-5};
+    --bs-btn-border-radius: 0;
+    --bs-btn-hover-color: #{$bnppre-gray-1};
+    --bs-btn-hover-bg: #{$bnppre-white};
+    --bs-btn-hover-border-color: #{$bnppre-gray-5};
+    --bs-btn-active-color: #{$bnppre-gray-1};
+    --bs-btn-active-bg: #{$bnppre-white};
+    --bs-btn-active-border-color: #{$bnppre-gray-5};
+    --bs-btn-active-shadow: none;
+    --bs-btn-box-shadow: none;
+    --bs-btn-focus-box-shadow: none;
+
+    // --- Non-token styles (no --bs-btn-* equivalent) ---
     display: inline-flex;
     align-items: center;
     gap: .5rem;
+    width: 100%;
     height: var(--ps-language-switcher-height);
-    padding: .5rem .75rem;
-    border: 1px solid $bnppre-gray-5;
-    border-radius: 0;
-    background: $bnppre-white;
-    color: $bnppre-gray-1;
-    box-shadow: none;
     white-space: nowrap;
 
-    &:hover,
-    &:focus,
-    &:focus-visible,
-    &:active,
-    &.show {
-      border-color: $bnppre-gray-5;
-      background: $bnppre-white;
-      color: $bnppre-gray-1;
-      box-shadow: none;
-    }
-
-    &.show {
-      border-bottom-color: transparent;
-    }
-
+    // Custom SVG caret — overrides Bootstrap's border-based caret (@include caret())
     &::after {
+      content: "";
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
       margin-left: auto;
-      border-top-width: .36em;
-      border-right-width: .36em;
-      border-left-width: .36em;
+      border: 0;
+      background: center / cover no-repeat url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNNi40NzYgOCAxMiAxMy4zOTIgMTcuNTI0IDggMTkgOS40NGwtNyA2LjgzM0w1IDkuNDR6Ii8+PC9zdmc+');
       transition: transform .2s ease;
     }
 
@@ -62,55 +79,73 @@
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // Menu: .dropdown-menu
+  // Bootstrap declares --bs-dropdown-* on .dropdown-menu and consumes them there.
+  // Overriding them here means Bootstrap's own CSS (padding, border, bg) picks
+  // up our values — no need to re-declare those properties manually.
+  // ---------------------------------------------------------------------------
   &__menu {
+    // --- Bootstrap --bs-dropdown-* token overrides ---
+    --bs-dropdown-min-width: var(--ps-language-switcher-width);
+    --bs-dropdown-padding-x: 0;
+    --bs-dropdown-padding-y: 0;
     --bs-dropdown-spacer: 0;
+    --bs-dropdown-font-size: .875rem;
+    --bs-dropdown-color: #{$bnppre-gray-1};
+    --bs-dropdown-bg: #{$bnppre-white};
+    --bs-dropdown-border-color: #{$bnppre-gray-5};
+    --bs-dropdown-border-radius: 0;
+    --bs-dropdown-border-width: 2px;
+    --bs-dropdown-divider-bg: #{$bnppre-gray-6};
+    --bs-dropdown-box-shadow: none;
+    --bs-dropdown-link-color: #{$bnppre-gray-1};
+    --bs-dropdown-link-hover-color: #{$bnppre-gray-1};
+    --bs-dropdown-link-hover-bg: #{$bnppre-gray-7};
+    --bs-dropdown-link-active-color: #{$bnppre-gray-1};
+    --bs-dropdown-link-active-bg: #{$bnppre-gray-6};
+    --bs-dropdown-item-padding-x: .75rem;
+    --bs-dropdown-item-padding-y: .5rem;
 
-    margin: 0;
-    padding: 0;
-    border: 1px solid $bnppre-gray-5;
-    border-radius: 0;
-    background: $bnppre-white;
-    box-shadow: none;
+    // --- Non-token styles (no --bs-dropdown-* equivalent) ---
+    width: 100%;
+    min-width: 100%;
   }
 
+  // ---------------------------------------------------------------------------
+  // Items: <li> wrappers
+  // ---------------------------------------------------------------------------
   &__item {
-    list-style: none;
-
+    // Custom divider between items (Bootstrap .dropdown-divider is a separate
+    // <hr> element; we use a top-border on adjacent siblings instead)
     + .ps-language-switcher__item {
-      border-top: 1px solid $bnppre-gray-6;
+      border-top: var(--bs-dropdown-border-width) solid var(--bs-dropdown-divider-bg);
     }
+  }
 
+  // ---------------------------------------------------------------------------
+  // Links: .dropdown-item
+  // Bootstrap already handles via --bs-dropdown-* tokens: padding, color, hover
+  // bg/color, active bg/color. We only add flex layout and map Drupal's
+  // .is-active to Bootstrap's active token values.
+  // ---------------------------------------------------------------------------
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: var(--ps-language-switcher-height);
+
+    // Drupal uses .is-active; Bootstrap's &.active rule won't fire.
     &.is-active {
-      background: $bnppre-gray-6;
+      color: var(--bs-dropdown-link-active-color);
+      background-color: var(--bs-dropdown-link-active-bg);
     }
 
-    > a {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      min-height: var(--ps-language-switcher-height);
-      padding: .5rem .75rem;
-      color: $bnppre-gray-1;
-      text-decoration: none;
-      white-space: nowrap;
-
-      &:hover,
-      &:focus,
-      &:focus-visible {
-        background: $bnppre-gray-7;
-        color: $bnppre-gray-1;
-      }
-
-      .language-icon {
-        flex: 0 0 auto;
-        width: 1rem;
-        height: .75rem;
-        object-fit: cover;
-      }
-    }
-
-    &.is-active > a {
-      background: $bnppre-gray-6;
+    .language-icon {
+      flex: 0 0 auto;
+      width: 1rem;
+      height: .75rem;
+      object-fit: cover;
     }
   }
 }
