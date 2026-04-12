@@ -1,0 +1,42 @@
+.ps-favorites-header {
+  &__link {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  &__icon {
+    font-size: 1.35rem;
+    line-height: 1;
+    color: $bnppre-gray-1;
+  }
+
+  &__count {
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 .35rem;
+    font-size: .7rem;
+    line-height: 1.25rem;
+    background-color: $bnppre-secondary;
+    color: $bnppre-white;
+  }
+}
+
+.ps-favorites-toggle__button,
+.ps-favorites-toggle__flag-link {
+  width: 2rem;
+  height: 2rem;
+  line-height: 1;
+}
+
+.ps-favorites-toggle__button.is-active,
+.ps-favorites-toggle .flag.action-unflag .ps-favorites-toggle__flag-link {
+  color: $bnppre-primary;
+  border-color: $bnppre-primary;
+}
+
+.ps-favorites-toggle__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

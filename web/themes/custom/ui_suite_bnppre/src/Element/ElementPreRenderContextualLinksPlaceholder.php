@@ -13,32 +13,48 @@ use Drupal\Core\Template\Attribute;
 /**
  * Element Prerender methods for contextual_links_placeholder.
  */
-class ElementPreRenderContextualLinksPlaceholder implements TrustedCallbackInterface {
-
+class ElementPreRenderContextualLinksPlaceholder implements TrustedCallbackInterface
+{
   /**
    * Add classes for dropdown styling.
    */
-  public static function preRenderContextualLinksPlaceholder(array $element): array {
-    if (!isset($element['#markup']) || !($element['#markup'] instanceof MarkupInterface)) {
-      return $element;
+    public static function preRenderContextualLinksPlaceholder(array $element): array
+    {
+        if (!isset($element['#markup'])) {
+            return $element;
+        }
+
+        if (!is_string($element['#markup']) && !($element['#markup'] instanceof MarkupInterface)) {
+            return $element;
+        }
+
+        $placeholder = (string) $element['#markup'];
+        $attributes = static::extractAttributes($placeholder);
+        if ($attributes === []) {
+            $element['#markup'] = '';
+            return $element;
+        }
+
+        $classes = [];
+        if (isset($attributes['class']) && is_string($attributes['class']) && trim($attributes['class']) !== '') {
+            $classes = preg_split('/\s+/', trim($attributes['class'])) ?: [];
+        }
+        $classes[] = 'dropdown';
+        $classes[] = 'position-absolute';
+        $attributes['class'] = array_values(array_unique($classes));
+
+        $attribute = new Attribute($attributes);
+        $element['#markup'] = new FormattableMarkup('<div@attributes></div>', ['@attributes' => $attribute]);
+        return $element;
     }
-
-    $placeholder = (string) $element['#markup'];
-    $attributes = static::extractAttributes($placeholder);
-    $attributes['class'][] = 'dropdown';
-    $attributes['class'][] = 'position-absolute';
-
-    $attribute = new Attribute($attributes);
-    $element['#markup'] = new FormattableMarkup('<div@attributes></div>', ['@attributes' => $attribute]);
-    return $element;
-  }
 
   /**
    * {@inheritdoc}
    */
-  public static function trustedCallbacks(): array {
-    return ['preRenderContextualLinksPlaceholder'];
-  }
+    public static function trustedCallbacks(): array
+    {
+        return ['preRenderContextualLinksPlaceholder'];
+    }
 
   /**
    * Extract attributes.
@@ -49,17 +65,17 @@ class ElementPreRenderContextualLinksPlaceholder implements TrustedCallbackInter
    * @return array
    *   The array of attributes.
    */
-  protected static function extractAttributes(string $html): array {
-    $attributes = [];
-    // Extract existing attributes.
-    /** @var \DOMElement $div */
-    foreach (Html::load($html)->getElementsByTagName('div') as $div) {
-      /** @var \DOMAttr $attr */
-      foreach ($div->attributes as $attr) {
-        $attributes[$attr->nodeName] = $attr->nodeValue;
-      }
+    protected static function extractAttributes(string $html): array
+    {
+        $attributes = [];
+      // Extract existing attributes.
+      /** @var \DOMElement $div */
+        foreach (Html::load($html)->getElementsByTagName('div') as $div) {
+          /** @var \DOMAttr $attr */
+            foreach ($div->attributes as $attr) {
+                $attributes[$attr->nodeName] = $attr->nodeValue;
+            }
+        }
+        return $attributes;
     }
-    return $attributes;
-  }
-
 }

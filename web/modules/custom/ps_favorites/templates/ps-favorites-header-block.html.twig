@@ -1,0 +1,7 @@
+<div class="ps-header__action-block ps-header__action-block--favorites ps-favorites-header" data-ps-favorites-header="1" data-ps-favorites-auth="{{ is_anonymous ? '0' : '1' }}">
+	<a href="{{ favorites_url }}" class="ps-favorites-header__link" aria-label="{{ 'My favorites'|t }}">
+		<span class="ps-favorites-header__icon" aria-hidden="true">&#9825;</span>
+		<span class="visually-hidden">{{ 'Favorites count'|t }}</span>
+		<span class="ps-favorites-header__count" data-ps-favorites-count>{{ count }}</span>
+	</a>
+</div>

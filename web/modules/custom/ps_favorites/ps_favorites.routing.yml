@@ -1,0 +1,16 @@
+ps_favorites.my_favorites:
+  path: '/my-favorites'
+  defaults:
+    _controller: '\Drupal\ps_favorites\Controller\FavoritesController::listing'
+    _title: 'My favorites'
+  requirements:
+    _permission: 'access content'
+
+ps_favorites.merge:
+  path: '/ps-favorites/merge'
+  defaults:
+    _controller: '\Drupal\ps_favorites\Controller\FavoritesController::merge'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  methods:
+    - POST

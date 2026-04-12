@@ -1,0 +1,16 @@
+{% set has_favorites = (count|default(0)) > 0 %}
+
+<div class="ps-favorites-header" data-ps-favorites-header="1" data-ps-favorites-auth="{{ is_anonymous ? '0' : '1' }}">
+	<a href="{{ favorites_url }}" class="ps-favorites-header__link d-inline-flex align-items-center justify-content-center position-relative text-reset text-decoration-none" aria-label="{{ 'My favorites'|t }}">
+		<span class="ps-favorites-header__icon d-inline-flex align-items-center justify-content-center" aria-hidden="true">
+			<span data-ps-favorites-icon-stroke {{ has_favorites ? ' class="d-none"' : '' }}>
+				{{ icon('bnppre', 'fav-stroke', {'size': '1.05em'})|render }}
+			</span>
+			<span data-ps-favorites-icon-filled {{ has_favorites ? '' : ' class="d-none"' }}>
+				{{ icon('bnppre', 'fav-filled', {'size': '1.05em'})|render }}
+			</span>
+		</span>
+		<span class="visually-hidden">{{ 'Favorites count'|t }}</span>
+		<span class="ps-favorites-header__count badge rounded-pill position-absolute top-0 start-100 translate-middle{{ has_favorites ? '' : ' d-none' }}" data-ps-favorites-count>{{ count }}</span>
+	</a>
+</div>

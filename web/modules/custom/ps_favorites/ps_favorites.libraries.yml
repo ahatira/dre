@@ -1,0 +1,10 @@
+favorites:
+  css:
+    component:
+      css/ps_favorites.css: {}
+  js:
+    js/ps_favorites.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings

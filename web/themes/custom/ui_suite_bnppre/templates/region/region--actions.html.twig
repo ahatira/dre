@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Region template override for the header "actions" region.
+ *
+ * Keep this region wrapperless because the header component already controls
+ * the layout container and spacing for action blocks.
+ */
+#}
+{% if content %}
+	{{ content }}
+{% endif %}

@@ -1,0 +1,31 @@
+uuid: 658e5b11-f6f0-4681-a60f-a6b4369f38af
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: offer_favorite
+label: 'Offer favorite'
+bundles:
+  - offer
+entity_type: node
+global: false
+flag_short: 'Add to favorites'
+flag_long: 'Add this offer to your favorites'
+flag_message: 'Added to favorites'
+unflag_short: 'Remove favorite'
+unflag_long: 'Remove this offer from your favorites'
+unflag_message: 'Removed from favorites'
+unflag_denied_text: 'You can not remove this favorite'
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links:
+    - full
+    - teaser
+  show_as_field: false
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions: {  }
+linkTypeConfig: {  }

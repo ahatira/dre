@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_favorites
+  theme:
+    - ui_suite_bnppre
+id: ui_suite_bnppre_ps_favorites_header
+theme: ui_suite_bnppre
+region: actions
+weight: 19
+provider: null
+plugin: ps_favorites_header_block
+settings:
+  id: ps_favorites_header_block
+  label: 'Favorites Header'
+  label_display: '0'
+  provider: ps_favorites
+visibility: {  }

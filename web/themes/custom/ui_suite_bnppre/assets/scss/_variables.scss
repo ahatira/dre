@@ -68,6 +68,9 @@ $btn-box-shadow:          none !default;
 $btn-active-box-shadow:   none !default;
 $btn-font-weight:         600  !default;
 
+// Nav focus override (Bootstrap variable consumed in _nav.scss).
+$nav-link-focus-box-shadow: none !default;
+
 // Bootstrap config flags
 $enable-gradients:        false  !default;
 $enable-negative-margins: true   !default;

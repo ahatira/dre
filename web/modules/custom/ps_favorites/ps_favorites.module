@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * PS favorites module hooks.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function ps_favorites_theme(): array {
+  return [
+    'ps_favorites_header_block' => [
+      'variables' => [
+        'favorites_url' => '',
+        'count' => 0,
+        'is_anonymous' => TRUE,
+      ],
+      'template' => 'ps-favorites-header-block',
+    ],
+    'ps_favorites_offer_toggle' => [
+      'variables' => [
+        'nid' => 0,
+      ],
+      'template' => 'ps-favorites-offer-toggle',
+    ],
+  ];
+}

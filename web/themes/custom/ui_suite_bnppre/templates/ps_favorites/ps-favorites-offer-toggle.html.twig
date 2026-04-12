@@ -1,0 +1,10 @@
+<button type="button" class="ps-favorites-toggle__button btn btn-outline-secondary rounded-circle p-0 d-inline-flex align-items-center justify-content-center" data-ps-favorite-toggle="1" data-ps-favorite-nid="{{ nid }}" aria-pressed="false" aria-label="{{ 'Add to favorites'|t }}">
+	<span class="ps-favorites-toggle__icon" aria-hidden="true">
+		<span data-ps-favorite-icon-stroke>
+			{{ icon('bnppre', 'fav-stroke', {'size': '1em'})|render }}
+		</span>
+		<span class="d-none" data-ps-favorite-icon-filled>
+			{{ icon('bnppre', 'fav-filled', {'size': '1em'})|render }}
+		</span>
+	</span>
+</button>

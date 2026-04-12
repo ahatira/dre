@@ -1,0 +1,24 @@
+{{ attach_library('flag/flag.link') }}
+
+{% set is_flagged = action == 'unflag' %}
+
+{%
+  set classes = [
+    'flag',
+    'flag-' ~ flag.id()|clean_class,
+    'js-flag-' ~ flag.id()|clean_class ~ '-' ~ flaggable.id(),
+    is_flagged ? 'action-unflag' : 'action-flag',
+  ]
+%}
+
+<div class="{{ classes|join(' ') }}">
+	{% if title %}
+		<a{{attributes.setAttribute('rel','nofollow').setAttribute('aria-label',title).addClass('btn','btn-outline-secondary','rounded-circle','p-0','d-inline-flex','align-items-center','justify-content-center','ps-favorites-toggle__flag-link')}}>
+			<span class="ps-favorites-toggle__icon" aria-hidden="true">
+				{{ icon('bnppre', is_flagged ? 'fav-filled' : 'fav-stroke', {'size': '1em'})|render }}
+			</span>
+		</a>
+	{% else %}
+		<span>{{ unflag_denied_text }}</span>
+	{% endif %}
+</div>

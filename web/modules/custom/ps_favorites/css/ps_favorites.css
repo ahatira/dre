@@ -1,0 +1,71 @@
+.ps-favorites-header__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ps-favorites-header__icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.ps-favorites-header__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 .35rem;
+  border-radius: 999px;
+  background: #c21668;
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.ps-favorites-toggle {
+  margin-bottom: .5rem;
+}
+
+.ps-favorites-toggle__button,
+.ps-favorites-toggle__flag-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #c8d0d6;
+  border-radius: 999px;
+  background: #fff;
+  color: #1f2a33;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.ps-favorites-toggle .flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-favorites-toggle__button.is-active {
+  border-color: #0b7451;
+  color: #0b7451;
+}
+
+.ps-favorites-toggle .flag.action-unflag .ps-favorites-toggle__flag-link {
+  border-color: #0b7451;
+  color: #0b7451;
+}
+
+.ps-favorites-toggle__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;

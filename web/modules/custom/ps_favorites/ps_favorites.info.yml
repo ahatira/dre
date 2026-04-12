@@ -1,0 +1,10 @@
+name: "PS Favorites"
+description: "Favorites system for offers (Flag + header counter + card toggles)."
+type: module
+core_version_requirement: "^11"
+package: "PropertySearch"
+
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:flag

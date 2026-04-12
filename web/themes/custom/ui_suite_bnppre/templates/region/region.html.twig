@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Global region template override.
+ *
+ * Render regions without an extra wrapper because layout containers are
+ * already controlled by page/components templates in this theme.
+ *
+ * Available variables:
+ * - content: The region render array output.
+ * - attributes: Region attributes (unused here, no outer wrapper).
+ * - region: Region machine name from theme .info.yml.
+ */
+#}
+{% if content %}
+	{{ content }}
+{% endif %}

@@ -71,6 +71,23 @@ DEFAULT_CONTENT_MODULES=(
   ps_default_content
 )
 
+FAVORITES_MODULES=(
+  flag
+  ps_favorites
+)
+
+PS_CUSTOM_MODULES=(
+  ps
+  ps_dictionary
+  ps_agent
+  ps_price
+  ps_surface
+  ps_features
+  ps_diagnostic
+  ps_division
+  ps_offer
+)
+
 UI_SUITE_BNPPRE_MODULES=(
   languageicons
 )
@@ -125,6 +142,42 @@ enable_modules() {
   if [[ ${#selected[@]} -gt 0 ]]; then
     log "Enable $group modules: ${selected[*]}"
     "$DRUSH" en -y "${selected[@]}"
+  fi
+}
+
+enable_modules_non_blocking() {
+  local group="$1"
+  shift
+
+  local selected=()
+  local failures=()
+  local module
+
+  for module in "$@"; do
+    if module_exists "$module"; then
+      selected+=("$module")
+    else
+      echo "[install] skip $group: module not found -> $module"
+    fi
+  done
+
+  if [[ ${#selected[@]} -eq 0 ]]; then
+    return
+  fi
+
+  log "Enable $group modules (non-blocking): ${selected[*]}"
+
+  for module in "${selected[@]}"; do
+    echo "[install] enabling module -> $module"
+    if ! "$DRUSH" en -y "$module"; then
+      echo "[install] error enabling module -> $module"
+      failures+=("$module")
+    fi
+  done
+
+  if [[ ${#failures[@]} -gt 0 ]]; then
+    echo "[install] modules with errors in group '$group': ${failures[*]}"
+    echo "[install] continue install. Fix these modules in a dedicated pass."
   fi
 }
 
@@ -190,6 +243,43 @@ set_theme_config() {
   fi
 }
 
+ensure_favorites_header_block() {
+  if ! module_exists "ps_favorites"; then
+    echo "[install] skip favorites block placement: module not found -> ps_favorites"
+    return
+  fi
+
+  if ! theme_exists "$DEFAULT_THEME"; then
+    echo "[install] skip favorites block placement: theme not found -> $DEFAULT_THEME"
+    return
+  fi
+
+  local theme="$DEFAULT_THEME"
+  log "Ensure favorites header block placement"
+  "$DRUSH" php:eval '$storage = \Drupal::entityTypeManager()->getStorage("block");
+  $id = "ui_suite_bnppre_ps_favorites_header";
+  if (!$storage->load($id)) {
+    \Drupal\block\Entity\Block::create([
+      "id" => $id,
+      "theme" => "'"$theme"'",
+      "region" => "actions",
+      "plugin" => "ps_favorites_header_block",
+      "weight" => 19,
+      "visibility" => [],
+      "settings" => [
+        "id" => "ps_favorites_header_block",
+        "label" => "Favorites Header",
+        "label_display" => "0",
+        "provider" => "ps_favorites",
+      ],
+      "status" => TRUE,
+    ])->save();
+    echo "Block created.";
+  } else {
+    echo "Block already exists.";
+  }'
+}
+
 if [[ ! -x "$DRUSH" ]]; then
   echo "[install] drush not found or not executable -> $DRUSH" >&2
   exit 1
@@ -209,6 +299,8 @@ enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
 enable_modules "Menu" "${MENU_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
+enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
+enable_modules_non_blocking "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
 # Gin-related modules require Gin to be enabled/configured first.
@@ -220,6 +312,7 @@ enable_modules "Gin admin" "${GIN_ADMIN_MODULES[@]}"
 
 enable_themes "$DEFAULT_THEME"
 set_theme_config default "$DEFAULT_THEME"
+ensure_favorites_header_block
 
 log "Rebuild cache"
 "$DRUSH" cr -y
