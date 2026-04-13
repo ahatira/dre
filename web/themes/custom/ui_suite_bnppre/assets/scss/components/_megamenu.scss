@@ -257,7 +257,7 @@
   .ps-header .ps-header__navigation .ps-megamenu__menu {
     position: absolute;
     top: 100%;
-    left: calc(50% - 50vw);
+    left: calc(var(--bs-gutter-x)*-1.5);
     right: auto;
     width: 100vw;
     max-width: none;
