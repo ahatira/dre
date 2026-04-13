@@ -1,0 +1,14 @@
+uuid: 00000000-0000-0000-0000-000000000001
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+id: agent
+label: 'Agent'
+type: entity_alias
+pattern: 'agent/[agent:label]'
+description: 'Auto-generates URL alias for Agent entities.'
+weight: 0
+context_mapping:
+  agent: agent

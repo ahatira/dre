@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install and update hooks for the ps_agent module.
+ */
+
+/**
+ * Enables Agent entities in Simple XML Sitemap.
+ */
+function _ps_agent_enable_simple_sitemap(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('simple_sitemap')) {
+    return;
+  }
+
+  $entity_manager = \Drupal::service('simple_sitemap.generator')->entityManager();
+  $entity_manager
+    ->enableEntityType('agent')
+    ->setBundleSettings('agent', 'agent', [
+      'index' => TRUE,
+      'priority' => '0.5',
+      'changefreq' => 'weekly',
+      'include_images' => FALSE,
+    ]);
+}
+
+/**
+ * Implements hook_install().
+ */
+function ps_agent_install(): void {
+  _ps_agent_enable_simple_sitemap();
+}
+
+/**
+ * Enable Agent support in Simple XML Sitemap on existing sites.
+ */
+function ps_agent_update_11001(): void {
+  _ps_agent_enable_simple_sitemap();
+}

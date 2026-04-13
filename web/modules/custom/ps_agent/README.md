@@ -53,7 +53,7 @@ drush cr
 - `type` — Agent type (default: `default`)
 - `langcode` — Language code (translatable)
 - `external_id` — CRM system identifier
-- `reference` — Internal reference code
+- `civility` — Agent civility/title (from ps_dictionary: MR, MS, etc.)
 - `first_name` — Agent first name
 - `last_name` — Agent last name (label)
 - `email` — Email address (BO-protected)
@@ -67,6 +67,22 @@ drush cr
 ### Agent Type Entity (`agent_type`)
 
 Manages agent bundles with field configuration and form display settings.
+
+## Dictionaries
+
+The module includes the **civility** dictionary with the following entries:
+
+| Code | Label | Description |
+|------|-------|-------------|
+| MR | Mr. | Mister |
+| MS | Ms. | Miss/Ms. |
+
+**Dictionary Type**: `civility`
+- **Machine Name**: civility
+- **Locked**: Yes (cannot be deleted)
+- **Purpose**: Agent civility/title for professional communication
+
+To manage civility entries, visit `/admin/ps/structure/dictionaries/civility/entries`.
 
 ## Services
 
@@ -87,13 +103,16 @@ $agent = $manager->getAgentByExternalId('CRM-12345');
 $exists = $manager->agentExists('crm-id', 'value');
 
 // Create new agent
-$agent = $manager->createAgent('firstname', 'lastname', [
+$agent = $manager->createAgent('John', 'Smith', [
   'external_id' => 'CRM-12345',
-  'email' => 'agent@example.com',
+  'civility' => 'MR',
+  'email' => 'john.smith@example.com',
+  'phone' => '+33 1 23 45 67 89',
 ]);
 
 // Update agent
-$agent->setFirstName('Updated');
+$agent->setFirstName('Jonathan');
+$agent->setCivility('MR');
 $manager->saveAgent($agent);
 ```
 

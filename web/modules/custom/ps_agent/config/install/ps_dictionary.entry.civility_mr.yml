@@ -1,0 +1,9 @@
+id: civility_mr
+dictionary_type: civility
+code: MR
+label: "Mr."
+description: "Mister"
+weight: 0
+status: true
+deprecated: false
+metadata: {}

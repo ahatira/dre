@@ -1,3 +1,10 @@
+ps_agent.collection:
+  title: "Agents"
+  description: "Manage commercial agents"
+  route_name: "ps_agent.collection"
+  parent: "ps.admin_content"
+  weight: 35
+
 entity.agent_type.collection:
   title: "Agent Types"
   description: "Manage agent type bundles"

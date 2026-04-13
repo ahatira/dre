@@ -2,39 +2,10 @@
 
 /**
  * @file
+ * PropertySearch Agent module hooks and integrations.
+ *
+ * Hooks are implemented in OOP style via src/Hook/* classes with
+ * #[Hook(...)] attributes (Drupal 11+).
  */
 
 declare(strict_types=1);
-
-/**
- * @file
- * Hooks for ps_agent module.
- */
-
-/**
- * Implements hook_entity_type_alter().
- */
-function ps_agent_entity_type_alter(array &$entity_types): void {
-  // Ensure the agent entity has the correct bundle class.
-  if (isset($entity_types['agent'])) {
-    $entity_types['agent']->set('bundle_entity_type', 'agent_type');
-  }
-}
-
-/**
- * Implements hook_theme().
- */
-function ps_agent_theme(): array {
-  return [
-    'agent' => [
-      'render element' => 'elements',
-    ],
-  ];
-}
-
-/**
- * Prepares variables for agent templates.
- */
-function template_preprocess_agent(&$variables): void {
-  $variables['agent'] = $variables['elements']['#agent'];
-}

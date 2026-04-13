@@ -1,0 +1,9 @@
+id: civility_ms
+dictionary_type: civility
+code: MS
+label: "Ms."
+description: "Miss/Ms."
+weight: 1
+status: true
+deprecated: false
+metadata: {}
