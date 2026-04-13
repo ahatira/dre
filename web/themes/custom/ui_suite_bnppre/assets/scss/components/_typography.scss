@@ -1,20 +1,21 @@
 // =============================================================================
 // BNP Paribas Real Estate — Typography scale (headings + paragraphs)
-// Responsive: Mobile-first, Desktop @media min-width 768px
+// Responsive: Mobile-first, Bootstrap 5 tokens from _variables.scss
 // =============================================================================
 
 // -----------------------------------------------------------------------------
 // Headings — Mobile first, then Desktop overrides
+// Consumes: $h{n}-font-size-mobile, $h{n}-font-size-desktop, $h{n}-line-height
+//           $font-family-headings, $headings-font-weight
 // -----------------------------------------------------------------------------
 h1, .h1 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 52px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h1-font-size-mobile;
+  line-height: $h1-line-height;
 
   @media (min-width: 768px) {
-    font-size: 48px;
-    line-height: 60px;
+    font-size: $h1-font-size-desktop;
   }
 
   &.fw-bold, strong, b {
@@ -23,14 +24,13 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 44px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h2-font-size-mobile;
+  line-height: $h2-line-height;
 
   @media (min-width: 768px) {
-    font-size: 44px;
-    line-height: 44px;
+    font-size: $h2-font-size-desktop;
   }
 
   &.fw-bold, strong, b {
@@ -39,14 +39,13 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 40px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h3-font-size-mobile;
+  line-height: $h3-line-height;
 
   @media (min-width: 768px) {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: $h3-font-size-desktop;
   }
 
   &.fw-bold, strong, b {
@@ -55,10 +54,10 @@ h3, .h3 {
 }
 
 h4, .h4 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 30px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h4-font-size;
+  line-height: $h4-line-height;
 
   &.fw-bold, strong, b {
     font-weight: 700;
@@ -66,10 +65,10 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h5-font-size;
+  line-height: $h5-line-height;
 
   &.fw-bold, strong, b {
     font-weight: 700;
@@ -77,10 +76,10 @@ h5, .h5 {
 }
 
 h6, .h6 {
-  font-family: 'BNPP Sans', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
+  font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
+  font-size: $h6-font-size;
+  line-height: $h6-line-height;
 
   &.fw-bold, strong, b {
     font-weight: 700;
@@ -88,33 +87,36 @@ h6, .h6 {
 }
 
 // -----------------------------------------------------------------------------
-// Paragraph styles
+// Paragraph styles — Consumes: $paragraph-*-font-size, $paragraph-line-height
+//                             $font-family-condensed, $font-family-body
+// Semantic classes: .paragraph-big (lead), .paragraph-small (small/secondary)
+// Default: body/p use $font-family-body with $paragraph-font-size
 // -----------------------------------------------------------------------------
 
-// Paragraph Big
+// Paragraph Big (lead / highlight)
 .paragraph-big,
 p.lead {
-  font-family: 'BNPP Sans Condensed', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  font-family: $font-family-condensed;
+  font-weight: $body-font-weight;
+  font-size: $paragraph-big-font-size;
+  line-height: $paragraph-line-height;
 }
 
 // Paragraph Regular (default body text)
 body,
 p {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
+  font-family: $font-family-body;
+  font-weight: $body-font-weight;
+  font-size: $paragraph-font-size;
+  line-height: $paragraph-line-height;
 }
 
-// Paragraph Small
+// Paragraph Small (fine print / secondary)
 .paragraph-small,
 small,
 .small {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
+  font-family: $font-family-body;
+  font-weight: $body-font-weight;
+  font-size: $paragraph-small-font-size;
+  line-height: $paragraph-line-height;
 }

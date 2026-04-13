@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_block
+  theme:
+    - ui_suite_bnppre
+id: ui_suite_bnppre_footer_copyright
+theme: ui_suite_bnppre
+region: footer_bottom
+weight: 20
+provider: null
+plugin: ps_block_footer_copyright_block
+settings:
+  id: ps_block_footer_copyright_block
+  label: Copyright
+  label_display: '0'
+  provider: ps_block
+  copyright: '© BNP Paribas Real Estate'
+visibility: {  }

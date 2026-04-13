@@ -18,7 +18,7 @@
     gap: 1.75rem;
 
     > .ps-footer__column,
-    > .block {
+    > * {
       min-width: 0;
       margin: 0;
     }
@@ -29,15 +29,19 @@
       gap: 1.75rem;
     }
 
-    .ps-footer__column > .block {
+    .ps-footer__column > * {
       margin: 0;
     }
 
-    .block > h2,
-    .block > .block-title {
+    .ps-footer__column > * > h2,
+    .ps-footer__column > * > h4,
+    .ps-footer__column > * > .block-title,
+    > * > h2,
+    > * > h4,
+    > * > .block-title {
       margin: 0 0 .9rem;
       color: $bnppre-gray-1;
-      font-weight: 700;
+      font-weight: 400;
       font-size: clamp(1.6rem, 2vw, 2.2rem);
       line-height: 1.15;
     }
@@ -74,6 +78,35 @@
       align-items: baseline;
     }
 
+    .ps-footer-contact__line-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: $bnppre-primary;
+      font-weight: 600;
+    }
+
+    .ps-footer-contact__social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: $bnppre-gray-1;
+      font-weight: 600;
+    }
+
+    .ps-footer-contact__line-link svg,
+    .ps-footer-contact__social-link svg {
+      flex: 0 0 auto;
+    }
+
+    .ps-footer-contact__line-link--phone svg {
+      margin-left: .15rem;
+    }
+
+    .ps-footer-contact__line-link--email {
+      gap: .6rem;
+    }
+
     .ps-footer-contact__line--email {
       margin-top: .4rem;
     }
@@ -92,12 +125,39 @@
     .ps-footer-contact__social {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.35rem;
       flex-wrap: wrap;
+    }
+
+    .ps-footer__column[data-ps-footer-column='0'] {
+      gap: 2.35rem;
+    }
+
+    .block-social-media-links-block {
+      .social-media-links--platforms {
+        display: flex;
+        align-items: center;
+        gap: 1.35rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .social-media-links--platforms.horizontal li {
+        display: block;
+        padding: 0;
+      }
+
+      .social-media-links--platforms a {
+        color: $bnppre-gray-1;
+        font-weight: 600;
+        line-height: 1;
+      }
     }
 
     .ps-footer-contact__social-link {
       font-weight: 600;
+      line-height: 1;
     }
 
     a {
@@ -124,35 +184,55 @@
 
   &__bottom-inner {
     display: grid;
-    grid-template-columns: minmax(12rem, auto) minmax(18rem, 1fr) minmax(9rem, auto);
+    grid-template-columns: minmax(9rem, auto) minmax(18rem, 1fr) minmax(9rem, auto);
     align-items: center;
     gap: 1rem 2rem;
 
-    > .block {
+    > * {
       margin: 0;
+      min-width: 0;
     }
 
-    > .block:nth-child(2) {
+    > :nth-child(2) {
       justify-self: center;
       width: 100%;
     }
 
-    > .block:last-child {
+    > :last-child  {
       justify-self: end;
       color: $bnppre-gray-3;
       font-size: .95rem;
+      font-weight: 100;
       white-space: nowrap;
     }
 
     .menu {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: flex-start;
       justify-content: center;
       gap: .5rem 1.35rem;
       margin: 0;
       padding: 0;
       list-style: none;
+    }
+
+    .menu.navbar-nav {
+      flex-direction: row;
+    }
+
+    .menu .nav-item {
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu .nav-link {
+      padding: 0;
+    }
+
+    .menu li + li {
+      margin-top: 0;
     }
 
     .menu a {
@@ -190,12 +270,12 @@
       display: block;
 
       > .ps-footer__column,
-      > .block {
+      > * {
         padding: 0;
       }
 
       > .ps-footer__column + .ps-footer__column,
-      > .block + .block {
+      > * + * {
         margin-top: 1.25rem;
       }
 
@@ -203,8 +283,12 @@
         gap: 1rem;
       }
 
-      .block > h2,
-      .block > .block-title {
+      .ps-footer__column > * > h2,
+      .ps-footer__column > * > h4,
+      .ps-footer__column > * > .block-title,
+      > * > h2,
+      > * > h4,
+      > * > .block-title {
         margin-bottom: .75rem;
         font-size: clamp(2rem, 8vw, 2.4rem);
       }
@@ -264,12 +348,12 @@
       align-items: flex-start;
       gap: 1rem;
 
-      > .block:nth-child(2),
-      > .block:last-child {
+      > :nth-child(2),
+      > :last-child {
         justify-self: start;
       }
 
-      > .block:last-child {
+      > :last-child {
         white-space: normal;
       }
 
@@ -278,7 +362,7 @@
       }
 
       .menu li + li {
-        margin-top: .8rem;
+        margin-top: 1.3rem;
       }
     }
   }

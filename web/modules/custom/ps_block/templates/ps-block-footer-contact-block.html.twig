@@ -1,0 +1,18 @@
+<div class="ps-footer-contact">
+	{% for contact in contacts %}
+		<div class="ps-footer-contact__line">
+			<span class="ps-footer-contact__line-label">{{ contact.label }}</span>
+			<a class="ps-footer-contact__line-link ps-footer-contact__line-link--phone" href="{{ contact.uri }}">
+				<span>{{ contact.value }}</span>
+				{{ icon('bnppre', 'phone', { size: '20px' }) }}
+			</a>
+		</div>
+	{% endfor %}
+
+	<div class="ps-footer-contact__line ps-footer-contact__line--email">
+		<a class="ps-footer-contact__line-link ps-footer-contact__line-link--email" href="{{ email.uri }}">
+			{{ icon('bnppre', 'mail', { size: '20px' }) }}
+			<span>{{ email.value }}</span>
+		</a>
+	</div>
+</div>

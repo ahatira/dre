@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * PS block module hooks.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function ps_block_theme(): array {
+  return [
+    'ps_block_footer_contact_block' => [
+      'variables' => [
+        'contacts' => [],
+        'email' => [],
+      ],
+      'template' => 'ps-block-footer-contact-block',
+    ],
+    'ps_block_footer_copyright_block' => [
+      'variables' => [
+        'copyright' => '',
+      ],
+      'template' => 'ps-block-footer-copyright-block',
+    ],
+  ];
+}

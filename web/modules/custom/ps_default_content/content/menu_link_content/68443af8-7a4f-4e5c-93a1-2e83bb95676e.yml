@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 68443af8-7a4f-4e5c-93a1-2e83bb95676e
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Offices in COUNTRY1'
+  menu_name:
+    -
+      value: footer_business_websites
+  link:
+    -
+      uri: 'internal:/business-websites/offices-available-1'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false

@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 5688e938-5930-498e-8093-9793e05dba03
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Suppliers: BNP Paribas is committed to its partners and suppliers'
+  menu_name:
+    -
+      value: footer
+  link:
+    -
+      uri: 'internal:/partners-and-suppliers'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 3
+  expanded:
+    -
+      value: false

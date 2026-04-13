@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: e77e3f0d-ba76-46aa-a22e-9ec445ee36a9
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Offices and Industrial'
+  menu_name:
+    -
+      value: footer_business_websites
+  link:
+    -
+      uri: 'internal:/business-websites/discover-our-offices-and-industrial-available'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 2
+  expanded:
+    -
+      value: false

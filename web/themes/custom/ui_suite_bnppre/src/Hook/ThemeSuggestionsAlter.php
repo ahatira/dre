@@ -72,4 +72,18 @@ class ThemeSuggestionsAlter
             $suggestions[] = $variables['context']['usb_suggestion'];
         }
     }
+
+    /**
+     * Implements hook_theme_suggestions_HOOK_alter().
+     */
+    #[Hook('theme_suggestions_block_alter')]
+    public function block(array &$suggestions, array $variables): void
+    {
+        $region = $variables['elements']['#configuration']['region'] ?? '';
+        if (!\in_array($region, ['footer_top', 'footer_bottom'], true)) {
+            return;
+        }
+
+        $suggestions[] = 'block__footer';
+    }
 }

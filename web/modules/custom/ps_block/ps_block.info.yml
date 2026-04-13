@@ -1,0 +1,10 @@
+name: 'PS Block'
+description: 'Footer blocks for contact and copyright, plus social follow block placement.'
+type: module
+core_version_requirement: '^11'
+package: 'PropertySearch'
+
+dependencies:
+  - drupal:block
+  - drupal:social_media_links
+  - drupal:ui_icons

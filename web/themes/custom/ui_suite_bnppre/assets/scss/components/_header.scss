@@ -60,6 +60,9 @@ $ps-header-motion-ease: ease;
   }
 
   &__brand {
+    display: flex;
+    align-items: center;
+
     > div {
       display: flex;
       align-items: center;

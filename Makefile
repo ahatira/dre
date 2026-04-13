@@ -11,7 +11,7 @@ THEME_DIR := $(PROJECT_ROOT)/web/themes/custom/ui_suite_bnppre
 	composer-install composer-update composer-require composer-remove composer-validate \
 	default-content-export default-content-export-references \
 	default-content-export-module default-content-export-module-references \
-	default-content-export-main-menu
+	default-content-export-main-menu default-content-export-footer-menus
 
 help:
 	@echo "Available targets:"
@@ -36,6 +36,8 @@ help:
 	@echo "                         - Export entities+references listed in <module>.info.yml"
 	@echo "  default-content-export-main-menu"
 	@echo "                         - Build/update main menu tree and export in ps_default_content"
+	@echo "  default-content-export-footer-menus"
+	@echo "                         - Export footer menus links in ps_default_content"
 	@echo "  composer-install        - Install PHP dependencies"
 	@echo "  composer-update         - Update PHP dependencies"
 	@echo "  composer-require PKG=   - Require a composer package"
@@ -125,3 +127,6 @@ default-content-export-module-references:
 
 default-content-export-main-menu:
 	@bash scripts/export-main-menu-default-content.sh
+
+default-content-export-footer-menus:
+	@bash scripts/export-footer-menus-default-content.sh

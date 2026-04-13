@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.main
+    - system.menu.footer_business_websites
   module:
     - system
   theme:
@@ -12,9 +12,9 @@ theme: ui_suite_bnppre
 region: footer_top
 weight: 100
 provider: null
-plugin: 'system_menu_block:main'
+plugin: 'system_menu_block:footer_business_websites'
 settings:
-  id: 'system_menu_block:main'
+  id: 'system_menu_block:footer_business_websites'
   label: 'Business websites'
   label_display: visible
   provider: system

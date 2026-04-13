@@ -1,0 +1,8 @@
+uuid: edfee738-dcec-48c4-a3ee-5c6c51caf766
+langcode: en
+status: true
+dependencies: {  }
+id: footer_business_websites
+label: 'Business websites'
+description: ''
+locked: false

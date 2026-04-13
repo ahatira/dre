@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_block
+  theme:
+    - ui_suite_bnppre
+id: ui_suite_bnppre_footer_top_contact
+theme: ui_suite_bnppre
+region: footer_top
+weight: 0
+provider: null
+plugin: ps_block_footer_contact_block
+settings:
+  id: ps_block_footer_contact_block
+  label: 'Contact us'
+  label_display: visible
+  provider: ps_block
+  city_1_label: 'City 1 :'
+  city_1_value: '+32 2 646 49 49'
+  city_1_uri: 'tel:+3226464949'
+  city_2_label: 'City 2 :'
+  city_2_value: '+32 2 646 49 49'
+  city_2_uri: 'tel:+3226464949'
+  email_value: contact.web@realestate.bnpparibas
+  email_uri: 'mailto:contact.web@realestate.bnpparibas'
+visibility: {  }

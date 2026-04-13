@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: bf363b94-5cd5-4d30-af41-99b2c232d85a
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Whistleblowing
+  menu_name:
+    -
+      value: footer
+  link:
+    -
+      uri: 'https://secure.ethicspoint.eu/domain/media/en/gui/110837/index.html'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 6
+  expanded:
+    -
+      value: false

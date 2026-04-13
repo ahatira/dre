@@ -26,6 +26,7 @@ DRUPAL_CLASSIC_MODULES=(
   metatag
   redirect
   simple_sitemap
+  social_media_links
 )
 
 TOOLBAR_CLASSIC_MODULES=(
@@ -78,6 +79,7 @@ FAVORITES_MODULES=(
 
 PS_CUSTOM_MODULES=(
   ps
+  ps_block
   ps_dictionary
   ps_agent
   ps_price

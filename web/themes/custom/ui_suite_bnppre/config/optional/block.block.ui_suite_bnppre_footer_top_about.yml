@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.tools
+    - system.menu.footer_about_bnppre
   module:
     - system
   theme:
@@ -12,13 +12,13 @@ theme: ui_suite_bnppre
 region: footer_top
 weight: 200
 provider: null
-plugin: 'system_menu_block:tools'
+plugin: 'system_menu_block:footer_about_bnppre'
 settings:
-  id: 'system_menu_block:tools'
+  id: 'system_menu_block:footer_about_bnppre'
   label: 'About BNP Paribas Real Estate'
   label_display: visible
   provider: system
   level: 1
-  depth: 0
+  depth: 1
   expand_all_items: false
 visibility: {  }

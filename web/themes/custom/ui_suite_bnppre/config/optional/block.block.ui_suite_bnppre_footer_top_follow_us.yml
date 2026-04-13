@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_block
+    - social_media_links
+  theme:
+    - ui_suite_bnppre
+id: ui_suite_bnppre_footer_top_follow_us
+theme: ui_suite_bnppre
+region: footer_top
+weight: 1
+provider: null
+plugin: social_media_links_block
+settings:
+  id: social_media_links_block
+  label: 'Follow us'
+  label_display: visible
+  provider: social_media_links
+  platforms:
+    linkedin:
+      value: company/bnp-paribas-real-estate
+      description: 'Follow us on LinkedIn'
+      weight: 0
+  appearance:
+    orientation: h
+    show_name: false
+    suggestion: ''
+  link_attributes:
+    target: _blank
+    rel: nofollow
+  iconset:
+    style: bnppre:20
+visibility: {  }

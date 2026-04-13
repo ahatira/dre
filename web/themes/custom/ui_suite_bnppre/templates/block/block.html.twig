@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Footer regions use h4 titles, other regions keep h2.
+ */
+#}
+{% set block_id = elements['#id']|default(attributes.id|default('')) %}
+{% set is_footer_block = block_id and ('footer_top' in block_id or 'footer_bottom' in block_id or 'footer-top' in block_id or 'footer-bottom' in block_id) %}
+{% set heading_tag = is_footer_block ? 'h4' : 'h2' %}
+<div{{attributes}}>
+	{{ title_prefix }}
+	{% if label %}
+		<{{heading_tag}}{{title_attributes.addClass('block-title')}}>{{ label }}</{{heading_tag}}>
+	{% endif %}
+	{{ title_suffix }}
+	{% block content %}
+		{{ content }}
+	{% endblock %}
+</div>

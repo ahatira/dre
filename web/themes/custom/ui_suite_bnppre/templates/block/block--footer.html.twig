@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for footer blocks.
+ *
+ * Forces footer block titles to use h4 for semantic hierarchy.
+ */
+#}
+<div{{attributes}}>
+	{{ title_prefix }}
+	{% if label %}
+		<h4{{title_attributes.addClass('block-title')}}>{{ label }}</h4>
+	{% endif %}
+	{{ title_suffix }}
+	{% block content %}
+		{{ content }}
+	{% endblock %}
+</div>

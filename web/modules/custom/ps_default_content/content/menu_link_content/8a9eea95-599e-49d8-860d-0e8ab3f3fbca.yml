@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 8a9eea95-599e-49d8-860d-0e8ab3f3fbca
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Data protection'
+  menu_name:
+    -
+      value: footer
+  link:
+    -
+      uri: 'https://data-privacy.realestate.bnpparibas/'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false

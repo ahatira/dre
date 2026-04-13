@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: b1d0a920-1310-41a6-8b0d-5d3de8e44b02
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Complaints Customer Service'
+  menu_name:
+    -
+      value: footer
+  link:
+    -
+      uri: 'internal:/complaints-customer-service'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 5
+  expanded:
+    -
+      value: false

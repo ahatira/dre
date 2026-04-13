@@ -53,6 +53,7 @@ make default-content-export-module MODULE=ps_default_content
 make default-content-export-module-references MODULE=ps_default_content
 
 make default-content-export-main-menu
+make default-content-export-footer-menus
 ```
 
 ## Initialisation du menu principal
@@ -70,6 +71,21 @@ Commande recommandee:
 make default-content-export-main-menu
 ```
 
+## Export des menus footer
+
+Le script `scripts/export-footer-menus-default-content.sh`:
+
+1. Lit les liens des menus `footer_business_websites`, `footer_about_bnppre` et `footer`.
+2. Exporte chaque lien avec `default-content:export`.
+3. Ecrit les fichiers dans:
+  - `web/modules/custom/ps_default_content/content/menu_link_content/`
+
+Commande recommandee:
+
+```bash
+make default-content-export-footer-menus
+```
+
 ## Import sur environnement cible
 
 Activation des modules:
@@ -82,5 +98,6 @@ Le hook `default_content_modules_installed()` importe automatiquement les YAML d
 
 ## Notes de maintenance
 
-- Si vous modifiez le menu dans l'admin, relancez `make default-content-export-main-menu` puis committez les YAML.
+- Si vous modifiez le menu principal dans l'admin, relancez `make default-content-export-main-menu` puis committez les YAML.
+- Si vous modifiez les menus footer dans l'admin, relancez `make default-content-export-footer-menus` puis committez les YAML.
 - Garder ce module concentre sur du contenu de reference (menus, contenus de base), pas de logique metier.

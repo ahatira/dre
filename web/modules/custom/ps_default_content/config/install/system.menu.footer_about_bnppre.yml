@@ -1,0 +1,8 @@
+uuid: b37443cd-1b6c-4518-8f7c-f69d3a3fe628
+langcode: en
+status: true
+dependencies: {  }
+id: footer_about_bnppre
+label: 'About BNP Paribas Real Estate'
+description: ''
+locked: false

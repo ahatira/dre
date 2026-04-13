@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Theme override for system menu block.
+ *
+ * Footer regions use h4 titles, other regions keep h2.
+ */
+#}
+{% set heading_id = attributes.id ~ '-menu'|clean_id %}
+{% set block_id = elements['#id']|default(attributes.id|default('')) %}
+{% set is_footer_block = block_id and ('footer_top' in block_id or 'footer_bottom' in block_id or 'footer-top' in block_id or 'footer-bottom' in block_id) %}
+{% set heading_tag = is_footer_block ? 'h4' : 'h2' %}
+<nav role="navigation" aria-labelledby="{{ heading_id }}" {{ attributes|without('role', 'aria-labelledby') }}>
+	{% if not configuration.label_display %}
+		{% set title_attributes = title_attributes.addClass('visually-hidden') %}
+	{% endif %}
+	{{ title_prefix }}
+	<{{heading_tag}}{{title_attributes.setAttribute('id',heading_id)}}>{{ configuration.label }}</{{heading_tag}}>
+	{{ title_suffix }}
+
+	{% block content %}
+		{{ content }}
+	{% endblock %}
+</nav>

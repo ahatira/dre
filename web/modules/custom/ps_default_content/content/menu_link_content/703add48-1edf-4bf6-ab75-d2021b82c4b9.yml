@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 703add48-1edf-4bf6-ab75-d2021b82c4b9
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Warehouse and Logistics'
+  menu_name:
+    -
+      value: footer_business_websites
+  link:
+    -
+      uri: 'internal:/business-websites/logistics-warehouses-available'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 3
+  expanded:
+    -
+      value: false
