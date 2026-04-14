@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="PS Theme Drupal">
+  <description>Workspace PHPCS ruleset for Drupal custom code.</description>
+
+  <arg name="extensions" value="php,module,inc,install,theme,profile"/>
+  <arg name="colors"/>
+
+  <file>web/modules/custom</file>
+  <file>web/themes/custom</file>
+
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/web/core/*</exclude-pattern>
+  <exclude-pattern>*/web/modules/contrib/*</exclude-pattern>
+  <exclude-pattern>*/web/themes/contrib/*</exclude-pattern>
+
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+</ruleset>
