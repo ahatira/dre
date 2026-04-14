@@ -12,6 +12,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
     ],
     "require": {
@@ -42,6 +46,7 @@
         "drupal/metatag": "^2.2",
         "drupal/paragraphs": "^1.20",
         "drupal/pathauto": "^1.14",
+        "drupal/phone_international": "^4.0",
         "drupal/redirect": "^1.12",
         "drupal/search_api": "^1.40",
         "drupal/simple_sitemap": "^4.2",
@@ -51,7 +56,9 @@
         "drupal/ui_patterns": "^2.0",
         "drupal/ui_styles": "^1.19",
         "drupal/webform": "^6.3@beta",
-        "drush/drush": "^13.7"
+        "drush/drush": "^13.7",
+        "npm-asset/intl-tel-input": "^25.3",
+        "oomphinc/composer-installers-extender": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -61,6 +68,7 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true,
+            "oomphinc/composer-installers-extender": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-recipe-unpack": true,
             "drupal/core-project-message": true,
@@ -77,12 +85,18 @@
                 "web-root": "web/"
             }
         },
+        "installer-types": [
+            "npm-asset",
+            "bower-asset"
+        ],
         "installer-paths": {
             "web/core": [
                 "type:drupal-core"
             ],
             "web/libraries/{$name}": [
-                "type:drupal-library"
+                "type:drupal-library",
+                "type:npm-asset",
+                "type:bower-asset"
             ],
             "web/modules/contrib/{$name}": [
                 "type:drupal-module"

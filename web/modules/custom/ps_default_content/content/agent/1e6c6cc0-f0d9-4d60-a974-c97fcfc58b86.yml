@@ -1,0 +1,48 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 1e6c6cc0-f0d9-4d60-a974-c97fcfc58b86
+  bundle: agent
+  default_langcode: en
+  depends:
+    c5dc2d92-e184-4d78-aed0-c617dec10d69: file
+default:
+  type:
+    -
+      target_id: agent
+  civility:
+    -
+      value: MS
+  first_name:
+    -
+      value: Sophia
+  last_name:
+    -
+      value: Dacosta
+  email:
+    -
+      value: sophia.dacosta@example.com
+  phone:
+    -
+      value: '+33762896128'
+  avatar:
+    -
+      entity: c5dc2d92-e184-4d78-aed0-c617dec10d69
+      alt: 'Sophia Dacosta'
+      title: ''
+      width: 204
+      height: 148
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/sophia-dacosta
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776178322
+  uid:
+    -
+      target_id: 1

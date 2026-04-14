@@ -7,8 +7,8 @@ dependencies:
   module:
     - image
     - path
+    - phone_international
     - ps_dictionary
-    - telephone
     - user
 id: agent.agent.default
 targetEntityType: agent
@@ -44,10 +44,9 @@ content:
     weight: 3
     region: content
   phone:
-    type: telephone_link
+    type: phone_international_formatter
     label: above
-    settings:
-      title: ''
+    settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content

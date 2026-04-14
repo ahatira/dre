@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 100f7553-5f5c-49af-9289-e81f7e14e6d9
+  bundle: agent
+  default_langcode: en
+default:
+  type:
+    -
+      target_id: agent
+  civility:
+    -
+      value: MS
+  first_name:
+    -
+      value: Cassandra
+  last_name:
+    -
+      value: 'LE MOIGNE'
+  email:
+    -
+      value: cassandra.lemoigne@exemple.com
+  phone:
+    -
+      value: '+33187586554'
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/cassandra-le-moigne
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776180791
+  uid:
+    -
+      target_id: 1

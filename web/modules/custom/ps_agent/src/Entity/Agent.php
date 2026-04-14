@@ -320,19 +320,30 @@ final class Agent extends ContentEntityBase implements AgentInterface
         ])
         ->setDisplayConfigurable('form', true);
 
-        $fields['phone'] = BaseFieldDefinition::create('telephone')
+        $fields['phone'] = BaseFieldDefinition::create('phone_international')
         ->setLabel(new TranslatableMarkup('Phone'))
-        ->setDescription(new TranslatableMarkup('BO-protected field'))
+        ->setDescription(new TranslatableMarkup('BO-protected field with international validation'))
         ->setTranslatable(false)
         ->setDisplayOptions('view', [
         'label' => 'inline',
-        'type' => 'telephone_link',
+        'type' => 'phone_international_formatter',
         'weight' => 3,
+        'settings' => [],
         ])
         ->setDisplayConfigurable('view', true)
         ->setDisplayOptions('form', [
-        'type' => 'telephone_default',
+        'type' => 'phone_international_widget',
         'weight' => 3,
+        'settings' => [
+          'initial_country' => 'FR',
+          'preferred_countries' => ['FR', 'BE', 'CH', 'LU'],
+          'countries' => 'all',
+          'exclude_countries' => [],
+          'geolocation' => false,
+          'dial_code' => false,
+          'auto_placeholder' => 'polite',
+          'national_number' => false,
+        ],
         ])
         ->setDisplayConfigurable('form', true);
 

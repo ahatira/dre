@@ -214,15 +214,15 @@ display:
           multi_type: separator
           separator: ", "
           field_api_classes: false
-        reference:
-          id: reference
+        external_id:
+          id: external_id
           table: agent_field_data
-          field: reference
+          field: external_id
           relationship: none
           group_type: group
           admin_label: ""
           entity_type: agent
-          entity_field: reference
+          entity_field: external_id
           plugin_id: field
           label: Reference
           exclude: false
@@ -437,29 +437,27 @@ display:
       sorts: {}
       arguments: {}
       filters:
-        first_name:
-          id: first_name
-          table: agent_field_data
-          field: first_name
+        combine:
+          id: combine
+          table: views
+          field: combine
           relationship: none
           group_type: group
           admin_label: ""
-          entity_type: agent
-          entity_field: first_name
-          plugin_id: string
+          plugin_id: combine
           operator: contains
           value: ""
           group: 1
           exposed: true
           expose:
-            operator_id: first_name_op
-            label: "First Name"
+            operator_id: combine_op
+            label: "Full Name"
             description: ""
             use_operator: false
-            operator: first_name_op
+            operator: combine_op
             operator_limit_selection: false
             operator_list: {}
-            identifier: first_name
+            identifier: full_name
             required: false
             remember: false
             multiple: false
@@ -478,47 +476,9 @@ display:
             default_group: All
             default_group_multiple: {}
             group_items: {}
-        last_name:
-          id: last_name
-          table: agent_field_data
-          field: last_name
-          relationship: none
-          group_type: group
-          admin_label: ""
-          entity_type: agent
-          entity_field: last_name
-          plugin_id: string
-          operator: contains
-          value: ""
-          group: 1
-          exposed: true
-          expose:
-            operator_id: last_name_op
-            label: "Last Name"
-            description: ""
-            use_operator: false
-            operator: last_name_op
-            operator_limit_selection: false
-            operator_list: {}
-            identifier: last_name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ""
-          is_grouped: false
-          group_info:
-            label: ""
-            description: ""
-            identifier: ""
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {}
-            group_items: {}
+          fields:
+            first_name: first_name
+            last_name: last_name
         email:
           id: email
           table: agent_field_data
@@ -542,6 +502,47 @@ display:
             operator_limit_selection: false
             operator_list: {}
             identifier: email
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ""
+          is_grouped: false
+          group_info:
+            label: ""
+            description: ""
+            identifier: ""
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {}
+            group_items: {}
+        external_id:
+          id: external_id
+          table: agent_field_data
+          field: external_id
+          relationship: none
+          group_type: group
+          admin_label: ""
+          entity_type: agent
+          entity_field: external_id
+          plugin_id: string
+          operator: contains
+          value: ""
+          group: 1
+          exposed: true
+          expose:
+            operator_id: external_id_op
+            label: Reference
+            description: ""
+            use_operator: false
+            operator: external_id_op
+            operator_limit_selection: false
+            operator_list: {}
+            identifier: reference
             required: false
             remember: false
             multiple: false

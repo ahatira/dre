@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 4b677a49-4ea8-468d-8d51-3a167535b9cf
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: pia.dugon_.jpg
+  uri:
+    -
+      value: 'public://2026-04/pia.dugon_.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 74582
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1776180664

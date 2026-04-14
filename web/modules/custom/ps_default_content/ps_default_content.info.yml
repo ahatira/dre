@@ -8,6 +8,7 @@ php: 8.3
 dependencies:
   - drupal:menu_link_content
   - drupal:default_content
+  - ps_agent:ps_agent
 
 default_content:
   menu_link_content:
@@ -58,3 +59,9 @@ default_content:
     - eb25871a-c946-4424-a18c-9b1885c3cc10
     - b1d0a920-1310-41a6-8b0d-5d3de8e44b02
     - bf363b94-5cd5-4d30-af41-99b2c232d85a
+  agent:
+    - 1e6c6cc0-f0d9-4d60-a974-c97fcfc58b86
+    - 803511a1-cd7d-4023-8fac-43941dc8c923
+    - 00e609b4-52b8-4c61-a151-778de607f294
+    - 100f7553-5f5c-49af-9289-e81f7e14e6d9
+    - 974b3351-d119-45af-bc85-04de15f701c1

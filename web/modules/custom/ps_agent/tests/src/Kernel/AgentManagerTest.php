@@ -20,7 +20,7 @@ class AgentManagerTest extends EntityKernelTestBase {
   protected static $modules = [
     'ps',
     'ps_dictionary',
-    'telephone',
+    'phone_international',
     'ps_agent',
   ];
 

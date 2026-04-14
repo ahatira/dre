@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: c5dc2d92-e184-4d78-aed0-c617dec10d69
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: sophia.dacosta.jpg
+  uri:
+    -
+      value: 'public://2026-04/sophia.dacosta.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 9181
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1776180552

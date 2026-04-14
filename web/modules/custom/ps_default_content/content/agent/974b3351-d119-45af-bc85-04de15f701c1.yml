@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 974b3351-d119-45af-bc85-04de15f701c1
+  bundle: agent
+  default_langcode: en
+default:
+  type:
+    -
+      target_id: agent
+  civility:
+    -
+      value: MR
+  first_name:
+    -
+      value: Jerome
+  last_name:
+    -
+      value: LARROUSSE
+  email:
+    -
+      value: jerome.larousse@exemple.com
+  phone:
+    -
+      value: '+33187585299'
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/jerome-larrousse
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776180866
+  uid:
+    -
+      target_id: 1

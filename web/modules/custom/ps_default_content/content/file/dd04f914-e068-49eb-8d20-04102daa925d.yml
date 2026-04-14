@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: dd04f914-e068-49eb-8d20-04102daa925d
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'ALEXIS UNOULE.jpg'
+  uri:
+    -
+      value: 'public://2026-04/ALEXIS UNOULE.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 59647
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1776180764

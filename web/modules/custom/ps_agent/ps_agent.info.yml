@@ -8,7 +8,7 @@ dependencies:
   - drupal:user
   - drupal:field
   - drupal:text
-  - drupal:telephone
+  - phone_international:phone_international
   - drupal:image
   - drupal:views
   - drupal:path

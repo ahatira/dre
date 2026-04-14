@@ -1,0 +1,48 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 00e609b4-52b8-4c61-a151-778de607f294
+  bundle: agent
+  default_langcode: en
+  depends:
+    dd04f914-e068-49eb-8d20-04102daa925d: file
+default:
+  type:
+    -
+      target_id: agent
+  civility:
+    -
+      value: MR
+  first_name:
+    -
+      value: Alexis
+  last_name:
+    -
+      value: UNOULE
+  email:
+    -
+      value: alexis.unoule@exemple.com
+  phone:
+    -
+      value: '+33187585467'
+  avatar:
+    -
+      entity: dd04f914-e068-49eb-8d20-04102daa925d
+      alt: 'Alexis UNOULE'
+      title: ''
+      width: 800
+      height: 800
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/alexis-unoule
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776180697
+  uid:
+    -
+      target_id: 1

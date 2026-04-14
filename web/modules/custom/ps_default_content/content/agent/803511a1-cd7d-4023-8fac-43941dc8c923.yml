@@ -1,0 +1,48 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 803511a1-cd7d-4023-8fac-43941dc8c923
+  bundle: agent
+  default_langcode: en
+  depends:
+    4b677a49-4ea8-468d-8d51-3a167535b9cf: file
+default:
+  type:
+    -
+      target_id: agent
+  civility:
+    -
+      value: MS
+  first_name:
+    -
+      value: Pia
+  last_name:
+    -
+      value: DUGON
+  email:
+    -
+      value: pia.dugon@exemple.com
+  phone:
+    -
+      value: '+33187585396'
+  avatar:
+    -
+      entity: 4b677a49-4ea8-468d-8d51-3a167535b9cf
+      alt: 'Pia DUGON'
+      title: ''
+      width: 800
+      height: 800
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/pia-dugon
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776180591
+  uid:
+    -
+      target_id: 1

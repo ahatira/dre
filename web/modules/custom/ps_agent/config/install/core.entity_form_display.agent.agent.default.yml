@@ -7,8 +7,8 @@ dependencies:
   module:
     - image
     - path
+    - phone_international
     - ps_dictionary
-    - telephone
     - user
 id: agent.agent.default
 targetEntityType: agent
@@ -44,10 +44,22 @@ content:
     settings: {  }
     third_party_settings: {  }
   phone:
-    type: telephone_default
+    type: phone_international_widget
     weight: 4
     region: content
-    settings: {  }
+    settings:
+      initial_country: FR
+      preferred_countries:
+        - FR
+        - BE
+        - CH
+        - LU
+      countries: all
+      exclude_countries: []
+      geolocation: false
+      dial_code: false
+      auto_placeholder: polite
+      national_number: false
     third_party_settings: {  }
   avatar:
     type: image_image

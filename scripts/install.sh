@@ -245,6 +245,25 @@ set_theme_config() {
   fi
 }
 
+configure_phone_international() {
+  if ! module_exists "phone_international"; then
+    echo "[install] skip phone configuration: module not found -> phone_international"
+    return
+  fi
+
+  local library_path="$PROJECT_ROOT/web/libraries/intl-tel-input"
+
+  if [[ -f "$library_path/build/js/intlTelInput.min.js" || -f "$library_path/build/js/intlTelInput.js" ]]; then
+    echo "[install] phone library already available -> $library_path"
+  else
+    log "Download local Phone International library"
+    "$DRUSH" phone_international:plugin "$library_path"
+  fi
+
+  log "Force Phone International local assets"
+  "$DRUSH" config:set phone_international.settings cdn 0 -y
+}
+
 ensure_favorites_header_block() {
   if ! module_exists "ps_favorites"; then
     echo "[install] skip favorites block placement: module not found -> ps_favorites"
@@ -303,6 +322,7 @@ enable_modules "Menu" "${MENU_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
 enable_modules_non_blocking "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
+configure_phone_international
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
 # Gin-related modules require Gin to be enabled/configured first.

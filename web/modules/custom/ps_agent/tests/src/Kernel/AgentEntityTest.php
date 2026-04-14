@@ -20,7 +20,7 @@ class AgentEntityTest extends EntityKernelTestBase {
   protected static $modules = [
     'ps',
     'ps_dictionary',
-    'telephone',
+    'phone_international',
     'ps_agent',
   ];
 
@@ -110,6 +110,28 @@ class AgentEntityTest extends EntityKernelTestBase {
 
     $agent->setActive(TRUE);
     $this->assertTrue($agent->isActive());
+  }
+
+  /**
+   * Tests international phone normalization.
+   */
+  public function testInternationalPhoneNormalization(): void {
+    /** @var \Drupal\phone_international\Helpers\PhoneNumberInterface $validator */
+    $validator = $this->container->get('phone_international.validate');
+
+    $this->assertTrue($validator->isValidNumber('+33 7 62 89 61 28'));
+    $this->assertSame('+33762896128', $validator->formatNumber('+33 7 62 89 61 28'));
+
+    $agent = Agent::create([
+      'type' => 'default',
+      'first_name' => 'Sophie',
+      'last_name' => 'Dacosta',
+      'phone' => '+33 7 62 89 61 28',
+    ]);
+    $agent->save();
+
+    $loaded = Agent::load($agent->id());
+    $this->assertSame('+33762896128', $loaded?->getPhone());
   }
 
 }
