@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Install hooks are intentionally empty.
+ *
+ * The ps_media module now installs from shipped configuration.
+ */
+

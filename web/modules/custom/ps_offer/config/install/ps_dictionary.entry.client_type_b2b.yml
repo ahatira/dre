@@ -1,0 +1,12 @@
+uuid: 9dc6259c-57cf-444c-b16d-bcf25664dd89
+langcode: en
+status: true
+dependencies: {  }
+id: client_type_b2b
+dictionary_type: client_type
+code: B2B
+label: B2B
+description: 'Business to business offers.'
+weight: 0
+deprecated: false
+metadata: {  }

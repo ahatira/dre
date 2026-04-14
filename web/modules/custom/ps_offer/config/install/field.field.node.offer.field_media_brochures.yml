@@ -1,0 +1,28 @@
+langcode: en
+uuid: 24b4c549-b0f0-4559-906a-3ec5d98546e9
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_brochures
+    - media.type.file
+    - node.type.offer
+id: node.offer.field_media_brochures
+field_name: field_media_brochures
+entity_type: node
+bundle: offer
+label: Brochures
+description: 'Brochures and commercial documents for the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      file: file
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

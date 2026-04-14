@@ -1,0 +1,12 @@
+uuid: ed6b1b80-b502-4a30-9f28-9dc65009a4bf
+langcode: en
+status: true
+dependencies: {  }
+id: client_type_b2c
+dictionary_type: client_type
+code: B2C
+label: B2C
+description: 'Business to consumer offers.'
+weight: 1
+deprecated: false
+metadata: {  }

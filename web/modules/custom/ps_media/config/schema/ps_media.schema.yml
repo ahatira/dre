@@ -1,0 +1,255 @@
+media.source.gallery:
+  type: media.source.field_aware
+  label: '"Gallery" media source configuration'
+  mapping:
+    source_field:
+      type: string
+      label: 'Source field'
+
+embed.embed_type_settings.entity:
+  type: mapping
+  label: 'Entity embed type settings with PS Media additions'
+  mapping:
+    entity_type:
+      type: string
+      label: 'Entity type'
+    bundles:
+      type: sequence
+      label: 'Bundles'
+      sequence:
+        type: string
+        label: 'Bundle'
+    display_plugins:
+      type: sequence
+      label: 'Allowed entity embed display plugins'
+      sequence:
+        type: string
+        label: 'Display plugin'
+    entity_browser:
+      type: string
+      label: 'Entity browser'
+    entity_browser_settings:
+      type: mapping
+      label: 'Entity browser settings'
+      mapping:
+        display_review:
+          type: boolean
+          label: 'Display review step'
+    inline_entity_form:
+      type: boolean
+      label: 'Enable inline entity form'
+    inline_entity_form_settings:
+      type: mapping
+      label: 'Inline entity form settings'
+      mapping:
+        entity_form_display:
+          type: string
+          label: 'Entity form display'
+        display_review:
+          type: boolean
+          label: 'Display review'
+
+field.field.media.gallery.field_media_gallery:
+  type: field_config_base
+  label: 'Gallery media items field'
+
+field.field.media.gallery.field_media_in_library:
+  type: field_config_base
+  label: 'Gallery media library visibility field'
+
+field.formatter.settings.ps_oembed:
+  type: mapping
+  label: 'PS oEmbed display format settings'
+  mapping:
+    max_width:
+      type: integer
+      label: 'Maximum width'
+    max_height:
+      type: integer
+      label: 'Maximum height'
+
+field.storage.media.*:
+  type: config_entity
+  label: 'PS Media field storage'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+field.storage.node.field_*:
+  type: config_entity
+  label: 'Node field storage used by PS Media'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+field.storage.block_content.*:
+  type: config_entity
+  label: 'Block content field storage used by PS Media'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+field.storage.taxonomy_term.*:
+  type: config_entity
+  label: 'Taxonomy term field storage used by PS Media'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+field.field.media.*.*:
+  type: config_entity
+  label: 'PS Media field configuration'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    bundle:
+      type: string
+    label:
+      type: label
+    description:
+      type: text
+    required:
+      type: boolean
+    translatable:
+      type: boolean
+    default_value:
+      type: ignore
+    default_value_callback:
+      type: string
+    settings:
+      type: ignore
+    field_type:
+      type: string
+

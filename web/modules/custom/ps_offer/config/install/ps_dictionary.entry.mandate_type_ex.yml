@@ -1,0 +1,12 @@
+uuid: 9519273b-1626-4728-a2f8-1b248492dbdd
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_ex
+dictionary_type: mandate_type
+code: EX
+label: Exclusif
+description: 'Exclusive mandate.'
+weight: 1
+deprecated: false
+metadata: {  }

@@ -3,33 +3,77 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.offer.address
-    - field.field.node.offer.agents
-    - field.field.node.offer.description
-    - field.field.node.offer.diagnostics
-    - field.field.node.offer.divisions
+    - field.field.node.offer.body
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_agents
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_divisions
     - field.field.node.offer.external_id
-    - field.field.node.offer.features
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_geofield
     - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_media_brochures
+    - field.field.node.offer.field_media_photos
+    - field.field.node.offer.field_media_plans
+    - field.field.node.offer.field_media_videos
+    - field.field.node.offer.field_media_virtual_tours
+    - field.field.node.offer.field_prices
     - field.field.node.offer.field_property_type
+    - field.field.node.offer.field_reference
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_transaction_types
-    - field.field.node.offer.geofield
-    - field.field.node.offer.media_photos
-    - field.field.node.offer.media_plans
-    - field.field.node.offer.media_videos
-    - field.field.node.offer.prices
-    - field.field.node.offer.reference
     - node.type.offer
   module:
+    - address
     - options
     - ps_surface
+    - text
     - user
 id: node.offer.default
 targetEntityType: node
 bundle: offer
 mode: default
 content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_agents:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 113
+    region: content
+  field_availability:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_client_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  field_divisions:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 112
+    region: content
   field_is_divisible:
     type: boolean
     label: above
@@ -40,12 +84,71 @@ content:
     third_party_settings: {  }
     weight: 104
     region: content
+  field_mandate_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_media_brochures:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 122
+    region: content
+  field_media_photos:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 120
+    region: content
+  field_media_plans:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 121
+    region: content
+  field_media_videos:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 123
+    region: content
+  field_media_virtual_tours:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 124
+    region: content
   field_property_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_reference:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 99
     region: content
   field_surfaces:
     type: ps_surface_default
@@ -67,21 +170,14 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 130
     region: content
 hidden:
-  address: true
-  agents: true
-  description: true
-  diagnostics: true
-  divisions: true
   external_id: true
-  features: true
-  geofield: true
+  field_address: true
+  field_diagnostics: true
+  field_features: true
+  field_geofield: true
+  field_prices: true
   langcode: true
-  media_photos: true
-  media_plans: true
-  media_videos: true
-  prices: true
-  reference: true
   search_api_excerpt: true

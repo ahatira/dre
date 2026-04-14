@@ -1,0 +1,22 @@
+uuid: 6f313767-9db1-4f03-9094-53c3fa7b1b22
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_agent
+_core:
+  default_config_hash: xcflyxa6CRNCXGz2c49sJB6HvtB-tKEviqnxS-0VrI0
+id: node.field_agents
+field_name: field_agents
+entity_type: node
+type: entity_reference
+settings:
+  target_type: agent
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

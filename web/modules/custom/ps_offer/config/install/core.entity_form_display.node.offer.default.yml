@@ -3,29 +3,35 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.offer.address
-    - field.field.node.offer.agents
-    - field.field.node.offer.description
-    - field.field.node.offer.diagnostics
-    - field.field.node.offer.divisions
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_agents
+    - field.field.node.offer.body
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_divisions
     - field.field.node.offer.external_id
-    - field.field.node.offer.features
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_client_type
     - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_mandate_type
     - field.field.node.offer.field_property_type
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_transaction_types
-    - field.field.node.offer.geofield
-    - field.field.node.offer.media_photos
-    - field.field.node.offer.media_plans
-    - field.field.node.offer.media_videos
-    - field.field.node.offer.prices
-    - field.field.node.offer.reference
+    - field.field.node.offer.field_geofield
+    - field.field.node.offer.field_media_brochures
+    - field.field.node.offer.field_media_photos
+    - field.field.node.offer.field_media_plans
+    - field.field.node.offer.field_media_videos
+    - field.field.node.offer.field_media_virtual_tours
+    - field.field.node.offer.field_prices
+    - field.field.node.offer.field_reference
     - node.type.offer
   module:
     - address
     - field_group
     - geofield
     - inline_entity_form
+    - media_library
     - path
     - ps_diagnostic
     - ps_features
@@ -57,9 +63,11 @@ third_party_settings:
         width_breakpoint: 640
     group_medias:
       children:
-        - media_photos
-        - media_videos
-        - media_plans
+        - field_media_photos
+        - field_media_videos
+        - field_media_plans
+        - field_media_brochures
+        - field_media_virtual_tours
       label: Medias
       region: content
       parent_name: group_form
@@ -76,10 +84,14 @@ third_party_settings:
     group_general:
       children:
         - langcode
+        - field_reference
+        - field_client_type
         - field_property_type
         - field_transaction_types
-        - prices
-        - description
+        - field_prices
+        - body
+        - field_availability
+        - field_mandate_type
       label: General
       region: content
       parent_name: group_form
@@ -95,8 +107,8 @@ third_party_settings:
         required_fields: true
     group_address:
       children:
-        - address
-        - geofield
+        - field_address
+        - field_geofield
       label: Address
       region: content
       parent_name: group_form
@@ -114,7 +126,7 @@ third_party_settings:
       children:
         - field_is_divisible
         - field_surfaces
-        - divisions
+        - field_divisions
       label: Surfaces
       region: content
       parent_name: group_form
@@ -130,7 +142,7 @@ third_party_settings:
         required_fields: true
     group_attributes:
       children:
-        - features
+        - field_features
       label: Attributes
       region: content
       parent_name: group_form
@@ -146,7 +158,7 @@ third_party_settings:
         required_fields: true
     group_diagnostics_labels:
       children:
-        - diagnostics
+        - field_diagnostics
       label: 'Diagnostics & Labels'
       region: content
       parent_name: group_form
@@ -162,7 +174,7 @@ third_party_settings:
         required_fields: true
     group_agents:
       children:
-        - agents
+        - field_agents
       label: Agents
       region: content
       parent_name: group_form
@@ -181,14 +193,14 @@ targetEntityType: node
 bundle: offer
 mode: default
 content:
-  address:
+  field_address:
     type: address_default
     weight: 4
     region: content
     settings:
       wrapper_type: fieldset
     third_party_settings: {  }
-  agents:
+  field_agents:
     type: inline_entity_form_complex
     weight: 9
     region: content
@@ -206,27 +218,29 @@ content:
       revision: false
       removed_reference: optional
     third_party_settings: {  }
+  body:
+    type: text_textarea_with_summary
+    weight: 8
+    region: content
+    settings:
+      rows: 8
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
-  description:
-    type: text_textarea
-    weight: 8
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  diagnostics:
+  field_diagnostics:
     type: ps_diagnostic_default
     weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
-  divisions:
+  field_divisions:
     type: entity_reference_autocomplete
     weight: 13
     region: content
@@ -236,7 +250,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  features:
+  external_id:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_features:
     type: ps_feature_value_grouped
     weight: 13
     region: content
@@ -245,12 +267,32 @@ content:
       allow_reorder: true
       collapsed_groups: false
     third_party_settings: {  }
+  field_availability:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_client_type:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_is_divisible:
     type: boolean_checkbox
     weight: 11
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_mandate_type:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_property_type:
     type: options_select
@@ -270,7 +312,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  geofield:
+  field_geofield:
     type: geofield_latlon
     weight: 14
     region: content
@@ -284,35 +326,48 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  media_photos:
-    type: entity_reference_autocomplete
-    weight: 6
+  field_media_brochures:
+    type: media_library_widget
+    weight: 23
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types:
+        - file
     third_party_settings: {  }
-  media_plans:
-    type: entity_reference_autocomplete
-    weight: 8
+  field_media_photos:
+    type: media_library_widget
+    weight: 20
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types:
+        - image
     third_party_settings: {  }
-  media_videos:
-    type: entity_reference_autocomplete
-    weight: 7
+  field_media_plans:
+    type: media_library_widget
+    weight: 22
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types:
+        - file
+        - image
+    third_party_settings: {  }
+  field_media_videos:
+    type: media_library_widget
+    weight: 21
+    region: content
+    settings:
+      media_types:
+        - remote_video
+        - video
+    third_party_settings: {  }
+  field_media_virtual_tours:
+    type: media_library_widget
+    weight: 24
+    region: content
+    settings:
+      media_types:
+        - remote_video
+        - video
     third_party_settings: {  }
   path:
     type: path
@@ -320,7 +375,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  prices:
+  field_prices:
     type: ps_price_default
     weight: 7
     region: content
@@ -330,13 +385,13 @@ content:
       show_value_type: true
       show_flags: true
     third_party_settings: {  }
-  reference:
+  field_reference:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      size: 16
+      placeholder: Auto-generated
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -369,6 +424,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  external_id: true
   promote: true
   sticky: true

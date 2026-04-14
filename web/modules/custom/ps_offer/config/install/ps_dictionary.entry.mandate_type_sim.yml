@@ -1,0 +1,12 @@
+uuid: ad772831-6e19-4a50-9a0b-a93d4711d60b
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_sim
+dictionary_type: mandate_type
+code: SIM
+label: Simple
+description: 'Simple mandate.'
+weight: 0
+deprecated: false
+metadata: {  }

@@ -92,10 +92,10 @@ $offer = Node::create([
   'title' => 'Office Space at Edificio ARA',
   'property_type_code' => 'BUR',
   'transaction_type_codes' => 'LOC',
-  'address' => '37 Cl. Hermanos García Noblejas',
+  'field_address' => '37 Cl. Hermanos García Noblejas',
   'postal_code' => '28037',
   'city_label' => 'Madrid',
-  'prices' => [
+  'field_prices' => [
     [
       'value' => 20000,
       'currency' => 'EUR',
@@ -103,7 +103,7 @@ $offer = Node::create([
       'period' => 'ann',
     ],
   ],
-  'agents' => [1], // Reference to agent node
+  'field_agents' => [1], // Reference to agent node
   'status' => 1,
 ]);
 $offer->save();

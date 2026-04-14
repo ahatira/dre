@@ -1,0 +1,21 @@
+langcode: en
+uuid: 63752fd9-a317-43f7-a820-69e98525d00a
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mandate_type
+    - node.type.offer
+  module:
+    - ps_dictionary
+id: node.offer.field_mandate_type
+field_name: field_mandate_type
+entity_type: node
+bundle: offer
+label: 'Mandate Type'
+description: 'Commercial mandate for the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ps_dictionary

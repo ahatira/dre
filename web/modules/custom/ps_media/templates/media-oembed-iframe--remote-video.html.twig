@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an oEmbed resource in an iframe.
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html lang="{{ langcode and langcode != 'und' ? langcode : 'en' }}">
+  <head>
+    <css-placeholder token="{{ placeholder_token }}">
+    <script src="{{ base_path }}{{ ps_media_path }}/js/oembed-frame.ps-media.{{ provider }}.js"></script> 
+    <title>{{ media_title ?: 'Media title' }}</title>
+  </head>
+  <body style="margin: 0;">
+    {{ media|raw }}
+  </body>
+</html>

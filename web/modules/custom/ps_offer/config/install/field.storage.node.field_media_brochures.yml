@@ -1,0 +1,20 @@
+langcode: en
+uuid: 194cd23f-d19c-4e20-8260-3c68a38cdf90
+status: true
+dependencies:
+  module:
+    - media
+    - node
+id: node.field_media_brochures
+field_name: field_media_brochures
+entity_type: node
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

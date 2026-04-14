@@ -67,26 +67,6 @@
       this.updateDropZoneState();
       this.updateStats();
 
-      // Debug: log dictionary types discovered in sidebar.
-      try {
-        this.sidebar
-          .querySelectorAll('.ps-feature-builder__feature-type')
-          .forEach((el) => {
-            if (el.dataset.featureType === 'dictionary') {
-              // eslint-disable-next-line no-console
-              console.debug(
-                '[FeatureBuilder] Sidebar feature dictionary type',
-                el.dataset.featureId,
-                el.dataset.featureDictionaryType
-              );
-            }
-          });
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.warn('[FeatureBuilder] Dictionary debug failed', e);
-      }
-
-      console.log('[FeatureBuilder] Initialized for field:', this.fieldName);
     }
 
     /**
@@ -1479,8 +1459,6 @@
 
             // Hide Drupal's wrapper (contains table, buttons, etc.)
             fieldWrapper.style.display = 'none';
-
-            console.log('[FeatureBuilder] Widget moved outside Drupal wrapper');
           }
 
           // Initialize builder

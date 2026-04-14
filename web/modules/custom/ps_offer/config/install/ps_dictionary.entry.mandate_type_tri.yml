@@ -1,0 +1,12 @@
+uuid: 2f41d4a2-aab8-40d1-be3b-4de92be0bda2
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_tri
+dictionary_type: mandate_type
+code: TRI
+label: 'Tri-Exclusif'
+description: 'Tri-exclusive mandate.'
+weight: 5
+deprecated: false
+metadata: {  }

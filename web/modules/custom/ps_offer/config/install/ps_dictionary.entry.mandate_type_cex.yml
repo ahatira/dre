@@ -1,0 +1,12 @@
+uuid: 5b3a7719-05df-4d16-8b90-50a398210719
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_cex
+dictionary_type: mandate_type
+code: CEX
+label: 'Co-Exclusif'
+description: 'Co-exclusive mandate.'
+weight: 2
+deprecated: false
+metadata: {  }

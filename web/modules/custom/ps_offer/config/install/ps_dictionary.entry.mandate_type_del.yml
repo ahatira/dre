@@ -1,0 +1,12 @@
+uuid: b9f494f8-fdd9-4914-a1f6-20d2156ba205
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_del
+dictionary_type: mandate_type
+code: DEL
+label: 'Délégation'
+description: 'Delegation mandate.'
+weight: 6
+deprecated: false
+metadata: {  }

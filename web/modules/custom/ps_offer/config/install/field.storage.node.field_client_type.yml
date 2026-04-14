@@ -1,0 +1,22 @@
+langcode: en
+uuid: a002bd11-75e1-44b0-8389-9b8db3ffc91a
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+id: node.field_client_type
+field_name: field_client_type
+entity_type: node
+type: ps_dictionary
+settings:
+  dictionary_type: client_type
+  allowed_values_function: ps_dictionary_allowed_values
+  allowed_values: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

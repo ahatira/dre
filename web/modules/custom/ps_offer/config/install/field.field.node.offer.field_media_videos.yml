@@ -1,0 +1,32 @@
+uuid: 98240966-87fb-4106-b4a3-f6e665b80eed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_videos
+    - media.type.remote_video
+    - media.type.video
+    - node.type.offer
+_core:
+  default_config_hash: JZweVaO_sZmF0WeNy__X8NVkZ3YeZ3GH4rJuhuoZhfs
+id: node.offer.field_media_videos
+field_name: field_media_videos
+entity_type: node
+bundle: offer
+label: Videos
+description: 'Property videos (MP4, YouTube links)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      remote_video: remote_video
+      video: video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

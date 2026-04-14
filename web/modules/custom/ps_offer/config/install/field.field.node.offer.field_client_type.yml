@@ -1,0 +1,23 @@
+langcode: en
+uuid: 57824e3d-635b-43ea-a392-cf5d99e17af3
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_client_type
+    - node.type.offer
+  module:
+    - ps_dictionary
+id: node.offer.field_client_type
+field_name: field_client_type
+entity_type: node
+bundle: offer
+label: 'Client Type'
+description: 'B2B by default, B2C available.'
+required: true
+translatable: false
+default_value:
+  -
+    value: B2B
+default_value_callback: ''
+settings: {  }
+field_type: ps_dictionary

@@ -8,6 +8,8 @@
 declare(strict_types=1);
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
@@ -38,9 +40,59 @@ function ps_offer_node_access(NodeInterface $node, string $op, AccountInterface 
 
   // Basic permission mapping for offer nodes.
   return match ($op) {
-    'update' => AccessResult::allowedIfHasPermission($account, 'edit any offer content'),
-    'delete' => AccessResult::allowedIfHasPermission($account, 'delete any offer content'),
-    'view' => AccessResult::neutral()->addCacheableDependency($node),
+    'update' => AccessResult::allowedIfHasPermission($account, 'edit any offer content')->cachePerPermissions(),
+    'delete' => AccessResult::allowedIfHasPermission($account, 'delete any offer content')->cachePerPermissions(),
+    'view' => AccessResult::neutral()->addCacheableDependency($node)->cachePerPermissions(),
     default => AccessResult::neutral(),
   };
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ *
+ * Node titles are stored in shared base tables, so the storage definition must
+ * be increased globally to allow offer titles longer than 450 characters.
+ */
+function ps_offer_entity_base_field_info_alter(array &$fields, EntityTypeInterface $entity_type): void {
+  if ($entity_type->id() !== 'node' || !isset($fields['title'])) {
+    return;
+  }
+
+  $fields['title']->setSetting('max_length', 512);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node forms.
+ */
+function ps_offer_form_node_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  unset($form_id);
+
+  $form_object = $form_state->getFormObject();
+  if (!$form_object || !method_exists($form_object, 'getEntity')) {
+    return;
+  }
+
+  $entity = $form_object->getEntity();
+  if (!$entity instanceof NodeInterface || $entity->bundle() !== 'offer') {
+    return;
+  }
+
+  if (isset($form['field_reference']['widget'][0]['value'])) {
+    $form['field_reference']['widget'][0]['value']['#description'] = t('Leave empty to generate the 12-character offer reference automatically.');
+    $form['field_reference']['widget'][0]['value']['#maxlength'] = 12;
+    $form['field_reference']['widget'][0]['value']['#size'] = 16;
+  }
+
+  if (isset($form['title']['widget'][0]['value'])) {
+    $form['title']['widget'][0]['value']['#description'] = t('Commercial title supporting up to 512 characters.');
+    $form['title']['widget'][0]['value']['#maxlength'] = 512;
+  }
+
+  if (isset($form['field_divisions'], $form['field_is_divisible'])) {
+    $form['field_divisions']['#states'] = [
+      'visible' => [
+        ':input[name="field_is_divisible[value]"]' => ['checked' => TRUE],
+      ],
+    ];
+  }
 }

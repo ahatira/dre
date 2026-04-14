@@ -1,0 +1,9 @@
+uuid: 019c9246-37d2-4255-b222-a0307a30f935
+langcode: en
+status: true
+dependencies: {  }
+id: client_type
+label: 'Client Type'
+description: 'Business segment for the offer audience.'
+locked: true
+metadata_schema: null

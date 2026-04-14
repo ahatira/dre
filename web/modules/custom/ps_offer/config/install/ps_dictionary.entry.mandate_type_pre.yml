@@ -1,0 +1,12 @@
+uuid: 2ba6c3c6-5d9d-465f-8b31-7d69355bbc1a
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_pre
+dictionary_type: mandate_type
+code: PRE
+label: 'Préférentiel'
+description: 'Preferential mandate.'
+weight: 4
+deprecated: false
+metadata: {  }

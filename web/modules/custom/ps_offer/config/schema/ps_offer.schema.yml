@@ -51,10 +51,9 @@ node.type.offer:
     display_submitted:
       type: boolean
 
-# Generic schema for offer field storages on nodes.
-field.storage.node.*:
-  type: config_object
-  label: "Field storage"
+field.storage.node.body:
+  type: config_entity
+  label: 'Offer body storage'
   mapping:
     uuid:
       type: string
@@ -89,10 +88,83 @@ field.storage.node.*:
     custom_storage:
       type: boolean
 
-# Generic schema for offer field instances on bundle "offer".
+field.storage.node.external_id:
+  type: config_entity
+  label: 'Offer external ID storage'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
+field.storage.node.field_*:
+  type: config_entity
+  label: 'Offer field storage'
+  mapping:
+    uuid:
+      type: string
+    langcode:
+      type: string
+    status:
+      type: boolean
+    dependencies:
+      type: ignore
+    id:
+      type: string
+    field_name:
+      type: string
+    entity_type:
+      type: string
+    type:
+      type: string
+    settings:
+      type: ignore
+    module:
+      type: string
+    locked:
+      type: boolean
+    cardinality:
+      type: integer
+    translatable:
+      type: boolean
+    indexes:
+      type: ignore
+    persist_with_no_fields:
+      type: boolean
+    custom_storage:
+      type: boolean
+
 field.field.node.offer.*:
-  type: config_object
-  label: "Offer field"
+  type: config_entity
+  label: 'Offer field configuration'
   mapping:
     uuid:
       type: string
@@ -123,19 +195,8 @@ field.field.node.offer.*:
     default_value_callback:
       type: string
     settings:
-      type: mapping
-      mapping:
-        handler:
-          type: string
-        handler_settings:
-          type: ignore
-        default_currency:
-          type: string
-        default_period:
-          type: string
-        allowed_formats:
-          type: sequence
-          sequence:
-            type: string
+      type: ignore
     field_type:
       type: string
+
+

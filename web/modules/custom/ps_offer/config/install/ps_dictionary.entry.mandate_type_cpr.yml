@@ -1,0 +1,12 @@
+uuid: 8d8f5c4f-c1a4-4dd2-8f9c-54943e26d6d3
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type_cpr
+dictionary_type: mandate_type
+code: CPR
+label: 'Co-préférentiel'
+description: 'Co-preferential mandate.'
+weight: 3
+deprecated: false
+metadata: {  }

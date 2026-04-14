@@ -1,0 +1,28 @@
+uuid: 3290d6bb-fc29-4e7e-8381-7358da2e7056
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_divisions
+    - node.type.offer
+_core:
+  default_config_hash: 2HM1hnJ8pA8U0fbTfeUFIO84yBbfSdV7k92bbDiBF7w
+id: node.offer.field_divisions
+field_name: field_divisions
+entity_type: node
+bundle: offer
+label: Divisions
+description: 'Linked divisions/lots'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:ps_division'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

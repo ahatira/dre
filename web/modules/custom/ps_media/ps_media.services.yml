@@ -1,0 +1,5 @@
+services:
+  ps_media.media_bulk_upload_route_subscriber:
+    class: Drupal\ps_media\Routing\PsMediaBulkUploadRouteSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,22 @@
+langcode: en
+uuid: 4070a22f-e622-44aa-af1a-ec4333694a83
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+id: node.field_mandate_type
+field_name: field_mandate_type
+entity_type: node
+type: ps_dictionary
+settings:
+  dictionary_type: mandate_type
+  allowed_values_function: ps_dictionary_allowed_values
+  allowed_values: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

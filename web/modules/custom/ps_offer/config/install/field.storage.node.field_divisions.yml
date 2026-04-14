@@ -1,0 +1,22 @@
+uuid: f401c4e4-23ed-4140-b076-ebf2000ed345
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_division
+_core:
+  default_config_hash: lUhkb0nWnd9Zrz5o4F-OyONnbTG83iCZpzfz0I69uqU
+id: node.field_divisions
+field_name: field_divisions
+entity_type: node
+type: entity_reference
+settings:
+  target_type: ps_division
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,38 @@
+uuid: 8d525d2c-2a1b-4b2c-8620-9256456eef46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.offer
+  module:
+    - address
+_core:
+  default_config_hash: Ha4mAEVu-MWgnv3M-kFwhuDQc8AW5A3wLfNu7qQ44rM
+id: node.offer.field_address
+field_name: field_address
+entity_type: node
+bundle: offer
+label: Address
+description: 'Full property address'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  fields:
+    administrativeArea: ''
+    locality: ''
+    dependentLocality: ''
+    postalCode: ''
+    sortingCode: ''
+    address_line1: ''
+    address_line2: ''
+    organization: ''
+    givenName: ''
+    additionalName: ''
+    familyName: ''
+  available_countries: {  }
+  langcode_override: null
+  field_overrides: {  }
+field_type: address

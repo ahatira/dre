@@ -1,0 +1,9 @@
+uuid: a8e3a705-34f2-4a82-9520-5aa66932556f
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type
+label: 'Mandate Type'
+description: 'Commercial mandate attached to the offer.'
+locked: true
+metadata_schema: null

@@ -1,0 +1,19 @@
+langcode: en
+uuid: 1ed11fc8-f553-47eb-9c08-bbeae8b86b6e
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_availability
+    - node.type.offer
+id: node.offer.field_availability
+field_name: field_availability
+entity_type: node
+bundle: offer
+label: Availability
+description: 'Availability text for the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

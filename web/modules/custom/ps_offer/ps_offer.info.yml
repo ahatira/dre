@@ -1,5 +1,5 @@
 name: "Offer"
-description: "Real estate offer management with node type, pricing, features, and diagnostics"
+description: "Real estate offer management with business rules, pricing, media, and diagnostics"
 type: module
 core_version_requirement: "^11"
 package: "PropertySearch"
@@ -7,10 +7,13 @@ package: "PropertySearch"
 dependencies:
   - drupal:node
   - drupal:text
+  - drupal:filter
   - drupal:options
   - drupal:field
   - drupal:user
   - drupal:media
+  - drupal:media_library
+  - ps_media:ps_media
   - drupal:geofield
   - drupal:address
   - drupal:inline_entity_form

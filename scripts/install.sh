@@ -87,6 +87,7 @@ PS_CUSTOM_MODULES=(
   ps_features
   ps_diagnostic
   ps_division
+  ps_media
   ps_offer
 )
 
@@ -264,6 +265,29 @@ configure_phone_international() {
   "$DRUSH" config:set phone_international.settings cdn 0 -y
 }
 
+ensure_dropzone_library() {
+  local library_dir="$PROJECT_ROOT/web/libraries/dropzone"
+  local js_url="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"
+  local css_url="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+
+  if [[ -f "$library_dir/dropzone.css" && ( -f "$library_dir/dropzone-min.js" || -f "$library_dir/dropzone.min.js" ) ]]; then
+    echo "[install] dropzone library already available -> $library_dir"
+    return
+  fi
+
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "[install] curl is required to download the Dropzone library" >&2
+    exit 1
+  fi
+
+  log "Download local Dropzone library"
+  mkdir -p "$library_dir/min"
+  curl -fsSL "$js_url" -o "$library_dir/dropzone-min.js"
+  cp "$library_dir/dropzone-min.js" "$library_dir/dropzone.min.js"
+  cp "$library_dir/dropzone-min.js" "$library_dir/min/dropzone.min.js"
+  curl -fsSL "$css_url" -o "$library_dir/dropzone.css"
+}
+
 ensure_favorites_header_block() {
   if ! module_exists "ps_favorites"; then
     echo "[install] skip favorites block placement: module not found -> ps_favorites"
@@ -319,9 +343,10 @@ enable_modules "Translations" "${TRANSLATION_MODULES[@]}"
 enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
 enable_modules "Menu" "${MENU_MODULES[@]}"
-enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
+ensure_dropzone_library
 enable_modules_non_blocking "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
+enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
@@ -335,6 +360,9 @@ enable_modules "Gin admin" "${GIN_ADMIN_MODULES[@]}"
 enable_themes "$DEFAULT_THEME"
 set_theme_config default "$DEFAULT_THEME"
 ensure_favorites_header_block
+
+log "Run database updates"
+"$DRUSH" updb -y || true
 
 log "Rebuild cache"
 "$DRUSH" cr -y

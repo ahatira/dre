@@ -1,0 +1,30 @@
+langcode: en
+uuid: 42a1221b-3d8e-4509-bfbc-cb3c03d21a07
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_virtual_tours
+    - media.type.remote_video
+    - media.type.video
+    - node.type.offer
+id: node.offer.field_media_virtual_tours
+field_name: field_media_virtual_tours
+entity_type: node
+bundle: offer
+label: '3D Tours'
+description: 'Virtual tours and immersive visits for the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      remote_video: remote_video
+      video: video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
