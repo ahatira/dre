@@ -1,0 +1,92 @@
+uuid: 24b3f681-9868-4f79-b2c5-f6a1f3e2a101
+langcode: en
+status: true
+dependencies:
+  config:
+    - ps_agent.agent_type.agent
+  module:
+    - image
+    - path
+    - ps_dictionary
+    - telephone
+    - user
+id: agent.agent.default
+targetEntityType: agent
+bundle: agent
+mode: default
+content:
+  civility:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  first_name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  last_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  email:
+    type: email_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  phone:
+    type: telephone_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  avatar:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 19
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  external_id: true
+  label: true
+  langcode: true
+  type: true

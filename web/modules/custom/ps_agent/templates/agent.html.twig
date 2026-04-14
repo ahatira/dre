@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an Agent entity.
+ *
+ * Available variables:
+ * - agent: The Agent entity.
+ * - label: The entity label.
+ * - content: All rendered entity fields.
+ * - url: Direct URL of the current entity, if available.
+ * - view_mode: View mode; for example, full or teaser.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: HTML attributes for the title element.
+ * - content_attributes: HTML attributes for the main content wrapper.
+ * - author_attributes: HTML attributes for the submitted-by wrapper.
+ * - title_prefix: Additional output populated by modules.
+ * - title_suffix: Additional output populated by modules.
+ */
+#}
+
+{% set classes = [
+  'agent',
+  agent.bundle() ? 'agent--type-' ~ agent.bundle()|clean_class,
+  view_mode ? 'agent--view-mode-' ~ view_mode|clean_class,
+  agent is defined and not agent.isActive() ? 'agent--unpublished',
+] %}
+
+{% set title_attributes = title_attributes|default(create_attribute()) %}
+{% set content_attributes = content_attributes|default(create_attribute()) %}
+{% set author_attributes = author_attributes|default(create_attribute()) %}
+
+<article{{attributes.addClass(classes)}}>
+	{{ title_prefix }}
+	{% if label and view_mode != 'full' %}
+		<h2{{title_attributes}}>
+			{% if url %}
+				<a href="{{ url }}" rel="bookmark">{{ label }}</a>
+			{% else %}
+				{{ label }}
+			{% endif %}
+		</h2>
+	{% endif %}
+	{{ title_suffix }}
+
+	{% if display_submitted %}
+		<footer>
+			<div{{author_attributes}}>
+				{% trans %}Submitted by
+				{{ author_name }}
+				on
+				{{ date }}{% endtrans %}
+			</div>
+		</footer>
+	{% endif %}
+
+	<div{{content_attributes.addClass('agent__content')}}>
+		{{ content }}
+	</div>
+</article>

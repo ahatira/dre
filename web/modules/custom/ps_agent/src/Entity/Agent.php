@@ -224,7 +224,13 @@ final class Agent extends ContentEntityBase implements AgentInterface
         'label' => 'inline',
         'type' => 'entity_reference_label',
         'weight' => -10,
-        ]);
+        ])
+        ->setDisplayConfigurable('view', true)
+        ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => -10,
+        ])
+        ->setDisplayConfigurable('form', true);
 
         $fields['external_id'] = BaseFieldDefinition::create('string')
         ->setLabel(new TranslatableMarkup('External ID'))
@@ -374,6 +380,7 @@ final class Agent extends ContentEntityBase implements AgentInterface
         'weight' => 30,
         ])
         ->setDisplayConfigurable('form', true)
+        ->setDisplayConfigurable('view', true)
         ->setComputed(true);
 
         $fields['created'] = BaseFieldDefinition::create('created')
@@ -382,6 +389,7 @@ final class Agent extends ContentEntityBase implements AgentInterface
         'label' => 'inline',
         'weight' => 20,
         ])
+        ->setDisplayConfigurable('view', true)
         ->setDisplayOptions('form', [
         'type' => 'datetime_timestamp',
         'weight' => 20,
@@ -393,7 +401,8 @@ final class Agent extends ContentEntityBase implements AgentInterface
         ->setDisplayOptions('view', [
         'label' => 'inline',
         'weight' => 21,
-        ]);
+        ])
+        ->setDisplayConfigurable('view', true);
 
         $fields += static::ownerBaseFieldDefinitions($entityType);
         $fields['uid']

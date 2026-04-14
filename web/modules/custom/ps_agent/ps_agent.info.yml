@@ -12,7 +12,5 @@ dependencies:
   - drupal:image
   - drupal:views
   - drupal:path
-  - drupal:pathauto
-  - drupal:simple_sitemap
   - ps:ps
   - ps_dictionary:ps_dictionary

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_agent\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Render\Element;
 
 /**
  * Hook implementations for template preprocessing.
@@ -25,8 +26,24 @@ final class PreprocessAgent
     #[Hook('preprocess_agent')]
     public function preprocessAgent(array &$variables): void
     {
-        if (isset($variables['elements']['#agent'])) {
-            $variables['agent'] = $variables['elements']['#agent'];
+        if (!isset($variables['elements']['#agent'])) {
+            return;
+        }
+
+        /** @var \Drupal\ps_agent\Entity\AgentInterface $agent */
+        $agent = $variables['elements']['#agent'];
+        $variables['agent'] = $agent;
+        $variables['label'] = $agent->label();
+        $variables['view_mode'] = $variables['elements']['#view_mode'] ?? 'full';
+        $variables['display_submitted'] = false;
+
+        if ($agent->hasLinkTemplate('canonical')) {
+            $variables['url'] = $agent->toUrl('canonical')->toString();
+        }
+
+        $variables['content'] = [];
+        foreach (Element::children($variables['elements']) as $key) {
+            $variables['content'][$key] = $variables['elements'][$key];
         }
     }
 }

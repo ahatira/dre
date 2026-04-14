@@ -1,3 +1,21 @@
+entity.agent.canonical:
+  route_name: entity.agent.canonical
+  base_route: entity.agent.canonical
+  title: "View"
+  weight: 0
+
+entity.agent.edit_form:
+  route_name: entity.agent.edit_form
+  base_route: entity.agent.canonical
+  title: "Edit"
+  weight: 10
+
+entity.agent.delete_form:
+  route_name: entity.agent.delete_form
+  base_route: entity.agent.canonical
+  title: "Delete"
+  weight: 20
+
 entity.agent_type.edit_form:
   route_name: entity.agent_type.edit_form
   base_route: entity.agent_type.edit_form

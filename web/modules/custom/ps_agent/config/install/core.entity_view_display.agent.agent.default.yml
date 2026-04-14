@@ -1,0 +1,106 @@
+uuid: 9f0343f9-3a27-4d4a-8d8c-f6a1f3e2a202
+langcode: en
+status: true
+dependencies:
+  config:
+    - ps_agent.agent_type.agent
+  module:
+    - image
+    - path
+    - ps_dictionary
+    - telephone
+    - user
+id: agent.agent.default
+targetEntityType: agent
+bundle: agent
+mode: default
+content:
+  civility:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  first_name:
+    type: string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  last_name:
+    type: string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  email:
+    type: email_mailto
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  phone:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  avatar:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: thumbnail
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  status:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  uid:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  created:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  changed:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 21
+    region: content
+hidden:
+  external_id: true
+  label: true
+  langcode: true
+  path: true
+  type: true

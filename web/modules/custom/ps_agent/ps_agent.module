@@ -9,3 +9,71 @@
  */
 
 declare(strict_types=1);
+
+/**
+ * Implements hook_token_info().
+ */
+function ps_agent_token_info(): array {
+  $info = [];
+
+  $info['types']['agent'] = [
+    'name' => t('Agent'),
+    'description' => t('Tokens for Agent entities'),
+  ];
+
+  $info['tokens']['agent']['id'] = [
+    'name' => t('Agent ID'),
+    'description' => t('The agent entity ID'),
+  ];
+
+  $info['tokens']['agent']['label'] = [
+    'name' => t('Label'),
+    'description' => t('The computed label of the agent'),
+  ];
+
+  $info['tokens']['agent']['first-name'] = [
+    'name' => t('First name'),
+    'description' => t('The first name of the agent'),
+  ];
+
+  $info['tokens']['agent']['last-name'] = [
+    'name' => t('Last name'),
+    'description' => t('The last name of the agent'),
+  ];
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function ps_agent_tokens(string $type, array $tokens, array $data = []): array {
+  $replacements = [];
+
+  if ($type === 'agent' && isset($data['agent'])) {
+    /** @var \Drupal\ps_agent\Entity\AgentInterface $agent */
+    $agent = $data['agent'];
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'id':
+          $replacements[$original] = (string) $agent->id();
+          break;
+
+        case 'label':
+          $replacements[$original] = (string) $agent->label();
+          break;
+
+        case 'first-name':
+          $replacements[$original] = (string) ($agent->getFirstName() ?? '');
+          break;
+
+        case 'last-name':
+          $replacements[$original] = (string) ($agent->getLastName() ?? '');
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
