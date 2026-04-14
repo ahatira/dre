@@ -1,0 +1,28 @@
+langcode: en
+uuid: 6a93b0a5-e8b6-4f95-b5e6-111111111114
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_image
+    - media.type.image
+    - taxonomy.vocabulary.offer_labels
+id: taxonomy_term.offer_labels.field_image
+field_name: field_image
+entity_type: taxonomy_term
+bundle: offer_labels
+label: Image
+description: 'Image associated with the label.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

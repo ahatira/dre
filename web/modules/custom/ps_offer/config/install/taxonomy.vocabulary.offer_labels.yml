@@ -1,0 +1,9 @@
+uuid: a2b2a2b2-7b7b-4c4c-9d9d-111111111111
+langcode: en
+status: true
+dependencies: {  }
+name: 'Offer labels'
+vid: offer_labels
+description: 'Labels used to qualify and enrich offers.'
+weight: 0
+new_revision: false

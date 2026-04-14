@@ -1,0 +1,33 @@
+uuid: c420e62d-3fe0-47e2-8e92-111111111116
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.offer_labels.field_image
+    - taxonomy.vocabulary.offer_labels
+  module:
+    - text
+    - user
+id: taxonomy_term.offer_labels.default
+targetEntityType: taxonomy_term
+bundle: offer_labels
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

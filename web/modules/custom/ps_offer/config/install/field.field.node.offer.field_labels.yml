@@ -1,0 +1,28 @@
+langcode: en
+uuid: 7f1d2b7a-6109-4e39-b96f-111111111113
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_labels
+    - node.type.offer
+    - taxonomy.vocabulary.offer_labels
+id: node.offer.field_labels
+field_name: field_labels
+entity_type: node
+bundle: offer
+label: Labels
+description: 'Labels linked to the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      offer_labels: offer_labels
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+field_type: entity_reference

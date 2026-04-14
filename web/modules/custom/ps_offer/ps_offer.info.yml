@@ -12,6 +12,7 @@ dependencies:
   - drupal:field
   - drupal:user
   - drupal:media
+  - drupal:taxonomy
   - drupal:media_library
   - ps_media:ps_media
   - drupal:geofield

@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.offer.field_features
     - field.field.node.offer.field_geofield
     - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_labels
     - field.field.node.offer.field_mandate_type
     - field.field.node.offer.field_media_brochures
     - field.field.node.offer.field_media_photos
@@ -83,6 +84,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 104
+    region: content
+  field_labels:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 111
     region: content
   field_mandate_type:
     type: list_default

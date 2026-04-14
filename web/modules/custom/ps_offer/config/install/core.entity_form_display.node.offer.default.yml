@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_transaction_types
     - field.field.node.offer.field_geofield
+    - field.field.node.offer.field_labels
     - field.field.node.offer.field_media_brochures
     - field.field.node.offer.field_media_photos
     - field.field.node.offer.field_media_plans
@@ -47,7 +48,8 @@ third_party_settings:
         - group_address
         - group_surfaces
         - group_attributes
-        - group_diagnostics_labels
+        - group_diagnostics
+        - group_labels
         - group_agents
       label: Form
       region: content
@@ -156,13 +158,29 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-    group_diagnostics_labels:
+    group_diagnostics:
       children:
         - field_diagnostics
-      label: 'Diagnostics & Labels'
+      label: Diagnostics
       region: content
       parent_name: group_form
       weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_labels:
+      children:
+        - field_labels
+      label: Labels
+      region: content
+      parent_name: group_form
+      weight: 21
       format_type: tab
       format_settings:
         classes: ''
@@ -239,6 +257,16 @@ content:
     weight: 14
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_labels:
+    type: entity_reference_autocomplete_tags
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_divisions:
     type: entity_reference_autocomplete
