@@ -1,7 +1,7 @@
-ps_agent.collection:
+entity.agent.collection:
   title: "Agents"
   description: "Manage commercial agents"
-  route_name: "ps_agent.collection"
+  route_name: "entity.agent.collection"
   parent: "ps.admin_content"
   weight: 35
 
@@ -15,5 +15,5 @@ entity.agent_type.collection:
 ps_agent.add:
   title: "Add Agent"
   route_name: "entity.agent.add_page"
-  parent: "ps_agent.collection"
+  parent: "entity.agent.collection"
   weight: 0

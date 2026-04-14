@@ -6,18 +6,8 @@ ps_agent.settings:
   requirements:
     _permission: "administer agent entities"
 
-ps_agent.collection:
-  path: "/admin/ps/content/agents"
-  defaults:
-    _entity_list: "agent"
-    _title: "Agents"
-  requirements:
-    _permission: "administer agent entities"
-  options:
-    _admin_route: TRUE
-
 entity.agent.collection:
-  path: "/admin/ps/content/agents/alternative"
+  path: "/admin/ps/content/agents"
   defaults:
     _entity_list: "agent"
     _title: "Agents"

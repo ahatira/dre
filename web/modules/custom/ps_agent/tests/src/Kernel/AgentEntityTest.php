@@ -134,4 +134,13 @@ class AgentEntityTest extends EntityKernelTestBase {
     $this->assertSame('+33762896128', $loaded?->getPhone());
   }
 
+  /**
+   * Tests the admin collection route path.
+   */
+  public function testAdminCollectionRoutePath(): void {
+    $route = $this->container->get('router.route_provider')->getRouteByName('entity.agent.collection');
+
+    $this->assertSame('/admin/ps/content/agents', $route->getPath());
+  }
+
 }

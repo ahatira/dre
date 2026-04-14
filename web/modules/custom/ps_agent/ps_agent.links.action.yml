@@ -2,4 +2,4 @@ ps_agent.add:
   route_name: entity.agent.add_page
   title: "Add Agent"
   appears_on:
-    - ps_agent.collection
+    - entity.agent.collection
