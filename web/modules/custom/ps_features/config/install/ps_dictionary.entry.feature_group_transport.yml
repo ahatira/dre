@@ -1,0 +1,9 @@
+id: feature_group_transport
+dictionary_type: feature_group
+code: TRANSPORT
+label: "Transport"
+description: "Public transport and road access details."
+weight: 15
+deprecated: false
+metadata:
+  icon: "transport"

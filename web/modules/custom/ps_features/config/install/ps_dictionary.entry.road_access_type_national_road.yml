@@ -1,0 +1,8 @@
+id: road_access_type_national_road
+dictionary_type: road_access_type
+code: NATIONAL_ROAD
+label: "National road"
+description: "Access via national road (route nationale RN)."
+weight: 2
+deprecated: false
+metadata: []

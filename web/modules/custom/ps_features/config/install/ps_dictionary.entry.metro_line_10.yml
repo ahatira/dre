@@ -1,0 +1,8 @@
+id: metro_line_10
+dictionary_type: metro_line
+code: LINE_10
+label: "Metro Line 10"
+description: "Paris metro Line 10."
+weight: 11
+deprecated: false
+metadata: []

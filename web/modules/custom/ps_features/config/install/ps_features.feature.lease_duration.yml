@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lease_duration
+label: 'Lease duration'
+description: 'Initial term of the lease in years.'
+value_type: numeric
+dictionary_type: null
+unit: 'years'
+is_required: false
+is_facetable: false
+validation_rules:
+  min: 1
+  max: 99
+group: commercial_conditions
+weight: 1
+metadata:
+  icon: calendar

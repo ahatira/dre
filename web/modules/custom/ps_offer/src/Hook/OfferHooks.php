@@ -39,6 +39,7 @@ class OfferHooks {
     }
 
     $this->ensureReference($node);
+    $this->ensureMinDivisibleSurface($node);
 
     $this->loggerFactory->get('ps_offer')->debug(
       'Offer node @id presave triggered with reference @reference',
@@ -140,6 +141,67 @@ class OfferHooks {
       $this->loggerFactory->get('ps_offer')->warning($warning);
       $this->messenger->addWarning(t('@message', ['@message' => $warning]));
     }
+  }
+
+  /**
+   * Ensures minimum divisible surface remains consistent with offer data.
+   */
+  protected function ensureMinDivisibleSurface(NodeInterface $node): void {
+    if (!$node->hasField('field_min_divisible_surface') || !$node->hasField('field_is_divisible')) {
+      return;
+    }
+
+    $isDivisible = (bool) ($node->get('field_is_divisible')->value ?? FALSE);
+    if (!$isDivisible) {
+      $node->set('field_min_divisible_surface', NULL);
+      return;
+    }
+
+    $existing = $node->get('field_min_divisible_surface')->value;
+    if ($existing !== NULL && $existing !== '' && (float) $existing > 0.0) {
+      return;
+    }
+
+    $computed = $this->resolveMinDivisibleSurfaceFromDivisions($node);
+    if ($computed !== NULL) {
+      $node->set('field_min_divisible_surface', $computed);
+    }
+  }
+
+  /**
+   * Computes minimum divisible surface from linked division surfaces.
+   */
+  protected function resolveMinDivisibleSurfaceFromDivisions(NodeInterface $node): ?float {
+    if (!$node->hasField('field_divisions') || $node->get('field_divisions')->isEmpty()) {
+      return NULL;
+    }
+
+    $min = NULL;
+    foreach ($node->get('field_divisions') as $divisionReference) {
+      $division = $divisionReference->entity;
+      if (!$division || !$division->hasField('surfaces')) {
+        continue;
+      }
+
+      foreach ($division->get('surfaces') as $surface) {
+        $value = $surface->get('value')->getValue();
+        $unit = strtoupper((string) ($surface->get('unit')->getValue() ?? ''));
+
+        if (!is_numeric($value) || (float) $value <= 0.0) {
+          continue;
+        }
+
+        // Keep the computation safe by considering explicit m2 values only.
+        if ($unit !== '' && $unit !== 'M2') {
+          continue;
+        }
+
+        $floatValue = (float) $value;
+        $min = $min === NULL ? $floatValue : min($min, $floatValue);
+      }
+    }
+
+    return $min;
   }
 
 }

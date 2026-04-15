@@ -8,6 +8,7 @@ use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\NodeType;
+use Drupal\node\Entity\Node;
 
 /**
  * Kernel tests for ps_offer module.
@@ -54,8 +55,9 @@ class OfferModuleTest extends KernelTestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('file');
     $this->installEntitySchema('media');
+    $this->installEntitySchema('ps_division');
     $this->installSchema('node', ['node_access']);
-    $this->installConfig(['node', 'ps_dictionary', 'ps_features', 'ps_price', 'ps_surface', 'ps_diagnostic', 'ps_offer']);
+    $this->installConfig(['node', 'ps_dictionary', 'ps_features', 'ps_price', 'ps_surface', 'ps_diagnostic', 'ps_division', 'ps_offer']);
   }
 
   /**
@@ -80,6 +82,7 @@ class OfferModuleTest extends KernelTestBase {
       'field_transaction_types',
       'field_availability',
       'field_mandate_type',
+      'field_min_divisible_surface',
       'field_address',
       'field_geofield',
       'body',
@@ -123,6 +126,103 @@ class OfferModuleTest extends KernelTestBase {
   public function testOfferManagerServiceAccessible(): void {
     $manager = $this->container->get('ps_offer.manager');
     $this->assertNotNull($manager);
+  }
+
+  /**
+   * Tests automatic prefill of minimum divisible surface from divisions.
+   */
+  public function testMinDivisibleSurfaceAutofilledFromDivisions(): void {
+    $divisionStorage = $this->container->get('entity_type.manager')->getStorage('ps_division');
+
+    $divisionA = $divisionStorage->create([
+      'type' => 'division',
+      'building_name' => 'A',
+      'surfaces' => [
+        ['value' => 320, 'unit' => 'M2'],
+      ],
+      'status' => 1,
+    ]);
+    $divisionA->save();
+
+    $divisionB = $divisionStorage->create([
+      'type' => 'division',
+      'building_name' => 'B',
+      'surfaces' => [
+        ['value' => 180, 'unit' => 'M2'],
+      ],
+      'status' => 1,
+    ]);
+    $divisionB->save();
+
+    $offer = Node::create($this->buildRequiredOfferValues() + [
+      'field_is_divisible' => 1,
+      'field_divisions' => [
+        ['target_id' => $divisionA->id()],
+        ['target_id' => $divisionB->id()],
+      ],
+    ]);
+    $offer->save();
+
+    $loaded = Node::load($offer->id());
+    $this->assertNotNull($loaded);
+    $this->assertSame('180.00', (string) $loaded->get('field_min_divisible_surface')->value);
+  }
+
+  /**
+   * Tests that manually set minimum divisible surface remains editable.
+   */
+  public function testMinDivisibleSurfaceManualValueIsPreserved(): void {
+    $offer = Node::create($this->buildRequiredOfferValues() + [
+      'field_is_divisible' => 1,
+      'field_min_divisible_surface' => 95,
+    ]);
+    $offer->save();
+
+    $loaded = Node::load($offer->id());
+    $this->assertNotNull($loaded);
+    $this->assertSame('95.00', (string) $loaded->get('field_min_divisible_surface')->value);
+  }
+
+  /**
+   * Tests minimum divisible surface is reset when offer is not divisible.
+   */
+  public function testMinDivisibleSurfaceClearedWhenNotDivisible(): void {
+    $offer = Node::create($this->buildRequiredOfferValues() + [
+      'field_is_divisible' => 0,
+      'field_min_divisible_surface' => 120,
+    ]);
+    $offer->save();
+
+    $loaded = Node::load($offer->id());
+    $this->assertNotNull($loaded);
+    $this->assertNull($loaded->get('field_min_divisible_surface')->value);
+  }
+
+  /**
+   * Builds required offer values for node creation in tests.
+   *
+   * @return array<string, mixed>
+   *   Required node field values.
+   */
+  private function buildRequiredOfferValues(): array {
+    $dictionaryManager = $this->container->get('ps_dictionary.manager');
+    $firstCode = static function (array $options): string {
+      foreach ($options as $code => $label) {
+        unset($label);
+        if ($code !== '' && $code !== NULL) {
+          return (string) $code;
+        }
+      }
+      return '';
+    };
+
+    return [
+      'type' => 'offer',
+      'title' => 'Offer test ' . random_int(1000, 9999),
+      'field_client_type' => $firstCode($dictionaryManager->getOptions('client_type')),
+      'field_property_type' => $firstCode($dictionaryManager->getOptions('property_type')),
+      'field_transaction_types' => $firstCode($dictionaryManager->getOptions('transaction_type')),
+    ];
   }
 
 }

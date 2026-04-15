@@ -1,0 +1,8 @@
+id: lease_type_short_term
+dictionary_type: lease_type
+code: SHORT_TERM
+label: "Short term"
+description: "Short-term or temporary lease (less than 2 years)."
+weight: 3
+deprecated: false
+metadata: []

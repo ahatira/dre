@@ -16,6 +16,16 @@ services:
       - "@entity_type.manager"
       - "@logger.factory"
     public: true
+
+  ps_offer.price_search_value_resolver:
+    class: Drupal\ps_offer\Service\OfferPriceSearchValueResolver
+    arguments:
+      - "@ps_price.formatter"
+      - "@ps_price.normalizer"
+
+  ps_offer.surface_division_search_value_resolver:
+    class: Drupal\ps_offer\Service\OfferSurfaceDivisionSearchValueResolver
+
   ps_offer.event_subscriber:
     class: Drupal\ps_offer\EventSubscriber\OfferEventSubscriber
     arguments:

@@ -1,0 +1,8 @@
+id: metro_line_7
+dictionary_type: metro_line
+code: LINE_7
+label: "Metro Line 7"
+description: "Paris metro Line 7."
+weight: 7
+deprecated: false
+metadata: []

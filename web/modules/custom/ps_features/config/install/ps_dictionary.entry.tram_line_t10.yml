@@ -1,0 +1,8 @@
+id: tram_line_t10
+dictionary_type: tram_line
+code: T10
+label: "Tram T10"
+description: "Île-de-France tramway line T10."
+weight: 9
+deprecated: false
+metadata: []

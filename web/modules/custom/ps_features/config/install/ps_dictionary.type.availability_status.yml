@@ -1,0 +1,5 @@
+id: availability_status
+label: "Availability status"
+description: "Closed availability statuses for commercial offers."
+locked: false
+metadata_schema: ''

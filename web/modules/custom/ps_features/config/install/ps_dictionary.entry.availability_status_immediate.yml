@@ -1,0 +1,8 @@
+id: availability_status_immediate
+dictionary_type: availability_status
+code: IMMEDIATE
+label: "Immédiate"
+description: "Available immediately."
+weight: 0
+deprecated: false
+metadata: []

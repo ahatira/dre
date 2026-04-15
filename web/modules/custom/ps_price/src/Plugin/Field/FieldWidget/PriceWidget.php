@@ -175,6 +175,7 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
     // Generate unique ID for amount field for <label for=""> association.
     $field_name = $this->fieldDefinition->getName();
     $amount_id = 'edit-' . str_replace('_', '-', $field_name) . '-' . $delta . '-amount';
+    $on_request_id = 'edit-' . str_replace('_', '-', $field_name) . '-' . $delta . '-is-on-request';
     $is_required = $this->fieldDefinition->isRequired();
 
     // Add field label on first item (delta 0) for single-value fields.
@@ -208,10 +209,16 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
       '#default_value' => $item->get('amount')->getValue(),
       '#step' => 0.01,
       '#min' => 0,
-      '#required' => $is_required,
+      '#required' => FALSE,
       '#required_error' => $is_required ? $this->t('Enter a price amount.') : NULL,
       '#size' => 10,
       '#id' => $amount_id,
+      '#wrapper_attributes' => ['class' => ['ps-price-amount']],
+      '#states' => [
+        'disabled' => [
+          ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
 
     $element['_primary']['currency_code'] = [
@@ -219,8 +226,22 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
       '#title' => $this->t('Currency'),
       '#options' => ['' => $this->t('- Select -')] + $this->dictionaryManager->getOptions('currency'),
       '#default_value' => $item->get('currency_code')->getValue() ?? $this->getSetting('default_currency') ?? 'EUR',
-      '#required' => $is_required,
+      '#required' => FALSE,
       '#required_error' => $is_required ? $this->t('Select a currency for this price.') : NULL,
+      '#wrapper_attributes' => ['class' => ['ps-price-currency']],
+      '#states' => [
+        'disabled' => [
+          ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $element['_primary']['is_on_request'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('On request'),
+      '#default_value' => (bool) ($item->get('is_on_request')->getValue() ?? FALSE),
+      '#id' => $on_request_id,
+      '#wrapper_attributes' => ['class' => ['ps-price-on-request-inline']],
     ];
 
     // OPTIONAL FIELDS CONTAINER (Period, Value type, Unit).
@@ -237,7 +258,13 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
         '#options' => ['' => $this->t('- None -')] + $this->dictionaryManager->getOptions('price_unit'),
         '#default_value' => $item->get('unit_code')->getValue(),
         '#required' => FALSE,
+        '#wrapper_attributes' => ['class' => ['ps-price-unit']],
         '#description' => $this->t('e.g., per square meter, globally'),
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
     }
 
@@ -248,6 +275,12 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
         '#options' => ['' => $this->t('- None -')] + $this->dictionaryManager->getOptions('price_period'),
         '#default_value' => $item->get('period_code')->getValue() ?? $this->getSetting('default_period') ?? 'ANN',
         '#required' => FALSE,
+        '#wrapper_attributes' => ['class' => ['ps-price-period']],
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
     }
 
@@ -258,6 +291,12 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
         '#options' => ['' => $this->t('- None -')] + $this->dictionaryManager->getOptions('price_value_type'),
         '#default_value' => $item->get('value_type_code')->getValue(),
         '#required' => FALSE,
+        '#wrapper_attributes' => ['class' => ['ps-price-value-type']],
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
     }
 
@@ -273,22 +312,83 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
         '#type' => 'checkbox',
         '#title' => $this->t('Starting Price'),
         '#default_value' => (bool) ($item->get('is_from')->getValue() ?? FALSE),
+        '#wrapper_attributes' => ['class' => ['ps-price-flag', 'ps-price-flag--from']],
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
 
       $element['_flags']['is_vat_excluded'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('HT'),
         '#default_value' => (bool) ($item->get('is_vat_excluded')->getValue() ?? FALSE),
+        '#wrapper_attributes' => ['class' => ['ps-price-flag', 'ps-price-flag--vat']],
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
 
       $element['_flags']['is_charges_included'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('CC'),
         '#default_value' => (bool) ($item->get('is_charges_included')->getValue() ?? FALSE),
+        '#wrapper_attributes' => ['class' => ['ps-price-flag', 'ps-price-flag--charges']],
+        '#states' => [
+          'disabled' => [
+            ':input[id="' . $on_request_id . '"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
     }
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
+    unset($form, $form_state);
+
+    foreach ($values as &$value) {
+      $amount = $value['amount'] ?? ($value['_primary']['amount'] ?? NULL);
+      $currency = $value['currency_code'] ?? ($value['_primary']['currency_code'] ?? NULL);
+      $unit = $value['unit_code'] ?? ($value['_optional']['unit_code'] ?? NULL);
+      $period = $value['period_code'] ?? ($value['_optional']['period_code'] ?? NULL);
+      $valueType = $value['value_type_code'] ?? ($value['_optional']['value_type_code'] ?? NULL);
+      $isFrom = $value['is_from'] ?? ($value['_flags']['is_from'] ?? 0);
+      $isVatExcluded = $value['is_vat_excluded'] ?? ($value['_flags']['is_vat_excluded'] ?? 0);
+      $isChargesIncluded = $value['is_charges_included'] ?? ($value['_flags']['is_charges_included'] ?? 0);
+
+      $onRequest = !empty($value['is_on_request']) || !empty($value['_primary']['is_on_request']);
+      $hasAmount = $amount !== NULL && $amount !== '';
+
+      if ($onRequest) {
+        $value['amount'] = NULL;
+        $value['currency_code'] = NULL;
+        $value['is_on_request'] = 1;
+      }
+      else {
+        $value['amount'] = $hasAmount ? $amount : NULL;
+        $value['currency_code'] = $currency;
+        $value['is_on_request'] = 0;
+      }
+
+      $value['unit_code'] = $unit;
+      $value['period_code'] = $period;
+      $value['value_type_code'] = $valueType;
+      $value['is_from'] = (int) !empty($isFrom);
+      $value['is_vat_excluded'] = (int) !empty($isVatExcluded);
+      $value['is_charges_included'] = (int) !empty($isChargesIncluded);
+
+      unset($value['_primary'], $value['_optional'], $value['_flags']);
+    }
+
+    return $values;
   }
 
 }

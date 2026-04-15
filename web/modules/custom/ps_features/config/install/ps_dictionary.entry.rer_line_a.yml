@@ -1,0 +1,8 @@
+id: rer_line_a
+dictionary_type: rer_line
+code: RER_A
+label: "RER A"
+description: "Île-de-France RER A rapid transit line."
+weight: 0
+deprecated: false
+metadata: []

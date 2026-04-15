@@ -1,0 +1,5 @@
+id: road_access_type
+label: "Road access type"
+description: "Type of road infrastructure providing vehicular access."
+locked: false
+metadata_schema: ''

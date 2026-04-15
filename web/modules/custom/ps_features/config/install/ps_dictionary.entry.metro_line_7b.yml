@@ -1,0 +1,8 @@
+id: metro_line_7b
+dictionary_type: metro_line
+code: LINE_7B
+label: "Metro Line 7b"
+description: "Paris metro Line 7b."
+weight: 8
+deprecated: false
+metadata: []

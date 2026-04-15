@@ -1,0 +1,8 @@
+id: fee_payer_landlord
+dictionary_type: fee_payer
+code: LANDLORD
+label: "Landlord"
+description: "Agent fees paid by the landlord."
+weight: 1
+deprecated: false
+metadata: []

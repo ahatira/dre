@@ -1,0 +1,8 @@
+id: metro_line_12
+dictionary_type: metro_line
+code: LINE_12
+label: "Metro Line 12"
+description: "Paris metro Line 12."
+weight: 13
+deprecated: false
+metadata: []

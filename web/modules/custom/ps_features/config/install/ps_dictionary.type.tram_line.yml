@@ -1,0 +1,5 @@
+id: tram_line
+label: "Tram line"
+description: "Île-de-France tramway line."
+locked: false
+metadata_schema: ''

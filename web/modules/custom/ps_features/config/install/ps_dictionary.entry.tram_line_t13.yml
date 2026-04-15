@@ -1,0 +1,8 @@
+id: tram_line_t13
+dictionary_type: tram_line
+code: T13
+label: "Tram T13"
+description: "Île-de-France tramway line T13."
+weight: 12
+deprecated: false
+metadata: []

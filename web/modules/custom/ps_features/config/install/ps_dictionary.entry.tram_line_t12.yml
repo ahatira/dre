@@ -1,0 +1,8 @@
+id: tram_line_t12
+dictionary_type: tram_line
+code: T12
+label: "Tram T12"
+description: "Île-de-France tramway line T12."
+weight: 11
+deprecated: false
+metadata: []

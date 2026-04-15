@@ -1,0 +1,8 @@
+id: tram_line_t8
+dictionary_type: tram_line
+code: T8
+label: "Tram T8"
+description: "Île-de-France tramway line T8."
+weight: 7
+deprecated: false
+metadata: []

@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lease_type
+label: 'Lease type'
+description: 'Type of lease agreement applicable to the property.'
+value_type: dictionary
+dictionary_type: lease_type
+unit: null
+is_required: false
+is_facetable: true
+validation_rules: {  }
+group: commercial_conditions
+weight: 0
+metadata:
+  icon: contract

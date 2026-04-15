@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_road_access
+label: 'Road access'
+description: 'Type of road infrastructure providing vehicular access to the property.'
+value_type: dictionary
+dictionary_type: road_access_type
+unit: null
+is_required: false
+is_facetable: true
+validation_rules: {  }
+group: transport
+weight: 5
+metadata:
+  icon: road

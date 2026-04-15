@@ -1,0 +1,8 @@
+id: metro_line_3b
+dictionary_type: metro_line
+code: LINE_3B
+label: "Metro Line 3b"
+description: "Paris metro Line 3b."
+weight: 3
+deprecated: false
+metadata: []

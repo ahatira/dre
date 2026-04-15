@@ -10,9 +10,9 @@ field_name: field_availability
 entity_type: node
 bundle: offer
 label: Availability
-description: 'Availability text for the offer.'
+description: 'Availability details as free text.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

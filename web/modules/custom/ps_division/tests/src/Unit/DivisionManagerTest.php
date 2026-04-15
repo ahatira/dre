@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Drupal\Tests\ps_division\Unit;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ps_dictionary\Service\DictionaryManagerInterface;
 use Drupal\ps_division\Entity\DivisionInterface;
 use Drupal\ps_division\Service\DivisionManager;
+use Drupal\ps_surface\Service\SurfaceValidatorInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -40,6 +43,16 @@ final class DivisionManagerTest extends UnitTestCase {
   private CacheBackendInterface $cache;
 
   /**
+   * Mock surface validator.
+   */
+  private SurfaceValidatorInterface $surfaceValidator;
+
+  /**
+   * Mock config factory.
+   */
+  private ConfigFactoryInterface $configFactory;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -48,6 +61,15 @@ final class DivisionManagerTest extends UnitTestCase {
     $this->entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $this->dictionaryManager = $this->createMock(DictionaryManagerInterface::class);
     $this->cache = $this->createMock(CacheBackendInterface::class);
+    $this->surfaceValidator = $this->createMock(SurfaceValidatorInterface::class);
+    $this->configFactory = $this->createMock(ConfigFactoryInterface::class);
+
+    $config = $this->createMock(ImmutableConfig::class);
+    $config->method('get')->willReturnMap([
+      ['dictionaries.division_type', 'surface_type'],
+      ['dictionaries.division_nature', 'surface_nature'],
+    ]);
+    $this->configFactory->method('get')->with('ps_division.settings')->willReturn($config);
 
     $logger = $this->createMock(LoggerChannelInterface::class);
     $loggerFactory = $this->createMock(LoggerChannelFactoryInterface::class);
@@ -56,6 +78,8 @@ final class DivisionManagerTest extends UnitTestCase {
     $this->divisionManager = new DivisionManager(
       $this->entityTypeManager,
       $this->dictionaryManager,
+      $this->surfaceValidator,
+      $this->configFactory,
       $this->cache,
       $loggerFactory,
     );

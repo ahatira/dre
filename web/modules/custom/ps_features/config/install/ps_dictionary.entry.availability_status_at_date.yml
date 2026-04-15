@@ -1,0 +1,8 @@
+id: availability_status_at_date
+dictionary_type: availability_status
+code: AT_DATE
+label: "À date"
+description: "Available from a specified date."
+weight: 1
+deprecated: false
+metadata: []

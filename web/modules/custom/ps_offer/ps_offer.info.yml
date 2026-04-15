@@ -27,4 +27,5 @@ dependencies:
   - ps_diagnostic:ps_diagnostic
   - ps_division:ps_division
   - ps_surface:ps_surface
+  - drupal:scheduler
   - search_api:search_api

@@ -1,0 +1,8 @@
+id: tram_line_t9
+dictionary_type: tram_line
+code: T9
+label: "Tram T9"
+description: "Île-de-France tramway line T9."
+weight: 8
+deprecated: false
+metadata: []

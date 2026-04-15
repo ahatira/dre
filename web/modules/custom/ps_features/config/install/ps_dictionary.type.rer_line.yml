@@ -1,0 +1,5 @@
+id: rer_line
+label: "RER line"
+description: "Île-de-France RER line (A–E)."
+locked: false
+metadata_schema: ''

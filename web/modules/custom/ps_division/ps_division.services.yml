@@ -4,5 +4,7 @@ services:
     arguments:
       - "@entity_type.manager"
       - "@ps_dictionary.manager"
+      - "@ps_surface.validator"
+      - "@config.factory"
       - "@cache.default"
       - "@logger.factory"

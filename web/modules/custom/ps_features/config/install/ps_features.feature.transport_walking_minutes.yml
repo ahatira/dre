@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_walking_minutes
+label: 'Walking distance to transport'
+description: 'Walking time to nearest public transport stop, in minutes.'
+value_type: numeric
+dictionary_type: null
+unit: 'min'
+is_required: false
+is_facetable: true
+validation_rules:
+  min: 1
+  max: 60
+group: transport
+weight: 4
+metadata:
+  icon: walking

@@ -100,7 +100,7 @@ final class PriceFieldTest extends KernelTestBase {
     ]);
 
     $price = $entity->get('field_test_price')->first();
-    $this->assertTrue($price->isEmpty());
+    $this->assertFalse($price->isEmpty());
 
     // Set amount.
     $price->amount = 100.00;

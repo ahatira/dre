@@ -1,0 +1,8 @@
+id: fee_payer_tenant
+dictionary_type: fee_payer
+code: TENANT
+label: "Tenant"
+description: "Agent fees paid by the tenant."
+weight: 0
+deprecated: false
+metadata: []

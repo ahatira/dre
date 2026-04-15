@@ -136,6 +136,44 @@ final class OfferAdminHooks {
         ],
       ];
     }
+
+    if (isset($form['field_min_divisible_surface'], $form['field_is_divisible'])) {
+      $form['field_min_divisible_surface']['#states'] = [
+        'visible' => [
+          ':input[name="field_is_divisible[value]"]' => ['checked' => TRUE],
+        ],
+      ];
+
+      if (isset($form['field_min_divisible_surface']['widget'][0]['value'])) {
+        $form['field_min_divisible_surface']['widget'][0]['value']['#description'] = t('If left empty, the minimum value is auto-filled from linked divisions when available.');
+        $form['field_min_divisible_surface']['widget'][0]['value']['#states'] = [
+          'required' => [
+            ':input[name="field_is_divisible[value]"]' => ['checked' => TRUE],
+          ],
+        ];
+      }
+    }
+
+    // Keep availability in the General tab.
+    if (isset($form['field_availability'])) {
+      $form['field_availability']['#group'] = 'group_general';
+      $form['field_availability']['#weight'] = 50;
+    }
+
+    // In Gin content forms, place Exclusivity in the sticky actions parent
+    // container so it appears in the top header next to Published.
+    if (isset($form['field_exclusivity'])) {
+      if (isset($form['field_exclusivity']['widget']['value'])) {
+        $form['field_exclusivity']['widget']['value']['#attributes']['form'] = $form['#id'];
+      }
+      elseif (isset($form['field_exclusivity']['widget'][0]['value'])) {
+        $form['field_exclusivity']['widget'][0]['value']['#attributes']['form'] = $form['#id'];
+      }
+
+      $form['field_exclusivity']['#group'] = 'gin_sticky_actions';
+      $form['field_exclusivity']['#weight'] = -10;
+    }
+
   }
 
 }

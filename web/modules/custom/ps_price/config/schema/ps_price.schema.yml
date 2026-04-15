@@ -51,9 +51,9 @@ field.widget.settings.ps_price_default:
       label: "Show business flags"
 
 # Field formatter settings schema.
-field.formatter.settings.ps_price_default:
+field.formatter.settings.ps_price_full:
   type: mapping
-  label: "PS Price formatter settings"
+  label: "PS Price full formatter settings"
   mapping:
     show_currency:
       type: boolean
@@ -64,30 +64,44 @@ field.formatter.settings.ps_price_default:
     show_period:
       type: boolean
       label: "Display period label"
-    decimals:
-      type: integer
-      label: "Decimals"
+
+field.formatter.settings.ps_price_short:
+  type: mapping
+  label: "PS Price short formatter settings"
+  mapping:
+    show_currency:
+      type: boolean
+      label: "Display currency symbol"
 
 # Field value schema for ps_price.
 field.value.ps_price:
   type: mapping
   label: "Price value"
   mapping:
-    value:
+    amount:
       type: float
-      label: "Value"
+      label: "Amount"
     currency_code:
       type: string
       label: "Currency code"
+    value_type_code:
+      type: string
+      label: "Value type code"
     unit_code:
       type: string
       label: "Unit code"
     period_code:
       type: string
       label: "Period code"
-    ht:
+    is_on_request:
       type: boolean
-      label: "HT flag"
-    cc:
+      label: "On request flag"
+    is_from:
       type: boolean
-      label: "CC flag"
+      label: "From flag"
+    is_vat_excluded:
+      type: boolean
+      label: "VAT excluded flag"
+    is_charges_included:
+      type: boolean
+      label: "Charges included flag"

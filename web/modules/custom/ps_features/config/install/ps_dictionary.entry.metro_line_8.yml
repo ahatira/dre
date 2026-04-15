@@ -1,0 +1,8 @@
+id: metro_line_8
+dictionary_type: metro_line
+code: LINE_8
+label: "Metro Line 8"
+description: "Paris metro Line 8."
+weight: 9
+deprecated: false
+metadata: []

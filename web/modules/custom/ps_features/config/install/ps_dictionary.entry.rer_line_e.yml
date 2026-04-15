@@ -1,0 +1,8 @@
+id: rer_line_e
+dictionary_type: rer_line
+code: RER_E
+label: "RER E"
+description: "Île-de-France RER E rapid transit line."
+weight: 4
+deprecated: false
+metadata: []

@@ -39,6 +39,16 @@ final class PriceDictionaryConstraint extends Constraint {
   /**
    * Message when currency is missing (required field).
    */
-  public string $missingCurrencyMessage = 'Currency is required.';
+  public string $missingCurrencyMessage = 'Currency is required when amount is set.';
+
+  /**
+   * Message when both on-request and amount are provided.
+   */
+  public string $onRequestWithAmountMessage = 'A price marked "on request" cannot also have an amount.';
+
+  /**
+   * Message when neither on-request nor amount is provided.
+   */
+  public string $missingAmountOrOnRequestMessage = 'Provide an amount or mark the price as "on request".';
 
 }

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fees_rate
+label: 'Fees rate'
+description: 'Agent fees as a percentage of annual rent HT (honoraires).'
+value_type: numeric
+dictionary_type: null
+unit: '%'
+is_required: false
+is_facetable: false
+validation_rules:
+  min: 0
+  max: 30
+group: commercial_conditions
+weight: 3
+metadata:
+  icon: percent

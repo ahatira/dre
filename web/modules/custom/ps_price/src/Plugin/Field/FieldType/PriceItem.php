@@ -23,6 +23,7 @@ use Drupal\ps_price\Plugin\Validation\Constraint\PriceDictionaryConstraint;
  * - VALUE_TYPE_CODE → value_type_code (price_value_type dictionary: MIN, MAX)
  * - UNIT_CODE → unit_code (price_unit dictionary: SUR, GLO, OTH)
  * - PERIOD_CODE → period_code (price_period dictionary: ANN, MEN, TRI, SEM)
+ * - ON_REQUEST flag → is_on_request
  * - FROM flag → is_from
  * - VAT_EXCLUDED flag → is_vat_excluded (HT = Hors Taxes)
  * - CHARGES_INCLUDED flag → is_charges_included (CC = Charges Comprises)
@@ -83,6 +84,10 @@ class PriceItem extends FieldItemBase {
       ->setLabel(new TranslatableMarkup('Period code'))
       ->setDescription(new TranslatableMarkup('Period code from dictionary (e.g., year, month)'));
 
+    $properties['is_on_request'] = DataDefinition::create('boolean')
+      ->setLabel(new TranslatableMarkup('On request'))
+      ->setDescription(new TranslatableMarkup('Price available on request'));
+
     $properties['is_from'] = DataDefinition::create('boolean')
       ->setLabel(new TranslatableMarkup('Starting price'))
       ->setDescription(new TranslatableMarkup('Display "Starting from" prefix'));
@@ -126,6 +131,11 @@ class PriceItem extends FieldItemBase {
           'type' => 'varchar',
           'length' => 32,
         ],
+        'is_on_request' => [
+          'type' => 'int',
+          'size' => 'tiny',
+          'default' => 0,
+        ],
         'is_from' => [
           'type' => 'int',
           'size' => 'tiny',
@@ -154,7 +164,23 @@ class PriceItem extends FieldItemBase {
    */
   public function isEmpty(): bool {
     $amount = $this->get('amount')->getValue();
-    return $amount === NULL || $amount === '';
+    $onRequest = (bool) ($this->get('is_on_request')->getValue() ?? FALSE);
+    $hasAmount = $amount !== NULL && $amount !== '';
+
+    if ($onRequest || $hasAmount) {
+      return FALSE;
+    }
+
+    // Keep partially filled rows for validation instead of silently dropping them.
+    $hasOtherData = $this->get('currency_code')->getValue() !== NULL
+      || $this->get('unit_code')->getValue() !== NULL
+      || $this->get('period_code')->getValue() !== NULL
+      || $this->get('value_type_code')->getValue() !== NULL
+      || (bool) ($this->get('is_from')->getValue() ?? FALSE)
+      || (bool) ($this->get('is_vat_excluded')->getValue() ?? FALSE)
+      || (bool) ($this->get('is_charges_included')->getValue() ?? FALSE);
+
+    return !$hasOtherData;
   }
 
   /**
@@ -198,6 +224,13 @@ class PriceItem extends FieldItemBase {
    */
   public function getValueTypeCode(): ?string {
     return $this->get('value_type_code')->getValue();
+  }
+
+  /**
+   * Gets whether price is available on request.
+   */
+  public function isOnRequest(): bool {
+    return (bool) ($this->get('is_on_request')->getValue() ?? FALSE);
   }
 
   /**

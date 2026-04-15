@@ -1,0 +1,5 @@
+id: fee_payer
+label: "Fee payer"
+description: "Who bears the agent fees for the transaction."
+locked: false
+metadata_schema: ''

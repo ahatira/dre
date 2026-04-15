@@ -46,6 +46,10 @@ final class PriceNormalizer {
   public function normalize(FieldItemInterface $item, float $surfaceM2 = 1.0): ?float {
     assert($item instanceof PriceItem);
 
+    if ($item->isOnRequest()) {
+      return NULL;
+    }
+
     if ($item->amount === NULL) {
       return NULL;
     }

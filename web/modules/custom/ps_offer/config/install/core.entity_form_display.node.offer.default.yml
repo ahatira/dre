@@ -12,7 +12,9 @@ dependencies:
     - field.field.node.offer.field_features
     - field.field.node.offer.field_availability
     - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_exclusivity
     - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_min_divisible_surface
     - field.field.node.offer.field_mandate_type
     - field.field.node.offer.field_property_type
     - field.field.node.offer.field_surfaces
@@ -91,6 +93,7 @@ third_party_settings:
         - field_property_type
         - field_transaction_types
         - field_mandate_type
+        - field_availability
         - body
       label: General
       region: content
@@ -108,7 +111,6 @@ third_party_settings:
     group_price:
       children:
         - field_prices
-        - field_availability
       label: Price
       region: content
       parent_name: group_form
@@ -142,6 +144,7 @@ third_party_settings:
     group_surfaces:
       children:
         - field_is_divisible
+        - field_min_divisible_surface
         - field_surfaces
         - field_divisions
       label: Surfaces
@@ -234,14 +237,21 @@ content:
       wrapper_type: fieldset
     third_party_settings: {  }
   field_agents:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     weight: 9
     region: content
     settings:
+      form_mode: default
+      revision: false
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: true
+      collapsed: false
+      allow_new: false
+      allow_existing: true
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      allow_duplicate: false
     third_party_settings: {  }
   body:
     type: text_textarea_with_summary
@@ -276,14 +286,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_divisions:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     weight: 13
     region: content
     settings:
+      form_mode: default
+      revision: false
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      allow_duplicate: false
     third_party_settings: {  }
   external_id:
     type: string_textfield
@@ -323,6 +340,13 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_min_divisible_surface:
+    type: number
+    weight: 12
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_mandate_type:
     type: options_select
     weight: 7
@@ -337,7 +361,7 @@ content:
     third_party_settings: {  }
   field_surfaces:
     type: ps_surface_default
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -431,6 +455,13 @@ content:
   status:
     type: boolean_checkbox
     weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_exclusivity:
+    type: boolean_checkbox
+    weight: 9
     region: content
     settings:
       display_label: true

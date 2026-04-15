@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_min_divisible_surface
+    - node.type.offer
+id: node.offer.field_min_divisible_surface
+field_name: field_min_divisible_surface
+entity_type: node
+bundle: offer
+label: 'Minimum divisible surface (m2)'
+description: 'Smallest divisible lot size. Auto-filled from divisions when empty.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

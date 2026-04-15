@@ -1,0 +1,8 @@
+id: fee_payer_shared
+dictionary_type: fee_payer
+code: SHARED
+label: "Shared (50/50)"
+description: "Agent fees split equally between tenant and landlord."
+weight: 2
+deprecated: false
+metadata: []

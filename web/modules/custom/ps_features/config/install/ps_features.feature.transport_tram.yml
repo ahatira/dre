@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_tram
+label: 'Tram lines'
+description: 'Nearby Île-de-France tramway lines.'
+value_type: dictionary
+dictionary_type: tram_line
+unit: null
+is_required: false
+is_facetable: true
+validation_rules: {  }
+group: transport
+weight: 2
+metadata:
+  icon: tram

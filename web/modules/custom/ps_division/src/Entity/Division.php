@@ -139,8 +139,8 @@ final class Division extends ContentEntityBase implements DivisionInterface {
     }
     foreach ($this->get('surfaces') as $item) {
       /** @var \Drupal\ps_surface\Plugin\Field\FieldType\SurfaceItem $item */
-      $value = $item->getValue();
-      if (is_numeric($value)) {
+      $value = $item->get('value')->getValue();
+      if (is_numeric($value) && (float) $value > 0.0) {
         $total += (float) $value;
       }
     }

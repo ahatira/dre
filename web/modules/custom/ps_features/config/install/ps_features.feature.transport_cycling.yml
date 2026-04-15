@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_cycling
+label: 'Cycling access'
+description: 'Cycling lanes or bike-friendly access to the property.'
+value_type: flag
+dictionary_type: null
+unit: null
+is_required: false
+is_facetable: false
+validation_rules: {  }
+group: transport
+weight: 6
+metadata:
+  icon: bicycle

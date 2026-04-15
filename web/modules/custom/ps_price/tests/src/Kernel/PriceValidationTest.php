@@ -167,4 +167,77 @@ final class PriceValidationTest extends KernelTestBase {
     $this->assertCount(0, $priceViolations, 'Valid data should not produce validation errors.');
   }
 
+  /**
+   * Tests that on-request without amount is accepted.
+   */
+  public function testOnRequestWithoutAmountPassesValidation(): void {
+    $entity = EntityTest::create([
+      'name' => 'Test Entity',
+      'field_test_price' => [
+        'is_on_request' => TRUE,
+      ],
+    ]);
+
+    $violations = $entity->validate();
+    $priceViolations = [];
+    foreach ($violations as $violation) {
+      if (str_contains($violation->getPropertyPath(), 'field_test_price')) {
+        $priceViolations[] = $violation;
+      }
+    }
+
+    $this->assertCount(0, $priceViolations, 'On-request price without amount should be valid.');
+  }
+
+  /**
+   * Tests that on-request with amount is rejected.
+   */
+  public function testOnRequestWithAmountFailsValidation(): void {
+    $entity = EntityTest::create([
+      'name' => 'Test Entity',
+      'field_test_price' => [
+        'amount' => 390.00,
+        'currency_code' => 'EUR',
+        'is_on_request' => TRUE,
+      ],
+    ]);
+
+    $violations = $entity->validate();
+    $this->assertGreaterThan(0, $violations->count());
+
+    $found = FALSE;
+    foreach ($violations as $violation) {
+      if (str_contains((string) $violation->getMessage(), 'on request')) {
+        $found = TRUE;
+        break;
+      }
+    }
+    $this->assertTrue($found, 'Expected validation error for amount + on-request combination.');
+  }
+
+  /**
+   * Tests that missing amount without on-request is rejected.
+   */
+  public function testMissingAmountWithoutOnRequestFailsValidation(): void {
+    $entity = EntityTest::create([
+      'name' => 'Test Entity',
+      'field_test_price' => [
+        'currency_code' => 'EUR',
+        'is_on_request' => FALSE,
+      ],
+    ]);
+
+    $violations = $entity->validate();
+    $this->assertGreaterThan(0, $violations->count());
+
+    $found = FALSE;
+    foreach ($violations as $violation) {
+      if (str_contains((string) $violation->getMessage(), 'Provide an amount')) {
+        $found = TRUE;
+        break;
+      }
+    }
+    $this->assertTrue($found, 'Expected validation error when no amount and not on-request.');
+  }
+
 }

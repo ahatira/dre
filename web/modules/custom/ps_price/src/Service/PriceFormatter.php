@@ -51,6 +51,10 @@ final class PriceFormatter implements PriceFormatterInterface {
       'show_flags' => TRUE,
     ];
 
+    if ($item->isOnRequest()) {
+      return $this->t('On request')->render();
+    }
+
     // Build price string.
     $parts = [];
 
@@ -106,6 +110,10 @@ final class PriceFormatter implements PriceFormatterInterface {
     $options += [
       'show_currency' => TRUE,
     ];
+
+    if ($item->isOnRequest()) {
+      return $this->t('On request')->render();
+    }
 
     $parts = [];
 

@@ -46,27 +46,61 @@ final class PriceDictionaryConstraintValidator extends ConstraintValidator imple
     }
 
     $amount = $value->getAmount();
-    if ($amount !== NULL && $amount < 0) {
+    $onRequest = $value->isOnRequest();
+    $hasAmount = $amount !== NULL;
+
+    // Ignore entirely empty rows.
+    $hasAnyOptionalData = $value->getUnitCode() !== NULL
+      || $value->getPeriodCode() !== NULL
+      || $value->getValueTypeCode() !== NULL
+      || $value->getCurrencyCode() !== NULL
+      || (bool) ($value->get('is_from')->getValue() ?? FALSE)
+      || (bool) ($value->get('is_vat_excluded')->getValue() ?? FALSE)
+      || (bool) ($value->get('is_charges_included')->getValue() ?? FALSE)
+      || $onRequest;
+    if (!$hasAmount && !$hasAnyOptionalData) {
+      return;
+    }
+
+    // Explicit status rule (XOR): either amount or on-request.
+    if ($onRequest && $hasAmount) {
+      $this->context
+        ->buildViolation($constraint->onRequestWithAmountMessage)
+        ->atPath('amount')
+        ->addViolation();
+    }
+
+    if (!$onRequest && !$hasAmount) {
+      $this->context
+        ->buildViolation($constraint->missingAmountOrOnRequestMessage)
+        ->atPath('amount')
+        ->addViolation();
+      return;
+    }
+
+    if ($hasAmount && $amount < 0) {
       $this->context
         ->buildViolation($constraint->negativeAmountMessage)
         ->atPath('amount')
         ->addViolation();
     }
 
-    // Currency validation (required field).
+    // Currency validation is required only when amount is provided.
     $currency = $value->getCurrencyCode();
-    if ($currency === NULL || $currency === '') {
-      $this->context
-        ->buildViolation($constraint->missingCurrencyMessage)
-        ->atPath('currency_code')
-        ->addViolation();
-    }
-    elseif (!$this->dictionaryManager->isValid('currency', $currency)) {
-      $this->context
-        ->buildViolation($constraint->invalidCurrencyMessage)
-        ->atPath('currency_code')
-        ->setParameter('%currency', (string) $currency)
-        ->addViolation();
+    if ($hasAmount) {
+      if ($currency === NULL || $currency === '') {
+        $this->context
+          ->buildViolation($constraint->missingCurrencyMessage)
+          ->atPath('currency_code')
+          ->addViolation();
+      }
+      elseif (!$this->dictionaryManager->isValid('currency', $currency)) {
+        $this->context
+          ->buildViolation($constraint->invalidCurrencyMessage)
+          ->atPath('currency_code')
+          ->setParameter('%currency', (string) $currency)
+          ->addViolation();
+      }
     }
 
     // Unit code validation (optional).

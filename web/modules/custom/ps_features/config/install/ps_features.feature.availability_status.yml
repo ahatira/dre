@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: availability_status
+label: 'Availability status'
+description: 'Closed availability status: immédiate, à date, nous consulter.'
+value_type: dictionary
+dictionary_type: availability_status
+unit: null
+is_required: false
+is_facetable: true
+validation_rules: {  }
+group: commercial_conditions
+weight: 5
+metadata:
+  icon: calendar

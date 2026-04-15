@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Drupal\ps_division\Service;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ps_dictionary\Service\DictionaryManagerInterface;
 use Drupal\ps_division\Entity\DivisionInterface;
+use Drupal\ps_surface\Service\SurfaceValidatorInterface;
 
 /**
  * Division manager service implementation.
@@ -32,6 +34,8 @@ final class DivisionManager implements DivisionManagerInterface {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly DictionaryManagerInterface $dictionaryManager,
+    private readonly SurfaceValidatorInterface $surfaceValidator,
+    private readonly ConfigFactoryInterface $configFactory,
     private readonly CacheBackendInterface $cache,
     LoggerChannelFactoryInterface $loggerFactory,
   ) {
@@ -44,33 +48,37 @@ final class DivisionManager implements DivisionManagerInterface {
   public function validate(DivisionInterface $division): array {
     $errors = [];
 
-    // Validate surfaces if ps_surface field exists.
+    // Validate division-level dictionary codes.
+    if ($division->hasField('floor') && !$division->get('floor')->isEmpty()) {
+      $floor = (string) $division->get('floor')->value;
+      if (!$this->dictionaryManager->isValid('floor', $floor)) {
+        $errors[] = "Invalid floor '{$floor}'.";
+      }
+    }
+
+    $settings = $this->configFactory->get('ps_division.settings');
+    $typeDictionary = (string) ($settings->get('dictionaries.division_type') ?? 'surface_type');
+    if ($division->hasField('division_type') && !$division->get('division_type')->isEmpty()) {
+      $type = (string) $division->get('division_type')->value;
+      if (!$this->dictionaryManager->isValid($typeDictionary, $type)) {
+        $errors[] = "Invalid division type '{$type}' for dictionary '{$typeDictionary}'.";
+      }
+    }
+
+    $natureDictionary = (string) ($settings->get('dictionaries.division_nature') ?? 'surface_nature');
+    if ($division->hasField('nature') && !$division->get('nature')->isEmpty()) {
+      $nature = (string) $division->get('nature')->value;
+      if (!$this->dictionaryManager->isValid($natureDictionary, $nature)) {
+        $errors[] = "Invalid division nature '{$nature}' for dictionary '{$natureDictionary}'.";
+      }
+    }
+
+    // Delegate surface validation to ps_surface.
     if ($division->hasField('surfaces')) {
       foreach ($division->get('surfaces') as $delta => $surface) {
         /** @var \Drupal\ps_surface\Plugin\Field\FieldType\SurfaceItem $surface */
-        $value = $surface->getValue();
-        if ($value !== NULL && $value < 0) {
-          $errors[] = "Surface #{$delta}: value cannot be negative.";
-        }
-
-        $unit = $surface->getUnit();
-        if ($unit && !$this->dictionaryManager->isValid('surface_unit', $unit)) {
-          $errors[] = "Surface #{$delta}: invalid unit '{$unit}'.";
-        }
-
-        $type = $surface->getType();
-        if ($type && !$this->dictionaryManager->isValid('surface_type', $type)) {
-          $errors[] = "Surface #{$delta}: invalid type '{$type}'.";
-        }
-
-        $nature = $surface->getNature();
-        if ($nature && !$this->dictionaryManager->isValid('surface_nature', $nature)) {
-          $errors[] = "Surface #{$delta}: invalid nature '{$nature}'.";
-        }
-
-        $qual = $surface->getQualification();
-        if ($qual && !$this->dictionaryManager->isValid('surface_qualification', $qual)) {
-          $errors[] = "Surface #{$delta}: invalid qualification '{$qual}'.";
+        foreach ($this->surfaceValidator->validateItem($surface) as $surfaceError) {
+          $errors[] = "Surface #{$delta}: {$surfaceError}";
         }
       }
     }

@@ -2,8 +2,5 @@
 
 /**
  * @file
- * Install hooks are intentionally empty.
- *
- * The ps_offer module installs entirely from shipped configuration.
+ * Install, update and uninstall hooks for ps_offer.
  */
-

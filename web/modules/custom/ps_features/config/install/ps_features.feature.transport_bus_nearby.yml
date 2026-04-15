@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_bus_nearby
+label: 'Bus stop nearby'
+description: 'One or more bus stops within walking distance.'
+value_type: flag
+dictionary_type: null
+unit: null
+is_required: false
+is_facetable: false
+validation_rules: {  }
+group: transport
+weight: 3
+metadata:
+  icon: bus

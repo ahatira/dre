@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fees_payer
+label: 'Fees payer'
+description: 'Party responsible for paying the agent fees.'
+value_type: dictionary
+dictionary_type: fee_payer
+unit: null
+is_required: false
+is_facetable: false
+validation_rules: {  }
+group: commercial_conditions
+weight: 4
+metadata:
+  icon: user

@@ -1,0 +1,8 @@
+id: metro_line_14
+dictionary_type: metro_line
+code: LINE_14
+label: "Metro Line 14"
+description: "Paris metro Line 14."
+weight: 15
+deprecated: false
+metadata: []

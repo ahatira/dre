@@ -1,0 +1,8 @@
+id: tram_line_t5
+dictionary_type: tram_line
+code: T5
+label: "Tram T5"
+description: "Île-de-France tramway line T5."
+weight: 4
+deprecated: false
+metadata: []

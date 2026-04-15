@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport_rer
+label: 'RER lines'
+description: 'Nearby RER rapid transit lines.'
+value_type: dictionary
+dictionary_type: rer_line
+unit: null
+is_required: false
+is_facetable: true
+validation_rules: {  }
+group: transport
+weight: 1
+metadata:
+  icon: train

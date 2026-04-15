@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies: {  }
+id: security_deposit
+label: 'Security deposit'
+description: 'Security deposit in months of rent (dépôt de garantie).'
+value_type: numeric
+dictionary_type: null
+unit: 'months'
+is_required: false
+is_facetable: false
+validation_rules:
+  min: 0
+  max: 24
+group: commercial_conditions
+weight: 2
+metadata:
+  icon: shield

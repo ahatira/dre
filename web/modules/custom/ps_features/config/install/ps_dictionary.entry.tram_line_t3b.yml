@@ -1,0 +1,8 @@
+id: tram_line_t3b
+dictionary_type: tram_line
+code: T3B
+label: "Tram T3b"
+description: "Île-de-France tramway line T3b."
+weight: 3
+deprecated: false
+metadata: []

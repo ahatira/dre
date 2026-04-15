@@ -1,0 +1,8 @@
+id: road_access_type_ring_road
+dictionary_type: road_access_type
+code: RING_ROAD
+label: "Ring road"
+description: "Access via ring road (boulevard périphérique / rocade)."
+weight: 1
+deprecated: false
+metadata: []

@@ -1,6 +1,20 @@
 # Configuration pour les champs du node type "offer"
 # Ce fichier sera synchronisé après installation du module
 
+# CHOIX TECHNIQUES ACTÉS
+#
+# field_surfaces — translatable
+#   - field.storage.node.field_surfaces : translatable = true
+#     Le storage autorise la traduction pour garder la porte ouverte à une
+#     version multilingue future.
+#   - field.field.node.offer.field_surfaces : translatable = false
+#     L'instance désactive la traduction par champ sur le bundle offer.
+#     Décision métier : une surface est une donnée physique indépendante de la
+#     langue de l'offre (pas de surface FR vs surface EN). Cette valeur ne doit
+#     pas être dupliquée par langue.
+#   => Ne pas activer `translatable: true` sur l'instance sans révision
+#      explicite de l'impact sur les imports CRM et l'indexation Search API.
+
 # Base field definitions sont gérées via Drupal node module
 # Les champs personnalisés seront ajoutés via hook_node_type_presave ou config
 

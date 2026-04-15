@@ -1,0 +1,5 @@
+id: metro_line
+label: "Metro line"
+description: "Paris metro line (Lines 1–14, including 3b and 7b)."
+locked: false
+metadata_schema: ''

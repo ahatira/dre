@@ -1,0 +1,8 @@
+id: metro_line_5
+dictionary_type: metro_line
+code: LINE_5
+label: "Metro Line 5"
+description: "Paris metro Line 5."
+weight: 5
+deprecated: false
+metadata: []
