@@ -8,8 +8,15 @@ ps_offer.admin_offers:
   weight: 0
 
 ps_offer.settings:
-  title: "Settings"
+  title: "Offers Settings"
   route_name: ps_offer.settings
   parent: ps.admin_config
-  description: "Configure offer settings"
+  description: "Configure offers settings"
   weight: 100
+
+entity.ps_offer_reference_segment.collection:
+  title: "Reference Segments"
+  route_name: entity.ps_offer_reference_segment.collection
+  parent: ps_offer.settings
+  description: "Manage offer reference segment rules"
+  weight: 110

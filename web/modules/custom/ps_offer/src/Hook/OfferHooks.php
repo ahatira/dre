@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\ps_offer\Hook;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferReferenceBuilder;
 
 /**
  * Hooks for Offer nodes.
@@ -19,7 +20,8 @@ class OfferHooks {
    */
   public function __construct(
     protected LoggerChannelFactoryInterface $loggerFactory,
-    protected EntityTypeManagerInterface $entityTypeManager,
+    protected OfferReferenceBuilder $referenceBuilder,
+    protected MessengerInterface $messenger,
   ) {}
 
   /**
@@ -115,68 +117,29 @@ class OfferHooks {
       return;
     }
 
+    // Once persisted, offer references are immutable. Keep original value even
+    // if a submitted form/client attempts to change it.
+    if (!$node->isNew() && isset($node->original) && $node->original instanceof NodeInterface && $node->original->hasField('field_reference')) {
+      $original_reference = strtoupper(trim((string) $node->original->get('field_reference')->value));
+      if ($original_reference !== '') {
+        $node->set('field_reference', $original_reference);
+        return;
+      }
+    }
+
     $reference = strtoupper(trim((string) $node->get('field_reference')->value));
-    if ($reference !== '' && preg_match('/^[OD][LVC][A-Z]{3}\d{7}$/', $reference) === 1) {
+    if ($this->referenceBuilder->isReferenceValid($reference)) {
       $node->set('field_reference', $reference);
       return;
     }
 
-    $node->set('field_reference', $this->generateReference($node));
-  }
+    $generated = $this->referenceBuilder->generate($node);
+    $node->set('field_reference', $generated['reference']);
 
-  /**
-   * Generates a business reference for an offer.
-   */
-  protected function generateReference(NodeInterface $node): string {
-    $transaction_code = $this->getFieldCode($node, 'field_transaction_types');
-    $property_code = $this->getFieldCode($node, 'field_property_type');
-    $year = date('y', (int) ($node->getCreatedTime() ?: time()));
-
-    $prefix = 'O'
-      . $this->mapTransactionType($transaction_code)
-      . $this->mapPropertyType($property_code)
-      . $year;
-
-    $counter = $this->entityTypeManager->getStorage('node')
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('type', 'offer')
-      ->condition('field_reference', $prefix . '%', 'LIKE')
-      ->count()
-      ->execute() + 1;
-
-    return $prefix . str_pad((string) $counter, 5, '0', STR_PAD_LEFT);
-  }
-
-  /**
-   * Extracts a normalized code from an offer dictionary field.
-   */
-  protected function getFieldCode(NodeInterface $node, string $field_name): string {
-    if (!$node->hasField($field_name) || $node->get($field_name)->isEmpty()) {
-      return '';
+    foreach ($generated['warnings'] as $warning) {
+      $this->loggerFactory->get('ps_offer')->warning($warning);
+      $this->messenger->addWarning(t('@message', ['@message' => $warning]));
     }
-
-    return strtoupper(trim((string) $node->get($field_name)->value));
-  }
-
-  /**
-   * Maps transaction business codes to the one-letter reference format.
-   */
-  protected function mapTransactionType(string $transaction_code): string {
-    return match ($transaction_code) {
-      'LOC', 'L', 'LEASE', 'RENT', 'RENTAL', 'LOCATION' => 'L',
-      'V', 'VTE', 'VEN', 'VENTE', 'SALE', 'SAL' => 'V',
-      'C', 'CES', 'CESSION' => 'C',
-      default => $transaction_code !== '' ? substr($transaction_code, 0, 1) : 'L',
-    };
-  }
-
-  /**
-   * Maps property business codes to a three-letter reference block.
-   */
-  protected function mapPropertyType(string $property_code): string {
-    $normalized = strtoupper(substr($property_code, 0, 3));
-    return str_pad($normalized !== '' ? $normalized : 'BUR', 3, 'X');
   }
 
 }

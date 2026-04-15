@@ -1,0 +1,17 @@
+id: segment_2
+label: 'Transaction type'
+enabled: true
+weight: 10
+segment_type: custom
+source_field: field_transaction_types
+length: 1
+custom_map_text: |
+  LOC=L
+  L=L
+  V=V
+  VTE=V
+  VEN=V
+  VENTE=V
+  C=C
+  CES=C
+  CESSION=C

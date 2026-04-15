@@ -81,6 +81,7 @@
         "drupal/pathologic": "~2",
         "drupal/phone_international": "^4.0",
         "drupal/redirect": "^1.12",
+        "drupal/scheduler": "^2.1",
         "drupal/search_api": "^1.40",
         "drupal/simple_sitemap": "^4.2",
         "drupal/slick": "~3",

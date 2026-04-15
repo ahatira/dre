@@ -52,3 +52,11 @@ ps_offer.settings:
     _form: 'Drupal\ps_offer\Form\OfferSettingsForm'
   requirements:
     _permission: "administer offer content"
+
+ps_offer.reference_preview:
+  path: "/admin/ps/config/offers/reference/preview"
+  defaults:
+    _controller: '\Drupal\ps_offer\Controller\OfferReferencePreviewController::preview'
+  requirements:
+    _permission: "edit any offer content"
+  methods: [POST]

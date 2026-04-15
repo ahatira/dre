@@ -1,0 +1,5 @@
+entity.ps_offer_reference_segment.add_form:
+  route_name: entity.ps_offer_reference_segment.add_form
+  title: 'Add reference segment'
+  appears_on:
+    - entity.ps_offer_reference_segment.collection

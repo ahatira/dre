@@ -1,0 +1,7 @@
+id: segment_5
+label: Counter
+enabled: true
+weight: 40
+segment_type: auto
+length: 5
+auto_start: 1

@@ -1,0 +1,8 @@
+reference_live:
+  version: 1.x
+  js:
+    js/reference-live.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

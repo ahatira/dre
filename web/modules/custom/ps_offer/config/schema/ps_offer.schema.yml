@@ -23,6 +23,60 @@ ps_offer.settings:
     results_per_page:
       type: integer
       label: "Default results per page"
+    reference_builder:
+      type: mapping
+      label: "Reference builder settings"
+      mapping:
+        total_length:
+          type: integer
+          label: "Reference total length"
+        segments:
+          type: ignore
+          label: "Legacy reference segments"
+
+ps_offer.reference_segment.*:
+  type: config_entity
+  label: "Offer reference segment"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    label:
+      type: label
+      label: "Label"
+    enabled:
+      type: boolean
+      label: "Enabled"
+    weight:
+      type: integer
+      label: "Weight"
+    segment_type:
+      type: string
+      label: "Segment type"
+    source_field:
+      type: string
+      label: "Source field"
+    length:
+      type: integer
+      label: "Length"
+    static_value:
+      type: string
+      label: "Static value"
+    custom_map_text:
+      type: text
+      label: "Custom map text"
+    start_index:
+      type: integer
+      label: "Start index"
+    date_source_field:
+      type: string
+      label: "Date source field"
+    date_format:
+      type: string
+      label: "Date format"
+    auto_start:
+      type: integer
+      label: "Auto start"
 
 node.type.offer:
   type: config_entity

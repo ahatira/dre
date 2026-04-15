@@ -1,4 +1,15 @@
 services:
+  ps_offer.reference_builder:
+    class: Drupal\ps_offer\Service\OfferReferenceBuilder
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@lock'
+      - '@logger.factory'
+
+  Drupal\ps_offer\Service\OfferReferenceBuilder:
+    alias: ps_offer.reference_builder
+
   ps_offer.manager:
     class: 'Drupal\ps_offer\Service\OfferManager'
     arguments:

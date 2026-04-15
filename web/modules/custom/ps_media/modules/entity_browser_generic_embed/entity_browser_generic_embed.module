@@ -33,7 +33,7 @@ function entity_browser_generic_embed_form_media_type_form_alter(array &$form, F
  * Implements hook_ENTITY_TYPE_insert().
  */
 function entity_browser_generic_embed_view_insert(ViewEntityInterface $view) {
-  if (\Drupal::isConfigSyncing()) {
+  if (Drupal::isConfigSyncing()) {
     return;
   }
   elseif (InstallerKernel::installationAttempted() && $view->id() == 'media') {
@@ -60,7 +60,7 @@ function entity_browser_generic_embed_element_info_alter(array &$info) {
 function entity_browser_generic_embed_entity_extra_field_info() {
   $extra_fields = [];
 
-  if (\Drupal::moduleHandler()->moduleExists('media')) {
+  if (Drupal::moduleHandler()->moduleExists('media')) {
     /** @var \Drupal\media\MediaTypeInterface $media_type */
     foreach (MediaType::loadMultiple() as $id => $media_type) {
       $plugin_definition = $media_type->getSource()->getPluginDefinition();
@@ -104,7 +104,7 @@ function entity_browser_generic_embed_inline_entity_form_entity_form_alter(array
  */
 function entity_browser_generic_embed_validate_upload(FileInterface $file, array $bundles = []) {
   try {
-    $entity = \Drupal::service('entity_browser_generic_embed.media_helper')->createFromInput($file, $bundles);
+    $entity = Drupal::service('entity_browser_generic_embed.media_helper')->createFromInput($file, $bundles);
   }
   catch (IndeterminateBundleException $e) {
     return [];
@@ -140,7 +140,7 @@ function entity_browser_generic_embed_validate_upload(FileInterface $file, array
     }
   }
 
-  $file_validator = \Drupal::service('file.validator');
+  $file_validator = Drupal::service('file.validator');
   return $file_validator->validate($file, $validators);
 
 }
@@ -162,8 +162,20 @@ function entity_browser_generic_embed_validate_upload(FileInterface $file, array
  */
 function entity_browser_generic_embed_inject_entity_browser_count(array $element) {
   $settings = &$element['#attached']['drupalSettings']['entity_browser'];
+
+  // Some widgets can trigger this callback before entity_browser settings are
+  // attached. Skip safely instead of throwing a TypeError on key().
+  if (!is_array($settings) || $settings === []) {
+    return $element;
+  }
+
   $uuid = key($settings);
-  $settings[$uuid]['count'] = count($element['#default_value']);
+  if ($uuid === NULL) {
+    return $element;
+  }
+
+  $default_value = $element['#default_value'] ?? [];
+  $settings[$uuid]['count'] = is_countable($default_value) ? count($default_value) : 0;
 
   return $element;
 }
@@ -243,8 +255,8 @@ function entity_browser_generic_embed_form_entity_embed_dialog_alter(array &$for
  * Implements hook_ajax_render_alter().
  */
 function entity_browser_generic_embed_ajax_render_alter(array &$data) {
-  $route = \Drupal::routeMatch()->getRouteName();
-  $query = \Drupal::request()->query;
+  $route = Drupal::routeMatch()->getRouteName();
+  $query = Drupal::request()->query;
 
   if ($route == 'entity_embed.dialog') {
     foreach ($data as &$command) {
@@ -300,7 +312,7 @@ function entity_browser_generic_embed_preprocess_views_view_grid(array &$variabl
  */
 function entity_browser_generic_embed_entity_form_display_presave(EntityFormDisplayInterface $display) {
   // Don't do anything during config sync.
-  if (\Drupal::isConfigSyncing()) {
+  if (Drupal::isConfigSyncing()) {
     return;
   }
 

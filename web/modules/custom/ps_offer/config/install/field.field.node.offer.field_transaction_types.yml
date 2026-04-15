@@ -11,7 +11,7 @@ id: node.offer.field_transaction_types
 field_name: field_transaction_types
 entity_type: node
 bundle: offer
-label: 'Transaction Types'
+label: 'Transaction Type'
 description: ''
 required: true
 translatable: false

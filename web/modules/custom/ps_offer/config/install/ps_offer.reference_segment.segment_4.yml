@@ -1,0 +1,8 @@
+id: segment_4
+label: 'Published date'
+enabled: true
+weight: 30
+segment_type: date
+length: 2
+date_source_field: publish_on
+date_format: YY

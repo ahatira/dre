@@ -20,19 +20,13 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  fields:
-    administrativeArea: ''
-    locality: ''
-    dependentLocality: ''
-    postalCode: ''
-    sortingCode: ''
-    address_line1: ''
-    address_line2: ''
-    organization: ''
-    givenName: ''
-    additionalName: ''
-    familyName: ''
   available_countries: {  }
   langcode_override: null
-  field_overrides: {  }
+  field_overrides:
+    organization:
+      override: hidden
+    givenName:
+      override: hidden
+    familyName:
+      override: hidden
 field_type: address

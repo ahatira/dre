@@ -9,3 +9,5 @@ third_party_settings: {  }
 divisible_default: false
 auto_publish: false
 results_per_page: 20
+reference_builder:
+  total_length: 12

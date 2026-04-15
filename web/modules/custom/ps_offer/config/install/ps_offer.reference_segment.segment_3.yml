@@ -1,0 +1,12 @@
+id: segment_3
+label: 'Property type'
+enabled: true
+weight: 20
+segment_type: custom
+source_field: field_property_type
+length: 3
+custom_map_text: |
+  BUR=BUR
+  ACT=ACT
+  LOG=LOG
+  COM=COM
