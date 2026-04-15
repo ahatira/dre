@@ -1,0 +1,76 @@
+editor.settings.ace_editor:
+  type: mapping
+  label: 'ACE editor settings'
+  mapping:
+    fieldset:
+      type: mapping
+      label: 'ACE editor fieldset settings'
+      mapping:
+        theme:
+          type: string
+          label: 'Theme'
+        syntax:
+          type: string
+          label: 'Syntax'
+        height:
+          type: string
+          label: 'Height'
+        width:
+          type: string
+          label: 'Width'
+        font_size:
+          type: string
+          label: 'Font size'
+        line_numbers:
+          type: boolean
+          label: 'Line numbers'
+        print_margins:
+          type: boolean
+          label: 'Print margins'
+        show_invisibles:
+          type: boolean
+          label: 'Show invisible'
+        use_wrap_mode:
+          type: boolean
+          label: 'Use wrap mode'
+        auto_complete:
+          type: boolean
+          label: 'Autocomplete'
+    theme_list:
+      type: sequence
+      sequence:
+        type: string
+    syntax_list:
+      type: sequence
+      sequence:
+        type: string
+    theme:
+      type: string
+      label: 'Theme'
+    syntax:
+      type: string
+      label: 'Syntax'
+    height:
+      type: string
+      label: 'Height'
+    width:
+      type: string
+      label: 'Width'
+    font_size:
+      type: string
+      label: 'Font size'
+    line_numbers:
+      type: boolean
+      label: 'Line numbers'
+    show_invisibles:
+      type: boolean
+      label: 'Show invisible'
+    print_margins:
+      type: boolean
+      label: 'Print margins'
+    auto_complete:
+      type: boolean
+      label: 'Autocomplete'
+    use_wrap_mode:
+      type: boolean
+      label: 'Use wrap mode'

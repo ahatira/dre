@@ -1,0 +1,12 @@
+ckeditor5:
+  css:
+    theme:
+      css/theme/ps-editor.ckeditor5.admin.css: {  }
+ckeditor5-media-resize:
+  js:
+    js/ps-editor.ckeditor5.media-image.admin.js: {  }
+    js/ps-editor.ckeditor5.media-dropdown.admin.js: {  }
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/jquery

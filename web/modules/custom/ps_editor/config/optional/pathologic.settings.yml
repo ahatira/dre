@@ -1,0 +1,4 @@
+scheme_allow_list: ['http', 'https', 'files', 'internal']
+protocol_style: 'path'
+local_paths: ''
+keep_language_prefix: true

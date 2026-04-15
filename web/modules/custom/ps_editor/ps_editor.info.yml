@@ -1,0 +1,29 @@
+name: PS Editor
+description: Editor profile and settings to be used in most websites.
+type: module
+package: PS
+core_version_requirement: ~11.3.0
+dependencies:
+  - drupal:node
+  - drupal:editor
+  - drupal:ckeditor5
+  - drupal:filter
+  - drupal:media
+  - drupal:media_library
+  - drupal:ace_editor
+  - drupal:anchor_link
+  - drupal:blazy
+  - drupal:ckeditor_bidi
+  - drupal:ckeditor_emoji
+  - drupal:ckeditor5_paste_filter
+  - drupal:ckeditor5_plugin_pack
+  - drupal:ckeditor_media_embed
+  - drupal:ckeditor_media_resize
+  - drupal:edit_media_modal
+  - drupal:editor_advanced_link
+  - drupal:entity_embed
+  - drupal:extlink
+  - drupal:linkit
+  - drupal:pathologic
+  - drupal:slick
+  - drupal:token_filter

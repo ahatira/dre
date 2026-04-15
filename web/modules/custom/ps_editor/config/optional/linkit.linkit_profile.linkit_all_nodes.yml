@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+label: 'Linkit: All Nodes'
+id: linkit_all_nodes
+description: ''
+matchers:
+  bc3b1ccd-ac4e-4c5c-901d-d90449d9d974:
+    id: 'entity:node'
+    uuid: bc3b1ccd-ac4e-4c5c-901d-d90449d9d974
+    settings:
+      bundles: {  }
+      group_by_bundle: true
+      include_unpublished: false
+      metadata: ''
+      substitution_type: canonical
+      limit: 100
+    weight: 0

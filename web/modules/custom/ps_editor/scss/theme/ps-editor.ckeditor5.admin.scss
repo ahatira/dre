@@ -1,0 +1,42 @@
+
+// Hide ck-disabled and ck-off Block Styles when selecting an HTML tag.
+.ck-style-dropdown {
+  .ck-style-grid {
+    .ck-disabled {
+      display: none !important;
+    }
+  }
+}
+
+.ck-editor {
+  figure {
+    &.ck-widget_with-resizer {
+
+      .media {
+        min-width: auto !important;
+      }
+
+      &:has(.media--view-mode-large) {
+        width: 100%;
+      }
+
+      &:has(.media--view-mode-medium) {
+        width: 50%;
+      }
+
+      &:has(.media--view-mode-small) {
+        width: 25%;
+      }
+    }
+  }
+}
+
+.ck-toolbar__items .ck-resize-image-button.ck-disabled {
+  display: none;
+}
+
+.ck-toolbar__items:has(.ck-resize-image-button:not(.ck-disabled)) {
+  .ck-dropdown__button[data-cke-tooltip-text="View mode"] {
+    display: none;
+  }
+}

@@ -1,0 +1,367 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - linkit.linkit_profile.linkit_all_nodes
+  module:
+    - ckeditor5
+    - anchor_link
+    - ckeditor_bidi
+    - ckeditor_emoji
+    - ckeditor5_paste_filter
+    - ckeditor5_plugin_pack
+    - ckeditor_media_embed
+    - ckeditor_media_resize
+    - editor_advanced_link
+    - edit_media_modal
+    - linkit
+format: full_html
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - undo
+      - redo
+      - '|'
+      - drupalMedia
+      - MediaEmbed
+      - '|'
+      - blockQuote
+      - horizontalLine
+      - insertTable
+      - '|'
+      - link
+      - anchor
+      - '|'
+      - code
+      - codeBlock
+      - sourceEditing
+      - showBlocks
+      - fullScreen
+      - '-'
+      - heading
+      - style
+      - '|'
+      - bold
+      - italic
+      - underline
+      - strikethrough
+      - subscript
+      - superscript
+      - removeFormat
+      - '|'
+      - specialCharacters
+      - Emoji
+      - '|'
+      - numberedList
+      - bulletedList
+      - outdent
+      - indent
+      - '|'
+      - alignment
+      - direction
+      - '|'
+      - wproofreader
+      - findAndReplace
+  plugins:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
+    ckeditor5_codeBlock:
+      languages:
+        -
+          label: 'Plain text'
+          language: plaintext
+        -
+          label: C
+          language: c
+        -
+          label: 'C#'
+          language: cs
+        -
+          label: C++
+          language: cpp
+        -
+          label: CSS
+          language: css
+        -
+          label: Diff
+          language: diff
+        -
+          label: HTML
+          language: html
+        -
+          label: Java
+          language: java
+        -
+          label: JavaScript
+          language: javascript
+        -
+          label: PHP
+          language: php
+        -
+          label: Python
+          language: python
+        -
+          label: Ruby
+          language: ruby
+        -
+          label: TypeScript
+          language: typescript
+        -
+          label: XML
+          language: xml
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_list:
+      properties:
+        reversed: true
+        startIndex: true
+        styles: false
+      multiBlock: true
+    ckeditor5_paste_filter_pasteFilter:
+      enabled: true
+      filters:
+        -
+          enabled: true
+          weight: -10
+          search: '<o:p><\/o:p>'
+          replace: ''
+        -
+          enabled: true
+          weight: -9
+          search: '(<[^>]*) (style="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -8
+          search: '(<[^>]*) (face="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -7
+          search: '(<[^>]*) (class="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -6
+          search: '(<[^>]*) (valign="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -5
+          search: '<font[^>]*>'
+          replace: ''
+        -
+          enabled: true
+          weight: -4
+          search: '<\/font>'
+          replace: ''
+        -
+          enabled: true
+          weight: -3
+          search: '<span[^>]*>'
+          replace: ''
+        -
+          enabled: true
+          weight: -2
+          search: '<\/span>'
+          replace: ''
+        -
+          enabled: true
+          weight: -1
+          search: '<p>&nbsp;<\/p>'
+          replace: ''
+        -
+          enabled: true
+          weight: 0
+          search: '<p><\/p>'
+          replace: ''
+        -
+          enabled: true
+          weight: 1
+          search: '<b><\/b>'
+          replace: ''
+        -
+          enabled: true
+          weight: 2
+          search: '<i><\/i>'
+          replace: ''
+        -
+          enabled: true
+          weight: 3
+          search: '<a name="OLE_LINK[^"]*">(.*?)<\/a>'
+          replace: $1
+    ckeditor5_plugin_pack_find_and_replace__find_and_replace:
+      ui_type: dialog
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
+    ckeditor_bidi_ckeditor5:
+      switch_only: false
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Display 1 (h2)'
+          element: '<h2 class="display-1">'
+        -
+          label: 'Display 2 (h2)'
+          element: '<h2 class="display-2">'
+        -
+          label: 'Display 3 (h2)'
+          element: '<h2 class="display-3">'
+        -
+          label: 'Display 4 (h2)'
+          element: '<h2 class="display-4">'
+        -
+          label: 'Display 5 (h2)'
+          element: '<h2 class="display-5">'
+        -
+          label: 'Display 6 (h2)'
+          element: '<h2 class="display-6">'
+        -
+          label: 'Display 1 (h3)'
+          element: '<h3 class="display-1">'
+        -
+          label: 'Display 2 (h3)'
+          element: '<h3 class="display-2">'
+        -
+          label: 'Display 3 (h3)'
+          element: '<h3 class="display-3">'
+        -
+          label: 'Display 4 (h3)'
+          element: '<h3 class="display-4">'
+        -
+          label: 'Display 5 (h3)'
+          element: '<h3 class="display-5">'
+        -
+          label: 'Display 6 (h3)'
+          element: '<h3 class="display-6">'
+        -
+          label: 'Display 1 (h4)'
+          element: '<h4 class="display-1">'
+        -
+          label: 'Display 2 (h4)'
+          element: '<h4 class="display-2">'
+        -
+          label: 'Display 3 (h4)'
+          element: '<h4 class="display-3">'
+        -
+          label: 'Display 4 (h4)'
+          element: '<h4 class="display-4">'
+        -
+          label: 'Display 5 (h4)'
+          element: '<h4 class="display-5">'
+        -
+          label: 'Display 6 (h4)'
+          element: '<h4 class="display-6">'
+        -
+          label: 'Display 1 (h5)'
+          element: '<h5 class="display-1">'
+        -
+          label: 'Display 2 (h5)'
+          element: '<h5 class="display-2">'
+        -
+          label: 'Display 3 (h5)'
+          element: '<h5 class="display-3">'
+        -
+          label: 'Display 4 (h5)'
+          element: '<h5 class="display-4">'
+        -
+          label: 'Display 5 (h5)'
+          element: '<h5 class="display-5">'
+        -
+          label: 'Display 6 (h5)'
+          element: '<h5 class="display-6">'
+        -
+          label: 'Display 1 (h6)'
+          element: '<h6 class="display-1">'
+        -
+          label: 'Display 2 (h6)'
+          element: '<h6 class="display-2">'
+        -
+          label: 'Display 3 (h6)'
+          element: '<h6 class="display-3">'
+        -
+          label: 'Display 4 (h6)'
+          element: '<h6 class="display-4">'
+        -
+          label: 'Display 5 (h6)'
+          element: '<h6 class="display-5">'
+        -
+          label: 'Display 6 (h6)'
+          element: '<h6 class="display-6">'
+        -
+          label: Callout
+          element: '<p class="bs-callout">'
+        -
+          label: 'Alert success'
+          element: '<p class="alert alert-success">'
+        -
+          label: 'Callout Info'
+          element: '<p class="bs-callout bs-callout-info">'
+        -
+          label: 'Alert info'
+          element: '<p class="alert alert-info">'
+        -
+          label: 'Callout warning'
+          element: '<p class="bs-callout bs-callout-warning">'
+        -
+          label: 'Alert warning'
+          element: '<p class="alert alert-warning">'
+        -
+          label: 'Callout danger'
+          element: '<p class="bs-callout bs-callout-danger">'
+        -
+          label: 'Alert danger'
+          element: '<p class="alert alert-danger">'
+        -
+          label: 'Table Striped'
+          element: '<table class="table table-striped">'
+        -
+          label: 'Table hover'
+          element: '<table class="table table-hover">'
+        -
+          label: 'Table Bordered'
+          element: '<table class="table table-bordered">'
+    ckeditor_media_resize_mediaResize:
+      apply_image_styles: true
+      image_styles:
+        - cke_media_resize_small
+        - cke_media_resize_medium
+        - cke_media_resize_large
+        - cke_media_resize_xl
+    editor_advanced_link_link:
+      enabled_attributes:
+        - id
+        - rel
+        - target
+        - title
+    linkit_extension:
+      linkit_enabled: true
+      linkit_profile: linkit_all_nodes
+    media_edit_media_modal:
+      editMediaModal:
+        dialogSettings:
+          height: 80%
+        extras:
+          skipAccessCheck: false
+        editMediaModalForms: {  }
+    media_media:
+      allow_view_mode_override: true
+image_upload:
+  status: true
+  scheme: public
+  directory: inline-images
+  max_size: null
+  max_dimensions:
+    width: null
+    height: null
