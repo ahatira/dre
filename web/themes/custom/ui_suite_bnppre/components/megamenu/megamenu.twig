@@ -2,11 +2,14 @@
 
 {% macro render_link(link_item) %}
 	{% set column_link_attributes = create_attribute(link_item.attributes|default({})) %}
-	{% if link_item.url %}
+	{% set link_is_fragment = link_item.url is same as('#') %}
+	{% if link_item.url and not link_is_fragment %}
 		{{ link(link_item.title, link_item.url, column_link_attributes.addClass([
       'ps-megamenu__link',
       link_item.in_active_trail ? 'is-active',
     ])) }}
+	{% elseif link_is_fragment %}
+		<a href="{{ link_item.url }}" {{ column_link_attributes.addClass([ 'ps-megamenu__link', link_item.in_active_trail ? 'is-active', ]) }}>{{ link_item.title }}</a>
 	{% else %}
 		<span{{column_link_attributes.addClass('ps-megamenu__link','is-text')}}>{{ link_item.title }}</span>
 	{% endif %}
@@ -43,6 +46,7 @@
 			{% set link_attributes = create_attribute(item.link_attributes|default({})) %}
 			{% set dropdown_id = 'main-megamenu-' ~ loop.index ~ '-' ~ random() %}
 			{% set has_megamenu = item.ps_has_megamenu|default(false) %}
+			{% set item_url_is_fragment = item.url is same as('#') %}
 
 			{% if has_megamenu %}
 				<li{{item_attributes.addClass('nav-item','dropdown','ps-megamenu__item','position-static')}}>
@@ -73,9 +77,14 @@
 												<p class="ps-megamenu__aside-lead">{{ aside.lead }}</p>
 											{% endif %}
 
-											{% if aside.cta_label and aside.url %}
+											{% set aside_url_is_fragment = aside.url is same as('#') %}
+											{% if aside.cta_label and aside.url and not aside_url_is_fragment %}
 												<p class="mb-0 ps-megamenu__aside-link-wrap">
 													{{ link(aside.cta_label, aside.url, create_attribute().addClass('ps-megamenu__aside-link')) }}
+												</p>
+											{% elseif aside.cta_label and aside_url_is_fragment %}
+												<p class="mb-0 ps-megamenu__aside-link-wrap">
+													<a href="{{ aside.url }}" class="ps-megamenu__aside-link">{{ aside.cta_label }}</a>
 												</p>
 											{% endif %}
 
@@ -91,9 +100,13 @@
 						</div>
 					</div>
 				</li>
-			{% elseif item.url %}
+			{% elseif item.url and not item_url_is_fragment %}
 				<li{{item_attributes.addClass('nav-item','ps-megamenu__item')}}>
 					{{ link(item.title, item.url, link_attributes.addClass('nav-link', 'ps-megamenu__link-top')) }}
+				</li>
+			{% elseif item_url_is_fragment %}
+				<li{{item_attributes.addClass('nav-item','ps-megamenu__item')}}>
+					<a href="{{ item.url }}" {{ link_attributes.addClass('nav-link', 'ps-megamenu__link-top') }}>{{ item.title }}</a>
 				</li>
 			{% else %}
 				<li{{item_attributes.addClass('nav-item','ps-megamenu__item')}}>
