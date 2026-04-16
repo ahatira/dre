@@ -1,0 +1,128 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set images = images|default([]) %}
+{% set carousel_id = carousel_id|default('card-offer-search-' ~ random()) %}
+{% set show_comparator_control = show_comparator_control is defined ? show_comparator_control : true %}
+{% set show_favorite_control = show_favorite_control is defined ? show_favorite_control : true %}
+
+<article{{attributes.addClass('ps-card-offer-search','card','border-0').setAttribute('role','article')}}>
+	<div class="row g-0 h-100">
+		<div class="col-lg-4">
+			<div class="ps-card-offer-search__media h-100">
+				{% if media is defined and media is not empty %}
+					{{ media }}
+				{% elseif images|length > 0 and images.0.url|default('') %}
+					<div id="{{ carousel_id }}" class="carousel slide h-100" data-bs-ride="false" data-bs-touch="true" aria-label="{{ 'Offer photos'|t }}">
+						<div class="carousel-inner h-100">
+							{% for image in images %}
+								{% set image_src = image.url|default('') %}
+								{% if image_src %}
+									<div class="carousel-item h-100{{ loop.first ? ' active' : '' }}">
+										<img class="ps-card-offer-search__image d-block w-100 h-100" src="{{ image_src }}" alt="{{ image.alt|default(title|default('Offer image'|t)) }}" loading="lazy"/>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						{% if images|length > 1 %}
+							<button class="ps-card-offer-search__carousel-control ps-card-offer-search__carousel-control--prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev" aria-label="{{ 'Previous image'|t }}">
+								{{ icon('bnppre', 'arrow-left', {'size': '1.5rem', 'alt': ''})|render }}
+							</button>
+							<button class="ps-card-offer-search__carousel-control ps-card-offer-search__carousel-control--next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next" aria-label="{{ 'Next image'|t }}">
+								{{ icon('bnppre', 'arrow-right', {'size': '1.5rem', 'alt': ''})|render }}
+							</button>
+						{% endif %}
+					</div>
+				{% else %}
+					<div class="ps-card-offer-search__fallback d-flex align-items-center justify-content-center h-100" aria-hidden="true"></div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="col-lg-8">
+			<div class="ps-card-offer-search__content d-flex flex-column h-100">
+				<div class="ps-card-offer-search__header d-flex justify-content-between align-items-start">
+					<div class="ps-card-offer-search__badges d-flex flex-wrap align-items-center gap-2">
+						{% if viewed_badge is defined and viewed_badge is not empty %}
+							{{ viewed_badge }}
+						{% elseif is_viewed|default(false) %}
+							<span class="ps-card-offer-search__badge ps-card-offer-search__badge--viewed">
+								{{ icon('bnppre', 'eye', {'size': '0.75rem', 'alt': ''})|render }}
+								<span>{{ 'Already viewed'|t }}</span>
+							</span>
+						{% endif %}
+
+						{% if exclusivity_badge is defined and exclusivity_badge is not empty %}
+							{{ exclusivity_badge }}
+						{% elseif is_exclusive|default(false) %}
+							<span class="ps-card-offer-search__badge ps-card-offer-search__badge--exclusive">{{ 'Exclusivity'|t }}</span>
+						{% endif %}
+					</div>
+
+					<div class="ps-card-offer-search__actions d-flex align-items-center gap-3">
+						{% if comparator_control is defined and comparator_control is not empty %}
+							<span class="ps-card-offer-search__action-control">{{ comparator_control }}</span>
+						{% elseif show_comparator_control %}
+							<button class="ps-card-offer-search__icon-button{{ is_comparator|default(false) ? ' is-active' : '' }}" type="button" aria-pressed="{{ is_comparator|default(false) ? 'true' : 'false' }}" aria-label="{{ compare_aria_label|default('Toggle comparator'|t) }}">
+								{{ icon('bnppre', 'comparator', {'size': '1.5rem', 'alt': ''})|render }}
+							</button>
+						{% endif %}
+
+						{% if favorite_control is defined and favorite_control is not empty %}
+							<span class="ps-card-offer-search__action-control ps-card-offer-search__action-control--favorite">{{ favorite_control }}</span>
+						{% elseif show_favorite_control %}
+							<button class="ps-card-offer-search__icon-button ps-card-offer-search__icon-button--favorite{{ is_favorite|default(false) ? ' is-active' : '' }}" type="button" aria-pressed="{{ is_favorite|default(false) ? 'true' : 'false' }}" aria-label="{{ favorite_aria_label|default('Toggle favorite'|t) }}">
+								{{ icon('bnppre', is_favorite|default(false) ? 'fav-filled' : 'fav-stroke', {'size': '1.5rem', 'alt': ''})|render }}
+							</button>
+						{% endif %}
+					</div>
+				</div>
+
+				{% if title_content is defined and title_content is not empty %}
+					<div class="ps-card-offer-search__title">{{ title_content }}</div>
+				{% elseif title %}
+					<h3 class="ps-card-offer-search__title">{{ title }}</h3>
+				{% endif %}
+
+				{% if surface_content is defined and surface_content is not empty %}
+					<div class="ps-card-offer-search__surface">{{ surface_content }}</div>
+				{% elseif surface %}
+					<p class="ps-card-offer-search__surface">{{ surface }}</p>
+				{% endif %}
+
+				{% if location_content is defined and location_content is not empty %}
+					<div class="ps-card-offer-search__location ps-card-offer-search__location--slot">{{ location_content }}</div>
+				{% elseif location %}
+					<p class="ps-card-offer-search__location d-flex align-items-center mb-0">
+						<span class="ps-card-offer-search__location-icon" aria-hidden="true">{{ icon('bnppre', 'pin-map', {'size': '1rem', 'alt': ''})|render }}</span>
+						<span>{{ location }}</span>
+					</p>
+				{% endif %}
+
+				<div class="ps-card-offer-search__footer d-flex justify-content-between align-items-end mt-auto">
+					<p class="ps-card-offer-search__price mb-0">
+						{% if price_content is defined and price_content is not empty %}
+							<span class="ps-card-offer-search__price-value">{{ price_content }}</span>
+						{% elseif price %}
+							<span class="ps-card-offer-search__price-value">{{ price }}</span>
+						{% endif %}
+
+						{% if price_unit_content is defined and price_unit_content is not empty %}
+							<span class="ps-card-offer-search__price-unit">{{ price_unit_content }}</span>
+						{% elseif price_unit %}
+							<span class="ps-card-offer-search__price-unit">{{ price_unit }}</span>
+						{% endif %}
+					</p>
+
+					{% if cta_content is defined and cta_content is not empty %}
+						<span class="ps-card-offer-search__cta-slot">{{ cta_content }}</span>
+					{% elseif cta_url %}
+						<a class="ps-card-offer-search__cta" href="{{ cta_url }}">
+							<span>{{ cta_label|default('View the property'|t) }}</span>
+							{{ icon('bnppre', 'big-arrow-right', {'size': '1.125rem', 'alt': ''})|render }}
+						</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</article>

@@ -1,0 +1,154 @@
+name: 'Card Offer Search'
+description: 'Offer search result card with media carousel, status badges, action toggles, price block, and CTA. Desktop renders as split media/content, mobile stacks vertically.'
+group: 'PS Theme'
+links:
+  - 'https://getbootstrap.com/docs/5.3/components/card/'
+  - 'https://getbootstrap.com/docs/5.3/components/carousel/'
+
+variants:
+  default:
+    title: Default
+    description: 'Reference layout aligned with the design mockup.'
+
+slots:
+  media:
+    title: Media
+    description: 'Optional renderable media area (carousel, image formatter output, or custom media content). When empty, images prop fallback is used.'
+  viewed_badge:
+    title: Already viewed badge
+    description: 'Optional renderable replacing default already-viewed badge.'
+  exclusivity_badge:
+    title: Exclusivity badge
+    description: 'Optional renderable replacing default exclusivity badge.'
+  comparator_control:
+    title: Comparator control
+    description: 'Optional renderable control for comparator action.'
+  favorite_control:
+    title: Favorite control
+    description: 'Optional renderable control for favorite action (for example Flag output).'
+  title_content:
+    title: Title content
+    description: 'Optional renderable replacing title prop. Use to keep Drupal field formatter output.'
+  surface_content:
+    title: Surface content
+    description: 'Optional renderable replacing surface prop.'
+  location_content:
+    title: Location content
+    description: 'Optional renderable replacing location prop.'
+  price_content:
+    title: Price content
+    description: 'Optional renderable replacing price prop.'
+  price_unit_content:
+    title: Price unit content
+    description: 'Optional renderable replacing price_unit prop.'
+  cta_content:
+    title: CTA content
+    description: 'Optional renderable replacing CTA props.'
+
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: 'Additional attributes for the component wrapper.'
+      $ref: 'ui-patterns://attributes'
+
+    title:
+      title: Title
+      description: 'Main offer title.'
+      type: string
+
+    surface:
+      title: Surface
+      description: 'Offer surface label.'
+      type: string
+
+    location:
+      title: Location
+      description: 'Offer location label.'
+      type: string
+
+    price:
+      title: Price
+      description: 'Main price value.'
+      type: string
+
+    price_unit:
+      title: Price unit
+      description: 'Price unit suffix.'
+      type: string
+
+    cta_label:
+      title: CTA label
+      description: 'Label displayed in the bottom-right link.'
+      type: string
+      default: 'View the property'
+
+    cta_url:
+      title: CTA URL
+      description: 'Destination URL for the CTA link.'
+      $ref: 'ui-patterns://url'
+
+    images:
+      title: Images
+      description: 'Array of image objects with keys: url, alt.'
+      type: array
+      default: []
+
+    carousel_id:
+      title: Carousel id
+      description: 'Custom id for the carousel instance.'
+      $ref: 'ui-patterns://identifier'
+
+    is_viewed:
+      title: Already viewed
+      description: 'Show the already viewed badge.'
+      type: boolean
+      default: false
+
+    is_exclusive:
+      title: Exclusivity
+      description: 'Show the exclusivity badge.'
+      type: boolean
+      default: false
+
+    is_comparator:
+      title: Comparator active
+      description: 'Comparator toggle active state.'
+      type: boolean
+      default: false
+
+    is_favorite:
+      title: Favorite active
+      description: 'Favorite toggle active state.'
+      type: boolean
+      default: false
+
+    show_comparator_control:
+      title: Show comparator control
+      description: 'Show default comparator control when no comparator_control slot is provided.'
+      type: boolean
+      default: true
+
+    show_favorite_control:
+      title: Show favorite control
+      description: 'Show default favorite control when no favorite_control slot is provided.'
+      type: boolean
+      default: true
+
+    compare_aria_label:
+      title: Comparator aria label
+      description: 'Accessible label for default comparator control.'
+      type: string
+      default: 'Toggle comparator'
+
+    favorite_aria_label:
+      title: Favorite aria label
+      description: 'Accessible label for default favorite control.'
+      type: string
+      default: 'Toggle favorite'
+
+libraryOverrides:
+  css:
+    component:
+      styles/card_offer_search.css: {}

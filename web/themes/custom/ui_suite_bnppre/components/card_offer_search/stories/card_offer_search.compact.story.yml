@@ -1,0 +1,15 @@
+name: 'Fallback Media'
+description: 'No-image fallback state with badges and active comparator state.'
+props:
+  title: 'Logistics Platform - Amsterdam'
+  surface: '3 100 m²'
+  location: '1043 AMSTERDAM'
+  price: '36 500 €'
+  price_unit: 'HT/HC/m²/an'
+  cta_label: 'View the property'
+  cta_url: '#'
+  is_viewed: true
+  is_exclusive: true
+  is_comparator: true
+  is_favorite: false
+  images: []

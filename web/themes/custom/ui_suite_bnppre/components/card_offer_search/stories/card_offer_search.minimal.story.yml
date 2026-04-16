@@ -1,0 +1,18 @@
+name: 'Single Image'
+description: 'Single-photo variant without exclusivity badge and with neutral action states.'
+props:
+  title: 'Office Floors - Brussels CBD'
+  surface: '405 m²'
+  location: '1000 BRUSSELS'
+  price: '8 950 €'
+  price_unit: 'HT/HC/m²/an'
+  cta_label: 'View the property'
+  cta_url: '#'
+  is_viewed: false
+  is_exclusive: false
+  is_comparator: false
+  is_favorite: false
+  images:
+    -
+      url: 'https://images.unsplash.com/photo-1459535653751-d571815e906b?auto=format&fit=crop&w=1200&q=80'
+      alt: 'Office facade'
