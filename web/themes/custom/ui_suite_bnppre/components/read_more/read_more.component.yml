@@ -1,0 +1,73 @@
+name: Read More
+description: "Progressively reveal long content blocks with a toggle button."
+group: "PS Theme"
+links:
+  - "https://getbootstrap.com/docs/5.3/components/buttons/"
+  - "https://getbootstrap.com/docs/5.3/utilities/overflow/"
+
+variants:
+  default:
+    title: Default
+
+slots:
+  content:
+    title: Content
+    description: "Renderable long-form content to truncate and expand."
+
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: "Attributes for the root wrapper."
+      $ref: "ui-patterns://attributes"
+
+    content_attributes:
+      title: Content attributes
+      description: "Attributes for the content wrapper."
+      $ref: "ui-patterns://attributes"
+
+    toggle_attributes:
+      title: Toggle button attributes
+      description: "Attributes for the toggle button."
+      $ref: "ui-patterns://attributes"
+
+    max_height:
+      title: Max height
+      description: "Collapsed max height in pixels before toggle is needed."
+      type: number
+      default: 150
+
+    expand_label:
+      title: Expand label
+      description: "Label displayed when content is collapsed."
+      type: string
+      default: "Read more"
+
+    collapse_label:
+      title: Collapse label
+      description: "Label displayed when content is expanded."
+      type: string
+      default: "Read less"
+
+    expanded:
+      title: Expanded by default
+      description: "Initial expanded state."
+      type: boolean
+      default: false
+
+    show_icon:
+      title: Show icon
+      description: "Display the chevron icon in the toggle button."
+      type: boolean
+      default: true
+
+libraryOverrides:
+  css:
+    component:
+      styles/read_more.css: {}
+  js:
+    js/read_more.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

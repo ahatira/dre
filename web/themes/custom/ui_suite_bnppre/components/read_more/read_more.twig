@@ -1,0 +1,22 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set content_attributes = create_attribute(content_attributes|default({})) %}
+{% set toggle_attributes = create_attribute(toggle_attributes|default({})) %}
+
+{% set max_height = max_height|default(150) %}
+{% set is_expanded = expanded|default(false) %}
+{% set show_icon = show_icon is defined ? show_icon : true %}
+{% set expand_label = expand_label|default('Read more'|t) %}
+{% set collapse_label = collapse_label|default('Read less'|t) %}
+
+<div{{attributes.addClass('ps-read-more',is_expanded?'is-expanded').setAttribute('data-ps-read-more','').setAttribute('data-read-more-max-height',max_height).setAttribute('data-read-more-expand-label',expand_label).setAttribute('data-read-more-collapse-label',collapse_label)}}>
+	<div{{content_attributes.addClass('ps-read-more__content').setAttribute('data-read-more-content','')}}>
+		{{ content }}
+	</div>
+
+	<button{{toggle_attributes.addClass('ps-read-more__toggle','btn','btn-link','p-0','d-inline-flex','align-items-center','gap-2','text-decoration-none','d-none').setAttribute('type','button').setAttribute('data-read-more-toggle','').setAttribute('aria-expanded',is_expanded?'true':'false')}}>
+		<span class="ps-read-more__label" data-read-more-label>{{ is_expanded ? collapse_label : expand_label }}</span>
+		{% if show_icon %}
+			<span class="ps-read-more__icon" data-read-more-icon="" aria-hidden="true"></span>
+		{% endif %}
+	</button>
+</div>

@@ -1,0 +1,13 @@
+name: Short Content
+description: "Toggle auto-hides when content does not exceed max height."
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "Short content remains fully visible and no action button is displayed."
+props:
+  max_height: 180
+  expand_label: "Read more"
+  collapse_label: "Read less"
+  expanded: false
+  show_icon: true

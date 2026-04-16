@@ -1,0 +1,18 @@
+name: Default
+description: "Long content collapsed by default with a read more toggle."
+slots:
+  content: |
+    <p>Exceptional office floor in central Paris with flexible layout and excellent daylight exposure.</p>
+    <ul>
+      <li>611 m2 divisible over multiple work zones</li>
+      <li>Direct access to metro and commuter rail</li>
+      <li>Private meeting rooms and shared amenities</li>
+      <li>High environmental certification</li>
+    </ul>
+    <p>Contact our team for floor plans, legal pack, and detailed technical specifications.</p>
+props:
+  max_height: 120
+  expand_label: "Voir plus"
+  collapse_label: "Voir moins"
+  expanded: false
+  show_icon: true

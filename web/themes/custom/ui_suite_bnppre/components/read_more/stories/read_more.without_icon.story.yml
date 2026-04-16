@@ -1,0 +1,19 @@
+name: Without Icon
+description: "Text-only toggle style without chevron icon."
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "A minimalist variation where the action is only textual."
+    - type: html_tag
+      tag: p
+      value: "Useful when iconography is intentionally reduced in a specific section."
+    - type: html_tag
+      tag: p
+      value: "This paragraph ensures enough height so the toggle remains visible."
+props:
+  max_height: 90
+  expand_label: "Afficher plus"
+  collapse_label: "Afficher moins"
+  expanded: false
+  show_icon: false

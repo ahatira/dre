@@ -1,0 +1,16 @@
+name: Expanded
+description: "Starts opened with the collapse action available."
+slots:
+  content:
+    - type: html_tag
+      tag: p
+      value: "This variant is useful when a page should expose the full editorial text by default."
+    - type: html_tag
+      tag: p
+      value: "The component keeps the same toggle interaction so users can collapse back if needed."
+props:
+  max_height: 120
+  expand_label: "Read more"
+  collapse_label: "Read less"
+  expanded: true
+  show_icon: true
