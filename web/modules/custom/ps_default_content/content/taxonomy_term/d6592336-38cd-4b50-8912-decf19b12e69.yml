@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: d6592336-38cd-4b50-8912-decf19b12e69
+  bundle: offer_labels
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Exclusivite
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1

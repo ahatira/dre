@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 85886a70-f6ef-4346-b684-7258c958fa85
+  bundle: image
+  default_langcode: en
+  depends:
+    d0953366-147b-49a0-8604-f86df9053afc: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2107076 photo 09 f627f63409'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: d0953366-147b-49a0-8604-f86df9053afc
+      alt: 'OLBUR2107076 photo 09 f627f63409'
+      title: 'OLBUR2107076 photo 09 f627f63409'
+      width: 1280
+      height: 960
+  field_media_in_library:
+    -
+      value: true

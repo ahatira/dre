@@ -2,8 +2,68 @@
 
 /**
  * @file
- * Install hooks are intentionally empty.
- *
- * The ps_media module now installs from shipped configuration.
+ * Update hooks for ps_media.
  */
+
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Restores Media Library image display config if it is missing or degraded.
+ */
+function ps_media_update_11001(): ?string {
+	$config_name = 'core.entity_view_display.media.image.media_library';
+	$storage = \Drupal::service('config.storage');
+
+	$existing = $storage->read($config_name) ?: [];
+	$current_style = $existing['content']['field_media_image']['settings']['image_style'] ?? NULL;
+
+	// Keep this update idempotent: only repair when config is missing or regressed.
+	if (!empty($existing) && $current_style === 'field_preview') {
+		return NULL;
+	}
+
+	$module_path = \Drupal::service('extension.list.module')->getPath('ps_media');
+	$source_file = $module_path . '/config/optional/' . $config_name . '.yml';
+	if (!is_file($source_file)) {
+		return t('Could not restore %config: source file not found.', ['%config' => $config_name]);
+	}
+
+	$source = Yaml::parseFile($source_file);
+	if (!is_array($source) || empty($source)) {
+		return t('Could not restore %config: source file is invalid.', ['%config' => $config_name]);
+	}
+
+	$storage->write($config_name, $source);
+
+	return t('Restored %config from module optional configuration.', ['%config' => $config_name]);
+}
+
+/**
+ * Repairs Media Library image display config in active storage.
+ */
+function ps_media_update_11002(): ?string {
+	$config_name = 'core.entity_view_display.media.image.media_library';
+	$existing = \Drupal::configFactory()->get($config_name)->getRawData() ?: [];
+	$current_style = $existing['content']['field_media_image']['settings']['image_style'] ?? NULL;
+	if (!empty($existing) && $current_style === 'field_preview') {
+		return NULL;
+	}
+
+	$module_path = \Drupal::service('extension.list.module')->getPath('ps_media');
+	$source_file = $module_path . '/config/optional/' . $config_name . '.yml';
+	if (!is_file($source_file)) {
+		return 'ps_media_update_11002: source file not found.';
+	}
+
+	$source = Yaml::parseFile($source_file);
+	if (!is_array($source) || empty($source)) {
+		return NULL;
+	}
+
+	\Drupal::configFactory()->getEditable($config_name)
+		->setData($source)
+		->save(TRUE);
+
+	return NULL;
+}
 

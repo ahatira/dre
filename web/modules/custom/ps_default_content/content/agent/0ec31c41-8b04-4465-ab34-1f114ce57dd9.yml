@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 0ec31c41-8b04-4465-ab34-1f114ce57dd9
+  bundle: agent
+  default_langcode: en
+default:
+  type:
+    -
+      target_id: agent
+  first_name:
+    -
+      value: Audrey
+  last_name:
+    -
+      value: FUSCA
+  phone:
+    -
+      value: '+33645064530'
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/audrey-fusca
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776294415
+  uid:
+    -
+      target_id: 0

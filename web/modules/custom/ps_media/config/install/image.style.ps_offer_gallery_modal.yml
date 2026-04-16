@@ -1,0 +1,19 @@
+uuid: 8d4f44f0-d257-4f8f-8fca-fac842131e2b
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: M9yi6L5i2XhXkQeh9yQbxPiFdk4H9zSLgWLfJ7IHIfg
+name: ps_offer_gallery_modal
+label: 'PS Offer Gallery Modal (1600x900)'
+effects:
+  9d0d4fca-ff32-4a9a-9fd1-97cce9a29f3d:
+    uuid: 9d0d4fca-ff32-4a9a-9fd1-97cce9a29f3d
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1600
+      height: 900
+      crop_type: focal_point

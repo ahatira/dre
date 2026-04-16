@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_geofield
     - node.type.offer
   module:
-    - geofield
+    - geolocation
 _core:
   default_config_hash: vov2J1lDLX6qZvz5t9U5a6GvLe0WkW3gKpY9N5lwKXI
 id: node.offer.field_geofield
@@ -20,4 +20,4 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: geofield
+field_type: geolocation

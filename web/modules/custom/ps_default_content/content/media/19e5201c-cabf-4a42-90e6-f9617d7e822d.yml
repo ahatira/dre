@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 19e5201c-cabf-4a42-90e6-f9617d7e822d
+  bundle: image
+  default_langcode: en
+  depends:
+    dcd993e4-3d97-488b-936f-8f423a6f6437: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2107076 photo 08 9ebac430cf'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: dcd993e4-3d97-488b-936f-8f423a6f6437
+      alt: 'OLBUR2107076 photo 08 9ebac430cf'
+      title: 'OLBUR2107076 photo 08 9ebac430cf'
+      width: 1280
+      height: 960
+  field_media_in_library:
+    -
+      value: true

@@ -4,7 +4,7 @@ dependencies: {  }
 id: transport_tram
 label: 'Tram lines'
 description: 'Nearby Île-de-France tramway lines.'
-value_type: dictionary
+value_type: string
 dictionary_type: tram_line
 unit: null
 is_required: false

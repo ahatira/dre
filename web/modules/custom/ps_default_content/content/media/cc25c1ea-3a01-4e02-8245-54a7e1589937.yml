@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: cc25c1ea-3a01-4e02-8245-54a7e1589937
+  bundle: image
+  default_langcode: en
+  depends:
+    65430d55-4db7-4e2b-a158-48cdac14e312: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2107076 photo 02 eacc7dfd4b'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 65430d55-4db7-4e2b-a158-48cdac14e312
+      alt: 'OLBUR2107076 photo 02 eacc7dfd4b'
+      title: 'OLBUR2107076 photo 02 eacc7dfd4b'
+      width: 1280
+      height: 854
+  field_media_in_library:
+    -
+      value: true

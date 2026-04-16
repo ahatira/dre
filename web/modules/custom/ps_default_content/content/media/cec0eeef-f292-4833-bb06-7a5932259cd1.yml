@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: cec0eeef-f292-4833-bb06-7a5932259cd1
+  bundle: image
+  default_langcode: en
+  depends:
+    76f34a36-02d5-4866-8032-f3fdee323d48: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2427085 photo 11 3b1aeca2c4'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 76f34a36-02d5-4866-8032-f3fdee323d48
+      alt: 'OLBUR2427085 photo 11 3b1aeca2c4'
+      title: 'OLBUR2427085 photo 11 3b1aeca2c4'
+      width: 1280
+      height: 853
+  field_media_in_library:
+    -
+      value: true

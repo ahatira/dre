@@ -13,13 +13,25 @@ Module custom destine a centraliser les contenus exportes avec `default_content`
 - `ps_default_content.info.yml`
   - declaration du module et des dependances
   - liste `default_content` des UUID exportes
+- `content/file/*`
+  - fichiers binaires et entites fichier exportes
+- `content/media/*.yml`
+  - medias exportes
+- `content/node/*.yml`
+  - contenus node exportes
+- `content/agent/*.yml`
+  - agents exportes
+- `content/ps_division/*.yml`
+  - divisions exportees
+- `content/taxonomy_term/*.yml`
+  - taxonomies exportees
 - `content/menu_link_content/*.yml`
-  - export YAML du menu principal (liens `menu_link_content`)
+  - liens de menu exportes
 
 ## Prerequis
 
 - Module contrib `default_content` active
-- Module core/contrib de menu actif (`menu_link_content`)
+- Modules fournissant les types de contenu exportes actifs (`ps_offer`, `ps_media`, `ps_agent`, `ps_division`, `menu_link_content`)
 - Drush disponible (`vendor/bin/drush`)
 
 ## Commandes utiles (Drush)

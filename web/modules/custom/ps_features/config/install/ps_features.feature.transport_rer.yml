@@ -4,7 +4,7 @@ dependencies: {  }
 id: transport_rer
 label: 'RER lines'
 description: 'Nearby RER rapid transit lines.'
-value_type: dictionary
+value_type: string
 dictionary_type: rer_line
 unit: null
 is_required: false

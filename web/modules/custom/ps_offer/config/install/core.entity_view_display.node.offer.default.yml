@@ -160,11 +160,14 @@ content:
     weight: 123
     region: content
   field_media_virtual_tours:
-    type: entity_reference_entity_view
+    type: link
     label: hidden
     settings:
-      view_mode: default
-      link: false
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: '0'
     third_party_settings: {  }
     weight: 124
     region: content
@@ -205,7 +208,6 @@ content:
     weight: 130
     region: content
 hidden:
-  external_id: true
   field_address: true
   field_diagnostics: true
   field_features: true

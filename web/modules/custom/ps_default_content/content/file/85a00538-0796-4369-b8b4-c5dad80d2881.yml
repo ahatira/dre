@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 85a00538-0796-4369-b8b4-c5dad80d2881
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 0
+  filename:
+    -
+      value: OLBUR2427085_04_a5eff57dfeef.webp
+  uri:
+    -
+      value: 'public://offer-import/OLBUR2427085/OLBUR2427085_04_a5eff57dfeef.webp'
+  filemime:
+    -
+      value: image/webp
+  filesize:
+    -
+      value: 148722
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1776294417

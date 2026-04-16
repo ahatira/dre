@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 5ac8e0d9-4341-4f4d-b36f-3fd00ff287a3
+  bundle: image
+  default_langcode: en
+  depends:
+    aa871abd-cd5f-48a1-9528-e4275c866ef0: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2427085 photo 06 4ceb94deb3'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: aa871abd-cd5f-48a1-9528-e4275c866ef0
+      alt: 'OLBUR2427085 photo 06 4ceb94deb3'
+      title: 'OLBUR2427085 photo 06 4ceb94deb3'
+      width: 1280
+      height: 853
+  field_media_in_library:
+    -
+      value: true

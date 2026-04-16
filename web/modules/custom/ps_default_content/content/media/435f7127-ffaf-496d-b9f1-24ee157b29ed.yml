@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 435f7127-ffaf-496d-b9f1-24ee157b29ed
+  bundle: image
+  default_langcode: en
+  depends:
+    d3a1c65f-1277-4130-a82a-5e0d29426806: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2107076 photo 05 d80733871e'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: d3a1c65f-1277-4130-a82a-5e0d29426806
+      alt: 'OLBUR2107076 photo 05 d80733871e'
+      title: 'OLBUR2107076 photo 05 d80733871e'
+      width: 1280
+      height: 960
+  field_media_in_library:
+    -
+      value: true

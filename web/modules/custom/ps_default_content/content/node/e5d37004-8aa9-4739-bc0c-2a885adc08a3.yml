@@ -1,0 +1,314 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e5d37004-8aa9-4739-bc0c-2a885adc08a3
+  bundle: offer
+  default_langcode: en
+  depends:
+    769dfc61-ed39-478e-a7d7-5a7693f0c4c4: agent
+    213f6274-78e0-49f1-b502-e59b9033a1d8: ps_division
+    45e284b7-138f-460f-ac07-542790712d3b: ps_division
+    bf0ac342-79de-4610-b232-431adcb6ba94: ps_division
+    17b393cd-fd5d-4be8-9c6e-36308291911d: ps_division
+    d6592336-38cd-4b50-8912-decf19b12e69: taxonomy_term
+    e739470c-86d6-49e9-8861-6663ebf92ec6: media
+    214dec27-c40f-4096-8755-3566ed7bad4f: media
+    ef549c31-3476-4e2b-8584-ef7c347c7da5: media
+    52a0fb3b-c90d-4392-b490-a66884b04371: media
+    9ef3d95a-54d8-46bc-af94-26c1f7596406: media
+    5ac8e0d9-4341-4f4d-b36f-3fd00ff287a3: media
+    43c5a95d-1730-476c-855f-a5bbada9dddb: media
+    123d1eb7-d1e2-4f4b-aa1e-275f975245be: media
+    81221251-0d25-4551-9370-989e59b61f8c: media
+    55cef0ed-83f5-4f8d-8ceb-f36a7d22037e: media
+    cec0eeef-f292-4833-bb06-7a5932259cd1: media
+    baeda818-9d83-4766-b8ce-9ea21ce50bf6: media
+    45cc3d35-c3a0-4210-850e-f857fdf790b8: media
+    64f73a40-dd9b-46c0-93c7-22db5ccacb6f: media
+    57d97a22-c252-4cad-a22a-9200f5b393b1: media
+    919e9a77-59b9-4400-8543-fedb9a7b9ed9: media
+    6687c1fd-1546-490b-bd17-ccc77d2b10eb: media
+    8e81d950-c79f-44bd-b386-7de0299f44eb: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: '10 Rue Petit'
+  created:
+    -
+      value: 1776295002
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <p>Location bureau Paris 19 - Immeuble independant - Terrasse rooftop privatif - Climatisation reversible - Parkings velos.</p>
+
+        <p>BNP Paribas Real Estate propose en exclusivite a la location un immeuble independant de 902 m2 a deux pas du Canal Saint-Martin et du metro Laumiere (L5).</p>
+
+        <p>Immeuble construit en 2019, developpe du RDC au R+3, avec plusieurs terrasses et rooftops.</p>
+
+        <p><strong>Conditions commerciales :</strong></p>
+        <ul>
+          <li>Bail commercial 3/6/9</li>
+          <li>Depot de garantie: 3 mois de loyer HT</li>
+          <li>Honoraires de commercialisation: a la charge du preneur</li>
+        </ul>
+
+        <p><strong>Technique :</strong></p>
+        <ul>
+          <li>Chauffage/climatisation: pompe a chaleur reversible</li>
+          <li>Renouvellement d'air: CTA</li>
+          <li>Consommation d'eau: compteur divisionnaire en sous-sol</li>
+          <li>Arrosage espaces verts: recuperation eaux de pluie (cuve de retention en sous-sol)</li>
+          <li>Electricite: compteur au sous-sol</li>
+          <li>Acces: controle d'acces par badge</li>
+        </ul>
+      format: basic_html
+      summary: ''
+  external_id:
+    -
+      value: OLBUR2427085
+  field_address:
+    -
+      langcode: ''
+      country_code: FR
+      administrative_area: ''
+      locality: Paris
+      dependent_locality: ''
+      postal_code: '75019'
+      sorting_code: ''
+      address_line1: '10 Rue Petit'
+      address_line2: ''
+      address_line3: ''
+      additional_name: ''
+  field_agents:
+    -
+      entity: 769dfc61-ed39-478e-a7d7-5a7693f0c4c4
+  field_availability:
+    -
+      value: Immediate
+  field_client_type:
+    -
+      value: B2B
+  field_diagnostics:
+    -
+      type_id: dpe
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+    -
+      type_id: ges
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+  field_divisions:
+    -
+      entity: 213f6274-78e0-49f1-b502-e59b9033a1d8
+    -
+      entity: 45e284b7-138f-460f-ac07-542790712d3b
+    -
+      entity: bf0ac342-79de-4610-b232-431adcb6ba94
+    -
+      entity: 17b393cd-fd5d-4be8-9c6e-36308291911d
+  field_exclusivity:
+    -
+      value: true
+  field_features:
+    -
+      feature_id: air_conditioning
+      value_type: dictionary
+      dictionary_type: air_conditioning_type
+      value_boolean: false
+      value_string: REVERSIBLE
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: 'Double flux'
+    -
+      feature_id: security_system
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: "Controle d'acces interphone, badge, alarme"
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: terrace_garden
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'Terrasse privative'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: lease_type
+      value_type: dictionary
+      dictionary_type: lease_type
+      value_boolean: false
+      value_string: COMMERCIAL
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: security_deposit
+      value_type: numeric
+      dictionary_type: ''
+      value_boolean: false
+      value_string: ''
+      value_numeric: 3.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: months
+      complement: ''
+    -
+      feature_id: fees_payer
+      value_type: dictionary
+      dictionary_type: fee_payer
+      value_boolean: false
+      value_string: TENANT
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: fees_rate
+      value_type: numeric
+      dictionary_type: ''
+      value_boolean: false
+      value_string: ''
+      value_numeric: 15.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: '%'
+      complement: ''
+    -
+      feature_id: transport_metro
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'M5, 7bis et 7 - Laumiere, Jaures, Riquet'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+  field_geofield:
+    -
+      lat: 48.8846661
+      lng: 2.3803858
+      lat_sin: 0.75338743392441
+      lat_cos: 0.65757689619146
+      lng_rad: 0.041545569677719
+      data: {  }
+  field_is_divisible:
+    -
+      value: true
+  field_labels:
+    -
+      entity: d6592336-38cd-4b50-8912-decf19b12e69
+  field_media_photos:
+    -
+      entity: e739470c-86d6-49e9-8861-6663ebf92ec6
+    -
+      entity: 214dec27-c40f-4096-8755-3566ed7bad4f
+    -
+      entity: ef549c31-3476-4e2b-8584-ef7c347c7da5
+    -
+      entity: 52a0fb3b-c90d-4392-b490-a66884b04371
+    -
+      entity: 9ef3d95a-54d8-46bc-af94-26c1f7596406
+    -
+      entity: 5ac8e0d9-4341-4f4d-b36f-3fd00ff287a3
+    -
+      entity: 43c5a95d-1730-476c-855f-a5bbada9dddb
+    -
+      entity: 123d1eb7-d1e2-4f4b-aa1e-275f975245be
+    -
+      entity: 81221251-0d25-4551-9370-989e59b61f8c
+    -
+      entity: 55cef0ed-83f5-4f8d-8ceb-f36a7d22037e
+    -
+      entity: cec0eeef-f292-4833-bb06-7a5932259cd1
+    -
+      entity: baeda818-9d83-4766-b8ce-9ea21ce50bf6
+    -
+      entity: 45cc3d35-c3a0-4210-850e-f857fdf790b8
+    -
+      entity: 64f73a40-dd9b-46c0-93c7-22db5ccacb6f
+    -
+      entity: 57d97a22-c252-4cad-a22a-9200f5b393b1
+    -
+      entity: 919e9a77-59b9-4400-8543-fedb9a7b9ed9
+    -
+      entity: 6687c1fd-1546-490b-bd17-ccc77d2b10eb
+    -
+      entity: 8e81d950-c79f-44bd-b386-7de0299f44eb
+  field_media_virtual_tours:
+    -
+      uri: 'https://livetour.istaging.com/cc849b7c-2b8f-4413-8cb3-56b6ce590134'
+      title: ''
+      options: {  }
+  field_min_divisible_surface:
+    -
+      value: '258.00'
+  field_prices:
+    -
+      amount: 390.0
+      currency_code: EUR
+      value_type_code: MIN
+      unit_code: SUR
+      period_code: ANN
+      is_on_request: false
+      is_from: true
+      is_vat_excluded: true
+      is_charges_included: false
+  field_property_type:
+    -
+      value: BUR
+  field_reference:
+    -
+      value: OLBUR2427085
+  field_surfaces:
+    -
+      value: 902.0
+      unit: M2
+      type: USABLE
+      nature: BUR
+      qualification: TOTAL
+  field_transaction_types:
+    -
+      value: LOC

@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 214dec27-c40f-4096-8755-3566ed7bad4f
+  bundle: image
+  default_langcode: en
+  depends:
+    80cf5e54-247a-46ee-8b44-03aa8845973c: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2427085 photo 02 95884b369b'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 80cf5e54-247a-46ee-8b44-03aa8845973c
+      alt: 'OLBUR2427085 photo 02 95884b369b'
+      title: 'OLBUR2427085 photo 02 95884b369b'
+      width: 1280
+      height: 853
+  field_media_in_library:
+    -
+      value: true

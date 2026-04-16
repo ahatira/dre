@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 989d73bb-2006-44e5-8c59-0707ddeae112
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 0
+  filename:
+    -
+      value: OLBUR2311214_04_3aabb13c3825.webp
+  uri:
+    -
+      value: 'public://offer-import/OLBUR2311214/OLBUR2311214_04_3aabb13c3825.webp'
+  filemime:
+    -
+      value: image/webp
+  filesize:
+    -
+      value: 91251
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1776294417

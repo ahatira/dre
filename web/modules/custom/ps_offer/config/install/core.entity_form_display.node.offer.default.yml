@@ -32,9 +32,10 @@ dependencies:
   module:
     - address
     - field_group
-    - geofield
+    - geolocation
     - inline_entity_form
     - media_library
+    - media_library_edit
     - path
     - ps_diagnostic
     - ps_features
@@ -372,11 +373,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_geofield:
-    type: geofield_latlon
+    type: geolocation_latlng
     weight: 14
     region: content
-    settings:
-      html5_geolocation: false
+    settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -400,7 +400,10 @@ content:
     settings:
       media_types:
         - image
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: true
+        edit_form_mode: default
   field_media_plans:
     type: media_library_widget
     weight: 22
@@ -420,13 +423,12 @@ content:
         - video
     third_party_settings: {  }
   field_media_virtual_tours:
-    type: media_library_widget
+    type: link_default
     weight: 24
     region: content
     settings:
-      media_types:
-        - remote_video
-        - video
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   path:
     type: path

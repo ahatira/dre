@@ -4,7 +4,7 @@ dependencies: {  }
 id: transport_metro
 label: 'Metro lines'
 description: 'Nearby Paris metro lines.'
-value_type: dictionary
+value_type: string
 dictionary_type: metro_line
 unit: null
 is_required: false

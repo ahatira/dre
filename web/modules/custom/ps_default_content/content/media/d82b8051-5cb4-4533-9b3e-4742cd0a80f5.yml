@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: d82b8051-5cb4-4533-9b3e-4742cd0a80f5
+  bundle: image
+  default_langcode: en
+  depends:
+    e5660419-f9c1-41b0-9973-ccb23ea5fa91: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2311214 photo 01 036402b6a4'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: e5660419-f9c1-41b0-9973-ccb23ea5fa91
+      alt: 'OLBUR2311214 photo 01 036402b6a4'
+      title: 'OLBUR2311214 photo 01 036402b6a4'
+      width: 960
+      height: 960
+  field_media_in_library:
+    -
+      value: true

@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: ef549c31-3476-4e2b-8584-ef7c347c7da5
+  bundle: image
+  default_langcode: en
+  depends:
+    4da39c1c-b955-4df4-a409-09c4487a253d: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2427085 photo 03 2b7192fc65'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 4da39c1c-b955-4df4-a409-09c4487a253d
+      alt: 'OLBUR2427085 photo 03 2b7192fc65'
+      title: 'OLBUR2427085 photo 03 2b7192fc65'
+      width: 1280
+      height: 853
+  field_media_in_library:
+    -
+      value: true

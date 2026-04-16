@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: e0de9cd1-2a2a-405f-916b-99fbb828763c
+  bundle: agent
+  default_langcode: en
+default:
+  type:
+    -
+      target_id: agent
+  first_name:
+    -
+      value: Johanna
+  last_name:
+    -
+      value: GILQUIN
+  phone:
+    -
+      value: '+33607063278'
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/johanna-gilquin
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776294415
+  uid:
+    -
+      target_id: 0

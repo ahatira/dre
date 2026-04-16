@@ -1,0 +1,19 @@
+uuid: 6fce7d2d-c526-4485-b42a-c6ed4329b0f9
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: Pm0l6YhRLq4fV4J8r9vVdx-5pL3qk15oW0YvAqYHe0Q
+name: ps_offer_card_vertical
+label: 'PS Offer Card Vertical (640x640)'
+effects:
+  2f6c4268-1a80-4b8a-aaec-b1489dd7860f:
+    uuid: 2f6c4268-1a80-4b8a-aaec-b1489dd7860f
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 640
+      height: 640
+      crop_type: focal_point

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: ps_division
+  uuid: 17b393cd-fd5d-4be8-9c6e-36308291911d
+  bundle: lot
+  default_langcode: en
+default:
+  floor:
+    -
+      value: P3
+  building_name:
+    -
+      value: '10 rue Petit Paris 19'
+  division_type:
+    -
+      value: USABLE
+  nature:
+    -
+      value: BUR
+  lot:
+    -
+      value: OLBUR2427085/1
+  availability:
+    -
+      value: 'Nous consulter'
+  surfaces:
+    -
+      value: 67.0
+      unit: M2
+      type: USABLE
+      nature: BUR
+      qualification: TOTAL
+  created:
+    -
+      value: 1776294415
+  uid:
+    -
+      target_id: 0
+  status:
+    -
+      value: true

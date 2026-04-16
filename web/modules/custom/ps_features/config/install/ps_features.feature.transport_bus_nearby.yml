@@ -4,7 +4,7 @@ dependencies: {  }
 id: transport_bus_nearby
 label: 'Bus stop nearby'
 description: 'One or more bus stops within walking distance.'
-value_type: flag
+value_type: string
 dictionary_type: null
 unit: null
 is_required: false

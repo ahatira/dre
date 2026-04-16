@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 81221251-0d25-4551-9370-989e59b61f8c
+  bundle: image
+  default_langcode: en
+  depends:
+    49f7a359-af64-4e90-b7cf-a4e7515f31af: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'OLBUR2427085 photo 09 5bbbb32a47'
+  created:
+    -
+      value: 1776294417
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 49f7a359-af64-4e90-b7cf-a4e7515f31af
+      alt: 'OLBUR2427085 photo 09 5bbbb32a47'
+      title: 'OLBUR2427085 photo 09 5bbbb32a47'
+      width: 1280
+      height: 853
+  field_media_in_library:
+    -
+      value: true

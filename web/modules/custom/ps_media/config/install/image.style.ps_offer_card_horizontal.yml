@@ -1,0 +1,19 @@
+uuid: 9a50e86e-0c37-4d3e-97ef-07f7cdf50b9b
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: 8fLh3Lk9XLdYxWXWBfwe2j7Q6Ggj9UfV8C6VvI6zS7g
+name: ps_offer_card_horizontal
+label: 'PS Offer Card Horizontal (736x424)'
+effects:
+  0136dcb3-f88a-4f04-a3de-1a180ad7c4a1:
+    uuid: 0136dcb3-f88a-4f04-a3de-1a180ad7c4a1
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 736
+      height: 424
+      crop_type: focal_point

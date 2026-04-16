@@ -3,17 +3,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - geofield
+    - geolocation
     - node
 _core:
   default_config_hash: 09sXoB0zQZzynlpAeLYhQCgCp2IZ4n7lE8t8eQRU95Y
 id: node.field_geofield
 field_name: field_geofield
 entity_type: node
-type: geofield
-settings:
-  backend: geofield_backend_default
-module: geofield
+type: geolocation
+settings: {  }
+module: geolocation
 locked: false
 cardinality: 1
 translatable: true

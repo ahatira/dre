@@ -1,0 +1,336 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: acbe79f9-facf-418f-bca1-f7a22497686d
+  bundle: offer
+  default_langcode: en
+  depends:
+    0ec31c41-8b04-4465-ab34-1f114ce57dd9: agent
+    4e7ab188-7cfa-4def-ad13-c333da8b19c9: ps_division
+    f8559175-5e2b-409d-812c-1bfdeb20620e: media
+    cc25c1ea-3a01-4e02-8245-54a7e1589937: media
+    e4d8a288-e1a4-409c-880f-d367030d0174: media
+    81f74b7b-c7ea-4a2a-a042-74a942b884df: media
+    435f7127-ffaf-496d-b9f1-24ee157b29ed: media
+    90f9c572-e860-4eaf-b0d4-dbce0064f367: media
+    3a61a669-19a4-4ad2-a7f6-254310451aa1: media
+    19e5201c-cabf-4a42-90e6-f9617d7e822d: media
+    85886a70-f6ef-4346-b684-7258c958fa85: media
+    9f4155e0-7782-4f73-ba35-064af5c2bc80: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: VISALTO
+  created:
+    -
+      value: 1776295002
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <p>A proximite des stations de metro "Pte de Pantin" (L5) et "Danube" (L7b), BNP Paribas Real Estate vous propose une surface de bureaux a louer au 1er etage d'un immeuble recent. Les bureaux seront livres renoves en open space. ERP5 possible.</p>
+
+        <p><strong>Prestations :</strong></p>
+        <ul>
+          <li>climatisation double flux</li>
+          <li>gestion technique centralisee</li>
+          <li>acces securise</li>
+          <li>bureaux en open-space</li>
+          <li>faux plancher / faux plafond</li>
+          <li>4 ascenseurs</li>
+          <li>monte charge</li>
+          <li>luminaires encastres</li>
+          <li>sol en moquette</li>
+          <li>sanitaires privatifs</li>
+          <li>hall d'accueil</li>
+        </ul>
+
+        <p><strong>Services :</strong></p>
+        <ul>
+          <li>parkings interieurs en sous-sol</li>
+          <li>RIE / cafeteria</li>
+          <li>acces PMR</li>
+        </ul>
+
+        <p><strong>Desserte :</strong></p>
+        <ul>
+          <li>metro ligne 5 station "Porte de Pantin"</li>
+          <li>bus</li>
+          <li>tramway T3</li>
+          <li>acces direct boulevard peripherique "Porte de Pantin"</li>
+        </ul>
+      format: basic_html
+      summary: ''
+  external_id:
+    -
+      value: OLBUR2107076
+  field_address:
+    -
+      langcode: ''
+      country_code: FR
+      administrative_area: ''
+      locality: Paris
+      dependent_locality: ''
+      postal_code: '75019'
+      sorting_code: ''
+      address_line1: "8 Bd d'Indochine"
+      address_line2: ''
+      address_line3: ''
+      additional_name: ''
+  field_agents:
+    -
+      entity: 0ec31c41-8b04-4465-ab34-1f114ce57dd9
+  field_availability:
+    -
+      value: Immediate
+  field_client_type:
+    -
+      value: B2B
+  field_diagnostics:
+    -
+      type_id: dpe
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+    -
+      type_id: ges
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+  field_divisions:
+    -
+      entity: 4e7ab188-7cfa-4def-ad13-c333da8b19c9
+  field_exclusivity:
+    -
+      value: false
+  field_features:
+    -
+      feature_id: office_layout
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: Cloisonnes/Ouverts
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: has_elevator
+      value_type: flag
+      dictionary_type: ''
+      value_boolean: false
+      value_string: ''
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: false_floor
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: Present
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: cafeteria
+      value_type: yesno
+      dictionary_type: ''
+      value_boolean: true
+      value_string: ''
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: security_system
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: "Controle d'acces"
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_bus_nearby
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: Oui
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_metro
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'M5 "Porte de Pantin"'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_tram
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'T3 "Porte de Pantin"'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_road_access
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'Acces direct boulevard peripherique "Porte de Pantin"'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: building_condition
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: "Etat d'usage"
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: premises_condition
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: Renove
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: terrace_garden
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'Terrasses - jardins'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: availability_status
+      value_type: dictionary
+      dictionary_type: availability_status
+      value_boolean: false
+      value_string: IMMEDIATE
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+  field_geofield:
+    -
+      lat: 48.8846966
+      lng: 2.3973762
+      lat_sin: 0.7533877839692
+      lat_cos: 0.65757649514408
+      lng_rad: 0.04184210809895
+      data: {  }
+  field_is_divisible:
+    -
+      value: true
+  field_media_photos:
+    -
+      entity: f8559175-5e2b-409d-812c-1bfdeb20620e
+    -
+      entity: cc25c1ea-3a01-4e02-8245-54a7e1589937
+    -
+      entity: e4d8a288-e1a4-409c-880f-d367030d0174
+    -
+      entity: 81f74b7b-c7ea-4a2a-a042-74a942b884df
+    -
+      entity: 435f7127-ffaf-496d-b9f1-24ee157b29ed
+    -
+      entity: 90f9c572-e860-4eaf-b0d4-dbce0064f367
+    -
+      entity: 3a61a669-19a4-4ad2-a7f6-254310451aa1
+    -
+      entity: 19e5201c-cabf-4a42-90e6-f9617d7e822d
+    -
+      entity: 85886a70-f6ef-4346-b684-7258c958fa85
+    -
+      entity: 9f4155e0-7782-4f73-ba35-064af5c2bc80
+  field_min_divisible_surface:
+    -
+      value: '1068.00'
+  field_prices:
+    -
+      amount: 290.0
+      currency_code: EUR
+      value_type_code: MIN
+      unit_code: SUR
+      period_code: ANN
+      is_on_request: false
+      is_from: true
+      is_vat_excluded: true
+      is_charges_included: false
+  field_property_type:
+    -
+      value: BUR
+  field_reference:
+    -
+      value: OLBUR2107076
+  field_surfaces:
+    -
+      value: 1068.0
+      unit: M2
+      type: USABLE
+      nature: BUR
+      qualification: TOTAL
+  field_transaction_types:
+    -
+      value: LOC

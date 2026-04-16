@@ -1,0 +1,265 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 1caf761c-5020-4162-aa0b-148d4b83e45b
+  bundle: offer
+  default_langcode: en
+  depends:
+    e0de9cd1-2a2a-405f-916b-99fbb828763c: agent
+    d82b8051-5cb4-4533-9b3e-4742cd0a80f5: media
+    a2d414b5-cb13-4ea3-ac73-bc4a9d250b89: media
+    989ea735-c587-4c6a-af32-2e962b1742b9: media
+    878eb9d2-7862-4641-9519-729237d71d18: media
+    7dce0d33-93ae-4bd3-9b2b-25c6ebd0d6ed: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Location Bureau 2 083 m2'
+  created:
+    -
+      value: 1776295002
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <p>Profitez d'une opportunite rare de bureaux dans le 19e arrondissement, au sein d'un environnement dynamique et parfaitement desservi.</p>
+
+        <p>Decouvrez le Parc du Pont de Flandre, campus d'entreprises developpe sur 5 hectares : un concept compose d'immeubles en pierre meuliere et de pierre de taille, repartis autour d'espaces verts et de bassins.</p>
+
+        <p>Restauration variee, fitness, creche sur site.</p>
+
+        <p>Le parc est idealement situe a proximite du RER E (RosaParks), du Metro (Corentin Cariou Ligne 7), du Tramway (T3B-Porte de la Villette) et de la Porte de la Villette.</p>
+
+        <p><strong>Dessertes :</strong></p>
+        <ul>
+          <li>Metro "Corentin Cariou" (ligne 7)</li>
+          <li>RER "Rosaparks" (ligne E)</li>
+          <li>Tramway "Porte de la Villette" (ligne T3b)</li>
+          <li>Peripherique "Porte de la Villette" / A1/A3/N2</li>
+        </ul>
+
+        <p><strong>Prestations :</strong></p>
+        <ul>
+          <li>Climatisation</li>
+          <li>Faux plancher technique</li>
+          <li>PC securite</li>
+          <li>Parkings</li>
+          <li>Restaurant inter-entreprises</li>
+          <li>Fitness</li>
+          <li>Creche</li>
+        </ul>
+      format: basic_html
+      summary: ''
+  external_id:
+    -
+      value: OLBUR2311214
+  field_address:
+    -
+      langcode: ''
+      country_code: FR
+      administrative_area: ''
+      locality: Paris
+      dependent_locality: ''
+      postal_code: '75019'
+      sorting_code: ''
+      address_line1: ''
+      address_line2: ''
+      address_line3: ''
+      additional_name: ''
+  field_agents:
+    -
+      entity: e0de9cd1-2a2a-405f-916b-99fbb828763c
+  field_availability:
+    -
+      value: Immediate
+  field_client_type:
+    -
+      value: B2B
+  field_diagnostics:
+    -
+      type_id: dpe
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+    -
+      type_id: ges
+      value: 0.0
+      class: ''
+      valid_from: ''
+      valid_to: ''
+      no_classification: true
+      non_applicable: false
+  field_exclusivity:
+    -
+      value: false
+  field_features:
+    -
+      feature_id: has_elevator
+      value_type: flag
+      dictionary_type: ''
+      value_boolean: false
+      value_string: ''
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: false_floor
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: Technique
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: security_system
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'PC securite'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_metro
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'M7 Corentin Cariou a 200 m'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_rer
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'RER E Rosaparks a 500 m'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_tram
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'T3B Porte de la Villette'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: transport_road_access
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'Porte de la Villette/A1/A3'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: availability_status
+      value_type: dictionary
+      dictionary_type: availability_status
+      value_boolean: false
+      value_string: IMMEDIATE
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+    -
+      feature_id: terrace_garden
+      value_type: string
+      dictionary_type: ''
+      value_boolean: false
+      value_string: 'Terrasses - jardins'
+      value_numeric: 0.0
+      value_range_min: 0.0
+      value_range_max: 0.0
+      unit: ''
+      complement: ''
+  field_geofield:
+    -
+      lat: 48.8823992
+      lng: 2.3819935
+      lat_sin: 0.75336141639112
+      lat_cos: 0.65760670335176
+      lng_rad: 0.041573629336104
+      data: {  }
+  field_is_divisible:
+    -
+      value: false
+  field_media_photos:
+    -
+      entity: d82b8051-5cb4-4533-9b3e-4742cd0a80f5
+    -
+      entity: a2d414b5-cb13-4ea3-ac73-bc4a9d250b89
+    -
+      entity: 989ea735-c587-4c6a-af32-2e962b1742b9
+    -
+      entity: 878eb9d2-7862-4641-9519-729237d71d18
+    -
+      entity: 7dce0d33-93ae-4bd3-9b2b-25c6ebd0d6ed
+  field_prices:
+    -
+      amount: 0.0
+      currency_code: EUR
+      value_type_code: ''
+      unit_code: SUR
+      period_code: ANN
+      is_on_request: true
+      is_from: false
+      is_vat_excluded: true
+      is_charges_included: false
+  field_property_type:
+    -
+      value: BUR
+  field_reference:
+    -
+      value: OLBUR2311214
+  field_surfaces:
+    -
+      value: 2083.0
+      unit: M2
+      type: USABLE
+      nature: BUR
+      qualification: TOTAL
+  field_transaction_types:
+    -
+      value: LOC

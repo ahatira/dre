@@ -1,0 +1,33 @@
+_meta:
+  version: '1.0'
+  entity_type: agent
+  uuid: 769dfc61-ed39-478e-a7d7-5a7693f0c4c4
+  bundle: agent
+  default_langcode: en
+default:
+  type:
+    -
+      target_id: agent
+  first_name:
+    -
+      value: Camille
+  last_name:
+    -
+      value: BRUZEAU
+  phone:
+    -
+      value: '+33602065780'
+  status:
+    -
+      value: true
+  path:
+    -
+      alias: /agents/camille-bruzeau
+      langcode: en
+      pathauto: 1
+  created:
+    -
+      value: 1776294415
+  uid:
+    -
+      target_id: 0

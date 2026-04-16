@@ -14,11 +14,13 @@ dependencies:
   - drupal:media
   - drupal:taxonomy
   - drupal:media_library
+  - drupal:media_library_edit
   - ps_media:ps_media
-  - drupal:geofield
+  - drupal:geolocation
   - drupal:address
   - drupal:inline_entity_form
   - drupal:field_group
+  - ps_editor:ps_editor
   - ps:ps
   - ps_dictionary:ps_dictionary
   - ps_agent:ps_agent

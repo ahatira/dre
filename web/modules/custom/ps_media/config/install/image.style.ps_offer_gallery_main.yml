@@ -1,0 +1,19 @@
+uuid: 318914f9-9d96-4a51-acf2-8e6cb8cd0a0e
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: M9Qd9FGc3NoOvEYw4R5TTfDqf8TOcoX3x1cJ1RcbFq4
+name: ps_offer_gallery_main
+label: 'PS Offer Gallery Main (1280x804)'
+effects:
+  f8e06bf3-f5bd-4ca4-9c0d-3549e47a8794:
+    uuid: f8e06bf3-f5bd-4ca4-9c0d-3549e47a8794
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1280
+      height: 804
+      crop_type: focal_point

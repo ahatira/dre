@@ -1,0 +1,19 @@
+uuid: 78033f8c-ab1e-4683-959d-a5ea11fb9c5f
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: gL6YIY3QffagN8bBUkM2Ei33sQce8s9yQylq1QwFqjo
+name: ps_offer_gallery_thumb
+label: 'PS Offer Gallery Thumb (240x140)'
+effects:
+  ffbd4388-0be4-4429-a31d-056ebb858df8:
+    uuid: ffbd4388-0be4-4429-a31d-056ebb858df8
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 240
+      height: 140
+      crop_type: focal_point
