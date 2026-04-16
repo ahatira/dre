@@ -1,0 +1,43 @@
+.ps-card-agent.card {
+  --bs-card-bg: var(--bs-tertiary-bg);
+  min-height: 100%;
+}
+
+.ps-card-agent__avatar {
+  width: clamp(4.5rem, 8vw, 6rem);
+  height: clamp(4.5rem, 8vw, 6rem);
+  background-color: var(--bs-body-bg);
+}
+
+.ps-card-agent__content {
+  min-width: 0;
+}
+
+.ps-card-agent__eyebrow {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.ps-card-agent__name {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.1;
+}
+
+.ps-card-agent__phone {
+  width: fit-content;
+  font-weight: 600;
+}
+
+.ps-card-agent__phone-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+@media (max-width: 991.98px) {
+  .ps-card-agent.card {
+    --bs-card-bg: transparent;
+  }
+}

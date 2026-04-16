@@ -1,0 +1,13 @@
+name: 'Avatar real image override'
+description: 'When image_url is provided, it overrides avatar_gender fallback (male/female broker SVG).'
+props:
+  title: 'Votre agent :'
+  name: 'Camille Dupont'
+  heading_level: 3
+  avatar_gender: female
+  image_url: '/themes/custom/ui_suite_bnppre/assets/images/card-image.svg'
+  image_alt: 'Portrait de l’agent'
+  phone: '+32 2 646 49 49'
+  cta_label: 'Contacter l’agent'
+  cta_url: '#contact-agent'
+  cta_variant: primary

@@ -1,0 +1,100 @@
+name: 'Card Agent'
+description: 'Bootstrap-first contact card with optional portrait, phone link, and primary call to action.'
+group: 'PS Theme'
+links:
+  - 'https://getbootstrap.com/docs/5.3/components/card/'
+  - 'https://getbootstrap.com/docs/5.3/utilities/flex/'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: 'Additional attributes for the card wrapper.'
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Intro text
+      description: 'Short text displayed above the contact name.'
+      type: string
+    name:
+      title: Contact name
+      description: 'Main contact name displayed as the card heading.'
+      type: string
+    heading_level:
+      title: Heading level
+      description: 'Heading level used for the contact name.'
+      type: integer
+      default: 3
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      'meta:enum':
+        2: H2
+        3: H3
+        4: H4
+        5: H5
+        6: H6
+    image_url:
+      title: Portrait URL
+      description: 'Portrait image URL. When provided, it overrides the default broker SVG fallback.'
+      $ref: 'ui-patterns://url'
+    avatar_gender:
+      title: Avatar fallback
+      description: 'Fallback broker SVG used when no portrait URL is provided.'
+      type: string
+      default: male
+      enum:
+        - male
+        - female
+      'meta:enum':
+        male: Male
+        female: Female
+    image_alt:
+      title: Portrait alt text
+      description: 'Alternative text for the portrait image.'
+      type: string
+    image_attributes:
+      title: Image attributes
+      description: 'Additional attributes for the portrait image.'
+      $ref: 'ui-patterns://attributes'
+    phone:
+      title: Phone number
+      description: 'Phone number rendered as a tel link.'
+      type: string
+    phone_label:
+      title: Phone label
+      description: 'Optional label displayed for the phone link. Falls back to the phone number.'
+      type: string
+    cta_label:
+      title: CTA label
+      description: 'Button label displayed at the bottom of the card.'
+      type: string
+    cta_url:
+      title: CTA URL
+      description: 'Button destination URL.'
+      $ref: 'ui-patterns://url'
+    cta_variant:
+      title: CTA variant
+      description: 'Bootstrap button variant passed to the shared button component.'
+      type: string
+      default: primary
+      enum:
+        - primary
+        - secondary
+        - outline_primary
+        - outline_secondary
+      'meta:enum':
+        primary: Primary
+        secondary: Secondary
+        outline_primary: Outline primary
+        outline_secondary: Outline secondary
+    cta_attributes:
+      title: CTA attributes
+      description: 'Additional attributes for the CTA button.'
+      $ref: 'ui-patterns://attributes'
+libraryOverrides:
+  css:
+    component:
+      styles/card_agent.css: {}

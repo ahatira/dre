@@ -1,0 +1,12 @@
+name: 'Default'
+description: 'Desktop profile card with portrait, phone number and primary CTA. Mobile keeps only the CTA, like the reference mockup.'
+props:
+  title: 'Votre agent :'
+  name: 'Sophia Dacosta'
+  heading_level: 3
+  avatar_gender: male
+  image_alt: ''
+  phone: '+32 2 646 49 49'
+  cta_label: 'Contacter l’agent'
+  cta_url: '#contact-agent'
+  cta_variant: primary

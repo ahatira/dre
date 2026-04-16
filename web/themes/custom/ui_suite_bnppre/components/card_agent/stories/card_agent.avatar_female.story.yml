@@ -1,0 +1,12 @@
+name: 'Avatar fallback female'
+description: 'Fallback female.svg when no agent portrait URL is provided.'
+props:
+  title: 'Votre agent :'
+  name: 'Sophie Lambert'
+  heading_level: 3
+  avatar_gender: female
+  image_alt: ''
+  phone: '+32 2 646 49 49'
+  cta_label: 'Contacter l’agent'
+  cta_url: '#contact-agent'
+  cta_variant: primary

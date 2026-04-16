@@ -1,0 +1,53 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set image_attributes = create_attribute(image_attributes|default({})) %}
+{% set cta_attributes = create_attribute(cta_attributes|default({})) %}
+{% set heading_tag = 'h' ~ (heading_level|default(3)) %}
+{% set phone_label = phone_label|default(phone|default('')) %}
+{% set cta_label = cta_label|default('Contact the agent'|t) %}
+{% set cta_variant = cta_variant|default('primary') %}
+{% set avatar_gender = avatar_gender|default('male')|lower %}
+{% if avatar_gender not in ['male', 'female'] %}
+	{% set avatar_gender = 'male' %}
+{% endif %}
+{% set fallback_image_url = avatar_gender == 'female'
+  ? '/themes/custom/ui_suite_bnppre/assets/images/broker/female.svg'
+  : '/themes/custom/ui_suite_bnppre/assets/images/broker/male.svg'
+%}
+{% set image_src = image_url|default('') ?: fallback_image_url %}
+{% set tel_href = phone|default('')|replace({' ': '', '.': '', '-': '', '(': '', ')': '', '/': ''}) %}
+
+<div{{attributes.addClass('ps-card-agent','card','border-0','rounded-0')}}>
+	<div class="card-body p-0 p-lg-4 d-flex flex-column gap-3">
+		<div class="ps-card-agent__info d-none d-lg-flex align-items-start gap-3">
+			<img{{image_attributes.addClass('ps-card-agent__avatar','rounded-circle','object-fit-cover','flex-shrink-0').setAttribute('src',image_src).setAttribute('alt',image_alt|default('')).setAttribute('loading','lazy')}}/>
+
+			<div class="ps-card-agent__content flex-grow-1">
+				{% if title %}
+					<p class="ps-card-agent__eyebrow text-body-secondary mb-1">{{ title }}</p>
+				{% endif %}
+
+				{% if name %}
+					<{{heading_tag}} class="ps-card-agent__name mb-0">{{ name }}</{{heading_tag}}>
+				{% endif %}
+
+				{% if phone %}
+					<a class="ps-card-agent__phone d-inline-flex align-items-center gap-2 mt-2 link-dark link-offset-2 text-decoration-none" href="tel:{{ tel_href }}">
+						<span class="ps-card-agent__phone-icon" aria-hidden="true">{{ icon('bnppre', 'phone', {'size': '1rem'})|render }}</span>
+						<span>{{ phone_label }}</span>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+
+		{% if cta_url %}
+			<div class="d-grid">
+				{{ include('ui_suite_bnppre:button', {
+          attributes: cta_attributes.addClass('ps-card-agent__cta', 'w-100'),
+          label: cta_label,
+          url: cta_url,
+          variant: cta_variant,
+        }, with_context = false) }}
+			</div>
+		{% endif %}
+	</div>
+</div>
