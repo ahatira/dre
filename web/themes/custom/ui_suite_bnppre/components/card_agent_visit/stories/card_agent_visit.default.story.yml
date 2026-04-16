@@ -1,0 +1,10 @@
+name: 'Default'
+description: 'Desktop layout with title and outlined CTA, mobile keeps only CTA.'
+props:
+  title: 'Souhaitez-vous visiter ?'
+  heading_level: 3
+  cta_label: 'Planifier une visite'
+  cta_url: '#planifier-visite'
+  cta_variant: outline_primary
+  cta_aria_label: 'Planifier une visite'
+  show_icon: true

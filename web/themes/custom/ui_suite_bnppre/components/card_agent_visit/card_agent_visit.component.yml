@@ -1,0 +1,76 @@
+name: 'Card Agent Visit'
+description: 'Card inviting users to schedule a visit with a calendar CTA. Desktop shows title + CTA, mobile keeps only CTA.'
+group: 'PS Theme'
+links:
+  - 'https://getbootstrap.com/docs/5.3/components/card/'
+  - 'https://getbootstrap.com/docs/5.3/components/buttons/'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: 'Additional attributes for the card wrapper.'
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Title
+      description: 'Short title displayed above the CTA on desktop.'
+      type: string
+      default: 'Souhaitez-vous visiter ?'
+    heading_level:
+      title: Heading level
+      description: 'Heading level used for the title.'
+      type: integer
+      default: 3
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      'meta:enum':
+        2: H2
+        3: H3
+        4: H4
+        5: H5
+        6: H6
+    cta_label:
+      title: CTA label
+      description: 'Label displayed in the CTA button.'
+      type: string
+      default: 'Planifier une visite'
+    cta_url:
+      title: CTA URL
+      description: 'Button destination URL.'
+      $ref: 'ui-patterns://url'
+    cta_aria_label:
+      title: CTA aria-label
+      description: 'Accessible label for the CTA. Falls back to cta_label.'
+      type: string
+    cta_variant:
+      title: CTA variant
+      description: 'Bootstrap button variant.'
+      type: string
+      default: outline_primary
+      enum:
+        - primary
+        - secondary
+        - outline_primary
+        - outline_secondary
+      'meta:enum':
+        primary: Primary
+        secondary: Secondary
+        outline_primary: Outline primary
+        outline_secondary: Outline secondary
+    cta_attributes:
+      title: CTA attributes
+      description: 'Additional attributes for the CTA button.'
+      $ref: 'ui-patterns://attributes'
+    show_icon:
+      title: Show icon
+      description: 'Displays a calendar icon in the CTA when true.'
+      type: boolean
+      default: true
+libraryOverrides:
+  css:
+    component:
+      styles/card_agent_visit.css: {}

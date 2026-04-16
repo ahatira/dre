@@ -1,0 +1,9 @@
+name: 'CTA only'
+description: 'Fallback variant without title (close to mobile visual behavior on all breakpoints).'
+props:
+  title: ''
+  cta_label: 'Planifier une visite'
+  cta_url: '#planifier-visite'
+  cta_variant: outline_primary
+  cta_aria_label: 'Planifier une visite'
+  show_icon: true

@@ -1,0 +1,10 @@
+name: 'Primary CTA'
+description: 'Variant with solid primary button to test alternate emphasis.'
+props:
+  title: 'Souhaitez-vous visiter ?'
+  heading_level: 3
+  cta_label: 'Planifier une visite'
+  cta_url: '#planifier-visite'
+  cta_variant: primary
+  cta_aria_label: 'Planifier une visite'
+  show_icon: true

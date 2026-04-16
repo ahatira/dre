@@ -1,0 +1,31 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set cta_attributes = create_attribute(cta_attributes|default({})) %}
+{% set heading_level = heading_level|default(3) %}
+{% if heading_level < 2 or heading_level > 6 %}
+	{% set heading_level = 3 %}
+{% endif %}
+{% set heading_tag = 'h' ~ heading_level %}
+{% set cta_label = cta_label|default('Planifier une visite'|t) %}
+{% set cta_aria_label = cta_aria_label|default(cta_label) %}
+{% set cta_variant = cta_variant|default('outline_primary') %}
+{% if cta_variant not in ['primary', 'secondary', 'outline_primary', 'outline_secondary'] %}
+	{% set cta_variant = 'outline_primary' %}
+{% endif %}
+{% set cta_variant_class = 'btn-' ~ cta_variant|replace({'_': '-'}) %}
+
+<div{{attributes.addClass('ps-card-agent-visit','card','border-0','rounded-0')}}>
+	<div class="card-body d-flex flex-column align-items-center align-items-lg-start gap-3 gap-lg-4 p-0 p-lg-4">
+		{% if title %}
+			<{{heading_tag}} class="ps-card-agent-visit__title mb-0 d-none d-lg-block">{{ title }}</{{heading_tag}}>
+		{% endif %}
+
+		{% if cta_url %}
+			<a{{cta_attributes.addClass('ps-card-agent-visit__cta','btn',cta_variant_class,'w-100','d-inline-flex','align-items-center','justify-content-center','gap-2').setAttribute('href',cta_url).setAttribute('aria-label',cta_aria_label)}}>
+				{% if show_icon|default(true) %}
+					<span class="ps-card-agent-visit__cta-icon" aria-hidden="true">{{ icon('bnppre', 'calendar', {'size': '1rem'}) }}</span>
+				{% endif %}
+				<span>{{ cta_label }}</span>
+			</a>
+		{% endif %}
+	</div>
+</div>

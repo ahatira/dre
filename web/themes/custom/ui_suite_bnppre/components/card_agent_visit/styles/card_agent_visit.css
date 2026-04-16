@@ -1,0 +1,27 @@
+.ps-card-agent-visit.card {
+  --bs-card-bg: var(--bs-tertiary-bg);
+}
+
+.ps-card-agent-visit__title {
+  color: var(--bs-heading-color);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.1;
+}
+
+.ps-card-agent-visit__cta {
+  --bs-btn-border-width: 2px;
+}
+
+.ps-card-agent-visit__cta-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+@media (max-width: 991.98px) {
+  .ps-card-agent-visit.card {
+    --bs-card-bg: transparent;
+  }
+}
