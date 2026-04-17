@@ -1,6 +1,6 @@
 (function (Drupal, once) {
   const DESKTOP_BREAKPOINT = 992;
-  const HIDE_DELAY = 120;
+  const HIDE_DELAY = 150;
 
   Drupal.behaviors.psThemeMegamenu = {
     attach(context) {
@@ -88,12 +88,17 @@
             }
           };
 
-          const hideItem = () => {
+          const scheduleHide = (keepOpenOnFocus = false) => {
             clearHideTimer();
             hideTimer = window.setTimeout(() => {
-              if (item.matches(':hover') || item.contains(document.activeElement)) {
+              if (item.matches(':hover')) {
                 return;
               }
+
+              if (keepOpenOnFocus && item.contains(document.activeElement)) {
+                return;
+              }
+
               const instance = getInstance(item);
               if (instance) {
                 instance.hide();
@@ -101,10 +106,30 @@
             }, HIDE_DELAY);
           };
 
+          const hideFromPointer = () => {
+            if (!isDesktop()) {
+              return;
+            }
+
+            scheduleHide(false);
+          };
+
+          const hideFromFocus = (event) => {
+            if (!isDesktop()) {
+              return;
+            }
+
+            if (event.relatedTarget && item.contains(event.relatedTarget)) {
+              return;
+            }
+
+            scheduleHide(true);
+          };
+
           item.addEventListener('mouseenter', showItem);
-          item.addEventListener('mouseleave', hideItem);
+          item.addEventListener('mouseleave', hideFromPointer);
           item.addEventListener('focusin', showItem);
-          item.addEventListener('focusout', hideItem);
+          item.addEventListener('focusout', hideFromFocus);
 
           if (toggle) {
             toggle.addEventListener('click', (event) => {
