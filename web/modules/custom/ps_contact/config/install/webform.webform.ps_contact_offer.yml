@@ -1,0 +1,387 @@
+uuid: null
+langcode: en
+status: open
+dependencies:
+  enforced:
+    module:
+      - ps_contact
+open: null
+close: null
+weight: 0
+uid: null
+template: false
+archive: false
+id: ps_contact_offer
+title: 'Offer Contact'
+description: 'Offer contact form displayed in a modal dialog.'
+categories:
+  - Contact
+elements: |
+  contact_identity_title:
+    '#type': webform_markup
+    '#markup': '<h2 class="ps-contact-webform__section-title">What are your co-data?</h2>'
+  contact_identity_row:
+    '#type': webform_flexbox
+    first_name:
+      '#type': textfield
+      '#title': 'First name'
+      '#required': true
+      '#placeholder': 'Diego'
+    last_name:
+      '#type': textfield
+      '#title': 'Last name'
+      '#required': true
+      '#placeholder': 'Plot'
+  professional_email:
+    '#type': email
+    '#title': 'Professional e-mail'
+    '#required': true
+    '#placeholder': 'diego.plot@google.com'
+  contact_company_row:
+    '#type': webform_flexbox
+    company:
+      '#type': textfield
+      '#title': Company
+      '#placeholder': 'Enter your company'
+    professional_phone:
+      '#type': tel
+      '#title': 'Professional phone'
+      '#placeholder': 'Enter your professional phone'
+  project_title:
+    '#type': webform_markup
+    '#markup': '<h2 class="ps-contact-webform__section-title">Would you like to know more about your project?</h2>'
+  message:
+    '#type': textarea
+    '#title': Message
+    '#required': true
+    '#rows': 5
+    '#default_value': "Hello,\r\nI would like more information about the offer with reference \"[webform_submission:source-entity:field_reference]\".\r\nThank you"
+  consent_processing:
+    '#type': checkbox
+    '#title': 'I accept that BNP Paribas Real Estate processes my request in order to answer this contact demand.'
+    '#required': true
+  consent_marketing:
+    '#type': checkbox
+    '#title': 'I agree to receive additional information related to similar real estate opportunities.'
+  consent_phone:
+    '#type': checkbox
+    '#title': 'I agree to be contacted by phone regarding this request.'
+  consent_updates:
+    '#type': checkbox
+    '#title': 'I agree to receive follow-up updates related to this offer.'
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-contact-webform__legal">BNP Paribas Real Estate Transaction France, as Data Controller, processes the information submitted through this form in order to answer your request and, where applicable, for commercial prospecting where consent has been provided.</p><p class="ps-contact-webform__legal">For more information on how your personal data is processed and on your rights, please consult our Data Protection Notice.</p>'
+  lead_number:
+    '#type': hidden
+    '#default_value': '[date:custom:YmdHis]'
+  submission_date:
+    '#type': hidden
+    '#default_value': '[date:custom:m/d/Y H:i:s]'
+  page_url:
+    '#type': hidden
+    '#default_value': '[current-page:url:absolute]'
+  offer_nid:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:id]'
+  offer_uuid:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:uuid]'
+  offer_title:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:title]'
+  offer_reference:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_reference]'
+  offer_external_id:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:external_id]'
+  offer_property_type_code:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_property_type]'
+  offer_transaction_type_code:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_transaction_types]'
+  offer_address_line1:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_address:address_line1]'
+  offer_postal_code:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_address:postal_code]'
+  offer_city:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_address:locality]'
+  offer_country_code:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_address:country_code]'
+  agent_name:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_agents:entity:label]'
+  agent_email:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_agents:entity:email]'
+  agent_notification_email:
+    '#type': hidden
+    '#default_value': '[webform_submission:source-entity:field_agents:entity:email]'
+  actions:
+    '#type': webform_actions
+    '#submit__label': Send
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: true
+  form_prepopulate_source_entity: true
+  form_prepopulate_source_entity_required: true
+  form_prepopulate_source_entity_type: node
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: message
+  confirmation_title: ''
+  confirmation_message: 'Thank you, your request has been sent successfully.'
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  email_confirmation:
+    id: email
+    label: 'Email confirmation'
+    notes: ''
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:professional_email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'We received your contact request for [webform_submission:values:offer_reference]'
+      body: '<p>Hello [webform_submission:values:first_name],</p><p>We have received your request regarding offer <strong>[webform_submission:values:offer_reference]</strong>.</p><p>Our team will get back to you shortly.</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+  email_notification:
+    id: email
+    label: 'Agent notification'
+    notes: ''
+    handler_id: email_notification
+    status: true
+    conditions: {  }
+    weight: 2
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:agent_notification_email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'New contact request for [webform_submission:values:offer_reference]'
+      body: '<p>A new contact request has been submitted for offer <strong>[webform_submission:values:offer_reference]</strong>.</p><p><strong>Name:</strong> [webform_submission:values:first_name] [webform_submission:values:last_name]<br /><strong>Email:</strong> [webform_submission:values:professional_email]<br /><strong>Company:</strong> [webform_submission:values:company]<br /><strong>Phone:</strong> [webform_submission:values:professional_phone]</p><p><strong>Message:</strong><br />[webform_submission:values:message]</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: '[webform_submission:values:professional_email:raw]'
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+variants: {  }

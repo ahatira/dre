@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_offer\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -12,10 +13,9 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_dictionary\Service\DictionaryManagerInterface;
-use Drupal;
 use Drupal\node\NodeInterface;
 use Drupal\ps_agent\Entity\AgentInterface;
 use Drupal\ps_diagnostic\Entity\PsDiagnosticInterface;
@@ -39,6 +39,7 @@ class OfferHooks {
     protected OfferReferenceBuilder $referenceBuilder,
     protected MessengerInterface $messenger,
     protected ?EntityTypeManagerInterface $entityTypeManager = NULL,
+    protected ?ModuleHandlerInterface $moduleHandler = NULL,
     protected ?DiagnosticClassCalculatorInterface $diagnosticClassCalculator = NULL,
     protected ?PriceFormatterInterface $priceFormatter = NULL,
     protected ?FileUrlGeneratorInterface $fileUrlGenerator = NULL,
@@ -382,7 +383,7 @@ class OfferHooks {
       ],
     ];
 
-    // Favorite button: use Flag link builder for proper integration with ps_favorites.
+    // Favorite button uses the Flag lazy builder for ps_favorites integration.
     $favorite = [
       '#type' => 'container',
       '#attributes' => [
@@ -887,7 +888,7 @@ class OfferHooks {
   /**
    * Formats one feature item for the features list.
    *
-  * @return array{text: string, cache_tag: string|null, group_code: string, group_label: string, group_icon: string, group_weight: int, item_weight: int}|null
+   * @return array{text: string, cache_tag: string|null, group_code: string, group_label: string, group_icon: string, group_weight: int, item_weight: int}|null
    *   Formatted item text and optional cache tag.
    */
   protected function formatFeatureItem(object $featureItem): ?array {
@@ -1057,6 +1058,28 @@ class OfferHooks {
     }
 
     $ctaUrl = $agent->hasLinkTemplate('canonical') ? $agent->toUrl('canonical')->toString() : '';
+    $ctaAttributes = [];
+    $attached = [];
+
+    if ($this->moduleHandler?->moduleExists('ps_contact')) {
+      $ctaUrl = Url::fromUri('internal:/webform/ps_contact_offer', [
+        'query' => [
+          'source_entity_type' => 'node',
+          'source_entity_id' => (string) $node->id(),
+        ],
+      ])->toString();
+      $ctaAttributes = [
+        'class' => ['use-ajax'],
+        'data-dialog-type' => 'modal',
+        'data-dialog-options' => json_encode([
+          'width' => 760,
+          'dialogClass' => 'ps-contact-modal-dialog',
+        ], JSON_UNESCAPED_SLASHES),
+      ];
+      $attached = [
+        'library' => ['core/drupal.dialog.ajax'],
+      ];
+    }
 
     return [
       '#type' => 'component',
@@ -1068,10 +1091,12 @@ class OfferHooks {
         'phone_label' => (string) ($agent->getPhone() ?? ''),
         'cta_label' => (string) $this->t('Contact the agent'),
         'cta_url' => $ctaUrl,
+        'cta_attributes' => $ctaAttributes,
         'cta_variant' => 'primary',
         'image_url' => $this->getAgentAvatarUrl($agent),
         'image_alt' => $agent->label(),
       ],
+      '#attached' => $attached,
     ];
   }
 
@@ -1294,7 +1319,7 @@ class OfferHooks {
    */
   protected function getEntityTypeManager(): EntityTypeManagerInterface {
     if ($this->entityTypeManager === NULL) {
-      $this->entityTypeManager = Drupal::service('entity_type.manager');
+      $this->entityTypeManager = \Drupal::service('entity_type.manager');
     }
 
     return $this->entityTypeManager;
@@ -1305,7 +1330,7 @@ class OfferHooks {
    */
   protected function getDiagnosticClassCalculator(): DiagnosticClassCalculatorInterface {
     if ($this->diagnosticClassCalculator === NULL) {
-      $service = Drupal::service('ps_diagnostic.class_calculator');
+      $service = \Drupal::service('ps_diagnostic.class_calculator');
       assert($service instanceof DiagnosticClassCalculatorInterface);
       $this->diagnosticClassCalculator = $service;
     }
@@ -1318,7 +1343,7 @@ class OfferHooks {
    */
   protected function getPriceFormatter(): PriceFormatterInterface {
     if ($this->priceFormatter === NULL) {
-      $service = Drupal::service('ps_price.formatter');
+      $service = \Drupal::service('ps_price.formatter');
       assert($service instanceof PriceFormatterInterface);
       $this->priceFormatter = $service;
     }
@@ -1331,7 +1356,7 @@ class OfferHooks {
    */
   protected function getFileUrlGenerator(): FileUrlGeneratorInterface {
     if ($this->fileUrlGenerator === NULL) {
-      $service = Drupal::service('file_url_generator');
+      $service = \Drupal::service('file_url_generator');
       assert($service instanceof FileUrlGeneratorInterface);
       $this->fileUrlGenerator = $service;
     }
@@ -1344,7 +1369,7 @@ class OfferHooks {
    */
   protected function getFeatureManager(): FeatureManagerInterface {
     if ($this->featureManager === NULL) {
-      $service = Drupal::service('ps_features.manager');
+      $service = \Drupal::service('ps_features.manager');
       assert($service instanceof FeatureManagerInterface);
       $this->featureManager = $service;
     }
@@ -1357,7 +1382,7 @@ class OfferHooks {
    */
   protected function getDictionaryManager(): DictionaryManagerInterface {
     if ($this->dictionaryManager === NULL) {
-      $service = Drupal::service('ps_dictionary.manager');
+      $service = \Drupal::service('ps_dictionary.manager');
       assert($service instanceof DictionaryManagerInterface);
       $this->dictionaryManager = $service;
     }

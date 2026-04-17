@@ -6,6 +6,7 @@ services:
       - '@ps_offer.reference_builder'
       - '@messenger'
       - '@entity_type.manager'
+      - '@module_handler'
       - '@ps_diagnostic.class_calculator'
       - '@ps_price.formatter'
       - '@file_url_generator'

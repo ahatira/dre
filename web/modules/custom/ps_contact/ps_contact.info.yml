@@ -1,0 +1,15 @@
+name: "Contact"
+description: "Offer contact modal and webform integration for Property Search"
+type: module
+core_version_requirement: "^11"
+package: "Property Search"
+
+dependencies:
+  - drupal:node
+  - webform:webform
+  - token:token
+  - webform:webform_node
+  - ps_offer:ps_offer
+  - smtp:smtp
+  - mailsystem:mailsystem
+  - mimemail:mimemail
