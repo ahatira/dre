@@ -37,6 +37,9 @@ TOOLBAR_CLASSIC_MODULES=(
 
 UI_SUITE_MODULES=(
   ui_patterns
+  ui_patterns_layouts
+  ui_patterns_views
+  ui_patterns_library
   ui_styles
   ui_icons
   ui_styles_page
@@ -53,6 +56,21 @@ TRANSLATION_MODULES=(
 CONFIGURATION_MODULES=(
   config_split
   config_ignore
+)
+
+REQUESTED_EXTRA_MODULES=(
+  field_ui
+  views_ui
+  webform
+  webform_ui
+  config
+  inline_form_errors
+  responsive_image
+  telephone
+  linkit_attributes
+  webp
+  slick_ui
+  slick_views
 )
 
 LAYOUT_BUILDER_MODULES=(
@@ -341,10 +359,14 @@ enable_modules "Toolbar classic" "${TOOLBAR_CLASSIC_MODULES[@]}"
 enable_modules "UI Suite" "${UI_SUITE_MODULES[@]}"
 enable_modules "Translations" "${TRANSLATION_MODULES[@]}"
 enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
+enable_modules "Requested extras" "${REQUESTED_EXTRA_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
 enable_modules "Menu" "${MENU_MODULES[@]}"
 enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
 ensure_dropzone_library
+# Enable the default theme before PS custom modules because ps_offer config
+# declares a theme dependency on ui_suite_bnppre (layout plugin + view display).
+enable_themes "$DEFAULT_THEME"
 enable_modules_non_blocking "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international

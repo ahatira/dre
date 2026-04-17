@@ -1,0 +1,36 @@
+block.settings.ps_block_footer_copyright_block:
+  type: block_settings
+  label: 'Footer Copyright Block settings'
+  mapping:
+    copyright:
+      type: text
+      label: 'Copyright text'
+
+block.settings.ps_block_footer_contact_block:
+  type: block_settings
+  label: 'Footer Contact Block settings'
+  mapping:
+    city_1_label:
+      type: string
+      label: 'City 1 label'
+    city_1_value:
+      type: string
+      label: 'City 1 value'
+    city_1_uri:
+      type: string
+      label: 'City 1 link URI'
+    city_2_label:
+      type: string
+      label: 'City 2 label'
+    city_2_value:
+      type: string
+      label: 'City 2 value'
+    city_2_uri:
+      type: string
+      label: 'City 2 link URI'
+    email_value:
+      type: string
+      label: 'Email text'
+    email_uri:
+      type: string
+      label: 'Email link URI'

@@ -17,6 +17,7 @@ dependencies:
   - drupal:media_library_edit
   - ps_media:ps_media
   - drupal:geolocation
+  - geolocation:geolocation_google_maps
   - drupal:address
   - drupal:inline_entity_form
   - drupal:field_group
@@ -31,3 +32,4 @@ dependencies:
   - ps_surface:ps_surface
   - drupal:scheduler
   - search_api:search_api
+  - ps_favorites:ps_favorites
