@@ -18,6 +18,8 @@ dependencies:
   - ps_media:ps_media
   - drupal:geolocation
   - geolocation:geolocation_google_maps
+  - geolocation:geolocation_address
+  - drupal:geocoder
   - drupal:address
   - drupal:inline_entity_form
   - drupal:field_group

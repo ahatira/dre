@@ -32,7 +32,10 @@ dependencies:
   module:
     - address
     - field_group
+    - geocoder
     - geolocation
+    - geolocation_address
+    - geolocation_google_maps
     - inline_entity_form
     - media_library
     - media_library_edit
@@ -377,7 +380,16 @@ content:
     weight: 14
     region: content
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      geolocation_address:
+        enable: true
+        address_field: field_address
+        geocoder: google_geocoding_api
+        geocoder_settings: {  }
+        sync_mode: auto
+        direction: duplex
+        button_position: null
+        ignore: {  }
   langcode:
     type: language_select
     weight: 4
