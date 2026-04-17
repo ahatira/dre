@@ -6,4 +6,5 @@ description: "Miss/Ms."
 weight: 1
 status: true
 deprecated: false
-metadata: {}
+metadata:
+  avatar_gender: "female"

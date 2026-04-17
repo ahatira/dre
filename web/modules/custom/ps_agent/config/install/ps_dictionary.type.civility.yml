@@ -2,4 +2,10 @@ id: civility
 label: "Civility"
 description: "Agent civility (title/salutation)"
 locked: true
-metadata_schema: ""
+metadata_schema: |
+  avatar_gender:
+    type: string
+    label: "Avatar fallback gender"
+    options:
+      male: "Male"
+      female: "Female"

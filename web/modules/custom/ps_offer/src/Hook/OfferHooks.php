@@ -1095,6 +1095,7 @@ class OfferHooks {
         'cta_variant' => 'primary',
         'image_url' => $this->getAgentAvatarUrl($agent),
         'image_alt' => $agent->label(),
+        'avatar_gender' => $this->getAvatarGenderFromCivility($agent),
       ],
       '#attached' => $attached,
     ];
@@ -1135,6 +1136,29 @@ class OfferHooks {
         'show_icon' => TRUE,
       ],
     ];
+  }
+
+  /**
+   * Resolves avatar gender from agent civility metadata.
+   *
+   * @param \Drupal\ps_agent\Entity\AgentInterface|null $agent
+   *   The agent entity.
+   *
+   * @return string
+   *   The avatar gender ('male' or 'female') from dictionary metadata, defaults to 'male'.
+   */
+  protected function getAvatarGenderFromCivility(?AgentInterface $agent): string {
+    if (!$agent || !$this->dictionaryManager) {
+      return 'male';
+    }
+
+    $civility = $agent->getCivility();
+    if (!$civility) {
+      return 'male';
+    }
+
+    $metadata = $this->dictionaryManager->getMetadata('civility', $civility);
+    return (string) ($metadata['avatar_gender'] ?? 'male');
   }
 
   /**

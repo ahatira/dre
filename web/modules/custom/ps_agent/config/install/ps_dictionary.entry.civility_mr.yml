@@ -6,4 +6,5 @@ description: "Mister"
 weight: 0
 status: true
 deprecated: false
-metadata: {}
+metadata:
+  avatar_gender: "male"
