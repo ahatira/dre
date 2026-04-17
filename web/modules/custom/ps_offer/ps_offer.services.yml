@@ -5,6 +5,7 @@ services:
       - '@logger.factory'
       - '@ps_offer.reference_builder'
       - '@messenger'
+      - '@current_user'
       - '@entity_type.manager'
       - '@module_handler'
       - '@ps_diagnostic.class_calculator'

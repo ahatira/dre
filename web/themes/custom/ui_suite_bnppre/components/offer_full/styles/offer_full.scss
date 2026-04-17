@@ -212,12 +212,14 @@
     --ps-favorite-icon-size: 32px;
     --ps-favorite-btn-color: #a22b66;
     --ps-favorite-btn-bg: #fff;
-    --ps-favorite-btn-radius: 4px;
+    --ps-favorite-btn-radius: 0;
     --ps-favorite-btn-shadow: none;
 
-    // Override flag link button styles.
+    // Override flag link and anonymous local-storage button styles.
     a,
-    .flag-link {
+    .flag-link,
+    .ps-favorites-toggle__button {
+      position: relative;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -231,6 +233,7 @@
       text-decoration: none !important;
       transition: all 0.2s ease;
       padding: 0 !important;
+      outline: 0;
 
       &:hover {
         background: var(--ps-favorite-btn-bg) !important;
@@ -253,6 +256,43 @@
         font-size: var(--ps-favorite-icon-size);
         line-height: 1;
       }
+    }
+
+    .ps-favorites-toggle__button .ps-favorites-toggle__icon,
+    .ps-favorites-toggle__button > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .flag {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flag .ajax-progress,
+    .flag .ajax-progress-throbber {
+      display: none !important;
+    }
+
+    .flag.flag-waiting .ps-favorites-toggle__icon,
+    .flag.is-loading .ps-favorites-toggle__icon {
+      opacity: 0;
+    }
+
+    .flag.flag-waiting .ps-favorites-toggle__flag-link::after,
+    .flag.is-loading .ps-favorites-toggle__flag-link::after {
+      content: '';
+      position: absolute;
+      width: calc(var(--ps-favorite-icon-size) * 0.625);
+      height: calc(var(--ps-favorite-icon-size) * 0.625);
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: ps-favorite-spin 0.6s linear infinite;
     }
   }
 
@@ -343,6 +383,12 @@
     .ps-carousel__toolbar-label {
       font-size: 1rem;
     }
+  }
+}
+
+@keyframes ps-favorite-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

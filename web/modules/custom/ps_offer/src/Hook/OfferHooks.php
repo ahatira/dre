@@ -8,6 +8,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -38,6 +39,7 @@ class OfferHooks {
     protected LoggerChannelFactoryInterface $loggerFactory,
     protected OfferReferenceBuilder $referenceBuilder,
     protected MessengerInterface $messenger,
+    protected AccountProxyInterface $currentUser,
     protected ?EntityTypeManagerInterface $entityTypeManager = NULL,
     protected ?ModuleHandlerInterface $moduleHandler = NULL,
     protected ?DiagnosticClassCalculatorInterface $diagnosticClassCalculator = NULL,
@@ -383,20 +385,34 @@ class OfferHooks {
       ],
     ];
 
-    // Favorite button uses the Flag lazy builder for ps_favorites integration.
+    // Favorite button uses Flag for authenticated users and local storage
+    // fallback for anonymous users to keep a persistent UX.
     $favorite = [
       '#type' => 'container',
       '#attributes' => [
         'class' => ['ps-offer-hero__favorite-wrapper'],
       ],
-      'link' => [
-        '#lazy_builder' => ['flag.link_builder:build', ['node', (string) $node->id(), 'offer_favorite', 'full']],
-        '#create_placeholder' => TRUE,
-      ],
       '#attached' => [
         'library' => ['ps_favorites/favorites'],
       ],
+      '#cache' => [
+        'contexts' => ['user'],
+        'tags' => ['node:' . $node->id()],
+      ],
     ];
+
+    if ($this->currentUser->isAuthenticated()) {
+      $favorite['link'] = [
+        '#lazy_builder' => ['flag.link_builder:build', ['node', (string) $node->id(), 'offer_favorite', 'full']],
+        '#create_placeholder' => TRUE,
+      ];
+    }
+    else {
+      $favorite['link'] = [
+        '#theme' => 'ps_favorites_offer_toggle',
+        '#nid' => (int) $node->id(),
+      ];
+    }
 
     return $this->buildSlotContainer('ps-offer-slot ps-offer-slot--hero', [$carousel, $favorite]);
   }

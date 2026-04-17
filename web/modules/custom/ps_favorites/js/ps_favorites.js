@@ -1,5 +1,163 @@
 (function (Drupal, once, drupalSettings) {
   const STORAGE_KEY = 'ps:favorites:offers';
+  const TOAST_CONTAINER_ID = 'ps-favorites-toast-container';
+
+  function ensureToastContainer() {
+    let container = document.getElementById(TOAST_CONTAINER_ID);
+    if (container) {
+      return container;
+    }
+
+    container = document.createElement('div');
+    container.id = TOAST_CONTAINER_ID;
+    container.className = 'toast-container position-fixed top-0 end-0 p-3';
+    container.setAttribute('aria-live', 'polite');
+    container.setAttribute('aria-atomic', 'true');
+    document.body.appendChild(container);
+
+    return container;
+  }
+
+  function showFavoriteToast(message) {
+    const text = typeof message === 'string' ? message.trim() : '';
+    if (!text) {
+      return;
+    }
+
+    const container = ensureToastContainer();
+    const toast = document.createElement('div');
+    toast.className = 'toast text-bg-success border-0';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.setAttribute('aria-atomic', 'true');
+
+    const body = document.createElement('div');
+    body.className = 'd-flex';
+    body.innerHTML = `<div class="toast-body">${Drupal.checkPlain(text)}</div>`;
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', Drupal.t('Close'));
+
+    body.appendChild(closeButton);
+    toast.appendChild(body);
+    container.appendChild(toast);
+
+    if (window.bootstrap && typeof window.bootstrap.Toast === 'function') {
+      const instance = new window.bootstrap.Toast(toast, {
+        autohide: true,
+        delay: 2500,
+      });
+      toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+      }, { once: true });
+      instance.show();
+      return;
+    }
+
+    toast.classList.add('show');
+    window.setTimeout(() => {
+      toast.remove();
+    }, 2500);
+  }
+
+  function processFlagMessageElement(element) {
+    if (!element || !element.matches || !element.matches('.js-flag-message')) {
+      return;
+    }
+
+    const toggleScope = element.closest('.ps-favorites-toggle, .ps-offer-hero__favorite-wrapper');
+    if (!toggleScope) {
+      return;
+    }
+
+    const flagWrapper = element.closest('.flag');
+    if (flagWrapper) {
+      const currentCount = Number.parseInt(
+        document.querySelector('[data-ps-favorites-count]')?.textContent || '0',
+        10,
+      );
+
+      if (Number.isInteger(currentCount)) {
+        const isNowActive = flagWrapper.classList.contains('action-unflag');
+        const nextCount = isNowActive ? currentCount + 1 : Math.max(0, currentCount - 1);
+        updateHeaderCount(nextCount);
+      }
+    }
+
+    showFavoriteToast(element.textContent || '');
+    element.remove();
+  }
+
+  function observeFlagFlashMessages(context) {
+    once('ps-favorites-flag-toast', 'html', context).forEach(() => {
+      document.querySelectorAll('.js-flag-message').forEach((element) => {
+        processFlagMessageElement(element);
+      });
+
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (!(node instanceof Element)) {
+              return;
+            }
+
+            if (node.matches('.js-flag-message')) {
+              processFlagMessageElement(node);
+            }
+
+            node.querySelectorAll('.js-flag-message').forEach((element) => {
+              processFlagMessageElement(element);
+            });
+          });
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    });
+  }
+
+  function initFlagLoadingState(context) {
+    once('ps-favorites-flag-loading', '.ps-favorites-toggle .flag a, .ps-offer-hero__favorite-wrapper .flag a', context).forEach((link) => {
+      link.addEventListener('click', () => {
+        const wrapper = link.closest('.flag');
+        if (!wrapper) {
+          return;
+        }
+
+        wrapper.classList.add('is-loading');
+        link.setAttribute('aria-busy', 'true');
+
+        // Fallback cleanup if ajax completion is not detected.
+        window.setTimeout(() => {
+          wrapper.classList.remove('is-loading');
+          link.removeAttribute('aria-busy');
+        }, 4000);
+      });
+    });
+
+    once('ps-favorites-flag-loading-cleanup', 'html', context).forEach(() => {
+      if (!window.jQuery) {
+        return;
+      }
+
+      window.jQuery(document).on('ajaxComplete.psFavoritesLoading', () => {
+        document.querySelectorAll('.ps-favorites-toggle .flag.is-loading, .ps-offer-hero__favorite-wrapper .flag.is-loading').forEach((wrapper) => {
+          wrapper.classList.remove('is-loading');
+
+          const link = wrapper.querySelector('a[aria-busy="true"]');
+          if (link) {
+            link.removeAttribute('aria-busy');
+          }
+        });
+      });
+    });
+  }
 
   function getStoredFavorites() {
     try {
@@ -60,6 +218,9 @@
 
   Drupal.behaviors.psFavorites = {
     attach(context) {
+      observeFlagFlashMessages(context);
+      initFlagLoadingState(context);
+
       const isAnonymousHeader = document.querySelector('[data-ps-favorites-auth="0"]') !== null;
 
       const values = getStoredFavorites();
