@@ -70,9 +70,29 @@ props:
             type: number
           media_type:
             type: string
+          open_mode:
+            type: string
+            enum:
+              - media
+              - external
+          external_items:
+            type: array
+            items:
+              type: object
+              properties:
+                url:
+                  type: string
+                title:
+                  type: string
+    toolbar_modal_enabled:
+      title: Open toolbar in modal
+      description: "Open grouped media links in a single fullscreen modal carousel."
+      type: boolean
+      default: false
 libraryOverrides:
   js:
     js/carousel.js: {}
   dependencies:
     - core/drupal
     - core/once
+    - ui_suite_bnppre/framework_js

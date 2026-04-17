@@ -161,7 +161,7 @@
 
   .ps-carousel__toolbar-item {
     display: inline-flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.25rem;
     border: 0;
     background: transparent;
@@ -192,6 +192,37 @@
     width: 1px;
     height: 1.375rem;
     background: #b4babe;
+  }
+
+  .ps-carousel__slide--placeholder {
+    min-height: 320px;
+    background: #f5f5f5;
+  }
+
+  .ps-carousel__external-slide {
+    min-height: 320px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: #1f2b3a;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .ps-carousel__external-slide-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #00915a;
+  }
+
+  .ps-carousel__external-slide-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
   }
 
   // Hero favorite button wrapper with configurable CSS custom properties.
@@ -384,6 +415,220 @@
       font-size: 1rem;
     }
   }
+
+}
+
+.ps-carousel-media-modal {
+  --bs-modal-zindex: 1100;
+  z-index: 1080;
+
+  .modal-dialog {
+    margin: 0;
+    max-width: 100vw;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .modal-content {
+    border: 0;
+    border-radius: 0;
+    height: 100%;
+  }
+
+  .modal-header {
+    border-bottom: 0;
+    padding: 0.75rem 1rem;
+    justify-content: flex-end;
+  }
+
+  .modal-body {
+    height: calc(100vh - 56px);
+    padding: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 124px;
+    background: #fff;
+  }
+
+  .btn-close {
+    opacity: 1;
+  }
+
+  .ps-carousel-media-modal__carousel {
+    position: relative;
+    min-height: 0;
+    height: 100%;
+    background: #f5f5f5;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-inner,
+  .ps-carousel-media-modal__carousel .carousel-item {
+    height: 100%;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-item {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-item.active {
+    display: flex;
+  }
+
+  .ps-carousel-media-modal__carousel .ps-carousel-media-modal__carousel-slide--external.active {
+    display: block;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #f5f5f5;
+  }
+
+  .ps-carousel-media-modal__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #f5f5f5;
+  }
+
+  .ps-carousel-media-modal__fallback-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-prev,
+  .ps-carousel-media-modal__carousel .carousel-control-next {
+    width: 48px;
+    height: 48px;
+    top: 50%;
+    bottom: auto;
+    margin-top: -24px;
+    opacity: 1;
+    background: #fff;
+    color: #00915a;
+    border: 0;
+    box-shadow: 0 6px 18px rgba(51, 51, 51, 0.16);
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-prev {
+    left: 1rem;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-next {
+    right: 1rem;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-prev-icon,
+  .ps-carousel-media-modal__carousel .carousel-control-next-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: none;
+    background-color: currentColor;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-prev-icon {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M16.2727 6.47597L10.8809 11.9997L16.2727 17.524L14.8322 19L8.00001 12L14.8322 5L16.2727 6.47597Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M16.2727 6.47597L10.8809 11.9997L16.2727 17.524L14.8322 19L8.00001 12L14.8322 5L16.2727 6.47597Z'/%3E%3C/svg%3E");
+  }
+
+  .ps-carousel-media-modal__carousel .carousel-control-next-icon {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M8 6.47597L13.3918 11.9997L8 17.524L9.44058 19L16.2727 12L9.44058 5L8 6.47597Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M8 6.47597L13.3918 11.9997L8 17.524L9.44058 19L16.2727 12L9.44058 5L8 6.47597Z'/%3E%3C/svg%3E");
+  }
+
+  .ps-carousel-media-modal__frame-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #0f141a;
+  }
+
+  .ps-carousel-media-modal__frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ps-carousel-media-modal__fallback-link {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    background: rgba(15, 20, 26, 0.85);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    z-index: 2;
+  }
+
+  .ps-carousel-media-modal__thumbs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border-top: 1px solid #d6dbde;
+  }
+
+  .ps-carousel-media-modal__thumb {
+    border: 2px solid transparent;
+    padding: 0;
+    background: #eef1f3;
+    width: 180px;
+    min-width: 180px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .ps-carousel-media-modal__thumb.is-active {
+    border-color: #00915a;
+  }
+
+  .ps-carousel-media-modal__thumb-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ps-carousel-media-modal__thumb-label {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    color: #1f2b3a;
+  }
+}
+
+.ps-carousel-media-modal ~ .modal-backdrop {
+  --bs-backdrop-zindex: 1090;
+  z-index: var(--bs-backdrop-zindex);
 }
 
 @keyframes ps-favorite-spin {

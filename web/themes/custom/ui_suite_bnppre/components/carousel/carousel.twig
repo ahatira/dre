@@ -20,10 +20,20 @@
 {% set slides = slides and slides is not sequence ? [slides] : slides %}
 {% set toolbar_items = toolbar_items|default([]) %}
 {% set has_toolbar = toolbar_items is iterable and toolbar_items|length > 0 %}
+{% set toolbar_modal_enabled = toolbar_modal_enabled|default(false) %}
 {% if has_toolbar %}
 	{% set attributes = attributes
     .addClass('ps-carousel--with-toolbar')
     .setAttribute('data-carousel-toolbar', 'true') %}
+	{% if toolbar_modal_enabled %}
+		{% set carousel_modal_uid = random() %}
+		{% set carousel_modal_id = carousel_id ~ '-media-modal-' ~ carousel_modal_uid %}
+		{% set carousel_modal_carousel_id = carousel_id ~ '-media-modal-carousel-' ~ carousel_modal_uid %}
+		{% set attributes = attributes
+			.setAttribute('data-carousel-modal', 'true')
+			.setAttribute('data-carousel-modal-target', '#' ~ carousel_modal_id)
+			.setAttribute('data-carousel-modal-carousel-id', carousel_modal_carousel_id) %}
+	{% endif %}
 {% endif %}
 
 {% if slides %}
@@ -53,17 +63,14 @@
 		{% endif %}
 
 		{% if has_toolbar %}
-			<div class="ps-carousel__toolbar" role="tablist" aria-label="{{ 'Media groups'|t }}">
+			<div class="ps-carousel__toolbar" role="toolbar" aria-label="{{ 'Media groups'|t }}">
 				{% for item in toolbar_items %}
 					{% set item_slide_index = item.slide_index|default(0) %}
 					{% set item_media_type = item.media_type|default('media') %}
-					<button type="button" class="ps-carousel__toolbar-item{{ loop.first ? ' is-active' : '' }}" data-carousel-toolbar-item data-slide-index="{{ item_slide_index }}" data-media-type="{{ item_media_type }}" data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ item_slide_index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}" tabindex="{{ loop.first ? '0' : '-1' }}" aria-label="{{ 'Go to @label'|t({'@label': item.label|default('media')}) }}">
+					{% set item_open_mode = item.open_mode|default('media') %}
+					<button type="button" class="ps-carousel__toolbar-item{{ loop.first ? ' is-active' : '' }}" data-carousel-toolbar-item data-slide-index="{{ item_slide_index }}" data-media-type="{{ item_media_type }}" data-open-mode="{{ item_open_mode }}" {% if item.external_items is defined and item.external_items|length > 0 %} data-external-items="{{ item.external_items|json_encode|e('html_attr') }}" {% endif %} data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ item_slide_index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}" tabindex="{{ loop.first ? '0' : '-1' }}" aria-label="{{ 'Go to @label'|t({'@label': item.label|default('media')}) }}">
 						{% if item.icon %}
-							{{ include('ui_suite_bnppre:icon', {
-								icon: item.icon,
-								icon_only: true,
-								attributes: create_attribute().addClass('ps-carousel__toolbar-icon')
-							}, with_context = false) }}
+							<span class="ps-carousel__toolbar-icon" aria-hidden="true">{{ icon('bnppre', item.icon, {'size': '1.25rem', 'alt': ''}) }}</span>
 						{% endif %}
 						<span class="ps-carousel__toolbar-label">{{ item.label }}</span>
 					</button>
@@ -75,4 +82,31 @@
 		{% endif %}
 
 	</div>
+
+	{% if has_toolbar and toolbar_modal_enabled %}
+		<div class="modal fade ps-carousel-media-modal" id="{{ carousel_modal_id }}" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-fullscreen ps-carousel-media-modal__dialog" data-carousel-modal-dialog>
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+					</div>
+					<div class="modal-body">
+						<div id="{{ carousel_modal_carousel_id }}" class="carousel slide ps-carousel-media-modal__carousel" data-bs-interval="false" data-bs-ride="false">
+							<div class="carousel-inner" data-carousel-modal-slides></div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_modal_carousel_id }}" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">{{ 'Previous'|t }}</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_modal_carousel_id }}" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">{{ 'Next'|t }}</span>
+							</button>
+						</div>
+
+						<div class="ps-carousel-media-modal__thumbs" data-carousel-modal-thumbs></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endif %}

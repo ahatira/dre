@@ -289,7 +289,32 @@ class OfferHooks {
     $slides = [];
     $toolbarItems = [];
     $slideIndex = 0;
-    foreach (['field_media_photos', 'field_media_videos', 'field_media_plans'] as $fieldName) {
+
+    $mediaGroups = [
+      'field_media_photos' => [
+        'media_type' => 'photos',
+        'icon' => 'camera',
+        'fallback_icon' => 'camera',
+        'label_singular' => '@count photo',
+        'label_plural' => '@count photos',
+      ],
+      'field_media_videos' => [
+        'media_type' => 'videos',
+        'icon' => 'video',
+        'fallback_icon' => 'video',
+        'label_singular' => '@count video',
+        'label_plural' => '@count videos',
+      ],
+      'field_media_plans' => [
+        'media_type' => 'documents',
+        'icon' => 'cards',
+        'fallback_icon' => 'cards',
+        'label_singular' => '@count document',
+        'label_plural' => '@count documents',
+      ],
+    ];
+
+    foreach ($mediaGroups as $fieldName => $config) {
       if (!$node->hasField($fieldName) || $node->get($fieldName)->isEmpty()) {
         continue;
       }
@@ -298,71 +323,50 @@ class OfferHooks {
       $groupCount = 0;
 
       foreach ($node->get($fieldName)->referencedEntities() as $media) {
-        if (!$media->hasField('field_media_image') || $media->get('field_media_image')->isEmpty()) {
+        $slide = $this->buildMediaSlide($media, $slideIndex, $config['fallback_icon']);
+        if ($slide === NULL) {
           continue;
         }
 
-        $image = $media->get('field_media_image')->view([
-          'label' => 'hidden',
-          'type' => 'image',
-        ]);
-
-        $slides[] = [
-          '#type' => 'container',
-          '#attributes' => [
-            'class' => $slideIndex === 0 ? ['carousel-item', 'active'] : ['carousel-item'],
-          ],
-          'image' => $image,
-        ];
-
+        $slides[] = $slide;
         $groupCount++;
         $slideIndex++;
       }
 
       if ($groupCount > 0) {
-        if ($fieldName === 'field_media_photos') {
-          $toolbarItems[] = [
-            'media_type' => 'photos',
-            'label' => (string) $this->formatPlural($groupCount, '@count photo', '@count photos'),
-            'icon' => 'camera',
-            'slide_index' => $groupSlideIndex,
-          ];
-        }
-
-        if ($fieldName === 'field_media_videos') {
-          $toolbarItems[] = [
-            'media_type' => '3d-visit',
-            'label' => (string) $this->formatPlural($groupCount, '@count 3D visit', '@count 3D visits'),
-            'icon' => 'cube-focus',
-            'slide_index' => $groupSlideIndex,
-          ];
-        }
-
-        if ($fieldName === 'field_media_plans') {
-          $toolbarItems[] = [
-            'media_type' => 'plan',
-            'label' => (string) $this->formatPlural($groupCount, '@count plan', '@count plans'),
-            'icon' => 'cards',
-            'slide_index' => $groupSlideIndex,
-          ];
-        }
+        $toolbarItems[] = [
+          'media_type' => $config['media_type'],
+          'label' => (string) $this->formatPlural($groupCount, $config['label_singular'], $config['label_plural']),
+          'icon' => $config['icon'],
+          'slide_index' => $groupSlideIndex,
+          'open_mode' => 'media',
+        ];
       }
     }
 
-    if (
-      $node->hasField('field_media_virtual_tours')
-      && !$node->get('field_media_virtual_tours')->isEmpty()
-      && !$this->hasToolbarMediaType($toolbarItems, '3d-visit')
-    ) {
+    $virtualTourItems = $this->buildVirtualTourExternalItems($node);
+    if ($virtualTourItems !== []) {
+      $groupSlideIndex = $slideIndex;
+      foreach ($virtualTourItems as $tourItem) {
+        $slides[] = $this->buildExternalPlaceholderSlide(
+          $tourItem['title'] ?? (string) $this->t('3D visit'),
+          'cubefocus',
+          $slideIndex,
+        );
+        $slideIndex++;
+      }
+
       $toolbarItems[] = [
         'media_type' => '3d-visit',
         'label' => (string) $this->formatPlural(
-          $node->get('field_media_virtual_tours')->count(),
+          count($virtualTourItems),
           '@count 3D visit',
           '@count 3D visits',
         ),
-        'icon' => 'cube-focus',
-        'slide_index' => 0,
+        'icon' => 'cubefocus',
+        'slide_index' => $groupSlideIndex,
+        'open_mode' => 'external',
+        'external_items' => $virtualTourItems,
       ];
     }
 
@@ -379,6 +383,7 @@ class OfferHooks {
         'interval' => 0,
         'carousel_id' => 'offer-hero-' . ($node->id() ?? 'new'),
         'toolbar_items' => $toolbarItems,
+        'toolbar_modal_enabled' => TRUE,
       ],
       '#slots' => [
         'slides' => $slides,
@@ -415,6 +420,116 @@ class OfferHooks {
     }
 
     return $this->buildSlotContainer('ps-offer-slot ps-offer-slot--hero', [$carousel, $favorite]);
+  }
+
+  /**
+   * Builds one hero slide from media with image-first fallback placeholders.
+   */
+  protected function buildMediaSlide(EntityInterface $media, int $slideIndex, string $fallbackIcon): ?array {
+    $image = NULL;
+
+    if ($media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()) {
+      $image = $media->get('field_media_image')->view([
+        'label' => 'hidden',
+        'type' => 'image',
+      ]);
+    }
+    elseif ($media->hasField('thumbnail') && !$media->get('thumbnail')->isEmpty()) {
+      $image = $media->get('thumbnail')->view([
+        'label' => 'hidden',
+        'type' => 'image',
+      ]);
+    }
+
+    $slideClasses = $slideIndex === 0 ? ['carousel-item', 'active'] : ['carousel-item'];
+
+    if ($image !== NULL) {
+      return [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => $slideClasses,
+        ],
+        'image' => $image,
+      ];
+    }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => array_merge($slideClasses, ['ps-carousel__slide--placeholder']),
+      ],
+      'content' => [
+        '#type' => 'inline_template',
+        '#template' => '<div class="ps-carousel__external-slide"><span class="ps-carousel__external-slide-icon" data-icon="{{ icon }}" aria-hidden="true"></span><p class="ps-carousel__external-slide-title">{{ title }}</p></div>',
+        '#context' => [
+          'icon' => $fallbackIcon,
+          'title' => (string) $media->label(),
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Builds a placeholder slide for external-link groups (3D visits, docs...).
+   */
+  protected function buildExternalPlaceholderSlide(string $title, string $icon, int $slideIndex): array {
+    $slideClasses = $slideIndex === 0 ? ['carousel-item', 'active'] : ['carousel-item'];
+
+    return [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => array_merge($slideClasses, ['ps-carousel__slide--placeholder']),
+      ],
+      'content' => [
+        '#type' => 'inline_template',
+        '#template' => '<div class="ps-carousel__external-slide"><span class="ps-carousel__external-slide-icon" data-icon="{{ icon }}" aria-hidden="true"></span><p class="ps-carousel__external-slide-title">{{ title }}</p></div>',
+        '#context' => [
+          'icon' => $icon,
+          'title' => $title,
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Extracts normalized external items for virtual tours.
+   */
+  protected function buildVirtualTourExternalItems(NodeInterface $node): array {
+    if (!$node->hasField('field_media_virtual_tours') || $node->get('field_media_virtual_tours')->isEmpty()) {
+      return [];
+    }
+
+    $items = [];
+    foreach ($node->get('field_media_virtual_tours') as $delta => $tourItem) {
+      $uri = trim((string) ($tourItem->uri ?? ''));
+      if ($uri === '') {
+        continue;
+      }
+
+      try {
+        $resolvedUrl = Url::fromUri($uri)->toString();
+      }
+      catch (\InvalidArgumentException) {
+        continue;
+      }
+
+      $scheme = strtolower((string) parse_url($resolvedUrl, PHP_URL_SCHEME));
+      if (!in_array($scheme, ['http', 'https'], TRUE)) {
+        continue;
+      }
+
+      $title = trim((string) ($tourItem->title ?? ''));
+      if ($title === '') {
+        $title = (string) $this->t('3D visit @number', ['@number' => $delta + 1]);
+      }
+
+      $items[] = [
+        'url' => $resolvedUrl,
+        'title' => $title,
+      ];
+    }
+
+    return $items;
   }
 
   /**
