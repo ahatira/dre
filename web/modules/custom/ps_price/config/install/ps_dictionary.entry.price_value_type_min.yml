@@ -1,0 +1,13 @@
+uuid: null
+langcode: en
+id: price_value_type_min
+dictionary_type: price_value_type
+code: MIN
+label: "Minimum"
+description: "Minimum price"
+weight: 0
+status: true
+deprecated: false
+metadata:
+  icon: "arrow-down"
+  color: "warning"

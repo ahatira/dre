@@ -1,0 +1,22 @@
+name: 'Default'
+description: 'Offer header metadata with reference, price, location, and two primary actions.'
+props:
+  title: 'Location Bureau 2 083 m2'
+  reference_label: 'Reference'
+  reference_value: 'OLBUR2311214'
+  price_value: 'Prix sur demande'
+  price_unit: 'HT/HC/m²/an'
+  surface_value: '2 083'
+  surface_unit: 'm²'
+  location_text: '75019 Paris'
+  availability_label: 'Disponibilité'
+  availability_value: 'Immediate'
+  mandate_label: 'Mandat'
+  mandate_value: 'Standard'
+  actions:
+    - label: 'Voir les surfaces'
+      url: '#surface-table'
+      variant: outline_primary
+    - label: 'Télécharger la brochure'
+      url: '#brochure'
+      variant: primary

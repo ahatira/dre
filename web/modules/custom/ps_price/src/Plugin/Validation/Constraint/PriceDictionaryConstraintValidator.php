@@ -62,6 +62,11 @@ final class PriceDictionaryConstraintValidator extends ConstraintValidator imple
       return;
     }
 
+    // Business rule: when marked "on request", skip all other validations.
+    if ($onRequest) {
+      return;
+    }
+
     // Explicit status rule (XOR): either amount or on-request.
     if ($onRequest && $hasAmount) {
       $this->context

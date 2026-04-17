@@ -7,6 +7,9 @@ services:
       - '@logger.channel.ps_features'
       - '@?ps_dictionary.manager'
 
+  Drupal\ps_features\Service\FeatureManagerInterface:
+    alias: ps_features.manager
+
   ps_features.value_normalizer:
     class: Drupal\ps_features\Service\ValueNormalizer
     arguments:

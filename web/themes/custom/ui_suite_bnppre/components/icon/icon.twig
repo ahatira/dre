@@ -1,0 +1,16 @@
+{% set attributes = attributes|default(create_attribute()) %}
+{% set attributes = attributes.addClass('ps-icon') %}
+
+{% if icon %}
+	{% set attributes = attributes.setAttribute('data-icon', icon) %}
+{% endif %}
+
+{% if icon_only %}
+	{% set attributes = attributes.setAttribute('data-icon-only', '') %}
+{% endif %}
+
+{% if decorative is not defined or decorative %}
+	{% set attributes = attributes.setAttribute('aria-hidden', 'true') %}
+{% endif %}
+
+<span{{attributes}}></span>

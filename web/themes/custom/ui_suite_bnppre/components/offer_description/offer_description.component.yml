@@ -1,0 +1,51 @@
+name: 'Offer Description'
+description: 'Offer description section with heading and expandable rich text content.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Title
+      type: string
+      default: 'Description'
+    title_level:
+      title: Heading level
+      type: integer
+      default: 2
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+    max_height:
+      title: Max height
+      type: integer
+      default: 150
+    expand_label:
+      title: Expand label
+      type: string
+      default: 'Voir plus'
+    collapse_label:
+      title: Collapse label
+      type: string
+      default: 'Voir moins'
+    expanded:
+      title: Expanded by default
+      type: boolean
+      default: false
+    show_icon:
+      title: Show icon
+      type: boolean
+      default: true
+slots:
+  content:
+    title: Content
+    description: 'Renderable description content.'
+libraryOverrides:
+  css:
+    component:
+      styles/offer_description.css: {}

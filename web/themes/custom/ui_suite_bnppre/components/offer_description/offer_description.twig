@@ -1,0 +1,21 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set heading_tag = 'h' ~ (title_level|default(2)) %}
+
+<section{{attributes.addClass('ps-description')}}>
+	{% if title %}
+		<{{heading_tag}} class="ps-description__title mb-0">{{ title }}</{{heading_tag}}>
+	{% endif %}
+
+	{% if content %}
+		<div class="ps-description__content">
+			{{ include('ui_suite_bnppre:read_more', {
+				max_height: max_height|default(150),
+				expand_label: expand_label|default('Voir plus'|t),
+				collapse_label: collapse_label|default('Voir moins'|t),
+				expanded: expanded|default(false),
+				show_icon: show_icon is defined ? show_icon : true,
+				content: content,
+			}, with_context = false) }}
+		</div>
+	{% endif %}
+</section>

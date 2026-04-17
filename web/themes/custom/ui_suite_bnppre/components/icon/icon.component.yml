@@ -1,0 +1,24 @@
+name: Icon
+description: "Generic icon renderer based on the theme icon dataset."
+group: Utility
+props:
+  type: object
+  properties:
+    icon:
+      title: Icon name
+      description: "Icon identifier used by the data-icon attribute."
+      type: string
+    icon_only:
+      title: Icon only
+      description: "Adds the data-icon-only attribute when true."
+      type: boolean
+    decorative:
+      title: Decorative
+      description: "Hide the icon from assistive technologies."
+      type: boolean
+    attributes:
+      title: Attributes
+      description: "HTML attributes for the icon wrapper."
+      $ref: "ui-patterns://attributes"
+libraryOverrides:
+  css: {}

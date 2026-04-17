@@ -1,0 +1,83 @@
+name: 'Offer Meta'
+description: 'Structured hero metadata for an offer detail page with reference, title, price, location, availability, and CTA actions.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: 'Additional attributes for the root wrapper.'
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Title
+      type: string
+    title_level:
+      title: Title level
+      type: integer
+      default: 1
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+    reference_label:
+      title: Reference label
+      type: string
+    reference_value:
+      title: Reference value
+      type: string
+    building:
+      title: Building name
+      type: string
+    price_value:
+      title: Price value
+      type: string
+    price_unit:
+      title: Price unit
+      type: string
+    price_tooltip:
+      title: Price tooltip
+      type: string
+    surface_value:
+      title: Surface value
+      type: string
+    surface_unit:
+      title: Surface unit
+      type: string
+    location_text:
+      title: Location text
+      type: string
+    availability_label:
+      title: Availability label
+      type: string
+    availability_value:
+      title: Availability value
+      type: string
+    mandate_label:
+      title: Mandate label
+      type: string
+    mandate_value:
+      title: Mandate value
+      type: string
+    actions:
+      title: Actions
+      type: array
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+          url:
+            type: string
+          variant:
+            type: string
+slots:
+  footer:
+    title: Footer
+    description: 'Optional renderable content displayed below the metadata and CTAs.'
+libraryOverrides:
+  css:
+    component:
+      styles/offer_meta.css: {}

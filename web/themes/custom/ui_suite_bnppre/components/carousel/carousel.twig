@@ -1,57 +1,78 @@
 {% if variant and variant != 'default' %}
-  {% set variants = variant|split('__')|map(v => v|replace({(v): 'carousel-' ~ v})) %}
-  {% set attributes = attributes.addClass(variants) %}
+	{% set variants = variant|split('__')|map(v => v|replace({(v): 'carousel-' ~ v})) %}
+	{% set attributes = attributes.addClass(variants) %}
 {% endif %}
 {% set attributes = 'dark' in variant ? attributes.setAttribute('data-bs-theme', 'dark') : attributes %}
 
 {% if not with_touch %}
-  {% set attributes = attributes.setAttribute('data-bs-touch', 'false') %}
+	{% set attributes = attributes.setAttribute('data-bs-touch', 'false') %}
 {% endif %}
 
 {% set interval = interval|default(5000) %}
 {% set autoplay_mode = autoplay_mode|default('carousel') %}
 {% if interval == 0 %}
-  {% set interval = 'false' %}
-  {% set autoplay_mode = false %}
+	{% set interval = 'false' %}
+	{% set autoplay_mode = false %}
 {% endif %}
 {% set attributes = attributes.setAttribute('data-bs-interval', interval) %}
 {% set attributes = attributes.setAttribute('data-bs-ride', autoplay_mode) %}
 {% set carousel_id = carousel_id|default("carousel-" ~ random()) %}
 {% set slides = slides and slides is not sequence ? [slides] : slides %}
+{% set toolbar_items = toolbar_items|default([]) %}
+{% set has_toolbar = toolbar_items is iterable and toolbar_items|length > 0 %}
+{% if has_toolbar %}
+	{% set attributes = attributes
+    .addClass('ps-carousel--with-toolbar')
+    .setAttribute('data-carousel-toolbar', 'true') %}
+{% endif %}
 
 {% if slides %}
-  <div{{ attributes.addClass('carousel').addClass('slide').setAttribute('id', carousel_id) }}>
+	<div{{attributes.addClass('carousel').addClass('slide').setAttribute('id',carousel_id)}}>
 
-    {% if with_indicators %}
-    <div class="carousel-indicators">
-      {% for i in range(1, slides|length) %}
-      <button type="button"
-              data-bs-target="#{{ carousel_id }}"
-              data-bs-slide-to="{{ loop.index0 }}"
-              aria-label="{{ 'Slide @slide_number'|t({'@slide_number': i}) }}"
-        {% if loop.first %}
-        class="active"
-        aria-current="true"
-        {% endif %}>
-      </button>
-      {% endfor %}
-    </div>
-    {% endif %}
+		{% if with_indicators %}
+			<div class="carousel-indicators">
+				{% for i in range(1, slides|length) %}
+					<button type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ loop.index0 }}" aria-label="{{ 'Slide @slide_number'|t({'@slide_number': i}) }}" {% if loop.first %} class="active" aria-current="true" {% endif %}></button>
+				{% endfor %}
+			</div>
+		{% endif %}
 
-    <div class="carousel-inner">
-      {{ slides }}
-    </div>
+		<div class="carousel-inner">
+			{{ slides }}
+		</div>
 
-    {% if with_controls %}
-    <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">{{ 'Previous'|t }}</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">{{ 'Next'|t }}</span>
-    </button>
-    {% endif %}
+		{% if with_controls %}
+			<button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">{{ 'Previous'|t }}</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">{{ 'Next'|t }}</span>
+			</button>
+		{% endif %}
 
-  </div>
+		{% if has_toolbar %}
+			<div class="ps-carousel__toolbar" role="tablist" aria-label="{{ 'Media groups'|t }}">
+				{% for item in toolbar_items %}
+					{% set item_slide_index = item.slide_index|default(0) %}
+					{% set item_media_type = item.media_type|default('media') %}
+					<button type="button" class="ps-carousel__toolbar-item{{ loop.first ? ' is-active' : '' }}" data-carousel-toolbar-item data-slide-index="{{ item_slide_index }}" data-media-type="{{ item_media_type }}" data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ item_slide_index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}" tabindex="{{ loop.first ? '0' : '-1' }}" aria-label="{{ 'Go to @label'|t({'@label': item.label|default('media')}) }}">
+						{% if item.icon %}
+							{{ include('ui_suite_bnppre:icon', {
+								icon: item.icon,
+								icon_only: true,
+								attributes: create_attribute().addClass('ps-carousel__toolbar-icon')
+							}, with_context = false) }}
+						{% endif %}
+						<span class="ps-carousel__toolbar-label">{{ item.label }}</span>
+					</button>
+					{% if not loop.last %}
+						<span class="ps-carousel__toolbar-divider" aria-hidden="true"></span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+	</div>
 {% endif %}

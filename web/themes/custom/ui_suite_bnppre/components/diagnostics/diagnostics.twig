@@ -1,0 +1,41 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set heading_tag = 'h' ~ (heading_level|default(2)) %}
+{% set diagnostics = diagnostics|default([]) %}
+{% set labels = labels|default([]) %}
+
+<section{{attributes.addClass('ps-diagnostics')}}>
+	{% if title %}
+		<{{heading_tag}} class="ps-diagnostics__title">
+			{% if icon %}
+				<span class="ps-diagnostics__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+			{% endif %}
+			<span>{{ title }}</span>
+		</{{heading_tag}}>
+	{% endif %}
+
+	{% if diagnostics %}
+		<div class="ps-diagnostics__grid">
+			{% for diagnostic in diagnostics %}
+				<div class="ps-diagnostics__item">
+					{{ include('ui_suite_bnppre:diagnostic', diagnostic, with_context = false) }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	{% if labels %}
+		<div class="ps-diagnostics__labels">
+			{% for label in labels %}
+				<div class="ps-diagnostics__label-item">
+					{% if label.url %}
+						<a class="ps-diagnostics__label-link" href="{{ label.url }}">
+							<img class="ps-diagnostics__label-image" src="{{ label.src }}" alt="{{ label.alt|default('Label') }}">
+						</a>
+					{% else %}
+						<img class="ps-diagnostics__label-image" src="{{ label.src }}" alt="{{ label.alt|default('Label') }}">
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+</section>

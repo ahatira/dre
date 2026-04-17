@@ -1,0 +1,4 @@
+name: 'Default'
+description: 'Offer surface section with a responsive surface table.'
+props:
+  title: 'Surface table'

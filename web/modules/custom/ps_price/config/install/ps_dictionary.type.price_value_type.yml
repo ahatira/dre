@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {}
+id: price_value_type
+label: "Price Value Type"
+description: "Price value type indicators (MIN, MAX)"
+is_translatable: false
+locked: true
+weight: 13

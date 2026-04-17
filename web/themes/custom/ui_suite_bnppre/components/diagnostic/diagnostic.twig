@@ -1,0 +1,80 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set ordered_codes = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] %}
+{% set code_positions = {'A': 0, 'B': 40, 'C': 80, 'D': 120, 'E': 160, 'F': 200, 'G': 240} %}
+{% set has_value = value is defined and value is not null %}
+{% set is_dimmed = is_dimmed|default(false) %}
+{% set classes = classes|default({}) %}
+{% set display_text_override = display_text_override|default('') %}
+{% set empty_message = empty_message|default('Étiquette énergétique non fournie par le propriétaire'|t) %}
+
+{% set derived_class = '' %}
+{% if has_value and not display_text_override %}
+	{% for code in ordered_codes %}
+		{% if classes[code] is defined and derived_class == '' %}
+			{% set max_value = classes[code].range_max is defined ? classes[code].range_max : null %}
+			{% if max_value is not null and value <= max_value %}
+				{% set derived_class = classes[code].label|default(code)|upper %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+	{% if derived_class == '' %}
+		{% for code in ordered_codes|reverse %}
+			{% if classes[code] is defined and derived_class == '' %}
+				{% set derived_class = classes[code].label|default(code)|upper %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endif %}
+
+{% set display_text = display_text_override ?: (derived_class ?: '?') %}
+{% set cursor_x = code_positions[display_text|upper] is defined ? code_positions[display_text|upper] : 120 %}
+{% set show_message = display_text_override or not has_value or is_dimmed %}
+{% set show_legend = has_value and unit and not display_text_override and not is_dimmed %}
+{% set bar_opacity = (show_message and display_text_override != '') or is_dimmed or not has_value ? 0.3 : 1 %}
+
+<figure{{attributes.addClass('ps-diagnostic').setAttribute('data-class',derived_class|lower)}}>
+	<figcaption>
+		<h3 class="ps-diagnostic__title">
+			{% if icon %}
+				<span class="ps-diagnostic__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+			{% endif %}
+			<span>{{ label|default('Diagnostic'|t) }}</span>
+		</h3>
+	</figcaption>
+
+	{% if show_legend %}
+		<div class="ps-diagnostic__legend" style="left: {{ cursor_x + 20 }}px;">
+			{{ value }}
+			{{ unit }}
+		</div>
+	{% endif %}
+
+	<svg class="ps-diagnostic__svg class-{{ derived_class|default('unknown')|lower }}" width="280" height="40" viewbox="0 0 280 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<g stroke-width="0" opacity="{{ bar_opacity }}">
+			{% for code in ordered_codes %}
+				{% if classes[code] is defined %}
+					<rect x="{{ loop.index0 * 40 }}" y="10" width="40" height="20" fill="{{ classes[code].color }}"></rect>
+				{% endif %}
+			{% endfor %}
+			<rect x="{{ cursor_x }}" width="40" height="40" fill="var(--ps-diagnostic-cursor-fill)"></rect>
+		</g>
+		<text x="{{ cursor_x + 20 }}" y="28.35" fill="var(--ps-diagnostic-cursor-text)" font-family="'BNPP Sans', Arial, sans-serif" font-size="24px" stroke-width="1.2977" text-anchor="middle">{{ display_text|upper }}</text>
+	</svg>
+
+	{% if valid_from or valid_to %}
+		<div class="ps-diagnostic__dates">
+			{% if valid_from %}
+				<span>{{ 'From:'|t }}
+					{{ valid_from }}</span>
+			{% endif %}
+			{% if valid_to %}
+				<span>{{ 'Until:'|t }}
+					{{ valid_to }}</span>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{% if show_message %}
+		<p class="ps-diagnostic__message">{{ empty_message }}</p>
+	{% endif %}
+</figure>

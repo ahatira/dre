@@ -1,0 +1,12 @@
+name: 'Default'
+description: 'Offer location section with address and transport list.'
+props:
+  title: 'Location'
+  address_lines:
+    - '75019 Paris'
+  transport_title: 'Nearby transport'
+  transport_items:
+    - name: 'Metro'
+      value: 'Line 7 - Corentin Cariou'
+    - name: 'RER'
+      value: 'Rosaparks - Line E'

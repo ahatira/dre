@@ -1,0 +1,93 @@
+name: 'Offer Full'
+description: 'Full offer layout assembling hero, meta, description, features, energy, surface, location, sidebar, and map sections. Designed as a two-column layout on large screens (main + sticky sidebar) collapsing to single column on mobile.'
+group: 'PS Theme'
+links:
+  - 'https://getbootstrap.com/docs/5.3/layout/grid/'
+  - 'https://getbootstrap.com/docs/5.3/layout/containers/'
+
+variants:
+  default:
+    title: Default
+    description: 'Standard full offer layout with all sections.'
+
+slots:
+  hero:
+    title: Hero
+    description: 'Media section (carousel, images). Rendered at the top of the main column.'
+  meta:
+    title: Meta
+    description: 'Key facts section: title, price, surface, availability, actions.'
+  description:
+    title: Description
+    description: 'Rich text description section with optional read-more toggle.'
+  features:
+    title: Features
+    description: 'Equipments and services grid section.'
+  energy:
+    title: Energy
+    description: 'Energy diagnostics section (DPE, GES).'
+  surface:
+    title: Surface
+    description: 'Surface breakdown table section.'
+  location:
+    title: Location
+    description: 'Address and transport section.'
+  sidebar:
+    title: Sidebar
+    description: 'Sticky sidebar with agent card and visit scheduler card.'
+  map:
+    title: Map
+    description: 'Full-width map section rendered below the two-column layout.'
+
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      description: 'Additional HTML attributes for the root article element.'
+      $ref: 'ui-patterns://attributes'
+    modifier_class:
+      title: Modifier class
+      description: 'Optional extra CSS class(es) appended to the root element.'
+      type: string
+    hero_attributes:
+      title: Hero attributes
+      description: 'Additional attributes for the hero slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    meta_attributes:
+      title: Meta attributes
+      description: 'Additional attributes for the meta slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    description_attributes:
+      title: Description attributes
+      description: 'Additional attributes for the description slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    features_attributes:
+      title: Features attributes
+      description: 'Additional attributes for the features slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    energy_attributes:
+      title: Energy attributes
+      description: 'Additional attributes for the energy slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    surface_attributes:
+      title: Surface attributes
+      description: 'Additional attributes for the surface slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    location_attributes:
+      title: Location attributes
+      description: 'Additional attributes for the location slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    sidebar_attributes:
+      title: Sidebar attributes
+      description: 'Additional attributes for the sidebar slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+    map_attributes:
+      title: Map attributes
+      description: 'Additional attributes for the map slot wrapper.'
+      $ref: 'ui-patterns://attributes'
+
+libraryOverrides:
+  css:
+    component:
+      styles/offer_full.css: {}

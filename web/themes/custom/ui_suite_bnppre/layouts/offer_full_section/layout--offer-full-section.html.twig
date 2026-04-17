@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Layout Builder section template for the Offer Full composition.
+ *
+ * Regions:
+ * - hero
+ * - meta
+ * - description
+ * - features
+ * - energy
+ * - surface
+ * - location
+ * - sidebar
+ * - map
+ */
+#}
+{% if content %}
+	{{ include('ui_suite_bnppre:offer_full', {
+    attributes: attributes.addClass('layout', 'layout--offer-full-section'),
+
+    hero: content.hero|default(null),
+    meta: content.meta|default(null),
+    description: content.description|default(null),
+    features: content.features|default(null),
+    energy: content.energy|default(null),
+    surface: content.surface|default(null),
+    location: content.location|default(null),
+    sidebar: content.sidebar|default(null),
+    map: content.map|default(null),
+
+    hero_attributes: region_attributes.hero|default(create_attribute()).addClass('layout__region', 'layout__region--hero'),
+    meta_attributes: region_attributes.meta|default(create_attribute()).addClass('layout__region', 'layout__region--meta'),
+    description_attributes: region_attributes.description|default(create_attribute()).addClass('layout__region', 'layout__region--description'),
+    features_attributes: region_attributes.features|default(create_attribute()).addClass('layout__region', 'layout__region--features'),
+    energy_attributes: region_attributes.energy|default(create_attribute()).addClass('layout__region', 'layout__region--energy'),
+    surface_attributes: region_attributes.surface|default(create_attribute()).addClass('layout__region', 'layout__region--surface'),
+    location_attributes: region_attributes.location|default(create_attribute()).addClass('layout__region', 'layout__region--location'),
+    sidebar_attributes: region_attributes.sidebar|default(create_attribute()).addClass('layout__region', 'layout__region--sidebar'),
+    map_attributes: region_attributes.map|default(create_attribute()).addClass('layout__region', 'layout__region--map')
+  }, with_context = false) }}
+{% endif %}

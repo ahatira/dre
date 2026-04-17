@@ -1,0 +1,61 @@
+name: 'Default — All sections'
+description: 'Full offer layout with hero, meta, description, features, energy, surface, location, sidebar, and map.'
+slots:
+  hero: |
+    <div style="background:#e9ecef;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;">
+      <span style="color:#6c757d;font-size:1rem;">[ Hero — carousel / images ]</span>
+    </div>
+  meta: |
+    <div style="padding:1rem 0;">
+      <p style="margin:0 0 .25rem;font-size:.75rem;color:#6c757d;">Edificio ARA</p>
+      <h1 style="font-size:1.5rem;margin:0 0 1rem;">Location Bureaux MADRID Chamberí</h1>
+      <p style="margin:0 0 .25rem;"><strong>20 000 € HT/HC/m²/an</strong></p>
+      <p style="margin:0 0 1rem;font-size:.875rem;color:#6c757d;">Surface : 611.3 m² · Disponible immédiatement</p>
+    </div>
+  description: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Description</h2>
+      <p>Idéalement situé au cœur du quartier de Chamberí, cet espace de bureaux premium offre une opportunité exceptionnelle. L'immeuble a été entièrement restructuré avec des espaces communs haut de gamme.</p>
+    </div>
+  features: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Équipements &amp; Services</h2>
+      <ul style="columns:2;gap:1rem;padding-inline-start:1.25rem;margin:0;">
+        <li>Ascenseurs performants</li>
+        <li>Climatisation réversible</li>
+        <li>Fibre optique</li>
+        <li>Faux plancher</li>
+        <li>Accueil hôtesses</li>
+        <li>Salle de réunion</li>
+      </ul>
+    </div>
+  energy: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Diagnostic énergétique</h2>
+      <p style="margin:0;color:#6c757d;">DPE : 229 kWh/m²/an (classe D) · GES : 48 kgCO₂/m²/an (classe D)</p>
+    </div>
+  surface: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Tableau des surfaces</h2>
+      <p style="margin:0;color:#6c757d;">Surface totale : 611.3 m²</p>
+    </div>
+  location: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Localisation</h2>
+      <p style="margin:0;">Rue Alonso Martínez, 28010 MADRID</p>
+      <p style="margin:.5rem 0 0;color:#6c757d;">Metro : Alonso Martínez (ligne 4, 5, 10) — 3 min à pied</p>
+    </div>
+  sidebar: |
+    <div style="background:#f8f9fa;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+      <div>
+        <p style="margin:0 0 .25rem;font-size:.75rem;color:#6c757d;">Votre agent :</p>
+        <p style="margin:0;font-weight:600;">Sophia Dacosta</p>
+        <p style="margin:.25rem 0 0;font-size:.875rem;color:#6c757d;">+32 2 646 49 49</p>
+      </div>
+      <button style="background:#009900;color:#fff;border:none;padding:.625rem 1rem;width:100%;cursor:pointer;">Contacter l'agent</button>
+      <button style="background:transparent;color:#009900;border:1px solid #009900;padding:.625rem 1rem;width:100%;cursor:pointer;">Planifier une visite</button>
+    </div>
+  map: |
+    <div style="background:#dee2e6;height:320px;display:flex;align-items:center;justify-content:center;">
+      <span style="color:#6c757d;">[ Map — 40.416 / -3.703 ]</span>
+    </div>

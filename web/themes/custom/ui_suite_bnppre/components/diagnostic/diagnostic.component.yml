@@ -1,0 +1,44 @@
+name: 'Diagnostic'
+description: 'Horizontal diagnostic bar for DPE, GES, and other technical indicators.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      $ref: 'ui-patterns://attributes'
+    label:
+      title: Label
+      type: string
+    icon:
+      title: Icon
+      type: string
+    value:
+      title: Numeric value
+      type: number
+    unit:
+      title: Unit
+      type: string
+    valid_from:
+      title: Valid from
+      type: string
+    valid_to:
+      title: Valid to
+      type: string
+    classes:
+      title: Classes
+      type: object
+    is_dimmed:
+      title: Is dimmed
+      type: boolean
+      default: false
+    empty_message:
+      title: Empty message
+      type: string
+    display_text_override:
+      title: Override display text
+      type: string
+libraryOverrides:
+  css:
+    component:
+      styles/diagnostic.css: {}

@@ -1,0 +1,24 @@
+name: 'Default'
+description: 'Offer features section with grouped feature lists.'
+props:
+  title: 'Features'
+  groups:
+    - title: 'Equipments'
+      icon: 'tools'
+      columns_min_items: 5
+      items:
+        - 'Elevators'
+        - 'False floor: Present'
+        - 'Air conditioning: Reversible'
+    - title: 'Services'
+      icon: 'service'
+      columns_min_items: 5
+      items:
+        - 'Office layout: Partitioned/Open plan'
+        - 'Cafeteria: Yes'
+        - 'Security system: Access control'
+    - title: 'Building condition'
+      icon: 'building'
+      items:
+        - 'Condition of building: Good condition'
+        - 'Condition of premises: Refurbished'

@@ -1,0 +1,48 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set heading_tag = 'h' ~ (title_level|default(2)) %}
+{% set address_lines = address_lines|default([]) %}
+{% set transport_items = transport_items|default([]) %}
+
+<section{{attributes.addClass('ps-location')}}>
+	{% if title %}
+		<{{heading_tag}} class="ps-location__title d-flex align-items-center gap-3 mb-0">
+			{% if icon %}
+				<span class="ps-location__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+			{% endif %}
+			<span>{{ title }}</span>
+		</{{heading_tag}}>
+	{% endif %}
+
+	{% if address_lines %}
+		<address class="ps-location__address mb-0">
+			{% for line in address_lines %}
+				<div class="ps-location__address-line">{{ line }}</div>
+			{% endfor %}
+		</address>
+	{% endif %}
+
+	{% if transport_items %}
+		<div class="ps-location__transport">
+			{% if transport_title %}
+				<p class="ps-location__transport-title mb-0">{{ transport_title }}</p>
+			{% endif %}
+			<ul class="ps-location__transport-list">
+				{% for item in transport_items %}
+					<li class="ps-location__transport-item">
+						{% if item.icon %}
+							<span class="ps-location__transport-icon" aria-hidden="true">{{ icon('bnppre', item.icon, {'size': '1rem'})|render }}</span>
+						{% endif %}
+						<span class="ps-location__transport-text">
+							{% if item.name %}
+								{{ item.name }}
+							{% endif %}
+							{% if item.value %}:
+								{{ item.value }}
+							{% endif %}
+						</span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+</section>

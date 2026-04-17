@@ -1,0 +1,34 @@
+ui_suite_bnppre_offer_full_section:
+  label: 'Offer Full Section'
+  category: 'BNP PRE'
+  path: layouts/offer_full_section
+  template: layout--offer-full-section
+  default_region: hero
+  icon_map:
+    - [hero]
+    - [meta]
+    - [description]
+    - [features]
+    - [energy]
+    - [surface]
+    - [location, sidebar]
+    - [map]
+  regions:
+    hero:
+      label: Hero
+    meta:
+      label: Meta
+    description:
+      label: Description
+    features:
+      label: Features
+    energy:
+      label: Energy
+    surface:
+      label: Surface
+    location:
+      label: Location
+    sidebar:
+      label: Sidebar
+    map:
+      label: Map

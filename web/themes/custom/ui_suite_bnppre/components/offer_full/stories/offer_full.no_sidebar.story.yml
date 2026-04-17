@@ -1,0 +1,17 @@
+name: 'No sidebar — main only'
+description: 'Layout variant without sidebar. Main sections occupy full width.'
+slots:
+  hero: |
+    <div style="background:#e9ecef;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;">
+      <span style="color:#6c757d;">[ Hero ]</span>
+    </div>
+  meta: |
+    <div style="padding:1rem 0;">
+      <h1 style="font-size:1.5rem;margin:0 0 .75rem;">Vente Entrepôt LYON 3ème</h1>
+      <p style="margin:0;font-size:.875rem;color:#6c757d;">Surface : 1 200 m² · Prix sur demande</p>
+    </div>
+  description: |
+    <div style="padding:1rem 0;">
+      <h2 style="font-size:1.125rem;margin:0 0 .75rem;">Description</h2>
+      <p>Entrepôt idéalement situé avec quai de chargement, accès poids lourds et surface de bureaux intégrée.</p>
+    </div>

@@ -7,6 +7,9 @@ services:
       - "@ps_dictionary.manager"
     public: true
 
+  Drupal\ps_price\Service\PriceFormatterInterface:
+    alias: ps_price.formatter
+
   ps_price.normalizer:
     class: Drupal\ps_price\Service\PriceNormalizer
     arguments:

@@ -13,3 +13,213 @@
     margin-bottom: 1.5rem;
   }
 }
+
+// =============================================================================
+// Offer hero carousel (ISO maquette toolbar + controls)
+// =============================================================================
+
+.ps-offer-hero {
+  position: relative;
+
+  .carousel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    top: 50%;
+    bottom: auto;
+    width: 72px;
+    height: 72px;
+    margin-top: -36px;
+    background: #fff;
+    opacity: 1;
+    color: #008755;
+    box-shadow: 0 6px 18px rgba(51, 51, 51, 0.16);
+  }
+
+  .carousel-control-prev {
+    left: 2.25rem;
+  }
+
+  .carousel-control-next {
+    right: 2.25rem;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+    background-image: none;
+    background-color: currentColor;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+  }
+
+  .carousel-control-prev-icon {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M16.2727 6.47597L10.8809 11.9997L16.2727 17.524L14.8322 19L8.00001 12L14.8322 5L16.2727 6.47597Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M16.2727 6.47597L10.8809 11.9997L16.2727 17.524L14.8322 19L8.00001 12L14.8322 5L16.2727 6.47597Z'/%3E%3C/svg%3E");
+  }
+
+  .carousel-control-next-icon {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M8 6.47597L13.3918 11.9997L8 17.524L9.44058 19L16.2727 12L9.44058 5L8 6.47597Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M8 6.47597L13.3918 11.9997L8 17.524L9.44058 19L16.2727 12L9.44058 5L8 6.47597Z'/%3E%3C/svg%3E");
+  }
+
+  .carousel-indicators {
+    display: none;
+  }
+
+  .ps-carousel__toolbar {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(51, 51, 51, 0.18);
+    z-index: 3;
+  }
+
+  .ps-carousel__toolbar-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    background: transparent;
+    color: #008755;
+    text-decoration: underline;
+    font-weight: 500;
+    padding: 0;
+  }
+
+  .ps-carousel__toolbar-item.is-active {
+    color: #006b44;
+  }
+
+  .ps-carousel__toolbar-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .ps-carousel__toolbar-label {
+    white-space: nowrap;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .ps-carousel__toolbar-divider {
+    width: 1px;
+    height: 1.25rem;
+    background: #d6dbde;
+  }
+
+  .ps-offer-hero__favorite {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 72px;
+    height: 72px;
+    border: 0;
+    background: #fff;
+    color: #b02c76;
+    box-shadow: 0 6px 18px rgba(51, 51, 51, 0.16);
+    z-index: 3;
+
+    [data-icon] {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    .carousel-control-prev,
+    .carousel-control-next,
+    .ps-offer-hero__favorite {
+      width: 56px;
+      height: 56px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      margin-top: -28px;
+    }
+
+    .carousel-control-prev {
+      left: 1rem;
+    }
+
+    .carousel-control-next {
+      right: 1rem;
+    }
+
+    .ps-offer-hero__favorite {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .ps-carousel__toolbar {
+      width: calc(100% - 2rem);
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .ps-carousel__toolbar-label {
+      font-size: 1.375rem;
+    }
+  }
+}
+
+// =============================================================================
+// Offer map section
+// =============================================================================
+
+.ps-offer-map {
+  margin-top: 3rem;
+  padding: 2rem 0;
+  background-color: #f5f5f5;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Geolocation map container height for full-width display
+  .geolocation-map-container {
+    height: 500px; // Increased from default 300px for full-width map
+    min-height: 400px;
+    width: 100%;
+
+    // Ensure proper rendering in responsive mode
+    @media (max-width: 768px) {
+      height: 350px;
+    }
+  }
+
+  // Map control styling
+  .geolocation-map-control {
+    z-index: 10;
+  }
+
+  // Context popup styling
+  .geolocation-context-popup {
+    background-color: #fff;
+    border-radius: 4px;
+  }
+}

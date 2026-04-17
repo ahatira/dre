@@ -1,0 +1,12 @@
+name: 'Default'
+description: 'Offer description section with expandable rich text.'
+props:
+  title: 'Description'
+  max_height: 150
+  expand_label: 'Voir plus'
+  collapse_label: 'Voir moins'
+slots:
+  content: |
+    <p>Immeuble restructuré proposant des plateaux lumineux, rationnels et facilement aménageables.</p>
+    <p>La localisation bénéficie d’un accès rapide aux transports, aux services et aux principaux axes routiers.</p>
+    <p>Les prestations incluent des parties communes rénovées et des équipements techniques adaptés à un usage tertiaire.</p>

@@ -11,6 +11,9 @@ services:
       - "@entity_type.manager"
       - "@logger.factory"
 
+  Drupal\ps_diagnostic\Service\DiagnosticClassCalculatorInterface:
+    alias: ps_diagnostic.class_calculator
+
   ps_diagnostic.normalizer:
     class: Drupal\ps_diagnostic\Service\DiagnosticNormalizer
     arguments:

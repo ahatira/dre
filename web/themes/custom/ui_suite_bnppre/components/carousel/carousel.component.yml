@@ -55,6 +55,21 @@ props:
       type: string
 
       $ref: "ui-patterns://identifier"
+    toolbar_items:
+      title: Toolbar items
+      description: "Optional grouped media shortcuts rendered as an overlay toolbar."
+      type: array
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+          icon:
+            type: string
+          slide_index:
+            type: number
+          media_type:
+            type: string
 libraryOverrides:
   js:
     js/carousel.js: {}

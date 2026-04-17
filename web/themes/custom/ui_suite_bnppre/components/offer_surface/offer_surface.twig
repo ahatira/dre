@@ -1,0 +1,17 @@
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set heading_tag = 'h' ~ (title_level|default(2)) %}
+
+<section{{attributes.addClass('ps-surface').setAttribute('id','surface-table')}}>
+	{% if title %}
+		<{{heading_tag}} class="ps-surface__title d-flex align-items-center gap-3 mb-0">
+			{% if icon %}
+				<span class="ps-surface__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+			{% endif %}
+			<span>{{ title }}</span>
+		</{{heading_tag}}>
+	{% endif %}
+
+	{% if table %}
+		<div class="ps-surface__table">{{ table }}</div>
+	{% endif %}
+</section>

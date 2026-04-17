@@ -1,0 +1,39 @@
+name: 'Diagnostics'
+description: 'Section wrapper for a grid of diagnostic indicators.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Title
+      type: string
+    heading_level:
+      title: Heading level
+      type: integer
+      default: 2
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+    icon:
+      title: Icon
+      type: string
+    diagnostics:
+      title: Diagnostics
+      type: array
+      items:
+        type: object
+    labels:
+      title: Labels
+      type: array
+      items:
+        type: object
+libraryOverrides:
+  css:
+    component:
+      styles/diagnostics.css: {}

@@ -1,0 +1,110 @@
+{#
+/**
+ * @file
+ * Offer Full layout component.
+ *
+ * Slots:
+ * - hero: Media section (carousel / images).
+ * - meta: Key facts (title, price, surface, availability, actions).
+ * - description: Rich text description with read-more.
+ * - features: Equipments and services grid.
+ * - energy: Energy diagnostics (DPE, GES).
+ * - surface: Surface breakdown table.
+ * - location: Address and transport.
+ * - sidebar: Agent card and visit scheduler (sticky on desktop).
+ * - map: Full-width map section below the two-column layout.
+ *
+ * Props:
+ * - attributes: Drupal Attribute object for the root article wrapper.
+ * - modifier_class: Optional extra CSS class string.
+ */
+#}
+{% set attributes = create_attribute(attributes|default({})) %}
+{% set hero_attributes = hero_attributes|default(create_attribute()) %}
+{% set meta_attributes = meta_attributes|default(create_attribute()) %}
+{% set description_attributes = description_attributes|default(create_attribute()) %}
+{% set features_attributes = features_attributes|default(create_attribute()) %}
+{% set energy_attributes = energy_attributes|default(create_attribute()) %}
+{% set surface_attributes = surface_attributes|default(create_attribute()) %}
+{% set location_attributes = location_attributes|default(create_attribute()) %}
+{% set sidebar_attributes = sidebar_attributes|default(create_attribute()) %}
+{% set map_attributes = map_attributes|default(create_attribute()) %}
+
+<article{{attributes.addClass('ps-offer-full',modifier_class|default('')|trim?:null)}}>
+	<div class="container ps-offer-full__container">
+		<div
+			class="ps-offer-layout row g-5 align-items-start">
+
+			{# ── Main column ── #}
+			<div
+				class="ps-offer-layout__main col-12 col-lg-8 d-flex flex-column">
+
+				{# Top block: hero + meta tightly grouped #}
+				<div class="ps-offer-layout__top d-flex flex-column">
+					{% if hero %}
+						<section{{hero_attributes.addClass('ps-offer-hero')}} aria-label="{{ 'Offer media'|t }}">
+							{{ hero }}
+						</section>
+					{% endif %}
+
+					{% if meta %}
+						<section{{meta_attributes.addClass('ps-offer-meta')}} aria-label="{{ 'Offer details'|t }}">
+							{{ meta }}
+						</section>
+					{% endif %}
+				</div>
+
+				{# Secondary sections with larger spacing #}
+				{% if description %}
+					<section{{description_attributes.addClass('ps-offer-description','ps-offer-layout__section')}} aria-label="{{ 'Description'|t }}">
+						{{ description }}
+					</section>
+				{% endif %}
+
+				{% if features %}
+					<section{{features_attributes.addClass('ps-offer-features','ps-offer-layout__section')}} aria-label="{{ 'Features'|t }}">
+						{{ features }}
+					</section>
+				{% endif %}
+
+				{% if energy %}
+					<section{{energy_attributes.addClass('ps-offer-energy','ps-offer-layout__section')}} aria-label="{{ 'Energy diagnostics'|t }}">
+						{{ energy }}
+					</section>
+				{% endif %}
+
+				{% if surface %}
+					<section{{surface_attributes.addClass('ps-offer-surface','ps-offer-layout__section')}} aria-label="{{ 'Surface table'|t }}">
+						{{ surface }}
+					</section>
+				{% endif %}
+
+				{% if location %}
+					<section{{location_attributes.addClass('ps-offer-location','ps-offer-layout__section')}} aria-label="{{ 'Location'|t }}">
+						{{ location }}
+					</section>
+				{% endif %}
+
+			</div>
+
+			{# ── Sidebar column ── #}
+			{% if sidebar %}
+				<aside{{sidebar_attributes.addClass('ps-offer-layout__sidebar','col-12','col-lg-4')}} aria-label="{{ 'Contact sidebar'|t }}">
+					<div class="ps-offer-sidebar ps-offer-sidebar--sticky">
+						{{ sidebar }}
+					</div>
+				</aside>
+			{% endif %}
+
+		</div>
+	</div>
+
+	{# ── Full-width map ── #}
+	{% if map %}
+		<section{{map_attributes.addClass('ps-offer-map')}} aria-label="{{ 'Location map'|t }}">
+			<div class="container ps-offer-map__inner">
+				{{ map }}
+			</div>
+		</section>
+	{% endif %}
+</article>

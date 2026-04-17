@@ -1,4 +1,29 @@
 services:
+  ps_offer.hooks:
+    class: Drupal\ps_offer\Hook\OfferHooks
+    arguments:
+      - '@logger.factory'
+      - '@ps_offer.reference_builder'
+      - '@messenger'
+      - '@entity_type.manager'
+      - '@ps_diagnostic.class_calculator'
+      - '@ps_price.formatter'
+      - '@file_url_generator'
+      - '@ps_features.manager'
+      - '@ps_dictionary.manager'
+
+  Drupal\ps_offer\Hook\OfferHooks:
+    alias: ps_offer.hooks
+
+  ps_offer.admin_hooks:
+    class: Drupal\ps_offer\Hook\OfferAdminHooks
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_offer.reference_builder'
+
+  Drupal\ps_offer\Hook\OfferAdminHooks:
+    alias: ps_offer.admin_hooks
+
   ps_offer.reference_builder:
     class: Drupal\ps_offer\Service\OfferReferenceBuilder
     arguments:

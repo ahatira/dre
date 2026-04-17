@@ -1,0 +1,33 @@
+name: 'Offer Features'
+description: 'Offer features block rendering one or more grouped feature lists.'
+group: 'PS Theme'
+props:
+  type: object
+  properties:
+    attributes:
+      title: Attributes
+      $ref: 'ui-patterns://attributes'
+    title:
+      title: Title
+      type: string
+      default: 'Features'
+    groups:
+      title: Groups
+      type: array
+      items:
+        type: object
+        properties:
+          title:
+            type: string
+          icon:
+            type: string
+          columns_min_items:
+            type: integer
+          items:
+            type: array
+            items:
+              type: string
+libraryOverrides:
+  css:
+    component:
+      styles/offer_features.css: {}
