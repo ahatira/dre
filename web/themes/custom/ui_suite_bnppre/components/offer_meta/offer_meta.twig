@@ -1,105 +1,38 @@
 {% set attributes = create_attribute(attributes|default({})) %}
-{% set heading_tag = 'h' ~ (title_level|default(1)) %}
-{% set actions = actions|default([]) %}
+{% set has_top = top is defined and top is not empty %}
+{% set has_header_left = header_left is defined and header_left is not empty %}
+{% set has_header_right = header_right is defined and header_right is not empty %}
+{% set has_content = content is defined and content is not empty %}
+{% set has_footer = footer is defined and footer is not empty %}
 
 <div{{attributes.addClass('ps-offer-meta')}}>
-	<header class="ps-offer-meta__header">
-		{% if reference_value %}
-			<div class="ps-offer-meta__reference">
-				{{ reference_label }}
-				{% if reference_label %}:
-				{% endif %}
-				<span>{{ reference_value }}</span>
-			</div>
-		{% endif %}
+	{% if has_top %}
+		<div class="ps-offer-meta__top">
+			{{ top }}
+		</div>
+	{% endif %}
 
-		<div class="ps-offer-meta__title-container">
-			<div class="ps-offer-meta__title-group">
-				{% if building %}
-					<p class="ps-offer-meta__building">{{ building }}</p>
-				{% endif %}
+	{% if has_header_left or has_header_right %}
+		<div class="ps-offer-meta__header-grid">
+			{% if has_header_left %}
+				<div class="ps-offer-meta__header-left">{{ header_left }}</div>
+			{% endif %}
 
-				{% if title %}
-					<{{heading_tag}} class="ps-offer-meta__title">{{ title }}</{{heading_tag}}>
-				{% endif %}
-
-				{% if surface_value or location_text %}
-					<div class="ps-offer-meta__primary-info">
-						{% if surface_value %}
-							<span class="ps-offer-meta__surface">{{ surface_value }}
-								{% if surface_unit %}
-									{{ surface_unit }}
-								{% endif %}
-							</span>
-						{% endif %}
-						{% if surface_value and location_text %}
-							<span class="offer-meta__separator" aria-hidden="true">&bull;</span>
-						{% endif %}
-						{% if location_text %}
-							<span class="ps-offer-meta__location">{{ location_text }}</span>
-						{% endif %}
-					</div>
-				{% endif %}
-			</div>
-
-			{% if price_value %}
-				<div class="ps-offer-meta__price">
-					<span class="ps-offer-meta__price-value">{{ price_value }}</span>
-					{% if price_unit %}
-						<span class="ps-offer-meta__price-unit">{{ price_unit }}</span>
-					{% endif %}
-					{% if price_tooltip %}
-						<button class="ps-offer-meta__price-tooltip" type="button" aria-label="{{ price_tooltip }}" title="{{ price_tooltip }}">
-							{{ icon('bnppre', 'info-circle', {'size': '1rem'})|render }}
-						</button>
-					{% endif %}
-				</div>
+			{% if has_header_right %}
+				<div class="ps-offer-meta__header-right">{{ header_right }}</div>
 			{% endif %}
 		</div>
-	</header>
+	{% endif %}
 
-	{% if availability_value or mandate_value %}
-		<div class="ps-offer-meta__metadata">
-			<div class="ps-offer-meta__secondary-info">
-				{% if availability_value %}
-					<div class="ps-offer-meta__availability">
-						<span class="ps-offer-meta__label">{{ availability_label }}
-							{% if availability_label %}:
-							{% endif %}
-						</span>
-						<strong class="ps-offer-meta__value">{{ availability_value }}</strong>
-					</div>
-				{% endif %}
-
-				{% if mandate_value %}
-					<div class="ps-offer-meta__mandate">
-						<span class="ps-offer-meta__label">{{ mandate_label }}
-							{% if mandate_label %}:
-							{% endif %}
-						</span>
-						<strong class="ps-offer-meta__value">{{ mandate_value }}</strong>
-					</div>
-				{% endif %}
-			</div>
+	{% if has_content %}
+		<div class="ps-offer-meta__content">
+			{{ content }}
 		</div>
 	{% endif %}
 
-	{% if actions %}
-		<div class="ps-offer-meta__actions">
-			{% for action in actions %}
-				{% if action.label and action.url %}
-					{{ include('ui_suite_bnppre:button', {
-						attributes: create_attribute().addClass('ps-offer-meta__action'),
-						label: action.label,
-						url: action.url,
-						variant: action.variant|default('primary')
-					}, with_context = false) }}
-				{% endif %}
-			{% endfor %}
+	{% if has_footer %}
+		<div class="ps-offer-meta__footer">
+			{{ footer }}
 		</div>
-	{% endif %}
-
-	{% if footer %}
-		<div class="ps-offer-meta__footer">{{ footer }}</div>
 	{% endif %}
 </div>

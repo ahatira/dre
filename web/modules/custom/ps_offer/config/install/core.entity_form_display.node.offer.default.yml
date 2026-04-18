@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.offer.field_features
     - field.field.node.offer.field_availability
     - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
     - field.field.node.offer.field_exclusivity
     - field.field.node.offer.field_is_divisible
     - field.field.node.offer.field_min_divisible_surface
@@ -95,6 +96,7 @@ third_party_settings:
         - langcode
         - field_client_type
         - field_property_type
+        - field_commercial_title
         - field_transaction_types
         - field_mandate_type
         - field_availability
@@ -336,6 +338,14 @@ content:
     weight: 5
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_commercial_title:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_is_divisible:
     type: boolean_checkbox

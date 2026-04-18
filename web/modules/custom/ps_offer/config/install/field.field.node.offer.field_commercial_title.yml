@@ -1,0 +1,19 @@
+langcode: en
+uuid: 7c5ef9fd-d7b4-4af8-bb94-ec3105ca6e9c
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_commercial_title
+    - node.type.offer
+id: node.offer.field_commercial_title
+field_name: field_commercial_title
+entity_type: node
+bundle: offer
+label: 'Commercial title'
+description: 'Commercial display title shown above the node title in offer header.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

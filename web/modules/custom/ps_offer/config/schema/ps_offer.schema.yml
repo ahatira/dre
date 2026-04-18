@@ -23,6 +23,9 @@ ps_offer.settings:
     results_per_page:
       type: integer
       label: "Default results per page"
+    use_layout_builder_render:
+      type: boolean
+      label: "Use native Layout Builder render for offer display"
     reference_builder:
       type: mapping
       label: "Reference builder settings"

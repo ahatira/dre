@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.offer.field_agents
     - field.field.node.offer.field_availability
     - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
     - field.field.node.offer.field_diagnostics
     - field.field.node.offer.field_divisions
     - field.field.node.offer.field_exclusivity
@@ -123,6 +124,24 @@ third_party_settings:
             weight: 0
             additional:
               weight: 3
+          16d1cddc-c697-4b2f-9a71-f32fe8ece5d2:
+            uuid: 16d1cddc-c697-4b2f-9a71-f32fe8ece5d2
+            region: meta
+            configuration:
+              id: 'field_block:node:offer:field_commercial_title'
+              label: field_commercial_title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: basic_string
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional:
+              weight: 4
           52dc6dce-bfa7-47f4-ba21-f2d98bd83d5f:
             uuid: 52dc6dce-bfa7-47f4-ba21-f2d98bd83d5f
             region: meta
@@ -187,6 +206,11 @@ third_party_settings:
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+              formatter:
+                type: ps_price_full
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
             weight: 4
             additional:
               weight: 7
@@ -289,19 +313,6 @@ third_party_settings:
             weight: 9
             additional:
               weight: 12
-          09c07db4-8efb-4788-8c4c-45627bf15ac4:
-            uuid: 09c07db4-8efb-4788-8c4c-45627bf15ac4
-            region: meta
-            configuration:
-              id: 'field_block:node:offer:field_prices'
-              label: field_prices
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-            weight: 10
-            additional:
-              weight: 13
           3a674cfc-5047-489a-830a-323697ab9b3f:
             uuid: 3a674cfc-5047-489a-830a-323697ab9b3f
             region: description
@@ -330,6 +341,11 @@ third_party_settings:
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+              formatter:
+                type: ps_feature_value_grouped
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
             weight: 0
             additional:
               weight: 15
@@ -343,6 +359,11 @@ third_party_settings:
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
+              formatter:
+                type: ps_diagnostic_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
             weight: 0
             additional:
               weight: 16
@@ -525,6 +546,7 @@ hidden:
   field_agents: true
   field_availability: true
   field_client_type: true
+  field_commercial_title: true
   field_diagnostics: true
   field_divisions: true
   field_exclusivity: true

@@ -8,75 +8,22 @@ props:
       title: Attributes
       description: 'Additional attributes for the root wrapper.'
       $ref: 'ui-patterns://attributes'
-    title:
-      title: Title
-      type: string
-    title_level:
-      title: Title level
-      type: integer
-      default: 1
-      enum:
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-    reference_label:
-      title: Reference label
-      type: string
-    reference_value:
-      title: Reference value
-      type: string
-    building:
-      title: Building name
-      type: string
-    price_value:
-      title: Price value
-      type: string
-    price_unit:
-      title: Price unit
-      type: string
-    price_tooltip:
-      title: Price tooltip
-      type: string
-    surface_value:
-      title: Surface value
-      type: string
-    surface_unit:
-      title: Surface unit
-      type: string
-    location_text:
-      title: Location text
-      type: string
-    availability_label:
-      title: Availability label
-      type: string
-    availability_value:
-      title: Availability value
-      type: string
-    mandate_label:
-      title: Mandate label
-      type: string
-    mandate_value:
-      title: Mandate value
-      type: string
-    actions:
-      title: Actions
-      type: array
-      items:
-        type: object
-        properties:
-          label:
-            type: string
-          url:
-            type: string
-          variant:
-            type: string
 slots:
+  top:
+    title: Top
+    description: 'Top row content, typically the formatted reference field.'
+  header_left:
+    title: Header left
+    description: 'Left column of the header row (commercial title, node title, primary info).'
+  header_right:
+    title: Header right
+    description: 'Right column of the header row, typically formatted price output.'
+  content:
+    title: Content
+    description: 'Secondary metadata content, typically availability and mandate fields.'
   footer:
     title: Footer
-    description: 'Optional renderable content displayed below the metadata and CTAs.'
+    description: 'Bottom row content, typically call-to-actions and optional complementary renderables.'
 libraryOverrides:
   css:
     component:
