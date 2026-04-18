@@ -177,6 +177,21 @@
         }
       }
 
+      // Check if this is a video slide.
+      const mediaType = sourceSlide.getAttribute('data-media-type');
+      const mediaBundle = sourceSlide.getAttribute('data-media-bundle');
+      const videoUrl = sourceSlide.getAttribute('data-video-url');
+
+      if (mediaType === 'video' && videoUrl) {
+        return {
+          type: 'video',
+          mediaBundle,
+          title: getSlideTitle(sourceSlide, group?.button.textContent?.trim()),
+          videoUrl,
+          sourceSlide,
+        };
+      }
+
       return {
         type: 'media',
         title: getSlideTitle(sourceSlide, group?.button.textContent?.trim()),
@@ -216,6 +231,58 @@
       frameWrap.appendChild(frame);
       frameWrap.appendChild(fallbackLink);
       modalSlide.appendChild(frameWrap);
+      return modalSlide;
+    }
+
+    // Handle video media.
+    if (item.type === 'video' && item.videoUrl) {
+      modalSlide.classList.add('ps-carousel-media-modal__carousel-slide--video');
+
+      const mediaContainer = document.createElement('div');
+      mediaContainer.className = 'ps-carousel-media-modal__video-container';
+
+      // For local videos: use HTML5 video element.
+      if (item.mediaBundle === 'videos') {
+        const video = document.createElement('video');
+        video.className = 'ps-carousel-media-modal__video';
+        video.controls = true;
+        video.title = item.title;
+        video.setAttribute('controlsList', 'nodownload');
+        video.style.width = '100%';
+        video.style.maxHeight = '80vh';
+        video.style.objectFit = 'contain';
+
+        const source = document.createElement('source');
+        source.src = item.videoUrl;
+        source.type = 'video/mp4';
+
+        video.appendChild(source);
+        const fallbackText = document.createTextNode(Drupal.t('Your browser does not support the video tag.'));
+        video.appendChild(fallbackText);
+
+        mediaContainer.appendChild(video);
+      }
+      // For remote videos (oEmbed): use iframe.
+      else if (item.mediaBundle === 'remote_video') {
+        const frameWrap = document.createElement('div');
+        frameWrap.className = 'ps-carousel-media-modal__frame-wrap';
+
+        const frame = document.createElement('iframe');
+        frame.className = 'ps-carousel-media-modal__frame ps-carousel-media-modal__video-iframe';
+        frame.src = item.videoUrl;
+        frame.title = item.title;
+        frame.loading = 'lazy';
+        frame.setAttribute('allowfullscreen', '');
+        frame.setAttribute(
+          'sandbox',
+          'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation',
+        );
+
+        frameWrap.appendChild(frame);
+        mediaContainer.appendChild(frameWrap);
+      }
+
+      modalSlide.appendChild(mediaContainer);
       return modalSlide;
     }
 

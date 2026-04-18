@@ -427,28 +427,66 @@ class OfferHooks {
    */
   protected function buildMediaSlide(EntityInterface $media, int $slideIndex, string $fallbackIcon): ?array {
     $image = NULL;
+    $mediaBundle = $media->bundle();
+    $attributes = ['class' => $slideIndex === 0 ? ['carousel-item', 'active'] : ['carousel-item']];
 
-    if ($media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()) {
-      $image = $media->get('field_media_image')->view([
-        'label' => 'hidden',
-        'type' => 'image',
-      ]);
-    }
-    elseif ($media->hasField('thumbnail') && !$media->get('thumbnail')->isEmpty()) {
-      $image = $media->get('thumbnail')->view([
-        'label' => 'hidden',
-        'type' => 'image',
-      ]);
+    // For video media: try cover image first, then thumbnail (oEmbed auto-generated).
+    if ($mediaBundle === 'videos' || $mediaBundle === 'remote_video') {
+      if ($media->hasField('field_media_cover_image') && !$media->get('field_media_cover_image')->isEmpty()) {
+        $image = $media->get('field_media_cover_image')->view([
+          'label' => 'hidden',
+          'type' => 'image',
+        ]);
+      }
+      elseif ($media->hasField('thumbnail') && !$media->get('thumbnail')->isEmpty()) {
+        $image = $media->get('thumbnail')->view([
+          'label' => 'hidden',
+          'type' => 'image',
+        ]);
+      }
+
+      // Mark the slide as video for JavaScript handling.
+      if ($image !== NULL) {
+        $attributes['data-media-type'] = 'video';
+        $attributes['data-media-bundle'] = $mediaBundle;
+
+        // Extract and store video URL for modal playback.
+        if ($mediaBundle === 'videos' && $media->hasField('field_media_video_file') && !$media->get('field_media_video_file')->isEmpty()) {
+          $videoFile = $media->get('field_media_video_file')->first();
+          if ($videoFile !== NULL) {
+            $videoUrl = $this->getFileUrlGenerator()->generateString($videoFile->entity->getFileUri());
+            $attributes['data-video-url'] = $videoUrl;
+          }
+        }
+        elseif ($mediaBundle === 'remote_video' && $media->hasField('field_media_oembed_video') && !$media->get('field_media_oembed_video')->isEmpty()) {
+          $oembedUrl = trim((string) $media->get('field_media_oembed_video')->value);
+          if ($oembedUrl !== '') {
+            $attributes['data-video-url'] = $oembedUrl;
+          }
+        }
+      }
     }
 
-    $slideClasses = $slideIndex === 0 ? ['carousel-item', 'active'] : ['carousel-item'];
+    // For other media types: check field_media_image, then thumbnail.
+    if ($image === NULL) {
+      if ($media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()) {
+        $image = $media->get('field_media_image')->view([
+          'label' => 'hidden',
+          'type' => 'image',
+        ]);
+      }
+      elseif ($media->hasField('thumbnail') && !$media->get('thumbnail')->isEmpty()) {
+        $image = $media->get('thumbnail')->view([
+          'label' => 'hidden',
+          'type' => 'image',
+        ]);
+      }
+    }
 
     if ($image !== NULL) {
       return [
         '#type' => 'container',
-        '#attributes' => [
-          'class' => $slideClasses,
-        ],
+        '#attributes' => $attributes,
         'image' => $image,
       ];
     }
@@ -456,7 +494,10 @@ class OfferHooks {
     return [
       '#type' => 'container',
       '#attributes' => [
-        'class' => array_merge($slideClasses, ['ps-carousel__slide--placeholder']),
+        'class' => array_merge(
+          $attributes['class'] ?? [],
+          ['ps-carousel__slide--placeholder'],
+        ),
       ],
       'content' => [
         '#type' => 'inline_template',
