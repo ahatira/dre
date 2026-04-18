@@ -59,16 +59,53 @@
   margin-bottom: var(--ps-offer-gap-section);
 }
 
+@media (max-width: 991.98px) {
+  .ps-offer-full {
+    /* Reserve space so the fixed mobile sidebar does not overlap content. */
+    padding-bottom: clamp(13rem, 28vh, 18rem);
+  }
+
+  .ps-offer-layout__sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    margin: 0;
+    padding: 0.75rem;
+    width: 100%;
+    max-width: none;
+    background: #fff;
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .ps-offer-sidebar--sticky {
+    max-height: min(45vh, 20rem);
+    overflow-y: auto;
+  }
+
+  .ps-offer-slot--sidebar {
+    flex-direction: row;
+
+    > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+}
+
 @media (min-width: 992px) {
   .ps-offer-layout__sidebar {
     order: 0;
     margin-bottom: 0;
     padding-inline-start: 1.5rem;
-  }
-
-  .ps-offer-sidebar--sticky {
     position: sticky;
     top: 3rem;
+    align-self: flex-start;
+  }
+
+  .ps-offer-slot--sidebar {
+    flex-direction: column;
   }
 }
 

@@ -73,7 +73,7 @@ class OfferHooks {
       'energy' => $this->buildDiagnosticsSlot($entity),
       'surface' => $this->buildSurfaceSlot($entity),
       'location' => $this->buildLocationSlot($entity),
-      'sidebar' => $this->buildSidebarSlot($entity, $display),
+      'sidebar' => $this->buildSidebarSlot($entity),
       'map' => $this->buildSlotContainer('ps-offer-slot ps-offer-slot--map', [
         $this->buildField($entity, $display, 'field_geofield', ['label' => 'hidden']),
       ]),
@@ -549,39 +549,112 @@ class OfferHooks {
    * Builds meta slot with structured legacy-like props.
    */
   protected function buildMetaSlot(NodeInterface $node, EntityViewDisplayInterface $display): ?array {
-    $price = $this->buildPriceData($node);
+    $price = $this->buildField($node, $display, 'field_prices', ['label' => 'hidden']);
     $surface = $this->buildSurfaceSummary($node);
     $location = $this->buildLocationSummary($node);
+    $referenceValue = $this->getFieldString($node, 'field_reference');
+    $title = trim((string) $node->label());
+    $commercialTitle = $this->getFieldString($node, 'field_commercial_title');
+    $surfaceText = trim((string) ($surface['value'] ?? '') . ' ' . (string) ($surface['unit'] ?? ''));
+    $availabilityValue = $this->getFieldString($node, 'field_availability');
+    $mandateRaw = $this->getFieldString($node, 'field_mandate_type');
+    $mandateValue = $this->resolveDictionaryValue('mandate_type', $mandateRaw);
+    $actions = $this->buildMetaActions($node);
+    $actions = array_merge($actions, $this->buildBrochureActions($node));
 
-    $footer = $this->buildSlotContainer('ps-offer-meta__footer-extra', [
-      $this->buildField($node, $display, 'field_labels', ['label' => 'hidden']),
-      $this->buildField($node, $display, 'field_media_virtual_tours', ['label' => 'hidden']),
-    ]);
+    $top = NULL;
+    if ($referenceValue !== '') {
+      $top = [
+        '#type' => 'inline_template',
+        '#template' => '<div class="ps-offer-meta__reference">{{ label }}: <span>{{ value }}</span></div>',
+        '#context' => [
+          'label' => (string) $this->t('Reference'),
+          'value' => $referenceValue,
+        ],
+      ];
+    }
+
+    $headerLeft = NULL;
+    if ($commercialTitle !== '' || $title !== '' || $surfaceText !== '' || $location !== '') {
+      $headerLeft = [
+        '#type' => 'inline_template',
+        '#template' => '{% if commercial_title %}<p class="ps-offer-meta__commercial-title">{{ commercial_title }}</p>{% endif %}{% if title %}<h1 class="ps-offer-meta__title">{{ title }}</h1>{% endif %}{% if surface or location %}<div class="ps-offer-meta__primary-info">{% if surface %}<span class="ps-offer-meta__surface">{{ surface }}</span>{% endif %}{% if surface and location %}<span class="offer-meta__separator" aria-hidden="true">&bull;</span>{% endif %}{% if location %}<span class="ps-offer-meta__location">{{ location }}</span>{% endif %}</div>{% endif %}',
+        '#context' => [
+          'commercial_title' => $commercialTitle,
+          'title' => $title,
+          'surface' => $surfaceText,
+          'location' => $location,
+        ],
+      ];
+    }
+
+    $content = NULL;
+    if ($availabilityValue !== '' || $mandateValue !== '') {
+      $content = [
+        '#type' => 'inline_template',
+        '#template' => '<div class="ps-offer-meta__secondary-info">{% if availability_value %}<div class="ps-offer-meta__availability"><span class="ps-offer-meta__label">{{ availability_label }}:</span><strong class="ps-offer-meta__value">{{ availability_value }}</strong></div>{% endif %}{% if mandate_value %}<div class="ps-offer-meta__mandate"><span class="ps-offer-meta__label">{{ mandate_label }}:</span><strong class="ps-offer-meta__value">{{ mandate_value }}</strong></div>{% endif %}</div>',
+        '#context' => [
+          'availability_label' => (string) $this->t('Availability'),
+          'availability_value' => $availabilityValue,
+          'mandate_label' => (string) $this->t('Mandate type'),
+          'mandate_value' => $mandateValue,
+        ],
+      ];
+    }
+
+    $actionParts = [];
+    foreach ($actions as $action) {
+      $label = trim((string) ($action['label'] ?? ''));
+      $url = trim((string) ($action['url'] ?? ''));
+      if ($label === '' || $url === '') {
+        continue;
+      }
+
+      $actionParts[] = [
+        '#type' => 'inline_template',
+        '#template' => "{{ include('ui_suite_bnppre:button', {attributes: create_attribute().addClass('ps-offer-meta__action'), label: label, url: url, variant: variant}, with_context = false) }}",
+        '#context' => [
+          'label' => $label,
+          'url' => $url,
+          'variant' => (string) ($action['variant'] ?? 'primary'),
+        ],
+      ];
+    }
+
+    $footerActions = $this->buildSlotContainer('ps-offer-meta__actions', $actionParts);
+
+    $footer = $this->buildSlotContainer('ps-offer-meta__footer-extra', [$footerActions]);
 
     $component = [
       '#type' => 'component',
       '#component' => 'ui_suite_bnppre:offer_meta',
-      '#props' => [
-        'title' => $node->label(),
-        'reference_label' => (string) $this->t('Reference'),
-        'reference_value' => $this->getFieldString($node, 'field_reference'),
-        'building' => '',
-        'price_value' => $price['value'] ?? '',
-        'price_unit' => $price['unit'] ?? '',
-        'price_tooltip' => $price['tooltip'] ?? '',
-        'surface_value' => $surface['value'] ?? '',
-        'surface_unit' => $surface['unit'] ?? '',
-        'location_text' => $location,
-        'availability_label' => (string) $this->t('Availability'),
-        'availability_value' => $this->getFieldString($node, 'field_availability'),
-        'mandate_label' => (string) $this->t('Mandate type'),
-        'mandate_value' => $this->getFieldString($node, 'field_mandate_type'),
-        'actions' => $this->buildMetaActions($node),
-      ],
-      '#slots' => [
-        'footer' => $footer,
-      ],
+      '#props' => [],
     ];
+
+    $slots = [];
+    if ($top !== NULL) {
+      $slots['top'] = $top;
+    }
+
+    if ($headerLeft !== NULL) {
+      $slots['header_left'] = $headerLeft;
+    }
+
+    if ($price !== NULL) {
+      $slots['header_right'] = $price;
+    }
+
+    if ($content !== NULL) {
+      $slots['content'] = $content;
+    }
+
+    if ($footer !== NULL) {
+      $slots['footer'] = $footer;
+    }
+
+    if ($slots !== []) {
+      $component['#slots'] = $slots;
+    }
 
     return $this->buildSlotContainer('ps-offer-slot ps-offer-slot--meta', [$component]);
   }
@@ -640,7 +713,7 @@ class OfferHooks {
   /**
    * Builds a sidebar with agent and visit cards plus brochures.
    */
-  protected function buildSidebarSlot(NodeInterface $node, EntityViewDisplayInterface $display): ?array {
+  protected function buildSidebarSlot(NodeInterface $node): ?array {
     $parts = [];
     $agentCard = $this->buildAgentCard($node);
     if ($agentCard !== NULL) {
@@ -652,12 +725,7 @@ class OfferHooks {
       }
     }
 
-    $brochures = $this->buildField($node, $display, 'field_media_brochures', ['label' => 'hidden']);
-    if ($brochures !== NULL) {
-      $parts[] = $brochures;
-    }
-
-    return $this->buildSlotContainer('ps-offer-slot ps-offer-slot--sidebar d-flex flex-column gap-4', $parts);
+    return $this->buildSlotContainer('ps-offer-slot ps-offer-slot--sidebar d-flex gap-4', $parts);
   }
 
   /**
@@ -912,6 +980,57 @@ class OfferHooks {
     }
 
     return $actions;
+  }
+
+  /**
+   * Builds brochure actions from referenced media files.
+   *
+   * @return array<int, array{label: string, url: string, variant: string}>
+   *   Brochure actions.
+   */
+  protected function buildBrochureActions(NodeInterface $node): array {
+    if (!$node->hasField('field_media_brochures') || $node->get('field_media_brochures')->isEmpty()) {
+      return [];
+    }
+
+    $actions = [];
+    $total = count($node->get('field_media_brochures')->referencedEntities());
+    foreach ($node->get('field_media_brochures')->referencedEntities() as $delta => $media) {
+      $url = $this->extractMediaFileUrl($media);
+      if ($url === '') {
+        continue;
+      }
+
+      $label = $total > 1
+        ? (string) $this->t('Download brochure @number', ['@number' => $delta + 1])
+        : (string) $this->t('Download brochure');
+
+      $actions[] = [
+        'label' => $label,
+        'url' => $url,
+        'variant' => 'outline_primary',
+      ];
+    }
+
+    return $actions;
+  }
+
+  /**
+   * Extracts a downloadable URL from a media file entity.
+   */
+  protected function extractMediaFileUrl(EntityInterface $media): string {
+    foreach (['field_media_file', 'field_file', 'field_document', 'field_media_document'] as $fieldName) {
+      if (!$media->hasField($fieldName) || $media->get($fieldName)->isEmpty()) {
+        continue;
+      }
+
+      $file = $media->get($fieldName)->entity;
+      if ($file && method_exists($file, 'getFileUri')) {
+        return $this->getFileUrlGenerator()->generateString((string) $file->getFileUri());
+      }
+    }
+
+    return '';
   }
 
   /**
