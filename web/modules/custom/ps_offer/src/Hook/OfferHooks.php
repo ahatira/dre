@@ -305,13 +305,6 @@ class OfferHooks {
         'label_singular' => '@count video',
         'label_plural' => '@count videos',
       ],
-      'field_media_plans' => [
-        'media_type' => 'documents',
-        'icon' => 'cards',
-        'fallback_icon' => 'cards',
-        'label_singular' => '@count document',
-        'label_plural' => '@count documents',
-      ],
     ];
 
     foreach ($mediaGroups as $fieldName => $config) {
@@ -368,6 +361,33 @@ class OfferHooks {
         'open_mode' => 'external',
         'external_items' => $virtualTourItems,
       ];
+    }
+
+    // Plans are now displayed after 3D visits.
+    if ($node->hasField('field_media_plans') && !$node->get('field_media_plans')->isEmpty()) {
+      $groupSlideIndex = $slideIndex;
+      $groupCount = 0;
+
+      foreach ($node->get('field_media_plans')->referencedEntities() as $media) {
+        $slide = $this->buildMediaSlide($media, $slideIndex, 'cards');
+        if ($slide === NULL) {
+          continue;
+        }
+
+        $slides[] = $slide;
+        $groupCount++;
+        $slideIndex++;
+      }
+
+      if ($groupCount > 0) {
+        $toolbarItems[] = [
+          'media_type' => 'plans',
+          'label' => (string) $this->formatPlural($groupCount, '@count plan', '@count plans'),
+          'icon' => 'cards',
+          'slide_index' => $groupSlideIndex,
+          'open_mode' => 'media',
+        ];
+      }
     }
 
     if ($slides === []) {
