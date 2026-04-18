@@ -100,8 +100,12 @@
     margin-bottom: 0;
     padding-inline-start: 1.5rem;
     position: sticky;
-    top: 3rem;
+    top: 6rem;
     align-self: flex-start;
+  }
+
+  .admin-toolbar .ps-offer-layout__sidebar {
+    top: 9rem;
   }
 
   .ps-offer-slot--sidebar {
@@ -675,23 +679,38 @@
 }
 
 .ps-offer-map {
-  margin-top: var(--ps-offer-gap-section);
-  padding: 2rem 0;
-  background-color: #f5f5f5;
+  width: 100dvw;
+  max-width: 100dvw;
+  margin: 0;
+  margin-inline: calc(50% - 50dvw - 10px);
+  padding: 0;
+  border: 0;
+  background-color: transparent;
 
   &__inner {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .ps-offer-slot--map {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .geolocation-map-container {
-    height: 500px;
-    min-height: 400px;
+    height: 630px;
+    min-height: 630px;
     width: 100%;
-
-    @media (max-width: 768px) {
-      height: 350px;
-    }
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .geolocation-map-control {
@@ -702,5 +721,9 @@
     background-color: #fff;
     border-radius: 4px;
   }
+}
+
+.admin-toolbar .ps-offer-map {
+  margin-inline: calc(50% - 50dvw - 40px);
 }
 
