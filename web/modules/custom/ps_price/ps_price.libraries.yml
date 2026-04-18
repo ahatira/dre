@@ -3,3 +3,14 @@ widget:
   css:
     component:
       assets/css/ps-price-widget.css: {}
+
+offer_formatter:
+  version: 1.0
+  css:
+    component:
+      assets/css/ps-price-offer.css: {}
+  js:
+    assets/js/ps-price-offer-tooltip.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

@@ -225,7 +225,7 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
       '#type' => 'select',
       '#title' => $this->t('Currency'),
       '#options' => ['' => $this->t('- Select -')] + $this->dictionaryManager->getOptions('currency'),
-      '#default_value' => $item->get('currency_code')->getValue() ?? $this->getSetting('default_currency') ?? 'EUR',
+      '#default_value' => $item->get('currency_code')->getValue(),
       '#required' => FALSE,
       '#required_error' => $is_required ? $this->t('Select a currency for this price.') : NULL,
       '#wrapper_attributes' => ['class' => ['ps-price-currency']],
@@ -273,7 +273,7 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
         '#type' => 'select',
         '#title' => $this->t('Period'),
         '#options' => ['' => $this->t('- None -')] + $this->dictionaryManager->getOptions('price_period'),
-        '#default_value' => $item->get('period_code')->getValue() ?? $this->getSetting('default_period') ?? 'ANN',
+        '#default_value' => $item->get('period_code')->getValue(),
         '#required' => FALSE,
         '#wrapper_attributes' => ['class' => ['ps-price-period']],
         '#states' => [
@@ -354,7 +354,9 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
     unset($form, $form_state);
 
-    foreach ($values as &$value) {
+    $result = [];
+
+    foreach ($values as $value) {
       $amount = $value['amount'] ?? ($value['_primary']['amount'] ?? NULL);
       $currency = $value['currency_code'] ?? ($value['_primary']['currency_code'] ?? NULL);
       $unit = $value['unit_code'] ?? ($value['_optional']['unit_code'] ?? NULL);
@@ -366,29 +368,46 @@ final class PriceWidget extends WidgetBase implements ContainerFactoryPluginInte
 
       $onRequest = !empty($value['is_on_request']) || !empty($value['_primary']['is_on_request']);
       $hasAmount = $amount !== NULL && $amount !== '';
+      $hasOptionalData = ($currency !== NULL && $currency !== '')
+        || ($unit !== NULL && $unit !== '')
+        || ($period !== NULL && $period !== '')
+        || ($valueType !== NULL && $valueType !== '')
+        || !empty($isFrom)
+        || !empty($isVatExcluded)
+        || !empty($isChargesIncluded);
+
+      // Skip completely empty rows (no amount, no on_request and no optional data).
+      // This prevents Drupal's automatic empty row from creating validation errors.
+      if (!$hasAmount && !$onRequest && !$hasOptionalData) {
+        continue;
+      }
+
+      $cleanValue = [];
 
       if ($onRequest) {
-        $value['amount'] = NULL;
-        $value['currency_code'] = NULL;
-        $value['is_on_request'] = 1;
+        $cleanValue['amount'] = NULL;
+        $cleanValue['currency_code'] = NULL;
+        $cleanValue['is_on_request'] = 1;
       }
       else {
-        $value['amount'] = $hasAmount ? $amount : NULL;
-        $value['currency_code'] = $currency;
-        $value['is_on_request'] = 0;
+        $cleanValue['amount'] = $hasAmount ? $amount : NULL;
+        $cleanValue['currency_code'] = $currency;
+        $cleanValue['is_on_request'] = 0;
       }
 
-      $value['unit_code'] = $unit;
-      $value['period_code'] = $period;
-      $value['value_type_code'] = $valueType;
-      $value['is_from'] = (int) !empty($isFrom);
-      $value['is_vat_excluded'] = (int) !empty($isVatExcluded);
-      $value['is_charges_included'] = (int) !empty($isChargesIncluded);
+      $cleanValue['unit_code'] = $unit && $unit !== '' ? $unit : NULL;
+      $cleanValue['period_code'] = $period && $period !== '' ? $period : NULL;
+      $cleanValue['value_type_code'] = $valueType && $valueType !== '' ? $valueType : NULL;
+      $cleanValue['is_from'] = (int) !empty($isFrom);
+      $cleanValue['is_vat_excluded'] = (int) !empty($isVatExcluded);
+      $cleanValue['is_charges_included'] = (int) !empty($isChargesIncluded);
 
-      unset($value['_primary'], $value['_optional'], $value['_flags']);
+      unset($cleanValue['_primary'], $cleanValue['_optional'], $cleanValue['_flags']);
+
+      $result[] = $cleanValue;
     }
 
-    return $values;
+    return $result;
   }
 
 }

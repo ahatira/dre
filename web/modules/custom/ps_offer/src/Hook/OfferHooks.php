@@ -23,7 +23,6 @@ use Drupal\ps_diagnostic\Entity\PsDiagnosticInterface;
 use Drupal\ps_diagnostic\Service\DiagnosticClassCalculatorInterface;
 use Drupal\ps_features\Service\FeatureManagerInterface;
 use Drupal\ps_offer\Service\OfferReferenceBuilder;
-use Drupal\ps_price\Service\PriceFormatterInterface;
 
 /**
  * Hooks for Offer nodes.
@@ -43,7 +42,6 @@ class OfferHooks {
     protected ?EntityTypeManagerInterface $entityTypeManager = NULL,
     protected ?ModuleHandlerInterface $moduleHandler = NULL,
     protected ?DiagnosticClassCalculatorInterface $diagnosticClassCalculator = NULL,
-    protected ?PriceFormatterInterface $priceFormatter = NULL,
     protected ?FileUrlGeneratorInterface $fileUrlGenerator = NULL,
     protected ?FeatureManagerInterface $featureManager = NULL,
     protected ?DictionaryManagerInterface $dictionaryManager = NULL,
@@ -610,7 +608,14 @@ class OfferHooks {
    * Builds meta slot with structured legacy-like props.
    */
   protected function buildMetaSlot(NodeInterface $node, EntityViewDisplayInterface $display): ?array {
-    $price = $this->buildField($node, $display, 'field_prices', ['label' => 'hidden']);
+    $price = $this->buildField($node, $display, 'field_prices', [
+      'label' => 'hidden',
+      'type' => 'ps_price_offer',
+      'settings' => [
+        'show_tooltip' => TRUE,
+      ],
+    ]);
+
     $surface = $this->buildSurfaceSummary($node);
     $location = $this->buildLocationSummary($node);
     $referenceValue = $this->getFieldString($node, 'field_reference');
@@ -1473,65 +1478,6 @@ class OfferHooks {
   }
 
   /**
-   * Builds a simple price payload from the first ps_price item.
-   *
-   * @return array{value: string, unit: string, tooltip: string}|null
-   *   Price data or NULL when unavailable.
-   */
-  protected function buildPriceData(NodeInterface $node): ?array {
-    if (!$node->hasField('field_prices') || $node->get('field_prices')->isEmpty()) {
-      return NULL;
-    }
-
-    $item = $node->get('field_prices')->first();
-    if ($item === NULL) {
-      return NULL;
-    }
-
-    $value = !empty($item->is_on_request)
-    ? (string) $this->t('Price on request')
-    : $this->getPriceFormatter()->formatShort($item, ['show_currency' => TRUE]);
-
-    $flags = [];
-    if (!empty($item->is_vat_excluded)) {
-      $flags[] = 'HT';
-    }
-    if (empty($item->is_charges_included)) {
-      $flags[] = 'HC';
-    }
-
-    $unitMap = [
-      'SUR' => 'm²',
-      'GLO' => 'global',
-    ];
-    $periodMap = [
-      'ANN' => 'an',
-      'MEN' => 'mois',
-      'TRI' => 'trimestre',
-      'SEM' => 'semaine',
-    ];
-
-    $unit = [];
-    if (!empty($flags)) {
-      $unit[] = implode('/', $flags);
-    }
-    if (!empty($item->unit_code) && isset($unitMap[$item->unit_code])) {
-      $unit[] = $unitMap[$item->unit_code];
-    }
-    if (!empty($item->period_code) && isset($periodMap[$item->period_code])) {
-      $unit[] = $periodMap[$item->period_code];
-    }
-
-    $tooltip = !empty($flags) ? (string) $this->t('Price excluding VAT and charges') : '';
-
-    return [
-      'value' => $value,
-      'unit' => $unit !== [] ? implode('/', $unit) : '',
-      'tooltip' => $tooltip,
-    ];
-  }
-
-  /**
    * Builds a displayable total surface summary.
    *
    * @return array{value: string, unit: string}|null
@@ -1671,19 +1617,6 @@ class OfferHooks {
     }
 
     return $this->diagnosticClassCalculator;
-  }
-
-  /**
-   * Returns the price formatter with compatibility fallback.
-   */
-  protected function getPriceFormatter(): PriceFormatterInterface {
-    if ($this->priceFormatter === NULL) {
-      $service = \Drupal::service('ps_price.formatter');
-      assert($service instanceof PriceFormatterInterface);
-      $this->priceFormatter = $service;
-    }
-
-    return $this->priceFormatter;
   }
 
   /**

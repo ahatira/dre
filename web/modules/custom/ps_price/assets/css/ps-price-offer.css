@@ -1,0 +1,5 @@
+.ps-price-offer .ps-offer-meta__price-prefix {
+  color: var(--bs-secondary-color, #6c757d);
+  font-size: 0.85em;
+  margin-inline-end: 0.35rem;
+}

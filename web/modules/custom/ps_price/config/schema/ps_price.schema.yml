@@ -14,6 +14,21 @@ ps_price.settings:
     display_codes_as_labels:
       type: boolean
       label: "Display codes as labels"
+    price_flag_ht_label:
+      type: string
+      label: "Label for VAT excluded flag"
+    price_flag_hc_label:
+      type: string
+      label: "Label for charges excluded flag"
+    price_tooltip_ht_text:
+      type: string
+      label: "Tooltip line for VAT excluded flag"
+    price_tooltip_hc_text:
+      type: string
+      label: "Tooltip line for charges excluded flag"
+    price_tooltip_extra_text:
+      type: text
+      label: "Additional tooltip lines"
 
 # Field storage settings (none currently).
 field.storage_settings.ps_price:
@@ -72,6 +87,14 @@ field.formatter.settings.ps_price_short:
     show_currency:
       type: boolean
       label: "Display currency symbol"
+
+field.formatter.settings.ps_price_offer:
+  type: mapping
+  label: "PS Price offer formatter settings"
+  mapping:
+    show_tooltip:
+      type: boolean
+      label: "Show info tooltip"
 
 # Field value schema for ps_price.
 field.value.ps_price:

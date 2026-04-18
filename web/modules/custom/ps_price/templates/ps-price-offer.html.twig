@@ -1,0 +1,22 @@
+<div class="ps-offer-meta__price ps-price-offer">
+  {% if value_prefix %}
+    <span class="ps-offer-meta__price-prefix">{{ value_prefix }}</span>
+  {% endif %}
+  <span class="ps-offer-meta__price-value">{{ value }}</span>
+  {% if unit %}
+    <span class="ps-offer-meta__price-unit">{{ unit }}</span>
+  {% endif %}
+  {% if tooltip_text %}
+    <button
+      type="button"
+      class="ps-offer-meta__price-tooltip"
+      data-bs-toggle="tooltip"
+      data-bs-html="true"
+      data-bs-custom-class="ps-price-offer-tooltip"
+      data-bs-title="{{ tooltip_html|striptags('<br>')|escape('html_attr') }}"
+      aria-label="{{ tooltip_aria }}"
+    >
+      <span class="ps-offer-meta__price-tooltip-icon" aria-hidden="true">{{ icon('bnppre', 'information', {'size': '1rem', 'alt': ''})|render }}</span>
+    </button>
+  {% endif %}
+</div>

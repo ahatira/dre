@@ -9,7 +9,6 @@ services:
       - '@entity_type.manager'
       - '@module_handler'
       - '@ps_diagnostic.class_calculator'
-      - '@ps_price.formatter'
       - '@file_url_generator'
       - '@ps_features.manager'
       - '@ps_dictionary.manager'

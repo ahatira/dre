@@ -123,6 +123,55 @@ class PriceSettingsForm extends ConfigFormBase {
       '#description' => $this->t('When enabled, formatters will display "Monthly" instead of "MEN", using dictionary labels.'),
     ];
 
+    $form['display']['offer_display'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Offer display'),
+      '#open' => TRUE,
+      '#description' => $this->t('Settings used by the "Offer" price formatter.'),
+    ];
+
+    $form['display']['offer_display']['price_flag_ht_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Label for VAT excluded flag'),
+      '#default_value' => $config->get('price_flag_ht_label') ?? 'HT',
+      '#maxlength' => 20,
+      '#size' => 20,
+      '#required' => TRUE,
+    ];
+
+    $form['display']['offer_display']['price_flag_hc_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Label for charges excluded flag'),
+      '#default_value' => $config->get('price_flag_hc_label') ?? 'HC',
+      '#maxlength' => 20,
+      '#size' => 20,
+      '#required' => TRUE,
+    ];
+
+    $form['display']['offer_display']['price_tooltip_ht_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tooltip text for VAT excluded flag'),
+      '#default_value' => $config->get('price_tooltip_ht_text') ?? 'HT : Hors taxes',
+      '#maxlength' => 255,
+      '#size' => 80,
+    ];
+
+    $form['display']['offer_display']['price_tooltip_hc_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tooltip text for charges excluded flag'),
+      '#default_value' => $config->get('price_tooltip_hc_text') ?? 'HC : Hors charges locatives',
+      '#maxlength' => 255,
+      '#size' => 80,
+    ];
+
+    $form['display']['offer_display']['price_tooltip_extra_text'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Additional tooltip lines'),
+      '#description' => $this->t('Displayed only when at least one price flag is active. One line per row.'),
+      '#default_value' => $config->get('price_tooltip_extra_text') ?? "Honoraires à la charge de l'acquéreur :\nNous consulter, à la signature du bail",
+      '#rows' => 4,
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -135,6 +184,11 @@ class PriceSettingsForm extends ConfigFormBase {
       ->set('normalize_on_zero_surface', $form_state->getValue('normalize_on_zero_surface'))
       ->set('reference_period', $form_state->getValue('reference_period'))
       ->set('display_codes_as_labels', $form_state->getValue('display_codes_as_labels'))
+      ->set('price_flag_ht_label', trim((string) $form_state->getValue('price_flag_ht_label')))
+      ->set('price_flag_hc_label', trim((string) $form_state->getValue('price_flag_hc_label')))
+      ->set('price_tooltip_ht_text', trim((string) $form_state->getValue('price_tooltip_ht_text')))
+      ->set('price_tooltip_hc_text', trim((string) $form_state->getValue('price_tooltip_hc_text')))
+      ->set('price_tooltip_extra_text', trim((string) $form_state->getValue('price_tooltip_extra_text')))
       ->save();
 
     parent::submitForm($form, $form_state);
