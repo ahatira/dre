@@ -1049,7 +1049,7 @@ class OfferHooks {
       $actions[] = [
         'label' => $label,
         'url' => $url,
-        'variant' => 'outline_primary',
+        'variant' => 'primary',
       ];
     }
 
