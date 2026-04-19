@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.offer.external_id
     - field.field.node.offer.field_features
     - field.field.node.offer.field_availability
+    - field.field.node.offer.field_show_address
     - field.field.node.offer.field_client_type
     - field.field.node.offer.field_commercial_title
     - field.field.node.offer.field_exclusivity
@@ -133,6 +134,7 @@ third_party_settings:
     group_address:
       children:
         - field_address
+        - field_show_address
         - field_geofield
       label: Address
       region: content
@@ -372,6 +374,13 @@ content:
     weight: 5
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_show_address:
+    type: boolean_checkbox
+    weight: 13
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_surfaces:
     type: ps_surface_default
