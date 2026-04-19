@@ -757,7 +757,7 @@ class OfferHooks {
         'display_text_override' => $displayText,
         'empty_message' => !empty($data['non_applicable'])
           ? (string) $this->t('Diagnostic not applicable')
-          : (string) $this->t('Étiquette énergétique non fournie par le propriétaire'),
+          : (string) $this->t('Energy label not provided by the owner'),
       ];
     }
 
@@ -885,8 +885,8 @@ class OfferHooks {
       '#props' => [
         'title' => (string) $this->t('Description'),
         'max_height' => 150,
-        'expand_label' => (string) $this->t('Voir plus'),
-        'collapse_label' => (string) $this->t('Voir moins'),
+        'expand_label' => (string) $this->t('Read more'),
+        'collapse_label' => (string) $this->t('Read less'),
       ],
       '#slots' => [
         'content' => $content,
