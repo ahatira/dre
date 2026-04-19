@@ -6,9 +6,26 @@ dependencies:
     - field.storage.node.field_geofield
     - node.type.offer
   module:
+    - geocoder_field
     - geolocation
+third_party_settings:
+  geocoder_field:
+    method: geocode
+    weight: 0
+    field: field_address
+    skip_not_empty_value: true
+    disabled: false
+    hidden: false
+    providers:
+      - googlemaps_offer
+    dumper: geolocation_geocoder_v3
+    delta_handling: s_to_s
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 _core:
-  default_config_hash: vov2J1lDLX6qZvz5t9U5a6GvLe0WkW3gKpY9N5lwKXI
+  default_config_hash: lky62bPLNQOR1FvKzyORSgx0UTNUvslHMr_r4MM7Y3U
 id: node.offer.field_geofield
 field_name: field_geofield
 entity_type: node

@@ -1,0 +1,10 @@
+uuid: ecfa055d-07a7-466d-807e-1b49cb5bb726
+langcode: en
+status: true
+dependencies: {  }
+id: googlemaps_offer
+label: 'Google Maps Offer'
+plugin: googlemaps
+configuration:
+  apiKey: ''
+  region: ''

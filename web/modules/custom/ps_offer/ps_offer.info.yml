@@ -20,6 +20,7 @@ dependencies:
   - geolocation:geolocation_google_maps
   - geolocation:geolocation_address
   - drupal:geocoder
+  - geocoder:geocoder_field
   - drupal:address
   - drupal:inline_entity_form
   - drupal:field_group

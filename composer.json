@@ -102,6 +102,7 @@
         "drupal/webform": "^6.3@beta",
         "drupal/webp": "^1.0@alpha",
         "drush/drush": "^13.7",
+        "geocoder-php/google-maps-provider": "^4.2",
         "npm-asset/ace-builds": "^1.43",
         "npm-asset/intl-tel-input": "^25.3",
         "oomphinc/composer-installers-extender": "^2.0"
