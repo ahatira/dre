@@ -162,8 +162,8 @@ class PriceOfferFormatter extends FormatterBase implements ContainerFactoryPlugi
 
     $labelHt = trim((string) ($settings->get('price_flag_ht_label') ?? 'HT'));
     $labelHc = trim((string) ($settings->get('price_flag_hc_label') ?? 'HC'));
-    $tooltipHt = trim((string) ($settings->get('price_tooltip_ht_text') ?? 'HT : Hors taxes'));
-    $tooltipHc = trim((string) ($settings->get('price_tooltip_hc_text') ?? 'HC : Hors charges locatives'));
+    $tooltipHt = trim((string) ($settings->get('price_tooltip_ht_text') ?? 'HT: VAT excluded'));
+    $tooltipHc = trim((string) ($settings->get('price_tooltip_hc_text') ?? 'HC: Service charges excluded'));
     $tooltipExtra = trim((string) ($settings->get('price_tooltip_extra_text') ?? ''));
 
     $flags = [];

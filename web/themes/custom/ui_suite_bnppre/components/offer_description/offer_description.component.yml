@@ -28,11 +28,11 @@ props:
     expand_label:
       title: Expand label
       type: string
-      default: 'Voir plus'
+      default: 'Read more'
     collapse_label:
       title: Collapse label
       type: string
-      default: 'Voir moins'
+      default: 'Read less'
     expanded:
       title: Expanded by default
       type: boolean

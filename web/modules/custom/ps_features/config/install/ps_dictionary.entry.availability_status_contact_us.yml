@@ -1,7 +1,7 @@
 id: availability_status_contact_us
 dictionary_type: availability_status
 code: CONTACT_US
-label: "Nous consulter"
+label: "Contact us"
 description: "Availability to be confirmed on request."
 weight: 2
 deprecated: false

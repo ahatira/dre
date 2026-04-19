@@ -7,8 +7,8 @@ reference_period: "ANN" # Default reference period for normalization
 display_codes_as_labels: false
 price_flag_ht_label: 'HT'
 price_flag_hc_label: 'HC'
-price_tooltip_ht_text: 'HT : Hors taxes'
-price_tooltip_hc_text: 'HC : Hors charges locatives'
+price_tooltip_ht_text: 'HT: VAT excluded'
+price_tooltip_hc_text: 'HC: Service charges excluded'
 price_tooltip_extra_text: |-
-  Honoraires à la charge de l'acquéreur :
-  Nous consulter, à la signature du bail
+  Fees payable by the buyer:
+  Contact us at lease signing

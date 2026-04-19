@@ -151,7 +151,7 @@ class PriceSettingsForm extends ConfigFormBase {
     $form['display']['offer_display']['price_tooltip_ht_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tooltip text for VAT excluded flag'),
-      '#default_value' => $config->get('price_tooltip_ht_text') ?? 'HT : Hors taxes',
+      '#default_value' => $config->get('price_tooltip_ht_text') ?? 'HT: VAT excluded',
       '#maxlength' => 255,
       '#size' => 80,
     ];
@@ -159,7 +159,7 @@ class PriceSettingsForm extends ConfigFormBase {
     $form['display']['offer_display']['price_tooltip_hc_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tooltip text for charges excluded flag'),
-      '#default_value' => $config->get('price_tooltip_hc_text') ?? 'HC : Hors charges locatives',
+      '#default_value' => $config->get('price_tooltip_hc_text') ?? 'HC: Service charges excluded',
       '#maxlength' => 255,
       '#size' => 80,
     ];
@@ -168,7 +168,7 @@ class PriceSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Additional tooltip lines'),
       '#description' => $this->t('Displayed only when at least one price flag is active. One line per row.'),
-      '#default_value' => $config->get('price_tooltip_extra_text') ?? "Honoraires à la charge de l'acquéreur :\nNous consulter, à la signature du bail",
+      '#default_value' => $config->get('price_tooltip_extra_text') ?? "Fees payable by the buyer:\nContact us at lease signing",
       '#rows' => 4,
     ];
 

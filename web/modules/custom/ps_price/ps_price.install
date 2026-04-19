@@ -1,28 +1,3 @@
 <?php
 
 declare(strict_types=1);
-
-/**
- * Sets defaults for offer formatter display settings.
- */
-function ps_price_update_11001(): void {
-  $config = \Drupal::configFactory()->getEditable('ps_price.settings');
-
-  if ($config->get('price_flag_ht_label') === NULL) {
-    $config->set('price_flag_ht_label', 'HT');
-  }
-  if ($config->get('price_flag_hc_label') === NULL) {
-    $config->set('price_flag_hc_label', 'HC');
-  }
-  if ($config->get('price_tooltip_ht_text') === NULL) {
-    $config->set('price_tooltip_ht_text', 'HT : Hors taxes');
-  }
-  if ($config->get('price_tooltip_hc_text') === NULL) {
-    $config->set('price_tooltip_hc_text', 'HC : Hors charges locatives');
-  }
-  if ($config->get('price_tooltip_extra_text') === NULL) {
-    $config->set('price_tooltip_extra_text', "Honoraires à la charge de l'acquéreur :\nNous consulter, à la signature du bail");
-  }
-
-  $config->save();
-}

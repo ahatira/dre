@@ -5,7 +5,7 @@
 {% set is_dimmed = is_dimmed|default(false) %}
 {% set classes = classes|default({}) %}
 {% set display_text_override = display_text_override|default('') %}
-{% set empty_message = empty_message|default('Étiquette énergétique non fournie par le propriétaire'|t) %}
+{% set empty_message = empty_message|default('Energy label not provided by the owner'|t) %}
 
 {% set derived_class = '' %}
 {% if has_value and not display_text_override %}

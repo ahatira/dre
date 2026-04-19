@@ -15,19 +15,24 @@ ps_price.settings:
       type: boolean
       label: "Display codes as labels"
     price_flag_ht_label:
-      type: string
+      type: label
+      translatable: true
       label: "Label for VAT excluded flag"
     price_flag_hc_label:
-      type: string
+      type: label
+      translatable: true
       label: "Label for charges excluded flag"
     price_tooltip_ht_text:
-      type: string
+      type: text
+      translatable: true
       label: "Tooltip line for VAT excluded flag"
     price_tooltip_hc_text:
-      type: string
+      type: text
+      translatable: true
       label: "Tooltip line for charges excluded flag"
     price_tooltip_extra_text:
       type: text
+      translatable: true
       label: "Additional tooltip lines"
 
 # Field storage settings (none currently).
