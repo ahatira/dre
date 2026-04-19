@@ -133,8 +133,8 @@ third_party_settings:
         required_fields: true
     group_address:
       children:
-        - field_address
         - field_show_address
+        - field_address
         - field_geofield
       label: Address
       region: content
@@ -377,7 +377,7 @@ content:
     third_party_settings: {  }
   field_show_address:
     type: boolean_checkbox
-    weight: 13
+    weight: 3
     region: content
     settings:
       display_label: true
