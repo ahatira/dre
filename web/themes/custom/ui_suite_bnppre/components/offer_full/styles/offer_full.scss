@@ -681,7 +681,7 @@
 .ps-offer-map {
   width: 100dvw;
   max-width: 100dvw;
-  margin: 0;
+  margin: var(--ps-offer-gap-section) 0 0;
   margin-inline: calc(50% - 50dvw - 10px);
   padding: 0;
   border: 0;

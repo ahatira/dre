@@ -747,6 +747,7 @@ class OfferHooks {
       $displayText = $isSpecial && isset($displayInfo['display_text']) ? (string) $displayInfo['display_text'] : '';
       $items[] = [
         'label' => $definition->getLabel(),
+        'icon' => trim($definition->getIcon()),
         'value' => isset($data['value']) && is_numeric($data['value']) ? (float) $data['value'] : NULL,
         'unit' => $definition->getUnit(),
         'valid_from' => (string) ($data['valid_from'] ?? ''),

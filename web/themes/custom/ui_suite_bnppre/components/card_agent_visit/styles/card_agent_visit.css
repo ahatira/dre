@@ -3,9 +3,14 @@
 }
 
 .ps-card-agent-visit__title {
-  color: var(--bs-heading-color);
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
-  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-family: 'BNPP Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
 }
 
 .ps-card-agent-visit__cta {
