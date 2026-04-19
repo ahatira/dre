@@ -1,0 +1,157 @@
+.ps-offer-meta {
+  --ps-offer-meta-gap-compact: 1rem;
+  --ps-offer-meta-gap-standard: 1.5rem;
+  --ps-offer-meta-gap-section: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-offer-meta-gap-standard);
+}
+
+.ps-offer-meta__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-offer-meta-gap-compact);
+}
+
+.ps-offer-meta__reference {
+  color: var(--bs-secondary-color);
+  font-size: 0.875rem;
+}
+
+.ps-offer-meta__header-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-offer-meta-gap-compact);
+}
+
+.ps-offer-meta__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ps-offer-meta__header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ps-offer-meta__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ps-offer-meta__commercial-title,
+.ps-offer-meta__title {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ps-offer-meta__commercial-title {
+  font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+}
+
+.ps-offer-meta__title {
+  font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.25rem);
+}
+
+.ps-offer-meta__primary-info,
+.ps-offer-meta__price,
+.ps-offer-meta__availability,
+.ps-offer-meta__mandate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ps-offer-meta__primary-info,
+.ps-offer-meta__secondary-info {
+  font-size: 1rem;
+}
+
+.ps-offer-meta__price-value {
+  font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ps-offer-meta__price-content {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.ps-offer-meta__price-unit {
+  font-size: 0.95rem;
+}
+
+.ps-offer-meta__price-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.ps-offer-meta__secondary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ps-offer-meta__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ps-offer-meta__label {
+  color: var(--bs-secondary-color);
+}
+
+.ps-offer-meta__value {
+  font-weight: 700;
+}
+
+.ps-offer-meta__actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.ps-offer-meta__action {
+  width: 100%;
+}
+
+.ps-offer-meta__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 992px) {
+  .ps-offer-meta {
+    gap: var(--ps-offer-meta-gap-section);
+  }
+
+  .ps-offer-meta__header-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: var(--ps-offer-meta-gap-standard);
+  }
+
+  .ps-offer-meta__header-right .ps-offer-meta__price {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .ps-offer-meta__actions {
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  }
+}

@@ -1,0 +1,43 @@
+.ps-features-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.ps-features-grid__group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ps-features {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.ps-features__title {
+  font-family: 'BNPP Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.ps-features__list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.ps-features__item + .ps-features__item {
+  margin-top: 0.375rem;
+}
+
+@media (min-width: 992px) {
+  .ps-features--two-columns {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+
+  .ps-features--two-columns .ps-features__item {
+    break-inside: avoid;
+  }
+}

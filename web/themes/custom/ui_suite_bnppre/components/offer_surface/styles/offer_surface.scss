@@ -1,0 +1,13 @@
+.ps-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ps-surface__title {
+  font-family: 'BNPP Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 40px;
+}

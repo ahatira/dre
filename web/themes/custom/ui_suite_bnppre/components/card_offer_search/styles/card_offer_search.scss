@@ -1,0 +1,304 @@
+.ps-card-offer-search {
+  --ps-card-offer-search-border: #d4d6d8;
+  --ps-card-offer-search-content-bg: #f5f5f5;
+  --ps-card-offer-search-text: #2f3136;
+  --ps-card-offer-search-muted: #787f86;
+  --ps-card-offer-search-cta: #00915a;
+  --ps-card-offer-search-exclusive: #c8a45f;
+  --ps-card-offer-search-favorite: #9d2b6f;
+
+  border: 1.5px solid #ebedef;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.ps-card-offer-search__media {
+  position: relative;
+  min-height: 13.25rem;
+  background-color: #cfd4d8;
+}
+
+.ps-card-offer-search__image {
+  object-fit: cover;
+}
+
+.ps-card-offer-search__fallback {
+  background: linear-gradient(135deg, #c5ccd3, #9aa6b2);
+}
+
+.ps-card-offer-search__carousel-control {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #2f3136;
+  transform: translateY(-50%);
+}
+
+.ps-card-offer-search__carousel-control svg {
+  display: block;
+  fill: currentColor;
+}
+
+.ps-card-offer-search__carousel-control--prev {
+  left: 0.5rem;
+}
+
+.ps-card-offer-search__carousel-control--next {
+  right: 0.5rem;
+}
+
+.ps-card-offer-search__content {
+  gap: 0;
+  padding: 1.875rem 1.5rem;
+  background-color: var(--ps-card-offer-search-content-bg);
+  color: var(--ps-card-offer-search-text);
+  min-height: 100%;
+}
+
+.ps-card-offer-search__header {
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.ps-card-offer-search__badges {
+  row-gap: 0.5rem;
+}
+
+.ps-card-offer-search__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 1.5rem;
+  padding: 0 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.ps-card-offer-search__badge svg {
+  display: block;
+  fill: currentColor;
+}
+
+.ps-card-offer-search__badge--viewed {
+  color: #4f5a63;
+  background-color: #e3e5e8;
+}
+
+.ps-card-offer-search__badge--exclusive {
+  color: #fff;
+  background-color: var(--ps-card-offer-search-exclusive);
+}
+
+.ps-card-offer-search__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #7e848a;
+}
+
+.ps-card-offer-search__icon-button svg {
+  display: block;
+  fill: currentColor;
+}
+
+.ps-card-offer-search__action-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #7e848a;
+}
+
+.ps-card-offer-search__action-control > * {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-card-offer-search__action-control--favorite,
+.ps-card-offer-search__action-control--favorite > * {
+  color: var(--ps-card-offer-search-favorite);
+}
+
+.ps-card-offer-search__icon-button.is-active,
+.ps-card-offer-search__icon-button:focus-visible,
+.ps-card-offer-search__icon-button:hover {
+  color: #5d656c;
+}
+
+.ps-card-offer-search__icon-button--favorite.is-active,
+.ps-card-offer-search__icon-button--favorite:focus-visible,
+.ps-card-offer-search__icon-button--favorite:hover {
+  color: var(--ps-card-offer-search-favorite);
+}
+
+.ps-card-offer-search__title {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.ps-card-offer-search__surface {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.ps-card-offer-search__location {
+  gap: 0.6rem;
+  margin-bottom: 0;
+  color: var(--ps-card-offer-search-muted);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.ps-card-offer-search__location--slot {
+  display: block;
+}
+
+.ps-card-offer-search__location-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.ps-card-offer-search__location span {
+  letter-spacing: 0;
+}
+
+.ps-card-offer-search__footer {
+  column-gap: 1rem;
+  row-gap: 0.55rem;
+}
+
+.ps-card-offer-search__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.ps-card-offer-search__price-value {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.ps-card-offer-search__price-unit {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.ps-card-offer-search__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ps-card-offer-search-cta);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.ps-card-offer-search__cta svg {
+  display: block;
+  fill: currentColor;
+}
+
+.ps-card-offer-search__cta-slot {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ps-card-offer-search__cta:hover,
+.ps-card-offer-search__cta:focus-visible {
+  color: #086943;
+  text-decoration: none;
+}
+
+.ps-card-offer-search :focus-visible {
+  outline: 2px solid #0a7f50;
+  outline-offset: 2px;
+}
+
+@media (min-width: 992px) {
+  .ps-card-offer-search {
+    min-height: 13.25rem;
+  }
+
+  .ps-card-offer-search__media {
+    min-height: 13.25rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .ps-card-offer-search__content {
+    padding: 1.15rem;
+  }
+
+  .ps-card-offer-search__header {
+    margin-bottom: 1rem;
+  }
+
+  .ps-card-offer-search__title {
+    font-size: 1rem;
+  }
+
+  .ps-card-offer-search__surface {
+    font-size: 1rem;
+  }
+
+  .ps-card-offer-search__location {
+    margin-bottom: 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .ps-card-offer-search__price-value {
+    font-size: 1.25rem;
+  }
+
+  .ps-card-offer-search__price-unit {
+    font-size: 1rem;
+  }
+
+  .ps-card-offer-search__cta {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .ps-card-offer-search__carousel-control {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .ps-card-offer-search__carousel-control--prev {
+    left: 0.5rem;
+  }
+
+  .ps-card-offer-search__carousel-control--next {
+    right: 0.5rem;
+  }
+}
