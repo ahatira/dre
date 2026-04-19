@@ -1,5 +1,10 @@
 #!/bin/sh
 # Script à placer dans le conteneur PHP pour corriger ownership et permissions après chaque démarrage
-chown -R www-data:www-data /var/www/html/web/sites/default/files
-chmod -R 775 /var/www/html/web/sites/default/files
+mkdir -p /var/www/html/web/sites/default/files/media-icons/generic
+chown -R www-data:www-data /var/www/html/web/sites/default/
+chmod -R 775 /var/www/html/web/sites/default/
+
+chown -R www-data:www-data /var/www/html/vendor
+chmod -R 775 /var/www/html/vendor
+
 exec "$@"
