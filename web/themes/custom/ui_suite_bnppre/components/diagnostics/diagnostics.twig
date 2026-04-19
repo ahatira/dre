@@ -1,15 +1,15 @@
 {% set attributes = create_attribute(attributes|default({})) %}
-{% set heading_tag = 'h' ~ (heading_level|default(2)) %}
+{% set heading_tag = 'h' ~ (heading_level|default(3)) %}
 {% set diagnostics = diagnostics|default([]) %}
 {% set labels = labels|default([]) %}
 
 <section{{attributes.addClass('ps-diagnostics')}}>
 	{% if title %}
-		<{{heading_tag}} class="ps-diagnostics__title">
+		<{{heading_tag}} class="ps-diagnostics__title d-flex align-items-center gap-3 mb-0">
 			{% if icon %}
-				<span class="ps-diagnostics__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+				<span class="ps-diagnostics__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1.5rem'})|render }}</span>
 			{% endif %}
-			<span>{{ title }}</span>
+			<strong>{{ title }}</strong>
 		</{{heading_tag}}>
 	{% endif %}
 

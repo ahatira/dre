@@ -769,6 +769,7 @@ class OfferHooks {
       '#component' => 'ui_suite_bnppre:diagnostics',
       '#props' => [
         'title' => (string) $this->t('Diagnostics'),
+        'icon' => 'energy-cons',
         'diagnostics' => $items,
       ],
     ];
@@ -855,6 +856,7 @@ class OfferHooks {
       '#component' => 'ui_suite_bnppre:offer_surface',
       '#props' => [
         'title' => (string) $this->t('Surface table'),
+        'icon' => 'surface',
       ],
       '#slots' => [
         'table' => $table,

@@ -13,7 +13,7 @@ props:
     heading_level:
       title: Heading level
       type: integer
-      default: 2
+      default: 3
       enum:
         - 2
         - 3

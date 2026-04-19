@@ -1,5 +1,5 @@
 {% set attributes = create_attribute(attributes|default({})) %}
-{% set heading_tag = 'h' ~ (title_level|default(2)) %}
+{% set heading_tag = 'h' ~ (title_level|default(3)) %}
 {% set address_lines = address_lines|default([]) %}
 {% set transport_items = transport_items|default([]) %}
 
@@ -7,9 +7,9 @@
 	{% if title %}
 		<{{heading_tag}} class="ps-location__title d-flex align-items-center gap-3 mb-0">
 			{% if icon %}
-				<span class="ps-location__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1rem'})|render }}</span>
+				<span class="ps-location__title-icon" aria-hidden="true">{{ icon('bnppre', icon, {'size': '1.5rem'})|render }}</span>
 			{% endif %}
-			<span>{{ title }}</span>
+			<strong>{{ title }}</strong>
 		</{{heading_tag}}>
 	{% endif %}
 

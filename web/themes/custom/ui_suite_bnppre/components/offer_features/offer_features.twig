@@ -12,12 +12,12 @@
 
 		<section class="ps-features-grid__group">
 			{% if group.title %}
-				<h2 class="ps-features__title d-flex align-items-center gap-3 mb-0">
+				<h3 class="ps-features__title d-flex align-items-center gap-3 mb-0">
 					{% if group.icon %}
-						<span class="ps-features__title-icon" aria-hidden="true">{{ icon('bnppre', group.icon, {'size': '1rem'})|render }}</span>
+						<span class="ps-features__title-icon" aria-hidden="true">{{ icon('bnppre', group.icon, {'size': '1.5rem'})|render }}</span>
 					{% endif %}
-					<span>{{ group.title }}</span>
-				</h2>
+					<strong>{{ group.title }}</strong>
+				</h3>
 			{% endif %}
 
 			{% if items %}
