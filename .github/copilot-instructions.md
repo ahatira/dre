@@ -24,6 +24,13 @@
 - Keep Bootstrap and library overrides deliberate and documented, because this theme overrides multiple core/contrib libraries.
 - For icon work, follow the documented normalization and naming contract before committing SVG updates.
 
+## Minimal-Code Policy
+- Always implement the smallest viable change that satisfies the requirement.
+- Configuration first: check existing core/contrib settings (admin forms, formatter settings, YAML config) before writing custom PHP/JS.
+- Avoid custom runtime logic when an install/update-time config change can solve the need.
+- Add custom code only when configuration cannot meet the requirement, or when explicitly requested by the user.
+- When custom code is necessary, keep hooks/services/JS thin and remove dead code/options immediately after simplification.
+
 ## SDC Component Development
 - **Authoritative ruleset**: `UI-SDC.md` (repo root) — read this before creating or modifying any SDC component, Twig template, or preprocess hook.
 - Theme MUST remain entity-agnostic: only Drupal default entities (`node`, `user`, `media`, `taxonomy_term`, `comment`, `block`, `views`) are allowed references, in generic rendering context only.
@@ -33,6 +40,7 @@
 - Field → slot pipeline: normalize in PHP preprocess → build `#type: component` → inject `#props` for structure, `#slots` for content.
 
 ## Reference Docs
+- Minimal custom-code precheck prompt: `.github/prompts/minimal-code-precheck.prompt.md`
 - Developer docs index: `web/themes/custom/ui_suite_bnppre/docs/README.md`
 - Architecture (regions, dependencies, CSS variants, starterkit): `web/themes/custom/ui_suite_bnppre/docs/architecture.md`
 - Build workflow and SCSS layers: `web/themes/custom/ui_suite_bnppre/docs/development-workflow.md`

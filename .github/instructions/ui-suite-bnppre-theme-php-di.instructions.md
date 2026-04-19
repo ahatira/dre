@@ -13,6 +13,8 @@ applyTo:
 - If a static call is unavoidable, isolate it behind a dedicated protected helper method so usage remains centralized and reviewable.
 - In hook classes, keep methods focused on orchestration and delegate reusable logic to utilities/services.
 - When adding a dependency, keep naming explicit and align with existing class property conventions.
+- Before adding new PHP logic, verify whether existing configuration can satisfy the requirement; prefer configuration to custom code whenever possible.
+- If custom code is required, keep logic minimal and remove obsolete branches/options as part of the same change.
 
 ## Preferred Pattern
 

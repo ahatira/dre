@@ -24,6 +24,8 @@ applyTo: "web/themes/custom/ui_suite_bnppre/**"
 - Prefer dependency injection in PHP classes; avoid introducing new direct service-locator usage in business logic.
 - Keep library overrides deliberate and documented because this theme overrides multiple core/contrib libraries.
 - For icon changes, follow naming and normalization contract before committing SVG updates.
+- Apply a config-first approach: verify existing Drupal/core/contrib configuration options before adding custom code.
+- Keep custom code to the minimum required; if requirements are covered by settings, formatter options, or YAML configuration, do not add custom PHP/JS.
 
 ## SDC Genericity Doctrine
 
