@@ -166,7 +166,7 @@ enable_modules() {
 
   if [[ ${#selected[@]} -gt 0 ]]; then
     log "Enable $group modules: ${selected[*]}"
-    "$DRUSH" en -y "${selected[@]}"
+    docker compose exec php vendor/bin/drush en -y "${selected[@]}"
   fi
 }
 
@@ -194,7 +194,7 @@ enable_modules_non_blocking() {
 
   for module in "${selected[@]}"; do
     echo "[install] enabling module -> $module"
-    if ! "$DRUSH" en -y "$module"; then
+    if ! docker compose exec php vendor/bin/drush en -y "$module"; then
       echo "[install] error enabling module -> $module"
       failures+=("$module")
     fi
@@ -211,7 +211,7 @@ language_exists() {
 
   [[ -n "$langcode" ]] || return 1
 
-  "$DRUSH" php:eval "exit(\Drupal::languageManager()->getLanguage('$langcode') ? 0 : 1);" >/dev/null 2>&1
+  docker compose exec php vendor/bin/drush php:eval "exit(\Drupal::languageManager()->getLanguage('$langcode') ? 0 : 1);" >/dev/null 2>&1
 }
 
 add_languages() {
@@ -234,7 +234,7 @@ add_languages() {
     log "Add site languages: ${selected[*]}"
     local language
     for language in "${selected[@]}"; do
-      "$DRUSH" language:add "$language" -y
+      docker compose exec php vendor/bin/drush language:add "$language" -y
     done
   fi
 }
@@ -252,7 +252,7 @@ enable_themes() {
 
   if [[ ${#selected[@]} -gt 0 ]]; then
     log "Enable themes: ${selected[*]}"
-    "$DRUSH" theme:enable -y "${selected[@]}"
+    docker compose exec php vendor/bin/drush theme:enable -y "${selected[@]}"
   fi
 }
 
@@ -262,7 +262,8 @@ set_theme_config() {
 
   if theme_exists "$theme"; then
     log "Set theme config: $config_key -> $theme"
-    "$DRUSH" config:set system.theme "$config_key" "$theme" -y
+    docker compose exec php vendor/bin/drush cr -y
+    docker compose exec php vendor/bin/drush config:set system.theme "$config_key" "$theme" -y
   else
     echo "[install] skip theme config: theme not found -> $theme"
   fi
@@ -280,11 +281,11 @@ configure_phone_international() {
     echo "[install] phone library already available -> $library_path"
   else
     log "Download local Phone International library"
-    "$DRUSH" phone_international:plugin "$library_path"
+    docker compose exec php vendor/bin/drush phone_international:plugin "$library_path"
   fi
 
   log "Force Phone International local assets"
-  "$DRUSH" config:set phone_international.settings cdn 0 -y
+  docker compose exec php vendor/bin/drush config:set phone_international.settings cdn 0 -y
 }
 
 ensure_dropzone_library() {
@@ -323,7 +324,7 @@ ensure_favorites_header_block() {
 
   local theme="$DEFAULT_THEME"
   log "Ensure favorites header block placement"
-  "$DRUSH" php:eval '$storage = \Drupal::entityTypeManager()->getStorage("block");
+  docker compose exec php vendor/bin/drush php:eval '$storage = \Drupal::entityTypeManager()->getStorage("block");
   $id = "ui_suite_bnppre_ps_favorites_header";
   if (!$storage->load($id)) {
     \Drupal\block\Entity\Block::create([
@@ -392,12 +393,14 @@ if [[ ! -x "$DRUSH" ]]; then
   echo "[install] drush not found or not executable -> $DRUSH" >&2
   exit 1
 fi
-
 log "Drop database"
-"$DRUSH" sql:drop -y || true
+docker compose exec php vendor/bin/drush sql:drop -y || true
 
 log "Install fresh Drupal site (profile: minimal)"
-"$DRUSH" site:install minimal --site-name="$SITE_NAME" --account-name="$ADMIN_USER" --account-pass="$ADMIN_PASS" --account-mail="$ADMIN_MAIL" -y
+if ! docker compose exec php vendor/bin/drush site:install minimal --site-name="$SITE_NAME" --account-name="$ADMIN_USER" --account-pass="$ADMIN_PASS" --account-mail="$ADMIN_MAIL" -y; then
+  echo "[install] ERROR: Drupal site:install failed. Aborting installation." >&2
+  exit 2
+fi
 
 enable_modules "Drupal classic" "${DRUPAL_CLASSIC_MODULES[@]}"
 enable_modules "Toolbar classic" "${TOOLBAR_CLASSIC_MODULES[@]}"
@@ -406,17 +409,22 @@ enable_modules "Translations" "${TRANSLATION_MODULES[@]}"
 enable_modules "Configuration" "${CONFIGURATION_MODULES[@]}"
 enable_modules "Requested extras" "${REQUESTED_EXTRA_MODULES[@]}"
 enable_modules "Layout Builder" "${LAYOUT_BUILDER_MODULES[@]}"
+# ...existing code...
 enable_modules "Menu" "${MENU_MODULES[@]}"
+
+# Ajout d'un drush cr pour fiabiliser l'étape suivante
+log "Rebuild cache before Favorites modules"
+docker compose exec php vendor/bin/drush cr -y
+
 enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
 ensure_dropzone_library
-# Enable the default theme before PS custom modules because ps_offer config
-# declares a theme dependency on ui_suite_bnppre (layout plugin + view display).
 enable_themes "$DEFAULT_THEME"
 enable_modules "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
 ensure_required_media_types
 enable_modules "Property Search search" "${PS_SEARCH_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international
+docker compose exec php vendor/bin/drush cr -y
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
 # Gin-related modules require Gin to be enabled/configured first.
@@ -431,10 +439,10 @@ set_theme_config default "$DEFAULT_THEME"
 ensure_favorites_header_block
 
 log "Run database updates"
-"$DRUSH" updb -y || true
+docker compose exec php vendor/bin/drush updb -y || true
 
 log "Rebuild cache"
-"$DRUSH" cr -y
+docker compose exec php vendor/bin/drush cr -y
 
 log "Done"
-"$DRUSH" status
+docker compose exec php vendor/bin/drush status

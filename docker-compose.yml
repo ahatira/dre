@@ -1,0 +1,91 @@
+services:
+  # ============================================
+  # Service Apache (Serveur web)
+  # ============================================
+  web:
+    build:
+      context: ./docker/apache
+      dockerfile: Dockerfile
+    image: myapache:latest
+    container_name: web
+    ports:
+      - "8080:80"                    # Accès externe:interne
+    volumes:
+      - ./:/var/www/html          # Code Drupal
+      - drupal_files:/var/www/html/web/sites/default/files  # Fichiers Drupal (volume nommé)
+    depends_on:
+      - php                          # Démarre après PHP
+    networks:
+      - drupal_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # Service PHP-FPM (Traitement PHP)
+  # ============================================
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    image: myphp:8.3-dev
+    container_name: php
+    volumes:
+      - ./:/var/www/html          # Code Drupal (partagé avec Apache)
+      - drupal_vendor:/var/www/html/vendor                  # Dépendances Composer (volume nommé)
+      - drupal_files:/var/www/html/web/sites/default/files  # Fichiers Drupal (volume nommé)
+    networks:
+      - drupal_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm -t || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # Service PostgreSQL (Base de données)
+  # ============================================
+  db:
+    image: postgres:16               # Version minimale requise: PostgreSQL 16
+    container_name: db
+    ports:
+      - "5432:5432"                  # Exposition pour outils externes (VSCode, DBeaver, etc.)
+    environment:
+      POSTGRES_USER: drupal          # Utilisateur base de données
+      POSTGRES_PASSWORD: drupal      # Mot de passe (à changer en production!)
+      POSTGRES_DB: drupal            # Nom de la base
+    volumes:
+      - drupal_db_data:/var/lib/postgresql/data  # Données persistantes
+    networks:
+      - drupal_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U drupal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+# ============================================
+# Volumes (Données persistantes)
+# ============================================
+volumes:
+  drupal_db_data:                    # Volume pour PostgreSQL
+    driver: local
+  drupal_vendor:
+    driver: local
+  drupal_files:
+    driver: local
+
+# ============================================
+# Réseaux (Communication inter-conteneurs)
+# ============================================
+networks:
+  drupal_net:                        # Réseau privé pour les 3 services
+    driver: bridge

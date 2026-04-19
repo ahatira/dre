@@ -1,0 +1,25 @@
+FROM httpd:2.4
+
+# Enable proxy modules for forwarding to PHP-FPM
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apache2-utils && rm -rf /var/lib/apt/lists/* || true
+
+# Copy our vhost configuration (provided below) into the image
+COPY vhost.conf /usr/local/apache2/conf/sites-enabled/vhost.conf
+
+RUN sed -i '/^#IncludeOptional conf\/extra\/httpd-vhosts.conf/ s/^#//' /usr/local/apache2/conf/httpd.conf || true
+
+# Set a global ServerName to silence AH00558 warnings about FQDN detection
+RUN echo "ServerName localhost" >> /usr/local/apache2/conf/httpd.conf || true
+
+# Ensure proxy modules are loaded so Apache can forward PHP to php-fpm
+RUN printf '%s\n' \
+    'LoadModule proxy_module modules/mod_proxy.so'     'LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so'     'LoadModule rewrite_module modules/mod_rewrite.so'     'LoadModule headers_module modules/mod_headers.so'     'LoadModule expires_module modules/mod_expires.so'     'LoadModule deflate_module modules/mod_deflate.so' \ >> /usr/local/apache2/conf/httpd.conf || true
+
+# Ensure our sites-enabled vhost directory is included
+RUN mkdir -p /usr/local/apache2/conf/sites-enabled \
+    && echo 'IncludeOptional conf/sites-enabled/*.conf' >> /usr/local/apache2/conf/httpd.conf
+
+EXPOSE 80
+
+CMD ["httpd-foreground"]
