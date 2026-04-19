@@ -95,8 +95,33 @@ assets/scss/
 ├── styles.scss          → assets/css/styles.css         (Realestate variant)
 ├── styles-ps.scss       → assets/css/styles-ps.css      (Property Search variant)
 ├── ckeditor5.scss       → assets/css/ckeditor5.css
-└── form/
-    └── form-required.scss → assets/css/form/form-required.css
+├── component/
+│   ├── ajax.scss        → assets/css/component/ajax.css
+│   ├── dialog.scss      → assets/css/component/dialog.css
+│   ├── field.scss       → assets/css/component/field.css
+│   ├── indented.scss    → assets/css/component/indented.css
+│   ├── off-canvas.scss  → assets/css/component/off-canvas.css
+│   ├── placeholder.scss → assets/css/component/placeholder.css
+│   └── tabledrag.scss   → assets/css/component/tabledrag.css
+├── contextual/
+│   ├── contextual.dropdown.scss → assets/css/contextual/contextual.dropdown.css
+│   └── contextual.theme.scss    → assets/css/contextual/contextual.theme.css
+├── example/
+│   └── carousel.scss    → assets/css/example/carousel.css
+├── form/
+    ├── form-required.scss → assets/css/form/form-required.css
+    └── form-text.scss     → assets/css/form/form-text.css
+├── layout-builder/
+│   └── layout-builder.scss → assets/css/layout-builder/layout-builder.css
+├── media-library/
+│   ├── media-library-buttons.scss         → assets/css/media-library/media-library-buttons.css
+│   ├── media-library-container-query.scss → assets/css/media-library/media-library-container-query.css
+│   ├── media-library-icons.scss           → assets/css/media-library/media-library-icons.css
+│   └── media-library-states.scss          → assets/css/media-library/media-library-states.css
+├── ui-icons/
+│   └── autocomplete.scss → assets/css/ui-icons/autocomplete.css
+└── user/
+    └── password.scss     → assets/css/user/password.css
 
 components/{name}/styles/
 └── {name}.scss          → components/{name}/styles/{name}.css
