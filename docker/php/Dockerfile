@@ -22,6 +22,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Create www-data directory and ensure permissions
 RUN usermod -u 1000 www-data || true
+RUN mkdir -p /var/www/.npm && chown -R www-data:www-data /var/www/.npm
 COPY php.ini /usr/local/etc/php/conf.d/zz-custom.ini
 
 WORKDIR /var/www/html
