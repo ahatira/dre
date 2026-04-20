@@ -69,8 +69,14 @@ class OfferHooks {
 
       $favoriteControl = $this->currentUser->isAuthenticated()
         ? [
-          '#lazy_builder' => ['flag.link_builder:build', ['node', (string) $entity->id(), 'offer_favorite', $display->getMode()]],
-          '#create_placeholder' => TRUE,
+          '#type' => 'container',
+          '#attributes' => [
+            'class' => ['ps-favorites-toggle', 'ps-favorites-toggle--logged'],
+          ],
+          'link' => [
+            '#lazy_builder' => ['flag.link_builder:build', ['node', (string) $entity->id(), 'offer_favorite', $display->getMode()]],
+            '#create_placeholder' => TRUE,
+          ],
           '#attached' => [
             'library' => ['ps_favorites/favorites'],
           ],
