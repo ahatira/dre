@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\ps_offer\Service;
 
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_dictionary\Service\DictionaryManagerInterface;
 use Drupal\ps_features\Service\FeatureManagerInterface;
 
 /**
@@ -25,6 +25,16 @@ final class OfferExtraFiltersSearchValueResolver {
   ];
 
   /**
+   * Features whose values feed building condition filters.
+   *
+   * @var list<string>
+   */
+  private const BUILDING_CONDITION_FEATURE_IDS = [
+    'building_condition',
+    'premises_condition',
+  ];
+
+  /**
    * Feature IDs considered as ceiling-height related.
    *
    * @var list<string>
@@ -38,6 +48,7 @@ final class OfferExtraFiltersSearchValueResolver {
 
   public function __construct(
     private readonly FeatureManagerInterface $featureManager,
+    private readonly ?DictionaryManagerInterface $dictionaryManager = NULL,
   ) {}
 
   /**
@@ -53,7 +64,7 @@ final class OfferExtraFiltersSearchValueResolver {
    *   transport_text:string,
    *   ceiling_height_min:?float,
    *   ceiling_height_max:?float
-   * }
+   *   }
    *   Derived values for indexing.
    */
   public function resolve(NodeInterface $node): array {
@@ -79,12 +90,14 @@ final class OfferExtraFiltersSearchValueResolver {
         $feature = $this->featureManager->getFeature($featureId);
         $featureLabel = trim((string) ($feature?->label() ?? $featureId));
         $valueType = (string) ($feature?->getValueType() ?? $item->get('value_type')->getValue() ?? '');
+        $group = strtolower(trim((string) ($feature?->getGroup() ?? '')));
+        $dictionaryType = $feature?->getDictionaryType();
+        $metadata = is_array($feature?->getMetadata()) ? $feature->getMetadata() : [];
 
         if (!$this->hasIndexableValue($item, $valueType)) {
           continue;
         }
 
-        $group = (string) ($feature?->getGroup() ?? '');
         if ($group === 'equipments') {
           $equipments[] = $featureLabel;
         }
@@ -92,19 +105,19 @@ final class OfferExtraFiltersSearchValueResolver {
           $services[] = $featureLabel;
         }
 
-        if (in_array($featureId, self::ACCESSIBILITY_FEATURE_IDS, TRUE)) {
+        if ($this->isAccessibilityFeature($featureId, $featureLabel, $group, $metadata)) {
           $accessibility[] = $featureLabel;
         }
 
-        if (in_array($featureId, ['building_condition', 'premises_condition'], TRUE)) {
-          $condition = $this->extractSearchValueText($item, $valueType);
+        if ($group === 'building_condition' || in_array($featureId, self::BUILDING_CONDITION_FEATURE_IDS, TRUE)) {
+          $condition = $this->extractSearchValueText($item, $valueType, $dictionaryType);
           if ($condition !== '') {
             $buildingConditions[] = $condition;
           }
         }
 
-        if (str_starts_with($featureId, 'transport_')) {
-          $value = $this->extractSearchValueText($item, $valueType);
+        if ($group === 'transport' || str_starts_with($featureId, 'transport_')) {
+          $value = $this->extractSearchValueText($item, $valueType, $dictionaryType);
           if ($value !== '') {
             $transportTokens[] = $featureLabel . ' ' . $value;
           }
@@ -162,14 +175,70 @@ final class OfferExtraFiltersSearchValueResolver {
   /**
    * Extracts a textual value suitable for indexing/search.
    */
-  private function extractSearchValueText(FieldItemInterface $item, string $valueType): string {
+  private function extractSearchValueText(FieldItemInterface $item, string $valueType, ?string $dictionaryType = NULL): string {
     return match ($valueType) {
       'flag' => '',
       'yesno', 'boolean' => (bool) $item->get('value_boolean')->getValue() ? 'Yes' : '',
+      'dictionary' => $this->resolveDictionaryLabel($dictionaryType, trim((string) $item->get('value_string')->getValue())),
       'numeric' => (string) $item->get('value_numeric')->getValue(),
       'range' => trim((string) $item->get('value_range_min')->getValue() . ' ' . (string) $item->get('value_range_max')->getValue()),
       default => trim((string) $item->get('value_string')->getValue()),
     };
+  }
+
+  /**
+   * Resolves a dictionary code to its label when possible.
+   */
+  private function resolveDictionaryLabel(?string $dictionaryType, string $code): string {
+    if ($code === '' || $dictionaryType === NULL || $dictionaryType === '' || $this->dictionaryManager === NULL) {
+      return $code;
+    }
+
+    $label = $this->dictionaryManager->getLabel($dictionaryType, $code);
+    return $label !== NULL ? trim((string) $label) : $code;
+  }
+
+  /**
+   * Determines whether a feature contributes to accessibility filters.
+   *
+   * Accessibility can be declared by metadata,
+   * dedicated group, or fallback IDs.
+   */
+  private function isAccessibilityFeature(
+    string $featureId,
+    string $featureLabel,
+    string $group,
+    array $metadata,
+  ): bool {
+    if ($group === 'transport') {
+      return FALSE;
+    }
+
+    $category = strtolower(trim((string) (
+      $metadata['search_filter_category']
+      ?? $metadata['search_category']
+      ?? $metadata['category']
+      ?? ''
+    )));
+    if ($category === 'accessibility' || $group === 'accessibility') {
+      return TRUE;
+    }
+
+    if (!empty($metadata['accessibility'])) {
+      return TRUE;
+    }
+
+    if (in_array($featureId, self::ACCESSIBILITY_FEATURE_IDS, TRUE)) {
+      return TRUE;
+    }
+
+    $haystack = strtolower($featureId . ' ' . $featureLabel);
+    return str_contains($haystack, 'accessibil')
+      || str_contains($haystack, 'elevator')
+      || str_contains($haystack, 'ascenseur')
+      || str_contains($haystack, 'mobility')
+      || str_contains($haystack, 'pmr')
+      || str_contains($haystack, 'ramp');
   }
 
   /**
