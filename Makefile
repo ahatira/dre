@@ -152,3 +152,7 @@ default-content-export-footer-menus:
 
 reset-db:
 	@bash scripts/reset-db.sh
+
+# Docker
+build-restart:
+	docker compose build && docker compose up -d --force-recreate

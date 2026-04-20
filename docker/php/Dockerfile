@@ -27,13 +27,16 @@ COPY php.ini /usr/local/etc/php/conf.d/zz-custom.ini
 WORKDIR /var/www/html
 
 # Correction ownership récursif pour www-data
-RUN chown -R www-data:www-data /var/www/html
-
+RUN chown -R www-data:www-data /var/www/html \
+&& ls
+# Port pour PHP-FPM
 EXPOSE 9000
 
 # Copie le script d'entrypoint
 COPY entrypoint-perms.sh /usr/local/bin/entrypoint-perms.sh
 RUN chmod +x /usr/local/bin/entrypoint-perms.sh
+
+USER 1000
 
 ENTRYPOINT ["/usr/local/bin/entrypoint-perms.sh"]
 CMD ["php-fpm"]

@@ -6,5 +6,7 @@ chmod -R 775 /var/www/html/web/sites/default/
 
 chown -R www-data:www-data /var/www/html/vendor
 chmod -R 775 /var/www/html/vendor
+sudo chown -R www-data:www-data web/libraries
+sudo chmod -R 775 web/libraries
 
 exec "$@"
