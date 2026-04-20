@@ -24,6 +24,16 @@ final class SearchHooks {
   private const LOCATION_MULTI_DELIMITER = '||';
 
   /**
+   * Search API field for main surface value.
+   */
+  private const SURFACE_FIELD = 'ps_offer_surface_main_value';
+
+  /**
+   * Search API field for normalized main price value.
+   */
+  private const PRICE_FIELD = 'ps_offer_price_normalized_main';
+
+  /**
    * Implements hook_entity_view().
    */
   #[Hook('entity_view')]
@@ -70,27 +80,51 @@ final class SearchHooks {
       return;
     }
 
-    $raw = trim((string) \Drupal::request()->query->get('location_multi', ''));
-    if ($raw === '') {
+    $request = \Drupal::requestStack()->getCurrentRequest();
+    if ($request === NULL) {
       return;
     }
 
-    $terms = array_values(array_filter(array_unique(array_map(
-      static fn(string $value): string => trim($value),
-      explode(self::LOCATION_MULTI_DELIMITER, $raw)
-    ))));
+    $raw = trim((string) $request->query->get('location_multi', ''));
+    if ($raw !== '') {
+      $terms = array_values(array_filter(array_unique(array_map(
+        static fn(string $value): string => trim($value),
+        explode(self::LOCATION_MULTI_DELIMITER, $raw)
+      ))));
 
-    if ($terms === []) {
-      return;
+      if ($terms !== []) {
+        $search_api_query = $query->getSearchApiQuery();
+        $group = $search_api_query->createConditionGroup('OR');
+        foreach ($terms as $term) {
+          $group->addCondition('field_address', $term, '=');
+        }
+
+        $search_api_query->addConditionGroup($group);
+      }
     }
 
     $search_api_query = $query->getSearchApiQuery();
-    $group = $search_api_query->createConditionGroup('OR');
-    foreach ($terms as $term) {
-      $group->addCondition('field_address', $term, '=');
+    $surface = (array) $request->query->all('surface');
+    $surface_min = isset($surface['min']) && is_scalar($surface['min']) ? (float) $surface['min'] : NULL;
+    $surface_max = isset($surface['max']) && is_scalar($surface['max']) ? (float) $surface['max'] : NULL;
+
+    if ($surface_min !== NULL && $surface_min > 0) {
+      $search_api_query->addCondition(self::SURFACE_FIELD, $surface_min, '>=');
+    }
+    if ($surface_max !== NULL && $surface_max > 0) {
+      $search_api_query->addCondition(self::SURFACE_FIELD, $surface_max, '<=');
     }
 
-    $search_api_query->addConditionGroup($group);
+    $price = (array) $request->query->all('price');
+    $price_min = isset($price['min']) && is_scalar($price['min']) ? (float) $price['min'] : NULL;
+    $price_max = isset($price['max']) && is_scalar($price['max']) ? (float) $price['max'] : NULL;
+
+    if ($price_min !== NULL && $price_min > 0) {
+      $search_api_query->addCondition(self::PRICE_FIELD, $price_min, '>=');
+    }
+    if ($price_max !== NULL && $price_max > 0) {
+      $search_api_query->addCondition(self::PRICE_FIELD, $price_max, '<=');
+    }
   }
 
 }

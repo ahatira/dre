@@ -256,6 +256,31 @@
     }
   }
 
+  .ps-filter-panel__footer--range {
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    .ps-filter-panel__reset {
+      border: 0;
+      padding: 0;
+      color: #7b8388;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+
+      &:hover,
+      &:focus-visible {
+        color: #4f585f;
+        text-decoration: underline;
+      }
+    }
+
+    .ps-filter-panel__apply {
+      min-width: 13.75rem;
+    }
+  }
+
   .ps-filter-panel__apply.is-loading,
   .ps-offer-search-bar__submit.is-loading {
     display: inline-flex !important;

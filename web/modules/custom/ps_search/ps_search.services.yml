@@ -1,0 +1,6 @@
+services:
+  ps_search.hooks:
+    class: Drupal\ps_search\Hook\SearchHooks
+
+  Drupal\ps_search\Hook\SearchHooks:
+    alias: ps_search.hooks

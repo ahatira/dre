@@ -45,11 +45,15 @@ final class OfferExtraFiltersProcessor extends ProcessorPluginBase implements Co
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $resolver = $container->has('ps_offer.extra_filters_search_value_resolver')
+      ? $container->get('ps_offer.extra_filters_search_value_resolver')
+      : new OfferExtraFiltersSearchValueResolver($container->get('ps_features.manager'));
+
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
-      new OfferExtraFiltersSearchValueResolver($container->get('ps_features.manager')),
+      $resolver,
     );
   }
 

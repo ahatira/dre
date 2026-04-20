@@ -368,7 +368,7 @@ ensure_dropzone_library
 # Enable the default theme before PS custom modules because ps_offer config
 # declares a theme dependency on ui_suite_bnppre (layout plugin + view display).
 enable_themes "$DEFAULT_THEME"
-enable_modules_non_blocking "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
+enable_modules "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"

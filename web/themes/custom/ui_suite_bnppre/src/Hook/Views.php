@@ -164,6 +164,20 @@ class Views {
   }
 
   /**
+   * Build the closing suffix for range dropdown panels (surface/price).
+   */
+  protected function buildRangePanelSuffix(): string {
+    $apply = Html::escape((string) new TranslatableMarkup('Show results'));
+    $reset = Html::escape((string) new TranslatableMarkup('Delete all'));
+    return '<div class="ps-filter-panel__footer ps-filter-panel__footer--range">'
+      . '<span class="btn btn-link ps-filter-panel__reset">' . $reset . '</span>'
+      . '<span class="btn btn-primary ps-filter-panel__apply">' . $apply . '</span>'
+      . '</div>'
+      . '</div>'
+      . '</div>';
+  }
+
+  /**
    * Build a static panel (visual placeholder, no dropdown content).
    */
   protected function buildStaticPanel(string $panelId, string $label, string $summary): string {
@@ -208,6 +222,9 @@ class Views {
       $nearby_transport_key = $this->resolveElementKey($form, ['nearby_transport']);
       $immersive_tour_key = $this->resolveElementKey($form, ['immersive_tour', 'ps_offer_has_virtual_tour']);
       $video_key = $this->resolveElementKey($form, ['video', 'ps_offer_has_video']);
+
+      $surface_values = (array) \Drupal::request()->query->all('surface');
+      $price_values = (array) \Drupal::request()->query->all('price');
 
       // -- Hide the keys (fulltext) filter — not in primary bar. ---------------
       if ($keys_key !== NULL) {
@@ -275,17 +292,49 @@ class Views {
           (string) new TranslatableMarkup('Surface (m²)'),
           (string) new TranslatableMarkup('Surface')
         );
-        $form[$surface_key]['#suffix'] = $this->buildPanelSuffix();
+        $form[$surface_key]['#suffix'] = $this->buildRangePanelSuffix();
         $form[$surface_key]['#weight'] = 3;
       }
       else {
-        $form['ps_surface_placeholder'] = [
-          '#markup' => $this->buildStaticPanel(
+        $form['ps_surface_fallback'] = [
+          '#type' => 'fieldset',
+          '#title' => new TranslatableMarkup('Surface (m²)'),
+          '#attributes' => [
+            'data-ps-filter' => 'surface',
+          ],
+          '#prefix' => $this->buildPanelPrefix(
             'surface',
             (string) new TranslatableMarkup('Surface (m²)'),
             (string) new TranslatableMarkup('Surface')
           ),
+          '#suffix' => $this->buildRangePanelSuffix(),
           '#weight' => 3,
+        ];
+
+        $form['ps_surface_fallback']['min'] = [
+          '#type' => 'number',
+          '#title' => new TranslatableMarkup('Surface min (m²)'),
+          '#name' => 'surface[min]',
+          '#default_value' => isset($surface_values['min']) && is_scalar($surface_values['min']) ? (string) $surface_values['min'] : '',
+          '#min' => 0,
+          '#step' => 1,
+          '#size' => 8,
+          '#attributes' => [
+            'inputmode' => 'numeric',
+          ],
+        ];
+
+        $form['ps_surface_fallback']['max'] = [
+          '#type' => 'number',
+          '#title' => new TranslatableMarkup('Surface max (m²)'),
+          '#name' => 'surface[max]',
+          '#default_value' => isset($surface_values['max']) && is_scalar($surface_values['max']) ? (string) $surface_values['max'] : '',
+          '#min' => 0,
+          '#step' => 1,
+          '#size' => 8,
+          '#attributes' => [
+            'inputmode' => 'numeric',
+          ],
         ];
       }
 
@@ -297,17 +346,49 @@ class Views {
           (string) new TranslatableMarkup('Price'),
           (string) new TranslatableMarkup('Price')
         );
-        $form[$price_key]['#suffix'] = $this->buildPanelSuffix();
+        $form[$price_key]['#suffix'] = $this->buildRangePanelSuffix();
         $form[$price_key]['#weight'] = 4;
       }
       else {
-        $form['ps_price_placeholder'] = [
-          '#markup' => $this->buildStaticPanel(
+        $form['ps_price_fallback'] = [
+          '#type' => 'fieldset',
+          '#title' => new TranslatableMarkup('Price'),
+          '#attributes' => [
+            'data-ps-filter' => 'price',
+          ],
+          '#prefix' => $this->buildPanelPrefix(
             'price',
             (string) new TranslatableMarkup('Price'),
             (string) new TranslatableMarkup('Price')
           ),
+          '#suffix' => $this->buildRangePanelSuffix(),
           '#weight' => 4,
+        ];
+
+        $form['ps_price_fallback']['min'] = [
+          '#type' => 'number',
+          '#title' => new TranslatableMarkup('Price min (€)'),
+          '#name' => 'price[min]',
+          '#default_value' => isset($price_values['min']) && is_scalar($price_values['min']) ? (string) $price_values['min'] : '',
+          '#min' => 0,
+          '#step' => 1,
+          '#size' => 8,
+          '#attributes' => [
+            'inputmode' => 'numeric',
+          ],
+        ];
+
+        $form['ps_price_fallback']['max'] = [
+          '#type' => 'number',
+          '#title' => new TranslatableMarkup('Price max (€)'),
+          '#name' => 'price[max]',
+          '#default_value' => isset($price_values['max']) && is_scalar($price_values['max']) ? (string) $price_values['max'] : '',
+          '#min' => 0,
+          '#step' => 1,
+          '#size' => 8,
+          '#attributes' => [
+            'inputmode' => 'numeric',
+          ],
         ];
       }
 

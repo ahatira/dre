@@ -52,6 +52,11 @@ services:
   ps_offer.surface_division_search_value_resolver:
     class: Drupal\ps_offer\Service\OfferSurfaceDivisionSearchValueResolver
 
+  ps_offer.extra_filters_search_value_resolver:
+    class: Drupal\ps_offer\Service\OfferExtraFiltersSearchValueResolver
+    arguments:
+      - '@ps_features.manager'
+
   ps_offer.event_subscriber:
     class: Drupal\ps_offer\EventSubscriber\OfferEventSubscriber
     arguments:

@@ -747,45 +747,6 @@
     return url.toString();
   }
 
-  function normalizeRangeValue(rawValue) {
-    const normalized = String(rawValue || '').replace(/[^\d]/g, '');
-    if (!normalized) {
-      return null;
-    }
-
-    const parsed = Number.parseInt(normalized, 10);
-    return Number.isNaN(parsed) || parsed <= 0 ? null : parsed;
-  }
-
-  function formatRangeNumber(value) {
-    return Number(value).toLocaleString('fr-FR');
-  }
-
-  function readRangeValues(panel, token) {
-    const minInput = panel.querySelector('input[name*="' + token + '"][name*="[min]"]')
-      || panel.querySelector('input[name*="[min]"]');
-    const maxInput = panel.querySelector('input[name*="' + token + '"][name*="[max]"]')
-      || panel.querySelector('input[name*="[max]"]');
-
-    return {
-      min: normalizeRangeValue(minInput ? minInput.value : ''),
-      max: normalizeRangeValue(maxInput ? maxInput.value : ''),
-    };
-  }
-
-  function buildRangeSummary(min, max, unit) {
-    if (min !== null && max !== null) {
-      return formatRangeNumber(min) + ' ' + unit + ' - ' + formatRangeNumber(max) + ' ' + unit;
-    }
-    if (min !== null) {
-      return '≥ ' + formatRangeNumber(min) + ' ' + unit;
-    }
-    if (max !== null) {
-      return '≤ ' + formatRangeNumber(max) + ' ' + unit;
-    }
-    return '';
-  }
-
   function requestResultsCountPreview(form, delay = 250) {
     if (!form) {
       return;
@@ -1096,7 +1057,6 @@
     syncButtons();
   }
 
-
   /**
    * Update a panel trigger to show an active-filter summary.
    *
@@ -1151,28 +1111,6 @@
         }
       }
     }
-    else if (panelId === 'location') {
-      const locationTerms = Array.isArray(panel.__psLocationTerms) ? panel.__psLocationTerms : [];
-      hasValue = locationTerms.length > 0;
-    }
-    else if (panelId === 'surface') {
-      const range = readRangeValues(panel, 'surface');
-      const summary = buildRangeSummary(range.min, range.max, 'm²');
-      hasValue = summary !== '';
-
-      if (valueNode) {
-        valueNode.textContent = hasValue ? summary : (valueNode.dataset.defaultValue || '');
-      }
-    }
-    else if (panelId === 'price') {
-      const range = readRangeValues(panel, 'price');
-      const summary = buildRangeSummary(range.min, range.max, '€');
-      hasValue = summary !== '';
-
-      if (valueNode) {
-        valueNode.textContent = hasValue ? summary : (valueNode.dataset.defaultValue || '');
-      }
-    }
     else {
       // Generic: check if any input/select in the panel has a non-empty value.
       panel.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]), select').forEach((el) => {
@@ -1202,16 +1140,6 @@
       if (propertyPanel) {
         buildPropertyTypeGrid(propertyPanel, form);
         buildTransactionTypeButtons(form, propertyPanel);
-      }
-
-      const locationPanel = panels.find((p) => p.getAttribute('data-ps-panel') === 'location');
-      if (locationPanel && window.psSearchUi?.location?.init) {
-        window.psSearchUi.location.init({
-          panel: locationPanel,
-          form,
-          requestResultsCountPreview,
-          updatePanelTriggerLabel,
-        });
       }
 
       // Initialize active state from URL params.
@@ -1271,37 +1199,6 @@
         });
       });
 
-      // Bind panel-level reset buttons (surface/price maquette behavior).
-      form.querySelectorAll('.ps-filter-panel__reset').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const panel = btn.closest('[data-ps-panel]');
-          if (!panel) {
-            return;
-          }
-
-          panel.querySelectorAll('.ps-filter-panel__content input, .ps-filter-panel__content select, .ps-filter-panel__content textarea').forEach((field) => {
-            if (!(field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement)) {
-              return;
-            }
-
-            if (field instanceof HTMLInputElement && (field.type === 'hidden' || field.type === 'submit' || field.type === 'button')) {
-              return;
-            }
-
-            if (field instanceof HTMLInputElement && (field.type === 'checkbox' || field.type === 'radio')) {
-              field.checked = false;
-            }
-            else {
-              field.value = '';
-            }
-          });
-
-          updatePanelTriggerLabel(panel);
-          requestResultsCountPreview(form, 120);
-        });
-      });
-
       // Bind value changes inside panels to update active state.
       form.addEventListener('change', (e) => {
         const panelEl = e.target.closest('[data-ps-panel]');
@@ -1316,25 +1213,14 @@
         if (!(target instanceof HTMLInputElement)) {
           return;
         }
-        if (target.matches('[data-ps-location-search]')) {
-          return;
-        }
         if (target.type === 'text' || target.type === 'search' || target.type === 'number') {
-          const panelEl = target.closest('[data-ps-panel]');
-          if (panelEl) {
-            updatePanelTriggerLabel(panelEl);
-          }
           requestResultsCountPreview(form, 420);
         }
       });
 
       // Close open panels when clicking outside the search bar.
       document.addEventListener('click', (e) => {
-        // Use composedPath so clicks on suggestions that were removed from the
-        // DOM by closeSuggestions() are still recognised as "inside the form".
-        const path = (typeof e.composedPath === 'function') ? e.composedPath() : [];
-        const clickedInsideForm = form.contains(e.target) || path.indexOf(form) !== -1;
-        if (!clickedInsideForm) {
+        if (!form.contains(e.target)) {
           closePanels(form, null);
         }
       }, { capture: false });
