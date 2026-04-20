@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Module principal pour PS Geo Directions.
+ */
+
+use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ps_geo_directions_theme($existing, $type, $theme, $path) {
+  return [
+    'ps_geo_directions_form' => [
+      'render element' => 'form',
+      'template' => 'ps-geo-directions-form',
+    ],
+  ];
+}

@@ -1,0 +1,8 @@
+name: 'PS Geo Directions'
+type: module
+description: 'Fournit un widget de directions géographiques avec résumé compact.'
+core_version_requirement: ^11
+package: 'PropertySearch'
+dependencies:
+  - geofield
+  - geofield_map

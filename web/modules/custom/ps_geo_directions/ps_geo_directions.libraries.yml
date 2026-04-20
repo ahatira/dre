@@ -1,0 +1,9 @@
+directions:
+  version: 1.x
+  js:
+    js/ps_geo_directions.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/jquery
+    - core/jquery.ui.autocomplete
