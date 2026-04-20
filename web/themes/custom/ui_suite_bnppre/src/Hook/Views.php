@@ -27,6 +27,17 @@ class Views {
   }
 
   /**
+   * Gets feature manager service when available.
+   */
+  protected function getFeatureManager(): ?object {
+    if (!\Drupal::hasService('ps_features.manager')) {
+      return NULL;
+    }
+
+    return \Drupal::service('ps_features.manager');
+  }
+
+  /**
    * Builds UI options payload from dictionary entries metadata.
    *
    * Output shape:
@@ -449,6 +460,7 @@ class Views {
         unset($form[$reference_key]);
       }
 
+      // -- Feature filters: move to More Filters offcanvas. ----------------------
       if ($accessibility_key !== NULL) {
         $form['ps_more_filters']['body']['accessibility'] = $form[$accessibility_key];
         $form['ps_more_filters']['body']['accessibility']['#weight'] = 3;

@@ -34,6 +34,41 @@ final class SearchHooks {
   private const PRICE_FIELD = 'ps_offer_price_normalized_main';
 
   /**
+   * Search API field for ceiling height minimum.
+   */
+  private const CEILING_HEIGHT_MIN_FIELD = 'ps_offer_ceiling_height_min';
+
+  /**
+   * Search API field for ceiling height maximum.
+   */
+  private const CEILING_HEIGHT_MAX_FIELD = 'ps_offer_ceiling_height_max';
+
+  /**
+   * Search API string field for accessibility feature labels.
+   */
+  private const ACCESSIBILITY_FIELD = 'ps_offer_feature_accessibility';
+
+  /**
+   * Search API string field for equipment feature labels.
+   */
+  private const EQUIPMENTS_FIELD = 'ps_offer_feature_equipments';
+
+  /**
+   * Search API string field for service feature labels.
+   */
+  private const SERVICES_FIELD = 'ps_offer_feature_services';
+
+  /**
+   * Search API string field for building condition values.
+   */
+  private const BUILDING_CONDITION_FIELD = 'ps_offer_building_condition';
+
+  /**
+   * Search API fulltext field for transport text.
+   */
+  private const TRANSPORT_TEXT_FIELD = 'ps_offer_transport_text';
+
+  /**
    * Implements hook_entity_view().
    */
   #[Hook('entity_view')]
@@ -124,6 +159,60 @@ final class SearchHooks {
     }
     if ($price_max !== NULL && $price_max > 0) {
       $search_api_query->addCondition(self::PRICE_FIELD, $price_max, '<=');
+    }
+
+    // -- Ceiling height range. -------------------------------------------------
+    $ceiling = (array) $request->query->all('ceiling_height');
+    $ceiling_min = isset($ceiling['min']) && is_scalar($ceiling['min']) && (float) $ceiling['min'] > 0 ? (float) $ceiling['min'] : NULL;
+    $ceiling_max = isset($ceiling['max']) && is_scalar($ceiling['max']) && (float) $ceiling['max'] > 0 ? (float) $ceiling['max'] : NULL;
+
+    if ($ceiling_min !== NULL) {
+      $search_api_query->addCondition(self::CEILING_HEIGHT_MIN_FIELD, $ceiling_min, '>=');
+    }
+    if ($ceiling_max !== NULL) {
+      $search_api_query->addCondition(self::CEILING_HEIGHT_MAX_FIELD, $ceiling_max, '<=');
+    }
+
+    // -- Feature checkbox filters (accessibility / equipments / services). -----
+    $featureFields = [
+      'accessibility' => self::ACCESSIBILITY_FIELD,
+      'equipments' => self::EQUIPMENTS_FIELD,
+      'services' => self::SERVICES_FIELD,
+    ];
+    foreach ($featureFields as $param => $field) {
+      $values = array_values(array_filter(array_map(
+        static fn(mixed $v): string => trim((string) $v),
+        (array) $request->query->all($param)
+      )));
+      if ($values === []) {
+        continue;
+      }
+      $group = $search_api_query->createConditionGroup('OR');
+      foreach ($values as $value) {
+        $group->addCondition($field, $value, '=');
+      }
+      $search_api_query->addConditionGroup($group);
+    }
+
+    // -- Building condition text filter. ---------------------------------------
+    $building_condition = trim((string) $request->query->get('building_condition', ''));
+    if ($building_condition !== '') {
+      $search_api_query->addCondition(self::BUILDING_CONDITION_FIELD, $building_condition, '=');
+    }
+
+    // -- Nearby transport fulltext filter. -------------------------------------
+    $nearby_transport = trim((string) $request->query->get('nearby_transport', ''));
+    if ($nearby_transport !== '') {
+      $search_api_query->setFulltextFields([self::TRANSPORT_TEXT_FIELD]);
+      $keys = $search_api_query->getKeys();
+      if ($keys !== NULL && $keys !== [] && $keys !== '') {
+        // Merge with existing fulltext.
+        $combined = (is_array($keys) ? implode(' ', array_filter((array) $keys)) : (string) $keys) . ' ' . $nearby_transport;
+        $search_api_query->keys(trim($combined));
+      }
+      else {
+        $search_api_query->keys($nearby_transport);
+      }
     }
   }
 
