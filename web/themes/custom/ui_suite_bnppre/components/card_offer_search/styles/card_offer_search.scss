@@ -1,6 +1,6 @@
 .ps-card-offer-search {
   --ps-card-offer-search-border: #d4d6d8;
-  --ps-card-offer-search-content-bg: #f5f5f5;
+  --ps-card-offer-search-content-bg: #ffffff;
   --ps-card-offer-search-text: #2f3136;
   --ps-card-offer-search-muted: #787f86;
   --ps-card-offer-search-cta: #00915a;
@@ -11,6 +11,15 @@
   border-radius: 0;
   overflow: hidden;
   min-height: 13.25rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ps-card-offer-search:hover,
+.ps-card-offer-search:focus-within,
+.ps-card-offer-search.is-map-linked-hover {
+  border-color: #d6dbde;
+  box-shadow: 0 10px 28px rgba(47, 49, 54, 0.16);
+  transform: translateY(-2px);
 }
 
 .ps-card-offer-search__media {
@@ -139,7 +148,44 @@
 
 .ps-card-offer-search__action-control--favorite,
 .ps-card-offer-search__action-control--favorite > * {
-  color: var(--ps-card-offer-search-favorite);
+  color: #777e83;
+}
+
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__button,
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__flag-link {
+  --bs-btn-bg: transparent;
+  --bs-btn-color: #777e83;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-color: #777e83;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-color: var(--ps-card-offer-search-favorite);
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-focus-shadow-rgb: 0, 145, 90;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #777e83 !important;
+  font-size: 1.5rem;
+}
+
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__icon,
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__button > span,
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__flag-link > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.ps-card-offer-search__action-control--favorite .ps-favorites-toggle__button.is-active,
+.ps-card-offer-search__action-control--favorite .flag.action-unflag .ps-favorites-toggle__flag-link {
+  color: var(--ps-card-offer-search-favorite) !important;
 }
 
 .ps-card-offer-search__icon-button.is-active,

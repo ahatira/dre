@@ -404,7 +404,7 @@ display:
             custom_style_options: ''
             custom_style_default: false
           map_markercluster:
-            markercluster_control: false
+            markercluster_control: true
             markercluster_additional_options: '{"maxZoom":12, "gridSize":50}'
           map_geocoder:
             control: 0
