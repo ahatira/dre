@@ -1,0 +1,70 @@
+
+[install] Drop database
+
+ // Do you really want to drop all tables in the database ps_theme?: yes.      
+
+
+[install] Install fresh Drupal site (profile: minimal)
+ You are about to:
+ * DROP all tables in your 'ps_theme' database.
+
+ // Do you want to continue?: yes.                                             
+
+ [notice] Starting Drupal installation. This takes a while.
+ [notice] Performed install task: install_select_language
+ [notice] Performed install task: install_select_profile
+ [notice] Performed install task: install_load_profile
+ [notice] Performed install task: install_verify_requirements
+ [notice] Performed install task: install_verify_database_ready
+ [notice] Performed install task: install_base_system
+ [notice] Performed install task: install_bootstrap_full
+ [notice] Performed install task: install_profile_modules
+ [notice] Performed install task: install_profile_themes
+ [notice] Performed install task: install_install_profile
+ [notice] Performed install task: install_configure_form
+ [notice] Performed install task: install_finished
+ [success] Installation complete. (Admin)
+
+[install] Enable Drupal classic modules: token pathauto metatag redirect simple_sitemap social_media_links
+
+                                                        
+  There are no commands defined in the "pm" namespace.  
+                                                        
+
+TypeError: array_keys(): Argument #1 ($array) must be of type array, null given in array_keys() (line 70 of C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\Extension\ThemeHandler.php).
+
+Fatal error: Uncaught RuntimeException: Recursive router rebuild detected. in C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\Routing\RouteBuilder.php:121
+Stack trace:
+#0 C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\Routing\RouteBuilder.php(222): Drupal\Core\Routing\RouteBuilder->rebuild()
+#1 C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\Routing\RouteBuilder.php(234): Drupal\Core\Routing\RouteBuilder->rebuildIfNeeded()
+#2 C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\DrupalKernel.php(727): Drupal\Core\Routing\RouteBuilder->destruct()
+#3 C:\wamp64\www\ps_theme\vendor\drush\drush\src\Boot\DrupalBoot8.php(317): Drupal\Core\DrupalKernel->terminate(Object(Symfony\Component\HttpFoundation\Request), Object(Drupal\Core\Render\HtmlResponse))
+#4 [internal function]: Drush\Boot\DrupalBoot8->terminate()
+#5 {main}
+  thrown in C:\wamp64\www\ps_theme\web\core\lib\Drupal\Core\Routing\RouteBuilder.php on line 121
+[install] error enabling module -> ps_media
+[install] enabling module -> ps_offer
+
+                                                        
+  There are no commands defined in the "pm" namespace.  
+                                                        
+
+[install] error enabling module -> ps_offer
+[install] enabling module -> ps_search
+
+                                                                               
+  Command pm:install was not found. Drush was unable to query the database. A  
+  s a result, many commands are unavailable. Re-run your command with --debug  
+   to see relevant log messages.                                               
+                                                                               
+
+[install] error enabling module -> ps_search
+[install] modules with errors in group 'Property Search custom': ps_media ps_offer ps_search
+[install] continue install. Fix these modules in a dedicated pass.
+
+[install] Enable Default Content modules: default_content ps_default_content
+
+                                                        
+  There are no commands defined in the "pm" namespace.  
+                                                        
+

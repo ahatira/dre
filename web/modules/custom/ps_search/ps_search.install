@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_search.
+ */
+
+/**
+ * Installs optional search configuration shipped by ps_search.
+ */
+function ps_search_update_11001(): string {
+	/** @var \Drupal\Core\Config\ConfigInstallerInterface $config_installer */
+	$config_installer = \Drupal::service('config.installer');
+	$config_installer->installOptionalConfig(NULL, ['module' => 'ps_search']);
+
+	return 'Installed optional Search API, Views, and Facets config for ps_search when dependencies are available.';
+}

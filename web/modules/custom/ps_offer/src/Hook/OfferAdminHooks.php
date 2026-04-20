@@ -160,20 +160,6 @@ final class OfferAdminHooks {
       $form['field_availability']['#weight'] = 50;
     }
 
-    // In Gin content forms, place Exclusivity in the sticky actions parent
-    // container so it appears in the top header next to Published.
-    if (isset($form['field_exclusivity'])) {
-      if (isset($form['field_exclusivity']['widget']['value'])) {
-        $form['field_exclusivity']['widget']['value']['#attributes']['form'] = $form['#id'];
-      }
-      elseif (isset($form['field_exclusivity']['widget'][0]['value'])) {
-        $form['field_exclusivity']['widget'][0]['value']['#attributes']['form'] = $form['#id'];
-      }
-
-      $form['field_exclusivity']['#group'] = 'gin_sticky_actions';
-      $form['field_exclusivity']['#weight'] = -10;
-    }
-
   }
 
 }

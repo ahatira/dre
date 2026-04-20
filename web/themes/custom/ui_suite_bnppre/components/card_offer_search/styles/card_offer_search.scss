@@ -10,6 +10,7 @@
   border: 1.5px solid #ebedef;
   border-radius: 0;
   overflow: hidden;
+  min-height: 13.25rem;
 }
 
 .ps-card-offer-search__media {
@@ -39,6 +40,7 @@
   background-color: rgba(255, 255, 255, 0.9);
   color: #2f3136;
   transform: translateY(-50%);
+  box-shadow: 0 0 0 1px #ebedef;
 }
 
 .ps-card-offer-search__carousel-control svg {
@@ -85,6 +87,10 @@
   letter-spacing: 0;
 }
 
+.ps-card-offer-search__badge.is-hidden {
+  display: none;
+}
+
 .ps-card-offer-search__badge svg {
   display: block;
   fill: currentColor;
@@ -104,12 +110,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   padding: 0;
   border: 0;
   background: transparent;
-  color: #7e848a;
+  color: #777e83;
+  text-decoration: none;
 }
 
 .ps-card-offer-search__icon-button svg {
@@ -139,6 +146,7 @@
 .ps-card-offer-search__icon-button:focus-visible,
 .ps-card-offer-search__icon-button:hover {
   color: #5d656c;
+  text-decoration: none;
 }
 
 .ps-card-offer-search__icon-button--favorite.is-active,
@@ -156,7 +164,7 @@
 }
 
 .ps-card-offer-search__surface {
-  margin: 0;
+  margin: 0 0 0.15rem;
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 700;
@@ -196,8 +204,16 @@
 .ps-card-offer-search__price {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.55rem;
-  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.ps-card-offer-search__price-prefix {
+  color: var(--ps-card-offer-search-muted);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 400;
 }
 
 .ps-card-offer-search__price-value {
@@ -207,9 +223,10 @@
 }
 
 .ps-card-offer-search__price-unit {
-  font-size: 1.25rem;
+  color: var(--ps-card-offer-search-muted);
+  font-size: 0.875rem;
   line-height: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .ps-card-offer-search__cta {
@@ -245,10 +262,6 @@
 }
 
 @media (min-width: 992px) {
-  .ps-card-offer-search {
-    min-height: 13.25rem;
-  }
-
   .ps-card-offer-search__media {
     min-height: 13.25rem;
   }
@@ -280,8 +293,9 @@
     font-size: 1.25rem;
   }
 
+  .ps-card-offer-search__price-prefix,
   .ps-card-offer-search__price-unit {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   .ps-card-offer-search__cta {

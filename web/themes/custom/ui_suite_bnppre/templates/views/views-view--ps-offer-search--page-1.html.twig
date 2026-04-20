@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * View override for the offer search page with list/map split layout.
+ */
+#}
+{%
+  set classes = [
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+    'ps-offer-search-view',
+  ]
+%}
+{% set map_attachment = attachment_after ?: attachment_before %}
+
+<div{{attributes.addClass(classes)}}>
+	{{ title_prefix }}
+	{{ title }}
+	{{ title_suffix }}
+
+	{% if exposed %}
+		<div class="ps-offer-search-view__filters mb-3">
+			{{ exposed }}
+		</div>
+	{% endif %}
+
+	{% if map_attachment %}
+		<div class="row g-3 align-items-start ps-offer-search-view__content">
+			<div class="col-12 col-xl-6 order-2 order-xl-1 ps-offer-search-view__list">
+				{% if header %}
+					<header class="mb-2 ps-offer-search-view__header">
+						{{ header }}
+					</header>
+				{% endif %}
+
+				{% if rows %}
+					{{ rows }}
+				{% elseif empty %}
+					{{ empty }}
+				{% endif %}
+
+				{{ pager }}
+				{{ more }}
+			</div>
+
+			<aside class="col-12 col-xl-6 order-1 order-xl-2 ps-offer-search-view__map" aria-label="{{ 'Map results'|t }}">
+				{{ map_attachment }}
+			</aside>
+		</div>
+	{% else %}
+		{% if header %}
+			<header>
+				{{ header }}
+			</header>
+		{% endif %}
+
+		{% if rows %}
+			{{ rows }}
+		{% elseif empty %}
+			{{ empty }}
+		{% endif %}
+
+		{{ pager }}
+		{{ more }}
+	{% endif %}
+
+	{% if footer %}
+		<footer>
+			{{ footer }}
+		</footer>
+	{% endif %}
+
+	{{ feed_icons }}
+</div>

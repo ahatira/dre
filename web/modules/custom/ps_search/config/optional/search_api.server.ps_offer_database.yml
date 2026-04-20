@@ -1,0 +1,15 @@
+id: ps_offer_database
+name: 'PS Offer Database server'
+description: 'Database backend for offer search views.'
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 2
+  matching: words
+  phrase: bigram
+status: true
+langcode: en
+dependencies:
+  module:
+    - search_api
+    - search_api_db

@@ -24,3 +24,16 @@ ps_offer.reference_preview:
   requirements:
     _permission: "edit any offer content"
   methods: [POST]
+
+ps_offer.compare_toggle:
+  path: "/ps-offer/ajax/compare/{node}"
+  defaults:
+    _controller: '\Drupal\ps_offer\Controller\OfferCompareController::toggle'
+  requirements:
+    _permission: "access content"
+    node: \d+
+  options:
+    parameters:
+      node:
+        type: entity:node
+  methods: [POST]

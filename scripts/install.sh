@@ -107,6 +107,7 @@ PS_CUSTOM_MODULES=(
   ps_division
   ps_media
   ps_offer
+  ps_search
 )
 
 UI_SUITE_BNPPRE_MODULES=(

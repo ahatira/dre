@@ -6,3 +6,12 @@ reference_live:
     - core/drupal
     - core/drupalSettings
     - core/once
+
+card_search_tracking:
+  version: 1.x
+  js:
+    js/card-search-tracking.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

@@ -709,7 +709,7 @@
     border: 0;
   }
 
-  .geolocation-map-container {
+  .geofield-google-map {
     height: 630px;
     min-height: 630px;
     width: 100%;
@@ -718,11 +718,11 @@
     border: 0;
   }
 
-  .geolocation-map-control {
+  .geofield-google-map-ajax-popup {
     z-index: 10;
   }
 
-  .geolocation-context-popup {
+  .gm-style .gm-style-iw {
     background-color: #fff;
     border-radius: 4px;
   }

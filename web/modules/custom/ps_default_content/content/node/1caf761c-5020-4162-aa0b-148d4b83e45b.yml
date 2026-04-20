@@ -111,9 +111,6 @@ default:
       valid_to: ''
       no_classification: true
       non_applicable: false
-  field_exclusivity:
-    -
-      value: false
   field_features:
     -
       feature_id: has_elevator
@@ -216,12 +213,7 @@ default:
       complement: ''
   field_geofield:
     -
-      lat: 48.8823992
-      lng: 2.3819935
-      lat_sin: 0.75336141639112
-      lat_cos: 0.65760670335176
-      lng_rad: 0.041573629336104
-      data: {  }
+      value: 'POINT (2.3819935 48.8823992)'
   field_is_divisible:
     -
       value: false

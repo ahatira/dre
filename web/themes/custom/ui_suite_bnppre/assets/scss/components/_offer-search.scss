@@ -1,0 +1,133 @@
+.ps-offer-search-view {
+  .ps-offer-search-view__filters {
+    margin-bottom: 1.5rem;
+  }
+
+  .ps-offer-search-exposed {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  .ps-offer-search-exposed > .form-item,
+  .ps-offer-search-exposed > fieldset,
+  .ps-offer-search-exposed > .form-actions {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .ps-offer-search-exposed .form-item {
+    width: 100%;
+  }
+
+  .ps-offer-search-exposed .form-item > label,
+  .ps-offer-search-exposed fieldset > legend {
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2f3136;
+  }
+
+  .ps-offer-search-exposed fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .ps-offer-search-exposed fieldset > legend {
+    float: none;
+    width: 100%;
+    margin: 0 0 0.375rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .ps-offer-search-exposed fieldset > .fieldset-wrapper,
+  .ps-offer-search-exposed fieldset > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .ps-offer-search-exposed fieldset .form-item {
+    margin: 0;
+  }
+
+  .ps-offer-search-exposed fieldset .form-item > label {
+    display: none;
+  }
+
+  .ps-offer-search-exposed fieldset .form-item:nth-of-type(n + 2) {
+    display: none;
+  }
+
+  .ps-offer-search-exposed input,
+  .ps-offer-search-exposed select,
+  .ps-offer-search-exposed .form-select,
+  .ps-offer-search-exposed .form-text {
+    height: 3rem;
+    border: 1px solid #c7ccd1;
+    border-radius: 0;
+    background: #fff;
+  }
+
+  .ps-offer-search-exposed .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .ps-offer-search-exposed .form-actions .button,
+  .ps-offer-search-exposed .form-actions input[type='submit'] {
+    min-height: 3rem;
+    white-space: nowrap;
+  }
+
+  .ps-offer-search-view__content {
+    --bs-gutter-x: 1rem;
+    align-items: stretch;
+  }
+
+  .ps-offer-search-view__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ps-offer-search-view__list .views-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .ps-offer-search-view__map {
+    position: sticky;
+    top: 1rem;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .ps-offer-search-view {
+    .ps-offer-search-exposed {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ps-offer-search-view__map {
+      position: static;
+    }
+
+    .ps-offer-search-exposed fieldset > .fieldset-wrapper,
+    .ps-offer-search-exposed fieldset > div {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ps-offer-search-view .ps-offer-search-exposed {
+    grid-template-columns: 1fr;
+  }
+}

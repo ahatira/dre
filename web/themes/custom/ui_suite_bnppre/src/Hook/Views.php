@@ -18,9 +18,17 @@ class Views {
    */
   #[Hook('form_views_exposed_form_alter')]
   public function viewsExposedFormAlter(array &$form, FormStateInterface $formState, string $form_id): void {
-    $form['#attributes']['class'][] = 'row';
-    $form['#attributes']['class'][] = 'row-cols-auto';
-    $form['#attributes']['class'][] = 'align-items-end';
+    $form_dom_id = (string) ($form['#id'] ?? '');
+    $is_offer_search_form = str_contains($form_dom_id, 'views-exposed-form-ps-offer-search-page-1');
+
+    if ($is_offer_search_form) {
+      $form['#attributes']['class'][] = 'ps-offer-search-exposed';
+    }
+    else {
+      $form['#attributes']['class'][] = 'row';
+      $form['#attributes']['class'][] = 'row-cols-auto';
+      $form['#attributes']['class'][] = 'align-items-end';
+    }
 
     if (isset($form['actions'])) {
       $form['actions']['#attributes']['class'][] = 'mb-3';
@@ -31,7 +39,7 @@ class Views {
     }
 
     // @phpstan-ignore-next-line
-    if (!\str_starts_with($form['#id'], 'views-exposed-form-media-library-widget')) {
+    if (!\str_starts_with($form_dom_id, 'views-exposed-form-media-library-widget')) {
       return;
     }
     $form['#attributes']['class'][] = 'm-1';

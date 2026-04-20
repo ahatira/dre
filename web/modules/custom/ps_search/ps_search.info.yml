@@ -1,0 +1,15 @@
+name: "PS Search"
+description: "Search stack for offer listing pages: Search API, Views, facets, and optional Solr server."
+type: module
+core_version_requirement: "^11"
+package: "PropertySearch"
+
+dependencies:
+  - drupal:facets
+  - drupal:node
+  - drupal:views
+  - drupal:search_api
+  - search_api:search_api_db
+  - geofield:geofield
+  - geofield_map:geofield_map
+  - ps_offer:ps_offer

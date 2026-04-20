@@ -59,6 +59,81 @@ class OfferHooks {
       return;
     }
 
+    if ($display->getMode() === 'card_search') {
+      $cache = $build['#cache'] ?? [];
+      $surface = $this->buildSurfaceSummary($entity);
+      $location = $this->buildLocationSummary($entity);
+      $price = $this->buildCardSearchPriceSummary($entity);
+      $mandateRaw = $this->getFieldString($entity, 'field_mandate_type');
+      $mandateLabel = $this->resolveDictionaryValue('mandate_type', $mandateRaw);
+
+      $favoriteControl = $this->currentUser->isAuthenticated()
+        ? [
+          '#lazy_builder' => ['flag.link_builder:build', ['node', (string) $entity->id(), 'offer_favorite', $display->getMode()]],
+          '#create_placeholder' => TRUE,
+          '#attached' => [
+            'library' => ['ps_favorites/favorites'],
+          ],
+        ]
+        : [
+          '#theme' => 'ps_favorites_offer_toggle',
+          '#nid' => (int) $entity->id(),
+          '#attached' => [
+            'library' => ['ps_favorites/favorites'],
+          ],
+        ];
+
+      $slots = [
+        'exclusivity_badge' => $mandateLabel !== ''
+          ? [
+            '#type' => 'inline_template',
+            '#template' => '<span class="ps-card-offer-search__badge ps-card-offer-search__badge--exclusive">{{ label }}</span>',
+            '#context' => [
+              'label' => $mandateLabel,
+            ],
+          ]
+          : NULL,
+        'favorite_control' => $favoriteControl,
+      ];
+
+      $slots = array_filter($slots, static fn ($slot): bool => $slot !== NULL);
+
+      $build = [
+        '#entity_type' => 'node',
+        '#node' => $entity,
+        '#view_mode' => $display->getMode(),
+        '#cache' => $cache,
+        '#attached' => [
+          'library' => ['ps_offer/card_search_tracking'],
+        ],
+        'ps_offer_card_search_component' => [
+          '#type' => 'component',
+          '#component' => 'ui_suite_bnppre:card_offer_search',
+          '#props' => [
+            'attributes' => [
+              'data-offer-id' => (string) $entity->id(),
+            ],
+            'images' => $this->extractCardSearchImages($entity),
+            'title' => trim((string) $entity->label()),
+            'surface' => $surface ? trim($surface['value'] . ' ' . $surface['unit']) : '',
+            'location' => $location,
+            'price_prefix' => $price['prefix'],
+            'price' => $price['value'],
+            'price_unit' => $price['unit'],
+            'is_viewed' => FALSE,
+            'compare_url' => Url::fromRoute('ps_offer.compare_toggle', ['node' => (int) $entity->id()])->toString(),
+            'show_comparator_control' => TRUE,
+            'show_favorite_control' => FALSE,
+            'cta_url' => $entity->toUrl()->toString(),
+            'cta_label' => (string) $this->t('View the property'),
+          ],
+          '#slots' => $slots,
+        ],
+      ];
+
+      return;
+    }
+
     if ($display->getMode() !== 'default') {
       return;
     }
@@ -89,6 +164,14 @@ class OfferHooks {
       '#node' => $entity,
       '#view_mode' => $display->getMode(),
       '#cache' => $cache,
+      '#attached' => [
+        'library' => ['ps_offer/card_search_tracking'],
+        'drupalSettings' => [
+          'psOfferCardSearch' => [
+            'viewedOfferIds' => [(int) $entity->id()],
+          ],
+        ],
+      ],
       'ps_offer_full_component' => [
         '#type' => 'component',
         '#component' => 'ui_suite_bnppre:offer_full',
@@ -98,6 +181,49 @@ class OfferHooks {
         '#slots' => $slots,
       ],
     ];
+  }
+
+  /**
+   * Extracts normalized image URLs for card_offer_search.
+   *
+   * @return array<int, array<string, string>>
+   *   List of image items with `url` and `alt` keys.
+   */
+  protected function extractCardSearchImages(NodeInterface $node): array {
+    if (!$node->hasField('field_media_photos') || $node->get('field_media_photos')->isEmpty()) {
+      return [];
+    }
+
+    $images = [];
+    foreach ($node->get('field_media_photos')->referencedEntities() as $media) {
+      if (!$media instanceof EntityInterface) {
+        continue;
+      }
+
+      $file = NULL;
+      if ($media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()) {
+        $file = $media->get('field_media_image')->entity;
+      }
+      elseif ($media->hasField('thumbnail') && !$media->get('thumbnail')->isEmpty()) {
+        $file = $media->get('thumbnail')->entity;
+      }
+
+      if ($file === NULL || !method_exists($file, 'getFileUri')) {
+        continue;
+      }
+
+      $uri = (string) $file->getFileUri();
+      if ($uri === '') {
+        continue;
+      }
+
+      $images[] = [
+        'url' => $this->getFileUrlGenerator()->generateString($uri),
+        'alt' => (string) ($media->label() ?: $node->label()),
+      ];
+    }
+
+    return $images;
   }
 
   /**
@@ -1557,12 +1683,120 @@ class OfferHooks {
       return '';
     }
 
+    $postalCode = trim((string) ($item->postal_code ?? ''));
+    $locality = trim((string) ($item->locality ?? ''));
+    $administrativeArea = trim((string) ($item->administrative_area ?? ''));
+
     $parts = array_filter([
-      trim((string) ($item->postal_code ?? '')),
-      trim((string) ($item->locality ?? '')),
+      $postalCode,
+      $locality !== '' ? mb_strtoupper($locality) : '',
+      ($administrativeArea !== '' && strcasecmp($administrativeArea, $locality) !== 0) ? mb_strtoupper($administrativeArea) : '',
     ]);
 
     return implode(' ', $parts);
+  }
+
+  /**
+   * Builds one compact price summary for the search card.
+   *
+   * @return array{prefix: string, value: string, unit: string}
+   *   Formatted prefix, value and unit parts.
+   */
+  protected function buildCardSearchPriceSummary(NodeInterface $node): array {
+    if (!$node->hasField('field_prices') || $node->get('field_prices')->isEmpty()) {
+      return ['prefix' => '', 'value' => '', 'unit' => ''];
+    }
+
+    $item = $node->get('field_prices')->first();
+    if ($item === NULL) {
+      return ['prefix' => '', 'value' => '', 'unit' => ''];
+    }
+
+    if (!empty($item->is_on_request)) {
+      return ['prefix' => '', 'value' => (string) $this->t('On request'), 'unit' => ''];
+    }
+
+    $amount = is_numeric($item->amount ?? NULL) ? (float) $item->amount : 0.0;
+    $currencyCode = trim((string) ($item->currency_code ?? ''));
+    $currencySymbol = $currencyCode;
+    if ($currencyCode !== '') {
+      $currencySymbol = (string) ($this->getDictionaryManager()->getMetadataValue('currency', $currencyCode, 'symbol', $currencyCode) ?? $currencyCode);
+    }
+
+    $pricePrefix = !empty($item->is_from) ? (string) $this->t('From') : '';
+    $valueParts = [];
+    $valueParts[] = $this->formatPriceAmount($amount);
+    if ($currencySymbol !== '') {
+      $valueParts[] = $currencySymbol;
+    }
+
+    $unitParts = [];
+    $flags = [];
+    if (!empty($item->is_vat_excluded)) {
+      $flags[] = 'HT';
+    }
+    if (empty($item->is_charges_included)) {
+      $flags[] = 'HC';
+    }
+    if ($flags !== []) {
+      $unitParts[] = implode('/', $flags);
+    }
+
+    $unitCode = trim((string) ($item->unit_code ?? ''));
+    if ($unitCode !== '') {
+      $unitSymbol = (string) ($this->getDictionaryManager()->getMetadataValue('price_unit', $unitCode, 'symbol', '') ?? '');
+      if ($unitSymbol === '') {
+        $unitSymbol = (string) ($this->getDictionaryManager()->getLabel('price_unit', $unitCode) ?? $unitCode);
+      }
+      $unitSymbol = str_replace('²', '2', $unitSymbol);
+      $unitParts[] = ltrim($unitSymbol, '/');
+    }
+
+    $periodCode = trim((string) ($item->period_code ?? ''));
+    if ($periodCode !== '') {
+      $unitParts[] = ltrim($this->mapPricePeriodCode($periodCode), '/');
+    }
+
+    return [
+      'prefix' => $pricePrefix,
+      'value' => implode(' ', array_filter($valueParts, static fn (string $part): bool => $part !== '')),
+      'unit' => implode('/', array_filter($unitParts, static fn (string $part): bool => $part !== '')),
+    ];
+  }
+
+  /**
+   * Formats one amount according to locale conventions.
+   */
+  protected function formatPriceAmount(float $amount): string {
+    $formatter = \NumberFormatter::create('fr_FR', \NumberFormatter::DECIMAL);
+    if (!$formatter instanceof \NumberFormatter) {
+      return (string) $amount;
+    }
+
+    if (fmod($amount, 1.0) === 0.0) {
+      $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 0);
+      $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 0);
+    }
+    else {
+      $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 2);
+      $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 2);
+    }
+
+    $formatted = $formatter->format($amount);
+    return $formatted !== FALSE ? (string) $formatted : (string) $amount;
+  }
+
+  /**
+   * Maps period code to compact display label.
+   */
+  protected function mapPricePeriodCode(string $periodCode): string {
+    return match (strtoupper($periodCode)) {
+      'ANN' => 'an',
+      'MEN' => 'mois',
+      'TRI' => 'trimestre',
+      'SEM' => 'semaine',
+      default => $periodCode,
+    };
   }
 
   /**

@@ -7,7 +7,7 @@ dependencies:
     - node.type.offer
   module:
     - geocoder_field
-    - geolocation
+    - geofield
 third_party_settings:
   geocoder_field:
     method: geocode
@@ -18,7 +18,7 @@ third_party_settings:
     hidden: false
     providers:
       - googlemaps_offer
-    dumper: geolocation_geocoder_v3
+    dumper: wkt
     delta_handling: s_to_s
     failure:
       handling: preserve
@@ -37,4 +37,4 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: geolocation
+field_type: geofield

@@ -125,9 +125,6 @@ default:
   field_divisions:
     -
       entity: 4e7ab188-7cfa-4def-ad13-c333da8b19c9
-  field_exclusivity:
-    -
-      value: false
   field_features:
     -
       feature_id: office_layout
@@ -274,12 +271,7 @@ default:
       complement: ''
   field_geofield:
     -
-      lat: 48.8846966
-      lng: 2.3973762
-      lat_sin: 0.7533877839692
-      lat_cos: 0.65757649514408
-      lng_rad: 0.04184210809895
-      data: {  }
+      value: 'POINT (2.3973762 48.8846966)'
   field_is_divisible:
     -
       value: true

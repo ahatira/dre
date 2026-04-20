@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.ps_offer_search
+    - views.view.ps_offer_search
+  module:
+    - facets
+    - search_api
+id: ps_offer_surface
+name: Surface
+weight: 1
+min_count: 1
+missing: false
+missing_label: others
+url_alias: surface
+facet_source_id: 'search_api:views_page__ps_offer_search__page_1'
+field_identifier: ps_offer_surface_main_value
+query_operator: and
+hard_limit: 0
+exclude: false
+only_visible_when_facet_source_is_visible: true
+empty_behavior:
+  behavior: none
+  text_format: plain_text
+  text: ''
+widget:
+  type: links
+  config:
+    show_numbers: true
+    soft_limit: 0
+    show_reset_link: true
+    reset_text: All
+    hide_reset_when_no_selection: true
+processor_configs:
+  display_value_widget_order:
+    weights:
+      sort: 30
+  count_widget_order:
+    weights:
+      sort: 31
+  active_widget_order:
+    weights:
+      sort: 32

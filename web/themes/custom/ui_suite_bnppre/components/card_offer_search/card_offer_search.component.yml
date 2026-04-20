@@ -73,6 +73,11 @@ props:
       description: 'Main price value.'
       type: string
 
+    price_prefix:
+      title: Price prefix
+      description: 'Optional prefix displayed before the main price value (for example From).'
+      type: string
+
     price_unit:
       title: Price unit
       description: 'Price unit suffix.'
@@ -141,6 +146,11 @@ props:
       description: 'Accessible label for default comparator control.'
       type: string
       default: 'Toggle comparator'
+
+    compare_url:
+      title: Comparator Ajax URL
+      description: 'Ajax endpoint URL for comparator placeholder action.'
+      $ref: 'ui-patterns://url'
 
     favorite_aria_label:
       title: Favorite aria label

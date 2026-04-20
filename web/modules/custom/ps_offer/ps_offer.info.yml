@@ -16,12 +16,11 @@ dependencies:
   - drupal:media_library
   - drupal:media_library_edit
   - ps_media:ps_media
-  - drupal:geolocation
-  - geolocation:geolocation_google_maps
-  - geolocation:geolocation_address
   - drupal:geocoder
   - geocoder:geocoder_field
   - drupal:address
+  - geofield:geofield
+  - geofield_map:geofield_map
   - drupal:inline_entity_form
   - drupal:field_group
   - ps_editor:ps_editor

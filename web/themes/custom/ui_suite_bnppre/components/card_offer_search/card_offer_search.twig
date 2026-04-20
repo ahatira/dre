@@ -44,8 +44,8 @@
 					<div class="ps-card-offer-search__badges d-flex flex-wrap align-items-center gap-2">
 						{% if viewed_badge is defined and viewed_badge is not empty %}
 							{{ viewed_badge }}
-						{% elseif is_viewed|default(false) %}
-							<span class="ps-card-offer-search__badge ps-card-offer-search__badge--viewed">
+						{% else %}
+							<span class="ps-card-offer-search__badge ps-card-offer-search__badge--viewed js-ps-offer-viewed-badge{{ is_viewed|default(false) ? '' : ' is-hidden' }}">
 								{{ icon('bnppre', 'eye', {'size': '0.75rem', 'alt': ''})|render }}
 								<span>{{ 'Already viewed'|t }}</span>
 							</span>
@@ -62,9 +62,9 @@
 						{% if comparator_control is defined and comparator_control is not empty %}
 							<span class="ps-card-offer-search__action-control">{{ comparator_control }}</span>
 						{% elseif show_comparator_control %}
-							<button class="ps-card-offer-search__icon-button{{ is_comparator|default(false) ? ' is-active' : '' }}" type="button" aria-pressed="{{ is_comparator|default(false) ? 'true' : 'false' }}" aria-label="{{ compare_aria_label|default('Toggle comparator'|t) }}">
+							<a href="{{ compare_url|default('#') }}" class="ps-card-offer-search__icon-button js-ps-offer-compare{{ is_comparator|default(false) ? ' is-active' : '' }}" data-ps-compare-url="{{ compare_url|default('') }}" role="button" aria-pressed="{{ is_comparator|default(false) ? 'true' : 'false' }}" aria-label="{{ compare_aria_label|default('Toggle comparator'|t) }}">
 								{{ icon('bnppre', 'comparator', {'size': '1.5rem', 'alt': ''})|render }}
-							</button>
+							</a>
 						{% endif %}
 
 						{% if favorite_control is defined and favorite_control is not empty %}
@@ -99,17 +99,21 @@
 				{% endif %}
 
 				<div class="ps-card-offer-search__footer d-flex justify-content-between align-items-end mt-auto">
-					<p class="ps-card-offer-search__price mb-0">
+					<p class="ps-card-offer-search__price ps-offer-meta__price ps-price-offer mb-0">
+						{% if price_prefix %}
+							<span class="ps-card-offer-search__price-prefix ps-offer-meta__price-prefix">{{ price_prefix }}</span>
+						{% endif %}
+
 						{% if price_content is defined and price_content is not empty %}
-							<span class="ps-card-offer-search__price-value">{{ price_content }}</span>
+							<span class="ps-card-offer-search__price-value ps-offer-meta__price-value">{{ price_content }}</span>
 						{% elseif price %}
-							<span class="ps-card-offer-search__price-value">{{ price }}</span>
+							<span class="ps-card-offer-search__price-value ps-offer-meta__price-value">{{ price }}</span>
 						{% endif %}
 
 						{% if price_unit_content is defined and price_unit_content is not empty %}
-							<span class="ps-card-offer-search__price-unit">{{ price_unit_content }}</span>
+							<span class="ps-card-offer-search__price-unit ps-offer-meta__price-unit">{{ price_unit_content }}</span>
 						{% elseif price_unit %}
-							<span class="ps-card-offer-search__price-unit">{{ price_unit }}</span>
+							<span class="ps-card-offer-search__price-unit ps-offer-meta__price-unit">{{ price_unit }}</span>
 						{% endif %}
 					</p>
 

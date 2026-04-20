@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.offer.field_commercial_title
     - field.field.node.offer.field_diagnostics
     - field.field.node.offer.field_divisions
-    - field.field.node.offer.field_exclusivity
     - field.field.node.offer.field_features
     - field.field.node.offer.field_geofield
     - field.field.node.offer.field_is_divisible
@@ -31,6 +30,8 @@ dependencies:
     - field.field.node.offer.field_transaction_types
     - node.type.offer
   module:
+    - geofield
+    - geofield_map
     - layout_builder
     - user
   theme:
@@ -492,28 +493,80 @@ third_party_settings:
               context_mapping:
                 entity: layout_builder.entity
               formatter:
-                type: geolocation_map
+                type: geofield_google_map
                 label: hidden
                 settings:
-                  set_marker: true
-                  show_label: false
-                  common_map: true
-                  show_delta_label: false
-                  use_overridden_map_settings: false
-                  title: ''
-                  info_text:
-                    value: ''
-                    format: plain_text
-                  centre:
-                    fit_bounds:
-                      enable: true
-                      weight: -101
-                      settings:
-                        reset_zoom: true
-                      map_center_id: fit_bounds
-                  map_provider_id: google_maps
-                  map_provider_settings: {  }
-                  data_provider_settings: {  }
+                  gmap_api_key: ''
+                  map_dimensions:
+                    width: 100%
+                    height: 630px
+                  map_empty:
+                    empty_behaviour: '0'
+                    empty_message: 'No Geofield Value entered for this field'
+                  map_center:
+                    lat: 46.227638
+                    lon: 2.213749
+                    center_force: false
+                  map_zoom_and_pan:
+                    zoom:
+                      initial: 10
+                      force: false
+                      min: 1
+                      max: 18
+                      finer: 0
+                    scrollwheel: true
+                    draggable: true
+                    map_reset: false
+                    map_reset_position: TOP_RIGHT
+                  map_controls:
+                    disable_default_ui: false
+                    zoom_control: true
+                    map_type_id: roadmap
+                    map_type_control: true
+                    map_type_control_options_type_ids:
+                      roadmap: roadmap
+                      satellite: satellite
+                      hybrid: hybrid
+                      terrain: terrain
+                    scale_control: true
+                    street_view_control: false
+                    fullscreen_control: true
+                  map_marker_and_infowindow:
+                    icon_image_mode: icon_file
+                    icon_image_path: ''
+                    icon_file_wrapper:
+                      icon_file: {  }
+                    infowindow_field: title
+                    view_mode: full
+                    multivalue_split: false
+                    tooltip_field: title
+                  map_oms:
+                    map_oms_control: true
+                    map_oms_options: '{"markersWontMove": "true", "markersWontHide": "true", "basicFormatEvents": "true", "nearbyDistance": 3}'
+                  map_additional_options: ''
+                  map_additional_libraries: {  }
+                  map_geometries_options: '{"strokeColor":"black","strokeOpacity":"0.8","strokeWeight":2,"fillColor":"blue","fillOpacity":"0.1", "clickable": false}'
+                  custom_style_map:
+                    custom_style_control: false
+                    custom_style_name: ''
+                    custom_style_options: ''
+                    custom_style_default: false
+                  map_markercluster:
+                    markercluster_control: false
+                    markercluster_additional_options: '{"maxZoom":12, "gridSize":50}'
+                  map_geocoder:
+                    control: 0
+                    settings:
+                      position: topright
+                      input_size: 25
+                      providers: {  }
+                      min_terms: 4
+                      delay: 800
+                      zoom: 16
+                      infowindow: false
+                      options: ''
+                  map_lazy_load:
+                    lazy_load: false
                 third_party_settings: {  }
             weight: 0
             additional:
@@ -549,7 +602,6 @@ hidden:
   field_commercial_title: true
   field_diagnostics: true
   field_divisions: true
-  field_exclusivity: true
   field_features: true
   field_is_divisible: true
   field_labels: true

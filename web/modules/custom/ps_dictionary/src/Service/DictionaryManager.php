@@ -183,7 +183,7 @@ final class DictionaryManager implements DictionaryManagerInterface {
       return is_array($schema) ? $schema : [];
     }
     catch (\Exception $e) {
-      $this->logger->warning('Failed to parse metadata schema for @type: @error', [
+      $this->safeLog('warning', 'Failed to parse metadata schema for @type: @error', [
         '@type' => $dictionaryType->id(),
         '@error' => $e->getMessage(),
       ]);
@@ -198,12 +198,31 @@ final class DictionaryManager implements DictionaryManagerInterface {
     if ($type === NULL) {
       $this->entriesCache = [];
       $this->cache->deleteAll();
-      $this->logger->info('Cleared all dictionary caches');
+      $this->safeLog('info', 'Cleared all dictionary caches');
     }
     else {
       unset($this->entriesCache[$type]);
       $this->cache->delete('ps_dictionary:entries:' . $type);
-      $this->logger->info('Cleared cache for dictionary type: @type', ['@type' => $type]);
+      $this->safeLog('info', 'Cleared cache for dictionary type: @type', ['@type' => $type]);
+    }
+  }
+
+  /**
+   * Logs without breaking runtime when logging storage is not ready.
+   *
+   * @param string $level
+   *   Log level.
+   * @param string $message
+   *   Log message.
+   * @param array<string, mixed> $context
+   *   Log context.
+   */
+  private function safeLog(string $level, string $message, array $context = []): void {
+    try {
+      $this->logger->log($level, $message, $context);
+    }
+    catch (\Throwable) {
+      // Ignore logger storage issues during early install/bootstrap phases.
     }
   }
 

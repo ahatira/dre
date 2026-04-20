@@ -1,0 +1,11 @@
+id: ps_offer_solr
+name: 'PS Offer Solr server'
+description: 'Prepared Solr server placeholder for production search.'
+backend: search_api_solr
+backend_config: {  }
+status: false
+langcode: en
+dependencies:
+  module:
+    - search_api
+    - search_api_solr

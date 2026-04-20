@@ -1,0 +1,388 @@
+
+[install] Drop database
+
+[39;49m // [39;49mDo you really want to drop all tables in the database ps_theme?: yes.      
+
+
+[install] Install fresh Drupal site (profile: minimal)
+ You are about to:
+ * DROP all tables in your 'ps_theme' database.
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;46;1m[notice][39;49;22m Starting Drupal installation. This takes a while.
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_select_language[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_select_profile[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_load_profile[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_verify_requirements[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_verify_database_ready[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_base_system[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_bootstrap_full[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_profile_modules[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_profile_themes[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_install_profile[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_configure_form[39m
+ [37;46;1m[notice][39;49;22m Performed install task: [32minstall_finished[39m
+ [37;42;1m[success][39;49;22m Installation complete. (]8;;http://default/user/reset/1/1776681152/mWoT-V5M9R77EzgrLb6JTY8s530Bvbhuj7Yf1P8Zkxc/login?destination=admin\Admin]8;;\)
+
+[install] Enable Drupal classic modules: token pathauto metatag redirect simple_sitemap social_media_links
+The following module(s) will be installed: token, pathauto, metatag, redirect, simple_sitemap, social_media_links, path, link, views
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module token has been installed.
+ [37;42;1m[success][39;49;22m Module pathauto has been installed. (]8;;http://default/admin/people/permissions/module/pathauto\Permissions]8;;\ - ]8;;http://default/admin/config/search/path/patterns\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module metatag has been installed. (]8;;http://default/admin/people/permissions/module/metatag\Permissions]8;;\ - ]8;;http://default/admin/config/search/metatag\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module redirect has been installed. (]8;;http://default/admin/people/permissions/module/redirect\Permissions]8;;\ - ]8;;http://default/admin/config/search/redirect/settings\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module simple_sitemap has been installed. (]8;;http://default/admin/people/permissions/module/simple_sitemap\Permissions]8;;\ - ]8;;http://default/admin/config/search/simplesitemap\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module social_media_links has been installed.
+ [37;42;1m[success][39;49;22m Module path has been installed. (]8;;http://default/admin/people/permissions/module/path\Permissions]8;;\ - ]8;;http://default/admin/config/search/path\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module link has been installed.
+ [37;42;1m[success][39;49;22m Module views has been installed.
+
+[install] Enable Toolbar classic modules: admin_toolbar admin_toolbar_tools admin_toolbar_search
+The following module(s) will be installed: admin_toolbar, admin_toolbar_tools, admin_toolbar_search, toolbar, breakpoint
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module admin_toolbar has been installed. (]8;;http://default/admin/config/user-interface/admin-toolbar\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module admin_toolbar_tools has been installed. (]8;;http://default/admin/config/user-interface/admin-toolbar-tools\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module admin_toolbar_search has been installed. (]8;;http://default/admin/people/permissions/module/admin_toolbar_search\Permissions]8;;\ - ]8;;http://default/admin/config/user-interface/admin-toolbar-search\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module toolbar has been installed. (]8;;http://default/admin/people/permissions/module/toolbar\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module breakpoint has been installed.
+
+[install] Enable UI Suite modules: ui_patterns ui_patterns_layouts ui_patterns_views ui_patterns_library ui_styles ui_icons ui_styles_page ui_styles_block
+The following module(s) will be installed: ui_patterns, ui_patterns_layouts, ui_patterns_views, ui_patterns_library, ui_styles, ui_icons, ui_styles_page, ui_styles_block, layout_discovery
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module ui_patterns has been installed.
+ [37;42;1m[success][39;49;22m Module ui_patterns_layouts has been installed.
+ [37;42;1m[success][39;49;22m Module ui_patterns_views has been installed.
+ [37;42;1m[success][39;49;22m Module ui_patterns_library has been installed. (]8;;http://default/admin/people/permissions/module/ui_patterns_library\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module ui_styles has been installed.
+ [37;42;1m[success][39;49;22m Module ui_icons has been installed.
+ [37;42;1m[success][39;49;22m Module ui_styles_page has been installed.
+ [37;42;1m[success][39;49;22m Module ui_styles_block has been installed.
+ [37;42;1m[success][39;49;22m Module layout_discovery has been installed.
+
+[install] Enable Translations modules: language locale content_translation config_translation
+The following module(s) will be installed: language, locale, content_translation, config_translation, file
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module language has been installed. (]8;;http://default/admin/people/permissions/module/language\Permissions]8;;\ - ]8;;http://default/admin/config/regional/language\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module locale has been installed. (]8;;http://default/admin/people/permissions/module/locale\Permissions]8;;\ - ]8;;http://default/admin/config/regional/translate\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module content_translation has been installed. (]8;;http://default/admin/people/permissions/module/content_translation\Permissions]8;;\ - ]8;;http://default/admin/config/regional/content-language\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module config_translation has been installed. (]8;;http://default/admin/people/permissions/module/config_translation\Permissions]8;;\ - ]8;;http://default/admin/config/regional/config-translation\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module file has been installed. (]8;;http://default/admin/people/permissions/module/file\Permissions]8;;\)
+
+[install] Enable Configuration modules: config_split config_ignore
+ [37;42;1m[success][39;49;22m Module config_split has been installed. (]8;;http://default/admin/people/permissions/module/config_split\Permissions]8;;\ - ]8;;http://default/admin/config/development/configuration/config-split\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module config_ignore has been installed. (]8;;http://default/admin/config/development/configuration/ignore\Configure]8;;\)
+
+[install] Enable Requested extras modules: field_ui views_ui webform webform_ui config inline_form_errors responsive_image telephone linkit_attributes webp slick_ui slick_views
+The following module(s) will be installed: field_ui, views_ui, webform, webform_ui, config, inline_form_errors, responsive_image, telephone, linkit_attributes, webp, slick_ui, slick_views, image, linkit, link_attributes, slick, blazy, media
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module field_ui has been installed. (]8;;http://default/admin/people/permissions/module/field_ui\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module views_ui has been installed. (]8;;http://default/admin/people/permissions/module/views_ui\Permissions]8;;\ - ]8;;http://default/admin/structure/views\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module webform has been installed. (]8;;http://default/admin/people/permissions/module/webform\Permissions]8;;\ - ]8;;http://default/admin/structure/webform\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module webform_ui has been installed.
+ [37;42;1m[success][39;49;22m Module config has been installed. (]8;;http://default/admin/people/permissions/module/config\Permissions]8;;\ - ]8;;http://default/admin/config/development/configuration\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module inline_form_errors has been installed.
+ [37;42;1m[success][39;49;22m Module responsive_image has been installed. (]8;;http://default/admin/people/permissions/module/responsive_image\Permissions]8;;\ - ]8;;http://default/admin/config/media/responsive-image-style\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module telephone has been installed.
+ [37;42;1m[success][39;49;22m Module linkit_attributes has been installed.
+ [37;42;1m[success][39;49;22m Module webp has been installed. (]8;;http://default/admin/config/media/webp/settings\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module slick_ui has been installed. (]8;;http://default/admin/people/permissions/module/slick_ui\Permissions]8;;\ - ]8;;http://default/admin/config/media/slick\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module slick_views has been installed.
+ [37;42;1m[success][39;49;22m Module image has been installed. (]8;;http://default/admin/people/permissions/module/image\Permissions]8;;\ - ]8;;http://default/admin/config/media/image-styles\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module linkit has been installed. (]8;;http://default/admin/people/permissions/module/linkit\Permissions]8;;\ - ]8;;http://default/admin/config/content/linkit\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module link_attributes has been installed.
+ [37;42;1m[success][39;49;22m Module slick has been installed.
+ [37;42;1m[success][39;49;22m Module blazy has been installed.
+ [37;42;1m[success][39;49;22m Module media has been installed. (]8;;http://default/admin/people/permissions/module/media\Permissions]8;;\ - ]8;;http://default/admin/config/media/media-settings\Configure]8;;\)
+
+[install] Enable Layout Builder modules: layout_builder layout_discovery
+The following module(s) will be installed: layout_builder, contextual
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module layout_builder has been installed. (]8;;http://default/admin/people/permissions/module/layout_builder\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module contextual has been installed. (]8;;http://default/admin/people/permissions/module/contextual\Permissions]8;;\)
+
+[install] Enable Menu modules: menu_ui menu_link_content link_attributes link_attributes_menu_link_content
+The following module(s) will be installed: menu_ui, menu_link_content, link_attributes_menu_link_content
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module menu_ui has been installed. (]8;;http://default/admin/structure/menu\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module menu_link_content has been installed.
+ [37;42;1m[success][39;49;22m Module link_attributes_menu_link_content has been installed.
+
+[install] Enable Favorites modules: flag ps_favorites
+ [37;42;1m[success][39;49;22m Module flag has been installed. (]8;;http://default/admin/people/permissions/module/flag\Permissions]8;;\ - ]8;;http://default/admin/structure/flags\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module ps_favorites has been installed.
+[install] dropzone library already available -> /c/wamp64/www/ps_theme/web/libraries/dropzone
+
+[install] Enable themes: ui_suite_bnppre
+The following module(s) and themes(s) will be installed: ui_suite_bnppre
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Successfully installed theme: ui_suite_bnppre
+
+[install] Enable Property Search custom modules (non-blocking): ps ps_block ps_dictionary ps_agent ps_price ps_surface ps_features ps_diagnostic ps_division ps_media ps_offer ps_search
+[install] enabling module -> ps
+ [37;42;1m[success][39;49;22m Module ps has been installed. (]8;;http://default/admin/people/permissions/module/ps\Permissions]8;;\ - ]8;;http://default/admin/ps/config/settings\Configure]8;;\)
+[install] enabling module -> ps_block
+ [30;43;1m[warning][39;49;22m Schema errors for block.block.ui_suite_bnppre_footer_top_follow_us with the following errors: block.block.ui_suite_bnppre_footer_top_follow_us:settings.platforms missing schema, block.block.ui_suite_bnppre_footer_top_follow_us:settings.appearance missing schema, block.block.ui_suite_bnppre_footer_top_follow_us:settings.link_attributes missing schema, block.block.ui_suite_bnppre_footer_top_follow_us:settings.iconset missing schema. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [37;42;1m[success][39;49;22m Module ps_block has been installed.
+[install] enabling module -> ps_dictionary
+The following module(s) will be installed: ps_dictionary, options
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module ps_dictionary has been installed. (]8;;http://default/admin/people/permissions/module/ps_dictionary\Permissions]8;;\ - ]8;;http://default/admin/ps/config/dictionary\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module options has been installed.
+[install] enabling module -> ps_agent
+The following module(s) will be installed: ps_agent, phone_international
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module ps_agent has been installed. (]8;;http://default/admin/people/permissions/module/ps_agent\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module phone_international has been installed. (]8;;http://default/admin/config/phone_international\Configure]8;;\)
+[install] enabling module -> ps_price
+ [37;42;1m[success][39;49;22m Module ps_price has been installed. (]8;;http://default/admin/people/permissions/module/ps_price\Permissions]8;;\ - ]8;;http://default/admin/ps/config/price\Configure]8;;\)
+[install] enabling module -> ps_surface
+ [37;42;1m[success][39;49;22m Module ps_surface has been installed. (]8;;http://default/admin/people/permissions/module/ps_surface\Permissions]8;;\ - ]8;;http://default/admin/ps/config/surface\Configure]8;;\)
+[install] enabling module -> ps_features
+ [37;42;1m[success][39;49;22m Module ps_features has been installed. (]8;;http://default/admin/people/permissions/module/ps_features\Permissions]8;;\ - ]8;;http://default/admin/ps/config/feature\Configure]8;;\)
+[install] enabling module -> ps_diagnostic
+ [37;42;1m[success][39;49;22m Module ps_diagnostic has been installed. (]8;;http://default/admin/people/permissions/module/ps_diagnostic\Permissions]8;;\)
+[install] enabling module -> ps_division
+ [37;42;1m[success][39;49;22m Module ps_division has been installed. (]8;;http://default/admin/people/permissions/module/ps_division\Permissions]8;;\)
+[install] enabling module -> ps_media
+The following module(s) will be installed: ps_media, taxonomy, block_content, media_library, drimage_improved, better_exposed_filters, crop, dropzonejs_eb_widget, dropzonejs, entity_browser, embed, entity_browser_enhanced, entity_browser_entity_form, inline_entity_form, entity_browser_generic_embed, entity_embed, editor, focal_point
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_gallery. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_image. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_images. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_video. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m Schema errors for views.view.media_browsers with the following errors: views.view.media_browsers:display.default.display_options.arguments.bundle.default_argument_skip_url missing schema, views.view.media_browsers:display.default.display_options.display_extenders.metatag_display_extender missing schema, views.view.media_browsers:display.media_browser.display_options.exposed_form.options.bef.name missing schema, views.view.media_browsers:display.media_browser.display_options.exposed_form.options.bef.entity_browser_bundle missing schema, views.view.media_browsers:display.media_browser.display_options.display_extenders.metatag_display_extender missing schema, views.view.media_browsers:display.video_browser.display_options.exposed_form.options.bef.name missing schema, views.view.media_browsers:display.video_browser.display_options.exposed_form.options.bef.bundle missing schema, views.view.media_browsers:display.video_browser.display_options.display_extenders.metatag_display_extender missing schema. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [37;42;1m[success][39;49;22m Module ps_media has been installed.
+ [37;42;1m[success][39;49;22m Module taxonomy has been installed. (]8;;http://default/admin/people/permissions/module/taxonomy\Permissions]8;;\ - ]8;;http://default/admin/structure/taxonomy\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module block_content has been installed. (]8;;http://default/admin/people/permissions/module/block_content\Permissions]8;;\ - ]8;;http://default/admin/content/block\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module media_library has been installed. (]8;;http://default/admin/config/media/media-library\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module drimage_improved has been installed. (]8;;http://default/admin/config/media/drimage_improved\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module better_exposed_filters has been installed.
+ [37;42;1m[success][39;49;22m Module crop has been installed. (]8;;http://default/admin/people/permissions/module/crop\Permissions]8;;\ - ]8;;http://default/admin/config/media/crop\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module dropzonejs_eb_widget has been installed.
+ [37;42;1m[success][39;49;22m Module dropzonejs has been installed. (]8;;http://default/admin/people/permissions/module/dropzonejs\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module entity_browser has been installed. (]8;;http://default/admin/people/permissions/module/entity_browser\Permissions]8;;\ - ]8;;http://default/admin/config/content/entity_browser\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module embed has been installed. (]8;;http://default/admin/people/permissions/module/embed\Permissions]8;;\ - ]8;;http://default/admin/config/content/embed\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module entity_browser_enhanced has been installed.
+ [37;42;1m[success][39;49;22m Module entity_browser_entity_form has been installed.
+ [37;42;1m[success][39;49;22m Module inline_entity_form has been installed.
+ [37;42;1m[success][39;49;22m Module entity_browser_generic_embed has been installed.
+ [37;42;1m[success][39;49;22m Module entity_embed has been installed.
+ [37;42;1m[success][39;49;22m Module editor has been installed. (]8;;http://default/admin/config/content/formats\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module focal_point has been installed.
+[install] enabling module -> ps_offer
+The following module(s) will be installed: ps_offer, media_library_edit, geocoder, geocoder_field, address, geofield, geofield_map, field_group, ps_editor, ckeditor5, ace_editor, anchor_link, ckeditor_bidi, ckeditor_emoji, ckeditor5_paste_filter, ckeditor5_plugin_pack, ckeditor_media_embed, ckeditor_media_resize, edit_media_modal, editor_advanced_link, extlink, pathologic, token_filter, scheduler, datetime, search_api
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_show_address. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_reference. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_min_divisible_surface. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media_virtual_tours. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media_videos. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media_plans. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media_photos. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_media_brochures. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_is_divisible. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_geofield. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_commercial_title. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_address. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m Schema errors for field.field.node.offer.field_geofield with the following errors: field.field.node.offer.field_geofield:third_party_settings.geocoder_field.method missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.weight missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.field missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.skip_not_empty_value missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.disabled missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.hidden missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.providers missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.dumper missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.delta_handling missing schema, field.field.node.offer.field_geofield:third_party_settings.geocoder_field.failure missing schema. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_agents. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_diagnostics. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_transaction_types. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_property_type. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_mandate_type. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_client_type. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_divisions. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_features. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_prices. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_surfaces. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_labels. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.field.taxonomy_term.offer_labels.field_image. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m No schema for field.storage.node.field_availability. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_photos" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_plans" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_videos" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:title" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_commercial_title" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_reference" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_transaction_types" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_property_type" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_prices" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_surfaces" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_availability" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_mandate_type" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_labels" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_virtual_tours" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:body" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_features" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_diagnostics" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_divisions" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_is_divisible" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_min_divisible_surface" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_address" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_agents" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_brochures" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_geofield" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "extra_field_block:node:offer:links" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_photos" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_plans" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_videos" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:title" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_commercial_title" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_reference" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_transaction_types" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_property_type" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_prices" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_surfaces" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_availability" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_mandate_type" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_labels" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_virtual_tours" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:body" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_features" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_diagnostics" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_divisions" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_is_divisible" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_min_divisible_surface" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_address" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_agents" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_media_brochures" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "field_block:node:offer:field_geofield" block plugin was not found
+ [30;43;1m[warning][39;49;22m The "extra_field_block:node:offer:links" block plugin was not found
+ [30;43;1m[warning][39;49;22m Schema errors for editor.editor.code_html with the following errors: editor.editor.code_html:settings._core missing schema. These errors mean there is configuration that does not comply with its schema. This is not a fatal error, but it is recommended to fix these issues. For more information on configuration schemas, check out <a href="https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata">the documentation</a>.
+ [37;42;1m[success][39;49;22m Module ps_offer has been installed. (]8;;http://default/admin/people/permissions/module/ps_offer\Permissions]8;;\)
+ [37;42;1m[success][39;49;22m Module media_library_edit has been installed.
+ [37;42;1m[success][39;49;22m Module geocoder has been installed. (]8;;http://default/admin/people/permissions/module/geocoder\Permissions]8;;\ - ]8;;http://default/admin/config/system/geocoder\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module geocoder_field has been installed.
+ [37;42;1m[success][39;49;22m Module address has been installed.
+ [37;42;1m[success][39;49;22m Module geofield has been installed.
+ [37;42;1m[success][39;49;22m Module geofield_map has been installed. (]8;;http://default/admin/people/permissions/module/geofield_map\Permissions]8;;\ - ]8;;http://default/admin/config/system/geofield_map_settings\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module field_group has been installed.
+ [37;42;1m[success][39;49;22m Module ps_editor has been installed.
+ [37;42;1m[success][39;49;22m Module ckeditor5 has been installed.
+ [37;42;1m[success][39;49;22m Module ace_editor has been installed.
+ [37;42;1m[success][39;49;22m Module anchor_link has been installed.
+ [37;42;1m[success][39;49;22m Module ckeditor_bidi has been installed.
+ [37;42;1m[success][39;49;22m Module ckeditor_emoji has been installed.
+ [37;42;1m[success][39;49;22m Module ckeditor5_paste_filter has been installed.
+ [37;42;1m[success][39;49;22m Module ckeditor5_plugin_pack has been installed. (]8;;http://default/admin/config/ckeditor5-plugin-pack\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module ckeditor_media_embed has been installed. (]8;;http://default/admin/config/media/ckeditor-media-embed/settings\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module ckeditor_media_resize has been installed.
+ [37;42;1m[success][39;49;22m Module edit_media_modal has been installed.
+ [37;42;1m[success][39;49;22m Module editor_advanced_link has been installed.
+ [37;42;1m[success][39;49;22m Module extlink has been installed. (]8;;http://default/admin/people/permissions/module/extlink\Permissions]8;;\ - ]8;;http://default/admin/config/user-interface/extlink\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module pathologic has been installed. (]8;;http://default/admin/config/content/pathologic\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module token_filter has been installed.
+ [37;42;1m[success][39;49;22m Module scheduler has been installed. (]8;;http://default/admin/people/permissions/module/scheduler\Permissions]8;;\ - ]8;;http://default/admin/config/content/scheduler\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module datetime has been installed.
+ [37;42;1m[success][39;49;22m Module search_api has been installed. (]8;;http://default/admin/people/permissions/module/search_api\Permissions]8;;\ - ]8;;http://default/admin/config/search/search-api\Configure]8;;\)
+[install] enabling module -> ps_search
+The following module(s) will be installed: ps_search, facets, search_api_db
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Module ps_search has been installed.
+ [37;42;1m[success][39;49;22m Module facets has been installed. (]8;;http://default/admin/people/permissions/module/facets\Permissions]8;;\ - ]8;;http://default/admin/config/search/facets\Configure]8;;\)
+ [37;42;1m[success][39;49;22m Module search_api_db has been installed.
+
+[install] Enable Default Content modules: default_content ps_default_content
+ [37;42;1m[success][39;49;22m Module default_content has been installed.
+ [37;42;1m[success][39;49;22m Module ps_default_content has been installed.
+[install] phone library already available -> /c/wamp64/www/ps_theme/web/libraries/intl-tel-input
+
+[install] Force Phone International local assets
+
+[39;49m // [39;49mDo you want to update cdn key in phone_international.settings config?: yes.
+
+
+[install] Enable UI Suite BNPPRE modules: languageicons
+ [37;42;1m[success][39;49;22m Module languageicons has been installed. (]8;;http://default/admin/config/regional/language/icons\Configure]8;;\)
+
+[install] Enable themes: gin
+The following module(s) and themes(s) will be installed: gin
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Successfully installed theme: gin
+
+[install] Set theme config: admin -> gin
+
+[39;49m // [39;49mDo you want to update admin key in system.theme config?: yes.              
+
+
+[install] Enable Gin admin modules: gin_toolbar gin_login
+ [37;42;1m[success][39;49;22m Module gin_toolbar has been installed.
+ [37;42;1m[success][39;49;22m Module gin_login has been installed. (]8;;http://default/admin/config/system/configuration/gin-login\Configure]8;;\)
+
+[install] Enable themes: ui_suite_bnppre
+The following module(s) and themes(s) will be installed: ui_suite_bnppre
+
+[39;49m // [39;49mDo you want to continue?: yes.                                             
+
+ [37;42;1m[success][39;49;22m Successfully installed theme: ui_suite_bnppre
+
+[install] Set theme config: default -> ui_suite_bnppre
+
+[39;49m // [39;49mDo you want to update default key in system.theme config?: yes.            
+
+
+[install] Ensure favorites header block placement
+Block already exists.
+[install] Run database updates
+ [37;42;1m[success][39;49;22m No pending updates.
+
+[install] Rebuild cache
+ [37;42;1m[success][39;49;22m Cache rebuild complete.
+
+[install] Done
+Drupal version   : 11.3.5                                                    
+Site URI         : http://default                                            
+DB driver        : mysql                                                     
+DB hostname      : localhost                                                 
+DB port          : 3306                                                      
+DB username      : root                                                      
+DB name          : ps_theme                                                  
+Database         : Connected                                                 
+Drupal bootstrap : Successful                                                
+Default theme    : ui_suite_bnppre                                           
+Admin theme      : gin                                                       
+PHP binary       : C:/wamp64/bin/php/php8.3.14/php.exe                       
+PHP config       : C:/wamp64/bin/php/php8.3.14/php.ini                       
+PHP OS           : WINNT                                                     
+PHP version      : 8.3.14                                                    
+Drush script     : C:/wamp64/www/ps_theme/vendor/bin/drush.php               
+Drush version    : 13.7.2.0                                                  
+Drush temp       : C:/Users/hatir/AppData/Local/Temp                         
+Drush configs    : C:/wamp64/www/ps_theme/vendor/drush/drush/drush.yml       
+Install profile  : minimal                                                   
+Drupal root      : C:/wamp64/www/ps_theme/web                                
+Site path        : sites/default                                             
+Files, Public    : sites/default/files                                       
+Files, Temp      : c:/wamp64/tmp                                             
+Drupal config    : sites/default/files/config_Kq2cX2r7dOX1J1YS3duJPwPcsuYcjA 
+                   Q-icBiNvrYf1nJEqhxmsliPlqlk3r5fb7VMnN7F0KyvQ/sync         

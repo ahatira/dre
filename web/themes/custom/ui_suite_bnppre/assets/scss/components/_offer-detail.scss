@@ -200,8 +200,8 @@
     flex-direction: column;
   }
 
-  // Geolocation map container height for full-width display
-  .geolocation-map-container {
+  // Offer map container height for full-width display
+  .geofield-google-map {
     height: 500px; // Increased from default 300px for full-width map
     min-height: 400px;
     width: 100%;
@@ -213,12 +213,12 @@
   }
 
   // Map control styling
-  .geolocation-map-control {
+  .geofield-google-map-ajax-popup {
     z-index: 10;
   }
 
   // Context popup styling
-  .geolocation-context-popup {
+  .gm-style .gm-style-iw {
     background-color: #fff;
     border-radius: 4px;
   }

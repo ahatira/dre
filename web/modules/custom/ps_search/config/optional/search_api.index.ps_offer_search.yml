@@ -1,0 +1,97 @@
+id: ps_offer_search
+name: 'PS Offer Search'
+description: 'Search index dedicated to offer cards and faceted filters.'
+read_only: false
+field_settings:
+  status:
+    label: Published
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: 8
+  field_address:
+    label: Address
+    datasource_id: 'entity:node'
+    property_path: field_address
+    type: text
+  field_property_type:
+    label: 'Property type'
+    datasource_id: 'entity:node'
+    property_path: field_property_type
+    type: string
+  field_transaction_types:
+    label: 'Transaction type'
+    datasource_id: 'entity:node'
+    property_path: field_transaction_types
+    type: string
+  field_geofield:
+    label: Location
+    datasource_id: 'entity:node'
+    property_path: field_geofield
+    type: string
+  ps_offer_surface_main_value:
+    label: 'Main surface'
+    property_path: ps_offer_surface_main_value
+    type: decimal
+  ps_offer_price_normalized_main:
+    label: 'Normalized main price'
+    property_path: ps_offer_price_normalized_main
+    type: decimal
+  rendered_item:
+    label: 'Rendered item'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        - anonymous
+        - authenticated
+      view_mode:
+        'entity:node':
+          offer: card_search
+processor_settings:
+  add_url: {  }
+  content_access: {  }
+  entity_status: {  }
+  ignorecase: {  }
+  rendered_item: {  }
+  tokenizer: {  }
+  transliteration: {  }
+  ps_offer_price_main: {  }
+  ps_offer_surface_division: {  }
+options:
+  cron_limit: 50
+  index_directly: true
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - offer
+    languages:
+      default: true
+      selected: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+server: ps_offer_database
+status: true
+langcode: en
+dependencies:
+  config:
+    - core.entity_view_mode.node.card_search
+    - search_api.server.ps_offer_database
+  module:
+    - geofield
+    - node
+    - ps_offer
+    - search_api
