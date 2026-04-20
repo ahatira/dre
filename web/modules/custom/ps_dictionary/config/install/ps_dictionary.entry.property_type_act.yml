@@ -7,4 +7,6 @@ weight: 0
 status: true
 deprecated: false
 metadata:
-  icon: ""
+  icon: 'bi bi-gear'
+  ui_label: Activity
+  search_ui_visible: false

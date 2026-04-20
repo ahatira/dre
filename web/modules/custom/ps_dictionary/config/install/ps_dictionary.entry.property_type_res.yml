@@ -1,0 +1,12 @@
+id: property_type_res
+dictionary_type: property_type
+code: RES
+label: Residential
+description: 'Residential property type'
+weight: 4
+status: true
+deprecated: false
+metadata:
+  icon: common-areas
+  ui_label: Residential
+  search_ui_visible: true

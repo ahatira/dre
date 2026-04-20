@@ -1,0 +1,12 @@
+id: property_type_ter
+dictionary_type: property_type
+code: TER
+label: Land
+description: 'Land or terrain property type'
+weight: 5
+status: true
+deprecated: false
+metadata:
+  icon: terrain
+  ui_label: Land
+  search_ui_visible: true

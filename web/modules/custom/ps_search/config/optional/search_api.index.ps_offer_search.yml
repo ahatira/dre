@@ -47,6 +47,48 @@ field_settings:
     label: 'Normalized main price'
     property_path: ps_offer_price_normalized_main
     type: decimal
+  ps_offer_has_virtual_tour:
+    label: 'Has immersive tour'
+    property_path: ps_offer_has_virtual_tour
+    type: boolean
+  ps_offer_has_video:
+    label: 'Has video'
+    property_path: ps_offer_has_video
+    type: boolean
+  ps_offer_feature_accessibility:
+    label: Accessibility
+    property_path: ps_offer_feature_accessibility
+    type: string
+  ps_offer_feature_equipments:
+    label: Equipments
+    property_path: ps_offer_feature_equipments
+    type: string
+  ps_offer_feature_services:
+    label: Services
+    property_path: ps_offer_feature_services
+    type: string
+  ps_offer_building_condition:
+    label: 'Building condition'
+    property_path: ps_offer_building_condition
+    type: string
+  ps_offer_transport_text:
+    label: 'Nearby transport'
+    property_path: ps_offer_transport_text
+    type: text
+  ps_offer_ceiling_height_min:
+    label: 'Ceiling height min'
+    property_path: ps_offer_ceiling_height_min
+    type: decimal
+  ps_offer_ceiling_height_max:
+    label: 'Ceiling height max'
+    property_path: ps_offer_ceiling_height_max
+    type: decimal
+  field_reference:
+    label: Reference
+    datasource_id: 'entity:node'
+    property_path: field_reference
+    type: text
+    boost: 5
   rendered_item:
     label: 'Rendered item'
     property_path: rendered_item
@@ -68,6 +110,7 @@ processor_settings:
   transliteration: {  }
   ps_offer_price_main: {  }
   ps_offer_surface_division: {  }
+  ps_offer_extra_filters: {  }
 options:
   cron_limit: 50
   index_directly: true

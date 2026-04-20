@@ -1,0 +1,12 @@
+id: transaction_type_ven
+dictionary_type: transaction_type
+code: VEN
+label: Sale
+description: 'Property for sale'
+weight: 1
+status: true
+deprecated: false
+metadata:
+  icon: 'bi bi-cart'
+  ui_label: Buy
+  search_ui_visible: true

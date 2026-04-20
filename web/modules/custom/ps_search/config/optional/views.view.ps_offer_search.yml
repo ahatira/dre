@@ -164,7 +164,7 @@ display:
             identifier: property_type
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -176,40 +176,74 @@ display:
             identifier: ''
             optional: true
             widget: select
-            multiple: false
+            multiple: true
             remember: false
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: search_api_options
-        ps_offer_surface_main_value:
-          id: ps_offer_surface_main_value
+        field_transaction_types:
+          id: field_transaction_types
           table: search_api_index_ps_offer_search
-          field: ps_offer_surface_main_value
+          field: field_transaction_types
           relationship: none
           group_type: group
           admin_label: ''
-          operator: between
-          value:
-            min: ''
-            max: ''
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: ps_offer_surface_main_value_op
-            label: 'Surface (m2)'
+            operator_id: field_transaction_types_op
+            label: 'Find a property'
             description: ''
             use_operator: false
-            operator: ps_offer_surface_main_value_op
-            identifier: surface
+            operator: field_transaction_types_op
+            identifier: transaction_type
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: true
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_options
+        location:
+          id: location
+          table: search_api_index_ps_offer_search
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: location_op
+            label: 'Location(s)'
+            description: ''
+            use_operator: false
+            operator: location_op
+            identifier: location
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-            min_placeholder: Min
-            max_placeholder: Max
           is_grouped: false
           group_info:
             label: ''
@@ -222,35 +256,35 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_numeric
-        ps_offer_price_normalized_main:
-          id: ps_offer_price_normalized_main
+          parse_mode: terms
+          min_length: 0
+          fields:
+            - field_address
+          plugin_id: search_api_fulltext
+        field_reference:
+          id: field_reference
           table: search_api_index_ps_offer_search
-          field: ps_offer_price_normalized_main
+          field: search_api_fulltext
           relationship: none
           group_type: group
           admin_label: ''
-          operator: between
-          value:
-            min: ''
-            max: ''
+          operator: and
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: ps_offer_price_normalized_main_op
-            label: Price
+            operator_id: field_reference_op
+            label: 'Ad reference'
             description: ''
             use_operator: false
-            operator: ps_offer_price_normalized_main_op
-            identifier: price
+            operator: field_reference_op
+            identifier: reference
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-            min_placeholder: Min
-            max_placeholder: Max
           is_grouped: false
           group_info:
             label: ''
@@ -263,7 +297,254 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_numeric
+          parse_mode: terms
+          min_length: 0
+          fields:
+            - field_reference
+          plugin_id: search_api_fulltext
+        ps_offer_feature_accessibility:
+          id: ps_offer_feature_accessibility
+          table: search_api_index_ps_offer_search
+          field: ps_offer_feature_accessibility
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_feature_accessibility_op
+            label: Accessibility
+            description: ''
+            use_operator: false
+            operator: ps_offer_feature_accessibility_op
+            identifier: accessibility
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: true
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_options
+        ps_offer_feature_equipments:
+          id: ps_offer_feature_equipments
+          table: search_api_index_ps_offer_search
+          field: ps_offer_feature_equipments
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_feature_equipments_op
+            label: Equipments
+            description: ''
+            use_operator: false
+            operator: ps_offer_feature_equipments_op
+            identifier: equipments
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: true
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_options
+        ps_offer_feature_services:
+          id: ps_offer_feature_services
+          table: search_api_index_ps_offer_search
+          field: ps_offer_feature_services
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_feature_services_op
+            label: Services
+            description: ''
+            use_operator: false
+            operator: ps_offer_feature_services_op
+            identifier: services
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: true
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_options
+        ps_offer_building_condition:
+          id: ps_offer_building_condition
+          table: search_api_index_ps_offer_search
+          field: ps_offer_building_condition
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_building_condition_op
+            label: 'Building type / condition'
+            description: ''
+            use_operator: false
+            operator: ps_offer_building_condition_op
+            identifier: building_condition
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: true
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_options
+        nearby_transport:
+          id: nearby_transport
+          table: search_api_index_ps_offer_search
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: nearby_transport_op
+            label: 'Nearby transport'
+            description: ''
+            use_operator: false
+            operator: nearby_transport_op
+            identifier: nearby_transport
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: 0
+          fields:
+            - ps_offer_transport_text
+          plugin_id: search_api_fulltext
+        ps_offer_has_virtual_tour:
+          id: ps_offer_has_virtual_tour
+          table: search_api_index_ps_offer_search
+          field: ps_offer_has_virtual_tour
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_has_virtual_tour_op
+            label: 'Immersive tour'
+            description: ''
+            use_operator: false
+            operator: ps_offer_has_virtual_tour_op
+            identifier: immersive_tour
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+          plugin_id: search_api_boolean
+        ps_offer_has_video:
+          id: ps_offer_has_video
+          table: search_api_index_ps_offer_search
+          field: ps_offer_has_video
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ps_offer_has_video_op
+            label: Video
+            description: ''
+            use_operator: false
+            operator: ps_offer_has_video_op
+            identifier: video
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+          plugin_id: search_api_boolean
       sorts:
         ps_offer_surface_main_value:
           id: ps_offer_surface_main_value
@@ -292,6 +573,7 @@ display:
       empty: {  }
       relationships: {  }
       arguments: {  }
+      use_ajax: true
       display_extenders: {  }
     cache_metadata:
       max-age: -1

@@ -1,0 +1,8 @@
+ps_search.location_autocomplete:
+  path: '/ps-search/location-autocomplete'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\LocationAutocompleteController::autocomplete'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: true

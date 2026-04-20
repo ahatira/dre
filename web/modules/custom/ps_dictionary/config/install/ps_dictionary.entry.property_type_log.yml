@@ -1,0 +1,12 @@
+id: property_type_log
+dictionary_type: property_type
+code: LOG
+label: 'Industrial / Logistics'
+description: 'Industrial or logistics warehouse property type'
+weight: 6
+status: true
+deprecated: false
+metadata:
+  icon: logistic-warehouses
+  ui_label: 'Industrial and logistic'
+  search_ui_visible: true

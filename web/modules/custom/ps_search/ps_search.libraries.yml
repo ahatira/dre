@@ -1,0 +1,9 @@
+offer_search_tracking:
+  version: 1.x
+  js:
+    js/offer-search-tracking.js: {}
+    js/search-location-autocomplete.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

@@ -109,9 +109,6 @@ class OfferHooks {
         '#node' => $entity,
         '#view_mode' => $display->getMode(),
         '#cache' => $cache,
-        '#attached' => [
-          'library' => ['ps_offer/card_search_tracking'],
-        ],
         'ps_offer_card_search_component' => [
           '#type' => 'component',
           '#component' => 'ui_suite_bnppre:card_offer_search',
@@ -170,14 +167,6 @@ class OfferHooks {
       '#node' => $entity,
       '#view_mode' => $display->getMode(),
       '#cache' => $cache,
-      '#attached' => [
-        'library' => ['ps_offer/card_search_tracking'],
-        'drupalSettings' => [
-          'psOfferCardSearch' => [
-            'viewedOfferIds' => [(int) $entity->id()],
-          ],
-        ],
-      ],
       'ps_offer_full_component' => [
         '#type' => 'component',
         '#component' => 'ui_suite_bnppre:offer_full',

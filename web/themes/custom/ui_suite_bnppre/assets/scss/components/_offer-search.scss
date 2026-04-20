@@ -1,92 +1,571 @@
+// =============================================================================
+// Offer Search — filter bar with dropdown panels + offcanvas more-filters
+// =============================================================================
+
+// --- Search view wrapper -----------------------------------------------------
 .ps-offer-search-view {
   .ps-offer-search-view__filters {
     margin-bottom: 1.5rem;
   }
 
-  .ps-offer-search-exposed {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.75rem;
-    align-items: end;
+  // --- Filter bar (the row of dropdown triggers) -----------------------------
+  .ps-offer-search-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 8px;
+    border: 0;
+    background: transparent;
+    padding: 0;
   }
 
-  .ps-offer-search-exposed > .form-item,
-  .ps-offer-search-exposed > fieldset,
-  .ps-offer-search-exposed > .form-actions {
-    margin: 0;
+  // --- Individual panel wrapper ----------------------------------------------
+  .ps-filter-panel {
+    position: relative;
+    flex: 1 1 0;
     min-width: 0;
+    display: flex;
+    align-items: stretch;
+    padding-top: 28px;
+
+    &:not(:first-child) {
+      border-left: 0;
+    }
+
+    &.is-active > .ps-filter-panel__trigger {
+      color: #009258;
+      background: #f0f9f5;
+    }
+
+    &.is-open > .ps-filter-panel__trigger {
+      background: #f8f8f8;
+    }
   }
 
-  .ps-offer-search-exposed .form-item {
+  // --- Trigger button (the filter "pill" in the bar) -------------------------
+  .ps-filter-panel__trigger {
     width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'value arrow';
+    align-items: center;
+    column-gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid #d6dbde;
+    border-radius: 0;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    white-space: nowrap;
+    min-height: 40px;
+    height: 40px;
+    text-align: left;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #fff;
+      border-color: #c2c9ce;
+      outline: none;
+    }
+
+    &[aria-expanded='true'] {
+      background: #fff;
+      border-color: #c2c9ce;
+    }
   }
 
-  .ps-offer-search-exposed .form-item > label,
-  .ps-offer-search-exposed fieldset > legend {
-    margin-bottom: 0.375rem;
+  .ps-filter-panel__meta-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14px;
+    letter-spacing: 0;
+    font-weight: 700;
+    line-height: 24px;
+    color: #333;
+    text-transform: none;
+    pointer-events: none;
+  }
+
+  .ps-filter-panel__value {
+    grid-area: value;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    line-height: 24px;
+  }
+
+  .ps-filter-panel--location .ps-filter-panel__value {
+    color: #b4babe;
+  }
+
+  // Chevron arrow indicator
+  .ps-filter-panel__arrow {
+    grid-area: arrow;
+    flex-shrink: 0;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentcolor;
+    border-bottom: 2px solid currentcolor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.15s ease;
+  }
+
+  .ps-filter-panel__trigger[aria-expanded='true'] .ps-filter-panel__arrow {
+    transform: rotate(225deg) translateY(-0.15rem);
+  }
+
+  // "More filters" trigger — no flex-grow, at end of the bar
+  .ps-filter-panel__trigger--more {
+    flex: 0 0 auto;
+    width: 142px;
+    min-width: 142px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #00915a;
+    font-weight: 400;
+    gap: 8px;
+    background: transparent;
+    color: #00915a;
+    min-height: 40px;
+    height: 40px;
+    margin-left: 16px;
+
+    .ps-filter-panel__label {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    &[aria-expanded='true'],
+    &.has-filters {
+      color: #00915a;
+      background: rgb(0 145 90 / 6%);
+    }
+  }
+
+  // --- Dropdown content panel (floating) ------------------------------------
+  .ps-filter-panel__content {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    z-index: 1050;
+    min-width: max(260px, 100%);
+    background: #fff;
+    border: 1px solid #c7ccd1;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
+
+    &[hidden] {
+      display: none;
+    }
+
+    &.ps-filter-panel__content--align-right {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  .ps-filter-panel--static {
+    .ps-filter-panel__trigger {
+      cursor: default;
+    }
+
+    .ps-filter-panel__arrow {
+      opacity: 0.85;
+    }
+  }
+
+  // Internal padding for panel content
+  .ps-filter-panel__content > .form-item,
+  .ps-filter-panel__content > fieldset,
+  .ps-filter-panel__content > .js-form-item {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  // Range inputs inside panel (surface/price)
+  .ps-filter-panel__content fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ps-filter-panel__content fieldset > legend {
+    padding: 1rem 1rem 0;
     font-size: 0.875rem;
     font-weight: 600;
     color: #2f3136;
-  }
-
-  .ps-offer-search-exposed fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-  }
-
-  .ps-offer-search-exposed fieldset > legend {
     float: none;
     width: 100%;
-    margin: 0 0 0.375rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
   }
 
-  .ps-offer-search-exposed fieldset > .fieldset-wrapper,
-  .ps-offer-search-exposed fieldset > div {
+  .ps-filter-panel__content fieldset > .fieldset-wrapper,
+  .ps-filter-panel__content fieldset > div {
+    padding: 0.75rem 1rem 0;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
   }
 
-  .ps-offer-search-exposed fieldset .form-item {
+  .ps-filter-panel__content .form-item > label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .ps-filter-panel__content input,
+  .ps-filter-panel__content select {
+    width: 100%;
+    height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid #c7ccd1;
+    background: #fff;
+    font-size: 0.875rem;
+    color: #2f3136;
+    border-radius: 0;
+
+    &:focus {
+      outline: 2px solid #009258;
+      outline-offset: -1px;
+    }
+  }
+
+  // Panel apply-button footer
+  .ps-filter-panel__footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+
+    .ps-filter-panel__apply {
+      min-width: 8rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  .ps-filter-panel__apply.is-loading,
+  .ps-offer-search-bar__submit.is-loading {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ps-filter-panel__apply.is-loading .spinner-border,
+  .ps-offer-search-bar__submit.is-loading .spinner-border {
     margin: 0;
   }
 
-  .ps-offer-search-exposed fieldset .form-item > label {
-    display: none;
+  // --- Property type: icon-grid inside its panel ----------------------------
+  .ps-filter-panel--property-type .ps-filter-panel__content {
+    min-width: 340px;
   }
 
-  .ps-offer-search-exposed fieldset .form-item:nth-of-type(n + 2) {
-    display: none;
-  }
-
-  .ps-offer-search-exposed input,
-  .ps-offer-search-exposed select,
-  .ps-offer-search-exposed .form-select,
-  .ps-offer-search-exposed .form-text {
-    height: 3rem;
-    border: 1px solid #c7ccd1;
-    border-radius: 0;
-    background: #fff;
-  }
-
-  .ps-offer-search-exposed .form-actions {
-    display: flex;
-    align-items: center;
+  // Icon grid (populated by JS: .ps-property-type-grid)
+  .ps-property-type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
-    justify-content: flex-start;
+    padding: 1rem;
   }
 
-  .ps-offer-search-exposed .form-actions .button,
-  .ps-offer-search-exposed .form-actions input[type='submit'] {
-    min-height: 3rem;
+  .ps-property-type-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid #c7ccd1;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #2f3136;
+    text-align: center;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    min-height: 5rem;
+
+    &:hover {
+      border-color: #009258;
+      background: #f0f9f5;
+    }
+
+    &.is-selected {
+      border-color: #009258;
+      background: #f0f9f5;
+      color: #009258;
+      font-weight: 700;
+    }
+  }
+
+  .ps-property-type-tile__icon {
+    font-size: 1.65rem;
+    line-height: 1;
+
+    i {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+
+  .ps-transaction-type {
+    padding: 1.5rem 1rem 0.8rem;
+  }
+
+  .ps-transaction-type__title {
+    margin: 0 0 1rem;
+    font-size: 2.85rem;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .ps-transaction-type__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .ps-transaction-type__btn {
+    min-height: 40px;
+    padding: 0 22px;
+    border: 2px solid #49545e;
+    background: #fff;
+    color: #49545e;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #eef1f3;
+      outline: none;
+    }
+
+    &.is-selected {
+      background: #49545e;
+      color: #fff;
+    }
+  }
+    i {
+      font-size: inherit;
+      line-height: inherit;
+    }
+  }
+
+  .ps-transaction-type {
+    padding: 1.5rem 1rem 0.8rem;
+  }
+
+  .ps-transaction-type__title {
+    margin: 0 0 1rem;
+    font-size: 2.85rem;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .ps-transaction-type__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .ps-transaction-type__btn {
+    min-height: 40px;
+    padding: 0 22px;
+    border: 2px solid #49545e;
+    background: #fff;
+    color: #49545e;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #eef1f3;
+      outline: none;
+    }
+
+    &.is-selected {
+      background: #49545e;
+      color: #fff;
+    }
+  }
+
+  // --- Location: text input + hint ------------------------------------------
+  .ps-filter-panel--location .ps-filter-panel__content {
+    min-width: 320px;
+  }
+
+  .ps-filter-panel--location .form-item {
+    padding: 1rem;
+  }
+
+  .ps-filter-panel--location .form-item > label {
+    display: none;
+  }
+
+  .ps-location-autocomplete__input-wrap {
+    position: relative;
+  }
+
+  .ps-location-autocomplete__input-wrap .form-control {
+    height: 3rem;
+    padding-right: 2.75rem;
+    font-size: 1rem;
+  }
+
+  .ps-location-autocomplete__clear {
+    position: absolute;
+    top: 50%;
+    right: 0.65rem;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    background: transparent;
+    color: #3a3a3a;
+    font-size: 2rem;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .ps-location-autocomplete__suggestions {
+    margin: 0 1rem 1rem;
+    border: 1px solid #d9dddf;
+    background: #fff;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .ps-location-suggestion-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ps-location-suggestion-list__item + .ps-location-suggestion-list__item {
+    border-top: 1px solid #eceff1;
+  }
+
+  .ps-location-suggestion {
+    width: 100%;
+    display: block;
+    text-align: left;
+    border: 0;
+    background: #fff;
+    color: #2f3136;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+
+    &:hover,
+    &.is-active {
+      background: #f3f5f6;
+    }
+  }
+
+  .ps-location-autocomplete__selected {
+    margin: 1.25rem 1rem;
+  }
+
+  .ps-location-autocomplete__selected-title {
+    font-size: 1.8rem;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .ps-location-autocomplete__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .ps-location-chip {
+    border: 1px solid #d0d5d8;
+    border-radius: 999px;
+    background: #f8f9fa;
+    color: #2b3a44;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 2.6rem;
+    padding: 0 1rem;
+    font-size: 1.05rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .ps-location-chip__remove {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #444;
+  }
+
+  .ps-location-trigger-chips {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.4rem;
+    overflow: hidden;
+  }
+
+  .ps-location-trigger-chip {
+    border: 1px solid #d0d5d8;
+    border-radius: 999px;
+    background: #f8f9fa;
+    color: #2b3a44;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    max-width: 200px;
+    min-height: 2.2rem;
+    padding: 0 0.8rem;
+  }
+
+  .ps-location-trigger-chip__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
+  .ps-location-trigger-chip__remove {
+    border: 0;
+    background: transparent;
+    color: #444;
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  // --- Main submit / reset (hidden — panels have their own submit) -----------
+  .ps-offer-search-bar__actions {
+    display: none;
+  }
+
+  // --- Results / list layout ------------------------------------------------
   .ps-offer-search-view__content {
     --bs-gutter-x: 1rem;
     align-items: stretch;
@@ -109,25 +588,290 @@
   }
 }
 
+// --- More-filters offcanvas --------------------------------------------------
+.ps-offer-more-filters {
+  .offcanvas-header {
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .ps-offer-more-filters__body {
+    padding: 1.5rem;
+
+    .form-item {
+      margin-bottom: 1.25rem;
+
+      > label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #2f3136;
+        margin-bottom: 0.375rem;
+        display: block;
+      }
+
+      input,
+      select {
+        width: 100%;
+        height: 2.75rem;
+        padding: 0 0.75rem;
+        border: 1px solid #c7ccd1;
+        background: #fff;
+        font-size: 0.875rem;
+        border-radius: 0;
+
+        &:focus {
+          outline: 2px solid #009258;
+          outline-offset: -1px;
+        }
+      }
+    }
+
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+
+      > legend {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #2f3136;
+        margin-bottom: 0.375rem;
+        padding: 0;
+      }
+
+      > .fieldset-wrapper,
+      > div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+    }
+  }
+
+  .ps-offer-more-filters__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+
+    .ps-offer-more-filters__reset {
+      color: #6b7280;
+      text-decoration: underline;
+      font-size: 0.875rem;
+    }
+
+    .ps-offer-more-filters__apply {
+      min-width: 10rem;
+    }
+
+    .ps-offer-more-filters__apply.is-loading {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ps-offer-more-filters__apply.is-loading .spinner-border {
+      margin: 0;
+    }
+  }
+}
+
+// --- Responsive breakpoints --------------------------------------------------
 @media (max-width: 1199.98px) {
   .ps-offer-search-view {
-    .ps-offer-search-exposed {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .ps-offer-search-bar {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ps-filter-panel {
+      flex: 1 1 50%;
+      padding-top: 24px;
+    }
+
+    .ps-filter-panel__meta-label {
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .ps-filter-panel__trigger--more {
+      margin-left: 0;
+      width: 100%;
+      min-width: 0;
     }
 
     .ps-offer-search-view__map {
       position: static;
     }
-
-    .ps-offer-search-exposed fieldset > .fieldset-wrapper,
-    .ps-offer-search-exposed fieldset > div {
-      grid-template-columns: 1fr;
-    }
   }
 }
 
 @media (max-width: 767.98px) {
-  .ps-offer-search-view .ps-offer-search-exposed {
-    grid-template-columns: 1fr;
+  .ps-offer-search-view {
+    .ps-offer-search-bar {
+      flex-direction: column;
+      flex-wrap: wrap;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      gap: 0;
+    }
+
+    .ps-filter-panel {
+      flex: 1 1 auto;
+      padding-top: 0;
+      border: 1px solid #c7ccd1;
+
+      &:not(:first-child) {
+        border-left: 1px solid #c7ccd1;
+        margin-top: -1px;
+      }
+    }
+
+    .ps-filter-panel__content {
+      position: static;
+      box-shadow: none;
+      border-top: 1px solid #e9ecef;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+    }
+
+    .ps-filter-panel__meta-label {
+      position: static;
+      display: block;
+      margin-bottom: 0.45rem;
+      color: #2f3136;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .ps-filter-panel__trigger {
+      grid-template-areas:
+        'value arrow';
+      row-gap: 0;
+      border: 0;
+      min-height: 40px;
+      height: 40px;
+      padding: 0.8rem 1rem;
+      background: #f8f8f8;
+    }
+
+    .ps-filter-panel__value {
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .ps-transaction-type {
+      padding: 1rem 1rem 0.6rem;
+    }
+
+    .ps-transaction-type__title {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ps-transaction-type__group {
+      gap: 0.55rem;
+    }
+
+    .ps-transaction-type__btn {
+      min-height: 36px;
+      padding: 0 14px;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .ps-transaction-type {
+      padding: 1rem 1rem 0.6rem;
+    }
+
+    .ps-transaction-type__title {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ps-transaction-type__group {
+      gap: 0.55rem;
+    }
+
+    .ps-transaction-type__btn {
+      min-height: 36px;
+      padding: 0 14px;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .ps-filter-panel__trigger--more {
+      border-left: 0;
+      border-top: 1px solid #c7ccd1;
+      min-width: 0;
+      width: 100%;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      margin-left: 0;
+      min-height: 40px;
+      height: 40px;
+
+      .ps-filter-panel__label {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
   }
+}
+
+// Maquette alignment: transaction heading typography.
+.ps-offer-search-view .ps-transaction-type__title {
+  font-family: 'BNPP Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #333333;
+}
+
+// Property type icons: BNPPRE icon component rendering (ps-icon + data-icon).
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='offices'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/offices.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/offices.svg');
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='coworking'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/coworking.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/coworking.svg');
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='logistic-warehouses'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/logistic-warehouses.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/logistic-warehouses.svg');
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='shops'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/shops.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/shops.svg');
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='common-areas'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/tools/common-areas.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/tools/common-areas.svg');
+}
+
+.ps-offer-search-view .ps-property-type-tile__icon .ps-icon[data-icon='terrain'] {
+  mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/terrain.svg');
+  -webkit-mask-image: url('/themes/custom/ui_suite_bnppre/assets/icons/univers/terrain.svg');
 }

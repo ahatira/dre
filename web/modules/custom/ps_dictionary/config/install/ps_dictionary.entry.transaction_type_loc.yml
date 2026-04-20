@@ -7,4 +7,6 @@ weight: 0
 status: true
 deprecated: false
 metadata:
-  icon: ""
+  icon: 'bi bi-key'
+  ui_label: Rent
+  search_ui_visible: true

@@ -1,0 +1,12 @@
+id: property_type_cow
+dictionary_type: property_type
+code: COW
+label: Coworking
+description: 'Coworking or shared workspace property type'
+weight: 2
+status: true
+deprecated: false
+metadata:
+  icon: coworking
+  ui_label: Coworking
+  search_ui_visible: true
