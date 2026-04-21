@@ -1,3 +1,22 @@
+// Configuration visuelle par type de POI
+const POI_CONFIG = {
+		transit_station: { color: '#1565c0', initial: 'T', label: 'Transport' },
+		parking:         { color: '#2e7d32', initial: 'P', label: 'Parking' },
+		restaurant:      { color: '#e65100', initial: 'R', label: 'Restaurant' },
+		lodging:         { color: '#6a1b9a', initial: 'H', label: 'Hotel' },
+};
+
+// Génère une icône SVG personnalisée pour le marker
+function buildMarkerSvg(color, initial) {
+		const svg = [
+			'<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">',
+			'  <circle cx="15" cy="15" r="13" fill="' + color + '" stroke="#fff" stroke-width="2"/>',
+			'  <text x="15" y="20" font-size="13" font-family="Arial,sans-serif"',
+			'        font-weight="bold" fill="#fff" text-anchor="middle">' + initial + '</text>',
+			'</svg>',
+		].join('');
+		return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
 /**
  * Script pour interagir avec la Google Map et cacher les POI natifs par défaut.
  * Nécessite que la carte Google Maps soit déjà initialisée sur la page.
@@ -72,30 +91,37 @@
 							});
 						}
 
-						// Affiche les POI d'une catégorie (type Google Places)
-						function showPOICategory(map, type) {
-							if (!window.google || !window.google.maps || !window.google.maps.places) return;
-							var service = new google.maps.places.PlacesService(map);
-							var center = map.getCenter();
-							var radius = 1000; // Peut être passé via drupalSettings
-							service.nearbySearch({
-								location: center,
-								radius: radius,
-								type: type
-							}, function(results, status) {
-								if (status !== google.maps.places.PlacesServiceStatus.OK) return;
-								window.psNearbyPlacesMarkers[type] = window.psNearbyPlacesMarkers[type] || [];
-								results.forEach(function(place) {
-									if (!place.geometry || !place.geometry.location) return;
-									var marker = new google.maps.Marker({
-										position: place.geometry.location,
-										map: map,
-										title: place.name || ''
-									});
-									window.psNearbyPlacesMarkers[type].push(marker);
-								});
-							});
-						}
+						// Affiche les POI d'une catégorie (type Google Places) avec icône personnalisée
+									function showPOICategory(map, type) {
+										if (!window.google || !window.google.maps || !window.google.maps.places) return;
+										var service = new google.maps.places.PlacesService(map);
+										var center = map.getCenter();
+										var radius = 1000; // Peut être passé via drupalSettings
+										service.nearbySearch({
+											location: center,
+											radius: radius,
+											type: type
+										}, function(results, status) {
+											if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+											window.psNearbyPlacesMarkers[type] = window.psNearbyPlacesMarkers[type] || [];
+											results.forEach(function(place) {
+												if (!place.geometry || !place.geometry.location) return;
+												// Récupère la config visuelle pour ce type
+												var config = POI_CONFIG[type] || { color: '#555', initial: '?', label: type };
+												var marker = new google.maps.Marker({
+													position: place.geometry.location,
+													map: map,
+													title: place.name || '',
+													icon: {
+														url: buildMarkerSvg(config.color, config.initial),
+														scaledSize: new google.maps.Size(30, 30),
+														anchor: new google.maps.Point(15, 30)
+													}
+												});
+												window.psNearbyPlacesMarkers[type].push(marker);
+											});
+										});
+									}
 
 						// Supprime tous les markers d'une catégorie
 						function hidePOICategory(map, type) {
