@@ -17,6 +17,20 @@ class DirectionsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['poi_types'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Show points of interest:'),
+      '#options' => [
+        'transports' => $this->t('Transports'),
+        'parkings' => $this->t('Parkings'),
+        'restaurants' => $this->t('Restaurants'),
+        'hotels' => $this->t('Hotels'),
+      ],
+      '#default_value' => [],
+      '#attributes' => [
+        'class' => ['ps-geo-directions-poi-types', 'ps-nearby-places-checkbox'],
+      ],
+    ];
     $form['address'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Starting point'),
@@ -46,6 +60,8 @@ class DirectionsForm extends FormBase {
         ],
       ];
     $form['#attached']['library'][] = 'ps_geo_directions/directions';
+    // Attach origin and debug to drupalSettings for JS.
+    // La variable 'origin' est injectée dynamiquement via le formatter dans drupalSettings.
     $form['#attributes']['class'][] = 'ps-geo-directions-form';
     return $form;
   }
