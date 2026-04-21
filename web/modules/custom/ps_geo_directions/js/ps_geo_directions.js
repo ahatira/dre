@@ -133,6 +133,20 @@
         });
       });
 
+      // Handler clear : reset le champ d'adresse précisément
+      once('ps-geo-directions-clear', '.ps-geo-directions-clear', context).forEach(el => {
+        $(el).on('click', function() {
+          // Reset tous les champs .ps-geo-directions-address du même formulaire
+          $(this).closest('form').find('.ps-geo-directions-address').val('');
+          // Cache les modes de transport
+          $('.ps-geo-directions-mode-wrapper').hide();
+          // Vide le résumé d’itinéraire
+          $('.ps-geo-directions__summary').html('');
+          // Réinitialise la dernière adresse
+          lastAddress = null;
+        });
+      });
+
       // Masque les modes de transport au chargement
       $('.ps-geo-directions-mode-wrapper').hide();
       // Déclare modeInputs AVANT utilisation
