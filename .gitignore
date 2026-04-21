@@ -61,9 +61,14 @@ npm-debug.log
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+/nul
 
 # Ignore local source workspace
 /source/
+
+# Ignore local install and debug artefacts
+/install*.log
+/wd_*.json
 
 # Ignore paths that contain user-generated content
 /web/sites/*/private/
