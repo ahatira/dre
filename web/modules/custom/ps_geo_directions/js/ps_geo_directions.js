@@ -110,6 +110,11 @@
               'googlemaps_offer',
               {}
             ).then(data => {
+              if (!Array.isArray(data)) {
+                console.warn('ps_geo_directions: data est undefined ou non-array', data);
+                response([]);
+                return;
+              }
               response(data.map(item => ({
                 label: item.formatted_address || item.value,
                 value: item.formatted_address || item.value,
