@@ -55,8 +55,31 @@
                 if (status === 'OK') {
                   directionsRenderer.setDirections(response);
                   if (debugEnabled) console.log('[PS Directions] Itinéraire trouvé', response);
+                  // Résumé d’itinéraire
+                  const route = response.routes[0];
+                  const leg = route.legs[0];
+                  let summary = '';
+                  if (leg && route) {
+                    // Temps
+                    const duration = leg.duration ? leg.duration.text : '';
+                    // Distance
+                    const distance = leg.distance ? leg.distance.text : '';
+                    // Via
+                    let via = '';
+                    if (route.summary) {
+                      via = route.summary;
+                    } else if (leg.via_waypoint && leg.via_waypoint.length > 0) {
+                      via = leg.via_waypoint.map(v => v.location).join(', ');
+                    }
+                    summary = `<strong>${duration}</strong> (${distance})`;
+                    if (via) {
+                      summary += `<br><strong>Via</strong> ${via}`;
+                    }
+                  }
+                  $('.ps-geo-directions__summary').html(summary);
                 } else {
                   if (debugEnabled) console.log('[PS Directions] Erreur DirectionsService:', status);
+                  $('.ps-geo-directions__summary').html('');
                 }
               });
             } else {
