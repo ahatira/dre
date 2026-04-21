@@ -536,6 +536,19 @@
       return null;
     }
 
+    // The list column is the source of truth for offer results.
+    // When filters produce no rows, this must return 0 (not fallback to map).
+    const listRoot = root.querySelector('.ps-offer-search-view__list') || root;
+    const cardCount = listRoot.querySelectorAll('.ps-card-offer-search').length;
+    if (cardCount > 0) {
+      return cardCount;
+    }
+
+    // If the view list container exists but has no cards, count is explicitly 0.
+    if (root.querySelector('.ps-offer-search-view__list')) {
+      return 0;
+    }
+
     const candidates = [
       root.querySelector('.ps-offer-search-view__header'),
       root.querySelector('.ps-offer-search-view__map [class*="result"]'),
@@ -734,17 +747,88 @@
     }, delay);
   }
 
-  function buildSearchPreviewUrl(form) {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(new FormData(form));
+  function buildSearchPreviewAjaxUrl(form) {
+    const action = form.getAttribute('action') || window.location.pathname;
+    const actionUrl = new URL(action, window.location.origin);
+    const rootPath = actionUrl.pathname.replace(/\/offers\/?$/, '');
+    const ajaxUrl = new URL(rootPath + '/views/ajax', window.location.origin);
 
-    // Ignore Drupal form internals for preview reads.
-    ['form_build_id', 'form_id', 'form_token', 'op', '_drupal_ajax'].forEach((key) => {
-      params.delete(key);
+    const rawParams = new URLSearchParams(new FormData(form));
+    const params = new URLSearchParams();
+
+    // Only keep filter parameters that are relevant for offer search preview.
+    const allowedExact = new Set([
+      'keys',
+      'location',
+      'location_search',
+      'location_multi',
+      'reference',
+      'nearby_transport',
+      'immersive_tour_enabled',
+      'video_enabled',
+      'ps_property_type',
+      'ps_transaction_type',
+    ]);
+
+    rawParams.forEach((value, key) => {
+      const isAllowed = allowedExact.has(key)
+        || key === 'surface[min]'
+        || key === 'surface[max]'
+        || key === 'price[min]'
+        || key === 'price[max]'
+        || key === 'ceiling_height[min]'
+        || key === 'ceiling_height[max]'
+        || key === 'accessibility[]'
+        || key === 'equipments[]'
+        || key === 'services[]'
+        || key === 'building_condition[]';
+
+      if (!isAllowed) {
+        return;
+      }
+
+      params.append(key, value);
     });
 
-    url.search = params.toString();
-    return url.toString();
+    params.set('_wrapper_format', 'drupal_ajax');
+    params.set('view_name', 'ps_offer_search');
+    params.set('view_display_id', 'page_1');
+    params.set('view_path', '/offers');
+    params.set('view_base_path', 'offers');
+    params.set('pager_element', '0');
+
+    const view = form.closest('.ps-offer-search-view') || document.querySelector('.ps-offer-search-view');
+    if (view) {
+      const domClass = Array.from(view.classList).find((name) => name.indexOf('js-view-dom-id-') === 0);
+      if (domClass) {
+        params.set('view_dom_id', domClass.replace('js-view-dom-id-', ''));
+      }
+    }
+
+    ajaxUrl.search = params.toString();
+    return ajaxUrl.toString();
+  }
+
+  function extractResultsCountFromAjaxPayload(payload) {
+    if (!Array.isArray(payload)) {
+      return null;
+    }
+
+    for (const command of payload) {
+      if (!command || typeof command !== 'object' || typeof command.data !== 'string') {
+        continue;
+      }
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(command.data, 'text/html');
+      const previewRoot = doc.querySelector('.ps-offer-search-view') || doc;
+      const count = extractResultsCountFromRoot(previewRoot);
+      if (count !== null) {
+        return count;
+      }
+    }
+
+    return null;
   }
 
   function normalizeRangeValue(rawValue) {
@@ -808,30 +892,51 @@
       const controller = new AbortController();
       form.__psCountAbortController = controller;
 
-      fetch(buildSearchPreviewUrl(form), {
+      const previewUrl = buildSearchPreviewAjaxUrl(form);
+
+      const fetchPreview = (attempt = 1) => fetch(previewUrl, {
         method: 'GET',
         credentials: 'same-origin',
         signal: controller.signal,
         headers: {
-          Accept: 'text/html',
+          Accept: 'application/json, text/javascript, */*; q=0.01',
+          'X-Requested-With': 'XMLHttpRequest',
         },
-      })
+      }).catch((error) => {
+        if (attempt < 2 && (!error || error.name !== 'AbortError')) {
+          return fetchPreview(attempt + 1);
+        }
+        throw error;
+      });
+
+      fetchPreview()
         .then((response) => {
           if (!response.ok) {
             throw new Error('Preview count request failed');
           }
           return response.text();
         })
-        .then((html) => {
+        .then((text) => {
           if (requestId !== form.__psCountRequestId) {
             return;
           }
 
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const previewRoot = doc.querySelector('.ps-offer-search-view') || doc;
-          const count = extractResultsCountFromRoot(previewRoot);
-          const fallbackCount = count === null ? readResultsCountFromHtmlDocument(doc) : count;
+          let payload = null;
+          try {
+            payload = JSON.parse(text);
+          }
+          catch (error) {
+            payload = null;
+          }
+
+          let fallbackCount = extractResultsCountFromAjaxPayload(payload);
+          if (fallbackCount === null) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const previewRoot = doc.querySelector('.ps-offer-search-view') || doc;
+            const count = extractResultsCountFromRoot(previewRoot);
+            fallbackCount = count === null ? readResultsCountFromHtmlDocument(doc) : count;
+          }
 
           if (fallbackCount !== null) {
             form.__psPreviewCount = fallbackCount;

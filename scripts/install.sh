@@ -106,6 +106,9 @@ PS_CUSTOM_MODULES=(
   ps_diagnostic
   ps_division
   ps_media
+)
+
+PS_SEARCH_MODULES=(
   ps_offer
   ps_search
 )
@@ -344,6 +347,47 @@ ensure_favorites_header_block() {
   }'
 }
 
+ensure_required_media_types() {
+  if ! module_exists "media"; then
+    echo "[install] skip required media types: module not found -> media"
+    return
+  fi
+
+  log "Ensure required media types for PS Offer"
+  "$DRUSH" php:eval 'use Drupal\media\Entity\MediaType;
+  $definitions = [
+    "file" => ["label" => "File", "source" => "file", "source_field" => "field_media_file", "description" => "Use local files for reusable media."],
+    "image" => ["label" => "Image", "source" => "image", "source_field" => "field_media_image", "description" => "Use local images for reusable media."],
+    "remote_video" => ["label" => "Remote video", "source" => "oembed:video", "source_field" => "field_media_oembed_video", "description" => "Use remote videos for reusable media."],
+    "video" => ["label" => "Video", "source" => "video_file", "source_field" => "field_media_video_file", "description" => "Use local videos for reusable media."],
+  ];
+
+  $created = [];
+  foreach ($definitions as $id => $definition) {
+    if (MediaType::load($id)) {
+      continue;
+    }
+
+    MediaType::create([
+      "id" => $id,
+      "label" => $definition["label"],
+      "description" => $definition["description"],
+      "source" => $definition["source"],
+      "queue_thumbnail_downloads" => FALSE,
+      "new_revision" => TRUE,
+      "source_configuration" => ["source_field" => $definition["source_field"]],
+    ])->save();
+    $created[] = $id;
+  }
+
+  if ($created) {
+    echo "Created media types: " . implode(", ", $created);
+  }
+  else {
+    echo "Required media types already exist.";
+  }'
+}
+
 if [[ ! -x "$DRUSH" ]]; then
   echo "[install] drush not found or not executable -> $DRUSH" >&2
   exit 1
@@ -369,6 +413,8 @@ ensure_dropzone_library
 # declares a theme dependency on ui_suite_bnppre (layout plugin + view display).
 enable_themes "$DEFAULT_THEME"
 enable_modules "Property Search custom" "${PS_CUSTOM_MODULES[@]}"
+ensure_required_media_types
+enable_modules "Property Search search" "${PS_SEARCH_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"

@@ -206,6 +206,154 @@ class Views {
   }
 
   /**
+   * Builds feature options (code => label) for a filter key.
+   *
+   * @return array<string, string>
+   *   Feature options keyed by feature code.
+   */
+  protected function buildFeatureOptions(string $filterKey): array {
+    $manager = $this->getFeatureManager();
+    if ($manager === NULL || !method_exists($manager, 'getFeaturesByGroup')) {
+      return [];
+    }
+
+    $all_groups = $manager->getFeaturesByGroup();
+    if (!is_array($all_groups)) {
+      return [];
+    }
+
+    $options = [];
+
+    // Accessibility is a pseudo-group spanning multiple real feature groups.
+    if ($filterKey === 'accessibility') {
+      $accessibility_ids = ['has_elevator', 'highly_flexible'];
+      foreach ($all_groups as $group_data) {
+        if (!is_array($group_data) || !isset($group_data['features']) || !is_array($group_data['features'])) {
+          continue;
+        }
+
+        foreach ($group_data['features'] as $code => $feature) {
+          if (!in_array($code, $accessibility_ids, TRUE)) {
+            continue;
+          }
+          if (is_object($feature) && method_exists($feature, 'label')) {
+            $label = (string) $feature->label();
+            if ($code !== '' && $label !== '') {
+              $options[$code] = $label;
+            }
+          }
+        }
+      }
+
+      return $options;
+    }
+
+    if (!isset($all_groups[$filterKey]) || !is_array($all_groups[$filterKey])) {
+      return [];
+    }
+
+    $group_data = $all_groups[$filterKey];
+    if (!isset($group_data['features']) || !is_array($group_data['features'])) {
+      return [];
+    }
+
+    foreach ($group_data['features'] as $code => $feature) {
+      if (is_object($feature) && method_exists($feature, 'label')) {
+        $label = (string) $feature->label();
+        if ($code !== '' && $label !== '') {
+          $options[$code] = $label;
+        }
+      }
+    }
+
+    return $options;
+  }
+
+  /**
+   * Builds a feature checkboxes element using feature codes as submitted values.
+   *
+   * @return array<string, mixed>
+   *   Form API element.
+   */
+  protected function buildFeatureCheckboxesElement(string $filterKey, string $title): array {
+    $options = $this->buildFeatureOptions($filterKey);
+    $selected_values = array_values(array_filter(array_map(
+      static fn(mixed $value): string => trim((string) $value),
+      (array) \Drupal::request()->query->all($filterKey)
+    )));
+
+    $element = [
+      '#type' => 'fieldset',
+      '#title' => new TranslatableMarkup($title),
+      '#attributes' => [
+        'class' => [
+          'ps-offer-feature-checkboxes',
+          'ps-offer-feature-checkboxes--' . Html::cleanCssIdentifier($filterKey),
+        ],
+      ],
+    ];
+
+    $index = 0;
+    foreach ($options as $code => $label) {
+      $index++;
+      $element['item_' . $index] = [
+        '#type' => 'checkbox',
+        '#title' => $label,
+        '#return_value' => $code,
+        '#default_value' => in_array($code, $selected_values, TRUE),
+        '#name' => $filterKey . '[]',
+      ];
+    }
+
+    return $element;
+  }
+
+  /**
+   * Builds a boolean toggle element (single checkbox).
+   *
+   * @return array<string, mixed>
+   *   Form API checkbox element.
+   */
+  protected function buildBooleanToggleElement(string $name, string $title, array $queryNames = []): array {
+    if ($queryNames === []) {
+      $queryNames = [$name];
+    }
+
+    $raw_query = (string) \Drupal::request()->server->get('QUERY_STRING', '');
+    $query = [];
+    if ($raw_query !== '') {
+      parse_str($raw_query, $query);
+    }
+
+    $is_checked = FALSE;
+    foreach ($queryNames as $queryName) {
+      if (!array_key_exists($queryName, $query)) {
+        continue;
+      }
+
+      $raw = $query[$queryName];
+      $values = is_array($raw) ? $raw : [$raw];
+      foreach ($values as $value) {
+        if (in_array(strtolower(trim((string) $value)), ['1', 'true', 'on'], TRUE)) {
+          $is_checked = TRUE;
+          break 2;
+        }
+      }
+    }
+
+    return [
+      '#type' => 'checkbox',
+      '#title' => new TranslatableMarkup($title),
+      '#name' => $name,
+      '#return_value' => '1',
+      '#default_value' => $is_checked,
+      '#attributes' => [
+        'class' => ['ps-offer-boolean-toggle'],
+      ],
+    ];
+  }
+
+  /**
    * Implements hook_form_FORM_ID_alter().
    */
   #[Hook('form_views_exposed_form_alter')]
@@ -244,6 +392,10 @@ class Views {
 
       // -- Property type: expose options array for JS icon-grid, wrap panel. --
       if ($property_key !== NULL) {
+        // Use a dedicated query key to avoid collisions with Views exposed
+        // filter internals on AJAX requests.
+        $form[$property_key]['#name'] = 'ps_property_type';
+
         $options = $this->buildDictionaryUiOptions('property_type');
         if (empty($options) && isset($form[$property_key]['#options']) && is_array($form[$property_key]['#options'])) {
           $options = [];
@@ -274,6 +426,10 @@ class Views {
       }
 
       if ($transaction_key !== NULL) {
+        // Use a dedicated query key to avoid collisions with Views exposed
+        // filter internals on AJAX requests.
+        $form[$transaction_key]['#name'] = 'ps_transaction_type';
+
         $transaction_options = $this->buildDictionaryUiOptions('transaction_type');
         if (!empty($transaction_options)) {
           $form[$transaction_key]['#attributes']['data-ps-options'] = json_encode($transaction_options, JSON_UNESCAPED_UNICODE);
@@ -435,10 +591,30 @@ class Views {
       ];
 
       $form['ps_more_filters']['header'] = [
-        '#markup' => '<div class="offcanvas-header">'
-          . '<h5 class="offcanvas-title" id="ps-more-filters-title">' . $offcanvasTitle . '</h5>'
-          . '<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="' . $closeLabel . '"></button>'
-          . '</div>',
+        '#type' => 'container',
+        '#attributes' => ['class' => ['offcanvas-header']],
+      ];
+
+      $form['ps_more_filters']['header']['title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'h5',
+        '#value' => $offcanvasTitle,
+        '#attributes' => [
+          'class' => ['offcanvas-title'],
+          'id' => 'ps-more-filters-title',
+        ],
+      ];
+
+      $form['ps_more_filters']['header']['close'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => '',
+        '#attributes' => [
+          'type' => 'button',
+          'class' => ['btn-close'],
+          'data-bs-dismiss' => 'offcanvas',
+          'aria-label' => $closeLabel,
+        ],
       ];
 
       $form['ps_more_filters']['body'] = [
@@ -449,6 +625,7 @@ class Views {
       // Transaction type: goes into offcanvas.
       if ($transaction_key !== NULL) {
         $form['ps_more_filters']['body']['transaction'] = $form[$transaction_key];
+        $form['ps_more_filters']['body']['transaction']['#name'] = 'ps_transaction_type';
         $form['ps_more_filters']['body']['transaction']['#weight'] = 1;
         unset($form[$transaction_key]);
       }
@@ -460,27 +637,27 @@ class Views {
         unset($form[$reference_key]);
       }
 
-      // -- Feature filters: move to More Filters offcanvas. ----------------------
+      // -- Feature filters: update options and move to offcanvas. ----
       if ($accessibility_key !== NULL) {
-        $form['ps_more_filters']['body']['accessibility'] = $form[$accessibility_key];
+        $form['ps_more_filters']['body']['accessibility'] = $this->buildFeatureCheckboxesElement('accessibility', 'Accessibility');
         $form['ps_more_filters']['body']['accessibility']['#weight'] = 3;
         unset($form[$accessibility_key]);
       }
 
       if ($equipments_key !== NULL) {
-        $form['ps_more_filters']['body']['equipments'] = $form[$equipments_key];
+        $form['ps_more_filters']['body']['equipments'] = $this->buildFeatureCheckboxesElement('equipments', 'Equipments');
         $form['ps_more_filters']['body']['equipments']['#weight'] = 4;
         unset($form[$equipments_key]);
       }
 
       if ($services_key !== NULL) {
-        $form['ps_more_filters']['body']['services'] = $form[$services_key];
+        $form['ps_more_filters']['body']['services'] = $this->buildFeatureCheckboxesElement('services', 'Services');
         $form['ps_more_filters']['body']['services']['#weight'] = 5;
         unset($form[$services_key]);
       }
 
       if ($building_condition_key !== NULL) {
-        $form['ps_more_filters']['body']['building_condition'] = $form[$building_condition_key];
+        $form['ps_more_filters']['body']['building_condition'] = $this->buildFeatureCheckboxesElement('building_condition', 'Building type/condition');
         $form['ps_more_filters']['body']['building_condition']['#weight'] = 6;
         unset($form[$building_condition_key]);
       }
@@ -492,22 +669,40 @@ class Views {
       }
 
       if ($immersive_tour_key !== NULL) {
-        $form['ps_more_filters']['body']['immersive_tour'] = $form[$immersive_tour_key];
+        $form['ps_more_filters']['body']['immersive_tour'] = $this->buildBooleanToggleElement('immersive_tour_enabled', 'Immersive tour', ['immersive_tour_enabled']);
         $form['ps_more_filters']['body']['immersive_tour']['#weight'] = 8;
         unset($form[$immersive_tour_key]);
       }
 
       if ($video_key !== NULL) {
-        $form['ps_more_filters']['body']['video'] = $form[$video_key];
+        $form['ps_more_filters']['body']['video'] = $this->buildBooleanToggleElement('video_enabled', 'Video', ['video_enabled']);
         $form['ps_more_filters']['body']['video']['#weight'] = 9;
         unset($form[$video_key]);
       }
 
       $form['ps_more_filters']['footer'] = [
-        '#markup' => '<div class="ps-offer-more-filters__footer">'
-          . '<button type="reset" class="btn btn-link ps-offer-more-filters__reset">' . $deleteAll . '</button>'
-          . '<button type="submit" class="btn btn-primary ps-offer-more-filters__apply">' . $showResults . '</button>'
-          . '</div>',
+        '#type' => 'container',
+        '#attributes' => ['class' => ['ps-offer-more-filters__footer']],
+      ];
+
+      $form['ps_more_filters']['footer']['reset'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => $deleteAll,
+        '#attributes' => [
+          'type' => 'reset',
+          'class' => ['btn', 'btn-link', 'ps-offer-more-filters__reset'],
+        ],
+      ];
+
+      $form['ps_more_filters']['footer']['apply'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => $showResults,
+        '#attributes' => [
+          'type' => 'button',
+          'class' => ['btn', 'btn-primary', 'ps-offer-more-filters__apply'],
+        ],
       ];
 
       // -- Actions: hide reset, style submit. ----------------------------------

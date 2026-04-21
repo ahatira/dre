@@ -495,56 +495,6 @@ display:
           fields:
             - ps_offer_transport_text
           plugin_id: search_api_fulltext
-        ps_offer_has_virtual_tour:
-          id: ps_offer_has_virtual_tour
-          table: search_api_index_ps_offer_search
-          field: ps_offer_has_virtual_tour
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: All
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ps_offer_has_virtual_tour_op
-            label: 'Immersive tour'
-            description: ''
-            use_operator: false
-            operator: ps_offer_has_virtual_tour_op
-            identifier: immersive_tour
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-          plugin_id: search_api_boolean
-        ps_offer_has_video:
-          id: ps_offer_has_video
-          table: search_api_index_ps_offer_search
-          field: ps_offer_has_video
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: All
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ps_offer_has_video_op
-            label: Video
-            description: ''
-            use_operator: false
-            operator: ps_offer_has_video_op
-            identifier: video
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-          plugin_id: search_api_boolean
       sorts:
         ps_offer_surface_main_value:
           id: ps_offer_surface_main_value

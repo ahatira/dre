@@ -99,14 +99,14 @@ final class OfferExtraFiltersSearchValueResolver {
         }
 
         if ($group === 'equipments') {
-          $equipments[] = $featureLabel;
+          $equipments[] = $featureId;
         }
         if ($group === 'services') {
-          $services[] = $featureLabel;
+          $services[] = $featureId;
         }
 
         if ($this->isAccessibilityFeature($featureId, $featureLabel, $group, $metadata)) {
-          $accessibility[] = $featureLabel;
+          $accessibility[] = $featureId;
         }
 
         if ($group === 'building_condition' || in_array($featureId, self::BUILDING_CONDITION_FEATURE_IDS, TRUE)) {
