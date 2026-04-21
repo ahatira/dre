@@ -2,6 +2,7 @@ directions:
   version: 1.x
   js:
     js/ps_geo_directions.js: {}
+    js/ps-nearby-places.js: {}
   dependencies:
     - core/drupal
     - core/once
