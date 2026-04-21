@@ -44,8 +44,16 @@
                 });
                 if (foundMap) {
                   window.psGeoDirectionsRenderer.setMap(foundMap);
+                  // Expose la carte dans window pour les autres scripts (ex: ps-nearby-places.js)
+                  window.psGeoDirectionsMapInstance = foundMap;
+                  if (debugEnabled){
+                    console.log('[ps-nearby-places] MAP trouvé');
+                    console.log(foundMap);
+                    console.log('[PS Directions] Carte exposée dans window.psGeoDirectionsMapInstance');
+                  }
                 }
               }
+
               const directionsRenderer = window.psGeoDirectionsRenderer;
               directionsService.route({
                 origin: originCoords,

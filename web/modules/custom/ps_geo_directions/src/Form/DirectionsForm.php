@@ -31,6 +31,22 @@ class DirectionsForm extends FormBase {
         'class' => ['ps-geo-directions-poi-types', 'ps-nearby-places-checkbox'],
       ],
     ];
+
+    // Correspondance entre les clés et les types Google Places.
+    $google_places_types = [
+      'transports' => 'transit_station',
+      'parkings' => 'parking',
+      'restaurants' => 'restaurant',
+      'hotels' => 'lodging',
+    ];
+    // Rayon de recherche par défaut (en mètres).
+    $radius = 800;
+    // Injecter dans drupalSettings pour le JS.
+    $form['#attached']['drupalSettings']['ps_nearby_places'] = [
+      'categories' => array_values($google_places_types),
+      'category_map' => $google_places_types,
+      'radius' => $radius,
+    ];
     $form['address'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Starting point'),
