@@ -28,6 +28,23 @@ class DirectionsForm extends FormBase {
       '#prefix' => '<span class="ps-geo-directions-icon" aria-hidden="true">📍</span>',
       '#suffix' => '<span class="ps-geo-directions-clear" tabindex="0" role="button" aria-label="Clear">×</span>',
     ];
+      $form['travel_mode'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Mode de transport'),
+        '#options' => [
+          'DRIVING' => $this->t('Voiture'),
+          'TRANSIT' => $this->t('Transport'),
+          'WALKING' => $this->t('Marche'),
+          'BICYCLING' => $this->t('Vélo'),
+        ],
+        '#default_value' => 'DRIVING',
+        '#attributes' => [
+          'class' => ['ps-geo-directions-mode'],
+        ],
+        '#wrapper_attributes' => [
+          'class' => ['ps-geo-directions-mode-wrapper'],
+        ],
+      ];
     $form['#attached']['library'][] = 'ps_geo_directions/directions';
     $form['#attributes']['class'][] = 'ps-geo-directions-form';
     return $form;

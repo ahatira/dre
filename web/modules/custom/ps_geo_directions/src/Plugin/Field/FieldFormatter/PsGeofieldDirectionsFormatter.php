@@ -109,6 +109,8 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 		return [
 			'enable_directions' => TRUE,
 			'directions_position' => 'TOP_LEFT',
+			'origin' => '',
+			'enable_debug' => FALSE,
 		] + parent::defaultSettings();
 	}
 
@@ -140,6 +142,28 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 				],
 			],
 		];
+		$elements['origin'] = [
+			'#type' => 'textfield',
+			'#title' => $this->t('Origin coordinates'),
+			'#description' => $this->t('Enter coordinates as [lat],[lng] or use a token like [node:field_geofield].'),
+			'#default_value' => $this->getSetting('origin'),
+			'#states' => [
+				'visible' => [
+					':input[name$="[enable_directions]"]' => ['checked' => TRUE],
+				],
+			],
+		];
+		$elements['enable_debug'] = [
+			'#type' => 'checkbox',
+			'#title' => $this->t('Enable debug'),
+			'#default_value' => $this->getSetting('enable_debug'),
+			'#description' => $this->t('If checked, debug logs will be shown in the browser console.'),
+			'#states' => [
+				'visible' => [
+					':input[name$="[enable_directions]"]' => ['checked' => TRUE],
+				],
+			],
+		];
 		return $elements;
 	}
 
@@ -153,6 +177,31 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 		if ($this->getSetting('enable_directions')) {
 			$form = \Drupal::formBuilder()->getForm('Drupal\\ps_geo_directions\\Form\\DirectionsForm');
 			$position = $this->getSetting('directions_position');
+			// Passe la valeur du champ origin à JS via drupalSettings
+			$origin = $this->getSetting('origin');
+			if (!empty($origin)) {
+				// Remplace le token par sa valeur réelle si possible.
+				/** @var \Drupal\Core\Utility\Token $token_service */
+				$token_service = \Drupal::token();
+				$entity = $items->getEntity();
+				$replaced = $token_service->replace($origin, ['node' => $entity]);
+				if (!isset($elements[0]['#attached'])) {
+					$elements[0]['#attached'] = [];
+				}
+				if (!isset($elements[0]['#attached']['drupalSettings'])) {
+					$elements[0]['#attached']['drupalSettings'] = [];
+				}
+				$elements[0]['#attached']['drupalSettings']['ps_geo_directions']['origin'] = $replaced;
+			}
+			// Passe enable_debug dans drupalSettings
+			$enable_debug = $this->getSetting('enable_debug');
+			if (!isset($elements[0]['#attached'])) {
+				$elements[0]['#attached'] = [];
+			}
+			if (!isset($elements[0]['#attached']['drupalSettings'])) {
+				$elements[0]['#attached']['drupalSettings'] = [];
+			}
+			$elements[0]['#attached']['drupalSettings']['ps_geo_directions']['enable_debug'] = $enable_debug ? TRUE : FALSE;
 			// Overlay positions CSS.
 			$positions_css = [
 				'TOP_LEFT' => 'top:16px;left:16px;',

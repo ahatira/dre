@@ -7,3 +7,4 @@ directions:
     - core/once
     - core/jquery
     - core/jquery.ui.autocomplete
+    - geofield_map/geocoder
