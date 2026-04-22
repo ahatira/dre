@@ -6,9 +6,13 @@ CONTAINER_CMD := $(shell command -v podman >/dev/null 2>&1 && echo "podman" || e
 
 .DEFAULT_GOAL := help
 
+
 PROJECT_ROOT := $(CURDIR)
 THEME_DIR := $(PROJECT_ROOT)/web/themes/custom/ui_suite_bnppre
 THEME_DIR_CONTAINER := /var/www/html/web/themes/custom/ui_suite_bnppre
+
+# Utilisation homogène de composer dans le conteneur PHP
+COMPOSER := $(CONTAINER_CMD) compose exec php composer
 
 .PHONY: help install install-site build-theme build-css theme-check theme-npm-install \
 	drush-cr drush-status drush-uli drush-updb drush-cim drush-cex \
@@ -16,7 +20,7 @@ THEME_DIR_CONTAINER := /var/www/html/web/themes/custom/ui_suite_bnppre
 	default-content-export default-content-export-references \
 	default-content-export-module default-content-export-module-references \
 	default-content-export-main-menu default-content-export-footer-menus \
-	start stop remove
+	start stop remove php-shell
 
 help:
 	@echo "Available targets:"
@@ -25,6 +29,9 @@ help:
 	@echo "  remove                  - Remove all containers, networks, volumes (docker compose down -v)"
 	@echo "  install                 - Install dependencies + npm + build theme"
 	@echo "  install-site            - Run scripts/install.sh (fresh Drupal install + modules + themes)"
+	@echo "  php-shell               - Open a bash shell in the PHP container"
+	php-shell:
+		@$(CONTAINER_CMD) compose exec php bash
 	start:
 		@$(CONTAINER_CMD) compose up -d
 
@@ -98,22 +105,27 @@ drush-cim:
 drush-cex:
 	@$(CONTAINER_CMD) compose exec php vendor/bin/drush cex -y
 
+
 composer-install:
-	@$(CONTAINER_CMD) compose exec php composer install
+	@$(COMPOSER) install
+
 
 composer-update:
-	@$(CONTAINER_CMD) compose exec php composer update
+	@$(COMPOSER) update
+
 
 composer-require:
 	@test -n "$(PKG)" || (echo "Usage: make composer-require PKG=vendor/package" && exit 1)
-	@$(CONTAINER_CMD) compose exec php composer require "$(PKG)"
+	@$(COMPOSER) require "$(PKG)"
+
 
 composer-remove:
 	@test -n "$(PKG)" || (echo "Usage: make composer-remove PKG=vendor/package" && exit 1)
-	@$(CONTAINER_CMD) compose exec php composer remove "$(PKG)"
+	@$(COMPOSER) remove "$(PKG)"
+
 
 composer-validate:
-	@$(CONTAINER_CMD) compose exec php composer validate
+	@$(COMPOSER) validate
 
 default-content-export:
 	@test -n "$(ENTITY_TYPE)" || (echo "Usage: make default-content-export ENTITY_TYPE=<entity_type> ENTITY_ID=<id> [OUT=<file.yml>]" && exit 1)
@@ -156,3 +168,5 @@ reset-db:
 # Docker
 build-restart:
 	docker compose build && docker compose up -d --force-recreate
+php-shell:
+		@$(CONTAINER_CMD) compose exec php bash

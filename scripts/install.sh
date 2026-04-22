@@ -5,7 +5,8 @@ set -euo pipefail
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_ROOT"
 
-DRUSH="${DRUSH:-$PROJECT_ROOT/vendor/bin/drush}"
+# Utilisation de Drush via Docker par défaut
+DRUSH="${DRUSH:-docker compose exec php vendor/bin/drush}"
 SITE_NAME="${SITE_NAME:-Drupal Minimal}"
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_PASS="${ADMIN_PASS:-admin}"
@@ -166,7 +167,7 @@ enable_modules() {
 
   if [[ ${#selected[@]} -gt 0 ]]; then
     log "Enable $group modules: ${selected[*]}"
-    docker compose exec php vendor/bin/drush en -y "${selected[@]}"
+    $DRUSH en -y "${selected[@]}"
   fi
 }
 
@@ -194,7 +195,7 @@ enable_modules_non_blocking() {
 
   for module in "${selected[@]}"; do
     echo "[install] enabling module -> $module"
-    if ! docker compose exec php vendor/bin/drush en -y "$module"; then
+    if ! $DRUSH en -y "$module"; then
       echo "[install] error enabling module -> $module"
       failures+=("$module")
     fi
@@ -211,7 +212,7 @@ language_exists() {
 
   [[ -n "$langcode" ]] || return 1
 
-  docker compose exec php vendor/bin/drush php:eval "exit(\Drupal::languageManager()->getLanguage('$langcode') ? 0 : 1);" >/dev/null 2>&1
+  $DRUSH php:eval "exit(\Drupal::languageManager()->getLanguage('$langcode') ? 0 : 1);" >/dev/null 2>&1
 }
 
 add_languages() {
@@ -234,7 +235,7 @@ add_languages() {
     log "Add site languages: ${selected[*]}"
     local language
     for language in "${selected[@]}"; do
-      docker compose exec php vendor/bin/drush language:add "$language" -y
+      $DRUSH language:add "$language" -y
     done
   fi
 }
@@ -252,7 +253,7 @@ enable_themes() {
 
   if [[ ${#selected[@]} -gt 0 ]]; then
     log "Enable themes: ${selected[*]}"
-    docker compose exec php vendor/bin/drush theme:enable -y "${selected[@]}"
+    $DRUSH theme:enable -y "${selected[@]}"
   fi
 }
 
@@ -262,8 +263,8 @@ set_theme_config() {
 
   if theme_exists "$theme"; then
     log "Set theme config: $config_key -> $theme"
-    docker compose exec php vendor/bin/drush cr -y
-    docker compose exec php vendor/bin/drush config:set system.theme "$config_key" "$theme" -y
+    $DRUSH cr -y
+    $DRUSH config:set system.theme "$config_key" "$theme" -y
   else
     echo "[install] skip theme config: theme not found -> $theme"
   fi
@@ -281,11 +282,11 @@ configure_phone_international() {
     echo "[install] phone library already available -> $library_path"
   else
     log "Download local Phone International library"
-    docker compose exec php vendor/bin/drush phone_international:plugin "$library_path"
+    $DRUSH phone_international:plugin "$library_path"
   fi
 
   log "Force Phone International local assets"
-  docker compose exec php vendor/bin/drush config:set phone_international.settings cdn 0 -y
+  $DRUSH config:set phone_international.settings cdn 0 -y
 }
 
 ensure_dropzone_library() {
@@ -324,7 +325,7 @@ ensure_favorites_header_block() {
 
   local theme="$DEFAULT_THEME"
   log "Ensure favorites header block placement"
-  docker compose exec php vendor/bin/drush php:eval '$storage = \Drupal::entityTypeManager()->getStorage("block");
+  $DRUSH php:eval '$storage = \Drupal::entityTypeManager()->getStorage("block");
   $id = "ui_suite_bnppre_ps_favorites_header";
   if (!$storage->load($id)) {
     \Drupal\block\Entity\Block::create([
@@ -355,7 +356,7 @@ ensure_required_media_types() {
   fi
 
   log "Ensure required media types for PS Offer"
-  "$DRUSH" php:eval 'use Drupal\media\Entity\MediaType;
+  $DRUSH php:eval 'use Drupal\media\Entity\MediaType;
   $definitions = [
     "file" => ["label" => "File", "source" => "file", "source_field" => "field_media_file", "description" => "Use local files for reusable media."],
     "image" => ["label" => "Image", "source" => "image", "source_field" => "field_media_image", "description" => "Use local images for reusable media."],
@@ -389,15 +390,15 @@ ensure_required_media_types() {
   }'
 }
 
-if [[ ! -x "$DRUSH" ]]; then
-  echo "[install] drush not found or not executable -> $DRUSH" >&2
+if ! command -v docker >/dev/null 2>&1; then
+  echo "[install] docker is required to run Drush in container" >&2
   exit 1
 fi
 log "Drop database"
-docker compose exec php vendor/bin/drush sql:drop -y || true
+$DRUSH sql:drop -y || true
 
 log "Install fresh Drupal site (profile: minimal)"
-if ! docker compose exec php vendor/bin/drush site:install minimal --site-name="$SITE_NAME" --account-name="$ADMIN_USER" --account-pass="$ADMIN_PASS" --account-mail="$ADMIN_MAIL" -y; then
+if ! $DRUSH site:install minimal --site-name="$SITE_NAME" --account-name="$ADMIN_USER" --account-pass="$ADMIN_PASS" --account-mail="$ADMIN_MAIL" -y; then
   echo "[install] ERROR: Drupal site:install failed. Aborting installation." >&2
   exit 2
 fi
@@ -414,7 +415,7 @@ enable_modules "Menu" "${MENU_MODULES[@]}"
 
 # Ajout d'un drush cr pour fiabiliser l'étape suivante
 log "Rebuild cache before Favorites modules"
-docker compose exec php vendor/bin/drush cr -y
+$DRUSH cr -y
 
 enable_modules "Favorites" "${FAVORITES_MODULES[@]}"
 ensure_dropzone_library
@@ -424,7 +425,7 @@ ensure_required_media_types
 enable_modules "Property Search search" "${PS_SEARCH_MODULES[@]}"
 enable_modules "Default Content" "${DEFAULT_CONTENT_MODULES[@]}"
 configure_phone_international
-docker compose exec php vendor/bin/drush cr -y
+$DRUSH cr -y
 enable_modules "UI Suite BNPPRE" "${UI_SUITE_BNPPRE_MODULES[@]}"
 
 # Gin-related modules require Gin to be enabled/configured first.
@@ -439,10 +440,10 @@ set_theme_config default "$DEFAULT_THEME"
 ensure_favorites_header_block
 
 log "Run database updates"
-docker compose exec php vendor/bin/drush updb -y || true
+$DRUSH updb -y || true
 
 log "Rebuild cache"
-docker compose exec php vendor/bin/drush cr -y
+$DRUSH cr -y
 
 log "Done"
-docker compose exec php vendor/bin/drush status
+$DRUSH status
