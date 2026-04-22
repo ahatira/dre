@@ -106,12 +106,14 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 	 * {@inheritdoc}
 	 */
 	public static function defaultSettings() {
-		return [
-			'enable_directions' => TRUE,
-			'directions_position' => 'TOP_LEFT',
-			'origin' => '',
-			'enable_debug' => FALSE,
-		] + parent::defaultSettings();
+		   return [
+			   'enable_directions' => TRUE,
+			   'directions_position' => 'TOP_LEFT',
+			   'origin' => '',
+			   'enable_debug' => FALSE,
+			   'poi_types' => ['transports', 'parkings', 'restaurants', 'hotels'],
+			   'poi_radius' => 1000,
+		   ] + parent::defaultSettings();
 	}
 
 	/**
@@ -164,7 +166,40 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 				],
 			],
 		];
-		return $elements;
+		   // Types de POI disponibles
+		   $poi_options = [
+			   'transports' => $this->t('Transports'),
+			   'parkings' => $this->t('Parkings'),
+			   'restaurants' => $this->t('Restaurants'),
+			   'hotels' => $this->t('Hôtels'),
+		   ];
+		   $elements['poi_types'] = [
+			   '#type' => 'checkboxes',
+			   '#title' => $this->t('Types de POI à afficher'),
+			   '#options' => $poi_options,
+			   '#default_value' => $this->getSetting('poi_types'),
+			   '#description' => $this->t('Sélectionnez les types de points d’intérêt à proposer.'),
+			   '#states' => [
+				   'visible' => [
+					   ':input[name$="[enable_directions]"]' => ['checked' => TRUE],
+				   ],
+			   ],
+		   ];
+		   $elements['poi_radius'] = [
+			   '#type' => 'number',
+			   '#title' => $this->t('Rayon de recherche des POI (mètres)'),
+			   '#default_value' => $this->getSetting('poi_radius'),
+			   '#min' => 100,
+			   '#max' => 10000,
+			   '#step' => 100,
+			   '#description' => $this->t('Rayon en mètres pour la recherche de POI autour du centre de la carte.'),
+			   '#states' => [
+				   'visible' => [
+					   ':input[name$="[enable_directions]"]' => ['checked' => TRUE],
+				   ],
+			   ],
+		   ];
+		   return $elements;
 	}
 
 	/**
@@ -175,7 +210,13 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 		\Drupal::logger('ps_geo_directions')->notice('Formatter called');
 		$elements = parent::viewElements($items, $langcode);
 		if ($this->getSetting('enable_directions')) {
-			$form = \Drupal::formBuilder()->getForm('Drupal\\ps_geo_directions\\Form\\DirectionsForm');
+			// Passe dynamiquement la config POI/radius au DirectionsForm via argument
+			$poi_types = array_filter($this->getSetting('poi_types'));
+			$poi_radius = (int) $this->getSetting('poi_radius');
+			$form = \Drupal::formBuilder()->getForm('Drupal\\ps_geo_directions\\Form\\DirectionsForm', [
+				'poi_types' => $poi_types,
+				'poi_radius' => $poi_radius,
+			]);
 			$position = $this->getSetting('directions_position');
 			// Passe la valeur du champ origin à JS via drupalSettings
 			$origin = $this->getSetting('origin');
@@ -202,7 +243,18 @@ class PsGeofieldDirectionsFormatter extends GeofieldGoogleMapFormatter {
 				$elements[0]['#attached']['drupalSettings'] = [];
 			}
 			$elements[0]['#attached']['drupalSettings']['ps_geo_directions']['enable_debug'] = $enable_debug ? TRUE : FALSE;
-			// Overlay positions CSS.
+			   // Passe les types de POI et le radius dans drupalSettings pour le JS
+			   $poi_types = array_filter($this->getSetting('poi_types'));
+			   $poi_radius = (int) $this->getSetting('poi_radius');
+			   if (!isset($elements[0]['#attached'])) {
+				   $elements[0]['#attached'] = [];
+			   }
+			   if (!isset($elements[0]['#attached']['drupalSettings'])) {
+				   $elements[0]['#attached']['drupalSettings'] = [];
+			   }
+			   $elements[0]['#attached']['drupalSettings']['ps_geo_directions']['poi_types'] = $poi_types;
+			   $elements[0]['#attached']['drupalSettings']['ps_geo_directions']['poi_radius'] = $poi_radius;
+			   // Overlay positions CSS.
 			$positions_css = [
 				'TOP_LEFT' => 'top:16px;left:16px;',
 				'TOP_RIGHT' => 'top:16px;right:16px;',

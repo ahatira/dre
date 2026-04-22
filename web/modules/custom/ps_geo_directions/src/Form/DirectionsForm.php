@@ -16,35 +16,39 @@ class DirectionsForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['poi_types'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Show points of interest:'),
-      '#options' => [
-        'transports' => $this->t('Transports'),
-        'parkings' => $this->t('Parkings'),
-        'restaurants' => $this->t('Restaurants'),
-        'hotels' => $this->t('Hotels'),
-      ],
-      '#default_value' => [],
-      '#attributes' => [
-        'class' => ['ps-geo-directions-poi-types', 'ps-nearby-places-checkbox'],
-      ],
+  public function buildForm(array $form, FormStateInterface $form_state, $formatter_config = []) {
+    // Récupère la config dynamique passée par le formatter (ou fallback)
+    $config = is_array($formatter_config) ? $formatter_config : [];
+    $all_options = [
+      'transports' => $this->t('Transports'),
+      'parkings' => $this->t('Parkings'),
+      'restaurants' => $this->t('Restaurants'),
+      'hotels' => $this->t('Hotels'),
     ];
-
-    // Correspondance entre les clés et les types Google Places.
-    $google_places_types = [
+    $all_types = [
       'transports' => 'transit_station',
       'parkings' => 'parking',
       'restaurants' => 'restaurant',
       'hotels' => 'lodging',
     ];
-    // Rayon de recherche par défaut (en mètres).
-    $radius = 800;
-    // Injecter dans drupalSettings pour le JS.
+    $enabled_types = isset($config['poi_types']) && is_array($config['poi_types']) ? $config['poi_types'] : array_keys($all_options);
+    $radius = isset($config['poi_radius']) ? (int)$config['poi_radius'] : 800;
+    // Filtre dynamiquement les options et le mapping
+    $filtered_options = array_intersect_key($all_options, array_flip($enabled_types));
+    $filtered_types = array_intersect_key($all_types, array_flip($enabled_types));
+    $form['poi_types'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Show points of interest:'),
+      '#options' => $filtered_options,
+      '#default_value' => [], // Aucun filtre coché par défaut
+      '#attributes' => [
+        'class' => ['ps-geo-directions-poi-types', 'ps-nearby-places-checkbox'],
+      ],
+    ];
+    // Injecte la config dynamique dans drupalSettings
     $form['#attached']['drupalSettings']['ps_nearby_places'] = [
-      'categories' => array_values($google_places_types),
-      'category_map' => $google_places_types,
+      'categories' => array_values($enabled_types),
+      'category_map' => $filtered_types,
       'radius' => $radius,
     ];
     $form['address'] = [
