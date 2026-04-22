@@ -36,8 +36,19 @@ function buildMarkerSvg(color, initial) {
 				return;
 			}
 
+			// Récupère les types de POI et le radius depuis drupalSettings
+			// Récupère les types de POI et le radius depuis drupalSettings injecté par DirectionsForm
+			var poiTypes = (settings.ps_nearby_places && Array.isArray(settings.ps_nearby_places.categories)) ? settings.ps_nearby_places.categories : ['transports', 'parkings', 'restaurants', 'hotels'];
+			var poiRadius = (settings.ps_nearby_places && settings.ps_nearby_places.radius) ? parseInt(settings.ps_nearby_places.radius, 10) : 1000;
+			var categoryMap = (settings.ps_nearby_places && settings.ps_nearby_places.category_map) ? settings.ps_nearby_places.category_map : {
+				'transports': 'transit_station',
+				'parkings': 'parking',
+				'restaurants': 'restaurant',
+				'hotels': 'lodging'
+			};
+
 			// Gestion dynamique des POI custom via Google PlacesService
-						function updatePOIVisibilityOnMaps(categories) {
+			function updatePOIVisibilityOnMaps(categories) {
 							var maps = [];
 							if (typeof Drupal !== 'undefined' && Drupal.geoFieldMapFormatter && Drupal.geoFieldMapFormatter.map_data) {
 								var formatterMaps = Drupal.geoFieldMapFormatter.map_data;
@@ -57,12 +68,7 @@ function buildMarkerSvg(color, initial) {
 							if (!maps.length) return;
 
 							// Types Google Places valides
-							var checkboxToPlacesType = {
-								'transports': 'transit_station',
-								'parkings': 'parking',
-								'restaurants': 'restaurant',
-								'hotels': 'lodging'
-							};
+							var checkboxToPlacesType = categoryMap;
 
 							// Masque tous les POI natifs
 							maps.forEach(function(map) {
@@ -78,12 +84,10 @@ function buildMarkerSvg(color, initial) {
 							Object.keys(checkboxToPlacesType).forEach(function(key) {
 								var type = checkboxToPlacesType[key];
 								if (categories.indexOf(key) !== -1) {
-									// Afficher les POI de ce type
 									maps.forEach(function(map) {
 										showPOICategory(map, type);
 									});
 								} else {
-									// Supprimer les markers de ce type
 									maps.forEach(function(map) {
 										hidePOICategory(map, type);
 									});
@@ -92,36 +96,35 @@ function buildMarkerSvg(color, initial) {
 						}
 
 						// Affiche les POI d'une catégorie (type Google Places) avec icône personnalisée
-									function showPOICategory(map, type) {
-										if (!window.google || !window.google.maps || !window.google.maps.places) return;
-										var service = new google.maps.places.PlacesService(map);
-										var center = map.getCenter();
-										var radius = 1000; // Peut être passé via drupalSettings
-										service.nearbySearch({
-											location: center,
-											radius: radius,
-											type: type
-										}, function(results, status) {
-											if (status !== google.maps.places.PlacesServiceStatus.OK) return;
-											window.psNearbyPlacesMarkers[type] = window.psNearbyPlacesMarkers[type] || [];
-											results.forEach(function(place) {
-												if (!place.geometry || !place.geometry.location) return;
-												// Récupère la config visuelle pour ce type
-												var config = POI_CONFIG[type] || { color: '#555', initial: '?', label: type };
-												var marker = new google.maps.Marker({
-													position: place.geometry.location,
-													map: map,
-													title: place.name || '',
-													icon: {
-														url: buildMarkerSvg(config.color, config.initial),
-														scaledSize: new google.maps.Size(30, 30),
-														anchor: new google.maps.Point(15, 30)
-													}
-												});
-												window.psNearbyPlacesMarkers[type].push(marker);
-											});
-										});
-									}
+			function showPOICategory(map, type) {
+				if (!window.google || !window.google.maps || !window.google.maps.places) return;
+				var service = new google.maps.places.PlacesService(map);
+				var center = map.getCenter();
+				var radius = poiRadius;
+				service.nearbySearch({
+					location: center,
+					radius: radius,
+					type: type
+				}, function(results, status) {
+					if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+					window.psNearbyPlacesMarkers[type] = window.psNearbyPlacesMarkers[type] || [];
+					results.forEach(function(place) {
+						if (!place.geometry || !place.geometry.location) return;
+						var config = POI_CONFIG[type] || { color: '#555', initial: '?', label: type };
+						var marker = new google.maps.Marker({
+							position: place.geometry.location,
+							map: map,
+							title: place.name || '',
+							icon: {
+								url: buildMarkerSvg(config.color, config.initial),
+								scaledSize: new google.maps.Size(30, 30),
+								anchor: new google.maps.Point(15, 30)
+							}
+						});
+						window.psNearbyPlacesMarkers[type].push(marker);
+					});
+				});
+			}
 
 						// Supprime tous les markers d'une catégorie
 						function hidePOICategory(map, type) {
@@ -191,6 +194,15 @@ function buildMarkerSvg(color, initial) {
 					}
 				}
 			}
+			// Initialisation automatique des checkboxes POI si présents
+			document.addEventListener('DOMContentLoaded', function() {
+				var $checkboxes = document.querySelectorAll('.ps-nearby-places-checkbox input[type="checkbox"]');
+				if ($checkboxes.length && Array.isArray(poiTypes)) {
+					$checkboxes.forEach(function(cb) {
+						cb.checked = poiTypes.indexOf(cb.value) !== -1;
+					});
+				}
+			});
 			waitForGoogleMaps();
 		}
 	};
