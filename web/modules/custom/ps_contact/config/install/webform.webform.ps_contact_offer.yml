@@ -60,6 +60,7 @@ elements: |
     '#type': checkbox
     '#title': 'I accept that BNP Paribas Real Estate processes my request in order to answer this contact demand.'
     '#required': true
+    '#required_error': 'This field is required.'
   consent_marketing:
     '#type': checkbox
     '#title': 'I agree to receive additional information related to similar real estate opportunities.'
@@ -230,7 +231,7 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: message
+  confirmation_type: inline
   confirmation_title: ''
   confirmation_message: 'Thank you, your request has been sent successfully.'
   confirmation_url: ''

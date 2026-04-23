@@ -1,7 +1,434 @@
+@import '../variables';
+
 .modal-footer .ui-dialog-buttonset {
   gap: var(--bs-modal-footer-gap);
 }
 
 .modal {
   --bs-modal-zindex: 1050;
+}
+
+.modal-dialog.ps-contact-modal-dialog {
+  max-width: 584px;
+  margin: 1.5rem auto;
+
+  .modal-content {
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 24px 64px rgba(28, 45, 55, 0.16);
+    background: $bnppre-white;
+  }
+
+  .modal-header {
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    padding: 2rem 2rem 0;
+    border-bottom: 0;
+  }
+
+  .modal-title {
+    margin: 0;
+    color: $bnppre-gray-1;
+    font-family: $font-family-headings;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .btn-close {
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+  }
+
+  &.has-webform-confirmation,
+  &:has(.webform-confirmation),
+  &:has(.webform-confirmation-modal),
+  &:has(.webform-confirmation__message) {
+    .modal-header {
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 1rem 1rem 0;
+    }
+
+    .modal-title {
+      display: none;
+    }
+  }
+
+  .modal-body {
+    padding: 2rem 2rem 2rem;
+  }
+
+  form.webform-submission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .webform-flexbox {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .webform-flex {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .webform-flex--container,
+  .form-item,
+  .js-form-wrapper.form-wrapper {
+    width: 100%;
+  }
+
+  .form-item {
+    margin: 0;
+    margin-bottom: 0 !important;
+  }
+
+  .js-webform-type-webform-markup,
+  .js-webform-type-email,
+  .js-webform-type-textarea,
+  .js-webform-type-checkbox {
+    margin-bottom: 0;
+  }
+
+  .js-form-wrapper.form-wrapper {
+    margin-bottom: 0;
+  }
+
+  .ps-contact-webform__section-title {
+    margin: 0;
+    color: #000;
+    font-family: $font-family-headings;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  .form-label,
+  .form-check-label {
+    margin-bottom: 0.5rem;
+    color: $bnppre-gray-1;
+    font-family: $font-family-body;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .form-check {
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    column-gap: 0.5rem;
+    align-items: start;
+    padding-left: 0;
+  }
+
+  .form-check + .form-check {
+    margin-top: 0.5rem;
+  }
+
+  .form-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0.125rem 0 0;
+    margin-top: 0.1875rem;
+    border: 1.5px solid $bnppre-gray-2;
+    border-radius: 0.125rem;
+    background-color: $bnppre-white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 0.75rem 0.75rem;
+    box-shadow: none;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-check-input:hover {
+    border-color: $bnppre-primary;
+  }
+
+  .form-check-input:checked {
+    border-color: $bnppre-primary;
+    background-color: $bnppre-primary;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+  }
+
+  .form-check-label {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: $bnppre-gray-1;
+    margin-bottom: 0;
+  }
+
+  .form-control {
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid $bnppre-gray-5;
+    border-radius: 0;
+    background: $bnppre-white;
+    color: $bnppre-gray-1;
+    font-family: $font-family-body;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    box-shadow: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  textarea.form-control {
+    min-height: 7.1875rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-width: 2px;
+    resize: vertical;
+  }
+
+  .form-control::placeholder {
+    color: $bnppre-gray-4;
+    opacity: 1;
+  }
+
+  .form-control:focus,
+  .form-check-input:focus {
+    border-color: $bnppre-primary;
+    box-shadow: 0 0 0 0.1875rem rgba($bnppre-primary, 0.12);
+  }
+
+  .form-control.is-invalid,
+  .form-check-input.is-invalid {
+    border-color: $danger;
+  }
+
+  .form-control.is-invalid:focus,
+  .form-check-input.is-invalid:focus {
+    border-color: $danger;
+    box-shadow: 0 0 0 0.1875rem rgba($danger, 0.12);
+  }
+
+  .form-item--error-message.invalid-feedback {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .form-check .form-item--error-message.invalid-feedback {
+    grid-column: 2 / -1;
+  }
+
+  .form-label.form-required::after,
+  .form-label.js-form-required::after,
+  .form-check-label.form-required::after,
+  .form-check-label.js-form-required::after {
+    content: ' *';
+    display: inline;
+    width: auto;
+    height: auto;
+    margin-left: 0.125rem;
+    color: $danger;
+    background-image: none;
+    vertical-align: baseline;
+  }
+
+  .webform-submission-form .alert-danger {
+    display: none;
+  }
+
+  .webform-confirmation,
+  .webform-submission-form .alert-success,
+  .webform-submission-form .messages--status {
+    position: relative;
+    margin: 0;
+    padding: 0.25rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: $bnppre-gray-1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: none;
+  }
+
+  .ps-confirmation-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .ps-confirmation-icon__svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .ps-confirmation-icon__circle,
+  .ps-confirmation-icon__check {
+    fill: none;
+    stroke: $bnppre-primary;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ps-confirmation-icon__circle {
+    stroke-width: 2.5;
+    stroke-dasharray: 188.5;
+    stroke-dashoffset: 188.5;
+    animation: ps-confirmation-circle-draw 0.45s ease-out forwards;
+  }
+
+  .ps-confirmation-icon__check {
+    stroke-width: 4;
+    stroke-dasharray: 36;
+    stroke-dashoffset: 36;
+    animation: ps-confirmation-check-draw 0.35s ease-out 0.35s forwards;
+  }
+
+  .webform-confirmation__message {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  @keyframes ps-confirmation-circle-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes ps-confirmation-check-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ps-confirmation-icon__circle,
+    .ps-confirmation-icon__check {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .ps-contact-webform__legal {
+    margin: 0;
+    color: $bnppre-gray-3;
+    font-family: $font-family-body;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .ps-contact-webform__legal + .ps-contact-webform__legal {
+    margin-top: 0.75rem;
+  }
+
+  .form-item-legal-notice {
+    padding-top: 0.5rem;
+    border-top: 1px solid $bnppre-gray-6;
+  }
+
+  .ps-contact-webform__legal a {
+    color: $bnppre-gray-1;
+    font-weight: 700;
+    text-decoration-thickness: 0.0625rem;
+    text-underline-offset: 0.15em;
+  }
+
+  .ps-contact-webform__legal a:hover,
+  .ps-contact-webform__legal a:focus-visible {
+    color: $bnppre-primary;
+  }
+
+  .modal-footer {
+    justify-content: center;
+    padding: 0 2rem 2rem;
+    border-top: 0;
+    background: transparent;
+  }
+
+  .modal-footer .ui-dialog-buttonpane {
+    display: none;
+  }
+
+  .modal-footer .ui-dialog-buttonset {
+    width: 100%;
+    justify-content: center !important;
+  }
+
+  .modal-footer .btn {
+    min-width: 15.875rem;
+    min-height: 2.5rem;
+    margin: 0;
+    padding: 0 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .modal-footer .btn.is-loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 767.98px) {
+    max-width: calc(100vw - 1.5rem);
+    margin: 0.75rem auto;
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .modal-header {
+      padding-top: 1.5rem;
+      gap: 1rem;
+    }
+
+    .modal-body {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+
+    .modal-footer {
+      padding-bottom: 1.25rem;
+    }
+
+    .webform-flexbox {
+      flex-direction: column;
+    }
+
+    .modal-title {
+      font-size: 1.75rem;
+      line-height: 1.25;
+    }
+
+    .ps-contact-webform__section-title {
+      font-size: 1.375rem;
+      line-height: 1.2727272727;
+    }
+
+    .modal-footer .btn {
+      width: 100%;
+      min-width: 0;
+    }
+  }
 }

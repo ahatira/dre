@@ -32,6 +32,7 @@ dependencies:
   - ps_diagnostic:ps_diagnostic
   - ps_division:ps_division
   - ps_surface:ps_surface
+  - ps_contact:ps_contact
   - drupal:scheduler
   - search_api:search_api
   - ps_favorites:ps_favorites

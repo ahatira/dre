@@ -85,6 +85,10 @@ libraries-override:
   commerce_cart/cart_block: false
   commerce_checkout/form: false
   commerce_checkout/login_pane: false
+  webform/webform.element.flexbox:
+    css:
+      layout:
+        css/webform.element.flexbox.css: false
   layout_builder_browser/browser: false
   layout_builder_browser/modal:
     js:

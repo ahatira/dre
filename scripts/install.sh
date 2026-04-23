@@ -110,6 +110,7 @@ PS_CUSTOM_MODULES=(
 
 PS_SEARCH_MODULES=(
   ps_offer
+  ps_contact
   ps_search
 )
 
@@ -388,6 +389,19 @@ ensure_required_media_types() {
   }'
 }
 
+import_partial_config_dir() {
+  local label="$1"
+  local source_dir="$2"
+
+  if [[ ! -d "$source_dir" ]]; then
+    echo "[install] skip partial config import: directory not found -> $source_dir"
+    return
+  fi
+
+  log "Import $label config from $source_dir"
+  "$DRUSH" config:import --partial --source="$source_dir" -y
+}
+
 if [[ ! -x "$DRUSH" ]]; then
   echo "[install] drush not found or not executable -> $DRUSH" >&2
   exit 1
@@ -434,6 +448,11 @@ log "Run database updates"
 "$DRUSH" updb -y || true
 
 log "Rebuild cache"
+"$DRUSH" cr -y
+
+import_partial_config_dir "PS Offer late install" "$PROJECT_ROOT/web/modules/custom/ps_offer/config/install_late"
+
+log "Rebuild cache after late config import"
 "$DRUSH" cr -y
 
 log "Done"

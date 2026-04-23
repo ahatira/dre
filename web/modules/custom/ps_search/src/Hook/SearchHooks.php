@@ -173,13 +173,13 @@ final class SearchHooks {
       return;
     }
 
-    if (!in_array($view_mode, ['card_search', 'default'], TRUE)) {
+    if (!in_array($view_mode, ['card_search', 'default', 'full'], TRUE)) {
       return;
     }
 
     $build['#attached']['library'][] = 'ps_search/offer_search_tracking';
 
-    if ($view_mode === 'default') {
+    if (in_array($view_mode, ['default', 'full'], TRUE)) {
       $build['#attached']['drupalSettings']['psSearchCardSearch']['viewedOfferIds'] = [(int) $entity->id()];
     }
   }

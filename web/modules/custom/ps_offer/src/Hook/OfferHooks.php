@@ -61,6 +61,7 @@ class OfferHooks {
 
     if ($display->getMode() === 'card_search') {
       $cache = $build['#cache'] ?? [];
+      $attached = $build['#attached'] ?? [];
       $surface = $this->buildSurfaceSummary($entity);
       $location = $this->buildLocationSummary($entity);
       $price = $this->buildCardSearchPriceSummary($entity);
@@ -109,6 +110,7 @@ class OfferHooks {
         '#node' => $entity,
         '#view_mode' => $display->getMode(),
         '#cache' => $cache,
+        '#attached' => $attached,
         'ps_offer_card_search_component' => [
           '#type' => 'component',
           '#component' => 'ui_suite_bnppre:card_offer_search',
@@ -137,7 +139,7 @@ class OfferHooks {
       return;
     }
 
-    if ($display->getMode() !== 'default') {
+    if (!in_array($display->getMode(), ['default', 'full'], TRUE)) {
       return;
     }
 
@@ -161,12 +163,14 @@ class OfferHooks {
     }
 
     $cache = $build['#cache'] ?? [];
+    $attached = $build['#attached'] ?? [];
 
     $build = [
       '#entity_type' => 'node',
       '#node' => $entity,
       '#view_mode' => $display->getMode(),
       '#cache' => $cache,
+      '#attached' => $attached,
       'ps_offer_full_component' => [
         '#type' => 'component',
         '#component' => 'ui_suite_bnppre:offer_full',
@@ -1497,29 +1501,25 @@ class OfferHooks {
       return NULL;
     }
 
-    $ctaUrl = $agent->hasLinkTemplate('canonical') ? $agent->toUrl('canonical')->toString() : '';
-    $ctaAttributes = [];
-    $attached = [];
-
-    if ($this->moduleHandler?->moduleExists('ps_contact')) {
-      $ctaUrl = Url::fromUri('internal:/webform/ps_contact_offer', [
-        'query' => [
-          'source_entity_type' => 'node',
-          'source_entity_id' => (string) $node->id(),
-        ],
-      ])->toString();
-      $ctaAttributes = [
-        'class' => ['use-ajax'],
-        'data-dialog-type' => 'modal',
-        'data-dialog-options' => json_encode([
-          'width' => 760,
-          'dialogClass' => 'ps-contact-modal-dialog',
-        ], JSON_UNESCAPED_SLASHES),
-      ];
-      $attached = [
-        'library' => ['core/drupal.dialog.ajax'],
-      ];
-    }
+    $ctaUrl = Url::fromUri('internal:/webform/ps_contact_offer', [
+      'query' => [
+        'source_entity_type' => 'node',
+        'source_entity_id' => (string) $node->id(),
+      ],
+    ])->toString();
+    $ctaAttributes = [
+      'class' => ['use-ajax'],
+      'data-dialog-type' => 'modal',
+      'data-dialog-options' => json_encode([
+        'width' => 584,
+        'title' => (string) $this->t('Contact the consultancy'),
+        'dialogHeadingLevel' => 3,
+        'dialogClass' => 'ps-contact-modal-dialog',
+      ], JSON_UNESCAPED_SLASHES),
+    ];
+    $attached = [
+      'library' => ['core/drupal.dialog.ajax'],
+    ];
 
     return [
       '#type' => 'component',

@@ -83,6 +83,7 @@ class FormAlter {
     if (\str_ends_with($form_id, '_layout_builder_form')) {
       $this->alterLayoutBuilderForm($form, $formState);
     }
+
   }
 
   /**
