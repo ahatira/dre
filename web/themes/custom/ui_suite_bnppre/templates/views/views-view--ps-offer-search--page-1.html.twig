@@ -27,8 +27,13 @@
 		<div class="row g-3 align-items-start ps-offer-search-view__content">
 			<div class="col-12 col-xl-6 order-2 order-xl-1 ps-offer-search-view__list">
 				{% if header %}
-					<header class="mb-2 ps-offer-search-view__header">
-						{{ header }}
+					<header class="mb-3 ps-offer-search-view__header">
+						{% if contextual_title %}
+							<h2 class="ps-offer-search-view__title">{{ contextual_title }}</h2>
+						{% endif %}
+						<div class="ps-offer-search-view__meta">
+							{{ header }}
+						</div>
 					</header>
 				{% endif %}
 

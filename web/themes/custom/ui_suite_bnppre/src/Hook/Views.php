@@ -559,6 +559,28 @@ class Views {
         ];
       }
 
+      // -- Sort: Add a sort dropdown to the filter bar. ----------------------
+      $sort_by_key = $this->resolveElementKey($form, ['sort_by']);
+      if ($sort_by_key === NULL) {
+        // Manually create sort selector.
+        $form['sort_by'] = [
+          '#type' => 'select',
+          '#title' => new TranslatableMarkup('Sort by'),
+          '#name' => 'sort_by',
+          '#options' => [
+            'ps_offer_surface_main_value' => new TranslatableMarkup('Increasing surface'),
+          ],
+          '#default_value' => (string) (\Drupal::request()->query->get('sort_by') ?? ''),
+          '#weight' => 4,
+          '#wrapper_attributes' => [
+            'class' => ['ps-filter-panel'],
+          ],
+          '#attributes' => [
+            'class' => ['form-select', 'ps-filter-panel__input'],
+          ],
+        ];
+      }
+
       // -- More-filters trigger button (offcanvas opener). ---------------------
       $moreLabel = Html::escape((string) new TranslatableMarkup('More filters'));
       $form['ps_more_filters_trigger'] = [

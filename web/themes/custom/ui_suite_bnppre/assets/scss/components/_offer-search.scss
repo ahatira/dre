@@ -8,6 +8,33 @@
     margin-bottom: 1.5rem;
   }
 
+  // --- Results header (title + meta with result count and sort) ---------------
+  .ps-offer-search-view__header {
+    margin-bottom: 1.5rem;
+  }
+
+  .ps-offer-search-view__title {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .ps-offer-search-view__meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+    color: #666;
+
+    > * {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
   // --- Filter bar (the row of dropdown triggers) -----------------------------
   .ps-offer-search-bar {
     display: flex;

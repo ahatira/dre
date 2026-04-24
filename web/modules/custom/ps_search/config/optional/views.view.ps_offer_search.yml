@@ -51,7 +51,7 @@ display:
           reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: false
+          expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
@@ -500,17 +500,7 @@ display:
           preserve_facet_query_args: true
       relationships: {  }
       use_ajax: true
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: '@total results'
+      header:\n        result:\n          id: result\n          table: views\n          field: result\n          relationship: none\n          group_type: group\n          admin_label: ''\n          plugin_id: result\n          empty: false\n          content: 'Results: @total'
       footer: {  }
       display_extenders: {  }
     cache_metadata:

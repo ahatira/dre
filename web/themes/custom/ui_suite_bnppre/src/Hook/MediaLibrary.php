@@ -49,37 +49,63 @@ class MediaLibrary
   /**
    * Implements hook_preprocess_HOOK().
    *
-   * Add icons in the media library view.
+   * Add icons in the media library view & contextual title for offer search.
    */
     #[Hook('preprocess_views_view')]
     public function preprocessViewsView(array &$variables): void
     {
       /** @var \Drupal\views\ViewExecutable $view */
         $view = $variables['view'];
-        if ($view->id() != 'media_library') {
-            return;
-        }
-
-        if (empty($variables['header']) || !\is_array($variables['header'])) {
-            return;
-        }
-
-        $icons = [
-        'widget' => 'grid-fill',
-        'widget_table' => 'list-ul',
-        ];
-
-        foreach ($variables['header'] as $headerId => $header) {
-            if (
-                isset($header['#type'])
-                && $header['#type'] == 'link'
-                // @phpstan-ignore-next-line
-                && isset($header['#options']['view'], $header['#options']['target_display_id'], $icons[$header['#options']['target_display_id']])
-            ) {
-              // @phpstan-ignore-next-line
-                $element = UsbElement::create($variables['header'][$headerId]);
-                $element->setIcon(Bootstrap::icon($icons[$header['#options']['target_display_id']]));
+        
+        // Handle media library view (existing logic).
+        if ($view->id() == 'media_library') {
+            if (empty($variables['header']) || !\is_array($variables['header'])) {
+                return;
             }
+
+            $icons = [
+            'widget' => 'grid-fill',
+            'widget_table' => 'list-ul',
+            ];
+
+            foreach ($variables['header'] as $headerId => $header) {
+                if (
+                    isset($header['#type'])
+                    && $header['#type'] == 'link'
+                    // @phpstan-ignore-next-line
+                    && isset($header['#options']['view'], $header['#options']['target_display_id'], $icons[$header['#options']['target_display_id']])
+                ) {
+                  // @phpstan-ignore-next-line
+                    $element = UsbElement::create($variables['header'][$headerId]);
+                    $element->setIcon(Bootstrap::icon($icons[$header['#options']['target_display_id']]));
+                }
+            }
+            return;
+        }
+        
+        // Handle offer search view (new logic).
+        if ($view->id() == 'ps_offer_search' && $view->current_display == 'page_1') {
+            $exposed_input = $view->getExposedInput();
+            $title_parts = [];
+
+            // Check if location filter is active.
+            if (!empty($exposed_input['location_multi'])) {
+                $locations = is_array($exposed_input['location_multi'])
+                  ? $exposed_input['location_multi']
+                  : explode('||', $exposed_input['location_multi']);
+                $locations = array_filter(array_map('trim', $locations));
+                if (!empty($locations)) {
+                    $location_str = implode(', ', $locations);
+                    $title_parts[] = t('Offices in @location', ['@location' => $location_str])->render();
+                }
+            }
+
+            // Fallback title if no location specified.
+            if (empty($title_parts)) {
+                $title_parts[] = t('Offices')->render();
+            }
+
+            $variables['contextual_title'] = !empty($title_parts) ? implode(' – ', $title_parts) : NULL;
         }
     }
 
