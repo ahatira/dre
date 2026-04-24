@@ -1,0 +1,17 @@
+uuid: cc4721f4-c4fc-4958-b47a-25ab650c1197
+langcode: en
+status: true
+dependencies: {  }
+id: segment_5
+label: Counter
+enabled: true
+weight: 40
+segment_type: auto
+source_field: ''
+length: 5
+static_value: ''
+custom_map_text: ''
+start_index: 1
+date_source_field: publish_on
+date_format: YY
+auto_start: 1

@@ -10,6 +10,7 @@ SITE_NAME="${SITE_NAME:-Drupal Minimal}"
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_PASS="${ADMIN_PASS:-admin}"
 ADMIN_MAIL="${ADMIN_MAIL:-admin@example.com}"
+FRONT_PAGE="${FRONT_PAGE:-/offers}"
 DEFAULT_THEME="${DEFAULT_THEME:-ui_suite_bnppre}"
 ADMIN_THEME="${ADMIN_THEME:-gin}"
 SITE_LANGUAGES=(
@@ -269,6 +270,18 @@ set_theme_config() {
   fi
 }
 
+set_front_page() {
+  local front_page="$1"
+
+  log "Set homepage: $front_page"
+  FRONT_PAGE="$front_page" "$DRUSH" php:eval '$front = getenv("FRONT_PAGE") ?: "/user/login";
+  if ($front[0] !== "/") {
+    $front = "/" . $front;
+  }
+  \Drupal::configFactory()->getEditable("system.site")->set("page.front", $front)->save();
+  echo $front;'
+}
+
 configure_phone_international() {
   if ! module_exists "phone_international"; then
     echo "[install] skip phone configuration: module not found -> phone_international"
@@ -412,6 +425,7 @@ log "Drop database"
 
 log "Install fresh Drupal site (profile: minimal)"
 "$DRUSH" site:install minimal --site-name="$SITE_NAME" --account-name="$ADMIN_USER" --account-pass="$ADMIN_PASS" --account-mail="$ADMIN_MAIL" -y
+set_front_page "$FRONT_PAGE"
 
 enable_modules "Drupal classic" "${DRUPAL_CLASSIC_MODULES[@]}"
 enable_modules "Toolbar classic" "${TOOLBAR_CLASSIC_MODULES[@]}"
@@ -438,7 +452,7 @@ enable_themes "$ADMIN_THEME"
 set_theme_config admin "$ADMIN_THEME"
 
 enable_modules "Gin admin" "${GIN_ADMIN_MODULES[@]}"
-# add_languages "${SITE_LANGUAGES[@]}"
+add_languages "${SITE_LANGUAGES[@]}"
 
 enable_themes "$DEFAULT_THEME"
 set_theme_config default "$DEFAULT_THEME"

@@ -1,0 +1,10 @@
+third_party_settings:
+  field_group:
+    group_form:
+      label: Formulaire
+    group_general:
+      label: Général
+    group_address:
+      label: Adresse
+    group_attributes:
+      label: Attributs

@@ -4,9 +4,18 @@ status: true
 dependencies:
   config:
     - ps_division.division_type.lot
+  module:
+    - content_translation
   enforced:
     module:
       - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: SgXwHvG0DQOp-w9w76n3LYqsbUuxiJzndyTjzQ4MP2w
 id: ps_division.lot
 target_entity_type_id: ps_division
 target_bundle: lot

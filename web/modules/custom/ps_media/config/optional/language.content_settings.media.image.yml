@@ -11,6 +11,8 @@ third_party_settings:
     enabled: false
     bundle_settings:
       untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: JGN57NZ94vUkTMxBVbnZMHBiIHphFuk6thWgwNh4_UM
 id: media.image
 target_entity_type_id: media
 target_bundle: image

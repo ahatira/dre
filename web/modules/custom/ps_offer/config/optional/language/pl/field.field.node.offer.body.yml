@@ -1,0 +1,24 @@
+uuid: 1917a5dc-9a82-4db3-99f6-dd04407fddc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.offer
+  module:
+    - text
+id: node.offer.body
+field_name: body
+entity_type: node
+bundle: offer
+label: Description
+description: 'WYSIWYG description with summary for the offer.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

@@ -1,0 +1,18 @@
+uuid: 78d4ff8d-9990-4fbe-bf0c-5ea9ca499d3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - ps_agent.agent_type.agent
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: agent.agent
+target_entity_type_id: agent
+target_bundle: agent
+default_langcode: site_default
+language_alterable: true

@@ -4,6 +4,15 @@ status: true
 dependencies:
   config:
     - media.type.gallery
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: VGXYQIsSEMfwxmQ_Y3B9vOvgQtj7kIWtKHqz3Nuv7Bw
 id: media.gallery
 target_entity_type_id: media
 target_bundle: gallery
