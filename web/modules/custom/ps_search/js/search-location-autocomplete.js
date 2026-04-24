@@ -118,7 +118,7 @@
     if (!selectedBlock) {
       selectedBlock = document.createElement('div');
       selectedBlock.className = 'ps-location-autocomplete__selected';
-      selectedBlock.innerHTML = '<div class="ps-location-autocomplete__selected-title">' + Drupal.t('Location :') + '</div><div class="ps-location-autocomplete__chips"></div>';
+      selectedBlock.innerHTML = '<div class="ps-location-autocomplete__chips"></div>';
       panelContent.insertBefore(selectedBlock, footer);
     }
 

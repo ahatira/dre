@@ -535,9 +535,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    min-height: 2.6rem;
-    padding: 0 1rem;
-    font-size: 1.05rem;
+    min-height: 1.5rem;
+    padding: 0 0.625rem;
+    font-size: 0.875rem;
     line-height: 1;
     cursor: pointer;
   }
@@ -565,8 +565,9 @@
     align-items: center;
     gap: 0.4rem;
     max-width: 200px;
-    min-height: 2.2rem;
-    padding: 0 0.8rem;
+    min-height: 1.5rem;
+    padding: 0 0.625rem;
+    font-size: 0.875rem;
   }
 
   .ps-location-trigger-chip__label {
