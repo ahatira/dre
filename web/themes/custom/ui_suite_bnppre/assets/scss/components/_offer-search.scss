@@ -651,7 +651,7 @@
     gap: 0.75rem;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, flex 0.3s ease;
   }
 
   .ps-offer-search-view__list .views-row {
@@ -665,8 +665,10 @@
   }
 
   .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__list {
+    flex: 0 0 0 !important;
     opacity: 0;
     visibility: hidden;
+    overflow: hidden;
   }
 
   .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__map.ps-offer-search-view__map {
