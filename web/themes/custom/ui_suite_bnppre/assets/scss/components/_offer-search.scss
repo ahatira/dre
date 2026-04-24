@@ -642,6 +642,9 @@
   // --- Results / list layout ------------------------------------------------
   .ps-offer-search-view__content {
     --bs-gutter-x: 1rem;
+    --offer-search-panels-height: 70dvh;
+    --offer-search-transition-duration: 0.44s;
+    --offer-search-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
     align-items: stretch;
   }
 
@@ -649,9 +652,15 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    max-width: 100%;
     opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease, visibility 0.3s ease, flex 0.3s ease;
+    overflow: hidden;
+    transform: translateX(0);
+    transition: max-width var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      width var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      flex-basis var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      transform var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      opacity var(--offer-search-transition-duration) var(--offer-search-transition-easing);
   }
 
   .ps-offer-search-view__list .views-row {
@@ -661,14 +670,23 @@
   .ps-offer-search-view__map {
     position: relative;
     align-self: flex-start;
-    transition: flex 0.3s ease, max-width 0.3s ease, width 0.3s ease;
+    transform-origin: left center;
+    transition: flex-basis var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      max-width var(--offer-search-transition-duration) var(--offer-search-transition-easing),
+      width var(--offer-search-transition-duration) var(--offer-search-transition-easing);
   }
 
   .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__list {
     flex: 0 0 0 !important;
-    height: 0 !important;
+    max-width: 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-1rem);
     overflow: hidden;
   }
 
@@ -676,6 +694,17 @@
     flex: 0 0 100% !important;
     max-width: 100% !important;
     width: 100% !important;
+    animation: ps-offer-search-map-grow var(--offer-search-transition-duration) var(--offer-search-transition-easing);
+  }
+
+  @keyframes ps-offer-search-map-grow {
+    from {
+      transform: scaleX(0.92);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
   }
 
   .ps-offer-search-view__header-top {
@@ -723,7 +752,7 @@
   .ps-offer-search-view__toggle-list {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    left: 1rem;
     z-index: 100;
     display: inline-flex;
     align-items: center;
@@ -731,9 +760,9 @@
     gap: 0.5rem;
     height: 2.5rem;
     padding: 0 1rem;
-    background: #d32f2f;
-    color: #fff;
-    border: 0;
+    background: #fff;
+    color: #00915a;
+    border: 1px solid #00915a;
     font-size: 1rem;
     font-weight: 600;
     line-height: 1;
@@ -741,23 +770,59 @@
 
     &:hover,
     &:focus {
-      background: #b71c1c;
-      outline: 2px solid #fff;
-      outline-offset: -2px;
-    }
-
-    &[aria-pressed="false"] {
-      background: #00915a;
-
-      &:hover,
-      &:focus {
-        background: #017f4f;
-      }
+      background: #f5fff9;
+      color: #00915a;
+      border-color: #017f4f;
     }
   }
 
   .ps-offer-search-view__toggle-list-text {
     display: block;
+  }
+
+  @media (min-width: 768px) {
+    .ps-offer-search-view__content {
+      height: var(--offer-search-panels-height);
+      min-height: 320px;
+      overflow: hidden;
+    }
+
+    .ps-offer-search-view__content.row {
+      flex-wrap: nowrap;
+    }
+
+    .ps-offer-search-view__content[data-list-visible='true'] .ps-offer-search-view__list {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
+      width: 50% !important;
+    }
+
+    .ps-offer-search-view__content[data-list-visible='true'] .ps-offer-search-view__map.ps-offer-search-view__map {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
+      width: 50% !important;
+    }
+
+    .ps-offer-search-view__list,
+    .ps-offer-search-view__map {
+      height: 100%;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    .ps-offer-search-view__list {
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 0.25rem;
+    }
+
+    .ps-offer-search-view__map > :not(.ps-offer-search-view__toggle-list) {
+      height: 100%;
+    }
+
+    .ps-offer-search-view__map iframe {
+      height: 100% !important;
+    }
   }
 }
 
@@ -985,7 +1050,7 @@
 }
 
 // --- Responsive breakpoints --------------------------------------------------
-@media (max-width: 1199.98px) {
+@media (max-width: 767.98px) {
   .ps-offer-search-view {
     .ps-offer-search-bar {
       flex-wrap: wrap;
