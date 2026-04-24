@@ -32,11 +32,13 @@
         textElement.textContent = newState ? (typeof Drupal !== 'undefined' ? Drupal.t('Hide list') : 'Hide list') : (typeof Drupal !== 'undefined' ? Drupal.t('Show list') : 'Show list');
       }
 
-      // Toggle list visibility
+      // Toggle list visibility - CSS handles animation via opacity/visibility
       if (newState) {
-        listColumn.style.display = '';
+        listColumn.style.opacity = '';
+        listColumn.style.visibility = '';
       } else {
-        listColumn.style.display = 'none';
+        listColumn.style.opacity = '0';
+        listColumn.style.visibility = 'hidden';
       }
     });
   }
