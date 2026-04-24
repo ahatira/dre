@@ -666,6 +666,7 @@
 
   .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__list {
     flex: 0 0 0 !important;
+    height: 0 !important;
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
