@@ -1,11 +1,12 @@
-uuid: null
+uuid: 44aaa1b3-ec6b-4be1-96ff-d579a01354da
 langcode: en
 status: true
+dependencies: {  }
 id: surface_qualification_reference
 dictionary_type: surface_qualification
 code: ETREF
-label: "Reference"
-description: "Reference area qualification"
+label: Reference
+description: 'Reference area qualification'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,5 +1,9 @@
+uuid: 2e9ae5f5-8c23-4d25-afb5-47f1ad38b759
+langcode: en
+status: true
+dependencies: {  }
 id: availability_status
-label: "Availability status"
-description: "Closed availability statuses for commercial offers."
+label: 'Availability status'
+description: 'Closed availability statuses for commercial offers.'
 locked: false
 metadata_schema: ''

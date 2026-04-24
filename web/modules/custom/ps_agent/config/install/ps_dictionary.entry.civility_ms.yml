@@ -1,10 +1,13 @@
+uuid: 34b5b5c9-3c8f-47b8-8a06-813c77afc476
+langcode: en
+status: true
+dependencies: {  }
 id: civility_ms
 dictionary_type: civility
 code: MS
-label: "Ms."
-description: "Miss/Ms."
+label: Ms.
+description: Miss/Ms.
 weight: 1
-status: true
 deprecated: false
 metadata:
-  avatar_gender: "female"
+  avatar_gender: female

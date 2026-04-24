@@ -1,10 +1,13 @@
+uuid: ba31f2d5-07b9-45f0-a5d8-1041db931a99
+langcode: en
+status: true
+dependencies: {  }
 id: property_type_act
 dictionary_type: property_type
 code: ACT
-label: "Activity"
-description: "Activity or industrial property type"
+label: Activity
+description: 'Activity or industrial property type'
 weight: 0
-status: true
 deprecated: false
 metadata:
   icon: 'bi bi-gear'

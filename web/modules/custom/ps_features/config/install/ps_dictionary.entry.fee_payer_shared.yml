@@ -1,8 +1,12 @@
+uuid: 40bf058d-2391-44c6-af3f-656096fb59a5
+langcode: en
+status: true
+dependencies: {  }
 id: fee_payer_shared
 dictionary_type: fee_payer
 code: SHARED
-label: "Shared (50/50)"
-description: "Agent fees split equally between tenant and landlord."
+label: 'Shared (50/50)'
+description: 'Agent fees split equally between tenant and landlord.'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

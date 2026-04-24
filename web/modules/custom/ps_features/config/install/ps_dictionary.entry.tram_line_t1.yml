@@ -1,8 +1,12 @@
+uuid: cc15e849-3b34-4a5e-9169-e43fac16c789
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t1
 dictionary_type: tram_line
 code: T1
-label: "Tram T1"
-description: "Île-de-France tramway line T1."
+label: 'Tram T1'
+description: 'Île-de-France tramway line T1.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

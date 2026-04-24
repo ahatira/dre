@@ -1,3 +1,4 @@
+uuid: 007b7de2-2ab4-444a-be53-8fd0c1100adc
 langcode: en
 status: true
 dependencies:
@@ -58,10 +59,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: video
+      inherit_settings: true
     uuid: 3984f5cb-8773-46c6-b7b1-b60f47c7fe06
     weight: -8
     label: 'Upload video(s)'
@@ -77,10 +79,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: image
+      inherit_settings: true
     uuid: 37ccdbf6-1592-495f-97d4-23e68bad1f6f
     weight: -9
     label: 'Upload image(s)'

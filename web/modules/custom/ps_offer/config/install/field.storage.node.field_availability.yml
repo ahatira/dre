@@ -1,10 +1,9 @@
-langcode: en
 uuid: 6668ed35-b290-4b00-b325-fe025969eb75
+langcode: en
 status: true
 dependencies:
   module:
     - node
-    - text
 id: node.field_availability
 field_name: field_availability
 entity_type: node

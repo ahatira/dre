@@ -24,8 +24,6 @@ third_party_settings:
       handling: preserve
       status_message: true
       log: true
-_core:
-  default_config_hash: lky62bPLNQOR1FvKzyORSgx0UTNUvslHMr_r4MM7Y3U
 id: node.offer.field_geofield
 field_name: field_geofield
 entity_type: node

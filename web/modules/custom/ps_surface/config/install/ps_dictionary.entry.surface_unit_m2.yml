@@ -1,6 +1,7 @@
-uuid: null
+uuid: f355c89c-c512-403b-ac72-0c3c66c15e32
 langcode: en
 status: true
+dependencies: {  }
 id: surface_unit_m2
 dictionary_type: surface_unit
 code: M2
@@ -9,5 +10,5 @@ description: 'Square meters (metric)'
 weight: 0
 deprecated: false
 metadata:
-  symbol: 'm²'
+  symbol: m²
   conversion_factor: 1.0

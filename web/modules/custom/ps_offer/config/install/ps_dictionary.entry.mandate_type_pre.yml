@@ -5,7 +5,7 @@ dependencies: {  }
 id: mandate_type_pre
 dictionary_type: mandate_type
 code: PRE
-label: 'Préférentiel'
+label: Préférentiel
 description: 'Preferential mandate.'
 weight: 4
 deprecated: false

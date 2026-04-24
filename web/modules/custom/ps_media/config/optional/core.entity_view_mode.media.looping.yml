@@ -1,3 +1,4 @@
+uuid: 4dc3b9bb-cba1-402c-bdeb-8fca05f29ed9
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.looping
 label: Looping
+description: null
 targetEntityType: media
 cache: true

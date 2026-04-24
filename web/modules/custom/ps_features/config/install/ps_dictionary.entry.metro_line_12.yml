@@ -1,8 +1,12 @@
+uuid: b8a43866-4f48-4164-90fb-1b68d104a996
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_12
 dictionary_type: metro_line
 code: LINE_12
-label: "Metro Line 12"
-description: "Paris metro Line 12."
+label: 'Metro Line 12'
+description: 'Paris metro Line 12.'
 weight: 13
 deprecated: false
-metadata: []
+metadata: {  }

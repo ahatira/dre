@@ -5,8 +5,6 @@ dependencies:
   module:
     - media
     - node
-_core:
-  default_config_hash: 2dGdsZ5vc-XanqmrWNtafthdtNZT53JujlM9sETOAXY
 id: node.field_media_plans
 field_name: field_media_plans
 entity_type: node

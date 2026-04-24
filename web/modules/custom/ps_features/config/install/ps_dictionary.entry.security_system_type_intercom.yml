@@ -1,8 +1,12 @@
+uuid: 1e813f6d-5490-4d08-9c67-74925d4f0cd3
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_intercom
 dictionary_type: security_system_type
 code: INTERCOM
-label: "Intercom"
-description: "Audio/video intercom system."
+label: Intercom
+description: 'Audio/video intercom system.'
 weight: 20
 deprecated: false
-metadata: []
+metadata: {  }

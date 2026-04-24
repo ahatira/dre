@@ -1,8 +1,12 @@
+uuid: 5080a817-7852-41f4-9e41-8f0a4bee475a
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_3
 dictionary_type: metro_line
 code: LINE_3
-label: "Metro Line 3"
-description: "Paris metro Line 3."
+label: 'Metro Line 3'
+description: 'Paris metro Line 3.'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

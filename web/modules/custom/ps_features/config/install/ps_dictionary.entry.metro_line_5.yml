@@ -1,8 +1,12 @@
+uuid: 28fc6f22-f897-4b3e-9ea0-d1e6a5da568a
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_5
 dictionary_type: metro_line
 code: LINE_5
-label: "Metro Line 5"
-description: "Paris metro Line 5."
+label: 'Metro Line 5'
+description: 'Paris metro Line 5.'
 weight: 5
 deprecated: false
-metadata: []
+metadata: {  }

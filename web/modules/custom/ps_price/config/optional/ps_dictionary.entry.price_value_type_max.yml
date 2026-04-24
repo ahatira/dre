@@ -1,13 +1,14 @@
-uuid: null
+uuid: 3814f623-c484-4af1-99fa-271fd9711949
 langcode: en
+status: true
+dependencies: {  }
 id: price_value_type_max
 dictionary_type: price_value_type
 code: MAX
-label: "Maximum"
-description: "Maximum price"
+label: Maximum
+description: 'Maximum price'
 weight: 1
-status: true
 deprecated: false
 metadata:
-  icon: "arrow-up"
-  color: "success"
+  icon: arrow-up
+  color: success

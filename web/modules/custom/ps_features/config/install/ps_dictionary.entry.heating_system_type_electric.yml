@@ -1,8 +1,12 @@
+uuid: f215e046-9f5e-4791-8192-8a580bb01a35
+langcode: en
+status: true
+dependencies: {  }
 id: heating_system_type_electric
 dictionary_type: heating_system_type
 code: ELECTRIC
-label: "Electric"
-description: "Electric heating system"
+label: Electric
+description: 'Electric heating system'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,3 +1,7 @@
+uuid: 6c7e02f5-f2b6-4418-b52b-1ffd3d26c8d9
+langcode: en
+status: true
+dependencies: {  }
 id: segment_2
 label: 'Transaction type'
 enabled: true
@@ -5,6 +9,7 @@ weight: 10
 segment_type: custom
 source_field: field_transaction_types
 length: 1
+static_value: ''
 custom_map_text: |
   LOC=L
   L=L
@@ -15,3 +20,7 @@ custom_map_text: |
   C=C
   CES=C
   CESSION=C
+start_index: 1
+date_source_field: publish_on
+date_format: YY
+auto_start: 1

@@ -1,3 +1,4 @@
+uuid: 784348b4-8963-4f2a-a5ac-d54f75a9fd37
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.simplified
 label: Simplified
+description: null
 targetEntityType: media
 cache: true

@@ -1,8 +1,12 @@
+uuid: 1820d9a4-1d9b-4937-87a2-21958e2bb1a5
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t13
 dictionary_type: tram_line
 code: T13
-label: "Tram T13"
-description: "Île-de-France tramway line T13."
+label: 'Tram T13'
+description: 'Île-de-France tramway line T13.'
 weight: 12
 deprecated: false
-metadata: []
+metadata: {  }

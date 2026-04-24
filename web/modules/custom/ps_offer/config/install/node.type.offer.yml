@@ -1,13 +1,13 @@
 uuid: 9e6fff40-3d05-4c1c-8018-e54b7616aad4
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - scheduler
 third_party_settings:
   scheduler:
     publish_enable: '1'
     unpublish_enable: '1'
-_core:
-  default_config_hash: AImplHbiNWGsXlmAIHrEvV5qKeM6fQo7rEGxIXSHykU
 name: Offer
 type: offer
 description: 'A property offer from CRM with pricing, location, and features.'

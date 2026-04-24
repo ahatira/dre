@@ -1,8 +1,12 @@
+uuid: 8a383507-414c-43f2-b821-3167ffd4c38c
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_7
 dictionary_type: metro_line
 code: LINE_7
-label: "Metro Line 7"
-description: "Paris metro Line 7."
+label: 'Metro Line 7'
+description: 'Paris metro Line 7.'
 weight: 7
 deprecated: false
-metadata: []
+metadata: {  }

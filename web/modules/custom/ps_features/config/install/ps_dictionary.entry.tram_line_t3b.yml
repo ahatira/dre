@@ -1,8 +1,12 @@
+uuid: 43dc812d-d6d7-40ea-97b5-2c525b35da15
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t3b
 dictionary_type: tram_line
 code: T3B
-label: "Tram T3b"
-description: "Île-de-France tramway line T3b."
+label: 'Tram T3b'
+description: 'Île-de-France tramway line T3b.'
 weight: 3
 deprecated: false
-metadata: []
+metadata: {  }

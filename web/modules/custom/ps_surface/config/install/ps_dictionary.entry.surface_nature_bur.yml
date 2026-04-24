@@ -1,6 +1,7 @@
-uuid: null
+uuid: 2353a361-597b-4cd4-a88d-2272310fa08f
 langcode: en
 status: true
+dependencies: {  }
 id: surface_nature_bur
 dictionary_type: surface_nature
 code: BUR
@@ -8,4 +9,4 @@ label: 'Office Area'
 description: 'Office/bureau surface area'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

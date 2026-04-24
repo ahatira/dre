@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - focal_point
-_core:
-  default_config_hash: M9Qd9FGc3NoOvEYw4R5TTfDqf8TOcoX3x1cJ1RcbFq4
 name: ps_offer_gallery_main
 label: 'PS Offer Gallery Main (1280x804)'
 effects:

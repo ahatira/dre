@@ -1,3 +1,4 @@
+uuid: 4e9fa688-97d0-4235-a3a3-6605926e69ad
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.field_preview
 label: 'Field Preview'
+description: null
 targetEntityType: media
 cache: true

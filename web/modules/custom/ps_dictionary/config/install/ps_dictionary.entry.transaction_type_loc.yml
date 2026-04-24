@@ -1,10 +1,13 @@
+uuid: 6dbe07fc-621c-41f5-9d32-42f01164c5be
+langcode: en
+status: true
+dependencies: {  }
 id: transaction_type_loc
 dictionary_type: transaction_type
 code: LOC
-label: "Lease"
-description: "Property for lease/rental"
+label: Lease
+description: 'Property for lease/rental'
 weight: 0
-status: true
 deprecated: false
 metadata:
   icon: 'bi bi-key'

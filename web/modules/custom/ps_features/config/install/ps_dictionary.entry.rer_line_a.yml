@@ -1,8 +1,12 @@
+uuid: 08bb2838-3b3c-48f5-9858-8bc6e9a0c577
+langcode: en
+status: true
+dependencies: {  }
 id: rer_line_a
 dictionary_type: rer_line
 code: RER_A
-label: "RER A"
-description: "Île-de-France RER A rapid transit line."
+label: 'RER A'
+description: 'Île-de-France RER A rapid transit line.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,16 +1,11 @@
+uuid: 18e90b73-0ea2-466f-86a7-170ab2796b2d
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - linkit.linkit_profile.linkit_all_nodes
   module:
     - ckeditor5
-    - ckeditor5_paste_filter
-    - ckeditor_bidi
-    - editor_advanced_link
-    - edit_media_modal
-    - linkit
 format: basic_html
 editor: ckeditor5
 settings:
@@ -49,6 +44,7 @@ settings:
       properties:
         reversed: true
         startIndex: true
+        styles: false
       multiBlock: true
     ckeditor5_paste_filter_pasteFilter:
       enabled: true

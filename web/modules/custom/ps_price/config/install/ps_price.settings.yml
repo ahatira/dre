@@ -1,12 +1,9 @@
-default_currency: "EUR"
-# Normalization settings
-normalize_on_zero_surface: "null" # 'null' | 'zero' | 'original'
-reference_period: "ANN" # Default reference period for normalization
-
-# Display settings
+default_currency: EUR
+normalize_on_zero_surface: 'null'
+reference_period: ANN
 display_codes_as_labels: false
-price_flag_ht_label: 'HT'
-price_flag_hc_label: 'HC'
+price_flag_ht_label: HT
+price_flag_hc_label: HC
 price_tooltip_ht_text: 'HT: VAT excluded'
 price_tooltip_hc_text: 'HC: Service charges excluded'
 price_tooltip_extra_text: |-

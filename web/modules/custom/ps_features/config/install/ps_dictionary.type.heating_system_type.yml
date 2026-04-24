@@ -1,6 +1,10 @@
+uuid: ac248350-4960-4a76-9dac-0d8dc9fc35eb
+langcode: en
+status: true
+dependencies: {  }
 id: heating_system_type
-label: "Heating System Type"
-description: "Types of heating systems available."
+label: 'Heating System Type'
+description: 'Types of heating systems available.'
 locked: true
 metadata_schema: |
   icon:

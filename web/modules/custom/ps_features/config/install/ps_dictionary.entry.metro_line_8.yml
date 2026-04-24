@@ -1,8 +1,12 @@
+uuid: 2bd3bed4-9186-458a-b4c9-95931d596d1a
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_8
 dictionary_type: metro_line
 code: LINE_8
-label: "Metro Line 8"
-description: "Paris metro Line 8."
+label: 'Metro Line 8'
+description: 'Paris metro Line 8.'
 weight: 9
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,3 +1,4 @@
+uuid: 16822ba5-a592-4dba-83b2-554c3d85fcca
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.editor
 label: Editor
+description: null
 targetEntityType: media
 cache: true

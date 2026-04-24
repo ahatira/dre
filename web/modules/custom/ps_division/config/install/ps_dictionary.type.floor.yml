@@ -1,3 +1,4 @@
+uuid: 2dec31ac-b034-468b-a17b-ed7f27adff82
 langcode: en
 status: true
 dependencies:
@@ -6,7 +7,6 @@ dependencies:
       - ps_division
 id: floor
 label: Floor
-description: "Floor codes for building levels (basement, ground, upper floors)"
-is_translatable: false
+description: 'Floor codes for building levels (basement, ground, upper floors)'
 locked: true
-weight: 0
+metadata_schema: null

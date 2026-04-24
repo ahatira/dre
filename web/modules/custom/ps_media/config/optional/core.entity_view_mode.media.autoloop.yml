@@ -1,3 +1,4 @@
+uuid: 2c1845e2-949d-41a3-bcb6-cfdc13ca1733
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.autoloop
 label: Autoloop
+description: null
 targetEntityType: media
 cache: true

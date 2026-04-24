@@ -1,13 +1,14 @@
-uuid: null
+uuid: 79bae97b-84af-4605-8fff-5b4229ccbd36
 langcode: en
+status: true
+dependencies: {  }
 id: price_value_type_min
 dictionary_type: price_value_type
 code: MIN
-label: "Minimum"
-description: "Minimum price"
+label: Minimum
+description: 'Minimum price'
 weight: 0
-status: true
 deprecated: false
 metadata:
-  icon: "arrow-down"
-  color: "warning"
+  icon: arrow-down
+  color: warning

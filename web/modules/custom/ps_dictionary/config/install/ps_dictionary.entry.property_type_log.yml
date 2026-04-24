@@ -1,10 +1,13 @@
+uuid: ab665ae9-bd4a-42e1-b4f8-16221b4af286
+langcode: en
+status: true
+dependencies: {  }
 id: property_type_log
 dictionary_type: property_type
 code: LOG
 label: 'Industrial / Logistics'
 description: 'Industrial or logistics warehouse property type'
 weight: 6
-status: true
 deprecated: false
 metadata:
   icon: logistic-warehouses

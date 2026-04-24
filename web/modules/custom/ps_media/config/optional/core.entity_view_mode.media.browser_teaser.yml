@@ -1,3 +1,4 @@
+uuid: 38140952-aee0-44fa-bfbd-016e83ba9548
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.browser_teaser
 label: 'Entity Browser Preview'
+description: null
 targetEntityType: media
 cache: true

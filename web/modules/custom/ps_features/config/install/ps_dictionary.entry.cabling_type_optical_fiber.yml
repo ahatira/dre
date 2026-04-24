@@ -1,8 +1,12 @@
+uuid: 1c08be78-cb4c-4b4d-87cf-b4c022b30096
+langcode: en
+status: true
+dependencies: {  }
 id: cabling_type_optical_fiber
 dictionary_type: cabling_type
 code: OPTICAL_FIBER
-label: "Optical fiber"
-description: "Fiber optic network cabling"
+label: 'Optical fiber'
+description: 'Fiber optic network cabling'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

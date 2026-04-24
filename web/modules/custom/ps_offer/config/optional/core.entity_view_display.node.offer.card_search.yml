@@ -1,18 +1,39 @@
+uuid: 4725c2ee-74d0-41b7-90f9-476f9462b927
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.card_search
+    - field.field.node.offer.body
+    - field.field.node.offer.external_id
     - field.field.node.offer.field_address
+    - field.field.node.offer.field_agents
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_divisions
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_geofield
+    - field.field.node.offer.field_is_divisible
+    - field.field.node.offer.field_labels
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_media_brochures
     - field.field.node.offer.field_media_photos
+    - field.field.node.offer.field_media_plans
+    - field.field.node.offer.field_media_videos
+    - field.field.node.offer.field_media_virtual_tours
+    - field.field.node.offer.field_min_divisible_surface
     - field.field.node.offer.field_prices
     - field.field.node.offer.field_property_type
+    - field.field.node.offer.field_reference
+    - field.field.node.offer.field_show_address
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_transaction_types
     - node.type.offer
   module:
     - address
-    - ps_offer
+    - options
     - ps_price
     - ps_surface
     - user
@@ -21,6 +42,13 @@ targetEntityType: node
 bundle: offer
 mode: card_search
 content:
+  field_address:
+    type: address_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_media_photos:
     type: entity_reference_entity_view
     label: hidden
@@ -30,13 +58,12 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  title:
-    type: string
+  field_prices:
+    type: ps_price_full
     label: hidden
-    settings:
-      link_to_entity: true
+    settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 6
     region: content
   field_property_type:
     type: list_default
@@ -44,20 +71,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_transaction_types:
-    type: list_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_address:
-    type: address_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_surfaces:
     type: ps_surface_default
@@ -69,12 +82,12 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_prices:
-    type: ps_price_full
+  field_transaction_types:
+    type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 3
     region: content
 hidden:
   body: true

@@ -1,6 +1,7 @@
-uuid: null
+uuid: d49545c5-4e14-4f6d-b9fc-404f04a0648b
 langcode: en
 status: true
+dependencies: {  }
 id: surface_type_gla
 dictionary_type: surface_type
 code: GLA

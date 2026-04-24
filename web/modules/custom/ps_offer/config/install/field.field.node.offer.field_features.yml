@@ -7,8 +7,6 @@ dependencies:
     - node.type.offer
   module:
     - ps_features
-_core:
-  default_config_hash: Q6S29ht-4sqXQjWHba-mhljT7-9qk_dHu_CIzYOZq24
 id: node.offer.field_features
 field_name: field_features
 entity_type: node

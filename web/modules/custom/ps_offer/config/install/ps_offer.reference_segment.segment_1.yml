@@ -1,7 +1,17 @@
+uuid: b5112e59-4a93-4b95-8e92-6777719f4a34
+langcode: en
+status: true
+dependencies: {  }
 id: segment_1
 label: 'Offer/Demand marker'
 enabled: true
 weight: 0
 segment_type: static
+source_field: ''
 length: 1
 static_value: O
+custom_map_text: ''
+start_index: 1
+date_source_field: publish_on
+date_format: YY
+auto_start: 1

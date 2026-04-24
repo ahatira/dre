@@ -1,8 +1,12 @@
+uuid: d8386c61-9f28-4b0c-8cd8-f290ff88b71a
+langcode: en
+status: true
+dependencies: {  }
 id: availability_status_immediate
 dictionary_type: availability_status
 code: IMMEDIATE
-label: "Immédiate"
-description: "Available immediately."
+label: Immédiate
+description: 'Available immediately.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

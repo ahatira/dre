@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - focal_point
-_core:
-  default_config_hash: Pm0l6YhRLq4fV4J8r9vVdx-5pL3qk15oW0YvAqYHe0Q
 name: ps_offer_card_vertical
 label: 'PS Offer Card Vertical (640x640)'
 effects:

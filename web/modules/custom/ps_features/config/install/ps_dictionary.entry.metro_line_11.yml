@@ -1,8 +1,12 @@
+uuid: 27823e81-df5b-4bc8-bd05-62125a282a65
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_11
 dictionary_type: metro_line
 code: LINE_11
-label: "Metro Line 11"
-description: "Paris metro Line 11."
+label: 'Metro Line 11'
+description: 'Paris metro Line 11.'
 weight: 12
 deprecated: false
-metadata: []
+metadata: {  }

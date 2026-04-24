@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - language.entity.en
+    - ps_division.division_type.lot
   enforced:
     module:
       - content_translation
 id: ps_division.lot
 target_entity_type_id: ps_division
 target_bundle: lot
-default_language_code: en
+default_langcode: site_default
 language_alterable: true

@@ -1,3 +1,4 @@
+uuid: aab1a9ba-b440-43a3-9c2f-324107c586d6
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_video_02_01
 label: 'Media Video 2:1'
+description: null
 targetEntityType: media
 cache: true

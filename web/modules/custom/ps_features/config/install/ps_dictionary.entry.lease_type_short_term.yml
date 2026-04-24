@@ -1,8 +1,12 @@
+uuid: ae23e681-90f4-4547-9f2a-6ebb9a7d2a5d
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type_short_term
 dictionary_type: lease_type
 code: SHORT_TERM
-label: "Short term"
-description: "Short-term or temporary lease (less than 2 years)."
+label: 'Short term'
+description: 'Short-term or temporary lease (less than 2 years).'
 weight: 3
 deprecated: false
-metadata: []
+metadata: {  }

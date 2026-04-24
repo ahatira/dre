@@ -1,8 +1,12 @@
+uuid: 39ffa503-2456-4270-a437-52b9aa6004fd
+langcode: en
+status: true
+dependencies: {  }
 id: air_conditioning_type_mono_split
 dictionary_type: air_conditioning_type
 code: MONO_SPLIT
-label: "Mono-split"
-description: "Single indoor unit with outdoor condenser"
+label: Mono-split
+description: 'Single indoor unit with outdoor condenser'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

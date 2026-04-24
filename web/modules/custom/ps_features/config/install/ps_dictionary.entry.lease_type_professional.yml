@@ -1,8 +1,12 @@
+uuid: a46c1f16-a8c9-4356-9f71-7d935d9c7d77
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type_professional
 dictionary_type: lease_type
 code: PROFESSIONAL
-label: "Professional"
-description: "Professional lease — 6-year minimum for regulated professions."
+label: Professional
+description: 'Professional lease — 6-year minimum for regulated professions.'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

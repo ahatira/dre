@@ -1,3 +1,4 @@
+uuid: 8c48a6c9-2b57-4dbd-8f84-7f11171f474b
 langcode: en
 status: true
 dependencies:
@@ -8,5 +9,6 @@ dependencies:
       - media_library
 id: media.media_library
 label: 'Media library'
+description: null
 targetEntityType: media
 cache: true

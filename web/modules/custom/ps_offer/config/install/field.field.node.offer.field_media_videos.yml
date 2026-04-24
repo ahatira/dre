@@ -7,8 +7,6 @@ dependencies:
     - media.type.remote_video
     - media.type.video
     - node.type.offer
-_core:
-  default_config_hash: JZweVaO_sZmF0WeNy__X8NVkZ3YeZ3GH4rJuhuoZhfs
 id: node.offer.field_media_videos
 field_name: field_media_videos
 entity_type: node

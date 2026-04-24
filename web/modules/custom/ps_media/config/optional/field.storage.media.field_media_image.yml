@@ -1,13 +1,14 @@
+uuid: c3e8017b-a6ba-4d71-828b-c6c4d1614a57
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - media
   module:
     - file
     - image
     - media
+  enforced:
+    module:
+      - media
 id: media.field_media_image
 field_name: field_media_image
 entity_type: media

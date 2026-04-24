@@ -1,5 +1,9 @@
+uuid: 962aa73a-e852-4e7d-9d27-9c0f50f2aa90
+langcode: en
+status: true
+dependencies: {  }
 id: fee_payer
-label: "Fee payer"
-description: "Who bears the agent fees for the transaction."
+label: 'Fee payer'
+description: 'Who bears the agent fees for the transaction.'
 locked: false
 metadata_schema: ''

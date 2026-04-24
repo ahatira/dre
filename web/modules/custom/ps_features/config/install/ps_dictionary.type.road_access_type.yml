@@ -1,5 +1,9 @@
+uuid: c2eb48d1-7c43-4c9b-a8a2-155a8a5bb5ac
+langcode: en
+status: true
+dependencies: {  }
 id: road_access_type
-label: "Road access type"
-description: "Type of road infrastructure providing vehicular access."
+label: 'Road access type'
+description: 'Type of road infrastructure providing vehicular access.'
 locked: false
 metadata_schema: ''

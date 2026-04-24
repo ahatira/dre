@@ -5,8 +5,6 @@ dependencies:
   module:
     - node
     - ps_division
-_core:
-  default_config_hash: lUhkb0nWnd9Zrz5o4F-OyONnbTG83iCZpzfz0I69uqU
 id: node.field_divisions
 field_name: field_divisions
 entity_type: node

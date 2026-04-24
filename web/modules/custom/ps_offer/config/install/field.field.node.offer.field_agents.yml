@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_agents
     - node.type.offer
-_core:
-  default_config_hash: wFL7kRo-Ct8_2qFSPl4OgmlxSc2dGn1ySdRxowE4OLc
 id: node.offer.field_agents
 field_name: field_agents
 entity_type: node

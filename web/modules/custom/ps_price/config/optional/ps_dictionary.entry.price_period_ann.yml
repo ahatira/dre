@@ -1,13 +1,14 @@
-uuid: null
+uuid: 541f80bc-138e-47f4-887c-70cd54c07f78
 langcode: en
+status: true
+dependencies: {  }
 id: price_period_ann
 dictionary_type: price_period
 code: ANN
-label: "Per Year"
-description: "Annual price"
+label: 'Per Year'
+description: 'Annual price'
 weight: 0
-status: true
 deprecated: false
 metadata:
-  icon: "calendar"
+  icon: calendar
   multiplier: 1

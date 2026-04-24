@@ -1,8 +1,12 @@
+uuid: 91c0ed6d-3e1a-4cd3-b3b9-df2458b92546
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_cctv
 dictionary_type: security_system_type
 code: CCTV
-label: "Video surveillance (CCTV)"
-description: "Closed-circuit television monitoring."
+label: 'Video surveillance (CCTV)'
+description: 'Closed-circuit television monitoring.'
 weight: 40
 deprecated: false
-metadata: []
+metadata: {  }

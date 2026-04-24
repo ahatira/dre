@@ -10,6 +10,7 @@ bundles:
   - offer
 entity_type: node
 global: false
+weight: 0
 flag_short: 'Add to favorites'
 flag_long: 'Add this offer to your favorites'
 flag_message: 'Added to favorites'
@@ -17,7 +18,6 @@ unflag_short: 'Remove favorite'
 unflag_long: 'Remove this offer from your favorites'
 unflag_message: 'Removed from favorites'
 unflag_denied_text: 'You can not remove this favorite'
-weight: 0
 flag_type: 'entity:node'
 link_type: ajax_link
 flagTypeConfig:

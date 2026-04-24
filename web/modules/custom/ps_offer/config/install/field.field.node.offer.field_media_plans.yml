@@ -7,8 +7,6 @@ dependencies:
     - media.type.file
     - media.type.image
     - node.type.offer
-_core:
-  default_config_hash: jC_PKUseD8-F2VwxhfVVsmteSLjuXfj2kkSEyADxg9E
 id: node.offer.field_media_plans
 field_name: field_media_plans
 entity_type: node

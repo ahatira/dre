@@ -1,3 +1,4 @@
+uuid: 0bfcde5e-d597-4f49-ad69-b968c384bd8c
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.autoplay
 label: Autoplay
+description: null
 targetEntityType: media
 cache: true

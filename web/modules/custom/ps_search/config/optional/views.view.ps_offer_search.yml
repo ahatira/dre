@@ -1,24 +1,22 @@
-id: ps_offer_search
+uuid: 269a6afc-76dc-4ddb-84c3-23ffe4dd305f
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.card_search
+    - field.storage.node.field_geofield
     - search_api.index.ps_offer_search
   module:
     - geofield
     - geofield_map
-    - node
-    - ps_offer
     - search_api
-    - views
+    - user
+id: ps_offer_search
 label: 'PS Offer Search'
 module: views
 description: 'Offer search page with exposed filters aligned with listing mockup.'
 tag: ''
 base_table: search_api_index_ps_offer_search
 base_field: search_api_id
-core: 8.x
 display:
   default:
     id: default
@@ -27,19 +25,25 @@ display:
     position: 0
     display_options:
       title: 'Find a property'
-      access:
-        type: perm
+      fields: {  }
+      pager:
+        type: full
         options:
-          perm: 'access content'
-      cache:
-        type: search_api_tag
-        options: {  }
-      query:
-        type: search_api_query
-        options:
-          bypass_access: false
-          skip_access: false
-          preserve_facet_query_args: true
+          offset: 0
+          items_per_page: 12
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '12, 24, 48'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
       exposed_form:
         type: basic
         options:
@@ -50,34 +54,28 @@ display:
           expose_sort_order: false
           sort_asc_label: Asc
           sort_desc_label: Desc
-      pager:
-        type: full
+      access:
+        type: perm
         options:
-          items_per_page: 12
-          offset: 0
-          id: 0
-          total_pages: null
+          perm: 'access content'
+      cache:
+        type: search_api_tag
+        options: {  }
+      empty: {  }
+      sorts:
+        ps_offer_surface_main_value:
+          id: ps_offer_surface_main_value
+          table: search_api_index_ps_offer_search
+          field: ps_offer_surface_main_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: ASC
           expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '12, 24, 48'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-      style:
-        type: default
-      row:
-        type: search_api
-        options:
-          view_modes:
-            'entity:node':
-              ':default': card_search
-              offer: card_search
-      fields: {  }
+            label: 'Increasing surface'
+          exposed: true
+      arguments: {  }
       filters:
         status:
           id: status
@@ -86,11 +84,11 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_boolean
           operator: '='
           value: '1'
           group: 1
           exposed: false
-          plugin_id: search_api_boolean
         type:
           id: type
           table: search_api_index_ps_offer_search
@@ -98,12 +96,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value:
             offer: offer
           group: 1
           exposed: false
-          plugin_id: search_api_options
         search_api_fulltext:
           id: search_api_fulltext
           table: search_api_index_ps_offer_search
@@ -111,6 +109,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_fulltext
           operator: and
           value: ''
           group: 1
@@ -127,7 +126,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -143,7 +141,6 @@ display:
           parse_mode: terms
           min_length: 2
           fields: {  }
-          plugin_id: search_api_fulltext
         field_property_type:
           id: field_property_type
           table: search_api_index_ps_offer_search
@@ -151,6 +148,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -167,7 +165,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -181,7 +178,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         field_transaction_types:
           id: field_transaction_types
           table: search_api_index_ps_offer_search
@@ -189,6 +185,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -205,7 +202,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -219,7 +215,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         location:
           id: location
           table: search_api_index_ps_offer_search
@@ -227,13 +222,14 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_fulltext
           operator: and
           value: ''
           group: 1
           exposed: true
           expose:
             operator_id: location_op
-            label: 'Location(s)'
+            label: Location(s)
             description: ''
             use_operator: false
             operator: location_op
@@ -243,7 +239,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -260,7 +255,6 @@ display:
           min_length: 0
           fields:
             - field_address
-          plugin_id: search_api_fulltext
         field_reference:
           id: field_reference
           table: search_api_index_ps_offer_search
@@ -268,6 +262,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_fulltext
           operator: and
           value: ''
           group: 1
@@ -284,7 +279,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -301,7 +295,6 @@ display:
           min_length: 0
           fields:
             - field_reference
-          plugin_id: search_api_fulltext
         ps_offer_feature_accessibility:
           id: ps_offer_feature_accessibility
           table: search_api_index_ps_offer_search
@@ -309,6 +302,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -325,7 +319,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -339,7 +332,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         ps_offer_feature_equipments:
           id: ps_offer_feature_equipments
           table: search_api_index_ps_offer_search
@@ -347,6 +339,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -363,7 +356,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -377,7 +369,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         ps_offer_feature_services:
           id: ps_offer_feature_services
           table: search_api_index_ps_offer_search
@@ -385,6 +376,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -401,7 +393,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -415,7 +406,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         ps_offer_building_condition:
           id: ps_offer_building_condition
           table: search_api_index_ps_offer_search
@@ -423,6 +413,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_options
           operator: or
           value: {  }
           group: 1
@@ -439,7 +430,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -453,7 +443,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_options
         nearby_transport:
           id: nearby_transport
           table: search_api_index_ps_offer_search
@@ -461,6 +450,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_fulltext
           operator: and
           value: ''
           group: 1
@@ -477,7 +467,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -494,20 +483,23 @@ display:
           min_length: 0
           fields:
             - ps_offer_transport_text
-          plugin_id: search_api_fulltext
-      sorts:
-        ps_offer_surface_main_value:
-          id: ps_offer_surface_main_value
-          table: search_api_index_ps_offer_search
-          field: ps_offer_surface_main_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: 'Increasing surface'
-          plugin_id: search_api
+      style:
+        type: default
+      row:
+        type: search_api
+        options:
+          view_modes:
+            'entity:node':
+              ':default': card_search
+              offer: card_search
+      query:
+        type: search_api_query
+        options:
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: true
+      relationships: {  }
+      use_ajax: true
       header:
         result:
           id: result
@@ -516,41 +508,23 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: result
           empty: false
           content: '@total results'
-          plugin_id: result
       footer: {  }
-      empty: {  }
-      relationships: {  }
-      arguments: {  }
-      use_ajax: true
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - 'url.query_args:sort_by'
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:search_api.index.ps_offer_search'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
-    display_options:
-      path: offers
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
-        - 'user.node_grants:view'
-      tags:
-        - 'config:search_api.index.ps_offer_search'
+        - 'search_api_list:ps_offer_search'
   attachment_1:
     id: attachment_1
     display_title: Map
@@ -558,10 +532,6 @@ display:
     position: 2
     display_options:
       title: 'Map results'
-      defaults:
-        fields: false
-        style: false
-        row: false
       fields:
         title:
           id: title
@@ -599,8 +569,8 @@ display:
               finer: 0
             scrollwheel: true
             draggable: true
-            map_reset: false
             map_reset_position: TOP_RIGHT
+            map_reset: false
           map_controls:
             disable_default_ui: false
             zoom_control: true
@@ -615,14 +585,14 @@ display:
             street_view_control: false
             fullscreen_control: true
           map_marker_and_infowindow:
-            icon_image_mode: icon_file
             icon_image_path: ''
-            icon_file_wrapper:
-              icon_file: {  }
+            icon_image_mode: icon_file
             infowindow_field: title
             view_mode: full
-            multivalue_split: false
             tooltip_field: title
+            icon_file_wrapper:
+              icon_file: {  }
+            multivalue_split: false
             theming:
               plugin_id: none
           map_oms:
@@ -631,40 +601,70 @@ display:
           map_additional_options: ''
           map_geometries_options: '{"strokeColor":"black","strokeOpacity":"0.8","strokeWeight":2,"fillColor":"blue","fillOpacity":"0.1", "clickable": false}'
           custom_style_map:
-            custom_style_control: false
             custom_style_name: ''
             custom_style_options: ''
+            custom_style_control: false
             custom_style_default: false
           map_markercluster:
-            markercluster_control: true
             markercluster_additional_options: '{"maxZoom":12, "gridSize":50}'
+            markercluster_control: true
           map_geocoder:
             control: 0
             settings:
-              position: topright
-              input_size: 25
               providers: {  }
               min_terms: 4
               delay: 800
+              options: ''
               zoom: 16
               infowindow: false
-              options: ''
+              position: topright
+              input_size: 25
           map_additional_libraries: {  }
           map_lazy_load:
             lazy_load: false
       row:
         type: fields
+      defaults:
+        style: false
+        row: false
+        fields: false
+      display_description: 'Map synchronized with the offer list filters.'
+      display_extenders: {  }
       displays:
         page_1: page_1
       inherit_exposed_filters: true
-      display_description: 'Map synchronized with the offer list filters.'
-      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url.query_args
+        - url
+        - 'url.query_args:sort_by'
         - 'user.node_grants:view'
+        - user.permissions
       tags:
+        - 'config:field.storage.node.field_geofield'
         - 'config:search_api.index.ps_offer_search'
+        - 'search_api_list:ps_offer_search'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: offers
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'facets_filter:f'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'url.query_args:sort_by'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:facets.facet.ps_offer_price'
+        - 'config:search_api.index.ps_offer_search'
+        - 'search_api_list:ps_offer_search'

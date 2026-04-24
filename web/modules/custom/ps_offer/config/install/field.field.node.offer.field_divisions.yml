@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_divisions
     - node.type.offer
-_core:
-  default_config_hash: 2HM1hnJ8pA8U0fbTfeUFIO84yBbfSdV7k92bbDiBF7w
 id: node.offer.field_divisions
 field_name: field_divisions
 entity_type: node

@@ -1,6 +1,7 @@
-uuid: null
+uuid: 1f13926a-36d6-4591-8a9b-6253baf27fc8
 langcode: en
 status: true
+dependencies: {  }
 id: surface_unit_sqft
 dictionary_type: surface_unit
 code: SQFT

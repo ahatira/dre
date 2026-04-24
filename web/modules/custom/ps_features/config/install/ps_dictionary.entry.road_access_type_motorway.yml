@@ -1,8 +1,12 @@
+uuid: 4c687834-1a55-45b7-933d-55510bbcf98b
+langcode: en
+status: true
+dependencies: {  }
 id: road_access_type_motorway
 dictionary_type: road_access_type
 code: MOTORWAY
-label: "Motorway"
-description: "Direct access to a motorway (autoroute)."
+label: Motorway
+description: 'Direct access to a motorway (autoroute).'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

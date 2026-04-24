@@ -1,3 +1,4 @@
+uuid: 1dd29866-6adb-48c3-9332-91999d1d9681
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_16_09
 label: 'Media 16:9'
+description: null
 targetEntityType: media
 cache: true

@@ -1,10 +1,13 @@
+uuid: b33be388-8dbb-4586-a138-160fe4177ba4
+langcode: en
+status: true
+dependencies: {  }
 id: property_type_com
 dictionary_type: property_type
 code: COM
 label: 'Retail / Commercial'
 description: 'Retail or commercial property type'
 weight: 3
-status: true
 deprecated: false
 metadata:
   icon: shops

@@ -1,8 +1,12 @@
+uuid: ce5c44a9-049f-4a91-96aa-206355beb8a3
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_digicode
 dictionary_type: security_system_type
 code: DIGICODE
-label: "Digicode / keypad"
-description: "Door access with code/keypad."
+label: 'Digicode / keypad'
+description: 'Door access with code/keypad.'
 weight: 10
 deprecated: false
-metadata: []
+metadata: {  }

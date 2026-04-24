@@ -1,10 +1,13 @@
+uuid: 9fc3e1c5-1c94-4261-b3be-5715db3502ea
+langcode: en
+status: true
+dependencies: {  }
 id: property_type_ter
 dictionary_type: property_type
 code: TER
 label: Land
 description: 'Land or terrain property type'
 weight: 5
-status: true
 deprecated: false
 metadata:
   icon: terrain

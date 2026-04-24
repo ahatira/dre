@@ -1,3 +1,4 @@
+uuid: 66ae62df-ebbc-445e-a85d-5a986eac8fb6
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_video_16_09
 label: 'Media Video 16:9'
+description: null
 targetEntityType: media
 cache: true

@@ -1,13 +1,15 @@
+uuid: 3dc93251-9381-4000-a2b8-b0fce3a21b4a
 langcode: en
 status: true
 dependencies: {  }
 id: has_elevator
-label: 'Elevators'
+label: Elevators
 description: 'Presence of one or more elevators'
 value_type: flag
 dictionary_type: null
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: equipments
 weight: 0

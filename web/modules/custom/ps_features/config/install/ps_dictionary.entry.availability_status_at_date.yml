@@ -1,8 +1,12 @@
+uuid: 41eabd9e-6e7b-4512-bece-f348e86467b5
+langcode: en
+status: true
+dependencies: {  }
 id: availability_status_at_date
 dictionary_type: availability_status
 code: AT_DATE
-label: "À date"
-description: "Available from a specified date."
+label: 'À date'
+description: 'Available from a specified date.'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

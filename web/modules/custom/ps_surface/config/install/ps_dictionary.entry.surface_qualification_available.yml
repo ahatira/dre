@@ -1,11 +1,12 @@
-uuid: null
+uuid: 827503d7-7924-462d-b79b-62690e1799c5
 langcode: en
 status: true
+dependencies: {  }
 id: surface_qualification_available
 dictionary_type: surface_qualification
 code: DISPO
-label: "Available"
-description: "Available area qualification"
+label: Available
+description: 'Available area qualification'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

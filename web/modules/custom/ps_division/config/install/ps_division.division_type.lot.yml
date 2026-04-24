@@ -1,6 +1,7 @@
+uuid: e40fef2c-b2c5-4f52-9c47-cc0fa7587060
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: lot
 label: Lot
-description: "Default division type for lots, floors, and apartments."
+description: 'Default division type for lots, floors, and apartments.'

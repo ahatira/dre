@@ -1,8 +1,12 @@
+uuid: 816b91b6-16ed-447f-a1b8-e23f93ce3ba1
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_9
 dictionary_type: metro_line
 code: LINE_9
-label: "Metro Line 9"
-description: "Paris metro Line 9."
+label: 'Metro Line 9'
+description: 'Paris metro Line 9.'
 weight: 10
 deprecated: false
-metadata: []
+metadata: {  }

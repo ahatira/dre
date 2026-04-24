@@ -1,6 +1,10 @@
+uuid: 0232268c-d891-4ffc-9f84-561414022448
+langcode: en
+status: true
+dependencies: {  }
 id: cabling_type
-label: "Computer Cabling Type"
-description: "Types of computer network cabling systems."
+label: 'Computer Cabling Type'
+description: 'Types of computer network cabling systems.'
 locked: true
 metadata_schema: |
   icon:

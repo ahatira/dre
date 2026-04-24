@@ -1,13 +1,16 @@
+uuid: 239f5636-804f-4179-981f-40dc20897c10
+langcode: en
+status: true
+dependencies: {  }
 id: currency_eur
 dictionary_type: currency
 code: EUR
-label: "Euro"
-description: "European currency"
+label: Euro
+description: 'European currency'
 weight: 0
-status: true
 deprecated: false
 metadata:
-  symbol: "€"
-  iso_code: "EUR"
+  symbol: €
+  iso_code: EUR
   decimal_places: 2
-  symbol_position: "after"
+  symbol_position: after

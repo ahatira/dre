@@ -1,9 +1,9 @@
+uuid: 89719b88-8478-41c3-9445-5176104e3ff5
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: surface_nature
-label: "Surface Nature"
-description: "Nature or category of surface area (activity, office, etc.)"
-is_translatable: false
+label: 'Surface Nature'
+description: 'Nature or category of surface area (activity, office, etc.)'
 locked: true
-weight: 0
+metadata_schema: null

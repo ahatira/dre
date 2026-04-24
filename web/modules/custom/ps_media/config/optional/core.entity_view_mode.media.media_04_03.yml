@@ -1,3 +1,4 @@
+uuid: fc00a40c-d070-414b-9eaa-c91f23d2e104
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_04_03
 label: 'Media 4:3'
+description: null
 targetEntityType: media
 cache: true

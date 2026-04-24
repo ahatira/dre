@@ -1,3 +1,4 @@
+uuid: bc963f7d-430f-4255-8dc5-debd06454837
 langcode: en
 status: true
 dependencies:
@@ -48,10 +49,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: image
+      inherit_settings: true
     uuid: dddd53a4-2e04-4095-9176-c8045f27d03c
     weight: 3
     label: Upload

@@ -1,8 +1,12 @@
+uuid: e71d8730-dca3-4a95-b8aa-66b4ffd80e43
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t6
 dictionary_type: tram_line
 code: T6
-label: "Tram T6"
-description: "Île-de-France tramway line T6."
+label: 'Tram T6'
+description: 'Île-de-France tramway line T6.'
 weight: 5
 deprecated: false
-metadata: []
+metadata: {  }

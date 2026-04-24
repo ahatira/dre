@@ -1,21 +1,11 @@
+uuid: 7fda10bf-9bcd-4e65-9897-39c3b2b217a3
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.full_html
-    - linkit.linkit_profile.linkit_all_nodes
   module:
     - ckeditor5
-    - anchor_link
-    - ckeditor_bidi
-    - ckeditor_emoji
-    - ckeditor5_paste_filter
-    - ckeditor5_plugin_pack
-    - ckeditor_media_embed
-    - ckeditor_media_resize
-    - editor_advanced_link
-    - edit_media_modal
-    - linkit
 format: full_html
 editor: ckeditor5
 settings:

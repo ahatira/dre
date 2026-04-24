@@ -1,6 +1,10 @@
+uuid: e2f6e7e0-f43d-4707-a491-64421e8d9449
+langcode: en
+status: true
+dependencies: {  }
 id: currency
-label: "Currency"
-description: "Currencies used for prices"
+label: Currency
+description: 'Currencies used for prices'
 locked: true
 metadata_schema: |
   symbol:

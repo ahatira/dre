@@ -1,3 +1,4 @@
+uuid: f3ccb62b-1d19-44aa-b7b1-e1377af1d2b6
 langcode: en
 status: true
 dependencies: {  }
@@ -6,7 +7,7 @@ label: 'Security deposit'
 description: 'Security deposit in months of rent (dépôt de garantie).'
 value_type: numeric
 dictionary_type: null
-unit: 'months'
+unit: months
 is_required: false
 is_facetable: false
 validation_rules:

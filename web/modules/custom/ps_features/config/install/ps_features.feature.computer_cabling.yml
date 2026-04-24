@@ -1,3 +1,4 @@
+uuid: 4d85d89d-6900-452c-ae79-ba275d102ceb
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +9,7 @@ value_type: dictionary
 dictionary_type: cabling_type
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: equipments
 weight: 2

@@ -1,8 +1,12 @@
+uuid: 32cf5cf0-0002-45dd-8b0e-14aa555dd12d
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_badge
 dictionary_type: security_system_type
 code: BADGE
-label: "Badge / access control"
-description: "Badge or access control system."
+label: 'Badge / access control'
+description: 'Badge or access control system.'
 weight: 30
 deprecated: false
-metadata: []
+metadata: {  }

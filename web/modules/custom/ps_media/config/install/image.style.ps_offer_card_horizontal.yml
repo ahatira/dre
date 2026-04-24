@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - focal_point
-_core:
-  default_config_hash: 8fLh3Lk9XLdYxWXWBfwe2j7Q6Ggj9UfV8C6VvI6zS7g
 name: ps_offer_card_horizontal
 label: 'PS Offer Card Horizontal (736x424)'
 effects:

@@ -1,8 +1,12 @@
+uuid: bdee9ef4-ec51-4699-8363-68105fba4a63
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_alarm
 dictionary_type: security_system_type
 code: ALARM
-label: "Alarm system"
-description: "Intrusion alarm system."
+label: 'Alarm system'
+description: 'Intrusion alarm system.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

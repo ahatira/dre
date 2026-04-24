@@ -1,8 +1,12 @@
+uuid: 6d07d1a0-2938-4a5c-b915-1bbfcbb288c5
+langcode: en
+status: true
+dependencies: {  }
 id: availability_status_contact_us
 dictionary_type: availability_status
 code: CONTACT_US
-label: "Contact us"
-description: "Availability to be confirmed on request."
+label: 'Contact us'
+description: 'Availability to be confirmed on request.'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,8 +1,12 @@
+uuid: a040dea2-95c4-422f-9d4c-9f5a2ed4225e
+langcode: en
+status: true
+dependencies: {  }
 id: heating_system_type_individual
 dictionary_type: heating_system_type
 code: INDIVIDUAL
-label: "Individual"
-description: "Individual heating system"
+label: Individual
+description: 'Individual heating system'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

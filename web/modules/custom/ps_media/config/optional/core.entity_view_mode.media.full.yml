@@ -1,3 +1,4 @@
+uuid: 15768d9f-a124-4cb7-86f3-f3e49b6d0bc1
 langcode: en
 status: false
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.full
 label: 'Full content'
+description: ''
 targetEntityType: media
 cache: true

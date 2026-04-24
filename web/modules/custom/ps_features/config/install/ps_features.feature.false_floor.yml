@@ -1,3 +1,4 @@
+uuid: ddfd9215-ff35-467a-934b-ce20045a6f6a
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +9,7 @@ value_type: string
 dictionary_type: null
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: equipments
 weight: 3

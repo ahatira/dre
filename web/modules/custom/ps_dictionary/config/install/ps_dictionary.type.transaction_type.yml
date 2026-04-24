@@ -1,6 +1,10 @@
+uuid: 7c463d5d-0a57-4aa6-89b5-308921684e73
+langcode: en
+status: true
+dependencies: {  }
 id: transaction_type
-label: "Transaction Type"
-description: "Real estate transaction type (sale, lease, etc.)"
+label: 'Transaction Type'
+description: 'Real estate transaction type (sale, lease, etc.)'
 locked: true
 metadata_schema: |
   icon:

@@ -585,8 +585,6 @@ third_party_settings:
             additional:
               weight: 24
         third_party_settings: {  }
-_core:
-  default_config_hash: xgriR0W2JDDhsZyDb7N3s_T9w-zxFG2A_U4IEB3_vZE
 id: node.offer.default
 targetEntityType: node
 bundle: offer

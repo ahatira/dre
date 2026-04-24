@@ -1,8 +1,12 @@
+uuid: c5e275b4-dac7-4f4e-bf59-df255960e08d
+langcode: en
+status: true
+dependencies: {  }
 id: air_conditioning_type_vrv
 dictionary_type: air_conditioning_type
 code: VRV
-label: "VRV / VRF"
-description: "Variable Refrigerant Volume/Flow system"
+label: 'VRV / VRF'
+description: 'Variable Refrigerant Volume/Flow system'
 weight: 3
 deprecated: false
-metadata: []
+metadata: {  }

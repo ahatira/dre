@@ -7,8 +7,6 @@ dependencies:
     - node.type.offer
   module:
     - ps_price
-_core:
-  default_config_hash: nLfz9Az_N0rnHF5sfKvd-CSQ9_T7OBrpZmd7fbouPmU
 id: node.offer.field_prices
 field_name: field_prices
 entity_type: node

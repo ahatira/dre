@@ -1,3 +1,9 @@
+uuid: 5bc24b7e-b207-4eff-ac78-8de7d0a699ac
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
 id: ps_offer_database
 name: 'PS Offer Database server'
 description: 'Database backend for offer search views.'
@@ -7,9 +13,3 @@ backend_config:
   min_chars: 2
   matching: words
   phrase: bigram
-status: true
-langcode: en
-dependencies:
-  module:
-    - search_api
-    - search_api_db

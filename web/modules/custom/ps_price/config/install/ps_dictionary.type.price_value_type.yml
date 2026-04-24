@@ -1,9 +1,9 @@
+uuid: 7e9e8f3a-64a7-45b7-903a-95c8a1e9d8a7
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: price_value_type
-label: "Price Value Type"
-description: "Price value type indicators (MIN, MAX)"
-is_translatable: false
+label: 'Price Value Type'
+description: 'Price value type indicators (MIN, MAX)'
 locked: true
-weight: 13
+metadata_schema: null

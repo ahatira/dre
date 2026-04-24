@@ -1,3 +1,4 @@
+uuid: d9ee7c02-cc69-4a7b-a946-8465d4d4143a
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.bulk_upload
 label: 'Bulk upload'
+description: null
 targetEntityType: media
 cache: true

@@ -1,8 +1,12 @@
+uuid: 09791989-32b6-45eb-a551-8333c6a1b157
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type_civil
 dictionary_type: lease_type
 code: CIVIL
-label: "Civil"
-description: "Civil lease — governed by French Civil Code."
+label: Civil
+description: 'Civil lease — governed by French Civil Code.'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

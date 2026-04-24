@@ -1,8 +1,12 @@
+uuid: fa756716-0891-4687-a9db-cf0c7922e5d9
+langcode: en
+status: true
+dependencies: {  }
 id: heating_system_type_gas
 dictionary_type: heating_system_type
 code: GAS
-label: "Gas"
-description: "Gas heating system"
+label: Gas
+description: 'Gas heating system'
 weight: 3
 deprecated: false
-metadata: []
+metadata: {  }

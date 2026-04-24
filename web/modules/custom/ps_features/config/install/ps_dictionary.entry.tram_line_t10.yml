@@ -1,8 +1,12 @@
+uuid: 72660818-b428-45ba-a28a-27b560c62b93
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t10
 dictionary_type: tram_line
 code: T10
-label: "Tram T10"
-description: "Île-de-France tramway line T10."
+label: 'Tram T10'
+description: 'Île-de-France tramway line T10.'
 weight: 9
 deprecated: false
-metadata: []
+metadata: {  }

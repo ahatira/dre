@@ -5,7 +5,7 @@ dependencies: {  }
 id: mandate_type_cpr
 dictionary_type: mandate_type
 code: CPR
-label: 'Co-préférentiel'
+label: Co-préférentiel
 description: 'Co-preferential mandate.'
 weight: 3
 deprecated: false

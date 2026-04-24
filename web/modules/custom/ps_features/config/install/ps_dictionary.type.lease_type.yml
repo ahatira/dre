@@ -1,5 +1,9 @@
+uuid: a2a4c24b-356a-41dd-9e85-f43e3cddd3dd
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type
-label: "Lease type"
-description: "Type of commercial lease agreement."
+label: 'Lease type'
+description: 'Type of commercial lease agreement.'
 locked: false
 metadata_schema: ''

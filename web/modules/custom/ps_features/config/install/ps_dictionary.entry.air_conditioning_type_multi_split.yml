@@ -1,8 +1,12 @@
+uuid: e611ca0f-5f63-4339-b87d-f45790da63ea
+langcode: en
+status: true
+dependencies: {  }
 id: air_conditioning_type_multi_split
 dictionary_type: air_conditioning_type
 code: MULTI_SPLIT
-label: "Multi-split"
-description: "Multiple indoor units on one outdoor condenser"
+label: Multi-split
+description: 'Multiple indoor units on one outdoor condenser'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

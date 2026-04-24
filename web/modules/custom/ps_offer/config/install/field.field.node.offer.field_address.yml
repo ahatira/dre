@@ -7,8 +7,6 @@ dependencies:
     - node.type.offer
   module:
     - address
-_core:
-  default_config_hash: Ha4mAEVu-MWgnv3M-kFwhuDQc8AW5A3wLfNu7qQ44rM
 id: node.offer.field_address
 field_name: field_address
 entity_type: node
@@ -29,4 +27,5 @@ settings:
       override: hidden
     familyName:
       override: hidden
+  fields: {  }
 field_type: address

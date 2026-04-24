@@ -1,9 +1,13 @@
+uuid: d4425056-2b0d-4680-b512-6878704ad3ce
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group_equipments
 dictionary_type: feature_group
 code: EQUIPMENTS
-label: "Equipments"
-description: "Equipment and appliances available in the property."
+label: Equipments
+description: 'Equipment and appliances available in the property.'
 weight: 0
 deprecated: false
 metadata:
-  icon: "tools"
+  icon: tools

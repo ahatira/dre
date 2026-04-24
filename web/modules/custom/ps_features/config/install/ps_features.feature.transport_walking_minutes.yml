@@ -1,3 +1,4 @@
+uuid: 33ecaa78-aa26-428b-a08c-351b2d5232b6
 langcode: en
 status: true
 dependencies: {  }
@@ -6,7 +7,7 @@ label: 'Walking distance to transport'
 description: 'Walking time to nearest public transport stop, in minutes.'
 value_type: numeric
 dictionary_type: null
-unit: 'min'
+unit: min
 is_required: false
 is_facetable: true
 validation_rules:

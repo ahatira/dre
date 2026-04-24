@@ -1,3 +1,4 @@
+uuid: 94b47dfc-1c60-4b5d-8b4a-c329c2f619cb
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_video_04_01
 label: 'Media Video 4:1'
+description: null
 targetEntityType: media
 cache: true

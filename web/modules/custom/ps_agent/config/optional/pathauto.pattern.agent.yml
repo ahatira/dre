@@ -5,11 +5,10 @@ dependencies:
   module:
     - ps_agent
 id: agent
-label: 'Agent'
+label: Agent
 type: 'canonical_entities:agent'
 pattern: 'agents/[agent:label]'
-description: 'Auto-generates URL alias for Agent entities.'
-weight: 0
 selection_criteria: {  }
 selection_logic: and
+weight: 0
 relationships: {  }

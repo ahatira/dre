@@ -1,8 +1,12 @@
+uuid: 0780cd83-731b-46d8-a5a4-8ef1f86b55e5
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t7
 dictionary_type: tram_line
 code: T7
-label: "Tram T7"
-description: "Île-de-France tramway line T7."
+label: 'Tram T7'
+description: 'Île-de-France tramway line T7.'
 weight: 6
 deprecated: false
-metadata: []
+metadata: {  }

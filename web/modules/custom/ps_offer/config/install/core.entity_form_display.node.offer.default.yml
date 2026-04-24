@@ -33,7 +33,6 @@ dependencies:
   module:
     - address
     - field_group
-    - geofield
     - geofield_map
     - inline_entity_form
     - link
@@ -229,8 +228,6 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-_core:
-  default_config_hash: xPVNUyC1yQL75aPJ-UDyg-xRghM3SjPklLSgBYC-Osw
 id: node.offer.default
 targetEntityType: node
 bundle: offer

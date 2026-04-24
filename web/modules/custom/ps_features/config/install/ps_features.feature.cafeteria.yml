@@ -1,13 +1,15 @@
+uuid: 2329a5a9-1fbf-4682-ab4e-edbbfa820dae
 langcode: en
 status: true
 dependencies: {  }
 id: cafeteria
-label: 'Cafeteria'
+label: Cafeteria
 description: 'Cafeteria available'
 value_type: yesno
 dictionary_type: null
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: services
 weight: 4

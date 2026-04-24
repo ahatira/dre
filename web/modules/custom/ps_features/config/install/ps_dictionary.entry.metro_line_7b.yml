@@ -1,8 +1,12 @@
+uuid: 4ec3a28c-f84f-4cfa-ad72-1545f71eee69
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_7b
 dictionary_type: metro_line
 code: LINE_7B
-label: "Metro Line 7b"
-description: "Paris metro Line 7b."
+label: 'Metro Line 7b'
+description: 'Paris metro Line 7b.'
 weight: 8
 deprecated: false
-metadata: []
+metadata: {  }

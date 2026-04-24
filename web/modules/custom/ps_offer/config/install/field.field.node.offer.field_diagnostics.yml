@@ -7,8 +7,6 @@ dependencies:
     - node.type.offer
   module:
     - ps_diagnostic
-_core:
-  default_config_hash: pNlf_w-Sv8nlduxAxC_Jy9vZK74gDkY5_2_2LlLBGyE
 id: node.offer.field_diagnostics
 field_name: field_diagnostics
 entity_type: node

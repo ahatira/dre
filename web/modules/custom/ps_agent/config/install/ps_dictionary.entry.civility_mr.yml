@@ -1,10 +1,13 @@
+uuid: c7d8d948-3481-4fec-a7f1-b585557ddc24
+langcode: en
+status: true
+dependencies: {  }
 id: civility_mr
 dictionary_type: civility
 code: MR
-label: "Mr."
-description: "Mister"
+label: Mr.
+description: Mister
 weight: 0
-status: true
 deprecated: false
 metadata:
-  avatar_gender: "male"
+  avatar_gender: male

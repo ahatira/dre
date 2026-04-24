@@ -1,4 +1,4 @@
-uuid: null
+uuid: 009bc1cb-0c3e-4adf-9f36-76675e791005
 langcode: en
 status: true
 dependencies:
@@ -8,7 +8,8 @@ dependencies:
 id: floor_pb
 dictionary_type: floor
 code: PB
-label: "Ground floor"
-description: "Ground level"
+label: 'Ground floor'
+description: 'Ground level'
 weight: 0
 deprecated: false
+metadata: {  }

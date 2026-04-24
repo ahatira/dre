@@ -1,8 +1,12 @@
+uuid: 487f79ad-7680-4962-830d-2fe312ca04cc
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_13
 dictionary_type: metro_line
 code: LINE_13
-label: "Metro Line 13"
-description: "Paris metro Line 13."
+label: 'Metro Line 13'
+description: 'Paris metro Line 13.'
 weight: 14
 deprecated: false
-metadata: []
+metadata: {  }

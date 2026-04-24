@@ -1,9 +1,9 @@
+uuid: fbe99373-4dc9-43f1-8204-9906b6566e2f
 langcode: en
 status: true
 dependencies: {  }
 id: surface_unit
 label: 'Surface Unit'
 description: 'Units for measuring surface areas'
-is_translatable: false
 locked: true
-weight: 0
+metadata_schema: null

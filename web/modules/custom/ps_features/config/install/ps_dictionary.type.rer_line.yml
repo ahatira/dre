@@ -1,5 +1,9 @@
+uuid: a862550c-0cec-4d85-a705-eb75b28ad213
+langcode: en
+status: true
+dependencies: {  }
 id: rer_line
-label: "RER line"
-description: "Île-de-France RER line (A–E)."
+label: 'RER line'
+description: 'Île-de-France RER line (A–E).'
 locked: false
 metadata_schema: ''

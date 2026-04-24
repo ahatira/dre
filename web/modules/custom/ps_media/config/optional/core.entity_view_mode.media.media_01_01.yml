@@ -1,3 +1,4 @@
+uuid: 010871e2-f35a-4ae0-9146-e5fc96ed38f5
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.media_01_01
 label: 'Media 1:1'
+description: null
 targetEntityType: media
 cache: true

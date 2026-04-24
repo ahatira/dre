@@ -1,4 +1,4 @@
-uuid: null
+uuid: 1e294702-e4df-4ac6-a086-e51783c38285
 langcode: en
 status: true
 dependencies:
@@ -8,7 +8,8 @@ dependencies:
 id: floor_s2
 dictionary_type: floor
 code: S2
-label: "Basement -2"
-description: "Second basement level"
+label: 'Basement -2'
+description: 'Second basement level'
 weight: -2
 deprecated: false
+metadata: {  }

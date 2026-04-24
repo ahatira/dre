@@ -1,13 +1,14 @@
-uuid: null
+uuid: 0e8a4a87-0935-4f3b-9b6c-8ad886b955ac
 langcode: en
+status: true
+dependencies: {  }
 id: price_unit_oth
 dictionary_type: price_unit
 code: OTH
-label: "Other Unit"
-description: "Other price unit"
+label: 'Other Unit'
+description: 'Other price unit'
 weight: 2
-status: true
 deprecated: false
 metadata:
-  icon: "ellipsis-h"
-  symbol: "other"
+  icon: ellipsis-h
+  symbol: other

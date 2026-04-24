@@ -1,6 +1,10 @@
+uuid: 50df099a-8c92-4355-ab72-d951ad13d6a1
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type
-label: "Security System Type"
-description: "Types of security systems and access control."
+label: 'Security System Type'
+description: 'Types of security systems and access control.'
 locked: true
 metadata_schema: |
   icon:

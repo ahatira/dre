@@ -1,13 +1,14 @@
-uuid: null
+uuid: cb2da97e-5173-4f6f-b6a8-8eb185508189
 langcode: en
+status: true
+dependencies: {  }
 id: price_period_men
 dictionary_type: price_period
 code: MEN
-label: "Per Month"
-description: "Monthly price"
+label: 'Per Month'
+description: 'Monthly price'
 weight: 1
-status: true
 deprecated: false
 metadata:
-  icon: "calendar"
+  icon: calendar
   multiplier: 12

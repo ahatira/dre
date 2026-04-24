@@ -1,8 +1,12 @@
+uuid: a39abc3c-c49d-4a02-8ea3-0d0bb42b52e6
+langcode: en
+status: true
+dependencies: {  }
 id: air_conditioning_type_reversible
 dictionary_type: air_conditioning_type
 code: REVERSIBLE
-label: "Reversible system"
-description: "Cooling and heating reversible AC system"
+label: 'Reversible system'
+description: 'Cooling and heating reversible AC system'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

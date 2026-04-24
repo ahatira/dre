@@ -1,3 +1,4 @@
+uuid: d66489df-40c0-4a4e-92a8-90d7c52966f4
 langcode: en
 status: true
 dependencies:
@@ -51,10 +52,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: image
+      inherit_settings: true
       form_mode: entity_browser
     uuid: 422803d7-21aa-471b-8d65-335f345c4e30
     weight: -9
@@ -70,10 +72,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: video
+      inherit_settings: true
       form_mode: entity_browser
     uuid: c05a5c40-6a5e-4a45-a841-7ba471656952
     weight: -8

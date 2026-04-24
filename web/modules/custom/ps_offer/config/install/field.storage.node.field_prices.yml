@@ -5,8 +5,6 @@ dependencies:
   module:
     - node
     - ps_price
-_core:
-  default_config_hash: Eiq-vHEdyA4e9bN2GnYJJD6yUikXK3boYJaIUFb72ak
 id: node.field_prices
 field_name: field_prices
 entity_type: node

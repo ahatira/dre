@@ -1,3 +1,4 @@
+uuid: 51108fd0-6007-45ab-a5f6-d6650cea9282
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.large
 label: 'Large (Full width)'
+description: null
 targetEntityType: media
 cache: true

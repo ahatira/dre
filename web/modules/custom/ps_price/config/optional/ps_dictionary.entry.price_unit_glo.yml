@@ -1,13 +1,14 @@
-uuid: null
+uuid: b117dd3c-f348-4294-a642-7b3edd7e4556
 langcode: en
+status: true
+dependencies: {  }
 id: price_unit_glo
 dictionary_type: price_unit
 code: GLO
-label: "Global Total"
-description: "Global total price"
+label: 'Global Total'
+description: 'Global total price'
 weight: 1
-status: true
 deprecated: false
 metadata:
-  icon: "boxes"
-  symbol: "global"
+  icon: boxes
+  symbol: global

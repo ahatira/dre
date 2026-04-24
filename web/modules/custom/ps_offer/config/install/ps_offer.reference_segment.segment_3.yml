@@ -1,3 +1,7 @@
+uuid: b225a945-8e1e-45e1-89ce-092a326db017
+langcode: en
+status: true
+dependencies: {  }
 id: segment_3
 label: 'Property type'
 enabled: true
@@ -5,8 +9,13 @@ weight: 20
 segment_type: custom
 source_field: field_property_type
 length: 3
+static_value: ''
 custom_map_text: |
   BUR=BUR
   ACT=ACT
   LOG=LOG
   COM=COM
+start_index: 1
+date_source_field: publish_on
+date_format: YY
+auto_start: 1

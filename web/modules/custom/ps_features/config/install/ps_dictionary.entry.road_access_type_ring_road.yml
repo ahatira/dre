@@ -1,8 +1,12 @@
+uuid: ded32ed7-d05d-4824-abfb-19d0585a719c
+langcode: en
+status: true
+dependencies: {  }
 id: road_access_type_ring_road
 dictionary_type: road_access_type
 code: RING_ROAD
-label: "Ring road"
-description: "Access via ring road (boulevard périphérique / rocade)."
+label: 'Ring road'
+description: 'Access via ring road (boulevard périphérique / rocade).'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

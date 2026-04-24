@@ -1,3 +1,4 @@
+uuid: 28add473-2741-4dda-96d4-904af72c50ad
 langcode: en
 status: true
 dependencies:
@@ -41,10 +42,11 @@ widgets:
       clientside_resize: false
       resize_width: null
       resize_height: null
-      resize_quality: !!float 1
+      resize_quality: 1.0
       resize_method: contain
       thumbnail_method: contain
       media_type: image
+      inherit_settings: true
       form_mode: entity_browser
     uuid: 9a5d8df6-c825-4c56-978a-c99c8fe9a4d3
     weight: 3

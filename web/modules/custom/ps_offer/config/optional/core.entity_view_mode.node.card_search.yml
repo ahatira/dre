@@ -1,10 +1,11 @@
+uuid: 2d94d0d3-e626-400f-8e8e-22c165d95805
 langcode: en
 status: true
 dependencies:
   module:
     - node
-    - ps_offer
 id: node.card_search
 label: 'Card search'
+description: null
 targetEntityType: node
 cache: true

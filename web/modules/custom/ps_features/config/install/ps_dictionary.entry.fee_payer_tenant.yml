@@ -1,8 +1,12 @@
+uuid: 8eac8ce7-0b04-41b6-822c-b8368c199fa3
+langcode: en
+status: true
+dependencies: {  }
 id: fee_payer_tenant
 dictionary_type: fee_payer
 code: TENANT
-label: "Tenant"
-description: "Agent fees paid by the tenant."
+label: Tenant
+description: 'Agent fees paid by the tenant.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

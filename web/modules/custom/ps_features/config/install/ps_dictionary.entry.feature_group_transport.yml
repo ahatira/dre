@@ -1,9 +1,13 @@
+uuid: 19a53ec1-3399-4e4a-b85b-d39a8d4c07ba
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group_transport
 dictionary_type: feature_group
 code: TRANSPORT
-label: "Transport"
-description: "Public transport and road access details."
+label: Transport
+description: 'Public transport and road access details.'
 weight: 15
 deprecated: false
 metadata:
-  icon: "transport"
+  icon: transport

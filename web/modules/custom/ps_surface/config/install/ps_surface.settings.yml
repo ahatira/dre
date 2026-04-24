@@ -1,5 +1,3 @@
-# PropertySearch Surface module configuration
-# Default validation settings
 validation:
   allow_negative: false
   require_unit: true

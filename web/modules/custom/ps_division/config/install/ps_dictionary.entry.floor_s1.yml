@@ -1,4 +1,4 @@
-uuid: null
+uuid: 8cb7b8be-7a17-4d39-b776-7efca3b6a0a7
 langcode: en
 status: true
 dependencies:
@@ -8,7 +8,8 @@ dependencies:
 id: floor_s1
 dictionary_type: floor
 code: S1
-label: "Basement -1"
-description: "First basement level"
+label: 'Basement -1'
+description: 'First basement level'
 weight: -1
 deprecated: false
+metadata: {  }

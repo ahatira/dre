@@ -1,3 +1,4 @@
+uuid: b54d611f-937b-445e-8c62-99f7faa21c8b
 langcode: en
 status: true
 dependencies: {  }
@@ -6,7 +7,7 @@ label: 'Lease duration'
 description: 'Initial term of the lease in years.'
 value_type: numeric
 dictionary_type: null
-unit: 'years'
+unit: years
 is_required: false
 is_facetable: false
 validation_rules:

@@ -1,6 +1,7 @@
-uuid: null
+uuid: f368a66f-e187-4831-ad65-3ea4db022fe9
 langcode: en
 status: true
+dependencies: {  }
 id: surface_nature_act
 dictionary_type: surface_nature
 code: ACT
@@ -8,4 +9,4 @@ label: 'Activity Area'
 description: 'Activity/commercial surface area'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

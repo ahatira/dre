@@ -1,8 +1,12 @@
+uuid: 2c9dfba9-cb39-41b6-af0c-25c4a6fd8d8a
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type_commercial
 dictionary_type: lease_type
 code: COMMERCIAL
-label: "Commercial (3/6/9)"
-description: "French commercial lease — 3, 6 or 9-year renewable term."
+label: 'Commercial (3/6/9)'
+description: 'French commercial lease — 3, 6 or 9-year renewable term.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

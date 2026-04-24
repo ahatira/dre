@@ -5,7 +5,7 @@ dependencies: {  }
 id: mandate_type_tri
 dictionary_type: mandate_type
 code: TRI
-label: 'Tri-Exclusif'
+label: Tri-Exclusif
 description: 'Tri-exclusive mandate.'
 weight: 5
 deprecated: false

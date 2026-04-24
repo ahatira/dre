@@ -5,7 +5,7 @@ dependencies: {  }
 id: mandate_type_del
 dictionary_type: mandate_type
 code: DEL
-label: 'Délégation'
+label: Délégation
 description: 'Delegation mandate.'
 weight: 6
 deprecated: false

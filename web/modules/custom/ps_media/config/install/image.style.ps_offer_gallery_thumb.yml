@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - focal_point
-_core:
-  default_config_hash: gL6YIY3QffagN8bBUkM2Ei33sQce8s9yQylq1QwFqjo
 name: ps_offer_gallery_thumb
 label: 'PS Offer Gallery Thumb (240x140)'
 effects:

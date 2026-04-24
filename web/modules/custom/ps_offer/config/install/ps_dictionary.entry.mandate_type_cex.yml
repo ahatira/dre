@@ -5,7 +5,7 @@ dependencies: {  }
 id: mandate_type_cex
 dictionary_type: mandate_type
 code: CEX
-label: 'Co-Exclusif'
+label: Co-Exclusif
 description: 'Co-exclusive mandate.'
 weight: 2
 deprecated: false

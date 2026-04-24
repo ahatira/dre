@@ -1,11 +1,12 @@
-uuid: null
+uuid: 17439a57-1d57-4dab-852a-ae6783ef0156
 langcode: en
 status: true
+dependencies: {  }
 id: surface_qualification_total
 dictionary_type: surface_qualification
 code: TOTAL
-label: "Total"
-description: "Total qualification"
+label: Total
+description: 'Total qualification'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

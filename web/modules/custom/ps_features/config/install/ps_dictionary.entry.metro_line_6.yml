@@ -1,8 +1,12 @@
+uuid: f0be8d53-02c6-48e5-9456-3a5d90b2b980
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_6
 dictionary_type: metro_line
 code: LINE_6
-label: "Metro Line 6"
-description: "Paris metro Line 6."
+label: 'Metro Line 6'
+description: 'Paris metro Line 6.'
 weight: 6
 deprecated: false
-metadata: []
+metadata: {  }

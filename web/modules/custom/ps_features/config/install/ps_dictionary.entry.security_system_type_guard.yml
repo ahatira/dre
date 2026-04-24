@@ -1,8 +1,12 @@
+uuid: 861c4bb0-f63f-40d8-9fff-99c8bdf990db
+langcode: en
+status: true
+dependencies: {  }
 id: security_system_type_guard
 dictionary_type: security_system_type
 code: GUARD
-label: "On-site security guard"
-description: "Security guard or concierge on site."
+label: 'On-site security guard'
+description: 'Security guard or concierge on site.'
 weight: 50
 deprecated: false
-metadata: []
+metadata: {  }

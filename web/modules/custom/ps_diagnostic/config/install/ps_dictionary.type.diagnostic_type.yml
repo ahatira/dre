@@ -1,6 +1,10 @@
+uuid: 7fbdb4ea-70c0-46f7-b3e9-25ba73bd95e7
+langcode: en
+status: true
+dependencies: {  }
 id: diagnostic_type
-label: "Diagnostic"
-description: "Building diagnostics (DPE, GES, asbestos, lead, termites, electrical)"
+label: Diagnostic
+description: 'Building diagnostics (DPE, GES, asbestos, lead, termites, electrical)'
 locked: false
 metadata_schema: |
   unit:

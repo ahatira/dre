@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_reference
     - node.type.offer
-_core:
-  default_config_hash: QmF9VUToe1K5llkVh1FXIdmP78-S0A2eOzZsbTYP6EU
 id: node.offer.field_reference
 field_name: field_reference
 entity_type: node

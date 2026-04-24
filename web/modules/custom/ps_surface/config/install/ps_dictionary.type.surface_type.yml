@@ -1,9 +1,9 @@
+uuid: 0c7e41b1-58a6-46b5-bac0-76f948833881
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: surface_type
-label: "Surface Type"
-description: "Type of surface measurement methodology (usable, GLA, NIA, gross, etc.)"
-is_translatable: false
+label: 'Surface Type'
+description: 'Type of surface measurement methodology (usable, GLA, NIA, gross, etc.)'
 locked: true
-weight: 0
+metadata_schema: null

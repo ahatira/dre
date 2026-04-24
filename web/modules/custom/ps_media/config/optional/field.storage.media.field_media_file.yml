@@ -1,12 +1,13 @@
+uuid: fe25f889-7f08-43c8-92cf-679abbb9808b
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - media
   module:
     - file
     - media
+  enforced:
+    module:
+      - media
 id: media.field_media_file
 field_name: field_media_file
 entity_type: media

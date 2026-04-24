@@ -1,8 +1,12 @@
+uuid: 4732381e-bdea-45f9-9699-6150de24d3cb
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t3a
 dictionary_type: tram_line
 code: T3A
-label: "Tram T3a"
-description: "Île-de-France tramway line T3a."
+label: 'Tram T3a'
+description: 'Île-de-France tramway line T3a.'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

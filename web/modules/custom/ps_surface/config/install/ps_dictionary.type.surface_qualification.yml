@@ -1,9 +1,9 @@
+uuid: b4561f11-c4c5-4dba-93db-acec73967a08
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: surface_qualification
-label: "Surface Qualification"
-description: "Qualification or categorization of a surface area (total, available, reference)"
-is_translatable: false
+label: 'Surface Qualification'
+description: 'Qualification or categorization of a surface area (total, available, reference)'
 locked: true
-weight: 0
+metadata_schema: null

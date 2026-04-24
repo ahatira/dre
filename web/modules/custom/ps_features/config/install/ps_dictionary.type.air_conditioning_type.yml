@@ -1,6 +1,10 @@
+uuid: f90ac46b-0ca0-4c81-bffb-dafc2ab5e592
+langcode: en
+status: true
+dependencies: {  }
 id: air_conditioning_type
-label: "Air Conditioning Type"
-description: "Types of air conditioning systems available in the property."
+label: 'Air Conditioning Type'
+description: 'Types of air conditioning systems available in the property.'
 locked: true
 metadata_schema: |
   icon:

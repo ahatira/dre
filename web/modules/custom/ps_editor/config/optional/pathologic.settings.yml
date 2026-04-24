@@ -1,4 +1,8 @@
-scheme_allow_list: ['http', 'https', 'files', 'internal']
-protocol_style: 'path'
+scheme_allow_list:
+  - http
+  - https
+  - files
+  - internal
+protocol_style: full
 local_paths: ''
 keep_language_prefix: true

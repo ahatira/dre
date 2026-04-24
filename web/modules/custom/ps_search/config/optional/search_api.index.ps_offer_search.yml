@@ -1,3 +1,13 @@
+uuid: f9736c5a-43a3-4d86-a798-6d81486b7f9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card_search
+    - search_api.server.ps_offer_database
+  module:
+    - node
+    - ps_offer
 id: ps_offer_search
 name: 'PS Offer Search'
 description: 'Search index dedicated to offer cards and faceted filters.'
@@ -100,6 +110,15 @@ field_settings:
       view_mode:
         'entity:node':
           offer: card_search
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - offer
+    languages:
+      default: true
+      selected: {  }
 processor_settings:
   add_url: {  }
   content_access: {  }
@@ -111,30 +130,12 @@ processor_settings:
   ps_offer_price_main: {  }
   ps_offer_surface_division: {  }
   ps_offer_extra_filters: {  }
-options:
-  cron_limit: 50
-  index_directly: true
-datasource_settings:
-  'entity:node':
-    bundles:
-      default: false
-      selected:
-        - offer
-    languages:
-      default: true
-      selected: {  }
 tracker_settings:
   default:
     indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  delete_on_fail: true
+  track_changes_in_references: true
 server: ps_offer_database
-status: true
-langcode: en
-dependencies:
-  config:
-    - core.entity_view_mode.node.card_search
-    - search_api.server.ps_offer_database
-  module:
-    - geofield
-    - node
-    - ps_offer
-    - search_api

@@ -1,3 +1,4 @@
+uuid: f4afdef7-b7c3-4cfa-b2a1-873f68bd29a2
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.original
 label: Original
+description: null
 targetEntityType: media
 cache: true

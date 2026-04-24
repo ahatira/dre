@@ -4,8 +4,6 @@ status: true
 dependencies:
   module:
     - focal_point
-_core:
-  default_config_hash: M9yi6L5i2XhXkQeh9yQbxPiFdk4H9zSLgWLfJ7IHIfg
 name: ps_offer_gallery_modal
 label: 'PS Offer Gallery Modal (1600x900)'
 effects:

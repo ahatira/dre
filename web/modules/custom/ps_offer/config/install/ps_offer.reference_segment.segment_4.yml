@@ -1,8 +1,17 @@
+uuid: 0e2005fd-daa2-423f-8b5c-04e1ea09deab
+langcode: en
+status: true
+dependencies: {  }
 id: segment_4
 label: 'Published date'
 enabled: true
 weight: 30
 segment_type: date
+source_field: ''
 length: 2
+static_value: ''
+custom_map_text: ''
+start_index: 1
 date_source_field: publish_on
 date_format: YY
+auto_start: 1

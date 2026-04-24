@@ -1,3 +1,4 @@
+uuid: 70bb4dda-8221-43ac-ab71-b3937bdd6333
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +9,7 @@ value_type: yesno
 dictionary_type: null
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: services
 weight: 2

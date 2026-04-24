@@ -3,21 +3,33 @@ langcode: en
 status: true
 dependencies:
   config:
+    - image.style.thumbnail
     - ps_agent.agent_type.agent
   module:
     - image
-    - path
     - phone_international
-    - ps_dictionary
-    - user
 id: agent.agent.default
 targetEntityType: agent
 bundle: agent
 mode: default
 content:
+  avatar:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
   civility:
     type: options_select
     weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  email:
+    type: email_default
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -37,12 +49,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  email:
-    type: email_default
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   phone:
     type: phone_international_widget
     weight: 4
@@ -55,19 +61,11 @@ content:
         - CH
         - LU
       countries: all
-      exclude_countries: []
+      exclude_countries: {  }
       geolocation: false
       dial_code: false
       auto_placeholder: polite
       national_number: false
-    third_party_settings: {  }
-  avatar:
-    type: image_image
-    weight: 5
-    region: content
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
     third_party_settings: {  }
 hidden:
   created: true

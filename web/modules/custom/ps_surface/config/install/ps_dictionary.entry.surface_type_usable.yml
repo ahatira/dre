@@ -1,6 +1,7 @@
-uuid: null
+uuid: 7a1e293c-1341-415f-8b27-2df3793413c0
 langcode: en
 status: true
+dependencies: {  }
 id: surface_type_usable
 dictionary_type: surface_type
 code: USABLE
@@ -8,4 +9,4 @@ label: 'Usable Area'
 description: 'Usable floor area'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

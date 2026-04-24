@@ -1,3 +1,4 @@
+uuid: 80c6ad53-6a46-409a-af55-976868312100
 langcode: en
 status: true
 dependencies:
@@ -5,25 +6,17 @@ dependencies:
     - search_api.index.ps_offer_search
     - views.view.ps_offer_search
   module:
-    - facets
     - search_api
 id: ps_offer_surface
 name: Surface
+url_alias: surface
 weight: 1
 min_count: 1
 missing: false
 missing_label: others
-url_alias: surface
-facet_source_id: 'search_api:views_page__ps_offer_search__page_1'
+show_only_one_result: false
 field_identifier: ps_offer_surface_main_value
-query_operator: and
-hard_limit: 0
-exclude: false
-only_visible_when_facet_source_is_visible: true
-empty_behavior:
-  behavior: none
-  text_format: plain_text
-  text: ''
+facet_source_id: 'search_api:views_page__ps_offer_search__page_1'
 widget:
   type: links
   config:
@@ -32,6 +25,17 @@ widget:
     show_reset_link: true
     reset_text: All
     hide_reset_when_no_selection: true
+query_operator: and
+use_hierarchy: false
+keep_hierarchy_parents_active: false
+hierarchy:
+  type: taxonomy
+  config: {  }
+expand_hierarchy: false
+enable_parent_when_child_gets_disabled: true
+hard_limit: 0
+exclude: false
+only_visible_when_facet_source_is_visible: true
 processor_configs:
   display_value_widget_order:
     weights:
@@ -42,3 +46,8 @@ processor_configs:
   active_widget_order:
     weights:
       sort: 32
+empty_behavior:
+  behavior: none
+  text_format: plain_text
+  text: ''
+show_title: null

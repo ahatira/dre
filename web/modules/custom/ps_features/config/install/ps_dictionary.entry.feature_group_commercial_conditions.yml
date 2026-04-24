@@ -1,9 +1,13 @@
+uuid: 937ce002-c849-4672-a4dd-0bd17e6dc337
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group_commercial_conditions
 dictionary_type: feature_group
 code: COMMERCIAL_CONDITIONS
-label: "Commercial conditions"
-description: "Lease type, security deposit, fees, availability and other commercial terms."
+label: 'Commercial conditions'
+description: 'Lease type, security deposit, fees, availability and other commercial terms.'
 weight: 25
 deprecated: false
 metadata:
-  icon: "contract"
+  icon: contract

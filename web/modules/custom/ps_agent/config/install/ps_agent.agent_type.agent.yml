@@ -1,6 +1,7 @@
-uuid: "agent-type-agent"
+uuid: agent-type-agent
 langcode: en
 status: true
+dependencies: {  }
 id: agent
-label: "Agent"
-description: "Default agent type"
+label: Agent
+description: 'Default agent type'

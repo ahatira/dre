@@ -1,33 +1,37 @@
+uuid: 744ff945-a78d-4e8b-98eb-6a2f9de4fbf4
+langcode: en
+status: true
+dependencies: {  }
 id: dpe
-label: "Energy consumption"
-unit: "kWh/m²/year"
-icon: ""
+label: 'Energy consumption'
+unit: kWh/m²/year
+icon: ''
 classes:
   a:
     label: A
-    color: "#00A651"
+    color: '#00A651'
     range_max: 70
   b:
     label: B
-    color: "#8DC63F"
+    color: '#8DC63F'
     range_max: 110
   c:
     label: C
-    color: "#FFF200"
+    color: '#FFF200'
     range_max: 180
   d:
     label: D
-    color: "#F7941D"
+    color: '#F7941D'
     range_max: 250
   e:
     label: E
-    color: "#ED1C24"
+    color: '#ED1C24'
     range_max: 330
   f:
     label: F
-    color: "#C1272D"
+    color: '#C1272D'
     range_max: 420
   g:
     label: G
-    color: "#A10D0D"
+    color: '#A10D0D'
     range_max: null

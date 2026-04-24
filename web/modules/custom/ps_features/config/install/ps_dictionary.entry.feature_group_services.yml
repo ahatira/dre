@@ -1,9 +1,13 @@
+uuid: 124c54ab-0ca5-4a5f-ba87-6312a6e115c6
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group_services
 dictionary_type: feature_group
 code: SERVICES
-label: "Services"
-description: "Services and utilities provided."
+label: Services
+description: 'Services and utilities provided.'
 weight: 10
 deprecated: false
 metadata:
-  icon: "service"
+  icon: service

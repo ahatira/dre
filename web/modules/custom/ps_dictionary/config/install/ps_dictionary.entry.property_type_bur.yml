@@ -1,10 +1,13 @@
+uuid: 7623e19d-fb91-41b6-bde4-a78fb6ce0a72
+langcode: en
+status: true
+dependencies: {  }
 id: property_type_bur
 dictionary_type: property_type
 code: BUR
-label: "Office"
-description: "Office or business property type"
+label: Office
+description: 'Office or business property type'
 weight: 1
-status: true
 deprecated: false
 metadata:
   icon: offices

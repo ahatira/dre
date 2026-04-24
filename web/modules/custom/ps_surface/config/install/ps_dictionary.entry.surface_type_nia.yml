@@ -1,6 +1,7 @@
-uuid: null
+uuid: 2cd20a3f-75eb-4564-a4c5-f1291f483cd4
 langcode: en
 status: true
+dependencies: {  }
 id: surface_type_nia
 dictionary_type: surface_type
 code: NIA

@@ -1,8 +1,12 @@
+uuid: a9f55d90-b00f-4aed-8ecc-548cf03e7042
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_1
 dictionary_type: metro_line
 code: LINE_1
-label: "Metro Line 1"
-description: "Paris metro Line 1."
+label: 'Metro Line 1'
+description: 'Paris metro Line 1.'
 weight: 0
 deprecated: false
-metadata: []
+metadata: {  }

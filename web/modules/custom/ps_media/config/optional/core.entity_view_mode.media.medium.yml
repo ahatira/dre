@@ -1,3 +1,4 @@
+uuid: 2ab42d8c-94e1-4f61-9de4-1e6a5db9bac4
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.medium
 label: 'Medium (1/2 of width)'
+description: null
 targetEntityType: media
 cache: true

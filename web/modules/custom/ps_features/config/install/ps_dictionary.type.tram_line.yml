@@ -1,5 +1,9 @@
+uuid: 308a0bb4-878e-45c3-a177-f1db72a7a1ae
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line
-label: "Tram line"
-description: "Île-de-France tramway line."
+label: 'Tram line'
+description: 'Île-de-France tramway line.'
 locked: false
 metadata_schema: ''

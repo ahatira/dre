@@ -1,8 +1,12 @@
+uuid: d2156482-8a48-4828-9522-a55070484da4
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t5
 dictionary_type: tram_line
 code: T5
-label: "Tram T5"
-description: "Île-de-France tramway line T5."
+label: 'Tram T5'
+description: 'Île-de-France tramway line T5.'
 weight: 4
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,3 +1,4 @@
+uuid: 9a5d0954-9ac2-4652-afa7-1d0a9b056593
 langcode: en
 status: true
 dependencies:
@@ -5,5 +6,6 @@ dependencies:
     - media
 id: media.entity_browser
 label: 'Entity Browser'
+description: null
 targetEntityType: media
 cache: true

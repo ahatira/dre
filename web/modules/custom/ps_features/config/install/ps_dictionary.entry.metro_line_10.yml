@@ -1,8 +1,12 @@
+uuid: 3c140ab1-956c-460c-9383-576675a33c0a
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_10
 dictionary_type: metro_line
 code: LINE_10
-label: "Metro Line 10"
-description: "Paris metro Line 10."
+label: 'Metro Line 10'
+description: 'Paris metro Line 10.'
 weight: 11
 deprecated: false
-metadata: []
+metadata: {  }

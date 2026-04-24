@@ -1,8 +1,12 @@
+uuid: 731a1f91-e619-4414-9d65-f2561a3d3526
+langcode: en
+status: true
+dependencies: {  }
 id: cabling_type_cat5e
 dictionary_type: cabling_type
 code: CAT5E
-label: "Category 5e"
-description: "Cat5e Ethernet cabling"
+label: 'Category 5e'
+description: 'Cat5e Ethernet cabling'
 weight: 2
 deprecated: false
-metadata: []
+metadata: {  }

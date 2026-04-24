@@ -1,8 +1,12 @@
+uuid: 1c3f616a-0174-4290-a951-cb75334711b8
+langcode: en
+status: true
+dependencies: {  }
 id: lease_type_precarious
 dictionary_type: lease_type
 code: PRECARIOUS
-label: "Precarious occupancy"
+label: 'Precarious occupancy'
 description: "Precarious occupancy agreement (convention d'occupation précaire)."
 weight: 4
 deprecated: false
-metadata: []
+metadata: {  }

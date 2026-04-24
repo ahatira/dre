@@ -1,8 +1,12 @@
+uuid: fec20304-443c-4d2e-931e-6eb4005fb3fb
+langcode: en
+status: true
+dependencies: {  }
 id: cabling_type_cat6
 dictionary_type: cabling_type
 code: CAT6
-label: "Category 6"
-description: "Cat6 Ethernet cabling"
+label: 'Category 6'
+description: 'Cat6 Ethernet cabling'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

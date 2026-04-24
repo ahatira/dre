@@ -1,9 +1,9 @@
+uuid: cf88c493-2180-490b-aa25-fc771a42e521
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: price_unit
-label: "Price Unit"
-description: "Units for price display (/m², /unit, global)"
-is_translatable: false
+label: 'Price Unit'
+description: 'Units for price display (/m², /unit, global)'
 locked: true
-weight: 11
+metadata_schema: null

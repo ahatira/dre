@@ -1,8 +1,12 @@
+uuid: df9cfd92-3797-46ca-9fc7-c8e8f3201fbc
+langcode: en
+status: true
+dependencies: {  }
 id: heating_system_type_collective
 dictionary_type: heating_system_type
 code: COLLECTIVE
-label: "Collective"
-description: "Collective/central heating system"
+label: Collective
+description: 'Collective/central heating system'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,3 +1,4 @@
+uuid: a7898d72-419d-410a-bcbf-344881881902
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +9,7 @@ value_type: dictionary
 dictionary_type: air_conditioning_type
 unit: null
 is_required: false
+is_facetable: false
 validation_rules: {  }
 group: equipments
 weight: 1

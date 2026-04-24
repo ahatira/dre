@@ -1,8 +1,12 @@
+uuid: 9837e80c-9799-4e3c-a874-f88f1f4dcae4
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t2
 dictionary_type: tram_line
 code: T2
-label: "Tram T2"
-description: "Île-de-France tramway line T2."
+label: 'Tram T2'
+description: 'Île-de-France tramway line T2.'
 weight: 1
 deprecated: false
-metadata: []
+metadata: {  }

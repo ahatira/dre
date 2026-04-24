@@ -1,6 +1,10 @@
+uuid: 8c6225ef-1009-42c3-b0a5-90d4b514af30
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group
-label: "Feature Group"
-description: "Groups organizing features for display (equipments, services, building condition, more information)."
+label: 'Feature Group'
+description: 'Groups organizing features for display (equipments, services, building condition, more information).'
 locked: true
 metadata_schema: |
   icon:

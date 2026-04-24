@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.node.external_id
     - node.type.offer
-_core:
-  default_config_hash: KIMFYxiM9Zz4KXJjrwu-5IPtYQ3luKPREeH88BXHb3U
 id: node.offer.external_id
 field_name: external_id
 entity_type: node

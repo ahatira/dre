@@ -1,8 +1,12 @@
+uuid: 9852aa6a-3d72-45b8-b24a-d8d94bfa1876
+langcode: en
+status: true
+dependencies: {  }
 id: tram_line_t8
 dictionary_type: tram_line
 code: T8
-label: "Tram T8"
-description: "Île-de-France tramway line T8."
+label: 'Tram T8'
+description: 'Île-de-France tramway line T8.'
 weight: 7
 deprecated: false
-metadata: []
+metadata: {  }

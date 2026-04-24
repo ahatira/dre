@@ -1,5 +1,9 @@
+uuid: 74abbffe-bd2c-4b7c-9896-cfd451ef500a
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line
-label: "Metro line"
-description: "Paris metro line (Lines 1–14, including 3b and 7b)."
+label: 'Metro line'
+description: 'Paris metro line (Lines 1–14, including 3b and 7b).'
 locked: false
 metadata_schema: ''

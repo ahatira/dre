@@ -1,8 +1,12 @@
+uuid: f9e477b2-36e4-4e60-ade9-0f70d9b23ba3
+langcode: en
+status: true
+dependencies: {  }
 id: metro_line_3b
 dictionary_type: metro_line
 code: LINE_3B
-label: "Metro Line 3b"
-description: "Paris metro Line 3b."
+label: 'Metro Line 3b'
+description: 'Paris metro Line 3b.'
 weight: 3
 deprecated: false
-metadata: []
+metadata: {  }

@@ -1,9 +1,13 @@
+uuid: 47c6cee7-2af4-409f-96d4-c2f190979669
+langcode: en
+status: true
+dependencies: {  }
 id: feature_group_more_information
 dictionary_type: feature_group
 code: MORE_INFORMATION
-label: "More information"
-description: "Additional features and details."
+label: 'More information'
+description: 'Additional features and details.'
 weight: 30
 deprecated: false
 metadata:
-  icon: "info"
+  icon: info
