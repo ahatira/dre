@@ -633,6 +633,7 @@ class Views {
       // Ad reference: goes into offcanvas.
       if ($reference_key !== NULL) {
         $form['ps_more_filters']['body']['reference'] = $form[$reference_key];
+        $form['ps_more_filters']['body']['reference']['#type'] = 'hidden';
         $form['ps_more_filters']['body']['reference']['#weight'] = 2;
         unset($form[$reference_key]);
       }
@@ -664,6 +665,7 @@ class Views {
 
       if ($nearby_transport_key !== NULL) {
         $form['ps_more_filters']['body']['nearby_transport'] = $form[$nearby_transport_key];
+        $form['ps_more_filters']['body']['nearby_transport']['#type'] = 'hidden';
         $form['ps_more_filters']['body']['nearby_transport']['#weight'] = 7;
         unset($form[$nearby_transport_key]);
       }
