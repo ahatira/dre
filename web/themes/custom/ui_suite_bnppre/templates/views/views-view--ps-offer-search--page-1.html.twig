@@ -4,6 +4,7 @@
  * View override for the offer search page with list/map split layout.
  */
 #}
+{{ attach_library('ui_suite_bnppre/offer_search') }}
 {%
   set classes = [
     dom_id ? 'js-view-dom-id-' ~ dom_id,
@@ -26,13 +27,19 @@
 	{% endif %}
 
 	{% if map_attachment %}
-		<div class="row g-3 align-items-start ps-offer-search-view__content">
+		<div class="row g-3 align-items-start ps-offer-search-view__content" data-list-visible="true">
 			<div class="col-12 col-xl-6 order-2 order-xl-1 ps-offer-search-view__list">
 				{% if contextual_title or header_sort %}
 					<header class="mb-3 ps-offer-search-view__header">
-						{% if contextual_title %}
-							<h2 class="ps-offer-search-view__title">{{ contextual_title }}</h2>
-						{% endif %}
+						<div class="ps-offer-search-view__header-top">
+							{% if contextual_title %}
+								<h2 class="ps-offer-search-view__title">{{ contextual_title }}</h2>
+							{% endif %}
+							<a href="{{ path('ps_favorites.my_favorites') }}" class="ps-offer-search-view__create-alert" aria-label="{{ 'Create an alert'|t }}">
+								<span class="ps-offer-search-view__create-alert-icon" aria-hidden="true">{{ icon('bnppre', 'notification', {'size': '1rem', 'alt': ''})|render }}</span>
+								<span>{{ 'Create an alert'|t }}</span>
+							</a>
+						</div>
 						<div class="ps-offer-search-view__meta">
 							{% if header %}
 								{{ header }}
@@ -55,6 +62,9 @@
 			</div>
 
 			<aside class="col-12 col-xl-6 order-1 order-xl-2 ps-offer-search-view__map" aria-label="{{ 'Map results'|t }}">
+				<button class="ps-offer-search-view__toggle-list" data-toggle-target=".ps-offer-search-view__content" aria-label="{{ 'Hide list'|t }}" aria-pressed="true">
+					<span class="ps-offer-search-view__toggle-list-text">{{ 'Hide list'|t }}</span>
+				</button>
 				{{ map_attachment }}
 			</aside>
 		</div>

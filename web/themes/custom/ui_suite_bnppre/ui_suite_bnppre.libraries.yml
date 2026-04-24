@@ -241,4 +241,11 @@ footer:
     - core/drupal
     - core/once
 
+offer_search:
+  js:
+    assets/js/offer-search.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
 
