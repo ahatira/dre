@@ -165,6 +165,51 @@ final class SearchHooks {
   }
 
   /**
+   * Resolves Search API item IDs matching one or more location terms.
+   *
+   * @param string[] $terms
+   *   Normalized location terms.
+   *
+    * @return string[]
+    *   Matching indexed item IDs (entity:node/{nid}:{langcode}).
+   */
+  private function resolveOfferItemIdsByLocationTerms(array $terms): array {
+    $normalized_terms = array_values(array_filter(array_map(
+      static fn(string $value): string => trim($value),
+      $terms
+    )));
+
+    if ($normalized_terms === []) {
+      return [];
+    }
+
+    $database = \Drupal::database();
+    $select = $database->select('node__field_address', 'fa');
+    $select->join('node_field_data', 'n', 'n.nid = fa.entity_id');
+    $select->addExpression("CONCAT('entity:node/', fa.entity_id, ':', n.langcode)", 'item_id');
+    $select->distinct();
+    $select->condition('n.status', 1);
+    $select->condition('n.type', 'offer');
+
+    $or = $select->orConditionGroup();
+    foreach ($normalized_terms as $term) {
+      $like = '%' . $database->escapeLike($term) . '%';
+      $term_group = $select->orConditionGroup()
+        ->condition('fa.field_address_locality', $like, 'LIKE')
+        ->condition('fa.field_address_postal_code', $like, 'LIKE')
+        ->condition('fa.field_address_administrative_area', $like, 'LIKE');
+      $or->condition($term_group);
+    }
+
+    $select->condition($or);
+
+    return array_values(array_unique(array_map(
+      static fn(string $value): string => trim($value),
+      $select->execute()->fetchCol()
+    )));
+  }
+
+  /**
    * Implements hook_entity_view().
    */
   #[Hook('entity_view')]
@@ -226,12 +271,13 @@ final class SearchHooks {
       ))));
 
       if ($terms !== []) {
-        $group = $search_api_query->createConditionGroup('OR');
-        foreach ($terms as $term) {
-          $group->addCondition('field_address', $term, '=');
+        $item_ids = $this->resolveOfferItemIdsByLocationTerms($terms);
+        if ($item_ids === []) {
+          $search_api_query->addCondition('search_api_id', '__no_match__', '=');
         }
-
-        $search_api_query->addConditionGroup($group);
+        else {
+          $search_api_query->addCondition('search_api_id', $item_ids, 'IN');
+        }
       }
     }
 
