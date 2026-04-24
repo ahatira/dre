@@ -112,3 +112,35 @@ function ps_search_update_11003(): string {
 
 	return 'Removed the generic results counter header from the offer search view.';
 }
+
+/**
+ * Restores the results header on the list display only.
+ */
+function ps_search_update_11004(): string {
+	$config = \Drupal::service('config.factory')->getEditable('views.view.ps_offer_search');
+	$display = $config->get('display');
+
+	if (!isset($display['default']['display_options'], $display['attachment_1']['display_options'])) {
+		return 'Skipped offer search header split because the required view displays were not found.';
+	}
+
+	$display['default']['display_options']['header'] = [
+		'result' => [
+			'id' => 'result',
+			'table' => 'views',
+			'field' => 'result',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'result',
+			'empty' => FALSE,
+			'content' => 'Results: @total',
+		],
+	];
+	$display['attachment_1']['display_options']['defaults']['header'] = FALSE;
+	$display['attachment_1']['display_options']['header'] = [];
+
+	$config->set('display', $display)->save(TRUE);
+
+	return 'Restored the list results header and removed it from the map attachment.';
+}

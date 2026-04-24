@@ -34,6 +34,9 @@
 							<h2 class="ps-offer-search-view__title">{{ contextual_title }}</h2>
 						{% endif %}
 						<div class="ps-offer-search-view__meta">
+							{% if header %}
+								{{ header }}
+							{% endif %}
 							{% if header_sort %}
 								{{ header_sort }}
 							{% endif %}
