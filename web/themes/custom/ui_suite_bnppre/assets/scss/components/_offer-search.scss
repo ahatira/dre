@@ -25,10 +25,10 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.95rem;
-    color: #666;
+    justify-content: flex-start;
+    gap: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #434f57;
 
     > * {
       display: flex;
@@ -37,11 +37,22 @@
     }
   }
 
+  .ps-offer-search-view__results {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #333;
+  }
+
   .ps-offer-search-view__sort {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    margin: 0;
+    gap: 0.35rem;
+    margin: 0 !important;
+    min-height: 2.4rem;
+    padding: 0 0.75rem;
+    border: 1px solid #d6dbde;
+    background: #fff;
   }
 
   .ps-offer-search-view__sort-label {
@@ -50,10 +61,42 @@
     font-weight: 600;
     color: inherit;
     white-space: nowrap;
+
+    &::after {
+      content: ':';
+      margin-left: 0.2rem;
+    }
   }
 
   .ps-offer-search-view__sort-select {
-    min-width: 12rem;
+    min-width: 12.5rem;
+    border: 0;
+    padding: 0.15rem 1.9rem 0.15rem 0.2rem;
+    background-color: transparent;
+    color: #333;
+
+    &:focus,
+    &:focus-visible {
+      border: 0;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .ps-offer-search-view__meta {
+      align-items: stretch;
+    }
+
+    .ps-offer-search-view__sort {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .ps-offer-search-view__sort-select {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
   }
 
   // --- Filter bar (the row of dropdown triggers) -----------------------------
