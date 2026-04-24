@@ -783,7 +783,7 @@
   @media (min-width: 768px) {
     .ps-offer-search-view__content {
       height: var(--offer-search-panels-height);
-      min-height: 320px;
+      min-height: 750px;
       overflow: hidden;
     }
 
@@ -818,6 +818,18 @@
 
     .ps-offer-search-view__map > :not(.ps-offer-search-view__toggle-list) {
       height: 100%;
+    }
+
+    .ps-offer-search-view__map .views-element-container,
+    .ps-offer-search-view__map .views-element-container > div,
+    .ps-offer-search-view__map .geofield-google-map,
+    .ps-offer-search-view__map .geofield-google-map > .gm-style,
+    .ps-offer-search-view__map .geofield-google-map .gm-style {
+      height: 100% !important;
+    }
+
+    .ps-offer-search-view__map .geofield-google-map {
+      min-height: 0 !important;
     }
 
     .ps-offer-search-view__map iframe {
