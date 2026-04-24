@@ -660,13 +660,14 @@
     align-self: flex-start;
   }
 
-  .ps-offer-search-view__content[data-list-visible=\"false\"] .ps-offer-search-view__list {
+  .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__list {
     display: none;
   }
 
-  .ps-offer-search-view__content[data-list-visible=\"false\"] .ps-offer-search-view__map {
-    flex-basis: 100%;
-    max-width: 100%;
+  .ps-offer-search-view__content[data-list-visible='false'] .ps-offer-search-view__map.ps-offer-search-view__map {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   .ps-offer-search-view__header-top {
