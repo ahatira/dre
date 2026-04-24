@@ -15,3 +15,100 @@ function ps_search_update_11001(): string {
 
 	return 'Installed optional Search API, Views, and Facets config for ps_search when dependencies are available.';
 }
+
+/**
+ * Adds additional logical exposed sorts to the offer search view.
+ */
+function ps_search_update_11002(): string {
+	$config = \Drupal::service('config.factory')->getEditable('views.view.ps_offer_search');
+	$display = $config->get('display');
+
+	if (!isset($display['default']['display_options'])) {
+		return 'Skipped offer search sort update because the view display configuration was not found.';
+	}
+
+	$display['default']['display_options']['exposed_form']['options']['expose_sort_order'] = FALSE;
+	$display['default']['display_options']['sorts'] = [
+		'ps_offer_surface_main_value_asc' => [
+			'id' => 'ps_offer_surface_main_value',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_surface_main_value',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'ASC',
+			'expose' => [
+				'label' => 'Surface: smallest first',
+				'field_identifier' => 'ps_offer_surface_main_value_asc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_surface_main_value_desc' => [
+			'id' => 'ps_offer_surface_main_value',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_surface_main_value',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Surface: largest first',
+				'field_identifier' => 'ps_offer_surface_main_value_desc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_price_normalized_main_asc' => [
+			'id' => 'ps_offer_price_normalized_main',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_price_normalized_main',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'ASC',
+			'expose' => [
+				'label' => 'Price: lowest first',
+				'field_identifier' => 'ps_offer_price_normalized_main_asc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_price_normalized_main_desc' => [
+			'id' => 'ps_offer_price_normalized_main',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_price_normalized_main',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Price: highest first',
+				'field_identifier' => 'ps_offer_price_normalized_main_desc',
+			],
+			'exposed' => TRUE,
+		],
+	];
+
+	$config->set('display', $display)->save(TRUE);
+
+	return 'Added exposed surface and price sorts to the offer search view.';
+}
+
+/**
+ * Removes the generic results header from the offer search view.
+ */
+function ps_search_update_11003(): string {
+	$config = \Drupal::service('config.factory')->getEditable('views.view.ps_offer_search');
+	$display = $config->get('display');
+
+	if (!isset($display['default']['display_options'])) {
+		return 'Skipped offer search header cleanup because the view display configuration was not found.';
+	}
+
+	$display['default']['display_options']['header'] = [];
+	$config->set('display', $display)->save(TRUE);
+
+	return 'Removed the generic results counter header from the offer search view.';
+}

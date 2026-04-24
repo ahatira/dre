@@ -24,6 +24,8 @@
   .ps-offer-search-view__meta {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 1rem;
     font-size: 0.95rem;
     color: #666;
@@ -33,6 +35,25 @@
       align-items: center;
       gap: 0.5rem;
     }
+  }
+
+  .ps-offer-search-view__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  .ps-offer-search-view__sort-label {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .ps-offer-search-view__sort-select {
+    min-width: 12rem;
   }
 
   // --- Filter bar (the row of dropdown triggers) -----------------------------

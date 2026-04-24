@@ -51,7 +51,7 @@ display:
           reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
+          expose_sort_order: false
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
@@ -63,7 +63,7 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        ps_offer_surface_main_value:
+        ps_offer_surface_main_value_asc:
           id: ps_offer_surface_main_value
           table: search_api_index_ps_offer_search
           field: ps_offer_surface_main_value
@@ -73,7 +73,47 @@ display:
           plugin_id: search_api
           order: ASC
           expose:
-            label: 'Increasing surface'
+            label: 'Surface: smallest first'
+            field_identifier: ps_offer_surface_main_value_asc
+          exposed: true
+        ps_offer_surface_main_value_desc:
+          id: ps_offer_surface_main_value
+          table: search_api_index_ps_offer_search
+          field: ps_offer_surface_main_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: 'Surface: largest first'
+            field_identifier: ps_offer_surface_main_value_desc
+          exposed: true
+        ps_offer_price_normalized_main_asc:
+          id: ps_offer_price_normalized_main
+          table: search_api_index_ps_offer_search
+          field: ps_offer_price_normalized_main
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: ASC
+          expose:
+            label: 'Price: lowest first'
+            field_identifier: ps_offer_price_normalized_main_asc
+          exposed: true
+        ps_offer_price_normalized_main_desc:
+          id: ps_offer_price_normalized_main
+          table: search_api_index_ps_offer_search
+          field: ps_offer_price_normalized_main
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: 'Price: highest first'
+            field_identifier: ps_offer_price_normalized_main_desc
           exposed: true
       arguments: {  }
       filters:
@@ -500,7 +540,7 @@ display:
           preserve_facet_query_args: true
       relationships: {  }
       use_ajax: true
-      header:\n        result:\n          id: result\n          table: views\n          field: result\n          relationship: none\n          group_type: group\n          admin_label: ''\n          plugin_id: result\n          empty: false\n          content: 'Results: @total'
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:

@@ -11,28 +11,32 @@
   ]
 %}
 {% set map_attachment = attachment_after ?: attachment_before %}
+{% set header_sort = exposed.sort_by ?? null %}
+{% set exposed_filters = exposed ? exposed|without('sort_by') : null %}
 
 <div{{attributes.addClass(classes)}}>
 	{{ title_prefix }}
 	{{ title }}
 	{{ title_suffix }}
 
-	{% if exposed %}
+	{% if exposed_filters %}
 		<div class="ps-offer-search-view__filters mb-3">
-			{{ exposed }}
+			{{ exposed_filters }}
 		</div>
 	{% endif %}
 
 	{% if map_attachment %}
 		<div class="row g-3 align-items-start ps-offer-search-view__content">
 			<div class="col-12 col-xl-6 order-2 order-xl-1 ps-offer-search-view__list">
-				{% if header %}
+				{% if contextual_title or header_sort %}
 					<header class="mb-3 ps-offer-search-view__header">
 						{% if contextual_title %}
 							<h2 class="ps-offer-search-view__title">{{ contextual_title }}</h2>
 						{% endif %}
 						<div class="ps-offer-search-view__meta">
-							{{ header }}
+							{% if header_sort %}
+								{{ header_sort }}
+							{% endif %}
 						</div>
 					</header>
 				{% endif %}

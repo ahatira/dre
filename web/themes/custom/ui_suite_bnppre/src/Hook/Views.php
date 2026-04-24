@@ -381,6 +381,7 @@ class Views {
       $nearby_transport_key = $this->resolveElementKey($form, ['nearby_transport']);
       $immersive_tour_key = $this->resolveElementKey($form, ['immersive_tour', 'ps_offer_has_virtual_tour']);
       $video_key = $this->resolveElementKey($form, ['video', 'ps_offer_has_video']);
+      $sort_by_key = $this->resolveElementKey($form, ['sort_by']);
 
       $surface_values = (array) \Drupal::request()->query->all('surface');
       $price_values = (array) \Drupal::request()->query->all('price');
@@ -388,6 +389,14 @@ class Views {
       // -- Hide the keys (fulltext) filter — not in primary bar. ---------------
       if ($keys_key !== NULL) {
         $form[$keys_key]['#access'] = FALSE;
+      }
+
+      if ($sort_by_key !== NULL) {
+        $form[$sort_by_key]['#wrapper_attributes']['class'][] = 'ps-offer-search-view__sort';
+        $form[$sort_by_key]['#label_attributes']['class'][] = 'ps-offer-search-view__sort-label';
+        $form[$sort_by_key]['#attributes']['class'][] = 'ps-offer-search-view__sort-select';
+        $form[$sort_by_key]['#attributes']['form'] = $form_dom_id;
+        $form[$sort_by_key]['#attributes']['onchange'] = 'if (this.form) { this.form.requestSubmit(); }';
       }
 
       // -- Property type: expose options array for JS icon-grid, wrap panel. --
@@ -555,28 +564,6 @@ class Views {
           '#size' => 8,
           '#attributes' => [
             'inputmode' => 'numeric',
-          ],
-        ];
-      }
-
-      // -- Sort: Add a sort dropdown to the filter bar. ----------------------
-      $sort_by_key = $this->resolveElementKey($form, ['sort_by']);
-      if ($sort_by_key === NULL) {
-        // Manually create sort selector.
-        $form['sort_by'] = [
-          '#type' => 'select',
-          '#title' => new TranslatableMarkup('Sort by'),
-          '#name' => 'sort_by',
-          '#options' => [
-            'ps_offer_surface_main_value' => new TranslatableMarkup('Increasing surface'),
-          ],
-          '#default_value' => (string) (\Drupal::request()->query->get('sort_by') ?? ''),
-          '#weight' => 4,
-          '#wrapper_attributes' => [
-            'class' => ['ps-filter-panel'],
-          ],
-          '#attributes' => [
-            'class' => ['form-select', 'ps-filter-panel__input'],
           ],
         ];
       }
