@@ -55,6 +55,8 @@
 					{{ rows }}
 				{% elseif empty %}
 					{{ empty }}
+				{% else %}
+					<p class="ps-offer-search-view__empty">{{ 'No results found for this area.'|t }}</p>
 				{% endif %}
 
 				{{ pager }}
@@ -79,6 +81,8 @@
 			{{ rows }}
 		{% elseif empty %}
 			{{ empty }}
+		{% else %}
+			<p class="ps-offer-search-view__empty">{{ 'No results found for this area.'|t }}</p>
 		{% endif %}
 
 		{{ pager }}

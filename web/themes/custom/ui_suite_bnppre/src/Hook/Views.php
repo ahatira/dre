@@ -396,7 +396,7 @@ class Views {
         $form[$sort_by_key]['#label_attributes']['class'][] = 'ps-offer-search-view__sort-label';
         $form[$sort_by_key]['#attributes']['class'][] = 'ps-offer-search-view__sort-select';
         $form[$sort_by_key]['#attributes']['form'] = $form_dom_id;
-        $form[$sort_by_key]['#attributes']['onchange'] = 'if (this.form) { this.form.requestSubmit(); }';
+        $form[$sort_by_key]['#attributes']['onchange'] = 'if(window.BnppreMapProximityTriggerSearch){window.BnppreMapProximityTriggerSearch();return;}var f=this.form;if(!f)return;var b=f.querySelector("[data-drupal-selector=\"edit-submit-ps-offer-search\"],button[type=submit],input[type=submit]");if(b){b.click();}else{f.requestSubmit&&f.requestSubmit();}';
       }
 
       // -- Property type: expose options array for JS icon-grid, wrap panel. --

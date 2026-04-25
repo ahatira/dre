@@ -251,38 +251,83 @@
       requestResultsCountPreview(form, 120);
     }
 
-    function renderSuggestions(items) {
-      state.suggestions = items;
-      state.activeIndex = items.length > 0 ? 0 : -1;
+    function renderSuggestions(items, groups = []) {
       suggestions.innerHTML = '';
 
-      if (items.length === 0) {
+      const normalizedGroups = Array.isArray(groups)
+        ? groups.filter((group) => group && Array.isArray(group.items) && group.items.length > 0)
+        : [];
+
+      let flattened = [];
+
+      if (normalizedGroups.length > 0) {
+        normalizedGroups.forEach((group) => {
+          const title = document.createElement('div');
+          title.className = 'ps-location-suggestion-group__title';
+          title.textContent = String(group.label || '').trim();
+          suggestions.appendChild(title);
+
+          const list = document.createElement('ul');
+          list.className = 'ps-location-suggestion-list';
+
+          group.items.forEach((item) => {
+            const value = normalizeLocationTerm(item.value || item.label || '');
+            if (!value) {
+              return;
+            }
+
+            flattened.push({ value });
+
+            const row = document.createElement('li');
+            row.className = 'ps-location-suggestion-list__item';
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'ps-location-suggestion';
+            button.textContent = value;
+            button.addEventListener('click', () => addTerm(value));
+            row.appendChild(button);
+            list.appendChild(row);
+          });
+
+          suggestions.appendChild(list);
+        });
+      }
+      else {
+        const normalizedItems = Array.isArray(items) ? items : [];
+        const list = document.createElement('ul');
+        list.className = 'ps-location-suggestion-list';
+
+        normalizedItems.forEach((item) => {
+          const value = normalizeLocationTerm(item.value || item.label || '');
+          if (!value) {
+            return;
+          }
+
+          flattened.push({ value });
+
+          const row = document.createElement('li');
+          row.className = 'ps-location-suggestion-list__item';
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'ps-location-suggestion';
+          button.textContent = value;
+          button.addEventListener('click', () => addTerm(value));
+          row.appendChild(button);
+          list.appendChild(row);
+        });
+
+        suggestions.appendChild(list);
+      }
+
+      state.suggestions = flattened;
+      state.activeIndex = flattened.length > 0 ? 0 : -1;
+
+      if (flattened.length === 0) {
         suggestions.hidden = true;
         return;
       }
 
-      const list = document.createElement('ul');
-      list.className = 'ps-location-suggestion-list';
-
-      items.forEach((item, index) => {
-        const value = normalizeLocationTerm(item.value || item.label || '');
-        if (!value) {
-          return;
-        }
-
-        const row = document.createElement('li');
-        row.className = 'ps-location-suggestion-list__item';
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'ps-location-suggestion';
-        button.textContent = value;
-        button.classList.toggle('is-active', index === state.activeIndex);
-        button.addEventListener('click', () => addTerm(value));
-        row.appendChild(button);
-        list.appendChild(row);
-      });
-
-      suggestions.appendChild(list);
+      highlightActiveSuggestion();
       suggestions.hidden = false;
     }
 
@@ -321,7 +366,8 @@
           }
 
           const items = Array.isArray(payload?.items) ? payload.items : [];
-          renderSuggestions(items);
+          const groups = Array.isArray(payload?.groups) ? payload.groups : [];
+          renderSuggestions(items, groups);
         })
         .catch(() => {
           if (requestId !== form.__psLocationAutocompleteRequestId) {

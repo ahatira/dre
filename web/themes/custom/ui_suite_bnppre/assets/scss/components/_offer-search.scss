@@ -572,6 +572,18 @@
     overflow-y: auto;
   }
 
+  .ps-location-suggestion-group__title {
+    margin: 0;
+    padding: 0.8rem 1rem 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #2f3136;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background: #fff;
+  }
+
   .ps-location-suggestion-list {
     list-style: none;
     margin: 0;

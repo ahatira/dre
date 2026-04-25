@@ -16,6 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
 final class LocationAutocompleteController extends ControllerBase {
 
   /**
+   * Order used when sorting grouped location suggestions.
+   */
+  private const GROUP_ORDER = [
+    'city' => 0,
+    'district' => 1,
+    'postal_code' => 2,
+    'region' => 3,
+  ];
+
+  /**
    * Constructs the controller.
    */
   public function __construct(
@@ -50,9 +60,9 @@ final class LocationAutocompleteController extends ControllerBase {
     $select->join('node_field_data', 'n', 'n.nid = fa.entity_id');
     $select->fields('fa', [
       'field_address_locality',
+      'field_address_dependent_locality',
       'field_address_postal_code',
       'field_address_administrative_area',
-      'field_address_country_code',
     ]);
     $select->condition('n.status', 1);
     $select->condition('n.type', 'offer');
@@ -60,7 +70,8 @@ final class LocationAutocompleteController extends ControllerBase {
     $or = $select->orConditionGroup()
       ->condition('fa.field_address_locality', $like, 'LIKE')
       ->condition('fa.field_address_postal_code', $like, 'LIKE')
-      ->condition('fa.field_address_administrative_area', $like, 'LIKE');
+      ->condition('fa.field_address_administrative_area', $like, 'LIKE')
+      ->condition('fa.field_address_dependent_locality', $like, 'LIKE');
 
     $select->condition($or);
     $select->range(0, 150);
@@ -70,16 +81,43 @@ final class LocationAutocompleteController extends ControllerBase {
     $pool = [];
     foreach ($rows as $row) {
       $locality = trim((string) ($row->field_address_locality ?? ''));
+      $dependent_locality = trim((string) ($row->field_address_dependent_locality ?? ''));
       $postal_code = trim((string) ($row->field_address_postal_code ?? ''));
       $administrative_area = trim((string) ($row->field_address_administrative_area ?? ''));
 
-      $this->registerCandidate($pool, $locality, $query);
-      $this->registerCandidate($pool, $postal_code, $query);
-      $this->registerCandidate($pool, $administrative_area, $query);
-
-      if ($postal_code !== '' && $locality !== '') {
-        $this->registerCandidate($pool, $postal_code . ' ' . $locality, $query);
+      if ($locality !== '') {
+        $city_label = $locality;
+        if ($postal_code !== '') {
+          $city_label .= ' (' . $postal_code . ')';
+        }
+        $this->registerCandidate($pool, $city_label, $query, 'city', (string) $this->t('City'));
       }
+
+      if ($locality !== '' && $dependent_locality !== '') {
+        $district_label = $locality . ', ' . $dependent_locality;
+        if ($postal_code !== '') {
+          $district_label .= ' (' . $postal_code . ')';
+        }
+        $this->registerCandidate($pool, $district_label, $query, 'district', (string) $this->t('District'));
+      }
+
+      if ($postal_code !== '') {
+        $postal_label = $postal_code;
+        if ($locality !== '') {
+          $postal_label .= ' ' . $locality;
+        }
+        $this->registerCandidate($pool, $postal_label, $query, 'postal_code', (string) $this->t('Zip code'));
+      }
+
+      if ($administrative_area !== '') {
+        $this->registerCandidate($pool, $administrative_area, $query, 'region', (string) $this->t('Region'));
+      }
+
+      // Backward-compatible atomic matches.
+      $this->registerCandidate($pool, $locality, $query, 'city', (string) $this->t('City'));
+      $this->registerCandidate($pool, $postal_code, $query, 'postal_code', (string) $this->t('Zip code'));
+      $this->registerCandidate($pool, $administrative_area, $query, 'region', (string) $this->t('Region'));
+      $this->registerCandidate($pool, $dependent_locality, $query, 'district', (string) $this->t('District'));
     }
 
     $items = array_values($pool);
@@ -88,30 +126,62 @@ final class LocationAutocompleteController extends ControllerBase {
       if ($a['score'] !== $b['score']) {
         return $a['score'] <=> $b['score'];
       }
+
+      $a_group_rank = self::GROUP_ORDER[$a['group_key']] ?? 99;
+      $b_group_rank = self::GROUP_ORDER[$b['group_key']] ?? 99;
+      if ($a_group_rank !== $b_group_rank) {
+        return $a_group_rank <=> $b_group_rank;
+      }
+
       return strcasecmp($a['label'], $b['label']);
     });
 
     $items = array_slice($items, 0, $limit);
 
-    return new JsonResponse([
-      'items' => array_map(static fn(array $item): array => [
+    $normalized_items = array_map(static fn(array $item): array => [
         'value' => $item['value'],
         'label' => $item['label'],
-      ], $items),
+        'group' => $item['group_key'],
+      ], $items);
+
+    $groups = [];
+    foreach ($items as $item) {
+      $group_key = $item['group_key'];
+      if (!isset($groups[$group_key])) {
+        $groups[$group_key] = [
+          'key' => $group_key,
+          'label' => $item['group_label'],
+          'items' => [],
+        ];
+      }
+
+      $groups[$group_key]['items'][] = [
+        'value' => $item['value'],
+        'label' => $item['label'],
+      ];
+    }
+
+    return new JsonResponse([
+      'items' => $normalized_items,
+      'groups' => array_values($groups),
     ]);
   }
 
   /**
    * Registers one candidate suggestion if it matches the current query.
    *
-   * @param array<string, array{value: string, label: string, score: int}> $pool
+   * @param array<string, array{value: string, label: string, score: int, group_key: string, group_label: string}> $pool
    *   Aggregated suggestion pool.
    * @param string $candidate
    *   Candidate value.
    * @param string $needle
    *   User query string.
+   * @param string $groupKey
+   *   Group key.
+   * @param string $groupLabel
+   *   Group label.
    */
-  private function registerCandidate(array &$pool, string $candidate, string $needle): void {
+  private function registerCandidate(array &$pool, string $candidate, string $needle, string $groupKey, string $groupLabel): void {
     $candidate = trim(preg_replace('/\s+/', ' ', $candidate) ?? '');
     if ($candidate === '') {
       return;
@@ -121,7 +191,7 @@ final class LocationAutocompleteController extends ControllerBase {
       return;
     }
 
-    $key = mb_strtolower($candidate);
+    $key = mb_strtolower($candidate) . '|' . $groupKey;
     if (isset($pool[$key])) {
       return;
     }
@@ -132,6 +202,8 @@ final class LocationAutocompleteController extends ControllerBase {
       'value' => $candidate,
       'label' => $candidate,
       'score' => $starts_with ? 0 : 1,
+      'group_key' => $groupKey,
+      'group_label' => $groupLabel,
     ];
   }
 

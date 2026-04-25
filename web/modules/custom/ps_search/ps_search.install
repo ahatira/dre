@@ -144,3 +144,172 @@ function ps_search_update_11004(): string {
 
 	return 'Restored the list results header and removed it from the map attachment.';
 }
+
+/**
+ * Replaces exposed sorts with the requested business order and labels.
+ */
+function ps_search_update_11005(): string {
+	$config = \Drupal::service('config.factory')->getEditable('views.view.ps_offer_search');
+	$display = $config->get('display');
+
+	if (!isset($display['default']['display_options'])) {
+		return 'Skipped offer search sort refresh because the view display configuration was not found.';
+	}
+
+	$display['default']['display_options']['exposed_form']['options']['expose_sort_order'] = FALSE;
+	$display['default']['display_options']['sorts'] = [
+		'search_api_relevance_desc' => [
+			'id' => 'search_api_relevance',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'search_api_relevance',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Pertinence',
+				'field_identifier' => 'search_api_relevance_desc',
+			],
+			'exposed' => TRUE,
+		],
+		'created_desc' => [
+			'id' => 'created',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'created',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Nouveaute',
+				'field_identifier' => 'created_desc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_price_normalized_main_asc' => [
+			'id' => 'ps_offer_price_normalized_main',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_price_normalized_main',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'ASC',
+			'expose' => [
+				'label' => 'Prix croissant',
+				'field_identifier' => 'ps_offer_price_normalized_main_asc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_price_normalized_main_desc' => [
+			'id' => 'ps_offer_price_normalized_main',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_price_normalized_main',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Prix decroissant',
+				'field_identifier' => 'ps_offer_price_normalized_main_desc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_surface_main_value_asc' => [
+			'id' => 'ps_offer_surface_main_value',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_surface_main_value',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'ASC',
+			'expose' => [
+				'label' => 'Surface croissante',
+				'field_identifier' => 'ps_offer_surface_main_value_asc',
+			],
+			'exposed' => TRUE,
+		],
+		'ps_offer_surface_main_value_desc' => [
+			'id' => 'ps_offer_surface_main_value',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'ps_offer_surface_main_value',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Surface decroissante',
+				'field_identifier' => 'ps_offer_surface_main_value_desc',
+			],
+			'exposed' => TRUE,
+		],
+		'posted_asc' => [
+			'id' => 'created',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'created',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'ASC',
+			'expose' => [
+				'label' => 'Poste croissant',
+				'field_identifier' => 'posted_asc',
+			],
+			'exposed' => TRUE,
+		],
+		'posted_desc' => [
+			'id' => 'created',
+			'table' => 'search_api_index_ps_offer_search',
+			'field' => 'created',
+			'relationship' => 'none',
+			'group_type' => 'group',
+			'admin_label' => '',
+			'plugin_id' => 'search_api',
+			'order' => 'DESC',
+			'expose' => [
+				'label' => 'Poste decroissant',
+				'field_identifier' => 'posted_desc',
+			],
+			'exposed' => TRUE,
+		],
+	];
+
+	$config->set('display', $display)->save(TRUE);
+
+	return 'Updated offer search exposed sort options with business labels and order.';
+}
+
+/**
+ * Adds created timestamp to the offer search index for date-based sorts.
+ */
+function ps_search_update_11006(): string {
+	$config = \Drupal::service('config.factory')->getEditable('search_api.index.ps_offer_search');
+	$field_settings = $config->get('field_settings') ?: [];
+
+	if (!is_array($field_settings)) {
+		return 'Skipped offer search index update because field settings are invalid.';
+	}
+
+	if (!isset($field_settings['created'])) {
+		$field_settings['created'] = [
+			'label' => 'Created date',
+			'datasource_id' => 'entity:node',
+			'property_path' => 'created',
+			'type' => 'date',
+		];
+		$config->set('field_settings', $field_settings)->save(TRUE);
+	}
+
+	$index = \Drupal::entityTypeManager()->getStorage('search_api_index')->load('ps_offer_search');
+	if ($index) {
+		$index->reindex();
+	}
+
+	return 'Added created field to offer search index and scheduled a reindex.';
+}

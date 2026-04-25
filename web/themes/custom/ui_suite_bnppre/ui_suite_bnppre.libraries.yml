@@ -248,4 +248,11 @@ offer_search:
     - core/drupal
     - core/once
 
+map_proximity_control:
+  js:
+    assets/js/map-proximity-control.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
 

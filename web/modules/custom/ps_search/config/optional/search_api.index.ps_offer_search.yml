@@ -29,6 +29,11 @@ field_settings:
     property_path: title
     type: text
     boost: 8
+  created:
+    label: 'Created date'
+    datasource_id: 'entity:node'
+    property_path: created
+    type: date
   field_address:
     label: Address
     datasource_id: 'entity:node'

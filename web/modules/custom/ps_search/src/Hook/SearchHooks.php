@@ -20,6 +20,11 @@ use Symfony\Component\HttpFoundation\Request;
 final class SearchHooks {
 
   /**
+   * Minimum radius in kilometers for map proximity filtering.
+   */
+  private const MIN_PROXIMITY_RADIUS_KM = 20.0;
+
+  /**
    * Parses query string values from the raw URL.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -192,12 +197,41 @@ final class SearchHooks {
     $select->condition('n.type', 'offer');
 
     $or = $select->orConditionGroup();
+    $searchable_fields = [
+      'fa.field_address_locality',
+      'fa.field_address_postal_code',
+      'fa.field_address_administrative_area',
+      'fa.field_address_dependent_locality',
+    ];
+
     foreach ($normalized_terms as $term) {
       $like = '%' . $database->escapeLike($term) . '%';
       $term_group = $select->orConditionGroup()
         ->condition('fa.field_address_locality', $like, 'LIKE')
         ->condition('fa.field_address_postal_code', $like, 'LIKE')
-        ->condition('fa.field_address_administrative_area', $like, 'LIKE');
+        ->condition('fa.field_address_administrative_area', $like, 'LIKE')
+        ->condition('fa.field_address_dependent_locality', $like, 'LIKE');
+
+      // Also match combined labels by requiring each token somewhere in the
+      // address row (postal + locality, locality + district, full line...).
+      $tokens = array_values(array_filter(array_map(
+        static fn(string $value): string => trim($value),
+        preg_split('/[^\pL\pN]+/u', $term) ?: []
+      )));
+
+      if (count($tokens) > 1) {
+        $token_group = $select->andConditionGroup();
+        foreach ($tokens as $token) {
+          $token_like = '%' . $database->escapeLike($token) . '%';
+          $token_or = $select->orConditionGroup();
+          foreach ($searchable_fields as $field) {
+            $token_or->condition($field, $token_like, 'LIKE');
+          }
+          $token_group->condition($token_or);
+        }
+        $term_group->condition($token_group);
+      }
+
       $or->condition($term_group);
     }
 
@@ -207,6 +241,97 @@ final class SearchHooks {
       static fn(string $value): string => trim($value),
       $select->execute()->fetchCol()
     )));
+  }
+
+  /**
+   * Resolves Search API item IDs within a radius from a geographic point.
+   *
+   * @param float $latitude
+   *   Center latitude in decimal degrees.
+   * @param float $longitude
+   *   Center longitude in decimal degrees.
+   * @param float $radiusKm
+   *   Radius in kilometers.
+   *
+   * @return string[]
+   *   Matching indexed item IDs (entity:node/{nid}:{langcode}).
+   */
+  private function resolveOfferItemIdsByProximity(float $latitude, float $longitude, float $radiusKm): array {
+    if ($radiusKm <= 0) {
+      return [];
+    }
+
+    $database = \Drupal::database();
+    $select = $database->select('node__field_geofield', 'fg');
+    $select->join('node_field_data', 'n', 'n.nid = fg.entity_id');
+    $select->addExpression("CONCAT('entity:node/', fg.entity_id, ':', n.langcode)", 'item_id');
+    $select->distinct();
+    $select->condition('n.status', 1);
+    $select->condition('n.type', 'offer');
+    $select->condition('fg.field_geofield_value', NULL, 'IS NOT NULL');
+
+    // Haversine distance in kilometers from geofield WKT POINT(lon lat).
+    $point_lat = 'ST_Y(ST_GeomFromText(fg.field_geofield_value))';
+    $point_lon = 'ST_X(ST_GeomFromText(fg.field_geofield_value))';
+    $distance_expression = '(6371 * ACOS(LEAST(1, '
+      . 'COS(RADIANS(:center_lat)) * COS(RADIANS(' . $point_lat . ')) '
+      . '* COS(RADIANS(' . $point_lon . ') - RADIANS(:center_lon)) '
+      . '+ SIN(RADIANS(:center_lat)) * SIN(RADIANS(' . $point_lat . '))'
+      . ')))';
+    $select->addExpression($distance_expression, 'distance_km', [
+      ':center_lat' => $latitude,
+      ':center_lon' => $longitude,
+    ]);
+    $select->havingCondition('distance_km', $radiusKm, '<=');
+
+    return array_values(array_unique(array_map(
+      static fn(string $value): string => trim($value),
+      $select->execute()->fetchCol()
+    )));
+  }
+
+  /**
+   * Returns a finite float from query values for one or more parameter keys.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Current request.
+   * @param string[] $keys
+   *   Query parameter names to try in order.
+   *
+   * @return float|null
+   *   Parsed float value, or NULL when missing/invalid.
+   */
+  private function getQueryFloat(Request $request, array $keys): ?float {
+    foreach ($keys as $key) {
+      try {
+        $raw = $request->query->get($key);
+      }
+      catch (\Throwable) {
+        continue;
+      }
+
+      if ($raw === NULL || $raw === '') {
+        continue;
+      }
+
+      if (!is_scalar($raw)) {
+        continue;
+      }
+
+      $value = filter_var((string) $raw, FILTER_VALIDATE_FLOAT);
+      if ($value === FALSE) {
+        continue;
+      }
+
+      $float = (float) $value;
+      if (!is_finite($float)) {
+        continue;
+      }
+
+      return $float;
+    }
+
+    return NULL;
   }
 
   /**
@@ -240,6 +365,7 @@ final class SearchHooks {
     }
 
     $attachments['#attached']['library'][] = 'ps_search/offer_search_tracking';
+    $attachments['#attached']['library'][] = 'ui_suite_bnppre/map_proximity_control';
     $attachments['#attached']['drupalSettings']['psSearch']['locationAutocompleteEndpoint'] = Url::fromRoute('ps_search.location_autocomplete')->toString();
   }
 
@@ -278,6 +404,25 @@ final class SearchHooks {
         else {
           $search_api_query->addCondition('search_api_id', $item_ids, 'IN');
         }
+      }
+    }
+
+    // -- Geographic proximity filter (point + radius in km). ------------------
+    $nearby_lat = $this->getQueryFloat($request, ['nearby_lat', 'lat']);
+    $nearby_lon = $this->getQueryFloat($request, ['nearby_lon', 'nearby_lng', 'lng', 'lon']);
+    $nearby_radius_km = $this->getQueryFloat($request, ['nearby_radius_km', 'nearby_radius', 'radius']);
+
+    if ($nearby_lat !== NULL && $nearby_lon !== NULL) {
+      $effective_radius_km = self::MIN_PROXIMITY_RADIUS_KM;
+      if ($nearby_radius_km !== NULL && $nearby_radius_km > 0) {
+        $effective_radius_km = max(self::MIN_PROXIMITY_RADIUS_KM, $nearby_radius_km);
+      }
+      $item_ids = $this->resolveOfferItemIdsByProximity($nearby_lat, $nearby_lon, $effective_radius_km);
+      if ($item_ids === []) {
+        $search_api_query->addCondition('search_api_id', '__no_match__', '=');
+      }
+      else {
+        $search_api_query->addCondition('search_api_id', $item_ids, 'IN');
       }
     }
 
