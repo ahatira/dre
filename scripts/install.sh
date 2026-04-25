@@ -274,7 +274,7 @@ set_front_page() {
   local front_page="$1"
 
   log "Set homepage: $front_page"
-  FRONT_PAGE="$front_page" "$DRUSH" php:eval '$front = getenv("FRONT_PAGE") ?: "/user/login";
+  MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' FRONT_PAGE="$front_page" "$DRUSH" php:eval '$front = getenv("FRONT_PAGE") ?: "/user/login";
   if ($front[0] !== "/") {
     $front = "/" . $front;
   }

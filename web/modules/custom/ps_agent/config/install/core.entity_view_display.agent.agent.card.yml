@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.agent.card
+    - image.style.thumbnail
+    - ps_agent.agent_type.agent
+  module:
+    - image
+    - phone_international
+id: agent.agent.card
+targetEntityType: agent
+bundle: agent
+mode: card
+content:
+  avatar:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  first_name:
+    type: string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  last_name:
+    type: string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  email:
+    type: email_mailto
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  phone:
+    type: phone_international_formatter
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  changed: true
+  civility: true
+  created: true
+  external_id: true
+  label: true
+  langcode: true
+  path: true
+  status: true
+  type: true
+  uid: true

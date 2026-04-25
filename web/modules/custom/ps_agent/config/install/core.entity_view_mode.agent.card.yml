@@ -1,0 +1,9 @@
+status: true
+dependencies:
+  module:
+    - ps_agent
+id: agent.card
+label: Card
+description: ''
+targetEntityType: agent
+cache: true
