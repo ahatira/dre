@@ -86,3 +86,30 @@ Thumbs.db
 /docs/
 /imports/
 /tmp/
+
+# ------------------------------
+# Drupal scaffold defaults (docroot)
+# ------------------------------
+/src/web/.htaccess
+/src/web/.ht.router.php
+/src/web/autoload.php
+/src/web/index.php
+/src/web/update.php
+/src/web/robots.txt
+/src/web/INSTALL.txt
+/src/web/README.md
+/src/web/example.gitignore
+/src/web/modules/README.txt
+/src/recipes/README.txt
+/src/web/.csslintrc
+/src/web/.eslintignore
+/src/web/.eslintrc.json
+
+# Ignore default profiles/themes at docroot level, keep room for custom ones.
+/src/web/profiles/*
+!/src/web/profiles/custom/
+!/src/web/profiles/custom/**
+
+/src/web/themes/*
+!/src/web/themes/custom/
+!/src/web/themes/custom/**
