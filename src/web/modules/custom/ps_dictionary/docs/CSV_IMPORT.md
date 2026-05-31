@@ -135,7 +135,7 @@ Les 10 cas de test unitaires couvrent :
 Exécution recommandée en Docker (conteneur `php`) :
 
 ```bash
-docker compose -f docker/docker-compose.yml -f docker/docker-compose.wsl.yml exec -T php \
+docker compose -f docker/docker-compose.yml exec -T php \
   sh -lc 'cd /var/www/html && php ./vendor/bin/phpunit -c web/core/phpunit.xml.dist web/modules/custom/ps_dictionary/tests/src/Unit/DictionaryCsvImporterTest.php'
 ```
 

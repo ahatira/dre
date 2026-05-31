@@ -89,7 +89,7 @@ Un **403 Forbidden** sur `/admin` en anonyme est normal.
 
 Se connecter avec le compte cree pendant l'installation, puis verifier l'acces a `/admin`.
 
-## Optimisations Windows (sans WSL)
+## Optimisations Windows
 
 Le projet applique des optimisations Docker/PHP pour limiter la latence I/O sous Windows:
 
@@ -106,49 +106,3 @@ docker compose -f docker/docker-compose.yml up -d --build php nginx
 ### Limite connue
 
 Ces optimisations ameliorent partiellement les requetes web, mais les commandes CLI Drupal dans le conteneur (Drush/PHPUnit) restent souvent lentes sur bind mount Windows.
-
-Si la lenteur reste bloquante, la prochaine etape recommandee est:
-
-1. WSL2 avec code dans le filesystem Linux
-2. Ou une synchronisation dediee (ex: Mutagen) pour eviter l'I/O directe Windows dans les conteneurs
-
-## Migration WSL2 sans interruption longue
-
-### 1) Demarrage parallele sur port temporaire
-
-Le fichier d'override [docker/docker-compose.wsl.yml](docker/docker-compose.wsl.yml) expose nginx sur `8081` par defaut (via `PS_HTTP_PORT`).
-
-```bash
-make up-wsl
-```
-
-Personnaliser le port temporaire si besoin:
-
-```bash
-PS_HTTP_PORT=8082 make up-wsl
-```
-
-### 2) Verifications post-migration
-
-Le script [src/script/drupal/verify-wsl-migration.sh](src/script/drupal/verify-wsl-migration.sh) execute:
-
-1. verification compose
-2. `drush status`
-3. verification resolver `ps_dictionary`
-4. tests unitaires critiques (`ps_dictionary`, `ps_core`)
-5. smoke tests HTTP
-6. generation d'un lien `drush uli` pour test navigateur VS Code
-
-Execution:
-
-```bash
-make verify-wsl
-```
-
-### 3) Bascule finale
-
-Quand les verifications sur le port temporaire sont OK:
-
-1. arreter l'ancienne stack
-2. relancer avec le port final (ex: 8080)
-3. refaire `make verify-wsl`

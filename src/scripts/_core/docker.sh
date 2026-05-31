@@ -18,10 +18,6 @@ ps_docker_compose() {
   docker compose -f "${PS_DOCKER_COMPOSE_FILE}" "$@"
 }
 
-ps_docker_compose_wsl() {
-  docker compose -f "${PS_DOCKER_COMPOSE_FILE}" -f "${PS_DOCKER_COMPOSE_WSL_FILE}" "$@"
-}
-
 ps_docker_up() {
   ps_docker_compose up -d
 }

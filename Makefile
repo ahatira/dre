@@ -3,14 +3,13 @@ SHELL := /usr/bin/env bash
 
 PROJECT_ROOT := $(CURDIR)
 COMPOSE_FILE := $(PROJECT_ROOT)/docker/docker-compose.yml
-COMPOSE_WSL_FILE := $(PROJECT_ROOT)/docker/docker-compose.wsl.yml
 SRC_DIR := $(PROJECT_ROOT)/src
 PHP_CONTAINER := ps_php
 PG_CONTAINER := ps_postgres
 
 DRUSH := docker exec -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/bin/drush'
 
-.PHONY: help up down restart ps logs install bootstrap reinstall composer-install composer-update npm-install drush-status drush-cr drush-uli modules-list theme-admin db-reset up-wsl down-wsl ps-wsl verify-wsl geocoder-set-key cleanup rebuild import-crm import-status import-reset import-rollback
+.PHONY: help up down restart ps logs install bootstrap reinstall composer-install composer-update npm-install drush-status drush-cr drush-uli modules-list theme-admin db-reset verify geocoder-set-key cleanup rebuild import-crm import-status import-reset import-rollback
 
 help:
 	@echo "Cibles disponibles:"
@@ -30,10 +29,7 @@ help:
 	@echo "  make modules-list    - Liste modules actives"
 	@echo "  make theme-admin     - Theme admin courant"
 	@echo "  make db-reset        - Drop/Create DB drupal"
-	@echo "  make up-wsl          - Demarrer stack WSL (port 8081 par defaut)"
-	@echo "  make down-wsl        - Arreter stack WSL"
-	@echo "  make ps-wsl          - Etat stack WSL"
-	@echo "  make verify-wsl      - Verifications post-migration WSL"
+	@echo "  make verify          - Verifications post-installation"
 	@echo "  make geocoder-set-key KEY=<api_key> - Configurer la cle Google Maps API pour le geocoding"
 	@echo "  make cleanup         - Nettoyer fichiers Drupal obsoletes (config/sync temporaires, caches)"
 	@echo "  make rebuild         - Reconstruire l'image PHP (apres modification Dockerfile)"
@@ -91,16 +87,7 @@ theme-admin:
 db-reset:
 	docker exec -i "$(PG_CONTAINER)" sh -lc "psql -U drupal -d postgres -c \"DROP DATABASE IF EXISTS drupal;\" && psql -U drupal -d postgres -c \"CREATE DATABASE drupal;\""
 
-up-wsl:
-	docker compose -f "$(COMPOSE_FILE)" -f "$(COMPOSE_WSL_FILE)" up -d --build php nginx
-
-down-wsl:
-	docker compose -f "$(COMPOSE_FILE)" -f "$(COMPOSE_WSL_FILE)" down
-
-ps-wsl:
-	docker compose -f "$(COMPOSE_FILE)" -f "$(COMPOSE_WSL_FILE)" ps
-
-verify-wsl:
+verify:
 	bash "$(SRC_DIR)/scripts/drupal/verify.sh"
 
 geocoder-set-key:
