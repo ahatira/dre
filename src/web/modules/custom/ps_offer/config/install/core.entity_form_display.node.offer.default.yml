@@ -1,0 +1,632 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.offer.field_capacity_available
+    - field.field.node.offer.body
+    - field.field.node.offer.field_capacity_mode
+    - field.field.node.offer.field_capacity_notes
+    - field.field.node.offer.field_capacity_total
+    - field.field.node.offer.field_capacity_unit
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_asset_type
+    - field.field.node.offer.field_business_id
+    - field.field.node.offer.field_budget_currency
+    - field.field.node.offer.field_budget_cc
+    - field.field.node.offer.field_budget_ht
+    - field.field.node.offer.field_budget_period
+    - field.field.node.offer.field_budget_unit
+    - field.field.node.offer.field_budget_value
+    - field.field.node.offer.field_divisible
+    - field.field.node.offer.field_geo
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_import_id
+    - field.field.node.offer.field_internal_lock
+    - field.field.node.offer.field_last_imported_at
+    - field.field.node.offer.field_media_gallery
+    - field.field.node.offer.field_media_document
+    - field.field.node.offer.field_metatag
+    - field.field.node.offer.field_operation_type
+    - field.field.node.offer.field_primary_agent
+    - field.field.node.offer.field_reference
+    - field.field.node.offer.field_reference_auto
+    - field.field.node.offer.field_secondary_agents
+    - field.field.node.offer.field_show_address
+    - field.field.node.offer.field_source_checksum
+    - field.field.node.offer.field_source_system
+    - field.field.node.offer.field_source_tracking
+    - field.field.node.offer.field_divisions
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_technical_id
+    - node.type.offer
+  module:
+    - address
+    - datetime
+    - entity_browser
+    - geofield
+    - inline_entity_form
+    - link
+    - metatag
+    - media_library
+    - path
+    - ps_dictionary
+    - ps_feature
+    - ps_diagnostic
+    - ps_surface
+    - options
+    - scheduler
+    - text
+    - field_group
+id: node.offer.default
+targetEntityType: node
+bundle: offer
+mode: default
+content:
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  field_commercial_title:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 128
+      placeholder: ''
+    third_party_settings: { }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: { }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: { }
+    third_party_settings: { }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_internal_lock:
+    type: boolean_checkbox
+    weight: 125
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_reference:
+    type: ps_offer_reference_widget
+    weight: 10
+    region: content
+    settings:
+      toggle_button_text: Auto
+      preview_manual_message: 'Auto generation is off. Enter a custom reference value.'
+    third_party_settings: { }
+
+  field_client_type:
+    type: ps_dictionary_options_buttons
+    weight: 12
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_operation_type:
+    type: ps_dictionary_options_select
+    weight: 13
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_asset_type:
+    type: ps_dictionary_options_select
+    weight: 14
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_mandate_type:
+    type: ps_dictionary_options_select
+    weight: 15
+    region: content
+    settings: { }
+    third_party_settings: { }
+  body:
+    type: text_textarea_with_summary
+    weight: 16
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: { }
+  field_budget_value:
+    type: number
+    weight: 16
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: { }
+  field_budget_period:
+    type: options_select
+    weight: 17
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_budget_unit:
+    type: ps_dictionary_options_select
+    weight: 18
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_budget_currency:
+    type: ps_dictionary_options_select
+    weight: 19
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_budget_ht:
+    type: boolean_checkbox
+    weight: 20
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_budget_cc:
+    type: boolean_checkbox
+    weight: 21
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_address:
+    type: address_default
+    weight: 21
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_availability:
+    type: string_textarea
+    weight: 17
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: { }
+  field_geo:
+    type: geofield_latlon
+    weight: 25
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: { }
+  field_show_address:
+    type: boolean_checkbox
+    weight: 26
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_primary_agent:
+    type: inline_entity_form_complex
+    weight: 29
+    region: content
+    settings:
+      allow_existing: true
+      allow_new: true
+      match_operator: CONTAINS
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: { }
+  field_secondary_agents:
+    type: inline_entity_form_complex
+    weight: 30
+    region: content
+    settings:
+      allow_existing: true
+      allow_new: true
+      match_operator: CONTAINS
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: { }
+  field_divisible:
+    type: boolean_checkbox
+    weight: 31
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+  field_divisions:
+    type: inline_entity_form_complex
+    weight: 0
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      revision: false
+      collapsed: false
+      collapsible: false
+    third_party_settings: { }
+  field_capacity_mode:
+    type: options_select
+    weight: 32
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_capacity_total:
+    type: number
+    weight: 33
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: { }
+  field_capacity_available:
+    type: number
+    weight: 34
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: { }
+  field_capacity_unit:
+    type: options_select
+    weight: 35
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_capacity_notes:
+    type: string_textarea
+    weight: 36
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: { }
+  field_surfaces:
+    type: ps_surface_item_default
+    weight: 42
+    region: content
+    settings: {}
+    third_party_settings: {}
+    field_diagnostics:
+      type: diagnostic_item_default
+      weight: 36
+      region: content
+      settings: { }
+      third_party_settings: { }
+  path:
+    type: path
+    weight: 37
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_media_gallery:
+    type: entity_browser_entity_reference
+    weight: 41
+    region: content
+    settings:
+      entity_browser: bnp_media_upload
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+    third_party_settings: { }
+  field_media_document:
+    type: entity_browser_entity_reference
+    weight: 42
+    region: content
+    settings:
+      entity_browser: bnp_media_brochure_upload
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+    third_party_settings: { }
+  field_features:
+    type: feature_builder
+    weight: 43
+    region: content
+    settings: { }
+    third_party_settings: { }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: { }
+    third_party_settings: { }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_metatag:
+    type: metatag_firehose
+    weight: 51
+    region: content
+    settings: { }
+    third_party_settings: { }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: { }
+    third_party_settings: { }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: { }
+    third_party_settings: { }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 54
+    region: content
+    settings: { }
+    third_party_settings: { }
+hidden:
+  promote: true
+  sticky: true
+  field_business_id: true
+  field_technical_id: true
+  field_source_checksum: true
+  field_source_system: true
+  field_source_tracking: true
+  field_last_imported_at: true
+  field_import_id: true
+third_party_settings:
+  field_group:
+    group_tabs:
+      children:
+        - group_identification
+        - group_content
+        - group_budget
+        - group_capacity
+        - group_surface
+        - group_location
+        - group_features
+        - group_gallery
+        - group_contacts
+      label: 'Offer'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: tabs
+      format_settings:
+        label: 'Offer'
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        direction: horizontal
+        width_breakpoint: 640
+        required_fields: true
+    group_identification:
+      children:
+        - title
+        - langcode
+        - field_reference
+        - field_client_type
+        - field_operation_type
+        - field_asset_type
+        - field_mandate_type
+        - field_divisible
+      label: Identification
+      parent_name: group_tabs
+      region: content
+      weight: 1
+      format_type: tab
+      format_settings:
+        label: Identification
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_content:
+      children:
+        - field_commercial_title
+        - body
+        - field_availability
+        - field_metatag
+      label: Content
+      parent_name: group_tabs
+      region: content
+      weight: 2
+      format_type: tab
+      format_settings:
+        label: Content
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_budget:
+      children:
+        - field_budget_value
+        - field_budget_period
+        - field_budget_unit
+        - field_budget_currency
+        - field_budget_ht
+        - field_budget_cc
+      label: Price
+      parent_name: group_tabs
+      region: content
+      weight: 3
+      format_type: tab
+      format_settings:
+        label: Price
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_capacity:
+      children:
+        - field_capacity_mode
+        - field_capacity_total
+        - field_capacity_available
+        - field_capacity_unit
+        - field_capacity_notes
+      label: Capacity
+      parent_name: group_tabs
+      region: content
+      weight: 4
+      format_type: tab
+      format_settings:
+        label: Capacity
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_surface:
+      children:
+        - field_surfaces
+      label: Surface
+      parent_name: group_tabs
+      region: content
+      weight: 5
+      format_type: tab
+      format_settings:
+        label: Surface
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_lots:
+      children:
+        - field_divisions
+      label: Lots
+      parent_name: group_tabs
+      region: content
+      weight: 6
+      format_type: tab
+      format_settings:
+        label: Lots
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_location:
+      children:
+        - field_address
+        - field_geo
+        - field_show_address
+      label: Location
+      parent_name: group_tabs
+      region: content
+      weight: 6
+      format_type: tab
+      format_settings:
+        label: Location
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_features:
+      children:
+        - field_features
+      label: Features
+      parent_name: group_tabs
+      region: content
+      weight: 7
+      format_type: tab
+      format_settings:
+        label: Features
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_gallery:
+      children:
+        - field_media_gallery
+        - field_media_document
+      label: Media
+      parent_name: group_tabs
+      region: content
+      weight: 8
+      format_type: tab
+      format_settings:
+        label: Media
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_contacts:
+      children:
+        - field_primary_agent
+        - field_secondary_agents
+      label: Contacts
+      parent_name: group_tabs
+      region: content
+      weight: 9
+      format_type: tab
+      format_settings:
+        label: Contacts
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true

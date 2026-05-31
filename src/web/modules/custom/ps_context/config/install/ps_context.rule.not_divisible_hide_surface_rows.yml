@@ -1,0 +1,17 @@
+id: not_divisible_hide_surface_rows
+uuid: 2a1b3c4d-0004-0000-0000-000000000004
+label: 'Not divisible: hide surface rows DISPO (1) and ETREF (2)'
+status: false
+weight: 0
+conditions_logic: AND
+conditions:
+  - field_name: field_divisible
+    operator: equals
+    value: '0'
+actions:
+  - action_type: hide_surface_delta
+    target: field_surfaces
+    value: '1'
+  - action_type: hide_surface_delta
+    target: field_surfaces
+    value: '2'

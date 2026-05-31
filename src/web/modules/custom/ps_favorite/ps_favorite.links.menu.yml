@@ -1,0 +1,12 @@
+ps_favorite.account_page:
+  title: 'My favorites'
+  description: 'View your saved offers.'
+  route_name: ps_favorite.account_page
+  menu_name: account
+  weight: 5
+
+ps_favorite.settings:
+  title: 'Favorites'
+  description: 'Configure favorites behavior.'
+  route_name: ps_favorite.settings
+  parent: ps_core.config

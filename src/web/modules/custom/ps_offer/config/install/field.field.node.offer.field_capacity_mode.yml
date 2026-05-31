@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_capacity_mode
+    - node.type.offer
+  module:
+    - options
+id: node.offer.field_capacity_mode
+field_name: field_capacity_mode
+entity_type: node
+bundle: offer
+label: 'Capacity mode'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: SURFACE_BASED
+default_value_callback: ''
+settings: { }
+field_type: list_string

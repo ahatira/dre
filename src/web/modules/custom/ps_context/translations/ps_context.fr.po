@@ -1,0 +1,18 @@
+# French translation for ps_context
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_context\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+msgid "Matrix rules"
+msgstr "Règles matrice"
+
+msgid "Administer PS Context matrix"
+msgstr "Administrer la matrice PS Context"
+
+msgid "Configure the offer form field visibility matrix rules."
+msgstr "Configurer les règles de visibilité du formulaire Offre."

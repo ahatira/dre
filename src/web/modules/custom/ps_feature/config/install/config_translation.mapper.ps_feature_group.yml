@@ -1,0 +1,6 @@
+id: ps_feature_group
+title: 'Feature group'
+weight: 10
+names:
+  - 'ps_feature.feature_group.*'
+entity_type: fb_feature_group

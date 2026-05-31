@@ -1,0 +1,16 @@
+favorites:
+  version: 1.x
+  css:
+    component:
+      css/ps-favorite.css: {}
+  js:
+    js/ps-favorite.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.announce
+    - core/drupal.ajax
+    - core/drupal.dialog.ajax
+    - core/drupal.dialog.off_canvas
+    - core/drupal.locale
+    - core/drupalSettings
+    - core/once

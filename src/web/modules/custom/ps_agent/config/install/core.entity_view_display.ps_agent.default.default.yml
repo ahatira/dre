@@ -1,0 +1,83 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - ps_agent.ps_agent_type.default
+  module:
+    - ps_agent
+    - user
+id: ps_agent.default.default
+targetEntityType: ps_agent
+bundle: default
+mode: default
+content:
+  avatar:
+    type: image
+    weight: 0
+    label: hidden
+    region: content
+    settings:
+      image_style: agent_avatar_md
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {}
+  display_name:
+    type: string
+    weight: 1
+    label: hidden
+    region: content
+    settings: {}
+    third_party_settings: {}
+  civility:
+    type: ps_dictionary_formatter
+    weight: 2
+    label: above
+    region: content
+    settings: {}
+    third_party_settings: {}
+  job_title:
+    type: string
+    weight: 3
+    label: above
+    region: content
+    settings: {}
+    third_party_settings: {}
+  internal_external:
+    type: list_default
+    weight: 4
+    label: above
+    region: content
+    settings: {}
+    third_party_settings: {}
+  email:
+    type: email_mailto
+    weight: 5
+    label: above
+    region: content
+    settings: {}
+    third_party_settings: {}
+  phone:
+    type: telephone_link
+    weight: 6
+    label: above
+    region: content
+    settings:
+      title: ''
+    third_party_settings: {}
+  status:
+    type: boolean
+    weight: 7
+    label: above
+    region: content
+    settings:
+      format: custom
+      format_custom_true: Published
+      format_custom_false: Unpublished
+    third_party_settings: {}
+hidden:
+  uid: true
+  has_avatar: true
+  created: true
+  first_name: true
+  last_name: true

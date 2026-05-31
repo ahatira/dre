@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: { }
+id: mediahub_video
+label: 'MediaHub video URL'
+description: 'Direct external video URL (non-oEmbed) for MediaHub AssetLink links.'
+source: bnp_external_video
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_video_url
+field_map: { }

@@ -1,0 +1,13 @@
+uuid: e5dc434b-41bc-462d-a1f6-0809347307d7
+langcode: en
+status: true
+dependencies: {  }
+id: google_maps
+label: 'Google Maps'
+plugin: googlemaps
+configuration:
+  throttle: {  }
+  geocoder:
+    locale: ''
+  apiKey: AIzaSyCshPl4knVJ3zqq5Rp3wRYLdtRgT7El6aM
+  region: fr

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card_favorite
+    - node.type.offer
+  module:
+    - ps_favorite
+id: node.offer
+label: Offer
+entity_type_id: node
+bundle: offer
+max_favorites: 0
+view_mode: card_favorite

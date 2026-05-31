@@ -1,0 +1,4 @@
+administer ps surface entities:
+  title: 'Administer PS surface entities'
+  description: 'Manage surface division entities and configuration.'
+  restrict access: true

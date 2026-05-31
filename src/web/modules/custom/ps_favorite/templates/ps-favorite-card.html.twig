@@ -1,0 +1,22 @@
+<article class="ps-favorite-card" data-ps-favorite-card data-entity-type-id="{{ entity_type_id }}" data-entity-id="{{ entity_id }}">
+  <div class="ps-favorite-card__body">
+    <div class="ps-favorite-card__topline">
+      {% if url %}
+        <h3 class="ps-favorite-card__title"><a href="{{ url }}">{{ title }}</a></h3>
+      {% else %}
+        <h3 class="ps-favorite-card__title">{{ title }}</h3>
+      {% endif %}
+      <div class="ps-favorite-card__actions">{{ toggle_button }}</div>
+    </div>
+
+    <div class="ps-favorite-card__content">
+      {% if entity_view %}
+        {{ entity_view }}
+      {% elseif url %}
+        <a class="ps-favorite-card__fallback-link" href="{{ url }}">{{ title }}</a>
+      {% else %}
+        <span class="ps-favorite-card__placeholder">{{ 'No preview available'|t }}</span>
+      {% endif %}
+    </div>
+  </div>
+</article>

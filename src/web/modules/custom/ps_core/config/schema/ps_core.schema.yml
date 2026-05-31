@@ -1,0 +1,16 @@
+ps_core.settings:
+  type: config_object
+  label: 'Property Search Core settings'
+  mapping:
+    cache_default_ttl:
+      type: integer
+      label: 'Default cache TTL (seconds)'
+    enable_audit_logging:
+      type: boolean
+      label: 'Enable audit logging'
+    audit_retention_days:
+      type: integer
+      label: 'Audit retention (days)'
+    conflict_window_seconds:
+      type: integer
+      label: 'Conflict detection window (seconds)'

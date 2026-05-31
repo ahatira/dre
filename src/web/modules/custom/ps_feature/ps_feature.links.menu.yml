@@ -1,0 +1,20 @@
+ps_feature.feature_groups:
+  title: 'Feature groups'
+  description: 'Manage feature groups (e.g. Amenities, Technical features)'
+  route_name: entity.fb_feature_group.collection
+  parent: ps_core.structure
+  weight: 20
+
+ps_feature.feature_definitions:
+  title: 'Features'
+  description: 'Manage the feature catalogue available for offers'
+  route_name: entity.fb_feature_definition.collection
+  parent: ps_core.content
+  weight: 25
+
+ps_feature.feature_types:
+  title: 'Feature types'
+  description: 'Available data types for features (defined by developers)'
+  route_name: ps_feature.feature_types
+  parent: ps_core.config
+  weight: 20

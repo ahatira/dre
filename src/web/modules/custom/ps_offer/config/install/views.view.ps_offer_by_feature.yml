@@ -1,0 +1,208 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.offer.field_features
+    - node.type.offer
+  module:
+    - node
+    - user
+id: ps_offer_by_feature
+label: 'Offers by feature'
+module: views
+description: 'Admin listing of offers with feature-based filtering.'
+tag: default
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Offers by feature'
+      access:
+        type: perm
+        options:
+          perm: 'access content overview'
+      cache:
+        type: tag
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: true
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          items_per_page: 50
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+            status: status
+            changed: changed
+            operations: operations
+          default: changed
+          info:
+            title:
+              sortable: true
+            status:
+              sortable: true
+            changed:
+              sortable: true
+            operations:
+              sortable: false
+      row:
+        type: fields
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Title
+          type: string
+          settings:
+            link_to_entity: true
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: field
+          label: Status
+          type: boolean
+          settings:
+            format: custom
+            format_custom_false: Unpublished
+            format_custom_true: Published
+        changed:
+          id: changed
+          table: node_field_data
+          field: changed
+          entity_type: node
+          entity_field: changed
+          plugin_id: field
+          label: Updated
+          type: timestamp
+          settings:
+            date_format: short
+            custom_date_format: ''
+            timezone: ''
+            tooltip:
+              date_format: long
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
+        operations:
+          id: operations
+          table: node
+          field: operations
+          plugin_id: entity_operations
+          label: Operations
+          destination: true
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            offer: offer
+          exposed: false
+        field_features_feature_definition_id:
+          id: field_features_feature_definition_id
+          table: node__field_features
+          field: field_features_feature_definition_id
+          plugin_id: string
+          operator: contains
+          value: ''
+          exposed: true
+          expose:
+            label: 'Feature ID'
+            identifier: feature_id
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          operator: '='
+          value: ''
+          exposed: true
+          expose:
+            label: Status
+            identifier: status
+          is_grouped: true
+          group_info:
+            label: Status
+            identifier: status
+            optional: true
+            widget: select
+            multiple: false
+            default_group: All
+            default_group_multiple: {}
+            group_items:
+              1:
+                title: Published
+                operator: '='
+                value: '1'
+              2:
+                title: Unpublished
+                operator: '='
+                value: '0'
+      sorts:
+        changed:
+          id: changed
+          table: node_field_data
+          field: changed
+          plugin_id: date
+          order: DESC
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No offers found for the current filters.'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      path: admin/ps/content/offers-by-feature
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'url.query_args'
+        - user.permissions
+      tags: {}

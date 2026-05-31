@@ -1,0 +1,12 @@
+name: 'Property Search - Media'
+type: module
+description: 'Minimal media foundation for offer media workflows.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - bnp_media:bnp_media
+  - drupal:media
+  - drupal:link
+  - drupal:field
+  - drupal:image

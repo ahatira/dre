@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Update hooks for ps_feature module.
+ */
+
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+
+/**
+ * Install entity_offer_feature schema.
+ */
+function ps_feature_update_9001() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  
+  // Install the entity type.
+  $entity_type = $entity_type_manager->getDefinition('entity_offer_feature');
+  $entity_definition_update_manager->installEntityType($entity_type);
+  
+  return t('Installed entity_offer_feature schema.');
+}

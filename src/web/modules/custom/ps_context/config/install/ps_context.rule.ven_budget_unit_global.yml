@@ -1,0 +1,14 @@
+id: ven_budget_unit_global
+uuid: 2a1b3c4d-0100-0000-0000-000000000004
+label: 'VEN: Set price unit to GLOBAL'
+status: true
+weight: -20
+conditions_logic: AND
+conditions:
+  - field_name: field_operation_type
+    operator: equals
+    value: VEN
+actions:
+  - action_type: set_default
+    target: field_budget_unit
+    value: GLOBAL

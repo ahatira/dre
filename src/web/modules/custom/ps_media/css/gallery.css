@@ -1,0 +1,23 @@
+.ps-media-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.ps-media-gallery__item {
+  border: 1px solid #d9dee3;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.ps-media-gallery__thumb,
+.ps-media-gallery img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ps-media-gallery__title {
+  margin: 0.5rem 0 0;
+  font-weight: 600;
+}

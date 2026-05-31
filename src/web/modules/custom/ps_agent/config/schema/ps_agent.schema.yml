@@ -1,0 +1,16 @@
+ps_agent.fallback:
+  type: config_object
+  label: 'PS Agent fallback settings'
+  mapping:
+    default_fid:
+      type: integer
+      label: 'Default fallback file ID'
+    mr_fid:
+      type: integer
+      label: 'MR fallback file ID'
+    mrs_fid:
+      type: integer
+      label: 'MRS fallback file ID'
+    ms_fid:
+      type: integer
+      label: 'MS fallback file ID'

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_capacity_unit
+    - node.type.offer
+  module:
+    - options
+id: node.offer.field_capacity_unit
+field_name: field_capacity_unit
+entity_type: node
+bundle: offer
+label: 'Capacity unit'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: POSTE
+default_value_callback: ''
+settings: { }
+field_type: list_string

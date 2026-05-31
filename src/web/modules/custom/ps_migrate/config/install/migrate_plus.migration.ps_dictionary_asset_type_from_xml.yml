@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+  module:
+    - ps_dictionary
+id: ps_dictionary_asset_type_from_xml
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Ensure Dictionary Asset Types from CRM XML'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  item_selector: /OFFERS_LIST/OFFER[normalize-space(TYPE_CODE) != '' and not(TYPE_CODE = preceding::OFFER/TYPE_CODE)]
+  fields:
+    -
+      name: type_code
+      label: 'Asset type code from CRM'
+      selector: TYPE_CODE
+  ids:
+    type_code:
+      type: string
+  constants:
+    dictionary_type: asset_type
+process:
+  pseudo_code:
+    plugin: static_map
+    source: type_code
+    map:
+      LOG: ENT
+    bypass: true
+  pseudo_code_lower:
+    plugin: callback
+    callable: strtolower
+    source: '@pseudo_code'
+
+  id:
+    plugin: concat
+    source:
+      - constants/dictionary_type
+      - '@pseudo_code_lower'
+    delimiter: .
+  type: constants/dictionary_type
+  code: '@pseudo_code'
+  label:
+    plugin: dictionary_label_or_existing
+    source: '@pseudo_code'
+  weight:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:ps_dictionary_entry'
+migration_dependencies:
+  required: []
+  optional: []

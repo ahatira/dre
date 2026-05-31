@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_technical_id
+    - node.type.offer
+id: node.offer.field_technical_id
+field_name: field_technical_id
+entity_type: node
+bundle: offer
+label: 'Technical ID'
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: string

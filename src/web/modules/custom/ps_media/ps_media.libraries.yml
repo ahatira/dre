@@ -1,0 +1,23 @@
+# PS Media Libraries
+#
+# CSS and JS libraries for gallery and documents display.
+
+gallery:
+  version: 1.0.0
+  css:
+    theme:
+      css/gallery.css: {}
+  js:
+    js/gallery.js: {}
+  dependencies:
+    - drupal/core/drupal
+
+documents:
+  version: 1.0.0
+  css:
+    theme:
+      css/documents.css: {}
+  js:
+    js/documents.js: {}
+  dependencies:
+    - drupal/core/drupal

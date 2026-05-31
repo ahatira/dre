@@ -1,0 +1,4 @@
+administer ps_context matrix:
+  title: 'Administer PS Context matrix'
+  description: 'Configure the offer form field visibility matrix rules.'
+  restrict access: true

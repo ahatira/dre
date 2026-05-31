@@ -1,0 +1,20 @@
+ps_diagnostic.settings:
+  title: 'Diagnostics'
+  description: 'Configure diagnostics.'
+  route_name: ps_diagnostic.settings
+  parent: ps_core.config
+  weight: 40
+
+ps_diagnostic.admin_structure:
+  title: 'Diagnostics'
+  description: 'Manage diagnostics structure.'
+  route_name: ps_diagnostic.admin_structure
+  parent: ps_core.structure
+  weight: 40
+
+entity.ps_diagnostic_type.collection:
+  title: 'Diagnostic types'
+  description: 'Manage diagnostic types.'
+  route_name: entity.ps_diagnostic_type.collection
+  parent: ps_diagnostic.admin_structure
+  weight: 0

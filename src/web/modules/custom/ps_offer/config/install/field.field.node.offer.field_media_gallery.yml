@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+    - media.type.file
+    - media.type.gallery
+    - field.storage.node.field_media_gallery
+    - media.type.image
+    - media.type.mediahub_video
+    - media.type.remote_video
+    - media.type.video
+    - media.type.visite_guided
+    - node.type.offer
+  module:
+    - media
+id: node.offer.field_media_gallery
+field_name: field_media_gallery
+entity_type: node
+bundle: offer
+label: Gallery
+description: 'Media gallery (images, videos, audio, files, galleries, virtual tours)'
+required: false
+translatable: false
+field_type: entity_reference
+default_value: []
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      audio: audio
+      file: file
+      gallery: gallery
+      image: image
+      mediahub_video: mediahub_video
+      remote_video: remote_video
+      video: video
+      visite_guided: visite_guided
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+display:
+  default:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -4
+  teaser:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -4

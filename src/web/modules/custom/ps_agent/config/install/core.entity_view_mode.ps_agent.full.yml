@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+id: ps_agent.full
+label: Full
+targetEntityType: ps_agent
+cache: true

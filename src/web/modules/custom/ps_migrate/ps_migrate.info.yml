@@ -1,0 +1,8 @@
+name: 'PS Migrate'
+type: module
+description: 'Provides migration support for PS entities with entity protection integration'
+package: 'PS'
+core_version_requirement: ^11.3
+dependencies:
+  - drupal:migrate
+  - ps_core

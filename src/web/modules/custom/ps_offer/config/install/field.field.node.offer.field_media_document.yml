@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_document
+    - media.type.file
+    - node.type.offer
+  module:
+    - media
+id: node.offer.field_media_document
+field_name: field_media_document
+entity_type: node
+bundle: offer
+label: Brochure
+description: 'Single downloadable brochure document (PDF, Word, etc.)'
+required: false
+translatable: true
+field_type: entity_reference
+default_value: []
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      file: file
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+display:
+  default:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -3
+  teaser:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -3

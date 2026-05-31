@@ -1,0 +1,179 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\ps_agent\Hook;
+
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
+final class AgentFallbackHooks {
+
+  use StringTranslationTrait;
+
+  public function __construct(
+    private readonly ConfigFactoryInterface $configFactory,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ModuleExtensionList $moduleExtensionList,
+    private readonly RendererInterface $renderer,
+    private readonly FileUrlGeneratorInterface $fileUrlGenerator,
+  ) {}
+
+  #[Hook('entity_view')]
+  public function entityView(array &$build, EntityInterface $entity): void {
+    if ($entity->getEntityTypeId() !== 'ps_agent' || !$entity->hasField('avatar')) {
+      return;
+    }
+
+    /** @var \Drupal\Core\Field\FieldItemListInterface $avatar */
+    $avatar = $entity->get('avatar');
+    if (!$avatar->isEmpty()) {
+      return;
+    }
+
+    $uri = $this->resolveFallbackUri($entity);
+    if ($uri === NULL) {
+      return;
+    }
+
+    $build['avatar'] = $this->buildFallbackRenderArray($uri, $entity->label(), 'agent_avatar_md', 96, 96);
+    $build['avatar']['#weight'] = 7;
+  }
+
+  #[Hook('preprocess_views_view_field')]
+  public function preprocessViewsViewField(array &$variables): void {
+    if (empty($variables['view']) || empty($variables['field']) || !isset($variables['row'])) {
+      return;
+    }
+
+    $view = $variables['view'];
+    $field = $variables['field'];
+
+    if ($view->id() !== 'ps_agent_admin' || ($field->field ?? NULL) !== 'avatar') {
+      return;
+    }
+
+    if (trim((string) ($variables['output'] ?? '')) !== '') {
+      return;
+    }
+
+    $entity = $variables['row']->_entity ?? NULL;
+    if (!$entity instanceof EntityInterface || $entity->getEntityTypeId() !== 'ps_agent') {
+      return;
+    }
+
+    // Prefer rendering the real avatar when a valid file is available.
+    if ($entity->hasField('avatar') && !$entity->get('avatar')->isEmpty()) {
+      $file = $entity->get('avatar')->entity;
+      if ($file instanceof EntityInterface && method_exists($file, 'access') && method_exists($file, 'getFileUri') && $file->access('view')) {
+        $uri = (string) $file->getFileUri();
+        if ($uri !== '') {
+          $render = [
+            '#theme' => 'image_style',
+            '#style_name' => 'agent_avatar_xs',
+            '#uri' => $uri,
+            '#alt' => $entity->label(),
+          ];
+          $variables['output'] = Markup::create((string) $this->renderer->render($render));
+          return;
+        }
+      }
+    }
+
+    $uri = $this->resolveFallbackUri($entity);
+    if ($uri === NULL) {
+      return;
+    }
+
+    $render = $this->buildFallbackRenderArray($uri, $entity->label(), 'agent_avatar_xs', 40, 40);
+
+    $variables['output'] = Markup::create((string) $this->renderer->render($render));
+  }
+
+  private function resolveFallbackUri(EntityInterface $entity): ?string {
+    $config = $this->configFactory->get('ps_agent.fallback');
+    $civility = $entity->hasField('civility') ? (string) ($entity->get('civility')->value ?? '') : NULL;
+    $fid = $this->resolveFallbackFid($config, $civility);
+
+    if ($fid > 0) {
+      $file = $this->entityTypeManager->getStorage('file')->load($fid);
+      if ($file instanceof EntityInterface && method_exists($file, 'getFileUri')) {
+        $uri = $file->getFileUri();
+        if (is_string($uri) && $uri !== '') {
+          return $uri;
+        }
+      }
+    }
+
+    // Built-in module fallback files if no managed fallback is configured.
+    $modulePath = $this->moduleExtensionList->getPath('ps_agent');
+    $civility = $entity->hasField('civility') ? (string) ($entity->get('civility')->value ?? '') : '';
+    $map = [
+      'MR' => 'avatar-fallback-mr.svg',
+      'MRS' => 'avatar-fallback-mrs.svg',
+      'MS' => 'avatar-fallback-ms.svg',
+    ];
+
+    $fileName = $map[$civility] ?? 'avatar-fallback-default.svg';
+    return '/' . $modulePath . '/images/' . $fileName;
+  }
+
+  private function resolveFallbackFid(\Drupal\Core\Config\ImmutableConfig $config, ?string $civility): int {
+    $code = (string) ($civility ?? '');
+
+    return match ($code) {
+      'MR' => (int) ($config->get('mr_fid') ?? 0),
+      'MRS' => (int) ($config->get('mrs_fid') ?? 0),
+      'MS' => (int) ($config->get('ms_fid') ?? 0),
+      default => (int) ($config->get('default_fid') ?? 0),
+    };
+  }
+
+  private function buildFallbackRenderArray(string $uri, string $alt, string $imageStyle, int $width, int $height): array {
+    if (str_starts_with($uri, 'public://') || str_starts_with($uri, 'private://') || str_starts_with($uri, 'temporary://')) {
+      $extension = strtolower((string) pathinfo($uri, PATHINFO_EXTENSION));
+      if ($extension === 'svg') {
+        return [
+          '#type' => 'html_tag',
+          '#tag' => 'img',
+          '#attributes' => [
+            'src' => $this->fileUrlGenerator->generateString($uri),
+            'alt' => $alt,
+            'width' => $width,
+            'height' => $height,
+            'loading' => 'lazy',
+            'decoding' => 'async',
+          ],
+        ];
+      }
+
+      return [
+        '#theme' => 'image_style',
+        '#style_name' => $imageStyle,
+        '#uri' => $uri,
+        '#alt' => $alt,
+      ];
+    }
+
+    return [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => $uri,
+        'alt' => $alt,
+        'width' => $width,
+        'height' => $height,
+        'loading' => 'lazy',
+        'decoding' => 'async',
+      ],
+    ];
+  }
+
+}

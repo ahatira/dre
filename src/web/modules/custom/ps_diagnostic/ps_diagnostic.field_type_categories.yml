@@ -1,0 +1,3 @@
+ps_diagnostic:
+  label: 'PS Diagnostic'
+  description: 'Diagnostic fields for offers.'

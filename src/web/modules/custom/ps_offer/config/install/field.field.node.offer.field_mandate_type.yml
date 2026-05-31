@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mandate_type
+    - node.type.offer
+  module:
+    - ps_dictionary
+id: node.offer.field_mandate_type
+field_name: field_mandate_type
+entity_type: node
+bundle: offer
+label: 'Mandate type'
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings:
+  dictionary_type: mandate_type
+field_type: ps_dictionary

@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_currency
+    - node.type.offer
+  module:
+    - ps_dictionary
+id: node.offer.field_budget_currency
+field_name: field_budget_currency
+entity_type: node
+bundle: offer
+label: 'Price currency'
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings:
+  dictionary_type: currency
+field_type: ps_dictionary

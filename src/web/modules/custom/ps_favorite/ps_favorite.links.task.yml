@@ -1,0 +1,5 @@
+ps_favorite.account_page:
+  route_name: ps_favorite.account_page
+  base_route: user.page
+  title: 'Favorites'
+  weight: 15

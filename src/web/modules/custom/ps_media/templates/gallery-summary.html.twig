@@ -1,0 +1,183 @@
+{#
+/**
+ * @file
+ * Theme template for gallery display (Q9, Q12).
+ *
+ * Available variables:
+ * - offer: The parent offer node
+ * - medias: Array of media entities (sorted by type then manual order)
+ * - order: Ordering mode ('type_then_manual' or 'manual_only')
+ * - show_titles: Whether to display media titles
+ * - use_thumbnail: Whether to use thumbnail images
+ * - lazy_load: Whether to enable lazy loading
+ * - styled_urls: Optional map of precomputed styled URLs keyed by media ID
+ */
+#}
+<div class="gallery-container ps-media-gallery" data-order="{{ order }}">
+  {% if medias %}
+    <div class="gallery-items">
+      {% for media in medias %}
+        {% set media_type = media.bundle() %}
+        <figure class="gallery-item gallery-item--{{ media_type }}" data-media-id="{{ media.id() }}">
+          {% if use_thumbnail %}
+            {% if media_type == 'image' %}
+              {# Image: use field_media_image directly #}
+              {% if media.field_media_image and not media.field_media_image.isEmpty() %}
+                <div class="gallery-item__image">
+                  {% set image_uri = media.field_media_image.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                </div>
+              {% endif %}
+            {% elseif media_type == 'remote_video' %}
+              {# Remote video: use Drupal media thumbnail generated from oEmbed provider. #}
+              {% if media.thumbnail and not media.thumbnail.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  {% set image_uri = media.thumbnail.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                </div>
+              {% elseif media.field_media_oembed_video and not media.field_media_oembed_video.isEmpty() %}
+                {% set oembed_url = media.field_media_oembed_video.value|default('') %}
+                {% set youtube_id = '' %}
+
+                {% if 'youtube.com/watch?v=' in oembed_url %}
+                  {% set youtube_id = oembed_url|split('v=')|last|split('&')|first %}
+                {% elseif 'youtu.be/' in oembed_url %}
+                  {% set youtube_id = oembed_url|split('youtu.be/')|last|split('?')|first %}
+                {% endif %}
+
+                <div class="gallery-item__image gallery-item__image--video">
+                  {% if youtube_id %}
+                    <img src="{{ 'https://img.youtube.com/vi/' ~ youtube_id ~ '/hqdefault.jpg' }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                  {% else %}
+                    <span class="gallery-item__placeholder">{{ 'Remote video' | t }}</span>
+                  {% endif %}
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  <span class="gallery-item__placeholder">{{ 'Remote video' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'video' %}
+              {# Local video file: use generated media thumbnail when available. #}
+              {% if media.thumbnail and not media.thumbnail.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  {% set image_uri = media.thumbnail.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  <span class="gallery-item__placeholder">{{ 'Video file' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'audio' %}
+              {# Audio file: show native player when file is available. #}
+              {% if media.field_media_audio_file and not media.field_media_audio_file.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--audio">
+                  <audio controls preload="metadata" style="width: 100%;">
+                    <source src="{{ file_url(media.field_media_audio_file.entity.uri.value) }}" />
+                  </audio>
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--audio">
+                  <span class="gallery-item__placeholder">{{ 'Audio file' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'file' %}
+              {# Generic file: show a simple download link card. #}
+              {% if media.field_media_file and not media.field_media_file.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--file">
+                  <a href="{{ file_url(media.field_media_file.entity.uri.value) }}" target="_blank" rel="noopener noreferrer">{{ 'Open file' | t }}</a>
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--file">
+                  <span class="gallery-item__placeholder">{{ 'Document file' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'gallery' %}
+              {# Gallery media item: show its representative image. #}
+              {% if media.field_media_gallery_image and not media.field_media_gallery_image.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--gallery">
+                  {% set image_uri = media.field_media_gallery_image.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--gallery">
+                  <span class="gallery-item__placeholder">{{ 'Gallery item' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'mediahub_video' %}
+              {# MediaHub direct URL (non-oEmbed): preview with HTML5 video when available. #}
+              {% if media.field_media_video_url and not media.field_media_video_url.isEmpty() %}
+                {% set video_url = media.field_media_video_url.value|default('') %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  <video controls preload="metadata" style="width: 100%; height: auto;">
+                    <source src="{{ video_url }}" type="video/mp4" />
+                  </video>
+                </div>
+              {% else %}
+                <div class="gallery-item__image gallery-item__image--video">
+                  <span class="gallery-item__placeholder">{{ 'MediaHub video' | t }}</span>
+                </div>
+              {% endif %}
+            {% elseif media_type == 'visite_guided' %}
+              {# Virtual tour: use manual thumbnail field_media_image #}
+              {% if media.field_media_image and not media.field_media_image.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--virtual-tour">
+                  {% set image_uri = media.field_media_image.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                  <div class="gallery-item__icon-overlay">
+                    <svg class="icon-360" viewBox="0 0 24 24" aria-label="Virtual Tour">
+                      <use xlink:href="#icon-virtual-tour"></use>
+                    </svg>
+                  </div>
+                </div>
+              {% elseif media.thumbnail and not media.thumbnail.isEmpty() %}
+                <div class="gallery-item__image gallery-item__image--virtual-tour">
+                  {% set image_uri = media.thumbnail.entity.uri.value %}
+                  <img src="{{ styled_urls[media.id()]|default(file_url(image_uri)) }}" alt="{{ media.name() }}" loading="{{ lazy_load ? 'lazy' : 'eager' }}" />
+                  <div class="gallery-item__icon-overlay">
+                    <svg class="icon-360" viewBox="0 0 24 24" aria-label="Virtual Tour">
+                      <use xlink:href="#icon-virtual-tour"></use>
+                    </svg>
+                  </div>
+                </div>
+              {% else %}
+                {# Thumbnail missing warning (Q15: warning not mandatory) #}
+                <div class="gallery-item__image gallery-item__image--placeholder">
+                  <div class="alert alert-warning">
+                    {{ 'Virtual tour thumbnail missing' | t }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+          {% if show_titles %}
+            <figcaption class="gallery-item__caption">
+              <h3 class="gallery-item__title">
+                {% if media_type == 'visite_guided' and media.field_media_link and not media.field_media_link.isEmpty() %}
+                  {# Virtual tour: show URL link #}
+                  {{ media.field_media_link.0.title | default(media.field_media_link.0.uri) }}
+                {% else %}
+                  {# Default: show media name/title #}
+                  {{ media.name() }}
+                {% endif %}
+              </h3>
+            </figcaption>
+          {% endif %}
+
+          {% if lazy_load %}
+            <noscript class="gallery-item__noscript">
+              {# Fallback for no-JS browsers #}
+              {{ media.label }}
+            </noscript>
+          {% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="gallery-empty">
+      {{ 'No media items in gallery' | t }}
+    </div>
+  {% endif %}
+</div>

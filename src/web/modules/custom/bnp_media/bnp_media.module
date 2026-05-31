@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * BNP Media module. All hooks implemented in src/Hook/.
+ */

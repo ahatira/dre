@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_value
+    - node.type.offer
+id: node.offer.field_budget_value
+field_name: field_budget_value
+entity_type: node
+bundle: offer
+label: Price
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings:
+  min: ''
+  max: ''
+  prefix: ''
+  suffix: ''
+field_type: decimal

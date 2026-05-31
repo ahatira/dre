@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.file
+  module:
+    - dropzonejs_eb_widget
+    - media
+name: bnp_media_brochure_upload
+label: 'Brochure document picker'
+display: modal
+display_configuration:
+  width: '900'
+  height: '650'
+  link_text: 'Upload brochure'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: { }
+widget_selector: tabs
+widget_selector_configuration: { }
+widgets:
+  4a33f7a3-1e38-4f89-b29d-fb5ee4fe4f8e:
+    settings:
+      media_type: file
+      upload_location: 'public://offers/brochures'
+      dropzone_description: 'Drop brochure document here or click to upload'
+      max_filesize: 32M
+      extensions: 'pdf doc docx odt rtf xls xlsx ppt pptx'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select brochure'
+      auto_select: false
+    uuid: 4a33f7a3-1e38-4f89-b29d-fb5ee4fe4f8e
+    weight: 0
+    label: 'Upload brochure'
+    id: dropzonejs_media_entity

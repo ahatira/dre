@@ -1,0 +1,5 @@
+ps_surface.surface_division.collection:
+  title: 'Surface divisions'
+  route_name: entity.ps_surface_division.collection
+  parent: ps_core.content
+  weight: 30

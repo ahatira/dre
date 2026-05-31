@@ -1,0 +1,93 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+id: ps_agent_avatar_file_from_xml
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Agent Avatar Files from CRM XML (Step 1: Download avatar images)'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  # Select only unique leaders with non-empty avatar URL.
+  item_selector: /OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '' and normalize-space(AVATAR_URL) != '']
+  fields:
+    -
+      name: uid
+      label: 'Agent UID'
+      selector: UID
+    -
+      name: avatar_url
+      label: 'Avatar URL'
+      selector: AVATAR_URL
+  # ID: UID de l'agent
+  ids:
+    uid:
+      type: string
+  constants:
+    file_destination_base: 'public://crm/avatars/'
+process:
+  # ===== SKIP IF NO AVATAR_URL =====
+  # Skip rows without avatar URL
+  psf_skip_check:
+    plugin: skip_on_empty
+    source: avatar_url
+    method: row
+  
+  # ===== FILENAME =====
+  # Extraire le nom de fichier depuis l'URL
+  psf_destination_filename:
+    plugin: callback
+    callable: basename
+    source: avatar_url
+  
+  # ===== URL DECODE FILENAME =====
+  # Décoder les caractères encodés (%20, etc.)
+  psf_filename_decoded:
+    plugin: callback
+    callable: urldecode
+    source: '@psf_destination_filename'
+  
+  # ===== DESTINATION PATH =====
+  # Construire: public://crm/avatars/filename.jpg
+  psf_destination_full_path:
+    plugin: concat
+    source:
+      - constants/file_destination_base
+      - '@psf_filename_decoded'
+    delimiter: ''
+  
+  # ===== FILE COPY =====
+  # Plugin natif file_copy pour télécharger depuis URL
+  uri:
+    plugin: file_copy
+    source:
+      - avatar_url
+      - '@psf_destination_full_path'
+    file_exists: 'rename'
+    move: false
+  
+  # ===== FILE STATUS =====
+  status:
+    plugin: default_value
+    default_value: 1
+  
+  uid:
+    plugin: default_value
+    default_value: 1
+
+destination:
+  plugin: 'entity:file'
+
+migration_dependencies:
+  required: []
+  optional: []

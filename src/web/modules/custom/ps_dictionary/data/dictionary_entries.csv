@@ -1,0 +1,49 @@
+type,code,label,weight,label_fr,label_nl,label_es,label_it,label_lb,label_pl,label_de
+asset_type,BUR,Office,1,Bureau,Kantoor,Oficina,Ufficio,Büro,Biuro,Büro
+asset_type,COW,Coworking,2,Coworking,Coworking,Coworking,Coworking,Coworking,Coworking,Coworking
+asset_type,ENT,Warehouse,3,Entrepôt/Logistique,Magazijn/Logistiek,Almacén/Logística,Magazzino/Logistica,Lager/Logistik,Magazyn/Logistyka,Lager/Logistik
+asset_type,ACT,Activity unit,4,Local d'activité,Bedrijfsruimte,Local de actividad,Locale di attività,Aktivitéitslokal,Lokal działalności,Gewerbefläche
+asset_type,COM,Retail unit,5,Commerce,Winkelruimte,Local comercial,Locale commerciale,Geschäftslokal,Lokal handlowy,Ladenfläche
+asset_type,TER,Land,6,Terrain,Terrein,Terreno,Terreno,Terrain,Teren,Grundstück
+operation_type,LOC,To rent,1,À louer,Te huur,En alquiler,In affitto,Ze lounen,Do wynajęcia,Zu vermieten
+operation_type,VEN,For sale,2,À vendre,Te koop,En venta,In vendita,Ze verkafen,Na sprzedaż,Zu verkaufen
+surface_unit,M2,Square meter,1,Mètre carré,Vierkante meter,Metro cuadrado,Metro quadrato,Quadratmeter,Metr kwadratowy,Quadratmeter
+surface_unit,HA,Hectare,2,Hectare,Hectare,Hectárea,Ettaro,Hektar,Hektar,Hektar
+surface_qualification,TOTAL,Total surface,1,Surface totale,Surface totale,Superficie total,Superficie totale,Gesamtfläche,Powierzchnia całkowita,Gesamtfläche
+surface_qualification,DISPO,Available surface,2,Surface disponible,Beschikbare oppervlakte,Superficie disponible,Superficie disponibile,Verfügbar Fläche,Dostępna powierzchnia,Verfügbare Fläche
+surface_qualification,ETREF,Reference surface (ERP),3,Surface de référence (ERP),Referentieoppervlakte (ERP),Superficie de referencia (ERP),Superficie di riferimento (ERP),Referenzfläche (ERP),Powierzchnia referencyjna (ERP),Referenzfläche (ERP)
+surface_qualification,MINIM,Minimum surface,4,Surface minimale,Minimale oppervlakte,Superficie mínima,Superficie minima,Mindestfläche,Minimalna powierzchnia,Mindestfläche
+surface_qualification,MAXIM,Maximum surface,5,Surface maximale,Maximale oppervlakte,Superficie máxima,Superficie massima,Maximalfläche,Maksymalna powierzchnia,Maximalfläche
+currency,EUR,Euro,1,Euro,Euro,Euro,Euro,Euro,Euro,Euro
+budget_period,YEAR,Yearly,1,Annuel,Jaarlijks,Anual,Annuale,Jährlech,Rocznie,Jährlich
+budget_period,MONTH,Monthly,2,Mensuel,Maandelijks,Mensual,Mensile,Méintlech,Miesięcznie,Monatlich
+budget_period,ONE_SHOT,One-shot fees,3,Frais uniques,Eenmalige kosten,Gastos únicos,Costi una tantum,Eemoleg Käschten,Opłaty jednorazowe,Einmalige Kosten
+budget_unit,PER_M2,Per m2,1,Par m²,Per m²,Por m²,Per m²,Pro m²,Za m²,Pro m²
+budget_unit,PER_POSTE,Per workstation,2,Par poste,Per werkplek,Por puesto de trabajo,Per postazione,Pro Aarbechtsplaz,Za stanowisko,Pro Arbeitsplatz
+budget_unit,GLOBAL,Global,3,Global,Globaal,Global,Globale,Global,Globalnie,Global
+mandate_type,SIM,Simple,1,Simple,Eenvoudig,Simple,Semplice,Einfach,Prosty,Einfach
+mandate_type,EX,Exclusive,2,Exclusif,Exclusief,Exclusivo,Esclusivo,Exklusiv,Wyłączny,Exklusiv
+mandate_type,CEX,Co-exclusive,3,Co-exclusif,Co-exclusief,Coexclusivo,Co-esclusivo,Ko-exklusiv,Współwyłączny,Ko-exklusiv
+mandate_type,CPR,Co-ownership,4,Co-propriété,Mede-eigendom,Copropiedad,Comproprietà,Matbesëtz,Współwłasność,Miteigentum
+mandate_type,PRE,Preemption,5,Préemption,Voorkooprecht,Derecho de tanteo,Prelazione,Vorkaufsrecht,Prawo pierwokupu,Vorkaufsrecht
+mandate_type,TRI,Tripartite,6,Tripartite,Tripartiet,Tripartito,Tripartito,Tripartit,Trójstronny,Tripartit
+mandate_type,DEL,Delegation,7,Délégation,Delegatie,Delegación,Delega,Delegatioun,Delegacja,Delegation
+dpe_class,A,Class A,1,Classe A,Klasse A,Clase A,Classe A,Klass A,Klasa A,Klasse A
+dpe_class,B,Class B,2,Classe B,Klasse B,Clase B,Classe B,Klass B,Klasa B,Klasse B
+dpe_class,C,Class C,3,Classe C,Klasse C,Clase C,Classe C,Klass C,Klasa C,Klasse C
+dpe_class,D,Class D,4,Classe D,Klasse D,Clase D,Classe D,Klass D,Klasa D,Klasse D
+dpe_class,E,Class E,5,Classe E,Klasse E,Clase E,Classe E,Klass E,Klasa E,Klasse E
+dpe_class,F,Class F,6,Classe F,Klasse F,Clase F,Classe F,Klass F,Klasa F,Klasse F
+dpe_class,G,Class G,7,Classe G,Klasse G,Clase G,Classe G,Klass G,Klasa G,Klasse G
+ges_class,A,Class A,1,Classe A,Klasse A,Clase A,Classe A,Klass A,Klasa A,Klasse A
+ges_class,B,Class B,2,Classe B,Klasse B,Clase B,Classe B,Klass B,Klasa B,Klasse B
+ges_class,C,Class C,3,Classe C,Klasse C,Clase C,Classe C,Klass C,Klasa C,Klasse C
+ges_class,D,Class D,4,Classe D,Klasse D,Clase D,Classe D,Klass D,Klasa D,Klasse D
+ges_class,E,Class E,5,Classe E,Klasse E,Clase E,Classe E,Klass E,Klasa E,Klasse E
+ges_class,F,Class F,6,Classe F,Klasse F,Clase F,Classe F,Klass F,Klasa F,Klasse F
+ges_class,G,Class G,7,Classe G,Klasse G,Clase G,Classe G,Klass G,Klasa G,Klasse G
+civility,MR,Mr,1,Monsieur,Meneer,Señor,Signor,Här,Pan,Herr
+civility,MRS,Mrs,2,Madame,Mevrouw,Señora,Signora,Madamm,Pani,Frau
+civility,MS,Ms,3,Mademoiselle,Juffrouw,Señorita,Signorina,Joffer,Panna,Fräulein
+client_type,B2B,Business to Business,1,B2B,B2B,B2B,B2B,B2B,B2B,B2B
+client_type,B2C,Business to Consumer,2,B2C,B2C,B2C,B2C,B2C,B2C,B2C

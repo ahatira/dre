@@ -1,0 +1,6 @@
+ps_search.seo_url_mappings_form:
+  title: 'SEO URL Mappings'
+  description: 'Manage URL slugs for operation and asset type filters.'
+  route_name: ps_search.seo_url_mappings_form
+  parent: ps_core.config
+  weight: 10

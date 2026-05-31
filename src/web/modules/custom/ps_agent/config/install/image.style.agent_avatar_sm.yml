@@ -1,0 +1,23 @@
+uuid: 8591e467-b8a8-4fe9-b12a-372e3644f333
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: agent_avatar_sm
+label: 'Agent avatar SM (64x64)'
+effects:
+  061c9544-bf44-43d0-b37f-6da367da6137:
+    uuid: 061c9544-bf44-43d0-b37f-6da367da6137
+    id: focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 64
+      height: 64
+      crop_type: focal_point
+  2b77b66c-7e7c-4a8a-9a16-4ffd8f44fe43:
+    uuid: 2b77b66c-7e7c-4a8a-9a16-4ffd8f44fe43
+    id: image_convert_avif
+    weight: 10
+    data:
+      extension: webp

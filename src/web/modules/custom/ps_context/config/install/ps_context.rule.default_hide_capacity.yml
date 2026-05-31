@@ -1,0 +1,11 @@
+id: default_hide_capacity
+uuid: 2a1b3c4d-0001-0000-0000-000000000001
+label: 'Default: Hide Capacity tab'
+status: true
+weight: -10
+conditions_logic: AND
+conditions: []
+actions:
+  - action_type: hide_tab
+    target: group_capacity
+    value: ''

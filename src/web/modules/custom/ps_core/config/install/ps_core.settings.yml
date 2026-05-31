@@ -1,0 +1,4 @@
+cache_default_ttl: 3600
+enable_audit_logging: true
+audit_retention_days: 365
+conflict_window_seconds: 300

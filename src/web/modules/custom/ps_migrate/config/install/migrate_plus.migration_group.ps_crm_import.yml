@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+id: ps_crm_import
+label: 'PS CRM Import'
+description: 'Migration group for importing data from CRM XML files'
+source_type: 'CRM XML'
+module: null
+shared_configuration: {  }

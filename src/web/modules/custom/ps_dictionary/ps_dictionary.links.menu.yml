@@ -1,0 +1,6 @@
+ps_dictionary.dictionary_types:
+  title: 'Dictionary types'
+  description: 'Manage dictionary types.'
+  route_name: ps_dictionary.type_collection
+  parent: ps_core.structure
+  weight: 20

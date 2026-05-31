@@ -1,0 +1,28 @@
+<section class="ps-favorite-list ps-favorite-list--{{ context }}" data-ps-favorite-list>
+  {% if title %}
+    <header class="ps-favorite-list__header">
+      <h1 class="ps-favorite-list__title">{{ title }}</h1>
+    </header>
+  {% endif %}
+
+  <div class="ps-favorite-list__empty{{ items ? ' is-hidden' : '' }}" data-ps-favorite-empty-state>
+    <h2 class="ps-favorite-list__empty-title">{{ empty_title }}</h2>
+    <p class="ps-favorite-list__empty-text">{{ empty_text }}</p>
+  </div>
+
+  <div class="ps-favorite-list__items" data-ps-favorite-items>
+    {% for item in items %}
+      {{ item }}
+    {% endfor %}
+  </div>
+
+  {% if show_view_all and page_url %}
+    <div class="ps-favorite-list__footer">
+      <a class="ps-favorite-list__view-all" href="{{ page_url }}">{{ 'View all favorites'|t }}</a>
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    <div class="ps-favorite-list__pager">{{ pager }}</div>
+  {% endif %}
+</section>

@@ -1,0 +1,12 @@
+services:
+  ps_agent.validation_manager:
+    class: Drupal\ps_agent\Service\AgentValidationManager
+
+  Drupal\ps_agent\Hook\AgentFallbackHooks:
+    class: Drupal\ps_agent\Hook\AgentFallbackHooks
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@extension.list.module'
+      - '@renderer'
+      - '@file_url_generator'

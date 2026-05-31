@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_diagnostics
+    - node.type.offer
+  module:
+    - ps_diagnostic
+id: node.offer.field_diagnostics
+field_name: field_diagnostics
+entity_type: node
+bundle: offer
+label: Diagnostics
+description: 'Energy diagnostics imported from CRM XML (DPE/GES).'
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ''
+settings:
+  allowed_types:
+    - dpe
+    - ges
+field_type: diagnostic_item

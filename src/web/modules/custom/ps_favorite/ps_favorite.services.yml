@@ -1,0 +1,77 @@
+services:
+  ps_favorite.cookie_storage:
+    class: Drupal\ps_favorite\Service\FavoriteCookieStorage
+    arguments:
+      - '@request_stack'
+      - '@private_key'
+      - '@settings'
+
+  ps_favorite.cookie_state:
+    class: Drupal\ps_favorite\Service\FavoriteCookieState
+
+  ps_favorite.repository:
+    class: Drupal\ps_favorite\Repository\FavoriteRepository
+    arguments:
+      - '@database'
+      - '@datetime.time'
+
+  Drupal\ps_favorite\Repository\FavoriteRepositoryInterface:
+    alias: ps_favorite.repository
+
+  ps_favorite.manager:
+    class: Drupal\ps_favorite\Service\FavoriteManager
+    arguments:
+      - '@current_user'
+      - '@entity_type.manager'
+      - '@ps_favorite.repository'
+      - '@ps_favorite.cookie_storage'
+      - '@ps_favorite.cookie_state'
+      - '@cache_tags.invalidator'
+      - '@config.factory'
+
+  Drupal\ps_favorite\Service\FavoriteManagerInterface:
+    alias: ps_favorite.manager
+
+  ps_favorite.page_builder:
+    class: Drupal\ps_favorite\Service\FavoritePageBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@entity_display.repository'
+      - '@ps_favorite.manager'
+      - '@pager.manager'
+      - '@ps_favorite.lazy_builder'
+
+  ps_favorite.lazy_builder:
+    class: Drupal\ps_favorite\Service\FavoriteLazyBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_favorite.manager'
+      - '@csrf_token'
+
+  Drupal\ps_favorite\Controller\FavoriteController:
+    class: Drupal\ps_favorite\Controller\FavoriteController
+    arguments:
+      - '@ps_favorite.page_builder'
+      - '@ps_favorite.manager'
+
+  Drupal\ps_favorite\Controller\FavoriteToggleController:
+    class: Drupal\ps_favorite\Controller\FavoriteToggleController
+    arguments:
+      - '@ps_favorite.manager'
+      - '@entity_type.manager'
+      - '@csrf_token'
+
+  Drupal\ps_favorite\Hook\PsFavoriteHooks:
+    class: Drupal\ps_favorite\Hook\PsFavoriteHooks
+    arguments:
+      - '@ps_favorite.manager'
+      - '@ps_favorite.repository'
+
+  ps_favorite.response_subscriber:
+    class: Drupal\ps_favorite\EventSubscriber\FavoriteResponseSubscriber
+    arguments:
+      - '@ps_favorite.cookie_storage'
+      - '@ps_favorite.cookie_state'
+    tags:
+      - { name: event_subscriber }
+

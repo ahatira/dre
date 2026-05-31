@@ -1,0 +1,11 @@
+name: 'PS Diagnostic'
+type: module
+description: 'Simple and configurable diagnostics module for offers.'
+package: 'PS'
+core_version_requirement: '^10 || ^11'
+dependencies:
+  - drupal:field
+  - drupal:file
+  - drupal:config_translation
+  - drupal:node
+  - ps_core:ps_core

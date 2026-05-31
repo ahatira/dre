@@ -1,0 +1,139 @@
+uuid: 8a4b5c6d-7e8f-9012-3456-789abcdef004
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+
+id: ps_surface_division_from_xml
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+
+label: 'Surface divisions from CRM XML'
+migration_tags:
+  - ps_project
+  - xml
+  - divisions
+
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  # Keep one source row per non-empty LOT to avoid duplicate-source leftovers
+  # that can block required dependency completion.
+  item_selector: /OFFERS_LIST/OFFER/DIVISIONS_LIST/DIVISION[normalize-space(LOT) != '' and not(LOT = preceding::DIVISION/LOT)]
+  
+  fields:
+    # Unique identifier
+    -
+      name: lot
+      label: 'LOT identifier'
+      selector: LOT
+    
+    # Building & Floor info
+    -
+      name: floor
+      label: 'Floor'
+      selector: FLOOR
+    -
+      name: building_name
+      label: 'Building name'
+      selector: BUILDING_NAME
+    
+    # Nature
+    -
+      name: nature_label
+      label: 'Nature label'
+      selector: NATURE_LABEL
+    
+    # Surface value - most divisions have only one DISPO surface
+    -
+      name: surface_value
+      label: 'Surface value'
+      selector: SURFACES_LIST/SURFACE/VALUE
+    -
+      name: surface_qualification
+      label: 'Surface qualification code'
+      selector: SURFACES_LIST/SURFACE/QUALIFICATION_CODE
+    
+    # Availability text (French)
+    -
+      name: availability_fr
+      label: 'Availability (FR)'
+      selector: 'ML_AVAILABILITY/AVAILABILITY[@LANGUAGE="FR"]'
+  
+  constants:
+    division_status_default: UNKNOWN
+    availability_empty: ''
+    default_surface_zero: 0
+    default_qualification: DISPO
+  
+  ids:
+    lot:
+      type: string
+
+destination:
+  plugin: 'entity:ps_surface_division'
+  default_bundle: ps_surface_division
+
+process:
+  # ===== UNIQUE IDENTIFIER =====
+  division_reference: lot
+  
+  # ===== LABEL =====
+  # Combine floor + building_name for human-readable label
+  division_label:
+    -
+      plugin: concat
+      source:
+        - floor
+        - building_name
+      delimiter: ' - '
+    -
+      plugin: callback
+      callable: trim
+  
+  # ===== STATUS =====
+  division_status:
+    plugin: default_value
+    default_value: UNKNOWN
+  
+  # ===== AVAILABILITY TEXT =====
+  'availability_text/value':
+    plugin: null_coalesce
+    source:
+      - availability_fr
+      - constants/availability_empty
+  
+  # ===== SURFACES =====
+  # YAML-only mapping with simple_xml parser + transpose/sub_process.
+  # Pair QUALIFICATION_CODE with VALUE by index.
+  pseudo_surfaces_data:
+    plugin: transpose
+    source:
+      - surface_qualification
+      - surface_value
+
+  surfaces:
+    plugin: sub_process
+    source: '@pseudo_surfaces_data'
+    process:
+      qualification:
+        plugin: get
+        source: '0'
+      value:
+        plugin: callback
+        callable: floatval
+        source: '1'
+      unit_code:
+        plugin: default_value
+        default_value: M2
+
+
+migration_dependencies:
+  required: []
+  optional: []

@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_favorite\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "My favorites"
+msgstr "My favorites"
+
+msgid "Favorites"
+msgstr "Favorites"
+
+msgid "Open favorites panel"
+msgstr "Open favorites panel"
+
+msgid "Add to favorites"
+msgstr "Add to favorites"
+
+msgid "Remove from favorites"
+msgstr "Remove from favorites"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Saved"
+msgstr "Saved"
+
+msgid "No favorites yet"
+msgstr "No favorites yet"
+
+msgid "Use the favorite button on an offer to keep it close at hand."
+msgstr "Use the favorite button on an offer to keep it close at hand."
+
+msgid "View all favorites"
+msgstr "View all favorites"
+
+msgid "No image"
+msgstr "No image"
+
+msgid "Added to favorites."
+msgstr "Added to favorites."
+
+msgid "Removed from favorites."
+msgstr "Removed from favorites."
+
+msgid "Invalid CSRF token."
+msgstr "Invalid CSRF token."
+
+msgid "Unsupported entity bundle."
+msgstr "Unsupported entity bundle."
+
+msgid "Unable to add this favorite right now."
+msgstr "Unable to add this favorite right now."
+
+msgid "Favorite limit reached (@limit)."
+msgstr "Favorite limit reached (@limit)."
+
+msgid "Favorites settings"
+msgstr "Favorites settings"
+
+msgid "Maximum favorites per content type"
+msgstr "Maximum favorites per content type"
+
+msgid "Use one rule per line, for example: <code>node.offer:20</code>. Format: <code>entity_type.bundle:max</code>. You may also use <code>entity_type.*:max</code>."
+msgstr "Use one rule per line, for example: <code>node.offer:20</code>. Format: <code>entity_type.bundle:max</code>. You may also use <code>entity_type.*:max</code>."
+
+msgid "Line @line has an invalid format: @value"
+msgstr "Line @line has an invalid format: @value"
+
+msgid "Configure favorites behavior."
+msgstr "Configure favorites behavior."
+

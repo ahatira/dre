@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.bnp_media_admin_card
+    - media.type.remote_video
+  module:
+    - image
+id: media.remote_video.thumbnail
+targetEntityType: media
+bundle: remote_video
+mode: thumbnail
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: { }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_oembed_video: true
+  field_provider: true
+  langcode: true
+  name: true
+  uid: true

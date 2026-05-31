@@ -1,0 +1,37 @@
+services:
+  ps_feature.type_manager:
+    class: Drupal\ps_feature\Service\FeatureTypeManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.default'
+      - '@module_handler'
+    tags:
+      - { name: service }
+
+  # Alias for compatibility with field plugins.
+  plugin.manager.feature_type:
+    alias: ps_feature.type_manager
+
+  Drupal\ps_feature\Hook\OfferFeatureHooks:
+    class: Drupal\ps_feature\Hook\OfferFeatureHooks
+    arguments:
+      - '@ps_feature.type_manager'
+
+  ps_feature.translation_route_subscriber:
+    class: Drupal\ps_feature\Routing\TranslationRouteSubscriber
+    tags:
+      - { name: event_subscriber, priority: -300 }
+
+  ps_feature.state_builder:
+    class: Drupal\ps_feature\Service\FeatureBuilderStateBuilder
+    arguments:
+      - '@entity_type.manager'
+    tags:
+      - { name: service }
+
+  ps_feature.catalogue_builder:
+    class: Drupal\ps_feature\Service\FeatureCatalogueBuilder
+    arguments:
+      - '@entity_type.manager'
+    tags:
+      - { name: service }

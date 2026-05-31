@@ -1,0 +1,58 @@
+# -----------------------------------------------------------------------
+# Config entity: ps_context_rule (dynamic rules engine).
+# -----------------------------------------------------------------------
+
+ps_context.rule.*:
+  type: config_entity
+  label: 'Context rule'
+  mapping:
+    id:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Enabled'
+    weight:
+      type: integer
+      label: 'Weight'
+    conditions_logic:
+      type: string
+      label: 'Conditions logic (AND/OR)'
+    conditions:
+      type: sequence
+      label: 'Conditions'
+      sequence:
+        type: mapping
+        label: 'Condition'
+        mapping:
+          field_name:
+            type: string
+            label: 'Field machine name'
+          operator:
+            type: string
+            label: 'Operator'
+          value:
+            type: string
+            label: 'Expected value'
+    actions:
+      type: sequence
+      label: 'Actions'
+      sequence:
+        type: mapping
+        label: 'Action'
+        mapping:
+          action_type:
+            type: string
+            label: 'Action type'
+          target:
+            type: string
+            label: 'Target (field or tab machine name)'
+          value:
+            type: string
+            label: 'Action value'

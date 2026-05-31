@@ -1,0 +1,10 @@
+name: 'Property Search - Context'
+type: module
+description: 'Implements the offer form matrix rules engine: conditional field visibility driven by asset_type × operation_type × field_divisible.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_offer:ps_offer
+  - drupal:node
+  - drupal:field

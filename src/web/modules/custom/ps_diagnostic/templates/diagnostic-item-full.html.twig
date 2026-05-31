@@ -1,0 +1,69 @@
+<article class="ps-diag ps-diag--full ps-diag--{{ type_id|default('generic') }}" aria-label="{{ 'Diagnostic summary'|t }}">
+  <header class="ps-diag__header">
+    <h3 class="ps-diag__title">{{ type_label }}</h3>
+  </header>
+
+  {% if is_disabled and show_unknown_banner %}
+    <div class="ps-diag__disabled">
+      <div class="ps-diag__disabled-scale" aria-hidden="true">
+        {% for class in scale_rows %}
+          <span style="--diag-color: {{ class.color|default('#c9c9c9') }};"></span>
+        {% endfor %}
+      </div>
+      <span class="ps-diag__disabled-badge">?</span>
+      <p class="ps-diag__disabled-text">{{ disabled_message }}</p>
+    </div>
+  {% else %}
+    <div class="ps-diag__full-main">
+      <ul class="ps-diag__v-list" role="list" aria-label="{{ 'Diagnostic scale'|t }}">
+        {% for class in scale_rows %}
+          <li class="ps-diag__v-item{{ active_class and active_class.label == class.label ? ' is-active' : '' }}" style="--diag-width: {{ class.width }}%; --diag-color: {{ class.color|default('#7a8790') }};">
+            {% if show_ranges %}
+              <span class="ps-diag__range">{{ class.range_text }}</span>
+            {% endif %}
+            <span class="ps-diag__class">{{ class.label }}</span>
+            {% if active_class and active_class.label == class.label %}
+              <span class="ps-diag__chip">{{ value_display ?: class.label }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if show_reference_table %}
+        <table class="ps-diag__table">
+          <thead>
+            <tr>
+              <th>{{ 'Class'|t }}</th>
+              <th>{{ 'Threshold'|t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for class in scale_rows %}
+              <tr class="{{ active_class and active_class.label == class.label ? 'is-active' : '' }}">
+                <td>{{ class.label }}</td>
+                <td>{{ class.range_text }}{% if unit %} {{ unit }}{% endif %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if show_dates and (diagnostic_date_display or validity_end_date_display) %}
+    <dl class="ps-diag__meta">
+      {% if diagnostic_date_display %}
+        <div>
+          <dt>{{ 'Diagnostic date'|t }}</dt>
+          <dd>{{ diagnostic_date_display }}</dd>
+        </div>
+      {% endif %}
+      {% if validity_end_date_display %}
+        <div>
+          <dt>{{ 'Validity end date'|t }}</dt>
+          <dd>{{ validity_end_date_display }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  {% endif %}
+</article>

@@ -1,0 +1,41 @@
+ps_core.hub:
+  title: 'Property Search'
+  description: 'Property Search admin hub'
+  route_name: ps_core.hub
+  parent: system.admin
+  weight: -100
+
+ps_core.content:
+  title: 'Contenu'
+  description: 'Gestion du contenu Property Search'
+  route_name: ps_core.content
+  parent: ps_core.hub
+  weight: 0
+
+ps_core.structure:
+  title: 'Structure'
+  description: 'Structure et modeles de donnees'
+  route_name: ps_core.structure
+  parent: ps_core.hub
+  weight: 5
+
+ps_core.config:
+  title: 'Configuration'
+  description: 'Configuration transverse Property Search'
+  route_name: ps_core.config
+  parent: ps_core.hub
+  weight: 10
+
+ps_core.settings_form:
+  title: 'Core settings'
+  description: 'Parametres transverses ps_core'
+  route_name: ps_core.settings_form
+  parent: ps_core.config
+  weight: 0
+
+ps_core.health:
+  title: 'Health'
+  description: 'Property Search health checks'
+  route_name: ps_core.health
+  parent: ps_core.content
+  weight: 10

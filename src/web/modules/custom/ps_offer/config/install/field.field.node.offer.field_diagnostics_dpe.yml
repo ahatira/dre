@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_diagnostics_dpe
+    - node.type.offer
+  module:
+    - ps_diagnostic
+id: node.offer.field_diagnostics_dpe
+field_name: field_diagnostics_dpe
+entity_type: node
+bundle: offer
+label: DPE
+description: 'Energy performance diagnostic. Enter the value and let the widget suggest the class automatically when possible.'
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ''
+settings:
+  allowed_types:
+    - dpe
+field_type: diagnostic_item

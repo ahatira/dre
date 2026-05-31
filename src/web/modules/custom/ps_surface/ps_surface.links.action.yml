@@ -1,0 +1,5 @@
+ps_surface.surface_division.add:
+  route_name: entity.ps_surface_division.add_form
+  title: '+ Add division'
+  appears_on:
+    - entity.ps_surface_division.collection

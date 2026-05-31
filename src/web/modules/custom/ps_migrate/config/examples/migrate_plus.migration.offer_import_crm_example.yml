@@ -1,0 +1,131 @@
+# Example migration configuration for Offer entities with entity protection
+# This file demonstrates how to configure a migration to work with the
+# entity protection system.
+#
+# USAGE:
+# 1. Copy this file to your migrate_plus configuration
+# 2. Adjust the source configuration (URL, credentials, etc.)
+# 3. Configure merge_strategies per field as needed
+# 4. Run: drush migrate:import offer_import_crm
+
+id: offer_import_crm_example
+label: 'Import Offers from CRM XML (Example)'
+migration_group: ps_content
+migration_tags:
+  - offer
+  - crm
+  - protected
+
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  
+  # IMPORTANT: This identifies the source system for tracking
+  source_system: 'CRM_SYSTEM_X'
+  
+  urls:
+    - 'https://crm.example.com/api/offers.xml'
+  
+  # Authentication (if needed)
+  # authentication:
+  #   plugin: basic
+  #   username: 'api_user'
+  #   password: 'api_password'
+  
+  item_selector: /offers/offer
+  
+  fields:
+    - name: id
+      label: 'External ID'
+      selector: '@id'
+    - name: title
+      label: 'Offer Title'
+      selector: title
+    - name: budget_value
+      label: 'Budget Value'
+      selector: budget/value
+    - name: commercial_title
+      label: 'Commercial Title'
+      selector: commercial_title
+    - name: operation_type
+      label: 'Operation Type'
+      selector: operation_type
+    - name: asset_type
+      label: 'Asset Type'
+      selector: asset_type
+  
+  ids:
+    id:
+      type: string
+
+process:
+  # Map to node fields
+  type:
+    plugin: default_value
+    default_value: offer
+  
+  title: title
+  
+  field_import_id: id
+  
+  field_budget_value:
+    plugin: default_value
+    source: budget_value
+  
+  field_commercial_title:
+    plugin: default_value
+    source: commercial_title
+  
+  field_operation_type:
+    plugin: default_value
+    source: operation_type
+  
+  field_asset_type:
+    plugin: default_value
+    source: asset_type
+  
+  # PROTECTION: Compute checksum for conflict detection
+  field_source_checksum:
+    plugin: callback
+    callable: sha256
+    source:
+      - '@row'
+  
+  # PROTECTION: Set source system
+  field_source_system:
+    plugin: default_value
+    default_value: 'CRM_SYSTEM_X'
+
+destination:
+  plugin: 'entity:node'
+  
+  # FUTURE: When using custom destination plugin with merge strategies
+  # Uncomment and configure merge strategies per field:
+  #
+  # merge_strategies:
+  #   field_budget_value: 'EXTERNAL_WINS'      # CRM always overwrites
+  #   field_commercial_title: 'INTERNAL_WINS'  # BO preserves if modified
+  #   field_media_gallery: 'MERGE_APPEND'      # Merge arrays
+  #   field_surfaces: 'EXTERNAL_WINS'          # CRM controls surfaces
+  #
+  # Available strategies:
+  #   - EXTERNAL_WINS: Import data always overwrites
+  #   - INTERNAL_WINS: Preserve BO edits if entity is protected
+  #   - MERGE_APPEND: Merge arrays (for multi-value fields)
+  #   - SKIP: Skip entire entity if protected
+
+migration_dependencies: {}
+
+# NOTES:
+# - The EntityProtectionSubscriber will automatically:
+#   1. Check if entity is protected before save
+#   2. Detect conflicts using checksum comparison
+#   3. Track source metadata after save
+#   4. Update checksum for next import
+# 
+# - Protected entities (field_internal_lock = TRUE) will be logged
+#   but the standard destination will still overwrite them.
+#   To respect protection, use the custom destination plugin (future).
+# 
+# - Check logs at: /admin/reports/dblog?type[]=ps_migrate

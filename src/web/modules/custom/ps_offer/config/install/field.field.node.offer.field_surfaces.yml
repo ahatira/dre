@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_surfaces
+    - node.type.offer
+  module:
+    - ps_surface
+id: node.offer.field_surfaces
+field_name: field_surfaces
+entity_type: node
+bundle: offer
+label: 'Surfaces'
+description: 'Qualified surfaces TOTAL / DISPO / ETREF / MINIM (aggregated from divisions or entered manually).'
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ''
+settings: {}
+field_type: ps_surface_item

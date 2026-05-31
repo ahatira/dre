@@ -1,0 +1,7 @@
+ps_offer.reference_config:
+  path: '/admin/ps/config/offer-reference'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Offer Reference'
+  requirements:
+    _permission: 'administer ps offer reference patterns'

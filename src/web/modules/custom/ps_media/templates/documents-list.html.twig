@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Theme template for documents display (Q19).
+ *
+ * Available variables:
+ * - offer: The parent offer node
+ * - documents: Array of media entities (type: file)
+ * - show_titles: Whether to display document titles
+ * - link_text: Text for download link button
+ */
+#}
+{% if documents %}
+  <div class="documents-container ps-media-documents">
+    <div class="documents-list">
+      {% for document in documents %}
+        <div class="document-item" data-media-id="{{ document.id() }}">
+          <div class="document-item__icon">
+            {# Detect file type and display appropriate icon #}
+            {% if document.field_media_file and not document.field_media_file.isEmpty() %}
+              {% set file = document.field_media_file.entity %}
+              {% set filename = file.filename.value %}
+              {% set extension = filename | split('.') | last | lower %}
+              
+              <svg class="icon-file icon-file--{{ extension }}" viewBox="0 0 24 24" aria-label="File type: {{ extension | upper }}">
+                <use xlink:href="#icon-file-{{ extension }}"></use>
+              </svg>
+            {% endif %}
+          </div>
+
+          <div class="document-item__content">
+            {% if show_titles %}
+              <h4 class="document-item__title">
+                {{ document.name() }}
+              </h4>
+            {% endif %}
+
+            {% if document.field_media_file and not document.field_media_file.isEmpty() %}
+              {% set file = document.field_media_file.entity %}
+              <p class="document-item__meta">
+                <span class="document-item__filename">{{ file.filename.value }}</span>
+                <span class="document-item__size">{{ file.filesize.value }} bytes</span>
+              </p>
+
+              <div class="document-item__actions">
+                <a href="{{ file_url(file.uri.value) }}" class="button button-primary document-item__download-link" download>
+                  {{ link_text | t }}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

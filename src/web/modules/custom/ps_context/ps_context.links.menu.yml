@@ -1,0 +1,6 @@
+ps_context.matrix:
+  title: 'Matrix rules'
+  description: 'Configure offer form field visibility rules (conditional rules engine).'
+  route_name: entity.ps_context_rule.collection
+  parent: ps_core.config
+  weight: 5

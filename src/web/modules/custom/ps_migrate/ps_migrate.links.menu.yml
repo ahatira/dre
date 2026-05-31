@@ -1,0 +1,6 @@
+ps_migrate.post_import_report:
+  title: 'Import rejections'
+  description: 'Review post-import publication rejections for source data quality tracking.'
+  route_name: ps_migrate.post_import_report
+  parent: ps_core.content
+  weight: 40

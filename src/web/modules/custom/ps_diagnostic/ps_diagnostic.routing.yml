@@ -1,0 +1,19 @@
+ps_diagnostic.settings:
+  path: '/admin/ps/config/diagnostic'
+  defaults:
+    _form: '\Drupal\ps_diagnostic\Form\DiagnosticSettingsForm'
+    _title: 'Diagnostic settings'
+  requirements:
+    _permission: 'administer ps diagnostic settings'
+  options:
+    _admin_route: TRUE
+
+ps_diagnostic.admin_structure:
+  path: '/admin/ps/structure/diagnostic'
+  defaults:
+    _controller: '\Drupal\ps_diagnostic\Controller\DiagnosticAdminController::overview'
+    _title: 'Diagnostics'
+  requirements:
+    _permission: 'access ps diagnostic admin'
+  options:
+    _admin_route: TRUE

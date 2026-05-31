@@ -1,0 +1,50 @@
+ps_favorite.page:
+  path: '/favorites'
+  defaults:
+    _controller: '\Drupal\ps_favorite\Controller\FavoriteController::page'
+    _title: 'My favorites'
+  requirements:
+    _access: 'TRUE'
+
+ps_favorite.account_page:
+  path: '/user/favorites'
+  defaults:
+    _controller: '\Drupal\ps_favorite\Controller\FavoriteController::page'
+    _title: 'My favorites'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+ps_favorite.offcanvas:
+  path: '/favorites/offcanvas'
+  defaults:
+    _controller: '\Drupal\ps_favorite\Controller\FavoriteController::offcanvas'
+    _title: 'Favorites'
+  requirements:
+    _access: 'TRUE'
+
+ps_favorite.count:
+  path: '/favorites/count'
+  defaults:
+    _controller: '\Drupal\ps_favorite\Controller\FavoriteController::count'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_favorite.toggle:
+  path: '/favorites/toggle/{entity_type_id}/{entity_id}'
+  defaults:
+    _controller: '\Drupal\ps_favorite\Controller\FavoriteToggleController::toggle'
+  methods: [POST]
+  requirements:
+    entity_type_id: '[a-z_]+'
+    entity_id: '\d+'
+    _access: 'TRUE'
+
+ps_favorite.settings:
+  path: '/admin/ps/config/favorites'
+  defaults:
+    _form: '\Drupal\ps_favorite\Form\FavoriteSettingsForm'
+    _title: 'Favorites settings'
+  requirements:
+    _permission: 'manage ps_favorite'

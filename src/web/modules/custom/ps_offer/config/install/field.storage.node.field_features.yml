@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_feature
+id: node.field_features
+field_name: field_features
+entity_type: node
+type: feature
+settings: { }
+module: ps_feature
+locked: false
+cardinality: -1
+translatable: true
+indexes: { }
+persist_with_no_fields: false
+custom_storage: false

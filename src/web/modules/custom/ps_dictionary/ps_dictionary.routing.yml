@@ -1,0 +1,108 @@
+
+# Main page: dictionary type list
+ps_dictionary.type_collection:
+  path: '/admin/ps/structure/dictionary'
+  defaults:
+    _entity_list: 'ps_dictionary_type'
+    _title: 'Dictionary types'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+ps_dictionary.import_form:
+  path: '/admin/ps/structure/dictionary/import'
+  defaults:
+    _form: '\Drupal\ps_dictionary\Form\DictionaryImportForm'
+    _title: 'Import dictionary entries'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Add a type
+ps_dictionary.type_add:
+  path: '/admin/ps/structure/dictionary/add'
+  defaults:
+    _entity_form: 'ps_dictionary_type.add'
+    _title: 'Add dictionary type'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Edit a type
+ps_dictionary.type_edit:
+  path: '/admin/ps/structure/dictionary/manage/{ps_dictionary_type}/edit'
+  defaults:
+    _entity_form: 'ps_dictionary_type.edit'
+    _title: 'Edit dictionary type'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Delete a type
+ps_dictionary.type_delete:
+  path: '/admin/ps/structure/dictionary/manage/{ps_dictionary_type}/delete'
+  defaults:
+    _entity_form: 'ps_dictionary_type.delete'
+    _title: 'Delete dictionary type'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Entry list for a type
+ps_dictionary.entry_collection:
+  path: '/admin/ps/structure/dictionary/manage/{ps_dictionary_type}'
+  defaults:
+    _controller: '\Drupal\ps_dictionary\Controller\DictionaryEntryListController::list'
+    _title_callback: '\Drupal\ps_dictionary\Controller\DictionaryEntryListController::title'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Add an entry
+ps_dictionary.entry_add:
+  path: '/admin/ps/structure/dictionary/manage/{ps_dictionary_type}/add'
+  defaults:
+    _entity_form: 'ps_dictionary_entry.add'
+    _title: 'Add dictionary entry'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Edit an entry
+ps_dictionary.entry_edit:
+  path: '/admin/ps/structure/dictionary/entry/{ps_dictionary_entry}/edit'
+  defaults:
+    _entity_form: 'ps_dictionary_entry.edit'
+    _title: 'Edit dictionary entry'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Delete an entry
+ps_dictionary.entry_delete:
+  path: '/admin/ps/structure/dictionary/entry/{ps_dictionary_entry}/delete'
+  defaults:
+    _entity_form: 'ps_dictionary_entry.delete'
+    _title: 'Delete dictionary entry'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
+# Autocomplete (kept)
+ps_dictionary.autocomplete:
+  path: '/ps-dictionary/autocomplete/{dictionary_type}'
+  defaults:
+    _controller: '\Drupal\ps_dictionary\Controller\DictionaryAutocompleteController::handle'
+  requirements:
+    _permission: 'access content'
+  options:
+    _format: 'json'

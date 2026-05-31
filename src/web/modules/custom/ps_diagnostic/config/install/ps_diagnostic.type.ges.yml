@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies: { }
+id: ges
+label: 'GES'
+unit: 'kgCO2/m2/year'
+icon: co2
+description: 'Greenhouse gas emissions diagnosis.'
+enabled: true
+weight: 5
+classes:
+  -
+    label: 'A'
+    color: '#EDE7F6'
+    range_max: 5
+  -
+    label: 'B'
+    color: '#D1C4E9'
+    range_max: 10
+  -
+    label: 'C'
+    color: '#B39DDB'
+    range_max: 20
+  -
+    label: 'D'
+    color: '#9575CD'
+    range_max: 35
+  -
+    label: 'E'
+    color: '#7E57C2'
+    range_max: 55
+  -
+    label: 'F'
+    color: '#673AB7'
+    range_max: 80
+  -
+    label: 'G'
+    color: '#4A148C'
+    range_max: 9999

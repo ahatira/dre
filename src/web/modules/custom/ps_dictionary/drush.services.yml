@@ -1,0 +1,6 @@
+services:
+  Drupal\ps_dictionary\Commands\DictionaryImportCommands:
+    class: Drupal\ps_dictionary\Commands\DictionaryImportCommands
+    arguments: ['@Drupal\ps_dictionary\Service\DictionaryCsvImporterInterface']
+    tags:
+      - { name: drush.command }

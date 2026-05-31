@@ -1,0 +1,5 @@
+entity.ps_context_rule.add_form:
+  route_name: entity.ps_context_rule.add_form
+  title: 'Add rule'
+  appears_on:
+    - entity.ps_context_rule.collection

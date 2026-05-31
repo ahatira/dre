@@ -1,0 +1,97 @@
+.ps-offer-reference-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.ps-offer-reference-row .form-item {
+  margin-bottom: 0;
+}
+
+.ps-offer-reference-row .form-item-value {
+  flex: 1 1 auto;
+}
+
+.ps-offer-reference-auto-toggle {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.ps-offer-reference-toggle-item {
+  margin-bottom: 0;
+}
+
+.ps-offer-reference-help {
+  margin-top: 0.35rem;
+}
+
+.ps-offer-reference-toggle-item .form-item__label.option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  height: 2.35rem;
+  padding: 0 0.85rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--gin-color-border, #c4cdd5);
+  background: var(--gin-bg-item, #f8fafc);
+  color: var(--gin-color-text, #222330);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  font-size: var(--font-size-s, 0.875rem);
+  line-height: 1;
+  box-shadow: 0 1px 0 var(--gin-color-border, #c4cdd5);
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.ps-offer-reference-toggle-item .form-item__label.option:hover {
+  background: var(--gin-bg-layer2, #eef2f6);
+  border-color: var(--gin-color-primary-light-hover, rgba(5, 80, 230, 0.2));
+}
+
+.ps-offer-reference-auto-toggle:checked + .form-item__label.option {
+  background: var(--gin-color-primary, #0550e6);
+  border-color: var(--gin-color-primary, #0550e6);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--gin-color-primary, #0550e6) 70%, #000 30%);
+  color: var(--gin-color-button-text, #fff) !important;
+}
+
+.ps-offer-reference-auto-toggle:checked + .form-item__label.option:hover {
+  background: var(--gin-color-primary-hover, #1a5be8);
+  border-color: var(--gin-color-primary-hover, #1a5be8);
+}
+
+.ps-offer-reference-auto-toggle:focus-visible + .form-item__label.option {
+  outline: 2px solid var(--gin-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.ps-offer-reference-preview {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--gin-color-border, #d0d7de);
+  background: var(--gin-bg-item, #f8fafc);
+}
+
+.ps-offer-reference-preview.is-manual {
+  border-color: var(--gin-color-warning, #c9b458);
+  background: var(--gin-bg-warning-light, #fffbea);
+}
+
+.ps-offer-reference-preview-code {
+  display: inline-block;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.2rem;
+  background: var(--gin-bg-layer2, #eef2f7);
+}
+
+.ps-offer-reference-preview-hint {
+  color: var(--gin-color-text-light, #5a6573);
+}

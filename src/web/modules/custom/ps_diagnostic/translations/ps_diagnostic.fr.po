@@ -1,0 +1,136 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_diagnostic\n"
+"Language: fr\n"
+
+msgid "Unit"
+msgstr "Unite"
+
+msgid "Icon key"
+msgstr "Cle d'icone"
+
+msgid "Energy classes"
+msgstr "Classes energetiques"
+
+msgid "Range max"
+msgstr "Plage max"
+
+msgid "Current class"
+msgstr "Classe actuelle"
+
+msgid "Diagnostic scale"
+msgstr "Echelle de diagnostic"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Visual preset"
+msgstr "Style visuel"
+
+msgid "Auto (DPE/GES label style)"
+msgstr "Auto (style etiquette DPE/GES)"
+
+msgid "Label style (all diagnostics)"
+msgstr "Style etiquette (tous diagnostics)"
+
+msgid "Simple card style"
+msgstr "Style carte simple"
+
+msgid "Show visual scale"
+msgstr "Afficher l'echelle visuelle"
+
+msgid "Show ranges"
+msgstr "Afficher les plages"
+
+msgid "Show dates"
+msgstr "Afficher les dates"
+
+msgid "Show unknown-state banner"
+msgstr "Afficher la banniere d'etat inconnu"
+
+msgid "Preset: label style"
+msgstr "Style: etiquette"
+
+msgid "Preset: simple card style"
+msgstr "Style: carte simple"
+
+msgid "Preset: auto DPE/GES label style"
+msgstr "Style: auto etiquette DPE/GES"
+
+msgid "Scale: shown"
+msgstr "Echelle: affichee"
+
+msgid "Scale: hidden"
+msgstr "Echelle: masquee"
+
+msgid "Ranges: shown"
+msgstr "Plages: affichees"
+
+msgid "Ranges: hidden"
+msgstr "Plages: masquees"
+
+msgid "Dates: shown"
+msgstr "Dates: affichees"
+
+msgid "Dates: hidden"
+msgstr "Dates: masquees"
+
+msgid "Unknown banner: shown"
+msgstr "Banniere inconnue: affichee"
+
+msgid "Unknown banner: hidden"
+msgstr "Banniere inconnue: masquee"
+
+msgid "Energy-efficient property"
+msgstr "Logement econome"
+
+msgid "Energy-intensive property"
+msgstr "Logement energivore"
+
+msgid "Low greenhouse gas emissions"
+msgstr "Faibles emissions de GES"
+
+msgid "High greenhouse gas emissions"
+msgstr "Fortes emissions de GES"
+
+msgid "Best class"
+msgstr "Meilleure classe"
+
+msgid "Worst class"
+msgstr "Pire classe"
+
+msgid "Diagnostic label is not provided by the owner."
+msgstr "Etiquette energetique non fournie par le proprietaire."
+
+msgid "Diagnostic not applicable for this offer."
+msgstr "Diagnostic non applicable pour cette offre."
+
+msgid "Diagnostic has no classification."
+msgstr "Le diagnostic n'a pas de classification."
+
+msgid "Diagnostic has expired."
+msgstr "Le diagnostic est expire."
+
+msgid "Show reference threshold table"
+msgstr "Afficher le tableau des seuils de reference"
+
+msgid "Used by the Full formatter."
+msgstr "Utilise par le formatter Full."
+
+msgid "Reference table: shown"
+msgstr "Tableau de reference: affiche"
+
+msgid "Reference table: hidden"
+msgstr "Tableau de reference: masque"
+
+msgid "Diagnostic - Horizontal (default)"
+msgstr "Diagnostic - Horizontal (defaut)"
+
+msgid "Diagnostic - Vertical"
+msgstr "Diagnostic - Vertical"
+
+msgid "Diagnostic - Full"
+msgstr "Diagnostic - Full"
+
+msgid "Threshold"
+msgstr "Seuil"

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_divisions
+    - node.type.offer
+  module:
+    - ps_surface
+id: node.offer.field_divisions
+field_name: field_divisions
+entity_type: node
+bundle: offer
+label: Lots
+description: ''
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ''
+settings:
+  handler: 'default:ps_surface_division'
+  handler_settings:
+    target_bundles: null
+field_type: entity_reference

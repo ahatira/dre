@@ -1,0 +1,16 @@
+name: 'Property Search - Search'
+type: module
+description: 'Search page for property offers using Search API + Solr + Facets.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 2.0.0
+dependencies:
+  - drupal:node
+  - drupal:views
+  - drupal:config_translation
+  - ps_offer:ps_offer
+  - search_api:search_api
+  - search_api_solr:search_api_solr
+  - facets:facets
+  - better_exposed_filters:better_exposed_filters
+  - facets:facets_exposed_filters

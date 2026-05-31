@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install hooks for the ps_favorite module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ps_favorite_schema(): array {
+  $schema['ps_favorite_item'] = [
+    'description' => 'Stores persistent favorites for authenticated users.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'created' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'changed' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'uid_entity' => ['uid', 'entity_type', 'entity_id'],
+    ],
+    'indexes' => [
+      'entity_lookup' => ['entity_type', 'entity_id'],
+      'uid_lookup' => ['uid', 'changed'],
+    ],
+  ];
+
+  return $schema;
+}

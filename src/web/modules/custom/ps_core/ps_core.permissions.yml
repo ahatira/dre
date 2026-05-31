@@ -1,0 +1,48 @@
+access ps_core hub:
+  title: 'Access Property Search hub'
+  description: 'Access the Property Search admin hub pages.'
+
+access ps_core content section:
+  title: 'Access Property Search content section'
+  description: 'Access /admin/ps/content and related section links.'
+
+access ps_core structure section:
+  title: 'Access Property Search structure section'
+  description: 'Access /admin/ps/structure and related section links.'
+
+access ps_core config section:
+  title: 'Access Property Search config section'
+  description: 'Access /admin/ps/config and related section links.'
+
+administer ps_core:
+  title: 'Administer Property Search core settings'
+  description: 'Manage Property Search core settings and diagnostics.'
+  restrict access: true
+
+manage ps_dictionary:
+  title: 'Manage Property Search dictionary'
+  description: 'Manage business dictionaries and entries.'
+
+manage ps_offer:
+  title: 'Manage Property Search offers'
+  description: 'Create, update and manage offers.'
+
+manage ps_feature:
+  title: 'Manage Property Search features'
+  description: 'Manage feature definitions and values.'
+
+manage ps_diagnostic:
+  title: 'Manage Property Search diagnostics'
+  description: 'Manage diagnostics and energy data.'
+
+manage ps_agent:
+  title: 'Manage Property Search agents'
+  description: 'Manage agent profiles and assignments.'
+
+manage ps_context:
+  title: 'Manage Property Search context rules'
+  description: 'Manage context rules and orchestration.'
+
+manage ps_migrate:
+  title: 'Manage Property Search migration'
+  description: 'Manage import and migration workflows.'

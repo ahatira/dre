@@ -1,0 +1,50 @@
+ps_search.seo_url_mappings:
+  type: config_object
+  label: 'PS Search SEO URL Mappings'
+  mapping:
+    operation_types:
+      type: mapping
+      label: 'Operation type slugs'
+      mapping:
+        LOC:
+          type: label
+          label: 'Slug for LOC (rental)'
+        VEN:
+          type: label
+          label: 'Slug for VEN (sale)'
+    asset_types:
+      type: mapping
+      label: 'Asset type slugs'
+      mapping:
+        BUR:
+          type: label
+          label: 'Slug for BUR (office)'
+        ENT:
+          type: label
+          label: 'Slug for ENT (warehouse)'
+        ACT:
+          type: label
+          label: 'Slug for ACT (activity)'
+        COM:
+          type: label
+          label: 'Slug for COM (retail)'
+        TER:
+          type: label
+          label: 'Slug for TER (land)'
+        LOG:
+          type: label
+          label: 'Slug for LOG (logistics)'
+        COW:
+          type: label
+          label: 'Slug for COW (coworking)'
+
+ps_search.feature_filter_sync:
+  type: config_object
+  label: 'PS Search feature filter sync settings'
+  mapping:
+    cron_run_immediate_index:
+      type: boolean
+      label: 'Run immediate indexing during cron'
+    cron_index_only_on_change:
+      type: boolean
+      label: 'Index only when sync changed configuration'

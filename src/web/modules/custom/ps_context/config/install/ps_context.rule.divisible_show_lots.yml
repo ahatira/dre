@@ -1,0 +1,20 @@
+id: divisible_show_lots
+uuid: 2a1b3c4d-0006-0000-0000-000000000006
+label: 'Divisible: Show Lots tab'
+status: true
+weight: 0
+conditions_logic: AND
+conditions:
+  - field_name: field_operation_type
+    operator: filled
+    value: ''
+  - field_name: field_asset_type
+    operator: filled
+    value: ''
+  - field_name: field_divisible
+    operator: equals
+    value: '1'
+actions:
+  - action_type: show_tab
+    target: group_lots
+    value: ''

@@ -1,0 +1,11 @@
+entity.ps_agent.add_form:
+  route_name: entity.ps_agent.add_form
+  title: 'Add agent'
+  appears_on:
+    - view.ps_agent_admin.page_1
+
+entity.ps_agent_type.add_form:
+  route_name: entity.ps_agent_type.add_form
+  title: 'Add agent type'
+  appears_on:
+    - entity.ps_agent_type.collection

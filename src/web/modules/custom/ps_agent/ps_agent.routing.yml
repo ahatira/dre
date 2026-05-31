@@ -1,0 +1,7 @@
+ps_agent.fallback_settings:
+  path: '/admin/ps/config/agent'
+  defaults:
+    _form: '\Drupal\ps_agent\Form\AgentFallbackSettingsForm'
+    _title: 'Agent avatar fallback'
+  requirements:
+    _permission: 'administer ps agent fallback settings'

@@ -1,0 +1,11 @@
+entity.fb_feature_group.add_form:
+  route_name: 'entity.fb_feature_group.add_form'
+  title: 'Add group'
+  appears_on:
+    - entity.fb_feature_group.collection
+
+entity.fb_feature_definition.add_form:
+  route_name: 'entity.fb_feature_definition.add_form'
+  title: 'Add feature'
+  appears_on:
+    - entity.fb_feature_definition.collection

@@ -1,0 +1,11 @@
+operation_types:
+  LOC: for-rent
+  VEN: for-sale
+asset_types:
+  BUR: office
+  ENT: warehouse
+  ACT: activity
+  COM: retail
+  TER: land
+  LOG: logistics
+  COW: coworking

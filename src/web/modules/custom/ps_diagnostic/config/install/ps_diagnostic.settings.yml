@@ -1,0 +1,3 @@
+default_validity_months: 120
+allow_manual_class: true
+allow_empty_value: true

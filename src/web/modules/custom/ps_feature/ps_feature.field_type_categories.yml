@@ -1,0 +1,5 @@
+ps_feature:
+  label: 'PS Feature'
+  description: 'Feature payload fields used by the ps_feature module.'
+  summary: 'Feature field types.'
+  weight: 0

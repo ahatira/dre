@@ -1,0 +1,47 @@
+ps_core.hub:
+  path: '/admin/ps'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Property Search'
+  requirements:
+    _permission: 'access ps_core hub'
+
+ps_core.content:
+  path: '/admin/ps/content'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Contenu'
+  requirements:
+    _permission: 'access ps_core content section'
+
+ps_core.structure:
+  path: '/admin/ps/structure'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Structure'
+  requirements:
+    _permission: 'access ps_core structure section'
+
+ps_core.config:
+  path: '/admin/ps/config'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Configuration'
+  requirements:
+    _permission: 'access ps_core config section'
+
+ps_core.settings_form:
+  path: '/admin/ps/config/settings'
+  defaults:
+    _form: '\Drupal\ps_core\Form\PsCoreSettingsForm'
+    _title: 'Core Settings'
+  requirements:
+    _permission: 'administer ps_core'
+
+ps_core.health:
+  path: '/admin/ps/health'
+  defaults:
+    _controller: '\Drupal\ps_core\Controller\PsCoreController::health'
+    _title: 'Health'
+  requirements:
+    _permission: 'administer ps_core'

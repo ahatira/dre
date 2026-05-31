@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: { }
+id: gallery
+label: Gallery
+description: 'Generic reusable image gallery.'
+source: bnp_gallery
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_gallery_image
+field_map: { }

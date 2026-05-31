@@ -1,0 +1,43 @@
+id: ps_solr
+name: 'PS Solr Server'
+description: 'Solr search server for Property Search (Docker service: solr, core: ps_project)'
+backend: search_api_solr
+backend_config:
+  connector: standard
+  connector_config:
+    scheme: http
+    host: solr
+    port: 8983
+    path: /
+    core: ps_project
+    timeout: 5
+    index_timeout: 5
+    optimize_timeout: 10
+    finalize_timeout: 30
+    commit_within: 1000
+    solr_version: ''
+    http_method: AUTO
+    jmx: false
+    jts: false
+    skip_schema_check: false
+    solr_install_dir: ''
+  retrieve_data: false
+  highlight_data: false
+  site_hash: false
+  server_prefix: ''
+  domain: generic
+  environment: default
+  optimize: false
+  fallback_multiple: false
+  disabled_field_types: {  }
+  disabled_caches: {  }
+  disabled_request_handlers: {  }
+  disabled_request_dispatchers: {  }
+  rows: 10000
+  index_single_documents_fallback_count: 10
+  index_empty_text_fields: false
+status: true
+langcode: en
+dependencies:
+  module:
+    - search_api_solr

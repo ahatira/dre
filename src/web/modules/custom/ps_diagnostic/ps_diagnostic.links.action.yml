@@ -1,0 +1,5 @@
+entity.ps_diagnostic_type.add_form_action:
+  route_name: entity.ps_diagnostic_type.add_form
+  title: 'Add diagnostic type'
+  appears_on:
+    - entity.ps_diagnostic_type.collection

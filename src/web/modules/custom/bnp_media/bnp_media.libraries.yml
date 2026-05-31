@@ -1,0 +1,57 @@
+common:
+  version: VERSION
+  css:
+    theme:
+      css/theme/bnp_media.common.css: {}
+  dependencies:
+    - system/base
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/once
+
+bnp_video_player:
+  version: VERSION
+  css:
+    theme:
+      css/theme/bnp-video-player.theme.css: {}
+  js:
+    js/bnp-video-player.js: {}
+  dependencies:
+    - system/base
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/once
+
+oembed_frame_youtube:
+  version: VERSION
+  js:
+    js/oembed-frame.bnp-media.youtube.js: {}
+
+oembed_frame_vimeo:
+  version: VERSION
+  js:
+    js/oembed-frame.bnp-media.vimeo.js: {}
+
+oembed_frame_mediahub:
+  version: VERSION
+  js:
+    js/oembed-frame.bnp-media.mediahub.js: {}
+
+actions:
+  js:
+    js/bnp_media.actions.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+upload:
+  css:
+    component:
+      css/bnp_media.upload.css: {}
+svg_loader:
+  js:
+    js/bnp_media.svg_loader.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

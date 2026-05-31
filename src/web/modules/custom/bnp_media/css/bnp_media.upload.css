@@ -1,0 +1,204 @@
+.dropzonejs, .dz-message {
+  border: 2px dashed #0074d9 !important;
+  background: #f8fbff !important;
+  color: #0074d9 !important;
+  border-radius: 8px !important;
+  padding: 2em 1em !important;
+  text-align: center !important;
+  font-size: 1.1em !important;
+  margin-bottom: 1em !important;
+}
+.dz-message::before {
+  content: '\1F4F7'; /* camera emoji */
+  display: block;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+.dz-message {
+  font-weight: bold;
+}
+
+/* Offer media fields: keep thumbnails compact and readable in BO. */
+[data-drupal-selector="edit-field-media-gallery-current"],
+[data-drupal-selector="edit-field-media-document-current"] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: auto;
+  padding: 10px;
+  padding-top: 44px;
+  padding-bottom: 36px;
+  border: 1px solid #ccd3df;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity:hover,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity:hover {
+  border-color: #4f74c8;
+  box-shadow: 0 10px 24px rgba(5, 80, 230, 0.12);
+  transform: translateY(-1px);
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .bnp-media-order-badge,
+[data-drupal-selector="edit-field-media-document-current"] .bnp-media-order-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #0550e6;
+  color: #fff;
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+  font-weight: 700;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .bnp-media-type-badge,
+[data-drupal-selector="edit-field-media-document-current"] .bnp-media-type-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  max-width: calc(100% - 20px);
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 10px;
+  line-height: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 700;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity article,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity article {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e9eef6;
+  border: 1px solid #d8dfeb;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity img,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity .remove-button,
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity .edit-button,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity .remove-button,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity .edit-button {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  margin: 0 !important;
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  text-indent: -9999px;
+  white-space: nowrap;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity .remove-button,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity .remove-button {
+  right: 10px;
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity .edit-button,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity .edit-button {
+  right: 48px;
+}
+
+/* Visual feedback while sorting media cards. */
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity.ui-sortable-helper,
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity.sortable-chosen,
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity.sortable-ghost,
+[data-drupal-selector="edit-field-media-gallery-current"] .item-container.rendered-entity[draggable="true"],
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity.ui-sortable-helper,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity.sortable-chosen,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity.sortable-ghost,
+[data-drupal-selector="edit-field-media-document-current"] .item-container.rendered-entity[draggable="true"] {
+  border-color: #0550e6;
+  box-shadow: 0 10px 24px rgba(5, 80, 230, 0.18);
+  transform: translateY(-2px);
+}
+
+[data-drupal-selector="edit-field-media-gallery-current"] .ui-sortable-placeholder,
+[data-drupal-selector="edit-field-media-gallery-current"] .sortable-placeholder,
+[data-drupal-selector="edit-field-media-document-current"] .ui-sortable-placeholder,
+[data-drupal-selector="edit-field-media-document-current"] .sortable-placeholder {
+  visibility: visible !important;
+  border: 2px dashed #0550e6;
+  border-radius: 10px;
+  background: rgba(5, 80, 230, 0.08);
+  min-height: 120px;
+}
+
+/* Make the entity-browser trigger look and behave like a proper action button. */
+[data-drupal-selector="edit-field-media-photos-entity-browser-entity-browser-link"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #0550e6;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid #0444c3;
+}
+
+[data-drupal-selector="edit-field-media-photos-entity-browser-entity-browser-link"]:hover,
+[data-drupal-selector="edit-field-media-photos-entity-browser-entity-browser-link"]:focus {
+  background: #0444c3;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  [data-drupal-selector="edit-field-media-gallery-current"],
+  [data-drupal-selector="edit-field-media-document-current"] {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}
+
+/* Override Gin theme field__item styling. */
+[data-drupal-selector="edit-field-media-gallery-current"] .field__item,
+[data-drupal-selector="edit-field-media-document-current"] .field__item {
+  border: none !important;
+  border-radius: inherit !important;
+  height: 100%;
+}

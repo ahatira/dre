@@ -1,0 +1,32 @@
+services:
+  Drupal\ps_search\Service\FeatureFilterSyncManager:
+    class: Drupal\ps_search\Service\FeatureFilterSyncManager
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+
+  Drupal\ps_search\Hook\FeatureFilterCronHooks:
+    class: Drupal\ps_search\Hook\FeatureFilterCronHooks
+    arguments:
+      - '@Drupal\ps_search\Service\FeatureFilterSyncManager'
+      - '@config.factory'
+      - '@logger.factory'
+
+  ps_search.seo_path_processor:
+    class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+    tags:
+      - { name: path_processor_inbound, priority: 290 }
+      - { name: path_processor_outbound, priority: 110 }
+
+  ps_search.canonical_redirect_subscriber:
+    class: Drupal\ps_search\EventSubscriber\SearchCanonicalRedirectSubscriber
+    arguments:
+      - '@config.factory'
+      - '@language.config_factory_override'
+      - '@database'
+    tags:
+      - { name: event_subscriber }

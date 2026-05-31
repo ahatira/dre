@@ -1,0 +1,23 @@
+<button
+  type="button"
+  class="ps-favorite-button ps-favorite-button--{{ context }}{{ is_favorite ? ' is-active' : '' }}"
+  data-ps-favorite-toggle
+  data-entity-type-id="{{ entity_type_id }}"
+  data-entity-id="{{ entity_id }}"
+  data-url="{{ toggle_url }}"
+  data-label-add="{{ label_add }}"
+  data-label-remove="{{ label_remove }}"
+  data-text-add="{{ text_add }}"
+  data-text-remove="{{ text_remove }}"
+  aria-pressed="{{ is_favorite ? 'true' : 'false' }}"
+  aria-label="{{ is_favorite ? label_remove : label_add }}"
+  title="{{ is_favorite ? label_remove : label_add }}"
+>
+  <span class="ps-favorite-button__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z" />
+    </svg>
+  </span>
+  <span class="ps-favorite-button__text js-ps-favorite-text">{{ is_favorite ? text_remove : text_add }}</span>
+  <span class="visually-hidden js-ps-favorite-sr">{{ is_favorite ? label_remove : label_add }}</span>
+</button>

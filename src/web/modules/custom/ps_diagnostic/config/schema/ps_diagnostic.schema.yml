@@ -1,0 +1,100 @@
+ps_diagnostic.settings:
+  type: config_object
+  label: 'Diagnostic settings'
+  mapping:
+    default_validity_months:
+      type: integer
+      label: 'Default validity months'
+    allow_manual_class:
+      type: boolean
+      label: 'Allow manual class'
+    allow_empty_value:
+      type: boolean
+      label: 'Allow empty value'
+
+ps_diagnostic.type.*:
+  type: config_entity
+  label: 'Diagnostic type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    unit:
+      type: label
+      label: 'Unit'
+      translatable: true
+    icon:
+      type: string
+      label: 'Icon'
+    description:
+      type: text
+      label: 'Description'
+      translatable: true
+    enabled:
+      type: boolean
+      label: 'Enabled'
+    weight:
+      type: integer
+      label: 'Weight'
+    classes:
+      type: sequence
+      label: 'Energy classes'
+      sequence:
+        type: mapping
+        mapping:
+          label:
+            type: string
+            label: 'Label'
+          color:
+            type: string
+            label: 'Color'
+          range_max:
+            type: integer
+            label: 'Range max'
+
+field.storage_settings.diagnostic_item:
+  type: field.storage_settings.string
+  label: 'Diagnostic item storage settings'
+
+field.field_settings.diagnostic_item:
+  type: mapping
+  label: 'Diagnostic item field settings'
+  mapping:
+    allowed_types:
+      type: sequence
+      label: 'Allowed diagnostic types'
+      sequence:
+        type: string
+
+field.value.diagnostic_item:
+  type: mapping
+  label: 'Diagnostic item values'
+  mapping:
+    diagnostic_type:
+      type: string
+      label: 'Diagnostic type'
+    class:
+      type: string
+      label: 'Class'
+    value:
+      type: string
+      label: 'Value'
+    diagnostic_date:
+      type: string
+      label: 'Diagnostic date'
+    validity_end_date:
+      type: string
+      label: 'Validity end date'
+    no_classification:
+      type: boolean
+      label: 'No classification'
+    non_applicable:
+      type: boolean
+      label: 'Non applicable'

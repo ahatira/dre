@@ -1,0 +1,48 @@
+/**
+ * @file
+ * Admin styling for ps_feature module.
+ */
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.875em;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.badge--primary {
+  color: #fff;
+  background-color: #0073aa;
+}
+
+.badge--info {
+  color: #fff;
+  background-color: #5bc0de;
+}
+
+.badge--warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+
+.badge--success {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.badge--secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+/* Ensure badges don't break table layout */
+td .badge {
+  margin-bottom: 0.25rem;
+}

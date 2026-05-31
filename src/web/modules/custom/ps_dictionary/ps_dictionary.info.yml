@@ -1,0 +1,12 @@
+name: 'Property Search - Dictionary'
+type: module
+description: 'Config-first business dictionaries and resolvers.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - drupal:system
+  - drupal:field
+  - drupal:file
+  - ps_core:ps_core
+  - drupal:options

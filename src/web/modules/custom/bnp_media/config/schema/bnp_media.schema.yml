@@ -1,0 +1,34 @@
+field.formatter.settings.bnp_oembed:
+  type: mapping
+  label: 'BNP oEmbed formatter settings'
+  mapping:
+    max_width:
+      type: integer
+      label: 'Max width'
+    max_height:
+      type: integer
+      label: 'Max height'
+
+media.source_configuration.bnp_remote_video:
+  type: mapping
+  label: 'BNP remote video source configuration'
+  mapping:
+    source_field:
+      type: string
+      label: 'Source field'
+    thumbnails_directory:
+      type: string
+      label: 'Thumbnails directory'
+    providers:
+      type: sequence
+      label: 'Allowed providers'
+      sequence:
+        type: string
+
+media.source_configuration.bnp_external_video:
+  type: mapping
+  label: 'BNP external video source configuration'
+  mapping:
+    source_field:
+      type: string
+      label: 'Source field'

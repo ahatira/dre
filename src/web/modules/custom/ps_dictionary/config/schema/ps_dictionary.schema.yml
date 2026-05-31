@@ -1,0 +1,57 @@
+field.storage_settings.ps_dictionary:
+  type: mapping
+  label: 'ps_dictionary field storage settings'
+  mapping: {}
+
+field.field_settings.ps_dictionary:
+  type: mapping
+  label: 'ps_dictionary field settings'
+  mapping:
+    dictionary_type:
+      type: string
+      label: 'Dictionary type'
+
+ps_dictionary.type.*:
+  type: config_entity
+  label: 'Dictionary type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    description:
+      type: label
+      label: 'Description'
+      translatable: true
+
+ps_dictionary.entry.*:
+  type: config_entity
+  label: 'Dictionary entry'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    type:
+      type: string
+      label: 'Dictionary type'
+    code:
+      type: string
+      label: 'Code'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    description:
+      type: label
+      label: 'Description'
+      translatable: true
+    icon:
+      type: string
+      label: 'Icon CSS class or name'
+      nullable: true
+    weight:
+      type: integer
+      label: 'Weight'

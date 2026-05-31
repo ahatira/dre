@@ -1,0 +1,9 @@
+ps_diagnostic.structure_tab:
+  route_name: ps_diagnostic.admin_structure
+  title: 'Overview'
+  base_route: ps_diagnostic.admin_structure
+
+entity.ps_diagnostic_type.collection_tab:
+  route_name: entity.ps_diagnostic_type.collection
+  title: 'Types'
+  base_route: ps_diagnostic.admin_structure

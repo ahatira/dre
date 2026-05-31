@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_search\n"
+"POT-Creation-Date: 2025-01-01T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-01-01T00:00:00+00:00\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Search offers"
+msgstr "Recherche d'offres"
+
+msgid "Property search"
+msgstr "Recherche d'offres immobilières"
+
+msgid "Keywords"
+msgstr "Mots-clés"
+
+msgid "Transaction type"
+msgstr "Type de transaction"
+
+msgid "Asset type"
+msgstr "Type de bien"
+
+msgid "Relevance"
+msgstr "Pertinence"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "Sort by"
+msgstr "Trier par"
+
+msgid "Asc"
+msgstr "Croissant"
+
+msgid "Desc"
+msgstr "Décroissant"
+
+msgid "Next ›"
+msgstr "Suivant ›"
+
+msgid "‹ Previous"
+msgstr "‹ Précédent"
+
+msgid "« First"
+msgstr "« Premier"
+
+msgid "Last »"
+msgstr "Dernier »"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "Aucune offre ne correspond à vos critères de recherche. Veuillez ajuster vos filtres."
+
+msgid "City"
+msgstr "Ville"
+
+msgid "Admin area"
+msgstr "Région"
+
+msgid "Postal code"
+msgstr "Code postal"
+
+msgid "Published"
+msgstr "Publié"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Reference"
+msgstr "Référence"
+
+msgid "Commercial title"
+msgstr "Intitulé commercial"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Date updated"
+msgstr "Date de mise à jour"

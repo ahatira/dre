@@ -1,0 +1,4 @@
+services:
+  ps_diagnostic.type_options:
+    class: Drupal\ps_diagnostic\Service\DiagnosticTypeOptionsProvider
+    arguments: ['@entity_type.manager']

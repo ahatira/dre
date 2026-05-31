@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_cc
+    - node.type.offer
+id: node.offer.field_budget_cc
+field_name: field_budget_cc
+entity_type: node
+bundle: offer
+label: 'CC (Charges Comprises)'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: CC
+  off_label: HC
+field_type: boolean

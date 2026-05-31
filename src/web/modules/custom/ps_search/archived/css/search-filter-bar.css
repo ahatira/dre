@@ -1,0 +1,617 @@
+/**
+ * @file
+ * Search Filter Bar — base styles.
+ *
+ * Intentionally minimal: uses custom properties so the active theme
+ * can override colours, radii, and spacing without specificity fights.
+ */
+
+/* ── Custom properties ────────────────────────────────────────────────────── */
+:root {
+  --ps-filter-bg: #fff;
+  --ps-filter-border: #e0e0e0;
+  --ps-filter-radius: 4px;
+  --ps-filter-active-color: #007bff;
+  --ps-filter-active-bg: #e8f0fe;
+  --ps-filter-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --ps-filter-font: inherit;
+  --ps-filter-green: #008859;
+}
+
+/* ── Filter bar wrapper ───────────────────────────────────────────────────── */
+.ps-filter-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: var(--ps-filter-bg);
+  border: 1px solid var(--ps-filter-border);
+  border-radius: var(--ps-filter-radius);
+  box-shadow: var(--ps-filter-shadow);
+  font-family: var(--ps-filter-font);
+  position: relative;
+  z-index: 100;
+}
+
+/* ── Individual filter item ───────────────────────────────────────────────── */
+.ps-filter-bar__item {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.ps-filter-bar__item + .ps-filter-bar__item {
+  border-left: 1px solid var(--ps-filter-border);
+}
+
+/* ── Main button ──────────────────────────────────────────────────────────── */
+.ps-filter-bar__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.ps-filter-bar__btn:hover,
+.ps-filter-bar__btn:focus-visible {
+  background: var(--ps-filter-active-bg);
+  outline: 2px solid var(--ps-filter-active-color);
+  outline-offset: -2px;
+}
+
+.ps-filter-bar__btn.is-active {
+  color: var(--ps-filter-active-color);
+  font-weight: 600;
+}
+
+.ps-filter-bar__btn-arrow {
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+
+.ps-filter-bar__btn[aria-expanded="true"] .ps-filter-bar__btn-arrow {
+  transform: rotate(180deg);
+}
+
+/* ── Type popin ───────────────────────────────────────────────────────────── */
+.ps-type-popin {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 380px;
+  background: var(--ps-filter-bg);
+  border: 1px solid var(--ps-filter-border);
+  border-radius: var(--ps-filter-radius);
+  box-shadow: var(--ps-filter-shadow);
+  z-index: 200;
+  padding: 1rem;
+}
+
+.ps-type-popin[hidden] {
+  display: none;
+}
+
+.ps-type-popin__section + .ps-type-popin__section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ps-filter-border);
+}
+
+.ps-type-popin__heading {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+}
+
+/* ── Asset type grid ──────────────────────────────────────────────────────── */
+.ps-asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-asset-card__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  width: 100%;
+  padding: 0.625rem 0.5rem;
+  border: 1px solid var(--ps-filter-border);
+  border-radius: var(--ps-filter-radius);
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8125rem;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ps-asset-card__link:hover,
+.ps-asset-card__link:focus-visible {
+  border-color: var(--ps-filter-active-color);
+  background: var(--ps-filter-active-bg);
+  outline: none;
+}
+
+.ps-asset-card.is-active .ps-asset-card__link {
+  border-color: var(--ps-filter-active-color);
+  background: var(--ps-filter-active-bg);
+  color: var(--ps-filter-active-color);
+  font-weight: 600;
+}
+
+.ps-asset-card__icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  /* Icon placeholder — override per asset type using background-image or
+     a webfont icon class in the active theme. */
+  background: #ccc;
+  border-radius: 50%;
+}
+
+/* Per-asset-type icon colours (placeholder — replace with real icons). */
+.ps-asset-icon--bur { background-color: #4a90e2; }
+.ps-asset-icon--ent { background-color: #7b68ee; }
+.ps-asset-icon--act { background-color: #50c878; }
+.ps-asset-icon--com { background-color: #ff7f50; }
+.ps-asset-icon--ter { background-color: #8fbc8f; }
+.ps-asset-icon--log { background-color: #dda0dd; }
+.ps-asset-icon--cow { background-color: #f0e68c; }
+
+/* ── Operation type buttons ───────────────────────────────────────────────── */
+.ps-op-choices {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ps-op-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ps-filter-border);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.ps-op-btn:hover,
+.ps-op-btn:focus-visible {
+  border-color: var(--ps-filter-active-color);
+  background: var(--ps-filter-active-bg);
+  color: var(--ps-filter-active-color);
+  outline: none;
+}
+
+.ps-op-btn.is-active {
+  border-color: var(--ps-filter-active-color);
+  background: var(--ps-filter-active-color);
+  color: #fff;
+}
+
+/* ── Footer (BNPPRE-style sticky) ─────────────────────────────────────────── */
+.ps-type-popin__footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  margin: 0 -1rem -1rem;
+  background: var(--ps-filter-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  z-index: 3;
+}
+
+.ps-filter-clear {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.875rem;
+  color: #666;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ps-filter-clear:hover {
+  color: var(--ps-filter-green, var(--ps-filter-active-color));
+}
+
+/* Apply / "Afficher X résultats" button */
+.ps-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: var(--ps-filter-radius);
+  background: var(--ps-filter-green, var(--ps-filter-active-color));
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.ps-apply-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ps-apply-btn:hover:not(:disabled) {
+  background: #006a44;
+}
+
+.ps-apply-btn.is-loading .ps-apply-btn__loader::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: ps-spin 0.7s linear infinite;
+}
+
+@keyframes ps-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Localisation filter (text input directly in bar) ─────────────────────── */
+.ps-filter-bar__item--location {
+  flex: 2 1 200px; /* wider than other items */
+  display: flex;
+  align-items: stretch;
+}
+
+.ps-filter-bar__item--location.is-active .ps-filter-bar__location-wrap {
+  background: var(--ps-filter-active-bg);
+}
+
+.ps-filter-bar__location-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  transition: background 0.15s;
+}
+
+.ps-filter-bar__location-editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.ps-filter-bar__location-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ps-location-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: 180px;
+  padding: 0.15rem 0.35rem 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--ps-filter-active-bg);
+  color: var(--ps-filter-active-color);
+  font-size: 0.78rem;
+}
+
+.ps-location-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ps-location-chip__clear {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.ps-location-chip__clear:hover,
+.ps-location-chip__clear:focus-visible {
+  outline: none;
+  text-decoration: underline;
+}
+
+.ps-filter-bar__location-icon {
+  color: #999;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ps-filter-bar__location-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+  outline: none;
+  min-width: 0;
+}
+
+.ps-filter-bar__location-input::placeholder {
+  color: #999;
+}
+
+.ps-filter-bar__location-input:focus {
+  outline: none;
+}
+
+.ps-filter-bar__location-suggest {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  right: 0;
+  z-index: 250;
+  display: flex;
+  flex-direction: column;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--ps-filter-bg);
+  border: 1px solid var(--ps-filter-border);
+  border-radius: 0 0 var(--ps-filter-radius) var(--ps-filter-radius);
+  box-shadow: var(--ps-filter-shadow);
+}
+
+.ps-location-suggest__group-title {
+  padding: 0.45rem 0.75rem 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #666;
+}
+
+.ps-location-suggest__item {
+  border: none;
+  border-bottom: 1px solid var(--ps-filter-border);
+  background: transparent;
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ps-location-suggest__item:last-child {
+  border-bottom: none;
+}
+
+.ps-location-suggest__item:hover,
+.ps-location-suggest__item:focus-visible,
+.ps-location-suggest__item.is-active {
+  background: var(--ps-filter-active-bg);
+  outline: none;
+}
+
+.ps-location-suggest__hint {
+  padding: 1rem 0.75rem;
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  font-style: italic;
+}
+
+.ps-location-suggest__actions {
+  padding: 0.75rem;
+  border-top: 2px solid var(--ps-filter-border);
+  background: #fafafa;
+}
+
+.ps-location-suggest__show-btn {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--ps-filter-active-color, #0056b3);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.ps-location-suggest__show-btn:hover {
+  background: #003d82;
+}
+
+.ps-location-suggest__show-btn:active {
+  transform: scale(0.98);
+}
+
+.ps-location-suggest__count {
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0 0.25em;
+  font-weight: 700;
+}
+
+/* ── Range inputs (surface / budget popins) ───────────────────────────────── */
+.ps-filter-bar__item--surface .ps-type-popin,
+.ps-filter-bar__item--budget .ps-type-popin {
+  min-width: 320px;
+}
+
+.ps-range-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.ps-range-inputs__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+.ps-range-inputs__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ps-range-inputs__input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--ps-filter-border);
+  border-radius: var(--ps-filter-radius);
+  overflow: hidden;
+  background: var(--ps-filter-bg);
+  transition: border-color 0.15s;
+}
+
+.ps-range-inputs__input-wrap:focus-within {
+  border-color: var(--ps-filter-active-color);
+  outline: 2px solid var(--ps-filter-active-color);
+  outline-offset: -2px;
+}
+
+.ps-range-inputs__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.625rem;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+  /* Remove native number input arrows */
+  -moz-appearance: textfield;
+}
+
+.ps-range-inputs__input::-webkit-outer-spin-button,
+.ps-range-inputs__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ps-range-inputs__input:focus {
+  outline: none;
+}
+
+.ps-range-inputs__unit {
+  padding: 0 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: #999;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ps-range-inputs__sep {
+  color: #bbb;
+  font-size: 1.1rem;
+  padding-bottom: 0.375rem; /* align with input baseline */
+  flex-shrink: 0;
+}
+
+/* Filter items with active values */
+.ps-filter-bar__item--surface.is-active .ps-filter-bar__btn,
+.ps-filter-bar__item--budget.is-active .ps-filter-bar__btn {
+  color: var(--ps-filter-active-color);
+  font-weight: 600;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ps-filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .ps-filter-bar__item--location {
+    flex: 1 1 100%;
+    border-left: none;
+    border-top: 1px solid var(--ps-filter-border);
+    order: -1; /* move to top on mobile */
+  }
+
+  .ps-filter-bar__item--type {
+    flex: 1 1 50%;
+  }
+  .ps-filter-bar__item--surface,
+  .ps-filter-bar__item--budget {
+    flex: 1 1 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .ps-type-popin {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width: unset;
+    width: 100%;
+    border-radius: var(--ps-filter-radius) var(--ps-filter-radius) 0 0;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+/* ── Location max warning ─────────────────────────────────────────────────── */
+.ps-location-max-warning {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+  border-radius: var(--ps-filter-radius);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 250;
+  animation: ps-fade-in 0.2s ease-out;
+}
+
+@keyframes ps-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

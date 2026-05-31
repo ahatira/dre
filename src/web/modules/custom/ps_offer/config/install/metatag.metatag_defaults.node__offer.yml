@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.offer
+  module:
+    - metatag
+id: node__offer
+label: Offer
+tags:
+  title: '[node:title] | [site:name]'
+  description: '[node:summary]'
+  canonical_url: '[node:url]'
+  shortlink: '[node:url]'
+  robots: 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1'
+  og_type: article
+  og_title: '[node:title] | [site:name]'
+  og_description: '[node:summary]'
+  og_url: '[node:url]'
+  og_site_name: '[site:name]'
+  twitter_cards_type: summary_large_image
+  twitter_cards_title: '[node:title] | [site:name]'
+  twitter_cards_description: '[node:summary]'

@@ -1,0 +1,11 @@
+administer ps agent entities:
+  title: 'Administer PS agent entities'
+  description: 'Create, edit, and delete PS agent entities.'
+
+administer ps agent types:
+  title: 'Administer PS agent types'
+  description: 'Create, edit, and delete PS agent types, and manage their fields and display settings.'
+
+administer ps agent fallback settings:
+  title: 'Administer PS agent fallback settings'
+  description: 'Configure fallback avatar files for agents.'

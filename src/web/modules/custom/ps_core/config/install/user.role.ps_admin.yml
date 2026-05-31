@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_core
+id: ps_admin
+label: 'Property Search Administrator'
+weight: 0
+is_admin: null
+permissions:
+  - 'access content'
+  - 'access ps_core hub'
+  - 'access ps_core content section'
+  - 'access ps_core structure section'
+  - 'access ps_core config section'
+  - 'administer ps_core'
+  - 'administer ps features'
+  - 'manage ps_agent'
+  - 'manage ps_context'
+  - 'manage ps_diagnostic'
+  - 'manage ps_dictionary'
+  - 'manage ps_feature'
+  - 'manage ps_favorite'
+  - 'manage ps_migrate'
+  - 'manage ps_offer'

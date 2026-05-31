@@ -1,0 +1,17 @@
+ps_dictionary.type_add:
+  route_name: ps_dictionary.type_add
+  title: 'Add dictionary type'
+  appears_on:
+    - ps_dictionary.type_collection
+
+ps_dictionary.import_form:
+  route_name: ps_dictionary.import_form
+  title: 'Import CSV'
+  appears_on:
+    - ps_dictionary.type_collection
+
+ps_dictionary.entry_add:
+  route_name: ps_dictionary.entry_add
+  title: 'Add dictionary entry'
+  appears_on:
+    - ps_dictionary.entry_collection

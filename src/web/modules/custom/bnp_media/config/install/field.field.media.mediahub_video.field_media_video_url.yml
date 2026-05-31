@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_video_url
+    - media.type.mediahub_video
+id: media.mediahub_video.field_media_video_url
+field_name: field_media_video_url
+entity_type: media
+bundle: mediahub_video
+label: 'Video URL'
+description: 'Direct video URL (expected: MediaHub AssetLink .mp4)'
+required: true
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: string

@@ -1,0 +1,20 @@
+ps_feature.feature_types:
+  path: '/admin/ps/config/features'
+  defaults:
+    _controller: '\Drupal\ps_feature\Controller\FeatureTypesController::listTypes'
+    _title: 'Feature types'
+  requirements:
+    _permission: 'administer ps features'
+
+entity.fb_feature_definition.collection_by_group:
+  path: '/admin/ps/structure/features/{feature_group}/definitions'
+  defaults:
+    _controller: '\Drupal\ps_feature\Controller\FeatureDefinitionByGroupController::listByGroup'
+    _title_callback: '\Drupal\ps_feature\Controller\FeatureDefinitionByGroupController::getTitle'
+  requirements:
+    _permission: 'administer ps features'
+  options:
+    parameters:
+      feature_group:
+        type: entity:fb_feature_group
+

@@ -1,0 +1,6 @@
+id: ps_diagnostic_type
+title: 'Diagnostic type'
+weight: 10
+names:
+  - 'ps_diagnostic.type.*'
+entity_type: ps_diagnostic_type

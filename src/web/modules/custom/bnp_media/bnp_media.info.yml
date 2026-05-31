@@ -1,0 +1,22 @@
+name: 'BNP Media'
+type: module
+description: 'Generic media foundation with Entity Browser and Dropzone upload workflows.'
+libraries:
+  - bnp_media/actions
+  - bnp_media/upload
+core_version_requirement: ^11
+package: 'BNP'
+version: 1.0.0
+dependencies:
+  - drupal:media
+  - drupal:media_library
+  - drupal:file
+  - drupal:image
+  - drupal:embed
+  - entity_embed:entity_embed
+  - entity_browser:entity_browser
+  - entity_browser_generic_embed:entity_browser_generic_embed
+  - entity_browser_enhanced:entity_browser_enhanced
+  - entity_browser:entity_browser_entity_form
+  - dropzonejs:dropzonejs
+  - dropzonejs_eb_widget:dropzonejs_eb_widget

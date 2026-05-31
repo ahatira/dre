@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_divisible
+    - node.type.offer
+id: node.offer.field_divisible
+field_name: field_divisible
+entity_type: node
+bundle: offer
+label: Divisible
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

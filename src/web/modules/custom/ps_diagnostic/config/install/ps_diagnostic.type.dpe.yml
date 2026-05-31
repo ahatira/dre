@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies: { }
+id: dpe
+label: 'DPE'
+unit: 'kWh/m2/year'
+icon: energy
+description: 'Energy performance diagnosis.'
+enabled: true
+weight: 0
+classes:
+  -
+    label: 'A'
+    color: '#009444'
+    range_max: 70
+  -
+    label: 'B'
+    color: '#44b749'
+    range_max: 110
+  -
+    label: 'C'
+    color: '#8dc63f'
+    range_max: 180
+  -
+    label: 'D'
+    color: '#fff200'
+    range_max: 250
+  -
+    label: 'E'
+    color: '#fcb913'
+    range_max: 330
+  -
+    label: 'F'
+    color: '#f47a20'
+    range_max: 420
+  -
+    label: 'G'
+    color: '#ed1c24'
+    range_max: 9999

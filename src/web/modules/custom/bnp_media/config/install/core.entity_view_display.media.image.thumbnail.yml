@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.image.field_media_image
+    - image.style.bnp_media_admin_card
+    - media.type.image
+  module:
+    - image
+id: media.image.thumbnail
+targetEntityType: media
+bundle: image
+mode: thumbnail
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_style: bnp_media_admin_card
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: { }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

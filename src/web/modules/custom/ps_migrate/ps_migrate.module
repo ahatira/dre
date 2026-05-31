@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks for ps_migrate module.
+ */
+
+// Migration behavior is defined in YAML configuration.
+

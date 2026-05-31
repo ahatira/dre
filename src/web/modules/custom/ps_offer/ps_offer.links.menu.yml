@@ -1,0 +1,20 @@
+ps_offer.reference_config:
+  title: 'Offer Reference'
+  description: 'Configure offer reference generation.'
+  route_name: ps_offer.reference_config
+  parent: ps_core.config
+  weight: 30
+
+ps_offer.reference_patterns:
+  title: 'Reference patterns'
+  description: 'Manage reference patterns.'
+  route_name: entity.ps_offer_reference_pattern.collection
+  parent: ps_offer.reference_config
+  weight: 0
+
+ps_offer.reference_alias_sets:
+  title: 'Reference aliases'
+  description: 'Manage reference alias sets.'
+  route_name: entity.ps_offer_reference_alias_set.collection
+  parent: ps_offer.reference_config
+  weight: 5

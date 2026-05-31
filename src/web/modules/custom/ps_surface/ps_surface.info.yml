@@ -1,0 +1,11 @@
+name: 'PS Surface'
+type: module
+description: 'Surface domain foundation for divisions, projections, and governance policies.'
+package: 'PS'
+core_version_requirement: ^11
+version: 1.0.0
+dependencies:
+  - drupal:node
+  - drupal:field
+  - drupal:options
+  - ps_core:ps_core

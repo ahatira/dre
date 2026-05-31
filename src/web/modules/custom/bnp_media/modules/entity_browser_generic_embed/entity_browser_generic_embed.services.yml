@@ -1,0 +1,5 @@
+services:
+  Drupal\entity_browser_generic_embed\Routing\RouteSubscriber:
+    class: Drupal\entity_browser_generic_embed\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

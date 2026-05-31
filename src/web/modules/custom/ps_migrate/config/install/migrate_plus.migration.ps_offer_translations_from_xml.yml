@@ -1,0 +1,128 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+  config:
+    - migrate_plus.migration.ps_offer_from_xml
+id: ps_offer_translations_from_xml
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Offer Translations from CRM XML (EN)'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  item_selector: /OFFERS_LIST/OFFER
+  fields:
+    -
+      name: business_id
+      label: 'Business ID'
+      selector: BUSINESS_ID
+    -
+      name: offer_xml_node
+      label: 'Full offer XML node'
+      selector: '.'
+    -
+      name: availability_en
+      label: 'Availability EN'
+      selector: 'ML_AVAILABILITY/AVAILABILITY[@LANGUAGE="EN"]'
+    -
+      name: technical_elements
+      label: 'Technical elements'
+      selector: TECHNICAL_ELEMENTS_LIST
+    -
+      name: address_country
+      label: 'Country'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/COUNTRY_ISO'
+  ids:
+    business_id:
+      type: string
+process:
+  pseudo_source_langcode:
+    plugin: canonical_offer_language
+    source:
+      - offer_xml_node
+      - address_country
+    output: drupal
+
+  _skip_same_language:
+    plugin: skip_translation_if_same_language
+    source: '@pseudo_source_langcode'
+    target_language: en
+
+  # ===== LOOKUP NODE =====
+  # Find the existing node created by ps_offer_from_xml
+  nid:
+    plugin: migration_lookup
+    migration: ps_offer_from_xml
+    source: business_id
+    no_stub: true
+  
+  # ===== SKIP IF NODE NOT FOUND =====
+  _skip_check:
+    plugin: skip_on_empty
+    method: row
+    source: '@nid'
+  
+  # ===== TITLE (NON-TRANSLATABLE BUT REQUIRED) =====
+  # Title is inherited from source language but must be explicitly mapped
+  title: business_id
+  
+  # ===== LANGUAGE CODE =====
+  # Detect language from country or default to EN
+  langcode:
+    plugin: static_map
+    source: address_country
+    map:
+      FR: en
+      BE: en
+      LU: en
+      DE: en
+      ES: en
+      IT: en
+      PL: en
+      NL: en
+      GB: en
+    default_value: en
+  
+  # ===== CONTENT TRANSLATION SOURCE =====
+  content_translation_source:
+    plugin: get
+    source: '@pseudo_source_langcode'
+  
+  # ===== BODY EN =====
+  'body/value':
+    plugin: multilingual_description
+    source: offer_xml_node
+    language: EN
+    priority: [2, 4, 1]
+  'body/format':
+    plugin: default_value
+    default_value: plain_text
+  
+  # ===== AVAILABILITY EN =====
+  field_availability: availability_en
+  
+  # ===== FEATURES EN =====
+  field_features:
+    plugin: multilingual_feature_items
+    source: technical_elements
+    language: EN
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: offer
+  translations: true
+
+migration_dependencies:
+  required:
+    - ps_offer_from_xml
+  optional: []

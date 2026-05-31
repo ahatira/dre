@@ -1,0 +1,39 @@
+ps_search.seo_url_mappings_form:
+  path: '/admin/ps/config/search/seo-urls'
+  defaults:
+    _form: '\Drupal\ps_search\Form\SeoUrlMappingsForm'
+    _title: 'SEO URL Mappings'
+  requirements:
+    _permission: 'administer site configuration'
+
+# Legacy routes - Deprecated in 2.0.0, use ps_search_filters and ps_location_autocomplete instead
+
+ps_search.count:
+  path: '/ps-search/count'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::countRedirect'
+    _title: 'Search result count (deprecated)'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+ps_search.location_suggest:
+  path: '/ps-search/location-suggest'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::suggestRedirect'
+    _title: 'Location suggestions (deprecated)'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+ps_search.location_data:
+  path: '/ps-search/location-data'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::locationDataRedirect'
+    _title: 'Location structured data (deprecated)'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE

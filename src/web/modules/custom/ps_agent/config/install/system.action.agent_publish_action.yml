@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+id: agent_publish_action
+label: 'Publish agent'
+type: ps_agent
+plugin: agent_publish_action
+configuration: {  }

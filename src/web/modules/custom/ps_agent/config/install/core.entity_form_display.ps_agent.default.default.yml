@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - ps_agent.type.default
+    - image.style.agent_avatar_lg
+  module:
+    - focal_point
+    - image
+    - ps_agent
+id: ps_agent.default.default
+targetEntityType: ps_agent
+bundle: default
+mode: default
+content:
+  civility:
+    type: options_select
+    weight: 1
+    region: content
+    settings: { }
+    third_party_settings: { }
+  first_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  last_name:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  email:
+    type: email_default
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  phone:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  avatar:
+    type: image_focal_point
+    weight: 6
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: agent_avatar_lg
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings: { }
+hidden:
+  job_title: true
+  internal_external: true
+  uid: true
+  status: true
+  created: true
+  display_name: true

@@ -1,0 +1,41 @@
+name: 'Property Search - Offer'
+type: module
+description: 'Offer content model and business validations.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_favorite:ps_favorite
+  - ps_core:ps_core
+  - ps_media:ps_media
+  - ps_dictionary:ps_dictionary
+  - ps_feature:ps_feature
+  - ps_agent:ps_agent
+  - drupal:node
+  - drupal:field
+  - drupal:options
+  - drupal:user
+  - drupal:address
+  - drupal:geofield
+  - drupal:entity_reference_revisions
+  - geocoder:geocoder
+  - geocoder:geocoder_field
+  - geocoder:geocoder_address
+  - geocoder:geocoder_geofield
+  - drupal:media
+  - drupal:datetime
+  - drupal:link
+  - drupal:text
+  - drupal:views
+  - drupal:content_translation
+  - drupal:config_translation
+  - drupal:pathauto
+  - drupal:token
+  - drupal:scheduler
+  - drupal:field
+  - drupal:metatag
+  - drupal:schema_metatag
+  - drupal:inline_entity_form
+  - field_group:field_group
+  - ps_surface:ps_surface
+  - ps_diagnostic:ps_diagnostic

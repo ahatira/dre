@@ -1,0 +1,130 @@
+# Schema for the configuration files of the ps_feature module.
+
+field.field_settings.feature:
+  type: mapping
+  label: 'Feature field settings'
+  mapping:
+    allowed_groups:
+      type: sequence
+      label: 'Allowed feature groups'
+      sequence:
+        type: string
+        label: 'Group ID'
+    allowed_features:
+      type: sequence
+      label: 'Allowed features'
+      sequence:
+        type: string
+        label: 'Feature ID'
+
+field.storage_settings.feature:
+  type: mapping
+  label: 'Feature field storage settings'
+  mapping: {}
+
+ps_feature.feature_group.*:
+  type: config_entity
+  label: 'Feature Group'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    description:
+      type: text
+      label: 'Description'
+      translatable: true
+    asset_types:
+      type: sequence
+      label: 'Asset types'
+      sequence:
+        type: string
+        label: 'Asset type code'
+    weight:
+      type: integer
+      label: 'Weight'
+    status:
+      type: boolean
+      label: 'Status'
+
+ps_feature.feature_definition.*:
+  type: config_entity
+  label: 'Feature Definition'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    description:
+      type: label
+      label: 'Description'
+      translatable: true
+    code:
+      type: string
+      label: 'Code'
+    group:
+      type: string
+      label: 'Group'
+    type_driver:
+      type: string
+      label: 'Type driver'
+    required_asset_types:
+      type: sequence
+      label: 'Required asset types'
+      sequence:
+        type: string
+        label: 'Asset type code'
+    payload_defaults:
+      type: mapping
+      label: 'Payload defaults'
+      mapping:
+        unit:
+          type: string
+          label: 'Unit'
+          translatable: true
+        min:
+          type: float
+          label: 'Minimum value'
+        max:
+          type: float
+          label: 'Maximum value'
+        decimals:
+          type: integer
+          label: 'Decimal places'
+        max_length:
+          type: integer
+          label: 'Maximum length'
+        rows:
+          type: integer
+          label: 'Number of rows'
+        dictionary_id:
+          type: string
+          label: 'Dictionary ID'
+        allow_custom:
+          type: boolean
+          label: 'Allow custom values'
+        vocabulary_id:
+          type: string
+          label: 'Vocabulary ID'
+        multiple:
+          type: boolean
+          label: 'Multiple selection'
+        format:
+          type: string
+          label: 'Date format'
+        options:
+          type: mapping
+          label: 'List options'
+          translatable: true
+    weight:
+      type: integer
+      label: 'Weight'
+    status:
+      type: boolean
+      label: 'Status'

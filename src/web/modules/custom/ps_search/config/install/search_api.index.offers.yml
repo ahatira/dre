@@ -1,0 +1,218 @@
+uuid: 076ef6c4-1960-4a36-9873-62e1b70628b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_address
+    - field.storage.node.field_asset_type
+    - field.storage.node.field_budget_value
+    - field.storage.node.field_commercial_title
+    - field.storage.node.field_divisible
+    - field.storage.node.field_features
+    - field.storage.node.field_geo
+    - field.storage.node.field_operation_type
+    - field.storage.node.field_reference
+    - search_api.server.ps_solr
+  module:
+    - node
+    - ps_search
+    - search_api_solr
+_core:
+  default_config_hash: k6r4c3S5e_6vf3_JhVWHKH1VCYru8y-9uFxUBvmgxcw
+id: offers
+name: Offers
+description: 'Search API index for property offers (node:offer), backed by Solr.'
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  changed:
+    label: 'Date updated'
+    datasource_id: 'entity:node'
+    property_path: changed
+    type: date
+    dependencies:
+      module:
+        - node
+  field_address_admin_area:
+    label: Department
+    datasource_id: 'entity:node'
+    property_path: 'field_address:administrative_area'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  field_address_locality:
+    label: City
+    datasource_id: 'entity:node'
+    property_path: 'field_address:locality'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  field_address_postal_code:
+    label: 'Postal code'
+    datasource_id: 'entity:node'
+    property_path: 'field_address:postal_code'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  field_asset_type:
+    label: 'Asset type'
+    datasource_id: 'entity:node'
+    property_path: field_asset_type
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_asset_type
+  field_budget_value:
+    label: Budget
+    datasource_id: 'entity:node'
+    property_path: field_budget_value
+    type: decimal
+    dependencies:
+      config:
+        - field.storage.node.field_budget_value
+  field_capacity_total:
+    label: 'Capacity total'
+    datasource_id: 'entity:node'
+    property_path: field_capacity_total
+    type: decimal
+    dependencies:
+      config:
+        - field.storage.node.field_capacity_total
+  field_commercial_title:
+    label: 'Commercial title'
+    datasource_id: 'entity:node'
+    property_path: field_commercial_title
+    type: text
+    boost: 1.5
+    dependencies:
+      config:
+        - field.storage.node.field_commercial_title
+  field_divisible:
+    label: Divisible
+    datasource_id: 'entity:node'
+    property_path: field_divisible
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_divisible
+  field_feature_ids:
+    label: 'Feature IDs'
+    datasource_id: 'entity:node'
+    property_path: 'field_features:feature_definition_id'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_features
+  field_geo:
+    label: Geo
+    datasource_id: 'entity:node'
+    property_path: field_geo
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_geo
+  field_operation_type:
+    label: 'Operation type'
+    datasource_id: 'entity:node'
+    property_path: field_operation_type
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_operation_type
+  field_reference:
+    label: Reference
+    datasource_id: 'entity:node'
+    property_path: field_reference
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_reference
+  feature_amenagements__tec_hall_daccueil:
+    label: "Hall d'accueil"
+    property_path: feature_amenagements__tec_hall_daccueil
+    type: boolean
+  feature_equipements__tec_cblage_informatique:
+    label: 'Cablage informatique'
+    property_path: feature_equipements__tec_cblage_informatique
+    type: boolean
+  feature_hauteurs__tec_hauteur_libre:
+    label: 'Hauteur libre'
+    property_path: feature_hauteurs__tec_hauteur_libre
+    type: decimal
+  langcode:
+    label: Language
+    datasource_id: 'entity:node'
+    property_path: langcode
+    type: string
+    dependencies:
+      module:
+        - node
+  status:
+    label: Published
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - node
+  surface_min:
+    label: 'Surface minimum (m²)'
+    property_path: surface_min
+    type: decimal
+  surface_total:
+    label: 'Surface total (m²)'
+    property_path: surface_total
+    type: decimal
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: 2.0
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - offer
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  auto_aggregated_fulltext_field: {  }
+  custom_value: {  }
+  entity_status:
+    weights:
+      preprocess_index: -10
+    settings: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  ps_surface_processor: {  }
+  ps_feature: {  }
+  rendered_item: {  }
+  solr_date_range: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: false
+  index_directly: false
+  track_changes_in_references: false
+server: ps_solr

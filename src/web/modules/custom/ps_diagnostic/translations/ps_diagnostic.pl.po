@@ -1,0 +1,4 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_diagnostic\n"
+"Language: pl\n"

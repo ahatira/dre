@@ -1,0 +1,6 @@
+ps_search.seo_url_mappings_form:
+  title: 'SEO URL Mappings'
+  names:
+    - ps_search.seo_url_mappings
+  base_route_name: ps_search.seo_url_mappings_form
+  weight: 10

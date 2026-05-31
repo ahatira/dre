@@ -1,0 +1,11 @@
+name: 'Property Search - Core'
+type: module
+description: 'Foundation infrastructure for Property Search ecosystem.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - drupal:system
+  - drupal:user
+  - drupal:field
+  - drupal:views

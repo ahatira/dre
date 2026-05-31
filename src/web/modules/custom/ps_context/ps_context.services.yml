@@ -1,0 +1,11 @@
+services:
+  ps_context.offer_matrix_rules:
+    class: Drupal\ps_context\Service\OfferMatrixRules
+    arguments:
+      - '@entity_type.manager'
+
+  # Registered with FQCN so Drupal's HookCollectorPass can inject dependencies.
+  Drupal\ps_context\Hook\OfferFormHooks:
+    class: Drupal\ps_context\Hook\OfferFormHooks
+    arguments:
+      - '@ps_context.offer_matrix_rules'

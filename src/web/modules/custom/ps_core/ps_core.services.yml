@@ -1,0 +1,27 @@
+services:
+  logger.channel.ps_core:
+    parent: logger.channel_base
+    arguments: ['ps_core']
+
+  ps_core.audit_logger:
+    class: Drupal\ps_core\Service\AuditLogger
+    arguments: ['@logger.channel.ps_core']
+
+  ps_core.field_mapper:
+    class: Drupal\ps_core\Service\FieldMapper
+
+  ps_core.config_resolver:
+    class: Drupal\ps_core\Service\ConfigResolver
+    arguments: ['@config.factory']
+
+  ps_core.conflict_detector:
+    class: Drupal\ps_core\Service\ConflictDetector
+    arguments: ['@ps_core.audit_logger']
+
+  ps_core.entity_protection_manager:
+    class: Drupal\ps_core\Service\EntityProtectionManager
+    arguments: ['@logger.channel.ps_core']
+
+  ps_core.permission_manager:
+    class: Drupal\ps_core\Service\PermissionManager
+    arguments: ['@current_user', '@router.route_provider']

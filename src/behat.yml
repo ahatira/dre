@@ -1,0 +1,25 @@
+default:
+  autoload:
+    '': '%paths.base%/web/modules/custom/ps_offer/tests/behat/features/bootstrap'
+  formatters:
+    pretty: true
+  suites:
+    ps_offer_reference:
+      paths:
+        - web/modules/custom/ps_offer/tests/behat/features
+      contexts:
+        - FeatureContext
+    ps_feature:
+      paths:
+        - web/modules/custom/ps_feature/tests/behat/features
+      contexts:
+        - FeatureModuleContext
+    ps_dictionary:
+      paths:
+        - web/modules/custom/ps_dictionary/tests/behat/features
+      contexts:
+        - DictionaryFeatureContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'http://localhost:8080'
+      browserkit_http: ~

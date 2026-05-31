@@ -1,0 +1,50 @@
+services:
+  ps_offer.path_token_provider:
+    class: Drupal\ps_offer\Service\OfferPathTokenProvider
+    arguments:
+      - '@entity_type.manager'
+      - '@address.country_repository'
+      - '@address.subdivision_repository'
+      - '@transliteration'
+      - '@language_manager'
+
+  Drupal\ps_offer\Service\OfferReferenceManager:
+    class: Drupal\ps_offer\Service\OfferReferenceManager
+    arguments:
+      - '@Drupal\ps_offer\Service\OfferReferencePatternResolver'
+      - '@Drupal\ps_offer\Service\OfferReferenceGeneratorInterface'
+      - '@entity_type.manager'
+
+  Drupal\ps_offer\Service\OfferReferenceManagerInterface:
+    alias: Drupal\ps_offer\Service\OfferReferenceManager
+
+  Drupal\ps_offer\Service\OfferReferenceAliasResolver:
+    class: Drupal\ps_offer\Service\OfferReferenceAliasResolver
+    arguments: ['@entity_type.manager']
+
+  Drupal\ps_offer\Service\OfferReferenceAliasResolverInterface:
+    alias: Drupal\ps_offer\Service\OfferReferenceAliasResolver
+
+  Drupal\ps_offer\Service\OfferReferenceGenerator:
+    class: Drupal\ps_offer\Service\OfferReferenceGenerator
+    arguments: ['@datetime.time', '@Drupal\ps_offer\Service\OfferReferenceAliasResolverInterface']
+
+  Drupal\ps_offer\Service\OfferReferenceGeneratorInterface:
+    alias: Drupal\ps_offer\Service\OfferReferenceGenerator
+
+  Drupal\ps_offer\Service\OfferReferencePatternResolver:
+    class: Drupal\ps_offer\Service\OfferReferencePatternResolver
+    arguments: ['@entity_type.manager']
+
+  Drupal\ps_offer\Service\OfferValidationManager:
+    class: Drupal\ps_offer\Service\OfferValidationManager
+    arguments: ['@messenger', '@entity_type.manager']
+
+  Drupal\ps_offer\Service\OfferValidationManagerInterface:
+    alias: Drupal\ps_offer\Service\OfferValidationManager
+
+  Drupal\ps_offer\Hook\OfferHooks:
+    class: Drupal\ps_offer\Hook\OfferHooks
+    arguments:
+      - '@Drupal\ps_offer\Service\OfferValidationManagerInterface'
+      - '@Drupal\ps_offer\Service\OfferReferenceManagerInterface'

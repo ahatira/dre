@@ -1,0 +1,473 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+  config:
+    - migrate_plus.migration.ps_agent_from_xml
+id: ps_offer_from_xml
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Offers from CRM XML (Config-First - Phase 1)'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  item_selector: /OFFERS_LIST/OFFER
+  fields:
+    -
+      name: business_id
+      label: 'Business ID'
+      selector: BUSINESS_ID
+    -
+      name: type_code
+      label: 'Type Code'
+      selector: TYPE_CODE
+    -
+      name: operation_code
+      label: 'Operation Code'
+      selector: 'OPERATIONS_LIST/OPERATION_CODE[1]'
+    -
+      name: description_fr
+      label: 'Description FR'
+      selector: 'ML_DESCRIPTION_1/DESCRIPTION[1]'
+    -
+      name: description_long_fr
+      label: 'Description long FR'
+      selector: 'ML_DESCRIPTION_2/DESCRIPTION[1]'
+    -
+      name: availability_fr
+      label: 'Availability FR'
+      selector: 'ML_AVAILABILITY/AVAILABILITY[@LANGUAGE="FR"]'
+    -
+      name: is_divisible
+      label: 'Is divisible'
+      selector: IS_DIVISIBLE
+    -
+      name: publication_end_date
+      label: 'Publication end date'
+      selector: PUBLICATION_END_DATE
+    -
+      name: address_line1
+      label: 'Address line 1'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/ADDRESS_LINE_1'
+    -
+      name: address_city
+      label: 'City'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/CITY'
+    -
+      name: address_zip
+      label: 'ZIP code'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/ZIP_CODE'
+    -
+      name: address_country
+      label: 'Country'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/COUNTRY_ISO'
+    -
+      name: gps_longitude
+      label: 'Longitude'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/GPS/LONGITUDE'
+    -
+      name: gps_latitude
+      label: 'Latitude'
+      selector: 'ADDRESS_LIST/ADDRESS[DISPLAY="true"]/GPS/LATITUDE'
+    -
+      name: all_surface_values
+      label: 'All surface values (test multi-extraction)'
+      selector: GLOBAL_SURFACES/SURFACE/VALUE
+    -
+      name: all_surface_quals
+      label: 'All surface qualification codes (test multi-extraction)'
+      selector: GLOBAL_SURFACES/SURFACE/QUALIFICATION_CODE
+    -
+      name: division_ids
+      label: 'Division IDs list'
+      selector: DIVISIONS_LIST/DIVISION/LOT
+    -
+      name: main_agent_uid
+      label: 'Main business leader UID'
+      selector: MAIN_BUSINESS_LEADER_UID
+    -
+      name: last_update_date
+      label: 'Last update date'
+      selector: LAST_UPDATE_DATE
+    -
+      name: timestamp
+      label: 'Timestamp'
+      selector: TIMESTAMP
+    -
+      name: media_order_list
+      label: 'List of media display orders'
+      selector: 'MEDIA_LIST/MEDIA/ORDER'
+    -
+      name: technical_elements
+      label: 'Technical elements'
+      selector: TECHNICAL_ELEMENTS_LIST
+    -
+      name: diagnostic_types
+      label: 'Diagnostic types'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/DIAGNOSTIC_TYPE
+    -
+      name: diagnostic_classes
+      label: 'Diagnostic classes'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/CLASS
+    -
+      name: diagnostic_values
+      label: 'Diagnostic values'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/VALUE
+    -
+      name: diagnostic_dates
+      label: 'Diagnostic dates'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/DIAGNOSTIC_DATE
+    -
+      name: diagnostic_validity_end_dates
+      label: 'Diagnostic validity end dates'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/VALIDITY_END_DATE
+    -
+      name: diagnostic_no_classification_markers
+      label: 'Diagnostic no classification markers'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/NO_CLASSIFICATION
+    -
+      name: diagnostic_non_applicable_markers
+      label: 'Diagnostic non applicable markers'
+      selector: DIAGNOSTICS_LIST/DIAGNOSTIC/NON_APPLICABLE
+    -
+      name: technical_id
+      label: 'Technical ID'
+      selector: TECHNICAL_ID
+    -
+      name: budget_value
+      label: 'Budget value'
+      selector: 'BUDGETS_LIST/BUDGET[1]/VALUE'
+    -
+      name: budget_period_code
+      label: 'Budget period code'
+      selector: 'BUDGETS_LIST/BUDGET[1]/PERIOD_CODE'
+    -
+      name: budget_unit_code
+      label: 'Budget unit code'
+      selector: 'BUDGETS_LIST/BUDGET[1]/UNIT_CODE'
+  ids:
+    business_id:
+      type: string
+  constants:
+    default_surface_zero: 0
+    point_prefix: 'POINT('
+    point_space: ' '
+    point_suffix: ')'
+process:
+  # ===== NODE BUNDLE =====
+  type:
+    plugin: default_value
+    default_value: offer
+  
+  # ===== TITLE =====
+  # Titre = BUSINESS_ID (sera regénéré par pattern si configuré)
+  title: business_id
+  
+  # ===== IDENTIFICATION =====
+  field_business_id: business_id
+  field_reference: technical_id
+  field_reference_auto:
+    plugin: default_value
+    default_value: 0
+  
+  # ===== TYPOLOGIE =====
+  # TYPE_CODE: BUR, COW, LOG → field_asset_type
+  # Mapping MAT-01: LOG (XML) → ENT (Drupal)
+  field_asset_type:
+    plugin: static_map
+    source: type_code
+    map:
+      LOG: ENT
+    bypass: true
+  
+  # OPERATIONS_LIST/OPERATION_CODE: LOC, VEN → field_operation_type
+  pseudo_operation_code:
+    -
+      plugin: callback
+      callable: strval
+      source: operation_code
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: callback
+      callable: strtoupper
+
+  field_operation_type: '@pseudo_operation_code'
+  
+  # ===== DESCRIPTION =====
+  # ML_DESCRIPTION_2 (plus complète) ou fallback ML_DESCRIPTION_1
+  # TODO P1: Activer format full_html ou créer format de texte riche
+  # Pour l'instant: plain_text (HTML sera échappé dans l'affichage)
+  'body/value': description_long_fr
+  'body/format':
+    plugin: default_value
+    default_value: plain_text
+  
+  # ===== DISPONIBILITÉ =====
+  field_availability: availability_fr
+  
+  # ===== DIVISIBILITÉ =====
+  # IS_DIVISIBLE: "true" ou "false" (string XML) → boolean
+  field_divisible:
+    plugin: static_map
+    source: is_divisible
+    map:
+      'true': 1
+      'false': 0
+    default_value: 0
+  
+  # ===== ADRESSE =====
+  # Mapping vers field_address (Address field)
+  'field_address/address_line1': address_line1
+  'field_address/locality': address_city
+  'field_address/postal_code': address_zip
+  'field_address/country_code': address_country
+  
+  # ===== GEOFIELD =====
+  # GPS/LONGITUDE + GPS/LATITUDE → WKT POINT(lon lat)
+  # Skip si longitude vide (offre sans coordonnées GPS).
+  field_geo:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: gps_longitude
+    -
+      plugin: concat
+      source:
+        - constants/point_prefix
+        - gps_longitude
+        - constants/point_space
+        - gps_latitude
+        - constants/point_suffix
+  
+  # ===== SURFACES =====
+  # YAML-only mapping with simple_xml parser + transpose/sub_process.
+  # Pair QUALIFICATION_CODE with VALUE by index.
+  pseudo_surfaces_data:
+    plugin: transpose
+    source:
+      - all_surface_quals
+      - all_surface_values
+
+  field_surfaces:
+    plugin: sub_process
+    source: '@pseudo_surfaces_data'
+    process:
+      qualification:
+        plugin: get
+        source: '0'
+      value:
+        plugin: callback
+        callable: floatval
+        source: '1'
+      unit_code:
+        plugin: default_value
+        default_value: M2
+
+  # ===== DIAGNOSTICS (CONFIG-ONLY GENERIC) =====
+  # Build rows from DIAGNOSTICS_LIST/DIAGNOSTIC without custom process plugin.
+  pseudo_diagnostics_data:
+    plugin: transpose
+    source:
+      - diagnostic_types
+      - diagnostic_classes
+      - diagnostic_values
+      - diagnostic_dates
+      - diagnostic_validity_end_dates
+      - diagnostic_no_classification_markers
+      - diagnostic_non_applicable_markers
+
+  field_diagnostics:
+    plugin: sub_process
+    source: '@pseudo_diagnostics_data'
+    process:
+      diagnostic_type:
+        -
+          plugin: get
+          source: '0'
+        -
+          plugin: callback
+          callable: trim
+        -
+          plugin: callback
+          callable: strtolower
+      class:
+        -
+          plugin: get
+          source: '1'
+        -
+          plugin: callback
+          callable: trim
+        -
+          plugin: callback
+          callable: strtoupper
+      value:
+        plugin: get
+        source: '2'
+      diagnostic_date:
+        plugin: get
+        source: '3'
+      validity_end_date:
+        plugin: get
+        source: '4'
+      no_classification:
+        -
+          plugin: get
+          source: '5'
+        -
+          plugin: static_map
+          map:
+            '': 1
+          default_value: 0
+      non_applicable:
+        -
+          plugin: get
+          source: '6'
+        -
+          plugin: static_map
+          map:
+            '': 1
+          default_value: 0
+
+  
+  # ===== AGENTS =====
+  # MAIN_BUSINESS_LEADER_UID → lookup vers ps_agent
+  field_primary_agent:
+    plugin: migration_lookup
+    migration: ps_agent_from_xml
+    source: main_agent_uid
+    no_stub: true
+  
+  # ===== DIVISIONS / LOTS =====
+  # YAML-only lookup from LOT IDs to ps_surface_division entity IDs.
+  field_divisions:
+    plugin: migration_lookup
+    migration: ps_surface_division_from_xml
+    source: division_ids
+    no_stub: true
+  
+  # ===== DATES =====
+  # LAST_UPDATE_DATE: format ISO 8601
+  created:
+    plugin: callback
+    callable: strtotime
+    source: last_update_date
+  
+  changed:
+    plugin: callback
+    callable: strtotime
+    source: timestamp
+  
+  # ===== LANGUE =====
+  # Auto-detect from country ISO: FR/BE/LU → fr, NL → nl, DE → de, ES → es, IT → it, PL → pl, GB → en
+  langcode:
+    plugin: static_map
+    source: address_country
+    map:
+      FR: fr
+      BE: fr
+      LU: lb
+      DE: de
+      ES: es
+      IT: it
+      PL: pl
+      NL: nl
+      GB: en
+    default_value: fr
+
+  # ===== CLIENT TYPE =====
+  # B2B par défaut
+  field_client_type:
+    plugin: default_value
+    default_value: B2B
+
+  # ===== PUBLICATION =====
+  # Draft par défaut, à publier manuellement
+  status:
+    plugin: default_value
+    default_value: 0
+  
+  # ===== PROTECTION FIELDS =====
+  # field_source_tracking: JSON avec metadata
+  'field_source_tracking/value':
+    plugin: default_value
+    default_value: '{"source_system":"CRM_BNPPRE","import_timestamp":"@timestamp"}'
+  
+  # field_source_checksum: sera calculé en P1 avec process plugin custom
+  # field_internal_lock: false par défaut (CRM peut écraser)
+  field_internal_lock:
+    plugin: default_value
+    default_value: 0
+  
+  # ===== MEDIA GALLERY =====
+  field_media_gallery:
+    plugin: media_ids_by_business
+    source: business_id
+
+  # ===== BUDGET =====
+  # BUDGETS_LIST/BUDGET[1]/VALUE → field_budget_value (float)
+  field_budget_value:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: budget_value
+    -
+      plugin: callback
+      callable: floatval
+
+  # PERIOD_CODE: ANN → YEAR, MEN → MONTH, UNI → ONE_SHOT
+  field_budget_period:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: budget_period_code
+    -
+      plugin: static_map
+      map:
+        ANN: YEAR
+        MEN: MONTH
+        UNI: ONE_SHOT
+      bypass: true
+
+  # UNIT_CODE: SUR → PER_M2, GBL → GLOBAL, POS → PER_POSTE
+  field_budget_unit:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: budget_unit_code
+    -
+      plugin: static_map
+      map:
+        SUR: PER_M2
+        GBL: GLOBAL
+        POS: PER_POSTE
+      bypass: true
+
+  field_features:
+    plugin: feature_items_from_technical_elements
+    source: technical_elements
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: offer
+
+migration_dependencies:
+  required:
+    - ps_dictionary_asset_type_from_xml
+    - ps_dictionary_operation_type_from_xml
+    - ps_feature_groups_from_xml
+    - ps_feature_definitions_from_xml
+    - ps_agent_from_xml
+    - ps_media_from_xml
+    - ps_surface_division_from_xml
+  optional: []

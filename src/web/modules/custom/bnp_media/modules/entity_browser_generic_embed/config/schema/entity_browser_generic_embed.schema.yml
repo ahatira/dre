@@ -1,0 +1,7 @@
+entity_browser_generic_embed.settings:
+  type: config_object
+  label: 'Entity Browser Generic Embed settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enabled'

@@ -1,0 +1,128 @@
+/**
+ * PS Surface — inline widget layout.
+ */
+
+.ps-surface-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.ps-surface-item > .form-item {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+
+.ps-surface-item > .form-item--unit-code {
+  flex: 0 0 10rem;
+}
+
+.ps-surface-item > .form-item--qualification {
+  flex: 0 0 10rem;
+}
+
+.ps-surface-item > .form-item--value {
+  flex: 1 1 15rem;
+  font-weight: 500;
+}
+
+.ps-surface-item .form-number {
+  font-size: 1.1em;
+  padding: 0.5rem;
+}
+
+/* Offer widget: rows stacked, each row inline. */
+.ps-surface-offer-widget {
+  background: #ffffff;
+  border: 2px solid #d4d4d4;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.ps-surface-offer-widget > .ps-surface-item {
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: transparent;
+  border-left: 4px solid #0074bd;
+}
+
+.ps-surface-offer-widget > .ps-surface-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.ps-surface-offer-widget > .ps-surface-item:nth-child(1) {
+  border-left-color: #0074bd; /* TOTAL - blue */
+}
+
+.ps-surface-offer-widget > .ps-surface-item:nth-child(2) {
+  border-left-color: #28a745; /* DISPO - green */
+}
+
+.ps-surface-offer-widget > .ps-surface-item:nth-child(3) {
+  border-left-color: #ffc107; /* ETREF - yellow/orange */
+}
+
+.ps-surface-offer-widget .form-item--value label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Division form specific styles */
+.ps-surface-division-form .field--name-surfaces {
+  background: #fcfcfc;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.ps-surface-division-form .field--name-surfaces > label {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #0074bd;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.ps-surface-division-form .field--name-internal-lock {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.ps-surface-division-form .field--name-internal-lock label {
+  font-weight: 600;
+  color: #856404;
+}
+
+.ps-surface-division-form .field--name-availability-text {
+  background: #e7f3ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ps-surface-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .ps-surface-item > .form-item {
+    flex: 1 1 100%;
+  }
+}

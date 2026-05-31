@@ -1,0 +1,11 @@
+id: default_hide_lots
+uuid: 2a1b3c4d-0005-0000-0000-000000000005
+label: 'Default: Hide Lots tab'
+status: true
+weight: -10
+conditions_logic: AND
+conditions: []
+actions:
+  - action_type: hide_tab
+    target: group_lots
+    value: ''

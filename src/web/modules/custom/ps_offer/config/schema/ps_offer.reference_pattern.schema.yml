@@ -1,0 +1,140 @@
+ps_offer_reference_pattern.*:
+  type: config_entity
+  label: 'Offer reference pattern'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Status'
+    weight:
+      type: integer
+      label: 'Weight'
+    target_bundles:
+      type: sequence
+      label: 'Target bundles'
+      sequence:
+        type: string
+        label: 'Bundle'
+    allow_manual_override:
+      type: boolean
+      label: 'Allow manual override'
+    require_uniqueness:
+      type: boolean
+      label: 'Require uniqueness'
+    validate_manual_value_against_pattern:
+      type: boolean
+      label: 'Validate manual value against pattern'
+    generate_on_create:
+      type: boolean
+      label: 'Generate on create'
+    regenerate_on_source_change:
+      type: boolean
+      label: 'Regenerate on source change'
+    counter_scope_mode:
+      type: string
+      label: 'Counter scope mode'
+    segments:
+      type: sequence
+      label: 'Segments'
+      sequence:
+        type: mapping
+        label: 'Segment'
+        mapping:
+          uuid:
+            type: string
+            label: 'UUID'
+          label:
+            type: label
+            label: 'Label'
+            translatable: true
+          type:
+            type: string
+            label: 'Type'
+          weight:
+            type: integer
+            label: 'Weight'
+          length:
+            type: integer
+            label: 'Length'
+          source_field:
+            type: string
+            label: 'Source field'
+          resolution_mode:
+            type: string
+            label: 'Resolution mode'
+          alias_set_ids:
+            type: sequence
+            label: 'Alias set IDs'
+            sequence:
+              type: string
+              label: 'Alias set ID'
+          mapping:
+            type: sequence
+            label: 'Mapping'
+            sequence:
+              type: string
+              label: 'Mapped value'
+          fallback_value:
+            type: string
+            label: 'Fallback value'
+          settings:
+            type: ignore
+            label: 'Settings'
+
+ps_offer_reference_alias_set.*:
+  type: config_entity
+  label: 'Offer reference alias set'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Status'
+    weight:
+      type: integer
+      label: 'Weight'
+    applies_to_pattern_ids:
+      type: sequence
+      label: 'Applies to patterns'
+      sequence:
+        type: string
+        label: 'Pattern ID'
+    entries:
+      type: sequence
+      label: 'Alias entries'
+      sequence:
+        type: mapping
+        label: 'Alias entry'
+        mapping:
+          source_field:
+            type: string
+            label: 'Source field'
+          source_value:
+            type: string
+            label: 'Source value'
+          reference_code:
+            type: string
+            label: 'Reference code'
+          weight:
+            type: integer
+            label: 'Weight'
+          description:
+            type: text
+            label: 'Description'

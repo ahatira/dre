@@ -1,0 +1,40 @@
+services:
+  bnp_media.remote_video_provider_resolver:
+    class: Drupal\bnp_media\Service\RemoteVideoProviderResolver
+
+  bnp_media.oembed_iframe_builder:
+    class: Drupal\bnp_media\Service\OembedIframeBuilder
+
+  bnp_media.provider_library_attacher:
+    class: Drupal\bnp_media\Service\ProviderLibraryAttacher
+
+  bnp_media.oembed_theme_suggestion_builder:
+    class: Drupal\bnp_media\Service\OembedThemeSuggestionBuilder
+
+  bnp_media.social_image_token_resolver:
+    class: Drupal\bnp_media\Service\SocialImageTokenResolver
+    arguments:
+      - '@entity_type.manager'
+      - '@stream_wrapper_manager'
+
+  Drupal\bnp_media\Hook\RemoteVideoHooks:
+    class: Drupal\bnp_media\Hook\RemoteVideoHooks
+    arguments:
+      - '@bnp_media.remote_video_provider_resolver'
+
+  Drupal\bnp_media\Hook\OfferMediaFormHooks:
+    class: Drupal\bnp_media\Hook\OfferMediaFormHooks
+
+  Drupal\bnp_media\Hook\MediaThumbnailHooks:
+    class: Drupal\bnp_media\Hook\MediaThumbnailHooks
+    arguments:
+      - '@file_system'
+      - '@entity_type.manager'
+      - '@extension.path.resolver'
+
+  Drupal\bnp_media\Hook\OembedHooks:
+    class: Drupal\bnp_media\Hook\OembedHooks
+    arguments:
+      - '@bnp_media.provider_library_attacher'
+      - '@bnp_media.oembed_theme_suggestion_builder'
+      - '@request_stack'

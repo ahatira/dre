@@ -1,0 +1,40 @@
+ps_favorite.settings:
+  type: config_object
+  label: 'PS Favorite settings'
+  mapping:
+    max_favorites_map:
+      type: text
+      label: 'Maximum favorites mapping'
+    view_mode_map:
+      type: text
+      label: 'Favorite card view mode mapping'
+
+ps_favorite.target.*:
+  type: config_entity
+  label: 'Favorite target'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Enabled'
+    entity_type_id:
+      type: string
+      label: 'Entity type ID'
+    bundle:
+      type: string
+      label: 'Bundle'
+    max_favorites:
+      type: integer
+      label: 'Maximum favorites'
+    view_mode:
+      type: string
+      label: 'Preferred view mode'

@@ -1,0 +1,4 @@
+administer ps features:
+  title: 'Administer PS Features'
+  description: 'Manage feature groups and definitions'
+  restrict access: true

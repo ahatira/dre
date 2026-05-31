@@ -1,0 +1,8 @@
+access ps diagnostic admin:
+  title: 'Access diagnostic admin pages'
+
+administer ps diagnostic settings:
+  title: 'Administer diagnostic settings'
+
+administer ps diagnostic types:
+  title: 'Administer diagnostic types'

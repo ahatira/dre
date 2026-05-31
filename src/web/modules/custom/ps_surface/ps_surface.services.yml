@@ -1,0 +1,13 @@
+services:
+  Drupal\ps_surface\Service\SurfaceProjectionManagerInterface:
+    alias: Drupal\ps_surface\Service\SurfaceProjectionManager
+
+  Drupal\ps_surface\Service\SurfaceProjectionManager:
+    class: Drupal\ps_surface\Service\SurfaceProjectionManager
+    arguments:
+      - '@entity_type.manager'
+
+  Drupal\ps_surface\Hook\SurfaceDivisionHooks:
+    class: Drupal\ps_surface\Hook\SurfaceDivisionHooks
+    arguments:
+      - '@Drupal\ps_surface\Service\SurfaceProjectionManagerInterface'

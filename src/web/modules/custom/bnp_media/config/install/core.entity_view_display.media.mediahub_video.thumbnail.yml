@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.bnp_media_admin_card
+    - media.type.mediahub_video
+  module:
+    - image
+id: media.mediahub_video.thumbnail
+targetEntityType: media
+bundle: mediahub_video
+mode: thumbnail
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: { }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_video_url: true
+  langcode: true
+  name: true
+  uid: true

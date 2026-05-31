@@ -1,0 +1,11 @@
+{# Custom template for media image bundle with thumbnail preview #}
+<figure class="media-image">
+  {% if media.field_media_image.entity %}
+    <img src="{{ media.field_media_image.entity.uri.value | image_style('thumbnail') }}" alt="{{ media.field_media_image.alt }}" />
+  {% else %}
+    <span class="media-image__placeholder">No image</span>
+  {% endif %}
+  {% if media.name.value %}
+    <figcaption>{{ media.name.value }}</figcaption>
+  {% endif %}
+</figure>

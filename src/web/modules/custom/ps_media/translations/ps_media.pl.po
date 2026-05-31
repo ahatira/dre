@@ -1,0 +1,49 @@
+# POT file for ps_media
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Download link text"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Hide block if no documents"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Show document titles"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:When checked, the entire Documents block will be hidden if there are no documents."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type (images, videos, virtual tours) then manual order"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type then manual"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Enable lazy loading"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Manual order only"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Media ordering"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Show media titles"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Use thumbnail images"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/templates/documents-list.html.twig:."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:&"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:?"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:v="
+msgstr ""
+
+msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:youtu.be/"
+msgstr ""

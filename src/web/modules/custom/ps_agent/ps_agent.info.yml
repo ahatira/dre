@@ -1,0 +1,17 @@
+name: 'Property Search - Agent'
+type: module
+description: 'Agent directory entity with contact validation and admin UI.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_core:ps_core
+  - ps_dictionary:ps_dictionary
+  - drupal:user
+  - drupal:telephone
+  - drupal:image
+  - drupal:file
+  - drupal:views
+  - drupal:crop
+  - drupal:focal_point
+  - drupal:field_ui

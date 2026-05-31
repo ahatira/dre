@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+id: agent_unpublish_action
+label: 'Unpublish agent'
+type: ps_agent
+plugin: agent_unpublish_action
+configuration: {  }

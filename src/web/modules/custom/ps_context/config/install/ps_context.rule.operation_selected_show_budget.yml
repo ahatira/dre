@@ -1,0 +1,17 @@
+id: operation_selected_show_budget
+uuid: 2a1b3c4d-0009-0000-0000-000000000009
+label: 'Operation selected: Show Price tab'
+status: true
+weight: -1
+conditions_logic: OR
+conditions:
+  - field_name: field_operation_type
+    operator: equals
+    value: LOC
+  - field_name: field_operation_type
+    operator: equals
+    value: VEN
+actions:
+  - action_type: show_tab
+    target: group_budget
+    value: ''

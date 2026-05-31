@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.ps_agent.card
+    - ps_agent.ps_agent_type.default
+  module:
+    - ps_agent
+id: ps_agent.default.card
+targetEntityType: ps_agent
+bundle: default
+mode: card
+content:
+  avatar:
+    type: image
+    weight: 0
+    label: hidden
+    region: content
+    settings:
+      image_style: agent_avatar_sm
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {}
+  display_name:
+    type: string
+    weight: 1
+    label: hidden
+    region: content
+    settings: {}
+    third_party_settings: {}
+  job_title:
+    type: string
+    weight: 2
+    label: hidden
+    region: content
+    settings: {}
+    third_party_settings: {}
+  email:
+    type: email_mailto
+    weight: 3
+    label: hidden
+    region: content
+    settings: {}
+    third_party_settings: {}
+  phone:
+    type: telephone_link
+    weight: 4
+    label: hidden
+    region: content
+    settings:
+      title: ''
+    third_party_settings: {}
+hidden:
+  civility: true
+  internal_external: true
+  status: true
+  uid: true
+  has_avatar: true
+  created: true
+  first_name: true
+  last_name: true

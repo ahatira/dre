@@ -1,0 +1,335 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.offer.field_capacity_available
+    - field.field.node.offer.body
+    - field.field.node.offer.field_capacity_mode
+    - field.field.node.offer.field_capacity_notes
+    - field.field.node.offer.field_capacity_total
+    - field.field.node.offer.field_capacity_unit
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_asset_type
+    - field.field.node.offer.field_business_id
+    - field.field.node.offer.field_budget_currency
+    - field.field.node.offer.field_budget_period
+    - field.field.node.offer.field_budget_unit
+    - field.field.node.offer.field_budget_value
+    - field.field.node.offer.field_divisible
+    - field.field.node.offer.field_geo
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_import_id
+    - field.field.node.offer.field_internal_lock
+    - field.field.node.offer.field_last_imported_at
+    - field.field.node.offer.field_media_gallery
+    - field.field.node.offer.field_media_document
+    - field.field.node.offer.field_metatag
+    - field.field.node.offer.field_operation_type
+    - field.field.node.offer.field_primary_agent
+    - field.field.node.offer.field_reference
+    - field.field.node.offer.field_reference_auto
+    - field.field.node.offer.field_secondary_agents
+    - field.field.node.offer.field_source_checksum
+    - field.field.node.offer.field_source_system
+    - field.field.node.offer.field_source_tracking
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_technical_id
+    - node.type.offer
+  module:
+    - datetime
+    - geofield
+    - link
+    - options
+    - ps_dictionary
+    - ps_feature
+    - ps_diagnostic
+    - ps_media
+    - ps_surface
+    - text
+    - user
+id: node.offer.default
+targetEntityType: node
+bundle: offer
+mode: default
+content:
+  field_commercial_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 9
+    region: content
+  field_reference:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 10
+    region: content
+  field_business_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 11
+    region: content
+  field_technical_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 12
+    region: content
+  field_client_type:
+    type: ps_dictionary_formatter
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 12
+    region: content
+  field_operation_type:
+    type: ps_dictionary_formatter
+    label: above
+    settings:
+      display_mode: label
+    third_party_settings: { }
+    weight: 13
+    region: content
+  field_asset_type:
+    type: ps_dictionary_formatter
+    label: above
+    settings:
+      display_mode: label
+    third_party_settings: { }
+    weight: 14
+    region: content
+  field_mandate_type:
+    type: ps_dictionary_formatter
+    label: above
+    settings:
+      display_mode: label
+    third_party_settings: { }
+    weight: 15
+    region: content
+  body:
+    type: text_default
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 16
+    region: content
+  field_budget_value:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: { }
+    weight: 16
+    region: content
+  field_budget_period:
+    type: list_default
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 17
+    region: content
+  field_budget_unit:
+    type: ps_dictionary_formatter
+    label: above
+    settings:
+      display_mode: label
+    third_party_settings: { }
+    weight: 18
+    region: content
+  field_budget_currency:
+    type: ps_dictionary_formatter
+    label: above
+    settings:
+      display_mode: label
+    third_party_settings: { }
+    weight: 19
+    region: content
+  field_address:
+    type: basic_string
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 21
+    region: content
+  field_geo:
+    type: geofield_default
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: { }
+    weight: 25
+    region: content
+  field_primary_agent:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: { }
+    weight: 26
+    region: content
+  field_secondary_agents:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: { }
+    weight: 27
+    region: content
+  field_divisible:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: { }
+    weight: 28
+    region: content
+  field_capacity_mode:
+    type: list_default
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 29
+    region: content
+  field_capacity_total:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: { }
+    weight: 30
+    region: content
+  field_capacity_available:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: { }
+    weight: 31
+    region: content
+  field_capacity_unit:
+    type: list_default
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 32
+    region: content
+  field_capacity_notes:
+    type: basic_string
+    label: above
+    settings: { }
+    third_party_settings: { }
+    weight: 33
+    region: content
+  field_surfaces:
+    type: ps_surface_item_default
+    label: above
+    settings: {}
+    third_party_settings: {}
+    weight: 42
+    region: content
+  field_diagnostics:
+    type: diagnostic_item_default
+    label: above
+    settings:
+      show_dates: true
+      show_ranges: true
+      show_unknown_banner: true
+      show_reference_table: true
+    third_party_settings: { }
+    weight: 43
+    region: content
+  field_source_checksum:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 34
+    region: content
+  field_source_system:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 35
+    region: content
+  field_last_imported_at:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: { }
+    weight: 36
+    region: content
+  field_import_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+    weight: 37
+    region: content
+  field_media_gallery:
+    type: ps_media_gallery_formatter
+    label: above
+    settings:
+      order: 'type_then_manual'
+      show_titles: true
+      use_thumbnail: true
+      lazy_load: true
+    third_party_settings: { }
+    weight: 38
+    region: content
+  field_media_document:
+    type: ps_media_documents_formatter
+    label: above
+    settings:
+      hide_if_empty: true
+      show_titles: true
+      link_text: 'Download brochure'
+    third_party_settings: { }
+    weight: 39
+    region: content
+  field_features:
+    type: feature_default
+    label: above
+    settings:
+      show_label: true
+      show_group: true
+      format_style: grouped
+      hide_disabled_flags: true
+      show_flag_text: true
+      group_order: ''
+    third_party_settings: { }
+    weight: 40
+    region: content
+hidden:
+  langcode: true
+  links: true
+  field_metatag: true
+  field_reference_auto: true
+  field_internal_lock: true
+  field_source_tracking: true

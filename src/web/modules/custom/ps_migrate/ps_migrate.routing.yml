@@ -1,0 +1,7 @@
+ps_migrate.post_import_report:
+  path: '/admin/ps/content/import-rejections'
+  defaults:
+    _title: 'Import Rejections Report'
+    _controller: '\Drupal\ps_migrate\Controller\PostImportReportController'
+  requirements:
+    _permission: 'administer site configuration'

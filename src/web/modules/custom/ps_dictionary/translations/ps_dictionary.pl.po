@@ -1,0 +1,175 @@
+# POT file for ps_dictionary
+
+msgid "src/web/modules/custom/ps_dictionary/src/Controller/DictionaryEntryListController.php:entity_type.manager"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Action"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Apply"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Delete selected entries"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:ID"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:No entries selected."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Save weights"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Select"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Weights saved."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:entity_type.manager"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:messenger"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:weight"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Add dictionary type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Entries"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Import CSV"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Machine name"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryDeleteForm.php:ps_dictionary.type_collection"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:An entry with this type/code already exists."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Canonical business code, for example BUR or RENT."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Code is required."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Description"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Dictionary type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Optional description to document the purpose of this dictionary entry."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Weight"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:weight"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:CSV file"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:CSV source"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Default fixture bundled with module"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Import CSV"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Machine name of the dictionary type to import only this type."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Please upload a CSV file."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Type filter (optional)"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Unable to read uploaded CSV file."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Upload a CSV file"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Upload a CSV file with columns: type,code,label,weight and optional translations with label_{langcode} (for example label_fr, label_en)."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Uploaded file could not be loaded."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:file_system"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:ps_dictionary.type_collection"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Description"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Optional description to document the purpose of this dictionary type."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:- Select -"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Defines which dictionary is used to build options and autocomplete matches."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary type is not configured yet."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:value"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldWidget/DictionaryItemWidget.php:Configure a dictionary type on the field settings to enable autocomplete."
+msgstr ""

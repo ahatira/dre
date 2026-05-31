@@ -1,0 +1,7 @@
+<?php
+
+/**
+ * @file
+ * PS Media module. All hooks implemented in src/Hook/PsMediaHooks.php.
+ */
+

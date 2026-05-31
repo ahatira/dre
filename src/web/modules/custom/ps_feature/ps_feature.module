@@ -1,0 +1,7 @@
+<?php
+
+/**
+ * @file
+ * PS Feature module. All hooks implemented in src/Hook/OfferFeatureHooks.php.
+ */
+

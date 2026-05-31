@@ -1,0 +1,26 @@
+id: asset_selected_show_surface
+uuid: 2a1b3c4d-0010-0000-0000-000000000010
+label: 'Asset selected: Show Surface tab'
+status: true
+weight: -1
+conditions_logic: OR
+conditions:
+  - field_name: field_asset_type
+    operator: equals
+    value: BUR
+  - field_name: field_asset_type
+    operator: equals
+    value: ENT
+  - field_name: field_asset_type
+    operator: equals
+    value: ACT
+  - field_name: field_asset_type
+    operator: equals
+    value: COM
+  - field_name: field_asset_type
+    operator: equals
+    value: TER
+actions:
+  - action_type: show_tab
+    target: group_surface
+    value: ''

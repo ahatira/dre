@@ -1,0 +1,17 @@
+diagnostic:
+  version: 1.x
+  css:
+    theme:
+      css/diagnostic.css: {}
+
+diagnostic_admin:
+  version: 1.x
+  js:
+    js/diagnostic.admin.js: {}
+  css:
+    theme:
+      css/diagnostic.admin.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.locale
+    - core/once

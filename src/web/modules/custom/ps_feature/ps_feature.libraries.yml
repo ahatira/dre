@@ -1,0 +1,34 @@
+admin:
+  version: 1.x
+  css:
+    theme:
+      css/admin.css: {}
+
+feature-builder:
+  version: 2.x
+  css:
+    theme:
+      css/feature-builder.css: {}
+      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css: { type: external, minified: true }
+  js:
+    https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js: { type: external, minified: true }
+    js/payload-editors/base.js: {}
+    js/payload-editors/flag.js: {}
+    js/payload-editors/yes-no.js: {}
+    js/payload-editors/numeric.js: {}
+    js/payload-editors/range.js: {}
+    js/payload-editors/text.js: {}
+    js/payload-editors/list.js: {}
+    js/payload-editors/date.js: {}
+    js/payload-editors/dictionary.js: {}
+    js/feature-builder-state.js: {}
+    js/feature-builder-catalogue.js: {}
+    js/feature-builder-renderer.js: {}
+    js/feature-builder-sortable.js: {}
+    js/feature-builder-sync.js: {}
+    js/feature-builder-app.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.locale
+    - core/once
+    - core/drupalSettings

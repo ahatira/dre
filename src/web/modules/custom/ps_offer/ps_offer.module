@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * PS Offer module. All hooks implemented in src/Hook/OfferHooks.php.
+ */

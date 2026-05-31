@@ -1,0 +1,142 @@
+# POT file for ps_surface
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Available"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Partial"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Reference"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Status"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Surfaces"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unavailable"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unknown"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:division_status"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:surfaces"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Availability text"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Business identifier for the division."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Changed"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Created"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division label"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division reference"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division status"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Human readable label for the division."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Internal lock"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Operational status of the division."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Protects manually curated division data from automated overwrites."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Qualified surface values attached to this division."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Raw availability text imported from source systems."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Source tracking"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Structured JSON payload used for source traceability."
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Surfaces"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:division_reference"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_asset_type"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_divisible"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Qualification code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Unit code"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Value"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:qualification"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:value"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:- Select -"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:DISPO"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:ETREF"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Qualification"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:TOTAL"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Unit"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Value"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:entity_type.manager"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:Unit"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:entity_type.manager"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_divisions"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_surfaces"
+msgstr ""
+
+msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:surfaces"
+msgstr ""

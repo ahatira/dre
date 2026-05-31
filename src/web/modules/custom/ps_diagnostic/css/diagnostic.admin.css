@@ -1,0 +1,299 @@
+.ps-diagnostic-type-form .tabledrag-toggle-weight-wrapper {
+  display: none;
+}
+
+.ps-diagnostic-type-form .tabledrag-cell .tabledrag-cell-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-diagnostic-type-form .tabledrag-cell .tabledrag-cell-content__item {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field--name-field-diagnostics-dpe,
+.field--name-field-diagnostics-ges {
+  margin-bottom: 1.1rem;
+  padding: 1rem 1rem 0.75rem;
+  border: 1px solid #d9e0e7;
+  border-inline-start-width: 4px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fbfcfd 0%, #f5f7fa 100%);
+  box-shadow: 0 1px 2px rgb(16 24 40 / 4%);
+}
+
+.field--name-field-diagnostics-dpe {
+  border-inline-start-color: #55a548;
+}
+
+.field--name-field-diagnostics-ges {
+  border-inline-start-color: #6b7280;
+}
+
+.field--name-field-diagnostics-dpe .field__label,
+.field--name-field-diagnostics-ges .field__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.field--name-field-diagnostics-dpe .field__description,
+.field--name-field-diagnostics-ges .field__description {
+  margin-top: 0.35rem;
+  color: #5a6470;
+}
+
+/* === Widget outer grid ===
+ * [data-ps-diagnostic-widget] is set by PHP $element['#attributes'] and confirmed
+ * present on the outer field wrapper div.
+ */
+.field--widget-diagnostic-item-default {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #d9e0e7;
+  margin-top: 0.2rem;
+}
+
+/* Full-width elements */
+.field--widget-diagnostic-item-default > .ps-diagnostic-widget__field-title,
+.field--widget-diagnostic-item-default > .ps-diagnostic-widget__intro-wrap,
+.field--widget-diagnostic-item-default > .ps-diagnostic-widget__value-item,
+.field--widget-diagnostic-item-default > .ps-diagnostic-widget__preview-wrap {
+  grid-column: 1 / -1;
+}
+
+/* === Field title (DPE / GES) === */
+.ps-diagnostic-widget__field-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gin-color-text, #222330);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 0.1rem;
+}
+
+/* Hidden inputs: no layout impact */
+.field--widget-diagnostic-item-default > input[type="hidden"] {
+  display: none;
+}
+
+/* === Intro block === */
+.ps-diagnostic-widget__intro-wrap {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  background: #eef5ff;
+  color: #20304a;
+  border: 1px solid #cfe0ff;
+}
+
+.ps-diagnostic-widget__intro-title {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.ps-diagnostic-widget__intro-text {
+  font-size: 0.92rem;
+}
+
+/* === Flag checkboxes (side by side in 2-col grid) === */
+.ps-diagnostic-widget__flag-item {
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #d7dee8;
+  border-radius: 10px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ps-diagnostic-widget__flag-item .form-item__label {
+  margin: 0;
+}
+
+/* === Value field (full-width) === */
+.ps-diagnostic-widget__value-item {
+  margin: 0;
+}
+
+.ps-diagnostic-widget__value-item .form-item__label {
+  font-weight: 600;
+}
+
+/* === Class preview (full-width) === */
+.ps-diagnostic-widget__preview-wrap {
+  margin: 0;
+}
+
+.ps-diagnostic-widget__preview-wrap > .form-item__label {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+/* === Status badge === */
+.ps-diagnostic-widget__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+  padding: 0.35rem 0.55rem;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: #eef2f6;
+  color: #27313b;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.ps-diagnostic-widget__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: var(--ps-diagnostic-badge-color, #5c6670);
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.field--widget-diagnostic-item-default.ps-diagnostic-widget--auto .ps-diagnostic-widget__status {
+  background: color-mix(in srgb, var(--ps-diagnostic-accent, #5c6670) 12%, #ffffff 88%);
+}
+
+/* === Slider === */
+.ps-diagnostic-widget__slider-wrap {
+  margin-bottom: 0.3rem;
+}
+
+.ps-diagnostic-widget__class-slider {
+  width: 100%;
+  accent-color: #1f2a36;
+  cursor: default;
+}
+
+/* === Scale: chips with merged legend (letter + range) === */
+.ps-diagnostic-widget__scale {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.ps-diagnostic-widget__scale-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  padding: 0.45rem 0.15rem 0.35rem;
+  border-radius: 8px;
+  border: 1px solid rgb(0 0 0 / 10%);
+  background: color-mix(in srgb, var(--ps-class-color, #8b95a1) 70%, #ffffff 30%);
+  color: #1f2a36;
+  cursor: default;
+  text-align: center;
+}
+
+.ps-diagnostic-widget__chip-label {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ps-diagnostic-widget__chip-range {
+  font-size: 0.6rem;
+  font-weight: 400;
+  opacity: 0.85;
+  line-height: 1.1;
+  word-break: break-all;
+}
+
+.ps-diagnostic-widget__scale-chip.is-active {
+  outline: 2px solid #1f2a36;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 80%) inset;
+}
+
+.ps-diagnostic-widget__scale-empty {
+  color: #5c6470;
+  font-size: 0.9rem;
+}
+
+/* === Date fields (side by side in 2-col grid) === */
+.ps-diagnostic-widget__date-item {
+  margin: 0;
+}
+
+.ps-diagnostic-widget__date-item .form-item__label {
+  font-weight: 600;
+}
+
+/* === General resets inside widget === */
+.field--widget-diagnostic-item-default .form-item {
+  margin-top: 0;
+}
+
+.field--widget-diagnostic-item-default .form-item__description {
+  margin-top: 0.2rem;
+  color: #5a6470;
+  font-size: 0.875rem;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .field--widget-diagnostic-item-default {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-diagnostic-widget__scale {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ps-diagnostic-widget__scale-empty {
+  color: #5c6670;
+  font-size: 0.9rem;
+}
+
+.ps-diagnostic-widget .form-item {
+  margin-top: 0;
+}
+
+.ps-diagnostic-widget .form-item + .form-item {
+  margin-top: 0.85rem;
+}
+
+.ps-diagnostic-widget .form-item__label {
+  font-weight: 600;
+}
+
+.ps-diagnostic-widget .form-item__description {
+  margin-top: 0.2rem;
+  color: #5a6470;
+}
+
+@media (max-width: 780px) {
+  .ps-diagnostic-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-diagnostic-widget__scale {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
