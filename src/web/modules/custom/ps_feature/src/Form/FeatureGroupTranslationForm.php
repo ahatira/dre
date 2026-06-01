@@ -141,7 +141,7 @@ class FeatureGroupTranslationForm extends ConfigTranslationFormBase {
     
     // Redirect back to translation overview.
     $form_state->setRedirect(
-      $mapper->getOverviewRoute(),
+      $mapper->getOverviewRouteName(),
       $mapper->getOverviewRouteParameters()
     );
   }

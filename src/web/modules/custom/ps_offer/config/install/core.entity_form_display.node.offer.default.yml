@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.offer.field_address
     - field.field.node.offer.field_availability
     - field.field.node.offer.field_asset_type
+    - field.field.node.offer.field_asset_type_raw
     - field.field.node.offer.field_business_id
     - field.field.node.offer.field_budget_currency
     - field.field.node.offer.field_budget_cc
@@ -31,6 +32,7 @@ dependencies:
     - field.field.node.offer.field_media_document
     - field.field.node.offer.field_metatag
     - field.field.node.offer.field_operation_type
+    - field.field.node.offer.field_operation_type_raw
     - field.field.node.offer.field_primary_agent
     - field.field.node.offer.field_reference
     - field.field.node.offer.field_reference_auto
@@ -401,7 +403,9 @@ content:
     third_party_settings: { }
 hidden:
   promote: true
-  sticky: true
+  stickyasset_type_raw: true
+  field_operation_type_raw: true
+  field_: true
   field_business_id: true
   field_technical_id: true
   field_source_checksum: true

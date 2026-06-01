@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_asset_type_raw
+    - node.type.offer
+id: node.offer.field_asset_type_raw
+field_name: field_asset_type_raw
+entity_type: node
+bundle: offer
+label: 'Asset type (raw code from import)'
+description: 'Stores the raw asset type code when the dictionary entry does not exist.'
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: string

@@ -21,6 +21,7 @@ final class OfferHooks {
   public function nodePresave(NodeInterface $node): void {
     $this->syncInheritedMediaFieldsForTranslation($node);
     $this->syncDiagnosticsFields($node);
+    $this->clearRawFieldsWhenDictionarySet($node);
     $this->offerReferenceManager->applyReferenceMode($node);
     $this->offerValidationManager->apply($node);
   }
@@ -87,6 +88,39 @@ final class OfferHooks {
     }
   }
 
+  /**
+   * Clears _raw fields when user has manually selected a valid dictionary value.
+   * 
+   * This ensures that when a user selects a proper dictionary code (e.g., BUR)
+   * to replace an unknown code (e.g., TTT stored in _raw), the _raw field is
+   * automatically cleared and warnings disappear.
+   */
+  private function clearRawFieldsWhenDictionarySet(NodeInterface $node): void {
+    if ($node->bundle() !== 'offer') {
+      return;
+    }
+
+    // Mapping of dictionary fields to their raw counterparts.
+    $field_mappings = [
+      'field_asset_type' => 'field_asset_type_raw',
+      'field_operation_type' => 'field_operation_type_raw',
+    ];
+
+    foreach ($field_mappings as $dict_field => $raw_field) {
+      if (!$node->hasField($dict_field) || !$node->hasField($raw_field)) {
+        continue;
+      }
+
+      $dict_value = $node->get($dict_field)->value;
+      $raw_value = $node->get($raw_field)->value;
+
+      // If a valid dictionary value is set and a raw value exists, clear the raw.
+      if (!empty($dict_value) && !empty($raw_value)) {
+        $node->set($raw_field, NULL);
+      }
+    }
+  }
+
   #[Hook('entity_insert')]
   public function entityInsert($entity): void {
     if ($entity instanceof NodeInterface && $entity->bundle() === 'offer') {
@@ -135,6 +169,7 @@ final class OfferHooks {
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
     $this->ensureReferenceModeElement($form);
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
+    $this->displayUnknownDictionaryWarnings($form, $form_state);
   }
 
   #[Hook('form_node_offer_edit_form_alter')]
@@ -143,6 +178,7 @@ final class OfferHooks {
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
     $this->ensureReferenceModeElement($form);
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
+    $this->displayUnknownDictionaryWarnings($form, $form_state);
   }
 
   /**
@@ -188,6 +224,98 @@ final class OfferHooks {
       if (is_array($child)) {
         $this->unsetRequiredRecursively($child);
       }
+    }
+  }
+
+  /**
+   * Displays warnings for unknown dictionary codes with quick-add links.
+   */
+  private function displayUnknownDictionaryWarnings(array &$form, FormStateInterface $form_state): void {
+    $form_object = $form_state->getFormObject();
+    if (!method_exists($form_object, 'getEntity')) {
+      return;
+    }
+
+    $entity = $form_object->getEntity();
+    if (!$entity instanceof NodeInterface || $entity->bundle() !== 'offer') {
+      return;
+    }
+
+    // Hide raw code fields (internal use only).
+    if (isset($form['field_asset_type_raw'])) {
+      $form['field_asset_type_raw']['#access'] = FALSE;
+    }
+    if (isset($form['field_operation_type_raw'])) {
+      $form['field_operation_type_raw']['#access'] = FALSE;
+    }
+
+    $warnings = [];
+
+    // Check asset type.
+    if ($entity->hasField('field_asset_type') && $entity->hasField('field_asset_type_raw')) {
+      $asset_type_ref = $entity->get('field_asset_type')->target_id;
+      $asset_type_raw = $entity->get('field_asset_type_raw')->value;
+      
+      if (empty($asset_type_ref) && !empty($asset_type_raw)) {
+        $dictionary_id = 'asset_type.' . mb_strtolower($asset_type_raw);
+        $add_url = \Drupal\Core\Url::fromRoute('ps_dictionary.entry_add', [
+          'ps_dictionary_type' => 'asset_type',
+        ], [
+          'query' => [
+            'code' => $asset_type_raw,
+            'offer_node' => $entity->id(),
+            'offer_field' => 'field_asset_type',
+          ],
+        ]);
+        
+        $warnings[] = t('Unknown asset type code: <strong>@code</strong>. <a href="@url">Create this asset type</a>.', [
+          '@code' => $asset_type_raw,
+          '@url' => $add_url->toString(),
+        ]);
+      }
+    }
+
+    // Check operation type.
+    if ($entity->hasField('field_operation_type') && $entity->hasField('field_operation_type_raw')) {
+      $operation_type_ref = $entity->get('field_operation_type')->target_id;
+      $operation_type_raw = $entity->get('field_operation_type_raw')->value;
+      
+      if (empty($operation_type_ref) && !empty($operation_type_raw)) {
+        $dictionary_id = 'operation_type.' . mb_strtolower($operation_type_raw);
+        $add_url = \Drupal\Core\Url::fromRoute('ps_dictionary.entry_add', [
+          'ps_dictionary_type' => 'operation_type',
+        ], [
+          'query' => [
+            'code' => $operation_type_raw,
+            'offer_node' => $entity->id(),
+            'offer_field' => 'field_operation_type',
+          ],
+        ]);
+        
+        $warnings[] = t('Unknown operation type code: <strong>@code</strong>. <a href="@url">Create this operation type</a>.', [
+          '@code' => $operation_type_raw,
+          '@url' => $add_url->toString(),
+        ]);
+      }
+    }
+
+    // Display warnings at the top of the form.
+    if (!empty($warnings)) {
+      $form['unknown_dictionary_warnings'] = [
+        '#type' => 'container',
+        '#weight' => -1000,
+        '#attributes' => [
+          'class' => ['messages', 'messages--warning'],
+          'role' => 'contentinfo',
+          'aria-label' => t('Warning message'),
+        ],
+      ];
+
+      $form['unknown_dictionary_warnings']['list'] = [
+        '#theme' => 'item_list',
+        '#items' => $warnings,
+        '#prefix' => '<h2 class="visually-hidden">' . t('Warning message') . '</h2>',
+      ];
     }
   }
 

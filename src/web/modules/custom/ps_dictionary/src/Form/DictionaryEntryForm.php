@@ -41,7 +41,7 @@ final class DictionaryEntryForm extends EntityForm {
     $form['code'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Code'),
-      '#default_value' => $entity->get('code') ?: '',
+      '#default_value' => $entity->get('code') ?: $this->getDefaultCodeFromQuery(),
       '#maxlength' => 32,
       '#required' => TRUE,
       '#disabled' => !$entity->isNew(),
@@ -101,6 +101,54 @@ final class DictionaryEntryForm extends EntityForm {
     }
   }
 
+  /**
+   * Gets default code value from query parameters (for quick-add from offer form).
+   */
+  private function getDefaultCodeFromQuery(): string {
+    $request = \Drupal::request();
+    $code = $request->query->get('code');
+    return is_string($code) ? trim($code) : '';
+  }
+
+  /**
+   * Assigns the newly created dictionary entry to the offer field.
+   */
+  private function assignDictionaryToOffer(int $node_id, string $field_name, string $dictionary_id): void {
+    try {
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $node = $node_storage->load($node_id);
+      
+      if (!$node || $node->bundle() !== 'offer') {
+        return;
+      }
+      
+      if (!$node->hasField($field_name)) {
+        return;
+      }
+      
+      // Extract just the code from the dictionary ID (e.g., "asset_type.xxx" -> "XXX").
+      // The ps_dictionary field stores uppercase codes, not full IDs.
+      $parts = explode('.', $dictionary_id);
+      $code = end($parts);
+      
+      $node->set($field_name, mb_strtoupper($code));
+      
+      // Clear the raw code field now that we have assigned the dictionary.
+      $raw_field_name = $field_name . '_raw';
+      if ($node->hasField($raw_field_name)) {
+        $node->set($raw_field_name, NULL);
+      }
+      
+      $node->save();
+      
+      $this->messenger()->addStatus($this->t('The dictionary entry has been assigned to the offer.'));
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('ps_dictionary')->error('Failed to assign dictionary to offer: @message', ['@message' => $e->getMessage()]);
+      $this->messenger()->addWarning($this->t('The dictionary entry was created but could not be automatically assigned to the offer. Please assign it manually.'));
+    }
+  }
+
   public function save(array $form, FormStateInterface $form_state): int {
     $entity = $this->entity;
 
@@ -125,7 +173,19 @@ final class DictionaryEntryForm extends EntityForm {
       $this->messenger()->addStatus($this->t('Updated dictionary entry %label.', ['%label' => $entity->label()]));
     }
 
-    $form_state->setRedirect('ps_dictionary.entry_collection', ['ps_dictionary_type' => $entity->getType()]);
+    // If created from offer form, assign to offer and redirect back.
+    $request = \Drupal::request();
+    $offer_node_id = $request->query->get('offer_node');
+    $offer_field = $request->query->get('offer_field');
+    
+    if ($status === SAVED_NEW && $offer_node_id && $offer_field) {
+      $this->assignDictionaryToOffer((int) $offer_node_id, (string) $offer_field, $entity->id());
+      $form_state->setRedirect('entity.node.edit_form', ['node' => $offer_node_id]);
+    }
+    else {
+      $form_state->setRedirect('ps_dictionary.entry_collection', ['ps_dictionary_type' => $entity->getType()]);
+    }
+    
     return $status;
   }
 

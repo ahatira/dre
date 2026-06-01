@@ -182,12 +182,28 @@ process:
   # ===== TYPOLOGIE =====
   # TYPE_CODE: BUR, COW, LOG → field_asset_type
   # Mapping MAT-01: LOG (XML) → ENT (Drupal)
+  # Lookup dictionary entity; if not found, reference stays NULL
+  pseudo_asset_type_normalized:
+    -
+      plugin: callback
+      callable: strval
+      source: type_code
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: callback
+      callable: strtoupper
+  
   field_asset_type:
-    plugin: static_map
-    source: type_code
+    plugin: ps_dictionary_lookup
+    source: '@pseudo_asset_type_normalized'
+    dictionary_type: asset_type
     map:
       LOG: ENT
-    bypass: true
+  
+  # Store raw code for unknown dictionaries
+  field_asset_type_raw: '@pseudo_asset_type_normalized'
   
   # OPERATIONS_LIST/OPERATION_CODE: LOC, VEN → field_operation_type
   pseudo_operation_code:
@@ -202,7 +218,13 @@ process:
       plugin: callback
       callable: strtoupper
 
-  field_operation_type: '@pseudo_operation_code'
+  field_operation_type:
+    plugin: ps_dictionary_lookup
+    source: '@pseudo_operation_code'
+    dictionary_type: operation_type
+  
+  # Store raw code for unknown dictionaries
+  field_operation_type_raw: '@pseudo_operation_code'
   
   # ===== DESCRIPTION =====
   # ML_DESCRIPTION_2 (plus complète) ou fallback ML_DESCRIPTION_1
@@ -463,8 +485,6 @@ destination:
 
 migration_dependencies:
   required:
-    - ps_dictionary_asset_type_from_xml
-    - ps_dictionary_operation_type_from_xml
     - ps_feature_groups_from_xml
     - ps_feature_definitions_from_xml
     - ps_agent_from_xml
