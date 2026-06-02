@@ -1,6 +1,7 @@
 # NPM dependencies and generated libraries
 node_modules/
-web/libraries/
+web/libraries/*
+!web/libraries/.gitkeep
 
 # Drupal generated files
 web/sites/*/files/
