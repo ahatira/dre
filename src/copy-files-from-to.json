@@ -1,0 +1,47 @@
+{
+  "copyFiles": [
+    {
+      "//": "--- Ace Editor Library ---",
+      "from": [
+        "node_modules/ace-builds/src-min-noconflict/ace.js",
+        "node_modules/ace-builds/src-min-noconflict/ext-*.js",
+        "node_modules/ace-builds/src-min-noconflict/mode-*.js",
+        "node_modules/ace-builds/src-min-noconflict/theme-*.js",
+        "node_modules/ace-builds/src-min-noconflict/worker-*.js",
+        "node_modules/ace-builds/src-min-noconflict/snippets/*.js"
+      ],
+      "to": "web/libraries/ace/",
+      "toFlat": true
+    },
+    {
+      "//": "--- Clipboard.js Library ---",
+      "from": [
+        "node_modules/clipboard/dist/clipboard.min.js",
+        "node_modules/clipboard/dist/clipboard.js"
+      ],
+      "to": "web/libraries/clipboard/",
+      "toFlat": true
+    },
+    {
+      "//": "--- Dropzone Library ---",
+      "from": [
+        "node_modules/dropzone/dist/dropzone-min.js",
+        "node_modules/dropzone/dist/dropzone.js",
+        "node_modules/dropzone/dist/dropzone.css",
+        "node_modules/dropzone/dist/basic.css"
+      ],
+      "to": "web/libraries/dropzone/",
+      "toFlat": true
+    },
+    {
+      "//": "--- Slick Carousel Library (structure preservée) ---",
+      "from": [
+        "node_modules/slick-carousel/slick/**/*"
+      ],
+      "to": "web/libraries/slick-carousel/slick/"
+    }
+  ],
+  "settings": {
+    "whenFileExists": "overwrite"
+  }
+}

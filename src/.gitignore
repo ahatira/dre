@@ -1,0 +1,11 @@
+# NPM dependencies and generated libraries
+node_modules/
+web/libraries/
+
+# Drupal generated files
+web/sites/*/files/
+web/sites/*/private/
+
+# Ignore paths that may contain user-generated content
+web/sites/*/translations
+web/sites/*/settings.local.php
