@@ -169,8 +169,27 @@ process:
     default_value: offer
   
   # ===== TITLE =====
-  # Titre = BUSINESS_ID (sera regénéré par pattern si configuré)
-  title: business_id
+  # Build title from operation + asset + city.
+  title:
+    plugin: offer_composed_title
+    source:
+      - operation_code
+      - type_code
+      - address_city
+      - business_id
+      - address_country
+    mode: title
+
+  # Commercial title example: "Location Bureau 960 m²".
+  field_commercial_title:
+    plugin: offer_composed_title
+    source:
+      - operation_code
+      - type_code
+      - all_surface_values
+      - business_id
+      - address_country
+    mode: commercial
   
   # ===== IDENTIFICATION =====
   field_business_id: business_id
@@ -489,5 +508,6 @@ migration_dependencies:
     - ps_feature_definitions_from_xml
     - ps_agent_from_xml
     - ps_media_from_xml
+    - ps_media_virtual_tour_from_xml
     - ps_surface_division_from_xml
   optional: []

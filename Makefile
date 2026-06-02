@@ -4,39 +4,45 @@ SHELL := /usr/bin/env bash
 PROJECT_ROOT := $(CURDIR)
 COMPOSE_FILE := $(PROJECT_ROOT)/docker/docker-compose.yml
 SRC_DIR := $(PROJECT_ROOT)/src
+SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
+
 PHP_CONTAINER := ps_php
 PG_CONTAINER := ps_postgres
 
-DRUSH := docker exec -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/bin/drush'
+define drush
+docker exec -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/bin/drush $(1)'
+endef
 
-.PHONY: help up down restart ps logs install bootstrap reinstall composer-install composer-update npm-install drush-status drush-cr drush-uli modules-list theme-admin db-reset verify geocoder-set-key cleanup rebuild import-crm import-status import-reset import-rollback
+XML_SAMPLE := data/xml/bnppre_sample_50_per_type.xml
+XML_TARGET := src/web/sites/default/files/crm/offers.xml
+
+.PHONY: \
+	help up down restart ps logs rebuild \
+	composer-install composer-update npm-install bootstrap \
+	install reinstall deploy verify cleanup \
+	drush-status drush-cr drush-uli modules-list theme-admin db-reset \
+	dictionary-import xml-stage-sample \
+	import-crm import-sample-xml import-status import-reset import-rollback
 
 help:
 	@echo "Cibles disponibles:"
-	@echo "  make up              - Demarrer services Docker"
-	@echo "  make down            - Arreter services Docker"
-	@echo "  make restart         - Redemarrer services Docker"
-	@echo "  make ps              - Etat des conteneurs"
-	@echo "  make logs            - Logs nginx"
-	@echo "  make install         - Installation initiale Drupal"
-	@echo "  make reinstall       - Reinstallation forcee Drupal"
-	@echo "  make composer-install- Composer install sur l'hote"
-	@echo "  make composer-update - Composer update sur l'hote"
-	@echo "  make npm-install     - npm install sur l'hote"
-	@echo "  make drush-status    - Drush status"
-	@echo "  make drush-cr        - Cache rebuild"
-	@echo "  make drush-uli       - One-time login URL"
-	@echo "  make modules-list    - Liste modules actives"
-	@echo "  make theme-admin     - Theme admin courant"
-	@echo "  make db-reset        - Drop/Create DB drupal"
-	@echo "  make verify          - Verifications post-installation"
-	@echo "  make geocoder-set-key KEY=<api_key> - Configurer la cle Google Maps API pour le geocoding"
-	@echo "  make cleanup         - Nettoyer fichiers Drupal obsoletes (config/sync temporaires, caches)"
-	@echo "  make rebuild         - Reconstruire l'image PHP (apres modification Dockerfile)"
-	@echo "  make import-crm      - Import complet CRM (agents, offres, divisions, media, dictionnaire)"
-	@echo "  make import-status   - Statut des migrations CRM"
-	@echo "  make import-reset    - Reinitialiser toutes les migrations CRM"
-	@echo "  make import-rollback - Rollback de toutes les migrations CRM"
+	@echo "  make up                - Demarrer services Docker"
+	@echo "  make down              - Arreter services Docker"
+	@echo "  make restart           - Redemarrer services Docker"
+	@echo "  make ps                - Etat des conteneurs"
+	@echo "  make logs              - Logs nginx"
+	@echo "  make rebuild           - Reconstruire l'image PHP"
+	@echo "  make install           - Installation Drupal"
+	@echo "  make reinstall         - Reinstallation Drupal (--force)"
+	@echo "  make deploy            - Workflow deploiement Drupal"
+	@echo "  make verify            - Verifier build/dependances scripts"
+	@echo "  make dictionary-import - Import des dictionnaires"
+	@echo "  make xml-stage-sample  - Copier XML sample vers la source migrate"
+	@echo "  make import-sample-xml - Import XML sample (pipeline migrate)"
+	@echo "  make import-crm        - Import offers CRM and execute migrate dependencies"
+	@echo "  make import-status     - Statut des migrations"
+	@echo "  make import-reset      - Reset status migrations"
+	@echo "  make import-rollback   - Rollback migrations"
 
 up:
 	docker compose -f "$(COMPOSE_FILE)" up -d
@@ -52,6 +58,11 @@ ps:
 logs:
 	docker compose -f "$(COMPOSE_FILE)" logs -f nginx
 
+rebuild:
+	@echo "Reconstruction de l'image PHP..."
+	docker compose -f "$(COMPOSE_FILE)" build --no-cache php
+	@echo "Image reconstruite. Lancez 'make restart'"
+
 composer-install:
 	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist
 
@@ -64,72 +75,75 @@ npm-install:
 bootstrap: up composer-install
 
 install:
-	bash "$(SRC_DIR)/scripts/drupal/install.sh"
+	bash "$(SCRIPTS_CLI)" drupal install
 
 reinstall:
-	bash "$(SRC_DIR)/scripts/drupal/install.sh" --force
+	bash "$(SCRIPTS_CLI)" drupal install --force
+
+deploy:
+	bash "$(SCRIPTS_CLI)" drupal deploy
+
+verify:
+	bash "$(SCRIPTS_CLI)" tools check
+
+cleanup:
+	bash "$(SCRIPTS_CLI)" drupal cache-clear
 
 drush-status:
-	$(DRUSH) status --fields=bootstrap,db-status,drupal-version,drush-version'
+	$(call drush,status --fields=bootstrap,db-status,drupal-version,drush-version)
 
 drush-cr:
-	$(DRUSH) cr'
+	bash "$(SCRIPTS_CLI)" drupal cache-clear
 
 drush-uli:
-	$(DRUSH) uli'
+	$(call drush,uli)
 
 modules-list:
-	$(DRUSH) pml --status=enabled --type=module --no-core --format=list'
+	$(call drush,pml --status=enabled --type=module --no-core --format=list)
 
 theme-admin:
-	$(DRUSH) cget system.theme admin'
+	$(call drush,cget system.theme admin)
 
 db-reset:
 	docker exec -i "$(PG_CONTAINER)" sh -lc "psql -U drupal -d postgres -c \"DROP DATABASE IF EXISTS drupal;\" && psql -U drupal -d postgres -c \"CREATE DATABASE drupal;\""
 
-verify:
-	bash "$(SRC_DIR)/scripts/drupal/verify.sh"
+dictionary-import:
+	$(call drush,ps:dictionary:import -y)
 
-geocoder-set-key:
-	@test -n "$(KEY)" || (echo "Usage: make geocoder-set-key KEY=<votre_cle_api_google_maps>" && exit 1)
-	$(DRUSH) config:set geocoder.geocoder_provider.google_maps id google_maps --yes
-	$(DRUSH) config:set geocoder.geocoder_provider.google_maps label "Google Maps" --yes
-	$(DRUSH) config:set geocoder.geocoder_provider.google_maps plugin googlemaps --yes
-	$(DRUSH) config:set geocoder.geocoder_provider.google_maps configuration.apiKey "$(KEY)" --yes
-	$(DRUSH) cr
-
-cleanup:
-	@echo "🧹 Nettoyage des fichiers Drupal obsolètes..."
-	@bash "$(SRC_DIR)/scripts/drupal/cleanup.sh"
-
-rebuild:
-	@echo "🔧 Reconstruction de l'image PHP avec nouveau UID/GID..."
-	docker compose -f "$(COMPOSE_FILE)" build --no-cache php
-	@echo "✅ Image reconstruite. Redémarrez avec 'make restart'"
+xml-stage-sample:
+	@test -f "$(XML_SAMPLE)" || (echo "Fichier introuvable: $(XML_SAMPLE)" && exit 1)
+	cp "$(XML_SAMPLE)" "$(XML_TARGET)"
+	@echo "XML source staged: $(XML_TARGET)"
 
 import-crm:
-	@bash "$(SRC_DIR)/scripts/drupal/import-crm.sh"
+	$(call drush,pm:install migrate migrate_plus migrate_tools ps_migrate -y)
+	$(call drush,migrate:import ps_offer_from_xml --update --execute-dependencies -y)
+
+import-sample-xml: xml-stage-sample dictionary-import import-crm
 
 import-status:
-	@echo "📊 Statut des migrations CRM:"
-	@$(DRUSH) migrate:status
+	$(call drush,migrate:status)
 
 import-reset:
-	@echo "🔄 Réinitialisation de toutes les migrations CRM..."
-	@$(DRUSH) migrate:reset-status ps_agent_avatar_file_from_xml || true
-	@$(DRUSH) migrate:reset-status ps_agent_from_xml || true
-	@$(DRUSH) migrate:reset-status ps_file_from_xml || true
-	@$(DRUSH) migrate:reset-status ps_media_from_xml || true
-	@$(DRUSH) migrate:reset-status ps_offer_from_xml || true
-	@$(DRUSH) migrate:reset-status ps_surface_division_from_xml || true
-	@echo "✅ Migrations réinitialisées"
+	$(call drush,migrate:reset-status ps_feature_groups_from_xml) || true
+	$(call drush,migrate:reset-status ps_feature_definitions_from_xml) || true
+	$(call drush,migrate:reset-status ps_agent_avatar_file_from_xml) || true
+	$(call drush,migrate:reset-status ps_agent_from_xml) || true
+	$(call drush,migrate:reset-status ps_file_from_xml) || true
+	$(call drush,migrate:reset-status ps_media_from_xml) || true
+	$(call drush,migrate:reset-status ps_media_virtual_tour_from_xml) || true
+	$(call drush,migrate:reset-status ps_offer_from_xml) || true
+	$(call drush,migrate:reset-status ps_offer_translations_from_xml) || true
+	$(call drush,migrate:reset-status ps_surface_division_from_xml) || true
 
 import-rollback:
-	@echo "⏮️  Rollback de toutes les migrations CRM..."
-	@$(DRUSH) migrate:rollback ps_offer_from_xml || true
-	@$(DRUSH) migrate:rollback ps_surface_division_from_xml || true
-	@$(DRUSH) migrate:rollback ps_media_from_xml || true
-	@$(DRUSH) migrate:rollback ps_file_from_xml || true
-	@$(DRUSH) migrate:rollback ps_agent_from_xml || true
-	@$(DRUSH) migrate:rollback ps_agent_avatar_file_from_xml || true
-	@echo "✅ Rollback terminé"
+	$(call drush,migrate:rollback ps_offer_translations_from_xml) || true
+	$(call drush,migrate:rollback ps_surface_division_from_xml) || true
+	$(call drush,migrate:rollback ps_offer_from_xml) || true
+	$(call drush,migrate:rollback ps_media_virtual_tour_from_xml) || true
+	$(call drush,migrate:rollback ps_media_from_xml) || true
+	$(call drush,migrate:rollback ps_file_from_xml) || true
+	$(call drush,migrate:rollback ps_agent_from_xml) || true
+	$(call drush,migrate:rollback ps_agent_avatar_file_from_xml) || true
+	$(call drush,migrate:rollback ps_feature_definitions_from_xml) || true
+	$(call drush,migrate:rollback ps_feature_groups_from_xml) || true

@@ -99,6 +99,10 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
         continue;
       }
 
+      if ($this->isTemplatePlaceholder((string) ($element['group_code'] ?? '')) || $this->isTemplatePlaceholder((string) ($element['feature_code'] ?? ''))) {
+        continue;
+      }
+
       $definition_id = $this->keyBuilder->buildDefinitionId($element['group_code'], $element['feature_code']);
       $definition = $this->entityTypeManager->getStorage('fb_feature_definition')->load($definition_id);
       if (!$definition) {
@@ -145,13 +149,29 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
     if ($node instanceof \SimpleXMLElement) {
       $element = $this->parser->normalizeNode($node, $index, $preferredLanguage);
       $record = $element->toRecord();
+      if ($this->isTemplatePlaceholder((string) ($record['group_code'] ?? '')) || $this->isTemplatePlaceholder((string) ($record['feature_code'] ?? ''))) {
+        return NULL;
+      }
+
+      $label = (string) ($record['label'] ?? '');
+      if ($this->isTemplatePlaceholder($label)) {
+        $label = '';
+      }
+
+      $payload = is_array($record['payload'] ?? NULL) ? $record['payload'] : [];
+      foreach (['value', 'unit', 'complement'] as $payloadKey) {
+        if (isset($payload[$payloadKey]) && $this->isTemplatePlaceholder((string) $payload[$payloadKey])) {
+          $payload[$payloadKey] = NULL;
+        }
+      }
+
       return [
         'group_code' => $record['group_code'],
         'feature_code' => $record['feature_code'],
-        'label' => $record['label'],
-        'payload' => $record['payload'],
+        'label' => $label,
+        'payload' => $payload,
         'source_index' => $record['source_index'],
-        'type_driver' => $this->guessTypeDriverFromPayload($record['payload']),
+        'type_driver' => $this->guessTypeDriverFromPayload($payload),
       ];
     }
 
@@ -161,6 +181,10 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
 
     $group_code = $this->extractCode($node, ['group_code', 'CODE_GROUP', 'GROUP_CODE']);
     $feature_code = $this->extractCode($node, ['feature_code', 'CODE_ELEMENT', 'ELEMENT_CODE']);
+    if ($this->isTemplatePlaceholder($group_code) || $this->isTemplatePlaceholder($feature_code)) {
+      return NULL;
+    }
+
     if ($group_code === '' || $feature_code === '') {
       return NULL;
     }
@@ -168,11 +192,25 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
     $value = $this->extractScalar($node, ['value', 'VALUE']);
     $unit = $this->extractScalar($node, ['unit', 'UNIT']);
     $complement = $this->extractScalar($node, ['complement', 'ML_COMPLEMENT']);
+    if ($this->isTemplatePlaceholder($value)) {
+      $value = '';
+    }
+    if ($this->isTemplatePlaceholder($unit)) {
+      $unit = '';
+    }
+    if ($this->isTemplatePlaceholder($complement)) {
+      $complement = '';
+    }
+
+    $label = $this->extractScalar($node, ['label', 'ML_LABEL']) ?: $feature_code;
+    if ($this->isTemplatePlaceholder($label)) {
+      $label = $feature_code;
+    }
 
     return [
       'group_code' => $group_code,
       'feature_code' => $feature_code,
-      'label' => $this->extractScalar($node, ['label', 'ML_LABEL']) ?: $feature_code,
+      'label' => $label,
       'payload' => [
         'value' => $value,
         'unit' => $unit,
@@ -341,7 +379,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
    */
   private function syncFeatureDefinitionTranslation(string $definitionId, string $xmlLanguage, string $label): void {
     $label = trim($label);
-    if ($label === '' || strtoupper($xmlLanguage) === 'FR') {
+    if ($label === '' || strtoupper($xmlLanguage) === 'FR' || $this->isTemplatePlaceholder($label)) {
       return;
     }
 
@@ -358,6 +396,18 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
 
     $override->set('label', $label);
     $override->save();
+  }
+
+  /**
+   * Returns true when value looks like a CRM template token ({{TOKEN}}).
+   */
+  private function isTemplatePlaceholder(string $value): bool {
+    $value = trim($value);
+    if ($value === '') {
+      return FALSE;
+    }
+
+    return str_contains($value, '{{') && str_contains($value, '}}');
   }
 
 }

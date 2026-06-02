@@ -71,12 +71,13 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property): array {
-    if (!$value instanceof \SimpleXMLElement) {
+    [$technicalElementsNode, $languageFromInput] = $this->normalizeInputs($value);
+    if (!$technicalElementsNode instanceof \SimpleXMLElement) {
       return [];
     }
 
-    $language = strtoupper($this->configuration['language'] ?? 'FR');
-    $elements = $value->xpath('TECHNICAL_ELEMENT');
+    $language = $languageFromInput !== '' ? $languageFromInput : strtoupper((string) ($this->configuration['language'] ?? 'FR'));
+    $elements = $technicalElementsNode->xpath('TECHNICAL_ELEMENT');
     if (empty($elements)) {
       return [];
     }
@@ -85,6 +86,10 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     foreach ($elements as $index => $element) {
       $groupCode = $this->extractText($element, 'CODE_GROUP');
       $featureCode = $this->extractText($element, 'CODE_ELEMENT');
+
+      if ($this->isTemplatePlaceholder($groupCode) || $this->isTemplatePlaceholder($featureCode)) {
+        continue;
+      }
 
       if ($groupCode === '' || $featureCode === '') {
         continue;
@@ -103,6 +108,19 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
       $complement = $this->extractMultilingualLabel($element, 'ML_COMPLEMENT', 'COMPLEMENT', $language);
       $value = $this->extractText($element, 'VALUE');
       $unit = $this->extractText($element, 'UNIT');
+
+      if ($this->isTemplatePlaceholder($label)) {
+        $label = '';
+      }
+      if ($this->isTemplatePlaceholder($complement)) {
+        $complement = '';
+      }
+      if ($this->isTemplatePlaceholder($value)) {
+        $value = '';
+      }
+      if ($this->isTemplatePlaceholder($unit)) {
+        $unit = '';
+      }
 
       // Keep feature definition labels translated per language.
       $this->syncFeatureDefinitionTranslation($definitionId, $language, $label);
@@ -124,10 +142,27 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
   }
 
   /**
+   * Normalizes plugin inputs.
+   *
+   * @return array{0:mixed,1:string}
+   *   Technical elements node and target XML language.
+   */
+  private function normalizeInputs(mixed $value): array {
+    if (is_array($value)) {
+      return [
+        $value[0] ?? NULL,
+        strtoupper(trim((string) ($value[1] ?? ''))),
+      ];
+    }
+
+    return [$value, ''];
+  }
+
+  /**
    * Writes a translated label override for a feature definition.
    */
   private function syncFeatureDefinitionTranslation(string $definitionId, string $language, string $label): void {
-    if ($label === '' || $language === 'FR') {
+    if ($label === '' || $language === 'FR' || $this->isTemplatePlaceholder($label)) {
       return;
     }
 
@@ -169,7 +204,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     $entries = $container->xpath("{$entryName}[@LANGUAGE='{$language}']");
     if (!empty($entries)) {
       $text = trim((string) $entries[0]);
-      if ($text !== '') {
+      if ($text !== '' && !$this->isTemplatePlaceholder($text)) {
         return $text;
       }
     }
@@ -178,7 +213,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     $allEntries = $container->xpath($entryName);
     foreach ($allEntries as $entry) {
       $text = trim((string) $entry);
-      if ($text !== '') {
+      if ($text !== '' && !$this->isTemplatePlaceholder($text)) {
         return $text;
       }
     }
@@ -235,6 +270,18 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     }
 
     return $result;
+  }
+
+  /**
+   * Returns true when value looks like a CRM template token ({{TOKEN}}).
+   */
+  private function isTemplatePlaceholder(string $value): bool {
+    $value = trim($value);
+    if ($value === '') {
+      return FALSE;
+    }
+
+    return str_contains($value, '{{') && str_contains($value, '}}');
   }
 
 }

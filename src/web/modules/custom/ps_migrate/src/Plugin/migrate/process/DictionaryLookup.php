@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Looks up a dictionary entity by type and code.
  *
- * If found, returns the dictionary ID for the reference field.
+ * If found, returns the dictionary code stored by ps_dictionary field type.
  * If not found, returns NULL (the raw code will be stored separately).
  *
  * Usage:
@@ -85,8 +85,9 @@ final class DictionaryLookup extends ProcessPluginBase implements ContainerFacto
     $storage = $this->entityTypeManager->getStorage('ps_dictionary_entry');
     $entity = $storage->load($dictionary_id);
 
-    // Return dictionary ID if found, NULL otherwise.
-    return $entity ? $dictionary_id : NULL;
+    // ps_dictionary fields persist the uppercase business code in varchar(16),
+    // not the config entity ID (type.code).
+    return $entity ? $code : NULL;
   }
 
 }

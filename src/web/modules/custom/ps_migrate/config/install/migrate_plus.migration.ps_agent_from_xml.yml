@@ -18,7 +18,8 @@ source:
   data_parser_plugin: simple_xml
   urls:
     - 'public://crm/offers.xml'
-  item_selector: /OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '']
+  # Deduplicate by UID at source level so dependency completion is deterministic.
+  item_selector: /OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '' and not(UID = preceding::BUSINESS_LEADER/UID)]
   fields:
     -
       name: uid

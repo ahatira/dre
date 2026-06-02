@@ -139,10 +139,31 @@ final class FeatureTechnicalElementParser {
       ?? $this->readChildValue($node, 'LIBELLE_ELEMENT')
       ?? $this->readChildValue($node, 'ML_LABEL')
       ?? '';
+
+    if ($this->isTemplatePlaceholder($group_code)) {
+      $group_code = '';
+    }
+    if ($this->isTemplatePlaceholder($feature_code)) {
+      $feature_code = '';
+    }
+    if ($this->isTemplatePlaceholder($label)) {
+      $label = '';
+    }
+
     $value = $this->readChildValue($node, 'VALUE');
     $unit = $this->readChildValue($node, 'UNIT');
     $complement = $this->readTranslatedChildValue($node, 'ML_COMPLEMENT', 'COMPLEMENT', $preferredLanguage)
       ?? $this->readChildValue($node, 'ML_COMPLEMENT');
+
+    if ($this->isTemplatePlaceholder((string) $value)) {
+      $value = NULL;
+    }
+    if ($this->isTemplatePlaceholder((string) $unit)) {
+      $unit = NULL;
+    }
+    if ($this->isTemplatePlaceholder((string) $complement)) {
+      $complement = NULL;
+    }
 
     if ($label === '') {
       $label = $feature_code !== '' ? $feature_code : $group_code;
@@ -190,6 +211,9 @@ final class FeatureTechnicalElementParser {
       foreach ($container->{$entryName} as $entry) {
         $language = strtoupper(trim((string) ($entry['LANGUAGE'] ?? '')));
         $value = trim((string) $entry);
+        if ($this->isTemplatePlaceholder($value)) {
+          continue;
+        }
         if ($language === $preferredLanguageCode && $value !== '') {
           return $value;
         }
@@ -198,6 +222,9 @@ final class FeatureTechnicalElementParser {
 
     foreach ($container->{$entryName} as $entry) {
       $value = trim((string) $entry);
+      if ($this->isTemplatePlaceholder($value)) {
+        continue;
+      }
       if ($value !== '') {
         return $value;
       }
@@ -242,6 +269,18 @@ final class FeatureTechnicalElementParser {
     }
 
     return preg_replace('/\s+/u', ' ', $value) ?: NULL;
+  }
+
+  /**
+   * Returns true when value looks like a CRM template token ({{TOKEN}}).
+   */
+  private function isTemplatePlaceholder(string $value): bool {
+    $value = trim($value);
+    if ($value === '') {
+      return FALSE;
+    }
+
+    return str_contains($value, '{{') && str_contains($value, '}}');
   }
 
 }
