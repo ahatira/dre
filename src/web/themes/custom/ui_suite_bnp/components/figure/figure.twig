@@ -1,0 +1,9 @@
+<figure{{ attributes.addClass('figure') }}>
+  {{ image|add_class('figure-img') }}
+  {% if caption %}
+    {% set figcaption_attributes = create_attribute(figcaption_attributes|default({})) %}
+    <figcaption{{ figcaption_attributes.addClass('figure-caption') }}>
+      {{ caption }}
+    </figcaption>
+  {% endif %}
+</figure>

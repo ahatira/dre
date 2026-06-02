@@ -1,0 +1,22 @@
+name: "Alignment: right"
+props:
+  variant: default
+  nav_type: ul
+  attributes:
+    class:
+      - justify-content-end
+  items:
+    - url: "#"
+      title: Active
+      link_attributes:
+        class:
+          - active
+    - url: "#"
+      title: "Link"
+    - url: "#"
+      title: "Link"
+    - url: "#"
+      title: Disabled
+      link_attributes:
+        class:
+          - disabled

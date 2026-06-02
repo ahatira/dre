@@ -1,0 +1,4 @@
+name: 'UI Suite BNP Form Test'
+type: module
+description: 'Provides forms to test the rendering of form elements.'
+package: 'Testing'

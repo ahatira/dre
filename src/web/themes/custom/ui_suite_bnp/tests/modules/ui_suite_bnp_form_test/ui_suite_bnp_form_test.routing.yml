@@ -1,0 +1,87 @@
+ui_suite_bnp_form_test.input:
+  path: '/examples/ui-suite-bootstrap-form/input'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\InputDemo'
+    _title: 'Inputs'
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.description:
+  path: '/examples/ui-suite-bootstrap-form/description'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Description'
+    _title: 'Description'
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.details:
+  path: '/examples/ui-suite-bootstrap-form/details'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Details'
+    _title: 'Details'
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.form_controls:
+  path: '/examples/ui-suite-bootstrap-form/form-controls'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\FormControls'
+    _title: "Bootstrap: Form controls"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.select:
+  path: '/examples/ui-suite-bootstrap-form/select'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Select'
+    _title: "Bootstrap: Select"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.checks_radios:
+  path: '/examples/ui-suite-bootstrap-form/checks-radios'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\ChecksRadios'
+    _title: "Bootstrap: Checks and radios"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.range:
+  path: '/examples/ui-suite-bootstrap-form/range'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Range'
+    _title: "Bootstrap: Range"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.input_group:
+  path: '/examples/ui-suite-bootstrap-form/input-group'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\InputGroup'
+    _title: "Bootstrap: Input group"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.floating_labels:
+  path: '/examples/ui-suite-bootstrap-form/floating-labels'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\FloatingLabels'
+    _title: "Bootstrap: Floating labels"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.layout:
+  path: '/examples/ui-suite-bootstrap-form/layout'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Layout'
+    _title: "Bootstrap: Layout"
+  requirements:
+    _permission: 'access content'
+
+ui_suite_bnp_form_test.validation:
+  path: '/examples/ui-suite-bootstrap-form/validation'
+  defaults:
+    _form: '\Drupal\ui_suite_bnp_form_test\Form\Validation'
+    _title: "Bootstrap: Layout"
+  requirements:
+    _permission: 'access content'

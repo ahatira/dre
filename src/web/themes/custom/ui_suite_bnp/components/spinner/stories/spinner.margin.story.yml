@@ -1,0 +1,8 @@
+name: Margin
+props:
+  variant: border
+  attributes:
+    class:
+      - m-5
+  aria_hidden: false
+  visually_hidden_label: Loading...

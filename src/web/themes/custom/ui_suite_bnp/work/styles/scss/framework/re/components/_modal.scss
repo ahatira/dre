@@ -1,0 +1,21 @@
+.modal {
+	--bs-modal-bg: var(--re-color-surface);
+	--bs-modal-color: var(--re-color-text);
+	--bs-modal-border-color: var(--re-color-border);
+	--bs-modal-header-border-color: var(--re-color-border-soft);
+	--bs-modal-footer-border-color: var(--re-color-border-soft);
+	--bs-modal-border-radius: 0;
+	--bs-modal-header-padding: var(--re-space-16);
+	--bs-modal-padding: var(--re-space-16);
+}
+
+.modal-header .modal-title {
+	color: var(--re-color-heading);
+	font-family: var(--re-font-family-heading);
+	font-weight: var(--re-font-weight-bold);
+}
+
+.modal-backdrop {
+	--bs-backdrop-bg: 0, 0, 0;
+	--bs-backdrop-opacity: 0.6;
+}

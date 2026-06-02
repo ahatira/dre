@@ -1,0 +1,102 @@
+name: Modal
+description: "Use Bootstrap's JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content."
+group: Dialog
+links:
+  - "https://getbootstrap.com/docs/5.3/components/modal/"
+variants:
+  sm:
+    title: Small
+  default:
+    title: Default
+  lg:
+    title: Large
+  xl:
+    title: "Extra large"
+slots:
+  title:
+    title: Title
+    description: "Modal title."
+  body:
+    title: Body
+    description: "The content of the modal."
+  footer:
+    title: "Footer content"
+    description: "Footer content"
+props:
+  type: object
+  properties:
+    animation:
+      title: Animation
+      description: "For modals that simply appear rather than fade in to view."
+      type: boolean
+    static:
+      title: "Static backdrop"
+      description: "When checked, the modal will not close when clicking outside of it."
+      type: boolean
+    centered:
+      title: "Vertically centered"
+      description: "Vertically center the modal."
+      type: boolean
+    scrollable:
+      title: Scrollable
+      description: "Allows to scroll the modal body."
+      type: boolean
+    fullscreen:
+      title: Fullscreen
+      description: "Pop up a modal that covers the user viewport."
+      type: string
+      enum:
+        - modal-fullscreen
+        - modal-fullscreen-sm-down
+        - modal-fullscreen-md-down
+        - modal-fullscreen-lg-down
+        - modal-fullscreen-xl-down
+        - modal-fullscreen-xxl-down
+      "meta:enum":
+        modal-fullscreen: Always
+        modal-fullscreen-sm-down: "Below small"
+        modal-fullscreen-md-down: "Below medium"
+        modal-fullscreen-lg-down: "Below large"
+        modal-fullscreen-xl-down: "Below extra large"
+        modal-fullscreen-xxl-down: "Below extra extra large"
+    header_attributes:
+      title: "Header attributes"
+      description: "The attributes to customize the modal header if present."
+      $ref: "ui-patterns://attributes"
+    heading_level:
+      title: "Heading level"
+      description: "Heading level of the modal."
+      type: integer
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        1: "h1 (Default)"
+        2: h2
+        3: h3
+        4: h4
+        5: h5
+        6: h6
+    heading_attributes:
+      title: "Heading attributes"
+      description: "The attributes to customize the modal title if present."
+      $ref: "ui-patterns://attributes"
+    body_attributes:
+      title: "Body attributes"
+      description: "The attributes to customize the modal body if present."
+      $ref: "ui-patterns://attributes"
+    footer_attributes:
+      title: "Footer attributes"
+      description: "The attributes to customize the modal footer if present."
+      $ref: "ui-patterns://attributes"
+    modal_id:
+      title: ID
+      description: "ID used by external buttons to toggle the visibility. Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

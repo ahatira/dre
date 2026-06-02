@@ -1,0 +1,2 @@
+parameters:
+  ui_suite_bnp_form_test.skip_procedural_hook_scan: true

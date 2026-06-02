@@ -1,0 +1,61 @@
+name: "Background with label"
+props:
+  min: 0
+  max: 100
+  stacked: false
+library_wrapper: >
+  {% set examples = [
+    {
+      label: '10%',
+      width: 10,
+      aria: 'Default example'|t,
+      classes: [],
+    },
+    {
+      label: '25%',
+      width: 25,
+      aria: 'Success example'|t,
+      classes: [
+        'text-bg-success',
+      ],
+    },
+    {
+      label: '50%',
+      width: 50,
+      aria: 'Info example'|t,
+      classes: [
+        'text-bg-info',
+      ],
+    },
+    {
+      label: '75%',
+      width: 75,
+      aria: 'Warning example'|t,
+      classes: [
+        'text-bg-warning',
+      ],
+    },
+    {
+      label: '100%',
+      width: 100,
+      aria: 'Danger example'|t,
+      classes: [
+        'text-bg-danger',
+      ],
+    },
+  ] %}
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'percent': example.width,
+      'aria_label': example.aria,
+      'attributes': create_attribute({class: example.classes})
+    })} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'label': example.label,
+    })} %}
+
+    {% set example_story = _story %}
+    <div class="mt-3">
+      {{ example_story|merge(example_props)|merge(example_slots) }}
+    </div>
+  {% endfor %}

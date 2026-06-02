@@ -1,0 +1,177 @@
+name: Table
+description: "Due to the widespread use of <table> elements across third-party widgets like calendars and date pickers, Bootstrap’s tables are opt-in. Add the base class .table to any <table>, then extend with our optional modifier classes or custom styles. All table styles are not inherited in Bootstrap, meaning any nested tables can be styled independent from the parent."
+group: Table
+links:
+  - "https://getbootstrap.com/docs/5.3/content/tables/"
+variants:
+  default:
+    title: Default
+  sm:
+    title: Small
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  success:
+    title: Success
+  danger:
+    title: Danger
+  warning:
+    title: Warning
+  info:
+    title: Info
+  light:
+    title: Light
+  dark:
+    title: Dark
+  primary__sm:
+    title: "Primary small"
+  secondary__sm:
+    title: "Secondary small"
+  success__sm:
+    title: "Success small"
+  danger__sm:
+    title: "Danger small"
+  warning__sm:
+    title: "Warning small"
+  info__sm:
+    title: "Info small"
+  light__sm:
+    title: "Light small"
+  dark__sm:
+    title: "Dark small"
+slots:
+  colgroups:
+    title: Colgroups
+    description: "Sticked to Drupal structure after preprocessing of the Drupal table element."
+  header:
+    title: Header
+    description: "A sequence of cell components."
+  rows:
+    title: Rows
+    description: "A sequence of row components."
+  footer:
+    title: Footer
+    description: "A sequence of row components."
+  empty:
+    title: Empty
+    description: "Render element used when there is no rows."
+  caption:
+    title: Caption
+    description: "A caption functions like a heading for a table. It helps users with screen readers to find a table and understand what it's about and decide if they want to read it. By default it is displayed at the bottom of the table."
+props:
+  type: object
+  properties:
+    header_color:
+      title: "Table header color"
+      type: string
+      enum:
+        - primary
+        - secondary
+        - success
+        - danger
+        - warning
+        - info
+        - light
+        - dark
+      "meta:enum":
+        primary: Primary
+        secondary: Secondary
+        success: Success
+        danger: Danger
+        warning: Warning
+        info: Info
+        light: Light
+        dark: Dark
+    footer_color:
+      title: "Table footer color"
+      type: string
+      enum:
+        - primary
+        - secondary
+        - success
+        - danger
+        - warning
+        - info
+        - light
+        - dark
+      "meta:enum":
+        primary: Primary
+        secondary: Secondary
+        success: Success
+        danger: Danger
+        warning: Warning
+        info: Info
+        light: light
+        dark: Dark
+    stripes:
+      title: "Striped table"
+      description: "Add zebra-striping to either the rows and/or the columns of the table."
+      maxItems: 2
+      type: array
+      items:
+        type: string
+        enum:
+          - striped
+          - striped-columns
+        "meta:enum":
+          striped: "Striped rows"
+          striped-columns: "Striped columns"
+    borders:
+      title: "Table border style"
+      description: "By default, rows have borders, but not the table itself or the columns. The 'borders' option adds borders on all sides of the table and cells. 'Borderless' removes all borders."
+      type: string
+      enum:
+        - bordered
+        - borderless
+      "meta:enum":
+        bordered: "With borders"
+        borderless: Borderless
+    hover:
+      title: "Hoverable rows"
+      description: "Enable a hover state when passing the mouse over a row."
+      type: boolean
+    divider:
+      title: "Table group divider"
+      description: "Add a thicker, darker border between table groups."
+      maxItems: 3
+      type: array
+      items:
+        type: string
+        enum:
+          - thead
+          - tbody
+          - tfoot
+        "meta:enum":
+          thead: Header
+          tbody: Body
+          tfoot: Footer
+    responsive:
+      title: Responsive
+      description: "Responsive tables allow tables to be scrolled horizontally with ease."
+      type: string
+      enum:
+        - responsive
+        - responsive-sm
+        - responsive-md
+        - responsive-lg
+        - responsive-xl
+        - responsive-xxl
+      "meta:enum":
+        responsive: "Always responsive"
+        responsive-sm: "Responsive below small"
+        responsive-md: "Responsive below medium"
+        responsive-lg: "Responsive below large"
+        responsive-xl: "Responsive below extra large"
+        responsive-xxl: "Responsive below extra extra large"
+    caption_top:
+      title: "Caption top"
+      description: "Display caption at top of the table."
+      type: boolean
+    header_columns:
+      title: "Number of columns in the header"
+      description: "Used to display properly the empty message if the table is empty. Leave empty for automatic value."
+      type: number
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

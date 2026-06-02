@@ -1,0 +1,58 @@
+name: Alert
+description: "Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages."
+links:
+  - "https://getbootstrap.com/docs/5.3/components/alerts/"
+variants:
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  success:
+    title: Success
+  danger:
+    title: Danger
+  warning:
+    title: Warning
+  info:
+    title: Info
+  light:
+    title: Light
+  dark:
+    title: Dark
+slots:
+  heading:
+    title: Heading
+    description: "The alert heading. Optional."
+  message:
+    title: Message
+    description: "The alert message."
+props:
+  type: object
+  properties:
+    dismissible:
+      title: "Dismissible?"
+      description: "It is possible to dismiss any alert inline."
+      type: boolean
+    heading_level:
+      title: "Heading level"
+      type: integer
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        2: h2
+        3: h3
+        4: "h4 (Default)"
+        5: h5
+        6: h6
+    heading_attributes:
+      title: "Heading attributes"
+      description: "The attributes to customize the heading tag if present."
+      $ref: "ui-patterns://attributes"
+libraryOverrides:
+  css:
+    component:
+      styles/alert.css: {}

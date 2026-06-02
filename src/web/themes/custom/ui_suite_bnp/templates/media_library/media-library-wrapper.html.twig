@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a container used to wrap the media library's
+ * modal dialog interface.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - menu: The menu of available media types to choose from.
+ * - content: The form to add new media items, followed by the grid or table of
+ *   existing media items to choose from.
+ *
+ * @see template_preprocess_media_library_wrapper()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set content_wrapper_attributes = create_attribute({
+  'class': [
+    menu ? 'col-8': 'col-12',
+    menu ? 'col-md-10',
+    menu ? 'border-start',
+]}) %}
+
+<div{{ attributes.addClass('row') }}>
+  {% if menu %}
+    <div class="col-4 col-md-2">
+      {{ menu }}
+    </div>
+  {% endif %}
+  <div{{ content_wrapper_attributes }}>
+    {{ content }}
+  </div>
+</div>

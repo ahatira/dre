@@ -1,0 +1,78 @@
+// Generic nav links (header/subnav contexts).
+.nav-link {
+  color: var(--bnp-color-text);
+  font-family: var(--bnp-font-family-ui);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--bs-primary-text-emphasis);
+}
+
+.nav-link.active,
+.nav-link[aria-current='page'] {
+  color: var(--bs-primary);
+  font-weight: 700;
+}
+
+// Tabs mapped to BNPP neutral + brand accents.
+.nav-tabs {
+  --bs-nav-tabs-border-width: 0;
+  --bs-nav-tabs-border-color: transparent;
+  --bs-nav-tabs-link-hover-border-color: transparent;
+  --bs-nav-tabs-link-active-bg: transparent;
+  --bs-nav-tabs-link-active-color: var(--bnp-color-primary-strong);
+  --bs-nav-tabs-link-active-border-color: transparent;
+  border-bottom: 0;
+  gap: 24px;
+}
+
+.nav-tabs .nav-link {
+  border: 0;
+  border-bottom: 2px solid var(--bnp-color-border);
+  border-radius: 0;
+  color: var(--bnp-color-text-muted);
+  font-weight: 700;
+  padding: 0 0 8px;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus-visible {
+  border-bottom-color: var(--bs-primary);
+  color: var(--bs-primary-text-emphasis);
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  border-bottom-color: var(--bnp-color-primary-strong);
+  color: var(--bnp-color-primary-strong);
+  font-weight: 700;
+}
+
+.nav-pills {
+  --bs-nav-pills-border-radius: 0;
+  --bs-nav-pills-link-active-bg: var(--bnp-color-primary-strong);
+  --bs-nav-pills-link-active-color: var(--bnp-color-surface);
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
+  color: var(--bnp-color-text);
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus-visible {
+  background-color: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary-text-emphasis);
+}
+
+.tab-content {
+  color: var(--bnp-color-text);
+}
+
+.tab-content .tab-pane {
+  border-top: 1px solid var(--bnp-color-border-soft);
+  padding-top: 16px;
+}

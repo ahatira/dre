@@ -1,0 +1,6 @@
+drupal.layout_builder_block_filter:
+  js:
+    assets/js/layout-builder/layout-builder.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

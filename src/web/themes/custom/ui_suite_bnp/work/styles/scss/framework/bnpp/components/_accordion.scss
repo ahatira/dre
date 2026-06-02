@@ -1,0 +1,99 @@
+// BNPP accordion aligned on RE component behavior and Figma spacing.
+.accordion {
+  --bs-accordion-border-width: 1.5px;
+  --bs-accordion-border-color: #e0e4e6;
+  --bs-accordion-btn-padding-y: 0;
+  --bs-accordion-btn-padding-x: 0;
+  --bs-accordion-body-padding-y: 0;
+  --bs-accordion-body-padding-x: 0;
+  --bs-accordion-btn-bg: var(--bnp-color-surface);
+  --bs-accordion-active-bg: var(--bnp-color-surface);
+  --bs-accordion-btn-focus-border-color: transparent;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-btn-color: var(--bnp-color-text-strong);
+  --bs-accordion-active-color: var(--bnp-color-text-strong);
+  --bs-accordion-bg: var(--bnp-color-surface);
+}
+
+.accordion .accordion-item {
+  background-color: var(--bnp-color-surface);
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  margin: 0;
+  padding: 24px 0;
+}
+
+.accordion .accordion-item:first-child {
+  border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+}
+
+.accordion .accordion-item:last-child {
+  border-bottom: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+}
+
+.accordion .accordion-button {
+  align-items: center;
+  color: var(--bnp-color-text-strong);
+  font-family: var(--bnp-font-family-ui);
+  font-size: 16px;
+  font-weight: 400;
+  gap: 41px;
+  line-height: 24px;
+  min-height: 32px;
+  padding: 0;
+}
+
+.accordion .accordion-button:not(.collapsed) {
+  box-shadow: none;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.accordion .accordion-button:focus-visible {
+  outline: 1px solid var(--bs-primary-border-subtle);
+  outline-offset: 2px;
+}
+
+.accordion .accordion-button::after {
+  background-color: currentColor;
+  background-image: none;
+  content: '';
+  flex: 0 0 32px;
+  height: 32px;
+  margin-left: auto;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  width: 32px;
+  -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxOSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMS45Njc5NiAwTDkuMzMyOTMgNy4xODkwNUwxNi42OTg3IDBMMTguNjY2NyAxLjkyMDc3TDkuMzMzMzMgMTEuMDMwM0wwIDEuOTIwNzdMMS45Njc5NiAwWiIgZmlsbD0iY3VycmVudENvbG9yIi8+PC9zdmc+");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 19px 12px;
+  mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxOSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMS45Njc5NiAwTDkuMzMyOTMgNy4xODkwNUwxNi42OTg3IDBMMTguNjY2NyAxLjkyMDc3TDkuMzMzMzMgMTEuMDMwM0wwIDEuOTIwNzdMMS45Njc5NiAwWiIgZmlsbD0iY3VycmVudENvbG9yIi8+PC9zdmc+");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 19px 12px;
+}
+
+.accordion .accordion-button:not(.collapsed)::after {
+  transform: rotate(180deg);
+}
+
+.accordion .accordion-collapse {
+  color: var(--bnp-color-text);
+}
+
+.accordion .accordion-body {
+  color: var(--bnp-color-text);
+  font-family: var(--bnp-font-family-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  padding-top: 16px;
+}
+
+@media (max-width: 767.98px) {
+  .accordion .accordion-button {
+    gap: 16px;
+  }
+}

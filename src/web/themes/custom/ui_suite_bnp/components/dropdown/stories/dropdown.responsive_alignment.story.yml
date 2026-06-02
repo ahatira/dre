@@ -1,0 +1,51 @@
+name: "Responsive alignment"
+props:
+  variant: dropdown
+  attributes:
+    class:
+      - m-1
+  button_variant: secondary
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+library_wrapper: >
+  {% set examples = [
+    {
+      title: 'Dropdown'|t,
+      dropdown_menu_start: '',
+      dropdown_menu_end: '',
+    },
+    {
+      title: 'Right-aligned menu'|t,
+      dropdown_menu_start: '',
+      dropdown_menu_end: 'end',
+    },
+    {
+      title: 'Left-aligned but right aligned when large screen'|t,
+      dropdown_menu_start: '',
+      dropdown_menu_end: 'lg-end',
+    },
+    {
+      title: 'Right-aligned but left aligned when large screen'|t,
+      dropdown_menu_start: 'lg-start',
+      dropdown_menu_end: 'end',
+    },
+  ] %}
+  <div class="d-inline-flex">
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({
+      'dropdown_menu_start': example.dropdown_menu_start,
+      'dropdown_menu_end': example.dropdown_menu_end,
+    })} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'title': example.title,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props)|merge(example_slots) }}
+  {% endfor %}
+  </div>

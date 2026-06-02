@@ -1,0 +1,45 @@
+name: "(Accordion item)"
+description: "Internal: to be used in the 'Accordion' component."
+group: Accordion
+links:
+  - "https://getbootstrap.com/docs/5.3/components/accordion"
+slots:
+  title:
+    title: Title
+    description: "Item title."
+  content:
+    title: Content
+    description: "Accordion item content."
+props:
+  type: object
+  properties:
+    opened:
+      title: Opened
+      description: "If the accordion item is opened by default."
+      type: boolean
+    heading_level:
+      title: "Heading level"
+      type: integer
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        2: "h2 (Default)"
+        3: h3
+        4: h4
+        5: h5
+        6: h6
+    item_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    button_attributes:
+      title: "Button attributes"
+      description: "The attributes to customize the button tag in the accordion header."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

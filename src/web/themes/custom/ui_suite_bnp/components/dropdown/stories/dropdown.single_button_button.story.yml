@@ -1,0 +1,13 @@
+name: "Single button: button"
+slots:
+  title: "Dropdown button"
+props:
+  variant: dropdown
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+  button_variant: secondary

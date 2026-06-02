@@ -1,0 +1,25 @@
+{
+    "name": "drupal/ui_suite_bnp",
+    "description": "A site-builder friendly Bootstrap theme, using the UI Suite modules.",
+    "license": "GPL-2.0-or-later",
+    "type": "drupal-theme",
+    "require": {
+        "drupal/ui_patterns": "^2.0",
+        "drupal/ui_styles": "^1.7"
+    },
+    "require-dev": {
+        "drupal/sdc_devel": "^1.0.2",
+        "drupal/ui_icons": "^1.1",
+        "drupal/ui_skins": "^1.0"
+    },
+    "conflict": {
+        "drupal/ui_examples": "<2"
+    },
+    "suggest": {
+        "drupal/entity_vdts": "Allows to remove entity template wrappers.",
+        "drupal/fences": "Allows to control wrapping markup and classes of fields.",
+        "drupal/ui_examples": "Allows to have examples pages.",
+        "drupal/ui_icons": "Allows to handle icons.",
+        "drupal/ui_skins": "Allows to switch between themes and to override CSS variables."
+    }
+}

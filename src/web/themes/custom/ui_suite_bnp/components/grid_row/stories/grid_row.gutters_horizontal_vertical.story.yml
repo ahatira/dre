@@ -1,0 +1,46 @@
+name: "Gutters: horizontal & vertical gutters"
+slots:
+  content:
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Custom column padding"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  gutters: g-2
+  col_xs: 6

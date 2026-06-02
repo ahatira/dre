@@ -1,0 +1,21 @@
+name: Pagination
+description: "Indicate a series of related content exists across multiple pages."
+group: Navigation
+links:
+  - "https://getbootstrap.com/docs/5.3/components/pagination/"
+variants:
+  sm:
+    title: Small
+  default:
+    title: Default
+  lg:
+    title: Large
+props:
+  type: object
+  properties:
+    items:
+      title: "Pagination items"
+      $ref: "ui-patterns://links"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

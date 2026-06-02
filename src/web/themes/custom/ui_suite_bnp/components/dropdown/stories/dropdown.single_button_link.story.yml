@@ -1,0 +1,15 @@
+name: "Single button: link"
+description: "While <button> is the recommended control for a dropdown toggle, there might be situations where you have to use an <a> element."
+slots:
+  title: "Dropdown link"
+props:
+  variant: dropdown
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+  button_variant: secondary
+  button_url: "#"

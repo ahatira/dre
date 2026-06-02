@@ -1,0 +1,78 @@
+// ─── RE Buttons ───────────────────────────────────────────────────────────────
+// Source: Figma export (Primary states: Default / Hovered / Pressed / Disabled)
+// Approach: Bootstrap CSS variable API (--bs-btn-*) + minimal structural overrides
+
+// ─── Base layout & typography (all .btn variants) ─────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+// ─── Primary variant ──────────────────────────────────────────────────────────
+.btn-primary {
+  // Default
+  --bs-btn-bg: var(--re-color-primary);
+  --bs-btn-color: var(--re-color-surface);
+  --bs-btn-border-color: var(--re-color-primary-strong);
+
+  // Hovered
+  --bs-btn-hover-bg: var(--re-color-primary-hover);
+  --bs-btn-hover-color: var(--re-color-surface);
+  --bs-btn-hover-border-color: transparent;
+
+  // Pressed / Active
+  --bs-btn-active-bg: var(--re-color-primary-strong);
+  --bs-btn-active-color: var(--re-color-surface);
+  --bs-btn-active-border-color: var(--re-color-primary-strong);
+
+  // Disabled — vert clair (pas gris Bootstrap)
+  --bs-btn-disabled-bg: var(--re-color-primary-disabled);
+  --bs-btn-disabled-color: var(--re-color-surface);
+  --bs-btn-disabled-border-color: var(--re-color-primary-strong);
+
+  // Focus ring
+  --bs-btn-focus-shadow-rgb: var(--re-color-primary-rgb);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--re-color-primary-strong);
+  --bs-btn-border-color: var(--re-color-primary-strong);
+  --bs-btn-hover-bg: var(--re-color-primary-strong);
+  --bs-btn-hover-border-color: var(--re-color-primary-strong);
+  --bs-btn-active-bg: var(--re-color-primary-strong);
+  --bs-btn-active-border-color: var(--re-color-primary-strong);
+  --bs-btn-disabled-border-color: var(--re-color-primary-strong);
+}
+
+// ─── Secondary variant (pink brand) ─────────────────────────────────────────
+.btn-secondary {
+  // Default
+  --bs-btn-bg: var(--re-color-secondary);
+  --bs-btn-color: var(--re-color-surface);
+  --bs-btn-border-color: transparent;
+
+  // Hovered
+  --bs-btn-hover-bg: var(--re-color-secondary-hover);
+  --bs-btn-hover-color: var(--re-color-surface);
+  --bs-btn-hover-border-color: transparent;
+
+  // Pressed / Active
+  --bs-btn-active-bg: var(--re-color-secondary-strong);
+  --bs-btn-active-color: var(--re-color-surface);
+  --bs-btn-active-border-color: transparent;
+
+  // Disabled
+  --bs-btn-disabled-bg: var(--re-color-secondary-disabled);
+  --bs-btn-disabled-color: var(--re-color-surface);
+  --bs-btn-disabled-border-color: transparent;
+
+  // Focus ring
+  --bs-btn-focus-shadow-rgb: var(--re-color-secondary-rgb);
+}

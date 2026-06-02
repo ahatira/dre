@@ -1,0 +1,12 @@
+name: "Placement: float"
+props:
+  variant: border
+  attributes:
+    class:
+      - float-end
+  aria_hidden: false
+  visually_hidden_label: Loading...
+library_wrapper: >
+  <div class="clearfix">
+    {{ _story }}
+  </div>

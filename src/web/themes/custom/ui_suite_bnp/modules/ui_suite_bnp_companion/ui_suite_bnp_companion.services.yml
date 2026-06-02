@@ -1,0 +1,8 @@
+parameters:
+  ui_suite_bnp_companion.skip_procedural_hook_scan: true
+
+services:
+  _defaults:
+    autoconfigure: true
+
+  Drupal\ui_suite_bnp_companion\EventSubscriber\ControllerAlter: ~

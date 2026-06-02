@@ -1,0 +1,27 @@
+name: Spinner
+description: "Indicate the loading state of a component or page with Bootstrap spinners, built entirely with HTML, CSS, and no JavaScript."
+links:
+  - "https://getbootstrap.com/docs/5.3/components/spinners"
+variants:
+  border__border_sm:
+    title: "Border small"
+  border:
+    title: Border
+  grow__grow_sm:
+    title: "Growing small"
+  grow:
+    title: Growing
+props:
+  type: object
+  properties:
+    aria_hidden:
+      title: "Aria hidden"
+      description: "Hide the spinner for assistive technology. When a label is also present outside of the spinner."
+      type: boolean
+    visually_hidden_label:
+      title: "Visually hidden label"
+      description: "A visually hidden label if the spinner is used as standalone."
+      type: string
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

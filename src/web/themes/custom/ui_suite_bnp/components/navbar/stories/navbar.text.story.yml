@@ -1,0 +1,15 @@
+name: Text
+slots:
+  navigation:
+    type: html_tag
+    tag: span
+    attributes:
+      class:
+        - navbar-text
+    value: "Navbar text with an inline element"
+props:
+  attributes:
+    class:
+      - bg-body-tertiary
+  variant: default
+  toggler_position: none

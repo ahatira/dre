@@ -1,0 +1,38 @@
+name: "Brand: text"
+props:
+  attributes:
+    class:
+      - bg-body-tertiary
+      - mb-3
+  variant: default
+  toggler_position: none
+library_wrapper: >
+  {% set examples = [
+    {
+      type: "html_tag",
+      tag: "a",
+      attributes: {
+        href: "#",
+      },
+      value: "As a link",
+    },
+    {
+      type: "html_tag",
+      tag: "span",
+      attributes: {
+        class: [
+          'mb-0',
+          'h1',
+        ],
+      },
+      value: "As a heading",
+    },
+  ] %}
+  {% for example in examples %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'brand': example,
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_slots) }}
+  {% endfor %}

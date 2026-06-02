@@ -1,0 +1,30 @@
+{
+  "name": "ui_suite_bnp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Asset workflow for the UI Suite BNP Drupal theme",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "npm run build:css && npm run build:icons",
+    "build:css": "gulp --production",
+    "build:fonts": "gulp fonts --production",
+    "build:icons": "npm run build:icons:svgo && node work/tools/build-icons-manifest.mjs",
+    "build:icons:svgo": "node work/tools/run-svgo-if-icons.mjs",
+    "dev": "gulp",
+    "watch": "gulp"
+  },
+  "devDependencies": {
+    "@fontsource/open-sans": "^5.2.7",
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "^1.13.1",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "8.*",
+    "gulp-mode": "1.*",
+    "gulp-sass": "5.*",
+    "gulp-sass-glob": "1.*",
+    "gulp-sourcemaps": "^2.6.5",
+    "js-yaml": "^4.1.0",
+    "sass": "1.*",
+    "svgo": "^4.0.1"
+  }
+}

@@ -1,0 +1,24 @@
+name: "Button: positioned"
+description: "Use utilities to modify a .badge and position it in the corner of a link or button."
+slots:
+  label:
+    - markup: 99+
+    - type: html_tag
+      tag: span
+      value: "unread messages"
+      attributes:
+        class:
+          - visually-hidden
+props:
+  attributes:
+    class:
+      - position-absolute
+      - top-0
+      - start-100
+      - translate-middle
+      - bg-danger
+      - rounded-pill
+library_wrapper: >
+  <button type="button" class="btn btn-primary position-relative">
+    {{ 'Inbox'|t }} {{ _story }}
+  </button>

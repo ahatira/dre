@@ -1,0 +1,8 @@
+# Exclude files from archive. Those files are not required to build a package.
+/tests/scripts                  export-ignore
+/.cspell-project-words.txt      export-ignore
+/.gitattributes                 export-ignore
+/.gitlab-ci.yml                 export-ignore
+/.stylelintignore               export-ignore
+/phpstan.neon                   export-ignore
+/README.md                      export-ignore

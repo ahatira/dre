@@ -1,0 +1,32 @@
+name: List
+group: Typography
+links:
+  - "https://getbootstrap.com/docs/5.3/content/typography/#lists"
+variants:
+  default:
+    title: Default
+  unstyled:
+    title: Unstyled
+    description: "Remove the default list-style and left margin on list items (immediate children only). This only applies to immediate children list items, meaning you will need to add the class for any nested lists as well."
+  inline:
+    title: Inline
+    description: "Remove a list’s bullets and apply some light margin with a combination of two classes, .list-inline and .list-inline-item."
+slots:
+  items:
+    title: Items
+    description: "An array of render arrays."
+props:
+  type: object
+  properties:
+    list_type:
+      title: "List type"
+      type: string
+      enum:
+        - ul
+        - ol
+      "meta:enum":
+        ul: "ul (Default)"
+        ol: ol
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

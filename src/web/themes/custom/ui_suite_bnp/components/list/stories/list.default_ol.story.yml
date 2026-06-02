@@ -1,0 +1,9 @@
+name: "Default: ordered"
+slots:
+  items:
+    - markup: "Lorem ipsum"
+    - markup: "Phasellus iaculis"
+    - markup: "Nulla volutpat"
+props:
+  variant: default
+  list_type: ol

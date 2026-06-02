@@ -1,0 +1,4 @@
+name: Default
+props:
+  aria_hidden: false
+  visually_hidden_label: Loading...

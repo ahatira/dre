@@ -1,0 +1,229 @@
+name: Dropdown
+description: "Dropdowns are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with the included Bootstrap dropdown JavaScript plugin. They’re toggled by clicking, not by hovering; this is an intentional design decision."
+group: Dropdown
+links:
+  - "https://getbootstrap.com/docs/5.3/components/dropdowns/"
+variants:
+  dropdown:
+    title: "Dropdown (Default)"
+  dropdown_center:
+    title: "Centered dropdown"
+  dropup:
+    title: Dropup
+  dropup_center:
+    title: "Centered dropup"
+  dropend:
+    title: Dropend
+  dropstart:
+    title: Dropstart
+slots:
+  title:
+    title: Title
+    description: "The dropdown button title. Plain text."
+props:
+  type: object
+  properties:
+    content:
+      title: Content
+      description: "If a link does not have a URL, it renders as: a header if it has the 'dropdown-header' class; a button if it has the 'dropdown-item' class; else a text. If a link does not have a url and a title or has the 'dropdown-divider' class, it renders as a divider."
+      $ref: "ui-patterns://links"
+    dropdown_id:
+      title: ID
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    button_variant:
+      title: "Button variant"
+      type: string
+      enum:
+        - default
+        - primary
+        - secondary
+        - success
+        - danger
+        - warning
+        - info
+        - light
+        - dark
+        - link
+        - primary__sm
+        - secondary__sm
+        - success__sm
+        - danger__sm
+        - warning__sm
+        - info__sm
+        - light__sm
+        - dark__sm
+        - link__sm
+        - primary__lg
+        - secondary__lg
+        - success__lg
+        - danger__lg
+        - warning__lg
+        - info__lg
+        - light__lg
+        - dark__lg
+        - link__lg
+        - outline_primary__sm
+        - outline_secondary__sm
+        - outline_success__sm
+        - outline_danger__sm
+        - outline_warning__sm
+        - outline_info__sm
+        - outline_light__sm
+        - outline_dark__sm
+        - outline_primary
+        - outline_secondary
+        - outline_success
+        - outline_danger
+        - outline_warning
+        - outline_info
+        - outline_light
+        - outline_dark
+        - outline_primary__lg
+        - outline_secondary__lg
+        - outline_success__lg
+        - outline_danger__lg
+        - outline_warning__lg
+        - outline_info__lg
+        - outline_light__lg
+        - outline_dark__lg
+      "meta:enum":
+        default: Default
+        primary: "Primary (default)"
+        secondary: Secondary
+        success: Success
+        danger: Danger
+        warning: Warning
+        info: Info
+        light: Light
+        dark: Dark
+        link: Link
+        primary__sm: "Primary small"
+        secondary__sm: "Secondary small"
+        success__sm: "Success small"
+        danger__sm: "Danger small"
+        warning__sm: "Warning small"
+        info__sm: "Info small"
+        light__sm: "Light small"
+        dark__sm: "Dark small"
+        link__sm: "Link small"
+        primary__lg: "Primary large"
+        secondary__lg: "Secondary large"
+        success__lg: "Success large"
+        danger__lg: "Danger large"
+        warning__lg: "Warning large"
+        info__lg: "Info large"
+        light__lg: "Light large"
+        dark__lg: "Dark large"
+        link__lg: "Link large"
+        outline_primary__sm: "Outline Primary small"
+        outline_secondary__sm: "Outline Secondary small"
+        outline_success__sm: "Outline Success small"
+        outline_danger__sm: "Outline Danger small"
+        outline_warning__sm: "Outline Warning small"
+        outline_info__sm: "Outline Info small"
+        outline_light__sm: "Outline Light small"
+        outline_dark__sm: "Outline Dark small"
+        outline_primary: "Outline Primary"
+        outline_secondary: "Outline Secondary"
+        outline_success: "Outline Success"
+        outline_danger: "Outline Danger"
+        outline_warning: "Outline Warning"
+        outline_info: "Outline Info"
+        outline_light: "Outline Light"
+        outline_dark: "Outline Dark"
+        outline_primary__lg: "Outline Primary large"
+        outline_secondary__lg: "Outline Secondary large"
+        outline_success__lg: "Outline Success large"
+        outline_danger__lg: "Outline Danger large"
+        outline_warning__lg: "Outline Warning large"
+        outline_info__lg: "Outline Info large"
+        outline_light__lg: "Outline Light large"
+        outline_dark__lg: "Outline Dark large"
+    button_split:
+      title: Split
+      description: "Create split button dropdowns with virtually the same markup as single button dropdowns, but with the addition of .dropdown-toggle-split for proper spacing around the dropdown caret."
+      type: boolean
+    button_url:
+      title: "Button URL"
+      $ref: "ui-patterns://url"
+    button_attributes:
+      title: "Button attributes"
+      description: "The attributes to customize the dropdown button."
+      $ref: "ui-patterns://attributes"
+    dark:
+      title: "Dark (deprecated)"
+      description: "Opt into darker dropdowns to match a dark navbar or custom style."
+      type: boolean
+    auto_close:
+      title: "Auto close"
+      description: "By default, the dropdown menu is closed when clicking inside or outside the dropdown menu. You can use the autoClose option to change this behavior of the dropdown."
+      type: string
+      enum:
+        - "true"
+        - inside
+        - outside
+        - "false"
+      "meta:enum":
+        "true": Default
+        inside: "When click inside"
+        outside: "When click outside"
+        "false": "Manual close"
+    dropdown_navbar:
+      title: "Use in navbar?"
+      description: "Check if the dropdown will be used in a navbar-nav element."
+      type: boolean
+    dropdown_menu_start:
+      title: "Menu alignment: start"
+      description: "To align left/start the dropdown menu with the given breakpoint or larger."
+      type: string
+      enum:
+        - start
+        - sm-start
+        - md-start
+        - lg-start
+        - xl-start
+        - xxl-start
+      "meta:enum":
+        start: all
+        sm-start: "from small"
+        md-start: "from medium"
+        lg-start: "from large"
+        xl-start: "from extra large"
+        xxl-start: "from extra extra large"
+    dropdown_menu_end:
+      title: "Menu alignment: end"
+      description: "To align right/end the dropdown menu with the given breakpoint or larger."
+      type: string
+      enum:
+        - end
+        - sm-end
+        - md-end
+        - lg-end
+        - xl-end
+        - xxl-end
+      "meta:enum":
+        end: all
+        sm-end: "from small"
+        md-end: "from medium"
+        lg-end: "from large"
+        xl-end: "from extra large"
+        xxl-end: "from extra extra large"
+    heading_level:
+      title: "Heading level for header items"
+      type: integer
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        2: h2
+        3: h3
+        4: h4
+        5: h5
+        6: "h6 (Default)"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

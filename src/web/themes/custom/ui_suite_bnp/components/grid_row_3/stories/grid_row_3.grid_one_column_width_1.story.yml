@@ -1,0 +1,26 @@
+name: "Grid system: Auto-layout columns: Setting one column width 1"
+slots:
+  col_1_content: "1 of 3"
+  col_2_content: "2 of 3 (wider)"
+  col_3_content: "3 of 3"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_xs: ['', '6', '']
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

@@ -1,0 +1,67 @@
+ui_suite_bnp_form_test.root:
+  title: UI Suite BNP Form Test
+  route_name: '<nolink>'
+  expanded: TRUE
+
+ui_suite_bnp_form_test.input:
+  title: Inputs
+  route_name: ui_suite_bnp_form_test.input
+  parent: ui_suite_bnp_form_test.root
+
+ui_suite_bnp_form_test.description:
+  title: Description
+  route_name: ui_suite_bnp_form_test.description
+  parent: ui_suite_bnp_form_test.root
+
+ui_suite_bnp_form_test.details:
+  title: Details
+  route_name: ui_suite_bnp_form_test.details
+  parent: ui_suite_bnp_form_test.root
+
+ui_suite_bnp_form_test.form_controls:
+  title: "Bootstrap: Form controls"
+  route_name: ui_suite_bnp_form_test.form_controls
+  parent: ui_suite_bnp_form_test.root
+  weight: 10
+
+ui_suite_bnp_form_test.select:
+  title: "Bootstrap: Select"
+  route_name: ui_suite_bnp_form_test.select
+  parent: ui_suite_bnp_form_test.root
+  weight: 11
+
+ui_suite_bnp_form_test.checks_radios:
+  title: "Bootstrap: Checks and radios"
+  route_name: ui_suite_bnp_form_test.checks_radios
+  parent: ui_suite_bnp_form_test.root
+  weight: 12
+
+ui_suite_bnp_form_test.range:
+  title: "Bootstrap: Range"
+  route_name: ui_suite_bnp_form_test.range
+  parent: ui_suite_bnp_form_test.root
+  weight: 13
+
+ui_suite_bnp_form_test.input_group:
+  title: "Bootstrap: Input group"
+  route_name: ui_suite_bnp_form_test.input_group
+  parent: ui_suite_bnp_form_test.root
+  weight: 14
+
+ui_suite_bnp_form_test.floating_labels:
+  title: "Bootstrap: Floating labels"
+  route_name: ui_suite_bnp_form_test.floating_labels
+  parent: ui_suite_bnp_form_test.root
+  weight: 15
+
+ui_suite_bnp_form_test.layout:
+  title: "Bootstrap: Layout"
+  route_name: ui_suite_bnp_form_test.layout
+  parent: ui_suite_bnp_form_test.root
+  weight: 16
+
+ui_suite_bnp_form_test.validation:
+  title: "Bootstrap: Validation"
+  route_name: ui_suite_bnp_form_test.validation
+  parent: ui_suite_bnp_form_test.root
+  weight: 17

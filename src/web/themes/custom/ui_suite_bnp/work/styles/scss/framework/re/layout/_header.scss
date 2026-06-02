@@ -1,0 +1,31 @@
+.site-header,
+header[role='banner'] {
+	background-color: var(--re-color-surface);
+	border-bottom: 1px solid var(--re-color-border-soft);
+	color: var(--re-color-heading);
+}
+
+.site-header a,
+header[role='banner'] a {
+	color: var(--re-color-text);
+}
+
+.site-header a:hover,
+.site-header a:focus-visible,
+header[role='banner'] a:hover,
+header[role='banner'] a:focus-visible {
+	color: var(--bs-primary-text-emphasis);
+}
+
+.site-header .navbar-brand,
+header[role='banner'] .navbar-brand {
+	color: var(--re-color-heading);
+	font-family: var(--re-font-family-heading);
+	font-weight: var(--re-font-weight-bold);
+}
+
+.site-header .navbar-toggler,
+header[role='banner'] .navbar-toggler {
+	border-color: var(--re-color-border);
+	border-radius: 0;
+}

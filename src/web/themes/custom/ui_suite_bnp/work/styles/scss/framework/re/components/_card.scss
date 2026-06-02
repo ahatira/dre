@@ -1,0 +1,38 @@
+.card {
+	border-color: var(--re-color-border);
+	border-radius: 0;
+	box-shadow: none;
+	color: var(--re-color-text);
+}
+
+.card-header {
+	background-color: var(--re-color-surface-muted);
+	border-bottom: 1px solid var(--re-color-border-soft);
+	color: var(--re-color-heading);
+	font-family: var(--re-font-family-heading);
+	font-weight: var(--re-font-weight-bold);
+}
+
+.card-title {
+	color: var(--re-color-heading);
+	font-family: var(--re-font-family-heading);
+}
+
+.card-subtitle,
+.card-text .text-muted {
+	color: var(--re-color-text-muted) !important;
+}
+
+.card-link {
+	color: var(--bs-primary);
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+	color: var(--bs-primary-text-emphasis);
+}
+
+.card-footer {
+	background-color: var(--re-color-surface);
+	border-top: 1px solid var(--re-color-border-soft);
+}

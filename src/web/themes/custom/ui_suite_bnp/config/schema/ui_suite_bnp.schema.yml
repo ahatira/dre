@@ -1,0 +1,17 @@
+ui_suite_bnp.settings:
+  type: theme_settings
+  label: 'UI Suite BNP settings'
+  mapping:
+    container:
+      type: string
+      label: 'Page container'
+    library:
+      type: mapping
+      label: 'Library'
+      mapping:
+        js_loading:
+          type: string
+          label: 'JS loading library'
+        css_loading:
+          type: string
+          label: 'CSS loading library'

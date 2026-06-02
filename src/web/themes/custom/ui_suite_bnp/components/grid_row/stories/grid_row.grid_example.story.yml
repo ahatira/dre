@@ -1,0 +1,16 @@
+name: "Grid system: example"
+slots:
+  content:
+    - "Column"
+    - "Column"
+    - "Column"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

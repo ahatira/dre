@@ -1,0 +1,32 @@
+{% if variant and variant != 'default' %}
+	{% set attributes = attributes.addClass('form-control-' ~ variant) %}
+{% endif %}
+
+{% set attributes = attributes.addClass('form-control') %}
+{% set attributes = attributes.setAttribute('type', type|default('text')) %}
+
+{% if name %}
+	{% set attributes = attributes.setAttribute('name', name) %}
+{% endif %}
+
+{% if value is not empty %}
+	{% set attributes = attributes.setAttribute('value', value) %}
+{% endif %}
+
+{% if placeholder %}
+	{% set attributes = attributes.setAttribute('placeholder', placeholder) %}
+{% endif %}
+
+{% if disabled %}
+	{% set attributes = attributes.setAttribute('disabled', 'disabled') %}
+{% endif %}
+
+{% if readonly %}
+	{% set attributes = attributes.setAttribute('readonly', 'readonly') %}
+{% endif %}
+
+{% if required %}
+	{% set attributes = attributes.setAttribute('required', 'required') %}
+{% endif %}
+
+<input{{attributes}}/>

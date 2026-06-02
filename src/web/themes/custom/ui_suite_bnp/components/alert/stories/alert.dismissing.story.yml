@@ -1,0 +1,5 @@
+name: Dismissing
+slots:
+  message: "<strong>Holy guacamole!</strong> You should check in on some of those fields below."
+props:
+  dismissible: true

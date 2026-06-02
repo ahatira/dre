@@ -1,0 +1,9 @@
+name: "Button: positioned generic"
+description: "You can also replace the .badge class with a few more utilities without a count for a more generic indicator."
+library_wrapper: >
+  <button type="button" class="btn btn-primary position-relative">
+    {{ 'Profile'|t }}
+    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+      <span class="visually-hidden">{{ 'New alerts'|t }}</span>
+    </span>
+  </button>

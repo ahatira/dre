@@ -1,0 +1,46 @@
+name: "(List Group Item)"
+description: "Internal: to be used in the 'List Group' component."
+group: "List group"
+links:
+  - "https://getbootstrap.com/docs/5.3/components/list-group/"
+variants:
+  default:
+    title: Default
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  success:
+    title: Success
+  danger:
+    title: Danger
+  warning:
+    title: Warning
+  info:
+    title: Info
+  light:
+    title: Light
+  dark:
+    title: Dark
+slots:
+  content:
+    title: Content
+    description: "Plain text, or any kind of content."
+props:
+  type: object
+  properties:
+    active:
+      title: "Active?"
+      description: "Indicate the current active selection."
+      type: boolean
+    disabled:
+      title: "Disabled?"
+      description: "Make it appears disabled. Note that some elements with .disabled will also require custom JavaScript to fully disable their click events (e.g., links)."
+      type: boolean
+    url:
+      title: URL
+      description: "The button URL. Optional."
+      $ref: "ui-patterns://url"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

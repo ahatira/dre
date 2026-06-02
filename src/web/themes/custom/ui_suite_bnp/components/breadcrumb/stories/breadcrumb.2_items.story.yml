@@ -1,0 +1,6 @@
+name: "2 Items"
+props:
+  items:
+    - title: Home
+      url: "#"
+    - title: Library

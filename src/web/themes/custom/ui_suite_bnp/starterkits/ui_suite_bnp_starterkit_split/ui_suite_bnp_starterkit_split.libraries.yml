@@ -1,0 +1,125 @@
+framework:
+  css:
+    theme:
+      assets/css/styles.css:
+        minified: true
+
+form:
+  css:
+    component:
+      assets/css/form/form-required.css:
+        minified: true
+
+component_accordion:
+  css:
+    component:
+      components/accordion/styles/accordion.css:
+        minified: true
+
+component_alert:
+  css:
+    component:
+      components/alert/styles/alert.css:
+        minified: true
+
+component_badge:
+  css:
+    component:
+      components/badge/styles/badge.css:
+        minified: true
+
+component_breadcrumb:
+  css:
+    component:
+      components/breadcrumb/styles/breadcrumb.css:
+        minified: true
+
+component_button_group:
+  css:
+    component:
+      components/button_group/styles/button_group.css:
+        minified: true
+
+component_card:
+  css:
+    component:
+      components/card/styles/card.css:
+        minified: true
+
+component_carousel:
+  css:
+    component:
+      components/carousel/styles/carousel.css:
+        minified: true
+
+component_close_button:
+  css:
+    component:
+      components/close_button/styles/close_button.css:
+        minified: true
+
+component_dropdown:
+  css:
+    component:
+      components/dropdown/styles/dropdown.css:
+        minified: true
+
+component_list_group:
+  css:
+    component:
+      components/list_group/styles/list_group.css:
+        minified: true
+
+component_modal:
+  css:
+    component:
+      components/modal/styles/modal.css:
+        minified: true
+
+component_nav:
+  css:
+    component:
+      components/nav/styles/nav.css:
+        minified: true
+
+component_navbar:
+  css:
+    component:
+      components/navbar/styles/navbar.css:
+        minified: true
+
+component_offcanvas:
+  css:
+    component:
+      components/offcanvas/styles/offcanvas.css:
+        minified: true
+
+component_pagination:
+  css:
+    component:
+      components/pagination/styles/pagination.css:
+        minified: true
+
+component_progress:
+  css:
+    component:
+      components/progress/styles/progress.css:
+        minified: true
+
+component_spinner:
+  css:
+    component:
+      components/spinner/styles/spinner.css:
+        minified: true
+
+component_table:
+  css:
+    component:
+      components/table/styles/table.css:
+        minified: true
+
+component_toast:
+  css:
+    component:
+      components/toast/styles/toast.css:
+        minified: true

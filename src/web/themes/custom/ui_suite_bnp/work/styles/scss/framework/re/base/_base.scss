@@ -1,0 +1,48 @@
+// Global interactive text links aligned with RE tokens.
+a {
+	color: var(--bs-primary);
+	font-family: var(--re-font-family-ui);
+	font-weight: var(--re-font-weight-regular);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+}
+
+a:hover,
+a:focus-visible {
+	color: var(--bs-primary-text-emphasis);
+}
+
+a:focus-visible {
+	outline: 2px solid var(--bs-primary-border-subtle);
+	outline-offset: 2px;
+}
+
+.link-secondary {
+	color: var(--bs-secondary);
+}
+
+.link-secondary:hover,
+.link-secondary:focus-visible {
+	color: var(--bs-secondary-text-emphasis);
+}
+
+.link-disabled,
+a[aria-disabled='true'] {
+	color: var(--re-color-disabled);
+	pointer-events: none;
+}
+
+.dropdown-menu,
+.dropdown-menu-dark {
+	--bs-dropdown-link-active-bg: var(--re-color-primary-strong);
+}
+
+.pagination {
+	--bs-pagination-active-bg: var(--re-color-primary-strong);
+	--bs-pagination-active-border-color: var(--re-color-primary-strong);
+}
+
+.list-group {
+	--bs-list-group-active-bg: var(--re-color-primary-strong);
+	--bs-list-group-active-border-color: var(--re-color-primary-strong);
+}

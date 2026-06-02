@@ -1,0 +1,95 @@
+// Form labels and helper text.
+.form-label {
+	color: var(--re-color-text-strong);
+	font-family: var(--re-font-family-ui);
+	font-size: var(--re-font-size-14);
+	font-weight: var(--re-font-weight-regular);
+}
+
+.form-text {
+	color: var(--re-color-text-muted);
+	font-size: var(--re-font-size-14);
+}
+
+// Inputs, selects, and textareas share the same neutral shell.
+.form-control,
+.form-select {
+	min-height: 36px;
+	border-color: var(--re-color-border);
+	border-radius: 0;
+	color: var(--re-color-text-strong);
+	font-family: var(--re-font-family-ui);
+	font-size: var(--re-font-size-16);
+}
+
+.form-control::placeholder {
+	color: var(--re-color-text-muted);
+	opacity: 1;
+}
+
+.form-control:hover,
+.form-select:hover {
+	border-color: var(--re-color-text-muted);
+}
+
+.form-control:focus,
+.form-select:focus {
+	border-color: var(--bs-primary-border-subtle);
+	box-shadow: 0 0 0 0.25rem var(--bs-primary-bg-subtle);
+}
+
+.form-control:disabled,
+.form-select:disabled,
+.form-control[readonly] {
+	background-color: var(--re-color-surface-muted);
+	border-color: var(--re-color-border-soft);
+	color: var(--re-color-disabled);
+}
+
+.is-invalid,
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+	border-color: var(--re-color-danger);
+}
+
+.invalid-feedback,
+.form-control.is-invalid:focus,
+.was-validated .form-control:invalid:focus,
+.form-select.is-invalid:focus,
+.was-validated .form-select:invalid:focus {
+	color: var(--re-color-danger);
+	box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--re-color-danger) 18%, transparent);
+}
+
+// Checkbox and radio visuals.
+.form-check-input {
+	border-color: var(--re-color-border);
+	border-radius: 0;
+}
+
+.form-check-input[type='radio'] {
+	border-radius: 50%;
+}
+
+.form-check-input:hover {
+	border-color: var(--bs-primary-border-subtle);
+}
+
+.form-check-input:focus {
+	border-color: var(--bs-primary-border-subtle);
+	box-shadow: 0 0 0 0.25rem var(--bs-primary-bg-subtle);
+}
+
+.form-check-input:checked {
+	background-color: var(--bs-primary);
+	border-color: var(--bs-primary);
+}
+
+.form-check-input:disabled {
+	border-color: var(--re-color-disabled);
+}
+
+.form-check-label {
+	color: var(--re-color-text-strong);
+	font-size: var(--re-font-size-16);
+}

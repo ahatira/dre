@@ -1,0 +1,1553 @@
+################################################################################
+# Content.
+################################################################################
+
+img_thumbnail:
+  category: "Thumbnail"
+  label: "Thumbnail"
+  description: "Give an image a rounded border appearance."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/content/images/'
+  options:
+    img-thumbnail: "Thumbnail"
+  previewed_as: "hidden"
+  weight: -4
+
+################################################################################
+# Helpers.
+################################################################################
+
+clearfix:
+  category: "Float"
+  label: "Clearfix"
+  description: "Easily clear floats by adding <code>.clearfix</code> to the parent element."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/clearfix/'
+  options:
+    clearfix: "Clearfix"
+  weight: -44
+
+# Color & background is among the utilities.
+# Colored links is among the utilities.
+
+focus_ring:
+  category: "Focus"
+  label: "Focus ring"
+  description: "Utility classes that allows you to add and modify custom focus ring styles to elements and components."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/focus-ring/'
+  options:
+    focus-ring: "Default"
+    focus-ring focus-ring-primary: "Primary"
+    focus-ring focus-ring-secondary: "Secondary"
+    focus-ring focus-ring-success: "Success"
+    focus-ring focus-ring-danger: "Danger"
+    focus-ring focus-ring-warning: "Warning"
+    focus-ring focus-ring-info: "Info"
+    focus-ring focus-ring-light: "Light"
+    focus-ring focus-ring-dark: "Dark"
+  previewed_as: hidden
+  weight: -5
+
+icon_link:
+  category: "Link"
+  label: "Icon link"
+  description: "Icon links assume Bootstrap Icons are being used, but you can use any icon or image you like."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/icon-link/'
+  options:
+    icon-link: "Default"
+    icon-link icon-link-hover: "Style on hover"
+  previewed_as: hidden
+  weight: -10
+
+position:
+  category: "Position"
+  label: "Position"
+  description: "Use these helpers for quickly configuring the position of an element."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/position'
+  options:
+    fixed-top: "Fixed top"
+    fixed-bottom: "Fixed bottom"
+    sticky-top: "Sticky top"
+    sticky-sm-top: "Sticky top from small"
+    sticky-md-top: "Sticky top from medium"
+    sticky-lg-top: "Sticky top from large"
+    sticky-xl-top: "Sticky top from extra large"
+    sticky-xxl-top: "Sticky top from extra extra large"
+    sticky-bottom: "Sticky bottom"
+    sticky-sm-bottom: "Sticky bottom from small"
+    sticky-md-bottom: "Sticky bottom from medium"
+    sticky-lg-bottom: "Sticky bottom from large"
+    sticky-xl-bottom: "Sticky bottom from extra large"
+    sticky-xxl-bottom: "Sticky bottom from extra extra large"
+  previewed_as: "hidden"
+  weight: -30
+
+ratio_aspect:
+  category: "Sizing"
+  label: "Aspect ratios"
+  description: "Use generated pseudo elements to make an element maintain the aspect ratio of your choosing. Perfect for responsively handling video or slideshow embeds based on the width of the parent."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/ratio/#aspect-ratios'
+  options:
+    ratio ratio-1x1: "1x1"
+    ratio ratio-4x3: "4x3"
+    ratio ratio-16x9: "16x9"
+    ratio ratio-21x9: "21x9"
+  previewed_as: "hidden"
+  weight: -55
+
+# Stacks is not implemented.
+
+stretched_link:
+  category: "Link"
+  label: "Stretched link"
+  description: "Make any HTML element or Bootstrap component clickable by 'stretching' a nested link via CSS."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/stretched-link/'
+  options:
+    stretched-link: "Stretched"
+  previewed_as: "hidden"
+  weight: -9
+
+text_text_truncate:
+  category: "Text"
+  label: "Text truncate"
+  description: "For longer content, you can add a <code>.text-truncate</code> class to truncate the text with an ellipsis. Requires <code>display: inline-block</code> or <code>display: block.</code>"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/text-truncation'
+  options:
+    text-truncate: "Truncate"
+  weight: -87
+
+vertical_rule:
+  label: "Vertical rule"
+  description: "Vertical rules are inspired by the <code>&lt;hr&gt;</code> element, allowing you to create vertical dividers in common layouts."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/vertical-rule'
+  options:
+    vr: "Enable"
+  previewed_as: "aside"
+  previewed_with:
+    - ms-2
+  weight: -1
+
+visually_hidden:
+  category: "Visibility"
+  label: "Visually hidden"
+  description: "Visually hide an element while still allowing it to be exposed to assistive technologies (such as screen readers) with <code>.visually-hidden</code>. Use <code>.visually-hidden-focusable</code> to visually hide an element by default, but to display it when it's focused (e.g. by a keyboard-only user). <code>.visually-hidden-focusable</code> can also be applied to a container–thanks to <code>:focus-within</code>, the container will be displayed when any child element of the container receives focus."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/helpers/visually-hidden'
+  options:
+    visually-hidden: "Visually hidden"
+    visually-hidden-focusable: "Visually hidden focusable"
+  previewed_as: "hidden"
+  weight: -24
+
+################################################################################
+# Utilities
+################################################################################
+
+colors_background_color:
+  category: "Background"
+  label: "Background color"
+  description: "Similar to the contextual text color classes, easily set the background of an element to any contextual class."
+  links:
+    - url:  'https://getbootstrap.com/docs/5.3/utilities/background/#background-color'
+      title:  'See background color utility'
+    - url:  'https://getbootstrap.com/docs/5.3/helpers/color-background/'
+      title:  'See color background helper'
+  options:
+    bg-primary: "Primary"
+    bg-primary-subtle: "Primary subtle"
+    bg-secondary: "Secondary"
+    bg-secondary-subtle: "Secondary subtle"
+    bg-success: "Success"
+    bg-success-subtle: "Success subtle"
+    bg-danger: "Danger"
+    bg-danger-subtle: "Danger subtle"
+    bg-warning: "Warning"
+    bg-warning-subtle: "Warning subtle"
+    bg-info: "Info"
+    bg-info-subtle: "Info subtle"
+    bg-light: "Light"
+    bg-light-subtle: "Light subtle"
+    bg-dark: "Dark"
+    bg-dark-subtle: "Dark subtle"
+    bg-body-secondary: "Body secondary"
+    bg-body-tertiary: "Body tertiary"
+    bg-body: "Body"
+    bg-white: "White"
+    bg-black: "Black"
+    bg-transparent: "Transparent"
+    text-bg-primary: "Primary with contrasting foreground"
+    text-bg-secondary: "Secondary with contrasting foreground"
+    text-bg-success: "Success with contrasting foreground"
+    text-bg-danger: "Danger with contrasting foreground"
+    text-bg-warning: "Warning with contrasting foreground"
+    text-bg-info: "Info with contrasting foreground"
+    text-bg-light: "Light with contrasting foreground"
+    text-bg-dark: "Dark with contrasting foreground"
+    text-bg-body: "Body with contrasting foreground"
+    text-bg-white: "White with contrasting foreground"
+    text-bg-transparent: "Transparent with contrasting foreground"
+  previewed_with:
+    - border
+    - p-2
+  weight: -85
+
+colors_background_opacity:
+  category: "Background"
+  label: "Background opacity"
+  description: "Modify the opacity of the background color with utility classes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/background/#opacity'
+  options:
+    bg-opacity-100: "100%"
+    bg-opacity-75: "75%"
+    bg-opacity-50: "50%"
+    bg-opacity-25: "25%"
+    bg-opacity-10: "10%"
+  previewed_with:
+    - border
+    - p-2
+    - bg-primary
+  weight: -84
+
+borders_border:
+  category: "Borders"
+  label: "Border"
+  description: "Use it to add an element's borders. Choose from all borders or one at a time."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#border'
+  options:
+    border:
+      label: "Additive All"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/border-outer.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktYm9yZGVyLW91dGVyIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik03LjUgMS45MDZ2LjkzOGgxdi0uOTM4em0wIDEuODc1di45MzhoMVYzLjc4aC0xem0wIDEuODc1di45MzhoMXYtLjkzOHpNMS45MDYgOC41aC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMUgzLjc4djF6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMi44MTMgMHYtLjAzMUg4LjVWNy41M2gtLjAzMVY3LjVINy41M3YuMDMxSDcuNXYuOTM4aC4wMzFWOC41em0uOTM3IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6TTcuNSA5LjQwNnYuOTM4aDF2LS45Mzh6bTAgMS44NzV2LjkzOGgxdi0uOTM4em0wIDEuODc1di45MzhoMXYtLjkzOHoiLz4KICA8cGF0aCBkPSJNMCAwdjE2aDE2VjB6bTEgMWgxNHYxNEgxeiIvPgo8L3N2Zz4K"
+    border-top:
+      label: "Additive Top"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/border-top.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktYm9yZGVyLXRvcCIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBkPSJNMCAwdjFoMTZWMHptMSAyLjg0NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0xIDQuNzE5VjMuNzhIMHYuOTM4aDF6bTYuNS0uOTM4di45MzhoMVYzLjc4aC0xem03LjUgMHYuOTM4aDFWMy43OGgtMXpNMSA2LjU5NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0uNSA4LjVoLjQ2OXYtLjAzMUgxVjcuNTNILjk2OVY3LjVILjV2LjAzMUgwdi45MzhoLjV6bTEuNDA2IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xSDMuNzh2MXptMS44NzUgMGguOTM4di0xaC0uOTM4em0yLjgxMyAwdi0uMDMxSDguNVY3LjUzaC0uMDMxVjcuNUg3LjUzdi4wMzFINy41di45MzhoLjAzMVY4LjV6bS45MzcgMGguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguNDY5di0uMDMxaC41VjcuNTNoLS41VjcuNWgtLjQ2OXYuMDMxSDE1di45MzhoLjAzMXpNMCA5LjQwNnYuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4em0tMTYgLjkzN3YuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4em0tMTYgLjkzN3YuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4ek0wIDE2aC45Njl2LS41SDF2LS40NjlILjk2OVYxNUguNXYuMDMxSDB6bTEuOTA2IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xSDMuNzh2MXptMS44NzUgMGguOTM4di0xaC0uOTM4em0xLjg3NS0uNXYuNWguOTM4di0uNUg4LjV2LS40NjloLS4wMzFWMTVINy41M3YuMDMxSDcuNXYuNDY5em0xLjg3NS41aC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xaC0uOTM4em0xLjg3NS0uNXYuNUgxNnYtLjk2OWgtLjVWMTVoLS40Njl2LjAzMUgxNXYuNDY5eiIvPgo8L3N2Zz4K"
+    border-bottom:
+      label: "Additive Bottom"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/border-bottom.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktYm9yZGVyLWJvdHRvbSIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBkPSJNLjk2OSAwSDB2Ljk2OWguNVYxaC40NjlWLjk2OUgxVi41SC45Njl6bS45MzcgMWguOTM4VjBoLS45Mzh6bTEuODc1IDBoLjkzOFYwSDMuNzh2MXptMS44NzUgMGguOTM4VjBoLS45Mzh6TTcuNTMxLjk2OVYxaC45MzhWLjk2OUg4LjVWLjVoLS4wMzFWMEg3LjUzdi41SDcuNXYuNDY5ek05LjQwNiAxaC45MzhWMGgtLjkzOHptMS44NzUgMGguOTM4VjBoLS45Mzh6bTEuODc1IDBoLjkzOFYwaC0uOTM4em0xLjg3NSAwaC40NjlWLjk2OWguNVYwaC0uOTY5di41SDE1di40NjloLjAzMXpNMSAyLjg0NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0xIDQuNzE5VjMuNzhIMHYuOTM4aDF6bTYuNS0uOTM4di45MzhoMVYzLjc4aC0xem03LjUgMHYuOTM4aDFWMy43OGgtMXpNMSA2LjU5NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0uNSA4LjVoLjQ2OXYtLjAzMUgxVjcuNTNILjk2OVY3LjVILjV2LjAzMUgwdi45MzhoLjV6bTEuNDA2IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xSDMuNzh2MXptMS44NzUgMGguOTM4di0xaC0uOTM4em0yLjgxMyAwdi0uMDMxSDguNVY3LjUzaC0uMDMxVjcuNUg3LjUzdi4wMzFINy41di45MzhoLjAzMVY4LjV6bS45MzcgMGguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguNDY5di0uMDMxaC41VjcuNTNoLS41VjcuNWgtLjQ2OXYuMDMxSDE1di45MzhoLjAzMXpNMCA5LjQwNnYuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4em0tMTYgLjkzN3YuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4em0tMTYgLjkzN3YuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4ek0wIDE1aDE2djFIMHoiLz4KPC9zdmc+Cg=="
+    border-start:
+      label: "Additive Start"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/border-left.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktYm9yZGVyLWxlZnQiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTAgMHYxNmgxVjB6bTEuOTA2IDFoLjkzOFYwaC0uOTM4em0xLjg3NSAwaC45MzhWMEgzLjc4djF6bTEuODc1IDBoLjkzOFYwaC0uOTM4ek03LjUzMS45NjlWMWguOTM4Vi45NjlIOC41Vi41aC0uMDMxVjBINy41M3YuNUg3LjV2LjQ2OXpNOS40MDYgMWguOTM4VjBoLS45Mzh6bTEuODc1IDBoLjkzOFYwaC0uOTM4em0xLjg3NSAwaC45MzhWMGgtLjkzOHptMS44NzUgMGguNDY5Vi45NjloLjVWMGgtLjk2OXYuNUgxNXYuNDY5aC4wMzF6TTcuNSAxLjkwNnYuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHpNNy41IDMuNzgxdi45MzhoMVYzLjc4aC0xem03LjUgMHYuOTM4aDFWMy43OGgtMXpNNy41IDUuNjU2di45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0xLjkwNiA4LjVoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xSDMuNzh2MXptMS44NzUgMGguOTM4di0xaC0uOTM4em0yLjgxMyAwdi0uMDMxSDguNVY3LjUzaC0uMDMxVjcuNUg3LjUzdi4wMzFINy41di45MzhoLjAzMVY4LjV6bS45MzcgMGguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguNDY5di0uMDMxaC41VjcuNTNoLS41VjcuNWgtLjQ2OXYuMDMxSDE1di45MzhoLjAzMXpNNy41IDkuNDA2di45MzhoMXYtLjkzOHptOC41LjkzOHYtLjkzOGgtMXYuOTM4em0tOC41LjkzN3YuOTM4aDF2LS45Mzh6bTguNS45Mzh2LS45MzhoLTF2LjkzOHptLTguNS45Mzd2LjkzOGgxdi0uOTM4em04LjUuOTM4di0uOTM4aC0xdi45Mzh6TTEuOTA2IDE2aC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMUgzLjc4djF6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUtLjV2LjVoLjkzOHYtLjVIOC41di0uNDY5aC0uMDMxVjE1SDcuNTN2LjAzMUg3LjV2LjQ2OXptMS44NzUuNWguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUtLjV2LjVIMTZ2LS45NjloLS41VjE1aC0uNDY5di4wMzFIMTV2LjQ2OXoiLz4KPC9zdmc+Cg=="
+    border-end:
+      label: "Additive End"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/border-right.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktYm9yZGVyLXJpZ2h0IiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0uOTY5IDBIMHYuOTY5aC41VjFoLjQ2OVYuOTY5SDFWLjVILjk2OXptLjkzNyAxaC45MzhWMGgtLjkzOHptMS44NzUgMGguOTM4VjBIMy43OHYxem0xLjg3NSAwaC45MzhWMGgtLjkzOHpNNy41MzEuOTY5VjFoLjkzOFYuOTY5SDguNVYuNWgtLjAzMVYwSDcuNTN2LjVINy41di40Njl6TTkuNDA2IDFoLjkzOFYwaC0uOTM4em0xLjg3NSAwaC45MzhWMGgtLjkzOHptMS44NzUgMGguOTM4VjBoLS45Mzh6TTE2IDBoLTF2MTZoMXpNMSAyLjg0NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHpNMSA0LjcxOVYzLjc4SDB2LjkzOGgxem02LjUtLjkzOHYuOTM4aDFWMy43OGgtMXpNMSA2LjU5NHYtLjkzOEgwdi45Mzh6bTYuNS0uOTM4di45MzhoMXYtLjkzOHpNLjUgOC41aC40Njl2LS4wMzFIMVY3LjUzSC45NjlWNy41SC41di4wMzFIMHYuOTM4aC41em0xLjQwNiAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMUgzLjc4djF6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMi44MTMgMHYtLjAzMUg4LjVWNy41M2gtLjAzMVY3LjVINy41M3YuMDMxSDcuNXYuOTM4aC4wMzFWOC41em0uOTM3IDBoLjkzOHYtMWgtLjkzOHptMS44NzUgMGguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6TTAgOS40MDZ2LjkzOGgxdi0uOTM4em03LjUgMHYuOTM4aDF2LS45Mzh6TTAgMTEuMjgxdi45MzhoMXYtLjkzOHptNy41IDB2LjkzOGgxdi0uOTM4ek0wIDEzLjE1NnYuOTM4aDF2LS45Mzh6bTcuNSAwdi45MzhoMXYtLjkzOHpNMCAxNmguOTY5di0uNUgxdi0uNDY5SC45NjlWMTVILjV2LjAzMUgwem0xLjkwNiAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMUgzLjc4djF6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHptMS44NzUtLjV2LjVoLjkzOHYtLjVIOC41di0uNDY5aC0uMDMxVjE1SDcuNTN2LjAzMUg3LjV2LjQ2OXptMS44NzUuNWguOTM4di0xaC0uOTM4em0xLjg3NSAwaC45Mzh2LTFoLS45Mzh6bTEuODc1IDBoLjkzOHYtMWgtLjkzOHoiLz4KPC9zdmc+Cg=="
+  previewed_with:
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -80
+
+borders_border_subtractive:
+  category: "Borders"
+  label: "Border subtractive"
+  description: "Use it to remove an element's borders. Choose from all borders or one at a time."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#border'
+  options:
+    border-0: "All"
+    border-top-0: "Top"
+    border-bottom-0: "Bottom"
+    border-start-0: "Start"
+    border-end-0: "End"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -79
+
+borders_border_color:
+  category: "Borders"
+  label: "Border color"
+  description: "Change the border color using utilities built on our theme colors."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#color'
+  options:
+    border-primary: "Primary"
+    border-primary-subtle: "Primary subtle"
+    border-secondary: "Secondary"
+    border-secondary-subtle: "Secondary subtle"
+    border-success: "Success"
+    border-success-subtle: "Success subtle"
+    border-danger: "Danger"
+    border-danger-subtle: "Danger subtle"
+    border-warning: "Warning"
+    border-warning-subtle: "Warning subtle"
+    border-info: "Info"
+    border-info-subtle: "Info subtle"
+    border-light: "Light"
+    border-light-subtle: "Light subtle"
+    border-dark: "Dark"
+    border-dark-subtle: "Dark subtle"
+    border-white: "White"
+    border-black: "Black"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -77
+
+borders_border_opacity:
+  category: "Borders"
+  label: "Border opacity"
+  description: "This allows for real-time color changes without compilation and dynamic alpha transparency changes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#opacity'
+  options:
+    border-opacity-100: "100%"
+    border-opacity-75: "75%"
+    border-opacity-50: "50%"
+    border-opacity-25: "25%"
+    border-opacity-10: "10%"
+  previewed_with:
+    - border
+    - border-success
+    - p-2
+  weight: -76
+
+borders_border_width:
+  category: "Borders"
+  label: "Border width"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#width'
+  options:
+    border-1: "1"
+    border-2: "2"
+    border-3: "3"
+    border-4: "4"
+    border-5: "5"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -78
+
+borders_border_radius:
+  category: "Borders"
+  label: "Border radius"
+  description: "Add classes to an element to easily round its corners."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#radius'
+  options:
+    rounded: "Default"
+    rounded-circle: "Circle"
+    rounded-pill: "Pill"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -74
+
+borders_border_radius_position:
+  category: "Borders"
+  label: "Border radius position"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#radius'
+  options:
+    rounded-top: "Top"
+    rounded-bottom: "Bottom"
+    rounded-start: "Start"
+    rounded-end: "End"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -72
+
+borders_border_radius_width:
+  category: "Borders"
+  label: "Border radius width"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/borders/#radius'
+  options:
+    rounded-0: "Rounded reset"
+    rounded-1: "Rounded size 1"
+    rounded-2: "Rounded size 2"
+    rounded-3: "Rounded size 3"
+    rounded-4: "Rounded size 4"
+    rounded-5: "Rounded size 5"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+    - border-dark
+  weight: -73
+
+colors_color:
+  category: "Text"
+  label: "Color"
+  description: "Convey meaning through color with a handful of color utility classes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/colors/#colors'
+  options:
+    text-primary: "Primary"
+    text-primary-emphasis: "Primary emphasis"
+    text-secondary: "Secondary"
+    text-secondary-emphasis: "Secondary emphasis"
+    text-success: "Success"
+    text-success-emphasis: "Success emphasis"
+    text-danger: "Danger"
+    text-danger-emphasis: "Danger emphasis"
+    text-warning: "Warning"
+    text-warning-emphasis: "Warning emphasis"
+    text-info: "Info"
+    text-info-emphasis: "Info emphasis"
+    text-light: "Light"
+    text-light-emphasis: "Light emphasis"
+    text-dark: "Dark"
+    text-dark-emphasis: "Dark emphasis"
+    text-body: "Body"
+    text-body-emphasis: "Body emphasis"
+    text-body-secondary: "Body secondary"
+    text-body-tertiary: "Body tertiary"
+    text-white: "White"
+    text-black: "Black"
+    text-black-50: "Black 50 (deprecated)"
+    text-white-50: "White 50 (deprecated)"
+    text-muted: "Muted (deprecated)"
+    text-reset: "Reset"
+  weight: -98
+
+colors_opacity:
+  category: "Text"
+  label: "Opacity"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/colors/#opacity'
+  options:
+    text-opacity-100: "100%"
+    text-opacity-75: "75%"
+    text-opacity-50: "50%"
+    text-opacity-25: "25%"
+  previewed_with:
+    - text-primary
+  weight: -91
+
+display_all:
+  category: "Display"
+  label: "Display all screens"
+  description: "Display utility classes that apply to all breakpoints, from xs to xxl, have no breakpoint abbreviation in them. This is because those classes are applied from min-width: 0 and up, and thus are not bound by a media query."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display'
+  options:
+    d-none: "None"
+    d-inline: "Inline"
+    d-inline-block: "Inline block"
+    d-block: "Block"
+    d-grid: "Grid"
+    d-inline-grid: "Inline grid"
+    d-table: "Table"
+    d-table-cell: "Table cell"
+    d-table-row: "Table row"
+    d-flex: "Flex"
+    d-inline-flex: "Inline flex"
+  previewed_as: "hidden"
+  weight: -53
+
+display_small:
+  category: "Display"
+  label: "Display small screens"
+  description: "These utility classes apply to small screens and larger."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-sm-none: "Display: none on small screens and above"
+    d-sm-inline: "Display: inline on small screens and above"
+    d-sm-inline-block: "Display: inline-block on small screens and above"
+    d-sm-block: "Display: block on small screens and above"
+    d-sm-grid: "Display: grid on small screens and above"
+    d-sm-inline-grid: "Display: inline grid on small screens and above"
+    d-sm-table: "Display: table on small screens and above"
+    d-sm-table-cell: "Display: table-cell on small screens and above"
+    d-sm-table-row: "Display: table-row on small screens and above"
+    d-sm-flex: "Display: flex on small screens and above"
+    d-sm-inline-flex: "Display: inline-flex on small screens and above"
+  previewed_as: "hidden"
+  weight: -52
+
+display_medium:
+  category: "Display"
+  label: "Display medium screens"
+  description: "These utility classes apply to medium screens and larger."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-md-none: "Display: none on medium screens and above"
+    d-md-inline: "Display: inline on medium screens and above"
+    d-md-inline-block: "Display: inline-block on medium screens and above"
+    d-md-block: "Display: block on medium screens and above"
+    d-md-grid: "Display: grid on medium screens and above"
+    d-md-inline-grid: "Display: inline grid on medium screens and above"
+    d-md-table: "Display: table on medium screens and above"
+    d-md-table-cell: "Display: table-cell on medium screens and above"
+    d-md-table-row: "Display: table-row on medium screens and above"
+    d-md-flex: "Display: flex on medium screens and above"
+    d-md-inline-flex: "Display: inline-flex on medium screens and above"
+  previewed_as: "hidden"
+  weight: -51
+
+display_large:
+  category: "Display"
+  label: "Display large screens"
+  description: "These utility classes apply to large screens and larger."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-lg-none: "Display: none on large screens and above"
+    d-lg-inline: "Display: inline on large screens and above"
+    d-lg-inline-block: "Display: inline-block on large screens and above"
+    d-lg-block: "Display: block on large screens and above"
+    d-lg-grid: "Display: grid on large screens and above"
+    d-lg-inline-grid: "Display: inline grid on large screens and above"
+    d-lg-table: "Display: table on large screens and above"
+    d-lg-table-cell: "Display: table-cell on large screens and above"
+    d-lg-table-row: "Display: table-row on large screens and above"
+    d-lg-flex: "Display: flex on large screens and above"
+    d-lg-inline-flex: "Display: inline-flex on large screens and above"
+  previewed_as: "hidden"
+  weight: -50
+
+display_x_large:
+  category: "Display"
+  label: "Display x-large screens"
+  description: "These utility classes apply to extra-large screens and extra-extra-large screens."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-xl-none: "Display: none on x-large screens and xx-large screens."
+    d-xl-inline: "Display: inline on x-large screens and xx-large screens."
+    d-xl-inline-block: "Display: inline-block on x-large screens and xx-large screens."
+    d-xl-block: "Display: block on x-large screens and xx-large screens."
+    d-xl-grid: "Display: grid on x-large screens and xx-large screens."
+    d-xl-inline-grid: "Display: inline grid on x-large screens and xx-large screens."
+    d-xl-table: "Display: table on x-large screens and xx-large screens."
+    d-xl-table-cell: "Display: table-cell on x-large screens and xx-large screens."
+    d-xl-table-row: "Display: table-row on x-large screens and xx-large screens."
+    d-xl-flex: "Display: flex on x-large screens and xx-large screens."
+    d-xl-inline-flex: "Display: inline-flex on x-large screens and xx-large screens."
+  previewed_as: "hidden"
+  weight: -49
+
+display_xx_large:
+  category: "Display"
+  label: "Display xx-large screens"
+  description: "These utility classes apply only to extra-extra-large screens."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-xxl-none: "Display: none only on xx-large screens"
+    d-xxl-inline: "Display: inline only on xx-large screens."
+    d-xxl-inline-block: "Display: inline-block only on xx-large screens."
+    d-xxl-block: "Display: block only on xx-large screens."
+    d-xxl-grid: "Display: grid only on xx-large screens."
+    d-xxl-inline-grid: "Display: inline grid only on xx-large screens."
+    d-xxl-table: "Display: table only on xx-large screens."
+    d-xxl-table-cell: "Display: table-cell only on xx-large screens."
+    d-xxl-table-row: "Display: table-row only on xx-large screens."
+    d-xxl-flex: "Display: flex only on xx-large screens."
+    d-xxl-inline-flex: "Display: inline-flex only on xx-large screens."
+  previewed_as: "hidden"
+  weight: -48
+
+display_print:
+  category: "Display"
+  label: "Display in print"
+  description: "Change the display value of elements when printing."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements'
+  options:
+    d-print-none: "Hide on print only."
+    d-print-inline: "Display as inline for printing."
+    d-print-inline-block: "Display as inline-block for printing."
+    d-print-block: "Display as block for printing."
+    d-print-grid: "Display as grid for printing."
+    d-print-inline-grid: "Display as inline grid for printing."
+    d-print-table: "Display as table for printing."
+    d-print-table-row: "Display as table row for printing."
+    d-print-table-cell: "Display as table cell for printing."
+    d-print-flex: "Display as flex for printing."
+    d-print-inline-flex: "Display as inline-flex for printing."
+  previewed_as: "hidden"
+  weight: -47
+
+flex_flex:
+  category: "Flex"
+  label: "Flex"
+  description: "Apply display utilities to create a flexbox container and transform direct children elements into flex items. Flex containers and items are able to be modified further with additional flex properties."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors'
+  options:
+    d-flex: "Flex"
+    d-inline-flex: "Inline flex"
+  previewed_as: hidden
+  weight: -42
+
+flex_direction:
+  category: "Flex"
+  label: "Flex direction"
+  description: "Set the direction of flex items in a flex container with direction utilities. In most cases you can omit the horizontal class here as the browser default is row However, you may encounter situations where you needed to explicitly set this value (like responsive layouts)."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#direction'
+  options:
+    flex-row: "Flex row"
+    flex-row-reverse: "Reverse flex row"
+    flex-column: "Flex column"
+    flex-column-reverse: "Reverse flex column"
+  previewed_as: hidden
+  weight: -41
+
+flex_justify_content:
+  category: "Flex"
+  label: "Flex justify content"
+  description: "Use justify-content utilities on flexbox containers to change the alignment of flex items on the main axis (the x-axis to start, y-axis if flex-direction: column). Choose from start (browser default), end, center, between, around, or evenly."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#justify-content'
+  options:
+    justify-content-start: "Start"
+    justify-content-end: "End"
+    justify-content-center: "Center"
+    justify-content-between: "Between"
+    justify-content-around: "Around"
+    justify-content-evenly: "Evenly"
+  previewed_as: hidden
+  weight: -39
+
+flex_align_content:
+  category: "Flex"
+  label: "Flex align content"
+  description: "Use align-content utilities on flexbox containers to align flex items together on the cross axis. Choose from start (browser default), end, center, between, around, or stretch. Heads up! This property has no effect on single rows of flex items."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#align-content'
+  options:
+    align-content-start: "Start"
+    align-content-end: "End"
+    align-content-center: "Center"
+    align-content-between: "Between"
+    align-content-around: "Around"
+    align-content-stretch: "Stretch"
+  previewed_as: hidden
+  weight: -40
+
+flex_align_items:
+  category: "Flex"
+  label: "Flex align items"
+  description: "Use align-self utilities on flexbox containers to change the alignment of flex items on the cross axis (the y-axis to start, x-axis if flex-direction: column). Choose from start, end, center, baseline, or stretch (browser default)."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#align-self'
+  options:
+    align-items-start: "Start"
+    align-items-end: "End"
+    align-items-center: "Center"
+    align-items-baseline: "Baseline"
+    align-items-stretch: "Stretch"
+  previewed_as: hidden
+  weight: -38
+
+flex_align_self:
+  category: "Flex"
+  label: "Flex align self"
+  description: "Use align-self utilities on flexbox items to individually change their alignment on the cross axis (the y-axis to start, x-axis if flex-direction: column). Choose from the same options as align-self: start, end, center, baseline, or stretch (browser default)."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#align-self'
+  options:
+    align-self-start: "Start"
+    align-self-end: "End"
+    align-self-center: "Center"
+    align-self-baseline: "Baseline"
+    align-self-stretch: "Stretch"
+  previewed_as: hidden
+  weight: -37
+
+flex_fill:
+  category: "Flex"
+  label: "Flex fill"
+  description: "Use the flex-fill class on a series of sibling elements to force them into widths equal to their content (or equal widths if their content does not surpass their border-boxes) while taking up all available horizontal space."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#fill'
+  options:
+    flex-fill: "Fill"
+  previewed_as: hidden
+  weight: -35
+
+flex_grow_shrink:
+  category: "Flex"
+  label: "Flex grow and shrink"
+  description: "Use flex-grow-* utilities to toggle a flex item's ability to grow to fill available space. In the example below, the flex-grow-1 elements uses all available space it can, while allowing the remaining two flex items their necessary space. Use flex-shrink-* utilities to toggle a flex item's ability to shrink if necessary."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#grow-and-shrink'
+  options:
+    flex-grow-0: "Grow 0"
+    flex-grow-1: "Grow 1"
+    flex-shrink-0: "Shrink 0"
+    flex-shrink-1: "Shrink 1"
+  previewed_as: hidden
+  weight: -34
+
+flex_wrap:
+  category: "Flex"
+  label: "Flex wrap"
+  description: "Change how flex items wrap in a flex container. Choose from no wrapping at all (the browser default) with flex-nowrap, wrapping with flex-wrap, or reverse wrapping with flex-wrap-reverse."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#wrap'
+  options:
+    flex-nowrap: "No wrap"
+    flex-wrap: "Wrap"
+    flex-wrap-reverse: "Reverse wrap"
+  previewed_as: hidden
+  weight: -36
+
+flex_order:
+  category: "Flex"
+  label: "Flex order"
+  description: "Change the visual order of specific flex items with a handful of order utilities. We only provide options for making an item first or last, as well as a reset to use the DOM order. As order takes any integer value from 0 to 5, add custom CSS for any additional values needed. Additionally there are also responsive order-first and order-last classes that change the order of an element by applying order: -1 and order: 6, respectively."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/flex/#order'
+  options:
+    order-first: "First"
+    order-last: "Last"
+    order-0: "Order 0"
+    order-1: "Order 1"
+    order-2: "Order 2"
+    order-3: "Order 3"
+    order-4: "Order 4"
+    order-5: "Order 5"
+  previewed_as: hidden
+  weight: -33
+
+float:
+  category: "Float"
+  label: "Float"
+  description: "These utility classes float an element to the left or right, or disable floating."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/float'
+  options:
+    float-start: "Start"
+    float-end: "End"
+    float-none: "None"
+  previewed_as: widget_hidden
+  weight: -45
+
+interactions_text_selection:
+  category: "Interactions"
+  label: "Text selection"
+  description: "Change the way in which the content is selected when the user interacts with it."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/interactions/#text-selection'
+  options:
+    user-select-all: "Select all"
+    user-select-auto: "Default"
+    user-select-none: "Not selectable"
+  previewed_as: widget_hidden
+  weight: -5
+
+interactions_pointer_events:
+  category: "Interactions"
+  label: "Pointer events"
+  description: "Bootstrap provides <code>.pe-none</code> and <code>.pe-auto</code> classes to prevent or add element interactions."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/interactions/#pointer-events'
+  options:
+    pe-none: "Not clickable"
+    pe-auto: "Default"
+  previewed_as: widget_hidden
+  weight: -6
+
+link_opacity:
+  category: "Link"
+  label: "Link opacity"
+  description: "Change the alpha opacity of the link rgba() color value with utilities. Be aware that changes to a color's opacity can lead to links with insufficient contrast."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#link-opacity'
+  options:
+    link-opacity-100: "100%"
+    link-opacity-75: "75%"
+    link-opacity-50: "50%"
+    link-opacity-25: "25%"
+    link-opacity-10: "10%"
+  previewed_as: hidden
+  weight: -14
+
+link_opacity_hover:
+  category: "Link"
+  label: "Link opacity hover"
+  description: "You can even change the opacity level on hover."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#link-opacity'
+  options:
+    link-opacity-100-hover: "100%"
+    link-opacity-75-hover: "75%"
+    link-opacity-50-hover: "50%"
+    link-opacity-25-hover: "25%"
+    link-opacity-10-hover: "10%"
+  previewed_as: hidden
+  weight: -13
+
+link_underline:
+  category: "Link"
+  label: "Link underline color"
+  description: "Change the underline's color independent of the link text color."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#underline-color'
+  options:
+    link-underline: "Default"
+    link-underline-primary: "Primary"
+    link-underline-secondary: "Secondary"
+    link-underline-success: "Success"
+    link-underline-danger: "Danger"
+    link-underline-warning: "Warning"
+    link-underline-info: "Info"
+    link-underline-light: "Light"
+    link-underline-dark: "Dark"
+  previewed_with:
+    - text-decoration-underline
+  weight: -17
+
+link_underline_opacity:
+  category: "Link"
+  label: "Link underline opacity"
+  description: "Change the underline's opacity. Requires adding .link-underline to first set an rgba() color we use to then modify the alpha opacity."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#underline-opacity'
+  options:
+    link-underline-opacity-100: "100%"
+    link-underline-opacity-75: "75%"
+    link-underline-opacity-50: "50%"
+    link-underline-opacity-25: "25%"
+    link-underline-opacity-10: "10%"
+    link-underline-opacity-0: "0%"
+  previewed_with:
+    - text-decoration-underline
+    - link-underline
+  weight: -12
+
+link_underline_opacity_hover:
+  category: "Link"
+  label: "Link underline opacity hover"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#hover-variants'
+  options:
+    link-underline-opacity-100-hover: "100%"
+    link-underline-opacity-75-hover: "75%"
+    link-underline-opacity-50-hover: "50%"
+    link-underline-opacity-25-hover: "25%"
+    link-underline-opacity-10-hover: "10%"
+    link-underline-opacity-0-hover: "0%"
+  previewed_as: widget_hidden
+  previewed_with:
+    - text-decoration-underline
+    - link-underline
+  weight: -11
+
+link_colored:
+  category: "Link"
+  label: "Link color"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#colored-links'
+  options:
+    link-primary: "Primary"
+    link-secondary: "Secondary"
+    link-success: "Success"
+    link-danger: "Danger"
+    link-warning: "Warning"
+    link-info: "Info"
+    link-light: "Light"
+    link-dark: "Dark"
+    link-body-emphasis: "Emphasis"
+  weight: -18
+
+link_offset:
+  category: "Link"
+  label: "Link offset"
+  description: "Change the underline's distance from your text. Offset is set in em units to automatically scale with the element's current font-size."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#underline-offset'
+  options:
+    link-offset-1: "1"
+    link-offset-2: "2"
+    link-offset-3: "3"
+  previewed_with:
+    - text-decoration-underline
+  weight: -16
+
+link_offset_hover:
+  category: "Link"
+  label: "Link offset hover"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/link/#hover-variants'
+  options:
+    link-offset-1-hover: "1"
+    link-offset-2-hover: "2"
+    link-offset-3-hover: "3"
+  previewed_as: widget_hidden
+  previewed_with:
+    - text-decoration-underline
+  weight: -15
+
+object_fit:
+  category: "Object fit"
+  label: "Object fit"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/object-fit'
+  options:
+    object-fit-contain: "Contain"
+    object-fit-cover: "Cover"
+    object-fit-fill: "Fill"
+    object-fit-scale: "Scale"
+    object-fit-none: "None"
+  previewed_as: hidden
+  weight: -8
+
+opacity:
+  category: "Visibility"
+  label: "Opacity"
+  description: "The opacity property sets the opacity level for an element. The opacity level describes the transparency level, where 1 is not transparent at all, .5 is 50% visible, and 0 is completely transparent."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/opacity'
+  options:
+    opacity-100: "100%"
+    opacity-75: "75%"
+    opacity-50: "50%"
+    opacity-25: "25%"
+    opacity-0: "0%"
+  previewed_as: "aside"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -23
+
+overflow:
+  category: "Visibility"
+  label: "Overflow"
+  description: "Configure how content overflows an element."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/overflow/'
+  options:
+    overflow-auto: "Auto"
+    overflow-hidden: "Hidden"
+    overflow-visible: "Visible"
+    overflow-scroll: "Scroll"
+  weight: -22
+
+overflow_horizontal:
+  category: "Visibility"
+  label: "Overflow horizontal"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/overflow/#overflow-x'
+  options:
+    overflow-x-auto: "Auto"
+    overflow-x-hidden: "Hidden"
+    overflow-x-visible: "Visible"
+    overflow-x-scroll: "Scroll"
+  weight: -21
+
+overflow_vertical:
+  category: "Visibility"
+  label: "Overflow vertical"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/overflow/#overflow-y'
+  options:
+    overflow-y-auto: "Auto"
+    overflow-y-hidden: "Hidden"
+    overflow-y-visible: "Visible"
+    overflow-y-scroll: "Scroll"
+  weight: -20
+
+position_position:
+  category: "Position"
+  label: "Position values"
+  description: "Quick positioning classes are available, though they are not responsive."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/position/#position-values'
+  options:
+    position-static: "Static"
+    position-relative: "Relative"
+    position-absolute: "Absolute"
+    position-fixed: "Fixed"
+    position-sticky: "Sticky"
+  previewed_as: "hidden"
+  weight: -31
+
+position_arrange_vertical:
+  category: "Position"
+  label: "Arrange element vertically"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/position/#arrange-elements'
+  options:
+    top-0: "Top 0%"
+    top-50: "Top 50%"
+    top-100: "Top 100%"
+    bottom-0: "Bottom 0%"
+    bottom-50: "Bottom 50%"
+    bottom-100: "Bottom 100%"
+  previewed_as: "hidden"
+  weight: -27
+
+position_arrange_horizontal:
+  category: "Position"
+  label: "Arrange element horizontally"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/position/#arrange-elements'
+  options:
+    start-0: "Start 0%"
+    start-50: "Start 50%"
+    start-100: "Start 100%"
+    end-0: "End 0%"
+    end-50: "End 50%"
+    end-100: "End 100%"
+  previewed_as: "hidden"
+  weight: -28
+
+position_center:
+  category: "Position"
+  label: "Center element"
+  description: "In addition, you can also center the elements with the transform utility class <code>.translate-middle</code>."
+  options:
+    translate-middle: "Center"
+    translate-middle-x: "Center horizontally"
+    translate-middle-y: "Center vertically"
+  previewed_as: "hidden"
+  weight: -29
+
+shadows:
+  category: "Borders"
+  label: "Shadows"
+  description: "Add or remove shadows to elements with box-shadow utilities."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/shadows/'
+  options:
+    shadow-none: "None"
+    shadow-sm: "Small"
+    shadow: "Normal"
+    shadow-lg: "Large"
+  previewed_with:
+    - border
+    - border-dark
+    - p-2
+    - bg-light
+    - m-3
+  weight: -75
+
+sizing_width:
+  category: "Sizing"
+  label: "Width"
+  description: "Make element as wide as its parent element or the viewport."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/sizing'
+  options:
+    w-25: "25% width"
+    w-50: "50% width"
+    w-75: "75% width"
+    w-100: "100% width"
+    w-auto: "Auto"
+    mw-100: "Max-width 100%"
+    vw-100: "Width 100% of viewport"
+    min-vw-100: "Min-width 100% of viewport"
+  previewed_as: "hidden"
+  weight: -57
+
+sizing_height:
+  category: "Sizing"
+  label: "Height"
+  description: "Make element as tall as its parent element or the viewport."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/sizing'
+  options:
+    h-25: "25% height"
+    h-50: "50% height"
+    h-75: "75% height"
+    h-100: "100% height"
+    h-auto: "Auto"
+    mh-100: "Max-height 100%"
+    vh-100: "Height 100% of viewport"
+    min-vh-100: "Min-height 100% of viewport"
+  previewed_as: "hidden"
+  weight: -56
+
+spacing_margin:
+  category: "Spacing"
+  label: "Margin"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    m-0: "0"
+    m-1: "1"
+    m-2: "2"
+    m-3: "3"
+    m-4: "4"
+    m-5: "5"
+    m-auto: "Auto"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -70
+
+spacing_margin_top:
+  category: "Spacing"
+  label: "Margin top"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    mt-0: "0"
+    mt-1: "1"
+    mt-2: "2"
+    mt-3: "3"
+    mt-4: "4"
+    mt-5: "5"
+    mt-auto: "Auto"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -69
+
+spacing_margin_bottom:
+  category: "Spacing"
+  label: "Margin bottom"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    mb-0: "0"
+    mb-1: "1"
+    mb-2: "2"
+    mb-3: "3"
+    mb-4: "4"
+    mb-5: "5"
+    mb-auto: "Auto"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -68
+
+spacing_margin_start:
+  category: "Spacing"
+  label: "Margin start"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    ms-0: "0"
+    ms-1: "1"
+    ms-2: "2"
+    ms-3: "3"
+    ms-4: "4"
+    ms-5: "5"
+    ms-auto: "Auto"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -67
+
+spacing_margin_end:
+  category: "Spacing"
+  label: "Margin end"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    me-0: "0"
+    me-1: "1"
+    me-2: "2"
+    me-3: "3"
+    me-4: "4"
+    me-5: "5"
+    me-auto: "Auto"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -66
+
+spacing_padding:
+  category: "Spacing"
+  label: "Padding"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    p-0: "0"
+    p-1: "1"
+    p-2: "2"
+    p-3: "3"
+    p-4: "4"
+    p-5: "5"
+  previewed_with:
+    - border
+    - bg-light
+  weight: -65
+
+spacing_padding_top:
+  category: "Spacing"
+  label: "Padding top"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    pt-0: "0"
+    pt-1: "1"
+    pt-2: "2"
+    pt-3: "3"
+    pt-4: "4"
+    pt-5: "5"
+  previewed_with:
+    - border
+    - bg-light
+  weight: -64
+
+spacing_padding_bottom:
+  category: "Spacing"
+  label: "Padding bottom"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    pb-0: "0"
+    pb-1: "1"
+    pb-2: "2"
+    pb-3: "3"
+    pb-4: "4"
+    pb-5: "5"
+  previewed_with:
+    - border
+    - bg-light
+  weight: -63
+
+spacing_padding_start:
+  category: "Spacing"
+  label: "Padding start"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    ps-0: "0"
+    ps-1: "1"
+    ps-2: "2"
+    ps-3: "3"
+    ps-4: "4"
+    ps-5: "5"
+  previewed_with:
+    - border
+    - bg-light
+  weight: -62
+
+spacing_padding_end:
+  category: "Spacing"
+  label: "Padding end"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#notation'
+  options:
+    pe-0: "0"
+    pe-1: "1"
+    pe-2: "2"
+    pe-3: "3"
+    pe-4: "4"
+    pe-5: "5"
+  previewed_with:
+    - border
+    - bg-light
+    - text-end
+  weight: -61
+
+spacing_horizontal_centering:
+  category: "Spacing"
+  label: "Horizontal centering"
+  description: "An .mx-auto class for horizontally centering fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#horizontal-centering'
+  options:
+    mx-auto: "Center"
+  weight: -60
+
+spacing_gap:
+  category: "Spacing"
+  label: "Gap"
+  description: "When using display: grid or display: flex, you can make use of gap utilities on the parent element. This can save on having to add margin utilities to individual children of a grid or flex container. Gap utilities are responsive by default."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#gap'
+  options:
+    gap-0: "0"
+    gap-1: "1"
+    gap-2: "2"
+    gap-3: "3"
+    gap-4: "4"
+    gap-5: "5"
+  previewed_as: hidden
+  weight: -58
+
+spacing_gap_row:
+  category: "Spacing"
+  label: "Row gap"
+  description: "row-gap sets the vertical space between children items in the specified container."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#row-gap'
+  options:
+    row-gap-0: "0"
+    row-gap-1: "1"
+    row-gap-2: "2"
+    row-gap-3: "3"
+    row-gap-4: "4"
+    row-gap-5: "5"
+  previewed_as: hidden
+  weight: -57
+
+spacing_gap_column:
+  category: "Spacing"
+  label: "Column gap"
+  description: "column-gap sets the horizontal space between children items in the specified container."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/spacing/#column-gap'
+  options:
+    column-gap-0: "0"
+    column-gap-1: "1"
+    column-gap-2: "2"
+    column-gap-3: "3"
+    column-gap-4: "4"
+    column-gap-5: "5"
+  previewed_as: hidden
+  weight: -56
+
+text_font_weight:
+  category: "Text"
+  label: "Font weight"
+  description: "Quickly change the weight (boldness) of text."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#font-weight-and-italics'
+  options:
+    fw-bold: "Bold"
+    fw-bolder: "Bolder (relative to the parent element)"
+    fw-semibold: "Semibold"
+    fw-medium: "Medium"
+    fw-normal: "Normal"
+    fw-light: "Light"
+    fw-lighter: "Lighter (relative to the parent element)"
+  weight: -97
+
+text_font_italics:
+  category: "Text"
+  label: "Font italics"
+  description: "Quickly italicize text."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#font-weight-and-italics'
+  options:
+    fst-italic:
+      label: "Italic"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/type-italic.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdHlwZS1pdGFsaWMiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTcuOTkxIDExLjY3NCA5LjUzIDQuNDU1Yy4xMjMtLjU5NS4yNDYtLjcxIDEuMzQ3LS44MDdsLjExLS41Mkg3LjIxMWwtLjExLjUyYzEuMDYuMDk2IDEuMTI4LjIxMiAxLjAwNS44MDdMNi41NyAxMS42NzRjLS4xMjMuNTk1LS4yNDYuNzEtMS4zNDYuODA2bC0uMTEuNTJoMy43NzRsLjExLS41MmMtMS4wNi0uMDk1LTEuMTI5LS4yMTEtMS4wMDYtLjgwNnoiLz4KPC9zdmc+Cg=="
+    fst-normal:
+      label: "Normal"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/fonts.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktZm9udHMiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTEyLjI1OCAzaC04LjUxbC0uMDgzIDIuNDZoLjQ3OWMuMjYtMS41NDQuNzU4LTEuNzgzIDIuNjkzLTEuODQ1bC40MjQtLjAxM3Y3LjgyN2MwIC42NjMtLjE0NC44Mi0xLjMuOTIzdi41Mmg0LjA4MnYtLjUyYy0xLjE2Mi0uMTAzLTEuMzA2LS4yNi0xLjMwNi0uOTIzVjMuNjAybC40MzEuMDEzYzEuOTM0LjA2MiAyLjQzNC4zMDEgMi42OTMgMS44NDZoLjQ3OXoiLz4KPC9zdmc+Cg=="
+  weight: -96
+
+text_line_height:
+  category: "Text"
+  label: "Line height"
+  description: "Change the line height."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#line-height'
+  options:
+    lh-1: "1"
+    lh-sm: "Small"
+    lh-base: "Base"
+    lh-lg: "Large"
+  weight: -93
+
+text_font_monospace:
+  category: "Text"
+  label: "Monospace"
+  description: "Change a selection to the monospace font stack."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#monospace'
+  options:
+    font-monospace: "Monospace"
+  weight: -92
+
+text_text_decoration:
+  category: "Text"
+  label: "Text decoration"
+  description: "Decorate text in components with text decoration classes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#text-decoration'
+  options:
+    text-decoration-underline:
+      label: "Underline"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/type-underline.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdHlwZS11bmRlcmxpbmUiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTUuMzEzIDMuMTM2aC0xLjIzVjkuNTRjMCAyLjEwNSAxLjQ3IDMuNjIzIDMuOTE3IDMuNjIzczMuOTE3LTEuNTE4IDMuOTE3LTMuNjIzVjMuMTM2aC0xLjIzdjYuMzIzYzAgMS40OS0uOTc4IDIuNTctMi42ODcgMi41N3MtMi42ODctMS4wOC0yLjY4Ny0yLjU3ek0xMi41IDE1aC05di0xaDl6Ii8+Cjwvc3ZnPgo="
+    text-decoration-line-through:
+      label: "Line through"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/type-strikethrough.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdHlwZS1zdHJpa2V0aHJvdWdoIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik02LjMzMyA1LjY4NmMwIC4zMS4wODMuNTgxLjI3LjgxNEg1LjE2NmEyLjggMi44IDAgMCAxLS4wOTktLjc2YzAtMS42MjcgMS40MzYtMi43NjggMy40OC0yLjc2OCAxLjk2OSAwIDMuMzkgMS4xNzUgMy40NDUgMi44NWgtMS4yM2MtLjExLTEuMDgtLjk2NC0xLjc0My0yLjI1LTEuNzQzLTEuMjMgMC0yLjE4LjYwMi0yLjE4IDEuNjA3em0yLjE5NCA3LjQ3OGMtMi4xNTMgMC0zLjU4OS0xLjEwNy0zLjcwNS0yLjgxaDEuMjNjLjE0NCAxLjA2IDEuMTI5IDEuNzAzIDIuNTQ0IDEuNzAzIDEuMzQgMCAyLjMxLS43MDUgMi4zMS0xLjY3NSAwLS44MjctLjU0Ny0xLjM3NC0xLjkxNC0xLjY3NUw4LjA0NiA4LjVIMXYtMWgxNHYxaC0zLjUwNGMuNDY4LjQzNy42NzUuOTk0LjY3NSAxLjY5NyAwIDEuODI2LTEuNDM2IDIuOTY3LTMuNjQ0IDIuOTY3Ii8+Cjwvc3ZnPgo="
+    text-decoration-none: "None"
+  weight: -94
+
+text_text_alignment:
+  category: "Text"
+  label: "Text alignment"
+  description: "Easily realign text to components with text alignment classes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#text-alignment'
+  options:
+    text-start:
+      label: "Start"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/text-left.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdGV4dC1sZWZ0IiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIgMTIuNWEuNS41IDAgMCAxIC41LS41aDdhLjUuNSAwIDAgMSAwIDFoLTdhLjUuNSAwIDAgMS0uNS0uNW0wLTNhLjUuNSAwIDAgMSAuNS0uNWgxMWEuNS41IDAgMCAxIDAgMWgtMTFhLjUuNSAwIDAgMS0uNS0uNW0wLTNhLjUuNSAwIDAgMSAuNS0uNWg3YS41LjUgMCAwIDEgMCAxaC03YS41LjUgMCAwIDEtLjUtLjVtMC0zYS41LjUgMCAwIDEgLjUtLjVoMTFhLjUuNSAwIDAgMSAwIDFoLTExYS41LjUgMCAwIDEtLjUtLjUiLz4KPC9zdmc+Cg=="
+    text-center:
+      label: "Center"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/text-center.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdGV4dC1jZW50ZXIiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNCAxMi41YS41LjUgMCAwIDEgLjUtLjVoN2EuNS41IDAgMCAxIDAgMWgtN2EuNS41IDAgMCAxLS41LS41bS0yLTNhLjUuNSAwIDAgMSAuNS0uNWgxMWEuNS41IDAgMCAxIDAgMWgtMTFhLjUuNSAwIDAgMS0uNS0uNW0yLTNhLjUuNSAwIDAgMSAuNS0uNWg3YS41LjUgMCAwIDEgMCAxaC03YS41LjUgMCAwIDEtLjUtLjVtLTItM2EuNS41IDAgMCAxIC41LS41aDExYS41LjUgMCAwIDEgMCAxaC0xMWEuNS41IDAgMCAxLS41LS41Ii8+Cjwvc3ZnPgo="
+    text-end:
+      label: "End"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/text-right.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdGV4dC1yaWdodCIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02IDEyLjVhLjUuNSAwIDAgMSAuNS0uNWg3YS41LjUgMCAwIDEgMCAxaC03YS41LjUgMCAwIDEtLjUtLjVtLTQtM2EuNS41IDAgMCAxIC41LS41aDExYS41LjUgMCAwIDEgMCAxaC0xMWEuNS41IDAgMCAxLS41LS41bTQtM2EuNS41IDAgMCAxIC41LS41aDdhLjUuNSAwIDAgMSAwIDFoLTdhLjUuNSAwIDAgMS0uNS0uNW0tNC0zYS41LjUgMCAwIDEgLjUtLjVoMTFhLjUuNSAwIDAgMSAwIDFoLTExYS41LjUgMCAwIDEtLjUtLjUiLz4KPC9zdmc+Cg=="
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -90
+
+text_text_wrapping:
+  category: "Text"
+  label: "Text wrapping and overflow"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#text-wrapping-and-overflow'
+  options:
+    text-wrap:
+      label: "Wrap"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/text-wrap.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdGV4dC13cmFwIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIgMy41YS41LjUgMCAwIDEgLjUtLjVoMTFhLjUuNSAwIDAgMSAwIDFoLTExYS41LjUgMCAwIDEtLjUtLjVtMCA0YS41LjUgMCAwIDEgLjUtLjVoOWEyLjUgMi41IDAgMCAxIDAgNWgtMS4yOTNsLjY0Ny42NDZhLjUuNSAwIDAgMS0uNzA4LjcwOGwtMS41LTEuNWEuNS41IDAgMCAxIDAtLjcwOGwxLjUtMS41YS41LjUgMCAwIDEgLjcwOC43MDhsLS42NDcuNjQ2SDExLjVhMS41IDEuNSAwIDAgMCAwLTNoLTlhLjUuNSAwIDAgMS0uNS0uNW0wIDRhLjUuNSAwIDAgMSAuNS0uNUg3YS41LjUgMCAwIDEgMCAxSDIuNWEuNS41IDAgMCAxLS41LS41Ii8+Cjwvc3ZnPgo="
+    text-nowrap:
+      label: "No wrap"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/text-nowrap.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktdGV4dC1ub3dyYXAiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGgKICAgICBmaWxsLXJ1bGU9ImV2ZW5vZGQiCiAgICAgZD0iTSAyLDMuNSBDIDIsMy4yMjM4NTc2IDIuMjIzODU3NiwzIDIuNSwzIGggMTEgYyAwLjY2NjY2NiwwIDAuNjY2NjY2LDEgMCwxIEggMi41IEMgMi4yMjM4NTc2LDQgMiwzLjc3NjE0MjQgMiwzLjUgbSAwLDQgQyAyLDcuMjIzODU3NiAyLjIyMzg1NzYsNyAyLjUsNyA1LjE2MDQ2NDEsNyAxMi4wNzIxOTcsNy4wMTQ4NyAxNC4yMjE1MjgsNy4wMTQ4NyBsIC0wLjY0NywtMC42NDYgYyAtMC40NzIsLTAuNDcyIDAuMjM2LC0xLjE4IDAuNzA4LC0wLjcwOCBsIDEuNSwxLjUgYyAwLjE5NTg1OSwwLjE5NTM2NCAwLjE5NTg1OSwwLjUxMjYzNiAwLDAuNzA4IGwgLTEuNSwxLjUwMDAwMDMgYyAtMC40NzIsMC40NzIgLTEuMTgsLTAuMjM2MDAwMyAtMC43MDgsLTAuNzA4MDAwMyBsIDAuNjQ3LC0wLjY0NiBDIDEwLjE4OTIxNyw4LjAxNDg3IDQuOTI0NDkxNSw4IDIuNSw4IDIuMjIzODU3Niw4IDIsNy43NzYxNDI0IDIsNy41IG0gMCw0IEMgMiwxMS4yMjM4NTggMi4yMjM4NTc2LDExIDIuNSwxMSBoIDExLjE0MTg4NCBjIDAuNjY2NjY2LDAgMC42NjY2NjYsMSAwLDEgSCAyLjUgQyAyLjIyMzg1NzYsMTIgMiwxMS43NzYxNDIgMiwxMS41Ii8+Cjwvc3ZnPgo="
+  previewed_as: hidden
+  weight: -89
+
+text_text_word_break:
+  category: "Text"
+  label: "Word break"
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#word-break'
+  options:
+    text-break: "Break"
+  previewed_with:
+    - border
+    - p-2
+    - bg-light
+  weight: -88
+
+text_text_transform:
+  category: "Text"
+  label: "Text transform"
+  description: "Transform text in components with text capitalization classes."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/text/#text-transform'
+  options:
+    text-lowercase: "Lowercase"
+    text-uppercase: "Uppercase"
+    text-capitalize: "Capitalize"
+  weight: -95
+
+typography:
+  category: "Text"
+  label: "Typography"
+  description: ".h1 through .h6 classes are available, for when you want to match the font styling of a heading but cannot use the associated HTML element. Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a <strong>display heading</strong> a larger, slightly more opinionated heading style. Keep in mind these headings are not responsive by default."
+  links:
+    - url: 'https://getbootstrap.com/docs/5.3/content/typography/'
+      title: 'See typography documentation'
+    - url: 'https://getbootstrap.com/docs/5.3/utilities/text/#font-size'
+      title: 'See font size documentation'
+  options:
+    h1: "Heading 1"
+    h2: "Heading 2"
+    h3: "Heading 3"
+    h4: "Heading 4"
+    h5: "Heading 5"
+    h6: "Heading 6"
+    display-1: "Display heading 1"
+    display-2: "Display heading 2"
+    display-3: "Display heading 3"
+    display-4: "Display heading 4"
+    display-5: "Display heading 5"
+    display-6: "Display heading 6"
+    lead: "Lead"
+    fs-1: "Font size 1"
+    fs-2: "Font size 2"
+    fs-3: "Font size 3"
+    fs-4: "Font size 4"
+    fs-5: "Font size 5"
+    fs-6: "Font size 6"
+    small: "Small"
+    mark: "Mark"
+  weight: -99
+
+vertical_align:
+  category: "Spacing"
+  label: "Vertical alignment"
+  description: "Change the alignment of elements. Note that vertical-align only affects inline, inline-block, inline-table, and table cell elements."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/vertical-align/'
+  options:
+    align-baseline: "Baseline"
+    align-top: "Top"
+    align-middle: "Middle"
+    align-bottom: "Bottom"
+    align-text-bottom: "Text-bottom"
+    align-text-top: "Text-top"
+  previewed_as: hidden
+  weight: -59
+
+visibility:
+  category: "Visibility"
+  label: "Visibility"
+  description: "Control the visibility of elements without modifying their display. These classes do not modify the display value and do not affect layout; <code>.invisible</code> elements still take up space in the page."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/visibility/'
+  previewed_as: "aside"
+  options:
+    visible:
+      label: "Visible"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/eye.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktZXllIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xNiA4cy0zLTUuNS04LTUuNVMwIDggMCA4czMgNS41IDggNS41UzE2IDggMTYgOE0xLjE3MyA4YTEzIDEzIDAgMCAxIDEuNjYtMi4wNDNDNC4xMiA0LjY2OCA1Ljg4IDMuNSA4IDMuNXMzLjg3OSAxLjE2OCA1LjE2OCAyLjQ1N0ExMyAxMyAwIDAgMSAxNC44MjggOHEtLjA4Ni4xMy0uMTk1LjI4OGMtLjMzNS40OC0uODMgMS4xMi0xLjQ2NSAxLjc1NUMxMS44NzkgMTEuMzMyIDEwLjExOSAxMi41IDggMTIuNXMtMy44NzktMS4xNjgtNS4xNjgtMi40NTdBMTMgMTMgMCAwIDEgMS4xNzIgOHoiLz4KICA8cGF0aCBkPSJNOCA1LjVhMi41IDIuNSAwIDEgMCAwIDUgMi41IDIuNSAwIDAgMCAwLTVNNC41IDhhMy41IDMuNSAwIDEgMSA3IDAgMy41IDMuNSAwIDAgMS03IDAiLz4KPC9zdmc+Cg=="
+    invisible:
+      label: "Invisible"
+      # icon: 'theme://ui_suite_bnp/assets/images/icons/bootstrap/eye-slash.svg'
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktZXllLXNsYXNoIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xMy4zNTkgMTEuMjM4QzE1LjA2IDkuNzIgMTYgOCAxNiA4cy0zLTUuNS04LTUuNWE3IDcgMCAwIDAtMi43OS41ODhsLjc3Ljc3MUE2IDYgMCAwIDEgOCAzLjVjMi4xMiAwIDMuODc5IDEuMTY4IDUuMTY4IDIuNDU3QTEzIDEzIDAgMCAxIDE0LjgyOCA4cS0uMDg2LjEzLS4xOTUuMjg4Yy0uMzM1LjQ4LS44MyAxLjEyLTEuNDY1IDEuNzU1cS0uMjQ3LjI0OC0uNTE3LjQ4NnoiLz4KICA8cGF0aCBkPSJNMTEuMjk3IDkuMTc2YTMuNSAzLjUgMCAwIDAtNC40NzQtNC40NzRsLjgyMy44MjNhMi41IDIuNSAwIDAgMSAyLjgyOSAyLjgyOXptLTIuOTQzIDEuMjk5LjgyMi44MjJhMy41IDMuNSAwIDAgMS00LjQ3NC00LjQ3NGwuODIzLjgyM2EyLjUgMi41IDAgMCAwIDIuODI5IDIuODI5Ii8+CiAgPHBhdGggZD0iTTMuMzUgNS40N3EtLjI3LjI0LS41MTguNDg3QTEzIDEzIDAgMCAwIDEuMTcyIDhsLjE5NS4yODhjLjMzNS40OC44MyAxLjEyIDEuNDY1IDEuNzU1QzQuMTIxIDExLjMzMiA1Ljg4MSAxMi41IDggMTIuNWMuNzE2IDAgMS4zOS0uMTMzIDIuMDItLjM2bC43Ny43NzJBNyA3IDAgMCAxIDggMTMuNUMzIDEzLjUgMCA4IDAgOHMuOTM5LTEuNzIxIDIuNjQxLTMuMjM4bC43MDguNzA5em0xMC4yOTYgOC44ODQtMTItMTIgLjcwOC0uNzA4IDEyIDEyeiIvPgo8L3N2Zz4K"
+  weight: -25
+
+z_index:
+  category: "Z-index"
+  label: "Z-index"
+  description: "Use our low-level z-index utilities to quickly change the stack level of an element or component."
+  links:
+    - 'https://getbootstrap.com/docs/5.3/utilities/z-index/'
+  options:
+    z-3: "3"
+    z-2: "2"
+    z-1: "1"
+    z-0: "0"
+    z-n1: "-1"
+  previewed_as: hidden
+  weight: -19
+
+z-index:
+  category: "Z-index"
+  label: "Z-index (deprecated)"
+  options:
+    z-3: "3"
+    z-2: "2"
+    z-1: "1"
+    z-0: "0"
+    z-n1: "-1"
+  previewed_as: hidden
+  weight: -18

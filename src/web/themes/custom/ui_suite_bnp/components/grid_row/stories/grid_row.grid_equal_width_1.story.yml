@@ -1,0 +1,15 @@
+name: "Grid system: Auto-layout columns: Equal-width 1"
+slots:
+  content:
+    - "1 of 2"
+    - "2 of 2"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle

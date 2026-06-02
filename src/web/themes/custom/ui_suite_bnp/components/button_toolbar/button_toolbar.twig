@@ -1,0 +1,7 @@
+{% if label %}
+  {% set attributes = attributes.setAttribute('aria-label', label) %}
+{% endif %}
+
+<div{{ attributes.addClass('btn-toolbar').setAttribute('role', 'toolbar') }}>
+  {{ groups }}
+</div>

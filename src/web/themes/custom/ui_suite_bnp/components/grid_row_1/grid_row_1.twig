@@ -1,0 +1,42 @@
+{% set attributes = attributes.addClass([
+  'row',
+  gutters,
+  gutters_horizontal,
+  gutters_vertical,
+]) %}
+
+{% set col_attributes = create_attribute(col_attributes|default({})) %}
+{% set col_attributes = col_attributes.addClass([
+  'col',
+  col_xs ? 'col-' ~ col_xs,
+  col_sm ? 'col-sm-' ~ col_sm,
+  col_md ? 'col-md-' ~ col_md,
+  col_lg ? 'col-lg-' ~ col_lg,
+  col_xl ? 'col-xl-' ~ col_xl,
+  col_xxl ? 'col-xxl-' ~ col_xxl,
+  col_offset ? 'offset-' ~ col_offset,
+]) %}
+
+{% set col_1_content = col_1_content and col_1_content is not sequence ? [col_1_content] : col_1_content %}
+
+{% if container %}
+  {% set container_wrapper_attributes = create_attribute(container_wrapper_attributes|default({})) %}
+  {% if container_wrapper_attributes.storage() %}
+  <div{{ container_wrapper_attributes }}>
+  {% endif %}
+  {% set container_attributes = create_attribute(container_attributes|default({})) %}
+  <div{{ container_attributes.addClass(container) }}>
+{% endif %}
+
+<div{{ attributes }}>
+  <div{{ col_attributes }}>
+    {{ col_1_content }}
+  </div>
+</div>
+
+{% if container %}
+  </div>
+    {% if container_wrapper_attributes.storage() %}
+  </div>
+  {% endif %}
+{% endif %}

@@ -1,0 +1,68 @@
+name: Card
+description: "A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options."
+group: Card
+links:
+  - "https://getbootstrap.com/docs/5.3/components/card/"
+variants:
+  default:
+    title: Default
+  horizontal:
+    title: Horizontal
+slots:
+  image:
+    title: Image
+    description: "Card image."
+  header:
+    title: Header
+    description: "Card header."
+  content:
+    title: Content
+    description: "Card body."
+  footer:
+    title: Footer
+    description: "Card footer."
+props:
+  type: object
+  properties:
+    image_position:
+      title: "Image position"
+      description: "Only for default variant."
+      type: string
+      enum:
+        - top
+        - bottom
+      "meta:enum":
+        top: "Top (Default)"
+        bottom: Bottom
+    header_attributes:
+      title: "Header attributes"
+      description: "The attributes to customize the card header if present."
+      $ref: "ui-patterns://attributes"
+    footer_attributes:
+      title: "Footer attributes"
+      description: "The attributes to customize the card footer if present."
+      $ref: "ui-patterns://attributes"
+    row_attributes:
+      title: "Row attributes"
+      description: "Only for horizontal variant. The attributes to customize the tag with the row class. Default value: g-0"
+      $ref: "ui-patterns://attributes"
+      default:
+        class:
+          - g-0
+    image_col_attributes:
+      title: "Image column attributes"
+      description: "Only for horizontal variant. The attributes to customize the column with the image. Default value: col-md-4"
+      $ref: "ui-patterns://attributes"
+      default:
+        class:
+          - col-md-4
+    content_col_attributes:
+      title: "Content column attributes"
+      description: "Only for horizontal variant. The attributes to customize the column with the content. Default value: col-md-8"
+      $ref: "ui-patterns://attributes"
+      default:
+        class:
+          - col-md-8
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

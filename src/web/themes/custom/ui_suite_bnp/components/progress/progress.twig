@@ -1,0 +1,40 @@
+{% if variant and variant != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|replace({(v): 'progress-bar-' ~ v})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+
+{% set percent = percent|default(0) %}
+{% set min = min|default(0) %}
+{% set max = max|default(100) %}
+{% set width = (percent * 100) // max %}
+
+{% set wrapper_attributes = create_attribute() %}
+{# Handle wrapper ID. #}
+{% if attributes.hasAttribute('id') %}
+  {% set wrapper_attributes = wrapper_attributes.setAttribute('id', attributes.offsetGet('id')) %}
+  {% set attributes = attributes.removeAttribute('id') %}
+{% endif %}
+{% set wrapper_attributes = bar_height ? wrapper_attributes.setAttribute('style', {height: 'height:' ~ bar_height ~ 'px;'}) : wrapper_attributes %}
+{% set wrapper_attributes = wrapper_attributes.setAttribute('role', 'progressbar') %}
+{% set wrapper_attributes = wrapper_attributes.setAttribute('aria-label', aria_label|default('Progress bar'|t)) %}
+{% set wrapper_attributes = wrapper_attributes.setAttribute('aria-valuenow', percent) %}
+{% set wrapper_attributes = wrapper_attributes.setAttribute('aria-valuemin', min) %}
+{% set wrapper_attributes = wrapper_attributes.setAttribute('aria-valuemax', max) %}
+
+{% if stacked %}
+  {% set existing_style = wrapper_attributes.offsetExists('style') ? wrapper_attributes.offsetGet('style') : {} %}
+  {% set existing_style = existing_style|merge({
+    width: 'width: ' ~ width ~ '%;',
+  }) %}
+  {% set wrapper_attributes = wrapper_attributes.setAttribute('style', existing_style) %}
+{% else %}
+  {# Currently can't control the type of existing style. Assume string. #}
+  {% set existing_style = attributes.offsetExists('style') ? attributes.offsetGet('style') %}
+  {% set attributes = attributes.setAttribute('style', existing_style ~ 'width: ' ~ width ~ '%') %}
+{% endif %}
+
+<div{{ wrapper_attributes.addClass('progress')}}>
+  <div{{ attributes.addClass('progress-bar') }}>
+    {{ label }}
+  </div>
+</div>

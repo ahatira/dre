@@ -1,0 +1,13 @@
+name: "Light (default)"
+description: "Normal and disabled state."
+props:
+  variant: default
+  disabled: false
+  aria_label: Close
+library_wrapper: >
+  {{ _story }}
+
+  {% set disabled_props = {'#props': _story['#props']|merge({
+    'disabled': true,
+  })} %}
+  {{ _story|merge(disabled_props) }}

@@ -1,0 +1,114 @@
+// BNPP breadcrumb aligned with Figma desktop/mobile references.
+.breadcrumb {
+  --bs-breadcrumb-divider: '';
+  align-items: center;
+  background: transparent;
+  color: var(--bnp-color-text-strong);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--bnp-font-family-ui);
+  font-size: 16px;
+  gap: 4px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  align-items: center;
+  color: var(--bnp-color-text-strong);
+  display: inline-flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: none;
+  padding-right: 0;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  background-color: currentColor;
+  content: '';
+  display: inline-block;
+  flex: 0 0 16px;
+  height: 16px;
+  -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDYgMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEuMTI4IDBMMCAxLjEyOEwzLjY2NCA0LjhMMCA4LjQ3MkwxLjEyOCA5LjZMNS45MjggNC44TDEuMTI4IDBaIiBmaWxsPSJjdXJyZW50Q29sb3IiLz48L3N2Zz4=");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 6px 10px;
+  mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDYgMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEuMTI4IDBMMCAxLjEyOEwzLjY2NCA0LjhMMCA4LjQ3MkwxLjEyOCA5LjZMNS45MjggNC44TDEuMTI4IDBaIiBmaWxsPSJjdXJyZW50Q29sb3IiLz48L3N2Zz4=");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 6px 10px;
+  width: 16px;
+}
+
+.breadcrumb-item a,
+.breadcrumb-item.active {
+  color: var(--bnp-color-text-strong);
+  font-weight: 400;
+}
+
+.breadcrumb-item a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.breadcrumb-item.active {
+  text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+  .breadcrumb {
+    font-size: 16px;
+    gap: 8px;
+    line-height: 24px;
+  }
+
+  .breadcrumb-item {
+    display: none;
+  }
+
+  .breadcrumb-item:nth-last-child(2),
+  .breadcrumb-item:only-child {
+    align-items: center;
+    display: inline-flex;
+    gap: 8px;
+  }
+
+  .breadcrumb-item:nth-last-child(2)::after,
+  .breadcrumb-item:only-child::after {
+    content: none;
+  }
+
+  .breadcrumb-item:nth-last-child(2)::before,
+  .breadcrumb-item:only-child::before {
+    background-color: currentColor;
+    content: '';
+    display: inline-block;
+    flex: 0 0 16px;
+    height: 16px;
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNy4wNCAxNC42NjY3TDguMTI4IDEzLjQ2ODdMMy4yMDggOC44MTUwOEwxNiA4LjgxNTA4VjcuMTg1MDlMMy4yMTYgNy4xODUwOUw4LjEyOCAyLjUzMTQ2TDcuMDQgMS4zMzM0MkwtNC43NjgzN2UtMDcgOC4wMDAwOEw3LjA0IDE0LjY2NjdWMTQuNjY2N1oiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==");
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 16px 16px;
+    margin-right: 0;
+    mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNy4wNCAxNC42NjY3TDguMTI4IDEzLjQ2ODdMMy4yMDggOC44MTUwOEwxNiA4LjgxNTA4VjcuMTg1MDlMMy4yMTYgNy4xODUwOUw4LjEyOCAyLjUzMTQ2TDcuMDQgMS4zMzM0MkwtNC43NjgzN2UtMDcgOC4wMDAwOEw3LjA0IDE0LjY2NjdWMTQuNjY2N1oiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==");
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 16px 16px;
+    padding-left: 0;
+    width: 16px;
+  }
+
+  .breadcrumb-item:nth-last-child(2) a,
+  .breadcrumb-item:only-child a {
+    text-decoration: none;
+  }
+}

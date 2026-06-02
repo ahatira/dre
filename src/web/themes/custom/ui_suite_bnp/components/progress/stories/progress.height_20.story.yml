@@ -1,0 +1,9 @@
+name: "Height 20px"
+props:
+  variant: default
+  percent: 25
+  min: 0
+  max: 100
+  stacked: false
+  bar_height: 20
+  aria_label: "Example 20px high"

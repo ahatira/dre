@@ -1,0 +1,17 @@
+name: "Menu items: disabled"
+slots:
+  title: "Dropdown with a disabled link"
+props:
+  variant: dropdown
+  content:
+    - title: "Regular link"
+      url: "#"
+    - title: "Disabled link"
+      url: "#"
+      link_attributes:
+        class:
+          - disabled
+    - title: "Another link"
+      url: "#"
+  button_variant: secondary
+  button_url: "#"

@@ -1,0 +1,9 @@
+name: "White (deprecated)"
+props:
+  variant: white
+  disabled: false
+  aria_label: Close
+library_wrapper: >
+  <div class="bg-dark">
+    {{ _story }}
+  </div>

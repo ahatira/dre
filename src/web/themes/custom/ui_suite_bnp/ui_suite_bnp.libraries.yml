@@ -1,0 +1,229 @@
+# Core framework hook. Theme settings add one JS and one CSS framework library.
+framework:
+  remote: http://getbootstrap.com/
+  license:
+    name: MIT
+    url: https://github.com/twbs/bootstrap/blob/main/LICENSE
+    gpl-compatible: false
+  css: {}
+  js: {}
+  dependencies: []
+
+bootstrap:
+  css:
+    theme:
+      assets/css/form/form-text.css: {}
+  dependencies:
+    - ui_suite_bnp/framework
+
+accessibility:
+  js:
+    assets/js/accessibility.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+component_placeholder:
+  css:
+    theme:
+      assets/css/component/placeholder.css: {}
+
+drupal.active-link:
+  js:
+    assets/js/misc/active-link-trail.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
+drupal.ajax:
+  js:
+    assets/js/misc/ajax.js: {}
+  css:
+    component:
+      assets/css/component/ajax.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/components.ui_suite_bnp--spinner
+
+drupal.autocomplete:
+  js:
+    assets/js/misc/autocomplete.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+drupal.checkbox:
+  js:
+    assets/js/misc/checkbox.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.contextual-links:
+  js:
+    assets/js/contextual/contextual.js: {}
+  css:
+    theme:
+      assets/css/contextual/contextual.dropdown.css: {}
+      assets/css/contextual/contextual.theme.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+drupal.dialog:
+  js:
+    assets/js/misc/dialog/dialog.js: {}
+  css:
+    theme:
+      assets/css/component/dialog.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - ui_suite_bnp/bootstrap
+    - core/components.ui_suite_bnp--modal
+    - core/components.ui_suite_bnp--close_button
+
+drupal.dialog.ajax:
+  js:
+    assets/js/misc/dialog/dialog.ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+    - core/components.ui_suite_bnp--offcanvas
+
+drupal.dialog.off_canvas:
+  js:
+    assets/js/misc/dialog/dialog.off-canvas.js: {}
+  css:
+    component:
+      assets/css/component/off-canvas.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/components.ui_suite_bnp--offcanvas
+    - core/components.ui_suite_bnp--close_button
+
+drupal.layout_builder:
+  css:
+    theme:
+      assets/css/layout-builder/layout-builder.css: {}
+
+# Split from drupal.layout_builder for easier overrides depending on
+# template customizations.
+drupal.layout_builder_block_filter:
+  js:
+    assets/js/layout-builder/layout-builder.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.message:
+  js:
+    assets/js/misc/message.js: {}
+  dependencies:
+    - core/components.ui_suite_bnp--alert
+    - core/components.ui_suite_bnp--close_button
+
+drupal.progress:
+  js:
+    assets/js/misc/progress.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/components.ui_suite_bnp--progress
+
+drupal.tabledrag:
+  js:
+    assets/js/misc/tabledrag.js: {}
+  css:
+    component:
+      assets/css/component/tabledrag.css: {}
+  dependencies:
+    - core/components.ui_suite_bnp--alert
+
+drupal.text:
+  js:
+    assets/js/text/text.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
+drupal.user:
+  css:
+    component:
+      assets/css/user/password.css: {}
+
+example_carousel:
+  css:
+    theme:
+      assets/css/example/carousel.css: {}
+
+field:
+  css:
+    component:
+      assets/css/component/field.css: {}
+
+form:
+  css:
+    component:
+      assets/css/form/form-required.css: {}
+
+indented:
+  css:
+    component:
+      assets/css/component/indented.css: {}
+
+jquery.validate:
+  js:
+    assets/js/jquery-validation/validate.js: {}
+  dependencies:
+    - core/jquery
+
+media_library.theme:
+  css:
+    theme:
+      assets/css/media-library/media-library-buttons.css: {}
+      assets/css/media-library/media-library-icons.css: {}
+      assets/css/media-library/media-library-states.css: {}
+
+media_library.widget:
+  css:
+    theme:
+      assets/css/media-library/media-library-container-query.css: {}
+
+ui_icons.autocomplete:
+  css:
+    theme:
+      assets/css/ui-icons/autocomplete.css: {}
+
+# Local assets only. No runtime CDN is allowed in BNPPRE.
+framework_js:
+  js:
+    assets/vendor/bootstrap/bootstrap.bundle.min.js:
+      minified: true
+  dependencies:
+    - core/jquery
+
+framework_css_bootstrap:
+  css:
+    theme:
+      assets/vendor/bootstrap/bootstrap.min.css:
+        minified: true
+
+framework_css_bnpp:
+  css:
+    theme:
+      assets/css/framework/framework_css_bnpp.css: {}
+  dependencies:
+    - ui_suite_bnp/framework_css_bootstrap
+
+framework_css_re:
+  css:
+    theme:
+      assets/css/framework/framework_css_re.css: {}
+  dependencies:
+    - ui_suite_bnp/framework_css_bootstrap

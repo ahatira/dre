@@ -1,0 +1,26 @@
+@use '../fonts';
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/base';
+@use 'layout/grid';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'components/button';
+@use 'components/card';
+@use 'components/modal';
+@use 'components/form';
+@use 'components/navbar';
+@use 'components/breadcrumb';
+@use 'components/accordion';
+@use 'utilities/spacing';
+@use 'utilities/colors';
+@use 'utilities/helpers';
+
+@mixin theme() {
+  // Variables-first bootstrap theming: no component overrides yet.
+  @include fonts.bnp-font-faces();
+  @include variables.bootstrap-theme-variables();
+}

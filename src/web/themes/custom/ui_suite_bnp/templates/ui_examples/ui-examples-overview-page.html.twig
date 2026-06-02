@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Examples page template, override this in your theme.
+ */
+#}
+{% if examples is not empty %}
+  <div class="example-overview">
+    {% for category_id, category in examples %}
+      <div class="category">
+        <h2 id="{{ category_id }}">{{ category.label }}</h2>
+
+        <div class="category-examples">
+          {% for example in category.examples %}
+            <div>
+              <h3><a href="{{ url('ui_examples.single', {'name': example.id}) }}">{{ example.label }}</a></h3>
+              {% if example.description %}
+                <p>{{ example.description }}</p>
+              {% endif %}
+
+              {% if example.render_links %}
+                <ul>
+                  {% for link in example.render_links %}
+                    <li>{{ link|add_class('btn btn-sm btn-primary') }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

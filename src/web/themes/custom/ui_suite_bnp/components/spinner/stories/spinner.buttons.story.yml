@@ -1,0 +1,12 @@
+name: "Buttons"
+props:
+  aria_hidden: true
+library_wrapper: >
+  <button class="btn btn-primary" type="button" disabled>
+    {{ _story }}
+    <span class="visually-hidden" role="status">{{ 'Loading...'|t }}</span>
+  </button>
+  <button class="btn btn-primary" type="button" disabled>
+    {{ _story }}
+    <span role="status">{{ 'Loading...'|t }}</span>
+  </button>

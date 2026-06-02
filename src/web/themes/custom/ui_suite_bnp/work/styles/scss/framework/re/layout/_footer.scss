@@ -1,0 +1,30 @@
+.site-footer,
+footer[role='contentinfo'] {
+	background-color: var(--re-color-surface-muted);
+	border-top: 1px solid var(--re-color-border-soft);
+	color: var(--re-color-text);
+}
+
+.site-footer a,
+footer[role='contentinfo'] a {
+	color: var(--re-color-text);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible,
+footer[role='contentinfo'] a:hover,
+footer[role='contentinfo'] a:focus-visible {
+	color: var(--bs-primary-text-emphasis);
+}
+
+.site-footer .footer-title,
+footer[role='contentinfo'] .footer-title {
+	color: var(--re-color-heading);
+	font-family: var(--re-font-family-heading);
+	font-weight: var(--re-font-weight-bold);
+}
+
+.site-footer .text-muted,
+footer[role='contentinfo'] .text-muted {
+	color: var(--re-color-text-muted) !important;
+}

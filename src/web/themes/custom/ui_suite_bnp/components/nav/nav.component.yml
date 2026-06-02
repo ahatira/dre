@@ -1,0 +1,58 @@
+name: Nav
+description: "The base .nav component is built with flexbox and provide a strong foundation for building all types of navigation components. It includes some style overrides (for working with lists), some link padding for larger hit areas, and basic disabled styling."
+group: "Navs and tabs"
+links:
+  - "https://getbootstrap.com/docs/5.3/components/navs-tabs/"
+variants:
+  default:
+    title: Default
+  tabs:
+    title: Tabs
+  tabs__fill:
+    title: "Tabs filled"
+  tabs__justified:
+    title: "Tabs filled with same width"
+  pills:
+    title: Pills
+  pills__fill:
+    title: "Pills filled"
+  pills__justified:
+    title: "Pills filled with same width"
+  underline:
+    title: Underline
+slots:
+  tab_content:
+    title: "Tab content"
+    description: "A list of renderable elements. Each item will be put in tab panes and the nav items will be used to navigate among the panes. You need to ensure that there is the same amount of nav links and tab items."
+props:
+  type: object
+  properties:
+    nav_id:
+      title: "Nav ID"
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    nav_type:
+      title: "List type"
+      type: string
+      enum:
+        - ul
+        - ol
+        - nav
+      "meta:enum":
+        ul: "ul (Default)"
+        ol: ol
+        nav: nav
+    dropdown_id:
+      title: "Dropdown ID"
+      description: "Must start with a letter. Randomly generated if empty."
+      $ref: "ui-patterns://identifier"
+    card_header:
+      title: "Card header"
+      description: "Styling adjustment for tabs and pills variants when used in the header of the card component."
+      type: boolean
+    items:
+      title: "Nav items"
+      $ref: "ui-patterns://links"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

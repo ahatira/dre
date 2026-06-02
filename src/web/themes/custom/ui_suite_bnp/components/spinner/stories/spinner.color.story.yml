@@ -1,0 +1,22 @@
+name: Colors
+props:
+  aria_hidden: false
+  visually_hidden_label: Loading...
+library_wrapper: >
+  {% set colors = [
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark',
+  ] %}
+  {% for color in colors %}
+    {% set color_props = {'#props': _story['#props']|merge({'attributes': create_attribute({
+    class: ['text-' ~ color]
+  })})} %}
+    {% set color_story = _story %}
+    {{ color_story|merge(color_props) }}
+  {% endfor %}

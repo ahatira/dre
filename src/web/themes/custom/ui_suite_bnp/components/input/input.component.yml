@@ -1,0 +1,48 @@
+name: Input
+description: "Textual form controls for collecting user data."
+group: Forms
+links:
+  - "https://getbootstrap.com/docs/5.3/forms/form-control/"
+variants:
+  default:
+    title: Default
+  sm:
+    title: Small
+  lg:
+    title: Large
+props:
+  type: object
+  properties:
+    type:
+      title: Type
+      type: string
+      enum:
+        - text
+        - email
+        - password
+        - number
+        - search
+        - tel
+        - url
+      default: text
+    name:
+      title: Name
+      type: string
+    value:
+      title: Value
+      type: string
+    placeholder:
+      title: Placeholder
+      type: string
+    disabled:
+      title: "Disabled?"
+      type: boolean
+    readonly:
+      title: "Readonly?"
+      type: boolean
+    required:
+      title: "Required?"
+      type: boolean
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

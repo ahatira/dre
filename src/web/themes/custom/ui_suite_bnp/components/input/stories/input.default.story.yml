@@ -1,0 +1,9 @@
+name: Default
+props:
+  type: text
+  name: demo_input
+  value: ""
+  placeholder: "Saisir une valeur"
+  disabled: false
+  readonly: false
+  required: false

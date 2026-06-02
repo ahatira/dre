@@ -1,0 +1,12 @@
+name: "Placement: flex 2"
+props:
+  variant: border
+  attributes:
+    class:
+      - ms-auto
+  aria_hidden: true
+library_wrapper: >
+  <div class="d-flex align-items-center">
+    <strong role="status">{{ 'Loading...'|t }}</strong>
+    {{ _story }}
+  </div>

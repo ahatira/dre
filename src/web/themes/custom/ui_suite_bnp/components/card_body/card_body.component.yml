@@ -1,0 +1,54 @@
+name: "(Card body)"
+description: "Internal: to be used in the 'Card' component, because a card can have multiple 'Card body' components."
+group: Card
+links:
+  - "https://getbootstrap.com/docs/5.3/components/card/"
+slots:
+  title:
+    title: Title
+    description: "Card title. Plain text."
+  subtitle:
+    title: Subtitle
+    description: "Card subtitle. Plain text."
+  text:
+    title: Text
+    description: "Card text. Plain text."
+  content:
+    title: Content
+    description: "Free content outside of any wrapper."
+  links:
+    title: Links
+    description: "Array of link elements"
+props:
+  type: object
+  properties:
+    heading_level:
+      title: "Heading level"
+      type: integer
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        2: h2
+        3: h3
+        4: h4
+        5: "h5 (Default)"
+        6: h6
+    title_attributes:
+      title: "Title attributes"
+      description: "The attributes to customize the card title if present."
+      $ref: "ui-patterns://attributes"
+    subtitle_attributes:
+      title: "Subtitle attributes"
+      description: "The attributes to customize the card subtitle if present."
+      $ref: "ui-patterns://attributes"
+    text_attributes:
+      title: "Text attributes"
+      description: "The attributes to customize the card text if present."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

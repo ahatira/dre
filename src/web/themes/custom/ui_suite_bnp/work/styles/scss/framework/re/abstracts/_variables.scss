@@ -1,0 +1,114 @@
+@mixin bootstrap-theme-variables() {
+  :root {
+    // ─── Brand tokens (source: Figma color palette RE) ──────────────────────
+    --re-color-primary: #00915a;
+    --re-color-primary-rgb: 0, 145, 90;
+    --re-color-primary-hover: #04af6e;
+    --re-color-primary-strong: #017f4f;
+    --re-color-primary-disabled: #99d3bd;
+    --re-color-secondary: #ba3075;
+    --re-color-secondary-rgb: 186, 48, 117;
+    --re-color-secondary-hover: #e0388c;
+    --re-color-secondary-strong: #a12b66;
+    --re-color-secondary-disabled: #d998b8;
+    --re-color-danger: #eb3636;
+    --re-color-danger-rgb: 235, 54, 54;
+
+    // ─── Grey levels ────────────────────────────────────────────────────────
+    --re-color-heading: #1c2d37;
+    --re-color-text-strong: #333333;
+    --re-color-text: #434f57;
+    --re-color-text-muted: #777e83;
+    --re-color-disabled: #b4babe;
+    --re-color-border: #d6dbde;
+    --re-color-border-soft: #ebedef;
+    --re-color-surface: #ffffff;
+    --re-color-surface-muted: #f9f9fb;
+
+    // ─── Overlay colors (source: Figma palette) ────────────────────────────
+    --re-color-overlay-60: rgba(0, 0, 0, 0.6);
+    --re-color-overlay-36: rgba(28, 45, 55, 0.36);
+    --re-color-overlay-12: rgba(194, 211, 215, 0.12);
+
+    // ─── Typography scale (source: Figma text styles) ──────────────────────
+    --re-font-size-14: 14px;
+    --re-font-size-16: 16px;
+    --re-font-size-18: 18px;
+    --re-font-size-20: 20px;
+    --re-font-size-24: 24px;
+    --re-font-size-28: 28px;
+    --re-font-size-32: 32px;
+    --re-font-size-36: 36px;
+    --re-font-size-40: 40px;
+    --re-font-size-44: 44px;
+    --re-font-size-48: 48px;
+    --re-font-weight-regular: 400;
+    --re-font-weight-bold: 700;
+    --re-line-height-tight: 1.2;
+    --re-line-height-body: 1.5;
+
+    // ─── Spacing scale ──────────────────────────────────────────────────────
+    --re-space-4: 4px;
+    --re-space-8: 8px;
+    --re-space-12: 12px;
+    --re-space-16: 16px;
+    --re-space-20: 20px;
+    --re-space-24: 24px;
+    --re-space-32: 32px;
+    --re-space-40: 40px;
+    --re-space-48: 48px;
+    --re-space-64: 64px;
+
+    // ─── Typography ─────────────────────────────────────────────────────────
+    --re-font-family-heading: 'BNP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    --re-font-family-ui: 'BNP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    --re-font-family-body: 'Open Sans', 'BNP Sans', 'Helvetica Neue', Arial, sans-serif;
+    --re-font-family-condensed: 'BNP Sans Condensed', 'BNP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+
+    // ─── Bootstrap overrides ─────────────────────────────────────────────────
+    --bs-primary: var(--re-color-primary);
+    --bs-primary-rgb: var(--re-color-primary-rgb);
+    --bs-secondary: var(--re-color-secondary);
+    --bs-secondary-rgb: var(--re-color-secondary-rgb);
+    --bs-primary-text-emphasis: var(--re-color-primary-strong);
+    --bs-secondary-text-emphasis: var(--re-color-secondary-strong);
+    --bs-primary-bg-subtle: color-mix(in srgb, var(--bs-primary) 12%, var(--re-color-surface));
+    --bs-secondary-bg-subtle: color-mix(in srgb, var(--bs-secondary) 12%, var(--re-color-surface));
+    --bs-primary-border-subtle: color-mix(in srgb, var(--bs-primary) 28%, var(--re-color-surface));
+    --bs-secondary-border-subtle: color-mix(in srgb, var(--bs-secondary) 28%, var(--re-color-surface));
+    --bs-danger: var(--re-color-danger);
+    --bs-danger-rgb: var(--re-color-danger-rgb);
+    --bs-dark: var(--re-color-heading);
+    --bs-light: var(--re-color-surface-muted);
+    --bs-body-bg: var(--re-color-surface);
+    --bs-body-color: var(--re-color-text);
+    --bs-body-font-family: var(--re-font-family-body);
+    --bs-body-font-size: var(--re-font-size-16);
+    --bs-body-line-height: var(--re-line-height-body);
+    --bs-heading-color: var(--re-color-heading);
+    --bs-emphasis-color: var(--re-color-text-strong);
+    --bs-link-color: var(--bs-primary);
+    --bs-link-hover-color: var(--bs-primary-text-emphasis);
+    --bs-border-color: var(--re-color-border);
+    --bs-border-width: 1px;
+    --bs-gray-100: var(--re-color-surface-muted);
+    --bs-gray-200: var(--re-color-border-soft);
+    --bs-gray-300: var(--re-color-border);
+    --bs-gray-400: var(--re-color-disabled);
+    --bs-gray-500: var(--re-color-text-muted);
+    --bs-gray-600: var(--re-color-text);
+    --bs-gray-700: var(--re-color-text-strong);
+    --bs-gray-800: var(--re-color-heading);
+    --bs-gray-900: #000000;
+    --bs-secondary-bg: var(--re-color-surface-muted);
+    --bs-tertiary-bg: var(--re-color-border-soft);
+    --bs-white: var(--re-color-surface);
+    --bs-black: #000000;
+    --bs-focus-ring-color: rgba(4, 175, 110, 0.18);
+    --bs-border-radius: 0;
+    --bs-border-radius-sm: 0;
+    --bs-border-radius-lg: 0;
+    --bs-btn-font-family: var(--re-font-family-ui);
+    --bs-btn-font-weight: 400;
+  }
+}

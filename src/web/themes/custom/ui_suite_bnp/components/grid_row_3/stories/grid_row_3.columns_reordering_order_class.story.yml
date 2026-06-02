@@ -1,0 +1,27 @@
+name: "Columns: reordering: order classes"
+slots:
+  col_1_content: "First in DOM, no order applied"
+  col_2_content: "Second in DOM, with a larger order"
+  col_3_content: "Third in DOM, with an order of 1"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - order-5
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - order-1

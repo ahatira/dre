@@ -1,0 +1,104 @@
+name: "Gutters: row columns gutters"
+slots:
+  content:
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+    - type: html_tag
+      tag: div
+      value: "Row column"
+      attributes:
+        class:
+          - p-3
+          - bg-primary-subtle
+          - border
+          - border-primary-subtle
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  gutters: g-2
+  row_cols: 2
+  attributes:
+    class:
+      - g-lg-3
+      - row-cols-lg-5

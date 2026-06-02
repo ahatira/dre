@@ -1,0 +1,16 @@
+name: "Menu content: headers"
+slots:
+  title: "Dropdown with header"
+props:
+  variant: dropdown
+  content:
+    - title: "Dropdown header"
+      link_attributes:
+        class:
+          - dropdown-header
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+  button_variant: secondary
+  heading_level: 6

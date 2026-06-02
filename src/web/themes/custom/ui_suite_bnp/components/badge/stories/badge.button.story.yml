@@ -1,0 +1,12 @@
+name: Button
+description: "Badges can be used as part of links or buttons to provide a counter."
+slots:
+  label: 4
+props:
+  attributes:
+    class:
+      - text-bg-secondary
+library_wrapper: >
+  <button type="button" class="btn btn-primary">
+    {{ 'Notifications'|t }} {{ _story }}
+  </button>

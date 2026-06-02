@@ -1,0 +1,32 @@
+name: "Columns: vertical alignment: individual"
+slots:
+  col_1_content: "One of three columns"
+  col_2_content: "One of three columns"
+  col_3_content: "One of three columns"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+  attributes:
+    style: "min-height: 10rem;"
+    class:
+      - bg-secondary-subtle
+  col_1_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - align-self-start
+  col_2_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - align-self-center
+  col_3_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+      - align-self-end

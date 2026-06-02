@@ -1,0 +1,41 @@
+name: "Columns: horizontal alignment"
+slots:
+  content:
+    - "One of two columns"
+    - "One of two columns"
+props:
+  container: container
+  container_attributes:
+    class:
+      - text-center
+      - my-3
+  col_attributes:
+    class:
+      - bg-primary-subtle
+      - border
+      - border-primary-subtle
+  col_xs: 4
+library_wrapper: >
+  {% set examples = [
+    'justify-content-start',
+    'justify-content-center',
+    'justify-content-end',
+    'justify-content-around',
+    'justify-content-between',
+    'justify-content-evenly',
+  ] %}
+
+  {% for example in examples %}
+    {% set example_props = {'#props': _story['#props']|merge({'attributes': create_attribute({
+      class: [example]
+    })})} %}
+    {% set example_slots = {'#slots': _story['#slots']|merge({
+      'content': [
+        example,
+        example,
+      ],
+    })} %}
+
+    {% set example_story = _story %}
+    {{ example_story|merge(example_props)|merge(example_slots) }}
+  {% endfor %}

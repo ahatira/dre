@@ -1,0 +1,4 @@
+name: "1 Item"
+props:
+  items:
+    - title: Home

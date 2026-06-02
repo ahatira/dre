@@ -1,0 +1,9 @@
+/*
+ * Not possible to add alert-link class correctly in alert content.
+ *
+ * Reproduce style from Bootstrap.
+ */
+.alert a {
+  color: var(--bs-alert-link-color);
+  font-weight: 700;
+}

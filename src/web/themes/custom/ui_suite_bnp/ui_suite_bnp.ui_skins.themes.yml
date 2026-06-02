@@ -1,0 +1,13 @@
+# No target because scopable.
+# No value because same as plugin ID.
+dark:
+  label: "Dark"
+  label_context: "color"
+  key: "data-bs-theme"
+
+# No target because scopable.
+# No value because same as plugin ID.
+light:
+  label: "Light"
+  label_context: "color"
+  key: "data-bs-theme"

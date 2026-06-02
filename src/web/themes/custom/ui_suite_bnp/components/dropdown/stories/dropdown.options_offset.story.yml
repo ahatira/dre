@@ -1,0 +1,15 @@
+name: "Dropdown options: offset"
+slots:
+  title: "Offset"
+props:
+  variant: dropdown
+  content:
+    - title: "Action"
+      url: "#"
+    - title: "Another action"
+      url: "#"
+    - title: "Something else here"
+      url: "#"
+  button_variant: secondary
+  button_attributes:
+    data-bs-offset: "10,20"

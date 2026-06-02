@@ -1,0 +1,5 @@
+name: Default
+slots:
+  message: "A simple alert. Check it out!"
+props:
+  dismissible: false

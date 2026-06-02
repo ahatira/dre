@@ -1,0 +1,240 @@
+name: "Grid Row 1 Col (Bootstrap)"
+description: "The grid system uses a series of containers, rows, and columns to layout and align content. Use the container attributes, row attributes (= component attributes) and/or col attributes to set responsive declinations of classes and/or classes already declared by styles."
+group: Layout
+icon_map:
+  - [main]
+links:
+  - url: 'https://getbootstrap.com/docs/5.3/layout/containers/'
+    title: 'See container documentation'
+  - url: 'https://getbootstrap.com/docs/5.3/layout/grid/'
+    title: 'See grid documentation'
+  - url: 'https://getbootstrap.com/docs/5.3/layout/columns/'
+    title: 'See columns documentation'
+  - url: 'https://getbootstrap.com/docs/5.3/layout/gutters/'
+    title: 'See gutters documentation'
+slots:
+  col_1_content:
+    title: "Col 1 content"
+    description: "The content of the column 1."
+props:
+  type: object
+  properties:
+    container:
+      title: Container
+      description: "Is the row wrapped in a container? Containers provide a means to center and horizontally pad your site’s contents."
+      type: string
+      enum:
+        - container
+        - container-sm
+        - container-md
+        - container-lg
+        - container-xl
+        - container-xxl
+        - container-fluid
+      "meta:enum":
+        container: Container
+        container-sm: "Container small"
+        container-md: "Container medium"
+        container-lg: "Container large"
+        container-xl: "Container x-large"
+        container-xxl: "Container xx-large"
+        container-fluid: "Container fluid"
+    container_attributes:
+      title: "Container attributes"
+      description: "The attributes to customize the tag with the container class if present."
+      $ref: "ui-patterns://attributes"
+    container_wrapper_attributes:
+      title: "Container wrapper attributes"
+      description: "The attributes to customize a div tag above the container class if present."
+      $ref: "ui-patterns://attributes"
+    gutters:
+      title: Gutters
+      description: "The gutters between columns in our predefined grid classes can be removed with .no-gutters. This removes the negative margins from .row and the horizontal padding from all immediate children columns."
+      type: string
+      enum:
+        - g-0
+        - g-1
+        - g-2
+        - g-3
+        - g-4
+        - g-5
+      "meta:enum":
+        g-0: "0"
+        g-1: "1"
+        g-2: "2"
+        g-3: "3"
+        g-4: "4"
+        g-5: "5"
+    gutters_horizontal:
+      title: "Horizontal gutters"
+      description: ".gx-* classes can be used to control the horizontal gutter widths. The .container or .container-fluid parent may need to be adjusted if larger gutters are used too to avoid unwanted overflow, using a matching padding utility."
+      type: string
+      enum:
+        - gx-0
+        - gx-1
+        - gx-2
+        - gx-3
+        - gx-4
+        - gx-5
+      "meta:enum":
+        gx-0: "0"
+        gx-1: "1"
+        gx-2: "2"
+        gx-3: "3"
+        gx-4: "4"
+        gx-5: "5"
+    gutters_vertical:
+      title: "Vertical gutters"
+      description: ".gy-* classes can be used to control the vertical gutter widths. Like the horizontal gutters, the vertical gutters can cause some overflow below the .row at the end of a page. If this occurs, you add a wrapper around .row with the .overflow-hidden class."
+      type: string
+      enum:
+        - gy-0
+        - gy-1
+        - gy-2
+        - gy-3
+        - gy-4
+        - gy-5
+      "meta:enum":
+        gy-0: "0"
+        gy-1: "1"
+        gy-2: "2"
+        gy-3: "3"
+        gy-4: "4"
+        gy-5: "5"
+    col_xs:
+      title: "All (Extra small)"
+      type: string
+      default: 12
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_sm:
+      title: Small
+      type: string
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_md:
+      title: Medium
+      type: string
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_lg:
+      title: Large
+      type: string
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_xl:
+      title: "Extra large"
+      type: string
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_xxl:
+      title: "Extra extra large"
+      type: string
+      enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "auto"
+      "meta:enum":
+        auto: "Auto"
+    col_offset:
+      title: "Offset"
+      type: integer
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+    col_attributes:
+      title: "Column attributes"
+      description: "The attributes to customize the tag with the col class."
+      $ref: "ui-patterns://attributes"
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}

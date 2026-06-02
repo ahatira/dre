@@ -1,0 +1,15 @@
+name: Blockquote
+description: "For quoting blocks of content from another source within your document."
+group: Typography
+links:
+  - "https://getbootstrap.com/docs/5.3/content/typography/#blockquotes"
+slots:
+  content:
+    title: Content
+    description: "The quote."
+  footer:
+    title: Footer
+    description: "For identifying the source. Wrap the name of the source work in <cite>."
+# Fake library for extension/override in sub-themes.
+libraryOverrides:
+  css: {}
