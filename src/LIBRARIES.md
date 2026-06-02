@@ -30,7 +30,15 @@ JavaScript libraries are managed via npm and automatically copied to `web/librar
 - **Drupal Module**: `dropzonejs`
 - **Detection**: Confirmed at `libraries/dropzone/dropzone-min.js`
 
-### 4. Slick Carousel (v1.8.1)
+### 4. noUiSlider (v15.8.1)
+- **Path**: `web/libraries/nouislider/`
+- **Files**: 10 files (JS, MJS, CSS, types, docs)
+- **Size**: ~296KB
+- **Usage**: Lightweight JavaScript range slider
+- **Drupal Module**: `nouislider` (if available)
+- **Main Files**: `nouislider.min.js` (28KB), `nouislider.min.css` (4.2KB)
+
+### 5. Slick Carousel (v1.8.1)
 - **Path**: `web/libraries/slick-carousel/slick/`
 - **Files**: 14 files (JS, CSS, fonts, assets)
 - **Size**: Variable
@@ -76,6 +84,7 @@ Defines npm dependencies and scripts:
     "ace-builds": "^1.36.5",
     "clipboard": "^2.0.11",
     "dropzone": "^6.0.0-beta.2",
+    "nouislider": "^15.8.1",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
@@ -118,6 +127,23 @@ Defines copy rules for each library:
         "node_modules/dropzone/dist/basic.css"
       ],
       "to": "web/libraries/dropzone/",
+      "toFlat": true
+    },
+    {
+      "//": "--- noUiSlider Library ---",
+      "from": [
+        "node_modules/nouislider/dist/nouislider.js",
+        "node_modules/nouislider/dist/nouislider.min.js",
+        "node_modules/nouislider/dist/nouislider.mjs",
+        "node_modules/nouislider/dist/nouislider.min.mjs",
+        "node_modules/nouislider/dist/nouislider.css",
+        "node_modules/nouislider/dist/nouislider.min.css",
+        "node_modules/nouislider/dist/nouislider.d.ts",
+        "node_modules/nouislider/LICENSE.md",
+        "node_modules/nouislider/README.md",
+        "node_modules/nouislider/package.json"
+      ],
+      "to": "web/libraries/nouislider/",
       "toFlat": true
     },
     {
@@ -195,6 +221,7 @@ Each Drupal module expects specific file paths:
 |--------|---------------|-----------------|
 | ace_editor | `/libraries/ace/ace.js` | ✅ Correct |
 | dropzonejs | `/libraries/dropzone/dropzone-min.js` | ✅ Correct |
+| nouislider | `/libraries/nouislider/nouislider.min.js` | ✅ Correct |
 | slick | `/libraries/slick-carousel/slick/slick.min.js` | ✅ Correct (if installed) |
 
 ## Troubleshooting

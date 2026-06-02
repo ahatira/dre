@@ -39,6 +39,23 @@
         "node_modules/slick-carousel/slick/**/*"
       ],
       "to": "web/libraries/slick-carousel/slick/"
+    },
+    {
+      "//": "--- noUiSlider Library ---",
+      "from": [
+        "node_modules/nouislider/dist/nouislider.js",
+        "node_modules/nouislider/dist/nouislider.min.js",
+        "node_modules/nouislider/dist/nouislider.mjs",
+        "node_modules/nouislider/dist/nouislider.min.mjs",
+        "node_modules/nouislider/dist/nouislider.css",
+        "node_modules/nouislider/dist/nouislider.min.css",
+        "node_modules/nouislider/dist/nouislider.d.ts",
+        "node_modules/nouislider/LICENSE.md",
+        "node_modules/nouislider/README.md",
+        "node_modules/nouislider/package.json"
+      ],
+      "to": "web/libraries/nouislider/",
+      "toFlat": true
     }
   ],
   "settings": {
