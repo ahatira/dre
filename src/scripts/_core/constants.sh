@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
+# Constants - Global project variables
 
 readonly PS_CORE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly PS_SCRIPTS_DIR="$(cd "${PS_CORE_DIR}/.." && pwd)"
-readonly PS_SRC_DIR="$(cd "${PS_SCRIPTS_DIR}/.." && pwd)"
-readonly PS_PROJECT_ROOT="$(cd "${PS_SRC_DIR}/.." && pwd)"
-readonly PS_DOCKER_COMPOSE_FILE="${PS_DOCKER_COMPOSE_FILE:-${PS_PROJECT_ROOT}/docker/docker-compose.yml}"
-readonly PS_EXEC_MODE="${PS_EXEC_MODE:-auto}"
+readonly PS_SCRIPTS_DIR="$(dirname "${PS_CORE_DIR}")"
+readonly PS_SRC_DIR="$(dirname "${PS_SCRIPTS_DIR}")"
+readonly PS_PROJECT_ROOT="$(dirname "${PS_SRC_DIR}")"
+
+# Docker
+readonly PS_DOCKER_COMPOSE_FILE="${PS_PROJECT_ROOT}/docker/docker-compose.yml"
 readonly PS_PHP_CONTAINER="${PS_PHP_CONTAINER:-ps_php}"
 readonly PS_DB_CONTAINER="${PS_DB_CONTAINER:-ps_postgres}"
-readonly PS_SOLR_CONTAINER="${PS_SOLR_CONTAINER:-ps_solr}"
-readonly PS_SOLR_CORE="${PS_SOLR_CORE:-ps_project}"
-readonly PS_DRUPAL_ROOT="${PS_DRUPAL_ROOT:-/var/www/html}"
+
+# Drupal
+readonly PS_DRUPAL_ROOT="/var/www/html"
+readonly PS_WEB_DIR="${PS_SRC_DIR}/web"
+
+# HTTP
 readonly PS_HTTP_PORT="${PS_HTTP_PORT:-8080}"
-readonly PS_HTTP_URL="${PS_HTTP_URL:-http://localhost:${PS_HTTP_PORT}}"
+readonly PS_HTTP_URL="http://localhost:${PS_HTTP_PORT}"

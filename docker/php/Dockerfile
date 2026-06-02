@@ -10,6 +10,7 @@ RUN apt-get update \
         git \
         unzip \
         libpq-dev \
+        postgresql-client \
         libzip-dev \
         libmemcached-dev \
         zlib1g-dev \

@@ -1,0 +1,15 @@
+bnp_editor/example:
+  version: 1.0.0
+  js:
+    js/ckeditor5_plugins/bnpExample/bnp-example.js: { minified: true }
+  dependencies:
+    - core/ckeditor5
+
+bnp_editor/admin:
+  version: 1.0.0
+  css:
+    theme:
+      css/bnp-editor-admin.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

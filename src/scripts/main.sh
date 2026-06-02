@@ -1,23 +1,27 @@
 #!/usr/bin/env bash
+# Main entry point for PS Project scripts
 set -Eeuo pipefail
 
 SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
   cat <<'EOF'
-Usage: src/scripts/main.sh <domain> <command> [args...]
+PS Project - Scripts CLI
+
+Usage: scripts/main.sh <domain> <command> [args...]
 
 Domains:
-  drupal     install|deploy|verify|import-crm|cache|cron|migrate|config|users|permissions|translations|queue|search-api|solr|qa|cleanup
-  tools      build|git|quality|lint|test|debug|profile|docs
-  composer   update|audit|validate|autoload|cleanup
-  generate   generate-xml|bnppre-offers
+  drupal     Drupal-specific operations (install, cache, etc.)
+  tools      Development tools (build, quality, etc.)
 
 Examples:
-  src/scripts/main.sh drupal install --force
-  src/scripts/main.sh drupal import-crm
-  src/scripts/main.sh tools quality
-  src/scripts/main.sh generate bnppre-offers
+  scripts/main.sh drupal install
+  scripts/main.sh drupal cache-clear
+  scripts/main.sh tools build
+  scripts/main.sh tools build --production
+
+For command-specific help:
+  scripts/main.sh <domain> <command> --help
 EOF
 }
 
@@ -31,11 +35,8 @@ COMMAND="$2"
 shift 2
 
 case "${DOMAIN}" in
-  drupal|tools|composer)
+  drupal|tools)
     SCRIPT_PATH="${SCRIPTS_DIR}/${DOMAIN}/${COMMAND}.sh"
-    ;;
-  generate)
-    SCRIPT_PATH="${SCRIPTS_DIR}/generate/${COMMAND}.sh"
     ;;
   *)
     echo "Unknown domain: ${DOMAIN}" >&2
@@ -46,7 +47,11 @@ esac
 
 if [[ ! -f "${SCRIPT_PATH}" ]]; then
   echo "Unknown command: ${DOMAIN} ${COMMAND}" >&2
-  usage
+  echo ""
+  echo "Available ${DOMAIN} commands:"
+  for script in "${SCRIPTS_DIR}/${DOMAIN}"/*.sh; do
+    [[ -f "${script}" ]] && echo "  - $(basename "${script}" .sh)"
+  done
   exit 1
 fi
 

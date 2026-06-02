@@ -138,18 +138,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_reference
-  feature_amenagements__tec_hall_daccueil:
-    label: "Hall d'accueil"
-    property_path: feature_amenagements__tec_hall_daccueil
-    type: boolean
-  feature_equipements__tec_cblage_informatique:
-    label: 'Cablage informatique'
-    property_path: feature_equipements__tec_cblage_informatique
-    type: boolean
-  feature_hauteurs__tec_hauteur_libre:
-    label: 'Hauteur libre'
-    property_path: feature_hauteurs__tec_hauteur_libre
-    type: decimal
   langcode:
     label: Language
     datasource_id: 'entity:node'

@@ -12,6 +12,7 @@ dependencies:
   - drupal:media_library
   - drupal:file
   - drupal:image
+  - drupal:path
   - drupal:embed
   - entity_embed:entity_embed
   - entity_browser:entity_browser

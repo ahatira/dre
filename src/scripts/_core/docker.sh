@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
+# Docker - Docker and container utilities
 
-ps_docker_command_exists() {
+ps_docker_available() {
   command -v docker >/dev/null 2>&1
 }
 
 ps_docker_container_running() {
-  local container_name="$1"
-  docker ps --filter "name=${container_name}" --filter "status=running" --format '{{.Names}}' | grep -qx "${container_name}"
-}
-
-ps_docker_is_ready() {
-  local container_name="$1"
-  ps_docker_command_exists && ps_docker_container_running "${container_name}"
+  local container="$1"
+  docker ps --filter "name=${container}" --filter "status=running" --format '{{.Names}}' 2>/dev/null | grep -qx "${container}"
 }
 
 ps_docker_compose() {
@@ -22,10 +18,20 @@ ps_docker_up() {
   ps_docker_compose up -d
 }
 
+ps_docker_exec() {
+  local container="$1"
+  shift
+  docker exec -i "${container}" "$@"
+}
+
 ps_docker_exec_php() {
-  docker exec -i "${PS_PHP_CONTAINER}" sh -lc "cd ${PS_DRUPAL_ROOT} && $*"
+  ps_docker_exec "${PS_PHP_CONTAINER}" bash -c "cd ${PS_DRUPAL_ROOT} && $*"
 }
 
 ps_docker_exec_db() {
-  docker exec -i "${PS_DB_CONTAINER}" sh -lc "$*"
+  ps_docker_exec "${PS_DB_CONTAINER}" bash -c "$*"
+}
+
+ps_in_docker() {
+  ps_docker_available && ps_docker_container_running "${PS_PHP_CONTAINER}"
 }

@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+# Logger - Structured logging functions
 
 ps_log() {
   local level="$1"
   local color="$2"
   shift 2
-  printf "%b[%s] [%s] %s%b\n" "${color}" "$(ps_now_utc)" "${level}" "$*" "${PS_COLOR_RESET}" >&2
+  printf "%b[%s] %s%b\n" "${color}" "${level}" "$*" "${PS_COLOR_RESET}" >&2
 }
 
 ps_info() {
@@ -23,8 +24,8 @@ ps_error() {
   ps_log "ERROR" "${PS_COLOR_RED}" "$@"
 }
 
-ps_debug() {
-  if [[ "${PS_DEBUG:-0}" == "1" ]]; then
-    ps_log "DEBUG" "${PS_COLOR_GRAY}" "$@"
-  fi
+ps_header() {
+  echo ""
+  printf "%b==> %s%b\n" "${PS_COLOR_CYAN}" "$*" "${PS_COLOR_RESET}" >&2
+  echo ""
 }

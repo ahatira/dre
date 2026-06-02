@@ -1,0 +1,13 @@
+bnp_editor.settings:
+  type: config_object
+  label: 'BNP Editor settings'
+  mapping:
+    enable_custom_plugins:
+      type: boolean
+      label: 'Enable custom plugins'
+    enable_media_embed:
+      type: boolean
+      label: 'Enable media embed'
+    allowed_protocols:
+      type: text
+      label: 'Allowed link protocols'

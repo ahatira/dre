@@ -20,6 +20,5 @@ permissions:
   - 'manage ps_diagnostic'
   - 'manage ps_dictionary'
   - 'manage ps_feature'
-  - 'manage ps_favorite'
   - 'manage ps_migrate'
   - 'manage ps_offer'

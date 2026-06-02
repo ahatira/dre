@@ -1,0 +1,9 @@
+bnp_editor.admin_settings:
+  path: '/admin/config/content/bnp-editor'
+  defaults:
+    _form: '\Drupal\bnp_editor\Form\BnpEditorSettingsForm'
+    _title: 'BNP Editor Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

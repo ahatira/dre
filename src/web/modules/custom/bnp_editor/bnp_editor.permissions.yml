@@ -1,0 +1,20 @@
+administer bnp editor:
+  title: 'Administer BNP Editor'
+  description: 'Configure CKEditor settings and manage editor configurations.'
+  restrict access: true
+
+use text format full_html:
+  title: 'Use Full HTML text format'
+  description: 'Access to Full HTML format with complete CKEditor capabilities.'
+
+use text format basic_html:
+  title: 'Use Basic HTML text format'
+  description: 'Access to Basic HTML format with standard editing tools.'
+
+use text format restricted_html:
+  title: 'Use Restricted HTML text format'
+  description: 'Access to Restricted HTML format (limited tags).'
+
+use text format plain_text:
+  title: 'Use Plain text format'
+  description: 'Access to Plain text format (no HTML).'

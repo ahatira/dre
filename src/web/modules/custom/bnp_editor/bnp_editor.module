@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * BNP Editor module for CKEditor 5 configuration and plugins.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\editor\Entity\Editor;
+
+/**
+ * Implements hook_ckeditor5_plugin_info_alter().
+ */
+function bnp_editor_ckeditor5_plugin_info_alter(array &$plugin_definitions): void {
+  // Allow other modules to alter plugin definitions via our hook.
+  \Drupal::moduleHandler()->invokeAll('bnp_editor_plugins_alter', [&$plugin_definitions]);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for filter_format_edit_form.
+ */
+function bnp_editor_form_filter_format_edit_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  // Add custom validation for BNP managed formats.
+  $form['#validate'][] = 'bnp_editor_format_form_validate';
+}
+
+/**
+ * Custom validation for filter format forms.
+ */
+function bnp_editor_format_form_validate(array &$form, FormStateInterface $form_state): void {
+  $format = $form_state->getFormObject()->getEntity();
+  $format_id = $format->id();
+
+  // Validate BNP managed formats.
+  if (in_array($format_id, ['full_html', 'basic_html', 'restricted_html', 'plain_text'])) {
+    // Custom validation logic can be added here.
+    \Drupal::moduleHandler()->invokeAll('bnp_editor_config_validate', [
+      $form_state->getValues(),
+      &$form_state,
+    ]);
+  }
+}
+
+/**
+ * Implements hook_editor_settings_alter().
+ */
+function bnp_editor_editor_settings_alter(array &$settings, Editor $editor): void {
+  $format_id = $editor->getFilterFormat()->id();
+
+  // Apply BNP specific settings to managed formats.
+  if (in_array($format_id, ['full_html', 'basic_html'])) {
+    // Allow contrib modules to enhance settings.
+    $config = \Drupal::config('bnp_editor.settings');
+
+    // Apply custom plugin configurations if enabled.
+    if ($config->get('enable_custom_plugins')) {
+      // Plugin enhancements can be added here.
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function bnp_editor_help(string $route_name, $route_match) {
+  switch ($route_name) {
+    case 'help.page.bnp_editor':
+      $output = '<h2>' . t('About BNP Editor') . '</h2>';
+      $output .= '<p>' . t('BNP Editor provides enhanced CKEditor 5 configurations with support for multiple text formats and optional contrib plugins.') . '</p>';
+      $output .= '<h3>' . t('Text Formats') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Full HTML') . '</dt>';
+      $output .= '<dd>' . t('Complete HTML format with all CKEditor features, media embedding, and advanced formatting tools. Recommended for trusted users.') . '</dd>';
+      $output .= '<dt>' . t('Basic HTML') . '</dt>';
+      $output .= '<dd>' . t('Standard HTML format with common formatting tools. Suitable for most content editors.') . '</dd>';
+      $output .= '<dt>' . t('Restricted HTML') . '</dt>';
+      $output .= '<dd>' . t('Limited HTML format with only basic tags. Suitable for untrusted users and comments.') . '</dd>';
+      $output .= '<dt>' . t('Plain text') . '</dt>';
+      $output .= '<dd>' . t('No HTML allowed. All HTML tags are escaped and displayed as text.') . '</dd>';
+      $output .= '</dl>';
+      $output .= '<h3>' . t('Configuration') . '</h3>';
+      $output .= '<p>' . t('Visit the <a href=":config">BNP Editor settings page</a> to configure global editor options.', [
+        ':config' => \Drupal::url('bnp_editor.admin_settings'),
+      ]) . '</p>';
+      return $output;
+  }
+}
+

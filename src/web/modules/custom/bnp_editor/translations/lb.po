@@ -1,0 +1,63 @@
+# Luxembourgish translation for bnp_editor module.
+msgid ""
+msgstr ""
+"Project-Id-Version: BNP Editor 1.0.0\n"
+"POT-Creation-Date: 2026-06-02 12:00+0000\n"
+"PO-Revision-Date: 2026-06-02 12:00+0000\n"
+"Language-Team: Luxembourgish\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "BNP Editor"
+msgstr "BNP Editor"
+
+msgid "BNP Editor Settings"
+msgstr "BNP Editor Astellungen"
+
+msgid "Configure CKEditor settings and plugins for BNP platform."
+msgstr "CKEditor Astellungen a Plugins fir BNP Plattform konfiguréieren."
+
+msgid "General Settings"
+msgstr "Allgemeng Astellungen"
+
+msgid "Enable custom CKEditor plugins"
+msgstr "Personaliséiert CKEditor Plugins aktivéieren"
+
+msgid "Enable custom plugins developed for BNP platform."
+msgstr "Personaliséiert Plugins fir BNP Plattform aktivéieren."
+
+msgid "Enable media embed"
+msgstr "Medien Integratioun aktivéieren"
+
+msgid "Allow embedding media items in rich text content."
+msgstr "Medien Elementer an Rich Text Inhalt erlaaben."
+
+msgid "Plugin Configuration"
+msgstr "Plugin Konfiguratioun"
+
+msgid "Allowed link protocols"
+msgstr "Erlaabt Link Protokoller"
+
+msgid "Enter one protocol per line (e.g., http, https, mailto, tel)."
+msgstr "Een Protokoll pro Linn aginn (z.B. http, https, mailto, tel)."
+
+msgid "Full HTML"
+msgstr "Komplett HTML"
+
+msgid "Basic HTML"
+msgstr "Basis HTML"
+
+msgid "Restricted HTML"
+msgstr "Begrenzt HTML"
+
+msgid "Plain text"
+msgstr "Einfach Text"
+
+msgid "Enable custom plugins"
+msgstr "Personaliséiert Plugins aktivéieren"
+
+msgid "Enable media embed"
+msgstr "Medien Integratioun aktivéieren"

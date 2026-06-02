@@ -1,0 +1,6 @@
+bnp_editor.admin_settings:
+  title: 'BNP Editor'
+  description: 'Configure CKEditor settings and plugins for BNP platform.'
+  parent: system.admin_config_content
+  route_name: bnp_editor.admin_settings
+  weight: 10

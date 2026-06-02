@@ -1,0 +1,59 @@
+{
+  "name": "drupal/bnp_editor",
+  "description": "Enhanced CKEditor 5 configuration with contrib plugins for BNP property search platform.",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "Drupal",
+    "CKEditor",
+    "WYSIWYG",
+    "Editor",
+    "BNP"
+  ],
+  "homepage": "https://github.com/bnppre/ps_project",
+  "support": {
+    "issues": "https://github.com/bnppre/ps_project/issues",
+    "source": "https://github.com/bnppre/ps_project"
+  },
+  "require": {
+    "php": ">=8.3",
+    "drupal/core": "^11.0",
+    "drupal/node": "^11.0",
+    "drupal/editor": "^11.0",
+    "drupal/ckeditor5": "^11.0",
+    "drupal/filter": "^11.0",
+    "drupal/media": "^11.0",
+    "drupal/media_library": "^11.0"
+  },
+  "suggest": {
+    "drupal/linkit": "^7.0 - Provides autocomplete for internal entity links (Drupal 11 compatible)",
+    "drupal/editor_advanced_link": "^2.2 - Advanced link dialog with rel, target, class attributes",
+    "drupal/anchor_link": "^3.0 - Create anchor links within content",
+    "drupal/entity_embed": "^1.6 - Embed Drupal entities within content",
+    "drupal/extlink": "^2.0 - External link icons and security",
+    "drupal/pathologic": "^2.0 - Correct internal link paths",
+    "drupal/token_filter": "^2.1 - Replace tokens in text content",
+    "drupal/blazy": "^3.0 - Lazy loading for images and media",
+    "drupal/slick": "^3.0 - Carousel/slider for media"
+  },
+  "require-dev": {
+    "drupal/core-dev": "^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\bnp_editor\\": "src/"
+    }
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^11"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

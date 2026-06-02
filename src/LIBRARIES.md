@@ -111,6 +111,124 @@ For maximum flexibility:
 
 Both methods install **identical files** (406 files) to the same location.
 
+## Build Script (Production & CI/CD)
+
+For automated deployments, use the **build script** which handles the complete workflow:
+
+### Usage
+
+```bash
+# Development build
+./scripts/build.sh
+
+# Production build (optimized, removes node_modules)
+./scripts/build.sh --production
+
+# Build without cache clearing
+./scripts/build.sh --no-cache
+
+# Keep node_modules after build
+./scripts/build.sh --keep-npm
+
+# Docker execution
+docker exec ps_php bash -c "cd /var/www/html && ./scripts/build.sh --production"
+```
+
+### What the Build Script Does
+
+The build script (`scripts/build.sh`) performs a complete build process:
+
+1. **Install Composer dependencies**
+   - Development: `composer install`
+   - Production: `composer install --no-dev --optimize-autoloader`
+
+2. **Install npm dependencies**
+   - Development: `npm install`
+   - Production: `npm ci` (reproducible builds)
+
+3. **Copy JavaScript libraries**
+   - Runs `npm run libs`
+   - Copies all 6 libraries to `web/libraries/`
+
+4. **Fix file permissions**
+   - Sets `www-data:www-data` ownership (in Docker)
+   - Sets `755` permissions
+
+5. **Clean npm artifacts**
+   - **Removes `node_modules/`** (saves ~150MB disk space)
+   - Keeps `package-lock.json` (for reproducibility)
+   - Clears npm cache
+   - Use `--keep-npm` to skip this step
+
+6. **Clear Drupal cache**
+   - Runs `drush cr` (unless `--no-cache`)
+
+### Other Scripts
+
+```bash
+# Complete Drupal installation
+./scripts/install.sh
+
+# Clear Drupal cache only
+./scripts/cache-clear.sh
+
+# Full deployment (build + config + updates + cache)
+./scripts/deploy.sh
+```
+
+See `scripts/README.md` for complete documentation.
+
+### Benefits
+
+- ✅ **Simple & clear** - Flat structure, no complex dependencies
+- ✅ **Self-contained** - Each script works independently
+- ✅ **One command** for complete build
+- ✅ **Removes node_modules** after copying libraries (saves disk space)
+- ✅ **Reproducible builds** with `npm ci` in production
+- ✅ **CI/CD ready** with proper exit codes
+
+### Deployment Workflow
+
+**Production deployment example:**
+
+```bash
+# 1. Clone repository
+git clone <repo-url>
+cd ps-project/src
+
+# 2. Run build script (removes node_modules automatically)
+./scripts/build.sh --production
+
+# 3. Deploy (node_modules is already removed)
+rsync -av . user@server:/var/www/html/
+```
+
+**CI/CD Pipeline (GitLab CI, GitHub Actions, etc.):**
+
+```yaml
+build:
+  script:
+    - cd src
+    - ./scripts/build.sh --production --no-cache
+    - tar -czf ../build.tar.gz .
+  artifacts:
+    paths:
+      - build.tar.gz
+```
+
+**Docker Compose deployment:**
+
+```yaml
+services:
+  php:
+    build: ./docker/php
+    volumes:
+      - ./src:/var/www/html
+    command: >
+      bash -c "./scripts/build.sh --production &&
+               php-fpm"
+```
+
 ## Workflow Commands
 
 ### Install All Dependencies

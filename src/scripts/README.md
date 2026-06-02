@@ -1,170 +1,226 @@
-# Scripts Toolbox
+# PS Project Scripts
 
-Enterprise script toolbox for PS Project.
+Automation scripts for PS Project development and deployment.
 
 ## Architecture
 
-- `main.sh`: central CLI entrypoint.
-- `_core/`: shared shell modules (logging, errors, docker, drush, db, validation).
-- `drupal/`: Drupal workflows (install, deploy, import, config, qa, maintenance).
-- `tools/`: developer productivity workflows (quality, lint, tests, debug, profiling).
-- `composer/`: composer wrappers (audit, validate, update, autoload, cleanup).
-- `generate/`: XML/fixture generation workflows for migration and QA datasets.
+### Entry Point
 
-Prototype commands:
-
-- `generate-xml`: minimal XML fixtures generator.
-- `bnppre-offers`: real BNPPRE XML from public offer pages with built-in business-rule validation.
-
-Generic dataset generation quick usage:
+**`main.sh`** - Central CLI entry point for all operations
 
 ```bash
-# Default fixture XML (1 offer)
-bash src/scripts/main.sh generate generate-xml
-
-# Generate 10 fixture offers
-bash src/scripts/main.sh generate generate-xml tmp/generated-xml --count 10
+scripts/main.sh <domain> <command> [args...]
 ```
 
-BNPPRE generation quick usage:
+### Core Modules (`_core/`)
 
-```bash
-# Default run (3 URLs) + automatic validation
-bash src/scripts/main.sh generate bnppre-offers
+Shared bash modules providing reusable functions:
 
-# VEN live sample profile (7 validated OVBUR pages) + automatic validation
-bash src/scripts/main.sh generate bnppre-offers tmp/generated-bnppre-xml/bnppre-ven-batch.xml --ven-sample
+- **`_source.sh`** - Bootstrap loader (load all modules)
+- **`constants.sh`** - Global project variables (paths, containers, URLs)
+- **`colors.sh`** - Terminal color codes
+- **`logger.sh`** - Structured logging (`ps_info`, `ps_success`, `ps_warn`, `ps_error`, `ps_header`)
+- **`errors.sh`** - Error handling (`ps_die`, error trap)
+- **`docker.sh`** - Docker utilities (`ps_in_docker`, `ps_docker_exec_php`)
+- **`drush.sh`** - Drush wrapper with Docker auto-detection (`ps_drush`, `ps_drush_cr`)
 
-# Skip validation explicitly
-bash src/scripts/main.sh generate bnppre-offers --no-validate
-```
+### Script Domains
 
-BNPPRE extraction modes:
+**`drupal/`** - Drupal operations (requires Drush)
+- `install.sh` - Fresh Drupal installation
+- `cache-clear.sh` - Cache rebuild
+- `deploy.sh` - Production deployment workflow (checks dependencies first)
 
-- Extract all offers from sitemap:
-
-```bash
-python3 src/scripts/generate/generate-bnppre-offers.py --mode all --limit 100 --output tmp/generated-bnppre-xml/bnppre-all.xml
-```
-
-- Extract all offers for one asset type:
-
-```bash
-python3 src/scripts/generate/generate-bnppre-offers.py --mode asset --asset bureau --limit 100 --output tmp/generated-bnppre-xml/bnppre-bureau.xml
-```
-
-- Extract with asset + operation filters and capped volume:
-
-```bash
-python3 src/scripts/generate/generate-bnppre-offers.py --mode asset-operation --asset bureau --operation VEN --limit 25 --output tmp/generated-bnppre-xml/bnppre-bureau-ven.xml
-```
-
-BNPPRE translation workflows:
-
-- Direct translation during generation (external translator command):
-
-```bash
-python3 src/scripts/generate/generate-bnppre-offers.py --translate-en direct --translator-command "my_translator_cli" --output tmp/generated-bnppre-xml/bnppre-en-direct.xml
-```
-
-- Deferred translation (generate backlog now, inject English later):
-
-```bash
-# Step 1: generate FR + backlog template
-python3 src/scripts/generate/generate-bnppre-offers.py --translate-en deferred --output tmp/generated-bnppre-xml/bnppre.xml
-
-# Step 2: fill generated *.translations.todo.json, then re-run with --translations-input
-python3 src/scripts/generate/generate-bnppre-offers.py --translate-en deferred --translations-input tmp/generated-bnppre-xml/bnppre.translations.done.json --output tmp/generated-bnppre-xml/bnppre-en.xml
-```
-
-## Conventions
-
-- Strict mode: `set -Eeuo pipefail`
-- Shared bootstrap: `source scripts/_core/_source.sh`
-- Uniform logs via `_core/logger.sh`
-- Centralized error handling via `_core/errors.sh`
-- Docker and Drush access via `_core/docker.sh` and `_core/drush.sh`
+**`tools/`** - Build and utility scripts (no Drush dependency)
+- `build.sh` - Build dependencies (composer + npm + libraries)
+- `check.sh` - Verify dependencies are built
 
 ## Usage
 
-```bash
-# Installation
-bash src/scripts/main.sh drupal install
-
-# CRM import
-bash src/scripts/main.sh drupal import-crm
-
-# CRM import (high-volume mode: batches + integrated monitoring)
-BATCH_SIZE=200 MONITOR_INTERVAL=20 bash src/scripts/main.sh drupal import-crm-bulk
-
-# Solr hard reset + Search API reindex
-bash src/scripts/main.sh drupal solr-hard-reset
-
-# Full QA regression
-bash src/scripts/main.sh drupal qa
-
-# Composer validation
-bash src/scripts/main.sh composer validate
-
-# Cleanup generated files
-bash src/scripts/main.sh drupal cleanup
-```
-
-## Advanced Diagnostics
-
-Diagnostics can be enabled at runtime for critical workflows:
+### Quick Start
 
 ```bash
-# Structured diagnostics context + timed steps
-PS_DIAG=1 bash src/scripts/main.sh drupal install
+# Build project (required first)
+scripts/main.sh tools build
 
-# Full shell trace to file
-PS_TRACE=1 PS_TRACE_FILE=/tmp/ps-install-trace.log bash src/scripts/main.sh drupal install --force
+# Check build status
+scripts/main.sh tools check
 
-# Combined diagnostics and trace for import/deploy
-PS_DIAG=1 PS_TRACE=1 bash src/scripts/main.sh drupal import-crm
-PS_DIAG=1 PS_TRACE=1 BATCH_SIZE=200 MONITOR_INTERVAL=20 bash src/scripts/main.sh drupal import-crm-bulk
-PS_DIAG=1 PS_TRACE=1 bash src/scripts/main.sh drupal deploy
+# Install Drupal
+scripts/main.sh drupal install
+
+# Clear cache
+scripts/main.sh drupal cache-clear
+
+# Deploy (checks build first)
+scripts/main.sh drupal deploy
 ```
 
-Bulk import tuning:
-- `BATCH_SIZE` (default `200`): number of `BUSINESS_ID` imported per `ps_offer_from_xml` batch.
-- `MONITOR_INTERVAL` (default `20`): seconds between monitor snapshots (CPU/RAM/process) while a migration command runs.
-- `XML_SOURCE_PATH` (default `data/xml/bnppre_all_fr.xml`): source XML used for the bulk run.
-- `IMPORT_XML_DICTIONARIES` (default `0`): set to `1` to force XML dictionary migrations before batch import.
-- `KILL_EXISTING_IMPORTS` (default `0`): set to `1` to terminate existing `migrate:import` processes before bulk run start.
-- `SKIP_STATIC_PREIMPORTS` (default `0`): set to `1` to skip groups/definitions/agents/media/divisions phase when resuming an already-populated environment.
-- `SKIP_AGENT_IMPORTS` (default `0`): set to `1` to skip avatar+agent pre-imports for search-focused fast runs.
-- `SKIP_MEDIA_IMPORTS` (default `0`): set to `1` to skip file+media pre-imports for search/filter validation runs.
-- `SKIP_DIVISION_IMPORTS` (default `0`): set to `1` to skip divisions pre-import when not required.
-- `MAX_BATCHES` (default `0`): set to a small value (for example `2`) to stop after N offer batches and estimate total duration.
-
-Built-in behavior:
-- `timing`: every critical step logs START/END with elapsed seconds.
-- `retry`: network-sensitive commands are retried with controlled backoff.
-- `trace`: optional xtrace stream to `PS_TRACE_FILE`.
-
-## Docker or Local Execution
-
-Drush execution now supports automatic or manual runtime routing:
+### Build Options
 
 ```bash
-# Auto mode (default): uses Docker only if available and PHP container is running.
-PS_EXEC_MODE=auto bash src/scripts/main.sh drupal cache
+# Full build with dev dependencies
+scripts/main.sh tools build
 
-# Force Docker mode.
-PS_EXEC_MODE=docker bash src/scripts/main.sh drupal cache
+# Production build (no dev deps, cleanup npm)
+scripts/main.sh tools build --production
 
-# Force local mode (runs from src/vendor/bin/drush).
-PS_EXEC_MODE=local bash src/scripts/main.sh drupal cache
+# No cache, keep node_modules
+scripts/main.sh tools build --no-cache --keep-npm
 ```
 
-Allowed values:
-- `PS_EXEC_MODE=auto` (default)
-- `PS_EXEC_MODE=docker`
-- `PS_EXEC_MODE=local`
+### Install Options
 
-## Compatibility
+```bash
+# Full install with content generation
+scripts/main.sh drupal install
 
-Legacy scripts under `src/script/drupal` remain available as wrappers.
-Use `src/scripts/*` as the canonical location for all new automations.
+# Install without content
+scripts/main.sh drupal install --no-content
+
+# Custom site name
+SITE_NAME="My Site" scripts/main.sh drupal install
+```
+
+### Help
+
+Every command supports `--help`:
+
+```bash
+scripts/main.sh tools build --help
+scripts/main.sh drupal install --help
+```
+
+## Script Structure
+
+Each script follows this pattern:
+
+```bash
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
+
+# Script uses ps_* functions from _core modules:
+ps_header "My Script: Description"
+ps_info "Doing something..."
+ps_success "Done!"
+```
+
+## Adding New Scripts
+
+1. Create script in appropriate domain (`drupal/`, `tools/`)
+2. Source `_core/_source.sh` at the top
+3. Use `ps_*` functions for logging and utilities
+4. Add `--help` option
+5. Make executable: `chmod +x scripts/<domain>/<command>.sh`
+
+Example:
+
+```bash
+#!/usr/bin/env bash
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
+
+show_help() {
+  cat <<'EOF'
+My Command - Does something
+
+Usage: scripts/main.sh <domain> <command> [OPTIONS]
+
+Options:
+  -h, --help    Show this help
+EOF
+}
+
+[[ "${1:-}" == "--help" ]] && { show_help; exit 0; }
+
+ps_header "My Command: Running"
+ps_info "Step 1..."
+# Do work
+ps_success "Complete!"
+```
+
+## Docker Detection
+
+Scripts automatically detect if running inside Docker:
+
+- `ps_in_docker` - Returns true if ps_php container is running
+- `ps_drush` - Executes in Docker if available, otherwise locally
+- `ps_docker_exec_php` - Execute command in PHP container
+
+## Environment Variables
+
+### Docker Configuration
+- `PS_PHP_CONTAINER` - PHP container name (default: `ps_php`)
+- `PS_DB_CONTAINER` - Database container name (default: `ps_postgres`)
+- `PS_HTTP_PORT` - HTTP port (default: `8080`)
+
+### Drupal Installation
+- `SITE_NAME` - Site name (default: "PS Project")
+- `ADMIN_USER` - Admin username (default: "admin")
+- `ADMIN_PASS` - Admin password (default: "admin")
+- `ADMIN_MAIL` - Admin email (default: "admin@example.com")
+- `DB_NAME` - Database name (default: "drupal")
+- `DB_USER` - Database user (default: "drupal")
+- `DB_PASS` - Database password (default: "drupal")
+- `DB_HOST` - Database host (default: "postgres")
+- `DB_PORT` - Database port (default: "5432")
+
+## CI/CD Integration
+
+### GitLab CI Example
+
+```yaml
+deploy:
+  stage: deploy
+  script:
+    - scripts/main.sh tools build --production
+    - scripts/main.sh drupal deploy
+```
+
+### GitHub Actions Example
+
+```yaml
+- name: Build
+  run: scripts/main.sh tools build --production
+- name: Deploy
+  run: scripts/main.sh drupal deploy
+```
+
+## Principles
+
+1. **Simple and Clean** - No unnecessary abstractions
+2. **Self-Contained** - Each script can be understood independently
+3. **Docker-Aware** - Automatic detection and adaptation
+4. **Consistent Interface** - All commands through `main.sh`
+5. **Built-in Help** - Every command documents itself
+6. **Error Handling** - Automatic error trap with line numbers
+7. **Structured Logging** - Clear, colored output with levels
+8. **Separation of Concerns** - Build scripts (tools/) don't use Drush, Drupal operations (drupal/) do
+
+## Comparison with Old Architecture
+
+### Old (Complex)
+- Nested directories: `_core/`, `drupal/`, `tools/`, `composer/`, `generate/`, `test/`
+- 16 core modules (382 lines total)
+- Mixed PHP and Bash scripts
+- Complex dependency chains
+
+### New (Simple)
+- Flat structure: `_core/`, `drupal/`, `tools/`
+- 7 essential core modules (~150 lines total)
+- Pure Bash only
+- Minimal dependencies, maximum clarity
+
+### What Was Preserved
+- `main.sh` entry point pattern
+- `_core/` shared modules concept
+- `ps_*` function naming convention
+- Docker auto-detection
+- Domain-based organization
+
+### What Was Simplified
+- Removed unused modules (network, time, ui, validate, git, process, filesystem, database, env)
+- Simplified logger (removed timestamps, simplified format)
+- Combined related functions
+- Removed PHP scripts (kept only Bash)
+- Eliminated generate/ and test/ domains (not needed yet)

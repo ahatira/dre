@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Errors - Error handling utilities
 
 ps_die() {
   ps_error "$*"
@@ -8,7 +9,7 @@ ps_die() {
 ps_on_error() {
   local exit_code="$1"
   local line_no="$2"
-  ps_error "Command failed with exit code ${exit_code} at line ${line_no}."
+  ps_error "Command failed with exit code ${exit_code} at line ${line_no}"
   exit "${exit_code}"
 }
 

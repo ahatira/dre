@@ -1,0 +1,12 @@
+services:
+  bnp_editor.manager:
+    class: Drupal\bnp_editor\Service\EditorManager
+    arguments:
+      - '@entity_type.manager'
+      - '@config.factory'
+      - '@logger.channel.bnp_editor'
+
+  logger.channel.bnp_editor:
+    parent: logger.channel_base
+    arguments:
+      - 'bnp_editor'

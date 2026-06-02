@@ -14,3 +14,4 @@ dependencies:
   - facets:facets
   - better_exposed_filters:better_exposed_filters
   - facets:facets_exposed_filters
+  - geofield_map:geofield_map

@@ -1,0 +1,3 @@
+enable_custom_plugins: true
+enable_media_embed: true
+allowed_protocols: "http\nhttps\nmailto\ntel"

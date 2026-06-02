@@ -1,0 +1,30 @@
+/**
+ * @file
+ * Admin styles for BNP Editor module.
+ */
+
+.bnp-editor-admin-settings {
+  margin: 20px 0;
+}
+
+.bnp-editor-admin-settings .form-item {
+  margin-bottom: 1em;
+}
+
+.bnp-editor-admin-settings .description {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0.5em;
+}
+
+.bnp-editor-plugin-config {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-left: 3px solid #0074bd;
+  margin: 10px 0;
+}
+
+.bnp-editor-plugin-config h3 {
+  margin-top: 0;
+  color: #0074bd;
+}

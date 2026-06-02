@@ -1,0 +1,29 @@
+name: 'BNP Editor'
+type: module
+description: 'Enhanced CKEditor 5 configuration with contrib plugins for BNP property search platform.'
+core_version_requirement: ^11
+package: 'BNP'
+version: 1.0.0
+dependencies:
+  - drupal:node
+  - drupal:editor
+  - drupal:ckeditor5
+  - drupal:filter
+  - drupal:media
+  - drupal:media_library
+  - drupal:ace_editor
+  - drupal:anchor_link
+  - drupal:ckeditor_bidi
+  - drupal:ckeditor_emoji
+  - drupal:ckeditor5_paste_filter
+  - drupal:ckeditor5_plugin_pack
+  - drupal:ckeditor_media_embed
+  - drupal:ckeditor_media_resize
+  - drupal:edit_media_modal
+  - drupal:editor_advanced_link
+  - drupal:entity_embed
+  - drupal:extlink
+  - drupal:linkit
+  - drupal:pathologic
+  - drupal:token_filter
+configure: bnp_editor.admin_settings

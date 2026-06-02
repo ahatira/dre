@@ -1,7 +1,7 @@
 name: 'PS Surface'
 type: module
 description: 'Surface domain foundation for divisions, projections, and governance policies.'
-package: 'PS'
+package: 'Property Search'
 core_version_requirement: ^11
 version: 1.0.0
 dependencies:

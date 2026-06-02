@@ -1,7 +1,7 @@
 name: 'PS Diagnostic'
 type: module
 description: 'Simple and configurable diagnostics module for offers.'
-package: 'PS'
+package: 'Property Search'
 core_version_requirement: '^10 || ^11'
 dependencies:
   - drupal:field
