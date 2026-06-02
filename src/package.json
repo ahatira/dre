@@ -12,9 +12,11 @@
   "scripts": {
     "libs": "npm run libs:clean && npm run libs:copy",
     "libs:clean": "rimraf web/libraries",
-    "libs:copy": "copy-files-from-to"
+    "libs:copy": "copy-files-from-to",
+    "ckeditor-plugins": "cd web && ../vendor/bin/drush ckeditor_media_embed:install -y"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-media-embed": "47.6.0",
     "ace-builds": "^1.36.5",
     "clipboard": "^2.0.11",
     "dropzone": "^6.0.0-beta.2",

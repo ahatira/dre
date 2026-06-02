@@ -56,6 +56,13 @@
       ],
       "to": "web/libraries/nouislider/",
       "toFlat": true
+    },
+    {
+      "//": "--- CKEditor 5 Media Embed Plugin (structure préservée) ---",
+      "from": [
+        "node_modules/@ckeditor/ckeditor5-media-embed/**/*"
+      ],
+      "to": "web/libraries/ckeditor5/plugins/media-embed/"
     }
   ],
   "settings": {

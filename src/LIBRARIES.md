@@ -45,6 +45,72 @@ JavaScript libraries are managed via npm and automatically copied to `web/librar
 - **Usage**: Responsive carousel/slider
 - **Drupal Module**: `slick` (optional, not installed)
 
+### 6. CKEditor 5 Media Embed Plugin (v47.6.0)
+- **Path**: `web/libraries/ckeditor5/plugins/media-embed/`
+- **Files**: 406 files (build, dist, lang, src, theme)
+- **Size**: Variable
+- **Usage**: Media embed feature for CKEditor 5
+- **Drupal Module**: `ckeditor_media_embed`
+- **Package**: `@ckeditor/ckeditor5-media-embed`
+- **Version**: Fixed at 47.6.0 (matches Drupal Core CKEditor 5)
+
+## CKEditor Plugins Management
+
+CKEditor 5 plugins can be installed via **two methods**:
+
+### Method 1: npm (Production - Recommended for deployment)
+
+**Use when:** Deploying to production where Drush commands may be restricted for security.
+
+```bash
+# Install dependencies
+npm install
+
+# Copy all libraries including CKEditor plugins
+npm run libs
+
+# Fix permissions
+chown -R www-data:www-data web/libraries/
+
+# Clear cache
+drush cr
+```
+
+**Advantages:**
+- ✅ Works in restricted environments
+- ✅ Version-controlled via package.json
+- ✅ Reproducible across environments
+- ✅ No Drush required
+
+### Method 2: Drush (Development - Recommended for local)
+
+**Use when:** Working locally where Drush is available and you need the latest compatible version.
+
+```bash
+# Install CKEditor plugins via Drush
+npm run ckeditor-plugins
+
+# Or manually:
+cd web && ../vendor/bin/drush ckeditor_media_embed:install -y
+
+# Clear cache
+drush cr
+```
+
+**Advantages:**
+- ✅ Automatically fetches the correct version for your Drupal Core
+- ✅ Simpler command
+- ✅ Managed by the Drupal module
+
+### Hybrid Approach (Best Practice)
+
+For maximum flexibility:
+
+1. **Development**: Use `npm run ckeditor-plugins` (Drush)
+2. **CI/CD Pipeline**: Use `npm install && npm run libs` (npm)
+
+Both methods install **identical files** (406 files) to the same location.
+
 ## Workflow Commands
 
 ### Install All Dependencies
@@ -81,6 +147,7 @@ Defines npm dependencies and scripts:
 ```json
 {
   "dependencies": {
+    "@ckeditor/ckeditor5-media-embed": "47.6.0",
     "ace-builds": "^1.36.5",
     "clipboard": "^2.0.11",
     "dropzone": "^6.0.0-beta.2",
@@ -94,7 +161,8 @@ Defines npm dependencies and scripts:
   "scripts": {
     "libs": "npm run libs:clean && npm run libs:copy",
     "libs:clean": "rimraf web/libraries",
-    "libs:copy": "copy-files-from-to"
+    "libs:copy": "copy-files-from-to",
+    "ckeditor-plugins": "cd web && ../vendor/bin/drush ckeditor_media_embed:install -y"
   }
 }
 ```
@@ -150,6 +218,11 @@ Defines copy rules for each library:
       "//": "--- Slick Carousel Library ---",
       "from": ["node_modules/slick-carousel/slick/**/*"],
       "to": "web/libraries/slick-carousel/slick/"
+    },
+    {
+      "//": "--- CKEditor 5 Media Embed Plugin (structure préservée) ---",
+      "from": ["node_modules/@ckeditor/ckeditor5-media-embed/**/*"],
+      "to": "web/libraries/ckeditor5/plugins/media-embed/"
     }
   ],
   "settings": {
@@ -220,6 +293,7 @@ Each Drupal module expects specific file paths:
 | Module | Expected Path | Configured Path |
 |--------|---------------|-----------------|
 | ace_editor | `/libraries/ace/ace.js` | ✅ Correct |
+| ckeditor_media_embed | `/libraries/ckeditor5/plugins/media-embed/` | ✅ Correct |
 | dropzonejs | `/libraries/dropzone/dropzone-min.js` | ✅ Correct |
 | nouislider | `/libraries/nouislider/nouislider.min.js` | ✅ Correct |
 | slick | `/libraries/slick-carousel/slick/slick.min.js` | ✅ Correct (if installed) |
