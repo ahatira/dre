@@ -104,11 +104,31 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
       return;
     }
 
-    $period = (string) ($this->fieldValue($offer->get('field_budget_period')) ?? '');
-    $value = $this->fieldValue($offer->get('field_budget_value'));
+    $period = trim((string) ($this->fieldValue($offer->get('field_budget_period')) ?? ''));
+    $raw_value = trim((string) ($this->fieldValue($offer->get('field_budget_value')) ?? ''));
 
-    if ($period !== '' && ((string) $value === '' || (float) $value <= 0.0)) {
-      $this->raiseValidationIssue($offer, 'Price value must be greater than 0 when a price period is set.');
+    // Import normalization rule:
+    // - price 0 (or invalid) becomes NULL
+    // - when price is NULL, period/unit are forced to NULL as well.
+    if ($raw_value === '') {
+      if ($period !== '') {
+        $offer->set('field_budget_period', NULL);
+      }
+      if ($offer->hasField('field_budget_unit')) {
+        $offer->set('field_budget_unit', NULL);
+      }
+      return;
+    }
+
+    $normalized_value = str_replace(',', '.', $raw_value);
+    if (!is_numeric($normalized_value) || (float) $normalized_value <= 0.0) {
+      $offer->set('field_budget_value', NULL);
+      if ($period !== '') {
+        $offer->set('field_budget_period', NULL);
+      }
+      if ($offer->hasField('field_budget_unit')) {
+        $offer->set('field_budget_unit', NULL);
+      }
     }
   }
 

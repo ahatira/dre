@@ -35,17 +35,9 @@ source:
       label: 'Operation Code'
       selector: 'OPERATIONS_LIST/OPERATION_CODE[1]'
     -
-      name: description_fr
-      label: 'Description FR'
-      selector: 'ML_DESCRIPTION_1/DESCRIPTION[1]'
-    -
-      name: description_long_fr
-      label: 'Description long FR'
-      selector: 'ML_DESCRIPTION_2/DESCRIPTION[1]'
-    -
-      name: availability_fr
-      label: 'Availability FR'
-      selector: 'ML_AVAILABILITY/AVAILABILITY[@LANGUAGE="FR"]'
+      name: offer_xml_node
+      label: 'Offer XML node'
+      selector: .
     -
       name: is_divisible
       label: 'Is divisible'
@@ -246,16 +238,33 @@ process:
   field_operation_type_raw: '@pseudo_operation_code'
   
   # ===== DESCRIPTION =====
-  # ML_DESCRIPTION_2 (plus complète) ou fallback ML_DESCRIPTION_1
+  # Resolve canonical source language from country + available XML languages.
+  pseudo_source_xml_language:
+    plugin: canonical_offer_language
+    source:
+      - offer_xml_node
+      - address_country
+    output: xml
+
+  # ML_DESCRIPTION_2 (more complete) with fallback to ML_DESCRIPTION_1.
   # TODO P1: Activer format full_html ou créer format de texte riche
   # Pour l'instant: plain_text (HTML sera échappé dans l'affichage)
-  'body/value': description_long_fr
+  'body/value':
+    plugin: multilingual_description
+    source:
+      - offer_xml_node
+      - '@pseudo_source_xml_language'
+    priority: [2, 1]
   'body/format':
     plugin: default_value
     default_value: plain_text
   
   # ===== DISPONIBILITÉ =====
-  field_availability: availability_fr
+  field_availability:
+    plugin: multilingual_availability
+    source:
+      - offer_xml_node
+      - '@pseudo_source_xml_language'
   
   # ===== DIVISIBILITÉ =====
   # IS_DIVISIBLE: "true" ou "false" (string XML) → boolean
@@ -410,21 +419,13 @@ process:
     source: timestamp
   
   # ===== LANGUE =====
-  # Auto-detect from country ISO: FR/BE/LU → fr, NL → nl, DE → de, ES → es, IT → it, PL → pl, GB → en
+  # Canonical language from country, constrained by available XML languages.
   langcode:
-    plugin: static_map
-    source: address_country
-    map:
-      FR: fr
-      BE: fr
-      LU: lb
-      DE: de
-      ES: es
-      IT: it
-      PL: pl
-      NL: nl
-      GB: en
-    default_value: fr
+    plugin: canonical_offer_language
+    source:
+      - offer_xml_node
+      - address_country
+    output: drupal
 
   # ===== CLIENT TYPE =====
   # B2B par défaut
@@ -436,7 +437,7 @@ process:
   # Draft par défaut, à publier manuellement
   status:
     plugin: default_value
-    default_value: 0
+    default_value: 1
   
   # ===== PROTECTION FIELDS =====
   # field_source_tracking: JSON avec metadata

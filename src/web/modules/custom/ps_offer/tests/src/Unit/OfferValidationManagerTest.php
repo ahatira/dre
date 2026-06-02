@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
@@ -18,50 +19,66 @@ use Drupal\Tests\UnitTestCase;
 
 final class OfferValidationManagerTest extends UnitTestCase {
 
-  public function testInvalidBudgetThrowsExceptionWhenPublished(): void {
+  public function testZeroBudgetIsNormalizedToNullWhenPublished(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
-    $messenger
-      ->expects($this->once())
-      ->method('addError')
-      ->with($this->callback(static fn ($message): bool => $message instanceof TranslatableMarkup && $message->getUntranslatedString() === 'Price value must be greater than 0 when a price period is set.'));
+    $messenger->expects($this->never())->method('addError');
+    $messenger->expects($this->never())->method('addWarning');
 
     $node->method('bundle')->willReturn('offer');
     $node->method('isPublished')->willReturn(TRUE);
-    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value'], TRUE));
+    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value', 'field_budget_unit'], TRUE));
+    $node->expects($this->exactly(3))
+      ->method('set')
+      ->with(
+        $this->logicalOr(
+          $this->equalTo('field_budget_value'),
+          $this->equalTo('field_budget_period'),
+          $this->equalTo('field_budget_unit')
+        ),
+        $this->isNull()
+      );
     $node->method('get')->willReturnCallback(function (string $field): FieldItemListInterface {
       return match ($field) {
         'field_budget_period' => $this->fieldListWithValue('MONTH'),
         'field_budget_value' => $this->fieldListWithValue('0'),
+        'field_budget_unit' => $this->fieldListWithValue('PER_M2'),
         default => throw new \InvalidArgumentException('Unexpected field requested in test.'),
       };
     });
 
     $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
-
-    $this->expectException(EntityStorageException::class);
-    $this->expectExceptionMessage('Price value must be greater than 0 when a price period is set.');
-
     $manager->apply($node);
   }
 
-  public function testInvalidBudgetAddsWarningWhenDraft(): void {
+  public function testZeroBudgetIsNormalizedToNullWhenDraft(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
-    $messenger
-      ->expects($this->once())
-      ->method('addWarning')
-      ->with($this->callback(static fn ($message): bool => $message instanceof TranslatableMarkup && $message->getUntranslatedString() === 'Price value must be greater than 0 when a price period is set.'));
+    $messenger->expects($this->never())->method('addError');
+    $messenger->expects($this->never())->method('addWarning');
 
     $node->method('bundle')->willReturn('offer');
     $node->method('isPublished')->willReturn(FALSE);
-    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value'], TRUE));
+    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value', 'field_budget_unit'], TRUE));
+    $node->expects($this->exactly(3))
+      ->method('set')
+      ->with(
+        $this->logicalOr(
+          $this->equalTo('field_budget_value'),
+          $this->equalTo('field_budget_period'),
+          $this->equalTo('field_budget_unit')
+        ),
+        $this->isNull()
+      );
     $node->method('get')->willReturnCallback(function (string $field): FieldItemListInterface {
       return match ($field) {
         'field_budget_period' => $this->fieldListWithValue('MONTH'),
         'field_budget_value' => $this->fieldListWithValue('0'),
+        'field_budget_unit' => $this->fieldListWithValue('PER_M2'),
         default => throw new \InvalidArgumentException('Unexpected field requested in test.'),
       };
     });
@@ -73,6 +90,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testPublishedWithoutPrimaryAgentIsUnpublishedWithWarning(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -99,6 +117,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testSeatBasedCapacityThrowsExceptionWhenPublishedWithoutTotal(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -132,6 +151,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testSeatBasedCapacityAddsWarningWhenDraftWithoutTotal(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -160,6 +180,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testCapacityAvailableGreaterThanTotalThrowsException(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -193,6 +214,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testPerPosteBudgetRequiresCapacityTotalWhenPublished(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -226,6 +248,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testManualDuplicateReferenceThrowsException(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger
       ->expects($this->once())
@@ -262,6 +285,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testManualSelfReferenceOnSameNodeIsAllowed(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger->expects($this->never())->method('addError');
 
@@ -291,6 +315,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
   public function testNonOfferNodeIsIgnored(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
 
     $messenger->expects($this->never())->method('addError');
     $messenger->expects($this->never())->method('addWarning');
@@ -336,6 +361,15 @@ final class OfferValidationManagerTest extends UnitTestCase {
     $list->method('first')->willReturn(NULL);
 
     return $list;
+  }
+
+  private function mockDefaultLanguageContext(NodeInterface $node): void {
+    $language = $this->createMock(LanguageInterface::class);
+    $language->method('getId')->willReturn('fr');
+
+    $node->method('isNew')->willReturn(FALSE);
+    $node->method('language')->willReturn($language);
+    $node->method('getUntranslated')->willReturn($node);
   }
 
 }
