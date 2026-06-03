@@ -1,225 +1,284 @@
-# Module `ps_offer`
+# Module Property Search - Offer (`ps_offer`)
 
 > Statut : 🟡 En développement — modèle de données actif, cycle de réinstallation validé
 
-Modèle de données et validations métier pour les offres immobilières BNPPRE.
+Modèle de données, validations métier et orchestration presave pour les offres immobilières BNPPRE.
 
 ## Responsabilité
 
-`ps_offer` définit le type de contenu `offer` (node), ses champs, ses règles de validation et son hook `node_presave` en OOP. Il constitue le cœur du modèle de données offre et s'appuie sur `ps_dictionary` pour les champs de codes métier.
+`ps_offer` définit le bundle node `offer` (~44 champs custom + `body`), ses displays BO/FO, ses règles de validation, la génération de références auto/manuel, la sync diagnostics DPE/GES et l'intégration avec les modules PS satellites (features, surfaces, agents, diagnostics, médias, favoris).
 
-Ce module conserve l'édition des contenus offre sous `/admin/content` et expose aussi une configuration dédiée des références sous `/admin/ps/config/offer-reference`.
+L'édition des contenus reste sous `/node/add/offer` et `/node/{nid}/edit`. La configuration des références est sous `/admin/ps/config/offer-reference`.
+
+Ce module **ne fait pas** :
+- le catalogue features (`ps_feature`) ;
+- la matrice visibilité formulaire (`ps_context` — module séparé) ;
+- l'import CRM/XML (`ps_migrate`) ;
+- l'indexation Solr (`ps_search`).
 
 ## Fonctionnalités
 
-- Type de contenu `offer` (node bundle) avec révisions activées
-- 25 champs custom configurés (form display + view display)
-- SEO handled via Metatag defaults for bundle `offer` (no custom `field_seo_*`)
-- Bundle-level integration for translation, metatag defaults, pathauto pattern, and scheduler settings
-- Validation métier à la pré-sauvegarde via hook OOP `node_presave`
-- 2 règles de validation : budget, agent principal
-- Dépublication automatique si aucun agent principal n'est défini
-- Vue admin installée `ps_offer_by_feature` pour filtrer les offres par feature ID
-- Configurable offer reference pattern baseline (LOT 1) with BO-managed pattern entities and generator service
-- Reference alias sets (LOT 2) to decouple reference codes from canonical dictionary values
-- LOT 3 delivered: boolean auto/manual mode (`field_reference_auto`), widget toggle and generated preview on `field_reference`
-- Automated regression script for reference mode: `tests/e2e_offer_reference.sh`
-- Behat smoke scaffold for offer reference regression: `tests/behat/features/offer_reference.feature`
-- Behat matrix baseline for reference generation aliases: `LOC/BUR`, `VEN/COM`, `LOC/ACT`, `LOC/ENT`, `VEN/BUR`, `VEN/COW`
+- Bundle node `offer` avec révisions, traduction contenu, pathauto, scheduler, metatag
+- **44 champs custom** + `body` (103 fichiers `config/install/`)
+- Validation progressive : warnings en brouillon, blocage en publication
+- Génération références auto/manuel (patterns + alias sets, LOT 1/2/3)
+- Sync diagnostics : `field_diagnostics` → `field_diagnostics_dpe` / `field_diagnostics_ges`
+- Projection surfaces post-save via `ps_surface` (`SurfaceProjectionManager`)
+- Vue admin `ps_offer_by_feature` (itération 1 filtre par feature)
+- Cible favoris `ps_favorite.target.node.offer` + view mode `card_favorite`
+- Tokens pathauto : operation, asset, country, department, city
+- Tests : unit, Behat, scripts E2E bash
 
 ## Architecture
 
 ### Entités
 
-| Entité Drupal | Bundle | Type | Description |
+| Entité Drupal | Bundle / ID | Type | Description |
 |---|---|---|---|
-| `node` | `offer` | Content | Offre immobilière avec révisions |
+| `node` | `offer` | Content | Offre immobilière révisionnable |
+| `ps_offer_reference_pattern` | — | Config | Pattern de génération référence auto |
+| `ps_offer_reference_alias_set` | — | Config | Alias codes pour segments référence |
 
-### Champs du bundle `offer`
+### Champs du bundle `offer` (44 custom + body)
 
-| Champ | Type Drupal | Obligatoire | Description |
+#### Identification
+
+| Champ | Type | Obligatoire BO | Description |
 |---|---|---|---|
-| `field_asset_type` | `ps_dictionary` (type: `asset_type`) | Oui | Type d'actif (BUR, COW, LOG…) |
-| `field_reference` | `string` | Non | Business-facing offer reference |
-| `field_reference_auto` | `boolean` | Non | Enables automatic generation when checked, manual edition when unchecked |
-| `field_business_id` | `string` | Non | Business identifier from source systems |
-| `field_technical_id` | `string` | Non | Technical identifier used by integrations |
-| `field_operation_type` | `ps_dictionary` (type: `operation_type`) | Non | Operation type (LOC, VEN) |
-| `field_budget_value` | `decimal` (10,2) | Non | Valeur budgétaire |
-| `field_budget_period` | `list_string` | Non | Période budgétaire (YEAR, MONTH, ONE_SHOT) |
-| `field_budget_unit` | `ps_dictionary` (type: `budget_unit`) | Non | Budget unit (PER_M2, PER_POSTE, GLOBAL) |
-| `field_budget_currency` | `ps_dictionary` (type: `currency`) | Non | Budget currency (EUR, ...) |
-| `field_budget_ht_hc` | `list_string` | Non | Budget basis (HT / HC) |
-| `field_address` | `string_long` | Non | Full address |
-| `field_city` | `string` | Non | City |
-| `field_department` | `string` | Non | Department |
-| `field_region` | `string` | Non | Region |
-| `field_media_photos` | `entity_reference` (media, multiple) | Non | Photos attached to the offer |
-| `field_media_videos` | `entity_reference` (media, multiple) | Non | Videos attached to the offer |
-| `field_virtual_tour_url` | `link` | Non | External virtual tour URL |
-| `field_geo` | `geofield` | Non | Géolocalisation (WKT) |
-| `field_primary_agent` | `entity_reference` (user) | Non | Agent principal (auto-dépublication si absent) |
-| `field_secondary_agents` | `entity_reference` (user, multiple) | Non | Secondary agents linked to the offer |
-| `field_divisible` | `boolean` | Non | Offre divisible |
-| `field_source_checksum` | `string` | Non | Checksum source (déduplication import) |
-| `field_source_system` | `string` | Non | Name of source system that provided the offer |
-| `field_last_imported_at` | `datetime` | Non | Timestamp of latest source import |
-| `field_import_id` | `string` | Non | Source import execution identifier |
+| `field_reference` | `string` | Oui (auto ou manuel) | Référence métier affichée |
+| `field_reference_auto` | `boolean` | Non | `1` = génération auto, `0` = saisie manuelle |
+| `field_business_id` | `string` | Non | ID métier source (XML) |
+| `field_technical_id` | `string` | Non | ID technique intégrations |
+| `field_asset_type` | `ps_dictionary` (`asset_type`) | Oui | Type d'actif (BUR, COW, ENT…) |
+| `field_operation_type` | `ps_dictionary` (`operation_type`) | Oui | Type d'opération (RENT, SALE) |
+| `field_client_type` | `ps_dictionary` (`client_type`) | Oui | Segmentation B2B / B2C |
+| `field_mandate_type` | `ps_dictionary` (`mandate_type`) | Non | Type de mandat |
+| `field_divisible` | `boolean` | Non | Offre divisible (masqué si COW via matrice) |
+| `field_commercial_title` | `string` | Non | Titre commercial |
+| `field_asset_type_raw` | `string` | Non | Code XML brut (hidden, import) |
+| `field_operation_type_raw` | `string` | Non | Code XML brut (hidden, import) |
+
+#### Localisation
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_address` | `address` | Adresse structurée (module Address, pays FR) |
+| `field_geo` | `geofield` | Coordonnées WKT (géocodage via Geocoder) |
+| `field_show_address` | `boolean` | Afficher l'adresse en front |
+
+#### Surfaces & divisions
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_surfaces` | `ps_surface_item` (card. -1) | Surfaces qualifiées TOTAL / DISPO / ETREF / MINIM… |
+| `field_divisions` | `entity_reference` → `ps_surface_division` | Lots de surface |
+
+#### Capacité (COW)
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_capacity_total` | `integer` | Nombre de postes total |
+| `field_capacity_available` | `integer` | Postes disponibles |
+| `field_capacity_unit` | `list_string` | Unité (ex. postes) |
+| `field_capacity_mode` | `list_string` | Mode (ex. SEAT_BASED) |
+| `field_capacity_notes` | `string_long` | Notes libres |
+
+#### Budget
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_budget_value` | `decimal` | Montant |
+| `field_budget_currency` | `ps_dictionary` (`currency`) | Devise (EUR par défaut) |
+| `field_budget_unit` | `ps_dictionary` (`budget_unit`) | Unité (PER_M2, PER_POSTE, GLOBAL) |
+| `field_budget_period` | `list_string` | Période (YEAR — location uniquement) |
+| `field_budget_ht` | `boolean` | Prix HT |
+| `field_budget_cc` | `boolean` | Charges comprises |
+
+#### Features & diagnostics
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_features` | `feature` | Caractéristiques métier (widget `feature_builder`) |
+| `field_diagnostics` | `diagnostic_item` (card. -1) | Source import XML (multi-valeur) |
+| `field_diagnostics_dpe` | `diagnostic_item` | Diagnostic DPE dédié (sync presave) |
+| `field_diagnostics_ges` | `diagnostic_item` | Diagnostic GES dédié (sync presave) |
+
+#### Médias & agents
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_media_gallery` | `entity_reference` → media | Galerie (images, vidéos, visites 3D…) |
+| `field_media_document` | `entity_reference` → media | Brochure unique téléchargeable |
+| `field_primary_agent` | `entity_reference` → `ps_agent` | Agent principal |
+| `field_secondary_agents` | `entity_reference` → `ps_agent` | Agents secondaires |
+
+#### Contenu & SEO
+
+| Champ | Type | Description |
+|---|---|---|
+| `body` | `text_with_summary` | Description (summary + value) |
+| `field_availability` | `string_long` | Disponibilité (texte libre) |
+| `field_metatag` | `metatag` | SEO (Metatag + Schema.org) |
+
+#### Import & protection
+
+| Champ | Type | Description |
+|---|---|---|
+| `field_source_checksum` | `string` | Hash source (déduplication) |
+| `field_source_system` | `string` | Système source |
+| `field_import_id` | `string` | ID batch import |
+| `field_last_imported_at` | `datetime` | Timestamp dernier import |
+| `field_internal_lock` | `boolean` | Protection écrasement import |
+| `field_source_tracking` | `string_long` | Métadonnées source JSON |
 
 ### Services
 
-| Service ID | Classe | Interface | Rôle |
-|---|---|---|---|
-| `Drupal\ps_offer\Service\OfferValidationManager` | `OfferValidationManager` | `OfferValidationManagerInterface` | Orchestrateur des règles de validation |
-| `Drupal\ps_offer\Service\OfferReferenceGenerator` | `OfferReferenceGenerator` | n/a | Builds references from configurable pattern segments |
-| `Drupal\ps_offer\Service\OfferReferencePatternResolver` | `OfferReferencePatternResolver` | n/a | Resolves the active reference pattern for a bundle |
-| `Drupal\ps_offer\Service\OfferReferenceAliasResolver` | `OfferReferenceAliasResolver` | `OfferReferenceAliasResolverInterface` | Resolves BO-managed reference aliases before fallback to canonical codes |
-| `Drupal\ps_offer\Service\OfferReferenceManager` | `OfferReferenceManager` | `OfferReferenceManagerInterface` | Orchestrates auto/manual mode and pre-save reference generation |
+| Service ID | Classe | Rôle |
+|---|---|---|
+| `Drupal\ps_offer\Service\OfferValidationManager` | `OfferValidationManager` | Règles validation presave |
+| `Drupal\ps_offer\Service\OfferReferenceManager` | `OfferReferenceManager` | Mode auto/manuel + génération |
+| `Drupal\ps_offer\Service\OfferReferenceGenerator` | `OfferReferenceGenerator` | Construction référence par segments |
+| `Drupal\ps_offer\Service\OfferReferencePatternResolver` | `OfferReferencePatternResolver` | Pattern actif par bundle |
+| `Drupal\ps_offer\Service\OfferReferenceAliasResolver` | `OfferReferenceAliasResolver` | Alias codes dictionnaire |
+| `ps_offer.path_token_provider` | `OfferPathTokenProvider` | Tokens pathauto custom |
+| `Drupal\ps_offer\Hook\OfferHooks` | `OfferHooks` | Presave, form alters, validation galerie |
 
 ### Hooks OOP
 
 | Classe | Hook | Méthode | Rôle |
 |---|---|---|---|
-| `OfferHooks` | `node_presave` | `nodePresave(NodeInterface)` | Applies reference mode generation then triggers `OfferValidationManager::apply()` |
+| `OfferHooks` | `node_presave` | `nodePresave()` | Sync diagnostics, médias traduction, refs, validation |
+| `OfferHooks` | `form_node_offer_form_alter` | — | Warnings dictionnaire, library diagnostic admin |
+| `OfferHooks` | `form_node_offer_edit_form_alter` | — | Idem édition |
+| `OfferHooks` | (validate) | `validateGallery()` | Galerie obligatoire à la publication |
+
+Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, `ps-offer-country`, `ps-offer-department`, `ps-offer-city`).
+
+### Plugins
+
+| Plugin type | Plugin ID | Classe | Description |
+|---|---|---|---|
+| FieldWidget | `ps_offer_reference_widget` | `OfferReferenceWidget` | Toggle auto/manuel + preview référence |
 
 ### Règles de validation (`OfferValidationManager`)
 
-| Méthode privée | Règle |
+| Méthode | Règle | Brouillon | Publication |
+|---|---|---|---|
+| `validateBudget()` | Normalise budget : valeur ≤ 0 ou vide → NULL + reset period/unit | Silencieux | Silencieux |
+| `validateCapacity()` | SEAT_BASED → total > 0 ; available ≤ total ; PER_POSTE → total > 0 | Warning | **Blocant** |
+| `validateSurface()` | Au moins une surface TOTAL > 0 | Warning | **Blocant** |
+| `validateDivisibility()` | Non divisible + DISPO < TOTAL → warning UX | Warning | Warning |
+| `validatePrimaryAgent()` | Pas d'agent principal → dépublication | N/A | Dépublication auto |
+| `validateManualReferenceUniqueness()` | Mode manuel + doublon `field_reference` | **Blocant** | **Blocant** |
+
+**Form validate (hors manager) :** `validateGallery()` — galerie non vide requise à la publication.
+
+**Skip validation :** sauvegardes en contexte traduction (langue ≠ langue par défaut).
+
+## Routes & Accès
+
+| Route | Chemin | Permission |
+|---|---|---|
+| `ps_offer.reference_config` | `/admin/ps/config/offer-reference` | `administer ps offer reference patterns` |
+| `entity.ps_offer_reference_pattern.collection` | `/admin/ps/config/offer-reference/patterns` | `administer ps offer reference patterns` |
+| `entity.ps_offer_reference_alias_set.collection` | `/admin/ps/config/offer-reference/aliases` | `administer ps offer reference patterns` |
+| Node add/edit | `/node/add/offer`, `/node/{nid}/edit` | Permissions node standard |
+| Vue admin features | `/admin/ps/content/offers-by-feature` | `manage ps_offer` |
+
+## Permissions
+
+| Permission | Description |
 |---|---|
-| `validateBudget()` | Si `field_budget_period` est défini et `field_budget_value` absent/≤ 0 : blocant en publication, warning en brouillon |
-| `validatePrimaryAgent()` | Si aucun agent principal : dépublication du node + message d'avertissement |
+| `administer ps offer reference patterns` | Gérer patterns et alias sets de référence |
+| `manage ps_offer` | Accès section hub (via `ps_core`) |
 
 ## Configuration initiale (`config/install/`)
 
-| Fichier | Contenu |
-|---|---|
-| `node.type.offer.yml` | Définition du bundle offer |
-| `field.storage.node.field_*.yml` | Définitions de stockage de champs (inclut `field_reference_auto`) |
-| `field.field.node.offer.field_*.yml` | Configurations d'instance de champs (inclut `field_reference_auto`) |
-| `core.entity_form_display.node.offer.default.yml` | Form display (widgets par champ) |
-| `core.entity_view_display.node.offer.default.yml` | Main view display (formatters par champ) |
-| `core.entity_view_display.node.offer.teaser.yml` | Compact card preview used by favorites fallback and teaser-like renders |
-| `core.entity_view_mode.node.card_favorite.yml` | Dedicated view mode for favorites cards |
-| `core.entity_view_display.node.offer.card_favorite.yml` | Favorites card display: first gallery image + city/address + surface + budget |
-| `ps_favorite.target.node.offer.yml` | Favorite target config entity enabling favorites on offer content |
-| `metatag.metatag_defaults.node__offer.yml` | Bundle-specific Metatag defaults for offer nodes |
-| `language.content_settings.node.offer.yml` | Content translation settings for `offer` |
-| `pathauto.pattern.offer.yml` | Dedicated URL alias pattern for `offer` |
-| `views.view.ps_offer_by_feature.yml` | Admin view to filter offers by feature ID |
-| `ps_offer.reference_pattern.default.yml` | Default active offer reference pattern installed with the module |
+**103 fichiers** dont :
 
-**Total** : 86 fichiers de configuration.
+| Catégorie | Exemples |
+|---|---|
+| Type & champs | `node.type.offer.yml`, `field.storage.*`, `field.field.node.offer.*` |
+| Displays | form/view default, teaser, card_favorite |
+| Intégrations | pathauto, metatag, scheduler, content_translation, geocoder |
+| Références | `ps_offer.reference_pattern.default.yml` |
+| Admin | `views.view.ps_offer_by_feature.yml` |
+| Favoris | `ps_favorite.target.node.offer.yml`, `core.entity_view_mode.node.card_favorite.yml` |
 
 ## Tests
 
-| Classe | Type | Scénarios couverts |
+| Classe / asset | Type | Scénarios |
 |---|---|---|
-| `OfferHooksTest` | Unit | `apply()` appelé exactement 1 fois sur `node_presave` |
-| `OfferValidationManagerTest` | Unit | Budget invalide (publication vs brouillon), dépublication sans agent, no-op hors bundle `offer` |
-| `OfferReferenceGeneratorTest` | Unit | Segment-based reference generation, fallback mapping, length validation |
-| `OfferReferenceManagerTest` | Unit | Boolean auto/manual mode behavior (`field_reference_auto`) and generation application |
+| `OfferHooksTest` | Unit | Presave appelle validation |
+| `OfferValidationManagerTest` | Unit | Budget, capacité, surface, agent, unicité référence |
+| `OfferReferenceGeneratorTest` | Unit | Segments, alias, longueur |
+| `OfferReferenceManagerTest` | Unit | Mode auto/manuel |
+| `offer_reference.feature` | Behat | Matrice génération références |
+| `offer_validation.feature` | Behat | Validations métier |
+| `e2e_offer_reference.sh` | E2E bash | Régression références |
+| `e2e_offer_reference_uniqueness.sh` | E2E bash | Unicité / collision |
+| `e2e_offer_validation.sh` | E2E bash | Scénarios validation contrôlés |
 
-**Résultat** : `OK (15 tests, 43 assertions)` sur `tests/src/Unit`.
+```bash
+# Unit tests
+cd src && vendor/bin/phpunit web/modules/custom/ps_offer/tests/src/Unit
+
+# E2E référence
+composer run test:offer-ref-e2e
+
+# Régression multi-modules
+composer run test:regression:modules
+
+# Behat
+composer run test:behat -- --suite=ps_offer_reference --no-interaction
+```
 
 ## Dépendances
 
-- `ps_core:ps_core` — Hub admin, permissions
-- `ps_dictionary:ps_dictionary` — Type de champ `ps_dictionary` pour `field_asset_type`
-- `drupal:node` — Content entity node
-- `drupal:field` — API de champs
-- `drupal:options` — List string pour `field_budget_period`
-- `drupal:user` — Entity reference user pour `field_primary_agent`
-- `drupal:address` — Champs d'adresse
-- `drupal:geofield` — Géolocalisation
-- `drupal:media` — Champs médias photo/vidéo
-- `drupal:datetime` — Tracking import timestamps
-- `drupal:link` — URL visite virtuelle
-- `drupal:content_translation` — Translatable offer content settings
-- `drupal:pathauto` — URL alias automation for offer nodes
-- `drupal:scheduler` — Publication/unpublication scheduling for offer nodes
-- `drupal:metatag` — Default SEO metadata management
-- `drupal:schema_metatag` — Schema.org metatag extensions
+### Modules PS
+
+| Module | Rôle |
+|---|---|
+| `ps_core` | Hub admin, permissions |
+| `ps_dictionary` | Champs `ps_dictionary` (asset, operation, client, budget…) |
+| `ps_feature` | `field_features` (type `feature`) |
+| `ps_agent` | `field_primary_agent`, `field_secondary_agents` |
+| `ps_surface` | `field_surfaces`, `field_divisions`, projection post-save |
+| `ps_diagnostic` | `field_diagnostics*`, widget/formatters |
+| `ps_favorite` | Cible favoris offer |
+| `ps_media` | Formatters galerie/documents en view display |
+| `bnp_editor` | Éditeur riche body |
+
+### Drupal & contrib
+
+`node`, `field`, `options`, `user`, `address`, `geofield`, `entity_reference_revisions`, `geocoder` (+ field/address/geofield), `media`, `datetime`, `link`, `text`, `views`, `content_translation`, `config_translation`, `pathauto`, `token`, `scheduler`, `metatag`, `schema_metatag`, `inline_entity_form`, `field_group`
+
+**Couplage runtime sans `.info.yml` :** `ps_context` (matrice formulaire), `ps_migrate` (import XML), `ps_search` (indexation).
 
 ## Installation & reset
 
 ```bash
-# Désinstallation propre (supprime les configs et données)
 drush pmu ps_offer -y
-
-# Réinstallation fraîche (import config/install/)
 drush pm:enable ps_offer -y
+drush cr
 ```
 
-Cycle de réinstallation validé sur environnement Docker:
+En cas de `PreExistingConfigException` après `pmu` : supprimer les objets actifs de `ps_offer/config/install` puis relancer `pm:enable`.
 
-- `drush pmu ps_offer -y`
-- purge des objets `config/install` restés actifs
-- `drush pm:enable ps_offer -y`
-- `drush cr`
-
-Point d'attention: si `pm:enable` remonte une `PreExistingConfigException`, supprimer les objets de configuration actifs fournis par `ps_offer/config/install` puis relancer l'activation.
-
-## Exécution des tests de régression référence
-
-```bash
-# E2E script (manual + auto + DB assertions)
-composer run test:offer-ref-e2e
-
-# Cross-module orchestration (Behat + bash/Drush: ps_dictionary, ps_feature, ps_offer)
-composer run test:regression:modules
-
-# E2E script with explicit operation/asset matrix case
-bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1 VEN COM
-
-# Advanced uniqueness/collision scenario (logical concurrency)
-bash web/modules/custom/ps_offer/tests/e2e_offer_reference_uniqueness.sh LOC BUR
-
-# Controlled-failure business scenario: manual duplicate reference must be rejected
-bash web/modules/custom/ps_offer/tests/e2e_offer_validation.sh 1 100 draft offer manual-duplicate
-
-# Manual self-edit scenario: same offer keeps same manual reference (no false positive)
-bash web/modules/custom/ps_offer/tests/e2e_offer_validation.sh 1 100 draft offer manual-self-edit
-
-# Controlled-failure business scenario on publication: manual duplicate reference must be rejected
-bash web/modules/custom/ps_offer/tests/e2e_offer_validation.sh 1 100 published offer manual-duplicate-published
-
-# Logical parallel roundtrip on two existing offers (save back-and-forth)
-bash web/modules/custom/ps_offer/tests/e2e_offer_reference_uniqueness.sh LOC BUR parallel-roundtrip-two
-
-# Behat smoke (wrap du script E2E)
-composer run test:behat -- --suite=ps_offer_reference --no-interaction
-```
-
-
-### Approche recommandée pour enrichir la couverture Behat (Matrice)
-
-La matrice de scénarios Behat couvre actuellement :
-
-| operation | asset |
-|-----------|-------|
-| LOC       | BUR   |
-| VEN       | COM   |
-| LOC       | ACT   |
-| LOC       | ENT   |
-| VEN       | BUR   |
-| VEN       | COW   |
-
-Pour ajouter un nouveau cas :
-1. Ajouter une ligne dans les `Examples` de `offer_reference.feature`.
-2. Vérifier que la paire operation/asset existe dans les dictionnaires actifs.
-3. Exécuter la suite Behat :
-	```bash
-	composer run test:behat -- --suite=ps_offer_reference --no-interaction
-	```
+Activer aussi (selon besoin) : `ps_context`, `ps_migrate`, `ps_search`.
 
 ## Documentation technique
 
-Voir [`docs/`](docs/) pour :
+Voir [`docs/`](docs/) :
 
-- [VALIDATION.md](docs/VALIDATION.md) — Architecture du hook OOP et des règles de validation
-- [FEATURE_VIEWS.md](docs/FEATURE_VIEWS.md) — Itération 1 (Views) pour filtrer les offres par feature ID
-- [OFFER_REFERENCE_ARCHITECTURE.md](docs/OFFER_REFERENCE_ARCHITECTURE.md) — Architecture de référence et état LOT 1/2/3
+- [VALIDATION.md](docs/VALIDATION.md) — Hook OOP et règles de validation
+- [FEATURE_VIEWS.md](docs/FEATURE_VIEWS.md) — Vue admin filtre par feature (itération 1)
+- [OFFER_REFERENCE_ARCHITECTURE.md](docs/OFFER_REFERENCE_ARCHITECTURE.md) — Architecture références LOT 1/2/3
 
-## Champs à venir (lots suivants)
+Références projet : `.ai/PROJECT_MATRIX.md`, `.ai/PROJECT_MODULES.md` §3.6.
 
-Aucun lot prioritaire restant dans la phase en cours.
+## À venir
+
+- Alignement codes dictionnaire CRM (MAT-01 LOG→ENT, MAT-02 LOC/VEN vs RENT/SALE)
+- Extension `EntityProtectionTrait` sur entité offer (DEC-0027)
+- Tests kernel sur sync diagnostics et projection surfaces
