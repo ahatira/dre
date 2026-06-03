@@ -4,6 +4,6 @@ bnp_editor.admin_settings:
     _form: '\Drupal\bnp_editor\Form\BnpEditorSettingsForm'
     _title: 'BNP Editor Settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer bnp editor'
   options:
     _admin_route: TRUE

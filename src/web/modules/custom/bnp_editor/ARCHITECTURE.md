@@ -59,26 +59,29 @@ The module follows project standards defined in `.ai/PROJECT_RULES.md`:
 ```
 bnp_editor/
 ├── config/
-│   ├── install/               # Initial configurations
-│   │   ├── filter.format.bnp_rich_text.yml
-│   │   ├── editor.editor.bnp_rich_text.yml
+│   ├── install/
 │   │   └── bnp_editor.settings.yml
-│   └── schema/                # Configuration schemas
+│   ├── optional/
+│   │   ├── filter.format.full_html.yml
+│   │   ├── filter.format.basic_html.yml
+│   │   ├── filter.format.restricted_html.yml
+│   │   ├── filter.format.plain_text.yml
+│   │   ├── editor.editor.full_html.yml
+│   │   └── editor.editor.basic_html.yml
+│   └── schema/
 │       └── bnp_editor.schema.yml
 ├── css/
-│   └── bnp-editor-admin.css  # Admin UI styles
+│   └── bnp-editor-admin.css
 ├── js/
-│   └── ckeditor5_plugins/    # Custom CKEditor 5 plugins
+│   └── ckeditor5_plugins/
 │       └── bnpExample/
 │           └── bnp-example.js
 ├── src/
-│   ├── Form/                 # Form controllers
+│   ├── Form/
 │   │   └── BnpEditorSettingsForm.php
-│   ├── Plugin/
-│   │   └── CKEditor5Plugin/  # CKEditor 5 plugins
-│   │       └── BnpEditorExample.php
-│   └── Service/              # Business logic services
-│       └── EditorManager.php
+│   └── Service/
+│       ├── EditorManager.php
+│       └── BnpEditorRoleInstaller.php
 ├── tests/                    # PHPUnit tests
 ├── translations/             # Translation files (.po)
 │   ├── fr.po
@@ -112,64 +115,44 @@ bnp_editor/
 - Log errors and events
 
 **Dependencies**:
-- `EntityTypeManagerInterface` - Entity operations
-- `ConfigFactoryInterface` - Configuration access
-- `LoggerInterface` - Logging
+- `EntityTypeManagerInterface` — editor entity storage
+- `LoggerInterface` — error logging
 
 **Usage**:
 ```php
 $editor_manager = \Drupal::service('bnp_editor.manager');
 $configs = $editor_manager->getEditorConfigurations();
-$is_valid = $editor_manager->validateEditorConfig('bnp_rich_text');
+$is_valid = $editor_manager->validateEditorConfig('full_html');
 ```
 
-### 2. BnpEditorSettingsForm
+### 2. BnpEditorRoleInstaller Service
 
-**Purpose**: Admin UI for module configuration
+**Purpose**: Grant text format permissions to BNP baseline roles (and PS roles when `ps_core` is present).
 
-**Features**:
-- Enable/disable custom plugins
-- Enable/disable media embed
-- Configure allowed link protocols
+**Invoked from**: `hook_install()` and `bnp_editor_update_9001()`.
 
-**Route**: `/admin/config/content/bnp-editor`
+**Service id**: `bnp_editor.role_installer` (`public: true` — required for install/update hooks).
 
-**Permissions**: `administer site configuration`
+**Does not** create roles — only grants permissions on existing roles from `bnp_admin` / `ps_core`.
 
-### 3. CKEditor 5 Plugins
+### 3. BnpEditorSettingsForm
 
-**Location**: `src/Plugin/CKEditor5Plugin/`
+**Route**: `/admin/config/content/bnp-editor`  
+**Permission**: `administer bnp editor`
 
-**Base class**: `CKEditor5PluginDefault`
+### 4. Custom CKEditor 5 plugins (future)
 
-**Interfaces**:
-- `CKEditor5PluginConfigurableInterface` - For configurable plugins
-
-**Annotation example**:
-```php
-/**
- * @CKEditor5Plugin(
- *   id = "bnp_editor_example",
- *   ckeditor5 = @CKEditor5AspectsOfCKEditor5Plugin(
- *     plugins = {},
- *     config = {},
- *   ),
- *   drupal = @DrupalAspectsOfCKEditor5Plugin(
- *     label = @Translation("BNP Example Plugin"),
- *     library = "bnp_editor/example",
- *     elements = {},
- *   )
- * )
- */
-```
+No PHP plugin classes are shipped yet. See `js/ckeditor5_plugins/bnpExample/` for a JavaScript example and use `hook_bnp_editor_plugins_alter()` to register plugins.
 
 ## Text Format Configuration
 
-### BNP Rich Text (`bnp_rich_text`)
+### Full HTML (`full_html`)
 
-**Purpose**: Full-featured rich text format for content editors
+**Purpose**: Full-featured rich text format for trusted editors.
 
-**Allowed HTML**:
+**Config files**: `config/optional/filter.format.full_html.yml`, `editor.editor.full_html.yml`
+
+**Allowed HTML** (summary):
 - Headings: h2-h6
 - Text formatting: em, strong, cite, code
 - Lists: ul, ol, li, dl, dt, dd
@@ -227,7 +210,7 @@ Other modules can alter configurations via hooks:
  * Implements hook_editor_settings_alter().
  */
 function mymodule_editor_settings_alter(array &$settings, EditorInterface $editor): void {
-  if ($editor->id() === 'bnp_rich_text') {
+  if ($editor->id() === 'full_html') {
     // Alter settings
   }
 }
@@ -251,7 +234,7 @@ function mymodule_ckeditor5_plugin_info_alter(array &$plugin_definitions): void 
 ### Permission Model
 
 - **Administer BNP Editor**: Restricted to site administrators
-- **Use BNP Rich Text format**: Assigned per role based on trust level
+- **Use text format ***: Granted per role via `BnpEditorRoleInstaller` (see README)
 
 ### Link Protocols
 

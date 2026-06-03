@@ -1,215 +1,129 @@
 # BNP Editor
 
-Module dédié à la configuration CKEditor 5 avec support des formats de texte standards Drupal et plugins contrib pour la plateforme BNP.
+Module Drupal qui centralise la configuration **CKEditor 5** et les **formats de texte standards** pour les projets BNP, avec activation des modules contrib requis.
 
-## Description
+## Responsabilité
 
-Ce module fournit:
-- **4 formats de texte standards Drupal** configurés et optimisés
-- Infrastructure pour plugins CKEditor 5 contrib
-- Support complet des médias et embeds
-- Paramètres globaux d'éditeur configurables
-- Internationalisation complète (7 langues)
+À l'activation, `bnp_editor` :
 
-## Formats de Texte
+1. **Active ses dépendances modules** (Linkit, Entity Embed, CKEditor plugins, etc.) via `bnp_editor.info.yml`
+2. **Importe les formats et éditeurs** depuis `config/optional/` (quand les dépendances sont satisfaites)
+3. **Importe** `bnp_editor.settings` depuis `config/install/`
+4. **Accorde les permissions de formats** aux rôles BNP via `BnpEditorRoleInstaller`
 
-### Full HTML (`full_html`)
-Format HTML complet avec toutes les fonctionnalités CKEditor 5:
-- Formatage avancé (bold, italic, strikethrough, superscript, subscript)
-- Listes avec propriétés (styles, numérotation, réversion)
-- Liens avec attributs avancés
-- Tableaux avec insertion et édition
-- Intégration média complète (images, vidéos, documents)
-- Alignement de texte (left, center, right, justify)
-- Blocs de code avec coloration syntaxique
-- Édition source HTML
-- Upload d'images inline
+Ce module **ne définit pas** de formats custom (`bnp_rich_text` n'existe pas). Il configure les formats Drupal standards : `full_html`, `basic_html`, `restricted_html`, `plain_text`.
 
-**Permissions**: Réservé aux administrateurs et éditeurs de confiance
+## Formats de texte
 
-### Basic HTML (`basic_html`)
-Format HTML de base pour éditeurs standards:
-- Formatage basique (bold, italic)
-- Listes simples (à puces, numérotées)
-- Liens
-- Citations (blockquote)
-- Titres (H2-H6)
-- Intégration média
-- Édition source limitée
+| Format | Éditeur | Usage typique |
+|--------|---------|---------------|
+| `full_html` | CKEditor 5 complet | Administrateurs, gestionnaires site |
+| `basic_html` | CKEditor 5 standard | Éditeurs de contenu |
+| `restricted_html` | Aucun (filtres HTML) | Utilisateurs limités, commentaires |
+| `plain_text` | Aucun | Texte brut |
 
-**Permissions**: Éditeurs, contributeurs
+## Permissions par rôle (baseline BNP)
 
-### Restricted HTML (`restricted_html`)
-Format restreint pour utilisateurs non fiables:
-- Tags HTML limités (a, em, strong, cite, blockquote, ul, ol, li, h2-h6)
-- Pas d'éditeur visuel (saisie directe)
-- Conversion automatique des URLs en liens
-- Paragraphes automatiques
+Appliquées à l'install et via `bnp_editor_update_9001()` :
 
-**Permissions**: Utilisateurs authentifiés, commentaires
+| Rôle | Formats | Admin BNP Editor |
+|------|---------|------------------|
+| `administrator` | Tous | ✅ |
+| `site_admin` | full, basic, restricted | ✅ |
+| `content_admin` | full, basic, restricted | — |
+| `content_editor` | basic, restricted | — |
+| `translate_admin` / `translate_editor` | basic, restricted | — |
+| `seo_admin` | restricted | — |
+| `authenticated` | restricted | — |
 
-### Plain Text (`plain_text`)
-Texte brut sans HTML:
-- Tous les tags HTML sont échappés
-- Conversion automatique des URLs en liens
-- Paragraphes automatiques
-- Pas d'éditeur visuel
+Si `ps_core` est activé :
 
-**Permissions**: Tous les utilisateurs
+| Rôle | Formats |
+|------|---------|
+| `ps_admin` | full, basic, restricted + admin BNP Editor |
+| `ps_content_editor` | basic, restricted |
+
+Le rôle Drupal legacy `editor` n'est **pas** utilisé.
 
 ## Installation
 
 ```bash
-cd /path/to/drupal/src
 drush en bnp_editor -y
 drush cr
 ```
+
+Sur ce projet : activé par `scripts/drupal/install.sh` juste après `bnp_admin` (avant les modules PS).
 
 ## Configuration
 
 ### Paramètres globaux
 
-Accéder à `/admin/config/content/bnp-editor` pour:
-- Activer/désactiver les plugins custom
-- Configurer l'intégration média
-- Définir les protocoles de liens autorisés
+`/admin/config/content/bnp-editor` (permission `administer bnp editor`)
 
-### Modules contrib optionnels
+- `enable_custom_plugins` — réservé aux extensions via `hook_bnp_editor_plugins_alter()`
+- `enable_media_embed` — paramètre documenté (intégration média via config optional)
+- `allowed_protocols` — protocoles de liens autorisés (validation via `hook_bnp_editor_config_validate`)
 
-Le module supporte de nombreux modules contrib pour étendre les fonctionnalités:
-
-**Amélioration des liens**:
-- `linkit` - Autocomplete pour liens internes
-- `editor_advanced_link` - Attributs de liens avancés
-- `anchor_link` - Ancres et liens internes
-- `extlink` - Icônes et comportements liens externes
-
-**Média & Embeds**:
-- `entity_embed` - Embed d'entités Drupal
-- `ckeditor_media_embed` - Embed oEmbed (YouTube, Vimeo)
-- `ckeditor_media_resize` - Redimensionnement média
-- `blazy` - Lazy loading images/médias
-- `slick` - Carousels et sliders
-
-**Plugins CKEditor**:
-- `ckeditor5_plugin_pack` - Collection de plugins utiles
-- `ckeditor_emoji` - Picker d'emojis
-- `ckeditor_bidi` - Support bidirectionnel (RTL/LTR)
-- `ckeditor5_paste_filter` - Nettoyage contenu collé
-
-**Amélioration contenu**:
-- `token_filter` - Remplacement de tokens
-- `pathologic` - Correction chemins de liens
-- `ace_editor` - Éditeur de code avec coloration syntaxique
-- `edit_media_modal` - Édition média en modal
-
-Voir [CONTRIB_MODULES.md](CONTRIB_MODULES.md) pour la liste complète et les instructions d'installation.
-
-### Installation modules contrib
-
-```bash
-# Exemple: installer Linkit et Editor Advanced Link
-composer require drupal/linkit drupal/editor_advanced_link
-drush en linkit editor_advanced_link -y
-drush cr
-
-# Mettre à jour les configurations de format si nécessaire
-drush cex -y
-```
-
-## Permissions
-
-Configurer les permissions sur `/admin/people/permissions`:
-
-- **Administer BNP Editor** → Administrator
-- **Use Full HTML text format** → Administrator, Editor
-- **Use Basic HTML text format** → Editor, Content Manager
-- **Use Restricted HTML text format** → Authenticated users
-- **Use Plain text format** → Tous les utilisateurs
-
-## Internationalisation
-
-Support complet pour 7 langues:
-- 🇫🇷 Français (fr)
-- 🇳🇱 Néerlandais (nl)
-- 🇪🇸 Espagnol (es)
-- 🇮🇹 Italien (it)
-- 🇱🇺 Luxembourgeois (lb)
-- 🇵🇱 Polonais (pl)
-- 🇩🇪 Allemand (de)
-
-```bash
-# Importer les traductions
-drush locale:import fr modules/custom/bnp_editor/translations/fr.po
-drush cr
-```
-
-## Structure
+### Structure des configs
 
 ```
 bnp_editor/
-├── config/install/          # Configurations 4 formats
-│   ├── filter.format.full_html.yml
-│   ├── editor.editor.full_html.yml
-│   ├── filter.format.basic_html.yml
-│   ├── editor.editor.basic_html.yml
-│   ├── filter.format.restricted_html.yml
-│   ├── filter.format.plain_text.yml
-│   └── bnp_editor.settings.yml
-├── src/
-│   ├── Form/                # Formulaires d'admin
-│   ├── Plugin/CKEditor5Plugin/  # Plugins CKEditor 5
-│   └── Service/             # Services métier
-├── translations/            # Fichiers .po (7 langues)
-├── CONTRIB_MODULES.md       # Guide modules contrib
-└── Documentation complète
+├── config/install/
+│   └── bnp_editor.settings.yml      # Paramètres du module
+├── config/optional/
+│   ├── filter.format.*.yml          # 4 formats standards
+│   └── editor.editor.*.yml          # full_html + basic_html (CKEditor 5)
+├── config/schema/
+│   └── bnp_editor.schema.yml
+└── src/
+    ├── Form/BnpEditorSettingsForm.php
+    └── Service/
+        ├── EditorManager.php
+        └── BnpEditorRoleInstaller.php
 ```
 
-## Développement
+Les fichiers `config/optional/` sont importés automatiquement à l'activation du module (sans dépendance circulaire vers `bnp_editor`).
 
-### Créer un plugin CKEditor 5 custom
+## Dépendances
 
-1. Créer la classe dans `src/Plugin/CKEditor5Plugin/`
-2. Créer le JavaScript dans `js/ckeditor5_plugins/`
-3. Déclarer la librairie dans `bnp_editor.libraries.yml`
-4. `drush cr`
+Toutes les extensions listées dans `bnp_editor.info.yml` sont **requises** à l'activation. Elles doivent être présentes dans le `composer.json` du projet hôte.
 
-Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour plus de détails.
+Enhancements vraiment optionnels (non requis) : `blazy`, `slick` — signalés dans le status report uniquement.
+
+## Internationalisation
+
+7 fichiers `.po` dans `translations/` (fr, nl, es, it, lb, pl, de).
+
+```bash
+drush locale:import fr web/modules/custom/bnp_editor/translations/fr.po -y
+drush cr
+```
+
+## Tests
+
+```bash
+cd src
+SIMPLETEST_DB=pgsql://drupal:drupal@postgres:5432/drupal \
+  ./vendor/bin/phpunit -c web/core/phpunit.xml.dist web/modules/custom/bnp_editor/tests
+```
 
 ## Documentation
 
-- **[QUICKSTART.md](QUICKSTART.md)** - Démarrage rapide (3 minutes)
-- **[INSTALL.md](INSTALL.md)** - Instructions d'installation détaillées
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Documentation technique
-- **[CONTRIB_MODULES.md](CONTRIB_MODULES.md)** - Guide modules contrib
-- **[CHANGELOG.md](CHANGELOG.md)** - Historique des versions
-- **[bnp_editor.api.php](bnp_editor.api.php)** - Hooks disponibles
+- [QUICKSTART.md](QUICKSTART.md) — démarrage rapide
+- [INSTALL.md](INSTALL.md) — installation détaillée
+- [ARCHITECTURE.md](ARCHITECTURE.md) — architecture technique
+- [CONTRIB_MODULES.md](CONTRIB_MODULES.md) — modules contrib
+- [bnp_editor.api.php](bnp_editor.api.php) — hooks documentés
 
-## Support
+## Frontières
 
-```bash
-# Vérifier les modules optionnels installés
-drush pm:list --status=enabled | grep -E "(linkit|entity_embed|ckeditor)"
-
-# Voir les logs
-drush watchdog:show --type=bnp_editor
-
-# Status du module
-drush status-report | grep -i editor
-```
-
-## Conformité projet
-
-- ✅ Config-First: Toute configuration exportable
-- ✅ Dependency Injection: Services injectés
-- ✅ Drupal Native: APIs standard + formats Drupal standards
-- ✅ Internationalisation: 7 langues obligatoires
-- ✅ Code en anglais: Identifiants et commentaires
-- ✅ UI traduisible: Système translation Drupal
+- ❌ Pas de formats custom propriétaires (standards Drupal uniquement)
+- ❌ Pas de plugins CKEditor PHP livrés (exemple JS dans `js/ckeditor5_plugins/`)
+- ✅ Portable sur tout projet Drupal 11 avec les mêmes dépendances Composer
+- ✅ Compatible avec `bnp_admin` (rôles `content_editor`, `administrator`, etc.)
 
 ---
 
-**Version**: 1.0.0  
-**Drupal**: 11.x  
-**Package**: BNP  
-**Licence**: Propriétaire - BNP Paribas Real Estate
+**Version** : 1.0.0  
+**Drupal** : 11.x  
+**Package** : BNP

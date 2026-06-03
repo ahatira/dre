@@ -23,18 +23,26 @@
     "drupal/ckeditor5": "^11.0",
     "drupal/filter": "^11.0",
     "drupal/media": "^11.0",
-    "drupal/media_library": "^11.0"
+    "drupal/media_library": "^11.0",
+    "drupal/ace_editor": "*",
+    "drupal/anchor_link": "*",
+    "drupal/ckeditor_bidi": "*",
+    "drupal/ckeditor_emoji": "*",
+    "drupal/ckeditor5_paste_filter": "*",
+    "drupal/ckeditor5_plugin_pack": "*",
+    "drupal/ckeditor_media_embed": "*",
+    "drupal/ckeditor_media_resize": "*",
+    "drupal/edit_media_modal": "*",
+    "drupal/editor_advanced_link": "*",
+    "drupal/entity_embed": "*",
+    "drupal/extlink": "*",
+    "drupal/linkit": "*",
+    "drupal/pathologic": "*",
+    "drupal/token_filter": "*"
   },
   "suggest": {
-    "drupal/linkit": "^7.0 - Provides autocomplete for internal entity links (Drupal 11 compatible)",
-    "drupal/editor_advanced_link": "^2.2 - Advanced link dialog with rel, target, class attributes",
-    "drupal/anchor_link": "^3.0 - Create anchor links within content",
-    "drupal/entity_embed": "^1.6 - Embed Drupal entities within content",
-    "drupal/extlink": "^2.0 - External link icons and security",
-    "drupal/pathologic": "^2.0 - Correct internal link paths",
-    "drupal/token_filter": "^2.1 - Replace tokens in text content",
-    "drupal/blazy": "^3.0 - Lazy loading for images and media",
-    "drupal/slick": "^3.0 - Carousel/slider for media"
+    "drupal/blazy": "^3.0 - Lazy loading for images and media (optional enhancement)",
+    "drupal/slick": "^3.0 - Carousel/slider for media (optional enhancement)"
   },
   "require-dev": {
     "drupal/core-dev": "^11.0"

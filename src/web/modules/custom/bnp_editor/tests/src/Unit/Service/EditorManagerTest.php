@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\Tests\bnp_editor\Unit\Service;
 
 use Drupal\bnp_editor\Service\EditorManager;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\editor\EditorInterface;
@@ -29,13 +28,6 @@ final class EditorManagerTest extends UnitTestCase {
   private EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * The config factory mock.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit\Framework\MockObject\MockObject
-   */
-  private ConfigFactoryInterface $configFactory;
-
-  /**
    * The logger mock.
    *
    * @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -56,13 +48,11 @@ final class EditorManagerTest extends UnitTestCase {
     parent::setUp();
 
     $this->entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
-    $this->configFactory = $this->createMock(ConfigFactoryInterface::class);
     $this->logger = $this->createMock(LoggerInterface::class);
 
     $this->editorManager = new EditorManager(
       $this->entityTypeManager,
-      $this->configFactory,
-      $this->logger
+      $this->logger,
     );
   }
 
@@ -74,12 +64,12 @@ final class EditorManagerTest extends UnitTestCase {
   public function testGetEditorConfigurationsWithValidEditors(): void {
     // Mock filter format.
     $format = $this->createMock(FilterFormatInterface::class);
-    $format->method('id')->willReturn('bnp_rich_text');
+    $format->method('id')->willReturn('full_html');
 
     // Mock editor entity.
     $editor = $this->createMock(EditorInterface::class);
-    $editor->method('id')->willReturn('bnp_rich_text');
-    $editor->method('label')->willReturn('BNP Rich Text');
+    $editor->method('id')->willReturn('full_html');
+    $editor->method('label')->willReturn('Full HTML');
     $editor->method('getEditor')->willReturn('ckeditor5');
     $editor->method('getFilterFormat')->willReturn($format);
     $editor->method('getSettings')->willReturn([
@@ -89,7 +79,7 @@ final class EditorManagerTest extends UnitTestCase {
     // Mock editor storage.
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->method('loadMultiple')
-      ->willReturn(['bnp_rich_text' => $editor]);
+      ->willReturn(['full_html' => $editor]);
 
     // Mock entity type manager.
     $this->entityTypeManager->method('getStorage')
@@ -101,11 +91,11 @@ final class EditorManagerTest extends UnitTestCase {
 
     // Assertions.
     $this->assertIsArray($configurations);
-    $this->assertArrayHasKey('bnp_rich_text', $configurations);
-    $this->assertEquals('bnp_rich_text', $configurations['bnp_rich_text']['id']);
-    $this->assertEquals('BNP Rich Text', $configurations['bnp_rich_text']['label']);
-    $this->assertEquals('bnp_rich_text', $configurations['bnp_rich_text']['format']);
-    $this->assertIsArray($configurations['bnp_rich_text']['settings']);
+    $this->assertArrayHasKey('full_html', $configurations);
+    $this->assertEquals('full_html', $configurations['full_html']['id']);
+    $this->assertEquals('Full HTML', $configurations['full_html']['label']);
+    $this->assertEquals('full_html', $configurations['full_html']['format']);
+    $this->assertIsArray($configurations['full_html']['settings']);
   }
 
   /**
@@ -116,11 +106,11 @@ final class EditorManagerTest extends UnitTestCase {
   public function testGetEditorConfigurationsFiltersNonCKEditor5(): void {
     // Mock CKEditor 5 editor.
     $format_cke5 = $this->createMock(FilterFormatInterface::class);
-    $format_cke5->method('id')->willReturn('bnp_rich_text');
+    $format_cke5->method('id')->willReturn('full_html');
 
     $editor_cke5 = $this->createMock(EditorInterface::class);
-    $editor_cke5->method('id')->willReturn('bnp_rich_text');
-    $editor_cke5->method('label')->willReturn('BNP Rich Text');
+    $editor_cke5->method('id')->willReturn('full_html');
+    $editor_cke5->method('label')->willReturn('Full HTML');
     $editor_cke5->method('getEditor')->willReturn('ckeditor5');
     $editor_cke5->method('getFilterFormat')->willReturn($format_cke5);
     $editor_cke5->method('getSettings')->willReturn([]);
@@ -139,7 +129,7 @@ final class EditorManagerTest extends UnitTestCase {
     // Mock editor storage.
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->method('loadMultiple')->willReturn([
-      'bnp_rich_text' => $editor_cke5,
+      'full_html' => $editor_cke5,
       'legacy_editor' => $editor_cke4,
     ]);
 
@@ -153,7 +143,7 @@ final class EditorManagerTest extends UnitTestCase {
 
     // Assertions.
     $this->assertIsArray($configurations);
-    $this->assertArrayHasKey('bnp_rich_text', $configurations);
+    $this->assertArrayHasKey('full_html', $configurations);
     $this->assertArrayNotHasKey('legacy_editor', $configurations);
     $this->assertCount(1, $configurations);
   }
@@ -205,7 +195,7 @@ final class EditorManagerTest extends UnitTestCase {
     // Mock editor storage.
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->method('load')
-      ->with('bnp_rich_text')
+      ->with('full_html')
       ->willReturn($editor);
 
     // Mock entity type manager.
@@ -214,7 +204,7 @@ final class EditorManagerTest extends UnitTestCase {
       ->willReturn($storage);
 
     // Execute test.
-    $result = $this->editorManager->validateEditorConfig('bnp_rich_text');
+    $result = $this->editorManager->validateEditorConfig('full_html');
 
     // Assertions.
     $this->assertTrue($result);

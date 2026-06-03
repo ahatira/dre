@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\bnp_editor\Service;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -18,14 +17,11 @@ final class EditorManager {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory.
    * @param \Psr\Log\LoggerInterface $logger
    *   The logger channel.
    */
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly ConfigFactoryInterface $configFactory,
     private readonly LoggerInterface $logger,
   ) {}
 

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Text formats: standards Drupal (`full_html`, `basic_html`, …) via `config/optional/` — plus de format `bnp_rich_text`
+- Permissions: `BnpEditorRoleInstaller` accorde les droits aux rôles `bnp_admin` + `ps_admin` / `ps_content_editor` si `ps_core` actif
+- `hook_requirements`: seuls `blazy` / `slick` signalés comme enhancements optionnels
+- Documentation alignée (README, INSTALL, QUICKSTART, API examples)
+- `install.sh`: `bnp_editor` activé après `bnp_admin`, avant les modules PS
+
+### Added
+- `bnp_editor_update_9001()` — ré-application des permissions sur sites existants
+- Tests `BnpEditorRoleInstallerTest`
+
+### Removed
+- Références au rôle legacy `editor` et à la permission `use bnp rich text`
+
 ### Planned
 - Custom image upload handler for BNP media workflow
 - Template snippets for pre-defined content blocks
@@ -20,8 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial module release
 - `EditorManager` service for centralized CKEditor configuration management
 - `BnpEditorSettingsForm` for admin configuration
-- BNP Rich Text format (`bnp_rich_text`) with full CKEditor 5 support
-- Example CKEditor 5 plugin structure (`BnpEditorExample`)
+- CKEditor 5 configuration for standard Drupal text formats
+- Example CKEditor 5 plugin structure (JS under `js/ckeditor5_plugins/`)
 - Complete internationalization support for 7 languages:
   - French (fr)
   - Dutch (nl)
@@ -32,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - German (de)
 - Permissions system:
   - `administer bnp editor` - For administrators
-  - `use bnp rich text` - For content editors
+  - `use text format *` - Granted per role via installer
 - Configuration schemas for all settings
 - Comprehensive documentation:
   - README.md - User guide
@@ -53,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Follows project standards defined in `.ai/PROJECT_RULES.md`
 
 ### Configuration
-- Default text format: BNP Rich Text
+- Default text formats: Drupal standards (full_html, basic_html, …)
 - Default toolbar: bold, italic, link, lists, blockquote, table, heading, sourceEditing, undo/redo
 - Default filters: HTML restriction, image alignment, captions, autop, HTML corrector
 - Default settings: custom plugins enabled, media embed enabled, protocols (http, https, mailto, tel)

@@ -3,8 +3,14 @@ services:
     class: Drupal\bnp_editor\Service\EditorManager
     arguments:
       - '@entity_type.manager'
-      - '@config.factory'
       - '@logger.channel.bnp_editor'
+
+  bnp_editor.role_installer:
+    class: Drupal\bnp_editor\Service\BnpEditorRoleInstaller
+    public: true
+    arguments:
+      - '@entity_type.manager'
+      - '@module_handler'
 
   logger.channel.bnp_editor:
     parent: logger.channel_base

@@ -7,39 +7,21 @@
 
 declare(strict_types=1);
 
+use Drupal\bnp_editor\Service\BnpEditorRoleInstaller;
+
 /**
  * Implements hook_install().
  */
 function bnp_editor_install(): void {
-  // Set default permissions for text formats.
-  $permissions = [
-    'administrator' => [
-      'use text format full_html',
-      'use text format basic_html',
-      'use text format restricted_html',
-      'use text format plain_text',
-    ],
-    'editor' => [
-      'use text format basic_html',
-      'use text format restricted_html',
-    ],
-    'authenticated' => [
-      'use text format restricted_html',
-    ],
-  ];
+  \Drupal::service('bnp_editor.role_installer')->applyDefaultPermissions();
+  \Drupal::messenger()->addStatus(t('BNP Editor text formats and role permissions have been applied.'));
+}
 
-  $role_storage = \Drupal::entityTypeManager()->getStorage('user_role');
-  foreach ($permissions as $role_id => $perms) {
-    $role = $role_storage->load($role_id);
-    if ($role) {
-      foreach ($perms as $permission) {
-        $role->grantPermission($permission);
-      }
-      $role->save();
-    }
-  }
-
-  \Drupal::messenger()->addStatus(t('BNP Editor has been installed. Text formats: Full HTML, Basic HTML, Restricted HTML, and Plain text are now available.'));
+/**
+ * Implements hook_update_N().
+ */
+function bnp_editor_update_9001(): void {
+  \Drupal::service('bnp_editor.role_installer')->applyDefaultPermissions();
 }
 
 /**
@@ -48,53 +30,31 @@ function bnp_editor_install(): void {
 function bnp_editor_requirements(string $phase): array {
   $requirements = [];
 
-  if ($phase === 'runtime') {
-    // Check if optional contrib modules are installed.
-    $optional_modules = [
-      'linkit' => 'Linkit',
-      'anchor_link' => 'Anchor Link',
-      'editor_advanced_link' => 'Editor Advanced Link',
-      'ckeditor5_plugin_pack' => 'CKEditor 5 Plugin Pack',
-      'ckeditor_emoji' => 'CKEditor Emoji',
-      'entity_embed' => 'Entity Embed',
-      'pathologic' => 'Pathologic',
-      'token_filter' => 'Token Filter',
-      'extlink' => 'External Links',
-      'blazy' => 'Blazy',
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  $optional_modules = [
+    'blazy' => 'Blazy',
+    'slick' => 'Slick',
+  ];
+
+  $missing = [];
+  foreach ($optional_modules as $module => $label) {
+    if (!\Drupal::moduleHandler()->moduleExists($module)) {
+      $missing[] = $label;
+    }
+  }
+
+  if ($missing !== []) {
+    $requirements['bnp_editor_optional_enhancements'] = [
+      'title' => t('BNP Editor - Optional enhancements'),
+      'value' => t('@count not installed', ['@count' => count($missing)]),
+      'description' => t('These modules are not required by BNP Editor but can extend media behaviour: @modules.', [
+        '@modules' => implode(', ', $missing),
+      ]),
+      'severity' => REQUIREMENT_INFO,
     ];
-
-    $installed = [];
-    $missing = [];
-
-    foreach ($optional_modules as $module => $label) {
-      if (\Drupal::moduleHandler()->moduleExists($module)) {
-        $installed[] = $label;
-      }
-      else {
-        $missing[] = $label;
-      }
-    }
-
-    if (!empty($missing)) {
-      $requirements['bnp_editor_optional_modules'] = [
-        'title' => t('BNP Editor - Optional modules'),
-        'value' => t('@count optional modules not installed', ['@count' => count($missing)]),
-        'description' => t('The following optional modules can enhance BNP Editor functionality: @modules. Install them via Composer to enable additional features.', [
-          '@modules' => implode(', ', $missing),
-        ]),
-        'severity' => REQUIREMENT_INFO,
-      ];
-    }
-    else {
-      $requirements['bnp_editor_optional_modules'] = [
-        'title' => t('BNP Editor - Optional modules'),
-        'value' => t('All optional modules installed'),
-        'description' => t('Installed: @modules', [
-          '@modules' => implode(', ', $installed),
-        ]),
-        'severity' => REQUIREMENT_OK,
-      ];
-    }
   }
 
   return $requirements;

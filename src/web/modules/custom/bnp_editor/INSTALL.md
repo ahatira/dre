@@ -3,14 +3,17 @@
 ## Prerequisites
 
 - Drupal 11.x
-- CKEditor 5 (included in Drupal core)
-- PHP 8.2 or higher
+- CKEditor 5 (Drupal core)
+- PHP 8.2+
+- Modules listés dans `bnp_editor.info.yml` (Linkit, Entity Embed, plugins CKEditor contrib, etc.) installés via Composer
+- Rôles baseline `bnp_admin` recommandés (`content_editor`, `administrator`, …)
 
 ## Installation Steps
 
 ### 1. Enable the module
 
 Via Drush:
+
 ```bash
 cd /path/to/drupal/root
 drush en bnp_editor -y
@@ -18,132 +21,122 @@ drush cr
 ```
 
 Via UI:
+
 1. Navigate to `/admin/modules`
 2. Search for "BNP Editor"
-3. Check the checkbox
-4. Click "Install"
+3. Enable and install
+
+À l'activation :
+
+- Les configs `config/optional/` (formats + éditeurs `full_html` / `basic_html`) sont importées si les dépendances sont satisfaites
+- `BnpEditorRoleInstaller` accorde les permissions `use text format *` aux rôles BNP (et `ps_*` si `ps_core` est actif)
 
 ### 2. Import translations
 
 For each language you need:
 
 ```bash
-# French
-drush locale:import fr modules/custom/bnp_editor/translations/fr.po --type=customized --override=all
-
-# Dutch
-drush locale:import nl modules/custom/bnp_editor/translations/nl.po --type=customized --override=all
-
-# Spanish
-drush locale:import es modules/custom/bnp_editor/translations/es.po --type=customized --override=all
-
-# Italian
-drush locale:import it modules/custom/bnp_editor/translations/it.po --type=customized --override=all
-
-# Luxembourgish
-drush locale:import lb modules/custom/bnp_editor/translations/lb.po --type=customized --override=all
-
-# Polish
-drush locale:import pl modules/custom/bnp_editor/translations/pl.po --type=customized --override=all
-
-# German
-drush locale:import de modules/custom/bnp_editor/translations/de.po --type=customized --override=all
+drush locale:import fr web/modules/custom/bnp_editor/translations/fr.po --type=customized --override=all
+drush cr
 ```
 
-### 3. Configure text formats
+(Répéter pour `nl`, `es`, `it`, `lb`, `pl`, `de` — voir `translations/`.)
 
-The module automatically installs the "BNP Rich Text" format. To use it:
+### 3. Verify text formats
 
 1. Navigate to `/admin/config/content/formats`
-2. Verify "BNP Rich Text" is enabled
-3. Assign appropriate roles to the format
+2. Confirm `full_html`, `basic_html`, `restricted_html`, `plain_text` are present and configured
+3. There is **no** custom `bnp_rich_text` format
 
 ### 4. Configure BNP Editor settings
 
-1. Navigate to `/admin/config/content/bnp-editor`
-2. Configure:
-   - Custom plugins (enabled/disabled)
-   - Media embed (enabled/disabled)
-   - Allowed link protocols
+1. Navigate to `/admin/config/content/bnp-editor` (permission `administer bnp editor`)
+2. Options: custom plugins flag, media embed, allowed link protocols
 
-### 5. Assign permissions
+### 5. Permissions
 
-Navigate to `/admin/people/permissions` and assign:
+Applied automatically on install. On existing sites:
 
-- **Administer BNP Editor**: For administrators who need to configure editor settings
-- **Use BNP Rich Text format**: For users who should use the rich text editor
+```bash
+drush updb -y
+```
+
+Manual check at `/admin/people/permissions` :
+
+- **Administer BNP Editor** — `administrator`, `site_admin`, `ps_admin` (if PS)
+- **Use Full HTML text format** — admins / content_admin / ps_admin
+- **Use Basic HTML text format** — content_editor, translate roles, ps_content_editor
+- **Use Restricted HTML text format** — seo_admin, authenticated, etc.
+
+See [README.md](README.md) for the full role matrix.
 
 ### 6. Test the installation
 
-1. Create or edit content that uses a text format
-2. Select "BNP Rich Text" as the format
-3. Verify that CKEditor 5 loads with the configured toolbar
-4. Test various formatting options (bold, italic, lists, links, tables)
+1. Edit content with a body or text field
+2. Select **Full HTML** or **Basic HTML**
+3. Confirm CKEditor 5 loads with the expected toolbar
+4. Test links, lists, embeds as configured in `config/optional/`
 
 ## Configuration Export
-
-After configuring the module, export configuration:
 
 ```bash
 drush cex -y
 ```
 
-This ensures your configuration is version-controlled and deployable.
+Export includes `bnp_editor.settings` and any overridden filter/editor configs.
 
 ## Updating
 
-To update the module:
-
 1. Replace module files
-2. Run updates: `drush updb -y`
-3. Clear cache: `drush cr`
-4. Import configuration: `drush cim -y` (if needed)
+2. `drush updb -y` (runs `bnp_editor_update_9001` for role permissions on existing sites)
+3. `drush cr`
 
 ## Troubleshooting
 
 ### CKEditor doesn't load
 
-1. Clear cache: `drush cr`
-2. Verify JavaScript aggregation is working
-3. Check browser console for errors
-4. Verify filter format is properly configured
+1. `drush cr`
+2. Check browser console
+3. Verify `editor.editor.full_html` / `basic_html` config exists: `drush config:get editor.editor.full_html`
 
 ### Translations missing
 
-1. Verify .po files are in `/translations` folder
-2. Re-import using `drush locale:import`
-3. Clear cache: `drush cr`
+Re-import `.po` files and clear cache.
 
-### Custom plugins not appearing
+### Custom CKEditor 5 plugins
 
-1. Verify plugin class is in `src/Plugin/CKEditor5Plugin/`
-2. Clear cache: `drush cr`
-3. Check that plugin annotation is correct
-4. Verify library dependencies are defined
+1. Add plugin class under `src/Plugin/CKEditor5Plugin/`
+2. Register library in `bnp_editor.libraries.yml`
+3. `drush cr`
 
-## Uninstallation
+See [ARCHITECTURE.md](ARCHITECTURE.md).
 
-To remove the module:
+### Permissions missing after upgrade
 
 ```bash
-# Export content using the format first
-drush en content_translation -y
-
-# Uninstall module
-drush pmu bnp_editor -y
-
-# Remove configuration
-drush config:delete filter.format.bnp_rich_text
-drush config:delete editor.editor.bnp_rich_text
-drush config:delete bnp_editor.settings
-
-# Clear cache
+drush updb -y
 drush cr
 ```
 
+Or re-apply via:
+
+```bash
+drush php:eval "\Drupal::service('bnp_editor.role_installer')->applyDefaultPermissions();"
+```
+
+## Uninstallation
+
+```bash
+drush pmu bnp_editor -y
+drush config:delete bnp_editor.settings
+drush cr
+```
+
+Filter formats `full_html` / `basic_html` are **core** formats — do not delete them unless you know the impact. Remove only module-specific overrides if exported separately.
+
 ## Support
 
-For issues or questions, consult:
-- Module README.md
-- Module ARCHITECTURE.md
-- Project documentation in `/docs`
+- [README.md](README.md)
+- [QUICKSTART.md](QUICKSTART.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [MIGRATION.md](MIGRATION.md) — migration depuis `bnp_rich_text`

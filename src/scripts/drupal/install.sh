@@ -123,6 +123,11 @@ ps_drush theme:enable -y gin || ps_warn "Gin theme not available"
 ps_retry 2 2 ps_drush en -y bnp_admin
 ps_success "BNP admin baseline enabled"
 
+# BNP Editor (text formats + role permissions; before PS content modules)
+ps_info "Enabling BNP Editor..."
+ps_retry 2 2 ps_drush en -y bnp_editor
+ps_success "BNP Editor enabled"
+
 # Enable development modules if --dev
 if [[ ${ENABLE_DEV} -eq 1 ]]; then
   ps_info "Enabling development modules..."
@@ -140,7 +145,6 @@ ps_retry 2 2 ps_drush en -y ps_offer
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
 ps_retry 2 2 ps_drush en -y ps_search
-ps_retry 2 2 ps_drush en -y bnp_editor
 ps_success "PS modules enabled"
 
 # Anti-spam modules

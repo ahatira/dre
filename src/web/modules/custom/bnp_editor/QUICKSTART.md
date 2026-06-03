@@ -20,8 +20,8 @@ drush locale:import fr modules/custom/bnp_editor/translations/fr.po --type=custo
 ### 3. Configurer les permissions
 
 Aller sur `/admin/people/permissions` et assigner:
-- ✅ **Use Full HTML text format** → Administrator, Editor
-- ✅ **Use Basic HTML text format** → Editor, Content Manager
+- ✅ **Use Full HTML text format** → administrator, site_admin, content_admin (+ ps_admin si PS)
+- ✅ **Use Basic HTML text format** → content_editor, translate_*, ps_content_editor
 - ✅ **Use Restricted HTML text format** → Authenticated users
 - ✅ **Administer BNP Editor** → Administrator
 
@@ -347,8 +347,8 @@ drush watchdog:show --severity=Error
 ### Vérifier la configuration
 
 ```bash
-# Lister les formats de texte
-drush config:get filter.format.bnp_rich_text
+# Lister un format de texte (ex. full_html)
+drush config:get filter.format.full_html
 
 # Vérifier les paramètres du module
 drush config:get bnp_editor.settings
@@ -430,15 +430,14 @@ drush test-run --module bnp_editor
 
 ### Développement
 
-Créer votre premier plugin CKEditor 5:
+Créer un plugin CKEditor 5 :
 
-1. Copier `src/Plugin/CKEditor5Plugin/BnpEditorExample.php`
-2. Renommer et adapter à votre besoin
-3. Créer le JavaScript correspondant
-4. Déclarer dans `bnp_editor.libraries.yml`
-5. `drush cr`
+1. Ajouter une classe dans `src/Plugin/CKEditor5Plugin/`
+2. Ajouter le JavaScript dans `js/ckeditor5_plugins/`
+3. Déclarer la library dans `bnp_editor.libraries.yml`
+4. `drush cr`
 
-Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour plus de détails.
+Voir [ARCHITECTURE.md](ARCHITECTURE.md) et l'exemple JS dans `js/ckeditor5_plugins/`.
 
 ### Documentation complète
 
@@ -454,16 +453,16 @@ Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour plus de détails.
 ### Questions fréquentes
 
 **Q: Puis-je ajouter des boutons à la barre d'outils?**  
-R: Oui, éditer `config/install/editor.editor.bnp_rich_text.yml` et ajouter les items dans `toolbar.items`.
+R: Oui, éditer `config/optional/editor.editor.full_html.yml` (ou `basic_html.yml`) puis `drush cim` / ré-exporter.
 
 **Q: Comment personnaliser les tags HTML autorisés?**  
-R: Éditer `config/install/filter.format.bnp_rich_text.yml` et modifier `filters.filter_html.settings.allowed_html`.
+R: Éditer `config/optional/filter.format.full_html.yml` (filtre HTML) et réimporter la config.
 
 **Q: Le module fonctionne avec CKEditor 4?**  
-R: Non, le module est conçu pour CKEditor 5 (Drupal 11+).
+R: Non, Drupal 11 + CKEditor 5 uniquement.
 
 **Q: Puis-je créer plusieurs formats de texte?**  
-R: Oui, dupliquer et adapter les fichiers de configuration dans `config/install/`.
+R: Oui, ajouter des YAML dans `config/optional/` et étendre `BnpEditorRoleInstaller::buildRolePermissionMap()` si besoin de permissions dédiées.
 
 ---
 

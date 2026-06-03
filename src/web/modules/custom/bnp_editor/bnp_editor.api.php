@@ -57,8 +57,8 @@ function hook_bnp_editor_config_alter(array &$config): void {
  */
 function hook_bnp_editor_configurations_alter(array &$configurations): void {
   // Example: Add custom metadata to BNP Rich Text configuration.
-  if (isset($configurations['bnp_rich_text'])) {
-    $configurations['bnp_rich_text']['custom_metadata'] = [
+  if (isset($configurations['full_html'])) {
+    $configurations['full_html']['custom_metadata'] = [
       'department' => 'Marketing',
       'approved_by' => 'admin',
     ];
@@ -105,11 +105,11 @@ function hook_bnp_editor_config_save(array $config): void {
  * @param string $format_id
  *   The text format ID being altered.
  *
- * @see filter.format.bnp_rich_text.yml
+ * @see filter.format.full_html.yml
  */
 function hook_bnp_editor_allowed_tags_alter(array &$allowed_tags, string $format_id): void {
   // Example: Add custom tag for BNP Rich Text format.
-  if ($format_id === 'bnp_rich_text') {
+  if ($format_id === 'full_html') {
     $allowed_tags[] = '<custom-element data-*>';
   }
 
@@ -130,11 +130,11 @@ function hook_bnp_editor_allowed_tags_alter(array &$allowed_tags, string $format
  * @param string $editor_id
  *   The editor configuration ID.
  *
- * @see editor.editor.bnp_rich_text.yml
+ * @see editor.editor.full_html.yml
  */
 function hook_bnp_editor_toolbar_alter(array &$toolbar_items, string $editor_id): void {
   // Example: Add custom toolbar item.
-  if ($editor_id === 'bnp_rich_text') {
+  if ($editor_id === 'full_html') {
     $toolbar_items[] = 'customButton';
   }
 
@@ -237,16 +237,16 @@ function hook_bnp_editor_install(): void {
     'type' => 'article',
     'title' => 'Welcome to BNP Editor',
     'body' => [
-      'value' => '<p>This article uses <strong>BNP Rich Text</strong> format.</p>',
-      'format' => 'bnp_rich_text',
+      'value' => '<p>This article uses the <strong>Full HTML</strong> text format.</p>',
+      'format' => 'full_html',
     ],
   ]);
   $node->save();
 
-  // Example: Set default permissions.
-  $role = \Drupal::entityTypeManager()->getStorage('user_role')->load('editor');
+  // Example: grant format permissions (prefer BnpEditorRoleInstaller on install).
+  $role = \Drupal::entityTypeManager()->getStorage('user_role')->load('content_editor');
   if ($role) {
-    $role->grantPermission('use bnp rich text');
+    $role->grantPermission('use text format basic_html');
     $role->save();
   }
 }
