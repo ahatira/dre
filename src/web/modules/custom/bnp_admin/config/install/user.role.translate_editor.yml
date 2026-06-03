@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - coffee
+    - content_translation
+    - locale
+    - node
+id: translate_editor
+label: 'Translation editor'
+weight: 4
+is_admin: false
+permissions:
+  - 'access coffee'
+  - 'access content'
+  - 'create content translations'
+  - 'translate editable entities'
+  - 'translate interface'
+  - 'update content translations'

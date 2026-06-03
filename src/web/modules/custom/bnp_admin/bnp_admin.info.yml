@@ -1,0 +1,41 @@
+name: 'BNP Admin'
+type: module
+description: 'Provides a reusable administration baseline with module activation, configuration defaults, and role provisioning.'
+core_version_requirement: ^10 || ^11
+package: 'BNP'
+version: 1.0.0
+dependencies:
+  - drupal:help
+  - drupal:node
+  - drupal:update
+  - drupal:syslog
+  - drupal:settings_tray
+  - drupal:navigation
+  - drupal:block
+  - drupal:language
+  - drupal:locale
+  - drupal:content_translation
+  - drupal:path
+  - roleassign:roleassign
+  - config_perms:config_perms
+  - config_ignore:config_ignore
+  - config_split:config_split
+  - config_update:config_update
+  - sitewide_alert:sitewide_alert
+  - redirect_after_login:redirect_after_login
+  - rename_admin_paths:rename_admin_paths
+  - masquerade:masquerade
+  - menu_admin_per_menu:menu_admin_per_menu
+  - revision_log_default:revision_log_default
+  - autosave_form:autosave_form
+  - entity_clone:entity_clone
+  - coffee:coffee
+  - length_indicator:length_indicator
+  - maxlength:maxlength
+  - navigation_extra_tools:navigation_extra_tools
+  - gin_toolbar:gin_toolbar
+  - gin_login:gin_login
+  - gin_everywhere:gin_everywhere
+  - gin_type_tray:gin_type_tray
+  - trash:trash
+  - ui_icons:ui_icons

@@ -1,0 +1,60 @@
+{
+  "name": "drupal/bnp_admin",
+  "description": "Administration baseline automation for Drupal projects.",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "Drupal",
+    "Administration",
+    "Automation",
+    "BNP"
+  ],
+  "homepage": "https://github.com/bnppre/ps_project",
+  "support": {
+    "issues": "https://github.com/bnppre/ps_project/issues",
+    "source": "https://github.com/bnppre/ps_project"
+  },
+  "require": {
+    "php": ">=8.3",
+    "drupal/core": "^10.4 || ^11.0",
+    "drupal/help": "^10.4 || ^11.0",
+    "drupal/node": "^10.4 || ^11.0",
+    "drupal/update": "^10.4 || ^11.0"
+  },
+  "suggest": {
+    "drupal/gin": "Provides admin theme features used by this module.",
+    "drupal/gin_login": "Provides login branding configuration used by this module.",
+    "drupal/roleassign": "Provides role assignment enhancements.",
+    "drupal/config_perms": "Provides configuration permission management.",
+    "drupal/config_ignore": "Provides config ignore support.",
+    "drupal/config_split": "Provides config split support.",
+    "drupal/config_update": "Provides configuration update utilities.",
+    "drupal/sitewide_alert": "Provides global site alert banners.",
+    "drupal/redirect_after_login": "Provides post-login redirect rules.",
+    "drupal/rename_admin_paths": "Provides custom admin path aliases.",
+    "drupal/masquerade": "Provides user impersonation for admins.",
+    "drupal/menu_admin_per_menu": "Provides per-menu administration enhancements.",
+    "drupal/revision_log_default": "Provides default revision log behavior.",
+    "drupal/autosave_form": "Provides automatic form save support.",
+    "drupal/entity_clone": "Provides entity cloning operations.",
+    "drupal/coffee": "Provides command palette style admin navigation.",
+    "drupal/length_indicator": "Provides field length helper UI.",
+    "drupal/maxlength": "Provides maxlength form widget enhancements.",
+    "drupal/navigation_extra_tools": "Provides extra tools for navigation module.",
+    "drupal/gin_toolbar": "Provides Gin toolbar enhancements.",
+    "drupal/gin_everywhere": "Provides Gin theme support in more contexts.",
+    "drupal/gin_type_tray": "Provides Gin tray improvements for type selection.",
+    "drupal/trash": "Provides trash bin support for content entities.",
+    "drupal/ui_icons": "Provides icon utilities in admin UI."
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\bnp_admin\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

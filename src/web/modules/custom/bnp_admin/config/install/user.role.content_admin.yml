@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block
+    - coffee
+    - node
+    - sitewide_alert
+    - system
+    - trash
+id: content_admin
+label: 'Content administrator'
+weight: 3
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access coffee'
+  - 'access content'
+  - 'access trash'
+  - 'add sitewide alert entities'
+  - 'administer blocks'
+  - 'administer menu'
+  - 'administer nodes'
+  - 'delete sitewide alert entities'
+  - 'edit sitewide alert entities'
+  - 'view deleted entities'
+  - 'view published sitewide alert entities'
+  - 'view unpublished sitewide alert entities'

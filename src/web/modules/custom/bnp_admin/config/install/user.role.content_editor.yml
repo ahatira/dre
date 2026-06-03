@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - coffee
+    - sitewide_alert
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access coffee'
+  - 'access content'
+  - 'view published sitewide alert entities'

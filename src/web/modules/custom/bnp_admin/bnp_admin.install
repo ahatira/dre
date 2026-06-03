@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install and update hooks for the BNP Admin module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function bnp_admin_install(): void {
+  $themeInstaller = \Drupal::service('theme_installer');
+  if (!\Drupal::service('theme_handler')->themeExists('gin')) {
+    throw new \RuntimeException('The Gin admin theme is required. Install drupal/gin via Composer before enabling bnp_admin.');
+  }
+  $themeInstaller->install(['gin']);
+
+  \Drupal::service('bnp_admin.configurator')->applyBaseline();
+  \Drupal::messenger()->addStatus(t('BNP Admin baseline initialized.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function bnp_admin_uninstall(): void {
+  $roles = [
+    'content_editor',
+    'content_admin',
+    'translate_editor',
+    'translate_admin',
+    'seo_admin',
+    'site_admin',
+    'administrator',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  foreach ($roles as $roleId) {
+    $role = $storage->load($roleId);
+    if ($role !== NULL) {
+      $storage->delete([$role]);
+    }
+  }
+}
+
+/**
+ * Apply portable baseline roles and Gin branding on existing sites.
+ */
+function bnp_admin_update_9001(): void {
+  /** @var \Drupal\bnp_admin\BnpAdminConfigurator $configurator */
+  $configurator = \Drupal::service('bnp_admin.configurator');
+  $configurator->applyBaseline();
+  $configurator->applyRoleBaseline();
+}
+
+/**
+ * Rename host_admin role to administrator (super admin).
+ */
+function bnp_admin_update_9002(): void {
+  /** @var \Drupal\bnp_admin\BnpAdminConfigurator $configurator */
+  $configurator = \Drupal::service('bnp_admin.configurator');
+
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  $userStorage = \Drupal::entityTypeManager()->getStorage('user');
+
+  $hostAdmin = $roleStorage->load('host_admin');
+  if ($hostAdmin !== NULL) {
+    $uids = $userStorage->getQuery()
+      ->condition('roles', 'host_admin')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    foreach ($uids as $uid) {
+      $account = $userStorage->load($uid);
+      if ($account !== NULL) {
+        $account->addRole('administrator');
+        $account->removeRole('host_admin');
+        $account->save();
+      }
+    }
+
+    $roleStorage->delete([$hostAdmin]);
+  }
+
+  $configurator->applyRoleBaseline();
+}

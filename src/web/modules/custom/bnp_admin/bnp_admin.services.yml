@@ -1,0 +1,8 @@
+services:
+  bnp_admin.configurator:
+    class: Drupal\bnp_admin\BnpAdminConfigurator
+    arguments:
+      - '@config.factory'
+      - '@extension.list.module'
+      - '@extension.list.theme'
+      - '@entity_type.manager'

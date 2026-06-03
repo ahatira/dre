@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - masquerade
+    - user
+id: administrator
+label: Administrator
+weight: 8
+is_admin: true
+permissions:
+  - 'masquerade as any user'
+  - 'masquerade as super user'

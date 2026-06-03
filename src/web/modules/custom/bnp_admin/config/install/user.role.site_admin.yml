@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - coffee
+    - config_perms
+    - config_split
+    - entity_clone
+    - masquerade
+    - redirect_after_login
+    - roleassign
+    - sitewide_alert
+    - system
+    - trash
+    - user
+id: site_admin
+label: 'Site administrator'
+weight: 7
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access coffee'
+  - 'access content'
+  - 'administer coffee'
+  - 'administer config permissions'
+  - 'administer configuration split'
+  - 'administer entity clone'
+  - 'administer permissions'
+  - 'administer redirect_after_login settings'
+  - 'administer site configuration'
+  - 'administer sitewide alert'
+  - 'administer sitewide alert entities'
+  - 'administer trash'
+  - 'administer users'
+  - 'assign roles'
+  - 'masquerade as any user'

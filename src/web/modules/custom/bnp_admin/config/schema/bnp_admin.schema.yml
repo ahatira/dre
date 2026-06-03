@@ -1,0 +1,43 @@
+bnp_admin.settings:
+  type: config_object
+  label: 'BNP Admin settings'
+  mapping:
+    core:
+      type: mapping
+      label: 'Core Drupal baseline'
+      mapping:
+        user_register_admin_only:
+          type: boolean
+          label: 'Restrict registration to administrators'
+        node_use_admin_theme:
+          type: boolean
+          label: 'Use admin theme on node forms'
+        admin_theme:
+          type: string
+          label: 'Administration theme machine name'
+    gin:
+      type: mapping
+      label: 'Gin theme branding'
+      mapping:
+        enabled:
+          type: boolean
+          label: 'Apply Gin branding'
+        preset_accent_color:
+          type: string
+          label: 'Gin accent color preset'
+        classic_toolbar:
+          type: string
+          label: 'Gin toolbar variant'
+        show_description_toggle:
+          type: boolean
+          label: 'Show description toggle in Gin'
+    gin_login:
+      type: mapping
+      label: 'Gin Login branding'
+      mapping:
+        enabled:
+          type: boolean
+          label: 'Apply Gin Login branding'
+        brand_image_use_default:
+          type: boolean
+          label: 'Use default Gin Login brand image'

@@ -1,0 +1,36 @@
+name: 'BNP Admin Base'
+description: 'Optional recipe mirror of the bnp_admin module dependency set. Prefer enabling the bnp_admin module directly.'
+type: 'Site'
+install:
+  - node
+  - help
+  - roleassign
+  - config_perms
+  - config_ignore
+  - config_split
+  - config_update
+  - sitewide_alert
+  - redirect_after_login
+  - rename_admin_paths
+  - masquerade
+  - menu_admin_per_menu
+  - revision_log_default
+  - syslog
+  - update
+  - autosave_form
+  - settings_tray
+  - entity_clone
+  - coffee
+  - length_indicator
+  - maxlength
+  - navigation
+  - navigation_extra_tools
+  - gin_toolbar
+  - gin_login
+  - gin_everywhere
+  - gin_type_tray
+  - trash
+  - ui_icons
+  - locale
+  - content_translation
+  - gin

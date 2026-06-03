@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - coffee
+    - path
+    - system
+id: seo_admin
+label: 'SEO administrator'
+weight: 6
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access coffee'
+  - 'access content'
+  - 'administer url aliases'
+  - 'create url aliases'

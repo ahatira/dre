@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f306c6368838fbc8caebf5ee94b25474",
+    "content-hash": "0f7767068ca87ca40037b2a7af58489a",
     "packages": [
         {
             "name": "altcha-org/altcha",
@@ -1531,6 +1531,50 @@
             }
         },
         {
+            "name": "drupal/autosave_form",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/autosave_form.git",
+                "reference": "8.x-1.11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/autosave_form-8.x-1.11.zip",
+                "reference": "8.x-1.11",
+                "shasum": "26b5326a5bff571a5fef1ebf0b3998dadb37f968"
+            },
+            "require": {
+                "drupal/core": "^9.5 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.11",
+                    "datestamp": "1774966593",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "hchonov",
+                    "homepage": "https://www.drupal.org/user/2901211"
+                }
+            ],
+            "description": "Adds autosave feature on forms.",
+            "homepage": "https://www.drupal.org/project/autosave_form",
+            "support": {
+                "source": "https://git.drupalcode.org/project/autosave_form"
+            }
+        },
+        {
             "name": "drupal/better_exposed_filters",
             "version": "7.1.2",
             "source": {
@@ -2065,6 +2109,79 @@
             }
         },
         {
+            "name": "drupal/coffee",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/coffee.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/coffee-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "cc19f67fbf48c5946f8053093e100cbd07e96167"
+            },
+            "require": {
+                "drupal/core": "^10.2 || ^11.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1736247807",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Mol",
+                    "homepage": "https://www.drupal.org/u/michaelmol",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Marco",
+                    "homepage": "https://www.drupal.org/u/willzyx",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Oliver Köhler",
+                    "homepage": "https://www.drupal.org/u/nebel54",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Alli Price",
+                    "homepage": "https://www.drupal.org/u/heylookalive",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/1356930/committers",
+                    "role": "contributor"
+                }
+            ],
+            "description": "Provides an Alfred like search box to navigate within your site.",
+            "homepage": "https://drupal.org/project/coffee",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/coffee",
+                "issues": "https://drupal.org/project/issues/coffee",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
             "name": "drupal/config_ignore",
             "version": "3.4.0",
             "source": {
@@ -2128,6 +2245,82 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/config_ignore",
                 "issues": "http://drupal.org/project/config_ignore"
+            }
+        },
+        {
+            "name": "drupal/config_perms",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_perms.git",
+                "reference": "8.x-2.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_perms-8.x-2.3.zip",
+                "reference": "8.x-2.3",
+                "shasum": "6ec87b91b7ff23a41c5ee266b507e882851b7828"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.3",
+                    "datestamp": "1746157140",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "benellefimostfa",
+                    "homepage": "https://www.drupal.org/user/3092403"
+                },
+                {
+                    "name": "Docc",
+                    "homepage": "https://www.drupal.org/user/310132"
+                },
+                {
+                    "name": "elkaro",
+                    "homepage": "https://www.drupal.org/user/3577260"
+                },
+                {
+                    "name": "gnuget",
+                    "homepage": "https://www.drupal.org/user/992990"
+                },
+                {
+                    "name": "kristen pol",
+                    "homepage": "https://www.drupal.org/user/8389"
+                },
+                {
+                    "name": "megakeegman",
+                    "homepage": "https://www.drupal.org/user/3620027"
+                },
+                {
+                    "name": "mlncn",
+                    "homepage": "https://www.drupal.org/user/64383"
+                },
+                {
+                    "name": "mrthumpz",
+                    "homepage": "https://www.drupal.org/user/266351"
+                }
+            ],
+            "description": "Allows additional permissions to be created and managed through an administration form.",
+            "homepage": "http://drupal.org/project/config_perms",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/config_perms",
+                "issues": "http://drupal.org/project/issues/config_perms"
             }
         },
         {
@@ -2206,6 +2399,58 @@
                 "source": "https://git.drupalcode.org/project/config_split",
                 "issues": "https://www.drupal.org/project/issues/config_split",
                 "slack": "https://drupal.slack.com/archives/C45342CDD"
+            }
+        },
+        {
+            "name": "drupal/config_update",
+            "version": "2.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_update.git",
+                "reference": "2.0.0-alpha4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_update-2.0.0-alpha4.zip",
+                "reference": "2.0.0-alpha4",
+                "shasum": "d8ea528b0b3e24918356bb72bef61408f650aa8e"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-alpha4",
+                    "datestamp": "1724596931",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "codebymikey",
+                    "homepage": "https://www.drupal.org/user/3573206"
+                },
+                {
+                    "name": "pasqualle",
+                    "homepage": "https://www.drupal.org/user/80733"
+                },
+                {
+                    "name": "vishalkhode",
+                    "homepage": "https://www.drupal.org/user/2439156"
+                }
+            ],
+            "description": "Provides basic revert and update functionality for other modules.",
+            "homepage": "https://www.drupal.org/project/config_update",
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_update"
             }
         },
         {
@@ -3367,6 +3612,77 @@
             }
         },
         {
+            "name": "drupal/entity_clone",
+            "version": "2.2.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_clone.git",
+                "reference": "2.2.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-2.2.0-beta1.zip",
+                "reference": "2.2.0-beta1",
+                "shasum": "e8af61a662c8954d63317ed9ad44c6046b7859a1"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11"
+            },
+            "require-dev": {
+                "drupal/action": "1.x-dev",
+                "drupal/entity_browser": "2.x-dev",
+                "drupal/entity_usage": "2.x-dev",
+                "drupal/paragraphs": "^1.0",
+                "drupal/search_api": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.0-beta1",
+                    "datestamp": "1779357305",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "joevagyok",
+                    "homepage": "https://www.drupal.org/user/2876343"
+                },
+                {
+                    "name": "nickdickinsonwilde",
+                    "homepage": "https://www.drupal.org/user/3094661"
+                },
+                {
+                    "name": "rajeshreeputra",
+                    "homepage": "https://www.drupal.org/user/3418561"
+                },
+                {
+                    "name": "upchuk",
+                    "homepage": "https://www.drupal.org/user/1885838"
+                },
+                {
+                    "name": "vpeltot",
+                    "homepage": "https://www.drupal.org/user/1361586"
+                }
+            ],
+            "description": "Add a clone action for all entities.",
+            "homepage": "https://drupal.org/project/entity_clone",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_clone"
+            }
+        },
+        {
             "name": "drupal/entity_embed",
             "version": "1.7.0",
             "source": {
@@ -4059,6 +4375,119 @@
             ]
         },
         {
+            "name": "drupal/gin_everywhere",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gin_everywhere.git",
+                "reference": "1.4.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gin_everywhere-1.4.0.zip",
+                "reference": "1.4.0",
+                "shasum": "1da3edee04f53453c6d9a3affea4638ee0e56d6b"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11",
+                "drupal/gin": "^3.0 || ^4.0 || ^5.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.4.0",
+                    "datestamp": "1754655626",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Crott (Hydra)",
+                    "homepage": "https://www.drupal.org/u/hydra",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Enables Gin’s edit form layout for every content entity.",
+            "homepage": "https://www.drupal.org/project/gin_everywhere",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/gin_everywhere",
+                "issues": "https://www.drupal.org/project/issues/gin_everywhere"
+            }
+        },
+        {
+            "name": "drupal/gin_login",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gin_login.git",
+                "reference": "2.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gin_login-2.1.4.zip",
+                "reference": "2.1.4",
+                "shasum": "100b95682fa34c907acff7be527881d357bb9895"
+            },
+            "require": {
+                "drupal/core": "^10.2 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.1.4",
+                    "datestamp": "1768922523",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sascha Eggenberger (saschaeggi)",
+                    "homepage": "https://www.drupal.org/u/saschaeggi",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "saschaeggi",
+                    "homepage": "https://www.drupal.org/user/1999056"
+                }
+            ],
+            "description": "Custom Drupal Login for Gin theme",
+            "homepage": "https://www.drupal.org/project/gin_login",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/gin_login",
+                "issues": "https://www.drupal.org/project/issues/gin_login"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/saschaeggi"
+                },
+                {
+                    "type": "other",
+                    "url": "https://paypal.me/saschaeggi"
+                }
+            ]
+        },
+        {
             "name": "drupal/gin_toolbar",
             "version": "3.0.3",
             "source": {
@@ -4120,6 +4549,61 @@
                     "url": "https://paypal.me/saschaeggi"
                 }
             ]
+        },
+        {
+            "name": "drupal/gin_type_tray",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gin_type_tray.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gin_type_tray-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "e4e4d6fec8f24e3c7f35a10b1755d10aaaa555bb"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11",
+                "drupal/gin": "^3 || ^4 || ^5",
+                "drupal/type_tray": "^1.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1750699571",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Silber (aaronlsilber)",
+                    "homepage": "https://drupal.org/u/aaronlsilber",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "rajab natshah",
+                    "homepage": "https://www.drupal.org/user/1414312"
+                }
+            ],
+            "description": "Themes the Type Tray module for the Gin Admin theme.",
+            "homepage": "http://drupal.org/project/gin_type_tray",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/gin_type_tray",
+                "issues": "http://drupal.org/project/issues/gin_type_tray"
+            }
         },
         {
             "name": "drupal/honeypot",
@@ -4588,6 +5072,62 @@
             }
         },
         {
+            "name": "drupal/length_indicator",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/length_indicator.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/length_indicator-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "645f3368109d91ba684548dacf88eea357aa6458"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10.0 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1718276250",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "chr.fritsch",
+                    "homepage": "https://www.drupal.org/user/2103716"
+                },
+                {
+                    "name": "daniel.bosen",
+                    "homepage": "https://www.drupal.org/user/404865"
+                },
+                {
+                    "name": "thunderbot",
+                    "homepage": "https://www.drupal.org/user/3511180"
+                },
+                {
+                    "name": "tjwelde",
+                    "homepage": "https://www.drupal.org/user/3411453"
+                }
+            ],
+            "description": "Adds an optional length indicator to fields",
+            "homepage": "https://www.drupal.org/project/length_indicator",
+            "support": {
+                "source": "https://git.drupalcode.org/project/length_indicator"
+            }
+        },
+        {
             "name": "drupal/linkit",
             "version": "7.0.15",
             "source": {
@@ -4640,6 +5180,213 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/linkit",
                 "issues": "http://drupal.org/project/linkit"
+            }
+        },
+        {
+            "name": "drupal/masquerade",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/masquerade.git",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/masquerade-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "173b08ef4bcef647423252f7c0706045f44be650"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11.0 || ^12.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1777304860",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Postnikov (andypost)",
+                    "homepage": "https://www.drupal.org/u/andypost",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "David Norman (deekayen)",
+                    "homepage": "https://www.drupal.org/u/deekayen",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Mark Shropshire (shrop)",
+                    "homepage": "https://www.drupal.org/u/shrop",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Daniel Kudwien (sun)",
+                    "homepage": "https://www.drupal.org/u/sun",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Andrew Berry (deviantintegral)",
+                    "homepage": "https://www.drupal.org/u/deviantintegral",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "sun",
+                    "homepage": "https://www.drupal.org/user/54136"
+                }
+            ],
+            "description": "Allows privileged users to masquerade as another user.",
+            "homepage": "https://www.drupal.org/project/masquerade",
+            "support": {
+                "source": "https://git.drupal.org/project/masquerade.git",
+                "issues": "https://www.drupal.org/project/issues/masquerade",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/maxlength",
+            "version": "3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/maxlength.git",
+                "reference": "3.1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/maxlength-3.1.3.zip",
+                "reference": "3.1.3",
+                "shasum": "7f063d0a449eda6bc499a718a09d1091907ef054"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.3",
+                    "datestamp": "1756373060",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Marius Scurtescu (mariuss)",
+                    "homepage": "https://www.drupal.org/u/mariuss",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Clayton Dewey (cedewey)",
+                    "homepage": "https://www.drupal.org/u/cedewey",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Daniel Wehner (dawehner)",
+                    "homepage": "https://www.drupal.org/u/dawehner",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Paulino Michelazzo (pmichelazzo)",
+                    "homepage": "https://www.drupal.org/u/pmichelazzo",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jeff Hipp (hipp2bsquare)",
+                    "homepage": "https://www.drupal.org/u/hipp2bsquare",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Steven DuBois (srdtwc)",
+                    "homepage": "https://www.drupal.org/u/srdtwc",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Adam Nagy (joevagyok)",
+                    "homepage": "https://www.drupal.org/u/joevagyok",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "MaxLength allows a soft or hard character limit to be set on titles, text fields and link fields.",
+            "homepage": "https://www.drupal.org/project/maxlength",
+            "support": {
+                "source": "https://git.drupalcode.org/project/maxlength",
+                "issues": "https://www.drupal.org/project/issues/maxlength"
+            }
+        },
+        {
+            "name": "drupal/menu_admin_per_menu",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_admin_per_menu.git",
+                "reference": "8.x-1.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/menu_admin_per_menu-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "ce9faed09c95de7c7a57653aab66c5afc3e946a2"
+            },
+            "require": {
+                "drupal/core": "^10.2 || ^11.0 || ^12"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.7",
+                    "datestamp": "1750246188",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "anrikun",
+                    "homepage": "https://www.drupal.org/user/410199"
+                },
+                {
+                    "name": "jeroent",
+                    "homepage": "https://www.drupal.org/user/2228934"
+                },
+                {
+                    "name": "jonas139",
+                    "homepage": "https://www.drupal.org/user/2873401"
+                },
+                {
+                    "name": "mkdok",
+                    "homepage": "https://www.drupal.org/user/3308753"
+                }
+            ],
+            "description": "Allows to give roles per menu admin permissions without giving them full administer menu permission.",
+            "homepage": "https://www.drupal.org/project/menu_admin_per_menu",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/menu_admin_per_menu",
+                "issues": "https://drupal.org/project/issues/menu_admin_per_menu"
             }
         },
         {
@@ -4905,6 +5652,63 @@
             }
         },
         {
+            "name": "drupal/navigation_extra_tools",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/navigation_extra_tools.git",
+                "reference": "1.3.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/navigation_extra_tools-1.3.2.zip",
+                "reference": "1.3.2",
+                "shasum": "376e6638a064ba319b0af9672ae325e1c580180f"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "drupal/automatic_updates": "^3.1 || ^4.0@alpha",
+                "drupal/devel": "^5.1",
+                "drupal/project_browser": "^2.0-beta3 || ^2.1-beta3",
+                "drush/drush": ">=11.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.3.2",
+                    "datestamp": "1770243935",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "James Shields",
+                    "homepage": "https://www.drupal.org/u/lostcarpark",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "ultimike",
+                    "homepage": "https://www.drupal.org/user/51132"
+                }
+            ],
+            "description": "Provide useful tools to Drupal Navigation.",
+            "homepage": "https://www.drupal.org/project/navigation_extra_tools",
+            "support": {
+                "source": "https://git.drupalcode.org/project/navigation_extra_tools",
+                "issues": "https://www.drupal.org/project/issues/navigation_extra_tools"
+            }
+        },
+        {
             "name": "drupal/nouislider_js",
             "version": "15.8.1",
             "source": {
@@ -5162,6 +5966,244 @@
             "homepage": "https://www.drupal.org/project/redirect",
             "support": {
                 "source": "https://git.drupalcode.org/project/redirect"
+            }
+        },
+        {
+            "name": "drupal/redirect_after_login",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/redirect_after_login.git",
+                "reference": "3.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/redirect_after_login-3.0.2.zip",
+                "reference": "3.0.2",
+                "shasum": "3a1daa51726d9054256fa12b984a875392b5cd0d"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.2",
+                    "datestamp": "1759245888",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Shamsher Alam",
+                    "homepage": "https://www.drupal.org/u/shamsher_alam",
+                    "role": "Author"
+                },
+                {
+                    "name": "prempatel2447",
+                    "homepage": "https://www.drupal.org/user/3250112"
+                },
+                {
+                    "name": "rahul-kr-sh",
+                    "homepage": "https://www.drupal.org/user/3561577"
+                },
+                {
+                    "name": "shamsher_alam",
+                    "homepage": "https://www.drupal.org/user/2742027"
+                },
+                {
+                    "name": "vladimiraus",
+                    "homepage": "https://www.drupal.org/user/673120"
+                }
+            ],
+            "description": "Redirect user after login to a configured url",
+            "homepage": "https://drupal.org/project/redirect_after_login",
+            "support": {
+                "source": "https://git.drupalcode.org/project/redirect_after_login"
+            }
+        },
+        {
+            "name": "drupal/rename_admin_paths",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/rename_admin_paths.git",
+                "reference": "3.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/rename_admin_paths-3.1.0.zip",
+                "reference": "3.1.0",
+                "shasum": "bb45868ce23fb10a89f4d3280ada0d05bf9d3f84"
+            },
+            "require": {
+                "drupal/core": "^10.2 || ^11",
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "mglaman/phpstan-drupal": "^2",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan-deprecation-rules": "^2",
+                "phpstan/phpstan-phpunit": "^2",
+                "phpstan/phpstan-strict-rules": "^2",
+                "phpstan/phpstan-webmozart-assert": "^2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.0",
+                    "datestamp": "1753342023",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "ptmkenny",
+                    "homepage": "https://www.drupal.org/user/97885"
+                },
+                {
+                    "name": "raphael apard",
+                    "homepage": "https://www.drupal.org/user/410831"
+                },
+                {
+                    "name": "rjjakes",
+                    "homepage": "https://www.drupal.org/user/3457245"
+                },
+                {
+                    "name": "slootjes",
+                    "homepage": "https://www.drupal.org/user/3516667"
+                }
+            ],
+            "description": "This module helps secure the Drupal backend by overriding the admin path.",
+            "homepage": "https://www.drupal.org/project/rename_admin_paths",
+            "keywords": [
+                "admin",
+                "guess",
+                "override",
+                "protect",
+                "security"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/rename_admin_paths"
+            }
+        },
+        {
+            "name": "drupal/revision_log_default",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/revision_log_default.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/revision_log_default-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "5092001cb5b608a77f38f6627cac5e335cb0271f"
+            },
+            "require": {
+                "drupal/core": "^8.7 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1732382829",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "adriancid",
+                    "homepage": "https://www.drupal.org/user/1962106"
+                },
+                {
+                    "name": "samuel.mortenson",
+                    "homepage": "https://www.drupal.org/user/2582268"
+                }
+            ],
+            "description": "Provides sensible defaults for revision logs, if none are given.",
+            "homepage": "http://drupal.org/project/revision_log_default",
+            "support": {
+                "source": "https://git.drupalcode.org/project/revision_log_default"
+            }
+        },
+        {
+            "name": "drupal/roleassign",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/roleassign.git",
+                "reference": "2.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/roleassign-2.0.3.zip",
+                "reference": "2.0.3",
+                "shasum": "99f50d92634abc60e1de89e6559334f5f05deacf"
+            },
+            "require": {
+                "drupal/core": "^10.1 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.3",
+                    "datestamp": "1736794235",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
+                    "name": "nord102",
+                    "homepage": "https://www.drupal.org/user/3471419"
+                },
+                {
+                    "name": "salvis",
+                    "homepage": "https://www.drupal.org/user/82964"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                }
+            ],
+            "description": "Allows site administrators to further delegate the task of managing user''s roles.",
+            "homepage": "http://drupal.org/project/roleassign",
+            "support": {
+                "source": "https://git.drupalcode.org/project/roleassign",
+                "issues": "https://www.drupal.org/project/issues/roleassign"
             }
         },
         {
@@ -5662,6 +6704,65 @@
             }
         },
         {
+            "name": "drupal/sitewide_alert",
+            "version": "3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sitewide_alert.git",
+                "reference": "3.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-3.1.2.zip",
+                "reference": "3.1.2",
+                "shasum": "6c4402c79d0bccb8617ae357fd0731d9e1d20417"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11"
+            },
+            "require-dev": {
+                "drupal/domain": "^2.0@beta",
+                "drupal/domain_entity": "*",
+                "drush/drush": "^12 || ^13"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.2",
+                    "datestamp": "1778700015",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Snyder",
+                    "homepage": "https://www.drupal.org/user/1988434",
+                    "email": "chris@chrissnyder.org",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
+                }
+            ],
+            "description": "Provides ability to display an alert message at the top of all pages.",
+            "homepage": "https://www.drupal.org/project/sitewide_alert",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://cgit.drupalcode.org/sitewide_alert",
+                "issues": "https://www.drupal.org/project/issues/sitewide_alert"
+            }
+        },
+        {
             "name": "drupal/stage_file_proxy",
             "version": "3.1.6",
             "source": {
@@ -5896,6 +6997,180 @@
             "homepage": "https://www.drupal.org/project/token_filter",
             "support": {
                 "source": "https://git.drupalcode.org/project/token_filter"
+            }
+        },
+        {
+            "name": "drupal/trash",
+            "version": "3.0.27",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/trash.git",
+                "reference": "3.0.27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/trash-3.0.27.zip",
+                "reference": "3.0.27",
+                "shasum": "e68735bf5d8012f8795e7d74b02d5eda0077900f"
+            },
+            "require": {
+                "drupal/core": "^10.3 | ^11"
+            },
+            "conflict": {
+                "drush/drush": "<12.5.1"
+            },
+            "require-dev": {
+                "drupal/pathauto": "*",
+                "drupal/redirect": "*",
+                "drupal/wse": "*"
+            },
+            "suggest": {
+                "drush/drush": "^12 || ^13"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.27",
+                    "datestamp": "1777059105",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "amateescu",
+                    "homepage": "https://www.drupal.org/user/729614"
+                }
+            ],
+            "description": "This module adds a trash bin for all content entities.",
+            "homepage": "https://www.drupal.org/project/trash",
+            "support": {
+                "source": "https://git.drupalcode.org/project/trash"
+            }
+        },
+        {
+            "name": "drupal/type_tray",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/type_tray.git",
+                "reference": "1.3.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/type_tray-1.3.2.zip",
+                "reference": "1.3.2",
+                "shasum": "b887764d446c4bad4d9a746c6a7a11112258936c"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.3.2",
+                    "datestamp": "1747987649",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "deviantintegral",
+                    "homepage": "https://www.drupal.org/user/71291"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
+                {
+                    "name": "lullabot",
+                    "homepage": "https://www.drupal.org/user/3815489"
+                },
+                {
+                    "name": "marcoscano",
+                    "homepage": "https://www.drupal.org/user/1288796"
+                }
+            ],
+            "description": "Improve usability of the 'Node Add' page with more help text, functional grouping and iconography.",
+            "homepage": "https://www.drupal.org/project/type_tray",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/type_tray",
+                "issues": "http://drupal.org/project/issues/type_tray"
+            }
+        },
+        {
+            "name": "drupal/ui_icons",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_icons.git",
+                "reference": "1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_icons-1.1.2.zip",
+                "reference": "1.1.2",
+                "shasum": "ddc7fc09405c64888782d817d8fc395d98bff4c1"
+            },
+            "require": {
+                "drupal/core": "^11"
+            },
+            "require-dev": {
+                "drupal/link_attributes": "^2.0",
+                "drupal/linkit": "^7.0",
+                "drupal/linkit_attributes": "*",
+                "drupal/ui_icons_field": "*",
+                "drupal/ui_icons_field-ui_icons_field": "*",
+                "drupal/ui_icons_field_linkit": "*",
+                "drupal/ui_icons_picker": "*",
+                "drupal/ui_icons_text": "*",
+                "drupal/ui_patterns": "^2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.2",
+                    "datestamp": "1776334468",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mogtofu33",
+                    "homepage": "https://www.drupal.org/user/278510"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "The UI Icons module is a generic icon manager for Drupal.",
+            "homepage": "https://www.drupal.org/project/ui_icons",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_icons"
             }
         },
         {
@@ -18675,6 +19950,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "drupal/config_update": 15,
+        "drupal/entity_clone": 10,
         "drupal/inline_entity_form": 5,
         "drupal/linkit": 15
     },

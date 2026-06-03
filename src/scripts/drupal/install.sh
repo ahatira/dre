@@ -105,19 +105,23 @@ ps_retry 2 3 ps_drush site:install minimal \
   --yes
 ps_success "Drupal installed"
 
-# Admin theme
-ps_info "Configuring admin theme (Gin)..."
-ps_drush theme:enable -y gin || true
-ps_drush config:set -y system.theme admin gin || true
-ps_success "Admin theme configured"
+# Front theme
+ps_info "Configuring front theme (ui_suite_bnp)..."
+ps_drush theme:enable -y ui_suite_bnp || true
+ps_drush config:set -y system.theme default ui_suite_bnp || true
+ps_success "Front theme configured"
 
 # Enable essential contrib modules (not in custom module dependencies)
 ps_info "Enabling essential contrib modules..."
 ps_drush en -y \
-  admin_toolbar admin_toolbar_tools module_filter \
-  config_split config_ignore \
   honeypot seckit || ps_warn "Some essential modules not available"
 ps_success "Essential modules enabled"
+
+# Enable BNP admin baseline module (Gin theme + config on install)
+ps_info "Enabling BNP admin baseline..."
+ps_drush theme:enable -y gin || ps_warn "Gin theme not available"
+ps_retry 2 2 ps_drush en -y bnp_admin
+ps_success "BNP admin baseline enabled"
 
 # Enable development modules if --dev
 if [[ ${ENABLE_DEV} -eq 1 ]]; then
@@ -125,12 +129,6 @@ if [[ ${ENABLE_DEV} -eq 1 ]]; then
   ps_drush en -y devel devel_generate stage_file_proxy || ps_warn "Some dev modules not available"
   ps_success "Development modules enabled"
 fi
-
-# Front theme
-ps_info "Configuring front theme (ui_suite_bnp)..."
-ps_drush theme:enable -y ui_suite_bnp || true
-ps_drush config:set -y system.theme default ui_suite_bnp || true
-ps_success "Front theme configured"
 
 # Enable custom PS modules (specific order)
 ps_info "Enabling PS modules..."
