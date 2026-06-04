@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ps_footer_legal
+label: 'Footer legal'
+description: 'Legal links displayed in the footer bottom bar.'
+locked: false

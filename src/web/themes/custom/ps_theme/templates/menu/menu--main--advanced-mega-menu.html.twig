@@ -1,0 +1,78 @@
+{#
+/**
+ * @file
+ * Property Search main menu — advanced_mega_menu + ps-mega-menu chrome.
+ */
+#}
+{% if items %}
+  {% set menu_nav_id = menu_nav_id|default('ps-main-nav-' ~ ps_menu_instance|default('main')) %}
+  <nav class="ps-mega-menu" aria-label="{{ 'Main navigation'|t }}" data-ps-mega-menu id="{{ menu_nav_id }}">
+    <ul class="ps-mega-menu__triggers menu menu--{{ menu_name|clean_class }}">
+      {% for item in items %}
+        {% set has_panel = item.mega_menu_rows is not empty %}
+        {% set has_children = has_panel or item.below is not empty %}
+        <li class="ps-mega-menu__item nav-item{{ has_panel ? ' mega' : '' }}{{ has_children ? ' has-submenu' : '' }}">
+          {% if has_panel %}
+            <button type="button"
+                    class="ps-mega-menu__trigger nav-link"
+                    aria-expanded="false"
+                    aria-controls="{{ menu_nav_id }}-panel-{{ loop.index }}"
+                    data-ps-mega-trigger>
+              {{ item.title }}
+              <span class="ps-mega-menu__chevron" aria-hidden="true">
+                {{ icon('bnp_custom', 'arrow-down', {'size': '24px'}) }}
+              </span>
+            </button>
+          {% elseif has_children %}
+            <button type="button"
+                    class="ps-mega-menu__trigger nav-link"
+                    aria-expanded="false"
+                    aria-controls="{{ menu_nav_id }}-panel-{{ loop.index }}"
+                    data-ps-mega-trigger>
+              {{ item.title }}
+              <span class="ps-mega-menu__chevron" aria-hidden="true">
+                {{ icon('bnp_custom', 'arrow-down', {'size': '24px'}) }}
+              </span>
+            </button>
+          {% elseif item.url %}
+            <a href="{{ item.url }}" class="ps-mega-menu__link nav-link ps-site-header__menu-link{{ item.in_active_trail ? ' active' : '' }}">
+              {{ item.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="ps-mega-menu__panels">
+      {% for item in items %}
+        {% if item.mega_menu_rows %}
+          <div class="ps-mega-menu__panel"
+               id="{{ menu_nav_id }}-panel-{{ loop.index }}"
+               role="region"
+               aria-label="{{ item.title }}"
+               hidden>
+            {{ item.mega_menu_rows }}
+          </div>
+        {% elseif item.below %}
+          <div class="ps-mega-menu__panel"
+               id="{{ menu_nav_id }}-panel-{{ loop.index }}"
+               role="region"
+               aria-label="{{ item.title }}"
+               hidden>
+            <div class="ps-mega-menu__panel-inner">
+              <ul class="ps-mega-menu__links">
+                {% for child in item.below %}
+                  <li>
+                    <a href="{{ child.url }}" class="ps-mega-menu__link-item{{ child.in_active_trail ? ' active' : '' }}">
+                      {{ child.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </nav>
+{% endif %}

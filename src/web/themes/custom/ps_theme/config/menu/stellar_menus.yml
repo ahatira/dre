@@ -1,0 +1,633 @@
+# Stellar maquette — menu defaults (FR + EN titles).
+# Link URIs are language-neutral (Search SEO via query params + outbound processor).
+# Language-specific external URLs: config/menu/stellar_menu_uris.yml
+# Investir / Hôtellerie omitted (product decision pending).
+
+menus:
+  main:
+    - id: find_property
+      uuid: a1000001-0000-4000-8000-000000000101
+      weight: 0
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Find a property' }
+        fr: { title: 'Trouver un bien' }
+      children:
+        - id: find_rent
+          uuid: a1000001-0000-4000-8000-000000000112
+          weight: 0
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Location' }
+          children:
+            - id: find_rent_all
+              uuid: a1000001-0000-4000-8000-000000000111
+              weight: 0
+              link: { uri: 'internal:/recherche?operation_type=LOC' }
+              translations:
+                en: { title: 'All properties' }
+                fr: { title: 'Tous les biens' }
+            - id: find_rent_offices
+              uuid: a1000001-0000-4000-8000-000000000113
+              weight: 10
+              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR' }
+              translations:
+                en: { title: 'Offices' }
+                fr: { title: 'Bureaux' }
+            - id: find_rent_logistics
+              uuid: a1000001-0000-4000-8000-000000000114
+              weight: 20
+              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=LOG' }
+              translations:
+                en: { title: 'Logistics' }
+                fr: { title: 'Logistique' }
+            - id: find_rent_retail
+              uuid: a1000001-0000-4000-8000-000000000115
+              weight: 30
+              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COM' }
+              translations:
+                en: { title: 'Retail' }
+                fr: { title: 'Commerce' }
+        - id: find_buy
+          uuid: a1000001-0000-4000-8000-000000000116
+          weight: 10
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Achat' }
+          children:
+            - id: find_buy_all
+              uuid: a1000001-0000-4000-8000-000000000103
+              weight: 0
+              link: { uri: 'internal:/recherche?operation_type=VEN' }
+              translations:
+                en: { title: 'All properties' }
+                fr: { title: 'Tous les biens' }
+            - id: find_buy_offices
+              uuid: a1000001-0000-4000-8000-000000000117
+              weight: 10
+              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=BUR' }
+              translations:
+                en: { title: 'Offices' }
+                fr: { title: 'Bureaux' }
+            - id: find_buy_logistics
+              uuid: a1000001-0000-4000-8000-000000000118
+              weight: 20
+              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=LOG' }
+              translations:
+                en: { title: 'Logistics' }
+                fr: { title: 'Logistique' }
+        - id: find_coworking
+          uuid: a1000001-0000-4000-8000-000000000123
+          weight: 20
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Coworking' }
+            fr: { title: 'Coworking' }
+          children:
+            - id: find_coworking_all
+              uuid: a1000001-0000-4000-8000-000000000124
+              weight: 0
+              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COW' }
+              translations:
+                en: { title: 'All coworking spaces' }
+                fr: { title: 'Tous les espaces coworking' }
+            - id: find_coworking_buy
+              uuid: a1000001-0000-4000-8000-000000000125
+              weight: 10
+              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COW' }
+              translations:
+                en: { title: 'Buy coworking' }
+                fr: { title: 'Acheter un coworking' }
+    - id: about
+      uuid: a1000001-0000-4000-8000-000000000104
+      weight: 10
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'About us' }
+        fr: { title: 'À propos de nous' }
+      children:
+        - id: about_corporate
+          uuid: a1000001-0000-4000-8000-000000000110
+          weight: 0
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Corporate' }
+            fr: { title: 'Corporate' }
+          children:
+            - id: about_bnpre
+              uuid: a1000001-0000-4000-8000-000000000119
+              weight: 0
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/about-us/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'About BNP Paribas Real Estate' }
+                fr: { title: 'À propos de BNP Paribas Real Estate' }
+            - id: about_group
+              uuid: a1000001-0000-4000-8000-00000000011a
+              weight: 10
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/about-us/our-group/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Our group' }
+                fr: { title: 'Notre groupe' }
+    - id: solutions
+      uuid: a1000001-0000-4000-8000-000000000106
+      weight: 20
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Solutions' }
+        fr: { title: 'Solutions' }
+      children:
+        - id: solutions_expertise
+          uuid: a1000001-0000-4000-8000-000000000107
+          weight: 0
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Our expertise' }
+            fr: { title: 'Notre expertise' }
+          children:
+            - id: solutions_offices
+              uuid: a1000001-0000-4000-8000-00000000011b
+              weight: 0
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/offices/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Offices' }
+                fr: { title: 'Bureaux' }
+            - id: solutions_logistics
+              uuid: a1000001-0000-4000-8000-00000000011c
+              weight: 10
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/logistics/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Logistics' }
+                fr: { title: 'Logistique' }
+            - id: solutions_retail
+              uuid: a1000001-0000-4000-8000-00000000011d
+              weight: 20
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/retail/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Retail' }
+                fr: { title: 'Commerce' }
+        - id: solutions_advisory
+          uuid: a1000001-0000-4000-8000-000000000109
+          weight: 10
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Advisory' }
+            fr: { title: 'Conseil' }
+          children:
+            - id: solutions_advisory_services
+              uuid: a1000001-0000-4000-8000-00000000011e
+              weight: 0
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/advisory-services/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Advisory services' }
+                fr: { title: 'Services de conseil' }
+            - id: solutions_property_mgmt
+              uuid: a1000001-0000-4000-8000-00000000011f
+              weight: 10
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/property-management/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Property management' }
+                fr: { title: 'Gestion immobilière' }
+    - id: latest_news
+      uuid: a1000001-0000-4000-8000-000000000108
+      weight: 30
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Latest News' }
+        fr: { title: 'Actualités' }
+      children:
+        - id: news_topics
+          uuid: a1000001-0000-4000-8000-000000000120
+          weight: 0
+          link: { uri: 'route:<nolink>' }
+          translations:
+            en: { title: 'Topics' }
+            fr: { title: 'Thématiques' }
+          children:
+            - id: news_all
+              uuid: a1000001-0000-4000-8000-00000000010a
+              weight: 0
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/news/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'All news' }
+                fr: { title: 'Toutes les actualités' }
+            - id: news_market
+              uuid: a1000001-0000-4000-8000-000000000121
+              weight: 10
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/news/market/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Market news' }
+                fr: { title: 'Marché immobilier' }
+            - id: news_trends
+              uuid: a1000001-0000-4000-8000-000000000122
+              weight: 20
+              link:
+                uri: 'https://www.bnpparibas-realestate.com/en-gb/news/trends/'
+                options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+              translations:
+                en: { title: 'Trends' }
+                fr: { title: 'Tendances' }
+
+  ps_footer_prefooter:
+    - id: offices
+      uuid: a1000002-0000-4000-8000-000000000201
+      weight: 0
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Offices' }
+        fr: { title: 'Bureaux' }
+      children:
+        - id: offices_rent
+          uuid: a1000002-0000-4000-8000-000000000211
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: offices_buy
+          uuid: a1000002-0000-4000-8000-000000000212
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=BUR' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+    - id: logistics
+      uuid: a1000002-0000-4000-8000-000000000202
+      weight: 10
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Logistics' }
+        fr: { title: 'Logistique' }
+      children:
+        - id: logistics_rent
+          uuid: a1000002-0000-4000-8000-000000000221
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=LOG' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: logistics_buy
+          uuid: a1000002-0000-4000-8000-000000000222
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=LOG' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+    - id: activity
+      uuid: a1000002-0000-4000-8000-000000000203
+      weight: 20
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Business premises' }
+        fr: { title: "Locaux d'activité" }
+      children:
+        - id: activity_rent
+          uuid: a1000002-0000-4000-8000-000000000231
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=ACT' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: activity_buy
+          uuid: a1000002-0000-4000-8000-000000000232
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+    - id: retail
+      uuid: a1000002-0000-4000-8000-000000000204
+      weight: 30
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Retail' }
+        fr: { title: 'Commerce' }
+      children:
+        - id: retail_rent
+          uuid: a1000002-0000-4000-8000-000000000241
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COM' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: retail_buy
+          uuid: a1000002-0000-4000-8000-000000000242
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COM' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+    - id: land
+      uuid: a1000002-0000-4000-8000-000000000205
+      weight: 40
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Land' }
+        fr: { title: 'Terrain' }
+      children:
+        - id: land_rent
+          uuid: a1000002-0000-4000-8000-000000000251
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=TER' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: land_buy
+          uuid: a1000002-0000-4000-8000-000000000252
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=TER' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+    - id: coworking
+      uuid: a1000002-0000-4000-8000-000000000206
+      weight: 50
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Coworking' }
+        fr: { title: 'Coworking' }
+      children:
+        - id: coworking_rent
+          uuid: a1000002-0000-4000-8000-000000000261
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COW' }
+          translations:
+            en: { title: 'Rent' }
+            fr: { title: 'Louer' }
+        - id: coworking_buy
+          uuid: a1000002-0000-4000-8000-000000000262
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COW' }
+          translations:
+            en: { title: 'Buy' }
+            fr: { title: 'Acheter' }
+
+  ps_footer_main:
+    - id: contact_column
+      uuid: a1000003-0000-4000-8000-000000000301
+      weight: 0
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Contact' }
+        fr: { title: 'Contact' }
+      children:
+        - id: contact_phone
+          uuid: a1000003-0000-4000-8000-000000000311
+          weight: 0
+          link: { uri: 'tel:+33140144500' }
+          translations:
+            en: { title: '+33 1 40 14 45 00' }
+            fr: { title: '+33 1 40 14 45 00' }
+        - id: contact_email
+          uuid: a1000003-0000-4000-8000-000000000312
+          weight: 10
+          link: { uri: 'mailto:contact@bnpparibas-realestate.com' }
+          translations:
+            en: { title: 'Email us' }
+            fr: { title: 'Nous écrire' }
+        - id: contact_form
+          uuid: a1000003-0000-4000-8000-000000000313
+          weight: 20
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Contact form' }
+            fr: { title: 'Formulaire de contact' }
+    - id: cities_column
+      uuid: a1000003-0000-4000-8000-000000000302
+      weight: 10
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Top cities' }
+        fr: { title: 'Principales villes' }
+      children:
+        - id: city_paris
+          uuid: a1000003-0000-4000-8000-000000000321
+          weight: 0
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Paris' }
+          translations:
+            en: { title: 'Paris' }
+            fr: { title: 'Paris' }
+        - id: city_lyon
+          uuid: a1000003-0000-4000-8000-000000000322
+          weight: 10
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lyon' }
+          translations:
+            en: { title: 'Lyon' }
+            fr: { title: 'Lyon' }
+        - id: city_marseille
+          uuid: a1000003-0000-4000-8000-000000000323
+          weight: 20
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Marseille' }
+          translations:
+            en: { title: 'Marseille' }
+            fr: { title: 'Marseille' }
+        - id: city_lille
+          uuid: a1000003-0000-4000-8000-000000000324
+          weight: 30
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille' }
+          translations:
+            en: { title: 'Lille' }
+            fr: { title: 'Lille' }
+        - id: city_bordeaux
+          uuid: a1000003-0000-4000-8000-000000000325
+          weight: 40
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Bordeaux' }
+          translations:
+            en: { title: 'Bordeaux' }
+            fr: { title: 'Bordeaux' }
+    - id: websites_column
+      uuid: a1000003-0000-4000-8000-000000000303
+      weight: 20
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Our websites' }
+        fr: { title: 'Nos sites' }
+      children:
+        - id: website_bnpre
+          uuid: a1000003-0000-4000-8000-000000000331
+          weight: 0
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'BNP Paribas Real Estate' }
+            fr: { title: 'BNP Paribas Real Estate' }
+        - id: website_research
+          uuid: a1000003-0000-4000-8000-000000000332
+          weight: 10
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/research/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Research' }
+            fr: { title: 'Research' }
+        - id: website_careers
+          uuid: a1000003-0000-4000-8000-000000000333
+          weight: 20
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/careers/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Careers' }
+            fr: { title: 'Carrières' }
+
+  ps_footer_social:
+    - id: follow_us_heading
+      uuid: a1000004-0000-4000-8000-000000000401
+      weight: 0
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'Follow us' }
+        fr: { title: 'Suivez-nous' }
+      children:
+        - id: social_linkedin
+          uuid: a1000004-0000-4000-8000-000000000411
+          weight: 0
+          icon: linkedin
+          link:
+            uri: 'https://www.linkedin.com/company/bnp-paribas-real-estate/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer', class: ['ps-footer-social__link', 'ps-footer-social__link--linkedin'] } }
+          translations:
+            en: { title: 'LinkedIn' }
+            fr: { title: 'LinkedIn' }
+        - id: social_email
+          uuid: a1000004-0000-4000-8000-000000000412
+          weight: 10
+          icon: mail-outline
+          link:
+            uri: 'mailto:contact@bnpparibas-realestate.com'
+            options: { attributes: { class: ['ps-footer-social__link', 'ps-footer-social__link--mail'] } }
+          translations:
+            en: { title: 'Email alerts' }
+            fr: { title: 'Alertes email' }
+
+  ps_footer_legal:
+    - id: legal_notice
+      uuid: a1000005-0000-4000-8000-000000000501
+      weight: 0
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Legal notice' }
+        fr: { title: 'Mentions légales' }
+    - id: cookies
+      uuid: a1000005-0000-4000-8000-000000000502
+      weight: 10
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/cookies/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Cookie policy' }
+        fr: { title: 'Politique cookies' }
+    - id: privacy
+      uuid: a1000005-0000-4000-8000-000000000503
+      weight: 20
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/privacy-policy/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Privacy policy' }
+        fr: { title: 'Données personnelles' }
+    - id: accessibility
+      uuid: a1000005-0000-4000-8000-000000000504
+      weight: 30
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/accessibility/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Accessibility' }
+        fr: { title: 'Accessibilité' }
+
+  ps_header_actions:
+    - id: header_find_property
+      uuid: a2000001-0000-4000-8000-000000000001
+      weight: 10
+      link:
+        uri: 'internal:/recherche'
+        options:
+          attributes:
+            class:
+              - ps-header-actions__link
+      translations:
+        en: { title: 'Find a property' }
+        fr: { title: 'Trouver un bien' }
+    - id: header_login
+      uuid: a2000001-0000-4000-8000-000000000002
+      weight: 20
+      link:
+        uri: 'internal:/user/login'
+        options:
+          attributes:
+            class:
+              - btn
+              - btn-primary
+              - ps-header-actions__btn
+              - ps-header-actions__btn--login
+          icon:
+            target_id: 'bnp_custom:account'
+            settings:
+              bnp_custom:
+                size: '20px'
+          icon_display: before
+      translations:
+        en: { title: 'Log in / Sign up' }
+        fr: { title: "Se connecter / S'inscrire" }
+    - id: header_contact
+      uuid: a2000001-0000-4000-8000-000000000003
+      weight: 30
+      link:
+        uri: 'internal:/contact/offcanvas'
+        options:
+          attributes:
+            class:
+              - btn
+              - btn-secondary
+              - ps-header-actions__btn
+              - ps-header-actions__btn--contact
+              - use-ajax
+          icon:
+            target_id: 'bnp_custom:mail-outline'
+            settings:
+              bnp_custom:
+                size: '20px'
+          icon_display: before
+      translations:
+        en: { title: 'Contact us' }
+        fr: { title: 'Nous contacter' }
+    - id: header_what_looking
+      uuid: a2000001-0000-4000-8000-000000000004
+      weight: 40
+      link:
+        uri: 'internal:/recherche'
+        options:
+          attributes:
+            class:
+              - btn
+              - btn-outline-primary
+              - ps-header-actions__btn
+              - ps-header-actions__search-btn
+      translations:
+        en: { title: 'What are you looking for?' }
+        fr: { title: 'Que recherchez-vous ?' }

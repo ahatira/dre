@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Header search panel — full-width form below the header bar.
+ */
+#}
+{% set panel_inner %}
+  <div class="ps-header-search__panel-inner">
+    <p class="ps-header-search__panel-label visually-hidden">{{ label }}</p>
+    {{ form }}
+  </div>
+{% endset %}
+
+<div class="ps-header-search__panel"
+     id="ps-header-search-panel"
+     hidden
+     data-ps-header-search-panel>
+  {{ include('ui_suite_bnp:grid_row_1', {
+    container: container|default('container-fluid'),
+    gutters_horizontal: 'gx-0',
+    col_xs: 12,
+    col_1_content: panel_inner,
+  }, with_context = false) }}
+</div>

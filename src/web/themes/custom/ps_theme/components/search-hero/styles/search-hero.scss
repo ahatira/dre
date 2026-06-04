@@ -1,0 +1,43 @@
+.ps-search-hero {
+  background: linear-gradient(
+    135deg,
+    var(--re-color-heading, #1c2d37) 0%,
+    var(--re-color-primary, #00915a) 100%
+  );
+  min-height: var(--ps-hero-min-height, 520px);
+  overflow: hidden;
+
+  &__background {
+    inset: 0;
+    position: absolute;
+    z-index: 0;
+  }
+
+  &__image {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &__overlay {
+    background: var(--re-color-overlay-60, rgba(0, 0, 0, 0.6));
+    inset: 0;
+    position: absolute;
+  }
+
+  &__title {
+    color: #fff;
+    font-family: var(--re-font-family-heading);
+    font-size: var(--ps-hero-title-size, 48px);
+    font-weight: var(--re-font-weight-bold, 700);
+    line-height: var(--re-line-height-tight, 1.2);
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__search {
+    max-width: 720px;
+  }
+}

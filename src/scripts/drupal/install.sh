@@ -13,7 +13,7 @@ Usage: scripts/main.sh drupal install [OPTIONS]
 Options:
   --force          Force reinstall (recreate database)
   --dev            Enable development modules (devel, stage_file_proxy)
-  --no-content     Skip content generation (dictionary, offers)
+  --no-content     Skip content (dictionary, ps_demo, sample offers, Solr index)
   -h, --help       Show this help
 
 Prerequisites:
@@ -105,11 +105,10 @@ ps_retry 2 3 ps_drush site:install minimal \
   --yes
 ps_success "Drupal installed"
 
-# Front theme
-ps_info "Configuring front theme (ui_suite_bnp)..."
+# Front theme (base only — ps_theme becomes default after demo stack when content enabled)
+ps_info "Enabling base theme (ui_suite_bnp)..."
 ps_drush theme:enable -y ui_suite_bnp || true
-ps_drush config:set -y system.theme default ui_suite_bnp || true
-ps_success "Front theme configured"
+ps_success "Base theme enabled"
 
 # Enable essential contrib modules (not in custom module dependencies)
 ps_info "Enabling essential contrib modules..."
@@ -204,8 +203,51 @@ if [[ ${SKIP_CONTENT} -eq 0 ]]; then
   ps_info "Importing dictionary data..."
   ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
   ps_success "Dictionary imported"
+
+  # Property Search front: demo menus/homepage + theme + sample offers + Solr.
+  ps_info "Enabling Property Search front stack..."
+  ps_retry 2 2 ps_drush en -y \
+    languageicons \
+    search \
+    ui_icons_field \
+    ui_icons_menu \
+    menu_link_attributes \
+    advanced_mega_menu \
+    ps_homepage
+
+  # ps_theme before ps_demo: LB field + theme config; legacy installers skip when export exists.
+  ps_info "Enabling Property Search theme (ps_theme)..."
+  ps_retry 2 2 ps_drush theme:enable -y ps_theme
+  ps_drush config:set -y system.theme default ps_theme
+  ps_success "Front theme configured"
+
+  ps_retry 2 2 ps_drush en -y ps_demo
+
+  ps_info "Applying demo configuration (mega-menu, multilingual)..."
+  ps_retry 2 2 ps_drush config:import --partial --source=../config/demo -y
+
+  XML_SAMPLE="${PS_PROJECT_ROOT}/data/xml/bnppre_sample_50_per_type.xml"
+  XML_TARGET="${PS_SRC_DIR}/web/sites/default/files/crm/offers.xml"
+  if [[ -f "${XML_SAMPLE}" ]]; then
+    ps_info "Staging sample CRM XML..."
+    mkdir -p "$(dirname "${XML_TARGET}")"
+    cp "${XML_SAMPLE}" "${XML_TARGET}"
+
+    ps_info "Importing sample offers (migrate)..."
+    ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools ps_migrate
+    ps_retry 2 2 ps_drush migrate:import ps_offer_from_xml --update --execute-dependencies -y \
+      || ps_warn "Offer migration finished with warnings"
+    ps_success "Sample offers imported"
+  else
+    ps_warn "Sample XML not found (${XML_SAMPLE}), skipping offers import"
+  fi
+
+  ps_info "Indexing offers in Solr..."
+  ps_drush search-api:reset-tracker offers -y 2>/dev/null || true
+  ps_retry 2 2 ps_drush search-api:index offers -y || ps_warn "Solr index failed (is Solr up?)"
+  ps_success "Property Search front stack ready"
 else
-  ps_warn "Skipping dictionary import (--no-content)"
+  ps_warn "Skipping dictionary, ps_demo, offers and Solr index (--no-content)"
 fi
 
 # Cache rebuild

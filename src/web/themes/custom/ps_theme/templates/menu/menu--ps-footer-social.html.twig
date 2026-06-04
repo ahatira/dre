@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Follow us — social links with bnp_custom icons.
+ */
+#}
+{% import _self as social %}
+
+{% macro social_icon(item) %}
+  {% set classes = item.attributes.class|default([]) %}
+  {% if 'ps-footer-social__link--icon-linkedin' in classes or 'ps-footer-social__link--linkedin' in classes %}
+    {{ icon('bnp_custom', 'linkedin', {'size': '20px'}) }}
+  {% elseif 'ps-footer-social__link--icon-mail-outline' in classes or 'ps-footer-social__link--mail' in classes %}
+    {{ icon('bnp_custom', 'mail-outline', {'size': '20px'}) }}
+  {% endif %}
+{% endmacro %}
+
+{% if items %}
+  {% set heading = items|first %}
+  {% set links = heading.below|default([]) %}
+  <div class="ps-site-footer__social">
+    <p class="ps-site-footer__social-title footer-title">{{ heading.title }}</p>
+    {% if links %}
+      <ul class="ps-site-footer__social-list">
+        {% for item in links %}
+          <li>
+            <a href="{{ item.url.toString() }}" class="ps-site-footer__social-link ps-footer-social__link{% if item.attributes.class %} {{ item.attributes.class|join(' ') }}{% endif %}"{% for key, value in item.attributes|without('class') %} {{ key }}="{{ value }}"{% endfor %}>
+              <span class="ps-site-footer__social-icon" aria-hidden="true">{{ social.social_icon(item) }}</span>
+              <span class="visually-hidden">{{ item.title }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}

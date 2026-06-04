@@ -67,7 +67,10 @@ bnp_custom:
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="bnp-icon bnp-icon-{{ icon_id|clean_class }}"
-      style="width:{{ size|default('32px') }};height:{{ size|default('32px') }};"
+      viewBox="0 0 24 24"
+      width="{{ size|default('32px') }}"
+      height="{{ size|default('32px') }}"
+      preserveAspectRatio="xMidYMid meet"
       fill="{{ color|default('currentColor') }}"
       {% if alt is empty %}
         aria-hidden="true"

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ps_footer_prefooter
+label: 'Footer pre-footer'
+description: 'Stellar pre-footer accordion sections (asset types).'
+locked: false

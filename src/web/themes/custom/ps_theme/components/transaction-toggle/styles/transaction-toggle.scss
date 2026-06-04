@@ -1,0 +1,29 @@
+.ps-transaction-toggle {
+  &__list {
+    background: var(--ps-toggle-bg, #fff);
+    border-radius: 999px;
+    display: inline-flex;
+    gap: var(--re-space-4, 4px);
+    padding: var(--re-space-4, 4px);
+  }
+
+  &__link {
+    border-radius: 999px !important;
+    color: var(--re-color-text, #434f57);
+    font-weight: var(--re-font-weight-bold, 700);
+    padding: var(--re-space-8, 8px) var(--re-space-24, 24px);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--re-color-primary, #00915a);
+    }
+
+    &.active,
+    &.active:hover,
+    &.active:focus {
+      background: var(--ps-toggle-active-bg, var(--re-color-primary, #00915a));
+      color: var(--ps-toggle-active-color, #fff);
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Search results rows — Bootstrap grid columns for offer cards.
+ */
+#}
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+      'col-md-6',
+      'col-lg-4',
+    ]
+  %}
+  <div{{ row.attributes.addClass(row_classes) }}>
+    {{- row.content -}}
+  </div>
+{% endfor %}

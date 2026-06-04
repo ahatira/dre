@@ -1,0 +1,87 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000002-0000-4000-8000-000000000232
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    a1000002-0000-4000-8000-000000000203: menu_link_content
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Created new Custom menu link'
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Buy
+  menu_name:
+    -
+      value: ps_footer_prefooter
+  link:
+    -
+      uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT'
+      title: null
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 10
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:a1000002-0000-4000-8000-000000000203'
+  revision_translation_affected:
+    -
+      value: true
+translations:
+  fr:
+    revision_user:
+      -
+        target_id: 0
+    revision_log_message:
+      -
+        value: 'Created new Custom menu link'
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: Acheter
+    menu_name:
+      -
+        value: ps_footer_prefooter
+    link:
+      -
+        uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT'
+        title: null
+        options: {  }
+    external:
+      -
+        value: false
+    rediscover:
+      -
+        value: true
+    weight:
+      -
+        value: 10
+    expanded:
+      -
+        value: false
+    parent:
+      -
+        value: 'menu_link_content:a1000002-0000-4000-8000-000000000203'
+    revision_translation_affected:
+      -
+        value: true

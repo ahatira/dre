@@ -1,0 +1,31 @@
+external_uris:
+  a1000001-0000-4000-8000-000000000119:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/about-us/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/a-propos/'
+  a1000001-0000-4000-8000-00000000011a:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/about-us/our-group/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/a-propos/notre-groupe/'
+  a1000001-0000-4000-8000-00000000011b:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/offices/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/notre-expertise/bureaux/'
+  a1000001-0000-4000-8000-00000000011c:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/logistics/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/notre-expertise/logistique/'
+  a1000001-0000-4000-8000-00000000011d:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/retail/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/notre-expertise/commerce/'
+  a1000001-0000-4000-8000-00000000011e:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/advisory-services/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/notre-expertise/conseil/'
+  a1000001-0000-4000-8000-00000000011f:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/our-expertise/property-management/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/notre-expertise/gestion-immobiliere/'
+  a1000001-0000-4000-8000-00000000010a:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/news/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/actualites/'
+  a1000001-0000-4000-8000-000000000121:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/news/market/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/actualites/marche/'
+  a1000001-0000-4000-8000-000000000122:
+    en: 'https://www.bnpparibas-realestate.com/en-gb/news/trends/'
+    fr: 'https://www.bnpparibas-realestate.com/fr-fr/actualites/tendances/'

@@ -1,0 +1,40 @@
+// Hide Drupal admin chrome on Property Search public routes.
+html.ps-public-route {
+  &[data-admin-toolbar='expanded'],
+  &[data-admin-toolbar] {
+    --admin-toolbar-width: 0px;
+  }
+
+  .admin-toolbar-control-bar,
+  .admin-toolbar,
+  .admin-toolbar-overlay,
+  .top-bar,
+  #toolbar-administration,
+  .toolbar-tray {
+    display: none !important;
+  }
+
+  .contextual,
+  .contextual-region .contextual,
+  .layout-builder-block-update,
+  .block-local-tasks-block,
+  .block-local-actions-block,
+  .gin-secondary-toolbar,
+  .region-sticky {
+    display: none !important;
+  }
+
+  // Gin / Navigation displacement reset.
+  body {
+    padding-inline-start: 0 !important;
+  }
+}
+
+body.ps-public-route,
+html.ps-public-route body {
+  .tabs,
+  .block-system-breadcrumb-block,
+  .block-page-title-block {
+    display: none;
+  }
+}

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_favorite
+  theme:
+    - ps_theme
+id: ps_theme_header_favorites
+theme: ps_theme
+region: actions
+weight: 20
+provider: null
+plugin: ps_favorite_header_block
+settings:
+  id: ps_favorite_header_block
+  label: Favorites
+  label_display: '0'
+  provider: ps_favorite
+visibility: {  }

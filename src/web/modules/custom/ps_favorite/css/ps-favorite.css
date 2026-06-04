@@ -31,8 +31,16 @@
   height: 1.25rem;
 }
 
-.ps-favorite-header__icon svg,
-.ps-favorite-button__icon svg {
+.ps-favorite-header__icon .bnp-icon,
+.ps-favorite-button__icon .bnp-icon {
+  display: block;
+  fill: currentColor;
+  height: 100%;
+  width: 100%;
+}
+
+.ps-favorite-header__icon svg:not(.bnp-icon),
+.ps-favorite-button__icon svg:not(.bnp-icon) {
   width: 100%;
   height: 100%;
   fill: none;
@@ -40,8 +48,7 @@
   stroke-width: 1.8;
 }
 
-.ps-favorite-button.is-active .ps-favorite-button__icon svg,
-.ps-favorite-header__trigger .ps-favorite-header__icon svg {
+.ps-favorite-button.is-active .ps-favorite-button__icon svg:not(.bnp-icon) {
   fill: currentColor;
 }
 

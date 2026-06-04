@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Offer card — Stellar search result / carousel item.
+ */
+#}
+{% set operation_label = operation == 'sale' ? 'Acheter'|t : 'Louer'|t %}
+<article{{ attributes.addClass('ps-offer-card', 'card', 'h-100') }}>
+  {% if image %}
+    <div class="ps-offer-card__media ratio" style="--bs-aspect-ratio: 75%;">
+      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="card-img-top object-fit-cover h-100 w-100" loading="lazy" />
+      {% if operation %}
+        <span class="ps-offer-card__operation badge text-bg-primary">{{ operation_label }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="card-body ps-offer-card__body">
+    {% if badges %}
+      <ul class="ps-offer-card__badges list-unstyled d-flex flex-wrap gap-1 mb-2">
+        {% for badge in badges %}
+          <li><span class="badge text-bg-light">{{ badge }}</span></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <h3 class="ps-offer-card__title card-title h5 mb-1">{{ title }}</h3>
+    {% if location %}
+      <p class="ps-offer-card__location text-muted small mb-2">{{ location }}</p>
+    {% endif %}
+    <dl class="ps-offer-card__meta row g-2 small mb-0">
+      {% if surface %}
+        <div class="col-auto">
+          <dt class="visually-hidden">{{ 'Surface'|t }}</dt>
+          <dd class="mb-0">{{ surface }}</dd>
+        </div>
+      {% endif %}
+      {% if price %}
+        <div class="col-auto">
+          <dt class="visually-hidden">{{ 'Price'|t }}</dt>
+          <dd class="mb-0 fw-bold">{{ price }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  </div>
+  {% if url %}
+    <a href="{{ url }}" class="stretched-link">
+      <span class="visually-hidden">{{ title }}</span>
+    </a>
+  {% endif %}
+  {% if favorite or actions %}
+    <div class="card-footer ps-offer-card__footer bg-transparent border-0 pt-0">
+      {% if favorite %}
+        <button type="button" class="btn btn-link btn-sm ps-offer-card__favorite" aria-label="{{ 'Add to favorites'|t }}">
+          {{ 'Favorite'|t }}
+        </button>
+      {% endif %}
+      {{ actions }}
+    </div>
+  {% endif %}
+</article>

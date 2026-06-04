@@ -1,0 +1,32 @@
+name: Search hero
+description: "Homepage hero with title, background image and search slot (Stellar)."
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Hero title
+      default: "Trouvez votre espace professionnel"
+    subtitle:
+      type: string
+      title: Subtitle
+    background_image:
+      type: string
+      title: Background image URL
+      description: "Absolute URL or site-relative path to the hero background."
+    background_alt:
+      type: string
+      title: Background image alt
+slots:
+  search:
+    title: Search
+    description: Search form or filter bar (transaction toggle, location…)
+  actions:
+    title: Actions
+    description: Secondary CTAs below search
+libraryOverrides:
+  css:
+    component:
+      styles/search-hero.css: {}

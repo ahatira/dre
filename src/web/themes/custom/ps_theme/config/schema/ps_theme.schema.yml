@@ -1,0 +1,3 @@
+ps_theme.settings:
+  type: ui_suite_bnp.settings
+  label: 'Property Search Theme settings'

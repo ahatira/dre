@@ -1,0 +1,35 @@
+name: Transaction toggle
+description: "Louer / Acheter toggle for Property Search (SEO URLs via ps_search)."
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - items
+  properties:
+    items:
+      type: array
+      title: Toggle items
+      items:
+        type: object
+        required:
+          - label
+          - url
+        properties:
+          label:
+            type: string
+            title: Label
+          url:
+            type: string
+            title: URL
+          active:
+            type: boolean
+            title: Active state
+            default: false
+          code:
+            type: string
+            title: Operation code (LOC, VEN…)
+libraryOverrides:
+  css:
+    component:
+      styles/transaction-toggle.css: {}

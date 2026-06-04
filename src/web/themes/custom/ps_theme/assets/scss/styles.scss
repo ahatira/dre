@@ -1,0 +1,13 @@
+// PS-specific overrides on top of ui_suite_bnp/framework_css_re.
+@import 'stellar-tokens';
+@import 'ajax';
+@import 'header';
+@import 'footer';
+@import 'search-page';
+@import 'front-public';
+@import 'homepage';
+
+// SDC métier PS (non couverts par le framework parent).
+@import '../../components/search-hero/styles/search-hero';
+@import '../../components/transaction-toggle/styles/transaction-toggle';
+@import '../../components/offer-card/styles/offer-card';

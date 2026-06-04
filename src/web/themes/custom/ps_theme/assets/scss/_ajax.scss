@@ -1,0 +1,24 @@
+// AJAX trigger loading state — overlay keeps original dimensions.
+a.use-ajax.is-ajax-loading,
+button.use-ajax.is-ajax-loading {
+  cursor: wait;
+  pointer-events: none;
+  position: relative;
+
+  > :not(.ps-ajax-trigger__overlay) {
+    visibility: hidden;
+  }
+
+  .ps-ajax-trigger__overlay {
+    align-items: center;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+
+    .ajax-progress {
+      margin: 0;
+    }
+  }
+}

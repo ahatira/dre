@@ -1,0 +1,56 @@
+name: Offer card
+description: "Card offre immobilière pour listes recherche et carrousels homepage (Stellar)."
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+      title: Title
+    url:
+      type: string
+      title: URL
+      description: "Internal path (e.g. /node/1) or absolute URL."
+    image:
+      type: string
+      title: Image URL
+      description: "Absolute URL or site-relative path to the offer image."
+    image_alt:
+      type: string
+      title: Image alt text
+    location:
+      type: string
+      title: Location label
+    surface:
+      type: string
+      title: Surface label
+    price:
+      type: string
+      title: Price label
+    operation:
+      type: string
+      title: Operation type label
+      enum:
+        - rent
+        - sale
+    badges:
+      type: array
+      title: Badges
+      items:
+        type: string
+    favorite:
+      type: boolean
+      title: Show favorite action
+      default: false
+slots:
+  actions:
+    title: Actions
+    description: Optional footer actions (favorite, compare…)
+libraryOverrides:
+  css:
+    component:
+      styles/offer-card.css: {}

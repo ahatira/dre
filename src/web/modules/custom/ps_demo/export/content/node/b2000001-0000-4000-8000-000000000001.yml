@@ -1,0 +1,215 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000001-0000-4000-8000-000000000001
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Created new Basic page'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: Homepage
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /home
+      langcode: en
+  content_translation_source:
+    -
+      value: und
+  content_translation_outdated:
+    -
+      value: false
+  layout_builder__layout:
+    -
+      section:
+        layout_id: layout_onecol
+        layout_settings:
+          label: Hero
+        components:
+          b2000002-0000-4000-8000-000000000001:
+            uuid: b2000002-0000-4000-8000-000000000001
+            region: content
+            configuration:
+              id: ps_homepage_search_hero_block
+              label: 'Search hero'
+              label_display: false
+              provider: ps_homepage
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+    -
+      section:
+        layout_id: layout_onecol
+        layout_settings:
+          label: 'Business univers'
+        components:
+          b2000002-0000-4000-8000-000000000003:
+            uuid: b2000002-0000-4000-8000-000000000003
+            region: content
+            configuration:
+              id: ps_homepage_business_univers_block
+              label: 'Business univers'
+              label_display: false
+              provider: ps_homepage
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+    -
+      section:
+        layout_id: layout_onecol
+        layout_settings:
+          label: 'Featured offers'
+        components:
+          b2000002-0000-4000-8000-000000000002:
+            uuid: b2000002-0000-4000-8000-000000000002
+            region: content
+            configuration:
+              id: ps_homepage_featured_offers_block
+              label: 'Featured offers'
+              label_display: false
+              provider: ps_homepage
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+    -
+      section:
+        layout_id: layout_onecol
+        layout_settings:
+          label: Editorial
+        components:
+          b2000002-0000-4000-8000-000000000004:
+            uuid: b2000002-0000-4000-8000-000000000004
+            region: content
+            configuration:
+              id: ps_homepage_editorial_promo_block
+              label: 'Editorial promo'
+              label_display: false
+              provider: ps_homepage
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Created new Basic page'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: Accueil
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    path:
+      -
+        alias: /accueil
+        langcode: fr
+    content_translation_source:
+      -
+        value: und
+    content_translation_outdated:
+      -
+        value: false
+    layout_builder__layout:
+      -
+        section:
+          layout_id: layout_onecol
+          layout_settings:
+            label: Hero
+          components:
+            b2000002-0000-4000-8000-000000000001:
+              uuid: b2000002-0000-4000-8000-000000000001
+              region: content
+              configuration:
+                id: ps_homepage_search_hero_block
+                label: 'Search hero'
+                label_display: false
+                provider: ps_homepage
+              weight: 0
+              additional: {  }
+          third_party_settings: {  }
+      -
+        section:
+          layout_id: layout_onecol
+          layout_settings:
+            label: 'Business univers'
+          components:
+            b2000002-0000-4000-8000-000000000003:
+              uuid: b2000002-0000-4000-8000-000000000003
+              region: content
+              configuration:
+                id: ps_homepage_business_univers_block
+                label: 'Business univers'
+                label_display: false
+                provider: ps_homepage
+              weight: 0
+              additional: {  }
+          third_party_settings: {  }
+      -
+        section:
+          layout_id: layout_onecol
+          layout_settings:
+            label: 'Featured offers'
+          components:
+            b2000002-0000-4000-8000-000000000002:
+              uuid: b2000002-0000-4000-8000-000000000002
+              region: content
+              configuration:
+                id: ps_homepage_featured_offers_block
+                label: 'Featured offers'
+                label_display: false
+                provider: ps_homepage
+              weight: 0
+              additional: {  }
+          third_party_settings: {  }
+      -
+        section:
+          layout_id: layout_onecol
+          layout_settings:
+            label: Editorial
+          components:
+            b2000002-0000-4000-8000-000000000004:
+              uuid: b2000002-0000-4000-8000-000000000004
+              region: content
+              configuration:
+                id: ps_homepage_editorial_promo_block
+                label: 'Editorial promo'
+                label_display: false
+                provider: ps_homepage
+              weight: 0
+              additional: {  }
+          third_party_settings: {  }

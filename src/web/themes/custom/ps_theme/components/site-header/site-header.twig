@@ -1,0 +1,124 @@
+{% set header_id = header_id|default('ps-site-header-' ~ random()) %}
+{% set mobile_panel_id = header_id ~ '-mobile-panel' %}
+
+{% set site_header_nav %}
+<nav class="ps-site-header__navbar navbar navbar-expand-lg navbar-light bg-white" aria-label="{{ 'Main navigation'|t }}">
+  <div class="ps-site-header__shell">
+    <div class="ps-site-header__sticky-bar">
+      <div class="ps-site-header__row ps-site-header__row--top">
+        <button class="ps-site-header__toggler ps-site-header__toggler--menu ps-site-header__toggler--mobile"
+                type="button"
+                aria-expanded="false"
+                aria-controls="{{ mobile_panel_id }}"
+                data-ps-mobile-toggle
+                aria-label="{{ 'Toggle navigation'|t }}">
+          <span class="ps-site-header__toggler-icon ps-site-header__toggler-icon--open" aria-hidden="true">
+            {{ icon('bnp_custom', 'burger-menu', {'size': '24px'}) }}
+          </span>
+          <span class="ps-site-header__toggler-icon ps-site-header__toggler-icon--close" aria-hidden="true">
+            {{ icon('bnp_custom', 'close', {'size': '24px'}) }}
+          </span>
+        </button>
+
+        <button class="ps-site-header__toggler ps-site-header__toggler--menu ps-site-header__toggler--compact"
+                type="button"
+                aria-expanded="false"
+                aria-controls="{{ header_id }}-main-bar"
+                data-ps-compact-toggle
+                aria-label="{{ 'Toggle navigation'|t }}">
+          <span class="ps-site-header__toggler-icon ps-site-header__toggler-icon--open" aria-hidden="true">
+            {{ icon('bnp_custom', 'burger-menu', {'size': '24px'}) }}
+          </span>
+          <span class="ps-site-header__toggler-icon ps-site-header__toggler-icon--close" aria-hidden="true">
+            {{ icon('bnp_custom', 'close', {'size': '24px'}) }}
+          </span>
+        </button>
+
+        <div class="ps-site-header__branding">
+          {{ branding }}
+        </div>
+
+        <div class="ps-site-header__top-bar">
+          {{ shortcut }}
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-site-header__mobile-panel"
+         id="{{ mobile_panel_id }}"
+         aria-hidden="true">
+      <div class="ps-site-header__mobile-panel-inner">
+        <div class="ps-site-header__mobile-panel-scroll">
+          <div class="ps-site-header__navigation">
+            {{ navigation_mobile }}
+          </div>
+
+          {% if search_mobile_trigger %}
+            <div class="ps-site-header__mobile-search">
+              {{ search_mobile_trigger }}
+            </div>
+          {% endif %}
+
+          {% if favorites %}
+            <div class="ps-site-header__menu-favorites">
+              {{ favorites }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="ps-site-header__mobile-panel-bottom">
+          <div class="ps-site-header__mobile-panel-lang">
+            {{ shortcut }}
+          </div>
+          <div class="ps-site-header__mobile-panel-cta">
+            {{ actions }}
+            {% if account %}
+              {{ account }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-site-header__main-bar" id="{{ header_id }}-main-bar">
+      <div class="ps-site-header__main-bar-inner">
+        <div class="ps-site-header__row ps-site-header__row--main">
+          <div class="ps-site-header__navigation">
+            {{ navigation_desktop }}
+          </div>
+          <div class="ps-site-header__actions">
+            {{ actions }}
+            {% if account %}
+              {{ account }}
+            {% endif %}
+            {% if favorites %}
+              <div class="ps-header-actions__favorites">
+                {{ favorites }}
+              </div>
+            {% endif %}
+            {% if search_toolbar_trigger %}
+              <div class="ps-header-search">
+                {{ search_toolbar_trigger }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if search_panel %}
+      <div class="ps-site-header__search-panel">
+        {{ search_panel }}
+      </div>
+    {% endif %}
+  </div>
+</nav>
+{% endset %}
+
+{{ include('ui_suite_bnp:grid_row_1', {
+  container: container|default('container-fluid'),
+  gutters_horizontal: 'gx-0',
+  container_attributes: { class: ['px-0'] },
+  col_xs: 12,
+  col_attributes: { class: ['px-0'] },
+  col_1_content: site_header_nav,
+}, with_context = false) }}

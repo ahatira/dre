@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.ps_footer_main
+  module:
+    - system
+  theme:
+    - ps_theme
+id: ps_theme_footer
+theme: ps_theme
+region: footer
+weight: 0
+provider: null
+plugin: 'system_menu_block:ps_footer_main'
+settings:
+  id: 'system_menu_block:ps_footer_main'
+  label: 'Footer main'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: true
+visibility: {  }

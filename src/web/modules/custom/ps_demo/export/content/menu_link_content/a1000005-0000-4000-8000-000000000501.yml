@@ -1,0 +1,85 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000005-0000-4000-8000-000000000501
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Created new Custom menu link'
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Legal notice'
+  menu_name:
+    -
+      value: ps_footer_legal
+  link:
+    -
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+      title: null
+      options:
+        attributes:
+          target: _blank
+          rel: 'noopener noreferrer'
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+translations:
+  fr:
+    revision_user:
+      -
+        target_id: 0
+    revision_log_message:
+      -
+        value: 'Created new Custom menu link'
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Mentions légales'
+    menu_name:
+      -
+        value: ps_footer_legal
+    link:
+      -
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+        title: null
+        options:
+          attributes:
+            target: _blank
+            rel: 'noopener noreferrer'
+    external:
+      -
+        value: false
+    rediscover:
+      -
+        value: false
+    weight:
+      -
+        value: 0
+    expanded:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true

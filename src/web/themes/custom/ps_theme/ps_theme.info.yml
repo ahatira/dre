@@ -1,0 +1,34 @@
+name: 'Property Search Theme'
+type: theme
+description: 'Theme front Property Search (BNPPRE)'
+core_version_requirement: ^11.3
+'base theme': ui_suite_bnp
+dependencies:
+  - advanced_mega_menu
+regions:
+  branding: Branding
+  shortcut: 'Header shortcut'
+  navigation: 'Header navigation'
+  actions: 'Header actions'
+  header: 'Top Bar'
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  sidebar_first: Primary
+  sidebar_second: Secondary
+  footer_top: 'Footer (top)'
+  footer: Footer
+  footer_bottom: 'Footer (bottom)'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+ckeditor5-stylesheets:
+  - assets/css/ckeditor5.css
+libraries-extend:
+  core/drupal.ajax:
+    - ps_theme/drupal.ajax
+  ui_suite_bnp/form:
+    - ps_theme/form
+  ui_suite_bnp/framework:
+    - ps_theme/framework
+version: 1.0.0
+generator: 'ui_suite_bnp_starterkit_split:unknown-version'

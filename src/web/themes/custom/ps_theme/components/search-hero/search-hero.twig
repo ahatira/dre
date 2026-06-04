@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Homepage search hero — Stellar maquette.
+ */
+#}
+<section{{ attributes.addClass('ps-search-hero', 'position-relative', 'd-flex', 'align-items-center') }}>
+  {% if background_image %}
+    <div class="ps-search-hero__background" aria-hidden="true">
+      <img src="{{ background_image }}" alt="{{ background_alt|default('') }}" class="ps-search-hero__image" />
+      <div class="ps-search-hero__overlay"></div>
+    </div>
+  {% endif %}
+  <div class="container position-relative py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8 text-center text-white">
+        {% if title %}
+          <h1 class="ps-search-hero__title display-4 mb-3">{{ title }}</h1>
+        {% endif %}
+        {% if subtitle %}
+          <p class="ps-search-hero__subtitle lead mb-4">{{ subtitle }}</p>
+        {% endif %}
+        {% if search %}
+          <div class="ps-search-hero__search mx-auto">
+            {{ search }}
+          </div>
+        {% endif %}
+        {% if actions %}
+          <div class="ps-search-hero__actions mt-4">
+            {{ actions }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

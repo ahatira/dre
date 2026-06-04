@@ -5,15 +5,15 @@ header[role='banner'] {
 	color: var(--re-color-heading);
 }
 
-.site-header a,
-header[role='banner'] a {
+.site-header a:not(.btn):not([class*='btn-']),
+header[role='banner'] a:not(.btn):not([class*='btn-']) {
 	color: var(--re-color-text);
 }
 
-.site-header a:hover,
-.site-header a:focus-visible,
-header[role='banner'] a:hover,
-header[role='banner'] a:focus-visible {
+.site-header a:not(.btn):not([class*='btn-']):hover,
+.site-header a:not(.btn):not([class*='btn-']):focus-visible,
+header[role='banner'] a:not(.btn):not([class*='btn-']):hover,
+header[role='banner'] a:not(.btn):not([class*='btn-']):focus-visible {
 	color: var(--bs-primary-text-emphasis);
 }
 

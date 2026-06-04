@@ -1,0 +1,36 @@
+# EditorConfig — PS Project (Drupal 11 / BNPPRE)
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{php,module,install,theme,inc,profile,engine}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{js,jsx,ts,tsx,css,scss,sass,json,twig}]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[*.sh]
+indent_size = 2
+
+[composer.json]
+indent_size = 2
+
+[package.json]
+indent_size = 2

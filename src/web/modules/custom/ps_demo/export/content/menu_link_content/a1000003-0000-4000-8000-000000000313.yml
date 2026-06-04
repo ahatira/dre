@@ -1,0 +1,93 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000003-0000-4000-8000-000000000313
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    a1000003-0000-4000-8000-000000000301: menu_link_content
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Created new Custom menu link'
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Contact form'
+  menu_name:
+    -
+      value: ps_footer_main
+  link:
+    -
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
+      title: null
+      options:
+        attributes:
+          target: _blank
+          rel: 'noopener noreferrer'
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 20
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:a1000003-0000-4000-8000-000000000301'
+  revision_translation_affected:
+    -
+      value: true
+translations:
+  fr:
+    revision_user:
+      -
+        target_id: 0
+    revision_log_message:
+      -
+        value: 'Created new Custom menu link'
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Formulaire de contact'
+    menu_name:
+      -
+        value: ps_footer_main
+    link:
+      -
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
+        title: null
+        options:
+          attributes:
+            target: _blank
+            rel: 'noopener noreferrer'
+    external:
+      -
+        value: false
+    rediscover:
+      -
+        value: false
+    weight:
+      -
+        value: 20
+    expanded:
+      -
+        value: false
+    parent:
+      -
+        value: 'menu_link_content:a1000003-0000-4000-8000-000000000301'
+    revision_translation_affected:
+      -
+        value: true

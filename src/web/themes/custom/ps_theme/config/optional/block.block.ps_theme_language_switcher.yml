@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_homepage
+  theme:
+    - ps_theme
+id: ps_theme_language_switcher
+theme: ps_theme
+region: shortcut
+weight: 0
+provider: null
+plugin: ps_homepage_language_switcher_block
+settings:
+  id: ps_homepage_language_switcher_block
+  label: 'Language switcher'
+  label_display: '0'
+  provider: ps_homepage
+visibility: {  }

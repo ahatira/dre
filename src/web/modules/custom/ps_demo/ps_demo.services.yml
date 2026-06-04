@@ -1,0 +1,4 @@
+services:
+  logger.channel.ps_demo:
+    parent: logger.channel_base
+    arguments: ['ps_demo']

@@ -1,0 +1,57 @@
+langcode: en
+hero:
+  background: assets/images/hero/hero-homepage.png
+  titles:
+    en: 'What are you looking for?'
+    fr: 'Trouvez votre espace professionnel'
+  subtitles:
+    en: 'Offices, logistics, retail — across France'
+    fr: 'Bureaux, logistique, commerce — partout en France'
+featured:
+  titles:
+    en: 'Featured properties'
+    fr: 'Offres à la une'
+univers:
+  titles:
+    en: 'Browse by asset type'
+    fr: 'Parcourir par univers'
+  items:
+    -
+      code: BUR
+      query: 'operation_type=LOC&asset_type=BUR'
+      labels:
+        en: Offices
+        fr: Bureaux
+    -
+      code: LOG
+      query: 'operation_type=LOC&asset_type=LOG'
+      labels:
+        en: Logistics
+        fr: Logistique
+    -
+      code: COM
+      query: 'operation_type=LOC&asset_type=COM'
+      labels:
+        en: Retail
+        fr: Commerce
+    -
+      code: COW
+      query: 'operation_type=LOC&asset_type=COW'
+      labels:
+        en: Coworking
+        fr: Coworking
+editorial:
+  titles:
+    en: 'Expertise at your side'
+    fr: 'Un expert à vos côtés'
+  bodies:
+    en: 'BNP Paribas Real Estate supports occupiers, investors and developers across offices, logistics, retail and coworking throughout France.'
+    fr: 'BNP Paribas Real Estate accompagne occupiers, investisseurs et aménageurs sur les bureaux, la logistique, le commerce et le coworking partout en France.'
+  cta:
+    labels:
+      en: 'Discover our solutions'
+      fr: 'Découvrir nos solutions'
+    paths:
+      en: /recherche
+      fr: /recherche
+  image: assets/images/hero/hero-profile.png

@@ -1,0 +1,153 @@
+ps_demo.settings:
+  type: config_object
+  label: 'PS Demo settings'
+  mapping:
+    front_page:
+      type: string
+      label: 'Front page internal path'
+    homepage_uuid:
+      type: uuid
+      label: 'Homepage node UUID (export reference)'
+    front_paths:
+      type: mapping
+      label: 'Homepage URL aliases per language'
+      mapping:
+        en:
+          type: string
+          label: 'English alias'
+        fr:
+          type: string
+          label: 'French alias'
+
+ps_demo.homepage:
+  type: config_object
+  label: 'PS Demo homepage block copy'
+  mapping:
+    hero:
+      type: mapping
+      label: Hero
+      mapping:
+        background:
+          type: string
+          label: 'Background image path (theme-relative)'
+        titles:
+          type: mapping
+          label: Titles
+          mapping:
+            en:
+              type: label
+              label: 'English title'
+            fr:
+              type: label
+              label: 'French title'
+        subtitles:
+          type: mapping
+          label: Subtitles
+          mapping:
+            en:
+              type: text
+              label: 'English subtitle'
+            fr:
+              type: text
+              label: 'French subtitle'
+    featured:
+      type: mapping
+      label: Featured
+      mapping:
+        titles:
+          type: mapping
+          label: Titles
+          mapping:
+            en:
+              type: label
+              label: 'English title'
+            fr:
+              type: label
+              label: 'French title'
+    univers:
+      type: mapping
+      label: 'Business univers'
+      mapping:
+        titles:
+          type: mapping
+          label: Titles
+          mapping:
+            en:
+              type: label
+              label: 'English title'
+            fr:
+              type: label
+              label: 'French title'
+        items:
+          type: sequence
+          label: Items
+          sequence:
+            type: mapping
+            mapping:
+              code:
+                type: string
+                label: Code
+              query:
+                type: string
+                label: 'Search query string'
+              labels:
+                type: mapping
+                label: Labels
+                mapping:
+                  en:
+                    type: label
+                    label: 'English label'
+                  fr:
+                    type: label
+                    label: 'French label'
+    editorial:
+      type: mapping
+      label: Editorial
+      mapping:
+        titles:
+          type: mapping
+          label: Titles
+          mapping:
+            en:
+              type: label
+              label: 'English title'
+            fr:
+              type: label
+              label: 'French title'
+        bodies:
+          type: mapping
+          label: Bodies
+          mapping:
+            en:
+              type: text
+              label: 'English body'
+            fr:
+              type: text
+              label: 'French body'
+        cta:
+          type: mapping
+          label: CTA
+          mapping:
+            labels:
+              type: mapping
+              label: Labels
+              mapping:
+                en:
+                  type: label
+                  label: 'English label'
+                fr:
+                  type: label
+                  label: 'French label'
+            paths:
+              type: mapping
+              label: Paths
+              mapping:
+                en:
+                  type: string
+                  label: 'English path'
+                fr:
+                  type: string
+                  label: 'French path'
+        image:
+          type: string
+          label: 'Image path (theme-relative)'

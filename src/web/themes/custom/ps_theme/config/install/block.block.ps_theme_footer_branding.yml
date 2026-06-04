@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ps_theme
+id: ps_theme_footer_branding
+theme: ps_theme
+region: footer_bottom
+weight: 10
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Footer branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

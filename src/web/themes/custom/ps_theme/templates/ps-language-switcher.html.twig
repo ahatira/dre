@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Stellar header language switcher — ISO maquette Figma.
+ *
+ * Bordered trigger (flag + code + chevron), full language list when open,
+ * active language highlighted, shared border with dropdown panel.
+ */
+#}
+{% if current_label %}
+  <div class="ps-language-switcher dropdown">
+    <button class="ps-language-switcher__toggle"
+            type="button"
+            id="ps-language-switcher"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="true"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-label="{{ 'Select language'|t }}">
+      {% if current_icon %}
+        <span class="ps-language-switcher__flag" aria-hidden="true">{{ current_icon }}</span>
+      {% endif %}
+      <span class="ps-language-switcher__label">{{ current_label }}</span>
+      <span class="ps-language-switcher__chevron" aria-hidden="true"></span>
+    </button>
+    {% if links %}
+      <ul class="dropdown-menu ps-language-switcher__menu" aria-labelledby="ps-language-switcher" role="menu">
+        {% for link in links %}
+          <li role="none">
+            {% if link.active %}
+              <span class="ps-language-switcher__item is-active"
+                    role="menuitem"
+                    aria-current="true"
+                    lang="{{ link.langcode }}">
+                {% if link.icon %}
+                  <span class="ps-language-switcher__flag" aria-hidden="true">{{ link.icon }}</span>
+                {% endif %}
+                <span class="ps-language-switcher__label">{{ link.label }}</span>
+              </span>
+            {% else %}
+              <a class="ps-language-switcher__item"
+                 href="{{ link.url }}"
+                 hreflang="{{ link.langcode }}"
+                 lang="{{ link.langcode }}"
+                 role="menuitem">
+                {% if link.icon %}
+                  <span class="ps-language-switcher__flag" aria-hidden="true">{{ link.icon }}</span>
+                {% endif %}
+                <span class="ps-language-switcher__label">{{ link.label }}</span>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.page.body
+    - node.type.page
+  module:
+    - layout_builder
+    - user
+  theme:
+    - ps_theme
+id: node.page.full
+targetEntityType: node
+bundle: page
+mode: full
+content: {  }
+hidden:
+  body: true
+  links: true
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections: {  }

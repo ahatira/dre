@@ -1,0 +1,37 @@
+name: Site header
+description: 'Stellar header — branding/shortcut row + navigation/actions row.'
+group: Layout
+slots:
+  branding:
+    title: Branding
+  shortcut:
+    title: 'Header shortcut (language switcher)'
+  navigation_mobile:
+    title: 'Header navigation (mobile panel)'
+  navigation_desktop:
+    title: 'Header navigation (desktop bar)'
+  search_panel:
+    title: 'Search dropdown panel'
+  search_mobile_trigger:
+    title: 'Search mobile trigger'
+  search_toolbar_trigger:
+    title: 'Search desktop trigger'
+  favorites:
+    title: 'Header favorites block'
+  actions:
+    title: 'Header actions menu'
+  account:
+    title: 'User account menu (authenticated)'
+props:
+  type: object
+  properties:
+    container:
+      title: 'Bootstrap container class'
+      type: string
+      default: container-fluid
+    header_id:
+      title: ID
+      $ref: 'ui-patterns://identifier'
+libraryOverrides:
+  dependencies:
+    - ps_theme/header

@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Pre-footer accordion — asset type sections (mobile accordion, desktop columns).
+ */
+#}
+{% import _self as menus %}
+
+{% macro render_subnav(items) %}
+  {% if items %}
+    <ul class="nav flex-column ps-site-footer__prefooter-subnav">
+      {% for item in items %}
+        <li class="nav-item">
+          {{ link(item.title, item.url, item.attributes.addClass(['nav-link'])) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% if items %}
+  {{ attach_library('core/components.ui_suite_bnp--accordion') }}
+  <nav class="ps-site-footer__prefooter" aria-label="{{ 'Property types'|t }}">
+    <div class="ps-site-footer__prefooter-accordion accordion" id="ps-footer-prefooter-accordion">
+      {% for item in items %}
+        {% set item_id = 'ps-prefooter-' ~ loop.index %}
+        {{ include('ui_suite_bnp:accordion_item', {
+          title: item.title,
+          content: menus.render_subnav(item.below),
+          item_id: item_id,
+          heading_level: 3,
+          attributes: create_attribute({'class': ['ps-site-footer__prefooter-item']}),
+        }, with_context = false) }}
+      {% endfor %}
+    </div>
+  </nav>
+{% endif %}

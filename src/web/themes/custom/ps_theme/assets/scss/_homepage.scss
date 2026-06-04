@@ -1,0 +1,19 @@
+.ps-main--homepage {
+  .layout {
+    --layout-gap: 0;
+  }
+
+  .layout__region {
+    padding: 0;
+  }
+}
+
+.ps-homepage-featured {
+  padding-block: var(--re-space-48, 48px) var(--re-space-56, 56px);
+
+  &__title {
+    color: var(--re-color-heading, #1c2d37);
+    font-family: var(--re-font-family-heading);
+    font-weight: var(--re-font-weight-bold, 700);
+  }
+}

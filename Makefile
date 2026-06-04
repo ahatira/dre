@@ -33,7 +33,7 @@ help:
 	@echo "  make logs              - Logs nginx"
 	@echo "  make rebuild           - Reconstruire l'image PHP"
 	@echo "  make install           - Installation Drupal"
-	@echo "  make reinstall         - Reinstallation Drupal (--force)"
+	@echo "  make reinstall         - Reinstallation Drupal complete (DB + demo + offres)"
 	@echo "  make deploy            - Workflow deploiement Drupal"
 	@echo "  make verify            - Verifier build/dependances scripts"
 	@echo "  make dictionary-import - Import des dictionnaires"

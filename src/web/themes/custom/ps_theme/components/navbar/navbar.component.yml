@@ -1,0 +1,57 @@
+name: Navbar
+description: 'Property Search navbar — Stellar header shell with BNP custom icons.'
+group: Navbar
+variants:
+  default:
+    title: Default
+  expand_sm:
+    title: 'Expand small'
+  expand_md:
+    title: 'Expand medium'
+  expand_lg:
+    title: 'Expand large'
+  expand_xl:
+    title: 'Expand extra large'
+  expand_xxl:
+    title: 'Expand extra extra large'
+slots:
+  brand:
+    title: Brand
+  navigation:
+    title: Navigation
+  navigation_collapsible:
+    title: 'Navigation collapsible'
+  offcanvas_label:
+    title: 'Offcanvas label'
+props:
+  type: object
+  properties:
+    navbar_id:
+      title: ID
+      $ref: 'ui-patterns://identifier'
+    placement:
+      type: string
+      enum:
+        - default
+        - fixed-top
+        - fixed-bottom
+        - sticky-top
+        - sticky-bottom
+    toggler_position:
+      type: string
+      enum:
+        - start
+        - end
+        - none
+    toggle_action:
+      type: string
+      enum:
+        - collapse
+        - offcanvas
+    offcanvas_position:
+      type: string
+      enum:
+        - start
+        - end
+libraryOverrides:
+  css: {}

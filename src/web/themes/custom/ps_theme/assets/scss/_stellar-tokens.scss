@@ -1,0 +1,24 @@
+// Property Search — tokens/composants PS (surcouche framework_css_re parent).
+
+:root {
+  // Hero overlay (homepage search).
+  --ps-hero-min-height: 520px;
+  --ps-hero-title-size: var(--re-font-size-48, 48px);
+
+  // Offer card.
+  --ps-offer-card-radius: 0;
+  --ps-offer-card-shadow: 0 2px 8px rgba(28, 45, 55, 0.08);
+  --ps-offer-card-image-ratio: 4 / 3;
+
+  // Transaction toggle (Louer / Acheter).
+  --ps-toggle-bg: var(--re-color-surface, #fff);
+  --ps-toggle-active-bg: var(--re-color-primary, #00915a);
+  --ps-toggle-active-color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --ps-hero-min-height: 420px;
+    --ps-hero-title-size: var(--re-font-size-32, 32px);
+  }
+}

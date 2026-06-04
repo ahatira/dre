@@ -1,0 +1,25 @@
+.ps-search-view {
+  &__hero {
+    margin-bottom: 0;
+  }
+
+  &__filters {
+    background: var(--re-color-surface, #fff);
+    border-bottom: 1px solid var(--re-color-border-soft, #ebedef);
+    margin-bottom: var(--re-space-32, 32px);
+    padding: var(--re-space-24, 24px) 0;
+  }
+
+  &__toggle {
+    text-align: center;
+  }
+
+  &__results {
+    margin-bottom: var(--re-space-48, 48px);
+    padding-bottom: var(--re-space-24, 24px);
+  }
+}
+
+.ps-offer-card-wrapper {
+  height: 100%;
+}

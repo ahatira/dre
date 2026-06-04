@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Header search trigger — icon button (toolbar or mobile row).
+ */
+#}
+{% if variant == 'mobile_row' %}
+  <button type="button"
+          class="ps-site-header__menu-search ps-header-search__trigger ps-header-search__trigger--mobile-row"
+          data-ps-header-search-toggle
+          aria-expanded="false"
+          aria-controls="ps-header-search-panel">
+    <span class="ps-site-header__menu-search-icon" aria-hidden="true">
+      {{ icon('bnp_custom', 'search', {'size': '20px'}) }}
+    </span>
+    <span class="ps-site-header__menu-search-label">{{ label }}</span>
+  </button>
+{% else %}
+  <button type="button"
+          class="ps-header-actions__icon-btn ps-header-search__trigger ps-header-search__trigger--toolbar"
+          data-ps-header-search-toggle
+          aria-expanded="false"
+          aria-controls="ps-header-search-panel"
+          aria-label="{{ label }}">
+    {{ icon('bnp_custom', 'search', {'size': '20px'}) }}
+  </button>
+{% endif %}

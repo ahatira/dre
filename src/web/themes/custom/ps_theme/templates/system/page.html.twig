@@ -1,0 +1,139 @@
+{#
+/**
+ * @file
+ * Property Search — global page shell (Stellar layout).
+ *
+ * Bootstrap grid via ui_suite_bnp grid_row_* + theme container setting.
+ * gx-0 on rows; px-0 on container/col when full-bleed is required (homepage).
+ */
+#}
+{% set has_site_header = page.branding or page.shortcut or ps_site_header_navigation_mobile or ps_site_header_navigation_desktop or ps_site_header_actions or ps_site_header_search or ps_site_header_favorites or ps_site_header_account %}
+{% set ps_grid_gx = 'gx-0' %}
+{% set ps_grid_bleed_container = { class: ['px-0'] } %}
+{% set ps_grid_bleed_col = { class: ['px-0'] } %}
+
+<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}">
+  {% if has_site_header %}
+    <header class="site-header ps-site-header" role="banner" data-ps-site-header>
+      {{ include('ps_theme:site-header', {
+        container: container,
+        branding: page.branding,
+        shortcut: page.shortcut,
+        navigation_mobile: ps_site_header_navigation_mobile,
+        navigation_desktop: ps_site_header_navigation_desktop,
+        search_panel: ps_site_header_search.panel|default(null),
+        search_mobile_trigger: ps_site_header_search.mobile_trigger|default(null),
+        search_toolbar_trigger: ps_site_header_search.toolbar_trigger|default(null),
+        favorites: ps_site_header_favorites,
+        actions: ps_site_header_actions,
+        account: ps_site_header_account,
+      }, with_context = false) }}
+    </header>
+  {% endif %}
+
+  {% if page.header and not ps_hide_header_chrome %}
+    {{ include('ui_suite_bnp:grid_row_1', {
+      container: container,
+      gutters_horizontal: ps_grid_gx,
+      container_wrapper_attributes: { class: ['ps-page-chrome'] },
+      col_xs: 12,
+      col_1_content: page.header,
+    }, with_context = false) }}
+  {% endif %}
+
+  {% set main_content = [
+    page.highlighted,
+    page.help,
+    {
+      '#type': 'html_tag',
+      '#tag': 'div',
+      '#attributes': {
+        'id': 'main-content',
+      },
+    },
+    page.content,
+  ] %}
+
+  <main class="ps-main{{ is_front ? ' ps-main--homepage' : '' }}" role="main">
+    {% if page.sidebar_first and page.sidebar_second %}
+      {{ include('ui_suite_bnp:grid_row_3', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        col_xs: [12, 12, 12],
+        col_sm: [3, 6, 3],
+        col_1_content: page.sidebar_first,
+        col_1_attributes: { role: 'complementary' },
+        col_2_content: main_content,
+        col_3_content: page.sidebar_second,
+        col_3_attributes: { role: 'complementary' },
+      }, with_context = false) }}
+    {% elseif page.sidebar_first %}
+      {{ include('ui_suite_bnp:grid_row_2', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        col_xs: [12, 12],
+        col_sm: [3, 9],
+        col_1_content: page.sidebar_first,
+        col_1_attributes: { role: 'complementary' },
+        col_2_content: main_content,
+      }, with_context = false) }}
+    {% elseif page.sidebar_second %}
+      {{ include('ui_suite_bnp:grid_row_2', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        col_xs: [12, 12],
+        col_sm: [9, 3],
+        col_1_content: main_content,
+        col_2_content: page.sidebar_second,
+        col_2_attributes: { role: 'complementary' },
+      }, with_context = false) }}
+    {% else %}
+      {{ include('ui_suite_bnp:grid_row_1', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        container_attributes: is_front ? ps_grid_bleed_container : {},
+        col_xs: 12,
+        col_attributes: is_front ? ps_grid_bleed_col : {},
+        col_1_content: main_content,
+      }, with_context = false) }}
+    {% endif %}
+  </main>
+
+  {% if page.footer_top or page.footer or page.footer_bottom %}
+    <footer class="site-footer ps-site-footer" role="contentinfo">
+      {% if page.footer_top %}
+        <div class="ps-site-footer__top">
+          {{ include('ui_suite_bnp:grid_row_1', {
+            container: container,
+            gutters_horizontal: ps_grid_gx,
+            col_xs: 12,
+            col_1_content: page.footer_top,
+          }, with_context = false) }}
+        </div>
+      {% endif %}
+
+      {% if page.footer %}
+        <div class="ps-site-footer__main">
+          {{ include('ui_suite_bnp:grid_row_1', {
+            container: container,
+            gutters_horizontal: ps_grid_gx,
+            col_xs: 12,
+            col_1_content: page.footer,
+          }, with_context = false) }}
+        </div>
+      {% endif %}
+
+      {% if page.footer_bottom %}
+        <div class="ps-site-footer__bottom">
+          {{ include('ui_suite_bnp:grid_row_1', {
+            container: container,
+            gutters_horizontal: ps_grid_gx,
+            col_xs: 12,
+            col_1_content: page.footer_bottom,
+            col_attributes: { class: ['ps-site-footer__bottom-inner'] },
+          }, with_context = false) }}
+        </div>
+      {% endif %}
+    </footer>
+  {% endif %}
+</div>

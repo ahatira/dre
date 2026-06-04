@@ -1,0 +1,89 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a2000001-0000-4000-8000-000000000004
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Created new Custom menu link'
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'What are you looking for?'
+  menu_name:
+    -
+      value: ps_header_actions
+  link:
+    -
+      uri: 'internal:/recherche'
+      title: null
+      options:
+        attributes:
+          class:
+            - btn
+            - btn-outline-primary
+            - ps-header-actions__search-btn
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+translations:
+  fr:
+    revision_user:
+      -
+        target_id: 0
+    revision_log_message:
+      -
+        value: 'Created new Custom menu link'
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Que recherchez-vous ?'
+    menu_name:
+      -
+        value: ps_header_actions
+    link:
+      -
+        uri: 'internal:/recherche'
+        title: null
+        options:
+          attributes:
+            class:
+              - btn
+              - btn-outline-primary
+              - ps-header-actions__search-btn
+    external:
+      -
+        value: false
+    rediscover:
+      -
+        value: true
+    weight:
+      -
+        value: 0
+    expanded:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true

@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Header actions — flat menu (classes via Menu Link Attributes, icons via UI Icons).
+ */
+#}
+{% if items %}
+  <div class="ps-header-actions">
+    <div class="ps-header-actions__main">
+      {% for item in items %}
+        {% set link_attributes = item.attributes|default(create_attribute()) %}
+        {% set is_ajax = link_attributes.hasClass('use-ajax') %}
+        <a href="{{ item.url.toString() }}"
+           {{ link_attributes }}
+           {%- if is_ajax -%}
+             data-dialog-type="dialog"
+             data-dialog-renderer="off_canvas"
+             data-dialog-options='{"width":420,"dialogClass":"ps-contact-offcanvas"}'
+           {%- endif -%}>
+          {{ item.title }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

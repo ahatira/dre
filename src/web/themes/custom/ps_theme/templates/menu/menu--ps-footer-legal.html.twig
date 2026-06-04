@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Footer legal links — horizontal bottom bar.
+ */
+#}
+{{ include('ui_suite_bnp:navbar_nav', {
+  attributes: attributes.addClass(['menu', 'menu--ps-footer-legal', 'nav', 'ps-site-footer__legal-nav']),
+  variant: 'default',
+  items: items,
+}, with_context = false) }}

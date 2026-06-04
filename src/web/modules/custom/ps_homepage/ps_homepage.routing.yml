@@ -1,0 +1,7 @@
+ps_homepage.contact_offcanvas:
+  path: '/contact/offcanvas'
+  defaults:
+    _controller: '\Drupal\ps_homepage\Controller\ContactOffcanvasController::offcanvas'
+    _title: 'Contact us'
+  requirements:
+    _access: 'TRUE'

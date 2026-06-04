@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Property Search — inner panel for advanced_mega_menu (menu links + promo block).
+ */
+#}
+{% if menu_link_contents or mega_menu_contents %}
+  <div class="ps-mega-menu__panel-inner">
+    <div class="ps-mega-menu__columns{{ mega_menu_contents ? ' ps-mega-menu__columns--with-promo' : '' }}">
+      {% if menu_link_contents %}
+        {% for menu_link_content in menu_link_contents %}
+          <div class="ps-mega-menu__column">
+            <p class="ps-mega-menu__column-title">{{ menu_link_content.parent.title }}</p>
+            {% if menu_link_content.children is not empty %}
+              <ul class="ps-mega-menu__links">
+                {% for child in menu_link_content.children %}
+                  <li>
+                    <a href="{{ child.url }}" class="ps-mega-menu__link-item{{ child.in_active_trail ? ' active' : '' }}">
+                      {{ child.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% if mega_menu_contents %}
+        {% for mega_menu_content in mega_menu_contents %}
+          {% for column in mega_menu_content['columns'] %}
+            <div class="ps-mega-menu__column ps-mega-menu__column--promo">
+              {% for element in column %}
+                {{ element.block }}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

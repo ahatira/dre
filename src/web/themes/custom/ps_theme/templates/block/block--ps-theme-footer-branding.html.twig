@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Footer branding block — BNPPRE wordmark (footer-logo.svg).
+ */
+#}
+{% extends "block--bare.html.twig" %}
+{% block content %}
+  {% if site_logo %}
+    <a class="ps-site-footer__brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+      <img src="{{ site_logo }}" alt="{{ 'BNP Paribas Real Estate'|t }}" loading="lazy" />
+    </a>
+  {% endif %}
+{% endblock %}

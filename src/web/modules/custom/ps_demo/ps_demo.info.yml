@@ -1,0 +1,19 @@
+name: 'PS Demo'
+type: module
+description: 'Default demo content and configuration for Property Search (export hub).'
+core_version_requirement: ^11.3
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - drupal:block_content
+  - drupal:content_translation
+  - drupal:language
+  - drupal:layout_builder
+  - drupal:media
+  - drupal:menu_link_content
+  - drupal:node
+  - drupal:path
+  - drupal:path_alias
+  - ps_core:ps_core
+  - ps_favorite:ps_favorite
+  - ps_homepage:ps_homepage

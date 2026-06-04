@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Account utility link in the Stellar header.
+ */
+#}
+{{ include('ui_suite_bnp:navbar_nav', {
+  attributes: attributes.addClass(classes ?: ['menu', 'menu--' ~ menu_name|clean_class]),
+  variant: 'default',
+  items: items,
+}, with_context = false) }}

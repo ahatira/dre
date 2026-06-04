@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.full
+label: Full
+description: 'Layout Builder page display (homepage).'
+targetEntityType: node
+cache: true

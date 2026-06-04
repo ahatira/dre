@@ -1,0 +1,11 @@
+name: 'PS Homepage'
+type: module
+description: 'Layout Builder blocks for the Stellar homepage.'
+core_version_requirement: ^11.3
+package: 'Property Search'
+dependencies:
+  - drupal:language
+  - drupal:layout_builder
+  - drupal:node
+  - drupal:languageicons
+  - ps_favorite:ps_favorite

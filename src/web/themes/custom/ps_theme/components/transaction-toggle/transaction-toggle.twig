@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Transaction type toggle — Stellar search hero / recherche.
+ */
+#}
+{% if items %}
+  <nav{{ attributes.addClass('ps-transaction-toggle') }} aria-label="{{ 'Transaction type'|t }}">
+    <ul class="ps-transaction-toggle__list nav nav-pills justify-content-center" role="list">
+      {% for item in items %}
+        <li class="nav-item" role="listitem">
+          <a
+            href="{{ item.url }}"
+            class="nav-link ps-transaction-toggle__link{{ item.active ? ' active' : '' }}"
+            {% if item.active %}aria-current="page"{% endif %}
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}
