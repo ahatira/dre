@@ -5,6 +5,10 @@ core_version_requirement: ^11.3
 'base theme': ui_suite_bnp
 dependencies:
   - advanced_mega_menu
+  - languageicons
+  - menu_link_attributes
+  - ps_homepage
+  - search
 regions:
   branding: Branding
   shortcut: 'Header shortcut'

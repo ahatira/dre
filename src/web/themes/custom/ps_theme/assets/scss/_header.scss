@@ -60,6 +60,9 @@ body.ps-mobile-menu-open {
   --ps-header-row-height: 64px;
   --ps-header-brand-height: 31px;
   --ps-header-brand-max-width: 162px;
+  // Figma: slogan left 196px − (logo left 25px + width 162px) = 9px.
+  --ps-header-slogan-gap: 9px;
+  --ps-header-slogan-max-width: 230px;
   --ps-header-inline-padding: var(--re-space-24, 24px);
   --ps-header-toggler-size: var(--ps-header-brand-height);
   --ps-header-toggler-icon-inset: 10.18%;
@@ -238,6 +241,7 @@ body.ps-mobile-menu-open {
 
   &__branding {
     flex: 0 0 auto;
+    min-width: 0;
 
     @media (min-width: 992px) {
       margin-inline-start: 0;
@@ -245,10 +249,40 @@ body.ps-mobile-menu-open {
     }
   }
 
+  // Logo + slogan on one row (maquette desktop).
+  &__brand-group {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--ps-header-slogan-gap, 9px);
+    min-width: 0;
+  }
+
+  // Figma: Paragraph Regular — desktop only (hidden on mobile).
+  &__slogan {
+    color: var(--re-color-text-muted, #777e83);
+    display: none;
+    flex: 0 1 auto;
+    font-family: var(--re-font-family-ui);
+    font-size: var(--re-font-size-16, 16px);
+    font-style: normal;
+    font-weight: var(--re-font-weight-regular, 400);
+    line-height: 24px;
+    margin: 0;
+    max-width: var(--ps-header-slogan-max-width, 230px);
+    min-height: 24px;
+
+    @media (min-width: 992px) {
+      align-items: center;
+      display: flex;
+    }
+  }
+
   &__brand {
     align-items: center;
     color: var(--re-color-heading, #1c2d37);
     display: inline-flex;
+    flex: 0 0 auto;
     margin: 0;
     padding: 0;
 
@@ -1019,6 +1053,7 @@ body.ps-mobile-menu-open {
     line-height: 0;
   }
 
+  #block-ps-theme-branding,
   #block-ps-theme-main-menu,
   #block-ps-theme-header-actions,
   #block-ps-theme-header-search,

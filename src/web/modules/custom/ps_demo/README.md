@@ -7,11 +7,12 @@ contenu multilingue (default content), copy homepage (config), structure démo (
 
 | Couche | Rôle | Emplacement |
 |--------|------|-------------|
-| **Contenu** | Placeholders modifiables au BO (menus, homepage LB, alias) | `export/content/` |
+| **Structure thème** | Menus vides, blocs en régions (`make install` importe `ps_theme/config/install/`) | `ps_theme/config/install/` |
+| **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `export/content/` → `make demo` |
 | **Copy homepage** | Textes EN/FR des blocs LB (hero, univers, éditorial) | `config/install/ps_demo.homepage.yml` |
 | **Paramètres démo** | Page d'accueil, références UUID | `config/install/ps_demo.settings.yml` |
-| **Structure démo** | Mega-menu, langues, traduction contenu | `src/config/demo/` (partial CMI) |
-| **Shell thème** | Placements blocs header/footer (non démo) | `ps_theme/config/install/` |
+| **Structure démo** | Mega-menu panels, langues | `src/config/demo/` → `make demo` |
+| **Référence menus** | Schéma YAML pour régénérer les exports | `config/stellar_menus.yml` |
 
 Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et config sont exportables.
 
@@ -26,12 +27,15 @@ Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et confi
 
 ```
 ps_demo/
-├── export/content/              # Default content (core API)
-│   ├── node/                    # Homepage LB (nid 1 attendu)
-│   └── menu_link_content/       # Menus EN + traductions FR
+├── export/content-structural/   # Référence Login + Contact (doublon partiel de content/)
+├── export/content/              # Demo complet (make demo)
+│   ├── node/
+│   └── menu_link_content/
+├── config/stellar_menus.yml     # Référence pour régénérer les exports menu
 ├── config/install/
-│   ├── ps_demo.settings.yml     # front_page: /node/1
-│   └── ps_demo.homepage.yml     # Copy blocs homepage EN/FR
+│   ├── ps_demo.settings.yml
+│   └── ps_demo.homepage.yml
+├── scripts/import-structural-content.php
 └── src/Service/DemoInstaller.php
 
 src/config/demo/                 # Partial CMI (mega-menu, multilingual)
@@ -42,19 +46,18 @@ src/config/demo/                 # Partial CMI (mega-menu, multilingual)
 ```bash
 make up
 bash src/scripts/main.sh tools build
-make reinstall
+make reinstall          # site + modules + ps_theme (vide)
+make demo               # menus, homepage, mega-menu
+make import-sample-xml  # offres sample (optionnel)
+make index-solr         # index Solr (optionnel)
 ```
 
-Enchaînement (`install.sh`) :
+Enchaînement :
 
-1. `site:install minimal` + modules PS + dictionnaire + FR
-2. Stack front (`ps_homepage`, `advanced_mega_menu`, …)
-3. **`ps_theme`** puis **`ps_demo`** (LB + import contenu)
-4. **`drush cim --partial --source=../config/demo`** (mega-menu, langues)
-5. Page d'accueil **`/node/1`** via `ps_demo.settings` → `system.site`
-6. Migrate offres sample + index Solr
-
-Sans contenu démo : `bash src/scripts/main.sh drupal install --force --no-content`
+1. **`make reinstall`** — Drupal + modules PS + dictionnaire + **`ps_theme`** (blocs/menus vides, thème front + admin Gin)
+2. **`make demo`** — contenu Stellar (menus, homepage) + CMI mega-menu / multilingue
+3. **`make import-sample-xml`** — migrate offres CRM
+4. **`make index-solr`** — index Search API / Solr
 
 ## Multilingue
 

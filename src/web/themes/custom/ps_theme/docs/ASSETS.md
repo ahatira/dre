@@ -48,7 +48,7 @@ Source : `ui_suite_bnp/assets/icons/custom/{group}/*.svg` — manifeste `custom-
 
 - **Config** : `config/install/ps_theme.settings.yml` → `logo.use_default: true`
 - Drupal utilise `logo.svg` à la racine du thème (symlink logique vers le mark BNP RE)
-- Bloc branding : `block.block.ps_theme_branding` → `use_site_name: false`, logo seul
+- Bloc branding : `block.block.ps_theme_branding` → logo + slogan (`use_site_slogan: true`, texte `system.site:slogan`)
 - Pas de chemin logo en dur dans Twig
 
 ## Ré-export depuis Figma

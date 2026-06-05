@@ -27,7 +27,9 @@ Shared bash modules providing reusable functions:
 ### Script Domains
 
 **`drupal/`** - Drupal operations (requires Drush)
-- `install.sh` - Fresh Drupal installation
+- `install.sh` - Fresh Drupal installation (site, modules, theme — no demo)
+- `demo.sh` - Demo content (ps_demo, mega-menu CMI)
+- `index-solr.sh` - Reindex offers in Solr
 - `cache-clear.sh` - Cache rebuild
 - `deploy.sh` - Production deployment workflow (checks dependencies first)
 
@@ -72,14 +74,22 @@ scripts/main.sh tools build --no-cache --keep-npm
 ### Install Options
 
 ```bash
-# Full install with content generation
+# Site install (modules, dictionary, ps_theme — no demo/offers/Solr)
 scripts/main.sh drupal install
 
-# Install without content
-scripts/main.sh drupal install --no-content
+# Force reinstall (drop DB)
+scripts/main.sh drupal install --force
 
 # Custom site name
 SITE_NAME="My Site" scripts/main.sh drupal install
+```
+
+### Demo & data (after install)
+
+```bash
+make demo                 # Menus, homepage, mega-menu config
+make import-sample-xml    # Sample CRM offers (migrate)
+make index-solr           # Solr index for offers
 ```
 
 ### Help

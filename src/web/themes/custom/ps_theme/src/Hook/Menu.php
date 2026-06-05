@@ -184,15 +184,22 @@ final class Menu {
       return self::$externalUris;
     }
 
-    $path = \Drupal::service('extension.path.resolver')->getPath('theme', 'ps_theme') . '/config/menu/stellar_menu_uris.yml';
-    if (!is_readable($path)) {
-      self::$externalUris = [];
+    $paths = [
+      DRUPAL_ROOT . '/modules/custom/ps_demo/config/stellar_menu_uris.yml',
+      \Drupal::service('extension.path.resolver')->getPath('theme', 'ps_theme') . '/config/menu/stellar_menu_uris.yml',
+    ];
+
+    foreach ($paths as $path) {
+      if (!is_readable($path)) {
+        continue;
+      }
+      /** @var array{external_uris?: array<string, array<string, string>>} $data */
+      $data = Yaml::decode((string) file_get_contents($path));
+      self::$externalUris = $data['external_uris'] ?? [];
       return self::$externalUris;
     }
 
-    /** @var array{external_uris?: array<string, array<string, string>>} $data */
-    $data = Yaml::decode((string) file_get_contents($path));
-    self::$externalUris = $data['external_uris'] ?? [];
+    self::$externalUris = [];
     return self::$externalUris;
   }
 

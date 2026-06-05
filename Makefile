@@ -19,7 +19,7 @@ XML_TARGET := src/web/sites/default/files/crm/offers.xml
 .PHONY: \
 	help up down restart ps logs rebuild \
 	composer-install composer-update npm-install bootstrap \
-	install reinstall deploy verify cleanup \
+	install reinstall demo index-solr deploy verify cleanup \
 	drush-status drush-cr drush-uli modules-list theme-admin db-reset \
 	dictionary-import xml-stage-sample \
 	import-crm import-sample-xml import-status import-reset import-rollback
@@ -32,8 +32,11 @@ help:
 	@echo "  make ps                - Etat des conteneurs"
 	@echo "  make logs              - Logs nginx"
 	@echo "  make rebuild           - Reconstruire l'image PHP"
-	@echo "  make install           - Installation Drupal"
-	@echo "  make reinstall         - Reinstallation Drupal complete (DB + demo + offres)"
+	@echo "  make install           - Installation Drupal (site + modules + theme)"
+	@echo "  make reinstall         - Reinstallation Drupal (DB reset, sans demo/offres)"
+	@echo "  make demo              - Contenu demo (menus, homepage, mega-menu CMI)"
+	@echo "  make import-sample-xml - Import offres sample (migrate CRM XML)"
+	@echo "  make index-solr        - Indexer les offres dans Solr"
 	@echo "  make deploy            - Workflow deploiement Drupal"
 	@echo "  make verify            - Verifier build/dependances scripts"
 	@echo "  make dictionary-import - Import des dictionnaires"
@@ -79,6 +82,12 @@ install:
 
 reinstall:
 	bash "$(SCRIPTS_CLI)" drupal install --force
+
+demo:
+	bash "$(SCRIPTS_CLI)" drupal demo
+
+index-solr:
+	bash "$(SCRIPTS_CLI)" drupal index-solr
 
 deploy:
 	bash "$(SCRIPTS_CLI)" drupal deploy

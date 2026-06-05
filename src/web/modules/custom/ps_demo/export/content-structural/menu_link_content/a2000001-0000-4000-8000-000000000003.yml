@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: a2000001-0000-4000-8000-000000000004
+  uuid: a2000001-0000-4000-8000-000000000003
   bundle: menu_link_content
   default_langcode: en
 default:
@@ -16,21 +16,28 @@ default:
       value: true
   title:
     -
-      value: 'What are you looking for?'
+      value: 'Contact us'
   menu_name:
     -
       value: ps_header_actions
   link:
     -
-      uri: 'internal:/recherche'
+      uri: 'internal:/contact/offcanvas'
       title: null
       options:
         attributes:
           class:
             - btn
-            - btn-outline-primary
+            - btn-secondary
             - ps-header-actions__btn
-            - ps-header-actions__search-btn
+            - ps-header-actions__btn--contact
+            - use-ajax
+        icon:
+          target_id: 'bnp_custom:mail-outline'
+          settings:
+            bnp_custom:
+              size: 20px
+        icon_display: before
   external:
     -
       value: false
@@ -39,7 +46,7 @@ default:
       value: true
   weight:
     -
-      value: 40
+      value: 30
   expanded:
     -
       value: false
@@ -59,21 +66,28 @@ translations:
         value: true
     title:
       -
-        value: 'Que recherchez-vous ?'
+        value: 'Nous contacter'
     menu_name:
       -
         value: ps_header_actions
     link:
       -
-        uri: 'internal:/recherche'
+        uri: 'internal:/contact/offcanvas'
         title: null
         options:
           attributes:
             class:
               - btn
-              - btn-outline-primary
+              - btn-secondary
               - ps-header-actions__btn
-              - ps-header-actions__search-btn
+              - ps-header-actions__btn--contact
+              - use-ajax
+          icon:
+            target_id: 'bnp_custom:mail-outline'
+            settings:
+              bnp_custom:
+                size: 20px
+          icon_display: before
     external:
       -
         value: false
@@ -82,7 +96,7 @@ translations:
         value: true
     weight:
       -
-        value: 40
+        value: 30
     expanded:
       -
         value: false

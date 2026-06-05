@@ -3,23 +3,15 @@
 /**
  * @file
  * Post update hooks for the Property Search theme.
+ *
+ * Legacy migrations for existing databases. Fresh installs use config/install/
+ * (theme) + export/content-structural/ (ps_demo) + make demo.
  */
 
 declare(strict_types=1);
 
 use Drupal\ps_theme\Service\HomepageInstaller;
-use Drupal\ps_theme\Service\LegacyDemoContentInstaller;
 use Drupal\ps_theme\Utility\DemoContent;
-
-/**
- * Import Stellar default menus (FR + EN).
- *
- * @deprecated in ps_theme:1.0.0 and is removed from ps_theme:2.0.0. Use ps_demo
- *   content exports instead.
- */
-function ps_theme_post_update_9001_stellar_menus(): void {
-  LegacyDemoContentInstaller::create(\Drupal::getContainer())->install(menus: TRUE, homepage: FALSE);
-}
 
 /**
  * Fix homepage view mode id (node.page.full → node.full).
@@ -31,50 +23,12 @@ function ps_theme_post_update_9003_homepage_view_mode(): void {
 }
 
 /**
- * Import Stellar corporate header menu (FR + EN) and disable legacy Contact link.
- */
-function ps_theme_post_update_9004_corporate_header_menu(): void {
-  LegacyDemoContentInstaller::create(\Drupal::getContainer())->install(menus: TRUE, homepage: FALSE);
-
-  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-  $entities = $storage->loadByProperties(['uuid' => 'a1000001-0000-4000-8000-000000000105']);
-  foreach ($entities as $entity) {
-    $entity->set('enabled', FALSE);
-    $entity->save();
-  }
-
-  \Drupal::service('plugin.manager.menu.link')->rebuild();
-}
-
-/**
- * Import Stellar mega-menu header structure (FR + EN).
- */
-function ps_theme_post_update_9005_mega_menu_header(): void {
-  LegacyDemoContentInstaller::create(\Drupal::getContainer())->install(menus: TRUE, homepage: FALSE);
-  \Drupal::service('plugin.manager.menu.link')->rebuild();
-}
-
-/**
  * Enable Language Icons for the Stellar header language switcher.
  */
 function ps_theme_post_update_9006_languageicons(): void {
   if (!\Drupal::moduleHandler()->moduleExists('languageicons')) {
     \Drupal::service('module_installer')->install(['languageicons'], TRUE);
   }
-}
-
-/**
- * Mega-menu: Rent/Buy/Coworking columns, About/Solutions/News panels, cleanup.
- */
-function ps_theme_post_update_9007_mega_menu_columns(): void {
-  ps_theme_update_9006();
-}
-
-/**
- * Re-apply mega-menu config after ps_demo import on existing sites.
- */
-function ps_theme_post_update_9008_mega_menu_reimport(): void {
-  ps_theme_reimport_demo_config();
 }
 
 /**
@@ -111,4 +65,39 @@ function ps_theme_post_update_9010_header_search_btn_classes(): void {
     }
   }
   \Drupal::service('plugin.manager.menu.link')->rebuild();
+}
+
+/**
+ * Deprecated stellar menu imports — use make demo instead.
+ */
+function ps_theme_post_update_9001_stellar_menus(): void {
+  // No-op: content moved to ps_demo export + make demo.
+}
+
+/**
+ * Deprecated corporate header menu import.
+ */
+function ps_theme_post_update_9004_corporate_header_menu(): void {
+  // No-op: content moved to ps_demo export + make demo.
+}
+
+/**
+ * Deprecated mega-menu header import.
+ */
+function ps_theme_post_update_9005_mega_menu_header(): void {
+  // No-op: content moved to ps_demo export + make demo.
+}
+
+/**
+ * Deprecated mega-menu columns import.
+ */
+function ps_theme_post_update_9007_mega_menu_columns(): void {
+  // No-op: content moved to ps_demo export + make demo.
+}
+
+/**
+ * Deprecated demo config reimport — use make demo (drush cim config/demo).
+ */
+function ps_theme_post_update_9008_mega_menu_reimport(): void {
+  // No-op: run `make demo` for mega-menu CMI and full demo content.
 }

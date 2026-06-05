@@ -13,7 +13,6 @@ Usage: scripts/main.sh drupal install [OPTIONS]
 Options:
   --force          Force reinstall (recreate database)
   --dev            Enable development modules (devel, stage_file_proxy)
-  --no-content     Skip content (dictionary, ps_demo, sample offers, Solr index)
   -h, --help       Show this help
 
 Prerequisites:
@@ -32,7 +31,7 @@ Environment variables:
 Examples:
   scripts/main.sh drupal install
   scripts/main.sh drupal install --force
-  scripts/main.sh drupal install --dev --no-content
+  scripts/main.sh drupal install --dev
   SITE_NAME="My Site" scripts/main.sh drupal install
 EOF
 }
@@ -45,7 +44,6 @@ ADMIN_MAIL="${ADMIN_MAIL:-admin@example.com}"
 DB_NAME="${DB_NAME:-drupal}"
 DB_USER="${DB_USER:-drupal}"
 FORCE_INSTALL=0
-SKIP_CONTENT=0
 ENABLE_DEV=0
 
 # Parse arguments
@@ -57,10 +55,6 @@ while [[ $# -gt 0 ]]; do
       ;;
     --dev)
       ENABLE_DEV=1
-      shift
-      ;;
-    --no-content)
-      SKIP_CONTENT=1
       shift
       ;;
     -h|--help)
@@ -105,9 +99,17 @@ ps_retry 2 3 ps_drush site:install minimal \
   --yes
 ps_success "Drupal installed"
 
-# Front theme (base only — ps_theme becomes default after demo stack when content enabled)
+# Drupal 11.3: UpdateHooks calls update_storage_clear() from a namespaced class
+# before update.module is loaded, which fatals on the first theme/module enable.
+ps_info "Disabling optional Update Status module (not needed for local install)..."
+if ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
+  ps_retry 2 2 ps_drush pm:uninstall update -y
+  ps_drush_cr
+fi
+
+# Base theme (ps_theme sub-theme base).
 ps_info "Enabling base theme (ui_suite_bnp)..."
-ps_drush theme:enable -y ui_suite_bnp || true
+ps_retry 2 2 ps_drush theme:enable -y ui_suite_bnp
 ps_success "Base theme enabled"
 
 # Enable essential contrib modules (not in custom module dependencies)
@@ -198,57 +200,17 @@ done < <(ps_docker_exec_php "find web/modules/custom -path '*/translations/*.po'
 ps_info "Translations: imported=${IMPORTED}, skipped=${SKIPPED}, failed=${FAILED}"
 [[ ${FAILED} -gt 0 ]] && ps_warn "Some translations failed to import"
 
-# Import dictionary
-if [[ ${SKIP_CONTENT} -eq 0 ]]; then
-  ps_info "Importing dictionary data..."
-  ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
-  ps_success "Dictionary imported"
+ps_info "Importing dictionary data..."
+ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
+ps_success "Dictionary imported"
 
-  # Property Search front: demo menus/homepage + theme + sample offers + Solr.
-  ps_info "Enabling Property Search front stack..."
-  ps_retry 2 2 ps_drush en -y \
-    languageicons \
-    search \
-    ui_icons_field \
-    ui_icons_menu \
-    menu_link_attributes \
-    advanced_mega_menu \
-    ps_homepage
-
-  # ps_theme before ps_demo: LB field + theme config; legacy installers skip when export exists.
-  ps_info "Enabling Property Search theme (ps_theme)..."
-  ps_retry 2 2 ps_drush theme:enable -y ps_theme
-  ps_drush config:set -y system.theme default ps_theme
-  ps_success "Front theme configured"
-
-  ps_retry 2 2 ps_drush en -y ps_demo
-
-  ps_info "Applying demo configuration (mega-menu, multilingual)..."
-  ps_retry 2 2 ps_drush config:import --partial --source=../config/demo -y
-
-  XML_SAMPLE="${PS_PROJECT_ROOT}/data/xml/bnppre_sample_50_per_type.xml"
-  XML_TARGET="${PS_SRC_DIR}/web/sites/default/files/crm/offers.xml"
-  if [[ -f "${XML_SAMPLE}" ]]; then
-    ps_info "Staging sample CRM XML..."
-    mkdir -p "$(dirname "${XML_TARGET}")"
-    cp "${XML_SAMPLE}" "${XML_TARGET}"
-
-    ps_info "Importing sample offers (migrate)..."
-    ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools ps_migrate
-    ps_retry 2 2 ps_drush migrate:import ps_offer_from_xml --update --execute-dependencies -y \
-      || ps_warn "Offer migration finished with warnings"
-    ps_success "Sample offers imported"
-  else
-    ps_warn "Sample XML not found (${XML_SAMPLE}), skipping offers import"
-  fi
-
-  ps_info "Indexing offers in Solr..."
-  ps_drush search-api:reset-tracker offers -y 2>/dev/null || true
-  ps_retry 2 2 ps_drush search-api:index offers -y || ps_warn "Solr index failed (is Solr up?)"
-  ps_success "Property Search front stack ready"
-else
-  ps_warn "Skipping dictionary, ps_demo, offers and Solr index (--no-content)"
-fi
+ps_info "Enabling Property Search front theme (shell: blocs + menus vides)..."
+ps_retry 2 2 ps_drush theme:enable -y ps_theme
+ps_retry 2 2 ps_drush config:import --partial --source=themes/custom/ps_theme/config/install -y
+ps_drush config:set -y system.theme default ps_theme
+ps_drush config:set -y system.site page.front /node
+ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
+ps_success "Front theme configured"
 
 # Cache rebuild
 ps_info "Rebuilding cache..."
@@ -262,3 +224,5 @@ ps_drush status --fields=bootstrap,db-status,drupal-version,drush-version
 echo ""
 ps_info "Back-office: ${PS_HTTP_URL}/admin"
 ps_info "Login: ${ADMIN_USER} / ${ADMIN_PASS}"
+ps_info "Front: ${PS_HTTP_URL}/ (thème actif, menus vides — Structure > Menus)"
+ps_info "Optional: make demo | make import-sample-xml | make index-solr"

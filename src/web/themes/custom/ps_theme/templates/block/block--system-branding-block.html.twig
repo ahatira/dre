@@ -1,18 +1,25 @@
 {#
 /**
  * @file
- * Header branding — logo only, no block wrapper (navbar grid layout).
+ * Header branding — logo + optional site slogan (block setting: use_site_slogan).
  */
 #}
-{% if site_logo %}
-  {{ attach_library('core/components.ui_suite_bnp--navbar') }}
-  <a class="navbar-brand ps-site-header__brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-    <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" width="162" height="31" fetchpriority="high" />
-  </a>
-{% elseif site_name %}
-  {{ attach_library('core/components.ui_suite_bnp--navbar') }}
-  <a class="navbar-brand ps-site-header__brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">{{ site_name }}</a>
-{% endif %}
-{% if site_slogan %}
-  <span class="navbar-text">{{ site_slogan }}</span>
-{% endif %}
+{% extends "block.html.twig" %}
+
+{% block content %}
+  {% if site_logo or site_name %}
+    {{ attach_library('core/components.ui_suite_bnp--navbar') }}
+  {% endif %}
+  <div class="ps-site-header__brand-group">
+    {% if site_logo %}
+      <a class="navbar-brand ps-site-header__brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+        <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" width="162" height="31" fetchpriority="high" />
+      </a>
+    {% elseif site_name %}
+      <a class="navbar-brand ps-site-header__brand" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">{{ site_name }}</a>
+    {% endif %}
+    {% if site_slogan %}
+      <p class="ps-site-header__slogan">{{ site_slogan }}</p>
+    {% endif %}
+  </div>
+{% endblock %}
