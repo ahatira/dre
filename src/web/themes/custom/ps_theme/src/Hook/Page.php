@@ -33,6 +33,26 @@ final class Page {
   ];
 
   /**
+   * Block IDs placed in footer regions, mapped to site-footer slots.
+   */
+  private const FOOTER_TOP_BLOCK_SLOTS = [
+    'ps_theme_footer_prefooter' => 'prefooter',
+  ];
+
+  private const FOOTER_BLOCK_SLOTS = [
+    'ps_theme_footer_contact' => 'contact',
+    'ps_theme_footer_social' => 'social',
+    'ps_theme_footer_business' => 'business',
+    'ps_theme_footer_about' => 'about',
+  ];
+
+  private const FOOTER_BOTTOM_BLOCK_SLOTS = [
+    'ps_theme_footer_branding' => 'branding',
+    'ps_theme_footer_legal' => 'legal',
+    'ps_theme_footer_copyright' => 'copyright',
+  ];
+
+  /**
    * Implements hook_preprocess_HOOK().
    */
   #[Hook('preprocess_html')]
@@ -62,6 +82,7 @@ final class Page {
     $variables['ps_hide_header_chrome'] = TRUE;
 
     $this->prepareNavigationInstances($variables);
+    $this->prepareSiteFooterSlots($variables);
 
     foreach ($variables['page']['header'] ?? [] as $key => $build) {
       if (!is_array($build)) {
@@ -243,6 +264,56 @@ final class Page {
       'mobile_trigger' => (string) $renderer->renderInIsolation($mobileTrigger),
       'toolbar_trigger' => (string) $renderer->renderInIsolation($toolbarTrigger),
     ];
+  }
+
+  /**
+   * Splits footer regions into site-footer component slots.
+   *
+   * @param array<string, mixed> $variables
+   *   Preprocess variables for page.html.twig.
+   */
+  private function prepareSiteFooterSlots(array &$variables): void {
+    $variables['ps_site_footer'] = [
+      'prefooter' => $this->extractFooterSlot($variables, 'footer_top', self::FOOTER_TOP_BLOCK_SLOTS, 'prefooter'),
+      'contact' => $this->extractFooterSlot($variables, 'footer', self::FOOTER_BLOCK_SLOTS, 'contact'),
+      'social' => $this->extractFooterSlot($variables, 'footer', self::FOOTER_BLOCK_SLOTS, 'social'),
+      'business' => $this->extractFooterSlot($variables, 'footer', self::FOOTER_BLOCK_SLOTS, 'business'),
+      'about' => $this->extractFooterSlot($variables, 'footer', self::FOOTER_BLOCK_SLOTS, 'about'),
+      'branding' => $this->extractFooterSlot($variables, 'footer_bottom', self::FOOTER_BOTTOM_BLOCK_SLOTS, 'branding'),
+      'legal' => $this->extractFooterSlot($variables, 'footer_bottom', self::FOOTER_BOTTOM_BLOCK_SLOTS, 'legal'),
+      'copyright' => $this->extractFooterSlot($variables, 'footer_bottom', self::FOOTER_BOTTOM_BLOCK_SLOTS, 'copyright'),
+    ];
+
+    $variables['ps_has_site_footer'] = (bool) array_filter($variables['ps_site_footer']);
+  }
+
+  /**
+   * Extracts and renders a single footer slot from a region.
+   *
+   * @param array<string, mixed> $variables
+   *   Page preprocess variables.
+   * @param string $region_key
+   *   Region machine name.
+   * @param array<string, string> $slot_map
+   *   Block ID to slot name map.
+   * @param string $slot
+   *   Slot name to extract.
+   */
+  private function extractFooterSlot(array &$variables, string $region_key, array $slot_map, string $slot): ?string {
+    $block_id = array_search($slot, $slot_map, TRUE);
+    if ($block_id === FALSE) {
+      return NULL;
+    }
+
+    $region = $variables['page'][$region_key] ?? [];
+    if (!isset($region[$block_id]) || !is_array($region[$block_id])) {
+      return NULL;
+    }
+
+    $build = $region[$block_id];
+    unset($variables['page'][$region_key][$block_id]);
+
+    return $this->renderRegionMarkup([$block_id => $build]);
   }
 
   /**

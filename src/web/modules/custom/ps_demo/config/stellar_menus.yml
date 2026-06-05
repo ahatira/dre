@@ -381,88 +381,14 @@ menus:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
 
-  ps_footer_main:
-    - id: contact_column
-      uuid: a1000003-0000-4000-8000-000000000301
+  ps_footer_business:
+    - id: business_heading
+      uuid: a1000003-0000-4000-8000-000000000303
       weight: 0
       link: { uri: 'route:<nolink>' }
       translations:
-        en: { title: 'Contact' }
-        fr: { title: 'Contact' }
-      children:
-        - id: contact_phone
-          uuid: a1000003-0000-4000-8000-000000000311
-          weight: 0
-          link: { uri: 'tel:+33140144500' }
-          translations:
-            en: { title: '+33 1 40 14 45 00' }
-            fr: { title: '+33 1 40 14 45 00' }
-        - id: contact_email
-          uuid: a1000003-0000-4000-8000-000000000312
-          weight: 10
-          link: { uri: 'mailto:contact@bnpparibas-realestate.com' }
-          translations:
-            en: { title: 'Email us' }
-            fr: { title: 'Nous écrire' }
-        - id: contact_form
-          uuid: a1000003-0000-4000-8000-000000000313
-          weight: 20
-          link:
-            uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
-            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
-          translations:
-            en: { title: 'Contact form' }
-            fr: { title: 'Formulaire de contact' }
-    - id: cities_column
-      uuid: a1000003-0000-4000-8000-000000000302
-      weight: 10
-      link: { uri: 'route:<nolink>' }
-      translations:
-        en: { title: 'Top cities' }
-        fr: { title: 'Principales villes' }
-      children:
-        - id: city_paris
-          uuid: a1000003-0000-4000-8000-000000000321
-          weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Paris' }
-          translations:
-            en: { title: 'Paris' }
-            fr: { title: 'Paris' }
-        - id: city_lyon
-          uuid: a1000003-0000-4000-8000-000000000322
-          weight: 10
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lyon' }
-          translations:
-            en: { title: 'Lyon' }
-            fr: { title: 'Lyon' }
-        - id: city_marseille
-          uuid: a1000003-0000-4000-8000-000000000323
-          weight: 20
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Marseille' }
-          translations:
-            en: { title: 'Marseille' }
-            fr: { title: 'Marseille' }
-        - id: city_lille
-          uuid: a1000003-0000-4000-8000-000000000324
-          weight: 30
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille' }
-          translations:
-            en: { title: 'Lille' }
-            fr: { title: 'Lille' }
-        - id: city_bordeaux
-          uuid: a1000003-0000-4000-8000-000000000325
-          weight: 40
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Bordeaux' }
-          translations:
-            en: { title: 'Bordeaux' }
-            fr: { title: 'Bordeaux' }
-    - id: websites_column
-      uuid: a1000003-0000-4000-8000-000000000303
-      weight: 20
-      link: { uri: 'route:<nolink>' }
-      translations:
-        en: { title: 'Our websites' }
-        fr: { title: 'Nos sites' }
+        en: { title: 'Business websites' }
+        fr: { title: 'Sites métier' }
       children:
         - id: website_bnpre
           uuid: a1000003-0000-4000-8000-000000000331
@@ -473,24 +399,96 @@ menus:
           translations:
             en: { title: 'BNP Paribas Real Estate' }
             fr: { title: 'BNP Paribas Real Estate' }
-        - id: website_research
-          uuid: a1000003-0000-4000-8000-000000000332
+        - id: city_paris
+          uuid: a1000003-0000-4000-8000-000000000321
           weight: 10
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Paris' }
+          translations:
+            en: { title: 'Paris offices' }
+            fr: { title: 'Bureaux Paris' }
+        - id: city_lyon
+          uuid: a1000003-0000-4000-8000-000000000322
+          weight: 20
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lyon' }
+          translations:
+            en: { title: 'Lyon offices' }
+            fr: { title: 'Bureaux Lyon' }
+        - id: city_marseille
+          uuid: a1000003-0000-4000-8000-000000000323
+          weight: 30
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Marseille' }
+          translations:
+            en: { title: 'Marseille offices' }
+            fr: { title: 'Bureaux Marseille' }
+        - id: city_lille
+          uuid: a1000003-0000-4000-8000-000000000324
+          weight: 40
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille' }
+          translations:
+            en: { title: 'Lille offices' }
+            fr: { title: 'Bureaux Lille' }
+        - id: city_bordeaux
+          uuid: a1000003-0000-4000-8000-000000000325
+          weight: 50
+          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Bordeaux' }
+          translations:
+            en: { title: 'Bordeaux offices' }
+            fr: { title: 'Bureaux Bordeaux' }
+
+  ps_footer_about:
+    - id: about_heading
+      uuid: a1000003-0000-4000-8000-000000000301
+      weight: 0
+      link: { uri: 'route:<nolink>' }
+      translations:
+        en: { title: 'About BNP Paribas Real Estate' }
+        fr: { title: 'À propos de BNP Paribas Real Estate' }
+      children:
+        - id: about_research
+          uuid: a1000003-0000-4000-8000-000000000332
+          weight: 0
           link:
             uri: 'https://www.bnpparibas-realestate.com/en-gb/research/'
             options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
           translations:
             en: { title: 'Research' }
             fr: { title: 'Research' }
-        - id: website_careers
+        - id: about_careers
           uuid: a1000003-0000-4000-8000-000000000333
-          weight: 20
+          weight: 10
           link:
             uri: 'https://www.bnpparibas-realestate.com/en-gb/careers/'
             options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
           translations:
             en: { title: 'Careers' }
             fr: { title: 'Carrières' }
+        - id: about_contact_form
+          uuid: a1000003-0000-4000-8000-000000000313
+          weight: 20
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Contact form' }
+            fr: { title: 'Formulaire de contact' }
+        - id: about_sustainability
+          uuid: a1000003-0000-4000-8000-000000000314
+          weight: 30
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/sustainability/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Sustainability' }
+            fr: { title: 'Développement durable' }
+        - id: about_press
+          uuid: a1000003-0000-4000-8000-000000000315
+          weight: 40
+          link:
+            uri: 'https://www.bnpparibas-realestate.com/en-gb/press/'
+            options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+          translations:
+            en: { title: 'Press' }
+            fr: { title: 'Presse' }
 
   ps_footer_social:
     - id: follow_us_heading
@@ -523,15 +521,15 @@ menus:
             fr: { title: 'Alertes email' }
 
   ps_footer_legal:
-    - id: legal_notice
+    - id: data_protection
       uuid: a1000005-0000-4000-8000-000000000501
       weight: 0
       link:
-        uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/privacy-policy/'
         options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
       translations:
-        en: { title: 'Legal notice' }
-        fr: { title: 'Mentions légales' }
+        en: { title: 'Data protection' }
+        fr: { title: 'Données personnelles' }
     - id: cookies
       uuid: a1000005-0000-4000-8000-000000000502
       weight: 10
@@ -541,24 +539,51 @@ menus:
       translations:
         en: { title: 'Cookie policy' }
         fr: { title: 'Politique cookies' }
-    - id: privacy
+    - id: disclaimer
       uuid: a1000005-0000-4000-8000-000000000503
       weight: 20
       link:
-        uri: 'https://www.bnpparibas-realestate.com/en-gb/privacy-policy/'
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
         options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
       translations:
-        en: { title: 'Privacy policy' }
-        fr: { title: 'Données personnelles' }
-    - id: accessibility
+        en: { title: 'Disclaimer' }
+        fr: { title: 'Avertissement' }
+    - id: suppliers
       uuid: a1000005-0000-4000-8000-000000000504
       weight: 30
       link:
-        uri: 'https://www.bnpparibas-realestate.com/en-gb/accessibility/'
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/suppliers/'
         options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
       translations:
-        en: { title: 'Accessibility' }
-        fr: { title: 'Accessibilité' }
+        en: { title: 'Suppliers: BNP Paribas is committed to its partners and suppliers' }
+        fr: { title: 'Fournisseurs : BNP Paribas s''engage envers ses partenaires et fournisseurs' }
+    - id: sitemap
+      uuid: a1000005-0000-4000-8000-000000000505
+      weight: 40
+      link:
+        uri: 'internal:/sitemap'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Sitemap' }
+        fr: { title: 'Plan du site' }
+    - id: complaints
+      uuid: a1000005-0000-4000-8000-000000000506
+      weight: 50
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/customer-service/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Complaints Customer Service' }
+        fr: { title: 'Réclamations Service Client' }
+    - id: ethics_channel
+      uuid: a1000005-0000-4000-8000-000000000507
+      weight: 60
+      link:
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/ethics/'
+        options: { attributes: { target: '_blank', rel: 'noopener noreferrer' } }
+      translations:
+        en: { title: 'Canal de denuncias éticas' }
+        fr: { title: 'Canal de dénonciation éthique' }
 
   ps_header_actions:
     - id: header_find_property

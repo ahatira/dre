@@ -1,0 +1,93 @@
+{% set ps_grid_gx = 'gx-0' %}
+{% set container_prefooter = container_prefooter|default('container-fluid') %}
+{% set container_main = container_main|default('container') %}
+{% set container_bottom = container_bottom|default('container-fluid') %}
+
+{% if contact or social or business or about %}
+  {% set footer_main %}
+    <div class="ps-site-footer__columns">
+      <div class="ps-site-footer__column ps-site-footer__column--left">
+        {% if contact or social %}
+          <div class="ps-site-footer__column-left-top">
+            {{ contact }}
+          </div>
+        {% endif %}
+        {% if social %}
+          <div class="ps-site-footer__column-left-social">
+            {{ social }}
+          </div>
+        {% endif %}
+      </div>
+      {% if business or about %}
+        <div class="ps-site-footer__columns-nav">
+          {% if business %}
+            <div class="ps-site-footer__column ps-site-footer__column--business">
+              {{ business }}
+            </div>
+          {% endif %}
+          {% if about %}
+            <div class="ps-site-footer__column ps-site-footer__column--about">
+              {{ about }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endset %}
+{% endif %}
+
+{% if branding or legal or copyright %}
+  {% set footer_bottom %}
+    <div class="ps-site-footer__bottom-bar">
+      {% if branding %}
+        <div class="ps-site-footer__bottom-brand">
+          {{ branding }}
+        </div>
+      {% endif %}
+      {% if legal %}
+        <div class="ps-site-footer__bottom-legal">
+          {{ legal }}
+        </div>
+      {% endif %}
+      {% if copyright %}
+        <div class="ps-site-footer__bottom-copyright">
+          {{ copyright }}
+        </div>
+      {% endif %}
+    </div>
+  {% endset %}
+{% endif %}
+
+{% if prefooter %}
+  <div class="ps-site-footer__top">
+    {{ include('ui_suite_bnp:grid_row_1', {
+      container: container_prefooter,
+      gutters_horizontal: ps_grid_gx,
+      col_xs: 12,
+      col_1_content: prefooter,
+    }, with_context = false) }}
+  </div>
+{% endif %}
+
+{% if footer_main is defined %}
+  <div class="ps-site-footer__main">
+    {{ include('ui_suite_bnp:grid_row_1', {
+      container: container_main,
+      gutters_horizontal: ps_grid_gx,
+      col_xs: 12,
+      col_1_content: footer_main,
+    }, with_context = false) }}
+  </div>
+{% endif %}
+
+{% if footer_bottom is defined %}
+  <div class="ps-site-footer__bottom">
+    {{ include('ui_suite_bnp:grid_row_1', {
+      container: container_bottom,
+      gutters_horizontal: ps_grid_gx,
+      col_xs: 12,
+      col_1_content: footer_bottom,
+      col_attributes: { class: ['ps-site-footer__bottom-inner'] },
+    }, with_context = false) }}
+  </div>
+{% endif %}

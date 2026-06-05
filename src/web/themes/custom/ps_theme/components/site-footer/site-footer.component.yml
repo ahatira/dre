@@ -1,0 +1,35 @@
+name: Site footer
+description: 'Stellar footer — prefooter, three columns, legal bottom bar.'
+group: Layout
+slots:
+  prefooter:
+    title: PreFooter
+  contact:
+    title: Contact
+  social:
+    title: 'Follow us'
+  business:
+    title: 'Business menu'
+  about:
+    title: 'About menu'
+  branding:
+    title: 'Site branding'
+  legal:
+    title: 'Footer menu'
+  copyright:
+    title: Copyright
+props:
+  type: object
+  properties:
+    container_prefooter:
+      title: 'PreFooter container class'
+      type: string
+      default: container-fluid
+    container_main:
+      title: 'Main footer (3 columns) container class'
+      type: string
+      default: container
+    container_bottom:
+      title: 'Bottom bar container class'
+      type: string
+      default: container-fluid

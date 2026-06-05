@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.ps_footer_main
+    - system.menu.ps_footer_business
   module:
     - system
   theme:
     - ps_theme
-id: ps_theme_footer
+id: ps_theme_footer_business
 theme: ps_theme
 region: footer
 weight: 0
 provider: null
-plugin: 'system_menu_block:ps_footer_main'
+plugin: 'system_menu_block:ps_footer_business'
 settings:
-  id: 'system_menu_block:ps_footer_main'
-  label: 'Footer main'
+  id: 'system_menu_block:ps_footer_business'
+  label: 'Business websites'
   label_display: '0'
   provider: system
   level: 1

@@ -1,0 +1,11 @@
+name: Footer copyright
+description: 'Stellar footer copyright line.'
+group: Property Search
+props:
+  type: object
+  required:
+    - text
+  properties:
+    text:
+      type: string
+      title: Copyright text

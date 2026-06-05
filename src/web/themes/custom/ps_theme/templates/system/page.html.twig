@@ -99,41 +99,21 @@
     {% endif %}
   </main>
 
-  {% if page.footer_top or page.footer or page.footer_bottom %}
+  {% if ps_has_site_footer %}
     <footer class="site-footer ps-site-footer" role="contentinfo">
-      {% if page.footer_top %}
-        <div class="ps-site-footer__top">
-          {{ include('ui_suite_bnp:grid_row_1', {
-            container: container,
-            gutters_horizontal: ps_grid_gx,
-            col_xs: 12,
-            col_1_content: page.footer_top,
-          }, with_context = false) }}
-        </div>
-      {% endif %}
-
-      {% if page.footer %}
-        <div class="ps-site-footer__main">
-          {{ include('ui_suite_bnp:grid_row_1', {
-            container: container,
-            gutters_horizontal: ps_grid_gx,
-            col_xs: 12,
-            col_1_content: page.footer,
-          }, with_context = false) }}
-        </div>
-      {% endif %}
-
-      {% if page.footer_bottom %}
-        <div class="ps-site-footer__bottom">
-          {{ include('ui_suite_bnp:grid_row_1', {
-            container: container,
-            gutters_horizontal: ps_grid_gx,
-            col_xs: 12,
-            col_1_content: page.footer_bottom,
-            col_attributes: { class: ['ps-site-footer__bottom-inner'] },
-          }, with_context = false) }}
-        </div>
-      {% endif %}
+      {{ include('ps_theme:site-footer', {
+        container_prefooter: container,
+        container_main: 'container',
+        container_bottom: 'container-fluid',
+        prefooter: ps_site_footer.prefooter,
+        contact: ps_site_footer.contact,
+        social: ps_site_footer.social,
+        business: ps_site_footer.business,
+        about: ps_site_footer.about,
+        branding: ps_site_footer.branding,
+        legal: ps_site_footer.legal,
+        copyright: ps_site_footer.copyright,
+      }, with_context = false) }}
     </footer>
   {% endif %}
 </div>

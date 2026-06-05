@@ -1,0 +1,23 @@
+{% if title %}
+  <nav class="ps-site-footer__column-nav"{% if aria_label %} aria-label="{{ aria_label }}"{% endif %}>
+    {# Desktop — titre + liste statique (pas d'accordion Bootstrap). #}
+    <div class="ps-site-footer__column-desktop d-none d-lg-block">
+      <p class="ps-site-footer__column-title footer-title">{{ title }}</p>
+      <div class="ps-site-footer__column-links">
+        {{ links }}
+      </div>
+    </div>
+
+    {# Mobile — accordion Bootstrap. #}
+    {{ attach_library('core/components.ui_suite_bnp--accordion') }}
+    <div class="ps-site-footer__column-mobile accordion d-lg-none" id="{{ section_id }}-accordion">
+      {{ include('ui_suite_bnp:accordion_item', {
+        title: title,
+        content: links,
+        item_id: section_id,
+        heading_level: heading_level|default(2),
+        attributes: create_attribute({'class': ['ps-site-footer__column-accordion-item']}),
+      }, with_context = false) }}
+    </div>
+  </nav>
+{% endif %}

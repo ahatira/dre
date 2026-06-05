@@ -1,0 +1,27 @@
+name: Footer contact
+description: 'Stellar footer contact column — phones and email with icons.'
+group: Property Search
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Heading
+    phones:
+      type: array
+      title: Phone lines
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+          number:
+            type: string
+    email:
+      type: string
+      title: Email address
+    email_label:
+      type: string
+      title: Email link label

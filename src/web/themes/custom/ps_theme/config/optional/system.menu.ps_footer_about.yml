@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ps_footer_about
+label: 'Footer about'
+description: 'Stellar footer about column.'
+locked: false

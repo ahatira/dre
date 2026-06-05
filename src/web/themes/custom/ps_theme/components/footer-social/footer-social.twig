@@ -1,0 +1,30 @@
+{% if title or links %}
+  <div class="ps-site-footer__social">
+    {% if title %}
+      <p class="ps-site-footer__column-title footer-title">{{ title }}</p>
+    {% endif %}
+
+    {% if links %}
+      <ul class="ps-site-footer__social-list">
+        {% for link in links %}
+          {% if link.url %}
+            <li>
+              <a href="{{ link.url }}" class="ps-site-footer__social-link"{% if link.attributes %} {{ link.attributes }}{% endif %}>
+                <span class="ps-site-footer__social-icon" aria-hidden="true">
+                  {% if link.icon == 'linkedin' %}
+                    {{ icon('bnp_custom', 'linkedin', {'size': '20px'}) }}
+                  {% elseif link.icon == 'mail-outline' %}
+                    {{ icon('bnp_custom', 'mail-outline', {'size': '20px'}) }}
+                  {% elseif link.icon == 'twitter' %}
+                    {{ icon('bnp_custom', 'twitter', {'size': '20px'}) }}
+                  {% endif %}
+                </span>
+                <span class="visually-hidden">{{ link.title }}</span>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}

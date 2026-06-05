@@ -1,0 +1,23 @@
+name: Footer social
+description: 'Stellar footer follow-us social links.'
+group: Property Search
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Heading
+    links:
+      type: array
+      title: Social links
+      items:
+        type: object
+        properties:
+          title:
+            type: string
+          url:
+            type: string
+          icon:
+            type: string

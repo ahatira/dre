@@ -1,11 +1,15 @@
 {#
 /**
  * @file
- * Footer legal links — horizontal bottom bar.
+ * Footer bottom legal links — inline row ISO Stellar desktop.
  */
 #}
-{{ include('ui_suite_bnp:navbar_nav', {
-  attributes: attributes.addClass(['menu', 'menu--ps-footer-legal', 'nav', 'ps-site-footer__legal-nav']),
-  variant: 'default',
-  items: items,
-}, with_context = false) }}
+{% if items %}
+  <ul{{ attributes.addClass(['menu', 'menu--ps-footer-legal', 'ps-site-footer__legal-nav']) }}>
+    {% for item in items %}
+      <li class="ps-site-footer__legal-item">
+        {{ link(item.title, item.url, item.attributes.addClass(['ps-site-footer__legal-link'])) }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -1,0 +1,40 @@
+{% if title or phones or email %}
+  <div class="ps-site-footer__contact">
+    {% if title %}
+      <p class="ps-site-footer__column-title footer-title">{{ title }}</p>
+    {% endif %}
+
+    {% if phones %}
+      <ul class="ps-site-footer__contact-list">
+        {% for phone in phones %}
+          {% if phone.number %}
+            <li class="ps-site-footer__contact-item">
+              <span class="ps-site-footer__contact-row">
+                {% if phone.label %}
+                  <span class="ps-site-footer__contact-label">{{ phone.label }} :</span>
+                {% endif %}
+                <a class="ps-site-footer__contact-phone" href="tel:{{ phone.number|replace({' ': ''}) }}">
+                  <span class="ps-site-footer__contact-phone-number">{{ phone.number }}</span>
+                  <span class="ps-site-footer__contact-icon" aria-hidden="true">
+                    {{ icon('bnp_custom', 'phone', {'size': '20px'}) }}
+                  </span>
+                </a>
+              </span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if email %}
+      <p class="ps-site-footer__contact-email">
+        <a class="ps-site-footer__contact-mail" href="mailto:{{ email }}">
+          <span class="ps-site-footer__contact-icon" aria-hidden="true">
+            {{ icon('bnp_custom', 'mail-outline', {'size': '20px'}) }}
+          </span>
+          <span class="ps-site-footer__contact-mail-text">{{ email_label|default(email) }}</span>
+        </a>
+      </p>
+    {% endif %}
+  </div>
+{% endif %}

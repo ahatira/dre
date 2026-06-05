@@ -1,0 +1,26 @@
+name: Footer column navigation
+description: 'Stellar footer menu column — accordion on mobile, static column on desktop.'
+group: Property Search
+props:
+  type: object
+  required:
+    - title
+    - section_id
+  properties:
+    title:
+      type: string
+      title: Column heading
+    section_id:
+      type: string
+      title: 'Unique section ID (accordion)'
+    heading_level:
+      type: integer
+      title: 'Heading level'
+      default: 3
+    aria_label:
+      type: string
+      title: 'Navigation aria-label'
+slots:
+  links:
+    title: Links
+    description: Column link list markup.

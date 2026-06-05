@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Footer business column — accordion on mobile, static column on desktop.
+ */
+#}
+{% import _self as menus %}
+
+{% macro render_subnav(items) %}
+  {% if items %}
+    <ul class="nav flex-column ps-site-footer__subnav">
+      {% for item in items %}
+        <li class="nav-item">
+          {{ link(item.title, item.url, item.attributes.addClass(['nav-link'])) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% if items %}
+  {% set heading = items|first %}
+  {{ include('ps_theme:footer-column-nav', {
+    title: heading.title,
+    section_id: 'ps-footer-business',
+    heading_level: 2,
+    aria_label: 'Business websites'|t,
+    links: menus.render_subnav(heading.below|default([])),
+  }, with_context = false) }}
+{% endif %}
