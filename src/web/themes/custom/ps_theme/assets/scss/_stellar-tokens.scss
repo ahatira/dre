@@ -1,6 +1,8 @@
 // Property Search — tokens/composants PS (surcouche framework_css_re parent).
 
 :root {
+  --re-font-family-body: 'BNP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+
   // Hero overlay (homepage search).
   --ps-hero-min-height: 520px;
   --ps-hero-title-size: var(--re-font-size-48, 48px);

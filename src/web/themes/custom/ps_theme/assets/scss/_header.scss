@@ -861,11 +861,6 @@ body.ps-mobile-menu-open {
       &__chevron {
         block-size: 20px;
         inline-size: 20px;
-
-        &::before {
-          block-size: 6px;
-          inline-size: 6px;
-        }
       }
     }
   }
@@ -1065,21 +1060,23 @@ body.ps-mobile-menu-open {
 }
 
 .ps-language-switcher {
+  --ps-language-switcher-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5.39664 6.66666L9.99975 11.1598L14.6034 6.66666L15.8333 7.86714L10 13.5606L4.16666 7.86714L5.39664 6.66666Z' fill='%23000'/%3E%3C/svg%3E");
+
   display: inline-block;
   position: relative;
 
   &__toggle {
     align-items: center;
     background: var(--re-color-surface, #fff);
-    border: 1px solid var(--re-color-border, #d6dbde);
-    color: var(--re-color-heading, #1c2d37);
+    border: 2px solid var(--re-color-border, #d6dbde);
+    color: var(--re-color-text-strong, #333);
     display: inline-flex;
     font-size: var(--re-font-size-14, 14px);
     gap: var(--re-space-8, 8px);
-    height: 40px;
-    line-height: 1.2;
+    height: 36px;
+    line-height: 24px;
     min-width: 5.75rem;
-    padding: var(--re-space-8, 8px) var(--re-space-12, 12px);
+    padding: var(--re-space-8, 8px) var(--re-space-16, 16px);
     width: 100%;
 
     &[aria-expanded='true'] {
@@ -1089,32 +1086,23 @@ body.ps-mobile-menu-open {
     &:hover,
     &:focus-visible {
       border-color: var(--re-color-border-strong, #c5ccd0);
-      color: var(--re-color-heading, #1c2d37);
+      color: var(--re-color-text-strong, #333);
     }
   }
 
   &__chevron {
+    background-color: currentColor;
     flex-shrink: 0;
-    height: 10px;
+    height: 20px;
     margin-inline-start: auto;
-    position: relative;
-    width: 10px;
-
-    &::before {
-      border-bottom: 1.5px solid currentColor;
-      border-right: 1.5px solid currentColor;
-      content: '';
-      height: 5px;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -65%) rotate(45deg);
-      width: 5px;
-    }
+    mask: var(--ps-language-switcher-chevron) no-repeat center / contain;
+    transition: transform 0.15s ease;
+    width: 20px;
+    -webkit-mask: var(--ps-language-switcher-chevron) no-repeat center / contain;
   }
 
-  &__toggle[aria-expanded='true'] .ps-language-switcher__chevron::before {
-    transform: translate(-50%, -35%) rotate(-135deg);
+  &__toggle[aria-expanded='true'] .ps-language-switcher__chevron {
+    transform: rotate(180deg);
   }
 
   &__flag {
@@ -1125,15 +1113,21 @@ body.ps-mobile-menu-open {
     .language-icon {
       display: block;
       height: 12px;
-      object-fit: cover;
+      object-fit: contain;
       width: 16px;
+
+      &.img-fluid {
+        height: 12px;
+        max-width: none;
+        width: 16px;
+      }
     }
   }
 
   &__label {
     font-size: inherit;
     font-weight: var(--re-font-weight-regular, 400);
-    line-height: 1.2;
+    line-height: 24px;
     text-transform: none;
   }
 
@@ -1142,9 +1136,10 @@ body.ps-mobile-menu-open {
     --bs-dropdown-padding-x: 0;
     --bs-dropdown-padding-y: 0;
     --bs-dropdown-border-radius: 0;
-    --bs-dropdown-border-width: 1px;
+    --bs-dropdown-border-width: 2px;
     --bs-dropdown-border-color: var(--re-color-border, #d6dbde);
     --bs-dropdown-box-shadow: none;
+    --bs-dropdown-spacer: -2px;
 
     border-top: 0;
     inset: 100% 0 auto 0 !important;
@@ -1164,10 +1159,10 @@ body.ps-mobile-menu-open {
   &__item {
     align-items: center;
     background: var(--re-color-surface, #fff);
-    color: var(--re-color-heading, #1c2d37);
+    color: var(--re-color-text-strong, #333);
     display: flex;
     gap: var(--re-space-8, 8px);
-    padding: var(--re-space-8, 8px) var(--re-space-12, 12px);
+    padding: var(--re-space-8, 8px) var(--re-space-16, 16px);
     text-decoration: none;
     width: 100%;
 
@@ -1178,8 +1173,8 @@ body.ps-mobile-menu-open {
     &.is-active,
     &:hover,
     &:focus-visible {
-      background-color: var(--re-color-surface-muted, #f0f2f3);
-      color: var(--re-color-heading, #1c2d37);
+      background-color: var(--re-color-border-soft, #ebedef);
+      color: var(--re-color-text-strong, #333);
     }
   }
 }
