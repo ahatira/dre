@@ -45,13 +45,13 @@ final class FrontRouteHelper {
   }
 
   /**
-   * Whether Drupal admin chrome should be hidden on the Stellar front shell.
+   * Whether editor tools should render on the public theme shell.
    *
-   * Visitors and end-users keep the ISO maquette; editors/admins keep toolbar,
-   * contextual links, local tasks, etc. while previewing the public theme.
+   * Visitors keep the ISO maquette; editors with toolbar access see local tasks,
+   * page title, primary actions, and help while previewing the public theme.
    */
-  public static function shouldHideAdminChrome(): bool {
-    return !\Drupal::currentUser()->hasPermission('access toolbar');
+  public static function shouldShowEditorTools(): bool {
+    return \Drupal::currentUser()->hasPermission('access toolbar');
   }
 
 }

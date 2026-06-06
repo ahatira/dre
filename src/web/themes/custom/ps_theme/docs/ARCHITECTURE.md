@@ -101,8 +101,10 @@ header, styles menu actions).
 | `editor_tools` | Page title (hors homepage), Tabs, Primary admin actions |
 | `help` | Help (core) |
 
-Rendu conditionnel dans `page.html.twig` : `editor_tools` et `help` masqués pour les visiteurs
-(`ps_hide_admin_chrome`).
+Rendu conditionnel dans `page.html.twig` : `editor_tools` et `help` visibles uniquement quand
+`ps_show_editor_tools` est vrai (permission `access toolbar`). `editor_tools` est aussi masqué sur
+la page d'accueil (`is_front`), même pour les éditeurs connectés. Classes HTML :
+`ps-visitor-view` (visiteur) / `ps-editor-preview` (éditeur).
 
 ## Conventions
 

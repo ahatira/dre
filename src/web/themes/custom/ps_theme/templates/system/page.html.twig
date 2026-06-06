@@ -42,7 +42,7 @@
     </div>
   {% endif %}
 
-  {% if page.editor_tools and not ps_hide_admin_chrome %}
+  {% if page.editor_tools and ps_show_editor_tools and not is_front %}
     <div class="ps-editor-tools region-editor-tools">
       {{ include('ui_suite_bnp:grid_row_1', {
         container: container,
@@ -54,7 +54,7 @@
   {% endif %}
 
   {% set main_content = [page.highlighted] %}
-  {% if not ps_hide_admin_chrome %}
+  {% if ps_show_editor_tools %}
     {% set main_content = main_content|merge([page.help]) %}
   {% endif %}
   {% set main_content = main_content|merge([

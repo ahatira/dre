@@ -11,7 +11,8 @@
     node_type ? 'page-node-type-' ~ node_type|clean_class,
     db_offline ? 'db-offline',
     ps_public_route ? 'ps-public-route',
-    ps_hide_admin_chrome ? 'ps-hide-admin-chrome',
+    ps_public_route and ps_show_editor_tools ? 'ps-editor-preview',
+    ps_public_route and not ps_show_editor_tools ? 'ps-visitor-view',
   ]
 %}
 <!DOCTYPE html>

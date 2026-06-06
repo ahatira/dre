@@ -3,7 +3,6 @@
 // Layout uses display:contents on block wrappers; contextual-region needs a box.
 .ps-site-header {
   #block-ps-theme-branding.contextual-region,
-  #block-ps-theme-main-menu.contextual-region,
   #block-ps-theme-header-actions.contextual-region,
   #block-ps-theme-header-account.contextual-region,
   #block-ps-theme-header-search.contextual-region,
@@ -12,12 +11,55 @@
     display: block;
     position: relative;
   }
+
+  // Menu is rendered twice (mobile + desktop) — keep a single contextual trigger.
+  &__navigation-root--mobile .contextual {
+    @media (min-width: 992px) {
+      display: none !important;
+    }
+  }
+
+  &__navigation-root--desktop .contextual {
+    @media (max-width: 991.98px) {
+      display: none !important;
+    }
+  }
+
+  [id^='block-ps-theme-main-menu'].contextual-region {
+    display: contents;
+    position: static;
+  }
+
+  // Mobile menu CTA — flatten actions block so account sits between search and contact.
+  .ps-site-header__mobile-panel-cta {
+    #block-ps-theme-header-actions.contextual-region,
+    [id^='block-ps-theme-header-actions'].contextual-region {
+      display: contents;
+      position: static;
+    }
+  }
 }
 
 .ps-site-footer {
+  #block-ps-theme-footer-prefooter.contextual-region,
+  #block-ps-theme-footer-contact.contextual-region,
+  #block-ps-theme-footer-social.contextual-region,
+  #block-ps-theme-footer-business.contextual-region,
+  #block-ps-theme-footer-about.contextual-region,
+  #block-ps-theme-footer-branding.contextual-region,
+  #block-ps-theme-footer-legal.contextual-region,
+  #block-ps-theme-footer-copyright.contextual-region,
+  &__column > nav.contextual-region,
   &__column > div.contextual-region,
+  &__column > .block.contextual-region,
   &__bottom-legal > .block.contextual-region,
-  &__bottom-legal > div.contextual-region {
+  &__bottom-legal > nav.contextual-region,
+  &__bottom-legal > div.contextual-region,
+  &__bottom-brand > .block.contextual-region,
+  &__bottom-brand > div.contextual-region,
+  &__bottom-copyright > .block.contextual-region,
+  &__bottom-copyright > div.contextual-region,
+  &__top .contextual-region {
     display: block;
     position: relative;
   }

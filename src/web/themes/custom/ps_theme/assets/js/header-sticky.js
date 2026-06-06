@@ -6,6 +6,57 @@
   'use strict';
 
   const DESKTOP_QUERY = '(min-width: 992px)';
+
+  /**
+   * Sync header top offset below Gin navigation top bar (editor preview).
+   *
+   * --drupal-displace-offset-top only accounts for Admin Toolbar; the Gin bar
+   * below it wraps on mobile and must be included in --ps-editor-offset-top.
+   */
+  const syncEditorPreviewOffset = () => {
+    const root = document.documentElement;
+    if (!root.classList.contains('ps-editor-preview')) {
+      return;
+    }
+
+    const ginBar = document.querySelector('.gin--navigation-top-bar');
+    const adminBar = document.querySelector('.admin-toolbar-control-bar');
+    let top = 0;
+
+    if (ginBar) {
+      top = ginBar.getBoundingClientRect().bottom;
+    }
+    else if (adminBar) {
+      top = adminBar.getBoundingClientRect().bottom;
+    }
+    else {
+      const raw = getComputedStyle(root).getPropertyValue('--drupal-displace-offset-top').trim();
+      top = Number.parseFloat(raw) || 0;
+    }
+
+    root.style.setProperty('--ps-editor-offset-top', `${top}px`);
+  };
+
+  Drupal.behaviors.psEditorPreviewOffset = {
+    attach() {
+      if (once('ps-editor-preview-offset', 'html', document).length === 0) {
+        return;
+      }
+
+      syncEditorPreviewOffset();
+
+      window.addEventListener('resize', syncEditorPreviewOffset, { passive: true });
+
+      if (typeof ResizeObserver === 'undefined') {
+        return;
+      }
+
+      const observer = new ResizeObserver(syncEditorPreviewOffset);
+      document.querySelectorAll('.gin--navigation-top-bar, .admin-toolbar-control-bar').forEach((bar) => {
+        observer.observe(bar);
+      });
+    },
+  };
   const STICKY_SCROLL_OFFSET_ENTER = 200;
   const STICKY_SCROLL_OFFSET_LEAVE = 128;
   const MOTION_DURATION_MS = 360;

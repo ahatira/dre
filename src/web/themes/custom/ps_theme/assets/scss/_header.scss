@@ -201,6 +201,11 @@ body.ps-mobile-menu-open {
   &__nav-main {
     position: static;
 
+    // Flatten into navigation-root — panels anchor to main-bar (full row width).
+    &.contextual-region {
+      display: contents;
+    }
+
     @media (min-width: 992px) {
       margin: 0;
       padding: 0;
@@ -330,6 +335,44 @@ body.ps-mobile-menu-open {
     &--mobile-panel {
       display: none;
       margin-inline-start: 0;
+      width: 100%;
+    }
+  }
+
+  // Desktop — contextual inline after triggers; panels anchor to main-bar via display:contents.
+  &__navigation-root--desktop {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row nowrap;
+    position: static;
+    width: 100%;
+
+    > .contextual {
+      flex: none;
+      margin-top: 6px;
+      order: 2;
+      position: static;
+    }
+
+    > .ps-mega-menu {
+      flex: none;
+      order: 1;
+      width: max-content;
+    }
+  }
+
+  // Mobile — stacked full-width menu inside the slide-down panel.
+  &__navigation-root--mobile {
+    display: block;
+    position: static;
+    width: 100%;
+
+    > .contextual {
+      margin-block: 0 var(--re-space-8, 8px);
+      position: static;
+    }
+
+    > .ps-mega-menu {
       width: 100%;
     }
   }
@@ -891,6 +934,64 @@ body.ps-mobile-menu-open {
       display: none;
     }
 
+    @media (max-width: 991.98px) {
+      // Flatten actions + account into one column: search CTA → account → contact.
+      display: flex;
+      flex-direction: column;
+      gap: var(--re-space-8, 8px);
+      padding-block: 0 var(--re-space-24, 24px);
+      padding-inline: var(--ps-header-inline-padding);
+
+      // block--bare.html.twig wrapper around the actions block.
+      > div:first-child:not(.ps-site-header__account-slot--mobile) {
+        display: contents;
+      }
+
+      [id^='block-ps-theme-header-actions'].contextual-region,
+      .ps-header-actions,
+      .ps-header-actions__main {
+        display: contents;
+        position: static;
+      }
+
+      [id^='block-ps-theme-header-actions'] {
+        > h2,
+        > .contextual {
+          display: none;
+        }
+      }
+
+      .ps-header-actions__search-btn {
+        order: 1;
+        width: 100%;
+      }
+
+      .ps-site-header__account-slot--mobile {
+        order: 2;
+        width: 100%;
+
+        .ps-account-dropdown {
+          display: block;
+          width: 100%;
+        }
+
+        .ps-account-dropdown__toggle {
+          justify-content: flex-start;
+          width: 100%;
+        }
+
+        .ps-account-dropdown__chevron {
+          display: none;
+        }
+      }
+
+      .ps-header-actions__btn--contact {
+        margin-top: var(--re-space-16, 16px);
+        order: 3 !important;
+        width: 100%;
+      }
+    }
+
     .ps-header-actions {
       align-items: stretch;
       flex-direction: column;
@@ -1068,7 +1169,7 @@ body.ps-mobile-menu-open {
   }
 
   #block-ps-theme-branding,
-  #block-ps-theme-main-menu,
+  [id^='block-ps-theme-main-menu'],
   #block-ps-theme-header-actions,
   #block-ps-theme-header-account,
   #block-ps-theme-header-search,
@@ -1077,6 +1178,7 @@ body.ps-mobile-menu-open {
     display: contents;
     margin: 0;
   }
+
 }
 
 .ps-account-dropdown {
@@ -1750,8 +1852,6 @@ body.ps-mobile-menu-open {
       display: flex;
       flex-direction: column;
       gap: var(--re-space-8, 8px);
-      padding-block: 0 var(--re-space-24, 24px);
-      padding-inline: var(--ps-header-inline-padding);
       width: 100%;
     }
   }

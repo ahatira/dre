@@ -110,7 +110,7 @@
   }
 
   &__column {
-    > div {
+    > div:not(.contextual-region) {
       display: contents;
     }
   }
@@ -315,8 +315,8 @@
       min-width: 0;
       width: 100%;
 
-      > .block,
-      > div {
+      > .block:not(.contextual-region),
+      > div:not(.contextual-region) {
         display: contents;
       }
     }

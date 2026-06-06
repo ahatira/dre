@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Minimal block wrapper — keeps contextual links (title_prefix/suffix).
+ */
+#}
+<div{{ attributes }}>
+  {{ title_prefix }}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+  {{ title_suffix }}
+</div>

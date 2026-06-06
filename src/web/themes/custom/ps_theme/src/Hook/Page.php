@@ -63,12 +63,15 @@ final class Page {
 
     if (!empty($variables['html_attributes'])) {
       $variables['html_attributes']->addClass('ps-public-route');
-      if (FrontRouteHelper::shouldHideAdminChrome()) {
-        $variables['html_attributes']->addClass('ps-hide-admin-chrome');
+      if (FrontRouteHelper::shouldShowEditorTools()) {
+        $variables['html_attributes']->addClass('ps-editor-preview');
+      }
+      else {
+        $variables['html_attributes']->addClass('ps-visitor-view');
       }
     }
     $variables['ps_public_route'] = TRUE;
-    $variables['ps_hide_admin_chrome'] = FrontRouteHelper::shouldHideAdminChrome();
+    $variables['ps_show_editor_tools'] = FrontRouteHelper::shouldShowEditorTools();
   }
 
   /**
@@ -82,8 +85,11 @@ final class Page {
 
     $variables['#attached']['library'][] = 'ps_theme/front_public';
     $variables['#attached']['library'][] = 'ps_theme/header';
+    if (FrontRouteHelper::shouldShowEditorTools()) {
+      $variables['#attached']['library'][] = 'contextual/drupal.contextual-links';
+    }
     $variables['ps_public_route'] = TRUE;
-    $variables['ps_hide_admin_chrome'] = FrontRouteHelper::shouldHideAdminChrome();
+    $variables['ps_show_editor_tools'] = FrontRouteHelper::shouldShowEditorTools();
     $variables['ps_page_layout_account'] = $this->isAccountAreaRoute();
 
     $this->prepareNavigationInstances($variables);
@@ -118,8 +124,8 @@ final class Page {
       return;
     }
 
-    $variables['ps_site_header_navigation_mobile'] = $this->renderNavigationInstance($navigation, 'mobile');
-    $variables['ps_site_header_navigation_desktop'] = $this->renderNavigationInstance($navigation, 'desktop');
+    $variables['ps_site_header_navigation_mobile'] = $this->renderNavigationInstance($navigation, 'mobile', $variables);
+    $variables['ps_site_header_navigation_desktop'] = $this->renderNavigationInstance($navigation, 'desktop', $variables);
     unset($variables['page']['navigation']);
   }
 
@@ -131,7 +137,7 @@ final class Page {
    * @param string $instance
    *   Mega-menu instance key (mobile or desktop).
    */
-  private function renderNavigationInstance(array $region, string $instance): string {
+  private function renderNavigationInstance(array $region, string $instance, array &$variables): string {
     $request = \Drupal::request();
     $request->attributes->set(self::MEGA_MENU_INSTANCE_KEY, $instance);
 
@@ -146,7 +152,10 @@ final class Page {
         '#children' => $region,
       ];
 
-      return (string) \Drupal::service('renderer')->renderInIsolation($build);
+      $html = (string) \Drupal::service('renderer')->renderInIsolation($build);
+      $this->mergeRenderedMetadata($variables, $build);
+
+      return $html;
     }
     finally {
       $request->attributes->remove(self::MEGA_MENU_INSTANCE_KEY);
@@ -205,7 +214,7 @@ final class Page {
       $build = $actions[$block_id];
       unset($variables['page']['actions'][$block_id]);
 
-      $variables['ps_site_header_' . $slot] = $this->renderRegionMarkup([$block_id => $build]);
+      $variables['ps_site_header_' . $slot] = $this->renderRegionMarkup([$block_id => $build], $variables);
     }
   }
 
@@ -263,10 +272,17 @@ final class Page {
       '#variant' => 'toolbar',
     ];
 
+    $panel_html = (string) $renderer->renderInIsolation($panel);
+    $this->mergeRenderedMetadata($variables, $panel);
+    $mobile_trigger_html = (string) $renderer->renderInIsolation($mobileTrigger);
+    $this->mergeRenderedMetadata($variables, $mobileTrigger);
+    $toolbar_trigger_html = (string) $renderer->renderInIsolation($toolbarTrigger);
+    $this->mergeRenderedMetadata($variables, $toolbarTrigger);
+
     return [
-      'panel' => (string) $renderer->renderInIsolation($panel),
-      'mobile_trigger' => (string) $renderer->renderInIsolation($mobileTrigger),
-      'toolbar_trigger' => (string) $renderer->renderInIsolation($toolbarTrigger),
+      'panel' => $panel_html,
+      'mobile_trigger' => $mobile_trigger_html,
+      'toolbar_trigger' => $toolbar_trigger_html,
     ];
   }
 
@@ -317,16 +333,21 @@ final class Page {
     $build = $region[$block_id];
     unset($variables['page'][$region_key][$block_id]);
 
-    return $this->renderRegionMarkup([$block_id => $build]);
+    return $this->renderRegionMarkup([$block_id => $build], $variables);
   }
 
   /**
    * Renders a block region once so markup can be printed in multiple places.
    *
+   * Merges attachments (contextual links, libraries, drupalSettings) into the page
+   * so early slot rendering keeps editor contextual UI working.
+   *
    * @param array<string|int, mixed> $region
    *   Region render array from the page layout.
+   * @param array<string, mixed> $variables
+   *   Page preprocess variables.
    */
-  private function renderRegionMarkup(array $region): ?string {
+  private function renderRegionMarkup(array $region, array &$variables): ?string {
     if ($region === []) {
       return NULL;
     }
@@ -336,7 +357,22 @@ final class Page {
       '#children' => $region,
     ];
 
-    return (string) \Drupal::service('renderer')->render($build);
+    $html = (string) \Drupal::service('renderer')->render($build);
+    $this->mergeRenderedMetadata($variables, $build);
+
+    return $html;
+  }
+
+  /**
+   * Bubbles render metadata from an isolated render array into the page.
+   *
+   * @param array<string, mixed> $variables
+   *   Page preprocess variables.
+   * @param array<string|int, mixed> $build
+   *   Render array after rendering.
+   */
+  private function mergeRenderedMetadata(array &$variables, array $build): void {
+    BubbleableMetadata::createFromRenderArray($build)->applyTo($variables);
   }
 
 }

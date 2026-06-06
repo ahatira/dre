@@ -1,5 +1,5 @@
-// Hide Drupal admin chrome for visitors — editors with toolbar keep it.
-html.ps-public-route.ps-hide-admin-chrome {
+// Visitor view — hide Drupal toolbar and editor chrome on the public shell.
+html.ps-public-route.ps-visitor-view {
   &[data-admin-toolbar='expanded'],
   &[data-admin-toolbar] {
     --admin-toolbar-width: 0px;
@@ -30,8 +30,8 @@ html.ps-public-route.ps-hide-admin-chrome {
   }
 }
 
-body.ps-public-route.ps-hide-admin-chrome,
-html.ps-public-route.ps-hide-admin-chrome body {
+body.ps-public-route.ps-visitor-view,
+html.ps-public-route.ps-visitor-view body {
   .tabs,
   .block-local-tasks-block,
   .block-local-actions-block,
@@ -40,9 +40,10 @@ html.ps-public-route.ps-hide-admin-chrome body {
   }
 }
 
-// Editors on the public theme — align fixed shell with Gin top bar + Admin Toolbar.
-// Drupal sets --drupal-displace-offset-* on <html> (see dialog-off-canvas-main-canvas).
-html.ps-public-route:not(.ps-hide-admin-chrome) {
+// Editor preview — align fixed shell below all Drupal admin chrome.
+// --drupal-displace-offset-top covers Admin Toolbar only; Gin navigation top bar
+// (Homepage / Published / Edit) sits below and is taller on mobile — synced via JS.
+html.ps-public-route.ps-editor-preview {
   --ps-editor-offset-left: var(--drupal-displace-offset-left, 0px);
   --ps-editor-offset-top: var(--drupal-displace-offset-top, 0px);
 
@@ -52,6 +53,16 @@ html.ps-public-route:not(.ps-hide-admin-chrome) {
     inset-inline-start: var(--ps-editor-offset-left);
     top: var(--ps-editor-offset-top);
     width: auto;
+  }
+
+  // Search panel uses position:fixed + top — must include editor chrome height.
+  @media (max-width: 991.98px) {
+    .ps-site-header--search-open .ps-header-search__panel {
+      max-height: calc(
+        100dvh - var(--ps-header-slot-height, 76px) - var(--ps-editor-offset-top, 0px)
+      );
+      top: calc(var(--ps-header-slot-height, 76px) + var(--ps-editor-offset-top, 0px)) !important;
+    }
   }
 
   .ps-editor-tools {
