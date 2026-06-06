@@ -1,0 +1,111 @@
+---
+description: Validation navigateur obligatoire — aucune livraison sans test sur http://localhost:8080
+alwaysApply: true
+---
+
+# Validation navigateur — obligatoire
+
+## Règle absolue
+
+**Développer ne suffit pas.** Toute modification (PHP, config, thème, JS, hooks) doit être **validée dans le navigateur** avant d'être considérée terminée, commitée ou livrée.
+
+Un agent ou développeur ne doit **jamais** conclure « c'est fait » sans preuve de fonctionnement sur le site local.
+
+## Prérequis
+
+```bash
+make up                          # Stack Docker démarrée
+make drush-cr                    # Cache à jour
+make drush-status                # Bootstrap OK
+# Si changement front/assets :
+cd src && npm run gulp-prod
+```
+
+URL locale : **http://localhost:8080**
+
+## Méthodes de validation (par ordre de préférence)
+
+### 1. Navigateur Cursor (agents IA)
+
+Utiliser les outils MCP navigateur intégrés à Cursor :
+
+1. `browser_navigate` → URL cible (`http://localhost:8080/...`)
+2. `browser_snapshot` → structure DOM, éléments interactifs
+3. `browser_take_screenshot` → preuve visuelle si changement UI
+4. Interactions : clic, formulaire, scroll pour reproduire le parcours utilisateur
+
+**Obligatoire pour les agents** dès qu'une modification touche le rendu, un formulaire, une route ou un comportement JS.
+
+### 2. Behat (suites automatisées existantes)
+
+Depuis `src/` — site accessible sur `:8080` :
+
+```bash
+cd src
+composer test:behat                                          # Toutes les suites
+composer test:behat -- --suite=ps_offer_reference           # Offres / références
+composer test:behat -- --suite=ps_feature                     # Features
+composer test:behat -- --suite=ps_dictionary                  # Dictionnaires
+```
+
+Lancer la **suite du module modifié** si elle existe.
+
+### 3. Scripts E2E bash
+
+```bash
+cd src
+composer test:offer-ref-e2e    # ps_offer — références offres
+# Voir web/modules/custom/ps_offer/tests/e2e_*.sh
+```
+
+### 4. Validation manuelle développeur
+
+```bash
+make drush-uli    # Lien login admin one-time
+```
+
+Parcours minimum selon le type de changement (voir checklist ci-dessous).
+
+## Checklist par type de modification
+
+| Type | Pages / actions à tester |
+|------|--------------------------|
+| **Thème / SDC / CSS** | Page concernée + responsive (mobile si header/footer) |
+| **Hooks / blocs** | Page où le bloc/hook s'affiche ; vérifier absence d'erreur PHP |
+| **Formulaires / webform** | Soumission, validation, messages d'erreur/succès |
+| **Config CMI** (displays, LB) | Page front + éventuellement `/admin` pour l'édition |
+| **Recherche / facets** | `/search` ou vue concernée + filtres Solr indexés (`make index-solr`) |
+| **Offre immobilière** | Liste + fiche offre + blocs détail |
+| **Favoris** | Bouton favori + page liste favoris |
+| **Admin** | Écran modifié via `make drush-uli` |
+
+## Workflow agent — Definition of Done
+
+```
+Code modifié
+  → make drush-cr
+  → Identifier URL(s) impactée(s)
+  → Ouvrir dans le navigateur (MCP ou Behat)
+  → Vérifier : rendu OK, pas d'erreur 500, comportement attendu
+  → Documenter dans la réponse : URL testée, résultat observé
+  → Seulement alors : proposer commit / marquer terminé
+```
+
+## En cas d'échec
+
+- Ne pas masquer l'échec — rapporter l'URL, l'erreur (snapshot, watchdog, logs)
+- Corriger avant de considérer la tâche terminée
+- `docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush watchdog:show --count=10'`
+
+## Anti-patterns interdits
+
+- ❌ « Le code compile, c'est bon » sans test navigateur
+- ❌ Valider uniquement avec PHPCS / PHPUnit quand le changement est visible ou fonctionnel côté site
+- ❌ Supposer que `drush cr` sans erreur = site OK
+- ❌ Conclure sans avoir ouvert `http://localhost:8080`
+- ❌ Ignorer les régressions visuelles ou JS
+
+## Références
+
+- Behat config : `src/behat.yml.dist` — base_url `http://localhost:8080`
+- Workflow complet : `docs/DEVELOPMENT_WORKFLOW.md`

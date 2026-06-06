@@ -1,0 +1,101 @@
+---
+description: Hooks Drupal 11 — OOP obligatoire via #[Hook], jamais de hooks procéduraux .module
+globs: src/web/modules/custom/**/*.php,src/web/themes/custom/**/*.php
+alwaysApply: false
+---
+
+# Hooks Drupal 11 — OOP obligatoire
+
+## Règle absolue
+
+**Tous les hooks Drupal sont implémentés en OOP** — jamais de nouvelles fonctions `hook_*()` dans `.module`.
+
+| ✅ Obligatoire | ❌ Interdit |
+|--------------|------------|
+| Classe dans `src/Hook/` | `function ps_module_form_alter()` dans `.module` |
+| Attribut `#[Hook('hook_name')]` | Hooks procéduraux Drupal 7-style |
+| DI via constructeur | `\Drupal::service()` dans le hook |
+| Classe `final` | Logique hook éparpillée dans `.module` |
+
+## Structure standard (référence : `ps_offer`)
+
+```
+ps_example/
+├── src/Hook/
+│   └── ExampleHooks.php      # Classe hook OOP
+├── ps_example.services.yml   # Enregistrement DI si dépendances custom
+└── ps_example.module         # Vide ou minimal (pas de hooks)
+```
+
+## Exemple — pattern projet
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\ps_offer\Hook;
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferValidationManagerInterface;
+
+final class OfferHooks {
+
+  public function __construct(
+    private readonly OfferValidationManagerInterface $offerValidationManager,
+  ) {}
+
+  #[Hook('node_presave')]
+  public function nodePresave(NodeInterface $node): void {
+    if ($node->bundle() !== 'offer') {
+      return;
+    }
+    $this->offerValidationManager->apply($node);
+  }
+
+  #[Hook('form_node_offer_form_alter')]
+  public function formNodeOfferFormAlter(array &$form, FormStateInterface $form_state): void {
+    // Préférer hooks form ciblés à form_alter générique
+  }
+
+}
+```
+
+## Enregistrement DI
+
+Drupal 11.1+ auto-découvre les classes dans `src/Hook/` + namespace `Drupal\{module}\Hook`.
+
+Si dépendances custom, enregistrer dans `{module}.services.yml` :
+
+```yaml
+services:
+  Drupal\ps_offer\Hook\OfferHooks:
+    class: Drupal\ps_offer\Hook\OfferHooks
+    arguments:
+      - '@Drupal\ps_offer\Service\OfferValidationManagerInterface'
+```
+
+## Conventions
+
+- **Un fichier par domaine** : `OfferHooks.php`, `FormHooks.php`, `ThemeHooks.php`
+- **Hooks form ciblés** : `#[Hook('form_node_offer_form_alter')]` plutôt que `form_alter` générique
+- **`declare(strict_types=1)`** en tête de fichier
+- **Typage strict** sur paramètres et retour (`void`, types entity)
+- **Early return** — vérifier bundle/type avant logique
+
+## Fichier `.module`
+
+Autorisé uniquement pour un stub `@file` sans hooks — toute logique dans `src/Hook/`.
+
+## Hooks vs Event Subscribers
+
+| Hooks OOP | Event Subscribers |
+|-----------|-------------------|
+| `form_alter`, entity hooks, `theme` | Symfony events (`KernelEvents`) |
+| Extension core/contrib | Logique découplée PSR-14 |
+
+## Skill de référence
+
+Voir `.cursor/rules/skills/drupal-hooks.mdc` (drupal-ai) pour catalogue complet des hooks D11.

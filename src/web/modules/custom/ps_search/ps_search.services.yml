@@ -12,6 +12,9 @@ services:
       - '@config.factory'
       - '@logger.factory'
 
+  Drupal\ps_search\Hook\SearchThemeHooks:
+    class: Drupal\ps_search\Hook\SearchThemeHooks
+
   ps_search.seo_path_processor:
     class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
     arguments:

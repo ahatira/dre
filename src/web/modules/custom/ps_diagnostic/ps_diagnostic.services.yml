@@ -2,3 +2,6 @@ services:
   ps_diagnostic.type_options:
     class: Drupal\ps_diagnostic\Service\DiagnosticTypeOptionsProvider
     arguments: ['@entity_type.manager']
+
+  Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks:
+    class: Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks

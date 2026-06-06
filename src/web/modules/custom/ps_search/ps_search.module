@@ -6,28 +6,3 @@
  */
 
 declare(strict_types=1);
-
-/**
- * Implements hook_theme().
- *
- * @deprecated in ps_search:2.0.0 and will be removed in ps_search:3.0.0.
- *   No theme implementations needed - use ps_search_filters module instead.
- */
-function ps_search_theme(): array {
-  return [
-    // Legacy theme - deprecated in 2.0.0
-    // Use ps_search_filters module themes instead
-    // 'ps_search_filter_bar' => [
-    //   'variables' => [
-    //     'operation_types' => [],
-    //     'asset_types' => [],
-    //     'active_op' => NULL,
-    //     'active_asset' => NULL,
-    //     'active_op_label' => NULL,
-    //     'active_asset_label' => NULL,
-    //     'lang_prefix' => '',
-    //     'clear_url' => NULL,
-    //   ],
-    // ],
-  ];
-}

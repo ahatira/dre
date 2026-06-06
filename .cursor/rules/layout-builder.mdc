@@ -1,0 +1,59 @@
+---
+description: Layout Builder — assemblage pages, sections, blocs, Section Library
+globs: src/config/**/*,src/web/modules/custom/**/*
+alwaysApply: false
+---
+
+# Layout Builder — PS Project
+
+## Principe
+
+**Layout Builder est la couche d'assemblage de pages** — pas de composition en PHP/Twig.
+
+Ordre de préférence pour structurer une page :
+
+1. Layout Builder sections + blocs configurés (CMI exportable)
+2. SDC dans blocs custom ou templates de section
+3. Block plugins custom (si gap UX)
+4. Preprocess / controller custom — **dernier recours**
+
+## Modules impliqués
+
+- `layout_builder` (core)
+- `layout_discovery` (core)
+- `ui_suite_bnp_companion` — Section Library, patterns LB
+
+## Workflow Config-First
+
+1. Créer/modifier le layout via UI admin (`/node/{id}/layout` ou defaults)
+2. Exporter : `drush cex -y`
+3. Commiter les YAML :
+   - `core.entity_view_display.node.*.default.yml` (layout sections)
+   - `core.entity_view_mode.*`
+   - Blocs custom référencés
+
+## Sections et blocs
+
+- Préférer les **sections configurables** (1-col, 2-col, etc.) du companion
+- Blocs core d'abord : `system_menu_block`, views blocks, custom block content
+- Block plugins `ps_*` uniquement pour logique métier non exprimable en config
+
+## Homepage et pages métier
+
+- Homepage : Layout Builder + blocs démo (`ps_demo`, `ps_homepage`)
+- Config demo partielle : `src/config/demo/`
+- **Interdit** : composition homepage en `hook_preprocess_page` ou mega-template Twig
+
+## Restrictions Layout Builder
+
+- Documenter les layouts autorisés par type de contenu
+- Éviter les overrides PHP de `SectionStorage` sauf cas avancé
+- Cache : vérifier cache tags sur blocs custom dans sections LB
+
+## Checklist nouvelle page
+
+- [ ] Layout Builder utilisé avant code custom ?
+- [ ] Sections exportées en CMI ?
+- [ ] SDC utilisés dans les blocs ?
+- [ ] Responsive testé par section ?
+- [ ] Pas de preprocess monolithique pour la composition ?

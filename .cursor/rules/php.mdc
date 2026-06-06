@@ -1,0 +1,64 @@
+---
+description: Standards PHP 8.3 — typage, DI, immutabilité, PHPCS Drupal
+globs: **/*.php
+alwaysApply: false
+---
+
+# PHP 8.3 — Standards PS Project
+
+## Design de classes
+
+- Nouvelles classes concrètes : préférer `final` (sauf héritage intentionnel)
+- Propriétés : `private` par défaut ; `protected` si héritage ; jamais `public` sur propriétés
+- Dépendances injectées : `private readonly` + constructor injection
+- Typage strict : paramètres, retours, propriétés typés explicitement
+- Pas de `@var` redondant quand le type PHP est explicite
+
+## Dependency Injection
+
+```php
+// ✅ Correct
+final class OfferService {
+  public function __construct(
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly LoggerInterface $logger,
+  ) {}
+}
+
+// ❌ Interdit dans une classe
+\Drupal::entityTypeManager();
+\Drupal::logger('ps_offer');
+```
+
+## Docblocks (Drupal style)
+
+- Docblocks sur classes et méthodes publiques
+- `@param` : décrire l'intention, pas seulement le type
+- `@return` : documenter les render arrays et structures complexes
+- `@throws` : quand pertinent pour l'appelant
+- Éviter les docblocks qui répètent le nom de la méthode
+
+## Coding Standards
+
+- Standard : **Drupal + DrupalPractice** via PHPCS
+- Commande : `src/vendor/bin/phpcs --standard=Drupal,DrupalPractice <path>`
+- Indentation : **2 espaces** (PHP, YAML, Twig, JS, SCSS)
+- Fin de ligne : LF
+- Pas de trailing whitespace
+
+## Conventions de nommage
+
+| Élément | Convention | Exemple |
+|---------|-----------|---------|
+| Module | `ps_snake_case` | `ps_offer` |
+| Classe | PascalCase | `OfferDetailBlock` |
+| Service ID | `ps_module.service_name` | `ps_offer.reference_builder` |
+| Constantes | `PS_MODULE_UPPER` | `PS_OFFER_CACHE_TAG` |
+| Classes Hook OOP | `{Domain}Hooks` | `OfferHooks`, `FormHooks` |
+
+## Tests
+
+- PHPUnit : `src/vendor/bin/phpunit` (depuis `src/`)
+- Behat : `cd src && composer test:behat` (base_url http://localhost:8080)
+- E2E offer : `cd src && composer test:offer-ref-e2e`
+- **Validation navigateur obligatoire** avant livraison — voir `.cursor/rules/browser-validation.mdc`

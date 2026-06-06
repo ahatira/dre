@@ -1,30 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-
 /**
  * @file
  * Entry point for the PS Favorite module.
  */
 
-/**
- * Implements hook_entity_view().
- */
-function ps_favorite_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, ?string $view_mode = NULL): void {
-	$favoriteManager = \Drupal::service('ps_favorite.manager');
-	if ($entity->isNew() || !$favoriteManager->supportsEntity($entity) || !$entity->access('view')) {
-		return;
-	}
-
-	$build['ps_favorite'] = [
-		'#lazy_builder' => [
-			'ps_favorite.lazy_builder:buildButton',
-			[$entity->getEntityTypeId(), (int) $entity->id(), $view_mode ?? 'default'],
-		],
-		'#create_placeholder' => TRUE,
-		'#weight' => 90,
-	];
-}
+declare(strict_types=1);
