@@ -53,7 +53,7 @@ ps_theme (sub-theme, starterkit split)
 3. Structure démo (mega-menu, multilingue) : `src/config/demo/` (partial CMI)
 4. `page.html.twig` / `html.html.twig` stables — pas de markup page métier
 5. Assets Figma dans `assets/images/` — voir [`docs/ASSETS.md`](ASSETS.md)
-6. Header / footer ISO Stellar + responsive
+6. Header / footer ISO maquette PS + responsive
 7. Validation visuelle avant toute page métier
 
 ### Règle Config-First
@@ -68,20 +68,41 @@ Avant d'écrire du code custom (bloc PHP, service, hook), **utiliser ce qui exis
 blocs core (`system_branding_block`, `system_menu_block`, `search_form_block`, `language_block`),
 menus configurables, Layout Builder, templates Twig/SDC.
 
-Le custom ne couvre que le gap UX/Stellar que le core ne peut pas exprimer seul (ex. panneau
-recherche header, styles menu actions).
+Le custom ne couvre que le gap UX que le core ne peut pas exprimer seul (ex. panneau recherche
+header, styles menu actions).
 
-### Régions header (`ps_theme`)
+### Régions du shell PS (`ps_theme`)
+
+**Couche 1 — Header PS** (SDC `site-header`, assemblé via `Page::prepareSiteHeaderSlots()`)
 
 | Région | Blocs attendus |
 |---|---|
 | `branding` | Site branding (core) |
 | `shortcut` | Language switcher |
-| `navigation` | Main navigation (core menu) |
-| `actions` | Actions menu, account menu, favorites (`ps_favorite`), search form (core) |
+| `navigation` | Main navigation (mega-menu) |
+| `actions` | Search, CTA, account, favorites |
 
-Le composant `site-header` (UI Patterns) assemble ces régions ; seule la région `actions` est
-découpée en slots (search panel/triggers, menus, favoris) via `Page::prepareSiteHeaderSlots()`.
+**Couche 2 — Cadre de page** (variable selon le type de page)
+
+| Région | Blocs attendus | Visibilité |
+|---|---|---|
+| `breadcrumb` | Breadcrumbs (core) | Public — sauf `<front>`, `/user/*` |
+| `highlighted` | Status messages (core) | Tous |
+| `sidebar_first` | Menu `ps_account` (Mon compte, Favoris) | `/user/*` connecté |
+| `content` | Contenu principal (LB, nodes) | Tous |
+| `sidebar_second` | *(réservé — modules métier ultérieurs)* | Selon besoin page |
+| `footer_top` | Pre-footer SEO (menu) | Quasi toutes pages |
+| `footer` / `footer_bottom` | Footer PS (contact, legal…) | Toutes pages |
+
+**Couche 3 — Chrome éditeur** (connecté, `access toolbar`)
+
+| Région | Blocs attendus |
+|---|---|
+| `editor_tools` | Page title (hors homepage), Tabs, Primary admin actions |
+| `help` | Help (core) |
+
+Rendu conditionnel dans `page.html.twig` : `editor_tools` et `help` masqués pour les visiteurs
+(`ps_hide_admin_chrome`).
 
 ## Conventions
 
@@ -104,13 +125,13 @@ offer-card/
 | Template | Usage |
 |---|---|
 | `node--offer--teaser.html.twig` | Liste recherche, carrousels |
-| `node--offer--full.html.twig` | Fiche détail Stellar |
+| `node--offer--full.html.twig` | Fiche détail offre PS |
 | `views-view--ps-search-offers.html.twig` | Page `/recherche` |
 | `block--ps-favorite*.html.twig` | Compteur favoris header |
 
 ### Layout Builder
 
-Homepage Stellar = sections LB configurables :
+Homepage PS = sections LB configurables :
 
 1. **Hero recherche** — bloc custom ou SDC `search-hero` + formulaire (module filtres à venir)
 2. **Univers métier** — tuiles asset type (bureaux, logistique…)

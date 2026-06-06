@@ -7,7 +7,9 @@ dependencies:
   - advanced_mega_menu
   - languageicons
   - menu_link_attributes
+  - ps_agent
   - ps_block
+  - ps_favorite
   - ps_homepage
   - search
 regions:
@@ -15,7 +17,8 @@ regions:
   shortcut: 'Header shortcut'
   navigation: 'Header navigation'
   actions: 'Header actions'
-  header: 'Top Bar'
+  breadcrumb: Breadcrumb
+  editor_tools: 'Editor tools'
   highlighted: Highlighted
   help: Help
   content: Content
@@ -31,6 +34,8 @@ ckeditor5-stylesheets:
 libraries-extend:
   core/drupal.ajax:
     - ps_theme/drupal.ajax
+  contextual/drupal.contextual-links:
+    - ps_theme/contextual
   ui_suite_bnp/form:
     - ps_theme/form
   ui_suite_bnp/framework:

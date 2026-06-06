@@ -37,7 +37,7 @@ final class Menu {
     }
 
     if (($variables['menu_name'] ?? '') === 'account') {
-      $this->localizeAccountMenu($variables['items']);
+      $this->preprocessAccountMenu($variables);
     }
 
     if (($variables['menu_name'] ?? '') === 'ps_header_actions') {
@@ -127,19 +127,107 @@ final class Menu {
   }
 
   /**
+   * Account menu in header — dropdown trigger, icons, logout separated.
+   *
+   * @param array<string, mixed> $variables
+   */
+  private function preprocessAccountMenu(array &$variables): void {
+    $account = \Drupal::currentUser();
+    if (!$account->isAuthenticated()) {
+      $variables['items'] = [];
+      return;
+    }
+
+    $user = \Drupal::entityTypeManager()->getStorage('user')->load($account->id());
+    $variables['ps_account_display_name'] = $user
+      ? ($user->getDisplayName() ?: $user->getAccountName())
+      : $account->getAccountName();
+
+    $logout = NULL;
+    $items = [];
+    foreach ($variables['items'] as $item) {
+      $pluginId = $this->accountMenuPluginId($item);
+      if ($pluginId === 'user.login') {
+        continue;
+      }
+      if ($pluginId === 'masquerade.unmasquerade' && !$this->isMasquerading()) {
+        continue;
+      }
+      if ($pluginId === 'user.logout') {
+        $logout = $item;
+        continue;
+      }
+      $item['ps_icon'] = $this->accountMenuIcon($pluginId);
+      $items[] = $item;
+    }
+
+    $variables['items'] = $items;
+    $variables['ps_account_logout'] = $logout;
+    $this->localizeAccountMenu($variables['items']);
+    if ($logout !== NULL) {
+      $this->localizeAccountMenuItem($logout);
+    }
+
+    $variables['#attached']['library'][] = 'ps_theme/component_dropdown';
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   */
+  private function accountMenuPluginId(array $item): string {
+    $originalLink = $item['original_link'] ?? NULL;
+    if (is_object($originalLink) && method_exists($originalLink, 'getPluginId')) {
+      return (string) $originalLink->getPluginId();
+    }
+    $routeName = $item['url'] instanceof Url ? (string) $item['url']->getRouteName() : '';
+    return match ($routeName) {
+      'user.page' => 'user.page',
+      'user.logout' => 'user.logout',
+      'ps_favorite.account_page' => 'ps_favorite.account_page',
+      default => $routeName,
+    };
+  }
+
+  private function accountMenuIcon(string $pluginId): string {
+    return match ($pluginId) {
+      'user.page' => 'account',
+      'ps_favorite.account_page' => 'fav-stroke',
+      default => 'account',
+    };
+  }
+
+  private function isMasquerading(): bool {
+    if (!\Drupal::moduleHandler()->moduleExists('masquerade')) {
+      return FALSE;
+    }
+    $masquerade = \Drupal::service('masquerade');
+    return method_exists($masquerade, 'isMasquerading') && $masquerade->isMasquerading();
+  }
+
+  /**
    * @param array<int, array<string, mixed>> $items
    */
   private function localizeAccountMenu(array &$items): void {
+    foreach ($items as &$item) {
+      $this->localizeAccountMenuItem($item);
+    }
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   */
+  private function localizeAccountMenuItem(array &$item): void {
     if ($this->languageManager->getCurrentLanguage()->getId() !== 'fr') {
       return;
     }
 
-    foreach ($items as &$item) {
-      $routeName = $item['url'] instanceof Url ? $item['url']->getRouteName() : NULL;
-      if ($routeName === 'user.login') {
-        $item['title'] = 'Se connecter';
-      }
-    }
+    $pluginId = $this->accountMenuPluginId($item);
+    $item['title'] = match ($pluginId) {
+      'user.page' => 'Mon compte',
+      'user.logout' => 'Déconnexion',
+      'ps_favorite.account_page' => 'Mes favoris',
+      default => $item['title'],
+    };
   }
 
   /**

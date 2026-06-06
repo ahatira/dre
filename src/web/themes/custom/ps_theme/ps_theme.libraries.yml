@@ -37,6 +37,12 @@ front_public:
   dependencies:
     - ps_theme/header
 
+contextual:
+  css:
+    theme:
+      assets/css/contextual.css:
+        weight: 50
+
 form:
   css:
     component:
@@ -96,6 +102,8 @@ component_dropdown:
     component:
       components/dropdown/styles/dropdown.css:
         minified: true
+  dependencies:
+    - ps_theme/contextual
 
 component_list_group:
   css:

@@ -520,6 +520,22 @@ menus:
             en: { title: 'Email alerts' }
             fr: { title: 'Alertes email' }
 
+  ps_account:
+    - id: account_home
+      uuid: a1000006-0000-4000-8000-000000000601
+      weight: 0
+      link: { uri: 'internal:/user' }
+      translations:
+        en: { title: 'My account' }
+        fr: { title: 'Mon compte' }
+    - id: account_favorites
+      uuid: a1000006-0000-4000-8000-000000000602
+      weight: 10
+      link: { uri: 'internal:/user/favorites' }
+      translations:
+        en: { title: 'My favorites' }
+        fr: { title: 'Mes favoris' }
+
   ps_footer_legal:
     - id: data_protection
       uuid: a1000005-0000-4000-8000-000000000501

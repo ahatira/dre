@@ -7,7 +7,7 @@ dependencies:
     - ps_theme
 id: ps_theme_messages
 theme: ps_theme
-region: header
+region: highlighted
 weight: -50
 provider: null
 plugin: system_messages_block

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ps_account
+label: 'Account area'
+description: 'Sidebar navigation for the authenticated user area (Property Search).'
+locked: false

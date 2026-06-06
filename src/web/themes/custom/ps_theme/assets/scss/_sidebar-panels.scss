@@ -1,0 +1,15 @@
+.ps-tool-sidebar,
+.ps-offer-sidebar {
+  background-color: var(--re-color-surface-muted, #f9f9fb);
+  padding: var(--re-space-24, 24px);
+
+  &--summary {
+    margin-bottom: 0;
+  }
+}
+
+.ps-offer-sidebar--agent {
+  .ps_agent {
+    margin-bottom: 0;
+  }
+}

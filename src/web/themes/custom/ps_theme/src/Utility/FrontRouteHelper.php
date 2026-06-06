@@ -4,40 +4,54 @@ declare(strict_types=1);
 
 namespace Drupal\ps_theme\Utility;
 
+use Symfony\Component\Routing\Route;
+
 /**
- * Detects Property Search public front routes.
+ * Detects front-office routes that use the Stellar page shell.
+ *
+ * ps_theme preprocess runs only when this theme is active (admin uses gin).
+ * The shell (header/footer slots) must be available on all public pages, not
+ * only on a hard-coded route whitelist.
  */
 final class FrontRouteHelper {
 
   /**
+   * Routes that must not render the full Stellar chrome.
+   *
    * @var list<string>
    */
-  private const PUBLIC_ROUTES = [
-    'view.ps_search_offers.page_list',
-    '<front>',
+  private const EXCLUDED_ROUTES = [
+    'system.ajax',
+    'system.csrftoken',
+    'big_pipe.nojs',
   ];
 
   public static function isPublicRoute(): bool {
-    if (\Drupal::service('path.matcher')->isFrontPage()) {
-      return TRUE;
-    }
-
-    $routeMatch = \Drupal::routeMatch();
-    $route = $routeMatch->getRouteName();
-    if ($route === NULL) {
+    $route = \Drupal::routeMatch()->getRouteObject();
+    if (!$route instanceof Route) {
       return FALSE;
     }
 
-    if (in_array($route, self::PUBLIC_ROUTES, TRUE)) {
-      return TRUE;
+    if ($route->getOption('_admin_route')) {
+      return FALSE;
     }
 
-    if ($route === 'entity.node.canonical') {
-      $node = $routeMatch->getParameter('node');
-      return is_object($node) && method_exists($node, 'bundle') && $node->bundle() === 'offer';
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    if ($route_name !== NULL && in_array($route_name, self::EXCLUDED_ROUTES, TRUE)) {
+      return FALSE;
     }
 
-    return FALSE;
+    return TRUE;
+  }
+
+  /**
+   * Whether Drupal admin chrome should be hidden on the Stellar front shell.
+   *
+   * Visitors and end-users keep the ISO maquette; editors/admins keep toolbar,
+   * contextual links, local tasks, etc. while previewing the public theme.
+   */
+  public static function shouldHideAdminChrome(): bool {
+    return !\Drupal::currentUser()->hasPermission('access toolbar');
   }
 
 }

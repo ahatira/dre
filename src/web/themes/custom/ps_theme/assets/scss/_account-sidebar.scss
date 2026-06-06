@@ -1,0 +1,47 @@
+.ps-account-nav {
+  background-color: var(--re-color-surface-muted, #f9f9fb);
+  padding: var(--re-space-16, 16px) 0;
+
+  @media (min-width: 992px) {
+    min-height: 100%;
+    padding: var(--re-space-24, 24px) 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    margin: 0;
+
+    &.is-active .ps-account-nav__link {
+      border-inline-start-color: var(--re-color-primary, #00915a);
+      color: var(--re-color-heading, #1c2d37);
+      font-weight: var(--re-font-weight-semibold, 600);
+    }
+  }
+
+  &__link {
+    border-inline-start: 3px solid transparent;
+    color: var(--re-color-text, #434f57);
+    display: block;
+    font-size: var(--re-font-size-16, 16px);
+    line-height: 24px;
+    padding: var(--re-space-12, 12px) var(--re-space-24, 24px);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--re-color-border-soft, #ebedef);
+      color: var(--re-color-heading, #1c2d37);
+    }
+  }
+}
+
+.ps-page-layout--account {
+  .ps-main {
+    padding-block: var(--re-space-24, 24px);
+  }
+}

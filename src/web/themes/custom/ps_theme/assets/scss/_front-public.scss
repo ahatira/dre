@@ -1,5 +1,5 @@
-// Hide Drupal admin chrome on Property Search public routes.
-html.ps-public-route {
+// Hide Drupal admin chrome for visitors — editors with toolbar keep it.
+html.ps-public-route.ps-hide-admin-chrome {
   &[data-admin-toolbar='expanded'],
   &[data-admin-toolbar] {
     --admin-toolbar-width: 0px;
@@ -30,11 +30,32 @@ html.ps-public-route {
   }
 }
 
-body.ps-public-route,
-html.ps-public-route body {
+body.ps-public-route.ps-hide-admin-chrome,
+html.ps-public-route.ps-hide-admin-chrome body {
   .tabs,
-  .block-system-breadcrumb-block,
+  .block-local-tasks-block,
+  .block-local-actions-block,
   .block-page-title-block {
     display: none;
+  }
+}
+
+// Editors on the public theme — align fixed shell with Gin top bar + Admin Toolbar.
+// Drupal sets --drupal-displace-offset-* on <html> (see dialog-off-canvas-main-canvas).
+html.ps-public-route:not(.ps-hide-admin-chrome) {
+  --ps-editor-offset-left: var(--drupal-displace-offset-left, 0px);
+  --ps-editor-offset-top: var(--drupal-displace-offset-top, 0px);
+
+  header[role='banner'].ps-site-header.site-header,
+  .ps-site-header.site-header {
+    inset-inline-end: 0;
+    inset-inline-start: var(--ps-editor-offset-left);
+    top: var(--ps-editor-offset-top);
+    width: auto;
+  }
+
+  .ps-editor-tools {
+    position: relative;
+    z-index: 1;
   }
 }

@@ -1,0 +1,5 @@
+ps_block.account_sidebar_home:
+  title: 'My account'
+  route_name: user.page
+  menu_name: ps_account
+  weight: 0

@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Property Search — global page shell (Stellar layout).
+ * Property Search — global page shell.
  *
  * Bootstrap grid via ui_suite_bnp grid_row_* + theme container setting.
  * gx-0 on rows; px-0 on container/col when full-bleed is required (homepage).
@@ -12,7 +12,7 @@
 {% set ps_grid_bleed_container = { class: ['px-0'] } %}
 {% set ps_grid_bleed_col = { class: ['px-0'] } %}
 
-<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}">
+<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}{{ ps_page_layout_account ? ' ps-page-layout--account' : '' }}">
   {% if has_site_header %}
     <header class="site-header ps-site-header" role="banner" data-ps-site-header>
       {{ include('ps_theme:site-header', {
@@ -31,19 +31,33 @@
     </header>
   {% endif %}
 
-  {% if page.header and not ps_hide_header_chrome %}
-    {{ include('ui_suite_bnp:grid_row_1', {
-      container: container,
-      gutters_horizontal: ps_grid_gx,
-      container_wrapper_attributes: { class: ['ps-page-chrome'] },
-      col_xs: 12,
-      col_1_content: page.header,
-    }, with_context = false) }}
+  {% if page.breadcrumb %}
+    <div class="ps-page-breadcrumb region-breadcrumb">
+      {{ include('ui_suite_bnp:grid_row_1', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        col_xs: 12,
+        col_1_content: page.breadcrumb,
+      }, with_context = false) }}
+    </div>
   {% endif %}
 
-  {% set main_content = [
-    page.highlighted,
-    page.help,
+  {% if page.editor_tools and not ps_hide_admin_chrome %}
+    <div class="ps-editor-tools region-editor-tools">
+      {{ include('ui_suite_bnp:grid_row_1', {
+        container: container,
+        gutters_horizontal: ps_grid_gx,
+        col_xs: 12,
+        col_1_content: page.editor_tools,
+      }, with_context = false) }}
+    </div>
+  {% endif %}
+
+  {% set main_content = [page.highlighted] %}
+  {% if not ps_hide_admin_chrome %}
+    {% set main_content = main_content|merge([page.help]) %}
+  {% endif %}
+  {% set main_content = main_content|merge([
     {
       '#type': 'html_tag',
       '#tag': 'div',
@@ -52,7 +66,7 @@
       },
     },
     page.content,
-  ] %}
+  ]) %}
 
   <main class="ps-main{{ is_front ? ' ps-main--homepage' : '' }}" role="main">
     {% if page.sidebar_first and page.sidebar_second %}

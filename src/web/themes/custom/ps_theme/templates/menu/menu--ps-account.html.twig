@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Account area sidebar — vertical nav (My account, Favorites, Alerts).
+ */
+#}
+{% if items %}
+  <nav class="ps-account-nav" aria-label="{{ 'Account navigation'|t }}">
+    <ul class="ps-account-nav__list">
+      {% for item in items %}
+        {% set is_active = item.is_active or item.in_active_trail %}
+        <li class="ps-account-nav__item{{ is_active ? ' is-active' : '' }}">
+          {{ link(item.title, item.url, item.attributes.addClass(['ps-account-nav__link'])) }}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

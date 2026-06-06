@@ -1,11 +1,58 @@
 {#
 /**
  * @file
- * Account utility link in the Stellar header.
+ * Stellar header account dropdown — ISO maquette (trigger + panel).
  */
 #}
-{{ include('ui_suite_bnp:navbar_nav', {
-  attributes: attributes.addClass(classes ?: ['menu', 'menu--' ~ menu_name|clean_class]),
-  variant: 'default',
-  items: items,
-}, with_context = false) }}
+{% if items or ps_account_logout %}
+  {{ attach_library('ps_theme/component_dropdown') }}
+  <div class="ps-account-dropdown dropdown">
+    <button class="ps-account-dropdown__toggle"
+            type="button"
+            id="ps-account-dropdown"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="true"
+            aria-expanded="false"
+            aria-haspopup="true">
+      <span class="ps-account-dropdown__icon" aria-hidden="true">
+        {{ icon('bnp_custom', 'account', {'size': '20px'}) }}
+      </span>
+      <span class="ps-account-dropdown__label">{{ ps_account_display_name }}</span>
+      <span class="ps-account-dropdown__chevron" aria-hidden="true"></span>
+    </button>
+    <div class="dropdown-menu ps-account-dropdown__menu" aria-labelledby="ps-account-dropdown">
+      {% if items %}
+        <ul class="ps-account-dropdown__list" role="menu">
+          {% for item in items %}
+            <li class="ps-account-dropdown__item" role="none">
+              <a href="{{ item.url }}"
+                 class="ps-account-dropdown__link"
+                 role="menuitem"
+                 {{ item.attributes }}>
+                {% if item.ps_icon %}
+                  <span class="ps-account-dropdown__link-icon" aria-hidden="true">
+                    {{ icon('bnp_custom', item.ps_icon, {'size': '20px'}) }}
+                  </span>
+                {% endif %}
+                <span class="ps-account-dropdown__link-label">{{ item.title }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if ps_account_logout %}
+        <div class="ps-account-dropdown__logout">
+          <a href="{{ ps_account_logout.url }}"
+             class="ps-account-dropdown__logout-btn"
+             role="menuitem"
+             {{ ps_account_logout.attributes }}>
+            <span class="ps-account-dropdown__link-icon" aria-hidden="true">
+              {{ icon('bnp_custom', 'logout', {'size': '20px'}) }}
+            </span>
+            <span class="ps-account-dropdown__link-label">{{ ps_account_logout.title }}</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

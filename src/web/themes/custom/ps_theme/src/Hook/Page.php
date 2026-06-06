@@ -63,8 +63,12 @@ final class Page {
 
     if (!empty($variables['html_attributes'])) {
       $variables['html_attributes']->addClass('ps-public-route');
+      if (FrontRouteHelper::shouldHideAdminChrome()) {
+        $variables['html_attributes']->addClass('ps-hide-admin-chrome');
+      }
     }
     $variables['ps_public_route'] = TRUE;
+    $variables['ps_hide_admin_chrome'] = FrontRouteHelper::shouldHideAdminChrome();
   }
 
   /**
@@ -79,27 +83,27 @@ final class Page {
     $variables['#attached']['library'][] = 'ps_theme/front_public';
     $variables['#attached']['library'][] = 'ps_theme/header';
     $variables['ps_public_route'] = TRUE;
-    $variables['ps_hide_header_chrome'] = TRUE;
+    $variables['ps_hide_admin_chrome'] = FrontRouteHelper::shouldHideAdminChrome();
+    $variables['ps_page_layout_account'] = $this->isAccountAreaRoute();
 
     $this->prepareNavigationInstances($variables);
     $this->prepareSiteFooterSlots($variables);
+    $this->prepareSiteHeaderSlots($variables);
+  }
 
-    foreach ($variables['page']['header'] ?? [] as $key => $build) {
-      if (!is_array($build)) {
-        continue;
-      }
-      $plugin = $build['#plugin_id'] ?? '';
-      if (in_array($plugin, [
-        'local_tasks_block',
-        'local_actions_block',
-        'page_title_block',
-        'system_breadcrumb_block',
-      ], TRUE)) {
-        unset($variables['page']['header'][$key]);
-      }
+  /**
+   * Whether the current route is part of the authenticated account area.
+   */
+  private function isAccountAreaRoute(): bool {
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    if ($route_name === NULL) {
+      return FALSE;
     }
 
-    $this->prepareSiteHeaderSlots($variables);
+    return str_starts_with($route_name, 'user.')
+      || in_array($route_name, [
+        'ps_favorite.account_page',
+      ], TRUE);
   }
 
   /**
