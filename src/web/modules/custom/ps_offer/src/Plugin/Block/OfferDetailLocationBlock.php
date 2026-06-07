@@ -83,7 +83,6 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       'show_group' => TRUE,
       'format_style' => 'grouped',
       'hide_disabled_flags' => TRUE,
-      'show_flag_text' => TRUE,
       'group_order' => 'acces_vehicules',
       'group_filter' => 'acces_vehicules',
     ]);

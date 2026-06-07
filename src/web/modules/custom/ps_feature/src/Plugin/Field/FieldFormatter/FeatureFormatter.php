@@ -56,7 +56,6 @@ class FeatureFormatter extends FormatterBase {
       'show_group' => TRUE,
       'format_style' => 'default',
       'hide_disabled_flags' => TRUE,
-      'show_flag_text' => TRUE,
       'group_order' => '',
       'group_filter' => '',
       'column_threshold' => 5,
@@ -127,13 +126,6 @@ class FeatureFormatter extends FormatterBase {
       '#title' => $this->t('Hide disabled flag features'),
       '#description' => $this->t('When enabled, flag features with a disabled payload are not rendered.'),
       '#default_value' => $this->getSetting('hide_disabled_flags'),
-    ];
-
-    $elements['show_flag_text'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show flag value text (Present/Absent)'),
-      '#description' => $this->t('When disabled, flag features are displayed as label only (without Present/Absent value text).'),
-      '#default_value' => $this->getSetting('show_flag_text'),
     ];
 
     $elements['column_threshold'] = [
@@ -267,14 +259,12 @@ class FeatureFormatter extends FormatterBase {
     $show_group = $this->getSetting('show_group');
     $format_style = $this->getSetting('format_style');
     $hide_disabled_flags = $this->getSetting('hide_disabled_flags');
-    $show_flag_text = $this->getSetting('show_flag_text');
     $group_order = $this->parseGroupOrderSetting((string) $this->getSetting('group_order'));
 
     $summary[] = $this->t('Show label: @value', ['@value' => $show_label ? $this->t('Yes') : $this->t('No')]);
     $summary[] = $this->t('Show group: @value', ['@value' => $show_group ? $this->t('Yes') : $this->t('No')]);
     $summary[] = $this->t('Style: @style', ['@style' => $format_style]);
     $summary[] = $this->t('Hide disabled flags: @value', ['@value' => $hide_disabled_flags ? $this->t('Yes') : $this->t('No')]);
-    $summary[] = $this->t('Show flag text: @value', ['@value' => $show_flag_text ? $this->t('Yes') : $this->t('No')]);
     if ($group_order) {
       $summary[] = $this->t('Grouped order: @order', ['@order' => implode(', ', $group_order)]);
     }
@@ -303,7 +293,6 @@ class FeatureFormatter extends FormatterBase {
     $show_group = $this->getSetting('show_group');
     $format_style = $this->getSetting('format_style');
     $hide_disabled_flags = $this->getSetting('hide_disabled_flags');
-    $show_flag_text = $this->getSetting('show_flag_text');
     $group_order = $this->parseGroupOrderSetting((string) $this->getSetting('group_order'));
     $group_filter = (string) $this->getSetting('group_filter');
 
@@ -313,7 +302,6 @@ class FeatureFormatter extends FormatterBase {
           $items,
           $show_label,
           $hide_disabled_flags,
-          $show_flag_text,
           $group_order,
           $group_filter,
           (int) $this->getSetting('column_threshold'),
@@ -344,7 +332,8 @@ class FeatureFormatter extends FormatterBase {
       try {
         $plugin = $this->featureTypeManager->createInstance($type);
         $formatted_value = $plugin->format($payload);
-        if ($type === 'flag' && !$show_flag_text) {
+        if ($type === 'flag') {
+          // Flags are implicit presence indicators: label only on display.
           $formatted_value = '';
         }
       }
@@ -465,7 +454,7 @@ class FeatureFormatter extends FormatterBase {
   /**
    * Builds grouped render arrays by feature group.
    */
-  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, bool $show_flag_text, array $group_order, string $group_filter = '', int $column_threshold = 5, int $column_rows = 5): array {
+  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, array $group_order, string $group_filter = '', int $column_threshold = 5, int $column_rows = 5): array {
     $grouped_elements = [];
     $group_storage = \Drupal::entityTypeManager()->getStorage('fb_feature_group');
     $group_order_positions = array_flip($group_order);
@@ -491,7 +480,8 @@ class FeatureFormatter extends FormatterBase {
         $type = $feature_definition->getTypeDriver();
         $plugin = $this->featureTypeManager->createInstance($type);
         $formatted_value = $plugin->format($payload);
-        if ($type === 'flag' && !$show_flag_text) {
+        if ($type === 'flag') {
+          // Flags are implicit presence indicators: label only on display.
           $formatted_value = '';
         }
       }

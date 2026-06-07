@@ -323,7 +323,6 @@ content:
       show_group: true
       format_style: grouped
       hide_disabled_flags: true
-      show_flag_text: true
       group_order: ''
     third_party_settings: { }
     weight: 40

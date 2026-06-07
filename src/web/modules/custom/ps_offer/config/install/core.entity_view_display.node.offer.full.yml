@@ -140,7 +140,6 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  show_flag_text: true
                   group_order: equipements
                   group_filter: equipements
                 third_party_settings: {  }
@@ -167,7 +166,6 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  show_flag_text: true
                   group_order: prestations_de_service
                   group_filter: prestations_de_service
                 third_party_settings: {  }
@@ -194,7 +192,6 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  show_flag_text: true
                   group_order: type_etat_du_batiment
                   group_filter: type_etat_du_batiment
                 third_party_settings: {  }
@@ -221,7 +218,6 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  show_flag_text: true
                   group_order: informations_complementaires
                   group_filter: informations_complementaires
                 third_party_settings: {  }
@@ -272,7 +268,6 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  show_flag_text: true
                   group_order: normes_certifications_et_labels
                   group_filter: normes_certifications_et_labels
                 third_party_settings: {  }
