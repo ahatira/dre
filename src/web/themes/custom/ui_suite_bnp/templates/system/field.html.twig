@@ -40,6 +40,16 @@
 #}
 {{ attach_library('ui_suite_bnp/field') }}
 
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+    label_display == 'inline' ? 'clearfix',
+  ]
+%}
+
 {%- if display_field_tag ~%}
   <{{ field_tag|default('div') }}{{ attributes.addClass(classes) }}>
 {%- endif -%}

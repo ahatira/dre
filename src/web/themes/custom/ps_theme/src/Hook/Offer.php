@@ -75,4 +75,55 @@ final class Offer {
     }
   }
 
+  /**
+   * Strips redundant field wrappers on offer detail formatters with own markup.
+   */
+  #[Hook('preprocess_field')]
+  public function preprocessField(array &$variables): void {
+    if (($variables['element']['#bundle'] ?? '') !== 'offer') {
+      return;
+    }
+
+    $field_name = (string) ($variables['field_name'] ?? '');
+    $formatter = (string) ($variables['element']['#formatter'] ?? '');
+
+    if ($this->shouldStripAllFieldWrappers($field_name, $formatter)) {
+      $variables['display_field_tag'] = FALSE;
+      $variables['display_items_wrapper_tag'] = FALSE;
+      $variables['display_item_tag'] = FALSE;
+      return;
+    }
+
+    if ($this->shouldStripFieldItemWrappers($field_name, $formatter)) {
+      $variables['display_items_wrapper_tag'] = FALSE;
+      $variables['display_item_tag'] = FALSE;
+    }
+  }
+
+  /**
+   * Whether the formatter renders a complete section without field wrappers.
+   */
+  private function shouldStripAllFieldWrappers(string $field_name, string $formatter): bool {
+    return match ($field_name) {
+      'field_media_gallery' => $formatter === 'ps_media_gallery_formatter',
+      'body' => $formatter === 'ps_offer_description',
+      'field_features' => $formatter === 'feature_default',
+      'field_divisions' => $formatter === 'ps_surface_division_table',
+      'field_primary_agent' => $formatter === 'ps_offer_agent_card',
+      default => FALSE,
+    };
+  }
+
+  /**
+   * Whether only field item wrappers can be removed (field shell still needed).
+   */
+  private function shouldStripFieldItemWrappers(string $field_name, string $formatter): bool {
+    return match ($field_name) {
+      // field_diagnostics: keep .field--items / .field--item — energy grid CSS
+      // in _offer-detail.scss targets those wrappers.
+      'field_certification_labels' => $formatter === 'certification_label_badge',
+      default => FALSE,
+    };
+  }
+
 }

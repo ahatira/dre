@@ -5,6 +5,7 @@ namespace Drupal\ps_feature\Plugin\Field\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ps_feature\Service\FeatureGroupIconResolver;
 use Drupal\ps_feature\Service\FeatureTypeManager;
@@ -288,6 +289,24 @@ class FeatureFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  public function view(FieldItemListInterface $items, $langcode = NULL) {
+    if ($this->getSetting('format_style') === 'grouped') {
+      if (empty($langcode)) {
+        $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+      }
+      // Avoid cache-only render arrays: Layout Builder FieldBlock treats them
+      // as non-empty and still outputs a block wrapper.
+      if ($this->viewElements($items, $langcode) === []) {
+        return [];
+      }
+    }
+
+    return parent::view($items, $langcode);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $show_label = $this->getSetting('show_label');
     $show_group = $this->getSetting('show_group');
@@ -297,16 +316,21 @@ class FeatureFormatter extends FormatterBase {
     $group_filter = (string) $this->getSetting('group_filter');
 
     if ($format_style === 'grouped') {
+      $grouped = $this->buildGroupedElements(
+        $items,
+        $show_label,
+        $hide_disabled_flags,
+        $group_order,
+        $group_filter,
+        (int) $this->getSetting('column_threshold'),
+        (int) $this->getSetting('column_rows'),
+      );
+      if ($grouped === []) {
+        return [];
+      }
+
       return [
-        0 => $this->buildGroupedElements(
-          $items,
-          $show_label,
-          $hide_disabled_flags,
-          $group_order,
-          $group_filter,
-          (int) $this->getSetting('column_threshold'),
-          (int) $this->getSetting('column_rows'),
-        ),
+        0 => $grouped,
       ];
     }
 
@@ -519,10 +543,7 @@ class FeatureFormatter extends FormatterBase {
     });
 
     if (!$grouped_elements) {
-      return [
-        '#type' => 'container',
-        '#attributes' => ['class' => ['feature-grouped-list']],
-      ];
+      return [];
     }
 
     $elements = [
