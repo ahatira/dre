@@ -40,6 +40,24 @@ function ps_agent_post_update_align_card_display_for_offer_sidebar(): void {
 }
 
 /**
+ * Switches agent phone displays to telephone_formatter (libphonenumber).
+ */
+function ps_agent_post_update_apply_telephone_formatter_displays(): void {
+  $path = \Drupal::service('extension.list.module')->getPath('ps_agent') . '/config/install';
+  $storage = new FileStorage($path);
+  foreach ([
+    'core.entity_view_display.ps_agent.default.card',
+    'core.entity_view_display.ps_agent.default.default',
+    'core.entity_view_display.ps_agent.default.full',
+  ] as $config_name) {
+    $data = $storage->read($config_name);
+    if ($data !== FALSE) {
+      \Drupal::configFactory()->getEditable($config_name)->setData($data)->save(TRUE);
+    }
+  }
+}
+
+/**
  * Removes the deprecated sidebar view mode and its display configuration.
  */
 function ps_agent_post_update_remove_sidebar_view_mode(): void {

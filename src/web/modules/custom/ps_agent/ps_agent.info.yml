@@ -10,6 +10,7 @@ dependencies:
   - ps_dictionary:ps_dictionary
   - drupal:user
   - drupal:telephone
+  - telephone_formatter:telephone_formatter
   - drupal:image
   - drupal:file
   - drupal:views

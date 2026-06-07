@@ -6,6 +6,7 @@ dependencies:
     - ps_agent.ps_agent_type.default
   module:
     - ps_agent
+    - telephone_formatter
 id: ps_agent.default.card
 targetEntityType: ps_agent
 bundle: default
@@ -29,8 +30,17 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  phone:
+    type: telephone_formatter
+    weight: 2
+    label: hidden
+    region: content
+    settings:
+      format: 1
+      link: true
+      default_country: FR
+    third_party_settings: {  }
 hidden:
-  phone: true
   changed: true
   checksum: true
   civility: true

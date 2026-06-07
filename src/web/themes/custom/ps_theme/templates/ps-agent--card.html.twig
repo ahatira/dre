@@ -20,14 +20,12 @@
         {{ content.display_name }}
       </div>
     {% endif %}
-    {% set phone_raw = ps_agent.phone.value|default('')|trim %}
-    {% if phone_raw %}
-      {% set phone_href = 'tel:' ~ phone_raw|replace({' ': '', '-': '', '(': '', ')': '', '.': ''}) %}
+    {% if content.phone %}
       <div class="ps-agent-sidebar-profile__phone">
         <span class="ps-agent-sidebar-profile__phone-icon" aria-hidden="true">
           {{ icon('bnp_custom', 'phone', {'size': '20px'}) }}
         </span>
-        <a href="{{ phone_href }}">{{ phone_raw }}</a>
+        {{ content.phone }}
       </div>
     {% endif %}
   </div>

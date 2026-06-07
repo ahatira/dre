@@ -5,6 +5,7 @@ dependencies:
     - ps_agent.ps_agent_type.default
   module:
     - ps_agent
+    - telephone_formatter
     - user
 id: ps_agent.default.default
 targetEntityType: ps_agent
@@ -58,12 +59,14 @@ content:
     settings: {}
     third_party_settings: {}
   phone:
-    type: telephone_link
+    type: telephone_formatter
     weight: 6
     label: above
     region: content
     settings:
-      title: ''
+      format: 1
+      link: true
+      default_country: FR
     third_party_settings: {}
   status:
     type: boolean
