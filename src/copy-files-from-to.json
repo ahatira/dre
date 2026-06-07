@@ -58,6 +58,16 @@
       "toFlat": true
     },
     {
+      "//": "--- PhotoSwipe 5 (zoom lightbox) ---",
+      "from": [
+        "node_modules/photoswipe/dist/photoswipe.css",
+        "node_modules/photoswipe/dist/umd/photoswipe.umd.min.js",
+        "node_modules/photoswipe/dist/umd/photoswipe-lightbox.umd.min.js"
+      ],
+      "to": "web/libraries/photoswipe/",
+      "toFlat": true
+    },
+    {
       "//": "--- CKEditor 5 Media Embed Plugin (structure préservée) ---",
       "from": [
         "node_modules/@ckeditor/ckeditor5-media-embed/**/*"

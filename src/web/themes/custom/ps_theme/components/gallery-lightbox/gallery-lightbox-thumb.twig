@@ -5,13 +5,16 @@
 {% set slide_label = slide.label|default(slide.alt|default('')) %}
 {% set is_image_slide = slide_type in ['image', 'plan_image'] %}
 {% set media_icon = slide_type starts with 'video' ? 'play' : (slide_type == 'visit_3d' ? '3d' : (slide_type starts with 'plan' ? 'file' : '')) %}
+{% set thumb_loading = thumb_index|default(0) < 8 ? 'eager' : 'lazy' %}
 
 {% if is_image_slide and slide.thumb_url %}
-  <img src="{{ slide.thumb_url }}" alt="" loading="lazy" />
+  <span class="ps-gallery-lightbox__thumb-media">
+    <img src="{{ slide.thumb_url }}" alt="" loading="{{ thumb_loading }}" decoding="async" />
+  </span>
 {% else %}
   <span class="ps-gallery-lightbox__thumb-media">
     {% if slide.thumb_url %}
-      <img src="{{ slide.thumb_url }}" alt="" loading="lazy" />
+      <img src="{{ slide.thumb_url }}" alt="" loading="{{ thumb_loading }}" decoding="async" />
     {% else %}
       <span class="ps-gallery-lightbox__thumb-placeholder" aria-hidden="true"></span>
     {% endif %}

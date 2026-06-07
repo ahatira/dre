@@ -10,6 +10,26 @@ final class FeatureContext extends MinkContext implements Context {
   private string $lastScriptOutput = '';
 
   /**
+   * @When I run the offer gallery e2e script for node :nid
+   */
+  public function iRunTheOfferGalleryE2EScriptForNode(string $nid): void {
+    $cmd = sprintf(
+      'export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin && cd /home/amine/ps_project_wsl/src && bash web/modules/custom/ps_offer/tests/e2e_offer_gallery.sh http://localhost:8080 %s 2>&1',
+      escapeshellarg($nid)
+    );
+
+    $output = [];
+    $exitCode = 0;
+    exec('bash -lc ' . escapeshellarg($cmd), $output, $exitCode);
+
+    $this->lastScriptOutput = implode("\n", $output);
+
+    if ($exitCode !== 0) {
+      throw new RuntimeException("Offer gallery E2E script failed:\n" . $this->lastScriptOutput);
+    }
+  }
+
+  /**
    * @When I run the offer reference e2e script for node :nid
    */
   public function iRunTheOfferReferenceE2EScriptForNode(string $nid): void {

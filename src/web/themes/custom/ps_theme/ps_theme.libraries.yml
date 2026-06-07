@@ -179,6 +179,17 @@ offer-detail:
     - core/drupal.dialog.ajax
     - ps_theme/framework
 
+photoswipe:
+  version: 5.4.4
+  js:
+    /libraries/photoswipe/photoswipe.umd.min.js: { minified: true, weight: -10 }
+    /libraries/photoswipe/photoswipe-lightbox.umd.min.js: { minified: true, weight: -5 }
+  css:
+    theme:
+      /libraries/photoswipe/photoswipe.css: {}
+  dependencies:
+    - core/drupal
+
 offer-gallery:
   js:
     assets/js/offer-gallery.js: {}
@@ -190,6 +201,7 @@ offer-gallery:
     - core/once
     - core/drupal
     - ps_theme/component_modal
+    - ps_theme/photoswipe
 
 offer-map:
   js:
