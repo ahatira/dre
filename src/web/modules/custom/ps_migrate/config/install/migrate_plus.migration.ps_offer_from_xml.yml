@@ -387,18 +387,34 @@ process:
           plugin: get
           source: '5'
         -
+          plugin: callback
+          callable: trim
+        -
           plugin: static_map
           map:
-            '': 1
+            '1': 1
+            'true': 1
+            'TRUE': 1
+            'Y': 1
+            'YES': 1
+            'yes': 1
           default_value: 0
       non_applicable:
         -
           plugin: get
           source: '6'
         -
+          plugin: callback
+          callable: trim
+        -
           plugin: static_map
           map:
-            '': 1
+            '1': 1
+            'true': 1
+            'TRUE': 1
+            'Y': 1
+            'YES': 1
+            'yes': 1
           default_value: 0
 
   

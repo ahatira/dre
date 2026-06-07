@@ -2,11 +2,12 @@
 {% set ordered_codes = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] %}
 {% set code_positions = {'A': 0, 'B': 40, 'C': 80, 'D': 120, 'E': 160, 'F': 200, 'G': 240} %}
 {% set raw_value = item.value is defined ? item.value : '' %}
+{% set raw_class = item.class is defined ? item.class : '' %}
 {% set value_number = raw_value is not empty ? raw_value + 0 : null %}
-{% set has_value = value_number is not null and not is_disabled %}
 {% set is_dimmed = is_disabled|default(false) %}
+{% set has_data = not is_dimmed and (value_number is not null or raw_class is not empty) %}
 {% set display_text_override = is_dimmed ? '?' : '' %}
-{% set empty_message = disabled_message|default('Energy label not provided by the owner'|t) %}
+{% set empty_message = disabled_message|default('') %}
 
 {% set classes_by_code = {} %}
 {% for class in classes|default([]) %}
@@ -17,7 +18,10 @@
 {% endfor %}
 
 {% set derived_class = active_class ? active_class.label|upper : '' %}
-{% if derived_class == '' and has_value and not display_text_override %}
+{% if derived_class == '' and raw_class is not empty %}
+  {% set derived_class = raw_class|upper %}
+{% endif %}
+{% if derived_class == '' and value_number is not null and not display_text_override %}
   {% for code in ordered_codes %}
     {% if classes_by_code[code] is defined and derived_class == '' %}
       {% set max_value = classes_by_code[code].range_max is defined ? classes_by_code[code].range_max : null %}
@@ -37,36 +41,46 @@
 
 {% set display_text = display_text_override ?: (derived_class ?: '?') %}
 {% set cursor_x = code_positions[display_text|upper] is defined ? code_positions[display_text|upper] : 120 %}
-{% set show_message = display_text_override or not has_value or is_dimmed %}
-{% set show_legend = has_value and unit and not display_text_override and not is_dimmed %}
-{% set bar_opacity = show_message ? 0.3 : 1 %}
+{% set legend_x_percent = ((cursor_x + 20) / 280 * 100)|round(4) %}
+{% set show_message = is_dimmed or display_text_override or not has_data %}
+{% set show_legend = has_data and unit and raw_value is not empty and not display_text_override %}
+{% set bar_opacity = is_dimmed ? 0.3 : 1 %}
+{% set badge_fill = cursor_fill|default('#989a9f') %}
+{% set badge_text = cursor_text|default('#ffffff') %}
 
-<figure{{ attributes.addClass('ps-diagnostic').setAttribute('data-class', derived_class|default('unknown')|lower) }}>
+<figure{{ attributes.addClass('ps-diagnostic', 'ps-diagnostic--horizontal').setAttribute('data-class', derived_class|default('unknown')|lower) }}>
   <figcaption>
     <h3 class="ps-diagnostic__title">
-      <span>{{ type_label|default('Diagnostic'|t) }}</span>
+      {% if icon %}
+        {{ icon }}
+      {% endif %}
+      <span class="ps-diagnostic__title-label">{{ type_label|default('Diagnostic'|t) }}</span>
     </h3>
   </figcaption>
 
-  {% if show_legend %}
-    <div class="ps-diagnostic__legend" style="left: {{ cursor_x + 20 }}px;">
-      {{ raw_value }} {{ unit }}
-    </div>
-  {% endif %}
+  <div class="ps-diagnostic__scale">
+    <svg class="ps-diagnostic__svg class-{{ derived_class|default('unknown')|lower }}" width="280" height="40" viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke-width="0" opacity="{{ bar_opacity }}">
+        {% for code in ordered_codes %}
+          {% if classes_by_code[code] is defined %}
+            <rect x="{{ loop.index0 * 40 }}" y="10" width="40" height="20" fill="{{ classes_by_code[code].color }}"></rect>
+          {% else %}
+            <rect x="{{ loop.index0 * 40 }}" y="10" width="40" height="20" fill="#d7dadd"></rect>
+          {% endif %}
+        {% endfor %}
+        <rect x="{{ cursor_x }}" width="40" height="40" fill="{{ badge_fill }}"></rect>
+      </g>
+      <text x="{{ cursor_x + 20 }}" y="28.35" fill="{{ badge_text }}" font-size="24px" stroke-width="1.2977" text-anchor="middle">{{ display_text|upper }}</text>
+    </svg>
 
-  <svg class="ps-diagnostic__svg class-{{ derived_class|default('unknown')|lower }}" width="280" height="40" viewbox="0 0 280 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g stroke-width="0" opacity="{{ bar_opacity }}">
-      {% for code in ordered_codes %}
-        {% if classes_by_code[code] is defined %}
-          <rect x="{{ loop.index0 * 40 }}" y="10" width="40" height="20" fill="{{ classes_by_code[code].color }}"></rect>
-        {% else %}
-          <rect x="{{ loop.index0 * 40 }}" y="10" width="40" height="20" fill="#d7dadd"></rect>
-        {% endif %}
-      {% endfor %}
-      <rect x="{{ cursor_x }}" width="40" height="40" fill="#000000"></rect>
-    </g>
-    <text x="{{ cursor_x + 20 }}" y="28.35" fill="#ffffff" font-size="24px" stroke-width="1.2977" text-anchor="middle">{{ display_text|upper }}</text>
-  </svg>
+    <div class="ps-diagnostic__legend-track" aria-hidden="{{ show_legend ? 'false' : 'true' }}">
+      {% if show_legend %}
+        <span class="ps-diagnostic__legend" style="--legend-x: {{ legend_x_percent }}%;">
+          {{ raw_value }} {{ unit }}
+        </span>
+      {% endif %}
+    </div>
+  </div>
 
   {% if show_dates and (diagnostic_date_display or validity_end_date_display) %}
     <div class="ps-diagnostic__dates">

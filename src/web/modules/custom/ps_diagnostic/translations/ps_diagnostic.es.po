@@ -1,4 +1,398 @@
+# Spanish translation for ps_diagnostic module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_diagnostic\n"
+"POT-Creation-Date: 2026-06-07 00:00+0000\n"
 "Language: es\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Simple and configurable diagnostics module for offers."
+msgstr "Módulo de diagnósticos simple y configurable para ofertas."
+
+msgid "Diagnostic fields for offers."
+msgstr "Campos de diagnóstico para ofertas."
+
+msgid "Access diagnostic admin pages"
+msgstr "Acceder a las páginas de administración de diagnósticos"
+
+msgid "Administer diagnostic settings"
+msgstr "Administrar la configuración de diagnósticos"
+
+msgid "Administer diagnostic types"
+msgstr "Administrar los tipos de diagnóstico"
+
+msgid "Diagnostics"
+msgstr "Diagnósticos"
+
+msgid "Configure diagnostics."
+msgstr "Configurar diagnósticos."
+
+msgid "Manage diagnostics structure."
+msgstr "Gestionar la estructura de diagnósticos."
+
+msgid "Diagnostic types"
+msgstr "Tipos de diagnóstico"
+
+msgid "Manage diagnostic types."
+msgstr "Gestionar los tipos de diagnóstico."
+
+msgid "Add diagnostic type"
+msgstr "Añadir tipo de diagnóstico"
+
+msgid "Diagnostic settings"
+msgstr "Configuración de diagnósticos"
+
+msgid "Overview"
+msgstr "Resumen"
+
+msgid "Types"
+msgstr "Tipos"
+
+msgid "Diagnostic item"
+msgstr "Elemento de diagnóstico"
+
+msgid "Stores one diagnostic item based on XML structure."
+msgstr "Almacena un elemento de diagnóstico basado en la estructura XML."
+
+msgid "Diagnostic type"
+msgstr "Tipo de diagnóstico"
+
+msgid "Class"
+msgstr "Clase"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Diagnostic date"
+msgstr "Fecha del diagnóstico"
+
+msgid "Validity end date"
+msgstr "Fecha de fin de validez"
+
+msgid "No classification"
+msgstr "Sin clasificación"
+
+msgid "Non applicable"
+msgstr "No aplicable"
+
+msgid "Allowed diagnostic type IDs"
+msgstr "IDs de tipos de diagnóstico permitidos"
+
+msgid "One type ID per line. Leave empty to allow all types."
+msgstr "Un ID de tipo por línea. Dejar vacío para permitir todos los tipos."
+
+msgid "Diagnostic - Horizontal (default)"
+msgstr "Diagnóstico - Horizontal (predeterminado)"
+
+msgid "Diagnostic - Vertical"
+msgstr "Diagnóstico - Vertical"
+
+msgid "Diagnostic - Full"
+msgstr "Diagnóstico - Completo"
+
+msgid "Show ranges"
+msgstr "Mostrar rangos"
+
+msgid "Show dates"
+msgstr "Mostrar fechas"
+
+msgid "Show unknown-state banner"
+msgstr "Mostrar banner de estado desconocido"
+
+msgid "Show reference threshold table"
+msgstr "Mostrar tabla de umbrales de referencia"
+
+msgid "Used by the Full formatter."
+msgstr "Utilizado por el formateador Completo."
+
+msgid "Ranges: shown"
+msgstr "Rangos: mostrados"
+
+msgid "Ranges: hidden"
+msgstr "Rangos: ocultos"
+
+msgid "Dates: shown"
+msgstr "Fechas: mostradas"
+
+msgid "Dates: hidden"
+msgstr "Fechas: ocultas"
+
+msgid "Unknown banner: shown"
+msgstr "Banner desconocido: mostrado"
+
+msgid "Unknown banner: hidden"
+msgstr "Banner desconocido: oculto"
+
+msgid "Reference table: shown"
+msgstr "Tabla de referencia: mostrada"
+
+msgid "Reference table: hidden"
+msgstr "Tabla de referencia: oculta"
+
+msgid "Energy & diagnostics"
+msgstr "Energía y diagnósticos"
+
+msgid "Energy label not provided by the owner."
+msgstr "Etiqueta energética no proporcionada por el propietario."
+
+msgid "Diagnostic label is not provided by the owner."
+msgstr "Etiqueta energética no proporcionada por el propietario."
+
+msgid "Diagnostic not applicable for this offer."
+msgstr "Diagnóstico no aplicable para esta oferta."
+
+msgid "Diagnostic has no classification."
+msgstr "El diagnóstico no tiene clasificación."
+
+msgid "Diagnostic has expired."
+msgstr "El diagnóstico ha caducado."
+
+msgid "Energy-efficient property"
+msgstr "Inmueble eficiente energéticamente"
+
+msgid "Energy-intensive property"
+msgstr "Inmueble de alto consumo energético"
+
+msgid "Low greenhouse gas emissions"
+msgstr "Bajas emisiones de gases de efecto invernadero"
+
+msgid "High greenhouse gas emissions"
+msgstr "Altas emisiones de gases de efecto invernadero"
+
+msgid "Best class"
+msgstr "Mejor clase"
+
+msgid "Worst class"
+msgstr "Peor clase"
+
+msgid "Diagnostic"
+msgstr "Diagnóstico"
+
+msgid "Diagnostic summary"
+msgstr "Resumen del diagnóstico"
+
+msgid "Diagnostic scale"
+msgstr "Escala de diagnóstico"
+
+msgid "Threshold"
+msgstr "Umbral"
+
+msgid "From:"
+msgstr "Desde:"
+
+msgid "Until:"
+msgstr "Hasta:"
+
+msgid "Navigation"
+msgstr "Navegación"
+
+msgid "Diagnostics overview"
+msgstr "Resumen de diagnósticos"
+
+msgid "Default validity duration (months)"
+msgstr "Duración de validez predeterminada (meses)"
+
+msgid "Allow manual class entry"
+msgstr "Permitir entrada manual de clase"
+
+msgid "Allow empty diagnostic value"
+msgstr "Permitir valor de diagnóstico vacío"
+
+msgid "Offer detail display"
+msgstr "Visualización de ficha de oferta"
+
+msgid "Offer section title"
+msgstr "Título de la sección de oferta"
+
+msgid "Heading shown above diagnostics on offer detail pages."
+msgstr "Título mostrado sobre los diagnósticos en las fichas de oferta."
+
+msgid "Offer section icon"
+msgstr "Icono de la sección de oferta"
+
+msgid "UI Icon shown next to the section title on offer detail pages."
+msgstr "Icono UI mostrado junto al título de sección en las fichas de oferta."
+
+msgid "Disabled diagnostic message mode"
+msgstr "Modo de mensaje para diagnóstico desactivado"
+
+msgid "Single message (BNPPRE style)"
+msgstr "Mensaje único (estilo BNPPRE)"
+
+msgid "Detailed message per reason"
+msgstr "Mensaje detallado por motivo"
+
+msgid "When a diagnostic cannot be displayed, choose one shared message or a specific message per status."
+msgstr "Cuando un diagnóstico no puede mostrarse, elija un mensaje compartido o uno específico por estado."
+
+msgid "Single fallback message"
+msgstr "Mensaje de respaldo único"
+
+msgid "Shown for all disabled diagnostics when single message mode is selected."
+msgstr "Mostrado para todos los diagnósticos desactivados cuando se selecciona el modo de mensaje único."
+
+msgid "Back to diagnostics structure"
+msgstr "Volver a la estructura de diagnósticos"
+
+msgid "Label"
+msgstr "Etiqueta"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Unit"
+msgstr "Unidad"
+
+msgid "Example: kWh/m2/year, kgCO2/m2/year."
+msgstr "Ejemplo: kWh/m²/año, kgCO₂/m²/año."
+
+msgid "Icon"
+msgstr "Icono"
+
+msgid "UI Icon shown next to the diagnostic title on offer pages."
+msgstr "Icono UI mostrado junto al título del diagnóstico en las fichas de oferta."
+
+msgid "Energy classes"
+msgstr "Clases energéticas"
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Range max"
+msgstr "Rango máx."
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "No classes configured yet."
+msgstr "Aún no hay clases configuradas."
+
+msgid "Define classes in ascending order. The last configured class is open-ended and must keep an empty max range."
+msgstr "Definir las clases en orden ascendente. La última clase configurada es abierta y debe tener un rango máx. vacío."
+
+msgid "Order"
+msgstr "Orden"
+
+msgid "A"
+msgstr "A"
+
+msgid "Add class"
+msgstr "Añadir clase"
+
+msgid "Remove selected"
+msgstr "Eliminar selección"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Weight"
+msgstr "Peso"
+
+msgid "Back to types"
+msgstr "Volver a los tipos"
+
+msgid "Class label is required when a class row is used."
+msgstr "La etiqueta de clase es obligatoria cuando se usa una fila de clase."
+
+msgid "Color must be a valid hex value (example: #8BC34A)."
+msgstr "El color debe ser un valor hexadecimal válido (ejemplo: #8BC34A)."
+
+msgid "The last configured class must keep an empty range max."
+msgstr "La última clase configurada debe tener un rango máx. vacío."
+
+msgid "Range max is required for configured classes except the last one."
+msgstr "El rango máx. es obligatorio para todas las clases excepto la última."
+
+msgid "Class ranges must be strictly increasing."
+msgstr "Los rangos de clase deben ser estrictamente crecientes."
+
+msgid "Diagnostic type %label has been saved."
+msgstr "El tipo de diagnóstico %label se ha guardado."
+
+msgid "- Select -"
+msgstr "- Seleccionar -"
+
+msgid "Choose the diagnostic family before entering the class or value."
+msgstr "Elija la familia de diagnóstico antes de introducir la clase o el valor."
+
+msgid "How this field works"
+msgstr "Cómo funciona este campo"
+
+msgid "Enter the measured value first. The widget suggests the class automatically from the scale."
+msgstr "Introduzca primero el valor medido. El widget sugiere la clase automáticamente según la escala."
+
+msgid "Measured value used to calculate the class automatically."
+msgstr "Valor medido utilizado para calcular la clase automáticamente."
+
+msgid "Class (auto preview)"
+msgstr "Clase (vista previa auto)"
+
+msgid "Class is computed automatically from the value scale."
+msgstr "La clase se calcula automáticamente a partir de la escala de valores."
+
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+msgid "End date"
+msgstr "Fecha de fin"
+
+msgid "No class scale configured."
+msgstr "No hay escala de clases configurada."
+
+msgid "Manage diagnostics from this simple interface."
+msgstr "Gestionar diagnósticos desde esta interfaz simple."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Classes"
+msgstr "Clases"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Icon key"
+msgstr "Clave de icono"
+
+msgid "Current class"
+msgstr "Clase actual"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Visual preset"
+msgstr "Preset visual"
+
+msgid "Auto (DPE/GES label style)"
+msgstr "Auto (estilo etiqueta DPE/GES)"
+
+msgid "Label style (all diagnostics)"
+msgstr "Estilo etiqueta (todos los diagnósticos)"
+
+msgid "Simple card style"
+msgstr "Estilo tarjeta simple"
+
+msgid "Show visual scale"
+msgstr "Mostrar escala visual"
+
+msgid "Preset: label style"
+msgstr "Preset: estilo etiqueta"
+
+msgid "Preset: simple card style"
+msgstr "Preset: estilo tarjeta"
+
+msgid "Preset: auto DPE/GES label style"
+msgstr "Preset: auto estilo etiqueta DPE/GES"
+
+msgid "Scale: shown"
+msgstr "Escala: mostrada"
+
+msgid "Scale: hidden"
+msgstr "Escala: oculta"

@@ -3,5 +3,17 @@ services:
     class: Drupal\ps_diagnostic\Service\DiagnosticTypeOptionsProvider
     arguments: ['@entity_type.manager']
 
+  ps_diagnostic.type_icon_resolver:
+    class: Drupal\ps_diagnostic\Service\DiagnosticTypeIconResolver
+    arguments: ['@ps_diagnostic.type_options']
+
+  ps_diagnostic.section_icon_builder:
+    class: Drupal\ps_diagnostic\Service\DiagnosticSectionIconBuilder
+    arguments: ['@config.factory']
+
   Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks:
     class: Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks
+
+  Drupal\ps_diagnostic\Hook\DiagnosticFieldHooks:
+    class: Drupal\ps_diagnostic\Hook\DiagnosticFieldHooks
+    arguments: ['@config.factory', '@ps_diagnostic.section_icon_builder']

@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies: { }
 id: ges
-label: 'GES'
+label: 'Greenhouse gas emissions'
 unit: 'kgCO2/m2/year'
-icon: co2
-description: 'Greenhouse gas emissions diagnosis.'
+icon: 'bnp_custom:gas-emission'
+description: 'Greenhouse gas emissions diagnosis (GES).'
 enabled: true
 weight: 5
 classes:

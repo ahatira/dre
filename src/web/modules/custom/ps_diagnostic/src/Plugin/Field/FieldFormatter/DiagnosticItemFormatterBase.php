@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\ps_diagnostic\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\ps_diagnostic\Service\DiagnosticTypeIconResolver;
 use Drupal\ps_diagnostic\Service\DiagnosticTypeOptionsProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,6 +27,8 @@ abstract class DiagnosticItemFormatterBase extends FormatterBase implements Cont
     array $third_party_settings,
     protected readonly DiagnosticTypeOptionsProvider $typeOptionsProvider,
     protected readonly DateFormatterInterface $dateFormatter,
+    protected readonly DiagnosticTypeIconResolver $iconResolver,
+    protected readonly ConfigFactoryInterface $configFactory,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -39,12 +44,14 @@ abstract class DiagnosticItemFormatterBase extends FormatterBase implements Cont
       $configuration['third_party_settings'],
       $container->get('ps_diagnostic.type_options'),
       $container->get('date.formatter'),
+      $container->get('ps_diagnostic.type_icon_resolver'),
+      $container->get('config.factory'),
     );
   }
 
   public static function defaultSettings(): array {
     return [
-      'show_dates' => TRUE,
+      'show_dates' => FALSE,
       'show_ranges' => TRUE,
       'show_unknown_banner' => TRUE,
       'show_reference_table' => TRUE,
@@ -111,13 +118,17 @@ abstract class DiagnosticItemFormatterBase extends FormatterBase implements Cont
 
       $state = $this->resolveDisabledState($value, $active_class);
       $unit = $type?->getUnit() ?? '';
-      $show_dates = (bool) $this->getSetting('show_dates');
+      $has_class = trim((string) ($value['class'] ?? '')) !== '';
+      $has_value = trim((string) ($value['value'] ?? '')) !== '';
+      $show_dates = (bool) $this->getSetting('show_dates') && ($has_class || $has_value);
+      $cursor_colors = $this->resolveCursorColors($active_class, $state['disabled']);
 
       $elements[$delta] = [
         '#theme' => $this->getThemeHook(),
         '#item' => $value,
         '#type_id' => $type_id,
         '#type_label' => $type?->label() ?? strtoupper($type_id),
+        '#icon' => $this->iconResolver->buildRenderable($type_id),
         '#unit' => $unit,
         '#value_display' => $this->buildValueDisplay(trim((string) ($value['value'] ?? '')), $unit),
         '#diagnostic_date_display' => $show_dates ? $this->formatDate(trim((string) ($value['diagnostic_date'] ?? '')), $langcode) : '',
@@ -132,13 +143,19 @@ abstract class DiagnosticItemFormatterBase extends FormatterBase implements Cont
         '#classes' => $classes,
         '#scale_rows' => $this->buildScaleRows($classes),
         '#active_class' => $active_class,
+        '#cursor_fill' => $cursor_colors['fill'],
+        '#cursor_text' => $cursor_colors['text'],
         '#legend_low' => $this->getScaleLegends($type_id)['low'],
         '#legend_high' => $this->getScaleLegends($type_id)['high'],
         '#attached' => [
           'library' => ['ps_diagnostic/diagnostic'],
         ],
         '#cache' => [
-          'tags' => $type ? $type->getCacheTags() : [],
+          'tags' => Cache::mergeTags(
+            $type ? $type->getCacheTags() : [],
+            $this->iconResolver->getCacheTagsForType($type_id),
+            $this->configFactory->get('ps_diagnostic.settings')->getCacheTags(),
+          ),
         ],
       ];
     }
@@ -150,24 +167,94 @@ abstract class DiagnosticItemFormatterBase extends FormatterBase implements Cont
 
   private function resolveDisabledState(array $value, ?array $active_class): array {
     if (!empty($value['non_applicable'])) {
-      return ['disabled' => TRUE, 'reason' => 'non_applicable', 'message' => (string) $this->t('Diagnostic not applicable for this offer.')];
+      return [
+        'disabled' => TRUE,
+        'reason' => 'non_applicable',
+        'message' => $this->resolveDisabledMessage('non_applicable'),
+      ];
     }
 
     if (!empty($value['no_classification'])) {
-      return ['disabled' => TRUE, 'reason' => 'no_classification', 'message' => (string) $this->t('Diagnostic has no classification.')];
+      return [
+        'disabled' => TRUE,
+        'reason' => 'no_classification',
+        'message' => $this->resolveDisabledMessage('no_classification'),
+      ];
     }
 
     $end_date = trim((string) ($value['validity_end_date'] ?? ''));
     if ($end_date !== '' && $this->isExpired($end_date)) {
-      return ['disabled' => TRUE, 'reason' => 'expired', 'message' => (string) $this->t('Diagnostic has expired.')];
+      return [
+        'disabled' => TRUE,
+        'reason' => 'expired',
+        'message' => $this->resolveDisabledMessage('expired'),
+      ];
     }
 
+    $has_class = trim((string) ($value['class'] ?? '')) !== '';
     $has_value = trim((string) ($value['value'] ?? '')) !== '';
-    if (!$has_value || !$active_class) {
-      return ['disabled' => TRUE, 'reason' => 'missing_data', 'message' => (string) $this->t('Diagnostic label is not provided by the owner.')];
+    if (!$has_value && !$has_class) {
+      return [
+        'disabled' => TRUE,
+        'reason' => 'missing_data',
+        'message' => $this->resolveDisabledMessage('missing_data'),
+      ];
+    }
+
+    if (!$active_class) {
+      return [
+        'disabled' => TRUE,
+        'reason' => 'missing_data',
+        'message' => $this->resolveDisabledMessage('missing_data'),
+      ];
     }
 
     return ['disabled' => FALSE, 'reason' => 'ok', 'message' => ''];
+  }
+
+  /**
+   * Resolves the front message for a disabled diagnostic state.
+   */
+  private function resolveDisabledMessage(string $reason): string {
+    $config = $this->configFactory->get('ps_diagnostic.settings');
+    $mode = (string) ($config->get('fallback_message_mode') ?? 'single');
+    if ($mode === 'single') {
+      $message = trim((string) ($config->get('fallback_message_single') ?? ''));
+      if ($message !== '') {
+        return $message;
+      }
+
+      return (string) $this->t('Energy label not provided by the owner.');
+    }
+
+    return match ($reason) {
+      'non_applicable' => (string) $this->t('Diagnostic not applicable for this offer.'),
+      'no_classification' => (string) $this->t('Diagnostic has no classification.'),
+      'expired' => (string) $this->t('Diagnostic has expired.'),
+      default => (string) $this->t('Diagnostic label is not provided by the owner.'),
+    };
+  }
+
+  /**
+   * Resolves cursor badge colors from the active class or disabled state.
+   *
+   * @return array{fill: string, text: string}
+   *   Hex colors for the scale cursor badge.
+   */
+  private function resolveCursorColors(?array $active_class, bool $is_disabled): array {
+    if ($is_disabled || $active_class === NULL) {
+      return ['fill' => '#989a9f', 'text' => '#ffffff'];
+    }
+
+    $fill = trim((string) ($active_class['color'] ?? ''));
+    if ($fill === '' || !preg_match('/^#[0-9A-Fa-f]{6}$/', $fill)) {
+      $fill = '#111316';
+    }
+
+    $label = strtoupper(trim((string) ($active_class['label'] ?? '')));
+    $text = in_array($label, ['D', 'E'], TRUE) ? '#1f2226' : '#ffffff';
+
+    return ['fill' => $fill, 'text' => $text];
   }
 
   private function isExpired(string $value): bool {

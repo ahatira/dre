@@ -20,6 +20,7 @@ final class DiagnosticThemeHooks {
       'item' => NULL,
       'type_id' => NULL,
       'type_label' => NULL,
+      'icon' => NULL,
       'unit' => NULL,
       'value_display' => NULL,
       'diagnostic_date_display' => NULL,
@@ -34,6 +35,8 @@ final class DiagnosticThemeHooks {
       'classes' => [],
       'scale_rows' => [],
       'active_class' => NULL,
+      'cursor_fill' => '#989a9f',
+      'cursor_text' => '#ffffff',
       'legend_low' => NULL,
       'legend_high' => NULL,
     ];

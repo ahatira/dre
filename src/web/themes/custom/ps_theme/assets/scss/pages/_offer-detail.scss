@@ -804,35 +804,60 @@ body:has(.node--type-offer.node--view-mode-full) {
 // ---------------------------------------------------------------------------
 
 .ps-offer-section--energy {
+  > .field__label,
   > .field--label {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
     margin: 0 0 1rem;
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 2.5rem;
     color: #333;
+  }
 
-    &::before {
-      content: '';
-      display: inline-block;
+  .ps-offer-section__title-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ps-offer-section__title-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+
+    svg {
+      display: block;
       width: 1.5rem;
       height: 1.5rem;
-      flex-shrink: 0;
-      background: url('#{$icon-base}/ad/energy-cons.svg') no-repeat center / contain;
     }
   }
 
+  .ps-offer-section__title-text {
+    margin: 0;
+  }
+
+  > .field__items,
   > .field--items {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem;
-    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 50%));
+    gap: 0;
+    align-items: stretch;
+  }
+
+  > .field__items > .field__item,
+  > .field--items > .field--item {
+    display: flex;
+    min-width: 0;
+    height: 100%;
   }
 
   figure.ps-diagnostic {
     width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
   }
 
   figure.ps-diagnostic .ps-diagnostic__svg {
@@ -1287,8 +1312,10 @@ body:has(.node--type-offer.node--view-mode-full) {
       gap: 0.5rem;
     }
 
-    .ps-offer-section--energy > .field--items {
+    .ps-offer-section--energy > .field--items,
+    .ps-offer-section--energy > .field__items {
       grid-template-columns: 1fr;
+      gap: 0;
     }
 
     .ps-offer-section--surface-table .ps-surface-division-table {

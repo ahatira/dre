@@ -1,4 +1,398 @@
+# Dutch translation for ps_diagnostic module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_diagnostic\n"
+"POT-Creation-Date: 2026-06-07 00:00+0000\n"
 "Language: nl\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Simple and configurable diagnostics module for offers."
+msgstr "Eenvoudige en configureerbare diagnosetmodule voor aanbiedingen."
+
+msgid "Diagnostic fields for offers."
+msgstr "Diagnosevelden voor aanbiedingen."
+
+msgid "Access diagnostic admin pages"
+msgstr "Toegang tot diagnose-beheerpagina's"
+
+msgid "Administer diagnostic settings"
+msgstr "Diagnose-instellingen beheren"
+
+msgid "Administer diagnostic types"
+msgstr "Diagnosetypen beheren"
+
+msgid "Diagnostics"
+msgstr "Diagnoses"
+
+msgid "Configure diagnostics."
+msgstr "Diagnoses configureren."
+
+msgid "Manage diagnostics structure."
+msgstr "Diagnosestructuur beheren."
+
+msgid "Diagnostic types"
+msgstr "Diagnosetypen"
+
+msgid "Manage diagnostic types."
+msgstr "Diagnosetypen beheren."
+
+msgid "Add diagnostic type"
+msgstr "Diagnosetype toevoegen"
+
+msgid "Diagnostic settings"
+msgstr "Diagnose-instellingen"
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Types"
+msgstr "Typen"
+
+msgid "Diagnostic item"
+msgstr "Diagnose-item"
+
+msgid "Stores one diagnostic item based on XML structure."
+msgstr "Slaat één diagnose-item op op basis van de XML-structuur."
+
+msgid "Diagnostic type"
+msgstr "Diagnosetype"
+
+msgid "Class"
+msgstr "Klasse"
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Diagnostic date"
+msgstr "Diagnosedatum"
+
+msgid "Validity end date"
+msgstr "Einddatum geldigheid"
+
+msgid "No classification"
+msgstr "Geen classificatie"
+
+msgid "Non applicable"
+msgstr "Niet van toepassing"
+
+msgid "Allowed diagnostic type IDs"
+msgstr "Toegestane diagnosetype-ID's"
+
+msgid "One type ID per line. Leave empty to allow all types."
+msgstr "Eén type-ID per regel. Leeg laten om alle typen toe te staan."
+
+msgid "Diagnostic - Horizontal (default)"
+msgstr "Diagnose - Horizontaal (standaard)"
+
+msgid "Diagnostic - Vertical"
+msgstr "Diagnose - Verticaal"
+
+msgid "Diagnostic - Full"
+msgstr "Diagnose - Volledig"
+
+msgid "Show ranges"
+msgstr "Bereiken tonen"
+
+msgid "Show dates"
+msgstr "Datums tonen"
+
+msgid "Show unknown-state banner"
+msgstr "Banner onbekende status tonen"
+
+msgid "Show reference threshold table"
+msgstr "Referentiedrempeltabel tonen"
+
+msgid "Used by the Full formatter."
+msgstr "Gebruikt door de volledige formatter."
+
+msgid "Ranges: shown"
+msgstr "Bereiken: getoond"
+
+msgid "Ranges: hidden"
+msgstr "Bereiken: verborgen"
+
+msgid "Dates: shown"
+msgstr "Datums: getoond"
+
+msgid "Dates: hidden"
+msgstr "Datums: verborgen"
+
+msgid "Unknown banner: shown"
+msgstr "Onbekend-banner: getoond"
+
+msgid "Unknown banner: hidden"
+msgstr "Onbekend-banner: verborgen"
+
+msgid "Reference table: shown"
+msgstr "Referentietabel: getoond"
+
+msgid "Reference table: hidden"
+msgstr "Referentietabel: verborgen"
+
+msgid "Energy & diagnostics"
+msgstr "Energie & diagnostiek"
+
+msgid "Energy label not provided by the owner."
+msgstr "Energielabel niet verstrekt door de eigenaar."
+
+msgid "Diagnostic label is not provided by the owner."
+msgstr "Energielabel niet verstrekt door de eigenaar."
+
+msgid "Diagnostic not applicable for this offer."
+msgstr "Diagnose niet van toepassing op deze aanbieding."
+
+msgid "Diagnostic has no classification."
+msgstr "Diagnose heeft geen classificatie."
+
+msgid "Diagnostic has expired."
+msgstr "Diagnose is verlopen."
+
+msgid "Energy-efficient property"
+msgstr "Energiezuinig pand"
+
+msgid "Energy-intensive property"
+msgstr "Energie-intensief pand"
+
+msgid "Low greenhouse gas emissions"
+msgstr "Lage broeikasgasemissies"
+
+msgid "High greenhouse gas emissions"
+msgstr "Hoge broeikasgasemissies"
+
+msgid "Best class"
+msgstr "Beste klasse"
+
+msgid "Worst class"
+msgstr "Slechtste klasse"
+
+msgid "Diagnostic"
+msgstr "Diagnose"
+
+msgid "Diagnostic summary"
+msgstr "Diagnose-overzicht"
+
+msgid "Diagnostic scale"
+msgstr "Diagnoseschaal"
+
+msgid "Threshold"
+msgstr "Drempel"
+
+msgid "From:"
+msgstr "Van:"
+
+msgid "Until:"
+msgstr "Tot:"
+
+msgid "Navigation"
+msgstr "Navigatie"
+
+msgid "Diagnostics overview"
+msgstr "Diagnose-overzicht"
+
+msgid "Default validity duration (months)"
+msgstr "Standaard geldigheidsduur (maanden)"
+
+msgid "Allow manual class entry"
+msgstr "Handmatige klasse-invoer toestaan"
+
+msgid "Allow empty diagnostic value"
+msgstr "Lege diagnoswaarde toestaan"
+
+msgid "Offer detail display"
+msgstr "Weergave aanbiedingsdetail"
+
+msgid "Offer section title"
+msgstr "Titel aanbiedingssectie"
+
+msgid "Heading shown above diagnostics on offer detail pages."
+msgstr "Kop boven diagnoses op aanbiedingsdetailpagina's."
+
+msgid "Offer section icon"
+msgstr "Pictogram aanbiedingssectie"
+
+msgid "UI Icon shown next to the section title on offer detail pages."
+msgstr "UI-pictogram naast sectietitel op aanbiedingsdetailpagina's."
+
+msgid "Disabled diagnostic message mode"
+msgstr "Berichtmodus voor uitgeschakelde diagnose"
+
+msgid "Single message (BNPPRE style)"
+msgstr "Enkel bericht (BNPPRE-stijl)"
+
+msgid "Detailed message per reason"
+msgstr "Gedetailleerd bericht per reden"
+
+msgid "When a diagnostic cannot be displayed, choose one shared message or a specific message per status."
+msgstr "Kies één gedeeld bericht of een specifiek bericht per status wanneer een diagnose niet kan worden getoond."
+
+msgid "Single fallback message"
+msgstr "Enkel fallback-bericht"
+
+msgid "Shown for all disabled diagnostics when single message mode is selected."
+msgstr "Getoond voor alle uitgeschakelde diagnoses in enkel-berichtmodus."
+
+msgid "Back to diagnostics structure"
+msgstr "Terug naar diagnosestructuur"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Unit"
+msgstr "Eenheid"
+
+msgid "Example: kWh/m2/year, kgCO2/m2/year."
+msgstr "Voorbeeld: kWh/m²/jaar, kgCO₂/m²/jaar."
+
+msgid "Icon"
+msgstr "Pictogram"
+
+msgid "UI Icon shown next to the diagnostic title on offer pages."
+msgstr "UI-pictogram naast diagnosetitel op aanbiedingspagina's."
+
+msgid "Energy classes"
+msgstr "Energieklassen"
+
+msgid "Move"
+msgstr "Verplaatsen"
+
+msgid "Color"
+msgstr "Kleur"
+
+msgid "Range max"
+msgstr "Max. bereik"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "No classes configured yet."
+msgstr "Nog geen klassen geconfigureerd."
+
+msgid "Define classes in ascending order. The last configured class is open-ended and must keep an empty max range."
+msgstr "Definieer klassen in oplopende volgorde. De laatste klasse is open en moet een leeg max. bereik hebben."
+
+msgid "Order"
+msgstr "Volgorde"
+
+msgid "A"
+msgstr "A"
+
+msgid "Add class"
+msgstr "Klasse toevoegen"
+
+msgid "Remove selected"
+msgstr "Selectie verwijderen"
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Weight"
+msgstr "Gewicht"
+
+msgid "Back to types"
+msgstr "Terug naar typen"
+
+msgid "Class label is required when a class row is used."
+msgstr "Klasselabel is verplicht wanneer een klasserij wordt gebruikt."
+
+msgid "Color must be a valid hex value (example: #8BC34A)."
+msgstr "Kleur moet een geldige hex-waarde zijn (voorbeeld: #8BC34A)."
+
+msgid "The last configured class must keep an empty range max."
+msgstr "De laatste geconfigureerde klasse moet een leeg max. bereik hebben."
+
+msgid "Range max is required for configured classes except the last one."
+msgstr "Max. bereik is verplicht voor alle klassen behalve de laatste."
+
+msgid "Class ranges must be strictly increasing."
+msgstr "Klassbereiken moeten strikt oplopend zijn."
+
+msgid "Diagnostic type %label has been saved."
+msgstr "Diagnosetype %label is opgeslagen."
+
+msgid "- Select -"
+msgstr "- Selecteren -"
+
+msgid "Choose the diagnostic family before entering the class or value."
+msgstr "Kies de diagnosefamilie voordat u klasse of waarde invoert."
+
+msgid "How this field works"
+msgstr "Hoe dit veld werkt"
+
+msgid "Enter the measured value first. The widget suggests the class automatically from the scale."
+msgstr "Voer eerst de gemeten waarde in. De widget stelt automatisch de klasse voor op basis van de schaal."
+
+msgid "Measured value used to calculate the class automatically."
+msgstr "Gemeten waarde voor automatische berekening van de klasse."
+
+msgid "Class (auto preview)"
+msgstr "Klasse (auto-voorbeeld)"
+
+msgid "Class is computed automatically from the value scale."
+msgstr "Klasse wordt automatisch berekend op basis van de waardeschaal."
+
+msgid "Start date"
+msgstr "Startdatum"
+
+msgid "End date"
+msgstr "Einddatum"
+
+msgid "No class scale configured."
+msgstr "Geen klassenschaal geconfigureerd."
+
+msgid "Manage diagnostics from this simple interface."
+msgstr "Diagnoses beheren via deze eenvoudige interface."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Classes"
+msgstr "Klassen"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Icon key"
+msgstr "Pictogramsleutel"
+
+msgid "Current class"
+msgstr "Huidige klasse"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Visual preset"
+msgstr "Visuele preset"
+
+msgid "Auto (DPE/GES label style)"
+msgstr "Auto (DPE/GES-labelstijl)"
+
+msgid "Label style (all diagnostics)"
+msgstr "Labelstijl (alle diagnoses)"
+
+msgid "Simple card style"
+msgstr "Eenvoudige kaartstijl"
+
+msgid "Show visual scale"
+msgstr "Visuele schaal tonen"
+
+msgid "Preset: label style"
+msgstr "Preset: labelstijl"
+
+msgid "Preset: simple card style"
+msgstr "Preset: kaartstijl"
+
+msgid "Preset: auto DPE/GES label style"
+msgstr "Preset: auto DPE/GES-labelstijl"
+
+msgid "Scale: shown"
+msgstr "Schaal: getoond"
+
+msgid "Scale: hidden"
+msgstr "Schaal: verborgen"

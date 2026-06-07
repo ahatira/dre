@@ -1,0 +1,5 @@
+id: ps_diagnostic_settings
+title: 'Diagnostic settings'
+weight: 10
+names:
+  - ps_diagnostic.settings

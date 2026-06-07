@@ -240,7 +240,7 @@ third_party_settings:
                 type: diagnostic_item_default
                 label: above
                 settings:
-                  show_dates: true
+                  show_dates: false
                   show_ranges: true
                   show_unknown_banner: true
                   show_reference_table: false

@@ -9,3 +9,4 @@ dependencies:
   - drupal:config_translation
   - drupal:node
   - ps_core:ps_core
+  - ui_icons_picker:ui_icons_picker

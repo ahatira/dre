@@ -75,23 +75,4 @@ final class Offer {
     }
   }
 
-  /**
-   * Offer full diagnostics field — Energy section title and layout class.
-   */
-  #[Hook('preprocess_field')]
-  public function preprocessField(array &$variables): void {
-    if (($variables['field_name'] ?? '') !== 'field_diagnostics') {
-      return;
-    }
-
-    if (($variables['element']['#bundle'] ?? '') !== 'offer') {
-      return;
-    }
-
-    $variables['attributes']['class'][] = 'ps-offer-section';
-    $variables['attributes']['class'][] = 'ps-offer-section--energy';
-    $variables['label'] = (string) t('Energy');
-    $variables['title_attributes']['class'][] = 'ps-offer-section__title';
-  }
-
 }

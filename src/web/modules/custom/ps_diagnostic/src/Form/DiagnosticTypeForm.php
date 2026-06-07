@@ -7,8 +7,11 @@ namespace Drupal\ps_diagnostic\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 
 final class DiagnosticTypeForm extends EntityForm {
+
+  use IconAutocompleteHelperTrait;
 
   private const CLASSES_WRAPPER_ID = 'ps-diagnostic-classes-wrapper';
 
@@ -48,13 +51,19 @@ final class DiagnosticTypeForm extends EntityForm {
       '#description' => $this->t('Example: kWh/m2/year, kgCO2/m2/year.'),
     ];
 
-    $form['icon'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Icon'),
-      '#default_value' => (string) $entity->get('icon'),
-      '#maxlength' => 64,
-      '#description' => $this->t('Simple semantic key used by the formatter (example: energy, co2).'),
-    ];
+    $default_icon = match ($entity->id()) {
+      'dpe' => 'bnp_custom:energy-cons',
+      'ges' => 'bnp_custom:gas-emission',
+      default => '',
+    };
+
+    $form['icon'] = $this->buildIconPickerElement(
+      $this->t('Icon'),
+      $this->getIconDefault($entity->get('icon'), $default_icon),
+      [
+        'description' => $this->t('UI Icon shown next to the diagnostic title on offer pages.'),
+      ],
+    );
 
     $existing_classes = is_array($entity->get('classes')) ? $entity->get('classes') : [];
     if (!$form_state->has('classes_rows_state')) {
@@ -311,6 +320,11 @@ final class DiagnosticTypeForm extends EntityForm {
       }
       $last_max = $range_max;
     }
+
+    $form_state->setValue(
+      'icon',
+      $this->extractIconId($form_state->getValue('icon'), ''),
+    );
   }
 
   public function save(array $form, FormStateInterface $form_state): int {
