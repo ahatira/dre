@@ -1,21 +1,28 @@
 {% set modal_id = modal_id|default('ps-offer-gallery-lightbox') %}
-{% if images is not empty %}
+{% if slides is not empty %}
   <div class="modal fade ps-gallery-lightbox" id="{{ modal_id }}" tabindex="-1" aria-hidden="true" data-ps-gallery-lightbox>
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
-        <div class="modal-header border-0">
+        <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
         </div>
         <div class="modal-body">
-          <div class="ps-gallery-lightbox__stage">
-            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--prev" data-ps-lightbox-prev aria-label="{{ 'Previous image'|t }}">‹</button>
-            <img src="{{ images[initial_index|default(0)].url }}" alt="{{ images[initial_index|default(0)].alt|default('') }}" class="ps-gallery-lightbox__image" data-ps-lightbox-image />
-            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--next" data-ps-lightbox-next aria-label="{{ 'Next image'|t }}">›</button>
+          <div class="ps-gallery-lightbox__stage" data-ps-lightbox-stage>
+            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--prev" data-ps-lightbox-prev aria-label="{{ 'Previous'|t }}"></button>
+            <div class="ps-gallery-lightbox__content" data-ps-lightbox-content></div>
+            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--next" data-ps-lightbox-next aria-label="{{ 'Next'|t }}"></button>
           </div>
           <div class="ps-gallery-lightbox__thumbs">
-            {% for image in images %}
-              <button type="button" class="ps-gallery-lightbox__thumb{% if loop.index0 == (initial_index|default(0)) %} is-active{% endif %}" data-ps-lightbox-thumb data-index="{{ loop.index0 }}">
-                <img src="{{ image.url }}" alt="{{ image.alt|default('') }}" loading="lazy" />
+            {% for slide in slides %}
+              <button
+                type="button"
+                class="ps-gallery-lightbox__thumb ps-gallery-lightbox__thumb--{{ slide.type }}{% if loop.first %} is-active{% endif %}"
+                data-ps-lightbox-thumb
+                data-index="{{ loop.index0 }}"
+                data-type="{{ slide.type }}"
+                aria-label="{{ slide.label|default(slide.alt|default('')) }}"
+              >
+                {% include 'ps_theme:gallery-lightbox-thumb' with { slide: slide } only %}
               </button>
             {% endfor %}
           </div>

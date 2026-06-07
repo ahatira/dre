@@ -1,0 +1,9 @@
+name: Gallery lightbox thumb
+description: 'Single lightbox thumbnail for offer gallery.'
+status: stable
+props:
+  type: object
+  properties:
+    slide:
+      type: object
+      title: Slide data

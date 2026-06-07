@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: { }
+name: ps_offer_gallery_thumb
+label: 'PS Offer gallery thumb (120×70)'
+effects:
+  ps_offer_gallery_thumb_scale_crop:
+    uuid: b2c3d4e5-f6a7-4890-b123-456789abcdef
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 120
+      height: 70
+      anchor: center-center

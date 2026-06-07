@@ -1,0 +1,30 @@
+{#
+  Hero slide preview — image full bleed, other types thumb/placeholder + icon.
+#}
+{% set slide_type = slide.type|default('image') %}
+{% set slide_label = slide.label|default(slide.alt|default('')) %}
+{% set is_image_slide = slide_type in ['image', 'plan_image'] %}
+{% set media_icon = slide_type starts with 'video' ? 'play' : (slide_type == 'visit_3d' ? '3d' : (slide_type starts with 'plan' ? 'file' : '')) %}
+
+<div class="ps-media-gallery-hero__slide ps-media-gallery-hero__slide--{{ slide_type }} is-active">
+  {% if is_image_slide %}
+    <img
+      src="{{ slide.url }}"
+      alt="{{ slide.alt|default('') }}"
+      class="ps-media-gallery-hero__image"
+      loading="{{ is_primary|default(false) ? 'eager' : 'lazy' }}"
+    />
+  {% else %}
+    <div class="ps-media-gallery-hero__thumb-wrap">
+      {% if slide.thumb_url %}
+        <img src="{{ slide.thumb_url }}" alt="" class="ps-media-gallery-hero__thumb-bg" loading="lazy" />
+      {% else %}
+        <span class="ps-media-gallery-hero__thumb-placeholder" aria-hidden="true"></span>
+      {% endif %}
+      {% if media_icon %}
+        <span class="ps-media-gallery-hero__icon ps-media-gallery-hero__icon--{{ media_icon }}" aria-hidden="true"></span>
+      {% endif %}
+    </div>
+    <span class="visually-hidden">{{ slide_label }}</span>
+  {% endif %}
+</div>

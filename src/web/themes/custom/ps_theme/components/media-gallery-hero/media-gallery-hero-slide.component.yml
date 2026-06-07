@@ -1,0 +1,9 @@
+name: Media gallery hero slide
+description: 'Single hero slide preview for offer gallery.'
+status: stable
+props:
+  type: object
+  properties:
+    slide:
+      type: object
+      title: Slide data

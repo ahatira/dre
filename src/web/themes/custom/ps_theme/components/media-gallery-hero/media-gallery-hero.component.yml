@@ -21,12 +21,24 @@ props:
       type: integer
       title: Photo count
       default: 0
-    virtual_tour_url:
-      type: string
-      title: Virtual tour URL
-    plan_url:
-      type: string
-      title: Plan document URL
+    video_count:
+      type: integer
+      title: Video count
+      default: 0
+    has_visit_3d:
+      type: boolean
+      title: Has 3D visit
+      default: false
+    has_plan:
+      type: boolean
+      title: Has plan
+      default: false
+    slides:
+      type: array
+      title: Lightbox slides
+    entry_indexes:
+      type: object
+      title: Lightbox entry indexes by badge
     offer_id:
       type: integer
       title: Offer entity ID

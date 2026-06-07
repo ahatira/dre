@@ -185,6 +185,7 @@ offer-gallery:
   css:
     component:
       components/media-gallery-hero/styles/media-gallery-hero.css: {}
+      components/gallery-lightbox/styles/gallery-lightbox.css: {}
   dependencies:
     - core/once
     - core/drupal

@@ -12,6 +12,10 @@
   --ps-offer-card-shadow: 0 2px 8px rgba(28, 45, 55, 0.08);
   --ps-offer-card-image-ratio: 4 / 3;
 
+  // Offer detail hero gallery (Stellar maquette 788×462).
+  --ps-offer-gallery-hero-ratio: 788 / 462;
+  --ps-offer-gallery-hero-height: 462px;
+
   // Transaction toggle (Louer / Acheter).
   --ps-toggle-bg: var(--re-color-surface, #fff);
   --ps-toggle-active-bg: var(--re-color-primary, #00915a);

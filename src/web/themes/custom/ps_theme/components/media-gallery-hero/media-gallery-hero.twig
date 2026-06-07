@@ -1,7 +1,7 @@
 {%
   set classes = [
     'ps-media-gallery-hero',
-    images is empty ? 'ps-media-gallery-hero--empty',
+    slides is empty ? 'ps-media-gallery-hero--empty',
   ]
 %}
 <div class="{{ classes|join(' ') }}" data-ps-gallery-hero>
@@ -11,44 +11,79 @@
     </div>
   {% endif %}
 
-  {% if images is not empty %}
+  {% if slides is not empty %}
     <div class="ps-media-gallery-hero__main">
-      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--prev" data-ps-gallery-prev aria-label="{{ 'Previous image'|t }}">
-        <span aria-hidden="true">‹</span>
+      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--prev" data-ps-gallery-prev aria-label="{{ 'Previous media'|t }}">
+        <span class="ps-media-gallery-hero__nav-icon" aria-hidden="true">
+          {{ icon('bnp_custom', 'arrow-left', {'size': '24px'}) }}
+        </span>
       </button>
-      <button type="button" class="ps-media-gallery-hero__trigger" data-ps-gallery-open data-ps-gallery-index="0">
-        <img src="{{ images[0].url }}" alt="{{ images[0].alt|default('') }}" class="ps-media-gallery-hero__image" loading="eager" />
+      <button type="button" class="ps-media-gallery-hero__trigger" data-ps-gallery-open aria-label="{{ 'Open gallery'|t }}">
+        <div class="ps-media-gallery-hero__stage" data-ps-gallery-stage>
+          {% include 'ps_theme:media-gallery-hero-slide' with { slide: slides[0], is_primary: true } only %}
+        </div>
       </button>
-      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--next" data-ps-gallery-next aria-label="{{ 'Next image'|t }}">
-        <span aria-hidden="true">›</span>
+      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--next" data-ps-gallery-next aria-label="{{ 'Next media'|t }}">
+        <span class="ps-media-gallery-hero__nav-icon" aria-hidden="true">
+          {{ icon('bnp_custom', 'arrow-right', {'size': '24px'}) }}
+        </span>
       </button>
-    </div>
 
-    <div class="ps-media-gallery-hero__badges">
+      <div class="ps-media-gallery-hero__badges">
       {% if photo_count > 0 %}
-        <button type="button" class="ps-media-gallery-hero__badge" data-ps-gallery-open data-ps-gallery-index="0">
-          {{ photo_count }} {{ 'photos'|t }}
+        <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--photos" data-ps-gallery-open data-ps-gallery-entry="photos">
+          <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
+            {{ icon('bnp_custom', 'camera', {'size': '20px'}) }}
+          </span>
+          <span class="ps-media-gallery-hero__badge-label">{{ photo_count }} {{ 'photos'|t }}</span>
         </button>
       {% endif %}
-      {% if virtual_tour_url %}
-        <a href="{{ virtual_tour_url }}" class="ps-media-gallery-hero__badge" target="_blank" rel="noopener noreferrer">{{ '3D visit'|t }}</a>
+      {% if video_count > 0 %}
+        <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--video" data-ps-gallery-open data-ps-gallery-entry="video">
+          <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
+            {{ icon('bnp_custom', 'video', {'size': '20px'}) }}
+          </span>
+          <span class="ps-media-gallery-hero__badge-label">
+            {{ video_count == 1 ? 'Video'|t : '@count videos'|t({'@count': video_count}) }}
+          </span>
+        </button>
       {% endif %}
-      {% if plan_url %}
-        <a href="{{ plan_url }}" class="ps-media-gallery-hero__badge" target="_blank" rel="noopener noreferrer">{{ 'Plan'|t }}</a>
+      {% if has_visit_3d %}
+        <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--visit" data-ps-gallery-open data-ps-gallery-entry="visit_3d">
+          <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
+            {{ icon('bnp_custom', 'visite-guidee', {'size': '20px'}) }}
+          </span>
+          <span class="ps-media-gallery-hero__badge-label">{{ '3D visit'|t }}</span>
+        </button>
       {% endif %}
+      {% if has_plan %}
+        <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--plan" data-ps-gallery-open data-ps-gallery-entry="plan">
+          <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
+            {{ icon('bnp_custom', 'floors', {'size': '20px'}) }}
+          </span>
+          <span class="ps-media-gallery-hero__badge-label">{{ 'Plan'|t }}</span>
+        </button>
+      {% endif %}
+      </div>
     </div>
 
-    <template data-ps-gallery-images>
-      {% for image in images %}
-        <span data-url="{{ image.url }}" data-alt="{{ image.alt|default('') }}"></span>
+    <template data-ps-gallery-slides>
+      {% for slide in slides %}
+        <span
+          data-type="{{ slide.type }}"
+          data-url="{{ slide.url|default('') }}"
+          data-thumb-url="{{ slide.thumb_url|default('') }}"
+          data-alt="{{ slide.alt|default('') }}"
+          data-label="{{ slide.label|default(slide.alt|default('')) }}"
+        ></span>
       {% endfor %}
     </template>
   {% else %}
-    <div class="ps-media-gallery-hero__placeholder">{{ 'No images available'|t }}</div>
+    <div class="ps-media-gallery-hero__placeholder">{{ 'No media available'|t }}</div>
   {% endif %}
 </div>
 
 {% include 'ps_theme:gallery-lightbox' with {
-  images: images,
+  slides: slides,
   modal_id: 'ps-offer-gallery-lightbox',
 } only %}

@@ -66,7 +66,8 @@ third_party_settings:
                   use_thumbnail: true
                   lazy_load: true
                   max_items: 0
-                  image_style: bnp_media_admin_card
+                  image_style: ps_offer_gallery_thumb
+                  hero_image_style: ps_offer_gallery_hero
                   display_template: hero
                 third_party_settings: {  }
             weight: 0
