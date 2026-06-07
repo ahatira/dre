@@ -5,6 +5,13 @@ ps_feature.feature_groups:
   parent: ps_core.structure
   weight: 20
 
+ps_feature.feature_group_settings:
+  title: 'Feature display settings'
+  description: 'Default icon for feature groups without a custom icon'
+  route_name: ps_feature.feature_group_settings
+  parent: ps_feature.feature_groups
+  weight: 5
+
 ps_feature.feature_definitions:
   title: 'Features'
   description: 'Manage the feature catalogue available for offers'

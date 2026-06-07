@@ -6,6 +6,14 @@ ps_feature.feature_types:
   requirements:
     _permission: 'administer ps features'
 
+ps_feature.feature_group_settings:
+  path: '/admin/ps/structure/features/settings'
+  defaults:
+    _form: '\Drupal\ps_feature\Form\FeatureSettingsForm'
+    _title: 'Feature display settings'
+  requirements:
+    _permission: 'administer ps features'
+
 entity.fb_feature_definition.collection_by_group:
   path: '/admin/ps/structure/features/{feature_group}/definitions'
   defaults:

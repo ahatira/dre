@@ -4,5 +4,6 @@ dependencies: {  }
 id: prestations_de_service
 label: Services
 description: 'On-site services and amenities.'
+icon: 'bnp_custom:welcome-room'
 asset_types: {  }
 weight: 1

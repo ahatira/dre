@@ -4,5 +4,6 @@ dependencies: {  }
 id: equipements
 label: Equipments
 description: 'Building equipment and facilities.'
+icon: 'bnp_custom:equipement'
 asset_types: {  }
 weight: 0

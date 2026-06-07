@@ -4,6 +4,12 @@ entity.fb_feature_group.edit_form:
   base_route: entity.fb_feature_group.edit_form
   title: 'Edit'
 
+ps_feature.feature_group_settings:
+  route_name: ps_feature.feature_group_settings
+  base_route: entity.fb_feature_group.collection
+  title: 'Settings'
+  weight: 50
+
 # Local tasks for FeatureDefinition entity.
 entity.fb_feature_definition.edit_form:
   route_name: entity.fb_feature_definition.edit_form

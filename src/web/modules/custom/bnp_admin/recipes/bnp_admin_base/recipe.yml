@@ -31,6 +31,7 @@ install:
   - gin_type_tray
   - trash
   - ui_icons
+  - ui_icons_picker
   - locale
   - content_translation
   - gin

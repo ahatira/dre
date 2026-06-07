@@ -4,5 +4,6 @@ dependencies: {  }
 id: normes_certifications_et_labels
 label: 'Standards, certifications and labels'
 description: 'Environmental and quality certifications.'
+icon: 'bnp_custom:medal'
 asset_types: {  }
 weight: 4

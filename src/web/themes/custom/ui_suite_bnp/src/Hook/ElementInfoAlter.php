@@ -281,9 +281,12 @@ class ElementInfoAlter {
       }
     }
 
-    // Icon Autocomplete.
-    if (isset($info['icon_autocomplete'])) {
-      $info['icon_autocomplete']['#process'][] = [
+    // Icon Autocomplete + picker (preview before the trigger).
+    foreach (['icon_autocomplete', 'icon_picker'] as $icon_element_id) {
+      if (!isset($info[$icon_element_id])) {
+        continue;
+      }
+      $info[$icon_element_id]['#process'][] = [
         ElementProcessIconAutocomplete::class,
         'processIconAutocomplete',
       ];

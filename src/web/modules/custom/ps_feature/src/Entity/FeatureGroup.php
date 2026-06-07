@@ -5,6 +5,7 @@ namespace Drupal\ps_feature\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_core\Utility\IconIdUtility;
 
 /**
  * Defines the Feature Group configuration entity.
@@ -41,6 +42,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
     'id',
     'label',
     'description',
+    'icon',
     'asset_types',
     'weight',
     'status',
@@ -76,6 +78,13 @@ class FeatureGroup extends ConfigEntityBase {
   protected $description;
 
   /**
+   * UI Icon identifier (pack:id) for the group heading.
+   *
+   * @var string
+   */
+  protected $icon = '';
+
+  /**
    * Asset types this group applies to.
    *
    * @var array
@@ -97,6 +106,26 @@ class FeatureGroup extends ConfigEntityBase {
    */
   public function getDescription(): string {
     return $this->description ?? '';
+  }
+
+  /**
+   * Gets the UI Icon identifier.
+   */
+  public function getIcon(): string {
+    $icon = $this->icon ?? '';
+    if (is_array($icon)) {
+      return IconIdUtility::extractFromSubmission($icon, '');
+    }
+
+    return is_string($icon) ? $icon : '';
+  }
+
+  /**
+   * Sets the UI Icon identifier.
+   */
+  public function setIcon(string $icon): static {
+    $this->icon = $icon;
+    return $this;
   }
 
   /**

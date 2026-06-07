@@ -4,5 +4,6 @@ dependencies: {  }
 id: acces_vehicules
 label: Transport
 description: 'Vehicle access and public transport.'
+icon: 'bnp_custom:pin-map'
 asset_types: {  }
 weight: 5

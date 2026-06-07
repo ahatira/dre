@@ -39,3 +39,4 @@ dependencies:
   - gin_type_tray:gin_type_tray
   - trash:trash
   - ui_icons:ui_icons
+  - ui_icons:ui_icons_picker

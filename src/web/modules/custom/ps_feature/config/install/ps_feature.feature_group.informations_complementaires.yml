@@ -4,5 +4,6 @@ dependencies: {  }
 id: informations_complementaires
 label: 'Additional information'
 description: 'Supplementary offer information.'
+icon: 'bnp_custom:infos'
 asset_types: {  }
 weight: 3

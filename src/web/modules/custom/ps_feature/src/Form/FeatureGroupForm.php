@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\ps_feature\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 
 /**
  * Form handler for the Feature Group add and edit forms.
  */
 class FeatureGroupForm extends EntityForm {
+
+  use IconAutocompleteHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -45,6 +50,14 @@ class FeatureGroupForm extends EntityForm {
       '#rows' => 3,
     ];
 
+    $form['icon'] = $this->buildIconPickerElement(
+      $this->t('Group icon'),
+      $feature_group->getIcon(),
+      [
+        'description' => $this->t('UI Icon shown next to the group title on offer pages. Leave empty to use the default icon from feature settings.'),
+      ],
+    );
+
     $form['asset_types'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Relevant asset types'),
@@ -76,9 +89,13 @@ class FeatureGroupForm extends EntityForm {
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
 
-    // Filter out unchecked asset types.
     $asset_types = array_filter($form_state->getValue('asset_types'));
     $form_state->setValue('asset_types', array_values($asset_types));
+
+    $form_state->setValue(
+      'icon',
+      $this->extractIconId($form_state->getValue('icon'), ''),
+    );
   }
 
   /**
@@ -87,7 +104,7 @@ class FeatureGroupForm extends EntityForm {
   public function save(array $form, FormStateInterface $form_state): int {
     /** @var \Drupal\ps_feature\Entity\FeatureGroup $feature_group */
     $feature_group = $this->entity;
-    
+
     $result = parent::save($form, $form_state);
 
     $message_args = ['%label' => $feature_group->label()];
@@ -107,7 +124,6 @@ class FeatureGroupForm extends EntityForm {
    *   Array of asset type options.
    */
   protected function getAssetTypeOptions(): array {
-    // TODO: Get from ps_dictionary when available.
     return [
       'BUR' => $this->t('Office'),
       'COW' => $this->t('Coworking'),

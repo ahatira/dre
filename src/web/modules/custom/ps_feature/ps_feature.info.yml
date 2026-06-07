@@ -4,6 +4,8 @@ description: 'Feature Builder - 9 type drivers for business components'
 core_version_requirement: ^11
 package: 'Property Search'
 dependencies:
-  - ps_core
-  - ps_dictionary
-  - config_translation
+  - ps_core:ps_core
+  - ps_dictionary:ps_dictionary
+  - config_translation:config_translation
+  - ui_icons:ui_icons
+  - ui_icons:ui_icons_picker

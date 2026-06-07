@@ -7,7 +7,7 @@ namespace Drupal\ps_media\Service;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Theme\Icon\IconDefinition;
+use Drupal\ps_core\Utility\IconIdUtility;
 
 /**
  * Resolves configured gallery badge icons for the hero component.
@@ -54,18 +54,11 @@ final class GalleryBadgeIconResolver implements CacheableDependencyInterface {
    *   Parsed icon pack and id.
    */
   private function parseIcon(mixed $value, string $defaultPack, string $defaultId): array {
-    if (!is_string($value) || $value === '') {
-      return ['pack' => $defaultPack, 'id' => $defaultId];
-    }
-
-    $iconData = IconDefinition::getIconDataFromId($value);
-    if ($iconData === NULL) {
-      return ['pack' => $defaultPack, 'id' => $defaultId];
-    }
+    $parts = IconIdUtility::resolveParts($value, $defaultPack, $defaultId);
 
     return [
-      'pack' => $iconData['pack_id'],
-      'id' => $iconData['icon_id'],
+      'pack' => $parts['pack'],
+      'id' => $parts['id'],
     ];
   }
 

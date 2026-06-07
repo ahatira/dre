@@ -6,14 +6,14 @@ namespace Drupal\ps_media\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Theme\Icon\IconDefinitionInterface;
+use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 
 /**
  * Configures offer gallery badge icons for site administrators.
  */
 final class GallerySettingsForm extends ConfigFormBase {
 
-  private const ICON_PACKS = ['bnp_custom'];
+  use IconAutocompleteHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -46,24 +46,28 @@ final class GallerySettingsForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
-    $form['badge_icons']['badge_icon_photos'] = $this->buildIconField(
+    $form['badge_icons']['badge_icon_photos'] = $this->buildIconPickerElement(
       $this->t('Photos badge icon'),
       $this->getIconDefault($config->get('badge_icon_photos'), 'bnp_custom:camera'),
+      ['required' => TRUE],
     );
 
-    $form['badge_icons']['badge_icon_videos'] = $this->buildIconField(
+    $form['badge_icons']['badge_icon_videos'] = $this->buildIconPickerElement(
       $this->t('Videos badge icon'),
       $this->getIconDefault($config->get('badge_icon_videos'), 'bnp_custom:video'),
+      ['required' => TRUE],
     );
 
-    $form['badge_icons']['badge_icon_visit_3d'] = $this->buildIconField(
+    $form['badge_icons']['badge_icon_visit_3d'] = $this->buildIconPickerElement(
       $this->t('3D visit badge icon'),
       $this->getIconDefault($config->get('badge_icon_visit_3d'), 'bnp_custom:visite-guidee'),
+      ['required' => TRUE],
     );
 
-    $form['badge_icons']['badge_icon_plan'] = $this->buildIconField(
+    $form['badge_icons']['badge_icon_plan'] = $this->buildIconPickerElement(
       $this->t('Plan badge icon'),
       $this->getIconDefault($config->get('badge_icon_plan'), 'bnp_custom:floors'),
+      ['required' => TRUE],
     );
 
     return parent::buildForm($form, $form_state);
@@ -83,84 +87,12 @@ final class GallerySettingsForm extends ConfigFormBase {
     ] as $key => $fallback) {
       $editable->set(
         $key,
-        $this->extractIconId($this->getSubmittedIconValue($form_state, $key), $fallback),
+        $this->extractIconId($this->getSubmittedIconValue($form_state, $key, 'badge_icons'), $fallback),
       );
     }
 
     $editable->save();
     parent::submitForm($form, $form_state);
-  }
-
-  /**
-   * Reads a submitted icon_autocomplete value from the form state.
-   */
-  private function getSubmittedIconValue(FormStateInterface $form_state, string $key): mixed {
-    $badgeIcons = $form_state->getValue('badge_icons');
-    if (is_array($badgeIcons) && array_key_exists($key, $badgeIcons)) {
-      return $badgeIcons[$key];
-    }
-
-    return $form_state->getValue($key);
-  }
-
-  /**
-   * Builds an icon autocomplete element for a gallery badge.
-   *
-   * @return array<string, mixed>
-   *   Icon autocomplete form element.
-   */
-  private function buildIconField(\Stringable|string $title, string $defaultValue): array {
-    return [
-      '#type' => 'icon_autocomplete',
-      '#title' => (string) $title,
-      '#default_value' => $defaultValue,
-      '#allowed_icon_pack' => self::ICON_PACKS,
-      '#result_format' => 'grid',
-      '#return_id' => TRUE,
-      '#required' => TRUE,
-    ];
-  }
-
-  /**
-   * Returns a stored icon id or the configured fallback.
-   */
-  private function getIconDefault(mixed $value, string $fallback): string {
-    if (is_string($value) && $value !== '') {
-      return $value;
-    }
-
-    return $fallback;
-  }
-
-  /**
-   * Extracts a pack:id icon value from an icon_autocomplete submission.
-   */
-  private function extractIconId(mixed $value, string $fallback): string {
-    if (is_string($value) && $value !== '') {
-      return $value;
-    }
-
-    if (!is_array($value)) {
-      return $fallback;
-    }
-
-    if (!empty($value['target_id']) && is_string($value['target_id'])) {
-      return $value['target_id'];
-    }
-
-    if (!empty($value['icon_id']) && is_string($value['icon_id'])) {
-      return $value['icon_id'];
-    }
-
-    if (!empty($value['icon']) && $value['icon'] instanceof IconDefinitionInterface) {
-      return $value['icon']->getId();
-    }
-
-    if (!empty($value['object']) && $value['object'] instanceof IconDefinitionInterface) {
-      return $value['object']->getId();
-    }
-
-    return $fallback;
   }
 
 }

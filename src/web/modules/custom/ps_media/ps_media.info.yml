@@ -5,9 +5,11 @@ core_version_requirement: ^11
 package: 'Property Search'
 version: 1.0.0
 dependencies:
+  - ps_core:ps_core
   - bnp_media:bnp_media
   - drupal:media
   - drupal:link
   - drupal:field
   - drupal:image
   - ui_icons:ui_icons
+  - ui_icons:ui_icons_picker

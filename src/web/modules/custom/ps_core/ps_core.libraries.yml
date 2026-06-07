@@ -1,0 +1,10 @@
+icon_picker:
+  css:
+    theme:
+      css/icon-picker.css: {}
+  js:
+    js/icon-picker.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ui_icons_picker/picker

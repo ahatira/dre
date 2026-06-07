@@ -1,0 +1,11 @@
+--- a/modules/ui_icons_picker/src/Form/IconSelectForm.php
++++ b/modules/ui_icons_picker/src/Form/IconSelectForm.php
+@@ -463,7 +463,7 @@ final class IconSelectForm extends FormBase {
+       'wrapper' => self::AJAX_WRAPPER_ID,
+     ];
+ 
+-    $total_page = (int) round($total / self::NUM_PER_PAGE) + 1;
++    $total_page = max(1, (int) ceil($total / self::NUM_PER_PAGE));
+     $arg = ['@current_page' => $current_page + 1, '@total_page' => $total_page];
+ 
+     return [

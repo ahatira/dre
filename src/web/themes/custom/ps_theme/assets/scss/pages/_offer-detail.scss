@@ -715,49 +715,38 @@ body:has(.node--type-offer.node--view-mode-full) {
   .feature-grouped-title {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin: 0 0 1rem;
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 2.5rem;
+    line-height: 1.875rem;
     color: #333;
 
-    &::before {
-      content: '';
-      display: inline-block;
+    &__icon {
+      display: inline-flex;
+      flex-shrink: 0;
       width: 1.5rem;
       height: 1.5rem;
-      flex-shrink: 0;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      border-radius: 0;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transform: translateY(0.0625rem);
+
+      svg {
+        display: block;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    &__label {
+      margin: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      color: inherit;
     }
   }
-}
-
-.feature-grouped-group[data-feature-group='equipements'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/ad/equipement.svg');
-}
-
-.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/ad/welcome-room.svg');
-}
-
-.feature-grouped-group[data-feature-group='type_etat_du_batiment'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/metropole/district.svg');
-}
-
-.feature-grouped-group[data-feature-group='informations_complementaires'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/generic/infos.svg');
-}
-
-.feature-grouped-group[data-feature-group='normes_certifications_et_labels'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/metropole/medal.svg');
-}
-
-.feature-grouped-group[data-feature-group='acces_vehicules'] .feature-grouped-title::before {
-  background-image: url('#{$icon-base}/generic/pin-map.svg');
 }
 
 .feature-grouped-list {

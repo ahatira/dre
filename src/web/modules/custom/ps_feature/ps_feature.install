@@ -5,18 +5,64 @@
  * Update hooks for ps_feature module.
  */
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-
 /**
  * Install entity_offer_feature schema.
  */
 function ps_feature_update_9001() {
   $entity_type_manager = \Drupal::entityTypeManager();
   $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
-  
+
   // Install the entity type.
   $entity_type = $entity_type_manager->getDefinition('entity_offer_feature');
   $entity_definition_update_manager->installEntityType($entity_type);
-  
+
   return t('Installed entity_offer_feature schema.');
+}
+
+/**
+ * Adds administrable UI Icons to feature groups.
+ */
+function ps_feature_update_9002(): string {
+  $config_factory = \Drupal::configFactory();
+
+  if ($config_factory->get('ps_feature.settings')->isNew()) {
+    $config_factory->getEditable('ps_feature.settings')
+      ->set('default_group_icon', 'bnp_custom:infos')
+      ->save(TRUE);
+  }
+
+  $group_icons = [
+    'equipements' => 'bnp_custom:equipement',
+    'prestations_de_service' => 'bnp_custom:welcome-room',
+    'type_etat_du_batiment' => 'bnp_custom:district',
+    'informations_complementaires' => 'bnp_custom:infos',
+    'normes_certifications_et_labels' => 'bnp_custom:medal',
+    'acces_vehicules' => 'bnp_custom:pin-map',
+  ];
+
+  foreach ($group_icons as $group_id => $icon) {
+    $config_name = 'ps_feature.feature_group.' . $group_id;
+    $config = $config_factory->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    if ($config->get('icon')) {
+      continue;
+    }
+    $config->set('icon', $icon)->save(TRUE);
+  }
+
+  return (string) t('Added feature group icon configuration.');
+}
+
+/**
+ * Sets the default feature group fallback icon to not-available.
+ */
+function ps_feature_update_9003(): string {
+  $config = \Drupal::configFactory()->getEditable('ps_feature.settings');
+  if ($config->get('default_group_icon') === 'bnp_custom:infos') {
+    $config->set('default_group_icon', 'bnp_custom:not-available')->save(TRUE);
+  }
+
+  return (string) t('Updated default feature group fallback icon.');
 }

@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_feature\Service\FeatureGroupIconResolver;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,11 +31,19 @@ class FeatureFormatter extends FormatterBase {
   protected FeatureTypeManager $featureTypeManager;
 
   /**
+   * Resolves feature group heading icons.
+   *
+   * @var \Drupal\ps_feature\Service\FeatureGroupIconResolver
+   */
+  protected FeatureGroupIconResolver $featureGroupIconResolver;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->featureTypeManager = $container->get('plugin.manager.feature_type');
+    $instance->featureGroupIconResolver = $container->get('ps_feature.feature_group_icon_resolver');
     return $instance;
   }
 
@@ -563,11 +572,19 @@ class FeatureFormatter extends FormatterBase {
         'class' => ['feature-grouped-group'],
         'data-feature-group' => $group_element['group_id'],
       ],
+      '#cache' => [
+        'tags' => $this->featureGroupIconResolver->getCacheTagsForGroup((string) $group_element['group_id']),
+      ],
       'title' => [
-        '#type' => 'html_tag',
-        '#tag' => 'h3',
-        '#value' => $group_element['group_label'],
+        '#type' => 'container',
         '#attributes' => ['class' => ['feature-grouped-title']],
+        'icon' => $this->featureGroupIconResolver->buildRenderable((string) $group_element['group_id']),
+        'label' => [
+          '#type' => 'html_tag',
+          '#tag' => 'h3',
+          '#value' => $group_element['group_label'],
+          '#attributes' => ['class' => ['feature-grouped-title__label']],
+        ],
       ],
       'items' => [
         '#type' => 'container',

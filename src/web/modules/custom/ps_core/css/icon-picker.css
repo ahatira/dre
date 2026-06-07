@@ -1,0 +1,121 @@
+/**
+ * @file
+ * Styles for the UI Icons picker trigger (admin forms).
+ */
+
+.ps-icon-picker {
+  --ps-icon-picker-box-size: 2.5rem;
+  --ps-icon-picker-icon-size: 1.5rem;
+}
+
+/* Compact control row: preview + button + icon id. */
+.ps-icon-picker .ui-icons-input-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0;
+}
+
+.ps-icon-picker__control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ps-icon-picker .ui-icons-preview {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ps-icon-picker-box-size);
+  max-width: var(--ps-icon-picker-box-size);
+  height: var(--ps-icon-picker-box-size);
+  margin: 0;
+}
+
+.ps-icon-picker .ui-icons-preview-icon img,
+.ps-icon-picker .ui-icons-preview-icon svg {
+  display: block;
+  width: var(--ps-icon-picker-icon-size);
+  max-width: var(--ps-icon-picker-icon-size);
+  height: var(--ps-icon-picker-icon-size);
+  max-height: var(--ps-icon-picker-icon-size);
+  margin: 0;
+}
+
+.ps-icon-picker .ui-icons-select {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ps-icon-picker__button {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ps-icon-picker__id {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: var(--gin-color-text-light, #6e7175);
+  font-family: var(--font-family-monospace, ui-monospace, monospace);
+}
+
+.ps-icon-picker__id:empty,
+.ps-icon-picker__id[hidden] {
+  display: none;
+}
+
+/* Keep the dialog trigger in the DOM but out of sight. */
+.ps-icon-picker .form-icon-dialog {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
+.ps-icon-picker .ui-icons-select > .form-item {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Description belongs under the control, not under the preview box. */
+.ps-icon-picker .ui-icons-input-wrapper .form-item__description {
+  position: static;
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.ps-icon-picker > .form-item__description,
+.ps-icon-picker .ui-icons-wrapper + .form-item__description {
+  margin-top: 0.5rem;
+}
+
+/* Icon library modal — slightly larger cells for easier picking. */
+.icon-library-widget-modal.ui-dialog {
+  --ui-icons-picker-size: 3.25rem;
+  --ui-icons-picker-preview-size: 1.75rem;
+}
+
+.icon-library-widget-modal .ui-icons-picker-search {
+  margin-bottom: 0.75rem;
+}
+
+.icon-library-widget-modal .ui-icons-picker-search .form-search {
+  width: 100%;
+  max-width: none;
+}
+
+.icon-picker-modal__content > div {
+  gap: 0.625rem;
+}

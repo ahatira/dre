@@ -35,3 +35,9 @@ services:
       - '@entity_type.manager'
     tags:
       - { name: service }
+
+  ps_feature.feature_group_icon_resolver:
+    class: Drupal\ps_feature\Service\FeatureGroupIconResolver
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
