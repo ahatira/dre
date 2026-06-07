@@ -8,5 +8,7 @@ dependencies:
   - drupal:layout_builder
   - drupal:node
   - drupal:languageicons
+  - ps_core:ps_core
   - ps_favorite:ps_favorite
   - ps_form:ps_form
+  - ps_offer:ps_offer

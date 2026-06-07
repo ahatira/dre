@@ -9,3 +9,5 @@ dependencies:
   - drupal:user
   - drupal:field
   - drupal:views
+  - drupal:config_translation
+  - ui_icons_picker:ui_icons_picker

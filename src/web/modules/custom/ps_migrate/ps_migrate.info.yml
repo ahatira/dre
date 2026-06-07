@@ -5,4 +5,7 @@ package: 'Property Search'
 core_version_requirement: ^11.3
 dependencies:
   - drupal:migrate
-  - ps_core
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - ps_core:ps_core
+  - ps_offer:ps_offer
