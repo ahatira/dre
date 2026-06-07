@@ -1,0 +1,23 @@
+name: Offer map interactive
+description: 'Interactive offer map with POI filters and travel time.'
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - lat
+    - lng
+  properties:
+    lat:
+      type: number
+      title: Latitude
+    lng:
+      type: number
+      title: Longitude
+    address:
+      type: string
+      title: Address label
+    offer_id:
+      type: integer
+      title: Offer ID
+      default: 0

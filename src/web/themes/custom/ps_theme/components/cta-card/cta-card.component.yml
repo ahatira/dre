@@ -1,0 +1,22 @@
+name: CTA card
+description: 'Simple card with title and action button.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+    button_label:
+      type: string
+      title: Button label
+    button_url:
+      type: string
+      title: Button URL or modal anchor
+    icon:
+      type: string
+      title: Icon name
+    modal_id:
+      type: string
+      title: Bootstrap modal ID

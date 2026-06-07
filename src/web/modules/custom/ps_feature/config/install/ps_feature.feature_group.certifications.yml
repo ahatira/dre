@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: certifications
+label: Certifications
+description: 'Environmental and quality certifications (e.g. LEED).'
+asset_types: {  }
+weight: 5

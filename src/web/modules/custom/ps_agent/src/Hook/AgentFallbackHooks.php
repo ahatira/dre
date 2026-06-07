@@ -7,6 +7,7 @@ namespace Drupal\ps_agent\Hook;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -27,14 +28,12 @@ final class AgentFallbackHooks {
   ) {}
 
   #[Hook('entity_view')]
-  public function entityView(array &$build, EntityInterface $entity): void {
+  public function entityView(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, string $view_mode): void {
     if ($entity->getEntityTypeId() !== 'ps_agent' || !$entity->hasField('avatar')) {
       return;
     }
 
-    /** @var \Drupal\Core\Field\FieldItemListInterface $avatar */
-    $avatar = $entity->get('avatar');
-    if (!$avatar->isEmpty()) {
+    if (!$this->needsAvatarFallback($entity)) {
       return;
     }
 
@@ -43,8 +42,11 @@ final class AgentFallbackHooks {
       return;
     }
 
-    $build['avatar'] = $this->buildFallbackRenderArray($uri, $entity->label(), 'agent_avatar_md', 96, 96);
-    $build['avatar']['#weight'] = 7;
+    $image_style = $this->resolveAvatarImageStyle($entity, $view_mode, $display);
+    [$width, $height] = $this->resolveAvatarDimensions($image_style);
+
+    $build['avatar'] = $this->buildFallbackRenderArray($uri, $entity->label(), $image_style, $width, $height);
+    $build['avatar']['#weight'] = 0;
   }
 
   #[Hook('preprocess_views_view_field')]
@@ -69,8 +71,7 @@ final class AgentFallbackHooks {
       return;
     }
 
-    // Prefer rendering the real avatar when a valid file is available.
-    if ($entity->hasField('avatar') && !$entity->get('avatar')->isEmpty()) {
+    if (!$this->needsAvatarFallback($entity)) {
       $file = $entity->get('avatar')->entity;
       if ($file instanceof EntityInterface && method_exists($file, 'access') && method_exists($file, 'getFileUri') && $file->access('view')) {
         $uri = (string) $file->getFileUri();
@@ -82,9 +83,9 @@ final class AgentFallbackHooks {
             '#alt' => $entity->label(),
           ];
           $variables['output'] = Markup::create((string) $this->renderer->render($render));
-          return;
         }
       }
+      return;
     }
 
     $uri = $this->resolveFallbackUri($entity);
@@ -95,6 +96,66 @@ final class AgentFallbackHooks {
     $render = $this->buildFallbackRenderArray($uri, $entity->label(), 'agent_avatar_xs', 40, 40);
 
     $variables['output'] = Markup::create((string) $this->renderer->render($render));
+  }
+
+  /**
+   * Determines whether a fallback avatar should be rendered.
+   */
+  private function needsAvatarFallback(EntityInterface $entity): bool {
+    if (!$entity->hasField('avatar')) {
+      return FALSE;
+    }
+
+    $avatar = $entity->get('avatar');
+    if ($avatar->isEmpty()) {
+      return TRUE;
+    }
+
+    $file = $avatar->entity;
+    if ($file === NULL) {
+      return TRUE;
+    }
+
+    if (!method_exists($file, 'access') || !$file->access('view')) {
+      return TRUE;
+    }
+
+    if (!method_exists($file, 'getFileUri')) {
+      return TRUE;
+    }
+
+    return trim((string) $file->getFileUri()) === '';
+  }
+
+  /**
+   * Resolves the image style configured for the avatar on the active display.
+   */
+  private function resolveAvatarImageStyle(EntityInterface $entity, string $view_mode, EntityViewDisplayInterface $display): string {
+    $component = $display->getComponent('avatar');
+    $style = (string) ($component['settings']['image_style'] ?? '');
+    if ($style !== '') {
+      return $style;
+    }
+
+    return match ($view_mode) {
+      'card' => 'agent_avatar_md',
+      'full' => 'agent_avatar_lg',
+      default => 'agent_avatar_md',
+    };
+  }
+
+  /**
+   * Resolves fallback dimensions from a known image style.
+   *
+   * @return array{0: int, 1: int}
+   */
+  private function resolveAvatarDimensions(string $image_style): array {
+    return match ($image_style) {
+      'agent_avatar_xs' => [40, 40],
+      'agent_avatar_sm' => [64, 64],
+      'agent_avatar_lg' => [128, 128],
+      default => [96, 96],
+    };
   }
 
   private function resolveFallbackUri(EntityInterface $entity): ?string {
@@ -112,7 +173,6 @@ final class AgentFallbackHooks {
       }
     }
 
-    // Built-in module fallback files if no managed fallback is configured.
     $modulePath = $this->moduleExtensionList->getPath('ps_agent');
     $civility = $entity->hasField('civility') ? (string) ($entity->get('civility')->value ?? '') : '';
     $map = [
@@ -150,6 +210,7 @@ final class AgentFallbackHooks {
             'height' => $height,
             'loading' => 'lazy',
             'decoding' => 'async',
+            'class' => ['ps-agent-sidebar-profile__fallback'],
           ],
         ];
       }
@@ -172,6 +233,7 @@ final class AgentFallbackHooks {
         'height' => $height,
         'loading' => 'lazy',
         'decoding' => 'async',
+        'class' => ['ps-agent-sidebar-profile__fallback'],
       ],
     ];
   }

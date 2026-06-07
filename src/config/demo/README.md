@@ -10,6 +10,7 @@ l'activation de `ps_demo` (contenu menu + homepage LB déjà importés).
 | `advanced_mega_menu.settings.yml` | Menu principal activé, assets contrib désactivés |
 | `advanced_mega_menu.megamenu_content.*.yml` | Panneaux mega-menu (4 entrées) |
 | `block.block.ps_theme_mega_menu_tools.yml` | Bloc outils colonne « Find a property » |
+| `block.block.ps_theme_footer_social.yml` | Bloc Follow us (`social_media_links`) — LinkedIn + alertes email |
 | `menu_link_attributes.config.yml` | Labels attributs menu header (override config contrib) |
 | `language.negotiation.yml` | Préfixes URL `/` (EN) et `/fr` (FR) |
 | `language.types.yml` | Types de langue (interface, contenu, URL) |

@@ -21,7 +21,7 @@ default:
       value: Lille
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_business
   link:
     -
       uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille'
@@ -61,7 +61,7 @@ translations:
         value: Lille
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_business
     link:
       -
         uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille'

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: leed_certification
+label: 'LEED certification'
+description: 'LEED or equivalent environmental certification level.'
+code: LEED
+group: certifications
+type_driver: text
+required_asset_types: {  }
+weight: 0
+expose_as_filter: false
+payload_defaults:
+  max_length: 128

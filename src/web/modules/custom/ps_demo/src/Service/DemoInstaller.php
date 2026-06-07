@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_demo\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\FileStorage;
 use Drupal\Core\DefaultContent\Existing;
 use Drupal\Core\DefaultContent\Finder;
 use Drupal\Core\DefaultContent\Importer;
@@ -73,6 +74,8 @@ final class DemoInstaller {
       HomepageInstaller::create(\Drupal::getContainer())->prepareLayoutBuilder();
     }
     $this->importContent();
+    (new DemoMenuNormalizer($this->entityTypeManager))->normalize();
+    $this->importDemoConfiguration();
     $this->applyPathAliases();
     $this->applyFrontPage();
   }
@@ -81,8 +84,10 @@ final class DemoInstaller {
    * Ensures required modules and the front theme are available.
    */
   private function assertRuntimeReady(): void {
-    if (!$this->moduleHandler->moduleExists('ps_homepage')) {
-      throw new \RuntimeException('ps_demo requires the ps_homepage module.');
+    foreach (['ps_homepage', 'ps_block', 'social_media_links'] as $module) {
+      if (!$this->moduleHandler->moduleExists($module)) {
+        throw new \RuntimeException("ps_demo requires the {$module} module.");
+      }
     }
 
     $default_theme = $this->configFactory->get('system.theme')->get('default');
@@ -110,6 +115,40 @@ final class DemoInstaller {
 
     $this->defaultContentImporter->importContent($finder, Existing::Skip);
     \Drupal::service('plugin.manager.menu.link')->rebuild();
+  }
+
+  /**
+   * Imports partial CMI from src/config/demo/ (mega-menu, langues, Follow us…).
+   *
+   * Mirrors `drush config:import --partial` without full-site validation.
+   */
+  private function importDemoConfiguration(): void {
+    $source = dirname(\Drupal::root()) . '/config/demo';
+    if (!is_dir($source)) {
+      $this->logger->warning('ps_demo: demo config directory not found at @path.', ['@path' => $source]);
+      return;
+    }
+
+    $sync_storage = new FileStorage($source);
+    $imported = 0;
+    foreach ($sync_storage->listAll() as $name) {
+      if ($name === 'README') {
+        continue;
+      }
+      $data = $sync_storage->read($name);
+      if (!is_array($data)) {
+        continue;
+      }
+      $this->configFactory->getEditable($name)->setData($data)->save(TRUE);
+      $imported++;
+    }
+
+    if ($imported > 0) {
+      $this->logger->notice('ps_demo: imported @count demo configuration objects from @path.', [
+        '@count' => $imported,
+        '@path' => $source,
+      ]);
+    }
   }
 
   /**

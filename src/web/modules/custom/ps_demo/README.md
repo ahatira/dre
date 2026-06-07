@@ -11,7 +11,7 @@ contenu multilingue (default content), copy homepage (config), structure démo (
 | **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `export/content/` → `make demo` |
 | **Copy homepage** | Textes EN/FR des blocs LB (hero, univers, éditorial) | `config/install/ps_demo.homepage.yml` |
 | **Paramètres démo** | Page d'accueil, références UUID | `config/install/ps_demo.settings.yml` |
-| **Structure démo** | Mega-menu panels, langues | `src/config/demo/` → `make demo` |
+| **Structure démo** | Mega-menu panels, langues, bloc Follow us | `src/config/demo/` → `make demo` |
 | **Référence menus** | Schéma YAML pour régénérer les exports | `config/stellar_menus.yml` |
 
 Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et config sont exportables.
@@ -21,7 +21,7 @@ Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et confi
 - Drupal **11.3+**
 - Thème **`ps_theme`** actif
 - Langues **EN** (défaut) + **FR**
-- Modules : `ps_homepage`, `content_translation`, `layout_builder`, `advanced_mega_menu`
+- Modules : `ps_homepage`, `content_translation`, `layout_builder`, `advanced_mega_menu`, `social_media_links`
 
 ## Structure
 
@@ -54,8 +54,8 @@ make index-solr         # index Solr (optionnel)
 
 Enchaînement :
 
-1. **`make reinstall`** — Drupal + modules PS + dictionnaire + **`ps_theme`** (blocs/menus vides, thème front + admin Gin)
-2. **`make demo`** — contenu Stellar (menus, homepage) + CMI mega-menu / multilingue
+1. **`make reinstall`** — Drupal + modules PS + dictionnaire + dépendances thème (`ps_block`, `ps_homepage`, mega-menu) + **`ps_theme`** (blocs/menus vides)
+2. **`make demo`** — contenu Stellar (menus, homepage) + normalisation footer (`DemoMenuNormalizer`) + CMI mega-menu / multilingue / bloc Follow us
 3. **`make import-sample-xml`** — migrate offres CRM
 4. **`make index-solr`** — index Search API / Solr
 

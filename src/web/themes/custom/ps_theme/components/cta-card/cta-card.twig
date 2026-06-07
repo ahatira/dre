@@ -1,0 +1,14 @@
+<div class="ps-cta-card">
+  {% if title %}
+    <h3 class="ps-cta-card__title">{{ title }}</h3>
+  {% endif %}
+  {% if button_label %}
+    {% if modal_id %}
+      <button type="button" class="btn btn-outline-primary w-100 ps-cta-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+        {{ button_label }}
+      </button>
+    {% else %}
+      <a href="{{ button_url }}" class="btn btn-outline-primary w-100 ps-cta-card__button">{{ button_label }}</a>
+    {% endif %}
+  {% endif %}
+</div>

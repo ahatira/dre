@@ -16,13 +16,13 @@ default:
       value: true
   title:
     -
-      value: Accessibility
+      value: 'Suppliers: BNP Paribas is committed to its partners and suppliers'
   menu_name:
     -
       value: ps_footer_legal
   link:
     -
-      uri: 'https://www.bnpparibas-realestate.com/en-gb/accessibility/'
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/suppliers/'
       title: null
       options:
         attributes:
@@ -56,13 +56,13 @@ translations:
         value: true
     title:
       -
-        value: Accessibilité
+        value: "Fournisseurs : BNP Paribas s'engage envers ses partenaires et fournisseurs"
     menu_name:
       -
         value: ps_footer_legal
     link:
       -
-        uri: 'https://www.bnpparibas-realestate.com/en-gb/accessibility/'
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/suppliers/'
         title: null
         options:
           attributes:

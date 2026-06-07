@@ -7,6 +7,7 @@ namespace Drupal\ps_theme\Hook;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\node\NodeInterface;
 use Drupal\ps_theme\Utility\FrontRouteHelper;
 use Drupal\search\Form\SearchBlockForm;
 
@@ -92,9 +93,26 @@ final class Page {
     $variables['ps_show_editor_tools'] = FrontRouteHelper::shouldShowEditorTools();
     $variables['ps_page_layout_account'] = $this->isAccountAreaRoute();
 
+    if ($this->isOfferDetailPage()) {
+      $variables['container'] = 'container';
+      $variables['ps_page_layout_offer_detail'] = TRUE;
+    }
+
     $this->prepareNavigationInstances($variables);
     $this->prepareSiteFooterSlots($variables);
     $this->prepareSiteHeaderSlots($variables);
+  }
+
+  /**
+   * Whether the current page is an offer full view.
+   */
+  private function isOfferDetailPage(): bool {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      return $node->bundle() === 'offer';
+    }
+
+    return FALSE;
   }
 
   /**

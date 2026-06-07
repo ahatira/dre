@@ -78,33 +78,9 @@ drush en anchor_link -y
 
 ---
 
-#### 4. External Links (v2.0.5)
-**Purpose**: Icons for external links, auto-security
-
-**Enable**:
-```bash
-drush en extlink -y
-```
-
-**Setup**:
-1. Go to `/admin/config/user-interface/extlink`
-2. Configure icon display (SVG/Font Awesome)
-3. Set security: auto-add `rel="noopener noreferrer"`
-4. Exclude domains (e.g., your own domain)
-
-**Benefits**:
-- Visual indicator for external links
-- Security: prevents window.opener attacks
-- Configurable per-domain
-- Accessibility improvements
-
-**Note**: Filter-based, not CKEditor toolbar button.
-
----
-
 ### Content & Entities
 
-#### 5. Entity Embed (v1.6.0)
+#### 4. Entity Embed (v1.6.0)
 **Purpose**: Embed any Drupal entity in content
 
 **Enable**:
@@ -134,7 +110,7 @@ drush en entity_embed -y
 
 ### Paths & URLs
 
-#### 6. Pathologic (v2.0.0)
+#### 5. Pathologic (v2.0.0)
 **Purpose**: Auto-correct internal link paths
 
 **Enable**:
@@ -158,7 +134,7 @@ drush en pathologic -y
 
 ---
 
-#### 7. Token Filter (v2.2.1)
+#### 6. Token Filter (v2.2.1)
 **Purpose**: Replace tokens in text content
 
 **Enable**:
@@ -190,7 +166,7 @@ You're reading [node:title] on [site:name].
 
 ### Media & Images
 
-#### 8. Blazy (v3.0.17)
+#### 7. Blazy (v3.0.17)
 **Purpose**: Lazy loading for images and media
 
 **Enable**:
@@ -214,7 +190,7 @@ drush en blazy -y
 
 ---
 
-#### 9. Slick (v3.0.7)
+#### 8. Slick (v3.0.7)
 **Purpose**: Carousel/slider for media
 
 **Enable**:
@@ -263,7 +239,7 @@ drush cr
 ### Scenario 3: Enterprise Publishing
 ```bash
 drush en linkit editor_advanced_link anchor_link entity_embed \
-  extlink pathologic token_filter blazy -y
+  pathologic token_filter blazy -y
 drush cr
 ```
 **Use case**: Professional content management with all features.
@@ -278,7 +254,6 @@ drush cr
 | Editor Advanced Link | ✅ 2.x | ✅ | CKEditor plugin |
 | Anchor Link | ✅ 3.x | ✅ | CKEditor plugin |
 | Entity Embed | ✅ 1.x | ✅ | CKEditor plugin + Filter |
-| Extlink | ✅ 2.x | ⚠️ | Text format filter |
 | Pathologic | ✅ 2.x | ⚠️ | Text format filter |
 | Token Filter | ✅ 2.x | ⚠️ | Text format filter |
 | Blazy | ✅ 3.x | N/A | Field formatter |
@@ -312,7 +287,7 @@ These modules are **NOT** compatible with Drupal 11:
 
 ### Verify Installed Modules
 ```bash
-drush pml | grep -E "(linkit|anchor|editor_advanced|entity_embed|extlink|pathologic|token_filter|blazy|slick)"
+drush pml | grep -E "(linkit|anchor|editor_advanced|entity_embed|pathologic|token_filter|blazy|slick)"
 ```
 
 **Expected output** (after enabling):
@@ -321,7 +296,6 @@ drush pml | grep -E "(linkit|anchor|editor_advanced|entity_embed|extlink|patholo
  Enabled   anchor_link                   Anchor Link                 3.0.4
  Enabled   editor_advanced_link          Editor Advanced Link        2.3.4
  Enabled   entity_embed                  Entity Embed                1.6.0
- Enabled   extlink                       External Links              2.0.5
  Enabled   pathologic                    Pathologic                  2.0.0
  Enabled   token_filter                  Token Filter                2.2.1
  Enabled   blazy                         Blazy                       3.0.17
@@ -411,8 +385,7 @@ Then go to `/admin/config/content/formats/manage/full_html` and check toolbar co
 - Combine Pathologic with site:url tokens for portable content
 
 ### Security
-- Always enable Extlink for external link security
-- Use Editor Advanced Link to add `rel="noopener"` to `target="_blank"` links
+- Use Editor Advanced Link to add `rel="noopener noreferrer"` to external and `target="_blank"` links
 - Restrict Entity Embed permissions to trusted roles
 
 ### Accessibility

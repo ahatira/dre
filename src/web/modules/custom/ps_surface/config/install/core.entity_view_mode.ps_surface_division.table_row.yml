@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_surface
+id: ps_surface_division.table_row
+label: 'Table row'
+targetEntityType: ps_surface_division
+cache: true

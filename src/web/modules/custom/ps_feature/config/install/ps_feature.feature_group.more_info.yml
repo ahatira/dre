@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: more_info
+label: 'More information'
+description: 'Additional property information.'
+asset_types: {  }
+weight: 3

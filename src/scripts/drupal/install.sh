@@ -103,7 +103,7 @@ ps_success "Drupal installed"
 # before update.module is loaded, which fatals on the first theme/module enable.
 ps_info "Disabling optional Update Status module (not needed for local install)..."
 if ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
-  ps_retry 2 2 ps_drush pm:uninstall update -y
+  ps_drush pm:uninstall update -y || ps_warn "Update module could not be uninstalled"
   ps_drush_cr
 fi
 
@@ -143,6 +143,8 @@ ps_retry 2 2 ps_drush en -y ps_surface
 ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
 ps_retry 2 2 ps_drush en -y bnp_media ps_media
 ps_retry 2 2 ps_drush en -y ps_offer
+ps_retry 2 2 ps_drush en -y ps_form
+ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
 ps_retry 2 2 ps_drush en -y ps_search
@@ -203,6 +205,10 @@ ps_info "Translations: imported=${IMPORTED}, skipped=${SKIPPED}, failed=${FAILED
 ps_info "Importing dictionary data..."
 ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
 ps_success "Dictionary imported"
+
+ps_info "Enabling theme shell dependencies..."
+ps_retry 2 2 ps_drush en -y ps_block ps_homepage
+ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some theme contrib modules not available"
 
 ps_info "Enabling Property Search front theme (shell: blocs + menus vides)..."
 ps_retry 2 2 ps_drush theme:enable -y ps_theme

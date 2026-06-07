@@ -1,0 +1,41 @@
+name: Media gallery hero
+description: 'Hero gallery for offer detail pages with overlays and lightbox trigger.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    images:
+      type: array
+      title: Images
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+          alt:
+            type: string
+          media_id:
+            type: string
+    photo_count:
+      type: integer
+      title: Photo count
+      default: 0
+    virtual_tour_url:
+      type: string
+      title: Virtual tour URL
+    plan_url:
+      type: string
+      title: Plan document URL
+    offer_id:
+      type: integer
+      title: Offer entity ID
+      default: 0
+    offer_type:
+      type: string
+      title: Offer entity type
+      default: node
+slots:
+  favorite:
+    title: Favorite action
+    description: Optional favorite button slot.

@@ -17,46 +17,31 @@ content:
     label: hidden
     region: content
     settings:
-      image_style: agent_avatar_sm
+      image_style: agent_avatar_md
       image_link: ''
       image_loading:
         attribute: lazy
-    third_party_settings: {}
+    third_party_settings: {  }
   display_name:
     type: string
     weight: 1
     label: hidden
     region: content
-    settings: {}
-    third_party_settings: {}
-  job_title:
-    type: string
-    weight: 2
-    label: hidden
-    region: content
-    settings: {}
-    third_party_settings: {}
-  email:
-    type: email_mailto
-    weight: 3
-    label: hidden
-    region: content
-    settings: {}
-    third_party_settings: {}
-  phone:
-    type: telephone_link
-    weight: 4
-    label: hidden
-    region: content
-    settings:
-      title: ''
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
 hidden:
+  phone: true
+  changed: true
+  checksum: true
   civility: true
   internal_external: true
+  internal_lock: true
+  source_tracking: true
   status: true
   uid: true
   has_avatar: true
   created: true
   first_name: true
   last_name: true
+  job_title: true
+  email: true

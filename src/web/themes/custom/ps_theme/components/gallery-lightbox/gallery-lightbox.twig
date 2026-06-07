@@ -1,0 +1,26 @@
+{% set modal_id = modal_id|default('ps-offer-gallery-lightbox') %}
+{% if images is not empty %}
+  <div class="modal fade ps-gallery-lightbox" id="{{ modal_id }}" tabindex="-1" aria-hidden="true" data-ps-gallery-lightbox>
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+        </div>
+        <div class="modal-body">
+          <div class="ps-gallery-lightbox__stage">
+            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--prev" data-ps-lightbox-prev aria-label="{{ 'Previous image'|t }}">‹</button>
+            <img src="{{ images[initial_index|default(0)].url }}" alt="{{ images[initial_index|default(0)].alt|default('') }}" class="ps-gallery-lightbox__image" data-ps-lightbox-image />
+            <button type="button" class="ps-gallery-lightbox__nav ps-gallery-lightbox__nav--next" data-ps-lightbox-next aria-label="{{ 'Next image'|t }}">›</button>
+          </div>
+          <div class="ps-gallery-lightbox__thumbs">
+            {% for image in images %}
+              <button type="button" class="ps-gallery-lightbox__thumb{% if loop.index0 == (initial_index|default(0)) %} is-active{% endif %}" data-ps-lightbox-thumb data-index="{{ loop.index0 }}">
+                <img src="{{ image.url }}" alt="{{ image.alt|default('') }}" loading="lazy" />
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

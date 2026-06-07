@@ -1,0 +1,54 @@
+{%
+  set classes = [
+    'ps-media-gallery-hero',
+    images is empty ? 'ps-media-gallery-hero--empty',
+  ]
+%}
+<div class="{{ classes|join(' ') }}" data-ps-gallery-hero>
+  {% if favorite %}
+    <div class="ps-media-gallery-hero__favorite">
+      {{ favorite }}
+    </div>
+  {% endif %}
+
+  {% if images is not empty %}
+    <div class="ps-media-gallery-hero__main">
+      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--prev" data-ps-gallery-prev aria-label="{{ 'Previous image'|t }}">
+        <span aria-hidden="true">‹</span>
+      </button>
+      <button type="button" class="ps-media-gallery-hero__trigger" data-ps-gallery-open data-ps-gallery-index="0">
+        <img src="{{ images[0].url }}" alt="{{ images[0].alt|default('') }}" class="ps-media-gallery-hero__image" loading="eager" />
+      </button>
+      <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--next" data-ps-gallery-next aria-label="{{ 'Next image'|t }}">
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
+
+    <div class="ps-media-gallery-hero__badges">
+      {% if photo_count > 0 %}
+        <button type="button" class="ps-media-gallery-hero__badge" data-ps-gallery-open data-ps-gallery-index="0">
+          {{ photo_count }} {{ 'photos'|t }}
+        </button>
+      {% endif %}
+      {% if virtual_tour_url %}
+        <a href="{{ virtual_tour_url }}" class="ps-media-gallery-hero__badge" target="_blank" rel="noopener noreferrer">{{ '3D visit'|t }}</a>
+      {% endif %}
+      {% if plan_url %}
+        <a href="{{ plan_url }}" class="ps-media-gallery-hero__badge" target="_blank" rel="noopener noreferrer">{{ 'Plan'|t }}</a>
+      {% endif %}
+    </div>
+
+    <template data-ps-gallery-images>
+      {% for image in images %}
+        <span data-url="{{ image.url }}" data-alt="{{ image.alt|default('') }}"></span>
+      {% endfor %}
+    </template>
+  {% else %}
+    <div class="ps-media-gallery-hero__placeholder">{{ 'No images available'|t }}</div>
+  {% endif %}
+</div>
+
+{% include 'ps_theme:gallery-lightbox' with {
+  images: images,
+  modal_id: 'ps-offer-gallery-lightbox',
+} only %}

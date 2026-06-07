@@ -1,10 +1,8 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.ps_footer_social
   module:
-    - system
+    - social_media_links
   theme:
     - ps_theme
 id: ps_theme_footer_social
@@ -12,13 +10,28 @@ theme: ps_theme
 region: footer
 weight: -10
 provider: null
-plugin: 'system_menu_block:ps_footer_social'
+plugin: social_media_links_block
 settings:
-  id: 'system_menu_block:ps_footer_social'
+  id: social_media_links_block
   label: 'Follow us'
   label_display: '0'
-  provider: system
-  level: 1
-  depth: 2
-  expand_all_items: true
+  provider: social_media_links
+  platforms:
+    linkedin:
+      value: company/bnp-paribas-real-estate/
+      description: LinkedIn
+      weight: '0'
+    email:
+      value: contact@bnpparibas-realestate.com
+      description: 'Email alerts'
+      weight: '10'
+  appearance:
+    orientation: h
+    show_name: 0
+    suggestion: ps_footer
+  link_attributes:
+    target: _blank
+    rel: 'noopener noreferrer'
+  iconset:
+    style: 'fontawesome:2x'
 visibility: {  }

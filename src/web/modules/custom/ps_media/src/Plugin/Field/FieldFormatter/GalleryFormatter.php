@@ -35,6 +35,7 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
       'lazy_load' => TRUE,
       'max_items' => 0,
       'image_style' => '',
+      'display_template' => 'summary',
     ] + parent::defaultSettings();
   }
 
@@ -86,6 +87,16 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
       '#title' => $this->t('Image style machine name (optional)'),
       '#description' => $this->t('When provided, image previews use this image style URL derivative.'),
       '#default_value' => (string) $this->getSetting('image_style'),
+    ];
+
+    $elements['display_template'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Display template'),
+      '#options' => [
+        'summary' => $this->t('Summary list'),
+        'hero' => $this->t('Hero gallery (offer detail)'),
+      ],
+      '#default_value' => (string) $this->getSetting('display_template'),
     ];
 
     return $elements;
@@ -143,6 +154,37 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
 
     $imageStyle = trim((string) $this->getSetting('image_style'));
     $styledUrls = $this->buildStyledUrls($entities, $imageStyle);
+    $displayTemplate = (string) $this->getSetting('display_template');
+
+    if ($displayTemplate === 'hero') {
+      $offer = $items->getEntity();
+      $heroData = $this->buildHeroData($entities, $styledUrls);
+      $heroData['props']['offer_id'] = $offer ? (int) $offer->id() : 0;
+      $heroData['props']['offer_type'] = $offer ? $offer->getEntityTypeId() : 'node';
+
+      $elements[0] = [
+        '#type' => 'component',
+        '#component' => 'ps_theme:media-gallery-hero',
+        '#props' => $heroData['props'],
+        '#attached' => [
+          'library' => ['ps_theme/offer-gallery'],
+          'drupalSettings' => [
+            'psOfferGallery' => [
+              'images' => $heroData['lightbox_images'],
+            ],
+          ],
+        ],
+      ];
+
+      if ($offer && \Drupal::moduleHandler()->moduleExists('ps_favorite')) {
+        $elements[0]['#slots']['favorite'] = [
+          '#lazy_builder' => ['ps_favorite.lazy_builder:buildButton', [$offer->getEntityTypeId(), (int) $offer->id(), 'gallery']],
+          '#create_placeholder' => TRUE,
+        ];
+      }
+
+      return $elements;
+    }
 
     // Build render array for gallery
     $elements[0] = [
@@ -240,6 +282,72 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
     }
 
     return $this->extractFileUri($media, 'thumbnail');
+  }
+
+  /**
+   * @return array{props: array<string, mixed>, lightbox_images: array<int, array<string, string>>}
+   */
+  private function buildHeroData(array $entities, array $styledUrls): array {
+    $images = [];
+    $lightboxImages = [];
+    $virtualTourUrl = '';
+    $planUrl = '';
+    $photoCount = 0;
+
+    foreach ($entities as $entity) {
+      if (!$entity instanceof MediaInterface) {
+        continue;
+      }
+
+      $bundle = $entity->bundle();
+      if ($bundle === 'visite_guided') {
+        if ($entity->hasField('field_media_link') && !$entity->get('field_media_link')->isEmpty()) {
+          $virtualTourUrl = (string) ($entity->get('field_media_link')->first()->getUrl()->toString() ?? '');
+        }
+        continue;
+      }
+
+      if ($bundle === 'file') {
+        if ($entity->hasField('field_media_file') && !$entity->get('field_media_file')->isEmpty()) {
+          $planUrl = \Drupal::service('file_url_generator')->generateAbsoluteString(
+            $entity->get('field_media_file')->entity->getFileUri()
+          );
+        }
+        continue;
+      }
+
+      if (!in_array($bundle, ['image', 'gallery'], TRUE)) {
+        continue;
+      }
+
+      $uri = $this->resolvePreviewUri($entity);
+      if ($uri === NULL) {
+        continue;
+      }
+
+      $url = $styledUrls[(int) $entity->id()] ?? \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+      $images[] = [
+        'url' => $url,
+        'alt' => $entity->label() ?? '',
+        'media_id' => (string) $entity->id(),
+      ];
+      $lightboxImages[] = [
+        'url' => $url,
+        'alt' => $entity->label() ?? '',
+      ];
+      $photoCount++;
+    }
+
+    return [
+      'props' => [
+        'images' => $images,
+        'photo_count' => $photoCount,
+        'virtual_tour_url' => $virtualTourUrl,
+        'plan_url' => $planUrl,
+        'offer_id' => 0,
+      ],
+      'lightbox_images' => $lightboxImages,
+    ];
   }
 
   private function extractFileUri(MediaInterface $media, string $fieldName): ?string {

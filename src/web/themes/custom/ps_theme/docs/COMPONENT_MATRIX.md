@@ -44,17 +44,18 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 
 | Écran Figma | Composant | Couche | Notes |
 |---|---|---|---|
-| Galerie média | `media-gallery` | **PS** | `field_media_gallery`, carousel G |
-| Titre + référence + badges | `offer-header` | **PS** | `field_commercial_title`, `field_reference` |
-| KPI bar (surface, prix, dispo) | `offer-kpi-bar` | **PS** | `field_surfaces`, `field_budget_*` |
-| Description | body field | Drupal | View mode full |
-| Caractéristiques | `feature-list` | **PS** | `ps_feature` field formatter |
-| Diagnostics DPE/GES | `diagnostic-badge` | **PS** | `ps_diagnostic` |
-| Plan / documents | `document-list` | **PS** | `field_media_document` |
-| Carte localisation | map pin | **PS** | `field_geo`, `field_address` |
-| Contact agent | `agent-contact-card` | **PS** | `ps_agent` entity |
+| Galerie média | `media-gallery-hero` + `gallery-lightbox` | **PS** SDC | `field_media_gallery`, formatter hero |
+| Titre + référence + badges | Layout Builder field blocks | Config | `node.offer.full` |
+| KPI bar (surface, prix, dispo) | formatters budget + location | **M** | `ps_offer_budget_display`, `ps_offer_location_summary` |
+| Description | `ps_offer_description` | **M** | View mode `full` |
+| Caractéristiques | `feature_default` grouped | **M** | `ps_feature` group_filter par section |
+| Diagnostics DPE/GES | `diagnostic_item_default` | **M** | `ps_diagnostic` |
+| Plan / documents | `ps_offer_detail_actions` block | **M** | `field_media_document` |
+| Carte localisation | `offer-map-interactive` | **PS** SDC | `ps_offer_geo_interactive` + Google Maps API |
+| Contact conseiller | `agent-sidebar-card` | **PS** SDC | `offer_contact` webform via AJAX modal (`ps_form.offer_contact_modal`) |
+| Contact agent | `agent-sidebar-card` | **PS** SDC | `ps_agent.card` + contact modal + visit `tel:` (labels via formatter settings, translatable in Configuration translation) |
 | Favoris / partage / brochure | actions bar | **PS** | `ps_favorite` + download |
-| Offres similaires | `offer-card` carousel | **PS** | View relationnelle |
+| Offres similaires | `offer-card` carousel | **PS** | View relationnelle (phase ultérieure) |
 
 ## Composants génériques existants (`ui_suite_bnp`)
 

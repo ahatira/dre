@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.ps_surface_division.table_row
+  module:
+    - options
+    - ps_surface
+id: ps_surface_division.ps_surface_division.table_row
+targetEntityType: ps_surface_division
+bundle: ps_surface_division
+mode: table_row
+content:
+  division_reference:
+    type: string
+    weight: 0
+    label: hidden
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  division_label:
+    type: string
+    weight: 1
+    label: hidden
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  surfaces:
+    type: ps_surface_item_default
+    weight: 2
+    label: hidden
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  division_status:
+    type: list_default
+    weight: 3
+    label: hidden
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  availability_text: true
+  checksum: true
+  created: true
+  internal_lock: true
+  langcode: true
+  source_tracking: true

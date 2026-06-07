@@ -35,7 +35,6 @@
     "drupal/edit_media_modal": "*",
     "drupal/editor_advanced_link": "*",
     "drupal/entity_embed": "*",
-    "drupal/extlink": "*",
     "drupal/linkit": "*",
     "drupal/pathologic": "*",
     "drupal/token_filter": "*"

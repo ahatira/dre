@@ -16,10 +16,10 @@ default:
       value: true
   title:
     -
-      value: 'Our websites'
+      value: 'Business websites'
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_business
   link:
     -
       uri: 'route:<nolink>'
@@ -33,7 +33,7 @@ default:
       value: false
   weight:
     -
-      value: 20
+      value: 0
   expanded:
     -
       value: true
@@ -53,10 +53,10 @@ translations:
         value: true
     title:
       -
-        value: 'Nos sites'
+        value: 'Sites métier'
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_business
     link:
       -
         uri: 'route:<nolink>'
@@ -70,7 +70,7 @@ translations:
         value: false
     weight:
       -
-        value: 20
+        value: 0
     expanded:
       -
         value: true

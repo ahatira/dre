@@ -16,10 +16,10 @@ default:
       value: true
   title:
     -
-      value: Contact
+      value: 'About BNP Paribas Real Estate'
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_about
   link:
     -
       uri: 'route:<nolink>'
@@ -53,10 +53,10 @@ translations:
         value: true
     title:
       -
-        value: Contact
+        value: 'About BNP Paribas Real Estate'
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_about
     link:
       -
         uri: 'route:<nolink>'

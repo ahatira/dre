@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: ps_footer_social
-label: 'Footer social'
-description: 'Follow us links with icons.'
-locked: false

@@ -46,6 +46,70 @@ final class Block {
   }
 
   /**
+   * Footer social — map social_media_links block to footer-social SDC.
+   */
+  #[Hook('preprocess_block__ps_theme_footer_social')]
+  public function preprocessFooterSocial(array &$variables): void {
+    $configuration = $variables['configuration'] ?? [];
+    $platforms = $configuration['platforms'] ?? [];
+    if ($platforms === []) {
+      return;
+    }
+
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $copy = [
+      'title' => ['en' => 'Follow us', 'fr' => 'Suivez-nous'],
+      'linkedin' => ['en' => 'LinkedIn', 'fr' => 'LinkedIn'],
+      'email' => ['en' => 'Email alerts', 'fr' => 'Alertes email'],
+    ];
+    $title = $copy['title'][$langcode] ?? $copy['title']['en'];
+
+    $icon_map = [
+      'linkedin' => 'linkedin',
+      'email' => 'mail-outline',
+    ];
+    $url_builders = [
+      'linkedin' => static fn(string $value): string => 'https://www.linkedin.com/' . ltrim($value, '/'),
+      'email' => static fn(string $value): string => 'mailto:' . $value,
+    ];
+
+    $platform_ids = array_keys($platforms);
+    usort($platform_ids, static function (string $a, string $b) use ($platforms): int {
+      return ((int) ($platforms[$a]['weight'] ?? 0)) <=> ((int) ($platforms[$b]['weight'] ?? 0));
+    });
+
+    $links = [];
+    foreach ($platform_ids as $platform_id) {
+      $platform = $platforms[$platform_id];
+      $value = trim((string) ($platform['value'] ?? ''));
+      if ($value === '' || !isset($icon_map[$platform_id], $url_builders[$platform_id])) {
+        continue;
+      }
+
+      $attributes = '';
+      if ($platform_id === 'linkedin') {
+        $attributes = 'target="_blank" rel="noopener noreferrer"';
+      }
+
+      $links[] = [
+        'title' => $copy[$platform_id][$langcode] ?? $copy[$platform_id]['en'] ?? (string) ($platform['description'] ?? $platform_id),
+        'url' => $url_builders[$platform_id]($value),
+        'icon' => $icon_map[$platform_id],
+        'attributes' => $attributes,
+      ];
+    }
+
+    if ($links === []) {
+      return;
+    }
+
+    $variables['ps_footer_social'] = [
+      'title' => $title,
+      'links' => $links,
+    ];
+  }
+
+  /**
    * Footer branding — swap logo to footer wordmark asset.
    */
   #[Hook('preprocess_block__ps_theme_footer_branding')]

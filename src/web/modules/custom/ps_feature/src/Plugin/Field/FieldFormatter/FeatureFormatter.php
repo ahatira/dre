@@ -49,6 +49,7 @@ class FeatureFormatter extends FormatterBase {
       'hide_disabled_flags' => TRUE,
       'show_flag_text' => TRUE,
       'group_order' => '',
+      'group_filter' => '',
     ] + parent::defaultSettings();
   }
 
@@ -96,6 +97,19 @@ class FeatureFormatter extends FormatterBase {
     foreach ($group_entities as $group_entity) {
       $group_help_lines[] = $group_entity->id() . ' (' . $group_entity->label() . ')';
     }
+
+    $group_filter_options = ['' => $this->t('- All groups -')];
+    foreach ($group_entities as $group_entity) {
+      $group_filter_options[$group_entity->id()] = $group_entity->label();
+    }
+
+    $elements['group_filter'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Filter by group'),
+      '#description' => $this->t('When set, only features from this group are rendered.'),
+      '#options' => $group_filter_options,
+      '#default_value' => (string) $this->getSetting('group_filter'),
+    ];
 
     $elements['hide_disabled_flags'] = [
       '#type' => 'checkbox',
@@ -230,6 +244,11 @@ class FeatureFormatter extends FormatterBase {
       $summary[] = $this->t('Grouped order: automatic');
     }
 
+    $group_filter = (string) $this->getSetting('group_filter');
+    if ($group_filter !== '') {
+      $summary[] = $this->t('Group filter: @group', ['@group' => $group_filter]);
+    }
+
     return $summary;
   }
 
@@ -243,10 +262,11 @@ class FeatureFormatter extends FormatterBase {
     $hide_disabled_flags = $this->getSetting('hide_disabled_flags');
     $show_flag_text = $this->getSetting('show_flag_text');
     $group_order = $this->parseGroupOrderSetting((string) $this->getSetting('group_order'));
+    $group_filter = (string) $this->getSetting('group_filter');
 
     if ($format_style === 'grouped') {
       return [
-        0 => $this->buildGroupedElements($items, $show_label, $hide_disabled_flags, $show_flag_text, $group_order),
+        0 => $this->buildGroupedElements($items, $show_label, $hide_disabled_flags, $show_flag_text, $group_order, $group_filter),
       ];
     }
 
@@ -256,6 +276,10 @@ class FeatureFormatter extends FormatterBase {
       $feature_definition = $item->getFeatureDefinition();
       
       if (!$feature_definition) {
+        continue;
+      }
+
+      if ($group_filter !== '' && $feature_definition->getGroup() !== $group_filter) {
         continue;
       }
 
@@ -389,7 +413,7 @@ class FeatureFormatter extends FormatterBase {
   /**
    * Builds grouped render arrays by feature group.
    */
-  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, bool $show_flag_text, array $group_order): array {
+  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, bool $show_flag_text, array $group_order, string $group_filter = ''): array {
     $grouped_elements = [];
     $group_storage = \Drupal::entityTypeManager()->getStorage('fb_feature_group');
     $group_order_positions = array_flip($group_order);
@@ -397,6 +421,10 @@ class FeatureFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $feature_definition = $item->getFeatureDefinition();
       if (!$feature_definition) {
+        continue;
+      }
+
+      if ($group_filter !== '' && $feature_definition->getGroup() !== $group_filter) {
         continue;
       }
 
@@ -431,7 +459,10 @@ class FeatureFormatter extends FormatterBase {
           'order_position' => $group_order_positions[$group_id] ?? PHP_INT_MAX,
           'render' => [
             '#type' => 'container',
-            '#attributes' => ['class' => ['feature-grouped-group']],
+            '#attributes' => [
+              'class' => ['feature-grouped-group'],
+              'data-feature-group' => $group_id,
+            ],
             'title' => [
               '#type' => 'html_tag',
               '#tag' => 'h3',

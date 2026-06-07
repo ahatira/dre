@@ -144,7 +144,7 @@ Array
 
 ### 7. Modules Contrib Installés
 **Test**: Vérification des packages Composer  
-**Commande**: `composer show drupal/* | grep -E "(linkit|anchor|editor_advanced|blazy|slick|pathologic|token_filter|extlink)"`  
+**Commande**: `composer show drupal/* | grep -E "(linkit|anchor|editor_advanced|blazy|slick|pathologic|token_filter)"`  
 **Résultat**: ✅ SUCCÈS (implicite - installation réussie)  
 
 **Modules contrib présents**:
@@ -152,13 +152,12 @@ Array
 - drupal/blazy (3.0.17)
 - drupal/editor_advanced_link (2.3.4)
 - drupal/entity_embed (1.6.0)
-- drupal/extlink (2.0.5)
 - drupal/linkit (7.0.15)
 - drupal/pathologic (2.0.0)
 - drupal/slick (3.0.7)
 - drupal/token_filter (2.2.1)
 
-**Validation**: 9 modules contrib Drupal 11 compatibles installés et prêts.
+**Validation**: 8 modules contrib Drupal 11 compatibles installés et prêts.
 
 ---
 

@@ -15,7 +15,7 @@ default:
       value: 'Created new Custom menu link'
   enabled:
     -
-      value: true
+      value: false
   title:
     -
       value: 'Email us'

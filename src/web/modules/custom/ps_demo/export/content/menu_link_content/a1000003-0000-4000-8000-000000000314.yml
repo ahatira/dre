@@ -1,0 +1,57 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000003-0000-4000-8000-000000000314
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    a1000003-0000-4000-8000-000000000301: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Sustainability'
+  menu_name:
+    -
+      value: ps_footer_about
+  link:
+    -
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/sustainability/'
+      title: null
+      options:
+        attributes:
+          target: _blank
+          rel: 'noopener noreferrer'
+  weight:
+    -
+      value: 30
+  parent:
+    -
+      value: 'menu_link_content:a1000003-0000-4000-8000-000000000301'
+translations:
+  fr:
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Développement durable'
+    menu_name:
+      -
+        value: ps_footer_about
+    link:
+      -
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/sustainability/'
+        title: null
+        options:
+          attributes:
+            target: _blank
+            rel: 'noopener noreferrer'
+    weight:
+      -
+        value: 30
+    parent:
+      -
+        value: 'menu_link_content:a1000003-0000-4000-8000-000000000301'

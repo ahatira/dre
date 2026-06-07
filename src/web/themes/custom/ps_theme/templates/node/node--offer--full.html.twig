@@ -1,0 +1,15 @@
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    'node--view-mode-' ~ view_mode|clean_class,
+    'ps-offer-detail',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  <div class="ps-offer-detail__content">
+    {{ content }}
+  </div>
+</article>

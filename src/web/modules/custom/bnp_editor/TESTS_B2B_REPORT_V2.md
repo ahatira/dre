@@ -127,14 +127,14 @@ drush role:perm:add ps_admin 'use text format full_html,use text format basic_ht
 ```
 The following module(s) will be installed: 
 bnp_editor, anchor_link, blazy, editor_advanced_link, 
-extlink, linkit, pathologic, slick, token_filter
+linkit, pathologic, slick, token_filter
 
 [success] Module bnp_editor has been installed.
 [success] Translations imported: 316 added, 20 updated, 0 removed.
 ```
 
 **Validation**:
-- ✅ 10 modules installés (bnp_editor + 9 contrib)
+- ✅ 9 modules installés (bnp_editor + 8 contrib)
 - ✅ 316 traductions FR importées
 - ✅ Aucune erreur ou warning
 
@@ -303,13 +303,12 @@ languages:
 | Blazy | blazy | 3.0.17 | Media |
 | Editor Advanced Link | editor_advanced_link | 2.3.4 | CKEditor Plugin |
 | Entity Embed | entity_embed | 1.6.0 | CKEditor Plugin |
-| External Links | extlink | 2.0.5 | Filter |
 | Linkit | linkit | 7.0.15 | Autocomplete |
 | Pathologic | pathologic | 2.0.0 | Filter |
 | Slick | slick | 3.0.7 | Formatter |
 | Token Filter | token_filter | 2.2.1 | Filter |
 
-**Validation**: ✅ 10 modules opérationnels (1 custom + 9 contrib)
+**Validation**: ✅ 9 modules opérationnels (1 custom + 8 contrib)
 
 ---
 
@@ -479,7 +478,6 @@ drush config:set editor.editor.full_html settings.toolbar.items.0 'bold'
    ```
    - Linkit: /admin/config/content/linkit
    - Entity Embed: /admin/config/content/embed
-   - Extlink: /admin/config/user-interface/extlink
    - Pathologic: /admin/config/content/formats (per-format)
    ```
 
@@ -656,7 +654,6 @@ dependencies:
   - drupal:blazy
   - drupal:editor_advanced_link
   - drupal:entity_embed
-  - drupal:extlink
   - drupal:linkit
   - drupal:pathologic
   - drupal:slick
@@ -698,13 +695,12 @@ drush role:perm:add ps_admin 'use text format full_html,use text format basic_ht
 ```
 The following module(s) will be installed: 
 bnp_editor, anchor_link, blazy, editor_advanced_link, 
-extlink, linkit, pathologic, slick, token_filter
+linkit, pathologic, slick, token_filter
 
 [success] Module bnp_editor has been installed.
 [success] Module anchor_link has been installed.
 [success] Module blazy has been installed.
 [success] Module editor_advanced_link has been installed.
-[success] Module extlink has been installed.
 [success] Module linkit has been installed.
 [success] Module pathologic has been installed.
 [success] Module slick has been installed.
@@ -716,7 +712,7 @@ extlink, linkit, pathologic, slick, token_filter
 [notice] Translations imported: 316 added, 20 updated, 0 removed.
 ```
 
-**Validation**: ✅ Installation en 1 commande avec 9 modules contrib + traductions FR automatiques.
+**Validation**: ✅ Installation en 1 commande avec 8 modules contrib + traductions FR automatiques.
 
 ---
 
@@ -728,7 +724,6 @@ extlink, linkit, pathologic, slick, token_filter
 ```
 CKEditor      CKEditor Anchor Link (anchor_link)    Enabled   3.0.4
 Blazy         Blazy (blazy)                         Enabled   3.0.17
-User interface External Links (extlink)              Enabled   2.0.5
 User interface Linkit (linkit)                       Enabled   7.0.15
 Input filters Pathologic (pathologic)               Enabled   2.0.0
 Slick         Slick (slick)                         Enabled   3.0.7
@@ -736,7 +731,7 @@ Other         Token Filter (token_filter)           Enabled   2.2.1
 BNP           BNP Editor (bnp_editor)               Enabled   1.0.0
 ```
 
-**Validation**: ✅ 9 modules contrib + BNP Editor tous activés.
+**Validation**: ✅ 8 modules contrib + BNP Editor tous activés.
 
 ---
 
@@ -990,7 +985,6 @@ drush cr
 - ❓ Editor Advanced Link: Attributs rel, target, class
 - ❓ Anchor Link: Création d'ancres HTML
 - ❓ Entity Embed: Embed entités Drupal
-- ❓ Extlink: Icônes liens externes
 - ❓ Pathologic: Correction chemins
 - ❓ Token Filter: Remplacement tokens
 - ❓ Blazy: Lazy loading images
@@ -1028,7 +1022,6 @@ drush cr
 | blazy | 3.0.17 | ✅ | N/A | ✅ Installé |
 | editor_advanced_link | 2.3.4 | ✅ | ✅ Plugin | ✅ Installé |
 | entity_embed | 1.6.0 | ✅ | ✅ Plugin+Filter | ✅ Installé |
-| extlink | 2.0.5 | ✅ | ⚠️ Filter | ✅ Installé |
 | linkit | 7.0.15 | ✅ | ✅ Plugin | ✅ Installé |
 | pathologic | 2.0.0 | ✅ | ⚠️ Filter | ✅ Installé |
 | slick | 3.0.7 | ✅ | N/A | ✅ Installé |

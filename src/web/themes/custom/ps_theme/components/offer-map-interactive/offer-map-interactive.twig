@@ -1,0 +1,24 @@
+<div
+  class="ps-offer-map-interactive"
+  data-ps-offer-map
+  data-lat="{{ lat }}"
+  data-lng="{{ lng }}"
+  data-offer-id="{{ offer_id }}"
+  {% if address %}data-address="{{ address }}"{% endif %}
+>
+  <div class="ps-offer-map-interactive__map" data-ps-map-container role="region" aria-label="{{ address|default('Property location'|t) }}"></div>
+  <div class="ps-offer-map-interactive__panel">
+    <h3 class="ps-offer-map-interactive__title">{{ 'Show points of interest'|t }}</h3>
+    <div class="ps-offer-map-interactive__filters">
+      <label><input type="checkbox" value="transport" checked data-ps-poi-filter /> {{ 'Transports'|t }}</label>
+      <label><input type="checkbox" value="parkings" data-ps-poi-filter /> {{ 'Parkings'|t }}</label>
+      <label><input type="checkbox" value="restaurants" data-ps-poi-filter /> {{ 'Restaurants'|t }}</label>
+      <label><input type="checkbox" value="hotels" data-ps-poi-filter /> {{ 'Hotels'|t }}</label>
+    </div>
+    <div class="ps-offer-map-interactive__travel">
+      <label for="ps-offer-travel-from-{{ offer_id }}">{{ 'Calculate your travel time'|t }}</label>
+      <input id="ps-offer-travel-from-{{ offer_id }}" type="text" class="form-control" placeholder="{{ 'Your address'|t }}" data-ps-travel-from />
+      <p class="ps-offer-map-interactive__travel-result" data-ps-travel-result hidden></p>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,7 @@ default:
       value: Research
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_about
   link:
     -
       uri: 'https://www.bnpparibas-realestate.com/en-gb/research/'
@@ -64,7 +64,7 @@ translations:
         value: Research
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_about
     link:
       -
         uri: 'https://www.bnpparibas-realestate.com/en-gb/research/'

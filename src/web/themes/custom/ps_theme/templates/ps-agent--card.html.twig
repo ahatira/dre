@@ -1,0 +1,34 @@
+{%
+  set classes = [
+    'ps-agent',
+    'ps-agent--card',
+    'ps-agent-sidebar-profile',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% if content.avatar %}
+    <div class="ps-agent-sidebar-profile__avatar">
+      {{ content.avatar }}
+    </div>
+  {% endif %}
+  <div class="ps-agent-sidebar-profile__details">
+    {% if consultant_label %}
+      <p class="ps-agent-sidebar-profile__label">{{ consultant_label }} :</p>
+    {% endif %}
+    {% if content.display_name %}
+      <div class="ps-agent-sidebar-profile__name">
+        {{ content.display_name }}
+      </div>
+    {% endif %}
+    {% set phone_raw = ps_agent.phone.value|default('')|trim %}
+    {% if phone_raw %}
+      {% set phone_href = 'tel:' ~ phone_raw|replace({' ': '', '-': '', '(': '', ')': '', '.': ''}) %}
+      <div class="ps-agent-sidebar-profile__phone">
+        <span class="ps-agent-sidebar-profile__phone-icon" aria-hidden="true">
+          {{ icon('bnp_custom', 'phone', {'size': '20px'}) }}
+        </span>
+        <a href="{{ phone_href }}">{{ phone_raw }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

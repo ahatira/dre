@@ -21,7 +21,7 @@ default:
       value: 'BNP Paribas Real Estate'
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_business
   link:
     -
       uri: 'https://www.bnpparibas-realestate.com/en-gb/'
@@ -64,7 +64,7 @@ translations:
         value: 'BNP Paribas Real Estate'
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_business
     link:
       -
         uri: 'https://www.bnpparibas-realestate.com/en-gb/'

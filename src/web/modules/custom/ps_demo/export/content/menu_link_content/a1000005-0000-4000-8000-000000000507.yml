@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000005-0000-4000-8000-000000000507
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Canal de denuncias éticas'
+  menu_name:
+    -
+      value: ps_footer_legal
+  link:
+    -
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/ethics/'
+      title: null
+      options:
+        attributes:
+          target: _blank
+          rel: 'noopener noreferrer'
+  weight:
+    -
+      value: 60
+translations:
+  fr:
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Canal de dénonciation éthique'
+    menu_name:
+      -
+        value: ps_footer_legal
+    link:
+      -
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/ethics/'
+        title: null
+        options:
+          attributes:
+            target: _blank
+            rel: 'noopener noreferrer'
+    weight:
+      -
+        value: 60

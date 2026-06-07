@@ -49,6 +49,9 @@ if ! ps_drush theme:status ps_theme 2>/dev/null | grep -q Enabled; then
   ps_drush config:set -y system.theme default ps_theme
 fi
 
+ps_info "Ensuring demo dependencies..."
+ps_drush en -y ps_block ps_homepage advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some demo dependencies not available"
+
 ps_info "Enabling ps_demo and importing default content..."
 if ps_drush pm:list --status=enabled --filter=ps_demo --format=list 2>/dev/null | grep -q '^ps_demo$'; then
   ps_info "ps_demo already enabled"

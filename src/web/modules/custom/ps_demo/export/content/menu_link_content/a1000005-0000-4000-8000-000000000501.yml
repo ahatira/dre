@@ -16,13 +16,13 @@ default:
       value: true
   title:
     -
-      value: 'Legal notice'
+      value: 'Data protection'
   menu_name:
     -
       value: ps_footer_legal
   link:
     -
-      uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+      uri: 'https://www.bnpparibas-realestate.com/en-gb/privacy-policy/'
       title: null
       options:
         attributes:
@@ -56,13 +56,13 @@ translations:
         value: true
     title:
       -
-        value: 'Mentions légales'
+        value: 'Données personnelles'
     menu_name:
       -
         value: ps_footer_legal
     link:
       -
-        uri: 'https://www.bnpparibas-realestate.com/en-gb/legal-notice/'
+        uri: 'https://www.bnpparibas-realestate.com/en-gb/privacy-policy/'
         title: null
         options:
           attributes:

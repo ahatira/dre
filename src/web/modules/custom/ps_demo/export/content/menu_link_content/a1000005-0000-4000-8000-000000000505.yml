@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1000005-0000-4000-8000-000000000505
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Sitemap'
+  menu_name:
+    -
+      value: ps_footer_legal
+  link:
+    -
+      uri: 'internal:/sitemap'
+      title: null
+      options:
+        attributes:
+          target: _blank
+          rel: 'noopener noreferrer'
+  weight:
+    -
+      value: 40
+translations:
+  fr:
+    enabled:
+      -
+        value: true
+    title:
+      -
+        value: 'Plan du site'
+    menu_name:
+      -
+        value: ps_footer_legal
+    link:
+      -
+        uri: 'internal:/sitemap'
+        title: null
+        options:
+          attributes:
+            target: _blank
+            rel: 'noopener noreferrer'
+    weight:
+      -
+        value: 40

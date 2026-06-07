@@ -1,7 +1,13 @@
 {#
 /**
  * @file
- * Footer social block — flat wrapper for column layout.
+ * Footer Follow us — social_media_links block rendered via footer-social SDC.
  */
 #}
 {% extends "block--bare.html.twig" %}
+
+{% block content %}
+  {% if ps_footer_social %}
+    {{ include('ps_theme:footer-social', ps_footer_social, with_context = false) }}
+  {% endif %}
+{% endblock %}

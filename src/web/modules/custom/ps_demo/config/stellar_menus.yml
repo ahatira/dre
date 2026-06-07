@@ -490,35 +490,8 @@ menus:
             en: { title: 'Press' }
             fr: { title: 'Presse' }
 
-  ps_footer_social:
-    - id: follow_us_heading
-      uuid: a1000004-0000-4000-8000-000000000401
-      weight: 0
-      link: { uri: 'route:<nolink>' }
-      translations:
-        en: { title: 'Follow us' }
-        fr: { title: 'Suivez-nous' }
-      children:
-        - id: social_linkedin
-          uuid: a1000004-0000-4000-8000-000000000411
-          weight: 0
-          icon: linkedin
-          link:
-            uri: 'https://www.linkedin.com/company/bnp-paribas-real-estate/'
-            options: { attributes: { target: '_blank', rel: 'noopener noreferrer', class: ['ps-footer-social__link', 'ps-footer-social__link--linkedin'] } }
-          translations:
-            en: { title: 'LinkedIn' }
-            fr: { title: 'LinkedIn' }
-        - id: social_email
-          uuid: a1000004-0000-4000-8000-000000000412
-          weight: 10
-          icon: mail-outline
-          link:
-            uri: 'mailto:contact@bnpparibas-realestate.com'
-            options: { attributes: { class: ['ps-footer-social__link', 'ps-footer-social__link--mail'] } }
-          translations:
-            en: { title: 'Email alerts' }
-            fr: { title: 'Alertes email' }
+  # Follow us: social_media_links block (ps_theme_footer_social), not a menu.
+  # Config: ps_theme/config/install/block.block.ps_theme_footer_social.yml
 
   ps_account:
     - id: account_home

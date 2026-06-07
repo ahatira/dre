@@ -1,0 +1,25 @@
+name: Gallery lightbox
+description: 'Modal photo gallery with thumbnails for offer pages.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    images:
+      type: array
+      title: Images
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+          alt:
+            type: string
+    modal_id:
+      type: string
+      title: Modal ID
+      default: ps-offer-gallery-lightbox
+    initial_index:
+      type: integer
+      title: Initial image index
+      default: 0

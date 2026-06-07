@@ -21,7 +21,7 @@ default:
       value: 'Contact form'
   menu_name:
     -
-      value: ps_footer_main
+      value: ps_footer_about
   link:
     -
       uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'
@@ -64,7 +64,7 @@ translations:
         value: 'Formulaire de contact'
     menu_name:
       -
-        value: ps_footer_main
+        value: ps_footer_about
     link:
       -
         uri: 'https://www.bnpparibas-realestate.com/en-gb/contact-us/'

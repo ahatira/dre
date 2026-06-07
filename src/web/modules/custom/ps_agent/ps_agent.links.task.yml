@@ -8,6 +8,6 @@ entity.ps_agent_type.edit_form:
 
 entity.ps_agent_type.collection:
   route_name: entity.ps_agent_type.collection
-  base_route: entity.ps_agent_type.edit_form
+  base_route: entity.ps_agent_type.collection
   title: 'List'
   weight: 10

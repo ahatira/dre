@@ -10,3 +10,6 @@ services:
       - '@extension.list.module'
       - '@renderer'
       - '@file_url_generator'
+
+  Drupal\ps_agent\Hook\AgentThemeHooks:
+    class: Drupal\ps_agent\Hook\AgentThemeHooks

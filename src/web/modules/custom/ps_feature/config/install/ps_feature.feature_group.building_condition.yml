@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: building_condition
+label: 'Building condition'
+description: 'Condition of building and premises.'
+asset_types: {  }
+weight: 2
