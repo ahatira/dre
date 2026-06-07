@@ -48,9 +48,10 @@ final class OfferSectionRegistry {
       return '';
     }
 
-    $stored = trim((string) ($this->config()->get("sections.$section_id.label") ?? ''));
-    if ($stored !== '') {
-      return $stored;
+    $sectionConfig = $this->getSectionConfig($section_id);
+    if ($sectionConfig !== NULL) {
+      $stored = trim((string) ($sectionConfig['label'] ?? ''));
+      return $stored !== '' ? $stored : $plugin->getDefaultLabel();
     }
 
     $legacy = $this->getLegacyLabel($section_id);
@@ -65,20 +66,22 @@ final class OfferSectionRegistry {
    * Returns the resolved icon pack:id for a section.
    */
   public function getIconId(string $section_id): string {
-    $plugin = $this->getPlugin($section_id);
-    $fallback = $plugin?->getDefaultIcon() ?? '';
+    if ($this->getPlugin($section_id) === NULL) {
+      return '';
+    }
 
-    $stored = trim((string) ($this->config()->get("sections.$section_id.icon") ?? ''));
-    if ($stored !== '') {
-      return IconIdUtility::normalizeStoredIcon($stored, $fallback);
+    $sectionConfig = $this->getSectionConfig($section_id);
+    if ($sectionConfig !== NULL) {
+      $stored = trim((string) ($sectionConfig['icon'] ?? ''));
+      return $stored !== '' ? IconIdUtility::normalizeStoredIcon($stored, '') : '';
     }
 
     $legacy = $this->getLegacyIconId($section_id);
     if ($legacy !== '') {
-      return IconIdUtility::normalizeStoredIcon($legacy, $fallback);
+      return IconIdUtility::normalizeStoredIcon($legacy, '');
     }
 
-    return IconIdUtility::normalizeStoredIcon($fallback, $fallback);
+    return '';
   }
 
   /**
@@ -103,6 +106,21 @@ final class OfferSectionRegistry {
 
   private function config(): ImmutableConfig {
     return $this->configFactory->get('ps_core.offer_section_settings');
+  }
+
+  /**
+   * Returns stored section config when the section exists in settings.
+   *
+   * @return array<string, string>|null
+   *   Section config, or NULL when the section was never configured.
+   */
+  private function getSectionConfig(string $section_id): ?array {
+    $sections = (array) ($this->config()->get('sections') ?? []);
+    if (!isset($sections[$section_id]) || !is_array($sections[$section_id])) {
+      return NULL;
+    }
+
+    return $sections[$section_id];
   }
 
   /**

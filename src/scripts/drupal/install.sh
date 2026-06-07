@@ -136,6 +136,15 @@ if [[ ${ENABLE_DEV} -eq 1 ]]; then
   ps_success "Development modules enabled"
 fi
 
+# French language before PS modules so config/install/language/fr/*.yml overrides apply.
+ps_info "Ensuring French language..."
+if ps_drush language:info | grep -q "French (fr)"; then
+  ps_info "French already enabled"
+else
+  ps_drush language:add fr --skip-translations -y
+  ps_success "French language added"
+fi
+
 # Enable custom PS modules (specific order)
 ps_info "Enabling PS modules..."
 ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
@@ -159,15 +168,6 @@ ps_success "Anti-spam configured"
 ps_info "Assigning ps_admin role to ${ADMIN_USER}..."
 ps_drush user:role:add ps_admin "${ADMIN_USER}" -y || true
 ps_success "Role assigned"
-
-# French language
-ps_info "Ensuring French language..."
-if ps_drush language:info | grep -q "French (fr)"; then
-  ps_info "French already enabled"
-else
-  ps_drush language:add fr --skip-translations -y
-  ps_success "French language added"
-fi
 
 # Import PS module translations
 ps_info "Importing PS module translations..."

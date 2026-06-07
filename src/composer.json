@@ -113,6 +113,7 @@
     "prefer-stable": true,
     "scripts": {
         "test:offer-ref-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1",
+        "test:offer-sections-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_sections.sh 7",
         "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors",
         "test:regression:modules": "bash scripts/test/regression.sh"
     },

@@ -1,0 +1,7 @@
+name: 'PS Core test offer section'
+type: module
+description: 'Provides offer section plugins for automated tests.'
+core_version_requirement: ^11
+package: Testing
+dependencies:
+  - ps_core:ps_core

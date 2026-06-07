@@ -41,6 +41,10 @@ final class OfferSectionHeadingBuilder implements CacheableDependencyInterface {
       '#tag' => $tag,
       '#attributes' => ['class' => array_values(array_unique($title_classes))],
       'content' => $this->buildTitleContent($section_id, $options),
+      '#cache' => [
+        'tags' => $this->getCacheTags(),
+        'contexts' => $this->getCacheContexts(),
+      ],
     ];
   }
 
@@ -74,6 +78,7 @@ final class OfferSectionHeadingBuilder implements CacheableDependencyInterface {
     ];
 
     $build['#cache']['tags'] = $this->getCacheTags();
+    $build['#cache']['contexts'] = $this->getCacheContexts();
 
     return $build;
   }
@@ -106,6 +111,7 @@ final class OfferSectionHeadingBuilder implements CacheableDependencyInterface {
       'icon' => IconDefinition::getRenderable($parts['pack'] . ':' . $parts['id'], $icon_settings),
       '#cache' => [
         'tags' => $this->getCacheTags(),
+        'contexts' => $this->getCacheContexts(),
       ],
     ];
   }
@@ -121,7 +127,7 @@ final class OfferSectionHeadingBuilder implements CacheableDependencyInterface {
    * {@inheritdoc}
    */
   public function getCacheContexts(): array {
-    return [];
+    return ['languages:language_interface'];
   }
 
   /**

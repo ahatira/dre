@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\ps_offer\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 use Drupal\ps_core\Service\OfferSectionRegistry;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Configures offer detail section titles and icons.
@@ -19,17 +21,19 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
 
   public function __construct(
     ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typed_config_manager,
     private readonly OfferSectionRegistry $sectionRegistry,
   ) {
-    parent::__construct($config_factory);
+    parent::__construct($config_factory, $typed_config_manager);
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(\Symfony\Component\DependencyInjection\ContainerInterface $container): static {
+  public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('config.factory'),
+      $container->get('config.typed'),
       $container->get('ps_core.section_registry'),
     );
   }
@@ -62,11 +66,11 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
       '#type' => 'details',
       '#title' => $this->t('Section headings'),
       '#open' => TRUE,
+      '#tree' => TRUE,
     ];
 
     foreach ($this->sectionRegistry->getPlugins() as $section_id => $plugin) {
       $stored = (array) ($config->get("sections.$section_id") ?? []);
-      $default_icon = $plugin->getDefaultIcon();
 
       $form['sections'][$section_id] = [
         '#type' => 'fieldset',
@@ -82,22 +86,14 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
         '#required' => TRUE,
       ];
 
-      if ($default_icon !== '') {
-        $form['sections'][$section_id]['icon'] = $this->buildIconPickerElement(
-          $this->t('Section icon'),
-          $this->getIconDefault($stored['icon'] ?? NULL, $default_icon),
-          [
-            'description' => $this->t('UI Icon shown next to the section title on offer detail pages.'),
-            'required' => TRUE,
-          ],
-        );
-      }
-      else {
-        $form['sections'][$section_id]['icon'] = [
-          '#type' => 'value',
-          '#value' => '',
-        ];
-      }
+      $form['sections'][$section_id]['icon'] = $this->buildIconPickerElement(
+        $this->t('Section icon'),
+        trim((string) ($stored['icon'] ?? '')),
+        [
+          'description' => $this->t('Optional. Leave empty to hide the icon on offer detail pages.'),
+          'required' => FALSE,
+        ],
+      );
     }
 
     return parent::buildForm($form, $form_state);
@@ -112,14 +108,9 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
     $sections = (array) $form_state->getValue('sections');
     foreach ($this->sectionRegistry->getPlugins() as $section_id => $plugin) {
       $values = (array) ($sections[$section_id] ?? []);
-      $default_icon = $plugin->getDefaultIcon();
-      if ($default_icon === '') {
-        continue;
-      }
-
       $form_state->setValue(
         ['sections', $section_id, 'icon'],
-        $this->extractIconId($values['icon'] ?? NULL, $default_icon),
+        $this->extractIconId($values['icon'] ?? NULL, ''),
       );
     }
   }
@@ -142,9 +133,6 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
       }
 
       $icon = trim((string) ($values['icon'] ?? ''));
-      if ($icon === '' && $plugin->getDefaultIcon() !== '') {
-        $icon = $plugin->getDefaultIcon();
-      }
 
       $sections[$section_id] = [
         'label' => trim((string) ($values['label'] ?? $plugin->getDefaultLabel())),

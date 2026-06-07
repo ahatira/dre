@@ -2,10 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
+    - config_translation
     - ps_core
-name: ps_core.offer_section_settings
+id: ps_core_offer_section_settings
 label: 'Offer section settings'
-mappings:
-  sections:
-    label: 'Sections'
-    translatable: true
+base_route_name: ps_offer.section_settings
+names:
+  - ps_core.offer_section_settings
+weight: 10
