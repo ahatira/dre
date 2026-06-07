@@ -1,0 +1,4 @@
+administer ps_media:
+  title: 'Administer PS Media'
+  description: 'Configure PS Media gallery and related settings.'
+  restrict access: true

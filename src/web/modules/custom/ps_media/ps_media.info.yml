@@ -10,3 +10,4 @@ dependencies:
   - drupal:link
   - drupal:field
   - drupal:image
+  - ui_icons:ui_icons

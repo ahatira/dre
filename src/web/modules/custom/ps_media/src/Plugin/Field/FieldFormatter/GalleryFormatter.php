@@ -2,14 +2,19 @@
 
 namespace Drupal\ps_media\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\media\MediaInterface;
 use Drupal\media\IFrameUrlHelper;
+use Drupal\ps_media\Service\GalleryBadgeIconResolver;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'ps_media_gallery_formatter' formatter.
@@ -24,7 +29,47 @@ use Drupal\media\IFrameUrlHelper;
  *   }
  * )
  */
-class GalleryFormatter extends EntityReferenceFormatterBase {
+class GalleryFormatter extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Constructs a GalleryFormatter instance.
+   */
+  public function __construct(
+    string $plugin_id,
+    mixed $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    private readonly GalleryBadgeIconResolver $badgeIconResolver,
+  ) {
+    parent::__construct(
+      $plugin_id,
+      $plugin_definition,
+      $field_definition,
+      $settings,
+      $label,
+      $view_mode,
+      $third_party_settings,
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
+    return new self(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('ps_media.gallery_badge_icon_resolver'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -204,6 +249,9 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
           '#create_placeholder' => TRUE,
         ];
       }
+
+      CacheableMetadata::createFromObject($this->badgeIconResolver)
+        ->applyTo($elements[0]);
 
       return $elements;
     }
@@ -413,6 +461,7 @@ class GalleryFormatter extends EntityReferenceFormatterBase {
         'slides' => $slides,
         'entry_indexes' => $entryIndexes,
         'offer_id' => 0,
+        'badge_icons' => $this->badgeIconResolver->resolve(),
       ],
       'slides' => $slides,
       'entry_indexes' => $entryIndexes,

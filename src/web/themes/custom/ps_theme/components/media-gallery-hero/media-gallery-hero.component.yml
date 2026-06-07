@@ -47,6 +47,38 @@ props:
       type: string
       title: Offer entity type
       default: node
+    badge_icons:
+      type: object
+      title: Gallery badge icons
+      properties:
+        photos:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        videos:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        visit_3d:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        plan:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
 slots:
   favorite:
     title: Favorite action

@@ -4,6 +4,17 @@
     slides is empty ? 'ps-media-gallery-hero--empty',
   ]
 %}
+{%
+  set badge_icon_defaults = {
+    photos: {pack: 'bnp_custom', id: 'camera'},
+    videos: {pack: 'bnp_custom', id: 'video'},
+    visit_3d: {pack: 'bnp_custom', id: 'visite-guidee'},
+    plan: {pack: 'bnp_custom', id: 'floors'},
+  }
+%}
+{%
+  set icons = badge_icons|default(badge_icon_defaults)
+%}
 <div class="{{ classes|join(' ') }}" data-ps-gallery-hero>
   {% if favorite %}
     <div class="ps-media-gallery-hero__favorite">
@@ -41,7 +52,7 @@
       {% if photo_count > 0 %}
         <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--photos" data-ps-gallery-open data-ps-gallery-entry="photos">
           <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
-            {{ icon('bnp_custom', 'camera', {'size': '20px'}) }}
+            {{ icon(icons.photos.pack, icons.photos.id, {'size': '20px'}) }}
           </span>
           <span class="ps-media-gallery-hero__badge-label">{{ photo_count }} {{ 'photos'|t }}</span>
         </button>
@@ -49,7 +60,7 @@
       {% if video_count > 0 %}
         <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--video" data-ps-gallery-open data-ps-gallery-entry="video">
           <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
-            {{ icon('bnp_custom', 'video', {'size': '20px'}) }}
+            {{ icon(icons.videos.pack, icons.videos.id, {'size': '20px'}) }}
           </span>
           <span class="ps-media-gallery-hero__badge-label">
             {{ video_count == 1 ? 'Video'|t : '@count videos'|t({'@count': video_count}) }}
@@ -59,7 +70,7 @@
       {% if has_visit_3d %}
         <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--visit" data-ps-gallery-open data-ps-gallery-entry="visit_3d">
           <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
-            {{ icon('bnp_custom', 'visite-guidee', {'size': '20px'}) }}
+            {{ icon(icons.visit_3d.pack, icons.visit_3d.id, {'size': '20px'}) }}
           </span>
           <span class="ps-media-gallery-hero__badge-label">{{ '3D visit'|t }}</span>
         </button>
@@ -67,7 +78,7 @@
       {% if has_plan %}
         <button type="button" class="ps-media-gallery-hero__badge ps-media-gallery-hero__badge--plan" data-ps-gallery-open data-ps-gallery-entry="plan">
           <span class="ps-media-gallery-hero__badge-icon" aria-hidden="true">
-            {{ icon('bnp_custom', 'floors', {'size': '20px'}) }}
+            {{ icon(icons.plan.pack, icons.plan.id, {'size': '20px'}) }}
           </span>
           <span class="ps-media-gallery-hero__badge-label">{{ 'Plan'|t }}</span>
         </button>

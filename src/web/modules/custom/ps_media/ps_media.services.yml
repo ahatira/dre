@@ -1,3 +1,7 @@
 services:
   Drupal\ps_media\Hook\PsMediaHooks:
     class: Drupal\ps_media\Hook\PsMediaHooks
+
+  ps_media.gallery_badge_icon_resolver:
+    class: Drupal\ps_media\Service\GalleryBadgeIconResolver
+    arguments: ['@config.factory']
