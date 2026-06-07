@@ -151,8 +151,12 @@ ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
 ps_retry 2 2 ps_drush en -y ps_surface
 ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
 ps_retry 2 2 ps_drush en -y bnp_media ps_media
-ps_retry 2 2 ps_drush en -y ps_offer
+# Webform contrib ships webform.webform.contact; ps_form replaces it with PS defaults.
+ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
+ps_drush entity:delete webform contact -y || true
+ps_drush config:delete webform.webform.contact -y || true
 ps_retry 2 2 ps_drush en -y ps_form
+ps_retry 2 2 ps_drush en -y ps_offer
 ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
