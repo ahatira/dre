@@ -17,4 +17,14 @@ interface SurfaceDivisionInterface extends ContentEntityInterface, RevisionableI
    */
   public function getDivisionReference(): string;
 
+  /**
+   * Returns the floor label for table display.
+   */
+  public function getFloorLabel(): string;
+
+  /**
+   * Returns the nature label for table display.
+   */
+  public function getNatureLabel(): string;
+
 }

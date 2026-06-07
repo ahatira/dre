@@ -10,7 +10,7 @@ sections:
     icon: ''
   surface_table:
     label: 'Surface table'
-    icon: 'bnp_custom:floors'
+    icon: 'bnp_custom:surface'
   location:
     label: 'Location'
     icon: 'bnp_custom:pin-map'

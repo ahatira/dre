@@ -3,3 +3,11 @@ surface-widget:
   css:
     component:
       css/ps-surface-widget.css: {}
+
+surface-division-table:
+  version: 1.0
+  js:
+    js/surface-division-table.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

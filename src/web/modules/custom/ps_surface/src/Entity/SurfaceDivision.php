@@ -75,7 +75,6 @@ final class SurfaceDivision extends ContentEntityBase implements SurfaceDivision
   use RevisionLogEntityTrait;
   use EntityProtectionTrait;
 
-
   /**
    * {@inheritdoc}
    */
@@ -86,10 +85,32 @@ final class SurfaceDivision extends ContentEntityBase implements SurfaceDivision
   /**
    * {@inheritdoc}
    */
+  public function getFloorLabel(): string {
+    if (!$this->get('floor_label')->isEmpty()) {
+      return (string) $this->get('floor_label')->value;
+    }
+
+    $label = $this->label();
+    if ($label !== '' && str_contains($label, ' - ')) {
+      return trim(explode(' - ', $label, 2)[0]);
+    }
+
+    return $label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getNatureLabel(): string {
+    return (string) ($this->get('nature_label')->value ?? '');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += static::revisionLogBaseFieldDefinitions($entity_type);
-
 
     $fields['division_reference'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Division reference'))
@@ -125,6 +146,44 @@ final class SurfaceDivision extends ContentEntityBase implements SurfaceDivision
         'type' => 'string',
         'label' => 'above',
         'weight' => 2,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['floor_label'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Floor'))
+      ->setDescription(t('Floor level for the division (e.g. RDC, R+5).'))
+      ->setRequired(FALSE)
+      ->setSettings(['max_length' => 128])
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 2,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'label' => 'above',
+        'weight' => 2,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['nature_label'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Nature'))
+      ->setDescription(t('Nature or usage label for the division (e.g. Bureaux).'))
+      ->setRequired(FALSE)
+      ->setSettings(['max_length' => 255])
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 3,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'label' => 'above',
+        'weight' => 3,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

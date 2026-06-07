@@ -13,7 +13,7 @@ use Drupal\ps_core\Plugin\OfferSection\OfferSectionBase;
  *   id = "surface_table",
  *   admin_label = @Translation("Surface table"),
  *   label = @Translation("Surface table"),
- *   default_icon = "bnp_custom:floors",
+ *   default_icon = "bnp_custom:surface",
  *   weight = 25,
  * )
  */

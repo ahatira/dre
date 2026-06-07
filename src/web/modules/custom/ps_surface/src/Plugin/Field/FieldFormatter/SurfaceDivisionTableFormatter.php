@@ -42,6 +42,9 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $plugin_id,
@@ -55,6 +58,9 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     if ($this->shouldHideForParentEntity($items->getEntity())) {
       return [];
@@ -65,11 +71,12 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
       return [];
     }
 
-    $header = [
-      $this->t('Lot'),
-      $this->t('Floor / nature'),
-      $this->t('Surface'),
-      $this->t('Availability'),
+    $columns = [
+      ['key' => 'lot', 'label' => (string) $this->t('Lot'), 'type' => 'text'],
+      ['key' => 'floor', 'label' => (string) $this->t('Floor'), 'type' => 'text'],
+      ['key' => 'nature', 'label' => (string) $this->t('Nature'), 'type' => 'text'],
+      ['key' => 'surface', 'label' => (string) $this->t('Surface'), 'type' => 'number'],
+      ['key' => 'availability', 'label' => (string) $this->t('Availability'), 'type' => 'text'],
     ];
 
     $rows = [];
@@ -77,11 +84,14 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
       if (!$entity instanceof SurfaceDivision) {
         continue;
       }
+
+      $surface = $this->getSurfaceSortData($entity);
       $rows[] = [
-        $entity->getDivisionReference(),
-        $entity->label(),
-        $this->formatSurfaceValue($entity),
-        $this->formatAvailability($entity),
+        ['content' => $entity->getDivisionReference(), 'sort_value' => $entity->getDivisionReference()],
+        ['content' => $entity->getFloorLabel(), 'sort_value' => $entity->getFloorLabel()],
+        ['content' => $entity->getNatureLabel(), 'sort_value' => $entity->getNatureLabel()],
+        ['content' => $surface['label'], 'sort_value' => (string) $surface['value']],
+        ['content' => $this->formatAvailability($entity), 'sort_value' => $this->formatAvailability($entity)],
       ];
     }
 
@@ -101,24 +111,28 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
         '#attributes' => [
           'class' => ['ps-offer-section', 'ps-offer-section--surface-table'],
         ],
+        '#attached' => [
+          'library' => ['ps_surface/surface-division-table'],
+        ],
         'title' => $title,
         'table_wrapper' => [
           '#type' => 'container',
           '#attributes' => ['class' => ['ps-surface-division-table__wrapper']],
           'table' => [
-            '#type' => 'table',
-            '#header' => $header,
+            '#theme' => 'ps_surface_division_table',
+            '#columns' => $columns,
             '#rows' => $rows,
-            '#attributes' => [
-              'class' => ['ps-surface-division-table', 'table'],
-              'id' => 'ps-surface-table',
-            ],
+            '#default_sort' => ['column' => 'lot', 'direction' => 'asc'],
+            '#table_id' => 'ps-surface-table',
           ],
         ],
       ],
     ];
   }
 
+  /**
+   * Whether the parent offer hides surface divisions (capacity-driven types).
+   */
   private function shouldHideForParentEntity(EntityInterface $entity): bool {
     if (!$entity->hasField('field_asset_type') || $entity->get('field_asset_type')->isEmpty()) {
       return FALSE;
@@ -127,12 +141,18 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
     return in_array((string) $entity->get('field_asset_type')->value, self::CAPACITY_DRIVEN_ASSET_TYPES, TRUE);
   }
 
-  private function formatSurfaceValue(SurfaceDivision $division): string {
+  /**
+   * Returns display label and numeric sort value for the division surface.
+   *
+   * @return array{label: string, value: float}
+   *   Surface display data.
+   */
+  private function getSurfaceSortData(SurfaceDivision $division): array {
     if (!$division->hasField('surfaces') || $division->get('surfaces')->isEmpty()) {
-      return '';
+      return ['label' => '', 'value' => 0.0];
     }
 
-    $fallback = '';
+    $fallback = ['label' => '', 'value' => 0.0];
     foreach ($division->get('surfaces') as $item) {
       $qualification = (string) ($item->qualification ?? '');
       $value = $item->value ?? NULL;
@@ -140,23 +160,35 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
         continue;
       }
 
-      $formatted = $this->formatSurfaceAmount((float) $value, (string) ($item->unit_code ?? 'M2'));
+      $numeric = (float) $value;
+      $formatted = $this->formatSurfaceAmount($numeric, (string) ($item->unit_code ?? 'M2'));
       if ($qualification === 'DISPO' || $qualification === '') {
-        return $formatted;
+        return ['label' => $formatted, 'value' => $numeric];
       }
-      if ($fallback === '' && ($qualification === 'TOTAL' || $qualification === 'ETREF')) {
-        $fallback = $formatted;
+      if ($fallback['label'] === '' && ($qualification === 'TOTAL' || $qualification === 'ETREF')) {
+        $fallback = ['label' => $formatted, 'value' => $numeric];
       }
     }
 
     return $fallback;
   }
 
+  /**
+   * Formats a surface amount for display (French grouping, m² or ha).
+   */
   private function formatSurfaceAmount(float $value, string $unit_code): string {
     $unit = strtolower($unit_code) === 'ha' ? 'ha' : 'm²';
-    return number_format($value, 1, ',', ' ') . ' ' . $unit;
+    $formatted = number_format($value, 1, ',', ' ');
+    if (str_ends_with($formatted, ',0')) {
+      $formatted = substr($formatted, 0, -2);
+    }
+
+    return $formatted . ' ' . $unit;
   }
 
+  /**
+   * Formats division availability for the table column.
+   */
   private function formatAvailability(SurfaceDivision $division): string {
     if (!$division->get('availability_text')->isEmpty()) {
       return (string) $division->get('availability_text')->value;

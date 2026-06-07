@@ -96,6 +96,18 @@ process:
     -
       plugin: callback
       callable: trim
+
+  floor_label:
+    -
+      plugin: callback
+      callable: trim
+      source: floor
+
+  'nature_label/value':
+    -
+      plugin: callback
+      callable: trim
+      source: nature_label
   
   # ===== STATUS =====
   division_status:

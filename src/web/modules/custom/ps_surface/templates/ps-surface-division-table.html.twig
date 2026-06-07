@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Surface division table on offer detail pages.
+ *
+ * Available variables:
+ * - columns: Column definitions (key, label, type).
+ * - rows: Row cell arrays (content, sort_value).
+ * - default_sort: Default sort column and direction.
+ * - table_id: HTML id for the table element.
+ */
+#}
+<table
+  class="ps-surface-division-table"
+  id="{{ table_id }}"
+  data-sort-column="{{ default_sort.column }}"
+  data-sort-direction="{{ default_sort.direction }}"
+>
+  <thead>
+    <tr>
+      {% for column in columns %}
+        <th scope="col">
+          <button
+            type="button"
+            class="ps-surface-division-table__sort{% if column.key == default_sort.column %} is-sort-active is-sort-{{ default_sort.direction }}{% endif %}"
+            data-sort-key="{{ column.key }}"
+            data-sort-type="{{ column.type }}"
+          >
+            <span class="ps-surface-division-table__sort-label">{{ column.label }}</span>
+            <span class="ps-surface-division-table__sort-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">
+              {%- if column.key == default_sort.column -%}
+                {{ 'Sort by @column, currently @direction.'|t({
+                  '@column': column.label,
+                  '@direction': default_sort.direction == 'asc' ? 'ascending'|t : 'descending'|t,
+                }) }}
+              {%- else -%}
+                {{ 'Sort by @column.'|t({'@column': column.label}) }}
+              {%- endif -%}
+            </span>
+          </button>
+        </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+      <tr>
+        {% for cell in row %}
+          <td data-sort-value="{{ cell.sort_value|e('html_attr') }}">{{ cell.content }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

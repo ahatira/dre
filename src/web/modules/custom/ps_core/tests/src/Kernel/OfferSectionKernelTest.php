@@ -107,7 +107,7 @@ final class OfferSectionKernelTest extends KernelTestBase {
     $registry = $this->container->get('ps_core.section_registry');
 
     $this->assertSame('', $registry->getIconId('test_icon'));
-    $this->assertSame('bnp_custom:floors', $registry->getIconId('surface_table'));
+    $this->assertSame('bnp_custom:surface', $registry->getIconId('surface_table'));
   }
 
   /**
