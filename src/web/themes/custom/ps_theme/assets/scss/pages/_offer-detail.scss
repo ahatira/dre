@@ -1,5 +1,12 @@
 $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
 
+// Offer full — hide redundant Drupal page title (structured header provides h1).
+body:has(.node--type-offer.node--view-mode-full) {
+  .block-page-title-block {
+    display: none;
+  }
+}
+
 .ps-offer-detail {
   &__content {
     display: flex;
@@ -16,8 +23,26 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     .ps-offer-layout__main-content {
       display: flex;
       flex-direction: column;
-      gap: 4rem;
       min-width: 0;
+      gap: 0;
+
+      // Frame 184 — 32px inside hero zone, 64px before description sections.
+      > * + * {
+        margin-top: 4rem;
+      }
+
+      > div:has(.ps-media-gallery-hero) + .ps-offer-detail-header {
+        margin-top: 2rem;
+      }
+
+      // Actions are embedded in header body (Frame 175) — hide legacy LB block.
+      > .ps-offer-actions {
+        display: none;
+      }
+
+      > .ps-offer-detail-header + *:not(.ps-offer-actions) {
+        margin-top: 4rem;
+      }
     }
   }
 
@@ -33,91 +58,412 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
+// ---------------------------------------------------------------------------
+// Header — reference, titles, budget KPI, location summary, meta
+// ---------------------------------------------------------------------------
+
 .ps-offer-detail-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
+  font-family: var(--re-font-family-body, 'BNPP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif);
+
+  &__zone {
+    // Frame 184 — reference (order 1) + Frame 175 body (order 2).
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
 
   &__reference {
     margin: 0;
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
     color: #777e83;
   }
 
-  &__heading {
+  &__body {
+    // Frame 175 — summary (296), meta (297), actions (298).
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
+
+  &__summary {
+    // Frame 296 — titles + location, gap 8px.
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__heading {
+    // Frame 295 — primary title then title/budget row, no extra gap.
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
   }
 
   &__title-primary,
   &__title-secondary {
     margin: 0;
-    font-size: 2rem;
+    font-size: 32px;
     font-weight: 700;
-    line-height: 2.5rem;
+    line-height: 40px;
     color: #333;
   }
 
   &__title-row {
+    // Frame 170 — headline + budget, gap 102px.
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem 6.375rem;
+    column-gap: 102px;
+    row-gap: 8px;
+    width: 100%;
   }
 
   &__title-secondary {
-    flex: 1 1 18rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 482px;
   }
 
   .ps-offer-budget {
-    flex: 0 1 auto;
+    // Figma Frame 174 — amount + qualifiers + info icon.
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 2.5rem;
     color: #333;
     text-align: right;
   }
 
-  .ps-offer-location-summary {
+  .ps-offer-budget__line {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: baseline;
+    min-width: 0;
+  }
+
+  .ps-offer-budget__amount {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .ps-offer-budget__qualifiers {
+    margin-left: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .ps-offer-budget__tooltip {
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .ps-offer-budget__info {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
     margin: 0;
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    padding: 0;
+    border: 0;
+    background: url('#{$icon-base}/generic/infos.svg') no-repeat center / contain;
+    cursor: pointer;
+  }
+
+  .ps-offer-budget__tooltip-panel {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: -20px;
+    z-index: 5;
+    min-width: 220px;
+    max-width: 300px;
+    padding: 12px;
+    border: 0;
+    background-color: #1c2d37;
+    color: #b4babe;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.08px;
+    text-align: left;
+    white-space: normal;
+
+    &.is-hidden {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 24px;
+      width: 8px;
+      height: 8px;
+      background-color: #1c2d37;
+      transform: rotate(45deg);
+    }
+  }
+
+  .ps-offer-budget__tooltip-title {
+    margin: 0 0 4px;
+    color: #b4babe;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .ps-offer-budget__tooltip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      margin: 0;
+      color: #b4babe;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+  }
+
+  .ps-offer-location-summary {
+    // Frame 172 — KPI + dot + locality.
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
     color: #333;
   }
 
+  .ps-offer-location-summary__separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #333;
+    }
+  }
+
   &__meta {
+    // Frame 297.
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 8px;
+  }
 
-    .field {
+  &__meta-item {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #333;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__body > .ps-offer-actions {
+    // Frame 298 — full width action row inside Frame 175.
+    align-self: stretch;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Actions — surface table anchor + brochure download (Frame 298)
+// ---------------------------------------------------------------------------
+
+.ps-offer-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 32px;
+  width: 100%;
+  box-sizing: border-box;
+
+  // Equal-width cells for any number of actions (1 → 100%, 2 → 50/50, etc.).
+  > * {
+    min-width: 0;
+    width: 100%;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &--secondary {
+      border: 2px solid #00915a;
+      background: #fff;
+      color: #00915a;
+
+      &:hover,
+      &:focus-visible {
+        color: #04af6e;
+        border-color: #04af6e;
+      }
+    }
+
+    &--primary {
+      border: 2px solid #00915a;
+      background: #00915a;
+      color: #fff;
+
+      &:hover,
+      &:focus-visible {
+        background: #04af6e;
+        border-color: #04af6e;
+        color: #fff;
+      }
+    }
+  }
+
+  &__surface::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: url('#{$icon-base}/generic/arrow-down.svg') no-repeat center / contain;
+  }
+
+  &__brochure {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+
+    .field,
+    .field--items,
+    .field--item,
+    .documents-container,
+    .documents-list,
+    .document-item {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      width: 100%;
+      min-width: 0;
       margin: 0;
-      font-size: 1.25rem;
-      line-height: 1.5rem;
-      color: #333;
+    }
+
+    .document-item {
+      flex: 1 1 auto;
+    }
+
+    .document-item__icon,
+    .document-item__title,
+    .document-item__meta {
+      display: none;
+    }
+
+    .document-item__content,
+    .document-item__actions {
+      display: flex;
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .document-item__download-link,
+    a {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+      min-height: 40px;
+      height: 40px;
+      padding: 0 16px;
+      border: 2px solid #00915a;
+      border-radius: 0;
+      background: #00915a;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+
+      &:hover,
+      &:focus-visible {
+        background: #007a4d;
+        border-color: #007a4d;
+        color: #fff;
+      }
     }
   }
 }
 
-.ps-offer-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-
-  > .btn,
-  > .ps-offer-actions__brochure .btn,
-  > .ps-offer-actions__brochure a {
-    flex: 1 1 0;
-    min-height: 2.5rem;
-  }
-}
+// ---------------------------------------------------------------------------
+// Sections — shared title pattern for LB blocks and field formatters
+// ---------------------------------------------------------------------------
 
 .ps-offer-section {
   margin: 0;
+
+  &:empty {
+    display: none;
+  }
 
   &__title,
   > h2,
@@ -133,8 +479,12 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
-.ps-offer-section--features + .ps-offer-section--features {
-  margin-top: -1rem;
+.feature-grouped-list:not(:has(.feature-grouped-group)) {
+  display: none;
+}
+
+.ps-offer-detail__content > div:has(.feature-grouped-list:not(:has(.feature-grouped-group))) {
+  display: none;
 }
 
 .ps-offer-section--location {
@@ -142,12 +492,23 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   background: #f9f9fb;
 
   &__address {
+    position: relative;
     margin: 0 0 1.5rem;
     padding-left: 2rem;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.5rem;
     color: #333;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.125rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: url('#{$icon-base}/generic/pin-map.svg') no-repeat center / contain;
+    }
   }
 
   &__transport-label {
@@ -162,6 +523,33 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     .feature-grouped-title {
       display: none;
     }
+
+    .feature-grouped-list,
+    .feature-grouped-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .feature-default {
+      position: relative;
+      margin: 0;
+      padding-left: 1.75rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: #333;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.125rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0;
+        background: url('#{$icon-base}/ad/bus-borders.svg') no-repeat center / contain;
+      }
+    }
   }
 
   .ps-offer-section__title::before {
@@ -174,14 +562,152 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
-.ps-offer-description--collapsible {
-  .ps-offer-description__content {
-    max-height: 9rem;
-    overflow: hidden;
+// ---------------------------------------------------------------------------
+// Description — collapsible body with read-more toggle
+// ---------------------------------------------------------------------------
+
+.ps-offer-section--description {
+  .field__label {
+    display: none;
+  }
+}
+
+.ps-offer-description {
+  // Figma Frame 186 — intro block + toggle, gap 9px.
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  width: 100%;
+
+  --ps-offer-description-line-height: 24px;
+  --ps-offer-description-lines: 6;
+  --ps-offer-description-collapsed-height: calc(var(--ps-offer-description-line-height) * var(--ps-offer-description-lines));
+  --ps-offer-description-expanded-height: none;
+  --re-color-primary: #00915a;
+
+  font-family: var(--re-font-family-body, 'BNPP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif);
+  font-size: 16px;
+  line-height: var(--ps-offer-description-line-height);
+  color: #333;
+
+  &__intro {
+    // Figma Frame 185 — title + body, gap 8px.
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
   }
 
-  &.is-expanded .ps-offer-description__content {
-    max-height: none;
+  &__title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    color: #333;
+  }
+
+  &__body {
+    position: relative;
+    width: 100%;
+  }
+
+  &__clip {
+    overflow: hidden;
+    max-height: var(--ps-offer-description-collapsed-height);
+    transition: max-height 0.4s ease;
+  }
+
+  &__content {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ps-offer-description-line-height);
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0%) 0%,
+      rgb(255 255 255 / 85%) 55%,
+      #fff 100%
+    );
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  &--collapsible.is-expanded {
+    .ps-offer-description__fade {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &--collapsible.is-fully-visible {
+    .ps-offer-description__clip {
+      max-height: none;
+    }
+
+    .ps-offer-description__fade {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    // Figma Frame 183 — link row, gap 4px.
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--re-color-primary, #00915a);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--re-color-primary-dark, #007a4d);
+    }
+  }
+
+  &__toggle-icon {
+    // Figma Icon / Generic / Arrow right — 24px, rotated 90deg (chevron down).
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask: url('#{$icon-base}/generic/arrow-right.svg') no-repeat center / contain;
+    -webkit-mask: url('#{$icon-base}/generic/arrow-right.svg') no-repeat center / contain;
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
+
+  &--collapsible.is-expanded .ps-offer-description__toggle-icon {
+    transform: rotate(-90deg);
   }
 }
 
@@ -210,24 +736,28 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
-.feature-grouped-group[data-feature-group='equipments'] .feature-grouped-title::before {
+.feature-grouped-group[data-feature-group='equipements'] .feature-grouped-title::before {
   background-image: url('#{$icon-base}/ad/equipement.svg');
 }
 
-.feature-grouped-group[data-feature-group='services'] .feature-grouped-title::before {
+.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-title::before {
   background-image: url('#{$icon-base}/ad/welcome-room.svg');
 }
 
-.feature-grouped-group[data-feature-group='building_condition'] .feature-grouped-title::before {
+.feature-grouped-group[data-feature-group='type_etat_du_batiment'] .feature-grouped-title::before {
   background-image: url('#{$icon-base}/metropole/district.svg');
 }
 
-.feature-grouped-group[data-feature-group='more_info'] .feature-grouped-title::before {
+.feature-grouped-group[data-feature-group='informations_complementaires'] .feature-grouped-title::before {
   background-image: url('#{$icon-base}/generic/infos.svg');
 }
 
-.feature-grouped-group[data-feature-group='certifications'] .feature-grouped-title::before {
+.feature-grouped-group[data-feature-group='normes_certifications_et_labels'] .feature-grouped-title::before {
   background-image: url('#{$icon-base}/metropole/medal.svg');
+}
+
+.feature-grouped-group[data-feature-group='acces_vehicules'] .feature-grouped-title::before {
+  background-image: url('#{$icon-base}/generic/pin-map.svg');
 }
 
 .feature-grouped-list {
@@ -236,11 +766,186 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   gap: 3rem;
 }
 
-.feature-grouped-group[data-feature-group='services'] .feature-grouped-list,
-.feature-grouped-group[data-feature-group='services'] > .field__items {
+.feature-grouped-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  > .feature-default,
+  > .field__items > .field__item > .feature-default {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #333;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.625rem;
+      width: 0.375rem;
+      height: 0.375rem;
+      border-radius: 50%;
+      background: var(--re-color-primary, #00915a);
+    }
+
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+
+.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-list,
+.feature-grouped-group[data-feature-group='prestations_de_service'] > .field__items,
+.feature-grouped-group[data-feature-group='prestations_de_service'] {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem 6.5rem;
+}
+
+.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-title {
+  grid-column: 1 / -1;
+}
+
+// ---------------------------------------------------------------------------
+// Energy — DPE / GES diagnostics grid
+// ---------------------------------------------------------------------------
+
+.ps-offer-section--energy {
+  > .field--label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    color: #333;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+      background: url('#{$icon-base}/ad/energy-cons.svg') no-repeat center / contain;
+    }
+  }
+
+  > .field--items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
+
+  figure.ps-diagnostic {
+    width: 100%;
+  }
+
+  figure.ps-diagnostic .ps-diagnostic__svg {
+    max-width: 100%;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Surface table — division lots
+// ---------------------------------------------------------------------------
+
+.ps-offer-section--surface-table {
+  .ps-offer-section__title::before {
+    background-image: url('#{$icon-base}/ad/floors.svg');
+  }
+
+  .ps-surface-division-table__wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ps-surface-division-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #333;
+
+    thead th {
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      text-align: left;
+      background: #f9f9fb;
+      border-bottom: 1px solid #d6dbde;
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #d6dbde;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Map — full-bleed interactive section
+// ---------------------------------------------------------------------------
+
+.ps-offer-detail {
+  .ps-offer-layout--map {
+    .layout__region--content {
+      position: relative;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Similar offers — horizontal scroll / grid
+// ---------------------------------------------------------------------------
+
+.ps-offer-section--similar {
+  margin: 0;
+
+  .ps-offer-section__title::before {
+    background-image: url('#{$icon-base}/generic/map.svg');
+  }
+
+  .ps-offer-similar__track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .ps-offer-similar__item {
+    flex: 0 0 min(85%, 20rem);
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .ps-offer-section--similar {
+    .ps-offer-similar__track {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    .ps-offer-similar__item {
+      flex: none;
+    }
+  }
 }
 
 // Hero gallery + lightbox styles: components/media-gallery-hero + gallery-lightbox.
@@ -427,6 +1132,11 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
 
 @media (min-width: 992px) {
   .ps-offer-detail {
+    .ps-offer-layout--similar {
+      margin-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
     .ps-offer-layout--main.layout--twocol-section {
       display: grid;
       align-items: start;
@@ -545,27 +1255,53 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     .ps-offer-detail-header {
       &__title-row {
         flex-direction: column;
+        column-gap: 0;
+        row-gap: 8px;
+      }
+
+      &__title-secondary {
+        max-width: none;
       }
 
       .ps-offer-budget {
+        justify-content: flex-start;
         text-align: left;
+        height: auto;
+        min-height: 40px;
+      }
+
+      .ps-offer-budget__amount {
+        white-space: normal;
+      }
+
+      .ps-offer-budget__qualifiers {
+        white-space: normal;
       }
     }
 
     .ps-offer-actions {
-      flex-direction: column;
+      grid-template-columns: 1fr;
+      gap: 16px;
 
-      > .btn,
-      > .ps-offer-actions__brochure .btn,
-      > .ps-offer-actions__brochure a {
-        flex-basis: auto;
+      &__btn,
+      &__brochure .document-item__download-link,
+      &__brochure a {
         width: 100%;
       }
     }
 
-    .feature-grouped-group[data-feature-group='services'] .feature-grouped-list,
-    .feature-grouped-group[data-feature-group='services'] > .field__items {
+    .feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-list,
+    .feature-grouped-group[data-feature-group='prestations_de_service'] > .field__items,
+    .feature-grouped-group[data-feature-group='prestations_de_service'] {
       grid-template-columns: 1fr;
+    }
+
+    .ps-offer-section--energy > .field--items {
+      grid-template-columns: 1fr;
+    }
+
+    .ps-offer-section--surface-table .ps-surface-division-table {
+      min-width: 36rem;
     }
   }
 }

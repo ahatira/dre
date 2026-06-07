@@ -139,22 +139,20 @@
 
   &__favorite {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 24px;
+    right: 24px;
     z-index: 3;
-    opacity: 0.88;
-    transition: opacity 0.25s ease;
-    animation: ps-gallery-fade-in 0.4s ease 0.1s both;
 
     .ps-favorite-button--gallery {
-      width: 3rem;
-      height: 3rem;
-      padding: 0;
+      width: 48px;
+      height: 48px;
+      padding: 4px;
       border: 0;
       border-radius: 0;
-      box-shadow: 0 2px 12px rgba(28, 45, 55, 0.18);
+      box-shadow: none;
+      background: #fff;
       justify-content: center;
-      color: #333;
+      color: #a22b66;
 
       .ps-favorite-button__text {
         display: none;
@@ -162,8 +160,8 @@
 
       .ps-favorite-button__icon {
         position: relative;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 32px;
+        height: 32px;
       }
 
       .ps-favorite-button__icon-state--active {
@@ -187,13 +185,13 @@
 
       &.is-active {
         background: #fff;
-        color: var(--re-color-secondary, #ba3075);
+        color: #a22b66;
       }
 
       &:hover,
       &:focus-visible {
         border-color: transparent;
-        color: var(--re-color-secondary, #ba3075);
+        color: #a22b66;
       }
     }
   }
@@ -208,27 +206,25 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    border: 0;
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    border-radius: 0;
-    background: #fff;
-    color: var(--re-color-primary, #00915a);
-    box-shadow: 0 2px 12px rgba(28, 45, 55, 0.14);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    width: 48px;
+    height: 48px;
+    padding: 4px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: #00915a;
+    box-shadow: none;
     cursor: pointer;
-    opacity: 0.88;
-    transition: opacity 0.25s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    animation: ps-gallery-fade-in 0.4s ease 0.1s both;
+    transition: color 0.2s ease;
 
     &:hover,
     &:focus-visible {
-      opacity: 1;
-      box-shadow: 0 4px 16px rgba(28, 45, 55, 0.2);
-      outline: 2px solid var(--re-color-primary, #00915a);
+      color: #04af6e;
+      outline: 2px solid #00915a;
       outline-offset: 2px;
     }
 
@@ -236,15 +232,14 @@
       opacity: 0.35;
       pointer-events: none;
       cursor: default;
-      box-shadow: 0 1px 6px rgba(28, 45, 55, 0.1);
     }
 
     &--prev {
-      left: 1.5rem;
+      left: 24px;
     }
 
     &--next {
-      right: 1.5rem;
+      right: 24px;
     }
   }
 
@@ -252,8 +247,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 32px;
+    height: 32px;
 
     .bnp-icon {
       display: block;
@@ -270,55 +265,61 @@
 
   &__badges {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 16px;
     left: 50%;
     z-index: 3;
     display: inline-flex;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: 0;
-    padding: 0.625rem 1.5rem;
-    background: var(--re-color-surface-muted, #f5f5f5);
-    border-radius: 999px;
-    box-shadow: 0 2px 8px rgba(28, 45, 55, 0.08);
+    gap: 7px;
+    padding: 8px 12px;
+    background: #f9f9fb;
+    border-radius: 24px;
+    box-shadow: none;
     width: max-content;
-    max-width: none;
+    max-width: calc(100% - 3rem);
     transform: translateX(-50%);
     pointer-events: auto;
     white-space: nowrap;
-    animation: ps-gallery-fade-in 0.45s ease 0.15s both;
   }
 
   &__badge {
     display: inline-flex;
     flex: 0 0 auto;
     align-items: center;
-    gap: 0.5rem;
+    gap: 4px;
     border: 0;
     border-radius: 0;
     background: transparent;
-    padding: 0.25rem 0;
+    padding: 0;
     text-decoration: none;
-    color: var(--re-color-primary, #00915a);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    color: #00915a;
+    font-size: 16px;
+    line-height: 24px;
     font-weight: 400;
     cursor: pointer;
     white-space: nowrap;
-    opacity: 1;
-    transition: opacity 0.25s ease, color 0.2s ease;
+    transition: color 0.2s ease;
 
     &:not(:last-child) {
-      padding-right: 1rem;
-      margin-right: 1rem;
-      border-right: 1px solid #d6dbde;
+      padding-right: 0;
+      margin-right: 0;
+      border-right: 0;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 22px;
+        margin-left: 7px;
+        border-right: 1px solid #b4babe;
+      }
     }
 
     &:hover,
     &:focus-visible {
-      opacity: 0.72;
-      color: var(--re-color-primary-dark, #007a4d);
+      color: #007a4d;
       outline: none;
     }
   }
@@ -328,14 +329,13 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--re-color-primary, #00915a);
-    transition: opacity 0.25s ease;
+    color: #00915a;
 
     .bnp-icon {
       display: block;
       fill: currentColor;
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 20px;
+      height: 20px;
     }
   }
 
@@ -388,8 +388,10 @@
     }
 
     &__badge:not(:last-child) {
-      padding-right: 0.75rem;
-      margin-right: 0.75rem;
+      &::after {
+        height: 22px;
+        margin-left: 7px;
+      }
     }
   }
 }

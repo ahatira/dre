@@ -1,3 +1,10 @@
+ps_offer.budget_settings:
+  title: 'Offer display settings'
+  description: 'Configure offer budget, surface and popover display labels.'
+  route_name: ps_offer.budget_settings
+  parent: ps_core.config
+  weight: 25
+
 ps_offer.reference_config:
   title: 'Offer Reference'
   description: 'Configure offer reference generation.'

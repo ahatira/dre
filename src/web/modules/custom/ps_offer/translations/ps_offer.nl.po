@@ -1,0 +1,140 @@
+# Dutch translation for ps_offer module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_offer\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Read more"
+msgstr "Lees meer"
+
+msgid "Read less"
+msgstr "Lees minder"
+
+msgid "Available :"
+msgstr "Beschikbaar :"
+
+msgid "Type of mandate :"
+msgstr "Type mandaat :"
+
+msgid "Access to the surface area table"
+msgstr "Naar het oppervlaktetabel"
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "jr"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "mnd"
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "werkplek"
+
+msgid "On request"
+msgstr "Prijs op aanvraag"
+
+msgid "TTC"
+msgstr "Incl. btw"
+
+msgid "Offer budget (composed)"
+msgstr "Aanbodbudget (samengesteld)"
+
+msgid "Budget display"
+msgstr "Budgetweergave"
+
+msgid "Configure budget popover labels and default fees text."
+msgstr "Popoverlabels en standaard honorariatext configureren."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Budget-, oppervlakte- en popoverweergavelabels configureren."
+
+msgid "Budget info popover"
+msgstr "Budget-informatie-popover"
+
+msgid "Popover title"
+msgstr "Popovertitel"
+
+msgid "HT definition"
+msgstr "HT-definitie"
+
+msgid "HC definition"
+msgstr "HC-definitie"
+
+msgid "CC definition"
+msgstr "CC-definitie"
+
+msgid "HD definition"
+msgstr "HD-definitie"
+
+msgid "Fees line prefix"
+msgstr "Prefix honorariaregel"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Voorafgegaan aan het honorariaveld of de standaardtekst."
+
+msgid "Default rental fees text"
+msgstr "Standaard honorariatext huur"
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Gebruikt wanneer het honorariaveld leeg is (huur)."
+
+msgid "Default sale fees text"
+msgstr "Standaard honorariatext verkoop"
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Gebruikt wanneer het honorariaveld leeg is (verkoop)."
+
+msgid "Budget display labels"
+msgstr "Budgetweergavelabels"
+
+msgid "On request label"
+msgstr "Label prijs op aanvraag"
+
+msgid "TTC label"
+msgstr "Label incl. btw"
+
+msgid "Info icon aria-label"
+msgstr "Aria-label info-icoon"
+
+msgid "Offer budget display"
+msgstr "Aanbodbudgetweergave"
+
+msgid "Fees (honoraires)"
+msgstr "Honoraria"
+
+msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
+msgstr "Honoraria ten laste van huurder of koper. Getoond in de budgetpopover indien ingevuld."
+
+msgid "Download the brochure"
+msgstr "Download de brochure"
+
+msgid "Surface display labels"
+msgstr "Weergavelabels oppervlakte"
+
+msgid "Divisible surface template"
+msgstr "Sjabloon deelbare oppervlakte"
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
+msgstr "Gebruik @surface als placeholder voor het minimum perceel (bijv. «Deelbaar vanaf @surface»)."
+
+msgid "Capacity unit label"
+msgstr "Label capaciteitseenheid"
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Gebruikt voor coworking-aanbiedingen (bijv. werkplekken, postes)."
+
+msgid "Surface KPI separator"
+msgstr "KPI-scheidingsteken oppervlakte"
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Scheidingsteken tussen totale oppervlakte en deelbaarheidssuffix."
+
+msgid "Offer display settings"
+msgstr "Weergave-instellingen aanbod"

@@ -9,5 +9,5 @@ configuration:
   throttle: {  }
   geocoder:
     locale: ''
-  apiKey: AIzaSyCshPl4knVJ3zqq5Rp3wRYLdtRgT7El6aM
+  apiKey: ''
   region: fr

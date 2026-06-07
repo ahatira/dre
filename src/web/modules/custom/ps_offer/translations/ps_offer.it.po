@@ -1,0 +1,140 @@
+# Italian translation for ps_offer module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_offer\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Read more"
+msgstr "Leggi di più"
+
+msgid "Read less"
+msgstr "Mostra meno"
+
+msgid "Available :"
+msgstr "Disponibile :"
+
+msgid "Type of mandate :"
+msgstr "Tipo di mandato :"
+
+msgid "Access to the surface area table"
+msgstr "Accedi alla tabella delle superfici"
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "anno"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "mese"
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "postazione"
+
+msgid "On request"
+msgstr "Prezzo su richiesta"
+
+msgid "TTC"
+msgstr "IVA incl."
+
+msgid "Offer budget (composed)"
+msgstr "Budget annuncio (composto)"
+
+msgid "Budget display"
+msgstr "Visualizzazione budget"
+
+msgid "Configure budget popover labels and default fees text."
+msgstr "Configura etichette popover e testo onorari predefinito."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Configura le etichette budget, superficie e popover dell'offerta."
+
+msgid "Budget info popover"
+msgstr "Popover informazioni budget"
+
+msgid "Popover title"
+msgstr "Titolo popover"
+
+msgid "HT definition"
+msgstr "Definizione HT"
+
+msgid "HC definition"
+msgstr "Definizione HC"
+
+msgid "CC definition"
+msgstr "Definizione CC"
+
+msgid "HD definition"
+msgstr "Definizione HD"
+
+msgid "Fees line prefix"
+msgstr "Prefisso riga onorari"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Anteposto al campo onorari o al testo predefinito."
+
+msgid "Default rental fees text"
+msgstr "Testo onorari locazione predefinito"
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Usato quando il campo onorari è vuoto (locazione)."
+
+msgid "Default sale fees text"
+msgstr "Testo onorari vendita predefinito"
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Usato quando il campo onorari è vuoto (vendita)."
+
+msgid "Budget display labels"
+msgstr "Etichette visualizzazione budget"
+
+msgid "On request label"
+msgstr "Etichetta prezzo su richiesta"
+
+msgid "TTC label"
+msgstr "Etichetta IVA incl."
+
+msgid "Info icon aria-label"
+msgstr "Etichetta aria icona info"
+
+msgid "Offer budget display"
+msgstr "Visualizzazione budget annuncio"
+
+msgid "Fees (honoraires)"
+msgstr "Onorari"
+
+msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
+msgstr "Onorari a carico dell'inquilino o dell'acquirente. Mostrati nel popover budget se compilati."
+
+msgid "Download the brochure"
+msgstr "Scarica la brochure"
+
+msgid "Surface display labels"
+msgstr "Etichette visualizzazione superficie"
+
+msgid "Divisible surface template"
+msgstr "Modello superficie divisibile"
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
+msgstr "Usare @surface come segnaposto per il lotto minimo (es. «Divisibile da @surface»)."
+
+msgid "Capacity unit label"
+msgstr "Etichetta unità di capacità"
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Utilizzato per le offerte coworking (es. postazioni, postes)."
+
+msgid "Surface KPI separator"
+msgstr "Separatore KPI superficie"
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Separatore tra superficie totale e suffisso di divisibilità."
+
+msgid "Offer display settings"
+msgstr "Impostazioni visualizzazione offerta"

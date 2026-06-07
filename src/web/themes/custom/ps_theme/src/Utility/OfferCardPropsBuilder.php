@@ -132,20 +132,9 @@ final class OfferCardPropsBuilder {
   }
 
   private function formatSurface(NodeInterface $node): ?string {
-    if (!$node->hasField('field_surfaces') || $node->get('field_surfaces')->isEmpty()) {
-      return NULL;
-    }
-
-    foreach ($node->get('field_surfaces') as $item) {
-      if ((string) ($item->qualification ?? '') !== 'TOTAL') {
-        continue;
-      }
-      $value = $item->value ?? NULL;
-      if ($value === NULL || (float) $value <= 0) {
-        return NULL;
-      }
-      $unit = strtolower((string) ($item->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
-      return number_format((float) $value, 0, ',', ' ') . ' ' . $unit;
+    if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
+      $text = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiSummary($node);
+      return $text !== '' ? $text : NULL;
     }
 
     return NULL;

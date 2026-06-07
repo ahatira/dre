@@ -84,8 +84,8 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       'format_style' => 'grouped',
       'hide_disabled_flags' => TRUE,
       'show_flag_text' => TRUE,
-      'group_order' => 'transport',
-      'group_filter' => 'transport',
+      'group_order' => 'acces_vehicules',
+      'group_filter' => 'acces_vehicules',
     ]);
     if ($transport !== []) {
       $build['transport_label'] = [

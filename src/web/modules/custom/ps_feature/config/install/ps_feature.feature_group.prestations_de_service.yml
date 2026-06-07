@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: services
+id: prestations_de_service
 label: Services
 description: 'On-site services and amenities.'
 asset_types: {  }

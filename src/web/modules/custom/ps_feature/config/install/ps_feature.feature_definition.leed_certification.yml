@@ -5,7 +5,7 @@ id: leed_certification
 label: 'LEED certification'
 description: 'LEED or equivalent environmental certification level.'
 code: LEED
-group: certifications
+group: normes_certifications_et_labels
 type_driver: text
 required_asset_types: {  }
 weight: 0

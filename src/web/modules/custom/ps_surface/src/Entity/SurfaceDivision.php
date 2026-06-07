@@ -34,7 +34,7 @@ use Drupal\ps_core\Trait\EntityProtectionTrait;
       'edit' => 'Drupal\Core\Entity\ContentEntityForm',
       'delete' => 'Drupal\Core\Entity\ContentEntityDeleteForm',
     ],
-    'access' => 'Drupal\Core\Entity\EntityAccessControlHandler',
+    'access' => 'Drupal\ps_surface\Entity\SurfaceDivisionAccessControlHandler',
     'route_provider' => [
       'html' => 'Drupal\Core\Entity\Routing\AdminHtmlRouteProvider',
     ],

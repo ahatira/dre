@@ -84,6 +84,7 @@ hidden:
   field_availability: true
   field_budget_cc: true
   field_budget_currency: true
+  field_budget_fees: true
   field_budget_ht: true
   field_budget_period: true
   field_budget_unit: true

@@ -1,0 +1,143 @@
+# French translation for ps_offer module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_offer\n"
+"POT-Creation-Date: 2026-06-07 00:00+0000\n"
+"PO-Revision-Date: 2026-06-07 00:00+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Read more"
+msgstr "Lire la suite"
+
+msgid "Read less"
+msgstr "Réduire"
+
+msgid "Available :"
+msgstr "Disponible :"
+
+msgid "Type of mandate :"
+msgstr "Type de mandat :"
+
+msgid "Access to the surface area table"
+msgstr "Accéder au tableau des surfaces"
+
+msgid "Download the brochure"
+msgstr "Télécharger la brochure"
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "an"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "mo"
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "poste"
+
+msgid "On request"
+msgstr "Prix sur demande"
+
+msgid "TTC"
+msgstr "TTC"
+
+msgid "Offer budget (composed)"
+msgstr "Budget offre (composé)"
+
+msgid "Budget display"
+msgstr "Affichage du budget"
+
+msgid "Configure budget popover labels and default fees text."
+msgstr "Configurer les libellés du popover budget, de la surface et de l'affichage offre."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Configurer les libellés budget, surface et popover de l'offre."
+
+msgid "Budget info popover"
+msgstr "Popover informations budget"
+
+msgid "Popover title"
+msgstr "Titre du popover"
+
+msgid "HT definition"
+msgstr "Définition HT"
+
+msgid "HC definition"
+msgstr "Définition HC"
+
+msgid "CC definition"
+msgstr "Définition CC"
+
+msgid "HD definition"
+msgstr "Définition HD"
+
+msgid "Fees line prefix"
+msgstr "Préfixe ligne honoraires"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Préfixé au champ honoraires de l'offre ou au texte par défaut."
+
+msgid "Default rental fees text"
+msgstr "Texte honoraires location par défaut"
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Utilisé lorsque le champ honoraires est vide (location)."
+
+msgid "Default sale fees text"
+msgstr "Texte honoraires vente par défaut"
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Utilisé lorsque le champ honoraires est vide (vente)."
+
+msgid "Budget display labels"
+msgstr "Libellés affichage budget"
+
+msgid "On request label"
+msgstr "Libellé prix sur demande"
+
+msgid "TTC label"
+msgstr "Libellé TTC"
+
+msgid "Info icon aria-label"
+msgstr "Libellé aria de l'icône info"
+
+msgid "Offer budget display"
+msgstr "Affichage budget offre"
+
+msgid "Fees (honoraires)"
+msgstr "Honoraires"
+
+msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
+msgstr "Honoraires à la charge du locataire ou de l'acquéreur. Affichés dans le popover budget lorsqu'ils sont renseignés."
+
+msgid "Surface display labels"
+msgstr "Libellés affichage surface"
+
+msgid "Divisible surface template"
+msgstr "Modèle surface divisible"
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
+msgstr "Utiliser @surface comme placeholder pour le lot minimum (ex. « Divisible dès @surface »)."
+
+msgid "Capacity unit label"
+msgstr "Libellé unité de capacité"
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Utilisé pour les offres coworking (ex. seats, postes)."
+
+msgid "Surface KPI separator"
+msgstr "Séparateur KPI surface"
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Séparateur entre la surface totale et le suffixe de divisibilité."
+
+msgid "Offer display settings"
+msgstr "Paramètres affichage offre"

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: structure_du_batiment
+label: 'Building structure'
+description: 'Structural characteristics of the building.'
+asset_types: {  }
+weight: 9

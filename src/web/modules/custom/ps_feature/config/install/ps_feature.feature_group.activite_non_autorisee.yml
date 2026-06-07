@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: activite_non_autorisee
+label: 'Restricted activities'
+description: 'Activities not permitted on the premises.'
+asset_types: {  }
+weight: 10

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - ps_agent.type.default
+    - ps_agent.ps_agent_type.default
     - image.style.agent_avatar_lg
   module:
     - focal_point

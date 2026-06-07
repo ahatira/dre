@@ -93,6 +93,9 @@ Ce module **ne fait pas** :
 | `field_budget_period` | `list_string` | Période (YEAR — location uniquement) |
 | `field_budget_ht` | `boolean` | Prix HT |
 | `field_budget_cc` | `boolean` | Charges comprises |
+| `field_budget_fees` | `string_long` | Honoraires (texte libre, popover budget) |
+
+Configuration site : `/admin/ps/config/offer-budget` (`ps_offer.settings`) — libellés popover, défauts honoraires, « Prix sur demande », TTC.
 
 #### Features & diagnostics
 

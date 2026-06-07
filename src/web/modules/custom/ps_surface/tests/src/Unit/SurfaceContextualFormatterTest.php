@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\ps_surface\Unit;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemList;
@@ -11,6 +13,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 use Drupal\ps_surface\Plugin\Field\FieldFormatter\SurfaceContextualFormatter;
 use Drupal\Tests\UnitTestCase;
 
@@ -24,7 +27,6 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
   protected function setUp(): void {
     parent::setUp();
 
-    // Minimal service container for string translation.
     $translation = $this->createMock(TranslationInterface::class);
     $translation->method('translate')->willReturnCallback(
       static fn (string $string): string => $string,
@@ -33,8 +35,22 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
       static fn (object $string): string => (string) $string,
     );
 
+    $config = $this->createMock(ImmutableConfig::class);
+    $config->method('get')->willReturnCallback(static function (string $key): mixed {
+      return match ($key) {
+        'surface_divisible_template' => 'Divisible from @surface',
+        'surface_capacity_unit' => 'seats',
+        'surface_kpi_separator' => ' · ',
+        default => NULL,
+      };
+    });
+
+    $config_factory = $this->createMock(ConfigFactoryInterface::class);
+    $config_factory->method('get')->with('ps_offer.settings')->willReturn($config);
+
     $container = new ContainerBuilder();
     $container->set('string_translation', $translation);
+    $container->set('ps_offer.surface_kpi_builder', new OfferSurfaceKpiBuilder($config_factory));
     \Drupal::setContainer($container);
   }
 
@@ -70,7 +86,6 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
   private function buildItems(array $rows, NodeInterface $node): FieldItemListInterface {
     $item_objects = array_map(static fn(array $row): object => (object) $row, $rows);
 
-    // FieldItemList (concrete class) has getIterator() as a real method — mockable via onlyMethods().
     $items = $this->getMockBuilder(FieldItemList::class)
       ->disableOriginalConstructor()
       ->onlyMethods(['getEntity', 'getIterator'])
@@ -132,16 +147,15 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
 
     $result = $formatter->viewElements($items, 'fr');
     $this->assertNotEmpty($result);
-    // formatValue() uses narrow no-break space (U+202F) as thousands separator.
-    $this->assertStringContainsString("1\u{202F}200.50", $result[0]['#markup'] ?? '');
+    $this->assertStringContainsString('1 200,5', $result[0]['#markup'] ?? '');
     $this->assertStringContainsString('m²', $result[0]['#markup'] ?? '');
-    $this->assertStringNotContainsString('Available', $result[0]['#markup'] ?? '');
+    $this->assertStringNotContainsString('Divisible', $result[0]['#markup'] ?? '');
   }
 
   /**
-   * Divisible BUR with DISPO → "{TOTAL} m² · Available: {DISPO} m²".
+   * Divisible BUR with DISPO below TOTAL → divisible suffix.
    */
-  public function testBurDivisibleShowsTotalAndDispo(): void {
+  public function testBurDivisibleShowsTotalAndMinimumLot(): void {
     $formatter = $this->buildFormatter();
     $node = $this->buildOfferNode(['field_asset_type' => 'BUR', 'field_divisible' => TRUE]);
     $items = $this->buildItems([
@@ -152,10 +166,8 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
     $result = $formatter->viewElements($items, 'fr');
     $this->assertNotEmpty($result);
     $markup = $result[0]['#markup'] ?? '';
-    // formatValue() uses narrow no-break space (U+202F) as thousands separator.
-    $this->assertStringContainsString("2\u{202F}000", $markup);
-    $this->assertStringContainsString('Available', $markup);
-    $this->assertStringContainsString("1\u{202F}500", $markup);
+    $this->assertStringContainsString('2 000', $markup);
+    $this->assertStringContainsString('Divisible from 1 500 m²', $markup);
   }
 
   /**
@@ -172,9 +184,9 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
     $result = $formatter->viewElements($items, 'fr');
     $this->assertNotEmpty($result);
     $markup = $result[0]['#markup'] ?? '';
-    $this->assertStringContainsString('5.50', $markup);
+    $this->assertStringContainsString('5,5', $markup);
     $this->assertStringContainsString('ha', $markup);
-    $this->assertStringNotContainsString('Available', $markup);
+    $this->assertStringNotContainsString('Divisible', $markup);
   }
 
   /**
@@ -192,19 +204,19 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
   }
 
   /**
-   * Divisible but DISPO is zero → no "Available" suffix.
+   * Divisible but minimum lot equals total → no suffix.
    */
-  public function testDivisibleWithZeroDispoHidesAvailableSuffix(): void {
+  public function testDivisibleWithEqualMinAndTotalHidesSuffix(): void {
     $formatter = $this->buildFormatter();
     $node = $this->buildOfferNode(['field_asset_type' => 'BUR', 'field_divisible' => TRUE]);
     $items = $this->buildItems([
       ['qualification' => 'TOTAL', 'value' => 1000.0, 'unit_code' => 'M2'],
-      ['qualification' => 'DISPO', 'value' => 0.0, 'unit_code' => 'M2'],
+      ['qualification' => 'DISPO', 'value' => 1000.0, 'unit_code' => 'M2'],
     ], $node);
 
     $result = $formatter->viewElements($items, 'fr');
     $this->assertNotEmpty($result);
-    $this->assertStringNotContainsString('Available', $result[0]['#markup'] ?? '');
+    $this->assertStringNotContainsString('Divisible', $result[0]['#markup'] ?? '');
   }
 
 }

@@ -9,8 +9,8 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferDetailActionsBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,6 +28,7 @@ final class OfferDetailActionsBlock extends BlockBase implements ContainerFactor
     $plugin_id,
     $plugin_definition,
     private readonly RouteMatchInterface $routeMatch,
+    private readonly OfferDetailActionsBuilder $actionsBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -41,6 +42,7 @@ final class OfferDetailActionsBlock extends BlockBase implements ContainerFactor
       $plugin_id,
       $plugin_definition,
       $container->get('current_route_match'),
+      $container->get('ps_offer.detail_actions_builder'),
     );
   }
 
@@ -53,36 +55,7 @@ final class OfferDetailActionsBlock extends BlockBase implements ContainerFactor
       return [];
     }
 
-    $build = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-offer-actions']],
-      'surface_link' => [
-        '#type' => 'link',
-        '#title' => $this->t('Access to the surface area table'),
-        '#url' => Url::fromUserInput('#ps-surface-table'),
-        '#attributes' => ['class' => ['btn', 'btn-outline-primary', 'ps-offer-actions__surface']],
-      ],
-    ];
-
-    if ($node->hasField('field_media_document') && !$node->get('field_media_document')->isEmpty()) {
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      $document_render = $view_builder->viewField($node->get('field_media_document'), [
-        'type' => 'ps_media_documents_formatter',
-        'label' => 'hidden',
-        'settings' => [
-          'hide_if_empty' => TRUE,
-          'show_titles' => FALSE,
-          'link_text' => (string) $this->t('Download the brochure'),
-        ],
-      ]);
-      $build['brochure'] = $document_render;
-      $build['brochure']['#attributes']['class'][] = 'ps-offer-actions__brochure';
-    }
-
-    $build['#cache']['tags'] = $node->getCacheTags();
-    $build['#cache']['contexts'] = ['route'];
-
-    return $build;
+    return $this->actionsBuilder->build($node);
   }
 
 }

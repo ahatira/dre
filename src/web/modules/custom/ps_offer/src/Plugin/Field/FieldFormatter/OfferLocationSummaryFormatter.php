@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace Drupal\ps_offer\Plugin\Field\FieldFormatter;
 
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Drupal\address\Plugin\Field\FieldFormatter\AddressPlainFormatter;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Formats surface total and locality on one line.
+ * Formats surface/capacity KPI and locality on one line.
  *
  * @FieldFormatter(
  *   id = "ps_offer_location_summary",
@@ -18,7 +25,53 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   }
  * )
  */
-final class OfferLocationSummaryFormatter extends AddressPlainFormatter {
+final class OfferLocationSummaryFormatter extends AddressPlainFormatter implements ContainerFactoryPluginInterface {
+
+  public function __construct(
+    string $plugin_id,
+    mixed $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    AddressFormatRepositoryInterface $address_format_repository,
+    CountryRepositoryInterface $country_repository,
+    SubdivisionRepositoryInterface $subdivision_repository,
+    private readonly OfferSurfaceKpiBuilder $surfaceKpiBuilder,
+  ) {
+    parent::__construct(
+      $plugin_id,
+      $plugin_definition,
+      $field_definition,
+      $settings,
+      $label,
+      $view_mode,
+      $third_party_settings,
+      $address_format_repository,
+      $country_repository,
+      $subdivision_repository,
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('address.address_format_repository'),
+      $container->get('address.country_repository'),
+      $container->get('address.subdivision_repository'),
+      $container->get('ps_offer.surface_kpi_builder'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -27,9 +80,9 @@ final class OfferLocationSummaryFormatter extends AddressPlainFormatter {
     $entity = $items->getEntity();
     $parts = [];
 
-    $surface = $this->formatSurfaceTotal($entity);
-    if ($surface !== '') {
-      $parts[] = $surface;
+    $kpi = $this->surfaceKpiBuilder->buildKpiSummary($entity);
+    if ($kpi !== '') {
+      $parts[] = $kpi;
     }
 
     foreach ($items as $item) {
@@ -53,29 +106,6 @@ final class OfferLocationSummaryFormatter extends AddressPlainFormatter {
         '#attributes' => ['class' => ['ps-offer-location-summary']],
       ],
     ];
-  }
-
-  /**
-   * Formats the TOTAL surface value for the summary line.
-   */
-  private function formatSurfaceTotal(object $entity): string {
-    if (!$entity->hasField('field_surfaces') || $entity->get('field_surfaces')->isEmpty()) {
-      return '';
-    }
-
-    foreach ($entity->get('field_surfaces') as $item) {
-      if ((string) ($item->qualification ?? '') !== 'TOTAL') {
-        continue;
-      }
-      $value = $item->value ?? NULL;
-      if ($value === NULL || (float) $value <= 0) {
-        return '';
-      }
-      $unit = strtolower((string) ($item->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
-      return number_format((float) $value, 1, ',', ' ') . ' ' . $unit;
-    }
-
-    return '';
   }
 
 }

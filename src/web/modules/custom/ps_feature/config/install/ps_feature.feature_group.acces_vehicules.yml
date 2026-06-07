@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: acces_vehicules
+label: Transport
+description: 'Vehicle access and public transport.'
+asset_types: {  }
+weight: 5

@@ -15,6 +15,8 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    border: 1px solid #d6dbde;
+    box-shadow: 0 4px 16px rgba(28, 45, 55, 0.12);
   }
 
   &__title {

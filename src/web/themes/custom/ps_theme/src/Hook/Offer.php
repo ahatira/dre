@@ -6,6 +6,7 @@ namespace Drupal\ps_theme\Hook;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\ps_theme\Utility\OfferCardPropsBuilder;
 
@@ -13,6 +14,8 @@ use Drupal\ps_theme\Utility\OfferCardPropsBuilder;
  * Offer node preprocess hooks.
  */
 final class Offer {
+
+  use StringTranslationTrait;
 
   /**
    * Implements hook_preprocess_HOOK().
@@ -66,6 +69,29 @@ final class Offer {
       $variables['attributes']['class'][] = 'container-fluid';
       $variables['attributes']['class'][] = 'px-0';
     }
+
+    if ($slug === 'similar') {
+      $variables['attributes']['class'][] = 'container';
+    }
+  }
+
+  /**
+   * Offer full diagnostics field — Energy section title and layout class.
+   */
+  #[Hook('preprocess_field')]
+  public function preprocessField(array &$variables): void {
+    if (($variables['field_name'] ?? '') !== 'field_diagnostics') {
+      return;
+    }
+
+    if (($variables['element']['#bundle'] ?? '') !== 'offer') {
+      return;
+    }
+
+    $variables['attributes']['class'][] = 'ps-offer-section';
+    $variables['attributes']['class'][] = 'ps-offer-section--energy';
+    $variables['label'] = (string) t('Energy');
+    $variables['title_attributes']['class'][] = 'ps-offer-section__title';
   }
 
 }

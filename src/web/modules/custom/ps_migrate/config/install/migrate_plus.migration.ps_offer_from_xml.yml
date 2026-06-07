@@ -146,6 +146,18 @@ source:
       name: budget_unit_code
       label: 'Budget unit code'
       selector: 'BUDGETS_LIST/BUDGET[1]/UNIT_CODE'
+    -
+      name: budget_ht
+      label: 'Budget HT flag'
+      selector: 'BUDGETS_LIST/BUDGET[1]/HT'
+    -
+      name: budget_cc
+      label: 'Budget CC flag'
+      selector: 'BUDGETS_LIST/BUDGET[1]/CC'
+    -
+      name: fees
+      label: 'Fees (honoraires)'
+      selector: FEES
   ids:
     business_id:
       type: string
@@ -494,6 +506,37 @@ process:
         GBL: GLOBAL
         POS: PER_POSTE
       bypass: true
+
+  field_budget_ht:
+    -
+      plugin: static_map
+      source: budget_ht
+      map:
+        'true': 1
+        'false': 0
+        '1': 1
+        '0': 0
+      default_value: 1
+
+  field_budget_cc:
+    -
+      plugin: static_map
+      source: budget_cc
+      map:
+        'true': 1
+        'false': 0
+        '1': 1
+        '0': 0
+      default_value: 0
+
+  field_budget_fees:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: fees
+    -
+      plugin: callback
+      callable: trim
 
   field_features:
     plugin: feature_items_from_technical_elements

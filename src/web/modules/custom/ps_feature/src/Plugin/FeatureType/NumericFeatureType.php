@@ -78,9 +78,16 @@ class NumericFeatureType extends FeatureTypeBase {
    * {@inheritdoc}
    */
   public function format(array $payload): string {
-    $value = $payload['value'] ?? 0;
-    $unit = $payload['unit'] ?? '';
-    return sprintf('%s %s', number_format($value, 2), $unit);
+    $value = $payload['value'] ?? '';
+    $unit = trim((string) ($payload['unit'] ?? ''));
+
+    if (is_numeric($value)) {
+      $formatted = rtrim(rtrim(number_format((float) $value, 2), '0'), '.');
+      return $unit !== '' ? sprintf('%s %s', $formatted, $unit) : $formatted;
+    }
+
+    $text = (string) $value;
+    return $unit !== '' ? sprintf('%s %s', $text, $unit) : $text;
   }
 
 }

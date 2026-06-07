@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.offer.field_budget_ht
     - field.field.node.offer.field_budget_period
     - field.field.node.offer.field_budget_unit
+    - field.field.node.offer.field_budget_fees
     - field.field.node.offer.field_budget_value
     - field.field.node.offer.field_business_id
     - field.field.node.offer.field_capacity_available
@@ -52,6 +53,7 @@ dependencies:
     - options
     - ps_dictionary
     - ps_media
+    - ps_offer
     - ps_surface
 id: node.offer.card_favorite
 targetEntityType: node
@@ -86,29 +88,19 @@ content:
     weight: 2
     region: content
   field_budget_value:
-    type: number_decimal
+    type: ps_offer_budget_display
     label: hidden
-    settings:
-      thousand_separator: ' '
-      decimal_separator: ','
-      scale: 0
-      prefix_suffix: false
+    settings: { }
     third_party_settings: { }
     weight: 3
-    region: content
-  field_budget_currency:
-    type: ps_dictionary_formatter
-    label: hidden
-    settings:
-      display_mode: label
-    third_party_settings: { }
-    weight: 4
     region: content
 hidden:
   body: true
   field_asset_type: true
   field_availability: true
   field_budget_cc: true
+  field_budget_currency: true
+  field_budget_fees: true
   field_budget_ht: true
   field_budget_period: true
   field_budget_unit: true

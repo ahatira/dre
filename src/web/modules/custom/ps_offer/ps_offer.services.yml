@@ -50,6 +50,16 @@ services:
   Drupal\ps_offer\Service\OfferValidationManagerInterface:
     alias: Drupal\ps_offer\Service\OfferValidationManager
 
+  ps_offer.detail_actions_builder:
+    class: Drupal\ps_offer\Service\OfferDetailActionsBuilder
+    arguments:
+      - '@entity_type.manager'
+
+  ps_offer.surface_kpi_builder:
+    class: Drupal\ps_offer\Service\OfferSurfaceKpiBuilder
+    arguments:
+      - '@config.factory'
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:

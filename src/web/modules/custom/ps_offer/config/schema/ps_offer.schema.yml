@@ -1,0 +1,60 @@
+ps_offer.settings:
+  type: config_object
+  label: 'Offer display settings'
+  mapping:
+    tooltip_title:
+      type: label
+      label: 'Popover title'
+      translatable: true
+    label_ht:
+      type: label
+      label: 'HT definition'
+      translatable: true
+    label_hc:
+      type: label
+      label: 'HC definition'
+      translatable: true
+    label_cc:
+      type: label
+      label: 'CC definition'
+      translatable: true
+    label_hd:
+      type: label
+      label: 'HD definition'
+      translatable: true
+    fees_prefix:
+      type: label
+      label: 'Fees line prefix'
+      translatable: true
+    default_fees_rental:
+      type: label
+      label: 'Default rental fees text'
+      translatable: true
+    default_fees_sale:
+      type: label
+      label: 'Default sale fees text'
+      translatable: true
+    on_request:
+      type: label
+      label: 'On request label'
+      translatable: true
+    label_ttc:
+      type: label
+      label: 'TTC label'
+      translatable: true
+    price_information:
+      type: label
+      label: 'Info icon aria-label'
+      translatable: true
+    surface_divisible_template:
+      type: label
+      label: 'Divisible surface template'
+      translatable: true
+    surface_capacity_unit:
+      type: label
+      label: 'Capacity unit label'
+      translatable: true
+    surface_kpi_separator:
+      type: label
+      label: 'Surface KPI separator'
+      translatable: true

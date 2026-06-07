@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: equipments
+id: equipements
 label: Equipments
 description: 'Building equipment and facilities.'
 asset_types: {  }

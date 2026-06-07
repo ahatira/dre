@@ -11,12 +11,12 @@ use Drupal\node\NodeInterface;
 /**
  * Contextual surface formatter driven by the offer context matrix (DEC-0022).
  *
- * Reads field_asset_type and field_divisible from the parent offer node to
- * select the appropriate display variant:
+ * Delegates to ps_offer.surface_kpi_builder when available (bnppre.fr rules):
  *
- *  - COW                  → empty (capacity-driven offer, no surface display)
- *  - TER                  → "{TOTAL} {unit}" using the item's unit_code
- *  - Others + divisible   → "{TOTAL} {unit} · Available: {DISPO} {unit}"
+ *  - COW                  → empty on the surface field (capacity shown elsewhere)
+ *  - TER                  → "{TOTAL} {unit}" only
+ *  - Others + divisible   → "{TOTAL} {unit} · Divisible from {min} {unit}"
+ *    when minimum lot (MINIM, then DISPO) is strictly below TOTAL
  *  - Others + indivisible → "{TOTAL} {unit}"
  *
  * @FieldFormatter(
@@ -29,11 +29,10 @@ use Drupal\node\NodeInterface;
  */
 final class SurfaceContextualFormatter extends FormatterBase {
 
-  /** Asset types whose offers are capacity-driven (no m² display). */
+  /**
+   * Asset types whose offers are capacity-driven (no m² on surface field).
+   */
   private const CAPACITY_DRIVEN_TYPES = ['COW'];
-
-  /** Asset types that use land-area logic (TER = terrain). */
-  private const LAND_TYPES = ['TER'];
 
   /**
    * {@inheritdoc}
@@ -41,28 +40,39 @@ final class SurfaceContextualFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $entity = $items->getEntity();
 
-    // Only process offer nodes.
     if (!$entity instanceof NodeInterface || $entity->bundle() !== 'offer') {
       return $this->renderRaw($items);
     }
 
     $asset_type = $entity->hasField('field_asset_type')
-      ? (string) ($entity->get('field_asset_type')->value ?? '')
+      ? strtoupper((string) ($entity->get('field_asset_type')->value ?? ''))
       : '';
 
-    // Capacity-driven offers: surface display is suppressed by ps_context.
-    // Return empty to avoid redundant rendering.
     if (in_array($asset_type, self::CAPACITY_DRIVEN_TYPES, TRUE)) {
       return [];
     }
 
-    $divisible = $entity->hasField('field_divisible')
-      && (bool) $entity->get('field_divisible')->value;
+    // Optional cross-module service: ps_surface must not hard-depend on ps_offer.
+    // phpcs:disable DrupalPractice.Objects.GlobalClass
+    if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
+      $text = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiSummary($entity, $items);
+      return $text !== '' ? [['#markup' => $text]] : [];
+    }
+    // phpcs:enable DrupalPractice.Objects.GlobalClass
 
-    // Index items by qualification.
+    return $this->renderFallback($items, $entity, $asset_type);
+  }
+
+  /**
+   * Fallback when ps_offer is not enabled.
+   *
+   * @return array<int, array<string, mixed>>
+   *   Render array elements.
+   */
+  private function renderFallback(FieldItemListInterface $items, NodeInterface $entity, string $asset_type): array {
     $by_qual = [];
     foreach ($items as $item) {
-      $qual = (string) ($item->qualification ?? '');
+      $qual = strtoupper((string) ($item->qualification ?? ''));
       if ($qual !== '') {
         $by_qual[$qual] = $item;
       }
@@ -73,23 +83,22 @@ final class SurfaceContextualFormatter extends FormatterBase {
       return [];
     }
 
-    $unit_code = strtolower((string) ($total->unit_code ?? 'M2'));
-    $unit_label = $unit_code === 'ha' ? 'ha' : 'm²';
+    $unit_label = strtolower((string) ($total->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
+    $text = $this->formatValue((float) $total->value) . ' ' . $unit_label;
 
-    $is_land = in_array($asset_type, self::LAND_TYPES, TRUE);
+    $is_land = $asset_type === 'TER';
+    $divisible = $entity->hasField('field_divisible') && (bool) $entity->get('field_divisible')->value;
 
-    if ($is_land || !$divisible) {
-      $text = $this->formatValue((float) $total->value) . "\u{00A0}" . $unit_label;
-    }
-    else {
-      $dispo = $by_qual['DISPO'] ?? NULL;
-      $text = $this->formatValue((float) $total->value) . "\u{00A0}" . $unit_label;
-
-      if ($dispo !== NULL && $dispo->value !== NULL && (float) $dispo->value > 0) {
-        $text .= ' · ' . $this->t(
-          'Available: @dispo @unit',
-          ['@dispo' => $this->formatValue((float) $dispo->value), '@unit' => $unit_label],
-        );
+    if (!$is_land && $divisible) {
+      foreach (['MINIM', 'DISPO'] as $qualification) {
+        $min = $by_qual[$qualification] ?? NULL;
+        if ($min !== NULL && $min->value !== NULL && (float) $min->value > 0 && (float) $min->value < (float) $total->value) {
+          $text .= ' · ' . $this->t(
+            'Divisible from @surface',
+            ['@surface' => $this->formatValue((float) $min->value) . ' ' . $unit_label],
+          );
+          break;
+        }
       }
     }
 
@@ -100,6 +109,7 @@ final class SurfaceContextualFormatter extends FormatterBase {
    * Fallback renderer used on non-offer entities (e.g. surface_division).
    *
    * @return array<int, array<string, mixed>>
+   *   Render array elements.
    */
   private function renderRaw(FieldItemListInterface $items): array {
     $elements = [];
@@ -110,7 +120,7 @@ final class SurfaceContextualFormatter extends FormatterBase {
       $qual = (string) ($item->qualification ?? '');
       $unit = strtolower((string) ($item->unit_code ?? 'M2'));
       $unit_label = $unit === 'ha' ? 'ha' : 'm²';
-      $text = ($qual !== '' ? $qual . ': ' : '') . $this->formatValue((float) $item->value) . "\u{00A0}" . $unit_label;
+      $text = ($qual !== '' ? $qual . ': ' : '') . $this->formatValue((float) $item->value) . ' ' . $unit_label;
       $elements[$delta] = ['#plain_text' => $text];
     }
     return $elements;
@@ -120,7 +130,8 @@ final class SurfaceContextualFormatter extends FormatterBase {
    * Formats a numeric surface value with a locale-appropriate separator.
    */
   private function formatValue(float $value): string {
-    return number_format($value, $value == floor($value) ? 0 : 2, '.', "\u{202F}");
+    $decimals = fmod($value, 1.0) === 0.0 ? 0 : 2;
+    return number_format($value, $decimals, ',', ' ');
   }
 
 }

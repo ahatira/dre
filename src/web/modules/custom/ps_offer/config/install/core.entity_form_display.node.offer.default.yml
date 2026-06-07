@@ -204,6 +204,14 @@ content:
     settings:
       display_label: true
     third_party_settings: { }
+  field_budget_fees:
+    type: string_textarea
+    weight: 22
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: { }
   field_address:
     type: address_default
     weight: 21
@@ -493,6 +501,7 @@ third_party_settings:
         - field_budget_currency
         - field_budget_ht
         - field_budget_cc
+        - field_budget_fees
       label: Price
       parent_name: group_tabs
       region: content

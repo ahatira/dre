@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_offer\Plugin\Block;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -11,6 +12,8 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
+use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\ps_offer\Service\OfferDetailActionsBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,6 +32,8 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
     $plugin_definition,
     private readonly RouteMatchInterface $routeMatch,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly DictionaryResolver $dictionaryResolver,
+    private readonly OfferDetailActionsBuilder $actionsBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -43,6 +48,8 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
+      $container->get('ps_dictionary.resolver'),
+      $container->get('ps_offer.detail_actions_builder'),
     );
   }
 
@@ -65,8 +72,13 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
       ],
     ];
 
+    $zone = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-offer-detail-header__zone']],
+    ];
+
     if ($node->hasField('field_reference') && !$node->get('field_reference')->isEmpty()) {
-      $build['reference'] = [
+      $zone['reference'] = [
         '#type' => 'html_tag',
         '#tag' => 'p',
         '#value' => $this->t('Reference : @ref', [
@@ -75,6 +87,15 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
         '#attributes' => ['class' => ['ps-offer-detail-header__reference']],
       ];
     }
+
+    $body = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-offer-detail-header__body']],
+    ];
+    $summary = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-offer-detail-header__summary']],
+    ];
 
     $primary_title = $node->hasField('field_commercial_title')
       ? trim((string) ($node->get('field_commercial_title')->value ?? ''))
@@ -91,6 +112,7 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
         '#tag' => 'h1',
         '#value' => implode(' — ', $visible_title_parts),
         '#attributes' => ['class' => ['visually-hidden']],
+        '#weight' => 100,
       ];
     }
 
@@ -127,7 +149,13 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
       ];
     }
 
-    $budget = $this->viewField($view_builder, $node, 'field_budget_value', 'ps_offer_budget_display');
+    $budget = $this->viewField(
+      $view_builder,
+      $node,
+      'field_budget_value',
+      'ps_offer_budget_display',
+      allow_empty: TRUE,
+    );
     if ($budget !== []) {
       $title_row['budget'] = $budget;
     }
@@ -137,12 +165,16 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
     }
 
     if (isset($heading['primary']) || isset($heading['title_row'])) {
-      $build['heading'] = $heading;
+      $summary['heading'] = $heading;
     }
 
     $location = $this->viewField($view_builder, $node, 'field_address', 'ps_offer_location_summary');
     if ($location !== []) {
-      $build['location'] = $location;
+      $summary['location'] = $location;
+    }
+
+    if (count($summary) > 2) {
+      $body['summary'] = $summary;
     }
 
     $meta = [
@@ -151,25 +183,51 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
     ];
     $has_meta = FALSE;
 
-    $availability = $this->viewField($view_builder, $node, 'field_availability', 'basic_string', [], 'inline');
-    if ($availability !== []) {
-      $meta['availability'] = $availability;
+    if ($node->hasField('field_availability') && !$node->get('field_availability')->isEmpty()) {
+      $meta['availability'] = $this->buildMetaLine(
+        (string) $this->t('Available :'),
+        trim((string) $node->get('field_availability')->value),
+      );
       $has_meta = TRUE;
     }
 
-    $mandate = $this->viewField($view_builder, $node, 'field_mandate_type', 'ps_dictionary_formatter', [
-      'display_mode' => 'label',
-    ], 'inline');
-    if ($mandate !== []) {
-      $meta['mandate'] = $mandate;
+    if ($node->hasField('field_mandate_type') && !$node->get('field_mandate_type')->isEmpty()) {
+      $mandate_code = (string) $node->get('field_mandate_type')->value;
+      $mandate_label = $this->dictionaryResolver->resolveLabel('mandate_type', $mandate_code) ?: $mandate_code;
+      $meta['mandate'] = $this->buildMetaLine(
+        (string) $this->t('Type of mandate :'),
+        $mandate_label,
+      );
       $has_meta = TRUE;
     }
 
     if ($has_meta) {
-      $build['meta'] = $meta;
+      $body['meta'] = $meta;
+    }
+
+    $actions = $this->actionsBuilder->build($node);
+    if ($actions !== []) {
+      $body['actions'] = $actions;
+    }
+
+    if (count($body) > 1) {
+      $zone['body'] = $body;
+    }
+
+    if (isset($zone['reference']) || isset($zone['body'])) {
+      $build['zone'] = $zone;
     }
 
     return $build;
+  }
+
+  /**
+   * Builds a meta line with a bold value (Figma Frame 297).
+   */
+  private function buildMetaLine(string $label, string $value): array {
+    return [
+      '#markup' => '<p class="ps-offer-detail-header__meta-item">' . Html::escape($label) . ' <strong>' . Html::escape($value) . '</strong></p>',
+    ];
   }
 
   /**
@@ -182,8 +240,13 @@ final class OfferDetailHeaderBlock extends BlockBase implements ContainerFactory
     string $formatter,
     array $settings = [],
     string $label = 'hidden',
+    bool $allow_empty = FALSE,
   ): array {
-    if (!$node->hasField($field_name) || $node->get($field_name)->isEmpty()) {
+    if (!$node->hasField($field_name)) {
+      return [];
+    }
+
+    if (!$allow_empty && $node->get($field_name)->isEmpty()) {
       return [];
     }
 

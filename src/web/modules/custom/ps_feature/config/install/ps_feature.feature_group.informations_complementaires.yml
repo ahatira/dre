@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: informations_complementaires
+label: 'Additional information'
+description: 'Supplementary offer information.'
+asset_types: {  }
+weight: 3
