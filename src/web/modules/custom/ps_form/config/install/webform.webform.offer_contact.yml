@@ -1,0 +1,252 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+uid: null
+template: false
+archive: false
+id: offer_contact
+title: 'Contact the consultancy'
+description: 'Offer detail contact form.'
+category: 'Property Search'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'What are your contact details?'
+    first_name:
+      '#type': textfield
+      '#title': 'First name'
+      '#placeholder': Diego
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Last name'
+      '#placeholder': Plot
+      '#required': true
+    email:
+      '#type': email
+      '#title': 'Professional e-mail'
+      '#placeholder': diego.plot@google.com
+      '#required': true
+    company:
+      '#type': textfield
+      '#title': Company
+      '#placeholder': 'Enter your company'
+    phone:
+      '#type': tel
+      '#title': 'Professional phone'
+      '#placeholder': 'Enter your professional phone'
+  project:
+    '#type': fieldset
+    '#title': 'Would you like to know more about your project?'
+    message:
+      '#type': textarea
+      '#title': Message
+      '#required': true
+      '#default_value': "Hello, I would like more information about the offer with reference '[webform_submission:source-entity:field_reference]'. Thank you"
+  legal:
+    '#type': checkbox
+    '#title': 'I have read and accept the terms of the Personal Data Protection Policy.'
+    '#required': true
+  marketing:
+    '#type': checkbox
+    '#title': 'I agree to receive marketing communications from BNP Paribas Real Estate.'
+  newsletter:
+    '#type': checkbox
+    '#title': 'I agree to receive the newsletter.'
+  similar_offers:
+    '#type': checkbox
+    '#title': 'I agree to be contacted about similar properties.'
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p>BNP Paribas Real Estate Transaction France, a limited company located at 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, as the Data Controller, processes information about you for the purposes of audience measurement, to carry out the requests you submit to us via the website and, in certain cases, for commercial prospecting purposes (if you have given your consent or if the applicable legislation authorizes us to do so). For more information on how BNP Paribas Real Estate Transaction France processes your personal data in this context and on your rights (in particular your rights of access, rectification, opposition to processing for canvassing purposes and your right to give instructions regarding the use of your personal data after your death as well as, in certain circumstances, a right to erasure, restriction of processing, data portability and a right to object to other forms of processing) and the obligations of BNP Paribas Real Estate Transaction France in this regard, we invite you to consult our <a href="/data-protection">Data Protection Notice</a>.</p>'
+    '#wrapper_attributes':
+      class:
+        - ps-offer-contact-modal__legal
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  page: false
+  form_title: ''
+  form_submit_label: Send
+  page_submit_path: ''
+  page_confirm_path: ''
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: true
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: node
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_login: false
+  form_login_message: ''
+  submission_label: ''
+  submission_log: false
+  submission_user_columns: {  }
+  submission_login: false
+  submission_login_message: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: true
+  wizard_start_label: ''
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  confirmation_type: inline
+  confirmation_title: ''
+  confirmation_message: '<p>Thank you. Your message has been sent.</p>'
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+handlers:
+  email_agent:
+    id: email
+    label: 'Agent notification'
+    notes: 'Notifies the offer primary agent when a visitor submits the contact form.'
+    handler_id: email_agent
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:source-entity:field_primary_agent:entity:email]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: _default
+      bcc_options: {  }
+      from_mail: '[webform_submission:values:email:raw]'
+      from_options: {  }
+      from_name: '[webform_submission:values:first_name:raw] [webform_submission:values:last_name:raw]'
+      subject: 'Contact request — Offer [webform_submission:source-entity:field_reference]'
+      body: _default
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: '[webform_submission:values:email:raw]'
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+  email_confirmation:
+    id: email
+    label: 'Visitor confirmation'
+    notes: 'Confirms receipt of the contact request to the visitor.'
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'Your contact request — [webform_submission:source-entity:field_reference]'
+      body: '<p>Thank you for your interest in offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Your message has been forwarded to our consultant. We will get back to you shortly.</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''

@@ -277,6 +277,18 @@ Voir [`docs/`](docs/) :
 
 Références projet : `.ai/PROJECT_MATRIX.md`, `.ai/PROJECT_MODULES.md` §3.6.
 
+## Offer full — Agent sidebar labels (i18n)
+
+The offer full Layout Builder uses formatter `ps_offer_agent_sidebar_card` on `field_primary_agent`. UI strings default to English in `core.entity_view_display.node.offer.full` formatter settings:
+
+- `consultant_label`, `contact_label`, `visit_title`, `visit_label`, `contact_dialog_options`
+
+Edit defaults: **Structure → Content types → Offer → Manage display → Full → Layout → Primary agent → Formatter settings**.
+
+Translate via **Configuration → Regional and language → Configuration translation → Content language configuration → Node type offer → Full** (requires `config_translation`).
+
+Agent data (name, phone, avatar) is managed per agent at `/admin/ps/content/agent`. Avatar fallbacks: `/admin/ps/config/agent/fallback`.
+
 ## À venir
 
 - Alignement codes dictionnaire CRM (MAT-01 LOG→ENT, MAT-02 LOC/VEN vs RENT/SALE)

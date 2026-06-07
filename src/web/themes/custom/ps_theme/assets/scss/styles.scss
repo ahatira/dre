@@ -8,8 +8,12 @@
 @import 'search-page';
 @import 'front-public';
 @import 'homepage';
+@import 'pages/offer-detail';
+@import 'pages/modal-form';
 
 // SDC métier PS (non couverts par le framework parent).
 @import '../../components/search-hero/styles/search-hero';
 @import '../../components/transaction-toggle/styles/transaction-toggle';
 @import '../../components/offer-card/styles/offer-card';
+@import '../../components/media-gallery-hero/styles/media-gallery-hero';
+@import '../../components/offer-map-interactive/styles/offer-map-interactive';

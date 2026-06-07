@@ -1,0 +1,38 @@
+<div class="ps-agent-sidebar-card ps-offer-sidebar--agent">
+  <div class="ps-agent-sidebar-card__consultant">
+    {% if agent %}
+      <div class="ps-agent-sidebar-card__profile">
+        {{ agent }}
+      </div>
+    {% endif %}
+    {% if contact_url %}
+      <a href="{{ contact_url }}"
+         class="btn btn-primary ps-agent-sidebar-card__contact use-ajax"
+         data-dialog-type="modal"
+         data-dialog-options='{{ contact_dialog_options }}'>
+        {{ contact_label }}
+      </a>
+    {% else %}
+      <button type="button" class="btn btn-primary ps-agent-sidebar-card__contact" disabled aria-disabled="true">
+        {{ contact_label }}
+      </button>
+    {% endif %}
+  </div>
+
+  <div class="ps-agent-sidebar-card__visit">
+    {% if visit_title %}
+      <h3 class="ps-agent-sidebar-card__visit-title">{{ visit_title }}</h3>
+    {% endif %}
+    {% if visit_enabled and visit_phone %}
+      <a href="{{ visit_phone }}" class="btn ps-agent-sidebar-card__visit-btn">
+        {{ icon('bootstrap', 'calendar', {'size': '20px', 'class': 'ps-agent-sidebar-card__visit-icon'}) }}
+        <span>{{ visit_label }}</span>
+      </a>
+    {% else %}
+      <button type="button" class="btn ps-agent-sidebar-card__visit-btn" disabled aria-disabled="true">
+        {{ icon('bootstrap', 'calendar', {'size': '20px', 'class': 'ps-agent-sidebar-card__visit-icon'}) }}
+        <span>{{ visit_label }}</span>
+      </button>
+    {% endif %}
+  </div>
+</div>

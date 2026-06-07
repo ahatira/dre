@@ -1,4 +1,11 @@
 services:
+  ps_offer.google_maps_settings:
+    class: Drupal\ps_offer\Service\GoogleMapsSettings
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@?geofield_map.google_maps'
+
   ps_offer.path_token_provider:
     class: Drupal\ps_offer\Service\OfferPathTokenProvider
     arguments:

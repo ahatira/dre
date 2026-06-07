@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Form integrations for Property Search.
+ */
+
+declare(strict_types=1);

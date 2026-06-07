@@ -1,0 +1,88 @@
+// Fix ui_suite_bnp invalid --bs-backdrop-bg (0, 0, 0 breaks Bootstrap 5.3).
+.modal-backdrop {
+  --bs-backdrop-bg: #000;
+  --bs-backdrop-opacity: 0.6;
+}
+
+$ps-modal-form-close-icon: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26.6663 3.25928L28.7405 5.33346L18.0735 15.9993L28.7405 26.6668L26.6663 28.741L15.9988 18.0739L5.33297 28.741L3.25879 26.6668L13.9255 15.9993L3.25879 5.33346L5.33297 3.25928L15.9988 13.9259L26.6663 3.25928Z' fill='%23333'/%3E%3C/svg%3E");
+
+// Level 1 — Modal shell for any dialog containing a form.
+// Do not scope to .show — Bootstrap removes it before the fade-out ends.
+.modal:has(.modal-body form) {
+  --bs-modal-footer-border-width: 0;
+
+  .modal-dialog {
+    max-width: 36.5rem;
+  }
+
+  .modal-content {
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    border-bottom: 0;
+    gap: 2.5rem;
+  }
+
+  .modal-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    color: #333;
+  }
+
+  .btn-close {
+    --bs-btn-close-bg: #{$ps-modal-form-close-icon};
+    --bs-btn-close-opacity: 1;
+    --bs-btn-close-hover-opacity: 0.75;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0 0 0 auto;
+    flex-shrink: 0;
+    opacity: 1;
+    background-size: 2rem 2rem;
+    box-shadow: none;
+
+    &:focus {
+      box-shadow: none;
+      outline: 2px solid #333;
+      outline-offset: 2px;
+    }
+  }
+
+  .modal-body {
+    padding: 0 2rem 2rem;
+  }
+
+  .modal-footer {
+    justify-content: center;
+    padding: 0 2rem 2rem;
+    border-top: 0;
+
+    .ui-dialog-buttonpane:empty {
+      display: none;
+    }
+
+    .ui-dialog-buttonset {
+      justify-content: center !important;
+      flex-grow: 0;
+      width: 100%;
+      gap: 0.5rem;
+    }
+  }
+
+  // Webform dialog moves submit to .modal-footer — hide duplicate in body.
+  &:has(.modal-footer) .modal-body .form-actions {
+    display: none;
+  }
+}

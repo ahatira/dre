@@ -1,0 +1,43 @@
+name: Agent sidebar card
+description: 'Consultant card for offer detail sidebar with contact and visit CTAs.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    consultant_label:
+      type: string
+      title: Consultant label
+      default: 'Your consultant'
+    contact_label:
+      type: string
+      title: Contact button label
+      default: 'Contact the consultancy'
+    contact_url:
+      type: string
+      title: Contact modal URL
+      default: ''
+    contact_dialog_options:
+      type: string
+      title: Contact modal dialog options (JSON)
+      default: '{}'
+    visit_title:
+      type: string
+      title: Visit section title
+      default: 'Would you like to visit?'
+    visit_label:
+      type: string
+      title: Visit button label
+      default: 'Schedule a visit'
+    visit_phone:
+      type: string
+      title: Visit phone URL
+      default: ''
+    visit_enabled:
+      type: boolean
+      title: Visit phone link enabled
+      default: false
+slots:
+  agent:
+    title: Agent
+    description: Rendered ps_agent entity.

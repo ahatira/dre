@@ -45,9 +45,13 @@ contextual:
 
 form:
   css:
-    component:
+    theme:
+      assets/css/form/form-elements.css:
+        minified: true
+        weight: 300
       assets/css/form/form-required.css:
         minified: true
+        weight: 300
 
 component_accordion:
   css:
@@ -164,3 +168,34 @@ component_toast:
     component:
       components/toast/styles/toast.css:
         minified: true
+
+offer-detail:
+  js:
+    assets/js/offer-detail.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupal.dialog.ajax
+    - ps_theme/framework
+
+offer-gallery:
+  js:
+    assets/js/offer-gallery.js: {}
+  css:
+    component:
+      components/media-gallery-hero/styles/media-gallery-hero.css: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - ps_theme/component_modal
+
+offer-map:
+  js:
+    assets/js/offer-map.js: {}
+  css:
+    component:
+      components/offer-map-interactive/styles/offer-map-interactive.css: {}
+  dependencies:
+    - core/once
+    - core/drupal

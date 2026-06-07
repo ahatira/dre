@@ -9,3 +9,4 @@ dependencies:
   - drupal:node
   - drupal:languageicons
   - ps_favorite:ps_favorite
+  - ps_form:ps_form

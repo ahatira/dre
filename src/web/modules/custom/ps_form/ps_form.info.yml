@@ -1,0 +1,12 @@
+name: 'PS Form'
+type: module
+description: 'Webform definitions and front integrations for Property Search.'
+core_version_requirement: ^11.3
+package: 'Property Search'
+dependencies:
+  - drupal:inline_form_errors
+  - drupal:node
+  - drupal:token
+  - ps_core:ps_core
+  - webform:webform
+  - webform:webform_ui

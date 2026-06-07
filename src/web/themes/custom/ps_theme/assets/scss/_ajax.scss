@@ -1,11 +1,19 @@
 // AJAX trigger loading state — overlay keeps original dimensions.
-a.use-ajax.is-ajax-loading,
-button.use-ajax.is-ajax-loading {
+.btn.is-ajax-loading,
+.use-ajax.is-ajax-loading,
+button.is-ajax-loading,
+input[type='submit'].is-ajax-loading,
+input[type='button'].is-ajax-loading {
   cursor: wait;
   pointer-events: none;
   position: relative;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none;
 
+  .ps-ajax-trigger__label,
   > :not(.ps-ajax-trigger__overlay) {
+    opacity: 0;
     visibility: hidden;
   }
 
@@ -16,9 +24,14 @@ button.use-ajax.is-ajax-loading {
     justify-content: center;
     pointer-events: none;
     position: absolute;
+    z-index: 1;
 
     .ajax-progress {
       margin: 0;
+    }
+
+    .ajax-progress-throbber .message {
+      display: none;
     }
   }
 }

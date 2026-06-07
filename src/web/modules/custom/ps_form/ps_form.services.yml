@@ -1,0 +1,3 @@
+services:
+  Drupal\ps_form\Hook\OfferContactWebformHooks:
+    class: Drupal\ps_form\Hook\OfferContactWebformHooks

@@ -1,0 +1,436 @@
+// PS form elements — Figma design tokens (generic).
+
+$ps-form-label-color: #333;
+$ps-form-label-size: 0.875rem;
+$ps-form-border-default: #d6dbde;
+$ps-form-border-hover: #b4babe;
+$ps-form-border-focus: #333;
+$ps-form-border-error: #eb3636;
+$ps-form-border-success: #00915a;
+$ps-form-placeholder: #b4babe;
+$ps-form-text: #333;
+$ps-form-text-muted: #777e83;
+$ps-form-disabled-bg: #ebedef;
+$ps-form-disabled-text: #434f57;
+$ps-form-input-height: 2.5rem;
+$ps-form-input-padding: 0.5rem 1rem;
+$ps-form-section-title-size: 1.25rem;
+$ps-form-check-size: 1.25rem;
+$ps-form-check-gap: 0.5rem;
+$ps-form-check-offset: 0.125rem;
+// Figma BNPPRE icons — simulated via CSS background (native input hidden).
+$ps-form-check-icon-checkbox-off: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M20 20V0H0V20H20ZM1.66656 1.66656H18.3332V18.3332H1.66656V1.66656Z' fill='%23333'/%3E%3C/svg%3E");
+$ps-form-check-icon-checkbox-on: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M24 0V24H0V0H24ZM22.0003 1.99932H2.00034V21.9993H22.0003V1.99932ZM16.9967 6.49932L18.4997 7.91218L9.69055 17.4993L5.49966 14.0294L6.80028 12.4226L9.49942 14.6575L16.9967 6.49932Z' fill='%2300915a'/%3E%3C/svg%3E");
+$ps-form-check-icon-radio-off: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.66663 14C4.66663 8.84533 8.8453 4.66666 14 4.66666C16.4753 4.66666 18.8493 5.64999 20.5996 7.40033C22.35 9.15067 23.3333 11.5246 23.3333 14C23.3333 19.1546 19.1546 23.3333 14 23.3333C8.8453 23.3333 4.66663 19.1546 4.66663 14ZM14 21.7778C18.2955 21.7778 21.7777 18.2955 21.7777 14C21.7777 9.70444 18.2955 6.22221 14 6.22221C9.70441 6.22221 6.22218 9.70444 6.22218 14C6.22218 18.2955 9.70441 21.7778 14 21.7778Z' fill='%23D6DBDE'/%3E%3C/svg%3E");
+$ps-form-check-icon-radio-on: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14 4.66666C8.8453 4.66666 4.66663 8.84533 4.66663 14C4.66663 19.1546 8.8453 23.3333 14 23.3333C19.1546 23.3333 23.3333 19.1546 23.3333 14C23.3333 11.5246 22.35 9.15067 20.5996 7.40033C18.8493 5.64999 16.4753 4.66666 14 4.66666ZM14 21.7778C9.70441 21.7778 6.22218 18.2955 6.22218 14C6.22218 9.70444 9.70441 6.22221 14 6.22221C18.2955 6.22221 21.7777 9.70444 21.7777 14C21.7777 18.2955 18.2955 21.7778 14 21.7778ZM14 18.6667C16.5773 18.6667 18.6666 16.5773 18.6666 14C18.6666 11.4227 16.5773 9.33332 14 9.33332C11.4226 9.33332 9.33329 11.4227 9.33329 14C9.33329 16.5773 11.4226 18.6667 14 18.6667Z' fill='%2300915a'/%3E%3C/svg%3E");
+
+.form-label,
+.form-item > label:not(.form-check-label),
+fieldset > legend {
+  margin-bottom: 0.25rem;
+  font-size: $ps-form-label-size;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: $ps-form-label-color;
+}
+
+.form-optional {
+  font-weight: 400;
+  color: $ps-form-text-muted;
+}
+
+.form-control,
+.form-select,
+.form-textarea,
+input.form-text,
+textarea.form-textarea {
+  min-height: $ps-form-input-height;
+  padding: $ps-form-input-padding;
+  border: 2px solid $ps-form-border-default;
+  border-radius: 0;
+  font-size: $ps-form-label-size;
+  line-height: 1.5rem;
+  color: $ps-form-text;
+  box-shadow: none;
+
+  &::placeholder {
+    color: $ps-form-placeholder;
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled):not([readonly]) {
+    border-color: $ps-form-border-hover;
+  }
+
+  &:focus {
+    border-color: $ps-form-border-focus;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: $ps-form-disabled-bg;
+    border-color: $ps-form-border-default;
+    color: $ps-form-disabled-text;
+  }
+}
+
+.form-textarea,
+textarea.form-textarea {
+  min-height: 7.1875rem;
+  border-width: 1px;
+}
+
+// Generic validation — inline errors only (no Bootstrap icons / success chrome).
+$ps-form-input-selectors: '.form-control, .form-select, .form-textarea, input.form-text, textarea.form-textarea';
+$ps-form-check-icon-checkbox-off-error: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M20 20V0H0V20H20ZM1.66656 1.66656H18.3332V18.3332H1.66656V1.66656Z' fill='%23eb3636'/%3E%3C/svg%3E");
+
+#{$ps-form-input-selectors} {
+  &.is-invalid,
+  &.is-valid,
+  &.error,
+  .was-validated &:invalid,
+  .was-validated &:valid {
+    background-image: none !important;
+    background-repeat: no-repeat !important;
+    background-position: initial !important;
+    padding-right: 1rem !important;
+    box-shadow: none !important;
+  }
+
+  // Server-side validation marks non-error fields as valid — keep default shell.
+  &.is-valid,
+  .was-validated &:valid {
+    border-color: $ps-form-border-default !important;
+    color: $ps-form-text !important;
+
+    &:hover:not(:disabled):not([readonly]) {
+      border-color: $ps-form-border-hover !important;
+    }
+
+    &:focus {
+      border-color: $ps-form-border-focus !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.form-item--error {
+  label,
+  .form-label {
+    color: $ps-form-label-color;
+  }
+
+  #{$ps-form-input-selectors},
+  .form-control.is-invalid,
+  .form-select.is-invalid,
+  .form-textarea.is-invalid,
+  input.form-text.is-invalid,
+  textarea.form-textarea.is-invalid {
+    border-color: $ps-form-border-error !important;
+    color: $ps-form-text !important;
+    box-shadow: none !important;
+
+    &:focus {
+      border-color: $ps-form-border-error !important;
+      color: $ps-form-text !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .form-check-input[type='checkbox'] + .form-check-label::before {
+    background-image: $ps-form-check-icon-checkbox-off-error;
+  }
+}
+
+.form-item--error-message,
+.invalid-feedback {
+  display: block;
+  width: auto;
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 0;
+  font-size: $ps-form-label-size;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: $ps-form-border-error;
+  background: transparent;
+  box-shadow: none !important;
+
+  &.alert,
+  &.alert-danger {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+.form-item--error .form-item--error-message,
+.form-item--error .invalid-feedback {
+  display: block;
+}
+
+// Standalone Bootstrap invalid state (fallback when wrapper class is missing).
+.is-invalid,
+.was-validated :invalid {
+  border-color: $ps-form-border-error !important;
+  box-shadow: none !important;
+}
+
+#{$ps-form-input-selectors}.is-invalid,
+.was-validated #{$ps-form-input-selectors}:invalid {
+  color: $ps-form-text !important;
+}
+
+// Webform merges .form-check onto .form-item — icon simulated on label::before.
+.form-check,
+.form-type-checkbox.form-item,
+.form-type-radio.form-item,
+.webform-type-checkbox.form-item {
+  position: relative;
+  display: block;
+  min-height: auto;
+  padding-left: 0;
+}
+
+.form-check-input[type='checkbox'],
+.form-check-input[type='radio'] {
+  position: absolute;
+  left: 0;
+  top: $ps-form-check-offset;
+  width: $ps-form-check-size;
+  height: $ps-form-check-size;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: none;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.form-check-input[type='checkbox'] + .form-check-label,
+.form-check-input[type='radio'] + .form-check-label {
+  display: block;
+  padding-left: calc(#{$ps-form-check-size} + #{$ps-form-check-gap});
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: $ps-form-check-offset;
+    width: $ps-form-check-size;
+    height: $ps-form-check-size;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: $ps-form-check-size $ps-form-check-size;
+  }
+}
+
+.form-check-input[type='checkbox'] + .form-check-label::before {
+  background-image: $ps-form-check-icon-checkbox-off;
+}
+
+.form-check-input[type='checkbox']:checked + .form-check-label::before {
+  background-image: $ps-form-check-icon-checkbox-on;
+}
+
+.form-check-input[type='radio'] + .form-check-label::before {
+  background-image: $ps-form-check-icon-radio-off;
+}
+
+.form-check-input[type='radio']:checked + .form-check-label::before {
+  background-image: $ps-form-check-icon-radio-on;
+}
+
+.form-check-input[type='checkbox']:disabled + .form-check-label::before,
+.form-check-input[type='radio']:disabled + .form-check-label::before {
+  opacity: 0.6;
+}
+
+.form-check-input[type='checkbox']:focus-visible + .form-check-label::before,
+.form-check-input[type='radio']:focus-visible + .form-check-label::before {
+  outline: 2px solid $ps-form-border-focus;
+  outline-offset: 2px;
+}
+
+.form-check-input:checked ~ .form-check-label,
+.form-check-input:checked + .form-check-label,
+.form-type-checkbox:has(.form-check-input:checked) .form-check-label,
+.form-type-radio:has(.form-check-input:checked) .form-check-label,
+.form-check:has(.form-check-input:checked) .form-check-label {
+  color: $ps-form-border-success;
+}
+
+.form-item .form-check-label,
+.form-check-label {
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: $ps-form-text;
+}
+
+fieldset > legend {
+  font-size: $ps-form-section-title-size;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: #000;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0 !important;
+  padding-top: 0;
+}
+
+.form-actions .button--primary,
+.form-actions input[type='submit'],
+.webform-button--submit {
+  width: 15.875rem;
+  max-width: 100%;
+  min-height: $ps-form-input-height;
+  padding: 0 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  background: $ps-form-border-success;
+  border: 0;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background: #007a4d;
+    box-shadow: none;
+  }
+}
+
+// Level 2 — Webform layout: identical in modal and on page.
+.webform-submission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  // Reset ui_suite_bnp fieldset-as-card.
+  fieldset.card {
+    margin-bottom: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    > legend.card-header {
+      float: none;
+      width: 100%;
+      margin: 0 0 1rem;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      font-size: $ps-form-section-title-size;
+      font-weight: 700;
+      line-height: 1.5rem;
+      color: #000;
+    }
+
+    > .card-body.fieldset-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 1rem;
+      padding: 0;
+      background: transparent;
+    }
+  }
+
+  .form-item:not(.form-type-checkbox):not(.form-type-radio) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0 !important;
+  }
+
+  .form-type-checkbox.form-item,
+  .form-type-radio.form-item {
+    display: block;
+    margin-bottom: 0 !important;
+  }
+
+  .form-item > label:not(.form-check-label),
+  .form-item .form-label {
+    display: block;
+    margin-bottom: 0;
+    color: $ps-form-label-color;
+  }
+
+  .form-item-email,
+  .form-item-message,
+  .form-item-preferred-date {
+    grid-column: 1 / -1;
+  }
+
+  .form-type-checkbox,
+  .form-type-radio {
+    grid-column: 1 / -1;
+  }
+
+  // Checkbox group: 16px between items (parent flex gap is 2rem).
+  .form-type-checkbox + .form-type-checkbox,
+  .form-type-radio + .form-type-radio {
+    margin-top: -1rem;
+  }
+
+  .webform-confirmation {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: $ps-form-text;
+  }
+}
+
+.ps-offer-contact-modal__legal {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: $ps-form-text-muted;
+
+  p {
+    margin: 0 0 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: $ps-form-text-muted;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $ps-form-text;
+    }
+  }
+}
+
+// Fallback: hide duplicate messenger summary when inline errors are present.
+form:has(.form-item--error),
+.webform-submission-form:has(.form-item--error) {
+  > .messages.messages--error,
+  > [data-drupal-messages] {
+    display: none;
+  }
+}

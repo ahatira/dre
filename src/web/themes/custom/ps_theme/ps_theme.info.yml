@@ -7,6 +7,7 @@ dependencies:
   - advanced_mega_menu
   - languageicons
   - menu_link_attributes
+  - social_media_links
   - ps_agent
   - ps_block
   - ps_favorite
