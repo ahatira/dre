@@ -34,7 +34,6 @@ dependencies:
   - drupal:pathauto
   - drupal:token
   - drupal:scheduler
-  - drupal:field
   - drupal:metatag
   - drupal:schema_metatag
   - drupal:inline_entity_form
@@ -43,4 +42,5 @@ dependencies:
   - ps_diagnostic:ps_diagnostic
   - drupal:layout_builder
   - drupal:layout_discovery
+  - drupal:taxonomy
   - geofield_map:geofield_map

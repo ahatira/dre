@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: certification_label
+vid: certification_label
+description: 'Certification and quality labels (LEED, BREEAM, HQE, etc.).'
+weight: 0
+new_revision: false

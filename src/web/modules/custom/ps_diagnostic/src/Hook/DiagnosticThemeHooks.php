@@ -54,6 +54,19 @@ final class DiagnosticThemeHooks {
         'variables' => $variables,
         'template' => 'diagnostic-item-full',
       ],
+      'ps_certification_label_list' => [
+        'variables' => [
+          'items' => [],
+        ],
+        'template' => 'certification-label-list',
+      ],
+      'ps_certification_label_item' => [
+        'variables' => [
+          'label' => '',
+          'badge' => NULL,
+        ],
+        'template' => 'certification-label-item',
+      ],
     ];
   }
 

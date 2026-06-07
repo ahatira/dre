@@ -845,6 +845,8 @@ body:has(.node--type-offer.node--view-mode-full) {
     grid-template-columns: repeat(2, minmax(0, 50%));
     gap: 0;
     align-items: stretch;
+    background: #f9f9fb;
+    padding: 1rem 1.25rem;
   }
 
   > .field__items > .field__item,
@@ -858,11 +860,89 @@ body:has(.node--type-offer.node--view-mode-full) {
     width: 100%;
     height: 100%;
     flex: 1 1 auto;
+    background: transparent;
+    padding: 0.25rem 0.75rem 0.25rem 0;
+  }
+
+  > .field__items > .field__item:last-child figure.ps-diagnostic,
+  > .field--items > .field--item:last-child figure.ps-diagnostic {
+    padding-left: 0.75rem;
+    padding-right: 0;
   }
 
   figure.ps-diagnostic .ps-diagnostic__svg {
     max-width: 100%;
   }
+
+  figure.ps-diagnostic .ps-diagnostic__scale {
+    width: 100%;
+    max-width: none;
+  }
+
+  figure.ps-diagnostic .ps-diagnostic__svg {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.ps-offer-detail .ps-offer-layout--main .ps-offer-layout__main-content {
+  > div:has(.ps-offer-section--energy) + div:has(.ps-certification-labels-section) {
+    margin-top: 1.25rem;
+  }
+}
+
+// Certification labels — grille auto : colonnes selon l'espace (style tableau responsive).
+.ps-certification-labels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+  gap: 1.5rem 2.5rem;
+  align-items: start;
+}
+
+.ps-certification-label {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ps-certification-label__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: #333;
+}
+
+.ps-certification-label__check {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--re-color-primary, #00915a);
+  mask: url('#{$icon-base}/generic/check.svg') no-repeat center / contain;
+  -webkit-mask: url('#{$icon-base}/generic/check.svg') no-repeat center / contain;
+}
+
+.ps-certification-label__badge {
+  margin-top: 0.75rem;
+
+  img {
+    display: block;
+    width: 160px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+.ps-certification-labels-section {
+  margin-top: 0;
 }
 
 // ---------------------------------------------------------------------------

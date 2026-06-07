@@ -43,6 +43,7 @@ dependencies:
     - field.field.node.offer.field_source_tracking
     - field.field.node.offer.field_divisions
     - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_certification_labels
     - field.field.node.offer.field_diagnostics
     - field.field.node.offer.field_technical_id
     - node.type.offer
@@ -336,12 +337,22 @@ content:
     region: content
     settings: {}
     third_party_settings: {}
-    field_diagnostics:
-      type: diagnostic_item_default
-      weight: 36
-      region: content
-      settings: { }
-      third_party_settings: { }
+  field_diagnostics:
+    type: diagnostic_item_default
+    weight: 36
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_certification_labels:
+    type: entity_reference_autocomplete_tags
+    weight: 37
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
   path:
     type: path
     weight: 37

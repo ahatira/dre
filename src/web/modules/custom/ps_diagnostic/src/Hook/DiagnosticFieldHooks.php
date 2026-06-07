@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_diagnostic\Service\DiagnosticSectionIconBuilder;
 
 /**
- * Field preprocess hooks for diagnostics on offer pages.
+ * Field preprocess hooks for diagnostics and certification labels on offers.
  */
 final class DiagnosticFieldHooks {
 
@@ -26,14 +26,21 @@ final class DiagnosticFieldHooks {
    */
   #[Hook('preprocess_field')]
   public function preprocessField(array &$variables): void {
-    if (($variables['field_name'] ?? '') !== 'field_diagnostics') {
-      return;
-    }
-
     if (($variables['element']['#bundle'] ?? '') !== 'offer') {
       return;
     }
 
+    match ($variables['field_name'] ?? '') {
+      'field_diagnostics' => $this->preprocessDiagnosticsField($variables),
+      'field_certification_labels' => $this->preprocessCertificationLabelsField($variables),
+      default => NULL,
+    };
+  }
+
+  /**
+   * Offer full diagnostics field — section title, icon and layout class.
+   */
+  private function preprocessDiagnosticsField(array &$variables): void {
     $variables['attributes']['class'][] = 'ps-offer-section';
     $variables['attributes']['class'][] = 'ps-offer-section--energy';
     $variables['title_attributes']['class'][] = 'ps-offer-section__title';
@@ -59,6 +66,14 @@ final class DiagnosticFieldHooks {
       $variables['#cache']['tags'] ?? [],
       $this->configFactory->get('ps_diagnostic.settings')->getCacheTags(),
     );
+  }
+
+  /**
+   * Offer certification labels — layout class under energy section.
+   */
+  private function preprocessCertificationLabelsField(array &$variables): void {
+    $variables['attributes']['class'][] = 'ps-certification-labels-section';
+    $variables['label_display'] = 'hidden';
   }
 
 }

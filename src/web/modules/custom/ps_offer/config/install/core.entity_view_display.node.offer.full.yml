@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.offer.field_capacity_total
     - field.field.node.offer.field_capacity_unit
     - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_certification_labels
     - field.field.node.offer.field_commercial_title
     - field.field.node.offer.field_diagnostics
     - field.field.node.offer.field_diagnostics_dpe
@@ -53,6 +54,7 @@ dependencies:
   module:
     - layout_builder
     - layout_discovery
+    - ps_diagnostic
     - ps_offer
     - user
 third_party_settings:
@@ -250,32 +252,26 @@ third_party_settings:
               css_classes:
                 - ps-offer-section
                 - ps-offer-section--energy
-          a1000001-0000-4000-8000-00000000001d:
-            uuid: a1000001-0000-4000-8000-00000000001d
+          a1000001-0000-4000-8000-000000000021:
+            uuid: a1000001-0000-4000-8000-000000000021
             region: first
             configuration:
-              id: 'field_block:node:offer:field_features'
+              id: 'field_block:node:offer:field_certification_labels'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: feature_default
+                type: certification_label_badge
                 label: hidden
                 settings:
-                  show_label: true
-                  show_group: true
-                  format_style: grouped
-                  hide_disabled_flags: true
-                  group_order: normes_certifications_et_labels
-                  group_filter: normes_certifications_et_labels
+                  image_style: certification_label_badge
                 third_party_settings: {  }
             weight: 9
             additional:
               css_classes:
-                - ps-offer-section
-                - ps-offer-section--certifications
+                - ps-certification-labels-section
           a1000001-0000-4000-8000-00000000001f:
             uuid: a1000001-0000-4000-8000-00000000001f
             region: first
@@ -413,6 +409,7 @@ hidden:
   field_capacity_unit: true
   field_client_type: true
   field_commercial_title: true
+  field_certification_labels: true
   field_diagnostics: true
   field_diagnostics_dpe: true
   field_diagnostics_ges: true

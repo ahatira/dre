@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.certification_label.field_badge
+    - taxonomy.vocabulary.certification_label
+  module:
+    - media
+    - text
+id: taxonomy_term.certification_label.default
+targetEntityType: taxonomy_term
+bundle: certification_label
+mode: default
+content:
+  field_badge:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true
