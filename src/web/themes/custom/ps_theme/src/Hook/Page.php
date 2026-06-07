@@ -94,7 +94,6 @@ final class Page {
     $variables['ps_page_layout_account'] = $this->isAccountAreaRoute();
 
     if ($this->isOfferDetailPage()) {
-      $variables['container'] = 'container';
       $variables['ps_page_layout_offer_detail'] = TRUE;
     }
 

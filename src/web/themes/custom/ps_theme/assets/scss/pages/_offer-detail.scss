@@ -7,23 +7,6 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     gap: 4rem;
   }
 
-  .ps-offer-layout--hero.layout--twocol-section {
-    display: grid;
-    align-items: start;
-    gap: 1.75rem;
-
-    > .layout__region--first {
-      min-width: 0;
-    }
-
-    > .layout__region--second {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-  }
-
   .ps-offer-layout--main.layout--twocol-section {
     > .layout__region--second {
       display: none;
@@ -39,11 +22,6 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 
   .ps-offer-layout--map.layout--onecol {
-    width: 100vw;
-    max-width: 100vw;
-    margin-inline: calc(50% - 50vw);
-    padding-inline: 0;
-
     .layout__region--content {
       padding-inline: 0;
     }
@@ -559,11 +537,16 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
 
 @media (min-width: 992px) {
   .ps-offer-detail {
-    .ps-offer-layout--hero.layout--twocol-section {
+    .ps-offer-layout--main.layout--twocol-section {
+      display: grid;
+      align-items: start;
       grid-template-columns: minmax(0, 1fr) 23.75rem;
       gap: 1.75rem;
 
       > .layout__region--second {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
         position: sticky;
         top: 1.5rem;
         align-self: start;
@@ -580,16 +563,6 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     &__content {
       gap: 2rem;
       padding-bottom: calc(var(--ps-offer-mobile-actions-height) + env(safe-area-inset-bottom, 0px));
-    }
-
-    .ps-offer-layout--hero.layout--twocol-section {
-      > .layout__region--second {
-        display: block;
-        height: 0;
-        margin: 0;
-        padding: 0;
-        overflow: visible;
-      }
     }
 
     .ps-offer-agent-card {

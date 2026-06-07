@@ -55,8 +55,16 @@ final class Offer {
     $variables['attributes']['class'][] = 'ps-offer-layout';
     $variables['attributes']['class'][] = 'ps-offer-layout--' . $slug;
 
-    if ($slug === 'main' && isset($variables['region_attributes']['first'])) {
-      $variables['region_attributes']['first']->addClass('ps-offer-layout__main-content');
+    if ($slug === 'main') {
+      $variables['attributes']['class'][] = 'container';
+      if (isset($variables['region_attributes']['first'])) {
+        $variables['region_attributes']['first']->addClass('ps-offer-layout__main-content');
+      }
+    }
+
+    if ($slug === 'map') {
+      $variables['attributes']['class'][] = 'container-fluid';
+      $variables['attributes']['class'][] = 'px-0';
     }
   }
 
