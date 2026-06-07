@@ -50,6 +50,8 @@ class FeatureFormatter extends FormatterBase {
       'show_flag_text' => TRUE,
       'group_order' => '',
       'group_filter' => '',
+      'column_threshold' => 5,
+      'column_rows' => 5,
     ] + parent::defaultSettings();
   }
 
@@ -125,6 +127,33 @@ class FeatureFormatter extends FormatterBase {
       '#default_value' => $this->getSetting('show_flag_text'),
     ];
 
+    $elements['column_threshold'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Multi-column threshold'),
+      '#description' => $this->t('When a group has more features than this number, desktop layout uses multiple columns.'),
+      '#default_value' => (int) $this->getSetting('column_threshold'),
+      '#min' => 1,
+      '#step' => 1,
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][format_style]"]' => ['value' => 'grouped'],
+        ],
+      ],
+    ];
+
+    $elements['column_rows'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Rows per column (desktop)'),
+      '#description' => $this->t('Maximum number of feature lines per column before starting a new column on desktop.'),
+      '#default_value' => (int) $this->getSetting('column_rows'),
+      '#min' => 1,
+      '#step' => 1,
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][format_style]"]' => ['value' => 'grouped'],
+        ],
+      ],
+    ];
 
     // Build draggable table for group order.
     $group_order = $this->parseGroupOrderSetting((string) $this->getSetting('group_order'));
@@ -249,6 +278,11 @@ class FeatureFormatter extends FormatterBase {
       $summary[] = $this->t('Group filter: @group', ['@group' => $group_filter]);
     }
 
+    if ($format_style === 'grouped') {
+      $summary[] = $this->t('Multi-column threshold: @count', ['@count' => (int) $this->getSetting('column_threshold')]);
+      $summary[] = $this->t('Rows per column: @count', ['@count' => (int) $this->getSetting('column_rows')]);
+    }
+
     return $summary;
   }
 
@@ -266,7 +300,16 @@ class FeatureFormatter extends FormatterBase {
 
     if ($format_style === 'grouped') {
       return [
-        0 => $this->buildGroupedElements($items, $show_label, $hide_disabled_flags, $show_flag_text, $group_order, $group_filter),
+        0 => $this->buildGroupedElements(
+          $items,
+          $show_label,
+          $hide_disabled_flags,
+          $show_flag_text,
+          $group_order,
+          $group_filter,
+          (int) $this->getSetting('column_threshold'),
+          (int) $this->getSetting('column_rows'),
+        ),
       ];
     }
 
@@ -413,10 +456,12 @@ class FeatureFormatter extends FormatterBase {
   /**
    * Builds grouped render arrays by feature group.
    */
-  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, bool $show_flag_text, array $group_order, string $group_filter = ''): array {
+  protected function buildGroupedElements(FieldItemListInterface $items, bool $show_label, bool $hide_disabled_flags, bool $show_flag_text, array $group_order, string $group_filter = '', int $column_threshold = 5, int $column_rows = 5): array {
     $grouped_elements = [];
     $group_storage = \Drupal::entityTypeManager()->getStorage('fb_feature_group');
     $group_order_positions = array_flip($group_order);
+    $column_threshold = max(1, $column_threshold);
+    $column_rows = max(1, $column_rows);
 
     foreach ($items as $delta => $item) {
       $feature_definition = $item->getFeatureDefinition();
@@ -457,23 +502,11 @@ class FeatureFormatter extends FormatterBase {
           'group_label' => (string) $group_label,
           'group_weight' => (int) $group_weight,
           'order_position' => $group_order_positions[$group_id] ?? PHP_INT_MAX,
-          'render' => [
-            '#type' => 'container',
-            '#attributes' => [
-              'class' => ['feature-grouped-group'],
-              'data-feature-group' => $group_id,
-            ],
-            'title' => [
-              '#type' => 'html_tag',
-              '#tag' => 'h3',
-              '#value' => $group_label,
-              '#attributes' => ['class' => ['feature-grouped-title']],
-            ],
-          ],
+          'items' => [],
         ];
       }
 
-      $grouped_elements[$group_key]['render']['item_' . $delta] = $this->buildItemElement($feature_definition, $formatted_value, $show_label, FALSE, 'default');
+      $grouped_elements[$group_key]['items']['item_' . $delta] = $this->buildItemElement($feature_definition, $formatted_value, $show_label, FALSE, 'default');
     }
 
     uasort($grouped_elements, static function (array $a, array $b): int {
@@ -499,10 +532,48 @@ class FeatureFormatter extends FormatterBase {
     ];
 
     foreach ($grouped_elements as $group_key => $group_element) {
-      $elements[$group_key] = $group_element['render'];
+      $elements[$group_key] = $this->buildGroupedGroupRenderArray(
+        $group_element,
+        $column_threshold,
+        $column_rows,
+      );
     }
 
     return $elements;
+  }
+
+  /**
+   * Builds the render array for one grouped feature section.
+   */
+  protected function buildGroupedGroupRenderArray(array $group_element, int $column_threshold, int $column_rows): array {
+    $item_count = count($group_element['items']);
+    $items_attributes = [
+      'class' => ['feature-grouped-items'],
+    ];
+
+    if ($item_count > $column_threshold) {
+      $items_attributes['class'][] = 'feature-grouped-items--columns';
+      $items_attributes['data-column-rows'] = (string) $column_rows;
+      $items_attributes['style'] = 'grid-template-rows: repeat(' . $column_rows . ', auto);';
+    }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['feature-grouped-group'],
+        'data-feature-group' => $group_element['group_id'],
+      ],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h3',
+        '#value' => $group_element['group_label'],
+        '#attributes' => ['class' => ['feature-grouped-title']],
+      ],
+      'items' => [
+        '#type' => 'container',
+        '#attributes' => $items_attributes,
+      ] + $group_element['items'],
+    ];
   }
 
 }

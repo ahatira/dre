@@ -771,6 +771,20 @@ body:has(.node--type-offer.node--view-mode-full) {
   flex-direction: column;
   gap: 1rem;
 
+  .feature-grouped-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .feature-grouped-items--columns {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 0.5rem 6.5rem;
+  }
+
+  .feature-grouped-items .feature-default,
   > .feature-default,
   > .field__items > .field__item > .feature-default {
     position: relative;
@@ -794,18 +808,6 @@ body:has(.node--type-offer.node--view-mode-full) {
       font-weight: 700;
     }
   }
-}
-
-.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-list,
-.feature-grouped-group[data-feature-group='prestations_de_service'] > .field__items,
-.feature-grouped-group[data-feature-group='prestations_de_service'] {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem 6.5rem;
-}
-
-.feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-title {
-  grid-column: 1 / -1;
 }
 
 // ---------------------------------------------------------------------------
@@ -1290,10 +1292,10 @@ body:has(.node--type-offer.node--view-mode-full) {
       }
     }
 
-    .feature-grouped-group[data-feature-group='prestations_de_service'] .feature-grouped-list,
-    .feature-grouped-group[data-feature-group='prestations_de_service'] > .field__items,
-    .feature-grouped-group[data-feature-group='prestations_de_service'] {
-      grid-template-columns: 1fr;
+    .feature-grouped-items--columns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .ps-offer-section--energy > .field--items {
