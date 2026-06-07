@@ -6,7 +6,7 @@
 {% set is_image_slide = slide_type in ['image', 'plan_image'] %}
 {% set media_icon = slide_type starts with 'video' ? 'play' : (slide_type == 'visit_3d' ? '3d' : (slide_type starts with 'plan' ? 'file' : '')) %}
 
-<div class="ps-media-gallery-hero__slide ps-media-gallery-hero__slide--{{ slide_type }} is-active">
+<div class="ps-media-gallery-hero__slide ps-media-gallery-hero__slide--{{ slide_type }}">
   {% if is_image_slide %}
     <img
       src="{{ slide.url }}"

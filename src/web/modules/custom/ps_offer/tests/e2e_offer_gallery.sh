@@ -52,31 +52,30 @@ PY
 # Markup presence.
 grep -q 'data-ps-gallery-hero' "${TMP_HTML}" && pass 'hero_markup' || fail 'hero_markup'
 grep -q 'data-ps-gallery-stage' "${TMP_HTML}" && pass 'hero_stage' || fail 'hero_stage'
+grep -q 'data-ps-gallery-swiper' "${TMP_HTML}" && pass 'hero_swiper' || fail 'hero_swiper'
 grep -q 'data-ps-gallery-slides' "${TMP_HTML}" && pass 'hero_all_slides_template' || fail 'hero_all_slides_template'
 grep -q 'data-ps-gallery-lightbox' "${TMP_HTML}" && pass 'lightbox_markup' || fail 'lightbox_markup'
-grep -q 'data-ps-lightbox-counter' "${TMP_HTML}" && pass 'lightbox_counter' || fail 'lightbox_counter'
 grep -q 'ps-gallery-lightbox__thumb-divider' "${TMP_HTML}" && pass 'lightbox_thumb_dividers' || fail 'lightbox_thumb_dividers'
 grep -q 'data-ps-gallery-entry="video"' "${TMP_HTML}" && pass 'video_badge' || fail 'video_badge'
 grep -q 'data-ps-gallery-entry="visit_3d"' "${TMP_HTML}" && pass 'visit_badge' || fail 'visit_badge'
 grep -q 'data-ps-gallery-entry="plan"' "${TMP_HTML}" && pass 'plan_badge' || fail 'plan_badge'
-THUMB_COUNT="$(grep -c 'data-ps-lightbox-thumb' "${TMP_HTML}" || true)"
-if [[ "${THUMB_COUNT}" -ge 1 ]]; then
+THUMB_COUNT="$(grep -cE 'data-ps-lightbox-thumb([^s]|$)' "${TMP_HTML}" || true)"
+if [[ "${THUMB_COUNT}" -eq 41 ]]; then
   pass "lightbox_thumbs=${THUMB_COUNT}"
 else
-  fail 'lightbox_thumbs'
+  fail "lightbox_thumbs=${THUMB_COUNT} (expected 41)"
 fi
 
 # JS asset served.
 TMP_JS="$(mktemp)"
 JS_URL="${BASE_URL}/themes/custom/ps_theme/assets/js/offer-gallery.js"
 curl -fsS "${JS_URL}" -o "${TMP_JS}"
-grep -q 'renderHeroSlide' "${TMP_JS}" && pass 'js_hero_all_media' || fail 'js_hero_all_media'
-grep -q 'renderLightboxSlide' "${TMP_JS}" && pass 'js_bundle_updated' || fail 'js_bundle_updated'
-grep -q 'preloadAdjacentSlides' "${TMP_JS}" && pass 'js_preload_slides' || fail 'js_preload_slides'
-grep -q 'bindLightboxSwipe' "${TMP_JS}" && pass 'js_swipe_support' || fail 'js_swipe_support'
+grep -q "setAttribute('data-ps-lightbox-counter'" "${TMP_JS}" && pass 'lightbox_counter' || fail 'lightbox_counter'
+grep -q 'initHeroSwiper' "${TMP_JS}" && pass 'js_hero_swiper' || fail 'js_hero_swiper'
+grep -q 'openOfferGallery' "${TMP_JS}" && pass 'js_photoswipe_lightbox' || fail 'js_photoswipe_lightbox'
+grep -q 'initOfferGalleryPhotoSwipe' "${TMP_JS}" && pass 'js_photoswipe_init' || fail 'js_photoswipe_init'
 grep -q 'syncHeroIndex' "${TMP_JS}" && pass 'js_hero_lightbox_sync' || fail 'js_hero_lightbox_sync'
-grep -q 'openPhotoSwipeZoom' "${TMP_JS}" && pass 'js_photoswipe_zoom' || fail 'js_photoswipe_zoom'
-grep -q 'initPhotoSwipeLightbox' "${TMP_JS}" && pass 'js_photoswipe_init' || fail 'js_photoswipe_init'
+grep -q 'buildPhotoSwipeDataSource' "${TMP_JS}" && pass 'js_mixed_media_slides' || fail 'js_mixed_media_slides'
 
 if [[ "${FAIL}" -eq 0 ]]; then
   echo "RESULT: PASS"

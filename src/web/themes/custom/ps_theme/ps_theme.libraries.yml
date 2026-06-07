@@ -179,6 +179,16 @@ offer-detail:
     - core/drupal.dialog.ajax
     - ps_theme/framework
 
+swiper:
+  version: 11.2.8
+  js:
+    /libraries/swiper/swiper-bundle.min.js: { minified: true }
+  css:
+    theme:
+      /libraries/swiper/swiper-bundle.min.css: {}
+  dependencies:
+    - core/drupal
+
 photoswipe:
   version: 5.4.4
   js:
@@ -200,7 +210,7 @@ offer-gallery:
   dependencies:
     - core/once
     - core/drupal
-    - ps_theme/component_modal
+    - ps_theme/swiper
     - ps_theme/photoswipe
 
 offer-map:

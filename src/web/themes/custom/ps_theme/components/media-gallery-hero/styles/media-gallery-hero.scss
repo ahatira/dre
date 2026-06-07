@@ -1,5 +1,3 @@
-$ps-gallery-slide-duration: 0.36s;
-
 @keyframes ps-gallery-fade-in {
   from {
     opacity: 0;
@@ -26,6 +24,12 @@ $ps-gallery-slide-duration: 0.36s;
     height: 100%;
     background: transparent;
     cursor: pointer;
+    text-align: inherit;
+
+    &:focus-visible {
+      outline: 2px solid var(--re-color-primary, #00915a);
+      outline-offset: 2px;
+    }
   }
 
   &__stage {
@@ -36,45 +40,30 @@ $ps-gallery-slide-duration: 0.36s;
     background: var(--re-color-surface-muted, #f3f3f5);
   }
 
-  &__slide {
+  &__swiper {
     width: 100%;
-    transition: transform $ps-gallery-slide-duration ease, opacity $ps-gallery-slide-duration ease;
-    will-change: transform, opacity;
+    height: 100%;
+    overflow: hidden;
 
-    &.is-active {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    &.is-entering-next {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-
-    &.is-entering-prev {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-
-    &.is-leaving {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+    .swiper-wrapper {
       height: 100%;
     }
 
-    &.is-leaving-next {
-      transform: translateX(-100%);
-      opacity: 0;
+    .swiper-slide {
+      height: 100%;
+      overflow: hidden;
     }
 
-    &.is-leaving-prev {
-      transform: translateX(100%);
-      opacity: 0;
+    .ps-media-gallery-hero__slide {
+      height: 100%;
     }
+  }
+
+  &__slide {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
   }
 
   &__image {
@@ -243,6 +232,13 @@ $ps-gallery-slide-duration: 0.36s;
       outline-offset: 2px;
     }
 
+    &.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
+      box-shadow: 0 1px 6px rgba(28, 45, 55, 0.1);
+    }
+
     &--prev {
       left: 1.5rem;
     }
@@ -400,10 +396,6 @@ $ps-gallery-slide-duration: 0.36s;
 
 @media (prefers-reduced-motion: reduce) {
   .ps-media-gallery-hero {
-    &__slide {
-      transition: none;
-    }
-
     &__nav,
     &__favorite,
     &__badges {

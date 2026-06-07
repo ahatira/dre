@@ -58,6 +58,15 @@
       "toFlat": true
     },
     {
+      "//": "--- Swiper 11 (hero carousel) ---",
+      "from": [
+        "node_modules/swiper/swiper-bundle.min.js",
+        "node_modules/swiper/swiper-bundle.min.css"
+      ],
+      "to": "web/libraries/swiper/",
+      "toFlat": true
+    },
+    {
       "//": "--- PhotoSwipe 5 (zoom lightbox) ---",
       "from": [
         "node_modules/photoswipe/dist/photoswipe.css",

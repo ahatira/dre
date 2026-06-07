@@ -1,54 +1,29 @@
-{% set modal_id = modal_id|default('ps-offer-gallery-lightbox') %}
 {% if slides is not empty %}
-  <div class="modal fade ps-gallery-lightbox" id="{{ modal_id }}" tabindex="-1" aria-hidden="true" data-ps-gallery-lightbox>
-    <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
-        </div>
-        <div class="modal-body">
-          <p class="visually-hidden" aria-live="polite" data-ps-lightbox-status></p>
-          <div class="ps-gallery-lightbox__stage" data-ps-lightbox-stage>
-            <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--prev" data-ps-lightbox-prev aria-label="{{ 'Previous'|t }}">
-              <span class="ps-media-gallery-hero__nav-icon" aria-hidden="true">
-                {{ icon('bnp_custom', 'arrow-left', {'size': '24px'}) }}
-              </span>
-            </button>
-            <div class="ps-gallery-lightbox__content" data-ps-lightbox-content></div>
-            <p class="ps-gallery-lightbox__counter" data-ps-lightbox-counter aria-hidden="true"></p>
-            <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--next" data-ps-lightbox-next aria-label="{{ 'Next'|t }}">
-              <span class="ps-media-gallery-hero__nav-icon" aria-hidden="true">
-                {{ icon('bnp_custom', 'arrow-right', {'size': '24px'}) }}
-              </span>
-            </button>
-          </div>
-          <div class="ps-gallery-lightbox__thumbs-track">
-            <div class="ps-gallery-lightbox__thumbs">
-              {% for slide in slides %}
-                {% set group = slide.type starts with 'video' ? 'video' : (slide.type == 'visit_3d' ? 'visit' : (slide.type starts with 'plan' ? 'plan' : 'photos')) %}
-                {% if loop.index0 > 0 %}
-                  {% set prev = slides[loop.index0 - 1] %}
-                  {% set prev_group = prev.type starts with 'video' ? 'video' : (prev.type == 'visit_3d' ? 'visit' : (prev.type starts with 'plan' ? 'plan' : 'photos')) %}
-                  {% if prev_group != group %}
-                    <span class="ps-gallery-lightbox__thumb-divider" role="presentation" aria-hidden="true"></span>
-                  {% endif %}
-                {% endif %}
-                <button
-                  type="button"
-                  class="ps-gallery-lightbox__thumb ps-gallery-lightbox__thumb--{{ slide.type }}{% if loop.first %} is-active{% endif %}"
-                  data-ps-lightbox-thumb
-                  data-index="{{ loop.index0 }}"
-                  data-type="{{ slide.type }}"
-                  data-group="{{ group }}"
-                  aria-label="{{ slide.label|default(slide.alt|default('')) }}"
-                  aria-current="{% if loop.first %}true{% else %}false{% endif %}"
-                >
-                  {% include 'ps_theme:gallery-lightbox-thumb' with { slide: slide, thumb_index: loop.index0 } only %}
-                </button>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
+  <div class="ps-gallery-lightbox-source" data-ps-gallery-lightbox hidden>
+    <p class="visually-hidden" aria-live="polite" data-ps-lightbox-status></p>
+    <div class="ps-gallery-lightbox__thumbs-track" data-ps-lightbox-thumbs-track>
+      <div class="ps-gallery-lightbox__thumbs">
+        {% for slide in slides %}
+          {% set group = slide.type starts with 'video' ? 'video' : (slide.type == 'visit_3d' ? 'visit' : (slide.type starts with 'plan' ? 'plan' : 'photos')) %}
+          {% if loop.index0 > 0 %}
+            {% set prev = slides[loop.index0 - 1] %}
+            {% set prev_group = prev.type starts with 'video' ? 'video' : (prev.type == 'visit_3d' ? 'visit' : (prev.type starts with 'plan' ? 'plan' : 'photos')) %}
+            {% if prev_group != group %}
+              <span class="ps-gallery-lightbox__thumb-divider" role="presentation" aria-hidden="true"></span>
+            {% endif %}
+          {% endif %}
+          <button
+            type="button"
+            class="ps-gallery-lightbox__thumb ps-gallery-lightbox__thumb--{{ slide.type }}"
+            data-ps-lightbox-thumb
+            data-index="{{ loop.index0 }}"
+            data-type="{{ slide.type }}"
+            data-group="{{ group }}"
+            aria-label="{{ slide.label|default(slide.alt|default('')) }}"
+          >
+            {% include 'ps_theme:gallery-lightbox-thumb' with { slide: slide, thumb_index: loop.index0 } only %}
+          </button>
+        {% endfor %}
       </div>
     </div>
   </div>

@@ -20,7 +20,15 @@
       </button>
       <button type="button" class="ps-media-gallery-hero__trigger" data-ps-gallery-open aria-label="{{ 'Open gallery'|t }}">
         <div class="ps-media-gallery-hero__stage" data-ps-gallery-stage>
-          {% include 'ps_theme:media-gallery-hero-slide' with { slide: slides[0], is_primary: true } only %}
+          <div class="swiper ps-media-gallery-hero__swiper" data-ps-gallery-swiper>
+            <div class="swiper-wrapper">
+              {% for slide in slides %}
+                <div class="swiper-slide">
+                  {% include 'ps_theme:media-gallery-hero-slide' with { slide: slide, is_primary: loop.first } only %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </button>
       <button type="button" class="ps-media-gallery-hero__nav ps-media-gallery-hero__nav--next" data-ps-gallery-next aria-label="{{ 'Next media'|t }}">
