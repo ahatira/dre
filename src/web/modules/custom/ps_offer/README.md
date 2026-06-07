@@ -277,9 +277,9 @@ Voir [`docs/`](docs/) :
 
 Références projet : `.ai/PROJECT_MATRIX.md`, `.ai/PROJECT_MODULES.md` §3.6.
 
-## Offer full — Agent sidebar labels (i18n)
+## Offer full — Agent card labels (i18n)
 
-The offer full Layout Builder uses formatter `ps_offer_agent_sidebar_card` on `field_primary_agent`. UI strings default to English in `core.entity_view_display.node.offer.full` formatter settings:
+The offer full Layout Builder uses formatter `ps_offer_agent_card` on `field_primary_agent`. UI strings default to English in `core.entity_view_display.node.offer.full` formatter settings:
 
 - `consultant_label`, `contact_label`, `visit_title`, `visit_label`, `contact_dialog_options`
 

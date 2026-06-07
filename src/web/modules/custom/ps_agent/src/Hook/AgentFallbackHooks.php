@@ -210,7 +210,7 @@ final class AgentFallbackHooks {
             'height' => $height,
             'loading' => 'lazy',
             'decoding' => 'async',
-            'class' => ['ps-agent-sidebar-profile__fallback'],
+            'class' => ['ps-agent-card-profile__fallback'],
           ],
         ];
       }
@@ -233,7 +233,7 @@ final class AgentFallbackHooks {
         'height' => $height,
         'loading' => 'lazy',
         'decoding' => 'async',
-        'class' => ['ps-agent-sidebar-profile__fallback'],
+        'class' => ['ps-agent-card-profile__fallback'],
       ],
     ];
   }

@@ -1,5 +1,5 @@
-name: Agent sidebar card
-description: 'Consultant card for offer detail sidebar with contact and visit CTAs.'
+name: Offer agent card
+description: 'Consultant card for offer detail with contact and visit CTAs.'
 group: Property Search
 status: stable
 props:

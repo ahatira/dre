@@ -2,27 +2,27 @@
   set classes = [
     'ps-agent',
     'ps-agent--card',
-    'ps-agent-sidebar-profile',
+    'ps-agent-card-profile',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
   {% if content.avatar %}
-    <div class="ps-agent-sidebar-profile__avatar">
+    <div class="ps-agent-card-profile__avatar">
       {{ content.avatar }}
     </div>
   {% endif %}
-  <div class="ps-agent-sidebar-profile__details">
+  <div class="ps-agent-card-profile__details">
     {% if consultant_label %}
-      <p class="ps-agent-sidebar-profile__label">{{ consultant_label }} :</p>
+      <p class="ps-agent-card-profile__label">{{ consultant_label }} :</p>
     {% endif %}
     {% if content.display_name %}
-      <div class="ps-agent-sidebar-profile__name">
+      <div class="ps-agent-card-profile__name">
         {{ content.display_name }}
       </div>
     {% endif %}
     {% if content.phone %}
-      <div class="ps-agent-sidebar-profile__phone">
-        <span class="ps-agent-sidebar-profile__phone-icon" aria-hidden="true">
+      <div class="ps-agent-card-profile__phone">
+        <span class="ps-agent-card-profile__phone-icon" aria-hidden="true">
           {{ icon('bnp_custom', 'phone', {'size': '20px'}) }}
         </span>
         {{ content.phone }}

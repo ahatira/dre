@@ -12,17 +12,17 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 
 /**
- * Renders the primary agent inside the sidebar SDC wrapper.
+ * Renders the primary agent inside the offer agent card SDC wrapper.
  *
  * @FieldFormatter(
- *   id = "ps_offer_agent_sidebar_card",
- *   label = @Translation("Agent sidebar card"),
+ *   id = "ps_offer_agent_card",
+ *   label = @Translation("Offer agent card"),
  *   field_types = {
  *     "entity_reference"
  *   }
  * )
  */
-final class AgentSidebarCardFormatter extends EntityReferenceEntityFormatter {
+final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
 
   /**
    * {@inheritdoc}
@@ -127,7 +127,7 @@ final class AgentSidebarCardFormatter extends EntityReferenceEntityFormatter {
     return [
       0 => [
         '#type' => 'component',
-        '#component' => 'ps_theme:agent-sidebar-card',
+        '#component' => 'ps_theme:offer-agent-card',
         '#props' => [
           'consultant_label' => (string) $this->getSetting('consultant_label'),
           'contact_label' => (string) $this->getSetting('contact_label'),

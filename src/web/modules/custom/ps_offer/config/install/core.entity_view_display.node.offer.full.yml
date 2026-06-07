@@ -82,7 +82,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: ps_offer_agent_sidebar_card
+                type: ps_offer_agent_card
                 label: hidden
                 settings:
                   view_mode: card
@@ -95,7 +95,7 @@ third_party_settings:
             weight: 0
             additional:
               css_classes:
-                - ps-offer-sidebar__agent
+                - ps-offer-agent-panel
         third_party_settings: {  }
       -
         layout_id: layout_twocol_section

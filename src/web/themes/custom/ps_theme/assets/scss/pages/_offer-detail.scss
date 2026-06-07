@@ -377,7 +377,7 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
-.ps-agent-sidebar-card {
+.ps-offer-agent-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -476,7 +476,7 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
   }
 }
 
-.ps-agent-sidebar-profile {
+.ps-agent-card-profile {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -486,7 +486,7 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     flex-shrink: 0;
 
     img,
-    .ps-agent-sidebar-profile__fallback {
+    .ps-agent-card-profile__fallback {
       width: 88px;
       height: 88px;
       border-radius: 50%;
