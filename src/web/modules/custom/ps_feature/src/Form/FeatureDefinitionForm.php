@@ -5,13 +5,16 @@ namespace Drupal\ps_feature\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 use Drupal\ps_feature\Service\FeatureTypeManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form handler for the Feature Definition add and edit forms.
  */
 class FeatureDefinitionForm extends EntityForm {
+
+  use IconAutocompleteHelperTrait;
 
   /**
    * The feature type manager.
@@ -103,6 +106,15 @@ class FeatureDefinitionForm extends EntityForm {
       '#required' => TRUE,
     ];
 
+    $form['icon'] = $this->buildIconPickerElement(
+      $this->t('Feature icon'),
+      $feature_definition->getIcon(),
+      [
+        'description' => $this->t('Optional icon shown next to this feature on offer pages. Leave empty to hide the icon.'),
+        'required' => FALSE,
+      ],
+    );
+
     $form['type_driver'] = [
       '#type' => 'select',
       '#title' => $this->t('Data type'),
@@ -165,6 +177,11 @@ class FeatureDefinitionForm extends EntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
+
+    $form_state->setValue(
+      'icon',
+      $this->extractIconId($form_state->getValue('icon'), ''),
+    );
 
     // Validate code uniqueness within the group.
     $code = trim($form_state->getValue('code') ?? '');

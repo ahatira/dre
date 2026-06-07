@@ -42,6 +42,11 @@ services:
       - '@config.factory'
       - '@entity_type.manager'
 
+  ps_feature.feature_definition_icon_resolver:
+    class: Drupal\ps_feature\Service\FeatureDefinitionIconResolver
+    arguments:
+      - '@entity_type.manager'
+
   ps_feature.empty_feature_field_block_subscriber:
     class: Drupal\ps_feature\EventSubscriber\EmptyFeatureFieldBlockSubscriber
     tags:

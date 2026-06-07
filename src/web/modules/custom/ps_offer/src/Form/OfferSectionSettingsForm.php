@@ -6,6 +6,7 @@ namespace Drupal\ps_offer\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
@@ -23,6 +24,7 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
     private readonly OfferSectionRegistry $sectionRegistry,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {
     parent::__construct($config_factory, $typed_config_manager);
   }
@@ -35,6 +37,7 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
       $container->get('config.factory'),
       $container->get('config.typed'),
       $container->get('ps_core.section_registry'),
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -94,6 +97,17 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
           'required' => FALSE,
         ],
       );
+
+      if ($section_id === 'location') {
+        $form['sections'][$section_id]['transport_group'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Transport feature group'),
+          '#description' => $this->t('Features from this group are shown under the transport line in the location section.'),
+          '#options' => $this->getFeatureGroupOptions(),
+          '#default_value' => (string) ($stored['transport_group'] ?? 'acces_vehicules'),
+          '#required' => TRUE,
+        ];
+      }
     }
 
     return parent::buildForm($form, $form_state);
@@ -138,10 +152,39 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
         'label' => trim((string) ($values['label'] ?? $plugin->getDefaultLabel())),
         'icon' => $icon,
       ];
+
+      if ($section_id === 'location') {
+        $sections[$section_id]['transport_group'] = trim((string) ($values['transport_group'] ?? 'acces_vehicules'));
+      }
     }
 
     $editable->set('sections', $sections)->save();
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Returns feature group options for the location transport selector.
+   *
+   * @return array<string, string>
+   *   Options keyed by group ID.
+   */
+  private function getFeatureGroupOptions(): array {
+    $options = [];
+    $groups = $this->entityTypeManager->getStorage('fb_feature_group')->loadMultiple();
+    usort($groups, static function ($a, $b): int {
+      $a_weight = method_exists($a, 'getWeight') ? $a->getWeight() : 0;
+      $b_weight = method_exists($b, 'getWeight') ? $b->getWeight() : 0;
+      if ($a_weight === $b_weight) {
+        return strcasecmp((string) $a->label(), (string) $b->label());
+      }
+      return $a_weight <=> $b_weight;
+    });
+
+    foreach ($groups as $group) {
+      $options[$group->id()] = $group->label();
+    }
+
+    return $options;
   }
 
 }

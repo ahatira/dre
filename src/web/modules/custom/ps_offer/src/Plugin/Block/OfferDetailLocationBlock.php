@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_offer\Plugin\Block;
 
+use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -12,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
 use Drupal\ps_core\Service\OfferSectionHeadingBuilder;
+use Drupal\ps_core\Service\OfferSectionRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,6 +33,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
     private readonly RouteMatchInterface $routeMatch,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly OfferSectionHeadingBuilder $sectionHeadingBuilder,
+    private readonly OfferSectionRegistry $sectionRegistry,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -46,6 +49,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
       $container->get('ps_core.section_heading_builder'),
+      $container->get('ps_core.section_registry'),
     );
   }
 
@@ -58,12 +62,14 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       return [];
     }
 
-    $view_builder = $this->entityTypeManager->getViewBuilder('node');
     $build = [
       '#type' => 'container',
       '#attributes' => ['class' => ['ps-offer-section', 'ps-offer-section--location']],
       '#cache' => [
-        'tags' => $node->getCacheTags(),
+        'tags' => array_merge(
+          $node->getCacheTags(),
+          $this->sectionRegistry->getCacheTags(),
+        ),
         'contexts' => ['route'],
       ],
     ];
@@ -74,36 +80,87 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       $this->sectionHeadingBuilder->getCacheTags(),
     );
 
-    $address = $this->viewField($view_builder, $node, 'field_address', 'address_plain');
+    $content = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-offer-section--location__content']],
+    ];
+
+    $address = $this->buildAddressLine($node);
     if ($address !== []) {
-      $build['address'] = $address;
-      $build['address']['#attributes']['class'][] = 'ps-offer-section--location__address';
+      $content['address'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['ps-offer-section--location__address']],
+        'line' => $address,
+      ];
     }
 
+    $view_builder = $this->entityTypeManager->getViewBuilder('node');
+    $transport_group = $this->sectionRegistry->getLocationTransportGroup();
     $transport = $this->viewField($view_builder, $node, 'field_features', 'feature_default', [
-      'show_label' => FALSE,
-      'show_group' => TRUE,
-      'format_style' => 'grouped',
+      'show_label' => TRUE,
+      'show_group' => FALSE,
+      'format_style' => 'default',
       'hide_disabled_flags' => TRUE,
-      'group_order' => 'acces_vehicules',
-      'group_filter' => 'acces_vehicules',
+      'group_filter' => $transport_group,
     ]);
     if ($transport !== []) {
-      $build['transport_label'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('Transport :'),
-        '#attributes' => ['class' => ['ps-offer-section--location__transport-label']],
+      $content['transport'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['ps-offer-section--location__transport']],
+        'label' => [
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          '#value' => $this->t('Transport :'),
+          '#attributes' => ['class' => ['ps-offer-section--location__transport-label']],
+        ],
+        'items' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-offer-section--location__transport-items']],
+          'field' => $transport,
+        ],
       ];
-      $build['transport'] = $transport;
-      $build['transport']['#attributes']['class'][] = 'ps-offer-section--location__transport';
     }
 
-    if (!isset($build['address']) && !isset($build['transport'])) {
+    if (!isset($content['address']) && !isset($content['transport'])) {
       return [];
     }
 
+    $build['content'] = $content;
+
     return $build;
+  }
+
+  /**
+   * Builds a single-line address for the location block.
+   */
+  private function buildAddressLine(NodeInterface $node): array {
+    if (!$node->hasField('field_address') || $node->get('field_address')->isEmpty()) {
+      return [];
+    }
+
+    $item = $node->get('field_address')->first();
+    if (!$item instanceof AddressItem) {
+      return [];
+    }
+
+    $line = trim((string) ($item->address_line1 ?? ''));
+    $city = trim(trim((string) ($item->postal_code ?? '')) . ' ' . trim((string) ($item->locality ?? '')));
+    $text = match (TRUE) {
+      $line !== '' && $city !== '' => $line . ' - ' . $city,
+      $line !== '' => $line,
+      default => $city,
+    };
+
+    if ($text === '') {
+      return [];
+    }
+
+    return [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $text,
+      '#attributes' => ['class' => ['ps-offer-section--location__address-line']],
+    ];
   }
 
   /**

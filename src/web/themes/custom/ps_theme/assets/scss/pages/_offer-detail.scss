@@ -514,66 +514,129 @@ body:has(.node--type-offer.node--view-mode-full) {
 }
 
 .ps-offer-section--location {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
   background: #f9f9fb;
+  width: 100%;
+  box-sizing: border-box;
 
-  &__address {
-    position: relative;
-    margin: 0 0 1.5rem;
-    padding-left: 2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.5rem;
-    color: #333;
+  .ps-offer-section__title {
+    margin: 0;
+    width: 100%;
+    min-height: 40px;
+    gap: 0;
+  }
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.125rem;
-      width: 1.25rem;
-      height: 1.25rem;
-      background: url('#{$icon-base}/generic/pin-map.svg') no-repeat center / contain;
+  .ps-offer-section__title-content {
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ps-offer-section__title-text {
+    font-size: 24px;
+    line-height: 40px;
+  }
+
+  .ps-offer-section__title-icon {
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
 
-  &__transport-label {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+  }
+
+  &__address {
+    width: 100%;
+    padding-left: 32px;
+    box-sizing: border-box;
+  }
+
+  &__address-line {
+    margin: 0;
+    font-size: 16px;
     font-weight: 700;
-    line-height: 1.5rem;
+    line-height: 24px;
     color: #333;
   }
 
   &__transport {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__transport-label {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #333;
+  }
+
+  &__transport-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    .field,
+    .field--items,
+    .field--item,
+    .feature-grouped-list,
+    .feature-grouped-group,
+    .feature-grouped-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .field__label,
+    .field--label,
     .feature-grouped-title {
       display: none;
     }
 
-    .feature-grouped-list,
-    .feature-grouped-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
     .feature-default {
-      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      min-height: 24px;
       margin: 0;
-      padding-left: 1.75rem;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      padding: 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
       color: #333;
 
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0.125rem;
-        width: 1.25rem;
-        height: 1.25rem;
-        border-radius: 0;
-        background: url('#{$icon-base}/ad/bus-borders.svg') no-repeat center / contain;
+      strong {
+        font-weight: 400;
+      }
+
+      &__icon {
+        display: flex;
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        align-items: center;
+        justify-content: center;
       }
     }
   }

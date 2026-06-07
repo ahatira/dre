@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_feature\Service\FeatureDefinitionIconResolver;
 use Drupal\ps_feature\Service\FeatureGroupIconResolver;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,12 +40,20 @@ class FeatureFormatter extends FormatterBase {
   protected FeatureGroupIconResolver $featureGroupIconResolver;
 
   /**
+   * Resolves feature item icons.
+   *
+   * @var \Drupal\ps_feature\Service\FeatureDefinitionIconResolver
+   */
+  protected FeatureDefinitionIconResolver $featureDefinitionIconResolver;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->featureTypeManager = $container->get('plugin.manager.feature_type');
     $instance->featureGroupIconResolver = $container->get('ps_feature.feature_group_icon_resolver');
+    $instance->featureDefinitionIconResolver = $container->get('ps_feature.feature_definition_icon_resolver');
     return $instance;
   }
 
@@ -381,6 +390,9 @@ class FeatureFormatter extends FormatterBase {
     $build = [
       '#type' => 'container',
       '#attributes' => ['class' => ['feature-default']],
+      '#cache' => [
+        'tags' => $this->featureDefinitionIconResolver->getCacheTagsForDefinition($feature_definition->id()),
+      ],
     ];
 
     if ($format_style === 'compact') {
@@ -393,6 +405,16 @@ class FeatureFormatter extends FormatterBase {
 
     if ($format_style === 'detailed') {
       $build['#attributes']['class'] = ['feature-detailed'];
+    }
+
+    $feature_code = $feature_definition->getCode();
+    if ($feature_code !== '') {
+      $build['#attributes']['data-feature-code'] = Html::getClass($feature_code);
+    }
+
+    $icon = $this->featureDefinitionIconResolver->buildRenderable($feature_definition);
+    if ($icon !== []) {
+      $build['icon'] = $icon;
     }
 
     if ($show_label) {

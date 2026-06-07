@@ -34,3 +34,6 @@ ps_core.offer_section_settings:
             icon:
               type: string
               label: 'Section icon'
+            transport_group:
+              type: string
+              label: 'Transport feature group'

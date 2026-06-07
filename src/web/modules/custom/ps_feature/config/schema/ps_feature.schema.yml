@@ -139,3 +139,6 @@ ps_feature.feature_definition.*:
     status:
       type: boolean
       label: 'Status'
+    icon:
+      type: string
+      label: 'UI Icon'

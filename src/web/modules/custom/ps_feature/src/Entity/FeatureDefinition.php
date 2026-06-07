@@ -5,6 +5,7 @@ namespace Drupal\ps_feature\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_core\Utility\IconIdUtility;
 
 /**
  * Defines the Feature Definition configuration entity.
@@ -49,6 +50,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
     'status',
     'payload_defaults',
     'expose_as_filter',
+    'icon',
   ],
   links: [
     'add-form' => '/admin/ps/content/features/add',
@@ -128,6 +130,13 @@ class FeatureDefinition extends ConfigEntityBase {
    * @var bool
    */
   protected $expose_as_filter = FALSE;
+
+  /**
+   * UI Icon identifier (pack:id) for this feature.
+   *
+   * @var string
+   */
+  protected $icon = '';
 
   /**
    * Gets the description.
@@ -232,6 +241,26 @@ class FeatureDefinition extends ConfigEntityBase {
    */
   public function isExposeAsFilter(): bool {
     return $this->expose_as_filter ?? FALSE;
+  }
+
+  /**
+   * Gets the UI Icon identifier.
+   */
+  public function getIcon(): string {
+    $icon = $this->icon ?? '';
+    if (is_array($icon)) {
+      return IconIdUtility::extractFromSubmission($icon, '');
+    }
+
+    return is_string($icon) ? $icon : '';
+  }
+
+  /**
+   * Sets the UI Icon identifier.
+   */
+  public function setIcon(string $icon): static {
+    $this->icon = $icon;
+    return $this;
   }
 
 }

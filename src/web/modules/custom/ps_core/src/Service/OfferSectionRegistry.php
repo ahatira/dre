@@ -85,6 +85,26 @@ final class OfferSectionRegistry {
   }
 
   /**
+   * Returns the feature group ID used for transport in the location section.
+   */
+  public function getLocationTransportGroup(): string {
+    $default = 'acces_vehicules';
+    if ($this->getPlugin('location') === NULL) {
+      return $default;
+    }
+
+    $sectionConfig = $this->getSectionConfig('location');
+    if ($sectionConfig !== NULL) {
+      $stored = trim((string) ($sectionConfig['transport_group'] ?? ''));
+      if ($stored !== '') {
+        return $stored;
+      }
+    }
+
+    return $default;
+  }
+
+  /**
    * Returns cache tags for section settings.
    *
    * @return string[]
