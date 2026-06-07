@@ -474,6 +474,10 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
     flex-shrink: 0;
     color: currentColor;
   }
+
+  &__mobile-actions {
+    display: none;
+  }
 }
 
 .ps-agent-card-profile {
@@ -570,14 +574,102 @@ $icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
 
 @media (max-width: 991.98px) {
   .ps-offer-detail {
+    --ps-offer-mobile-actions-height: 4.5rem;
+    position: relative;
+
     &__content {
       gap: 2rem;
+      padding-bottom: calc(var(--ps-offer-mobile-actions-height) + env(safe-area-inset-bottom, 0px));
     }
 
     .ps-offer-layout--hero.layout--twocol-section {
       > .layout__region--second {
+        display: block;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+      }
+    }
+
+    .ps-offer-agent-card {
+      &__consultant,
+      &__visit {
         display: none;
-        margin-top: 0;
+      }
+
+      &__mobile-actions {
+        display: flex;
+        z-index: 1030;
+        gap: 0.5rem;
+        align-items: stretch;
+        min-height: var(--ps-offer-mobile-actions-height);
+        padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+        background: var(--re-color-surface, #fff);
+        border-top: 1px solid var(--re-color-border, #d6dbde);
+        box-shadow: 0 -4px 12px rgba(28, 45, 55, 0.08);
+
+        &.is-fixed {
+          position: fixed;
+          inset-inline: 0;
+          bottom: 0;
+        }
+
+        &.is-contained {
+          position: absolute;
+          inset-inline: 0;
+          bottom: 0;
+          width: 100%;
+          margin-inline: 0;
+        }
+      }
+
+      &__mobile-visit,
+      &__mobile-contact {
+        flex: 1 1 50%;
+        min-height: 2.5rem;
+        margin: 0;
+        padding: 0 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        border-radius: 0;
+      }
+
+      &__mobile-visit {
+        color: var(--re-color-primary, #00915a);
+        background: var(--re-color-surface, #fff);
+        border: 2px solid var(--re-color-primary, #00915a);
+
+        &:hover,
+        &:focus {
+          color: #fff;
+          background: var(--re-color-primary, #00915a);
+          border-color: var(--re-color-primary, #00915a);
+        }
+
+        &:disabled {
+          opacity: 0.55;
+          pointer-events: none;
+        }
+      }
+
+      &__mobile-contact {
+        background: var(--re-color-primary, #00915a);
+        border: 2px solid var(--re-color-primary, #00915a);
+        color: #fff;
+
+        &:hover,
+        &:focus {
+          background: var(--re-color-primary-dark, #007a4d);
+          border-color: var(--re-color-primary-dark, #007a4d);
+          color: #fff;
+        }
+
+        &:disabled {
+          opacity: 0.55;
+          pointer-events: none;
+        }
       }
     }
 

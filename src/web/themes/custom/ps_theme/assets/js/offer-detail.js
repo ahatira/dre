@@ -3,6 +3,40 @@
 
   Drupal.behaviors.psOfferDetail = {
     attach(context) {
+      once('ps-offer-mobile-actions', '.ps-offer-detail', context).forEach((offer) => {
+        const bar = offer.querySelector('.ps-offer-agent-card__mobile-actions');
+        if (!bar) {
+          return;
+        }
+
+        if (bar.parentElement !== offer) {
+          offer.appendChild(bar);
+        }
+
+        const mobileQuery = window.matchMedia('(max-width: 991.98px)');
+        const updateBarPosition = () => {
+          if (!mobileQuery.matches) {
+            bar.classList.remove('is-fixed', 'is-contained');
+            return;
+          }
+
+          const offerRect = offer.getBoundingClientRect();
+          if (offerRect.bottom > window.innerHeight) {
+            bar.classList.add('is-fixed');
+            bar.classList.remove('is-contained');
+            return;
+          }
+
+          bar.classList.remove('is-fixed');
+          bar.classList.add('is-contained');
+        };
+
+        updateBarPosition();
+        window.addEventListener('scroll', updateBarPosition, { passive: true });
+        window.addEventListener('resize', updateBarPosition);
+        mobileQuery.addEventListener('change', updateBarPosition);
+      });
+
       once('ps-offer-read-more', '.ps-offer-description--collapsible', context).forEach((wrapper) => {
         const content = wrapper.querySelector('.ps-offer-description__content');
         const toggle = wrapper.querySelector('[data-ps-read-more]');

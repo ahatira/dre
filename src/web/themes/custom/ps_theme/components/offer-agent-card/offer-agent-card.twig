@@ -35,4 +35,28 @@
       </button>
     {% endif %}
   </div>
+
+  <div class="ps-offer-agent-card__mobile-actions" role="group" aria-label="{{ 'Offer actions'|t }}">
+    {% if visit_enabled and visit_phone %}
+      <a href="{{ visit_phone }}" class="btn ps-offer-agent-card__mobile-visit">
+        {{ visit_label_mobile }}
+      </a>
+    {% else %}
+      <button type="button" class="btn ps-offer-agent-card__mobile-visit" disabled aria-disabled="true">
+        {{ visit_label_mobile }}
+      </button>
+    {% endif %}
+    {% if contact_url %}
+      <a href="{{ contact_url }}"
+         class="btn btn-primary ps-offer-agent-card__mobile-contact use-ajax"
+         data-dialog-type="modal"
+         data-dialog-options="{{ contact_dialog_options|e('html_attr') }}">
+        {{ contact_label_mobile }}
+      </a>
+    {% else %}
+      <button type="button" class="btn btn-primary ps-offer-agent-card__mobile-contact" disabled aria-disabled="true">
+        {{ contact_label_mobile }}
+      </button>
+    {% endif %}
+  </div>
 </div>

@@ -88,8 +88,10 @@ third_party_settings:
                   view_mode: card
                   consultant_label: 'Your consultant'
                   contact_label: 'Contact the consultancy'
+                  contact_label_mobile: 'Contact'
                   visit_title: 'Would you like to visit?'
                   visit_label: 'Schedule a visit'
+                  visit_label_mobile: 'Visit'
                   contact_dialog_options: '{"width":800,"dialogClasses":"modal-dialog-centered modal-lg"}'
                 third_party_settings: {  }
             weight: 0

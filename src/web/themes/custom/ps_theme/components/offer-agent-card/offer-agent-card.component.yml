@@ -13,6 +13,10 @@ props:
       type: string
       title: Contact button label
       default: 'Contact the consultancy'
+    contact_label_mobile:
+      type: string
+      title: Contact button label (mobile sticky bar)
+      default: 'Contact'
     contact_url:
       type: string
       title: Contact modal URL
@@ -29,6 +33,10 @@ props:
       type: string
       title: Visit button label
       default: 'Schedule a visit'
+    visit_label_mobile:
+      type: string
+      title: Visit button label (mobile sticky bar)
+      default: 'Visit'
     visit_phone:
       type: string
       title: Visit phone URL

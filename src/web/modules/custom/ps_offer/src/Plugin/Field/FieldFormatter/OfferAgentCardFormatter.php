@@ -32,8 +32,10 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       'view_mode' => 'card',
       'consultant_label' => 'Your consultant',
       'contact_label' => 'Contact the consultancy',
+      'contact_label_mobile' => 'Contact',
       'visit_title' => 'Would you like to visit?',
       'visit_label' => 'Schedule a visit',
+      'visit_label_mobile' => 'Visit',
       'contact_dialog_options' => '{"width":800,"dialogClasses":"modal-dialog-centered modal-lg"}',
     ] + parent::defaultSettings();
   }
@@ -131,8 +133,10 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
         '#props' => [
           'consultant_label' => (string) $this->getSetting('consultant_label'),
           'contact_label' => (string) $this->getSetting('contact_label'),
+          'contact_label_mobile' => (string) $this->getSetting('contact_label_mobile'),
           'visit_title' => (string) $this->getSetting('visit_title'),
           'visit_label' => (string) $this->getSetting('visit_label'),
+          'visit_label_mobile' => (string) $this->getSetting('visit_label_mobile'),
           'contact_url' => $contact_url,
           'contact_dialog_options' => (string) $this->getSetting('contact_dialog_options'),
           'visit_phone' => $this->normalizeTelUrl($phone),
