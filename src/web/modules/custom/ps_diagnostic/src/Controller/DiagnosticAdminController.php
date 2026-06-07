@@ -23,6 +23,7 @@ final class DiagnosticAdminController extends ControllerBase {
           Link::createFromRoute($this->t('Diagnostic types'), 'entity.ps_diagnostic_type.collection')->toRenderable(),
           Link::createFromRoute($this->t('Add diagnostic type'), 'entity.ps_diagnostic_type.add_form')->toRenderable(),
           Link::fromTextAndUrl($this->t('Certification labels'), Url::fromUri('internal:/admin/structure/taxonomy/manage/certification_label/overview'))->toRenderable(),
+          Link::createFromRoute($this->t('Offer section headings'), 'ps_offer.section_settings')->toRenderable(),
         ],
       ],
     ];

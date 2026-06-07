@@ -11,13 +11,6 @@ ps_diagnostic.settings:
     allow_empty_value:
       type: boolean
       label: 'Allow empty value'
-    section_label:
-      type: label
-      label: 'Offer section title'
-      translatable: true
-    section_icon:
-      type: string
-      label: 'Offer section icon'
     fallback_message_mode:
       type: string
       label: 'Fallback message mode'

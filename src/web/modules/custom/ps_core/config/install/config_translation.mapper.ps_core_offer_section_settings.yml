@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_core
+name: ps_core.offer_section_settings
+label: 'Offer section settings'
+mappings:
+  sections:
+    label: 'Sections'
+    translatable: true

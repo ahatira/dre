@@ -5,6 +5,13 @@ ps_offer.budget_settings:
   parent: ps_core.config
   weight: 25
 
+ps_offer.section_settings:
+  title: 'Offer section headings'
+  description: 'Configure offer detail section titles and icons.'
+  route_name: ps_offer.section_settings
+  parent: ps_core.config
+  weight: 26
+
 ps_offer.reference_config:
   title: 'Offer Reference'
   description: 'Configure offer reference generation.'

@@ -1,7 +1,5 @@
 default_validity_months: 120
 allow_manual_class: true
 allow_empty_value: true
-section_label: 'Energy & diagnostics'
-section_icon: 'bnp_custom:energy-cons'
 fallback_message_mode: single
 fallback_message_single: 'Energy label not provided by the owner.'

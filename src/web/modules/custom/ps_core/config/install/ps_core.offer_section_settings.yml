@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+sections:
+  energy:
+    label: 'Energy & diagnostics'
+    icon: 'bnp_custom:energy-cons'
+  description:
+    label: 'Description'
+    icon: ''
+  surface_table:
+    label: 'Surface table'
+    icon: 'bnp_custom:floors'
+  location:
+    label: 'Location'
+    icon: 'bnp_custom:pin-map'

@@ -13,3 +13,11 @@ ps_offer.budget_settings:
     _title: 'Offer display settings'
   requirements:
     _permission: 'manage ps_offer'
+
+ps_offer.section_settings:
+  path: '/admin/ps/config/offer-sections'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferSectionSettingsForm'
+    _title: 'Offer section headings'
+  requirements:
+    _permission: 'manage ps_offer'

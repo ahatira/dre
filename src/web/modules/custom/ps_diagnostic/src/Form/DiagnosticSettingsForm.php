@@ -8,11 +8,8 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 
 final class DiagnosticSettingsForm extends ConfigFormBase {
-
-  use IconAutocompleteHelperTrait;
 
   protected function getEditableConfigNames(): array {
     return ['ps_diagnostic.settings'];
@@ -64,23 +61,11 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
       '#open' => TRUE,
     ];
 
-    $form['display']['section_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Offer section title'),
-      '#default_value' => (string) ($config->get('section_label') ?? 'Energy & diagnostics'),
-      '#description' => $this->t('Heading shown above diagnostics on offer detail pages.'),
-      '#maxlength' => 255,
-      '#required' => TRUE,
+    $form['display']['section_settings_link'] = [
+      '#type' => 'item',
+      '#title' => $this->t('Section title and icon'),
+      '#markup' => Link::createFromRoute($this->t('Configure offer section headings'), 'ps_offer.section_settings')->toString(),
     ];
-
-    $form['display']['section_icon'] = $this->buildIconPickerElement(
-      $this->t('Offer section icon'),
-      $this->getIconDefault($config->get('section_icon'), 'bnp_custom:energy-cons'),
-      [
-        'description' => $this->t('UI Icon shown next to the section title on offer detail pages.'),
-        'required' => TRUE,
-      ],
-    );
 
     $fallback_mode = (string) ($config->get('fallback_message_mode') ?? 'single');
     $form['display']['fallback_message_mode'] = [
@@ -113,14 +98,6 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
 
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
-
-    $form_state->setValue(
-      'section_icon',
-      $this->extractIconId(
-        $this->getSubmittedIconValue($form_state, 'section_icon', 'display'),
-        'bnp_custom:energy-cons',
-      ),
-    );
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {
@@ -135,8 +112,6 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
       ->set('default_validity_months', (int) $form_state->getValue('default_validity_months'))
       ->set('allow_manual_class', (bool) $form_state->getValue('allow_manual_class'))
       ->set('allow_empty_value', (bool) $form_state->getValue('allow_empty_value'))
-      ->set('section_label', trim((string) ($display['section_label'] ?? 'Energy & diagnostics')))
-      ->set('section_icon', trim((string) $form_state->getValue('section_icon', 'bnp_custom:energy-cons')))
       ->set('fallback_message_mode', $fallback_mode)
       ->set('fallback_message_single', trim((string) ($display['fallback_message_single'] ?? 'Energy label not provided by the owner.')))
       ->save();

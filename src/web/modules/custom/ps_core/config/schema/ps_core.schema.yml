@@ -14,3 +14,23 @@ ps_core.settings:
     conflict_window_seconds:
       type: integer
       label: 'Conflict detection window (seconds)'
+
+ps_core.offer_section_settings:
+  type: config_object
+  label: 'Offer section settings'
+  mapping:
+    sections:
+      type: mapping
+      label: 'Offer detail sections'
+      mapping:
+        '*':
+          type: mapping
+          label: 'Section'
+          mapping:
+            label:
+              type: label
+              label: 'Section title'
+              translatable: true
+            icon:
+              type: string
+              label: 'Section icon'

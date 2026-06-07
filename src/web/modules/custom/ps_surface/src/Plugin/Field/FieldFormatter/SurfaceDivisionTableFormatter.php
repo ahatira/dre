@@ -5,31 +5,56 @@ declare(strict_types=1);
 namespace Drupal\ps_surface\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_core\Service\OfferSectionHeadingBuilder;
 use Drupal\ps_surface\Entity\SurfaceDivision;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Renders surface divisions as a data table.
- *
- * @FieldFormatter(
- *   id = "ps_surface_division_table",
- *   label = @Translation("Surface division table"),
- *   field_types = {
- *     "entity_reference"
- *   }
- * )
  */
-final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase {
+#[FieldFormatter(
+  id: 'ps_surface_division_table',
+  label: new TranslatableMarkup('Surface division table'),
+  field_types: ['entity_reference'],
+)]
+final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * Asset types where surface divisions are not displayed on the offer page.
    */
   private const CAPACITY_DRIVEN_ASSET_TYPES = ['COW'];
 
-  /**
-   * {@inheritdoc}
-   */
+  public function __construct(
+    string $plugin_id,
+    mixed $plugin_definition,
+    mixed $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    private readonly OfferSectionHeadingBuilder $sectionHeadingBuilder,
+  ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+  }
+
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('ps_core.section_heading_builder'),
+    );
+  }
+
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     if ($this->shouldHideForParentEntity($items->getEntity())) {
       return [];
@@ -64,18 +89,19 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase {
       return [];
     }
 
+    $title = $this->sectionHeadingBuilder->buildTitle('surface_table');
+    $title['#cache']['tags'] = array_merge(
+      $title['#cache']['tags'] ?? [],
+      $this->sectionHeadingBuilder->getCacheTags(),
+    );
+
     return [
       0 => [
         '#type' => 'container',
         '#attributes' => [
           'class' => ['ps-offer-section', 'ps-offer-section--surface-table'],
         ],
-        'title' => [
-          '#type' => 'html_tag',
-          '#tag' => 'h2',
-          '#value' => $this->t('Surface table'),
-          '#attributes' => ['class' => ['ps-offer-section__title']],
-        ],
+        'title' => $title,
         'table_wrapper' => [
           '#type' => 'container',
           '#attributes' => ['class' => ['ps-surface-division-table__wrapper']],
@@ -93,9 +119,6 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase {
     ];
   }
 
-  /**
-   * Whether the parent offer should not expose the surface table.
-   */
   private function shouldHideForParentEntity(EntityInterface $entity): bool {
     if (!$entity->hasField('field_asset_type') || $entity->get('field_asset_type')->isEmpty()) {
       return FALSE;
@@ -104,9 +127,6 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase {
     return in_array((string) $entity->get('field_asset_type')->value, self::CAPACITY_DRIVEN_ASSET_TYPES, TRUE);
   }
 
-  /**
-   * Formats the primary surface value for a division row.
-   */
   private function formatSurfaceValue(SurfaceDivision $division): string {
     if (!$division->hasField('surfaces') || $division->get('surfaces')->isEmpty()) {
       return '';
@@ -132,17 +152,11 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase {
     return $fallback;
   }
 
-  /**
-   * Formats a numeric surface amount with its unit.
-   */
   private function formatSurfaceAmount(float $value, string $unit_code): string {
     $unit = strtolower($unit_code) === 'ha' ? 'ha' : 'm²';
     return number_format($value, 1, ',', ' ') . ' ' . $unit;
   }
 
-  /**
-   * Formats division availability for display.
-   */
   private function formatAvailability(SurfaceDivision $division): string {
     if (!$division->get('availability_text')->isEmpty()) {
       return (string) $division->get('availability_text')->value;

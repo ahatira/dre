@@ -11,6 +11,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
+use Drupal\ps_core\Service\OfferSectionHeadingBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,6 +30,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
     $plugin_definition,
     private readonly RouteMatchInterface $routeMatch,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly OfferSectionHeadingBuilder $sectionHeadingBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -43,6 +45,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
+      $container->get('ps_core.section_heading_builder'),
     );
   }
 
@@ -65,12 +68,11 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       ],
     ];
 
-    $build['title'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'h2',
-      '#value' => $this->t('Location'),
-      '#attributes' => ['class' => ['ps-offer-section__title']],
-    ];
+    $build['title'] = $this->sectionHeadingBuilder->buildTitle('location');
+    $build['title']['#cache']['tags'] = array_merge(
+      $build['title']['#cache']['tags'] ?? [],
+      $this->sectionHeadingBuilder->getCacheTags(),
+    );
 
     $address = $this->viewField($view_builder, $node, 'field_address', 'address_plain');
     if ($address !== []) {

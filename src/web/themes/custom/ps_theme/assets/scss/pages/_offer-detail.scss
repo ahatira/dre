@@ -477,6 +477,32 @@ body:has(.node--type-offer.node--view-mode-full) {
     line-height: 2.5rem;
     color: #333;
   }
+
+  &__title-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__title-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+
+    svg {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &__title-text {
+    margin: 0;
+  }
 }
 
 .feature-grouped-list:not(:has(.feature-grouped-group)) {
@@ -550,15 +576,6 @@ body:has(.node--type-offer.node--view-mode-full) {
         background: url('#{$icon-base}/ad/bus-borders.svg') no-repeat center / contain;
       }
     }
-  }
-
-  .ps-offer-section__title::before {
-    content: '';
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    background: url('#{$icon-base}/generic/pin-map.svg') no-repeat center / contain;
   }
 }
 
@@ -813,28 +830,6 @@ body:has(.node--type-offer.node--view-mode-full) {
     color: #333;
   }
 
-  .ps-offer-section__title-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .ps-offer-section__title-icon {
-    display: inline-flex;
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-
-    svg {
-      display: block;
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
-
   .ps-offer-section__title-text {
     margin: 0;
   }
@@ -950,10 +945,6 @@ body:has(.node--type-offer.node--view-mode-full) {
 // ---------------------------------------------------------------------------
 
 .ps-offer-section--surface-table {
-  .ps-offer-section__title::before {
-    background-image: url('#{$icon-base}/ad/floors.svg');
-  }
-
   .ps-surface-division-table__wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;

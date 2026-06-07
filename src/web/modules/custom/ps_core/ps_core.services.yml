@@ -25,3 +25,21 @@ services:
   ps_core.permission_manager:
     class: Drupal\ps_core\Service\PermissionManager
     arguments: ['@current_user', '@router.route_provider']
+
+  ps_core.section_manager:
+    class: Drupal\ps_core\Service\OfferSectionManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.discovery'
+      - '@module_handler'
+
+  ps_core.section_registry:
+    class: Drupal\ps_core\Service\OfferSectionRegistry
+    arguments:
+      - '@ps_core.section_manager'
+      - '@config.factory'
+
+  ps_core.section_heading_builder:
+    class: Drupal\ps_core\Service\OfferSectionHeadingBuilder
+    arguments:
+      - '@ps_core.section_registry'
