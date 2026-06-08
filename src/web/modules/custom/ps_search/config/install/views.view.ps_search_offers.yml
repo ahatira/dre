@@ -1230,11 +1230,11 @@ display:
           map_center:
             lat: 46.603354
             lon: 1.888334
-            center_force: true
+            center_force: false
           map_zoom_and_pan:
             zoom:
               initial: 6
-              force: true
+              force: false
               min: 1
               max: 22
             scrollwheel: true
@@ -1257,7 +1257,7 @@ display:
           map_additional_options: ''
           map_markercluster:
             markercluster_additional_options: ''
-            markercluster_control: false
+            markercluster_control: true
           map_lazy_load:
             lazy_load: false
           map_google_api_key: ''
@@ -1297,7 +1297,7 @@ display:
       attachment_position: before
       inherit_arguments: true
       inherit_exposed_filters: true
-      inherit_pager: true
+      inherit_pager: false
       render_pager: false
       header_position: top
       link_display_option: custom_url

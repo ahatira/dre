@@ -5,6 +5,17 @@ services:
       - '@config.factory'
       - '@entity_type.manager'
 
+  Drupal\ps_search\Service\SearchMapMarkerBuilder:
+    class: Drupal\ps_search\Service\SearchMapMarkerBuilder
+    arguments:
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\GeofieldMapHooks:
+    class: Drupal\ps_search\Hook\GeofieldMapHooks
+    arguments:
+      - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
+      - '@extension.list.theme'
+
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks
     arguments:

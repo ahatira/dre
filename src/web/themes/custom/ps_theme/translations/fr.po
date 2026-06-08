@@ -50,3 +50,31 @@ msgstr "Surface"
 
 msgid "Price"
 msgstr "Prix"
+
+msgid "Rent"
+msgstr "Loyer"
+
+# Search page (views-view--ps-search-offers--page-list)
+msgid "Create an alert"
+msgstr "Créer une alerte"
+
+msgid "Coming soon"
+msgstr "Bientôt disponible"
+
+msgid "result"
+msgstr "résultat"
+
+msgid "results"
+msgstr "résultats"
+
+msgid "Sort by"
+msgstr "Trier par"
+
+msgid "Pagination"
+msgstr "Pagination"
+
+msgid "Hide list"
+msgstr "Masquer la liste"
+
+msgid "Show list"
+msgstr "Afficher la liste"
