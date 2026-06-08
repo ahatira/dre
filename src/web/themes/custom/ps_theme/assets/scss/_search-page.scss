@@ -1,40 +1,137 @@
+// Search page — viewport shell + map fill. Layout/spacing via Bootstrap utilities in Twig.
+
+.min-h-0 {
+  min-height: 0 !important;
+}
+
+// Flex child scroll region — Bootstrap flex-grow-1 uses flex-basis auto (expands with content).
+.flex-grow-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.ps-page-layout--search {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  .ps-page-breadcrumb {
+    display: none;
+  }
+
+  .ps-main--search {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: calc(100vh - var(--ps-header-slot-height, 128px));
+    min-height: calc(100dvh - var(--ps-header-slot-height, 128px));
+
+    > .container-fluid,
+    > .container-fluid > .row,
+    > .container-fluid > .row > [class*='col-'] {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .views-element-container {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+    }
+  }
+}
+
 .ps-search-view {
-  &__hero {
-    margin-bottom: 0;
+  height: calc(100vh - var(--ps-header-slot-height, 128px));
+  height: calc(100dvh - var(--ps-header-slot-height, 128px));
+  max-height: calc(100vh - var(--ps-header-slot-height, 128px));
+  max-height: calc(100dvh - var(--ps-header-slot-height, 128px));
+
+  &__filters--legacy {
+    display: none !important;
   }
 
-  &__filter-bar {
-    margin-bottom: var(--re-space-24, 24px);
-    margin-top: calc(-1 * var(--re-space-16, 16px));
-    position: relative;
-    z-index: 20;
+  &__split {
+    flex: 1 1 0;
+    max-height: 100%;
+    min-height: 0;
   }
 
-  &__filters {
-    background: var(--re-color-surface, #fff);
-    border-bottom: 1px solid var(--re-color-border-soft, #ebedef);
-    margin-bottom: var(--re-space-32, 32px);
-    padding: var(--re-space-24, 24px) 0;
+  &__map {
+    .views-element-container,
+    .views-element-container > [class*='js-view-dom-id'],
+    .view {
+      height: 100%;
+      min-height: 100%;
+      width: 100%;
+    }
 
-    &--legacy {
-      display: none !important;
+    .geofield-google-map {
+      height: 100% !important;
+      min-height: 100% !important;
+      width: 100% !important;
     }
   }
 
-  &__toggle {
-    text-align: center;
-  }
+  &--list-hidden {
+    .ps-search-view__split > .col-lg-6:first-child {
+      display: none !important;
+    }
 
-  &__results {
-    margin-bottom: var(--re-space-48, 48px);
-    padding-bottom: var(--re-space-24, 24px);
+    .ps-search-view__split > .col-lg-6:last-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+    }
   }
 }
 
-.ps-offer-search-card-wrapper {
-  height: 100%;
-}
+@media (max-width: 991.98px) {
+  .ps-page-layout--search .ps-main--search {
+    min-height: auto;
+  }
 
-.ps-search-view__results .row {
-  --bs-gutter-y: 16px;
+  .ps-search-view {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+
+    > .ps-search-view__split {
+      flex-direction: column;
+    }
+
+    > .ps-search-view__split > .col-lg-6:last-child {
+      min-height: 360px;
+      order: -1;
+    }
+
+    &__map {
+      position: relative !important;
+    }
+
+    &--list-hidden {
+      height: calc(100vh - var(--ps-header-slot-height, 76px));
+      height: calc(100dvh - var(--ps-header-slot-height, 76px));
+      max-height: calc(100vh - var(--ps-header-slot-height, 76px));
+      max-height: calc(100dvh - var(--ps-header-slot-height, 76px));
+      overflow: hidden;
+
+      .ps-search-view__split > .col-lg-6:first-child {
+        display: none !important;
+      }
+
+      .ps-search-view__split > .col-lg-6:last-child {
+        flex: 1 1 auto;
+        min-height: 0;
+        order: 0;
+      }
+    }
+  }
 }

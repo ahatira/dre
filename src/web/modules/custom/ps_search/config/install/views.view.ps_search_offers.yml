@@ -1269,8 +1269,8 @@ display:
           map_disable_default_ui: false
           map_additional_libraries_options: ''
           hide_empty_map: false
-          map_height: 400px
-          map_height_unit: px
+          map_height: 100%
+          map_height_unit: '%'
           description_field: title
           view_mode: teaser
       row:

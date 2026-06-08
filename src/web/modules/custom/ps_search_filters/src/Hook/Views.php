@@ -6,6 +6,7 @@ namespace Drupal\ps_search_filters\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\ps_search_filters\Service\FilterBarBuilder;
+use Drupal\ps_search_filters\Service\SearchResultsHeaderBuilder;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -15,6 +16,7 @@ final class Views {
 
   public function __construct(
     private readonly FilterBarBuilder $filterBarBuilder,
+    private readonly SearchResultsHeaderBuilder $resultsHeaderBuilder,
   ) {}
 
   /**
@@ -32,6 +34,7 @@ final class Views {
     }
 
     $variables['search_filter_bar'] = $this->filterBarBuilder->build();
+    $variables['search_results_header'] = $this->resultsHeaderBuilder->build($view);
   }
 
 }

@@ -20,7 +20,7 @@
 {% set ps_grid_bleed_container = { class: ['px-0'] } %}
 {% set ps_grid_bleed_col = { class: ['px-0'] } %}
 
-<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}{{ ps_page_layout_account ? ' ps-page-layout--account' : '' }}">
+<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}{{ ps_page_layout_account ? ' ps-page-layout--account' : '' }}{{ ps_page_layout_search ? ' ps-page-layout--search' : '' }}">
   {% if has_site_header %}
     <header class="site-header ps-site-header" role="banner" data-ps-site-header>
       {{ include('ps_theme:site-header', {
@@ -50,7 +50,7 @@
     </div>
   {% endif %}
 
-  {% if page.editor_tools and ps_show_editor_tools and not is_front %}
+  {% if page.editor_tools and ps_show_editor_tools and not is_front and not ps_page_layout_search %}
     <div class="ps-editor-tools region-editor-tools">
       {{ include('ui_suite_bnp:grid_row_1', {
         container: ps_container_shell,
@@ -62,7 +62,7 @@
   {% endif %}
 
   {% set main_content = [page.highlighted] %}
-  {% if ps_show_editor_tools %}
+  {% if ps_show_editor_tools and not ps_page_layout_search %}
     {% set main_content = main_content|merge([page.help]) %}
   {% endif %}
   {% set main_content = main_content|merge([
@@ -76,7 +76,7 @@
     page.content,
   ]) %}
 
-  <main class="ps-main{{ is_front ? ' ps-main--homepage' : '' }}" role="main">
+  <main class="ps-main{{ is_front ? ' ps-main--homepage' : '' }}{{ ps_page_layout_search ? ' ps-main--search' : '' }}" role="main">
     {% if page.sidebar_first and page.sidebar_second %}
       {{ include('ui_suite_bnp:grid_row_3', {
         container: ps_container_shell,
@@ -113,9 +113,9 @@
       {{ include('ui_suite_bnp:grid_row_1', {
         container: ps_container_shell,
         gutters_horizontal: ps_grid_gx,
-        container_attributes: is_front ? ps_grid_bleed_container : {},
+        container_attributes: (is_front or ps_page_layout_search) ? ps_grid_bleed_container : {},
         col_xs: 12,
-        col_attributes: is_front ? ps_grid_bleed_col : {},
+        col_attributes: (is_front or ps_page_layout_search) ? ps_grid_bleed_col : {},
         col_1_content: main_content,
       }, with_context = false) }}
     {% endif %}

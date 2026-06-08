@@ -70,6 +70,9 @@ final class Page {
       else {
         $variables['html_attributes']->addClass('ps-visitor-view');
       }
+      if (\Drupal::routeMatch()->getRouteName() === 'view.ps_search_offers.page_list') {
+        $variables['html_attributes']->addClass('ps-route-search');
+      }
     }
     $variables['ps_public_route'] = TRUE;
     $variables['ps_show_editor_tools'] = FrontRouteHelper::shouldShowEditorTools();
@@ -97,6 +100,11 @@ final class Page {
       $variables['ps_page_layout_offer_detail'] = TRUE;
     }
 
+    if ($this->isSearchPage()) {
+      $variables['ps_page_layout_search'] = TRUE;
+      $variables['#attached']['library'][] = 'ps_theme/search-page';
+    }
+
     $this->prepareNavigationInstances($variables);
     $this->prepareSiteFooterSlots($variables);
     $this->prepareSiteHeaderSlots($variables);
@@ -112,6 +120,13 @@ final class Page {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Whether the current page is the public property search view.
+   */
+  private function isSearchPage(): bool {
+    return \Drupal::routeMatch()->getRouteName() === 'view.ps_search_offers.page_list';
   }
 
   /**

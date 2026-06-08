@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Property search results page — grid layout + transaction toggle.
+ * Property search results — full-viewport split list/map (BNPPRE maquette).
  */
 #}
 {%
@@ -12,6 +12,11 @@
     'view-display-id-' ~ display_id,
     dom_id ? 'js-view-dom-id-' ~ dom_id,
     'ps-search-view',
+    'd-flex',
+    'flex-column',
+    'flex-fill',
+    'min-h-0',
+    'overflow-hidden',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
@@ -23,40 +28,78 @@
     <header>{{ header }}</header>
   {% endif %}
 
-  <div class="ps-search-view__hero container-fluid px-0 mb-4">
-    {% set hero_search %}{% endset %}
-    {% include 'ps_theme:search-hero' with {
-      title: 'Find your professional space'|t,
-      subtitle: 'Offices, logistics, retail — across France'|t,
-      search: hero_search,
-    } only %}
-  </div>
-
   {% if exposed %}
     <div class="ps-search-view__filters ps-search-view__filters--legacy visually-hidden" aria-hidden="true">
       {{ exposed }}
     </div>
   {% endif %}
 
-  <div class="ps-search-view__filter-bar container mb-4">
-    {% if search_filter_bar %}
-      {{ search_filter_bar }}
-    {% endif %}
+  {# Filter bar — fixed height, container-fluid #}
+  <div class="flex-shrink-0 bg-white border-bottom py-3">
+    <div class="container-fluid px-3 px-lg-4">
+      {% if search_filter_bar %}
+        {{ search_filter_bar }}
+      {% endif %}
+    </div>
   </div>
 
-  {% if rows %}
-    <div class="ps-search-view__results container">
-      <div class="row g-4">
-        {{ rows }}
+  {# Split 50/50 — only .js-ps-search-results-scroll scrolls #}
+  <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
+    <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end">
+      {% if search_results_header %}
+        <div class="flex-shrink-0 bg-white border-bottom px-4 py-3">
+          <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+            <h1 class="h4 fw-semibold mb-0">{{ search_results_header.title }}</h1>
+            <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" disabled title="{{ 'Coming soon'|t }}">
+              {{ 'Create an alert'|t }}
+            </button>
+          </div>
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <p class="small text-muted mb-0">
+              {{ search_results_header.count|number_format(0, '.', ' ') }}
+              {{ search_results_header.count == 1 ? 'result'|t : 'results'|t }}
+            </p>
+            {% if search_results_header.sort_options %}
+              <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                <label class="small text-muted mb-0 text-nowrap" for="ps-search-sort">{{ 'Sort by'|t }}</label>
+                <select id="ps-search-sort" class="form-select form-select-sm js-ps-sort-select" style="width: auto; min-width: 9rem;" aria-label="{{ 'Sort by'|t }}">
+                  {% for option in search_results_header.sort_options %}
+                    <option value="{{ option.value }}"{{ option.selected ? ' selected' : '' }}>{{ option.label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="flex-grow-scroll px-4 py-3 js-ps-search-results-scroll">
+        {% if rows %}
+          <div class="row g-3">
+            {{ rows }}
+          </div>
+        {% elseif empty %}
+          <p class="text-muted text-center py-5 mb-0">{{ empty }}</p>
+        {% endif %}
+
+        {% if pager %}
+          <nav class="mt-3" aria-label="{{ 'Pagination'|t }}">{{ pager }}</nav>
+        {% endif %}
       </div>
     </div>
-  {% elseif empty %}
-    <div class="container">{{ empty }}</div>
-  {% endif %}
 
-  {% if pager %}
-    <div class="container">{{ pager }}</div>
-  {% endif %}
+    <div class="col-lg-6 position-relative min-h-0 h-100 overflow-hidden">
+      <button type="button" class="btn btn-outline-primary btn-sm position-absolute top-0 start-0 m-3 shadow-sm js-ps-hide-list z-1" aria-expanded="true">
+        {{ 'Hide list'|t }}
+      </button>
+      {% if attachment_before %}
+        <div class="ps-search-view__map attachment attachment-before position-absolute top-0 start-0 w-100 h-100">{{ attachment_before }}</div>
+      {% endif %}
+      <button type="button" class="btn btn-outline-primary btn-sm position-absolute top-0 start-0 m-3 shadow-sm js-ps-show-list z-1" hidden>
+        {{ 'Show list'|t }}
+      </button>
+    </div>
+  </div>
 
   {% if attachment_after %}
     <div class="attachment attachment-after">{{ attachment_after }}</div>

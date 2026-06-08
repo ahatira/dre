@@ -237,3 +237,10 @@ offer-search-card:
     - core/once
     - core/drupal
     - ps_theme/offer-viewed
+
+search-page:
+  js:
+    assets/js/search-page-layout.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
