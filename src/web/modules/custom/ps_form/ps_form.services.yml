@@ -1,3 +1,10 @@
 services:
+  ps_form.webform_provisioner:
+    class: Drupal\ps_form\Service\PsFormWebformProvisioner
+    arguments:
+      - '@module_handler'
+      - '@extension.list.module'
+      - '@entity_type.manager'
+
   Drupal\ps_form\Hook\OfferContactWebformHooks:
     class: Drupal\ps_form\Hook\OfferContactWebformHooks

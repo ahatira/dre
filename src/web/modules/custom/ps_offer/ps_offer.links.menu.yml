@@ -12,6 +12,13 @@ ps_offer.section_settings:
   parent: ps_core.config
   weight: 26
 
+ps_offer.map_settings:
+  title: 'Offer map settings'
+  description: 'Configure the offer detail interactive map.'
+  route_name: ps_offer.map_settings
+  parent: ps_core.config
+  weight: 27
+
 ps_offer.reference_config:
   title: 'Offer Reference'
   description: 'Configure offer reference generation.'

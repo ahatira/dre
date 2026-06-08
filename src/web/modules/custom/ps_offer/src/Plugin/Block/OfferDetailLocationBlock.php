@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\ps_offer\Plugin\Block;
 
-use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -14,6 +13,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
 use Drupal\ps_core\Service\OfferSectionHeadingBuilder;
 use Drupal\ps_core\Service\OfferSectionRegistry;
+use Drupal\ps_offer\Service\OfferMapLocationBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,6 +34,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly OfferSectionHeadingBuilder $sectionHeadingBuilder,
     private readonly OfferSectionRegistry $sectionRegistry,
+    private readonly OfferMapLocationBuilder $mapLocationBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -50,6 +51,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
       $container->get('entity_type.manager'),
       $container->get('ps_core.section_heading_builder'),
       $container->get('ps_core.section_registry'),
+      $container->get('ps_offer.map_location_builder'),
     );
   }
 
@@ -134,23 +136,7 @@ final class OfferDetailLocationBlock extends BlockBase implements ContainerFacto
    * Builds a single-line address for the location block.
    */
   private function buildAddressLine(NodeInterface $node): array {
-    if (!$node->hasField('field_address') || $node->get('field_address')->isEmpty()) {
-      return [];
-    }
-
-    $item = $node->get('field_address')->first();
-    if (!$item instanceof AddressItem) {
-      return [];
-    }
-
-    $line = trim((string) ($item->address_line1 ?? ''));
-    $city = trim(trim((string) ($item->postal_code ?? '')) . ' ' . trim((string) ($item->locality ?? '')));
-    $text = match (TRUE) {
-      $line !== '' && $city !== '' => $line . ' - ' . $city,
-      $line !== '' => $line,
-      default => $city,
-    };
-
+    $text = $this->mapLocationBuilder->buildLocationLine($node);
     if ($text === '') {
       return [];
     }

@@ -14,10 +14,60 @@ props:
     lng:
       type: number
       title: Longitude
+    exact_location:
+      type: boolean
+      title: Exact location visible
+      default: true
+    locality_label:
+      type: string
+      title: Locality label
+      default: ''
     address:
       type: string
-      title: Address label
+      title: Public address label
+      default: ''
+    show_travel:
+      type: boolean
+      title: Show travel time panel
+      default: false
+    show_poi:
+      type: boolean
+      title: Show POI filter panel
+      default: true
     offer_id:
       type: integer
       title: Offer ID
       default: 0
+    travel_mode_icons:
+      type: object
+      title: Travel mode icons
+      default: {}
+      properties:
+        DRIVING:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        TRANSIT:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        WALKING:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string
+        BICYCLING:
+          type: object
+          properties:
+            pack:
+              type: string
+            id:
+              type: string

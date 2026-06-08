@@ -4,21 +4,90 @@
   data-lat="{{ lat }}"
   data-lng="{{ lng }}"
   data-offer-id="{{ offer_id }}"
+  data-exact-location="{{ exact_location ? '1' : '0' }}"
+  data-locality="{{ locality_label }}"
   {% if address %}data-address="{{ address }}"{% endif %}
 >
-  <div class="ps-offer-map-interactive__map" data-ps-map-container role="region" aria-label="{{ address|default('Property location'|t) }}"></div>
+  <div class="ps-offer-map-interactive__map" data-ps-map-container role="region" aria-label="{{ locality_label|default('Property location'|t) }}"></div>
   <div class="ps-offer-map-interactive__panel">
-    <h3 class="ps-offer-map-interactive__title">{{ 'Show points of interest'|t }}</h3>
-    <div class="ps-offer-map-interactive__filters">
-      <label><input type="checkbox" value="transport" checked data-ps-poi-filter /> {{ 'Transports'|t }}</label>
-      <label><input type="checkbox" value="parkings" data-ps-poi-filter /> {{ 'Parkings'|t }}</label>
-      <label><input type="checkbox" value="restaurants" data-ps-poi-filter /> {{ 'Restaurants'|t }}</label>
-      <label><input type="checkbox" value="hotels" data-ps-poi-filter /> {{ 'Hotels'|t }}</label>
-    </div>
-    <div class="ps-offer-map-interactive__travel">
-      <label for="ps-offer-travel-from-{{ offer_id }}">{{ 'Calculate your travel time'|t }}</label>
-      <input id="ps-offer-travel-from-{{ offer_id }}" type="text" class="form-control" placeholder="{{ 'Your address'|t }}" data-ps-travel-from />
-      <p class="ps-offer-map-interactive__travel-result" data-ps-travel-result hidden></p>
-    </div>
+    {% if show_poi %}
+      <section class="ps-offer-map-interactive__section">
+        <h3 class="ps-offer-map-interactive__title">{{ 'Show points of interest :'|t }}</h3>
+        {% set poi_filters = [
+          { value: 'transport', label: 'Transports'|t },
+          { value: 'parkings', label: 'Parkings'|t },
+          { value: 'restaurants', label: 'Restaurants'|t },
+          { value: 'hotels', label: 'Hotels'|t },
+        ] %}
+        <div class="ps-offer-map-interactive__filters">
+          {% for poi_filter in poi_filters %}
+            {% set filter_id = 'ps-offer-poi-' ~ poi_filter.value ~ '-' ~ offer_id %}
+            <div class="form-check ps-offer-map-interactive__filter">
+              <input type="checkbox" class="form-check-input" id="{{ filter_id }}" value="{{ poi_filter.value }}" data-ps-poi-filter />
+              <label class="form-check-label" for="{{ filter_id }}">{{ poi_filter.label }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+    {% if show_travel %}
+      <section class="ps-offer-map-interactive__section ps-offer-map-interactive__travel">
+        <h3 class="ps-offer-map-interactive__title">{{ 'Calculate your travel time :'|t }}</h3>
+        <div class="ps-offer-map-interactive__field">
+          <label class="ps-offer-map-interactive__field-label" for="ps-offer-travel-from-{{ offer_id }}">{{ 'Departure address :'|t }}</label>
+          <div class="ps-offer-map-interactive__travel-input">
+            <span class="ps-offer-map-interactive__travel-input-icon" aria-hidden="true">
+              {{ icon('bnp_custom', 'pin-map', {size: '20px'}) }}
+            </span>
+            <input id="ps-offer-travel-from-{{ offer_id }}" type="text" class="form-control" placeholder="{{ 'Enter an address'|t }}" data-ps-travel-from autocomplete="off" />
+            <button type="button" class="ps-offer-map-interactive__travel-clear" data-ps-travel-clear hidden aria-label="{{ 'Clear departure address'|t }}">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        {% set travel_icon_defaults = {
+          DRIVING: {pack: 'bnp_custom', id: 'car'},
+          TRANSIT: {pack: 'bnp_custom', id: 'transport'},
+          WALKING: {pack: 'bnp_custom', id: 'walking'},
+          BICYCLING: {pack: 'bnp_custom', id: 'bike'},
+        } %}
+        {% set travel_modes = [
+          { mode: 'DRIVING', label: 'Car'|t },
+          { mode: 'TRANSIT', label: 'Public transport'|t },
+          { mode: 'WALKING', label: 'Walking'|t },
+          { mode: 'BICYCLING', label: 'Cycling'|t },
+        ] %}
+        <div class="ps-offer-map-interactive__field ps-offer-map-interactive__travel-modes" data-ps-travel-modes hidden>
+          <span class="ps-offer-map-interactive__field-label">{{ 'Travel mode :'|t }}</span>
+          <div class="ps-offer-map-interactive__travel-modes-list" role="group" aria-label="{{ 'Travel mode'|t }}">
+            {% for travel_mode in travel_modes %}
+              {% set icon = travel_mode_icons[travel_mode.mode]|default(travel_icon_defaults[travel_mode.mode]) %}
+              <button
+                type="button"
+                class="ps-offer-map-interactive__travel-mode{% if travel_mode.mode == 'DRIVING' %} is-selected{% endif %}"
+                data-ps-travel-mode="{{ travel_mode.mode }}"
+                aria-label="{{ travel_mode.label }}"
+                aria-pressed="{{ travel_mode.mode == 'DRIVING' ? 'true' : 'false' }}"
+              >
+                <span class="ps-offer-map-interactive__travel-mode-icon" aria-hidden="true">
+                  {{ icon(icon.pack, icon.id, {size: '24px'}) }}
+                </span>
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ps-offer-map-interactive__travel-result" data-ps-travel-result hidden>
+          <p class="ps-offer-map-interactive__travel-result-main">
+            <span class="ps-offer-map-interactive__travel-duration" data-ps-travel-duration></span><span class="ps-offer-map-interactive__travel-distance" data-ps-travel-distance></span>
+          </p>
+          <p class="ps-offer-map-interactive__travel-route" data-ps-travel-route hidden>
+            <span data-ps-travel-route-label>{{ 'Via'|t }}</span>
+            <strong data-ps-travel-route-summary></strong>
+          </p>
+        </div>
+        <p class="ps-offer-map-interactive__travel-message" data-ps-travel-message hidden></p>
+        <p class="ps-offer-map-interactive__travel-error" data-ps-travel-error hidden></p>
+      </section>
+    {% endif %}
   </div>
 </div>

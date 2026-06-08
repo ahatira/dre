@@ -156,6 +156,9 @@ ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
 ps_drush entity:delete webform contact -y || true
 ps_drush config:delete webform.webform.contact -y || true
 ps_retry 2 2 ps_drush en -y ps_form
+ps_info "Provisioning PS Form webforms..."
+ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->provisionMissing(); if ($missing !== []) { echo "Created: " . implode(", ", $missing) . PHP_EOL; }'
+ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->getMissingWebformIds(); if ($missing !== []) { throw new \RuntimeException("Missing PS Form webforms: " . implode(", ", $missing)); } echo "PS Form webforms OK" . PHP_EOL;' || ps_die "PS Form webforms were not provisioned"
 ps_retry 2 2 ps_drush en -y ps_offer
 ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true

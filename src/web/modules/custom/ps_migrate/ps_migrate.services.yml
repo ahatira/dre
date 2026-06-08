@@ -45,6 +45,9 @@ services:
     tags:
       - { name: event_subscriber }
 
+  ps_migrate.offer_location_xml_reader:
+    class: Drupal\ps_migrate\Service\OfferLocationXmlReader
+
   ps_migrate.offer_surface_projection_migration_subscriber:
     class: Drupal\ps_migrate\EventSubscriber\OfferSurfaceProjectionMigrationSubscriber
     arguments:

@@ -60,6 +60,16 @@ services:
     arguments:
       - '@config.factory'
 
+  ps_offer.map_location_builder:
+    class: Drupal\ps_offer\Service\OfferMapLocationBuilder
+
+  ps_offer.map_settings:
+    class: Drupal\ps_offer\Service\OfferMapSettings
+    arguments:
+      - '@config.factory'
+      - '@extension.path.resolver'
+      - '@plugin.manager.icon_pack'
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:

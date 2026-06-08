@@ -222,3 +222,4 @@ offer-map:
   dependencies:
     - core/once
     - core/drupal
+    - ps_theme/form

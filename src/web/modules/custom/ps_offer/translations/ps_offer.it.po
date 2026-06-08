@@ -138,3 +138,78 @@ msgstr "Separatore tra superficie totale e suffisso di divisibilità."
 
 msgid "Offer display settings"
 msgstr "Impostazioni visualizzazione offerta"
+
+msgid "Show points of interest :"
+msgstr "Mostra i punti di interesse :"
+
+msgid "Transports"
+msgstr "Trasporti"
+
+msgid "Parkings"
+msgstr "Parcheggi"
+
+msgid "Restaurants"
+msgstr "Ristoranti"
+
+msgid "Hotels"
+msgstr "Hotel"
+
+msgid "Property location"
+msgstr "Posizione dell'immobile"
+
+msgid "Calculate your travel time :"
+msgstr "Calcola il tempo di percorrenza :"
+
+msgid "Departure address :"
+msgstr "Indirizzo di partenza :"
+
+msgid "Enter an address"
+msgstr "Inserire un indirizzo"
+
+msgid "Clear departure address"
+msgstr "Cancella l'indirizzo di partenza"
+
+msgid "Travel mode :"
+msgstr "Modalità di trasporto :"
+
+msgid "Travel mode"
+msgstr "Modalità di trasporto"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Public transport"
+msgstr "Trasporto pubblico"
+
+msgid "Walking"
+msgstr "A piedi"
+
+msgid "Cycling"
+msgstr "Bicicletta"
+
+msgid "Via"
+msgstr "Via"
+
+msgid "This route may include several connections."
+msgstr "Questo percorso può includere più coincidenze."
+
+msgid "Please select an address from the suggestions."
+msgstr "Selezionare un indirizzo tra i suggerimenti."
+
+msgid "No public transport route found for this journey."
+msgstr "Nessun percorso in trasporto pubblico trovato per questo tragitto."
+
+msgid "No walking route found for this journey."
+msgstr "Nessun percorso a piedi trovato per questo tragitto."
+
+msgid "No cycling route found for this journey."
+msgstr "Nessun percorso in bicicletta trovato per questo tragitto."
+
+msgid "No route found for this journey."
+msgstr "Nessun percorso trovato per questo tragitto."
+
+msgid "Departure or destination address could not be found."
+msgstr "Indirizzo di partenza o di destinazione non trovato."
+
+msgid "Unable to calculate travel time."
+msgstr "Impossibile calcolare il tempo di percorrenza."

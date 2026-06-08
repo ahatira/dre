@@ -138,3 +138,78 @@ msgstr "Trennzeichen zwischen Gesamtfläche und Teilbarkeitssuffix."
 
 msgid "Offer display settings"
 msgstr "Anzeigeeinstellungen Angebot"
+
+msgid "Show points of interest :"
+msgstr "Points of Interest anzeigen :"
+
+msgid "Transports"
+msgstr "Verkehrsmittel"
+
+msgid "Parkings"
+msgstr "Parkplätze"
+
+msgid "Restaurants"
+msgstr "Restaurants"
+
+msgid "Hotels"
+msgstr "Hotels"
+
+msgid "Property location"
+msgstr "Standort der Immobilie"
+
+msgid "Calculate your travel time :"
+msgstr "Reisezeit berechnen :"
+
+msgid "Departure address :"
+msgstr "Abfahrtsadresse :"
+
+msgid "Enter an address"
+msgstr "Adresse eingeben"
+
+msgid "Clear departure address"
+msgstr "Abfahrtsadresse löschen"
+
+msgid "Travel mode :"
+msgstr "Verkehrsmittel :"
+
+msgid "Travel mode"
+msgstr "Verkehrsmittel"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Public transport"
+msgstr "Öffentliche Verkehrsmittel"
+
+msgid "Walking"
+msgstr "Zu Fuß"
+
+msgid "Cycling"
+msgstr "Fahrrad"
+
+msgid "Via"
+msgstr "Über"
+
+msgid "This route may include several connections."
+msgstr "Diese Route kann mehrere Umstiege beinhalten."
+
+msgid "Please select an address from the suggestions."
+msgstr "Bitte wählen Sie eine Adresse aus den Vorschlägen."
+
+msgid "No public transport route found for this journey."
+msgstr "Keine Route mit öffentlichen Verkehrsmitteln für diese Strecke gefunden."
+
+msgid "No walking route found for this journey."
+msgstr "Keine Fußgängerroute für diese Strecke gefunden."
+
+msgid "No cycling route found for this journey."
+msgstr "Keine Fahrradroute für diese Strecke gefunden."
+
+msgid "No route found for this journey."
+msgstr "Keine Route für diese Strecke gefunden."
+
+msgid "Departure or destination address could not be found."
+msgstr "Abfahrts- oder Zieladresse konnte nicht gefunden werden."
+
+msgid "Unable to calculate travel time."
+msgstr "Reisezeit konnte nicht berechnet werden."

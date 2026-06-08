@@ -10,6 +10,8 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 use Drupal\ps_offer\Service\GoogleMapsSettings;
+use Drupal\ps_offer\Service\OfferMapLocationBuilder;
+use Drupal\ps_offer\Service\OfferMapSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,6 +36,8 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
     string $view_mode,
     array $third_party_settings,
     private readonly GoogleMapsSettings $googleMapsSettings,
+    private readonly OfferMapLocationBuilder $mapLocationBuilder,
+    private readonly OfferMapSettings $mapSettings,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -51,6 +55,8 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('ps_offer.google_maps_settings'),
+      $container->get('ps_offer.map_location_builder'),
+      $container->get('ps_offer.map_settings'),
     );
   }
 
@@ -58,6 +64,10 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
+    if (!$this->mapSettings->isEnabled()) {
+      return [];
+    }
+
     $entity = $items->getEntity();
     $item = $items->first();
     if (!$item instanceof GeofieldItem) {
@@ -70,16 +80,14 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
       return [];
     }
 
-    $address = '';
-    if ($entity->hasField('field_address') && !$entity->get('field_address')->isEmpty()) {
-      $address_item = $entity->get('field_address')->first();
-      $parts = array_filter([
-        trim((string) ($address_item->address_line1 ?? '')),
-        trim((string) ($address_item->postal_code ?? '')),
-        trim((string) ($address_item->locality ?? '')),
-      ]);
-      $address = implode(', ', $parts);
-    }
+    $exact_location = $this->mapLocationBuilder->showsExactAddress($entity);
+    $locality_label = $this->mapLocationBuilder->buildLocalityLabel($entity);
+    $address = $this->mapLocationBuilder->buildPublicAddress($entity);
+    $show_travel = $exact_location && $this->mapSettings->isTravelEnabled();
+    $show_poi = $this->mapSettings->isPoiEnabled();
+
+    $client_settings = $this->googleMapsSettings->getClientSettings();
+    $client_settings['map'] = $this->mapSettings->getClientMapSettings($entity);
 
     return [
       0 => [
@@ -88,14 +96,27 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
         '#props' => [
           'lat' => (float) $lat,
           'lng' => (float) $lng,
+          'exact_location' => $exact_location,
+          'locality_label' => $locality_label,
           'address' => $address,
+          'show_travel' => $show_travel,
+          'show_poi' => $show_poi,
+          'travel_mode_icons' => $this->mapSettings->getTravelModeIcons(),
+          'poi_filter_icons' => $this->mapSettings->getPoiFilterIcons(),
           'offer_id' => (int) $entity->id(),
         ],
         '#attached' => [
           'library' => ['ps_theme/offer-map'],
           'drupalSettings' => [
-            'psOfferMap' => $this->googleMapsSettings->getClientSettings(),
+            'psOfferMap' => $client_settings,
           ],
+        ],
+        '#cache' => [
+          'tags' => array_merge(
+            $entity->getCacheTags(),
+            $this->mapSettings->getCacheTags(),
+          ),
+          'contexts' => ['languages:language_interface'],
         ],
       ],
     ];

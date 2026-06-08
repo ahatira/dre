@@ -138,3 +138,78 @@ msgstr "Separador entre la superficie total y el sufijo de divisibilidad."
 
 msgid "Offer display settings"
 msgstr "Configuración de visualización de la oferta"
+
+msgid "Show points of interest :"
+msgstr "Mostrar puntos de interés :"
+
+msgid "Transports"
+msgstr "Transportes"
+
+msgid "Parkings"
+msgstr "Aparcamientos"
+
+msgid "Restaurants"
+msgstr "Restaurantes"
+
+msgid "Hotels"
+msgstr "Hoteles"
+
+msgid "Property location"
+msgstr "Ubicación del inmueble"
+
+msgid "Calculate your travel time :"
+msgstr "Calcular su tiempo de desplazamiento :"
+
+msgid "Departure address :"
+msgstr "Dirección de salida :"
+
+msgid "Enter an address"
+msgstr "Introducir una dirección"
+
+msgid "Clear departure address"
+msgstr "Borrar la dirección de salida"
+
+msgid "Travel mode :"
+msgstr "Modo de transporte :"
+
+msgid "Travel mode"
+msgstr "Modo de transporte"
+
+msgid "Car"
+msgstr "Coche"
+
+msgid "Public transport"
+msgstr "Transporte público"
+
+msgid "Walking"
+msgstr "A pie"
+
+msgid "Cycling"
+msgstr "Bicicleta"
+
+msgid "Via"
+msgstr "Por"
+
+msgid "This route may include several connections."
+msgstr "Esta ruta puede incluir varios transbordos."
+
+msgid "Please select an address from the suggestions."
+msgstr "Seleccione una dirección de las sugerencias."
+
+msgid "No public transport route found for this journey."
+msgstr "No se ha encontrado ninguna ruta en transporte público para este trayecto."
+
+msgid "No walking route found for this journey."
+msgstr "No se ha encontrado ninguna ruta a pie para este trayecto."
+
+msgid "No cycling route found for this journey."
+msgstr "No se ha encontrado ninguna ruta en bicicleta para este trayecto."
+
+msgid "No route found for this journey."
+msgstr "No se ha encontrado ninguna ruta para este trayecto."
+
+msgid "Departure or destination address could not be found."
+msgstr "No se ha podido encontrar la dirección de salida o de destino."
+
+msgid "Unable to calculate travel time."
+msgstr "No se puede calcular el tiempo de desplazamiento."

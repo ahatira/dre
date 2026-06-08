@@ -58,3 +58,89 @@ ps_offer.settings:
       type: label
       label: 'Surface KPI separator'
       translatable: true
+
+ps_offer.map_settings:
+  type: config_object
+  label: 'Offer map settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable offer detail map'
+    poi_enabled:
+      type: boolean
+      label: 'Enable POI filters'
+    travel_enabled:
+      type: boolean
+      label: 'Enable travel time tools'
+    circle_radius_m:
+      type: integer
+      label: 'Approximate circle radius'
+    circle_radius_large_cities_m:
+      type: integer
+      label: 'Approximate circle radius in large cities'
+    poi_search_radius_m:
+      type: integer
+      label: 'POI search radius'
+    default_zoom_exact:
+      type: integer
+      label: 'Default zoom for exact address'
+    default_zoom_approx:
+      type: integer
+      label: 'Default zoom for approximate location'
+    default_zoom_approx_large_city:
+      type: integer
+      label: 'Default zoom for approximate large city location'
+    large_city_localities:
+      type: text
+      label: 'Large city localities'
+    circle_color:
+      type: string
+      label: 'Approximate circle color'
+    travel_mode_icon_driving:
+      type: string
+      label: 'Travel mode icon (car)'
+    travel_mode_icon_transit:
+      type: string
+      label: 'Travel mode icon (public transport)'
+    travel_mode_icon_walking:
+      type: string
+      label: 'Travel mode icon (walking)'
+    travel_mode_icon_bicycling:
+      type: string
+      label: 'Travel mode icon (cycling)'
+    poi_icon_transport:
+      type: string
+      label: 'POI filter icon (transports)'
+    poi_icon_parkings:
+      type: string
+      label: 'POI filter icon (parkings)'
+    poi_icon_restaurants:
+      type: string
+      label: 'POI filter icon (restaurants)'
+    poi_icon_hotels:
+      type: string
+      label: 'POI filter icon (hotels)'
+    poi_marker_icon_transport:
+      type: string
+      label: 'POI map marker icon (transports)'
+    poi_marker_icon_parkings:
+      type: string
+      label: 'POI map marker icon (parkings)'
+    poi_marker_icon_restaurants:
+      type: string
+      label: 'POI map marker icon (restaurants)'
+    poi_marker_icon_hotels:
+      type: string
+      label: 'POI map marker icon (hotels)'
+    poi_marker_color_transport:
+      type: string
+      label: 'POI map marker color (transports)'
+    poi_marker_color_parkings:
+      type: string
+      label: 'POI map marker color (parkings)'
+    poi_marker_color_restaurants:
+      type: string
+      label: 'POI map marker color (restaurants)'
+    poi_marker_color_hotels:
+      type: string
+      label: 'POI map marker color (hotels)'

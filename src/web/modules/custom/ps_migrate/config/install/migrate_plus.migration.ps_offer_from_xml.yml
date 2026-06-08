@@ -288,29 +288,18 @@ process:
       'false': 0
     default_value: 0
   
-  # ===== ADRESSE =====
-  # Mapping vers field_address (Address field)
-  'field_address/address_line1': address_line1
-  'field_address/locality': address_city
-  'field_address/postal_code': address_zip
-  'field_address/country_code': address_country
-  
-  # ===== GEOFIELD =====
-  # GPS/LONGITUDE + GPS/LATITUDE → WKT POINT(lon lat)
-  # Skip si longitude vide (offre sans coordonnées GPS).
+  # ===== ADRESSE & GÉOLOCALISATION =====
+  field_show_address:
+    plugin: offer_show_address_from_xml
+    source: offer_xml_node
+
+  field_address:
+    plugin: offer_address_from_xml
+    source: offer_xml_node
+
   field_geo:
-    -
-      plugin: skip_on_empty
-      method: process
-      source: gps_longitude
-    -
-      plugin: concat
-      source:
-        - constants/point_prefix
-        - gps_longitude
-        - constants/point_space
-        - gps_latitude
-        - constants/point_suffix
+    plugin: offer_geo_from_xml
+    source: offer_xml_node
   
   # ===== SURFACES =====
   # YAML-only mapping with simple_xml parser + transpose/sub_process.

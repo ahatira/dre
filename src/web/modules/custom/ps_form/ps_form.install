@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install and update hooks for the ps_form module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ps_form_install(): void {
+  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
+}
+
+/**
+ * Ensures PS Form webforms exist on sites enabled before install defaults.
+ */
+function ps_form_update_10001(): void {
+  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
+}

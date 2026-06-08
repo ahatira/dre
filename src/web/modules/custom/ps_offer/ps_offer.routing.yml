@@ -21,3 +21,11 @@ ps_offer.section_settings:
     _title: 'Offer section headings'
   requirements:
     _permission: 'manage ps_offer'
+
+ps_offer.map_settings:
+  path: '/admin/ps/config/offer-map'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferMapSettingsForm'
+    _title: 'Offer map settings'
+  requirements:
+    _permission: 'manage ps_offer'

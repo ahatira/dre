@@ -138,3 +138,78 @@ msgstr "Scheidingsteken tussen totale oppervlakte en deelbaarheidssuffix."
 
 msgid "Offer display settings"
 msgstr "Weergave-instellingen aanbod"
+
+msgid "Show points of interest :"
+msgstr "Toon bezienswaardigheden :"
+
+msgid "Transports"
+msgstr "Vervoer"
+
+msgid "Parkings"
+msgstr "Parkeerplaatsen"
+
+msgid "Restaurants"
+msgstr "Restaurants"
+
+msgid "Hotels"
+msgstr "Hotels"
+
+msgid "Property location"
+msgstr "Locatie van het pand"
+
+msgid "Calculate your travel time :"
+msgstr "Bereken uw reistijd :"
+
+msgid "Departure address :"
+msgstr "Vertrekadres :"
+
+msgid "Enter an address"
+msgstr "Voer een adres in"
+
+msgid "Clear departure address"
+msgstr "Vertrekadres wissen"
+
+msgid "Travel mode :"
+msgstr "Vervoerswijze :"
+
+msgid "Travel mode"
+msgstr "Vervoerswijze"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Public transport"
+msgstr "Openbaar vervoer"
+
+msgid "Walking"
+msgstr "Te voet"
+
+msgid "Cycling"
+msgstr "Fiets"
+
+msgid "Via"
+msgstr "Via"
+
+msgid "This route may include several connections."
+msgstr "Deze route kan meerdere overstappen bevatten."
+
+msgid "Please select an address from the suggestions."
+msgstr "Selecteer een adres uit de suggesties."
+
+msgid "No public transport route found for this journey."
+msgstr "Geen route met openbaar vervoer gevonden voor deze reis."
+
+msgid "No walking route found for this journey."
+msgstr "Geen wandelroute gevonden voor deze reis."
+
+msgid "No cycling route found for this journey."
+msgstr "Geen fietsroute gevonden voor deze reis."
+
+msgid "No route found for this journey."
+msgstr "Geen route gevonden voor deze reis."
+
+msgid "Departure or destination address could not be found."
+msgstr "Vertrek- of bestemmingsadres niet gevonden."
+
+msgid "Unable to calculate travel time."
+msgstr "Kan de reistijd niet berekenen."

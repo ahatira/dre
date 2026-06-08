@@ -138,3 +138,78 @@ msgstr "Separator między całkowitą powierzchnią a sufiksem podzielności."
 
 msgid "Offer display settings"
 msgstr "Ustawienia wyświetlania oferty"
+
+msgid "Show points of interest :"
+msgstr "Pokaż punkty zainteresowania :"
+
+msgid "Transports"
+msgstr "Transport"
+
+msgid "Parkings"
+msgstr "Parkingi"
+
+msgid "Restaurants"
+msgstr "Restauracje"
+
+msgid "Hotels"
+msgstr "Hotele"
+
+msgid "Property location"
+msgstr "Lokalizacja nieruchomości"
+
+msgid "Calculate your travel time :"
+msgstr "Oblicz czas podróży :"
+
+msgid "Departure address :"
+msgstr "Adres wyjazdu :"
+
+msgid "Enter an address"
+msgstr "Wprowadź adres"
+
+msgid "Clear departure address"
+msgstr "Wyczyść adres wyjazdu"
+
+msgid "Travel mode :"
+msgstr "Środek transportu :"
+
+msgid "Travel mode"
+msgstr "Środek transportu"
+
+msgid "Car"
+msgstr "Samochód"
+
+msgid "Public transport"
+msgstr "Transport publiczny"
+
+msgid "Walking"
+msgstr "Pieszo"
+
+msgid "Cycling"
+msgstr "Rower"
+
+msgid "Via"
+msgstr "Przez"
+
+msgid "This route may include several connections."
+msgstr "Ta trasa może obejmować kilka przesiadek."
+
+msgid "Please select an address from the suggestions."
+msgstr "Wybierz adres z listy sugestii."
+
+msgid "No public transport route found for this journey."
+msgstr "Nie znaleziono trasy transportem publicznym dla tej podróży."
+
+msgid "No walking route found for this journey."
+msgstr "Nie znaleziono trasy pieszej dla tej podróży."
+
+msgid "No cycling route found for this journey."
+msgstr "Nie znaleziono trasy rowerowej dla tej podróży."
+
+msgid "No route found for this journey."
+msgstr "Nie znaleziono trasy dla tej podróży."
+
+msgid "Departure or destination address could not be found."
+msgstr "Nie można znaleźć adresu wyjazdu lub docelowego."
+
+msgid "Unable to calculate travel time."
+msgstr "Nie można obliczyć czasu podróży."

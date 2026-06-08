@@ -138,3 +138,78 @@ msgstr "Trennzeechen tëscht Total-Surface a Deelbarkeetssuffix."
 
 msgid "Offer display settings"
 msgstr "Offer-Uweisungsastellungen"
+
+msgid "Show points of interest :"
+msgstr "Points of Interest weisen :"
+
+msgid "Transports"
+msgstr "Transporten"
+
+msgid "Parkings"
+msgstr "Parkingen"
+
+msgid "Restaurants"
+msgstr "Restauranten"
+
+msgid "Hotels"
+msgstr "Hotellen"
+
+msgid "Property location"
+msgstr "Standuert vun der Immobilie"
+
+msgid "Calculate your travel time :"
+msgstr "Reeszäit berechnen :"
+
+msgid "Departure address :"
+msgstr "Offueradress :"
+
+msgid "Enter an address"
+msgstr "Eng Adress aginn"
+
+msgid "Clear departure address"
+msgstr "Offueradress läschen"
+
+msgid "Travel mode :"
+msgstr "Transportmëttel :"
+
+msgid "Travel mode"
+msgstr "Transportmëttel"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Public transport"
+msgstr "Ëffentlechen Transport"
+
+msgid "Walking"
+msgstr "Zu Fouss"
+
+msgid "Cycling"
+msgstr "Vëlo"
+
+msgid "Via"
+msgstr "Iwwer"
+
+msgid "This route may include several connections."
+msgstr "Dës Route kann e puer Ëmstiech begräifen."
+
+msgid "Please select an address from the suggestions."
+msgstr "Wielt w.e.g. eng Adress aus de Virschléi."
+
+msgid "No public transport route found for this journey."
+msgstr "Keng Route mat ëffentlechem Transport fir dës Streck fonnt."
+
+msgid "No walking route found for this journey."
+msgstr "Keng Fousswee-Route fir dës Streck fonnt."
+
+msgid "No cycling route found for this journey."
+msgstr "Keng Vëlos-Route fir dës Streck fonnt."
+
+msgid "No route found for this journey."
+msgstr "Keng Route fir dës Streck fonnt."
+
+msgid "Departure or destination address could not be found."
+msgstr "Offuer- oder Ziladress konnt net fonnt ginn."
+
+msgid "Unable to calculate travel time."
+msgstr "Reeszäit konnt net berechent ginn."
