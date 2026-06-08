@@ -128,7 +128,8 @@
   opacity: 0.65;
 }
 
-.ps-favorite-button--card {
+.ps-favorite-button--card,
+.ps-favorite-button--search {
   padding: 0.45rem 0.7rem;
 }
 

@@ -20,6 +20,10 @@
   }
 }
 
-.ps-offer-card-wrapper {
+.ps-offer-search-card-wrapper {
   height: 100%;
+}
+
+.ps-search-view__results .row {
+  --bs-gutter-y: 16px;
 }

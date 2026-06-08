@@ -223,3 +223,17 @@ offer-map:
     - core/once
     - core/drupal
     - ps_theme/form
+
+offer-viewed:
+  js:
+    assets/js/offer-viewed.js: {}
+  dependencies:
+    - core/drupal
+
+offer-search-card:
+  js:
+    assets/js/offer-search-card.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - ps_theme/offer-viewed

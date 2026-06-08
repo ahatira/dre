@@ -1,0 +1,96 @@
+{#
+/**
+ * @file
+ * Offer search card — horizontal list item for search results.
+ */
+#}
+{% set gallery = images|default(image ? [image] : []) %}
+
+<article{{ attributes.addClass('ps-offer-search-card').setAttribute('data-offer-id', node_id|default('')) }}>
+  {% if gallery is not empty %}
+    <div class="ps-offer-search-card__media">
+      {% if gallery|length > 1 %}
+        <div class="ps-offer-search-card__track" data-offer-search-card-track>
+          {% for url in gallery %}
+            <div class="ps-offer-search-card__slide">
+              <img
+                src="{{ url }}"
+                alt="{{ image_alt|default(title) }}"
+                class="ps-offer-search-card__image"
+                loading="lazy"
+              />
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <img
+          src="{{ gallery[0] }}"
+          alt="{{ image_alt|default(title) }}"
+          class="ps-offer-search-card__image"
+          loading="lazy"
+        />
+      {% endif %}
+      {% if gallery|length > 1 %}
+        <button type="button" class="ps-offer-search-card__nav ps-offer-search-card__nav--prev" aria-label="{{ 'Previous image'|t }}">
+          {{ icon('bnp_custom', 'arrow-left', {'size': '24px'}) }}
+        </button>
+        <button type="button" class="ps-offer-search-card__nav ps-offer-search-card__nav--next" aria-label="{{ 'Next image'|t }}">
+          {{ icon('bnp_custom', 'arrow-right', {'size': '24px'}) }}
+        </button>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ps-offer-search-card__content">
+    <div class="ps-offer-search-card__header">
+      <div class="ps-offer-search-card__badges-row">
+        <span class="ps-offer-search-card__badge ps-offer-search-card__badge--viewed is-hidden" data-offer-viewed-badge hidden>
+          {{ icon('bnp_custom', 'eye', {'size': '12px'}) }}
+          <span>{{ 'Already viewed'|t }}</span>
+        </span>
+        {% if exclusive %}
+          <span class="ps-offer-search-card__badge ps-offer-search-card__badge--exclusive">
+            {{ 'Exclusivity'|t }}
+          </span>
+        {% endif %}
+      </div>
+      <div class="ps-offer-search-card__actions">
+        {% if show_compare %}
+          <button type="button" class="ps-offer-search-card__action ps-offer-search-card__action--compare" aria-label="{{ 'Compare'|t }}" disabled>
+            {{ icon('bnp_custom', 'comparator', {'size': '24px'}) }}
+          </button>
+        {% endif %}
+        <div class="ps-offer-search-card__action ps-offer-search-card__action--favorite">
+          {% block actions %}{% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-offer-search-card__details">
+      <p class="ps-offer-search-card__title">{{ title }}</p>
+      {% if surface %}
+        <p class="ps-offer-search-card__surface">{{ surface }}</p>
+      {% endif %}
+      {% if location %}
+        <p class="ps-offer-search-card__location">
+          {{ icon('bnp_custom', 'pin-map', {'size': '16px'}) }}
+          <span>{{ location }}</span>
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="ps-offer-search-card__footer">
+      {% if price_amount %}
+        <p class="ps-offer-search-card__price">
+          <span class="ps-offer-search-card__price-amount">{{ price_amount }}</span>{% if price_qualifiers %}<span class="ps-offer-search-card__price-qualifiers">{{ price_qualifiers }}</span>{% endif %}
+        </p>
+      {% endif %}
+      {% if url %}
+        <a href="{{ url }}" class="ps-offer-search-card__cta">
+          <span>{{ cta_label|default('View the property'|t) }}</span>
+          {{ icon('bnp_custom', 'big-arrow-right', {'size': '20px'}) }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

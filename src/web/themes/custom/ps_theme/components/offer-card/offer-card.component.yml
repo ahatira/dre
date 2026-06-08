@@ -1,5 +1,5 @@
 name: Offer card
-description: "Card offre immobilière pour listes recherche et carrousels homepage (Stellar)."
+description: "Carte offre verticale pour carrousels homepage et grilles teaser (Stellar)."
 group: Property Search
 status: stable
 props:
@@ -18,7 +18,6 @@ props:
     image:
       type: string
       title: Image URL
-      description: "Absolute URL or site-relative path to the offer image."
     image_alt:
       type: string
       title: Image alt text
@@ -33,7 +32,7 @@ props:
       title: Price label
     operation:
       type: string
-      title: Operation type label
+      title: Operation type
       enum:
         - rent
         - sale
@@ -44,12 +43,12 @@ props:
         type: string
     favorite:
       type: boolean
-      title: Show favorite action
+      title: Show favorite action placeholder
       default: false
 slots:
   actions:
     title: Actions
-    description: Optional footer actions (favorite, compare…)
+    description: Footer actions (favorite button…)
 libraryOverrides:
   css:
     component:

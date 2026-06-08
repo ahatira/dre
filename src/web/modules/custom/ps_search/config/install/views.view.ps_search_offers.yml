@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.search
     - field.storage.node.field_geo
     - search_api.index.offers
   module:
@@ -661,7 +662,7 @@ display:
         options:
           view_modes:
             'entity:node':
-              offer: teaser
+              offer: search
       query:
         type: search_api_query
         options:

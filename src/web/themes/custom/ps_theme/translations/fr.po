@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_theme\n"
+"POT-Creation-Date: 2026-06-08T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-06-08T00:00:00+00:00\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "View the property"
+msgstr "Voir le bien"
+
+msgid "Already viewed"
+msgstr "Déjà consultée"
+
+msgid "Exclusivity"
+msgstr "Exclusivité"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Previous image"
+msgstr "Image précédente"
+
+msgid "Next image"
+msgstr "Image suivante"
+
+msgid "On request"
+msgstr "Sur demande"
+
+msgid "Add to favorites"
+msgstr "Ajouter aux favoris"
+
+msgid "Remove from favorites"
+msgstr "Retirer des favoris"
+
+msgid "Favorite"
+msgstr "Favori"
+
+msgid "Louer"
+msgstr "Louer"
+
+msgid "Acheter"
+msgstr "Acheter"
+
+msgid "Surface"
+msgstr "Surface"
+
+msgid "Price"
+msgstr "Prix"

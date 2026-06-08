@@ -1,0 +1,73 @@
+name: Offer search card
+description: "Carte offre horizontale pour les résultats de recherche (Stellar Product card)."
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+      title: Title
+    url:
+      type: string
+      title: URL
+      description: "Internal path (e.g. /node/1) or absolute URL."
+    image:
+      type: string
+      title: Image URL
+      description: "Primary image URL fallback."
+    images:
+      type: array
+      title: Gallery image URLs
+      items:
+        type: string
+    image_alt:
+      type: string
+      title: Image alt text
+    location:
+      type: string
+      title: Location label
+    surface:
+      type: string
+      title: Surface label
+    price_amount:
+      type: string
+      title: Price amount
+    price_qualifiers:
+      type: string
+      title: Price qualifiers
+      description: "Suffix such as HT/HC/m²/an."
+    operation:
+      type: string
+      title: Operation type
+      enum:
+        - rent
+        - sale
+    node_id:
+      type: integer
+      title: Offer node ID
+    exclusive:
+      type: boolean
+      title: Show exclusivity badge
+      default: false
+    show_compare:
+      type: boolean
+      title: Show compare action placeholder
+      default: false
+    cta_label:
+      type: string
+      title: CTA link label
+      default: "View the property"
+slots:
+  actions:
+    title: Actions
+    description: Header actions (favorite button, compare…)
+libraryOverrides:
+  dependencies:
+    - ps_theme/offer-search-card
+  css:
+    component:
+      styles/offer-search-card.css: {}

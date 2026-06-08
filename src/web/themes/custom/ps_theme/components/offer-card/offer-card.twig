@@ -1,11 +1,12 @@
 {#
 /**
  * @file
- * Offer card — Stellar search result / carousel item.
+ * Offer card — vertical teaser grid / homepage carousel item.
  */
 #}
 {% set operation_label = operation == 'sale' ? 'Acheter'|t : 'Louer'|t %}
-<article{{ attributes.addClass('ps-offer-card', 'card', 'h-100') }}>
+
+<article{{ attributes.addClass(['ps-offer-card', 'card', 'h-100']) }}>
   {% if image %}
     <div class="ps-offer-card__media ratio" style="--bs-aspect-ratio: 75%;">
       <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="card-img-top object-fit-cover h-100 w-100" loading="lazy" />

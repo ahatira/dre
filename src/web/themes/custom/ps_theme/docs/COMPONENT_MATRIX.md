@@ -25,7 +25,7 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 | Filtres rapides (type bien) | `asset-type-chips` | **PS** | Dictionary `asset_type` |
 | Tuiles univers (bureaux, logistique…) | `card` + LB | G + LB | Image + titre + lien |
 | Bandeau confiance / chiffres | `stats-bar` | **PS** ou G | À trancher réutilisabilité |
-| Carrousel offres | `offer-card` × N | **PS** | View display teaser |
+| Carrousel offres | `offer-card` × N | **PS** | View mode teaser (grille verticale) |
 
 ## Recherche (`/recherche`)
 
@@ -36,7 +36,7 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 | Compteur résultats | texte View | M | `views.view.ps_search_offers` |
 | Toggle liste / carte | `view-mode-toggle` | **PS** | JS behavior |
 | Carte interactive | map container | **PS** + **M** | Leaflet/Mapbox — non implémenté |
-| Grille résultats | `offer-card` | **PS** | View mode `search_card` à créer |
+| Grille résultats | `offer-search-card` | **PS** | View mode `search` + `node--offer--search.html.twig` |
 | Pagination | `pagination` | G | Override Sass |
 | Empty state | `alert` + illustration | G + PS | |
 
@@ -64,9 +64,9 @@ Déjà disponibles : accordion, alert, badge, breadcrumb, button, button_group, 
 ## Priorité implémentation (vertical slices)
 
 1. ✅ `search-hero` + tokens Stellar
-2. ✅ `offer-card` (props statiques → puis branchement node teaser)
+2. ✅ `offer-card` (teaser homepage) + ✅ `offer-search-card` (résultats recherche)
 3. `transaction-toggle` + wiring SEO URLs
-4. `node--offer--teaser.html.twig` + view mode `search_card`
+4. `node--offer--search.html.twig` + SDC `offer-search-card` ; `node--offer--teaser.html.twig` + SDC `offer-card`
 5. `views-view--ps-search-offers.html.twig` (layout split liste/carte)
 6. Header favoris + `node--offer--full.html.twig`
 

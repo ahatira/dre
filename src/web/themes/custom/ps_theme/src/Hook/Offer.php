@@ -9,6 +9,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\ps_theme\Utility\OfferCardPropsBuilder;
+use Drupal\ps_theme\Utility\OfferSearchCardPropsBuilder;
 
 /**
  * Offer node preprocess hooks.
@@ -34,8 +35,33 @@ final class Offer {
       return;
     }
 
+    if ($view_mode === 'search') {
+      $component = [
+        '#type' => 'component',
+        '#component' => 'ps_theme:offer-search-card',
+        '#props' => OfferSearchCardPropsBuilder::build($node),
+      ];
+
+      if (\Drupal::hasService('ps_favorite.lazy_builder')) {
+        $component['#slots']['actions'] = [
+          '#lazy_builder' => [
+            'ps_favorite.lazy_builder:buildButton',
+            [$node->getEntityTypeId(), (int) $node->id(), 'search'],
+          ],
+          '#create_placeholder' => TRUE,
+        ];
+      }
+
+      $variables['offer_search_card_component'] = $component;
+      return;
+    }
+
     if ($view_mode === 'full') {
+      $variables['attributes']['data-offer-id'] = $node->id();
       $variables['#attached']['library'][] = 'ps_theme/offer-detail';
+      $variables['#attached']['library'][] = 'ps_theme/offer-viewed';
+      $variables['#attached']['drupalSettings']['psOfferViewed']['currentId'] = (int) $node->id();
+      return;
     }
   }
 

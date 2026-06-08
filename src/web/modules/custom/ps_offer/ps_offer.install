@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_offer.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Renames offer view mode "card" to "search" for search results listing.
+ */
+function ps_offer_update_9001(): void {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ([
+    'core.entity_view_display.node.offer.card',
+    'core.entity_view_mode.node.card',
+  ] as $config_name) {
+    $config_factory->getEditable($config_name)->delete();
+  }
+
+  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
+  $installer = \Drupal::service('config.installer');
+  $installer->installDefaultConfig('module', 'ps_offer');
+
+  $view = $config_factory->getEditable('views.view.ps_search_offers');
+  if ($view->isNew()) {
+    return;
+  }
+
+  $data = $view->getRawData();
+  if (isset($data['display']['default']['display_options']['row']['options']['view_modes']['entity:node']['offer'])) {
+    $data['display']['default']['display_options']['row']['options']['view_modes']['entity:node']['offer'] = 'search';
+  }
+
+  $dependencies = $data['dependencies']['config'] ?? [];
+  $dependencies = array_values(array_filter(
+    $dependencies,
+    static fn (string $dependency): bool => $dependency !== 'core.entity_view_mode.node.card',
+  ));
+  if (!in_array('core.entity_view_mode.node.search', $dependencies, TRUE)) {
+    $dependencies[] = 'core.entity_view_mode.node.search';
+  }
+  $data['dependencies']['config'] = $dependencies;
+
+  $view->setData($data);
+  $view->save();
+}
