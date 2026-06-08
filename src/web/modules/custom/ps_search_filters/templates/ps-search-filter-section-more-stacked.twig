@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * More criteria — flat stacked sections for mobile offcanvas (maquette Filters.png).
+ *
+ * Variables: more_criteria_groups, core_criteria_items, id_prefix (optional).
+ */
+#}
+{% set field_id_prefix = id_prefix|default('ps-more-m') %}
+
+{% for group_key, group in more_criteria_groups %}
+  {% if group.lazy|default(false) %}
+    <section class="ps-filter-mobile-section ps-filter-mobile-section--more-group" data-group-id="{{ group_key }}">
+      <h3 class="ps-filter-mobile-section__title">{{ group.label }}</h3>
+      <div
+        class="ps-more-group__items js-ps-more-group-content js-ps-more-group-panel"
+        data-group-id="{{ group_key }}"
+        data-loaded="0"
+      >
+        <div class="ps-more-group__loading" hidden>{{ 'Loading…'|t }}</div>
+      </div>
+    </section>
+  {% endif %}
+{% endfor %}
+
+{% for item in core_criteria_items %}
+  <section class="ps-filter-mobile-section ps-filter-mobile-section--more-core">
+    <h3 class="ps-filter-mobile-section__title">{{ item.label }}</h3>
+    {% include '@ps_search_filters/ps-search-more-criteria-items.html.twig' with {
+      items: [item],
+      id_prefix: field_id_prefix,
+    } only %}
+  </section>
+{% endfor %}

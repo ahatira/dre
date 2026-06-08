@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Location editor row (chips + text input).
+ *
+ * Variables: id_suffix, layout ('dropdown'|'stacked').
+ */
+#}
+{% set input_id = 'ps-filter-location-input' ~ id_suffix %}
+
+<div
+  class="ps-filter-bar__toggle ps-filter-bar__toggle--location js-ps-location-toggle d-flex align-items-center w-100{% if layout|default('dropdown') == 'stacked' %} ps-filter-bar__toggle--stacked{% endif %}"
+  aria-expanded="false"
+>
+  <span class="ps-filter-bar__location-icon flex-shrink-0" aria-hidden="true"></span>
+  <div class="ps-filter-bar__location-editor js-ps-location-editor min-w-0 flex-grow-1">
+    <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>
+    <input
+      id="{{ input_id }}"
+      type="text"
+      class="ps-filter-bar__location-input js-ps-locality-input"
+      placeholder="{{ 'City, district or zip code'|t }}"
+      autocomplete="off"
+      aria-label="{{ 'Location: city or postal code'|t }}"
+      aria-autocomplete="list"
+      role="combobox"
+      aria-controls="ps-location-suggest{{ id_suffix }}"
+      maxlength="100"
+    >
+  </div>
+  <button
+    type="button"
+    class="ps-filter-bar__location-clear js-ps-location-clear-input"
+    hidden
+    aria-label="{{ 'Clear location search'|t }}"
+  >
+    ×
+  </button>
+</div>

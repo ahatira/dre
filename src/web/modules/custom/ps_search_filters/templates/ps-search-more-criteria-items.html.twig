@@ -4,6 +4,7 @@
  * More criteria filter items (lazy-loaded per group).
  */
 #}
+{% set field_id_prefix = id_prefix|default('ps-more') %}
 <div class="ps-more-items{% if checkbox_two_columns|default(false) %} ps-more-items--checkbox-cols-2{% endif %}">
 {% for item in items %}
   {% set widget = item.widget|default('checkbox') %}
@@ -12,17 +13,17 @@
       <input
         type="checkbox"
         class="form-check-input js-ps-more-filter"
-        id="ps-more-{{ item.param }}"
+        id="{{ field_id_prefix }}-{{ item.param }}"
         data-param="{{ item.param }}"
         data-widget="checkbox"
         value="1"
       >
-      <label class="form-check-label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <label class="form-check-label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>
     </div>
   {% elseif widget == 'yes_no' %}
     <div class="ps-more-field">
-      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
-      <select id="ps-more-{{ item.param }}" class="ps-more-field__select js-ps-more-filter" data-param="{{ item.param }}" data-widget="yes_no">
+      <label class="ps-more-field__label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>
+      <select id="{{ field_id_prefix }}-{{ item.param }}" class="ps-more-field__select js-ps-more-filter" data-param="{{ item.param }}" data-widget="yes_no">
         <option value="">{{ 'All'|t }}</option>
         <option value="1">{{ 'Yes'|t }}</option>
         <option value="0">{{ 'No'|t }}</option>
@@ -37,12 +38,12 @@
             <input
               type="checkbox"
               class="form-check-input js-ps-more-filter"
-              id="ps-more-{{ item.param }}-{{ loop.index }}"
+              id="{{ field_id_prefix }}-{{ item.param }}-{{ loop.index }}"
               data-param="{{ item.param }}"
               data-widget="tags"
               value="{{ option.value }}"
             >
-            <label class="form-check-label" for="ps-more-{{ item.param }}-{{ loop.index }}">{{ option.label }}</label>
+            <label class="form-check-label" for="{{ field_id_prefix }}-{{ item.param }}-{{ loop.index }}">{{ option.label }}</label>
           </div>
         {% endfor %}
       </div>
@@ -52,11 +53,11 @@
       <span class="ps-more-field__label">{{ item.label }}</span>
       <div class="ps-range-inputs">
         <div class="ps-range-inputs__field">
-          <label class="ps-range-inputs__label" for="ps-more-{{ item.param }}-min">{{ 'Min'|t }}</label>
+          <label class="ps-range-inputs__label" for="{{ field_id_prefix }}-{{ item.param }}-min">{{ 'Min'|t }}</label>
           <div class="ps-range-inputs__input-wrap">
             <input
               type="number"
-              id="ps-more-{{ item.param }}-min"
+              id="{{ field_id_prefix }}-{{ item.param }}-min"
               class="ps-range-inputs__input js-ps-more-filter"
               data-param="{{ item.param }}"
               data-widget="range"
@@ -72,11 +73,11 @@
         </div>
         <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
         <div class="ps-range-inputs__field">
-          <label class="ps-range-inputs__label" for="ps-more-{{ item.param }}-max">{{ 'Max'|t }}</label>
+          <label class="ps-range-inputs__label" for="{{ field_id_prefix }}-{{ item.param }}-max">{{ 'Max'|t }}</label>
           <div class="ps-range-inputs__input-wrap">
             <input
               type="number"
-              id="ps-more-{{ item.param }}-max"
+              id="{{ field_id_prefix }}-{{ item.param }}-max"
               class="ps-range-inputs__input js-ps-more-filter"
               data-param="{{ item.param }}"
               data-widget="range"
@@ -94,10 +95,10 @@
     </div>
   {% elseif widget == 'date' %}
     <div class="ps-more-field">
-      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <label class="ps-more-field__label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>
       <input
         type="date"
-        id="ps-more-{{ item.param }}"
+        id="{{ field_id_prefix }}-{{ item.param }}"
         class="ps-more-group__text js-ps-more-filter"
         data-param="{{ item.param }}"
         data-widget="date"
@@ -105,10 +106,10 @@
     </div>
   {% else %}
     <div class="ps-more-field">
-      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <label class="ps-more-field__label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>
       <input
         type="text"
-        id="ps-more-{{ item.param }}"
+        id="{{ field_id_prefix }}-{{ item.param }}"
         class="ps-more-group__text js-ps-more-filter"
         data-param="{{ item.param }}"
         data-widget="text"

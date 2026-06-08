@@ -16,7 +16,6 @@
 .ps-page-layout--search {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   min-height: 100dvh;
 
   .ps-page-breadcrumb {
@@ -27,7 +26,6 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    min-height: calc(100vh - var(--ps-header-slot-height, 128px));
     min-height: calc(100dvh - var(--ps-header-slot-height, 128px));
 
     > .container-fluid,
@@ -49,9 +47,7 @@
 }
 
 .ps-search-view {
-  height: calc(100vh - var(--ps-header-slot-height, 128px));
   height: calc(100dvh - var(--ps-header-slot-height, 128px));
-  max-height: calc(100vh - var(--ps-header-slot-height, 128px));
   max-height: calc(100dvh - var(--ps-header-slot-height, 128px));
   min-height: 0;
   overflow: hidden;
@@ -62,6 +58,10 @@
     overflow: visible;
     position: relative;
     z-index: var(--ps-z-search-filter-bar, 20);
+  }
+
+  &__mobile-toolbar-wrap {
+    flex-shrink: 0;
   }
 
   &__filters--legacy {
@@ -114,21 +114,39 @@
 
 @media (max-width: 991.98px) {
   .ps-page-layout--search .ps-main--search {
-    min-height: auto;
+    min-height: calc(100dvh - var(--ps-header-slot-height, 76px));
   }
 
   .ps-search-view {
-    height: auto;
-    max-height: none;
-    overflow: visible;
+    flex: 1 1 auto;
+    height: calc(100dvh - var(--ps-header-slot-height, 76px));
+    max-height: calc(100dvh - var(--ps-header-slot-height, 76px));
+    min-height: 0;
+    overflow: hidden;
 
     > .ps-search-view__split {
+      flex: 1 1 0;
       flex-direction: column;
+      min-height: 0;
+    }
+
+    > .ps-search-view__split > .col-lg-6:first-child {
+      flex: 1 1 0;
+      height: auto !important;
+      min-height: 0;
     }
 
     > .ps-search-view__split > .col-lg-6:last-child {
-      min-height: 360px;
+      flex: 0 0 clamp(200px, 32dvh, 360px);
+      height: auto !important;
+      max-height: clamp(200px, 32dvh, 360px);
+      min-height: 200px;
       order: -1;
+    }
+
+    .js-ps-hide-list,
+    .js-ps-show-list {
+      display: none !important;
     }
 
     &__map {
@@ -136,9 +154,7 @@
     }
 
     &--list-hidden {
-      height: calc(100vh - var(--ps-header-slot-height, 76px));
       height: calc(100dvh - var(--ps-header-slot-height, 76px));
-      max-height: calc(100vh - var(--ps-header-slot-height, 76px));
       max-height: calc(100dvh - var(--ps-header-slot-height, 76px));
       overflow: hidden;
 
@@ -148,6 +164,7 @@
 
       .ps-search-view__split > .col-lg-6:last-child {
         flex: 1 1 auto;
+        max-height: none;
         min-height: 0;
         order: 0;
       }

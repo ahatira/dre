@@ -43,6 +43,13 @@
     </div>
   </div>
 
+  {# Mobile toolbar — above map/list split (< lg) #}
+  {% if search_filter_bar_mobile_actions %}
+    <div class="flex-shrink-0 bg-white border-bottom ps-search-view__mobile-toolbar-wrap">
+      {{ search_filter_bar_mobile_actions }}
+    </div>
+  {% endif %}
+
   {# Split 50/50 — only .js-ps-search-results-scroll scrolls #}
   <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
     <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end">

@@ -36,10 +36,15 @@ final class Theme {
         ],
         'template' => 'ps-search-filter-bar',
       ],
+      'ps_search_filter_bar_mobile_actions' => [
+        'variables' => [],
+        'template' => 'ps-search-filter-bar-mobile-actions',
+      ],
       'ps_search_more_criteria_items' => [
         'variables' => [
           'items' => [],
           'checkbox_two_columns' => FALSE,
+          'id_prefix' => 'ps-more',
         ],
         'template' => 'ps-search-more-criteria-items',
       ],

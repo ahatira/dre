@@ -222,4 +222,19 @@ final class FilterBarBuilder {
     ];
   }
 
+  /**
+   * Builds the mobile toolbar (Back, Show map, See all filters).
+   */
+  public function buildMobileActions(): array {
+    return [
+      '#theme' => 'ps_search_filter_bar_mobile_actions',
+      '#cache' => [
+        'contexts' => [
+          'url.path',
+          'languages:language_interface',
+        ],
+      ],
+    ];
+  }
+
 }

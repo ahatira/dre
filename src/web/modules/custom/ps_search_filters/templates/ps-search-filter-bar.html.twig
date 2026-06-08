@@ -1,7 +1,9 @@
 {#
 /**
  * @file
- * BNPPRE search filter bar — Figma Frame 41 (Bootstrap dropdown + offcanvas).
+ * BNPPRE search filter bar — desktop popins + mobile unified offcanvas.
+ *
+ * Breakpoint: lg (992px) — see ps-search-filters-mobile.css decisions.
  */
 #}
 {% set type_value %}
@@ -16,356 +18,242 @@
   {%- endif -%}
 {% endset %}
 
-<div class="ps-filter-bar" role="search" aria-label="{{ 'Property search filters'|t }}">
+<div class="ps-search-filters-root">
 
-  {# Property type + transaction #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--type">
-    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-type-trigger">
-      {{ 'Property type'|t }}
-    </label>
-    <button
-      id="ps-filter-type-trigger"
-      class="ps-filter-bar__toggle d-flex align-items-center w-100{% if active_op or active_asset %} is-active{% endif %}"
-      type="button"
-      data-bs-toggle="dropdown"
-      data-bs-auto-close="outside"
-      aria-expanded="false"
-    >
-      <span class="ps-filter-bar__toggle-label text-truncate">{{ type_value }}</span>
-      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
-    </button>
+  {# ── Desktop filter bar (≥ lg) — Figma Frame 41 #}
+  <div class="ps-filter-bar ps-filter-bar--desktop d-none d-lg-grid" role="search" aria-label="{{ 'Property search filters'|t }}">
 
-    <div class="dropdown-menu ps-filter-popin ps-filter-popin--type">
-      <div class="ps-filter-popin__section ps-filter-popin__section--assets">
-        <ul class="ps-asset-grid" role="list">
-          {% for asset in asset_types %}
-            <li class="ps-asset-card{% if asset.active %} is-active{% endif %}" role="listitem">
-              <button
-                class="ps-asset-card__link js-ps-asset-btn"
-                type="button"
-                data-code="{{ asset.code }}"
-                aria-pressed="{{ asset.active ? 'true' : 'false' }}"
-              >
-                <span class="ps-asset-card__icon" aria-hidden="true">{{ asset.icon }}</span>
-                <span class="ps-asset-card__label">{{ asset.label }}</span>
-              </button>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+    <div class="dropdown ps-filter-bar__item ps-filter-bar__item--type">
+      <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-type-trigger">
+        {{ 'Property type'|t }}
+      </label>
+      <button
+        id="ps-filter-type-trigger"
+        class="ps-filter-bar__toggle d-flex align-items-center w-100{% if active_op or active_asset %} is-active{% endif %}"
+        type="button"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >
+        <span class="ps-filter-bar__toggle-label text-truncate">{{ type_value }}</span>
+        <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
+      </button>
 
-      <div class="ps-filter-popin__section ps-filter-popin__section--op">
-        <h3 class="ps-filter-popin__heading ps-filter-popin__heading--sentence">{{ 'Transaction type'|t }}</h3>
-        <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
-          {% for op in operation_types %}
-            <button
-              class="ps-op-btn{% if op.active %} is-active{% endif %} js-ps-op-btn"
-              type="button"
-              data-code="{{ op.code }}"
-              aria-pressed="{{ op.active ? 'true' : 'false' }}"
-            >
-              {{ op.label }}
-            </button>
-          {% endfor %}
-          <button
-            class="ps-op-btn{% if active_flexible %} is-active{% endif %} js-ps-op-btn"
-            type="button"
-            data-code="FLEX"
-            aria-pressed="{{ active_flexible ? 'true' : 'false' }}"
-          >
-            {{ "I'm flexible"|t }}
+      <div class="dropdown-menu ps-filter-popin ps-filter-popin--type">
+        {% include '@ps_search_filters/ps-search-filter-section-type-fields.twig' %}
+        <div class="ps-filter-popin__footer ps-filter-popin__footer--type">
+          <button class="ps-apply-btn ps-apply-btn--full js-ps-apply-btn" type="button" disabled>
+            {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+            <span class="ps-apply-btn__loader" aria-hidden="true"></span>
           </button>
         </div>
       </div>
+    </div>
 
-      <div class="ps-filter-popin__footer ps-filter-popin__footer--type">
-        <button class="ps-apply-btn ps-apply-btn--full js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-          <span class="ps-apply-btn__loader" aria-hidden="true"></span>
-        </button>
+    <div class="dropdown ps-filter-bar__item ps-filter-bar__item--location">
+      <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-location-input">
+        {{ 'Location(s)'|t }}
+      </label>
+      {% include '@ps_search_filters/ps-search-filter-section-location-fields.twig' with {
+        id_suffix: '',
+        layout: 'dropdown',
+      } only %}
+
+      <div class="dropdown-menu ps-filter-popin ps-filter-popin--location">
+        <div class="ps-location-popin__selected js-ps-location-selected-panel" hidden>
+          <h3 class="ps-filter-popin__heading ps-location-popin__heading">{{ 'Location'|t }} :</h3>
+          <div class="ps-location-popin__chips js-ps-location-popin-chips"></div>
+        </div>
+        <div id="ps-location-suggest" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+        <div class="ps-filter-popin__footer ps-filter-popin__footer--location">
+          <button class="ps-apply-btn ps-apply-btn--full js-ps-location-apply js-ps-apply-btn" type="button" disabled>
+            {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+            <span class="ps-apply-btn__loader" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  {# Location(s) — Figma Location(s) searched 1–3 #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--location">
-    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-location-input">
-      {{ 'Location(s)'|t }}
-    </label>
-    <div
-      class="ps-filter-bar__toggle ps-filter-bar__toggle--location js-ps-location-toggle d-flex align-items-center w-100"
-      aria-expanded="false"
-    >
-      <span class="ps-filter-bar__location-icon flex-shrink-0" aria-hidden="true"></span>
-      <div class="ps-filter-bar__location-editor js-ps-location-editor min-w-0 flex-grow-1">
-        <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>
-        <input
-          id="ps-filter-location-input"
-          type="text"
-          class="ps-filter-bar__location-input js-ps-locality-input"
-          placeholder="{{ 'City, district or zip code'|t }}"
-          autocomplete="off"
-          aria-label="{{ 'Location: city or postal code'|t }}"
-          aria-autocomplete="list"
-          role="combobox"
-          aria-controls="ps-location-suggest"
-          maxlength="100"
-        >
-      </div>
+    <div class="dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item"{% if not show_surface_filter %} hidden{% endif %}>
+      <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-surface-field-label" for="ps-filter-surface-trigger">
+        {{ 'Surface (m²)'|t }}
+      </label>
       <button
+        id="ps-filter-surface-trigger"
+        class="ps-filter-bar__toggle d-flex align-items-center w-100"
         type="button"
-        class="ps-filter-bar__location-clear js-ps-location-clear-input"
-        hidden
-        aria-label="{{ 'Clear location search'|t }}"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
       >
-        ×
+        <span class="ps-filter-bar__toggle-label js-ps-surface-label text-truncate">{{ 'Surface'|t }}</span>
+        <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
+      </button>
+      <div class="dropdown-menu ps-filter-popin ps-filter-popin--surface ps-filter-popin--range">
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with { section: 'surface', id_suffix: '' } only %}
+        <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+          <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Delete all'|t }}</button>
+          <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+            {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item"{% if not show_capacity_filter %} hidden{% endif %}>
+      <label class="form-label ps-filter-bar__field-label js-ps-capacity-field-label" for="ps-filter-capacity-trigger">
+        {{ capacity_filter_label|capitalize }}
+      </label>
+      <button
+        id="ps-filter-capacity-trigger"
+        class="ps-filter-bar__toggle d-flex align-items-center w-100"
+        type="button"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >
+        <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_filter_label|capitalize }}</span>
+        <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
+      </button>
+      <div class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range">
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with {
+          section: 'capacity',
+          id_suffix: '',
+          capacity_filter_label: capacity_filter_label,
+        } only %}
+        <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+          <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Delete all'|t }}</button>
+          <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+            {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown ps-filter-bar__item ps-filter-bar__item--budget">
+      <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-budget-field-label" for="ps-filter-budget-trigger">
+        {{ budget_config.field_label|default('Budget'|t) }}
+      </label>
+      <button
+        id="ps-filter-budget-trigger"
+        class="ps-filter-bar__toggle d-flex align-items-center w-100"
+        type="button"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >
+        <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ budget_config.toggle_default|default('Budget'|t) }}</span>
+        <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
+      </button>
+      <div class="dropdown-menu ps-filter-popin ps-filter-popin--budget ps-filter-popin--range">
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with {
+          section: 'budget',
+          id_suffix: '',
+          budget_config: budget_config,
+        } only %}
+        <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+          <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Delete all'|t }}</button>
+          <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+            {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-filter-bar__item ps-filter-bar__item--more">
+      <button
+        class="btn btn-outline-primary ps-filter-bar__toggle ps-filter-bar__toggle--more d-inline-flex align-items-center js-ps-more-trigger"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#ps-more-offcanvas"
+        aria-controls="ps-more-offcanvas"
+      >
+        <span class="ps-filter-bar__toggle-label js-ps-more-label">{{ 'More filters'|t }}</span>
+        <span class="ps-filter-bar__chevron ps-filter-bar__chevron--primary flex-shrink-0" aria-hidden="true"></span>
       </button>
     </div>
 
-    <div class="dropdown-menu ps-filter-popin ps-filter-popin--location">
-      <div class="ps-location-popin__selected js-ps-location-selected-panel" hidden>
-        <h3 class="ps-filter-popin__heading ps-location-popin__heading">{{ 'Location'|t }} :</h3>
-        <div class="ps-location-popin__chips js-ps-location-popin-chips"></div>
-      </div>
-      <div id="ps-location-suggest" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
-      <div class="ps-filter-popin__footer ps-filter-popin__footer--location">
-        <button class="ps-apply-btn ps-apply-btn--full js-ps-location-apply js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-          <span class="ps-apply-btn__loader" aria-hidden="true"></span>
-        </button>
-      </div>
+  </div>
+
+  <div class="ps-filter-bar-backdrop js-ps-filter-bar-backdrop d-none d-lg-block" hidden aria-hidden="true"></div>
+
+  {# Desktop — More filters offcanvas (≥ lg) #}
+  <div class="offcanvas offcanvas-end ps-more-offcanvas" tabindex="-1" id="ps-more-offcanvas" aria-labelledby="ps-more-offcanvas-label" data-bs-scroll="false">
+    <div class="offcanvas-header border-bottom">
+      <h2 class="offcanvas-title h6 fw-bold mb-0" id="ps-more-offcanvas-label">{{ 'More filters'|t }}</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      {% include '@ps_search_filters/ps-search-filter-section-more-accordion.twig' with {
+        accordion_id: 'ps-more-accordion',
+      } %}
+    </div>
+
+    <div class="offcanvas-footer ps-filter-popin__footer border-top">
+      <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
+      <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+        {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+      </button>
     </div>
   </div>
 
-  {# Surface #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item"{% if not show_surface_filter %} hidden{% endif %}>
-    <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-surface-field-label" for="ps-filter-surface-trigger">
-      {{ 'Surface (m²)'|t }}
-    </label>
-    <button
-      id="ps-filter-surface-trigger"
-      class="ps-filter-bar__toggle d-flex align-items-center w-100"
-      type="button"
-      data-bs-toggle="dropdown"
-      data-bs-auto-close="outside"
-      aria-expanded="false"
-    >
-      <span class="ps-filter-bar__toggle-label js-ps-surface-label text-truncate">{{ 'Surface'|t }}</span>
-      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
-    </button>
-    <div class="dropdown-menu ps-filter-popin ps-filter-popin--surface ps-filter-popin--range">
-      <div class="ps-filter-popin__section">
-        <div class="ps-range-inputs">
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-surface-min">{{ 'Min surface (m²)'|t }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-surface-min" class="ps-range-inputs__input js-ps-surface-min" min="0" step="50" placeholder="0">
-              <span class="ps-range-inputs__unit">m²</span>
-            </div>
-          </div>
-          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-surface-max">{{ 'Max surface (m²)'|t }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-surface-max" class="ps-range-inputs__input js-ps-surface-max" min="0" step="50" placeholder="∞">
-              <span class="ps-range-inputs__unit">m²</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Delete all'|t }}</button>
-        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-        </button>
-      </div>
+  {# Mobile — unified filters offcanvas (< lg) — maquette Filters.png #}
+  <div class="offcanvas offcanvas-end ps-mobile-filters-offcanvas" tabindex="-1" id="ps-mobile-filters" aria-labelledby="ps-mobile-filters-label" data-bs-scroll="false">
+    <div class="offcanvas-header border-bottom">
+      <h2 class="offcanvas-title h6 fw-bold mb-0" id="ps-mobile-filters-label">{{ 'Filter'|t }}</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+    </div>
+
+    <div class="offcanvas-body ps-mobile-filters-offcanvas__body">
+      <section class="ps-filter-mobile-section ps-filter-bar__item ps-filter-bar__item--type js-ps-type-section-mobile">
+        <h3 class="ps-filter-mobile-section__title">{{ 'Property type'|t }}</h3>
+        {% include '@ps_search_filters/ps-search-filter-section-type-fields.twig' %}
+      </section>
+
+      <section class="ps-filter-mobile-section ps-filter-bar__item ps-filter-bar__item--location">
+        <h3 class="ps-filter-mobile-section__title">{{ 'Location(s)'|t }}</h3>
+        {% include '@ps_search_filters/ps-search-filter-section-location-fields.twig' with {
+          id_suffix: '-m',
+          layout: 'stacked',
+        } only %}
+        <div id="ps-location-suggest-m" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+      </section>
+
+      <section class="ps-filter-mobile-section ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item js-ps-surface-section-mobile"{% if not show_surface_filter %} hidden{% endif %}>
+        <h3 class="ps-filter-mobile-section__title js-ps-surface-field-label">{{ 'Surface (m²)'|t }}</h3>
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with { section: 'surface', id_suffix: '-m' } only %}
+      </section>
+
+      <section class="ps-filter-mobile-section ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item js-ps-capacity-section-mobile"{% if not show_capacity_filter %} hidden{% endif %}>
+        <h3 class="ps-filter-mobile-section__title js-ps-capacity-field-label">{{ capacity_filter_label|capitalize }}</h3>
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with {
+          section: 'capacity',
+          id_suffix: '-m',
+          capacity_filter_label: capacity_filter_label,
+        } only %}
+      </section>
+
+      <section class="ps-filter-mobile-section ps-filter-mobile-section--budget">
+        <h3 class="ps-filter-mobile-section__title js-ps-budget-field-label">{{ budget_config.field_label|default('Budget'|t) }}</h3>
+        {% include '@ps_search_filters/ps-search-filter-section-range-fields.twig' with {
+          section: 'budget',
+          id_suffix: '-m',
+          budget_config: budget_config,
+        } only %}
+      </section>
+
+      {% include '@ps_search_filters/ps-search-filter-section-more-stacked.twig' with {
+        id_prefix: 'ps-more-m',
+      } %}
+    </div>
+
+    <div class="offcanvas-footer ps-filter-popin__footer ps-mobile-filters-offcanvas__footer border-top">
+      <button class="ps-filter-clear js-ps-mobile-reset-all" type="button">{{ 'Reset'|t }}</button>
+      <button class="ps-apply-btn js-ps-apply-btn js-ps-mobile-apply" type="button" disabled>
+        {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+      </button>
     </div>
   </div>
 
-  {# Capacity (context matrix — e.g. coworking) #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item"{% if not show_capacity_filter %} hidden{% endif %}>
-    <label class="form-label ps-filter-bar__field-label js-ps-capacity-field-label" for="ps-filter-capacity-trigger">
-      {{ capacity_filter_label|capitalize }}
-    </label>
-    <button
-      id="ps-filter-capacity-trigger"
-      class="ps-filter-bar__toggle d-flex align-items-center w-100"
-      type="button"
-      data-bs-toggle="dropdown"
-      data-bs-auto-close="outside"
-      aria-expanded="false"
-    >
-      <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_filter_label|capitalize }}</span>
-      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
-    </button>
-    <div class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range">
-      <div class="ps-filter-popin__section">
-        <div class="ps-range-inputs">
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-capacity-min">{{ 'Min @unit'|t({'@unit': capacity_filter_label}) }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-capacity-min" class="ps-range-inputs__input js-ps-capacity-min" min="0" step="1" placeholder="0">
-            </div>
-          </div>
-          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-capacity-max">{{ 'Max @unit'|t({'@unit': capacity_filter_label}) }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-capacity-max" class="ps-range-inputs__input js-ps-capacity-max" min="0" step="1" placeholder="∞">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Delete all'|t }}</button>
-        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-        </button>
-      </div>
-    </div>
-  </div>
-
-  {# Price / budget — context matrix: PER_M2, PER_POSTE (COW), GLOBAL (VEN) #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--budget">
-    <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-budget-field-label" for="ps-filter-budget-trigger">
-      {{ budget_config.field_label|default('Budget'|t) }}
-    </label>
-    <button
-      id="ps-filter-budget-trigger"
-      class="ps-filter-bar__toggle d-flex align-items-center w-100"
-      type="button"
-      data-bs-toggle="dropdown"
-      data-bs-auto-close="outside"
-      aria-expanded="false"
-    >
-      <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ budget_config.toggle_default|default('Budget'|t) }}</span>
-      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
-    </button>
-    <div class="dropdown-menu ps-filter-popin ps-filter-popin--budget ps-filter-popin--range">
-      <div class="ps-filter-popin__section">
-        <div class="ps-range-inputs">
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-min-label" for="ps-budget-min">{{ budget_config.min_label|default('Min budget (€)'|t) }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-budget-min" class="ps-range-inputs__input js-ps-budget-min" min="0" step="{{ budget_config.step|default(10) }}" placeholder="0">
-              <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
-            </div>
-          </div>
-          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
-          <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-max-label" for="ps-budget-max">{{ budget_config.max_label|default('Max budget (€)'|t) }}</label>
-            <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-budget-max" class="ps-range-inputs__input js-ps-budget-max" min="0" step="{{ budget_config.step|default(10) }}" placeholder="∞">
-              <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Delete all'|t }}</button>
-        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-        </button>
-      </div>
-    </div>
-  </div>
-
-  {# More filters — Bootstrap offcanvas (right + backdrop) #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--more">
-    <button
-      class="btn btn-outline-primary ps-filter-bar__toggle ps-filter-bar__toggle--more d-inline-flex align-items-center js-ps-more-trigger"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#ps-more-offcanvas"
-      aria-controls="ps-more-offcanvas"
-    >
-      <span class="ps-filter-bar__toggle-label js-ps-more-label">{{ 'More filters'|t }}</span>
-      <span class="ps-filter-bar__chevron ps-filter-bar__chevron--primary flex-shrink-0" aria-hidden="true"></span>
-    </button>
-  </div>
-
-</div>
-
-<div class="ps-filter-bar-backdrop js-ps-filter-bar-backdrop" hidden aria-hidden="true"></div>
-
-{# More criteria — offcanvas panel (sibling of filter bar; JS may reparent to body). #}
-<div class="offcanvas offcanvas-end ps-more-offcanvas" tabindex="-1" id="ps-more-offcanvas" aria-labelledby="ps-more-offcanvas-label" data-bs-scroll="false">
-  <div class="offcanvas-header border-bottom">
-    <h2 class="offcanvas-title h6 fw-bold mb-0" id="ps-more-offcanvas-label">{{ 'More filters'|t }}</h2>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
-  </div>
-
-  <div class="offcanvas-body">
-    <div class="accordion ps-more-accordion" id="ps-more-accordion">
-      {# Feature groups — lazy-loaded on first expand. #}
-      {% for group_key, group in more_criteria_groups %}
-        {% if group.lazy|default(false) %}
-          <div class="accordion-item ps-more-accordion__item" data-group-id="{{ group_key }}">
-            <h3 class="accordion-header" id="ps-more-heading-{{ group_key }}">
-              <button
-                class="accordion-button collapsed js-ps-more-group-toggle"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#ps-more-panel-{{ group_key }}"
-                aria-expanded="false"
-                aria-controls="ps-more-panel-{{ group_key }}"
-                data-group-id="{{ group_key }}"
-              >
-                {{ group.label }}
-                {% if group.item_count %}
-                  <span class="ps-more-accordion__count">({{ group.item_count }})</span>
-                {% endif %}
-              </button>
-            </h3>
-            <div
-              id="ps-more-panel-{{ group_key }}"
-              class="accordion-collapse collapse js-ps-more-group-panel"
-              aria-labelledby="ps-more-heading-{{ group_key }}"
-              data-group-id="{{ group_key }}"
-              data-loaded="0"
-            >
-              <div class="accordion-body ps-more-group__items js-ps-more-group-content">
-                <div class="ps-more-group__loading" hidden>{{ 'Loading…'|t }}</div>
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-
-      {# Core filters — always rendered (small set), last in accordion. #}
-      <div class="accordion-item ps-more-accordion__item" data-group-id="core">
-        <h3 class="accordion-header" id="ps-more-heading-core">
-          <button
-            class="accordion-button collapsed js-ps-more-group-toggle"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#ps-more-panel-core"
-            aria-expanded="false"
-            aria-controls="ps-more-panel-core"
-            data-group-id="core"
-          >
-            {{ 'Other criteria'|t }}
-          </button>
-        </h3>
-        <div
-          id="ps-more-panel-core"
-          class="accordion-collapse collapse js-ps-more-group-panel"
-          aria-labelledby="ps-more-heading-core"
-          data-group-id="core"
-          data-loaded="1"
-        >
-          <div class="accordion-body ps-more-group__items js-ps-more-group-content">
-            {% include '@ps_search_filters/ps-search-more-criteria-items.html.twig' with { items: core_criteria_items } only %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="offcanvas-footer ps-filter-popin__footer border-top">
-    <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
-    <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
-      {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-    </button>
-  </div>
 </div>

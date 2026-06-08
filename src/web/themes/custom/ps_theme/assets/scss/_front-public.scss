@@ -63,10 +63,24 @@ html.ps-public-route.ps-editor-preview {
       );
       top: calc(var(--ps-header-slot-height, 76px) + var(--ps-editor-offset-top, 0px)) !important;
     }
+
+    // After scroll, site header pins to top:0 — align search panel below header only.
+    .ps-site-header--editor-scroll-pinned.ps-site-header--search-open .ps-header-search__panel {
+      max-height: calc(100dvh - var(--ps-header-slot-height, 76px));
+      top: var(--ps-header-slot-height, 76px) !important;
+    }
   }
 
   .ps-editor-tools {
     position: relative;
     z-index: 1;
+  }
+}
+
+@media (max-width: 991.98px) {
+  html.ps-public-route.ps-editor-preview {
+    .ps-site-header.site-header.ps-site-header--editor-scroll-pinned {
+      top: 0 !important;
+    }
   }
 }

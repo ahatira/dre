@@ -1,10 +1,11 @@
 filter_bar:
-  version: 1.0.33
+  version: 1.0.38
   js:
     js/search-filter-bar.js: {}
   css:
     component:
       css/search-filter-bar.css: {}
+      css/search-filters-mobile.css: {}
   dependencies:
     - core/drupal
     - core/drupal.locale

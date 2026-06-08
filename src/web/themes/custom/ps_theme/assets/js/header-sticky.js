@@ -35,6 +35,36 @@
     }
 
     root.style.setProperty('--ps-editor-offset-top', `${top}px`);
+    syncMobileEditorHeaderPin();
+  };
+
+  /**
+   * Mobile editor preview — pin site header to viewport top once page scrolls.
+   */
+  const syncMobileEditorHeaderPin = () => {
+    const root = document.documentElement;
+    const header = document.querySelector('[data-ps-site-header]');
+    if (!header) {
+      return;
+    }
+
+    if (!root.classList.contains('ps-editor-preview') || window.matchMedia(DESKTOP_QUERY).matches) {
+      header.classList.remove('ps-site-header--editor-scroll-pinned');
+      return;
+    }
+
+    const editorOffset = Number.parseFloat(
+      getComputedStyle(root).getPropertyValue('--ps-editor-offset-top'),
+    ) || 0;
+    const adminBar = document.querySelector('.gin--navigation-top-bar, .admin-toolbar-control-bar');
+    const adminChromeGone = !adminBar || adminBar.getBoundingClientRect().bottom <= 0;
+    const resultsScroll = document.querySelector('.js-ps-search-results-scroll');
+    const resultsScrolled = resultsScroll ? resultsScroll.scrollTop > 0 : false;
+    const pinned = adminChromeGone
+      || window.scrollY > Math.max(0, editorOffset - 1)
+      || resultsScrolled;
+
+    header.classList.toggle('ps-site-header--editor-scroll-pinned', pinned);
   };
 
   Drupal.behaviors.psEditorPreviewOffset = {
@@ -44,8 +74,17 @@
       }
 
       syncEditorPreviewOffset();
+      syncMobileEditorHeaderPin();
 
       window.addEventListener('resize', syncEditorPreviewOffset, { passive: true });
+      window.addEventListener('scroll', syncMobileEditorHeaderPin, { passive: true });
+
+      document.querySelectorAll('.js-ps-search-results-scroll').forEach(function (scrollEl) {
+        if (once('ps-editor-header-pin-results-scroll', scrollEl).length === 0) {
+          return;
+        }
+        scrollEl.addEventListener('scroll', syncMobileEditorHeaderPin, { passive: true });
+      });
 
       if (typeof ResizeObserver === 'undefined') {
         return;

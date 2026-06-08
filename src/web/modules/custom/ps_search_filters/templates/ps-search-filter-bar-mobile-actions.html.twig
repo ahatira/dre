@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Mobile search toolbar — Show map + See all filters (maquette Property search).
+ */
+#}
+<div class="ps-search-view__mobile-toolbar d-lg-none">
+  <button
+    type="button"
+    class="ps-search-view__back-link js-ps-search-back"
+  >
+    <span class="ps-search-view__back-link-icon" aria-hidden="true"></span>
+    {{ 'Back'|t }}
+  </button>
+
+  <div class="ps-filter-bar-mobile-actions" aria-label="{{ 'Search actions'|t }}">
+    <button
+      type="button"
+      class="btn btn-outline-primary ps-filter-bar-mobile-actions__btn js-ps-show-map"
+      aria-expanded="true"
+      data-show-map-label="{{ 'Show map'|t }}"
+      data-show-list-label="{{ 'Show list'|t }}"
+    >
+      <span class="ps-filter-bar-mobile-actions__icon" aria-hidden="true"></span>
+      {{ 'Show map'|t }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary ps-filter-bar-mobile-actions__btn js-ps-mobile-filters-trigger"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#ps-mobile-filters"
+      aria-controls="ps-mobile-filters"
+    >
+      <span class="ps-filter-bar-mobile-actions__icon ps-filter-bar-mobile-actions__icon--filter" aria-hidden="true"></span>
+      {{ 'See all filters'|t }}
+      <span class="ps-filter-bar-mobile-actions__count js-ps-active-filter-count" hidden aria-hidden="true">(0)</span>
+    </button>
+  </div>
+</div>

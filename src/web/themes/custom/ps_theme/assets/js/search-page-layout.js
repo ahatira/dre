@@ -15,7 +15,6 @@
         google.maps.event.trigger(mapData.map, 'resize');
       }
     });
-    window.dispatchEvent(new Event('resize'));
   }
 
   Drupal.behaviors.psSearchPageLayout = {

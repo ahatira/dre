@@ -217,3 +217,24 @@ msgstr "Localisation"
 
 msgid "Show "
 msgstr "Afficher "
+
+msgid "Show map"
+msgstr "Afficher la carte"
+
+msgid "See all filters"
+msgstr "Voir tous les filtres"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Search actions"
+msgstr "Actions de recherche"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Show list"
+msgstr "Afficher la liste"

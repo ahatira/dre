@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Min/max range inputs for surface, capacity, or budget.
+ *
+ * Variables: section, budget_config (budget only), capacity_filter_label (capacity only),
+ * id_suffix (string).
+ */
+#}
+{% set min_id = 'ps-' ~ section ~ '-min' ~ id_suffix %}
+{% set max_id = 'ps-' ~ section ~ '-max' ~ id_suffix %}
+
+<div class="ps-filter-popin__section">
+  <div class="ps-range-inputs">
+    {% if section == 'surface' %}
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ min_id }}">{{ 'Min surface (m²)'|t }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ min_id }}" class="ps-range-inputs__input js-ps-surface-min" min="0" step="50" placeholder="0">
+          <span class="ps-range-inputs__unit">m²</span>
+        </div>
+      </div>
+      <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ max_id }}">{{ 'Max surface (m²)'|t }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ max_id }}" class="ps-range-inputs__input js-ps-surface-max" min="0" step="50" placeholder="∞">
+          <span class="ps-range-inputs__unit">m²</span>
+        </div>
+      </div>
+    {% elseif section == 'capacity' %}
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ min_id }}">{{ 'Min @unit'|t({'@unit': capacity_filter_label}) }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ min_id }}" class="ps-range-inputs__input js-ps-capacity-min" min="0" step="1" placeholder="0">
+        </div>
+      </div>
+      <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ max_id }}">{{ 'Max @unit'|t({'@unit': capacity_filter_label}) }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ max_id }}" class="ps-range-inputs__input js-ps-capacity-max" min="0" step="1" placeholder="∞">
+        </div>
+      </div>
+    {% else %}
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-min-label" for="{{ min_id }}">{{ budget_config.min_label|default('Min budget (€)'|t) }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ min_id }}" class="ps-range-inputs__input js-ps-budget-min" min="0" step="{{ budget_config.step|default(10) }}" placeholder="0">
+          <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
+        </div>
+      </div>
+      <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
+      <div class="ps-range-inputs__field">
+        <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-max-label" for="{{ max_id }}">{{ budget_config.max_label|default('Max budget (€)'|t) }}</label>
+        <div class="ps-range-inputs__input-wrap">
+          <input type="number" id="{{ max_id }}" class="ps-range-inputs__input js-ps-budget-max" min="0" step="{{ budget_config.step|default(10) }}" placeholder="∞">
+          <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -43,8 +43,18 @@
         }
       }
 
+      function mountMobileFiltersOffcanvas(offcanvasEl) {
+        if (offcanvasEl && offcanvasEl.parentElement !== document.body) {
+          document.body.appendChild(offcanvasEl);
+        }
+      }
+
       once('ps-more-offcanvas-mount', '#ps-more-offcanvas', context).forEach(function (offcanvasEl) {
         mountMoreOffcanvas(offcanvasEl);
+      });
+
+      once('ps-mobile-filters-mount', '#ps-mobile-filters', context).forEach(function (offcanvasEl) {
+        mountMobileFiltersOffcanvas(offcanvasEl);
       });
 
       function getFilterVisibility(assetCode) {
@@ -203,6 +213,7 @@
         else lbl.textContent = configResolved.toggle_default || Drupal.t('Budget');
         const filterItem = document.querySelector('.ps-filter-bar__item--budget');
         if (filterItem) filterItem.classList.toggle('is-active', !!(budgetMin || budgetMax));
+        syncActiveFilterCount();
       }
 
       function getMoreFilterWidget(param) {
@@ -250,6 +261,43 @@
         if (item) {
           item.classList.toggle('is-active', active > 0);
         }
+        syncActiveFilterCount();
+      }
+
+      function countActiveFiltersForBadge() {
+        let count = 0;
+        if (selectedAsset || selectedOp) {
+          count++;
+        }
+        if (selectedLocalityTokens.length) {
+          count++;
+        }
+        if (surfaceMin || surfaceMax) {
+          count++;
+        }
+        if (capacityMin || capacityMax) {
+          count++;
+        }
+        if (budgetMin || budgetMax) {
+          count++;
+        }
+        count += countMoreActive();
+        return count;
+      }
+
+      function syncActiveFilterCount() {
+        const count = countActiveFiltersForBadge();
+        document.querySelectorAll('.js-ps-active-filter-count').forEach(function (el) {
+          if (count > 0) {
+            el.textContent = '(' + count + ')';
+            el.hidden = false;
+            el.removeAttribute('aria-hidden');
+          }
+          else {
+            el.hidden = true;
+            el.setAttribute('aria-hidden', 'true');
+          }
+        });
       }
 
       function syncMoreInputsFromState() {
@@ -406,7 +454,9 @@
           syncMoreInputsFromState();
           return Promise.resolve();
         }
-        const content = panel.querySelector('.js-ps-more-group-content');
+        const content = panel.classList.contains('js-ps-more-group-content')
+          ? panel
+          : panel.querySelector('.js-ps-more-group-content');
         if (!content) {
           return Promise.resolve();
         }
@@ -491,13 +541,18 @@
         return !!(offcanvasEl && offcanvasEl.classList.contains('show'));
       }
 
+      function isMobileFiltersOffcanvasOpen() {
+        const offcanvasEl = document.getElementById('ps-mobile-filters');
+        return !!(offcanvasEl && offcanvasEl.classList.contains('show'));
+      }
+
       function syncFilterBarBackdrop() {
         const backdrop = getFilterBarBackdrop();
         if (!backdrop) {
           return;
         }
         mountFilterBarBackdrop(backdrop);
-        const shouldShow = isAnyFilterDropdownOpen() && !isMoreOffcanvasOpen();
+        const shouldShow = isAnyFilterDropdownOpen() && !isMoreOffcanvasOpen() && !isMobileFiltersOffcanvasOpen();
         if (shouldShow) {
           updateFilterBackdropGeometry();
         }
@@ -566,16 +621,65 @@
         });
       });
 
-      once('ps-bs-offcanvas-events', '#ps-more-offcanvas', context).forEach(function (offcanvasEl) {
+      function bindMoreOffcanvasEvents(offcanvasEl) {
         offcanvasEl.addEventListener('show.bs.offcanvas', function () {
           closeAllDropdowns();
           hideAllLocationSuggestions();
           syncFilterBarBackdrop();
           fetchCount();
+          if (offcanvasEl.id === 'ps-mobile-filters') {
+            offcanvasEl.querySelectorAll('.js-ps-more-group-panel[data-loaded="0"]').forEach(function (panel) {
+              loadMoreCriteriaGroup(panel.dataset.groupId, panel);
+            });
+          }
         });
         offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
           syncFilterBarBackdrop();
         });
+        offcanvasEl.addEventListener('shown.bs.offcanvas', function () {
+          document.querySelectorAll('.js-ps-surface-min').forEach(function (el) {
+            el.value = surfaceMin;
+          });
+          document.querySelectorAll('.js-ps-surface-max').forEach(function (el) {
+            el.value = surfaceMax;
+          });
+          document.querySelectorAll('.js-ps-capacity-min').forEach(function (el) {
+            el.value = capacityMin;
+          });
+          document.querySelectorAll('.js-ps-capacity-max').forEach(function (el) {
+            el.value = capacityMax;
+          });
+          document.querySelectorAll('.js-ps-budget-min').forEach(function (el) {
+            el.value = budgetMin;
+          });
+          document.querySelectorAll('.js-ps-budget-max').forEach(function (el) {
+            el.value = budgetMax;
+          });
+          syncAllTypeSectionUi();
+          syncMoreInputsFromState();
+          scheduleCountUpdate();
+        });
+        offcanvasEl.addEventListener('show.bs.collapse', function (event) {
+          const panel = event.target;
+          if (!panel.classList.contains('js-ps-more-group-panel')) {
+            return;
+          }
+          loadMoreCriteriaGroup(panel.dataset.groupId, panel);
+        });
+        offcanvasEl.addEventListener('change', function (event) {
+          if (event.target.matches('.js-ps-more-filter')) {
+            handleMoreFilterChange(event.target);
+          }
+        });
+        offcanvasEl.addEventListener('input', function (event) {
+          if (event.target.matches('.js-ps-more-filter')) {
+            handleMoreFilterInputEvent(event.target);
+          }
+        });
+      }
+
+      once('ps-bs-offcanvas-events', '#ps-more-offcanvas, #ps-mobile-filters', context).forEach(function (offcanvasEl) {
+        bindMoreOffcanvasEvents(offcanvasEl);
       });
 
       once('ps-bs-more-trigger', '.js-ps-more-trigger', context).forEach(function (trigger) {
@@ -1024,10 +1128,23 @@
         window.location.href = buildNavigationUrl();
       }
 
+      function commitAllLocationDrafts() {
+        document.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
+          const draft = input.value.trim();
+          if (draft) {
+            addLocationTokens(parseLocationTokens(draft));
+            input.value = '';
+          }
+        });
+      }
+
       // ── Apply buttons (all popins — same navigation) ──────────────────────
       once('ps-apply', '.js-ps-apply-btn', context).forEach(function (btn) {
         btn.addEventListener('click', function () {
-          if (!btn.disabled) navigate();
+          if (!btn.disabled) {
+            commitAllLocationDrafts();
+            navigate();
+          }
         });
       });
 
@@ -1070,6 +1187,21 @@
         if (mainBtn) mainBtn.classList.toggle('is-active', !!(selectedAsset || selectedOp));
       }
 
+      function syncAllTypeSectionUi() {
+        document.querySelectorAll('.ps-filter-bar__item--type').forEach(function (wrapper) {
+          syncOpButtonStates(wrapper);
+          wrapper.querySelectorAll('.js-ps-asset-btn').forEach(function (a) {
+            const active = a.dataset.code === selectedAsset;
+            const card = a.closest('.ps-asset-card');
+            if (card) {
+              card.classList.toggle('is-active', active);
+            }
+            a.setAttribute('aria-pressed', String(active));
+          });
+          updateTypeOpBtnLabel(wrapper);
+        });
+      }
+
       once('ps-type-filter', '.ps-filter-bar__item--type', context).forEach(function (wrapper) {
         syncOpButtonStates(wrapper);
 
@@ -1078,11 +1210,7 @@
           btn.addEventListener('click', function () {
             const code = btn.dataset.code;
             selectedAsset = (selectedAsset === code) ? null : code;
-            wrapper.querySelectorAll('.js-ps-asset-btn').forEach(function (a) {
-              const active = a.dataset.code === selectedAsset;
-              a.closest('.ps-asset-card').classList.toggle('is-active', active);
-              a.setAttribute('aria-pressed', String(active));
-            });
+            syncAllTypeSectionUi();
             scheduleCountUpdate();
             updateAssetMode();
             updateBudgetUi();
@@ -1101,7 +1229,7 @@
               selectedOp = code;
               opFlexible = false;
             }
-            syncOpButtonStates(wrapper);
+            syncAllTypeSectionUi();
             scheduleCountUpdate();
             updateBudgetUi();
           });
@@ -1114,11 +1242,7 @@
             selectedAsset = null;
             selectedOp = null;
             opFlexible = true;
-            wrapper.querySelectorAll('.js-ps-asset-btn').forEach(function (a) {
-              a.closest('.ps-asset-card').classList.remove('is-active');
-              a.setAttribute('aria-pressed', 'false');
-            });
-            syncOpButtonStates(wrapper);
+            syncAllTypeSectionUi();
             scheduleCountUpdate();
             updateAssetMode();
             updateBudgetUi();
@@ -1559,13 +1683,7 @@
 
       once('ps-location-apply', '.js-ps-location-apply', context).forEach(function (btn) {
         btn.addEventListener('click', function () {
-          document.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
-            const draft = input.value.trim();
-            if (draft) {
-              addLocationTokens(parseLocationTokens(draft));
-              input.value = '';
-            }
-          });
+          commitAllLocationDrafts();
           navigate();
         });
       });
@@ -1579,6 +1697,7 @@
         else lbl.textContent = Drupal.t('Surface');
         const filterItem = document.querySelector('.ps-filter-bar__item--surface');
         if (filterItem) filterItem.classList.toggle('is-active', !!(surfaceMin || surfaceMax));
+        syncActiveFilterCount();
       }
 
       once('ps-surf-min', '.js-ps-surface-min', context).forEach(function (input) {
@@ -1624,24 +1743,27 @@
             surfaceMin = '';
             surfaceMax = '';
             ['.js-ps-surface-min', '.js-ps-surface-max'].forEach(function (sel) {
-              const el = document.querySelector(sel);
-              if (el) el.value = '';
+              document.querySelectorAll(sel).forEach(function (el) {
+                el.value = '';
+              });
             });
             updateSurfaceLabel();
           } else if (section === 'budget') {
             budgetMin = '';
             budgetMax = '';
             ['.js-ps-budget-min', '.js-ps-budget-max'].forEach(function (sel) {
-              const el = document.querySelector(sel);
-              if (el) el.value = '';
+              document.querySelectorAll(sel).forEach(function (el) {
+                el.value = '';
+              });
             });
             updateBudgetLabel();
           } else if (section === 'capacity') {
             capacityMin = '';
             capacityMax = '';
             ['.js-ps-capacity-min', '.js-ps-capacity-max'].forEach(function (sel) {
-              const el = document.querySelector(sel);
-              if (el) el.value = '';
+              document.querySelectorAll(sel).forEach(function (el) {
+                el.value = '';
+              });
             });
             updateCapacityLabel();
           } else if (section === 'more') {
@@ -1665,6 +1787,7 @@
         else lbl.textContent = capacityFilterLabel;
         const filterItem = document.querySelector('.ps-filter-bar__item--capacity');
         if (filterItem) filterItem.classList.toggle('is-active', !!(capacityMin || capacityMax));
+        syncActiveFilterCount();
       }
 
       once('ps-capacity-min', '.js-ps-capacity-min', context).forEach(function (input) {
@@ -1684,29 +1807,65 @@
         });
       });
 
-      once('ps-more-offcanvas', '#ps-more-offcanvas', context).forEach(function (offcanvas) {
-        offcanvas.addEventListener('shown.bs.offcanvas', function () {
+      once('ps-mobile-reset', '.js-ps-mobile-reset-all', context).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectedAsset = null;
+          selectedOp = null;
+          opFlexible = true;
+          selectedLocalityTokens = [];
+          selectedLocalityData = [];
+          selectedLocality = '';
+          surfaceMin = '';
+          surfaceMax = '';
+          capacityMin = '';
+          capacityMax = '';
+          budgetMin = '';
+          budgetMax = '';
+          moreFilters = {};
+          document.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
+            input.value = '';
+          });
+          document.querySelectorAll('.js-ps-surface-min, .js-ps-surface-max, .js-ps-capacity-min, .js-ps-capacity-max, .js-ps-budget-min, .js-ps-budget-max').forEach(function (input) {
+            input.value = '';
+          });
+          syncAllTypeSectionUi();
+          syncMoreInputsFromState();
+          updateSurfaceLabel();
+          updateCapacityLabel();
+          updateBudgetLabel();
           scheduleCountUpdate();
         });
+      });
 
-        offcanvas.addEventListener('show.bs.collapse', function (event) {
-          const panel = event.target;
-          if (!panel.classList.contains('js-ps-more-group-panel')) {
+      once('ps-show-map', '.js-ps-show-map', context).forEach(function (btn) {
+        const showMapLabel = btn.dataset.showMapLabel || btn.textContent.trim();
+        const showListLabel = btn.dataset.showListLabel || 'Show list';
+        btn.addEventListener('click', function () {
+          const root = document.querySelector('.ps-search-view');
+          if (!root) {
             return;
           }
-          loadMoreCriteriaGroup(panel.dataset.groupId, panel);
+          const listHidden = root.classList.toggle('ps-search-view--list-hidden');
+          btn.setAttribute('aria-expanded', listHidden ? 'false' : 'true');
+          btn.textContent = '';
+          const icon = document.createElement('span');
+          icon.className = 'ps-filter-bar-mobile-actions__icon';
+          icon.setAttribute('aria-hidden', 'true');
+          btn.appendChild(icon);
+          btn.appendChild(document.createTextNode(listHidden ? showListLabel : showMapLabel));
+          window.dispatchEvent(new Event('resize'));
         });
+      });
 
-        offcanvas.addEventListener('change', function (event) {
-          if (event.target.matches('.js-ps-more-filter')) {
-            handleMoreFilterChange(event.target);
+      once('ps-search-back', '.js-ps-search-back', context).forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (window.history.length > 1) {
+            window.history.back();
+            return;
           }
-        });
-
-        offcanvas.addEventListener('input', function (event) {
-          if (event.target.matches('.js-ps-more-filter')) {
-            handleMoreFilterInputEvent(event.target);
-          }
+          const prefix = settings.langPrefix || '';
+          window.location.href = prefix || '/';
         });
       });
 
@@ -1714,6 +1873,7 @@
       updateBudgetUi();
       syncMoreInputsFromState();
       updateCapacityLabel();
+      syncActiveFilterCount();
       scheduleCountUpdate();
     },
   };
