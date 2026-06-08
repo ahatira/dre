@@ -225,10 +225,10 @@
     </div>
   </div>
 
-  {# Price / budget #}
+  {# Price / budget — context matrix: PER_M2, PER_POSTE (COW), GLOBAL (VEN) #}
   <div class="dropdown ps-filter-bar__item ps-filter-bar__item--budget">
-    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-budget-trigger">
-      {{ 'Price'|t }}
+    <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-budget-field-label" for="ps-filter-budget-trigger">
+      {{ budget_config.field_label|default('Budget'|t) }}
     </label>
     <button
       id="ps-filter-budget-trigger"
@@ -238,32 +238,31 @@
       data-bs-auto-close="outside"
       aria-expanded="false"
     >
-      <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ 'Price'|t }}</span>
+      <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ budget_config.toggle_default|default('Budget'|t) }}</span>
       <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="dropdown-menu ps-filter-popin">
+    <div class="dropdown-menu ps-filter-popin ps-filter-popin--budget ps-filter-popin--range">
       <div class="ps-filter-popin__section">
-        <h3 class="ps-filter-popin__heading js-ps-budget-heading">{{ budget_heading|default('Budget'|t) }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-budget-min">{{ 'Min'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-min-label" for="ps-budget-min">{{ budget_config.min_label|default('Min budget (€)'|t) }}</label>
             <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-budget-min" class="ps-range-inputs__input js-ps-budget-min" min="0" step="10" placeholder="0">
-              <span class="ps-range-inputs__unit">€</span>
+              <input type="number" id="ps-budget-min" class="ps-range-inputs__input js-ps-budget-min" min="0" step="{{ budget_config.step|default(10) }}" placeholder="0">
+              <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
             </div>
           </div>
-          <span class="ps-range-inputs__sep">—</span>
+          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-budget-max">{{ 'Max'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-budget-max-label" for="ps-budget-max">{{ budget_config.max_label|default('Max budget (€)'|t) }}</label>
             <div class="ps-range-inputs__input-wrap">
-              <input type="number" id="ps-budget-max" class="ps-range-inputs__input js-ps-budget-max" min="0" step="10" placeholder="∞">
-              <span class="ps-range-inputs__unit">€</span>
+              <input type="number" id="ps-budget-max" class="ps-range-inputs__input js-ps-budget-max" min="0" step="{{ budget_config.step|default(10) }}" placeholder="∞">
+              <span class="ps-range-inputs__unit js-ps-budget-unit">{{ budget_config.input_unit|default('€') }}</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="ps-filter-popin__footer">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Clear'|t }}</button>
+      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Delete all'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
         </button>

@@ -115,6 +115,7 @@
         "test:offer-ref-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1",
         "test:offer-sections-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_sections.sh 7",
         "test:search-urls-e2e": "bash web/modules/custom/ps_search/tests/b2b_search_urls_security.sh",
+        "test:search-budget-e2e": "bash web/modules/custom/ps_search/tests/b2b_budget_filter.sh && bash web/modules/custom/ps_search/tests/b2b_budget_apply.sh",
         "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors",
         "test:regression:modules": "bash scripts/test/regression.sh"
     },

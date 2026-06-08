@@ -135,6 +135,9 @@ Aucune permission propre au module. Configuration SEO : `administer site configu
 ## Tests
 
 - E2E bash : `composer test:search-urls-e2e` (`tests/b2b_search_urls_security.sh`)
+- Budget / prix : `composer test:search-budget-e2e` (`tests/b2b_budget_filter.sh`, `tests/b2b_budget_apply.sh`)
+- Traductions UI filtres : `web/modules/custom/ps_search_filters/translations/*.po` — import :
+  `docker exec ps_php sh -lc 'cd /var/www/html && vendor/bin/drush locale:import fr /var/www/html/web/modules/custom/ps_search_filters/translations/ps_search_filters.fr.po --type=customized --override=all -y'`
 - Behat : suite `ps_search` (`tests/behat/features/search_paths.feature`)
 
 ## Dépendances

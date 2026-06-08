@@ -9,6 +9,9 @@ services:
     arguments:
       - '@entity_type.manager'
 
+  ps_context.search_budget_filter:
+    class: Drupal\ps_context\Service\SearchBudgetFilterResolver
+
   # Registered with FQCN so Drupal's HookCollectorPass can inject dependencies.
   Drupal\ps_context\Hook\OfferFormHooks:
     class: Drupal\ps_context\Hook\OfferFormHooks

@@ -339,7 +339,8 @@
 
 /* Surface / capacity range popins — Figma Surface */
 .ps-filter-bar__item--surface .dropdown-menu.ps-filter-popin--surface,
-.ps-filter-bar__item--capacity .dropdown-menu.ps-filter-popin--capacity {
+.ps-filter-bar__item--capacity .dropdown-menu.ps-filter-popin--capacity,
+.ps-filter-bar__item--budget .dropdown-menu.ps-filter-popin--budget {
   --bs-dropdown-min-width: 360px;
   box-sizing: border-box;
   inset: 100% auto auto 0 !important;
@@ -382,6 +383,11 @@
 
 .ps-filter-popin--range .ps-range-inputs__field {
   min-width: 0;
+}
+
+.ps-filter-popin--budget .ps-range-inputs__unit {
+  font-size: 0.75rem;
+  white-space: nowrap;
 }
 
 .ps-filter-popin--range .ps-range-inputs__input-wrap {

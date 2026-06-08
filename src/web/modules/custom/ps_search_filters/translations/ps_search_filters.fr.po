@@ -118,12 +118,30 @@ msgstr "Visite immersive"
 msgid "Video"
 msgstr "Vidéo"
 
-# FilterBarBuilder
-msgid "Price (€)"
-msgstr "Prix (€)"
+# SearchBudgetFilterResolver / FilterBarBuilder
+msgid "Min budget (€)"
+msgstr "Budget min. (€)"
 
-msgid "Rent (€/m²/year)"
-msgstr "Loyer (€/m²/an)"
+msgid "Max budget (€)"
+msgstr "Budget max. (€)"
+
+msgid "Min price (€)"
+msgstr "Prix min. (€)"
+
+msgid "Max price (€)"
+msgstr "Prix max. (€)"
+
+msgid "Min rent (€/m²/year)"
+msgstr "Loyer min. (€/m²/an)"
+
+msgid "Max rent (€/m²/year)"
+msgstr "Loyer max. (€/m²/an)"
+
+msgid "Min rent (€/seat/year)"
+msgstr "Loyer min. (€/poste/an)"
+
+msgid "Max rent (€/seat/year)"
+msgstr "Loyer max. (€/poste/an)"
 
 # MoreCriteriaBuilder
 msgid "Accessibility"

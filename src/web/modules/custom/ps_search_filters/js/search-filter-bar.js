@@ -30,6 +30,8 @@
       const locationDataUrl = settings.locationDataUrl || '/ps-search/location-data';
       const searchPath = settings.searchPath || '/find-property';
       const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
+      const budgetFilterConfig = settings.budgetFilterConfig || {};
+      const budgetFilterByAsset = settings.budgetFilterByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
       const currentParams = new URLSearchParams(window.location.search);
 
@@ -109,18 +111,58 @@
         }
       }
 
-      function updateBudgetHeading() {
-        const heading = document.querySelector('.js-ps-budget-heading');
-        const label = document.querySelector('.js-ps-budget-label');
-        const text = selectedOp === 'VEN'
-          ? Drupal.t('Price (€)')
-          : Drupal.t('Rent (€/m²/year)');
-        if (heading) {
-          heading.textContent = text;
+      function getBudgetConfig() {
+        const assetKey = selectedAsset || '';
+        const opKey = selectedOp || '';
+        const assetMap = budgetFilterByAsset[assetKey] || budgetFilterByAsset[''] || {};
+        return assetMap[opKey] || assetMap[''] || budgetFilterConfig;
+      }
+
+      function updateBudgetUi() {
+        const config = getBudgetConfig();
+        const suffix = config.value_suffix || ' \u20ac';
+        const fieldLabel = document.querySelector('.js-ps-budget-field-label');
+        const minLabel = document.querySelector('.js-ps-budget-min-label');
+        const maxLabel = document.querySelector('.js-ps-budget-max-label');
+        const units = document.querySelectorAll('.js-ps-budget-unit');
+        const minInput = document.querySelector('.js-ps-budget-min');
+        const maxInput = document.querySelector('.js-ps-budget-max');
+
+        if (fieldLabel && config.field_label) {
+          fieldLabel.textContent = config.field_label;
         }
-        if (label && !budgetMin && !budgetMax) {
-          label.textContent = Drupal.t('Price');
+        if (minLabel && config.min_label) {
+          minLabel.textContent = config.min_label;
         }
+        if (maxLabel && config.max_label) {
+          maxLabel.textContent = config.max_label;
+        }
+        units.forEach(function (unitEl) {
+          if (config.input_unit) {
+            unitEl.textContent = config.input_unit;
+          }
+        });
+        if (minInput && config.step) {
+          minInput.step = config.step;
+        }
+        if (maxInput && config.step) {
+          maxInput.step = config.step;
+        }
+
+        updateBudgetLabel(config, suffix);
+      }
+
+      function updateBudgetLabel(config, suffixOverride) {
+        const configResolved = config || getBudgetConfig();
+        const suffix = suffixOverride || configResolved.value_suffix || ' \u20ac';
+        const lbl = document.querySelector('.js-ps-budget-label');
+        if (!lbl) return;
+        if (budgetMin && budgetMax) lbl.textContent = budgetMin + '\u2013' + budgetMax + suffix;
+        else if (budgetMin) lbl.textContent = '\u2265 ' + budgetMin + suffix;
+        else if (budgetMax) lbl.textContent = '\u2264 ' + budgetMax + suffix;
+        else lbl.textContent = configResolved.toggle_default || Drupal.t('Budget');
+        const filterItem = document.querySelector('.ps-filter-bar__item--budget');
+        if (filterItem) filterItem.classList.toggle('is-active', !!(budgetMin || budgetMax));
       }
 
       function countMoreActive() {
@@ -771,7 +813,7 @@
             });
             scheduleCountUpdate();
             updateAssetMode();
-            updateBudgetHeading();
+            updateBudgetUi();
           });
         });
 
@@ -789,7 +831,7 @@
             }
             syncOpButtonStates(wrapper);
             scheduleCountUpdate();
-            updateBudgetHeading();
+            updateBudgetUi();
           });
         });
 
@@ -807,7 +849,7 @@
             syncOpButtonStates(wrapper);
             scheduleCountUpdate();
             updateAssetMode();
-            updateBudgetHeading();
+            updateBudgetUi();
           });
         }
       });
@@ -1285,17 +1327,6 @@
       });
 
       // ── 5. Budget inputs ──────────────────────────────────────────────────
-      function updateBudgetLabel() {
-        const lbl = document.querySelector('.js-ps-budget-label');
-        if (!lbl) return;
-        if (budgetMin && budgetMax) lbl.textContent = budgetMin + '\u2013' + budgetMax + ' \u20ac';
-        else if (budgetMin) lbl.textContent = '\u2265 ' + budgetMin + ' \u20ac';
-        else if (budgetMax) lbl.textContent = '\u2264 ' + budgetMax + ' \u20ac';
-        else lbl.textContent = Drupal.t('Price');
-        const filterItem = document.querySelector('.ps-filter-bar__item--budget');
-        if (filterItem) filterItem.classList.toggle('is-active', !!(budgetMin || budgetMax));
-      }
-
       once('ps-budget-min', '.js-ps-budget-min', context).forEach(function (input) {
         input.value = budgetMin;
         input.addEventListener('input', function () {
@@ -1452,7 +1483,7 @@
       });
 
       updateAssetMode();
-      updateBudgetHeading();
+      updateBudgetUi();
       syncMoreInputsFromState();
       updateCapacityLabel();
       scheduleCountUpdate();

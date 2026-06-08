@@ -10,6 +10,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_context\Service\SearchBudgetFilterResolver;
 use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
 use Drupal\ps_search\Service\SearchPathResolver;
@@ -31,6 +32,7 @@ final class FilterBarBuilder {
     private readonly MoreCriteriaBuilder $moreCriteriaBuilder,
     private readonly DictionaryEntryIconResolver $dictionaryEntryIconResolver,
     private readonly SearchFilterVisibilityResolver $searchFilterVisibility,
+    private readonly SearchBudgetFilterResolver $searchBudgetFilter,
     private readonly SearchPathResolver $searchPathResolver,
   ) {}
 
@@ -142,13 +144,11 @@ final class FilterBarBuilder {
     $activeOpLabel = $activeOp ? ($operationTypes[$activeOp]['label'] ?? $activeOp) : NULL;
     $activeAssetLabel = $activeAsset ? ($assetTypes[$activeAsset]['label'] ?? $activeAsset) : NULL;
 
-    $budgetHeading = $activeOp === 'VEN'
-      ? (string) $this->t('Price (€)')
-      : (string) $this->t('Rent (€/m²/year)');
-
     $assetCodes = array_keys($assetSlugs);
     $visibilityByAsset = $this->searchFilterVisibility->buildVisibilityMap($assetCodes);
     $initialVisibility = $this->searchFilterVisibility->resolve($activeAsset);
+    $budgetConfig = $this->searchBudgetFilter->resolve($activeAsset, $activeOp);
+    $budgetFilterByAsset = $this->searchBudgetFilter->buildConfigMap($assetCodes);
 
     $offerSettings = $this->configFactory->get('ps_offer.settings');
     $capacityUnit = (string) ($offerSettings->get('surface_capacity_unit') ?: 'seats');
@@ -167,7 +167,7 @@ final class FilterBarBuilder {
       '#active_asset' => $activeAsset,
       '#active_op_label' => $activeOpLabel,
       '#active_asset_label' => $activeAssetLabel,
-      '#budget_heading' => $budgetHeading,
+      '#budget_config' => $budgetConfig,
       '#lang_prefix' => $langPrefix,
       '#show_surface_filter' => $initialVisibility['show_surface'],
       '#show_capacity_filter' => $initialVisibility['show_capacity'],
@@ -190,11 +190,19 @@ final class FilterBarBuilder {
             'filterVisibilityByAsset' => $visibilityByAsset,
             'capacityFilterLabel' => $capacityFilterLabel,
             'capacityUnit' => $capacityUnit,
+            'budgetFilterConfig' => $budgetConfig,
+            'budgetFilterByAsset' => $budgetFilterByAsset,
           ],
         ],
       ],
       '#cache' => [
-        'contexts' => ['url.path', 'url.query_args:locality', 'url.query_args:operation_type', 'url.query_args:asset_type', 'languages:language_interface'],
+        'contexts' => [
+          'url.path',
+          'url.query_args:locality',
+          'url.query_args:operation_type',
+          'url.query_args:asset_type',
+          'languages:language_interface',
+        ],
         'tags' => [
           'config:ps_search.seo_url_mappings',
           'config:ps_offer.settings',

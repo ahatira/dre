@@ -27,7 +27,7 @@ final class Theme {
           'active_asset' => NULL,
           'active_op_label' => NULL,
           'active_asset_label' => NULL,
-          'budget_heading' => NULL,
+          'budget_config' => [],
           'lang_prefix' => '',
           'show_surface_filter' => TRUE,
           'show_capacity_filter' => FALSE,
