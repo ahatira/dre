@@ -50,7 +50,7 @@ ps_dictionary.entry.*:
       translatable: true
     icon:
       type: string
-      label: 'Icon CSS class or name'
+      label: 'UI Icon'
       nullable: true
     weight:
       type: integer

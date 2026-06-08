@@ -12,6 +12,8 @@ interface DictionaryEntryInterface extends ConfigEntityInterface {
 
   public function getCode(): string;
 
+  public function getIcon(): string;
+
   public function getWeight(): int;
 
 }

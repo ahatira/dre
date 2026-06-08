@@ -3,6 +3,10 @@ services:
     class: Drupal\ps_dictionary\Service\DictionaryResolver
     arguments: ['@entity_type.manager']
 
+  ps_dictionary.entry_icon_resolver:
+    class: Drupal\ps_dictionary\Service\DictionaryEntryIconResolver
+    arguments: ['@entity_type.manager']
+
   Drupal\ps_dictionary\Service\DictionaryCsvImporter:
     class: Drupal\ps_dictionary\Service\DictionaryCsvImporter
     arguments: ['@entity_type.manager', '@language_manager']

@@ -11,6 +11,7 @@ services:
       - '@entity_type.manager'
       - '@request_stack'
       - '@ps_search_filters.more_criteria_builder'
+      - '@ps_dictionary.entry_icon_resolver'
   ps_search_filters.results_header_builder:
     class: Drupal\ps_search_filters\Service\SearchResultsHeaderBuilder
     arguments:

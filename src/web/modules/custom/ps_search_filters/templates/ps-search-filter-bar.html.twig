@@ -1,12 +1,12 @@
 {#
 /**
  * @file
- * BNPPRE-style search filter bar with popins.
+ * BNPPRE search filter bar — Figma Frame 41 (Bootstrap dropdown + offcanvas).
  */
 #}
-{% set button_label %}
+{% set type_value %}
   {%- if active_asset_label and active_op_label -%}
-    {{ active_asset_label }} — {{ active_op_label }}
+    {{ active_asset_label }} {{ active_op_label|lower }}
   {%- elseif active_asset_label -%}
     {{ active_asset_label }}
   {%- elseif active_op_label -%}
@@ -16,23 +16,28 @@
   {%- endif -%}
 {% endset %}
 
-<div class="ps-filter-bar" role="search" aria-label="{{ 'Property search filters'|t }}">
+<div class="ps-filter-bar row align-items-end g-2 flex-lg-nowrap" role="search" aria-label="{{ 'Property search filters'|t }}">
 
-  {# Type + transaction #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--type js-ps-filter-dropdown">
+  {# Property type + transaction #}
+  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--type">
+    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-type-trigger">
+      {{ 'Property type'|t }}
+    </label>
     <button
-      class="ps-filter-bar__btn{% if active_op or active_asset %} is-active{% endif %}"
+      id="ps-filter-type-trigger"
+      class="ps-filter-bar__toggle d-flex align-items-center w-100{% if active_op or active_asset %} is-active{% endif %}"
       type="button"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
       aria-expanded="false"
-      aria-controls="ps-type-popin"
     >
-      <span class="ps-filter-bar__btn-label">{{ button_label }}</span>
-      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+      <span class="ps-filter-bar__toggle-label text-truncate">{{ type_value }}</span>
+      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
 
-    <div class="ps-type-popin" id="ps-type-popin" hidden>
-      <div class="ps-type-popin__section">
-        <h3 class="ps-type-popin__heading">{{ 'What are you looking for?'|t }}</h3>
+    <div class="dropdown-menu ps-filter-popin">
+      <div class="ps-filter-popin__section">
+        <h3 class="ps-filter-popin__heading">{{ 'What are you looking for?'|t }}</h3>
         <ul class="ps-asset-grid" role="list">
           {% for asset in asset_types %}
             <li class="ps-asset-card{% if asset.active %} is-active{% endif %}" role="listitem">
@@ -42,7 +47,7 @@
                 data-code="{{ asset.code }}"
                 aria-pressed="{{ asset.active ? 'true' : 'false' }}"
               >
-                <span class="ps-asset-card__icon {{ asset.icon_class }}" aria-hidden="true"></span>
+                <span class="ps-asset-card__icon" aria-hidden="true">{{ asset.icon }}</span>
                 <span class="ps-asset-card__label">{{ asset.label }}</span>
               </button>
             </li>
@@ -50,8 +55,8 @@
         </ul>
       </div>
 
-      <div class="ps-type-popin__section ps-type-popin__section--op">
-        <h3 class="ps-type-popin__heading">{{ 'What is your need?'|t }}</h3>
+      <div class="ps-filter-popin__section ps-filter-popin__section--op">
+        <h3 class="ps-filter-popin__heading">{{ 'What is your need?'|t }}</h3>
         <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
           {% for op in operation_types %}
             <button
@@ -66,7 +71,7 @@
         </div>
       </div>
 
-      <div class="ps-type-popin__footer">
+      <div class="ps-filter-popin__footer">
         <button class="ps-filter-clear js-ps-clear-btn" type="button">{{ 'Clear'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
@@ -76,16 +81,20 @@
     </div>
   </div>
 
-  {# Location #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--location">
-    <div class="ps-filter-bar__location-wrap">
-      <span class="ps-filter-bar__location-icon" aria-hidden="true">⌖</span>
-      <div class="ps-filter-bar__location-editor js-ps-location-editor">
+  {# Location(s) #}
+  <div class="col-6 col-lg ps-filter-bar__item ps-filter-bar__item--location">
+    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-location-input">
+      {{ 'Location(s)'|t }}
+    </label>
+    <div class="ps-filter-bar__toggle ps-filter-bar__toggle--location">
+      <span class="ps-filter-bar__location-icon flex-shrink-0" aria-hidden="true"></span>
+      <div class="ps-filter-bar__location-editor js-ps-location-editor min-w-0 flex-grow-1">
         <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>
         <input
+          id="ps-filter-location-input"
           type="text"
           class="ps-filter-bar__location-input js-ps-locality-input"
-          placeholder="{{ 'City, postal code...'|t }}"
+          placeholder="{{ 'City, district or zip code'|t }}"
           autocomplete="off"
           aria-label="{{ 'Location: city or postal code'|t }}"
           aria-autocomplete="list"
@@ -99,15 +108,25 @@
     </div>
   </div>
 
-  {# Surface (hidden for coworking) #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
-    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-surface-popin">
-      <span class="ps-filter-bar__btn-label js-ps-surface-label">{{ 'Surface'|t }}</span>
-      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+  {# Surface #}
+  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
+    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-surface-trigger">
+      {{ 'Surface (m²)'|t }}
+    </label>
+    <button
+      id="ps-filter-surface-trigger"
+      class="ps-filter-bar__toggle d-flex align-items-center w-100"
+      type="button"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
+      aria-expanded="false"
+    >
+      <span class="ps-filter-bar__toggle-label js-ps-surface-label text-truncate">{{ 'Surface'|t }}</span>
+      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="ps-type-popin" id="ps-surface-popin" hidden>
-      <div class="ps-type-popin__section">
-        <h3 class="ps-type-popin__heading">{{ 'Area (m²)'|t }}</h3>
+    <div class="dropdown-menu ps-filter-popin">
+      <div class="ps-filter-popin__section">
+        <h3 class="ps-filter-popin__heading">{{ 'Area (m²)'|t }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
             <label class="ps-range-inputs__label" for="ps-surface-min">{{ 'Min'|t }}</label>
@@ -126,7 +145,7 @@
           </div>
         </div>
       </div>
-      <div class="ps-type-popin__footer">
+      <div class="ps-filter-popin__footer">
         <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Clear'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
@@ -136,14 +155,24 @@
   </div>
 
   {# Capacity (coworking only) #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
-    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-capacity-popin">
-      <span class="ps-filter-bar__btn-label js-ps-capacity-label">{{ 'Capacity'|t }}</span>
-      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
+    <label class="form-label ps-filter-bar__field-label" for="ps-filter-capacity-trigger">
+      {{ 'Capacity'|t }}
+    </label>
+    <button
+      id="ps-filter-capacity-trigger"
+      class="ps-filter-bar__toggle d-flex align-items-center w-100"
+      type="button"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
+      aria-expanded="false"
+    >
+      <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ 'Capacity'|t }}</span>
+      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="ps-type-popin" id="ps-capacity-popin" hidden>
-      <div class="ps-type-popin__section">
-        <h3 class="ps-type-popin__heading">{{ 'Capacity (workstations)'|t }}</h3>
+    <div class="dropdown-menu ps-filter-popin">
+      <div class="ps-filter-popin__section">
+        <h3 class="ps-filter-popin__heading">{{ 'Capacity (workstations)'|t }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
             <label class="ps-range-inputs__label" for="ps-capacity-min">{{ 'Min'|t }}</label>
@@ -160,7 +189,7 @@
           </div>
         </div>
       </div>
-      <div class="ps-type-popin__footer">
+      <div class="ps-filter-popin__footer">
         <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Clear'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
@@ -169,15 +198,25 @@
     </div>
   </div>
 
-  {# Budget / price #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--budget">
-    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-budget-popin">
-      <span class="ps-filter-bar__btn-label js-ps-budget-label">{{ 'Price'|t }}</span>
-      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+  {# Price / budget #}
+  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--budget">
+    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-budget-trigger">
+      {{ 'Price'|t }}
+    </label>
+    <button
+      id="ps-filter-budget-trigger"
+      class="ps-filter-bar__toggle d-flex align-items-center w-100"
+      type="button"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
+      aria-expanded="false"
+    >
+      <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ 'Price'|t }}</span>
+      <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="ps-type-popin" id="ps-budget-popin" hidden>
-      <div class="ps-type-popin__section">
-        <h3 class="ps-type-popin__heading js-ps-budget-heading">{{ budget_heading|default('Budget'|t) }}</h3>
+    <div class="dropdown-menu ps-filter-popin">
+      <div class="ps-filter-popin__section">
+        <h3 class="ps-filter-popin__heading js-ps-budget-heading">{{ budget_heading|default('Budget'|t) }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
             <label class="ps-range-inputs__label" for="ps-budget-min">{{ 'Min'|t }}</label>
@@ -196,7 +235,7 @@
           </div>
         </div>
       </div>
-      <div class="ps-type-popin__footer">
+      <div class="ps-filter-popin__footer">
         <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Clear'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
@@ -205,90 +244,103 @@
     </div>
   </div>
 
-  {# More criteria #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--more">
-    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-more-popin">
-      <span class="ps-filter-bar__btn-label js-ps-more-label">{{ 'More filters'|t }}</span>
-      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+  {# More filters — Bootstrap offcanvas (right + backdrop) #}
+  <div class="col-auto flex-shrink-0 ps-filter-bar__item ps-filter-bar__item--more">
+    <button
+      class="btn btn-outline-primary ps-filter-bar__toggle ps-filter-bar__toggle--more d-inline-flex align-items-center js-ps-more-trigger"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#ps-more-offcanvas"
+      aria-controls="ps-more-offcanvas"
+    >
+      <span class="ps-filter-bar__toggle-label js-ps-more-label">{{ 'More filters'|t }}</span>
+      <span class="ps-filter-bar__chevron ps-filter-bar__chevron--primary flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="ps-type-popin ps-type-popin--wide" id="ps-more-popin" hidden>
-      <div class="ps-more-popin__body">
-        {% for group_key, group in more_criteria %}
-          {% if group.items is not empty %}
-            <section class="ps-more-group" data-group="{{ group_key }}">
-              <h3 class="ps-more-group__heading">{{ group.label }}</h3>
-              <div class="ps-more-group__items">
-                {% for item in group.items %}
-                  {% if item.type|default('checkbox') == 'boolean' %}
-                    <label class="ps-more-toggle">
-                      <input type="checkbox" class="js-ps-more-boolean" data-param="{{ item.param }}" value="1">
-                      <span>{{ item.label }}</span>
-                    </label>
-                  {% else %}
-                    <label class="ps-more-checkbox">
-                      <input
-                        type="checkbox"
-                        class="js-ps-more-checkbox"
-                        data-param="{{ group.param }}"
-                        value="{{ item.id }}"
-                      >
-                      <span>{{ item.label }}</span>
-                    </label>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </section>
-          {% endif %}
-        {% endfor %}
-
-        <section class="ps-more-group">
-          <h3 class="ps-more-group__heading">{{ 'Nearby transport'|t }}</h3>
-          <input type="text" class="ps-more-group__text js-ps-more-transport" placeholder="{{ 'Metro, bus, train...'|t }}">
-        </section>
-
-        <section class="ps-more-group">
-          <h3 class="ps-more-group__heading">{{ 'Reference'|t }}</h3>
-          <input type="text" class="ps-more-group__text js-ps-more-reference" placeholder="{{ 'Offer reference...'|t }}">
-        </section>
-
-        <section class="ps-more-group">
-          <h3 class="ps-more-group__heading">{{ 'Ceiling height (m)'|t }}</h3>
-          <div class="ps-range-inputs">
-            <div class="ps-range-inputs__field">
-              <label class="ps-range-inputs__label" for="ps-ceiling-min">{{ 'Min'|t }}</label>
-              <div class="ps-range-inputs__input-wrap">
-                <input type="number" id="ps-ceiling-min" class="ps-range-inputs__input js-ps-ceiling-min" min="0" step="0.5" placeholder="0">
-              </div>
-            </div>
-            <span class="ps-range-inputs__sep">—</span>
-            <div class="ps-range-inputs__field">
-              <label class="ps-range-inputs__label" for="ps-ceiling-max">{{ 'Max'|t }}</label>
-              <div class="ps-range-inputs__input-wrap">
-                <input type="number" id="ps-ceiling-max" class="ps-range-inputs__input js-ps-ceiling-max" min="0" step="0.5" placeholder="∞">
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="ps-more-group ps-more-group--toggles">
-          <label class="ps-more-toggle">
-            <input type="checkbox" class="js-ps-more-boolean" data-param="has_immersive_tour" value="1">
-            <span>{{ 'Immersive tour'|t }}</span>
-          </label>
-          <label class="ps-more-toggle">
-            <input type="checkbox" class="js-ps-more-boolean" data-param="has_video" value="1">
-            <span>{{ 'Video'|t }}</span>
-          </label>
-        </section>
-      </div>
-
-      <div class="ps-type-popin__footer">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
-        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
-          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
-        </button>
-      </div>
-    </div>
   </div>
 
+</div>
+
+{# More criteria — offcanvas panel #}
+<div class="offcanvas offcanvas-end ps-more-offcanvas" tabindex="-1" id="ps-more-offcanvas" aria-labelledby="ps-more-offcanvas-label">
+  <div class="offcanvas-header border-bottom">
+    <h2 class="offcanvas-title h6 fw-bold mb-0" id="ps-more-offcanvas-label">{{ 'More filters'|t }}</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    {% for group_key, group in more_criteria %}
+      {% if group.items is not empty %}
+        <section class="ps-more-group" data-group="{{ group_key }}">
+          <h3 class="ps-more-group__heading">{{ group.label }}</h3>
+          <div class="ps-more-group__items">
+            {% for item in group.items %}
+              {% if item.type|default('checkbox') == 'boolean' %}
+                <label class="ps-more-toggle">
+                  <input type="checkbox" class="js-ps-more-boolean" data-param="{{ item.param }}" value="1">
+                  <span>{{ item.label }}</span>
+                </label>
+              {% else %}
+                <label class="ps-more-checkbox">
+                  <input
+                    type="checkbox"
+                    class="js-ps-more-checkbox"
+                    data-param="{{ group.param }}"
+                    value="{{ item.id }}"
+                  >
+                  <span>{{ item.label }}</span>
+                </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+    {% endfor %}
+
+    <section class="ps-more-group">
+      <h3 class="ps-more-group__heading">{{ 'Nearby transport'|t }}</h3>
+      <input type="text" class="ps-more-group__text js-ps-more-transport" placeholder="{{ 'Metro, bus, train...'|t }}">
+    </section>
+
+    <section class="ps-more-group">
+      <h3 class="ps-more-group__heading">{{ 'Reference'|t }}</h3>
+      <input type="text" class="ps-more-group__text js-ps-more-reference" placeholder="{{ 'Offer reference...'|t }}">
+    </section>
+
+    <section class="ps-more-group">
+      <h3 class="ps-more-group__heading">{{ 'Ceiling height (m)'|t }}</h3>
+      <div class="ps-range-inputs">
+        <div class="ps-range-inputs__field">
+          <label class="ps-range-inputs__label" for="ps-ceiling-min">{{ 'Min'|t }}</label>
+          <div class="ps-range-inputs__input-wrap">
+            <input type="number" id="ps-ceiling-min" class="ps-range-inputs__input js-ps-ceiling-min" min="0" step="0.5" placeholder="0">
+          </div>
+        </div>
+        <span class="ps-range-inputs__sep">—</span>
+        <div class="ps-range-inputs__field">
+          <label class="ps-range-inputs__label" for="ps-ceiling-max">{{ 'Max'|t }}</label>
+          <div class="ps-range-inputs__input-wrap">
+            <input type="number" id="ps-ceiling-max" class="ps-range-inputs__input js-ps-ceiling-max" min="0" step="0.5" placeholder="∞">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ps-more-group ps-more-group--toggles">
+      <label class="ps-more-toggle">
+        <input type="checkbox" class="js-ps-more-boolean" data-param="has_immersive_tour" value="1">
+        <span>{{ 'Immersive tour'|t }}</span>
+      </label>
+      <label class="ps-more-toggle">
+        <input type="checkbox" class="js-ps-more-boolean" data-param="has_video" value="1">
+        <span>{{ 'Video'|t }}</span>
+      </label>
+    </section>
+  </div>
+
+  <div class="offcanvas-footer ps-filter-popin__footer border-top">
+    <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
+    <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+      {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+    </button>
+  </div>
 </div>

@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -25,6 +26,7 @@ final class FilterBarBuilder {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RequestStack $requestStack,
     private readonly MoreCriteriaBuilder $moreCriteriaBuilder,
+    private readonly DictionaryEntryIconResolver $dictionaryEntryIconResolver,
   ) {}
 
   /**
@@ -91,12 +93,15 @@ final class FilterBarBuilder {
       $entryId = 'asset_type.' . strtolower($code);
       $entry = $assetEntries[$entryId] ?? NULL;
       $label = $entry ? $entry->label() : $code;
-      $iconClass = 'ps-asset-icon--' . strtolower($code);
       $assetTypes[$code] = [
         'code' => $code,
         'slug' => $slug,
         'label' => $label,
-        'icon_class' => $iconClass,
+        'icon' => $this->dictionaryEntryIconResolver->buildRenderable(
+          $entry,
+          ['size' => '24px'],
+          ['type' => 'asset_type', 'code' => $code],
+        ),
         'active' => $code === $activeAsset,
       ];
     }
@@ -136,7 +141,11 @@ final class FilterBarBuilder {
       ],
       '#cache' => [
         'contexts' => ['url.path', 'languages:language_interface'],
-        'tags' => ['config:ps_search.seo_url_mappings', 'fb_feature_definition_list'],
+        'tags' => [
+          'config:ps_search.seo_url_mappings',
+          'fb_feature_definition_list',
+          'config:ps_dictionary.entry.*',
+        ],
       ],
     ];
   }

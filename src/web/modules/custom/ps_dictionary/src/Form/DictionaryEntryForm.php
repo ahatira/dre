@@ -6,8 +6,11 @@ namespace Drupal\ps_dictionary\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 
 final class DictionaryEntryForm extends EntityForm {
+
+  use IconAutocompleteHelperTrait;
 
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
@@ -64,13 +67,23 @@ final class DictionaryEntryForm extends EntityForm {
       '#rows' => 3,
     ];
 
-    $form['icon'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Icon CSS class'),
-      '#default_value' => $entity->getIcon(),
-      '#maxlength' => 128,
-      '#description' => $this->t('CSS class for the icon (e.g. <code>icon-bureau</code>). Leave empty to use a default placeholder.'),
-    ];
+    /** @var \Drupal\ps_dictionary\Service\DictionaryEntryIconResolver $iconResolver */
+    $iconResolver = \Drupal::service('ps_dictionary.entry_icon_resolver');
+    $defaultIcon = $iconResolver->getDefaultIconId(
+      $entity->isNew() ? (string) ($default_type ?? '') : $entity->getType(),
+      $entity->isNew() ? (string) ($entity->get('code') ?: $this->getDefaultCodeFromQuery()) : $entity->getCode(),
+    );
+
+    $form['icon'] = $this->buildIconPickerElement(
+      $this->t('Icon'),
+      $this->getIconDefault(
+        $iconResolver->normalizeStoredIcon($entity->getIcon(), $defaultIcon),
+        $defaultIcon,
+      ),
+      [
+        'description' => $this->t('UI Icon shown for this dictionary entry. Leave empty to use the default icon when available.'),
+      ],
+    );
 
     $form['weight'] = [
       '#type' => 'number',
@@ -84,6 +97,11 @@ final class DictionaryEntryForm extends EntityForm {
 
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
+
+    $form_state->setValue(
+      'icon',
+      $this->extractIconId($form_state->getValue('icon'), ''),
+    );
 
     $type = (string) $form_state->getValue('type');
     $code = mb_strtoupper(trim((string) $form_state->getValue('code')));

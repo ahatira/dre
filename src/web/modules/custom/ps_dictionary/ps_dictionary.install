@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the ps_dictionary module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\ps_dictionary\Entity\DictionaryEntry;
+
+/**
+ * Migrate dictionary entry icons from legacy CSS classes to UI Icons.
+ */
+function ps_dictionary_update_11001(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('ps_dictionary_entry');
+  /** @var \Drupal\ps_dictionary\Service\DictionaryEntryIconResolver $iconResolver */
+  $iconResolver = \Drupal::service('ps_dictionary.entry_icon_resolver');
+
+  /** @var \Drupal\ps_dictionary\Entity\DictionaryEntry[] $entries */
+  $entries = $storage->loadMultiple();
+  foreach ($entries as $entry) {
+    if (!$entry instanceof DictionaryEntry) {
+      continue;
+    }
+
+    $stored = $entry->getIcon();
+    if ($stored === '') {
+      continue;
+    }
+
+    if (\Drupal\ps_core\Utility\IconIdUtility::splitIconId($stored) !== NULL) {
+      continue;
+    }
+
+    $normalized = $iconResolver->normalizeStoredIcon($stored, '');
+    if ($normalized === '' || $normalized === $stored) {
+      continue;
+    }
+
+    $entry->set('icon', $normalized);
+    $entry->save();
+  }
+}
+
+/**
+ * Set default UI Icons on asset type dictionary entries without icon.
+ */
+function ps_dictionary_update_11002(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('ps_dictionary_entry');
+  /** @var \Drupal\ps_dictionary\Service\DictionaryEntryIconResolver $iconResolver */
+  $iconResolver = \Drupal::service('ps_dictionary.entry_icon_resolver');
+
+  /** @var \Drupal\ps_dictionary\Entity\DictionaryEntry[] $entries */
+  $entries = $storage->loadByProperties(['type' => 'asset_type']);
+  foreach ($entries as $entry) {
+    if (!$entry instanceof DictionaryEntry) {
+      continue;
+    }
+
+    if ($entry->getIcon() !== '') {
+      continue;
+    }
+
+    $default = $iconResolver->getDefaultIconId('asset_type', $entry->getCode());
+    if ($default === '') {
+      continue;
+    }
+
+    $entry->set('icon', $default);
+    $entry->save();
+  }
+}
