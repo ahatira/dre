@@ -169,6 +169,20 @@
   overflow: hidden;
 }
 
+/* Open popin: chips only inside the popin panel — not duplicated in the bar toggle. */
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-chips {
+  display: none;
+}
+
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
+  flex: 1 1 48px;
+  min-width: 48px;
+}
+
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input::placeholder {
+  opacity: 1;
+}
+
 .ps-filter-bar__location-input {
   background: transparent;
   border: none;
@@ -215,7 +229,7 @@
 }
 
 /* Focus ring only when the dropdown is open or the input is focused — not when chips exist. */
-.ps-filter-bar__item--location.show .ps-filter-bar__toggle--location,
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__toggle--location,
 .ps-filter-bar__item--location .ps-filter-bar__toggle--location:focus-within {
   border-color: var(--bs-primary-border-subtle, #99d3bd);
   box-shadow: 0 0 0 0.25rem var(--bs-primary-bg-subtle, rgba(0, 145, 90, 0.12));
