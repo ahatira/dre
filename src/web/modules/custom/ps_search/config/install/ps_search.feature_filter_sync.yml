@@ -1,2 +1,3 @@
 cron_run_immediate_index: true
 cron_index_only_on_change: true
+sync_view_filters: false

@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.body
     - field.storage.node.field_address
     - field.storage.node.field_asset_type
+    - field.storage.node.field_availability
     - field.storage.node.field_budget_value
     - field.storage.node.field_commercial_title
     - field.storage.node.field_divisible
@@ -73,6 +74,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_asset_type
+  field_availability:
+    label: Availability
+    datasource_id: 'entity:node'
+    property_path: field_availability
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_availability
   field_budget_value:
     label: Budget
     datasource_id: 'entity:node'
@@ -114,6 +123,38 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_features
+  feature_accessibility:
+    label: Accessibility
+    property_path: feature_accessibility
+    type: boolean
+  feature_building_type:
+    label: 'Building type'
+    property_path: feature_building_type
+    type: string
+  feature_equipments:
+    label: Equipments
+    property_path: feature_equipments
+    type: string
+  feature_services:
+    label: Services
+    property_path: feature_services
+    type: string
+  ceiling_height:
+    label: 'Ceiling height'
+    property_path: ceiling_height
+    type: decimal
+  has_immersive_tour:
+    label: 'Immersive tour'
+    property_path: has_immersive_tour
+    type: boolean
+  has_video:
+    label: Video
+    property_path: has_video
+    type: boolean
+  nearby_transport:
+    label: 'Nearby transport'
+    property_path: nearby_transport
+    type: string
   field_geo:
     label: Geo
     datasource_id: 'entity:node'
@@ -193,6 +234,7 @@ processor_settings:
   language_with_fallback: {  }
   ps_surface_processor: {  }
   ps_feature: {  }
+  ps_feature_categorizer: {  }
   rendered_item: {  }
   solr_date_range: {  }
 tracker_settings:

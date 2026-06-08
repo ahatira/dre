@@ -15,6 +15,21 @@ final class FeatureFilterSyncManager {
 
   private const INDEX_CONFIG = 'search_api.index.offers';
   private const VIEW_CONFIG = 'views.view.ps_search_offers';
+  private const SETTINGS_CONFIG = 'ps_search.feature_filter_sync';
+
+  /**
+   * Categorizer fields managed in views config, not by feature sync.
+   */
+  private const CATEGORIZER_VIEW_FIELDS = [
+    'feature_equipments',
+    'feature_services',
+    'feature_building_type',
+    'feature_accessibility',
+    'nearby_transport',
+    'ceiling_height',
+    'has_immersive_tour',
+    'has_video',
+  ];
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
@@ -153,7 +168,7 @@ final class FeatureFilterSyncManager {
 
     if ($prune) {
       foreach (array_keys($field_settings) as $field_name) {
-        if (!str_starts_with((string) $field_name, 'feature_')) {
+        if (!$this->isDynamicFeatureIndexField((string) $field_name)) {
           continue;
         }
 
@@ -176,6 +191,10 @@ final class FeatureFilterSyncManager {
    * Syncs exposed filters + BEF placement in the search view.
    */
   private function syncViewFilters(array $expected, bool $prune, array &$stats): bool {
+    if (!$this->shouldSyncViewFilters()) {
+      return $this->pruneDynamicFeatureViewFilters($expected, $prune, $stats);
+    }
+
     $config = $this->configFactory->getEditable(self::VIEW_CONFIG);
     $display = $config->get('display') ?? [];
 
@@ -231,7 +250,11 @@ final class FeatureFilterSyncManager {
 
     if ($prune) {
       foreach (array_keys($filters) as $field_name) {
-        if (str_starts_with((string) $field_name, 'feature_') && !isset($expected[$field_name])) {
+        if (!$this->isDynamicFeatureViewField((string) $field_name)) {
+          continue;
+        }
+
+        if (!isset($expected[$field_name])) {
           unset($filters[$field_name]);
           $stats['removed']++;
           $changed = TRUE;
@@ -239,7 +262,11 @@ final class FeatureFilterSyncManager {
       }
 
       foreach (array_keys($bef_filters) as $field_name) {
-        if (str_starts_with((string) $field_name, 'feature_') && !isset($expected[$field_name])) {
+        if (!$this->isDynamicFeatureViewField((string) $field_name)) {
+          continue;
+        }
+
+        if (!isset($expected[$field_name])) {
           unset($bef_filters[$field_name]);
           $changed = TRUE;
         }
@@ -259,6 +286,88 @@ final class FeatureFilterSyncManager {
     }
 
     return $changed;
+  }
+
+  /**
+   * Whether individual feature filters should be synced into the search view.
+   */
+  private function shouldSyncViewFilters(): bool {
+    return (bool) $this->configFactory->get(self::SETTINGS_CONFIG)->get('sync_view_filters');
+  }
+
+  /**
+   * Removes stale per-feature view filters when view sync is disabled.
+   */
+  private function pruneDynamicFeatureViewFilters(array $expected, bool $prune, array &$stats): bool {
+    if (!$prune) {
+      return FALSE;
+    }
+
+    $config = $this->configFactory->getEditable(self::VIEW_CONFIG);
+    $display = $config->get('display') ?? [];
+    $default = $display['default'] ?? [];
+    $options = $default['display_options'] ?? [];
+    $filters = $options['filters'] ?? [];
+    $exposed_form = $options['exposed_form'] ?? [];
+    $exposed_options = $exposed_form['options'] ?? [];
+    $bef = $exposed_options['bef'] ?? [];
+    $bef_filters = $bef['filter'] ?? [];
+
+    $changed = FALSE;
+
+    foreach (array_keys($filters) as $field_name) {
+      if (!$this->isDynamicFeatureViewField((string) $field_name)) {
+        continue;
+      }
+
+      unset($filters[$field_name]);
+      $stats['removed']++;
+      $changed = TRUE;
+    }
+
+    foreach (array_keys($bef_filters) as $field_name) {
+      if (!$this->isDynamicFeatureViewField((string) $field_name)) {
+        continue;
+      }
+
+      unset($bef_filters[$field_name]);
+      $changed = TRUE;
+    }
+
+    if ($changed) {
+      $bef['filter'] = $bef_filters;
+      $exposed_options['bef'] = $bef;
+      $exposed_form['options'] = $exposed_options;
+      $options['exposed_form'] = $exposed_form;
+      $options['filters'] = $filters;
+      $default['display_options'] = $options;
+      $display['default'] = $default;
+      $config->set('display', $display)->save(TRUE);
+    }
+
+    return $changed;
+  }
+
+  /**
+   * Checks if an index field is a dynamic per-feature field (not categorizer).
+   */
+  private function isDynamicFeatureIndexField(string $field_name): bool {
+    if (in_array($field_name, self::CATEGORIZER_VIEW_FIELDS, TRUE)) {
+      return FALSE;
+    }
+
+    return str_starts_with($field_name, 'feature_');
+  }
+
+  /**
+   * Checks if a view field is a dynamic per-feature filter (not categorizer).
+   */
+  private function isDynamicFeatureViewField(string $field_name): bool {
+    if (in_array($field_name, self::CATEGORIZER_VIEW_FIELDS, TRUE)) {
+      return FALSE;
+    }
+
+    return str_starts_with($field_name, 'feature_');
   }
 
   /**
@@ -424,18 +533,8 @@ final class FeatureFilterSyncManager {
   /**
    * Views field keys for Search API collapse repeated underscores.
    */
-  /**
-   * Views field keys for Search API collapse repeated underscores.
-   */
   private function normalizeViewsFieldName(string $fieldName): string {
     return preg_replace('/_{2,}/', '_', $fieldName) ?? $fieldName;
-  }
-
-  /**
-   * Best-effort reverse normalization for pruning legacy entries.
-   */
-  private function denormalizeViewsFieldName(string $fieldName): string {
-    return str_replace('_tec_', '__tec_', $fieldName);
   }
 
   /**

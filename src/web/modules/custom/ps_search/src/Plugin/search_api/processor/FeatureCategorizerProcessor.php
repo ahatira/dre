@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Plugin\search_api\processor;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Processor\ProcessorPluginBase;
 use Drupal\search_api\Processor\ProcessorProperty;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Adds categorized feature fields to the offers index.
  *
- * Extracts features from field_features and categorizes them into:
- * - equipments: parking, air_conditioning, heating, security_system, kitchen
- * - services: reception, maintenance
- * - building_type: new_building, renovated
- * - accessibility: accessibility_pmr
- * - nearby_transport: text field
- * - ceiling_height: numeric field
- * - immersive_tour: boolean
- * - video: boolean
+ * Maps CRM feature definitions (fb_feature_group) to search filter groups:
+ * - feature_equipments: equipements group
+ * - feature_services: prestations_de_service group
+ * - feature_building_type: building type flags
+ * - feature_accessibility: PMR accessibility flags
+ * - nearby_transport: extracted from body text
+ * - ceiling_height: hauteurs features
+ * - has_immersive_tour / has_video: media and feature flags.
  *
  * @SearchApiProcessor(
  *   id = "ps_feature_categorizer",
@@ -35,33 +36,88 @@ use Drupal\search_api\Processor\ProcessorProperty;
 final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
   /**
-   * Feature ID to category mapping.
+   * Feature groups indexed as equipments.
    */
-  private const CATEGORY_MAPPING = [
-    // Equipments
-    'parking' => 'equipments',
-    'air_conditioning' => 'equipments',
-    'heating' => 'equipments',
-    'security_system' => 'equipments',
-    'kitchen' => 'equipments',
-    'elevator' => 'equipments',
-    'disabled_access' => 'equipments',
-    
-    // Services
-    'reception' => 'services',
-    'maintenance' => 'services',
-    'cleaning' => 'services',
-    'security' => 'services',
-    
-    // Building type
-    'new_building' => 'building_type',
-    'renovated' => 'building_type',
-    'historic' => 'building_type',
-    
-    // Accessibility
-    'accessibility_pmr' => 'accessibility',
-    'wheelchair_access' => 'accessibility',
+  private const EQUIPMENT_GROUPS = [
+    'equipements',
   ];
+
+  /**
+   * Feature groups indexed as services.
+   */
+  private const SERVICE_GROUPS = [
+    'prestations_de_service',
+  ];
+
+  /**
+   * Building type feature definition IDs.
+   */
+  private const BUILDING_TYPE_FEATURES = [
+    'type_etat_du_batiment__tec_immeuble_coproprit',
+    'type_etat_du_batiment__tec_immeuble_indpendant',
+  ];
+
+  /**
+   * Accessibility feature definition IDs.
+   */
+  private const ACCESSIBILITY_FEATURES = [
+    'amenagements__tec_accs_pers_mobilit_rduite',
+  ];
+
+  /**
+   * Ceiling height feature definition IDs (meters).
+   */
+  private const CEILING_HEIGHT_FEATURES = [
+    'hauteurs__tec_hauteur_sous_plafond',
+    'hauteurs__tec_hauteur_libre',
+    'hauteurs__tec_hauteur_sous_poutre',
+  ];
+
+  /**
+   * Immersive tour feature definition IDs.
+   */
+  private const IMMERSIVE_TOUR_FEATURES = [
+    'immersive_tour',
+    '360_view',
+    'virtual_tour',
+    'visite_virtuelle',
+  ];
+
+  /**
+   * Video feature definition IDs.
+   */
+  private const VIDEO_FEATURES = [
+    'video',
+    'has_video',
+  ];
+
+  /**
+   * Cached feature definition group map.
+   *
+   * @var array<string, string>|null
+   */
+  private ?array $featureGroups = NULL;
+
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity_type.manager'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -78,7 +134,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function getPropertyDefinitions(DatasourceInterface $datasource = NULL): array {
+  public function getPropertyDefinitions(?DatasourceInterface $datasource = NULL): array {
     if ($datasource !== NULL) {
       return [];
     }
@@ -87,7 +143,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['feature_equipments'] = new ProcessorProperty([
       'label' => $this->t('Equipments'),
-      'description' => $this->t('Equipment features (parking, air conditioning, etc.)'),
+      'description' => $this->t('Equipment features from the equipements group.'),
       'type' => 'string',
       'processor_id' => $this->getPluginId(),
       'is_list' => TRUE,
@@ -95,7 +151,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['feature_services'] = new ProcessorProperty([
       'label' => $this->t('Services'),
-      'description' => $this->t('Service features (reception, maintenance, etc.)'),
+      'description' => $this->t('Service features from prestations_de_service.'),
       'type' => 'string',
       'processor_id' => $this->getPluginId(),
       'is_list' => TRUE,
@@ -103,7 +159,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['feature_building_type'] = new ProcessorProperty([
       'label' => $this->t('Building type'),
-      'description' => $this->t('Building type features (new, renovated, etc.)'),
+      'description' => $this->t('Building type features (copropriété, indépendant).'),
       'type' => 'string',
       'processor_id' => $this->getPluginId(),
       'is_list' => TRUE,
@@ -111,7 +167,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['feature_accessibility'] = new ProcessorProperty([
       'label' => $this->t('Accessibility'),
-      'description' => $this->t('Accessibility features (PMR, wheelchair, etc.)'),
+      'description' => $this->t('Whether the offer has PMR accessibility features.'),
       'type' => 'boolean',
       'processor_id' => $this->getPluginId(),
       'is_list' => FALSE,
@@ -119,7 +175,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['nearby_transport'] = new ProcessorProperty([
       'label' => $this->t('Nearby transport'),
-      'description' => $this->t('Nearby public transport information'),
+      'description' => $this->t('Nearby public transport information.'),
       'type' => 'string',
       'processor_id' => $this->getPluginId(),
       'is_list' => FALSE,
@@ -127,7 +183,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['ceiling_height'] = new ProcessorProperty([
       'label' => $this->t('Ceiling height'),
-      'description' => $this->t('Ceiling height in meters'),
+      'description' => $this->t('Ceiling height in meters.'),
       'type' => 'decimal',
       'processor_id' => $this->getPluginId(),
       'is_list' => FALSE,
@@ -135,7 +191,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['has_immersive_tour'] = new ProcessorProperty([
       'label' => $this->t('Has immersive tour'),
-      'description' => $this->t('Whether the offer has an immersive tour/360° view'),
+      'description' => $this->t('Whether the offer has an immersive tour/360° view.'),
       'type' => 'boolean',
       'processor_id' => $this->getPluginId(),
       'is_list' => FALSE,
@@ -143,7 +199,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     $properties['has_video'] = new ProcessorProperty([
       'label' => $this->t('Has video'),
-      'description' => $this->t('Whether the offer has a video'),
+      'description' => $this->t('Whether the offer has a video.'),
       'type' => 'boolean',
       'processor_id' => $this->getPluginId(),
       'is_list' => FALSE,
@@ -163,93 +219,66 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
     }
 
     $fields = $item->getFields(FALSE);
+    $categorized = $node->hasField('field_features')
+      ? $this->categorizeFeatures($node->get('field_features'))
+      : [
+        'equipments' => [],
+        'services' => [],
+        'building_type' => [],
+        'accessibility' => [],
+      ];
 
-    // Process field_features
-    if ($node->hasField('field_features')) {
-      $categorized = $this->categorizeFeatures($node->get('field_features'));
+    $this->addListValues($fields, 'feature_equipments', $categorized['equipments']);
+    $this->addListValues($fields, 'feature_services', $categorized['services']);
+    $this->addListValues($fields, 'feature_building_type', $categorized['building_type']);
+    $this->addBooleanValue($fields, 'feature_accessibility', !empty($categorized['accessibility']));
 
-      // Add equipments
-      $equipment_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'feature_equipments');
-      foreach ($equipment_fields as $field) {
-        foreach ($categorized['equipments'] ?? [] as $value) {
-          $field->addValue($value);
-        }
-      }
-
-      // Add services
-      $service_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'feature_services');
-      foreach ($service_fields as $field) {
-        foreach ($categorized['services'] ?? [] as $value) {
-          $field->addValue($value);
-        }
-      }
-
-      // Add building types
-      $building_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'feature_building_type');
-      foreach ($building_fields as $field) {
-        foreach ($categorized['building_type'] ?? [] as $value) {
-          $field->addValue($value);
-        }
-      }
-
-      // Add accessibility (boolean)
-      $accessibility_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'feature_accessibility');
-      foreach ($accessibility_fields as $field) {
-        $has_accessibility = !empty($categorized['accessibility']);
-        $field->addValue($has_accessibility);
-      }
-    }
-
-    // Extract nearby_transport from features or body
-    // For now, search for transport-related keywords in body
     if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
       $body_value = $node->get('body')->value ?? '';
       $transport_info = $this->extractTransportInfo($body_value);
-      
-      $transport_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'nearby_transport');
-      foreach ($transport_fields as $field) {
-        if ($transport_info) {
-          $field->addValue($transport_info);
-        }
+      if ($transport_info) {
+        $this->addScalarValue($fields, 'nearby_transport', $transport_info);
       }
     }
 
-    // Extract ceiling height from features payload
     $ceiling_height = $this->extractCeilingHeight($node);
     if ($ceiling_height !== NULL) {
-      $ceiling_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'ceiling_height');
-      foreach ($ceiling_fields as $field) {
-        $field->addValue($ceiling_height);
-      }
+      $this->addScalarValue($fields, 'ceiling_height', $ceiling_height);
     }
 
-    // Check for immersive tour in media gallery
-    $has_tour = $this->checkForImmersiveTour($node);
-    $tour_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'has_immersive_tour');
-    foreach ($tour_fields as $field) {
-      $field->addValue($has_tour);
-    }
-
-    // Check for video in media documents
-    $has_video = $this->checkForVideo($node);
-    $video_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'has_video');
-    foreach ($video_fields as $field) {
-      $field->addValue($has_video);
-    }
+    $this->addBooleanValue($fields, 'has_immersive_tour', $this->checkForImmersiveTour($node));
+    $this->addBooleanValue($fields, 'has_video', $this->checkForVideo($node));
   }
 
   /**
-   * Categorize features based on feature_definition_id.
+   * Categorizes features based on fb_feature_group and known IDs.
    */
   private function categorizeFeatures($features_field): array {
-    $categorized = [];
+    $categorized = [
+      'equipments' => [],
+      'services' => [],
+      'building_type' => [],
+      'accessibility' => [],
+    ];
 
     foreach ($features_field as $feature_item) {
-      $feature_id = $feature_item->feature_definition_id;
-      
-      if (isset(self::CATEGORY_MAPPING[$feature_id])) {
-        $category = self::CATEGORY_MAPPING[$feature_id];
-        $categorized[$category][] = $feature_id;
+      $feature_id = (string) $feature_item->feature_definition_id;
+      $group = $this->getFeatureGroup($feature_id);
+
+      if (in_array($group, self::EQUIPMENT_GROUPS, TRUE)) {
+        $categorized['equipments'][] = $feature_id;
+      }
+
+      if (in_array($group, self::SERVICE_GROUPS, TRUE)) {
+        $categorized['services'][] = $feature_id;
+      }
+
+      if (in_array($feature_id, self::BUILDING_TYPE_FEATURES, TRUE)) {
+        $categorized['building_type'][] = $feature_id;
+      }
+
+      if (in_array($feature_id, self::ACCESSIBILITY_FEATURES, TRUE)) {
+        $categorized['accessibility'][] = $feature_id;
       }
     }
 
@@ -257,14 +286,73 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
   }
 
   /**
+   * Returns the feature group for a definition ID.
+   */
+  private function getFeatureGroup(string $feature_id): string {
+    if ($this->featureGroups === NULL) {
+      $this->featureGroups = [];
+      $definitions = $this->entityTypeManager
+        ->getStorage('fb_feature_definition')
+        ->loadMultiple();
+
+      foreach ($definitions as $definition) {
+        $this->featureGroups[(string) $definition->id()] = (string) $definition->getGroup();
+      }
+    }
+
+    return $this->featureGroups[$feature_id] ?? '';
+  }
+
+  /**
+   * Adds multi-value processor field values.
+   *
+   * @param array $fields
+   *   Item fields keyed by field identifier.
+   * @param string $property_path
+   *   Processor property path.
+   * @param array $values
+   *   Values to append.
+   */
+  private function addListValues(array $fields, string $property_path, array $values): void {
+    $matching_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, $property_path);
+    foreach ($matching_fields as $field) {
+      foreach ($values as $value) {
+        $field->addValue($value);
+      }
+    }
+  }
+
+  /**
+   * Adds a boolean processor field value.
+   */
+  private function addBooleanValue(array $fields, string $property_path, bool $value): void {
+    $matching_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, $property_path);
+    foreach ($matching_fields as $field) {
+      $field->addValue($value);
+    }
+  }
+
+  /**
+   * Adds a scalar processor field value.
+   *
+   * @param string|float $value
+   *   Indexed value.
+   */
+  private function addScalarValue(array $fields, string $property_path, string|float $value): void {
+    $matching_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, $property_path);
+    foreach ($matching_fields as $field) {
+      $field->addValue($value);
+    }
+  }
+
+  /**
    * Extract transport information from body text.
    */
   private function extractTransportInfo(string $body): ?string {
     $transport_keywords = ['métro', 'metro', 'bus', 'tram', 'train', 'RER', 'station', 'transport'];
-    
+
     foreach ($transport_keywords as $keyword) {
       if (stripos($body, $keyword) !== FALSE) {
-        // Extract sentence containing transport info (simplified)
         $sentences = preg_split('/[.!?]/', $body);
         foreach ($sentences as $sentence) {
           if (stripos($sentence, $keyword) !== FALSE) {
@@ -273,7 +361,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
         }
       }
     }
-    
+
     return NULL;
   }
 
@@ -286,16 +374,20 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
     }
 
     foreach ($node->get('field_features') as $feature_item) {
-      $feature_id = $feature_item->feature_definition_id;
-      
-      if ($feature_id === 'ceiling_height' || $feature_id === 'hauteur_sous_plafond') {
-        $payload = $feature_item->payload;
-        if ($payload) {
-          $data = json_decode($payload, TRUE);
-          if (isset($data['value']) && is_numeric($data['value'])) {
-            return (float) $data['value'];
-          }
-        }
+      $feature_id = (string) $feature_item->feature_definition_id;
+
+      if (!in_array($feature_id, self::CEILING_HEIGHT_FEATURES, TRUE)) {
+        continue;
+      }
+
+      $payload = $feature_item->payload;
+      if (!$payload) {
+        continue;
+      }
+
+      $data = json_decode($payload, TRUE);
+      if (isset($data['value']) && is_numeric($data['value'])) {
+        return (float) $data['value'];
       }
     }
 
@@ -303,20 +395,18 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
   }
 
   /**
-   * Check if offer has immersive tour.
+   * Checks if offer has immersive tour.
    */
   private function checkForImmersiveTour($node): bool {
-    // Check in field_features
     if ($node->hasField('field_features')) {
       foreach ($node->get('field_features') as $feature_item) {
-        $feature_id = $feature_item->feature_definition_id;
-        if (in_array($feature_id, ['immersive_tour', '360_view', 'virtual_tour', 'visite_virtuelle'])) {
+        $feature_id = (string) $feature_item->feature_definition_id;
+        if (in_array($feature_id, self::IMMERSIVE_TOUR_FEATURES, TRUE)) {
           return TRUE;
         }
       }
     }
 
-    // Check in field_media_gallery for 360 images
     if ($node->hasField('field_media_gallery') && !$node->get('field_media_gallery')->isEmpty()) {
       foreach ($node->get('field_media_gallery')->referencedEntities() as $media) {
         if ($media->bundle() === 'image') {
@@ -332,32 +422,29 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
   }
 
   /**
-   * Check if offer has video.
+   * Checks if offer has video.
    */
   private function checkForVideo($node): bool {
-    // Check in field_features
     if ($node->hasField('field_features')) {
       foreach ($node->get('field_features') as $feature_item) {
-        $feature_id = $feature_item->feature_definition_id;
-        if (in_array($feature_id, ['video', 'has_video'])) {
+        $feature_id = (string) $feature_item->feature_definition_id;
+        if (in_array($feature_id, self::VIDEO_FEATURES, TRUE)) {
           return TRUE;
         }
       }
     }
 
-    // Check in field_media_document for videos
     if ($node->hasField('field_media_document') && !$node->get('field_media_document')->isEmpty()) {
       foreach ($node->get('field_media_document')->referencedEntities() as $media) {
-        if (in_array($media->bundle(), ['video', 'remote_video'])) {
+        if (in_array($media->bundle(), ['video', 'remote_video'], TRUE)) {
           return TRUE;
         }
       }
     }
 
-    // Check in field_media_gallery for videos
     if ($node->hasField('field_media_gallery') && !$node->get('field_media_gallery')->isEmpty()) {
       foreach ($node->get('field_media_gallery')->referencedEntities() as $media) {
-        if (in_array($media->bundle(), ['video', 'remote_video'])) {
+        if (in_array($media->bundle(), ['video', 'remote_video'], TRUE)) {
           return TRUE;
         }
       }

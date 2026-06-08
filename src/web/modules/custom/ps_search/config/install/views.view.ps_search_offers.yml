@@ -97,12 +97,34 @@ display:
                   collapsible: false
                   is_secondary: false
               surface_total:
-                plugin_id: default
+                plugin_id: bef_sliders
+                min: '0'
+                max: '50000'
+                step: '10'
+                advanced:
+                  collapsible: false
+                  is_secondary: false
+              surface_min:
+                plugin_id: bef_sliders
+                min: '0'
+                max: '50000'
+                step: '10'
                 advanced:
                   collapsible: false
                   is_secondary: false
               field_budget_value:
-                plugin_id: default
+                plugin_id: bef_sliders
+                min: '0'
+                max: '10000000'
+                step: '10000'
+                advanced:
+                  collapsible: false
+                  is_secondary: false
+              field_capacity_total:
+                plugin_id: bef_sliders
+                min: '0'
+                max: '500'
+                step: '1'
                 advanced:
                   collapsible: false
                   is_secondary: false
@@ -118,8 +140,56 @@ display:
                   placeholder_text: 'Offer reference...'
                   collapsible: false
                   is_secondary: true
-              field_divisible:
+              feature_equipments:
                 plugin_id: default
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              feature_services:
+                plugin_id: default
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              feature_building_type:
+                plugin_id: default
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              feature_accessibility:
+                plugin_id: bef_single
+                treat_as_false: false
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              nearby_transport:
+                plugin_id: default
+                advanced:
+                  placeholder_text: 'Metro, bus, train...'
+                  collapsible: false
+                  is_secondary: true
+              ceiling_height:
+                plugin_id: bef_sliders
+                min: '0'
+                max: '20'
+                step: '0.5'
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              has_immersive_tour:
+                plugin_id: bef_single
+                treat_as_false: false
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              has_video:
+                plugin_id: bef_single
+                treat_as_false: false
+                advanced:
+                  collapsible: false
+                  is_secondary: true
+              field_divisible:
+                plugin_id: bef_single
+                treat_as_false: false
                 advanced:
                   collapsible: false
                   is_secondary: true
@@ -135,9 +205,10 @@ display:
                   placeholder_text: 'Department...'
                   collapsible: false
                   is_secondary: true
-              field_feature_ids:
+              field_availability:
                 plugin_id: default
                 advanced:
+                  placeholder_text: 'Availability...'
                   collapsible: false
                   is_secondary: true
           bef_format: default_widget
@@ -294,6 +365,12 @@ display:
                   sort: 10
                 settings:
                   sort: DESC
+              ps_dictionary_label:
+                processor_id: ps_dictionary_label
+                weights:
+                  build: 5
+                settings:
+                  dictionary_type: operation_type
         facets_field_asset_type:
           id: facets_field_asset_type
           table: search_api_index_offers
@@ -346,6 +423,12 @@ display:
                   sort: 10
                 settings:
                   sort: DESC
+              ps_dictionary_label:
+                processor_id: ps_dictionary_label
+                weights:
+                  build: 5
+                settings:
+                  dictionary_type: asset_type
         field_budget_value:
           id: field_budget_value
           table: search_api_index_offers
@@ -622,10 +705,131 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_feature_ids:
-          id: field_feature_ids
+        surface_min:
+          id: surface_min
           table: search_api_index_offers
-          field: field_feature_ids
+          field: surface_min
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_numeric
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: surface_min_op
+            label: 'Minimum surface (m²)'
+            description: ''
+            use_operator: false
+            operator: surface_min_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: surface_min
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_capacity_total:
+          id: field_capacity_total
+          table: search_api_index_offers
+          field: field_capacity_total
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_numeric
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_capacity_total_op
+            label: Capacity
+            description: ''
+            use_operator: false
+            operator: field_capacity_total_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: capacity
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_availability:
+          id: field_availability
+          table: search_api_index_offers
+          field: field_availability
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_text
+          operator: '='
+          value:
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_availability_op
+            label: Availability
+            description: ''
+            use_operator: false
+            operator: field_availability_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: availability
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        feature_equipments:
+          id: feature_equipments
+          table: search_api_index_offers
+          field: feature_equipments
           relationship: none
           group_type: group
           admin_label: ''
@@ -636,17 +840,267 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_feature_ids_op
-            label: 'Features & Amenities'
+            operator_id: feature_equipments_op
+            label: Equipments
             description: ''
             use_operator: false
-            operator: field_feature_ids_op
+            operator: feature_equipments_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: features
+            identifier: feature_equipments
             required: false
             remember: false
             multiple: true
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        feature_services:
+          id: feature_services
+          table: search_api_index_offers
+          field: feature_services
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_string
+          operator: '='
+          value:
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: feature_services_op
+            label: Services
+            description: ''
+            use_operator: false
+            operator: feature_services_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: feature_services
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        feature_building_type:
+          id: feature_building_type
+          table: search_api_index_offers
+          field: feature_building_type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_string
+          operator: '='
+          value:
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: feature_building_type_op
+            label: 'Building type'
+            description: ''
+            use_operator: false
+            operator: feature_building_type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: feature_building_type
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        feature_accessibility:
+          id: feature_accessibility
+          table: search_api_index_offers
+          field: feature_accessibility
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_boolean
+          operator: '='
+          value: 'All'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: feature_accessibility_op
+            label: Accessibility
+            description: ''
+            use_operator: false
+            operator: feature_accessibility_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: feature_accessibility
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+        nearby_transport:
+          id: nearby_transport
+          table: search_api_index_offers
+          field: nearby_transport
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_text
+          operator: contains
+          value:
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: nearby_transport_op
+            label: 'Nearby transport'
+            description: ''
+            use_operator: false
+            operator: nearby_transport_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: nearby_transport
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        ceiling_height:
+          id: ceiling_height
+          table: search_api_index_offers
+          field: ceiling_height
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_numeric
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ceiling_height_op
+            label: 'Ceiling height (m)'
+            description: ''
+            use_operator: false
+            operator: ceiling_height_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ceiling_height
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        has_immersive_tour:
+          id: has_immersive_tour
+          table: search_api_index_offers
+          field: has_immersive_tour
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_boolean
+          operator: '='
+          value: 'All'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: has_immersive_tour_op
+            label: 'Immersive tour'
+            description: ''
+            use_operator: false
+            operator: has_immersive_tour_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: has_immersive_tour
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+        has_video:
+          id: has_video
+          table: search_api_index_offers
+          field: has_video
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_boolean
+          operator: '='
+          value: 'All'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: has_video_op
+            label: Video
+            description: ''
+            use_operator: false
+            operator: has_video_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: has_video
+            required: false
+            remember: false
+            multiple: false
             remember_roles:
               authenticated: authenticated
           is_grouped: false
