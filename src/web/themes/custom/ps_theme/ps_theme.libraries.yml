@@ -241,6 +241,7 @@ offer-search-card:
 search-page:
   js:
     assets/js/search-page-layout.js: {}
+    assets/js/search-page-map-sync.js: {}
   dependencies:
     - core/once
     - core/drupal

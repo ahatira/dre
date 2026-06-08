@@ -26,6 +26,7 @@ final class Views {
       return;
     }
 
+    $variables['#attached']['library'][] = 'ps_theme/search-page';
     unset($variables['title']);
   }
 
