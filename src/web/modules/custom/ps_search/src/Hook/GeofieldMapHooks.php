@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Hook;
 
-use Drupal\Core\Extension\ThemeExtensionList;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\Core\Url;
 use Drupal\geofield_map\Plugin\views\style\GeofieldGoogleMapViewStyle;
 use Drupal\node\NodeInterface;
 use Drupal\ps_search\Service\SearchMapMarkerBuilder;
@@ -19,9 +17,13 @@ use Drupal\views\ResultRow;
  */
 final class GeofieldMapHooks {
 
+  /**
+   * Transparent 1×1 pixel — MarkerClusterer requires a styles[].url; CSS draws the circle.
+   */
+  private const CLUSTER_ICON_TRANSPARENT = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
   public function __construct(
     private readonly SearchMapMarkerBuilder $markerBuilder,
-    private readonly ThemeExtensionList $themeExtensionList,
   ) {}
 
   /**
@@ -58,23 +60,16 @@ final class GeofieldMapHooks {
     }
 
     $js_settings['map_settings']['map_markercluster']['markercluster_control'] = TRUE;
-
-    // Fit map to all markers instead of a fixed France-wide zoom.
     $js_settings['map_settings']['map_center']['center_force'] = FALSE;
     $js_settings['map_settings']['map_zoom_and_pan']['zoom']['force'] = FALSE;
-
-    $clusterIcon = $this->clusterIconUrl();
-    if ($clusterIcon === '') {
-      return;
-    }
 
     $js_settings['map_settings']['map_markercluster']['markercluster_additional_options'] = (string) json_encode([
       'styles' => [
         [
-          'url' => $clusterIcon,
+          'url' => self::CLUSTER_ICON_TRANSPARENT,
           'height' => 36,
           'width' => 36,
-          'textColor' => '#ffffff',
+          'textColor' => '#00915A',
           'textSize' => '13',
           'fontWeight' => 'bold',
         ],
@@ -108,18 +103,6 @@ final class GeofieldMapHooks {
     }
 
     return $entity;
-  }
-
-  /**
-   * Returns the absolute URL of the BNPPRE cluster marker icon.
-   */
-  private function clusterIconUrl(): string {
-    $path = $this->themeExtensionList->getPath('ps_theme') . '/assets/images/map/marker-cluster.svg';
-    if (!is_readable($path)) {
-      return '';
-    }
-
-    return Url::fromUri('base:' . $path, ['absolute' => TRUE])->toString();
   }
 
 }

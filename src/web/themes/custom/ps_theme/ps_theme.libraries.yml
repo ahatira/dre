@@ -240,6 +240,7 @@ offer-search-card:
 
 search-page:
   js:
+    assets/js/search-page-map-utils.js: {}
     assets/js/search-page-layout.js: {}
     assets/js/search-page-map-sync.js: {}
     assets/js/search-page-map-popup.js: {}

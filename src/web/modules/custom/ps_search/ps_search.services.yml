@@ -4,6 +4,12 @@ services:
     arguments:
       - '@database'
 
+  ps_search.filter_query_builder:
+    class: Drupal\ps_search\Service\SearchFilterQueryBuilder
+    arguments:
+      - '@ps_search.location_filter'
+      - '@ps_search.more_criteria_applier'
+
   ps_search.location_centroid:
     class: Drupal\ps_search\Service\LocationCentroidResolver
     arguments:
@@ -44,14 +50,11 @@ services:
 
   Drupal\ps_search\Service\SearchMapMarkerBuilder:
     class: Drupal\ps_search\Service\SearchMapMarkerBuilder
-    arguments:
-      - '@config.factory'
 
   Drupal\ps_search\Hook\GeofieldMapHooks:
     class: Drupal\ps_search\Hook\GeofieldMapHooks
     arguments:
       - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
-      - '@extension.list.theme'
 
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks

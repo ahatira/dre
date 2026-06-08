@@ -146,6 +146,24 @@ function ps_search_update_11008(): void {
   }
 
   $display['display_options']['style']['options']['map_marker_and_infowindow']['infowindow_field'] = '';
+  $display['display_options']['style']['options']['map_empty']['empty_behaviour'] = '1';
+  $display['display_options']['style']['options']['map_empty']['empty_message'] = '';
+  $view->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Render empty search map shell; markers load via /ps-search/markers API.
+ */
+function ps_search_update_11009(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $display = &$view->getDisplay('map_attachment');
+  $display['display_options']['style']['options']['map_empty']['empty_behaviour'] = '1';
+  $display['display_options']['style']['options']['map_empty']['empty_message'] = '';
   $view->save();
   drupal_flush_all_caches();
 }

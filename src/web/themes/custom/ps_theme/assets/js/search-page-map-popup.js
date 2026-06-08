@@ -1,51 +1,6 @@
 (function (Drupal, once) {
   'use strict';
 
-  /**
-   * Closes any geofield map InfoWindow on the search map.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
-   */
-  function closeGeofieldInfoWindow(mapData) {
-    if (mapData?.infowindow && typeof mapData.infowindow.close === 'function') {
-      mapData.infowindow.close();
-    }
-  }
-
-  /**
-   * Waits until the geofield map has rendered markers.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {function} callback
-   *   Called with mapData when ready.
-   */
-  function whenMapReady(root, callback) {
-    const mapEl = root.querySelector('.geofield-google-map');
-    if (!mapEl) {
-      return;
-    }
-
-    const mapId = mapEl.id;
-    let attempts = 0;
-    const timer = window.setInterval(function () {
-      attempts += 1;
-      const mapData = Drupal.geoFieldMapFormatter?.map_data?.[mapId];
-      const markerCount = mapData?.markers ? Object.keys(mapData.markers).length : 0;
-
-      if (markerCount > 0 && typeof google !== 'undefined' && google.maps) {
-        window.clearInterval(timer);
-        callback(mapData);
-        return;
-      }
-
-      if (attempts >= 300) {
-        window.clearInterval(timer);
-      }
-    }, 200);
-  }
-
   Drupal.behaviors.psSearchPageMapPopup = {
     attach(context) {
       once('ps-search-map-popup', '.ps-search-view', context).forEach(function (root) {
@@ -57,18 +12,20 @@
         }
 
         let openNid = null;
+        let mapDataRef = null;
 
         /**
-         * Hides the floating map card popup.
+         * Hides the floating map offer panel.
          */
         function closePopup() {
           popup.hidden = true;
           popupContent.textContent = '';
           openNid = null;
+          root.dispatchEvent(new CustomEvent('ps-search-map-marker-clear'));
         }
 
         /**
-         * Shows a compact offer card cloned from the results list.
+         * Shows the offer panel cloned from the results list (full-map mode only).
          *
          * @param {string} nid
          *   Offer node id.
@@ -87,30 +44,29 @@
 
           popupContent.textContent = '';
           const clone = card.cloneNode(true);
-          clone.classList.add('ps-offer-search-card--map-popup');
+          clone.classList.add('ps-offer-search-card--map-panel');
           clone.classList.remove('is-map-sync-active');
           clone.removeAttribute('id');
           popupContent.appendChild(clone);
           popup.hidden = false;
           openNid = nid;
 
-          const listCard = root.querySelector(`.ps-offer-search-card[data-offer-id="${nid}"]`);
-          if (listCard) {
-            listCard.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          }
+          root.dispatchEvent(new CustomEvent('ps-search-map-marker-select', {
+            detail: { nid },
+          }));
         }
 
-        if (closeBtn) {
-          closeBtn.addEventListener('click', closePopup);
-        }
+        /**
+         * Binds marker click handlers for the offer panel.
+         *
+         * @param {object} mapData
+         *   Geofield map data bucket.
+         */
+        function bindMarkers(mapData) {
+          mapDataRef = mapData;
 
-        whenMapReady(root, function (mapData) {
-          if (mapData.map) {
-            google.maps.event.addListener(mapData.map, 'click', closePopup);
-          }
-
-          Object.keys(mapData.markers).forEach(function (nid) {
-            const marker = mapData.markers[nid];
+          Object.keys(mapData.markersByNid || {}).forEach(function (nid) {
+            const marker = mapData.markersByNid[nid];
             if (marker.__psSearchPopupBound) {
               return;
             }
@@ -121,10 +77,35 @@
               if (event && typeof event.stop === 'function') {
                 event.stop();
               }
-              closeGeofieldInfoWindow(mapData);
+              Drupal.psSearchMap.closeGeofieldInfoWindow(mapData);
+
+              if (Drupal.psSearchMap.isListVisible(root)) {
+                closePopup();
+                root.dispatchEvent(new CustomEvent('ps-search-map-marker-select', {
+                  detail: { nid },
+                }));
+                return;
+              }
+
               openPopup(nid);
             });
           });
+        }
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closePopup);
+        }
+
+        Drupal.psSearchMap.whenMapReady(root, function (mapData) {
+          mapDataRef = mapData;
+          const map = mapData.map || mapData.google_map;
+          if (map) {
+            google.maps.event.addListener(map, 'click', closePopup);
+          }
+        });
+
+        root.addEventListener('ps-search-map-markers-loaded', function (event) {
+          bindMarkers(event.detail.mapData);
         });
 
         document.addEventListener('keydown', function (event) {
@@ -132,6 +113,8 @@
             closePopup();
           }
         });
+
+        root.addEventListener('ps-search-list-shown', closePopup);
       });
     },
   };

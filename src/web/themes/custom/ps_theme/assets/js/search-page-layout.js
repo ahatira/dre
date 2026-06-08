@@ -39,6 +39,9 @@
           if (showBtn) {
             showBtn.hidden = visible;
           }
+          if (visible) {
+            root.dispatchEvent(new CustomEvent('ps-search-list-shown'));
+          }
           document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
           requestAnimationFrame(function () {
             setTimeout(function () {

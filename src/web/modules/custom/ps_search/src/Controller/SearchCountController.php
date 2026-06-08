@@ -7,7 +7,7 @@ namespace Drupal\ps_search\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\ps_search\Service\LocationSearchFilter;
-use Drupal\ps_search\Service\MoreCriteriaConditionApplier;
+use Drupal\ps_search\Service\SearchFilterQueryBuilder;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,20 +30,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class SearchCountController extends ControllerBase {
 
-  /**
-   * Max accepted server-side bound for surface filters (m²).
-   */
-  private const MAX_SURFACE = 200000.0;
-
-  /**
-   * Max accepted server-side bound for budget filters (€/m²/year).
-   */
-  private const MAX_BUDGET = 100000.0;
-
   public function __construct(
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
-    private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
+    private readonly SearchFilterQueryBuilder $filterQueryBuilder,
   ) {}
 
   /**
@@ -53,7 +43,7 @@ final class SearchCountController extends ControllerBase {
     return new static(
       $container->get('database'),
       $container->get('ps_search.location_filter'),
-      $container->get('ps_search.more_criteria_applier'),
+      $container->get('ps_search.filter_query_builder'),
     );
   }
 
@@ -61,26 +51,6 @@ final class SearchCountController extends ControllerBase {
    * Returns result count as JSON.
    */
   public function count(Request $request): JsonResponse {
-    $operationType = $request->query->get('operation_type');
-    $assetType = $request->query->get('asset_type');
-    $surfaceMin = $request->query->get('surface_min');
-    $surfaceMax = $request->query->get('surface_max');
-    $budgetMin = $request->query->get('budget_min');
-    $budgetMax = $request->query->get('budget_max');
-    $capacityMin = $request->query->get('capacity_min');
-    $capacityMax = $request->query->get('capacity_max');
-
-    // Sanitize all inputs.
-    $operationType = $this->sanitizeCode($operationType);
-    $assetType = $this->sanitizeCode($assetType);
-    $localityTokens = $this->locationSearchFilter->extractTokensFromRequest($request);
-    $surfaceMin = $this->sanitizePositiveNumber($surfaceMin, self::MAX_SURFACE);
-    $surfaceMax = $this->sanitizePositiveNumber($surfaceMax, self::MAX_SURFACE);
-    $budgetMin = $this->sanitizePositiveNumber($budgetMin, self::MAX_BUDGET);
-    $budgetMax = $this->sanitizePositiveNumber($budgetMax, self::MAX_BUDGET);
-    $capacityMin = $this->sanitizePositiveNumber($capacityMin, 500.0);
-    $capacityMax = $this->sanitizePositiveNumber($capacityMax, 500.0);
-
     $index = Index::load('offers');
     if (!$index) {
       return new JsonResponse(['count' => 0, 'error' => 'index_unavailable'], 503);
@@ -88,36 +58,7 @@ final class SearchCountController extends ControllerBase {
 
     $query = $index->query();
     $query->range(0, 0);
-
-    if ($operationType !== NULL) {
-      $query->addCondition('field_operation_type', $operationType);
-    }
-    if ($assetType !== NULL) {
-      $query->addCondition('field_asset_type', $assetType);
-    }
-    if ($localityTokens !== []) {
-      $this->locationSearchFilter->applyToQuery($query, $localityTokens);
-    }
-    if ($surfaceMin !== NULL) {
-      $query->addCondition('surface_total', $surfaceMin, '>=');
-    }
-    if ($surfaceMax !== NULL) {
-      $query->addCondition('surface_total', $surfaceMax, '<=');
-    }
-    if ($budgetMin !== NULL) {
-      $query->addCondition('field_budget_value', $budgetMin, '>=');
-    }
-    if ($budgetMax !== NULL) {
-      $query->addCondition('field_budget_value', $budgetMax, '<=');
-    }
-    if ($capacityMin !== NULL) {
-      $query->addCondition('field_capacity_total', $capacityMin, '>=');
-    }
-    if ($capacityMax !== NULL) {
-      $query->addCondition('field_capacity_total', $capacityMax, '<=');
-    }
-
-    $this->moreCriteriaApplier->apply($query, $request);
+    $this->filterQueryBuilder->apply($query, $request);
 
     try {
       $results = $query->execute();
@@ -409,17 +350,6 @@ final class SearchCountController extends ControllerBase {
   }
 
   /**
-   * Sanitizes a filter code: only A–Z letters, max 10 chars.
-   */
-  private function sanitizeCode(mixed $value): ?string {
-    if (!is_string($value) || $value === '') {
-      return NULL;
-    }
-    $cleaned = preg_replace('/[^A-Z]/i', '', strtoupper(substr($value, 0, 10)));
-    return $cleaned !== '' ? $cleaned : NULL;
-  }
-
-  /**
    * Sanitizes free text: letters, digits, spaces, hyphens, apostrophes — max 100 chars.
    */
   private function sanitizeText(mixed $value): ?string {
@@ -428,20 +358,6 @@ final class SearchCountController extends ControllerBase {
     }
     $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', substr(trim($value), 0, 100));
     return $cleaned !== '' ? $cleaned : NULL;
-  }
-
-  /**
-   * Sanitizes a positive numeric value (surface in m², budget in €).
-   */
-  private function sanitizePositiveNumber(mixed $value, float $max): ?float {
-    if ($value === NULL || $value === '') {
-      return NULL;
-    }
-    $num = filter_var($value, FILTER_VALIDATE_FLOAT);
-    if ($num === FALSE || $num < 0) {
-      return NULL;
-    }
-    return min((float) $num, $max);
   }
 
   /**

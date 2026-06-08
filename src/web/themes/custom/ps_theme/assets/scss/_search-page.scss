@@ -91,12 +91,50 @@
       min-height: 100% !important;
       width: 100% !important;
     }
+
+    // MarkerClusterer groups — styled via CSS (library still injects a hidden img).
+    .cluster {
+      align-items: center !important;
+      background-color: #FFFFFF !important;
+      border: 2px solid #00915A !important;
+      border-radius: 50% !important;
+      box-sizing: border-box !important;
+      cursor: pointer;
+      display: flex !important;
+      justify-content: center !important;
+
+      > img {
+        display: none !important;
+      }
+
+      > div {
+        color: #00915A !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        position: static !important;
+        text-align: center !important;
+        width: auto !important;
+      }
+
+      &:hover {
+        background-color: #00915A !important;
+
+        > div {
+          color: #FFFFFF !important;
+        }
+      }
+    }
   }
 
   .js-ps-hide-list,
   .js-ps-show-list {
     top: 4.5rem !important;
     z-index: 2;
+
+    &[hidden] {
+      display: none !important;
+    }
   }
 
   &--list-hidden {
@@ -176,6 +214,55 @@
 
     &__nav {
       display: none;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .ps-search-view--list-hidden .ps-search-map-popup {
+    bottom: auto;
+    left: 1.25rem;
+    max-height: calc(100% - 6rem);
+    max-width: 18.5rem;
+    overflow: visible;
+    top: 5.5rem;
+    width: 18.5rem;
+
+    &__close {
+      right: 0.75rem;
+      top: 0.75rem;
+    }
+
+    .ps-offer-search-card--map-panel {
+      border-radius: 0;
+      flex-direction: column;
+      max-height: calc(100dvh - var(--ps-header-slot-height, 128px) - 8rem);
+      min-height: 0;
+      overflow: hidden;
+
+      .ps-offer-search-card__media {
+        flex: 0 0 auto;
+        max-width: none;
+        min-height: 11rem;
+        width: 100%;
+      }
+
+      .ps-offer-search-card__image {
+        min-height: 11rem;
+      }
+
+      .ps-offer-search-card__content {
+        gap: 0.75rem;
+        padding: 1rem 1.25rem 1.25rem;
+      }
+
+      .ps-offer-search-card__title {
+        font-size: 0.875rem;
+      }
+
+      .ps-offer-search-card__footer {
+        margin-top: auto;
+      }
     }
   }
 }

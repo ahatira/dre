@@ -1226,7 +1226,8 @@ display:
           data_source: field_geo
           entity_source: __base_table
           map_empty:
-            empty_behaviour: '0'
+            empty_behaviour: '1'
+            empty_message: ''
           map_center:
             lat: 46.603354
             lon: 1.888334

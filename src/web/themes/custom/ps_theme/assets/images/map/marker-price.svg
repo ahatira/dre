@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reference preview  runtime icons are generated in SearchMapMarkerBuilder.php -->
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="45" viewBox="0 0 52 45" role="img" aria-hidden="true">
+  <path d="M 0,0 H 52 V 26 L 31,26 L 26,33 L 21,26 H 0 Z" fill="#FFFFFF" stroke="#00915A" stroke-width="2" stroke-linejoin="round"/>
+  <text x="26" y="14" dominant-baseline="central" text-anchor="middle" fill="#00915A" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">480 €</text>
+  <circle cx="26" cy="41" r="4" fill="#00915A"/>
+</svg>
