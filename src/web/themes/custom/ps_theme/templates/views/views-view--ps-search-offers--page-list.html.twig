@@ -43,9 +43,9 @@
     </div>
   </div>
 
-  {# Mobile toolbar — above map/list split (< lg) #}
+  {# Mobile toolbar — above map/list split (< lg only) #}
   {% if search_filter_bar_mobile_actions %}
-    <div class="flex-shrink-0 bg-white border-bottom ps-search-view__mobile-toolbar-wrap">
+    <div class="flex-shrink-0 bg-white border-bottom ps-search-view__mobile-toolbar-wrap d-lg-none">
       {{ search_filter_bar_mobile_actions }}
     </div>
   {% endif %}
@@ -86,7 +86,20 @@
             {{ rows }}
           </div>
         {% elseif empty %}
-          <p class="text-muted text-center py-5 mb-0">{{ empty }}</p>
+          <div class="ps-search-empty">
+            <img
+              class="ps-search-empty__illustration"
+              src="{{ ps_search_empty_illustration }}"
+              alt=""
+              width="320"
+              height="240"
+              loading="lazy"
+            />
+            <div class="alert alert-light border ps-search-empty__alert" role="status">
+              <p class="alert-heading h6 fw-semibold mb-2">{{ 'No results found'|t }}</p>
+              <p class="mb-0 small text-muted">{{ empty }}</p>
+            </div>
+          </div>
         {% endif %}
 
         {% if pager %}
@@ -96,13 +109,19 @@
     </div>
 
     <div class="col-lg-6 position-relative min-h-0 h-100 overflow-hidden">
-      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-hide-list z-1" style="top: 4.5rem" aria-expanded="true">
+      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-hide-list z-1 d-none d-lg-inline-block" style="top: 4.5rem" aria-expanded="true">
         {{ 'Hide list'|t }}
       </button>
       {% if attachment_before %}
         <div class="ps-search-view__map attachment attachment-before position-absolute top-0 start-0 w-100 h-100">{{ attachment_before }}</div>
       {% endif %}
-      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-show-list z-1" style="top: 4.5rem" hidden>
+      <div class="ps-search-map-popup js-ps-search-map-popup" hidden aria-live="polite">
+        <button type="button" class="ps-search-map-popup__close js-ps-search-map-popup-close" aria-label="{{ 'Close'|t }}">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="js-ps-search-map-popup-content"></div>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-show-list z-1 d-none d-lg-inline-block" style="top: 4.5rem" hidden>
         {{ 'Show list'|t }}
       </button>
     </div>

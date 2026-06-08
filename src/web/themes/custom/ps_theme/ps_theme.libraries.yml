@@ -242,8 +242,10 @@ search-page:
   js:
     assets/js/search-page-layout.js: {}
     assets/js/search-page-map-sync.js: {}
+    assets/js/search-page-map-popup.js: {}
     assets/js/search-page-location.js: {}
   dependencies:
     - core/once
     - core/drupal
     - core/drupalSettings
+    - ps_theme/component_alert

@@ -1244,7 +1244,7 @@ display:
             maxZoom: 22
           map_marker_and_infowindow:
             icon_image_path: ''
-            infowindow_field: '#rendered_entity'
+            infowindow_field: ''
             view_mode: teaser
             tooltip_field: ''
             multivalue_split: false

@@ -78,3 +78,9 @@ msgstr "Masquer la liste"
 
 msgid "Show list"
 msgstr "Afficher la liste"
+
+msgid "No results found"
+msgstr "Aucun résultat"
+
+msgid "Close"
+msgstr "Fermer"

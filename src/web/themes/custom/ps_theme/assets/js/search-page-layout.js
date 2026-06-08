@@ -34,10 +34,12 @@
           root.classList.toggle('ps-search-view--list-hidden', !visible);
           if (hideBtn) {
             hideBtn.setAttribute('aria-expanded', visible ? 'true' : 'false');
+            hideBtn.hidden = !visible;
           }
           if (showBtn) {
             showBtn.hidden = visible;
           }
+          document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
           requestAnimationFrame(function () {
             setTimeout(function () {
               resizeMaps(root);
@@ -72,6 +74,14 @@
           setTimeout(function () {
             resizeMaps(root);
           }, 500);
+        });
+
+        document.addEventListener('ps-search-map-resize', function () {
+          requestAnimationFrame(function () {
+            setTimeout(function () {
+              resizeMaps(root);
+            }, 320);
+          });
         });
       });
     },

@@ -1853,7 +1853,7 @@
           icon.setAttribute('aria-hidden', 'true');
           btn.appendChild(icon);
           btn.appendChild(document.createTextNode(listHidden ? showListLabel : showMapLabel));
-          window.dispatchEvent(new Event('resize'));
+          document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
         });
       });
 

@@ -130,3 +130,22 @@ function ps_search_update_11007(): void {
   }
   drupal_flush_all_caches();
 }
+
+/**
+ * Disable geofield default infowindow on search map (custom popup in theme).
+ */
+function ps_search_update_11008(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $display = &$view->getDisplay('map_attachment');
+  if (!isset($display['display_options']['style']['options']['map_marker_and_infowindow'])) {
+    return;
+  }
+
+  $display['display_options']['style']['options']['map_marker_and_infowindow']['infowindow_field'] = '';
+  $view->save();
+  drupal_flush_all_caches();
+}
