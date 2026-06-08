@@ -105,7 +105,7 @@ final class HomepageContent {
   public static function editorialCtaPath(?string $langcode = NULL): string {
     $langcode ??= self::langcode();
     $paths = self::data()['editorial']['cta']['paths'] ?? [];
-    return (string) ($paths[$langcode] ?? $paths['en'] ?? '/recherche');
+    return (string) ($paths[$langcode] ?? $paths['en'] ?? '/find-property');
   }
 
   public static function editorialImageUrl(): string {

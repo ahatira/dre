@@ -571,7 +571,7 @@ display:
             identifier: locality
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
           is_grouped: false
@@ -1322,9 +1322,9 @@ display:
     position: 1
     display_options:
       title: 'Property search'
-      display_description: 'Public search page at /recherche'
+      display_description: 'Public search page at /find-property'
       display_extenders: {  }
-      path: recherche
+      path: find-property
     cache_metadata:
       max-age: -1
       contexts:

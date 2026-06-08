@@ -1,4 +1,22 @@
 services:
+  ps_search.location_filter:
+    class: Drupal\ps_search\Service\LocationSearchFilter
+    arguments:
+      - '@database'
+
+  ps_search.location_centroid:
+    class: Drupal\ps_search\Service\LocationCentroidResolver
+    arguments:
+      - '@ps_search.location_filter'
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\SearchLocationHooks:
+    class: Drupal\ps_search\Hook\SearchLocationHooks
+    arguments:
+      - '@ps_search.location_filter'
+      - '@ps_search.location_centroid'
+      - '@request_stack'
+
   Drupal\ps_search\Service\FeatureFilterSyncManager:
     class: Drupal\ps_search\Service\FeatureFilterSyncManager
     arguments:
@@ -32,9 +50,26 @@ services:
       - '@config.factory'
       - '@language_manager'
       - '@language.config_factory_override'
+      - '@ps_search.search_path_resolver'
     tags:
       - { name: path_processor_inbound, priority: 290 }
       - { name: path_processor_outbound, priority: 110 }
+
+  ps_search.search_path_resolver:
+    class: Drupal\ps_search\Service\SearchPathResolver
+    arguments:
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@config.storage'
+
+  ps_search.base_path_processor:
+    class: Drupal\ps_search\PathProcessor\SearchBasePathProcessor
+    arguments:
+      - '@ps_search.search_path_resolver'
+      - '@language_manager'
+    tags:
+      - { name: path_processor_inbound, priority: 285 }
+      - { name: path_processor_outbound, priority: 105 }
 
   ps_search.canonical_redirect_subscriber:
     class: Drupal\ps_search\EventSubscriber\SearchCanonicalRedirectSubscriber
@@ -42,5 +77,6 @@ services:
       - '@config.factory'
       - '@language.config_factory_override'
       - '@database'
+      - '@ps_search.search_path_resolver'
     tags:
       - { name: event_subscriber }

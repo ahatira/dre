@@ -90,6 +90,12 @@
     }
   }
 
+  .js-ps-hide-list,
+  .js-ps-show-list {
+    top: 4.5rem !important;
+    z-index: 2;
+  }
+
   &--list-hidden {
     .ps-search-view__split > .col-lg-6:first-child {
       display: none !important;

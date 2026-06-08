@@ -87,12 +87,15 @@
     </div>
   </div>
 
-  {# Location(s) #}
-  <div class="ps-filter-bar__item ps-filter-bar__item--location">
+  {# Location(s) — Figma Location(s) searched 1–3 #}
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--location">
     <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-location-input">
       {{ 'Location(s)'|t }}
     </label>
-    <div class="ps-filter-bar__toggle ps-filter-bar__toggle--location">
+    <div
+      class="ps-filter-bar__toggle ps-filter-bar__toggle--location js-ps-location-toggle d-flex align-items-center w-100"
+      aria-expanded="false"
+    >
       <span class="ps-filter-bar__location-icon flex-shrink-0" aria-hidden="true"></span>
       <div class="ps-filter-bar__location-editor js-ps-location-editor min-w-0 flex-grow-1">
         <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>
@@ -106,11 +109,31 @@
           aria-autocomplete="list"
           role="combobox"
           aria-controls="ps-location-suggest"
-          aria-expanded="false"
           maxlength="100"
         >
       </div>
+      <button
+        type="button"
+        class="ps-filter-bar__location-clear js-ps-location-clear-input"
+        hidden
+        aria-label="{{ 'Clear location search'|t }}"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="dropdown-menu ps-filter-popin ps-filter-popin--location">
+      <div class="ps-location-popin__selected js-ps-location-selected-panel" hidden>
+        <h3 class="ps-filter-popin__heading ps-location-popin__heading">{{ 'Location'|t }} :</h3>
+        <div class="ps-location-popin__chips js-ps-location-popin-chips"></div>
+      </div>
       <div id="ps-location-suggest" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+      <div class="ps-filter-popin__footer ps-filter-popin__footer--location">
+        <button class="ps-apply-btn ps-apply-btn--full js-ps-location-apply js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+          <span class="ps-apply-btn__loader" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </div>
 

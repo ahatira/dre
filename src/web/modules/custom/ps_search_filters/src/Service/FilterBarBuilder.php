@@ -6,11 +6,13 @@ namespace Drupal\ps_search_filters\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
+use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -29,6 +31,7 @@ final class FilterBarBuilder {
     private readonly MoreCriteriaBuilder $moreCriteriaBuilder,
     private readonly DictionaryEntryIconResolver $dictionaryEntryIconResolver,
     private readonly SearchFilterVisibilityResolver $searchFilterVisibility,
+    private readonly SearchPathResolver $searchPathResolver,
   ) {}
 
   /**
@@ -65,6 +68,8 @@ final class FilterBarBuilder {
     }
     $segments = array_values(array_filter(explode('/', $stripped)));
 
+    $queryAll = $request?->query->all() ?? [];
+
     $activeOp = NULL;
     $activeAsset = NULL;
     if (!empty($segments[0]) && isset($opBySlug[$segments[0]])) {
@@ -72,6 +77,27 @@ final class FilterBarBuilder {
       if (!empty($segments[1]) && isset($assetBySlug[$segments[1]])) {
         $activeAsset = $assetBySlug[$segments[1]];
       }
+    }
+
+    // Path processor injects query params on SEO URLs (not visible in the address bar).
+    if (!$activeOp) {
+      $rawOp = $queryAll['operation_type'] ?? NULL;
+      $activeOp = is_array($rawOp) ? array_key_first($rawOp) : $rawOp;
+      $activeOp = is_string($activeOp) && $activeOp !== '' ? strtoupper($activeOp) : NULL;
+    }
+    if (!$activeAsset) {
+      $rawAsset = $queryAll['asset_type'] ?? NULL;
+      $activeAsset = is_array($rawAsset) ? array_key_first($rawAsset) : $rawAsset;
+      $activeAsset = is_string($activeAsset) && $activeAsset !== '' ? strtoupper($activeAsset) : NULL;
+    }
+
+    $initialLocality = '';
+    $localityRaw = $queryAll['locality'] ?? NULL;
+    if (is_array($localityRaw)) {
+      $initialLocality = implode(', ', array_values(array_filter(array_map('strval', $localityRaw))));
+    }
+    elseif (is_string($localityRaw) && $localityRaw !== '') {
+      $initialLocality = $localityRaw;
     }
 
     $storage = $this->entityTypeManager->getStorage('ps_dictionary_entry');
@@ -128,6 +154,9 @@ final class FilterBarBuilder {
     $capacityUnit = (string) ($offerSettings->get('surface_capacity_unit') ?: 'seats');
     $capacityFilterLabel = ucfirst($capacityUnit);
 
+    $urlLangcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+    $searchPath = $this->searchPathResolver->getPublicPath($urlLangcode);
+
     return [
       '#theme' => 'ps_search_filter_bar',
       '#operation_types' => $operationTypes,
@@ -148,11 +177,13 @@ final class FilterBarBuilder {
         'drupalSettings' => [
           'psSearch' => [
             'langPrefix' => $langPrefix,
+            'searchPath' => $searchPath,
             'opSlugs' => $opSlugs,
             'assetSlugs' => $assetSlugs,
             'activeOp' => $activeOp,
             'activeFlexible' => $activeOp === NULL,
             'activeAsset' => $activeAsset,
+            'initialLocality' => $initialLocality,
             'countUrl' => '/ps-search/count',
             'locationSuggestUrl' => '/ps-search/location-suggest',
             'locationDataUrl' => '/ps-search/location-data',
@@ -163,7 +194,7 @@ final class FilterBarBuilder {
         ],
       ],
       '#cache' => [
-        'contexts' => ['url.path', 'languages:language_interface'],
+        'contexts' => ['url.path', 'url.query_args:locality', 'url.query_args:operation_type', 'url.query_args:asset_type', 'languages:language_interface'],
         'tags' => [
           'config:ps_search.seo_url_mappings',
           'config:ps_offer.settings',

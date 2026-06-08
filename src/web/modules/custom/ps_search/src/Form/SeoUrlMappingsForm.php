@@ -23,6 +23,17 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.seo_url_mappings');
 
+    $form['search_path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Search page URL slug'),
+      '#default_value' => $config->get('search_path') ?? 'find-property',
+      '#required' => TRUE,
+      '#pattern' => '[a-z0-9][a-z0-9\-]*[a-z0-9]',
+      '#description' => $this->t('Public slug for the flexible search page (e.g. find-property). Translatable per language via Configuration translation.'),
+      '#field_prefix' => '/',
+      '#size' => 40,
+    ];
+
     $form['operation_types'] = [
       '#type' => 'details',
       '#title' => $this->t('Operation type slugs'),
@@ -71,6 +82,9 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('ps_search.seo_url_mappings');
+
+    $searchPath = strtolower(trim((string) $form_state->getValue('search_path'), '/'));
+    $config->set('search_path', $searchPath);
 
     $operationTypes = [];
     foreach (array_keys($config->get('operation_types') ?? []) as $value) {

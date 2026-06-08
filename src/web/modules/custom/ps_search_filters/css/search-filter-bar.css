@@ -113,10 +113,29 @@
   font-weight: 600;
 }
 
-/* Location field */
+/* Location field — Figma Location(s) searched */
+.ps-filter-bar__item--location .dropdown-menu.ps-filter-popin--location {
+  --bs-dropdown-min-width: 100%;
+  box-sizing: border-box;
+  inset: 100% auto auto 0 !important;
+  margin: 0;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+.ps-filter-popin--location.show {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .ps-filter-bar__toggle--location {
+  align-items: center;
   cursor: text;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: clamp(4px, 0.5vw, 8px);
+  min-height: var(--ps-filter-field-height);
   position: relative;
 }
 
@@ -133,26 +152,32 @@
 .ps-filter-bar__location-editor {
   align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
   gap: 4px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .ps-filter-bar__location-chips {
   display: inline-flex;
-  flex-wrap: wrap;
+  flex: 0 1 auto;
+  flex-wrap: nowrap;
   gap: 4px;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .ps-filter-bar__location-input {
   background: transparent;
   border: none;
   color: inherit;
-  flex: 1 1 80px;
+  flex: 1 1 48px;
   font: inherit;
   font-size: var(--ps-filter-field-font-size);
   line-height: 1.4;
-  min-width: 0;
+  min-width: 48px;
   outline: none;
   padding: 0;
 }
@@ -162,9 +187,74 @@
   opacity: 1;
 }
 
-.ps-filter-bar__toggle--location:focus-within {
+.ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input::placeholder {
+  opacity: 0;
+}
+
+.ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
+  flex: 1 1 32px;
+  min-width: 32px;
+}
+
+.ps-filter-bar__location-clear {
+  background: transparent;
+  border: none;
+  color: var(--re-color-text-muted, #777e83);
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  line-height: 1;
+  padding: 0;
+  width: 20px;
+}
+
+.ps-filter-bar__location-clear:hover,
+.ps-filter-bar__location-clear:focus-visible {
+  color: var(--re-color-text-strong, #333);
+  outline: none;
+}
+
+/* Focus ring only when the dropdown is open or the input is focused — not when chips exist. */
+.ps-filter-bar__item--location.show .ps-filter-bar__toggle--location,
+.ps-filter-bar__item--location .ps-filter-bar__toggle--location:focus-within {
   border-color: var(--bs-primary-border-subtle, #99d3bd);
   box-shadow: 0 0 0 0.25rem var(--bs-primary-bg-subtle, rgba(0, 145, 90, 0.12));
+}
+
+.ps-location-popin__selected {
+  padding: 16px 16px 0;
+}
+
+.ps-location-popin__heading {
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+}
+
+.ps-location-popin__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ps-filter-popin--location .ps-filter-bar__location-suggest {
+  border: none;
+  box-shadow: none;
+  flex: 1 1 auto;
+  left: auto;
+  max-height: 220px;
+  position: static;
+  right: auto;
+  top: auto;
+}
+
+.ps-filter-popin--location .ps-filter-bar__location-suggest:empty {
+  display: none;
+}
+
+.ps-filter-popin__footer--location {
+  border-top: none;
+  margin: 0;
+  padding: 16px;
 }
 
 /* Bootstrap dropdown menus — filter popins */
@@ -554,14 +644,17 @@
 /* Location chips & suggest */
 .ps-location-chip {
   align-items: center;
-  background: var(--bs-primary-bg-subtle, rgba(0, 145, 90, 0.08));
+  background: var(--re-color-surface, #fff);
+  border: 1px solid var(--re-color-border, #d6dbde);
   border-radius: 999px;
-  color: var(--re-color-primary, #00915a);
+  color: var(--re-color-text-strong, #333);
   display: inline-flex;
-  font-size: 0.78rem;
-  gap: 0.25rem;
-  max-width: 180px;
-  padding: 0.15rem 0.35rem 0.15rem 0.5rem;
+  flex-shrink: 0;
+  font-size: var(--ps-filter-field-font-size);
+  gap: 0.35rem;
+  line-height: 1.2;
+  max-width: min(180px, 100%);
+  padding: 0.2rem 0.35rem 0.2rem 0.55rem;
 }
 
 .ps-location-chip__label {
@@ -573,33 +666,25 @@
 .ps-location-chip__clear {
   background: transparent;
   border: none;
-  color: inherit;
+  color: var(--re-color-text-muted, #777e83);
   cursor: pointer;
-  font: inherit;
+  font-size: 1rem;
   line-height: 1;
   padding: 0;
 }
 
 .ps-location-chip__clear:hover,
 .ps-location-chip__clear:focus-visible {
+  color: var(--re-color-text-strong, #333);
   outline: none;
-  text-decoration: underline;
 }
 
 .ps-filter-bar__location-suggest {
   background: var(--re-color-surface, #fff);
-  border: 2px solid var(--re-color-border, #d6dbde);
-  border-radius: 0;
-  box-shadow: 0 8px 24px rgba(28, 45, 55, 0.12);
   display: flex;
   flex-direction: column;
-  left: 0;
   max-height: 220px;
   overflow-y: auto;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 250;
 }
 
 .ps-filter-bar__location-suggest[hidden] {
@@ -637,6 +722,10 @@
   outline: none;
 }
 
+.ps-location-suggest__match {
+  font-weight: 700;
+}
+
 .ps-location-suggest__hint {
   color: #888;
   font-size: 0.85rem;
@@ -646,34 +735,7 @@
 }
 
 .ps-location-suggest__actions {
-  background: #fafafa;
-  border-top: 2px solid var(--re-color-border, #d6dbde);
-  padding: 0.75rem;
-}
-
-.ps-location-suggest__show-btn {
-  background: var(--re-color-primary, #00915a);
-  border: none;
-  border-radius: 0;
-  color: #fff;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.65rem 1rem;
-  transition: background 0.2s;
-  width: 100%;
-}
-
-.ps-location-suggest__show-btn:hover {
-  background: var(--re-color-primary-strong, #017f4f);
-}
-
-.ps-location-suggest__count {
-  display: inline-block;
-  font-weight: 700;
-  min-width: 1.5em;
-  padding: 0 0.25em;
+  display: none;
 }
 
 /* Range inputs */

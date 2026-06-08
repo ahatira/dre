@@ -7,17 +7,18 @@ namespace Drupal\ps_search\EventSubscriber;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * Redirects /recherche?operation_type=LOC[&asset_type=BUR][&locality=Paris]
+ * Redirects /find-property?operation_type=LOC[&asset_type=BUR][&locality=Paris]
  * to the canonical SEO URL /a-louer[/bureau][/paris]/.
  *
- * This ensures users and bots always land on the SEO URL, not on the raw
- * /recherche?... form submission URL.
+ * Also 301-redirects the legacy slug /recherche when it is not the current
+ * language search path (e.g. EN bookmarks after migration to /find-property).
  *
  * Priority: 31 — runs after RouterListener (32) and before
  * RouteNormalizerRequestSubscriber (30). AJAX requests are skipped.
@@ -31,6 +32,7 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     private readonly ConfigFactoryInterface $configFactory,
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly Connection $database,
+    private readonly SearchPathResolver $searchPathResolver,
   ) {}
 
   public static function getSubscribedEvents(): array {
@@ -90,13 +92,29 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       }
     }
 
-    // Only handle paths that end with /recherche (with optional language prefix
-    // such as /fr). Match /recherche or /XX/recherche.
-    if (!preg_match('#^(/[a-z]{2,8}(?:-[a-z]{2,4})?)?/recherche$#', $pathInfo, $matches)) {
+    // Match /[lang]/search-slug (any configured or legacy search path segment).
+    if (!preg_match('#^((?:/[a-z]{2,8}(?:-[a-z]{2,4})?)?)/([^/]+)$#', $pathInfo, $matches)) {
       return;
     }
 
     $langPrefix = $matches[1] ?? '';
+    $segment = strtolower($matches[2]);
+    $langcode = $langPrefix ? ltrim($langPrefix, '/') : $this->getDefaultLangcode();
+
+    if (!$this->searchPathResolver->isSearchPathSegment($segment)) {
+      return;
+    }
+
+    $currentSlug = $this->searchPathResolver->getSlugForLang($langcode);
+    if ($segment === $this->searchPathResolver->getLegacySlug() && $segment !== $currentSlug) {
+      $target = $langPrefix . '/' . $currentSlug;
+      $queryString = $request->getQueryString();
+      if ($queryString !== NULL && $queryString !== '') {
+        $target .= '?' . $queryString;
+      }
+      $event->setResponse(new RedirectResponse($target, 301));
+      return;
+    }
 
     // operation_type must be present to build an SEO URL.
     // BEF links with facets uses operation_type[LOC]=LOC (array format).
@@ -139,32 +157,34 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       }
     }
 
-    $locality = $request->query->get('locality');
-    if (!empty($locality) && is_string($locality)) {
-      $tokens = $this->extractLocationTokens($locality);
-      if ($tokens !== []) {
-        $localityData = $this->fetchLocalityData($tokens[0]);
-        if ($localityData !== NULL) {
-          // BNPPRE format: dept-code / city-postal.
-          $postalCode = $localityData['postal_code'] ?? '';
-          $deptCode = substr($postalCode, 0, 2);
-          $deptName = $this->getDepartmentName($deptCode);
-          $deptSlug = $deptName ? $this->cityToSlug($deptName) : '';
-          $citySlug = $this->cityToSlug($localityData['locality']);
+    $localityRaw = $request->query->all()['locality'] ?? NULL;
+    $tokens = is_array($localityRaw)
+      ? array_values(array_filter(array_map('strval', $localityRaw)))
+      : (is_string($localityRaw) && $localityRaw !== '' ? $this->extractLocationTokens($localityRaw) : []);
 
-          if ($deptSlug && $deptCode) {
-            $seoPath .= '/' . $deptSlug . '-' . $deptCode;
-          }
-          if ($citySlug) {
-            $seoPath .= '/' . $citySlug;
-            if ($postalCode) {
-              $seoPath .= '-' . $postalCode;
-            }
-          }
-        } else {
-          // Fallback: simple slug if data not found.
-          $seoPath .= '/' . $this->cityToSlug($tokens[0]);
+    if ($tokens !== []) {
+      $localityData = $this->fetchLocalityData($tokens[0]);
+      if ($localityData !== NULL) {
+        // BNPPRE format: dept-code / city-postal.
+        $postalCode = $localityData['postal_code'] ?? '';
+        $deptCode = substr($postalCode, 0, 2);
+        $deptName = $this->getDepartmentName($deptCode);
+        $deptSlug = $deptName ? $this->cityToSlug($deptName) : '';
+        $citySlug = $this->cityToSlug($localityData['locality']);
+
+        if ($deptSlug && $deptCode) {
+          $seoPath .= '/' . $deptSlug . '-' . $deptCode;
         }
+        if ($citySlug) {
+          $seoPath .= '/' . $citySlug;
+          if ($postalCode) {
+            $seoPath .= '-' . $postalCode;
+          }
+        }
+      }
+      else {
+        // Fallback: simple slug if data not found.
+        $seoPath .= '/' . $this->cityToSlug($tokens[0]);
       }
     }
 
@@ -173,7 +193,7 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     // Preserve remaining query params (budget, surface, keywords, etc.).
     $remainingQuery = $request->query->all();
     unset($remainingQuery['operation_type'], $remainingQuery['asset_type']);
-    if (empty($locality) || !is_string($locality) || count($this->extractLocationTokens($locality)) <= 1) {
+    if (count($tokens) <= 1) {
       unset($remainingQuery['locality']);
     }
     if (!empty($remainingQuery)) {

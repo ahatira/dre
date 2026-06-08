@@ -4,7 +4,7 @@
  *
  * Filter sections (matching BNPPRE.fr):
  *  1. Type + need  — asset type cards + operation type buttons (popin).
- *  2. Localisation — text input directly in the bar (no popin).
+ *  2. Localisation — chips + grouped suggest popin (Figma Location(s)).
  *  3. Surface      — min/max area range (popin).
  *  4. Budget       — min/max price range (popin).
  *
@@ -28,6 +28,7 @@
       const countUrl = settings.countUrl || '/ps-search/count';
       const locationSuggestUrl = settings.locationSuggestUrl || '/ps-search/location-suggest';
       const locationDataUrl = settings.locationDataUrl || '/ps-search/location-data';
+      const searchPath = settings.searchPath || '/find-property';
       const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
       const currentParams = new URLSearchParams(window.location.search);
@@ -70,6 +71,7 @@
           moreBooleans[key] = value === '1';
         }
       });
+      const localityArrayParams = currentParams.getAll('locality[]');
       ['feature_equipments', 'feature_services', 'feature_building_type'].forEach(function (param) {
         const values = currentParams.getAll(param);
         if (values.length) {
@@ -180,7 +182,7 @@
         if (!bs || !bs.Dropdown) {
           return;
         }
-        document.querySelectorAll('.ps-filter-bar [data-bs-toggle="dropdown"]').forEach(function (toggle) {
+        document.querySelectorAll('.ps-filter-bar [data-bs-toggle="dropdown"], .ps-filter-bar .js-ps-location-toggle').forEach(function (toggle) {
           const instance = bs.Dropdown.getInstance(toggle);
           if (instance) {
             instance.hide();
@@ -200,12 +202,30 @@
 
       once('ps-bs-dropdown-events', '.ps-filter-bar .dropdown', context).forEach(function (dropdownEl) {
         dropdownEl.addEventListener('show.bs.dropdown', function () {
-          hideAllLocationSuggestions();
+          if (!dropdownEl.classList.contains('ps-filter-bar__item--location')) {
+            hideAllLocationSuggestions();
+          }
           fetchCount();
+        });
+        dropdownEl.addEventListener('shown.bs.dropdown', function () {
+          if (!dropdownEl.classList.contains('ps-filter-bar__item--location')) {
+            return;
+          }
+          const toggle = dropdownEl.querySelector('.js-ps-location-toggle');
+          if (toggle) {
+            toggle.setAttribute('aria-expanded', 'true');
+          }
         });
         dropdownEl.addEventListener('hidden.bs.dropdown', function () {
           if (dropdownEl.classList.contains('ps-filter-bar__item--type')) {
             updateTypeOpBtnLabel(dropdownEl);
+          }
+          if (dropdownEl.classList.contains('ps-filter-bar__item--location')) {
+            hideAllLocationSuggestions();
+            const toggle = dropdownEl.querySelector('.js-ps-location-toggle');
+            if (toggle) {
+              toggle.setAttribute('aria-expanded', 'false');
+            }
           }
         });
       });
@@ -276,36 +296,44 @@
           showMaxLocalitiesWarning();
           return;
         }
-        // Extract tokens based on type for precise backend filtering
         const newTokens = data.map(function (item) {
-          // For arrondissements, use postal_code for precise filtering (e.g., "75015")
           if (item.type === 'arrondissement' && item.postal_code) {
             return item.postal_code;
           }
-          // For departments, use admin_area or the full name
           if (item.type === 'department') {
-            return item.admin_area || item.label;
+            return item.department_code || item.admin_area || item.label;
           }
-          // For cities, use locality
           return item.locality || item.label;
         });
-        
+
         selectedLocalityTokens = normalizeLocationTokens(selectedLocalityTokens.concat(newTokens));
-        selectedLocalityData = selectedLocalityData.concat(data);
-        
-        // Deduplicate by token
-        const uniqueData = [];
-        const seenTokens = {};
+
+        const dataByToken = {};
         selectedLocalityData.forEach(function (item, idx) {
-          if (idx >= selectedLocalityTokens.length) return;
           const token = selectedLocalityTokens[idx];
-          const key = String(token).toLowerCase();
-          if (!seenTokens[key]) {
-            seenTokens[key] = true;
-            uniqueData.push(item);
+          if (token) {
+            dataByToken[String(token).toLowerCase()] = item;
           }
         });
-        selectedLocalityData = uniqueData.slice(0, 10);
+        data.forEach(function (item, idx) {
+          const token = newTokens[idx];
+          if (token) {
+            dataByToken[String(token).toLowerCase()] = item;
+          }
+        });
+        selectedLocalityData = selectedLocalityTokens.map(function (token) {
+          const key = String(token).toLowerCase();
+          if (dataByToken[key]) {
+            return dataByToken[key];
+          }
+          return {
+            label: token,
+            type: 'city',
+            locality: token,
+            admin_area: '',
+            postal_code: '',
+          };
+        }).slice(0, 10);
         selectedLocalityTokens = selectedLocalityTokens.slice(0, 10);
         refreshSelectedLocality();
       }
@@ -326,6 +354,50 @@
         }, 3000);
       }
 
+      function getLocationItemToken(item) {
+        if (typeof item !== 'object' || item === null) {
+          return String(item || '').trim();
+        }
+        if (item.type === 'arrondissement' && item.postal_code) {
+          return item.postal_code;
+        }
+        if (item.type === 'department') {
+          return item.department_code || item.admin_area || item.label || '';
+        }
+        return item.locality || item.label || '';
+      }
+
+      function buildSelectedTokenMap() {
+        const selected = {};
+        selectedLocalityTokens.forEach(function (token) {
+          selected[String(token).toLowerCase()] = true;
+        });
+        return selected;
+      }
+
+      function openLocationDropdown(dropdownEl) {
+        const instance = getLocationDropdown(dropdownEl);
+        if (instance) {
+          instance.show();
+        }
+      }
+
+      function closeLocationDropdown(dropdownEl) {
+        const instance = getLocationDropdown(dropdownEl);
+        if (instance) {
+          instance.hide();
+        }
+      }
+
+      function getLocationDropdown(dropdownEl) {
+        const bs = getBootstrap();
+        const toggle = dropdownEl ? dropdownEl.querySelector('.js-ps-location-toggle') : null;
+        if (!bs?.Dropdown || !toggle || !dropdownEl) {
+          return null;
+        }
+        return bs.Dropdown.getOrCreateInstance(toggle, { autoClose: 'outside' });
+      }
+
       function removeLocationTokenAt(index) {
         if (index < 0 || index >= selectedLocalityTokens.length) {
           return;
@@ -336,9 +408,9 @@
       }
 
       function buildSeoBase() {
-        if (!selectedOp) return langPrefix + '/recherche';
+        if (!selectedOp) return langPrefix + searchPath;
         const opSlug = opSlugs[selectedOp];
-        if (!opSlug) return langPrefix + '/recherche';
+        if (!opSlug) return langPrefix + searchPath;
         if (selectedAsset && assetSlugs[selectedAsset]) {
           return langPrefix + '/' + opSlug + '/' + assetSlugs[selectedAsset] + '/';
         }
@@ -362,6 +434,22 @@
         return selectedLocalityData.length ? selectedLocalityData[0] : null;
       }
 
+      function parseCityPostalPathToken(segment) {
+        const parts = String(segment || '').split('-');
+        if (parts.length < 2) {
+          return '';
+        }
+        const postal = parts[parts.length - 1];
+        if (/^\d{5}$/.test(postal)) {
+          return postal;
+        }
+        return '';
+      }
+
+      function looksLikeDeptSegment(segment) {
+        return /^[a-z0-9].*-\d{2,3}$/i.test(String(segment || ''));
+      }
+
       function extractLocalityFromPath() {
         const path = window.location.pathname || '';
         const withoutLang = (langPrefix && path.indexOf(langPrefix + '/') === 0)
@@ -383,16 +471,31 @@
           return '';
         }
 
-        let localityIndex = 1;
+        let restStart = 1;
         if (segments[1] && assetSlugValues.indexOf(String(segments[1]).toLowerCase()) !== -1) {
-          localityIndex = 2;
+          restStart = 2;
+        }
+        else if (segments.length >= 3 && looksLikeDeptSegment(segments[2])) {
+          restStart = 2;
         }
 
-        if (!segments[localityIndex]) {
+        const localitySegments = segments.slice(restStart);
+        if (!localitySegments.length) {
           return '';
         }
 
-        return segments[localityIndex]
+        const cityPostalToken = parseCityPostalPathToken(localitySegments[localitySegments.length - 1]);
+        if (cityPostalToken) {
+          return cityPostalToken;
+        }
+
+        const last = localitySegments[localitySegments.length - 1];
+        const deptMatch = String(last).match(/^.+-(\d{2,3})$/);
+        if (deptMatch) {
+          return deptMatch[1];
+        }
+
+        return String(last)
           .replace(/-/g, ' ')
           .trim()
           .split(/\s+/)
@@ -402,27 +505,88 @@
           .join(' ');
       }
 
+      function resolveInitialLocalityValue() {
+        if (localityArrayParams.length) {
+          return localityArrayParams.join(',');
+        }
+        const queryLocality = currentParams.get('locality');
+        if (queryLocality) {
+          return queryLocality;
+        }
+        if (settings.initialLocality) {
+          return settings.initialLocality;
+        }
+        return extractLocalityFromPath() || '';
+      }
+
       function setFacetQueryParam(params, key, value) {
         if (value) {
           params.append(key + '[' + value + ']', value);
         }
       }
 
+      function appendLocalityQueryParams(params, tokens, skipFirst) {
+        const list = skipFirst ? tokens.slice(1) : tokens;
+        if (list.length) {
+          params.set('locality', list.join(', '));
+        }
+      }
+
+      function highlightSuggestionLabel(label, query) {
+        const fragment = document.createDocumentFragment();
+        const needle = String(query || '').trim();
+        if (!needle) {
+          fragment.appendChild(document.createTextNode(label));
+          return fragment;
+        }
+
+        const lowerLabel = label.toLowerCase();
+        const lowerNeedle = needle.toLowerCase();
+        const index = lowerLabel.indexOf(lowerNeedle);
+        if (index === -1) {
+          fragment.appendChild(document.createTextNode(label));
+          return fragment;
+        }
+
+        if (index > 0) {
+          fragment.appendChild(document.createTextNode(label.slice(0, index)));
+        }
+
+        const strong = document.createElement('strong');
+        strong.className = 'ps-location-suggest__match';
+        strong.textContent = label.slice(index, index + needle.length);
+        fragment.appendChild(strong);
+
+        if (index + needle.length < label.length) {
+          fragment.appendChild(document.createTextNode(label.slice(index + needle.length)));
+        }
+
+        return fragment;
+      }
+
+      function usesSeoLocalityPath(base) {
+        const normalized = String(base || '').replace(/\/$/, '');
+        const searchBase = String(searchPath || '').replace(/\/$/, '');
+        return Boolean(selectedOp && normalized.indexOf(searchBase) === -1);
+      }
+
       function buildNavigationUrl() {
         let base = buildSeoBase();
         const p = new URLSearchParams();
         const primaryData = getPrimaryLocalityData();
+        const useSeoLocalityPath = usesSeoLocalityPath(base) && primaryData && (primaryData.locality || primaryData.postal_code);
 
         // Flexible (no operation): asset stays as query param on /recherche (BEF array format).
         if (selectedAsset && !selectedOp) {
           setFacetQueryParam(p, 'asset_type', selectedAsset);
         }
 
-        if (primaryData && primaryData.locality) {
+        // SEO locality segments only under /a-louer/… — never append to /recherche (404).
+        if (useSeoLocalityPath) {
           base = base.replace(/\/?$/, '/');
           const deptCode = primaryData.postal_code ? primaryData.postal_code.substring(0, 2) : '';
           const deptSlug = primaryData.admin_area ? toSeoSlug(primaryData.admin_area) : '';
-          const localitySlug = toSeoSlug(primaryData.locality);
+          const localitySlug = toSeoSlug(primaryData.locality || primaryData.label || '');
           const postalSlug = primaryData.postal_code || '';
 
           if (deptSlug && deptCode) {
@@ -436,11 +600,10 @@
             base += '/';
           }
 
-          if (selectedLocalityTokens.length > 1) {
-            p.set('locality', selectedLocality);
-          }
-        } else if (selectedLocality) {
-          p.set('locality', selectedLocality);
+          appendLocalityQueryParams(p, selectedLocalityTokens, true);
+        }
+        else if (selectedLocalityTokens.length) {
+          appendLocalityQueryParams(p, selectedLocalityTokens, false);
         }
 
         const visibility = getFilterVisibility(selectedAsset);
@@ -476,8 +639,9 @@
         const p = new URLSearchParams();
         if (selectedOp) p.set('operation_type', selectedOp);
         if (selectedAsset) p.set('asset_type', selectedAsset);
-        // Locality is passed to count endpoint for approximate filtering.
-        if (selectedLocality) p.set('locality', selectedLocality);
+        if (selectedLocalityTokens.length) {
+          p.set('locality', selectedLocalityTokens.join(', '));
+        }
 
         const visibility = getFilterVisibility(selectedAsset);
         if (visibility.show_surface) {
@@ -648,60 +812,103 @@
         }
       });
 
-      // ── 2. Localisation input (chips + grouped autocomplete) ─────────────
+      // ── 2. Localisation — chips + grouped autocomplete popin (Figma) ───────
       once('ps-locality', '.js-ps-locality-input', context).forEach(function (input) {
+        const dropdownEl = input.closest('.ps-filter-bar__item--location');
         const editor = input.closest('.js-ps-location-editor');
         const chipsContainer = editor ? editor.querySelector('.js-ps-location-chips') : null;
-        const locationWrap = input.closest('.ps-filter-bar__toggle--location');
-        const suggestBox = locationWrap ? locationWrap.querySelector('.js-ps-location-suggest') : null;
+        const popinChipsContainer = dropdownEl ? dropdownEl.querySelector('.js-ps-location-popin-chips') : null;
+        const selectedPanel = dropdownEl ? dropdownEl.querySelector('.js-ps-location-selected-panel') : null;
+        const suggestBox = dropdownEl ? dropdownEl.querySelector('.js-ps-location-suggest') : null;
+        const clearInputBtn = dropdownEl ? dropdownEl.querySelector('.js-ps-location-clear-input') : null;
+        const locationToggle = dropdownEl ? dropdownEl.querySelector('.ps-filter-bar__toggle--location') : null;
         let suggestionButtons = [];
 
-        function updateLocationActiveState() {
-          const filterItem = input.closest('.ps-filter-bar__item--location');
-          if (filterItem) {
-            filterItem.classList.toggle('is-active', !!(selectedLocalityTokens.length || input.value.trim()));
-          }
-        }
-
-        function renderChips() {
-          if (!chipsContainer) {
+        function appendLocationChip(container, displayLabel, index) {
+          if (!container) {
             return;
           }
-          chipsContainer.innerHTML = '';
-          selectedLocalityTokens.forEach(function (token, index) {
-            const chip = document.createElement('span');
-            chip.className = 'ps-location-chip';
+          const chip = document.createElement('span');
+          chip.className = 'ps-location-chip';
 
-            const label = document.createElement('span');
-            label.className = 'ps-location-chip__label';
-            // Use formatted label from data if available, fallback to token
+          const label = document.createElement('span');
+          label.className = 'ps-location-chip__label';
+          label.textContent = displayLabel;
+          label.title = displayLabel;
+
+          const clearBtn = document.createElement('button');
+          clearBtn.type = 'button';
+          clearBtn.className = 'ps-location-chip__clear';
+          clearBtn.setAttribute('aria-label', Drupal.t('Remove @value', { '@value': displayLabel }));
+          clearBtn.textContent = '×';
+          clearBtn.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+          });
+          clearBtn.addEventListener('click', function () {
+            removeLocationTokenAt(index);
+            renderAllChips();
+            updateLocationActiveState();
+            updateClearInputButton();
+            scheduleCountUpdate();
+            fetchLocationSuggestions(input.value.trim());
+            input.focus();
+          });
+
+          chip.appendChild(label);
+          chip.appendChild(clearBtn);
+          container.appendChild(chip);
+        }
+
+        function renderChipList(container) {
+          if (!container) {
+            return;
+          }
+          container.innerHTML = '';
+          selectedLocalityTokens.forEach(function (token, index) {
             const itemData = selectedLocalityData[index];
             const displayLabel = (itemData && itemData.label) ? itemData.label : token;
-            label.textContent = displayLabel;
-
-            const clearBtn = document.createElement('button');
-            clearBtn.type = 'button';
-            clearBtn.className = 'ps-location-chip__clear';
-            clearBtn.setAttribute('aria-label', Drupal.t('Remove @value', { '@value': displayLabel }));
-            clearBtn.textContent = '×';
-            clearBtn.addEventListener('click', function () {
-              removeLocationTokenAt(index);
-              renderChips();
-              updateLocationActiveState();
-              scheduleCountUpdate();
-              input.focus();
-            });
-
-            chip.appendChild(label);
-            chip.appendChild(clearBtn);
-            chipsContainer.appendChild(chip);
+            appendLocationChip(container, displayLabel, index);
           });
         }
 
+        function renderAllChips() {
+          renderChipList(chipsContainer);
+          renderChipList(popinChipsContainer);
+        }
+
+        function updateSelectedPanelVisibility() {
+          if (selectedPanel) {
+            selectedPanel.hidden = selectedLocalityTokens.length === 0;
+          }
+        }
+
+        function updateClearInputButton() {
+          if (!clearInputBtn) {
+            return;
+          }
+          clearInputBtn.hidden = !input.value.trim();
+        }
+
+        function updateLocationActiveState() {
+          if (dropdownEl) {
+            dropdownEl.classList.toggle('has-value', !!(selectedLocalityTokens.length || input.value.trim()));
+          }
+        }
+
+        function isFocusInsideLocation() {
+          if (!dropdownEl) {
+            return false;
+          }
+          const active = document.activeElement;
+          return active instanceof Node && dropdownEl.contains(active);
+        }
+
         function hideSuggestions() {
-          if (!suggestBox) return;
-          suggestBox.hidden = true;
+          if (!suggestBox) {
+            return;
+          }
           suggestBox.innerHTML = '';
+          suggestBox.hidden = true;
           suggestionButtons = [];
           activeSuggestionIndex = -1;
           input.setAttribute('aria-expanded', 'false');
@@ -728,11 +935,13 @@
 
         function selectSuggestion(itemData) {
           addLocationData([itemData]);
-          renderChips();
+          renderAllChips();
+          updateSelectedPanelVisibility();
           input.value = '';
-          hideSuggestions();
+          updateClearInputButton();
           updateLocationActiveState();
           scheduleCountUpdate();
+          fetchLocationSuggestions('');
         }
 
         function commitDraftTokens() {
@@ -741,20 +950,23 @@
             return false;
           }
           addLocationTokens(parseLocationTokens(draft));
-          renderChips();
+          renderAllChips();
+          updateSelectedPanelVisibility();
           input.value = '';
+          updateClearInputButton();
           updateLocationActiveState();
           scheduleCountUpdate();
           return true;
         }
 
         function renderSuggestions(groups) {
-          if (!suggestBox) return;
+          if (!suggestBox) {
+            return;
+          }
 
           suggestBox.innerHTML = '';
           suggestionButtons = [];
-          
-          // Render suggestion groups
+
           if (groups && groups.length) {
             groups.forEach(function (group) {
               const title = document.createElement('div');
@@ -765,59 +977,49 @@
               group.items.forEach(function (itemData) {
                 const isStructured = typeof itemData === 'object' && itemData !== null;
                 const label = isStructured ? itemData.label : String(itemData);
-                const displayText = label;
 
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'ps-location-suggest__item';
                 btn.setAttribute('role', 'option');
                 btn.id = 'ps-location-option-' + suggestionButtons.length;
-                btn.textContent = displayText;
+                btn.appendChild(highlightSuggestionLabel(label, input.value.trim()));
                 btn.addEventListener('mousedown', function (e) {
                   e.preventDefault();
                 });
                 btn.addEventListener('click', function () {
-                  const data = isStructured ? itemData : { label: label, type: 'city', locality: label, admin_area: '', postal_code: '' };
+                  const data = isStructured ? itemData : {
+                    label: label,
+                    type: 'city',
+                    locality: label,
+                    admin_area: '',
+                    postal_code: '',
+                  };
                   selectSuggestion(data);
                 });
                 suggestionButtons.push(btn);
                 suggestBox.appendChild(btn);
               });
             });
-          } else if (!input.value.trim()) {
-            // Show hint when no input and no suggestions
+          }
+          else if (!input.value.trim()) {
             const hint = document.createElement('div');
             hint.className = 'ps-location-suggest__hint';
             hint.textContent = Drupal.t('Start typing a city name or postal code');
             suggestBox.appendChild(hint);
           }
+          else if (input.value.trim().length >= 2) {
+            const hint = document.createElement('div');
+            hint.className = 'ps-location-suggest__hint';
+            hint.textContent = Drupal.t('No location found');
+            suggestBox.appendChild(hint);
+          }
 
-          // Add "Show results" button at the bottom
-          const actionBar = document.createElement('div');
-          actionBar.className = 'ps-location-suggest__actions';
-          
-          const showBtn = document.createElement('button');
-          showBtn.type = 'button';
-          showBtn.className = 'ps-location-suggest__show-btn';
-          showBtn.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-          });
-          showBtn.addEventListener('click', function () {
-            commitDraftTokens();
-            hideSuggestions();
-            window.location.href = buildNavigationUrl();
-          });
-          
-          // Button text with count
-          const countSpan = document.createElement('span');
-          countSpan.className = 'ps-location-suggest__count';
-          countSpan.textContent = currentCount !== null ? String(currentCount) : '…';
-          showBtn.appendChild(document.createTextNode(Drupal.t('Show ')));
-          showBtn.appendChild(countSpan);
-          showBtn.appendChild(document.createTextNode(' ' + Drupal.t('results')));
-          
-          actionBar.appendChild(showBtn);
-          suggestBox.appendChild(actionBar);
+          if (suggestBox.childElementCount === 0) {
+            suggestBox.hidden = true;
+            input.setAttribute('aria-expanded', 'false');
+            return;
+          }
 
           suggestBox.hidden = false;
           input.setAttribute('aria-expanded', 'true');
@@ -830,15 +1032,14 @@
           if (!suggestBox) {
             return;
           }
-          
-          // Show box even without input (on focus)
+
           if (partialToken.length === 0) {
             renderSuggestions([]);
             return;
           }
-          
-          // Require at least 2 characters for actual search
+
           if (partialToken.length < 2) {
+            hideSuggestions();
             return;
           }
 
@@ -848,19 +1049,15 @@
           })
             .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
             .then(function (data) {
-              const selected = {};
-              selectedLocalityTokens.forEach(function (token) {
-                selected[token.toLowerCase()] = true;
-              });
-
+              const selected = buildSelectedTokenMap();
               const groupsRaw = Array.isArray(data.groups) ? data.groups : [];
               const groups = groupsRaw
                 .map(function (group) {
                   const label = String(group.label || '').trim();
                   const items = Array.isArray(group.items) ? group.items : [];
                   const filteredItems = items.filter(function (item) {
-                    const key = String(item).toLowerCase();
-                    return key && !selected[key];
+                    const token = getLocationItemToken(item).toLowerCase();
+                    return token && !selected[token];
                   });
                   return {
                     label: label,
@@ -889,21 +1086,6 @@
           setActiveSuggestion(wrapped);
         }
 
-        syncSelectedLocality(currentParams.get('locality') || extractLocalityFromPath() || '');
-        renderChips();
-        input.value = '';
-        updateLocationActiveState();
-
-        // Enrich locality data from backend if missing (page reload/history).
-        if (selectedLocalityTokens.length > 0 && selectedLocalityData.length > 0) {
-          const needsEnrichment = selectedLocalityData.some(function (item) {
-            return !item.postal_code || !item.admin_area;
-          });
-          if (needsEnrichment) {
-            enrichLocalityData();
-          }
-        }
-
         function enrichLocalityData() {
           const params = new URLSearchParams();
           selectedLocalityTokens.forEach(function (token) {
@@ -917,13 +1099,76 @@
             .then(function (response) {
               if (Array.isArray(response.data) && response.data.length > 0) {
                 selectedLocalityData = response.data;
+                renderAllChips();
+                updateSelectedPanelVisibility();
               }
             })
-            .catch(function () { /* Silent fail, keep minimal data */ });
+            .catch(function () { /* Keep minimal chip labels on failure. */ });
         }
 
+        if (localityArrayParams.length) {
+          syncSelectedLocality(localityArrayParams.join(','));
+        }
+        else {
+          syncSelectedLocality(resolveInitialLocalityValue());
+        }
+        renderAllChips();
+        updateSelectedPanelVisibility();
+        input.value = '';
+        updateClearInputButton();
+        updateLocationActiveState();
+
+        if (selectedLocalityTokens.length > 0) {
+          enrichLocalityData();
+        }
+
+        if (clearInputBtn) {
+          clearInputBtn.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+          });
+          clearInputBtn.addEventListener('click', function () {
+            input.value = '';
+            updateClearInputButton();
+            updateLocationActiveState();
+            hideSuggestions();
+            input.focus();
+            openLocationDropdown(dropdownEl);
+          });
+        }
+
+        const locationPopin = dropdownEl ? dropdownEl.querySelector('.ps-filter-popin--location') : null;
+        if (locationPopin) {
+          locationPopin.addEventListener('mousedown', function (e) {
+            if (e.target !== input) {
+              e.preventDefault();
+            }
+          });
+        }
+
+        if (locationToggle) {
+          locationToggle.addEventListener('click', function (e) {
+            if (e.target === input || e.target === clearInputBtn || input.contains(e.target)) {
+              return;
+            }
+            e.preventDefault();
+            input.focus();
+            openLocationDropdown(dropdownEl);
+          });
+        }
+
+        input.addEventListener('mousedown', function (e) {
+          e.stopPropagation();
+        });
+
+        input.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openLocationDropdown(dropdownEl);
+        });
+
         input.addEventListener('input', function () {
+          updateClearInputButton();
           updateLocationActiveState();
+          openLocationDropdown(dropdownEl);
           const token = input.value.trim();
           clearTimeout(locationSuggestDebounce);
           locationSuggestDebounce = setTimeout(function () {
@@ -932,65 +1177,82 @@
         });
 
         input.addEventListener('focus', function () {
-          const token = input.value.trim();
-          // Always show suggest box on focus (with button)
-          fetchLocationSuggestions(token);
+          openLocationDropdown(dropdownEl);
+          fetchLocationSuggestions(input.value.trim());
         });
 
         input.addEventListener('blur', function () {
           setTimeout(function () {
+            if (isFocusInsideLocation()) {
+              return;
+            }
             hideSuggestions();
             commitDraftTokens();
-          }, 200);
+            closeLocationDropdown(dropdownEl);
+          }, 150);
         });
 
         input.addEventListener('keydown', function (e) {
           if (e.key === 'ArrowDown') {
-            if (!suggestBox.hidden) {
+            if (suggestBox && !suggestBox.hidden) {
               e.preventDefault();
               moveSuggestion(1);
             }
             return;
           }
           if (e.key === 'ArrowUp') {
-            if (!suggestBox.hidden) {
+            if (suggestBox && !suggestBox.hidden) {
               e.preventDefault();
               moveSuggestion(-1);
             }
             return;
           }
           if (e.key === 'Enter') {
-            if (!suggestBox.hidden && activeSuggestionIndex >= 0 && suggestionButtons[activeSuggestionIndex]) {
+            if (suggestBox && !suggestBox.hidden && activeSuggestionIndex >= 0 && suggestionButtons[activeSuggestionIndex]) {
               e.preventDefault();
               suggestionButtons[activeSuggestionIndex].click();
               return;
             }
             if (commitDraftTokens()) {
               e.preventDefault();
-              hideSuggestions();
               return;
             }
             e.preventDefault();
-            hideSuggestions();
             navigate();
             return;
           }
           if (e.key === ',' || e.key === ';') {
             e.preventDefault();
             commitDraftTokens();
-            hideSuggestions();
+            fetchLocationSuggestions('');
             return;
           }
           if (e.key === 'Backspace' && input.value === '' && selectedLocalityTokens.length) {
             removeLocationTokenAt(selectedLocalityTokens.length - 1);
-            renderChips();
+            renderAllChips();
+            updateSelectedPanelVisibility();
             updateLocationActiveState();
             scheduleCountUpdate();
             return;
           }
           if (e.key === 'Escape') {
             hideSuggestions();
+            closeLocationDropdown(dropdownEl);
+            input.blur();
           }
+        });
+      });
+
+      once('ps-location-apply', '.js-ps-location-apply', context).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
+            const draft = input.value.trim();
+            if (draft) {
+              addLocationTokens(parseLocationTokens(draft));
+              input.value = '';
+            }
+          });
+          navigate();
         });
       });
 
@@ -1193,13 +1455,7 @@
       updateBudgetHeading();
       syncMoreInputsFromState();
       updateCapacityLabel();
-
-      // Location input closes open dropdowns on focus.
-      once('ps-locality-focus', '.js-ps-locality-input', context).forEach(function (input) {
-        input.addEventListener('focus', function () {
-          closeAllDropdowns();
-        });
-      });
+      scheduleCountUpdate();
     },
   };
 

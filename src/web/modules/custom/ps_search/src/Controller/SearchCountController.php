@@ -6,6 +6,7 @@ namespace Drupal\ps_search\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
+use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,6 +41,7 @@ final class SearchCountController extends ControllerBase {
 
   public function __construct(
     private readonly Connection $database,
+    private readonly LocationSearchFilter $locationSearchFilter,
   ) {}
 
   /**
@@ -48,6 +50,7 @@ final class SearchCountController extends ControllerBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('database'),
+      $container->get('ps_search.location_filter'),
     );
   }
 
@@ -57,7 +60,6 @@ final class SearchCountController extends ControllerBase {
   public function count(Request $request): JsonResponse {
     $operationType = $request->query->get('operation_type');
     $assetType = $request->query->get('asset_type');
-    $localityRaw = $request->query->get('locality');
     $surfaceMin = $request->query->get('surface_min');
     $surfaceMax = $request->query->get('surface_max');
     $budgetMin = $request->query->get('budget_min');
@@ -68,7 +70,7 @@ final class SearchCountController extends ControllerBase {
     // Sanitize all inputs.
     $operationType = $this->sanitizeCode($operationType);
     $assetType = $this->sanitizeCode($assetType);
-    $localityTokens = $this->extractLocationTokens($localityRaw);
+    $localityTokens = $this->locationSearchFilter->extractTokensFromRequest($request);
     $surfaceMin = $this->sanitizePositiveNumber($surfaceMin, self::MAX_SURFACE);
     $surfaceMax = $this->sanitizePositiveNumber($surfaceMax, self::MAX_SURFACE);
     $budgetMin = $this->sanitizePositiveNumber($budgetMin, self::MAX_BUDGET);
@@ -90,15 +92,8 @@ final class SearchCountController extends ControllerBase {
     if ($assetType !== NULL) {
       $query->addCondition('field_asset_type', $assetType);
     }
-    // Location tokens: OR match across city/postal code/department.
     if ($localityTokens !== []) {
-      $locationGroup = $query->createConditionGroup('OR');
-      foreach ($localityTokens as $token) {
-        $locationGroup->addCondition('field_address_locality', $token);
-        $locationGroup->addCondition('field_address_postal_code', $token);
-        $locationGroup->addCondition('field_address_admin_area', $token);
-      }
-      $query->addConditionGroup($locationGroup);
+      $this->locationSearchFilter->applyToQuery($query, $localityTokens);
     }
     if ($surfaceMin !== NULL) {
       $query->addCondition('surface_total', $surfaceMin, '>=');
@@ -400,36 +395,8 @@ final class SearchCountController extends ControllerBase {
     }
 
     $data = [];
-    foreach ($localities as $locality) {
-      $select = $this->database->select('node__field_address', 'a');
-      $select->fields('a', ['field_address_locality', 'field_address_administrative_area', 'field_address_postal_code']);
-      $select->condition('a.field_address_locality', $locality, '=');
-      $select->range(0, 1);
-
-      $row = $select->execute()->fetchAssoc();
-      if ($row !== FALSE) {
-        $postalCode = $this->sanitizeText($row['field_address_postal_code']) ?? '';
-        $adminArea = $this->sanitizeText($row['field_address_administrative_area']) ?? '';
-        $deptCode = $postalCode ? substr($postalCode, 0, 2) : '';
-        $deptName = $adminArea ?: ($deptCode ? $this->getDepartmentName($deptCode) : '');
-
-        $data[] = [
-          'label' => $locality,
-          'type' => 'city',
-          'locality' => $locality,
-          'admin_area' => $deptName,
-          'postal_code' => $postalCode,
-        ];
-      } else {
-        // Fallback for unknown locality.
-        $data[] = [
-          'label' => $locality,
-          'type' => 'city',
-          'locality' => $locality,
-          'admin_area' => '',
-          'postal_code' => '',
-        ];
-      }
+    foreach ($localities as $token) {
+      $data[] = $this->locationSearchFilter->resolveTokenMetadata($token);
     }
 
     $response = new JsonResponse(['data' => $data]);

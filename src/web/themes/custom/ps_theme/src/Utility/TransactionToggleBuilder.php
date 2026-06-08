@@ -38,13 +38,14 @@ final class TransactionToggleBuilder {
       ['code' => 'VEN', 'label' => $this->dictionaryLabel('operation_type', 'VEN') ?: (string) $this->t('Buy')],
     ];
 
+    $searchPath = \Drupal::service('ps_search.search_path_resolver')->getPublicPath();
     $items = [];
     foreach ($definitions as $definition) {
       $query = $queryBase;
       $query['operation_type'] = $definition['code'];
       $items[] = [
         'label' => $definition['label'],
-        'url' => Url::fromUserInput('/recherche', ['query' => $query])->toString(),
+        'url' => Url::fromUserInput($searchPath, ['query' => $query])->toString(),
         'active' => $current === $definition['code'],
         'code' => $definition['code'],
       ];

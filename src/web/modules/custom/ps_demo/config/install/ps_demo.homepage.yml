@@ -52,6 +52,6 @@ editorial:
       en: 'Discover our solutions'
       fr: 'Découvrir nos solutions'
     paths:
-      en: /recherche
-      fr: /recherche
+      en: /find-property
+      fr: /recherche-immobiliere
   image: assets/images/hero/hero-profile.png

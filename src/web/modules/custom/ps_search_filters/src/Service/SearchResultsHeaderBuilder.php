@@ -9,7 +9,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\views\ViewExecutable;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -25,6 +27,7 @@ final class SearchResultsHeaderBuilder {
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RequestStack $requestStack,
+    private readonly LocationSearchFilter $locationSearchFilter,
   ) {}
 
   /**
@@ -38,7 +41,7 @@ final class SearchResultsHeaderBuilder {
     $query = $request?->query;
 
     [$activeOp, $activeAsset] = $this->resolveActiveFilters();
-    $locality = $this->resolveLocality($query?->get('locality'));
+    $locality = $this->resolveLocalityLabel($request);
 
     $assetLabel = $activeAsset ? $this->dictionaryLabel('asset_type', $activeAsset) : NULL;
     $opPhrase = $activeOp ? $this->operationPhrase($activeOp) : NULL;
@@ -125,9 +128,28 @@ final class SearchResultsHeaderBuilder {
   }
 
   /**
+   * Resolves a human locality label from query tokens or SEO path.
+   */
+  private function resolveLocalityLabel(?Request $request): ?string {
+    if ($request !== NULL) {
+      $tokens = $this->locationSearchFilter->extractTokensFromRequest($request);
+      if ($tokens !== []) {
+        $meta = $this->locationSearchFilter->resolveTokenMetadata($tokens[0]);
+        $label = trim((string) ($meta['label'] ?? ''));
+        if ($label !== '') {
+          return $label;
+        }
+      }
+    }
+
+    $queryLocality = $this->firstQueryValue($request?->query->all()['locality'] ?? NULL);
+    return $this->resolveLocality($queryLocality);
+  }
+
+  /**
    * Resolves the locality label from query or SEO path.
    */
-  private function resolveLocality(mixed $queryLocality): ?string {
+  private function resolveLocality(?string $queryLocality): ?string {
     if (is_string($queryLocality) && $queryLocality !== '') {
       $parts = array_map('trim', explode(',', $queryLocality));
       return $parts[0] !== '' ? $parts[0] : NULL;

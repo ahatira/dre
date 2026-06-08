@@ -1,6 +1,7 @@
 operation_types:
   LOC: a-louer
   VEN: a-vendre
+search_path: recherche-immobiliere
 asset_types:
   BUR: bureau
   ENT: entrepot

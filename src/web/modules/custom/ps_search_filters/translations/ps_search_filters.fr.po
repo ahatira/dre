@@ -188,5 +188,14 @@ msgstr "Retirer @value"
 msgid "Start typing a city name or postal code"
 msgstr "Saisissez une ville ou un code postal"
 
+msgid "No location found"
+msgstr "Aucune localisation trouvée"
+
+msgid "Clear location search"
+msgstr "Effacer la recherche de localisation"
+
+msgid "Location"
+msgstr "Localisation"
+
 msgid "Show "
 msgstr "Afficher "

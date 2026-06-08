@@ -11,16 +11,17 @@ use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
 use Drupal\Core\PathProcessor\OutboundPathProcessorInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Converts SEO-friendly URLs to internal search paths and vice versa.
  *
  * Inbound (priority 290, after language processor at 300):
- *   /a-louer/bureau/paris/ -> /recherche + query params
+ *   /a-louer/bureau/paris/ -> /find-property + query params
  *
  * Outbound (priority 110, before language processor at 100):
- *   /recherche + query['operation_type'=>'LOC',...] -> /a-louer/bureau/paris/
+ *   /find-property + query['operation_type'=>'LOC',...] -> /a-louer/bureau/paris/
  *
  * Slugs are configurable via ps_search.seo_url_mappings config and
  * translatable per language via the Config Translation module.
@@ -30,8 +31,6 @@ use Symfony\Component\HttpFoundation\Request;
  * /fr/a-louer is correctly resolved for admin users whose interface language is EN.
  */
 final class SearchSeoPathProcessor implements InboundPathProcessorInterface, OutboundPathProcessorInterface {
-
-  private const SEARCH_PATH = '/recherche';
 
   /**
    * Per-language slug lookup tables, keyed by langcode.
@@ -44,6 +43,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     private readonly ConfigFactoryInterface $configFactory,
     private readonly LanguageManagerInterface $languageManager,
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
+    private readonly SearchPathResolver $searchPathResolver,
   ) {}
 
   /**
@@ -108,7 +108,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     // from issuing a 301 because the public URL does not match the internal path.
     $request->attributes->set('_disable_route_normalizer', TRUE);
 
-    return self::SEARCH_PATH;
+    return $this->searchPathResolver->getInternalPath();
   }
 
   /**
@@ -117,7 +117,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
    * Converts /recherche + query params -> /a-louer[/asset][/city]/
    */
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
-    if ($path !== self::SEARCH_PATH) {
+    if ($path !== $this->searchPathResolver->getInternalPath()) {
       return $path;
     }
 

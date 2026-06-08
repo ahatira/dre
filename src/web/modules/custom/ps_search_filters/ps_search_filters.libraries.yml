@@ -1,5 +1,5 @@
 filter_bar:
-  version: 1.0.15
+  version: 1.0.24
   js:
     js/search-filter-bar.js: {}
   css:

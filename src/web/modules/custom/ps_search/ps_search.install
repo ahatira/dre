@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_search.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Migrate search page path from /recherche to /find-property.
+ */
+function ps_search_update_11001(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_search.seo_url_mappings');
+  if ($config->get('search_path') === NULL) {
+    $config->set('search_path', 'find-property')->save(TRUE);
+  }
+
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if ($view instanceof \Drupal\views\Entity\View) {
+    $display = &$view->getDisplay('page_list');
+    if (($display['display_options']['path'] ?? '') === 'recherche') {
+      $display['display_options']['path'] = 'find-property';
+      $display['display_options']['display_description'] = 'Public search page at /find-property';
+      $view->save();
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Import translated search_path slugs for enabled languages.
+ */
+function ps_search_update_11002(): void {
+  $defaults = [
+    'fr' => 'recherche-immobiliere',
+    'de' => 'immobilie-suchen',
+    'nl' => 'vastgoed-zoeken',
+    'es' => 'buscar-inmueble',
+    'it' => 'cerca-immobili',
+    'lb' => 'immobilie-sichen',
+    'pl' => 'szukaj-nieruchomosci',
+  ];
+
+  foreach (\Drupal::languageManager()->getLanguages() as $langcode => $_language) {
+    if ($langcode === 'en' || !isset($defaults[$langcode])) {
+      continue;
+    }
+    $override = \Drupal::languageManager()->getLanguageConfigOverride($langcode, 'ps_search.seo_url_mappings');
+    if ($override->get('search_path') === NULL) {
+      $override->set('search_path', $defaults[$langcode])->save();
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Update FR search slug: recherche → recherche-immobiliere.
+ */
+function ps_search_update_11003(): void {
+  $override = \Drupal::languageManager()->getLanguageConfigOverride('fr', 'ps_search.seo_url_mappings');
+  $current = (string) ($override->get('search_path') ?? '');
+  if ($current === '' || $current === 'recherche') {
+    $override->set('search_path', 'recherche-immobiliere')->save();
+  }
+
+  drupal_flush_all_caches();
+}

@@ -2,6 +2,9 @@ ps_search.seo_url_mappings:
   type: config_object
   label: 'PS Search SEO URL Mappings'
   mapping:
+    search_path:
+      type: label
+      label: 'Search page URL slug (base config = internal Views route; translations = public slug per language)'
     operation_types:
       type: mapping
       label: 'Operation type slugs'

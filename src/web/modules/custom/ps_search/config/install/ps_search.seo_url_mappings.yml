@@ -1,3 +1,4 @@
+search_path: find-property
 operation_types:
   LOC: for-rent
   VEN: for-sale
