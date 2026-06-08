@@ -4,3 +4,10 @@ ps_search.seo_url_mappings_form:
   route_name: ps_search.seo_url_mappings_form
   parent: ps_core.config
   weight: 10
+
+ps_search.feature_filter_sync_settings:
+  title: 'Feature search filters'
+  description: 'Configure per-feature filter combine mode and index sync.'
+  route_name: ps_search.feature_filter_sync_settings
+  parent: ps_core.config
+  weight: 11

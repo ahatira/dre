@@ -6,6 +6,14 @@ ps_search.seo_url_mappings_form:
   requirements:
     _permission: 'administer site configuration'
 
+ps_search.feature_filter_sync_settings:
+  path: '/admin/ps/config/search/feature-filters'
+  defaults:
+    _form: '\Drupal\ps_search\Form\FeatureFilterSyncSettingsForm'
+    _title: 'Feature search filters'
+  requirements:
+    _permission: 'administer site configuration'
+
 # Legacy routes - Deprecated in 2.0.0, use ps_search_filters and ps_location_autocomplete instead
 
 ps_search.count:

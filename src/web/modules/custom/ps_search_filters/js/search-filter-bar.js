@@ -33,7 +33,19 @@
       const budgetFilterConfig = settings.budgetFilterConfig || {};
       const budgetFilterByAsset = settings.budgetFilterByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
+      const moreCriteriaGroupUrl = settings.moreCriteriaGroupUrl || '/ps-search-filters/more-criteria';
       const currentParams = new URLSearchParams(window.location.search);
+      const loadedMoreGroups = {};
+
+      function mountMoreOffcanvas(offcanvasEl) {
+        if (offcanvasEl && offcanvasEl.parentElement !== document.body) {
+          document.body.appendChild(offcanvasEl);
+        }
+      }
+
+      once('ps-more-offcanvas-mount', '#ps-more-offcanvas', context).forEach(function (offcanvasEl) {
+        mountMoreOffcanvas(offcanvasEl);
+      });
 
       function getFilterVisibility(assetCode) {
         const key = assetCode || '';
@@ -57,29 +69,57 @@
       let budgetMax = currentParams.get('budget[max]') || '';
       let capacityMin = currentParams.get('capacity[min]') || '';
       let capacityMax = currentParams.get('capacity[max]') || '';
-      let ceilingMin = currentParams.get('ceiling_height[min]') || '';
-      let ceilingMax = currentParams.get('ceiling_height[max]') || '';
-      let moreTransport = currentParams.get('nearby_transport') || '';
-      let moreReference = currentParams.get('reference') || '';
-      let moreBooleans = {};
-      let moreCheckboxes = {};
+      let moreFilterSchema = settings.moreFilterSchema || [];
+      let moreFilters = {};
+      const localityArrayParams = currentParams.getAll('locality[]');
       let countDebounce = null;
       let locationSuggestDebounce = null;
       let activeSuggestionIndex = -1;
       let currentCount = null;
 
-      currentParams.forEach(function (value, key) {
-        if (key === 'feature_accessibility' || key === 'has_immersive_tour' || key === 'has_video') {
-          moreBooleans[key] = value === '1';
-        }
-      });
-      const localityArrayParams = currentParams.getAll('locality[]');
-      ['feature_equipments', 'feature_services', 'feature_building_type'].forEach(function (param) {
-        const values = currentParams.getAll(param);
-        if (values.length) {
-          moreCheckboxes[param] = values;
-        }
-      });
+      function initMoreFiltersFromUrl() {
+        moreFilterSchema.forEach(function (schema) {
+          const param = schema.param;
+          const widget = schema.widget;
+          if (!param) {
+            return;
+          }
+          if (widget === 'checkbox') {
+            if (currentParams.get(param) === '1') {
+              moreFilters[param] = true;
+            }
+            return;
+          }
+          if (widget === 'yes_no') {
+            const yn = currentParams.get(param);
+            if (yn === '1' || yn === '0') {
+              moreFilters[param] = yn;
+            }
+            return;
+          }
+          if (widget === 'tags') {
+            const tags = currentParams.getAll(param);
+            if (tags.length) {
+              moreFilters[param] = tags.slice();
+            }
+            return;
+          }
+          if (widget === 'range') {
+            const min = currentParams.get(param + '[min]') || currentParams.get(param + '_min') || '';
+            const max = currentParams.get(param + '[max]') || currentParams.get(param + '_max') || '';
+            if (min || max) {
+              moreFilters[param] = { min: min, max: max };
+            }
+            return;
+          }
+          const value = currentParams.get(param);
+          if (value) {
+            moreFilters[param] = value;
+          }
+        });
+      }
+
+      initMoreFiltersFromUrl();
 
       function updateAssetMode() {
         const visibility = getFilterVisibility(selectedAsset);
@@ -165,19 +205,38 @@
         if (filterItem) filterItem.classList.toggle('is-active', !!(budgetMin || budgetMax));
       }
 
+      function getMoreFilterWidget(param) {
+        const schema = moreFilterSchema.find(function (entry) {
+          return entry.param === param;
+        });
+        return schema ? schema.widget : 'text';
+      }
+
       function countMoreActive() {
         let count = 0;
-        Object.keys(moreBooleans).forEach(function (key) {
-          if (moreBooleans[key]) {
+        Object.keys(moreFilters).forEach(function (param) {
+          const widget = getMoreFilterWidget(param);
+          const value = moreFilters[param];
+          if (widget === 'checkbox' && value) {
+            count++;
+            return;
+          }
+          if (widget === 'yes_no' && (value === '1' || value === '0')) {
+            count++;
+            return;
+          }
+          if (widget === 'tags' && Array.isArray(value) && value.length) {
+            count += value.length;
+            return;
+          }
+          if (widget === 'range' && value && (value.min || value.max)) {
+            count++;
+            return;
+          }
+          if ((widget === 'text' || widget === 'date') && String(value || '').trim()) {
             count++;
           }
         });
-        Object.keys(moreCheckboxes).forEach(function (key) {
-          count += (moreCheckboxes[key] || []).length;
-        });
-        if (moreTransport.trim()) count++;
-        if (moreReference.trim()) count++;
-        if (ceilingMin || ceilingMax) count++;
         return count;
       }
 
@@ -194,24 +253,192 @@
       }
 
       function syncMoreInputsFromState() {
-        document.querySelectorAll('.js-ps-more-boolean').forEach(function (input) {
+        document.querySelectorAll('.js-ps-more-filter').forEach(function (input) {
           const param = input.dataset.param;
-          input.checked = !!moreBooleans[param];
+          const widget = input.dataset.widget || getMoreFilterWidget(param);
+          const state = moreFilters[param];
+
+          if (widget === 'checkbox') {
+            input.checked = !!state;
+            return;
+          }
+          if (widget === 'yes_no') {
+            input.value = state || '';
+            return;
+          }
+          if (widget === 'tags') {
+            const values = Array.isArray(state) ? state : [];
+            input.checked = values.indexOf(input.value) !== -1;
+            return;
+          }
+          if (widget === 'range') {
+            const range = state || { min: '', max: '' };
+            if (input.dataset.bound === 'min') {
+              input.value = range.min || '';
+            }
+            else if (input.dataset.bound === 'max') {
+              input.value = range.max || '';
+            }
+            return;
+          }
+          input.value = state || '';
         });
-        document.querySelectorAll('.js-ps-more-checkbox').forEach(function (input) {
-          const param = input.dataset.param;
-          const values = moreCheckboxes[param] || [];
-          input.checked = values.indexOf(input.value) !== -1;
-        });
-        const transport = document.querySelector('.js-ps-more-transport');
-        if (transport) transport.value = moreTransport;
-        const reference = document.querySelector('.js-ps-more-reference');
-        if (reference) reference.value = moreReference;
-        const cMin = document.querySelector('.js-ps-ceiling-min');
-        if (cMin) cMin.value = ceilingMin;
-        const cMax = document.querySelector('.js-ps-ceiling-max');
-        if (cMax) cMax.value = ceilingMax;
         updateMoreLabel();
+      }
+
+      function appendMoreFiltersToParams(p, forCount) {
+        Object.keys(moreFilters).forEach(function (param) {
+          const widget = getMoreFilterWidget(param);
+          const value = moreFilters[param];
+          if (widget === 'checkbox') {
+            if (value) {
+              p.set(param, '1');
+            }
+            return;
+          }
+          if (widget === 'yes_no') {
+            if (value === '1' || value === '0') {
+              p.set(param, value);
+            }
+            return;
+          }
+          if (widget === 'tags' && Array.isArray(value)) {
+            value.forEach(function (tag) {
+              p.append(param, tag);
+            });
+            return;
+          }
+          if (widget === 'range' && value) {
+            const minKey = forCount ? param + '_min' : param + '[min]';
+            const maxKey = forCount ? param + '_max' : param + '[max]';
+            if (value.min) {
+              p.set(minKey, value.min);
+            }
+            if (value.max) {
+              p.set(maxKey, value.max);
+            }
+            return;
+          }
+          if ((widget === 'text' || widget === 'date') && String(value || '').trim()) {
+            p.set(param, value);
+          }
+        });
+      }
+
+      function handleMoreFilterChange(input) {
+        const param = input.dataset.param;
+        const widget = input.dataset.widget || getMoreFilterWidget(param);
+        if (widget === 'checkbox') {
+          if (input.checked) {
+            moreFilters[param] = true;
+          }
+          else {
+            delete moreFilters[param];
+          }
+        }
+        else if (widget === 'yes_no') {
+          if (input.value === '') {
+            delete moreFilters[param];
+          }
+          else {
+            moreFilters[param] = input.value;
+          }
+        }
+        else if (widget === 'tags') {
+          const list = Array.isArray(moreFilters[param]) ? moreFilters[param].slice() : [];
+          if (input.checked) {
+            if (list.indexOf(input.value) === -1) {
+              list.push(input.value);
+            }
+          }
+          else {
+            const idx = list.indexOf(input.value);
+            if (idx !== -1) {
+              list.splice(idx, 1);
+            }
+          }
+          if (list.length) {
+            moreFilters[param] = list;
+          }
+          else {
+            delete moreFilters[param];
+          }
+        }
+        updateMoreLabel();
+        scheduleCountUpdate();
+      }
+
+      function handleMoreFilterInputEvent(input) {
+        const param = input.dataset.param;
+        const widget = input.dataset.widget || getMoreFilterWidget(param);
+        if (widget === 'range') {
+          const range = moreFilters[param] || { min: '', max: '' };
+          if (input.dataset.bound === 'min') {
+            range.min = input.value;
+          }
+          else if (input.dataset.bound === 'max') {
+            range.max = input.value;
+          }
+          if (range.min || range.max) {
+            moreFilters[param] = range;
+          }
+          else {
+            delete moreFilters[param];
+          }
+        }
+        else if (widget === 'text' || widget === 'date') {
+          if (String(input.value || '').trim()) {
+            moreFilters[param] = input.value;
+          }
+          else {
+            delete moreFilters[param];
+          }
+        }
+        else {
+          return;
+        }
+        updateMoreLabel();
+        scheduleCountUpdate();
+      }
+
+      function loadMoreCriteriaGroup(groupId, panel) {
+        if (!groupId || !panel || panel.dataset.loaded === '1' || loadedMoreGroups[groupId]) {
+          syncMoreInputsFromState();
+          return Promise.resolve();
+        }
+        const content = panel.querySelector('.js-ps-more-group-content');
+        if (!content) {
+          return Promise.resolve();
+        }
+        const loading = content.querySelector('.ps-more-group__loading');
+        if (loading) {
+          loading.hidden = false;
+        }
+        let url = moreCriteriaGroupUrl + '/' + encodeURIComponent(groupId);
+        if (selectedAsset) {
+          url += '?asset_type=' + encodeURIComponent(selectedAsset);
+        }
+        return fetch(url, {
+          headers: { Accept: 'application/json' },
+          credentials: 'same-origin',
+        })
+          .then(function (response) {
+            return response.ok ? response.json() : Promise.reject();
+          })
+          .then(function (data) {
+            if (loading) {
+              loading.hidden = true;
+            }
+            content.insertAdjacentHTML('beforeend', data.html || '');
+            panel.dataset.loaded = '1';
+            loadedMoreGroups[groupId] = true;
+            syncMoreInputsFromState();
+          })
+          .catch(function () {
+            if (loading) {
+              loading.hidden = true;
+            }
+          });
       }
 
       // ── Bootstrap dropdown / offcanvas integration ───────────────────────
@@ -232,6 +459,53 @@
         });
       }
 
+      function getFilterBarBackdrop() {
+        return document.querySelector('.js-ps-filter-bar-backdrop');
+      }
+
+      function mountFilterBarBackdrop(backdrop) {
+        const view = document.querySelector('.ps-search-view');
+        if (view && backdrop.parentElement !== view) {
+          view.appendChild(backdrop);
+        }
+      }
+
+      function updateFilterBackdropGeometry() {
+        const backdrop = getFilterBarBackdrop();
+        const view = document.querySelector('.ps-search-view');
+        const filterBar = document.querySelector('.ps-search-view__filter-bar');
+        if (!backdrop || !view || !filterBar) {
+          return;
+        }
+        const viewRect = view.getBoundingClientRect();
+        const barRect = filterBar.getBoundingClientRect();
+        backdrop.style.top = Math.max(0, barRect.bottom - viewRect.top) + 'px';
+      }
+
+      function isAnyFilterDropdownOpen() {
+        return !!document.querySelector('.ps-filter-bar .dropdown-menu.show');
+      }
+
+      function isMoreOffcanvasOpen() {
+        const offcanvasEl = document.getElementById('ps-more-offcanvas');
+        return !!(offcanvasEl && offcanvasEl.classList.contains('show'));
+      }
+
+      function syncFilterBarBackdrop() {
+        const backdrop = getFilterBarBackdrop();
+        if (!backdrop) {
+          return;
+        }
+        mountFilterBarBackdrop(backdrop);
+        const shouldShow = isAnyFilterDropdownOpen() && !isMoreOffcanvasOpen();
+        if (shouldShow) {
+          updateFilterBackdropGeometry();
+        }
+        backdrop.classList.toggle('is-visible', shouldShow);
+        backdrop.hidden = !shouldShow;
+        backdrop.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+      }
+
       function hideAllLocationSuggestions() {
         document.querySelectorAll('.js-ps-location-suggest').forEach(function (box) {
           box.hidden = true;
@@ -250,6 +524,7 @@
           fetchCount();
         });
         dropdownEl.addEventListener('shown.bs.dropdown', function () {
+          syncFilterBarBackdrop();
           if (!dropdownEl.classList.contains('ps-filter-bar__item--location')) {
             return;
           }
@@ -259,6 +534,7 @@
           }
         });
         dropdownEl.addEventListener('hidden.bs.dropdown', function () {
+          syncFilterBarBackdrop();
           if (dropdownEl.classList.contains('ps-filter-bar__item--type')) {
             updateTypeOpBtnLabel(dropdownEl);
           }
@@ -272,11 +548,33 @@
         });
       });
 
+      once('ps-filter-bar-backdrop', '.js-ps-filter-bar-backdrop', context).forEach(function (backdrop) {
+        mountFilterBarBackdrop(backdrop);
+        backdrop.addEventListener('click', function () {
+          closeAllDropdowns();
+          hideAllLocationSuggestions();
+          syncFilterBarBackdrop();
+        });
+      });
+
+      once('ps-filter-backdrop-resize', 'html', context).forEach(function () {
+        window.addEventListener('resize', function () {
+          const activeBackdrop = getFilterBarBackdrop();
+          if (activeBackdrop && activeBackdrop.classList.contains('is-visible')) {
+            updateFilterBackdropGeometry();
+          }
+        });
+      });
+
       once('ps-bs-offcanvas-events', '#ps-more-offcanvas', context).forEach(function (offcanvasEl) {
         offcanvasEl.addEventListener('show.bs.offcanvas', function () {
           closeAllDropdowns();
           hideAllLocationSuggestions();
+          syncFilterBarBackdrop();
           fetchCount();
+        });
+        offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
+          syncFilterBarBackdrop();
         });
       });
 
@@ -659,20 +957,7 @@
         }
         if (budgetMin) p.set('budget[min]', budgetMin);
         if (budgetMax) p.set('budget[max]', budgetMax);
-        if (ceilingMin) p.set('ceiling_height[min]', ceilingMin);
-        if (ceilingMax) p.set('ceiling_height[max]', ceilingMax);
-        if (moreTransport) p.set('nearby_transport', moreTransport);
-        if (moreReference) p.set('reference', moreReference);
-        Object.keys(moreBooleans).forEach(function (param) {
-          if (moreBooleans[param]) {
-            p.set(param, '1');
-          }
-        });
-        Object.keys(moreCheckboxes).forEach(function (param) {
-          (moreCheckboxes[param] || []).forEach(function (value) {
-            p.append(param, value);
-          });
-        });
+        appendMoreFiltersToParams(p, false);
         const qs = p.toString();
         return qs ? base + '?' + qs : base;
       }
@@ -696,20 +981,7 @@
         }
         if (budgetMin) p.set('budget_min', budgetMin);
         if (budgetMax) p.set('budget_max', budgetMax);
-        if (ceilingMin) p.set('ceiling_height_min', ceilingMin);
-        if (ceilingMax) p.set('ceiling_height_max', ceilingMax);
-        if (moreTransport) p.set('nearby_transport', moreTransport);
-        if (moreReference) p.set('reference', moreReference);
-        Object.keys(moreBooleans).forEach(function (param) {
-          if (moreBooleans[param]) {
-            p.set(param, '1');
-          }
-        });
-        Object.keys(moreCheckboxes).forEach(function (param) {
-          (moreCheckboxes[param] || []).forEach(function (value) {
-            p.append(param, value);
-          });
-        });
+        appendMoreFiltersToParams(p, true);
         return p;
       }
 
@@ -1373,12 +1645,7 @@
             });
             updateCapacityLabel();
           } else if (section === 'more') {
-            moreBooleans = {};
-            moreCheckboxes = {};
-            moreTransport = '';
-            moreReference = '';
-            ceilingMin = '';
-            ceilingMax = '';
+            moreFilters = {};
             syncMoreInputsFromState();
           }
           scheduleCountUpdate();
@@ -1417,68 +1684,29 @@
         });
       });
 
-      once('ps-more-boolean', '.js-ps-more-boolean', context).forEach(function (input) {
-        input.addEventListener('change', function () {
-          moreBooleans[input.dataset.param] = input.checked;
-          updateMoreLabel();
+      once('ps-more-offcanvas', '#ps-more-offcanvas', context).forEach(function (offcanvas) {
+        offcanvas.addEventListener('shown.bs.offcanvas', function () {
           scheduleCountUpdate();
         });
-      });
 
-      once('ps-more-checkbox', '.js-ps-more-checkbox', context).forEach(function (input) {
-        input.addEventListener('change', function () {
-          const param = input.dataset.param;
-          const list = moreCheckboxes[param] ? moreCheckboxes[param].slice() : [];
-          if (input.checked) {
-            if (list.indexOf(input.value) === -1) {
-              list.push(input.value);
-            }
+        offcanvas.addEventListener('show.bs.collapse', function (event) {
+          const panel = event.target;
+          if (!panel.classList.contains('js-ps-more-group-panel')) {
+            return;
           }
-          else {
-            const idx = list.indexOf(input.value);
-            if (idx !== -1) {
-              list.splice(idx, 1);
-            }
+          loadMoreCriteriaGroup(panel.dataset.groupId, panel);
+        });
+
+        offcanvas.addEventListener('change', function (event) {
+          if (event.target.matches('.js-ps-more-filter')) {
+            handleMoreFilterChange(event.target);
           }
-          moreCheckboxes[param] = list;
-          updateMoreLabel();
-          scheduleCountUpdate();
         });
-      });
 
-      once('ps-more-transport', '.js-ps-more-transport', context).forEach(function (input) {
-        input.value = moreTransport;
-        input.addEventListener('input', function () {
-          moreTransport = input.value;
-          updateMoreLabel();
-          scheduleCountUpdate();
-        });
-      });
-
-      once('ps-more-reference', '.js-ps-more-reference', context).forEach(function (input) {
-        input.value = moreReference;
-        input.addEventListener('input', function () {
-          moreReference = input.value;
-          updateMoreLabel();
-          scheduleCountUpdate();
-        });
-      });
-
-      once('ps-ceiling-min', '.js-ps-ceiling-min', context).forEach(function (input) {
-        input.value = ceilingMin;
-        input.addEventListener('input', function () {
-          ceilingMin = input.value;
-          updateMoreLabel();
-          scheduleCountUpdate();
-        });
-      });
-
-      once('ps-ceiling-max', '.js-ps-ceiling-max', context).forEach(function (input) {
-        input.value = ceilingMax;
-        input.addEventListener('input', function () {
-          ceilingMax = input.value;
-          updateMoreLabel();
-          scheduleCountUpdate();
+        offcanvas.addEventListener('input', function (event) {
+          if (event.target.matches('.js-ps-more-filter')) {
+            handleMoreFilterInputEvent(event.target);
+          }
         });
       });
 

@@ -1,5 +1,5 @@
 filter_bar:
-  version: 1.0.26
+  version: 1.0.33
   js:
     js/search-filter-bar.js: {}
   css:
@@ -12,3 +12,4 @@ filter_bar:
     - core/once
     - ps_theme/component_dropdown
     - ps_theme/component_offcanvas
+    - ps_theme/form

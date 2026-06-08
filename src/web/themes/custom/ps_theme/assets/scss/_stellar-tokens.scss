@@ -20,6 +20,17 @@
   --ps-toggle-bg: var(--re-color-surface, #fff);
   --ps-toggle-active-bg: var(--re-color-primary, #00915a);
   --ps-toggle-active-color: #fff;
+
+  // Stacking order — keep header above search chrome; Bootstrap overlays above both.
+  // See search-filter-bar.css, _header.scss and _modal-form.scss.
+  --ps-z-header: 100;
+  --ps-z-header-panel: 110;
+  --ps-z-search-backdrop: 10;
+  --ps-z-search-filter-bar: 20;
+  --ps-z-offcanvas-backdrop: 1040;
+  --ps-z-offcanvas: 1045;
+  --ps-z-modal-backdrop: 1050;
+  --ps-z-modal: 1055;
 }
 
 @media (max-width: 767.98px) {

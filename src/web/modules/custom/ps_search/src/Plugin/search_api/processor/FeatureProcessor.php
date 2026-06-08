@@ -80,11 +80,12 @@ final class FeatureProcessor extends ProcessorPluginBase {
       $label = $definition->label();
       $group = $definition->get('group') ?? 'other';
 
-      // Determine Search API field type based on feature type_driver
+      // Determine Search API field type based on feature type_driver.
       $field_type = match ($type_driver) {
-        'flag' => 'boolean',
+        'flag', 'yes_no' => 'boolean',
         'numeric', 'range' => 'decimal',
-        'text', 'select', 'multiselect' => 'string',
+        'date' => 'date',
+        'text', 'select', 'multiselect', 'dictionary', 'taxonomy', 'list' => 'string',
         default => 'string',
       };
 
@@ -153,48 +154,10 @@ final class FeatureProcessor extends ProcessorPluginBase {
         $type_driver = (string) ($definition->get('type_driver') ?? '');
         $field_name = 'feature_' . $this->normalizeFeatureSuffix((string) $definition_id);
 
-        // Extract value based on type_driver
-        $value = NULL;
-        
-        switch ($type_driver) {
-          case 'flag':
-          case 'yes_no':
-            // For flag/yes_no features, presence = true
-            $value = TRUE;
-            break;
+        // Extract value based on type_driver.
+        $value = $this->extractIndexedValue($type_driver, $payload);
 
-          case 'numeric':
-            // Extract numeric value from payload
-            if (isset($payload['value'])) {
-              $value = (float) $payload['value'];
-            }
-            break;
-
-          case 'range':
-            // For range, we'll index the min value (for filtering)
-            if (isset($payload['min'])) {
-              $value = (float) $payload['min'];
-            }
-            elseif (isset($payload['value'])) {
-              $value = (float) $payload['value'];
-            }
-            break;
-
-          case 'text':
-          case 'select':
-            if (isset($payload['value'])) {
-              $value = (string) $payload['value'];
-            }
-            break;
-
-          case 'multiselect':
-            if (isset($payload['values']) && is_array($payload['values'])) {
-              $value = implode(' ', $payload['values']);
-            }
-            break;
-        }
-
-        // Set field value if we have one
+        // Set field value if we have one.
         if ($value !== NULL) {
           $matching_fields = $this->getFieldsHelper()->filterForPropertyPath($fields, NULL, $field_name);
           foreach ($matching_fields as $field) {
@@ -209,6 +172,29 @@ final class FeatureProcessor extends ProcessorPluginBase {
         '@message' => $e->getMessage(),
       ]);
     }
+  }
+
+  /**
+   * Extracts the indexed value from a feature payload.
+   */
+  private function extractIndexedValue(string $typeDriver, array $payload): mixed {
+    return match ($typeDriver) {
+      'flag' => TRUE,
+      'yes_no' => (bool) ($payload['value'] ?? FALSE),
+      'numeric' => isset($payload['value']) ? (float) $payload['value'] : NULL,
+      'range' => isset($payload['min'])
+        ? (float) $payload['min']
+        : (isset($payload['value']) ? (float) $payload['value'] : NULL),
+      'text', 'select' => isset($payload['value']) ? (string) $payload['value'] : NULL,
+      'multiselect' => isset($payload['values']) && is_array($payload['values'])
+        ? implode(' ', $payload['values']) : NULL,
+      'dictionary' => isset($payload['code']) ? (string) $payload['code'] : NULL,
+      'taxonomy' => isset($payload['tid']) ? (string) (int) $payload['tid'] : NULL,
+      'list' => isset($payload['codes']) && is_array($payload['codes'])
+        ? implode(' ', $payload['codes']) : NULL,
+      'date' => isset($payload['value']) ? (string) $payload['value'] : NULL,
+      default => NULL,
+    };
   }
 
   /**

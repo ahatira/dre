@@ -1,0 +1,10 @@
+ps_search_filters.more_criteria_group:
+  path: '/ps-search-filters/more-criteria/{group_id}'
+  defaults:
+    _controller: '\Drupal\ps_search_filters\Controller\MoreCriteriaGroupController::items'
+    _title: 'More criteria group'
+  requirements:
+    _access: 'TRUE'
+    group_id: '[a-zA-Z0-9_]+'
+  options:
+    no_cache: TRUE

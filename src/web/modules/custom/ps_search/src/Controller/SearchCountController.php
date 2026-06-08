@@ -7,6 +7,7 @@ namespace Drupal\ps_search\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\ps_search\Service\LocationSearchFilter;
+use Drupal\ps_search\Service\MoreCriteriaConditionApplier;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,6 +43,7 @@ final class SearchCountController extends ControllerBase {
   public function __construct(
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
+    private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
   ) {}
 
   /**
@@ -51,6 +53,7 @@ final class SearchCountController extends ControllerBase {
     return new static(
       $container->get('database'),
       $container->get('ps_search.location_filter'),
+      $container->get('ps_search.more_criteria_applier'),
     );
   }
 
@@ -114,7 +117,7 @@ final class SearchCountController extends ControllerBase {
       $query->addCondition('field_capacity_total', $capacityMax, '<=');
     }
 
-    $this->applyMoreCriteriaConditions($query, $request);
+    $this->moreCriteriaApplier->apply($query, $request);
 
     try {
       $results = $query->execute();
@@ -597,62 +600,6 @@ final class SearchCountController extends ControllerBase {
     }
 
     return array_values($tokens);
-  }
-
-  /**
-   * Applies More criteria filters from the filter bar to a Search API query.
-   */
-  private function applyMoreCriteriaConditions($query, Request $request): void {
-    foreach (['feature_accessibility', 'has_immersive_tour', 'has_video'] as $field) {
-      if ($request->query->get($field) === '1') {
-        $query->addCondition($field, TRUE);
-      }
-    }
-
-    foreach (['feature_equipments', 'feature_services', 'feature_building_type'] as $field) {
-      $values = array_values(array_filter(array_map(
-        fn(mixed $value): ?string => $this->sanitizeFeatureId($value),
-        $request->query->all($field),
-      )));
-      if ($values === []) {
-        continue;
-      }
-      $group = $query->createConditionGroup('OR');
-      foreach ($values as $value) {
-        $group->addCondition($field, $value);
-      }
-      $query->addConditionGroup($group);
-    }
-
-    $reference = $this->sanitizeText($request->query->get('reference'));
-    if ($reference !== NULL) {
-      $query->addCondition('field_reference', $reference);
-    }
-
-    $transport = $this->sanitizeText($request->query->get('nearby_transport'));
-    if ($transport !== NULL) {
-      $query->addCondition('nearby_transport', $transport);
-    }
-
-    $ceilingMin = $this->sanitizePositiveNumber($request->query->get('ceiling_height_min'), 50.0);
-    $ceilingMax = $this->sanitizePositiveNumber($request->query->get('ceiling_height_max'), 50.0);
-    if ($ceilingMin !== NULL) {
-      $query->addCondition('ceiling_height', $ceilingMin, '>=');
-    }
-    if ($ceilingMax !== NULL) {
-      $query->addCondition('ceiling_height', $ceilingMax, '<=');
-    }
-  }
-
-  /**
-   * Sanitizes a feature definition ID for Search API conditions.
-   */
-  private function sanitizeFeatureId(mixed $value): ?string {
-    if (!is_string($value) || $value === '') {
-      return NULL;
-    }
-    $cleaned = preg_replace('/[^a-z0-9_]+/i', '', $value);
-    return $cleaned !== '' ? $cleaned : NULL;
   }
 
   /**

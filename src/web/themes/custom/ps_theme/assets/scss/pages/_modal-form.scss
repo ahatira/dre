@@ -2,6 +2,11 @@
 .modal-backdrop {
   --bs-backdrop-bg: #000;
   --bs-backdrop-opacity: 0.6;
+  z-index: var(--ps-z-modal-backdrop, 1050);
+}
+
+.modal {
+  --bs-modal-zindex: var(--ps-z-modal, 1055);
 }
 
 $ps-modal-form-close-icon: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26.6663 3.25928L28.7405 5.33346L18.0735 15.9993L28.7405 26.6668L26.6663 28.741L15.9988 18.0739L5.33297 28.741L3.25879 26.6668L13.9255 15.9993L3.25879 5.33346L5.33297 3.25928L15.9988 13.9259L26.6663 3.25928Z' fill='%23333'/%3E%3C/svg%3E");

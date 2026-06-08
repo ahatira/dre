@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\Entity\Index;
 
 /**
@@ -18,9 +17,9 @@ final class FeatureFilterSyncManager {
   private const SETTINGS_CONFIG = 'ps_search.feature_filter_sync';
 
   /**
-   * Categorizer fields managed in views config, not by feature sync.
+   * Legacy categorizer / core fields — not managed by per-feature sync.
    */
-  private const CATEGORIZER_VIEW_FIELDS = [
+  private const LEGACY_VIEW_FIELDS = [
     'feature_equipments',
     'feature_services',
     'feature_building_type',
@@ -33,7 +32,7 @@ final class FeatureFilterSyncManager {
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly FeatureSearchFilterRegistry $featureFilterRegistry,
   ) {}
 
   /**
@@ -53,7 +52,7 @@ final class FeatureFilterSyncManager {
       'changed' => FALSE,
     ];
 
-    $expected = $this->buildExpectedFeatureMap();
+    $expected = $this->featureFilterRegistry->buildExpectedIndexFieldMap();
 
     $index_changed = $this->syncIndexFieldSettings($expected, $prune, $stats);
     $view_changed = $this->syncViewFilters($expected, $prune, $stats);
@@ -93,44 +92,6 @@ final class FeatureFilterSyncManager {
 
     $stats['indexed'] = $indexed;
     return $stats;
-  }
-
-  /**
-   * Builds expected filter metadata from feature definitions.
-   *
-   * @return array<string, array<string, string>>
-   *   Map keyed by Search API field machine name.
-   */
-  private function buildExpectedFeatureMap(): array {
-    $definitions = $this->entityTypeManager
-      ->getStorage('fb_feature_definition')
-      ->loadMultiple();
-
-    $expected = [];
-    foreach ($definitions as $definition) {
-      if (!$definition->isExposeAsFilter()) {
-        continue;
-      }
-
-      $feature_id = (string) $definition->id();
-      $field_name = 'feature_' . $this->normalizeFeatureSuffix($feature_id);
-
-      $type_driver = (string) $definition->getTypeDriver();
-      $field_type = match ($type_driver) {
-        'flag', 'yes_no' => 'boolean',
-        'numeric', 'range' => 'decimal',
-        default => 'string',
-      };
-
-      $expected[$field_name] = [
-        'label' => (string) $definition->label(),
-        'type_driver' => $type_driver,
-        'field_type' => $field_type,
-      ];
-    }
-
-    ksort($expected);
-    return $expected;
   }
 
   /**
@@ -349,10 +310,10 @@ final class FeatureFilterSyncManager {
   }
 
   /**
-   * Checks if an index field is a dynamic per-feature field (not categorizer).
+   * Checks if an index field is a dynamic per-feature field.
    */
   private function isDynamicFeatureIndexField(string $field_name): bool {
-    if (in_array($field_name, self::CATEGORIZER_VIEW_FIELDS, TRUE)) {
+    if (in_array($field_name, self::LEGACY_VIEW_FIELDS, TRUE)) {
       return FALSE;
     }
 
@@ -360,10 +321,10 @@ final class FeatureFilterSyncManager {
   }
 
   /**
-   * Checks if a view field is a dynamic per-feature filter (not categorizer).
+   * Checks if a view field is a dynamic per-feature filter.
    */
   private function isDynamicFeatureViewField(string $field_name): bool {
-    if (in_array($field_name, self::CATEGORIZER_VIEW_FIELDS, TRUE)) {
+    if (in_array($field_name, self::LEGACY_VIEW_FIELDS, TRUE)) {
       return FALSE;
     }
 
@@ -374,7 +335,7 @@ final class FeatureFilterSyncManager {
    * Builds one view filter definition for a dynamic feature field.
    */
   private function buildFilterConfig(string $field_name, string $label, string $type_driver, array &$identifierRegistry): array {
-    $identifier = $this->buildUniqueIdentifier($field_name, $identifierRegistry);
+    $identifier = $this->featureFilterRegistry->buildParamIdentifier($field_name, $identifierRegistry);
 
     if (in_array($type_driver, ['flag', 'yes_no'], TRUE)) {
       return [
@@ -505,43 +466,10 @@ final class FeatureFilterSyncManager {
   }
 
   /**
-   * Builds a stable and unique exposed filter identifier.
-   */
-  private function buildUniqueIdentifier(string $field_name, array &$identifierRegistry): string {
-    $base = preg_replace('/[^a-z0-9_]+/', '_', strtolower($field_name)) ?? '';
-    $base = preg_replace('/_+/', '_', $base) ?? '';
-    $base = trim($base, '_');
-
-    if ($base === '') {
-      $base = 'feature';
-    }
-
-    $base = substr($base, 0, 48);
-    $candidate = $base;
-    $i = 2;
-
-    while (isset($identifierRegistry[$candidate])) {
-      $suffix = '_' . $i;
-      $candidate = substr($base, 0, max(1, 48 - strlen($suffix))) . $suffix;
-      $i++;
-    }
-
-    $identifierRegistry[$candidate] = TRUE;
-    return $candidate;
-  }
-
-  /**
    * Views field keys for Search API collapse repeated underscores.
    */
   private function normalizeViewsFieldName(string $fieldName): string {
-    return preg_replace('/_{2,}/', '_', $fieldName) ?? $fieldName;
-  }
-
-  /**
-   * Normalizes a feature suffix so generated field IDs stay Views-compatible.
-   */
-  private function normalizeFeatureSuffix(string $suffix): string {
-    return preg_replace('/_{2,}/', '_', $suffix) ?? $suffix;
+    return $this->featureFilterRegistry->normalizeFeatureSuffix($fieldName);
   }
 
 }

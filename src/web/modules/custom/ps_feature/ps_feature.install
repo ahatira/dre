@@ -66,3 +66,121 @@ function ps_feature_update_9003(): string {
 
   return (string) t('Updated default feature group fallback icon.');
 }
+
+/**
+ * Restores human-readable feature group labels overwritten by CRM import.
+ */
+function ps_feature_update_9004(): string {
+  $config_factory = \Drupal::configFactory();
+  $storage = \Drupal::entityTypeManager()->getStorage('fb_feature_group');
+  /** @var \Drupal\ps_feature\Service\FeatureGroupDisplayLabelResolver $resolver */
+  $resolver = \Drupal::service('ps_feature.feature_group_display_label');
+  $updated = 0;
+
+  foreach ($storage->loadMultiple() as $group) {
+    $id = (string) $group->id();
+    $current = trim((string) $group->label());
+    if (!$resolver->isMachineLabel($current, $id)) {
+      continue;
+    }
+
+    $default = $config_factory->get('ps_feature.feature_group.' . $id)->get('label');
+    if (!is_string($default) || trim($default) === '') {
+      continue;
+    }
+
+    $group->set('label', trim($default));
+    $group->save();
+    $updated++;
+  }
+
+  return (string) t('Restored @count feature group display labels.', ['@count' => $updated]);
+}
+
+/**
+ * Imports French display labels for feature groups.
+ */
+function ps_feature_update_9005(): string {
+  if (!\Drupal::languageManager()->getLanguage('fr')) {
+    return (string) t('French language not enabled; skipped feature group FR labels.');
+  }
+
+  $fr_labels = [
+    'amenagements' => 'Aménagements',
+    'equipements' => 'Équipements',
+    'prestations_de_service' => 'Prestations de service',
+    'exterieurs' => 'Extérieurs',
+    'hauteurs' => 'Hauteurs',
+    'structure_du_batiment' => 'Structure du bâtiment',
+    'type_etat_du_batiment' => 'Type et état du bâtiment',
+    'normes_certifications_et_labels' => 'Normes, certifications et labels',
+    'acces_vehicules' => 'Accès véhicules',
+    'activite_non_autorisee' => 'Activités non autorisées',
+    'informations_complementaires' => 'Informations complémentaires',
+  ];
+
+  $updated = 0;
+  foreach ($fr_labels as $id => $label) {
+    $override = \Drupal::languageManager()->getLanguageConfigOverride('fr', 'ps_feature.feature_group.' . $id);
+    if ($override->get('label') === $label) {
+      continue;
+    }
+    $override->set('label', $label)->save();
+    $updated++;
+  }
+
+  return (string) t('Imported @count French feature group labels.', ['@count' => $updated]);
+}
+
+/**
+ * Loads default feature group labels from module install config.
+ *
+ * @return array<string, string>
+ *   Labels keyed by group ID.
+ */
+function _ps_feature_install_group_labels(): array {
+  $module_path = \Drupal::service('extension.list.module')->getPath('ps_feature');
+  $install_dir = DRUPAL_ROOT . '/' . $module_path . '/config/install';
+  $labels = [];
+
+  foreach (glob($install_dir . '/ps_feature.feature_group.*.yml') ?: [] as $file) {
+    $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($file));
+    if (!is_array($data)) {
+      continue;
+    }
+    $id = (string) ($data['id'] ?? '');
+    $label = trim((string) ($data['label'] ?? ''));
+    if ($id !== '' && $label !== '') {
+      $labels[$id] = $label;
+    }
+  }
+
+  return $labels;
+}
+
+/**
+ * Restores feature group labels from install config (CRM overwrote active config).
+ */
+function ps_feature_update_9006(): string {
+  $config_factory = \Drupal::configFactory();
+  /** @var \Drupal\ps_feature\Service\FeatureGroupDisplayLabelResolver $resolver */
+  $resolver = \Drupal::service('ps_feature.feature_group_display_label');
+  $install_labels = _ps_feature_install_group_labels();
+  $updated = 0;
+
+  foreach ($install_labels as $id => $label) {
+    $config_name = 'ps_feature.feature_group.' . $id;
+    $config = $config_factory->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    $current = trim((string) $config->get('label'));
+    if (!$resolver->isMachineLabel($current, $id)) {
+      continue;
+    }
+    $config->set('label', $label)->save(TRUE);
+    $updated++;
+  }
+
+  return (string) t('Restored @count feature group labels from install defaults.', ['@count' => $updated]);
+}

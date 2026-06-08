@@ -42,6 +42,13 @@ services:
       - '@config.factory'
       - '@entity_type.manager'
 
+  ps_feature.feature_group_display_label:
+    class: Drupal\ps_feature\Service\FeatureGroupDisplayLabelResolver
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@extension.list.module'
+
   ps_feature.feature_definition_icon_resolver:
     class: Drupal\ps_feature\Service\FeatureDefinitionIconResolver
     arguments:

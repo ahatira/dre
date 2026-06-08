@@ -61,3 +61,6 @@ ps_search.feature_filter_sync:
     sync_view_filters:
       type: boolean
       label: 'Sync individual feature filters into the search view'
+    feature_filters_combine:
+      type: string
+      label: 'Combine mode for active feature filters'

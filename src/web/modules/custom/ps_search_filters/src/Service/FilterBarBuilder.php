@@ -157,11 +157,17 @@ final class FilterBarBuilder {
     $urlLangcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
     $searchPath = $this->searchPathResolver->getPublicPath($urlLangcode);
 
+    $summaries = $this->moreCriteriaBuilder->buildSummaries($activeAsset);
+    $coreItems = $summaries['core']['items'] ?? [];
+    unset($summaries['core']);
+    $moreFilterSchema = $this->moreCriteriaBuilder->buildFilterSchema($activeAsset);
+
     return [
       '#theme' => 'ps_search_filter_bar',
       '#operation_types' => $operationTypes,
       '#asset_types' => $assetTypes,
-      '#more_criteria' => $this->moreCriteriaBuilder->build(),
+      '#more_criteria_groups' => $summaries,
+      '#core_criteria_items' => $coreItems,
       '#active_op' => $activeOp,
       '#active_flexible' => $activeOp === NULL,
       '#active_asset' => $activeAsset,
@@ -192,6 +198,8 @@ final class FilterBarBuilder {
             'capacityUnit' => $capacityUnit,
             'budgetFilterConfig' => $budgetConfig,
             'budgetFilterByAsset' => $budgetFilterByAsset,
+            'moreFilterSchema' => $moreFilterSchema,
+            'moreCriteriaGroupUrl' => '/ps-search-filters/more-criteria',
           ],
         ],
       ],

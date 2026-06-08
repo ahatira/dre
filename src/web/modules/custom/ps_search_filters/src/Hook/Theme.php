@@ -21,7 +21,8 @@ final class Theme {
         'variables' => [
           'operation_types' => [],
           'asset_types' => [],
-          'more_criteria' => [],
+          'more_criteria_groups' => [],
+          'core_criteria_items' => [],
           'active_op' => NULL,
           'active_flexible' => TRUE,
           'active_asset' => NULL,
@@ -35,7 +36,28 @@ final class Theme {
         ],
         'template' => 'ps-search-filter-bar',
       ],
+      'ps_search_more_criteria_items' => [
+        'variables' => [
+          'items' => [],
+          'checkbox_two_columns' => FALSE,
+        ],
+        'template' => 'ps-search-more-criteria-items',
+      ],
     ];
+  }
+
+  /**
+   * Implements hook_preprocess_HOOK().
+   */
+  #[Hook('preprocess_ps_search_more_criteria_items')]
+  public function preprocessMoreCriteriaItems(array &$variables): void {
+    $checkboxCount = 0;
+    foreach ($variables['items'] as $item) {
+      if (($item['widget'] ?? 'checkbox') === 'checkbox') {
+        $checkboxCount++;
+      }
+    }
+    $variables['checkbox_two_columns'] = $checkboxCount > 2;
   }
 
 }

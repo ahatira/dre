@@ -103,3 +103,30 @@ function ps_search_update_11005(): void {
 
   drupal_flush_all_caches();
 }
+
+/**
+ * Enable per-feature view filter sync (Option A — More filters).
+ */
+function ps_search_update_11006(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_search.feature_filter_sync');
+  if (!$config->get('sync_view_filters')) {
+    $config->set('sync_view_filters', TRUE)->save(TRUE);
+  }
+
+  /** @var \Drupal\ps_search\Service\FeatureFilterSyncManager $syncManager */
+  $syncManager = \Drupal::service('Drupal\ps_search\Service\FeatureFilterSyncManager');
+  $syncManager->syncAndIndex(TRUE);
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Default feature filter combine mode to AND.
+ */
+function ps_search_update_11007(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_search.feature_filter_sync');
+  if ($config->get('feature_filters_combine') === NULL) {
+    $config->set('feature_filters_combine', 'and')->save(TRUE);
+  }
+  drupal_flush_all_caches();
+}

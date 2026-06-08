@@ -1,0 +1,120 @@
+{#
+/**
+ * @file
+ * More criteria filter items (lazy-loaded per group).
+ */
+#}
+<div class="ps-more-items{% if checkbox_two_columns|default(false) %} ps-more-items--checkbox-cols-2{% endif %}">
+{% for item in items %}
+  {% set widget = item.widget|default('checkbox') %}
+  {% if widget == 'checkbox' %}
+    <div class="form-check ps-more-check">
+      <input
+        type="checkbox"
+        class="form-check-input js-ps-more-filter"
+        id="ps-more-{{ item.param }}"
+        data-param="{{ item.param }}"
+        data-widget="checkbox"
+        value="1"
+      >
+      <label class="form-check-label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+    </div>
+  {% elseif widget == 'yes_no' %}
+    <div class="ps-more-field">
+      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <select id="ps-more-{{ item.param }}" class="ps-more-field__select js-ps-more-filter" data-param="{{ item.param }}" data-widget="yes_no">
+        <option value="">{{ 'All'|t }}</option>
+        <option value="1">{{ 'Yes'|t }}</option>
+        <option value="0">{{ 'No'|t }}</option>
+      </select>
+    </div>
+  {% elseif widget == 'tags' %}
+    <div class="ps-more-field">
+      <span class="ps-more-field__label">{{ item.label }}</span>
+      <div class="ps-more-tags{% if item.options|default([])|length > 2 %} ps-more-tags--cols-2{% endif %}">
+        {% for option in item.options|default([]) %}
+          <div class="form-check ps-more-check">
+            <input
+              type="checkbox"
+              class="form-check-input js-ps-more-filter"
+              id="ps-more-{{ item.param }}-{{ loop.index }}"
+              data-param="{{ item.param }}"
+              data-widget="tags"
+              value="{{ option.value }}"
+            >
+            <label class="form-check-label" for="ps-more-{{ item.param }}-{{ loop.index }}">{{ option.label }}</label>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% elseif widget == 'range' %}
+    <div class="ps-more-field">
+      <span class="ps-more-field__label">{{ item.label }}</span>
+      <div class="ps-range-inputs">
+        <div class="ps-range-inputs__field">
+          <label class="ps-range-inputs__label" for="ps-more-{{ item.param }}-min">{{ 'Min'|t }}</label>
+          <div class="ps-range-inputs__input-wrap">
+            <input
+              type="number"
+              id="ps-more-{{ item.param }}-min"
+              class="ps-range-inputs__input js-ps-more-filter"
+              data-param="{{ item.param }}"
+              data-widget="range"
+              data-bound="min"
+              min="0"
+              step="{{ item.step|default('1') }}"
+              placeholder="0"
+            >
+            {% if item.unit %}
+              <span class="ps-range-inputs__unit">{{ item.unit }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
+        <div class="ps-range-inputs__field">
+          <label class="ps-range-inputs__label" for="ps-more-{{ item.param }}-max">{{ 'Max'|t }}</label>
+          <div class="ps-range-inputs__input-wrap">
+            <input
+              type="number"
+              id="ps-more-{{ item.param }}-max"
+              class="ps-range-inputs__input js-ps-more-filter"
+              data-param="{{ item.param }}"
+              data-widget="range"
+              data-bound="max"
+              min="0"
+              step="{{ item.step|default('1') }}"
+              placeholder="∞"
+            >
+            {% if item.unit %}
+              <span class="ps-range-inputs__unit">{{ item.unit }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% elseif widget == 'date' %}
+    <div class="ps-more-field">
+      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <input
+        type="date"
+        id="ps-more-{{ item.param }}"
+        class="ps-more-group__text js-ps-more-filter"
+        data-param="{{ item.param }}"
+        data-widget="date"
+      >
+    </div>
+  {% else %}
+    <div class="ps-more-field">
+      <label class="ps-more-field__label" for="ps-more-{{ item.param }}">{{ item.label }}</label>
+      <input
+        type="text"
+        id="ps-more-{{ item.param }}"
+        class="ps-more-group__text js-ps-more-filter"
+        data-param="{{ item.param }}"
+        data-widget="text"
+        placeholder="{{ item.label }}"
+      >
+    </div>
+  {% endif %}
+{% endfor %}
+</div>

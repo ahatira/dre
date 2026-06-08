@@ -17,11 +17,30 @@ services:
       - '@ps_search.location_centroid'
       - '@request_stack'
 
+  ps_search.more_criteria_applier:
+    class: Drupal\ps_search\Service\MoreCriteriaConditionApplier
+    arguments:
+      - '@ps_search.feature_filter_registry'
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\FeatureFilterQueryHooks:
+    class: Drupal\ps_search\Hook\FeatureFilterQueryHooks
+    arguments:
+      - '@ps_search.more_criteria_applier'
+      - '@ps_search.feature_filter_registry'
+      - '@request_stack'
+
+  ps_search.feature_filter_registry:
+    class: Drupal\ps_search\Service\FeatureSearchFilterRegistry
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_feature.feature_group_display_label'
+
   Drupal\ps_search\Service\FeatureFilterSyncManager:
     class: Drupal\ps_search\Service\FeatureFilterSyncManager
     arguments:
       - '@config.factory'
-      - '@entity_type.manager'
+      - '@ps_search.feature_filter_registry'
 
   Drupal\ps_search\Service\SearchMapMarkerBuilder:
     class: Drupal\ps_search\Service\SearchMapMarkerBuilder

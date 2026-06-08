@@ -1,7 +1,7 @@
 services:
   ps_search_filters.more_criteria_builder:
     class: Drupal\ps_search_filters\Service\MoreCriteriaBuilder
-    arguments: ['@entity_type.manager']
+    arguments: ['@ps_search.feature_filter_registry']
   ps_search_filters.filter_bar_builder:
     class: Drupal\ps_search_filters\Service\FilterBarBuilder
     arguments:
