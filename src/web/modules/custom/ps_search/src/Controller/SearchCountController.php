@@ -62,6 +62,8 @@ final class SearchCountController extends ControllerBase {
     $surfaceMax = $request->query->get('surface_max');
     $budgetMin = $request->query->get('budget_min');
     $budgetMax = $request->query->get('budget_max');
+    $capacityMin = $request->query->get('capacity_min');
+    $capacityMax = $request->query->get('capacity_max');
 
     // Sanitize all inputs.
     $operationType = $this->sanitizeCode($operationType);
@@ -71,6 +73,8 @@ final class SearchCountController extends ControllerBase {
     $surfaceMax = $this->sanitizePositiveNumber($surfaceMax, self::MAX_SURFACE);
     $budgetMin = $this->sanitizePositiveNumber($budgetMin, self::MAX_BUDGET);
     $budgetMax = $this->sanitizePositiveNumber($budgetMax, self::MAX_BUDGET);
+    $capacityMin = $this->sanitizePositiveNumber($capacityMin, 500.0);
+    $capacityMax = $this->sanitizePositiveNumber($capacityMax, 500.0);
 
     $index = Index::load('offers');
     if (!$index) {
@@ -108,6 +112,14 @@ final class SearchCountController extends ControllerBase {
     if ($budgetMax !== NULL) {
       $query->addCondition('field_budget_value', $budgetMax, '<=');
     }
+    if ($capacityMin !== NULL) {
+      $query->addCondition('field_capacity_total', $capacityMin, '>=');
+    }
+    if ($capacityMax !== NULL) {
+      $query->addCondition('field_capacity_total', $capacityMax, '<=');
+    }
+
+    $this->applyMoreCriteriaConditions($query, $request);
 
     try {
       $results = $query->execute();
@@ -618,6 +630,62 @@ final class SearchCountController extends ControllerBase {
     }
 
     return array_values($tokens);
+  }
+
+  /**
+   * Applies More criteria filters from the filter bar to a Search API query.
+   */
+  private function applyMoreCriteriaConditions($query, Request $request): void {
+    foreach (['feature_accessibility', 'has_immersive_tour', 'has_video'] as $field) {
+      if ($request->query->get($field) === '1') {
+        $query->addCondition($field, TRUE);
+      }
+    }
+
+    foreach (['feature_equipments', 'feature_services', 'feature_building_type'] as $field) {
+      $values = array_values(array_filter(array_map(
+        fn(mixed $value): ?string => $this->sanitizeFeatureId($value),
+        $request->query->all($field),
+      )));
+      if ($values === []) {
+        continue;
+      }
+      $group = $query->createConditionGroup('OR');
+      foreach ($values as $value) {
+        $group->addCondition($field, $value);
+      }
+      $query->addConditionGroup($group);
+    }
+
+    $reference = $this->sanitizeText($request->query->get('reference'));
+    if ($reference !== NULL) {
+      $query->addCondition('field_reference', $reference);
+    }
+
+    $transport = $this->sanitizeText($request->query->get('nearby_transport'));
+    if ($transport !== NULL) {
+      $query->addCondition('nearby_transport', $transport);
+    }
+
+    $ceilingMin = $this->sanitizePositiveNumber($request->query->get('ceiling_height_min'), 50.0);
+    $ceilingMax = $this->sanitizePositiveNumber($request->query->get('ceiling_height_max'), 50.0);
+    if ($ceilingMin !== NULL) {
+      $query->addCondition('ceiling_height', $ceilingMin, '>=');
+    }
+    if ($ceilingMax !== NULL) {
+      $query->addCondition('ceiling_height', $ceilingMax, '<=');
+    }
+  }
+
+  /**
+   * Sanitizes a feature definition ID for Search API conditions.
+   */
+  private function sanitizeFeatureId(mixed $value): ?string {
+    if (!is_string($value) || $value === '') {
+      return NULL;
+    }
+    $cleaned = preg_replace('/[^a-z0-9_]+/i', '', $value);
+    return $cleaned !== '' ? $cleaned : NULL;
   }
 
   /**

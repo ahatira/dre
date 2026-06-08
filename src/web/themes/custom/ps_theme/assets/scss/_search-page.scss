@@ -3,11 +3,22 @@
     margin-bottom: 0;
   }
 
+  &__filter-bar {
+    margin-bottom: var(--re-space-24, 24px);
+    margin-top: calc(-1 * var(--re-space-16, 16px));
+    position: relative;
+    z-index: 20;
+  }
+
   &__filters {
     background: var(--re-color-surface, #fff);
     border-bottom: 1px solid var(--re-color-border-soft, #ebedef);
     margin-bottom: var(--re-space-32, 32px);
     padding: var(--re-space-24, 24px) 0;
+
+    &--legacy {
+      display: none !important;
+    }
   }
 
   &__toggle {

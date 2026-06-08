@@ -1,0 +1,12 @@
+filter_bar:
+  version: 1.0.0
+  js:
+    js/search-filter-bar.js: {}
+  css:
+    component:
+      css/search-filter-bar.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.locale
+    - core/drupalSettings
+    - core/once

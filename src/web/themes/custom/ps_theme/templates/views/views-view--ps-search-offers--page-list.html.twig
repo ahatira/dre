@@ -24,13 +24,7 @@
   {% endif %}
 
   <div class="ps-search-view__hero container-fluid px-0 mb-4">
-    {% set hero_search %}
-      <div class="d-flex flex-column gap-3">
-        {% if transaction_toggle %}
-          {% include 'ps_theme:transaction-toggle' with transaction_toggle only %}
-        {% endif %}
-      </div>
-    {% endset %}
+    {% set hero_search %}{% endset %}
     {% include 'ps_theme:search-hero' with {
       title: 'Find your professional space'|t,
       subtitle: 'Offices, logistics, retail — across France'|t,
@@ -39,12 +33,16 @@
   </div>
 
   {% if exposed %}
-    <div class="ps-search-view__filters">
-      <div class="container">
-        {{ exposed }}
-      </div>
+    <div class="ps-search-view__filters ps-search-view__filters--legacy visually-hidden" aria-hidden="true">
+      {{ exposed }}
     </div>
   {% endif %}
+
+  <div class="ps-search-view__filter-bar container mb-4">
+    {% if search_filter_bar %}
+      {{ search_filter_bar }}
+    {% endif %}
+  </div>
 
   {% if rows %}
     <div class="ps-search-view__results container">

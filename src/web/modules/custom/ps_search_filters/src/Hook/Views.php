@@ -2,15 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Drupal\ps_theme\Hook;
+namespace Drupal\ps_search_filters\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\ps_search_filters\Service\FilterBarBuilder;
 use Drupal\views\ViewExecutable;
 
 /**
- * Views preprocess hooks for Property Search pages.
+ * Injects the search filter bar on the public search view.
  */
 final class Views {
+
+  public function __construct(
+    private readonly FilterBarBuilder $filterBarBuilder,
+  ) {}
 
   /**
    * Implements hook_preprocess_HOOK().
@@ -26,7 +31,7 @@ final class Views {
       return;
     }
 
-    unset($variables['title']);
+    $variables['search_filter_bar'] = $this->filterBarBuilder->build();
   }
 
 }

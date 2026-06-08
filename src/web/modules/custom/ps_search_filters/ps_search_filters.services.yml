@@ -1,0 +1,18 @@
+services:
+  ps_search_filters.more_criteria_builder:
+    class: Drupal\ps_search_filters\Service\MoreCriteriaBuilder
+    arguments: ['@entity_type.manager']
+  ps_search_filters.filter_bar_builder:
+    class: Drupal\ps_search_filters\Service\FilterBarBuilder
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@entity_type.manager'
+      - '@request_stack'
+      - '@ps_search_filters.more_criteria_builder'
+  Drupal\ps_search_filters\Hook\Theme:
+    class: Drupal\ps_search_filters\Hook\Theme
+  Drupal\ps_search_filters\Hook\Views:
+    class: Drupal\ps_search_filters\Hook\Views
+    arguments: ['@ps_search_filters.filter_bar_builder']

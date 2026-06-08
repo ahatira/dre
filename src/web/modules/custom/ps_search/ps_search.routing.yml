@@ -11,8 +11,8 @@ ps_search.seo_url_mappings_form:
 ps_search.count:
   path: '/ps-search/count'
   defaults:
-    _controller: '\Drupal\ps_search\Controller\SearchCountController::countRedirect'
-    _title: 'Search result count (deprecated)'
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::count'
+    _title: 'Search result count'
   requirements:
     _access: 'TRUE'
   options:
@@ -21,8 +21,8 @@ ps_search.count:
 ps_search.location_suggest:
   path: '/ps-search/location-suggest'
   defaults:
-    _controller: '\Drupal\ps_search\Controller\SearchCountController::suggestRedirect'
-    _title: 'Location suggestions (deprecated)'
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::suggest'
+    _title: 'Location suggestions'
   requirements:
     _access: 'TRUE'
   options:
@@ -31,8 +31,8 @@ ps_search.location_suggest:
 ps_search.location_data:
   path: '/ps-search/location-data'
   defaults:
-    _controller: '\Drupal\ps_search\Controller\SearchCountController::locationDataRedirect'
-    _title: 'Location structured data (deprecated)'
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::locationData'
+    _title: 'Location structured data'
   requirements:
     _access: 'TRUE'
   options:

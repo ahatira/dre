@@ -1,0 +1,294 @@
+{#
+/**
+ * @file
+ * BNPPRE-style search filter bar with popins.
+ */
+#}
+{% set button_label %}
+  {%- if active_asset_label and active_op_label -%}
+    {{ active_asset_label }} — {{ active_op_label }}
+  {%- elseif active_asset_label -%}
+    {{ active_asset_label }}
+  {%- elseif active_op_label -%}
+    {{ active_op_label }}
+  {%- else -%}
+    {{ 'Property type'|t }}
+  {%- endif -%}
+{% endset %}
+
+<div class="ps-filter-bar" role="search" aria-label="{{ 'Property search filters'|t }}">
+
+  {# Type + transaction #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--type js-ps-filter-dropdown">
+    <button
+      class="ps-filter-bar__btn{% if active_op or active_asset %} is-active{% endif %}"
+      type="button"
+      aria-expanded="false"
+      aria-controls="ps-type-popin"
+    >
+      <span class="ps-filter-bar__btn-label">{{ button_label }}</span>
+      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+    </button>
+
+    <div class="ps-type-popin" id="ps-type-popin" hidden>
+      <div class="ps-type-popin__section">
+        <h3 class="ps-type-popin__heading">{{ 'What are you looking for?'|t }}</h3>
+        <ul class="ps-asset-grid" role="list">
+          {% for asset in asset_types %}
+            <li class="ps-asset-card{% if asset.active %} is-active{% endif %}" role="listitem">
+              <button
+                class="ps-asset-card__link js-ps-asset-btn"
+                type="button"
+                data-code="{{ asset.code }}"
+                aria-pressed="{{ asset.active ? 'true' : 'false' }}"
+              >
+                <span class="ps-asset-card__icon {{ asset.icon_class }}" aria-hidden="true"></span>
+                <span class="ps-asset-card__label">{{ asset.label }}</span>
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="ps-type-popin__section ps-type-popin__section--op">
+        <h3 class="ps-type-popin__heading">{{ 'What is your need?'|t }}</h3>
+        <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
+          {% for op in operation_types %}
+            <button
+              class="ps-op-btn{% if op.active %} is-active{% endif %} js-ps-op-btn"
+              type="button"
+              data-code="{{ op.code }}"
+              aria-pressed="{{ op.active ? 'true' : 'false' }}"
+            >
+              {{ op.label }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="ps-type-popin__footer">
+        <button class="ps-filter-clear js-ps-clear-btn" type="button">{{ 'Clear'|t }}</button>
+        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+          <span class="ps-apply-btn__loader" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {# Location #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--location">
+    <div class="ps-filter-bar__location-wrap">
+      <span class="ps-filter-bar__location-icon" aria-hidden="true">⌖</span>
+      <div class="ps-filter-bar__location-editor js-ps-location-editor">
+        <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>
+        <input
+          type="text"
+          class="ps-filter-bar__location-input js-ps-locality-input"
+          placeholder="{{ 'City, postal code...'|t }}"
+          autocomplete="off"
+          aria-label="{{ 'Location: city or postal code'|t }}"
+          aria-autocomplete="list"
+          role="combobox"
+          aria-controls="ps-location-suggest"
+          aria-expanded="false"
+          maxlength="100"
+        >
+      </div>
+      <div id="ps-location-suggest" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+    </div>
+  </div>
+
+  {# Surface (hidden for coworking) #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
+    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-surface-popin">
+      <span class="ps-filter-bar__btn-label js-ps-surface-label">{{ 'Surface'|t }}</span>
+      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="ps-type-popin" id="ps-surface-popin" hidden>
+      <div class="ps-type-popin__section">
+        <h3 class="ps-type-popin__heading">{{ 'Area (m²)'|t }}</h3>
+        <div class="ps-range-inputs">
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-surface-min">{{ 'Min'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-surface-min" class="ps-range-inputs__input js-ps-surface-min" min="0" step="50" placeholder="0">
+              <span class="ps-range-inputs__unit">m²</span>
+            </div>
+          </div>
+          <span class="ps-range-inputs__sep">—</span>
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-surface-max">{{ 'Max'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-surface-max" class="ps-range-inputs__input js-ps-surface-max" min="0" step="50" placeholder="∞">
+              <span class="ps-range-inputs__unit">m²</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-type-popin__footer">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Clear'|t }}</button>
+        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {# Capacity (coworking only) #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
+    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-capacity-popin">
+      <span class="ps-filter-bar__btn-label js-ps-capacity-label">{{ 'Capacity'|t }}</span>
+      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="ps-type-popin" id="ps-capacity-popin" hidden>
+      <div class="ps-type-popin__section">
+        <h3 class="ps-type-popin__heading">{{ 'Capacity (workstations)'|t }}</h3>
+        <div class="ps-range-inputs">
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-capacity-min">{{ 'Min'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-capacity-min" class="ps-range-inputs__input js-ps-capacity-min" min="0" step="1" placeholder="0">
+            </div>
+          </div>
+          <span class="ps-range-inputs__sep">—</span>
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-capacity-max">{{ 'Max'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-capacity-max" class="ps-range-inputs__input js-ps-capacity-max" min="0" step="1" placeholder="∞">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-type-popin__footer">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Clear'|t }}</button>
+        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {# Budget / price #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--budget">
+    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-budget-popin">
+      <span class="ps-filter-bar__btn-label js-ps-budget-label">{{ 'Price'|t }}</span>
+      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="ps-type-popin" id="ps-budget-popin" hidden>
+      <div class="ps-type-popin__section">
+        <h3 class="ps-type-popin__heading js-ps-budget-heading">{{ budget_heading|default('Budget'|t) }}</h3>
+        <div class="ps-range-inputs">
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-budget-min">{{ 'Min'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-budget-min" class="ps-range-inputs__input js-ps-budget-min" min="0" step="10" placeholder="0">
+              <span class="ps-range-inputs__unit">€</span>
+            </div>
+          </div>
+          <span class="ps-range-inputs__sep">—</span>
+          <div class="ps-range-inputs__field">
+            <label class="ps-range-inputs__label" for="ps-budget-max">{{ 'Max'|t }}</label>
+            <div class="ps-range-inputs__input-wrap">
+              <input type="number" id="ps-budget-max" class="ps-range-inputs__input js-ps-budget-max" min="0" step="10" placeholder="∞">
+              <span class="ps-range-inputs__unit">€</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-type-popin__footer">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="budget">{{ 'Clear'|t }}</button>
+        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {# More criteria #}
+  <div class="ps-filter-bar__item ps-filter-bar__item--more">
+    <button class="ps-filter-bar__btn js-ps-filter-toggle" type="button" aria-expanded="false" aria-controls="ps-more-popin">
+      <span class="ps-filter-bar__btn-label js-ps-more-label">{{ 'More filters'|t }}</span>
+      <span class="ps-filter-bar__btn-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="ps-type-popin ps-type-popin--wide" id="ps-more-popin" hidden>
+      <div class="ps-more-popin__body">
+        {% for group_key, group in more_criteria %}
+          {% if group.items is not empty %}
+            <section class="ps-more-group" data-group="{{ group_key }}">
+              <h3 class="ps-more-group__heading">{{ group.label }}</h3>
+              <div class="ps-more-group__items">
+                {% for item in group.items %}
+                  {% if item.type|default('checkbox') == 'boolean' %}
+                    <label class="ps-more-toggle">
+                      <input type="checkbox" class="js-ps-more-boolean" data-param="{{ item.param }}" value="1">
+                      <span>{{ item.label }}</span>
+                    </label>
+                  {% else %}
+                    <label class="ps-more-checkbox">
+                      <input
+                        type="checkbox"
+                        class="js-ps-more-checkbox"
+                        data-param="{{ group.param }}"
+                        value="{{ item.id }}"
+                      >
+                      <span>{{ item.label }}</span>
+                    </label>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </section>
+          {% endif %}
+        {% endfor %}
+
+        <section class="ps-more-group">
+          <h3 class="ps-more-group__heading">{{ 'Nearby transport'|t }}</h3>
+          <input type="text" class="ps-more-group__text js-ps-more-transport" placeholder="{{ 'Metro, bus, train...'|t }}">
+        </section>
+
+        <section class="ps-more-group">
+          <h3 class="ps-more-group__heading">{{ 'Reference'|t }}</h3>
+          <input type="text" class="ps-more-group__text js-ps-more-reference" placeholder="{{ 'Offer reference...'|t }}">
+        </section>
+
+        <section class="ps-more-group">
+          <h3 class="ps-more-group__heading">{{ 'Ceiling height (m)'|t }}</h3>
+          <div class="ps-range-inputs">
+            <div class="ps-range-inputs__field">
+              <label class="ps-range-inputs__label" for="ps-ceiling-min">{{ 'Min'|t }}</label>
+              <div class="ps-range-inputs__input-wrap">
+                <input type="number" id="ps-ceiling-min" class="ps-range-inputs__input js-ps-ceiling-min" min="0" step="0.5" placeholder="0">
+              </div>
+            </div>
+            <span class="ps-range-inputs__sep">—</span>
+            <div class="ps-range-inputs__field">
+              <label class="ps-range-inputs__label" for="ps-ceiling-max">{{ 'Max'|t }}</label>
+              <div class="ps-range-inputs__input-wrap">
+                <input type="number" id="ps-ceiling-max" class="ps-range-inputs__input js-ps-ceiling-max" min="0" step="0.5" placeholder="∞">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ps-more-group ps-more-group--toggles">
+          <label class="ps-more-toggle">
+            <input type="checkbox" class="js-ps-more-boolean" data-param="has_immersive_tour" value="1">
+            <span>{{ 'Immersive tour'|t }}</span>
+          </label>
+          <label class="ps-more-toggle">
+            <input type="checkbox" class="js-ps-more-boolean" data-param="has_video" value="1">
+            <span>{{ 'Video'|t }}</span>
+          </label>
+        </section>
+      </div>
+
+      <div class="ps-type-popin__footer">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
+        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+          {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
