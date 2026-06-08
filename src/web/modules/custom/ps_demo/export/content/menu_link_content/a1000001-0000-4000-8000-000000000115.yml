@@ -24,7 +24,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/recherche?operation_type=LOC&asset_type=COM'
+      uri: 'internal:/find-property?operation_type=LOC&asset_type=COM'
       title: null
       options: {  }
   external:
@@ -64,7 +64,7 @@ translations:
         value: main
     link:
       -
-        uri: 'internal:/recherche?operation_type=LOC&asset_type=COM'
+        uri: 'internal:/find-property?operation_type=LOC&asset_type=COM'
         title: null
         options: {  }
     external:

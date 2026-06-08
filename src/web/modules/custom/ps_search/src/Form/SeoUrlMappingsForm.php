@@ -77,6 +77,14 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
       ];
     }
 
+    $form['asset_slug_aliases'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Legacy asset slug aliases'),
+      '#default_value' => $this->formatAssetSlugAliases($config->get('asset_slug_aliases') ?? []),
+      '#rows' => 4,
+      '#description' => $this->t('One alias per line: legacy-slug=canonical-slug (e.g. bureau=bureaux). Used for inbound URL resolution and 301 redirects to the canonical asset slug. Translatable per language via Configuration translation.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -103,9 +111,41 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
     $config
       ->set('operation_types', $operationTypes)
       ->set('asset_types', $assetTypes)
+      ->set('asset_slug_aliases', $this->parseAssetSlugAliases((string) $form_state->getValue('asset_slug_aliases')))
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * @param array<string, string> $aliases
+   */
+  private function formatAssetSlugAliases(array $aliases): string {
+    $lines = [];
+    foreach ($aliases as $legacy => $canonical) {
+      $lines[] = strtolower(trim((string) $legacy)) . '=' . strtolower(trim((string) $canonical));
+    }
+    return implode("\n", $lines);
+  }
+
+  /**
+   * @return array<string, string>
+   */
+  private function parseAssetSlugAliases(string $raw): array {
+    $aliases = [];
+    foreach (preg_split('/\R/', $raw) ?: [] as $line) {
+      $line = trim($line);
+      if ($line === '' || !str_contains($line, '=')) {
+        continue;
+      }
+      [$legacy, $canonical] = array_map('trim', explode('=', $line, 2));
+      $legacy = strtolower($legacy);
+      $canonical = strtolower($canonical);
+      if ($legacy !== '' && $canonical !== '') {
+        $aliases[$legacy] = $canonical;
+      }
+    }
+    return $aliases;
   }
 
 }

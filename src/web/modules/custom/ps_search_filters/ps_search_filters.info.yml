@@ -1,6 +1,6 @@
 name: 'Property Search - Search Filters'
 type: module
-description: 'BNPPRE-style search filter bar with popins for /recherche.'
+description: 'BNPPRE-style search filter bar with popins for the search page (/find-property).'
 core_version_requirement: ^11
 package: 'Property Search'
 version: 1.0.0

@@ -576,12 +576,12 @@
         const primaryData = getPrimaryLocalityData();
         const useSeoLocalityPath = usesSeoLocalityPath(base) && primaryData && (primaryData.locality || primaryData.postal_code);
 
-        // Flexible (no operation): asset stays as query param on /recherche (BEF array format).
+        // Flexible (no operation): asset stays as query param on /find-property (BEF array format).
         if (selectedAsset && !selectedOp) {
           setFacetQueryParam(p, 'asset_type', selectedAsset);
         }
 
-        // SEO locality segments only under /a-louer/… — never append to /recherche (404).
+        // SEO locality segments only under /a-louer/… — never append to flexible search base (404).
         if (useSeoLocalityPath) {
           base = base.replace(/\/?$/, '/');
           const deptCode = primaryData.postal_code ? primaryData.postal_code.substring(0, 2) : '';

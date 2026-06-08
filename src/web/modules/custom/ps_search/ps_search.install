@@ -68,3 +68,38 @@ function ps_search_update_11003(): void {
 
   drupal_flush_all_caches();
 }
+
+/**
+ * Align FR office asset slug with BNPPRE SEO URLs (bureau → bureaux).
+ */
+function ps_search_update_11004(): void {
+  $override = \Drupal::languageManager()->getLanguageConfigOverride('fr', 'ps_search.seo_url_mappings');
+  $assetTypes = $override->get('asset_types') ?? [];
+  if (($assetTypes['BUR'] ?? '') === 'bureau' || ($assetTypes['BUR'] ?? '') === '') {
+    $assetTypes['BUR'] = 'bureaux';
+    $override->set('asset_types', $assetTypes);
+  }
+
+  $aliases = $override->get('asset_slug_aliases') ?? [];
+  if (!isset($aliases['bureau'])) {
+    $aliases['bureau'] = 'bureaux';
+    $override->set('asset_slug_aliases', $aliases);
+  }
+
+  $override->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Import FR legacy asset slug alias bureau → bureaux (config-driven).
+ */
+function ps_search_update_11005(): void {
+  $override = \Drupal::languageManager()->getLanguageConfigOverride('fr', 'ps_search.seo_url_mappings');
+  $aliases = $override->get('asset_slug_aliases') ?? [];
+  if (!isset($aliases['bureau'])) {
+    $aliases['bureau'] = 'bureaux';
+    $override->set('asset_slug_aliases', $aliases)->save();
+  }
+
+  drupal_flush_all_caches();
+}

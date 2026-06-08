@@ -22,7 +22,7 @@ default:
       value: ps_header_actions
   link:
     -
-      uri: 'internal:/recherche'
+      uri: 'internal:/find-property'
       title: null
       options:
         attributes:
@@ -62,7 +62,7 @@ translations:
         value: ps_header_actions
     link:
       -
-        uri: 'internal:/recherche'
+        uri: 'internal:/find-property'
         title: null
         options:
           attributes:

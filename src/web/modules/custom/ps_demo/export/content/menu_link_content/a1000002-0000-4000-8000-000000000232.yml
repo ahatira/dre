@@ -24,7 +24,7 @@ default:
       value: ps_footer_prefooter
   link:
     -
-      uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT'
+      uri: 'internal:/find-property?operation_type=VEN&asset_type=ACT'
       title: null
       options: {  }
   external:
@@ -64,7 +64,7 @@ translations:
         value: ps_footer_prefooter
     link:
       -
-        uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT'
+        uri: 'internal:/find-property?operation_type=VEN&asset_type=ACT'
         title: null
         options: {  }
     external:

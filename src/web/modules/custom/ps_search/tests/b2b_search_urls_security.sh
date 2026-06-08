@@ -45,7 +45,7 @@ assert_body_not_contains() {
   local url="$1" needle="$2" label="$3"
   local body
   body=$(curl -s -m 60 "$url" 2>/dev/null || true)
-  if echo "$body" | grep -Fq "$needle"; then
+  if [[ -n "$body" ]] && grep -Fq "$needle" <<< "$body"; then
     fail "$label (found unescaped: $needle)"
   else
     pass "$label"
@@ -56,10 +56,10 @@ assert_body_contains() {
   local url="$1" needle="$2" label="$3"
   local body
   body=$(curl -s -m 60 "$url" 2>/dev/null || true)
-  if echo "$body" | grep -Fq "$needle"; then
+  if [[ -n "$body" ]] && grep -Fq "$needle" <<< "$body"; then
     pass "$label"
   else
-    fail "$label (missing: $needle)"
+    fail "$label (missing: $needle) — $url"
   fi
 }
 
@@ -78,6 +78,9 @@ echo "--- SEO URLs ---"
 assert_status "$BASE/fr/a-louer/bureaux/paris-75/paris-75015/" "200" "FR SEO rent+office+Paris"
 assert_status "$BASE/fr/a-louer/bureaux/" "200" "FR SEO rent+office"
 assert_status "$BASE/for-rent/office/" "200" "EN SEO rent+office"
+assert_redirect_to "$BASE/fr/a-louer/bureau/" "/fr/a-louer/bureaux/" "Legacy FR asset slug bureau → bureaux"
+assert_body_contains "$BASE/fr/a-louer/bureaux/" 'data-code="BUR"' "FR SEO page exposes BUR asset filter"
+assert_body_contains "$BASE/fr/a-louer/bureaux/" 'ps-asset-card is-active' "FR SEO page highlights active asset type"
 
 echo "--- Invalid paths (must 404) ---"
 assert_status "$BASE/fr/recherche-immobiliere/paris-75/paris-75015/" "404" "Locality appended to flexible FR base"

@@ -8,7 +8,7 @@ Orchestration Search API + Solr pour la recherche d'offres immobilières : index
 
 `ps_search` est le point d'ancrage du domaine recherche (DEC-0017). Il livre :
 - le server/index Solr `offers` ;
-- la vue publique `ps_search_offers` (`/recherche`) ;
+- la vue publique `ps_search_offers` (route machine `/find-property`, slugs publics i18n) ;
 - les processors Search API (surfaces, features) ;
 - la synchronisation dynamique des champs/filtres features depuis le catalogue `ps_feature` ;
 - le traitement SEO des URLs de recherche (mappings + redirect canonique).
@@ -70,7 +70,7 @@ Aucune. Configuration exportable uniquement.
 | Route | Chemin | Accès |
 |---|---|---|
 | `ps_search.seo_url_mappings_form` | `/admin/ps/config/search/seo-urls` | `administer site configuration` |
-| Vue `ps_search_offers` (page) | `/recherche` | Public (`access content`) |
+| Vue `ps_search_offers` (page) | `/find-property` (EN) / slugs traduits | Public (`access content`) |
 | `ps_search.count` | `/ps-search/count` | Public — **deprecated**, redirect |
 | `ps_search.location_suggest` | `/ps-search/location-suggest` | Public — **deprecated**, redirect |
 | `ps_search.location_data` | `/ps-search/location-data` | Public — **deprecated**, redirect |
@@ -87,14 +87,15 @@ Aucune permission propre au module. Configuration SEO : `administer site configu
 |---|---|
 | `search_api.server.ps_solr.yml` | Server Solr |
 | `search_api.index.offers.yml` | Index offers (processors, champs) |
-| `views.view.ps_search_offers.yml` | Vue recherche publique `/recherche` |
+| `views.view.ps_search_offers.yml` | Vue recherche publique `/find-property` |
 | `ps_search.feature_filter_sync.yml` | Settings sync features (cron, prune) |
 | `ps_search.seo_url_mappings.yml` | Mappings URLs SEO (operation, asset, geo) |
 | `config_translation.mapper.ps_search_seo_url_mappings.yml` | Mapper traduction SEO URLs |
 
 ## Tests
 
-Aucun test automatisé dans le module.
+- E2E bash : `composer test:search-urls-e2e` (`tests/b2b_search_urls_security.sh`)
+- Behat : suite `ps_search` (`tests/behat/features/search_paths.feature`)
 
 ## Dépendances
 

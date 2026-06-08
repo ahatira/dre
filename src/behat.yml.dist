@@ -19,6 +19,11 @@ default:
         - web/modules/custom/ps_dictionary/tests/behat/features
       contexts:
         - DictionaryFeatureContext
+    ps_search:
+      paths:
+        - web/modules/custom/ps_search/tests/behat/features
+      contexts:
+        - SearchFeatureContext
   extensions:
     Behat\MinkExtension:
       base_url: 'http://localhost:8080'

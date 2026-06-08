@@ -128,7 +128,7 @@ offer-card/
 |---|---|
 | `node--offer--teaser.html.twig` | Liste recherche, carrousels |
 | `node--offer--full.html.twig` | Fiche détail offre PS |
-| `views-view--ps-search-offers.html.twig` | Page `/recherche` |
+| `views-view--ps-search-offers.html.twig` | Page recherche (`/find-property`) |
 | `block--ps-favorite*.html.twig` | Compteur favoris header |
 
 ### Layout Builder
@@ -153,7 +153,7 @@ Sections réutilisables via **Section Library** (`ui_suite_bnp_companion`).
 | Module | Rôle front |
 |---|---|
 | `ps_offer` | Node offer, view modes, champs affichés |
-| `ps_search` | Vue Solr `/recherche`, SEO URLs |
+| `ps_search` | Vue Solr `/find-property`, SEO URLs |
 | `ps_favorite` | Favoris header + card_favorite |
 | `ps_feature` | Badges caractéristiques sur cards |
 | `ps_agent` | Bloc contact agent fiche |

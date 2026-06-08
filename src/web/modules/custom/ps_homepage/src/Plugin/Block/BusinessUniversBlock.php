@@ -25,12 +25,16 @@ final class BusinessUniversBlock extends BlockBase {
    */
   public function build(): array {
     $items = HomepageContent::universItems();
+    /** @var \Drupal\ps_search\Service\SearchPathResolver $searchPathResolver */
+    $searchPathResolver = \Drupal::service('ps_search.search_path_resolver');
+    $searchPath = $searchPathResolver->getPublicPath();
     $tiles = [];
     foreach ($items as $index => $item) {
+      parse_str($item['query'], $query);
       $tiles[$index] = [
         '#type' => 'link',
         '#title' => $item['label'],
-        '#url' => Url::fromUri('internal:/recherche?' . $item['query']),
+        '#url' => Url::fromUserInput($searchPath, ['query' => $query]),
         '#attributes' => [
           'class' => ['ps-homepage-univers__tile', 'btn', 'btn-outline-primary'],
         ],

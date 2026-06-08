@@ -40,6 +40,13 @@ ps_search.seo_url_mappings:
         COW:
           type: label
           label: 'Slug for COW (coworking)'
+    asset_slug_aliases:
+      type: mapping
+      label: 'Legacy asset slug aliases'
+      mapping:
+        '*':
+          type: label
+          label: 'Canonical asset slug'
 
 ps_search.feature_filter_sync:
   type: config_object

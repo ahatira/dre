@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Redirects /find-property?operation_type=LOC[&asset_type=BUR][&locality=Paris]
- * to the canonical SEO URL /a-louer[/bureau][/paris]/.
+ * to the canonical SEO URL /a-louer[/bureaux][/paris]/.
  *
  * Also 301-redirects the legacy slug /recherche when it is not the current
  * language search path (e.g. EN bookmarks after migration to /find-property).
@@ -68,6 +68,22 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       $langcode = $langPrefix ? ltrim($langPrefix, '/') : $this->getDefaultLangcode();
       $m = $this->getMappings($langcode);
       if (in_array($firstSegment, $m['op'], TRUE)) {
+        $restParts = $restSegments !== '' ? explode('/', $restSegments) : [];
+        if ($restParts !== []) {
+          $aliases = $this->searchPathResolver->getAssetSlugAliases($langcode);
+          $assetSegment = strtolower($restParts[0]);
+          if (isset($aliases[$assetSegment])) {
+            $restParts[0] = $aliases[$assetSegment];
+            $target = $langPrefix . '/' . $firstSegment . '/' . implode('/', $restParts) . '/';
+            $queryString = $request->getQueryString();
+            if ($queryString !== NULL && $queryString !== '') {
+              $target .= '?' . $queryString;
+            }
+            $event->setResponse(new RedirectResponse($target, 301));
+            return;
+          }
+        }
+
         // Check if asset_type query param needs to be incorporated into the path.
         $rawAssetParam = $request->query->all()['asset_type'] ?? NULL;
         if ($rawAssetParam !== NULL) {

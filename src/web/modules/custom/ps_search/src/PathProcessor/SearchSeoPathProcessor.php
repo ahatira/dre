@@ -18,10 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
  * Converts SEO-friendly URLs to internal search paths and vice versa.
  *
  * Inbound (priority 290, after language processor at 300):
- *   /a-louer/bureau/paris/ -> /find-property + query params
+ *   /a-louer/bureaux/paris/ -> /find-property + query params
  *
  * Outbound (priority 110, before language processor at 100):
- *   /find-property + query['operation_type'=>'LOC',...] -> /a-louer/bureau/paris/
+ *   /find-property + query['operation_type'=>'LOC',...] -> /a-louer/bureaux/paris/
  *
  * Slugs are configurable via ps_search.seo_url_mappings config and
  * translatable per language via the Config Translation module.
@@ -49,9 +49,9 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   /**
    * {@inheritdoc}
    *
-   * Converts /a-louer[/asset][/city]/ -> /recherche and injects query params.
+   * Converts /a-louer[/asset][/city]/ -> /find-property and injects query params.
    * Sets _disable_route_normalizer to prevent the redirect module from
-   * issuing a 301 back to /recherche.
+   * issuing a 301 back to /find-property.
    */
   public function processInbound($path, Request $request): string {
     // Use TYPE_URL (from the URL prefix /fr/, /en/) not TYPE_INTERFACE (admin
@@ -114,7 +114,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   /**
    * {@inheritdoc}
    *
-   * Converts /recherche + query params -> /a-louer[/asset][/city]/
+   * Converts /find-property + query params -> /a-louer[/asset][/city]/
    */
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
     if ($path !== $this->searchPathResolver->getInternalPath()) {
@@ -208,6 +208,14 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
       $value = strtoupper((string) $value);
       $assetToVal[$slug] = $value;
       $valToAsset[$value] = $slug;
+    }
+
+    foreach ($this->searchPathResolver->getAssetSlugAliases($langcode) as $legacySlug => $canonicalSlug) {
+      $legacySlug = strtolower($legacySlug);
+      $canonicalSlug = strtolower($canonicalSlug);
+      if (isset($assetToVal[$canonicalSlug]) && !isset($assetToVal[$legacySlug])) {
+        $assetToVal[$legacySlug] = $assetToVal[$canonicalSlug];
+      }
     }
 
     $this->mappingsByLang[$langcode] = [

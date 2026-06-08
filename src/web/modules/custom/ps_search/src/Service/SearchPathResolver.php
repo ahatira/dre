@@ -23,6 +23,13 @@ final class SearchPathResolver {
   private const LEGACY_SLUG = 'recherche';
 
   /**
+   * Per-language asset slug alias cache keyed by langcode.
+   *
+   * @var array<string, array<string, string>>
+   */
+  private array $assetAliasesByLang = [];
+
+  /**
    * Per-language slug cache keyed by langcode.
    *
    * @var array<string, string>
@@ -107,6 +114,37 @@ final class SearchPathResolver {
    */
   public function getLegacySlug(): string {
     return self::LEGACY_SLUG;
+  }
+
+  /**
+   * Legacy asset slugs that should 301 to the canonical slug for a language.
+   *
+   * @return array<string, string>
+   *   Map of legacy slug => canonical slug (both lowercase, no slashes).
+   */
+  public function getAssetSlugAliases(string $langcode): array {
+    if (isset($this->assetAliasesByLang[$langcode])) {
+      return $this->assetAliasesByLang[$langcode];
+    }
+
+    $base = $this->configStorage->read('ps_search.seo_url_mappings') ?: [];
+    $override = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
+    $aliases = array_merge(
+      $base['asset_slug_aliases'] ?? [],
+      $override->get('asset_slug_aliases') ?? [],
+    );
+
+    $normalized = [];
+    foreach ($aliases as $legacySlug => $canonicalSlug) {
+      $legacy = strtolower(trim((string) $legacySlug));
+      $canonical = strtolower(trim((string) $canonicalSlug));
+      if ($legacy !== '' && $canonical !== '') {
+        $normalized[$legacy] = $canonical;
+      }
+    }
+
+    $this->assetAliasesByLang[$langcode] = $normalized;
+    return $normalized;
   }
 
   /**

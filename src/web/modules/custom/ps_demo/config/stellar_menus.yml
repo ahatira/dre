@@ -24,28 +24,28 @@ menus:
             - id: find_rent_all
               uuid: a1000001-0000-4000-8000-000000000111
               weight: 0
-              link: { uri: 'internal:/recherche?operation_type=LOC' }
+              link: { uri: 'internal:/find-property?operation_type=LOC' }
               translations:
                 en: { title: 'All properties' }
                 fr: { title: 'Tous les biens' }
             - id: find_rent_offices
               uuid: a1000001-0000-4000-8000-000000000113
               weight: 10
-              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR' }
+              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR' }
               translations:
                 en: { title: 'Offices' }
                 fr: { title: 'Bureaux' }
             - id: find_rent_logistics
               uuid: a1000001-0000-4000-8000-000000000114
               weight: 20
-              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=LOG' }
+              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=LOG' }
               translations:
                 en: { title: 'Logistics' }
                 fr: { title: 'Logistique' }
             - id: find_rent_retail
               uuid: a1000001-0000-4000-8000-000000000115
               weight: 30
-              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COM' }
+              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=COM' }
               translations:
                 en: { title: 'Retail' }
                 fr: { title: 'Commerce' }
@@ -60,21 +60,21 @@ menus:
             - id: find_buy_all
               uuid: a1000001-0000-4000-8000-000000000103
               weight: 0
-              link: { uri: 'internal:/recherche?operation_type=VEN' }
+              link: { uri: 'internal:/find-property?operation_type=VEN' }
               translations:
                 en: { title: 'All properties' }
                 fr: { title: 'Tous les biens' }
             - id: find_buy_offices
               uuid: a1000001-0000-4000-8000-000000000117
               weight: 10
-              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=BUR' }
+              link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=BUR' }
               translations:
                 en: { title: 'Offices' }
                 fr: { title: 'Bureaux' }
             - id: find_buy_logistics
               uuid: a1000001-0000-4000-8000-000000000118
               weight: 20
-              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=LOG' }
+              link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG' }
               translations:
                 en: { title: 'Logistics' }
                 fr: { title: 'Logistique' }
@@ -89,14 +89,14 @@ menus:
             - id: find_coworking_all
               uuid: a1000001-0000-4000-8000-000000000124
               weight: 0
-              link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COW' }
+              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=COW' }
               translations:
                 en: { title: 'All coworking spaces' }
                 fr: { title: 'Tous les espaces coworking' }
             - id: find_coworking_buy
               uuid: a1000001-0000-4000-8000-000000000125
               weight: 10
-              link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COW' }
+              link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=COW' }
               translations:
                 en: { title: 'Buy coworking' }
                 fr: { title: 'Acheter un coworking' }
@@ -259,14 +259,14 @@ menus:
         - id: offices_rent
           uuid: a1000002-0000-4000-8000-000000000211
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: offices_buy
           uuid: a1000002-0000-4000-8000-000000000212
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=BUR' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=BUR' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -281,14 +281,14 @@ menus:
         - id: logistics_rent
           uuid: a1000002-0000-4000-8000-000000000221
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=LOG' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=LOG' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: logistics_buy
           uuid: a1000002-0000-4000-8000-000000000222
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=LOG' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -303,14 +303,14 @@ menus:
         - id: activity_rent
           uuid: a1000002-0000-4000-8000-000000000231
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=ACT' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=ACT' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: activity_buy
           uuid: a1000002-0000-4000-8000-000000000232
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=ACT' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=ACT' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -325,14 +325,14 @@ menus:
         - id: retail_rent
           uuid: a1000002-0000-4000-8000-000000000241
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COM' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=COM' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: retail_buy
           uuid: a1000002-0000-4000-8000-000000000242
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COM' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=COM' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -347,14 +347,14 @@ menus:
         - id: land_rent
           uuid: a1000002-0000-4000-8000-000000000251
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=TER' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=TER' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: land_buy
           uuid: a1000002-0000-4000-8000-000000000252
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=TER' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=TER' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -369,14 +369,14 @@ menus:
         - id: coworking_rent
           uuid: a1000002-0000-4000-8000-000000000261
           weight: 0
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=COW' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=COW' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: coworking_buy
           uuid: a1000002-0000-4000-8000-000000000262
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=VEN&asset_type=COW' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=COW' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }
@@ -402,35 +402,35 @@ menus:
         - id: city_paris
           uuid: a1000003-0000-4000-8000-000000000321
           weight: 10
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Paris' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR&locality=Paris' }
           translations:
             en: { title: 'Paris offices' }
             fr: { title: 'Bureaux Paris' }
         - id: city_lyon
           uuid: a1000003-0000-4000-8000-000000000322
           weight: 20
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lyon' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR&locality=Lyon' }
           translations:
             en: { title: 'Lyon offices' }
             fr: { title: 'Bureaux Lyon' }
         - id: city_marseille
           uuid: a1000003-0000-4000-8000-000000000323
           weight: 30
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Marseille' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR&locality=Marseille' }
           translations:
             en: { title: 'Marseille offices' }
             fr: { title: 'Bureaux Marseille' }
         - id: city_lille
           uuid: a1000003-0000-4000-8000-000000000324
           weight: 40
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Lille' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR&locality=Lille' }
           translations:
             en: { title: 'Lille offices' }
             fr: { title: 'Bureaux Lille' }
         - id: city_bordeaux
           uuid: a1000003-0000-4000-8000-000000000325
           weight: 50
-          link: { uri: 'internal:/recherche?operation_type=LOC&asset_type=BUR&locality=Bordeaux' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=BUR&locality=Bordeaux' }
           translations:
             en: { title: 'Bordeaux offices' }
             fr: { title: 'Bureaux Bordeaux' }
@@ -579,7 +579,7 @@ menus:
       uuid: a2000001-0000-4000-8000-000000000001
       weight: 10
       link:
-        uri: 'internal:/recherche'
+        uri: 'internal:/find-property'
         options:
           attributes:
             class:
@@ -634,7 +634,7 @@ menus:
       uuid: a2000001-0000-4000-8000-000000000004
       weight: 40
       link:
-        uri: 'internal:/recherche'
+        uri: 'internal:/find-property'
         options:
           attributes:
             class:

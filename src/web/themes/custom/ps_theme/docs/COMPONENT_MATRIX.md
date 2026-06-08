@@ -27,7 +27,7 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 | Bandeau confiance / chiffres | `stats-bar` | **PS** ou G | À trancher réutilisabilité |
 | Carrousel offres | `offer-card` × N | **PS** | View mode teaser (grille verticale) |
 
-## Recherche (`/recherche`)
+## Recherche (`/find-property` — slugs i18n, ex. `/fr/recherche-immobiliere`)
 
 | Écran Figma | Composant | Couche | Notes |
 |---|---|---|---|
