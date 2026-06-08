@@ -4,6 +4,11 @@ services:
     arguments:
       - '@entity_type.manager'
 
+  ps_context.search_filter_visibility:
+    class: Drupal\ps_context\Service\SearchFilterVisibilityResolver
+    arguments:
+      - '@entity_type.manager'
+
   # Registered with FQCN so Drupal's HookCollectorPass can inject dependencies.
   Drupal\ps_context\Hook\OfferFormHooks:
     class: Drupal\ps_context\Hook\OfferFormHooks

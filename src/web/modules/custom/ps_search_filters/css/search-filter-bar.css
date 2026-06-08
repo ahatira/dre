@@ -233,6 +233,87 @@
   padding: 1rem;
 }
 
+/* Surface / capacity range popins — Figma Surface */
+.ps-filter-bar__item--surface .dropdown-menu.ps-filter-popin--surface,
+.ps-filter-bar__item--capacity .dropdown-menu.ps-filter-popin--capacity {
+  --bs-dropdown-min-width: 360px;
+  box-sizing: border-box;
+  inset: 100% auto auto 0 !important;
+  min-width: 360px;
+  padding: 24px;
+  width: max-content;
+}
+
+.ps-filter-popin--range.show {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ps-filter-popin--range .ps-filter-popin__section {
+  padding: 0;
+  width: 100%;
+}
+
+.ps-filter-popin--range .ps-filter-popin__footer--range {
+  align-items: center;
+  border-top: none;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  justify-content: space-between;
+  margin: 24px 0 0;
+  padding: 0;
+  position: static;
+  width: 100%;
+}
+
+.ps-filter-popin--range .ps-range-inputs {
+  align-items: flex-end;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  width: 100%;
+}
+
+.ps-filter-popin--range .ps-range-inputs__field {
+  min-width: 0;
+}
+
+.ps-filter-popin--range .ps-range-inputs__input-wrap {
+  min-width: 0;
+  width: 100%;
+}
+
+.ps-filter-popin--range .ps-range-inputs__sep {
+  align-self: flex-end;
+  flex-shrink: 0;
+  padding-bottom: 10px;
+}
+
+.ps-filter-popin--range .ps-range-inputs__label--field {
+  color: var(--re-color-text-strong, #333);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.ps-filter-popin--range .ps-filter-clear {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.ps-filter-popin--range .ps-apply-btn {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
 .ps-filter-popin__section + .ps-filter-popin__section {
   border-top: 1px solid var(--re-color-border-soft, #ebedef);
   margin-top: 1rem;
@@ -670,6 +751,7 @@
 }
 
 .ps-filter-bar__item--surface.is-active .ps-filter-bar__toggle-label,
+.ps-filter-bar__item--capacity.is-active .ps-filter-bar__toggle-label,
 .ps-filter-bar__item--budget.is-active .ps-filter-bar__toggle-label {
   color: var(--re-color-primary, #00915a);
   font-weight: 600;
@@ -855,4 +937,8 @@
 
 .ps-filter-bar .dropdown-menu.ps-filter-popin {
   max-width: calc(100vw - 2rem);
+}
+
+.ps-filter-bar .dropdown-menu.ps-filter-popin--range {
+  max-width: min(420px, calc(100vw - 2rem));
 }

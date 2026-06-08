@@ -43,6 +43,21 @@ msgstr "Peu importe"
 msgid "Clear"
 msgstr "Effacer"
 
+msgid "Delete all"
+msgstr "Tout effacer"
+
+msgid "Min surface (m²)"
+msgstr "Surface min (m²)"
+
+msgid "Max surface (m²)"
+msgstr "Surface max (m²)"
+
+msgid "Min @unit"
+msgstr "Min. @unit"
+
+msgid "Max @unit"
+msgstr "Max. @unit"
+
 msgid "Show"
 msgstr "Afficher"
 

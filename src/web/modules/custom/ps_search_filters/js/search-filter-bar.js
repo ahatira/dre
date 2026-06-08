@@ -28,7 +28,18 @@
       const countUrl = settings.countUrl || '/ps-search/count';
       const locationSuggestUrl = settings.locationSuggestUrl || '/ps-search/location-suggest';
       const locationDataUrl = settings.locationDataUrl || '/ps-search/location-data';
+      const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
+      const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
       const currentParams = new URLSearchParams(window.location.search);
+
+      function getFilterVisibility(assetCode) {
+        const key = assetCode || '';
+        return filterVisibilityByAsset[key] || {
+          show_surface: true,
+          show_capacity: false,
+          primary_filter: 'surface',
+        };
+      }
 
       // ── Shared state (all filter sections) ───────────────────────────────
       let selectedOp = settings.activeOp || null;
@@ -67,16 +78,18 @@
       });
 
       function updateAssetMode() {
-        const isCow = selectedAsset === 'COW';
+        const visibility = getFilterVisibility(selectedAsset);
         const surfaceItem = document.querySelector('.js-ps-surface-item');
         const capacityItem = document.querySelector('.js-ps-capacity-item');
+
         if (surfaceItem) {
-          surfaceItem.hidden = isCow;
+          surfaceItem.hidden = !visibility.show_surface;
         }
         if (capacityItem) {
-          capacityItem.hidden = !isCow;
+          capacityItem.hidden = !visibility.show_capacity;
         }
-        if (isCow) {
+
+        if (!visibility.show_surface) {
           surfaceMin = '';
           surfaceMax = '';
           document.querySelectorAll('.js-ps-surface-min, .js-ps-surface-max').forEach(function (el) {
@@ -84,7 +97,7 @@
           });
           updateSurfaceLabel();
         }
-        else {
+        if (!visibility.show_capacity) {
           capacityMin = '';
           capacityMax = '';
           document.querySelectorAll('.js-ps-capacity-min, .js-ps-capacity-max').forEach(function (el) {
@@ -430,12 +443,17 @@
           p.set('locality', selectedLocality);
         }
 
-        if (surfaceMin) p.set('surface[min]', surfaceMin);
-        if (surfaceMax) p.set('surface[max]', surfaceMax);
+        const visibility = getFilterVisibility(selectedAsset);
+        if (visibility.show_surface) {
+          if (surfaceMin) p.set('surface[min]', surfaceMin);
+          if (surfaceMax) p.set('surface[max]', surfaceMax);
+        }
+        if (visibility.show_capacity) {
+          if (capacityMin) p.set('capacity[min]', capacityMin);
+          if (capacityMax) p.set('capacity[max]', capacityMax);
+        }
         if (budgetMin) p.set('budget[min]', budgetMin);
         if (budgetMax) p.set('budget[max]', budgetMax);
-        if (capacityMin) p.set('capacity[min]', capacityMin);
-        if (capacityMax) p.set('capacity[max]', capacityMax);
         if (ceilingMin) p.set('ceiling_height[min]', ceilingMin);
         if (ceilingMax) p.set('ceiling_height[max]', ceilingMax);
         if (moreTransport) p.set('nearby_transport', moreTransport);
@@ -460,12 +478,18 @@
         if (selectedAsset) p.set('asset_type', selectedAsset);
         // Locality is passed to count endpoint for approximate filtering.
         if (selectedLocality) p.set('locality', selectedLocality);
-        if (surfaceMin) p.set('surface_min', surfaceMin);
-        if (surfaceMax) p.set('surface_max', surfaceMax);
+
+        const visibility = getFilterVisibility(selectedAsset);
+        if (visibility.show_surface) {
+          if (surfaceMin) p.set('surface_min', surfaceMin);
+          if (surfaceMax) p.set('surface_max', surfaceMax);
+        }
+        if (visibility.show_capacity) {
+          if (capacityMin) p.set('capacity_min', capacityMin);
+          if (capacityMax) p.set('capacity_max', capacityMax);
+        }
         if (budgetMin) p.set('budget_min', budgetMin);
         if (budgetMax) p.set('budget_max', budgetMax);
-        if (capacityMin) p.set('capacity_min', capacityMin);
-        if (capacityMax) p.set('capacity_max', capacityMax);
         if (ceilingMin) p.set('ceiling_height_min', ceilingMin);
         if (ceilingMax) p.set('ceiling_height_max', ceilingMax);
         if (moreTransport) p.set('nearby_transport', moreTransport);
@@ -1074,10 +1098,11 @@
       function updateCapacityLabel() {
         const lbl = document.querySelector('.js-ps-capacity-label');
         if (!lbl) return;
-        if (capacityMin && capacityMax) lbl.textContent = capacityMin + '\u2013' + capacityMax;
-        else if (capacityMin) lbl.textContent = '\u2265 ' + capacityMin;
-        else if (capacityMax) lbl.textContent = '\u2264 ' + capacityMax;
-        else lbl.textContent = Drupal.t('Capacity');
+        const unit = capacityFilterLabel;
+        if (capacityMin && capacityMax) lbl.textContent = capacityMin + '\u2013' + capacityMax + ' ' + unit;
+        else if (capacityMin) lbl.textContent = '\u2265 ' + capacityMin + ' ' + unit;
+        else if (capacityMax) lbl.textContent = '\u2264 ' + capacityMax + ' ' + unit;
+        else lbl.textContent = capacityFilterLabel;
         const filterItem = document.querySelector('.ps-filter-bar__item--capacity');
         if (filterItem) filterItem.classList.toggle('is-active', !!(capacityMin || capacityMax));
       }

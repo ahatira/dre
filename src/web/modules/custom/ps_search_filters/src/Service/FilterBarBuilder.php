@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -27,6 +28,7 @@ final class FilterBarBuilder {
     private readonly RequestStack $requestStack,
     private readonly MoreCriteriaBuilder $moreCriteriaBuilder,
     private readonly DictionaryEntryIconResolver $dictionaryEntryIconResolver,
+    private readonly SearchFilterVisibilityResolver $searchFilterVisibility,
   ) {}
 
   /**
@@ -118,6 +120,14 @@ final class FilterBarBuilder {
       ? (string) $this->t('Price (€)')
       : (string) $this->t('Rent (€/m²/year)');
 
+    $assetCodes = array_keys($assetSlugs);
+    $visibilityByAsset = $this->searchFilterVisibility->buildVisibilityMap($assetCodes);
+    $initialVisibility = $this->searchFilterVisibility->resolve($activeAsset);
+
+    $offerSettings = $this->configFactory->get('ps_offer.settings');
+    $capacityUnit = (string) ($offerSettings->get('surface_capacity_unit') ?: 'seats');
+    $capacityFilterLabel = ucfirst($capacityUnit);
+
     return [
       '#theme' => 'ps_search_filter_bar',
       '#operation_types' => $operationTypes,
@@ -130,6 +140,9 @@ final class FilterBarBuilder {
       '#active_asset_label' => $activeAssetLabel,
       '#budget_heading' => $budgetHeading,
       '#lang_prefix' => $langPrefix,
+      '#show_surface_filter' => $initialVisibility['show_surface'],
+      '#show_capacity_filter' => $initialVisibility['show_capacity'],
+      '#capacity_filter_label' => $capacityFilterLabel,
       '#attached' => [
         'library' => ['ps_search_filters/filter_bar'],
         'drupalSettings' => [
@@ -143,6 +156,9 @@ final class FilterBarBuilder {
             'countUrl' => '/ps-search/count',
             'locationSuggestUrl' => '/ps-search/location-suggest',
             'locationDataUrl' => '/ps-search/location-data',
+            'filterVisibilityByAsset' => $visibilityByAsset,
+            'capacityFilterLabel' => $capacityFilterLabel,
+            'capacityUnit' => $capacityUnit,
           ],
         ],
       ],
@@ -150,6 +166,8 @@ final class FilterBarBuilder {
         'contexts' => ['url.path', 'languages:language_interface'],
         'tags' => [
           'config:ps_search.seo_url_mappings',
+          'config:ps_offer.settings',
+          'ps_context_rule_list',
           'fb_feature_definition_list',
           'config:ps_dictionary.entry.*',
         ],

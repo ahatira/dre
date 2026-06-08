@@ -115,8 +115,8 @@
   </div>
 
   {# Surface #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
-    <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-surface-trigger">
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item"{% if not show_surface_filter %} hidden{% endif %}>
+    <label class="form-label ps-filter-bar__field-label text-nowrap js-ps-surface-field-label" for="ps-filter-surface-trigger">
       {{ 'Surface (m²)'|t }}
     </label>
     <button
@@ -130,20 +130,19 @@
       <span class="ps-filter-bar__toggle-label js-ps-surface-label text-truncate">{{ 'Surface'|t }}</span>
       <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="dropdown-menu ps-filter-popin">
+    <div class="dropdown-menu ps-filter-popin ps-filter-popin--surface ps-filter-popin--range">
       <div class="ps-filter-popin__section">
-        <h3 class="ps-filter-popin__heading">{{ 'Area (m²)'|t }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-surface-min">{{ 'Min'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-surface-min">{{ 'Min surface (m²)'|t }}</label>
             <div class="ps-range-inputs__input-wrap">
               <input type="number" id="ps-surface-min" class="ps-range-inputs__input js-ps-surface-min" min="0" step="50" placeholder="0">
               <span class="ps-range-inputs__unit">m²</span>
             </div>
           </div>
-          <span class="ps-range-inputs__sep">—</span>
+          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-surface-max">{{ 'Max'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-surface-max">{{ 'Max surface (m²)'|t }}</label>
             <div class="ps-range-inputs__input-wrap">
               <input type="number" id="ps-surface-max" class="ps-range-inputs__input js-ps-surface-max" min="0" step="50" placeholder="∞">
               <span class="ps-range-inputs__unit">m²</span>
@@ -151,8 +150,8 @@
           </div>
         </div>
       </div>
-      <div class="ps-filter-popin__footer">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Clear'|t }}</button>
+      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Delete all'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
         </button>
@@ -160,10 +159,10 @@
     </div>
   </div>
 
-  {# Capacity (coworking only) #}
-  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
-    <label class="form-label ps-filter-bar__field-label" for="ps-filter-capacity-trigger">
-      {{ 'Capacity'|t }}
+  {# Capacity (context matrix — e.g. coworking) #}
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item"{% if not show_capacity_filter %} hidden{% endif %}>
+    <label class="form-label ps-filter-bar__field-label js-ps-capacity-field-label" for="ps-filter-capacity-trigger">
+      {{ capacity_filter_label|capitalize }}
     </label>
     <button
       id="ps-filter-capacity-trigger"
@@ -173,30 +172,29 @@
       data-bs-auto-close="outside"
       aria-expanded="false"
     >
-      <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ 'Capacity'|t }}</span>
+      <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_filter_label|capitalize }}</span>
       <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
-    <div class="dropdown-menu ps-filter-popin">
+    <div class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range">
       <div class="ps-filter-popin__section">
-        <h3 class="ps-filter-popin__heading">{{ 'Capacity (workstations)'|t }}</h3>
         <div class="ps-range-inputs">
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-capacity-min">{{ 'Min'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-capacity-min">{{ 'Min @unit'|t({'@unit': capacity_filter_label}) }}</label>
             <div class="ps-range-inputs__input-wrap">
               <input type="number" id="ps-capacity-min" class="ps-range-inputs__input js-ps-capacity-min" min="0" step="1" placeholder="0">
             </div>
           </div>
-          <span class="ps-range-inputs__sep">—</span>
+          <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
           <div class="ps-range-inputs__field">
-            <label class="ps-range-inputs__label" for="ps-capacity-max">{{ 'Max'|t }}</label>
+            <label class="ps-range-inputs__label ps-range-inputs__label--field" for="ps-capacity-max">{{ 'Max @unit'|t({'@unit': capacity_filter_label}) }}</label>
             <div class="ps-range-inputs__input-wrap">
               <input type="number" id="ps-capacity-max" class="ps-range-inputs__input js-ps-capacity-max" min="0" step="1" placeholder="∞">
             </div>
           </div>
         </div>
       </div>
-      <div class="ps-filter-popin__footer">
-        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Clear'|t }}</button>
+      <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
+        <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Delete all'|t }}</button>
         <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
         </button>
