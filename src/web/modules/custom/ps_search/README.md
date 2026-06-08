@@ -77,6 +77,46 @@ Aucune. Configuration exportable uniquement.
 
 Menu : **SEO URL Mappings** sous `ps_core.config`.
 
+## Gouvernance BO — configurabilité et traduction
+
+**Principe PS** : toute valeur métier visible ou routable (slug, alias, label, visibilité filtre) doit être **administrable** et **traduisible via le BO**, pas codée en dur en PHP/JS. Le code custom ne fait que **lire** la config et appliquer la logique (path processors, redirects, comptage Solr).
+
+### Où configurer quoi
+
+| Besoin | BO / mécanisme | Config / module |
+|--------|----------------|-----------------|
+| Slug page recherche flexible (`find-property`, `recherche-immobiliere`…) | `/admin/ps/config/search/seo-urls` + **Configuration translation** | `ps_search.seo_url_mappings` → `search_path` |
+| Slugs SEO opération (`for-rent`, `a-louer`…) | Idem | `operation_types` |
+| Slugs SEO asset (`office`, `bureaux`…) | Idem | `asset_types` |
+| Alias legacy asset (`bureau` → `bureaux`) | Idem — champ **Legacy asset slug aliases** (traduisible par langue) | `asset_slug_aliases` |
+| Labels types opération / asset (cartes filtres) | Dictionnaire PS | `ps_dictionary` (`operation_type`, `asset_type`) |
+| Visibilité surface / capacité par asset | Matrice contexte | `ps_context` |
+| Chaînes UI barre filtres | Traduction interface | `ps_search_filters` `.po` |
+
+### Route machine vs slug public
+
+- **Route Drupal (Views)** : toujours le slug **machine** de la config de base (`find-property`) — jamais traduit.
+- **URL publique** : slug par langue via override config (`language.fr:ps_search.seo_url_mappings`, etc.).
+- **Liens internes** : `internal:/find-property?…` ou `SearchPathResolver::getPublicPath()` — pas `internal:/recherche` ni slug traduit en dur.
+
+### Workflow développeur
+
+1. Valeur par défaut → `config/install/` (+ `config/install/language/{lang}/` si i18n).
+2. Migration env existant → `hook_update_N()` dans `ps_search.install`.
+3. Formulaire BO → `SeoUrlMappingsForm` (étendre si nouveau champ config).
+4. Schema → `config/schema/ps_search.schema.yml`.
+5. PHP/JS → lire via `ConfigFactory`, `LanguageConfigFactoryOverride`, ou `SearchPathResolver` — **pas de tableaux constants métier**.
+6. Export après changement UI : `drush cex -y`.
+
+### Exceptions acceptées (temporaires)
+
+| Exception | Raison | Action future |
+|-----------|--------|---------------|
+| Redirect 301 `/recherche` | Bookmarks pré-migration | Retirer quand analytics OK |
+| Contenu démo (`ps_demo` menus YAML) | Seed install | Menus éditables en prod via Structure → Menus |
+
+Voir aussi la règle Cursor `.cursor/rules/search-config-bo.mdc`.
+
 ## Permissions
 
 Aucune permission propre au module. Configuration SEO : `administer site configuration`.

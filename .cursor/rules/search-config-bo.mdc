@@ -1,0 +1,57 @@
+---
+description: Recherche PS — slugs, filtres et labels administrables via BO (pas de hardcode métier)
+globs: src/web/modules/custom/ps_search/**,src/web/modules/custom/ps_search_filters/**
+alwaysApply: false
+---
+
+# Recherche — configurabilité BO
+
+## Règle
+
+Toute valeur **métier** de la recherche (slug URL, alias legacy, label filtre, visibilité par asset) doit être :
+
+1. **Stockée en config exportable** (`ps_search.seo_url_mappings`, dictionnaire, contexte)
+2. **Éditable au BO** (formulaire admin ou config translation)
+3. **Traduisible par langue** (Configuration translation + `.po` pour l’UI)
+
+Le PHP/JS ne fait que **consommer** cette config (`SearchPathResolver`, path processors, `FilterBarBuilder`).
+
+## Pyramide (recherche)
+
+```
+Config + traduction BO
+  → ps_dictionary (labels asset/op)
+  → ps_context (visibilité filtres)
+  → PHP services (logique routing / Solr)
+  → JS (drupalSettings depuis PHP — pas de slugs en dur)
+```
+
+## Slugs et URLs
+
+| ✅ Faire | ❌ Interdit |
+|---------|------------|
+| `search_path`, `operation_types`, `asset_types`, `asset_slug_aliases` dans config | Constantes PHP du type `const BUR_SLUG = 'bureaux'` |
+| `SearchPathResolver::getPublicPath()` pour liens | `internal:/recherche` ou `/fr/recherche-immobiliere` en dur |
+| Route machine Views = slug config **base** (`find-property`) | Traduire le path Views par langue |
+| Defaults dans `config/install/language/*/` | Slugs uniquement dans JS sans `drupalSettings` |
+
+**BO** : `/admin/ps/config/search/seo-urls` — traduction via Configuration translation (`ps_search_seo_url_mappings`).
+
+## Labels et filtres
+
+- Labels cartes type/op → `ps_dictionary` (`operation_type`, `asset_type`)
+- Visibilité surface/capacité → `ps_context` (`SearchFilterVisibilityResolver`)
+- Chaînes UI popins → `t()` + fichiers `.po` du module (`ps_search_filters`)
+
+## Checklist avant PR (module recherche)
+
+- [ ] Nouveau slug/alias → schema YAML + install config + traductions langue
+- [ ] Env existant → `hook_update_N()` si changement de default
+- [ ] Formulaire BO mis à jour si nouveau champ config
+- [ ] Aucune constante métier ajoutée en PHP (redirects legacy documentés exceptés)
+- [ ] Liens démo/menus → `internal:/find-property` ou resolver
+- [ ] `composer test:search-urls-e2e` + `--suite=ps_search` si URLs touchées
+
+## Référence
+
+`src/web/modules/custom/ps_search/README.md` § **Gouvernance BO**.
