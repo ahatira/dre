@@ -32,6 +32,7 @@
 
       // ── Shared state (all filter sections) ───────────────────────────────
       let selectedOp = settings.activeOp || null;
+      let opFlexible = !selectedOp;
       let selectedAsset = settings.activeAsset || null;
       let selectedLocalityTokens = [];
       let selectedLocalityData = [];
@@ -103,7 +104,7 @@
           heading.textContent = text;
         }
         if (label && !budgetMin && !budgetMax) {
-          label.textContent = selectedOp === 'VEN' ? Drupal.t('Price') : Drupal.t('Rent');
+          label.textContent = Drupal.t('Price');
         }
       }
 
@@ -156,16 +157,72 @@
         updateMoreLabel();
       }
 
-      // ── Utilities ─────────────────────────────────────────────────────────
-      function closeAllPopins() {
-        document.querySelectorAll('.ps-type-popin:not([hidden])').forEach(function (p) {
-          p.hidden = true;
-        });
-        document.querySelectorAll('.ps-filter-bar__btn[aria-expanded="true"]').forEach(function (b) {
-          b.setAttribute('aria-expanded', 'false');
+      // ── Bootstrap dropdown / offcanvas integration ───────────────────────
+      function getBootstrap() {
+        return window.bootstrap;
+      }
+
+      function closeAllDropdowns() {
+        const bs = getBootstrap();
+        if (!bs || !bs.Dropdown) {
+          return;
+        }
+        document.querySelectorAll('.ps-filter-bar [data-bs-toggle="dropdown"]').forEach(function (toggle) {
+          const instance = bs.Dropdown.getInstance(toggle);
+          if (instance) {
+            instance.hide();
+          }
         });
       }
 
+      function hideAllLocationSuggestions() {
+        document.querySelectorAll('.js-ps-location-suggest').forEach(function (box) {
+          box.hidden = true;
+          box.innerHTML = '';
+        });
+        document.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
+          input.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      once('ps-bs-dropdown-events', '.ps-filter-bar .dropdown', context).forEach(function (dropdownEl) {
+        dropdownEl.addEventListener('show.bs.dropdown', function () {
+          hideAllLocationSuggestions();
+          fetchCount();
+        });
+        dropdownEl.addEventListener('hidden.bs.dropdown', function () {
+          if (dropdownEl.classList.contains('ps-filter-bar__item--type')) {
+            updateTypeOpBtnLabel(dropdownEl);
+          }
+        });
+      });
+
+      once('ps-bs-offcanvas-events', '#ps-more-offcanvas', context).forEach(function (offcanvasEl) {
+        offcanvasEl.addEventListener('show.bs.offcanvas', function () {
+          closeAllDropdowns();
+          hideAllLocationSuggestions();
+          fetchCount();
+        });
+      });
+
+      once('ps-bs-more-trigger', '.js-ps-more-trigger', context).forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+          closeAllDropdowns();
+          hideAllLocationSuggestions();
+        });
+      });
+
+      once('ps-bs-dropdown-close-offcanvas', '.ps-filter-bar [data-bs-toggle="dropdown"]', context).forEach(function (toggle) {
+        toggle.addEventListener('show.bs.dropdown', function () {
+          const bs = getBootstrap();
+          const offcanvasEl = document.getElementById('ps-more-offcanvas');
+          if (bs?.Offcanvas && offcanvasEl) {
+            bs.Offcanvas.getInstance(offcanvasEl)?.hide();
+          }
+        });
+      });
+
+      // ── Utilities ─────────────────────────────────────────────────────────
       function normalizeLocationTokens(tokens) {
         const deduped = [];
         const seen = {};
@@ -332,10 +389,21 @@
           .join(' ');
       }
 
+      function setFacetQueryParam(params, key, value) {
+        if (value) {
+          params.append(key + '[' + value + ']', value);
+        }
+      }
+
       function buildNavigationUrl() {
         let base = buildSeoBase();
         const p = new URLSearchParams();
         const primaryData = getPrimaryLocalityData();
+
+        // Flexible (no operation): asset stays as query param on /recherche (BEF array format).
+        if (selectedAsset && !selectedOp) {
+          setFacetQueryParam(p, 'asset_type', selectedAsset);
+        }
 
         if (primaryData && primaryData.locality) {
           base = base.replace(/\/?$/, '/');
@@ -462,46 +530,46 @@
       });
 
       // ── 1. Type + Op filter ────────────────────────────────────────────────
+      function syncOpButtonStates(wrapper) {
+        wrapper.querySelectorAll('.js-ps-op-btn').forEach(function (b) {
+          const code = b.dataset.code;
+          const active = code === 'FLEX' ? opFlexible : code === selectedOp;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', String(active));
+        });
+      }
+
       function updateTypeOpBtnLabel(wrapper) {
-        const labelEl = wrapper.querySelector('.ps-filter-bar__btn-label');
-        const mainBtn = wrapper.querySelector('.ps-filter-bar__btn');
+        const labelEl = wrapper.querySelector('.ps-filter-bar__toggle-label');
+        const mainBtn = wrapper.querySelector('.ps-filter-bar__toggle');
         if (!labelEl) return;
         const assetCard = selectedAsset
           ? wrapper.querySelector('.js-ps-asset-btn[data-code="' + selectedAsset + '"]')
           : null;
-        const opBtnEl = selectedOp
-          ? wrapper.querySelector('.js-ps-op-btn[data-code="' + selectedOp + '"]')
-          : null;
+        let opLabel = null;
+        if (selectedOp) {
+          const opBtnEl = wrapper.querySelector('.js-ps-op-btn[data-code="' + selectedOp + '"]');
+          opLabel = opBtnEl ? opBtnEl.textContent.trim() : null;
+        }
+        else if (opFlexible && !selectedAsset) {
+          const flexBtn = wrapper.querySelector('.js-ps-op-btn[data-code="FLEX"]');
+          opLabel = flexBtn ? flexBtn.textContent.trim() : null;
+        }
         const assetLabel = assetCard ? assetCard.querySelector('.ps-asset-card__label') : null;
-        const opLabel = opBtnEl ? opBtnEl.textContent.trim() : null;
         if (assetLabel && opLabel) {
-          labelEl.textContent = assetLabel.textContent.trim() + ' \u2014 ' + opLabel;
+          labelEl.textContent = assetLabel.textContent.trim() + ' ' + opLabel.toLowerCase();
         } else if (assetLabel) {
           labelEl.textContent = assetLabel.textContent.trim();
         } else if (opLabel) {
           labelEl.textContent = opLabel;
         } else {
-          labelEl.textContent = Drupal.t('Type & need');
+          labelEl.textContent = Drupal.t('Property type');
         }
         if (mainBtn) mainBtn.classList.toggle('is-active', !!(selectedAsset || selectedOp));
       }
 
-      once('ps-type-filter', '.js-ps-filter-dropdown', context).forEach(function (wrapper) {
-        const mainBtn = wrapper.querySelector('.ps-filter-bar__btn');
-        const popin = wrapper.querySelector('.ps-type-popin');
-        if (!mainBtn || !popin) return;
-
-        mainBtn.addEventListener('click', function () {
-          const isOpen = mainBtn.getAttribute('aria-expanded') === 'true';
-          if (!isOpen) {
-            closeAllPopins();
-            fetchCount();
-          } else {
-            updateTypeOpBtnLabel(wrapper);
-          }
-          mainBtn.setAttribute('aria-expanded', String(!isOpen));
-          popin.hidden = isOpen;
-        });
+      once('ps-type-filter', '.ps-filter-bar__item--type', context).forEach(function (wrapper) {
+        syncOpButtonStates(wrapper);
 
         // Asset cards.
         wrapper.querySelectorAll('.js-ps-asset-btn').forEach(function (btn) {
@@ -519,16 +587,19 @@
           });
         });
 
-        // Op buttons.
+        // Op buttons — radio: Buy / Rent / I'm flexible (no operation filter).
         wrapper.querySelectorAll('.js-ps-op-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
             const code = btn.dataset.code;
-            selectedOp = (selectedOp === code) ? null : code;
-            wrapper.querySelectorAll('.js-ps-op-btn').forEach(function (b) {
-              const active = b.dataset.code === selectedOp;
-              b.classList.toggle('is-active', active);
-              b.setAttribute('aria-pressed', String(active));
-            });
+            if (code === 'FLEX') {
+              selectedOp = null;
+              opFlexible = true;
+            }
+            else {
+              selectedOp = code;
+              opFlexible = false;
+            }
+            syncOpButtonStates(wrapper);
             scheduleCountUpdate();
             updateBudgetHeading();
           });
@@ -540,15 +611,15 @@
           clearBtn.addEventListener('click', function () {
             selectedAsset = null;
             selectedOp = null;
+            opFlexible = true;
             wrapper.querySelectorAll('.js-ps-asset-btn').forEach(function (a) {
               a.closest('.ps-asset-card').classList.remove('is-active');
               a.setAttribute('aria-pressed', 'false');
             });
-            wrapper.querySelectorAll('.js-ps-op-btn').forEach(function (b) {
-              b.classList.remove('is-active');
-              b.setAttribute('aria-pressed', 'false');
-            });
+            syncOpButtonStates(wrapper);
             scheduleCountUpdate();
+            updateAssetMode();
+            updateBudgetHeading();
           });
         }
       });
@@ -557,7 +628,7 @@
       once('ps-locality', '.js-ps-locality-input', context).forEach(function (input) {
         const editor = input.closest('.js-ps-location-editor');
         const chipsContainer = editor ? editor.querySelector('.js-ps-location-chips') : null;
-        const locationWrap = input.closest('.ps-filter-bar__location-wrap');
+        const locationWrap = input.closest('.ps-filter-bar__toggle--location');
         const suggestBox = locationWrap ? locationWrap.querySelector('.js-ps-location-suggest') : null;
         let suggestionButtons = [];
 
@@ -899,24 +970,6 @@
         });
       });
 
-      // ── 3. Secondary filter toggle buttons (surface, budget) ──────────────
-      once('ps-filter-toggle', '.js-ps-filter-toggle', context).forEach(function (toggleBtn) {
-        const popinId = toggleBtn.getAttribute('aria-controls');
-        const popin = popinId ? document.getElementById(popinId) : null;
-        if (!popin) return;
-
-        toggleBtn.addEventListener('click', function () {
-          const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
-          if (!isOpen) {
-            closeAllPopins();
-            fetchCount();
-          }
-          toggleBtn.setAttribute('aria-expanded', String(!isOpen));
-          popin.hidden = isOpen;
-        });
-      });
-
-      // ── 4. Surface inputs ─────────────────────────────────────────────────
       function updateSurfaceLabel() {
         const lbl = document.querySelector('.js-ps-surface-label');
         if (!lbl) return;
@@ -952,7 +1005,7 @@
         if (budgetMin && budgetMax) lbl.textContent = budgetMin + '\u2013' + budgetMax + ' \u20ac';
         else if (budgetMin) lbl.textContent = '\u2265 ' + budgetMin + ' \u20ac';
         else if (budgetMax) lbl.textContent = '\u2264 ' + budgetMax + ' \u20ac';
-        else lbl.textContent = Drupal.t('Budget');
+        else lbl.textContent = Drupal.t('Price');
         const filterItem = document.querySelector('.ps-filter-bar__item--budget');
         if (filterItem) filterItem.classList.toggle('is-active', !!(budgetMin || budgetMax));
       }
@@ -1116,35 +1169,10 @@
       syncMoreInputsFromState();
       updateCapacityLabel();
 
-      // ── 7. Close on outside click / Escape (bound once globally) ─────────
-      once('ps-filter-global-events', 'html', document).forEach(function () {
-        document.addEventListener('click', function (e) {
-          const filterBar = document.querySelector('.ps-filter-bar');
-          if (filterBar && !filterBar.contains(e.target)) {
-            // Update type+op label before closing.
-            const typeWrapper = document.querySelector('.js-ps-filter-dropdown');
-            if (typeWrapper) {
-              const mainBtn = typeWrapper.querySelector('.ps-filter-bar__btn');
-              if (mainBtn && mainBtn.getAttribute('aria-expanded') === 'true') {
-                updateTypeOpBtnLabel(typeWrapper);
-              }
-            }
-            closeAllPopins();
-          }
-        });
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') {
-            const typeWrapper = document.querySelector('.js-ps-filter-dropdown');
-            if (typeWrapper) {
-              const mainBtn = typeWrapper.querySelector('.ps-filter-bar__btn');
-              if (mainBtn && mainBtn.getAttribute('aria-expanded') === 'true') {
-                updateTypeOpBtnLabel(typeWrapper);
-                mainBtn.focus();
-              }
-            }
-            closeAllPopins();
-          }
+      // Location input closes open dropdowns on focus.
+      once('ps-locality-focus', '.js-ps-locality-input', context).forEach(function (input) {
+        input.addEventListener('focus', function () {
+          closeAllDropdowns();
         });
       });
     },

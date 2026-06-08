@@ -53,6 +53,15 @@
   height: calc(100dvh - var(--ps-header-slot-height, 128px));
   max-height: calc(100vh - var(--ps-header-slot-height, 128px));
   max-height: calc(100dvh - var(--ps-header-slot-height, 128px));
+  min-height: 0;
+  overflow: hidden;
+
+  &__filter-bar {
+    flex-shrink: 0;
+    overflow: visible;
+    position: relative;
+    z-index: 110;
+  }
 
   &__filters--legacy {
     display: none !important;
@@ -62,6 +71,7 @@
     flex: 1 1 0;
     max-height: 100%;
     min-height: 0;
+    overflow: hidden;
   }
 
   &__map {

@@ -17,7 +17,6 @@
     'flex-column',
     'flex-fill',
     'min-h-0',
-    'overflow-hidden',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
@@ -35,8 +34,8 @@
     </div>
   {% endif %}
 
-  {# Filter bar — fixed height, container-fluid #}
-  <div class="flex-shrink-0 bg-white border-bottom py-3">
+  {# Filter bar — never clipped by split overflow; responsive via container queries #}
+  <div class="flex-shrink-0 bg-white border-bottom py-3 ps-search-view__filter-bar">
     <div class="container-fluid px-3 px-lg-4">
       {% if search_filter_bar %}
         {{ search_filter_bar }}

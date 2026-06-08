@@ -10,6 +10,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 # Filter bar template
+msgid "Location(s)"
+msgstr "Localisation(s)"
+
+msgid "City, district or zip code"
+msgstr "Ville, quartier ou code postal"
+
+msgid "Surface (m²)"
+msgstr "Surface (m²)"
+
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Property type"
 msgstr "Type de bien"
 
@@ -24,6 +36,9 @@ msgstr "Quel est votre besoin ?"
 
 msgid "Transaction type"
 msgstr "Type de transaction"
+
+msgid "I'm flexible"
+msgstr "Peu importe"
 
 msgid "Clear"
 msgstr "Effacer"

@@ -16,10 +16,10 @@
   {%- endif -%}
 {% endset %}
 
-<div class="ps-filter-bar row align-items-end g-2 flex-lg-nowrap" role="search" aria-label="{{ 'Property search filters'|t }}">
+<div class="ps-filter-bar" role="search" aria-label="{{ 'Property search filters'|t }}">
 
   {# Property type + transaction #}
-  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--type">
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--type">
     <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-type-trigger">
       {{ 'Property type'|t }}
     </label>
@@ -35,9 +35,8 @@
       <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
     </button>
 
-    <div class="dropdown-menu ps-filter-popin">
-      <div class="ps-filter-popin__section">
-        <h3 class="ps-filter-popin__heading">{{ 'What are you looking for?'|t }}</h3>
+    <div class="dropdown-menu ps-filter-popin ps-filter-popin--type">
+      <div class="ps-filter-popin__section ps-filter-popin__section--assets">
         <ul class="ps-asset-grid" role="list">
           {% for asset in asset_types %}
             <li class="ps-asset-card{% if asset.active %} is-active{% endif %}" role="listitem">
@@ -56,7 +55,7 @@
       </div>
 
       <div class="ps-filter-popin__section ps-filter-popin__section--op">
-        <h3 class="ps-filter-popin__heading">{{ 'What is your need?'|t }}</h3>
+        <h3 class="ps-filter-popin__heading ps-filter-popin__heading--sentence">{{ 'Transaction type'|t }}</h3>
         <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
           {% for op in operation_types %}
             <button
@@ -68,12 +67,19 @@
               {{ op.label }}
             </button>
           {% endfor %}
+          <button
+            class="ps-op-btn{% if active_flexible %} is-active{% endif %} js-ps-op-btn"
+            type="button"
+            data-code="FLEX"
+            aria-pressed="{{ active_flexible ? 'true' : 'false' }}"
+          >
+            {{ "I'm flexible"|t }}
+          </button>
         </div>
       </div>
 
-      <div class="ps-filter-popin__footer">
-        <button class="ps-filter-clear js-ps-clear-btn" type="button">{{ 'Clear'|t }}</button>
-        <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+      <div class="ps-filter-popin__footer ps-filter-popin__footer--type">
+        <button class="ps-apply-btn ps-apply-btn--full js-ps-apply-btn" type="button" disabled>
           {{ 'Show'|t }} <span class="js-ps-count-label">…</span> {{ 'results'|t }}
           <span class="ps-apply-btn__loader" aria-hidden="true"></span>
         </button>
@@ -82,7 +88,7 @@
   </div>
 
   {# Location(s) #}
-  <div class="col-6 col-lg ps-filter-bar__item ps-filter-bar__item--location">
+  <div class="ps-filter-bar__item ps-filter-bar__item--location">
     <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-location-input">
       {{ 'Location(s)'|t }}
     </label>
@@ -109,7 +115,7 @@
   </div>
 
   {# Surface #}
-  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--surface js-ps-surface-item">
     <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-surface-trigger">
       {{ 'Surface (m²)'|t }}
     </label>
@@ -155,7 +161,7 @@
   </div>
 
   {# Capacity (coworking only) #}
-  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" hidden>
     <label class="form-label ps-filter-bar__field-label" for="ps-filter-capacity-trigger">
       {{ 'Capacity'|t }}
     </label>
@@ -199,7 +205,7 @@
   </div>
 
   {# Price / budget #}
-  <div class="col-6 col-lg dropdown ps-filter-bar__item ps-filter-bar__item--budget">
+  <div class="dropdown ps-filter-bar__item ps-filter-bar__item--budget">
     <label class="form-label ps-filter-bar__field-label text-nowrap" for="ps-filter-budget-trigger">
       {{ 'Price'|t }}
     </label>
@@ -245,7 +251,7 @@
   </div>
 
   {# More filters — Bootstrap offcanvas (right + backdrop) #}
-  <div class="col-auto flex-shrink-0 ps-filter-bar__item ps-filter-bar__item--more">
+  <div class="ps-filter-bar__item ps-filter-bar__item--more">
     <button
       class="btn btn-outline-primary ps-filter-bar__toggle ps-filter-bar__toggle--more d-inline-flex align-items-center js-ps-more-trigger"
       type="button"

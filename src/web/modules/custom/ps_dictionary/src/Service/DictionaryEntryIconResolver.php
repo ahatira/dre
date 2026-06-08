@@ -48,6 +48,7 @@ final class DictionaryEntryIconResolver implements CacheableDependencyInterface 
     'BUR' => 'bnp_custom:offices',
     'COW' => 'bnp_custom:coworking',
     'ENT' => 'bnp_custom:logistic-warehouses',
+    'LOG' => 'bnp_custom:logistic-warehouses',
     'ACT' => 'bnp_custom:business-premises',
     'COM' => 'bnp_custom:shops',
     'TER' => 'bnp_custom:terrain',

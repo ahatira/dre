@@ -1,5 +1,5 @@
 filter_bar:
-  version: 1.0.0
+  version: 1.0.11
   js:
     js/search-filter-bar.js: {}
   css:
@@ -10,3 +10,5 @@ filter_bar:
     - core/drupal.locale
     - core/drupalSettings
     - core/once
+    - ps_theme/component_dropdown
+    - ps_theme/component_offcanvas

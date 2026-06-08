@@ -97,6 +97,7 @@ final class FilterBarBuilder {
         'code' => $code,
         'slug' => $slug,
         'label' => $label,
+        'weight' => $entry ? $entry->getWeight() : 999,
         'icon' => $this->dictionaryEntryIconResolver->buildRenderable(
           $entry,
           ['size' => '24px'],
@@ -105,6 +106,10 @@ final class FilterBarBuilder {
         'active' => $code === $activeAsset,
       ];
     }
+
+    uasort($assetTypes, static function (array $a, array $b): int {
+      return ($a['weight'] ?? 0) <=> ($b['weight'] ?? 0);
+    });
 
     $activeOpLabel = $activeOp ? ($operationTypes[$activeOp]['label'] ?? $activeOp) : NULL;
     $activeAssetLabel = $activeAsset ? ($assetTypes[$activeAsset]['label'] ?? $activeAsset) : NULL;
@@ -119,6 +124,7 @@ final class FilterBarBuilder {
       '#asset_types' => $assetTypes,
       '#more_criteria' => $this->moreCriteriaBuilder->build(),
       '#active_op' => $activeOp,
+      '#active_flexible' => $activeOp === NULL,
       '#active_asset' => $activeAsset,
       '#active_op_label' => $activeOpLabel,
       '#active_asset_label' => $activeAssetLabel,
@@ -132,6 +138,7 @@ final class FilterBarBuilder {
             'opSlugs' => $opSlugs,
             'assetSlugs' => $assetSlugs,
             'activeOp' => $activeOp,
+            'activeFlexible' => $activeOp === NULL,
             'activeAsset' => $activeAsset,
             'countUrl' => '/ps-search/count',
             'locationSuggestUrl' => '/ps-search/location-suggest',

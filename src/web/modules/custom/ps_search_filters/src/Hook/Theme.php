@@ -23,6 +23,7 @@ final class Theme {
           'asset_types' => [],
           'more_criteria' => [],
           'active_op' => NULL,
+          'active_flexible' => TRUE,
           'active_asset' => NULL,
           'active_op_label' => NULL,
           'active_asset_label' => NULL,
