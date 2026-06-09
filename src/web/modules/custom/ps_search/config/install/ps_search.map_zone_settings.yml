@@ -1,0 +1,5 @@
+default_center_lat: 46.603354
+default_center_lng: 1.888334
+default_radius_km: 50
+list_pager_threshold: 100
+markers_max: 500

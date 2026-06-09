@@ -241,12 +241,24 @@ offer-search-card:
 search-page:
   js:
     assets/js/search-page-map-utils.js: {}
+    assets/js/search-page-map-markers.js: {}
+    assets/js/search-page-zone-reload.js: {}
+    assets/js/search-page-map-bounds.js: {}
+    assets/js/search-page-infinite-scroll.js: {}
     assets/js/search-page-layout.js: {}
     assets/js/search-page-map-sync.js: {}
     assets/js/search-page-map-popup.js: {}
+    assets/js/search-page-map-zone.js: {}
     assets/js/search-page-location.js: {}
   dependencies:
     - core/once
     - core/drupal
     - core/drupalSettings
+    - core/jquery
+    - core/drupal.debounce
+    - views/views.ajax
+    - views_infinite_scroll/views-infinite-scroll
     - ps_theme/component_alert
+    - ps_theme/offer-search-card
+    - ps_favorite/favorites
+    - ui_suite_bnp/framework_js

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Service;
 
+use Drupal\ps_search\ValueObject\MapBounds;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,12 +26,13 @@ final class SearchFilterQueryBuilder {
   public function __construct(
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
+    private readonly MapBoundsResolver $mapBoundsResolver,
   ) {}
 
   /**
-   * Applies search filter query parameters from the request.
+   * Applies business search filters from the request (excludes map zone).
    */
-  public function apply(QueryInterface $query, Request $request): void {
+  public function applyBusinessFilters(QueryInterface $query, Request $request): void {
     $operationType = $this->sanitizeCode($request->query->get('operation_type'));
     $assetType = $this->sanitizeCode($request->query->get('asset_type'));
     $localityTokens = $this->locationSearchFilter->extractTokensFromRequest($request);
@@ -70,6 +72,27 @@ final class SearchFilterQueryBuilder {
     }
 
     $this->moreCriteriaApplier->apply($query, $request);
+  }
+
+  /**
+   * Applies the active map bounding box to a Search API query.
+   */
+  public function applyMapBounds(QueryInterface $query, MapBounds $bounds): void {
+    $query->addCondition('field_geo_lat', $bounds->swLat, '>=');
+    $query->addCondition('field_geo_lat', $bounds->neLat, '<=');
+    $query->addCondition('field_geo_lng', $bounds->swLng, '>=');
+    $query->addCondition('field_geo_lng', $bounds->neLng, '<=');
+  }
+
+  /**
+   * Applies business filters and the active map zone from the request.
+   */
+  public function apply(QueryInterface $query, Request $request): void {
+    $this->applyBusinessFilters($query, $request);
+    $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
+    if ($bounds instanceof MapBounds) {
+      $this->applyMapBounds($query, $bounds);
+    }
   }
 
   /**

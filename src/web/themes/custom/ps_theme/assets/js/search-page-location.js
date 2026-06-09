@@ -15,7 +15,18 @@
          * @param {object} mapData
          *   Geofield map data bucket.
          */
-        function applyLocationOverlay(mapData) {
+        /**
+         * Draws the location search radius without reframing the map.
+         *
+         * @param {object} mapData
+         *   Geofield map data bucket.
+         * @param {object} [options]
+         *   Overlay options.
+         * @param {boolean} [options.reframe]
+         *   Whether to center/fit the map on the location filter.
+         */
+        function applyLocationOverlay(mapData, options) {
+          const reframe = options?.reframe === true;
           const map = mapData.map || mapData.google_map;
           if (!map) {
             return;
@@ -27,11 +38,6 @@
           };
           const radiusM = Number(locationMap.radiusM) || 2500;
           const circleColor = locationMap.circleColor || '#00915A';
-
-          map.setCenter(center);
-          if (locationMap.zoom) {
-            map.setZoom(Number(locationMap.zoom));
-          }
 
           if (root.__psSearchLocationCircle) {
             root.__psSearchLocationCircle.setMap(null);
@@ -48,6 +54,17 @@
             fillOpacity: 0.12,
             clickable: false,
           });
+
+          root.__psSearchLocationCircle = circle;
+
+          if (!reframe) {
+            return;
+          }
+
+          map.setCenter(center);
+          if (locationMap.zoom) {
+            map.setZoom(Number(locationMap.zoom));
+          }
 
           const bounds = circle.getBounds();
           if (bounds) {
@@ -68,13 +85,12 @@
             }
             map.fitBounds(markerBounds);
           }
-
-          root.__psSearchLocationCircle = circle;
         }
 
-        Drupal.psSearchMap.whenMapReady(root, applyLocationOverlay);
         root.addEventListener('ps-search-map-markers-loaded', function (event) {
-          applyLocationOverlay(event.detail.mapData);
+          applyLocationOverlay(event.detail.mapData, {
+            reframe: event.detail?.preserveViewport !== true,
+          });
         });
       });
     },

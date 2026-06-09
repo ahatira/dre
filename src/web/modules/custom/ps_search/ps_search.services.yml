@@ -4,11 +4,49 @@ services:
     arguments:
       - '@database'
 
+  ps_search.map_bounds_resolver:
+    class: Drupal\ps_search\Service\MapBoundsResolver
+    arguments:
+      - '@ps_search.location_centroid'
+      - '@ps_search.location_filter'
+      - '@config.factory'
+
   ps_search.filter_query_builder:
     class: Drupal\ps_search\Service\SearchFilterQueryBuilder
     arguments:
       - '@ps_search.location_filter'
       - '@ps_search.more_criteria_applier'
+      - '@ps_search.map_bounds_resolver'
+
+  ps_search.result_counter:
+    class: Drupal\ps_search\Service\SearchResultCounter
+    arguments:
+      - '@ps_search.filter_query_builder'
+      - '@ps_search.map_bounds_resolver'
+
+  ps_search.markers_builder:
+    class: Drupal\ps_search\Service\SearchMarkersBuilder
+    arguments:
+      - '@ps_search.filter_query_builder'
+      - '@ps_search.map_bounds_resolver'
+      - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
+      - '@ps_search.result_counter'
+      - '@entity_type.manager'
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\MapBoundsQueryHooks:
+    class: Drupal\ps_search\Hook\MapBoundsQueryHooks
+    arguments:
+      - '@ps_search.map_bounds_resolver'
+      - '@ps_search.filter_query_builder'
+      - '@request_stack'
+
+  Drupal\ps_search\Hook\SearchListPagerHooks:
+    class: Drupal\ps_search\Hook\SearchListPagerHooks
+    arguments:
+      - '@ps_search.result_counter'
+      - '@config.factory'
+      - '@request_stack'
 
   ps_search.location_centroid:
     class: Drupal\ps_search\Service\LocationCentroidResolver
@@ -21,6 +59,10 @@ services:
     arguments:
       - '@ps_search.location_filter'
       - '@ps_search.location_centroid'
+      - '@ps_search.map_bounds_resolver'
+      - '@ps_search.result_counter'
+      - '@ps_offer.map_settings'
+      - '@config.factory'
       - '@request_stack'
 
   ps_search.more_criteria_applier:

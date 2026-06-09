@@ -11,6 +11,7 @@ filter_bar:
     - core/drupal.locale
     - core/drupalSettings
     - core/once
+    - ps_theme/search-page
     - ps_theme/component_dropdown
     - ps_theme/component_offcanvas
     - ps_theme/form

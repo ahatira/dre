@@ -88,7 +88,9 @@
    *   Node id and price label.
    */
   Drupal.psSearchMap.getMarkerMeta = function (marker) {
-    const props = marker.get('geojsonProperties') || {};
+    const props = marker.geojsonProperties
+      || (typeof marker.get === 'function' ? marker.get('geojsonProperties') : null)
+      || {};
     return {
       nid: String(props.ps_search_nid || props.entity_id || ''),
       label: String(props.ps_search_price || props.tooltip || ''),
@@ -113,6 +115,83 @@
   };
 
   /**
+   * Returns geofield map data for the search view when available.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   *
+   * @return {object|null}
+   *   Geofield map data bucket.
+   */
+  Drupal.psSearchMap.getMapData = function (root) {
+    const mapEl = root?.querySelector('.geofield-google-map');
+    if (!mapEl) {
+      return null;
+    }
+    const mapData = Drupal.geoFieldMapFormatter?.map_data?.[mapEl.id];
+    if (!mapData) {
+      return null;
+    }
+    if (!mapData.markersByNid) {
+      Drupal.psSearchMap.indexMarkersByNid(mapData);
+    }
+    return mapData;
+  };
+
+  /**
+   * Waits until the geofield map instance is initialized (markers optional).
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {function} callback
+   *   Called with mapData when the map shell is ready.
+   */
+  Drupal.psSearchMap.whenMapShellReady = function (root, callback) {
+    const mapEl = root.querySelector('.geofield-google-map');
+    if (!mapEl) {
+      return;
+    }
+
+    const tryReady = function () {
+      const mapData = Drupal.psSearchMap.getMapData(root);
+      const map = mapData?.map || mapData?.google_map;
+      if (map && typeof google !== 'undefined' && google.maps) {
+        if (typeof map.setOptions === 'function') {
+          map.setOptions({ mapTypeControl: false });
+        }
+        Drupal.psSearchMap.resizeMaps(root);
+        callback(mapData);
+        return true;
+      }
+      return false;
+    };
+
+    if (tryReady()) {
+      return;
+    }
+
+    const mapId = mapEl.id;
+    let attempts = 0;
+    const timer = window.setInterval(function () {
+      attempts += 1;
+      const mapData = Drupal.geoFieldMapFormatter?.map_data?.[mapId];
+      const map = mapData?.map || mapData?.google_map;
+      if (map && typeof google !== 'undefined' && google.maps) {
+        window.clearInterval(timer);
+        if (typeof map.setOptions === 'function') {
+          map.setOptions({ mapTypeControl: false });
+        }
+        Drupal.psSearchMap.resizeMaps(root);
+        callback(mapData);
+        return;
+      }
+      if (attempts >= 300) {
+        window.clearInterval(timer);
+      }
+    }, 200);
+  };
+
+  /**
    * Waits until the geofield map and its markers are ready.
    *
    * @param {HTMLElement} root
@@ -123,6 +202,27 @@
   Drupal.psSearchMap.whenMapReady = function (root, callback) {
     const mapEl = root.querySelector('.geofield-google-map');
     if (!mapEl) {
+      return;
+    }
+
+    const tryReady = function () {
+      const mapData = Drupal.psSearchMap.getMapData(root);
+      const map = mapData?.map || mapData?.google_map;
+      const markerCount = Object.keys(mapData?.markers || {}).length;
+
+      if (map && typeof google !== 'undefined' && google.maps && markerCount > 0) {
+        if (typeof map.setOptions === 'function') {
+          map.setOptions({ mapTypeControl: false });
+        }
+        Drupal.psSearchMap.resizeMaps(root);
+        root.classList.add('is-map-ready');
+        callback(mapData);
+        return true;
+      }
+      return false;
+    };
+
+    if (tryReady()) {
       return;
     }
 
@@ -138,10 +238,12 @@
       if (map && typeof google !== 'undefined' && google.maps && markerCount > 0) {
         window.clearInterval(timer);
         Drupal.psSearchMap.indexMarkersByNid(mapData);
+        if (typeof map.setOptions === 'function') {
+          map.setOptions({ mapTypeControl: false });
+        }
+        Drupal.psSearchMap.resizeMaps(root);
         callback(mapData);
-        root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
-          detail: { mapData: mapData },
-        }));
+        root.classList.add('is-map-ready');
         return;
       }
 
@@ -165,6 +267,39 @@
   };
 
   /**
+   * Returns the click-pinned offer id for list/map sync.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   *
+   * @return {string|null}
+   *   Selected offer node id, if any.
+   */
+  Drupal.psSearchMap.getSelectedOfferId = function (root) {
+    const nid = root?.dataset?.psSelectedOfferId;
+    return nid ? String(nid) : null;
+  };
+
+  /**
+   * Stores the click-pinned offer id on the search view root.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {string|null} nid
+   *   Offer node id or NULL to clear.
+   */
+  Drupal.psSearchMap.setSelectedOfferId = function (root, nid) {
+    if (!root) {
+      return;
+    }
+    if (nid) {
+      root.dataset.psSelectedOfferId = String(nid);
+      return;
+    }
+    delete root.dataset.psSelectedOfferId;
+  };
+
+  /**
    * Scrolls the results list to a card.
    *
    * @param {HTMLElement} root
@@ -177,7 +312,7 @@
       return;
     }
 
-    const scrollEl = root.querySelector('.js-ps-search-results-scroll');
+    const scrollEl = root.querySelector('.js-ps-search-list-panel');
     if (scrollEl && scrollEl.contains(card)) {
       const scrollRect = scrollEl.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();
@@ -198,6 +333,71 @@
     if (mapData?.infowindow && typeof mapData.infowindow.close === 'function') {
       mapData.infowindow.close();
     }
+  };
+
+  /**
+   * Triggers Google Maps resize after layout changes.
+   *
+   * @param {HTMLElement} root
+   *   Search view root element.
+   */
+  Drupal.psSearchMap.resizeMaps = function (root) {
+    root.querySelectorAll('.geofield-google-map').forEach(function (mapEl) {
+      const mapId = mapEl.id;
+      const mapData = Drupal.geoFieldMapFormatter?.map_data?.[mapId];
+      const map = mapData?.map || mapData?.google_map;
+      if (typeof google !== 'undefined' && google.maps && map) {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        google.maps.event.trigger(map, 'resize');
+        if (center) {
+          map.setCenter(center);
+        }
+        if (typeof zoom === 'number') {
+          map.setZoom(zoom);
+        }
+      }
+    });
+  };
+
+  /**
+   * Toggles list pane vs offer detail sidebar and resizes the map.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {boolean} visible
+   *   Whether the list pane should be visible.
+   */
+  Drupal.psSearchMap.setListVisible = function (root, visible) {
+    root.classList.toggle('ps-search-view--list-hidden', !visible);
+
+    const hideBtn = root.querySelector('.js-ps-hide-list');
+    const showBtn = root.querySelector('.js-ps-show-list');
+
+    if (hideBtn) {
+      hideBtn.setAttribute('aria-expanded', visible ? 'true' : 'false');
+      hideBtn.hidden = !visible;
+    }
+    if (showBtn) {
+      showBtn.hidden = visible;
+    }
+
+    if (visible) {
+      root.dispatchEvent(new CustomEvent('ps-search-list-shown'));
+    }
+    else {
+      root.dispatchEvent(new CustomEvent('ps-search-map-mode'));
+    }
+
+    document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        Drupal.psSearchMap.resizeMaps(root);
+      }, 50);
+      setTimeout(function () {
+        Drupal.psSearchMap.resizeMaps(root);
+      }, 350);
+    });
   };
 
 }(Drupal));

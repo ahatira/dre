@@ -50,11 +50,11 @@
     </div>
   {% endif %}
 
-  {# Split 50/50 — only .js-ps-search-results-scroll scrolls #}
+  {# Split: list or offer detail panel (left) + map (right) #}
   <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
-    <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end">
+    <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end ps-search-view__left">
       {% if search_results_header %}
-        <div class="flex-shrink-0 bg-white border-bottom px-4 py-3">
+        <div class="flex-shrink-0 bg-white border-bottom px-4 py-3 ps-search-view__results-header">
           <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
             <h1 class="h4 fw-semibold mb-0">{{ search_results_header.title }}</h1>
             <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" disabled title="{{ 'Coming soon'|t }}">
@@ -65,6 +65,15 @@
             <p class="small text-muted mb-0">
               {{ search_results_header.count|number_format(0, '.', ' ') }}
               {{ search_results_header.count == 1 ? 'result'|t : 'results'|t }}
+              <span
+                class="ps-search-view__zone-hint js-ps-zone-hint"
+                data-global-count="{{ search_results_header.count }}"
+                {% if search_results_header.zone_count is not defined or search_results_header.zone_count == search_results_header.count %}hidden{% endif %}
+              >
+                {% if search_results_header.zone_count is defined and search_results_header.zone_count != search_results_header.count %}
+                  — {{ 'Showing @count in this area'|t({'@count': search_results_header.zone_count|number_format(0, '.', ' ')}) }}
+                {% endif %}
+              </span>
             </p>
             {% if search_results_header.sort_options %}
               <div class="d-flex align-items-center gap-2 flex-shrink-0">
@@ -80,11 +89,10 @@
         </div>
       {% endif %}
 
-      <div class="flex-grow-scroll px-4 py-3 js-ps-search-results-scroll">
+      {# List mode — infinite scroll (Views AJAX, 24 items per page) #}
+      <div class="flex-grow-scroll px-4 py-3 js-ps-search-list-panel">
         {% if rows %}
-          <div class="row g-3">
-            {{ rows }}
-          </div>
+          {{ rows }}
         {% elseif empty %}
           <div class="ps-search-empty">
             <img
@@ -101,29 +109,128 @@
             </div>
           </div>
         {% endif %}
-
         {% if pager %}
-          <nav class="mt-3" aria-label="{{ 'Pagination'|t }}">{{ pager }}</nav>
+          <div class="ps-search-view__pager mt-3">
+            {{ pager }}
+          </div>
         {% endif %}
       </div>
+
     </div>
 
-    <div class="col-lg-6 position-relative min-h-0 h-100 overflow-hidden">
-      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-hide-list z-1 d-none d-lg-inline-block" style="top: 4.5rem" aria-expanded="true">
-        {{ 'Hide list'|t }}
+    <div class="col-lg-6 position-relative min-h-0 h-100 overflow-hidden ps-search-view__right">
+      <button type="button" class="btn btn-primary btn-sm position-absolute shadow-sm js-ps-search-this-area ps-search-map-area-btn" hidden>
+        {{ 'Search this area'|t }}
+      </button>
+      <button type="button" class="btn btn-sm position-absolute shadow-sm js-ps-hide-list ps-search-map-layout-btn z-1 d-none d-lg-inline-flex align-items-center" aria-expanded="true">
+        {{ icon('bnp_custom', 'eye-closed', {'size': '20px', 'class': 'ps-search-map-layout-btn__icon'}) }}
+        <span>{{ 'Hide list'|t }}</span>
       </button>
       {% if attachment_before %}
         <div class="ps-search-view__map attachment attachment-before position-absolute top-0 start-0 w-100 h-100">{{ attachment_before }}</div>
       {% endif %}
+
+      {# Desktop full-map — floating offer panel over the map (300px maquette) #}
+      <aside class="ps-search-map-float-panel js-ps-search-map-float-panel" aria-label="{{ 'Selected property'|t }}" hidden>
+        <div class="ps-search-map-float-panel__content flex-grow-scroll js-ps-search-map-float-content"></div>
+        {% set transport_icon_defaults = {
+          walking: {pack: 'bnp_custom', id: 'walking'},
+          transports: {pack: 'bnp_custom', id: 'transport'},
+          bike: {pack: 'bnp_custom', id: 'bike'},
+          car: {pack: 'bnp_custom', id: 'car'},
+        } %}
+        {% set transport_icons = search_transport_icons|default(transport_icon_defaults) %}
+        <div class="ps-search-map-float-panel__zone">
+          <div class="ps-search-map-float-panel__zone-row">
+            <span class="ps-search-map-float-panel__zone-label" id="ps-search-distance-zone-label">{{ 'Show distance zone'|t }} :</span>
+            <label class="ps-search-map-float-panel__toggle" for="ps-search-distance-zone">
+              <input class="ps-search-map-float-panel__toggle-input js-ps-distance-zone-toggle" type="checkbox" role="switch" id="ps-search-distance-zone" value="1" aria-labelledby="ps-search-distance-zone-label">
+              <span class="ps-search-map-float-panel__toggle-track" aria-hidden="true"></span>
+            </label>
+          </div>
+          <div class="ps-search-map-float-panel__zone-row">
+            <span class="ps-search-map-float-panel__zone-label">{{ 'Customize area'|t }} :</span>
+            <button type="button" class="ps-search-map-float-panel__customize-btn js-ps-customize-area-open" data-bs-toggle="modal" data-bs-target="#ps-search-customize-area">
+              <span class="ps-search-map-float-panel__customize-icon js-ps-customize-area-icon" aria-hidden="true">
+                {{ icon(transport_icons.walking.pack, transport_icons.walking.id, {size: '20px'}) }}
+              </span>
+              <span class="js-ps-customize-area-summary">{{ '5 minutes'|t }}</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {# Mobile / fallback floating offer card over the map #}
       <div class="ps-search-map-popup js-ps-search-map-popup" hidden aria-live="polite">
         <button type="button" class="ps-search-map-popup__close js-ps-search-map-popup-close" aria-label="{{ 'Close'|t }}">
           <span aria-hidden="true">&times;</span>
         </button>
         <div class="js-ps-search-map-popup-content"></div>
       </div>
-      <button type="button" class="btn btn-outline-primary btn-sm position-absolute start-0 ms-3 shadow-sm js-ps-show-list z-1 d-none d-lg-inline-block" style="top: 4.5rem" hidden>
-        {{ 'Show list'|t }}
+      <button type="button" class="btn btn-sm position-absolute shadow-sm js-ps-show-list ps-search-map-layout-btn z-1 d-none d-lg-inline-flex align-items-center" hidden>
+        {{ icon('bnp_custom', 'eye', {'size': '20px', 'class': 'ps-search-map-layout-btn__icon'}) }}
+        <span>{{ 'Show list'|t }}</span>
       </button>
+    </div>
+  </div>
+
+  {# Customize area modal (desktop full-map maquette) #}
+  <div class="modal fade ps-search-customize-area-modal" id="ps-search-customize-area" tabindex="-1" aria-labelledby="ps-search-customize-area-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h2 class="modal-title h5 fw-semibold" id="ps-search-customize-area-title">{{ 'Customize area'|t }}</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <p class="small text-muted mb-4">
+            {{ 'Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk.'|t }}
+          </p>
+          <fieldset class="mb-4">
+            <legend class="form-label fw-semibold small mb-3">{{ 'Means of transport'|t }} :</legend>
+            <div class="ps-search-customize-area-modal__transport-grid" role="group" aria-label="{{ 'Means of transport'|t }}">
+              <button type="button" class="ps-search-customize-area-modal__transport is-active js-ps-customize-transport" data-transport="walking" aria-pressed="true">
+                <span class="ps-search-customize-area-modal__transport-icon js-ps-customize-transport-icon" aria-hidden="true">
+                  {{ icon(transport_icons.walking.pack, transport_icons.walking.id, {size: '24px'}) }}
+                </span>
+                <span>{{ 'Walking'|t }}</span>
+              </button>
+              <button type="button" class="ps-search-customize-area-modal__transport js-ps-customize-transport" data-transport="transports" aria-pressed="false">
+                <span class="ps-search-customize-area-modal__transport-icon js-ps-customize-transport-icon" aria-hidden="true">
+                  {{ icon(transport_icons.transports.pack, transport_icons.transports.id, {size: '24px'}) }}
+                </span>
+                <span>{{ 'Transports'|t }}</span>
+              </button>
+              <button type="button" class="ps-search-customize-area-modal__transport js-ps-customize-transport" data-transport="bike" aria-pressed="false">
+                <span class="ps-search-customize-area-modal__transport-icon js-ps-customize-transport-icon" aria-hidden="true">
+                  {{ icon(transport_icons.bike.pack, transport_icons.bike.id, {size: '24px'}) }}
+                </span>
+                <span>{{ 'Bike'|t }}</span>
+              </button>
+              <button type="button" class="ps-search-customize-area-modal__transport js-ps-customize-transport" data-transport="car" aria-pressed="false">
+                <span class="ps-search-customize-area-modal__transport-icon js-ps-customize-transport-icon" aria-hidden="true">
+                  {{ icon(transport_icons.car.pack, transport_icons.car.id, {size: '24px'}) }}
+                </span>
+                <span>{{ 'Car'|t }}</span>
+              </button>
+            </div>
+          </fieldset>
+          <div>
+            <label class="form-label fw-semibold small" for="ps-search-travel-time">{{ 'Travel time'|t }}</label>
+            <select id="ps-search-travel-time" class="form-select js-ps-customize-travel-time">
+              <option value="5" selected>{{ '5 minutes'|t }}</option>
+              <option value="10">{{ '10 minutes'|t }}</option>
+              <option value="15">{{ '15 minutes'|t }}</option>
+              <option value="20">{{ '20 minutes'|t }}</option>
+              <option value="30">{{ '30 minutes'|t }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="button" class="btn btn-link text-decoration-none js-ps-customize-reset">{{ 'Reset'|t }}</button>
+          <button type="button" class="btn btn-primary js-ps-customize-validate" data-bs-dismiss="modal">{{ 'Validate'|t }}</button>
+        </div>
+      </div>
     </div>
   </div>
 

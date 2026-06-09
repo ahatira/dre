@@ -963,6 +963,18 @@
         return extractLocalityFromPath() || '';
       }
 
+      function localityKey(tokens) {
+        return normalizeLocationTokens(tokens.slice()).map(function (token) {
+          return token.toLowerCase();
+        }).sort().join('|');
+      }
+
+      const pageLoadLocalityKey = localityKey(parseLocationTokens(resolveInitialLocalityValue()));
+
+      function hasLocalityChanged() {
+        return localityKey(selectedLocalityTokens) !== pageLoadLocalityKey;
+      }
+
       function setFacetQueryParam(params, key, value) {
         if (value) {
           params.append(key + '[' + value + ']', value);
@@ -1062,6 +1074,14 @@
         if (budgetMin) p.set('budget[min]', budgetMin);
         if (budgetMax) p.set('budget[max]', budgetMax);
         appendMoreFiltersToParams(p, false);
+
+        // Rule A: keep map_bounds when locality is unchanged.
+        // Rule B: locality change drops map_bounds so the server recomputes the zone.
+        const activeMapBounds = new URLSearchParams(window.location.search).get('map_bounds');
+        if (!hasLocalityChanged() && activeMapBounds) {
+          p.set('map_bounds', activeMapBounds);
+        }
+
         const qs = p.toString();
         return qs ? base + '?' + qs : base;
       }
@@ -1842,18 +1862,19 @@
         const showListLabel = btn.dataset.showListLabel || 'Show list';
         btn.addEventListener('click', function () {
           const root = document.querySelector('.ps-search-view');
-          if (!root) {
+          if (!root || typeof Drupal.psSearchMap?.setListVisible !== 'function') {
             return;
           }
-          const listHidden = root.classList.toggle('ps-search-view--list-hidden');
-          btn.setAttribute('aria-expanded', listHidden ? 'false' : 'true');
+          const showList = !Drupal.psSearchMap.isListVisible(root);
+          Drupal.psSearchMap.setListVisible(root, showList);
+          const listNowVisible = Drupal.psSearchMap.isListVisible(root);
+          btn.setAttribute('aria-expanded', listNowVisible ? 'true' : 'false');
           btn.textContent = '';
           const icon = document.createElement('span');
           icon.className = 'ps-filter-bar-mobile-actions__icon';
           icon.setAttribute('aria-hidden', 'true');
           btn.appendChild(icon);
-          btn.appendChild(document.createTextNode(listHidden ? showListLabel : showMapLabel));
-          document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
+          btn.appendChild(document.createTextNode(listNowVisible ? showMapLabel : showListLabel));
         });
       });
 

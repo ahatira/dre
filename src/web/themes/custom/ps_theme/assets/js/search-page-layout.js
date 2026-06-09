@@ -2,19 +2,18 @@
   'use strict';
 
   /**
-   * Triggers Google Maps resize after layout changes.
+   * Triggers map resize when search chrome (filter bar) height changes.
    *
    * @param {HTMLElement} root
    *   Search view root element.
    */
-  function resizeMaps(root) {
-    root.querySelectorAll('.geofield-google-map').forEach(function (mapEl) {
-      const mapId = mapEl.id;
-      const mapData = Drupal.geoFieldMapFormatter?.map_data?.[mapId];
-      if (typeof google !== 'undefined' && google.maps && mapData?.map) {
-        google.maps.event.trigger(mapData.map, 'resize');
-      }
-    });
+  function syncSearchLayout(root) {
+    const filter = root.querySelector('.ps-search-view__filter-bar');
+    const mobile = root.querySelector('.ps-search-view__mobile-toolbar-wrap');
+    const chromeHeight = (filter?.offsetHeight || 0) + (mobile?.offsetHeight || 0);
+
+    root.style.setProperty('--ps-search-chrome-height', `${chromeHeight}px`);
+    Drupal.psSearchMap.resizeMaps(root);
   }
 
   Drupal.behaviors.psSearchPageLayout = {
@@ -24,41 +23,33 @@
         const showBtn = root.querySelector('.js-ps-show-list');
         const sortSelect = root.querySelector('.js-ps-sort-select');
 
-        /**
-         * Toggles list pane visibility and resizes the map.
-         *
-         * @param {boolean} visible
-         *   Whether the list pane should be visible.
-         */
-        function setListVisible(visible) {
-          root.classList.toggle('ps-search-view--list-hidden', !visible);
-          if (hideBtn) {
-            hideBtn.setAttribute('aria-expanded', visible ? 'true' : 'false');
-            hideBtn.hidden = !visible;
+        syncSearchLayout(root);
+
+        if (typeof ResizeObserver !== 'undefined') {
+          const observer = new ResizeObserver(function () {
+            syncSearchLayout(root);
+          });
+          observer.observe(root);
+          const filter = root.querySelector('.ps-search-view__filter-bar');
+          if (filter) {
+            observer.observe(filter);
           }
-          if (showBtn) {
-            showBtn.hidden = visible;
-          }
-          if (visible) {
-            root.dispatchEvent(new CustomEvent('ps-search-list-shown'));
-          }
-          document.dispatchEvent(new CustomEvent('ps-search-map-resize'));
-          requestAnimationFrame(function () {
-            setTimeout(function () {
-              resizeMaps(root);
-            }, 320);
+        }
+        else {
+          window.addEventListener('resize', function () {
+            syncSearchLayout(root);
           });
         }
 
         if (hideBtn) {
           hideBtn.addEventListener('click', function () {
-            setListVisible(false);
+            Drupal.psSearchMap.setListVisible(root, false);
           });
         }
 
         if (showBtn) {
           showBtn.addEventListener('click', function () {
-            setListVisible(true);
+            Drupal.psSearchMap.setListVisible(root, true);
           });
         }
 
@@ -72,20 +63,18 @@
           });
         }
 
-        // Geofield map initializes before the split layout settles — resize once ready.
         requestAnimationFrame(function () {
           setTimeout(function () {
-            resizeMaps(root);
+            syncSearchLayout(root);
           }, 500);
         });
+      });
 
-        document.addEventListener('ps-search-map-resize', function () {
-          requestAnimationFrame(function () {
-            setTimeout(function () {
-              resizeMaps(root);
-            }, 320);
-          });
-        });
+      document.addEventListener('ps-search-map-resize', function () {
+        const root = document.querySelector('.ps-search-view');
+        if (root) {
+          syncSearchLayout(root);
+        }
       });
     },
   };

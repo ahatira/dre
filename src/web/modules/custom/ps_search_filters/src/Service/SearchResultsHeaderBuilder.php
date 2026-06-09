@@ -10,6 +10,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
+use Drupal\ps_search\Service\SearchResultCounter;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -28,6 +29,7 @@ final class SearchResultsHeaderBuilder {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RequestStack $requestStack,
     private readonly LocationSearchFilter $locationSearchFilter,
+    private readonly SearchResultCounter $searchResultCounter,
   ) {}
 
   /**
@@ -49,9 +51,17 @@ final class SearchResultsHeaderBuilder {
     $currentSort = (string) ($query?->get('sort_by') ?? 'search_api_relevance');
     $currentOrder = strtoupper((string) ($query?->get('sort_order') ?? 'DESC'));
 
+    $globalCount = $request instanceof Request
+      ? $this->searchResultCounter->countBusinessFilters($request)
+      : $this->resolveResultCount($view);
+    $zoneCount = $request instanceof Request
+      ? $this->searchResultCounter->countInBounds($request)
+      : $globalCount;
+
     return [
       'title' => $this->buildTitle($assetLabel, $opPhrase, $locality),
-      'count' => (int) ($view->total_rows ?? 0),
+      'count' => $globalCount,
+      'zone_count' => $zoneCount,
       'sort_options' => $this->buildSortOptions($view, $currentSort, $currentOrder),
       'current_sort' => $currentSort,
       'current_order' => $currentOrder,
@@ -264,6 +274,18 @@ final class SearchResultsHeaderBuilder {
     }
 
     return (string) $this->t('Property search');
+  }
+
+  /**
+   * Returns the total number of filtered results for the header counter.
+   */
+  private function resolveResultCount(ViewExecutable $view): int {
+    $total = (int) ($view->total_rows ?? 0);
+    if ($total > 0) {
+      return $total;
+    }
+
+    return count($view->result ?? []);
   }
 
   /**

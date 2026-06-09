@@ -16,9 +16,14 @@
          *
          * @param {string} nid
          *   Offer node id.
+         * @param {boolean} force
+         *   Re-apply even when already active.
          */
-        function setActive(nid) {
-          if (!nid || nid === activeNid || !mapDataRef?.markersByNid) {
+        function setActive(nid, force) {
+          if (!nid || !mapDataRef?.markersByNid) {
+            return;
+          }
+          if (!force && nid === activeNid) {
             return;
           }
 
@@ -46,6 +51,7 @@
          */
         function clearActive() {
           if (!activeNid || !mapDataRef?.markersByNid) {
+            activeNid = null;
             return;
           }
 
@@ -68,20 +74,32 @@
         }
 
         /**
+         * Stores pinned selection on the view root.
+         *
+         * @param {string|null} nid
+         *   Offer node id.
+         */
+        function setPinned(nid) {
+          pinnedNid = nid ? String(nid) : null;
+          Drupal.psSearchMap.setSelectedOfferId(root, pinnedNid);
+        }
+
+        /**
          * Clears click-pinned selection (list mode).
          */
         function clearPinned() {
-          pinnedNid = null;
+          setPinned(null);
           clearActive();
         }
 
         /**
-         * Defers clearing so pointer can move between card and marker.
+         * Defers clearing after list hover ends.
          */
         function scheduleClear() {
           window.clearTimeout(clearTimer);
           clearTimer = window.setTimeout(function () {
-            if (pinnedNid && activeNid === pinnedNid) {
+            if (pinnedNid) {
+              setActive(pinnedNid, true);
               return;
             }
             clearActive();
@@ -96,67 +114,57 @@
         }
 
         /**
-         * Handles marker click in split view — scroll list, no overlay panel.
+         * Handles marker click in split view — scroll list and pin highlight.
          *
          * @param {string} nid
          *   Offer node id.
          */
         function selectFromMapInListView(nid) {
-          pinnedNid = nid;
-          setActive(nid);
+          setPinned(String(nid));
+          setActive(String(nid), true);
           const card = root.querySelector(`.ps-offer-search-card[data-offer-id="${nid}"]`);
           Drupal.psSearchMap.scrollToCard(root, card);
         }
 
-        /**
-         * Binds hover sync to geofield map markers.
-         *
-         * @param {object} mapData
-         *   Geofield map data bucket.
-         */
-        function bindMarkers(mapData) {
-          mapDataRef = mapData;
-
-          Object.keys(mapData.markersByNid || {}).forEach(function (nid) {
-            const marker = mapData.markersByNid[nid];
-            if (marker.__psSearchSyncBound) {
+        // List → map sync on hover (delegated — supports infinite scroll appended rows).
+        const listPanel = root.querySelector('.js-ps-search-list-panel');
+        if (listPanel) {
+          listPanel.addEventListener('mouseenter', function (event) {
+            const card = event.target.closest('.ps-offer-search-card[data-offer-id]');
+            if (!card || !listPanel.contains(card)) {
               return;
             }
-
-            marker.__psSearchSyncBound = true;
-
-            google.maps.event.addListener(marker, 'mouseover', function () {
-              cancelClear();
-              setActive(nid);
-
-              if (Drupal.psSearchMap.isListVisible(root)) {
-                const card = root.querySelector(`.ps-offer-search-card[data-offer-id="${nid}"]`);
-                Drupal.psSearchMap.scrollToCard(root, card);
-              }
-            });
-
-            google.maps.event.addListener(marker, 'mouseout', function () {
-              scheduleClear();
-            });
-          });
-        }
-
-        root.querySelectorAll('.ps-offer-search-card[data-offer-id]').forEach(function (card) {
-          const nid = card.getAttribute('data-offer-id');
-          if (!nid) {
-            return;
-          }
-
-          card.addEventListener('mouseenter', function () {
+            if (!Drupal.psSearchMap.isListVisible(root)) {
+              return;
+            }
+            const nid = card.getAttribute('data-offer-id');
+            if (!nid) {
+              return;
+            }
             cancelClear();
             setActive(nid);
-          });
+          }, true);
 
-          card.addEventListener('mouseleave', function () {
+          listPanel.addEventListener('mouseleave', function (event) {
+            const card = event.target.closest('.ps-offer-search-card[data-offer-id]');
+            if (!card || !listPanel.contains(card)) {
+              return;
+            }
+            if (!Drupal.psSearchMap.isListVisible(root)) {
+              return;
+            }
             scheduleClear();
-          });
+          }, true);
+        }
+
+        // Re-bind is not needed for markers; highlight new rows after infinite scroll.
+        root.addEventListener('ps-search-infinite-scroll-new-content', function () {
+          if (pinnedNid) {
+            setActive(pinnedNid, true);
+          }
         });
 
+        // Map → list sync on marker click (dispatched from map-popup.js).
         root.addEventListener('ps-search-map-marker-select', function (event) {
           const nid = event.detail?.nid;
           if (!nid) {
@@ -164,12 +172,35 @@
           }
 
           if (Drupal.psSearchMap.isListVisible(root)) {
-            selectFromMapInListView(String(nid));
+            const card = root.querySelector(`.ps-offer-search-card[data-offer-id="${nid}"]`);
+            if (card) {
+              selectFromMapInListView(String(nid));
+              return;
+            }
+
+            if (drupalSettings.psSearch?.listLoadAll) {
+              Drupal.psSearchPage.fetchOfferCard(String(nid)).then(function (loadedCard) {
+                if (loadedCard) {
+                  const listPanel = Drupal.psSearchPage.getListScrollEl(root);
+                  if (listPanel) {
+                    listPanel.appendChild(loadedCard);
+                  }
+                  selectFromMapInListView(String(nid));
+                }
+              });
+              return;
+            }
+
+            Drupal.psSearchPage.loadUntilOfferCard(root, String(nid)).then(function (loadedCard) {
+              if (loadedCard) {
+                selectFromMapInListView(String(nid));
+              }
+            });
             return;
           }
 
-          pinnedNid = String(nid);
-          setActive(String(nid));
+          setPinned(String(nid));
+          setActive(String(nid), true);
         });
 
         root.addEventListener('ps-search-map-marker-clear', function () {
@@ -177,15 +208,20 @@
         });
 
         root.addEventListener('ps-search-map-markers-loaded', function (event) {
-          bindMarkers(event.detail.mapData);
+          mapDataRef = event.detail.mapData;
+          if (pinnedNid) {
+            setActive(pinnedNid, true);
+          }
         });
 
-        Drupal.psSearchMap.whenMapReady(root, function (mapData) {
+        Drupal.psSearchMap.whenMapShellReady(root, function (mapData) {
           mapDataRef = mapData;
           const map = mapData.map || mapData.google_map;
           if (map) {
             google.maps.event.addListener(map, 'click', function () {
-              clearPinned();
+              if (Drupal.psSearchMap.isListVisible(root)) {
+                clearPinned();
+              }
             });
           }
         });

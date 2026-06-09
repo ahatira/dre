@@ -58,7 +58,7 @@ final class SearchCountController extends ControllerBase {
 
     $query = $index->query();
     $query->range(0, 0);
-    $this->filterQueryBuilder->apply($query, $request);
+    $this->filterQueryBuilder->applyBusinessFilters($query, $request);
 
     try {
       $results = $query->execute();

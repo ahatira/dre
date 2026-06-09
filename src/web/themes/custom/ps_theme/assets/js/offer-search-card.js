@@ -13,6 +13,21 @@
   }
 
   /**
+   * Clears Drupal once markers so behaviors can re-attach on cloned cards.
+   *
+   * @param {HTMLElement} root
+   *   Root element whose subtree should be reset.
+   */
+  function resetOnceAttributes(root) {
+    root.removeAttribute('data-once');
+    root.removeAttribute('data-drupal-once');
+    root.querySelectorAll('[data-once], [data-drupal-once]').forEach(function (element) {
+      element.removeAttribute('data-once');
+      element.removeAttribute('data-drupal-once');
+    });
+  }
+
+  /**
    * Shows the "Already viewed" badge when applicable.
    *
    * @param {HTMLElement} card
@@ -94,21 +109,75 @@
     update();
   }
 
+  /**
+   * Prepares comparator action (placeholder until comparator module ships).
+   *
+   * @param {HTMLElement} card
+   *   Offer search card root element.
+   */
+  function initComparator(card) {
+    const compareBtn = card.querySelector('.ps-offer-search-card__action--compare');
+    if (!compareBtn || compareBtn.dataset.psCompareBound) {
+      return;
+    }
+
+    compareBtn.dataset.psCompareBound = '1';
+    compareBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (typeof Drupal.announce === 'function') {
+        Drupal.announce(Drupal.t('Comparator coming soon.'));
+      }
+    });
+  }
+
+  /**
+   * Initializes favorite wrapper click isolation.
+   *
+   * @param {HTMLElement} card
+   *   Offer search card root element.
+   */
+  function initFavoriteWrapper(card) {
+    const wrapper = card.querySelector('.ps-offer-search-card__action--favorite');
+    if (!wrapper || wrapper.dataset.psFavoriteWrapperBound) {
+      return;
+    }
+
+    wrapper.dataset.psFavoriteWrapperBound = '1';
+    wrapper.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+  }
+
+  /**
+   * Initializes interactions on a single offer search card.
+   *
+   * @param {HTMLElement} card
+   *   Offer search card root element.
+   */
+  function initCard(card) {
+    if (!card || !card.matches('.ps-offer-search-card[data-offer-id]')) {
+      return;
+    }
+
+    applyViewedBadge(card);
+    initComparator(card);
+    initFavoriteWrapper(card);
+
+    const media = card.querySelector('.ps-offer-search-card__media');
+    if (media) {
+      initGallery(media);
+    }
+  }
+
+  Drupal.psOfferSearchCard = Drupal.psOfferSearchCard || {};
+  Drupal.psOfferSearchCard.initCard = initCard;
+  Drupal.psOfferSearchCard.resetOnceAttributes = resetOnceAttributes;
+
   Drupal.behaviors.psOfferSearchCard = {
     attach(context) {
-      once('ps-offer-search-card', '.ps-offer-search-card[data-offer-id]', context).forEach((card) => {
-        applyViewedBadge(card);
-
-        const media = card.querySelector('.ps-offer-search-card__media');
-        if (media) {
-          initGallery(media);
-        }
-      });
-
-      once('ps-offer-search-card-favorite', '.ps-offer-search-card__action--favorite', context).forEach((wrapper) => {
-        wrapper.addEventListener('click', (event) => {
-          event.stopPropagation();
-        });
+      once('ps-offer-search-card', '.ps-offer-search-card[data-offer-id]', context).forEach(function (card) {
+        initCard(card);
       });
     },
   };

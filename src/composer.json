@@ -102,6 +102,7 @@
         "drupal/ui_icons": "^1.1",
         "drupal/ui_patterns": "^2.0",
         "drupal/ui_styles": "^1.7",
+        "drupal/views_infinite_scroll": "^2.0",
         "drupal/webform": "^6.3@RC",
         "geocoder-php/google-maps-provider": "^4.8",
         "symfony/http-client": "^7.4"
@@ -115,6 +116,7 @@
         "test:offer-ref-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1",
         "test:offer-sections-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_sections.sh 7",
         "test:search-urls-e2e": "bash web/modules/custom/ps_search/tests/b2b_search_urls_security.sh",
+        "test:search-zone-e2e": "bash web/modules/custom/ps_search/tests/b2b_map_zone.sh",
         "test:search-budget-e2e": "bash web/modules/custom/ps_search/tests/b2b_budget_filter.sh && bash web/modules/custom/ps_search/tests/b2b_budget_apply.sh",
         "test:search-more-filters-e2e": "bash web/modules/custom/ps_search_filters/tests/b2b_more_filters.sh",
         "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors",

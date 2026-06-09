@@ -167,3 +167,298 @@ function ps_search_update_11009(): void {
   $view->save();
   drupal_flush_all_caches();
 }
+
+/**
+ * Disable list pager so all filtered offers are in DOM (map/list sync).
+ */
+function ps_search_update_11010(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $display = &$view->getDisplay('default');
+  $display['display_options']['pager'] = [
+    'type' => 'none',
+    'options' => [
+      'offset' => 0,
+    ],
+  ];
+  $view->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Hide Google Maps Map/Satellite selector on search map attachment.
+ */
+function ps_search_update_11011(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $display = &$view->getDisplay('map_attachment');
+  $options = &$display['display_options']['style']['options'];
+  if (!isset($options['map_controls']) || !is_array($options['map_controls'])) {
+    $options['map_controls'] = [
+      'disable_default_ui' => FALSE,
+      'zoom_control' => TRUE,
+      'map_type_id' => 'roadmap',
+      'map_type_control' => FALSE,
+      'map_type_control_options_type_ids' => [
+        'roadmap' => 'roadmap',
+        'satellite' => 'satellite',
+        'hybrid' => 'hybrid',
+        'terrain' => 'terrain',
+      ],
+      'scale_control' => FALSE,
+      'street_view_control' => FALSE,
+      'fullscreen_control' => FALSE,
+    ];
+  }
+  else {
+    $options['map_controls']['map_type_control'] = 0;
+  }
+
+  $view->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable Views Infinite Scroll on search list + nid field for offer card block.
+ */
+function ps_search_update_11012(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $pageList = &$view->getDisplay('page_list');
+  $pageList['display_options']['use_ajax'] = TRUE;
+  $pageList['display_options']['defaults']['pager'] = FALSE;
+  $pageList['display_options']['defaults']['use_ajax'] = FALSE;
+  $pageList['display_options']['pager'] = [
+    'type' => 'infinite_scroll',
+    'options' => [
+      'offset' => 0,
+      'items_per_page' => 24,
+      'id' => 0,
+      'total_pages' => NULL,
+      'expose' => [
+        'items_per_page' => FALSE,
+        'items_per_page_label' => 'Items per page',
+        'items_per_page_options' => '24,48,96',
+        'items_per_page_options_all' => FALSE,
+        'items_per_page_options_all_label' => '- All -',
+        'offset' => FALSE,
+        'offset_label' => 'Offset',
+      ],
+      'views_infinite_scroll' => [
+        'button_text' => 'Load @next_page_count more',
+        'automatically_load_content' => TRUE,
+        'initially_load_all_pages' => FALSE,
+      ],
+    ],
+  ];
+
+  $index = \Drupal\search_api\Entity\Index::load('offers');
+  if ($index) {
+    $fields = $index->getFields();
+    if (!isset($fields['nid'])) {
+      /** @var \Drupal\search_api\Utility\FieldsHelper $fieldsHelper */
+      $fieldsHelper = \Drupal::service('search_api.fields_helper');
+      $field = $fieldsHelper->createField($index, 'nid', [
+        'label' => 'ID',
+        'datasource_id' => 'entity:node',
+        'property_path' => 'nid',
+        'type' => 'integer',
+      ]);
+      $index->addField($field);
+      $index->save();
+      $index->reindex();
+    }
+  }
+
+  $installPath = \Drupal::service('extension.list.module')->getPath('ps_search')
+    . '/config/install/views.view.ps_search_offers.yml';
+  if (is_readable($installPath)) {
+    $install = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($installPath));
+    if (!empty($install['display']['block_offer_card'])) {
+      $displays = $view->get('display');
+      $displays['block_offer_card'] = $install['display']['block_offer_card'];
+      $view->set('display', $displays);
+    }
+  }
+
+  $view->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Ensure page_list pager override is not inherited from default display.
+ */
+function ps_search_update_11013(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $pageList = &$view->getDisplay('page_list');
+  $pageList['display_options']['defaults']['pager'] = FALSE;
+  $pageList['display_options']['defaults']['use_ajax'] = FALSE;
+  $view->save();
+}
+
+/**
+ * Lazy-load search map via block_map AJAX (detach synchronous attachment).
+ */
+function ps_search_update_11014(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $mapAttachment = &$view->getDisplay('map_attachment');
+  $mapAttachment['display_options']['displays'] = [];
+
+  $displays = $view->get('display');
+  if (!isset($displays['block_map'])) {
+    $source = $mapAttachment;
+    $displays['block_map'] = [
+      'id' => 'block_map',
+      'display_title' => 'Search map (block)',
+      'display_plugin' => 'block',
+      'position' => 4,
+      'display_options' => [
+        'title' => '',
+        'enabled' => TRUE,
+        'access' => $source['display_options']['access'] ?? ['type' => 'none', 'options' => []],
+        'cache' => $source['display_options']['cache'] ?? ['type' => 'search_api_none', 'options' => []],
+        'pager' => $source['display_options']['pager'] ?? ['type' => 'none', 'options' => ['offset' => 0]],
+        'empty' => $source['display_options']['empty'] ?? [],
+        'fields' => $source['display_options']['fields'] ?? [],
+        'style' => $source['display_options']['style'] ?? [],
+        'row' => $source['display_options']['row'] ?? [],
+        'defaults' => [
+          'access' => FALSE,
+          'cache' => FALSE,
+          'pager' => FALSE,
+          'fields' => FALSE,
+          'style' => FALSE,
+          'row' => FALSE,
+          'filters' => TRUE,
+          'filter_groups' => TRUE,
+          'sorts' => TRUE,
+          'arguments' => TRUE,
+          'use_ajax' => FALSE,
+        ],
+        'block_description' => 'Property search map',
+        'display_extenders' => [],
+        'use_ajax' => TRUE,
+        'exposed_block' => FALSE,
+      ],
+      'cache_metadata' => [
+        'max-age' => -1,
+        'contexts' => [
+          'languages:language_interface',
+          'url',
+          'url.query_args',
+          'user.node_grants:view',
+        ],
+        'tags' => [
+          'config:field.storage.node.field_geo',
+          'config:search_api.index.offers',
+          'search_api_list:offers',
+        ],
+      ],
+    ];
+    $view->set('display', $displays);
+  }
+
+  $view->save();
+}
+
+/**
+ * Restore synchronous map attachment on page_list (revert block_map AJAX).
+ */
+function ps_search_update_11015(): void {
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('ps_search_offers');
+  if (!$view instanceof \Drupal\views\Entity\View) {
+    return;
+  }
+
+  $mapAttachment = &$view->getDisplay('map_attachment');
+  $mapAttachment['display_options']['displays'] = [
+    'page_list' => 'page_list',
+  ];
+
+  $view->save();
+}
+
+/**
+ * Map zone search: location field type, zone settings, bounds on page_list.
+ */
+function ps_search_update_11016(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_search.map_zone_settings');
+  if ($config->isNew()) {
+    $installPath = \Drupal::service('extension.list.module')->getPath('ps_search')
+      . '/config/install/ps_search.map_zone_settings.yml';
+    if (is_readable($installPath)) {
+      $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($installPath));
+      $config->setData($data)->save(TRUE);
+    }
+  }
+
+  $index = \Drupal\search_api\Entity\Index::load('offers');
+  if ($index) {
+    $fields = $index->getFields();
+    if (isset($fields['field_geo']) && $fields['field_geo']->getType() !== 'location') {
+      $fields['field_geo']->setType('location');
+      $index->setFields($fields);
+      $index->save();
+      $index->reindex();
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Fix geo index fields: revert location type, add lat/lng processor fields.
+ */
+function ps_search_update_11017(): void {
+  $index = \Drupal\search_api\Entity\Index::load('offers');
+  if (!$index) {
+    return;
+  }
+
+  /** @var \Drupal\search_api\Utility\FieldsHelper $fieldsHelper */
+  $fieldsHelper = \Drupal::service('search_api.fields_helper');
+  $fields = $index->getFields();
+
+  if (isset($fields['field_geo']) && $fields['field_geo']->getType() === 'location') {
+    $fields['field_geo']->setType('string');
+    $index->setFields($fields);
+  }
+
+  $processors = $index->get('processor_settings') ?? [];
+  $processors['ps_geo_lat_lon_processor'] = [];
+  $index->set('processor_settings', $processors);
+
+  foreach ([
+    'field_geo_lat' => 'Geo latitude',
+    'field_geo_lng' => 'Geo longitude',
+  ] as $fieldId => $label) {
+    if (!$index->getField($fieldId)) {
+      $index->addField($fieldsHelper->createField($index, $fieldId, [
+        'label' => $label,
+        'property_path' => $fieldId,
+        'type' => 'decimal',
+      ]));
+    }
+  }
+
+  $index->save();
+  $index->reindex();
+  drupal_flush_all_caches();
+}

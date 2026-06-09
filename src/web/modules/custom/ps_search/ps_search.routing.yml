@@ -14,7 +14,25 @@ ps_search.feature_filter_sync_settings:
   requirements:
     _permission: 'administer site configuration'
 
+ps_search.map_zone_settings_form:
+  path: '/admin/ps/config/search/map-zone'
+  defaults:
+    _form: '\Drupal\ps_search\Form\MapZoneSettingsForm'
+    _title: 'Map zone settings'
+  requirements:
+    _permission: 'administer site configuration'
+
 # Legacy routes - Deprecated in 2.0.0, use ps_search_filters and ps_location_autocomplete instead
+
+ps_search.markers:
+  path: '/ps-search/markers'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchMarkersController::markers'
+    _title: 'Search map markers'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
 
 ps_search.count:
   path: '/ps-search/count'

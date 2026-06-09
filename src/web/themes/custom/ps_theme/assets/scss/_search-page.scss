@@ -75,15 +75,43 @@
     overflow: hidden;
     position: relative;
     z-index: 1;
+
+    > [class*='col-'] {
+      min-height: 0;
+    }
+  }
+
+  &__left {
+    min-height: 0;
+  }
+
+  &__right {
+    min-height: 0;
   }
 
   &__map {
+    background-color: var(--re-color-surface-muted, #f4f6f8);
+
+    &.js-ps-search-map-mount {
+      height: 100%;
+      min-height: 100%;
+    }
+
     .views-element-container,
     .views-element-container > [class*='js-view-dom-id'],
-    .view {
+    .view,
+    .js-ps-search-map-mount > .view {
       height: 100%;
       min-height: 100%;
       width: 100%;
+    }
+
+    &-loading {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      min-height: 12rem;
     }
 
     .geofield-google-map {
@@ -127,25 +155,415 @@
     }
   }
 
+  .ps-search-map-area-btn {
+    left: 50%;
+    top: 1rem;
+    transform: translateX(-50%);
+    z-index: 5;
+
+    &[hidden] {
+      display: none !important;
+    }
+
+    &.is-loading {
+      opacity: 0.75;
+      pointer-events: none;
+    }
+  }
+
   .js-ps-hide-list,
   .js-ps-show-list {
-    top: 4.5rem !important;
-    z-index: 2;
+    top: 1rem !important;
+    z-index: 4;
 
     &[hidden] {
       display: none !important;
     }
   }
 
-  &--list-hidden {
-    .ps-search-view__split > .col-lg-6:first-child {
-      display: none !important;
+  .ps-search-map-layout-btn {
+    background: #fff !important;
+    border: 1px solid var(--re-color-primary, #00915a);
+    color: var(--re-color-primary, #00915a);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    gap: 0.5rem;
+    line-height: 1.2;
+    padding: 0.4375rem 0.75rem;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: #fff !important;
+      border-color: var(--re-color-primary, #00915a);
+      box-shadow: 0 2px 8px rgba(28, 45, 55, 0.12);
+      color: var(--re-color-primary, #00915a);
     }
 
-    .ps-search-view__split > .col-lg-6:last-child {
-      flex: 0 0 100%;
-      max-width: 100%;
+    &__icon {
+      flex-shrink: 0;
+      line-height: 0;
+    }
+  }
+
+  .js-ps-hide-list {
+    left: 1rem !important;
+  }
+
+  .js-ps-show-list {
+    left: 1rem !important;
+  }
+
+  &--list-hidden {
+    @media (min-width: 992px) {
+      .ps-search-view__left {
+        display: none !important;
+      }
+
+      .ps-search-view__right {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .js-ps-show-list {
+        left: 1rem !important;
+      }
+
+      &.ps-search-view--float-panel-open .js-ps-show-list {
+        left: calc(1rem + var(--ps-map-float-panel-width, 300px) + 0.75rem) !important;
+      }
+
+      .ps-search-map-popup {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.ps-search-map-float-panel {
+  --ps-map-float-panel-width: 300px;
+  --ps-map-float-panel-image-ratio: 300 / 168;
+
+  background: #fff;
+  border-radius: 0;
+  bottom: 1rem;
+  box-shadow: 0 2px 16px rgba(28, 45, 55, 0.12);
+  display: none;
+  flex-direction: column;
+  left: 1rem;
+  max-width: var(--ps-map-float-panel-width);
+  min-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 1rem;
+  transform: translateX(-1.25rem);
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+  visibility: hidden;
+  width: var(--ps-map-float-panel-width);
+  z-index: 3;
+
+  &[hidden] {
+    display: none !important;
+  }
+
+  &:not([hidden]) {
+    display: flex;
+    overflow: hidden;
+  }
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    transform: none;
+
+    &.is-open {
+      transform: none;
+    }
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    max-height: calc(100% - 6.75rem);
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  &__zone {
+    background: #fff;
+    border-top: 1px solid var(--re-color-border, #ebedef);
+    flex: 0 0 auto;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__zone-label {
+    color: var(--re-color-text, #333);
+    flex: 1 1 auto;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
+
+  &__zone-row {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+
+    + .ps-search-map-float-panel__zone-row {
+      margin-top: 0.75rem;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  &__toggle-input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+
+    &:focus-visible + .ps-search-map-float-panel__toggle-track {
+      box-shadow: 0 0 0 0.2rem rgba(0, 145, 90, 0.25);
+    }
+  }
+
+  &__toggle-track {
+    background: #d6dbde;
+    border-radius: 1rem;
+    display: block;
+    height: 1.25rem;
+    position: relative;
+    transition: background-color 0.15s ease;
+    width: 2.25rem;
+
+    &::after {
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(28, 45, 55, 0.2);
+      content: '';
+      height: 1rem;
+      left: 0.125rem;
+      position: absolute;
+      top: 0.125rem;
+      transition: transform 0.15s ease;
+      width: 1rem;
+    }
+  }
+
+  &__toggle-input:checked + &__toggle-track {
+    background: var(--re-color-primary, #00915a);
+
+    &::after {
+      transform: translateX(1rem);
+    }
+  }
+
+  &__customize-btn {
+    align-items: center;
+    background-color: var(--re-color-primary, #00915a);
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    gap: 0.375rem;
+    line-height: 1.25rem;
+    min-height: 2rem;
+    padding: 0.375rem 0.75rem;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      background-color: #007a4d;
+      color: #fff;
+    }
+  }
+
+  &__customize-icon {
+    align-items: center;
+    display: inline-flex;
+    flex-shrink: 0;
+    justify-content: center;
+    line-height: 0;
+
+    svg {
+      display: block;
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+
+  .ps-offer-search-card--float-panel {
+    border: 0;
+    box-shadow: none;
+    flex-direction: column;
+    min-height: min-content;
+    overflow: hidden;
+
+    .ps-offer-search-card__media {
+      aspect-ratio: var(--ps-map-float-panel-image-ratio);
+      flex: 0 0 auto;
+      max-width: none;
+      min-height: 0;
       width: 100%;
+    }
+
+    .ps-offer-search-card__image,
+    .ps-offer-search-card__track,
+    .ps-offer-search-card__slide {
+      height: 100%;
+      min-height: 0;
+    }
+
+    .ps-offer-search-card__nav {
+      height: 2rem;
+      width: 2rem;
+    }
+
+    .ps-offer-search-card__content {
+      flex: 1 1 auto;
+      gap: 0.75rem;
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+
+    .ps-offer-search-card__header {
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .ps-offer-search-card__badges-row {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .ps-offer-search-card__badge {
+      font-size: 0.75rem;
+      line-height: 1.25rem;
+      padding: 0 0.625rem;
+    }
+
+    .ps-offer-search-card__actions {
+      gap: 0.75rem;
+    }
+
+    .ps-offer-search-card__details {
+      gap: 0;
+    }
+
+    .ps-offer-search-card__title {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ps-offer-search-card__surface {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+
+    .ps-offer-search-card__location {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .ps-offer-search-card__footer {
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .ps-offer-search-card__price {
+      flex: 1 1 auto;
+      height: auto;
+      min-width: 0;
+    }
+
+    .ps-offer-search-card__price-amount {
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+    }
+
+    .ps-offer-search-card__price-qualifiers {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .ps-offer-search-card__cta {
+      flex-shrink: 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin-left: auto;
+    }
+  }
+}
+
+.ps-search-customize-area-modal {
+  &__transport-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__transport {
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--re-color-border, #e5e7eb);
+    border-radius: 0;
+    color: var(--re-color-text-muted, #777e83);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8125rem;
+    gap: 0.375rem;
+    padding: 1rem 0.75rem;
+    transition: border-color 0.15s ease, color 0.15s ease;
+
+    &__transport-icon {
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+      line-height: 0;
+
+      svg {
+        display: block;
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+
+    &.is-active,
+    &[aria-pressed='true'] {
+      border-color: var(--re-color-primary, #00915a);
+      color: var(--re-color-primary, #00915a);
+    }
+
+    &:hover {
+      border-color: var(--re-color-primary, #00915a);
     }
   }
 }
@@ -219,85 +637,8 @@
 }
 
 @media (min-width: 992px) {
-  .ps-search-view--list-hidden .ps-search-map-popup {
-    bottom: auto;
-    left: 1.25rem;
-    max-height: calc(100% - 6rem);
-    max-width: 18.5rem;
-    overflow: visible;
-    top: 5.5rem;
-    width: 18.5rem;
-
-    &__close {
-      right: 0.75rem;
-      top: 0.75rem;
-    }
-
-    .ps-offer-search-card--map-panel {
-      border-radius: 0;
-      flex-direction: column;
-      max-height: calc(100dvh - var(--ps-header-slot-height, 128px) - 8rem);
-      min-height: 0;
-      overflow: hidden;
-
-      .ps-offer-search-card__media {
-        flex: 0 0 auto;
-        max-width: none;
-        min-height: 11rem;
-        width: 100%;
-      }
-
-      .ps-offer-search-card__image {
-        min-height: 11rem;
-      }
-
-      .ps-offer-search-card__content {
-        gap: 0.75rem;
-        padding: 1rem 1.25rem 1.25rem;
-      }
-
-      .ps-offer-search-card__title {
-        font-size: 0.875rem;
-      }
-
-      .ps-offer-search-card__footer {
-        margin-top: auto;
-      }
-    }
-  }
-}
-
-@media (min-width: 992px) {
   .ps-search-map-popup {
-    bottom: 1.5rem;
-    left: 1.5rem;
-    max-width: 30rem;
-    width: min(calc(100% - 3rem), 30rem);
-
-    .ps-offer-search-card {
-      max-height: none;
-      min-height: 10.5rem;
-
-      &__media {
-        flex: 0 0 9.5rem;
-        max-width: 9.5rem;
-        min-height: 10.5rem;
-        width: 9.5rem;
-      }
-
-      &__image {
-        min-height: 10.5rem;
-      }
-
-      &__content {
-        gap: 0.75rem;
-        padding: 1rem 1.25rem;
-      }
-
-      &__title {
-        font-size: 0.875rem;
-      }
-    }
+    display: none;
   }
 }
 
@@ -335,6 +676,10 @@
 
     .js-ps-hide-list,
     .js-ps-show-list {
+      display: none !important;
+    }
+
+    .js-ps-search-map-float-panel {
       display: none !important;
     }
 

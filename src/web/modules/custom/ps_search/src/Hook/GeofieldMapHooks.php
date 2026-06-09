@@ -18,6 +18,11 @@ use Drupal\views\ResultRow;
 final class GeofieldMapHooks {
 
   /**
+   * View display IDs that render the property search map.
+   */
+  private const SEARCH_MAP_DISPLAYS = ['map_attachment', 'block_map'];
+
+  /**
    * Transparent 1×1 pixel — MarkerClusterer requires a styles[].url; CSS draws the circle.
    */
   private const CLUSTER_ICON_TRANSPARENT = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -55,7 +60,8 @@ final class GeofieldMapHooks {
    */
   #[Hook('geofield_map_googlemap_view_style_alter')]
   public function googlemapViewStyleAlter(array &$js_settings, GeofieldGoogleMapViewStyle $view_style): void {
-    if ($view_style->view->id() !== 'ps_search_offers' || $view_style->view->current_display !== 'map_attachment') {
+    if ($view_style->view->id() !== 'ps_search_offers'
+      || !in_array($view_style->view->current_display, self::SEARCH_MAP_DISPLAYS, TRUE)) {
       return;
     }
 
@@ -64,6 +70,8 @@ final class GeofieldMapHooks {
     $js_settings['map_settings']['map_zoom_and_pan']['zoom']['force'] = FALSE;
 
     $js_settings['map_settings']['map_markercluster']['markercluster_additional_options'] = (string) json_encode([
+      'minimumClusterSize' => 3,
+      'maxZoom' => 18,
       'styles' => [
         [
           'url' => self::CLUSTER_ICON_TRANSPARENT,
@@ -86,7 +94,7 @@ final class GeofieldMapHooks {
     }
 
     return $rowPlugin->view->id() === 'ps_search_offers'
-      && $rowPlugin->view->current_display === 'map_attachment';
+      && in_array($rowPlugin->view->current_display, self::SEARCH_MAP_DISPLAYS, TRUE);
   }
 
   /**

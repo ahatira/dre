@@ -48,6 +48,26 @@ ps_search.seo_url_mappings:
           type: label
           label: 'Canonical asset slug'
 
+ps_search.map_zone_settings:
+  type: config_object
+  label: 'PS Search map zone settings'
+  mapping:
+    default_center_lat:
+      type: float
+      label: 'Default map center latitude'
+    default_center_lng:
+      type: float
+      label: 'Default map center longitude'
+    default_radius_km:
+      type: float
+      label: 'Default search zone radius (km)'
+    list_pager_threshold:
+      type: integer
+      label: 'Max zone results before infinite scroll'
+    markers_max:
+      type: integer
+      label: 'Maximum markers returned per zone'
+
 ps_search.feature_filter_sync:
   type: config_object
   label: 'PS Search feature filter sync settings'

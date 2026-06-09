@@ -73,6 +73,12 @@ msgstr "Trier par"
 msgid "Pagination"
 msgstr "Pagination"
 
+msgid "Search this area"
+msgstr "Rechercher dans cette zone"
+
+msgid "Showing @count in this area"
+msgstr "@count résultats dans cette zone"
+
 msgid "Hide list"
 msgstr "Masquer la liste"
 

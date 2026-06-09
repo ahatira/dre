@@ -24,6 +24,7 @@ services:
       - '@entity_type.manager'
       - '@request_stack'
       - '@ps_search.location_filter'
+      - '@ps_search.result_counter'
   Drupal\ps_search_filters\Hook\Theme:
     class: Drupal\ps_search_filters\Hook\Theme
   Drupal\ps_search_filters\Hook\Views:
