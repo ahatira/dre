@@ -357,9 +357,12 @@
           window.setTimeout(openFloatPanelForSelection, 50);
         });
 
-        root.addEventListener('ps-search-zone-reloaded', function () {
+        function closePanelsOnResultsReload() {
           closeAllPanels();
-        });
+        }
+
+        root.addEventListener('ps-search-zone-reloaded', closePanelsOnResultsReload);
+        root.addEventListener('ps-search-filters-applied', closePanelsOnResultsReload);
       });
     },
   };

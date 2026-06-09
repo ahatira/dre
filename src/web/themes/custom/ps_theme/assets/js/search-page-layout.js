@@ -59,6 +59,20 @@
             const parts = sortSelect.value.split('|');
             url.searchParams.set('sort_by', parts[0] || 'search_api_relevance');
             url.searchParams.set('sort_order', parts[1] || 'DESC');
+            url.searchParams.delete('page');
+
+            if (typeof Drupal.psSearchPage?.reloadSearch === 'function') {
+              Drupal.psSearchPage.reloadSearch(root, {
+                browserUrl: url.pathname + url.search,
+                params: url.searchParams,
+                preserveViewport: true,
+                eventName: 'ps-search-filters-applied',
+              }).catch(function () {
+                window.location.assign(url.toString());
+              });
+              return;
+            }
+
             window.location.assign(url.toString());
           });
         }

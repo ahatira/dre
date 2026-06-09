@@ -969,7 +969,7 @@
         }).sort().join('|');
       }
 
-      const pageLoadLocalityKey = localityKey(parseLocationTokens(resolveInitialLocalityValue()));
+      let pageLoadLocalityKey = localityKey(parseLocationTokens(resolveInitialLocalityValue()));
 
       function hasLocalityChanged() {
         return localityKey(selectedLocalityTokens) !== pageLoadLocalityKey;
@@ -979,6 +979,14 @@
         if (value) {
           params.append(key + '[' + value + ']', value);
         }
+      }
+
+      function clearFacetQueryParams(params, key) {
+        Array.from(params.keys()).forEach(function (name) {
+          if (name === key || name.indexOf(key + '[') === 0) {
+            params.delete(name);
+          }
+        });
       }
 
       function appendLocalityQueryParams(params, tokens, skipFirst) {
@@ -1086,6 +1094,39 @@
         return qs ? base + '?' + qs : base;
       }
 
+      /**
+       * Builds query params for Views AJAX from the navigation URL + filter state.
+       *
+       * SEO paths embed operation/asset in the path; Views AJAX needs facet params.
+       *
+       * @return {{browserUrl: string, params: URLSearchParams}}
+       *   Browser URL and AJAX query parameters.
+       */
+      function buildViewAjaxParams() {
+        const navigationUrl = buildNavigationUrl();
+        const resolved = new URL(navigationUrl, window.location.origin);
+        const params = new URLSearchParams(resolved.search);
+
+        if (selectedOp) {
+          clearFacetQueryParams(params, 'operation_type');
+          setFacetQueryParam(params, 'operation_type', selectedOp);
+        }
+        if (selectedAsset) {
+          clearFacetQueryParams(params, 'asset_type');
+          setFacetQueryParam(params, 'asset_type', selectedAsset);
+        }
+        if (selectedLocalityTokens.length) {
+          params.set('locality', selectedLocalityTokens.join(', '));
+        }
+
+        params.delete('page');
+
+        return {
+          browserUrl: resolved.pathname + resolved.search,
+          params: params,
+        };
+      }
+
       function buildCountParams() {
         const p = new URLSearchParams();
         if (selectedOp) p.set('operation_type', selectedOp);
@@ -1144,8 +1185,30 @@
         countDebounce = setTimeout(fetchCount, 300);
       }
 
+      function applyFilters() {
+        const ajaxPayload = buildViewAjaxParams();
+        const root = document.querySelector('.ps-search-view');
+
+        if (!root || typeof Drupal.psSearchPage?.reloadSearch !== 'function') {
+          window.location.href = ajaxPayload.browserUrl;
+          return;
+        }
+
+        setApplyBtnsLoading(true);
+        Drupal.psSearchPage.reloadSearch(root, ajaxPayload)
+          .then(function () {
+            pageLoadLocalityKey = localityKey(selectedLocalityTokens);
+          })
+          .catch(function () {
+            window.location.href = ajaxPayload.browserUrl;
+          })
+          .finally(function () {
+            setApplyBtnsLoading(false);
+          });
+      }
+
       function navigate() {
-        window.location.href = buildNavigationUrl();
+        applyFilters();
       }
 
       function commitAllLocationDrafts() {

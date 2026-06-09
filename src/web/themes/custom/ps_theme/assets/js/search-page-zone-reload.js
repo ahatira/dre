@@ -155,6 +155,13 @@
         listPanel.innerHTML = listHtml;
         Drupal.attachBehaviors(listPanel);
 
+        if (typeof Drupal.psSearchPage.getListScrollEl === 'function') {
+          const listScroll = Drupal.psSearchPage.getListScrollEl(root);
+          if (listScroll) {
+            listScroll.scrollTop = 0;
+          }
+        }
+
         const headerHtml = extractInnerHtml(replaceCommand.data, '.ps-search-view__results-header');
         const header = root.querySelector('.ps-search-view__results-header');
         if (header && headerHtml !== null) {
@@ -196,20 +203,131 @@
    *   Search view root.
    * @param {URLSearchParams} params
    *   Active search query parameters.
+   * @param {object} options
+   *   Marker reload options.
    *
    * @return {Promise<object>}
    *   Markers API payload.
    */
-  function reloadMarkers(root, params) {
+  function reloadMarkers(root, params, options) {
     if (typeof Drupal.psSearchPage.loadMarkers !== 'function') {
       return Promise.resolve({ markers: [], zone_count: 0 });
     }
 
     const query = params.toString();
-    return Drupal.psSearchPage.loadMarkers(root, query, { preserveViewport: true }).then(function (data) {
+    const preserveViewport = options?.preserveViewport === true;
+    return Drupal.psSearchPage.loadMarkers(root, query, { preserveViewport: preserveViewport }).then(function (data) {
       return data || { markers: [], zone_count: 0 };
     });
   }
+
+  /**
+   * Applies shared post-reload bookkeeping for list + map sync.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {URLSearchParams} params
+   *   Active search query parameters.
+   * @param {object} options
+   *   Completion options.
+   *
+   * @return {Promise<object>}
+   *   Markers API payload.
+   */
+  function completeSearchReload(root, params, options) {
+    const threshold = Number(drupalSettings.psSearch?.listPagerThreshold || 100);
+    const preserveViewport = options?.preserveViewport === true;
+    const mapBoundsValue = options?.mapBoundsValue || params.get('map_bounds') || '';
+
+    return reloadMarkers(root, params, { preserveViewport: preserveViewport }).then(function (payload) {
+      const zoneCount = Number(payload.zone_count || 0);
+      const hint = root.querySelector('.js-ps-zone-hint');
+      const resolvedGlobal = Number(
+        hint?.dataset.globalCount || drupalSettings.psSearch?.globalCount || zoneCount
+      );
+
+      drupalSettings.psSearch = drupalSettings.psSearch || {};
+      drupalSettings.psSearch.zoneCount = zoneCount;
+      drupalSettings.psSearch.globalCount = resolvedGlobal;
+      drupalSettings.psSearch.listLoadAll = zoneCount > 0 && zoneCount <= threshold;
+
+      if (mapBoundsValue) {
+        const parsedBounds = parseMapBoundsValue(mapBoundsValue);
+        drupalSettings.psSearch.mapBounds = Object.assign(
+          {},
+          drupalSettings.psSearch.mapBounds || {},
+          parsedBounds || {},
+          {
+            queryValue: mapBoundsValue,
+            explicit: true,
+          },
+        );
+      }
+      else if (!params.has('map_bounds')) {
+        drupalSettings.psSearch.mapBounds = Object.assign(
+          {},
+          drupalSettings.psSearch.mapBounds || {},
+          {
+            queryValue: '',
+            explicit: false,
+          },
+        );
+      }
+
+      updateZoneHint(root, zoneCount, resolvedGlobal);
+      root.dispatchEvent(new CustomEvent('ps-search-map-marker-clear'));
+
+      const eventName = options?.eventName || 'ps-search-results-reloaded';
+      root.dispatchEvent(new CustomEvent(eventName, {
+        detail: Object.assign({
+          zoneCount: zoneCount,
+          mapBounds: mapBoundsValue,
+          listLoadAll: drupalSettings.psSearch.listLoadAll,
+        }, options?.eventDetail || {}),
+      }));
+
+      return payload;
+    });
+  }
+
+  /**
+   * Reloads list, markers and browser URL without a full page navigation.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {object} options
+   *   Reload options.
+   * @param {string} [options.browserUrl]
+   *   Browser URL (path + query) to persist via history.pushState.
+   * @param {URLSearchParams} [options.params]
+   *   Query parameters for Views AJAX and markers API.
+   * @param {boolean} [options.preserveViewport]
+   *   Whether the map viewport should stay unchanged.
+   *
+   * @return {Promise<void>}
+   *   Resolves when the partial reload completed.
+   */
+  Drupal.psSearchPage.reloadSearch = function (root, options) {
+    options = options || {};
+    const params = options.params instanceof URLSearchParams
+      ? new URLSearchParams(options.params)
+      : new URLSearchParams(window.location.search);
+    params.delete('page');
+
+    if (options.browserUrl) {
+      window.history.pushState({}, '', options.browserUrl);
+    }
+
+    return reloadListPane(root, params)
+      .then(function () {
+        return completeSearchReload(root, params, {
+          preserveViewport: options.preserveViewport === true,
+          mapBoundsValue: params.get('map_bounds') || '',
+          eventName: options.eventName || 'ps-search-filters-applied',
+          eventDetail: options.eventDetail || {},
+        });
+      });
+  };
 
   /**
    * Reloads list, markers and URL for a new map zone.
@@ -228,45 +346,15 @@
     params.delete('page');
 
     const nextUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.pushState({ mapBounds: mapBoundsValue }, '', nextUrl);
-
-    const threshold = Number(drupalSettings.psSearch?.listPagerThreshold || 100);
-    const globalCount = Number(root.querySelector('.js-ps-zone-hint')?.dataset.globalCount || drupalSettings.psSearch?.globalCount || 0);
-
-    return reloadListPane(root, params)
-      .then(function () {
-        return reloadMarkers(root, params);
-      })
-      .then(function (payload) {
-        const zoneCount = Number(payload.zone_count || 0);
-        const resolvedGlobal = globalCount || Number(drupalSettings.psSearch?.globalCount || zoneCount);
-
-        drupalSettings.psSearch = drupalSettings.psSearch || {};
-        drupalSettings.psSearch.zoneCount = zoneCount;
-        drupalSettings.psSearch.listLoadAll = zoneCount > 0 && zoneCount <= threshold;
-        const parsedBounds = parseMapBoundsValue(mapBoundsValue);
-        drupalSettings.psSearch.mapBounds = Object.assign(
-          {},
-          drupalSettings.psSearch.mapBounds || {},
-          parsedBounds || {},
-          {
-            queryValue: mapBoundsValue,
-            explicit: true,
-          },
-        );
-
-        updateZoneHint(root, zoneCount, resolvedGlobal);
-
-        root.dispatchEvent(new CustomEvent('ps-search-map-marker-clear'));
-
-        root.dispatchEvent(new CustomEvent('ps-search-zone-reloaded', {
-          detail: {
-            zoneCount: zoneCount,
-            mapBounds: mapBoundsValue,
-            listLoadAll: drupalSettings.psSearch.listLoadAll,
-          },
-        }));
-      });
+    return Drupal.psSearchPage.reloadSearch(root, {
+      browserUrl: nextUrl,
+      params: params,
+      preserveViewport: true,
+      eventName: 'ps-search-zone-reloaded',
+      eventDetail: {
+        mapBounds: mapBoundsValue,
+      },
+    });
   };
 
   Drupal.behaviors.psSearchPageZoneReload = {

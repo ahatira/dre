@@ -259,7 +259,7 @@
           bindMapListeners(mapData);
         });
 
-        root.addEventListener('ps-search-zone-reloaded', function () {
+        function resetSearchAreaButtonAfterReload() {
           suppressInteraction = true;
           userInteracted = false;
           button.hidden = true;
@@ -273,7 +273,10 @@
               captureActiveZone(map);
             }, 350);
           });
-        });
+        }
+
+        root.addEventListener('ps-search-zone-reloaded', resetSearchAreaButtonAfterReload);
+        root.addEventListener('ps-search-filters-applied', resetSearchAreaButtonAfterReload);
 
         root.addEventListener('ps-search-map-markers-loaded', function () {
           suppressInteraction = true;
