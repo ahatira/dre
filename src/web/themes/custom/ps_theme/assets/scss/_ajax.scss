@@ -1,6 +1,8 @@
 // AJAX trigger loading state — overlay keeps original dimensions.
 .btn.is-ajax-loading,
 .use-ajax.is-ajax-loading,
+.pager--load-more a.is-ajax-loading,
+.ps-search-load-more a.is-ajax-loading,
 button.is-ajax-loading,
 input[type='submit'].is-ajax-loading,
 input[type='button'].is-ajax-loading {

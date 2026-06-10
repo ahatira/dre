@@ -157,11 +157,28 @@
       });
   };
 
+  /**
+   * Clears overlay loader classes from the load-more trigger if still present.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   */
+  function resetLoadMoreTriggerState(root) {
+    root.querySelectorAll('.pager--load-more a.is-ajax-loading').forEach(function (link) {
+      link.classList.remove('is-ajax-loading', 'ps-ajax-loading--keep-label');
+      link.removeAttribute('aria-busy');
+      link.removeAttribute('aria-disabled');
+      link.removeAttribute('aria-label');
+      link.querySelector('.ps-ajax-trigger__overlay')?.remove();
+    });
+  }
+
   Drupal.behaviors.psSearchPageLoadMore = {
     attach(context) {
       once('ps-search-load-more', '.ps-search-view', context).forEach(function (root) {
         // Bridge views_load_more jQuery event to native custom event for map/list sync.
         $(root).on('views_load_more.new_content', function () {
+          resetLoadMoreTriggerState(root);
           root.dispatchEvent(new CustomEvent('ps-search-list-new-content'));
         });
       });

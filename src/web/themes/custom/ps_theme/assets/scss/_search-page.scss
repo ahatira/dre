@@ -249,6 +249,51 @@
     font-weight: 400;
     min-height: 2.5rem;
   }
+
+  // Spinner replaces label text until Views load-more finishes (no empty flash).
+  a.is-ajax-loading.ps-ajax-loading--keep-label {
+    align-items: center;
+    color: var(--bs-btn-color, #fff) !important;
+    cursor: wait;
+    display: inline-flex;
+    justify-content: center;
+    -webkit-text-fill-color: currentColor !important;
+    pointer-events: none;
+    text-shadow: none;
+
+    .ps-ajax-trigger__label {
+      display: none;
+    }
+
+    .ps-ajax-trigger__overlay {
+      display: inline-flex;
+      flex: 0 0 auto;
+      inset: auto;
+      margin: 0;
+      position: static;
+      width: auto;
+
+      .ajax-progress {
+        margin: 0;
+      }
+
+      .ajax-progress-throbber {
+        background: transparent;
+        padding: 0;
+      }
+
+      .message {
+        display: none;
+      }
+
+      .throbber {
+        background: transparent;
+        display: inline-block;
+        height: 1.125rem;
+        width: 1.125rem;
+      }
+    }
+  }
 }
 
 .ps-search-map-float-panel {
