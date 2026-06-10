@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\ps_search\Service\MapBoundsResolver;
 use Drupal\ps_search\Service\SearchFilterQueryBuilder;
+use Drupal\ps_search\Service\SearchListLoadedLimitResolver;
 use Drupal\ps_search\ValueObject\MapBounds;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Applies active map bounds to Search API queries backing the search UI.
  *
  * - page_list: business filters + map zone (list cards and counts).
- * - map_attachment: same zone scope, capped at markers_max for geofield_map.
+ * - map_attachment: same filters/sort/zone, row window mirrored from list pagination.
  */
 final class MapBoundsQueryHooks {
 
@@ -33,6 +34,7 @@ final class MapBoundsQueryHooks {
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly RequestStack $requestStack,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly SearchListLoadedLimitResolver $listLoadedLimitResolver,
   ) {}
 
   /**
@@ -48,7 +50,10 @@ final class MapBoundsQueryHooks {
         return;
       }
 
-      $query->range(0, $this->resolveMarkersMax());
+      $query->range(0, min(
+        $this->listLoadedLimitResolver->resolve($request),
+        $this->resolveMarkersMax(),
+      ));
       $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
       if ($bounds instanceof MapBounds) {
         $this->filterQueryBuilder->applyMapBounds($query, $bounds);

@@ -64,6 +64,7 @@
           url.searchParams.set('sort_order', parts[1] || 'DESC');
           url.searchParams.delete('page');
 
+          // Full navigation unless search-page-zone-reload is attached (phase 2+).
           if (typeof Drupal.psSearchPage?.reloadSearch === 'function') {
             Drupal.psSearchPage.reloadSearch(root, {
               browserUrl: url.pathname + url.search,

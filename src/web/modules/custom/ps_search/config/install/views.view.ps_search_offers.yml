@@ -1013,8 +1013,8 @@ display:
             icon_image_size: {  }
             force_open: false
           map_oms:
-            map_oms_control: true
-            map_oms_options: '{"markersWontMove": "true", "markersWontHide": "true", "keepSpiderfied": "true", "circleSpiralSwitchover": 9999}'
+            map_oms_control: false
+            map_oms_options: ''
           weight: null
           map_additional_options: ''
           map_markercluster:

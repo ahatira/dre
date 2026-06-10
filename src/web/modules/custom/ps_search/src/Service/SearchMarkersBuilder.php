@@ -48,6 +48,7 @@ final class SearchMarkersBuilder {
     private readonly SearchMarkersGridClusterBuilder $gridClusterBuilder,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly CacheBackendInterface $cacheBackend,
+    private readonly SearchListLoadedLimitResolver $listLoadedLimitResolver,
   ) {}
 
   /**
@@ -95,7 +96,13 @@ final class SearchMarkersBuilder {
     }
 
     $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
-    if ($zoneCount > $max && $bounds instanceof MapBounds && $this->isClusterModeEnabled()) {
+    $listLimit = $this->listLoadedLimitResolver->resolve($request);
+    $useClusterMode = $zoneCount > $max
+      && $bounds instanceof MapBounds
+      && $this->isClusterModeEnabled()
+      && $listLimit >= $zoneCount;
+
+    if ($useClusterMode) {
       return $this->attachGlobalCount(
         $this->buildClusterPayload($request, $bounds, $zoneCount, $max),
         $globalCount,
@@ -103,7 +110,7 @@ final class SearchMarkersBuilder {
     }
 
     return $this->attachGlobalCount(
-      $this->buildIndividualPayload($request, $max, $zoneCount),
+      $this->buildIndividualPayload($request, $max, $zoneCount, $listLimit),
       $globalCount,
     );
   }
@@ -114,15 +121,16 @@ final class SearchMarkersBuilder {
    * @return array<string, mixed>
    *   Marker payload.
    */
-  private function buildIndividualPayload(Request $request, int $max, int $zoneCount): array {
+  private function buildIndividualPayload(Request $request, int $max, int $zoneCount, int $listLimit): array {
     $index = Index::load('offers');
     if (!$index) {
       return $this->emptyPayload();
     }
 
     $query = $index->query();
-    $query->range(0, $max);
+    $query->range(0, min($listLimit, $max));
     $this->filterQueryBuilder->applyBusinessFilters($query, $request);
+    $this->filterQueryBuilder->applyListSort($query, $request);
 
     $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
     if ($bounds instanceof MapBounds) {
@@ -176,6 +184,7 @@ final class SearchMarkersBuilder {
     $query = $index->query();
     $query->range(0, $fetchLimit);
     $this->filterQueryBuilder->applyBusinessFilters($query, $request);
+    $this->filterQueryBuilder->applyListSort($query, $request);
     $this->filterQueryBuilder->applyMapBounds($query, $bounds);
     $query->addCondition('field_geo_lat', NULL, '<>');
     $query->addCondition('field_geo_lng', NULL, '<>');

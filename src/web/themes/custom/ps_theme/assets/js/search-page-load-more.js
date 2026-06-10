@@ -158,6 +158,22 @@
   };
 
   /**
+   * Removes Views pager ?page= from the browser URL after load-more AJAX.
+   *
+   * Core Views AJAX issues setBrowserUrl with the pager page; list pagination
+   * is client-side append only and should not pollute shareable filter URLs.
+   */
+  function stripPageFromBrowserUrl() {
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has('page')) {
+      return;
+    }
+    url.searchParams.delete('page');
+    const nextUrl = url.pathname + url.search + url.hash;
+    window.history.replaceState(window.history.state, '', nextUrl);
+  }
+
+  /**
    * Clears overlay loader classes from the load-more trigger if still present.
    *
    * @param {HTMLElement} root
@@ -178,7 +194,9 @@
       once('ps-search-load-more', '.ps-search-view', context).forEach(function (root) {
         // Bridge views_load_more jQuery event to native custom event for map/list sync.
         $(root).on('views_load_more.new_content', function () {
+          stripPageFromBrowserUrl();
           resetLoadMoreTriggerState(root);
+          // Map reload (search-page-map-markers + zone-reload) is opt-in via library stack.
           root.dispatchEvent(new CustomEvent('ps-search-list-new-content'));
         });
       });

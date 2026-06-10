@@ -71,6 +71,12 @@ services:
   ps_search.markers_grid_cluster_builder:
     class: Drupal\ps_search\Service\SearchMarkersGridClusterBuilder
 
+  ps_search.list_loaded_limit:
+    class: Drupal\ps_search\Service\SearchListLoadedLimitResolver
+    arguments:
+      - '@config.factory'
+      - '@ps_search.result_counter'
+
   ps_search.markers_builder:
     class: Drupal\ps_search\Service\SearchMarkersBuilder
     arguments:
@@ -81,6 +87,7 @@ services:
       - '@ps_search.markers_grid_cluster_builder'
       - '@config.factory'
       - '@cache.default'
+      - '@ps_search.list_loaded_limit'
 
   Drupal\ps_search\Hook\MapBoundsQueryHooks:
     class: Drupal\ps_search\Hook\MapBoundsQueryHooks
@@ -89,6 +96,7 @@ services:
       - '@ps_search.filter_query_builder'
       - '@request_stack'
       - '@config.factory'
+      - '@ps_search.list_loaded_limit'
 
   Drupal\ps_search\Hook\SearchListPagerHooks:
     class: Drupal\ps_search\Hook\SearchListPagerHooks

@@ -225,16 +225,63 @@
           clearPinned();
         });
 
+        /**
+         * Binds geofield marker clicks for list-visible map ↔ list sync.
+         *
+         * @param {object} mapData
+         *   Geofield map data bucket.
+         */
+        function bindMapMarkerClicks(mapData) {
+          Object.keys(mapData.markersByNid || {}).forEach(function (nid) {
+            const marker = mapData.markersByNid[nid];
+            if (!marker || marker.__psSearchSyncBound) {
+              return;
+            }
+
+            marker.__psSearchSyncBound = true;
+            google.maps.event.addListener(marker, 'click', function () {
+              Drupal.psSearchMap.closeGeofieldInfoWindow(mapData);
+              if (Drupal.psSearchMap.isListVisible(root)) {
+                root.dispatchEvent(new CustomEvent('ps-search-map-marker-select', {
+                  detail: { nid: String(nid) },
+                }));
+              }
+            });
+          });
+        }
+
+        /**
+         * Indexes geofield markers once Views/geofield finished rendering.
+         *
+         * @param {object} mapData
+         *   Geofield map data bucket.
+         */
+        function onMapMarkersReady(mapData) {
+          Drupal.psSearchMap.indexMarkersByNid(mapData);
+          mapDataRef = mapData;
+          bindMapMarkerClicks(mapData);
+          root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
+            detail: { mapData: mapData, displayMode: 'geofield' },
+          }));
+          if (pinnedNid) {
+            setActive(pinnedNid, true);
+          }
+        }
+
         root.addEventListener('ps-search-map-markers-loaded', function (event) {
+          if (event.detail?.displayMode === 'geofield-sync' || event.detail?.displayMode === 'markers') {
+            return;
+          }
           clearClusterHighlight();
           mapDataRef = event.detail.mapData;
+          bindMapMarkerClicks(mapDataRef);
           if (pinnedNid) {
             setActive(pinnedNid, true);
           }
         });
 
-        Drupal.psSearchMap.whenMapShellReady(root, function (mapData) {
-          mapDataRef = mapData;
+        Drupal.psSearchMap.whenMapReady(root, function (mapData) {
+          onMapMarkersReady(mapData);
           const map = mapData.map || mapData.google_map;
           if (map) {
             google.maps.event.addListener(map, 'click', function () {

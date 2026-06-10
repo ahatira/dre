@@ -281,6 +281,8 @@
       return Promise.reject(new Error('missing_map_container'));
     }
 
+    const ajaxView = getAjaxViewSettings(root);
+
     let savedCenter = null;
     let savedZoom = null;
     if (preserveViewport) {
@@ -296,9 +298,15 @@
     requestParams.set('_drupal_ajax', '1');
     requestParams.set('view_name', 'ps_search_offers');
     requestParams.set('view_display_id', 'map_attachment');
-    requestParams.set('view_args', '');
-    requestParams.set('view_path', window.location.pathname.replace(/^\//, ''));
+    requestParams.set('view_args', ajaxView?.view_args || '');
+    requestParams.set('view_path', ajaxView?.view_path || window.location.pathname.replace(/^\//, ''));
     requestParams.set('page', '0');
+    if (ajaxView?.view_dom_id) {
+      requestParams.set('view_dom_id', ajaxView.view_dom_id);
+    }
+    if (ajaxView?.pager_element !== undefined && ajaxView?.pager_element !== null) {
+      requestParams.set('pager_element', String(ajaxView.pager_element));
+    }
 
     return fetch(`${Drupal.url('views/ajax')}?${requestParams.toString()}`, {
       credentials: 'same-origin',
@@ -343,8 +351,8 @@
                 mapData.map.setZoom(savedZoom);
               }
             }
-            if (typeof Drupal.psSearchPage.syncMapMarkersToList === 'function') {
-              Drupal.psSearchPage.syncMapMarkersToList(root, { preserveViewport: preserveViewport });
+            if (typeof Drupal.psSearchPage.initGeofieldMapBridge === 'function') {
+              Drupal.psSearchPage.initGeofieldMapBridge(root, { preserveViewport: preserveViewport });
             }
             resolve();
           };
@@ -360,27 +368,21 @@
   }
 
   /**
-   * Reloads map markers for the active zone (geofield attachment or markers API).
+   * Reloads map markers for the active zone (markers API → geofield shell).
    */
   function reloadMapPane(root, params, options) {
-    const settings = drupalSettings.psSearch || {};
-    const useApi = settings.markersClusterEnabled !== false
-      && Number(settings.zoneCount || 0) > Number(settings.markersMax || 500);
-
-    if (useApi && typeof Drupal.psSearchPage.loadMarkers === 'function') {
-      const query = params.toString();
-      return Drupal.psSearchPage.loadMarkers(root, query, {
-        preserveViewport: options?.preserveViewport === true,
-      }).then(function (data) {
-        return data || { markers: [], zone_count: 0 };
-      });
+    if (typeof Drupal.psSearchPage.loadMarkers !== 'function') {
+      return Promise.reject(new Error('missing_load_markers'));
     }
 
-    return reloadMapAttachment(root, params, options).then(function () {
-      return {
-        zone_count: Number(drupalSettings.psSearch?.zoneCount || 0),
-        global_count: Number(drupalSettings.psSearch?.globalCount || 0),
-        display_mode: 'geofield',
+    const query = params.toString();
+    return Drupal.psSearchPage.loadMarkers(root, query, {
+      preserveViewport: options?.preserveViewport === true,
+    }).then(function (data) {
+      return data || {
+        markers: [],
+        zone_count: 0,
+        display_mode: 'markers',
       };
     });
   }
@@ -403,7 +405,7 @@
     const preserveViewport = options?.preserveViewport === true;
     const mapBoundsValue = options?.mapBoundsValue || params.get('map_bounds') || '';
 
-    return reloadMapPane(root, params, { preserveViewport: preserveViewport }).then(function (payload) {
+    return reloadMapPane(root, buildMapReloadParams(root, params), { preserveViewport: preserveViewport }).then(function (payload) {
       const zoneCount = Number(payload.zone_count || 0);
       const globalFromMarkers = Number(payload.global_count);
       const hint = root.querySelector('.js-ps-zone-hint');
@@ -455,6 +457,69 @@
       return payload;
     });
   }
+
+  /**
+   * Builds Views / markers API params scoped to list rows currently loaded.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {URLSearchParams} [baseParams]
+   *   Optional params merged before list scoping (filters, sort, map_bounds).
+   *
+   * @return {URLSearchParams}
+   *   Params for map_attachment or markers API reload.
+   */
+  function buildMapReloadParams(root, baseParams) {
+    const params = baseParams instanceof URLSearchParams
+      ? new URLSearchParams(baseParams)
+      : (typeof Drupal.psSearchPage?.buildSearchParams === 'function'
+        ? Drupal.psSearchPage.buildSearchParams()
+        : new URLSearchParams(window.location.search));
+    params.delete('page');
+    params.delete('ps_list_loaded_count');
+
+    const listNids = typeof Drupal.psSearchPage?.getListOfferNids === 'function'
+      ? Drupal.psSearchPage.getListOfferNids(root)
+      : new Set();
+    if (listNids.size > 0) {
+      params.set('ps_list_loaded_count', String(listNids.size));
+    }
+
+    return params;
+  }
+
+  Drupal.psSearchPage = Drupal.psSearchPage || {};
+  Drupal.psSearchPage.buildMapReloadParams = function (root, baseParams) {
+    return buildMapReloadParams(root, baseParams);
+  };
+
+  /**
+   * Reloads map markers mirroring the loaded list (filters, sort, pagination).
+   *
+   * Uses the markers API (same Search API query as Views). map_attachment Views
+   * AJAX is not available for attachment displays (403), so load-more sync goes
+   * through the API into the geofield map shell.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {object} [options]
+   *   Reload options.
+   * @param {boolean} [options.preserveViewport]
+   *   Keep current map zoom/center.
+   *
+   * @return {Promise<object>}
+   *   Markers payload metadata.
+   */
+  Drupal.psSearchPage.reloadMapForList = function (root, options) {
+    options = options || {};
+    const params = buildMapReloadParams(root);
+    if (typeof Drupal.psSearchPage.loadMarkers !== 'function') {
+      return Promise.reject(new Error('missing_load_markers'));
+    }
+    return Drupal.psSearchPage.loadMarkers(root, params.toString(), {
+      preserveViewport: options.preserveViewport === true,
+    });
+  };
 
   /**
    * Reloads list, markers and browser URL without a full page navigation.

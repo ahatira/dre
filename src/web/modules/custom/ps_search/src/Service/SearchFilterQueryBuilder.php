@@ -75,6 +75,23 @@ final class SearchFilterQueryBuilder {
   }
 
   /**
+   * Applies list sort parameters from the URL (mirrors Views page_list sort).
+   */
+  public function applyListSort(QueryInterface $query, Request $request): void {
+    $sortBy = $request->query->get('sort_by');
+    if (!is_string($sortBy) || $sortBy === '') {
+      return;
+    }
+
+    $sortOrder = strtoupper((string) $request->query->get('sort_order', 'DESC'));
+    if (!in_array($sortOrder, ['ASC', 'DESC'], TRUE)) {
+      $sortOrder = 'DESC';
+    }
+
+    $query->sort($sortBy, $sortOrder);
+  }
+
+  /**
    * Applies the active map bounding box to a Search API query.
    */
   public function applyMapBounds(QueryInterface $query, MapBounds $bounds): void {

@@ -12,8 +12,8 @@ use Drupal\views\Plugin\views\row\RowPluginBase;
 /**
  * Geofield Map settings and marker icons for the property search page.
  *
- * Markers render via Views map_attachment (geofield_map). Custom JS only adapts
- * clustering (OMS co-located split) and list/map sync behaviours.
+ * Markers render via Views map_attachment (geofield_map). Marker/cluster styling
+ * is configured here; optional JS modules re-sync the map to the list (phase 2+).
  */
 final class GeofieldMapHooks {
 
@@ -44,6 +44,9 @@ final class GeofieldMapHooks {
     $js_settings['map_settings']['map_markercluster']['markercluster_control'] = TRUE;
     $js_settings['map_settings']['map_center']['center_force'] = FALSE;
     $js_settings['map_settings']['map_zoom_and_pan']['zoom']['force'] = FALSE;
+
+    // Baseline: native geofield MarkerClusterer only — OMS disabled (re-enable in phase 2+ if needed).
+    $js_settings['map_settings']['map_oms']['map_oms_control'] = FALSE;
 
     $js_settings['map_settings']['map_markercluster']['markercluster_additional_options'] = (string) json_encode([
       'minimumClusterSize' => 2,
