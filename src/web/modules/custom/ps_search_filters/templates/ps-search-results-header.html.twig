@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Search results pane header — title, count, zone hint, sort (Phase 5A.7).
+ *
+ * Variables: title, count, zone_count, sort_options (list of value/label/selected).
+ */
+#}
+<div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+  <h1 class="h4 fw-semibold mb-0 js-ps-results-header-title">{{ title }}</h1>
+  <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" disabled title="{{ 'Coming soon'|t }}">
+    {{ 'Create an alert'|t }}
+  </button>
+</div>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+  <p class="small text-muted mb-0 js-ps-results-header-count">
+    {{ count|number_format(0, '.', ' ') }}
+    {{ count == 1 ? 'result'|t : 'results'|t }}
+    <span
+      class="ps-search-view__zone-hint js-ps-zone-hint"
+      data-global-count="{{ count }}"
+      {% if zone_count is not defined or zone_count == count %}hidden{% endif %}
+    >
+      {% if zone_count is defined and zone_count != count %}
+        — {{ 'Showing @count in this area'|t({'@count': zone_count|number_format(0, '.', ' ')}) }}
+      {% endif %}
+    </span>
+  </p>
+  {% if sort_options %}
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+      <label class="small text-muted mb-0 text-nowrap" for="ps-search-sort">{{ 'Sort by'|t }}</label>
+      <select id="ps-search-sort" class="form-select form-select-sm js-ps-sort-select" style="width: auto; min-width: 9rem;" aria-label="{{ 'Sort by'|t }}">
+        {% for option in sort_options %}
+          <option value="{{ option.value }}"{{ option.selected ? ' selected' : '' }}>{{ option.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+</div>

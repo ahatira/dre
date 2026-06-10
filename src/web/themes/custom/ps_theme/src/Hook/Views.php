@@ -35,13 +35,6 @@ final class Views {
     $variables['#attached']['library'][] = 'ps_theme/search-page';
     unset($variables['title']);
 
-    // Bootstrap grid on the infinite-scroll content wrapper (added by VIS module).
-    if (isset($variables['rows']['#theme_wrappers']['container']['#attributes']['class'])) {
-      $variables['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'row';
-      $variables['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'g-3';
-      $variables['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'js-ps-search-results-rows';
-    }
-
     $illustrationPath = $this->themeExtensionList->getPath('ps_theme') . '/assets/images/offer-placeholder.svg';
     $variables['ps_search_empty_illustration'] = Url::fromUri('base:' . $illustrationPath)->toString();
   }

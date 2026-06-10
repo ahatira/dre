@@ -69,6 +69,25 @@ final class SearchResultsHeaderBuilder {
   }
 
   /**
+   * Builds a themed render array for the results header fragment.
+   */
+  public function buildRenderArray(ViewExecutable $view): array {
+    $header = $this->build($view);
+
+    return [
+      '#theme' => 'ps_search_results_header',
+      '#title' => $header['title'],
+      '#count' => $header['count'],
+      '#zone_count' => $header['zone_count'],
+      '#sort_options' => $header['sort_options'],
+      '#cache' => [
+        'contexts' => ['url.query_args', 'languages:language_interface'],
+        'max-age' => 0,
+      ],
+    ];
+  }
+
+  /**
    * Resolves active operation and asset type from SEO path or query string.
    *
    * @return array{0: ?string, 1: ?string}

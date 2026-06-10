@@ -21,11 +21,14 @@
 
   Drupal.behaviors.psSearchFilterBar = {
     attach(context) {
+      const htmxApi = Drupal.psSearchFilterHtmx;
+      htmxApi.init(drupalSettings.psSearchFilterHtmx);
+
+      once('ps-filter-bar-init', '.ps-search-view', context).forEach(function () {
       const settings = drupalSettings.psSearch || {};
       const langPrefix = settings.langPrefix || '';
       const opSlugs = settings.opSlugs || {};
       const assetSlugs = settings.assetSlugs || {};
-      const countUrl = settings.countUrl || '/ps-search/count';
       const locationSuggestUrl = settings.locationSuggestUrl || '/ps-search/location-suggest';
       const locationDataUrl = settings.locationDataUrl || '/ps-search/location-data';
       const searchPath = settings.searchPath || '/find-property';
@@ -33,7 +36,6 @@
       const budgetFilterConfig = settings.budgetFilterConfig || {};
       const budgetFilterByAsset = settings.budgetFilterByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
-      const moreCriteriaGroupUrl = settings.moreCriteriaGroupUrl || '/ps-search-filters/more-criteria';
       const currentParams = new URLSearchParams(window.location.search);
       const loadedMoreGroups = {};
 
@@ -464,31 +466,29 @@
         if (loading) {
           loading.hidden = false;
         }
-        let url = moreCriteriaGroupUrl + '/' + encodeURIComponent(groupId);
+        let queryString = '';
         if (selectedAsset) {
-          url += '?asset_type=' + encodeURIComponent(selectedAsset);
+          queryString = 'asset_type=' + encodeURIComponent(selectedAsset);
         }
-        return fetch(url, {
-          headers: { Accept: 'application/json' },
-          credentials: 'same-origin',
-        })
-          .then(function (response) {
-            return response.ok ? response.json() : Promise.reject();
-          })
-          .then(function (data) {
-            if (loading) {
-              loading.hidden = true;
-            }
-            content.insertAdjacentHTML('beforeend', data.html || '');
-            panel.dataset.loaded = '1';
-            loadedMoreGroups[groupId] = true;
-            syncMoreInputsFromState();
-          })
-          .catch(function () {
-            if (loading) {
-              loading.hidden = true;
-            }
-          });
+
+        if (htmxApi.isAvailable() && typeof htmxApi.loadMoreCriteriaGroup === 'function') {
+          return htmxApi.loadMoreCriteriaGroup(groupId, content, queryString)
+            .then(function () {
+              if (loading) {
+                loading.hidden = true;
+              }
+              panel.dataset.loaded = '1';
+              loadedMoreGroups[groupId] = true;
+              syncMoreInputsFromState();
+            })
+            .catch(function () {
+              if (loading) {
+                loading.hidden = true;
+              }
+            });
+        }
+
+        return Promise.resolve();
       }
 
       // ── Bootstrap dropdown / offcanvas integration ───────────────────────
@@ -576,7 +576,13 @@
           if (!dropdownEl.classList.contains('ps-filter-bar__item--location')) {
             hideAllLocationSuggestions();
           }
-          fetchCount();
+          const popinKey = htmxApi.resolvePopinKeyFromDropdown(dropdownEl);
+          if (popinKey && htmxApi.isHtmxPopin(popinKey)) {
+            htmxApi.refreshCount(popinKey, buildCountParams().toString());
+          }
+          else {
+            htmxApi.refreshGlobalCount(buildCountParams().toString());
+          }
         });
         dropdownEl.addEventListener('shown.bs.dropdown', function () {
           syncFilterBarBackdrop();
@@ -626,11 +632,14 @@
           closeAllDropdowns();
           hideAllLocationSuggestions();
           syncFilterBarBackdrop();
-          fetchCount();
+          if (offcanvasEl.id === 'ps-more-offcanvas') {
+            htmxApi.refreshCount('more', buildCountParams().toString());
+          }
           if (offcanvasEl.id === 'ps-mobile-filters') {
             offcanvasEl.querySelectorAll('.js-ps-more-group-panel[data-loaded="0"]').forEach(function (panel) {
               loadMoreCriteriaGroup(panel.dataset.groupId, panel);
             });
+            htmxApi.refreshCount('mobile', buildCountParams().toString());
           }
         });
         offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
@@ -1012,20 +1021,34 @@
           return fragment;
         }
 
+        const endIndex = index + needle.length;
+
         if (index > 0) {
-          fragment.appendChild(document.createTextNode(label.slice(0, index)));
+          const before = document.createElement('span');
+          before.className = 'ps-location-suggest__text';
+          before.textContent = label.slice(0, index);
+          fragment.appendChild(before);
         }
 
         const strong = document.createElement('strong');
         strong.className = 'ps-location-suggest__match';
-        strong.textContent = label.slice(index, index + needle.length);
+        strong.textContent = label.slice(index, endIndex);
         fragment.appendChild(strong);
 
-        if (index + needle.length < label.length) {
-          fragment.appendChild(document.createTextNode(label.slice(index + needle.length)));
+        if (endIndex < label.length) {
+          const after = document.createElement('span');
+          after.className = 'ps-location-suggest__text';
+          after.textContent = label.slice(endIndex);
+          fragment.appendChild(after);
         }
 
         return fragment;
+      }
+
+      function compareSuggestionLabels(a, b) {
+        const labelA = typeof a === 'object' && a !== null ? String(a.label || '') : String(a || '');
+        const labelB = typeof b === 'object' && b !== null ? String(b.label || '') : String(b || '');
+        return labelA.localeCompare(labelB, undefined, { sensitivity: 'base' });
       }
 
       function usesSeoLocalityPath(base) {
@@ -1169,20 +1192,49 @@
         setApplyBtnsLoading(false);
       }
 
-      function fetchCount() {
-        setApplyBtnsLoading(true);
-        fetch(countUrl + '?' + buildCountParams().toString(), {
-          headers: { Accept: 'application/json' },
-          credentials: 'same-origin',
-        })
-          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-          .then(function (data) { updateCountDisplays(data.count || 0); })
-          .catch(function () { setApplyBtnsLoading(false); });
+      htmxApi.callbacks.setLoading = setApplyBtnsLoading;
+      htmxApi.callbacks.onCountUpdated = function (count) {
+        if (count !== null) {
+          updateCountDisplays(count);
+        }
+      };
+      const HTMX_POPIN_KEYS = ['type', 'location', 'surface', 'capacity', 'budget', 'mobile'];
+
+      htmxApi.callbacks.onApply = function (detail) {
+        if (detail && HTMX_POPIN_KEYS.indexOf(detail.popinKey) !== -1) {
+          htmxApi.closePopinDropdown(detail.popinKey);
+        }
+        applyFilters();
+      };
+
+      function applyPopinViaHtmx(popinKey) {
+        const payload = buildViewAjaxParams();
+        if (htmxApi.applyPopin(popinKey, payload.params.toString())) {
+          return;
+        }
+        applyFilters();
+      }
+
+      function applyTypePopinViaHtmx() {
+        applyPopinViaHtmx('type');
+      }
+
+      function applyLocationPopinViaHtmx() {
+        applyPopinViaHtmx('location');
+      }
+
+      /**
+       * Schedules a live count refresh for the active popin context.
+       */
+      function scheduleLiveCountUpdate() {
+        clearTimeout(countDebounce);
+        countDebounce = setTimeout(function () {
+          htmxApi.refreshGlobalCount(buildCountParams().toString());
+        }, 300);
       }
 
       function scheduleCountUpdate() {
-        clearTimeout(countDebounce);
-        countDebounce = setTimeout(fetchCount, 300);
+        scheduleLiveCountUpdate();
       }
 
       function applyFilters() {
@@ -1226,6 +1278,15 @@
         btn.addEventListener('click', function () {
           if (!btn.disabled) {
             commitAllLocationDrafts();
+            const htmxApplyKey = btn.getAttribute('data-ps-htmx-apply');
+            if (htmxApplyKey && htmxApi.isHtmxPopin(htmxApplyKey)) {
+              applyPopinViaHtmx(htmxApplyKey);
+              return;
+            }
+            if (btn.closest('.ps-filter-popin--type') && htmxApi.isHtmxPopin('type')) {
+              applyTypePopinViaHtmx();
+              return;
+            }
             navigate();
           }
         });
@@ -1495,7 +1556,10 @@
               title.textContent = group.label;
               suggestBox.appendChild(title);
 
-              group.items.forEach(function (itemData) {
+              const items = Array.isArray(group.items) ? group.items.slice() : [];
+              items.sort(compareSuggestionLabels);
+
+              items.forEach(function (itemData) {
                 const isStructured = typeof itemData === 'object' && itemData !== null;
                 const label = isStructured ? itemData.label : String(itemData);
 
@@ -1504,7 +1568,11 @@
                 btn.className = 'ps-location-suggest__item';
                 btn.setAttribute('role', 'option');
                 btn.id = 'ps-location-option-' + suggestionButtons.length;
-                btn.appendChild(highlightSuggestionLabel(label, input.value.trim()));
+
+                const labelWrap = document.createElement('span');
+                labelWrap.className = 'ps-location-suggest__label';
+                labelWrap.appendChild(highlightSuggestionLabel(label, input.value.trim()));
+                btn.appendChild(labelWrap);
                 btn.addEventListener('mousedown', function (e) {
                   e.preventDefault();
                 });
@@ -1766,7 +1834,14 @@
 
       once('ps-location-apply', '.js-ps-location-apply', context).forEach(function (btn) {
         btn.addEventListener('click', function () {
+          if (btn.disabled) {
+            return;
+          }
           commitAllLocationDrafts();
+          if (htmxApi.isHtmxPopin('location')) {
+            applyLocationPopinViaHtmx();
+            return;
+          }
           navigate();
         });
       });
@@ -1959,6 +2034,7 @@
       updateCapacityLabel();
       syncActiveFilterCount();
       scheduleCountUpdate();
+      });
     },
   };
 

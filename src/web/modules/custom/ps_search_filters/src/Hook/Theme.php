@@ -48,6 +48,21 @@ final class Theme {
         ],
         'template' => 'ps-search-more-criteria-items',
       ],
+      'ps_search_filter_count_label' => [
+        'variables' => [
+          'count' => 0,
+        ],
+        'template' => 'ps-search-filter-count-label',
+      ],
+      'ps_search_results_header' => [
+        'variables' => [
+          'title' => '',
+          'count' => 0,
+          'zone_count' => 0,
+          'sort_options' => [],
+        ],
+        'template' => 'ps-search-results-header',
+      ],
     ];
   }
 

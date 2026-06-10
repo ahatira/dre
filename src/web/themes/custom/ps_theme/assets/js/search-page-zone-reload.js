@@ -83,7 +83,9 @@
       return;
     }
 
-    if (zoneCount > 0 && zoneCount !== globalCount) {
+    hint.dataset.globalCount = String(globalCount);
+
+    if (zoneCount !== globalCount) {
       hint.textContent = formatZoneHint(zoneCount);
       hint.hidden = false;
       return;
@@ -91,6 +93,51 @@
 
     hint.textContent = '';
     hint.hidden = true;
+  }
+
+  /**
+   * Syncs global + zone counts in the results header after list/map reload.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {number} globalCount
+   *   Business-filter total.
+   * @param {number} zoneCount
+   *   Results in the active map zone.
+   */
+  function syncResultsHeaderCounts(root, globalCount, zoneCount) {
+    const countParagraph = root.querySelector('.js-ps-results-header-count');
+    if (!countParagraph || !Number.isFinite(globalCount)) {
+      return;
+    }
+
+    let hint = root.querySelector('.js-ps-zone-hint');
+    if (!hint) {
+      hint = document.createElement('span');
+      hint.className = 'ps-search-view__zone-hint js-ps-zone-hint';
+      countParagraph.appendChild(hint);
+    }
+
+    const existingText = countParagraph.textContent.replace(hint.textContent, '').trim();
+    const resultWordMatch = existingText.match(/\b(result|results|résultat|résultats)\b/i);
+    const resultWord = resultWordMatch ? resultWordMatch[0] : (globalCount === 1 ? 'result' : 'results');
+    const formattedGlobal = Number(globalCount).toLocaleString();
+
+    Array.from(countParagraph.childNodes).forEach(function (node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.remove();
+      }
+    });
+    countParagraph.insertBefore(
+      document.createTextNode(`${formattedGlobal} ${resultWord} `),
+      hint,
+    );
+
+    updateZoneHint(root, zoneCount, globalCount);
+
+    drupalSettings.psSearch = drupalSettings.psSearch || {};
+    drupalSettings.psSearch.globalCount = globalCount;
+    drupalSettings.psSearch.zoneCount = zoneCount;
   }
 
   /**
@@ -110,6 +157,7 @@
       return Promise.reject(new Error('missing_ajax_view_settings'));
     }
 
+    const filterParams = new URLSearchParams(params);
     const requestParams = new URLSearchParams(params);
     requestParams.set('_drupal_ajax', '1');
     requestParams.set('view_name', ajaxView.view_name);
@@ -162,10 +210,27 @@
           }
         }
 
+        const htmxApi = Drupal.psSearchFilterHtmx;
+        if (typeof htmxApi?.refreshResultsHeader === 'function' && htmxApi.isAvailable()) {
+          return htmxApi.refreshResultsHeader(filterParams.toString()).then(function (headerTarget) {
+            if (headerTarget) {
+              Drupal.attachBehaviors(headerTarget);
+            }
+          }).catch(function () {
+            const headerHtml = extractInnerHtml(replaceCommand.data, '.ps-search-view__results-header');
+            const header = root.querySelector('.ps-search-view__results-header');
+            if (header && headerHtml !== null) {
+              header.innerHTML = headerHtml;
+              Drupal.attachBehaviors(header);
+            }
+          });
+        }
+
         const headerHtml = extractInnerHtml(replaceCommand.data, '.ps-search-view__results-header');
         const header = root.querySelector('.ps-search-view__results-header');
         if (header && headerHtml !== null) {
           header.innerHTML = headerHtml;
+          Drupal.attachBehaviors(header);
         }
       });
   }
@@ -241,10 +306,12 @@
 
     return reloadMarkers(root, params, { preserveViewport: preserveViewport }).then(function (payload) {
       const zoneCount = Number(payload.zone_count || 0);
+      const globalFromMarkers = Number(payload.global_count);
       const hint = root.querySelector('.js-ps-zone-hint');
-      const resolvedGlobal = Number(
-        hint?.dataset.globalCount || drupalSettings.psSearch?.globalCount || zoneCount
-      );
+      const globalFromHint = Number(hint?.dataset.globalCount || 0);
+      const resolvedGlobal = Number.isFinite(globalFromMarkers) && globalFromMarkers >= 0
+        ? globalFromMarkers
+        : (globalFromHint || Number(drupalSettings.psSearch?.globalCount) || zoneCount);
 
       drupalSettings.psSearch = drupalSettings.psSearch || {};
       drupalSettings.psSearch.zoneCount = zoneCount;
@@ -274,7 +341,7 @@
         );
       }
 
-      updateZoneHint(root, zoneCount, resolvedGlobal);
+      syncResultsHeaderCounts(root, resolvedGlobal, zoneCount);
       root.dispatchEvent(new CustomEvent('ps-search-map-marker-clear'));
 
       const eventName = options?.eventName || 'ps-search-results-reloaded';
@@ -311,7 +378,9 @@
     options = options || {};
     const params = options.params instanceof URLSearchParams
       ? new URLSearchParams(options.params)
-      : new URLSearchParams(window.location.search);
+      : (typeof Drupal.psSearchPage?.buildSearchParams === 'function'
+        ? Drupal.psSearchPage.buildSearchParams()
+        : new URLSearchParams(window.location.search));
     params.delete('page');
 
     if (options.browserUrl) {
@@ -341,7 +410,9 @@
    *   Resolves when the zone reload completed.
    */
   Drupal.psSearchPage.reloadZoneSearch = function (root, mapBoundsValue) {
-    const params = new URLSearchParams(window.location.search);
+    const params = typeof Drupal.psSearchPage?.buildSearchParams === 'function'
+      ? Drupal.psSearchPage.buildSearchParams()
+      : new URLSearchParams(window.location.search);
     params.set('map_bounds', mapBoundsValue);
     params.delete('page');
 

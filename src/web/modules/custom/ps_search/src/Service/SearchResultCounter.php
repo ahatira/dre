@@ -22,20 +22,6 @@ final class SearchResultCounter {
    * Counts offers matching business filters only (no map zone).
    */
   public function countBusinessFilters(Request $request): int {
-    return $this->executeCount($request, FALSE);
-  }
-
-  /**
-   * Counts offers matching business filters within the active map zone.
-   */
-  public function countInBounds(Request $request): int {
-    return $this->executeCount($request, TRUE);
-  }
-
-  /**
-   * Runs a zero-range Search API query and returns the result count.
-   */
-  private function executeCount(Request $request, bool $includeBounds): int {
     $index = Index::load('offers');
     if (!$index) {
       return 0;
@@ -45,12 +31,39 @@ final class SearchResultCounter {
     $query->range(0, 0);
     $this->filterQueryBuilder->applyBusinessFilters($query, $request);
 
-    if ($includeBounds) {
-      $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
-      if ($bounds instanceof MapBounds) {
-        $this->filterQueryBuilder->applyMapBounds($query, $bounds);
-      }
+    try {
+      return (int) $query->execute()->getResultCount();
     }
+    catch (\Exception) {
+      return 0;
+    }
+  }
+
+  /**
+   * Counts offers matching business filters within the active map zone.
+   */
+  public function countInBounds(Request $request): int {
+    $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
+    if (!$bounds instanceof MapBounds) {
+      return 0;
+    }
+
+    return $this->countInBoundsWithBounds($request, $bounds);
+  }
+
+  /**
+   * Counts offers matching business filters within explicit map bounds.
+   */
+  public function countInBoundsWithBounds(Request $request, MapBounds $bounds): int {
+    $index = Index::load('offers');
+    if (!$index) {
+      return 0;
+    }
+
+    $query = $index->query();
+    $query->range(0, 0);
+    $this->filterQueryBuilder->applyBusinessFilters($query, $request);
+    $this->filterQueryBuilder->applyMapBounds($query, $bounds);
 
     try {
       return (int) $query->execute()->getResultCount();

@@ -11,7 +11,11 @@ use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Loads all zone results in one page when the zone count is below threshold.
+ * Adjusts list pager size for small map zones.
+ *
+ * When zone_count is within list_pager_threshold (map zone settings), the
+ * page_list display loads every offer in one response (listLoadAll). Larger
+ * zones keep Views Load More (40 items per page in config/install).
  */
 final class SearchListPagerHooks {
 

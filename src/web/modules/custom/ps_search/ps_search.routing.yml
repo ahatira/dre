@@ -22,7 +22,7 @@ ps_search.map_zone_settings_form:
   requirements:
     _permission: 'administer site configuration'
 
-# Legacy routes - Deprecated in 2.0.0, use ps_search_filters and ps_location_autocomplete instead
+# JSON API endpoints consumed by the search filter bar (ps_search_filters).
 
 ps_search.markers:
   path: '/ps-search/markers'
@@ -59,6 +59,16 @@ ps_search.location_data:
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchCountController::locationData'
     _title: 'Location structured data'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+ps_search.isochrone:
+  path: '/ps-search/isochrone'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchIsochroneController::isochrone'
+    _title: 'Distance zone isochrone'
   requirements:
     _access: 'TRUE'
   options:

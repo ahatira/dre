@@ -150,6 +150,43 @@
   }
 
   /**
+   * Navigates to the offer page when the card is clicked (BNPPRE parity).
+   *
+   * Compare, favorite, carousel controls and explicit links are excluded.
+   *
+   * @param {HTMLElement} card
+   *   Offer search card root element.
+   */
+  function initCardNavigation(card) {
+    const cta = card.querySelector('.ps-offer-search-card__cta');
+    if (!cta || card.dataset.psCardNavBound) {
+      return;
+    }
+
+    card.dataset.psCardNavBound = '1';
+    card.classList.add('ps-offer-search-card--clickable');
+
+    card.addEventListener('click', function (event) {
+      if (event.target.closest('.ps-offer-search-card__action, .ps-offer-search-card__nav, a, button, input, label')) {
+        return;
+      }
+
+      const url = cta.getAttribute('href');
+      if (!url) {
+        return;
+      }
+
+      const nodeId = card.getAttribute('data-offer-id');
+      if (nodeId && Drupal.psOfferViewed?.mark) {
+        Drupal.psOfferViewed.mark(nodeId);
+        applyViewedBadge(card);
+      }
+
+      window.location.assign(url);
+    });
+  }
+
+  /**
    * Initializes interactions on a single offer search card.
    *
    * @param {HTMLElement} card
@@ -161,6 +198,7 @@
     }
 
     applyViewedBadge(card);
+    initCardNavigation(card);
     initComparator(card);
     initFavoriteWrapper(card);
 

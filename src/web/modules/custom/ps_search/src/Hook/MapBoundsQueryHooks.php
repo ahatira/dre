@@ -12,7 +12,10 @@ use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Applies map zone bounds to the property search list View query.
+ * Applies active map bounds to Search API queries backing the search UI.
+ *
+ * - page_list: business filters + map zone (list cards and counts).
+ * - map_attachment: zero results (empty geofield shell; markers via API).
  */
 final class MapBoundsQueryHooks {
 

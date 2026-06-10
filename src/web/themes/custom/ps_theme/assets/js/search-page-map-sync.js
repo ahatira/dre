@@ -8,8 +8,19 @@
       once('ps-search-map-sync', '.ps-search-view', context).forEach(function (root) {
         let activeNid = null;
         let pinnedNid = null;
+        let activeCluster = null;
         let clearTimer = null;
         let mapDataRef = null;
+
+        /**
+         * Clears MarkerClusterer highlight from the active group icon.
+         */
+        function clearClusterHighlight() {
+          if (activeCluster) {
+            Drupal.psSearchMap.setClusterHighlight(activeCluster, false);
+            activeCluster = null;
+          }
+        }
 
         /**
          * Applies highlight styles to a card and its map marker.
@@ -32,8 +43,13 @@
           activeNid = nid;
           const marker = mapDataRef.markersByNid[nid];
           const card = root.querySelector(`.ps-offer-search-card[data-offer-id="${nid}"]`);
+          const cluster = Drupal.psSearchMap.findClusterForMarker(mapDataRef.markerCluster, marker);
 
-          if (marker) {
+          if (cluster) {
+            activeCluster = cluster;
+            Drupal.psSearchMap.setClusterHighlight(cluster, true);
+          }
+          else if (marker) {
             const label = Drupal.psSearchMap.getMarkerMeta(marker).label;
             if (label) {
               marker.setIcon(Drupal.psSearchMap.buildPriceMarkerIcon(label, true));
@@ -50,6 +66,8 @@
          * Clears card and marker highlight state.
          */
         function clearActive() {
+          clearClusterHighlight();
+
           if (!activeNid || !mapDataRef?.markersByNid) {
             activeNid = null;
             return;
@@ -126,7 +144,7 @@
           Drupal.psSearchMap.scrollToCard(root, card);
         }
 
-        // List → map sync on hover (delegated — supports infinite scroll appended rows).
+        // List → map sync on hover (delegated — supports load-more appended rows).
         const listPanel = root.querySelector('.js-ps-search-list-panel');
         if (listPanel) {
           listPanel.addEventListener('mouseenter', function (event) {
@@ -157,8 +175,8 @@
           }, true);
         }
 
-        // Re-bind is not needed for markers; highlight new rows after infinite scroll.
-        root.addEventListener('ps-search-infinite-scroll-new-content', function () {
+        // Re-bind is not needed for markers; highlight new rows after load more.
+        root.addEventListener('ps-search-list-new-content', function () {
           if (pinnedNid) {
             setActive(pinnedNid, true);
           }
@@ -208,6 +226,7 @@
         });
 
         root.addEventListener('ps-search-map-markers-loaded', function (event) {
+          clearClusterHighlight();
           mapDataRef = event.detail.mapData;
           if (pinnedNid) {
             setActive(pinnedNid, true);

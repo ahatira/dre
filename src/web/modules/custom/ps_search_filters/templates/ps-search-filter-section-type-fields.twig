@@ -1,49 +1,13 @@
 {#
 /**
  * @file
- * Property type grid + transaction buttons (shared desktop popin / mobile stack).
+ * Wrapper — delegates to ps_theme SDC search-filter-type (Phase 5A.2).
  *
- * Variables: asset_types, operation_types, active_flexible, section_class (optional).
+ * Variables: asset_types, operation_types, active_flexible.
  */
 #}
-<div class="ps-filter-popin__section ps-filter-popin__section--assets">
-  <ul class="ps-asset-grid" role="list">
-    {% for asset in asset_types %}
-      <li class="ps-asset-card{% if asset.active %} is-active{% endif %}" role="listitem">
-        <button
-          class="ps-asset-card__link js-ps-asset-btn"
-          type="button"
-          data-code="{{ asset.code }}"
-          aria-pressed="{{ asset.active ? 'true' : 'false' }}"
-        >
-          <span class="ps-asset-card__icon" aria-hidden="true">{{ asset.icon }}</span>
-          <span class="ps-asset-card__label">{{ asset.label }}</span>
-        </button>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="ps-filter-popin__section ps-filter-popin__section--op">
-  <h3 class="ps-filter-popin__heading ps-filter-popin__heading--sentence">{{ 'Transaction type'|t }}</h3>
-  <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
-    {% for op in operation_types %}
-      <button
-        class="ps-op-btn{% if op.active %} is-active{% endif %} js-ps-op-btn"
-        type="button"
-        data-code="{{ op.code }}"
-        aria-pressed="{{ op.active ? 'true' : 'false' }}"
-      >
-        {{ op.label }}
-      </button>
-    {% endfor %}
-    <button
-      class="ps-op-btn{% if active_flexible %} is-active{% endif %} js-ps-op-btn"
-      type="button"
-      data-code="FLEX"
-      aria-pressed="{{ active_flexible ? 'true' : 'false' }}"
-    >
-      {{ "I'm flexible"|t }}
-    </button>
-  </div>
-</div>
+{% include 'ps_theme:search-filter-type' with {
+  asset_types: asset_types|default([]),
+  operation_types: operation_types|default([]),
+  active_flexible: active_flexible|default(true),
+} only %}

@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search filter type
+description: "Property type asset grid and transaction buttons for the BNPPRE search filter bar."
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    asset_types:
+      type: array
+      title: Asset type cards
+      items:
+        type: object
+    operation_types:
+      type: array
+      title: Operation type buttons
+      items:
+        type: object
+    active_flexible:
+      type: boolean
+      title: Whether "I'm flexible" is active
+      default: true
+libraryOverrides:
+  css:
+    component:
+      styles/search-filter-type.css: {}

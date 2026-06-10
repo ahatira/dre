@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Database\Connection;
+use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
  * Department codes (2 digits) also match postal prefixes.
  */
 final class LocationSearchFilter {
+
+  private const DEPARTMENT_DICTIONARY_TYPE = 'department';
 
   /**
    * Address-related fields indexed for offers.
@@ -27,6 +31,7 @@ final class LocationSearchFilter {
 
   public function __construct(
     private readonly Connection $database,
+    private readonly DictionaryResolver $dictionaryResolver,
   ) {}
 
   /**
@@ -74,22 +79,81 @@ final class LocationSearchFilter {
 
     $rootGroup = $query->createConditionGroup('OR');
     foreach ($tokens as $token) {
-      $tokenGroup = $query->createConditionGroup('OR');
-      foreach (self::ADDRESS_FIELDS as $field) {
-        $tokenGroup->addCondition($field, $token);
+      $tokenGroup = $this->buildTokenConditionGroup($query, $token);
+      if ($tokenGroup !== NULL) {
+        $rootGroup->addConditionGroup($tokenGroup);
       }
-
-      if (preg_match('/^\d{2}$/', $token) === 1) {
-        $deptName = $this->getDepartmentName($token);
-        if ($deptName !== '') {
-          $tokenGroup->addCondition('field_address_admin_area', $deptName);
-        }
-      }
-
-      $rootGroup->addConditionGroup($tokenGroup);
     }
 
     $query->addConditionGroup($rootGroup);
+  }
+
+  /**
+   * Returns published offer count for a single location token (offer-derived).
+   */
+  public function countOffersForToken(string $token): int {
+    $token = $this->sanitizeText($token) ?? $token;
+    if ($token === '') {
+      return 0;
+    }
+
+    if (preg_match('/^\d{5}$/', $token) === 1) {
+      $meta = ['locality' => '', 'admin_area' => ''];
+    }
+    elseif (preg_match('/^\d{2}$/', $token) === 1) {
+      $meta = [
+        'locality' => '',
+        'admin_area' => $this->getDepartmentName($token),
+      ];
+    }
+    else {
+      $meta = [
+        'locality' => $token,
+        'admin_area' => '',
+      ];
+    }
+
+    return $this->resolveCentroidForToken($token, $meta)['count'];
+  }
+
+  /**
+   * Whether a token is a known 2-digit INSEE department code.
+   */
+  public function isDepartmentCode(string $token): bool {
+    return preg_match('/^\d{2}$/', $token) === 1
+      && $this->dictionaryResolver->isValid(self::DEPARTMENT_DICTIONARY_TYPE, $token);
+  }
+
+  /**
+   * Builds OR conditions for one location token.
+   */
+  private function buildTokenConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
+    $tokenGroup = $query->createConditionGroup('OR');
+
+    if ($this->isDepartmentCode($token)) {
+      $deptName = $this->getDepartmentName($token);
+      $tokenGroup->addCondition(
+        'field_address_postal_code',
+        [$token . '000', $token . '999'],
+        'BETWEEN',
+      );
+      if ($deptName !== '') {
+        $tokenGroup->addCondition('field_address_admin_area', $deptName);
+        $tokenGroup->addCondition('field_address_locality', $deptName);
+      }
+      return $tokenGroup;
+    }
+
+    if (preg_match('/^\d{5}$/', $token) === 1) {
+      $tokenGroup->addCondition('field_address_postal_code', $token);
+      return $tokenGroup;
+    }
+
+    foreach (self::ADDRESS_FIELDS as $field) {
+      $tokenGroup->addCondition($field, $token);
+    }
+
+    return $tokenGroup;
   }
 
   /**
@@ -246,7 +310,14 @@ final class LocationSearchFilter {
       $select->condition('a.field_address_postal_code', $token);
     }
     elseif (preg_match('/^\d{2}$/', $token) === 1) {
-      $select->condition('a.field_address_postal_code', $token . '%', 'LIKE');
+      $deptName = $this->getDepartmentName($token);
+      $or = $select->orConditionGroup()
+        ->condition('a.field_address_postal_code', $token . '%', 'LIKE');
+      if ($deptName !== '') {
+        $or->condition('a.field_address_administrative_area', $deptName);
+        $or->condition('a.field_address_locality', $deptName);
+      }
+      $select->condition($or);
     }
     elseif (($meta['admin_area'] ?? '') !== '' && ($meta['locality'] ?? '') === '') {
       $select->condition('a.field_address_administrative_area', $meta['admin_area']);
@@ -300,107 +371,10 @@ final class LocationSearchFilter {
   }
 
   /**
-   * Returns department name from a 2-digit code.
+   * Returns department name from a 2-digit INSEE code.
    */
   private function getDepartmentName(string $code): string {
-    $departments = [
-      '01' => 'Ain',
-      '02' => 'Aisne',
-      '03' => 'Allier',
-      '04' => 'Alpes-de-Haute-Provence',
-      '05' => 'Hautes-Alpes',
-      '06' => 'Alpes-Maritimes',
-      '07' => 'Ardèche',
-      '08' => 'Ardennes',
-      '09' => 'Ariège',
-      '10' => 'Aube',
-      '11' => 'Aude',
-      '12' => 'Aveyron',
-      '13' => 'Bouches-du-Rhône',
-      '14' => 'Calvados',
-      '15' => 'Cantal',
-      '16' => 'Charente',
-      '17' => 'Charente-Maritime',
-      '18' => 'Cher',
-      '19' => 'Corrèze',
-      '21' => 'Côte-d\'Or',
-      '22' => 'Côtes-d\'Armor',
-      '23' => 'Creuse',
-      '24' => 'Dordogne',
-      '25' => 'Doubs',
-      '26' => 'Drôme',
-      '27' => 'Eure',
-      '28' => 'Eure-et-Loir',
-      '29' => 'Finistère',
-      '30' => 'Gard',
-      '31' => 'Haute-Garonne',
-      '32' => 'Gers',
-      '33' => 'Gironde',
-      '34' => 'Hérault',
-      '35' => 'Ille-et-Vilaine',
-      '36' => 'Indre',
-      '37' => 'Indre-et-Loire',
-      '38' => 'Isère',
-      '39' => 'Jura',
-      '40' => 'Landes',
-      '41' => 'Loir-et-Cher',
-      '42' => 'Loire',
-      '43' => 'Haute-Loire',
-      '44' => 'Loire-Atlantique',
-      '45' => 'Loiret',
-      '46' => 'Lot',
-      '47' => 'Lot-et-Garonne',
-      '48' => 'Lozère',
-      '49' => 'Maine-et-Loire',
-      '50' => 'Manche',
-      '51' => 'Marne',
-      '52' => 'Haute-Marne',
-      '53' => 'Mayenne',
-      '54' => 'Meurthe-et-Moselle',
-      '55' => 'Meuse',
-      '56' => 'Morbihan',
-      '57' => 'Moselle',
-      '58' => 'Nièvre',
-      '59' => 'Nord',
-      '60' => 'Oise',
-      '61' => 'Orne',
-      '62' => 'Pas-de-Calais',
-      '63' => 'Puy-de-Dôme',
-      '64' => 'Pyrénées-Atlantiques',
-      '65' => 'Hautes-Pyrénées',
-      '66' => 'Pyrénées-Orientales',
-      '67' => 'Bas-Rhin',
-      '68' => 'Haut-Rhin',
-      '69' => 'Rhône',
-      '70' => 'Haute-Saône',
-      '71' => 'Saône-et-Loire',
-      '72' => 'Sarthe',
-      '73' => 'Savoie',
-      '74' => 'Haute-Savoie',
-      '75' => 'Paris',
-      '76' => 'Seine-Maritime',
-      '77' => 'Seine-et-Marne',
-      '78' => 'Yvelines',
-      '79' => 'Deux-Sèvres',
-      '80' => 'Somme',
-      '81' => 'Tarn',
-      '82' => 'Tarn-et-Garonne',
-      '83' => 'Var',
-      '84' => 'Vaucluse',
-      '85' => 'Vendée',
-      '86' => 'Vienne',
-      '87' => 'Haute-Vienne',
-      '88' => 'Vosges',
-      '89' => 'Yonne',
-      '90' => 'Territoire de Belfort',
-      '91' => 'Essonne',
-      '92' => 'Hauts-de-Seine',
-      '93' => 'Seine-Saint-Denis',
-      '94' => 'Val-de-Marne',
-      '95' => 'Val-d\'Oise',
-    ];
-
-    return $departments[$code] ?? '';
+    return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code) ?? '';
   }
 
   /**

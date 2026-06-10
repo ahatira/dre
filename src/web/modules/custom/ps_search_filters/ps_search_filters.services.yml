@@ -2,6 +2,8 @@ services:
   ps_search_filters.more_criteria_builder:
     class: Drupal\ps_search_filters\Service\MoreCriteriaBuilder
     arguments: ['@ps_search.feature_filter_registry']
+  ps_search_filters.htmx_settings:
+    class: Drupal\ps_search_filters\Service\FilterBarHtmxSettings
   ps_search_filters.filter_bar_builder:
     class: Drupal\ps_search_filters\Service\FilterBarBuilder
     arguments:
@@ -15,6 +17,7 @@ services:
       - '@ps_context.search_filter_visibility'
       - '@ps_context.search_budget_filter'
       - '@ps_search.search_path_resolver'
+      - '@ps_search_filters.htmx_settings'
   ps_search_filters.results_header_builder:
     class: Drupal\ps_search_filters\Service\SearchResultsHeaderBuilder
     arguments:

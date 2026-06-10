@@ -21,7 +21,6 @@
       once('ps-search-layout', '.ps-search-view', context).forEach(function (root) {
         const hideBtn = root.querySelector('.js-ps-hide-list');
         const showBtn = root.querySelector('.js-ps-show-list');
-        const sortSelect = root.querySelector('.js-ps-sort-select');
 
         syncSearchLayout(root);
 
@@ -53,29 +52,32 @@
           });
         }
 
-        if (sortSelect) {
-          sortSelect.addEventListener('change', function () {
-            const url = new URL(window.location.href);
-            const parts = sortSelect.value.split('|');
-            url.searchParams.set('sort_by', parts[0] || 'search_api_relevance');
-            url.searchParams.set('sort_order', parts[1] || 'DESC');
-            url.searchParams.delete('page');
+        root.addEventListener('change', function (event) {
+          const sortSelect = event.target.closest('.js-ps-sort-select');
+          if (!sortSelect || !root.contains(sortSelect)) {
+            return;
+          }
 
-            if (typeof Drupal.psSearchPage?.reloadSearch === 'function') {
-              Drupal.psSearchPage.reloadSearch(root, {
-                browserUrl: url.pathname + url.search,
-                params: url.searchParams,
-                preserveViewport: true,
-                eventName: 'ps-search-filters-applied',
-              }).catch(function () {
-                window.location.assign(url.toString());
-              });
-              return;
-            }
+          const url = new URL(window.location.href);
+          const parts = sortSelect.value.split('|');
+          url.searchParams.set('sort_by', parts[0] || 'search_api_relevance');
+          url.searchParams.set('sort_order', parts[1] || 'DESC');
+          url.searchParams.delete('page');
 
-            window.location.assign(url.toString());
-          });
-        }
+          if (typeof Drupal.psSearchPage?.reloadSearch === 'function') {
+            Drupal.psSearchPage.reloadSearch(root, {
+              browserUrl: url.pathname + url.search,
+              params: url.searchParams,
+              preserveViewport: true,
+              eventName: 'ps-search-filters-applied',
+            }).catch(function () {
+              window.location.assign(url.toString());
+            });
+            return;
+          }
+
+          window.location.assign(url.toString());
+        });
 
         requestAnimationFrame(function () {
           setTimeout(function () {

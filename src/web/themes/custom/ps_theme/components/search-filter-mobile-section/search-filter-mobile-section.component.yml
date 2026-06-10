@@ -1,0 +1,30 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search filter mobile section
+description: "Stacked filter section shell for the mobile filters offcanvas (Phase 5A.6)."
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Section heading
+    title_class:
+      type: string
+      title: Optional extra classes on the heading
+      default: ""
+    section_modifiers:
+      type: string
+      title: Extra CSS classes on the section element
+      default: ""
+    hidden:
+      type: boolean
+      title: Whether the section is hidden
+      default: false
+slots:
+  content:
+    title: Filter fields
+libraryOverrides:
+  css:
+    component:
+      styles/search-filter-mobile-section.css: {}

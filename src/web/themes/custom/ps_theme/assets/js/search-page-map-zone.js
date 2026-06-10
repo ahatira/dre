@@ -3,17 +3,6 @@
 
   const DEFAULT_TRANSPORT = 'walking';
   const DEFAULT_TIME = '5';
-  /**
-   * Radius in metres per transport mode (placeholder until isochrone API).
-   *
-   * @type {Object<string, number>}
-   */
-  const BASE_RADIUS = {
-    walking: 400,
-    transports: 1200,
-    bike: 2000,
-    car: 5000,
-  };
 
   /**
    * Parses travel time minutes from select value.
@@ -29,17 +18,23 @@
   }
 
   /**
-   * Computes placeholder circle radius from transport + minutes.
+   * Builds the isochrone API URL for the active center and travel settings.
    *
+   * @param {google.maps.LatLng} center
    * @param {string} transport
    * @param {string} minutesValue
    *
-   * @return {number}
+   * @return {string}
    */
-  function computeRadius(transport, minutesValue) {
-    const base = BASE_RADIUS[transport] || BASE_RADIUS.walking;
-    const minutes = parseMinutes(minutesValue);
-    return Math.round(base * (minutes / 5));
+  function buildIsochroneUrl(center, transport, minutesValue) {
+    const base = drupalSettings.psSearch?.isochroneUrl || '/ps-search/isochrone';
+    const params = new URLSearchParams({
+      lat: String(center.lat()),
+      lng: String(center.lng()),
+      transport: transport,
+      minutes: String(parseMinutes(minutesValue)),
+    });
+    return `${base}?${params.toString()}`;
   }
 
   Drupal.behaviors.psSearchPageMapZone = {
@@ -56,7 +51,18 @@
 
         let selectedTransport = DEFAULT_TRANSPORT;
         let selectedMinutes = DEFAULT_TIME;
-        let distanceCircle = null;
+        let distanceOverlay = null;
+        let activeIsochrone = null;
+
+        /**
+         * Removes the current distance zone overlay from the map.
+         */
+        function clearDistanceOverlay() {
+          if (distanceOverlay && typeof distanceOverlay.setMap === 'function') {
+            distanceOverlay.setMap(null);
+          }
+          distanceOverlay = null;
+        }
 
         /**
          * Updates the customize area button label and icon.
@@ -76,7 +82,10 @@
         }
 
         /**
-         * Resolves circle center from the selected offer marker.
+         * Resolves isochrone center from selected marker, or sensible fallbacks.
+         *
+         * Priority: explicit nid → pinned selection → float panel → first marker
+         * → map viewport center.
          *
          * @param {object} mapData
          *   Geofield map data.
@@ -86,72 +95,149 @@
          * @return {google.maps.LatLng|null}
          */
         function resolveZoneCenter(mapData, preferredNid) {
-          const nid = preferredNid
-            || Drupal.psSearchMap.getSelectedOfferId(root)
-            || root.querySelector('.ps-offer-search-card--float-panel[data-offer-id]')?.getAttribute('data-offer-id');
-          const marker = nid && mapData.markersByNid ? mapData.markersByNid[nid] : null;
-          if (marker?.getPosition) {
-            return marker.getPosition();
+          const map = mapData?.map || mapData?.google_map;
+          const candidates = [];
+
+          if (preferredNid) {
+            candidates.push(String(preferredNid));
           }
+
+          const selectedNid = Drupal.psSearchMap.getSelectedOfferId(root);
+          if (selectedNid) {
+            candidates.push(String(selectedNid));
+          }
+
+          const floatNid = root.querySelector('.ps-offer-search-card--float-panel[data-offer-id]')?.getAttribute('data-offer-id');
+          if (floatNid) {
+            candidates.push(String(floatNid));
+          }
+
+          const markersByNid = mapData?.markersByNid || {};
+          for (let i = 0; i < candidates.length; i++) {
+            const marker = markersByNid[candidates[i]];
+            if (marker?.getPosition) {
+              return marker.getPosition();
+            }
+          }
+
+          const markerIds = Object.keys(markersByNid);
+          if (markerIds.length > 0) {
+            const firstMarker = markersByNid[markerIds[0]];
+            if (firstMarker?.getPosition) {
+              return firstMarker.getPosition();
+            }
+          }
+
+          if (map?.getCenter) {
+            const center = map.getCenter();
+            if (center) {
+              return center;
+            }
+          }
+
           return null;
         }
 
         /**
-         * Draws or removes the distance zone circle on the map.
+         * Draws the isochrone polygon returned by the backend.
+         *
+         * @param {google.maps.Map} map
+         *   Google map instance.
+         * @param {object} payload
+         *   Isochrone API payload.
+         */
+        function drawIsochronePolygon(map, payload) {
+          clearDistanceOverlay();
+          const ring = payload?.polygon?.[0];
+          if (!Array.isArray(ring) || ring.length < 3) {
+            return;
+          }
+
+          const paths = ring.map(function (pair) {
+            return { lat: pair[1], lng: pair[0] };
+          });
+
+          distanceOverlay = new google.maps.Polygon({
+            paths: paths,
+            fillColor: '#00915A',
+            fillOpacity: 0.12,
+            map: map,
+            strokeColor: '#00915A',
+            strokeOpacity: 0.45,
+            strokeWeight: 2,
+          });
+        }
+
+        /**
+         * Loads isochrone geometry and optionally applies map_bounds to search.
          *
          * @param {object} [options]
          *   Refresh options.
          * @param {boolean} [options.fitBounds]
-         *   Whether to reframe the map on the circle (only when enabling the zone).
+         *   Whether to reframe the map on the zone.
+         * @param {boolean} [options.applyZone]
+         *   Whether to reload list/markers with map_bounds.
          * @param {string|null} [options.nid]
          *   Offer id for circle center resolution.
          */
         function refreshDistanceZone(options) {
           const fitBounds = options?.fitBounds === true;
+          const applyZone = options?.applyZone === true;
           const preferredNid = options?.nid || null;
 
-          if (distanceCircle) {
-            distanceCircle.setMap(null);
-            distanceCircle = null;
-          }
+          clearDistanceOverlay();
+          activeIsochrone = null;
 
           if (!toggle || !toggle.checked || typeof google === 'undefined' || !google.maps) {
-            return;
+            return Promise.resolve(null);
           }
 
           const mapData = Drupal.psSearchMap.getMapData(root);
           const map = mapData?.map || mapData?.google_map;
           const center = mapData ? resolveZoneCenter(mapData, preferredNid) : null;
           if (!map || !center) {
-            return;
+            return Promise.resolve(null);
           }
 
-          const radius = computeRadius(selectedTransport, selectedMinutes);
-          distanceCircle = new google.maps.Circle({
-            center,
-            fillColor: '#00915A',
-            fillOpacity: 0.12,
-            map,
-            radius,
-            strokeColor: '#00915A',
-            strokeOpacity: 0.45,
-            strokeWeight: 2,
-          });
+          return fetch(buildIsochroneUrl(center, selectedTransport, selectedMinutes), {
+            headers: { Accept: 'application/json' },
+          })
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error('isochrone_request_failed');
+              }
+              return response.json();
+            })
+            .then(function (payload) {
+              activeIsochrone = payload;
+              drawIsochronePolygon(map, payload);
 
-          if (fitBounds && typeof map.fitBounds === 'function' && typeof google.maps.LatLngBounds === 'function') {
-            const bounds = distanceCircle.getBounds();
-            if (bounds) {
-              map.fitBounds(bounds, 48);
-            }
-          }
+              if (fitBounds && payload?.bounds) {
+                const bounds = new google.maps.LatLngBounds(
+                  { lat: payload.bounds.swLat, lng: payload.bounds.swLng },
+                  { lat: payload.bounds.neLat, lng: payload.bounds.neLng },
+                );
+                map.fitBounds(bounds, 48);
+              }
 
-          root.dispatchEvent(new CustomEvent('ps-search-distance-zone-updated', {
-            detail: {
-              transport: selectedTransport,
-              minutes: selectedMinutes,
-              radius,
-            },
-          }));
+              root.dispatchEvent(new CustomEvent('ps-search-distance-zone-updated', {
+                detail: {
+                  transport: selectedTransport,
+                  minutes: selectedMinutes,
+                  radius: payload?.radius_m || 0,
+                  map_bounds: payload?.map_bounds || '',
+                },
+              }));
+
+              if (applyZone && payload?.map_bounds && typeof Drupal.psSearchPage.reloadZoneSearch === 'function') {
+                return Drupal.psSearchPage.reloadZoneSearch(root, payload.map_bounds);
+              }
+
+              return payload;
+            })
+            .catch(function () {
+              return null;
+            });
         }
 
         /**
@@ -162,7 +248,7 @@
             selectedMinutes = travelTime.value;
           }
           updateSummary();
-          refreshDistanceZone({ fitBounds: true });
+          refreshDistanceZone({ fitBounds: true, applyZone: true });
         }
 
         transportButtons.forEach(function (button) {
@@ -206,7 +292,7 @@
 
         if (toggle) {
           toggle.addEventListener('change', function () {
-            refreshDistanceZone({ fitBounds: toggle.checked });
+            refreshDistanceZone({ fitBounds: toggle.checked, applyZone: false });
           });
         }
 
@@ -216,22 +302,19 @@
           }
           refreshDistanceZone({
             fitBounds: false,
+            applyZone: false,
             nid: event.detail?.nid ? String(event.detail.nid) : null,
           });
         });
 
         root.addEventListener('ps-search-map-marker-clear', function () {
-          if (distanceCircle) {
-            distanceCircle.setMap(null);
-            distanceCircle = null;
-          }
+          clearDistanceOverlay();
+          activeIsochrone = null;
         });
 
         root.addEventListener('ps-search-list-shown', function () {
-          if (distanceCircle) {
-            distanceCircle.setMap(null);
-            distanceCircle = null;
-          }
+          clearDistanceOverlay();
+          activeIsochrone = null;
         });
 
         root.addEventListener('ps-search-map-mode', function () {
@@ -239,14 +322,15 @@
             return;
           }
           window.setTimeout(function () {
-            refreshDistanceZone({ fitBounds: false });
+            refreshDistanceZone({ fitBounds: false, applyZone: false });
           }, 100);
         });
 
-        root.addEventListener('ps-search-map-markers-loaded', function (event) {
+        root.addEventListener('ps-search-map-markers-loaded', function () {
           if (toggle && toggle.checked && !Drupal.psSearchMap.isListVisible(root)) {
             refreshDistanceZone({
               fitBounds: false,
+              applyZone: false,
               nid: Drupal.psSearchMap.getSelectedOfferId(root),
             });
           }

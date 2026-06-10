@@ -27,15 +27,24 @@ final class SearchFeatureContext extends MinkContext implements Context {
   }
 
   /**
-   * @Then the response should contain :text
+   * @When I run the isochrone e2e script
    */
-  public function theResponseShouldContain(string $text): void {
-    $content = $this->getSession()->getPage()->getContent();
-    if (!str_contains($content, $text)) {
-      throw new RuntimeException(
-        "Expected response to contain \"{$text}\".\nSnippet:\n" . substr($content, 0, 500)
-      );
-    }
+  public function iRunTheIsochroneE2eScript(): void {
+    $this->runProjectScript('web/modules/custom/ps_search/tests/b2b_isochrone.sh', 'Isochrone E2E');
+  }
+
+  /**
+   * @When I run the map isochrone sync e2e script
+   */
+  public function iRunTheMapIsochroneSyncE2eScript(): void {
+    $this->runProjectScript('web/modules/custom/ps_search/tests/b2b_map_isochrone_sync.sh', 'Map isochrone sync E2E');
+  }
+
+  /**
+   * @When I run the marker cluster e2e script
+   */
+  public function iRunTheMarkerClusterE2eScript(): void {
+    $this->runProjectScript('web/modules/custom/ps_search/tests/b2b_markers_cluster.sh', 'Marker cluster E2E');
   }
 
   /**

@@ -94,15 +94,15 @@ assert_count_decreases() {
 assert_lazy_group() {
   local group_id="$1" label="$2"
   local url body code
-  url="${BASE}/ps-search-filters/more-criteria/${group_id}"
-  body=$(curl -s -m 60 "$url" 2>/dev/null || echo "")
-  code=$(curl -s -m 60 -o /dev/null -w '%{http_code}' "$url" 2>/dev/null || echo "000")
+  url="${BASE}/ps-search-filters/htmx/more-criteria/${group_id}"
+  body=$(curl -s -m 60 -H "HX-Request: true" "$url" 2>/dev/null || echo "")
+  code=$(curl -s -m 60 -o /dev/null -w '%{http_code}' -H "HX-Request: true" "$url" 2>/dev/null || echo "000")
   if [[ "$code" != "200" ]]; then
     fail "$label (HTTP $code) — $url"
     return
   fi
   if grep -q 'js-ps-more-filter' <<< "$body"; then
-    pass "$label (lazy HTML with filters)"
+    pass "$label (HTMX HTML with filters)"
   else
     fail "$label (200 but no filter inputs) — $url"
   fi
@@ -116,9 +116,12 @@ curl -sL -m 120 -o /dev/null "$BASE/find-property" 2>/dev/null || true
 echo "--- Page structure (accordion + lazy-load settings) ---"
 assert_http_200 "$BASE/find-property" "EN search page loads"
 assert_html_contains "$BASE/find-property" 'ps-more-accordion' "Accordion markup present"
-assert_html_contains "$BASE/find-property" 'moreCriteriaGroupUrl' "Lazy-load URL in drupalSettings"
+assert_html_contains "$BASE/find-property" 'psSearchFilterHtmx' "HTMX settings in drupalSettings"
+assert_html_contains "$BASE/find-property" 'moreCriteriaGroupUrl' "Lazy-load HTMX URL in drupalSettings"
 assert_html_contains "$BASE/find-property" 'moreFilterSchema' "Filter schema in drupalSettings"
 assert_html_contains "$BASE/find-property" 'js-ps-more-group-panel' "Lazy group panels present"
+assert_html_contains "$BASE/find-property" 'ps-filter-mobile-count-label' "Mobile HTMX count label present"
+assert_html_contains "$BASE/find-property" 'data-ps-htmx-popin="mobile"' "Mobile HTMX popin marker"
 assert_html_contains "$BASE/find-property" 'Other criteria' "Core filters section (EN)"
 
 echo "--- Group labels (human-readable, not CRM machine names) ---"
@@ -132,9 +135,9 @@ assert_html_contains "$BASE/fr/recherche-immobiliere" 'Aménagements' "FR Aména
 assert_html_contains "$BASE/fr/recherche-immobiliere" 'Équipements' "FR Équipements group label"
 assert_not_screaming_snake "$BASE/fr/recherche-immobiliere" 'AMENAGEMENTS' "FR no AMENAGEMENTS machine label"
 
-echo "--- Lazy-load endpoint ---"
-assert_lazy_group "equipements" "Lazy-load equipements group"
-assert_lazy_group "amenagements" "Lazy-load amenagements group"
+echo "--- Lazy-load HTMX endpoint ---"
+assert_lazy_group "equipements" "HTMX equipements group"
+assert_lazy_group "amenagements" "HTMX amenagements group"
 
 echo "--- Count API (per-feature filters) ---"
 BASE_COUNT=$(count_api "")

@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Load more pager — BNPPRE-style explicit button (views_load_more).
+ */
+#}
+{% if next_url or end_text %}
+  <nav class="pager pager--load-more ps-search-load-more" aria-labelledby="ps-search-load-more-heading">
+    <h4 id="ps-search-load-more-heading" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+    {% if next_url %}
+      <div class="pager__items js-pager__items">
+        <div class="pager__item">
+          <a href="{{ next_url }}" class="btn btn-primary w-100">{{ more_button_text }}</a>
+        </div>
+      </div>
+    {% elseif end_text %}
+      <div class="pager__items pager__items--end">
+        {{ end_text }}
+      </div>
+    {% endif %}
+  </nav>
+{% endif %}

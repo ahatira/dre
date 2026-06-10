@@ -17,13 +17,9 @@ final class FeatureFilterSyncManager {
   private const SETTINGS_CONFIG = 'ps_search.feature_filter_sync';
 
   /**
-   * Legacy categorizer / core fields — not managed by per-feature sync.
+   * Core More-filters fields — not managed by per-feature sync.
    */
-  private const LEGACY_VIEW_FIELDS = [
-    'feature_equipments',
-    'feature_services',
-    'feature_building_type',
-    'feature_accessibility',
+  private const CORE_MORE_FILTER_FIELDS = [
     'nearby_transport',
     'ceiling_height',
     'has_immersive_tour',
@@ -313,7 +309,7 @@ final class FeatureFilterSyncManager {
    * Checks if an index field is a dynamic per-feature field.
    */
   private function isDynamicFeatureIndexField(string $field_name): bool {
-    if (in_array($field_name, self::LEGACY_VIEW_FIELDS, TRUE)) {
+    if (in_array($field_name, self::CORE_MORE_FILTER_FIELDS, TRUE)) {
       return FALSE;
     }
 
@@ -324,7 +320,7 @@ final class FeatureFilterSyncManager {
    * Checks if a view field is a dynamic per-feature filter.
    */
   private function isDynamicFeatureViewField(string $field_name): bool {
-    if (in_array($field_name, self::LEGACY_VIEW_FIELDS, TRUE)) {
+    if (in_array($field_name, self::CORE_MORE_FILTER_FIELDS, TRUE)) {
       return FALSE;
     }
 

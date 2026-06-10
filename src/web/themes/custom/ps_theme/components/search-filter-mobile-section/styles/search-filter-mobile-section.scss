@@ -1,0 +1,64 @@
+/**
+ * @file
+ * Search filter mobile section SDC — stacked offcanvas section shell.
+ */
+
+@media (max-width: 991.98px) {
+  .ps-filter-mobile-section {
+    border-bottom: 1px solid var(--re-color-border-soft, #ebedef);
+    padding: 1rem 0;
+  }
+
+  .ps-filter-mobile-section:last-child {
+    border-bottom: 0;
+  }
+
+  .ps-filter-mobile-section__title {
+    color: var(--re-color-text-strong, #333);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 0.75rem;
+  }
+
+  .ps-filter-mobile-section .ps-filter-bar__toggle--stacked {
+    border: 2px solid var(--re-color-border, #d6dbde);
+    min-height: var(--ps-filter-field-height, 40px);
+    width: 100%;
+  }
+
+  .ps-filter-mobile-section .ps-filter-bar__location-suggest {
+    margin-top: 0.5rem;
+    max-height: var(--ps-location-suggest-max-height, 280px);
+    position: static;
+  }
+
+  .ps-filter-mobile-section .ps-location-suggest__group-title {
+    padding-inline: 0;
+  }
+
+  .ps-filter-mobile-section .ps-location-suggest__item {
+    padding-inline: 0 0;
+    padding-left: var(--ps-location-suggest-indent, 28px);
+  }
+
+  .ps-filter-mobile-section .ps-location-suggest__item:hover,
+  .ps-filter-mobile-section .ps-location-suggest__item:focus-visible,
+  .ps-filter-mobile-section .ps-location-suggest__item.is-active {
+    background: var(--ps-location-suggest-hover-bg, #f2f2f2);
+  }
+
+  .ps-filter-mobile-section .ps-location-suggest__match {
+    color: var(--re-color-primary, #00915a);
+  }
+
+  .ps-filter-mobile-section .ps-asset-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ps-filter-mobile-section--more-group .ps-more-group__loading {
+    color: var(--re-color-text-muted, #6c757d);
+    font-size: 0.875rem;
+    padding: 0.25rem 0;
+  }
+}

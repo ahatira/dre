@@ -10,8 +10,7 @@
 
 {% for group_key, group in more_criteria_groups %}
   {% if group.lazy|default(false) %}
-    <section class="ps-filter-mobile-section ps-filter-mobile-section--more-group" data-group-id="{{ group_key }}">
-      <h3 class="ps-filter-mobile-section__title">{{ group.label }}</h3>
+    {% set group_panel %}
       <div
         class="ps-more-group__items js-ps-more-group-content js-ps-more-group-panel"
         data-group-id="{{ group_key }}"
@@ -19,16 +18,25 @@
       >
         <div class="ps-more-group__loading" hidden>{{ 'Loading…'|t }}</div>
       </div>
-    </section>
+    {% endset %}
+    {% include 'ps_theme:search-filter-mobile-section' with {
+      title: group.label,
+      section_modifiers: 'ps-filter-mobile-section--more-group',
+      content: group_panel,
+    } only %}
   {% endif %}
 {% endfor %}
 
 {% for item in core_criteria_items %}
-  <section class="ps-filter-mobile-section ps-filter-mobile-section--more-core">
-    <h3 class="ps-filter-mobile-section__title">{{ item.label }}</h3>
+  {% set core_fields %}
     {% include '@ps_search_filters/ps-search-more-criteria-items.html.twig' with {
       items: [item],
       id_prefix: field_id_prefix,
     } only %}
-  </section>
+  {% endset %}
+  {% include 'ps_theme:search-filter-mobile-section' with {
+    title: item.label,
+    section_modifiers: 'ps-filter-mobile-section--more-core',
+    content: core_fields,
+  } only %}
 {% endfor %}

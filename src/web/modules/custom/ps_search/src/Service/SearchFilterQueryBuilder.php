@@ -27,7 +27,6 @@ final class SearchFilterQueryBuilder {
   public function __construct(
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
-    private readonly MapBoundsResolver $mapBoundsResolver,
   ) {}
 
   /**
@@ -86,11 +85,10 @@ final class SearchFilterQueryBuilder {
   }
 
   /**
-   * Applies business filters and the active map zone from the request.
+   * Applies business filters and optional map zone bounds from the request.
    */
-  public function apply(QueryInterface $query, Request $request): void {
+  public function apply(QueryInterface $query, Request $request, ?MapBounds $bounds = NULL): void {
     $this->applyBusinessFilters($query, $request);
-    $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
     if ($bounds instanceof MapBounds) {
       $this->applyMapBounds($query, $bounds);
     }

@@ -54,45 +54,17 @@
   <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
     <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end ps-search-view__left">
       {% if search_results_header %}
-        <div class="flex-shrink-0 bg-white border-bottom px-4 py-3 ps-search-view__results-header">
-          <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
-            <h1 class="h4 fw-semibold mb-0">{{ search_results_header.title }}</h1>
-            <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" disabled title="{{ 'Coming soon'|t }}">
-              {{ 'Create an alert'|t }}
-            </button>
-          </div>
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-            <p class="small text-muted mb-0">
-              {{ search_results_header.count|number_format(0, '.', ' ') }}
-              {{ search_results_header.count == 1 ? 'result'|t : 'results'|t }}
-              <span
-                class="ps-search-view__zone-hint js-ps-zone-hint"
-                data-global-count="{{ search_results_header.count }}"
-                {% if search_results_header.zone_count is not defined or search_results_header.zone_count == search_results_header.count %}hidden{% endif %}
-              >
-                {% if search_results_header.zone_count is defined and search_results_header.zone_count != search_results_header.count %}
-                  — {{ 'Showing @count in this area'|t({'@count': search_results_header.zone_count|number_format(0, '.', ' ')}) }}
-                {% endif %}
-              </span>
-            </p>
-            {% if search_results_header.sort_options %}
-              <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                <label class="small text-muted mb-0 text-nowrap" for="ps-search-sort">{{ 'Sort by'|t }}</label>
-                <select id="ps-search-sort" class="form-select form-select-sm js-ps-sort-select" style="width: auto; min-width: 9rem;" aria-label="{{ 'Sort by'|t }}">
-                  {% for option in search_results_header.sort_options %}
-                    <option value="{{ option.value }}"{{ option.selected ? ' selected' : '' }}>{{ option.label }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endif %}
-          </div>
+        <div class="flex-shrink-0 bg-white border-bottom px-4 py-3 ps-search-view__results-header" id="ps-search-results-header">
+          {{ search_results_header }}
         </div>
       {% endif %}
 
-      {# List mode — infinite scroll (Views AJAX, 24 items per page) #}
+      {# List mode — Views Load More pager (40 items per page, BNPPRE-style button) #}
       <div class="flex-grow-scroll px-4 py-3 js-ps-search-list-panel">
         {% if rows %}
-          {{ rows }}
+          <div class="row g-3 js-ps-search-results-rows">
+            {{ rows }}
+          </div>
         {% elseif empty %}
           <div class="ps-search-empty">
             <img
@@ -104,8 +76,13 @@
               loading="lazy"
             />
             <div class="alert alert-light border ps-search-empty__alert" role="status">
-              <p class="alert-heading h6 fw-semibold mb-2">{{ 'No results found'|t }}</p>
-              <p class="mb-0 small text-muted">{{ empty }}</p>
+              {% if ps_search_empty_zone_only %}
+                <p class="alert-heading h6 fw-semibold mb-2">{{ 'No properties in this map area'|t }}</p>
+                <p class="mb-0 small text-muted">{{ 'Pan the map or use “Search this area” to explore other regions.'|t }}</p>
+              {% else %}
+                <p class="alert-heading h6 fw-semibold mb-2">{{ 'No results found'|t }}</p>
+                <p class="mb-0 small text-muted">{{ empty }}</p>
+              {% endif %}
             </div>
           </div>
         {% endif %}

@@ -1,0 +1,31 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search filter range
+description: "Min/max range inputs (surface, capacity, budget) for the BNPPRE search filter bar."
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    section:
+      type: string
+      title: Range section key
+      enum:
+        - surface
+        - capacity
+        - budget
+    id_suffix:
+      type: string
+      title: ID suffix for duplicate editors (desktop / mobile)
+      default: ""
+    capacity_filter_label:
+      type: string
+      title: Capacity unit label
+      default: Capacity
+    budget_config:
+      type: object
+      title: Budget field labels and formatting
+      default: {}
+libraryOverrides:
+  css:
+    component:
+      styles/search-filter-range.css: {}

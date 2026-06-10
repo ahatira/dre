@@ -34,6 +34,7 @@ final class FilterBarBuilder {
     private readonly SearchFilterVisibilityResolver $searchFilterVisibility,
     private readonly SearchBudgetFilterResolver $searchBudgetFilter,
     private readonly SearchPathResolver $searchPathResolver,
+    private readonly FilterBarHtmxSettings $htmxSettings,
   ) {}
 
   /**
@@ -181,6 +182,7 @@ final class FilterBarBuilder {
       '#attached' => [
         'library' => ['ps_search_filters/filter_bar'],
         'drupalSettings' => [
+          'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
           'psSearch' => [
             'langPrefix' => $langPrefix,
             'searchPath' => $searchPath,
@@ -190,7 +192,6 @@ final class FilterBarBuilder {
             'activeFlexible' => $activeOp === NULL,
             'activeAsset' => $activeAsset,
             'initialLocality' => $initialLocality,
-            'countUrl' => '/ps-search/count',
             'locationSuggestUrl' => '/ps-search/location-suggest',
             'locationDataUrl' => '/ps-search/location-data',
             'filterVisibilityByAsset' => $visibilityByAsset,
@@ -199,7 +200,6 @@ final class FilterBarBuilder {
             'budgetFilterConfig' => $budgetConfig,
             'budgetFilterByAsset' => $budgetFilterByAsset,
             'moreFilterSchema' => $moreFilterSchema,
-            'moreCriteriaGroupUrl' => '/ps-search-filters/more-criteria',
           ],
         ],
       ],

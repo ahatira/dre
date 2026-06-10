@@ -8,6 +8,7 @@ dependencies:
     - field.storage.node.field_asset_type
     - field.storage.node.field_availability
     - field.storage.node.field_budget_value
+    - field.storage.node.field_budget_currency
     - field.storage.node.field_commercial_title
     - field.storage.node.field_divisible
     - field.storage.node.field_features
@@ -90,6 +91,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_budget_value
+  field_budget_currency:
+    label: 'Budget currency'
+    datasource_id: 'entity:node'
+    property_path: field_budget_currency
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_budget_currency
   field_capacity_total:
     label: 'Capacity total'
     datasource_id: 'entity:node'
@@ -123,22 +132,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_features
-  feature_accessibility:
-    label: Accessibility
-    property_path: feature_accessibility
-    type: boolean
-  feature_building_type:
-    label: 'Building type'
-    property_path: feature_building_type
-    type: string
-  feature_equipments:
-    label: Equipments
-    property_path: feature_equipments
-    type: string
-  feature_services:
-    label: Services
-    property_path: feature_services
-    type: string
   ceiling_height:
     label: 'Ceiling height'
     property_path: ceiling_height

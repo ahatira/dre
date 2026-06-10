@@ -13,19 +13,13 @@ use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Ensures feature filter combine mode is consistent on Search API queries.
+ * Re-applies per-feature filters when combine mode is OR.
+ *
+ * Views exposed filters always combine with AND. When the business configures
+ * feature_filters_combine=or, strip dynamic feature_* conditions from the
+ * Views query and re-apply them as an OR group via MoreCriteriaConditionApplier.
  */
 final class FeatureFilterQueryHooks {
-
-  /**
-   * Legacy categorizer fields — not per-feature dynamic filters.
-   */
-  private const LEGACY_FEATURE_FIELDS = [
-    'feature_equipments',
-    'feature_services',
-    'feature_building_type',
-    'feature_accessibility',
-  ];
 
   public function __construct(
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
@@ -87,20 +81,12 @@ final class FeatureFilterQueryHooks {
       }
       if ($condition instanceof ConditionInterface) {
         $field = (string) $condition->getField();
-        if (in_array($field, $fieldNames, TRUE)
-          || ($this->isLegacyFeatureField($field) === FALSE && str_starts_with($field, 'feature_'))) {
+        if (in_array($field, $fieldNames, TRUE) || str_starts_with($field, 'feature_')) {
           unset($conditions[$key]);
         }
       }
     }
     $conditions = array_values($conditions);
-  }
-
-  /**
-   * Checks if a field is a legacy categorizer aggregate.
-   */
-  private function isLegacyFeatureField(string $field): bool {
-    return in_array($field, self::LEGACY_FEATURE_FIELDS, TRUE);
   }
 
 }

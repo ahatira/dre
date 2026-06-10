@@ -3,3 +3,10 @@ default_center_lng: 1.888334
 default_radius_km: 50
 list_pager_threshold: 100
 markers_max: 500
+markers_cluster_enabled: true
+markers_cluster_cells: 64
+isochrone_provider: google
+isochrone_fallback: true
+ors_enabled: false
+ors_api_key: ''
+google_routes_api_key: ''

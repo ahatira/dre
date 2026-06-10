@@ -13,6 +13,7 @@ Feature: Map zone search sync
     Then the response status code should be 200
     And the response should contain "\"zone_count\""
     And the response should contain "\"markers\""
+    And the response should contain "\"clusters\""
 
   Scenario: Global count API stays business-scoped
     When I am on "/ps-search/count"

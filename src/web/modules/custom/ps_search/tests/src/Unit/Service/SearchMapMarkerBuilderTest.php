@@ -6,6 +6,7 @@ namespace Drupal\Tests\ps_search\Unit\Service;
 
 use Drupal\node\NodeInterface;
 use Drupal\ps_search\Service\SearchMapMarkerBuilder;
+use Drupal\Tests\ps_search\Unit\Stub\TestFieldItemStub;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -33,6 +34,17 @@ final class SearchMapMarkerBuilderTest extends UnitTestCase {
 
     $builder = new SearchMapMarkerBuilder();
     $this->assertSame('NC', $builder->buildPriceLabel($node));
+  }
+
+  /**
+   * @covers ::buildPriceLabelFromValues
+   */
+  public function testBuildPriceLabelFromValuesUsesIndexedData(): void {
+    $builder = new SearchMapMarkerBuilder();
+
+    $this->assertSame('1 250 000 €', $builder->buildPriceLabelFromValues('1250000', 'EUR'));
+    $this->assertSame('NC', $builder->buildPriceLabelFromValues(NULL, 'EUR'));
+    $this->assertSame('NC', $builder->buildPriceLabelFromValues(0, 'EUR'));
   }
 
   /**
@@ -67,16 +79,8 @@ final class SearchMapMarkerBuilderTest extends UnitTestCase {
    * Builds a mocked offer node with budget field values.
    */
   private function createOfferNode(string $value, string $currency): NodeInterface {
-    $budgetField = new class($value) {
-      public function __construct(public string $value) {}
-      public function isEmpty(): bool {
-        return $this->value === '';
-      }
-    };
-
-    $currencyField = new class($currency) {
-      public function __construct(public string $value) {}
-    };
+    $budgetField = new TestFieldItemStub($value);
+    $currencyField = new TestFieldItemStub($currency);
 
     $node = $this->createMock(NodeInterface::class);
     $node->method('hasField')->willReturnMap([

@@ -1,5 +1,15 @@
+filter_bar_htmx:
+  version: 1.0.10
+  js:
+    js/search-filter-htmx.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.htmx
+    - core/drupalSettings
+    - core/once
+
 filter_bar:
-  version: 1.0.40
+  version: 1.0.53
   js:
     js/search-filter-bar.js: {}
   css:
@@ -7,6 +17,7 @@ filter_bar:
       css/search-filter-bar.css: {}
       css/search-filters-mobile.css: {}
   dependencies:
+    - ps_search_filters/filter_bar_htmx
     - core/drupal
     - core/drupal.locale
     - core/drupalSettings

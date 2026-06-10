@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search filter location
+description: "Location editor row (chips + autocomplete input) for the BNPPRE search filter bar."
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    id_suffix:
+      type: string
+      title: ID suffix for duplicate editors (desktop / mobile)
+      default: ""
+    layout:
+      type: string
+      title: Layout variant
+      enum:
+        - dropdown
+        - stacked
+      default: dropdown
+    suggest_id:
+      type: string
+      title: Suggest listbox element id (aria-controls)
+libraryOverrides:
+  css:
+    component:
+      styles/search-filter-location.css: {}

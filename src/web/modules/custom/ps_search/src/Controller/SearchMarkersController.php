@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Controller;
 
+use Drupal\Core\Cache\CacheableJsonResponse;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\ps_search\Service\SearchMarkersBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -31,12 +32,18 @@ final class SearchMarkersController extends ControllerBase {
   /**
    * Returns markers as JSON.
    */
-  public function markers(Request $request): JsonResponse {
+  public function markers(Request $request): CacheableJsonResponse {
     $payload = $this->markersBuilder->build($request);
-    $response = new JsonResponse($payload);
-    $response->setMaxAge(60);
-    $response->setPublic();
-    $response->headers->set('Cache-Control', 'public, max-age=60');
+
+    $response = new CacheableJsonResponse($payload);
+    $cache = (new CacheableMetadata())
+      ->setCacheMaxAge(60)
+      ->setCacheTags([
+        'search_api_list:offers',
+        'config:ps_search.map_zone_settings',
+      ])
+      ->setCacheContexts(['url.query_args']);
+    $response->addCacheableDependency($cache);
 
     return $response;
   }

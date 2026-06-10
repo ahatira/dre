@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Mobile offcanvas section shell — title + SDC field composition slot.
+ */
+#}
+<section
+  class="ps-filter-mobile-section{{ section_modifiers ? ' ' ~ section_modifiers : '' }}"
+  {% if hidden %} hidden{% endif %}
+>
+  <h3 class="ps-filter-mobile-section__title{{ title_class ? ' ' ~ title_class : '' }}">{{ title }}</h3>
+  {% if content %}
+    {{ content }}
+  {% endif %}
+</section>

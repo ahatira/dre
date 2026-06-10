@@ -10,7 +10,7 @@ use Drupal\node\NodeInterface;
  * Builds BNPPRE-style price marker icons for the search results map.
  *
  * Rendered by geofield_map (Views map attachment) — no custom OverlayView JS.
- * Reference preview: ps_theme/assets/images/map/marker-price.svg
+ * Reference preview: ps_theme/assets/images/map/marker-price.svg.
  */
 final class SearchMapMarkerBuilder {
 
@@ -18,10 +18,12 @@ final class SearchMapMarkerBuilder {
 
   private const MARKER_WHITE = '#FFFFFF';
 
-  /** Map marker label when budget is missing or zero (Non Communiqué). */
+  /**
+   * Map marker label when budget is missing or zero (Non Communiqué). */
   private const MAP_NO_PRICE_LABEL = 'NC';
 
-  /** Height of the rectangular body (excluding pointer). */
+  /**
+   * Height of the rectangular body (excluding pointer). */
   private const BODY_HEIGHT = 26;
 
   private const BOX_MIN_WIDTH = 44;
@@ -48,13 +50,27 @@ final class SearchMapMarkerBuilder {
       return self::MAP_NO_PRICE_LABEL;
     }
 
-    $raw = $node->get('field_budget_value')->value;
-    if ($raw === NULL || $raw === '' || (float) $raw <= 0) {
+    $currencyCode = 'EUR';
+    if ($node->hasField('field_budget_currency') && !$node->get('field_budget_currency')->isEmpty()) {
+      $currencyCode = (string) $node->get('field_budget_currency')->value;
+    }
+
+    return $this->buildPriceLabelFromValues(
+      $node->get('field_budget_value')->value,
+      $currencyCode,
+    );
+  }
+
+  /**
+   * Builds a price label from indexed Search API values (no entity load).
+   */
+  public function buildPriceLabelFromValues(mixed $budgetRaw, mixed $currencyRaw = NULL): string {
+    if ($budgetRaw === NULL || $budgetRaw === '' || (float) $budgetRaw <= 0) {
       return self::MAP_NO_PRICE_LABEL;
     }
 
-    $amount = number_format((float) $raw, 0, ',', ' ');
-    $currencyCode = strtoupper((string) ($node->get('field_budget_currency')->value ?? 'EUR'));
+    $amount = number_format((float) $budgetRaw, 0, ',', ' ');
+    $currencyCode = strtoupper((string) ($currencyRaw ?? 'EUR'));
     $currency = $currencyCode === 'EUR' ? '€' : $currencyCode;
 
     return $amount . ' ' . $currency;

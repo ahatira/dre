@@ -13,7 +13,7 @@ dependencies:
     - geofield
     - geofield_map
     - search_api
-    - views_infinite_scroll
+    - views_load_more
 id: ps_search_offers
 label: 'Search offers'
 module: views
@@ -74,7 +74,7 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-              field_address_locality:
+              locality:
                 plugin_id: default
                 advanced:
                   placeholder_text: 'City, district or zip code'
@@ -124,27 +124,6 @@ display:
                   placeholder_text: 'Offer reference...'
                   collapsible: false
                   is_secondary: true
-              feature_equipments:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: true
-              feature_services:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: true
-              feature_building_type:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: true
-              feature_accessibility:
-                plugin_id: bef_single
-                treat_as_false: false
-                advanced:
-                  collapsible: false
-                  is_secondary: true
               nearby_transport:
                 plugin_id: default
                 advanced:
@@ -175,18 +154,6 @@ display:
                 plugin_id: bef_single
                 treat_as_false: false
                 advanced:
-                  collapsible: false
-                  is_secondary: true
-              field_address_postal_code:
-                plugin_id: default
-                advanced:
-                  placeholder_text: 'Postal code...'
-                  collapsible: false
-                  is_secondary: true
-              field_address_admin_area:
-                plugin_id: default
-                advanced:
-                  placeholder_text: 'Department...'
                   collapsible: false
                   is_secondary: true
               field_availability:
@@ -531,123 +498,33 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_address_locality:
-          id: field_address_locality
+        locality:
+          id: locality
           table: search_api_index_offers
           field: field_address_locality
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: search_api_string
+          plugin_id: ps_search_location_tokens
           operator: '='
-          value:
-            value: ''
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_locality_op
+            operator_id: ''
             label: 'Location(s)'
             description: ''
             use_operator: false
-            operator: field_address_locality_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
             identifier: locality
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
           is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_address_postal_code:
-          id: field_address_postal_code
-          table: search_api_index_offers
-          field: field_address_postal_code
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_address_postal_code_op
-            label: 'Postal code'
-            description: ''
-            use_operator: false
-            operator: field_address_postal_code_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: postal_code
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_address_admin_area:
-          id: field_address_admin_area
-          table: search_api_index_offers
-          field: field_address_admin_area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_address_admin_area_op
-            label: Department
-            description: ''
-            use_operator: false
-            operator: field_address_admin_area_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: department
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         surface_total:
           id: surface_total
           table: search_api_index_offers
@@ -810,150 +687,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        feature_equipments:
-          id: feature_equipments
-          table: search_api_index_offers
-          field: feature_equipments
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: feature_equipments_op
-            label: Equipments
-            description: ''
-            use_operator: false
-            operator: feature_equipments_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: feature_equipments
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        feature_services:
-          id: feature_services
-          table: search_api_index_offers
-          field: feature_services
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: feature_services_op
-            label: Services
-            description: ''
-            use_operator: false
-            operator: feature_services_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: feature_services
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        feature_building_type:
-          id: feature_building_type
-          table: search_api_index_offers
-          field: feature_building_type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: feature_building_type_op
-            label: 'Building type'
-            description: ''
-            use_operator: false
-            operator: feature_building_type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: feature_building_type
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        feature_accessibility:
-          id: feature_accessibility
-          table: search_api_index_offers
-          field: feature_accessibility
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_boolean
-          operator: '='
-          value: 'All'
-          group: 1
-          exposed: true
-          expose:
-            operator_id: feature_accessibility_op
-            label: Accessibility
-            description: ''
-            use_operator: false
-            operator: feature_accessibility_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: feature_accessibility
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
         nearby_transport:
           id: nearby_transport
           table: search_api_index_offers
@@ -1325,24 +1058,28 @@ display:
       path: find-property
       use_ajax: true
       pager:
-        type: infinite_scroll
+        type: load_more
         options:
           offset: 0
-          items_per_page: 24
+          items_per_page: 40
           id: 0
           total_pages: null
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
-            items_per_page_options: '24,48,96'
+            items_per_page_options: '24,40,96'
             items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load @next_page_count more'
-            automatically_load_content: true
-            initially_load_all_pages: false
+          more_button_text: 'Afficher plus de résultats'
+          end_text: ''
+          advanced:
+            content_selector: '.js-ps-search-results-rows'
+            pager_selector: '.pager--load-more'
+          effects:
+            type: ''
+            speed: ''
       defaults:
         use_ajax: false
         pager: false

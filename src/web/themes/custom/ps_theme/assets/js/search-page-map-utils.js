@@ -79,6 +79,38 @@
   };
 
   /**
+   * Builds a count bubble icon for server-side grid clusters.
+   *
+   * @param {number|string} count
+   *   Number of offers in the cluster cell.
+   *
+   * @return {google.maps.Icon}
+   *   Google Maps icon descriptor.
+   */
+  Drupal.psSearchMap.buildClusterMarkerIcon = function (count) {
+    const label = String(count);
+    const diameter = Math.max(36, label.length * 10 + 20);
+    const radius = Math.floor(diameter / 2);
+    const center = radius;
+    const safeLabel = label
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+    const svg = '<?xml version="1.0" encoding="UTF-8"?>'
+      + `<svg xmlns="http://www.w3.org/2000/svg" width="${diameter}" height="${diameter}" viewBox="0 0 ${diameter} ${diameter}">`
+      + `<circle cx="${center}" cy="${center}" r="${radius - 2}" fill="${MARKER_WHITE}" stroke="${MARKER_GREEN}" stroke-width="${BORDER}"/>`
+      + `<text x="${center}" y="${center + 1}" dominant-baseline="central" text-anchor="middle" fill="${MARKER_GREEN}" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">${safeLabel}</text>`
+      + '</svg>';
+
+    return {
+      url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,
+      scaledSize: new google.maps.Size(diameter, diameter),
+      anchor: new google.maps.Point(center, center),
+    };
+  };
+
+  /**
    * Returns marker metadata from geofield geojson properties.
    *
    * @param {google.maps.Marker} marker
@@ -112,6 +144,91 @@
         mapData.markersByNid[meta.nid] = marker;
       }
     });
+  };
+
+  /**
+   * Returns markers attached to a MarkerClusterer cluster instance.
+   *
+   * @param {object} cluster
+   *   MarkerClusterer cluster.
+   *
+   * @return {Array<google.maps.Marker>}
+   *   Markers in the cluster.
+   */
+  Drupal.psSearchMap.getClusterMarkers = function (cluster) {
+    if (!cluster) {
+      return [];
+    }
+    if (typeof cluster.getMarkers === 'function') {
+      return cluster.getMarkers();
+    }
+    return Array.isArray(cluster.markers_) ? cluster.markers_ : [];
+  };
+
+  /**
+   * Finds the MarkerClusterer group containing a marker (multi-marker only).
+   *
+   * @param {object|null} markerCluster
+   *   MarkerClusterer instance.
+   * @param {google.maps.Marker|null} marker
+   *   Offer marker.
+   *
+   * @return {object|null}
+   *   Cluster instance or NULL when the marker is shown individually.
+   */
+  Drupal.psSearchMap.findClusterForMarker = function (markerCluster, marker) {
+    if (!markerCluster || !marker || typeof markerCluster.getClusters !== 'function') {
+      return null;
+    }
+
+    const clusters = markerCluster.getClusters();
+    for (let i = 0; i < clusters.length; i++) {
+      const cluster = clusters[i];
+      const markers = Drupal.psSearchMap.getClusterMarkers(cluster);
+      if (markers.length > 1 && markers.indexOf(marker) !== -1) {
+        return cluster;
+      }
+    }
+
+    return null;
+  };
+
+  /**
+   * Returns the DOM node for a MarkerClusterer cluster icon.
+   *
+   * @param {object|null} cluster
+   *   MarkerClusterer cluster.
+   *
+   * @return {HTMLElement|null}
+   *   Cluster icon element (class "cluster").
+   */
+  Drupal.psSearchMap.getClusterElement = function (cluster) {
+    if (!cluster) {
+      return null;
+    }
+
+    const icon = cluster.clusterIcon_ || cluster.clusterIcon;
+    if (!icon) {
+      return null;
+    }
+
+    return icon.div_ || icon.div || null;
+  };
+
+  /**
+   * Applies list-sync highlight styling to a MarkerClusterer cluster icon.
+   *
+   * @param {object|null} cluster
+   *   MarkerClusterer cluster.
+   * @param {boolean} active
+   *   Whether the cluster should look hovered/active.
+   */
+  Drupal.psSearchMap.setClusterHighlight = function (cluster, active) {
+    const element = Drupal.psSearchMap.getClusterElement(cluster);
+    if (!element) {
+      return;
+    }
+    element.classList.toggle('is-map-sync-active', !!active);
   };
 
   /**
@@ -398,6 +515,55 @@
         Drupal.psSearchMap.resizeMaps(root);
       }, 350);
     });
+  };
+
+  Drupal.psSearchPage = Drupal.psSearchPage || {};
+
+  /**
+   * Builds search query params from the browser URL + server-injected SEO filters.
+   *
+   * SEO paths (/for-rent/office/) inject operation_type/asset_type server-side
+   * into drupalSettings.path.currentQuery; window.location.search stays empty.
+   *
+   * @param {URLSearchParams} [overrides]
+   *   Optional params merged last (e.g. map_bounds after pan).
+   *
+   * @return {URLSearchParams}
+   *   Merged query parameters for markers API and Views AJAX.
+   */
+  Drupal.psSearchPage.buildSearchParams = function (overrides) {
+    const params = new URLSearchParams(window.location.search);
+    const serverQuery = (typeof drupalSettings !== 'undefined' && drupalSettings.path?.currentQuery) || {};
+
+    Object.keys(serverQuery).forEach(function (key) {
+      if (params.has(key)) {
+        return;
+      }
+      const value = serverQuery[key];
+      if (value === null || value === undefined || value === '') {
+        return;
+      }
+      if (Array.isArray(value)) {
+        value.forEach(function (item) {
+          if (item !== null && item !== undefined && item !== '') {
+            params.append(key, String(item));
+          }
+        });
+        return;
+      }
+      if (typeof value === 'object') {
+        return;
+      }
+      params.set(key, String(value));
+    });
+
+    if (overrides instanceof URLSearchParams) {
+      overrides.forEach(function (value, key) {
+        params.set(key, value);
+      });
+    }
+
+    return params;
   };
 
 }(Drupal));

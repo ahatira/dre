@@ -71,3 +71,22 @@ function ps_dictionary_update_11002(): void {
     $entry->save();
   }
 }
+
+/**
+ * Adds French department dictionary type and imports INSEE entries.
+ */
+function ps_dictionary_update_11003(): void {
+  $type_storage = \Drupal::entityTypeManager()->getStorage('ps_dictionary_type');
+  if ($type_storage->load('department') === NULL) {
+    $type_storage->create([
+      'id' => 'department',
+      'label' => 'French departments',
+      'description' => 'INSEE department codes and names for location search.',
+    ])->save();
+  }
+
+  /** @var \Drupal\ps_dictionary\Service\DictionaryCsvImporterInterface $importer */
+  $importer = \Drupal::service('Drupal\ps_dictionary\Service\DictionaryCsvImporter');
+  $fixture = dirname(__FILE__) . '/data/dictionary_entries.csv';
+  $importer->importFromCsv($fixture, 'department');
+}

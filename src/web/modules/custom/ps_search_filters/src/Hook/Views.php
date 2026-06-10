@@ -35,7 +35,7 @@ final class Views {
 
     $variables['search_filter_bar'] = $this->filterBarBuilder->build();
     $variables['search_filter_bar_mobile_actions'] = $this->filterBarBuilder->buildMobileActions();
-    $variables['search_results_header'] = $this->resultsHeaderBuilder->build($view);
+    $variables['search_results_header'] = $this->resultsHeaderBuilder->buildRenderArray($view);
   }
 
 }

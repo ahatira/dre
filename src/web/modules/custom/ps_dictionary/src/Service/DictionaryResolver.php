@@ -49,6 +49,48 @@ final class DictionaryResolver {
   }
 
   /**
+   * Finds entries whose label starts with the given query (case-insensitive).
+   *
+   * @return list<array{code: string, label: string}>
+   *   Matching entries sorted by weight then label.
+   */
+  public function searchByLabelPrefix(string $type, string $query, int $limit = 5): array {
+    $query = trim($query);
+    if ($query === '' || $limit < 1) {
+      return [];
+    }
+
+    $needle = mb_strtolower($query);
+    $matches = [];
+
+    foreach ($this->loadByType($type) as $entry) {
+      if (!str_starts_with(mb_strtolower($entry->label()), $needle)) {
+        continue;
+      }
+      $matches[] = [
+        'code' => $entry->getCode(),
+        'label' => $entry->label(),
+        'weight' => $entry->getWeight(),
+      ];
+    }
+
+    usort($matches, static function (array $a, array $b): int {
+      return ($a['weight'] ?? 0) <=> ($b['weight'] ?? 0)
+        ?: strcasecmp($a['label'], $b['label']);
+    });
+
+    $results = [];
+    foreach (array_slice($matches, 0, $limit) as $match) {
+      $results[] = [
+        'code' => $match['code'],
+        'label' => $match['label'],
+      ];
+    }
+
+    return $results;
+  }
+
+  /**
    * @return array<int, \Drupal\ps_dictionary\Entity\DictionaryEntryInterface>
    */
   private function loadByType(string $type): array {

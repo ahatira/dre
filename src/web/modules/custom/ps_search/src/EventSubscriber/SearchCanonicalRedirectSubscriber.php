@@ -7,6 +7,7 @@ namespace Drupal\ps_search\EventSubscriber;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
+use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,6 +26,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterface {
 
+  private const DEPARTMENT_DICTIONARY_TYPE = 'department';
+
   /** @var array<string, array{op: array<string,string>, asset: array<string,string>}> keyed by langcode */
   private array $mappingsByLang = [];
 
@@ -33,6 +36,7 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly Connection $database,
     private readonly SearchPathResolver $searchPathResolver,
+    private readonly DictionaryResolver $dictionaryResolver,
   ) {}
 
   public static function getSubscribedEvents(): array {
@@ -284,43 +288,10 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
   }
 
   /**
-   * Returns department name from 2-digit code.
-   *
-   * @param string $code
-   *   Department code (e.g., "75", "92").
-   *
-   * @return string|null
-   *   Department name or NULL if not found.
+   * Returns department name from 2-digit INSEE code.
    */
   private function getDepartmentName(string $code): ?string {
-    $departments = [
-      '01' => 'Ain', '02' => 'Aisne', '03' => 'Allier', '04' => 'Alpes-de-Haute-Provence',
-      '05' => 'Hautes-Alpes', '06' => 'Alpes-Maritimes', '07' => 'Ardeche', '08' => 'Ardennes',
-      '09' => 'Ariege', '10' => 'Aube', '11' => 'Aude', '12' => 'Aveyron',
-      '13' => 'Bouches-du-Rhone', '14' => 'Calvados', '15' => 'Cantal', '16' => 'Charente',
-      '17' => 'Charente-Maritime', '18' => 'Cher', '19' => 'Correze', '21' => 'Cote-d\'Or',
-      '22' => 'Cotes-d\'Armor', '23' => 'Creuse', '24' => 'Dordogne', '25' => 'Doubs',
-      '26' => 'Drome', '27' => 'Eure', '28' => 'Eure-et-Loir', '29' => 'Finistere',
-      '2A' => 'Corse-du-Sud', '2B' => 'Haute-Corse', '30' => 'Gard', '31' => 'Haute-Garonne',
-      '32' => 'Gers', '33' => 'Gironde', '34' => 'Herault', '35' => 'Ille-et-Vilaine',
-      '36' => 'Indre', '37' => 'Indre-et-Loire', '38' => 'Isere', '39' => 'Jura',
-      '40' => 'Landes', '41' => 'Loir-et-Cher', '42' => 'Loire', '43' => 'Haute-Loire',
-      '44' => 'Loire-Atlantique', '45' => 'Loiret', '46' => 'Lot', '47' => 'Lot-et-Garonne',
-      '48' => 'Lozere', '49' => 'Maine-et-Loire', '50' => 'Manche', '51' => 'Marne',
-      '52' => 'Haute-Marne', '53' => 'Mayenne', '54' => 'Meurthe-et-Moselle', '55' => 'Meuse',
-      '56' => 'Morbihan', '57' => 'Moselle', '58' => 'Nievre', '59' => 'Nord',
-      '60' => 'Oise', '61' => 'Orne', '62' => 'Pas-de-Calais', '63' => 'Puy-de-Dome',
-      '64' => 'Pyrenees-Atlantiques', '65' => 'Hautes-Pyrenees', '66' => 'Pyrenees-Orientales',
-      '67' => 'Bas-Rhin', '68' => 'Haut-Rhin', '69' => 'Rhone', '70' => 'Haute-Saone',
-      '71' => 'Saone-et-Loire', '72' => 'Sarthe', '73' => 'Savoie', '74' => 'Haute-Savoie',
-      '75' => 'Paris', '76' => 'Seine-Maritime', '77' => 'Seine-et-Marne', '78' => 'Yvelines',
-      '79' => 'Deux-Sevres', '80' => 'Somme', '81' => 'Tarn', '82' => 'Tarn-et-Garonne',
-      '83' => 'Var', '84' => 'Vaucluse', '85' => 'Vendee', '86' => 'Vienne',
-      '87' => 'Haute-Vienne', '88' => 'Vosges', '89' => 'Yonne', '90' => 'Territoire-de-Belfort',
-      '91' => 'Essonne', '92' => 'Hauts-de-Seine', '93' => 'Seine-Saint-Denis', '94' => 'Val-de-Marne',
-      '95' => 'Val-d\'Oise',
-    ];
-    return $departments[$code] ?? NULL;
+    return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code);
   }
 
   /**

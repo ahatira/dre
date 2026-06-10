@@ -1,8 +1,47 @@
 services:
+  logger.channel.ps_search:
+    parent: logger.channel_base
+    arguments: ['ps_search']
+
   ps_search.location_filter:
     class: Drupal\ps_search\Service\LocationSearchFilter
     arguments:
       - '@database'
+      - '@ps_dictionary.resolver'
+
+  ps_search.location_suggest_builder:
+    class: Drupal\ps_search\Service\LocationSuggestBuilder
+    arguments:
+      - '@database'
+      - '@ps_search.location_filter'
+      - '@ps_dictionary.resolver'
+
+  ps_search.isochrone.approximation:
+    class: Drupal\ps_search\Service\Isochrone\IsochroneApproximationProvider
+
+  ps_search.isochrone.ors:
+    class: Drupal\ps_search\Service\Isochrone\OpenRouteServiceIsochroneProvider
+    arguments:
+      - '@http_client'
+      - '@config.factory'
+      - '@logger.channel.ps_search'
+
+  ps_search.isochrone.google:
+    class: Drupal\ps_search\Service\Isochrone\GoogleRoutesIsochroneProvider
+    arguments:
+      - '@http_client'
+      - '@config.factory'
+      - '@logger.channel.ps_search'
+      - '@ps_search.isochrone.approximation'
+
+  ps_search.isochrone:
+    class: Drupal\ps_search\Service\IsochroneService
+    arguments:
+      - '@config.factory'
+      - '@ps_search.isochrone.approximation'
+      - '@ps_search.isochrone.ors'
+      - '@ps_search.isochrone.google'
+      - '@logger.channel.ps_search'
 
   ps_search.map_bounds_resolver:
     class: Drupal\ps_search\Service\MapBoundsResolver
@@ -10,19 +49,27 @@ services:
       - '@ps_search.location_centroid'
       - '@ps_search.location_filter'
       - '@config.factory'
+      - '@ps_search.result_geo_bounds_resolver'
+
+  ps_search.result_geo_bounds_resolver:
+    class: Drupal\ps_search\Service\SearchResultGeoBoundsResolver
+    arguments:
+      - '@ps_search.filter_query_builder'
 
   ps_search.filter_query_builder:
     class: Drupal\ps_search\Service\SearchFilterQueryBuilder
     arguments:
       - '@ps_search.location_filter'
       - '@ps_search.more_criteria_applier'
-      - '@ps_search.map_bounds_resolver'
 
   ps_search.result_counter:
     class: Drupal\ps_search\Service\SearchResultCounter
     arguments:
       - '@ps_search.filter_query_builder'
       - '@ps_search.map_bounds_resolver'
+
+  ps_search.markers_grid_cluster_builder:
+    class: Drupal\ps_search\Service\SearchMarkersGridClusterBuilder
 
   ps_search.markers_builder:
     class: Drupal\ps_search\Service\SearchMarkersBuilder
@@ -31,8 +78,9 @@ services:
       - '@ps_search.map_bounds_resolver'
       - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
       - '@ps_search.result_counter'
-      - '@entity_type.manager'
+      - '@ps_search.markers_grid_cluster_builder'
       - '@config.factory'
+      - '@cache.default'
 
   Drupal\ps_search\Hook\MapBoundsQueryHooks:
     class: Drupal\ps_search\Hook\MapBoundsQueryHooks
@@ -57,7 +105,6 @@ services:
   Drupal\ps_search\Hook\SearchLocationHooks:
     class: Drupal\ps_search\Hook\SearchLocationHooks
     arguments:
-      - '@ps_search.location_filter'
       - '@ps_search.location_centroid'
       - '@ps_search.map_bounds_resolver'
       - '@ps_search.result_counter'
@@ -95,8 +142,6 @@ services:
 
   Drupal\ps_search\Hook\GeofieldMapHooks:
     class: Drupal\ps_search\Hook\GeofieldMapHooks
-    arguments:
-      - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
 
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks
@@ -104,9 +149,6 @@ services:
       - '@Drupal\ps_search\Service\FeatureFilterSyncManager'
       - '@config.factory'
       - '@logger.factory'
-
-  Drupal\ps_search\Hook\SearchThemeHooks:
-    class: Drupal\ps_search\Hook\SearchThemeHooks
 
   ps_search.seo_path_processor:
     class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
@@ -142,5 +184,6 @@ services:
       - '@language.config_factory_override'
       - '@database'
       - '@ps_search.search_path_resolver'
+      - '@ps_dictionary.resolver'
     tags:
       - { name: event_subscriber }

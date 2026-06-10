@@ -67,6 +67,27 @@ ps_search.map_zone_settings:
     markers_max:
       type: integer
       label: 'Maximum markers returned per zone'
+    markers_cluster_enabled:
+      type: boolean
+      label: 'Enable server-side grid clusters when zone exceeds markers_max'
+    markers_cluster_cells:
+      type: integer
+      label: 'Target grid cells for server-side marker clusters'
+    isochrone_provider:
+      type: string
+      label: 'Isochrone provider (approximation, ors, google)'
+    isochrone_fallback:
+      type: boolean
+      label: 'Fallback to approximation when external provider fails'
+    ors_enabled:
+      type: boolean
+      label: 'Enable OpenRouteService isochrone provider'
+    ors_api_key:
+      type: string
+      label: 'OpenRouteService API key'
+    google_routes_api_key:
+      type: string
+      label: 'Google Routes API key override (optional)'
 
 ps_search.feature_filter_sync:
   type: config_object

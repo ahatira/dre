@@ -16,4 +16,4 @@ dependencies:
   - facets:facets_exposed_filters
   - geofield_map:geofield_map
   - ps_dictionary:ps_dictionary
-  - views_infinite_scroll:views_infinite_scroll
+  - views_load_more:views_load_more

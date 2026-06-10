@@ -244,7 +244,7 @@ search-page:
     assets/js/search-page-map-markers.js: {}
     assets/js/search-page-zone-reload.js: {}
     assets/js/search-page-map-bounds.js: {}
-    assets/js/search-page-infinite-scroll.js: {}
+    assets/js/search-page-load-more.js: {}
     assets/js/search-page-layout.js: {}
     assets/js/search-page-map-sync.js: {}
     assets/js/search-page-map-popup.js: {}
@@ -257,7 +257,7 @@ search-page:
     - core/jquery
     - core/drupal.debounce
     - views/views.ajax
-    - views_infinite_scroll/views-infinite-scroll
+    - views_load_more/views_load_more
     - ps_theme/component_alert
     - ps_theme/offer-search-card
     - ps_favorite/favorites

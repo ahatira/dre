@@ -12,8 +12,10 @@
    */
   function buildMarkersUrl(baseUrl) {
     const url = new URL(baseUrl, window.location.origin);
-    const current = new URLSearchParams(window.location.search);
-    current.forEach(function (value, key) {
+    const params = typeof Drupal.psSearchPage?.buildSearchParams === 'function'
+      ? Drupal.psSearchPage.buildSearchParams()
+      : new URLSearchParams(window.location.search);
+    params.forEach(function (value, key) {
       url.searchParams.set(key, value);
     });
     return url.pathname + url.search;
@@ -270,8 +272,8 @@
 
     const options = {
       imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-      // Pairs at the same address are handled by OMS, not a permanent "2" cluster.
-      minimumClusterSize: 3,
+      // Same-GPS pairs stay on OMS (splitClusterableMarkers); nearby pairs cluster at 2.
+      minimumClusterSize: 2,
       maxZoom: 18,
     };
 
@@ -314,17 +316,6 @@
       return;
     }
 
-    const boundsConfig = window.drupalSettings?.psSearch?.mapBounds;
-
-    if (boundsConfig && typeof boundsConfig.swLat === 'number') {
-      const bounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(boundsConfig.swLat, boundsConfig.swLng),
-        new google.maps.LatLng(boundsConfig.neLat, boundsConfig.neLng),
-      );
-      map.fitBounds(bounds, 48);
-      return;
-    }
-
     const markerKeys = Object.keys(mapData.markers || {});
     if (markerKeys.length > 0) {
       const latLngBounds = new google.maps.LatLngBounds();
@@ -336,7 +327,18 @@
       });
       if (!latLngBounds.isEmpty()) {
         map.fitBounds(latLngBounds, 48);
+        return;
       }
+    }
+
+    const boundsConfig = window.drupalSettings?.psSearch?.mapBounds;
+
+    if (boundsConfig && typeof boundsConfig.swLat === 'number') {
+      const bounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(boundsConfig.swLat, boundsConfig.swLng),
+        new google.maps.LatLng(boundsConfig.neLat, boundsConfig.neLng),
+      );
+      map.fitBounds(bounds, 48);
     }
   }
 
@@ -348,6 +350,74 @@
    * @param {Array<object>} markers
    *   Marker payload from the markers API.
    */
+  /**
+   * Renders server-side grid clusters and zooms into a cell on click.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {Array<object>} clusters
+   *   Cluster payload from the markers API.
+   * @param {ApplyMarkersOptions} [options]
+   *   Marker render options.
+   */
+  function applyClusters(root, clusters, options) {
+    const preserveViewport = options?.preserveViewport === true;
+    const mapEl = root.querySelector('.geofield-google-map');
+    const formatter = Drupal.geoFieldMapFormatter;
+    if (!mapEl || !formatter?.map_data?.[mapEl.id]) {
+      return;
+    }
+
+    const mapData = formatter.map_data[mapEl.id];
+    clearMarkers(mapData);
+
+    clusters.forEach(function (cluster, index) {
+      const lat = parseFloat(cluster.lat);
+      const lng = parseFloat(cluster.lng);
+      const count = Number(cluster.count || 0);
+      const mapBounds = String(cluster.map_bounds || '');
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || count <= 0 || mapBounds === '') {
+        return;
+      }
+
+      const marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        icon: Drupal.psSearchMap.buildClusterMarkerIcon(count),
+        map: mapData.map,
+        zIndex: google.maps.Marker.MAX_ZINDEX + count,
+      });
+
+      marker.geojsonProperties = {
+        entity_id: `cluster:${index}`,
+        ps_search_cluster: true,
+        ps_search_cluster_count: count,
+        ps_search_map_bounds: mapBounds,
+      };
+
+      mapData.markers[`cluster:${index}`] = marker;
+
+      google.maps.event.addListener(marker, 'click', function () {
+        if (typeof Drupal.psSearchPage.reloadZoneSearch === 'function') {
+          Drupal.psSearchPage.reloadZoneSearch(root, mapBounds);
+        }
+      });
+    });
+
+    if (!preserveViewport) {
+      fitMapToZone(root, mapData);
+    }
+    Drupal.psSearchMap.resizeMaps(root);
+
+    root.classList.add('is-map-ready');
+    root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
+      detail: {
+        mapData: mapData,
+        preserveViewport: preserveViewport,
+        displayMode: 'clusters',
+      },
+    }));
+  }
+
   /**
    * @typedef {object} ApplyMarkersOptions
    * @property {boolean} [preserveViewport]
@@ -407,8 +477,74 @@
       detail: {
         mapData: mapData,
         preserveViewport: preserveViewport,
+        displayMode: 'markers',
       },
     }));
+  }
+
+  /**
+   * Applies markers API payload (individual markers or server-side clusters).
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {object} payload
+   *   Markers API JSON body.
+   * @param {ApplyMarkersOptions} [options]
+   *   Marker render options.
+   */
+  function applyMarkersPayload(root, payload, options) {
+    const data = payload && typeof payload === 'object' ? payload : {};
+    const displayMode = String(data.display_mode || 'markers');
+    const clusters = Array.isArray(data.clusters) ? data.clusters : [];
+    const markers = Array.isArray(data.markers) ? data.markers : [];
+
+    if (displayMode === 'clusters' && clusters.length > 0) {
+      applyClusters(root, clusters, options);
+      return;
+    }
+
+    applyMarkers(root, markers, options);
+  }
+
+  /**
+   * Whether the map should mirror loaded list cards (paginated load-more mode).
+   *
+   * @return {boolean}
+   *   TRUE when list and map must show the same offer set.
+   */
+  function shouldSyncMapToList() {
+    return drupalSettings.psSearch?.listLoadAll !== true;
+  }
+
+  /**
+   * Filters cached zone markers to offers currently visible in the list.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   * @param {ApplyMarkersOptions} [options]
+   *   Marker render options.
+   */
+  function syncMapMarkersToList(root, options) {
+    if (!shouldSyncMapToList()) {
+      return;
+    }
+
+    const cache = root.psSearchMarkersCache;
+    const markers = Array.isArray(cache?.markers) ? cache.markers : [];
+    if (markers.length === 0 || typeof Drupal.psSearchPage?.getListOfferNids !== 'function') {
+      return;
+    }
+
+    const listNids = Drupal.psSearchPage.getListOfferNids(root);
+    if (listNids.size === 0) {
+      return;
+    }
+
+    const filtered = markers.filter(function (item) {
+      return listNids.has(String(item.nid || ''));
+    });
+
+    applyMarkers(root, filtered, Object.assign({ preserveViewport: true }, options || {}));
   }
 
   /**
@@ -418,13 +554,11 @@
    *   Search view root.
    * @param {string} [queryString]
    *   Optional query string (without leading "?").
+   * @param {ApplyMarkersOptions} [options]
+   *   Marker fetch/render options.
    *
    * @return {Promise<object>}
    *   Markers API payload.
-   */
-  /**
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker fetch/render options.
    */
   function loadMarkers(root, queryString, options) {
     const baseUrl = window.drupalSettings?.psSearch?.markersUrl || '/ps-search/markers';
@@ -450,21 +584,35 @@
       })
       .then(function (data) {
         const payload = data && typeof data === 'object' ? data : { markers: [], zone_count: 0 };
-        applyMarkers(root, Array.isArray(payload.markers) ? payload.markers : [], options);
+        root.psSearchMarkersCache = payload;
+
+        if (shouldSyncMapToList() && payload.display_mode === 'markers') {
+          syncMapMarkersToList(root, options);
+        }
+        else {
+          applyMarkersPayload(root, payload, options);
+        }
+
         return payload;
       })
       .catch(function () {
-        applyMarkers(root, [], options);
-        return { markers: [], zone_count: 0 };
+        root.psSearchMarkersCache = { display_mode: 'markers', markers: [], clusters: [] };
+        applyMarkersPayload(root, root.psSearchMarkersCache, options);
+        return { markers: [], clusters: [], zone_count: 0, display_mode: 'markers' };
       });
   }
 
   Drupal.psSearchPage = Drupal.psSearchPage || {};
   Drupal.psSearchPage.loadMarkers = loadMarkers;
+  Drupal.psSearchPage.syncMapMarkersToList = syncMapMarkersToList;
 
   Drupal.behaviors.psSearchPageMapMarkers = {
     attach(context) {
       once('ps-search-map-markers', '.ps-search-view', context).forEach(function (root) {
+        root.addEventListener('ps-search-list-new-content', function () {
+          syncMapMarkersToList(root, { preserveViewport: true });
+        });
+
         Drupal.psSearchMap.whenMapShellReady(root, function () {
           loadMarkers(root);
         });
