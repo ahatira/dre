@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Hook;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\ps_search\Service\MapBoundsResolver;
 use Drupal\ps_search\Service\SearchFilterQueryBuilder;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Applies active map bounds to Search API queries backing the search UI.
  *
  * - page_list: business filters + map zone (list cards and counts).
- * - map_attachment: zero results (empty geofield shell; markers via API).
+ * - map_attachment: same zone scope, capped at markers_max for geofield_map.
  */
 final class MapBoundsQueryHooks {
 
@@ -24,17 +25,14 @@ final class MapBoundsQueryHooks {
    */
   private const ZONE_SCOPED_SEARCH_IDS = [
     'views_page:ps_search_offers__page_list',
+    'views_attachment:ps_search_offers__map_attachment',
   ];
-
-  /**
-   * Search API query ID for the empty geofield map shell (markers via API).
-   */
-  private const MAP_SHELL_SEARCH_ID = 'views_attachment:ps_search_offers__map_attachment';
 
   public function __construct(
     private readonly MapBoundsResolver $mapBoundsResolver,
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly RequestStack $requestStack,
+    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
@@ -44,8 +42,17 @@ final class MapBoundsQueryHooks {
   public function searchApiQueryAlter(QueryInterface $query): void {
     $searchId = (string) $query->getSearchId();
 
-    if ($searchId === self::MAP_SHELL_SEARCH_ID) {
-      $query->range(0, 0);
+    if ($searchId === 'views_attachment:ps_search_offers__map_attachment') {
+      $request = $this->requestStack->getCurrentRequest();
+      if ($request === NULL) {
+        return;
+      }
+
+      $query->range(0, $this->resolveMarkersMax());
+      $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
+      if ($bounds instanceof MapBounds) {
+        $this->filterQueryBuilder->applyMapBounds($query, $bounds);
+      }
       return;
     }
 
@@ -64,6 +71,14 @@ final class MapBoundsQueryHooks {
     }
 
     $this->filterQueryBuilder->applyMapBounds($query, $bounds);
+  }
+
+  /**
+   * Resolves the configured markers cap for map attachment queries.
+   */
+  private function resolveMarkersMax(): int {
+    $max = (int) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_max') ?? 500);
+    return max(1, min($max, 1000));
   }
 
 }

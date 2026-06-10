@@ -62,6 +62,9 @@ final class SearchLocationHooks {
 
     $variables['#attached']['drupalSettings']['psSearch']['markersUrl'] = '/ps-search/markers';
     $variables['#attached']['drupalSettings']['psSearch']['isochroneUrl'] = '/ps-search/isochrone';
+    $markersMax = max(1, min((int) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_max') ?? 500), 1000));
+    $variables['#attached']['drupalSettings']['psSearch']['markersMax'] = $markersMax;
+    $variables['#attached']['drupalSettings']['psSearch']['markersClusterEnabled'] = (bool) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_cluster_enabled') ?? TRUE);
     $variables['#attached']['drupalSettings']['psSearch']['globalCount'] = $globalCount;
     $variables['#attached']['drupalSettings']['psSearch']['zoneCount'] = $zoneCount;
     $variables['#attached']['drupalSettings']['psSearch']['listPagerThreshold'] = $threshold;

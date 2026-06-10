@@ -262,27 +262,126 @@
   }
 
   /**
-   * Reloads markers and returns the markers API payload.
+   * Reloads the map attachment via Views AJAX (geofield markers, normal zones).
    *
    * @param {HTMLElement} root
    *   Search view root.
    * @param {URLSearchParams} params
    *   Active search query parameters.
    * @param {object} options
-   *   Marker reload options.
+   *   Reload options.
    *
-   * @return {Promise<object>}
-   *   Markers API payload.
+   * @return {Promise<void>}
+   *   Resolves when the map attachment has been re-rendered.
    */
-  function reloadMarkers(root, params, options) {
-    if (typeof Drupal.psSearchPage.loadMarkers !== 'function') {
-      return Promise.resolve({ markers: [], zone_count: 0 });
+  function reloadMapAttachment(root, params, options) {
+    const preserveViewport = options?.preserveViewport === true;
+    const mapContainer = root.querySelector('.ps-search-view__map');
+    if (!mapContainer) {
+      return Promise.reject(new Error('missing_map_container'));
     }
 
-    const query = params.toString();
-    const preserveViewport = options?.preserveViewport === true;
-    return Drupal.psSearchPage.loadMarkers(root, query, { preserveViewport: preserveViewport }).then(function (data) {
-      return data || { markers: [], zone_count: 0 };
+    let savedCenter = null;
+    let savedZoom = null;
+    if (preserveViewport) {
+      const mapData = Drupal.psSearchMap.getMapData(root);
+      const map = mapData?.map;
+      if (map && typeof map.getCenter === 'function') {
+        savedCenter = map.getCenter();
+        savedZoom = map.getZoom();
+      }
+    }
+
+    const requestParams = new URLSearchParams(params);
+    requestParams.set('_drupal_ajax', '1');
+    requestParams.set('view_name', 'ps_search_offers');
+    requestParams.set('view_display_id', 'map_attachment');
+    requestParams.set('view_args', '');
+    requestParams.set('view_path', window.location.pathname.replace(/^\//, ''));
+    requestParams.set('page', '0');
+
+    return fetch(`${Drupal.url('views/ajax')}?${requestParams.toString()}`, {
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/vnd.drupal-ajax',
+      },
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('views_ajax_map_failed');
+        }
+        return response.json();
+      })
+      .then(function (commands) {
+        if (!Array.isArray(commands)) {
+          throw new Error('invalid_views_ajax_payload');
+        }
+
+        mergeSettingsCommands(commands);
+
+        const insertCommand = commands.find(function (command) {
+          return command.command === 'insert' && command.data;
+        });
+        if (!insertCommand) {
+          throw new Error('missing_map_insert_command');
+        }
+
+        const mapHtml = extractInnerHtml(insertCommand.data, '.ps-search-view__map')
+          || extractInnerHtml(insertCommand.data, '.view-id-ps_search_offers')
+          || insertCommand.data;
+
+        mapContainer.innerHTML = mapHtml;
+        Drupal.attachBehaviors(mapContainer);
+
+        return new Promise(function (resolve) {
+          const zoneCount = Number(drupalSettings.psSearch?.zoneCount || 0);
+          const onReady = function () {
+            if (preserveViewport && savedCenter && typeof savedZoom === 'number') {
+              const mapData = Drupal.psSearchMap.getMapData(root);
+              if (mapData?.map) {
+                mapData.map.setCenter(savedCenter);
+                mapData.map.setZoom(savedZoom);
+              }
+            }
+            if (typeof Drupal.psSearchPage.syncMapMarkersToList === 'function') {
+              Drupal.psSearchPage.syncMapMarkersToList(root, { preserveViewport: preserveViewport });
+            }
+            resolve();
+          };
+
+          if (zoneCount === 0) {
+            Drupal.psSearchMap.whenMapShellReady(root, onReady);
+            return;
+          }
+
+          Drupal.psSearchMap.whenMapReady(root, onReady);
+        });
+      });
+  }
+
+  /**
+   * Reloads map markers for the active zone (geofield attachment or markers API).
+   */
+  function reloadMapPane(root, params, options) {
+    const settings = drupalSettings.psSearch || {};
+    const useApi = settings.markersClusterEnabled !== false
+      && Number(settings.zoneCount || 0) > Number(settings.markersMax || 500);
+
+    if (useApi && typeof Drupal.psSearchPage.loadMarkers === 'function') {
+      const query = params.toString();
+      return Drupal.psSearchPage.loadMarkers(root, query, {
+        preserveViewport: options?.preserveViewport === true,
+      }).then(function (data) {
+        return data || { markers: [], zone_count: 0 };
+      });
+    }
+
+    return reloadMapAttachment(root, params, options).then(function () {
+      return {
+        zone_count: Number(drupalSettings.psSearch?.zoneCount || 0),
+        global_count: Number(drupalSettings.psSearch?.globalCount || 0),
+        display_mode: 'geofield',
+      };
     });
   }
 
@@ -304,7 +403,7 @@
     const preserveViewport = options?.preserveViewport === true;
     const mapBoundsValue = options?.mapBoundsValue || params.get('map_bounds') || '';
 
-    return reloadMarkers(root, params, { preserveViewport: preserveViewport }).then(function (payload) {
+    return reloadMapPane(root, params, { preserveViewport: preserveViewport }).then(function (payload) {
       const zoneCount = Number(payload.zone_count || 0);
       const globalFromMarkers = Number(payload.global_count);
       const hint = root.querySelector('.js-ps-zone-hint');

@@ -2,13 +2,13 @@
   'use strict';
 
   /**
+   * @typedef {object} ApplyMarkersOptions
+   * @property {boolean} [preserveViewport]
+   *   When true, keeps the current map zoom/center.
+   */
+
+  /**
    * Builds the markers API URL preserving current search query parameters.
-   *
-   * @param {string} baseUrl
-   *   Markers endpoint path.
-   *
-   * @return {string}
-   *   Fully qualified relative URL.
    */
   function buildMarkersUrl(baseUrl) {
     const url = new URL(baseUrl, window.location.origin);
@@ -23,9 +23,6 @@
 
   /**
    * Clears existing markers and cluster state on the geofield map bucket.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
   function clearMarkers(mapData) {
     Object.keys(mapData.markers || {}).forEach(function (key) {
@@ -50,11 +47,6 @@
 
   /**
    * Initializes OverlappingMarkerSpiderfier when the map shell has no features.
-   *
-   * Geofield only creates OMS when server features exist; API markers load later.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
   function ensureOms(mapData) {
     if (mapData.oms || typeof OverlappingMarkerSpiderfier === 'undefined' || !mapData.map) {
@@ -87,11 +79,6 @@
 
   /**
    * Places a client-side marker without geofield infowindow click handlers.
-   *
-   * @param {google.maps.Marker} marker
-   *   Marker instance.
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
   function placeClientMarker(marker, mapData) {
     ensureOms(mapData);
@@ -116,12 +103,6 @@
 
   /**
    * Whether all markers in a cluster share the exact same coordinates.
-   *
-   * @param {Array<google.maps.Marker>} markers
-   *   Cluster markers.
-   *
-   * @return {boolean}
-   *   TRUE when every marker is co-located.
    */
   function markersSharePosition(markers) {
     if (!markers || markers.length < 2) {
@@ -141,28 +122,7 @@
   }
 
   /**
-   * Returns markers attached to a MarkerClusterer cluster.
-   *
-   * @param {object} cluster
-   *   MarkerClusterer cluster instance.
-   *
-   * @return {Array<google.maps.Marker>}
-   *   Markers in the cluster.
-   */
-  function getClusterMarkers(cluster) {
-    if (typeof cluster.getMarkers === 'function') {
-      return cluster.getMarkers();
-    }
-    return Array.isArray(cluster.markers_) ? cluster.markers_ : [];
-  }
-
-  /**
    * Spiderfies co-located markers via OMS when clustering cannot split them.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
-   * @param {Array<google.maps.Marker>} markers
-   *   Co-located cluster markers.
    */
   function spiderfyColocatedMarkers(mapData, markers) {
     if (!mapData.oms || !mapData.map || markers.length < 2) {
@@ -188,9 +148,6 @@
 
   /**
    * Handles cluster clicks for markers that share the same coordinates.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
   function bindColocatedClusterHandler(mapData) {
     if (!mapData.markerCluster || mapData.__psSearchColocatedClusterBound) {
@@ -200,7 +157,7 @@
     mapData.__psSearchColocatedClusterBound = true;
 
     google.maps.event.addListener(mapData.markerCluster, 'clusterclick', function (cluster) {
-      const markers = getClusterMarkers(cluster);
+      const markers = Drupal.psSearchMap.getClusterMarkers(cluster);
       if (!markersSharePosition(markers)) {
         return;
       }
@@ -210,21 +167,39 @@
   }
 
   /**
-   * Splits markers between clusterer (distinct positions) and OMS-only groups.
-   *
-   * @param {object} mapData
-   *   Geofield map data bucket.
-   *
-   * @return {{clusterable: Array<google.maps.Marker>, colocated: Array<google.maps.Marker>}}
-   *   Markers for MarkerClusterer vs OMS-only co-located groups.
+   * Removes orphaned MarkerClusterer DOM nodes from the map overlay.
    */
-  function splitClusterableMarkers(mapData) {
-    const groups = {};
-    const allMarkers = Object.keys(mapData.markers || {}).map(function (key) {
-      return mapData.markers[key];
+  function clearOrphanClusterDom(mapEl) {
+    if (!mapEl) {
+      return;
+    }
+    mapEl.querySelectorAll('.cluster').forEach(function (element) {
+      element.remove();
     });
+  }
 
-    allMarkers.forEach(function (marker) {
+  /**
+   * Clears MarkerClusterer state before a rebuild.
+   */
+  function resetMapClusterState(mapEl, mapData) {
+    clearOrphanClusterDom(mapEl);
+    if (mapData.markerCluster && typeof mapData.markerCluster.clearMarkers === 'function') {
+      mapData.markerCluster.clearMarkers();
+      mapData.markerCluster = null;
+    }
+    mapData.__psSearchColocatedClusterBound = false;
+  }
+
+  /**
+   * Splits markers between clusterer (distinct positions) and OMS-only groups.
+   */
+  function splitClusterableMarkers(mapData, markerFilter) {
+    const groups = {};
+    Object.keys(mapData.markers || {}).map(function (key) {
+      return mapData.markers[key];
+    }).filter(function (marker) {
+      return typeof markerFilter !== 'function' || markerFilter(marker);
+    }).forEach(function (marker) {
       const position = marker.getPosition?.();
       if (!position) {
         return;
@@ -239,8 +214,8 @@
     const clusterable = [];
     const colocated = [];
 
-    Object.keys(groups).forEach(function (key) {
-      const group = groups[key];
+    Object.keys(groups).forEach(function (groupKey) {
+      const group = groups[groupKey];
       if (group.length > 1) {
         colocated.push.apply(colocated, group);
       }
@@ -254,13 +229,8 @@
 
   /**
    * Rebuilds MarkerClusterer from the current markers bucket.
-   *
-   * @param {string} mapId
-   *   Geofield map element id.
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
-  function rebuildMarkerCluster(mapId, mapData) {
+  function rebuildMarkerCluster(mapData, visibleNids) {
     if (typeof MarkerClusterer === 'undefined' || !mapData.map) {
       return;
     }
@@ -272,26 +242,27 @@
 
     const options = {
       imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-      // Same-GPS pairs stay on OMS (splitClusterableMarkers); nearby pairs cluster at 2.
       minimumClusterSize: 2,
       maxZoom: 18,
     };
 
     if (clusterSettings.markercluster_additional_options) {
       try {
-        const additional = JSON.parse(clusterSettings.markercluster_additional_options);
-        Object.assign(options, additional);
+        Object.assign(options, JSON.parse(clusterSettings.markercluster_additional_options));
       }
       catch (e) {
         // Keep default cluster options when JSON is invalid.
       }
     }
 
-    const split = splitClusterableMarkers(mapData);
+    const markerFilter = visibleNids instanceof Set
+      ? function (marker) {
+        const meta = Drupal.psSearchMap.getMarkerMeta(marker);
+        return meta.nid !== '' && visibleNids.has(meta.nid);
+      }
+      : undefined;
 
-    // Co-located offers share one address: OMS spiderfies them on click.
-    // MarkerClusterer cannot split identical coordinates, which caused a
-    // permanent "2" cluster loop on zoom.
+    const split = splitClusterableMarkers(mapData, markerFilter);
     if (split.clusterable.length === 0) {
       mapData.markerCluster = null;
       return;
@@ -304,61 +275,73 @@
 
   /**
    * Fits the map to configured bounds or marker positions.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {object} mapData
-   *   Geofield map data bucket.
    */
-  function fitMapToZone(root, mapData) {
+  function fitMapToZone(root, mapData, listNids) {
     const map = mapData.map;
     if (!map || typeof google === 'undefined' || !google.maps) {
       return;
     }
 
-    const markerKeys = Object.keys(mapData.markers || {});
-    if (markerKeys.length > 0) {
-      const latLngBounds = new google.maps.LatLngBounds();
-      markerKeys.forEach(function (key) {
-        const position = mapData.markers[key].getPosition();
-        if (position) {
-          latLngBounds.extend(position);
-        }
-      });
-      if (!latLngBounds.isEmpty()) {
-        map.fitBounds(latLngBounds, 48);
+    const bounds = new google.maps.LatLngBounds();
+    let count = 0;
+
+    Object.values(mapData.markers || {}).forEach(function (marker) {
+      const meta = Drupal.psSearchMap.getMarkerMeta(marker);
+      if (listNids instanceof Set && (!meta.nid || !listNids.has(meta.nid))) {
         return;
       }
+      const position = marker.getPosition?.();
+      if (position) {
+        bounds.extend(position);
+        count += 1;
+      }
+    });
+
+    if (count > 0 && !bounds.isEmpty()) {
+      map.fitBounds(bounds, 48);
+      return;
     }
 
     const boundsConfig = window.drupalSettings?.psSearch?.mapBounds;
-
     if (boundsConfig && typeof boundsConfig.swLat === 'number') {
-      const bounds = new google.maps.LatLngBounds(
+      map.fitBounds(new google.maps.LatLngBounds(
         new google.maps.LatLng(boundsConfig.swLat, boundsConfig.swLng),
         new google.maps.LatLng(boundsConfig.neLat, boundsConfig.neLng),
-      );
-      map.fitBounds(bounds, 48);
+      ), 48);
     }
   }
 
   /**
-   * Injects API markers into the geofield map bucket.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {Array<object>} markers
-   *   Marker payload from the markers API.
+   * Notifies map sync listeners that markers are ready.
    */
+  function dispatchMapMarkersLoaded(root, mapData, options, displayMode) {
+    root.classList.add('is-map-ready');
+    root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
+      detail: {
+        mapData: mapData,
+        preserveViewport: options?.preserveViewport === true,
+        displayMode: displayMode,
+      },
+    }));
+  }
+
+  /**
+   * Restricts markersByNid to the loaded list subset.
+   */
+  function indexVisibleMarkersByNid(mapData, listNids) {
+    Drupal.psSearchMap.indexMarkersByNid(mapData);
+    if (!(listNids instanceof Set)) {
+      return;
+    }
+    Object.keys(mapData.markersByNid || {}).forEach(function (nid) {
+      if (!listNids.has(nid)) {
+        delete mapData.markersByNid[nid];
+      }
+    });
+  }
+
   /**
    * Renders server-side grid clusters and zooms into a cell on click.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {Array<object>} clusters
-   *   Cluster payload from the markers API.
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker render options.
    */
   function applyClusters(root, clusters, options) {
     const preserveViewport = options?.preserveViewport === true;
@@ -407,26 +390,11 @@
       fitMapToZone(root, mapData);
     }
     Drupal.psSearchMap.resizeMaps(root);
-
-    root.classList.add('is-map-ready');
-    root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
-      detail: {
-        mapData: mapData,
-        preserveViewport: preserveViewport,
-        displayMode: 'clusters',
-      },
-    }));
+    dispatchMapMarkersLoaded(root, mapData, options, 'clusters');
   }
 
   /**
-   * @typedef {object} ApplyMarkersOptions
-   * @property {boolean} [preserveViewport]
-   *   When true, keeps the current map zoom/center (e.g. after Search this area).
-   */
-
-  /**
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker render options.
+   * Injects API markers into the geofield map bucket.
    */
   function applyMarkers(root, markers, options) {
     const preserveViewport = options?.preserveViewport === true;
@@ -436,8 +404,7 @@
       return;
     }
 
-    const mapId = mapEl.id;
-    const mapData = formatter.map_data[mapId];
+    const mapData = formatter.map_data[mapEl.id];
     clearMarkers(mapData);
     ensureOms(mapData);
 
@@ -466,31 +433,16 @@
     });
 
     Drupal.psSearchMap.indexMarkersByNid(mapData);
-    rebuildMarkerCluster(mapId, mapData);
+    rebuildMarkerCluster(mapData);
     if (!preserveViewport) {
       fitMapToZone(root, mapData);
     }
     Drupal.psSearchMap.resizeMaps(root);
-
-    root.classList.add('is-map-ready');
-    root.dispatchEvent(new CustomEvent('ps-search-map-markers-loaded', {
-      detail: {
-        mapData: mapData,
-        preserveViewport: preserveViewport,
-        displayMode: 'markers',
-      },
-    }));
+    dispatchMapMarkersLoaded(root, mapData, options, 'markers');
   }
 
   /**
    * Applies markers API payload (individual markers or server-side clusters).
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {object} payload
-   *   Markers API JSON body.
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker render options.
    */
   function applyMarkersPayload(root, payload, options) {
     const data = payload && typeof payload === 'object' ? payload : {};
@@ -507,74 +459,148 @@
   }
 
   /**
-   * Whether the map should mirror loaded list cards (paginated load-more mode).
-   *
-   * @return {boolean}
-   *   TRUE when list and map must show the same offer set.
+   * Whether dense zones use the markers API instead of geofield.
+   */
+  function shouldUseMarkersApi() {
+    const settings = drupalSettings.psSearch || {};
+    const zoneCount = Number(settings.zoneCount || 0);
+    const markersMax = Number(settings.markersMax || 500);
+    return settings.markersClusterEnabled !== false && zoneCount > markersMax;
+  }
+
+  /**
+   * Whether the map mirrors loaded list cards (paginated load-more mode).
    */
   function shouldSyncMapToList() {
     return drupalSettings.psSearch?.listLoadAll !== true;
   }
 
   /**
-   * Filters cached zone markers to offers currently visible in the list.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker render options.
+   * Shows all geofield markers (small zones, listLoadAll mode).
+   */
+  function showAllGeofieldMarkers(root, options) {
+    const mapEl = root.querySelector('.geofield-google-map');
+    const mapData = Drupal.psSearchMap.getMapData(root);
+    if (!mapEl || !mapData?.map) {
+      return;
+    }
+
+    resetMapClusterState(mapEl, mapData);
+    ensureOms(mapData);
+    Drupal.psSearchMap.indexMarkersByNid(mapData);
+    rebuildMarkerCluster(mapData);
+
+    if (options?.preserveViewport !== true) {
+      fitMapToZone(root, mapData);
+    }
+    Drupal.psSearchMap.resizeMaps(root);
+    dispatchMapMarkersLoaded(root, mapData, options, 'geofield');
+  }
+
+  /**
+   * Filters map markers to offers currently visible in the paginated list.
    */
   function syncMapMarkersToList(root, options) {
+    options = options || {};
+
     if (!shouldSyncMapToList()) {
+      showAllGeofieldMarkers(root, options);
       return;
     }
 
-    const cache = root.psSearchMarkersCache;
-    const markers = Array.isArray(cache?.markers) ? cache.markers : [];
-    if (markers.length === 0 || typeof Drupal.psSearchPage?.getListOfferNids !== 'function') {
-      return;
-    }
-
-    const listNids = Drupal.psSearchPage.getListOfferNids(root);
+    const listNids = typeof Drupal.psSearchPage?.getListOfferNids === 'function'
+      ? Drupal.psSearchPage.getListOfferNids(root)
+      : new Set();
     if (listNids.size === 0) {
       return;
     }
 
-    const filtered = markers.filter(function (item) {
-      return listNids.has(String(item.nid || ''));
+    // Dense zones: filter cached API markers then render.
+    if (shouldUseMarkersApi() && root.psSearchMarkersCache?.display_mode === 'markers') {
+      const markers = root.psSearchMarkersCache.markers || [];
+      const filtered = markers.filter(function (item) {
+        return listNids.has(String(item.nid || ''));
+      });
+      clearOrphanClusterDom(root.querySelector('.geofield-google-map'));
+      applyMarkers(root, filtered, Object.assign({ preserveViewport: true }, options));
+      return;
+    }
+
+    // Normal zones: show/hide geofield markers already rendered by Views.
+    const mapEl = root.querySelector('.geofield-google-map');
+    const mapData = Drupal.psSearchMap.getMapData(root);
+    if (!mapEl || !mapData?.map) {
+      return;
+    }
+
+    resetMapClusterState(mapEl, mapData);
+    ensureOms(mapData);
+
+    Object.values(mapData.markers || {}).forEach(function (marker) {
+      const meta = Drupal.psSearchMap.getMarkerMeta(marker);
+      const visible = meta.nid !== '' && listNids.has(meta.nid);
+
+      if (mapData.oms && typeof mapData.oms.removeMarker === 'function') {
+        mapData.oms.removeMarker(marker);
+      }
+      marker.setMap(null);
+
+      if (!visible) {
+        return;
+      }
+
+      if (mapData.oms) {
+        mapData.oms.addMarker(marker);
+      }
+      else {
+        marker.setMap(mapData.map);
+      }
     });
 
-    applyMarkers(root, filtered, Object.assign({ preserveViewport: true }, options || {}));
+    indexVisibleMarkersByNid(mapData, listNids);
+    rebuildMarkerCluster(mapData, listNids);
+
+    if (options.preserveViewport !== true) {
+      fitMapToZone(root, mapData, listNids);
+    }
+    Drupal.psSearchMap.resizeMaps(root);
+    dispatchMapMarkersLoaded(root, mapData, options, 'geofield-sync');
   }
 
   /**
-   * Fetches zone markers and renders them on the map.
-   *
-   * @param {HTMLElement} root
-   *   Search view root.
-   * @param {string} [queryString]
-   *   Optional query string (without leading "?").
-   * @param {ApplyMarkersOptions} [options]
-   *   Marker fetch/render options.
-   *
-   * @return {Promise<object>}
-   *   Markers API payload.
+   * Initializes map markers on first paint.
+   */
+  function initMapMarkers(root) {
+    if (shouldUseMarkersApi()) {
+      loadMarkers(root);
+      return;
+    }
+
+    const zoneCount = Number(drupalSettings.psSearch?.zoneCount || 0);
+    const onReady = function () {
+      syncMapMarkersToList(root, { preserveViewport: false });
+    };
+
+    if (zoneCount === 0) {
+      Drupal.psSearchMap.whenMapShellReady(root, onReady);
+      return;
+    }
+
+    Drupal.psSearchMap.whenMapReady(root, onReady);
+  }
+
+  /**
+   * Fetches zone markers and renders them on the map (dense zones).
    */
   function loadMarkers(root, queryString, options) {
     const baseUrl = window.drupalSettings?.psSearch?.markersUrl || '/ps-search/markers';
-    let url = baseUrl;
-    if (typeof queryString === 'string' && queryString.length > 0) {
-      url = `${baseUrl}?${queryString}`;
-    }
-    else {
-      url = buildMarkersUrl(baseUrl);
-    }
+    const url = (typeof queryString === 'string' && queryString.length > 0)
+      ? `${baseUrl}?${queryString}`
+      : buildMarkersUrl(baseUrl);
 
     return fetch(url, {
       credentials: 'same-origin',
-      headers: {
-        Accept: 'application/json',
-      },
+      headers: { Accept: 'application/json' },
     })
       .then(function (response) {
         if (!response.ok) {
@@ -612,10 +638,7 @@
         root.addEventListener('ps-search-list-new-content', function () {
           syncMapMarkersToList(root, { preserveViewport: true });
         });
-
-        Drupal.psSearchMap.whenMapShellReady(root, function () {
-          loadMarkers(root);
-        });
+        initMapMarkers(root);
       });
     },
   };

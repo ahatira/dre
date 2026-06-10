@@ -896,6 +896,50 @@ display:
           separator: ', '
           field_api_classes: false
           hide_altered_empty: false
+        field_budget_value:
+          id: field_budget_value
+          table: search_api_index_offers
+          field: field_budget_value
+          plugin_id: search_api_numeric
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          field_api_classes: false
+          hide_altered_empty: false
+        field_budget_currency:
+          id: field_budget_currency
+          table: search_api_index_offers
+          field: field_budget_currency
+          plugin_id: search_api
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          field_api_classes: false
+          hide_altered_empty: false
         title:
           id: title
           table: search_api_index_offers

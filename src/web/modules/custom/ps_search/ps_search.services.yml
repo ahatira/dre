@@ -88,6 +88,7 @@ services:
       - '@ps_search.map_bounds_resolver'
       - '@ps_search.filter_query_builder'
       - '@request_stack'
+      - '@config.factory'
 
   Drupal\ps_search\Hook\SearchListPagerHooks:
     class: Drupal\ps_search\Hook\SearchListPagerHooks
@@ -142,6 +143,8 @@ services:
 
   Drupal\ps_search\Hook\GeofieldMapHooks:
     class: Drupal\ps_search\Hook\GeofieldMapHooks
+    arguments:
+      - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
 
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks
