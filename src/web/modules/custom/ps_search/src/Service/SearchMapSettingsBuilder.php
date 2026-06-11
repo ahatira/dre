@@ -22,9 +22,13 @@ final class SearchMapSettingsBuilder {
   /**
    * Default MarkerClusterer options (BNPPRE cluster styling).
    */
+  private const DEFAULT_CLUSTER_MAX_ZOOM = 16;
+
+  private const DEFAULT_CLUSTER_SKIP_BELOW = 10;
+
   private const DEFAULT_CLUSTER_OPTIONS = [
     'minimumClusterSize' => 2,
-    'maxZoom' => 14,
+    'maxZoom' => self::DEFAULT_CLUSTER_MAX_ZOOM,
     'gridSize' => 60,
     'styles' => [
       [
@@ -58,9 +62,7 @@ final class SearchMapSettingsBuilder {
 
     $center = $this->resolveCenter($request, $zoneConfig);
 
-    $clusterOptions = $this->parseClusterOptions(
-      (string) ($zoneConfig->get('cluster_options') ?? ''),
-    );
+    $clusterOptions = $this->buildClusterOptions($zoneConfig);
 
     $mapId = trim((string) ($zoneConfig->get('google_map_id') ?? ''));
 
@@ -102,24 +104,30 @@ final class SearchMapSettingsBuilder {
   }
 
   /**
-   * Parses cluster JSON from map zone settings.
+   * Builds MarkerClusterer options from BO settings and optional JSON override.
    *
    * @return array<string, mixed>
    *   MarkerClusterer options array.
    */
-  private function parseClusterOptions(string $raw): array {
-    if ($raw === '') {
-      return self::DEFAULT_CLUSTER_OPTIONS;
+  private function buildClusterOptions($zoneConfig): array {
+    $options = self::DEFAULT_CLUSTER_OPTIONS;
+    $raw = (string) ($zoneConfig->get('cluster_options') ?? '');
+    if ($raw !== '') {
+      try {
+        $decoded = json_decode($raw, TRUE, 512, JSON_THROW_ON_ERROR);
+        if (is_array($decoded)) {
+          $options = array_merge($options, $decoded);
+        }
+      }
+      catch (\JsonException) {
+        // Keep defaults when JSON is invalid.
+      }
     }
 
-    try {
-      $decoded = json_decode($raw, TRUE, 512, JSON_THROW_ON_ERROR);
-    }
-    catch (\JsonException) {
-      return self::DEFAULT_CLUSTER_OPTIONS;
-    }
+    $maxZoom = (int) ($zoneConfig->get('marker_cluster_max_zoom') ?? self::DEFAULT_CLUSTER_MAX_ZOOM);
+    $options['maxZoom'] = max(0, min(22, $maxZoom));
 
-    return is_array($decoded) ? $decoded : self::DEFAULT_CLUSTER_OPTIONS;
+    return $options;
   }
 
 }

@@ -100,6 +100,12 @@ ps_search.map_zone_settings:
     gesture_handling:
       type: string
       label: 'Map gesture handling mode'
+    marker_cluster_max_zoom:
+      type: integer
+      label: 'Client-side marker cluster max zoom'
+    marker_cluster_skip_below:
+      type: integer
+      label: 'Skip client-side clustering up to this marker count'
     cluster_options:
       type: string
       label: 'Client-side MarkerClusterer options (JSON)'

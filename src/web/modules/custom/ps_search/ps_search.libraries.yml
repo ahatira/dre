@@ -100,7 +100,7 @@ search-page-zone-reload:
     - views/views.ajax
 
 search-page-map-markers:
-  version: 1.0.8
+  version: 1.0.9
   js:
     js/page/search-page-map-markers.js: {}
   dependencies:
@@ -135,7 +135,7 @@ search-page-map-zone:
     - ps_search/search-page-map-popup
 
 search-page-location:
-  version: 1.0.0
+  version: 1.0.1
   js:
     js/page/search-page-location.js: {}
   dependencies:

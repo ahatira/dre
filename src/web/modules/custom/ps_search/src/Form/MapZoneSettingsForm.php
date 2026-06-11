@@ -111,12 +111,39 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       ],
     ];
 
-    $form['map_shell']['cluster_options'] = [
+    $form['map_shell']['marker_clustering'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Client-side marker clustering'),
+      '#open' => TRUE,
+      '#description' => $this->t('Controls MarkerClusterer on the search map (price bubbles grouped at low zoom). Server-side grid clusters for dense zones are configured separately below.'),
+    ];
+
+    $form['map_shell']['marker_clustering']['marker_cluster_max_zoom'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Cluster max zoom'),
+      '#default_value' => $config->get('marker_cluster_max_zoom') ?? 16,
+      '#required' => TRUE,
+      '#min' => 0,
+      '#max' => 22,
+      '#description' => $this->t('Individual price markers are shown above this zoom level. Clusters appear at this zoom and below (Google Maps zoom 0–22). Recommended: 16.'),
+    ];
+
+    $form['map_shell']['marker_clustering']['marker_cluster_skip_below'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Skip clustering up to this marker count'),
+      '#default_value' => $config->get('marker_cluster_skip_below') ?? 10,
+      '#required' => TRUE,
+      '#min' => 0,
+      '#max' => 1000,
+      '#description' => $this->t('When the map displays this many markers or fewer, always show individual price markers (no cluster bubble). Set to 0 to always cluster when zoom allows. Recommended: 10.'),
+    ];
+
+    $form['map_shell']['marker_clustering']['cluster_options'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Marker cluster options (JSON)'),
+      '#title' => $this->t('Advanced cluster options (JSON)'),
       '#default_value' => $config->get('cluster_options') ?? '',
       '#rows' => 6,
-      '#description' => $this->t('MarkerClusterer options passed to the PS map JS layer. Leave empty for BNPPRE defaults (minimumClusterSize 2, maxZoom 14). Use double quotes in JSON.'),
+      '#description' => $this->t('Optional MarkerClusterer overrides (gridSize, styles, minimumClusterSize, …). Max zoom is always taken from the field above. Leave empty for BNPPRE defaults.'),
     ];
 
     $form['map_shell']['google_map_id'] = [
@@ -252,7 +279,7 @@ final class MapZoneSettingsForm extends ConfigFormBase {
         json_decode($clusterOptions, TRUE, 512, JSON_THROW_ON_ERROR);
       }
       catch (\JsonException $exception) {
-        $form_state->setErrorByName('cluster_options', $this->t('Marker cluster options must be valid JSON.'));
+        $form_state->setErrorByName('cluster_options', $this->t('Advanced cluster options must be valid JSON.'));
         return;
       }
     }
@@ -265,6 +292,8 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       ->set('zoom_min', (int) $form_state->getValue('zoom_min'))
       ->set('zoom_max', (int) $form_state->getValue('zoom_max'))
       ->set('gesture_handling', (string) $form_state->getValue('gesture_handling'))
+      ->set('marker_cluster_max_zoom', (int) $form_state->getValue('marker_cluster_max_zoom'))
+      ->set('marker_cluster_skip_below', (int) $form_state->getValue('marker_cluster_skip_below'))
       ->set('cluster_options', $clusterOptions)
       ->set('google_map_id', trim((string) $form_state->getValue('google_map_id')))
       ->set('lazy_load', (bool) $form_state->getValue('lazy_load'))

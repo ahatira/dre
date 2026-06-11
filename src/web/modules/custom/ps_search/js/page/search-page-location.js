@@ -10,22 +10,37 @@
 
       once('ps-search-location-map', '.ps-search-view', context).forEach(function (root) {
         /**
-         * Centers the map on the selected location and draws a radius circle.
+         * Approximates a LatLngBounds from a center point and radius in metres.
          *
-         * @param {object} mapData
-         *   PS map data bucket.
+         * @param {{lat: number, lng: number}} center
+         * @param {number} radiusM
+         *
+         * @return {google.maps.LatLngBounds|null}
          */
+        function boundsFromCenterRadius(center, radiusM) {
+          const latDelta = radiusM / 111000;
+          const lngScale = Math.cos((center.lat * Math.PI) / 180) || 1;
+          const lngDelta = radiusM / (111000 * lngScale);
+          if (!window.google?.maps?.LatLngBounds) {
+            return null;
+          }
+          return new google.maps.LatLngBounds(
+            { lat: center.lat - latDelta, lng: center.lng - lngDelta },
+            { lat: center.lat + latDelta, lng: center.lng + lngDelta }
+          );
+        }
+
         /**
-         * Draws the location search radius without reframing the map.
+         * Centers the map on the selected location (no visible radius overlay).
          *
          * @param {object} mapData
          *   PS map data bucket.
          * @param {object} [options]
-         *   Overlay options.
+         *   Viewport options.
          * @param {boolean} [options.reframe]
          *   Whether to center/fit the map on the location filter.
          */
-        function applyLocationOverlay(mapData, options) {
+        function applyLocationViewport(mapData, options) {
           const reframe = options?.reframe === true;
           const map = mapData.map || mapData.google_map;
           if (!map) {
@@ -37,25 +52,11 @@
             lng: Number(locationMap.lng),
           };
           const radiusM = Number(locationMap.radiusM) || 2500;
-          const circleColor = locationMap.circleColor || '#00915A';
 
           if (root.__psSearchLocationCircle) {
             root.__psSearchLocationCircle.setMap(null);
+            root.__psSearchLocationCircle = null;
           }
-
-          const circle = new google.maps.Circle({
-            map: map,
-            center: center,
-            radius: radiusM,
-            strokeColor: circleColor,
-            strokeOpacity: 0.9,
-            strokeWeight: 2,
-            fillColor: circleColor,
-            fillOpacity: 0.12,
-            clickable: false,
-          });
-
-          root.__psSearchLocationCircle = circle;
 
           if (!reframe) {
             return;
@@ -66,7 +67,7 @@
             map.setZoom(Number(locationMap.zoom));
           }
 
-          const bounds = circle.getBounds();
+          const bounds = boundsFromCenterRadius(center, radiusM);
           if (bounds) {
             map.fitBounds(bounds);
           }
@@ -88,7 +89,7 @@
         }
 
         root.addEventListener('ps-search-map-markers-loaded', function (event) {
-          applyLocationOverlay(event.detail.mapData, {
+          applyLocationViewport(event.detail.mapData, {
             reframe: event.detail?.preserveViewport !== true,
           });
         });

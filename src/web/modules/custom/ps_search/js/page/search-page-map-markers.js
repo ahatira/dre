@@ -222,6 +222,67 @@
   }
 
   /**
+   * Returns the BO threshold: skip clustering when marker count is at most this value.
+   */
+  function getMarkerClusterSkipBelow() {
+    const value = Number(drupalSettings.psSearch?.markerClusterSkipBelow);
+    return Number.isFinite(value) && value >= 0 ? value : 10;
+  }
+
+  /**
+   * Whether client-side clustering should be skipped for the current marker set.
+   */
+  function shouldSkipMarkerClustering(markerCount) {
+    const skipBelow = getMarkerClusterSkipBelow();
+    return skipBelow > 0 && markerCount > 0 && markerCount <= skipBelow;
+  }
+
+  /**
+   * Shows individual markers and clears any MarkerClusterer instance.
+   */
+  function showIndividualMarkers(mapData, markers) {
+    if (mapData.markerCluster && typeof mapData.markerCluster.clearMarkers === 'function') {
+      mapData.markerCluster.clearMarkers();
+      mapData.markerCluster = null;
+    }
+
+    markers.forEach(function (marker) {
+      if (isOmsActive(mapData)) {
+        placeClientMarker(marker, mapData);
+      }
+      else {
+        marker.setMap(mapData.map);
+      }
+    });
+
+    mapData.__psSearchClusterMode = 'markers';
+    mapData.__psSearchColocatedClusterBound = false;
+  }
+
+  /**
+   * Builds MarkerClusterer options from drupalSettings (BO + optional JSON).
+   */
+  function buildMarkerClusterOptions(clusterSettings) {
+    const options = {
+      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+      minimumClusterSize: 2,
+      maxZoom: 16,
+      gridSize: 60,
+    };
+
+    if (clusterSettings.markercluster_additional_options) {
+      try {
+        Object.assign(options, JSON.parse(clusterSettings.markercluster_additional_options));
+      }
+      catch (e) {
+        // Keep default cluster options when JSON is invalid.
+      }
+    }
+
+    return options;
+  }
+
+  /**
    * Shows individual price markers above maxZoom; clusters below.
    */
   function syncMarkerClusterVisibility(mapData) {
@@ -229,13 +290,21 @@
       return;
     }
 
-    const maxZoom = mapData.__psSearchClusterMaxZoom ?? 14;
+    const maxZoom = mapData.__psSearchClusterMaxZoom ?? 16;
     const zoom = mapData.map.getZoom();
-    const shouldCluster = zoom <= maxZoom;
-    const mode = shouldCluster ? 'cluster' : 'markers';
     const markers = Object.values(mapData.markers || {}).filter(function (marker) {
       return marker?.getPosition?.();
     });
+
+    if (shouldSkipMarkerClustering(markers.length)) {
+      if (mapData.__psSearchClusterMode !== 'markers') {
+        showIndividualMarkers(mapData, markers);
+      }
+      return;
+    }
+
+    const shouldCluster = zoom <= maxZoom;
+    const mode = shouldCluster ? 'cluster' : 'markers';
 
     if (mapData.__psSearchClusterMode === mode) {
       if (mode !== 'cluster' || mapData.markerCluster || markers.length === 0) {
@@ -281,7 +350,7 @@
       return;
     }
 
-    mapData.__psSearchClusterMaxZoom = options.maxZoom ?? 14;
+    mapData.__psSearchClusterMaxZoom = options.maxZoom ?? 16;
     mapData.__psSearchClusterOptions = options;
 
     if (mapData.__psSearchClusterZoomBound) {
@@ -313,32 +382,16 @@
     });
 
     if (!clusterEnabled) {
-      allMarkers.forEach(function (marker) {
-        if (isOmsActive(mapData)) {
-          placeClientMarker(marker, mapData);
-        }
-        else {
-          marker.setMap(mapData.map);
-        }
-      });
+      showIndividualMarkers(mapData, allMarkers);
       return;
     }
 
-    const options = {
-      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-      minimumClusterSize: 2,
-      maxZoom: 14,
-      gridSize: 60,
-    };
-
-    if (clusterSettings.markercluster_additional_options) {
-      try {
-        Object.assign(options, JSON.parse(clusterSettings.markercluster_additional_options));
-      }
-      catch (e) {
-        // Keep default cluster options when JSON is invalid.
-      }
+    if (shouldSkipMarkerClustering(allMarkers.length)) {
+      showIndividualMarkers(mapData, allMarkers);
+      return;
     }
+
+    const options = buildMarkerClusterOptions(clusterSettings);
 
     const split = isOmsActive(mapData)
       ? splitClusterableMarkers(mapData)

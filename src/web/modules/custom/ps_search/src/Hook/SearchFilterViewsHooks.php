@@ -114,8 +114,13 @@ final class SearchFilterViewsHooks {
     $variables['#attached']['drupalSettings']['psSearch']['markersUrl'] = ApiRoutePaths::MARKERS;
     $variables['#attached']['drupalSettings']['psSearch']['isochroneUrl'] = ApiRoutePaths::ISOCHRONE;
     $markersMax = max(1, min((int) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_max') ?? 500), 1000));
+    $mapZoneConfig = $this->configFactory->get('ps_search.map_zone_settings');
     $variables['#attached']['drupalSettings']['psSearch']['markersMax'] = $markersMax;
-    $variables['#attached']['drupalSettings']['psSearch']['markersClusterEnabled'] = (bool) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_cluster_enabled') ?? TRUE);
+    $variables['#attached']['drupalSettings']['psSearch']['markersClusterEnabled'] = (bool) ($mapZoneConfig->get('markers_cluster_enabled') ?? TRUE);
+    $variables['#attached']['drupalSettings']['psSearch']['markerClusterSkipBelow'] = max(
+      0,
+      (int) ($mapZoneConfig->get('marker_cluster_skip_below') ?? 10),
+    );
     $variables['#attached']['drupalSettings']['psSearch']['globalCount'] = $globalCount;
     $variables['#attached']['drupalSettings']['psSearch']['zoneCount'] = $zoneCount;
     $variables['#attached']['drupalSettings']['psSearch']['listPagerThreshold'] = $threshold;
