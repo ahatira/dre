@@ -480,7 +480,9 @@
       return;
     }
 
-    const scrollEl = root.querySelector('.js-ps-search-list-panel');
+    const scrollEl = typeof Drupal.psSearchPage?.getListScrollEl === 'function'
+      ? Drupal.psSearchPage.getListScrollEl(root)
+      : root.querySelector('.js-ps-search-left-scroll, .js-ps-search-list-panel');
     if (scrollEl && scrollEl.contains(card)) {
       const scrollRect = scrollEl.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();

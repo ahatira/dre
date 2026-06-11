@@ -38,7 +38,7 @@ header.search:
     - ps_theme/header
 
 search-page-map-utils:
-  version: 1.0.6
+  version: 1.0.7
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:
@@ -68,7 +68,7 @@ search-page-map-init:
     - ps_search/search-page-map-utils
 
 search-page-core:
-  version: 1.0.4
+  version: 1.0.5
   js:
     js/page/search-page-layout.js: {}
     js/page/search-page-load-more.js: {}
@@ -85,7 +85,7 @@ search-page-core:
     - ui_suite_bnp/framework_js
 
 search-page-map-sync:
-  version: 1.0.3
+  version: 1.0.4
   js:
     js/page/search-page-map-sync.js: {}
   dependencies:

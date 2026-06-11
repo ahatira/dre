@@ -199,7 +199,7 @@
             if (drupalSettings.psSearch?.listLoadAll) {
               Drupal.psSearchPage.fetchOfferCard(String(nid)).then(function (loadedCard) {
                 if (loadedCard) {
-                  const listPanel = Drupal.psSearchPage.getListScrollEl(root);
+                  const listPanel = Drupal.psSearchPage.getListContentEl(root);
                   if (listPanel) {
                     listPanel.appendChild(loadedCard);
                   }

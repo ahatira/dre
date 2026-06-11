@@ -1,0 +1,37 @@
+// Global scrollbar — BNPPRE (bnppre.fr main CSS bundle).
+//
+// bnppre.fr uses ONLY ::-webkit-scrollbar (no scrollbar-color on *).
+// Do not add scrollbar-width/scrollbar-color on * — Chrome applies those
+// standard properties instead of ::-webkit-scrollbar and the render differs
+// (thin native bar with arrows on Windows vs 10px custom track/thumb).
+
+body {
+  scroll-behavior: smooth;
+  // Native scrollbar width for full-bleed layout compensation (bnppre.fr).
+  --scrollbar-width: calc(100vw - (100vw - 100%));
+}
+
+::-webkit-scrollbar {
+  height: 3px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ebedef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b4babe;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #008859;
+}
+
+// Firefox only — WebKit/Blink must keep ::-webkit-scrollbar above.
+@-moz-document url-prefix() {
+  * {
+    scrollbar-color: #b4babe #ebedef;
+    scrollbar-width: thin;
+  }
+}

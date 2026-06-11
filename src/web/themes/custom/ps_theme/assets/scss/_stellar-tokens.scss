@@ -31,6 +31,11 @@
   --ps-z-offcanvas: 1045;
   --ps-z-modal-backdrop: 1050;
   --ps-z-modal: 1055;
+
+  // Scrollbar colors (BNPPRE global — dimensions are fixed 10×3px like bnppre.fr).
+  --ps-scrollbar-track: #ebedef;
+  --ps-scrollbar-thumb: #b4babe;
+  --ps-scrollbar-thumb-hover: #008859;
 }
 
 @media (max-width: 767.98px) {

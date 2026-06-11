@@ -185,18 +185,7 @@
   padding: 4px 0 8px;
   position: static;
   right: auto;
-  scrollbar-color: #d6dbde transparent;
-  scrollbar-width: thin;
   top: auto;
-}
-
-.ps-filter-popin--location .ps-filter-bar__location-suggest::-webkit-scrollbar {
-  width: 6px;
-}
-
-.ps-filter-popin--location .ps-filter-bar__location-suggest::-webkit-scrollbar-thumb {
-  background: #d6dbde;
-  border-radius: 3px;
 }
 
 .ps-filter-popin--location .ps-filter-bar__location-suggest:empty {

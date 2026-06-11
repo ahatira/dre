@@ -52,7 +52,7 @@
 
   {# Split: list or offer detail panel (left) + map (right) #}
   <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
-    <div class="col-lg-6 d-flex flex-column min-h-0 h-100 overflow-hidden border-end ps-search-view__left">
+    <div class="col-lg-6 d-flex flex-column min-h-0 h-100 border-end ps-search-view__left flex-grow-scroll js-ps-search-left-scroll js-ps-search-results-scroll">
       {% if search_results_header %}
         <div class="flex-shrink-0 bg-white border-bottom px-4 py-3 ps-search-view__results-header" id="ps-search-results-header">
           {{ search_results_header }}
@@ -60,7 +60,7 @@
       {% endif %}
 
       {# List mode — Views Load More pager (40 items per page, BNPPRE-style button) #}
-      <div class="flex-grow-scroll px-4 py-3 js-ps-search-list-panel">
+      <div class="px-4 py-3 js-ps-search-list-panel">
         {% if rows %}
           <div class="row g-3 js-ps-search-results-rows">
             {{ rows }}

@@ -9,16 +9,31 @@
   Drupal.psSearchPage = Drupal.psSearchPage || {};
 
   /**
-   * Returns the list scroll container.
+   * Returns the list content container (rows + pager).
    *
    * @param {HTMLElement} root
    *   Search view root.
    *
    * @return {HTMLElement|null}
-   *   Scrollable list panel.
+   *   List content panel.
+   */
+  Drupal.psSearchPage.getListContentEl = function (root) {
+    return root?.querySelector('.js-ps-search-list-panel') || null;
+  };
+
+  /**
+   * Returns the left panel scroll container.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   *
+   * @return {HTMLElement|null}
+   *   Scrollable left panel.
    */
   Drupal.psSearchPage.getListScrollEl = function (root) {
-    return root?.querySelector('.js-ps-search-list-panel') || null;
+    return root?.querySelector('.js-ps-search-left-scroll')
+      || root?.querySelector('.js-ps-search-list-panel')
+      || null;
   };
 
   /**
@@ -32,7 +47,7 @@
    */
   Drupal.psSearchPage.getListOfferNids = function (root) {
     const nids = new Set();
-    const listPanel = Drupal.psSearchPage.getListScrollEl(root);
+    const listPanel = Drupal.psSearchPage.getListContentEl(root);
     if (!listPanel) {
       return nids;
     }
