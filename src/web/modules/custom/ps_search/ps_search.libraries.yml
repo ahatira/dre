@@ -68,7 +68,7 @@ search-page-map-init:
     - ps_search/search-page-map-utils
 
 search-page-core:
-  version: 1.0.3
+  version: 1.0.4
   js:
     js/page/search-page-layout.js: {}
     js/page/search-page-load-more.js: {}

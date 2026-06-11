@@ -115,14 +115,26 @@ services:
     tags:
       - { name: event_subscriber }
 
+  ps_search.list_sort_applier:
+    class: Drupal\ps_search\Search\Query\SearchListSortApplier
+    arguments:
+      - '@ps_search.location_centroid'
+
   ps_search.query_factory:
     class: Drupal\ps_search\Search\Query\SearchQueryFactory
     arguments:
       - '@ps_search.location_filter'
       - '@ps_search.more_criteria_applier'
       - '@language_manager'
+      - '@ps_search.list_sort_applier'
 
   Drupal\ps_search\Contract\SearchQueryFactoryInterface: '@ps_search.query_factory'
+
+  Drupal\ps_search\Hook\SearchListSortQueryHooks:
+    class: Drupal\ps_search\Hook\SearchListSortQueryHooks
+    arguments:
+      - '@ps_search.list_sort_applier'
+      - '@request_stack'
 
   ps_search.more_criteria_applier:
     class: Drupal\ps_search\Service\MoreCriteriaConditionApplier
@@ -221,6 +233,7 @@ services:
       - '@request_stack'
       - '@ps_search.location_filter'
       - '@ps_search.result_counter'
+      - '@ps_search.list_sort_applier'
 
   Drupal\ps_search\Hook\SearchThemeHooks:
     class: Drupal\ps_search\Hook\SearchThemeHooks

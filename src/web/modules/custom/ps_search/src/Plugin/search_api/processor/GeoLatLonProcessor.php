@@ -60,6 +60,13 @@ final class GeoLatLonProcessor extends ProcessorPluginBase {
         'processor_id' => $this->getPluginId(),
         'is_list' => FALSE,
       ]),
+      'field_geo_point' => new ProcessorProperty([
+        'label' => $this->t('Geo point'),
+        'description' => $this->t('Lat/lon point for Solr distance sort.'),
+        'type' => 'location',
+        'processor_id' => $this->getPluginId(),
+        'is_list' => FALSE,
+      ]),
     ];
   }
 
@@ -89,6 +96,9 @@ final class GeoLatLonProcessor extends ProcessorPluginBase {
     }
     foreach ($this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'field_geo_lng') as $field) {
       $field->addValue((float) $lng);
+    }
+    foreach ($this->getFieldsHelper()->filterForPropertyPath($fields, NULL, 'field_geo_point') as $field) {
+      $field->addValue((float) $lat . ',' . (float) $lng);
     }
   }
 

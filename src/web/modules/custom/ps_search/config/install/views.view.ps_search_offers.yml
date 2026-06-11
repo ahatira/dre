@@ -7,8 +7,8 @@ dependencies:
     - search_api.index.offers
   module:
     - better_exposed_filters
-    - facets
     - facets_exposed_filters
+    - ps_search
     - search_api
     - views_load_more
 id: ps_search_offers
@@ -179,16 +179,16 @@ display:
           content: 'No offers match your search criteria. Please adjust your filters.'
           tokenize: false
       sorts:
-        search_api_relevance:
-          id: search_api_relevance
+        surface_total:
+          id: surface_total
           table: search_api_index_offers
-          field: search_api_relevance
+          field: surface_total
           plugin_id: search_api
-          order: DESC
+          order: ASC
           expose:
-            label: Relevance
-            field_identifier: search_api_relevance
-          exposed: true
+            label: Surface
+            field_identifier: surface_total
+          exposed: false
         field_budget_value:
           id: field_budget_value
           table: search_api_index_offers
@@ -198,26 +198,7 @@ display:
           expose:
             label: Price
             field_identifier: field_budget_value
-          exposed: true
-        changed:
-          id: changed
-          table: search_api_index_offers
-          field: changed
-          plugin_id: search_api
-          order: DESC
-          expose:
-            label: Date
-            field_identifier: changed
-          exposed: true
-        surface_total:
-          id: surface_total
-          table: search_api_index_offers
-          field: surface_total
-          plugin_id: search_api
-          order: ASC
-          expose:
-            label: Surface
-          exposed: true
+          exposed: false
       arguments: {  }
       filters:
         search_api_fulltext:

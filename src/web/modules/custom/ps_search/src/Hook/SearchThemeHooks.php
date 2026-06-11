@@ -60,6 +60,7 @@ final class SearchThemeHooks {
           'count' => 0,
           'zone_count' => 0,
           'sort_options' => [],
+          'selected_sort_label' => '',
         ],
         'template' => 'ps-search-results-header',
       ],

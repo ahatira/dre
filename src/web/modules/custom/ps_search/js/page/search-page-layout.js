@@ -52,19 +52,19 @@
           });
         }
 
-        root.addEventListener('change', function (event) {
-          const sortSelect = event.target.closest('.js-ps-sort-select');
-          if (!sortSelect || !root.contains(sortSelect)) {
+        root.addEventListener('click', function (event) {
+          const sortOption = event.target.closest('.js-ps-sort-option');
+          if (!sortOption || !root.contains(sortOption)) {
             return;
           }
 
           const url = new URL(window.location.href);
-          const parts = sortSelect.value.split('|');
+          const parts = (sortOption.getAttribute('data-value') || '').split('|');
           const params = typeof Drupal.psSearchPage?.buildSearchParams === 'function'
             ? Drupal.psSearchPage.buildSearchParams()
             : new URLSearchParams(window.location.search);
-          params.set('sort_by', parts[0] || 'search_api_relevance');
-          params.set('sort_order', parts[1] || 'DESC');
+          params.set('sort_by', parts[0] || 'surface_total');
+          params.set('sort_order', parts[1] || 'ASC');
           params.delete('page');
           url.search = params.toString();
 

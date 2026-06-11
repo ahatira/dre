@@ -11,6 +11,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\SearchResultCounter;
+use Drupal\ps_search\Search\Query\SearchListSortApplier;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -30,6 +31,7 @@ final class SearchResultsHeaderBuilder {
     private readonly RequestStack $requestStack,
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly SearchResultCounter $searchResultCounter,
+    private readonly SearchListSortApplier $sortApplier,
   ) {}
 
   /**
@@ -48,8 +50,10 @@ final class SearchResultsHeaderBuilder {
     $assetLabel = $activeAsset ? $this->dictionaryLabel('asset_type', $activeAsset) : NULL;
     $opPhrase = $activeOp ? $this->operationPhrase($activeOp) : NULL;
 
-    $currentSort = (string) ($query?->get('sort_by') ?? 'search_api_relevance');
-    $currentOrder = strtoupper((string) ($query?->get('sort_order') ?? 'DESC'));
+    $currentSort = $query?->get('sort_by');
+    $currentOrder = $query?->get('sort_order');
+    $currentSortBy = is_string($currentSort) ? $currentSort : NULL;
+    $currentSortOrder = is_string($currentOrder) || is_numeric($currentOrder) ? (string) $currentOrder : NULL;
 
     $globalCount = $request instanceof Request
       ? $this->searchResultCounter->countBusinessFilters($request)
@@ -62,9 +66,10 @@ final class SearchResultsHeaderBuilder {
       'title' => $this->buildTitle($assetLabel, $opPhrase, $locality),
       'count' => $globalCount,
       'zone_count' => $zoneCount,
-      'sort_options' => $this->buildSortOptions($view, $currentSort, $currentOrder),
-      'current_sort' => $currentSort,
-      'current_order' => $currentOrder,
+      'sort_options' => $this->sortApplier->buildOptions($currentSortBy, $currentSortOrder),
+      'selected_sort_label' => $this->sortApplier->buildSelectedLabel($currentSortBy, $currentSortOrder),
+      'current_sort' => $currentSortBy ?? SearchListSortApplier::DEFAULT_SORT_BY,
+      'current_order' => strtoupper((string) ($currentSortOrder ?? SearchListSortApplier::DEFAULT_SORT_ORDER)),
     ];
   }
 
@@ -80,9 +85,15 @@ final class SearchResultsHeaderBuilder {
       '#count' => $header['count'],
       '#zone_count' => $header['zone_count'],
       '#sort_options' => $header['sort_options'],
+      '#selected_sort_label' => $header['selected_sort_label'],
       '#cache' => [
         'contexts' => ['url.query_args', 'languages:language_interface'],
         'max-age' => 0,
+      ],
+      '#attached' => [
+        'library' => [
+          'ps_theme/component_dropdown',
+        ],
       ],
     ];
   }
@@ -305,44 +316,6 @@ final class SearchResultsHeaderBuilder {
     }
 
     return count($view->result ?? []);
-  }
-
-  /**
-   * Builds exposed sort options for the results header dropdown.
-   *
-   * @return list<array{value: string, label: string, selected: bool}>
-   *   Sort options.
-   */
-  private function buildSortOptions(ViewExecutable $view, string $currentSort, string $currentOrder): array {
-    $sorts = $view->display_handler->getOption('sorts') ?? [];
-    $options = [];
-
-    foreach ($sorts as $sort) {
-      if (empty($sort['exposed'])) {
-        continue;
-      }
-      $field = (string) ($sort['expose']['field_identifier'] ?? '');
-      if ($field === '') {
-        continue;
-      }
-      $order = strtoupper((string) ($sort['order'] ?? 'ASC'));
-      $label = (string) ($sort['expose']['label'] ?? $field);
-      $options[] = [
-        'value' => $field . '|' . $order,
-        'label' => $label,
-        'selected' => $field === $currentSort && $order === $currentOrder,
-      ];
-    }
-
-    if ($options === []) {
-      $options[] = [
-        'value' => 'search_api_relevance|DESC',
-        'label' => (string) $this->t('Relevance'),
-        'selected' => TRUE,
-      ];
-    }
-
-    return $options;
   }
 
 }

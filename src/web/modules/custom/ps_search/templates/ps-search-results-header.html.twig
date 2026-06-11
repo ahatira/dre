@@ -3,7 +3,7 @@
  * @file
  * Search results pane header — title, count, zone hint, sort (Phase 5A.7).
  *
- * Variables: title, count, zone_count, sort_options (list of value/label/selected).
+ * Variables: title, count, zone_count, sort_options, selected_sort_label.
  */
 #}
 <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
@@ -27,13 +27,36 @@
     </span>
   </p>
   {% if sort_options %}
-    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-      <label class="small text-muted mb-0 text-nowrap" for="ps-search-sort">{{ 'Sort by'|t }}</label>
-      <select id="ps-search-sort" class="form-select form-select-sm js-ps-sort-select" style="width: auto; min-width: 9rem;" aria-label="{{ 'Sort by'|t }}">
+    <div class="ps-search-sort dropdown flex-shrink-0">
+      <button
+        type="button"
+        class="ps-search-sort__toggle dropdown-toggle"
+        id="ps-search-sort"
+        data-bs-toggle="dropdown"
+        data-bs-auto-close="true"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="{{ 'Sort by'|t }}"
+      >
+        <span class="ps-search-sort__prefix">{{ 'Sort by'|t }} :</span>
+        <span class="ps-search-sort__value js-ps-sort-current-label">{{ selected_sort_label }}</span>
+        <span class="ps-search-sort__chevron" aria-hidden="true"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end ps-search-sort__menu" aria-labelledby="ps-search-sort" role="menu">
         {% for option in sort_options %}
-          <option value="{{ option.value }}"{{ option.selected ? ' selected' : '' }}>{{ option.label }}</option>
+          <li role="none">
+            <button
+              type="button"
+              class="dropdown-item ps-search-sort__option js-ps-sort-option{{ option.selected ? ' active' : '' }}"
+              role="menuitemradio"
+              aria-checked="{{ option.selected ? 'true' : 'false' }}"
+              data-value="{{ option.value }}"
+            >
+              {{ option.label }}
+            </button>
+          </li>
         {% endfor %}
-      </select>
+      </ul>
     </div>
   {% endif %}
 </div>

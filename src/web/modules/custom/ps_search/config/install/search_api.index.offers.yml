@@ -164,6 +164,10 @@ field_settings:
     label: 'Geo longitude'
     property_path: field_geo_lng
     type: decimal
+  field_geo_point:
+    label: 'Geo point'
+    property_path: field_geo_point
+    type: location
   field_operation_type:
     label: 'Operation type'
     datasource_id: 'entity:node'

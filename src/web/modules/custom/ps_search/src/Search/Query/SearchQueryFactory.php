@@ -39,6 +39,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
     private readonly LanguageManagerInterface $languageManager,
+    private readonly SearchListSortApplier $sortApplier,
   ) {}
 
   /**
@@ -107,17 +108,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
    * {@inheritdoc}
    */
   public function applyListSort(QueryInterface $query, Request $request): void {
-    $sortBy = $request->query->get('sort_by');
-    if (!is_string($sortBy) || $sortBy === '') {
-      return;
-    }
-
-    $sortOrder = strtoupper((string) $request->query->get('sort_order', 'DESC'));
-    if (!in_array($sortOrder, ['ASC', 'DESC'], TRUE)) {
-      $sortOrder = 'DESC';
-    }
-
-    $query->sort($sortBy, $sortOrder);
+    $this->sortApplier->apply($query, $request);
   }
 
   /**
