@@ -281,6 +281,7 @@
    */
   function reloadMapMarkers(root, params, options) {
     const preserveViewport = options?.preserveViewport === true;
+    const incremental = options?.incremental === true;
 
     let savedCenter = null;
     let savedZoom = null;
@@ -296,8 +297,12 @@
     return new Promise(function (resolve, reject) {
       Drupal.psSearchMap.whenMapShellReady(root, function () {
         const queryString = params.toString();
+        const loadOptions = {
+          preserveViewport: preserveViewport,
+          incremental: incremental,
+        };
         const loadPromise = typeof Drupal.psSearchPage.loadMarkers === 'function'
-          ? Drupal.psSearchPage.loadMarkers(root, queryString, { preserveViewport: preserveViewport })
+          ? Drupal.psSearchPage.loadMarkers(root, queryString, loadOptions)
           : Promise.resolve();
 
         loadPromise.then(function () {
@@ -410,12 +415,18 @@
         : new URLSearchParams(window.location.search));
     params.delete('page');
     params.delete('ps_list_loaded_count');
+    params.delete('ps_list_marker_offset');
 
     const listNids = typeof Drupal.psSearchPage?.getListOfferNids === 'function'
       ? Drupal.psSearchPage.getListOfferNids(root)
       : new Set();
     if (listNids.size > 0) {
       params.set('ps_list_loaded_count', String(listNids.size));
+    }
+
+    const offset = Number(root.psSearchListMarkerOffset || 0);
+    if (offset > 0) {
+      params.set('ps_list_marker_offset', String(offset));
     }
 
     return typeof Drupal.psSearchPage?.normalizeFacetParamsForMarkersApi === 'function'
@@ -444,9 +455,12 @@
   Drupal.psSearchPage.reloadMapForList = function (root, options) {
     options = options || {};
     const params = buildMapReloadParams(root);
+    const incremental = options.incremental === true || Number(params.get('ps_list_marker_offset') || 0) > 0;
     return reloadMapMarkers(root, params, {
       preserveViewport: options.preserveViewport === true,
+      incremental: incremental,
     }).then(function () {
+      delete root.psSearchListMarkerOffset;
       return {
         zone_count: Number(drupalSettings.psSearch?.zoneCount || 0),
         display_mode: 'ps-map',
@@ -536,9 +550,36 @@
           if (typeof Drupal.psSearchPage.reloadMapForList !== 'function') {
             return;
           }
-          Drupal.psSearchPage.reloadMapForList(root, { preserveViewport: true }).catch(function () {
+
+          const prefetch = root.psSearchMarkersPrefetch;
+          root.psSearchMarkersPrefetch = null;
+
+          if (root.psSearchMarkersIncrementalApplied) {
+            root.psSearchMarkersIncrementalApplied = false;
+            delete root.psSearchListMarkerOffset;
+            return;
+          }
+
+          const finish = function () {
+            delete root.psSearchListMarkerOffset;
+          };
+
+          if (prefetch && typeof prefetch.then === 'function') {
+            prefetch.then(finish).catch(function () {
+              Drupal.psSearchPage.reloadMapForList(root, {
+                preserveViewport: true,
+                incremental: true,
+              }).finally(finish);
+            });
+            return;
+          }
+
+          Drupal.psSearchPage.reloadMapForList(root, {
+            preserveViewport: true,
+            incremental: Number(root.psSearchListMarkerOffset || 0) > 0,
+          }).catch(function () {
             // Keep the list usable when marker reload fails.
-          });
+          }).finally(finish);
         });
       });
 

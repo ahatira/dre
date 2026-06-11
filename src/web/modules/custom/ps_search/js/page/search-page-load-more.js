@@ -219,6 +219,33 @@
     settings.url = url.pathname + '?' + normalized.toString();
   }
 
+  /**
+   * Starts an incremental markers prefetch when load-more is clicked.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   */
+  function prefetchMapMarkersForLoadMore(root) {
+    if (typeof Drupal.psSearchPage?.loadMarkers !== 'function'
+      || typeof Drupal.psSearchPage?.buildMapReloadParams !== 'function') {
+      return;
+    }
+
+    const currentCount = Drupal.psSearchPage.getListOfferNids(root).size;
+    const pageSize = Number(drupalSettings.psSearch?.listPagerPageSize || 40);
+    root.psSearchListMarkerOffset = currentCount;
+
+    const params = Drupal.psSearchPage.buildMapReloadParams(root);
+    params.set('ps_list_marker_offset', String(currentCount));
+    params.set('ps_list_loaded_count', String(currentCount + pageSize));
+
+    root.psSearchMarkersPrefetch = Drupal.psSearchPage.loadMarkers(
+      root,
+      params.toString(),
+      { preserveViewport: true, incremental: true },
+    );
+  }
+
   Drupal.behaviors.psSearchPageLoadMore = {
     attach(context) {
       once('ps-search-views-ajax-facet-normalize', 'body', context).forEach(function () {
@@ -228,6 +255,14 @@
       });
 
       once('ps-search-load-more', '.ps-search-view', context).forEach(function (root) {
+        root.addEventListener('click', function (event) {
+          const link = event.target.closest('.pager--load-more a[href]');
+          if (!link || !root.contains(link)) {
+            return;
+          }
+          prefetchMapMarkersForLoadMore(root);
+        }, true);
+
         // Bridge views_load_more jQuery event to native custom event for map/list sync.
         $(root).on('views_load_more.new_content', function () {
           stripPageFromBrowserUrl();

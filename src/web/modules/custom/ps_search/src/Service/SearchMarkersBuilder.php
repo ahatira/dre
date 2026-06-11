@@ -97,6 +97,8 @@ final class SearchMarkersBuilder {
 
     $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
     $listLimit = $this->listLoadedLimitResolver->resolve($request);
+    $listOffset = $this->listLoadedLimitResolver->resolveOffset($request);
+    $pageSize = $this->listLoadedLimitResolver->resolvePageSize($request, $listLimit, $listOffset);
     $useClusterMode = $zoneCount > $max
       && $bounds instanceof MapBounds
       && $this->isClusterModeEnabled()
@@ -110,7 +112,7 @@ final class SearchMarkersBuilder {
     }
 
     return $this->attachGlobalCount(
-      $this->buildIndividualPayload($request, $max, $zoneCount, $listLimit),
+      $this->buildIndividualPayload($request, $max, $zoneCount, $listLimit, $listOffset, $pageSize),
       $globalCount,
     );
   }
@@ -121,14 +123,22 @@ final class SearchMarkersBuilder {
    * @return array<string, mixed>
    *   Marker payload.
    */
-  private function buildIndividualPayload(Request $request, int $max, int $zoneCount, int $listLimit): array {
+  private function buildIndividualPayload(
+    Request $request,
+    int $max,
+    int $zoneCount,
+    int $listLimit,
+    int $listOffset = 0,
+    int $pageSize = 0,
+  ): array {
     $index = Index::load('offers');
     if (!$index) {
       return $this->emptyPayload();
     }
 
+    $fetchLimit = $pageSize > 0 ? $pageSize : max(1, min($listLimit, $max));
     $query = $index->query();
-    $query->range(0, min($listLimit, $max));
+    $query->range($listOffset, min($fetchLimit, $max));
     $this->filterQueryBuilder->applyBusinessFilters($query, $request);
     $this->filterQueryBuilder->applyListSort($query, $request);
 

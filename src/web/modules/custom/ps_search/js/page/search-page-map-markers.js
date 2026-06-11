@@ -479,12 +479,61 @@
 
     clearMarkers(mapData);
 
+    createAndStoreMarkers(mapData, markers);
+    finalizeMarkers(root, mapData, options, preserveViewport, 'markers');
+  }
+
+  /**
+   * Appends new API markers without clearing existing map state (load-more).
+   */
+  function appendMarkers(root, markers, options) {
+    const mapData = requireMapData(root);
+    if (!mapData) {
+      return;
+    }
+
+    const newMarkers = createAndStoreMarkers(mapData, markers, true);
+    if (newMarkers.length === 0) {
+      return;
+    }
+
+    if (mapData.markerCluster && typeof mapData.markerCluster.addMarkers === 'function') {
+      newMarkers.forEach(function (marker) {
+        marker.setMap(null);
+      });
+      mapData.markerCluster.addMarkers(newMarkers);
+    }
+    else {
+      newMarkers.forEach(function (marker) {
+        if (isOmsActive(mapData)) {
+          placeClientMarker(marker, mapData);
+        }
+        else {
+          marker.setMap(mapData.map);
+        }
+      });
+    }
+
+    finalizeMarkers(root, mapData, options, true, 'markers');
+  }
+
+  /**
+   * Creates Google markers and stores them on the map bucket.
+   *
+   * @return {Array<google.maps.Marker>}
+   *   Newly created markers.
+   */
+  function createAndStoreMarkers(mapData, markers, skipExisting) {
+    const created = [];
     markers.forEach(function (item) {
       const nid = String(item.nid || '');
       const lat = parseFloat(item.lat);
       const lng = parseFloat(item.lng);
       const label = String(item.label || '');
       if (!nid || !Number.isFinite(lat) || !Number.isFinite(lng)) {
+        return;
+      }
+      if (skipExisting && mapData.markers[nid]) {
         return;
       }
 
@@ -502,18 +551,27 @@
       };
 
       mapData.markers[nid] = marker;
+      created.push(marker);
       if (mapData.map_bounds) {
         mapData.map_bounds.extend(position);
       }
     });
+    return created;
+  }
 
+  /**
+   * Shared post-processing after marker injection or append.
+   */
+  function finalizeMarkers(root, mapData, options, preserveViewport, displayMode) {
     Drupal.psSearchMap.indexMarkersByNid(mapData);
-    rebuildApiMarkerCluster(mapData);
+    if (displayMode === 'markers' && options?.incremental !== true) {
+      rebuildApiMarkerCluster(mapData);
+    }
     if (!preserveViewport) {
       fitMapToZone(root, mapData);
     }
     Drupal.psSearchMap.resizeMaps(root);
-    dispatchMapMarkersLoaded(root, mapData, options, 'markers');
+    dispatchMapMarkersLoaded(root, mapData, options, displayMode);
   }
 
   /**
@@ -527,6 +585,11 @@
 
     if (displayMode === 'clusters' && clusters.length > 0) {
       applyClusters(root, clusters, options);
+      return;
+    }
+
+    if (options?.incremental === true && markers.length > 0) {
+      appendMarkers(root, markers, options);
       return;
     }
 
@@ -598,6 +661,9 @@
         }
         root.psSearchMarkersCache = payload;
         applyMarkersPayload(root, payload, options);
+        if (options?.incremental === true) {
+          root.psSearchMarkersIncrementalApplied = true;
+        }
         return payload;
       })
       .catch(function () {

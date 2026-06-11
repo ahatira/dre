@@ -21,6 +21,11 @@ final class SearchListLoadedLimitResolver {
   public const QUERY_ARG = 'ps_list_loaded_count';
 
   /**
+   * Query argument for incremental marker fetches (load-more offset).
+   */
+  public const OFFSET_QUERY_ARG = 'ps_list_marker_offset';
+
+  /**
    * Default load-more page size (views.view.ps_search_offers page_list pager).
    */
   private const DEFAULT_PAGE_SIZE = 40;
@@ -46,6 +51,24 @@ final class SearchListLoadedLimitResolver {
     }
 
     return self::DEFAULT_PAGE_SIZE;
+  }
+
+  /**
+   * Resolves Search API range offset for incremental marker loads.
+   */
+  public function resolveOffset(Request $request): int {
+    $offset = (int) $request->query->get(self::OFFSET_QUERY_ARG, 0);
+    return max(0, min($offset, 1000));
+  }
+
+  /**
+   * Resolves the page size for a single marker fetch window.
+   */
+  public function resolvePageSize(Request $request, int $listLimit, int $offset): int {
+    if ($offset > 0) {
+      return max(1, min($listLimit - $offset, self::DEFAULT_PAGE_SIZE));
+    }
+    return max(1, $listLimit);
   }
 
 }

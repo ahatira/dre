@@ -38,7 +38,7 @@ header.search:
     - ps_theme/header
 
 search-page-map-utils:
-  version: 1.0.5
+  version: 1.0.6
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:
@@ -68,7 +68,7 @@ search-page-map-init:
     - ps_search/search-page-map-utils
 
 search-page-core:
-  version: 1.0.2
+  version: 1.0.3
   js:
     js/page/search-page-layout.js: {}
     js/page/search-page-load-more.js: {}
@@ -92,7 +92,7 @@ search-page-map-sync:
     - ps_search/search-page-core
 
 search-page-zone-reload:
-  version: 1.0.5
+  version: 1.0.7
   js:
     js/page/search-page-zone-reload.js: {}
   dependencies:
@@ -100,7 +100,7 @@ search-page-zone-reload:
     - views/views.ajax
 
 search-page-map-markers:
-  version: 1.0.7
+  version: 1.0.8
   js:
     js/page/search-page-map-markers.js: {}
   dependencies:
