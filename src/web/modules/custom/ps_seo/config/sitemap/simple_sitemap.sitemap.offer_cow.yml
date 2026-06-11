@@ -1,0 +1,11 @@
+uuid: 000000000016
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+id: offer_cow
+label: 'Offers — Coworking (COW)'
+description: 'Published offer nodes for asset type COW.'
+type: default_hreflang
+weight: 60

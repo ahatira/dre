@@ -12,7 +12,7 @@ Central SEO module for Property Search (BNPPRE alignment).
 | Search SEO URLs | `ps_search` | Existing |
 | Search `<title>` / description / canonical | `ps_seo` + `ps_search` | Phase 2 |
 | Search hreflang alternates | `ps_seo` + `ps_search` | Phase 3 |
-| XML sitemap | `ps_seo` | Phase 4 (planned) |
+| XML sitemap (offers by asset type) | `ps_seo` | Phase 4 |
 
 ## Admin
 
@@ -21,6 +21,17 @@ Central SEO module for Property Search (BNPPRE alignment).
 ## Metatag defaults
 
 Shipped in `config/metatag_defaults/` and imported via `ps_seo.install` / update hooks (not `config/install`, to avoid conflicts with existing Metatag config on upgraded sites). Stale language overrides are removed on import so EN token patterns apply on FR pages too.
+
+## XML sitemap
+
+Shipped in `config/sitemap/` and imported via `ps_seo.install` / `ps_seo_update_9003()`.
+
+- **Index** : `/sitemap.xml` (`default_variant: index`)
+- **Variants** : one sitemap per asset type (`offer_bur`, `offer_com`, …) at `/{variant}/sitemap.xml`
+- **Scope** : published `node.offer` only, filtered by `field_asset_type` (no search listing pages)
+- **Regenerate** : `drush simple-sitemap:generate` (in `ps_php`)
+
+Filter logic : `OfferSitemapHooks` (`entity_query_tag__node__simple_sitemap_alter`).
 
 ## Dependencies
 

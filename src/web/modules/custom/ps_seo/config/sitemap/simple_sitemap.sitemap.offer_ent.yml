@@ -1,0 +1,11 @@
+uuid: 000000000012
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+id: offer_ent
+label: 'Offers — Warehouse (ENT)'
+description: 'Published offer nodes for asset type ENT.'
+type: default_hreflang
+weight: 20

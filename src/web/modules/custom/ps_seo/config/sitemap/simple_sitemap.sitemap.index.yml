@@ -1,0 +1,11 @@
+uuid: 00000000-0000-0000-0000-000000000002
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.index
+id: index
+label: 'Sitemap index'
+description: 'Lists all offer sitemaps by asset type (BNPPRE-style).'
+type: index
+weight: 1000

@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 function ps_seo_install(): void {
   _ps_seo_import_metatag_defaults();
+  _ps_seo_import_sitemap_config();
 }
 
 /**
@@ -26,6 +27,13 @@ function ps_seo_update_9001(): void {
  */
 function ps_seo_update_9002(): void {
   _ps_seo_import_metatag_defaults();
+}
+
+/**
+ * Import Simple XML Sitemap settings (per-asset-type offer sitemaps).
+ */
+function ps_seo_update_9003(): void {
+  _ps_seo_import_sitemap_config();
 }
 
 /**
@@ -53,5 +61,21 @@ function _ps_seo_import_metatag_defaults(): void {
         $override->delete();
       }
     }
+  }
+}
+
+/**
+ * Re-imports Simple XML Sitemap config shipped with ps_seo.
+ */
+function _ps_seo_import_sitemap_config(): void {
+  $module_path = \Drupal::service('extension.list.module')->getPath('ps_seo');
+  $sync = new \Drupal\Core\Config\FileStorage($module_path . '/config/sitemap');
+
+  foreach ($sync->listAll() as $name) {
+    if (!$sync->exists($name)) {
+      continue;
+    }
+
+    \Drupal::configFactory()->getEditable($name)->setData($sync->read($name))->save(TRUE);
   }
 }

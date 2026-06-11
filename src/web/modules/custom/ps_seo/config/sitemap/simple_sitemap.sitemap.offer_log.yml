@@ -1,0 +1,11 @@
+uuid: 000000000015
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+id: offer_log
+label: 'Offers — Logistics (LOG)'
+description: 'Published offer nodes for asset type LOG.'
+type: default_hreflang
+weight: 50
