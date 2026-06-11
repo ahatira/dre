@@ -14,3 +14,4 @@ services:
       - '@current_route_match'
       - '@ps_seo.search_head_builder'
       - '@ps_search.seo_canonical_url_builder'
+      - '@ps_search.seo_indexability_checker'

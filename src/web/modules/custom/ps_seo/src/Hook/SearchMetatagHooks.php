@@ -7,6 +7,7 @@ namespace Drupal\ps_seo\Hook;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder;
+use Drupal\ps_search\Service\SearchSeoIndexabilityChecker;
 use Drupal\ps_seo\Search\SearchSeoHeadBuilder;
 use Drupal\views\Views;
 
@@ -21,6 +22,7 @@ final class SearchMetatagHooks {
     private readonly RouteMatchInterface $routeMatch,
     private readonly SearchSeoHeadBuilder $searchSeoHeadBuilder,
     private readonly SearchSeoCanonicalUrlBuilder $canonicalUrlBuilder,
+    private readonly SearchSeoIndexabilityChecker $indexabilityChecker,
   ) {}
 
   /**
@@ -53,6 +55,16 @@ final class SearchMetatagHooks {
     $metatags['twitter_cards_title'] = $head['title'];
     $metatags['twitter_cards_description'] = $head['description'];
     $metatags['schema_web_page_description'] = $head['description'];
+
+    if ($this->indexabilityChecker->shouldNoindex()) {
+      $metatags['robots'] = 'noindex,follow';
+      foreach (array_keys($metatags) as $key) {
+        if (str_starts_with($key, 'hreflang')) {
+          unset($metatags[$key]);
+        }
+      }
+      return;
+    }
 
     foreach ($this->canonicalUrlBuilder->buildAlternateUrls() as $langcode => $url) {
       if ($langcode === 'x-default') {

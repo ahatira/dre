@@ -13,6 +13,7 @@ Central SEO module for Property Search (BNPPRE alignment).
 | Search `<title>` / description / canonical | `ps_seo` + `ps_search` | Phase 2 |
 | Search hreflang alternates | `ps_seo` + `ps_search` | Phase 3 |
 | XML sitemap (offers by asset type) | `ps_seo` | Phase 4 |
+| Search robots / noindex facet URLs | `ps_seo` + `ps_search` | Phase 5 |
 
 ## Admin
 
@@ -32,6 +33,12 @@ Shipped in `config/sitemap/` and imported via `ps_seo.install` / `ps_seo_update_
 - **Regenerate** : `drush simple-sitemap:generate` (in `ps_php`)
 
 Filter logic : `OfferSitemapHooks` (`entity_query_tag__node__simple_sitemap_alter`).
+
+## Search robots (Phase 5)
+
+On the property search listing route, any **user-visible query string** (facets, sort, pagination, map bounds, etc.) sets `robots: noindex,follow` and removes hreflang alternates. Clean SEO paths without query params remain `index,follow` with canonical and hreflang unchanged.
+
+Logic : `SearchSeoIndexabilityChecker` (`ps_search`) + `SearchMetatagHooks` (`ps_seo`).
 
 ## Dependencies
 

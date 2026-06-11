@@ -60,6 +60,13 @@ services:
 
   Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder: '@ps_search.seo_canonical_url_builder'
 
+  ps_search.seo_indexability_checker:
+    class: Drupal\ps_search\Service\SearchSeoIndexabilityChecker
+    arguments:
+      - '@request_stack'
+
+  Drupal\ps_search\Service\SearchSeoIndexabilityChecker: '@ps_search.seo_indexability_checker'
+
   ps_search.location_suggest_builder:
     class: Drupal\ps_search\Service\LocationSuggestBuilder
     arguments:
