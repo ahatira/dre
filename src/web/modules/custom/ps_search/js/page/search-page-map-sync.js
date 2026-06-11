@@ -147,7 +147,7 @@
         // List → map sync on hover (delegated — supports load-more appended rows).
         const listPanel = root.querySelector('.js-ps-search-list-panel');
         if (listPanel) {
-          listPanel.addEventListener('mouseenter', function (event) {
+          listPanel.addEventListener('mouseover', function (event) {
             const card = event.target.closest('.ps-offer-search-card[data-offer-id]');
             if (!card || !listPanel.contains(card)) {
               return;
@@ -161,18 +161,21 @@
             }
             cancelClear();
             setActive(nid);
-          }, true);
+          });
 
-          listPanel.addEventListener('mouseleave', function (event) {
+          listPanel.addEventListener('mouseout', function (event) {
             const card = event.target.closest('.ps-offer-search-card[data-offer-id]');
             if (!card || !listPanel.contains(card)) {
+              return;
+            }
+            if (card.contains(event.relatedTarget)) {
               return;
             }
             if (!Drupal.psSearchMap.isListVisible(root)) {
               return;
             }
             scheduleClear();
-          }, true);
+          });
         }
 
         // Re-bind is not needed for markers; highlight new rows after load more.

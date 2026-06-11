@@ -85,7 +85,7 @@ search-page-core:
     - ui_suite_bnp/framework_js
 
 search-page-map-sync:
-  version: 1.0.4
+  version: 1.0.5
   js:
     js/page/search-page-map-sync.js: {}
   dependencies:
