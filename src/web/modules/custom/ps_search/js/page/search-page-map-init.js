@@ -155,13 +155,12 @@
         zoom: Number.isFinite(config.zoom) ? config.zoom : 6,
         minZoom: Number.isFinite(config.zoomMin) ? config.zoomMin : 1,
         maxZoom: Number.isFinite(config.zoomMax) ? config.zoomMax : 22,
-        gestureHandling: config.gestureHandling || 'auto',
+        gestureHandling: config.gestureHandling || 'cooperative',
         mapTypeId: 'roadmap',
         zoomControl: true,
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: true,
-        scrollwheel: true,
       };
 
       if (config.mapId) {

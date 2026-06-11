@@ -75,7 +75,7 @@ final class SearchMapSettingsBuilder {
       'zoom' => (int) ($zoneConfig->get('default_zoom') ?? 6),
       'zoomMin' => (int) ($zoneConfig->get('zoom_min') ?? 1),
       'zoomMax' => (int) ($zoneConfig->get('zoom_max') ?? 22),
-      'gestureHandling' => (string) ($zoneConfig->get('gesture_handling') ?? 'auto'),
+      'gestureHandling' => (string) ($zoneConfig->get('gesture_handling') ?? 'cooperative'),
       'clusterOptions' => $clusterOptions,
       'mapId' => $mapId !== '' ? $mapId : NULL,
       'lazyLoad' => (bool) ($zoneConfig->get('lazy_load') ?? FALSE),

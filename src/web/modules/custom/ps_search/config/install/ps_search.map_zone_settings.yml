@@ -13,7 +13,7 @@ google_routes_api_key: ''
 default_zoom: 6
 zoom_min: 1
 zoom_max: 22
-gesture_handling: auto
+gesture_handling: cooperative
 marker_cluster_max_zoom: 16
 marker_cluster_skip_below: 10
 cluster_options: ''

@@ -101,14 +101,15 @@ final class MapZoneSettingsForm extends ConfigFormBase {
     $form['map_shell']['gesture_handling'] = [
       '#type' => 'select',
       '#title' => $this->t('Gesture handling'),
-      '#default_value' => $config->get('gesture_handling') ?? 'auto',
+      '#default_value' => $config->get('gesture_handling') ?? 'cooperative',
       '#required' => TRUE,
       '#options' => [
+        'cooperative' => $this->t('Cooperative (Ctrl + scroll to zoom)'),
         'auto' => $this->t('Auto'),
-        'cooperative' => $this->t('Cooperative'),
         'greedy' => $this->t('Greedy'),
         'none' => $this->t('None'),
       ],
+      '#description' => $this->t('Cooperative is recommended on search pages: the map does not capture the mouse wheel until the user holds Ctrl (or ⌘ on macOS) while scrolling.'),
     ];
 
     $form['map_shell']['marker_clustering'] = [
