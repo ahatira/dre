@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Drupal\ps_search\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Database\Connection;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
-use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Service\SearchPathResolver;
+use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -26,17 +25,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterface {
 
-  private const DEPARTMENT_DICTIONARY_TYPE = 'department';
-
   /** @var array<string, array{op: array<string,string>, asset: array<string,string>}> keyed by langcode */
   private array $mappingsByLang = [];
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
-    private readonly Connection $database,
     private readonly SearchPathResolver $searchPathResolver,
-    private readonly DictionaryResolver $dictionaryResolver,
+    private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
   ) {}
 
   public static function getSubscribedEvents(): array {
@@ -183,28 +179,8 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       : (is_string($localityRaw) && $localityRaw !== '' ? $this->extractLocationTokens($localityRaw) : []);
 
     if ($tokens !== []) {
-      $localityData = $this->fetchLocalityData($tokens[0]);
-      if ($localityData !== NULL) {
-        // BNPPRE format: dept-code / city-postal.
-        $postalCode = $localityData['postal_code'] ?? '';
-        $deptCode = substr($postalCode, 0, 2);
-        $deptName = $this->getDepartmentName($deptCode);
-        $deptSlug = $deptName ? $this->cityToSlug($deptName) : '';
-        $citySlug = $this->cityToSlug($localityData['locality']);
-
-        if ($deptSlug && $deptCode) {
-          $seoPath .= '/' . $deptSlug . '-' . $deptCode;
-        }
-        if ($citySlug) {
-          $seoPath .= '/' . $citySlug;
-          if ($postalCode) {
-            $seoPath .= '-' . $postalCode;
-          }
-        }
-      }
-      else {
-        // Fallback: simple slug if data not found.
-        $seoPath .= '/' . $this->cityToSlug($tokens[0]);
+      if (count($tokens) === 1) {
+        $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
       }
     }
 
@@ -214,6 +190,10 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     $remainingQuery = $request->query->all();
     unset($remainingQuery['operation_type'], $remainingQuery['asset_type']);
     if (count($tokens) <= 1) {
+      unset($remainingQuery['locality'], $remainingQuery['locations']);
+    }
+    elseif ($tokens !== []) {
+      $remainingQuery['locations'] = implode(',', $tokens);
       unset($remainingQuery['locality']);
     }
     if (!empty($remainingQuery)) {
@@ -248,50 +228,6 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
 
   private function getDefaultLangcode(): string {
     return \Drupal::languageManager()->getDefaultLanguage()->getId();
-  }
-
-  private function cityToSlug(string $city): string {
-    $ascii = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $city);
-    if ($ascii === FALSE) {
-      $ascii = $city;
-    }
-    $ascii = strtolower($ascii);
-    $slug = preg_replace('/[^a-z0-9]+/', '-', $ascii);
-    return trim((string) $slug, '-');
-  }
-
-  /**
-   * Fetches locality structured data (admin_area, postal_code) from database.
-   *
-   * @param string $locality
-   *   City name.
-   *
-   * @return array{locality: string, admin_area: string, postal_code: string}|null
-   *   Structured data or NULL if not found.
-   */
-  private function fetchLocalityData(string $locality): ?array {
-    $select = $this->database->select('node__field_address', 'a');
-    $select->fields('a', ['field_address_locality', 'field_address_administrative_area', 'field_address_postal_code']);
-    $select->condition('a.field_address_locality', $locality, '=');
-    $select->range(0, 1);
-
-    $row = $select->execute()->fetchAssoc();
-    if ($row === FALSE) {
-      return NULL;
-    }
-
-    return [
-      'locality' => (string) ($row['field_address_locality'] ?? ''),
-      'admin_area' => (string) ($row['field_address_administrative_area'] ?? ''),
-      'postal_code' => (string) ($row['field_address_postal_code'] ?? ''),
-    ];
-  }
-
-  /**
-   * Returns department name from 2-digit INSEE code.
-   */
-  private function getDepartmentName(string $code): ?string {
-    return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code);
   }
 
   /**

@@ -962,6 +962,10 @@
         if (localityArrayParams.length) {
           return localityArrayParams.join(',');
         }
+        const queryLocations = currentParams.get('locations');
+        if (queryLocations) {
+          return queryLocations;
+        }
         const queryLocality = currentParams.get('locality');
         if (queryLocality) {
           return queryLocality;
@@ -998,11 +1002,48 @@
         });
       }
 
-      function appendLocalityQueryParams(params, tokens, skipFirst) {
-        const list = skipFirst ? tokens.slice(1) : tokens;
-        if (list.length) {
-          params.set('locality', list.join(', '));
+      function buildLocalitySeoPathSegments(primaryData) {
+        if (!primaryData) {
+          return { dept: '', city: '' };
         }
+
+        if (primaryData.type === 'department') {
+          const code = primaryData.department_code || '';
+          const deptSlug = toSeoSlug(primaryData.admin_area || '');
+          return {
+            dept: (deptSlug && code) ? deptSlug + '-' + code : '',
+            city: '',
+          };
+        }
+
+        const postal = primaryData.postal_code || '';
+        const deptCode = postal ? postal.substring(0, 2) : (primaryData.department_code || '');
+        const deptSlug = toSeoSlug(primaryData.admin_area || '');
+        let city = '';
+
+        if (primaryData.type === 'arrondissement' && postal) {
+          const arrNum = parseInt(postal.substring(3, 5), 10);
+          const citySlug = toSeoSlug(primaryData.locality || '');
+          if (citySlug && Number.isFinite(arrNum)) {
+            city = citySlug + '-' + arrNum + '-' + postal;
+          }
+        }
+        else if (primaryData.locality) {
+          const citySlug = toSeoSlug(primaryData.locality);
+          city = postal ? citySlug + '-' + postal : citySlug;
+        }
+
+        return {
+          dept: (deptSlug && deptCode) ? deptSlug + '-' + deptCode : '',
+          city: city,
+        };
+      }
+
+      function appendLocationQueryParams(params, tokens) {
+        if (!tokens.length) {
+          return;
+        }
+        params.set('locations', tokens.join(','));
       }
 
       function highlightSuggestionLabel(label, query) {
@@ -1061,7 +1102,12 @@
         let base = buildSeoBase();
         const p = new URLSearchParams();
         const primaryData = getPrimaryLocalityData();
-        const useSeoLocalityPath = usesSeoLocalityPath(base) && primaryData && (primaryData.locality || primaryData.postal_code);
+        const singleLocation = selectedLocalityTokens.length === 1;
+        const useSeoLocalityPath = usesSeoLocalityPath(base) && singleLocation && primaryData && (
+          primaryData.type === 'department'
+          || primaryData.locality
+          || primaryData.postal_code
+        );
 
         // Flexible (no operation): asset stays as query param on /find-property (BEF array format).
         if (selectedAsset && !selectedOp) {
@@ -1071,26 +1117,16 @@
         // SEO locality segments only under /a-louer/… — never append to flexible search base (404).
         if (useSeoLocalityPath) {
           base = base.replace(/\/?$/, '/');
-          const deptCode = primaryData.postal_code ? primaryData.postal_code.substring(0, 2) : '';
-          const deptSlug = primaryData.admin_area ? toSeoSlug(primaryData.admin_area) : '';
-          const localitySlug = toSeoSlug(primaryData.locality || primaryData.label || '');
-          const postalSlug = primaryData.postal_code || '';
-
-          if (deptSlug && deptCode) {
-            base += deptSlug + '-' + deptCode + '/';
+          const segments = buildLocalitySeoPathSegments(primaryData);
+          if (segments.dept) {
+            base += segments.dept + '/';
           }
-          if (localitySlug) {
-            base += localitySlug;
-            if (postalSlug) {
-              base += '-' + postalSlug;
-            }
-            base += '/';
+          if (segments.city) {
+            base += segments.city + '/';
           }
-
-          appendLocalityQueryParams(p, selectedLocalityTokens, true);
         }
         else if (selectedLocalityTokens.length) {
-          appendLocalityQueryParams(p, selectedLocalityTokens, false);
+          appendLocationQueryParams(p, selectedLocalityTokens);
         }
 
         const visibility = getFilterVisibility(selectedAsset);

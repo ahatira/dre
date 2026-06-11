@@ -182,9 +182,17 @@
     }
     const toggleSelector = popin.toggleSelector || '[data-bs-toggle="dropdown"]';
     document.querySelectorAll('.' + popin.dropdownClass).forEach(function (el) {
+      // Mobile stacked sections reuse modifier classes without a Bootstrap dropdown.
+      if (!el.classList.contains('dropdown')) {
+        return;
+      }
       const toggle = el.querySelector(toggleSelector);
-      if (toggle && typeof bootstrap !== 'undefined') {
-        bootstrap.Dropdown.getOrCreateInstance(toggle).hide();
+      if (!toggle || typeof bootstrap === 'undefined') {
+        return;
+      }
+      const instance = bootstrap.Dropdown.getInstance(toggle);
+      if (instance) {
+        instance.hide();
       }
     });
   };

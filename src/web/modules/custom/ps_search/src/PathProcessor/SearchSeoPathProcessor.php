@@ -12,6 +12,7 @@ use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
 use Drupal\Core\PathProcessor\OutboundPathProcessorInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\ps_search\Service\SearchPathResolver;
+use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -44,6 +45,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     private readonly LanguageManagerInterface $languageManager,
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly SearchPathResolver $searchPathResolver,
+    private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
   ) {}
 
   /**
@@ -92,18 +94,29 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
 
     // Try BNPPRE two-segment format: dept-code / city-postal.
     if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
-      // Extract city from dept-code/city-postal pattern.
-      $cityData = $this->parseCityPostalSegment($possibleCitySegment);
-      if ($cityData !== NULL) {
-        $params['locality'] = $cityData;
+      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
+        $possibleDeptSegment,
+        $possibleCitySegment,
+      );
+      if ($token !== NULL) {
+        $params['locality'] = $token;
       }
     }
     elseif ($possibleCitySegment !== NULL) {
-      // Fallback: single city segment (old format).
-      $params['locality'] = $this->slugToCity($possibleCitySegment);
+      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
+      if ($token === NULL) {
+        $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
+      }
+      if ($token !== NULL) {
+        $params['locality'] = $token;
+      }
+      else {
+        $params['locality'] = $this->slugToCity($possibleCitySegment);
+      }
     }
 
     $request->query->add($params);
+    $this->syncLocationsQueryParam($request);
     // Prevent redirect module (RouteNormalizerRequestSubscriber, priority 30)
     // from issuing a 301 because the public URL does not match the internal path.
     $request->attributes->set('_disable_route_normalizer', TRUE);
@@ -148,19 +161,36 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     }
 
     $locality = $query['locality'] ?? NULL;
-    if ($locality !== NULL && is_string($locality) && $locality !== '') {
-      $tokens = $this->extractLocationTokens($locality);
-      if ($tokens !== []) {
-        $seoPath .= '/' . $this->cityToSlug($tokens[0]);
-        if (count($tokens) === 1) {
-          unset($query['locality']);
-        }
+    $locations = $query['locations'] ?? NULL;
+    $locationValue = is_string($locations) && $locations !== '' ? $locations : $locality;
+    if (is_string($locationValue) && $locationValue !== '') {
+      $tokens = $this->extractLocationTokens($locationValue);
+      if (count($tokens) === 1) {
+        $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
+        unset($query['locality'], $query['locations']);
+      }
+      elseif (count($tokens) > 1) {
+        $query['locations'] = implode(',', $tokens);
+        unset($query['locality']);
       }
     }
 
     $options['query'] = $query;
 
     return $seoPath . '/';
+  }
+
+  /**
+   * Maps public ?locations= to Views exposed filter ?locality=.
+   */
+  private function syncLocationsQueryParam(Request $request): void {
+    $locations = $request->query->get('locations');
+    if (!is_string($locations) || trim($locations) === '') {
+      return;
+    }
+    if (!$request->query->has('locality')) {
+      $request->query->set('locality', $locations);
+    }
   }
 
   /**
@@ -226,54 +256,6 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     ];
 
     return $this->mappingsByLang[$langcode];
-  }
-
-  /**
-   * Converts a city name to a URL-safe slug.
-   *
-   * Example: "La Defense" -> "la-defense"
-   */
-  private function cityToSlug(string $city): string {
-    $ascii = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $city);
-    if ($ascii === FALSE) {
-      $ascii = $city;
-    }
-    $ascii = strtolower($ascii);
-    $slug = preg_replace('/[^a-z0-9]+/', '-', $ascii);
-    return trim((string) $slug, '-');
-  }
-
-  /**
-   * Parses city-postal segment: "paris-17-75017" -> "Paris, 17ème arrondissement (75017)".
-   * Or "clichy-92110" -> "Clichy".
-   *
-   * Returns normalized city name or NULL if unparseable.
-   */
-  private function parseCityPostalSegment(string $segment): ?string {
-    // Pattern: city-slug-postal or city-slug-arrondissement-postal.
-    $parts = explode('-', $segment);
-    if (count($parts) < 2) {
-      return $this->slugToCity($segment);
-    }
-
-    // Last part should be postal code.
-    $postalCode = array_pop($parts);
-    if (!preg_match('/^\d{5}$/', $postalCode)) {
-      // Not a valid postal code, fallback to slug decoding.
-      return $this->slugToCity($segment);
-    }
-
-    // Check if second-to-last is arrondissement number (paris-17-75017).
-    if (count($parts) >= 2 && is_numeric($parts[count($parts) - 1])) {
-      $arrNum = array_pop($parts);
-      $citySlug = implode('-', $parts);
-      $cityName = $this->slugToCity($citySlug);
-      return ucfirst($cityName) . ', ' . $arrNum . 'ème arrondissement (' . $postalCode . ')';
-    }
-
-    // Standard city-postal (clichy-92110).
-    $citySlug = implode('-', $parts);
-    return $this->slugToCity($citySlug);
   }
 
   /**

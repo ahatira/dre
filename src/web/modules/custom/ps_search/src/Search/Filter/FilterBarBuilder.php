@@ -96,7 +96,7 @@ final class FilterBarBuilder {
     }
 
     $initialLocality = '';
-    $localityRaw = $queryAll['locality'] ?? NULL;
+    $localityRaw = $queryAll['locations'] ?? $queryAll['locality'] ?? NULL;
     if (is_array($localityRaw)) {
       $initialLocality = implode(', ', array_values(array_filter(array_map('strval', $localityRaw))));
     }

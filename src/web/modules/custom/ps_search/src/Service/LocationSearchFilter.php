@@ -40,7 +40,18 @@ final class LocationSearchFilter {
    * @return list<string>
    */
   public function extractTokensFromRequest(Request $request): array {
-    $raw = $request->query->all()['locality'] ?? NULL;
+    $all = $request->query->all();
+    if (array_key_exists('locations', $all)) {
+      $locations = $all['locations'];
+      if (is_string($locations) && trim($locations) !== '') {
+        return $this->extractTokens($locations);
+      }
+      if (is_array($locations)) {
+        return $this->normalizeTokens($locations);
+      }
+    }
+
+    $raw = $all['locality'] ?? NULL;
     if (is_array($raw)) {
       return $this->normalizeTokens($raw);
     }
@@ -238,6 +249,9 @@ final class LocationSearchFilter {
     if ($row !== FALSE) {
       $locality = $this->sanitizeText($row['field_address_locality']) ?? '';
       $adminArea = $this->sanitizeText($row['field_address_administrative_area']) ?? '';
+      if ($adminArea === '') {
+        $adminArea = $this->getDepartmentName(substr($token, 0, 2));
+      }
       $arrondissement = $locality !== '' ? $this->formatArrondissementLabel($locality, $token) : NULL;
 
       $meta['type'] = $arrondissement !== NULL ? 'arrondissement' : 'postal_code';
@@ -273,7 +287,11 @@ final class LocationSearchFilter {
    */
   private function resolveLocalityToken(string $token, array $meta): array {
     $select = $this->database->select('node__field_address', 'a');
-    $select->fields('a', ['field_address_locality', 'field_address_administrative_area']);
+    $select->fields('a', [
+      'field_address_locality',
+      'field_address_administrative_area',
+      'field_address_postal_code',
+    ]);
     $or = $select->orConditionGroup()
       ->condition('a.field_address_locality', $token)
       ->condition('a.field_address_administrative_area', $token);
@@ -284,9 +302,14 @@ final class LocationSearchFilter {
     if ($row !== FALSE) {
       $locality = $this->sanitizeText($row['field_address_locality']) ?? $token;
       $adminArea = $this->sanitizeText($row['field_address_administrative_area']) ?? '';
+      $postalCode = $this->sanitizeText($row['field_address_postal_code']) ?? '';
+      if ($adminArea === '' && $postalCode !== '') {
+        $adminArea = $this->getDepartmentName(substr($postalCode, 0, 2));
+      }
       $meta['locality'] = $locality;
       $meta['admin_area'] = $adminArea;
-      $meta['label'] = $locality;
+      $meta['postal_code'] = $postalCode;
+      $meta['label'] = $postalCode !== '' ? "$locality ($postalCode)" : $locality;
       $meta['type'] = 'city';
     }
 

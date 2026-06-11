@@ -17,6 +17,8 @@ final class LocationSuggestBuilder {
 
   private const DEPARTMENT_DICTIONARY_TYPE = 'department';
 
+  private const DEPARTMENT_SUGGEST_LIMIT = 5;
+
   public function __construct(
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
@@ -55,8 +57,8 @@ final class LocationSuggestBuilder {
     $isNumericQuery = preg_match('/^\d+$/', $query) === 1;
 
     if (!$isNumericQuery) {
+      $this->appendDepartmentGroups($query, $groups, $suggestions, $seen);
       $this->appendCityGroups($needle, $limit, $groups, $suggestions, $seen);
-      $this->appendDepartmentGroups($query, $limit, $groups, $suggestions, $seen);
     }
 
     if ($isNumericQuery && strlen($query) >= 3) {
@@ -258,17 +260,16 @@ final class LocationSuggestBuilder {
    */
   private function appendDepartmentGroups(
     string $query,
-    int $limit,
     array &$groups,
     array &$suggestions,
     array &$seen,
   ): void {
-    if (count($suggestions) >= $limit) {
-      return;
-    }
-
     $deptItems = [];
     foreach ($this->searchDepartments($query) as $match) {
+      if (count($deptItems) >= self::DEPARTMENT_SUGGEST_LIMIT) {
+        break;
+      }
+
       $key = mb_strtolower($match['name']);
       if (isset($seen[$key])) {
         continue;
@@ -288,9 +289,6 @@ final class LocationSuggestBuilder {
         'department_code' => $match['code'],
       ];
       $suggestions[] = $match['name'];
-      if (count($suggestions) >= $limit) {
-        break;
-      }
     }
 
     if ($deptItems !== []) {

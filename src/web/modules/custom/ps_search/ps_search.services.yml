@@ -19,6 +19,7 @@ services:
       - '@language_manager'
       - '@language.config_factory_override'
       - '@ps_search.search_path_resolver'
+      - '@ps_search.seo_locality_path_builder'
     tags:
       - { name: path_processor_inbound, priority: 290 }
       - { name: path_processor_outbound, priority: 110 }
@@ -37,9 +38,8 @@ services:
     arguments:
       - '@config.factory'
       - '@language.config_factory_override'
-      - '@database'
       - '@ps_search.search_path_resolver'
-      - '@ps_dictionary.resolver'
+      - '@ps_search.seo_locality_path_builder'
     tags:
       - { name: event_subscriber }
 
@@ -48,6 +48,11 @@ services:
     arguments:
       - '@database'
       - '@ps_dictionary.resolver'
+
+  ps_search.seo_locality_path_builder:
+    class: Drupal\ps_search\Service\SearchSeoLocalityPathBuilder
+    arguments:
+      - '@ps_search.location_filter'
 
   ps_search.location_suggest_builder:
     class: Drupal\ps_search\Service\LocationSuggestBuilder

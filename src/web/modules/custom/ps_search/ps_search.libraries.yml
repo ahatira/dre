@@ -1,5 +1,5 @@
 filter.htmx:
-  version: 1.0.12
+  version: 1.0.13
   js:
     js/search-filter-htmx.js: {}
   dependencies:
@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.54
+  version: 1.0.55
   js:
     js/search-filter-bar.js: {}
   css:
