@@ -6,6 +6,7 @@ namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Strips facet/query noise and normalizes legacy search paths to SEO slugs.
  */
 final class SearchSeoCanonicalUrlBuilder {
+
+  private const SEARCH_ROUTE = 'view.ps_search_offers.page_list';
 
   public function __construct(
     private readonly SearchPathResolver $searchPathResolver,
@@ -41,6 +44,37 @@ final class SearchSeoCanonicalUrlBuilder {
   }
 
   /**
+   * Builds absolute alternate URLs keyed by langcode plus x-default.
+   *
+   * @return array<string, string>
+   *   Alternate URLs keyed by langcode and optionally x-default.
+   */
+  public function buildAlternateUrls(?Request $request = NULL): array {
+    $request ??= $this->requestStack->getCurrentRequest();
+    if ($request === NULL) {
+      return [];
+    }
+
+    $query = $this->resolveHreflangQuery($request);
+    $urls = [];
+
+    foreach ($this->languageManager->getLanguages() as $langcode => $language) {
+      $urls[$langcode] = Url::fromRoute(self::SEARCH_ROUTE, [], [
+        'query' => $query,
+        'language' => $language,
+        'absolute' => TRUE,
+      ])->toString();
+    }
+
+    $defaultLangcode = $this->languageManager->getDefaultLanguage()->getId();
+    if (isset($urls[$defaultLangcode])) {
+      $urls['x-default'] = $urls[$defaultLangcode];
+    }
+
+    return $urls;
+  }
+
+  /**
    * Returns a root-relative canonical path (with trailing slash).
    */
   public function buildCanonicalPath(?Request $request = NULL): ?string {
@@ -53,15 +87,68 @@ final class SearchSeoCanonicalUrlBuilder {
     $pathInfo = $request->getPathInfo();
 
     if ($this->isSeoSearchPath($pathInfo, $langcode)) {
+      $query = $this->parseSeoPathFilterQuery($pathInfo, $langcode);
+      if ($query !== []) {
+        return $this->buildCanonicalPathFromQuery($langcode, $query);
+      }
+
       return $this->normalizePath($pathInfo);
     }
 
-    [$langPrefix, $segment] = $this->parseSearchPathSegment($pathInfo, $langcode);
-    if ($segment === NULL) {
-      return NULL;
+    return $this->buildCanonicalPathFromQuery($langcode, $this->resolveHreflangQuery($request));
+  }
+
+  /**
+   * Extracts canonical search filters for hreflang and canonical URLs.
+   *
+   * @return array<string, string>
+   *   operation_type, asset_type and optional locality/locations query params.
+   */
+  public function resolveHreflangQuery(?Request $request = NULL): array {
+    $request ??= $this->requestStack->getCurrentRequest();
+    if ($request === NULL) {
+      return [];
     }
 
+    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+    $pathInfo = $request->getPathInfo();
+
+    if ($this->isSeoSearchPath($pathInfo, $langcode)) {
+      $fromPath = $this->parseSeoPathFilterQuery($pathInfo, $langcode);
+      if ($fromPath !== []) {
+        return $fromPath;
+      }
+    }
+
+    $query = [];
     $operationType = $this->firstQueryScalar($request->query->all()['operation_type'] ?? NULL);
+    if ($operationType !== NULL) {
+      $query['operation_type'] = $operationType;
+    }
+
+    $assetType = $this->firstQueryScalar($request->query->all()['asset_type'] ?? NULL);
+    if ($assetType !== NULL) {
+      $query['asset_type'] = $assetType;
+    }
+
+    $tokens = $this->extractLocationTokens($request);
+    if (count($tokens) === 1 && $tokens[0] !== '') {
+      $query['locality'] = $tokens[0];
+    }
+    elseif (count($tokens) > 1) {
+      $query['locations'] = implode(',', $tokens);
+    }
+
+    return $query;
+  }
+
+  /**
+   * Builds a canonical SEO path for a language from canonical filter query.
+   */
+  private function buildCanonicalPathFromQuery(string $langcode, array $query): ?string {
+    $langPrefix = $this->languagePrefix($langcode);
+    $operationType = $query['operation_type'] ?? NULL;
+
     if ($operationType === NULL) {
       return $this->normalizePath($langPrefix . '/' . $this->searchPathResolver->getSlugForLang($langcode));
     }
@@ -74,20 +161,83 @@ final class SearchSeoCanonicalUrlBuilder {
 
     $seoPath = $langPrefix . '/' . $opSlug;
 
-    $assetType = $this->firstQueryScalar($request->query->all()['asset_type'] ?? NULL);
-    if ($assetType !== NULL) {
+    $assetType = $query['asset_type'] ?? NULL;
+    if (is_string($assetType) && $assetType !== '') {
       $assetSlug = $m['val_to_asset'][strtoupper($assetType)] ?? NULL;
       if ($assetSlug !== NULL) {
         $seoPath .= '/' . $assetSlug;
       }
     }
 
-    $tokens = $this->extractLocationTokens($request);
-    if (count($tokens) === 1) {
-      $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
+    $locality = $query['locality'] ?? NULL;
+    $locations = $query['locations'] ?? NULL;
+    $locationValue = is_string($locations) && $locations !== '' ? $locations : $locality;
+    if (is_string($locationValue) && $locationValue !== '') {
+      $tokens = $this->splitLocationTokens($locationValue);
+      if (count($tokens) === 1) {
+        $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
+      }
     }
 
     return $this->normalizePath($seoPath);
+  }
+
+  /**
+   * Parses SEO path segments into canonical search filter query params.
+   *
+   * @return array<string, string>
+   *   Canonical filter query params extracted from the SEO path.
+   */
+  private function parseSeoPathFilterQuery(string $pathInfo, string $langcode): array {
+    $segments = $this->pathSegments($pathInfo, $langcode);
+    if ($segments === []) {
+      return [];
+    }
+
+    $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
+    $operationType = $m['op_to_val'][strtolower($segments[0])] ?? NULL;
+    if ($operationType === NULL) {
+      return [];
+    }
+
+    $query = ['operation_type' => $operationType];
+    $rest = array_slice($segments, 1);
+    $assetFound = FALSE;
+    $possibleDeptSegment = NULL;
+    $possibleCitySegment = NULL;
+
+    foreach ($rest as $segment) {
+      $slug = strtolower($segment);
+      if (!$assetFound && isset($m['asset_to_val'][$slug])) {
+        $query['asset_type'] = $m['asset_to_val'][$slug];
+        $assetFound = TRUE;
+        continue;
+      }
+
+      $possibleDeptSegment = $possibleCitySegment;
+      $possibleCitySegment = $segment;
+    }
+
+    if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
+      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
+        $possibleDeptSegment,
+        $possibleCitySegment,
+      );
+      if ($token !== NULL && $token !== '') {
+        $query['locality'] = $token;
+      }
+    }
+    elseif ($possibleCitySegment !== NULL) {
+      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
+      if ($token === NULL) {
+        $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
+      }
+      if ($token !== NULL && $token !== '') {
+        $query['locality'] = $token;
+      }
+    }
+
+    return $query;
   }
 
   /**
@@ -101,32 +251,6 @@ final class SearchSeoCanonicalUrlBuilder {
 
     $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
     return isset($m['op_to_val'][strtolower($segments[0])]);
-  }
-
-  /**
-   * Parses a configured search slug from the path, if present.
-   *
-   * @return array{0: string, 1: ?string}
-   *   Language prefix and search slug segment, if any.
-   */
-  private function parseSearchPathSegment(string $pathInfo, string $langcode): array {
-    $langPrefix = $this->languagePrefix($langcode);
-    $stripped = $pathInfo;
-    if ($langPrefix !== '' && str_starts_with($pathInfo, $langPrefix . '/')) {
-      $stripped = substr($pathInfo, strlen($langPrefix));
-    }
-
-    $segments = array_values(array_filter(explode('/', $stripped)));
-    if (count($segments) !== 1) {
-      return [$langPrefix, NULL];
-    }
-
-    $segment = strtolower($segments[0]);
-    if (!$this->searchPathResolver->isSearchPathSegment($segment)) {
-      return [$langPrefix, NULL];
-    }
-
-    return [$langPrefix, $segment];
   }
 
   /**

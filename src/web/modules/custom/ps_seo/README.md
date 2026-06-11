@@ -11,6 +11,7 @@ Central SEO module for Property Search (BNPPRE alignment).
 | Per-offer Metatag overrides | `ps_offer` (`field_metatag`) | Existing |
 | Search SEO URLs | `ps_search` | Existing |
 | Search `<title>` / description / canonical | `ps_seo` + `ps_search` | Phase 2 |
+| Search hreflang alternates | `ps_seo` + `ps_search` | Phase 3 |
 | XML sitemap | `ps_seo` | Phase 4 (planned) |
 
 ## Admin

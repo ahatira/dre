@@ -115,6 +115,10 @@ final class SearchSeoLocalityPathBuilder {
       return $postal;
     }
 
+    if ($parts === []) {
+      return $this->slugToLabel($segment);
+    }
+
     return $this->slugToLabel(implode('-', $parts));
   }
 
