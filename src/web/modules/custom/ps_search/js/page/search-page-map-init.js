@@ -127,6 +127,76 @@
   };
 
   /**
+   * Positions zoom controls bottom-left above Google attribution (BNPPRE maquette).
+   *
+   * @param {HTMLElement} mapEl
+   *   Map container element.
+   */
+  function positionZoomControls(mapEl) {
+    const controls = mapEl.querySelectorAll(
+      '.gm-bundled-control-on-bottom, .gm-bundled-control'
+    );
+    controls.forEach(function (control) {
+      if (!control.querySelector('[title="Zoom in"], [aria-label="Zoom in"]')) {
+        return;
+      }
+      control.style.removeProperty('top');
+      control.style.setProperty('bottom', '2.125rem', 'important');
+      control.style.setProperty('left', '1rem', 'important');
+    });
+  }
+
+  /**
+   * Schedules zoom control positioning (Google may re-apply inline top after idle).
+   *
+   * @param {HTMLElement} mapEl
+   *   Map container element.
+   */
+  function scheduleZoomControlPosition(mapEl) {
+    [0, 300, 1000].forEach(function (delay) {
+      window.setTimeout(function () {
+        positionZoomControls(mapEl);
+      }, delay);
+    });
+  }
+
+  /**
+   * Removes non-maquette map chrome (fullscreen, rotate) and keeps zoom bottom-left.
+   *
+   * @param {HTMLElement} mapEl
+   *   Map container element.
+   * @param {google.maps.Map} map
+   *   Map instance.
+   */
+  function sanitizeMapControls(mapEl, map) {
+    const removeSelectors = [
+      '.gm-fullscreen-control',
+      'button[aria-label*="fullscreen" i]',
+      'button[title*="fullscreen" i]',
+      'button[aria-label*="plein écran" i]',
+      'button[aria-label*="Rotate" i]',
+      'button[title*="Rotate" i]',
+    ];
+
+    const purge = function () {
+      removeSelectors.forEach(function (selector) {
+        mapEl.querySelectorAll(selector).forEach(function (node) {
+          node.remove();
+        });
+      });
+    };
+
+    purge();
+    scheduleZoomControlPosition(mapEl);
+    if (map && google.maps.event) {
+      google.maps.event.addListenerOnce(map, 'idle', function () {
+        purge();
+        scheduleZoomControlPosition(mapEl);
+      });
+    }
+  }
+
+  /**
    * Creates the google.maps.Map instance inside the PS shell container.
    *
    * @param {HTMLElement} root
@@ -157,10 +227,16 @@
         maxZoom: Number.isFinite(config.zoomMax) ? config.zoomMax : 22,
         gestureHandling: config.gestureHandling || 'cooperative',
         mapTypeId: 'roadmap',
+        disableDefaultUI: true,
         zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM,
+        },
         mapTypeControl: false,
         streetViewControl: false,
-        fullscreenControl: true,
+        fullscreenControl: false,
+        rotateControl: false,
+        scaleControl: false,
       };
 
       if (config.mapId) {
@@ -182,6 +258,8 @@
       Drupal.psSearchMap.instances[elementId] = bucket;
       el.dataset.psMapShellInit = '1';
       el.classList.add('is-ps-map-shell-ready');
+
+      sanitizeMapControls(el, bucket.map);
 
       root.dispatchEvent(new CustomEvent('ps-search-map-shell-ready', {
         detail: {

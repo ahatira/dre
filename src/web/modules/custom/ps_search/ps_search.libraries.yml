@@ -58,7 +58,7 @@ marker-cluster:
     - core/drupal
 
 search-page-map-init:
-  version: 1.0.2
+  version: 1.0.8
   js:
     js/page/search-page-map-init.js: {}
   dependencies:

@@ -118,6 +118,20 @@
       height: 100% !important;
       min-height: 100% !important;
       width: 100% !important;
+
+      // BNPPRE maquette: zoom +/- bottom-left (above Google logo), no fullscreen.
+      .gm-fullscreen-control,
+      button.gm-fullscreen-control {
+        display: none !important;
+      }
+
+      .gm-bundled-control-on-bottom:has([title='Zoom in']),
+      .gm-bundled-control-on-bottom:has([aria-label='Zoom in']),
+      .gm-bundled-control:has([title='Zoom in']),
+      .gm-bundled-control:has([aria-label='Zoom in']) {
+        bottom: 2.125rem !important;
+        left: 1rem !important;
+      }
     }
 
     // Cluster marker styles: ps_search/marker-cluster (BNPPRE styles in map_zone_settings).
