@@ -1,0 +1,15 @@
+services:
+  ps_seo.search_head_builder:
+    class: Drupal\ps_seo\Search\SearchSeoHeadBuilder
+    arguments:
+      - '@ps_search.filter_results_header_builder'
+      - '@ps_search.seo_canonical_url_builder'
+      - '@config.factory'
+
+  Drupal\ps_seo\Search\SearchSeoHeadBuilder: '@ps_seo.search_head_builder'
+
+  Drupal\ps_seo\Hook\SearchMetatagHooks:
+    class: Drupal\ps_seo\Hook\SearchMetatagHooks
+    arguments:
+      - '@current_route_match'
+      - '@ps_seo.search_head_builder'

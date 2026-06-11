@@ -436,3 +436,24 @@ msgstr "résultat"
 
 msgid "results"
 msgstr "résultats"
+
+msgid "across France"
+msgstr "partout en France"
+
+msgid "in @locality"
+msgstr "à @locality"
+
+msgid "Discover all our @asset for rent @locality_suffix and find your ideal space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la location @locality_suffix et trouvez rapidement votre espace idéalement situé."
+
+msgid "Discover all our @asset for sale @locality_suffix and find your ideal space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la vente @locality_suffix et trouvez rapidement votre espace idéalement situé."
+
+msgid "Discover all our @asset @locality_suffix and find your ideal space quickly."
+msgstr "Découvrez toutes nos offres de @asset @locality_suffix et trouvez rapidement votre espace idéalement situé."
+
+msgid "Search commercial real estate @locality_suffix and find your ideal space quickly."
+msgstr "Recherchez un bien immobilier d'entreprise @locality_suffix et trouvez rapidement votre espace idéalement situé."
+
+msgid "Search commercial real estate across France and find your ideal space quickly."
+msgstr "Recherchez un bien immobilier d'entreprise partout en France et trouvez rapidement votre espace idéalement situé."

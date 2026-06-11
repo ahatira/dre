@@ -7,6 +7,7 @@ version: 1.0.0
 dependencies:
   - ps_core:ps_core
   - ps_offer:ps_offer
+  - ps_search:ps_search
   - drupal:node
   - drupal:token
   - drupal:pathauto

@@ -50,6 +50,16 @@ services:
     arguments:
       - '@ps_search.location_filter'
 
+  ps_search.seo_canonical_url_builder:
+    class: Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder
+    arguments:
+      - '@ps_search.search_path_resolver'
+      - '@ps_search.seo_locality_path_builder'
+      - '@language_manager'
+      - '@request_stack'
+
+  Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder: '@ps_search.seo_canonical_url_builder'
+
   ps_search.location_suggest_builder:
     class: Drupal\ps_search\Service\LocationSuggestBuilder
     arguments:

@@ -74,6 +74,25 @@ final class SearchResultsHeaderBuilder {
   }
 
   /**
+   * Builds SEO copy for the search listing page (title + meta description).
+   *
+   * @return array{title: string, description: string}
+   *   Human-readable strings without site name suffix.
+   */
+  public function buildSeoHeadData(ViewExecutable $view): array {
+    [$activeOp, $activeAsset] = $this->resolveActiveFilters();
+    $locality = $this->resolveLocalityLabel($this->requestStack->getCurrentRequest());
+
+    $assetLabel = $activeAsset ? $this->dictionaryLabel('asset_type', $activeAsset) : NULL;
+    $opPhrase = $activeOp ? $this->operationPhrase($activeOp) : NULL;
+
+    return [
+      'title' => $this->buildTitle($assetLabel, $opPhrase, $locality),
+      'description' => $this->buildMetaDescription($assetLabel, $activeOp, $locality),
+    ];
+  }
+
+  /**
    * Builds a themed render array for the results header fragment.
    */
   public function buildRenderArray(ViewExecutable $view): array {
@@ -304,6 +323,40 @@ final class SearchResultsHeaderBuilder {
     }
 
     return (string) $this->t('Property search');
+  }
+
+  /**
+   * Builds a meta description aligned with BNPPRE listing pages.
+   */
+  private function buildMetaDescription(?string $assetLabel, ?string $operationCode, ?string $locality): string {
+    $localitySuffix = $locality
+      ? (string) $this->t('in @locality', ['@locality' => $locality])
+      : (string) $this->t('across France');
+
+    if ($assetLabel && $operationCode) {
+      return match (strtoupper($operationCode)) {
+        'LOC' => (string) $this->t('Discover all our @asset for rent @locality_suffix and find your ideal space quickly.', [
+          '@asset' => mb_strtolower($assetLabel),
+          '@locality_suffix' => $localitySuffix,
+        ]),
+        'VEN' => (string) $this->t('Discover all our @asset for sale @locality_suffix and find your ideal space quickly.', [
+          '@asset' => mb_strtolower($assetLabel),
+          '@locality_suffix' => $localitySuffix,
+        ]),
+        default => (string) $this->t('Discover all our @asset @locality_suffix and find your ideal space quickly.', [
+          '@asset' => mb_strtolower($assetLabel),
+          '@locality_suffix' => $localitySuffix,
+        ]),
+      };
+    }
+
+    if ($locality) {
+      return (string) $this->t('Search commercial real estate @locality_suffix and find your ideal space quickly.', [
+        '@locality_suffix' => $localitySuffix,
+      ]);
+    }
+
+    return (string) $this->t('Search commercial real estate across France and find your ideal space quickly.');
   }
 
   /**

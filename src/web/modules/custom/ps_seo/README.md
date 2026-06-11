@@ -10,7 +10,7 @@ Central SEO module for Property Search (BNPPRE alignment).
 | Schema.org (WebPage, Organization, Place) | `ps_seo` | Phase 1 |
 | Per-offer Metatag overrides | `ps_offer` (`field_metatag`) | Existing |
 | Search SEO URLs | `ps_search` | Existing |
-| Search `<title>` / canonical / hreflang | `ps_seo` | Phase 2 (planned) |
+| Search `<title>` / description / canonical | `ps_seo` + `ps_search` | Phase 2 |
 | XML sitemap | `ps_seo` | Phase 4 (planned) |
 
 ## Admin

@@ -58,7 +58,7 @@ final class SeoAdminOverviewController extends ControllerBase {
       'intro' => [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $this->t('Module ps_seo — Metatag defaults, Schema.org, sitemap and future search head tags.'),
+        '#value' => $this->t('Module ps_seo — Metatag defaults, Schema.org, sitemap and search listing head tags.'),
       ],
       'sections' => [
         '#type' => 'item_list',
