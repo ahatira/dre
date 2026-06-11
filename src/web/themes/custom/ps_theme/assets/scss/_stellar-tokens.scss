@@ -12,6 +12,22 @@
   --ps-offer-card-shadow: 0 2px 8px rgba(28, 45, 55, 0.08);
   --ps-offer-card-image-ratio: 4 / 3;
 
+  // Offer search card (list + map contexts).
+  // Desktop maquette ref. ~726×212 — media ≈ 242px (= 1/3 card), nav 32px (= 13.2% media).
+  --ps-offer-search-card-min-height: 212px;
+  --ps-offer-search-card-media-share: 33.333%;
+  --ps-offer-search-card-nav-size-min: 24px;
+  --ps-offer-search-card-nav-size-max: 32px;
+  --ps-offer-search-card-nav-size-ratio: 13.2%;
+  --ps-offer-search-card-nav-offset-min: 4px;
+  --ps-offer-search-card-nav-offset-max: 8px;
+  --ps-offer-search-card-nav-offset-ratio: 3.3%;
+  --ps-offer-search-card-content-padding-block: 30px;
+  --ps-offer-search-card-content-padding-inline: 24px;
+  --ps-offer-search-card-mobile-image-ratio: 368 / 200;
+  --ps-offer-search-card-mobile-content-padding-block: 20px;
+  --ps-offer-search-card-mobile-content-padding-inline: 16px;
+
   // Offer detail hero gallery (Stellar maquette 788×462).
   --ps-offer-gallery-hero-ratio: 788 / 462;
   --ps-offer-gallery-hero-height: 462px;

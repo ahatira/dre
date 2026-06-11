@@ -827,6 +827,7 @@
       width: auto;
 
       .ps-offer-search-card {
+        flex-direction: row;
         max-height: min(40dvh, 220px);
 
         &__media {
