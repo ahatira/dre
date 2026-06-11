@@ -20,4 +20,5 @@ dependencies:
   - schema_metatag:schema_web_page
   - schema_metatag:schema_organization
   - schema_metatag:schema_place
+  - schema_metatag:schema_image_object
   - simple_sitemap:simple_sitemap

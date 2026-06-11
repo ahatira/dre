@@ -14,6 +14,7 @@ Central SEO module for Property Search (BNPPRE alignment).
 | Search hreflang alternates | `ps_seo` + `ps_search` | Phase 3 |
 | XML sitemap (offers by asset type) | `ps_seo` | Phase 4 |
 | Search robots / noindex facet URLs | `ps_seo` + `ps_search` | Phase 5 |
+| Offer Metatag + JSON-LD enrichment | `ps_seo` | Phase 6 |
 
 ## Admin
 
@@ -39,6 +40,14 @@ Filter logic : `OfferSitemapHooks` (`entity_query_tag__node__simple_sitemap_alte
 On the property search listing route, any **user-visible query string** (facets, sort, pagination, map bounds, etc.) sets `robots: noindex,follow` and removes hreflang alternates. Clean SEO paths without query params remain `index,follow` with canonical and hreflang unchanged.
 
 Logic : `SearchSeoIndexabilityChecker` (`ps_search`) + `SearchMetatagHooks` (`ps_seo`).
+
+## Offer pages (Phase 6)
+
+BNPPRE-style `<title>`, meta description, OG/Twitter image and Schema.org (`WebPage`, `Place` + `PostalAddress`, `GeoCoordinates`, `ImageObject`, `Organization` publisher) on canonical offer routes.
+
+Logic : `OfferSeoHeadBuilder` + `OfferMetatagHooks` (`hook_metatags_alter`). Reuses `OfferSurfaceKpiBuilder` for surface fragments and adds hreflang alternates when translations exist.
+
+Import : `ps_seo_update_9004()` (enables `schema_image_object` + re-imports Metatag defaults).
 
 ## Dependencies
 

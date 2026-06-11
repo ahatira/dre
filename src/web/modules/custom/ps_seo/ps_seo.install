@@ -37,6 +37,18 @@ function ps_seo_update_9003(): void {
 }
 
 /**
+ * Enable schema_image_object and re-import enriched offer Metatag defaults.
+ */
+function ps_seo_update_9004(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('schema_image_object')) {
+    $moduleInstaller->install(['schema_image_object'], TRUE);
+  }
+
+  _ps_seo_import_metatag_defaults();
+}
+
+/**
  * Re-imports Metatag defaults shipped with ps_seo.
  */
 function _ps_seo_import_metatag_defaults(): void {
