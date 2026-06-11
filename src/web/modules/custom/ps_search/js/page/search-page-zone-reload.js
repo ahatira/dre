@@ -418,7 +418,9 @@
       params.set('ps_list_loaded_count', String(listNids.size));
     }
 
-    return params;
+    return typeof Drupal.psSearchPage?.normalizeFacetParamsForMarkersApi === 'function'
+      ? Drupal.psSearchPage.normalizeFacetParamsForMarkersApi(params)
+      : params;
   }
 
   Drupal.psSearchPage = Drupal.psSearchPage || {};
@@ -480,6 +482,10 @@
 
     if (options.browserUrl) {
       window.history.pushState({}, '', options.browserUrl);
+    }
+
+    if (typeof Drupal.psSearchPage?.syncPathCurrentQueryFromParams === 'function') {
+      Drupal.psSearchPage.syncPathCurrentQueryFromParams(params);
     }
 
     return reloadListPane(root, params)

@@ -672,6 +672,102 @@
   };
 
   /**
+   * Converts facet params to scalar format for the markers API.
+   *
+   * @param {URLSearchParams} params
+   *   Query parameters.
+   *
+   * @return {URLSearchParams}
+   *   Params safe for /api/ps/markers requests.
+   */
+  Drupal.psSearchPage.normalizeFacetParamsForMarkersApi = function (params) {
+    const normalized = new URLSearchParams(params);
+    FACET_PARAM_KEYS.forEach(function (key) {
+      const value = readFacetValue(normalized, key);
+      clearFacetParams(normalized, key);
+      if (value) {
+        normalized.set(key, value);
+      }
+    });
+    return normalized;
+  };
+
+  /**
+   * Reads operation_type / asset_type codes from SEO path segments.
+   *
+   * @return {{operation_type?: string, asset_type?: string}}
+   *   Facet codes inferred from /for-rent/office/ style paths.
+   */
+  function resolveSeoFacetsFromPath() {
+    const settings = drupalSettings.psSearch || {};
+    const opSlugs = settings.opSlugs || {};
+    const assetSlugs = settings.assetSlugs || {};
+    const langPrefix = settings.langPrefix || '';
+    let path = window.location.pathname || '';
+    if (langPrefix && path.indexOf(langPrefix + '/') === 0) {
+      path = path.slice(langPrefix.length);
+    }
+
+    const segments = path.split('/').filter(Boolean);
+    const searchPath = String(settings.searchPath || '/find-property').replace(/^\/+/, '').replace(/\/+$/, '');
+    if (segments.length === 0 || segments[0] === searchPath) {
+      return {};
+    }
+
+    let operationType = null;
+    let assetType = null;
+    Object.keys(opSlugs).forEach(function (code) {
+      if (opSlugs[code] === segments[0]) {
+        operationType = code;
+      }
+    });
+    if (operationType && segments[1]) {
+      Object.keys(assetSlugs).forEach(function (code) {
+        if (assetSlugs[code] === segments[1]) {
+          assetType = code;
+        }
+      });
+    }
+
+    const facets = {};
+    if (operationType) {
+      facets.operation_type = operationType;
+    }
+    if (assetType) {
+      facets.asset_type = assetType;
+    }
+    return facets;
+  }
+
+  /**
+   * Persists active facet filters into drupalSettings.path.currentQuery.
+   *
+   * Required after history.pushState to a SEO URL without a full page reload.
+   *
+   * @param {URLSearchParams} params
+   *   Active filter params (Views bracket or scalar).
+   */
+  Drupal.psSearchPage.syncPathCurrentQueryFromParams = function (params) {
+    if (!(params instanceof URLSearchParams)) {
+      return;
+    }
+    drupalSettings.path = drupalSettings.path || {};
+    const currentQuery = Object.assign({}, drupalSettings.path.currentQuery || {});
+
+    FACET_PARAM_KEYS.forEach(function (key) {
+      const value = readFacetValue(params, key);
+      if (value) {
+        currentQuery[key] = value;
+      }
+      else {
+        delete currentQuery[key];
+      }
+    });
+
+    drupalSettings.path.currentQuery = currentQuery;
+  };
+
+  /**
    * Builds search query params from the browser URL + server-injected SEO filters.
    *
    * SEO paths (/for-rent/office/) inject operation_type/asset_type server-side
@@ -707,6 +803,13 @@
         return;
       }
       params.set(key, String(value));
+    });
+
+    const pathFacets = resolveSeoFacetsFromPath();
+    Object.keys(pathFacets).forEach(function (key) {
+      if (!readFacetValue(params, key)) {
+        params.set(key, pathFacets[key]);
+      }
     });
 
     if (overrides instanceof URLSearchParams) {
