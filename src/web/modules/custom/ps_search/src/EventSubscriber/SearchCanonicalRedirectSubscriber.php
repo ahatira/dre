@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\EventSubscriber;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,12 +23,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterface {
 
-  /** @var array<string, array{op: array<string,string>, asset: array<string,string>}> keyed by langcode */
-  private array $mappingsByLang = [];
-
   public function __construct(
-    private readonly ConfigFactoryInterface $configFactory,
-    private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
   ) {}
@@ -204,26 +197,11 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
   }
 
   private function getMappings(string $langcode): array {
-    if (isset($this->mappingsByLang[$langcode])) {
-      return $this->mappingsByLang[$langcode];
-    }
-
-    $base       = $this->configFactory->get('ps_search.seo_url_mappings');
-    $langConfig = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
-
-    $opTypes    = array_merge($base->get('operation_types') ?? [], $langConfig->get('operation_types') ?? []);
-    $assetTypes = array_merge($base->get('asset_types') ?? [], $langConfig->get('asset_types') ?? []);
-
-    $op = []; $asset = [];
-    foreach ($opTypes as $value => $slug) {
-      $op[strtoupper((string) $value)] = strtolower((string) $slug);
-    }
-    foreach ($assetTypes as $value => $slug) {
-      $asset[strtoupper((string) $value)] = strtolower((string) $slug);
-    }
-
-    $this->mappingsByLang[$langcode] = ['op' => $op, 'asset' => $asset];
-    return $this->mappingsByLang[$langcode];
+    $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
+    return [
+      'op' => $m['val_to_op'],
+      'asset' => $m['val_to_asset'],
+    ];
   }
 
   private function getDefaultLangcode(): string {

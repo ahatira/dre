@@ -30,6 +30,13 @@ final class SearchPathResolver implements \Drupal\ps_search\Contract\SearchPathR
   private array $assetAliasesByLang = [];
 
   /**
+   * Per-language SEO slug lookup cache keyed by langcode.
+   *
+   * @var array<string, array{op_to_val: array<string, string>, val_to_op: array<string, string>, asset_to_val: array<string, string>, val_to_asset: array<string, string>}>
+   */
+  private array $seoMappingsByLang = [];
+
+  /**
    * Per-language slug cache keyed by langcode.
    *
    * @var array<string, string>
@@ -145,6 +152,65 @@ final class SearchPathResolver implements \Drupal\ps_search\Contract\SearchPathR
 
     $this->assetAliasesByLang[$langcode] = $normalized;
     return $normalized;
+  }
+
+  /**
+   * SEO slug lookup tables for a specific language.
+   *
+   * Uses config storage for the default-language base so mappings stay correct
+   * when generating URLs for a language other than the current request.
+   *
+   * @return array{op_to_val: array<string, string>, val_to_op: array<string, string>, asset_to_val: array<string, string>, val_to_asset: array<string, string>}
+   */
+  public function getSeoSlugMappings(string $langcode): array {
+    if (isset($this->seoMappingsByLang[$langcode])) {
+      return $this->seoMappingsByLang[$langcode];
+    }
+
+    $base = $this->configStorage->read('ps_search.seo_url_mappings') ?: [];
+    $langConfig = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
+
+    $opTypes = array_merge(
+      $base['operation_types'] ?? [],
+      $langConfig->get('operation_types') ?? [],
+    );
+    $assetTypes = array_merge(
+      $base['asset_types'] ?? [],
+      $langConfig->get('asset_types') ?? [],
+    );
+
+    $opToVal = [];
+    $valToOp = [];
+    foreach ($opTypes as $value => $slug) {
+      $slug = strtolower((string) $slug);
+      $value = strtoupper((string) $value);
+      $opToVal[$slug] = $value;
+      $valToOp[$value] = $slug;
+    }
+
+    $assetToVal = [];
+    $valToAsset = [];
+    foreach ($assetTypes as $value => $slug) {
+      $slug = strtolower((string) $slug);
+      $value = strtoupper((string) $value);
+      $assetToVal[$slug] = $value;
+      $valToAsset[$value] = $slug;
+    }
+
+    foreach ($this->getAssetSlugAliases($langcode) as $legacySlug => $canonicalSlug) {
+      if (isset($assetToVal[$canonicalSlug]) && !isset($assetToVal[$legacySlug])) {
+        $assetToVal[$legacySlug] = $assetToVal[$canonicalSlug];
+      }
+    }
+
+    $this->seoMappingsByLang[$langcode] = [
+      'op_to_val' => $opToVal,
+      'val_to_op' => $valToOp,
+      'asset_to_val' => $assetToVal,
+      'val_to_asset' => $valToAsset,
+    ];
+
+    return $this->seoMappingsByLang[$langcode];
   }
 
   /**

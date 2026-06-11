@@ -121,6 +121,10 @@ final class LanguageSwitcherBlock extends BlockBase implements ContainerFactoryP
       if (!$is_active && $link['url'] instanceof Url) {
         $target_url = clone $link['url'];
         $target_url->setOption('language', $language);
+        if (!empty($link['query'])) {
+          $existing_query = $target_url->getOption('query') ?? [];
+          $target_url->setOption('query', $existing_query + $link['query']);
+        }
       }
 
       $menu_links[] = [

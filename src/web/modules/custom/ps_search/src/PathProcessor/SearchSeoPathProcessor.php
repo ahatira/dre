@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\PathProcessor;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
 use Drupal\Core\PathProcessor\OutboundPathProcessorInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -33,17 +31,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class SearchSeoPathProcessor implements InboundPathProcessorInterface, OutboundPathProcessorInterface {
 
-  /**
-   * Per-language slug lookup tables, keyed by langcode.
-   *
-   * @var array<string, array{op_to_val: array<string,string>, val_to_op: array<string,string>, asset_to_val: array<string,string>, val_to_asset: array<string,string>}>
-   */
-  private array $mappingsByLang = [];
-
   public function __construct(
-    private readonly ConfigFactoryInterface $configFactory,
     private readonly LanguageManagerInterface $languageManager,
-    private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
   ) {}
@@ -140,7 +129,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
       return $path;
     }
 
-    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+    $langcode = $this->resolveOutboundLangcode($options);
     $m = $this->getMappings($langcode);
 
     $opSlug = $m['val_to_op'][strtoupper($rawOp)] ?? NULL;
@@ -181,6 +170,17 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   }
 
   /**
+   * Resolves the language used for outbound slug translation.
+   */
+  private function resolveOutboundLangcode(array $options): string {
+    if (isset($options['language']) && $options['language'] instanceof LanguageInterface) {
+      return $options['language']->getId();
+    }
+
+    return $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+  }
+
+  /**
    * Maps public ?locations= to Views exposed filter ?locality=.
    */
   private function syncLocationsQueryParam(Request $request): void {
@@ -205,57 +205,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
    * @return array{op_to_val: array<string,string>, val_to_op: array<string,string>, asset_to_val: array<string,string>, val_to_asset: array<string,string>}
    */
   private function getMappings(string $langcode): array {
-    if (isset($this->mappingsByLang[$langcode])) {
-      return $this->mappingsByLang[$langcode];
-    }
-
-    // Base config (default language, e.g. EN).
-    $base = $this->configFactory->get('ps_search.seo_url_mappings');
-    // Language-specific override from the language.LANGCODE collection.
-    $langConfig = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
-
-    // Override wins over base for keys present in both.
-    $opTypes = array_merge(
-      $base->get('operation_types') ?? [],
-      $langConfig->get('operation_types') ?? [],
-    );
-    $assetTypes = array_merge(
-      $base->get('asset_types') ?? [],
-      $langConfig->get('asset_types') ?? [],
-    );
-
-    $opToVal = []; $valToOp = [];
-    foreach ($opTypes as $value => $slug) {
-      $slug = strtolower((string) $slug);
-      $value = strtoupper((string) $value);
-      $opToVal[$slug] = $value;
-      $valToOp[$value] = $slug;
-    }
-
-    $assetToVal = []; $valToAsset = [];
-    foreach ($assetTypes as $value => $slug) {
-      $slug = strtolower((string) $slug);
-      $value = strtoupper((string) $value);
-      $assetToVal[$slug] = $value;
-      $valToAsset[$value] = $slug;
-    }
-
-    foreach ($this->searchPathResolver->getAssetSlugAliases($langcode) as $legacySlug => $canonicalSlug) {
-      $legacySlug = strtolower($legacySlug);
-      $canonicalSlug = strtolower($canonicalSlug);
-      if (isset($assetToVal[$canonicalSlug]) && !isset($assetToVal[$legacySlug])) {
-        $assetToVal[$legacySlug] = $assetToVal[$canonicalSlug];
-      }
-    }
-
-    $this->mappingsByLang[$langcode] = [
-      'op_to_val'    => $opToVal,
-      'val_to_op'    => $valToOp,
-      'asset_to_val' => $assetToVal,
-      'val_to_asset' => $valToAsset,
-    ];
-
-    return $this->mappingsByLang[$langcode];
+    return $this->searchPathResolver->getSeoSlugMappings($langcode);
   }
 
   /**

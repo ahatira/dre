@@ -44,8 +44,19 @@ final class SearchBasePathProcessor implements InboundPathProcessorInterface, Ou
       return $path;
     }
 
-    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+    $langcode = $this->resolveOutboundLangcode($options);
     return $this->searchPathResolver->getPublicPath($langcode);
+  }
+
+  /**
+   * Resolves the language used for outbound slug translation.
+   */
+  private function resolveOutboundLangcode(array $options): string {
+    if (isset($options['language']) && $options['language'] instanceof LanguageInterface) {
+      return $options['language']->getId();
+    }
+
+    return $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
   }
 
 }

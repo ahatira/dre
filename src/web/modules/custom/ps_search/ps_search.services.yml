@@ -15,9 +15,7 @@ services:
   ps_search.seo_path_processor:
     class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
     arguments:
-      - '@config.factory'
       - '@language_manager'
-      - '@language.config_factory_override'
       - '@ps_search.search_path_resolver'
       - '@ps_search.seo_locality_path_builder'
     tags:
@@ -36,8 +34,6 @@ services:
   ps_search.canonical_redirect_subscriber:
     class: Drupal\ps_search\EventSubscriber\SearchCanonicalRedirectSubscriber
     arguments:
-      - '@config.factory'
-      - '@language.config_factory_override'
       - '@ps_search.search_path_resolver'
       - '@ps_search.seo_locality_path_builder'
     tags:
@@ -301,6 +297,12 @@ services:
     class: Drupal\ps_search\Hook\SearchPageAttachmentsHooks
     arguments:
       - '@ps_search.header_search_panel_builder'
+
+  Drupal\ps_search\Hook\SearchLanguageSwitchHooks:
+    class: Drupal\ps_search\Hook\SearchLanguageSwitchHooks
+    arguments:
+      - '@current_route_match'
+      - '@request_stack'
 
   ps_search.transaction_toggle_builder:
     class: Drupal\ps_search\Search\Seo\SearchTransactionToggleBuilder
