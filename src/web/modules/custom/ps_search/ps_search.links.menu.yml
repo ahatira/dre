@@ -1,20 +1,34 @@
-ps_search.seo_url_mappings_form:
-  title: 'SEO URL Mappings'
-  description: 'Manage URL slugs for operation and asset type filters.'
+ps_search.admin_overview:
+  title: 'Search'
+  description: 'Property search configuration (filters, map, SEO, API).'
+  route_name: ps_search.admin_overview
+  parent: ps_core.config
+  weight: 5
+
+ps_search.seo_url_mappings:
+  title: 'SEO URL mappings'
+  description: 'Configure search page and filter URL slugs.'
   route_name: ps_search.seo_url_mappings_form
-  parent: ps_core.config
-  weight: 10
+  parent: ps_search.admin_overview
+  weight: 0
 
-ps_search.feature_filter_sync_settings:
-  title: 'Feature search filters'
-  description: 'Configure per-feature filter combine mode and index sync.'
-  route_name: ps_search.feature_filter_sync_settings
-  parent: ps_core.config
-  weight: 11
-
-ps_search.map_zone_settings_form:
+ps_search.map_zone_settings:
   title: 'Map zone settings'
-  description: 'Default map zone radius, list load-all threshold and markers cap.'
+  description: 'Default map zone, pager threshold and markers cap.'
   route_name: ps_search.map_zone_settings_form
-  parent: ps_core.config
-  weight: 12
+  parent: ps_search.admin_overview
+  weight: 5
+
+ps_search.api_settings:
+  title: 'API limits and cache'
+  description: 'Rate limits and server cache TTLs for /api/ps/* endpoints.'
+  route_name: ps_search.api_settings_form
+  parent: ps_search.admin_overview
+  weight: 7
+
+ps_search.feature_filter_sync:
+  title: 'Feature search filters'
+  description: 'Sync ps_feature filters into search view and index.'
+  route_name: ps_search.feature_filter_sync_settings
+  parent: ps_search.admin_overview
+  weight: 10

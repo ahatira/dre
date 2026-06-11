@@ -9,7 +9,7 @@ use Drupal\node\NodeInterface;
 /**
  * Builds BNPPRE-style price marker icons for the search results map.
  *
- * Rendered by geofield_map (Views map attachment) — no custom OverlayView JS.
+ * Used by `/api/ps/markers` (SVG data URIs in JS via drupalSettings).
  * Reference preview: ps_theme/assets/images/map/marker-price.svg.
  */
 final class SearchMapMarkerBuilder {

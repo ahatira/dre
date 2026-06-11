@@ -23,7 +23,7 @@ backend_config:
     solr_install_dir: ''
   retrieve_data: false
   highlight_data: false
-  site_hash: false
+  site_hash: true
   server_prefix: ''
   domain: generic
   environment: default

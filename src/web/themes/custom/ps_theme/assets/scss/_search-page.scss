@@ -114,46 +114,13 @@
       min-height: 12rem;
     }
 
-    .geofield-google-map {
+    .ps-search-map {
       height: 100% !important;
       min-height: 100% !important;
       width: 100% !important;
     }
 
-    // MarkerClusterer groups — styled via CSS (library still injects a hidden img).
-    .cluster {
-      align-items: center !important;
-      background-color: #FFFFFF !important;
-      border: 2px solid #00915A !important;
-      border-radius: 50% !important;
-      box-sizing: border-box !important;
-      cursor: pointer;
-      display: flex !important;
-      justify-content: center !important;
-
-      > img {
-        display: none !important;
-      }
-
-      > div {
-        color: #00915A !important;
-        font-size: 13px !important;
-        font-weight: 700 !important;
-        line-height: 1 !important;
-        position: static !important;
-        text-align: center !important;
-        width: auto !important;
-      }
-
-      &:hover,
-      &.is-map-sync-active {
-        background-color: #00915A !important;
-
-        > div {
-          color: #FFFFFF !important;
-        }
-      }
-    }
+    // Cluster marker styles: ps_search/marker-cluster (BNPPRE styles in map_zone_settings).
   }
 
   .ps-search-map-area-btn {

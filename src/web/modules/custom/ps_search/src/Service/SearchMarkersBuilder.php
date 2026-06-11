@@ -148,14 +148,20 @@ final class SearchMarkersBuilder {
     }
 
     $markers = [];
+    $seenNids = [];
     foreach ($results->getResultItems() as $item) {
       if (!$item instanceof ItemInterface) {
         continue;
       }
       $row = $this->extractMarkerFromItem($item);
-      if ($row !== NULL) {
-        $markers[] = $row;
+      if ($row === NULL) {
+        continue;
       }
+      if (isset($seenNids[$row['nid']])) {
+        continue;
+      }
+      $seenNids[$row['nid']] = TRUE;
+      $markers[] = $row;
     }
 
     return [
@@ -197,14 +203,24 @@ final class SearchMarkersBuilder {
     }
 
     $points = [];
+    $seenNids = [];
     foreach ($results->getResultItems() as $item) {
       if (!$item instanceof ItemInterface) {
         continue;
       }
       $point = $this->extractPointFromItem($item);
-      if ($point !== NULL) {
-        $points[] = $point;
+      if ($point === NULL) {
+        continue;
       }
+      $nid = (string) $point['nid'];
+      if (isset($seenNids[$nid])) {
+        continue;
+      }
+      $seenNids[$nid] = TRUE;
+      $points[] = [
+        'lat' => $point['lat'],
+        'lng' => $point['lng'],
+      ];
     }
 
     $targetCells = (int) ($this->configFactory->get('ps_search.map_zone_settings')->get('markers_cluster_cells') ?? 64);

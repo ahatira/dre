@@ -15,7 +15,7 @@ use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
  * The Views route uses the default slug (find-property). Public URLs per
  * language are configured in ps_search.seo_url_mappings (config translation).
  */
-final class SearchPathResolver {
+final class SearchPathResolver implements \Drupal\ps_search\Contract\SearchPathResolverInterface {
 
   /**
    * Legacy slug kept for 301 redirects from pre-migration bookmarks.

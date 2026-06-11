@@ -3,6 +3,46 @@ services:
     parent: logger.channel_base
     arguments: ['ps_search']
 
+  ps_search.search_path_resolver:
+    class: Drupal\ps_search\Service\SearchPathResolver
+    arguments:
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@config.storage'
+
+  Drupal\ps_search\Contract\SearchPathResolverInterface: '@ps_search.search_path_resolver'
+
+  ps_search.seo_path_processor:
+    class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@ps_search.search_path_resolver'
+    tags:
+      - { name: path_processor_inbound, priority: 290 }
+      - { name: path_processor_outbound, priority: 110 }
+
+  ps_search.base_path_processor:
+    class: Drupal\ps_search\PathProcessor\SearchBasePathProcessor
+    arguments:
+      - '@ps_search.search_path_resolver'
+      - '@language_manager'
+    tags:
+      - { name: path_processor_inbound, priority: 285 }
+      - { name: path_processor_outbound, priority: 105 }
+
+  ps_search.canonical_redirect_subscriber:
+    class: Drupal\ps_search\EventSubscriber\SearchCanonicalRedirectSubscriber
+    arguments:
+      - '@config.factory'
+      - '@language.config_factory_override'
+      - '@database'
+      - '@ps_search.search_path_resolver'
+      - '@ps_dictionary.resolver'
+    tags:
+      - { name: event_subscriber }
+
   ps_search.location_filter:
     class: Drupal\ps_search\Service\LocationSearchFilter
     arguments:
@@ -42,6 +82,66 @@ services:
       - '@ps_search.isochrone.ors'
       - '@ps_search.isochrone.google'
       - '@logger.channel.ps_search'
+      - '@cache.default'
+
+  ps_search.api.request_validator:
+    class: Drupal\ps_search\Api\RequestValidator
+
+  ps_search.api.rate_limit:
+    class: Drupal\ps_search\Api\ApiRateLimitService
+    arguments:
+      - '@config.factory'
+      - '@flood'
+      - '@current_user'
+      - '@logger.channel.ps_search'
+
+  ps_search.api.rate_limit_subscriber:
+    class: Drupal\ps_search\EventSubscriber\ApiRateLimitSubscriber
+    arguments:
+      - '@current_route_match'
+      - '@ps_search.api.rate_limit'
+    tags:
+      - { name: event_subscriber }
+
+  ps_search.api.security_headers_subscriber:
+    class: Drupal\ps_search\EventSubscriber\ApiSecurityHeadersSubscriber
+    arguments:
+      - '@current_route_match'
+    tags:
+      - { name: event_subscriber }
+
+  ps_search.query_factory:
+    class: Drupal\ps_search\Search\Query\SearchQueryFactory
+    arguments:
+      - '@ps_search.location_filter'
+      - '@ps_search.more_criteria_applier'
+      - '@language_manager'
+
+  Drupal\ps_search\Contract\SearchQueryFactoryInterface: '@ps_search.query_factory'
+
+  ps_search.more_criteria_applier:
+    class: Drupal\ps_search\Service\MoreCriteriaConditionApplier
+    arguments:
+      - '@ps_search.feature_filter_registry'
+      - '@config.factory'
+
+  ps_search.filter_query_builder:
+    class: Drupal\ps_search\Service\SearchFilterQueryBuilder
+    arguments:
+      - '@ps_search.query_factory'
+
+  ps_search.result_geo_bounds_resolver:
+    class: Drupal\ps_search\Service\SearchResultGeoBoundsResolver
+    arguments:
+      - '@ps_search.filter_query_builder'
+
+  Drupal\ps_search\Contract\SearchResultGeoBoundsResolverInterface: '@ps_search.result_geo_bounds_resolver'
+
+  ps_search.location_centroid:
+    class: Drupal\ps_search\Service\LocationCentroidResolver
+    arguments:
+      - '@ps_search.location_filter'
+      - '@config.factory'
 
   ps_search.map_bounds_resolver:
     class: Drupal\ps_search\Service\MapBoundsResolver
@@ -51,31 +151,94 @@ services:
       - '@config.factory'
       - '@ps_search.result_geo_bounds_resolver'
 
-  ps_search.result_geo_bounds_resolver:
-    class: Drupal\ps_search\Service\SearchResultGeoBoundsResolver
-    arguments:
-      - '@ps_search.filter_query_builder'
-
-  ps_search.filter_query_builder:
-    class: Drupal\ps_search\Service\SearchFilterQueryBuilder
-    arguments:
-      - '@ps_search.location_filter'
-      - '@ps_search.more_criteria_applier'
-
   ps_search.result_counter:
     class: Drupal\ps_search\Service\SearchResultCounter
     arguments:
       - '@ps_search.filter_query_builder'
       - '@ps_search.map_bounds_resolver'
 
-  ps_search.markers_grid_cluster_builder:
-    class: Drupal\ps_search\Service\SearchMarkersGridClusterBuilder
-
   ps_search.list_loaded_limit:
     class: Drupal\ps_search\Service\SearchListLoadedLimitResolver
     arguments:
       - '@config.factory'
       - '@ps_search.result_counter'
+
+  Drupal\ps_search\Hook\MapBoundsQueryHooks:
+    class: Drupal\ps_search\Hook\MapBoundsQueryHooks
+    arguments:
+      - '@ps_search.map_bounds_resolver'
+      - '@ps_search.query_factory'
+      - '@request_stack'
+
+  Drupal\ps_search\Hook\SearchListPagerHooks:
+    class: Drupal\ps_search\Hook\SearchListPagerHooks
+    arguments:
+      - '@ps_search.result_counter'
+      - '@config.factory'
+      - '@request_stack'
+
+  ps_search.feature_filter_registry:
+    class: Drupal\ps_search\Service\FeatureSearchFilterRegistry
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_feature.feature_group_display_label'
+
+  ps_search.filter_more_criteria_builder:
+    class: Drupal\ps_search\Search\Filter\MoreCriteriaBuilder
+    arguments:
+      - '@ps_search.feature_filter_registry'
+
+  ps_search.filter_bar_htmx_settings:
+    class: Drupal\ps_search\Search\Filter\FilterBarHtmxSettings
+
+  ps_search.filter_bar_builder:
+    class: Drupal\ps_search\Search\Filter\FilterBarBuilder
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@entity_type.manager'
+      - '@request_stack'
+      - '@ps_search.filter_more_criteria_builder'
+      - '@ps_dictionary.entry_icon_resolver'
+      - '@ps_context.search_filter_visibility'
+      - '@ps_context.search_budget_filter'
+      - '@ps_search.search_path_resolver'
+      - '@ps_search.filter_bar_htmx_settings'
+
+  ps_search.filter_results_header_builder:
+    class: Drupal\ps_search\Search\Filter\SearchResultsHeaderBuilder
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@entity_type.manager'
+      - '@request_stack'
+      - '@ps_search.location_filter'
+      - '@ps_search.result_counter'
+
+  Drupal\ps_search\Hook\SearchThemeHooks:
+    class: Drupal\ps_search\Hook\SearchThemeHooks
+
+  Drupal\ps_search\Hook\SearchFilterViewsHooks:
+    class: Drupal\ps_search\Hook\SearchFilterViewsHooks
+    arguments:
+      - '@ps_search.filter_bar_builder'
+      - '@ps_search.filter_results_header_builder'
+      - '@ps_search.location_centroid'
+      - '@ps_search.map_bounds_resolver'
+      - '@ps_search.result_counter'
+      - '@ps_offer.map_settings'
+      - '@config.factory'
+      - '@request_stack'
+      - '@language_manager'
+      - '@ps_search.map_settings_builder'
+
+  Drupal\ps_search\Service\SearchMapMarkerBuilder:
+    class: Drupal\ps_search\Service\SearchMapMarkerBuilder
+
+  ps_search.markers_grid_cluster_builder:
+    class: Drupal\ps_search\Service\SearchMarkersGridClusterBuilder
 
   ps_search.markers_builder:
     class: Drupal\ps_search\Service\SearchMarkersBuilder
@@ -89,43 +252,18 @@ services:
       - '@cache.default'
       - '@ps_search.list_loaded_limit'
 
-  Drupal\ps_search\Hook\MapBoundsQueryHooks:
-    class: Drupal\ps_search\Hook\MapBoundsQueryHooks
+  ps_search.map_settings_builder:
+    class: Drupal\ps_search\Service\SearchMapSettingsBuilder
     arguments:
-      - '@ps_search.map_bounds_resolver'
-      - '@ps_search.filter_query_builder'
-      - '@request_stack'
       - '@config.factory'
-      - '@ps_search.list_loaded_limit'
-
-  Drupal\ps_search\Hook\SearchListPagerHooks:
-    class: Drupal\ps_search\Hook\SearchListPagerHooks
-    arguments:
-      - '@ps_search.result_counter'
-      - '@config.factory'
-      - '@request_stack'
-
-  ps_search.location_centroid:
-    class: Drupal\ps_search\Service\LocationCentroidResolver
-    arguments:
-      - '@ps_search.location_filter'
-      - '@config.factory'
-
-  Drupal\ps_search\Hook\SearchLocationHooks:
-    class: Drupal\ps_search\Hook\SearchLocationHooks
-    arguments:
       - '@ps_search.location_centroid'
-      - '@ps_search.map_bounds_resolver'
-      - '@ps_search.result_counter'
-      - '@ps_offer.map_settings'
-      - '@config.factory'
-      - '@request_stack'
+      - '@language_manager'
 
-  ps_search.more_criteria_applier:
-    class: Drupal\ps_search\Service\MoreCriteriaConditionApplier
+  ps_search.feature_filter_sync_manager:
+    class: Drupal\ps_search\Service\FeatureFilterSyncManager
     arguments:
-      - '@ps_search.feature_filter_registry'
       - '@config.factory'
+      - '@ps_search.feature_filter_registry'
 
   Drupal\ps_search\Hook\FeatureFilterQueryHooks:
     class: Drupal\ps_search\Hook\FeatureFilterQueryHooks
@@ -134,67 +272,35 @@ services:
       - '@ps_search.feature_filter_registry'
       - '@request_stack'
 
-  ps_search.feature_filter_registry:
-    class: Drupal\ps_search\Service\FeatureSearchFilterRegistry
-    arguments:
-      - '@entity_type.manager'
-      - '@ps_feature.feature_group_display_label'
-
-  Drupal\ps_search\Service\FeatureFilterSyncManager:
-    class: Drupal\ps_search\Service\FeatureFilterSyncManager
-    arguments:
-      - '@config.factory'
-      - '@ps_search.feature_filter_registry'
-
-  Drupal\ps_search\Service\SearchMapMarkerBuilder:
-    class: Drupal\ps_search\Service\SearchMapMarkerBuilder
-
-  Drupal\ps_search\Hook\GeofieldMapHooks:
-    class: Drupal\ps_search\Hook\GeofieldMapHooks
-    arguments:
-      - '@Drupal\ps_search\Service\SearchMapMarkerBuilder'
-
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks
     arguments:
-      - '@Drupal\ps_search\Service\FeatureFilterSyncManager'
+      - '@ps_search.feature_filter_sync_manager'
       - '@config.factory'
       - '@logger.factory'
 
-  ps_search.seo_path_processor:
-    class: Drupal\ps_search\PathProcessor\SearchSeoPathProcessor
+  Drupal\ps_search\Hook\SearchPageAttachmentsHooks:
+    class: Drupal\ps_search\Hook\SearchPageAttachmentsHooks
     arguments:
-      - '@config.factory'
-      - '@language_manager'
-      - '@language.config_factory_override'
-      - '@ps_search.search_path_resolver'
-    tags:
-      - { name: path_processor_inbound, priority: 290 }
-      - { name: path_processor_outbound, priority: 110 }
+      - '@ps_search.header_search_panel_builder'
 
-  ps_search.search_path_resolver:
-    class: Drupal\ps_search\Service\SearchPathResolver
+  ps_search.transaction_toggle_builder:
+    class: Drupal\ps_search\Search\Seo\SearchTransactionToggleBuilder
     arguments:
-      - '@language_manager'
-      - '@language.config_factory_override'
-      - '@config.storage'
-
-  ps_search.base_path_processor:
-    class: Drupal\ps_search\PathProcessor\SearchBasePathProcessor
-    arguments:
-      - '@ps_search.search_path_resolver'
-      - '@language_manager'
-    tags:
-      - { name: path_processor_inbound, priority: 285 }
-      - { name: path_processor_outbound, priority: 105 }
-
-  ps_search.canonical_redirect_subscriber:
-    class: Drupal\ps_search\EventSubscriber\SearchCanonicalRedirectSubscriber
-    arguments:
-      - '@config.factory'
-      - '@language.config_factory_override'
-      - '@database'
+      - '@request_stack'
       - '@ps_search.search_path_resolver'
       - '@ps_dictionary.resolver'
-    tags:
-      - { name: event_subscriber }
+
+  ps_search.header_search_panel_builder:
+    class: Drupal\ps_search\Search\Header\HeaderSearchPanelBuilder
+    arguments:
+      - '@ps_search.transaction_toggle_builder'
+      - '@ps_search.search_path_resolver'
+      - '@config.factory'
+
+  Drupal\ps_search\Search\Header\HeaderSearchPanelBuilder: '@ps_search.header_search_panel_builder'
+
+  ps_search.hero_search_builder:
+    class: Drupal\ps_search\Search\Hero\HeroSearchBuilder
+    arguments:
+      - '@ps_search.header_search_panel_builder'

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64fa16983a40142b16cd40b0b7fa141a",
+    "content-hash": "ba80bb82564e988e15de9089ad559664",
     "packages": [
         {
             "name": "altcha-org/altcha",
@@ -7662,6 +7662,54 @@
             "homepage": "https://www.drupal.org/project/views_load_more",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_load_more"
+            }
+        },
+        {
+            "name": "drupal/views_show_more",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_show_more.git",
+                "reference": "2.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_show_more-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "ab2473fdd81df54fbd5e52b5d82ddde5dba3e435"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.4",
+                    "datestamp": "1753444989",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ivnish",
+                    "homepage": "https://www.drupal.org/user/3547706"
+                },
+                {
+                    "name": "saniyat",
+                    "homepage": "https://www.drupal.org/user/1069810"
+                }
+            ],
+            "description": "Provide a show more pager plugin for Views.",
+            "homepage": "https://www.drupal.org/project/views_show_more",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_show_more"
             }
         },
         {

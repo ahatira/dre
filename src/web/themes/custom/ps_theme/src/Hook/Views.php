@@ -24,15 +24,14 @@ final class Views {
   #[Hook('preprocess_views_view')]
   public function preprocessViewsView(array &$variables): void {
     $view = $variables['view'] ?? NULL;
-    if (!$view instanceof ViewExecutable || $view->id() !== 'ps_search_offers') {
+    if (!$view instanceof ViewExecutable) {
       return;
     }
 
-    if (($variables['display_id'] ?? '') !== 'page_list') {
+    if ($view->id() !== 'ps_search_offers' || ($variables['display_id'] ?? '') !== 'page_list') {
       return;
     }
 
-    $variables['#attached']['library'][] = 'ps_theme/search-page';
     unset($variables['title']);
 
     $illustrationPath = $this->themeExtensionList->getPath('ps_theme') . '/assets/images/offer-placeholder.svg';

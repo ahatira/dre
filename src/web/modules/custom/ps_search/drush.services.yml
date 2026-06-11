@@ -2,6 +2,6 @@ services:
   Drupal\ps_search\Commands\SearchFeatureSyncCommands:
     class: Drupal\ps_search\Commands\SearchFeatureSyncCommands
     arguments:
-      - '@Drupal\ps_search\Service\FeatureFilterSyncManager'
+      - '@ps_search.feature_filter_sync_manager'
     tags:
       - { name: drush.command }

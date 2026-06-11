@@ -163,7 +163,8 @@ ps_retry 2 2 ps_drush en -y ps_offer
 ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
-ps_retry 2 2 ps_drush en -y ps_search
+# ps_search is enabled after dictionary + offers import (search clean-slate workflow).
+# Run: docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush en -y ps_search'
 ps_success "PS modules enabled"
 
 # Anti-spam modules

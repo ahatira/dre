@@ -4,7 +4,7 @@
  * Property search results — full-viewport split list/map (BNPPRE maquette).
  */
 #}
-{{ attach_library('ps_theme/search-page') }}
+{{ attach_library('ps_search/search-page') }}
 {%
   set classes = [
     'view',
@@ -103,9 +103,12 @@
         {{ icon('bnp_custom', 'eye-closed', {'size': '20px', 'class': 'ps-search-map-layout-btn__icon'}) }}
         <span>{{ 'Hide list'|t }}</span>
       </button>
-      {% if attachment_before %}
-        <div class="ps-search-view__map attachment attachment-before position-absolute top-0 start-0 w-100 h-100">{{ attachment_before }}</div>
-      {% endif %}
+      <div class="ps-search-view__map position-absolute top-0 start-0 w-100 h-100">
+        <div
+          id="ps-search-map"
+          class="ps-search-map position-absolute top-0 start-0 w-100 h-100"
+        ></div>
+      </div>
 
       {# Desktop full-map — floating offer panel over the map (300px maquette) #}
       <aside class="ps-search-map-float-panel js-ps-search-map-float-panel" aria-label="{{ 'Selected property'|t }}" hidden>

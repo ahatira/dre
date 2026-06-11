@@ -12,3 +12,4 @@ dependencies:
   - ps_favorite:ps_favorite
   - ps_form:ps_form
   - ps_offer:ps_offer
+  - ps_search:ps_search

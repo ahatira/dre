@@ -2,19 +2,18 @@ langcode: en
 status: true
 dependencies:
   module:
-    - search
+    - ps_search
   theme:
     - ps_theme
 id: ps_theme_header_search
 theme: ps_theme
 region: actions
 weight: 30
-provider: null
-plugin: search_form_block
+provider: ps_search
+plugin: ps_search_header_search
 settings:
-  id: search_form_block
+  id: ps_search_header_search
   label: 'Header search'
   label_display: '0'
-  provider: search
-  page_id: null
+  provider: ps_search
 visibility: {  }

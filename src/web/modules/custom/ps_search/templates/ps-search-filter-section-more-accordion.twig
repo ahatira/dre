@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * More criteria accordion (lazy-loaded feature groups + core filters).
+ *
+ * Variables: more_criteria_groups, core_criteria_items, accordion_id (optional prefix).
+ */
+#}
+{% set accordion_dom_id = accordion_id|default('ps-more-accordion') %}
+<div class="accordion ps-more-accordion" id="{{ accordion_dom_id }}">
+  {% for group_key, group in more_criteria_groups %}
+    {% if group.lazy|default(false) %}
+      <div class="accordion-item ps-more-accordion__item" data-group-id="{{ group_key }}">
+        <h3 class="accordion-header" id="{{ accordion_dom_id }}-heading-{{ group_key }}">
+          <button
+            class="accordion-button collapsed js-ps-more-group-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#{{ accordion_dom_id }}-panel-{{ group_key }}"
+            aria-expanded="false"
+            aria-controls="{{ accordion_dom_id }}-panel-{{ group_key }}"
+            data-group-id="{{ group_key }}"
+          >
+            {{ group.label }}
+            {% if group.item_count %}
+              <span class="ps-more-accordion__count">({{ group.item_count }})</span>
+            {% endif %}
+          </button>
+        </h3>
+        <div
+          id="{{ accordion_dom_id }}-panel-{{ group_key }}"
+          class="accordion-collapse collapse js-ps-more-group-panel"
+          aria-labelledby="{{ accordion_dom_id }}-heading-{{ group_key }}"
+          data-group-id="{{ group_key }}"
+          data-loaded="0"
+        >
+          <div class="accordion-body ps-more-group__items js-ps-more-group-content">
+            <div class="ps-more-group__loading" hidden>{{ 'Loading…'|t }}</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="accordion-item ps-more-accordion__item" data-group-id="core">
+    <h3 class="accordion-header" id="{{ accordion_dom_id }}-heading-core">
+      <button
+        class="accordion-button collapsed js-ps-more-group-toggle"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#{{ accordion_dom_id }}-panel-core"
+        aria-expanded="false"
+        aria-controls="{{ accordion_dom_id }}-panel-core"
+        data-group-id="core"
+      >
+        {{ 'Other criteria'|t }}
+      </button>
+    </h3>
+    <div
+      id="{{ accordion_dom_id }}-panel-core"
+      class="accordion-collapse collapse js-ps-more-group-panel"
+      aria-labelledby="{{ accordion_dom_id }}-heading-core"
+      data-group-id="core"
+      data-loaded="1"
+    >
+      <div class="accordion-body ps-more-group__items js-ps-more-group-content">
+        {% include '@ps_search/ps-search-more-criteria-items.html.twig' with { items: core_criteria_items } only %}
+      </div>
+    </div>
+  </div>
+</div>

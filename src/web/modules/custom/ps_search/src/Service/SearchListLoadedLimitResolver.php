@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Resolves how many list rows the map should mirror (filters + pagination).
  *
- * The page_list display paginates via load-more; map_attachment and the
- * markers API scope to the same row window using ps_list_loaded_count.
+ * The page_list display paginates via load-more; the markers API scopes to the
+ * same row window using ps_list_loaded_count.
  */
 final class SearchListLoadedLimitResolver {
 

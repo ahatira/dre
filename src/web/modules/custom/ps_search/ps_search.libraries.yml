@@ -1,0 +1,148 @@
+filter.htmx:
+  version: 1.0.12
+  js:
+    js/search-filter-htmx.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.htmx
+    - core/drupalSettings
+    - core/once
+
+filter.bar:
+  version: 1.0.54
+  js:
+    js/search-filter-bar.js: {}
+  css:
+    component:
+      css/search-filter-bar.css: {}
+      css/search-filters-mobile.css: {}
+  dependencies:
+    - ps_search/filter.htmx
+    - core/drupal
+    - core/drupal.locale
+    - core/drupalSettings
+    - core/once
+    # search-page-core is included via search-page on the view template.
+    - ps_search/search-page-core
+    - ps_theme/component_dropdown
+    - ps_theme/component_offcanvas
+    - ps_theme/form
+
+header.search:
+  version: 1.0.0
+  js:
+    js/header-search.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - ps_theme/header
+
+search-page-map-utils:
+  version: 1.0.5
+  js:
+    js/page/search-page-map-utils.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
+marker-cluster:
+  version: 1.2.10
+  remote: https://cdnjs.com/libraries/js-marker-clusterer
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+    gpl-compatible: true
+  js:
+    https://unpkg.com/@googlemaps/markerclustererplus@1.2.10/dist/index.min.js: { type: external, minified: true }
+  dependencies:
+    - core/drupal
+
+search-page-map-init:
+  version: 1.0.1
+  js:
+    js/page/search-page-map-init.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - core/drupalSettings
+    - ps_search/search-page-map-utils
+
+search-page-core:
+  version: 1.0.2
+  js:
+    js/page/search-page-layout.js: {}
+    js/page/search-page-load-more.js: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - ps_search/search-page-map-utils
+    - views_load_more/views_load_more
+    - ps_theme/component_alert
+    - ps_theme/offer-search-card
+    - ps_favorite/favorites
+    - ui_suite_bnp/framework_js
+
+search-page-map-sync:
+  version: 1.0.3
+  js:
+    js/page/search-page-map-sync.js: {}
+  dependencies:
+    - ps_search/search-page-core
+
+search-page-zone-reload:
+  version: 1.0.5
+  js:
+    js/page/search-page-zone-reload.js: {}
+  dependencies:
+    - ps_search/search-page-core
+    - views/views.ajax
+
+search-page-map-markers:
+  version: 1.0.7
+  js:
+    js/page/search-page-map-markers.js: {}
+  dependencies:
+    - ps_search/search-page-map-init
+    - ps_search/marker-cluster
+    - ps_search/search-page-core
+    - ps_search/search-page-zone-reload
+
+search-page-map-bounds:
+  version: 1.0.0
+  js:
+    js/page/search-page-map-bounds.js: {}
+  dependencies:
+    - ps_search/search-page-core
+    - ps_search/search-page-zone-reload
+
+search-page-map-popup:
+  version: 1.0.1
+  js:
+    js/page/search-page-map-popup.js: {}
+  dependencies:
+    - ps_search/search-page-core
+    - ps_search/search-page-map-sync
+
+search-page-map-zone:
+  version: 1.0.0
+  js:
+    js/page/search-page-map-zone.js: {}
+  dependencies:
+    - ps_search/search-page-core
+    - ps_search/search-page-zone-reload
+    - ps_search/search-page-map-popup
+
+search-page-location:
+  version: 1.0.0
+  js:
+    js/page/search-page-location.js: {}
+  dependencies:
+    - ps_search/search-page-core
+
+search-page:
+  version: 1.0.0
+  dependencies:
+    - ps_search/search-page-core
+    - ps_search/search-page-map-sync

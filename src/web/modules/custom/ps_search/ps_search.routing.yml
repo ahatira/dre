@@ -1,18 +1,18 @@
+ps_search.admin_overview:
+  path: '/admin/ps/config/search'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchAdminOverviewController::overview'
+    _title: 'Search'
+  requirements:
+    _permission: 'access ps_core config section'
+
 ps_search.seo_url_mappings_form:
   path: '/admin/ps/config/search/seo-urls'
   defaults:
     _form: '\Drupal\ps_search\Form\SeoUrlMappingsForm'
-    _title: 'SEO URL Mappings'
+    _title: 'SEO URL mappings'
   requirements:
-    _permission: 'administer site configuration'
-
-ps_search.feature_filter_sync_settings:
-  path: '/admin/ps/config/search/feature-filters'
-  defaults:
-    _form: '\Drupal\ps_search\Form\FeatureFilterSyncSettingsForm'
-    _title: 'Feature search filters'
-  requirements:
-    _permission: 'administer site configuration'
+    _permission: 'access ps_core config section'
 
 ps_search.map_zone_settings_form:
   path: '/admin/ps/config/search/map-zone'
@@ -20,12 +20,26 @@ ps_search.map_zone_settings_form:
     _form: '\Drupal\ps_search\Form\MapZoneSettingsForm'
     _title: 'Map zone settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'access ps_core config section'
 
-# JSON API endpoints consumed by the search filter bar (ps_search_filters).
+ps_search.api_settings_form:
+  path: '/admin/ps/config/search/api-limits'
+  defaults:
+    _form: '\Drupal\ps_search\Form\ApiSettingsForm'
+    _title: 'API limits and cache'
+  requirements:
+    _permission: 'access ps_core config section'
 
-ps_search.markers:
-  path: '/ps-search/markers'
+ps_search.feature_filter_sync_settings:
+  path: '/admin/ps/config/search/feature-filters'
+  defaults:
+    _form: '\Drupal\ps_search\Form\FeatureFilterSyncSettingsForm'
+    _title: 'Feature search filters'
+  requirements:
+    _permission: 'access ps_core config section'
+
+ps_search.api.markers:
+  path: '/api/ps/markers'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchMarkersController::markers'
     _title: 'Search map markers'
@@ -34,8 +48,8 @@ ps_search.markers:
   options:
     no_cache: TRUE
 
-ps_search.count:
-  path: '/ps-search/count'
+ps_search.api.count:
+  path: '/api/ps/count'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchCountController::count'
     _title: 'Search result count'
@@ -44,8 +58,8 @@ ps_search.count:
   options:
     no_cache: TRUE
 
-ps_search.location_suggest:
-  path: '/ps-search/location-suggest'
+ps_search.api.location_suggest:
+  path: '/api/ps/location-suggest'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchCountController::suggest'
     _title: 'Location suggestions'
@@ -54,8 +68,8 @@ ps_search.location_suggest:
   options:
     no_cache: TRUE
 
-ps_search.location_data:
-  path: '/ps-search/location-data'
+ps_search.api.location_data:
+  path: '/api/ps/location-data'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchCountController::locationData'
     _title: 'Location structured data'
@@ -64,8 +78,8 @@ ps_search.location_data:
   options:
     no_cache: TRUE
 
-ps_search.isochrone:
-  path: '/ps-search/isochrone'
+ps_search.api.isochrone:
+  path: '/api/ps/isochrone'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchIsochroneController::isochrone'
     _title: 'Distance zone isochrone'
@@ -73,3 +87,76 @@ ps_search.isochrone:
     _access: 'TRUE'
   options:
     no_cache: TRUE
+
+ps_search.api.filter_htmx.more_criteria_group:
+  path: '/api/ps/htmx/more-criteria/{group_id}'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\MoreCriteriaGroupController::items'
+    _title: 'More criteria group'
+  requirements:
+    _access: 'TRUE'
+    group_id: '[a-zA-Z0-9_]+'
+  options:
+    _htmx_route: TRUE
+    no_cache: TRUE
+
+ps_search.api.filter_htmx.count_label:
+  path: '/api/ps/htmx/count-label'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterCountHtmxController::countLabel'
+    _title: ''
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.apply_type:
+  path: '/api/ps/htmx/apply-type'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterTypeApplyHtmxController::applyType'
+    _title: 'Apply property type filter'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.apply_location:
+  path: '/api/ps/htmx/apply-location'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterLocationApplyHtmxController::applyLocation'
+    _title: 'Apply location filter'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.apply_range:
+  path: '/api/ps/htmx/apply-range/{section}'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterRangeApplyHtmxController::applyRange'
+    _title: 'Apply range filter'
+  requirements:
+    _access: 'TRUE'
+    section: 'surface|capacity|budget'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.apply_mobile:
+  path: '/api/ps/htmx/apply-mobile'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterMobileApplyHtmxController::applyMobile'
+    _title: 'Apply mobile filters'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.results_header:
+  path: '/api/ps/htmx/results-header'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\SearchResultsHeaderHtmxController::header'
+    _title: 'Search results header'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE

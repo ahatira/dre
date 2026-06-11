@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Property Search - Search module.
+ * Property Search — search domain module.
+ *
+ * Hooks are implemented in src/Hook/ (OOP + #[Hook]).
  */
-
-declare(strict_types=1);

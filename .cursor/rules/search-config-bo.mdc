@@ -1,6 +1,6 @@
 ---
 description: Recherche PS — slugs, filtres et labels administrables via BO (pas de hardcode métier)
-globs: src/web/modules/custom/ps_search/**,src/web/modules/custom/ps_search_filters/**
+globs: src/web/modules/custom/ps_search/**
 alwaysApply: false
 ---
 
@@ -41,7 +41,7 @@ Config + traduction BO
 
 - Labels cartes type/op → `ps_dictionary` (`operation_type`, `asset_type`)
 - Visibilité surface/capacité → `ps_context` (`SearchFilterVisibilityResolver`)
-- Chaînes UI popins → `t()` + fichiers `.po` du module (`ps_search_filters`)
+- Chaînes UI popins → `t()` + fichiers `.po` du module (`ps_search`)
 
 ## Checklist avant PR (module recherche)
 

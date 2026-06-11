@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\ps_search\Api\RequestValidator;
 use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\LocationSuggestBuilder;
 use Drupal\ps_search\Service\SearchFilterQueryBuilder;
@@ -14,19 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Returns the number of search results matching the given filter parameters.
- *
- * Used by the Search Filter Bar JS to update the "Afficher X résultats" button
- * in real time without navigating away from the current page.
- *
- * GET /ps-search/count
- *   ?operation_type=LOC      (optional)
- *   &asset_type=BUR          (optional)
- *   &locality=Paris          (optional, free text — approximate)
- *   &surface_min=100         (optional, positive number in m²)
- *   &surface_max=500         (optional, positive number in m²)
- *   &budget_min=100          (optional, positive number in €/m²/year)
- *   &budget_max=5000         (optional, positive number in €/m²/year)
+ * JSON endpoints for search counts and location autocomplete.
  */
 final class SearchCountController extends ControllerBase {
 
@@ -34,6 +23,7 @@ final class SearchCountController extends ControllerBase {
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly LocationSuggestBuilder $locationSuggestBuilder,
+    private readonly RequestValidator $requestValidator,
   ) {}
 
   /**
@@ -44,6 +34,7 @@ final class SearchCountController extends ControllerBase {
       $container->get('ps_search.location_filter'),
       $container->get('ps_search.filter_query_builder'),
       $container->get('ps_search.location_suggest_builder'),
+      $container->get('ps_search.api.request_validator'),
     );
   }
 
@@ -51,6 +42,11 @@ final class SearchCountController extends ControllerBase {
    * Returns result count as JSON.
    */
   public function count(Request $request): JsonResponse {
+    $validationError = $this->requestValidator->validateBusinessFilters($request);
+    if ($validationError !== NULL) {
+      return $validationError;
+    }
+
     $index = Index::load('offers');
     if (!$index) {
       return new JsonResponse(['count' => 0, 'error' => 'index_unavailable'], 503);
@@ -69,9 +65,9 @@ final class SearchCountController extends ControllerBase {
     }
 
     $response = new JsonResponse(['count' => $count]);
-    // Short cache: count changes when offers are added/removed.
     $response->setMaxAge(60);
     $response->setPublic();
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
 
     return $response;
   }
@@ -80,8 +76,12 @@ final class SearchCountController extends ControllerBase {
    * Returns location suggestions for autocomplete.
    */
   public function suggest(Request $request): JsonResponse {
-    $queryRaw = $request->query->get('q');
-    $query = $this->sanitizeText($queryRaw);
+    $validationError = $this->requestValidator->validateLocationSuggest($request);
+    if ($validationError !== NULL) {
+      return $validationError;
+    }
+
+    $query = $this->requestValidator->sanitizeText($request->query->get('q'));
     if ($query === NULL || mb_strlen($query) < 2) {
       return new JsonResponse(['groups' => [], 'suggestions' => []]);
     }
@@ -94,21 +94,25 @@ final class SearchCountController extends ControllerBase {
     $response = new JsonResponse($payload);
     $response->setPrivate();
     $response->setMaxAge(60);
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
     return $response;
   }
 
   /**
    * Fetches structured location data for multiple cities.
-   *
-   * Endpoint: /ps-search/location-data?localities[]=Paris&localities[]=Nancy
    */
   public function locationData(Request $request): JsonResponse {
+    $validationError = $this->requestValidator->validateLocationData($request);
+    if ($validationError !== NULL) {
+      return $validationError;
+    }
+
     $localitiesRaw = $request->query->all('localities');
     if (!is_array($localitiesRaw) || empty($localitiesRaw)) {
       return new JsonResponse(['data' => []]);
     }
 
-    $localities = array_slice(array_map(fn($l) => $this->sanitizeText($l), $localitiesRaw), 0, 10);
+    $localities = array_slice(array_map(fn($l) => $this->requestValidator->sanitizeText($l), $localitiesRaw), 0, 10);
     $localities = array_filter($localities, fn($l) => $l !== NULL);
 
     if (empty($localities)) {
@@ -123,18 +127,8 @@ final class SearchCountController extends ControllerBase {
     $response = new JsonResponse(['data' => $data]);
     $response->setPrivate();
     $response->setMaxAge(60);
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
     return $response;
-  }
-
-  /**
-   * Sanitizes free text: letters, digits, spaces, hyphens, apostrophes — max 100 chars.
-   */
-  private function sanitizeText(mixed $value): ?string {
-    if (!is_string($value) || trim($value) === '') {
-      return NULL;
-    }
-    $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', substr(trim($value), 0, 100));
-    return $cleaned !== '' ? $cleaned : NULL;
   }
 
 }

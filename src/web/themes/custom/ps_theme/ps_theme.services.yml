@@ -4,3 +4,5 @@ services:
     autowire: true
 
   Drupal\ps_theme\Hook\Views: ~
+
+  Drupal\ps_theme\Hook\Page: ~

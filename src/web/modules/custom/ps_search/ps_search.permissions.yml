@@ -1,0 +1,4 @@
+bypass ps search api rate limit:
+  title: 'Bypass PS Search API rate limits'
+  description: 'Skip IP rate limiting on /api/ps/* endpoints (developers and load tests).'
+  restrict access: true

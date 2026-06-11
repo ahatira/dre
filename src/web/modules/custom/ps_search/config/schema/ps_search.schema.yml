@@ -1,6 +1,6 @@
 ps_search.seo_url_mappings:
   type: config_object
-  label: 'PS Search SEO URL Mappings'
+  label: 'PS Search SEO URL mappings'
   mapping:
     search_path:
       type: label
@@ -88,6 +88,27 @@ ps_search.map_zone_settings:
     google_routes_api_key:
       type: string
       label: 'Google Routes API key override (optional)'
+    default_zoom:
+      type: integer
+      label: 'Default map zoom level'
+    zoom_min:
+      type: integer
+      label: 'Minimum map zoom level'
+    zoom_max:
+      type: integer
+      label: 'Maximum map zoom level'
+    gesture_handling:
+      type: string
+      label: 'Map gesture handling mode'
+    cluster_options:
+      type: string
+      label: 'Client-side MarkerClusterer options (JSON)'
+    google_map_id:
+      type: string
+      label: 'Google Cloud Map ID (Advanced Markers, optional)'
+    lazy_load:
+      type: boolean
+      label: 'Lazy-load the map shell (future use)'
 
 ps_search.feature_filter_sync:
   type: config_object
@@ -105,3 +126,61 @@ ps_search.feature_filter_sync:
     feature_filters_combine:
       type: string
       label: 'Combine mode for active feature filters'
+
+ps_search.api_rate_limit_settings:
+  type: config_object
+  label: 'PS Search API rate limit settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable API rate limiting'
+    window_seconds:
+      type: integer
+      label: 'Rate limit window in seconds'
+    default_max_requests:
+      type: integer
+      label: 'Default max requests per window'
+    routes:
+      type: mapping
+      label: 'Per-route limits'
+      mapping:
+        markers:
+          type: integer
+          label: 'Markers endpoint'
+        isochrone:
+          type: integer
+          label: 'Isochrone endpoint'
+        location_suggest:
+          type: integer
+          label: 'Location suggest endpoint'
+        location_data:
+          type: integer
+          label: 'Location data endpoint'
+        count:
+          type: integer
+          label: 'Count endpoint'
+        htmx:
+          type: integer
+          label: 'HTMX fragments'
+
+ps_search.api_cache_settings:
+  type: config_object
+  label: 'PS Search API cache settings'
+  mapping:
+    markers_ttl:
+      type: integer
+      label: 'Markers JSON cache TTL (seconds)'
+    isochrone_ttl:
+      type: integer
+      label: 'Isochrone server cache TTL (seconds)'
+    isochrone_coordinate_precision:
+      type: integer
+      label: 'Decimal places for isochrone cache key coordinates'
+
+views.filter.ps_search_location_tokens:
+  type: views.filter.search_api_string
+  label: 'PS Search location tokens filter'
+
+views.filter_value.ps_search_location_tokens:
+  type: views.filter_value.search_api_string
+  label: 'PS Search location tokens filter value'

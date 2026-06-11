@@ -64,6 +64,75 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Radius around the default center or locality centroid for the initial map zone.'),
     ];
 
+    $form['map_shell'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Map shell (PS native cartography)'),
+      '#open' => FALSE,
+      '#description' => $this->t('Settings for the PS-owned Google Map shell on the search page. The Google Maps JavaScript API key is read from Geofield Map settings (/admin/config/system/geofield-map).'),
+    ];
+
+    $form['map_shell']['default_zoom'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Default map zoom'),
+      '#default_value' => $config->get('default_zoom') ?? 6,
+      '#required' => TRUE,
+      '#min' => 0,
+      '#max' => 22,
+    ];
+
+    $form['map_shell']['zoom_min'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Minimum zoom'),
+      '#default_value' => $config->get('zoom_min') ?? 1,
+      '#required' => TRUE,
+      '#min' => 0,
+      '#max' => 22,
+    ];
+
+    $form['map_shell']['zoom_max'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Maximum zoom'),
+      '#default_value' => $config->get('zoom_max') ?? 22,
+      '#required' => TRUE,
+      '#min' => 1,
+      '#max' => 22,
+    ];
+
+    $form['map_shell']['gesture_handling'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Gesture handling'),
+      '#default_value' => $config->get('gesture_handling') ?? 'auto',
+      '#required' => TRUE,
+      '#options' => [
+        'auto' => $this->t('Auto'),
+        'cooperative' => $this->t('Cooperative'),
+        'greedy' => $this->t('Greedy'),
+        'none' => $this->t('None'),
+      ],
+    ];
+
+    $form['map_shell']['cluster_options'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Marker cluster options (JSON)'),
+      '#default_value' => $config->get('cluster_options') ?? '',
+      '#rows' => 6,
+      '#description' => $this->t('MarkerClusterer options passed to the PS map JS layer. Leave empty for BNPPRE defaults (minimumClusterSize 2, maxZoom 14). Use double quotes in JSON.'),
+    ];
+
+    $form['map_shell']['google_map_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Google Cloud Map ID'),
+      '#default_value' => $config->get('google_map_id') ?? '',
+      '#description' => $this->t('Optional. Required for Advanced Markers (future migration). Create a Map ID in Google Cloud Console.'),
+    ];
+
+    $form['map_shell']['lazy_load'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Lazy-load map shell'),
+      '#default_value' => $config->get('lazy_load') ?? FALSE,
+      '#description' => $this->t('Reserved for a future release (IntersectionObserver). Currently ignored.'),
+    ];
+
     $form['list_pager_threshold'] = [
       '#type' => 'number',
       '#title' => $this->t('Load-all list threshold'),
@@ -81,7 +150,7 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
       '#min' => 1,
       '#max' => 1000,
-      '#description' => $this->t('Safety cap for the /ps-search/markers JSON endpoint.'),
+      '#description' => $this->t('Safety cap for the /api/ps/markers JSON endpoint.'),
     ];
 
     $form['markers_cluster_enabled'] = [
@@ -177,10 +246,28 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       $provider = 'approximation';
     }
 
+    $clusterOptions = trim((string) $form_state->getValue('cluster_options'));
+    if ($clusterOptions !== '') {
+      try {
+        json_decode($clusterOptions, TRUE, 512, JSON_THROW_ON_ERROR);
+      }
+      catch (\JsonException $exception) {
+        $form_state->setErrorByName('cluster_options', $this->t('Marker cluster options must be valid JSON.'));
+        return;
+      }
+    }
+
     $this->config('ps_search.map_zone_settings')
       ->set('default_center_lat', (float) $form_state->getValue('default_center_lat'))
       ->set('default_center_lng', (float) $form_state->getValue('default_center_lng'))
       ->set('default_radius_km', (float) $form_state->getValue('default_radius_km'))
+      ->set('default_zoom', (int) $form_state->getValue('default_zoom'))
+      ->set('zoom_min', (int) $form_state->getValue('zoom_min'))
+      ->set('zoom_max', (int) $form_state->getValue('zoom_max'))
+      ->set('gesture_handling', (string) $form_state->getValue('gesture_handling'))
+      ->set('cluster_options', $clusterOptions)
+      ->set('google_map_id', trim((string) $form_state->getValue('google_map_id')))
+      ->set('lazy_load', (bool) $form_state->getValue('lazy_load'))
       ->set('list_pager_threshold', (int) $form_state->getValue('list_pager_threshold'))
       ->set('markers_max', (int) $form_state->getValue('markers_max'))
       ->set('markers_cluster_enabled', (bool) $form_state->getValue('markers_cluster_enabled'))

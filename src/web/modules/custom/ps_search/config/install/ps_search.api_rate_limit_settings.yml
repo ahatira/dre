@@ -1,0 +1,10 @@
+enabled: true
+window_seconds: 60
+default_max_requests: 120
+routes:
+  markers: 60
+  isochrone: 20
+  location_suggest: 60
+  location_data: 60
+  count: 120
+  htmx: 180

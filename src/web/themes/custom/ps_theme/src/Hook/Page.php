@@ -8,8 +8,8 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
+use Drupal\ps_search\Search\Header\HeaderSearchPanelBuilder;
 use Drupal\ps_theme\Utility\FrontRouteHelper;
-use Drupal\search\Form\SearchBlockForm;
 
 /**
  * Page and HTML preprocess for public front polish.
@@ -22,6 +22,10 @@ final class Page {
    * Request attribute key for the active mega-menu render instance.
    */
   private const MEGA_MENU_INSTANCE_KEY = 'ps_mega_menu_instance';
+
+  public function __construct(
+    private readonly HeaderSearchPanelBuilder $headerSearchPanelBuilder,
+  ) {}
 
   /**
    * Block IDs placed in the actions region, mapped to site-header slots.
@@ -102,7 +106,7 @@ final class Page {
 
     if ($this->isSearchPage()) {
       $variables['ps_page_layout_search'] = TRUE;
-      $variables['#attached']['library'][] = 'ps_theme/search-page';
+      $variables['#attached']['library'][] = 'ps_search/search-page';
     }
 
     $this->prepareNavigationInstances($variables);
@@ -251,7 +255,7 @@ final class Page {
   }
 
   /**
-   * Builds search slot markup from the placed core search form block.
+   * Builds search slot markup from the placed header search block.
    *
    * @param array<string|int, mixed> $block_build
    *   Block render array from the actions region (attachments only).
@@ -274,19 +278,14 @@ final class Page {
       );
     }
 
-    $configuration = $block->getPlugin()->getConfiguration();
-    $page_id = $configuration['page_id'] ?? NULL;
-    $form = \Drupal::formBuilder()->getForm(SearchBlockForm::class, $page_id);
-    $form['#attributes']['class'][] = 'ps-header-search__form-inner';
-
-    $variables['#attached']['library'][] = 'ps_theme/header_search';
+    $form = $this->headerSearchPanelBuilder->buildPanelContent();
 
     $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
     $label = $langcode === 'fr' ? (string) $this->t('Rechercher') : (string) $this->t('Search');
 
     $renderer = \Drupal::service('renderer');
 
-    $container = \Drupal::config('ps_theme.settings')->get('container') ?: 'container-fluid';
+    $container = $this->headerSearchPanelBuilder->getContainerClass();
     $panel = [
       '#theme' => 'ps_header_search_panel',
       '#label' => $label,

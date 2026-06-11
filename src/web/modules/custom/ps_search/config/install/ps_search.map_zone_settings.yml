@@ -10,3 +10,10 @@ isochrone_fallback: true
 ors_enabled: false
 ors_api_key: ''
 google_routes_api_key: ''
+default_zoom: 6
+zoom_min: 1
+zoom_max: 22
+gesture_handling: auto
+cluster_options: ''
+google_map_id: ''
+lazy_load: false
