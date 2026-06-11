@@ -1,0 +1,438 @@
+# Luxembourgish translation for ps_search module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_search\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "10 minutes"
+msgstr "10 Minutten"
+
+msgid "15 minutes"
+msgstr "15 Minutten"
+
+msgid "20 minutes"
+msgstr "20 Minutten"
+
+msgid "30 minutes"
+msgstr "30 Minutten"
+
+msgid "5 minutes"
+msgstr "5 Minutten"
+
+msgid "@asset @in @locality"
+msgstr "@asset @in @locality"
+
+msgid "@asset @operation"
+msgstr "@asset @operation"
+
+msgid "@asset @operation @in @locality"
+msgstr "@asset @operation @in @locality"
+
+msgid "@label (@group)"
+msgstr "@label (@group)"
+
+msgid "API limits and cache"
+msgstr "API-Limiten a Cache"
+
+msgid "Additional information"
+msgstr "Zousätzlech Informatiounen"
+
+msgid "All"
+msgstr "All"
+
+msgid "Apply"
+msgstr "Uwenden"
+
+msgid "Apply location filter"
+msgstr "Apply location filter"
+
+msgid "Apply mobile filters"
+msgstr "Apply mobile filters"
+
+msgid "Apply property type filter"
+msgstr "Apply property type filter"
+
+msgid "Apply range filter"
+msgstr "Apply range filter"
+
+msgid "Asc"
+msgstr "Opsteigend"
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "Back"
+msgstr "Zréck"
+
+msgid "Back to PS configuration hub"
+msgstr "Zréck op de PS-Konfiguratiounshub"
+
+msgid "Bike"
+msgstr "Vëlo"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Building structure"
+msgstr "Gebaiestruktur"
+
+msgid "Building type and condition"
+msgstr "Typ an Zoustand vum Gebai"
+
+msgid "Buy"
+msgstr "Kafen"
+
+msgid "Bypass PS Search API rate limits"
+msgstr "Bypass PS Search API rate limits"
+
+msgid "Capacity"
+msgstr "Capacitéit"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Ceiling height (m)"
+msgstr "Ceiling height (m)"
+
+msgid "City"
+msgstr "Stad"
+
+msgid "City, department, region…"
+msgstr "Stad, Departement, Regioun…"
+
+msgid "City, district or zip code"
+msgstr "Stad, Quartier oder Postleitzuel"
+
+msgid "Clear"
+msgstr "Läschen"
+
+msgid "Close"
+msgstr "Zoumaachen"
+
+msgid "Coming soon"
+msgstr "Geschwënn disponibel"
+
+msgid "Configuration"
+msgstr "Konfiguratioun"
+
+msgid "Create an alert"
+msgstr "Alert uleeën"
+
+msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+
+msgid "Customize area"
+msgstr "Beräich upassen"
+
+msgid "Decreasing distance"
+msgstr "Distanz ofsteigend"
+
+msgid "Decreasing price"
+msgstr "Präis ofsteigend"
+
+msgid "Decreasing surface"
+msgstr "Fläch ofsteigend"
+
+msgid "Delete all"
+msgstr "Alles läschen"
+
+msgid "Department"
+msgstr "Departement"
+
+msgid "Desc"
+msgstr "Ofsteigend"
+
+msgid "Distance zone isochrone"
+msgstr "Distance zone isochrone"
+
+msgid "District"
+msgstr "Distrikt"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Equipments"
+msgstr "Equipementer"
+
+msgid "Feature filters"
+msgstr "Feature filters"
+
+msgid "Feature search filters"
+msgstr "Feature search filters"
+
+msgid "Feature: @label"
+msgstr "Feature: @label"
+
+msgid "Filter"
+msgstr "Filteren"
+
+msgid "Find your next property"
+msgstr "Fannt Är nächst Immobilie"
+
+msgid "Fittings"
+msgstr "Aménagementer"
+
+msgid "Header search (property)"
+msgstr "Header search (property)"
+
+msgid "Heights"
+msgstr "Héichten"
+
+msgid "Hide list"
+msgstr "Lëscht verstoppen"
+
+msgid "Immersive tour"
+msgstr "Immersiv Tour"
+
+msgid "Increasing price"
+msgstr "Präis opsteigend"
+
+msgid "Increasing surface"
+msgstr "Fläch opsteigend"
+
+msgid "Keywords"
+msgstr "Schlësselwierder"
+
+msgid "Loading…"
+msgstr "Gëtt gelueden…"
+
+msgid "Location"
+msgstr "Standuert"
+
+msgid "Location data"
+msgstr "Location data"
+
+msgid "Location structured data"
+msgstr "Location structured data"
+
+msgid "Location suggest"
+msgstr "Location suggest"
+
+msgid "Location suggestions"
+msgstr "Location suggestions"
+
+msgid "Location(s)"
+msgstr "Standuert(en)"
+
+msgid "Map zone"
+msgstr "Map zone"
+
+msgid "Map zone settings"
+msgstr "Kaartzone-Astellungen"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Maximum 10 locations"
+msgstr "Maximal 10 Standuerter"
+
+msgid "Means of transport"
+msgstr "Transportmëttel"
+
+msgid "Metro, bus, train..."
+msgstr "Metro, bus, train..."
+
+msgid "Min"
+msgstr "Min"
+
+msgid "More criteria group"
+msgstr "More criteria group"
+
+msgid "More filters"
+msgstr "Méi Filteren"
+
+msgid "More filters (@count)"
+msgstr "Méi Filteren (@count)"
+
+msgid "Nearby transport"
+msgstr "Transport an der Géigend"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "No location found"
+msgstr "Keng Standuert fonnt"
+
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "Keng Offeren entspriechen Äre Critèren. Passt Är Filteren un."
+
+msgid "No properties in this map area"
+msgstr "Keng Immobilie an dësem Kaartberäich"
+
+msgid "No results found"
+msgstr "Keng Resultater"
+
+msgid "Offer reference..."
+msgstr "Offer reference..."
+
+msgid "Offices, retail and logistics across France."
+msgstr "Büroen, Commerce a Logistik a Frankräich."
+
+msgid "Other"
+msgstr "Aner"
+
+msgid "Other criteria"
+msgstr "Aner Critèren"
+
+msgid "Outdoors"
+msgstr "Baussenzonen"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Verschiebt d'Kaart oder benotzt «An dësem Beräich sichen»."
+
+msgid "Postal code"
+msgstr "Postleitzuel"
+
+msgid "Price"
+msgstr "Präis"
+
+msgid "Properties @in @locality"
+msgstr "Properties @in @locality"
+
+msgid "Property Search"
+msgstr "Immobilie sichen"
+
+msgid "Property search"
+msgstr "Immobilie sichen"
+
+msgid "Property search filters"
+msgstr "Immobilie-Sichfilteren"
+
+msgid "Property type"
+msgstr "Typ vun der Immobilie"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Remove @value"
+msgstr "@value ewechhuelen"
+
+msgid "Rent"
+msgstr "Loun"
+
+msgid "Reset"
+msgstr "Zrécksetzen"
+
+msgid "Restricted activities"
+msgstr "Net erlaabt Aktivitéiten"
+
+msgid "SEO URL mappings"
+msgstr "SEO-URL-Zuordnungen"
+
+msgid "SEO URLs"
+msgstr "SEO URLs"
+
+msgid "Search"
+msgstr "Sichen"
+
+msgid "Search actions"
+msgstr "Sichaktiounen"
+
+msgid "Search filter bar"
+msgstr "Filterläischt Sich"
+
+msgid "Search hero (homepage)"
+msgstr "Search hero (homepage)"
+
+msgid "Search keywords..."
+msgstr "Sichschlësselwierder…"
+
+msgid "Search map markers"
+msgstr "Search map markers"
+
+msgid "Search offers"
+msgstr "Sichofferen"
+
+msgid "Search result count"
+msgstr "Search result count"
+
+msgid "Search results header"
+msgstr "Search results header"
+
+msgid "Search this area"
+msgstr "An dësem Beräich sichen"
+
+msgid "See all filters"
+msgstr "All Filteren weisen"
+
+msgid "Selected property"
+msgstr "Ausgewielt Immobilie"
+
+msgid "Services"
+msgstr "Servicer"
+
+msgid "Show"
+msgstr "Weisen"
+
+msgid "Show distance zone"
+msgstr "Distanzzone weisen"
+
+msgid "Show list"
+msgstr "Lëscht weisen"
+
+msgid "Show map"
+msgstr "Kaart weisen"
+
+msgid "Show more results"
+msgstr "Méi Resultater weisen"
+
+msgid "Showing @count in this area"
+msgstr "@count an dësem Beräich gewisen"
+
+msgid "Sort by"
+msgstr "Sortéieren no"
+
+msgid "Standards, certifications and labels"
+msgstr "Normen, Zertifizéierungen a Labelen"
+
+msgid "Start typing a city name or postal code"
+msgstr "Gitt eng Stad oder Postleitzuel an"
+
+msgid "Surface"
+msgstr "Fläch"
+
+msgid "Surface (m²)"
+msgstr "Fläch (m²)"
+
+msgid "Transaction type"
+msgstr "Transaktiounstyp"
+
+msgid "Transport"
+msgstr "Gefierzugang"
+
+msgid "Transports"
+msgstr "Ëffentlechen Transport"
+
+msgid "Travel time"
+msgstr "Reeszäit"
+
+msgid "Validate"
+msgstr "Validéieren"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Walking"
+msgstr "Zu Fouss"
+
+msgid "Yes"
+msgstr "Jo"
+
+msgid "for rent"
+msgstr "ze lounen"
+
+msgid "for sale"
+msgstr "ze verkafen"
+
+msgid "in"
+msgstr "an"
+
+msgid "result"
+msgstr "Resultat"
+
+msgid "results"
+msgstr "Resultater"

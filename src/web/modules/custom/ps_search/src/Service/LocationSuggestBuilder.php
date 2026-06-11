@@ -41,7 +41,7 @@ final class LocationSuggestBuilder {
       if ($departmentItem !== NULL) {
         $groups[] = [
           'key' => 'department',
-          'label' => (string) $this->t('Département'),
+          'label' => (string) $this->t('Department'),
           'items' => [$departmentItem],
         ];
         $suggestions[] = $departmentItem['department_code'];
@@ -239,7 +239,7 @@ final class LocationSuggestBuilder {
     if ($arrondissementItems !== []) {
       $groups[] = [
         'key' => 'arrondissement',
-        'label' => (string) $this->t('Arrondissement'),
+        'label' => (string) $this->t('District'),
         'items' => $this->sortItemsAlphabetically($arrondissementItems),
       ];
     }
@@ -247,7 +247,7 @@ final class LocationSuggestBuilder {
     if ($cityItems !== []) {
       $groups[] = [
         'key' => 'city',
-        'label' => (string) $this->t('Ville'),
+        'label' => (string) $this->t('City'),
         'items' => $this->sortItemsAlphabetically($cityItems),
       ];
     }
@@ -294,7 +294,7 @@ final class LocationSuggestBuilder {
     if ($deptItems !== []) {
       $groups[] = [
         'key' => 'department',
-        'label' => (string) $this->t('Département'),
+        'label' => (string) $this->t('Department'),
         'items' => $this->sortItemsAlphabetically($deptItems),
       ];
     }
@@ -393,7 +393,7 @@ final class LocationSuggestBuilder {
       if (!$foundArrGroup) {
         array_unshift($groups, [
           'key' => 'arrondissement',
-          'label' => (string) $this->t('Arrondissement'),
+          'label' => (string) $this->t('District'),
           'items' => $this->sortItemsAlphabetically($arrondissementItems),
         ]);
       }
@@ -402,7 +402,7 @@ final class LocationSuggestBuilder {
     if ($postalItems !== []) {
       $groups[] = [
         'key' => 'postal_code',
-        'label' => (string) $this->t('Code postal'),
+        'label' => (string) $this->t('Postal code'),
         'items' => $this->sortItemsAlphabetically($postalItems),
       ];
     }

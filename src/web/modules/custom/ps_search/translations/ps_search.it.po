@@ -1,0 +1,438 @@
+# Italian translation for ps_search module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_search\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "10 minutes"
+msgstr "10 minuti"
+
+msgid "15 minutes"
+msgstr "15 minuti"
+
+msgid "20 minutes"
+msgstr "20 minuti"
+
+msgid "30 minutes"
+msgstr "30 minuti"
+
+msgid "5 minutes"
+msgstr "5 minuti"
+
+msgid "@asset @in @locality"
+msgstr "@asset @in @locality"
+
+msgid "@asset @operation"
+msgstr "@asset @operation"
+
+msgid "@asset @operation @in @locality"
+msgstr "@asset @operation @in @locality"
+
+msgid "@label (@group)"
+msgstr "@label (@group)"
+
+msgid "API limits and cache"
+msgstr "Limiti API e cache"
+
+msgid "Additional information"
+msgstr "Informazioni aggiuntive"
+
+msgid "All"
+msgstr "Tutti"
+
+msgid "Apply"
+msgstr "Applica"
+
+msgid "Apply location filter"
+msgstr "Apply location filter"
+
+msgid "Apply mobile filters"
+msgstr "Apply mobile filters"
+
+msgid "Apply property type filter"
+msgstr "Apply property type filter"
+
+msgid "Apply range filter"
+msgstr "Apply range filter"
+
+msgid "Asc"
+msgstr "Crescente"
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "Back"
+msgstr "Indietro"
+
+msgid "Back to PS configuration hub"
+msgstr "Torna all'hub configurazione PS"
+
+msgid "Bike"
+msgstr "Bici"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Building structure"
+msgstr "Struttura dell'edificio"
+
+msgid "Building type and condition"
+msgstr "Tipo e stato dell'edificio"
+
+msgid "Buy"
+msgstr "Acquista"
+
+msgid "Bypass PS Search API rate limits"
+msgstr "Bypass PS Search API rate limits"
+
+msgid "Capacity"
+msgstr "Capacità"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Ceiling height (m)"
+msgstr "Ceiling height (m)"
+
+msgid "City"
+msgstr "Città"
+
+msgid "City, department, region…"
+msgstr "Città, dipartimento, regione…"
+
+msgid "City, district or zip code"
+msgstr "Città, quartiere o CAP"
+
+msgid "Clear"
+msgstr "Cancella"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Coming soon"
+msgstr "Prossimamente"
+
+msgid "Configuration"
+msgstr "Configurazione"
+
+msgid "Create an alert"
+msgstr "Crea un avviso"
+
+msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+
+msgid "Customize area"
+msgstr "Personalizza area"
+
+msgid "Decreasing distance"
+msgstr "Distanza decrescente"
+
+msgid "Decreasing price"
+msgstr "Prezzo decrescente"
+
+msgid "Decreasing surface"
+msgstr "Superficie decrescente"
+
+msgid "Delete all"
+msgstr "Elimina tutto"
+
+msgid "Department"
+msgstr "Dipartimento"
+
+msgid "Desc"
+msgstr "Decrescente"
+
+msgid "Distance zone isochrone"
+msgstr "Distance zone isochrone"
+
+msgid "District"
+msgstr "Distretto"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Equipments"
+msgstr "Equipaggiamenti"
+
+msgid "Feature filters"
+msgstr "Feature filters"
+
+msgid "Feature search filters"
+msgstr "Feature search filters"
+
+msgid "Feature: @label"
+msgstr "Feature: @label"
+
+msgid "Filter"
+msgstr "Filtra"
+
+msgid "Find your next property"
+msgstr "Trova il tuo prossimo immobile"
+
+msgid "Fittings"
+msgstr "Allestimenti"
+
+msgid "Header search (property)"
+msgstr "Header search (property)"
+
+msgid "Heights"
+msgstr "Altezze"
+
+msgid "Hide list"
+msgstr "Nascondi elenco"
+
+msgid "Immersive tour"
+msgstr "Tour immersivo"
+
+msgid "Increasing price"
+msgstr "Prezzo crescente"
+
+msgid "Increasing surface"
+msgstr "Superficie crescente"
+
+msgid "Keywords"
+msgstr "Parole chiave"
+
+msgid "Loading…"
+msgstr "Caricamento…"
+
+msgid "Location"
+msgstr "Località"
+
+msgid "Location data"
+msgstr "Location data"
+
+msgid "Location structured data"
+msgstr "Location structured data"
+
+msgid "Location suggest"
+msgstr "Location suggest"
+
+msgid "Location suggestions"
+msgstr "Location suggestions"
+
+msgid "Location(s)"
+msgstr "Località"
+
+msgid "Map zone"
+msgstr "Map zone"
+
+msgid "Map zone settings"
+msgstr "Impostazioni zona mappa"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Maximum 10 locations"
+msgstr "Massimo 10 località"
+
+msgid "Means of transport"
+msgstr "Mezzo di trasporto"
+
+msgid "Metro, bus, train..."
+msgstr "Metro, bus, train..."
+
+msgid "Min"
+msgstr "Min"
+
+msgid "More criteria group"
+msgstr "More criteria group"
+
+msgid "More filters"
+msgstr "Altri filtri"
+
+msgid "More filters (@count)"
+msgstr "Altri filtri (@count)"
+
+msgid "Nearby transport"
+msgstr "Trasporti nelle vicinanze"
+
+msgid "No"
+msgstr "No"
+
+msgid "No location found"
+msgstr "Località non trovata"
+
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "Nessuna offerta corrisponde ai criteri. Modifica i filtri."
+
+msgid "No properties in this map area"
+msgstr "Nessun immobile in quest'area della mappa"
+
+msgid "No results found"
+msgstr "Nessun risultato"
+
+msgid "Offer reference..."
+msgstr "Offer reference..."
+
+msgid "Offices, retail and logistics across France."
+msgstr "Uffici, commercio e logistica in Francia."
+
+msgid "Other"
+msgstr "Altro"
+
+msgid "Other criteria"
+msgstr "Altri criteri"
+
+msgid "Outdoors"
+msgstr "Esterni"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Sposta la mappa o usa «Cerca in quest'area»."
+
+msgid "Postal code"
+msgstr "Codice postale"
+
+msgid "Price"
+msgstr "Prezzo"
+
+msgid "Properties @in @locality"
+msgstr "Properties @in @locality"
+
+msgid "Property Search"
+msgstr "Ricerca immobiliare"
+
+msgid "Property search"
+msgstr "Ricerca immobiliare"
+
+msgid "Property search filters"
+msgstr "Filtri ricerca immobiliare"
+
+msgid "Property type"
+msgstr "Tipo di immobile"
+
+msgid "Reference"
+msgstr "Riferimento"
+
+msgid "Remove @value"
+msgstr "Rimuovi @value"
+
+msgid "Rent"
+msgstr "Affitto"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+msgid "Restricted activities"
+msgstr "Attività non consentite"
+
+msgid "SEO URL mappings"
+msgstr "Mapping URL SEO"
+
+msgid "SEO URLs"
+msgstr "SEO URLs"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search actions"
+msgstr "Azioni di ricerca"
+
+msgid "Search filter bar"
+msgstr "Barra filtri ricerca"
+
+msgid "Search hero (homepage)"
+msgstr "Search hero (homepage)"
+
+msgid "Search keywords..."
+msgstr "Parole chiave di ricerca…"
+
+msgid "Search map markers"
+msgstr "Search map markers"
+
+msgid "Search offers"
+msgstr "Offerte di ricerca"
+
+msgid "Search result count"
+msgstr "Search result count"
+
+msgid "Search results header"
+msgstr "Search results header"
+
+msgid "Search this area"
+msgstr "Cerca in quest'area"
+
+msgid "See all filters"
+msgstr "Vedi tutti i filtri"
+
+msgid "Selected property"
+msgstr "Immobile selezionato"
+
+msgid "Services"
+msgstr "Servizi"
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "Show distance zone"
+msgstr "Mostra zona di distanza"
+
+msgid "Show list"
+msgstr "Mostra elenco"
+
+msgid "Show map"
+msgstr "Mostra mappa"
+
+msgid "Show more results"
+msgstr "Mostra più risultati"
+
+msgid "Showing @count in this area"
+msgstr "@count visualizzati in quest'area"
+
+msgid "Sort by"
+msgstr "Ordina per"
+
+msgid "Standards, certifications and labels"
+msgstr "Norme, certificazioni ed etichette"
+
+msgid "Start typing a city name or postal code"
+msgstr "Digita una città o un CAP"
+
+msgid "Surface"
+msgstr "Superficie"
+
+msgid "Surface (m²)"
+msgstr "Superficie (m²)"
+
+msgid "Transaction type"
+msgstr "Tipo di transazione"
+
+msgid "Transport"
+msgstr "Accesso veicoli"
+
+msgid "Transports"
+msgstr "Trasporti"
+
+msgid "Travel time"
+msgstr "Tempo di percorrenza"
+
+msgid "Validate"
+msgstr "Convalida"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Walking"
+msgstr "A piedi"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "for rent"
+msgstr "in affitto"
+
+msgid "for sale"
+msgstr "in vendita"
+
+msgid "in"
+msgstr "a"
+
+msgid "result"
+msgstr "risultato"
+
+msgid "results"
+msgstr "risultati"

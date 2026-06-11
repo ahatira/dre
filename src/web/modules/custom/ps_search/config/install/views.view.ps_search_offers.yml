@@ -903,7 +903,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          more_button_text: 'Afficher plus de résultats'
+          more_button_text: 'Show more results'
           end_text: ''
           advanced:
             content_selector: '.js-ps-search-results-rows'

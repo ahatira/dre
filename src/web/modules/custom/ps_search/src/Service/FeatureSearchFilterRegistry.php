@@ -97,7 +97,7 @@ final class FeatureSearchFilterRegistry {
       }
       $groups[(string) $group->id()] = [
         'id' => (string) $group->id(),
-        'label' => $this->groupLabelResolver->resolve($group),
+        'label' => (string) $this->t($this->groupLabelResolver->resolve($group)),
         'weight' => $group->getWeight(),
         'items' => [],
       ];
@@ -274,7 +274,7 @@ final class FeatureSearchFilterRegistry {
   private function resolveUnknownGroupLabel(string $groupId): string {
     $group = $this->entityTypeManager->getStorage('fb_feature_group')->load($groupId);
     if ($group instanceof FeatureGroup) {
-      return $this->groupLabelResolver->resolve($group);
+      return (string) $this->t($this->groupLabelResolver->resolve($group));
     }
     return $this->groupLabelResolver->isMachineLabel($groupId, $groupId)
       ? ucwords(str_replace('_', ' ', $groupId))

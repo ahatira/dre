@@ -1,0 +1,438 @@
+# Dutch translation for ps_search module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_search\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "10 minutes"
+msgstr "10 minuten"
+
+msgid "15 minutes"
+msgstr "15 minuten"
+
+msgid "20 minutes"
+msgstr "20 minuten"
+
+msgid "30 minutes"
+msgstr "30 minuten"
+
+msgid "5 minutes"
+msgstr "5 minuten"
+
+msgid "@asset @in @locality"
+msgstr "@asset @in @locality"
+
+msgid "@asset @operation"
+msgstr "@asset @operation"
+
+msgid "@asset @operation @in @locality"
+msgstr "@asset @operation @in @locality"
+
+msgid "@label (@group)"
+msgstr "@label (@group)"
+
+msgid "API limits and cache"
+msgstr "API-limieten en cache"
+
+msgid "Additional information"
+msgstr "Aanvullende informatie"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Apply location filter"
+msgstr "Apply location filter"
+
+msgid "Apply mobile filters"
+msgstr "Apply mobile filters"
+
+msgid "Apply property type filter"
+msgstr "Apply property type filter"
+
+msgid "Apply range filter"
+msgstr "Apply range filter"
+
+msgid "Asc"
+msgstr "Oplopend"
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "Back"
+msgstr "Terug"
+
+msgid "Back to PS configuration hub"
+msgstr "Terug naar PS-configuratiehub"
+
+msgid "Bike"
+msgstr "Fiets"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Building structure"
+msgstr "Gebouwstructuur"
+
+msgid "Building type and condition"
+msgstr "Type en staat van het gebouw"
+
+msgid "Buy"
+msgstr "Kopen"
+
+msgid "Bypass PS Search API rate limits"
+msgstr "Bypass PS Search API rate limits"
+
+msgid "Capacity"
+msgstr "Capaciteit"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Ceiling height (m)"
+msgstr "Ceiling height (m)"
+
+msgid "City"
+msgstr "Stad"
+
+msgid "City, department, region…"
+msgstr "Stad, departement, regio…"
+
+msgid "City, district or zip code"
+msgstr "Stad, wijk of postcode"
+
+msgid "Clear"
+msgstr "Wissen"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Coming soon"
+msgstr "Binnenkort beschikbaar"
+
+msgid "Configuration"
+msgstr "Configuratie"
+
+msgid "Create an alert"
+msgstr "Alert aanmaken"
+
+msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+
+msgid "Customize area"
+msgstr "Gebied aanpassen"
+
+msgid "Decreasing distance"
+msgstr "Afstand aflopend"
+
+msgid "Decreasing price"
+msgstr "Prijs aflopend"
+
+msgid "Decreasing surface"
+msgstr "Oppervlakte aflopend"
+
+msgid "Delete all"
+msgstr "Alles verwijderen"
+
+msgid "Department"
+msgstr "Departement"
+
+msgid "Desc"
+msgstr "Aflopend"
+
+msgid "Distance zone isochrone"
+msgstr "Distance zone isochrone"
+
+msgid "District"
+msgstr "District"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Equipments"
+msgstr "Uitrusting"
+
+msgid "Feature filters"
+msgstr "Feature filters"
+
+msgid "Feature search filters"
+msgstr "Feature search filters"
+
+msgid "Feature: @label"
+msgstr "Feature: @label"
+
+msgid "Filter"
+msgstr "Filteren"
+
+msgid "Find your next property"
+msgstr "Vind uw volgende pand"
+
+msgid "Fittings"
+msgstr "Inrichting"
+
+msgid "Header search (property)"
+msgstr "Header search (property)"
+
+msgid "Heights"
+msgstr "Hoogtes"
+
+msgid "Hide list"
+msgstr "Lijst verbergen"
+
+msgid "Immersive tour"
+msgstr "Immersieve rondleiding"
+
+msgid "Increasing price"
+msgstr "Prijs oplopend"
+
+msgid "Increasing surface"
+msgstr "Oppervlakte oplopend"
+
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+msgid "Loading…"
+msgstr "Laden…"
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Location data"
+msgstr "Location data"
+
+msgid "Location structured data"
+msgstr "Location structured data"
+
+msgid "Location suggest"
+msgstr "Location suggest"
+
+msgid "Location suggestions"
+msgstr "Location suggestions"
+
+msgid "Location(s)"
+msgstr "Locatie(s)"
+
+msgid "Map zone"
+msgstr "Map zone"
+
+msgid "Map zone settings"
+msgstr "Kaartzone-instellingen"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Maximum 10 locations"
+msgstr "Maximaal 10 locaties"
+
+msgid "Means of transport"
+msgstr "Vervoersmiddel"
+
+msgid "Metro, bus, train..."
+msgstr "Metro, bus, train..."
+
+msgid "Min"
+msgstr "Min"
+
+msgid "More criteria group"
+msgstr "More criteria group"
+
+msgid "More filters"
+msgstr "Meer filters"
+
+msgid "More filters (@count)"
+msgstr "Meer filters (@count)"
+
+msgid "Nearby transport"
+msgstr "Openbaar vervoer in de buurt"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "No location found"
+msgstr "Geen locatie gevonden"
+
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "Geen aanbod komt overeen met uw criteria. Pas uw filters aan."
+
+msgid "No properties in this map area"
+msgstr "Geen panden in dit kaartgebied"
+
+msgid "No results found"
+msgstr "Geen resultaten"
+
+msgid "Offer reference..."
+msgstr "Offer reference..."
+
+msgid "Offices, retail and logistics across France."
+msgstr "Kantoren, retail en logistiek in Frankrijk."
+
+msgid "Other"
+msgstr "Overig"
+
+msgid "Other criteria"
+msgstr "Overige criteria"
+
+msgid "Outdoors"
+msgstr "Buitenruimtes"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Verschuif de kaart of gebruik «Zoeken in dit gebied»."
+
+msgid "Postal code"
+msgstr "Postcode"
+
+msgid "Price"
+msgstr "Prijs"
+
+msgid "Properties @in @locality"
+msgstr "Properties @in @locality"
+
+msgid "Property Search"
+msgstr "Vastgoedzoekopdracht"
+
+msgid "Property search"
+msgstr "Vastgoedzoekopdracht"
+
+msgid "Property search filters"
+msgstr "Vastgoedzoekfilters"
+
+msgid "Property type"
+msgstr "Type pand"
+
+msgid "Reference"
+msgstr "Referentie"
+
+msgid "Remove @value"
+msgstr "@value verwijderen"
+
+msgid "Rent"
+msgstr "Huur"
+
+msgid "Reset"
+msgstr "Resetten"
+
+msgid "Restricted activities"
+msgstr "Niet-toegestane activiteiten"
+
+msgid "SEO URL mappings"
+msgstr "SEO-URL-toewijzingen"
+
+msgid "SEO URLs"
+msgstr "SEO URLs"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search actions"
+msgstr "Zoekacties"
+
+msgid "Search filter bar"
+msgstr "Filterbalk zoeken"
+
+msgid "Search hero (homepage)"
+msgstr "Search hero (homepage)"
+
+msgid "Search keywords..."
+msgstr "Zoektrefwoorden…"
+
+msgid "Search map markers"
+msgstr "Search map markers"
+
+msgid "Search offers"
+msgstr "Zoekaanbod"
+
+msgid "Search result count"
+msgstr "Search result count"
+
+msgid "Search results header"
+msgstr "Search results header"
+
+msgid "Search this area"
+msgstr "Zoeken in dit gebied"
+
+msgid "See all filters"
+msgstr "Alle filters bekijken"
+
+msgid "Selected property"
+msgstr "Geselecteerd pand"
+
+msgid "Services"
+msgstr "Diensten"
+
+msgid "Show"
+msgstr "Tonen"
+
+msgid "Show distance zone"
+msgstr "Afstandszone tonen"
+
+msgid "Show list"
+msgstr "Lijst tonen"
+
+msgid "Show map"
+msgstr "Kaart tonen"
+
+msgid "Show more results"
+msgstr "Meer resultaten tonen"
+
+msgid "Showing @count in this area"
+msgstr "@count getoond in dit gebied"
+
+msgid "Sort by"
+msgstr "Sorteren op"
+
+msgid "Standards, certifications and labels"
+msgstr "Normen, certificeringen en labels"
+
+msgid "Start typing a city name or postal code"
+msgstr "Typ een stad of postcode"
+
+msgid "Surface"
+msgstr "Oppervlakte"
+
+msgid "Surface (m²)"
+msgstr "Oppervlakte (m²)"
+
+msgid "Transaction type"
+msgstr "Transactietype"
+
+msgid "Transport"
+msgstr "Voertuigtoegang"
+
+msgid "Transports"
+msgstr "Openbaar vervoer"
+
+msgid "Travel time"
+msgstr "Reistijd"
+
+msgid "Validate"
+msgstr "Valideren"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Walking"
+msgstr "Te voet"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "for rent"
+msgstr "te huur"
+
+msgid "for sale"
+msgstr "te koop"
+
+msgid "in"
+msgstr "in"
+
+msgid "result"
+msgstr "resultaat"
+
+msgid "results"
+msgstr "resultaten"

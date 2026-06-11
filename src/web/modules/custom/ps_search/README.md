@@ -85,6 +85,19 @@ composer test:search-filter-htmx-count-e2e
 composer test:search-more-filters-e2e
 ```
 
+## Translations
+
+Interface strings live in `translations/ps_search.{langcode}.po` (fr, de, es, it, nl, pl, lb).
+
+Import after editing a `.po` file:
+
+```bash
+docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush locale:import fr /var/www/html/web/modules/custom/ps_search/translations/ps_search.fr.po --type=customized --override=all -y'
+make drush-cr
+```
+
+On fresh install, `src/scripts/drupal/install.sh` imports all `ps_*.*.po` files for active languages.
+
 Validation manuelle navigateur : checklist §12 dans [`docs/SEARCH_L11_VALIDATION.md`](../../../../docs/SEARCH_L11_VALIDATION.md).
 
 ## Architecture (résumé)

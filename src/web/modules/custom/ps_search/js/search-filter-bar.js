@@ -9,8 +9,8 @@
  *  4. Budget       — min/max price range (popin).
  *
  * Shared behaviour:
- *  - No immediate navigation on selection — user confirms with "Afficher X".
- *  - All "Afficher X résultats" buttons show the SAME real-time count.
+ *  - No immediate navigation on selection — user confirms with the apply button.
+ *  - All apply buttons show the SAME real-time count.
  *  - Navigating builds a SEO URL (for type+op) + query params (for other filters).
  *  - "Clear" in each section resets only that section's values.
  *  - Outside click / Escape closes all open popins.

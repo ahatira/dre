@@ -1,0 +1,438 @@
+# German translation for ps_search module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_search\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "10 minutes"
+msgstr "10 Minuten"
+
+msgid "15 minutes"
+msgstr "15 Minuten"
+
+msgid "20 minutes"
+msgstr "20 Minuten"
+
+msgid "30 minutes"
+msgstr "30 Minuten"
+
+msgid "5 minutes"
+msgstr "5 Minuten"
+
+msgid "@asset @in @locality"
+msgstr "@asset @in @locality"
+
+msgid "@asset @operation"
+msgstr "@asset @operation"
+
+msgid "@asset @operation @in @locality"
+msgstr "@asset @operation @in @locality"
+
+msgid "@label (@group)"
+msgstr "@label (@group)"
+
+msgid "API limits and cache"
+msgstr "API-Limits und Cache"
+
+msgid "Additional information"
+msgstr "Zusätzliche Informationen"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Apply location filter"
+msgstr "Apply location filter"
+
+msgid "Apply mobile filters"
+msgstr "Apply mobile filters"
+
+msgid "Apply property type filter"
+msgstr "Apply property type filter"
+
+msgid "Apply range filter"
+msgstr "Bereichsfilter anwenden"
+
+msgid "Asc"
+msgstr "Aufsteigend"
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Back to PS configuration hub"
+msgstr "Zurück zum PS-Konfigurationshub"
+
+msgid "Bike"
+msgstr "Fahrrad"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Building structure"
+msgstr "Gebäudestruktur"
+
+msgid "Building type and condition"
+msgstr "Gebäudetyp und -zustand"
+
+msgid "Buy"
+msgstr "Kaufen"
+
+msgid "Bypass PS Search API rate limits"
+msgstr "PS-Search-API-Ratenlimits umgehen"
+
+msgid "Capacity"
+msgstr "Kapazität"
+
+msgid "Car"
+msgstr "Auto"
+
+msgid "Ceiling height (m)"
+msgstr "Ceiling height (m)"
+
+msgid "City"
+msgstr "Stadt"
+
+msgid "City, department, region…"
+msgstr "Stadt, Departement, Region…"
+
+msgid "City, district or zip code"
+msgstr "Stadt, Stadtteil oder Postleitzahl"
+
+msgid "Clear"
+msgstr "Löschen"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Coming soon"
+msgstr "Demnächst verfügbar"
+
+msgid "Configuration"
+msgstr "Konfiguration"
+
+msgid "Create an alert"
+msgstr "Alert erstellen"
+
+msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+
+msgid "Customize area"
+msgstr "Bereich anpassen"
+
+msgid "Decreasing distance"
+msgstr "Entfernung absteigend"
+
+msgid "Decreasing price"
+msgstr "Preis absteigend"
+
+msgid "Decreasing surface"
+msgstr "Fläche absteigend"
+
+msgid "Delete all"
+msgstr "Alle löschen"
+
+msgid "Department"
+msgstr "Departement"
+
+msgid "Desc"
+msgstr "Absteigend"
+
+msgid "Distance zone isochrone"
+msgstr "Distance zone isochrone"
+
+msgid "District"
+msgstr "Stadtbezirk"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Equipments"
+msgstr "Ausrüstung"
+
+msgid "Feature filters"
+msgstr "Merkmalfilter"
+
+msgid "Feature search filters"
+msgstr "Merkmal-Suchfilter"
+
+msgid "Feature: @label"
+msgstr "Feature: @label"
+
+msgid "Filter"
+msgstr "Filtern"
+
+msgid "Find your next property"
+msgstr "Finden Sie Ihre nächste Immobilie"
+
+msgid "Fittings"
+msgstr "Ausstattung"
+
+msgid "Header search (property)"
+msgstr "Header-Suche (Immobilie)"
+
+msgid "Heights"
+msgstr "Höhen"
+
+msgid "Hide list"
+msgstr "Liste ausblenden"
+
+msgid "Immersive tour"
+msgstr "Immersive Tour"
+
+msgid "Increasing price"
+msgstr "Preis aufsteigend"
+
+msgid "Increasing surface"
+msgstr "Fläche aufsteigend"
+
+msgid "Keywords"
+msgstr "Stichwörter"
+
+msgid "Loading…"
+msgstr "Wird geladen…"
+
+msgid "Location"
+msgstr "Standort"
+
+msgid "Location data"
+msgstr "Location data"
+
+msgid "Location structured data"
+msgstr "Location structured data"
+
+msgid "Location suggest"
+msgstr "Location suggest"
+
+msgid "Location suggestions"
+msgstr "Location suggestions"
+
+msgid "Location(s)"
+msgstr "Standort(e)"
+
+msgid "Map zone"
+msgstr "Kartenzone"
+
+msgid "Map zone settings"
+msgstr "Kartenzonen-Einstellungen"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Maximum 10 locations"
+msgstr "Maximal 10 Standorte"
+
+msgid "Means of transport"
+msgstr "Verkehrsmittel"
+
+msgid "Metro, bus, train..."
+msgstr "Metro, bus, train..."
+
+msgid "Min"
+msgstr "Min"
+
+msgid "More criteria group"
+msgstr "More criteria group"
+
+msgid "More filters"
+msgstr "Weitere Filter"
+
+msgid "More filters (@count)"
+msgstr "Weitere Filter (@count)"
+
+msgid "Nearby transport"
+msgstr "Nahverkehr"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "No location found"
+msgstr "Kein Standort gefunden"
+
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "Keine Angebote entsprechen Ihren Kriterien. Bitte passen Sie Ihre Filter an."
+
+msgid "No properties in this map area"
+msgstr "Keine Objekte in diesem Kartenbereich"
+
+msgid "No results found"
+msgstr "Keine Ergebnisse"
+
+msgid "Offer reference..."
+msgstr "Offer reference..."
+
+msgid "Offices, retail and logistics across France."
+msgstr "Büros, Einzelhandel und Logistik in Frankreich."
+
+msgid "Other"
+msgstr "Sonstige"
+
+msgid "Other criteria"
+msgstr "Weitere Kriterien"
+
+msgid "Outdoors"
+msgstr "Außenbereich"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Verschieben Sie die Karte oder nutzen Sie „In diesem Bereich suchen“."
+
+msgid "Postal code"
+msgstr "Postleitzahl"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "Properties @in @locality"
+msgstr "Properties @in @locality"
+
+msgid "Property Search"
+msgstr "Immobiliensuche"
+
+msgid "Property search"
+msgstr "Immobiliensuche"
+
+msgid "Property search filters"
+msgstr "Immobiliensuche-Filter"
+
+msgid "Property type"
+msgstr "Objekttyp"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Remove @value"
+msgstr "@value entfernen"
+
+msgid "Rent"
+msgstr "Mieten"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Restricted activities"
+msgstr "Nicht zulässige Aktivitäten"
+
+msgid "SEO URL mappings"
+msgstr "SEO-URL-Zuordnungen"
+
+msgid "SEO URLs"
+msgstr "SEO-URLs"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Search actions"
+msgstr "Suchaktionen"
+
+msgid "Search filter bar"
+msgstr "Filterleiste Suche"
+
+msgid "Search hero (homepage)"
+msgstr "Such-Hero (Startseite)"
+
+msgid "Search keywords..."
+msgstr "Suchbegriffe…"
+
+msgid "Search map markers"
+msgstr "Search map markers"
+
+msgid "Search offers"
+msgstr "Suchangebote"
+
+msgid "Search result count"
+msgstr "Search result count"
+
+msgid "Search results header"
+msgstr "Search results header"
+
+msgid "Search this area"
+msgstr "In diesem Bereich suchen"
+
+msgid "See all filters"
+msgstr "Alle Filter anzeigen"
+
+msgid "Selected property"
+msgstr "Ausgewähltes Objekt"
+
+msgid "Services"
+msgstr "Dienstleistungen"
+
+msgid "Show"
+msgstr "Anzeigen"
+
+msgid "Show distance zone"
+msgstr "Entfernungszone anzeigen"
+
+msgid "Show list"
+msgstr "Liste anzeigen"
+
+msgid "Show map"
+msgstr "Karte anzeigen"
+
+msgid "Show more results"
+msgstr "Mehr Ergebnisse anzeigen"
+
+msgid "Showing @count in this area"
+msgstr "@count in diesem Bereich angezeigt"
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "Standards, certifications and labels"
+msgstr "Normen, Zertifizierungen und Labels"
+
+msgid "Start typing a city name or postal code"
+msgstr "Stadt oder Postleitzahl eingeben"
+
+msgid "Surface"
+msgstr "Fläche"
+
+msgid "Surface (m²)"
+msgstr "Fläche (m²)"
+
+msgid "Transaction type"
+msgstr "Transaktionstyp"
+
+msgid "Transport"
+msgstr "Fahrzeugzugang"
+
+msgid "Transports"
+msgstr "Öffentliche Verkehrsmittel"
+
+msgid "Travel time"
+msgstr "Fahrzeit"
+
+msgid "Validate"
+msgstr "Bestätigen"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Walking"
+msgstr "Zu Fuß"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "for rent"
+msgstr "zu mieten"
+
+msgid "for sale"
+msgstr "zu verkaufen"
+
+msgid "in"
+msgstr "in"
+
+msgid "result"
+msgstr "Ergebnis"
+
+msgid "results"
+msgstr "Ergebnisse"
