@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Hook;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\ps_search\Search\Header\HeaderSearchPanelBuilder;
@@ -34,7 +35,11 @@ final class SearchPageAttachmentsHooks {
     }
 
     $panel = $this->headerSearchPanelBuilder->buildPanelContent();
-    BubbleableMetadata::createFromRenderArray($panel)->applyTo($attachments);
+    $attachments['#attached'] = BubbleableMetadata::mergeAttachments(
+      $attachments['#attached'] ?? [],
+      $panel['#attached'] ?? [],
+    );
+    CacheableMetadata::createFromRenderArray($panel)->applyTo($attachments);
   }
 
 }

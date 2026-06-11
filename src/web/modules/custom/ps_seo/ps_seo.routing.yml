@@ -1,0 +1,7 @@
+ps_seo.admin_overview:
+  path: '/admin/ps/config/seo'
+  defaults:
+    _controller: '\Drupal\ps_seo\Controller\SeoAdminOverviewController::overview'
+    _title: 'SEO'
+  requirements:
+    _permission: 'access ps_core config section'

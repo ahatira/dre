@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.offer
+  module:
+    - metatag
+    - metatag_open_graph
+    - metatag_twitter_cards
+    - schema_metatag
+    - schema_web_page
+    - schema_place
+id: node__offer
+label: Offer
+tags:
+  title: '[node:ps-offer-asset] [node:field_commercial_title] [node:ps-offer-city] - [node:field_reference] | [site:name]'
+  description: '[node:summary]'
+  canonical_url: '[node:url]'
+  shortlink: '[node:url]'
+  robots: 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1'
+  og_type: website
+  og_title: '[node:field_commercial_title] | [site:name]'
+  og_description: '[node:summary]'
+  og_url: '[node:url]'
+  og_site_name: '[site:name]'
+  twitter_cards_type: summary_large_image
+  twitter_cards_title: '[node:field_commercial_title] | [site:name]'
+  twitter_cards_description: '[node:summary]'
+  schema_web_page_type: WebPage
+  schema_web_page_description: '[node:summary]'
+  schema_place_type: Place
+  schema_place_name: '[node:field_commercial_title]'
+  schema_place_url: '[node:url]'

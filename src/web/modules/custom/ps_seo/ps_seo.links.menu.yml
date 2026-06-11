@@ -1,0 +1,6 @@
+ps_seo.admin_overview:
+  title: 'SEO'
+  description: 'Metatags, Schema.org, sitemap and search SEO settings.'
+  route_name: ps_seo.admin_overview
+  parent: ps_core.config
+  weight: 15

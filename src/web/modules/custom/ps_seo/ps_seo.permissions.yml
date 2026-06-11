@@ -1,0 +1,8 @@
+access ps_seo admin:
+  title: 'Access Property Search SEO admin'
+  description: 'Access the PS SEO configuration hub and related links.'
+
+administer ps_seo:
+  title: 'Administer Property Search SEO settings'
+  description: 'Manage PS SEO module settings.'
+  restrict access: true

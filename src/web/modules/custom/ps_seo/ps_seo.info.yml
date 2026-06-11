@@ -1,0 +1,22 @@
+name: 'Property Search - SEO'
+type: module
+description: 'Centralizes Property Search SEO: Metatag defaults, Schema.org, sitemap and search head tags.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_core:ps_core
+  - ps_offer:ps_offer
+  - drupal:node
+  - drupal:token
+  - drupal:pathauto
+  - drupal:redirect
+  - metatag:metatag
+  - metatag:metatag_open_graph
+  - metatag:metatag_twitter_cards
+  - metatag:metatag_hreflang
+  - schema_metatag:schema_metatag
+  - schema_metatag:schema_web_page
+  - schema_metatag:schema_organization
+  - schema_metatag:schema_place
+  - simple_sitemap:simple_sitemap

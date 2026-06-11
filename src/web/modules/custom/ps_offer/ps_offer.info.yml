@@ -35,7 +35,6 @@ dependencies:
   - drupal:token
   - drupal:scheduler
   - drupal:metatag
-  - drupal:schema_metatag
   - drupal:inline_entity_form
   - field_group:field_group
   - ps_surface:ps_surface

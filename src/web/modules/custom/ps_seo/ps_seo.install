@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_seo.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function ps_seo_install(): void {
+  _ps_seo_import_metatag_defaults();
+}
+
+/**
+ * Import PS Metatag defaults on existing sites (replaces core/ps_offer defaults).
+ */
+function ps_seo_update_9001(): void {
+  _ps_seo_import_metatag_defaults();
+}
+
+/**
+ * Remove stale FR config overrides left from ps_offer Metatag defaults.
+ */
+function ps_seo_update_9002(): void {
+  _ps_seo_import_metatag_defaults();
+}
+
+/**
+ * Re-imports Metatag defaults shipped with ps_seo.
+ */
+function _ps_seo_import_metatag_defaults(): void {
+  $module_path = \Drupal::service('extension.list.module')->getPath('ps_seo');
+  $sync = new \Drupal\Core\Config\FileStorage($module_path . '/config/metatag_defaults');
+  $language_manager = \Drupal::languageManager();
+
+  foreach ($sync->listAll() as $name) {
+    if (!$sync->exists($name)) {
+      continue;
+    }
+
+    \Drupal::configFactory()->getEditable($name)->setData($sync->read($name))->save(TRUE);
+
+    foreach ($language_manager->getLanguages() as $langcode => $language) {
+      if ($langcode === 'en') {
+        continue;
+      }
+
+      $override = $language_manager->getLanguageConfigOverride($langcode, $name);
+      if (!$override->isNew()) {
+        $override->delete();
+      }
+    }
+  }
+}
