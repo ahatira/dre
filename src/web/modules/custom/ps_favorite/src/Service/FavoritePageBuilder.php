@@ -11,6 +11,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 
 final class FavoritePageBuilder {
 
@@ -24,6 +25,7 @@ final class FavoritePageBuilder {
     private readonly FavoriteManagerInterface $favoriteManager,
     private readonly PagerManagerInterface $pagerManager,
     private readonly FavoriteLazyBuilder $favoriteLazyBuilder,
+    private readonly FavoriteOfferSummaryBuilder $offerSummaryBuilder,
   ) {}
 
   public function buildPage(): array {
@@ -58,7 +60,7 @@ final class FavoritePageBuilder {
     $items = [];
     foreach ($entities as $entity) {
       if ($entity instanceof EntityInterface && $this->favoriteManager->supportsEntity($entity) && $entity->access('view')) {
-        $items[] = $this->buildCard($entity);
+        $items[] = $this->buildCard($entity, $context === 'offcanvas' ? 'panel' : 'card');
       }
     }
 
@@ -82,15 +84,36 @@ final class FavoritePageBuilder {
     ];
   }
 
-  private function buildCard(EntityInterface $entity): array {
+  private function buildCard(EntityInterface $entity, string $buttonContext): array {
+    $summary = $entity instanceof NodeInterface ? $this->offerSummaryBuilder->build($entity) : NULL;
+
+    if ($summary !== NULL) {
+      return [
+        '#theme' => 'ps_favorite_card',
+        '#entity_type_id' => $summary['entity_type_id'],
+        '#entity_id' => $summary['entity_id'],
+        '#title' => $summary['title'],
+        '#url' => $summary['url'],
+        '#thumbnail' => $summary['thumbnail'],
+        '#surface' => $summary['surface'],
+        '#price_amount' => $summary['price_amount'],
+        '#price_qualifiers' => $summary['price_qualifiers'],
+        '#toggle_button' => $this->favoriteLazyBuilder->buildButtonRenderable($entity, $buttonContext),
+      ];
+    }
+
     return [
       '#theme' => 'ps_favorite_card',
       '#entity_type_id' => $entity->getEntityTypeId(),
       '#entity_id' => (int) $entity->id(),
       '#title' => $entity->label(),
       '#url' => $this->buildCanonicalUrl($entity),
+      '#thumbnail' => NULL,
+      '#surface' => NULL,
+      '#price_amount' => NULL,
+      '#price_qualifiers' => NULL,
       '#entity_view' => $this->buildEntityPreview($entity),
-      '#toggle_button' => $this->favoriteLazyBuilder->buildButtonRenderable($entity, 'card'),
+      '#toggle_button' => $this->favoriteLazyBuilder->buildButtonRenderable($entity, $buttonContext),
     ];
   }
 
@@ -100,7 +123,7 @@ final class FavoritePageBuilder {
       return $this->sanitizePreviewRenderArray($display->build($entity));
     }
 
-    if (($display = $this->loadViewDisplay($entity, 'card_favorite')) !== NULL) {
+    if (($display = $this->loadViewDisplay($entity, 'favorite_card')) !== NULL) {
       return $this->sanitizePreviewRenderArray($display->build($entity));
     }
 

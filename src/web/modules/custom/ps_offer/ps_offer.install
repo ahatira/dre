@@ -85,6 +85,29 @@ function ps_offer_update_9004(): void {
 }
 
 /**
+ * Renames offer favorite view mode "card_favorite" to "favorite_card".
+ */
+function ps_offer_update_9005(): void {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ([
+    'core.entity_view_display.node.offer.card_favorite',
+    'core.entity_view_mode.node.card_favorite',
+  ] as $config_name) {
+    $config_factory->getEditable($config_name)->delete();
+  }
+
+  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
+  $installer = \Drupal::service('config.installer');
+  $installer->installDefaultConfig('module', 'ps_offer');
+
+  $target = $config_factory->getEditable('ps_favorite.target.node.offer');
+  if (!$target->isNew() && $target->get('view_mode') === 'card_favorite') {
+    $target->set('view_mode', 'favorite_card')->save();
+  }
+}
+
+/**
  * Adds ps_offer SEO path tokens to Pathauto safe token list.
  */
 function ps_offer_register_pathauto_safe_tokens(): void {

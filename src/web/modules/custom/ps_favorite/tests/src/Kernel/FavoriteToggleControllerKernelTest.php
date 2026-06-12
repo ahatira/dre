@@ -75,7 +75,7 @@ final class FavoriteToggleControllerKernelTest extends KernelTestBase {
         'entity_type_id' => 'node',
         'bundle' => 'offer',
         'max_favorites' => 0,
-        'view_mode' => 'card_favorite',
+        'view_mode' => 'favorite_card',
         'status' => TRUE,
       ])
       ->save();

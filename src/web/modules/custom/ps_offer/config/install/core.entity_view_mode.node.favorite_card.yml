@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - node
-id: node.card_favorite
+id: node.favorite_card
 label: 'Favorite card'
 targetEntityType: node
 cache: true

@@ -39,7 +39,7 @@ final class FavoritesHeaderBlock extends BlockBase implements ContainerFactoryPl
     return [
       '#theme' => 'ps_favorite_header_block',
       '#offcanvas_url' => '/favorites/offcanvas',
-      '#dialog_options' => '{"width":420,"dialogClass":"ps-favorite-offcanvas"}',
+      '#dialog_options' => '{"dialogClass":"ps-favorite-offcanvas"}',
       '#count' => $this->favoriteLazyBuilder->buildHeaderCount(),
       '#attached' => [
         'library' => ['ps_favorite/favorites'],

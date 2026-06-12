@@ -40,6 +40,13 @@ services:
       - '@ps_favorite.manager'
       - '@pager.manager'
       - '@ps_favorite.lazy_builder'
+      - '@ps_favorite.offer_summary_builder'
+
+  ps_favorite.offer_summary_builder:
+    class: Drupal\ps_favorite\Service\FavoriteOfferSummaryBuilder
+    arguments:
+      - '@module_handler'
+      - '@service_container'
 
   ps_favorite.lazy_builder:
     class: Drupal\ps_favorite\Service\FavoriteLazyBuilder
@@ -72,6 +79,11 @@ services:
     arguments:
       - '@ps_favorite.cookie_storage'
       - '@ps_favorite.cookie_state'
+    tags:
+      - { name: event_subscriber }
+
+  ps_favorite.offcanvas_dialog_subscriber:
+    class: Drupal\ps_favorite\EventSubscriber\FavoriteOffcanvasDialogSubscriber
     tags:
       - { name: event_subscriber }
 

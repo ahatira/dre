@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.card_favorite
+    - core.entity_view_mode.node.favorite_card
     - field.field.node.offer.body
     - field.field.node.offer.field_address
     - field.field.node.offer.field_asset_type
     - field.field.node.offer.field_availability
     - field.field.node.offer.field_budget_cc
     - field.field.node.offer.field_budget_currency
+    - field.field.node.offer.field_budget_fees
     - field.field.node.offer.field_budget_ht
     - field.field.node.offer.field_budget_period
     - field.field.node.offer.field_budget_unit
-    - field.field.node.offer.field_budget_fees
     - field.field.node.offer.field_budget_value
     - field.field.node.offer.field_business_id
     - field.field.node.offer.field_capacity_available
@@ -47,18 +47,17 @@ dependencies:
     - field.field.node.offer.field_source_tracking
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_technical_id
+    - image.style.ps_compare_column
     - node.type.offer
   module:
-    - address
-    - options
-    - ps_dictionary
+    - image
     - ps_media
     - ps_offer
     - ps_surface
-id: node.offer.card_favorite
+id: node.offer.favorite_card
 targetEntityType: node
 bundle: offer
-mode: card_favorite
+mode: favorite_card
 content:
   field_media_gallery:
     type: ps_media_gallery_formatter
@@ -69,14 +68,15 @@ content:
       use_thumbnail: true
       lazy_load: true
       max_items: 1
-      image_style: bnp_media_admin_card
+      image_style: ps_compare_column
     third_party_settings: { }
     weight: 0
     region: content
-  field_address:
-    type: address_plain
+  field_commercial_title:
+    type: string
     label: hidden
-    settings: { }
+    settings:
+      link_to_entity: false
     third_party_settings: { }
     weight: 1
     region: content
@@ -96,6 +96,7 @@ content:
     region: content
 hidden:
   body: true
+  field_address: true
   field_asset_type: true
   field_availability: true
   field_budget_cc: true
@@ -111,7 +112,6 @@ hidden:
   field_capacity_total: true
   field_capacity_unit: true
   field_client_type: true
-  field_commercial_title: true
   field_diagnostics: true
   field_diagnostics_dpe: true
   field_diagnostics_ges: true

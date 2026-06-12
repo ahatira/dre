@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.card_favorite
+    - core.entity_view_mode.node.favorite_card
     - node.type.offer
   module:
     - ps_favorite
@@ -11,4 +11,4 @@ label: Offer
 entity_type_id: node
 bundle: offer
 max_favorites: 0
-view_mode: card_favorite
+view_mode: favorite_card

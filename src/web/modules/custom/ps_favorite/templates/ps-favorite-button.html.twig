@@ -15,12 +15,14 @@
 >
   <span class="ps-favorite-button__icon" aria-hidden="true">
     <span class="ps-favorite-button__icon-state ps-favorite-button__icon-state--inactive">
-      {{ icon('bnp_custom', 'fav-stroke', {'size': '20px'}) }}
+      {{ icon('bnp_custom', 'fav-stroke', {'size': context == 'panel' ? '24px' : '20px'}) }}
     </span>
     <span class="ps-favorite-button__icon-state ps-favorite-button__icon-state--active">
-      {{ icon('bnp_custom', 'fav-filled', {'size': '20px'}) }}
+      {{ icon('bnp_custom', 'fav-filled', {'size': context == 'panel' ? '24px' : '20px'}) }}
     </span>
   </span>
-  <span class="ps-favorite-button__text js-ps-favorite-text">{{ is_favorite ? text_remove : text_add }}</span>
+  {% if context != 'panel' %}
+    <span class="ps-favorite-button__text js-ps-favorite-text">{{ is_favorite ? text_remove : text_add }}</span>
+  {% endif %}
   <span class="visually-hidden js-ps-favorite-sr">{{ is_favorite ? label_remove : label_add }}</span>
 </button>
