@@ -2073,6 +2073,26 @@
       once('ps-show-map', '.js-ps-show-map', context).forEach(function (btn) {
         const showMapLabel = btn.dataset.showMapLabel || btn.textContent.trim();
         const showListLabel = btn.dataset.showListLabel || 'Show list';
+
+        const syncMobileMapToggle = function () {
+          const root = document.querySelector('.ps-search-view');
+          if (!root || typeof Drupal.psSearchMap?.isListVisible !== 'function') {
+            return;
+          }
+          const listVisible = Drupal.psSearchMap.isListVisible(root);
+          const label = listVisible ? showMapLabel : showListLabel;
+          btn.setAttribute('aria-expanded', listVisible ? 'false' : 'true');
+          let icon = btn.querySelector('.ps-filter-bar-mobile-actions__icon');
+          if (!icon) {
+            icon = document.createElement('span');
+            icon.className = 'ps-filter-bar-mobile-actions__icon';
+            icon.setAttribute('aria-hidden', 'true');
+          }
+          icon.classList.toggle('ps-filter-bar-mobile-actions__icon--map', listVisible);
+          icon.classList.toggle('ps-filter-bar-mobile-actions__icon--list', !listVisible);
+          btn.replaceChildren(icon, document.createTextNode(` ${label}`));
+        };
+
         btn.addEventListener('click', function () {
           const root = document.querySelector('.ps-search-view');
           if (!root || typeof Drupal.psSearchMap?.setListVisible !== 'function') {
@@ -2080,15 +2100,15 @@
           }
           const showList = !Drupal.psSearchMap.isListVisible(root);
           Drupal.psSearchMap.setListVisible(root, showList);
-          const listNowVisible = Drupal.psSearchMap.isListVisible(root);
-          btn.setAttribute('aria-expanded', listNowVisible ? 'true' : 'false');
-          btn.textContent = '';
-          const icon = document.createElement('span');
-          icon.className = 'ps-filter-bar-mobile-actions__icon';
-          icon.setAttribute('aria-hidden', 'true');
-          btn.appendChild(icon);
-          btn.appendChild(document.createTextNode(listNowVisible ? showMapLabel : showListLabel));
+          syncMobileMapToggle();
         });
+
+        const root = document.querySelector('.ps-search-view');
+        if (root) {
+          root.addEventListener('ps-search-list-shown', syncMobileMapToggle);
+          root.addEventListener('ps-search-map-mode', syncMobileMapToggle);
+        }
+        syncMobileMapToggle();
       });
 
       once('ps-search-back', '.js-ps-search-back', context).forEach(function (btn) {

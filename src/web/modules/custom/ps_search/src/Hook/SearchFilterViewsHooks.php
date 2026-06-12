@@ -97,6 +97,7 @@ final class SearchFilterViewsHooks {
       'ps_search/search-page-map-popup',
       'ps_search/search-page-map-zone',
       'ps_search/search-page-location',
+      'ps_search/search-alert-offcanvas',
     ] as $library) {
       $variables['#attached']['library'][] = $library;
     }
@@ -130,6 +131,10 @@ final class SearchFilterViewsHooks {
       $variables['ps_search_empty_zone_only'] = TRUE;
     }
     $variables['search_transport_icons'] = $this->resolveSearchTransportIcons();
+    $variables['search_map_zone_controls'] = [
+      '#theme' => 'ps_search_map_zone_controls',
+      'search_transport_icons' => $variables['search_transport_icons'],
+    ];
 
     $autoFitToResults = $this->mapBoundsResolver->autoFitToResults($request);
     $variables['#attached']['drupalSettings']['psSearch']['autoFitToResults'] = $autoFitToResults;

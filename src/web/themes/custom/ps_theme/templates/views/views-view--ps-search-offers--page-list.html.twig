@@ -111,35 +111,24 @@
         ></div>
       </div>
 
+      <button
+        type="button"
+        class="ps-search-map-locate-btn js-ps-search-map-locate d-lg-none"
+        aria-label="{{ 'My location'|t }}"
+      >
+        <span class="ps-search-map-locate-btn__icon" aria-hidden="true">
+          {{ icon('bnp_custom', 'pin-map', {'size': '20px'}) }}
+        </span>
+      </button>
+
       {# Desktop full-map — floating offer panel over the map (300px maquette) #}
       <aside class="ps-search-map-float-panel js-ps-search-map-float-panel" aria-label="{{ 'Selected property'|t }}" hidden>
         <div class="ps-search-map-float-panel__content flex-grow-scroll js-ps-search-map-float-content"></div>
-        {% set transport_icon_defaults = {
-          walking: {pack: 'bnp_custom', id: 'walking'},
-          transports: {pack: 'bnp_custom', id: 'transport'},
-          bike: {pack: 'bnp_custom', id: 'bike'},
-          car: {pack: 'bnp_custom', id: 'car'},
-        } %}
-        {% set transport_icons = search_transport_icons|default(transport_icon_defaults) %}
-        <div class="ps-search-map-float-panel__zone">
-          <div class="ps-search-map-float-panel__zone-row">
-            <span class="ps-search-map-float-panel__zone-label" id="ps-search-distance-zone-label">{{ 'Show distance zone'|t }} :</span>
-            <label class="ps-search-map-float-panel__toggle" for="ps-search-distance-zone">
-              <input class="ps-search-map-float-panel__toggle-input js-ps-distance-zone-toggle" type="checkbox" role="switch" id="ps-search-distance-zone" value="1" aria-labelledby="ps-search-distance-zone-label">
-              <span class="ps-search-map-float-panel__toggle-track" aria-hidden="true"></span>
-            </label>
-          </div>
-          <div class="ps-search-map-float-panel__zone-row">
-            <span class="ps-search-map-float-panel__zone-label">{{ 'Customize area'|t }} :</span>
-            <button type="button" class="ps-search-map-float-panel__customize-btn js-ps-customize-area-open" data-bs-toggle="modal" data-bs-target="#ps-search-customize-area">
-              <span class="ps-search-map-float-panel__customize-icon js-ps-customize-area-icon" aria-hidden="true">
-                {{ icon(transport_icons.walking.pack, transport_icons.walking.id, {size: '20px'}) }}
-              </span>
-              <span class="js-ps-customize-area-summary">{{ '5 minutes'|t }}</span>
-            </button>
-          </div>
-        </div>
       </aside>
+
+      {% if search_map_zone_controls %}
+        {{ search_map_zone_controls }}
+      {% endif %}
 
       {# Mobile / fallback floating offer card over the map #}
       <div class="ps-search-map-popup js-ps-search-map-popup" hidden aria-live="polite">
@@ -168,9 +157,20 @@
     {{ compare_share_modal }}
   {% endif %}
 
+  {% if search_mobile_bottom_bar %}
+    {{ search_mobile_bottom_bar }}
+  {% endif %}
+
   {# Customize area modal (desktop full-map maquette) #}
+  {% set transport_icon_defaults = {
+    walking: {pack: 'bnp_custom', id: 'walking'},
+    transports: {pack: 'bnp_custom', id: 'transport'},
+    bike: {pack: 'bnp_custom', id: 'bike'},
+    car: {pack: 'bnp_custom', id: 'car'},
+  } %}
+  {% set transport_icons = search_transport_icons|default(transport_icon_defaults) %}
   <div class="modal fade ps-search-customize-area-modal" id="ps-search-customize-area" tabindex="-1" aria-labelledby="ps-search-customize-area-title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header border-0 pb-0">
           <h2 class="modal-title h5 fw-semibold" id="ps-search-customize-area-title">{{ 'Customize area'|t }}</h2>

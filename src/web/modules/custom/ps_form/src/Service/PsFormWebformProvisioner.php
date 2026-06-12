@@ -21,6 +21,7 @@ final class PsFormWebformProvisioner {
     'contact',
     'offer_contact',
     'schedule_visit',
+    'search_alert',
   ];
 
   public function __construct(

@@ -78,21 +78,27 @@
    *   Global business-filter count.
    */
   function updateZoneHint(root, zoneCount, globalCount) {
-    const hint = root.querySelector('.js-ps-zone-hint');
-    if (!hint) {
+    const hints = root.querySelectorAll('.js-ps-zone-hint');
+    if (hints.length === 0) {
       return;
     }
 
-    hint.dataset.globalCount = String(globalCount);
+    hints.forEach(function (hint) {
+      hint.dataset.globalCount = String(globalCount);
 
-    if (zoneCount !== globalCount) {
-      hint.textContent = formatZoneHint(zoneCount);
-      hint.hidden = false;
-      return;
-    }
+      if (zoneCount !== globalCount) {
+        const formatted = Number(zoneCount).toLocaleString();
+        const isMobileHeadline = hint.closest('.js-ps-results-header-headline-mobile');
+        hint.textContent = isMobileHeadline
+          ? Drupal.t('Showing @count in this area', {'@count': formatted})
+          : formatZoneHint(zoneCount);
+        hint.hidden = false;
+        return;
+      }
 
-    hint.textContent = '';
-    hint.hidden = true;
+      hint.textContent = '';
+      hint.hidden = true;
+    });
   }
 
   /**
@@ -106,32 +112,41 @@
    *   Results in the active map zone.
    */
   function syncResultsHeaderCounts(root, globalCount, zoneCount) {
-    const countParagraph = root.querySelector('.js-ps-results-header-count');
-    if (!countParagraph || !Number.isFinite(globalCount)) {
+    if (!Number.isFinite(globalCount)) {
       return;
     }
 
-    let hint = root.querySelector('.js-ps-zone-hint');
-    if (!hint) {
-      hint = document.createElement('span');
-      hint.className = 'ps-search-view__zone-hint js-ps-zone-hint';
-      countParagraph.appendChild(hint);
+    const formattedGlobal = Number(globalCount).toLocaleString();
+    const resultWord = globalCount === 1 ? Drupal.t('result') : Drupal.t('results');
+
+    const countParagraph = root.querySelector('.js-ps-results-header-count');
+    if (countParagraph) {
+      let hint = countParagraph.querySelector('.js-ps-zone-hint');
+      if (!hint) {
+        hint = document.createElement('span');
+        hint.className = 'ps-search-view__zone-hint js-ps-zone-hint';
+        countParagraph.appendChild(hint);
+      }
+
+      Array.from(countParagraph.childNodes).forEach(function (node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          node.remove();
+        }
+      });
+      countParagraph.insertBefore(
+        document.createTextNode(`${formattedGlobal} ${resultWord} `),
+        hint,
+      );
     }
 
-    const existingText = countParagraph.textContent.replace(hint.textContent, '').trim();
-    const resultWordMatch = existingText.match(/\b(result|results|résultat|résultats)\b/i);
-    const resultWord = resultWordMatch ? resultWordMatch[0] : (globalCount === 1 ? 'result' : 'results');
-    const formattedGlobal = Number(globalCount).toLocaleString();
-
-    Array.from(countParagraph.childNodes).forEach(function (node) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        node.remove();
-      }
-    });
-    countParagraph.insertBefore(
-      document.createTextNode(`${formattedGlobal} ${resultWord} `),
-      hint,
-    );
+    const mobileCount = root.querySelector('.js-ps-results-header-headline-count');
+    const mobileResultWord = root.querySelector('.js-ps-results-header-headline-result-word');
+    if (mobileCount) {
+      mobileCount.textContent = formattedGlobal;
+    }
+    if (mobileResultWord) {
+      mobileResultWord.textContent = resultWord;
+    }
 
     updateZoneHint(root, zoneCount, globalCount);
 

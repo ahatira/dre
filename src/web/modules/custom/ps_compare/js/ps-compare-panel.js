@@ -45,7 +45,19 @@
       control.classList.toggle('collapsed', !open);
       control.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+    syncMobileSheetChrome(widget, open);
     refreshBarLabels(widget, getPanelCount(widget));
+  };
+
+  const syncMobileSheetChrome = (widget, open) => {
+    const mobile = isMobileSearchPage();
+    const backdrop = widget?.querySelector('[data-ps-compare-panel-backdrop]');
+    if (backdrop) {
+      backdrop.hidden = !mobile || !open;
+      backdrop.classList.toggle('is-visible', mobile && open);
+      backdrop.setAttribute('aria-hidden', mobile && open ? 'false' : 'true');
+    }
+    document.body.classList.toggle('ps-search-compare-sheet-open', mobile && open);
   };
 
   const getPanelCollapse = (widget) => {
@@ -57,16 +69,27 @@
     return bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false });
   };
 
+  const isMobileSearchPage = () => (
+    window.matchMedia('(max-width: 991.98px)').matches
+    && !!document.querySelector('.ps-search-view')
+  );
+
   const setWidgetVisible = (widget, visible) => {
     if (!widget) {
       return;
     }
+    const legacyMobileBar = widget.querySelector('[data-ps-compare-mobile-open]');
+    if (legacyMobileBar) {
+      legacyMobileBar.hidden = true;
+    }
+    if (isMobileSearchPage()) {
+      widget.hidden = false;
+      widget.classList.toggle('is-visible', visible);
+      widget.classList.toggle('ps-compare-widget--empty', !visible);
+      return;
+    }
     widget.hidden = !visible;
     widget.classList.toggle('is-visible', visible);
-    const mobileBar = widget.querySelector('[data-ps-compare-mobile-open]');
-    if (mobileBar) {
-      mobileBar.hidden = !visible;
-    }
   };
 
   const setCtaState = (widget, canCompare) => {
@@ -308,7 +331,7 @@
     const collapseEl = widget.querySelector('[data-ps-compare-panel-collapse]');
     const close = widget.querySelector('[data-ps-compare-panel-close]');
     const limitDismiss = widget.querySelector('[data-ps-compare-limit-dismiss]');
-    const mobileOpen = widget.querySelector('[data-ps-compare-mobile-open]');
+    const backdrop = widget.querySelector('[data-ps-compare-panel-backdrop]');
     const cta = widget.querySelector('[data-ps-compare-cta]');
     const collapse = getPanelCollapse(widget);
 
@@ -320,8 +343,8 @@
     });
 
     close?.addEventListener('click', () => collapse?.hide());
+    backdrop?.addEventListener('click', () => collapse?.hide());
     limitDismiss?.addEventListener('click', () => hideLimitAlert(widget));
-    mobileOpen?.addEventListener('click', () => collapse?.show());
 
     cta?.addEventListener('click', (event) => {
       if (cta.disabled || cta.classList.contains('disabled')) {
@@ -341,7 +364,22 @@
         }
       });
 
+      once('ps-compare-bottom-open', '[data-ps-compare-bottom-open]', context).forEach((button) => {
+        button.addEventListener('click', () => {
+          const widget = document.querySelector('[data-ps-compare-widget]');
+          getPanelCollapse(widget)?.show();
+        });
+      });
+
       once('ps-compare-panel', '[data-ps-compare-widget]', context).forEach((widget) => {
+        if (isMobileSearchPage()) {
+          widget.hidden = false;
+          widget.classList.add('ps-compare-widget--empty');
+          const legacyMobileBar = widget.querySelector('[data-ps-compare-mobile-open]');
+          if (legacyMobileBar) {
+            legacyMobileBar.hidden = true;
+          }
+        }
         bindPanelInteractions(widget);
         fetchPanel().then((payload) => applyPanelPayload(widget, payload));
       });

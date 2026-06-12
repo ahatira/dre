@@ -3,10 +3,14 @@
 /**
  * @file
  * Install hooks for ps_search.
- *
- * All module configuration ships in config/install/ (plus language overrides
- * under config/install/language/). Fresh installs and db-reset rely on that
- * export; incremental hook_update_N() hooks are not maintained in this module.
  */
 
 declare(strict_types=1);
+
+/**
+ * Installs the search_alert content entity on existing sites.
+ */
+function ps_search_update_10001(): void {
+  $entity_type = \Drupal::entityTypeManager()->getDefinition('search_alert');
+  \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+}

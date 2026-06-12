@@ -70,6 +70,72 @@ final class PsCoreSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
+    $form['urgency_help'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Site contact — urgency help'),
+      '#description' => $this->t('Phone and opening hours shown in offcanvas forms (search alert, contact, etc.).'),
+      '#open' => TRUE,
+    ];
+
+    $form['urgency_help']['urgency_help_enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display urgency help block'),
+      '#default_value' => (bool) ($config->get('urgency_help_enabled') ?? TRUE),
+    ];
+
+    $form['urgency_help']['urgency_help_lead'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Lead text'),
+      '#description' => $this->t('Text before the phone number, e.g. “In a hurry? Call us at”.'),
+      '#default_value' => (string) ($config->get('urgency_help_lead') ?? 'In a hurry? Call us at'),
+      '#maxlength' => 255,
+      '#states' => [
+        'visible' => [
+          ':input[name="urgency_help_enabled"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['urgency_help']['urgency_help_phone'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Phone number (display)'),
+      '#default_value' => (string) ($config->get('urgency_help_phone') ?? ''),
+      '#maxlength' => 64,
+      '#states' => [
+        'visible' => [
+          ':input[name="urgency_help_enabled"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[name="urgency_help_enabled"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['urgency_help']['urgency_help_phone_link'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Phone link (tel: URI)'),
+      '#description' => $this->t('Optional. Leave empty to derive from the display number (FR numbers starting with 0).'),
+      '#default_value' => (string) ($config->get('urgency_help_phone_link') ?? ''),
+      '#maxlength' => 64,
+      '#states' => [
+        'visible' => [
+          ':input[name="urgency_help_enabled"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['urgency_help']['urgency_help_hours'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Opening hours'),
+      '#default_value' => (string) ($config->get('urgency_help_hours') ?? ''),
+      '#maxlength' => 255,
+      '#states' => [
+        'visible' => [
+          ':input[name="urgency_help_enabled"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -79,6 +145,11 @@ final class PsCoreSettingsForm extends ConfigFormBase {
       ->set('enable_audit_logging', (bool) $form_state->getValue('enable_audit_logging'))
       ->set('audit_retention_days', (int) $form_state->getValue('audit_retention_days'))
       ->set('conflict_window_seconds', (int) $form_state->getValue('conflict_window_seconds'))
+      ->set('urgency_help_enabled', (bool) $form_state->getValue('urgency_help_enabled'))
+      ->set('urgency_help_lead', trim((string) $form_state->getValue('urgency_help_lead')))
+      ->set('urgency_help_phone', trim((string) $form_state->getValue('urgency_help_phone')))
+      ->set('urgency_help_phone_link', trim((string) $form_state->getValue('urgency_help_phone_link')))
+      ->set('urgency_help_hours', trim((string) $form_state->getValue('urgency_help_hours')))
       ->save();
 
     parent::submitForm($form, $form_state);

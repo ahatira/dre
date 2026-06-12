@@ -278,6 +278,42 @@
         }
         Drupal.psSearchMap.initShell(root);
       });
+
+      once('ps-search-map-locate', '.js-ps-search-map-locate', context).forEach(function (button) {
+        button.addEventListener('click', function () {
+          const root = button.closest('.ps-search-view');
+          if (!root || !navigator.geolocation) {
+            return;
+          }
+          button.classList.add('is-loading');
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              button.classList.remove('is-loading');
+              const mapData = Drupal.psSearchMap.getPsMapData(root);
+              const map = mapData?.map;
+              if (!map || !window.google?.maps) {
+                return;
+              }
+              const target = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+              map.panTo(target);
+              if (typeof map.getZoom() === 'number' && map.getZoom() < 14) {
+                map.setZoom(14);
+              }
+            },
+            function () {
+              button.classList.remove('is-loading');
+            },
+            {
+              enableHighAccuracy: true,
+              maximumAge: 60000,
+              timeout: 10000,
+            },
+          );
+        });
+      });
     },
   };
 }(Drupal, once, drupalSettings));

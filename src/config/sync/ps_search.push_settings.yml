@@ -1,0 +1,6 @@
+enabled: false
+after_result: 1
+title: 'Calculate the target surface area of your future offices!'
+body: 'Use our calculator to estimate the surface area needed for your future office space based on your team size and working patterns.'
+cta_label: 'Start calculator'
+cta_url: ''

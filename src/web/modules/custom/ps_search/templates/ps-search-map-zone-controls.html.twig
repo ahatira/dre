@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Map distance zone controls — shared desktop float panel + mobile popup stack.
+ */
+#}
+{% set transport_icon_defaults = {
+  walking: {pack: 'bnp_custom', id: 'walking'},
+  transports: {pack: 'bnp_custom', id: 'transport'},
+  bike: {pack: 'bnp_custom', id: 'bike'},
+  car: {pack: 'bnp_custom', id: 'car'},
+} %}
+{% set transport_icons = search_transport_icons|default(transport_icon_defaults) %}
+<div class="ps-search-map-zone-controls js-ps-search-map-zone-controls" hidden>
+  <div class="ps-search-map-zone-controls__row">
+    <span class="ps-search-map-zone-controls__label" id="ps-search-distance-zone-label">{{ 'Show distance zone'|t }} :</span>
+    <label class="ps-search-map-zone-controls__toggle" for="ps-search-distance-zone">
+      <input class="ps-search-map-zone-controls__toggle-input js-ps-distance-zone-toggle" type="checkbox" role="switch" id="ps-search-distance-zone" value="1" aria-labelledby="ps-search-distance-zone-label">
+      <span class="ps-search-map-zone-controls__toggle-track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="ps-search-map-zone-controls__row">
+    <span class="ps-search-map-zone-controls__label">{{ 'Customize area'|t }} :</span>
+    <button type="button" class="ps-search-map-zone-controls__customize-btn js-ps-customize-area-open" data-bs-toggle="modal" data-bs-target="#ps-search-customize-area">
+      <span class="ps-search-map-zone-controls__customize-icon js-ps-customize-area-icon" aria-hidden="true">
+        {{ icon(transport_icons.walking.pack, transport_icons.walking.id, {size: '20px'}) }}
+      </span>
+      <span class="js-ps-customize-area-summary">{{ '5 minutes'|t }}</span>
+    </button>
+  </div>
+</div>

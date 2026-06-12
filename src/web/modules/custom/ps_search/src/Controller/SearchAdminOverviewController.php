@@ -41,6 +41,18 @@ final class SearchAdminOverviewController extends ControllerBase {
         '#url' => Url::fromRoute('ps_search.feature_filter_sync_settings'),
         '#attributes' => ['class' => ['admin-item__link']],
       ],
+      [
+        '#type' => 'link',
+        '#title' => $this->t('Push calculator card'),
+        '#url' => Url::fromRoute('ps_search.push_settings_form'),
+        '#attributes' => ['class' => ['admin-item__link']],
+      ],
+      [
+        '#type' => 'link',
+        '#title' => $this->t('Search alerts'),
+        '#url' => Url::fromRoute('ps_search.alert_settings_form'),
+        '#attributes' => ['class' => ['admin-item__link']],
+      ],
     ];
 
     return [

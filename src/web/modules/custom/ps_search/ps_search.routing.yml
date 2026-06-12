@@ -38,6 +38,32 @@ ps_search.feature_filter_sync_settings:
   requirements:
     _permission: 'access ps_core config section'
 
+ps_search.push_settings_form:
+  path: '/admin/ps/config/search/push'
+  defaults:
+    _form: '\Drupal\ps_search\Form\PushSettingsForm'
+    _title: 'Push calculator card'
+  requirements:
+    _permission: 'access ps_core config section'
+
+ps_search.alert_settings_form:
+  path: '/admin/ps/config/search/alerts'
+  defaults:
+    _form: '\Drupal\ps_search\Form\AlertSettingsForm'
+    _title: 'Search alerts'
+  requirements:
+    _permission: 'access ps_core config section'
+
+ps_search.api.search_alert_offcanvas:
+  path: '/api/ps/search-alert/offcanvas'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchAlertOffcanvasController::offcanvas'
+    _title_callback: '\Drupal\ps_search\Controller\SearchAlertOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
 ps_search.api.markers:
   path: '/api/ps/markers'
   defaults:

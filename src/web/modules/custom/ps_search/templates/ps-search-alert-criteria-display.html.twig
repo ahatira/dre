@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Read-only search zones and criteria tags for the alert offcanvas form.
+ *
+ * Variables: zones (list), criteria (list)
+ */
+#}
+{% if zones is not empty or criteria is not empty %}
+  <div class="ps-search-alert-criteria-display">
+    {% if zones is not empty %}
+      <section class="ps-search-alert-criteria ps-search-alert-criteria--zones">
+        <h3 class="ps-search-alert-criteria__title">{{ 'Search zones'|t }}</h3>
+        <ul class="ps-search-alert-criteria__list" role="list">
+          {% for zone in zones %}
+            <li class="ps-search-alert-criteria__item">
+              <span class="ps-search-alert-tag">{{ zone }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    {% if criteria is not empty %}
+      <section class="ps-search-alert-criteria ps-search-alert-criteria--filters">
+        <h3 class="ps-search-alert-criteria__title">{{ 'Search criteria'|t }}</h3>
+        <ul class="ps-search-alert-criteria__list" role="list">
+          {% for tag in criteria %}
+            <li class="ps-search-alert-criteria__item">
+              <span class="ps-search-alert-tag">{{ tag }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  </div>
+{% endif %}

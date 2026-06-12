@@ -21,9 +21,15 @@
       } }}
     </li>
   {% endfor %}
-  {% if count > 0 and remaining_slots > 0 %}
+  {% if remaining_slots > 0 %}
     <li class="ps-compare-panel__item ps-compare-panel__item--slot">
-      {% if count > 0 and count < min_items %}
+      {% if count == 0 %}
+        <div class="ps-compare-panel-slot ps-compare-panel-slot--hint">
+          <p class="ps-compare-panel__hint" role="status">
+            {{ 'Select listings from the search results to compare.'|t }}
+          </p>
+        </div>
+      {% elseif count > 0 and count < min_items %}
         <div class="ps-compare-panel-slot ps-compare-panel-slot--hint">
           <p class="ps-compare-panel__hint" role="status">
             {{ 'Add at least one more listing to be able to compare.'|t }}

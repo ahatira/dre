@@ -64,6 +64,29 @@ final class SearchThemeHooks {
         ],
         'template' => 'ps-search-results-header',
       ],
+      'ps_search_mobile_bottom_bar' => [
+        'variables' => [],
+        'template' => 'ps-search-mobile-bottom-bar',
+      ],
+      'ps_search_alert_offcanvas' => [
+        'variables' => [
+          'webform' => NULL,
+        ],
+        'template' => 'ps-search-alert-offcanvas',
+      ],
+      'ps_search_alert_criteria_display' => [
+        'variables' => [
+          'zones' => [],
+          'criteria' => [],
+        ],
+        'template' => 'ps-search-alert-criteria-display',
+      ],
+      'ps_search_map_zone_controls' => [
+        'variables' => [
+          'search_transport_icons' => [],
+        ],
+        'template' => 'ps-search-map-zone-controls',
+      ],
       'ps_search_homepage_entry' => [
         'variables' => [
           'operation_types' => [],

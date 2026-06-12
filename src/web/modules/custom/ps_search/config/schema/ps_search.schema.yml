@@ -183,6 +183,55 @@ ps_search.api_cache_settings:
       type: integer
       label: 'Decimal places for isochrone cache key coordinates'
 
+ps_search.push_settings:
+  type: config_object
+  label: 'PS Search push calculator card settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable push calculator card'
+    after_result:
+      type: integer
+      label: 'Insert after result index'
+    title:
+      type: string
+      label: 'Card title'
+    body:
+      type: string
+      label: 'Card body text'
+    cta_label:
+      type: string
+      label: 'CTA button label'
+    cta_url:
+      type: string
+      label: 'CTA button URL'
+
+ps_search.alert_settings:
+  type: config_object
+  label: 'PS Search alert settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable search alert cron notifications'
+    default_frequence:
+      type: string
+      label: 'Default frequency for new alerts'
+    from_mail:
+      type: email
+      label: 'From email'
+    from_name:
+      type: string
+      label: 'From name'
+    bcc_mail:
+      type: email
+      label: 'BCC email'
+    retention_days:
+      type: integer
+      label: 'Retention for anonymous alerts (days)'
+    batch_size:
+      type: integer
+      label: 'Alerts processed per cron run'
+
 views.filter.ps_search_location_tokens:
   type: views.filter.search_api_string
   label: 'PS Search location tokens filter'

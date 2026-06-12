@@ -3,60 +3,85 @@
  * @file
  * Search results pane header — title, count, zone hint, sort (Phase 5A.7).
  *
+ * Desktop: title + Create an alert | count + sort (maquette desktop).
+ * Mobile:  N results for "title" | sort below (maquette Property search.png).
+ *
  * Variables: title, count, zone_count, sort_options, selected_sort_label.
  */
 #}
-<div class="d-flex justify-content-between align-items-start gap-3 mb-2">
-  <h1 class="h4 fw-semibold mb-0 js-ps-results-header-title">{{ title }}</h1>
-  <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" disabled title="{{ 'Coming soon'|t }}">
-    {{ 'Create an alert'|t }}
-  </button>
-</div>
-<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-  <p class="small text-muted mb-0 js-ps-results-header-count">
-    {{ count|number_format(0, '.', ' ') }}
-    {{ count == 1 ? 'result'|t : 'results'|t }}
+<header class="ps-search-results-header">
+  {# Desktop — title row with Create an alert #}
+  <div class="ps-search-results-header__top d-none d-lg-flex justify-content-between align-items-start gap-3 mb-2">
+    <h1 class="h4 fw-semibold mb-0 js-ps-results-header-title">{{ title }}</h1>
+    <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0 ps-search-results-header__alert-btn" data-ps-search-alert-open>
+      <span class="ps-search-results-header__alert-icon" aria-hidden="true"></span>
+      {{ 'Create an alert'|t }}
+    </button>
+  </div>
+
+  {# Mobile — combined results headline #}
+  <h1 class="ps-search-results-header__headline h4 fw-semibold d-lg-none js-ps-results-header-headline-mobile">
+    <span class="js-ps-results-header-headline-count">{{ count|number_format(0, '.', ' ') }}</span>
+    {{ ' ' }}
+    <span class="js-ps-results-header-headline-result-word">{{ count == 1 ? 'result'|t : 'results'|t }}</span>
+    {{ ' ' }}{{ 'for'|t }} &ldquo;{{ title }}&rdquo;
     <span
       class="ps-search-view__zone-hint js-ps-zone-hint"
       data-global-count="{{ count }}"
       {% if zone_count is not defined or zone_count == count %}hidden{% endif %}
     >
       {% if zone_count is defined and zone_count != count %}
-        — {{ 'Showing @count in this area'|t({'@count': zone_count|number_format(0, '.', ' ')}) }}
+        {{ 'Showing @count in this area'|t({'@count': zone_count|number_format(0, '.', ' ')}) }}
       {% endif %}
     </span>
-  </p>
-  {% if sort_options %}
-    <div class="ps-search-sort dropdown flex-shrink-0">
-      <button
-        type="button"
-        class="ps-search-sort__toggle dropdown-toggle"
-        id="ps-search-sort"
-        data-bs-toggle="dropdown"
-        data-bs-auto-close="true"
-        aria-expanded="false"
-        aria-haspopup="true"
-        aria-label="{{ 'Sort by'|t }}"
+  </h1>
+
+  <div class="ps-search-results-header__meta d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <p class="small text-muted mb-0 js-ps-results-header-count d-none d-lg-block">
+      {{ count|number_format(0, '.', ' ') }}
+      {{ count == 1 ? 'result'|t : 'results'|t }}
+      <span
+        class="ps-search-view__zone-hint js-ps-zone-hint"
+        data-global-count="{{ count }}"
+        {% if zone_count is not defined or zone_count == count %}hidden{% endif %}
       >
-        <span class="ps-search-sort__prefix">{{ 'Sort by'|t }} :</span>
-        <span class="ps-search-sort__value js-ps-sort-current-label">{{ selected_sort_label }}</span>
-        <span class="ps-search-sort__chevron" aria-hidden="true"></span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end ps-search-sort__menu" aria-labelledby="ps-search-sort" role="menu">
-        {% for option in sort_options %}
-          <li role="none">
-            <button
-              type="button"
-              class="dropdown-item ps-search-sort__option js-ps-sort-option{{ option.selected ? ' active' : '' }}"
-              role="menuitemradio"
-              aria-checked="{{ option.selected ? 'true' : 'false' }}"
-              data-value="{{ option.value }}"
-            >
-              {{ option.label }}
-            </button>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-</div>
+        {% if zone_count is defined and zone_count != count %}
+          — {{ 'Showing @count in this area'|t({'@count': zone_count|number_format(0, '.', ' ')}) }}
+        {% endif %}
+      </span>
+    </p>
+    {% if sort_options %}
+      <div class="ps-search-sort dropdown flex-shrink-0">
+        <button
+          type="button"
+          class="ps-search-sort__toggle dropdown-toggle"
+          id="ps-search-sort"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="true"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-label="{{ 'Sort by'|t }}"
+        >
+          <span class="ps-search-sort__prefix">{{ 'Sort by'|t }} :</span>
+          <span class="ps-search-sort__value js-ps-sort-current-label">{{ selected_sort_label }}</span>
+          <span class="ps-search-sort__chevron" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end ps-search-sort__menu" aria-labelledby="ps-search-sort" role="menu">
+          {% for option in sort_options %}
+            <li role="none">
+              <button
+                type="button"
+                class="dropdown-item ps-search-sort__option js-ps-sort-option{{ option.selected ? ' active' : '' }}"
+                role="menuitemradio"
+                aria-checked="{{ option.selected ? 'true' : 'false' }}"
+                data-value="{{ option.value }}"
+              >
+                {{ option.label }}
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</header>

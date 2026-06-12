@@ -5,3 +5,11 @@ services:
       - '@ps_search.feature_filter_sync_manager'
     tags:
       - { name: drush.command }
+
+  Drupal\ps_search\Commands\SearchAlertCommands:
+    class: Drupal\ps_search\Commands\SearchAlertCommands
+    arguments:
+      - '@Drupal\ps_search\Hook\SearchAlertCronHooks'
+      - '@ps_search.alert_matcher'
+    tags:
+      - { name: drush.command }

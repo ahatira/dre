@@ -40,3 +40,10 @@ function ps_form_update_10002(): void {
   $webform->setSettings($settings);
   $webform->save();
 }
+
+/**
+ * Provisions the search alert webform for property search notifications.
+ */
+function ps_form_update_10003(): void {
+  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
+}

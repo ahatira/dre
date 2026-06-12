@@ -248,6 +248,16 @@ services:
       - '@ps_search.result_counter'
       - '@ps_search.list_sort_applier'
 
+  ps_search.push_block_builder:
+    class: Drupal\ps_search\Search\Push\SearchPushBlockBuilder
+    arguments:
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\SearchPushViewsHooks:
+    class: Drupal\ps_search\Hook\SearchPushViewsHooks
+    arguments:
+      - '@ps_search.push_block_builder'
+
   Drupal\ps_search\Hook\SearchThemeHooks:
     class: Drupal\ps_search\Hook\SearchThemeHooks
 
@@ -308,6 +318,7 @@ services:
     arguments:
       - '@ps_search.feature_filter_sync_manager'
       - '@config.factory'
+      - '@Drupal\ps_search\Hook\SearchAlertCronHooks'
       - '@logger.factory'
 
   Drupal\ps_search\Hook\SearchPageAttachmentsHooks:
@@ -346,3 +357,65 @@ services:
     class: Drupal\ps_search\Search\Hero\HomepageSearchPanelBuilder
     arguments:
       - '@ps_search.filter_bar_builder'
+
+  ps_search.alert_criteria_serializer:
+    class: Drupal\ps_search\Service\SearchAlertCriteriaSerializer
+    arguments:
+      - '@ps_search.location_filter'
+      - '@language_manager'
+
+  ps_search.alert_criteria_summary_builder:
+    class: Drupal\ps_search\Service\SearchAlertCriteriaSummaryBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_search.location_filter'
+      - '@config.factory'
+
+  ps_search.alert_repository:
+    class: Drupal\ps_search\Service\SearchAlertRepository
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_search.alert_criteria_serializer'
+      - '@current_user'
+
+  ps_search.alert_matcher:
+    class: Drupal\ps_search\Service\SearchAlertMatcher
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_search.alert_criteria_serializer'
+      - '@ps_search.query_factory'
+      - '@config.factory'
+      - '@logger.channel.ps_search'
+
+  ps_search.alert_mailer:
+    class: Drupal\ps_search\Service\SearchAlertMailer
+    arguments:
+      - '@plugin.manager.mail'
+      - '@language_manager'
+      - '@entity_type.manager'
+      - '@renderer'
+      - '@config.factory'
+
+  Drupal\ps_search\Hook\SearchAlertWebformHooks:
+    class: Drupal\ps_search\Hook\SearchAlertWebformHooks
+    arguments:
+      - '@ps_search.alert_criteria_serializer'
+      - '@ps_search.alert_criteria_summary_builder'
+      - '@ps_search.alert_repository'
+      - '@request_stack'
+      - '@messenger'
+      - '@config.factory'
+      - '@current_user'
+      - '@renderer'
+      - '@ps_core.site_urgency_contact'
+
+  Drupal\ps_search\Hook\SearchAlertMailHooks:
+    class: Drupal\ps_search\Hook\SearchAlertMailHooks
+
+  Drupal\ps_search\Hook\SearchAlertCronHooks:
+    class: Drupal\ps_search\Hook\SearchAlertCronHooks
+    arguments:
+      - '@ps_search.alert_matcher'
+      - '@ps_search.alert_mailer'
+      - '@config.factory'
+      - '@logger.factory'

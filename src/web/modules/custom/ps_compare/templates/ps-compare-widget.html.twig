@@ -10,6 +10,8 @@
     <p class="mb-0">{{ "You can't compare more than @max ads at the same time. Delete one to add this one."|t({'@max': max_items}) }}</p>
   </div>
 
+  <button type="button" class="ps-compare-widget__backdrop d-lg-none" data-ps-compare-panel-backdrop hidden aria-hidden="true" tabindex="-1"></button>
+
   <div class="ps-compare-panel ps-compare-panel--collapsed" data-ps-compare-panel>
     <button
       type="button"
@@ -72,8 +74,4 @@
       </div>
     </div>
   </div>
-
-  <button type="button" class="ps-compare-mobile-bar d-lg-none" data-ps-compare-mobile-open hidden>
-    <span data-ps-compare-bar-label data-base-label="{{ 'Comparator'|t }}" data-expanded-label="{{ 'Comparator (@count ads)'|t }}">{{ 'Comparator'|t }}</span>
-  </button>
 </div>

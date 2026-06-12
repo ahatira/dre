@@ -21,6 +21,7 @@ final class FeatureFilterCronHooks {
   public function __construct(
     private readonly FeatureFilterSyncManager $syncManager,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly SearchAlertCronHooks $searchAlertCronHooks,
     LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->logger = $loggerFactory->get('ps_search');
@@ -68,6 +69,9 @@ final class FeatureFilterCronHooks {
           }
         }
       }
+
+      $this->searchAlertCronHooks->processAlerts();
+      $this->searchAlertCronHooks->purgeExpiredAnonymous();
     }
     catch (\Throwable $e) {
       $this->logger->error('Feature filter cron sync failed: @message', ['@message' => $e->getMessage()]);

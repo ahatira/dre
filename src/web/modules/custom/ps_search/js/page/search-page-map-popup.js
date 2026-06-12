@@ -99,6 +99,21 @@
         }
 
         /**
+         * Shows or hides shared distance zone controls.
+         */
+        function syncZoneControls() {
+          const zoneControls = root.querySelector('.js-ps-search-map-zone-controls');
+          if (!zoneControls) {
+            return;
+          }
+          const popupOpen = popup && !popup.hidden;
+          const floatOpen = floatPanel
+            && !floatPanel.hidden
+            && floatPanel.classList.contains('is-open');
+          zoneControls.hidden = !(popupOpen || floatOpen);
+        }
+
+        /**
          * Closes the mobile floating offer card.
          */
         function closeFloatingPopup() {
@@ -107,6 +122,7 @@
           }
           popup.hidden = true;
           popupContent.textContent = '';
+          syncZoneControls();
         }
 
         /**
@@ -129,6 +145,7 @@
             if (clearContent !== false && floatContent) {
               floatContent.textContent = '';
             }
+            syncZoneControls();
             return;
           }
 
@@ -142,6 +159,7 @@
             if (clearContent !== false && floatContent) {
               floatContent.textContent = '';
             }
+            syncZoneControls();
           }, PANEL_ANIM_MS);
         }
 
@@ -177,6 +195,7 @@
           mountOfferCard(card, popupContent);
           popup.hidden = false;
           openNid = nid;
+          syncZoneControls();
 
           root.dispatchEvent(new CustomEvent('ps-search-map-marker-select', {
             detail: { nid },
@@ -220,6 +239,7 @@
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
               floatPanel.classList.add('is-open');
+              syncZoneControls();
             });
           });
 

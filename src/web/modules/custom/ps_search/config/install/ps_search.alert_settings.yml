@@ -1,0 +1,7 @@
+enabled: true
+default_frequence: weekly
+from_mail: ''
+from_name: ''
+bcc_mail: ''
+retention_days: 365
+batch_size: 50

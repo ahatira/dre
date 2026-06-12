@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.57
+  version: 1.0.60
   js:
     js/search-filter-bar.js: {}
   css:
@@ -71,7 +71,7 @@ marker-cluster:
     - core/drupal
 
 search-page-map-init:
-  version: 1.0.8
+  version: 1.0.9
   js:
     js/page/search-page-map-init.js: {}
   dependencies:
@@ -105,7 +105,7 @@ search-page-map-sync:
     - ps_search/search-page-core
 
 search-page-zone-reload:
-  version: 1.0.7
+  version: 1.0.8
   js:
     js/page/search-page-zone-reload.js: {}
   dependencies:
@@ -131,7 +131,7 @@ search-page-map-bounds:
     - ps_search/search-page-zone-reload
 
 search-page-map-popup:
-  version: 1.0.1
+  version: 1.0.2
   js:
     js/page/search-page-map-popup.js: {}
   dependencies:
@@ -159,3 +159,19 @@ search-page:
   dependencies:
     - ps_search/search-page-core
     - ps_search/search-page-map-sync
+
+search-alert-offcanvas:
+  version: 1.0.5
+  js:
+    js/search-alert-offcanvas.js: {}
+  css:
+    component:
+      css/search-alert-offcanvas.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dialog.ajax
+    - core/once
+    - ps_search/search-page-map-utils
+    - ps_theme/component_offcanvas
+    - ps_theme/form

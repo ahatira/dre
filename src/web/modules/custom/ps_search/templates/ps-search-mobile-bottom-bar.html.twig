@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Mobile search results — sticky bottom bar (Comparator + Create an alert).
+ *
+ * Maquette: docs/search/mobile/Property search - Bottom bar.png
+ * Create an alert wired in Phase B (SEARCH_ALERT_SPEC.md).
+ */
+#}
+<nav class="ps-search-mobile-bottom-bar d-lg-none" aria-label="{{ 'Search actions'|t }}">
+  <button
+    type="button"
+    class="ps-search-mobile-bottom-bar__btn ps-search-mobile-bottom-bar__btn--compare"
+    data-ps-compare-bottom-open
+  >
+    <span class="ps-search-mobile-bottom-bar__icon ps-search-mobile-bottom-bar__icon--compare" aria-hidden="true">
+      {{ icon('bnp_custom', 'comparator', {'size': '20px'}) }}
+    </span>
+    <span>{{ 'Comparator'|t }}</span>
+  </button>
+  <button
+    type="button"
+    class="ps-search-mobile-bottom-bar__btn ps-search-mobile-bottom-bar__btn--alert"
+    data-ps-search-alert-open
+  >
+    <span class="ps-search-mobile-bottom-bar__icon ps-search-mobile-bottom-bar__icon--alert" aria-hidden="true"></span>
+    {{ 'Create an alert'|t }}
+  </button>
+</nav>

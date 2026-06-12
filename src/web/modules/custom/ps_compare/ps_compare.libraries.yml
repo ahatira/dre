@@ -13,7 +13,7 @@ compare-toggle:
     - ui_suite_bnp/bootstrap
 
 compare-panel:
-  version: 1.10
+  version: 1.12
   js:
     js/ps-compare-panel.js: {}
   css:

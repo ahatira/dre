@@ -32,3 +32,24 @@ ps_search.feature_filter_sync:
   route_name: ps_search.feature_filter_sync_settings
   parent: ps_search.admin_overview
   weight: 10
+
+ps_search.push_settings:
+  title: 'Push calculator card'
+  description: 'Interstitial calculator card in search results list.'
+  route_name: ps_search.push_settings_form
+  parent: ps_search.admin_overview
+  weight: 12
+
+ps_search.alert_settings:
+  title: 'Search alerts'
+  description: 'Cron notifications and retention for property search alerts.'
+  route_name: ps_search.alert_settings_form
+  parent: ps_search.admin_overview
+  weight: 14
+
+entity.search_alert.collection:
+  title: 'Search alerts'
+  description: 'Manage stored property search alert subscriptions.'
+  route_name: entity.search_alert.collection
+  parent: ps_core.content
+  weight: 35

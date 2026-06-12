@@ -1,0 +1,27 @@
+name: Search push card
+description: 'Interstitial promotional card inserted between search result offer cards.'
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - cta_label
+    - cta_url
+  properties:
+    title:
+      type: string
+      title: Title
+    body:
+      type: string
+      title: Body text
+    cta_label:
+      type: string
+      title: Button label
+    cta_url:
+      type: string
+      title: Button URL
+libraryOverrides:
+  css:
+    component:
+      styles/search-push-card.css: {}
