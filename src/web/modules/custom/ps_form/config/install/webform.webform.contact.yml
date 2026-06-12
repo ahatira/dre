@@ -40,10 +40,12 @@ elements: |-
 css: ''
 javascript: ''
 settings:
-  ajax: false
-  page: true
-  confirmation_type: message
-  confirmation_message: 'Thank you. Your message has been sent.'
+  ajax: true
+  ajax_scroll_top: form
+  page: false
+  form_submit_label: Send
+  confirmation_type: inline
+  confirmation_message: '<p>Thank you. Your message has been sent.</p>'
 access:
   create:
     roles:

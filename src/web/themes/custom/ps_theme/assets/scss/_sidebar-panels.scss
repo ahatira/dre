@@ -13,3 +13,12 @@
     margin-bottom: 0;
   }
 }
+
+// Header contact offcanvas: core Ajax off-canvas injects 300px; restore DS default (400px).
+.ps-contact-offcanvas.offcanvas-end {
+  --bs-offcanvas-width: 400px !important;
+}
+
+.ps-contact-offcanvas .offcanvas-body {
+  padding-top: 0;
+}
