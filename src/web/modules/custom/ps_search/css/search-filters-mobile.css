@@ -16,7 +16,11 @@
   }
 
   .ps-search-view__mobile-toolbar-wrap {
+    background: #fff;
     display: block;
+    position: sticky;
+    top: var(--ps-header-slot-height, 76px);
+    z-index: var(--ps-z-search-filter-bar, 20);
   }
 
   .ps-search-view__mobile-toolbar {

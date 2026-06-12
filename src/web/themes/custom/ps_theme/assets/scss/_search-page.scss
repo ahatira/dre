@@ -908,6 +908,29 @@
 }
 
 @media (max-width: 991.98px) {
+  .ps-page-layout--search {
+    &:has(.ps-search-view:not(.ps-search-view--list-hidden)) {
+      min-height: 0;
+
+      .ps-site-footer {
+        display: none;
+      }
+
+      .ps-main--search {
+        flex: 0 1 auto;
+        min-height: 0;
+
+        > .container-fluid,
+        > .container-fluid > .row,
+        > .container-fluid > .row > [class*='col-'],
+        .views-element-container {
+          flex: 0 1 auto;
+          min-height: 0;
+        }
+      }
+    }
+  }
+
   .ps-page-layout--search .ps-main--search {
     min-height: calc(100dvh - var(--ps-header-slot-height, 76px));
   }
@@ -918,6 +941,45 @@
     max-height: calc(100dvh - var(--ps-header-slot-height, 76px));
     min-height: 0;
     overflow: hidden;
+
+    // List mode — document/window scroll (toolbar sticky, bottom bar fixed).
+    &:not(.ps-search-view--list-hidden) {
+      flex: 0 1 auto;
+      height: auto;
+      max-height: none;
+      overflow: visible;
+      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+
+      > .ps-search-view__wrapper {
+        flex: 0 1 auto;
+        max-height: none;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      > .ps-search-view__wrapper > .ps-search-view__split {
+        flex: 0 1 auto;
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      > .ps-search-view__wrapper > .ps-search-view__split > .col-lg-6:first-child {
+        flex: 0 1 auto;
+        height: auto !important;
+        min-height: 0;
+      }
+
+      .js-ps-search-left-scroll.flex-grow-scroll {
+        flex: none;
+        min-height: 0;
+        overflow: visible;
+        overscroll-behavior: auto;
+        padding-bottom: 0;
+      }
+    }
 
     > .ps-search-view__wrapper {
       flex: 1 1 0;
@@ -1080,10 +1142,6 @@
 
     &__results-header {
       padding-inline: 1rem !important;
-    }
-
-    .js-ps-search-left-scroll {
-      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
     }
   }
 }

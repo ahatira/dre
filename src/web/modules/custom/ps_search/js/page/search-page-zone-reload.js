@@ -223,11 +223,8 @@
         listPanel.innerHTML = listHtml;
         Drupal.attachBehaviors(listPanel);
 
-        if (typeof Drupal.psSearchPage.getListScrollEl === 'function') {
-          const listScroll = Drupal.psSearchPage.getListScrollEl(root);
-          if (listScroll) {
-            listScroll.scrollTop = 0;
-          }
+        if (typeof Drupal.psSearchPage.scrollListToTop === 'function') {
+          Drupal.psSearchPage.scrollListToTop(root);
         }
 
         const htmxApi = Drupal.psSearchFilterHtmx;

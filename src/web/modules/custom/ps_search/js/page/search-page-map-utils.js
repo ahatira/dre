@@ -468,6 +468,20 @@
   };
 
   /**
+   * Estimated sticky chrome height for document scroll offset (header + toolbar).
+   *
+   * @return {number}
+   *   Pixel offset from viewport top.
+   */
+  Drupal.psSearchMap.getDocumentScrollOffset = function () {
+    const rootStyles = getComputedStyle(document.documentElement);
+    const headerSlot = Number.parseFloat(rootStyles.getPropertyValue('--ps-header-slot-height')) || 76;
+    const toolbar = document.querySelector('.ps-search-view__mobile-toolbar-wrap');
+    const toolbarHeight = toolbar ? toolbar.getBoundingClientRect().height : 56;
+    return headerSlot + toolbarHeight + 12;
+  };
+
+  /**
    * Scrolls the results list to a card.
    *
    * @param {HTMLElement} root
@@ -487,6 +501,14 @@
       const scrollRect = scrollEl.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();
       scrollEl.scrollTop += cardRect.top - scrollRect.top - 12;
+      return;
+    }
+
+    if (typeof Drupal.psSearchPage?.usesDocumentListScroll === 'function'
+      && Drupal.psSearchPage.usesDocumentListScroll(root)) {
+      const offset = Drupal.psSearchMap.getDocumentScrollOffset();
+      const targetTop = card.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
       return;
     }
 

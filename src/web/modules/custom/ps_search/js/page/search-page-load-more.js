@@ -22,18 +22,56 @@
   };
 
   /**
+   * Whether the mobile list uses window/document scroll (not an inner panel).
+   *
+   * @param {HTMLElement|null} root
+   *   Search view root.
+   *
+   * @return {boolean}
+   *   TRUE when list mode on mobile uses document scroll.
+   */
+  Drupal.psSearchPage.usesDocumentListScroll = function (root) {
+    return window.matchMedia('(max-width: 991.98px)').matches
+      && !!root
+      && !root.classList.contains('ps-search-view--list-hidden');
+  };
+
+  /**
    * Returns the left panel scroll container.
    *
    * @param {HTMLElement} root
    *   Search view root.
    *
    * @return {HTMLElement|null}
-   *   Scrollable left panel.
+   *   Scrollable left panel, or NULL when document scroll is active.
    */
   Drupal.psSearchPage.getListScrollEl = function (root) {
+    if (Drupal.psSearchPage.usesDocumentListScroll(root)) {
+      return null;
+    }
+
     return root?.querySelector('.js-ps-search-left-scroll')
       || root?.querySelector('.js-ps-search-list-panel')
       || null;
+  };
+
+  /**
+   * Scrolls the results list back to the top.
+   *
+   * @param {HTMLElement|null} root
+   *   Search view root.
+   */
+  Drupal.psSearchPage.scrollListToTop = function (root) {
+    if (Drupal.psSearchPage.usesDocumentListScroll(root)) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+
+    const listScroll = root?.querySelector('.js-ps-search-left-scroll')
+      || root?.querySelector('.js-ps-search-list-panel');
+    if (listScroll) {
+      listScroll.scrollTop = 0;
+    }
   };
 
   /**

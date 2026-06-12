@@ -59,7 +59,12 @@
     const adminBar = document.querySelector('.gin--navigation-top-bar, .admin-toolbar-control-bar');
     const adminChromeGone = !adminBar || adminBar.getBoundingClientRect().bottom <= 0;
     const resultsScroll = document.querySelector('.js-ps-search-results-scroll');
-    const resultsScrolled = resultsScroll ? resultsScroll.scrollTop > 0 : false;
+    const searchRoot = document.querySelector('.ps-search-view');
+    const usesDocumentScroll = typeof Drupal.psSearchPage?.usesDocumentListScroll === 'function'
+      && Drupal.psSearchPage.usesDocumentListScroll(searchRoot);
+    const resultsScrolled = usesDocumentScroll
+      ? window.scrollY > 0
+      : (resultsScroll ? resultsScroll.scrollTop > 0 : false);
     const pinned = adminChromeGone
       || window.scrollY > Math.max(0, editorOffset - 1)
       || resultsScrolled;
